@@ -6,6 +6,7 @@
     "declaration": false,
     "noImplicitAny": true,
     "strictNullChecks": true,
+    "jsx": "react-native",
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
     "module": "commonjs",

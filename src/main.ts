@@ -4,7 +4,8 @@ import {View, Text, TextInput, TouchableHighlight} from 'react-native';
 import {ScreenSource, h} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {PagerTabIndicator, IndicatorViewPager} from 'rn-viewpager';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import BetterPagerTabIndicator from './components/BetterPagerTabIndicator';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const StatusBarAndroid = require('react-native-android-statusbar');
 
 export type Sources = {
@@ -25,7 +26,7 @@ const Pallete = {
 };
 
 function renderHeader() {
-  return h(View, {style: {flexDirection: 'row', minHeight: 50}}, [
+  return h(View, {style: {flexDirection: 'row', minHeight: 55}}, [
     h(
       TouchableHighlight,
       {
@@ -33,11 +34,11 @@ function renderHeader() {
           marginLeft: 12,
           marginRight: 12,
           marginTop: 10,
-          width: 30,
-          height: 30
+          width: 28,
+          height: 28
         }
       },
-      [h(Icon, {name: 'menu', size: 30, color: 'white'})]
+      [h(Icon, {name: 'menu', size: 28, color: 'white'})]
     ),
     h(TextInput, {
       underlineColorAndroid: Pallete.indigo4,
@@ -53,11 +54,11 @@ function renderHeader() {
           marginLeft: 12,
           marginRight: 12,
           marginTop: 10,
-          width: 30,
-          height: 30
+          width: 28,
+          height: 28
         }
       },
-      [h(Icon, {name: 'account-box', size: 30, color: 'white'})]
+      [h(Icon, {name: 'account-box', size: 28, color: 'white'})]
     )
   ]);
 }
@@ -71,7 +72,7 @@ function renderTabs() {
         flexDirection: 'column-reverse',
         backgroundColor: 'white'
       },
-      indicator: h(PagerTabIndicator, {
+      indicator: h(BetterPagerTabIndicator, {
         style: {
           paddingTop: 0,
           paddingBottom: 0,
@@ -81,57 +82,63 @@ function renderTabs() {
         itemStyle: {
           backgroundColor: Pallete.indigo8,
           paddingTop: 10,
-          paddingBottom: 10
+          paddingBottom: 8
         },
         selectedItemStyle: {
           backgroundColor: Pallete.indigo8,
           paddingTop: 10,
-          paddingBottom: 10,
+          paddingBottom: 8,
           borderBottomWidth: 2,
           borderBottomColor: 'white'
         },
-        // iconStyle: Image.propTypes.style,
-        // selectedIconStyle: Image.propTypes.style,
-        textStyle: {
-          color: Pallete.indigo10
-        },
-        selectedTextStyle: {
-          color: 'white'
-        },
         tabs: [
           {
-            text: 'News feed'
-            // iconSource: require('../imgs/ic_tab_home_normal.png'),
-            // selectedIconSource: require('../imgs/ic_tab_home_click.png')
+            normal: h(Icon, {
+              name: 'newspaper',
+              size: 28,
+              color: Pallete.indigo10
+            }),
+            selected: h(Icon, {name: 'newspaper', size: 28, color: 'white'})
           },
           {
-            text: 'Channels'
-            // iconSource: require('../imgs/ic_tab_task_normal.png'),
-            // selectedIconSource: require('../imgs/ic_tab_task_click.png')
+            normal: h(Icon, {
+              name: 'pound-box',
+              size: 28,
+              color: Pallete.indigo10
+            }),
+            selected: h(Icon, {name: 'pound-box', size: 28, color: 'white'})
           },
           {
-            text: 'Metadata'
-            // iconSource: require('../imgs/ic_tab_my_normal.png'),
-            // selectedIconSource: require('../imgs/ic_tab_my_click.png')
+            normal: h(Icon, {
+              name: 'wan',
+              size: 28,
+              color: Pallete.indigo10
+            }),
+            selected: h(Icon, {name: 'wan', size: 28, color: 'white'})
           },
           {
-            text: 'Notifications'
-            // iconSource: require('../imgs/ic_tab_my_normal.png'),
-            // selectedIconSource: require('../imgs/ic_tab_my_click.png')
+            normal: h(Icon, {
+              name: 'numeric-0-box',
+              size: 28,
+              color: Pallete.indigo10
+            }),
+            selected: h(Icon, {
+              name: 'numeric-0-box',
+              size: 28,
+              color: 'white'
+            })
           }
         ]
       })
     },
     [
-      h(View, {style: {backgroundColor: 'cadetblue'}}, [h(Text, 'page one')]),
+      h(View, {style: {backgroundColor: 'cadetblue'}}, [h(Text, 'News feed')]),
       h(View, {style: {backgroundColor: 'cornflowerblue'}}, [
-        h(Text, 'page two')
+        h(Text, 'Channels')
       ]),
-      h(View, {style: {backgroundColor: 'aquamarine'}}, [
-        h(Text, 'page three')
-      ]),
+      h(View, {style: {backgroundColor: 'aquamarine'}}, [h(Text, 'Metadata')]),
       h(View, {style: {backgroundColor: 'blanchedalmond'}}, [
-        h(Text, 'page four')
+        h(Text, 'Notifications')
       ])
     ]
   );
