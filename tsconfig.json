@@ -13,6 +13,6 @@
     "outDir": "./lib",
     "lib": ["dom", "es5", "scripthost", "es2015"]
   },
-  "files": ["src/main.ts"],
+  "files": ["src/main.ts", "src/typings/rn-viewpager.d.ts"],
   "exclude": ["node_modules"]
 }
