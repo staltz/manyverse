@@ -29,6 +29,8 @@ build/
 .gradle
 local.properties
 *.iml
+/android/app/test_servers
+/android/app/screenshot*.png
 
 # Visual Studio Code
 #

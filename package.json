@@ -5,6 +5,7 @@
   "scripts": {
     "lib": "tsc",
     "start": "npm run lib && node node_modules/react-native/local-cli/cli.js start",
+    "test-e2e-android": "cd android/app && ./test-features.sh || cd ../..",
     "test": "jest"
   },
   "dependencies": {
