@@ -1,5 +1,15 @@
 # MMMMM client for Secure Scuttlebutt
 
+## Dependencies
+
+- React Native
+- Cycle.js
+- Pull streams
+- react-native-scuttlebot
+  - Uses react-native-node under the hood
+    - Which in turn uses NodeBase (node.js v7 compiled for android arm devices)
+- react-native-ssb-client
+
 ## Integration tests
 
 We use Calabash, which is Ruby-based. Check [Calabash Android installation docs](https://github.com/calabash/calabash-android/blob/master/documentation/installation.md).
