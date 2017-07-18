@@ -5,6 +5,7 @@ import {ScreenSource, h} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {PagerTabIndicator, IndicatorViewPager} from 'rn-viewpager';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+const StatusBarAndroid = require('react-native-android-statusbar');
 
 export type Sources = {
   Screen: ScreenSource;
@@ -156,3 +157,5 @@ export function main(sources: Sources): Sinks {
     onion: reducer$
   };
 }
+
+StatusBarAndroid.setHexColor(Pallete.indigo9);

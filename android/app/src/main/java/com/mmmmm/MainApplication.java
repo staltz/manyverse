@@ -12,6 +12,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import me.neo.react.StatusBarPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNOSModule(),
             new RNFSPackage(),
             new RandomBytesPackage(),
-            new RNNodePackage()
+            new RNNodePackage(),
+            new StatusBarPackage()
       );
     }
   };
