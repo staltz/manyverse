@@ -1,0 +1,36 @@
+{
+  "name": "MMMMM",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "lib": "tsc",
+    "start": "npm run lib && node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@cycle/run": "3.1.x",
+    "@cycle/native-screen": "1.0.0-rc.3",
+    "@cycle/isolate": "3.0.x",
+    "@types/react": "15.0.38",
+    "@types/react-native": "0.44.2",
+    "cycle-onionify": "4.0.0-rc.14",
+    "glamorous-native": "1.1.x",
+    "pull-stream": "3.6.0",
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.45.1",
+    "react-native-scuttlebot": "2.1.x",
+    "react-native-ssb-client": "1.0.6",
+    "xstream": "11.0.0-rc.1"
+  },
+  "devDependencies": {
+    "babel-jest": "20.0.3",
+    "babel-preset-react-native": "2.1.0",
+    "jest": "20.0.4",
+    "prettier": "1.5.x",
+    "react-test-renderer": "16.0.0-alpha.12",
+    "typescript": "2.4.x"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
