@@ -4,6 +4,7 @@ import {View, Text, TextInput, TouchableHighlight} from 'react-native';
 import {ScreenSource, h} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {PagerTabIndicator, IndicatorViewPager} from 'rn-viewpager';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export type Sources = {
   Screen: ScreenSource;
@@ -23,10 +24,20 @@ const Pallete = {
 };
 
 function renderHeader() {
-  return h(View, {style: {flexDirection: 'row'}}, [
-    h(TouchableHighlight, {style: {width: 30, height: 30}}, [
-      h(View, [h(Text, '=')])
-    ]),
+  return h(View, {style: {flexDirection: 'row', minHeight: 50}}, [
+    h(
+      TouchableHighlight,
+      {
+        style: {
+          marginLeft: 12,
+          marginRight: 12,
+          marginTop: 10,
+          width: 30,
+          height: 30
+        }
+      },
+      [h(Icon, {name: 'menu', size: 30, color: 'white'})]
+    ),
     h(TextInput, {
       underlineColorAndroid: Pallete.indigo4,
       placeholderTextColor: Pallete.indigo4,
@@ -34,9 +45,19 @@ function renderHeader() {
       returnKeyType: 'search',
       style: {flex: 1, color: 'white'}
     }),
-    h(TouchableHighlight, {style: {width: 30, height: 30}}, [
-      h(View, [h(Text, 'Me')])
-    ])
+    h(
+      TouchableHighlight,
+      {
+        style: {
+          marginLeft: 12,
+          marginRight: 12,
+          marginTop: 10,
+          width: 30,
+          height: 30
+        }
+      },
+      [h(Icon, {name: 'account-box', size: 30, color: 'white'})]
+    )
   ]);
 }
 
