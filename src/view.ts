@@ -38,12 +38,15 @@ function renderTabs() {
         selectedItemStyle: styles.tabItemSelected,
         tabs: [
           {
-            normal: h(Icon, {...iconProps.tab, name: 'newspaper'}),
-            selected: h(Icon, {...iconProps.tabSelected, name: 'newspaper'})
+            normal: h(Icon, {...iconProps.tab, name: 'bulletin-board'}),
+            selected: h(Icon, {
+              ...iconProps.tabSelected,
+              name: 'bulletin-board'
+            })
           },
           {
-            normal: h(Icon, {...iconProps.tab, name: 'pound-box'}),
-            selected: h(Icon, {...iconProps.tabSelected, name: 'pound-box'})
+            normal: h(Icon, {...iconProps.tab, name: 'email-secure'}),
+            selected: h(Icon, {...iconProps.tabSelected, name: 'email-secure'})
           },
           {
             normal: h(Icon, {...iconProps.tab, name: 'wan'}),
@@ -58,10 +61,10 @@ function renderTabs() {
     },
     [
       h(View, {style: styles.pageContainer}, [
-        h(Text, {style: styles.pagePlaceholder}, 'News feed')
+        h(Text, {style: styles.pagePlaceholder}, 'Public')
       ]),
       h(View, {style: styles.pageContainer}, [
-        h(Text, {style: styles.pagePlaceholder}, 'Channels')
+        h(Text, {style: styles.pagePlaceholder}, 'Private')
       ]),
       h(View, {style: styles.pageContainer}, [
         h(Text, {style: styles.pagePlaceholder}, 'Metadata')
