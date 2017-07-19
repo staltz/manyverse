@@ -3,6 +3,7 @@
 ## Important Dependencies
 
 - React Native
+- TypeScript
 - Cycle.js with xstream
 - Pull streams
 - react-native-scuttlebot
