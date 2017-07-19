@@ -1,5 +1,17 @@
 # MMMMM client for Secure Scuttlebutt
 
+## Install dependencies
+
+```
+yarn
+```
+
+## Build/run in development
+
+```
+react-native run-android
+```
+
 ## Important Dependencies
 
 - React Native
