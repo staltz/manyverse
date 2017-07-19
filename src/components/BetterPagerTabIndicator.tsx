@@ -5,16 +5,23 @@
  */
 import * as React from 'react';
 import {Component, ReactElement} from 'react';
-import {StyleSheet, View, TouchableOpacity, ViewStyle} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+  RegisteredStyle
+} from 'react-native';
 import {IndicatorViewPager} from 'rn-viewpager';
 
 export type Props = {
   initialPage?: number;
   tabs: Array<Tab>;
   pager?: any;
-  style?: ViewStyle;
-  itemStyle?: ViewStyle;
-  selectedItemStyle?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
+  itemStyle?: StyleProp<ViewStyle>;
+  selectedItemStyle?: StyleProp<ViewStyle>;
   changePageWithAnimation?: boolean;
 };
 
