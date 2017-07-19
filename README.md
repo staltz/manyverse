@@ -1,14 +1,15 @@
 # MMMMM client for Secure Scuttlebutt
 
-## Dependencies
+## Important Dependencies
 
 - React Native
-- Cycle.js
+- Cycle.js with xstream
 - Pull streams
 - react-native-scuttlebot
   - Uses react-native-node under the hood
     - Which in turn uses NodeBase (node.js v7 compiled for android arm devices)
 - react-native-ssb-client
+- Patchcore (with depject)
 
 ## Integration tests
 
