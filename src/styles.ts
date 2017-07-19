@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Dimensions as Dimens} from './global-styles/dimens';
+import {Typography} from './global-styles/typography';
 import {Palette} from './global-styles/palette';
 
 const _tabItem = {
@@ -20,8 +21,8 @@ export const styles = StyleSheet.create({
   },
 
   headerIcon: {
-    marginLeft: Dimens.horizontalSpaceNormal,
-    marginRight: Dimens.horizontalSpaceNormal,
+    marginLeft: Dimens.horizontalSpaceBig,
+    marginRight: Dimens.horizontalSpaceBig,
     marginTop: Dimens.verticalSpaceNormal,
     width: Dimens.iconSize,
     height: Dimens.iconSize
@@ -35,7 +36,9 @@ export const styles = StyleSheet.create({
 
   searchInput: {
     flex: 1,
-    color: 'white'
+    color: 'white',
+    fontSize: Typography.fontSizeNormal,
+    fontFamily: Typography.fontFamilyReadableText
   },
 
   tabItem: _tabItem,
@@ -47,13 +50,14 @@ export const styles = StyleSheet.create({
   },
 
   pageContainer: {
-    backgroundColor: Palette.white,
+    backgroundColor: Palette.brand.voidBackground,
     justifyContent: 'center',
     alignItems: 'center'
   },
 
   pagePlaceholder: {
-    fontSize: 20,
+    fontSize: Typography.fontSizeBig,
+    fontFamily: Typography.fontFamilyReadableText,
     textAlign: 'center'
   }
 });

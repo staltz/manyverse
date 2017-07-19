@@ -1,4 +1,5 @@
 import xs, {Stream} from 'xstream';
+import {ReactElement} from 'react';
 import {View, Text, TextInput, TouchableHighlight} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -27,7 +28,7 @@ function renderHeader() {
   ]);
 }
 
-function renderTabs() {
+function renderTabs(publicTabVDOM: ReactElement<any>) {
   return h(
     IndicatorViewPager,
     {
@@ -60,9 +61,7 @@ function renderTabs() {
       })
     },
     [
-      h(View, {style: styles.pageContainer}, [
-        h(Text, {style: styles.pagePlaceholder}, 'Public')
-      ]),
+      h(View, {style: styles.pageContainer}, [publicTabVDOM]),
       h(View, {style: styles.pageContainer}, [
         h(Text, {style: styles.pagePlaceholder}, 'Private')
       ]),
@@ -76,20 +75,12 @@ function renderTabs() {
   );
 }
 
-export default function view(feed$: Stream<any>) {
-  feed$.addListener({
-    next: s => {
-      debugger;
-      console.log(s);
-    },
-    error: e => {
-      console.error(e);
-    }
-  });
-
-  const vdom$ = xs.of(
-    h(View, {style: styles.root}, [renderHeader(), renderTabs()])
-  );
+export default function view(publicTabVDOM$: Stream<ReactElement<any>>) {
+  const vdom$ = publicTabVDOM$
+    .startWith(h(View))
+    .map(publicTabVDOM =>
+      h(View, {style: styles.root}, [renderHeader(), renderTabs(publicTabVDOM)])
+    );
 
   return {
     vdom$: vdom$,

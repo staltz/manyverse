@@ -3,7 +3,6 @@ import {ReactElement} from 'react';
 import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import view from './view';
-import {publicTab} from './public-tab/index';
 
 export type Sources = {
   screen: ScreenSource;
@@ -14,17 +13,14 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   onion: Stream<Reducer<any>>;
-  statusBarAndroid: Stream<string>;
 };
 
-export function main(sources: Sources): Sinks {
-  const publicTabSinks = publicTab(sources);
-  const {vdom$, statusBar$} = view(publicTabSinks.screen);
+export function publicTab(sources: Sources): Sinks {
+  const vdom$ = view(sources.ssb);
   const reducer$ = xs.empty();
 
   return {
     screen: vdom$,
-    onion: reducer$,
-    statusBarAndroid: statusBar$
+    onion: reducer$
   };
 }

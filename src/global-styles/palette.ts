@@ -148,7 +148,16 @@ const brand = {
   backgroundLighter: indigo6,
   background: indigo8,
   backgroundDarker: indigo9,
-  backgroundDarkerContrast: indigo10
+  backgroundDarkerContrast: indigo10,
+
+  voidBackground: gray1,
+  contentBackground: white,
+
+  metadataBackground: gray9,
+  metadataText: teal3,
+
+  text: gray9,
+  textWeak: gray7
 };
 
 export const Palette = {
