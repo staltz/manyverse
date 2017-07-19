@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "lib": "tsc",
-    "start": "npm run lib && node node_modules/react-native/local-cli/cli.js start",
+    "propagate-replacements": "propagate-replacement-fields --field=react-native",
+    "start": "npm run lib && npm run propagate-replacements && node node_modules/react-native/local-cli/cli.js start",
     "test-e2e-android": "cd android/app && ./test-features.sh || cd ../..",
     "test": "jest"
   },
@@ -15,15 +16,18 @@
     "@types/react": "15.0.38",
     "@types/react-native": "0.44.2",
     "@types/react-native-vector-icons": "^4.2.0",
+    "assert": "^1.4.1",
     "cycle-onionify": "4.0.0-rc.14",
-    "glamorous-native": "1.1.x",
+    "depject": "^4.1.0",
+    "depnest": "^1.3.0",
+    "patchcore": "^1.8.1",
     "prop-types": "^15.5.10",
     "pull-stream": "3.6.0",
     "react": "16.0.0-alpha.12",
     "react-native": "0.45.1",
     "react-native-android-statusbar": "^0.1.3",
     "react-native-scuttlebot": "2.1.x",
-    "react-native-ssb-client": "1.0.6",
+    "react-native-ssb-client": "2.0.0",
     "react-native-vector-icons": "^4.2.0",
     "rn-viewpager": "^1.2.3",
     "xstream": "11.0.0-rc.1"
@@ -33,10 +37,14 @@
     "babel-preset-react-native": "2.1.0",
     "jest": "20.0.4",
     "prettier": "1.5.x",
+    "propagate-replacement-fields": "1.2.0",
     "react-test-renderer": "16.0.0-alpha.12",
     "typescript": "2.4.x"
   },
   "jest": {
     "preset": "react-native"
+  },
+  "react-native": {
+    "ssb-client": "react-native-ssb-client"
   }
 }

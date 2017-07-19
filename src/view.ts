@@ -1,4 +1,4 @@
-import xs from 'xstream';
+import xs, {Stream} from 'xstream';
 import {View, Text, TextInput, TouchableHighlight} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -76,7 +76,17 @@ function renderTabs() {
   );
 }
 
-export default function view() {
+export default function view(feed$: Stream<any>) {
+  feed$.addListener({
+    next: s => {
+      debugger;
+      console.log(s);
+    },
+    error: e => {
+      console.error(e);
+    }
+  });
+
   const vdom$ = xs.of(
     h(View, {style: styles.root}, [renderHeader(), renderTabs()])
   );

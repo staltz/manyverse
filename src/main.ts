@@ -1,4 +1,4 @@
-import xs, {Stream} from 'xstream';
+import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
@@ -7,6 +7,7 @@ import view from './view';
 export type Sources = {
   screen: ScreenSource;
   onion: StateSource<any>;
+  ssb: Stream<any>;
 };
 
 export type Sinks = {
@@ -16,7 +17,7 @@ export type Sinks = {
 };
 
 export function main(sources: Sources): Sinks {
-  const {vdom$, statusBar$} = view();
+  const {vdom$, statusBar$} = view(sources.ssb);
   const reducer$ = xs.empty();
 
   return {
