@@ -47,7 +47,10 @@ function renderHeader() {
   ]);
 }
 
-function renderTabs(publicTabVDOM: ReactElement<any>) {
+function renderTabs(
+  publicTabVDOM: ReactElement<any>,
+  metadataTabVDOM: ReactElement<any>
+) {
   return h(
     IndicatorViewPager,
     {
@@ -84,9 +87,7 @@ function renderTabs(publicTabVDOM: ReactElement<any>) {
       h(View, {style: styles.pageContainer}, [
         h(Text, {style: styles.pagePlaceholder}, 'Private')
       ]),
-      h(View, {style: styles.pageContainer}, [
-        h(Text, {style: styles.pagePlaceholder}, 'Metadata')
-      ]),
+      h(View, {style: styles.pageContainer}, [metadataTabVDOM]),
       h(View, {style: styles.pageContainer}, [
         h(Text, {style: styles.pagePlaceholder}, 'Notifications')
       ])
@@ -94,11 +95,20 @@ function renderTabs(publicTabVDOM: ReactElement<any>) {
   );
 }
 
-export default function view(publicTabVDOM$: Stream<ReactElement<any>>) {
-  const vdom$ = publicTabVDOM$
-    .startWith(h(View))
-    .map(publicTabVDOM =>
-      h(View, {style: styles.root}, [renderHeader(), renderTabs(publicTabVDOM)])
+export default function view(
+  publicTabVDOM$: Stream<ReactElement<any>>,
+  metadataTabVDOM$: Stream<ReactElement<any>>
+) {
+  const vdom$ = xs
+    .combine(
+      publicTabVDOM$.startWith(h(View)),
+      metadataTabVDOM$.startWith(h(View))
+    )
+    .map(([publicTabVDOM, metadataTabVDOM]) =>
+      h(View, {style: styles.root}, [
+        renderHeader(),
+        renderTabs(publicTabVDOM, metadataTabVDOM)
+      ])
     );
 
   return {

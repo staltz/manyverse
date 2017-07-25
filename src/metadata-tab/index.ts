@@ -19,10 +19,10 @@
 
 import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
-import {ScreenSource} from '@cycle/native-screen';
+import {h, ScreenSource} from '@cycle/native-screen';
+import {View, Text} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from '../drivers/ssb';
-import view from './view';
 
 export type Sources = {
   screen: ScreenSource;
@@ -35,8 +35,14 @@ export type Sinks = {
   onion: Stream<Reducer<any>>;
 };
 
-export function publicTab(sources: Sources): Sinks {
-  const vdom$ = view(sources.ssb.feed);
+function view(connectedPeers$: Stream<Array<string>>) {
+  return connectedPeers$.map(connectedPeers =>
+    h(View, [h(Text, JSON.stringify(connectedPeers))])
+  );
+}
+
+export function metadataTab(sources: Sources): Sinks {
+  const vdom$ = view(sources.ssb.connectedPeers);
   const reducer$ = xs.empty();
 
   return {

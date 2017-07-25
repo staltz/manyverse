@@ -21,13 +21,15 @@ import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
+import {SSBSource} from './drivers/ssb';
 import view from './view';
 import {publicTab} from './public-tab/index';
+import {metadataTab} from './metadata-tab/index';
 
 export type Sources = {
   screen: ScreenSource;
   onion: StateSource<any>;
-  ssb: Stream<any>;
+  ssb: SSBSource;
 };
 
 export type Sinks = {
@@ -38,7 +40,11 @@ export type Sinks = {
 
 export function main(sources: Sources): Sinks {
   const publicTabSinks = publicTab(sources);
-  const {vdom$, statusBar$} = view(publicTabSinks.screen);
+  const metadataTabSinks = metadataTab(sources);
+  const {vdom$, statusBar$} = view(
+    publicTabSinks.screen,
+    metadataTabSinks.screen
+  );
   const reducer$ = xs.empty();
 
   return {

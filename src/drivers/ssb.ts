@@ -20,6 +20,7 @@
 import xs, {Stream, Listener} from 'xstream';
 const ssbClient = require('react-native-ssb-client');
 const depjectCombine = require('depject');
+const {watch} = require('mutant');
 const sbotOpinion = require('patchcore/sbot');
 const Config = require('ssb-config/inject');
 const nest = require('depnest');
@@ -93,11 +94,27 @@ function xsFromPullStream<T>(pullStream: any): Stream<T> {
   });
 }
 
+function xsFromMutant<T>(mutantStream: any): Stream<T> {
+  return xs.create({
+    start(listener: Listener<T>): void {
+      watch(mutantStream, (value: T) => {
+        listener.next(value);
+      });
+    },
+    stop(): void {}
+  });
+}
+
 function isNotSync(msg: any): boolean {
   return !msg.sync;
 }
 
-export function ssbDriver(): Stream<any> {
+export type SSBSource = {
+  feed: Stream<any>;
+  connectedPeers: Stream<Array<string>>;
+};
+
+export function ssbDriver(): SSBSource {
   const keys$ = xs.fromPromise(ssbClient.fetchKeys(Config('ssb')));
 
   const api$ = keys$.map(keys => {
@@ -118,5 +135,12 @@ export function ssbDriver(): Stream<any> {
     .flatten()
     .filter(isNotSync);
 
-  return feed$;
+  const connectedPeers$ = api$
+    .map(api => xsFromMutant<any>(api.sbot.obs.connectedPeers[0]()))
+    .flatten();
+
+  return {
+    feed: feed$,
+    connectedPeers: connectedPeers$
+  };
 }
