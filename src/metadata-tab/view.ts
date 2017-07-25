@@ -19,30 +19,25 @@
 
 import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
-import {h, ScreenSource} from '@cycle/native-screen';
+import {h} from '@cycle/native-screen';
 import {View, Text} from 'react-native';
-import {StateSource, Reducer} from 'cycle-onionify';
-import {SSBSource} from '../drivers/ssb';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {PeerMetadata} from '../types';
-import view from './view';
+import {styles, iconProps} from './styles';
+import LocalPeerMetadata from '../components/LocalPeerMetadata';
 
-export type Sources = {
-  screen: ScreenSource;
-  onion: StateSource<any>;
-  ssb: SSBSource;
-};
-
-export type Sinks = {
-  screen: Stream<ReactElement<any>>;
-  onion: Stream<Reducer<any>>;
-};
-
-export function metadataTab(sources: Sources): Sinks {
-  const vdom$ = view(sources.ssb.connectedPeers);
-  const reducer$ = xs.empty();
-
-  return {
-    screen: vdom$,
-    onion: reducer$
-  };
+export default function view(connectedPeers$: Stream<Array<PeerMetadata>>) {
+  return connectedPeers$.map(connectedPeers =>
+    h(View, {style: styles.container}, [
+      h(View, {style: styles.headerContainer}, [
+        h(Text, {style: styles.headerText}, 'Peers around you'),
+        h(Icon, {
+          ...iconProps.info,
+          name: 'information-outline',
+          style: styles.infoIcon as any
+        })
+      ]),
+      ...connectedPeers.map(peer => h(LocalPeerMetadata, {peer}))
+    ])
+  );
 }
