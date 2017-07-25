@@ -23,6 +23,7 @@ import {h, ScreenSource} from '@cycle/native-screen';
 import {View, Text} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from '../drivers/ssb';
+import {PeerMetadata} from '../types';
 
 export type Sources = {
   screen: ScreenSource;
@@ -35,7 +36,7 @@ export type Sinks = {
   onion: Stream<Reducer<any>>;
 };
 
-function view(connectedPeers$: Stream<Array<string>>) {
+function view(connectedPeers$: Stream<Array<PeerMetadata>>) {
   return connectedPeers$.map(connectedPeers =>
     h(View, [h(Text, JSON.stringify(connectedPeers))])
   );

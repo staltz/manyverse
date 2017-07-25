@@ -17,6 +17,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+export type PeerMetadata = {
+  host: string;
+  port: number;
+  key: string;
+  source: 'local' | 'pub' | 'manual';
+  announcers?: number;
+  duration?: any;
+  client: boolean;
+  state: 'connecting' | 'connected' | 'disconnecting' | undefined;
+  stateChange: number;
+  ping?: {
+    rtt: {
+      mean: number;
+      stdev: number;
+      count: number;
+      sum: number;
+      sqsum: number;
+    };
+    skew: {
+      mean: number;
+      stdev: number;
+      count: number;
+      sum: number;
+      sqsum: number;
+    };
+  };
+};
+
 /**
  * Starts with @
  */

@@ -18,9 +18,11 @@
  */
 
 import xs, {Stream, Listener} from 'xstream';
+import {PeerMetadata} from '../types';
 const ssbClient = require('react-native-ssb-client');
 const depjectCombine = require('depject');
-const {watch} = require('mutant');
+const pull = require('pull-stream');
+const {watch, Set: MutantSet} = require('mutant');
 const sbotOpinion = require('patchcore/sbot');
 const Config = require('ssb-config/inject');
 const nest = require('depnest');
@@ -67,6 +69,48 @@ function makeKeysOpinion(keys: any): any {
   return keysOpinion;
 }
 
+const metadataOpinion = {
+  gives: nest('sbot.obs.connectedPeers'),
+  needs: nest('sbot.obs.connection', 'first'),
+  create: (api: any) => {
+    const connectedPeers = MutantSet();
+    watch(api.sbot.obs.connection, (sbot: any) => {
+      if (sbot) {
+        sbot.gossip.peers((err: any, peers: Array<PeerMetadata>) => {
+          if (err) return console.error(err);
+          connectedPeers.set(peers.filter(x => x.state === 'connected'));
+        });
+        pull(
+          sbot.gossip.changes(),
+          pull.drain((data: any) => {
+            if (data.peer) {
+              if (data.type === 'remove') {
+                connectedPeers.delete(data.peer.key);
+              } else {
+                if (data.peer.source === 'local') {
+                }
+                if (data.peer.state === 'connected') {
+                  connectedPeers.add(data.peer.key);
+                } else {
+                  connectedPeers.delete(data.peer.key);
+                }
+              }
+            }
+          })
+        );
+      }
+    });
+
+    return {
+      sbot: {
+        obs: {
+          connectedPeers: () => connectedPeers
+        }
+      }
+    };
+  }
+};
+
 function xsFromPullStream<T>(pullStream: any): Stream<T> {
   return xs.create({
     start(listener: Listener<T>): void {
@@ -111,7 +155,7 @@ function isNotSync(msg: any): boolean {
 
 export type SSBSource = {
   feed: Stream<any>;
-  connectedPeers: Stream<Array<string>>;
+  connectedPeers: Stream<Array<PeerMetadata>>;
 };
 
 export function ssbDriver(): SSBSource {
@@ -122,7 +166,8 @@ export function ssbDriver(): SSBSource {
       emptyHookOpinion,
       configOpinion,
       makeKeysOpinion(keys),
-      sbotOpinion
+      sbotOpinion,
+      metadataOpinion
     ]);
   });
 
@@ -136,7 +181,7 @@ export function ssbDriver(): SSBSource {
     .filter(isNotSync);
 
   const connectedPeers$ = api$
-    .map(api => xsFromMutant<any>(api.sbot.obs.connectedPeers[0]()))
+    .map(api => xsFromMutant<any>(api.sbot.obs.connectedPeers[1]()))
     .flatten();
 
   return {
