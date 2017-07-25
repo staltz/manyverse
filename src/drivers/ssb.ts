@@ -93,6 +93,10 @@ function xsFromPullStream<T>(pullStream: any): Stream<T> {
   });
 }
 
+function isNotSync(msg: any): boolean {
+  return !msg.sync;
+}
+
 export function ssbDriver(): Stream<any> {
   const keys$ = xs.fromPromise(ssbClient.fetchKeys(Config('ssb')));
 
@@ -111,7 +115,8 @@ export function ssbDriver(): Stream<any> {
         api.sbot.pull.feed[0]({reverse: false, limit: 100, live: true})
       )
     )
-    .flatten();
+    .flatten()
+    .filter(isNotSync);
 
   return feed$;
 }
