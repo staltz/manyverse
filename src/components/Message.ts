@@ -79,14 +79,14 @@ export const styles = StyleSheet.create({
 
   metadataBox: {
     flex: 1,
-    backgroundColor: Palette.brand.metadataBackground,
+    backgroundColor: Palette.brand.darkVoidBackground,
     padding: 5,
     borderRadius: 2
   },
 
   metadataText: {
     fontSize: Typography.fontSizeSmall,
-    color: Palette.brand.metadataText,
+    color: Palette.brand.darkText,
     fontFamily: Typography.fontFamilyMonospace
   }
 });

@@ -43,8 +43,8 @@ export const styles = StyleSheet.create({
     marginLeft: Dimens.horizontalSpaceBig,
     marginRight: Dimens.horizontalSpaceBig,
     marginTop: Dimens.verticalSpaceNormal,
-    width: Dimens.iconSize,
-    height: Dimens.iconSize
+    width: Dimens.iconSizeNormal,
+    height: Dimens.iconSizeNormal
   },
 
   indicatorViewPager: {
@@ -83,17 +83,17 @@ export const styles = StyleSheet.create({
 
 export const iconProps = {
   headerIcon: {
-    size: Dimens.iconSize,
+    size: Dimens.iconSizeNormal,
     color: Palette.white
   },
 
   tab: {
-    size: Dimens.iconSize,
+    size: Dimens.iconSizeNormal,
     color: Palette.brand.backgroundDarkerContrast
   },
 
   tabSelected: {
-    size: Dimens.iconSize,
+    size: Dimens.iconSizeNormal,
     color: Palette.white
   }
 };

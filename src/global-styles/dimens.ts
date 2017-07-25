@@ -24,5 +24,6 @@ export const Dimensions = {
   verticalSpaceBig: 14,
   verticalSpaceNormal: 10,
   verticalSpaceSmall: 7,
-  iconSize: 28
+  iconSizeNormal: 28,
+  iconSizeSmall: 20
 };

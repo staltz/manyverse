@@ -83,7 +83,10 @@ const indigo6 = '#4c6ef5';
 const indigo7 = '#4263eb';
 const indigo8 = '#3b5bdb';
 const indigo9 = '#364fc7';
-const indigo10 = '#1930a0';
+const indigo10 = '#2A2E3F';
+const indigo11 = '#1930a0';
+const indigo12 = '#1D202E';
+const indigogray = '#929BAC';
 
 const blue0 = '#e8f7ff';
 const blue1 = '#ccedff';
@@ -117,6 +120,8 @@ const teal6 = '#12b886';
 const teal7 = '#0ca678';
 const teal8 = '#099268';
 const teal9 = '#087f5b';
+
+const acid3 = '#00FE82';
 
 const green0 = '#ebfbee';
 const green1 = '#d3f9d8';
@@ -172,8 +177,11 @@ const brand = {
   voidBackground: gray1,
   contentBackground: white,
 
-  metadataBackground: gray9,
-  metadataText: teal3,
+  darkVoidBackground: indigo12,
+  darkContentBackground: indigo10,
+  darkText: teal3,
+  darkTextWeak: indigogray,
+  darkHighlight: acid3,
 
   text: gray9,
   textWeak: gray7
@@ -247,6 +255,8 @@ export const Palette = {
   indigo8,
   indigo9,
   indigo10,
+  indigo11,
+  indigo12,
 
   blue0,
   blue1,
@@ -280,6 +290,8 @@ export const Palette = {
   teal7,
   teal8,
   teal9,
+
+  acid3,
 
   green0,
   green1,
