@@ -20,7 +20,7 @@
 import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {h} from '@cycle/native-screen';
-import {View, Text} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {PeerMetadata} from '../types';
 import {styles, iconProps} from './styles';
@@ -28,8 +28,10 @@ import LocalPeerMetadata from '../components/LocalPeerMetadata';
 
 export default function view(connectedPeers$: Stream<Array<PeerMetadata>>) {
   return connectedPeers$.map(connectedPeers =>
-    h(View, {style: styles.container}, [
-      h(View, {style: styles.headerContainer}, [
+    h(FlatList, {
+      data: connectedPeers,
+      style: styles.container as any,
+      ListHeaderComponent: h(View, {style: styles.headerContainer}, [
         h(Text, {style: styles.headerText}, 'Peers around you'),
         h(Icon, {
           ...iconProps.info,
@@ -37,7 +39,10 @@ export default function view(connectedPeers$: Stream<Array<PeerMetadata>>) {
           style: styles.infoIcon as any
         })
       ]),
-      ...connectedPeers.map(peer => h(LocalPeerMetadata, {peer}))
-    ])
+      keyExtractor: (item: PeerMetadata, index: number) =>
+        item.key || String(index),
+      renderItem: ({item}: {item: PeerMetadata}) =>
+        h(LocalPeerMetadata, {peer: item})
+    })
   );
 }
