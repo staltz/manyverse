@@ -18,7 +18,7 @@
  */
 
 import xs, {Stream, Listener} from 'xstream';
-import {PeerMetadata} from '../types';
+import {PeerMetadata, Content} from '../types';
 const ssbClient = require('react-native-ssb-client');
 const depjectCombine = require('depject');
 const pull = require('pull-stream');
@@ -158,7 +158,7 @@ export type SSBSource = {
   connectedPeers: Stream<Array<PeerMetadata>>;
 };
 
-export function ssbDriver(): SSBSource {
+export function ssbDriver(sink: Stream<Content>): SSBSource {
   const keys$ = xs.fromPromise(ssbClient.fetchKeys(Config('ssb')));
 
   const api$ = keys$.map(keys => {
@@ -183,6 +183,15 @@ export function ssbDriver(): SSBSource {
   const connectedPeers$ = api$
     .map(api => xsFromMutant<any>(api.sbot.obs.connectedPeers[1]()))
     .flatten();
+
+  api$
+    .map(api => sink.map(newContent => [api, newContent]))
+    .flatten()
+    .addListener({
+      next: ([api, newContent]) => {
+        api.sbot.async.publish[0](newContent);
+      }
+    });
 
   return {
     feed: feed$,

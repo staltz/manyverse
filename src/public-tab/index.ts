@@ -22,7 +22,9 @@ import {ReactElement} from 'react';
 import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from '../drivers/ssb';
+import intent from './intent';
 import view from './view';
+import {Content, PostContent} from '../types';
 
 export type Sources = {
   screen: ScreenSource;
@@ -33,14 +35,28 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   onion: Stream<Reducer<any>>;
+  ssb: Stream<any>;
 };
 
+function prepareForSSB(publishMsg$: Stream<string>): Stream<Content> {
+  return publishMsg$.map(text => {
+    return {
+      text,
+      type: 'post',
+      mentions: []
+    } as PostContent;
+  });
+}
+
 export function publicTab(sources: Sources): Sinks {
+  const actions = intent(sources.screen);
   const vdom$ = view(sources.ssb.feed);
+  const newContent$ = prepareForSSB(actions.publishMsg);
   const reducer$ = xs.empty();
 
   return {
     screen: vdom$,
-    onion: reducer$
+    onion: reducer$,
+    ssb: newContent$
   };
 }

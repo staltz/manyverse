@@ -99,7 +99,7 @@ export type Content = PostContent | ContactContent;
 export type PostContent = {
   type: 'post';
   text: string;
-  channel: string;
+  channel?: string;
 
   /**
    * Links

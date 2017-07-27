@@ -19,25 +19,76 @@
 
 import xs, {Stream} from 'xstream';
 import {PureComponent} from 'react';
-import {View, FlatList, Text, TouchableHighlight} from 'react-native';
+import {View, FlatList, Text, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../global-styles/palette';
 import Message from '../components/messages/Message';
+import MessageContainer from '../components/messages/MessageContainer';
 import {Msg} from '../types';
 import {styles} from './styles';
+
+type PublicFeedProps = {
+  feed: Array<Msg>;
+  onPublish?: (event: {nativeEvent: {text: string}}) => void;
+};
+
+type PublicFeedHeaderProps = {
+  onPublish?: (event: {nativeEvent: {text: string}}) => void;
+};
+
+class PublicFeedHeader extends PureComponent<PublicFeedHeaderProps> {
+  render() {
+    const {onPublish} = this.props;
+    return h(MessageContainer, [
+      h(View, {style: styles.writeMessageRow}, [
+        h(View, {style: styles.writeMessageAuthorImage}),
+        h(TextInput, {
+          underlineColorAndroid: Palette.brand.textBackground,
+          placeholderTextColor: Palette.brand.textVeryWeak,
+          style: styles.writeInput,
+          placeholder: 'Write a public message',
+          selectionColor: Palette.brand.text,
+          returnKeyType: 'done',
+          onSubmitEditing: (ev: any) => {
+            if (onPublish) {
+              onPublish(ev);
+            }
+            // (Temporary or permanent) hack:
+            if (
+              ev &&
+              ev._targetInst &&
+              ev._targetInst._currentElement &&
+              ev._targetInst._currentElement._owner &&
+              ev._targetInst._currentElement._owner._instance &&
+              ev._targetInst._currentElement._owner._instance.clear
+            ) {
+              ev._targetInst._currentElement._owner._instance.clear();
+            }
+          }
+        })
+      ])
+    ]);
+  }
+}
+
+class PublicFeed extends PureComponent<PublicFeedProps> {
+  render() {
+    const {feed, onPublish} = this.props;
+    return h(FlatList, {
+      data: feed,
+      style: styles.container as any,
+      ListHeaderComponent: h(PublicFeedHeader, {onPublish}),
+      keyExtractor: (item: any, index: number) => item.key || String(index),
+      renderItem: ({item}: {item: Msg}) => h(Message, {msg: item})
+    });
+  }
+}
 
 export default function view(feed$: Stream<Msg>) {
   const vdom$ = feed$
     .fold((arr, msg) => arr.concat(msg), [] as Array<Msg>)
     .map(arr => arr.slice().reverse())
-    .map(feed =>
-      h(FlatList, {
-        data: feed,
-        style: styles.container as any,
-        keyExtractor: (item: any, index: number) => item.key || String(index),
-        renderItem: ({item}: {item: Msg}) => h(Message, {msg: item})
-      })
-    );
+    .map(feed => h(PublicFeed, {selector: 'publicFeed', feed}));
 
   return vdom$;
 }

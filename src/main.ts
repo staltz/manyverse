@@ -25,6 +25,7 @@ import {SSBSource} from './drivers/ssb';
 import view from './view';
 import {publicTab} from './public-tab/index';
 import {metadataTab} from './metadata-tab/index';
+import {Content} from './types';
 
 export type Sources = {
   screen: ScreenSource;
@@ -36,6 +37,7 @@ export type Sinks = {
   screen: Stream<ReactElement<any>>;
   onion: Stream<Reducer<any>>;
   statusBarAndroid: Stream<string>;
+  ssb: Stream<Content>;
 };
 
 export function main(sources: Sources): Sinks {
@@ -50,6 +52,7 @@ export function main(sources: Sources): Sinks {
   return {
     screen: vdom$,
     onion: reducer$,
-    statusBarAndroid: statusBar$
+    statusBarAndroid: statusBar$,
+    ssb: publicTabSinks.ssb
   };
 }

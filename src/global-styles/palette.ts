@@ -185,6 +185,7 @@ const brand = {
 
   text: gray9,
   textWeak: gray7,
+  textVeryWeak: gray5,
   textWeakBackground: gray1
 };
 
