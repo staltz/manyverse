@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PureComponent} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {PureComponent, ReactElement} from 'react';
+import {View, Text, TouchableNativeFeedback, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
@@ -57,30 +57,93 @@ export const styles = StyleSheet.create({
 
   subtitle: {
     color: Palette.brand.darkTextWeak,
-    fontSize: Typography.fontSizeNormal
+    fontSize: Typography.fontSizeNormal,
+    marginBottom: Dimensions.verticalSpaceSmall
+  },
+
+  metadataBox: {
+    flex: 1,
+    backgroundColor: Palette.brand.darkVoidBackground,
+    padding: 5,
+    marginLeft: Dimensions.horizontalSpaceNormal,
+    marginRight: Dimensions.horizontalSpaceSmall,
+    borderRadius: 2
+  },
+
+  metadataText: {
+    fontSize: Typography.fontSizeSmall,
+    color: Palette.brand.darkText,
+    fontFamily: Typography.fontFamilyMonospace
   }
 });
 
-export default class LocalPeerMetadata extends PureComponent<{
+export type Props = {
   peer: PeerMetadata;
-}> {
+};
+
+export type State = {
+  collapsed: boolean;
+};
+
+export default class LocalPeerMetadata extends PureComponent<Props, State> {
+  state = {
+    collapsed: true
+  };
+
+  private _onPress() {
+    this.setState((prev: State) => {
+      return {collapsed: !prev.collapsed};
+    });
+  }
+
+  renderContent(peer: PeerMetadata): Array<ReactElement<any>> {
+    if (this.state.collapsed) {
+      return [
+        h(View, {style: styles.summaryColumn}, [
+          h(
+            Text,
+            {style: styles.title, numberOfLines: 1, ellipsizeMode: 'middle'},
+            peer.key
+          ),
+          h(Text, {style: styles.subtitle}, `${peer.host}:${peer.port}`)
+        ]),
+
+        h(Icon, {
+          size: Dimensions.iconSizeNormal,
+          color: Palette.brand.darkTextWeak,
+          name: 'chevron-down'
+        })
+      ];
+    } else {
+      return [
+        h(View, {style: styles.metadataBox}, [
+          h(Text, {style: styles.metadataText}, JSON.stringify(peer, null, 2))
+        ]),
+
+        h(Icon, {
+          size: Dimensions.iconSizeNormal,
+          color: Palette.brand.darkTextWeak,
+          name: 'chevron-up'
+        })
+      ];
+    }
+  }
+
   render() {
     const {peer} = this.props;
-    return h(View, {style: styles.row}, [
-      h(Beacon, {color: Palette.brand.darkHighlight, style: styles.beacon}),
-      h(View, {style: styles.summaryColumn}, [
-        h(
-          Text,
-          {style: styles.title, numberOfLines: 1, ellipsizeMode: 'middle'},
-          peer.key
-        ),
-        h(Text, {style: styles.subtitle}, `${peer.host}:${peer.port}`)
-      ]),
-      h(Icon, {
-        size: Dimensions.iconSizeNormal,
-        color: Palette.brand.darkTextWeak,
-        name: 'chevron-down'
-      })
-    ]);
+
+    return h(
+      TouchableNativeFeedback,
+      {
+        onPress: () => this._onPress(),
+        background: TouchableNativeFeedback.SelectableBackground()
+      },
+      [
+        h(View, {style: styles.row}, [
+          h(Beacon, {color: Palette.brand.darkHighlight, style: styles.beacon}),
+          ...this.renderContent(peer)
+        ])
+      ]
+    );
   }
 }
