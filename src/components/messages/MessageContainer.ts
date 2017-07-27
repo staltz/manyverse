@@ -17,27 +17,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
 import {PureComponent} from 'react';
-import {View, FlatList, Text, TouchableHighlight} from 'react-native';
 import {h} from '@cycle/native-screen';
-import {Palette} from '../global-styles/palette';
-import Message from '../components/messages/Message';
-import {Msg} from '../types';
-import {styles} from './styles';
+import {View, StyleSheet} from 'react-native';
+import {Palette} from '../../global-styles/palette';
+import {Dimensions} from '../../global-styles/dimens';
 
-export default function view(feed$: Stream<Msg>) {
-  const vdom$ = feed$
-    .fold((arr, msg) => arr.concat(msg), [] as Array<Msg>)
-    .map(arr => arr.slice().reverse())
-    .map(feed =>
-      h(FlatList, {
-        data: feed,
-        style: styles.container as any,
-        keyExtractor: (item: any, index: number) => item.key || String(index),
-        renderItem: ({item}: {item: Msg}) => h(Message, {msg: item})
-      })
-    );
+export const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    backgroundColor: Palette.brand.voidBackground,
+    paddingTop: Dimensions.verticalSpaceNormal * 0.5,
+    paddingBottom: Dimensions.verticalSpaceNormal * 0.5
+  },
 
-  return vdom$;
+  card: {
+    flex: 1,
+    elevation: 2,
+    backgroundColor: Palette.brand.textBackground,
+    paddingHorizontal: Dimensions.horizontalSpaceBig,
+    paddingVertical: Dimensions.verticalSpaceBig,
+    flexDirection: 'column'
+  }
+});
+
+export default class MessageContainer extends PureComponent<{}> {
+  render() {
+    return h(View, {style: styles.wrapper}, [
+      h(View, {style: styles.card}, this.props.children as any)
+    ]);
+  }
 }

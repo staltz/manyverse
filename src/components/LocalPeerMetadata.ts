@@ -29,7 +29,7 @@ import {PeerMetadata} from '../types';
 
 export const styles = StyleSheet.create({
   row: {
-    backgroundColor: Palette.brand.darkContentBackground,
+    backgroundColor: Palette.brand.darkTextBackground,
     paddingLeft: Dimensions.horizontalSpaceBig,
     paddingRight: Dimensions.horizontalSpaceBig,
     paddingTop: Dimensions.verticalSpaceBig,

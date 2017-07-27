@@ -74,6 +74,26 @@ export type Msg = {
   timestamp: number;
 };
 
+export type PostMsg = {
+  key: MsgId;
+  value: {
+    previous: MsgId;
+    author: FeedKey;
+    sequence: number;
+    timestamp: number;
+    hash: 'sha256';
+    content: PostContent;
+    signature: string;
+  };
+  timestamp: number;
+};
+
+export function isPostMsg(msg: Msg): msg is PostMsg {
+  return (
+    msg && msg.value && msg.value.content && msg.value.content.type === 'post'
+  );
+}
+
 export type Content = PostContent | ContactContent;
 
 export type PostContent = {

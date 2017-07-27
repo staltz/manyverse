@@ -17,19 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const BASE_SIZE = 15; // px
-const SCALE = 1.125;
+import {StyleSheet} from 'react-native';
+import {Dimensions as Dimens} from '../global-styles/dimens';
+import {Typography} from '../global-styles/typography';
+import {Palette} from '../global-styles/palette';
 
-const scaleUp = SCALE;
-const scaleDown = 1 / SCALE;
-
-export const Typography = {
-  scaleUp,
-  scaleDown,
-  baseSize: BASE_SIZE,
-  fontSizeBig: BASE_SIZE * scaleUp * scaleUp,
-  fontSizeNormal: BASE_SIZE,
-  fontSizeSmall: BASE_SIZE * scaleDown,
-  fontFamilyReadableText: 'sans-serif-light',
-  fontFamilyMonospace: 'monospace'
-};
+export const styles = StyleSheet.create({
+  container: {
+    alignSelf: 'stretch',
+    flex: 1
+  }
+});

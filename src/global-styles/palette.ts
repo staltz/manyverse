@@ -175,16 +175,17 @@ const brand = {
   backgroundDarkerContrast: indigo10,
 
   voidBackground: gray2,
-  contentBackground: white,
+  textBackground: white,
 
   darkVoidBackground: indigo12,
-  darkContentBackground: indigo10,
+  darkTextBackground: indigo10,
   darkText: teal3,
   darkTextWeak: indigogray,
   darkHighlight: acid3,
 
   text: gray9,
-  textWeak: gray7
+  textWeak: gray7,
+  textWeakBackground: gray1
 };
 
 export const Palette = {

@@ -17,27 +17,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
 import {PureComponent} from 'react';
-import {View, FlatList, Text, TouchableHighlight} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
-import {Palette} from '../global-styles/palette';
-import Message from '../components/messages/Message';
-import {Msg} from '../types';
-import {styles} from './styles';
+import {Palette} from '../../global-styles/palette';
+import {Dimensions} from '../../global-styles/dimens';
+import {Typography} from '../../global-styles/typography';
 
-export default function view(feed$: Stream<Msg>) {
-  const vdom$ = feed$
-    .fold((arr, msg) => arr.concat(msg), [] as Array<Msg>)
-    .map(arr => arr.slice().reverse())
-    .map(feed =>
-      h(FlatList, {
-        data: feed,
-        style: styles.container as any,
-        keyExtractor: (item: any, index: number) => item.key || String(index),
-        renderItem: ({item}: {item: Msg}) => h(Message, {msg: item})
-      })
-    );
+export const styles = StyleSheet.create({
+  metadataBox: {
+    flex: 1,
+    backgroundColor: Palette.brand.darkVoidBackground,
+    padding: 5,
+    borderRadius: 2
+  },
 
-  return vdom$;
+  metadataText: {
+    fontSize: Typography.fontSizeSmall,
+    color: Palette.brand.darkText,
+    fontFamily: Typography.fontFamilyMonospace
+  }
+});
+
+export default class Metadata extends PureComponent<{msg: any}> {
+  render() {
+    const {msg} = this.props;
+    return h(View, {style: styles.metadataBox}, [
+      h(Text, {style: styles.metadataText}, JSON.stringify(msg, null, 2))
+    ]);
+  }
 }

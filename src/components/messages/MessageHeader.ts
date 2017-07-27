@@ -20,26 +20,12 @@
 import {PureComponent} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
-import {Palette} from '../global-styles/palette';
-import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
-import {Msg} from '../types';
+import {Msg} from '../../types';
+import {Palette} from '../../global-styles/palette';
+import {Dimensions} from '../../global-styles/dimens';
+import {Typography} from '../../global-styles/typography';
 
 export const styles = StyleSheet.create({
-  messageWrapper: {
-    backgroundColor: Palette.brand.voidBackground,
-    paddingTop: Dimensions.verticalSpaceNormal * 0.5,
-    paddingBottom: Dimensions.verticalSpaceNormal * 0.5
-  },
-
-  messageCard: {
-    elevation: 2,
-    backgroundColor: Palette.brand.contentBackground,
-    paddingHorizontal: Dimensions.horizontalSpaceBig,
-    paddingVertical: Dimensions.verticalSpaceBig,
-    flexDirection: 'column'
-  },
-
   messageHeaderRow: {
     flexDirection: 'row',
     flex: 1
@@ -75,23 +61,10 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.brand.textWeak
-  },
-
-  metadataBox: {
-    flex: 1,
-    backgroundColor: Palette.brand.darkVoidBackground,
-    padding: 5,
-    borderRadius: 2
-  },
-
-  metadataText: {
-    fontSize: Typography.fontSizeSmall,
-    color: Palette.brand.darkText,
-    fontFamily: Typography.fontFamilyMonospace
   }
 });
 
-export class MessageHeader extends PureComponent<{msg: Msg}> {
+export default class MessageHeader extends PureComponent<{msg: Msg}> {
   render() {
     const {msg} = this.props;
 
@@ -122,39 +95,5 @@ export class MessageHeader extends PureComponent<{msg: Msg}> {
         messageHeaderTimestamp
       ])
     ]);
-  }
-}
-
-export class Metadata extends PureComponent<{msg: any}> {
-  render() {
-    const {msg} = this.props;
-    return h(View, {style: styles.metadataBox}, [
-      h(Text, {style: styles.metadataText}, JSON.stringify(msg, null, 2))
-    ]);
-  }
-}
-
-export class MessageContainer extends PureComponent<{}> {
-  render() {
-    return h(View, {style: styles.messageWrapper}, [
-      h(View, {style: styles.messageCard}, this.props.children as any)
-    ]);
-  }
-}
-
-export class UnknownMessage extends PureComponent<{msg: any}> {
-  render() {
-    const {msg} = this.props;
-    return h(MessageContainer, [h(Metadata, {msg})]);
-  }
-}
-
-export default class Message extends PureComponent<{msg: Msg}> {
-  render() {
-    const {msg} = this.props;
-    if (!msg.key) {
-      return h(UnknownMessage, {msg});
-    }
-    return h(MessageContainer, [h(MessageHeader, {msg}), h(Metadata, {msg})]);
   }
 }

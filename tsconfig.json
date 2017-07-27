@@ -18,6 +18,7 @@
     "src/main.ts",
     "src/drivers/statusBarAndroid.ts",
     "src/drivers/ssb.ts",
+    "src/typings/react-native-simple-markdown.d.ts",
     "src/typings/rn-viewpager.d.ts"
   ],
   "exclude": ["node_modules"]
