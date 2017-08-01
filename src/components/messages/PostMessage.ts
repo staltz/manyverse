@@ -26,7 +26,7 @@ import {Dimensions} from '../../global-styles/dimens';
 import {Typography as Typ} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
-import {PostMsg, PostContent} from '../../types';
+import {Msg, PostContent as Post} from '../../types';
 
 export const styles = StyleSheet.create({
   blockQuote: {
@@ -236,7 +236,7 @@ function replaceAll(str: string, find: string, replace: string): string {
   return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
 
-function materializeMarkdown(content: PostContent): string {
+function materializeMarkdown(content: Post): string {
   let result = content.text;
   if (content.mentions) {
     content.mentions.forEach(mention => {
@@ -259,7 +259,7 @@ function materializeMarkdown(content: PostContent): string {
   return result;
 }
 
-export default class PostMessage extends PureComponent<{msg: PostMsg}> {
+export default class PostMessage extends PureComponent<{msg: Msg<Post>}> {
   render() {
     const {msg} = this.props;
     const md = materializeMarkdown(msg.value.content);

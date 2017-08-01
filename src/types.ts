@@ -60,7 +60,7 @@ export type MsgId = string;
  */
 export type BlobId = string;
 
-export type Msg = {
+export type Msg<C = Content> = {
   key: MsgId;
   value: {
     previous: MsgId;
@@ -68,30 +68,22 @@ export type Msg = {
     sequence: number;
     timestamp: number;
     hash: 'sha256';
-    content: Content;
+    content: C;
     signature: string;
   };
   timestamp: number;
 };
 
-export type PostMsg = {
-  key: MsgId;
-  value: {
-    previous: MsgId;
-    author: FeedKey;
-    sequence: number;
-    timestamp: number;
-    hash: 'sha256';
-    content: PostContent;
-    signature: string;
-  };
-  timestamp: number;
-};
+export function isMsg(msg: any): msg is Msg<any> {
+  return msg && msg.key && msg.value && typeof msg.value === 'object';
+}
 
-export function isPostMsg(msg: Msg): msg is PostMsg {
-  return (
-    msg && msg.value && msg.value.content && msg.value.content.type === 'post'
-  );
+export function isPostMsg(msg: Msg<any>): msg is Msg<PostContent> {
+  return msg.value.content && msg.value.content.type === 'post';
+}
+
+export function isContactMsg(msg: Msg<any>): msg is Msg<ContactContent> {
+  return msg.value.content && msg.value.content.type === 'contact';
 }
 
 export type Content = PostContent | ContactContent;
@@ -117,8 +109,8 @@ export type ContactContent = {
   /**
    * FeedLink
    */
-  contact: string;
-  following: boolean;
+  contact?: string;
+  following?: boolean;
   blocking?: boolean;
 };
 

@@ -23,10 +23,11 @@ import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {Msg, PostMsg, isPostMsg} from '../../types';
+import {Msg, isPostMsg, isContactMsg} from '../../types';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import PostMessage from './PostMessage';
+import ContactMessage from './ContactMessage';
 import Metadata from './Metadata';
 
 export class KeylessMessage extends PureComponent<{msg: any}> {
@@ -48,6 +49,7 @@ export default class Message extends PureComponent<{msg: Msg}> {
     const {msg} = this.props;
     if (!msg.key) return h(KeylessMessage, {msg});
     if (isPostMsg(msg)) return h(PostMessage, {msg});
+    if (isContactMsg(msg)) return h(ContactMessage, {msg});
     return h(RawMessage, {msg});
   }
 }
