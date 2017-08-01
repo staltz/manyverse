@@ -5213,9 +5213,9 @@ react-native-fs@2.3.x:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
 
-react-native-node@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-node/-/react-native-node-1.0.1.tgz#453cfe7df064cfbd185a8a09030296aab9d02e16"
+react-native-node@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-node/-/react-native-node-1.1.2.tgz#cda2c32d27d88b401565fc8da9976a91d780dd6a"
   dependencies:
     cheerio "^1.0.0-rc.1"
     mkdirp "^0.5.1"
@@ -5234,16 +5234,16 @@ react-native-randombytes@2.2.0:
     buffer "^4.9.1"
     sjcl "^1.0.3"
 
-react-native-scuttlebot@10.4.4:
-  version "10.4.4"
-  resolved "https://registry.yarnpkg.com/react-native-scuttlebot/-/react-native-scuttlebot-10.4.4.tgz#3e27fffe2a7b6faa14d716e21337edb24bc54997"
+react-native-scuttlebot@10.4.5:
+  version "10.4.5"
+  resolved "https://registry.yarnpkg.com/react-native-scuttlebot/-/react-native-scuttlebot-10.4.5.tgz#8fdad3cb13d3e358cac51f59a1e165f2ff0be0c4"
   dependencies:
     bufferutil "3.0.1"
     memdown "1.2.4"
     noderify "3.0.2"
     path "0.12.7"
     pull-identify-filetype "1.1.0"
-    react-native-node "^1.0.1"
+    react-native-node "1.1.2"
     scuttlebot "10.4.4"
     sodium-browserify-tweetnacl "0.2.3"
     spawn-sync "1.0.15"
