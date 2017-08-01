@@ -238,22 +238,24 @@ function replaceAll(str: string, find: string, replace: string): string {
 
 function materializeMarkdown(content: PostContent): string {
   let result = content.text;
-  content.mentions.forEach(mention => {
-    if (
-      mention.link &&
-      mention.name &&
-      mention.type &&
-      mention.type === 'image/jpeg'
-    ) {
-      const name = mention.name;
-      const link = mention.link;
-      result = replaceAll(
-        result,
-        `![${name}](${link})`,
-        `![${name}](http://localhost:7777/${encodeURIComponent(link)})`
-      );
-    }
-  });
+  if (content.mentions) {
+    content.mentions.forEach(mention => {
+      if (
+        mention.link &&
+        mention.name &&
+        mention.type &&
+        mention.type === 'image/jpeg'
+      ) {
+        const name = mention.name;
+        const link = mention.link;
+        result = replaceAll(
+          result,
+          `![${name}](${link})`,
+          `![${name}](http://localhost:7777/${encodeURIComponent(link)})`
+        );
+      }
+    });
+  }
   return result;
 }
 

@@ -104,7 +104,7 @@ export type PostContent = {
   /**
    * Links
    */
-  mentions: Array<any>;
+  mentions?: Array<any>;
   // root: MsgLink;
   // branch: MsgLink | MsgLinks;
   // recps: FeedLinks;
