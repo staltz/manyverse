@@ -31,6 +31,7 @@ local.properties
 *.iml
 /android/app/test_servers
 /android/app/screenshot*.png
+/android/app/src/main/res/raw/rnnodebundle
 
 # Visual Studio Code
 #
