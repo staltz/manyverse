@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PureComponent} from 'react';
+import {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   }
 });
 
-export default class Metadata extends PureComponent<{msg: any}> {
+export default class Metadata extends Component<{msg: any}> {
   render() {
     const {msg} = this.props;
     return h(View, {style: styles.metadataBox}, [

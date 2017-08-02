@@ -48,7 +48,7 @@ export type PeerMetadata = {
 /**
  * Starts with @
  */
-export type FeedKey = string;
+export type FeedId = string;
 
 /**
  * Starts with %
@@ -64,12 +64,15 @@ export type Msg<C = Content> = {
   key: MsgId;
   value: {
     previous: MsgId;
-    author: FeedKey;
+    author: FeedId;
     sequence: number;
     timestamp: number;
     hash: 'sha256';
     content: C;
     signature: string;
+    _derived?: {
+      likes?: Array<FeedId>;
+    };
   };
   timestamp: number;
 };
@@ -84,6 +87,10 @@ export function isPostMsg(msg: Msg<any>): msg is Msg<PostContent> {
 
 export function isContactMsg(msg: Msg<any>): msg is Msg<ContactContent> {
   return msg.value.content && msg.value.content.type === 'contact';
+}
+
+export function isVoteMsg(msg: Msg<any>): msg is Msg<VoteContent> {
+  return msg.value.content && msg.value.content.type === 'vote';
 }
 
 export type Content = PostContent | ContactContent;
@@ -106,12 +113,19 @@ export type PostContent = {
 export type ContactContent = {
   type: 'contact';
 
-  /**
-   * FeedLink
-   */
-  contact?: string;
+  contact?: FeedId;
   following?: boolean;
   blocking?: boolean;
+};
+
+export type VoteContent = {
+  type: 'vote';
+
+  vote: {
+    link: MsgId;
+    value: number;
+    expression: string;
+  };
 };
 
 // export type AboutContent = {

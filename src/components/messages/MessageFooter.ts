@@ -20,41 +20,43 @@
 import {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
+import {Msg} from '../../types';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {Msg, isPostMsg, isContactMsg} from '../../types';
-import MessageContainer from './MessageContainer';
-import MessageHeader from './MessageHeader';
-import MessageFooter from './MessageFooter';
-import PostMessage from './PostMessage';
-import ContactMessage from './ContactMessage';
-import Metadata from './Metadata';
 
-export class KeylessMessage extends Component<{msg: any}> {
-  render() {
-    const {msg} = this.props;
-    return h(MessageContainer, [h(Metadata, {msg})]);
+export const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    flex: 1
+  },
+
+  likeCount: {
+    fontWeight: 'bold'
+  },
+
+  likes: {
+    fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.brand.textWeak
   }
-}
+});
 
-export class RawMessage extends Component<{msg: any}> {
+export default class MessageFooter extends Component<{msg: Msg}> {
   render() {
     const {msg} = this.props;
-    return h(MessageContainer, [
-      h(MessageHeader, {msg}),
-      h(Metadata, {msg}),
-      h(MessageFooter, {msg})
+    const likeCount =
+      (msg.value._derived &&
+        msg.value._derived &&
+        msg.value._derived.likes &&
+        msg.value._derived.likes.length) ||
+      0;
+
+    const body = h(Text, {style: styles.likes}, [
+      h(Text, {style: styles.likeCount}, String(likeCount)),
+      (likeCount === 1 ? ' like' : ' likes') as any
     ]);
-  }
-}
 
-export default class Message extends Component<{msg: Msg}> {
-  render() {
-    const {msg} = this.props;
-    if (!msg.key) return h(KeylessMessage, {msg});
-    if (isPostMsg(msg)) return h(PostMessage, {msg});
-    if (isContactMsg(msg)) return h(ContactMessage, {msg});
-    return h(RawMessage, {msg});
+    return h(View, {style: styles.row}, likeCount ? [body] : []);
   }
 }

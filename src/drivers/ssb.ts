@@ -18,12 +18,16 @@
  */
 
 import xs, {Stream, Listener} from 'xstream';
-import {PeerMetadata, Content} from '../types';
+import flattenConcurrently from 'xstream/extra/flattenConcurrently';
+import {isMsg, Msg, PeerMetadata, Content} from '../types';
 const ssbClient = require('react-native-ssb-client');
 const depjectCombine = require('depject');
 const pull = require('pull-stream');
 const {watch, Set: MutantSet} = require('mutant');
 const sbotOpinion = require('patchcore/sbot');
+const msgLikesOpinion = require('patchcore/message/obs/likes');
+const unboxOpinion = require('patchcore/message/sync/unbox');
+const backlinksOpinion = require('patchcore/backlinks/obs');
 const Config = require('ssb-config/inject');
 const nest = require('depnest');
 
@@ -158,6 +162,22 @@ export type SSBSource = {
   connectedPeers: Stream<Array<PeerMetadata>>;
 };
 
+function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
+  if (isMsg(msg)) {
+    return xsFromMutant(
+      api.message.obs.likes[0](msg.key)
+    ).map((likes: Array<string>) => {
+      if (msg.value) {
+        msg.value._derived = msg.value._derived || {};
+        msg.value._derived.likes = likes;
+      }
+      return msg;
+    });
+  } else {
+    return xs.of(msg);
+  }
+}
+
 export function ssbDriver(sink: Stream<Content>): SSBSource {
   const keys$ = xs.fromPromise(ssbClient.fetchKeys(Config('ssb')));
 
@@ -167,15 +187,21 @@ export function ssbDriver(sink: Stream<Content>): SSBSource {
       configOpinion,
       makeKeysOpinion(keys),
       sbotOpinion,
-      metadataOpinion
+      metadataOpinion,
+      backlinksOpinion,
+      unboxOpinion,
+      msgLikesOpinion
     ]);
   });
 
   const feed$ = api$
+    .take(1)
     .map(api =>
       xsFromPullStream<any>(
         api.sbot.pull.feed[0]({reverse: false, limit: 100, live: true})
       )
+        .map(msg => addDerivedDataToMessage(msg, api))
+        .compose(flattenConcurrently)
     )
     .flatten()
     .filter(isNotSync);

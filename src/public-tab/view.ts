@@ -18,17 +18,27 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {PureComponent} from 'react';
+import {PureComponent, Component} from 'react';
 import {View, FlatList, Text, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../global-styles/palette';
 import Message from '../components/messages/Message';
 import MessageContainer from '../components/messages/MessageContainer';
-import {Msg} from '../types';
+import {Msg, isVoteMsg} from '../types';
 import {styles} from './styles';
 
+type Feed = {
+  updated: number;
+  arr: Array<Msg>;
+};
+
+const emptyFeed: Feed = {
+  updated: 0,
+  arr: []
+};
+
 type PublicFeedProps = {
-  feed: Array<Msg>;
+  feed: Feed;
   onPublish?: (event: {nativeEvent: {text: string}}) => void;
 };
 
@@ -71,11 +81,22 @@ class PublicFeedHeader extends PureComponent<PublicFeedHeaderProps> {
   }
 }
 
-class PublicFeed extends PureComponent<PublicFeedProps> {
+class PublicFeed extends Component<PublicFeedProps, {updated: number}> {
+  constructor(props: PublicFeedProps) {
+    super(props);
+    this.state = props.feed;
+  }
+
+  componentWillReceiveProps(props: any) {
+    if (props.feed.updated > this.state.updated) {
+      this.setState(props.feed);
+    }
+  }
+
   render() {
     const {feed, onPublish} = this.props;
     return h(FlatList, {
-      data: feed,
+      data: feed.arr,
       style: styles.container as any,
       ListHeaderComponent: h(PublicFeedHeader, {onPublish}),
       keyExtractor: (item: any, index: number) => item.key || String(index),
@@ -84,10 +105,30 @@ class PublicFeed extends PureComponent<PublicFeedProps> {
   }
 }
 
+/**
+ * Whether or not the message should be shown in the feed.
+ *
+ * TODO: This should be configurable in the app settings!
+ */
+function isShowableMsg(msg: Msg): boolean {
+  return !isVoteMsg(msg);
+}
+
+function includeMsgIntoFeed(feed: Feed, msg: Msg) {
+  const index = feed.arr.findIndex(m => m.key === msg.key);
+  if (index >= 0) {
+    feed.arr[index] = msg;
+    feed.updated += 1;
+  } else if (isShowableMsg(msg)) {
+    feed.arr.unshift(msg);
+    feed.updated += 1;
+  }
+  return feed;
+}
+
 export default function view(feed$: Stream<Msg>) {
   const vdom$ = feed$
-    .fold((arr, msg) => arr.concat(msg), [] as Array<Msg>)
-    .map(arr => arr.slice().reverse())
+    .fold(includeMsgIntoFeed, emptyFeed)
     .map(feed => h(PublicFeed, {selector: 'publicFeed', feed}));
 
   return vdom$;

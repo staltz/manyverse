@@ -1,6 +1,5 @@
 # Next (ordered list of at most 4 tasks)
 
-- Display likes on a message
 - Like button
 - Author name/alias
 
