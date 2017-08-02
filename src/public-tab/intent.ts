@@ -20,11 +20,22 @@
 import {Stream} from 'xstream';
 import {ScreenSource} from '@cycle/native-screen';
 
-export default function intent(source: ScreenSource) {
+export type LikeEvent = {msgKey: string; like: boolean};
+
+export type Actions = {
+  publishMsg: Stream<string>;
+  likeMsg: Stream<LikeEvent>;
+};
+
+export default function intent(source: ScreenSource): Actions {
   return {
     publishMsg: source
       .select('publicFeed')
       .events('publish')
-      .map(ev => ev.nativeEvent.text) as Stream<string>
+      .map(ev => ev.nativeEvent.text) as Stream<string>,
+
+    likeMsg: source.select('publicFeed').events('pressLike') as Stream<
+      LikeEvent
+    >
   };
 }

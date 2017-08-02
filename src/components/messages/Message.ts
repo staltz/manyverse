@@ -31,6 +31,11 @@ import PostMessage from './PostMessage';
 import ContactMessage from './ContactMessage';
 import Metadata from './Metadata';
 
+export type Props = {
+  msg: Msg;
+  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+};
+
 export class KeylessMessage extends Component<{msg: any}> {
   render() {
     const {msg} = this.props;
@@ -38,23 +43,24 @@ export class KeylessMessage extends Component<{msg: any}> {
   }
 }
 
-export class RawMessage extends Component<{msg: any}> {
+export class RawMessage extends Component<Props> {
   render() {
-    const {msg} = this.props;
+    const props = this.props;
     return h(MessageContainer, [
-      h(MessageHeader, {msg}),
-      h(Metadata, {msg}),
-      h(MessageFooter, {msg})
+      h(MessageHeader, props),
+      h(Metadata, props),
+      h(MessageFooter, props)
     ]);
   }
 }
 
-export default class Message extends Component<{msg: Msg}> {
+export default class Message extends Component<Props> {
   render() {
     const {msg} = this.props;
-    if (!msg.key) return h(KeylessMessage, {msg});
-    if (isPostMsg(msg)) return h(PostMessage, {msg});
-    if (isContactMsg(msg)) return h(ContactMessage, {msg});
+    const props = this.props;
+    if (!msg.key) return h(KeylessMessage, props);
+    if (isPostMsg(msg)) return h(PostMessage, props as any);
+    if (isContactMsg(msg)) return h(ContactMessage, props as any);
     return h(RawMessage, {msg});
   }
 }

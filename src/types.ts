@@ -72,6 +72,7 @@ export type Msg<C = Content> = {
     signature: string;
     _derived?: {
       likes?: Array<FeedId>;
+      ilike?: boolean;
     };
   };
   timestamp: number;
@@ -93,7 +94,7 @@ export function isVoteMsg(msg: Msg<any>): msg is Msg<VoteContent> {
   return msg.value.content && msg.value.content.type === 'vote';
 }
 
-export type Content = PostContent | ContactContent;
+export type Content = PostContent | ContactContent | VoteContent;
 
 export type PostContent = {
   type: 'post';

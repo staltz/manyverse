@@ -170,6 +170,9 @@ function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
       if (msg.value) {
         msg.value._derived = msg.value._derived || {};
         msg.value._derived.likes = likes;
+        msg.value._derived.ilike = likes.some(
+          key => key === api.keys.sync.id[0]()
+        );
       }
       return msg;
     });

@@ -260,14 +260,21 @@ function materializeMarkdown(content: Post): string {
   return result;
 }
 
-export default class PostMessage extends Component<{msg: Msg<Post>}> {
+export type Props = {
+  msg: Msg<Post>;
+  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+};
+
+export default class PostMessage extends Component<Props> {
   render() {
-    const {msg} = this.props;
+    const props = this.props;
+    const {msg} = props;
     const md = materializeMarkdown(msg.value.content);
+
     return h(MessageContainer, [
-      h(MessageHeader, {msg}),
+      h(MessageHeader, props),
       h(Markdown, {styles, rules}, [md as any]),
-      h(MessageFooter, {msg})
+      h(MessageFooter, props)
     ]);
   }
 }

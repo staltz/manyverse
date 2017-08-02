@@ -22,9 +22,9 @@ import {ReactElement} from 'react';
 import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from '../drivers/ssb';
-import intent from './intent';
+import intent, {Actions} from './intent';
 import view from './view';
-import {Content, PostContent} from '../types';
+import {Content, PostContent, VoteContent} from '../types';
 
 export type Sources = {
   screen: ScreenSource;
@@ -38,20 +38,33 @@ export type Sinks = {
   ssb: Stream<any>;
 };
 
-function prepareForSSB(publishMsg$: Stream<string>): Stream<Content> {
-  return publishMsg$.map(text => {
+function prepareForSSB(actions: Actions): Stream<Content> {
+  const publishMsg$ = actions.publishMsg.map(text => {
     return {
       text,
       type: 'post',
       mentions: []
     } as PostContent;
   });
+
+  const toggleLikeMsg$ = actions.likeMsg.map(ev => {
+    return {
+      type: 'vote',
+      vote: {
+        link: ev.msgKey,
+        value: ev.like ? 1 : 0,
+        expression: ev.like ? 'Like' : 'Unlike'
+      }
+    } as VoteContent;
+  });
+
+  return xs.merge(publishMsg$, toggleLikeMsg$);
 }
 
 export function publicTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
   const vdom$ = view(sources.ssb.feed);
-  const newContent$ = prepareForSSB(actions.publishMsg);
+  const newContent$ = prepareForSSB(actions);
   const reducer$ = xs.empty();
 
   return {

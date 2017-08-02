@@ -18,8 +18,9 @@
  */
 
 import {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, TouchableNativeFeedback, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Msg} from '../../types';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -31,18 +32,105 @@ export const styles = StyleSheet.create({
     flex: 1
   },
 
+  col: {
+    flexDirection: 'column'
+  },
+
+  hr: {
+    backgroundColor: Palette.gray4,
+    height: 1,
+    marginTop: Dimensions.verticalSpaceSmall,
+    marginBottom: 0
+  },
+
   likeCount: {
     fontWeight: 'bold'
   },
 
   likes: {
+    marginTop: Dimensions.verticalSpaceSmall,
     fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.brand.textWeak
+  },
+
+  likeButton: {
+    flexDirection: 'row',
+    paddingTop: Dimensions.verticalSpaceSmall + 6,
+    paddingBottom: Dimensions.verticalSpaceBig,
+    paddingLeft: 1,
+    paddingRight: Dimensions.horizontalSpaceBig,
+    marginBottom: -Dimensions.verticalSpaceBig
+  },
+
+  likeButtonLabel: {
+    fontSize: Typography.fontSizeSmall,
+    fontWeight: 'bold',
+    marginLeft: Dimensions.horizontalSpaceSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.brand.textWeak
   }
 });
 
-export default class MessageFooter extends Component<{msg: Msg}> {
+const iconProps = {
+  noLiked: {
+    size: Dimensions.iconSizeSmall,
+    color: Palette.brand.textWeak,
+    name: 'thumb-up-outline'
+  },
+  maybeLiked: {
+    size: Dimensions.iconSizeSmall,
+    color: Palette.gray6,
+    name: 'thumb-up'
+  },
+  yesLiked: {
+    size: Dimensions.iconSizeSmall,
+    color: Palette.indigo6,
+    name: 'thumb-up'
+  }
+};
+
+export type Props = {
+  msg: Msg;
+  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+};
+
+export type State = {
+  ilike: 'no' | 'maybe' | 'yes';
+};
+
+export default class MessageFooter extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    if (props.msg.value._derived && props.msg.value._derived.ilike === true) {
+      this.state = {ilike: 'yes'};
+    } else {
+      this.state = {ilike: 'no'};
+    }
+  }
+
+  componentWillReceiveProps(props: Props) {
+    if (props.msg.value._derived && props.msg.value._derived.ilike === true) {
+      this.setState(() => ({ilike: 'yes'}));
+    } else {
+      this.setState(() => ({ilike: 'no'}));
+    }
+  }
+
+  private _onPressLike() {
+    const ilike = this.state.ilike;
+    this.setState(() => ({ilike: 'maybe'}));
+    const onPressLike = this.props.onPressLike;
+    if (ilike !== 'maybe' && onPressLike) {
+      setTimeout(() => {
+        onPressLike({
+          msgKey: this.props.msg.key,
+          like: ilike === 'no' ? true : false
+        });
+      });
+    }
+  }
+
   render() {
     const {msg} = this.props;
     const likeCount =
@@ -52,11 +140,32 @@ export default class MessageFooter extends Component<{msg: Msg}> {
         msg.value._derived.likes.length) ||
       0;
 
-    const body = h(Text, {style: styles.likes}, [
-      h(Text, {style: styles.likeCount}, String(likeCount)),
-      (likeCount === 1 ? ' like' : ' likes') as any
+    const counters = likeCount
+      ? [
+          h(View, {style: styles.row}, [
+            h(Text, {style: styles.likes}, [
+              h(Text, {style: styles.likeCount}, String(likeCount)),
+              (likeCount === 1 ? ' like' : ' likes') as any
+            ])
+          ])
+        ]
+      : [];
+
+    const likeButtonProps = {
+      background: TouchableNativeFeedback.SelectableBackground(),
+      onPress: () => this._onPressLike()
+    };
+    const likeButton = h(TouchableNativeFeedback, likeButtonProps, [
+      h(View, {style: styles.likeButton}, [
+        h(Icon, iconProps[this.state.ilike + 'Liked']),
+        h(Text, {style: styles.likeButtonLabel}, 'Like')
+      ])
     ]);
 
-    return h(View, {style: styles.row}, likeCount ? [body] : []);
+    return h(View, {style: styles.col}, [
+      ...counters,
+      h(View, {style: styles.hr}),
+      h(View, {style: styles.row}, [likeButton])
+    ]);
   }
 }

@@ -1,7 +1,7 @@
 # Next (ordered list of at most 4 tasks)
 
-- Like button
 - Author name/alias
+- Timestamps made human readable
 
 # Must
 
@@ -23,6 +23,7 @@
 
 # Could
 
+- View likes as a dialog
 - Metadata tab: WAN globe diagram
 - Group messages as thread
 

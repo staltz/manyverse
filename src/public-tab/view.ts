@@ -40,6 +40,7 @@ const emptyFeed: Feed = {
 type PublicFeedProps = {
   feed: Feed;
   onPublish?: (event: {nativeEvent: {text: string}}) => void;
+  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
 };
 
 type PublicFeedHeaderProps = {
@@ -94,13 +95,13 @@ class PublicFeed extends Component<PublicFeedProps, {updated: number}> {
   }
 
   render() {
-    const {feed, onPublish} = this.props;
+    const {feed, onPublish, onPressLike} = this.props;
     return h(FlatList, {
       data: feed.arr,
       style: styles.container as any,
       ListHeaderComponent: h(PublicFeedHeader, {onPublish}),
       keyExtractor: (item: any, index: number) => item.key || String(index),
-      renderItem: ({item}: {item: Msg}) => h(Message, {msg: item})
+      renderItem: ({item}: {item: Msg}) => h(Message, {msg: item, onPressLike})
     });
   }
 }
