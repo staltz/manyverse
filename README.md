@@ -2,6 +2,8 @@
 
 ## Install dependencies
 
+Use node `v6.9.1` and yarn `v0.27.5`.
+
 ```
 yarn
 ```
