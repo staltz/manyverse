@@ -19,7 +19,8 @@
 
 import xs, {Stream, Listener} from 'xstream';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
-import {isMsg, Msg, PeerMetadata, Content} from '../ssb/types';
+import {isMsg, FeedId, Msg, PeerMetadata, Content} from '../ssb/types';
+import {shortFeedId} from '../ssb/utils';
 const ssbClient = require('react-native-ssb-client');
 const depjectCombine = require('depject');
 const pull = require('pull-stream');
@@ -37,6 +38,13 @@ const emptyHookOpinion = {
   gives: nest('sbot.hook.publish'),
   create: (api: any) => {
     return nest('sbot.hook.publish', () => {});
+  }
+};
+
+const shortFeedIdOpinion = {
+  gives: nest('about.sync.shortFeedId'),
+  create: (api: any) => {
+    return nest('about.sync.shortFeedId', shortFeedId);
   }
 };
 
@@ -192,8 +200,9 @@ export function ssbDriver(sink: Stream<Content>): SSBSource {
   const api$ = keys$.map(keys => {
     return depjectCombine([
       emptyHookOpinion,
-      configOpinion,
       blobUrlOpinion,
+      shortFeedIdOpinion,
+      configOpinion,
       makeKeysOpinion(keys),
       sbotOpinion,
       metadataOpinion,
