@@ -33,7 +33,6 @@ export const styles = StyleSheet.create({
 
   card: {
     flex: 1,
-    elevation: 2,
     backgroundColor: Palette.brand.textBackground,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
