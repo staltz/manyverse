@@ -25,6 +25,7 @@ import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import {Msg, ContactContent as Contact} from '../../ssb/types';
+import {authorName, shortFeedId, humanTime} from '../../ssb/utils';
 
 export const styles = StyleSheet.create({
   row: {
@@ -52,7 +53,17 @@ export const styles = StyleSheet.create({
   }
 });
 
-export default class PostMessage extends PureComponent<{msg: Msg<Contact>}> {
+export default class ContactMessage extends PureComponent<{msg: Msg<Contact>}> {
+  private interval: any;
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.forceUpdate(), 30e3);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   render() {
     const {msg} = this.props;
     const accountTextProps = {
@@ -63,12 +74,12 @@ export default class PostMessage extends PureComponent<{msg: Msg<Contact>}> {
 
     return h(MessageContainer, [
       h(View, {style: styles.row}, [
-        h(Text, accountTextProps, msg.value.author),
+        h(Text, accountTextProps, authorName(msg)),
         h(Text, {style: styles.followed}, ' followed '),
-        h(Text, accountTextProps, msg.value.content.contact || '?')
+        h(Text, accountTextProps, shortFeedId(msg.value.content.contact || '?'))
       ]),
       h(View, {style: styles.row}, [
-        h(Text, {style: styles.timestamp}, String(msg.value.timestamp))
+        h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
       ])
     ]);
   }

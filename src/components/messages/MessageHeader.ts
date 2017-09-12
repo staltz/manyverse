@@ -21,7 +21,7 @@ import {PureComponent} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Msg} from '../../ssb/types';
-import {authorName} from '../../ssb/utils';
+import {authorName, humanTime} from '../../ssb/utils';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -66,6 +66,16 @@ export const styles = StyleSheet.create({
 });
 
 export default class MessageHeader extends PureComponent<{msg: Msg}> {
+  private interval: any;
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.forceUpdate(), 30e3);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   render() {
     const {msg} = this.props;
 
@@ -85,7 +95,7 @@ export default class MessageHeader extends PureComponent<{msg: Msg}> {
       h(
         Text,
         {style: styles.messageHeaderTimestamp},
-        String(msg.value.timestamp)
+        humanTime(msg.value.timestamp)
       )
     ]);
 
