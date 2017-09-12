@@ -27,7 +27,7 @@ import {Typography as Typ} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
-import {Msg, PostContent as Post} from '../../types';
+import {Msg, PostContent as Post} from '../../ssb/types';
 
 export const styles = StyleSheet.create({
   blockQuote: {

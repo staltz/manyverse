@@ -24,7 +24,7 @@ import {h} from '@cycle/native-screen';
 import {Palette} from '../global-styles/palette';
 import Message from '../components/messages/Message';
 import MessageContainer from '../components/messages/MessageContainer';
-import {Msg, isVoteMsg} from '../types';
+import {Msg, isVoteMsg} from '../ssb/types';
 import {styles} from './styles';
 
 type Feed = {

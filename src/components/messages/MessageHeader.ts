@@ -20,7 +20,7 @@
 import {PureComponent} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
-import {Msg} from '../../types';
+import {Msg} from '../../ssb/types';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';

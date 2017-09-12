@@ -25,7 +25,7 @@ import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import Beacon from './Beacon';
-import {PeerMetadata} from '../types';
+import {PeerMetadata} from '../ssb/types';
 
 export const styles = StyleSheet.create({
   row: {

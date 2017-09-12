@@ -19,7 +19,7 @@
 
 import xs, {Stream, Listener} from 'xstream';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
-import {isMsg, Msg, PeerMetadata, Content} from '../types';
+import {isMsg, Msg, PeerMetadata, Content} from '../ssb/types';
 const ssbClient = require('react-native-ssb-client');
 const depjectCombine = require('depject');
 const pull = require('pull-stream');

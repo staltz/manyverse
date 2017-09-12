@@ -24,7 +24,7 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
-import {Msg, ContactContent as Contact} from '../../types';
+import {Msg, ContactContent as Contact} from '../../ssb/types';
 
 export const styles = StyleSheet.create({
   row: {

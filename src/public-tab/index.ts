@@ -24,7 +24,7 @@ import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from '../drivers/ssb';
 import intent, {Actions} from './intent';
 import view from './view';
-import {Content, PostContent, VoteContent} from '../types';
+import {Content, PostContent, VoteContent} from '../ssb/types';
 
 export type Sources = {
   screen: ScreenSource;

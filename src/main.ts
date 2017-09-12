@@ -25,7 +25,7 @@ import {SSBSource} from './drivers/ssb';
 import view from './view';
 import {publicTab} from './public-tab/index';
 import {metadataTab} from './metadata-tab/index';
-import {Content} from './types';
+import {Content} from './ssb/types';
 
 export type Sources = {
   screen: ScreenSource;

@@ -91,6 +91,10 @@ export function isPostMsg(msg: Msg<any>): msg is Msg<PostContent> {
   return msg.value.content && msg.value.content.type === 'post';
 }
 
+export function isAboutMsg(msg: Msg<any>): msg is Msg<PostContent> {
+  return msg.value.content && msg.value.content.type === 'about';
+}
+
 export function isContactMsg(msg: Msg<any>): msg is Msg<ContactContent> {
   return msg.value.content && msg.value.content.type === 'contact';
 }
@@ -99,7 +103,7 @@ export function isVoteMsg(msg: Msg<any>): msg is Msg<VoteContent> {
   return msg.value.content && msg.value.content.type === 'vote';
 }
 
-export type Content = PostContent | ContactContent | VoteContent;
+export type Content = PostContent | ContactContent | VoteContent | AboutContent;
 
 export type PostContent = {
   type: 'post';
@@ -114,6 +118,12 @@ export type PostContent = {
   // branch: MsgLink | MsgLinks;
   // recps: FeedLinks;
   // mentions: Links;
+};
+
+export type AboutContent = {
+  type: 'about';
+  about: FeedId;
+  name?: string;
 };
 
 export type ContactContent = {

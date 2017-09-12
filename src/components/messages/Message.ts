@@ -23,7 +23,7 @@ import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {Msg, isPostMsg, isContactMsg} from '../../types';
+import {Msg, isPostMsg, isContactMsg} from '../../ssb/types';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';

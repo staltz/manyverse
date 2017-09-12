@@ -22,7 +22,7 @@ import {ReactElement} from 'react';
 import {h} from '@cycle/native-screen';
 import {View, Text, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {PeerMetadata} from '../types';
+import {PeerMetadata} from '../ssb/types';
 import {styles, iconProps} from './styles';
 import LocalPeerMetadata from '../components/LocalPeerMetadata';
 
