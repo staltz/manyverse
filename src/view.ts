@@ -72,12 +72,12 @@ function renderTabs(
             selected: h(Icon, {...iconProps.tabSelected, name: 'email-secure'})
           },
           {
-            normal: h(Icon, {...iconProps.tab, name: 'wan'}),
-            selected: h(Icon, {...iconProps.tabSelected, name: 'wan'})
-          },
-          {
             normal: h(Icon, {...iconProps.tab, name: 'numeric-0-box'}),
             selected: h(Icon, {...iconProps.tabSelected, name: 'numeric-0-box'})
+          },
+          {
+            normal: h(Icon, {...iconProps.tab, name: 'wan'}),
+            selected: h(Icon, {...iconProps.tabSelected, name: 'wan'})
           }
         ]
       })
@@ -87,10 +87,10 @@ function renderTabs(
       h(View, {style: styles.pageContainer}, [
         h(Text, {style: styles.pagePlaceholder}, 'Private')
       ]),
-      h(View, {style: styles.pageContainer}, [metadataTabVDOM]),
       h(View, {style: styles.pageContainer}, [
         h(Text, {style: styles.pagePlaceholder}, 'Notifications')
-      ])
+      ]),
+      h(View, {style: styles.pageContainer}, [metadataTabVDOM])
     ]
   );
 }
