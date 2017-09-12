@@ -1,6 +1,6 @@
 # Next (ordered list of at most 4 tasks)
 
-- Author name/alias
+- Render about messages
 - Timestamps made human readable
 - Upgrade to React Native v0.48
 - Run in low-end Android device, armv7

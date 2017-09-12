@@ -68,6 +68,12 @@ export default class MessageHeader extends PureComponent<{msg: Msg}> {
   render() {
     const {msg} = this.props;
 
+    const authorName =
+      (msg.value._derived &&
+        msg.value._derived.about &&
+        msg.value._derived.about.name) ||
+      msg.value.author;
+
     const messageHeaderAuthorName = h(View, {style: styles.flexRow}, [
       h(
         Text,
@@ -76,7 +82,7 @@ export default class MessageHeader extends PureComponent<{msg: Msg}> {
           ellipsizeMode: 'middle',
           style: styles.messageHeaderAuthorName
         },
-        msg.value.author
+        authorName
       )
     ]);
 

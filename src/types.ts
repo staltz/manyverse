@@ -60,6 +60,10 @@ export type MsgId = string;
  */
 export type BlobId = string;
 
+export type About = {
+  name: string;
+};
+
 export type Msg<C = Content> = {
   key: MsgId;
   value: {
@@ -71,6 +75,7 @@ export type Msg<C = Content> = {
     content: C;
     signature: string;
     _derived?: {
+      about?: About;
       likes?: Array<FeedId>;
       ilike?: boolean;
     };

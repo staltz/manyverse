@@ -28,6 +28,8 @@ const sbotOpinion = require('patchcore/sbot');
 const msgLikesOpinion = require('patchcore/message/obs/likes');
 const unboxOpinion = require('patchcore/message/sync/unbox');
 const backlinksOpinion = require('patchcore/backlinks/obs');
+const aboutOpinion = require('patchcore/about/obs');
+const blobUrlOpinion = require('patchcore/blob/sync/url');
 const Config = require('ssb-config/inject');
 const nest = require('depnest');
 
@@ -164,18 +166,21 @@ export type SSBSource = {
 
 function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
   if (isMsg(msg)) {
-    return xsFromMutant(
-      api.message.obs.likes[0](msg.key)
-    ).map((likes: Array<string>) => {
-      if (msg.value) {
-        msg.value._derived = msg.value._derived || {};
-        msg.value._derived.likes = likes;
-        msg.value._derived.ilike = likes.some(
-          key => key === api.keys.sync.id[0]()
-        );
-      }
-      return msg;
-    });
+    const likes$ = xsFromMutant(api.message.obs.likes[0](msg.key));
+    const name$ = xsFromMutant(api.about.obs.name[0](msg.value.author));
+    return xs
+      .combine(likes$, name$)
+      .map(([likes, name]: [Array<string>, string]) => {
+        if (msg.value) {
+          msg.value._derived = msg.value._derived || {};
+          msg.value._derived.likes = likes;
+          msg.value._derived.ilike = likes.some(
+            key => key === api.keys.sync.id[0]()
+          );
+          msg.value._derived.about = {name};
+        }
+        return msg;
+      });
   } else {
     return xs.of(msg);
   }
@@ -188,10 +193,12 @@ export function ssbDriver(sink: Stream<Content>): SSBSource {
     return depjectCombine([
       emptyHookOpinion,
       configOpinion,
+      blobUrlOpinion,
       makeKeysOpinion(keys),
       sbotOpinion,
       metadataOpinion,
       backlinksOpinion,
+      aboutOpinion,
       unboxOpinion,
       msgLikesOpinion
     ]);
