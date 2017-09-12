@@ -23,11 +23,12 @@ import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {Msg, isPostMsg, isContactMsg} from '../../ssb/types';
+import {Msg, isPostMsg, isContactMsg, isAboutMsg} from '../../ssb/types';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
 import PostMessage from './PostMessage';
+import AboutMessage from './AboutMessage';
 import ContactMessage from './ContactMessage';
 import Metadata from './Metadata';
 
@@ -60,6 +61,7 @@ export default class Message extends Component<Props> {
     const props = this.props;
     if (!msg.key) return h(KeylessMessage, props);
     if (isPostMsg(msg)) return h(PostMessage, props as any);
+    if (isAboutMsg(msg)) return h(AboutMessage, props as any);
     if (isContactMsg(msg)) return h(ContactMessage, props as any);
     return h(RawMessage, {msg});
   }

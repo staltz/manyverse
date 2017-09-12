@@ -17,83 +17,59 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PureComponent} from 'react';
+import {PureComponent, createElement} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
-import {Msg} from '../../ssb/types';
-import {authorName} from '../../ssb/utils';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import MessageContainer from './MessageContainer';
+import {Msg, AboutContent as About} from '../../ssb/types';
+import {authorName} from '../../ssb/utils';
 
 export const styles = StyleSheet.create({
-  messageHeaderRow: {
+  row: {
     flexDirection: 'row',
     flex: 1
   },
 
-  messageAuthorImage: {
-    height: 45,
-    width: 45,
-    borderRadius: 3,
-    backgroundColor: Palette.blue3,
-    marginRight: Dimensions.horizontalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall
-  },
-
-  messageHeaderAuthorColumn: {
-    flexDirection: 'column',
-    flex: 1
-  },
-
-  flexRow: {
-    flexDirection: 'row',
-    flex: 1
-  },
-
-  messageHeaderAuthorName: {
+  account: {
     fontSize: Typography.fontSizeNormal,
-    fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.text
+    maxWidth: 120,
+    color: Palette.brand.textWeak
   },
 
-  messageHeaderTimestamp: {
+  followed: {
+    fontSize: Typography.fontSizeNormal,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.brand.textWeak
+  },
+
+  timestamp: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.brand.textWeak
   }
 });
 
-export default class MessageHeader extends PureComponent<{msg: Msg}> {
+export default class AboutMessage extends PureComponent<{msg: Msg<About>}> {
   render() {
     const {msg} = this.props;
+    const accountTextProps = {
+      numberOfLines: 1,
+      ellipsizeMode: 'middle' as 'middle',
+      style: styles.account
+    };
 
-    const messageHeaderAuthorName = h(View, {style: styles.flexRow}, [
-      h(
-        Text,
-        {
-          numberOfLines: 1,
-          ellipsizeMode: 'middle',
-          style: styles.messageHeaderAuthorName
-        },
-        authorName(msg)
-      )
-    ]);
-
-    const messageHeaderTimestamp = h(View, {style: styles.flexRow}, [
-      h(
-        Text,
-        {style: styles.messageHeaderTimestamp},
-        String(msg.value.timestamp)
-      )
-    ]);
-
-    return h(View, {style: styles.messageHeaderRow}, [
-      h(View, {style: styles.messageAuthorImage}),
-      h(View, {style: styles.messageHeaderAuthorColumn}, [
-        messageHeaderAuthorName,
-        messageHeaderTimestamp
+    return h(MessageContainer, [
+      h(View, {style: styles.row}, [
+        h(Text, accountTextProps, authorName(msg)),
+        h(Text, {style: styles.followed}, ' is using the name '),
+        h(Text, accountTextProps, msg.value.content.name)
+      ]),
+      h(View, {style: styles.row}, [
+        h(Text, {style: styles.timestamp}, String(msg.value.timestamp))
       ])
     ]);
   }
