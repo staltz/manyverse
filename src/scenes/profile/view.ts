@@ -55,11 +55,13 @@ export default function view(feed$: Stream<Msg>, about$: Stream<About>) {
     h(View, {style: styles.container}, [
       h(ToolbarAndroid, {
         selector: 'toolbar',
-        title: about.name,
-        titleColor: Palette.white,
         navIcon: {uri: 'ic_arrow_left_white_24dp'},
         style: styles.toolbar
       }),
+      h(View, {style: styles.cover}, [
+        h(Text, {style: styles.name}, about.name)
+      ]),
+      h(View, {style: styles.avatar}),
       h(Feed, {selector: 'feed', feed, showPublishHeader: false})
     ])
   );
