@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
 
   header: {
     flexDirection: 'row',
-    minHeight: 55
+    minHeight: Dimensions.toolbarAndroidHeight
   },
 
   headerIcon: {
