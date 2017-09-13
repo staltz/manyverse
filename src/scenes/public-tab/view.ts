@@ -22,89 +22,9 @@ import {PureComponent, Component} from 'react';
 import {View, FlatList, Text, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
-import Message from '../../components/messages/Message';
-import MessageContainer from '../../components/messages/MessageContainer';
 import {Msg, isVoteMsg} from '../../ssb/types';
 import {styles} from './styles';
-
-type Feed = {
-  updated: number;
-  arr: Array<Msg>;
-};
-
-const emptyFeed: Feed = {
-  updated: 0,
-  arr: []
-};
-
-type PublicFeedProps = {
-  feed: Feed;
-  onPublish?: (event: {nativeEvent: {text: string}}) => void;
-  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
-};
-
-type PublicFeedHeaderProps = {
-  onPublish?: (event: {nativeEvent: {text: string}}) => void;
-};
-
-class PublicFeedHeader extends PureComponent<PublicFeedHeaderProps> {
-  render() {
-    const {onPublish} = this.props;
-    return h(MessageContainer, [
-      h(View, {style: styles.writeMessageRow}, [
-        h(View, {style: styles.writeMessageAuthorImage}),
-        h(TextInput, {
-          underlineColorAndroid: Palette.brand.textBackground,
-          placeholderTextColor: Palette.brand.textVeryWeak,
-          style: styles.writeInput,
-          placeholder: 'Write a public message',
-          selectionColor: Palette.brand.text,
-          returnKeyType: 'done',
-          onSubmitEditing: (ev: any) => {
-            if (onPublish) {
-              onPublish(ev);
-            }
-            // (Temporary or permanent) hack:
-            if (
-              ev &&
-              ev._targetInst &&
-              ev._targetInst._currentElement &&
-              ev._targetInst._currentElement._owner &&
-              ev._targetInst._currentElement._owner._instance &&
-              ev._targetInst._currentElement._owner._instance.clear
-            ) {
-              ev._targetInst._currentElement._owner._instance.clear();
-            }
-          }
-        })
-      ])
-    ]);
-  }
-}
-
-class PublicFeed extends Component<PublicFeedProps, {updated: number}> {
-  constructor(props: PublicFeedProps) {
-    super(props);
-    this.state = props.feed;
-  }
-
-  componentWillReceiveProps(props: any) {
-    if (props.feed.updated > this.state.updated) {
-      this.setState(props.feed);
-    }
-  }
-
-  render() {
-    const {feed, onPublish, onPressLike} = this.props;
-    return h(FlatList, {
-      data: feed.arr,
-      style: styles.container as any,
-      ListHeaderComponent: h(PublicFeedHeader, {onPublish}),
-      keyExtractor: (item: any, index: number) => item.key || String(index),
-      renderItem: ({item}: {item: Msg}) => h(Message, {msg: item, onPressLike})
-    });
-  }
-}
+import Feed, {FeedData, emptyFeed} from '../../components/Feed';
 
 /**
  * Whether or not the message should be shown in the feed.
@@ -115,7 +35,7 @@ function isShowableMsg(msg: Msg): boolean {
   return !isVoteMsg(msg);
 }
 
-function includeMsgIntoFeed(feed: Feed, msg: Msg) {
+function includeMsgIntoFeed(feed: FeedData, msg: Msg) {
   const index = feed.arr.findIndex(m => m.key === msg.key);
   if (index >= 0) {
     feed.arr[index] = msg;
@@ -130,7 +50,9 @@ function includeMsgIntoFeed(feed: Feed, msg: Msg) {
 export default function view(feed$: Stream<Msg>) {
   const vdom$ = feed$
     .fold(includeMsgIntoFeed, emptyFeed)
-    .map(feed => h(PublicFeed, {selector: 'publicFeed', feed}));
+    .map(feed =>
+      h(Feed, {selector: 'publicFeed', feed, showPublishHeader: true})
+    );
 
   return vdom$;
 }
