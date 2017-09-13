@@ -17,13 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
-import {ScreenSource} from '@cycle/native-screen';
+import {h, ScreenSource} from '@cycle/native-screen';
+import {View, Text} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {SSBSource} from './drivers/ssb';
-import {central} from './scenes/central/index';
-import {Content} from './ssb/types';
+import {SSBSource} from '../../drivers/ssb';
+import {PeerMetadata} from '../../ssb/types';
+import view from './view';
 
 export type Sources = {
   screen: ScreenSource;
@@ -34,11 +35,14 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   onion: Stream<Reducer<any>>;
-  statusBarAndroid: Stream<string>;
-  ssb: Stream<Content>;
 };
 
-export function main(sources: Sources): Sinks {
-  const centralSinks = central(sources);
-  return centralSinks;
+export function syncTab(sources: Sources): Sinks {
+  const vdom$ = view(sources.ssb.connectedPeers);
+  const reducer$ = xs.empty();
+
+  return {
+    screen: vdom$,
+    onion: reducer$
+  };
 }

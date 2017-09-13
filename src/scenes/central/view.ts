@@ -23,11 +23,11 @@ import {View, Text, TextInput, TouchableHighlight} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {PagerTabIndicator, IndicatorViewPager} from 'rn-viewpager';
-import BetterPagerTabIndicator from './components/BetterPagerTabIndicator';
-import {Palette} from './global-styles/palette';
-import {Dimensions as Dimens} from './global-styles/dimens';
+import {Palette} from '../../global-styles/palette';
+import {Dimensions as Dimens} from '../../global-styles/dimens';
+import {styles as globalStyles} from '../../global-styles/styles';
+import BetterPagerTabIndicator from '../../components/BetterPagerTabIndicator';
 import {styles, iconProps} from './styles';
-import {styles as globalStyles} from './global-styles/styles';
 
 function renderHeader() {
   return h(View, {style: styles.header}, [

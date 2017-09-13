@@ -21,10 +21,11 @@ import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {SSBSource} from '../drivers/ssb';
-import intent, {Actions} from './intent';
+import {Content} from '../../ssb/types';
+import {SSBSource} from '../../drivers/ssb';
+import {publicTab} from '../public-tab/index';
+import {syncTab} from '../sync-tab/index';
 import view from './view';
-import {Content, PostContent, VoteContent} from '../ssb/types';
 
 export type Sources = {
   screen: ScreenSource;
@@ -35,41 +36,20 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   onion: Stream<Reducer<any>>;
-  ssb: Stream<any>;
+  statusBarAndroid: Stream<string>;
+  ssb: Stream<Content>;
 };
 
-function prepareForSSB(actions: Actions): Stream<Content> {
-  const publishMsg$ = actions.publishMsg.map(text => {
-    return {
-      text,
-      type: 'post',
-      mentions: []
-    } as PostContent;
-  });
-
-  const toggleLikeMsg$ = actions.likeMsg.map(ev => {
-    return {
-      type: 'vote',
-      vote: {
-        link: ev.msgKey,
-        value: ev.like ? 1 : 0,
-        expression: ev.like ? 'Like' : 'Unlike'
-      }
-    } as VoteContent;
-  });
-
-  return xs.merge(publishMsg$, toggleLikeMsg$);
-}
-
-export function publicTab(sources: Sources): Sinks {
-  const actions = intent(sources.screen);
-  const vdom$ = view(sources.ssb.feed);
-  const newContent$ = prepareForSSB(actions);
+export function central(sources: Sources): Sinks {
+  const publicTabSinks = publicTab(sources);
+  const syncTabSinks = syncTab(sources);
+  const {vdom$, statusBar$} = view(publicTabSinks.screen, syncTabSinks.screen);
   const reducer$ = xs.empty();
 
   return {
     screen: vdom$,
     onion: reducer$,
-    ssb: newContent$
+    statusBarAndroid: statusBar$,
+    ssb: publicTabSinks.ssb
   };
 }

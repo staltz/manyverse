@@ -22,7 +22,7 @@ const {watch, Set: MutantSet} = require('mutant');
 const pull = require('pull-stream');
 import {PeerMetadata} from '../types';
 
-const metadataOpinion = {
+const gossipOpinion = {
   gives: nest('sbot.obs.connectedPeers'),
   needs: nest('sbot.obs.connection', 'first'),
   create: (api: any) => {
@@ -64,4 +64,4 @@ const metadataOpinion = {
   }
 };
 
-export default metadataOpinion;
+export default gossipOpinion;

@@ -22,7 +22,7 @@ import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 import {isMsg, Msg, PeerMetadata, Content} from '../ssb/types';
 import aboutSyncOpinion from '../ssb/opinions/about/sync';
 import makeKeysOpinion from '../ssb/opinions/keys';
-import metadataOpinion from '../ssb/opinions/metadata';
+import gossipOpinion from '../ssb/opinions/gossip';
 import xsFromPullStream from '../to-publish/xs-from-pull-stream';
 import xsFromMutant from '../to-publish/xs-from-mutant';
 const blobUrlOpinion = require('patchcore/blob/sync/url');
@@ -98,7 +98,7 @@ export function ssbDriver(sink: Stream<Content>): SSBSource {
       configOpinion,
       makeKeysOpinion(keys),
       sbotOpinion,
-      metadataOpinion,
+      gossipOpinion,
       backlinksOpinion,
       aboutOpinion,
       unboxOpinion,

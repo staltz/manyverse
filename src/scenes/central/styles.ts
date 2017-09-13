@@ -18,14 +18,14 @@
  */
 
 import {StyleSheet} from 'react-native';
-import {Dimensions as Dimens} from './global-styles/dimens';
-import {Typography} from './global-styles/typography';
-import {Palette} from './global-styles/palette';
+import {Palette} from '../../global-styles/palette';
+import {Dimensions} from '../../global-styles/dimens';
+import {Typography} from '../../global-styles/typography';
 
 const _tabItem = {
   backgroundColor: Palette.brand.background,
-  paddingTop: Dimens.verticalSpaceNormal,
-  paddingBottom: Dimens.verticalSpaceNormal
+  paddingTop: Dimensions.verticalSpaceNormal,
+  paddingBottom: Dimensions.verticalSpaceNormal
 };
 
 export const styles = StyleSheet.create({
@@ -40,11 +40,11 @@ export const styles = StyleSheet.create({
   },
 
   headerIcon: {
-    marginLeft: Dimens.horizontalSpaceBig,
-    marginRight: Dimens.horizontalSpaceBig,
-    marginTop: Dimens.verticalSpaceNormal,
-    width: Dimens.iconSizeNormal,
-    height: Dimens.iconSizeNormal
+    marginLeft: Dimensions.horizontalSpaceBig,
+    marginRight: Dimensions.horizontalSpaceBig,
+    marginTop: Dimensions.verticalSpaceNormal,
+    width: Dimensions.iconSizeNormal,
+    height: Dimensions.iconSizeNormal
   },
 
   indicatorViewPager: {
@@ -83,17 +83,17 @@ export const styles = StyleSheet.create({
 
 export const iconProps = {
   headerIcon: {
-    size: Dimens.iconSizeNormal,
+    size: Dimensions.iconSizeNormal,
     color: Palette.white
   },
 
   tab: {
-    size: Dimens.iconSizeNormal,
+    size: Dimensions.iconSizeNormal,
     color: Palette.brand.backgroundDarkerContrast
   },
 
   tabSelected: {
-    size: Dimens.iconSizeNormal,
+    size: Dimensions.iconSizeNormal,
     color: Palette.white
   }
 };

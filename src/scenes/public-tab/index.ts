@@ -17,13 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {SSBSource} from './drivers/ssb';
-import {central} from './scenes/central/index';
-import {Content} from './ssb/types';
+import {Content, PostContent, VoteContent} from '../../ssb/types';
+import {SSBSource} from '../../drivers/ssb';
+import intent, {Actions} from './intent';
+import view from './view';
 
 export type Sources = {
   screen: ScreenSource;
@@ -34,11 +35,41 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   onion: Stream<Reducer<any>>;
-  statusBarAndroid: Stream<string>;
-  ssb: Stream<Content>;
+  ssb: Stream<any>;
 };
 
-export function main(sources: Sources): Sinks {
-  const centralSinks = central(sources);
-  return centralSinks;
+function prepareForSSB(actions: Actions): Stream<Content> {
+  const publishMsg$ = actions.publishMsg.map(text => {
+    return {
+      text,
+      type: 'post',
+      mentions: []
+    } as PostContent;
+  });
+
+  const toggleLikeMsg$ = actions.likeMsg.map(ev => {
+    return {
+      type: 'vote',
+      vote: {
+        link: ev.msgKey,
+        value: ev.like ? 1 : 0,
+        expression: ev.like ? 'Like' : 'Unlike'
+      }
+    } as VoteContent;
+  });
+
+  return xs.merge(publishMsg$, toggleLikeMsg$);
+}
+
+export function publicTab(sources: Sources): Sinks {
+  const actions = intent(sources.screen);
+  const vdom$ = view(sources.ssb.feed);
+  const newContent$ = prepareForSSB(actions);
+  const reducer$ = xs.empty();
+
+  return {
+    screen: vdom$,
+    onion: reducer$,
+    ssb: newContent$
+  };
 }

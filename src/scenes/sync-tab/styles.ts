@@ -18,34 +18,38 @@
  */
 
 import {StyleSheet} from 'react-native';
-import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
-import {Palette} from '../global-styles/palette';
+import {Dimensions as Dimens} from '../../global-styles/dimens';
+import {Typography} from '../../global-styles/typography';
+import {Palette} from '../../global-styles/palette';
 
 export const styles = StyleSheet.create({
-  writeMessageRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1
-  },
-
-  writeMessageAuthorImage: {
-    height: 45,
-    width: 45,
-    borderRadius: 3,
-    backgroundColor: Palette.blue3,
-    marginRight: Dimensions.horizontalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall
-  },
-
-  writeInput: {
-    flex: 1,
-    fontSize: Typography.fontSizeBig,
-    color: Palette.brand.text
-  },
-
   container: {
+    backgroundColor: Palette.brand.darkVoidBackground,
     alignSelf: 'stretch',
     flex: 1
+  },
+
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+
+  headerText: {
+    color: Palette.brand.darkTextWeak,
+    fontSize: Typography.fontSizeNormal,
+    marginLeft: Dimens.horizontalSpaceBig,
+    marginTop: Dimens.verticalSpaceBig,
+    marginBottom: Dimens.verticalSpaceBig
+  },
+
+  infoIcon: {
+    marginLeft: Dimens.horizontalSpaceSmall
   }
 });
+
+export const iconProps = {
+  info: {
+    size: Dimens.iconSizeSmall,
+    color: Palette.brand.darkTextWeak
+  }
+};

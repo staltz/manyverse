@@ -17,32 +17,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
-import {ReactElement} from 'react';
-import {h, ScreenSource} from '@cycle/native-screen';
-import {View, Text} from 'react-native';
-import {StateSource, Reducer} from 'cycle-onionify';
-import {SSBSource} from '../drivers/ssb';
-import {PeerMetadata} from '../ssb/types';
-import view from './view';
+import {StyleSheet} from 'react-native';
+import {Dimensions} from '../../global-styles/dimens';
+import {Typography} from '../../global-styles/typography';
+import {Palette} from '../../global-styles/palette';
 
-export type Sources = {
-  screen: ScreenSource;
-  onion: StateSource<any>;
-  ssb: SSBSource;
-};
+export const styles = StyleSheet.create({
+  writeMessageRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1
+  },
 
-export type Sinks = {
-  screen: Stream<ReactElement<any>>;
-  onion: Stream<Reducer<any>>;
-};
+  writeMessageAuthorImage: {
+    height: 45,
+    width: 45,
+    borderRadius: 3,
+    backgroundColor: Palette.blue3,
+    marginRight: Dimensions.horizontalSpaceSmall,
+    marginBottom: Dimensions.verticalSpaceSmall
+  },
 
-export function metadataTab(sources: Sources): Sinks {
-  const vdom$ = view(sources.ssb.connectedPeers);
-  const reducer$ = xs.empty();
+  writeInput: {
+    flex: 1,
+    fontSize: Typography.fontSizeBig,
+    color: Palette.brand.text
+  },
 
-  return {
-    screen: vdom$,
-    onion: reducer$
-  };
-}
+  container: {
+    alignSelf: 'stretch',
+    flex: 1
+  }
+});
