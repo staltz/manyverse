@@ -21,7 +21,6 @@ import xs, {Stream} from 'xstream';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 import {isMsg, Msg, PeerMetadata, Content} from '../ssb/types';
 import aboutSyncOpinion from '../ssb/opinions/about/sync';
-import configOpinion from '../ssb/opinions/config';
 import makeKeysOpinion from '../ssb/opinions/keys';
 import metadataOpinion from '../ssb/opinions/metadata';
 import xsFromPullStream from '../to-publish/xs-from-pull-stream';
@@ -41,6 +40,19 @@ const emptyHookOpinion = {
   gives: nest('sbot.hook.publish'),
   create: (api: any) => {
     return nest('sbot.hook.publish', () => {});
+  }
+};
+
+const configOpinion = {
+  gives: nest('config.sync.load'),
+  create: (api: any) => {
+    let config: any;
+    return nest('config.sync.load', () => {
+      if (!config) {
+        config = Config('ssb');
+      }
+      return config;
+    });
   }
 };
 
