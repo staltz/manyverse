@@ -17,20 +17,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
+import xs, {Stream} from 'xstream';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
-import {isMsg, FeedId, Msg, PeerMetadata, Content} from '../ssb/types';
-import {shortFeedId} from '../ssb/utils';
-const ssbClient = require('react-native-ssb-client');
-const depjectCombine = require('depject');
-const pull = require('pull-stream');
-const {watch, Set: MutantSet} = require('mutant');
+import {isMsg, Msg, PeerMetadata, Content} from '../ssb/types';
+import aboutSyncOpinion from '../ssb/opinions/about/sync';
+import configOpinion from '../ssb/opinions/config';
+import makeKeysOpinion from '../ssb/opinions/keys';
+import metadataOpinion from '../ssb/opinions/metadata';
+import xsFromPullStream from '../to-publish/xs-from-pull-stream';
+import xsFromMutant from '../to-publish/xs-from-mutant';
+const blobUrlOpinion = require('patchcore/blob/sync/url');
 const sbotOpinion = require('patchcore/sbot');
-const msgLikesOpinion = require('patchcore/message/obs/likes');
-const unboxOpinion = require('patchcore/message/sync/unbox');
 const backlinksOpinion = require('patchcore/backlinks/obs');
 const aboutOpinion = require('patchcore/about/obs');
-const blobUrlOpinion = require('patchcore/blob/sync/url');
+const unboxOpinion = require('patchcore/message/sync/unbox');
+const msgLikesOpinion = require('patchcore/message/obs/likes');
+const ssbClient = require('react-native-ssb-client');
+const depjectCombine = require('depject');
 const Config = require('ssb-config/inject');
 const nest = require('depnest');
 
@@ -40,128 +43,6 @@ const emptyHookOpinion = {
     return nest('sbot.hook.publish', () => {});
   }
 };
-
-const shortFeedIdOpinion = {
-  gives: nest('about.sync.shortFeedId'),
-  create: (api: any) => {
-    return nest('about.sync.shortFeedId', shortFeedId);
-  }
-};
-
-const configOpinion = {
-  gives: nest('config.sync.load'),
-  create: (api: any) => {
-    let config: any;
-    return nest('config.sync.load', () => {
-      if (!config) {
-        config = Config('ssb');
-      }
-      return config;
-    });
-  }
-};
-
-function makeKeysOpinion(keys: any): any {
-  const keysOpinion = {
-    needs: nest('config.sync.load', 'first'),
-    gives: nest({
-      'keys.sync': ['load', 'id']
-    }),
-
-    create: (api: any) => {
-      return nest({
-        'keys.sync': {load, id}
-      });
-      function id() {
-        return load().id;
-      }
-      function load() {
-        return keys;
-      }
-    }
-  };
-  return keysOpinion;
-}
-
-const metadataOpinion = {
-  gives: nest('sbot.obs.connectedPeers'),
-  needs: nest('sbot.obs.connection', 'first'),
-  create: (api: any) => {
-    const connectedPeers = MutantSet();
-    watch(api.sbot.obs.connection, (sbot: any) => {
-      if (sbot) {
-        sbot.gossip.peers((err: any, peers: Array<PeerMetadata>) => {
-          if (err) return console.error(err);
-          connectedPeers.set(peers.filter(x => x.state === 'connected'));
-        });
-        pull(
-          sbot.gossip.changes(),
-          pull.drain((data: any) => {
-            if (data.peer) {
-              if (data.type === 'remove') {
-                connectedPeers.delete(data.peer.key);
-              } else {
-                if (data.peer.source === 'local') {
-                }
-                if (data.peer.state === 'connected') {
-                  connectedPeers.add(data.peer.key);
-                } else {
-                  connectedPeers.delete(data.peer.key);
-                }
-              }
-            }
-          })
-        );
-      }
-    });
-
-    return {
-      sbot: {
-        obs: {
-          connectedPeers: () => connectedPeers
-        }
-      }
-    };
-  }
-};
-
-function xsFromPullStream<T>(pullStream: any): Stream<T> {
-  return xs.create({
-    start(listener: Listener<T>): void {
-      const drain = function drain(read: Function) {
-        read(null, function more(end: any | boolean, data: T) {
-          if (end === true) {
-            listener.complete();
-            return;
-          }
-          if (end) {
-            listener.error(end);
-            return;
-          }
-          listener.next(data);
-          read(null, more);
-        });
-      };
-      try {
-        drain(pullStream);
-      } catch (e) {
-        listener.error(e);
-      }
-    },
-    stop(): void {}
-  });
-}
-
-function xsFromMutant<T>(mutantStream: any): Stream<T> {
-  return xs.create({
-    start(listener: Listener<T>): void {
-      watch(mutantStream, (value: T) => {
-        listener.next(value);
-      });
-    },
-    stop(): void {}
-  });
-}
 
 function isNotSync(msg: any): boolean {
   return !msg.sync;
@@ -201,7 +82,7 @@ export function ssbDriver(sink: Stream<Content>): SSBSource {
     return depjectCombine([
       emptyHookOpinion,
       blobUrlOpinion,
-      shortFeedIdOpinion,
+      aboutSyncOpinion,
       configOpinion,
       makeKeysOpinion(keys),
       sbotOpinion,
