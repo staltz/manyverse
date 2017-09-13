@@ -1,0 +1,16 @@
+diff --git a/node_modules/react-native-tcp/android/src/main/java/com/peel/react/TcpSocketsModule.java b/node_modules/react-native-tcp/android/src/main/java/com/peel/react/TcpSocketsModule.java
+index 3690bf9..eb673eb 100644
+--- a/node_modules/react-native-tcp/android/src/main/java/com/peel/react/TcpSocketsModule.java
++++ b/node_modules/react-native-tcp/android/src/main/java/com/peel/react/TcpSocketsModule.java
+@@ -28,11 +28,6 @@ public final class TcpSocketsModule implements ReactPackage {
+         return modules;
+     }
+ 
+-    @Override
+-    public List<Class<? extends JavaScriptModule>> createJSModules() {
+-        return Collections.emptyList();
+-    }
+-
+     @Override
+     public List<ViewManager> createViewManagers(
+             ReactApplicationContext reactContext) {

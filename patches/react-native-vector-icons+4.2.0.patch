@@ -1,0 +1,16 @@
+diff --git a/node_modules/react-native-vector-icons/android/src/main/java/com/oblador/vectoricons/VectorIconsPackage.java b/node_modules/react-native-vector-icons/android/src/main/java/com/oblador/vectoricons/VectorIconsPackage.java
+index ce0b639..00603df 100755
+--- a/node_modules/react-native-vector-icons/android/src/main/java/com/oblador/vectoricons/VectorIconsPackage.java
++++ b/node_modules/react-native-vector-icons/android/src/main/java/com/oblador/vectoricons/VectorIconsPackage.java
+@@ -23,11 +23,6 @@ public class VectorIconsPackage implements ReactPackage {
+     return modules;
+   }
+
+-  @Override
+-  public List<Class<? extends JavaScriptModule>> createJSModules() {
+-    return Collections.emptyList();
+-  }
+-
+   @Override
+   public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
+     return Collections.emptyList();

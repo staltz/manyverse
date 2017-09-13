@@ -1,0 +1,16 @@
+diff --git a/node_modules/react-native-os/android/src/main/java/com/peel/react/RNOSModule.java b/node_modules/react-native-os/android/src/main/java/com/peel/react/RNOSModule.java
+index 8519249..9a86658 100644
+--- a/node_modules/react-native-os/android/src/main/java/com/peel/react/RNOSModule.java
++++ b/node_modules/react-native-os/android/src/main/java/com/peel/react/RNOSModule.java
+@@ -28,11 +28,6 @@ public final class RNOSModule implements ReactPackage {
+         return modules;
+     }
+
+-    @Override
+-    public List<Class<? extends JavaScriptModule>> createJSModules() {
+-        return Collections.emptyList();
+-    }
+-
+     @Override
+     public List<ViewManager> createViewManagers(
+             ReactApplicationContext reactContext) {

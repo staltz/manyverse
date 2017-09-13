@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "lib": "tsc",
+    "prepare": "patch-package",
     "propagate-replacements": "propagate-replacement-fields --field=react-native",
     "start": "npm run lib && npm run propagate-replacements && node node_modules/react-native/local-cli/cli.js start",
     "test-e2e-android": "cd android/app && ./test-features.sh || cd ../..",
@@ -11,7 +12,7 @@
   },
   "dependencies": {
     "@cycle/isolate": "3.0.x",
-    "@cycle/native-screen": "1.0.0-rc.3",
+    "@cycle/native-screen": "1.0.0-rc.4",
     "@cycle/run": "3.1.x",
     "@types/react": "15.0.38",
     "@types/react-native": "0.46.4",
@@ -26,9 +27,9 @@
     "prop-types": "^15.5.10",
     "pull-stream": "3.6.0",
     "react": "16.0.0-alpha.12",
-    "react-native": "0.45.1",
+    "react-native": "0.48.3",
     "react-native-android-statusbar": "^0.1.3",
-    "react-native-scuttlebot": "10.4.9",
+    "react-native-scuttlebot": "file:../react-native-scuttlebot",
     "react-native-simple-markdown": "^1.0.60-rc.3",
     "react-native-ssb-client": "2.0.2",
     "react-native-vector-icons": "^4.2.0",
@@ -40,10 +41,12 @@
     "babel-jest": "20.0.3",
     "babel-preset-react-native": "2.1.0",
     "jest": "20.0.4",
+    "patch-package": "^3.4.0",
     "prettier": "1.5.x",
     "propagate-replacement-fields": "1.2.0",
     "react-test-renderer": "16.0.0-alpha.12",
-    "typescript": "2.4.x"
+    "typescript": "2.4.x",
+    "yarn": "^1.0.1"
   },
   "jest": {
     "preset": "react-native"

@@ -1,6 +1,6 @@
 # Next (ordered list of at most 4 tasks)
 
-- Upgrade to React Native v0.48
+- Upgrade basic Cycle.js packages
 - Run in low-end Android device, armv7
 
 # Must
