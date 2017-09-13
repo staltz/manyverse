@@ -1,11 +1,10 @@
-# Next (ordered list of at most 4 tasks)
+# Next
 
-- Upgrade basic Cycle.js packages
+- Basic profile screen
 - Run in low-end Android device, armv7
 
 # Must
 
-- Basic profile screen
 - Basic private messages tab
 - Basic notifications tab
 - Nav drawer
@@ -14,18 +13,18 @@
 
 - Leveldown compiled for Android
 - node-sodium compiled for Android
-- Channels in Nav drawer
+- Group messages as thread
 - Sections in Metadata tab: LAN and WAN
 - Add WAN peer
-- Search field
-- Settings screen
-  - Configure which messages to show and which to hide
 
 # Could
 
+- Search field
+- Channels in Nav drawer
+- Settings screen
+  - Configure which messages to show and which to hide
 - View likes as a dialog
 - Metadata tab: WAN globe diagram
-- Group messages as thread
 
 # Maybe
 
