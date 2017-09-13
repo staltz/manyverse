@@ -19,10 +19,11 @@
 
 import xs, {Stream} from 'xstream';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
-import {isMsg, Msg, PeerMetadata, Content} from '../ssb/types';
+import {isMsg, Msg, PeerMetadata, Content, FeedId, About} from '../ssb/types';
 import aboutSyncOpinion from '../ssb/opinions/about/sync';
 import makeKeysOpinion from '../ssb/opinions/keys';
 import gossipOpinion from '../ssb/opinions/gossip';
+import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
 import xsFromPullStream from '../to-publish/xs-from-pull-stream';
 import xsFromMutant from '../to-publish/xs-from-mutant';
 const blobUrlOpinion = require('patchcore/blob/sync/url');
@@ -60,11 +61,6 @@ function isNotSync(msg: any): boolean {
   return !msg.sync;
 }
 
-export type SSBSource = {
-  feed: Stream<any>;
-  connectedPeers: Stream<Array<PeerMetadata>>;
-};
-
 function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
   if (isMsg(msg)) {
     const likes$ = xsFromMutant(api.message.obs.likes[0](msg.key));
@@ -78,7 +74,7 @@ function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
           msg.value._derived.ilike = likes.some(
             key => key === api.keys.sync.id[0]()
           );
-          msg.value._derived.about = {name};
+          msg.value._derived.about = {name, description: ''};
         }
         return msg;
       });
@@ -87,41 +83,85 @@ function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
   }
 }
 
+export class SSBSource {
+  public selfFeedId$: Stream<FeedId>;
+  public publicFeed$: Stream<Msg>;
+  public localSyncPeers$: Stream<Array<PeerMetadata>>;
+
+  constructor(private api$: Stream<any>) {
+    this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]());
+
+    this.publicFeed$ = api$
+      .take(1)
+      .map(api =>
+        xsFromPullStream<any>(
+          api.sbot.pull.feed[0]({reverse: false, limit: 100, live: true})
+        )
+          .map(msg => addDerivedDataToMessage(msg, api))
+          .compose(flattenConcurrently)
+      )
+      .flatten()
+      .filter(isNotSync);
+
+    this.localSyncPeers$ = api$
+      .map(api => xsFromMutant<any>(api.sbot.obs.connectedPeers[1]()))
+      .flatten();
+  }
+
+  profileFeed$(id: FeedId): Stream<Msg> {
+    return this.api$
+      .map(api =>
+        xsFromPullStream<any>(
+          api.feed.pull.profile[0](id)({
+            lt: 100,
+            live: true,
+            limit: 100,
+            reverse: false
+          })
+        )
+      )
+      .flatten()
+      .filter(isNotSync);
+  }
+
+  profileAbout$(id: FeedId): Stream<About> {
+    return this.api$
+      .map(api => {
+        const name$: Stream<string> = xsFromMutant(api.about.obs.name[0](id));
+        const description$: Stream<string> = xsFromMutant(
+          api.about.obs.description[0](id)
+        );
+        return xs
+          .combine(name$, description$)
+          .map(([name, description]) => ({name, description, id}));
+      })
+      .flatten();
+  }
+}
+
 export function ssbDriver(sink: Stream<Content>): SSBSource {
   const keys$ = xs.fromPromise(ssbClient.fetchKeys(Config('ssb')));
 
-  const api$ = keys$.map(keys => {
-    return depjectCombine([
-      emptyHookOpinion,
-      blobUrlOpinion,
-      aboutSyncOpinion,
-      configOpinion,
-      makeKeysOpinion(keys),
-      sbotOpinion,
-      gossipOpinion,
-      backlinksOpinion,
-      aboutOpinion,
-      unboxOpinion,
-      msgLikesOpinion
-    ]);
-  });
+  const api$ = keys$
+    .map(keys => {
+      return depjectCombine([
+        emptyHookOpinion,
+        blobUrlOpinion,
+        aboutSyncOpinion,
+        configOpinion,
+        makeKeysOpinion(keys),
+        sbotOpinion,
+        feedProfileOpinion,
+        gossipOpinion,
+        backlinksOpinion,
+        aboutOpinion,
+        unboxOpinion,
+        msgLikesOpinion
+      ]);
+    })
+    .remember();
 
-  const feed$ = api$
-    .take(1)
-    .map(api =>
-      xsFromPullStream<any>(
-        api.sbot.pull.feed[0]({reverse: false, limit: 100, live: true})
-      )
-        .map(msg => addDerivedDataToMessage(msg, api))
-        .compose(flattenConcurrently)
-    )
-    .flatten()
-    .filter(isNotSync);
-
-  const connectedPeers$ = api$
-    .map(api => xsFromMutant<any>(api.sbot.obs.connectedPeers[1]()))
-    .flatten();
-
+  // Consume the sink
   api$
     .map(api => sink.map(newContent => [api, newContent]))
     .flatten()
@@ -131,8 +171,5 @@ export function ssbDriver(sink: Stream<Content>): SSBSource {
       }
     });
 
-  return {
-    feed: feed$,
-    connectedPeers: connectedPeers$
-  };
+  return new SSBSource(api$);
 }

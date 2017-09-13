@@ -62,6 +62,8 @@ export type BlobId = string;
 
 export type About = {
   name: string;
+  description?: string;
+  id?: FeedId;
 };
 
 export type Msg<C = Content> = {

@@ -63,7 +63,7 @@ function prepareForSSB(actions: Actions): Stream<Content> {
 
 export function publicTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
-  const vdom$ = view(sources.ssb.feed);
+  const vdom$ = view(sources.ssb.publicFeed$);
   const newContent$ = prepareForSSB(actions);
   const reducer$ = xs.empty();
 

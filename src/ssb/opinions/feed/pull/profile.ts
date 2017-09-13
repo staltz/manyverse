@@ -17,32 +17,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
-import {ReactElement} from 'react';
-import {h, ScreenSource} from '@cycle/native-screen';
-import {View, Text} from 'react-native';
-import {StateSource, Reducer} from 'cycle-onionify';
-import {SSBSource} from '../../drivers/ssb';
-import {PeerMetadata} from '../../ssb/types';
-import view from './view';
+const nest = require('depnest');
+const pull = require('pull-stream');
 
-export type Sources = {
-  screen: ScreenSource;
-  onion: StateSource<any>;
-  ssb: SSBSource;
+const feedProfileOpinion = {
+  gives: nest('feed.pull.profile'),
+  needs: nest('sbot.pull.userFeed', 'first'),
+  create: function(api: any) {
+    return nest('feed.pull.profile', (id: string) => {
+      // handle last item passed in as lt
+      return function(opts: any) {
+        const moreOpts = {
+          ...opts,
+          id,
+          lt: opts.lt && opts.lt.value ? opts.lt.value.sequence : opts.lt
+        };
+        return pull(
+          api.sbot.pull.userFeed(moreOpts)
+          // pull.filter(msg => {
+          //   return typeof msg.value.content !== 'string';
+          // })
+        );
+      };
+    });
+  }
 };
 
-export type Sinks = {
-  screen: Stream<ReactElement<any>>;
-  onion: Stream<Reducer<any>>;
-};
-
-export function syncTab(sources: Sources): Sinks {
-  const vdom$ = view(sources.ssb.localSyncPeers$);
-  const reducer$ = xs.empty();
-
-  return {
-    screen: vdom$,
-    onion: reducer$
-  };
-}
+export default feedProfileOpinion;

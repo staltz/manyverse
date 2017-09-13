@@ -26,10 +26,10 @@ import {PeerMetadata} from '../../ssb/types';
 import LocalPeerMetadata from '../../components/LocalPeerMetadata';
 import {styles, iconProps} from './styles';
 
-export default function view(connectedPeers$: Stream<Array<PeerMetadata>>) {
-  return connectedPeers$.map(connectedPeers =>
+export default function view(localSyncPeers$: Stream<Array<PeerMetadata>>) {
+  return localSyncPeers$.map(localSyncPeers =>
     h(FlatList, {
-      data: connectedPeers,
+      data: localSyncPeers,
       style: styles.container as any,
       ListHeaderComponent: h(View, {style: styles.headerContainer}, [
         h(Text, {style: styles.headerText}, 'Peers around you'),
