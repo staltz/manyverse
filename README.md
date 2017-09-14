@@ -1,5 +1,7 @@
 # MMMMM client for Secure Scuttlebutt
 
+***ALPHA version! This is heavily under construction, not ready for real usage.***
+
 ## Install dependencies
 
 Use node `v6.9.1` and yarn `v0.27.5`.
