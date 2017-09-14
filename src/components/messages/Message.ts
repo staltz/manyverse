@@ -23,7 +23,13 @@ import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {Msg, isPostMsg, isContactMsg, isAboutMsg} from '../../ssb/types';
+import {
+  Msg,
+  isPostMsg,
+  isContactMsg,
+  isAboutMsg,
+  FeedId
+} from '../../ssb/types';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
@@ -35,6 +41,7 @@ import Metadata from './Metadata';
 export type Props = {
   msg: Msg;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+  onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
 export class KeylessMessage extends Component<{msg: any}> {

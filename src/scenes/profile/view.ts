@@ -26,45 +26,27 @@ import Feed, {FeedData, emptyFeed} from '../../components/Feed';
 import {Msg, isVoteMsg, About} from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
 import {styles} from './styles';
+import {State} from './model';
 
-/**
- * Whether or not the message should be shown in the feed.
- *
- * TODO: This should be configurable in the app settings!
- */
-function isShowableMsg(msg: Msg): boolean {
-  return !isVoteMsg(msg);
-}
-
-function includeMsgIntoFeed(feed: FeedData, msg: Msg) {
-  const index = feed.arr.findIndex(m => m.key === msg.key);
-  if (index >= 0) {
-    feed.arr[index] = msg;
-    feed.updated += 1;
-  } else if (isShowableMsg(msg)) {
-    feed.arr.unshift(msg);
-    feed.updated += 1;
-  }
-  return feed;
-}
-
-export default function view(feed$: Stream<Msg>, about$: Stream<About>) {
-  const feedArray$ = feed$.fold(includeMsgIntoFeed, emptyFeed);
-
-  const vdom$ = xs.combine(feedArray$, about$).map(([feed, about]) =>
-    h(View, {style: styles.container}, [
-      h(ToolbarAndroid, {
-        selector: 'toolbar',
-        navIcon: {uri: 'ic_arrow_left_white_24dp'},
-        style: styles.toolbar
-      }),
+export default function view(state$: Stream<State>) {
+  const vdom$ = state$.map((state: State) => ({
+    screen: 'mmmmm.Profile',
+    vdom: h(View, {style: styles.container}, [
       h(View, {style: styles.cover}, [
-        h(Text, {style: styles.name}, about.name)
+        h(Text, {style: styles.name}, state.about.name)
       ]),
       h(View, {style: styles.avatar}),
-      h(Feed, {selector: 'feed', feed, showPublishHeader: false})
+      h(View, {style: styles.descriptionArea}, [
+        h(Text, {style: styles.description}, state.about.description || '')
+      ]),
+      h(Feed, {
+        selector: 'feed',
+        style: styles.feed,
+        feed: state.feed,
+        showPublishHeader: state.displayFeedId === state.selfFeedId
+      })
     ])
-  );
+  }));
 
   return {
     vdom$: vdom$,

@@ -23,8 +23,11 @@ import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Content} from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
+import {ScreenVNode, Command, PushCommand} from '../../drivers/navigation';
 import {publicTab} from '../public-tab/index';
 import {syncTab} from '../sync-tab/index';
+import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
+import intent, {Actions} from './intent';
 import view from './view';
 
 export type Sources = {
@@ -34,22 +37,43 @@ export type Sources = {
 };
 
 export type Sinks = {
-  screen: Stream<ReactElement<any>>;
+  screen: Stream<ScreenVNode>;
+  navCommand: Stream<Command>;
   onion: Stream<Reducer<any>>;
-  statusBarAndroid: Stream<string>;
   ssb: Stream<Content>;
 };
+
+function navigationCommands(
+  actions: Actions,
+  other$: Stream<Command>
+): Stream<Command> {
+  const centralCommand$: Stream<Command> = actions.goToSelfProfile.mapTo(
+    {
+      type: 'push',
+      screen: 'mmmmm.Profile',
+      navigatorStyle: profileNavigatorStyle,
+      animated: true,
+      animationType: 'slide-horizontal'
+    } as PushCommand
+  );
+
+  return xs.merge(centralCommand$, other$);
+}
 
 export function central(sources: Sources): Sinks {
   const publicTabSinks = publicTab(sources);
   const syncTabSinks = syncTab(sources);
+
+  const actions = intent(sources.screen);
+  const command$ = navigationCommands(actions, publicTabSinks.navCommand);
+
   const {vdom$, statusBar$} = view(publicTabSinks.screen, syncTabSinks.screen);
   const reducer$ = xs.empty();
 
   return {
     screen: vdom$,
-    onion: reducer$,
-    statusBarAndroid: statusBar$,
+    onion: xs.never(),
+    navCommand: command$,
     ssb: publicTabSinks.ssb
   };
 }

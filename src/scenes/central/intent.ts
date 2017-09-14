@@ -19,30 +19,13 @@
 
 import {Stream} from 'xstream';
 import {ScreenSource} from '@cycle/native-screen';
-import {FeedId} from '../../ssb/types';
-
-export type LikeEvent = {msgKey: string; like: boolean};
-export type ProfileNavEvent = {authorFeedId: FeedId};
 
 export type Actions = {
-  publishMsg: Stream<string>;
-  likeMsg: Stream<LikeEvent>;
-  goToProfile: Stream<ProfileNavEvent>;
+  goToSelfProfile: Stream<null>;
 };
 
 export default function intent(source: ScreenSource): Actions {
   return {
-    publishMsg: source
-      .select('publicFeed')
-      .events('publish')
-      .map(ev => ev.nativeEvent.text) as Stream<string>,
-
-    likeMsg: source.select('publicFeed').events('pressLike') as Stream<
-      LikeEvent
-    >,
-
-    goToProfile: source.select('publicFeed').events('pressAuthor') as Stream<
-      ProfileNavEvent
-    >
+    goToSelfProfile: source.select('self-profile').events('press').mapTo(null)
   };
 }

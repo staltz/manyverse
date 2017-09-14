@@ -27,7 +27,7 @@ import {Typography as Typ} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
-import {Msg, PostContent as Post} from '../../ssb/types';
+import {Msg, PostContent as Post, FeedId} from '../../ssb/types';
 
 export const styles = StyleSheet.create({
   blockQuote: {
@@ -263,6 +263,7 @@ function materializeMarkdown(content: Post): string {
 export type Props = {
   msg: Msg<Post>;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+  onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
 export default class PostMessage extends Component<Props> {

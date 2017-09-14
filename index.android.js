@@ -21,13 +21,28 @@ import {run} from '@cycle/run';
 import {makeScreenDriver} from '@cycle/native-screen';
 import {main} from './lib/main';
 import onionify from 'cycle-onionify';
-import {statusBarDriver} from './lib/drivers/statusBarAndroid';
 import {ssbDriver} from './lib/drivers/ssb';
+import {makeSingleScreenNavDrivers} from './lib/drivers/navigation';
+import {Palette} from './lib/global-styles/palette';
+import {Dimensions} from './lib/global-styles/dimens';
+import {Typography} from './lib/global-styles/typography';
+import {navigatorStyle as centralNavigatorStyle} from './lib/scenes/central/styles';
 import Scuttlebot from 'react-native-scuttlebot';
 
+const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
+  ['mmmmm.Central', 'mmmmm.Profile'],
+  {
+    screen: {
+      screen: 'mmmmm.Central',
+      navigatorStyle: centralNavigatorStyle
+    },
+    animationType: 'fade'
+  }
+);
+
 run(onionify(main), {
-  screen: makeScreenDriver('MMMMM'),
-  statusBarAndroid: statusBarDriver,
+  screen: screenVNodeDriver,
+  navCommand: commandDriver,
   ssb: ssbDriver
 });
 

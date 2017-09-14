@@ -22,6 +22,8 @@ import {ReactElement} from 'react';
 import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Content, PostContent, VoteContent} from '../../ssb/types';
+import {ScreenVNode, Command, PushCommand} from '../../drivers/navigation';
+import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
 import {SSBSource} from '../../drivers/ssb';
 import intent, {Actions} from './intent';
 import view from './view';
@@ -34,6 +36,7 @@ export type Sources = {
 
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
+  navCommand: Stream<Command>;
   onion: Stream<Reducer<any>>;
   ssb: Stream<any>;
 };
@@ -61,15 +64,33 @@ function prepareForSSB(actions: Actions): Stream<Content> {
   return xs.merge(publishMsg$, toggleLikeMsg$);
 }
 
+function navigationCommands(actions: Actions): Stream<Command> {
+  return actions.goToProfile.map(
+    ev =>
+      ({
+        type: 'push',
+        screen: 'mmmmm.Profile',
+        navigatorStyle: profileNavigatorStyle,
+        animated: true,
+        animationType: 'slide-horizontal',
+        passProps: {
+          feedId: ev.authorFeedId
+        }
+      } as Command)
+  );
+}
+
 export function publicTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
   const vdom$ = view(sources.ssb.publicFeed$);
+  const command$ = navigationCommands(actions);
   const newContent$ = prepareForSSB(actions);
   const reducer$ = xs.empty();
 
   return {
     screen: vdom$,
     onion: reducer$,
+    navCommand: command$,
     ssb: newContent$
   };
 }

@@ -21,7 +21,7 @@ import {PureComponent, Component} from 'react';
 import {StyleSheet} from 'react-native';
 import {View, FlatList, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
-import {Msg, isVoteMsg} from '../ssb/types';
+import {Msg, isVoteMsg, FeedId} from '../ssb/types';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
@@ -69,8 +69,10 @@ export const emptyFeed: FeedData = {
 type FeedProps = {
   feed: FeedData;
   showPublishHeader: boolean;
+  style?: any;
   onPublish?: (event: {nativeEvent: {text: string}}) => void;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+  onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
 type FeedHeaderProps = {
@@ -125,13 +127,24 @@ export default class Feed extends Component<FeedProps, {updated: number}> {
   }
 
   render() {
-    const {feed, onPublish, onPressLike} = this.props;
+    const {
+      feed,
+      onPublish,
+      onPressLike,
+      onPressAuthor,
+      showPublishHeader,
+      style
+    } = this.props;
+
     return h(FlatList, {
       data: feed.arr,
-      style: styles.container as any,
-      ListHeaderComponent: h(FeedHeader, {onPublish}),
+      style: [styles.container, style] as any,
+      ListHeaderComponent: showPublishHeader
+        ? h(FeedHeader, {onPublish})
+        : null,
       keyExtractor: (item: any, index: number) => item.key || String(index),
-      renderItem: ({item}: {item: Msg}) => h(Message, {msg: item, onPressLike})
+      renderItem: ({item}: {item: Msg}) =>
+        h(Message, {msg: item, onPressLike, onPressAuthor})
     });
   }
 }

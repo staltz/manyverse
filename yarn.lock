@@ -22,7 +22,7 @@
   dependencies:
     xstream "10.x"
 
-"@cycle/run@3.2.x":
+"@cycle/run@3.x.x":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@cycle/run/-/run-3.2.0.tgz#fb8aaae9e637d621f78b769d3ae185881ec92897"
   dependencies:
@@ -3927,13 +3927,13 @@ lodash.templatesettings@^3.0.0:
     lodash._reinterpolate "^3.0.0"
     lodash.escape "^3.0.0"
 
+lodash@4.x.x, lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.6, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+
 lodash@^3.5.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
-
-lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.6, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 log-symbols@^1.0.2:
   version "1.0.2"
@@ -5486,6 +5486,12 @@ react-native-fs@2.3.x:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
 
+react-native-navigation@^1.1.219:
+  version "1.1.219"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.219.tgz#3d25dc0a6973d5e4d1c808a12c550c53a89d0e7d"
+  dependencies:
+    lodash "4.x.x"
+
 react-native-node@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-native-node/-/react-native-node-2.0.0.tgz#9001ed8c6a18201539d8d56c2521d2fcdc171230"
@@ -6896,7 +6902,7 @@ supports-color@^4.0.0:
   dependencies:
     has-flag "^2.0.0"
 
-symbol-observable@^1.0.2, symbol-observable@^1.0.4:
+symbol-observable@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
@@ -7565,17 +7571,11 @@ xpipe@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/xpipe/-/xpipe-1.0.5.tgz#8dd8bf45fc3f7f55f0e054b878f43a62614dafdf"
 
-xstream@10.x, xstream@>=10:
+xstream@10.9, xstream@10.x, xstream@>=10:
   version "10.9.0"
   resolved "https://registry.yarnpkg.com/xstream/-/xstream-10.9.0.tgz#db7934cec2da01360d43abbbc879b84524397b55"
   dependencies:
     symbol-observable "^1.0.2"
-
-xstream@11.0.0-rc.1:
-  version "11.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/xstream/-/xstream-11.0.0-rc.1.tgz#811453a61ac64b4efde7cc500f959cfa4f622f5c"
-  dependencies:
-    symbol-observable "^1.0.4"
 
 xtend@4.0.1, "xtend@>=4.0.0 <4.1.0-0", xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.1"

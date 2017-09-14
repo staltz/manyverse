@@ -21,38 +21,33 @@ import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {Content} from '../../ssb/types';
+import {Content, FeedId, About, Msg, isVoteMsg} from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
+import {ScreenVNode, Command} from '../../drivers/navigation';
+import model, {State} from './model';
 import view from './view';
 
 export type Sources = {
   screen: ScreenSource;
-  onion: StateSource<any>;
+  onion: StateSource<State>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
-  screen: Stream<ReactElement<any>>;
-  onion: Stream<Reducer<any>>;
-  statusBarAndroid: Stream<string>;
+  screen: Stream<ScreenVNode>;
+  navCommand: Stream<Command>;
+  onion: Stream<Reducer<State>>;
   ssb: Stream<Content>;
 };
 
 export function profile(sources: Sources): Sinks {
-  const feed$ = sources.ssb.selfFeedId$
-    .map(id => sources.ssb.profileFeed$(id))
-    .flatten();
-
-  const about$ = sources.ssb.selfFeedId$
-    .map(id => sources.ssb.profileAbout$(id))
-    .flatten();
-
-  const {vdom$, statusBar$} = view(feed$, about$);
+  const reducer$ = model(sources.onion.state$, sources.ssb);
+  const {vdom$, statusBar$} = view(sources.onion.state$);
 
   return {
     screen: vdom$,
-    onion: xs.never(),
-    statusBarAndroid: statusBar$,
+    navCommand: xs.never(),
+    onion: reducer$,
     ssb: xs.never()
   };
 }

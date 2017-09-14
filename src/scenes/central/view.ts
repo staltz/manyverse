@@ -41,9 +41,15 @@ function renderHeader() {
       returnKeyType: 'search',
       style: styles.searchInput
     }),
-    h(TouchableHighlight, {style: styles.headerIcon}, [
-      h(Icon, {...iconProps.headerIcon, name: 'account-box'})
-    ])
+    h(
+      TouchableHighlight,
+      {
+        selector: 'self-profile',
+        style: styles.headerIcon,
+        underlayColor: Palette.brand.backgroundDarker
+      },
+      [h(Icon, {...iconProps.headerIcon, name: 'account-box'})]
+    )
   ]);
 }
 
@@ -104,12 +110,13 @@ export default function view(
       publicTabVDOM$.startWith(h(View)),
       metadataTabVDOM$.startWith(h(View))
     )
-    .map(([publicTabVDOM, metadataTabVDOM]) =>
-      h(View, {style: styles.root}, [
+    .map(([publicTabVDOM, metadataTabVDOM]) => ({
+      screen: 'mmmmm.Central',
+      vdom: h(View, {style: styles.root}, [
         renderHeader(),
         renderTabs(publicTabVDOM, metadataTabVDOM)
       ])
-    );
+    }));
 
   return {
     vdom$: vdom$,

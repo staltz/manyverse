@@ -28,6 +28,11 @@ const _tabItem = {
   paddingBottom: Dimensions.verticalSpaceNormal
 };
 
+export const navigatorStyle = {
+  navBarHidden: true,
+  statusBarColor: Palette.brand.backgroundDarker
+};
+
 export const styles = StyleSheet.create({
   root: {
     flex: 1,
@@ -40,11 +45,10 @@ export const styles = StyleSheet.create({
   },
 
   headerIcon: {
-    marginLeft: Dimensions.horizontalSpaceBig,
-    marginRight: Dimensions.horizontalSpaceBig,
-    marginTop: Dimensions.verticalSpaceNormal,
-    width: Dimensions.iconSizeNormal,
-    height: Dimensions.iconSizeNormal
+    width: Dimensions.iconSizeNormal + Dimensions.horizontalSpaceBig * 2,
+    height: Dimensions.iconSizeNormal + Dimensions.verticalSpaceNormal * 2,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   indicatorViewPager: {

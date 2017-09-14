@@ -18,9 +18,9 @@
  */
 
 import {PureComponent} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableNativeFeedback} from 'react-native';
 import {h} from '@cycle/native-screen';
-import {Msg} from '../../ssb/types';
+import {Msg, FeedId} from '../../ssb/types';
 import {authorName, humanTime} from '../../ssb/utils';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -65,7 +65,12 @@ export const styles = StyleSheet.create({
   }
 });
 
-export default class MessageHeader extends PureComponent<{msg: Msg}> {
+export type Props = {
+  msg: Msg;
+  onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+};
+
+export default class MessageHeader extends PureComponent<Props> {
   private interval: any;
 
   componentDidMount() {
@@ -76,19 +81,32 @@ export default class MessageHeader extends PureComponent<{msg: Msg}> {
     clearInterval(this.interval);
   }
 
+  private _onPressAuthor() {
+    const onPressAuthor = this.props.onPressAuthor;
+    if (onPressAuthor) {
+      onPressAuthor({authorFeedId: this.props.msg.value.author});
+    }
+  }
+
   render() {
     const {msg} = this.props;
+    const touchableProps = {
+      background: TouchableNativeFeedback.SelectableBackground(),
+      onPress: () => this._onPressAuthor()
+    };
 
-    const messageHeaderAuthorName = h(View, {style: styles.flexRow}, [
-      h(
-        Text,
-        {
-          numberOfLines: 1,
-          ellipsizeMode: 'middle',
-          style: styles.messageHeaderAuthorName
-        },
-        authorName(msg)
-      )
+    const messageHeaderAuthorName = h(TouchableNativeFeedback, touchableProps, [
+      h(View, {style: styles.flexRow}, [
+        h(
+          Text,
+          {
+            numberOfLines: 1,
+            ellipsizeMode: 'middle',
+            style: styles.messageHeaderAuthorName
+          },
+          authorName(msg)
+        )
+      ])
     ]);
 
     const messageHeaderTimestamp = h(View, {style: styles.flexRow}, [
@@ -100,7 +118,9 @@ export default class MessageHeader extends PureComponent<{msg: Msg}> {
     ]);
 
     return h(View, {style: styles.messageHeaderRow}, [
-      h(View, {style: styles.messageAuthorImage}),
+      h(TouchableNativeFeedback, touchableProps, [
+        h(View, {style: styles.messageAuthorImage})
+      ]),
       h(View, {style: styles.messageHeaderAuthorColumn}, [
         messageHeaderAuthorName,
         messageHeaderTimestamp

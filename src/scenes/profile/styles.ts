@@ -25,12 +25,18 @@ import {Typography} from '../../global-styles/typography';
 const avatarSize = 80;
 const avatarSizeHalf = avatarSize * 0.5;
 
-export const styles = StyleSheet.create({
-  toolbar: {
-    backgroundColor: Palette.brand.background,
-    height: Dimensions.toolbarAndroidHeight
-  },
+export const navigatorStyle = {
+  statusBarColor: Palette.brand.backgroundDarker,
+  navBarBackgroundColor: Palette.brand.background,
+  navBarTextColor: Palette.white,
+  navBarTextFontSize: Typography.fontSizeNormal,
+  navBarTextFontFamily: Typography.fontFamilyReadableText,
+  navBarButtonColor: Palette.white,
+  topBarElevationShadowEnabled: false,
+  navBarTextFontBold: true
+};
 
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
@@ -39,16 +45,40 @@ export const styles = StyleSheet.create({
 
   cover: {
     backgroundColor: Palette.brand.background,
-    height: avatarSizeHalf
+    height: avatarSizeHalf,
+    zIndex: 10
   },
 
   name: {
     color: 'white',
-    fontSize: Typography.fontSizeNormal,
+    fontSize: Typography.fontSizeBig,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     top: Dimensions.verticalSpaceSmall,
     left: Dimensions.horizontalSpaceBig + 80 + Dimensions.horizontalSpaceBig
+  },
+
+  descriptionArea: {
+    top: -avatarSize,
+    marginBottom: -avatarSize,
+    zIndex: 10,
+    paddingTop: avatarSizeHalf + Dimensions.verticalSpaceNormal,
+    paddingBottom: Dimensions.verticalSpaceNormal,
+    backgroundColor: Palette.brand.textBackground
+  },
+
+  feed: {
+    top: Dimensions.verticalSpaceNormal * 0.5,
+    bottom: 0,
+    alignSelf: 'stretch'
+  },
+
+  description: {
+    color: Palette.brand.text,
+    fontSize: Typography.fontSizeNormal,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'normal',
+    marginLeft: Dimensions.horizontalSpaceBig
   },
 
   avatar: {
@@ -57,6 +87,7 @@ export const styles = StyleSheet.create({
     borderRadius: 3,
     top: -avatarSizeHalf,
     left: Dimensions.horizontalSpaceBig,
+    zIndex: 20,
     backgroundColor: Palette.blue3
   }
 });
