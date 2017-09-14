@@ -23,7 +23,7 @@
     "depnest": "^1.3.0",
     "human-time": "0.0.1",
     "mutant": "3.21.2",
-    "patchcore": "git://github.com/ssbc/patchcore.git#about-sync-shortFeedId",
+    "patchcore": "1.11.0",
     "prop-types": "^15.5.10",
     "pull-stream": "3.6.0",
     "react": "16.0.0-alpha.12",

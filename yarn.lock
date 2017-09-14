@@ -4803,9 +4803,9 @@ patch-package@^3.4.0:
     tmp "^0.0.31"
     update-notifier "^2.2.0"
 
-"patchcore@git://github.com/ssbc/patchcore.git#about-sync-shortFeedId":
-  version "1.8.1"
-  resolved "git://github.com/ssbc/patchcore.git#6b7110119df34ef12c2c68b320ccf88a74684fac"
+patchcore@1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/patchcore/-/patchcore-1.11.0.tgz#150a7ee2672f62ce93d03cfbef19fc56a6d95777"
   dependencies:
     bulk-require "^1.0.0"
     bulkify "^1.4.2"
@@ -4825,7 +4825,7 @@ patch-package@^3.4.0:
     simple-mime "^0.1.0"
     sorted-array-functions "^1.0.0"
     split-buffer "^1.0.0"
-    ssb-client "^4.4.0"
+    ssb-client "^4.5.0"
     ssb-config "^2.2.0"
     ssb-feed "^2.3.0"
     ssb-keys "^7.0.9"
@@ -6536,9 +6536,22 @@ ssb-blobs@^1.0.1:
     pull-stream "^3.3.0"
     ssb-ref "^2.3.0"
 
-ssb-client@4.5.x, ssb-client@^4.4.0, ssb-client@^4.4.1:
+ssb-client@4.5.x, ssb-client@^4.4.1:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/ssb-client/-/ssb-client-4.5.0.tgz#a225e2db4a3aab43661b27a644b3837cf36cb910"
+  dependencies:
+    explain-error "^1.0.1"
+    multicb "^1.2.1"
+    multiserver "^1.7.0"
+    muxrpc "^6.3.3"
+    pull-hash "^1.0.0"
+    pull-stream "^3.6.0"
+    ssb-config "^2.0.0"
+    ssb-keys "^7.0.9"
+
+ssb-client@^4.5.0:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/ssb-client/-/ssb-client-4.5.1.tgz#eca976f1e411d279626af28395f1f93a4caa0a24"
   dependencies:
     explain-error "^1.0.1"
     multicb "^1.2.1"
