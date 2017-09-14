@@ -1,16 +1,20 @@
 # Next
 
-- Basic profile screen
-- Run in low-end Android device, armv7
+- Remove status bar driver and native module
+- BUG: Go from Central to Profile to Central, tabs should work
+- Render avatar image
 
 # Must
 
+- Run in low-end Android device, armv7
+- Follow button in Profile
+- Profile header part should shrink when scrolling down through messages
 - Basic private messages tab
-- Basic notifications tab
-- Nav drawer
 
 # Should
 
+- Basic notifications tab
+- Nav drawer
 - Leveldown compiled for Android
 - node-sodium compiled for Android
 - Group messages as thread
