@@ -128,12 +128,18 @@ export class SSBSource {
     return this.api$
       .map(api => {
         const name$: Stream<string> = xsFromMutant(api.about.obs.name[0](id));
+        const color$: Stream<string> = xsFromMutant(api.about.obs.color[0](id));
         const description$: Stream<string> = xsFromMutant(
           api.about.obs.description[0](id)
         );
         return xs
-          .combine(name$, description$)
-          .map(([name, description]) => ({name, description, id}));
+          .combine(name$, color$, description$)
+          .map(([name, color, description]) => ({
+            name,
+            color,
+            description,
+            id
+          }));
       })
       .flatten();
   }

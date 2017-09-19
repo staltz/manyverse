@@ -63,6 +63,7 @@ export type BlobId = string;
 export type About = {
   name: string;
   description?: string;
+  color?: string;
   id?: FeedId;
 };
 

@@ -35,7 +35,12 @@ export default function view(state$: Stream<State>) {
       h(View, {style: styles.cover}, [
         h(Text, {style: styles.name}, state.about.name)
       ]),
-      h(View, {style: styles.avatar}),
+      h(View, {
+        style: [
+          styles.avatar,
+          {backgroundColor: state.about.color || Palette.blue3}
+        ]
+      }),
       h(View, {style: styles.descriptionArea}, [
         h(Text, {style: styles.description}, state.about.description || '')
       ]),
