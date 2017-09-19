@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Navigation} from 'react-native-navigation';
+import {Navigation, ScreenVisibilityListener} from 'react-native-navigation';
 import {Component, ReactElement, createElement} from 'react';
 import xs, {Stream, Listener} from 'xstream';
 import {View, Text} from 'react-native';
@@ -267,16 +267,22 @@ function makeScreenComponent(
         }
       }
 
+      componentWillMount() {
+        vdom$.addListener(this.vdomListener);
+      }
+
+      componentWillUnmount() {
+        vdom$.removeListener(this.vdomListener);
+      }
+
       onNavigatorEvent(event: any) {
         switch (event.id) {
           case 'willAppear':
-            vdom$.addListener(this.vdomListener);
             command$.addListener(this.commandListener);
             break;
           case 'didAppear':
             break;
           case 'willDisappear':
-            vdom$.removeListener(this.vdomListener);
             command$.removeListener(this.commandListener);
             break;
           case 'didDisappear':
@@ -293,6 +299,55 @@ function makeScreenComponent(
 // TODO
 function makeTabBasedNavDrivers(screenIDs: Array<string>, config: any) {
   return function navigationDriver(nav$: Stream<ScreenVNode>) {};
+}
+
+export interface ScreenVisibilityEvent {
+  screen: string;
+  startTime: number;
+  endTime: number;
+  commandType: string;
+}
+
+export class ScreensSource extends ScreenSource {
+  private _willAppear: Stream<ScreenVisibilityEvent>;
+  private _didAppear: Stream<ScreenVisibilityEvent>;
+  private _willDisappear: Stream<ScreenVisibilityEvent>;
+  private _didDisappear: Stream<ScreenVisibilityEvent>;
+  private _listener: any;
+
+  constructor() {
+    super();
+
+    this._willAppear = xs.create<ScreenVisibilityEvent>();
+    this._didAppear = xs.create<ScreenVisibilityEvent>();
+    this._willDisappear = xs.create<ScreenVisibilityEvent>();
+    this._didDisappear = xs.create<ScreenVisibilityEvent>();
+
+    this._listener = new ScreenVisibilityListener({
+      willAppear: (ev: ScreenVisibilityEvent) => this._willAppear._n(ev),
+      didAppear: (ev: ScreenVisibilityEvent) => this._didAppear._n(ev),
+      willDisappear: (ev: ScreenVisibilityEvent) => this._willDisappear._n(ev),
+      didDisappear: (ev: ScreenVisibilityEvent) => this._didDisappear._n(ev)
+    });
+
+    this._listener.register();
+  }
+
+  willAppear(screen: string): Stream<ScreenVisibilityEvent> {
+    return this._willAppear.filter(ev => ev.screen === screen);
+  }
+
+  didAppear(screen: string): Stream<ScreenVisibilityEvent> {
+    return this._didAppear.filter(ev => ev.screen === screen);
+  }
+
+  willDisappear(screen: string): Stream<ScreenVisibilityEvent> {
+    return this._willDisappear.filter(ev => ev.screen === screen);
+  }
+
+  didDisappear(screen: string): Stream<ScreenVisibilityEvent> {
+    return this._didDisappear.filter(ev => ev.screen === screen);
+  }
 }
 
 export function makeSingleScreenNavDrivers(
@@ -323,7 +378,7 @@ export function makeSingleScreenNavDrivers(
       }
     });
     screenVNode$._add(screenVNodeMimic$);
-    return new ScreenSource();
+    return new ScreensSource();
   }
   function commandDriver(command$: Stream<Command>) {
     command$._add(commandMimic$);
