@@ -1,6 +1,7 @@
 # Next
 
 - Render avatar image
+- Leveldown compiled for Android
 
 # Must
 
@@ -13,7 +14,6 @@
 
 - Basic notifications tab
 - Nav drawer
-- Leveldown compiled for Android
 - node-sodium compiled for Android
 - Group messages as thread
 - Sections in Metadata tab: LAN and WAN
