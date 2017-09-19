@@ -67,7 +67,7 @@ export function central(sources: Sources): Sinks {
   const actions = intent(sources.screen);
   const command$ = navigationCommands(actions, publicTabSinks.navCommand);
 
-  const {vdom$, statusBar$} = view(publicTabSinks.screen, syncTabSinks.screen);
+  const vdom$ = view(publicTabSinks.screen, syncTabSinks.screen);
   const reducer$ = xs.empty();
 
   return {

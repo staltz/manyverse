@@ -29,7 +29,7 @@ import {styles} from './styles';
 import {State} from './model';
 
 export default function view(state$: Stream<State>) {
-  const vdom$ = state$.map((state: State) => ({
+  return state$.map((state: State) => ({
     screen: 'mmmmm.Profile',
     vdom: h(View, {style: styles.container}, [
       h(View, {style: styles.cover}, [
@@ -47,9 +47,4 @@ export default function view(state$: Stream<State>) {
       })
     ])
   }));
-
-  return {
-    vdom$: vdom$,
-    statusBar$: xs.of(Palette.brand.backgroundDarker)
-  };
 }

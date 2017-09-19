@@ -1,6 +1,5 @@
 # Next
 
-- Remove status bar driver and native module
 - BUG: Go from Central to Profile to Central, tabs should work
 - Render avatar image
 

@@ -105,7 +105,7 @@ export default function view(
   publicTabVDOM$: Stream<ReactElement<any>>,
   metadataTabVDOM$: Stream<ReactElement<any>>
 ) {
-  const vdom$ = xs
+  return xs
     .combine(
       publicTabVDOM$.startWith(h(View)),
       metadataTabVDOM$.startWith(h(View))
@@ -117,9 +117,4 @@ export default function view(
         renderTabs(publicTabVDOM, metadataTabVDOM)
       ])
     }));
-
-  return {
-    vdom$: vdom$,
-    statusBar$: xs.of(Palette.brand.backgroundDarker)
-  };
 }

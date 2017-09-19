@@ -42,7 +42,7 @@ export type Sinks = {
 
 export function profile(sources: Sources): Sinks {
   const reducer$ = model(sources.onion.state$, sources.ssb);
-  const {vdom$, statusBar$} = view(sources.onion.state$);
+  const vdom$ = view(sources.onion.state$);
 
   return {
     screen: vdom$,
