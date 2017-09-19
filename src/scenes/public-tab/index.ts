@@ -19,17 +19,21 @@
 
 import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
-import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Content, PostContent, VoteContent} from '../../ssb/types';
-import {ScreenVNode, Command, PushCommand} from '../../drivers/navigation';
+import {
+  ScreenVNode,
+  Command,
+  PushCommand,
+  ScreensSource
+} from '../../drivers/navigation';
 import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
 import {SSBSource} from '../../drivers/ssb';
 import intent, {Actions} from './intent';
 import view from './view';
 
 export type Sources = {
-  screen: ScreenSource;
+  screen: ScreensSource;
   onion: StateSource<any>;
   ssb: SSBSource;
 };

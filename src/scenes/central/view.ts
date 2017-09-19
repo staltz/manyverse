@@ -22,12 +22,13 @@ import {ReactElement} from 'react';
 import {View, Text, TextInput, TouchableHighlight} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {PagerTabIndicator, IndicatorViewPager} from 'rn-viewpager';
+import {IndicatorViewPager} from 'rn-viewpager';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions as Dimens} from '../../global-styles/dimens';
 import {styles as globalStyles} from '../../global-styles/styles';
 import BetterPagerTabIndicator from '../../components/BetterPagerTabIndicator';
 import {styles, iconProps} from './styles';
+import {State} from './model';
 
 function renderHeader() {
   return h(View, {style: styles.header}, [
@@ -54,13 +55,14 @@ function renderHeader() {
 }
 
 function renderTabs(
+  state: State,
   publicTabVDOM: ReactElement<any>,
   metadataTabVDOM: ReactElement<any>
 ) {
   return h(
     IndicatorViewPager,
     {
-      style: styles.indicatorViewPager,
+      style: [styles.indicatorViewPager, {flex: state.visible ? 1 : 0}],
       indicator: h(BetterPagerTabIndicator, {
         style: [globalStyles.noMargin, {elevation: 3}] as any,
         itemStyle: styles.tabItem,
@@ -102,19 +104,21 @@ function renderTabs(
 }
 
 export default function view(
+  state$: Stream<State>,
   publicTabVDOM$: Stream<ReactElement<any>>,
   metadataTabVDOM$: Stream<ReactElement<any>>
 ) {
   return xs
     .combine(
+      state$.debug('central.state'),
       publicTabVDOM$.startWith(h(View)),
       metadataTabVDOM$.startWith(h(View))
     )
-    .map(([publicTabVDOM, metadataTabVDOM]) => ({
+    .map(([state, publicTabVDOM, metadataTabVDOM]) => ({
       screen: 'mmmmm.Central',
       vdom: h(View, {style: styles.root}, [
         renderHeader(),
-        renderTabs(publicTabVDOM, metadataTabVDOM)
+        renderTabs(state, publicTabVDOM, metadataTabVDOM)
       ])
     }));
 }

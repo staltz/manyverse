@@ -19,15 +19,15 @@
 
 import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
-import {h, ScreenSource} from '@cycle/native-screen';
 import {View, Text} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
+import {ScreensSource} from '../../drivers/navigation';
 import {SSBSource} from '../../drivers/ssb';
 import {PeerMetadata} from '../../ssb/types';
 import view from './view';
 
 export type Sources = {
-  screen: ScreenSource;
+  screen: ScreensSource;
   onion: StateSource<any>;
   ssb: SSBSource;
 };

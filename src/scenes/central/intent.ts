@@ -18,14 +18,20 @@
  */
 
 import {Stream} from 'xstream';
-import {ScreenSource} from '@cycle/native-screen';
+import {ScreensSource} from '../../drivers/navigation';
 
 export type Actions = {
-  goToSelfProfile: Stream<null>;
+  goToSelfProfile$: Stream<null>;
+  willAppear$: Stream<any>;
+  willDisappear$: Stream<any>;
 };
 
-export default function intent(source: ScreenSource): Actions {
+export default function intent(source: ScreensSource): Actions {
   return {
-    goToSelfProfile: source.select('self-profile').events('press').mapTo(null)
+    goToSelfProfile$: source.select('self-profile').events('press').mapTo(null),
+
+    willAppear$: source.willAppear('mmmmm.Central'),
+
+    willDisappear$: source.willDisappear('mmmmm.Central')
   };
 }

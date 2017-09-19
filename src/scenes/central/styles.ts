@@ -36,11 +36,12 @@ export const navigatorStyle = {
 export const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: Palette.brand.background
+    backgroundColor: Palette.white
   },
 
   header: {
     flexDirection: 'row',
+    backgroundColor: Palette.brand.background,
     minHeight: Dimensions.toolbarAndroidHeight
   },
 

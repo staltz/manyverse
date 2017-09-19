@@ -1,6 +1,5 @@
 # Next
 
-- BUG: Go from Central to Profile to Central, tabs should work
 - Render avatar image
 
 # Must

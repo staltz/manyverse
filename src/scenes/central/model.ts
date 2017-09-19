@@ -18,35 +18,32 @@
  */
 
 import xs, {Stream, Listener} from 'xstream';
-import {ReactElement} from 'react';
-import {StateSource, Reducer} from 'cycle-onionify';
-import {Content, FeedId, About, Msg, isVoteMsg} from '../../ssb/types';
+import dropRepeats from 'xstream/extra/dropRepeats';
 import {SSBSource} from '../../drivers/ssb';
-import {ScreenVNode, Command, ScreensSource} from '../../drivers/navigation';
-import model, {State} from './model';
-import view from './view';
+import {StateSource, Reducer} from 'cycle-onionify';
+import {FeedId, About, Msg, isVoteMsg} from '../../ssb/types';
+import {Actions} from './intent';
 
-export type Sources = {
-  screen: ScreensSource;
-  onion: StateSource<State>;
-  ssb: SSBSource;
+export type State = {
+  visible: boolean;
 };
 
-export type Sinks = {
-  screen: Stream<ScreenVNode>;
-  navCommand: Stream<Command>;
-  onion: Stream<Reducer<State>>;
-  ssb: Stream<Content>;
-};
+export default function model(actions: Actions): Stream<Reducer<State>> {
+  const initReducer$ = xs.of(function initReducer(): State {
+    return {visible: false};
+  });
 
-export function profile(sources: Sources): Sinks {
-  const reducer$ = model(sources.onion.state$, sources.ssb);
-  const vdom$ = view(sources.onion.state$);
+  const setVisibleReducer$ = actions.willAppear$.mapTo(
+    function setVisibleReducer(prevState: State | undefined): State {
+      return {visible: true};
+    }
+  );
 
-  return {
-    screen: vdom$,
-    navCommand: xs.never(),
-    onion: reducer$,
-    ssb: xs.never()
-  };
+  const setInvisibleReducer$ = actions.willDisappear$.mapTo(
+    function setInvisibleReducer(prevState: State | undefined): State {
+      return {visible: false};
+    }
+  );
+
+  return xs.merge(initReducer$, setVisibleReducer$, setInvisibleReducer$);
 }

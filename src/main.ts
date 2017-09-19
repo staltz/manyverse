@@ -27,6 +27,7 @@ import {ScreenVNode, Command, PushCommand} from './drivers/navigation';
 import {central} from './scenes/central/index';
 import {profile} from './scenes/profile/index';
 import {State as ProfileState} from './scenes/profile/model';
+import {State as CentralState} from './scenes/central/model';
 import {Content} from './ssb/types';
 
 export type Sources = {
@@ -42,9 +43,11 @@ export type Sinks = {
   ssb: Stream<Content>;
 };
 
+export type ScreenID = 'mmmmm.Central' | 'mmmmm.Profile';
+
 export type State = {
   profile: ProfileState;
-  central: {};
+  central: CentralState;
 };
 
 function isPushCommand(c: Command): c is PushCommand {
@@ -54,7 +57,7 @@ function isPushCommand(c: Command): c is PushCommand {
 function model(navCommand$: Stream<Command>): Stream<Reducer<State>> {
   const setProfileDisplayFeedId$ = navCommand$
     .filter(isPushCommand)
-    .filter(command => command.screen === 'mmmmm.Profile')
+    .filter(command => (command.screen as ScreenID) === 'mmmmm.Profile')
     .map(
       command =>
         function setProfileDisplayFeedId(prevState: State): State {

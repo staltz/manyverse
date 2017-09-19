@@ -19,19 +19,24 @@
 
 import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
-import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Content} from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
-import {ScreenVNode, Command, PushCommand} from '../../drivers/navigation';
+import {
+  ScreenVNode,
+  Command,
+  PushCommand,
+  ScreensSource
+} from '../../drivers/navigation';
 import {publicTab} from '../public-tab/index';
 import {syncTab} from '../sync-tab/index';
 import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
 import intent, {Actions} from './intent';
+import model from './model';
 import view from './view';
 
 export type Sources = {
-  screen: ScreenSource;
+  screen: ScreensSource;
   onion: StateSource<any>;
   ssb: SSBSource;
 };
@@ -47,7 +52,7 @@ function navigationCommands(
   actions: Actions,
   other$: Stream<Command>
 ): Stream<Command> {
-  const centralCommand$: Stream<Command> = actions.goToSelfProfile.mapTo(
+  const centralCommand$: Stream<Command> = actions.goToSelfProfile$.mapTo(
     {
       type: 'push',
       screen: 'mmmmm.Profile',
@@ -66,13 +71,16 @@ export function central(sources: Sources): Sinks {
 
   const actions = intent(sources.screen);
   const command$ = navigationCommands(actions, publicTabSinks.navCommand);
-
-  const vdom$ = view(publicTabSinks.screen, syncTabSinks.screen);
-  const reducer$ = xs.empty();
+  const reducer$ = model(actions);
+  const vdom$ = view(
+    sources.onion.state$,
+    publicTabSinks.screen,
+    syncTabSinks.screen
+  );
 
   return {
     screen: vdom$,
-    onion: xs.never(),
+    onion: reducer$,
     navCommand: command$,
     ssb: publicTabSinks.ssb
   };

@@ -18,7 +18,7 @@
  */
 
 import {Stream} from 'xstream';
-import {ScreenSource} from '@cycle/native-screen';
+import {ScreensSource} from '../../drivers/navigation';
 import {FeedId} from '../../ssb/types';
 
 export type LikeEvent = {msgKey: string; like: boolean};
@@ -30,7 +30,7 @@ export type Actions = {
   goToProfile: Stream<ProfileNavEvent>;
 };
 
-export default function intent(source: ScreenSource): Actions {
+export default function intent(source: ScreensSource): Actions {
   return {
     publishMsg: source
       .select('publicFeed')
