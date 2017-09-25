@@ -7587,6 +7587,12 @@ xstream-from-mutant@1.0:
     mutant "^3.21.2"
     xstream "^10.9.0"
 
+xstream-from-pull-stream@1.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/xstream-from-pull-stream/-/xstream-from-pull-stream-1.0.0.tgz#55ded117eb27338e92537e16f83398acaa30c672"
+  dependencies:
+    xstream "^10.9.0"
+
 xstream@10.9, xstream@10.x, xstream@>=10, xstream@^10.9.0:
   version "10.9.0"
   resolved "https://registry.yarnpkg.com/xstream/-/xstream-10.9.0.tgz#db7934cec2da01360d43abbbc879b84524397b55"

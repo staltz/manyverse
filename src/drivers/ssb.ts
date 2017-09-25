@@ -24,7 +24,7 @@ import aboutSyncOpinion from '../ssb/opinions/about/sync';
 import makeKeysOpinion from '../ssb/opinions/keys';
 import gossipOpinion from '../ssb/opinions/gossip';
 import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
-import xsFromPullStream from '../to-publish/xs-from-pull-stream';
+import xsFromPullStream from 'xstream-from-pull-stream';
 import xsFromMutant from 'xstream-from-mutant';
 const blobUrlOpinion = require('patchcore/blob/sync/url');
 const sbotOpinion = require('patchcore/sbot');
