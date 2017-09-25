@@ -20,7 +20,8 @@
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
-import {ScreenSource} from '@cycle/native-screen';
+import {ScreenSource, h} from '@cycle/native-screen';
+import {View, Text, StyleSheet} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from './drivers/ssb';
 import {ScreenVNode, Command, PushCommand} from 'cycle-native-navigation';
@@ -84,6 +85,31 @@ function model(navCommand$: Stream<Command>): Stream<Reducer<State>> {
   return setProfileDisplayFeedId$;
 }
 
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+
+  disclaimer: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    color: 'black',
+    fontSize: 15,
+    transform: [{rotateZ: '-90deg'}, {translateY: -96}, {translateX: 140}]
+  }
+});
+
+function addAlphaDisclaimer(screen$: Stream<ScreenVNode>): Stream<ScreenVNode> {
+  return screen$.map(screen => ({
+    screen: screen.screen,
+    vdom: h(View, {style: styles.container}, [
+      screen.vdom,
+      h(Text, {style: styles.disclaimer}, 'Alpha version, not ready for use')
+    ])
+  }));
+}
+
 export function main(sources: Sources): Sinks {
   const profileSinks: Sinks = isolate(profile, 'profile')(sources);
   const centralSinks: Sinks = isolate(central, 'central')(sources);
@@ -102,7 +128,7 @@ export function main(sources: Sources): Sinks {
   const ssb$ = xs.merge(profileSinks.ssb, centralSinks.ssb);
 
   return {
-    screen: screen$,
+    screen: screen$.compose(addAlphaDisclaimer),
     navCommand: navCommand$,
     onion: reducer$,
     ssb: ssb$
