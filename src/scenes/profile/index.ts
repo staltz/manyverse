@@ -22,7 +22,7 @@ import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Content, FeedId, About, Msg, isVoteMsg} from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
-import {ScreenVNode, Command, ScreensSource} from '../../drivers/navigation';
+import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import model, {State} from './model';
 import view from './view';
 

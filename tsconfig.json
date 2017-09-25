@@ -17,7 +17,6 @@
   "files": [
     "src/main.ts",
     "src/drivers/ssb.ts",
-    "src/typings/react-native-navigation.d.ts",
     "src/typings/react-native-simple-markdown.d.ts",
     "src/typings/rn-viewpager.d.ts"
   ],

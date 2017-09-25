@@ -23,7 +23,7 @@ import isolate from '@cycle/isolate';
 import {ScreenSource} from '@cycle/native-screen';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from './drivers/ssb';
-import {ScreenVNode, Command, PushCommand} from './drivers/navigation';
+import {ScreenVNode, Command, PushCommand} from 'cycle-native-navigation';
 import {central} from './scenes/central/index';
 import {profile} from './scenes/profile/index';
 import {State as ProfileState} from './scenes/profile/model';

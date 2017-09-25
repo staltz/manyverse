@@ -21,7 +21,7 @@ import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {View, Text} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {ScreensSource} from '../../drivers/navigation';
+import {ScreensSource} from 'cycle-native-navigation';
 import {SSBSource} from '../../drivers/ssb';
 import {PeerMetadata} from '../../ssb/types';
 import view from './view';

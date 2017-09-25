@@ -18,7 +18,7 @@
  */
 
 import {Stream} from 'xstream';
-import {ScreensSource} from '../../drivers/navigation';
+import {ScreensSource} from 'cycle-native-navigation';
 import {FeedId} from '../../ssb/types';
 
 export type LikeEvent = {msgKey: string; like: boolean};

@@ -22,7 +22,7 @@ import {makeScreenDriver} from '@cycle/native-screen';
 import {main} from './lib/main';
 import onionify from 'cycle-onionify';
 import {ssbDriver} from './lib/drivers/ssb';
-import {makeSingleScreenNavDrivers} from './lib/drivers/navigation';
+import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
 import {Palette} from './lib/global-styles/palette';
 import {Dimensions} from './lib/global-styles/dimens';
 import {Typography} from './lib/global-styles/typography';

@@ -27,7 +27,7 @@ import {
   Command,
   PushCommand,
   ScreensSource
-} from '../../drivers/navigation';
+} from 'cycle-native-navigation';
 import {publicTab} from '../public-tab/index';
 import {syncTab} from '../sync-tab/index';
 import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
