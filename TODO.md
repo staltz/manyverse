@@ -1,6 +1,7 @@
 # Next
 
 - Render avatar image
+- Render disclaimer banner, about alpha version
 - Leveldown compiled for Android
 
 # Must
