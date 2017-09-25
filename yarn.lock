@@ -1823,9 +1823,9 @@ cycle-native-navigation@1.1.0:
     "@cycle/native-screen" "1.0.0-rc.4"
     xstream "10.x"
 
-cycle-onionify@4.0.0-rc.17:
-  version "4.0.0-rc.17"
-  resolved "https://registry.yarnpkg.com/cycle-onionify/-/cycle-onionify-4.0.0-rc.17.tgz#a167ef2257bc2b7e8bb1725cb063598fc58bd5da"
+cycle-onionify@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/cycle-onionify/-/cycle-onionify-4.0.0.tgz#9aeddd88dedf6fda9fbb98b1e79ab38810b7ddda"
   dependencies:
     "@cycle/isolate" ">=3"
     "@cycle/run" "*"
