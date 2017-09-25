@@ -20,13 +20,13 @@
 import xs, {Stream} from 'xstream';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 import {isMsg, Msg, PeerMetadata, Content, FeedId, About} from '../ssb/types';
+import blobUrlOpinion from '../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../ssb/opinions/about/sync';
 import makeKeysOpinion from '../ssb/opinions/keys';
 import gossipOpinion from '../ssb/opinions/gossip';
 import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import xsFromMutant from 'xstream-from-mutant';
-const blobUrlOpinion = require('patchcore/blob/sync/url');
 const sbotOpinion = require('patchcore/sbot');
 const backlinksOpinion = require('patchcore/backlinks/obs');
 const aboutOpinion = require('patchcore/about/obs');
@@ -67,17 +67,22 @@ function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
       api.message.obs.likes[0](msg.key)
     );
     const name$ = xsFromMutant<string>(api.about.obs.name[0](msg.value.author));
-    return xs.combine(likes$, name$).map(([likes, name]) => {
-      if (msg.value) {
-        msg.value._derived = msg.value._derived || {};
-        msg.value._derived.likes = likes;
-        msg.value._derived.ilike = likes.some(
-          key => key === api.keys.sync.id[0]()
-        );
-        msg.value._derived.about = {name, description: ''};
-      }
-      return msg;
-    });
+    const imageUrl$ = xsFromMutant<string>(
+      api.about.obs.imageUrl[0](msg.value.author)
+    );
+    return xs
+      .combine(likes$, name$, imageUrl$)
+      .map(([likes, name, imageUrl]) => {
+        if (msg.value) {
+          msg.value._derived = msg.value._derived || {};
+          msg.value._derived.likes = likes;
+          msg.value._derived.ilike = likes.some(
+            key => key === api.keys.sync.id[0]()
+          );
+          msg.value._derived.about = {name, imageUrl, description: ''};
+        }
+        return msg;
+      });
   } else {
     return xs.of(msg);
   }
@@ -131,15 +136,17 @@ export class SSBSource {
       .map(api => {
         const name$ = xsFromMutant<string>(api.about.obs.name[0](id));
         const color$ = xsFromMutant<string>(api.about.obs.color[0](id));
+        const imageUrl$ = xsFromMutant<string>(api.about.obs.imageUrl[0](id));
         const description$ = xsFromMutant<string>(
           api.about.obs.description[0](id)
         );
         return xs
-          .combine(name$, color$, description$)
-          .map(([name, color, description]) => ({
+          .combine(name$, color$, description$, imageUrl$)
+          .map(([name, color, description, imageUrl]) => ({
             name,
             color,
             description,
+            imageUrl,
             id
           }));
       })

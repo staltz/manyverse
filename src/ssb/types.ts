@@ -64,6 +64,7 @@ export type About = {
   name: string;
   description?: string;
   color?: string;
+  imageUrl?: string;
   id?: FeedId;
 };
 

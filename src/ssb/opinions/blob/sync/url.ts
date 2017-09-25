@@ -17,35 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {StyleSheet} from 'react-native';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
-import {Palette} from '../../global-styles/palette';
+const nest = require('depnest');
 
-export const styles = StyleSheet.create({
-  writeMessageRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1
-  },
-
-  writeMessageAuthorImage: {
-    height: 45,
-    width: 45,
-    borderRadius: 3,
-    backgroundColor: Palette.indigo1,
-    marginRight: Dimensions.horizontalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall
-  },
-
-  writeInput: {
-    flex: 1,
-    fontSize: Typography.fontSizeBig,
-    color: Palette.brand.text
-  },
-
-  container: {
-    alignSelf: 'stretch',
-    flex: 1
+const blobSyncUrlOpinion = {
+  gives: nest('blob.sync.url'),
+  create: function create(api: any) {
+    return nest('blob.sync.url', function(id: any) {
+      return `http://localhost:7777/${encodeURIComponent(id)}`;
+    });
   }
-});
+};
+
+export default blobSyncUrlOpinion;

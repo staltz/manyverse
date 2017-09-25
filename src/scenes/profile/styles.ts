@@ -68,7 +68,7 @@ export const styles = StyleSheet.create({
   },
 
   feed: {
-    top: Dimensions.verticalSpaceNormal * 0.5,
+    top: 0,
     bottom: 0,
     alignSelf: 'stretch'
   },
@@ -81,13 +81,22 @@ export const styles = StyleSheet.create({
     marginLeft: Dimensions.horizontalSpaceBig
   },
 
-  avatar: {
+  avatarBackground: {
     height: avatarSize,
     width: avatarSize,
     borderRadius: 3,
     top: -avatarSizeHalf,
     left: Dimensions.horizontalSpaceBig,
     zIndex: 20,
-    backgroundColor: Palette.blue3
+    backgroundColor: Palette.indigo1
+  },
+
+  avatar: {
+    position: 'absolute',
+    borderRadius: 3,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
   }
 });

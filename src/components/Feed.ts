@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     height: 45,
     width: 45,
     borderRadius: 3,
-    backgroundColor: Palette.blue3,
+    backgroundColor: Palette.indigo1,
     marginRight: Dimensions.horizontalSpaceSmall,
     marginBottom: Dimensions.verticalSpaceSmall
   },

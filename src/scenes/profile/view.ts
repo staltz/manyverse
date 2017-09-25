@@ -19,7 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import {PureComponent, Component} from 'react';
-import {View, FlatList, Text, TextInput, ToolbarAndroid} from 'react-native';
+import {View, FlatList, Text, TextInput, Image} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import Feed, {FeedData, emptyFeed} from '../../components/Feed';
@@ -35,12 +35,12 @@ export default function view(state$: Stream<State>) {
       h(View, {style: styles.cover}, [
         h(Text, {style: styles.name}, state.about.name)
       ]),
-      h(View, {
-        style: [
-          styles.avatar,
-          {backgroundColor: state.about.color || Palette.blue3}
-        ]
-      }),
+      h(View, {style: styles.avatarBackground}, [
+        h(Image, {
+          style: styles.avatar,
+          source: {uri: state.about.imageUrl || ''}
+        })
+      ]),
       h(View, {style: styles.descriptionArea}, [
         h(Text, {style: styles.description}, state.about.description || '')
       ]),

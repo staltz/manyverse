@@ -18,7 +18,13 @@
  */
 
 import {PureComponent} from 'react';
-import {View, Text, StyleSheet, TouchableNativeFeedback} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableNativeFeedback
+} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Msg, FeedId} from '../../ssb/types';
 import {authorName, humanTime} from '../../ssb/utils';
@@ -32,13 +38,22 @@ export const styles = StyleSheet.create({
     flex: 1
   },
 
-  messageAuthorImage: {
+  messageAuthorImageContainer: {
     height: 45,
     width: 45,
     borderRadius: 3,
-    backgroundColor: Palette.blue3,
+    backgroundColor: Palette.indigo1,
     marginRight: Dimensions.horizontalSpaceSmall,
     marginBottom: Dimensions.verticalSpaceSmall
+  },
+
+  messageAuthorImage: {
+    borderRadius: 3,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
   },
 
   messageHeaderAuthorColumn: {
@@ -90,6 +105,10 @@ export default class MessageHeader extends PureComponent<Props> {
 
   render() {
     const {msg} = this.props;
+    const avatarUrl =
+      (msg.value._derived &&
+      msg.value._derived.about && {uri: msg.value._derived.about.imageUrl}) ||
+      undefined;
     const touchableProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
       onPress: () => this._onPressAuthor()
@@ -119,7 +138,12 @@ export default class MessageHeader extends PureComponent<Props> {
 
     return h(View, {style: styles.messageHeaderRow}, [
       h(TouchableNativeFeedback, touchableProps, [
-        h(View, {style: styles.messageAuthorImage})
+        h(View, {style: styles.messageAuthorImageContainer}, [
+          h(Image, {
+            style: styles.messageAuthorImage,
+            source: avatarUrl as any
+          })
+        ])
       ]),
       h(View, {style: styles.messageHeaderAuthorColumn}, [
         messageHeaderAuthorName,

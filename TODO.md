@@ -1,6 +1,5 @@
 # Next
 
-- Render avatar image
 - Leveldown compiled for Android
 
 # Must

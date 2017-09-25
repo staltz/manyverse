@@ -112,7 +112,8 @@ export const styles = StyleSheet.create({
 
   image: {
     width: 640,
-    height: 480
+    height: 480,
+    backgroundColor: Palette.indigo1
   },
 
   link: {
