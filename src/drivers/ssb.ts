@@ -25,7 +25,7 @@ import makeKeysOpinion from '../ssb/opinions/keys';
 import gossipOpinion from '../ssb/opinions/gossip';
 import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
 import xsFromPullStream from '../to-publish/xs-from-pull-stream';
-import xsFromMutant from '../to-publish/xs-from-mutant';
+import xsFromMutant from 'xstream-from-mutant';
 const blobUrlOpinion = require('patchcore/blob/sync/url');
 const sbotOpinion = require('patchcore/sbot');
 const backlinksOpinion = require('patchcore/backlinks/obs');
@@ -63,21 +63,21 @@ function isNotSync(msg: any): boolean {
 
 function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
   if (isMsg(msg)) {
-    const likes$ = xsFromMutant(api.message.obs.likes[0](msg.key));
-    const name$ = xsFromMutant(api.about.obs.name[0](msg.value.author));
-    return xs
-      .combine(likes$, name$)
-      .map(([likes, name]: [Array<string>, string]) => {
-        if (msg.value) {
-          msg.value._derived = msg.value._derived || {};
-          msg.value._derived.likes = likes;
-          msg.value._derived.ilike = likes.some(
-            key => key === api.keys.sync.id[0]()
-          );
-          msg.value._derived.about = {name, description: ''};
-        }
-        return msg;
-      });
+    const likes$ = xsFromMutant<Array<string>>(
+      api.message.obs.likes[0](msg.key)
+    );
+    const name$ = xsFromMutant<string>(api.about.obs.name[0](msg.value.author));
+    return xs.combine(likes$, name$).map(([likes, name]) => {
+      if (msg.value) {
+        msg.value._derived = msg.value._derived || {};
+        msg.value._derived.likes = likes;
+        msg.value._derived.ilike = likes.some(
+          key => key === api.keys.sync.id[0]()
+        );
+        msg.value._derived.about = {name, description: ''};
+      }
+      return msg;
+    });
   } else {
     return xs.of(msg);
   }
@@ -104,7 +104,9 @@ export class SSBSource {
       .filter(isNotSync);
 
     this.localSyncPeers$ = api$
-      .map(api => xsFromMutant<any>(api.sbot.obs.connectedPeers[1]()))
+      .map(api =>
+        xsFromMutant<Array<PeerMetadata>>(api.sbot.obs.connectedPeers[1]())
+      )
       .flatten();
   }
 
@@ -127,9 +129,9 @@ export class SSBSource {
   profileAbout$(id: FeedId): Stream<About> {
     return this.api$
       .map(api => {
-        const name$: Stream<string> = xsFromMutant(api.about.obs.name[0](id));
-        const color$: Stream<string> = xsFromMutant(api.about.obs.color[0](id));
-        const description$: Stream<string> = xsFromMutant(
+        const name$ = xsFromMutant<string>(api.about.obs.name[0](id));
+        const color$ = xsFromMutant<string>(api.about.obs.color[0](id));
+        const description$ = xsFromMutant<string>(
           api.about.obs.description[0](id)
         );
         return xs

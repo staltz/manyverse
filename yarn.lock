@@ -7584,7 +7584,14 @@ xpipe@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/xpipe/-/xpipe-1.0.5.tgz#8dd8bf45fc3f7f55f0e054b878f43a62614dafdf"
 
-xstream@10.9, xstream@10.x, xstream@>=10:
+xstream-from-mutant@1.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/xstream-from-mutant/-/xstream-from-mutant-1.0.0.tgz#a915b41da5b2ad5068a6e3059a266251b82d7d56"
+  dependencies:
+    mutant "^3.21.2"
+    xstream "^10.9.0"
+
+xstream@10.9, xstream@10.x, xstream@>=10, xstream@^10.9.0:
   version "10.9.0"
   resolved "https://registry.yarnpkg.com/xstream/-/xstream-10.9.0.tgz#db7934cec2da01360d43abbbc879b84524397b55"
   dependencies:

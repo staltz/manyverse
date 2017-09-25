@@ -35,7 +35,8 @@
     "react-native-vector-icons": "^4.2.0",
     "rn-viewpager": "^1.2.3",
     "ssb-ref": "2.7.1",
-    "xstream": "10.9"
+    "xstream": "10.9",
+    "xstream-from-mutant": "1.0"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
