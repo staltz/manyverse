@@ -27,9 +27,8 @@ import {SSBSource} from './drivers/ssb';
 import {ScreenVNode, Command, PushCommand} from 'cycle-native-navigation';
 import {central} from './scenes/central/index';
 import {profile} from './scenes/profile/index';
-import {State as ProfileState} from './scenes/profile/model';
-import {State as CentralState} from './scenes/central/model';
 import {Content} from './ssb/types';
+import model from './model';
 
 export type Sources = {
   screen: ScreenSource;
@@ -46,66 +45,29 @@ export type Sinks = {
 
 export type ScreenID = 'mmmmm.Central' | 'mmmmm.Profile';
 
-export type State = {
-  profile: ProfileState;
-  central: CentralState;
-};
-
-function isPushCommand(c: Command): c is PushCommand {
-  return c.type === 'push';
-}
-
-function model(navCommand$: Stream<Command>): Stream<Reducer<State>> {
-  const setProfileDisplayFeedId$ = navCommand$
-    .filter(isPushCommand)
-    .filter(command => (command.screen as ScreenID) === 'mmmmm.Profile')
-    .map(
-      command =>
-        function setProfileDisplayFeedId(prevState: State): State {
-          if (command.passProps && command.passProps.feedId) {
-            return {
-              ...prevState,
-              profile: {
-                ...prevState.profile,
-                displayFeedId: command.passProps.feedId
-              }
-            };
-          } else {
-            return {
-              ...prevState,
-              profile: {
-                ...prevState.profile,
-                displayFeedId: prevState.profile.selfFeedId
-              }
-            };
-          }
-        }
-    );
-
-  return setProfileDisplayFeedId$;
-}
-
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-
-  disclaimer: {
-    position: 'absolute',
-    left: 0,
-    bottom: 0,
-    color: 'black',
-    fontSize: 15,
-    transform: [{rotateZ: '-90deg'}, {translateY: -96}, {translateX: 140}]
-  }
-});
-
 function addAlphaDisclaimer(screen$: Stream<ScreenVNode>): Stream<ScreenVNode> {
   return screen$.map(screen => ({
     screen: screen.screen,
-    vdom: h(View, {style: styles.container}, [
+    vdom: h(View, {style: {flex: 1}}, [
       screen.vdom,
-      h(Text, {style: styles.disclaimer}, 'Alpha version, not ready for use')
+      h(
+        Text,
+        {
+          style: {
+            position: 'absolute',
+            left: 0,
+            bottom: 0,
+            color: 'black',
+            fontSize: 15,
+            transform: [
+              {rotateZ: '-90deg'},
+              {translateY: -96},
+              {translateX: 140}
+            ]
+          }
+        },
+        'Alpha version, not ready for use'
+      )
     ])
   }));
 }
