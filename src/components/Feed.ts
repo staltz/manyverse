@@ -80,7 +80,7 @@ type FeedHeaderProps = {
 };
 
 class FeedHeader extends PureComponent<FeedHeaderProps> {
-  render() {
+  public render() {
     const {onPublish} = this.props;
     return h(MessageContainer, [
       h(View, {style: styles.writeMessageRow}, [
@@ -120,13 +120,13 @@ export default class Feed extends Component<FeedProps, {updated: number}> {
     this.state = props.feed;
   }
 
-  componentWillReceiveProps(props: any) {
+  public componentWillReceiveProps(props: any) {
     if (props.feed.updated > this.state.updated) {
       this.setState(props.feed);
     }
   }
 
-  render() {
+  public render() {
     const {
       feed,
       onPublish,

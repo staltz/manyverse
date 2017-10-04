@@ -86,7 +86,7 @@ export type State = {
 };
 
 export default class LocalPeerMetadata extends PureComponent<Props, State> {
-  state = {
+  public state = {
     collapsed: true
   };
 
@@ -96,7 +96,7 @@ export default class LocalPeerMetadata extends PureComponent<Props, State> {
     });
   }
 
-  renderContent(peer: PeerMetadata): Array<ReactElement<any>> {
+  public renderContent(peer: PeerMetadata): Array<ReactElement<any>> {
     if (this.state.collapsed) {
       return [
         h(View, {style: styles.summaryColumn}, [
@@ -129,7 +129,7 @@ export default class LocalPeerMetadata extends PureComponent<Props, State> {
     }
   }
 
-  render() {
+  public render() {
     const {peer} = this.props;
 
     return h(

@@ -48,11 +48,11 @@ export default class Beacon extends PureComponent<{
   color: string;
   style: StyleProp<ViewStyle>;
 }> {
-  state = {
+  public state = {
     anim: new Animated.Value(0)
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     (Animated as any)
       .loop(
         Animated.timing(this.state.anim, {
@@ -65,7 +65,7 @@ export default class Beacon extends PureComponent<{
       .start();
   }
 
-  render() {
+  public render() {
     return h(View, {style: [styles.container, this.props.style]}, [
       h(View, {style: [styles.core, {backgroundColor: this.props.color}]}),
       h(Animated.View, {

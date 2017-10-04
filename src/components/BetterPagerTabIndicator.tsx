@@ -1,6 +1,8 @@
 /**
  * This component is a fork of
- * https://github.com/zbtang/React-Native-ViewPager/blob/3d28ac7cdd68d397ba926fcd473e3ac35f7eef58/viewpager/indicator/PagerTabIndicator.js
+ * https://github.com/zbtang/React-Native-ViewPager/blob/
+ * 3d28ac7cdd68d397ba926fcd473e3ac35f7eef58/viewpager/
+ * indicator/PagerTabIndicator.js
  * to allow custom tabs items, not just Text and Image.
  */
 import * as React from 'react';
@@ -35,17 +37,17 @@ export type Tab = {
 };
 
 export default class BetterPagerTabIndicator extends Component<Props, State> {
-  static defaultProps = {
+  public static defaultProps = {
     tabs: [],
     changePageWithAnimation: true
   };
 
-  state = {
+  public state = {
     selectedIndex: this.props.initialPage
   };
 
   public render() {
-    let {
+    const {
       tabs,
       pager,
       style,
@@ -55,8 +57,8 @@ export default class BetterPagerTabIndicator extends Component<Props, State> {
     } = this.props;
     if (!tabs || tabs.length === 0) return null;
 
-    let tabsView = tabs.map((tab: Tab, index: number) => {
-      let isSelected = this.state.selectedIndex === index;
+    const tabsView = tabs.map((tab: Tab, index: number) => {
+      const isSelected = this.state.selectedIndex === index;
       return (
         <TouchableOpacity
           style={
@@ -85,7 +87,7 @@ export default class BetterPagerTabIndicator extends Component<Props, State> {
     );
   }
 
-  onPageSelected(e: any) {
+  public onPageSelected(e: any) {
     this.setState({selectedIndex: e.position});
   }
 }

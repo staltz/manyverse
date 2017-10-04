@@ -268,7 +268,7 @@ export type Props = {
 };
 
 export default class PostMessage extends Component<Props> {
-  render() {
+  public render() {
     const props = this.props;
     const {msg} = props;
     const md = materializeMarkdown(msg.value.content);

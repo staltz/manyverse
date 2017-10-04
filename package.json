@@ -47,6 +47,7 @@
     "prettier": "1.5.x",
     "propagate-replacement-fields": "1.2.0",
     "react-test-renderer": "16.0.0-alpha.12",
+    "tslint": "^5.7.0",
     "typescript": "2.4.x",
     "yarn": "^1.0.1"
   },

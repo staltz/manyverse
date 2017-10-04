@@ -56,15 +56,15 @@ export const styles = StyleSheet.create({
 export default class AboutMessage extends PureComponent<{msg: Msg<About>}> {
   private interval: any;
 
-  componentDidMount() {
+  public componentDidMount() {
     this.interval = setInterval(() => this.forceUpdate(), 30e3);
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     clearInterval(this.interval);
   }
 
-  render() {
+  public render() {
     const {msg} = this.props;
     const accountTextProps = {
       numberOfLines: 1,

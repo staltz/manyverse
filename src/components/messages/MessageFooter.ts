@@ -109,7 +109,7 @@ export default class MessageFooter extends Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps(props: Props) {
+  public componentWillReceiveProps(props: Props) {
     if (props.msg.value._derived && props.msg.value._derived.ilike === true) {
       this.setState(() => ({ilike: 'yes'}));
     } else {
@@ -131,7 +131,7 @@ export default class MessageFooter extends Component<Props, State> {
     }
   }
 
-  render() {
+  public render() {
     const {msg} = this.props;
     const likeCount =
       (msg.value._derived &&

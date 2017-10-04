@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
 });
 
 export default class MessageContainer extends PureComponent<{}> {
-  render() {
+  public render() {
     return h(View, {style: styles.wrapper}, [
       h(View, {style: styles.card}, this.props.children as any)
     ]);

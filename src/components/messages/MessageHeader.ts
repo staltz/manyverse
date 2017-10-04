@@ -88,11 +88,11 @@ export type Props = {
 export default class MessageHeader extends PureComponent<Props> {
   private interval: any;
 
-  componentDidMount() {
+  public componentDidMount() {
     this.interval = setInterval(() => this.forceUpdate(), 30e3);
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     clearInterval(this.interval);
   }
 
@@ -103,7 +103,7 @@ export default class MessageHeader extends PureComponent<Props> {
     }
   }
 
-  render() {
+  public render() {
     const {msg} = this.props;
     const avatarUrl =
       (msg.value._derived &&

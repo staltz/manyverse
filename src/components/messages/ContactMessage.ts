@@ -56,15 +56,15 @@ export const styles = StyleSheet.create({
 export default class ContactMessage extends PureComponent<{msg: Msg<Contact>}> {
   private interval: any;
 
-  componentDidMount() {
+  public componentDidMount() {
     this.interval = setInterval(() => this.forceUpdate(), 30e3);
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     clearInterval(this.interval);
   }
 
-  render() {
+  public render() {
     const {msg} = this.props;
     const accountTextProps = {
       numberOfLines: 1,

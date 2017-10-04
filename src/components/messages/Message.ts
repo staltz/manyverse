@@ -45,14 +45,14 @@ export type Props = {
 };
 
 export class KeylessMessage extends Component<{msg: any}> {
-  render() {
+  public render() {
     const {msg} = this.props;
     return h(MessageContainer, [h(Metadata, {msg})]);
   }
 }
 
 export class RawMessage extends Component<Props> {
-  render() {
+  public render() {
     const props = this.props;
     return h(MessageContainer, [
       h(MessageHeader, props),
@@ -63,7 +63,7 @@ export class RawMessage extends Component<Props> {
 }
 
 export default class Message extends Component<Props> {
-  render() {
+  public render() {
     const {msg} = this.props;
     const props = this.props;
     if (!msg.key) return h(KeylessMessage, props);

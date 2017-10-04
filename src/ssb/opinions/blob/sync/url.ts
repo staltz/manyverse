@@ -22,9 +22,10 @@ const nest = require('depnest');
 const blobSyncUrlOpinion = {
   gives: nest('blob.sync.url'),
   create: function create(api: any) {
-    return nest('blob.sync.url', function(id: any) {
-      return `http://localhost:7777/${encodeURIComponent(id)}`;
-    });
+    return nest(
+      'blob.sync.url',
+      (id: any) => `http://localhost:7777/${encodeURIComponent(id)}`
+    );
   }
 };
 

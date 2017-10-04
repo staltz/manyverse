@@ -23,10 +23,10 @@ const pull = require('pull-stream');
 const feedProfileOpinion = {
   gives: nest('feed.pull.profile'),
   needs: nest('sbot.pull.userFeed', 'first'),
-  create: function(api: any) {
+  create(api: any) {
     return nest('feed.pull.profile', (id: string) => {
       // handle last item passed in as lt
-      return function(opts: any) {
+      return (opts: any) => {
         const moreOpts = {
           ...opts,
           id,
