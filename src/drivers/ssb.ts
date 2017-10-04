@@ -115,7 +115,7 @@ export class SSBSource {
       .flatten();
   }
 
-  profileFeed$(id: FeedId): Stream<Msg> {
+  public profileFeed$(id: FeedId): Stream<Msg> {
     return this.api$
       .map(api =>
         xsFromPullStream<any>(
@@ -133,7 +133,7 @@ export class SSBSource {
       .filter(isNotSync);
   }
 
-  profileAbout$(id: FeedId): Stream<About> {
+  public profileAbout$(id: FeedId): Stream<About> {
     return this.api$
       .map(api => {
         const name$ = xsFromMutant<string>(api.about.obs.name[0](id));
