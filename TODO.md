@@ -1,26 +1,26 @@
 # Next
 
-- Leveldown compiled for Android
-- Publish message from self Profile screen
+- Follow button in Profile
+- Edit own name in Profile screen
 
 # Must
 
-- Follow button in Profile
-- Profile header part should shrink when scrolling down through messages
+- Fix sync tab: local peer metadata should not be incomplete
 - Basic private messages tab
-- Fix profile page feed of messages to reflect account
+- Basic notifications tab
+- Leveldown compiled for Android
 
 # Should
 
+- Profile header part should shrink when scrolling down through messages
 - Run in low-end Android device, armv7
-- Basic notifications tab
-- node-sodium compiled for Android
 - Nav drawer
 - Channels in Nav drawer
 - Group messages as thread
 
 # Could
 
+- node-sodium compiled for Android
 - Sections in Metadata tab: LAN and WAN
 - Add WAN peer
 - Search field
