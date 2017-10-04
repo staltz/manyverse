@@ -56,7 +56,7 @@ export default function model(
     msg =>
       function mutateFeedReducer(prevState: State): State {
         includeMsgIntoFeed(prevState.feed, msg);
-        return prevState;
+        return {...prevState};
       }
   );
 
