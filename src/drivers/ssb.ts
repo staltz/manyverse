@@ -126,6 +126,8 @@ export class SSBSource {
             reverse: false
           })
         )
+          .map(msg => addDerivedDataToMessage(msg, api))
+          .compose(flattenConcurrently)
       )
       .flatten()
       .filter(isNotSync);
