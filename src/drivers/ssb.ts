@@ -156,10 +156,16 @@ export class SSBSource {
   }
 }
 
+function dropCompletion(stream: Stream<any>): Stream<any> {
+  return xs.merge(stream, xs.never());
+}
+
 export function ssbDriver(sink: Stream<Content>): SSBSource {
   const keys$ = xs.fromPromise(ssbClient.fetchKeys(Config('ssb')));
 
   const api$ = keys$
+    .take(1)
+    .compose(dropCompletion)
     .map(keys => {
       return depjectCombine([
         emptyHookOpinion,
