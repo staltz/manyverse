@@ -52,6 +52,12 @@ export default function model(
     .map(id => ssbSource.profileAbout$(id))
     .flatten();
 
+  const cleanUpFeedReducer$ = displayFeedIdChanged$.mapTo(
+    function cleanUpFeedReducer(prevState: State): State {
+      return {...prevState, feed: {updated: 0, arr: []}};
+    }
+  );
+
   const mutateFeedReducer$ = msg$.map(
     msg =>
       function mutateFeedReducer(prevState: State): State {
@@ -95,6 +101,7 @@ export default function model(
 
   return xs.merge(
     mutateFeedReducer$,
+    cleanUpFeedReducer$,
     updateAboutReducer$,
     setSelfFeedIdReducer$
   );
