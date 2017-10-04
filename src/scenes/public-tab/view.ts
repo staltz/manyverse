@@ -22,30 +22,10 @@ import {PureComponent, Component} from 'react';
 import {View, FlatList, Text, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
-import {Msg, isVoteMsg} from '../../ssb/types';
+import {Msg} from '../../ssb/types';
+import {includeMsgIntoFeed} from '../../ssb/utils';
 import {styles} from './styles';
-import Feed, {FeedData, emptyFeed} from '../../components/Feed';
-
-/**
- * Whether or not the message should be shown in the feed.
- *
- * TODO: This should be configurable in the app settings!
- */
-function isShowableMsg(msg: Msg): boolean {
-  return !isVoteMsg(msg);
-}
-
-function includeMsgIntoFeed(feed: FeedData, msg: Msg) {
-  const index = feed.arr.findIndex(m => m.key === msg.key);
-  if (index >= 0) {
-    feed.arr[index] = msg;
-    feed.updated += 1;
-  } else if (isShowableMsg(msg)) {
-    feed.arr.unshift(msg);
-    feed.updated += 1;
-  }
-  return feed;
-}
+import Feed, {emptyFeed} from '../../components/Feed';
 
 export default function view(feed$: Stream<Msg>) {
   const vdom$ = feed$

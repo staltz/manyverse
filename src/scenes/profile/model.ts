@@ -21,7 +21,8 @@ import xs, {Stream, Listener} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {SSBSource} from '../../drivers/ssb';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {FeedId, About, Msg, isVoteMsg} from '../../ssb/types';
+import {FeedId, About, Msg} from '../../ssb/types';
+import {includeMsgIntoFeed} from '../../ssb/utils';
 
 export type FeedData = {
   updated: number;
@@ -34,27 +35,6 @@ export type State = {
   feed: FeedData;
   about: About;
 };
-
-/**
- * Whether or not the message should be shown in the feed.
- *
- * TODO: This should be configurable in the app settings!
- */
-function isShowableMsg(msg: Msg): boolean {
-  return !isVoteMsg(msg);
-}
-
-function includeMsgIntoFeed(feed: FeedData, msg: Msg): FeedData {
-  const index = feed.arr.findIndex(m => m.key === msg.key);
-  if (index >= 0) {
-    feed.arr[index] = msg;
-    feed.updated += 1;
-  } else if (isShowableMsg(msg)) {
-    feed.arr.unshift(msg);
-    feed.updated += 1;
-  }
-  return feed;
-}
 
 export default function model(
   state$: Stream<State>,
