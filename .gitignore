@@ -62,3 +62,7 @@ fastlane/screenshots
 # Generated Code
 #
 /lib/
+
+# Misc
+#
+/gitignored/
