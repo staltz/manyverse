@@ -110,7 +110,7 @@ export default function view(
 ) {
   return xs
     .combine(
-      state$.debug('central.state'),
+      state$,
       publicTabVDOM$.startWith(h(View)),
       metadataTabVDOM$.startWith(h(View))
     )
