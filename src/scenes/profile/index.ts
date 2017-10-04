@@ -20,11 +20,12 @@
 import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {Content, FeedId, About, Msg, isVoteMsg} from '../../ssb/types';
+import {Content, PostContent, VoteContent} from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import model, {State} from './model';
 import view from './view';
+import intent, {Actions} from './intent';
 
 export type Sources = {
   screen: ScreensSource;
@@ -39,14 +40,39 @@ export type Sinks = {
   ssb: Stream<Content>;
 };
 
+function prepareForSSB(actions: Actions): Stream<Content> {
+  const publishMsg$ = actions.publishMsg.map(text => {
+    return {
+      text,
+      type: 'post',
+      mentions: []
+    } as PostContent;
+  });
+
+  const toggleLikeMsg$ = actions.likeMsg.map(ev => {
+    return {
+      type: 'vote',
+      vote: {
+        link: ev.msgKey,
+        value: ev.like ? 1 : 0,
+        expression: ev.like ? 'Like' : 'Unlike'
+      }
+    } as VoteContent;
+  });
+
+  return xs.merge(publishMsg$, toggleLikeMsg$);
+}
+
 export function profile(sources: Sources): Sinks {
   const reducer$ = model(sources.onion.state$, sources.ssb);
+  const actions = intent(sources.screen);
+  const newContent$ = prepareForSSB(actions);
   const vdom$ = view(sources.onion.state$);
 
   return {
     screen: vdom$,
     navCommand: xs.never(),
     onion: reducer$,
-    ssb: xs.never()
+    ssb: newContent$
   };
 }
