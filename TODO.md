@@ -1,6 +1,6 @@
 # Next
 
-- Follow button in Profile
+- Render "unfollowed" feed messages
 - Edit own name in Profile screen
 - Update React Native to v0.48.4
 

@@ -27,6 +27,7 @@ export type ProfileNavEvent = {authorFeedId: FeedId};
 export type Actions = {
   publishMsg: Stream<string>;
   likeMsg: Stream<LikeEvent>;
+  follow: Stream<boolean>;
 };
 
 export default function intent(source: ScreensSource): Actions {
@@ -36,6 +37,8 @@ export default function intent(source: ScreensSource): Actions {
       .events('publish')
       .map(ev => ev.nativeEvent.text) as Stream<string>,
 
-    likeMsg: source.select('feed').events('pressLike') as Stream<LikeEvent>
+    likeMsg: source.select('feed').events('pressLike') as Stream<LikeEvent>,
+
+    follow: source.select('follow').events('press') as Stream<boolean>
   };
 }

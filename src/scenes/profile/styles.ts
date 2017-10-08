@@ -81,6 +81,13 @@ export const styles = StyleSheet.create({
     marginLeft: Dimensions.horizontalSpaceBig
   },
 
+  follow: {
+    position: 'absolute',
+    top: avatarSizeHalf + Dimensions.verticalSpaceSmall,
+    right: Dimensions.horizontalSpaceBig,
+    zIndex: 30
+  },
+
   avatarBackground: {
     height: avatarSize,
     width: avatarSize,

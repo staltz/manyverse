@@ -66,6 +66,13 @@ export type About = {
   color?: string;
   imageUrl?: string;
   id?: FeedId;
+
+  /**
+   * true means following
+   * null means not-following
+   * false means blocked
+   */
+  following?: true | null | false;
 };
 
 export type Msg<C = Content> = {

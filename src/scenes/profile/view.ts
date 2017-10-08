@@ -23,6 +23,7 @@ import {View, FlatList, Text, TextInput, Image} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import Feed, {FeedData, emptyFeed} from '../../components/Feed';
+import ToggleButton from '../../components/ToggleButton';
 import {Msg, isVoteMsg, About} from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
 import {styles} from './styles';
@@ -31,25 +32,41 @@ import {State} from './model';
 export default function view(state$: Stream<State>) {
   return state$.map((state: State) => ({
     screen: 'mmmmm.Profile',
-    vdom: h(View, {style: styles.container}, [
-      h(View, {style: styles.cover}, [
-        h(Text, {style: styles.name}, state.about.name)
-      ]),
-      h(View, {style: styles.avatarBackground}, [
-        h(Image, {
-          style: styles.avatar,
-          source: {uri: state.about.imageUrl || ''}
+    vdom: h(
+      View,
+      {style: styles.container},
+      [
+        h(View, {style: styles.cover}, [
+          h(Text, {style: styles.name}, state.about.name)
+        ]),
+
+        h(View, {style: styles.avatarBackground}, [
+          h(Image, {
+            style: styles.avatar,
+            source: {uri: state.about.imageUrl || ''}
+          })
+        ]),
+
+        state.displayFeedId === state.selfFeedId
+          ? null
+          : h(ToggleButton, {
+              selector: 'follow',
+              style: styles.follow,
+              text: state.about.following === true ? 'Following' : 'Follow',
+              toggled: state.about.following === true
+            }),
+
+        h(View, {style: styles.descriptionArea}, [
+          h(Text, {style: styles.description}, state.about.description || '')
+        ]),
+
+        h(Feed, {
+          selector: 'feed',
+          style: styles.feed,
+          feed: state.feed,
+          showPublishHeader: state.displayFeedId === state.selfFeedId
         })
-      ]),
-      h(View, {style: styles.descriptionArea}, [
-        h(Text, {style: styles.description}, state.about.description || '')
-      ]),
-      h(Feed, {
-        selector: 'feed',
-        style: styles.feed,
-        feed: state.feed,
-        showPublishHeader: state.displayFeedId === state.selfFeedId
-      })
-    ])
+      ] as Array<any>
+    )
   }));
 }

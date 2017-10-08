@@ -18,9 +18,15 @@
  */
 
 import xs, {Stream, Listener} from 'xstream';
+import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {Content, PostContent, VoteContent} from '../../ssb/types';
+import {
+  Content,
+  PostContent,
+  VoteContent,
+  ContactContent
+} from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import model, {State} from './model';
@@ -40,7 +46,10 @@ export type Sinks = {
   ssb: Stream<Content>;
 };
 
-function prepareForSSB(actions: Actions): Stream<Content> {
+function prepareForSSB(
+  actions: Actions,
+  state$: Stream<State>
+): Stream<Content> {
   const publishMsg$ = actions.publishMsg.map(text => {
     return {
       text,
@@ -60,13 +69,23 @@ function prepareForSSB(actions: Actions): Stream<Content> {
     } as VoteContent;
   });
 
-  return xs.merge(publishMsg$, toggleLikeMsg$);
+  const followProfileMsg$ = actions.follow
+    .compose(sampleCombine(state$))
+    .map(([following, state]) => {
+      return {
+        type: 'contact',
+        following,
+        contact: state.displayFeedId
+      } as ContactContent;
+    });
+
+  return xs.merge(publishMsg$, toggleLikeMsg$, followProfileMsg$);
 }
 
 export function profile(sources: Sources): Sinks {
   const reducer$ = model(sources.onion.state$, sources.ssb);
   const actions = intent(sources.screen);
-  const newContent$ = prepareForSSB(actions);
+  const newContent$ = prepareForSSB(actions, sources.onion.state$);
   const vdom$ = view(sources.onion.state$);
 
   return {

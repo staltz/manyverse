@@ -27,9 +27,11 @@ import gossipOpinion from '../ssb/opinions/gossip';
 import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import xsFromMutant from 'xstream-from-mutant';
+const {computed} = require('mutant');
 const sbotOpinion = require('patchcore/sbot');
 const backlinksOpinion = require('patchcore/backlinks/obs');
 const aboutOpinion = require('patchcore/about/obs');
+const contactOpinion = require('patchcore/contact/obs');
 const unboxOpinion = require('patchcore/message/sync/unbox');
 const msgLikesOpinion = require('patchcore/message/obs/likes');
 const ssbClient = require('react-native-ssb-client');
@@ -139,16 +141,21 @@ export class SSBSource {
         const name$ = xsFromMutant<string>(api.about.obs.name[0](id));
         const color$ = xsFromMutant<string>(api.about.obs.color[0](id));
         const imageUrl$ = xsFromMutant<string>(api.about.obs.imageUrl[0](id));
+        const yourFollows = api.contact.obs.following[0](api.keys.sync.id[0]());
+        const following$ = xsFromMutant<true | null | false>(
+          computed([yourFollows], (youFollow: any) => youFollow.includes(id))
+        );
         const description$ = xsFromMutant<string>(
           api.about.obs.description[0](id)
         );
         return xs
-          .combine(name$, color$, description$, imageUrl$)
-          .map(([name, color, description, imageUrl]) => ({
+          .combine(name$, color$, description$, following$, imageUrl$)
+          .map(([name, color, description, following, imageUrl]) => ({
             name,
             color,
             description,
             imageUrl,
+            following,
             id
           }));
       })
@@ -178,6 +185,7 @@ export function ssbDriver(sink: Stream<Content>): SSBSource {
         gossipOpinion,
         backlinksOpinion,
         aboutOpinion,
+        contactOpinion,
         unboxOpinion,
         msgLikesOpinion
       ]);
