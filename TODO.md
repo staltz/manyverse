@@ -1,27 +1,28 @@
 # Next
 
 - Render "unfollowed" feed messages
-- Edit own name in Profile screen
-- Update React Native to v0.48.4
+- Render "about" feed messages for new profile picture
+- Update React Native to v0.49
 
 # Must
 
+- Edit own name in Profile screen
 - Use nodejs-mobile-react-native
 - Fix sync tab: local peer metadata should not be incomplete
-- Basic private messages tab
 - Basic notifications tab
 
 # Should
 
+- Basic private messages tab
 - Leveldown compiled for Android
 - Profile header part should shrink when scrolling down through messages
 - Run in low-end Android device, armv7
 - Nav drawer
-- Channels in Nav drawer
 - Group messages as thread
 
 # Could
 
+- Channels in Nav drawer
 - node-sodium compiled for Android
 - Sections in Metadata tab: LAN and WAN
 - Add WAN peer
