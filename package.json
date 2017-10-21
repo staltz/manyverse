@@ -12,7 +12,7 @@
     "update-android-manifest": "node tools/update-android-manifest.js",
     "android-release": "cd android && ./gradlew assembleRelease && cd ..",
     "move-android-apk": "mkdir -p gitignored/release && cp android/app/build/outputs/apk/app-release.apk gitignored/release/",
-    "release": "npm run android-release && npm run move-android-apk"
+    "release": "npm run update-android-manifest && npm run android-release && npm run move-android-apk"
   },
   "dependencies": {
     "@cycle/isolate": "3.1.x",
