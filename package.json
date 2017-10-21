@@ -10,7 +10,7 @@
     "test-e2e-android": "cd android/app && ./test-features.sh || cd ../..",
     "test": "jest",
     "android-release": "cd android && ./gradlew assembleRelease && cd ..",
-    "move-android-apk": "cp android/app/build/outputs/apk/*.apk gitignored/release/",
+    "move-android-apk": "mkdir -p gitignored/release && cp android/app/build/outputs/apk/app-release.apk gitignored/release/",
     "release": "npm run android-release && npm run move-android-apk"
   },
   "dependencies": {
