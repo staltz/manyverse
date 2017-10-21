@@ -9,6 +9,7 @@
     "start": "npm run lib && npm run propagate-replacements && node node_modules/react-native/local-cli/cli.js start",
     "test-e2e-android": "cd android/app && ./test-features.sh || cd ../..",
     "test": "jest",
+    "update-android-manifest": "node tools/update-android-manifest.js",
     "android-release": "cd android && ./gradlew assembleRelease && cd ..",
     "move-android-apk": "mkdir -p gitignored/release && cp android/app/build/outputs/apk/app-release.apk gitignored/release/",
     "release": "npm run android-release && npm run move-android-apk"
@@ -45,6 +46,7 @@
   "devDependencies": {
     "babel-jest": "20.0.3",
     "babel-preset-react-native": "2.1.0",
+    "cheerio": "^1.0.0-rc.2",
     "jest": "20.0.4",
     "patch-package": "^3.4.0",
     "prettier": "1.5.x",
