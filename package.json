@@ -9,10 +9,10 @@
     "start": "npm run lib && npm run propagate-replacements && node node_modules/react-native/local-cli/cli.js start",
     "test-e2e-android": "cd android/app && ./test-features.sh || cd ../..",
     "test": "jest",
-    "update-android-manifest": "node tools/update-android-manifest.js",
+    "update-android-version": "react-native-version --target android",
     "android-release": "cd android && ./gradlew assembleRelease && cd ..",
     "move-android-apk": "mkdir -p gitignored/release && cp android/app/build/outputs/apk/app-release.apk gitignored/release/",
-    "release": "npm run update-android-manifest && npm run android-release && npm run move-android-apk"
+    "release": "npm run update-android-version && npm run android-release && npm run move-android-apk"
   },
   "dependencies": {
     "@cycle/isolate": "3.1.x",
@@ -51,6 +51,7 @@
     "patch-package": "^3.4.0",
     "prettier": "1.5.x",
     "propagate-replacement-fields": "1.2.0",
+    "react-native-version": "^2.3.1",
     "react-test-renderer": "16.0.0-alpha.12",
     "tslint": "^5.7.0",
     "typescript": "2.4.x",
