@@ -33,7 +33,7 @@
     "react": "16.0.0-alpha.12",
     "react-native": "0.48.3",
     "react-native-navigation": "^1.1.219",
-    "react-native-scuttlebot": "10.4.12",
+    "react-native-scuttlebot": "10.4.14",
     "react-native-simple-markdown": "^1.0.60-rc.3",
     "react-native-ssb-client": "2.0.3",
     "react-native-vector-icons": "4.2.0",
