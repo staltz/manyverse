@@ -75,7 +75,13 @@ export default class ContactMessage extends PureComponent<{msg: Msg<Contact>}> {
     return h(MessageContainer, [
       h(View, {style: styles.row}, [
         h(Text, accountTextProps, authorName(msg)),
-        h(Text, {style: styles.followed}, ' followed '),
+        h(
+          Text,
+          {style: styles.followed},
+          msg.value.content.following
+            ? ' started following '
+            : ' stopped following '
+        ),
         h(Text, accountTextProps, shortFeedId(msg.value.content.contact || '?'))
       ]),
       h(View, {style: styles.row}, [

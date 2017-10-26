@@ -1,7 +1,7 @@
 # Next
 
-- Render "unfollowed" feed messages
 - Render "about" feed messages for new profile picture
+- Render about description messages
 - Update React Native to v0.49
 
 # Must
