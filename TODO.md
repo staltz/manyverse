@@ -1,6 +1,5 @@
 # Next
 
-- Correctly render markdown for description in Profile
 - Render "about" feed messages for new profile picture
 - Update React Native to v0.49
 

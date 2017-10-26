@@ -20,8 +20,10 @@
 import xs, {Stream} from 'xstream';
 import {PureComponent, Component} from 'react';
 import {View, FlatList, Text, TextInput, Image} from 'react-native';
+import Markdown from 'react-native-simple-markdown';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
+import {rules, styles as mdstyles} from '../../global-styles/markdown';
 import Feed, {FeedData, emptyFeed} from '../../components/Feed';
 import ToggleButton from '../../components/ToggleButton';
 import {Msg, isVoteMsg, About} from '../../ssb/types';
@@ -57,7 +59,7 @@ export default function view(state$: Stream<State>) {
             }),
 
         h(View, {style: styles.descriptionArea}, [
-          h(Text, {style: styles.description}, state.about.description || '')
+          h(Markdown, {styles: mdstyles, rules}, state.about.description || '')
         ]),
 
         h(Feed, {

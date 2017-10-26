@@ -64,6 +64,8 @@ export const styles = StyleSheet.create({
     zIndex: 10,
     paddingTop: avatarSizeHalf + Dimensions.verticalSpaceNormal,
     paddingBottom: Dimensions.verticalSpaceNormal,
+    paddingLeft: Dimensions.horizontalSpaceBig,
+    paddingRight: Dimensions.horizontalSpaceBig,
     backgroundColor: Palette.brand.textBackground
   },
 
@@ -71,14 +73,6 @@ export const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     alignSelf: 'stretch'
-  },
-
-  description: {
-    color: Palette.brand.text,
-    fontSize: Typography.fontSizeNormal,
-    fontFamily: Typography.fontFamilyReadableText,
-    fontWeight: 'normal',
-    marginLeft: Dimensions.horizontalSpaceBig
   },
 
   follow: {
