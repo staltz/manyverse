@@ -1,6 +1,6 @@
 {
   "name": "MMMMM",
-  "version": "0.0.4",
+  "version": "0.0.5-alpha",
   "private": true,
   "scripts": {
     "lib": "tsc",
@@ -9,8 +9,8 @@
     "start": "npm run lib && npm run propagate-replacements && node node_modules/react-native/local-cli/cli.js start",
     "test-e2e-android": "cd android/app && ./test-features.sh || cd ../..",
     "test": "jest",
-    "update-android-version": "react-native-version --target android",
-    "android-release": "cd android && ./gradlew assembleRelease && cd ..",
+    "update-android-version": "react-native-version --never-amend --target android && git add -A && git commit -m \"Release $(cat package.json | $(npm bin)/jase version)\"",
+    "android-release": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "move-android-apk": "mkdir -p gitignored/release && cp android/app/build/outputs/apk/app-release.apk gitignored/release/",
     "release": "npm run update-android-version && npm run android-release && npm run move-android-apk"
   },
@@ -47,6 +47,7 @@
     "babel-jest": "20.0.3",
     "babel-preset-react-native": "2.1.0",
     "cheerio": "^1.0.0-rc.2",
+    "jase": "1.2.0",
     "jest": "20.0.4",
     "patch-package": "^3.4.0",
     "prettier": "1.5.x",
