@@ -18,7 +18,7 @@
  */
 
 import {PureComponent, createElement} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, ImageURISource} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Markdown from 'react-native-simple-markdown';
 import {rules, styles as mdstyles} from '../../global-styles/markdown';
@@ -52,8 +52,82 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.brand.textWeak
+  },
+
+  aboutImage: {
+    borderRadius: 3,
+    marginTop: Dimensions.verticalSpaceNormal,
+    marginBottom: Dimensions.verticalSpaceNormal,
+    width: 120,
+    height: 120
   }
 });
+
+const accountTextProps = {
+  numberOfLines: 1,
+  ellipsizeMode: 'middle' as 'middle',
+  style: styles.account
+};
+
+function renderWithImage(msg: Msg<About>) {
+  return h(MessageContainer, [
+    h(View, {style: styles.row}, [
+      h(Text, accountTextProps, authorName(msg)),
+      h(Text, {style: styles.followed}, ' is using a new picture:')
+    ]),
+    h(Image, {
+      style: styles.aboutImage,
+      source: (msg.value._derived &&
+      msg.value._derived.about && {
+        uri: msg.value._derived.about.imageUrl as string
+      }) as ImageURISource
+    }),
+    h(View, {style: styles.row}, [
+      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
+    ])
+  ]);
+}
+
+function renderWithNameDesc(msg: Msg<About>) {
+  return h(MessageContainer, [
+    h(View, {style: styles.row}, [
+      h(Text, accountTextProps, authorName(msg)),
+      h(Text, {style: styles.followed}, ' is using the name '),
+      h(Text, accountTextProps, msg.value.content.name),
+      h(Text, {style: styles.followed}, ' and the description: ')
+    ]),
+    h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
+    h(View, {style: styles.row}, [
+      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
+    ])
+  ]);
+}
+
+function renderWithDesc(msg: Msg<About>) {
+  return h(MessageContainer, [
+    h(View, {style: styles.row}, [
+      h(Text, accountTextProps, authorName(msg)),
+      h(Text, {style: styles.followed}, ' has a new description: ')
+    ]),
+    h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
+    h(View, {style: styles.row}, [
+      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
+    ])
+  ]);
+}
+
+function renderWithName(msg: Msg<About>) {
+  return h(MessageContainer, [
+    h(View, {style: styles.row}, [
+      h(Text, accountTextProps, authorName(msg)),
+      h(Text, {style: styles.followed}, ' is using the name '),
+      h(Text, accountTextProps, msg.value.content.name)
+    ]),
+    h(View, {style: styles.row}, [
+      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
+    ])
+  ]);
+}
 
 export default class AboutMessage extends PureComponent<{msg: Msg<About>}> {
   private interval: any;
@@ -68,50 +142,23 @@ export default class AboutMessage extends PureComponent<{msg: Msg<About>}> {
 
   public render() {
     const {msg} = this.props;
-    const accountTextProps = {
-      numberOfLines: 1,
-      ellipsizeMode: 'middle' as 'middle',
-      style: styles.account
-    };
 
+    const hasImage =
+      !!msg.value.content.image &&
+      !!msg.value._derived &&
+      !!msg.value._derived.about &&
+      !!msg.value._derived.about.imageUrl;
     const hasName = !!msg.value.content.name;
     const hasDescription = !!msg.value.content.description;
 
-    if (hasName && hasDescription) {
-      return h(MessageContainer, [
-        h(View, {style: styles.row}, [
-          h(Text, accountTextProps, authorName(msg)),
-          h(Text, {style: styles.followed}, ' is using the name '),
-          h(Text, accountTextProps, msg.value.content.name),
-          h(Text, {style: styles.followed}, ' and the description: ')
-        ]),
-        h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
-        h(View, {style: styles.row}, [
-          h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
-        ])
-      ]);
+    if (hasImage) {
+      return renderWithImage(msg);
+    } else if (hasName && hasDescription) {
+      return renderWithNameDesc(msg);
     } else if (hasDescription) {
-      return h(MessageContainer, [
-        h(View, {style: styles.row}, [
-          h(Text, accountTextProps, authorName(msg)),
-          h(Text, {style: styles.followed}, ' has a new description: ')
-        ]),
-        h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
-        h(View, {style: styles.row}, [
-          h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
-        ])
-      ]);
+      return renderWithDesc(msg);
     } else {
-      return h(MessageContainer, [
-        h(View, {style: styles.row}, [
-          h(Text, accountTextProps, authorName(msg)),
-          h(Text, {style: styles.followed}, ' is using the name '),
-          h(Text, accountTextProps, msg.value.content.name)
-        ]),
-        h(View, {style: styles.row}, [
-          h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
-        ])
-      ]);
+      return renderWithName(msg);
     }
   }
 }

@@ -107,7 +107,8 @@ export function isAboutMsg(msg: Msg<any>): msg is Msg<AboutContent> {
     msg.value.content &&
     msg.value.content.type === 'about' &&
     (typeof (msg.value.content as AboutContent).name === 'string' ||
-      typeof (msg.value.content as AboutContent).description === 'string')
+      typeof (msg.value.content as AboutContent).description === 'string' ||
+      typeof (msg.value.content as AboutContent).image === 'string')
   );
 }
 
@@ -141,6 +142,7 @@ export type AboutContent = {
   about: FeedId;
   name?: string;
   description?: string;
+  image?: string;
 };
 
 export type ContactContent = {
