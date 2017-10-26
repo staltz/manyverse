@@ -102,8 +102,13 @@ export function isPostMsg(msg: Msg<any>): msg is Msg<PostContent> {
   return msg.value.content && msg.value.content.type === 'post';
 }
 
-export function isAboutMsg(msg: Msg<any>): msg is Msg<PostContent> {
-  return msg.value.content && msg.value.content.type === 'about';
+export function isAboutMsg(msg: Msg<any>): msg is Msg<AboutContent> {
+  return (
+    msg.value.content &&
+    msg.value.content.type === 'about' &&
+    (typeof (msg.value.content as AboutContent).name === 'string' ||
+      typeof (msg.value.content as AboutContent).description === 'string')
+  );
 }
 
 export function isContactMsg(msg: Msg<any>): msg is Msg<ContactContent> {
@@ -135,6 +140,7 @@ export type AboutContent = {
   type: 'about';
   about: FeedId;
   name?: string;
+  description?: string;
 };
 
 export type ContactContent = {

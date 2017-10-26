@@ -20,6 +20,8 @@
 import {PureComponent, createElement} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
+import Markdown from 'react-native-simple-markdown';
+import {rules, styles as mdstyles} from '../../global-styles/markdown';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -72,15 +74,48 @@ export default class AboutMessage extends PureComponent<{msg: Msg<About>}> {
       style: styles.account
     };
 
-    return h(MessageContainer, [
-      h(View, {style: styles.row}, [
-        h(Text, accountTextProps, authorName(msg)),
-        h(Text, {style: styles.followed}, ' is using the name '),
-        h(Text, accountTextProps, msg.value.content.name)
-      ]),
-      h(View, {style: styles.row}, [
-        h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
-      ])
-    ]);
+    const hasName = !!msg.value.content.name;
+    const hasDescription = !!msg.value.content.description;
+
+    if (hasName && hasDescription) {
+      return h(MessageContainer, [
+        h(View, {style: styles.row}, [
+          h(Text, accountTextProps, authorName(msg)),
+          h(Text, {style: styles.followed}, ' is using the name '),
+          h(Text, accountTextProps, msg.value.content.name),
+          h(Text, {style: styles.followed}, ' and the description: ')
+        ]),
+        h(Markdown, {styles: mdstyles, rules}, [
+          msg.value.content.description as any
+        ]),
+        h(View, {style: styles.row}, [
+          h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
+        ])
+      ]);
+    } else if (hasDescription) {
+      return h(MessageContainer, [
+        h(View, {style: styles.row}, [
+          h(Text, accountTextProps, authorName(msg)),
+          h(Text, {style: styles.followed}, ' has a new description: ')
+        ]),
+        h(Markdown, {styles: mdstyles, rules}, [
+          msg.value.content.description as any
+        ]),
+        h(View, {style: styles.row}, [
+          h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
+        ])
+      ]);
+    } else {
+      return h(MessageContainer, [
+        h(View, {style: styles.row}, [
+          h(Text, accountTextProps, authorName(msg)),
+          h(Text, {style: styles.followed}, ' is using the name '),
+          h(Text, accountTextProps, msg.value.content.name)
+        ]),
+        h(View, {style: styles.row}, [
+          h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
+        ])
+      ]);
+    }
   }
 }
