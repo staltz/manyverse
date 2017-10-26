@@ -31,5 +31,5 @@ export const Typography = {
   fontSizeNormal: BASE_SIZE,
   fontSizeSmall: BASE_SIZE * scaleDown,
   fontFamilyReadableText: 'sans-serif-light',
-  fontFamilyMonospace: 'monospace'
+  fontFamilyMonospace: 'monospace',
 };

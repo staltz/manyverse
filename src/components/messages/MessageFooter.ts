@@ -29,29 +29,29 @@ import {Typography} from '../../global-styles/typography';
 export const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
   },
 
   col: {
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
 
   hr: {
     backgroundColor: Palette.gray4,
     height: 1,
     marginTop: Dimensions.verticalSpaceSmall,
-    marginBottom: 0
+    marginBottom: 0,
   },
 
   likeCount: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 
   likes: {
     marginTop: Dimensions.verticalSpaceSmall,
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak
+    color: Palette.brand.textWeak,
   },
 
   likeButton: {
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
     paddingBottom: Dimensions.verticalSpaceBig,
     paddingLeft: 1,
     paddingRight: Dimensions.horizontalSpaceBig,
-    marginBottom: -Dimensions.verticalSpaceBig
+    marginBottom: -Dimensions.verticalSpaceBig,
   },
 
   likeButtonLabel: {
@@ -68,26 +68,26 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: Dimensions.horizontalSpaceSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak
-  }
+    color: Palette.brand.textWeak,
+  },
 });
 
 const iconProps = {
   noLiked: {
     size: Dimensions.iconSizeSmall,
     color: Palette.brand.textWeak,
-    name: 'thumb-up-outline'
+    name: 'thumb-up-outline',
   },
   maybeLiked: {
     size: Dimensions.iconSizeSmall,
     color: Palette.gray6,
-    name: 'thumb-up'
+    name: 'thumb-up',
   },
   yesLiked: {
     size: Dimensions.iconSizeSmall,
     color: Palette.indigo6,
-    name: 'thumb-up'
-  }
+    name: 'thumb-up',
+  },
 };
 
 export type Props = {
@@ -125,7 +125,7 @@ export default class MessageFooter extends Component<Props, State> {
       setTimeout(() => {
         onPressLike({
           msgKey: this.props.msg.key,
-          like: ilike === 'no' ? true : false
+          like: ilike === 'no' ? true : false,
         });
       });
     }
@@ -145,27 +145,27 @@ export default class MessageFooter extends Component<Props, State> {
           h(View, {style: styles.row}, [
             h(Text, {style: styles.likes}, [
               h(Text, {style: styles.likeCount}, String(likeCount)),
-              (likeCount === 1 ? ' like' : ' likes') as any
-            ])
-          ])
+              (likeCount === 1 ? ' like' : ' likes') as any,
+            ]),
+          ]),
         ]
       : [];
 
     const likeButtonProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: () => this._onPressLike()
+      onPress: () => this._onPressLike(),
     };
     const likeButton = h(TouchableNativeFeedback, likeButtonProps, [
       h(View, {style: styles.likeButton}, [
         h(Icon, iconProps[this.state.ilike + 'Liked']),
-        h(Text, {style: styles.likeButtonLabel}, 'Like')
-      ])
+        h(Text, {style: styles.likeButtonLabel}, 'Like'),
+      ]),
     ]);
 
     return h(View, {style: styles.col}, [
       ...counters,
       h(View, {style: styles.hr}),
-      h(View, {style: styles.row}, [likeButton])
+      h(View, {style: styles.row}, [likeButton]),
     ]);
   }
 }

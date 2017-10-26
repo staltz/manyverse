@@ -34,7 +34,7 @@ function isPushCommand(c: Command): c is PushCommand {
 }
 
 export default function model(
-  navCommand$: Stream<Command>
+  navCommand$: Stream<Command>,
 ): Stream<Reducer<State>> {
   const setProfileDisplayFeedId$ = navCommand$
     .filter(isPushCommand)
@@ -47,19 +47,19 @@ export default function model(
               ...prevState,
               profile: {
                 ...prevState.profile,
-                displayFeedId: command.passProps.feedId
-              }
+                displayFeedId: command.passProps.feedId,
+              },
             };
           } else {
             return {
               ...prevState,
               profile: {
                 ...prevState.profile,
-                displayFeedId: prevState.profile.selfFeedId
-              }
+                displayFeedId: prevState.profile.selfFeedId,
+              },
             };
           }
-        }
+        },
     );
 
   return setProfileDisplayFeedId$;

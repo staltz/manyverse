@@ -28,7 +28,7 @@ import {
   isPostMsg,
   isContactMsg,
   isAboutMsg,
-  FeedId
+  FeedId,
 } from '../../ssb/types';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
@@ -57,7 +57,7 @@ export class RawMessage extends Component<Props> {
     return h(MessageContainer, [
       h(MessageHeader, props),
       h(Metadata, props),
-      h(MessageFooter, props)
+      h(MessageFooter, props),
     ]);
   }
 }

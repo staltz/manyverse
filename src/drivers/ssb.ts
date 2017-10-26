@@ -43,7 +43,7 @@ const emptyHookOpinion = {
   gives: nest('sbot.hook.publish'),
   create: (api: any) => {
     return nest('sbot.hook.publish', () => {});
-  }
+  },
 };
 
 const configOpinion = {
@@ -56,7 +56,7 @@ const configOpinion = {
       }
       return config;
     });
-  }
+  },
 };
 
 function isNotSync(msg: any): boolean {
@@ -66,11 +66,11 @@ function isNotSync(msg: any): boolean {
 function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
   if (isMsg(msg)) {
     const likes$ = xsFromMutant<Array<string>>(
-      api.message.obs.likes[0](msg.key)
+      api.message.obs.likes[0](msg.key),
     );
     const name$ = xsFromMutant<string>(api.about.obs.name[0](msg.value.author));
     const imageUrl$ = xsFromMutant<string>(
-      api.about.obs.imageUrl[0](msg.value.author)
+      api.about.obs.imageUrl[0](msg.value.author),
     );
     return xs
       .combine(likes$, name$, imageUrl$)
@@ -79,7 +79,7 @@ function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
           msg.value._derived = msg.value._derived || {};
           msg.value._derived.likes = likes;
           msg.value._derived.ilike = likes.some(
-            key => key === api.keys.sync.id[0]()
+            key => key === api.keys.sync.id[0](),
           );
           msg.value._derived.about = {name, imageUrl, description: ''};
         }
@@ -102,17 +102,17 @@ export class SSBSource {
       .take(1)
       .map(api =>
         xsFromPullStream<any>(
-          api.sbot.pull.feed[0]({reverse: false, limit: 100, live: true})
+          api.sbot.pull.feed[0]({reverse: false, limit: 100, live: true}),
         )
           .map(msg => addDerivedDataToMessage(msg, api))
-          .compose(flattenConcurrently)
+          .compose(flattenConcurrently),
       )
       .flatten()
       .filter(isNotSync);
 
     this.localSyncPeers$ = api$
       .map(api =>
-        xsFromMutant<Array<PeerMetadata>>(api.sbot.obs.connectedPeers[1]())
+        xsFromMutant<Array<PeerMetadata>>(api.sbot.obs.connectedPeers[1]()),
       )
       .flatten();
   }
@@ -125,11 +125,11 @@ export class SSBSource {
             lt: 100,
             live: true,
             limit: 100,
-            reverse: false
-          })
+            reverse: false,
+          }),
         )
           .map(msg => addDerivedDataToMessage(msg, api))
-          .compose(flattenConcurrently)
+          .compose(flattenConcurrently),
       )
       .flatten()
       .filter(isNotSync);
@@ -143,10 +143,10 @@ export class SSBSource {
         const imageUrl$ = xsFromMutant<string>(api.about.obs.imageUrl[0](id));
         const yourFollows = api.contact.obs.following[0](api.keys.sync.id[0]());
         const following$ = xsFromMutant<true | null | false>(
-          computed([yourFollows], (youFollow: any) => youFollow.includes(id))
+          computed([yourFollows], (youFollow: any) => youFollow.includes(id)),
         );
         const description$ = xsFromMutant<string>(
-          api.about.obs.description[0](id)
+          api.about.obs.description[0](id),
         );
         return xs
           .combine(name$, color$, description$, following$, imageUrl$)
@@ -156,7 +156,7 @@ export class SSBSource {
             description,
             imageUrl,
             following,
-            id
+            id,
           }));
       })
       .flatten();
@@ -187,7 +187,7 @@ export function ssbDriver(sink: Stream<Content>): SSBSource {
         aboutOpinion,
         contactOpinion,
         unboxOpinion,
-        msgLikesOpinion
+        msgLikesOpinion,
       ]);
     })
     .remember();
@@ -199,7 +199,7 @@ export function ssbDriver(sink: Stream<Content>): SSBSource {
     .addListener({
       next: ([api, newContent]) => {
         api.sbot.async.publish[0](newContent);
-      }
+      },
     });
 
   return new SSBSource(api$);

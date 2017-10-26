@@ -33,20 +33,20 @@ export const navigatorStyle = {
   navBarTextFontFamily: Typography.fontFamilyReadableText,
   navBarButtonColor: Palette.white,
   topBarElevationShadowEnabled: false,
-  navBarTextFontBold: true
+  navBarTextFontBold: true,
 };
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.brand.voidBackground
+    backgroundColor: Palette.brand.voidBackground,
   },
 
   cover: {
     backgroundColor: Palette.brand.background,
     height: avatarSizeHalf,
-    zIndex: 10
+    zIndex: 10,
   },
 
   name: {
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     top: Dimensions.verticalSpaceSmall,
-    left: Dimensions.horizontalSpaceBig + 80 + Dimensions.horizontalSpaceBig
+    left: Dimensions.horizontalSpaceBig + 80 + Dimensions.horizontalSpaceBig,
   },
 
   descriptionArea: {
@@ -66,20 +66,20 @@ export const styles = StyleSheet.create({
     paddingBottom: Dimensions.verticalSpaceNormal,
     paddingLeft: Dimensions.horizontalSpaceBig,
     paddingRight: Dimensions.horizontalSpaceBig,
-    backgroundColor: Palette.brand.textBackground
+    backgroundColor: Palette.brand.textBackground,
   },
 
   feed: {
     top: 0,
     bottom: 0,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
   },
 
   follow: {
     position: 'absolute',
     top: avatarSizeHalf + Dimensions.verticalSpaceSmall,
     right: Dimensions.horizontalSpaceBig,
-    zIndex: 30
+    zIndex: 30,
   },
 
   avatarBackground: {
@@ -89,7 +89,7 @@ export const styles = StyleSheet.create({
     top: -avatarSizeHalf,
     left: Dimensions.horizontalSpaceBig,
     zIndex: 20,
-    backgroundColor: Palette.indigo1
+    backgroundColor: Palette.indigo1,
   },
 
   avatar: {
@@ -98,6 +98,6 @@ export const styles = StyleSheet.create({
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0
-  }
+    right: 0,
+  },
 });

@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   writeMessageRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
 
   writeMessageAuthorImage: {
@@ -41,19 +41,19 @@ export const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: Palette.indigo1,
     marginRight: Dimensions.horizontalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall
+    marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   writeInput: {
     flex: 1,
     fontSize: Typography.fontSizeBig,
-    color: Palette.brand.text
+    color: Palette.brand.text,
   },
 
   container: {
     alignSelf: 'stretch',
-    flex: 1
-  }
+    flex: 1,
+  },
 });
 
 export type FeedData = {
@@ -63,7 +63,7 @@ export type FeedData = {
 
 export const emptyFeed: FeedData = {
   updated: 0,
-  arr: []
+  arr: [],
 };
 
 type FeedProps = {
@@ -107,9 +107,9 @@ class FeedHeader extends PureComponent<FeedHeaderProps> {
             ) {
               ev._targetInst._currentElement._owner._instance.clear();
             }
-          }
-        })
-      ])
+          },
+        }),
+      ]),
     ]);
   }
 }
@@ -133,7 +133,7 @@ export default class Feed extends Component<FeedProps, {updated: number}> {
       onPressLike,
       onPressAuthor,
       showPublishHeader,
-      style
+      style,
     } = this.props;
 
     return h(FlatList, {
@@ -144,7 +144,7 @@ export default class Feed extends Component<FeedProps, {updated: number}> {
         : null,
       keyExtractor: (item: any, index: number) => item.key || String(index),
       renderItem: ({item}: {item: Msg}) =>
-        h(Message, {msg: item, onPressLike, onPressAuthor})
+        h(Message, {msg: item, onPressLike, onPressAuthor}),
     });
   }
 }

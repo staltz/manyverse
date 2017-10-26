@@ -33,31 +33,31 @@ import {State} from './model';
 function renderHeader() {
   return h(View, {style: styles.header}, [
     h(TouchableHighlight, {style: styles.headerIcon}, [
-      h(Icon, {...iconProps.headerIcon, name: 'menu'})
+      h(Icon, {...iconProps.headerIcon, name: 'menu'}),
     ]),
     h(TextInput, {
       underlineColorAndroid: Palette.brand.backgroundLighterContrast,
       placeholderTextColor: Palette.brand.backgroundLighterContrast,
       placeholder: 'Search',
       returnKeyType: 'search',
-      style: styles.searchInput
+      style: styles.searchInput,
     }),
     h(
       TouchableHighlight,
       {
         selector: 'self-profile',
         style: styles.headerIcon,
-        underlayColor: Palette.brand.backgroundDarker
+        underlayColor: Palette.brand.backgroundDarker,
       },
-      [h(Icon, {...iconProps.headerIcon, name: 'account-box'})]
-    )
+      [h(Icon, {...iconProps.headerIcon, name: 'account-box'})],
+    ),
   ]);
 }
 
 function renderTabs(
   state: State,
   publicTabVDOM: ReactElement<any>,
-  metadataTabVDOM: ReactElement<any>
+  metadataTabVDOM: ReactElement<any>,
 ) {
   return h(
     IndicatorViewPager,
@@ -72,53 +72,56 @@ function renderTabs(
             normal: h(Icon, {...iconProps.tab, name: 'bulletin-board'}),
             selected: h(Icon, {
               ...iconProps.tabSelected,
-              name: 'bulletin-board'
-            })
+              name: 'bulletin-board',
+            }),
           },
           {
             normal: h(Icon, {...iconProps.tab, name: 'email-secure'}),
-            selected: h(Icon, {...iconProps.tabSelected, name: 'email-secure'})
+            selected: h(Icon, {...iconProps.tabSelected, name: 'email-secure'}),
           },
           {
             normal: h(Icon, {...iconProps.tab, name: 'numeric-0-box'}),
-            selected: h(Icon, {...iconProps.tabSelected, name: 'numeric-0-box'})
+            selected: h(Icon, {
+              ...iconProps.tabSelected,
+              name: 'numeric-0-box',
+            }),
           },
           {
             normal: h(Icon, {...iconProps.tab, name: 'wan'}),
-            selected: h(Icon, {...iconProps.tabSelected, name: 'wan'})
-          }
-        ]
-      })
+            selected: h(Icon, {...iconProps.tabSelected, name: 'wan'}),
+          },
+        ],
+      }),
     },
     [
       h(View, {style: styles.pageContainer}, [publicTabVDOM]),
       h(View, {style: styles.pageContainer}, [
-        h(Text, {style: styles.pagePlaceholder}, 'Private')
+        h(Text, {style: styles.pagePlaceholder}, 'Private'),
       ]),
       h(View, {style: styles.pageContainer}, [
-        h(Text, {style: styles.pagePlaceholder}, 'Notifications')
+        h(Text, {style: styles.pagePlaceholder}, 'Notifications'),
       ]),
-      h(View, {style: styles.pageContainer}, [metadataTabVDOM])
-    ]
+      h(View, {style: styles.pageContainer}, [metadataTabVDOM]),
+    ],
   );
 }
 
 export default function view(
   state$: Stream<State>,
   publicTabVDOM$: Stream<ReactElement<any>>,
-  metadataTabVDOM$: Stream<ReactElement<any>>
+  metadataTabVDOM$: Stream<ReactElement<any>>,
 ) {
   return xs
     .combine(
       state$,
       publicTabVDOM$.startWith(h(View)),
-      metadataTabVDOM$.startWith(h(View))
+      metadataTabVDOM$.startWith(h(View)),
     )
     .map(([state, publicTabVDOM, metadataTabVDOM]) => ({
       screen: 'mmmmm.Central',
       vdom: h(View, {style: styles.root}, [
         renderHeader(),
-        renderTabs(state, publicTabVDOM, metadataTabVDOM)
-      ])
+        renderTabs(state, publicTabVDOM, metadataTabVDOM),
+      ]),
     }));
 }

@@ -30,17 +30,17 @@ const feedProfileOpinion = {
         const moreOpts = {
           ...opts,
           id,
-          lt: opts.lt && opts.lt.value ? opts.lt.value.sequence : opts.lt
+          lt: opts.lt && opts.lt.value ? opts.lt.value.sequence : opts.lt,
         };
         return pull(
-          api.sbot.pull.userFeed(moreOpts)
+          api.sbot.pull.userFeed(moreOpts),
           // pull.filter(msg => {
           //   return typeof msg.value.content !== 'string';
           // })
         );
       };
     });
-  }
+  },
 };
 
 export default feedProfileOpinion;

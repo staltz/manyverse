@@ -34,11 +34,11 @@ export const styles = StyleSheet.create({
     paddingRight: Dimensions.horizontalSpaceBig,
     paddingTop: Dimensions.verticalSpaceBig,
     paddingBottom: Dimensions.verticalSpaceBig,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
 
   beacon: {
-    marginTop: 8
+    marginTop: 8,
   },
 
   summaryColumn: {
@@ -46,19 +46,19 @@ export const styles = StyleSheet.create({
     marginRight: Dimensions.horizontalSpaceNormal,
     flexDirection: 'column',
     flex: 1,
-    alignItems: 'stretch'
+    alignItems: 'stretch',
   },
 
   title: {
     color: Palette.brand.darkHighlight,
     fontSize: Typography.fontSizeBig,
-    marginBottom: Dimensions.verticalSpaceSmall
+    marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   subtitle: {
     color: Palette.brand.darkTextWeak,
     fontSize: Typography.fontSizeNormal,
-    marginBottom: Dimensions.verticalSpaceSmall
+    marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   metadataBox: {
@@ -67,14 +67,14 @@ export const styles = StyleSheet.create({
     padding: 5,
     marginLeft: Dimensions.horizontalSpaceNormal,
     marginRight: Dimensions.horizontalSpaceSmall,
-    borderRadius: 2
+    borderRadius: 2,
   },
 
   metadataText: {
     fontSize: Typography.fontSizeSmall,
     color: Palette.brand.darkText,
-    fontFamily: Typography.fontFamilyMonospace
-  }
+    fontFamily: Typography.fontFamilyMonospace,
+  },
 });
 
 export type Props = {
@@ -87,7 +87,7 @@ export type State = {
 
 export default class LocalPeerMetadata extends PureComponent<Props, State> {
   public state = {
-    collapsed: true
+    collapsed: true,
   };
 
   private _onPress() {
@@ -103,28 +103,28 @@ export default class LocalPeerMetadata extends PureComponent<Props, State> {
           h(
             Text,
             {style: styles.title, numberOfLines: 1, ellipsizeMode: 'middle'},
-            peer.key
+            peer.key,
           ),
-          h(Text, {style: styles.subtitle}, `${peer.host}:${peer.port}`)
+          h(Text, {style: styles.subtitle}, `${peer.host}:${peer.port}`),
         ]),
 
         h(Icon, {
           size: Dimensions.iconSizeNormal,
           color: Palette.brand.darkTextWeak,
-          name: 'chevron-down'
-        })
+          name: 'chevron-down',
+        }),
       ];
     } else {
       return [
         h(View, {style: styles.metadataBox}, [
-          h(Text, {style: styles.metadataText}, JSON.stringify(peer, null, 2))
+          h(Text, {style: styles.metadataText}, JSON.stringify(peer, null, 2)),
         ]),
 
         h(Icon, {
           size: Dimensions.iconSizeNormal,
           color: Palette.brand.darkTextWeak,
-          name: 'chevron-up'
-        })
+          name: 'chevron-up',
+        }),
       ];
     }
   }
@@ -136,14 +136,14 @@ export default class LocalPeerMetadata extends PureComponent<Props, State> {
       TouchableNativeFeedback,
       {
         onPress: () => this._onPress(),
-        background: TouchableNativeFeedback.SelectableBackground()
+        background: TouchableNativeFeedback.SelectableBackground(),
       },
       [
         h(View, {style: styles.row}, [
           h(Beacon, {color: Palette.brand.darkHighlight, style: styles.beacon}),
-          ...this.renderContent(peer)
-        ])
-      ]
+          ...this.renderContent(peer),
+        ]),
+      ],
     );
   }
 }

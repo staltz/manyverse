@@ -25,7 +25,7 @@ import {
   TouchableNativeFeedback,
   StyleProp,
   ViewStyle,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
@@ -40,13 +40,13 @@ const baseContainerStyle = {
   paddingLeft: Dimensions.horizontalSpaceNormal,
   paddingRight: Dimensions.horizontalSpaceNormal,
   paddingTop: Dimensions.verticalSpaceSmall,
-  paddingBottom: Dimensions.verticalSpaceSmall
+  paddingBottom: Dimensions.verticalSpaceSmall,
 };
 
 const baseTextStyle: TextStyle = {
   fontSize: Typography.fontSizeNormal,
   textAlign: 'center',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
 };
 
 export const styles = StyleSheet.create({
@@ -54,28 +54,28 @@ export const styles = StyleSheet.create({
     ...baseContainerStyle,
     backgroundColor: 'transparent',
     borderColor: Palette.brand.background,
-    borderWidth: 1
+    borderWidth: 1,
   },
 
   containerMaybe: {
     ...baseContainerStyle,
-    backgroundColor: Palette.gray6
+    backgroundColor: Palette.gray6,
   },
 
   containerToggled: {
     ...baseContainerStyle,
-    backgroundColor: Palette.brand.background
+    backgroundColor: Palette.brand.background,
   },
 
   text: {
     ...baseTextStyle,
-    color: Palette.brand.background
+    color: Palette.brand.background,
   },
 
   textToggled: {
     ...baseTextStyle,
-    color: Palette.white
-  }
+    color: Palette.white,
+  },
 });
 
 export type Props = {
@@ -136,13 +136,13 @@ export default class ToggleButton extends PureComponent<Props, State> {
 
     const touchableProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: () => this._onPress()
+      onPress: () => this._onPress(),
     };
 
     return h(TouchableNativeFeedback, touchableProps, [
       h(View, {style: [containerStyle, style]}, [
-        h(Text, {style: textStyle}, text)
-      ])
+        h(Text, {style: textStyle}, text),
+      ]),
     ]);
   }
 }

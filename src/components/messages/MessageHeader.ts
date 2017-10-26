@@ -23,7 +23,7 @@ import {
   Text,
   Image,
   StyleSheet,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
 } from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Msg, FeedId} from '../../ssb/types';
@@ -35,7 +35,7 @@ import {Typography} from '../../global-styles/typography';
 export const styles = StyleSheet.create({
   messageHeaderRow: {
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
   },
 
   messageAuthorImageContainer: {
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: Palette.indigo1,
     marginRight: Dimensions.horizontalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall
+    marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   messageAuthorImage: {
@@ -53,31 +53,31 @@ export const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
 
   messageHeaderAuthorColumn: {
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
   },
 
   flexRow: {
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
   },
 
   messageHeaderAuthorName: {
     fontSize: Typography.fontSizeNormal,
     fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.text
+    color: Palette.brand.text,
   },
 
   messageHeaderTimestamp: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak
-  }
+    color: Palette.brand.textWeak,
+  },
 });
 
 export type Props = {
@@ -111,7 +111,7 @@ export default class MessageHeader extends PureComponent<Props> {
       undefined;
     const touchableProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: () => this._onPressAuthor()
+      onPress: () => this._onPressAuthor(),
     };
 
     const messageHeaderAuthorName = h(TouchableNativeFeedback, touchableProps, [
@@ -121,19 +121,19 @@ export default class MessageHeader extends PureComponent<Props> {
           {
             numberOfLines: 1,
             ellipsizeMode: 'middle',
-            style: styles.messageHeaderAuthorName
+            style: styles.messageHeaderAuthorName,
           },
-          authorName(msg)
-        )
-      ])
+          authorName(msg),
+        ),
+      ]),
     ]);
 
     const messageHeaderTimestamp = h(View, {style: styles.flexRow}, [
       h(
         Text,
         {style: styles.messageHeaderTimestamp},
-        humanTime(msg.value.timestamp)
-      )
+        humanTime(msg.value.timestamp),
+      ),
     ]);
 
     return h(View, {style: styles.messageHeaderRow}, [
@@ -141,14 +141,14 @@ export default class MessageHeader extends PureComponent<Props> {
         h(View, {style: styles.messageAuthorImageContainer}, [
           h(Image, {
             style: styles.messageAuthorImage,
-            source: avatarUrl as any
-          })
-        ])
+            source: avatarUrl as any,
+          }),
+        ]),
       ]),
       h(View, {style: styles.messageHeaderAuthorColumn}, [
         messageHeaderAuthorName,
-        messageHeaderTimestamp
-      ])
+        messageHeaderTimestamp,
+      ]),
     ]);
   }
 }

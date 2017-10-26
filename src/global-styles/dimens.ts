@@ -26,5 +26,5 @@ export const Dimensions = {
   verticalSpaceSmall: 7,
   iconSizeNormal: 28,
   iconSizeSmall: 20,
-  toolbarAndroidHeight: 56
+  toolbarAndroidHeight: 56,
 };

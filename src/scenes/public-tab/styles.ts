@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
   writeMessageRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
 
   writeMessageAuthorImage: {
@@ -35,17 +35,17 @@ export const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: Palette.indigo1,
     marginRight: Dimensions.horizontalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall
+    marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   writeInput: {
     flex: 1,
     fontSize: Typography.fontSizeBig,
-    color: Palette.brand.text
+    color: Palette.brand.text,
   },
 
   container: {
     alignSelf: 'stretch',
-    flex: 1
-  }
+    flex: 1,
+  },
 });

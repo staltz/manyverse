@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Palette.brand.voidBackground,
     paddingTop: Dimensions.verticalSpaceNormal * 0.5,
-    paddingBottom: Dimensions.verticalSpaceNormal * 0.5
+    paddingBottom: Dimensions.verticalSpaceNormal * 0.5,
   },
 
   card: {
@@ -36,14 +36,14 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.brand.textBackground,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
-    flexDirection: 'column'
-  }
+    flexDirection: 'column',
+  },
 });
 
 export default class MessageContainer extends PureComponent<{}> {
   public render() {
     return h(View, {style: styles.wrapper}, [
-      h(View, {style: styles.card}, this.props.children as any)
+      h(View, {style: styles.card}, this.props.children as any),
     ]);
   }
 }

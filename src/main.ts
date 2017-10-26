@@ -62,13 +62,13 @@ function addAlphaDisclaimer(screen$: Stream<ScreenVNode>): Stream<ScreenVNode> {
             transform: [
               {rotateZ: '-90deg'},
               {translateY: -96},
-              {translateX: 140}
-            ]
-          }
+              {translateX: 140},
+            ],
+          },
         },
-        'Alpha version, not ready for use'
-      )
-    ])
+        'Alpha version, not ready for use',
+      ),
+    ]),
   }));
 }
 
@@ -79,13 +79,13 @@ export function main(sources: Sources): Sinks {
   const screen$ = xs.merge(profileSinks.screen, centralSinks.screen);
   const navCommand$ = xs.merge(
     profileSinks.navCommand,
-    centralSinks.navCommand
+    centralSinks.navCommand,
   );
   const mainReducer$ = model(navCommand$);
   const reducer$ = xs.merge(
     mainReducer$,
     profileSinks.onion,
-    centralSinks.onion
+    centralSinks.onion,
   );
   const ssb$ = xs.merge(profileSinks.ssb, centralSinks.ssb);
 
@@ -93,6 +93,6 @@ export function main(sources: Sources): Sinks {
     screen: screen$.compose(addAlphaDisclaimer),
     navCommand: navCommand$,
     onion: reducer$,
-    ssb: ssb$
+    ssb: ssb$,
   };
 }

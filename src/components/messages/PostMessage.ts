@@ -49,7 +49,7 @@ function materializeMarkdown(content: Post): string {
         result = replaceAll(
           result,
           `![${name}](${link})`,
-          `![${name}](http://localhost:7777/${encodeURIComponent(link)})`
+          `![${name}](http://localhost:7777/${encodeURIComponent(link)})`,
         );
       }
     });
@@ -72,7 +72,7 @@ export default class PostMessage extends Component<Props> {
     return h(MessageContainer, [
       h(MessageHeader, props),
       h(Markdown, {styles, rules}, md),
-      h(MessageFooter, props)
+      h(MessageFooter, props),
     ]);
   }
 }

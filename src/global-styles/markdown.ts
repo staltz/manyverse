@@ -9,13 +9,13 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: Palette.brand.textWeakBackground,
     marginTop: Dimensions.verticalSpaceNormal,
-    marginBottom: Dimensions.verticalSpaceNormal
+    marginBottom: Dimensions.verticalSpaceNormal,
   },
 
   blockQuoteSectionBar: {
     width: 3,
     backgroundColor: Palette.gray5,
-    marginRight: Dimensions.horizontalSpaceSmall
+    marginRight: Dimensions.horizontalSpaceSmall,
   },
 
   blockQuoteText: {
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     marginBottom: 0,
     paddingTop: 4,
     paddingBottom: 5,
-    color: Palette.brand.textWeak
+    color: Palette.brand.textWeak,
   },
 
   codeBlock: {
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
     borderRadius: 2,
-    fontFamily: 'monospace'
+    fontFamily: 'monospace',
   },
 
   inlineCode: {
@@ -45,67 +45,67 @@ export const styles = StyleSheet.create({
     paddingLeft: 4,
     paddingRight: 4,
     borderRadius: 2,
-    fontFamily: 'monospace'
+    fontFamily: 'monospace',
   },
 
   em: {
-    fontStyle: 'italic'
+    fontStyle: 'italic',
   },
 
   heading: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 
   heading1: {
-    fontSize: Typ.baseSize * Typ.scaleUp * Typ.scaleUp * Typ.scaleUp
+    fontSize: Typ.baseSize * Typ.scaleUp * Typ.scaleUp * Typ.scaleUp,
   },
 
   heading2: {
-    fontSize: Typ.baseSize * Typ.scaleUp * Typ.scaleUp
+    fontSize: Typ.baseSize * Typ.scaleUp * Typ.scaleUp,
   },
 
   heading3: {
-    fontSize: Typ.baseSize * Typ.scaleUp
+    fontSize: Typ.baseSize * Typ.scaleUp,
   },
 
   heading4: {
-    fontSize: Typ.baseSize
+    fontSize: Typ.baseSize,
   },
 
   heading5: {
-    fontSize: Typ.baseSize * Typ.scaleDown
+    fontSize: Typ.baseSize * Typ.scaleDown,
   },
 
   heading6: {
-    fontSize: Typ.baseSize * Typ.scaleDown * Typ.scaleDown
+    fontSize: Typ.baseSize * Typ.scaleDown * Typ.scaleDown,
   },
 
   hr: {
     backgroundColor: Palette.gray4,
-    height: 2
+    height: 2,
   },
 
   image: {
     width: 640,
     height: 480,
-    backgroundColor: Palette.indigo1
+    backgroundColor: Palette.indigo1,
   },
 
   link: {
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
   },
 
   listItem: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   listItemNumber: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 
   mailTo: {
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
   },
 
   paragraph: {
@@ -114,7 +114,7 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     marginTop: Dimensions.verticalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall
+    marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   listItemText: {
@@ -122,17 +122,17 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    color: Palette.brand.text
+    color: Palette.brand.text,
   },
 
   text: {
-    color: Palette.brand.text
+    color: Palette.brand.text,
   },
 
   video: {
     width: 300,
-    height: 300
-  }
+    height: 300,
+  },
 });
 
 export const rules = {
@@ -142,9 +142,9 @@ export const rules = {
       return createElement(
         Text,
         {key: state.key, style: styles.inlineCode},
-        node.content
+        node.content,
       );
-    }
+    },
   },
 
   codeBlock: {
@@ -154,11 +154,11 @@ export const rules = {
         Text,
         {
           key: state.key,
-          style: styles.codeBlock
+          style: styles.codeBlock,
         },
-        node.content
+        node.content,
       );
-    }
+    },
   },
 
   blockQuote: {
@@ -169,21 +169,21 @@ export const rules = {
 
       const blockBar = createElement(View, {
         key: state.key,
-        style: styles.blockQuoteSectionBar
+        style: styles.blockQuoteSectionBar,
       });
 
       const blockText = createElement(
         Text,
         {key: state.key + 1, style: styles.blockQuoteText},
-        output(node.content, state)
+        output(node.content, state),
       );
 
       state.withinQuote = wasWithinQuote;
       return createElement(View, {key: state.key, style: styles.blockQuote}, [
         blockBar,
-        blockText
+        blockText,
       ]);
-    }
+    },
   },
 
   text: {
@@ -192,15 +192,15 @@ export const rules = {
         return createElement(
           Text,
           {key: state.key, style: styles.blockQuoteText},
-          node.content
+          node.content,
         );
       } else {
         return createElement(
           Text,
           {key: state.key, style: styles.text},
-          node.content
+          node.content,
         );
       }
-    }
-  }
+    },
+  },
 };

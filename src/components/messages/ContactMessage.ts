@@ -30,27 +30,27 @@ import {authorName, shortFeedId, humanTime} from '../../ssb/utils';
 export const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
   },
 
   account: {
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
     maxWidth: 120,
-    color: Palette.brand.textWeak
+    color: Palette.brand.textWeak,
   },
 
   followed: {
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak
+    color: Palette.brand.textWeak,
   },
 
   timestamp: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak
-  }
+    color: Palette.brand.textWeak,
+  },
 });
 
 export default class ContactMessage extends PureComponent<{msg: Msg<Contact>}> {
@@ -69,7 +69,7 @@ export default class ContactMessage extends PureComponent<{msg: Msg<Contact>}> {
     const accountTextProps = {
       numberOfLines: 1,
       ellipsizeMode: 'middle' as 'middle',
-      style: styles.account
+      style: styles.account,
     };
 
     return h(MessageContainer, [
@@ -80,13 +80,17 @@ export default class ContactMessage extends PureComponent<{msg: Msg<Contact>}> {
           {style: styles.followed},
           msg.value.content.following
             ? ' started following '
-            : ' stopped following '
+            : ' stopped following ',
         ),
-        h(Text, accountTextProps, shortFeedId(msg.value.content.contact || '?'))
+        h(
+          Text,
+          accountTextProps,
+          shortFeedId(msg.value.content.contact || '?'),
+        ),
       ]),
       h(View, {style: styles.row}, [
-        h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
-      ])
+        h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
+      ]),
     ]);
   }
 }

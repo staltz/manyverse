@@ -38,7 +38,7 @@ export type State = {
 
 export default function model(
   state$: Stream<State>,
-  ssbSource: SSBSource
+  ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
   const displayFeedIdChanged$ = state$
     .map(state => state.displayFeedId)
@@ -55,7 +55,7 @@ export default function model(
   const cleanUpFeedReducer$ = displayFeedIdChanged$.mapTo(
     function cleanUpFeedReducer(prevState: State): State {
       return {...prevState, feed: {updated: 0, arr: []}};
-    }
+    },
   );
 
   const mutateFeedReducer$ = msg$.map(
@@ -63,7 +63,7 @@ export default function model(
       function mutateFeedReducer(prevState: State): State {
         includeMsgIntoFeed(prevState.feed, msg);
         return {...prevState};
-      }
+      },
   );
 
   const updateAboutReducer$ = about$.map(
@@ -71,9 +71,9 @@ export default function model(
       function updateAboutReducer(prevState: State): State {
         return {
           ...prevState,
-          about
+          about,
         };
-      }
+      },
   );
 
   const setSelfFeedIdReducer$ = ssbSource.selfFeedId$.take(1).map(
@@ -85,24 +85,24 @@ export default function model(
             displayFeedId: selfFeedId,
             feed: {
               updated: 0,
-              arr: []
+              arr: [],
             },
             about: {
               name: selfFeedId,
               description: '',
-              id: selfFeedId
-            }
+              id: selfFeedId,
+            },
           };
         } else {
           return {...prevState, selfFeedId};
         }
-      }
+      },
   );
 
   return xs.merge(
     mutateFeedReducer$,
     cleanUpFeedReducer$,
     updateAboutReducer$,
-    setSelfFeedIdReducer$
+    setSelfFeedIdReducer$,
   );
 }

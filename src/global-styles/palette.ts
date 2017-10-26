@@ -186,7 +186,7 @@ const brand = {
   text: gray9,
   textWeak: gray7,
   textVeryWeak: gray5,
-  textWeakBackground: gray1
+  textWeakBackground: gray1,
 };
 
 export const Palette = {
@@ -339,5 +339,5 @@ export const Palette = {
   orange8,
   orange9,
 
-  brand
+  brand,
 };

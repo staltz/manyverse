@@ -29,21 +29,21 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Palette.brand.darkVoidBackground,
     padding: 5,
-    borderRadius: 2
+    borderRadius: 2,
   },
 
   metadataText: {
     fontSize: Typography.fontSizeSmall,
     color: Palette.brand.darkText,
-    fontFamily: Typography.fontFamilyMonospace
-  }
+    fontFamily: Typography.fontFamilyMonospace,
+  },
 });
 
 export default class Metadata extends Component<{msg: any}> {
   public render() {
     const {msg} = this.props;
     return h(View, {style: styles.metadataBox}, [
-      h(Text, {style: styles.metadataText}, JSON.stringify(msg, null, 2))
+      h(Text, {style: styles.metadataText}, JSON.stringify(msg, null, 2)),
     ]);
   }
 }

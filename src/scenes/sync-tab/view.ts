@@ -36,13 +36,13 @@ export default function view(localSyncPeers$: Stream<Array<PeerMetadata>>) {
         h(Icon, {
           ...iconProps.info,
           name: 'information-outline',
-          style: styles.infoIcon as any
-        })
+          style: styles.infoIcon as any,
+        }),
       ]),
       keyExtractor: (item: PeerMetadata, index: number) =>
         item.key || String(index),
       renderItem: ({item}: {item: PeerMetadata}) =>
-        h(LocalPeerMetadata, {peer: item})
-    })
+        h(LocalPeerMetadata, {peer: item}),
+    }),
   );
 }

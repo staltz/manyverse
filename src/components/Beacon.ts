@@ -24,14 +24,14 @@ import {
   StyleProp,
   Easing,
   ViewStyle,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 import {h} from '@cycle/native-screen';
 
 export const styles = StyleSheet.create({
   container: {
     width: 14,
-    height: 14
+    height: 14,
   },
 
   core: {
@@ -40,8 +40,8 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    borderRadius: 7
-  }
+    borderRadius: 7,
+  },
 });
 
 export default class Beacon extends PureComponent<{
@@ -49,7 +49,7 @@ export default class Beacon extends PureComponent<{
   style: StyleProp<ViewStyle>;
 }> {
   public state = {
-    anim: new Animated.Value(0)
+    anim: new Animated.Value(0),
   };
 
   public componentDidMount() {
@@ -59,8 +59,8 @@ export default class Beacon extends PureComponent<{
           toValue: 1,
           duration: 2000 + 600 * Math.random(),
           easing: Easing.out(Easing.cubic),
-          useNativeDriver: true
-        })
+          useNativeDriver: true,
+        }),
       )
       .start();
   }
@@ -74,20 +74,20 @@ export default class Beacon extends PureComponent<{
           {
             opacity: this.state.anim.interpolate({
               inputRange: [0, 0.8, 1],
-              outputRange: [1, 0, 0]
+              outputRange: [1, 0, 0],
             }),
             transform: [
               {
                 scale: this.state.anim.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [1, 2.7]
-                })
-              }
+                  outputRange: [1, 2.7],
+                }),
+              },
             ],
-            backgroundColor: this.props.color
-          }
-        ]
-      })
+            backgroundColor: this.props.color,
+          },
+        ],
+      }),
     ]);
   }
 }

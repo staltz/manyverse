@@ -25,7 +25,7 @@ import {
   Content,
   PostContent,
   VoteContent,
-  ContactContent
+  ContactContent,
 } from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
@@ -48,13 +48,13 @@ export type Sinks = {
 
 function prepareForSSB(
   actions: Actions,
-  state$: Stream<State>
+  state$: Stream<State>,
 ): Stream<Content> {
   const publishMsg$ = actions.publishMsg.map(text => {
     return {
       text,
       type: 'post',
-      mentions: []
+      mentions: [],
     } as PostContent;
   });
 
@@ -64,8 +64,8 @@ function prepareForSSB(
       vote: {
         link: ev.msgKey,
         value: ev.like ? 1 : 0,
-        expression: ev.like ? 'Like' : 'Unlike'
-      }
+        expression: ev.like ? 'Like' : 'Unlike',
+      },
     } as VoteContent;
   });
 
@@ -75,7 +75,7 @@ function prepareForSSB(
       return {
         type: 'contact',
         following,
-        contact: state.displayFeedId
+        contact: state.displayFeedId,
       } as ContactContent;
     });
 
@@ -92,6 +92,6 @@ export function profile(sources: Sources): Sinks {
     screen: vdom$,
     navCommand: xs.never(),
     onion: reducer$,
-    ssb: newContent$
+    ssb: newContent$,
   };
 }

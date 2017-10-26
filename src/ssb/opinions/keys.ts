@@ -23,12 +23,12 @@ function makeKeysOpinion(keys: any): any {
   const keysOpinion = {
     needs: nest('config.sync.load', 'first'),
     gives: nest({
-      'keys.sync': ['load', 'id']
+      'keys.sync': ['load', 'id'],
     }),
 
     create: (api: any) => {
       return nest({
-        'keys.sync': {load, id}
+        'keys.sync': {load, id},
       });
       function id() {
         return load().id;
@@ -36,7 +36,7 @@ function makeKeysOpinion(keys: any): any {
       function load() {
         return keys;
       }
-    }
+    },
   };
   return keysOpinion;
 }

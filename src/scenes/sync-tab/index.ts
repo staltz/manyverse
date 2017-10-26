@@ -43,6 +43,6 @@ export function syncTab(sources: Sources): Sinks {
 
   return {
     screen: vdom$,
-    onion: reducer$
+    onion: reducer$,
   };
 }

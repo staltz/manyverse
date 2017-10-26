@@ -26,12 +26,12 @@ export const styles = StyleSheet.create({
   container: {
     backgroundColor: Palette.brand.darkVoidBackground,
     alignSelf: 'stretch',
-    flex: 1
+    flex: 1,
   },
 
   headerContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   headerText: {
@@ -39,17 +39,17 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     marginLeft: Dimens.horizontalSpaceBig,
     marginTop: Dimens.verticalSpaceBig,
-    marginBottom: Dimens.verticalSpaceBig
+    marginBottom: Dimens.verticalSpaceBig,
   },
 
   infoIcon: {
-    marginLeft: Dimens.horizontalSpaceSmall
-  }
+    marginLeft: Dimens.horizontalSpaceSmall,
+  },
 });
 
 export const iconProps = {
   info: {
     size: Dimens.iconSizeSmall,
-    color: Palette.brand.darkTextWeak
-  }
+    color: Palette.brand.darkTextWeak,
+  },
 };

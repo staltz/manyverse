@@ -31,7 +31,7 @@ export default function view(feed$: Stream<Msg>) {
   const vdom$ = feed$
     .fold(includeMsgIntoFeed, emptyFeed)
     .map(feed =>
-      h(Feed, {selector: 'publicFeed', feed, showPublishHeader: true})
+      h(Feed, {selector: 'publicFeed', feed, showPublishHeader: true}),
     );
 
   return vdom$;

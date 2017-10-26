@@ -25,44 +25,44 @@ import {Typography} from '../../global-styles/typography';
 const _tabItem = {
   backgroundColor: Palette.brand.background,
   paddingTop: Dimensions.verticalSpaceNormal,
-  paddingBottom: Dimensions.verticalSpaceNormal
+  paddingBottom: Dimensions.verticalSpaceNormal,
 };
 
 export const navigatorStyle = {
   navBarHidden: true,
-  statusBarColor: Palette.brand.backgroundDarker
+  statusBarColor: Palette.brand.backgroundDarker,
 };
 
 export const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: Palette.white
+    backgroundColor: Palette.white,
   },
 
   header: {
     flexDirection: 'row',
     backgroundColor: Palette.brand.background,
-    minHeight: Dimensions.toolbarAndroidHeight
+    minHeight: Dimensions.toolbarAndroidHeight,
   },
 
   headerIcon: {
     width: Dimensions.iconSizeNormal + Dimensions.horizontalSpaceBig * 2,
     height: Dimensions.iconSizeNormal + Dimensions.verticalSpaceNormal * 2,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   indicatorViewPager: {
     flex: 1,
     flexDirection: 'column-reverse',
-    backgroundColor: Palette.brand.backgroundDarker
+    backgroundColor: Palette.brand.backgroundDarker,
   },
 
   searchInput: {
     flex: 1,
     color: 'white',
     fontSize: Typography.fontSizeNormal,
-    fontFamily: Typography.fontFamilyReadableText
+    fontFamily: Typography.fontFamilyReadableText,
   },
 
   tabItem: _tabItem,
@@ -70,35 +70,35 @@ export const styles = StyleSheet.create({
   tabItemSelected: {
     ..._tabItem,
     borderBottomWidth: 4,
-    borderBottomColor: Palette.brand.backgroundLighterContrast
+    borderBottomColor: Palette.brand.backgroundLighterContrast,
   },
 
   pageContainer: {
     backgroundColor: Palette.brand.voidBackground,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   pagePlaceholder: {
     fontSize: Typography.fontSizeBig,
     fontFamily: Typography.fontFamilyReadableText,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
 
 export const iconProps = {
   headerIcon: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.white
+    color: Palette.white,
   },
 
   tab: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.brand.backgroundDarkerContrast
+    color: Palette.brand.backgroundDarkerContrast,
   },
 
   tabSelected: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.white
-  }
+    color: Palette.white,
+  },
 };

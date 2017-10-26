@@ -39,6 +39,6 @@ export default function intent(source: ScreensSource): Actions {
 
     likeMsg: source.select('feed').events('pressLike') as Stream<LikeEvent>,
 
-    follow: source.select('follow').events('press') as Stream<boolean>
+    follow: source.select('follow').events('press') as Stream<boolean>,
   };
 }

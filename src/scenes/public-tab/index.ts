@@ -45,7 +45,7 @@ function prepareForSSB(actions: Actions): Stream<Content> {
     return {
       text,
       type: 'post',
-      mentions: []
+      mentions: [],
     } as PostContent;
   });
 
@@ -55,8 +55,8 @@ function prepareForSSB(actions: Actions): Stream<Content> {
       vote: {
         link: ev.msgKey,
         value: ev.like ? 1 : 0,
-        expression: ev.like ? 'Like' : 'Unlike'
-      }
+        expression: ev.like ? 'Like' : 'Unlike',
+      },
     } as VoteContent;
   });
 
@@ -73,9 +73,9 @@ function navigationCommands(actions: Actions): Stream<Command> {
         animated: true,
         animationType: 'slide-horizontal',
         passProps: {
-          feedId: ev.authorFeedId
-        }
-      } as Command)
+          feedId: ev.authorFeedId,
+        },
+      } as Command),
   );
 }
 
@@ -90,6 +90,6 @@ export function publicTab(sources: Sources): Sinks {
     screen: vdom$,
     onion: reducer$,
     navCommand: command$,
-    ssb: newContent$
+    ssb: newContent$,
   };
 }

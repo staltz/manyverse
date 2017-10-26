@@ -26,7 +26,7 @@ import {
   ScreenVNode,
   Command,
   PushCommand,
-  ScreensSource
+  ScreensSource,
 } from 'cycle-native-navigation';
 import {publicTab} from '../public-tab/index';
 import {syncTab} from '../sync-tab/index';
@@ -50,7 +50,7 @@ export type Sinks = {
 
 function navigationCommands(
   actions: Actions,
-  other$: Stream<Command>
+  other$: Stream<Command>,
 ): Stream<Command> {
   const centralCommand$: Stream<Command> = actions.goToSelfProfile$.mapTo(
     {
@@ -58,8 +58,8 @@ function navigationCommands(
       screen: 'mmmmm.Profile',
       navigatorStyle: profileNavigatorStyle,
       animated: true,
-      animationType: 'slide-horizontal'
-    } as PushCommand
+      animationType: 'slide-horizontal',
+    } as PushCommand,
   );
 
   return xs.merge(centralCommand$, other$);
@@ -75,13 +75,13 @@ export function central(sources: Sources): Sinks {
   const vdom$ = view(
     sources.onion.state$,
     publicTabSinks.screen,
-    syncTabSinks.screen
+    syncTabSinks.screen,
   );
 
   return {
     screen: vdom$,
     onion: reducer$,
     navCommand: command$,
-    ssb: publicTabSinks.ssb
+    ssb: publicTabSinks.ssb,
   };
 }

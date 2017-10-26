@@ -32,6 +32,6 @@ export default function intent(source: ScreensSource): Actions {
 
     willAppear$: source.willAppear('mmmmm.Central'),
 
-    willDisappear$: source.willDisappear('mmmmm.Central')
+    willDisappear$: source.willDisappear('mmmmm.Central'),
   };
 }

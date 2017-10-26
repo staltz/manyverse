@@ -43,6 +43,6 @@ export default function intent(source: ScreensSource): Actions {
 
     goToProfile: source.select('publicFeed').events('pressAuthor') as Stream<
       ProfileNavEvent
-    >
+    >,
   };
 }

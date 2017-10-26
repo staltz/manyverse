@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   StyleProp,
   ViewStyle,
-  RegisteredStyle
+  RegisteredStyle,
 } from 'react-native';
 import {IndicatorViewPager} from 'rn-viewpager';
 
@@ -39,11 +39,11 @@ export type Tab = {
 export default class BetterPagerTabIndicator extends Component<Props, State> {
   public static defaultProps = {
     tabs: [],
-    changePageWithAnimation: true
+    changePageWithAnimation: true,
   };
 
   public state = {
-    selectedIndex: this.props.initialPage
+    selectedIndex: this.props.initialPage,
   };
 
   public render() {
@@ -53,7 +53,7 @@ export default class BetterPagerTabIndicator extends Component<Props, State> {
       style,
       itemStyle,
       selectedItemStyle,
-      changePageWithAnimation
+      changePageWithAnimation,
     } = this.props;
     if (!tabs || tabs.length === 0) return null;
 
@@ -64,7 +64,7 @@ export default class BetterPagerTabIndicator extends Component<Props, State> {
           style={
             [
               styles.itemContainer,
-              isSelected ? selectedItemStyle : itemStyle
+              isSelected ? selectedItemStyle : itemStyle,
             ] as any
           }
           activeOpacity={0.6}
@@ -94,10 +94,10 @@ export default class BetterPagerTabIndicator extends Component<Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   itemContainer: {
     alignItems: 'center',
-    flex: 1
-  }
+    flex: 1,
+  },
 });

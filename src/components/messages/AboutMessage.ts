@@ -32,26 +32,26 @@ import {authorName, humanTime} from '../../ssb/utils';
 export const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
   },
 
   account: {
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
     maxWidth: 120,
-    color: Palette.brand.textWeak
+    color: Palette.brand.textWeak,
   },
 
   followed: {
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak
+    color: Palette.brand.textWeak,
   },
 
   timestamp: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak
+    color: Palette.brand.textWeak,
   },
 
   aboutImage: {
@@ -59,32 +59,32 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceNormal,
     marginBottom: Dimensions.verticalSpaceNormal,
     width: 120,
-    height: 120
-  }
+    height: 120,
+  },
 });
 
 const accountTextProps = {
   numberOfLines: 1,
   ellipsizeMode: 'middle' as 'middle',
-  style: styles.account
+  style: styles.account,
 };
 
 function renderWithImage(msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
       h(Text, accountTextProps, authorName(msg)),
-      h(Text, {style: styles.followed}, ' is using a new picture:')
+      h(Text, {style: styles.followed}, ' is using a new picture:'),
     ]),
     h(Image, {
       style: styles.aboutImage,
       source: (msg.value._derived &&
       msg.value._derived.about && {
-        uri: msg.value._derived.about.imageUrl as string
-      }) as ImageURISource
+        uri: msg.value._derived.about.imageUrl as string,
+      }) as ImageURISource,
     }),
     h(View, {style: styles.row}, [
-      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
-    ])
+      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
+    ]),
   ]);
 }
 
@@ -94,12 +94,12 @@ function renderWithNameDesc(msg: Msg<About>) {
       h(Text, accountTextProps, authorName(msg)),
       h(Text, {style: styles.followed}, ' is using the name '),
       h(Text, accountTextProps, msg.value.content.name),
-      h(Text, {style: styles.followed}, ' and the description: ')
+      h(Text, {style: styles.followed}, ' and the description: '),
     ]),
     h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
     h(View, {style: styles.row}, [
-      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
-    ])
+      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
+    ]),
   ]);
 }
 
@@ -107,12 +107,12 @@ function renderWithDesc(msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
       h(Text, accountTextProps, authorName(msg)),
-      h(Text, {style: styles.followed}, ' has a new description: ')
+      h(Text, {style: styles.followed}, ' has a new description: '),
     ]),
     h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
     h(View, {style: styles.row}, [
-      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
-    ])
+      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
+    ]),
   ]);
 }
 
@@ -121,11 +121,11 @@ function renderWithName(msg: Msg<About>) {
     h(View, {style: styles.row}, [
       h(Text, accountTextProps, authorName(msg)),
       h(Text, {style: styles.followed}, ' is using the name '),
-      h(Text, accountTextProps, msg.value.content.name)
+      h(Text, accountTextProps, msg.value.content.name),
     ]),
     h(View, {style: styles.row}, [
-      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
-    ])
+      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
+    ]),
   ]);
 }
 

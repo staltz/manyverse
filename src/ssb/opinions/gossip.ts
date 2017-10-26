@@ -49,7 +49,7 @@ const gossipOpinion = {
                 }
               }
             }
-          })
+          }),
         );
       }
     });
@@ -57,11 +57,11 @@ const gossipOpinion = {
     return {
       sbot: {
         obs: {
-          connectedPeers: () => connectedPeers
-        }
-      }
+          connectedPeers: () => connectedPeers,
+        },
+      },
     };
-  }
+  },
 };
 
 export default gossipOpinion;

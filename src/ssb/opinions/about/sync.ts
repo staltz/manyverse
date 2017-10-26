@@ -24,7 +24,7 @@ const shortFeedIdOpinion = {
   gives: nest('about.sync.shortFeedId'),
   create: (api: any) => {
     return nest('about.sync.shortFeedId', shortFeedId);
-  }
+  },
 };
 
 export default shortFeedIdOpinion;

@@ -39,14 +39,14 @@ export default function view(state$: Stream<State>) {
       {style: styles.container},
       [
         h(View, {style: styles.cover}, [
-          h(Text, {style: styles.name}, state.about.name)
+          h(Text, {style: styles.name}, state.about.name),
         ]),
 
         h(View, {style: styles.avatarBackground}, [
           h(Image, {
             style: styles.avatar,
-            source: {uri: state.about.imageUrl || ''}
-          })
+            source: {uri: state.about.imageUrl || ''},
+          }),
         ]),
 
         state.displayFeedId === state.selfFeedId
@@ -55,20 +55,20 @@ export default function view(state$: Stream<State>) {
               selector: 'follow',
               style: styles.follow,
               text: state.about.following === true ? 'Following' : 'Follow',
-              toggled: state.about.following === true
+              toggled: state.about.following === true,
             }),
 
         h(View, {style: styles.descriptionArea}, [
-          h(Markdown, {styles: mdstyles, rules}, state.about.description || '')
+          h(Markdown, {styles: mdstyles, rules}, state.about.description || ''),
         ]),
 
         h(Feed, {
           selector: 'feed',
           style: styles.feed,
           feed: state.feed,
-          showPublishHeader: state.displayFeedId === state.selfFeedId
-        })
-      ] as Array<any>
-    )
+          showPublishHeader: state.displayFeedId === state.selfFeedId,
+        }),
+      ] as Array<any>,
+    ),
   }));
 }
