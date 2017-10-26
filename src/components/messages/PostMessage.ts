@@ -71,7 +71,7 @@ export default class PostMessage extends Component<Props> {
 
     return h(MessageContainer, [
       h(MessageHeader, props),
-      h(Markdown, {styles, rules}, [md as any]),
+      h(Markdown, {styles, rules}, md),
       h(MessageFooter, props)
     ]);
   }

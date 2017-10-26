@@ -85,9 +85,7 @@ export default class AboutMessage extends PureComponent<{msg: Msg<About>}> {
           h(Text, accountTextProps, msg.value.content.name),
           h(Text, {style: styles.followed}, ' and the description: ')
         ]),
-        h(Markdown, {styles: mdstyles, rules}, [
-          msg.value.content.description as any
-        ]),
+        h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
         h(View, {style: styles.row}, [
           h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
         ])
@@ -98,9 +96,7 @@ export default class AboutMessage extends PureComponent<{msg: Msg<About>}> {
           h(Text, accountTextProps, authorName(msg)),
           h(Text, {style: styles.followed}, ' has a new description: ')
         ]),
-        h(Markdown, {styles: mdstyles, rules}, [
-          msg.value.content.description as any
-        ]),
+        h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
         h(View, {style: styles.row}, [
           h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp))
         ])
