@@ -29,6 +29,7 @@ build/
 .gradle
 local.properties
 *.iml
+/android/app/.calabash_settings
 /android/app/test_servers
 /android/app/screenshot*.png
 /android/app/src/main/res/raw/rnnodebundle

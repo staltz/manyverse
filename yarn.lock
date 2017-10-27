@@ -3327,7 +3327,7 @@ istanbul-reports@^1.1.1:
   dependencies:
     handlebars "^4.0.3"
 
-jase@^1.2.0:
+jase@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/jase/-/jase-1.2.0.tgz#326db81705dc98bff7037cd0980fdbb93abec033"
   dependencies:

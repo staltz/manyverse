@@ -40,6 +40,8 @@ function renderHeader() {
       placeholderTextColor: Palette.brand.backgroundLighterContrast,
       placeholder: 'Search',
       returnKeyType: 'search',
+      accessible: true,
+      accessibilityLabel: 'Search Field',
       style: styles.searchInput,
     }),
     h(
@@ -47,6 +49,8 @@ function renderHeader() {
       {
         selector: 'self-profile',
         style: styles.headerIcon,
+        accessible: true,
+        accessibilityLabel: 'My Profile Button',
         underlayColor: Palette.brand.backgroundDarker,
       },
       [h(Icon, {...iconProps.headerIcon, name: 'account-box'})],
@@ -69,26 +73,86 @@ function renderTabs(
         selectedItemStyle: styles.tabItemSelected,
         tabs: [
           {
-            normal: h(Icon, {...iconProps.tab, name: 'bulletin-board'}),
-            selected: h(Icon, {
-              ...iconProps.tabSelected,
-              name: 'bulletin-board',
-            }),
+            normal: h(
+              Icon,
+              {
+                ...iconProps.tab,
+                name: 'bulletin-board',
+                nativeID: 'testid_public_tab',
+                accessible: true,
+                accessibilityLabel: 'Public Tab Button',
+              } as any,
+            ),
+            selected: h(
+              Icon,
+              {
+                ...iconProps.tabSelected,
+                name: 'bulletin-board',
+                nativeID: 'testid_public_tab',
+                accessible: true,
+                accessibilityLabel: 'Public Tab Button',
+              } as any,
+            ),
           },
           {
-            normal: h(Icon, {...iconProps.tab, name: 'email-secure'}),
-            selected: h(Icon, {...iconProps.tabSelected, name: 'email-secure'}),
+            normal: h(
+              Icon,
+              {
+                ...iconProps.tab,
+                name: 'email-secure',
+                accessible: true,
+                accessibilityLabel: 'Private Tab Button',
+              } as any,
+            ),
+            selected: h(
+              Icon,
+              {
+                ...iconProps.tabSelected,
+                name: 'email-secure',
+                accessible: true,
+                accessibilityLabel: 'Private Tab Button',
+              } as any,
+            ),
           },
           {
-            normal: h(Icon, {...iconProps.tab, name: 'numeric-0-box'}),
-            selected: h(Icon, {
-              ...iconProps.tabSelected,
-              name: 'numeric-0-box',
-            }),
+            normal: h(
+              Icon,
+              {
+                ...iconProps.tab,
+                name: 'numeric-0-box',
+                accessible: true,
+                accessibilityLabel: 'Notifications Tab Button',
+              } as any,
+            ),
+            selected: h(
+              Icon,
+              {
+                ...iconProps.tabSelected,
+                name: 'numeric-0-box',
+                accessible: true,
+                accessibilityLabel: 'Notifications Tab Button',
+              } as any,
+            ),
           },
           {
-            normal: h(Icon, {...iconProps.tab, name: 'wan'}),
-            selected: h(Icon, {...iconProps.tabSelected, name: 'wan'}),
+            normal: h(
+              Icon,
+              {
+                ...iconProps.tab,
+                name: 'wan',
+                accessible: true,
+                accessibilityLabel: 'Sync Tab Button',
+              } as any,
+            ),
+            selected: h(
+              Icon,
+              {
+                ...iconProps.tabSelected,
+                name: 'wan',
+                accessible: true,
+                accessibilityLabel: 'Sync Tab Button',
+              } as any,
+            ),
           },
         ],
       }),

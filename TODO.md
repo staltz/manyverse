@@ -11,6 +11,7 @@
 
 # Should
 
+- Write some unit tests
 - Basic private messages tab
 - Leveldown compiled for Android
 - Profile header part should shrink when scrolling down through messages
