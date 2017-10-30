@@ -1,11 +1,11 @@
 # Next
 
-- Update React Native to v0.49
-- Edit own name in Profile screen
+- Update React Native to v0.49, and other dependencies
+- Use nodejs-mobile-react-native
 
 # Must
 
-- Use nodejs-mobile-react-native
+- Edit own name in Profile screen
 - Fix sync tab: local peer metadata should not be incomplete
 - Basic notifications tab
 
