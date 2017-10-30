@@ -1196,7 +1196,7 @@ browserify-rsa@^4.0.0:
     bn.js "^4.1.0"
     randombytes "^2.0.1"
 
-browserify-sign@^4.0.0:
+browserify-sign@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/browserify-sign/-/browserify-sign-4.0.4.tgz#aa4eb68e5d7b658baa6bf6a57e630cbd7a93d298"
   dependencies:
@@ -5531,12 +5531,12 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-crypto@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-crypto/-/react-native-crypto-2.0.2.tgz#c95df21d031abf2f67eef68b16a3728347c0316d"
+react-native-crypto@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-crypto/-/react-native-crypto-2.1.1.tgz#4b06271a0f6ec0b90389b5b567b738b57ca66a1e"
   dependencies:
     browserify-cipher "^1.0.0"
-    browserify-sign "^4.0.0"
+    browserify-sign "^4.0.4"
     create-ecdh "^4.0.0"
     create-hash "^1.1.0"
     create-hmac "^1.1.0"
@@ -5552,15 +5552,15 @@ react-native-fs@2.3.x:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
 
-react-native-navigation@1.1.x:
-  version "1.1.253"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.253.tgz#a6ec7b141d5ccf32e7d5a49cac73f2d36a86dc9c"
+react-native-navigation@1.1.255:
+  version "1.1.255"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.255.tgz#f99b09ee85a365f80e6f9169be83820d8eb7fcf6"
   dependencies:
     lodash "4.x.x"
 
-react-native-navigation@^1.1.219:
-  version "1.1.219"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.219.tgz#3d25dc0a6973d5e4d1c808a12c550c53a89d0e7d"
+react-native-navigation@1.1.x:
+  version "1.1.253"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.253.tgz#a6ec7b141d5ccf32e7d5a49cac73f2d36a86dc9c"
   dependencies:
     lodash "4.x.x"
 
@@ -5578,9 +5578,9 @@ react-native-os@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-os/-/react-native-os-1.1.0.tgz#bfbe1c44d8a5b14a6f3a3a405d8ada6f547a516e"
 
-react-native-randombytes@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-randombytes/-/react-native-randombytes-2.2.0.tgz#93099cd7f93b1b228bbd380617e8bbf0d73c4cfb"
+react-native-randombytes@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-randombytes/-/react-native-randombytes-3.0.0.tgz#8327464f227a2c42d6ef013b7586b0ad4385ae61"
   dependencies:
     buffer "^4.9.1"
     sjcl "^1.0.3"
@@ -5616,18 +5616,18 @@ react-native-simple-markdown@^1.0.60-rc.3:
     lodash "^4.15.0"
     simple-markdown "git://github.com/CharlesMangwa/simple-markdown.git"
 
-react-native-ssb-client@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/react-native-ssb-client/-/react-native-ssb-client-2.0.3.tgz#e87ac32d78ffd64e1e2dffac13dcd765b2a26853"
+react-native-ssb-client@2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-ssb-client/-/react-native-ssb-client-2.0.4.tgz#2613b6c49df7ce24e0cb8323d815e83af3e69cbb"
   dependencies:
     buffer "3.6.0"
     path "0.12.x"
     process-shim "git://github.com/ssbc/react-native-ssb-client.git#process-shim"
     propagate-replacement-fields "1.1.0"
-    react-native-crypto "^2.0.2"
+    react-native-crypto "2.1.1"
     react-native-fs "2.3.x"
     react-native-os "^1.1.0"
-    react-native-randombytes "2.2.0"
+    react-native-randombytes "3.0.0"
     react-native-tcp "3.2.x"
     sodium-browserify-tweetnacl "^0.2.3"
     ssb-client "4.5.x"
