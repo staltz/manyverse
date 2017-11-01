@@ -22,6 +22,7 @@ import {
   View,
   TextStyle,
   Text,
+  RegisteredStyle,
   TouchableNativeFeedback,
   StyleProp,
   ViewStyle,
@@ -122,7 +123,7 @@ export default class ToggleButton extends PureComponent<Props, State> {
     const {text, style} = this.props;
     const {toggled} = this.state;
 
-    let containerStyle = styles.container;
+    let containerStyle: RegisteredStyle<any> = styles.container;
     if (toggled === 'maybe') {
       containerStyle = styles.containerMaybe;
     } else if (toggled === 'yes') {
