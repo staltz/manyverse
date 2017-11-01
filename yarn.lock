@@ -4813,9 +4813,9 @@ patch-package@^3.4.0:
     tmp "^0.0.31"
     update-notifier "^2.2.0"
 
-patchcore@1.12.1:
-  version "1.12.1"
-  resolved "https://registry.yarnpkg.com/patchcore/-/patchcore-1.12.1.tgz#120176c39cbb1b47816736157c6bd3ba6dad7806"
+patchcore@1.15.1:
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/patchcore/-/patchcore-1.15.1.tgz#9f55a013ff7a30613bd13035ce96918a1f49cf24"
   dependencies:
     bulk-require "^1.0.0"
     bulkify "^1.4.2"
