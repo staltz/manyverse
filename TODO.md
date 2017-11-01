@@ -1,17 +1,17 @@
 # Next
 
-- Use nodejs-mobile-react-native
+- Fix sync tab: local peer metadata should not be incomplete
+- Edit own name in Profile screen
 
 # Must
 
-- Edit own name in Profile screen
-- Fix sync tab: local peer metadata should not be incomplete
-- Basic notifications tab
+- Write some unit tests
+- Basic private messages tab
+- Use nodejs-mobile-react-native
 
 # Should
 
-- Write some unit tests
-- Basic private messages tab
+- Basic notifications tab
 - Leveldown compiled for Android
 - Profile header part should shrink when scrolling down through messages
 - Run in low-end Android device, armv7
