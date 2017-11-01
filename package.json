@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "lib": "tsc",
-    "prepare": "patch-package",
+    "prepare": "patch-package && cd node_modules/react-native-ssb-client && npm run install && cd ../../",
     "propagate-replacements": "propagate-replacement-fields --field=react-native",
     "start": "npm run lib && npm run propagate-replacements && node node_modules/react-native/local-cli/cli.js start",
     "test-e2e-android": "cd android/app && ./test-features.sh",
@@ -23,7 +23,7 @@
     "@types/react-native": "0.46.4",
     "@types/react-native-vector-icons": "^4.2.0",
     "assert": "^1.4.1",
-    "cycle-native-navigation": "1.2.0",
+    "cycle-native-navigation": "1.3.0",
     "cycle-onionify": "4.0.0",
     "depject": "^4.1.0",
     "depnest": "^1.3.0",
@@ -32,14 +32,14 @@
     "patchcore": "1.12.1",
     "prop-types": "^15.5.10",
     "pull-stream": "3.6.0",
-    "react": "16.0.0-alpha.12",
-    "react-native": "0.48.3",
-    "react-native-navigation": "1.1.255",
+    "react": "16.0.0-beta.5",
+    "react-native": "0.49.5",
+    "react-native-navigation": "1.1.256",
     "react-native-scuttlebot": "10.4.14",
     "react-native-simple-markdown": "^1.0.60-rc.3",
-    "react-native-ssb-client": "2.0.4",
+    "react-native-ssb-client": "2.0.8",
     "react-native-vector-icons": "4.2.0",
-    "rn-viewpager": "^1.2.3",
+    "@staltz/rn-viewpager": "1.2.5",
     "ssb-ref": "2.7.1",
     "xstream": "11.x",
     "xstream-from-mutant": "1.1",
@@ -55,7 +55,7 @@
     "prettier": "1.5.x",
     "propagate-replacement-fields": "1.2.0",
     "react-native-version": "^2.3.1",
-    "react-test-renderer": "16.0.0-alpha.12",
+    "react-test-renderer": "16.0.0-beta.5",
     "tslint": "^5.7.0",
     "typescript": "2.4.x",
     "yarn": "^1.0.1"
@@ -64,6 +64,7 @@
     "preset": "react-native"
   },
   "react-native": {
+    "rn-viewpager": "@staltz/rn-viewpager",
     "ssb-client": "react-native-ssb-client"
   }
 }

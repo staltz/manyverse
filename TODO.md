@@ -1,6 +1,5 @@
 # Next
 
-- Update React Native to v0.49, and other dependencies
 - Use nodejs-mobile-react-native
 
 # Must

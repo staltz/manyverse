@@ -1,0 +1,13 @@
+diff --git a/node_modules/bn.js/lib/bn.js b/node_modules/bn.js/lib/bn.js
+index 9e81596..19553ca 100644
+--- a/node_modules/bn.js/lib/bn.js
++++ b/node_modules/bn.js/lib/bn.js
+@@ -51,7 +51,7 @@
+   var Buffer;
+   try {
+     // Obfuscate that we require Buffer, to reduce size
+-    Buffer = require('buf' + 'fer').Buffer;
++    Buffer = require('buffer').Buffer;
+   } catch (e) {
+   }
+ 
