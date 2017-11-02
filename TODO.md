@@ -1,6 +1,6 @@
 # Next
 
-- Fix sync tab: local peer metadata should not be incomplete
+- Show name of peer metadata in sync tab
 - Edit own name in Profile screen
 
 # Must

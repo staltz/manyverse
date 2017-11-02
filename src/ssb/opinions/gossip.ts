@@ -17,8 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import xs from 'xstream';
 const nest = require('depnest');
-const {watch, Set: MutantSet} = require('mutant');
+const {watch} = require('mutant');
 const pull = require('pull-stream');
 import {PeerMetadata} from '../types';
 
@@ -26,12 +27,16 @@ const gossipOpinion = {
   gives: nest('sbot.obs.connectedPeers'),
   needs: nest('sbot.obs.connection', 'first'),
   create: (api: any) => {
-    const connectedPeers = MutantSet();
+    const connectedPeers = new Map<string, PeerMetadata>();
+    const stream = xs.create<Map<string, PeerMetadata>>();
     watch(api.sbot.obs.connection, (sbot: any) => {
       if (sbot) {
         sbot.gossip.peers((err: any, peers: Array<PeerMetadata>) => {
           if (err) return console.error(err);
-          connectedPeers.set(peers.filter(x => x.state === 'connected'));
+          peers.filter(p => p.state === 'connected').forEach(p => {
+            connectedPeers.set(p.key, p);
+          });
+          stream.shamefullySendNext(connectedPeers);
         });
         pull(
           sbot.gossip.changes(),
@@ -39,13 +44,16 @@ const gossipOpinion = {
             if (data.peer) {
               if (data.type === 'remove') {
                 connectedPeers.delete(data.peer.key);
+                stream.shamefullySendNext(connectedPeers);
               } else {
                 if (data.peer.source === 'local') {
                 }
                 if (data.peer.state === 'connected') {
-                  connectedPeers.add(data.peer.key);
+                  connectedPeers.set(data.peer.key, data.peer);
+                  stream.shamefullySendNext(connectedPeers);
                 } else {
                   connectedPeers.delete(data.peer.key);
+                  stream.shamefullySendNext(connectedPeers);
                 }
               }
             }
@@ -57,7 +65,7 @@ const gossipOpinion = {
     return {
       sbot: {
         obs: {
-          connectedPeers: () => connectedPeers,
+          connectedPeers: () => stream,
         },
       },
     };

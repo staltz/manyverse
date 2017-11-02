@@ -111,10 +111,12 @@ export class SSBSource {
       .filter(isNotSync);
 
     this.localSyncPeers$ = api$
-      .map(api =>
-        xsFromMutant<Array<PeerMetadata>>(api.sbot.obs.connectedPeers[1]()),
+      .map(
+        api =>
+          api.sbot.obs.connectedPeers[1]() as Stream<Map<string, PeerMetadata>>,
       )
-      .flatten();
+      .flatten()
+      .map(es6map => Array.from(es6map.entries()).map(kv => kv[1]));
   }
 
   public profileFeed$(id: FeedId): Stream<Msg> {
