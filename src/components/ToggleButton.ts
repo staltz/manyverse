@@ -32,23 +32,7 @@ import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
 import {h} from '@cycle/native-screen';
-
-const baseContainerStyle = {
-  borderTopLeftRadius: 3,
-  borderTopRightRadius: 3,
-  borderBottomLeftRadius: 3,
-  borderBottomRightRadius: 3,
-  paddingLeft: Dimensions.horizontalSpaceNormal,
-  paddingRight: Dimensions.horizontalSpaceNormal,
-  paddingTop: Dimensions.verticalSpaceSmall,
-  paddingBottom: Dimensions.verticalSpaceSmall,
-};
-
-const baseTextStyle: TextStyle = {
-  fontSize: Typography.fontSizeNormal,
-  textAlign: 'center',
-  fontWeight: 'bold',
-};
+import {baseContainerStyle, baseTextStyle} from './Button';
 
 export const styles = StyleSheet.create({
   container: {

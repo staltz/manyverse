@@ -25,6 +25,7 @@ import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import {rules, styles as mdstyles} from '../../global-styles/markdown';
 import Feed, {FeedData, emptyFeed} from '../../components/Feed';
+import Button from '../../components/Button';
 import ToggleButton from '../../components/ToggleButton';
 import {Msg, isVoteMsg, About} from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
@@ -53,7 +54,11 @@ export default function view(state$: Stream<State>) {
           ]),
 
           state.displayFeedId === state.selfFeedId
-            ? null
+            ? h(Button, {
+                selector: 'editProfile',
+                style: styles.follow,
+                text: 'Edit profile',
+              })
             : h(ToggleButton, {
                 selector: 'follow',
                 style: styles.follow,
