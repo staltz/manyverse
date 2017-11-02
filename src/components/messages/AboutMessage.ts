@@ -91,10 +91,12 @@ function renderWithImage(msg: Msg<About>) {
 function renderWithNameDesc(msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
-      h(Text, accountTextProps, authorName(msg)),
-      h(Text, {style: styles.followed}, ' is using the name '),
-      h(Text, accountTextProps, msg.value.content.name),
-      h(Text, {style: styles.followed}, ' and the description: '),
+      h(Text, [
+        h(Text, accountTextProps, authorName(msg)),
+        h(Text, {style: styles.followed}, ' is using the name "'),
+        h(Text, accountTextProps, msg.value.content.name),
+        h(Text, {style: styles.followed}, '" and the description: '),
+      ]),
     ]),
     h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
     h(View, {style: styles.row}, [
@@ -119,9 +121,12 @@ function renderWithDesc(msg: Msg<About>) {
 function renderWithName(msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
-      h(Text, accountTextProps, authorName(msg)),
-      h(Text, {style: styles.followed}, ' is using the name '),
-      h(Text, accountTextProps, msg.value.content.name),
+      h(Text, [
+        h(Text, accountTextProps, authorName(msg)),
+        h(Text, {style: styles.followed}, ' is using the name "'),
+        h(Text, accountTextProps, msg.value.content.name),
+        h(Text, '"'),
+      ]),
     ]),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
