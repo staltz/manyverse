@@ -40,9 +40,13 @@ export const styles = StyleSheet.create({
   },
 });
 
-export default class MessageContainer extends PureComponent<{}> {
+type Props = {
+  style?: any;
+};
+
+export default class MessageContainer extends PureComponent<Props> {
   public render() {
-    return h(View, {style: styles.wrapper}, [
+    return h(View, {style: [styles.wrapper, this.props.style]}, [
       h(View, {style: styles.card}, this.props.children as any),
     ]);
   }

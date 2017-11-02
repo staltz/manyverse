@@ -70,8 +70,16 @@ export const styles = StyleSheet.create({
   },
 
   feed: {
-    top: 0,
+    top: Dimensions.verticalSpaceNormal * 0.5,
     bottom: 0,
+    backgroundColor: Palette.brand.voidBackground,
+    alignSelf: 'stretch',
+  },
+
+  feedWithHeader: {
+    top: Dimensions.verticalSpaceNormal,
+    bottom: 0,
+    backgroundColor: Palette.brand.voidBackground,
     alignSelf: 'stretch',
   },
 

@@ -32,43 +32,51 @@ import {styles} from './styles';
 import {State} from './model';
 
 export default function view(state$: Stream<State>) {
-  return state$.map((state: State) => ({
-    screen: 'mmmmm.Profile',
-    vdom: h(
-      View,
-      {style: styles.container},
-      [
-        h(View, {style: styles.cover}, [
-          h(Text, {style: styles.name}, state.about.name),
-        ]),
+  return state$.map((state: State) => {
+    const showPublishHeader = state.displayFeedId === state.selfFeedId;
 
-        h(View, {style: styles.avatarBackground}, [
-          h(Image, {
-            style: styles.avatar,
-            source: {uri: state.about.imageUrl || ''},
-          }),
-        ]),
+    return {
+      screen: 'mmmmm.Profile',
+      vdom: h(
+        View,
+        {style: styles.container},
+        [
+          h(View, {style: styles.cover}, [
+            h(Text, {style: styles.name}, state.about.name),
+          ]),
 
-        state.displayFeedId === state.selfFeedId
-          ? null
-          : h(ToggleButton, {
-              selector: 'follow',
-              style: styles.follow,
-              text: state.about.following === true ? 'Following' : 'Follow',
-              toggled: state.about.following === true,
+          h(View, {style: styles.avatarBackground}, [
+            h(Image, {
+              style: styles.avatar,
+              source: {uri: state.about.imageUrl || ''},
             }),
+          ]),
 
-        h(View, {style: styles.descriptionArea}, [
-          h(Markdown, {styles: mdstyles, rules}, state.about.description || ''),
-        ]),
+          state.displayFeedId === state.selfFeedId
+            ? null
+            : h(ToggleButton, {
+                selector: 'follow',
+                style: styles.follow,
+                text: state.about.following === true ? 'Following' : 'Follow',
+                toggled: state.about.following === true,
+              }),
 
-        h(Feed, {
-          selector: 'feed',
-          style: styles.feed,
-          feed: state.feed,
-          showPublishHeader: state.displayFeedId === state.selfFeedId,
-        }),
-      ] as Array<any>,
-    ),
-  }));
+          h(View, {style: styles.descriptionArea}, [
+            h(
+              Markdown,
+              {styles: mdstyles, rules},
+              state.about.description || '',
+            ),
+          ]),
+
+          h(Feed, {
+            selector: 'feed',
+            style: showPublishHeader ? styles.feedWithHeader : styles.feed,
+            feed: state.feed,
+            showPublishHeader,
+          }),
+        ] as Array<any>,
+      ),
+    };
+  });
 }

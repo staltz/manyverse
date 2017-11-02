@@ -29,6 +29,10 @@ import MessageContainer from './messages/MessageContainer';
 import Message from './messages/Message';
 
 export const styles = StyleSheet.create({
+  header: {
+    paddingTop: 0,
+  },
+
   writeMessageRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -82,7 +86,7 @@ type FeedHeaderProps = {
 class FeedHeader extends PureComponent<FeedHeaderProps> {
   public render() {
     const {onPublish} = this.props;
-    return h(MessageContainer, [
+    return h(MessageContainer, {style: styles.header}, [
       h(View, {style: styles.writeMessageRow}, [
         h(View, {style: styles.writeMessageAuthorImage}),
         h(TextInput, {
