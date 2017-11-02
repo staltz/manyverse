@@ -103,7 +103,7 @@ export default class LocalPeerMetadata extends PureComponent<Props, State> {
           h(
             Text,
             {style: styles.title, numberOfLines: 1, ellipsizeMode: 'middle'},
-            peer.key,
+            peer.name || peer.key,
           ),
           h(Text, {style: styles.subtitle}, `${peer.host}:${peer.port}`),
         ]),

@@ -111,12 +111,25 @@ export class SSBSource {
       .filter(isNotSync);
 
     this.localSyncPeers$ = api$
-      .map(
-        api =>
-          api.sbot.obs.connectedPeers[1]() as Stream<Map<string, PeerMetadata>>,
-      )
-      .flatten()
-      .map(es6map => Array.from(es6map.entries()).map(kv => kv[1]));
+      .map(api => {
+        const peers$ = api.sbot.obs.connectedPeers[1]() as Stream<
+          Map<string, PeerMetadata>
+        >;
+        const peersArr$ = peers$.map(es6map => Array.from(es6map.entries()));
+        const peersWithNames$ = peersArr$
+          .map(peersArr =>
+            xs.combine(
+              ...peersArr.map(kv =>
+                xsFromMutant<string>(api.about.obs.name[0](kv[1].key)).map(
+                  name => ({...kv[1], name} as PeerMetadata),
+                ),
+              ),
+            ),
+          )
+          .flatten();
+        return peersWithNames$;
+      })
+      .flatten();
   }
 
   public profileFeed$(id: FeedId): Stream<Msg> {

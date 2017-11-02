@@ -21,6 +21,7 @@ export type PeerMetadata = {
   host: string;
   port: number;
   key: string;
+  name?: string;
   source: 'local' | 'pub' | 'manual';
   announcers?: number;
   duration?: any;
