@@ -34,16 +34,16 @@ const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
   {
     screen: {
       screen: 'mmmmm.Central',
-      navigatorStyle: centralNavigatorStyle
+      navigatorStyle: centralNavigatorStyle,
     },
-    animationType: 'fade'
-  }
+    animationType: 'fade',
+  },
 );
 
 run(onionify(main), {
   screen: screenVNodeDriver,
   navCommand: commandDriver,
-  ssb: ssbDriver
+  ssb: ssbDriver,
 });
 
 Scuttlebot.start();
