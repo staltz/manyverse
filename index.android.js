@@ -42,7 +42,7 @@ const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
 
 run(onionify(main), {
   screen: screenVNodeDriver,
-  navCommand: commandDriver,
+  navigation: commandDriver,
   ssb: ssbDriver,
 });
 

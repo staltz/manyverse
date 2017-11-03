@@ -29,13 +29,14 @@ import view from './view';
 
 export type Sources = {
   screen: ScreensSource;
+  navigation: Stream<any>;
   onion: StateSource<any>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
-  navCommand: Stream<Command>;
+  navigation: Stream<Command>;
   onion: Stream<Reducer<any>>;
   ssb: Stream<any>;
 };
@@ -89,7 +90,7 @@ export function publicTab(sources: Sources): Sinks {
   return {
     screen: vdom$,
     onion: reducer$,
-    navCommand: command$,
+    navigation: command$,
     ssb: newContent$,
   };
 }

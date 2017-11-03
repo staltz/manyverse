@@ -35,13 +35,14 @@ import intent, {Actions} from './intent';
 
 export type Sources = {
   screen: ScreensSource;
+  navigation: Stream<any>;
   onion: StateSource<State>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
   screen: Stream<ScreenVNode>;
-  navCommand: Stream<Command>;
+  navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
   ssb: Stream<Content>;
 };
@@ -90,7 +91,7 @@ export function profile(sources: Sources): Sinks {
 
   return {
     screen: vdom$,
-    navCommand: xs.never(),
+    navigation: xs.never(),
     onion: reducer$,
     ssb: newContent$,
   };

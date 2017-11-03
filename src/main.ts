@@ -28,18 +28,19 @@ import {ScreenVNode, Command, PushCommand} from 'cycle-native-navigation';
 import {central} from './scenes/central/index';
 import {profile} from './scenes/profile/index';
 import {Content} from './ssb/types';
-import model from './model';
+import model, {State} from './model';
 
 export type Sources = {
   screen: ScreenSource;
-  onion: StateSource<any>;
+  navigation: Stream<any>;
+  onion: StateSource<State>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
   screen: Stream<ScreenVNode>;
-  navCommand: Stream<Command>;
-  onion: Stream<Reducer<any>>;
+  navigation: Stream<Command>;
+  onion: Stream<Reducer<State>>;
   ssb: Stream<Content>;
 };
 
@@ -78,8 +79,8 @@ export function main(sources: Sources): Sinks {
 
   const screen$ = xs.merge(profileSinks.screen, centralSinks.screen);
   const navCommand$ = xs.merge(
-    profileSinks.navCommand,
-    centralSinks.navCommand,
+    profileSinks.navigation,
+    centralSinks.navigation,
   );
   const mainReducer$ = model(navCommand$);
   const reducer$ = xs.merge(
@@ -91,7 +92,7 @@ export function main(sources: Sources): Sinks {
 
   return {
     screen: screen$.compose(addAlphaDisclaimer),
-    navCommand: navCommand$,
+    navigation: navCommand$,
     onion: reducer$,
     ssb: ssb$,
   };

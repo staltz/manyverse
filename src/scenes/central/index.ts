@@ -37,13 +37,14 @@ import view from './view';
 
 export type Sources = {
   screen: ScreensSource;
+  navigation: Stream<any>;
   onion: StateSource<any>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
   screen: Stream<ScreenVNode>;
-  navCommand: Stream<Command>;
+  navigation: Stream<Command>;
   onion: Stream<Reducer<any>>;
   ssb: Stream<Content>;
 };
@@ -70,7 +71,7 @@ export function central(sources: Sources): Sinks {
   const syncTabSinks = syncTab(sources);
 
   const actions = intent(sources.screen);
-  const command$ = navigationCommands(actions, publicTabSinks.navCommand);
+  const command$ = navigationCommands(actions, publicTabSinks.navigation);
   const reducer$ = model(actions);
   const vdom$ = view(
     sources.onion.state$,
@@ -81,7 +82,7 @@ export function central(sources: Sources): Sinks {
   return {
     screen: vdom$,
     onion: reducer$,
-    navCommand: command$,
+    navigation: command$,
     ssb: publicTabSinks.ssb,
   };
 }
