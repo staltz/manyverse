@@ -10,6 +10,7 @@
     "array-type": false,
     "trailing-comma": false,
     "object-literal-sort-keys": false,
+    "object-literal-key-quotes": false,
     "no-unused-expression": true,
     "no-var-requires": false,
     "no-empty": false,
