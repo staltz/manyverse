@@ -51,7 +51,7 @@ function prepareForSSB(
   actions: Actions,
   state$: Stream<State>,
 ): Stream<Content> {
-  const publishMsg$ = actions.publishMsg.map(text => {
+  const publishMsg$ = actions.publishMsg$.map(text => {
     return {
       text,
       type: 'post',
@@ -59,7 +59,7 @@ function prepareForSSB(
     } as PostContent;
   });
 
-  const toggleLikeMsg$ = actions.likeMsg.map(ev => {
+  const toggleLikeMsg$ = actions.likeMsg$.map(ev => {
     return {
       type: 'vote',
       vote: {
@@ -70,7 +70,7 @@ function prepareForSSB(
     } as VoteContent;
   });
 
-  const followProfileMsg$ = actions.follow
+  const followProfileMsg$ = actions.follow$
     .compose(sampleCombine(state$))
     .map(([following, state]) => {
       return {

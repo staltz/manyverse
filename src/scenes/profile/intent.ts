@@ -25,20 +25,20 @@ export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
 export type Actions = {
-  publishMsg: Stream<string>;
-  likeMsg: Stream<LikeEvent>;
-  follow: Stream<boolean>;
+  publishMsg$: Stream<string>;
+  likeMsg$: Stream<LikeEvent>;
+  follow$: Stream<boolean>;
 };
 
 export default function intent(source: ScreensSource): Actions {
   return {
-    publishMsg: source
+    publishMsg$: source
       .select('feed')
       .events('publish')
       .map(ev => ev.nativeEvent.text) as Stream<string>,
 
-    likeMsg: source.select('feed').events('pressLike') as Stream<LikeEvent>,
+    likeMsg$: source.select('feed').events('pressLike') as Stream<LikeEvent>,
 
-    follow: source.select('follow').events('press') as Stream<boolean>,
+    follow$: source.select('follow').events('press') as Stream<boolean>,
   };
 }
