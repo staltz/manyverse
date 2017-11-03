@@ -57,15 +57,27 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
   },
 
+  containerStrong: {
+    ...baseContainerStyle,
+    backgroundColor: Palette.brand.background,
+    borderWidth: 0,
+  },
+
   text: {
     ...baseTextStyle,
     color: Palette.brand.background,
+  },
+
+  textStrong: {
+    ...baseTextStyle,
+    color: Palette.white,
   },
 });
 
 export type Props = {
   text: string;
   onPress?: () => void;
+  strong?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -75,7 +87,7 @@ export default class Button extends PureComponent<Props> {
   }
 
   public render() {
-    const {text, style} = this.props;
+    const {text, strong, style} = this.props;
 
     const touchableProps = {
       background: TouchableNativeFeedback.Ripple(Palette.brand.background),
@@ -87,9 +99,11 @@ export default class Button extends PureComponent<Props> {
     };
 
     return h(TouchableNativeFeedback, touchableProps, [
-      h(View, {style: [styles.container, style]}, [
-        h(Text, {style: styles.text}, text),
-      ]),
+      h(
+        View,
+        {style: [strong ? styles.containerStrong : styles.container, style]},
+        [h(Text, {style: strong ? styles.textStrong : styles.text}, text)],
+      ),
     ]);
   }
 }
