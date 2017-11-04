@@ -22,6 +22,7 @@ import {makeScreenDriver} from '@cycle/native-screen';
 import {main} from './lib/main';
 import onionify from 'cycle-onionify';
 import {ssbDriver} from './lib/drivers/ssb';
+import {dialogDriver} from './lib/drivers/dialogs';
 import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
 import {Palette} from './lib/global-styles/palette';
 import {Dimensions} from './lib/global-styles/dimens';
@@ -44,6 +45,7 @@ run(onionify(main), {
   screen: screenVNodeDriver,
   navigation: commandDriver,
   ssb: ssbDriver,
+  dialog: dialogDriver,
 });
 
 Scuttlebot.start();

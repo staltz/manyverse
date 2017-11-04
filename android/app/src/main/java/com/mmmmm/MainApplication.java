@@ -3,6 +3,7 @@ package com.mmmmm;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.peel.react.TcpSocketsModule;
 import com.peel.react.rnos.RNOSModule;
@@ -31,6 +32,7 @@ public class MainApplication extends NavigationApplication {
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
       new MainReactPackage(),
+            new ReactNativeDialogsPackage(),
       new VectorIconsPackage(),
       new TcpSocketsModule(),
       new RNOSModule(),

@@ -5492,6 +5492,10 @@ react-native-crypto@2.1.1:
     pbkdf2 "3.0.8"
     public-encrypt "^4.0.0"
 
+react-native-dialogs@0.0.20:
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/react-native-dialogs/-/react-native-dialogs-0.0.20.tgz#f3fb48eadba9d83fb9d4e6d7eca573494a8cefaa"
+
 react-native-fs@2.3.x:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.3.3.tgz#94c0d9699ec20405f30b79a69b6d8b96d2a4851b"

@@ -30,6 +30,10 @@ import {
 import {SSBSource} from '../../drivers/ssb';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import model, {State} from './model';
+import {
+  Response as DialogRes,
+  Request as DialogReq,
+} from '../../drivers/dialogs';
 import view from './view';
 import intent, {Actions} from './intent';
 
@@ -38,6 +42,7 @@ export type Sources = {
   navigation: Stream<any>;
   onion: StateSource<State>;
   ssb: SSBSource;
+  dialog: Stream<DialogRes>;
 };
 
 export type Sinks = {
@@ -45,6 +50,7 @@ export type Sinks = {
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
   ssb: Stream<Content>;
+  dialog: Stream<DialogReq>;
 };
 
 function prepareForSSB(
@@ -94,5 +100,6 @@ export function profile(sources: Sources): Sinks {
     navigation: xs.never(),
     onion: reducer$,
     ssb: newContent$,
+    dialog: xs.never(),
   };
 }

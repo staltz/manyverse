@@ -24,6 +24,7 @@ import {ScreenSource, h} from '@cycle/native-screen';
 import {View, Text, StyleSheet} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from './drivers/ssb';
+import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';
 import {ScreenVNode, Command, PushCommand} from 'cycle-native-navigation';
 import {central} from './scenes/central/index';
 import {profile} from './scenes/profile/index';
@@ -35,6 +36,7 @@ export type Sources = {
   navigation: Stream<any>;
   onion: StateSource<State>;
   ssb: SSBSource;
+  dialog: Stream<DialogRes>;
 };
 
 export type Sinks = {
@@ -42,6 +44,7 @@ export type Sinks = {
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
   ssb: Stream<Content>;
+  dialog: Stream<DialogReq>;
 };
 
 export type ScreenID = 'mmmmm.Central' | 'mmmmm.Profile';
@@ -95,5 +98,6 @@ export function main(sources: Sources): Sinks {
     navigation: navCommand$,
     onion: reducer$,
     ssb: ssb$,
+    dialog: profileSinks.dialog,
   };
 }

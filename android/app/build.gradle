@@ -1,5 +1,11 @@
 apply plugin: "com.android.application"
 
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
 import com.android.build.OutputFile
 
 /**
@@ -151,6 +157,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-dialogs')
     compile project(':react-native-vector-icons')
     compile project(':react-native-tcp')
     compile project(':react-native-os')
