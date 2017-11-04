@@ -18,38 +18,34 @@
  */
 
 import {StyleSheet} from 'react-native';
-import {Dimensions as Dimens} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
-import {Palette} from '../../global-styles/palette';
+import {Dimensions} from '../../../global-styles/dimens';
+import {Typography} from '../../../global-styles/typography';
+import {Palette} from '../../../global-styles/palette';
 
 export const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Palette.brand.darkVoidBackground,
-    alignSelf: 'stretch',
+  writeMessageRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     flex: 1,
   },
 
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  writeMessageAuthorImage: {
+    height: 45,
+    width: 45,
+    borderRadius: 3,
+    backgroundColor: Palette.indigo1,
+    marginRight: Dimensions.horizontalSpaceSmall,
+    marginBottom: Dimensions.verticalSpaceSmall,
   },
 
-  headerText: {
-    color: Palette.brand.darkTextWeak,
-    fontSize: Typography.fontSizeNormal,
-    marginLeft: Dimens.horizontalSpaceBig,
-    marginTop: Dimens.verticalSpaceBig,
-    marginBottom: Dimens.verticalSpaceBig,
+  writeInput: {
+    flex: 1,
+    fontSize: Typography.fontSizeBig,
+    color: Palette.brand.text,
   },
 
-  infoIcon: {
-    marginLeft: Dimens.horizontalSpaceSmall,
+  container: {
+    alignSelf: 'stretch',
+    flex: 1,
   },
 });
-
-export const iconProps = {
-  info: {
-    size: Dimens.iconSizeSmall,
-    color: Palette.brand.darkTextWeak,
-  },
-};

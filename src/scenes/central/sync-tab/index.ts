@@ -17,22 +17,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
-import {PureComponent, Component} from 'react';
-import {View, FlatList, Text, TextInput} from 'react-native';
-import {h} from '@cycle/native-screen';
-import {Palette} from '../../global-styles/palette';
-import {Msg} from '../../ssb/types';
-import {includeMsgIntoFeed} from '../../ssb/utils';
-import {styles} from './styles';
-import Feed, {emptyFeed} from '../../components/Feed';
+import xs, {Stream, Listener} from 'xstream';
+import {ReactElement} from 'react';
+import {View, Text} from 'react-native';
+import {StateSource, Reducer} from 'cycle-onionify';
+import {ScreensSource} from 'cycle-native-navigation';
+import {SSBSource} from '../../../drivers/ssb';
+import {PeerMetadata} from '../../../ssb/types';
+import view from './view';
 
-export default function view(feed$: Stream<Msg>) {
-  const vdom$ = feed$
-    .fold(includeMsgIntoFeed, emptyFeed)
-    .map(feed =>
-      h(Feed, {selector: 'publicFeed', feed, showPublishHeader: true}),
-    );
+export type Sources = {
+  screen: ScreensSource;
+  onion: StateSource<any>;
+  ssb: SSBSource;
+};
 
-  return vdom$;
+export type Sinks = {
+  screen: Stream<ReactElement<any>>;
+  onion: Stream<Reducer<any>>;
+};
+
+export function syncTab(sources: Sources): Sinks {
+  const vdom$ = view(sources.ssb.localSyncPeers$);
+  const reducer$ = xs.empty();
+
+  return {
+    screen: vdom$,
+    onion: reducer$,
+  };
 }

@@ -28,8 +28,8 @@ import {
   PushCommand,
   ScreensSource,
 } from 'cycle-native-navigation';
-import {publicTab} from '../public-tab/index';
-import {syncTab} from '../sync-tab/index';
+import {publicTab} from './public-tab/index';
+import {syncTab} from './sync-tab/index';
 import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
 import intent, {Actions} from './intent';
 import model from './model';

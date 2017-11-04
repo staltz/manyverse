@@ -22,8 +22,8 @@ import {ReactElement} from 'react';
 import {h} from '@cycle/native-screen';
 import {View, Text, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {PeerMetadata} from '../../ssb/types';
-import LocalPeerMetadata from '../../components/LocalPeerMetadata';
+import {PeerMetadata} from '../../../ssb/types';
+import LocalPeerMetadata from '../../../components/LocalPeerMetadata';
 import {styles, iconProps} from './styles';
 
 export default function view(localSyncPeers$: Stream<Array<PeerMetadata>>) {

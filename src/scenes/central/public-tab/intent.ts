@@ -17,32 +17,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
-import {ReactElement} from 'react';
-import {View, Text} from 'react-native';
-import {StateSource, Reducer} from 'cycle-onionify';
+import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
-import {SSBSource} from '../../drivers/ssb';
-import {PeerMetadata} from '../../ssb/types';
-import view from './view';
+import {FeedId} from '../../../ssb/types';
 
-export type Sources = {
-  screen: ScreensSource;
-  onion: StateSource<any>;
-  ssb: SSBSource;
+export type LikeEvent = {msgKey: string; like: boolean};
+export type ProfileNavEvent = {authorFeedId: FeedId};
+
+export type Actions = {
+  publishMsg: Stream<string>;
+  likeMsg: Stream<LikeEvent>;
+  goToProfile: Stream<ProfileNavEvent>;
 };
 
-export type Sinks = {
-  screen: Stream<ReactElement<any>>;
-  onion: Stream<Reducer<any>>;
-};
-
-export function syncTab(sources: Sources): Sinks {
-  const vdom$ = view(sources.ssb.localSyncPeers$);
-  const reducer$ = xs.empty();
-
+export default function intent(source: ScreensSource): Actions {
   return {
-    screen: vdom$,
-    onion: reducer$,
+    publishMsg: source
+      .select('publicFeed')
+      .events('publish')
+      .map(ev => ev.nativeEvent.text) as Stream<string>,
+
+    likeMsg: source.select('publicFeed').events('pressLike') as Stream<
+      LikeEvent
+    >,
+
+    goToProfile: source.select('publicFeed').events('pressAuthor') as Stream<
+      ProfileNavEvent
+    >,
   };
 }

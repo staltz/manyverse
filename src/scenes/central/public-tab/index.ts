@@ -20,10 +20,10 @@
 import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {Content, PostContent, VoteContent} from '../../ssb/types';
+import {Content, PostContent, VoteContent} from '../../../ssb/types';
 import {Command, ScreensSource} from 'cycle-native-navigation';
-import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
-import {SSBSource} from '../../drivers/ssb';
+import {navigatorStyle as profileNavigatorStyle} from '../../profile/styles';
+import {SSBSource} from '../../../drivers/ssb';
 import intent, {Actions} from './intent';
 import view from './view';
 
