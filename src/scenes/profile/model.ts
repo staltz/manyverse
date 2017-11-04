@@ -23,6 +23,7 @@ import {SSBSource} from '../../drivers/ssb';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {FeedId, About, Msg} from '../../ssb/types';
 import {includeMsgIntoFeed} from '../../ssb/utils';
+import {State as EditProfileState} from './edit';
 
 export type FeedData = {
   updated: number;
@@ -34,6 +35,7 @@ export type State = {
   displayFeedId: FeedId;
   feed: FeedData;
   about: About;
+  edit: EditProfileState;
 };
 
 export default function model(
@@ -72,6 +74,10 @@ export default function model(
         return {
           ...prevState,
           about,
+          edit: {
+            ...prevState.edit,
+            about,
+          },
         };
       },
   );
@@ -80,6 +86,12 @@ export default function model(
     selfFeedId =>
       function setSelfFeedIdReducer(prevState: State | undefined): State {
         if (!prevState) {
+          const about = {
+            name: selfFeedId,
+            description: '',
+            id: selfFeedId,
+          };
+
           return {
             selfFeedId,
             displayFeedId: selfFeedId,
@@ -87,10 +99,9 @@ export default function model(
               updated: 0,
               arr: [],
             },
-            about: {
-              name: selfFeedId,
-              description: '',
-              id: selfFeedId,
+            about,
+            edit: {
+              about,
             },
           };
         } else {

@@ -17,31 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId} from '../../ssb/types';
+import {FeedId} from '../../../ssb/types';
 
-export type LikeEvent = {msgKey: string; like: boolean};
-export type ProfileNavEvent = {authorFeedId: FeedId};
-
-export type Actions = {
-  publishMsg$: Stream<string>;
-  likeMsg$: Stream<LikeEvent>;
-  follow$: Stream<boolean>;
-  edit$: Stream<null>;
-};
-
-export default function intent(source: ScreensSource): Actions {
+export default function intent(source: ScreensSource) {
   return {
-    publishMsg$: source
-      .select('feed')
-      .events('publish')
-      .map(ev => ev.nativeEvent.text) as Stream<string>,
+    changeName$: source.select('name').events('changeText'),
 
-    likeMsg$: source.select('feed').events('pressLike') as Stream<LikeEvent>,
+    changeDescription$: source.select('description').events('changeText'),
 
-    follow$: source.select('follow').events('press') as Stream<boolean>,
-
-    edit$: source.select('editProfile').events('press') as Stream<null>,
+    save$: source.select('save').events('press'),
   };
 }

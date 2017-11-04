@@ -1,6 +1,6 @@
 # Next
 
-- Edit own name in Profile screen
+- Fix navigation bug when going back from Edit Profile
 
 # Must
 
@@ -10,6 +10,7 @@
 
 # Should
 
+- Upload picture on EditProfile screen
 - Basic notifications tab
 - Leveldown compiled for Android
 - Profile header part should shrink when scrolling down through messages

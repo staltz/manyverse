@@ -21,6 +21,13 @@ import xs, {Stream, Listener} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
+import isolate from '@cycle/isolate';
+import {
+  ScreenVNode,
+  Command,
+  PushCommand,
+  ScreensSource,
+} from 'cycle-native-navigation';
 import {
   Content,
   PostContent,
@@ -28,14 +35,14 @@ import {
   ContactContent,
 } from '../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
-import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
-import model, {State} from './model';
 import {
   Response as DialogRes,
   Request as DialogReq,
 } from '../../drivers/dialogs';
+import model, {State} from './model';
 import view from './view';
 import intent, {Actions} from './intent';
+import editProfile, {navigatorStyle as editProfileNavStyle} from './edit';
 
 export type Sources = {
   screen: ScreensSource;
@@ -89,17 +96,32 @@ function prepareForSSB(
   return xs.merge(publishMsg$, toggleLikeMsg$, followProfileMsg$);
 }
 
+function navigation(actions: Actions): Stream<Command> {
+  return actions.edit$.mapTo(
+    {
+      type: 'push',
+      screen: 'mmmmm.Profile.Edit',
+      title: 'Edit profile',
+      overrideBackPress: true,
+      navigatorStyle: editProfileNavStyle,
+    } as PushCommand,
+  );
+}
+
 export function profile(sources: Sources): Sinks {
+  const editSinks: Sinks = isolate(editProfile, 'edit')(sources);
+
   const reducer$ = model(sources.onion.state$, sources.ssb);
   const actions = intent(sources.screen);
   const newContent$ = prepareForSSB(actions, sources.onion.state$);
   const vdom$ = view(sources.onion.state$);
+  const command$ = navigation(actions);
 
   return {
-    screen: vdom$,
-    navigation: xs.never(),
-    onion: reducer$,
-    ssb: newContent$,
-    dialog: xs.never(),
+    screen: xs.merge(vdom$, editSinks.screen),
+    navigation: xs.merge(command$, editSinks.navigation),
+    onion: xs.merge(reducer$, editSinks.onion),
+    ssb: xs.merge(newContent$, editSinks.ssb),
+    dialog: editSinks.dialog,
   };
 }

@@ -31,7 +31,7 @@ import {navigatorStyle as centralNavigatorStyle} from './lib/scenes/central/styl
 import Scuttlebot from 'react-native-scuttlebot';
 
 const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
-  ['mmmmm.Central', 'mmmmm.Profile'],
+  ['mmmmm.Central', 'mmmmm.Profile', 'mmmmm.Profile.Edit'],
   {
     screen: {
       screen: 'mmmmm.Central',

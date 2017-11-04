@@ -47,7 +47,7 @@ export type Sinks = {
   dialog: Stream<DialogReq>;
 };
 
-export type ScreenID = 'mmmmm.Central' | 'mmmmm.Profile';
+export type ScreenID = 'mmmmm.Central' | 'mmmmm.Profile' | 'mmmmm.Profile.Edit';
 
 function addAlphaDisclaimer(screen$: Stream<ScreenVNode>): Stream<ScreenVNode> {
   return screen$.map(screen => ({
