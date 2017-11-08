@@ -13,7 +13,7 @@
     "clean-up-bundler": "watchman watch-del-all && rm -rf $TMPDIR/react-*",
     "android-release": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "move-android-apk": "mkdir -p gitignored/release && cp android/app/build/outputs/apk/app-release.apk gitignored/release/",
-    "commit-after-release": "git add -A && git commit -m \"Release $(cat package.json | $(npm bin)/jase version)\"",
+    "commit-after-release": "git add -A && git commit -m \"Release $(cat package.json | $(npm bin)/jase version)\" && git tag v$(cat package.json | $(npm bin)/jase version)",
     "release": "npm run update-android-version && npm run clean-up-bundler && npm run lib && npm run propagate-replacements && npm run android-release && npm run test-e2e-android && npm run move-android-apk && npm run commit-after-release"
   },
   "dependencies": {
