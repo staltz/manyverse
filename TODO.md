@@ -1,5 +1,6 @@
 # Next
 
+- Set status bar (in multicast view) to branded blue
 - Write some integration tests
 
 # Must
