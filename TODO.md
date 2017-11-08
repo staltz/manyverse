@@ -1,10 +1,9 @@
 # Next
 
-- Fix navigation bug when going back from Edit Profile
+- Write some integration tests
 
 # Must
 
-- Write some unit tests
 - Basic private messages tab
 - Use nodejs-mobile-react-native
 

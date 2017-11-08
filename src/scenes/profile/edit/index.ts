@@ -81,9 +81,9 @@ function navigation(
     .filter(
       res => res.category === 'edit-profile-discard' && res.type === 'positive',
     )
-    .mapTo({type: 'pop'} as PopCommand);
+    .map(() => ({type: 'pop'} as PopCommand));
 
-  const goBackSaving$ = dataToSave$.mapTo({type: 'pop'} as PopCommand);
+  const goBackSaving$ = dataToSave$.map(() => ({type: 'pop'} as PopCommand));
 
   return xs.merge(goBackDiscarding$, goBackSaving$);
 }
