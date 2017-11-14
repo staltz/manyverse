@@ -32,12 +32,13 @@ public class MainApplication extends NavigationApplication {
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
       new MainReactPackage(),
-            new ReactNativeDialogsPackage(),
+      new ReactNativeDialogsPackage(),
       new VectorIconsPackage(),
       new TcpSocketsModule(),
       new RNOSModule(),
       new RNFSPackage(),
       new RandomBytesPackage(),
+      new DataDirPackage(),
       new RNNodePackage()
     );
   }

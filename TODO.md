@@ -1,10 +1,12 @@
 # Next
 
-- Set status bar (in multicast view) to branded blue
-- Write some integration tests
+- Move DataDir constant to SSB Client as a Java thing, RC
+- Release next versions of sbot and ssb client
 
 # Must
 
+- Set status bar (in multicast view) to branded blue
+- Write some integration tests
 - Basic private messages tab
 - Use nodejs-mobile-react-native
 

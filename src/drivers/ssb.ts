@@ -27,6 +27,7 @@ import gossipOpinion from '../ssb/opinions/gossip';
 import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import xsFromMutant from 'xstream-from-mutant';
+import {NativeModules} from 'react-native';
 const {computed} = require('mutant');
 const sbotOpinion = require('patchcore/sbot');
 const backlinksOpinion = require('patchcore/backlinks/obs');
@@ -53,6 +54,7 @@ const configOpinion = {
     return nest('config.sync.load', () => {
       if (!config) {
         config = Config('ssb');
+        config.path = NativeModules.DataDir.PATH + '/.ssb';
       }
       return config;
     });
@@ -183,7 +185,9 @@ function dropCompletion(stream: Stream<any>): Stream<any> {
 }
 
 export function ssbDriver(sink: Stream<Content>): SSBSource {
-  const keys$ = xs.fromPromise(ssbClient.fetchKeys(Config('ssb')));
+  const config = Config('ssb');
+  config.path = NativeModules.DataDir.PATH + '/.ssb';
+  const keys$ = xs.fromPromise(ssbClient.fetchKeys(config));
 
   const api$ = keys$
     .take(1)
