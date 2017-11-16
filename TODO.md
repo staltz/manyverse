@@ -5,18 +5,18 @@
 
 # Must
 
-- Basic private messages tab
-- Use nodejs-mobile-react-native
+- Basic notifications tab
+- Upload picture on EditProfile screen
+- Group messages as thread
 
 # Should
 
-- Upload picture on EditProfile screen
-- Basic notifications tab
 - Leveldown compiled for Android
 - Profile header part should shrink when scrolling down through messages
+- Basic private messages tab
+- Use nodejs-mobile-react-native
 - Run in low-end Android device, armv7
 - Nav drawer
-- Group messages as thread
 
 # Could
 
