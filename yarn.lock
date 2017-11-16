@@ -5544,9 +5544,9 @@ react-native-randombytes@3.0.0:
     buffer "^4.9.1"
     sjcl "^1.0.3"
 
-react-native-scuttlebot@10.4.15-rc.7:
-  version "10.4.15-rc.7"
-  resolved "https://registry.yarnpkg.com/react-native-scuttlebot/-/react-native-scuttlebot-10.4.15-rc.7.tgz#e667f6506a39ebfdfd1f9586d7734812b3b00899"
+react-native-scuttlebot@10.4.15:
+  version "10.4.15"
+  resolved "https://registry.yarnpkg.com/react-native-scuttlebot/-/react-native-scuttlebot-10.4.15.tgz#a268659b3d70ff42bb550e7c9e44ca260678644e"
   dependencies:
     "@staltz/jsondown" "1.1.1"
     bufferutil "3.0.1"
@@ -5584,9 +5584,9 @@ react-native-ssb-client-keys@1.0.0:
     react-native-fs "2.3.x"
     ssb-keys "7.0.10"
 
-react-native-ssb-client@3.0.0-rc.1:
-  version "3.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/react-native-ssb-client/-/react-native-ssb-client-3.0.0-rc.1.tgz#901ff2cd5a8140e283718e1f7ee985fe78a8ad62"
+react-native-ssb-client@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-ssb-client/-/react-native-ssb-client-3.0.0.tgz#083aa81c48e5a16c8deedb2fc4d1107ba7a1bb67"
   dependencies:
     ssb-client "4.5.x"
     ssb-config "2.2.x"
