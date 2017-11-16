@@ -38,7 +38,6 @@ public class MainApplication extends NavigationApplication {
       new RNOSModule(),
       new RNFSPackage(),
       new RandomBytesPackage(),
-      new DataDirPackage(),
       new RNNodePackage()
     );
   }
