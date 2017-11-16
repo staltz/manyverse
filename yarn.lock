@@ -5544,9 +5544,9 @@ react-native-randombytes@3.0.0:
     buffer "^4.9.1"
     sjcl "^1.0.3"
 
-react-native-scuttlebot@10.4.15-rc.6:
-  version "10.4.15-rc.6"
-  resolved "https://registry.yarnpkg.com/react-native-scuttlebot/-/react-native-scuttlebot-10.4.15-rc.6.tgz#e4d0caaa2a10504f5df7e9a69bb965197328460b"
+react-native-scuttlebot@10.4.15-rc.7:
+  version "10.4.15-rc.7"
+  resolved "https://registry.yarnpkg.com/react-native-scuttlebot/-/react-native-scuttlebot-10.4.15-rc.7.tgz#e667f6506a39ebfdfd1f9586d7734812b3b00899"
   dependencies:
     "@staltz/jsondown" "1.1.1"
     bufferutil "3.0.1"
