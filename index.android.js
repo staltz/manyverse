@@ -17,6 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import 'react-native-ssb-shims';
 import {run} from '@cycle/run';
 import {makeScreenDriver} from '@cycle/native-screen';
 import {main} from './lib/main';

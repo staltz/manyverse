@@ -28,7 +28,6 @@ import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
 import xsFromCallback from 'xstream-from-callback';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import xsFromMutant from 'xstream-from-mutant';
-import {NativeModules} from 'react-native';
 const {computed} = require('mutant');
 const sbotOpinion = require('patchcore/sbot');
 const backlinksOpinion = require('patchcore/backlinks/obs');
@@ -36,11 +35,11 @@ const aboutOpinion = require('patchcore/about/obs');
 const contactOpinion = require('patchcore/contact/obs');
 const unboxOpinion = require('patchcore/message/sync/unbox');
 const msgLikesOpinion = require('patchcore/message/obs/likes');
-const ssbClient = require('react-native-ssb-client');
 const ssbKeys = require('react-native-ssb-client-keys');
 const depjectCombine = require('depject');
 const Config = require('ssb-config/inject');
 const nest = require('depnest');
+const os = require('os');
 
 const emptyHookOpinion = {
   gives: nest('sbot.hook.publish'),
@@ -56,7 +55,7 @@ const configOpinion = {
     return nest('config.sync.load', () => {
       if (!config) {
         config = Config('ssb');
-        config.path = NativeModules.DataDir.PATH + '/.ssb';
+        config.path = os.homedir() + '/.ssb';
       }
       return config;
     });
@@ -187,7 +186,7 @@ function dropCompletion(stream: Stream<any>): Stream<any> {
 }
 
 export function ssbDriver(sink: Stream<Content>): SSBSource {
-  const keysPath = NativeModules.DataDir.PATH + '/.ssb/secret';
+  const keysPath = os.homedir() + '/.ssb/secret';
   const keys$ = xsFromCallback(ssbKeys.loadOrCreate)(keysPath);
 
   const api$ = keys$

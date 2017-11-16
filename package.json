@@ -38,9 +38,11 @@
     "react-native-navigation": "1.1.256",
     "react-native-scuttlebot": "10.4.15-rc.6",
     "react-native-simple-markdown": "^1.0.60-rc.3",
-    "react-native-ssb-client": "2.0.8",
+    "react-native-ssb-client": "3.0.0-rc.1",
     "react-native-ssb-client-keys": "1.0.0",
+    "react-native-ssb-shims": "1.0.2",
     "react-native-vector-icons": "4.2.0",
+    "react-native-os": "git://github.com/staltz/react-native-os.git#staltz-package",
     "@staltz/rn-viewpager": "1.2.5",
     "ssb-ref": "2.7.1",
     "xstream": "11.x",
@@ -67,6 +69,7 @@
     "preset": "react-native"
   },
   "react-native": {
+    "os": "react-native-os",
     "rn-viewpager": "@staltz/rn-viewpager",
     "ssb-client": "react-native-ssb-client"
   }

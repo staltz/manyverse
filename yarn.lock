@@ -5026,10 +5026,6 @@ process-nextick-args@~1.0.6:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
 
-"process-shim@git://github.com/ssbc/react-native-ssb-client.git#process-shim":
-  version "1.0.0"
-  resolved "git://github.com/ssbc/react-native-ssb-client.git#4320ed8769f29007e37bd88fe47447fc7a173f3f"
-
 process@^0.11.1, process@^0.11.9:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
@@ -5050,12 +5046,6 @@ prop-types@15.5.x, prop-types@^15.5.6, prop-types@^15.5.8:
   dependencies:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
-
-propagate-replacement-fields@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/propagate-replacement-fields/-/propagate-replacement-fields-1.1.0.tgz#3cda3c5c6a296cb2ac13654bf7770f604164351d"
-  dependencies:
-    yargs "^8.0.2"
 
 propagate-replacement-fields@1.2.0:
   version "1.2.0"
@@ -5537,9 +5527,15 @@ react-native-node@3.2.0:
     tar "^3.1.5"
     yargs "^8.0.2"
 
-react-native-os@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-os/-/react-native-os-1.1.0.tgz#bfbe1c44d8a5b14a6f3a3a405d8ada6f547a516e"
+"react-native-os@git://github.com/staltz/react-native-os.git#staltz-package":
+  version "1.2.0"
+  resolved "git://github.com/staltz/react-native-os.git#d7ace8b441f12d062cd2ad49c1e5e8c8607ae9a2"
+
+react-native-process-shim@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-process-shim/-/react-native-process-shim-1.0.1.tgz#4463c3e326d0f61472d53e40c452ada261eed96b"
+  dependencies:
+    react-native-os "git://github.com/staltz/react-native-os.git#staltz-package"
 
 react-native-randombytes@3.0.0:
   version "3.0.0"
@@ -5588,23 +5584,27 @@ react-native-ssb-client-keys@1.0.0:
     react-native-fs "2.3.x"
     ssb-keys "7.0.10"
 
-react-native-ssb-client@2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/react-native-ssb-client/-/react-native-ssb-client-2.0.8.tgz#fa959f9d01a566dbedc55d49c4c271f39a5d73f9"
+react-native-ssb-client@3.0.0-rc.1:
+  version "3.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/react-native-ssb-client/-/react-native-ssb-client-3.0.0-rc.1.tgz#901ff2cd5a8140e283718e1f7ee985fe78a8ad62"
+  dependencies:
+    ssb-client "4.5.x"
+    ssb-config "2.2.x"
+
+react-native-ssb-shims@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-ssb-shims/-/react-native-ssb-shims-1.0.2.tgz#e6803a53cb98004ec43684ffd4d0abdac22e2abb"
   dependencies:
     buffer "3.6.0"
     path "0.12.x"
-    process-shim "git://github.com/ssbc/react-native-ssb-client.git#process-shim"
-    propagate-replacement-fields "1.1.0"
+    propagate-replacement-fields "1.2.0"
     react-native-crypto "2.1.1"
     react-native-fs "2.3.x"
-    react-native-os "^1.1.0"
+    react-native-os "git://github.com/staltz/react-native-os.git#staltz-package"
+    react-native-process-shim "1.0.1"
     react-native-randombytes "3.0.0"
     react-native-tcp "3.2.x"
     sodium-browserify-tweetnacl "^0.2.3"
-    ssb-client "4.5.x"
-    ssb-config "2.2.x"
-    ssb-keys "7.0.10"
     stream-browserify "^2.0.1"
     url "0.11.0"
     vm-browserify "^0.0.4"
@@ -6538,9 +6538,9 @@ ssb-blobs@^1.0.1:
     pull-stream "^3.3.0"
     ssb-ref "^2.3.0"
 
-ssb-client@4.5.x, ssb-client@^4.4.1:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/ssb-client/-/ssb-client-4.5.0.tgz#a225e2db4a3aab43661b27a644b3837cf36cb910"
+ssb-client@4.5.x, ssb-client@^4.5.0:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/ssb-client/-/ssb-client-4.5.1.tgz#eca976f1e411d279626af28395f1f93a4caa0a24"
   dependencies:
     explain-error "^1.0.1"
     multicb "^1.2.1"
@@ -6551,9 +6551,9 @@ ssb-client@4.5.x, ssb-client@^4.4.1:
     ssb-config "^2.0.0"
     ssb-keys "^7.0.9"
 
-ssb-client@^4.5.0:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/ssb-client/-/ssb-client-4.5.1.tgz#eca976f1e411d279626af28395f1f93a4caa0a24"
+ssb-client@^4.4.1:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/ssb-client/-/ssb-client-4.5.0.tgz#a225e2db4a3aab43661b27a644b3837cf36cb910"
   dependencies:
     explain-error "^1.0.1"
     multicb "^1.2.1"
