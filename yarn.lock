@@ -5581,6 +5581,13 @@ react-native-simple-markdown@^1.0.60-rc.3:
     lodash "^4.15.0"
     simple-markdown "git://github.com/CharlesMangwa/simple-markdown.git"
 
+react-native-ssb-client-keys@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-ssb-client-keys/-/react-native-ssb-client-keys-1.0.0.tgz#a85d177748ac6729692e07e961163aca29ed3c59"
+  dependencies:
+    react-native-fs "2.3.x"
+    ssb-keys "7.0.10"
+
 react-native-ssb-client@2.0.8:
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/react-native-ssb-client/-/react-native-ssb-client-2.0.8.tgz#fa959f9d01a566dbedc55d49c4c271f39a5d73f9"
@@ -7623,6 +7630,12 @@ xmldom@0.1.x:
 xpipe@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/xpipe/-/xpipe-1.0.5.tgz#8dd8bf45fc3f7f55f0e054b878f43a62614dafdf"
+
+xstream-from-callback@1.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/xstream-from-callback/-/xstream-from-callback-1.0.0.tgz#2fa5cb3aa939f0bfdf134b968776e98b904136fe"
+  dependencies:
+    xstream "10.x || 11.x"
 
 xstream-from-mutant@1.1:
   version "1.1.0"

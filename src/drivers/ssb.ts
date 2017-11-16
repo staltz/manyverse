@@ -25,6 +25,7 @@ import aboutSyncOpinion from '../ssb/opinions/about/sync';
 import makeKeysOpinion from '../ssb/opinions/keys';
 import gossipOpinion from '../ssb/opinions/gossip';
 import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
+import xsFromCallback from 'xstream-from-callback';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import xsFromMutant from 'xstream-from-mutant';
 import {NativeModules} from 'react-native';
@@ -36,6 +37,7 @@ const contactOpinion = require('patchcore/contact/obs');
 const unboxOpinion = require('patchcore/message/sync/unbox');
 const msgLikesOpinion = require('patchcore/message/obs/likes');
 const ssbClient = require('react-native-ssb-client');
+const ssbKeys = require('react-native-ssb-client-keys');
 const depjectCombine = require('depject');
 const Config = require('ssb-config/inject');
 const nest = require('depnest');
@@ -185,9 +187,8 @@ function dropCompletion(stream: Stream<any>): Stream<any> {
 }
 
 export function ssbDriver(sink: Stream<Content>): SSBSource {
-  const config = Config('ssb');
-  config.path = NativeModules.DataDir.PATH + '/.ssb';
-  const keys$ = xs.fromPromise(ssbClient.fetchKeys(config));
+  const keysPath = NativeModules.DataDir.PATH + '/.ssb/secret';
+  const keys$ = xsFromCallback(ssbKeys.loadOrCreate)(keysPath);
 
   const api$ = keys$
     .take(1)
