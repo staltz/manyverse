@@ -38,7 +38,7 @@ export type Sinks = {
 };
 
 export function syncTab(sources: Sources): Sinks {
-  const vdom$ = view(sources.ssb.localSyncPeers$);
+  const vdom$ = view(sources.ssb.localSyncPeers$.startWith([]));
   const reducer$ = xs.empty();
 
   return {
