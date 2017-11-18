@@ -1,6 +1,5 @@
 # Next
 
-- Set status bar (in multicast view) to branded blue
 - Write some integration tests
 - Bug: when posting a message, text input field should get cleared
 
