@@ -29,10 +29,13 @@ build/
 .gradle
 local.properties
 *.iml
-/android/app/.calabash_settings
-/android/app/test_servers
-/android/app/screenshot*.png
 /android/app/src/main/res/raw/rnnodebundle
+
+# End-to-end tests
+#
+/e2e/.calabash_settings
+/e2e/test_servers
+/e2e/screenshot*.png
 
 # Visual Studio Code
 #

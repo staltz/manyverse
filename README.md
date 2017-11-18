@@ -37,7 +37,7 @@ gem install bundler
 ```
 
 ```
-cd android/app
+cd e2e
 ```
 
 ```
