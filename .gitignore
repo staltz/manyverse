@@ -66,6 +66,7 @@ buck-out/
 # Generated Code
 #
 /lib/
+/rnnodeapp
 
 # Misc
 #

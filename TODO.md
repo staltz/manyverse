@@ -13,7 +13,6 @@
 
 - Upload picture on EditProfile screen
 - Group messages as thread
-- Leveldown compiled for Android
 - Profile header part should shrink when scrolling down through messages
 - Basic private messages tab
 - Use nodejs-mobile-react-native
