@@ -117,6 +117,13 @@ export default class MessageFooter extends Component<Props, State> {
     }
   }
 
+  public shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
+    if (this.state.ilike !== nextState.ilike) {
+      return true;
+    }
+    return false;
+  }
+
   private _onPressLike() {
     const ilike = this.state.ilike;
     this.setState(() => ({ilike: 'maybe'}));

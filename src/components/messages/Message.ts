@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component} from 'react';
+import {Component, PureComponent} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
@@ -44,14 +44,14 @@ export type Props = {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
-export class KeylessMessage extends Component<{msg: any}> {
+export class KeylessMessage extends PureComponent<{msg: any}> {
   public render() {
     const {msg} = this.props;
     return h(MessageContainer, [h(Metadata, {msg})]);
   }
 }
 
-export class RawMessage extends Component<Props> {
+export class RawMessage extends PureComponent<Props> {
   public render() {
     const props = this.props;
     return h(MessageContainer, [
@@ -62,7 +62,7 @@ export class RawMessage extends Component<Props> {
   }
 }
 
-export default class Message extends Component<Props> {
+export default class Message extends PureComponent<Props> {
   public render() {
     const {msg} = this.props;
     const props = this.props;

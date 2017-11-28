@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component} from 'react';
+import {Component, PureComponent} from 'react';
 import Markdown from 'react-native-simple-markdown';
 import {h} from '@cycle/native-screen';
 import {rules, styles} from '../../global-styles/markdown';
@@ -63,7 +63,7 @@ export type Props = {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
-export default class PostMessage extends Component<Props> {
+export default class PostMessage extends PureComponent<Props> {
   public render() {
     const props = this.props;
     const {msg} = props;
