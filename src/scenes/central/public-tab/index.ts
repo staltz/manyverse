@@ -89,8 +89,8 @@ export function publicTab(sources: Sources): Sinks {
 
   return {
     screen: vdom$,
-    onion: reducer$,
     navigation: command$,
+    onion: reducer$,
     ssb: newContent$,
   };
 }
