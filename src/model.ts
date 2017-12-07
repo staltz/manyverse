@@ -41,21 +41,21 @@ export default function model(
     .filter(command => (command.screen as ScreenID) === 'mmmmm.Profile')
     .map(
       command =>
-        function setProfileDisplayFeedId(prevState: State): State {
+        function setProfileDisplayFeedId(prev: State): State {
           if (command.passProps && command.passProps.feedId) {
             return {
-              ...prevState,
+              ...prev,
               profile: {
-                ...prevState.profile,
+                ...prev.profile,
                 displayFeedId: command.passProps.feedId,
               },
             };
           } else {
             return {
-              ...prevState,
+              ...prev,
               profile: {
-                ...prevState.profile,
-                displayFeedId: prevState.profile.selfFeedId,
+                ...prev.profile,
+                displayFeedId: prev.profile.selfFeedId,
               },
             };
           }
