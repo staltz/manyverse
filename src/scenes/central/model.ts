@@ -34,13 +34,13 @@ export default function model(actions: Actions): Stream<Reducer<State>> {
   });
 
   const setVisibleReducer$ = actions.willAppear$.mapTo(
-    function setVisibleReducer(prevState: State | undefined): State {
+    function setVisibleReducer(prev: State | undefined): State {
       return {visible: true};
     },
   );
 
   const setInvisibleReducer$ = actions.willDisappear$.mapTo(
-    function setInvisibleReducer(prevState: State | undefined): State {
+    function setInvisibleReducer(prev: State | undefined): State {
       return {visible: false};
     },
   );
