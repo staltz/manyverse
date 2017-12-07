@@ -18,25 +18,35 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {PureComponent, Component} from 'react';
-import {View, FlatList, Text, TextInput} from 'react-native';
-import {h} from '@cycle/native-screen';
-import {Palette} from '../../../global-styles/palette';
-import {Msg} from '../../../ssb/types';
-import {Readable} from '../../../typings/pull-stream';
-import {styles} from './styles';
-import Feed from '../../../components/Feed';
-import {State} from './model';
+import {Content, PostContent, VoteContent} from '../../../ssb/types';
 
-export default function view(state$: Stream<State>) {
-  const vdom$ = state$.map(state =>
-    h(Feed, {
-      selector: 'publicFeed',
-      readable: state.feedReadable,
-      selfFeedId: state.selfFeedId,
-      showPublishHeader: true,
-    }),
-  );
+export type LikeEvent = {msgKey: string; like: boolean};
 
-  return vdom$;
+export type Actions = {
+  publishMsg$: Stream<string>;
+  likeMsg$: Stream<LikeEvent>;
+};
+
+export default function ssb(actions: Actions): Stream<Content> {
+  // TODO: this is duplicate also in profile/ssb. deduplicate it
+  const publishMsg$ = actions.publishMsg$.map(text => {
+    return {
+      text,
+      type: 'post',
+      mentions: [],
+    } as PostContent;
+  });
+
+  const toggleLikeMsg$ = actions.likeMsg$.map(ev => {
+    return {
+      type: 'vote',
+      vote: {
+        link: ev.msgKey,
+        value: ev.like ? 1 : 0,
+        expression: ev.like ? 'Like' : 'Unlike',
+      },
+    } as VoteContent;
+  });
+
+  return xs.merge(publishMsg$, toggleLikeMsg$);
 }

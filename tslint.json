@@ -16,6 +16,7 @@
     "no-empty": false,
     "max-classes-per-file": false,
     "curly": false,
+    "interface-name": false,
     "member-ordering": false,
     "variable-name": false,
     "no-console": false,

@@ -20,12 +20,13 @@
 import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {Content, PostContent, VoteContent} from '../../../ssb/types';
 import {Command, ScreensSource} from 'cycle-native-navigation';
-import {navigatorStyle as profileNavigatorStyle} from '../../profile/styles';
 import {SSBSource} from '../../../drivers/ssb';
-import intent, {Actions} from './intent';
+import intent from './intent';
 import view from './view';
+import model from './model';
+import ssb from './ssb';
+import navigation from './navigation';
 
 export type Sources = {
   screen: ScreensSource;
@@ -41,51 +42,12 @@ export type Sinks = {
   ssb: Stream<any>;
 };
 
-function prepareForSSB(actions: Actions): Stream<Content> {
-  const publishMsg$ = actions.publishMsg.map(text => {
-    return {
-      text,
-      type: 'post',
-      mentions: [],
-    } as PostContent;
-  });
-
-  const toggleLikeMsg$ = actions.likeMsg.map(ev => {
-    return {
-      type: 'vote',
-      vote: {
-        link: ev.msgKey,
-        value: ev.like ? 1 : 0,
-        expression: ev.like ? 'Like' : 'Unlike',
-      },
-    } as VoteContent;
-  });
-
-  return xs.merge(publishMsg$, toggleLikeMsg$);
-}
-
-function navigationCommands(actions: Actions): Stream<Command> {
-  return actions.goToProfile.map(
-    ev =>
-      ({
-        type: 'push',
-        screen: 'mmmmm.Profile',
-        navigatorStyle: profileNavigatorStyle,
-        animated: true,
-        animationType: 'slide-horizontal',
-        passProps: {
-          feedId: ev.authorFeedId,
-        },
-      } as Command),
-  );
-}
-
 export function publicTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
-  const vdom$ = view(sources.ssb.publicFeed$);
-  const command$ = navigationCommands(actions);
-  const newContent$ = prepareForSSB(actions);
-  const reducer$ = xs.empty();
+  const vdom$ = view(sources.onion.state$);
+  const command$ = navigation(actions);
+  const reducer$ = model(sources.ssb);
+  const newContent$ = ssb(actions);
 
   return {
     screen: vdom$,

@@ -20,30 +20,58 @@
 import xs, {Stream, Listener} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {SSBSource} from '../../drivers/ssb';
-import {StateSource, Reducer} from 'cycle-onionify';
+import {StateSource, Reducer, Lens} from 'cycle-onionify';
 import {FeedId, About, Msg, isVoteMsg} from '../../ssb/types';
 import {Actions} from './intent';
+import {State as PublicTabState} from './public-tab/model';
 
 export type State = {
+  selfFeedId: FeedId;
   visible: boolean;
+  publicTab?: PublicTabState;
+};
+
+export const publicTabLens: Lens<State, PublicTabState> = {
+  get: (parent: State): PublicTabState => {
+    if (parent.publicTab) {
+      return {...parent.publicTab, selfFeedId: parent.selfFeedId};
+    } else {
+      return {
+        selfFeedId: parent.selfFeedId,
+        feedReadable: null,
+      };
+    }
+  },
+
+  set: (parent: State, child: PublicTabState): State => {
+    return {...parent, publicTab: child};
+  },
 };
 
 export default function model(actions: Actions): Stream<Reducer<State>> {
-  const initReducer$ = xs.of(function initReducer(): State {
-    return {visible: false};
-  });
-
   const setVisibleReducer$ = actions.willAppear$.mapTo(
-    function setVisibleReducer(prev: State | undefined): State {
-      return {visible: true};
+    function setVisibleReducer(prev?: State): State {
+      if (!prev) {
+        return {selfFeedId: '', visible: true};
+      } else if (prev.visible) {
+        return prev;
+      } else {
+        return {...prev, visible: true};
+      }
     },
   );
 
   const setInvisibleReducer$ = actions.willDisappear$.mapTo(
-    function setInvisibleReducer(prev: State | undefined): State {
-      return {visible: false};
+    function setInvisibleReducer(prev?: State): State {
+      if (!prev) {
+        return {selfFeedId: '', visible: false};
+      } else if (!prev.visible) {
+        return prev;
+      } else {
+        return {...prev, visible: false};
+      }
     },
   );
 
-  return xs.merge(initReducer$, setVisibleReducer$, setInvisibleReducer$);
+  return xs.merge(setVisibleReducer$, setInvisibleReducer$);
 }

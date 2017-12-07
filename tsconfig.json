@@ -18,6 +18,7 @@
     "src/main.ts",
     "src/drivers/ssb.ts",
     "src/typings/react-native-dialogs.d.ts",
+    "src/typings/react-native-progress.d.ts",
     "src/typings/react-native-simple-markdown.d.ts",
     "src/typings/rn-viewpager.d.ts"
   ],

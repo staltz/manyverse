@@ -17,26 +17,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
-import {PureComponent, Component} from 'react';
-import {View, FlatList, Text, TextInput} from 'react-native';
-import {h} from '@cycle/native-screen';
-import {Palette} from '../../../global-styles/palette';
-import {Msg} from '../../../ssb/types';
+import xs, {Stream, Listener} from 'xstream';
+import {Reducer} from 'cycle-onionify';
+import {FeedId, Msg} from '../../../ssb/types';
 import {Readable} from '../../../typings/pull-stream';
-import {styles} from './styles';
-import Feed from '../../../components/Feed';
-import {State} from './model';
+import {SSBSource, MsgAndExtras} from '../../../drivers/ssb';
 
-export default function view(state$: Stream<State>) {
-  const vdom$ = state$.map(state =>
-    h(Feed, {
-      selector: 'publicFeed',
-      readable: state.feedReadable,
-      selfFeedId: state.selfFeedId,
-      showPublishHeader: true,
-    }),
+export type State = {
+  selfFeedId: FeedId;
+  feedReadable: Readable<MsgAndExtras> | null;
+};
+
+export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
+  const setFeedPullStreamReducer$ = ssbSource.publicFeed$.map(
+    feedReadable =>
+      function setFeedPullStreamReducer(prev?: State): State {
+        if (!prev) {
+          throw new Error(
+            'Central/PublicTab/model reducer expects existing state',
+          );
+        }
+        return {...prev, feedReadable};
+      },
   );
 
-  return vdom$;
+  return setFeedPullStreamReducer$;
 }

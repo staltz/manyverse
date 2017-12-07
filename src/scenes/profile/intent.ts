@@ -22,16 +22,8 @@ import {ScreensSource} from 'cycle-native-navigation';
 import {FeedId} from '../../ssb/types';
 
 export type LikeEvent = {msgKey: string; like: boolean};
-export type ProfileNavEvent = {authorFeedId: FeedId};
 
-export type Actions = {
-  publishMsg$: Stream<string>;
-  likeMsg$: Stream<LikeEvent>;
-  follow$: Stream<boolean>;
-  edit$: Stream<null>;
-};
-
-export default function intent(source: ScreensSource): Actions {
+export default function intent(source: ScreensSource) {
   return {
     publishMsg$: source
       .select('feed')
@@ -43,5 +35,9 @@ export default function intent(source: ScreensSource): Actions {
     follow$: source.select('follow').events('press') as Stream<boolean>,
 
     edit$: source.select('editProfile').events('press') as Stream<null>,
+
+    appear$: source.willAppear('mmmmm.Profile').mapTo(null),
+
+    disappear$: source.didDisappear('mmmmm.Profile').mapTo(null),
   };
 }

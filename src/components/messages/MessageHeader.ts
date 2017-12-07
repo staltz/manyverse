@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PureComponent} from 'react';
+import {Component} from 'react';
 import {
   View,
   Text,
@@ -26,11 +26,24 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 import {h} from '@cycle/native-screen';
-import {Msg, FeedId} from '../../ssb/types';
-import {authorName, humanTime} from '../../ssb/utils';
+import {FeedId} from '../../ssb/types';
+import {humanTime, authorName} from '../../ssb/utils';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import {MsgAndExtras} from '../../drivers/ssb';
+import {
+  MutantAttachable,
+  attachMutant,
+  detachMutant,
+} from '../lifecycle/MutantAttachable';
+import {MutantWatch} from '../../typings/mutant';
+import {
+  PeriodicRendering,
+  attachPeriodicRendering,
+  detachPeriodicRendering,
+} from '../lifecycle/PeriodicRendering';
+const {watch}: {watch: MutantWatch} = require('mutant');
 
 export const styles = StyleSheet.create({
   messageHeaderRow: {
@@ -81,19 +94,35 @@ export const styles = StyleSheet.create({
 });
 
 export type Props = {
-  msg: Msg;
+  msg: MsgAndExtras;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
-export default class MessageHeader extends PureComponent<Props> {
-  private interval: any;
+export type State = {
+  name: string | null;
+  imageUrl: string | null;
+};
+
+export default class MessageHeader extends Component<Props, State>
+  implements MutantAttachable<'name' | 'imageUrl'>, PeriodicRendering {
+  public watcherRemovers = {name: null, imageUrl: null};
+  public periodicRenderingInterval: any;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {imageUrl: null, name: null};
+  }
 
   public componentDidMount() {
-    this.interval = setInterval(() => this.forceUpdate(), 30e3);
+    attachMutant(this, 'name');
+    attachMutant(this, 'imageUrl');
+    attachPeriodicRendering(this); // because of humanTime
   }
 
   public componentWillUnmount() {
-    clearInterval(this.interval);
+    detachMutant(this, 'name');
+    detachMutant(this, 'imageUrl');
+    detachPeriodicRendering(this);
   }
 
   private _onPressAuthor() {
@@ -103,12 +132,20 @@ export default class MessageHeader extends PureComponent<Props> {
     }
   }
 
+  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+    const prevProps = this.props;
+    const prevState = this.state;
+    return (
+      nextProps.msg.key !== prevProps.msg.key ||
+      nextState.name !== prevState.name ||
+      nextState.imageUrl !== prevState.imageUrl
+    );
+  }
+
   public render() {
     const {msg} = this.props;
-    const avatarUrl =
-      (msg.value._derived &&
-      msg.value._derived.about && {uri: msg.value._derived.about.imageUrl}) ||
-      undefined;
+    const {imageUrl, name} = this.state;
+    const avatarUrl = {uri: imageUrl || undefined};
     const touchableProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
       onPress: () => this._onPressAuthor(),
@@ -123,7 +160,7 @@ export default class MessageHeader extends PureComponent<Props> {
             ellipsizeMode: 'middle',
             style: styles.messageHeaderAuthorName,
           },
-          authorName(msg),
+          authorName(name, msg),
         ),
       ]),
     ]);
@@ -141,7 +178,7 @@ export default class MessageHeader extends PureComponent<Props> {
         h(View, {style: styles.messageAuthorImageContainer}, [
           h(Image, {
             style: styles.messageAuthorImage,
-            source: avatarUrl as any,
+            source: avatarUrl,
           }),
         ]),
       ]),

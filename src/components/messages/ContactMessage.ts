@@ -17,15 +17,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PureComponent, createElement} from 'react';
+import {Component, createElement} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
-import {Msg, ContactContent as Contact} from '../../ssb/types';
+import {ContactContent as Contact} from '../../ssb/types';
 import {authorName, shortFeedId, humanTime} from '../../ssb/utils';
+import {MsgAndExtras} from '../../drivers/ssb';
+import {
+  MutantAttachable,
+  attachMutant,
+  detachMutant,
+} from '../lifecycle/MutantAttachable';
+import {
+  PeriodicRendering,
+  attachPeriodicRendering,
+  detachPeriodicRendering,
+} from '../lifecycle/PeriodicRendering';
+import {MutantWatch} from '../../typings/mutant';
+const {watch}: {watch: MutantWatch} = require('mutant');
 
 export const styles = StyleSheet.create({
   row: {
@@ -53,19 +66,46 @@ export const styles = StyleSheet.create({
   },
 });
 
-export default class ContactMessage extends PureComponent<{msg: Msg<Contact>}> {
-  private interval: any;
+export type Props = {
+  msg: MsgAndExtras<Contact>;
+};
+
+export type State = {
+  name: string | null;
+};
+
+export default class ContactMessage extends Component<Props, State>
+  implements MutantAttachable<'name'>, PeriodicRendering {
+  public watcherRemovers = {name: null};
+  public periodicRenderingInterval: any;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {name: null};
+  }
 
   public componentDidMount() {
-    this.interval = setInterval(() => this.forceUpdate(), 30e3);
+    attachMutant(this, 'name');
+    attachPeriodicRendering(this); // because of humanTime
   }
 
   public componentWillUnmount() {
-    clearInterval(this.interval);
+    detachMutant(this, 'name');
+    detachPeriodicRendering(this);
+  }
+
+  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+    const prevProps = this.props;
+    const prevState = this.state;
+    return (
+      nextProps.msg.key !== prevProps.msg.key ||
+      nextState.name !== prevState.name
+    );
   }
 
   public render() {
     const {msg} = this.props;
+    const {name} = this.state;
     const accountTextProps = {
       numberOfLines: 1,
       ellipsizeMode: 'middle' as 'middle',
@@ -74,7 +114,7 @@ export default class ContactMessage extends PureComponent<{msg: Msg<Contact>}> {
 
     return h(MessageContainer, [
       h(View, {style: styles.row}, [
-        h(Text, accountTextProps, authorName(msg)),
+        h(Text, accountTextProps, authorName(name, msg)),
         h(
           Text,
           {style: styles.followed},

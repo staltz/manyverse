@@ -20,28 +20,88 @@
 import xs, {Stream} from 'xstream';
 import {Reducer} from 'cycle-onionify';
 import {Command, PushCommand} from 'cycle-native-navigation';
-import {State as ProfileState} from './scenes/profile/model';
+import {State as ProfileState, updateSelfFeedId} from './scenes/profile/model';
 import {State as CentralState} from './scenes/central/model';
 import {ScreenID} from './main';
+import {SSBSource} from './drivers/ssb';
+import {FeedId} from './ssb/types';
+import {Lens} from 'cycle-onionify/lib/types';
 
 export type State = {
-  profile: ProfileState;
+  selfFeedId: FeedId;
   central: CentralState;
+  profile: ProfileState;
 };
 
 function isPushCommand(c: Command): c is PushCommand {
   return c.type === 'push';
 }
 
+export const profileLens: Lens<State, ProfileState> = {
+  get: (parent: State): ProfileState => {
+    if (parent.profile.selfFeedId !== parent.selfFeedId) {
+      return updateSelfFeedId(parent.profile, parent.selfFeedId);
+    } else {
+      return parent.profile;
+    }
+  },
+
+  set: (parent: State, child: ProfileState): State => {
+    return {...parent, profile: child};
+  },
+};
+
+export const centralLens: Lens<State, CentralState> = {
+  get: (parent: State): CentralState => {
+    if (parent.central.selfFeedId !== parent.selfFeedId) {
+      return {...parent.central, selfFeedId: parent.selfFeedId};
+    } else {
+      return parent.central;
+    }
+  },
+
+  set: (parent: State, child: CentralState): State => {
+    return {...parent, central: child};
+  },
+};
+
 export default function model(
   navCommand$: Stream<Command>,
+  ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
+  const initReducer$ = xs.of(function initReducer(prev: State): State {
+    if (prev) {
+      return prev;
+    } else {
+      const selfFeedId = '';
+      const central = {selfFeedId, visible: true};
+      const about = {
+        name: selfFeedId,
+        description: '',
+        id: selfFeedId,
+      };
+      const profile = {
+        selfFeedId,
+        displayFeedId: selfFeedId,
+        feedReadable: null,
+        about,
+        edit: {
+          about,
+        },
+      };
+      return {selfFeedId, central, profile};
+    }
+  });
+
   const setProfileDisplayFeedId$ = navCommand$
     .filter(isPushCommand)
     .filter(command => (command.screen as ScreenID) === 'mmmmm.Profile')
     .map(
       command =>
-        function setProfileDisplayFeedId(prev: State): State {
+        function setProfileDisplayFeedId(prev?: State): State {
+          if (!prev || !prev.profile) {
+            throw new Error('main/model reducer expects existing state');
+          }
           if (command.passProps && command.passProps.feedId) {
             return {
               ...prev,
@@ -62,5 +122,20 @@ export default function model(
         },
     );
 
-  return setProfileDisplayFeedId$;
+  const setSelfFeedId$ = ssbSource.selfFeedId$.map(
+    selfFeedId =>
+      function setSelfFeedId(prev?: State): State {
+        if (!prev) {
+          throw new Error('main/model reducer expects existing state');
+        }
+        return {
+          ...prev,
+          selfFeedId,
+          central: {...prev.central, selfFeedId},
+          profile: updateSelfFeedId(prev.profile, selfFeedId),
+        };
+      },
+  );
+
+  return xs.merge(initReducer$, setProfileDisplayFeedId$, setSelfFeedId$);
 }

@@ -19,101 +19,109 @@
 
 import xs, {Stream, Listener} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
-import {SSBSource} from '../../drivers/ssb';
+import sampleCombine from 'xstream/extra/sampleCombine';
+import {SSBSource, MsgAndExtras} from '../../drivers/ssb';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {FeedId, About, Msg} from '../../ssb/types';
-import {includeMsgIntoFeed} from '../../ssb/utils';
+import {FeedId, About} from '../../ssb/types';
 import {State as EditProfileState} from './edit';
-
-export type FeedData = {
-  updated: number;
-  arr: Array<Msg>;
-};
+import {Readable} from '../../typings/pull-stream';
 
 export type State = {
   selfFeedId: FeedId;
   displayFeedId: FeedId;
-  feed: FeedData;
   about: About;
+  feedReadable: Readable<MsgAndExtras> | null;
   edit: EditProfileState;
 };
 
+export type AppearingActions = {
+  appear$: Stream<null>;
+  disappear$: Stream<null>;
+};
+
+export function updateSelfFeedId(prev: State, selfFeedId: FeedId): State {
+  if (selfFeedId === prev.selfFeedId) {
+    return prev;
+  } else if (prev.displayFeedId === prev.selfFeedId) {
+    const displayFeedId = selfFeedId;
+    const about = {
+      ...prev.about,
+      name: displayFeedId,
+      id: displayFeedId,
+    };
+    return {
+      ...prev,
+      selfFeedId,
+      displayFeedId,
+      feedReadable: null,
+      about,
+      edit: {
+        about,
+      },
+    };
+  } else {
+    return {...prev, selfFeedId};
+  }
+}
+
 export default function model(
   state$: Stream<State>,
+  actions: AppearingActions,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
   const displayFeedIdChanged$ = state$
     .map(state => state.displayFeedId)
     .compose(dropRepeats());
 
-  const msg$ = displayFeedIdChanged$
-    .map(id => ssbSource.profileFeed$(id))
+  const feedStream$ = actions.appear$
+    // TODO create custom operator 'sample' and use it instead of sampleCombine
+    .compose(sampleCombine(displayFeedIdChanged$))
+    .map(([_, id]) => ssbSource.profileFeed$(id))
     .flatten();
 
   const about$ = displayFeedIdChanged$
     .map(id => ssbSource.profileAbout$(id))
     .flatten();
 
-  const cleanUpFeedReducer$ = displayFeedIdChanged$.mapTo(
-    function cleanUpFeedReducer(prevState: State): State {
-      return {...prevState, feed: {updated: 0, arr: []}};
-    },
-  );
-
-  const mutateFeedReducer$ = msg$.map(
-    msg =>
-      function mutateFeedReducer(prevState: State): State {
-        includeMsgIntoFeed(prevState.feed, msg);
-        return {...prevState};
-      },
-  );
-
   const updateAboutReducer$ = about$.map(
     about =>
-      function updateAboutReducer(prevState: State): State {
+      function updateAboutReducer(prev?: State): State {
+        if (!prev) {
+          throw new Error('Profile/model reducer expects existing state');
+        }
         return {
-          ...prevState,
+          ...prev,
           about,
           edit: {
-            ...prevState.edit,
+            ...prev.edit,
             about,
           },
         };
       },
   );
 
-  const setSelfFeedIdReducer$ = ssbSource.selfFeedId$.take(1).map(
-    selfFeedId =>
-      function setSelfFeedIdReducer(prevState: State | undefined): State {
-        if (!prevState) {
-          const about = {
-            name: selfFeedId,
-            description: '',
-            id: selfFeedId,
-          };
-
-          return {
-            selfFeedId,
-            displayFeedId: selfFeedId,
-            feed: {
-              updated: 0,
-              arr: [],
-            },
-            about,
-            edit: {
-              about,
-            },
-          };
-        } else {
-          return {...prevState, selfFeedId};
+  const updateFeedStreamReducer$ = feedStream$.map(
+    feedReadable =>
+      function updateFeedStreamReducer(prev?: State): State {
+        if (!prev) {
+          throw new Error('Profile/model reducer expects existing state');
         }
+        return {...prev, feedReadable};
       },
   );
 
+  const clearFeedStreamReducer$ = actions.disappear$.mapTo(
+    function clearFeedStreamReducer(prev?: State): State {
+      if (!prev) {
+        throw new Error('Profile/model reducer expects existing state');
+      }
+      return {...prev, feedReadable: null};
+    },
+  );
+
   return xs.merge(
-    mutateFeedReducer$,
-    cleanUpFeedReducer$,
     updateAboutReducer$,
-    setSelfFeedIdReducer$,
+    updateFeedStreamReducer$,
+    clearFeedStreamReducer$,
   );
 }

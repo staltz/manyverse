@@ -20,19 +20,20 @@
 import xs, {Stream, Listener} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {Content} from '../../ssb/types';
-import {SSBSource} from '../../drivers/ssb';
+import isolate from '@cycle/isolate';
 import {
   ScreenVNode,
   Command,
   PushCommand,
   ScreensSource,
 } from 'cycle-native-navigation';
-import {publicTab} from './public-tab/index';
+import {Content} from '../../ssb/types';
+import {SSBSource} from '../../drivers/ssb';
+import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {syncTab} from './sync-tab/index';
 import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
 import intent, {Actions} from './intent';
-import model from './model';
+import model, {publicTabLens, State} from './model';
 import view from './view';
 
 export type Sources = {
@@ -67,12 +68,16 @@ function navigationCommands(
 }
 
 export function central(sources: Sources): Sinks {
-  const publicTabSinks = publicTab(sources);
+  const publicTabSinks: PublicTabSinks = isolate(publicTab, {
+    onion: publicTabLens,
+    '*': 'publicTab',
+  })(sources);
   const syncTabSinks = syncTab(sources);
 
   const actions = intent(sources.screen);
   const command$ = navigationCommands(actions, publicTabSinks.navigation);
-  const reducer$ = model(actions);
+  const centralReducer$ = model(actions);
+  const reducer$ = xs.merge(centralReducer$, publicTabSinks.onion);
   const vdom$ = view(
     sources.onion.state$,
     publicTabSinks.screen,

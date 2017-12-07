@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PureComponent, createElement} from 'react';
-import {View, Text, Image, StyleSheet, ImageURISource} from 'react-native';
+import {Component, createElement} from 'react';
+import {View, Text, Image, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Markdown from 'react-native-simple-markdown';
 import {rules, styles as mdstyles} from '../../global-styles/markdown';
@@ -28,6 +28,19 @@ import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import {Msg, AboutContent as About} from '../../ssb/types';
 import {authorName, humanTime} from '../../ssb/utils';
+import {MsgAndExtras} from '../../drivers/ssb';
+import {MutantWatch} from '../../typings/mutant';
+import {
+  MutantAttachable,
+  attachMutant,
+  detachMutant,
+} from '../lifecycle/MutantAttachable';
+import {
+  PeriodicRendering,
+  attachPeriodicRendering,
+  detachPeriodicRendering,
+} from '../lifecycle/PeriodicRendering';
+const {watch}: {watch: MutantWatch} = require('mutant');
 
 export const styles = StyleSheet.create({
   row: {
@@ -69,18 +82,19 @@ const accountTextProps = {
   style: styles.account,
 };
 
-function renderWithImage(msg: Msg<About>) {
+function renderWithImage(
+  name: string | null,
+  imageUrl: string | null,
+  msg: Msg<About>,
+) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
-      h(Text, accountTextProps, authorName(msg)),
+      h(Text, accountTextProps, authorName(name, msg)),
       h(Text, {style: styles.followed}, ' is using a new picture:'),
     ]),
     h(Image, {
       style: styles.aboutImage,
-      source: (msg.value._derived &&
-      msg.value._derived.about && {
-        uri: msg.value._derived.about.imageUrl as string,
-      }) as ImageURISource,
+      source: {uri: imageUrl || undefined},
     }),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
@@ -88,11 +102,11 @@ function renderWithImage(msg: Msg<About>) {
   ]);
 }
 
-function renderWithNameDesc(msg: Msg<About>) {
+function renderWithNameDesc(name: string | null, msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
       h(Text, [
-        h(Text, accountTextProps, authorName(msg)),
+        h(Text, accountTextProps, authorName(name, msg)),
         h(Text, {style: styles.followed}, ' is using the name "'),
         h(Text, accountTextProps, msg.value.content.name),
         h(Text, {style: styles.followed}, '" and the description: '),
@@ -105,10 +119,10 @@ function renderWithNameDesc(msg: Msg<About>) {
   ]);
 }
 
-function renderWithDesc(msg: Msg<About>) {
+function renderWithDesc(name: string | null, msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
-      h(Text, accountTextProps, authorName(msg)),
+      h(Text, accountTextProps, authorName(name, msg)),
       h(Text, {style: styles.followed}, ' has a new description: '),
     ]),
     h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
@@ -118,11 +132,11 @@ function renderWithDesc(msg: Msg<About>) {
   ]);
 }
 
-function renderWithName(msg: Msg<About>) {
+function renderWithName(name: string | null, msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
       h(Text, [
-        h(Text, accountTextProps, authorName(msg)),
+        h(Text, accountTextProps, authorName(name, msg)),
         h(Text, {style: styles.followed}, ' is using the name "'),
         h(Text, accountTextProps, msg.value.content.name),
         h(Text, '"'),
@@ -134,36 +148,63 @@ function renderWithName(msg: Msg<About>) {
   ]);
 }
 
-export default class AboutMessage extends PureComponent<{msg: Msg<About>}> {
-  private interval: any;
+export type Props = {
+  msg: MsgAndExtras<About>;
+};
+
+export type State = {
+  imageUrl: string | null;
+  name: string | null;
+};
+
+export default class AboutMessage extends Component<Props, State>
+  implements MutantAttachable<'name' | 'imageUrl'>, PeriodicRendering {
+  public watcherRemovers = {name: null, imageUrl: null};
+  public periodicRenderingInterval: any;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {imageUrl: null, name: null};
+  }
 
   public componentDidMount() {
-    this.interval = setInterval(() => this.forceUpdate(), 30e3);
+    attachMutant(this, 'name');
+    attachMutant(this, 'imageUrl');
+    attachPeriodicRendering(this); // because of humanTime
   }
 
   public componentWillUnmount() {
-    clearInterval(this.interval);
+    detachMutant(this, 'name');
+    detachMutant(this, 'imageUrl');
+    detachPeriodicRendering(this);
+  }
+
+  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+    const prevProps = this.props;
+    const prevState = this.state;
+    return (
+      nextProps.msg.key !== prevProps.msg.key ||
+      nextState.name !== prevState.name ||
+      nextState.imageUrl !== prevState.imageUrl
+    );
   }
 
   public render() {
     const {msg} = this.props;
+    const {imageUrl, name} = this.state;
 
-    const hasImage =
-      !!msg.value.content.image &&
-      !!msg.value._derived &&
-      !!msg.value._derived.about &&
-      !!msg.value._derived.about.imageUrl;
+    const hasImage = !!imageUrl;
     const hasName = !!msg.value.content.name;
     const hasDescription = !!msg.value.content.description;
 
     if (hasImage) {
-      return renderWithImage(msg);
+      return renderWithImage(name, imageUrl, msg);
     } else if (hasName && hasDescription) {
-      return renderWithNameDesc(msg);
+      return renderWithNameDesc(name, msg);
     } else if (hasDescription) {
-      return renderWithDesc(msg);
+      return renderWithDesc(name, msg);
     } else {
-      return renderWithName(msg);
+      return renderWithName(name, msg);
     }
   }
 }

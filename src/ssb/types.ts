@@ -86,11 +86,6 @@ export type Msg<C = Content> = {
     hash: 'sha256';
     content: C;
     signature: string;
-    _derived?: {
-      about?: About;
-      likes?: Array<FeedId>;
-      ilike?: boolean;
-    };
   };
   timestamp: number;
 };
@@ -119,6 +114,10 @@ export function isContactMsg(msg: Msg<any>): msg is Msg<ContactContent> {
 
 export function isVoteMsg(msg: Msg<any>): msg is Msg<VoteContent> {
   return msg.value.content && msg.value.content.type === 'vote';
+}
+
+export function isPrivate(msg: Msg<any>): boolean {
+  return msg.value.content && typeof msg.value.content === 'string';
 }
 
 export type Content = PostContent | ContactContent | VoteContent | AboutContent;

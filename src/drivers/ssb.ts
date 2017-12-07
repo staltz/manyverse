@@ -28,6 +28,9 @@ import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
 import xsFromCallback from 'xstream-from-callback';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import xsFromMutant from 'xstream-from-mutant';
+import {Readable} from '../typings/pull-stream';
+import {Mutant} from '../typings/mutant';
+const pull = require('pull-stream');
 const {computed} = require('mutant');
 const sbotOpinion = require('patchcore/sbot');
 const backlinksOpinion = require('patchcore/backlinks/obs');
@@ -66,36 +69,34 @@ function isNotSync(msg: any): boolean {
   return !msg.sync;
 }
 
-function addDerivedDataToMessage(msg: Msg, api: any): Stream<Msg> {
-  if (isMsg(msg)) {
-    const likes$ = xsFromMutant<Array<string>>(
-      api.message.obs.likes[0](msg.key),
-    );
-    const name$ = xsFromMutant<string>(api.about.obs.name[0](msg.value.author));
-    const imageUrl$ = xsFromMutant<string>(
-      api.about.obs.imageUrl[0](msg.value.author),
-    );
-    return xs
-      .combine(likes$, name$, imageUrl$)
-      .map(([likes, name, imageUrl]) => {
-        if (msg.value) {
-          msg.value._derived = msg.value._derived || {};
-          msg.value._derived.likes = likes;
-          msg.value._derived.ilike = likes.some(
-            key => key === api.keys.sync.id[0](),
-          );
-          msg.value._derived.about = {name, imageUrl, description: ''};
-        }
-        return msg;
-      });
-  } else {
-    return xs.of(msg);
-  }
+export type MsgAndExtras<C = Content> = Msg<C> & {
+  value: {
+    _streams: {
+      likes: Mutant<Array<FeedId>>;
+      name: Mutant<string>;
+      imageUrl: Mutant<string>;
+    };
+  };
+};
+
+function mutateMsgWithLiveExtras(api: any) {
+  return (msg: Msg) => {
+    if (isMsg(msg)) {
+      const likes = api.message.obs.likes[0](msg.key);
+      const name = api.about.obs.name[0](msg.value.author);
+      const imageUrl = api.about.obs.imageUrl[0](msg.value.author);
+      if (msg.value) {
+        const m = msg as MsgAndExtras;
+        m.value._streams = m.value._streams || {likes, name, imageUrl};
+      }
+    }
+    return msg;
+  };
 }
 
 export class SSBSource {
   public selfFeedId$: Stream<FeedId>;
-  public publicFeed$: Stream<Msg>;
+  public publicFeed$: Stream<Readable<MsgAndExtras>>;
   public localSyncPeers$: Stream<Array<PeerMetadata>>;
 
   constructor(private api$: Stream<any>) {
@@ -104,14 +105,12 @@ export class SSBSource {
     this.publicFeed$ = api$
       .take(1)
       .map(api =>
-        xsFromPullStream<any>(
-          api.sbot.pull.feed[0]({reverse: false, limit: 100, live: true}),
-        )
-          .map(msg => addDerivedDataToMessage(msg, api))
-          .compose(flattenConcurrently),
-      )
-      .flatten()
-      .filter(isNotSync);
+        pull(
+          api.sbot.pull.feed[0]({reverse: true, live: false}),
+          pull.filter(isNotSync),
+          pull.map(mutateMsgWithLiveExtras(api)),
+        ),
+      );
 
     this.localSyncPeers$ = api$
       .map(api => {
@@ -135,22 +134,14 @@ export class SSBSource {
       .flatten();
   }
 
-  public profileFeed$(id: FeedId): Stream<Msg> {
-    return this.api$
-      .map(api =>
-        xsFromPullStream<any>(
-          api.feed.pull.profile[0](id)({
-            lt: 100,
-            live: true,
-            limit: 100,
-            reverse: false,
-          }),
-        )
-          .map(msg => addDerivedDataToMessage(msg, api))
-          .compose(flattenConcurrently),
-      )
-      .flatten()
-      .filter(isNotSync);
+  public profileFeed$(id: FeedId): Stream<Readable<MsgAndExtras>> {
+    return this.api$.map(api =>
+      pull(
+        api.feed.pull.profile[0](id)({live: false, reverse: true}),
+        pull.filter(isNotSync),
+        pull.map(mutateMsgWithLiveExtras(api)),
+      ),
+    );
   }
 
   public profileAbout$(id: FeedId): Stream<About> {

@@ -17,26 +17,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
-import {PureComponent, Component} from 'react';
-import {View, FlatList, Text, TextInput} from 'react-native';
-import {h} from '@cycle/native-screen';
-import {Palette} from '../../../global-styles/palette';
-import {Msg} from '../../../ssb/types';
-import {Readable} from '../../../typings/pull-stream';
-import {styles} from './styles';
-import Feed from '../../../components/Feed';
-import {State} from './model';
+import {Stream} from 'xstream';
+import {FeedId} from '../../../ssb/types';
+import {Command} from 'cycle-native-navigation';
+import {navigatorStyle as profileNavigatorStyle} from '../../profile/styles';
 
-export default function view(state$: Stream<State>) {
-  const vdom$ = state$.map(state =>
-    h(Feed, {
-      selector: 'publicFeed',
-      readable: state.feedReadable,
-      selfFeedId: state.selfFeedId,
-      showPublishHeader: true,
-    }),
+export type Actions = {
+  goToProfile$: Stream<{authorFeedId: FeedId}>;
+};
+
+export default function navigation(actions: Actions): Stream<Command> {
+  return actions.goToProfile$.map(
+    ev =>
+      ({
+        type: 'push',
+        screen: 'mmmmm.Profile',
+        navigatorStyle: profileNavigatorStyle,
+        animated: true,
+        animationType: 'slide-horizontal',
+        passProps: {
+          feedId: ev.authorFeedId,
+        },
+      } as Command),
   );
-
-  return vdom$;
 }

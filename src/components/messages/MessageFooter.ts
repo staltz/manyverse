@@ -21,10 +21,18 @@ import {Component} from 'react';
 import {View, Text, TouchableNativeFeedback, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Msg} from '../../ssb/types';
+import {Msg, FeedId} from '../../ssb/types';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import {MsgAndExtras} from '../../drivers/ssb';
+import {MutantWatch} from '../../typings/mutant';
+import {
+  MutantAttachable,
+  attachMutant,
+  detachMutant,
+} from '../lifecycle/MutantAttachable';
+const {watch}: {watch: MutantWatch} = require('mutant');
 
 export const styles = StyleSheet.create({
   row: {
@@ -91,42 +99,45 @@ const iconProps = {
 };
 
 export type Props = {
-  msg: Msg;
+  msg: MsgAndExtras;
+  selfFeedId: FeedId;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
 };
 
 export type State = {
   ilike: 'no' | 'maybe' | 'yes';
+  likeCount: number;
 };
 
-export default class MessageFooter extends Component<Props, State> {
+export default class MessageFooter extends Component<Props, State>
+  implements MutantAttachable<'likes'> {
+  public watcherRemovers = {likes: null};
+
   constructor(props: Props) {
     super(props);
-    if (props.msg.value._derived && props.msg.value._derived.ilike === true) {
-      this.state = {ilike: 'yes'};
-    } else {
-      this.state = {ilike: 'no'};
-    }
+    this.state = {ilike: 'maybe', likeCount: 0};
   }
 
-  public componentWillReceiveProps(props: Props) {
-    if (props.msg.value._derived && props.msg.value._derived.ilike === true) {
-      this.setState(() => ({ilike: 'yes'}));
-    } else {
-      this.setState(() => ({ilike: 'no'}));
-    }
+  public componentDidMount() {
+    attachMutant(this, 'likes', (likes: Array<FeedId>) => {
+      const ilike = likes.some(feedId => feedId === this.props.selfFeedId);
+      this.setState(() => ({
+        ilike: ilike ? 'yes' : 'no',
+        likeCount: likes.length,
+      }));
+    });
   }
 
-  public shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
-    if (this.state.ilike !== nextState.ilike) {
-      return true;
-    }
-    return false;
+  public componentWillUnmount() {
+    detachMutant(this, 'likes');
   }
 
   private _onPressLike() {
     const ilike = this.state.ilike;
-    this.setState(() => ({ilike: 'maybe'}));
+    this.setState((prev: State) => ({
+      ilike: 'maybe',
+      likeCount: prev.likeCount,
+    }));
     const onPressLike = this.props.onPressLike;
     if (ilike !== 'maybe' && onPressLike) {
       setTimeout(() => {
@@ -138,14 +149,18 @@ export default class MessageFooter extends Component<Props, State> {
     }
   }
 
+  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+    const prevProps = this.props;
+    const prevState = this.state;
+    return (
+      nextProps.msg.key !== prevProps.msg.key ||
+      nextState.ilike !== prevState.ilike
+    );
+  }
+
   public render() {
     const {msg} = this.props;
-    const likeCount =
-      (msg.value._derived &&
-        msg.value._derived &&
-        msg.value._derived.likes &&
-        msg.value._derived.likes.length) ||
-      0;
+    const {likeCount, ilike} = this.state;
 
     const counters = likeCount
       ? [
@@ -164,7 +179,7 @@ export default class MessageFooter extends Component<Props, State> {
     };
     const likeButton = h(TouchableNativeFeedback, likeButtonProps, [
       h(View, {style: styles.likeButton}, [
-        h(Icon, iconProps[this.state.ilike + 'Liked']),
+        h(Icon, iconProps[ilike + 'Liked']),
         h(Text, {style: styles.likeButtonLabel}, 'Like'),
       ]),
     ]);

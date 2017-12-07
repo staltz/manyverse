@@ -24,24 +24,18 @@ import {FeedId} from '../../../ssb/types';
 export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
-export type Actions = {
-  publishMsg: Stream<string>;
-  likeMsg: Stream<LikeEvent>;
-  goToProfile: Stream<ProfileNavEvent>;
-};
-
-export default function intent(source: ScreensSource): Actions {
+export default function intent(source: ScreensSource) {
   return {
-    publishMsg: source
+    publishMsg$: source
       .select('publicFeed')
       .events('publish')
       .map(ev => ev.nativeEvent.text) as Stream<string>,
 
-    likeMsg: source.select('publicFeed').events('pressLike') as Stream<
+    likeMsg$: source.select('publicFeed').events('pressLike') as Stream<
       LikeEvent
     >,
 
-    goToProfile: source.select('publicFeed').events('pressAuthor') as Stream<
+    goToProfile$: source.select('publicFeed').events('pressAuthor') as Stream<
       ProfileNavEvent
     >,
   };

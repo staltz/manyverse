@@ -24,7 +24,8 @@ import {rules, styles} from '../../global-styles/markdown';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
-import {Msg, PostContent as Post, FeedId} from '../../ssb/types';
+import {PostContent as Post, FeedId} from '../../ssb/types';
+import {MsgAndExtras} from '../../drivers/ssb';
 
 function escapeRegExp(str: string): string {
   return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
@@ -58,7 +59,8 @@ function materializeMarkdown(content: Post): string {
 }
 
 export type Props = {
-  msg: Msg<Post>;
+  msg: MsgAndExtras<Post>;
+  selfFeedId: FeedId;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };

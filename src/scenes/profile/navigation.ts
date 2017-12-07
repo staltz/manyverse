@@ -17,26 +17,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
-import {PureComponent, Component} from 'react';
-import {View, FlatList, Text, TextInput} from 'react-native';
-import {h} from '@cycle/native-screen';
-import {Palette} from '../../../global-styles/palette';
-import {Msg} from '../../../ssb/types';
-import {Readable} from '../../../typings/pull-stream';
-import {styles} from './styles';
-import Feed from '../../../components/Feed';
-import {State} from './model';
+import xs, {Stream, Listener} from 'xstream';
+import {Command, PushCommand} from 'cycle-native-navigation';
+import {navigatorStyle as editProfileNavStyle} from './edit';
 
-export default function view(state$: Stream<State>) {
-  const vdom$ = state$.map(state =>
-    h(Feed, {
-      selector: 'publicFeed',
-      readable: state.feedReadable,
-      selfFeedId: state.selfFeedId,
-      showPublishHeader: true,
-    }),
+export type NavigationActions = {
+  edit$: Stream<null>;
+};
+
+export default function navigation(
+  actions: NavigationActions,
+): Stream<Command> {
+  return actions.edit$.mapTo(
+    {
+      type: 'push',
+      screen: 'mmmmm.Profile.Edit',
+      title: 'Edit profile',
+      overrideBackPress: true,
+      navigatorStyle: editProfileNavStyle,
+    } as PushCommand,
   );
-
-  return vdom$;
 }

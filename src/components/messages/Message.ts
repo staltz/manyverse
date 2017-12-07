@@ -30,6 +30,7 @@ import {
   isAboutMsg,
   FeedId,
 } from '../../ssb/types';
+import {MsgAndExtras} from '../../drivers/ssb';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
@@ -39,7 +40,8 @@ import ContactMessage from './ContactMessage';
 import Metadata from './Metadata';
 
 export type Props = {
-  msg: Msg;
+  msg: MsgAndExtras;
+  selfFeedId: FeedId;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
@@ -70,6 +72,6 @@ export default class Message extends PureComponent<Props> {
     if (isPostMsg(msg)) return h(PostMessage, props as any);
     if (isAboutMsg(msg)) return h(AboutMessage, props as any);
     if (isContactMsg(msg)) return h(ContactMessage, props as any);
-    return h(RawMessage, {msg});
+    return h(RawMessage, props);
   }
 }

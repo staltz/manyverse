@@ -29,7 +29,7 @@ import {ScreenVNode, Command, PushCommand} from 'cycle-native-navigation';
 import {central} from './scenes/central/index';
 import {profile} from './scenes/profile/index';
 import {Content} from './ssb/types';
-import model, {State} from './model';
+import model, {State, centralLens, profileLens} from './model';
 
 export type Sources = {
   screen: ScreenSource;
@@ -77,21 +77,27 @@ function addAlphaDisclaimer(screen$: Stream<ScreenVNode>): Stream<ScreenVNode> {
 }
 
 export function main(sources: Sources): Sinks {
-  const profileSinks: Sinks = isolate(profile, 'profile')(sources);
-  const centralSinks: Sinks = isolate(central, 'central')(sources);
+  const centralSinks: Sinks = isolate(central, {
+    onion: centralLens,
+    '*': 'central',
+  })(sources);
+  const profileSinks: Sinks = isolate(profile, {
+    onion: profileLens,
+    '*': 'profile',
+  })(sources);
 
-  const screen$ = xs.merge(profileSinks.screen, centralSinks.screen);
+  const screen$ = xs.merge(centralSinks.screen, profileSinks.screen);
   const navCommand$ = xs.merge(
-    profileSinks.navigation,
     centralSinks.navigation,
+    profileSinks.navigation,
   );
-  const mainReducer$ = model(navCommand$);
+  const mainReducer$ = model(navCommand$, sources.ssb);
   const reducer$ = xs.merge(
     mainReducer$,
-    profileSinks.onion,
     centralSinks.onion,
+    profileSinks.onion,
   );
-  const ssb$ = xs.merge(profileSinks.ssb, centralSinks.ssb);
+  const ssb$ = xs.merge(centralSinks.ssb, profileSinks.ssb);
 
   return {
     screen: screen$.compose(addAlphaDisclaimer),
