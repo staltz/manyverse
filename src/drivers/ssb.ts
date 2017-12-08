@@ -73,8 +73,10 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
     _streams: {
       likes: Mutant<Array<FeedId>>;
-      name: Mutant<string>;
-      imageUrl: Mutant<string>;
+      about: {
+        name: Mutant<string>;
+        imageUrl: Mutant<string>;
+      };
     };
   };
 };
@@ -87,7 +89,7 @@ function mutateMsgWithLiveExtras(api: any) {
       const imageUrl = api.about.obs.imageUrl[0](msg.value.author);
       if (msg.value) {
         const m = msg as MsgAndExtras;
-        m.value._streams = m.value._streams || {likes, name, imageUrl};
+        m.value._streams = m.value._streams || {likes, about: {name, imageUrl}};
       }
     }
     return msg;

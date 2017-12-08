@@ -24,21 +24,15 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
-import {ContactContent as Contact} from '../../ssb/types';
+import {ContactContent as Contact, Msg} from '../../ssb/types';
 import {authorName, shortFeedId, humanTime} from '../../ssb/utils';
-import {MsgAndExtras} from '../../drivers/ssb';
-import {
-  MutantAttachable,
-  attachMutant,
-  detachMutant,
-} from '../lifecycle/MutantAttachable';
+import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
 import {
   PeriodicRendering,
   attachPeriodicRendering,
   detachPeriodicRendering,
 } from '../lifecycle/PeriodicRendering';
-import {MutantWatch} from '../../typings/mutant';
-const {watch}: {watch: MutantWatch} = require('mutant');
+import {Mutant} from '../../typings/mutant';
 
 export const styles = StyleSheet.create({
   row: {
@@ -67,7 +61,8 @@ export const styles = StyleSheet.create({
 });
 
 export type Props = {
-  msg: MsgAndExtras<Contact>;
+  msg: Msg<Contact>;
+  name: Mutant<string>;
 };
 
 export type State = {

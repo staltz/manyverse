@@ -32,8 +32,8 @@ import {
 } from '../../ssb/types';
 import {MsgAndExtras} from '../../drivers/ssb';
 import MessageContainer from './MessageContainer';
-import MessageHeader from './MessageHeader';
-import MessageFooter from './MessageFooter';
+import MessageHeader, {Props as HeaderProps} from './MessageHeader';
+import MessageFooter, {Props as FooterProps} from './MessageFooter';
 import PostMessage from './PostMessage';
 import AboutMessage from './AboutMessage';
 import ContactMessage from './ContactMessage';
@@ -53,7 +53,7 @@ export class KeylessMessage extends PureComponent<{msg: any}> {
   }
 }
 
-export class RawMessage extends PureComponent<Props> {
+export class RawMessage extends PureComponent<HeaderProps & FooterProps> {
   public render() {
     const props = this.props;
     return h(MessageContainer, [
@@ -67,11 +67,18 @@ export class RawMessage extends PureComponent<Props> {
 export default class Message extends PureComponent<Props> {
   public render() {
     const {msg} = this.props;
-    const props = this.props;
+    const streams = this.props.msg.value._streams;
+    const props = {
+      ...this.props,
+      msg: msg as Msg<any>,
+      likes: streams.likes,
+      name: streams.about.name,
+      imageUrl: streams.about.imageUrl,
+    };
     if (!msg.key) return h(KeylessMessage, props);
-    if (isPostMsg(msg)) return h(PostMessage, props as any);
-    if (isAboutMsg(msg)) return h(AboutMessage, props as any);
-    if (isContactMsg(msg)) return h(ContactMessage, props as any);
+    if (isPostMsg(msg)) return h(PostMessage, props);
+    if (isAboutMsg(msg)) return h(AboutMessage, props);
+    if (isContactMsg(msg)) return h(ContactMessage, props);
     return h(RawMessage, props);
   }
 }

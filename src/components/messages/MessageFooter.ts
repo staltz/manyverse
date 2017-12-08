@@ -25,14 +25,8 @@ import {Msg, FeedId} from '../../ssb/types';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {MsgAndExtras} from '../../drivers/ssb';
-import {MutantWatch} from '../../typings/mutant';
-import {
-  MutantAttachable,
-  attachMutant,
-  detachMutant,
-} from '../lifecycle/MutantAttachable';
-const {watch}: {watch: MutantWatch} = require('mutant');
+import {Mutant} from '../../typings/mutant';
+import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
 
 export const styles = StyleSheet.create({
   row: {
@@ -99,8 +93,9 @@ const iconProps = {
 };
 
 export type Props = {
-  msg: MsgAndExtras;
+  msg: Msg;
   selfFeedId: FeedId;
+  likes: Mutant<Array<FeedId>>;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
 };
 

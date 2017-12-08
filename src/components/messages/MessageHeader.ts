@@ -26,24 +26,18 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 import {h} from '@cycle/native-screen';
-import {FeedId} from '../../ssb/types';
+import {FeedId, Msg} from '../../ssb/types';
 import {humanTime, authorName} from '../../ssb/utils';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {MsgAndExtras} from '../../drivers/ssb';
-import {
-  MutantAttachable,
-  attachMutant,
-  detachMutant,
-} from '../lifecycle/MutantAttachable';
-import {MutantWatch} from '../../typings/mutant';
+import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
+import {Mutant} from '../../typings/mutant';
 import {
   PeriodicRendering,
   attachPeriodicRendering,
   detachPeriodicRendering,
 } from '../lifecycle/PeriodicRendering';
-const {watch}: {watch: MutantWatch} = require('mutant');
 
 export const styles = StyleSheet.create({
   messageHeaderRow: {
@@ -94,7 +88,9 @@ export const styles = StyleSheet.create({
 });
 
 export type Props = {
-  msg: MsgAndExtras;
+  msg: Msg;
+  name: Mutant<string>;
+  imageUrl: Mutant<string>;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 

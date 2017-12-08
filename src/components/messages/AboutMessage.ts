@@ -28,19 +28,13 @@ import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import {Msg, AboutContent as About} from '../../ssb/types';
 import {authorName, humanTime} from '../../ssb/utils';
-import {MsgAndExtras} from '../../drivers/ssb';
-import {MutantWatch} from '../../typings/mutant';
-import {
-  MutantAttachable,
-  attachMutant,
-  detachMutant,
-} from '../lifecycle/MutantAttachable';
+import {Mutant} from '../../typings/mutant';
+import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
 import {
   PeriodicRendering,
   attachPeriodicRendering,
   detachPeriodicRendering,
 } from '../lifecycle/PeriodicRendering';
-const {watch}: {watch: MutantWatch} = require('mutant');
 
 export const styles = StyleSheet.create({
   row: {
@@ -149,12 +143,14 @@ function renderWithName(name: string | null, msg: Msg<About>) {
 }
 
 export type Props = {
-  msg: MsgAndExtras<About>;
+  msg: Msg<About>;
+  name: Mutant<string>;
+  imageUrl: Mutant<string>;
 };
 
 export type State = {
-  imageUrl: string | null;
   name: string | null;
+  imageUrl: string | null;
 };
 
 export default class AboutMessage extends Component<Props, State>
