@@ -20,8 +20,8 @@
 import xs, {Stream} from 'xstream';
 import {Reducer} from 'cycle-onionify';
 import {Command, PushCommand} from 'cycle-native-navigation';
-import {State as ProfileState, updateSelfFeedId} from './scenes/profile/model';
-import {State as CentralState} from './scenes/central/model';
+import {State as ProfileState, updateSelfFeedId} from './screens/profile/model';
+import {State as CentralState} from './screens/central/model';
 import {ScreenID} from './main';
 import {SSBSource} from './drivers/ssb';
 import {FeedId} from './ssb/types';

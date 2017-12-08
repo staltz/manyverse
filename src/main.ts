@@ -26,8 +26,8 @@ import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from './drivers/ssb';
 import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';
 import {ScreenVNode, Command, PushCommand} from 'cycle-native-navigation';
-import {central} from './scenes/central/index';
-import {profile} from './scenes/profile/index';
+import {central} from './screens/central/index';
+import {profile} from './screens/profile/index';
 import {Content} from './ssb/types';
 import model, {State, centralLens, profileLens} from './model';
 
