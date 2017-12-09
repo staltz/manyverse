@@ -19,6 +19,7 @@
 
 import {Component, createElement} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
+import HumanTime from 'react-human-time';
 import {h} from '@cycle/native-screen';
 import Markdown from 'react-native-simple-markdown';
 import {rules, styles as mdstyles} from '../../global-styles/markdown';
@@ -27,14 +28,9 @@ import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import {Msg, AboutContent as About} from '../../ssb/types';
-import {authorName, humanTime} from '../../ssb/utils';
+import {authorName} from '../../ssb/utils';
 import {Mutant} from '../../typings/mutant';
 import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
-import {
-  PeriodicRendering,
-  attachPeriodicRendering,
-  detachPeriodicRendering,
-} from '../lifecycle/PeriodicRendering';
 
 export const styles = StyleSheet.create({
   row: {
@@ -91,7 +87,9 @@ function renderWithImage(
       source: {uri: imageUrl || undefined},
     }),
     h(View, {style: styles.row}, [
-      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
+      h(Text, {style: styles.timestamp}, [
+        h(HumanTime as any, {time: msg.value.timestamp}),
+      ]),
     ]),
   ]);
 }
@@ -108,7 +106,9 @@ function renderWithNameDesc(name: string | null, msg: Msg<About>) {
     ]),
     h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
     h(View, {style: styles.row}, [
-      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
+      h(Text, {style: styles.timestamp}, [
+        h(HumanTime as any, {time: msg.value.timestamp}),
+      ]),
     ]),
   ]);
 }
@@ -121,7 +121,9 @@ function renderWithDesc(name: string | null, msg: Msg<About>) {
     ]),
     h(Markdown, {styles: mdstyles, rules}, msg.value.content.description),
     h(View, {style: styles.row}, [
-      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
+      h(Text, {style: styles.timestamp}, [
+        h(HumanTime as any, {time: msg.value.timestamp}),
+      ]),
     ]),
   ]);
 }
@@ -137,7 +139,9 @@ function renderWithName(name: string | null, msg: Msg<About>) {
       ]),
     ]),
     h(View, {style: styles.row}, [
-      h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
+      h(Text, {style: styles.timestamp}, [
+        h(HumanTime as any, {time: msg.value.timestamp}),
+      ]),
     ]),
   ]);
 }
@@ -154,7 +158,7 @@ export type State = {
 };
 
 export default class AboutMessage extends Component<Props, State>
-  implements MutantAttachable<'name' | 'imageUrl'>, PeriodicRendering {
+  implements MutantAttachable<'name' | 'imageUrl'> {
   public watcherRemovers = {name: null, imageUrl: null};
   public periodicRenderingInterval: any;
 
@@ -166,13 +170,11 @@ export default class AboutMessage extends Component<Props, State>
   public componentDidMount() {
     attachMutant(this, 'name');
     attachMutant(this, 'imageUrl');
-    attachPeriodicRendering(this); // because of humanTime
   }
 
   public componentWillUnmount() {
     detachMutant(this, 'name');
     detachMutant(this, 'imageUrl');
-    detachPeriodicRendering(this);
   }
 
   public shouldComponentUpdate(nextProps: Props, nextState: State) {

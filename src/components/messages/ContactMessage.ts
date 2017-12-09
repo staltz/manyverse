@@ -17,21 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, createElement} from 'react';
+import {Component, createElement, ComponentClass} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import HumanTime from 'react-human-time';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import {ContactContent as Contact, Msg} from '../../ssb/types';
-import {authorName, shortFeedId, humanTime} from '../../ssb/utils';
+import {authorName, shortFeedId} from '../../ssb/utils';
 import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
-import {
-  PeriodicRendering,
-  attachPeriodicRendering,
-  detachPeriodicRendering,
-} from '../lifecycle/PeriodicRendering';
 import {Mutant} from '../../typings/mutant';
 
 export const styles = StyleSheet.create({
@@ -70,7 +66,7 @@ export type State = {
 };
 
 export default class ContactMessage extends Component<Props, State>
-  implements MutantAttachable<'name'>, PeriodicRendering {
+  implements MutantAttachable<'name'> {
   public watcherRemovers = {name: null};
   public periodicRenderingInterval: any;
 
@@ -81,12 +77,10 @@ export default class ContactMessage extends Component<Props, State>
 
   public componentDidMount() {
     attachMutant(this, 'name');
-    attachPeriodicRendering(this); // because of humanTime
   }
 
   public componentWillUnmount() {
     detachMutant(this, 'name');
-    detachPeriodicRendering(this);
   }
 
   public shouldComponentUpdate(nextProps: Props, nextState: State) {
@@ -124,7 +118,9 @@ export default class ContactMessage extends Component<Props, State>
         ),
       ]),
       h(View, {style: styles.row}, [
-        h(Text, {style: styles.timestamp}, humanTime(msg.value.timestamp)),
+        h(Text, {style: styles.timestamp}, [
+          h(HumanTime as any, {time: msg.value.timestamp}),
+        ]),
       ]),
     ]);
   }

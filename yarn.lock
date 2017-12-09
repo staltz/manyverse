@@ -5513,6 +5513,14 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-human-time@1.0.x:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-human-time/-/react-human-time-1.0.0.tgz#a569d4fef33a81e39d3693728d0ae488e1388e77"
+  dependencies:
+    "@types/react" "16.x"
+    human-time "0.0.1"
+    react "16.x"
+
 react-native-crypto@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-native-crypto/-/react-native-crypto-2.1.1.tgz#4b06271a0f6ec0b90389b5b567b738b57ca66a1e"

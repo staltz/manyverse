@@ -25,19 +25,15 @@ import {
   StyleSheet,
   TouchableNativeFeedback,
 } from 'react-native';
+import HumanTime from 'react-human-time';
 import {h} from '@cycle/native-screen';
 import {FeedId, Msg} from '../../ssb/types';
-import {humanTime, authorName} from '../../ssb/utils';
+import {authorName} from '../../ssb/utils';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
 import {Mutant} from '../../typings/mutant';
-import {
-  PeriodicRendering,
-  attachPeriodicRendering,
-  detachPeriodicRendering,
-} from '../lifecycle/PeriodicRendering';
 
 export const styles = StyleSheet.create({
   messageHeaderRow: {
@@ -100,7 +96,7 @@ export type State = {
 };
 
 export default class MessageHeader extends Component<Props, State>
-  implements MutantAttachable<'name' | 'imageUrl'>, PeriodicRendering {
+  implements MutantAttachable<'name' | 'imageUrl'> {
   public watcherRemovers = {name: null, imageUrl: null};
   public periodicRenderingInterval: any;
 
@@ -112,13 +108,11 @@ export default class MessageHeader extends Component<Props, State>
   public componentDidMount() {
     attachMutant(this, 'name');
     attachMutant(this, 'imageUrl');
-    attachPeriodicRendering(this); // because of humanTime
   }
 
   public componentWillUnmount() {
     detachMutant(this, 'name');
     detachMutant(this, 'imageUrl');
-    detachPeriodicRendering(this);
   }
 
   private _onPressAuthor() {
@@ -162,11 +156,9 @@ export default class MessageHeader extends Component<Props, State>
     ]);
 
     const messageHeaderTimestamp = h(View, {style: styles.flexRow}, [
-      h(
-        Text,
-        {style: styles.messageHeaderTimestamp},
-        humanTime(msg.value.timestamp),
-      ),
+      h(Text, {style: styles.messageHeaderTimestamp}, [
+        h(HumanTime as any, {time: msg.value.timestamp}),
+      ]),
     ]);
 
     return h(View, {style: styles.messageHeaderRow}, [

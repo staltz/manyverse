@@ -18,7 +18,6 @@
  */
 
 import {Msg, FeedId} from './types';
-const human = require('human-time');
 
 export function authorName(name: string | null, msg: Msg): string {
   return name || msg.value.author.slice(1, 10);
@@ -26,10 +25,4 @@ export function authorName(name: string | null, msg: Msg): string {
 
 export function shortFeedId(feedId: FeedId): string {
   return feedId.slice(0, 11) + '\u2026';
-}
-
-export function humanTime(timestamp: number): string {
-  return human(new Date(timestamp))
-    .replace(/minute/, 'min')
-    .replace(/^.*second.*$/, 'now');
 }
