@@ -38,6 +38,7 @@ import PostMessage from './PostMessage';
 import AboutMessage from './AboutMessage';
 import ContactMessage from './ContactMessage';
 import Metadata from './Metadata';
+import {withMutantProps, MutantProps} from 'react-mutant-hoc';
 
 export type Props = {
   msg: MsgAndExtras;
@@ -64,6 +65,11 @@ export class RawMessage extends PureComponent<HeaderProps & FooterProps> {
   }
 }
 
+const PostMessageM = withMutantProps(PostMessage, 'name', 'imageUrl', 'likes');
+const AboutMessageM = withMutantProps(AboutMessage, 'name', 'imageUrl');
+const ContactMessageM = withMutantProps(ContactMessage, 'name');
+const RawMessageM = withMutantProps(RawMessage, 'name', 'imageUrl', 'likes');
+
 export default class Message extends PureComponent<Props> {
   public render() {
     const {msg} = this.props;
@@ -76,9 +82,9 @@ export default class Message extends PureComponent<Props> {
       imageUrl: streams.about.imageUrl,
     };
     if (!msg.key) return h(KeylessMessage, props);
-    if (isPostMsg(msg)) return h(PostMessage, props);
-    if (isAboutMsg(msg)) return h(AboutMessage, props);
-    if (isContactMsg(msg)) return h(ContactMessage, props);
-    return h(RawMessage, props);
+    if (isPostMsg(msg)) return h(PostMessageM, props);
+    if (isAboutMsg(msg)) return h(AboutMessageM, props);
+    if (isContactMsg(msg)) return h(ContactMessageM, props);
+    return h(RawMessageM, props);
   }
 }

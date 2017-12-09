@@ -29,7 +29,7 @@ import xsFromCallback from 'xstream-from-callback';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import xsFromMutant from 'xstream-from-mutant';
 import {Readable} from '../typings/pull-stream';
-import {Mutant} from '../typings/mutant';
+import {Mutant} from 'react-mutant-hoc';
 const pull = require('pull-stream');
 const {computed} = require('mutant');
 const sbotOpinion = require('patchcore/sbot');

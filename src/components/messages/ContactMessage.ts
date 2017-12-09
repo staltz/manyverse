@@ -27,8 +27,6 @@ import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import {ContactContent as Contact, Msg} from '../../ssb/types';
 import {authorName, shortFeedId} from '../../ssb/utils';
-import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
-import {Mutant} from '../../typings/mutant';
 
 export const styles = StyleSheet.create({
   row: {
@@ -58,43 +56,24 @@ export const styles = StyleSheet.create({
 
 export type Props = {
   msg: Msg<Contact>;
-  name: Mutant<string>;
-};
-
-export type State = {
   name: string | null;
 };
 
-export default class ContactMessage extends Component<Props, State>
-  implements MutantAttachable<'name'> {
-  public watcherRemovers = {name: null};
-  public periodicRenderingInterval: any;
-
+export default class ContactMessage extends Component<Props, {}> {
   constructor(props: Props) {
     super(props);
-    this.state = {name: null};
   }
 
-  public componentDidMount() {
-    attachMutant(this, 'name');
-  }
-
-  public componentWillUnmount() {
-    detachMutant(this, 'name');
-  }
-
-  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+  public shouldComponentUpdate(nextProps: Props) {
     const prevProps = this.props;
-    const prevState = this.state;
     return (
       nextProps.msg.key !== prevProps.msg.key ||
-      nextState.name !== prevState.name
+      nextProps.name !== prevProps.name
     );
   }
 
   public render() {
-    const {msg} = this.props;
-    const {name} = this.state;
+    const {msg, name} = this.props;
     const accountTextProps = {
       numberOfLines: 1,
       ellipsizeMode: 'middle' as 'middle',

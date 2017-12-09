@@ -25,8 +25,6 @@ import {Msg, FeedId} from '../../ssb/types';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {Mutant} from '../../typings/mutant';
-import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
 
 export const styles = StyleSheet.create({
   row: {
@@ -95,7 +93,7 @@ const iconProps = {
 export type Props = {
   msg: Msg;
   selfFeedId: FeedId;
-  likes: Mutant<Array<FeedId>>;
+  likes: Array<FeedId> | null;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
 };
 
@@ -104,27 +102,28 @@ export type State = {
   likeCount: number;
 };
 
-export default class MessageFooter extends Component<Props, State>
-  implements MutantAttachable<'likes'> {
-  public watcherRemovers = {likes: null};
-
+export default class MessageFooter extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {ilike: 'maybe', likeCount: 0};
+    this.state = this.stateFromProps(props, {ilike: 'maybe', likeCount: 0});
   }
 
-  public componentDidMount() {
-    attachMutant(this, 'likes', (likes: Array<FeedId>) => {
-      const ilike = likes.some(feedId => feedId === this.props.selfFeedId);
-      this.setState(() => ({
+  public componentWillReceiveProps(nextProps: Props) {
+    this.setState((prev: State) => this.stateFromProps(nextProps, prev));
+  }
+
+  private stateFromProps(props: Props, prevState: State): State {
+    if (props.likes) {
+      const ilike = props.likes.some(
+        feedId => feedId === this.props.selfFeedId,
+      );
+      return {
         ilike: ilike ? 'yes' : 'no',
-        likeCount: likes.length,
-      }));
-    });
-  }
-
-  public componentWillUnmount() {
-    detachMutant(this, 'likes');
+        likeCount: props.likes.length,
+      };
+    } else {
+      return prevState;
+    }
   }
 
   private _onPressLike() {

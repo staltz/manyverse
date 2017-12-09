@@ -29,8 +29,6 @@ import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import {Msg, AboutContent as About} from '../../ssb/types';
 import {authorName} from '../../ssb/utils';
-import {Mutant} from '../../typings/mutant';
-import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
 
 export const styles = StyleSheet.create({
   row: {
@@ -148,48 +146,26 @@ function renderWithName(name: string | null, msg: Msg<About>) {
 
 export type Props = {
   msg: Msg<About>;
-  name: Mutant<string>;
-  imageUrl: Mutant<string>;
-};
-
-export type State = {
   name: string | null;
   imageUrl: string | null;
 };
 
-export default class AboutMessage extends Component<Props, State>
-  implements MutantAttachable<'name' | 'imageUrl'> {
-  public watcherRemovers = {name: null, imageUrl: null};
-  public periodicRenderingInterval: any;
-
+export default class AboutMessage extends Component<Props, {}> {
   constructor(props: Props) {
     super(props);
-    this.state = {imageUrl: null, name: null};
   }
 
-  public componentDidMount() {
-    attachMutant(this, 'name');
-    attachMutant(this, 'imageUrl');
-  }
-
-  public componentWillUnmount() {
-    detachMutant(this, 'name');
-    detachMutant(this, 'imageUrl');
-  }
-
-  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+  public shouldComponentUpdate(nextProps: Props) {
     const prevProps = this.props;
-    const prevState = this.state;
     return (
       nextProps.msg.key !== prevProps.msg.key ||
-      nextState.name !== prevState.name ||
-      nextState.imageUrl !== prevState.imageUrl
+      nextProps.name !== prevProps.name ||
+      nextProps.imageUrl !== prevProps.imageUrl
     );
   }
 
   public render() {
-    const {msg} = this.props;
-    const {imageUrl, name} = this.state;
+    const {msg, name, imageUrl} = this.props;
 
     const hasImage = !!imageUrl;
     const hasName = !!msg.value.content.name;

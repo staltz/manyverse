@@ -32,8 +32,6 @@ import {authorName} from '../../ssb/utils';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {MutantAttachable, attachMutant, detachMutant} from 'mutant-attachable';
-import {Mutant} from '../../typings/mutant';
 
 export const styles = StyleSheet.create({
   messageHeaderRow: {
@@ -85,34 +83,14 @@ export const styles = StyleSheet.create({
 
 export type Props = {
   msg: Msg;
-  name: Mutant<string>;
-  imageUrl: Mutant<string>;
+  name: string | null;
+  imageUrl: string | null;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
-export type State = {
-  name: string | null;
-  imageUrl: string | null;
-};
-
-export default class MessageHeader extends Component<Props, State>
-  implements MutantAttachable<'name' | 'imageUrl'> {
-  public watcherRemovers = {name: null, imageUrl: null};
-  public periodicRenderingInterval: any;
-
+export default class MessageHeader extends Component<Props, {}> {
   constructor(props: Props) {
     super(props);
-    this.state = {imageUrl: null, name: null};
-  }
-
-  public componentDidMount() {
-    attachMutant(this, 'name');
-    attachMutant(this, 'imageUrl');
-  }
-
-  public componentWillUnmount() {
-    detachMutant(this, 'name');
-    detachMutant(this, 'imageUrl');
   }
 
   private _onPressAuthor() {
@@ -122,19 +100,18 @@ export default class MessageHeader extends Component<Props, State>
     }
   }
 
-  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+  public shouldComponentUpdate(nextProps: Props) {
     const prevProps = this.props;
     const prevState = this.state;
     return (
       nextProps.msg.key !== prevProps.msg.key ||
-      nextState.name !== prevState.name ||
-      nextState.imageUrl !== prevState.imageUrl
+      nextProps.name !== prevProps.name ||
+      nextProps.imageUrl !== prevProps.imageUrl
     );
   }
 
   public render() {
-    const {msg} = this.props;
-    const {imageUrl, name} = this.state;
+    const {msg, name, imageUrl} = this.props;
     const avatarUrl = {uri: imageUrl || undefined};
     const touchableProps = {
       background: TouchableNativeFeedback.SelectableBackground(),

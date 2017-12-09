@@ -25,7 +25,6 @@ import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
 import {PostContent as Post, FeedId, Msg} from '../../ssb/types';
-import {Mutant} from '../../typings/mutant';
 
 function escapeRegExp(str: string): string {
   return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
@@ -60,9 +59,9 @@ function materializeMarkdown(content: Post): string {
 
 export type Props = {
   msg: Msg<Post>;
-  name: Mutant<string>;
-  imageUrl: Mutant<string>;
-  likes: Mutant<Array<FeedId>>;
+  name: string | null;
+  imageUrl: string | null;
+  likes: Array<FeedId> | null;
   selfFeedId: FeedId;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;

@@ -43,7 +43,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16.0.28", "@types/react@16.x":
+"@types/react@*", "@types/react@16.0.28", "@types/react@>=16.0.0":
   version "16.0.28"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.28.tgz#eb0b31272528da8f20477ec27569c4f767315b33"
 
@@ -4385,14 +4385,6 @@ multiserver@^1.10.0, multiserver@^1.2.0, multiserver@^1.7.0:
     socks "1.1.9"
     stream-to-pull-stream "^1.7.2"
 
-mutant-attachable@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/mutant-attachable/-/mutant-attachable-1.0.2.tgz#a77dc49433282133bdde65a737447af03a0c488e"
-  dependencies:
-    "@types/react" "16.x"
-    mutant "3.x"
-    react "16.x"
-
 mutant-pull-reduce@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/mutant-pull-reduce/-/mutant-pull-reduce-1.1.0.tgz#96f77027b400061364acbf2633be2e82d5440e6a"
@@ -4408,7 +4400,7 @@ mutant@3.21.2, mutant@^3.14.1, mutant@^3.21.2:
     browser-split "0.0.1"
     xtend "^4.0.1"
 
-mutant@3.x:
+mutant@>=3.21.0:
   version "3.22.1"
   resolved "https://registry.yarnpkg.com/mutant/-/mutant-3.22.1.tgz#90487546f700b3c28aa80a43d1cf7d338f307581"
   dependencies:
@@ -5548,13 +5540,21 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-human-time@1.0.x:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-human-time/-/react-human-time-1.0.0.tgz#a569d4fef33a81e39d3693728d0ae488e1388e77"
+react-human-time@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-human-time/-/react-human-time-1.1.0.tgz#81ce9755f12f3f912ed5a22833e021983076cacc"
   dependencies:
-    "@types/react" "16.x"
+    "@types/react" ">=16.0.0"
     human-time "0.0.1"
-    react "16.x"
+    react ">=16.0.0"
+
+react-mutant-hoc@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-mutant-hoc/-/react-mutant-hoc-1.1.0.tgz#b0e07840630ca78e5a86068e83078b8bf67ed665"
+  dependencies:
+    "@types/react" ">=16.0.0"
+    mutant ">=3.21.0"
+    react ">=16.0.0"
 
 react-native-crypto@2.1.1:
   version "2.1.1"
@@ -5794,18 +5794,9 @@ react-transform-hmr@^1.0.4:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@16.0.0:
+react@16.0.0, "react@>= 16.0.0", react@>=16.0.0:
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.0.0.tgz#ce7df8f1941b036f02b2cca9dbd0cb1f0e855e2d"
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
-
-react@16.x, "react@>= 16.0.0":
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
