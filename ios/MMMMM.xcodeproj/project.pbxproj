@@ -5,7 +5,6 @@
   };
   objectVersion = 46;
   objects = {
-
 /* Begin PBXBuildFile section */
     00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
     00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -500,11 +499,10 @@
         832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
         00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
         139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-        AB63CAC6DCB5435B8CBED92E /* RNRandomBytes.xcodeproj */,
-        E7971D906D694CAABA30EE39 /* RNFS.xcodeproj */,
-        D7C1B992E88548F0BC4477E4 /* RNOS.xcodeproj */,
-        622A4B623ABD4320BC946FA3 /* TcpSockets.xcodeproj */,
-        8AF308C30C2F41939768DCB2 /* RNVectorIcons.xcodeproj */,
+        E760E9E8B33140F98A172FB2 /* RNRandomBytes.xcodeproj */,
+        4E124C164F2C4CE29CDFC7AF /* RNFS.xcodeproj */,
+        2732D8C3C5054BE79226E7C6 /* RNOS.xcodeproj */,
+        6891BB4EFE5D4C9F96382670 /* TcpSockets.xcodeproj */,
       );
       name = Libraries;
       sourceTree = "<group>";
@@ -525,7 +523,6 @@
         832341AE1AAA6A7D00B99B32 /* Libraries */,
         00E356EF1AD99517003FC87E /* MMMMMTests */,
         83CBBA001A601CBA00E9B192 /* Products */,
-        ADDBBD1367C844CABC950331 /* Resources */,
       );
       indentWidth = 2;
       sourceTree = "<group>";
@@ -550,24 +547,6 @@
       );
       name = Products;
       sourceTree = "<group>";
-    };
-    ADDBBD1367C844CABC950331 /* Resources */ = {
-      isa = "PBXGroup";
-      children = (
-        E0E2EB1D9DAD4DF49241E925 /* Entypo.ttf */,
-        79723F30958346508A3D6174 /* EvilIcons.ttf */,
-        13C582B60DE24FCAB61F295B /* FontAwesome.ttf */,
-        1BBCEA62935149BAA6760FD8 /* Foundation.ttf */,
-        F550D5B1DD1C42138F1298C2 /* Ionicons.ttf */,
-        B935792CD85249D598E998A1 /* MaterialCommunityIcons.ttf */,
-        7D957590DCDF44C7B448E89B /* MaterialIcons.ttf */,
-        4BEEC08201294AF79BA3D13B /* Octicons.ttf */,
-        01F8BEB778C94F32A7611181 /* SimpleLineIcons.ttf */,
-        7922F879CAFD4427A43DCFCC /* Zocial.ttf */,
-      );
-      name = Resources;
-      sourceTree = "<group>";
-      path = "";
     };
 /* End PBXGroup section */
 
@@ -650,7 +629,7 @@
     83CBB9F71A601CBA00E9B192 /* Project object */ = {
       isa = PBXProject;
       attributes = {
-        LastUpgradeCheck = 0610;
+        LastUpgradeCheck = 610;
         ORGANIZATIONNAME = Facebook;
         TargetAttributes = {
           00E356ED1AD99517003FC87E = {
@@ -938,16 +917,6 @@
       files = (
         13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
         13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-        D3B2654197894BEF8660A2C7 /* Entypo.ttf in Resources */,
-        2F53D78605D54907ACC0EF77 /* EvilIcons.ttf in Resources */,
-        26291847BA934C6F9974D9B2 /* FontAwesome.ttf in Resources */,
-        3BB29539779C42CF991E5C57 /* Foundation.ttf in Resources */,
-        3293BA3EB41F4EBB9F91EFA1 /* Ionicons.ttf in Resources */,
-        4EDF3951BF6A4A4DB8FEA19F /* MaterialCommunityIcons.ttf in Resources */,
-        6EB171675E25453FB8570718 /* MaterialIcons.ttf in Resources */,
-        84FFBDB27642466796DAAEAB /* Octicons.ttf in Resources */,
-        5A0FB52AC06B42D1842B9861 /* SimpleLineIcons.ttf in Resources */,
-        AF4D5E1E8CB34ED496B43DE9 /* Zocial.ttf in Resources */,
       );
       runOnlyForDeploymentPostprocessing = 0;
     };
@@ -1085,7 +1054,6 @@
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
-          "\"$(SRCROOT)/$(TARGET_NAME)\"",
         );
         HEADER_SEARCH_PATHS = (
           "$(inherited)",
@@ -1093,7 +1061,6 @@
           "$(SRCROOT)/../node_modules/react-native-fs/**",
           "$(SRCROOT)/../node_modules/react-native-os/ios",
           "$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
-          "$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
         );
       };
       name = Debug;
@@ -1118,7 +1085,6 @@
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
-          "\"$(SRCROOT)/$(TARGET_NAME)\"",
         );
         HEADER_SEARCH_PATHS = (
           "$(inherited)",
@@ -1126,7 +1092,6 @@
           "$(SRCROOT)/../node_modules/react-native-fs/**",
           "$(SRCROOT)/../node_modules/react-native-os/ios",
           "$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
-          "$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
         );
       };
       name = Release;
@@ -1152,7 +1117,6 @@
           "$(SRCROOT)/../node_modules/react-native-fs/**",
           "$(SRCROOT)/../node_modules/react-native-os/ios",
           "$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
-          "$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
         );
       };
       name = Debug;
@@ -1177,7 +1141,6 @@
           "$(SRCROOT)/../node_modules/react-native-fs/**",
           "$(SRCROOT)/../node_modules/react-native-os/ios",
           "$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
-          "$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
         );
       };
       name = Release;
@@ -1211,7 +1174,6 @@
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
-          "\"$(SRCROOT)/$(TARGET_NAME)\"",
         );
         HEADER_SEARCH_PATHS = (
           "$(inherited)",
@@ -1219,7 +1181,6 @@
           "$(SRCROOT)/../node_modules/react-native-fs/**",
           "$(SRCROOT)/../node_modules/react-native-os/ios",
           "$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
-          "$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
         );
       };
       name = Debug;
@@ -1253,7 +1214,6 @@
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
-          "\"$(SRCROOT)/$(TARGET_NAME)\"",
         );
         HEADER_SEARCH_PATHS = (
           "$(inherited)",
@@ -1261,7 +1221,6 @@
           "$(SRCROOT)/../node_modules/react-native-fs/**",
           "$(SRCROOT)/../node_modules/react-native-os/ios",
           "$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
-          "$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
         );
       };
       name = Release;
@@ -1290,7 +1249,6 @@
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
-          "\"$(SRCROOT)/$(TARGET_NAME)\"",
         );
       };
       name = Debug;
@@ -1315,7 +1273,6 @@
         TVOS_DEPLOYMENT_TARGET = 10.1;
         LIBRARY_SEARCH_PATHS = (
           "$(inherited)",
-          "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
           "\"$(SRCROOT)/$(TARGET_NAME)\"",
