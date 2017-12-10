@@ -20,7 +20,7 @@
 const test = require('tape');
 
 module.exports = function(driver, t) {
-  t.test('displays Central screen with 4 tabs', async function(t) {
+  t.test('Central screen is displayed with 4 tabs', async function(t) {
     // Public tab
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(

@@ -38,13 +38,14 @@ test('Setup and open Android app', function(t) {
   var capabilities = localCapabilities;
 
   driver = wd.promiseChainRemote(serverConfig);
-  driver.init(capabilities).then(() => {
+  driver.init(capabilities).setImplicitWaitTimeout(1000).then(() => {
     t.end();
   });
 });
 
-test('Central screen', function(t) {
+test('...', function(t) {
   require('./central.js')(driver, t);
+  require('./profile.js')(driver, t);
   t.end();
 });
 
