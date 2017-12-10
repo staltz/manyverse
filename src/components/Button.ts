@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PureComponent} from 'react';
+import {Component} from 'react';
 import {
   View,
   TextStyle,
@@ -79,15 +79,22 @@ export type Props = {
   onPress?: () => void;
   strong?: boolean;
   style?: StyleProp<ViewStyle>;
+  accessible?: boolean;
+  accessibilityLabel?: string;
 };
 
-export default class Button extends PureComponent<Props> {
+export default class Button extends Component<Props, {}> {
   constructor(props: Props) {
     super(props);
   }
 
+  public shouldComponentUpdate(nextProps: Props) {
+    const props = this.props;
+    return nextProps.text !== props.text || nextProps.strong !== props.strong;
+  }
+
   public render() {
-    const {text, strong, style} = this.props;
+    const {text, strong, style, accessible, accessibilityLabel} = this.props;
 
     const touchableProps = {
       background: TouchableNativeFeedback.Ripple(Palette.brand.background),
@@ -96,14 +103,21 @@ export default class Button extends PureComponent<Props> {
           this.props.onPress();
         }
       },
+      accessible,
+      accessibilityLabel,
+    };
+
+    const viewProps = {
+      style: [
+        strong ? styles.containerStrong : styles.container,
+        style,
+      ] as ViewStyle,
     };
 
     return h(TouchableNativeFeedback, touchableProps, [
-      h(
-        View,
-        {style: [strong ? styles.containerStrong : styles.container, style]},
-        [h(Text, {style: strong ? styles.textStrong : styles.text}, text)],
-      ),
+      h(View, viewProps, [
+        h(Text, {style: strong ? styles.textStrong : styles.text}, text),
+      ]),
     ]);
   }
 }
