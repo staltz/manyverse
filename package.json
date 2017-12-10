@@ -7,7 +7,12 @@
     "prepare": "patch-package",
     "propagate-replacements": "propagate-replacement-fields --field=react-native",
     "start": "npm run lib && npm run propagate-replacements && node node_modules/react-native/local-cli/cli.js start",
-    "test-e2e-android": "cd e2e && ./test-features.sh && cd ..",
+    "start-appium-server": "$(npm bin)/appium --port 4995 > appium.log & echo $! > appium-server.pid",
+    "stop-appium-server": "if ps -p $(cat appium-server.pid)> /dev/null; then kill -KILL $(cat appium-server.pid); fi && rm appium-server.pid && rm appium.log",
+    "xpretest-e2e-android": "npm run start-appium-server",
+    "test-e2e-android": "tape e2e/index.js | tap-spec",
+    "oldtest-e2e-android": "cd e2e && ./test-features.sh && cd ..",
+    "xposttest-e2e-android": "npm run stop-appium-server",
     "test": "jest",
     "update-android-version": "react-native-version --never-amend --target android",
     "clean-up-bundler": "watchman watch-del-all && rm -rf $TMPDIR/react-*",
@@ -53,6 +58,7 @@
     "xstream-from-pull-stream": "1.1"
   },
   "devDependencies": {
+    "appium": "^1.7.1",
     "babel-jest": "21.2.0",
     "babel-preset-react-native": "4.0.0",
     "cheerio": "^1.0.0-rc.2",
@@ -63,8 +69,11 @@
     "propagate-replacement-fields": "1.2.0",
     "react-native-version": "^2.3.1",
     "react-test-renderer": "16.0.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.8.0",
     "tslint": "^5.7.0",
     "typescript": "2.4.x",
+    "wd": "^1.5.0",
     "yarn": "^1.0.1"
   },
   "jest": {

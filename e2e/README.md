@@ -1,3 +1,3 @@
 # End-to-end (e2e) tests
 
-This folder has integrations tests written in the Calabash framework. You can see `features` folder to find the test specifications. The other files, like Gemfile, are just for configuration.
+This folder has integrations tests written with Tape, Appium, and wd. They should be run against the release variant of the app.

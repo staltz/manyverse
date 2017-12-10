@@ -87,6 +87,8 @@ class FeedHeader extends PureComponent<FeedHeaderProps> {
           placeholderTextColor: Palette.brand.textVeryWeak,
           style: styles.writeInput,
           placeholder: 'Write a public message',
+          accessible: true,
+          accessibilityLabel: 'Feed Text Input',
           selectionColor: Palette.brand.text,
           returnKeyType: 'done',
           onSubmitEditing: (ev: any) => {
