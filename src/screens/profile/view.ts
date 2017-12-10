@@ -43,7 +43,15 @@ export default function view(state$: Stream<State>) {
         {style: styles.container},
         [
           h(View, {style: styles.cover}, [
-            h(Text, {style: styles.name}, state.about.name),
+            h(
+              Text,
+              {
+                style: styles.name,
+                accessible: true,
+                accessibilityLabel: 'Profile Name',
+              } as any,
+              state.about.name,
+            ),
           ]),
 
           h(View, {style: styles.avatarBackground}, [
@@ -58,6 +66,8 @@ export default function view(state$: Stream<State>) {
                 selector: 'editProfile',
                 style: styles.follow,
                 text: 'Edit profile',
+                accessible: true,
+                accessibilityLabel: 'Edit Profile Button',
               })
             : h(ToggleButton, {
                 selector: 'follow',
@@ -69,7 +79,12 @@ export default function view(state$: Stream<State>) {
           h(View, {style: styles.descriptionArea}, [
             h(
               Markdown,
-              {styles: mdstyles, rules},
+              {
+                styles: mdstyles,
+                rules,
+                accessible: true,
+                accessibilityLabel: 'Profile Description',
+              },
               state.about.description || '',
             ),
           ]),

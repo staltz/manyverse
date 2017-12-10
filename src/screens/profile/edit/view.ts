@@ -134,6 +134,8 @@ export default function view(state$: Stream<State>) {
           style: styles.save,
           strong: true,
           text: 'SAVE',
+          accessible: true,
+          accessibilityLabel: 'Save Profile Button',
         }),
 
         h(View, {style: styles.fields}, [
@@ -144,6 +146,8 @@ export default function view(state$: Stream<State>) {
             autoFocus: true,
             defaultValue: defaultName,
             underlineColorAndroid: Palette.brand.background,
+            accessible: true,
+            accessibilityLabel: 'Name Text Input',
             style: styles.textInput,
           }),
 
@@ -155,6 +159,8 @@ export default function view(state$: Stream<State>) {
             numberOfLines: 1,
             defaultValue: state.about.description || '',
             underlineColorAndroid: Palette.brand.background,
+            accessible: true,
+            accessibilityLabel: 'Description Text Input',
             style: styles.textInput,
           }),
         ]),
