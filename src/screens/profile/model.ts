@@ -25,13 +25,28 @@ import {StateSource, Reducer} from 'cycle-onionify';
 import {FeedId, About} from '../../ssb/types';
 import {State as EditProfileState} from './edit';
 import {Readable} from '../../typings/pull-stream';
+import {Lens} from 'cycle-onionify/lib/types';
 
 export type State = {
   selfFeedId: FeedId;
   displayFeedId: FeedId;
   about: About;
   feedReadable: Readable<MsgAndExtras> | null;
-  edit: EditProfileState;
+  edit?: EditProfileState;
+};
+
+export const editLens: Lens<State, EditProfileState> = {
+  get: (parent: State): EditProfileState => {
+    if (parent.edit) {
+      return parent.edit;
+    } else {
+      return {about: parent.about};
+    }
+  },
+
+  set: (parent: State, child: EditProfileState): State => {
+    return {...parent, edit: child};
+  },
 };
 
 export type AppearingActions = {
@@ -44,19 +59,15 @@ export function updateSelfFeedId(prev: State, selfFeedId: FeedId): State {
     return prev;
   } else if (prev.displayFeedId === prev.selfFeedId) {
     const displayFeedId = selfFeedId;
-    const about = {
-      ...prev.about,
-      name: displayFeedId,
-      id: displayFeedId,
-    };
     return {
       ...prev,
       selfFeedId,
       displayFeedId,
       feedReadable: null,
-      about,
-      edit: {
-        about,
+      about: {
+        ...prev.about,
+        name: displayFeedId,
+        id: displayFeedId,
       },
     };
   } else {
@@ -89,14 +100,7 @@ export default function model(
         if (!prev) {
           throw new Error('Profile/model reducer expects existing state');
         }
-        return {
-          ...prev,
-          about,
-          edit: {
-            ...prev.edit,
-            about,
-          },
-        };
+        return {...prev, about};
       },
   );
 

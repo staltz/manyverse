@@ -30,7 +30,7 @@ import {
 } from '../../drivers/dialogs';
 import editProfile from './edit';
 import intent from './intent';
-import model, {State} from './model';
+import model, {State, editLens} from './model';
 import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
@@ -52,7 +52,9 @@ export type Sinks = {
 };
 
 export function profile(sources: Sources): Sinks {
-  const editSinks: Sinks = isolate(editProfile, 'edit')(sources);
+  const editSinks: Sinks = isolate(editProfile, {'*': 'edit', onion: editLens})(
+    sources,
+  );
 
   const actions = intent(sources.screen);
   const reducer$ = model(sources.onion.state$, actions, sources.ssb);

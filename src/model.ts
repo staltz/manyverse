@@ -75,18 +75,14 @@ export default function model(
     } else {
       const selfFeedId = '';
       const central = {selfFeedId, visible: true};
-      const about = {
-        name: selfFeedId,
-        description: '',
-        id: selfFeedId,
-      };
       const profile = {
         selfFeedId,
         displayFeedId: selfFeedId,
         feedReadable: null,
-        about,
-        edit: {
-          about,
+        about: {
+          name: selfFeedId,
+          description: '',
+          id: selfFeedId,
         },
       };
       return {selfFeedId, central, profile};
