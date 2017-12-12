@@ -18,7 +18,7 @@
  */
 
 import {PureComponent, Component} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TextInputProperties} from 'react-native';
 import {View, FlatList, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
@@ -77,37 +77,37 @@ type FeedHeaderProps = {
 };
 
 class FeedHeader extends PureComponent<FeedHeaderProps> {
+  private _textInput: TextInput;
+
   public render() {
     const {onPublish} = this.props;
     return h(MessageContainer, {style: styles.header}, [
       h(View, {style: styles.writeMessageRow}, [
         h(View, {style: styles.writeMessageAuthorImage}),
-        h(TextInput, {
-          underlineColorAndroid: Palette.brand.textBackground,
-          placeholderTextColor: Palette.brand.textVeryWeak,
-          style: styles.writeInput,
-          placeholder: 'Write a public message',
-          accessible: true,
-          accessibilityLabel: 'Feed Text Input',
-          selectionColor: Palette.brand.text,
-          returnKeyType: 'done',
-          onSubmitEditing: (ev: any) => {
-            if (onPublish) {
-              onPublish(ev);
-            }
-            // (Temporary or permanent) hack:
-            if (
-              ev &&
-              ev._targetInst &&
-              ev._targetInst._currentElement &&
-              ev._targetInst._currentElement._owner &&
-              ev._targetInst._currentElement._owner._instance &&
-              ev._targetInst._currentElement._owner._instance.clear
-            ) {
-              ev._targetInst._currentElement._owner._instance.clear();
-            }
-          },
-        }),
+        h(
+          TextInput,
+          {
+            underlineColorAndroid: Palette.brand.textBackground,
+            placeholderTextColor: Palette.brand.textVeryWeak,
+            style: styles.writeInput,
+            placeholder: 'Write a public message',
+            accessible: true,
+            accessibilityLabel: 'Feed Text Input',
+            selectionColor: Palette.brand.text,
+            returnKeyType: 'done',
+            ref: (el: any) => {
+              this._textInput = el;
+            },
+            onSubmitEditing: (ev: any) => {
+              if (onPublish) {
+                onPublish(ev);
+              }
+              if (this._textInput) {
+                this._textInput.clear();
+              }
+            },
+          } as TextInputProperties,
+        ),
       ]),
     ]);
   }
