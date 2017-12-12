@@ -18,34 +18,18 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Reducer} from 'cycle-onionify';
-import {About} from '../../../ssb/types';
+import {Request as DialogReq} from '../../../drivers/dialogs';
 
-export type State = {
-  about: About;
-  newName?: string;
-  newDescription?: string;
-};
+export default function dialogs(navigation$: Stream<any>) {
+  const back$ = navigation$.filter(ev => ev.id === 'backPress');
 
-export type Actions = {
-  changeName$: Stream<string>;
-  changeDescription$: Stream<string>;
-};
-
-export default function model(actions: Actions): Stream<Reducer<State>> {
-  const changeNameReducer$ = actions.changeName$.map(
-    newName =>
-      function changeNameReducer(prev: State): State {
-        return {...prev, newName};
-      },
+  return back$.mapTo(
+    {
+      title: 'Edit profile',
+      category: 'edit-profile-discard',
+      content: 'Discard changes?',
+      positiveText: 'Discard',
+      negativeText: 'Cancel',
+    } as DialogReq,
   );
-
-  const changeDescriptionReducer$ = actions.changeDescription$.map(
-    newDescription =>
-      function changeDescriptionReducer(prev: State): State {
-        return {...prev, newDescription};
-      },
-  );
-
-  return xs.merge(changeNameReducer$, changeDescriptionReducer$);
 }

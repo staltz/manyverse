@@ -18,34 +18,24 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Reducer} from 'cycle-onionify';
-import {About} from '../../../ssb/types';
+import {Command, PopCommand} from 'cycle-native-navigation';
+import {Response as DialogRes} from '../../../drivers/dialogs';
 
-export type State = {
-  about: About;
-  newName?: string;
-  newDescription?: string;
+export type NavigationActions = {
+  save$: Stream<any>;
 };
 
-export type Actions = {
-  changeName$: Stream<string>;
-  changeDescription$: Stream<string>;
-};
+export default function navigation(
+  dialogRes$: Stream<DialogRes>,
+  actions: NavigationActions,
+): Stream<Command> {
+  const goBackDiscarding$ = dialogRes$
+    .filter(
+      res => res.category === 'edit-profile-discard' && res.type === 'positive',
+    )
+    .map(() => ({type: 'pop'} as PopCommand));
 
-export default function model(actions: Actions): Stream<Reducer<State>> {
-  const changeNameReducer$ = actions.changeName$.map(
-    newName =>
-      function changeNameReducer(prev: State): State {
-        return {...prev, newName};
-      },
-  );
+  const goBackSaving$ = actions.save$.map(() => ({type: 'pop'} as PopCommand));
 
-  const changeDescriptionReducer$ = actions.changeDescription$.map(
-    newDescription =>
-      function changeDescriptionReducer(prev: State): State {
-        return {...prev, newDescription};
-      },
-  );
-
-  return xs.merge(changeNameReducer$, changeDescriptionReducer$);
+  return xs.merge(goBackDiscarding$, goBackSaving$);
 }
