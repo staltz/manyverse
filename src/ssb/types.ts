@@ -120,7 +120,12 @@ export function isPrivate(msg: Msg<any>): boolean {
   return msg.value.content && typeof msg.value.content === 'string';
 }
 
-export type Content = PostContent | ContactContent | VoteContent | AboutContent;
+export type Content =
+  | PostContent
+  | ContactContent
+  | VoteContent
+  | AboutContent
+  | null;
 
 export type PostContent = {
   type: 'post';

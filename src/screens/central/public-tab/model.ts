@@ -21,23 +21,23 @@ import xs, {Stream, Listener} from 'xstream';
 import {Reducer} from 'cycle-onionify';
 import {FeedId, Msg} from '../../../ssb/types';
 import {Readable} from '../../../typings/pull-stream';
-import {SSBSource, MsgAndExtras} from '../../../drivers/ssb';
+import {SSBSource, MsgAndExtras, GetReadable} from '../../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
-  feedReadable: Readable<MsgAndExtras> | null;
+  getFeedReadable: GetReadable<MsgAndExtras> | null;
 };
 
 export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
   const setFeedPullStreamReducer$ = ssbSource.publicFeed$.map(
-    feedReadable =>
+    getFeedReadable =>
       function setFeedPullStreamReducer(prev?: State): State {
         if (!prev) {
           throw new Error(
             'Central/PublicTab/model reducer expects existing state',
           );
         }
-        return {...prev, feedReadable};
+        return {...prev, getFeedReadable};
       },
   );
 

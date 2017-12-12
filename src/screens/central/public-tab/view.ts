@@ -32,7 +32,7 @@ export default function view(state$: Stream<State>) {
   const vdom$ = state$.map(state =>
     h(Feed, {
       selector: 'publicFeed',
-      readable: state.feedReadable,
+      getReadable: state.getFeedReadable,
       selfFeedId: state.selfFeedId,
       showPublishHeader: true,
     }),

@@ -20,7 +20,7 @@
 import xs, {Stream, Listener} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import sampleCombine from 'xstream/extra/sampleCombine';
-import {SSBSource, MsgAndExtras} from '../../drivers/ssb';
+import {SSBSource, MsgAndExtras, GetReadable} from '../../drivers/ssb';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {FeedId, About} from '../../ssb/types';
 import {State as EditProfileState} from './edit';
@@ -31,7 +31,7 @@ export type State = {
   selfFeedId: FeedId;
   displayFeedId: FeedId;
   about: About;
-  feedReadable: Readable<MsgAndExtras> | null;
+  getFeedReadable: GetReadable<MsgAndExtras> | null;
   edit?: EditProfileState;
 };
 
@@ -63,7 +63,7 @@ export function updateSelfFeedId(prev: State, selfFeedId: FeedId): State {
       ...prev,
       selfFeedId,
       displayFeedId,
-      feedReadable: null,
+      getFeedReadable: null,
       about: {
         ...prev.about,
         name: displayFeedId,
@@ -84,7 +84,7 @@ export default function model(
     .map(state => state.displayFeedId)
     .compose(dropRepeats());
 
-  const feedStream$ = actions.appear$
+  const getFeedReadable$ = actions.appear$
     // TODO create custom operator 'sample' and use it instead of sampleCombine
     .compose(sampleCombine(displayFeedIdChanged$))
     .map(([_, id]) => ssbSource.profileFeed$(id))
@@ -104,13 +104,13 @@ export default function model(
       },
   );
 
-  const updateFeedStreamReducer$ = feedStream$.map(
-    feedReadable =>
+  const updateFeedStreamReducer$ = getFeedReadable$.map(
+    getFeedReadable =>
       function updateFeedStreamReducer(prev?: State): State {
         if (!prev) {
           throw new Error('Profile/model reducer expects existing state');
         }
-        return {...prev, feedReadable};
+        return {...prev, getFeedReadable};
       },
   );
 
@@ -119,7 +119,7 @@ export default function model(
       if (!prev) {
         throw new Error('Profile/model reducer expects existing state');
       }
-      return {...prev, feedReadable: null};
+      return {...prev, getFeedReadable: null};
     },
   );
 

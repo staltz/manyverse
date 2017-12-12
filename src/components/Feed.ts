@@ -29,8 +29,8 @@ import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
 import MessageContainer from './messages/MessageContainer';
 import Message from './messages/Message';
-import {isPrimitive} from 'util';
-import {MsgAndExtras} from '../drivers/ssb';
+import {PLACEHOLDER_MSG, PLACEHOLDER_KEY} from './messages/PlaceholderMessage';
+import {MsgAndExtras, GetReadable} from '../drivers/ssb';
 const pull = require('pull-stream');
 
 export const styles = StyleSheet.create({
@@ -99,11 +99,11 @@ class FeedHeader extends PureComponent<FeedHeaderProps> {
               this._textInput = el;
             },
             onSubmitEditing: (ev: any) => {
-              if (onPublish) {
-                onPublish(ev);
-              }
               if (this._textInput) {
                 this._textInput.clear();
+              }
+              if (onPublish) {
+                onPublish(ev);
               }
             },
           } as TextInputProperties,
@@ -130,7 +130,7 @@ function isShowableMsg(msg: Msg): boolean {
 }
 
 type Props = {
-  readable: Readable<MsgAndExtras> | null;
+  getReadable: GetReadable<MsgAndExtras> | null;
   selfFeedId: FeedId;
   showPublishHeader: boolean;
   style?: any;
@@ -151,38 +151,51 @@ export default class Feed extends Component<Props, State> {
     this.state = {data: [], isExpectingMore: true, updateInt: 0};
     this.isPulling = false;
     this.morePullQueue = 0;
+    this._onPublish = this.onPublish.bind(this);
   }
 
+  private readable?: Readable<MsgAndExtras>;
+  private _onPublish: (ev: any) => void;
   private isPulling: boolean;
   private morePullQueue: number;
-  private stream?: Readable<MsgAndExtras>;
 
   public componentDidMount() {
-    if (this.props.readable) {
-      this.start(this.props.readable);
+    if (this.props.getReadable) {
+      this.start(this.props.getReadable());
     }
   }
 
   public componentWillUnmount() {
-    if (this.stream) {
-      this.stream(true, () => {});
-    }
+    this.stop();
   }
 
   /**
    * Consumes a valid pull stream (Readable) and begins pulling it.
    */
-  public start(stream: Readable<Msg>) {
-    this.stream = pull(stream, pull.filter(isShowableMsg));
+  public start(readable?: Readable<MsgAndExtras> | null) {
+    if (readable) {
+      this.readable = pull(readable, pull.filter(isShowableMsg));
+    }
     if (this.state.isExpectingMore) {
       this._pullSome(4);
     }
   }
 
+  public stop() {
+    if (this.readable) {
+      this.readable(true, () => {});
+    }
+    this.setState((prev: State) => ({
+      data: [],
+      isExpectingMore: true,
+      updateInt: 1 - prev.updateInt,
+    }));
+  }
+
   public componentWillReceiveProps(nextProps: Props) {
-    const nextReadable = nextProps.readable;
-    if (nextReadable && nextReadable !== this.props.readable) {
-      this.start(nextReadable);
+    const nextReadable = nextProps.getReadable;
+    if (nextReadable && nextReadable !== this.props.getReadable) {
+      this.start(nextReadable());
     }
   }
 
@@ -190,6 +203,39 @@ export default class Feed extends Component<Props, State> {
     if (this.state.isExpectingMore) {
       this._pullSome(30);
     }
+  }
+
+  private _repullPrependOneNew() {
+    const {getReadable} = this.props;
+    if (!getReadable) return;
+    const newReadable = getReadable({live: true, old: false});
+    if (!newReadable) return;
+    const that = this;
+
+    // Add placeholder message
+    that.setState((prev: State) => ({
+      data: ([PLACEHOLDER_MSG] as typeof prev.data).concat(prev.data),
+      isExpectingMore: prev.isExpectingMore,
+      updateInt: 1 - prev.updateInt,
+    }));
+
+    const readable: Readable<MsgAndExtras> = pull(newReadable, pull.take(1));
+
+    // Replace placeholder with newly posted message
+    readable(null, (end, msg) => {
+      if (end || !msg) return;
+      const newData = this.state.data;
+      if (newData[0].key === PLACEHOLDER_KEY) {
+        newData[0] = msg;
+      } else {
+        newData.unshift(msg);
+      }
+      this.setState((prev: State) => ({
+        data: newData,
+        isExpectingMore: prev.isExpectingMore,
+        updateInt: 1 - prev.updateInt,
+      }));
+    });
   }
 
   private _onEndPullingSome(
@@ -210,8 +256,8 @@ export default class Feed extends Component<Props, State> {
   }
 
   private _pullSome(amount: number): void {
-    const stream = this.stream;
-    if (!stream) return;
+    const readable = this.readable;
+    if (!readable) return;
     if (this.isPulling) {
       this.morePullQueue = amount;
       return;
@@ -219,7 +265,7 @@ export default class Feed extends Component<Props, State> {
     this.isPulling = true;
     const that = this;
     const buffer: Array<MsgAndExtras> = [];
-    stream(null, function read(end, msg) {
+    readable(null, function read(end, msg) {
       if (end === true) {
         that._onEndPullingSome(buffer, false);
       } else if (msg) {
@@ -243,17 +289,31 @@ export default class Feed extends Component<Props, State> {
           // Continue
           if (buffer.length >= amount) {
             that._onEndPullingSome(buffer, that.state.isExpectingMore);
-          } else {
-            stream(null, read);
+          } else if (that.state.isExpectingMore) {
+            readable(null, read);
           }
         }
       }
     });
   }
 
+  private onPublish(ev: any) {
+    const {onPublish} = this.props;
+    if (onPublish) {
+      onPublish(ev);
+      this._repullPrependOneNew();
+    }
+  }
+
+  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+    return (
+      nextProps.getReadable !== this.props.getReadable ||
+      nextState.updateInt !== this.state.updateInt
+    );
+  }
+
   public render() {
     const {
-      onPublish,
       onPressLike,
       onPressAuthor,
       showPublishHeader,
@@ -273,7 +333,7 @@ export default class Feed extends Component<Props, State> {
       },
       onEndReachedThreshold: 4,
       ListHeaderComponent: showPublishHeader
-        ? h(FeedHeader, {onPublish})
+        ? h(FeedHeader, {onPublish: this._onPublish})
         : null,
       ListFooterComponent: this.state.isExpectingMore ? FeedFooter : null,
       renderItem: ({item}: {item: MsgAndExtras}) =>

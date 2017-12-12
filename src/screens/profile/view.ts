@@ -91,7 +91,7 @@ export default function view(state$: Stream<State>) {
 
           h(Feed, {
             selector: 'feed',
-            readable: state.feedReadable,
+            getReadable: state.getFeedReadable,
             selfFeedId: state.selfFeedId,
             style: showPublishHeader ? styles.feedWithHeader : styles.feed,
             showPublishHeader,

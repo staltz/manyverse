@@ -96,9 +96,11 @@ function mutateMsgWithLiveExtras(api: any) {
   };
 }
 
+export type GetReadable<T> = (opts?: any) => Readable<T>;
+
 export class SSBSource {
   public selfFeedId$: Stream<FeedId>;
-  public publicFeed$: Stream<Readable<MsgAndExtras>>;
+  public publicFeed$: Stream<GetReadable<MsgAndExtras>>;
   public localSyncPeers$: Stream<Array<PeerMetadata>>;
 
   constructor(private api$: Stream<any>) {
@@ -106,9 +108,9 @@ export class SSBSource {
 
     this.publicFeed$ = api$
       .take(1)
-      .map(api =>
+      .map(api => (opts?: any) =>
         pull(
-          api.sbot.pull.feed[0]({reverse: true, live: false}),
+          api.sbot.pull.feed[0]({reverse: true, live: false, ...opts}),
           pull.filter(isNotSync),
           pull.map(mutateMsgWithLiveExtras(api)),
         ),
@@ -136,10 +138,10 @@ export class SSBSource {
       .flatten();
   }
 
-  public profileFeed$(id: FeedId): Stream<Readable<MsgAndExtras>> {
-    return this.api$.map(api =>
+  public profileFeed$(id: FeedId): Stream<GetReadable<MsgAndExtras>> {
+    return this.api$.map(api => (opts?: any) =>
       pull(
-        api.feed.pull.profile[0](id)({live: false, reverse: true}),
+        api.feed.pull.profile[0](id)({reverse: true, live: false, ...opts}),
         pull.filter(isNotSync),
         pull.map(mutateMsgWithLiveExtras(api)),
       ),

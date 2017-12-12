@@ -78,7 +78,7 @@ export default function model(
       const profile = {
         selfFeedId,
         displayFeedId: selfFeedId,
-        feedReadable: null,
+        getFeedReadable: null,
         about: {
           name: selfFeedId,
           description: '',
