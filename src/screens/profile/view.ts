@@ -76,18 +76,21 @@ export default function view(state$: Stream<State>) {
                 toggled: state.about.following === true,
               }),
 
-          h(View, {style: styles.descriptionArea}, [
-            h(
-              Markdown,
-              {
-                styles: mdstyles,
-                rules,
-                accessible: true,
-                accessibilityLabel: 'Profile Description',
-              },
-              state.about.description || '',
-            ),
-          ]),
+          h(
+            View,
+            {
+              style: styles.descriptionArea,
+              accessible: true,
+              accessibilityLabel: 'Profile Description',
+            },
+            [
+              h(
+                Markdown,
+                {styles: mdstyles, rules},
+                state.about.description || '',
+              ),
+            ],
+          ),
 
           h(Feed, {
             selector: 'feed',
