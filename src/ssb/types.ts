@@ -163,12 +163,6 @@ export type VoteContent = {
   };
 };
 
-// export type AboutContent = {
-//   type: 'about';
-//   about: Link;
-//   name: String;
-//   image: BlobLink;
-// };
 // { type: 'post-edit', text: String, root: MsgLink, revisionRoot: MsgLink, revisionBranch: MsgLink, mentions: Links }
 // { type: 'vote', vote: { link: Ref, value: -1|0|1, reason: String } }
 // { type: 'pub', pub: { link: FeedRef, host: String, port: Number  }
