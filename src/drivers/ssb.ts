@@ -26,7 +26,6 @@ import makeKeysOpinion from '../ssb/opinions/keys';
 import gossipOpinion from '../ssb/opinions/gossip';
 import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
 import xsFromCallback from 'xstream-from-callback';
-import xsFromPullStream from 'xstream-from-pull-stream';
 import xsFromMutant from 'xstream-from-mutant';
 import {Readable} from '../typings/pull-stream';
 import {Mutant} from 'react-mutant-hoc';
