@@ -75,6 +75,22 @@ export function updateSelfFeedId(prev: State, selfFeedId: FeedId): State {
   }
 }
 
+export function updateDisplayFeedId(prev: State, displayFeedId: FeedId): State {
+  if (displayFeedId === prev.displayFeedId) {
+    return prev;
+  } else {
+    return {
+      ...prev,
+      displayFeedId,
+      about: {
+        name: displayFeedId,
+        id: displayFeedId,
+      },
+      getFeedReadable: null,
+    };
+  }
+}
+
 export default function model(
   state$: Stream<State>,
   actions: AppearingActions,

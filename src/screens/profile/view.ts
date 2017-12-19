@@ -47,6 +47,8 @@ export default function view(state$: Stream<State>) {
               Text,
               {
                 style: styles.name,
+                numberOfLines: 1,
+                ellipsizeMode: 'middle',
                 accessible: true,
                 accessibilityLabel: 'Profile Name',
               } as any,
@@ -57,7 +59,7 @@ export default function view(state$: Stream<State>) {
           h(View, {style: styles.avatarBackground}, [
             h(Image, {
               style: styles.avatar,
-              source: {uri: state.about.imageUrl || ''},
+              source: {uri: state.about.imageUrl || undefined},
             }),
           ]),
 

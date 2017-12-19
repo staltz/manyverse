@@ -54,6 +54,7 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeBig,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
+    maxWidth: 220,
     top: Dimensions.verticalSpaceSmall,
     left: Dimensions.horizontalSpaceBig + 80 + Dimensions.horizontalSpaceBig,
   },

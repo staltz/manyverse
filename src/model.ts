@@ -20,7 +20,11 @@
 import xs, {Stream} from 'xstream';
 import {Reducer} from 'cycle-onionify';
 import {Command, PushCommand} from 'cycle-native-navigation';
-import {State as ProfileState, updateSelfFeedId} from './screens/profile/model';
+import {
+  State as ProfileState,
+  updateSelfFeedId,
+  updateDisplayFeedId,
+} from './screens/profile/model';
 import {State as CentralState} from './screens/central/model';
 import {ScreenID} from './main';
 import {SSBSource} from './drivers/ssb';
@@ -101,18 +105,18 @@ export default function model(
           if (command.passProps && command.passProps.feedId) {
             return {
               ...prev,
-              profile: {
-                ...prev.profile,
-                displayFeedId: command.passProps.feedId,
-              },
+              profile: updateDisplayFeedId(
+                prev.profile,
+                command.passProps.feedId,
+              ),
             };
           } else {
             return {
               ...prev,
-              profile: {
-                ...prev.profile,
-                displayFeedId: prev.profile.selfFeedId,
-              },
+              profile: updateDisplayFeedId(
+                prev.profile,
+                prev.profile.selfFeedId,
+              ),
             };
           }
         },
