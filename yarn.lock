@@ -6980,7 +6980,13 @@ react-native-fs@2.3.x:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
 
-react-native-navigation@1.1.256, react-native-navigation@1.1.x:
+react-native-navigation@1.1.314:
+  version "1.1.314"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.314.tgz#b5dab0b226642698e4ab11fd691d881e005bc7d8"
+  dependencies:
+    lodash "4.x.x"
+
+react-native-navigation@1.1.x:
   version "1.1.256"
   resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.256.tgz#1449753faf3f104c0060c883d8b82494309cd607"
   dependencies:
@@ -9581,12 +9587,6 @@ xstream-from-mutant@1.1:
   resolved "https://registry.yarnpkg.com/xstream-from-mutant/-/xstream-from-mutant-1.1.0.tgz#667485d8d81491de5baa2f8872ec854f10a49b90"
   dependencies:
     mutant "^3.21.2"
-    xstream "10.x || 11.x"
-
-xstream-from-pull-stream@1.1:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/xstream-from-pull-stream/-/xstream-from-pull-stream-1.1.0.tgz#15728884d6c3ce8142e0de8443a27bea75361d7c"
-  dependencies:
     xstream "10.x || 11.x"
 
 "xstream@10.x || 11.x", xstream@11.x, xstream@>=10:

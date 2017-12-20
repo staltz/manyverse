@@ -41,7 +41,7 @@
     "react-mutant-hoc": "^1.1.0",
     "react-native": "0.51.0",
     "react-native-dialogs": "0.0.20",
-    "react-native-navigation": "1.1.256",
+    "react-native-navigation": "1.1.314",
     "react-native-os": "git://github.com/staltz/react-native-os.git#staltz-package",
     "react-native-progress": "3.4.0",
     "react-native-scuttlebot": "10.4.21",
