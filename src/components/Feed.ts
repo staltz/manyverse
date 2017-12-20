@@ -152,10 +152,12 @@ export default class Feed extends Component<Props, State> {
     this.isPulling = false;
     this.morePullQueue = 0;
     this._onPublish = this.onPublish.bind(this);
+    this._onEndReached = this.onEndReached.bind(this);
   }
 
   private readable?: Readable<MsgAndExtras>;
   private _onPublish: (ev: any) => void;
+  private _onEndReached: (info: {distanceFromEnd: number}) => void;
   private isPulling: boolean;
   private morePullQueue: number;
 
@@ -199,7 +201,7 @@ export default class Feed extends Component<Props, State> {
     }
   }
 
-  private _onEndReached(info: {distanceFromEnd: number}): void {
+  private onEndReached(info: {distanceFromEnd: number}): void {
     if (this.state.isExpectingMore) {
       this._pullSome(30);
     }
@@ -328,9 +330,7 @@ export default class Feed extends Component<Props, State> {
       initialNumToRender: 5,
       numColumns: 1,
       keyExtractor: (item: any, index: number) => item.key || String(index),
-      onEndReached: (info: {distanceFromEnd: number}) => {
-        this._onEndReached(info);
-      },
+      onEndReached: this._onEndReached,
       onEndReachedThreshold: 4,
       ListHeaderComponent: showPublishHeader
         ? h(FeedHeader, {onPublish: this._onPublish})
