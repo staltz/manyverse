@@ -19,7 +19,7 @@
 
 import {PureComponent, Component} from 'react';
 import {StyleSheet, TextInputProperties} from 'react-native';
-import {View, FlatList, TextInput} from 'react-native';
+import {View, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
 import {Msg, isVoteMsg, isPrivate, FeedId} from '../ssb/types';
@@ -222,6 +222,8 @@ export default class Feed extends Component<Props, State> {
       style: [styles.container, style] as any,
       initialNumToRender: 5,
       numColumns: 1,
+      refreshable: true,
+      refreshColors: [Palette.indigo7],
       keyExtractor: (item: any, index: number) => item.key || String(index),
       ListHeaderComponent: showPublishHeader
         ? h(FeedHeader, {
