@@ -26,32 +26,6 @@ import {MsgAndExtras} from '../../drivers/ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 
-export const PLACEHOLDER_KEY = '%placeholder';
-export const PLACEHOLDER_MSG: MsgAndExtras<null> = {
-  key: PLACEHOLDER_KEY,
-  value: {
-    previous: '',
-    author: '',
-    sequence: 1,
-    timestamp: 1,
-    hash: 'sha256',
-    content: null,
-    signature: '',
-    _streams: {
-      likes: null as any,
-      about: {
-        name: null as any,
-        imageUrl: null as any,
-      },
-    },
-  },
-  timestamp: 1,
-};
-
-export function isPlaceholderMsg(msg: Msg<any>): msg is Msg<null> {
-  return msg.key === PLACEHOLDER_KEY;
-}
-
 export const styles = StyleSheet.create({
   messageHeaderRow: {
     flexDirection: 'row',

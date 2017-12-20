@@ -29,9 +29,11 @@ import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
 import MessageContainer from './messages/MessageContainer';
 import Message from './messages/Message';
-import {PLACEHOLDER_MSG, PLACEHOLDER_KEY} from './messages/PlaceholderMessage';
+import PlaceholderMessage from './messages/PlaceholderMessage';
 import {MsgAndExtras, GetReadable} from '../drivers/ssb';
+import PullFlatList from 'pull-flat-list';
 const pull = require('pull-stream');
+const Pushable = require('pull-pushable');
 
 export const styles = StyleSheet.create({
   header: {
@@ -73,6 +75,7 @@ export const styles = StyleSheet.create({
 });
 
 type FeedHeaderProps = {
+  showPlaceholder: boolean;
   onPublish?: (event: {nativeEvent: {text: string}}) => void;
 };
 
@@ -80,35 +83,38 @@ class FeedHeader extends PureComponent<FeedHeaderProps> {
   private _textInput: TextInput;
 
   public render() {
-    const {onPublish} = this.props;
-    return h(MessageContainer, {style: styles.header}, [
-      h(View, {style: styles.writeMessageRow}, [
-        h(View, {style: styles.writeMessageAuthorImage}),
-        h(
-          TextInput,
-          {
-            underlineColorAndroid: Palette.brand.textBackground,
-            placeholderTextColor: Palette.brand.textVeryWeak,
-            style: styles.writeInput,
-            placeholder: 'Write a public message',
-            accessible: true,
-            accessibilityLabel: 'Feed Text Input',
-            selectionColor: Palette.brand.text,
-            returnKeyType: 'done',
-            ref: (el: any) => {
-              this._textInput = el;
-            },
-            onSubmitEditing: (ev: any) => {
-              if (this._textInput) {
-                this._textInput.clear();
-              }
-              if (onPublish) {
-                onPublish(ev);
-              }
-            },
-          } as TextInputProperties,
-        ),
+    const {onPublish, showPlaceholder} = this.props;
+    return h(View, [
+      h(MessageContainer, {style: styles.header}, [
+        h(View, {style: styles.writeMessageRow}, [
+          h(View, {style: styles.writeMessageAuthorImage}),
+          h(
+            TextInput,
+            {
+              underlineColorAndroid: Palette.brand.textBackground,
+              placeholderTextColor: Palette.brand.textVeryWeak,
+              style: styles.writeInput,
+              placeholder: 'Write a public message',
+              accessible: true,
+              accessibilityLabel: 'Feed Text Input',
+              selectionColor: Palette.brand.text,
+              returnKeyType: 'done',
+              ref: (el: any) => {
+                this._textInput = el;
+              },
+              onSubmitEditing: (ev: any) => {
+                if (this._textInput) {
+                  this._textInput.clear();
+                }
+                if (onPublish) {
+                  onPublish(ev);
+                }
+              },
+            } as TextInputProperties,
+          ),
+        ]),
       ]),
+      showPlaceholder ? h(PlaceholderMessage) : null as any,
     ]);
   }
 }
@@ -140,178 +146,58 @@ type Props = {
 };
 
 type State = {
-  data: Array<MsgAndExtras>;
-  isExpectingMore: boolean;
-  updateInt: number;
+  showPlaceholder: boolean;
 };
 
 export default class Feed extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {data: [], isExpectingMore: true, updateInt: 0};
-    this.isPulling = false;
-    this.morePullQueue = 0;
+    this.state = {showPlaceholder: false};
+    this.addedMessagesStream = Pushable();
     this._onPublish = this.onPublish.bind(this);
-    this._onEndReached = this.onEndReached.bind(this);
   }
 
-  private readable?: Readable<MsgAndExtras>;
+  private addedMessagesStream: any | null;
   private _onPublish: (ev: any) => void;
-  private _onEndReached: (info: {distanceFromEnd: number}) => void;
-  private isPulling: boolean;
-  private morePullQueue: number;
 
   public componentDidMount() {
-    if (this.props.getReadable) {
-      this.start(this.props.getReadable());
-    }
+    this.addedMessagesStream = this.addedMessagesStream || Pushable();
   }
 
   public componentWillUnmount() {
-    this.stop();
-  }
-
-  /**
-   * Consumes a valid pull stream (Readable) and begins pulling it.
-   */
-  public start(readable?: Readable<MsgAndExtras> | null) {
-    if (readable) {
-      this.readable = pull(readable, pull.filter(isShowableMsg));
-    }
-    if (this.state.isExpectingMore) {
-      this._pullSome(4);
+    const addedMessagesStream = this.addedMessagesStream;
+    if (addedMessagesStream) {
+      addedMessagesStream.end();
+      this.addedMessagesStream = null;
     }
   }
 
-  public stop() {
-    if (this.readable) {
-      this.readable(true, () => {});
-    }
-    this.setState((prev: State) => ({
-      data: [],
-      isExpectingMore: true,
-      updateInt: 1 - prev.updateInt,
-    }));
-  }
-
-  public componentWillReceiveProps(nextProps: Props) {
-    const nextReadable = nextProps.getReadable;
-    if (nextReadable && nextReadable !== this.props.getReadable) {
-      this.start(nextReadable());
-    }
-  }
-
-  private onEndReached(info: {distanceFromEnd: number}): void {
-    if (this.state.isExpectingMore) {
-      this._pullSome(30);
-    }
-  }
-
-  private _repullPrependOneNew() {
+  private _prependAddedMessage() {
     const {getReadable} = this.props;
     if (!getReadable) return;
     const newReadable = getReadable({live: true, old: false});
     if (!newReadable) return;
+    const addedMessagesStream = this.addedMessagesStream;
     const that = this;
 
-    // Add placeholder message
-    that.setState((prev: State) => ({
-      data: ([PLACEHOLDER_MSG] as typeof prev.data).concat(prev.data),
-      isExpectingMore: prev.isExpectingMore,
-      updateInt: 1 - prev.updateInt,
-    }));
+    that.setState({showPlaceholder: true});
 
-    const readable: Readable<MsgAndExtras> = pull(newReadable, pull.take(1));
-
-    // Replace placeholder with newly posted message
-    readable(null, (end, msg) => {
-      if (end || !msg) return;
-      const newData = this.state.data;
-      if (newData[0].key === PLACEHOLDER_KEY) {
-        newData[0] = msg;
-      } else {
-        newData.unshift(msg);
-      }
-      this.setState((prev: State) => ({
-        data: newData,
-        isExpectingMore: prev.isExpectingMore,
-        updateInt: 1 - prev.updateInt,
-      }));
-    });
-  }
-
-  private _onEndPullingSome(
-    buffer: Array<MsgAndExtras>,
-    isExpectingMore: boolean,
-  ) {
-    this.isPulling = false;
-    this.setState((prev: State) => ({
-      data: prev.data.concat(buffer),
-      isExpectingMore,
-      updateInt: 1 - prev.updateInt,
-    }));
-    const remaining = this.morePullQueue;
-    if (remaining > 0) {
-      this.morePullQueue = 0;
-      this._pullSome(remaining);
-    }
-  }
-
-  private _pullSome(amount: number): void {
-    const readable = this.readable;
-    if (!readable) return;
-    if (this.isPulling) {
-      this.morePullQueue = amount;
-      return;
-    }
-    this.isPulling = true;
-    const that = this;
-    const buffer: Array<MsgAndExtras> = [];
-    readable(null, function read(end, msg) {
-      if (end === true) {
-        that._onEndPullingSome(buffer, false);
-      } else if (msg) {
-        const idxStored = that.state.data.findIndex(m => m.key === msg.key);
-        const idxInBuffer = buffer.findIndex(m => m.key === msg.key);
-
-        // Consume message
-        if (idxStored >= 0) {
-          const newData = that.state.data;
-          newData[idxStored] = msg;
-          that.setState((prev: State) => ({
-            data: newData,
-            isExpectingMore: prev.isExpectingMore,
-            updateInt: 1 - prev.updateInt,
-          }));
-        } else if (idxInBuffer >= 0) {
-          buffer[idxInBuffer] = msg;
-        } else {
-          buffer.push(msg);
-
-          // Continue
-          if (buffer.length >= amount) {
-            that._onEndPullingSome(buffer, that.state.isExpectingMore);
-          } else if (that.state.isExpectingMore) {
-            readable(null, read);
-          }
-        }
-      }
-    });
+    const readable: Readable<MsgAndExtras> = pull(
+      newReadable,
+      pull.take(1),
+      pull.drain((msg: MsgAndExtras) => {
+        that.setState({showPlaceholder: false});
+        addedMessagesStream.push(msg);
+      }),
+    );
   }
 
   private onPublish(ev: any) {
     const {onPublish} = this.props;
     if (onPublish) {
       onPublish(ev);
-      this._repullPrependOneNew();
+      this._prependAddedMessage();
     }
-  }
-
-  public shouldComponentUpdate(nextProps: Props, nextState: State) {
-    return (
-      nextProps.getReadable !== this.props.getReadable ||
-      nextState.updateInt !== this.state.updateInt
-    );
   }
 
   public render() {
@@ -320,22 +206,30 @@ export default class Feed extends Component<Props, State> {
       onPressAuthor,
       showPublishHeader,
       style,
+      getReadable,
       selfFeedId,
     } = this.props;
 
-    return h(FlatList, {
-      data: this.state.data,
-      extraData: this.state.updateInt,
+    // TODO: this filter() should probably done in a better place
+    // (not even in this component)
+    const scrollStream = getReadable
+      ? () => pull(getReadable(), pull.filter(isShowableMsg))
+      : null;
+
+    return h(PullFlatList, {
+      getScrollStream: scrollStream,
+      getPrefixStream: () => this.addedMessagesStream,
       style: [styles.container, style] as any,
       initialNumToRender: 5,
       numColumns: 1,
       keyExtractor: (item: any, index: number) => item.key || String(index),
-      onEndReached: this._onEndReached,
-      onEndReachedThreshold: 4,
       ListHeaderComponent: showPublishHeader
-        ? h(FeedHeader, {onPublish: this._onPublish})
+        ? h(FeedHeader, {
+            onPublish: this._onPublish,
+            showPlaceholder: this.state.showPlaceholder,
+          })
         : null,
-      ListFooterComponent: this.state.isExpectingMore ? FeedFooter : null,
+      ListFooterComponent: FeedFooter,
       renderItem: ({item}: {item: MsgAndExtras}) =>
         h(Message, {msg: item, selfFeedId, onPressLike, onPressAuthor}),
     });

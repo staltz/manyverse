@@ -37,9 +37,9 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
-"@types/react-native@*", "@types/react-native@0.51.0":
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.51.0.tgz#322caad4224c258365a5afb17d8669939ee6d074"
+"@types/react-native@*", "@types/react-native@0.51.4", "@types/react-native@>=0.49.0":
+  version "0.51.4"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.51.4.tgz#92756c0600c18335a12d324b53b3231f33fe758f"
   dependencies:
     "@types/react" "*"
 
@@ -6558,6 +6558,16 @@ pull-file@^1.0.0:
   dependencies:
     pull-utf8-decoder "^1.0.2"
 
+pull-flat-list@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/pull-flat-list/-/pull-flat-list-1.0.0.tgz#15ad6e6bc741d2ee96bc217dd27b63a0d8364503"
+  dependencies:
+    "@types/react" ">=16.0.0"
+    "@types/react-native" ">=0.49.0"
+    pull-stream ">=3"
+    react ">=16.0.0"
+    react-native ">=0.49.0"
+
 pull-flatmap@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/pull-flatmap/-/pull-flatmap-0.0.1.tgz#13d494453e8f6d478e7bbfade6f8fe0197fa6bb7"
@@ -6707,7 +6717,7 @@ pull-pushable@1:
   dependencies:
     pull-stream "~2.18.2"
 
-pull-pushable@^2.0.0, pull-pushable@^2.0.1:
+pull-pushable@2.1.1, pull-pushable@^2.0.0, pull-pushable@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/pull-pushable/-/pull-pushable-2.1.1.tgz#86666abbe3f5402f1f7ead03eefd69b785eca5b8"
 
@@ -6750,6 +6760,10 @@ pull-stream@3.6.0, pull-stream@^3.1.0, pull-stream@^3.2.3, pull-stream@^3.3.0, p
   resolved "https://registry.yarnpkg.com/pull-stream/-/pull-stream-2.28.4.tgz#7ea97413c1619c20bc3bdf9e10e91347b03253e4"
   dependencies:
     pull-core "~1.1.0"
+
+pull-stream@>=3:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/pull-stream/-/pull-stream-3.6.1.tgz#c5c2ae4a51246efeebcc65c0412a3d725a92ce00"
 
 pull-stream@~2.18.2:
   version "2.18.3"
@@ -7116,7 +7130,7 @@ react-native-version@^2.3.1:
     commander "^2.9.0"
     p-settle "^2.0.0"
 
-react-native@0.51.0, "react-native@>= 0.49.0":
+react-native@0.51.0, "react-native@>= 0.49.0", react-native@>=0.49.0:
   version "0.51.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.51.0.tgz#fe25934b3030fd323f3ca1a70f034133465955ed"
   dependencies:

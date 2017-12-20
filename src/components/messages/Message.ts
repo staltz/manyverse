@@ -39,7 +39,6 @@ import AboutMessage from './AboutMessage';
 import ContactMessage from './ContactMessage';
 import Metadata from './Metadata';
 import {withMutantProps, MutantProps} from 'react-mutant-hoc';
-import PlaceholderMessage, {isPlaceholderMsg} from './PlaceholderMessage';
 
 export type Props = {
   msg: MsgAndExtras;
@@ -83,7 +82,6 @@ export default class Message extends PureComponent<Props> {
       imageUrl: streams.about.imageUrl,
     };
     if (!msg.key) return h(KeylessMessage, props);
-    if (isPlaceholderMsg(msg)) return h(PlaceholderMessage);
     if (isPostMsg(msg)) return h(PostMessageM, props);
     if (isAboutMsg(msg)) return h(AboutMessageM, props);
     if (isContactMsg(msg)) return h(ContactMessageM, props);
