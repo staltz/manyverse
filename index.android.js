@@ -28,7 +28,7 @@ import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
 import {Palette} from './lib/global-styles/palette';
 import {Dimensions} from './lib/global-styles/dimens';
 import {Typography} from './lib/global-styles/typography';
-import {navigatorStyle as centralNavigatorStyle} from './lib/scenes/central/styles';
+import {navigatorStyle as centralNavigatorStyle} from './lib/screens/central/styles';
 import Scuttlebot from 'react-native-scuttlebot';
 
 const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
