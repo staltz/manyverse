@@ -24,6 +24,7 @@ import blobUrlOpinion from '../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../ssb/opinions/about/sync';
 import makeKeysOpinion from '../ssb/opinions/keys';
 import gossipOpinion from '../ssb/opinions/gossip';
+import emptyHookOpinion from '../ssb/opinions/hook';
 import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
 import xsFromCallback from 'xstream-from-callback';
 import xsFromMutant from 'xstream-from-mutant';
@@ -42,13 +43,6 @@ const depjectCombine = require('depject');
 const Config = require('ssb-config/inject');
 const nest = require('depnest');
 const os = require('os');
-
-const emptyHookOpinion = {
-  gives: nest('sbot.hook.publish'),
-  create: (api: any) => {
-    return nest('sbot.hook.publish', () => {});
-  },
-};
 
 const configOpinion = {
   gives: nest('config.sync.load'),
