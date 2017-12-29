@@ -26,6 +26,7 @@ import makeKeysOpinion from '../ssb/opinions/keys';
 import gossipOpinion from '../ssb/opinions/gossip';
 import emptyHookOpinion from '../ssb/opinions/hook';
 import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
+import {ssbPath, ssbKeysPath} from '../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
 import xsFromMutant from 'xstream-from-mutant';
 import {Readable} from '../typings/pull-stream';
@@ -42,7 +43,6 @@ const ssbKeys = require('react-native-ssb-client-keys');
 const depjectCombine = require('depject');
 const Config = require('ssb-config/inject');
 const nest = require('depnest');
-const os = require('os');
 
 const configOpinion = {
   gives: nest('config.sync.load'),
@@ -51,7 +51,7 @@ const configOpinion = {
     return nest('config.sync.load', () => {
       if (!config) {
         config = Config('ssb');
-        config.path = os.homedir() + '/.ssb';
+        config.path = ssbPath;
       }
       return config;
     });
@@ -174,8 +174,7 @@ function dropCompletion(stream: Stream<any>): Stream<any> {
 }
 
 export function ssbDriver(sink: Stream<Content>): SSBSource {
-  const keysPath = os.homedir() + '/.ssb/secret';
-  const keys$ = xsFromCallback(ssbKeys.loadOrCreate)(keysPath);
+  const keys$ = xsFromCallback(ssbKeys.loadOrCreate)(ssbKeysPath);
 
   const api$ = keys$
     .take(1)
