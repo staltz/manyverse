@@ -25,6 +25,7 @@ import aboutSyncOpinion from '../ssb/opinions/about/sync';
 import makeKeysOpinion from '../ssb/opinions/keys';
 import gossipOpinion from '../ssb/opinions/gossip';
 import emptyHookOpinion from '../ssb/opinions/hook';
+import configOpinion from '../ssb/opinions/config';
 import feedProfileOpinion from '../ssb/opinions/feed/pull/profile';
 import {ssbPath, ssbKeysPath} from '../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
@@ -41,22 +42,6 @@ const unboxOpinion = require('patchcore/message/sync/unbox');
 const msgLikesOpinion = require('patchcore/message/obs/likes');
 const ssbKeys = require('react-native-ssb-client-keys');
 const depjectCombine = require('depject');
-const Config = require('ssb-config/inject');
-const nest = require('depnest');
-
-const configOpinion = {
-  gives: nest('config.sync.load'),
-  create: (api: any) => {
-    let config: any;
-    return nest('config.sync.load', () => {
-      if (!config) {
-        config = Config('ssb');
-        config.path = ssbPath;
-      }
-      return config;
-    });
-  },
-};
 
 function isNotSync(msg: any): boolean {
   return !msg.sync;
