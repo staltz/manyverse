@@ -19,9 +19,11 @@
 
 const nest = require('depnest');
 
-export default const emptyHookOpinion = {
+const emptyHookOpinion = {
   gives: nest('sbot.hook.publish'),
   create: (api: any) => {
     return nest('sbot.hook.publish', () => {});
   },
 };
+
+export default emptyHookOpinion;
