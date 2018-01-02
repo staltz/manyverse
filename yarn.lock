@@ -16,9 +16,9 @@
   dependencies:
     "@cycle/run" "^3.1.0"
 
-"@cycle/run@*", "@cycle/run@3.4", "@cycle/run@^3.1.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@cycle/run/-/run-3.4.0.tgz#113844add669ace91d245842522f3733ba5bd393"
+"@cycle/run@*", "@cycle/run@4.1", "@cycle/run@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@cycle/run/-/run-4.1.0.tgz#b164a83792e85db3c184236f4b3800a4c9bf6f76"
   dependencies:
     xstream "10.x || 11.x"
 
