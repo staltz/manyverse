@@ -20,19 +20,19 @@
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
-import {ScreenSource, h} from '@cycle/native-screen';
+import {h} from '@cycle/native-screen';
 import {View, Text, StyleSheet} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from './drivers/ssb';
 import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';
-import {ScreenVNode, Command, PushCommand} from 'cycle-native-navigation';
+import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import {central} from './screens/central/index';
 import {profile} from './screens/profile/index';
 import {Content} from './ssb/types';
 import model, {State, centralLens, profileLens} from './model';
 
 export type Sources = {
-  screen: ScreenSource;
+  screen: ScreensSource;
   navigation: Stream<any>;
   onion: StateSource<State>;
   ssb: SSBSource;
@@ -43,7 +43,7 @@ export type Sinks = {
   screen: Stream<ScreenVNode>;
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
-  ssb: Stream<Content>;
+  ssb: Stream<Content | null>;
   dialog: Stream<DialogReq>;
 };
 
@@ -97,7 +97,8 @@ export function main(sources: Sources): Sinks {
     centralSinks.onion,
     profileSinks.onion,
   );
-  const ssb$ = xs.merge(centralSinks.ssb, profileSinks.ssb);
+  const initSSB$ = sources.screen.didAppear('mmmmm.Central').mapTo(null);
+  const ssb$ = xs.merge(initSSB$, centralSinks.ssb, profileSinks.ssb);
 
   return {
     screen: screen$.compose(addAlphaDisclaimer),

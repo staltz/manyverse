@@ -14,13 +14,17 @@
   version "1.0.0-rc.4"
   resolved "https://registry.yarnpkg.com/@cycle/native-screen/-/native-screen-1.0.0-rc.4.tgz#538504fc9e2cd81dcf9f718792b18b6060dc9ee2"
   dependencies:
-    "@cycle/run" "^3.1.0"
+    "@cycle/run" "^4.1.0"
 
 "@cycle/run@*", "@cycle/run@4.1", "@cycle/run@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@cycle/run/-/run-4.1.0.tgz#b164a83792e85db3c184236f4b3800a4c9bf6f76"
   dependencies:
     xstream "10.x || 11.x"
+
+"@staltz/react-native-workers@0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@staltz/react-native-workers/-/react-native-workers-0.5.3.tgz#c12d03f24c80751a5066f035233e146fd3c98382"
 
 "@staltz/rn-viewpager@1.2.5":
   version "1.2.5"
@@ -2570,9 +2574,9 @@ csurf@~1.8.3:
     csrf "~3.0.0"
     http-errors "~1.3.1"
 
-cycle-native-navigation@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/cycle-native-navigation/-/cycle-native-navigation-1.5.0.tgz#e21aa659e5b80efc5dd399491d6e520e30934fb1"
+cycle-native-navigation@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/cycle-native-navigation/-/cycle-native-navigation-2.0.0.tgz#4c0db3fb81ba4987df1d839b53cc25890d5de8fd"
   dependencies:
     "@cycle/native-screen" "1.0.0-rc.4"
     react ">= 16.0.0"
@@ -5596,7 +5600,13 @@ multipipe@^0.1.2:
   dependencies:
     duplexer2 "0.0.2"
 
-multiserver@^1.10.0, multiserver@^1.2.0, multiserver@^1.7.0:
+multiserver-worker@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/multiserver-worker/-/multiserver-worker-1.1.0.tgz#bdb6871bd3ce38495cf73a370836cdc13fa467b3"
+  dependencies:
+    pull-worker "^1.1.0"
+
+multiserver@1.10.0, multiserver@^1.10.0, multiserver@^1.2.0, multiserver@^1.7.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/multiserver/-/multiserver-1.10.0.tgz#d298a0d0028e0a586f90bb9fc944684d42390f88"
   dependencies:
@@ -5640,6 +5650,16 @@ muxrpc-validation@^2.0.0:
   dependencies:
     pull-stream "^2.28.3"
     zerr "^1.0.1"
+
+muxrpc@6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/muxrpc/-/muxrpc-6.4.0.tgz#24f7da069bd4629b077e993b0577942b2688eae8"
+  dependencies:
+    explain-error "^1.0.1"
+    packet-stream "~2.0.0"
+    packet-stream-codec "^1.1.1"
+    pull-goodbye "~0.0.1"
+    pull-stream "^3.2.3"
 
 muxrpc@^6.1.1, muxrpc@^6.2.2, muxrpc@^6.3.3:
   version "6.3.3"
@@ -6558,9 +6578,9 @@ pull-file@^1.0.0:
   dependencies:
     pull-utf8-decoder "^1.0.2"
 
-pull-flat-list@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/pull-flat-list/-/pull-flat-list-1.1.0.tgz#8d5ad54c9797913ecd8895d0116be59abaaf0104"
+pull-flat-list@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/pull-flat-list/-/pull-flat-list-1.2.0.tgz#aeb3888910d00c42f00eda133911fa0fb0bccb6d"
   dependencies:
     "@types/react" ">=16.0.0"
     "@types/react-native" ">=0.49.0"
@@ -6673,7 +6693,14 @@ pull-many@~1.0.6:
   dependencies:
     pull-stream "^3.4.5"
 
-pull-next@^1.0.0:
+pull-more@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/pull-more/-/pull-more-1.0.0.tgz#cca9614db7953c5d2fb60659f68744d80dc9f139"
+  dependencies:
+    pull-next "^1.0.1"
+    pull-stream "^3.6.1"
+
+pull-next@^1.0.0, pull-next@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/pull-next/-/pull-next-1.0.1.tgz#03f4d7d19872fc1114161e88db6ecf4c65e61e56"
 
@@ -6761,7 +6788,7 @@ pull-stream@3.6.0, pull-stream@^3.1.0, pull-stream@^3.2.3, pull-stream@^3.3.0, p
   dependencies:
     pull-core "~1.1.0"
 
-pull-stream@>=3:
+pull-stream@>=3, pull-stream@^3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/pull-stream/-/pull-stream-3.6.1.tgz#c5c2ae4a51246efeebcc65c0412a3d725a92ce00"
 
@@ -6804,6 +6831,12 @@ pull-utf8-decoder@^1.0.2:
   resolved "https://registry.yarnpkg.com/pull-window/-/pull-window-2.1.4.tgz#fc3b86feebd1920c7ae297691e23f705f88552f0"
   dependencies:
     looper "^2.0.0"
+
+pull-worker@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/pull-worker/-/pull-worker-1.2.0.tgz#31edb6435290752a6cf335ce636e031e3ded7113"
+  dependencies:
+    pull-stream ">=3"
 
 pull-write-file@^0.2.1:
   version "0.2.4"

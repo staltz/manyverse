@@ -25,6 +25,7 @@ import onionify from 'cycle-onionify';
 import {ssbDriver} from './lib/drivers/ssb';
 import {dialogDriver} from './lib/drivers/dialogs';
 import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
+import RNNav from 'react-native-navigation';
 import {Palette} from './lib/global-styles/palette';
 import {Dimensions} from './lib/global-styles/dimens';
 import {Typography} from './lib/global-styles/typography';
@@ -32,6 +33,7 @@ import {navigatorStyle as centralNavigatorStyle} from './lib/screens/central/sty
 import Scuttlebot from 'react-native-scuttlebot';
 
 const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
+  RNNav,
   ['mmmmm.Central', 'mmmmm.Profile', 'mmmmm.Profile.Edit'],
   {
     screen: {
@@ -42,11 +44,20 @@ const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
   },
 );
 
-run(onionify(main), {
-  screen: screenVNodeDriver,
-  navigation: commandDriver,
-  ssb: ssbDriver,
-  dialog: dialogDriver,
+Scuttlebot.start();
+
+RNNav.Navigation.isAppLaunched().then(appLaunched => {
+  if (appLaunched) {
+    startCycleApp();
+  }
+  new RNNav.NativeEventsReceiver().appLaunched(startCycleApp);
 });
 
-Scuttlebot.start();
+function startCycleApp() {
+  run(onionify(main), {
+    screen: screenVNodeDriver,
+    navigation: commandDriver,
+    ssb: ssbDriver,
+    dialog: dialogDriver,
+  });
+}

@@ -9,6 +9,7 @@
     "jsx": "react-native",
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
+    "allowJs": true,
     "module": "commonjs",
     "target": "es2015",
     "outDir": "./lib",
@@ -16,10 +17,12 @@
   },
   "files": [
     "src/main.ts",
-    "src/drivers/ssb.ts",
+    "src/worker/index.ts",
+    "src/typings/fbjs.d.ts",
     "src/typings/react-native-dialogs.d.ts",
     "src/typings/react-native-progress.d.ts",
     "src/typings/react-native-simple-markdown.d.ts",
+    "src/typings/react-native-workers.d.ts",
     "src/typings/rn-viewpager.d.ts"
   ],
   "exclude": ["node_modules"]

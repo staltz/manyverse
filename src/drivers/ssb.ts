@@ -23,6 +23,7 @@ import {isMsg, Msg, PeerMetadata, Content, FeedId, About} from '../ssb/types';
 import blobUrlOpinion from '../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../ssb/opinions/about/sync';
 import makeKeysOpinion from '../ssb/opinions/keys';
+import sbotOpinion from '../ssb/opinions/sbot';
 import gossipOpinion from '../ssb/opinions/gossip';
 import emptyHookOpinion from '../ssb/opinions/hook';
 import configOpinion from '../ssb/opinions/config';
@@ -34,7 +35,6 @@ import {Readable} from '../typings/pull-stream';
 import {Mutant} from 'react-mutant-hoc';
 const pull = require('pull-stream');
 const {computed} = require('mutant');
-const sbotOpinion = require('patchcore/sbot');
 const backlinksOpinion = require('patchcore/backlinks/obs');
 const aboutOpinion = require('patchcore/about/obs');
 const contactOpinion = require('patchcore/contact/obs');
@@ -96,7 +96,7 @@ export class SSBSource {
 
     this.localSyncPeers$ = api$
       .map(api => {
-        const peers$ = api.sbot.obs.connectedPeers[1]() as Stream<
+        const peers$ = api.sbot.obs.connectedPeers[0]() as Stream<
           Map<string, PeerMetadata>
         >;
         const peersArr$ = peers$.map(es6map => Array.from(es6map.entries()));
@@ -158,7 +158,7 @@ function dropCompletion(stream: Stream<any>): Stream<any> {
   return xs.merge(stream, xs.never());
 }
 
-export function ssbDriver(sink: Stream<Content>): SSBSource {
+export function ssbDriver(sink: Stream<Content | null>): SSBSource {
   const keys$ = xsFromCallback(ssbKeys.loadOrCreate)(ssbKeysPath);
 
   const api$ = keys$
