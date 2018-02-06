@@ -58,7 +58,7 @@
     "react-native-ssb-client": "3.0.0",
     "react-native-ssb-client-keys": "1.0.0",
     "react-native-ssb-shims": "1.0.2",
-    "react-native-vector-icons": "4.2.0",
+    "react-native-vector-icons": "4.5.0",
     "ssb-ref": "2.7.1",
     "xstream": "11.x",
     "xstream-from-callback": "1.0",
