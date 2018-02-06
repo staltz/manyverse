@@ -193,25 +193,14 @@ const create = (api: any) => {
       const client = muxrpc(manifest, null, codec)();
       pull(stream, client.createStream(), stream);
       sbot = client;
+      sbot.on('closed', () => {
+        sbot = null;
+        connection.set(null);
+        notify(new Error('closed'));
+      });
       connection.set(sbot);
       notify();
     });
-
-    // createClient(keys, opts, (err: any, _sbot: any) => {
-    //   if (err) {
-    //     return notify(err);
-    //   }
-
-    //   sbot = _sbot;
-    //   sbot.on('closed', () => {
-    //     sbot = null;
-    //     connection.set(null);
-    //     notify(new Error('closed'));
-    //   });
-
-    //   connection.set(sbot);
-    //   notify();
-    // });
   });
 
   const internal = {
