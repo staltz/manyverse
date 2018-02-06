@@ -4,7 +4,7 @@
 
 ## Install dependencies
 
-Use node `v6.9.1` and yarn `v0.27.5`.
+Use node `v8.9.x` and yarn `v1.0.x`.
 
 ```
 yarn
@@ -19,6 +19,14 @@ brew install coreutils
 
 ## Build/run in development
 
+Build the worker thread subproject:
+
+```
+npm run build-worker-android
+```
+
+Then build the entire app:
+
 ```
 react-native run-android
 ```
@@ -32,6 +40,7 @@ react-native run-android
 - react-native-scuttlebot
   - Uses react-native-node under the hood
     - Which in turn uses NodeBase (node.js v7 compiled for android arm devices)
+- react-native-workers (fork by staltz)
 - react-native-ssb-client
 - Patchcore (with depject)
 
