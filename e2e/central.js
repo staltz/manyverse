@@ -116,10 +116,10 @@ module.exports = function(driver, t) {
     t.equal(f1, 'Write a public message', 'It shows the placeholder');
     await feedTextInput.tap();
     t.pass('I tap it');
-    await feedTextInput.keys('Hello world, today is a sunny day');
+    await feedTextInput.keys('Hello world today is a sunny day');
     t.pass('I type a message into it');
     const f2 = await feedTextInput.text();
-    t.equal(f2.length, 33, 'Its text content is non-empty');
+    t.equal(f2.length, 32, 'Its text content is non-empty');
     await driver.pressKeycode(66 /* KEYCODE_ENTER */);
     t.pass('I press Enter');
     const f3 = await feedTextInput.text();
@@ -127,7 +127,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("Hello world, today is a sunny day")',
+        'new UiSelector().textContains("Hello world today is a sunny day")',
         6000,
       ),
       'I see the new message posted on the feed',

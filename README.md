@@ -4,11 +4,7 @@
 
 ## Install dependencies
 
-Use node `v8.9.x` and yarn `v1.0.x`.
-
-```
-yarn
-```
+Use node `v8.9.x` and npm `v5.6.x`.
 
 **Mac OS note**: You might need `realpath`, install it through coreutils:
 

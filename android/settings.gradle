@@ -6,7 +6,7 @@ project(':react-native-vector-icons').projectDir = new File(rootProject.projectD
 include ':react-native-tcp'
 project(':react-native-tcp').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-tcp/android')
 include ':react-native-os'
-project(':react-native-os').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-os/android')
+project(':react-native-os').projectDir = new File(rootProject.projectDir, '../node_modules/@staltz/react-native-os/android')
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fs/android')
 include ':react-native-randombytes'

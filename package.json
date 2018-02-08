@@ -25,6 +25,7 @@
   "dependencies": {
     "@cycle/isolate": "3.2",
     "@cycle/run": "4.1",
+    "@staltz/react-native-os": "1.2.0",
     "@staltz/react-native-workers": "0.5.3",
     "@staltz/rn-viewpager": "1.2.5",
     "@types/react": "16.0.28",
@@ -35,7 +36,7 @@
     "cycle-onionify": "5.0.0",
     "depject": "^4.1.0",
     "depnest": "^1.3.0",
-    "multiserver": "1.10.0",
+    "multiserver": "1.10.1",
     "multiserver-worker": "1.1.0",
     "muxrpc": "6.4.0",
     "mutant": "3.21.2",
@@ -51,13 +52,12 @@
     "react-native": "0.51.0",
     "react-native-dialogs": "0.0.20",
     "react-native-navigation": "1.1.314",
-    "react-native-os": "git://github.com/staltz/react-native-os.git#staltz-package",
     "react-native-progress": "3.4.0",
-    "react-native-scuttlebot": "10.4.21",
+    "react-native-scuttlebot": "10.4.22",
     "react-native-simple-markdown": "^1.0.60-rc.3",
-    "react-native-ssb-client": "3.0.0",
+    "react-native-ssb-client": "3.0.2",
     "react-native-ssb-client-keys": "1.0.0",
-    "react-native-ssb-shims": "1.0.2",
+    "react-native-ssb-shims": "2.0.0",
     "react-native-vector-icons": "4.5.0",
     "ssb-ref": "2.9.1",
     "xstream": "11.x",
@@ -65,13 +65,13 @@
     "xstream-from-mutant": "1.1"
   },
   "devDependencies": {
-    "appium": "^1.7.1",
+    "appium": "1.7.2",
     "babel-jest": "21.2.0",
     "babel-preset-react-native": "4.0.0",
     "cheerio": "^1.0.0-rc.2",
     "jase": "1.2.0",
     "jest": "20.0.4",
-    "patch-package": "^3.4.0",
+    "patch-package": "^5.0.0",
     "prettier": "1.5.x",
     "propagate-replacement-fields": "1.2.0",
     "react-native-version": "^2.3.1",
@@ -80,14 +80,14 @@
     "tape": "^4.8.0",
     "tslint": "^5.7.0",
     "typescript": "2.4.x",
-    "wd": "^1.5.0",
-    "yarn": "^1.0.1"
+    "wd": "^1.5.0"
   },
   "jest": {
     "preset": "react-native"
   },
   "react-native": {
-    "os": "react-native-os",
+    "os": "@staltz/react-native-os",
+    "react-native-os": "@staltz/react-native-os",
     "rn-viewpager": "@staltz/rn-viewpager",
     "ssb-client": "react-native-ssb-client"
   }
