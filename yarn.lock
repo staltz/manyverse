@@ -8439,7 +8439,14 @@ ssb-query@^1.0.0:
     pull-stream "^3.4.2"
     streamview-links "^2.0.0"
 
-ssb-ref@2.7.1, ssb-ref@^2.0.0, ssb-ref@^2.3.0, ssb-ref@^2.6.2, ssb-ref@^2.7.1:
+ssb-ref@2.9.1:
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/ssb-ref/-/ssb-ref-2.9.1.tgz#60861713d80c111a9a52ae83099e331afcdbbf6b"
+  dependencies:
+    ip "^1.1.3"
+    is-valid-domain "~0.0.1"
+
+ssb-ref@^2.0.0, ssb-ref@^2.3.0, ssb-ref@^2.6.2, ssb-ref@^2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/ssb-ref/-/ssb-ref-2.7.1.tgz#5d4effc545ec0ffd7fc15ba27829a640b8a2afba"
   dependencies:
