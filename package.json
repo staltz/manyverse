@@ -1,5 +1,5 @@
 {
-  "name": "MMMMM",
+  "name": "mmmmm",
   "version": "0.0.11-alpha",
   "private": true,
   "scripts": {
@@ -40,7 +40,7 @@
     "multiserver-worker": "1.1.0",
     "muxrpc": "6.4.0",
     "mutant": "3.21.2",
-    "patchcore": "1.15.1",
+    "patchcore": "1.23.0",
     "prop-types": "15.5.x",
     "pull-flat-list": "1.2.0",
     "pull-more": "1.0.0",
