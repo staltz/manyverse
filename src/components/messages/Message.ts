@@ -34,11 +34,16 @@ import {MsgAndExtras} from '../../drivers/ssb';
 import MessageContainer from './MessageContainer';
 import MessageHeader, {Props as HeaderProps} from './MessageHeader';
 import MessageFooter, {Props as FooterProps} from './MessageFooter';
+import RawMessage from './RawMessage';
 import PostMessage from './PostMessage';
 import AboutMessage from './AboutMessage';
 import ContactMessage from './ContactMessage';
-import Metadata from './Metadata';
-import {withMutantProps, MutantProps} from 'react-mutant-hoc';
+import KeylessMessage from './KeylessMessage';
+import {withMutantProps} from 'react-mutant-hoc';
+
+export type State = {
+  hasError: boolean;
+};
 
 export type Props = {
   msg: MsgAndExtras;
@@ -47,30 +52,22 @@ export type Props = {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
-export class KeylessMessage extends PureComponent<{msg: any}> {
-  public render() {
-    const {msg} = this.props;
-    return h(MessageContainer, [h(Metadata, {msg})]);
-  }
-}
-
-export class RawMessage extends PureComponent<HeaderProps & FooterProps> {
-  public render() {
-    const props = this.props;
-    return h(MessageContainer, [
-      h(MessageHeader, props),
-      h(Metadata, props),
-      h(MessageFooter, props),
-    ]);
-  }
-}
-
 const PostMessageM = withMutantProps(PostMessage, 'name', 'imageUrl', 'likes');
 const AboutMessageM = withMutantProps(AboutMessage, 'name', 'imageUrl');
 const ContactMessageM = withMutantProps(ContactMessage, 'name');
 const RawMessageM = withMutantProps(RawMessage, 'name', 'imageUrl', 'likes');
 
-export default class Message extends PureComponent<Props> {
+export default class Message extends PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {hasError: false};
+  }
+
+  public componentDidCatch(error: any, info: any) {
+    console.log('Message componentDidCatch');
+    this.setState(() => ({hasError: true}));
+  }
+
   public render() {
     const {msg} = this.props;
     const streams = this.props.msg.value._streams;
@@ -81,6 +78,7 @@ export default class Message extends PureComponent<Props> {
       name: streams.about.name,
       imageUrl: streams.about.imageUrl,
     };
+    if (this.state.hasError) return h(RawMessageM, props);
     if (!msg.key) return h(KeylessMessage, props);
     if (isPostMsg(msg)) return h(PostMessageM, props);
     if (isAboutMsg(msg)) return h(AboutMessageM, props);
