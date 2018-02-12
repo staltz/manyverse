@@ -40,7 +40,7 @@
     "multiserver-worker": "1.1.0",
     "mutant": "3.21.2",
     "muxrpc": "6.4.0",
-    "patchcore": "1.15.1",
+    "patchcore": "1.23.2",
     "prop-types": "15.5.x",
     "pull-flat-list": "1.2.0",
     "pull-more": "1.0.0",
