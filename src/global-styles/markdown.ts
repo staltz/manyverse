@@ -1,7 +1,14 @@
 import {createElement} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Dimensions,
+  StyleSheet,
+  PixelRatio,
+} from 'react-native';
 import {Palette} from './palette';
-import {Dimensions} from './dimens';
+import {Dimensions as Dimens} from './dimens';
 import {Typography as Typ} from './typography';
 import createMarkdownRenderer from 'rn-markdown';
 
@@ -14,11 +21,18 @@ Markdown.renderer.blockquote = ({markdown, ...props}: any) => {
 };
 
 Markdown.renderer.image = ({markdown, ...props}: any) => {
+  const {width} = Dimensions.get('window');
+  const size = PixelRatio.getPixelSizeForLayoutSize(width);
   return createElement(Image, {
     source: {uri: markdown.href},
     style: {
-      width: 320,
-      height: 240,
+      width: size,
+      height: size * 0.75,
+      position: 'relative',
+      left: 0,
+      right: 0,
+      marginTop: Dimens.verticalSpaceSmall,
+      marginBottom: Dimens.verticalSpaceSmall,
       backgroundColor: Palette.indigo1,
       resizeMode: 'cover',
     },
@@ -59,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: Palette.brand.textWeakBackground,
     borderLeftWidth: 3,
     borderLeftColor: Palette.gray5,
-    paddingLeft: Dimensions.horizontalSpaceSmall,
+    paddingLeft: Dimens.horizontalSpaceSmall,
     paddingRight: 1,
   },
 
