@@ -18,9 +18,8 @@
  */
 
 import {Component, PureComponent} from 'react';
-import Markdown from 'react-native-simple-markdown';
 import {h} from '@cycle/native-screen';
-import {rules, styles} from '../../global-styles/markdown';
+import Markdown, {markdownStyles} from '../../global-styles/markdown';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
@@ -75,7 +74,7 @@ export default class PostMessage extends PureComponent<Props> {
 
     return h(MessageContainer, [
       h(MessageHeader, props),
-      h(Markdown, {styles, rules}, md),
+      h(Markdown, {markdownStyles}, md),
       h(MessageFooter, props),
     ]);
   }

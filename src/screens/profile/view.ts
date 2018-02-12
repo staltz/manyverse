@@ -20,10 +20,9 @@
 import xs, {Stream} from 'xstream';
 import {PureComponent, Component} from 'react';
 import {View, FlatList, Text, TextInput, Image} from 'react-native';
-import Markdown from 'react-native-simple-markdown';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
-import {rules, styles as mdstyles} from '../../global-styles/markdown';
+import Markdown, {markdownStyles} from '../../global-styles/markdown';
 import Feed from '../../components/Feed';
 import Button from '../../components/Button';
 import ToggleButton from '../../components/ToggleButton';
@@ -85,13 +84,7 @@ export default function view(state$: Stream<State>) {
               accessible: true,
               accessibilityLabel: 'Profile Description',
             },
-            [
-              h(
-                Markdown,
-                {styles: mdstyles, rules},
-                state.about.description || '',
-              ),
-            ],
+            [h(Markdown, {markdownStyles}, state.about.description || '')],
           ),
 
           h(Feed, {
