@@ -34,6 +34,26 @@ Markdown.renderer.code = ({markdown, ...props}: any) => {
   }
 };
 
+Markdown.renderer.em = ({markdown, ...props}: any) => {
+  return createElement(Text, {style: styles.em}, props.children);
+};
+
+Markdown.renderer.text = ({markdown, ...props}: any) => {
+  return createElement(Text, {style: styles.text}, props.children);
+};
+
+Markdown.renderer.link = ({markdown, ...props}: any) => {
+  return createElement(Text, {style: styles.link}, props.children);
+};
+
+Markdown.renderer.strong = ({markdown, ...props}: any) => {
+  return createElement(Text, {style: styles.strong}, props.children);
+};
+
+Markdown.renderer.paragraph = ({markdown, ...props}: any) => {
+  return createElement(Text, {style: styles.paragraph}, props.children);
+};
+
 const styles = StyleSheet.create({
   blockquote: {
     backgroundColor: Palette.brand.textWeakBackground,
@@ -41,6 +61,31 @@ const styles = StyleSheet.create({
     borderLeftColor: Palette.gray5,
     paddingLeft: Dimensions.horizontalSpaceSmall,
     paddingRight: 1,
+  },
+
+  link: {
+    textDecorationLine: 'underline',
+  },
+
+  paragraph: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginTop: Dimens.verticalSpaceSmall,
+    marginBottom: Dimens.verticalSpaceSmall,
+  },
+
+  em: {
+    fontStyle: 'italic',
+  },
+
+  strong: {
+    fontWeight: 'bold',
+  },
+
+  text: {
+    color: Palette.brand.text,
   },
 
   code: {
@@ -78,10 +123,6 @@ export const markdownStyles = {
     fontFamily: 'monospace',
   },
 
-  em: {
-    fontStyle: 'italic',
-  },
-
   heading: {
     fontWeight: 'bold',
   },
@@ -115,18 +156,9 @@ export const markdownStyles = {
     height: 2,
   },
 
-  image: {
-    width: 640,
-    height: 480,
-  },
-
-  link: {
-    textDecorationLine: 'underline',
-  },
-
   list: {
-    paddingLeft: Dimensions.horizontalSpaceSmall,
-    paddingRight: Dimensions.horizontalSpaceSmall,
+    paddingLeft: Dimens.horizontalSpaceSmall,
+    paddingRight: Dimens.horizontalSpaceSmall,
   },
 
   list_item_bullet: {
@@ -138,19 +170,6 @@ export const markdownStyles = {
 
   list_item_number: {
     fontWeight: 'bold',
-  },
-
-  paragraph: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    marginTop: Dimensions.verticalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall,
-  },
-
-  text: {
-    color: Palette.brand.text,
   },
 
   video: {
