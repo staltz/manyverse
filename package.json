@@ -18,7 +18,7 @@
     "update-android-version": "react-native-version --never-amend --target android",
     "clean-up-bundler": "watchman watch-del-all && rm -rf $TMPDIR/react-*",
     "android-release": "npm run lib && cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
-    "move-android-apk": "mkdir -p gitignored/release && cp android/app/build/outputs/apk/app-release.apk gitignored/release/",
+    "move-android-apk": "mkdir -p ../dat-release-android && cp android/app/build/outputs/apk/app-release.apk ../dat-release-android/",
     "commit-after-release": "git add -A && git commit -m \"Release $(cat package.json | $(npm bin)/jase version)\" && git tag v$(cat package.json | $(npm bin)/jase version)",
     "release": "npm run update-android-version && npm run clean-up-bundler && npm run lib && npm run propagate-replacements && npm run build-worker-android && npm run android-release && npm run test-e2e-android && npm run move-android-apk && npm run commit-after-release"
   },
