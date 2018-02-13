@@ -110,8 +110,8 @@ android {
         applicationId "com.mmmmm"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 13
-        versionName "0.0.11-alpha"
+        versionCode 14
+        versionName "0.0.12-alpha"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
