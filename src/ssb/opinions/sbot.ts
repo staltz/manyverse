@@ -19,6 +19,7 @@
 
 import {Worker} from '@staltz/react-native-workers';
 import {Readable} from '../../typings/pull-stream';
+import {manifest} from '../manifest-client';
 const pull = require('pull-stream');
 const defer = require('pull-defer');
 const {Value, onceTrue, watch, Set: MutantSet} = require('mutant');
@@ -66,94 +67,6 @@ const gives = {
       // connectedPeers: true,
       localPeers: true,
     },
-  },
-};
-
-const manifest = {
-  auth: 'async',
-  address: 'async',
-  manifest: 'async',
-  get: 'async',
-  createFeedStream: 'source',
-  createLogStream: 'source',
-  messagesByType: 'source',
-  createHistoryStream: 'source',
-  createUserStream: 'source',
-  links: 'source',
-  relatedMessages: 'async',
-  add: 'async',
-  publish: 'async',
-  getAddress: 'async',
-  getLatest: 'async',
-  latest: 'source',
-  latestSequence: 'async',
-  whoami: 'async',
-  usage: 'async',
-  plugins: {
-    install: 'source',
-    uninstall: 'source',
-    enable: 'async',
-    disable: 'async',
-  },
-  gossip: {
-    peers: 'async',
-    add: 'async',
-    remove: 'async',
-    ping: 'duplex',
-    connect: 'async',
-    changes: 'source',
-    reconnect: 'async',
-  },
-  friends: {
-    get: 'async',
-    createFriendStream: 'source',
-    hops: 'async',
-    stream: 'source',
-  },
-  replicate: {
-    changes: 'source',
-    upto: 'source',
-  },
-  blobs: {
-    get: 'source',
-    getSlice: 'source',
-    add: 'sink',
-    rm: 'async',
-    ls: 'source',
-    has: 'async',
-    size: 'async',
-    meta: 'async',
-    want: 'async',
-    push: 'async',
-    changes: 'source',
-    createWants: 'source',
-  },
-  backlinks: {
-    read: 'source',
-  },
-  about: {
-    stream: 'source',
-    get: 'async',
-  },
-  contacts: {
-    stream: 'source',
-    get: 'async',
-  },
-  query: {
-    read: 'source',
-  },
-  invite: {
-    create: 'async',
-    accept: 'async',
-    use: 'async',
-  },
-  block: {
-    isBlocked: 'async',
-  },
-  private: {
-    publish: 'async',
-    unbox: 'async',
-    read: 'source',
   },
 };
 

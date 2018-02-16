@@ -2,9 +2,6 @@ const path = require('path');
 
 const sharedBlacklist = [
   /node_modules[/\\]react[/\\]dist[/\\].*/,
-
-  // Background process should not be known by the react-native bundler
-  /rnnodeapp\/.*/,
   /src\/rnnodeapp\/.*/,
 ];
 
