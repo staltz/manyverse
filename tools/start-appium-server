@@ -1,0 +1,3 @@
+#!/bin/bash
+
+$(npm bin)/appium --port 4995 > appium.log & echo $! > appium-server.pid

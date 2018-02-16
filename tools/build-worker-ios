@@ -1,0 +1,8 @@
+#!/bin/bash
+
+node node_modules/react-native/local-cli/cli.js bundle \
+  --dev false \
+  --platform ios \
+  --entry-file worker.js \
+  --assets-dest ./ios \
+  --bundle-output ./ios/worker.jsbundle

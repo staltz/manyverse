@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if ps -p $(cat appium-server.pid)> /dev/null; then
+  kill -KILL $(cat appium-server.pid);
+fi
+rm appium-server.pid
+rm appium.log
