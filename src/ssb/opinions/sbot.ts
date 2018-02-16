@@ -181,7 +181,6 @@ const create = (api: any) => {
           }
           feed.add(content, (err: any, msg: any) => {
             if (err) console.error(err);
-            else if (!cb) console.log(msg);
             if (cb) cb(err, msg);
           });
         }),
