@@ -30,7 +30,7 @@ import {Palette} from './lib/global-styles/palette';
 import {Dimensions} from './lib/global-styles/dimens';
 import {Typography} from './lib/global-styles/typography';
 import {navigatorStyle as centralNavigatorStyle} from './lib/screens/central/styles';
-import Scuttlebot from 'react-native-scuttlebot';
+import RNNode from 'react-native-node';
 
 const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
   RNNav,
@@ -44,7 +44,7 @@ const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
   },
 );
 
-Scuttlebot.start();
+RNNode.start();
 
 RNNav.Navigation.isAppLaunched().then(appLaunched => {
   if (appLaunched) {

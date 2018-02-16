@@ -1,0 +1,20 @@
+{
+  "name": "rnnodeapp",
+  "version": "0.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "leveldown-android-prebuilt": "2.0.3",
+    "bufferutil": "3.0.1",
+    "scuttlebot": "10.4.10",
+    "sodium-browserify-tweetnacl": "0.2.3",
+    "ssb-about": "0.1.x",
+    "ssb-backlinks": "0.4.x",
+    "ssb-contacts": "0.0.x",
+    "ssb-blobs": "1.1.4",
+    "ssb-serve-blobs": "1.0.0",
+    "ssb-friends": "^2.3.0",
+    "ssb-keys": "7.0.12",
+    "ssb-private": "0.1.x",
+    "ssb-query": "0.1.x"
+  }
+}
