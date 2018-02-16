@@ -5,7 +5,7 @@
   "dependencies": {
     "leveldown-android-prebuilt": "2.0.3",
     "bufferutil": "3.0.1",
-    "scuttlebot": "10.4.10",
+    "scuttlebot": "10.5.0",
     "sodium-browserify-tweetnacl": "0.2.3",
     "ssb-about": "0.1.x",
     "ssb-backlinks": "0.4.x",
