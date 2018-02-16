@@ -14,7 +14,6 @@
     "pretest-e2e-android": "adb uninstall com.mmmmm && npm run start-appium-server && sleep 5",
     "test-e2e-android": "tape e2e/index.js | tap-spec",
     "posttest-e2e-android": "npm run stop-appium-server",
-    "test": "jest",
     "update-android-version": "react-native-version --never-amend --target android",
     "clean-up-bundler": "watchman watch-del-all && rm -rf $TMPDIR/react-*",
     "android-release": "npm run lib && cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
@@ -66,24 +65,18 @@
   },
   "devDependencies": {
     "appium": "1.7.2",
-    "babel-jest": "21.2.0",
     "babel-preset-react-native": "4.0.0",
     "cheerio": "^1.0.0-rc.2",
     "jase": "1.2.0",
-    "jest": "20.0.4",
     "patch-package": "^5.0.0",
     "prettier": "1.5.x",
     "propagate-replacement-fields": "1.2.0",
     "react-native-version": "^2.3.1",
-    "react-test-renderer": "16.0.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.8.0",
     "tslint": "^5.7.0",
     "typescript": "2.4.x",
     "wd": "^1.5.0"
-  },
-  "jest": {
-    "preset": "react-native"
   },
   "react-native": {
     "os": "@staltz/react-native-os",
