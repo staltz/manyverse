@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "main": "index.js",
   "dependencies": {
-    "leveldown-android-prebuilt": "2.0.3",
     "bufferutil": "3.0.1",
+    "leveldown-android-prebuilt": "2.0.3",
+    "patchcore": "1.23.3",
     "scuttlebot": "10.5.0",
     "sodium-browserify-tweetnacl": "0.2.3",
     "ssb-about": "0.1.x",

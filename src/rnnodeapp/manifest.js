@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const rootsManifest = require('./roots').manifest;
+
 module.exports = {
   auth: 'async',
   address: 'sync',
@@ -103,4 +105,5 @@ module.exports = {
     unbox: 'sync',
     read: 'source',
   },
+  roots: rootsManifest,
 };
