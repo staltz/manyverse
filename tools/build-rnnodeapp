@@ -1,9 +1,14 @@
 #!/bin/bash
 
+echo "Compiling TypeScript...";
+npm run lib;
+
 echo "Setting up...";
 rm -rf ./rnnodeapp;
 mkdir -p ./rnnodeapp;
-cp -r ./src/rnnodeapp ./;
+cp -r ./lib/rnnodeapp ./;
+cp ./src/rnnodeapp/package.json ./rnnodeapp/;
+rm ./rnnodeapp/*.js.map;
 
 echo "Installing dependencies...";
 cd ./rnnodeapp && npm i && cd ..;
