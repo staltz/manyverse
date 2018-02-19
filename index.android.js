@@ -20,16 +20,16 @@
 import 'react-native-ssb-shims';
 import {run} from '@cycle/run';
 import {makeScreenDriver} from '@cycle/native-screen';
-import {main} from './lib/main';
+import {app} from './lib/app/index';
 import onionify from 'cycle-onionify';
-import {ssbDriver} from './lib/drivers/ssb';
-import {dialogDriver} from './lib/drivers/dialogs';
+import {ssbDriver} from './lib/app/drivers/ssb';
+import {dialogDriver} from './lib/app/drivers/dialogs';
 import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
 import RNNav from 'react-native-navigation';
-import {Palette} from './lib/global-styles/palette';
-import {Dimensions} from './lib/global-styles/dimens';
-import {Typography} from './lib/global-styles/typography';
-import {navigatorStyle as centralNavigatorStyle} from './lib/screens/central/styles';
+import {Palette} from './lib/app/global-styles/palette';
+import {Dimensions} from './lib/app/global-styles/dimens';
+import {Typography} from './lib/app/global-styles/typography';
+import {navigatorStyle as centralNavigatorStyle} from './lib/app/screens/central/styles';
 import RNNode from 'react-native-node';
 
 const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
@@ -54,7 +54,7 @@ RNNav.Navigation.isAppLaunched().then(appLaunched => {
 });
 
 function startCycleApp() {
-  run(onionify(main), {
+  run(onionify(app), {
     screen: screenVNodeDriver,
     navigation: commandDriver,
     ssb: ssbDriver,

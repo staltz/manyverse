@@ -16,7 +16,7 @@
     "lib": ["dom", "es5", "scripthost", "es2015"]
   },
   "files": [
-    "src/main.ts",
+    "src/app/index.ts",
     "src/worker/index.ts",
     "src/rnnodeapp/index.js",
     "src/typings/react-native-dialogs.d.ts",
