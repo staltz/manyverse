@@ -50,6 +50,8 @@ function sleep(period: number): Promise<any> {
 const ssbClientPromise = keysPromise.then(async function setupSSBClient(keys) {
   const config = Config('ssb');
   config.path = ssbPath;
+  config.keys = keys;
+  config.manifest = manifest;
   let ssbClient = null;
   do {
     try {

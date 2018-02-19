@@ -14,6 +14,7 @@ const keys = ssbKeys.loadOrCreateSync(path.join(ssbPath, '/secret'));
 const config = require('ssb-config/inject')();
 config.path = ssbPath;
 config.keys = keys;
+config.manifest = manifest;
 
 require('scuttlebot/index')
   .use(require('scuttlebot/plugins/plugins'))
