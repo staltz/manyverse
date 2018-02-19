@@ -232,8 +232,13 @@ export default class Feed extends Component<Props, State> {
           })
         : null,
       ListFooterComponent: FeedFooter,
-      renderItem: ({item}: {item: MsgAndExtras}) =>
-        h(Message, {msg: item, selfFeedId, onPressLike, onPressAuthor}),
+      renderItem: ({item}: any) =>
+        h(Message, {
+          msg: item as MsgAndExtras,
+          selfFeedId,
+          onPressLike,
+          onPressAuthor,
+        }),
     });
   }
 }
