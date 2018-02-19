@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const rootsManifest = require('./roots').manifest;
-
 module.exports = {
+  // Secure Scuttlebutt
   auth: 'async',
   address: 'sync',
   manifest: 'sync',
@@ -39,6 +38,8 @@ module.exports = {
   latestSequence: 'async',
   whoami: 'sync',
   usage: 'sync',
+
+  // Scuttlebot
   plugins: {
     install: 'source',
     uninstall: 'source',
@@ -54,15 +55,25 @@ module.exports = {
     changes: 'source',
     reconnect: 'sync',
   },
+  replicate: {
+    changes: 'source',
+    upto: 'source',
+  },
+  invite: {
+    create: 'async',
+    accept: 'async',
+    use: 'async',
+  },
+  block: {
+    isBlocked: 'sync',
+  },
+
+  // Third-party
   friends: {
     get: 'async',
     createFriendStream: 'source',
     hops: 'async',
     stream: 'source',
-  },
-  replicate: {
-    changes: 'source',
-    upto: 'source',
   },
   blobs: {
     get: 'source',
@@ -81,6 +92,11 @@ module.exports = {
   backlinks: {
     read: 'source',
   },
+  private: {
+    publish: 'async',
+    unbox: 'sync',
+    read: 'source',
+  },
   about: {
     stream: 'source',
     get: 'async',
@@ -92,18 +108,7 @@ module.exports = {
   query: {
     read: 'source',
   },
-  invite: {
-    create: 'async',
-    accept: 'async',
-    use: 'async',
-  },
-  block: {
-    isBlocked: 'sync',
-  },
-  private: {
-    publish: 'async',
-    unbox: 'sync',
+  roots: {
     read: 'source',
   },
-  roots: rootsManifest,
 };
