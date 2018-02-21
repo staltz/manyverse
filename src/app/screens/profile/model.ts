@@ -20,7 +20,7 @@
 import xs, {Stream, Listener} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import sampleCombine from 'xstream/extra/sampleCombine';
-import {SSBSource, MsgAndExtras, GetReadable} from '../../drivers/ssb';
+import {SSBSource, GetReadable, ThreadAndExtras} from '../../drivers/ssb';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {FeedId, About} from '../../../ssb/types';
 import {State as EditProfileState} from './edit';
@@ -31,7 +31,7 @@ export type State = {
   selfFeedId: FeedId;
   displayFeedId: FeedId;
   about: About;
-  getFeedReadable: GetReadable<MsgAndExtras> | null;
+  getFeedReadable: GetReadable<ThreadAndExtras> | null;
   edit?: EditProfileState;
 };
 

@@ -21,11 +21,11 @@ import xs, {Stream, Listener} from 'xstream';
 import {Reducer} from 'cycle-onionify';
 import {FeedId, Msg} from '../../../../ssb/types';
 import {Readable} from '../../../../typings/pull-stream';
-import {SSBSource, MsgAndExtras, GetReadable} from '../../../drivers/ssb';
+import {SSBSource, GetReadable, ThreadAndExtras} from '../../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
-  getFeedReadable: GetReadable<MsgAndExtras> | null;
+  getFeedReadable: GetReadable<ThreadAndExtras> | null;
 };
 
 export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {

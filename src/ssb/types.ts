@@ -120,6 +120,10 @@ export function isPrivate(msg: Msg<any>): boolean {
   return msg.value.content && typeof msg.value.content === 'string';
 }
 
+export function isPublic(msg: Msg<any>): boolean {
+  return !isPrivate(msg);
+}
+
 export type Content =
   | PostContent
   | ContactContent
@@ -167,6 +171,8 @@ export type VoteContent = {
     expression: string;
   };
 };
+
+export type ThreadData = Array<Msg | null>;
 
 // { type: 'post-edit', text: String, root: MsgLink, revisionRoot: MsgLink, revisionBranch: MsgLink, mentions: Links }
 // { type: 'vote', vote: { link: Ref, value: -1|0|1, reason: String } }

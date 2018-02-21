@@ -20,6 +20,7 @@
 import {Worker} from '@staltz/react-native-workers';
 import {Readable} from '../../typings/pull-stream';
 import {manifest} from '../manifest-client';
+import {isPublic} from '../types';
 const pull = require('pull-stream');
 const defer = require('pull-defer');
 const {Value, onceTrue, watch, Set: MutantSet} = require('mutant');
@@ -53,6 +54,7 @@ const gives = {
       friendsGet: true,
     },
     pull: {
+      publicThreads: true,
       log: true,
       userFeed: true,
       messagesByType: true,
@@ -112,6 +114,7 @@ const create = (api: any) => {
         notify(new Error('closed'));
       });
       connection.set(sbot);
+
       notify();
     });
   });
@@ -203,6 +206,16 @@ const create = (api: any) => {
         }),
         messagesByType: rec.source((opts: any) => {
           return sbot.messagesByType(opts);
+        }),
+        publicThreads: rec.source((opts: any) => {
+          return pull(
+            pullMore(sbot.threads.public, {...opts, limit: 10}, [
+              '0',
+              'value',
+              'timestamp',
+            ]),
+            pull.through(runHooks),
+          );
         }),
         feed: rec.source((opts: any) => {
           return pull(

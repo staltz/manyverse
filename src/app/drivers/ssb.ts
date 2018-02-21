@@ -26,6 +26,7 @@ import {
   Content,
   FeedId,
   About,
+  ThreadData,
 } from '../../ssb/types';
 import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../../ssb/opinions/about/sync';
@@ -66,6 +67,8 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
   };
 };
 
+export type ThreadAndExtras = Array<MsgAndExtras | null>;
+
 function mutateMsgWithLiveExtras(api: any) {
   return (msg: Msg) => {
     if (isMsg(msg)) {
@@ -81,11 +84,20 @@ function mutateMsgWithLiveExtras(api: any) {
   };
 }
 
+function mutateThreadWithLiveExtras(api: any) {
+  return (thread: ThreadData) => {
+    return thread.map(msgOrNull => {
+      if (msgOrNull) return mutateMsgWithLiveExtras(api)(msgOrNull);
+      else return msgOrNull;
+    });
+  };
+}
+
 export type GetReadable<T> = (opts?: any) => Readable<T>;
 
 export class SSBSource {
   public selfFeedId$: Stream<FeedId>;
-  public publicFeed$: Stream<GetReadable<MsgAndExtras>>;
+  public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
   public localSyncPeers$: Stream<Array<PeerMetadata>>;
 
   constructor(private api$: Stream<any>) {
@@ -95,9 +107,9 @@ export class SSBSource {
       .take(1)
       .map(api => (opts?: any) =>
         pull(
-          api.sbot.pull.feed[0]({reverse: true, live: false, ...opts}),
+          api.sbot.pull.publicThreads[0]({reverse: true, live: false, ...opts}),
           pull.filter(isNotSync),
-          pull.map(mutateMsgWithLiveExtras(api)),
+          pull.map(mutateThreadWithLiveExtras(api)),
         ),
       );
 
@@ -123,7 +135,7 @@ export class SSBSource {
       .flatten();
   }
 
-  public profileFeed$(id: FeedId): Stream<GetReadable<MsgAndExtras>> {
+  public profileFeed$(id: FeedId): Stream<GetReadable<ThreadAndExtras>> {
     return this.api$.map(api => (opts?: any) =>
       pull(
         api.feed.pull.profile[0](id)({reverse: true, live: false, ...opts}),

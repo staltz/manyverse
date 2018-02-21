@@ -23,7 +23,7 @@ const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 import manifest = require('./manifest');
-import rootsPlugin = require('./roots');
+import threadsPlugin = require('./threads');
 
 const ssbPath = path.resolve(os.homedir(), '.ssb');
 if (!fs.existsSync(ssbPath)) {
@@ -49,7 +49,7 @@ require('scuttlebot/index')
   .use(require('ssb-about'))
   .use(require('ssb-contacts'))
   .use(require('ssb-query'))
-  .use(rootsPlugin)
+  .use(threadsPlugin)
   .use(require('scuttlebot/plugins/invite'))
   .use(require('scuttlebot/plugins/block'))
   .use(require('scuttlebot/plugins/local'))

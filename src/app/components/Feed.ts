@@ -22,22 +22,22 @@ import {StyleSheet, TextInputProperties} from 'react-native';
 import {View, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
-import {Msg, isVoteMsg, isPrivate, FeedId} from '../../ssb/types';
+import {FeedId} from '../../ssb/types';
 import {Readable} from '../../typings/pull-stream';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
 import MessageContainer from './messages/MessageContainer';
-import Message from './messages/Message';
+import Thread from './Thread';
 import PlaceholderMessage from './messages/PlaceholderMessage';
-import {MsgAndExtras, GetReadable} from '../drivers/ssb';
+import {GetReadable, ThreadAndExtras} from '../drivers/ssb';
 import PullFlatList from 'pull-flat-list';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 
 export const styles = StyleSheet.create({
   header: {
-    paddingTop: 0,
+    marginBottom: Dimensions.verticalSpaceNormal * 0.5,
   },
 
   writeMessageRow: {
@@ -64,6 +64,13 @@ export const styles = StyleSheet.create({
   container: {
     alignSelf: 'stretch',
     flex: 1,
+  },
+
+  itemContainer: {
+    flex: 1,
+    backgroundColor: Palette.brand.voidBackground,
+    paddingTop: Dimensions.verticalSpaceNormal * 0.5,
+    paddingBottom: Dimensions.verticalSpaceNormal * 0.5,
   },
 
   footer: {
@@ -126,17 +133,14 @@ const FeedFooter = h(Progress.CircleSnail, {
   color: Palette.brand.backgroundLighterContrast,
 });
 
-/**
- * Whether or not the message should be shown in the feed.
- *
- * TODO: This should be configurable in the app settings!
- */
-function isShowableMsg(msg: Msg): boolean {
-  return !isVoteMsg(msg) && !isPrivate(msg);
+class FeedItemContainer extends PureComponent {
+  public render() {
+    return h(View, {style: styles.itemContainer}, this.props.children as any);
+  }
 }
 
 type Props = {
-  getReadable: GetReadable<MsgAndExtras> | null;
+  getReadable: GetReadable<ThreadAndExtras> | null;
   selfFeedId: FeedId;
   showPublishHeader: boolean;
   style?: any;
@@ -153,22 +157,21 @@ export default class Feed extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {showPlaceholder: false};
-    this.addedMessagesStream = Pushable();
+    this.addedThreadsStream = Pushable();
     this._onPublish = this.onPublish.bind(this);
   }
 
-  private addedMessagesStream: any | null;
+  private addedThreadsStream: any | null;
   private _onPublish: (ev: any) => void;
 
   public componentDidMount() {
-    this.addedMessagesStream = this.addedMessagesStream || Pushable();
+    this.addedThreadsStream = this.addedThreadsStream || Pushable();
   }
 
   public componentWillUnmount() {
-    const addedMessagesStream = this.addedMessagesStream;
-    if (addedMessagesStream) {
-      addedMessagesStream.end();
-      this.addedMessagesStream = null;
+    if (this.addedThreadsStream) {
+      this.addedThreadsStream.end();
+      this.addedThreadsStream = null;
     }
   }
 
@@ -177,17 +180,16 @@ export default class Feed extends Component<Props, State> {
     if (!getReadable) return;
     const newReadable = getReadable({live: true, old: false});
     if (!newReadable) return;
-    const addedMessagesStream = this.addedMessagesStream;
+    const addedThreadsStream = this.addedThreadsStream;
     const that = this;
 
     that.setState({showPlaceholder: true});
-
-    const readable: Readable<MsgAndExtras> = pull(
+    pull(
       newReadable,
       pull.take(1),
-      pull.drain((msg: MsgAndExtras) => {
+      pull.drain((thread: ThreadAndExtras) => {
         that.setState({showPlaceholder: false});
-        addedMessagesStream.push(msg);
+        addedThreadsStream.push(thread);
       }),
     );
   }
@@ -210,21 +212,15 @@ export default class Feed extends Component<Props, State> {
       selfFeedId,
     } = this.props;
 
-    // TODO: this filter() should probably done in a better place
-    // (not even in this component)
-    const scrollStream = getReadable
-      ? () => pull(getReadable(), pull.filter(isShowableMsg))
-      : null;
-
     return h(PullFlatList, {
-      getScrollStream: scrollStream,
-      getPrefixStream: () => this.addedMessagesStream,
+      getScrollStream: getReadable,
+      getPrefixStream: () => this.addedThreadsStream,
       style: [styles.container, style] as any,
       initialNumToRender: 5,
       numColumns: 1,
       refreshable: true,
       refreshColors: [Palette.indigo7],
-      keyExtractor: (item: any, index: number) => item.key || String(index),
+      keyExtractor: (item: any, index: number) => item[0].key || String(index),
       ListHeaderComponent: showPublishHeader
         ? h(FeedHeader, {
             onPublish: this._onPublish,
@@ -233,12 +229,14 @@ export default class Feed extends Component<Props, State> {
         : null,
       ListFooterComponent: FeedFooter,
       renderItem: ({item}: any) =>
-        h(Message, {
-          msg: item as MsgAndExtras,
-          selfFeedId,
-          onPressLike,
-          onPressAuthor,
-        }),
+        h(FeedItemContainer, [
+          h(Thread, {
+            thread: item as ThreadAndExtras,
+            selfFeedId,
+            onPressLike,
+            onPressAuthor,
+          }),
+        ]),
     });
   }
 }
