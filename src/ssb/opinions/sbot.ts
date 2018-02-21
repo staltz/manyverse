@@ -210,7 +210,7 @@ const create = (api: any) => {
         }),
         publicThreads: rec.source((opts: any) => {
           return pull(
-            pullMore(sbot.threads.public, {...opts, limit: 10}, [
+            pullMore(sbot.threads.public, {...opts, limit: 3}, [
               '0',
               'value',
               'timestamp',
@@ -220,7 +220,7 @@ const create = (api: any) => {
         }),
         profileThreads: rec.source((opts: any) => {
           return pull(
-            pullMore(sbot.threads.profile, {...opts, limit: 10}, [
+            pullMore(sbot.threads.profile, {...opts, limit: 3}, [
               '0',
               'value',
               'sequence',

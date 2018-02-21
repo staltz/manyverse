@@ -216,7 +216,7 @@ export default class Feed extends Component<Props, State> {
       getScrollStream: getReadable,
       getPrefixStream: () => this.addedThreadsStream,
       style: [styles.container, style] as any,
-      initialNumToRender: 5,
+      initialNumToRender: 3,
       numColumns: 1,
       refreshable: true,
       refreshColors: [Palette.indigo7],
