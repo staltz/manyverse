@@ -138,9 +138,14 @@ export class SSBSource {
   public profileFeed$(id: FeedId): Stream<GetReadable<ThreadAndExtras>> {
     return this.api$.map(api => (opts?: any) =>
       pull(
-        api.feed.pull.profile[0](id)({reverse: true, live: false, ...opts}),
+        api.sbot.pull.profileThreads[0]({
+          id,
+          reverse: true,
+          live: false,
+          ...opts,
+        }),
         pull.filter(isNotSync),
-        pull.map(mutateMsgWithLiveExtras(api)),
+        pull.map(mutateThreadWithLiveExtras(api)),
       ),
     );
   }

@@ -74,6 +74,10 @@ type Opts = {
   threadMaxSize?: number;
 };
 
+type ProfileOpts = Opts & {
+  id: string;
+};
+
 function init(ssb: any, config: any) {
   return {
     public: function _public(opts: Opts) {
@@ -81,6 +85,19 @@ function init(ssb: any, config: any) {
       const threadMaxSize = opts.threadMaxSize || Infinity;
       return pull(
         ssb.createFeedStream({...opts, limit: undefined, live: false}),
+        pull.filter(isRoot),
+        pull.filter(isPublic),
+        pull.asyncMap(rootToThread(ssb, threadMaxSize)),
+        pull.take(maxThreads)
+      );
+    },
+
+    profile: function _profile(opts: ProfileOpts) {
+      const id = opts.id;
+      const maxThreads = opts.limit || Infinity;
+      const threadMaxSize = opts.threadMaxSize || Infinity;
+      return pull(
+        ssb.createUserStream({...opts, limit: undefined, live: false, id}),
         pull.filter(isRoot),
         pull.filter(isPublic),
         pull.asyncMap(rootToThread(ssb, threadMaxSize)),
@@ -95,9 +112,10 @@ export = {
   version : '1.0.0',
   manifest : {
     public: 'source',
+    profile: 'source',
   },
   permissions : {
-    master: {allow: ['public']}
+    master: {allow: ['public', 'profile']}
   },
   init,
 };
