@@ -37,12 +37,12 @@ function isPublic(msg: Msg<any>): boolean {
 type ThreadData = Array<Msg | null>;
 
 function rootToThread(sbot: any, threadMaxSize: number) {
-  return (root: Msg, cb: (err: any, thread: ThreadData) => void) => {
+  return (root: Msg, cb: (err: any, thread?: ThreadData) => void) => {
     let rootKey = root.key;
     sbot.get(rootKey, (err1: any, value: Msg['value']) => {
       if (err1) {
-        console.error('could not get root message', rootKey);
-        console.error(err1);
+        console.error('threads plugin could not get root message: ' + rootKey);
+        cb(err1);
         return;
       }
 
@@ -57,6 +57,10 @@ function rootToThread(sbot: any, threadMaxSize: number) {
         ]),
         pull.take(threadMaxSize),
         pull.collect((err2: any, arr: ThreadData) => {
+          if (err2) {
+            cb(err2);
+            return;
+          }
           sort(arr);
           cb(null, arr);
         })
