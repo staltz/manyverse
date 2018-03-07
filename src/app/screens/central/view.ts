@@ -22,13 +22,11 @@ import {ReactElement} from 'react';
 import {View, Text, TextInput, TouchableHighlight} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {IndicatorViewPager} from 'rn-viewpager';
 import {Palette} from '../../global-styles/palette';
-import {Dimensions as Dimens} from '../../global-styles/dimens';
 import {styles as globalStyles} from '../../global-styles/styles';
-import BetterPagerTabIndicator from '../../components/BetterPagerTabIndicator';
 import {styles, iconProps} from './styles';
 import {State} from './model';
+import {renderTabs, Tab} from './tabs/index';
 
 function renderHeader() {
   return h(View, {style: styles.header}, [
@@ -58,134 +56,20 @@ function renderHeader() {
   ]);
 }
 
-function renderTabs(
-  state: State,
-  publicTabVDOM: ReactElement<any>,
-  metadataTabVDOM: ReactElement<any>,
-) {
-  return h(
-    IndicatorViewPager,
-    {
-      style: [styles.indicatorViewPager, {flex: state.visible ? 1 : 0}],
-      indicator: h(BetterPagerTabIndicator, {
-        style: [globalStyles.noMargin, {elevation: 3}] as any,
-        itemStyle: styles.tabItem,
-        selectedItemStyle: styles.tabItemSelected,
-        tabs: [
-          {
-            normal: h(
-              Icon,
-              {
-                ...iconProps.tab,
-                name: 'bulletin-board',
-                nativeID: 'testid_public_tab',
-                accessible: true,
-                accessibilityLabel: 'Public Tab Button',
-              } as any,
-            ),
-            selected: h(
-              Icon,
-              {
-                ...iconProps.tabSelected,
-                name: 'bulletin-board',
-                nativeID: 'testid_public_tab',
-                accessible: true,
-                accessibilityLabel: 'Public Tab Button',
-              } as any,
-            ),
-          },
-          {
-            normal: h(
-              Icon,
-              {
-                ...iconProps.tab,
-                name: 'email-secure',
-                accessible: true,
-                accessibilityLabel: 'Private Tab Button',
-              } as any,
-            ),
-            selected: h(
-              Icon,
-              {
-                ...iconProps.tabSelected,
-                name: 'email-secure',
-                accessible: true,
-                accessibilityLabel: 'Private Tab Button',
-              } as any,
-            ),
-          },
-          {
-            normal: h(
-              Icon,
-              {
-                ...iconProps.tab,
-                name: 'numeric-0-box',
-                accessible: true,
-                accessibilityLabel: 'Notifications Tab Button',
-              } as any,
-            ),
-            selected: h(
-              Icon,
-              {
-                ...iconProps.tabSelected,
-                name: 'numeric-0-box',
-                accessible: true,
-                accessibilityLabel: 'Notifications Tab Button',
-              } as any,
-            ),
-          },
-          {
-            normal: h(
-              Icon,
-              {
-                ...iconProps.tab,
-                name: 'wan',
-                accessible: true,
-                accessibilityLabel: 'Sync Tab Button',
-              } as any,
-            ),
-            selected: h(
-              Icon,
-              {
-                ...iconProps.tabSelected,
-                name: 'wan',
-                accessible: true,
-                accessibilityLabel: 'Sync Tab Button',
-              } as any,
-            ),
-          },
-        ],
-      }),
-    },
-    [
-      h(View, {style: styles.pageContainer}, [publicTabVDOM]),
-      h(View, {style: styles.pageContainer}, [
-        h(Text, {style: styles.pagePlaceholder}, 'Private'),
-      ]),
-      h(View, {style: styles.pageContainer}, [
-        h(Text, {style: styles.pagePlaceholder}, 'Notifications'),
-      ]),
-      h(View, {style: styles.pageContainer}, [metadataTabVDOM]),
-    ],
-  );
-}
-
 export default function view(
   state$: Stream<State>,
-  publicTabVDOM$: Stream<ReactElement<any>>,
-  metadataTabVDOM$: Stream<ReactElement<any>>,
+  tabs$: Stream<Array<Tab>>,
 ) {
   return xs
     .combine(
       state$,
-      publicTabVDOM$.startWith(h(View)),
-      metadataTabVDOM$.startWith(h(View)),
+      tabs$,
     )
-    .map(([state, publicTabVDOM, metadataTabVDOM]) => ({
+    .map(([state, tabs]) => ({
       screen: 'mmmmm.Central',
       vdom: h(View, {style: styles.root}, [
         renderHeader(),
-        renderTabs(state, publicTabVDOM, metadataTabVDOM),
+        renderTabs(state, tabs),
       ]),
     }));
 }

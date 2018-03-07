@@ -18,13 +18,14 @@
  */
 
 import {StyleSheet} from 'react-native';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
+import {Palette} from '../../../global-styles/palette';
+import {Dimensions} from '../../../global-styles/dimens';
+import {Typography} from '../../../global-styles/typography';
 
-export const navigatorStyle = {
-  navBarHidden: true,
-  statusBarColor: Palette.brand.backgroundDarker,
+const _tabItem = {
+  backgroundColor: Palette.brand.background,
+  paddingTop: Dimensions.verticalSpaceNormal,
+  paddingBottom: Dimensions.verticalSpaceNormal,
 };
 
 export const styles = StyleSheet.create({
@@ -33,30 +34,18 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.white,
   },
 
-  header: {
-    flexDirection: 'row',
-    backgroundColor: Palette.brand.background,
-    minHeight: Dimensions.toolbarAndroidHeight,
-  },
+  tabItem: _tabItem,
 
-  headerIcon: {
-    width: Dimensions.iconSizeNormal + Dimensions.horizontalSpaceBig * 2,
-    height: Dimensions.iconSizeNormal + Dimensions.verticalSpaceNormal * 2,
-    alignItems: 'center',
-    justifyContent: 'center',
+  tabItemSelected: {
+    ..._tabItem,
+    borderBottomWidth: 4,
+    borderBottomColor: Palette.brand.backgroundLighterContrast,
   },
 
   indicatorViewPager: {
     flex: 1,
     flexDirection: 'column-reverse',
     backgroundColor: Palette.brand.backgroundDarker,
-  },
-
-  searchInput: {
-    flex: 1,
-    color: 'white',
-    fontSize: Typography.fontSizeNormal,
-    fontFamily: Typography.fontFamilyReadableText,
   },
 
   pageContainer: {
@@ -73,7 +62,13 @@ export const styles = StyleSheet.create({
 });
 
 export const iconProps = {
-  headerIcon: {
+
+  tab: {
+    size: Dimensions.iconSizeNormal,
+    color: Palette.brand.backgroundDarkerContrast,
+  },
+
+  tabSelected: {
     size: Dimensions.iconSizeNormal,
     color: Palette.white,
   },
