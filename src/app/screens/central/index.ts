@@ -69,45 +69,6 @@ function navigationCommands(
   return xs.merge(centralCommand$, other$);
 }
 
-function configureTabs(
-  publicTab$: Stream<ReactElement<any>>,
-  privateTab$: Stream<ReactElement<any>>,
-  notificationsTab$: Stream<ReactElement<any>>,
-  syncTab$: Stream<ReactElement<any>>,
-) {
-  return xs.combine(
-    publicTab$,
-    privateTab$,
-    notificationsTab$,
-    syncTab$,
-  ).map(([publicTab, privateTab, notificationsTab, syncTab]) => ([
-    {
-      id: 'public_tab',
-      icon: 'bulletin-board',
-      label: 'Public Tab',
-      VDOM: publicTab,
-    },
-    {
-      id: 'private_tab',
-      icon: 'email-secure',
-      label: 'Private Tab',
-      VDOM: privateTab,
-    },
-    {
-      id: 'notifications_tab',
-      icon: 'numeric-0-box',
-      label: 'Notifications Tab',
-      VDOM: notificationsTab,
-    },
-    {
-      id: 'sync_tab',
-      icon: 'wan',
-      label: 'Sync Tab',
-      VDOM: syncTab,
-    }
-  ]));
-}
-
 export function central(sources: Sources): Sinks {
   const publicTabSinks: PublicTabSinks = isolate(publicTab, {
     onion: publicTabLens,
@@ -120,16 +81,12 @@ export function central(sources: Sources): Sinks {
   const centralReducer$ = model(actions);
   const reducer$ = xs.merge(centralReducer$, publicTabSinks.onion);
 
-  const tabs$ = configureTabs(
+  const vdom$ = view(
+    sources.onion.state$,
     publicTabSinks.screen,
     mockScreen('Private'),
     mockScreen('Notifications'),
     syncTabSinks.screen,
-  );
-
-  const vdom$ = view(
-    sources.onion.state$,
-    tabs$,
   );
 
   return {

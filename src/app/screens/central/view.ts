@@ -56,20 +56,69 @@ function renderHeader() {
   ]);
 }
 
+function configureTabs(
+  publicTab$: Stream<ReactElement<any>>,
+  privateTab$: Stream<ReactElement<any>>,
+  notificationsTab$: Stream<ReactElement<any>>,
+  syncTab$: Stream<ReactElement<any>>,
+) {
+  return xs.combine(
+    publicTab$,
+    privateTab$,
+    notificationsTab$,
+    syncTab$,
+  ).map(([publicTab, privateTab, notificationsTab, syncTab]) => ([
+    {
+      id: 'public_tab',
+      icon: 'bulletin-board',
+      label: 'Public Tab',
+      VDOM: publicTab,
+    },
+    {
+      id: 'private_tab',
+      icon: 'email-secure',
+      label: 'Private Tab',
+      VDOM: privateTab,
+    },
+    {
+      id: 'notifications_tab',
+      icon: 'numeric-0-box',
+      label: 'Notifications Tab',
+      VDOM: notificationsTab,
+    },
+    {
+      id: 'sync_tab',
+      icon: 'wan',
+      label: 'Sync Tab',
+      VDOM: syncTab,
+    }
+  ]));
+}
+
 export default function view(
   state$: Stream<State>,
-  tabs$: Stream<Array<Tab>>,
-) {
-  return xs
-    .combine(
-      state$,
-      tabs$,
-    )
-    .map(([state, tabs]) => ({
-      screen: 'mmmmm.Central',
-      vdom: h(View, {style: styles.root}, [
-        renderHeader(),
-        renderTabs(state, tabs),
-      ]),
-    }));
+  publicTab$: Stream<ReactElement<any>>,
+  privateTab$: Stream<ReactElement<any>>,
+  notificationsTab$: Stream<ReactElement<any>>,
+  syncTab$: Stream<ReactElement<any>>,
+  ) {
+    const tabs$ = configureTabs(
+      publicTab$,
+      privateTab$,
+      notificationsTab$,
+      syncTab$,
+    );
+
+    return xs
+      .combine(
+        state$,
+        tabs$,
+      )
+      .map(([state, tabs]) => ({
+        screen: 'mmmmm.Central',
+        vdom: h(View, {style: styles.root}, [
+          renderHeader(),
+          renderTabs(state, tabs),
+        ]),
+      }));
 }
