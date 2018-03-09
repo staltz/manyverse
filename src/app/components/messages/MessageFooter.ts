@@ -21,7 +21,7 @@ import {Component} from 'react';
 import {View, Text, TouchableNativeFeedback, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Msg, FeedId} from '../../../ssb/types';
+import {Msg, FeedId} from 'ssb-typescript';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';

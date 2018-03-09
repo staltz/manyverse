@@ -21,7 +21,6 @@ import {PureComponent} from 'react';
 import {Text, View, Image, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import MessageContainer from './MessageContainer';
-import {FeedId, Msg} from '../../../ssb/types';
 import {MsgAndExtras} from '../../drivers/ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';

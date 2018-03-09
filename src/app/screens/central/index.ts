@@ -27,7 +27,7 @@ import {
   PushCommand,
   ScreensSource,
 } from 'cycle-native-navigation';
-import {Content} from '../../../ssb/types';
+import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {syncTab} from './sync-tab/index';

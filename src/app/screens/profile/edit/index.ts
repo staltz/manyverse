@@ -20,7 +20,7 @@
 import xs, {Stream} from 'xstream';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
-import {Content} from '../../../../ssb/types';
+import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../../drivers/ssb';
 import {Response as DRes, Request as DReq} from '../../../drivers/dialogs';
 import intent from './intent';

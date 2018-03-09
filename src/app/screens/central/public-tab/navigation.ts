@@ -18,7 +18,7 @@
  */
 
 import {Stream} from 'xstream';
-import {FeedId} from '../../../../ssb/types';
+import {FeedId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {navigatorStyle as profileNavigatorStyle} from '../../profile/styles';
 

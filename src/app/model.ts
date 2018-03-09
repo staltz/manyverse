@@ -28,7 +28,7 @@ import {
 import {State as CentralState} from './screens/central/model';
 import {ScreenID} from './index';
 import {SSBSource} from './drivers/ssb';
-import {FeedId} from '../ssb/types';
+import {FeedId} from 'ssb-typescript';
 import {Lens} from 'cycle-onionify/lib/types';
 
 export type State = {

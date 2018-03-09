@@ -21,7 +21,8 @@ import xs, {Stream, Listener} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {SSBSource} from '../../drivers/ssb';
 import {StateSource, Reducer, Lens} from 'cycle-onionify';
-import {FeedId, About, Msg, isVoteMsg} from '../../../ssb/types';
+import {FeedId, About, Msg} from 'ssb-typescript';
+import {isVoteMsg} from 'ssb-typescript/utils';
 import {Actions} from './intent';
 import {State as PublicTabState} from './public-tab/model';
 

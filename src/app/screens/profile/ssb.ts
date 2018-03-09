@@ -25,7 +25,7 @@ import {
   PostContent,
   VoteContent,
   ContactContent,
-} from '../../../ssb/types';
+} from 'ssb-typescript';
 
 export type SSBActions = {
   publishMsg$: Stream<string>;

@@ -20,7 +20,6 @@
 import {PureComponent} from 'react';
 import {
   View,
-  TextStyle,
   Text,
   RegisteredStyle,
   TouchableNativeFeedback,

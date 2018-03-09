@@ -19,15 +19,9 @@
 
 import xs, {Stream} from 'xstream';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
-import {
-  isMsg,
-  Msg,
-  PeerMetadata,
-  Content,
-  FeedId,
-  About,
-  ThreadData,
-} from '../../ssb/types';
+import {Msg, PeerMetadata, Content, FeedId, About} from 'ssb-typescript';
+import {isMsg} from 'ssb-typescript/utils';
+import {ThreadData} from '../../ssb/types';
 import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../../ssb/opinions/about/sync';
 import makeKeysOpinion from '../../ssb/opinions/keys';

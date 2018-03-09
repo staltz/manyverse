@@ -26,7 +26,7 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
-import {Msg, AboutContent as About} from '../../../ssb/types';
+import {Msg, AboutContent as About} from 'ssb-typescript';
 import {authorName} from '../../../ssb/utils';
 
 export const styles = StyleSheet.create({

@@ -23,7 +23,7 @@ import Markdown, {markdownStyles} from '../../global-styles/markdown';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
-import {PostContent as Post, FeedId, Msg} from '../../../ssb/types';
+import {PostContent as Post, FeedId, Msg} from 'ssb-typescript';
 
 function escapeRegExp(str: string): string {
   return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');

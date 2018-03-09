@@ -20,7 +20,7 @@
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {State} from './model';
-import {Content, AboutContent} from '../../../../ssb/types';
+import {Content, AboutContent} from 'ssb-typescript';
 
 export type SSBActions = {
   save$: Stream<null>;

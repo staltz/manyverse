@@ -20,7 +20,6 @@
 import {Worker} from '@staltz/react-native-workers';
 import {Readable} from '../../typings/pull-stream';
 import {manifest} from '../manifest-client';
-import {isPublic} from '../types';
 const pull = require('pull-stream');
 const defer = require('pull-defer');
 const {Value, onceTrue, watch, Set: MutantSet} = require('mutant');

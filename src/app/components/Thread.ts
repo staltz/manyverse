@@ -20,7 +20,7 @@
 import {PureComponent} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
-import {FeedId} from '../../ssb/types';
+import {FeedId} from 'ssb-typescript';
 import {ThreadAndExtras, GetReadable, MsgAndExtras} from '../drivers/ssb';
 import Message from './messages/Message';
 import {Palette} from '../global-styles/palette';

@@ -22,7 +22,7 @@ import {StyleSheet, TextInputProperties} from 'react-native';
 import {View, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
-import {FeedId} from '../../ssb/types';
+import {FeedId} from 'ssb-typescript';
 import {Readable} from '../../typings/pull-stream';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';

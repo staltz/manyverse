@@ -61,6 +61,7 @@
     "rn-markdown": "^1.1.1",
     "spawn-sync": "^1.0.15",
     "ssb-ref": "2.9.1",
+    "ssb-typescript": "1.1.2",
     "thread-sleep": "^2.0.0",
     "utf-8-validate": "^3.0.2",
     "xstream": "11.x",

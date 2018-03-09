@@ -28,7 +28,7 @@ import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import {central} from './screens/central/index';
 import {profile} from './screens/profile/index';
-import {Content} from '../ssb/types';
+import {Content} from 'ssb-typescript';
 import model, {State, centralLens, profileLens} from './model';
 
 export type Sources = {

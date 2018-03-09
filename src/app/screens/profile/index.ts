@@ -22,7 +22,7 @@ import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
 import isolate from '@cycle/isolate';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
-import {Content} from '../../../ssb/types';
+import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {
   Response as DialogRes,

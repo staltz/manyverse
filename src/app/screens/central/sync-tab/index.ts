@@ -23,7 +23,7 @@ import {View, Text} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {ScreensSource} from 'cycle-native-navigation';
 import {SSBSource} from '../../../drivers/ssb';
-import {PeerMetadata} from '../../../../ssb/types';
+import {PeerMetadata} from 'ssb-typescript';
 import view from './view';
 
 export type Sources = {

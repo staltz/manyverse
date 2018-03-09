@@ -19,7 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId} from '../../../../ssb/types';
+import {FeedId} from 'ssb-typescript';
 
 export default function intent(source: ScreensSource) {
   return {

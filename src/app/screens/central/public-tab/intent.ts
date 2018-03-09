@@ -19,7 +19,7 @@
 
 import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId} from '../../../../ssb/types';
+import {FeedId} from 'ssb-typescript';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};

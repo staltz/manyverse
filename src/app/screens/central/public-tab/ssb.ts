@@ -18,7 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Content, PostContent, VoteContent} from '../../../../ssb/types';
+import {Content, PostContent, VoteContent} from 'ssb-typescript';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 

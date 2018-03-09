@@ -22,7 +22,7 @@ import {PureComponent, Component} from 'react';
 import {View, FlatList, Text, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../../global-styles/palette';
-import {Msg} from '../../../../ssb/types';
+import {Msg} from 'ssb-typescript';
 import {styles} from './styles';
 import Feed from '../../../components/Feed';
 import {State} from './model';

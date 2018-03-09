@@ -23,13 +23,8 @@ import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {
-  Msg,
-  isPostMsg,
-  isContactMsg,
-  isAboutMsg,
-  FeedId,
-} from '../../../ssb/types';
+import {Msg, FeedId} from 'ssb-typescript';
+import {isPostMsg, isContactMsg, isAboutMsg} from 'ssb-typescript/utils';
 import {MsgAndExtras} from '../../drivers/ssb';
 import MessageContainer from './MessageContainer';
 import MessageHeader, {Props as HeaderProps} from './MessageHeader';

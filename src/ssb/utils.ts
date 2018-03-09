@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Msg, FeedId} from './types';
+import {Msg, FeedId} from 'ssb-typescript';
 
 export function authorName(name: string | null, msg: Msg): string {
   return name || msg.value.author.slice(1, 10);
