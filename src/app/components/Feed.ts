@@ -216,11 +216,13 @@ export default class Feed extends Component<Props, State> {
       getScrollStream: getReadable,
       getPrefixStream: () => this.addedThreadsStream,
       style: [styles.container, style] as any,
-      initialNumToRender: 3,
+      initialNumToRender: 2,
+      pullAmount: 1,
       numColumns: 1,
       refreshable: true,
       refreshColors: [Palette.indigo7],
-      keyExtractor: (item: any, index: number) => item[0].key || String(index),
+      keyExtractor: (thread: ThreadAndExtras, index: number) =>
+        thread.messages[0].key || String(index),
       ListHeaderComponent: showPublishHeader
         ? h(FeedHeader, {
             onPublish: this._onPublish,

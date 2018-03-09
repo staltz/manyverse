@@ -209,21 +209,21 @@ const create = (api: any) => {
         }),
         publicThreads: rec.source((opts: any) => {
           return pull(
-            pullMore(sbot.threads.public, {...opts, limit: 3}, [
-              '0',
-              'value',
-              'timestamp',
-            ]),
+            pullMore(
+              sbot.threads.public,
+              {...opts, limit: 3, threadMaxSize: 3, whitelist: ['post']},
+              ['messages', '0', 'value', 'timestamp'],
+            ),
             pull.through(runHooks),
           );
         }),
         profileThreads: rec.source((opts: any) => {
           return pull(
-            pullMore(sbot.threads.profile, {...opts, limit: 3}, [
-              '0',
-              'value',
-              'sequence',
-            ]),
+            pullMore(
+              sbot.threads.profile,
+              {...opts, limit: 3, threadMaxSize: 3, whitelist: ['post']},
+              ['messages', '0', 'value', 'sequence'],
+            ),
             pull.through(runHooks),
           );
         }),

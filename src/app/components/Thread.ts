@@ -39,19 +39,26 @@ export default class Thread extends PureComponent<Props> {
     super(props);
   }
 
+  private renderMessage(msg: MsgAndExtras) {
+    const {selfFeedId, onPressLike, onPressAuthor} = this.props;
+    return h(Message, {
+      msg,
+      ['key' as any]: msg.key,
+      selfFeedId,
+      onPressLike,
+      onPressAuthor,
+    });
+  }
+
   public render() {
     const {thread, selfFeedId, onPressLike, onPressAuthor} = this.props;
-    return thread.map((msgOrNull: MsgAndExtras | null, index: number) => {
-      if (!msgOrNull) return h(PlaceholderMessage, {['key' as any]: index});
+    const first = thread.messages[0];
+    const rest = thread.messages.slice(1);
 
-      const msg = msgOrNull;
-      return h(Message, {
-        msg,
-        ['key' as any]: msg.key,
-        selfFeedId,
-        onPressLike,
-        onPressAuthor,
-      });
-    });
+    return [
+      this.renderMessage(first),
+      thread.full ? null : h(PlaceholderMessage, {['key' as any]: '1'}),
+      ...rest.map(this.renderMessage.bind(this)),
+    ];
   }
 }

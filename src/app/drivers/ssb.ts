@@ -21,7 +21,7 @@ import xs, {Stream} from 'xstream';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 import {Msg, PeerMetadata, Content, FeedId, About} from 'ssb-typescript';
 import {isMsg} from 'ssb-typescript/utils';
-import {ThreadData} from '../../ssb/types';
+import {ThreadData} from 'ssb-threads/types';
 import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../../ssb/opinions/about/sync';
 import makeKeysOpinion from '../../ssb/opinions/keys';
@@ -61,7 +61,10 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
   };
 };
 
-export type ThreadAndExtras = Array<MsgAndExtras | null>;
+export type ThreadAndExtras = {
+  messages: Array<MsgAndExtras>;
+  full: boolean;
+};
 
 function mutateMsgWithLiveExtras(api: any) {
   return (msg: Msg) => {
@@ -80,10 +83,8 @@ function mutateMsgWithLiveExtras(api: any) {
 
 function mutateThreadWithLiveExtras(api: any) {
   return (thread: ThreadData) => {
-    return thread.map(msgOrNull => {
-      if (msgOrNull) return mutateMsgWithLiveExtras(api)(msgOrNull);
-      else return msgOrNull;
-    });
+    thread.messages.forEach(msg => mutateMsgWithLiveExtras(api)(msg));
+    return thread;
   };
 }
 
@@ -102,7 +103,6 @@ export class SSBSource {
       .map(api => (opts?: any) =>
         pull(
           api.sbot.pull.publicThreads[0]({reverse: true, live: false, ...opts}),
-          pull.filter(isNotSync),
           pull.map(mutateThreadWithLiveExtras(api)),
         ),
       );
@@ -138,7 +138,6 @@ export class SSBSource {
           live: false,
           ...opts,
         }),
-        pull.filter(isNotSync),
         pull.map(mutateThreadWithLiveExtras(api)),
       ),
     );

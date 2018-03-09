@@ -18,6 +18,7 @@
     "pull-cat": "1.1.11",
     "ssb-keys": "7.0.12",
     "ssb-private": "0.1.x",
+    "ssb-threads": "1.0.0",
     "ssb-query": "0.1.x"
   }
 }
