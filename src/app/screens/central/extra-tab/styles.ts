@@ -18,46 +18,39 @@
  */
 
 import {StyleSheet} from 'react-native';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
-
-export const navigatorStyle = {
-  navBarHidden: true,
-  statusBarColor: Palette.brand.backgroundDarker,
-};
+import {Dimensions as Dimens} from '../../../global-styles/dimens';
+import {Typography} from '../../../global-styles/typography';
+import {Palette} from '../../../global-styles/palette';
 
 export const styles = StyleSheet.create({
-  root: {
+  container: {
+    backgroundColor: Palette.brand.darkVoidBackground,
+    alignSelf: 'stretch',
     flex: 1,
-    backgroundColor: Palette.white,
   },
 
-  header: {
+  headerContainer: {
     flexDirection: 'row',
-    backgroundColor: Palette.brand.background,
-    minHeight: Dimensions.toolbarAndroidHeight,
-  },
-
-  headerIcon: {
-    width: Dimensions.iconSizeNormal + Dimensions.horizontalSpaceBig * 2,
-    height: Dimensions.iconSizeNormal + Dimensions.verticalSpaceNormal * 2,
     alignItems: 'center',
-    justifyContent: 'center',
   },
 
-  searchInput: {
-    flex: 1,
-    color: 'white',
+  headerText: {
+    color: Palette.brand.darkTextWeak,
     fontSize: Typography.fontSizeNormal,
-    fontFamily: Typography.fontFamilyReadableText,
+    marginLeft: Dimens.horizontalSpaceBig,
+    marginTop: Dimens.verticalSpaceBig,
+    marginBottom: Dimens.verticalSpaceBig,
+  },
+
+  infoIcon: {
+    marginLeft: Dimens.horizontalSpaceSmall,
   },
 
 });
 
 export const iconProps = {
-  headerIcon: {
-    size: Dimensions.iconSizeNormal,
-    color: Palette.white,
+  rowIcon: {
+    size: Dimens.iconSizeNormal,
+    color: Palette.brand.darkTextWeak,
   },
 };

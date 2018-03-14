@@ -19,16 +19,14 @@
 
 import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
+import {FeedId} from '../../../../ssb/types';
 
 export type Actions = {
-  willAppear$: Stream<any>;
-  willDisappear$: Stream<any>;
+  goToSelfProfile$: Stream<null>;
 };
 
 export default function intent(source: ScreensSource): Actions {
   return {
-    willAppear$: source.willAppear('mmmmm.Central'),
-
-    willDisappear$: source.willDisappear('mmmmm.Central'),
+    goToSelfProfile$: source.select('self-profile').events('press').mapTo(null),
   };
 }

@@ -17,18 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
-import {ScreensSource} from 'cycle-native-navigation';
+import xs, {Stream, Listener} from 'xstream';
+import {ReactElement} from 'react';
+import {h} from '@cycle/native-screen';
+import {View, Text, FlatList} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import NavigationList, {NavigationListItem} from '../../../components/NavigationList';
+import {styles, iconProps} from './styles';
 
-export type Actions = {
-  willAppear$: Stream<any>;
-  willDisappear$: Stream<any>;
-};
+export function basicIcon(iconName: string) {
+  return h(Icon, {...iconProps.rowIcon, name: iconName});
+}
 
-export default function intent(source: ScreensSource): Actions {
-  return {
-    willAppear$: source.willAppear('mmmmm.Central'),
-
-    willDisappear$: source.willDisappear('mmmmm.Central'),
-  };
+export default function view(items$: Stream<Array<NavigationListItem>>) {
+  return items$.map(items =>
+    h(NavigationList, {
+      items: items,
+    }),
+  );
 }

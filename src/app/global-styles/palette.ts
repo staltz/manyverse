@@ -174,6 +174,7 @@ const brand = {
   backgroundDarker: indigo9,
   backgroundDarkerContrast: indigo10,
 
+  listBackground: white,
   voidBackground: gray2,
   textBackground: white,
 

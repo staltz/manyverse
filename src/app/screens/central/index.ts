@@ -30,6 +30,7 @@ import {
 import {Content} from '../../../ssb/types';
 import {SSBSource} from '../../drivers/ssb';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
+import {extraTab} from './extra-tab/index';
 import {syncTab} from './sync-tab/index';
 import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
 import intent, {Actions} from './intent';
@@ -52,32 +53,17 @@ export type Sinks = {
   ssb: Stream<Content>;
 };
 
-function navigationCommands(
-  actions: Actions,
-  other$: Stream<Command>,
-): Stream<Command> {
-  const centralCommand$: Stream<Command> = actions.goToSelfProfile$.mapTo(
-    {
-      type: 'push',
-      screen: 'mmmmm.Profile',
-      navigatorStyle: profileNavigatorStyle,
-      animated: true,
-      animationType: 'slide-horizontal',
-    } as PushCommand,
-  );
-
-  return xs.merge(centralCommand$, other$);
-}
-
 export function central(sources: Sources): Sinks {
   const publicTabSinks: PublicTabSinks = isolate(publicTab, {
     onion: publicTabLens,
     '*': 'publicTab',
   })(sources);
+
+  const extraTabSinks = extraTab(sources);
   const syncTabSinks = syncTab(sources);
 
   const actions = intent(sources.screen);
-  const command$ = navigationCommands(actions, publicTabSinks.navigation);
+  const command$ = xs.merge(publicTabSinks.navigation, extraTabSinks.navigation);
   const centralReducer$ = model(actions);
   const reducer$ = xs.merge(centralReducer$, publicTabSinks.onion);
 
@@ -87,6 +73,7 @@ export function central(sources: Sources): Sinks {
     mockScreen('Private'),
     mockScreen('Notifications'),
     syncTabSinks.screen,
+    extraTabSinks.screen,
   );
 
   return {

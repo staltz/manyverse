@@ -28,46 +28,20 @@ import {styles, iconProps} from './styles';
 import {State} from './model';
 import {renderTabs, Tab} from './tabs/index';
 
-function renderHeader() {
-  return h(View, {style: styles.header}, [
-    h(TouchableHighlight, {style: styles.headerIcon}, [
-      h(Icon, {...iconProps.headerIcon, name: 'menu'}),
-    ]),
-    h(TextInput, {
-      underlineColorAndroid: Palette.brand.backgroundLighterContrast,
-      placeholderTextColor: Palette.brand.backgroundLighterContrast,
-      placeholder: 'Search',
-      returnKeyType: 'search',
-      accessible: true,
-      accessibilityLabel: 'Search Field',
-      style: styles.searchInput,
-    }),
-    h(
-      TouchableHighlight,
-      {
-        selector: 'self-profile',
-        style: styles.headerIcon,
-        accessible: true,
-        accessibilityLabel: 'My Profile Button',
-        underlayColor: Palette.brand.backgroundDarker,
-      },
-      [h(Icon, {...iconProps.headerIcon, name: 'account-box'})],
-    ),
-  ]);
-}
-
 function configureTabs(
   publicTab$: Stream<ReactElement<any>>,
   privateTab$: Stream<ReactElement<any>>,
   notificationsTab$: Stream<ReactElement<any>>,
   syncTab$: Stream<ReactElement<any>>,
+  extraTab$: Stream<ReactElement<any>>,
 ) {
   return xs.combine(
     publicTab$,
     privateTab$,
     notificationsTab$,
     syncTab$,
-  ).map(([publicTab, privateTab, notificationsTab, syncTab]) => ([
+    extraTab$,
+  ).map(([publicTab, privateTab, notificationsTab, syncTab, extraTab]) => ([
     {
       id: 'public_tab',
       icon: 'bulletin-board',
@@ -89,9 +63,15 @@ function configureTabs(
     {
       id: 'sync_tab',
       icon: 'wan',
-      label: 'Sync Tab',
+      label: 'Metadata Tab',
       VDOM: syncTab,
-    }
+    },
+    {
+      id: 'extra_tab',
+      icon: 'more',
+      label: 'Extra Tab',
+      VDOM: extraTab,
+    },
   ]));
 }
 
@@ -101,12 +81,14 @@ export default function view(
   privateTab$: Stream<ReactElement<any>>,
   notificationsTab$: Stream<ReactElement<any>>,
   syncTab$: Stream<ReactElement<any>>,
+  extraTab$: Stream<ReactElement<any>>,
   ) {
     const tabs$ = configureTabs(
       publicTab$,
       privateTab$,
       notificationsTab$,
       syncTab$,
+      extraTab$,
     );
 
     return xs
@@ -117,7 +99,6 @@ export default function view(
       .map(([state, tabs]) => ({
         screen: 'mmmmm.Central',
         vdom: h(View, {style: styles.root}, [
-          renderHeader(),
           renderTabs(state, tabs),
         ]),
       }));
