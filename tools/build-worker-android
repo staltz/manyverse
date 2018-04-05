@@ -1,5 +1,7 @@
 #!/bin/bash
 
+npm run lib;
+
 node node_modules/react-native/local-cli/cli.js bundle \
   --dev false \
   --platform android \
