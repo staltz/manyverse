@@ -22,7 +22,7 @@ const os = require('os');
 const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
-const manifest = require('./manifest');
+import manifest = require('./manifest');
 
 const ssbPath = path.resolve(os.homedir(), '.ssb');
 if (!fs.existsSync(ssbPath)) {
