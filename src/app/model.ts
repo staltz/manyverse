@@ -20,9 +20,13 @@
 import xs, {Stream} from 'xstream';
 import {Reducer} from 'cycle-onionify';
 import {Command, PushCommand} from 'cycle-native-navigation';
-import {State as CentralState} from './screens/central/model';
+import {
+  State as CentralState,
+  initState as initCentralState,
+} from './screens/central/model';
 import {
   State as ProfileState,
+  initState as initProfileState,
   updateSelfFeedId,
   updateDisplayFeedId,
 } from './screens/profile/model';
@@ -78,21 +82,11 @@ export default function model(
       return prev;
     } else {
       const selfFeedId = '';
-      const central = {
+      return {
         selfFeedId,
-        visible: true,
+        central: initCentralState(selfFeedId),
+        profile: initProfileState(selfFeedId),
       };
-      const profile = {
-        selfFeedId,
-        displayFeedId: selfFeedId,
-        getFeedReadable: null,
-        about: {
-          name: selfFeedId,
-          description: '',
-          id: selfFeedId,
-        },
-      };
-      return {selfFeedId, central, profile};
     }
   });
 

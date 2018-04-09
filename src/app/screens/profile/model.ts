@@ -35,6 +35,19 @@ export type State = {
   edit?: EditProfileState;
 };
 
+export function initState(selfFeedId: FeedId): State {
+  return {
+    selfFeedId,
+    displayFeedId: selfFeedId,
+    getFeedReadable: null,
+    about: {
+      name: selfFeedId,
+      description: '',
+      id: selfFeedId,
+    },
+  };
+}
+
 export const editLens: Lens<State, EditProfileState> = {
   get: (parent: State): EditProfileState => {
     if (parent.edit) {

@@ -32,6 +32,13 @@ export type State = {
   publicTab?: PublicTabState;
 };
 
+export function initState(selfFeedId: FeedId): State {
+  return {
+    selfFeedId,
+    visible: true,
+  };
+}
+
 export const publicTabLens: Lens<State, PublicTabState> = {
   get: (parent: State): PublicTabState => {
     if (parent.publicTab) {
