@@ -20,12 +20,12 @@
 import xs, {Stream} from 'xstream';
 import {Reducer} from 'cycle-onionify';
 import {Command, PushCommand} from 'cycle-native-navigation';
+import {State as CentralState} from './screens/central/model';
 import {
   State as ProfileState,
   updateSelfFeedId,
   updateDisplayFeedId,
 } from './screens/profile/model';
-import {State as CentralState} from './screens/central/model';
 import {ScreenID} from './index';
 import {SSBSource} from './drivers/ssb';
 import {FeedId} from 'ssb-typescript';
@@ -41,20 +41,6 @@ function isPushCommand(c: Command): c is PushCommand {
   return c.type === 'push';
 }
 
-export const profileLens: Lens<State, ProfileState> = {
-  get: (parent: State): ProfileState => {
-    if (parent.profile.selfFeedId !== parent.selfFeedId) {
-      return updateSelfFeedId(parent.profile, parent.selfFeedId);
-    } else {
-      return parent.profile;
-    }
-  },
-
-  set: (parent: State, child: ProfileState): State => {
-    return {...parent, profile: child};
-  },
-};
-
 export const centralLens: Lens<State, CentralState> = {
   get: (parent: State): CentralState => {
     if (parent.central.selfFeedId !== parent.selfFeedId) {
@@ -69,6 +55,20 @@ export const centralLens: Lens<State, CentralState> = {
   },
 };
 
+export const profileLens: Lens<State, ProfileState> = {
+  get: (parent: State): ProfileState => {
+    if (parent.profile.selfFeedId !== parent.selfFeedId) {
+      return updateSelfFeedId(parent.profile, parent.selfFeedId);
+    } else {
+      return parent.profile;
+    }
+  },
+
+  set: (parent: State, child: ProfileState): State => {
+    return {...parent, profile: child};
+  },
+};
+
 export default function model(
   navCommand$: Stream<Command>,
   ssbSource: SSBSource,
@@ -78,7 +78,10 @@ export default function model(
       return prev;
     } else {
       const selfFeedId = '';
-      const central = {selfFeedId, visible: true};
+      const central = {
+        selfFeedId,
+        visible: true,
+      };
       const profile = {
         selfFeedId,
         displayFeedId: selfFeedId,
