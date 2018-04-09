@@ -211,7 +211,7 @@ const create = (api: any) => {
           return pull(
             pullMore(
               sbot.threads.public,
-              {...opts, limit: 3, threadMaxSize: 3, whitelist: ['post']},
+              {limit: 3, threadMaxSize: 3, whitelist: ['post'], ...opts},
               ['messages', '0', 'value', 'timestamp'],
             ),
             pull.through(runHooks),
@@ -221,7 +221,7 @@ const create = (api: any) => {
           return pull(
             pullMore(
               sbot.threads.profile,
-              {...opts, limit: 3, threadMaxSize: 3, whitelist: ['post']},
+              {limit: 3, threadMaxSize: 3, whitelist: ['post'], ...opts},
               ['messages', '0', 'value', 'sequence'],
             ),
             pull.through(runHooks),
