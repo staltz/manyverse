@@ -99,7 +99,10 @@ export default class MessageFooter extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = this.stateFromProps(props, {ilike: 'maybe', likeCount: 0});
+    this._onPressLike = this.onPressLikeHandler.bind(this);
   }
+
+  private _onPressLike: () => void;
 
   public componentWillReceiveProps(nextProps: Props) {
     this.setState((prev: State) => this.stateFromProps(nextProps, prev));
@@ -119,7 +122,7 @@ export default class MessageFooter extends Component<Props, State> {
     }
   }
 
-  private _onPressLike() {
+  private onPressLikeHandler() {
     const ilike = this.state.ilike;
     this.setState((prev: State) => ({
       ilike: 'maybe',
@@ -162,7 +165,7 @@ export default class MessageFooter extends Component<Props, State> {
 
     const likeButtonProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: () => this._onPressLike(),
+      onPress: this._onPressLike,
     };
     const likeButton = h(TouchableNativeFeedback, likeButtonProps, [
       h(View, {style: styles.likeButton}, [
