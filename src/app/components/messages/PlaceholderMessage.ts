@@ -76,13 +76,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 
-  hr: {
-    backgroundColor: Palette.gray1,
-    height: 1,
-    marginTop: Dimensions.verticalSpaceSmall,
-    marginBottom: 0,
-  },
-
   likeButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -127,7 +120,6 @@ class PlaceholderHeader extends PureComponent<{}> {
 class PlaceholderFooter extends PureComponent<{}> {
   public render() {
     return h(View, {style: styles.col}, [
-      h(View, {style: styles.hr}),
       h(View, {style: styles.row}, [
         h(View, {style: styles.likeButton}, [
           h(View, {style: styles.likeIcon}),

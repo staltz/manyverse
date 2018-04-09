@@ -28,7 +28,7 @@ import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
 import MessageContainer from './messages/MessageContainer';
-import Thread from './Thread';
+import CompactThread from './CompactThread';
 import PlaceholderMessage from './messages/PlaceholderMessage';
 import {GetReadable, ThreadAndExtras} from '../drivers/ssb';
 import PullFlatList from 'pull-flat-list';
@@ -232,7 +232,7 @@ export default class Feed extends Component<Props, State> {
       ListFooterComponent: FeedFooter,
       renderItem: ({item}: any) =>
         h(FeedItemContainer, [
-          h(Thread, {
+          h(CompactThread, {
             thread: item as ThreadAndExtras,
             selfFeedId,
             onPressLike,

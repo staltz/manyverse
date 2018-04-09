@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.brand.textBackground,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
+    marginBottom: 1,
     flexDirection: 'column',
   },
 });

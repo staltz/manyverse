@@ -25,7 +25,7 @@ import {ThreadAndExtras, GetReadable, MsgAndExtras} from '../drivers/ssb';
 import Message from './messages/Message';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
-import PlaceholderMessage from './messages/PlaceholderMessage';
+import ExpandThread from './messages/ExpandThread';
 
 export type Props = {
   thread: ThreadAndExtras;
@@ -34,7 +34,7 @@ export type Props = {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
-export default class Thread extends PureComponent<Props> {
+export default class CompactThread extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
   }
@@ -57,7 +57,7 @@ export default class Thread extends PureComponent<Props> {
 
     return [
       this.renderMessage(first),
-      thread.full ? null : h(PlaceholderMessage, {['key' as any]: '1'}),
+      thread.full ? null : h(ExpandThread, {['key' as any]: '1'}),
       ...rest.map(this.renderMessage.bind(this)),
     ];
   }

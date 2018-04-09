@@ -36,13 +36,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 
-  hr: {
-    backgroundColor: Palette.gray4,
-    height: 1,
-    marginTop: Dimensions.verticalSpaceSmall,
-    marginBottom: 0,
-  },
-
   likeCount: {
     fontWeight: 'bold',
   },
@@ -180,7 +173,6 @@ export default class MessageFooter extends Component<Props, State> {
 
     return h(View, {style: styles.col}, [
       ...counters,
-      h(View, {style: styles.hr}),
       h(View, {style: styles.row}, [likeButton]),
     ]);
   }
