@@ -34,7 +34,7 @@ import RNNode from 'react-native-node';
 
 const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
   RNNav,
-  ['mmmmm.Central', 'mmmmm.Profile', 'mmmmm.Profile.Edit'],
+  ['mmmmm.Central', 'mmmmm.Profile', 'mmmmm.Profile.Edit', 'mmmmm.Thread'],
   {
     screen: {
       screen: 'mmmmm.Central',

@@ -19,7 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
-import {Msg, PeerMetadata, Content, FeedId, About} from 'ssb-typescript';
+import {Msg, PeerMetadata, Content, FeedId, About, MsgId} from 'ssb-typescript';
 import {isMsg} from 'ssb-typescript/utils';
 import {ThreadData} from 'ssb-threads/types';
 import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
@@ -127,6 +127,19 @@ export class SSBSource {
         return peersWithNames$;
       })
       .flatten();
+  }
+
+  public thread$(rootMsgId: MsgId): Stream<ThreadAndExtras> {
+    const apiToThread = (api: any, cb: any) => {
+      pull(
+        api.sbot.pull.thread[0]({root: rootMsgId}),
+        pull.map(mutateThreadWithLiveExtras(api)),
+        pull.take(1),
+        pull.drain((thread: ThreadAndExtras) => cb(null, thread)),
+      );
+    };
+    const apiToThread$ = xsFromCallback<ThreadAndExtras>(apiToThread);
+    return this.api$.map(apiToThread$).flatten();
   }
 
   public profileFeed$(id: FeedId): Stream<GetReadable<ThreadAndExtras>> {

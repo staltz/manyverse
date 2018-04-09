@@ -17,17 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
-import {FeedId} from 'ssb-typescript';
+import xs, {Stream} from 'xstream';
+import {FeedId, MsgId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {navigatorStyle as profileNavigatorStyle} from '../../profile/styles';
+import {navigatorStyle as threadNavigatorStyle} from '../../thread/styles';
 
 export type Actions = {
   goToProfile$: Stream<{authorFeedId: FeedId}>;
+  goToThread$: Stream<{rootMsgId: MsgId}>;
 };
 
 export default function navigation(actions: Actions): Stream<Command> {
-  return actions.goToProfile$.map(
+  const toProfile$ = actions.goToProfile$.map(
     ev =>
       ({
         type: 'push',
@@ -40,4 +42,21 @@ export default function navigation(actions: Actions): Stream<Command> {
         },
       } as Command),
   );
+
+  const toThread$ = actions.goToThread$.map(
+    ev =>
+      ({
+        type: 'push',
+        screen: 'mmmmm.Thread',
+        navigatorStyle: threadNavigatorStyle,
+        title: 'Thread',
+        animated: true,
+        animationType: 'slide-horizontal',
+        passProps: {
+          rootMsgId: ev.rootMsgId,
+        },
+      } as Command),
+  );
+
+  return xs.merge(toProfile$, toThread$);
 }

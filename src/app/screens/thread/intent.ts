@@ -19,29 +19,11 @@
 
 import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId, MsgId} from 'ssb-typescript';
-
-export type LikeEvent = {msgKey: string; like: boolean};
-export type ProfileNavEvent = {authorFeedId: FeedId};
-export type ThreadNavEvent = {rootMsgId: MsgId};
 
 export default function intent(source: ScreensSource) {
   return {
-    publishMsg$: source
-      .select('publicFeed')
-      .events('publish')
-      .map(ev => ev.nativeEvent.text) as Stream<string>,
+    appear$: source.willAppear('mmmmm.Thread').mapTo(null),
 
-    likeMsg$: source.select('publicFeed').events('pressLike') as Stream<
-      LikeEvent
-    >,
-
-    goToProfile$: source.select('publicFeed').events('pressAuthor') as Stream<
-      ProfileNavEvent
-    >,
-
-    goToThread$: source
-      .select('publicFeed')
-      .events('pressExpandThread') as Stream<ThreadNavEvent>,
+    disappear$: source.didDisappear('mmmmm.Thread').mapTo(null),
   };
 }

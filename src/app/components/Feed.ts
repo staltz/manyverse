@@ -22,7 +22,7 @@ import {StyleSheet, TextInputProperties} from 'react-native';
 import {View, TextInput} from 'react-native';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
-import {FeedId} from 'ssb-typescript';
+import {FeedId, MsgId} from 'ssb-typescript';
 import {Readable} from '../../typings/pull-stream';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
@@ -147,6 +147,7 @@ type Props = {
   onPublish?: (event: {nativeEvent: {text: string}}) => void;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressExpandThread?: (ev: {rootMsgId: MsgId}) => void;
 };
 
 type State = {
@@ -206,6 +207,7 @@ export default class Feed extends Component<Props, State> {
     const {
       onPressLike,
       onPressAuthor,
+      onPressExpandThread,
       showPublishHeader,
       style,
       getReadable,
@@ -237,6 +239,7 @@ export default class Feed extends Component<Props, State> {
             selfFeedId,
             onPressLike,
             onPressAuthor,
+            onPressExpand: onPressExpandThread || ((x: any) => {}),
           }),
         ]),
     });

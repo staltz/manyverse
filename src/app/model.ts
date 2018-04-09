@@ -30,6 +30,11 @@ import {
   updateSelfFeedId,
   updateDisplayFeedId,
 } from './screens/profile/model';
+import {
+  State as ThreadState,
+  initState as initThreadState,
+  updateRootMsgId,
+} from './screens/thread/model';
 import {ScreenID} from './index';
 import {SSBSource} from './drivers/ssb';
 import {FeedId} from 'ssb-typescript';
@@ -39,6 +44,7 @@ export type State = {
   selfFeedId: FeedId;
   central: CentralState;
   profile: ProfileState;
+  thread: ThreadState;
 };
 
 function isPushCommand(c: Command): c is PushCommand {
@@ -73,6 +79,20 @@ export const profileLens: Lens<State, ProfileState> = {
   },
 };
 
+export const threadLens: Lens<State, ThreadState> = {
+  get: (parent: State): ThreadState => {
+    if (parent.thread.selfFeedId !== parent.selfFeedId) {
+      return {...parent.thread, selfFeedId: parent.selfFeedId};
+    } else {
+      return parent.thread;
+    }
+  },
+
+  set: (parent: State, child: ThreadState): State => {
+    return {...parent, thread: child};
+  },
+};
+
 export default function model(
   navCommand$: Stream<Command>,
   ssbSource: SSBSource,
@@ -86,6 +106,7 @@ export default function model(
         selfFeedId,
         central: initCentralState(selfFeedId),
         profile: initProfileState(selfFeedId),
+        thread: initThreadState(selfFeedId),
       };
     }
   });
@@ -119,6 +140,26 @@ export default function model(
         },
     );
 
+  const setThreadData$ = navCommand$
+    .filter(isPushCommand)
+    .filter(command => (command.screen as ScreenID) === 'mmmmm.Thread')
+    .map(
+      command =>
+        function setThreadData(prev?: State): State {
+          if (!prev || !prev.thread) {
+            throw new Error('app/model reducer expects existing state');
+          }
+          if (command.passProps && command.passProps.rootMsgId) {
+            return {
+              ...prev,
+              thread: updateRootMsgId(prev.thread, command.passProps.rootMsgId),
+            };
+          } else {
+            return prev;
+          }
+        },
+    );
+
   const setSelfFeedId$ = ssbSource.selfFeedId$.map(
     selfFeedId =>
       function setSelfFeedId(prev?: State): State {
@@ -134,5 +175,10 @@ export default function model(
       },
   );
 
-  return xs.merge(initReducer$, setProfileDisplayFeedId$, setSelfFeedId$);
+  return xs.merge(
+    initReducer$,
+    setProfileDisplayFeedId$,
+    setThreadData$,
+    setSelfFeedId$,
+  );
 }

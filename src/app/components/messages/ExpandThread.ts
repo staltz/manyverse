@@ -18,11 +18,12 @@
  */
 
 import {PureComponent} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, TouchableNativeFeedback} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import {MsgId} from 'ssb-typescript';
 
 export const styles = StyleSheet.create({
   container: {
@@ -70,13 +71,37 @@ export const styles = StyleSheet.create({
   },
 });
 
-export default class ExpandThread extends PureComponent<{}> {
+export type Props = {
+  rootMsgId: MsgId;
+  onPress: (ev: {rootMsgId: MsgId}) => void;
+};
+
+export default class ExpandThread extends PureComponent<Props> {
+  constructor(props: Props) {
+    super(props);
+    this._onPress = this.onPressHandler.bind(this);
+  }
+
+  private _onPress: () => void;
+
+  private onPressHandler() {
+    const {onPress, rootMsgId} = this.props;
+    onPress({rootMsgId});
+  }
+
   public render() {
-    return h(View, {style: styles.container}, [
-      h(View, {style: styles.hr1}),
-      h(View, {style: styles.hr2}),
-      h(View, {style: styles.labelBox}, [
-        h(Text, {style: styles.labelText}, 'Read more'),
+    const touchableProps = {
+      background: TouchableNativeFeedback.SelectableBackground(),
+      onPress: this._onPress,
+    };
+
+    return h(TouchableNativeFeedback, touchableProps, [
+      h(View, {style: styles.container}, [
+        h(View, {style: styles.hr1}),
+        h(View, {style: styles.hr2}),
+        h(View, {style: styles.labelBox}, [
+          h(Text, {style: styles.labelText}, 'Read more'),
+        ]),
       ]),
     ]);
   }

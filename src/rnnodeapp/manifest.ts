@@ -111,5 +111,6 @@ export = {
   threads: {
     public: 'source',
     profile: 'source',
+    thread: 'source',
   },
 };

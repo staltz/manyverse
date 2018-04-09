@@ -20,7 +20,7 @@
 import {PureComponent} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
-import {FeedId} from 'ssb-typescript';
+import {FeedId, MsgId} from 'ssb-typescript';
 import {ThreadAndExtras, GetReadable, MsgAndExtras} from '../drivers/ssb';
 import Message from './messages/Message';
 import {Palette} from '../global-styles/palette';
@@ -32,6 +32,7 @@ export type Props = {
   selfFeedId: FeedId;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressExpand: (ev: {rootMsgId: MsgId}) => void;
 };
 
 export default class CompactThread extends PureComponent<Props> {
@@ -51,13 +52,20 @@ export default class CompactThread extends PureComponent<Props> {
   }
 
   public render() {
-    const {thread} = this.props;
+    const {thread, onPressExpand} = this.props;
     const first = thread.messages[0];
+    if (!first) return [];
     const rest = thread.messages.slice(1);
 
     return [
       this.renderMessage(first),
-      thread.full ? null : h(ExpandThread, {['key' as any]: '1'}),
+      thread.full
+        ? null
+        : h(ExpandThread, {
+            ['key' as any]: '1',
+            rootMsgId: first.key,
+            onPress: onPressExpand,
+          }),
       ...rest.map(this.renderMessage.bind(this)),
     ];
   }

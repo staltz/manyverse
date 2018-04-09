@@ -28,8 +28,9 @@ import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import {central} from './screens/central/index';
 import {profile} from './screens/profile/index';
+import {thread} from './screens/thread/index';
 import {Content} from 'ssb-typescript';
-import model, {State, centralLens, profileLens} from './model';
+import model, {State, centralLens, profileLens, threadLens} from './model';
 
 export type Sources = {
   screen: ScreensSource;
@@ -47,7 +48,11 @@ export type Sinks = {
   dialog: Stream<DialogReq>;
 };
 
-export type ScreenID = 'mmmmm.Central' | 'mmmmm.Profile' | 'mmmmm.Profile.Edit';
+export type ScreenID =
+  | 'mmmmm.Central'
+  | 'mmmmm.Profile'
+  | 'mmmmm.Profile.Edit'
+  | 'mmmmm.Thread';
 
 function addAlphaDisclaimer(screen$: Stream<ScreenVNode>): Stream<ScreenVNode> {
   return screen$.map(screen => ({
@@ -85,20 +90,35 @@ export function app(sources: Sources): Sinks {
     onion: profileLens,
     '*': 'profile',
   })(sources);
+  const threadSinks: Sinks = isolate(thread, {
+    onion: threadLens,
+    '*': 'thread',
+  })(sources);
 
-  const screen$ = xs.merge(centralSinks.screen, profileSinks.screen);
+  const screen$ = xs.merge(
+    centralSinks.screen,
+    profileSinks.screen,
+    threadSinks.screen,
+  );
   const navCommand$ = xs.merge(
     centralSinks.navigation,
     profileSinks.navigation,
+    threadSinks.navigation,
   );
   const mainReducer$ = model(navCommand$, sources.ssb);
   const reducer$ = xs.merge(
     mainReducer$,
     centralSinks.onion,
     profileSinks.onion,
+    threadSinks.onion,
   );
   const initSSB$ = sources.screen.didAppear('mmmmm.Central').mapTo(null);
-  const ssb$ = xs.merge(initSSB$, centralSinks.ssb, profileSinks.ssb);
+  const ssb$ = xs.merge(
+    initSSB$,
+    centralSinks.ssb,
+    profileSinks.ssb,
+    threadSinks.ssb,
+  );
 
   return {
     screen: screen$.compose(addAlphaDisclaimer),

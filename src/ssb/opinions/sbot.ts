@@ -55,6 +55,7 @@ const gives = {
     pull: {
       publicThreads: true,
       profileThreads: true,
+      thread: true,
       log: true,
       userFeed: true,
       messagesByType: true,
@@ -206,6 +207,9 @@ const create = (api: any) => {
         }),
         messagesByType: rec.source((opts: any) => {
           return sbot.messagesByType(opts);
+        }),
+        thread: rec.source((opts: any) => {
+          return pull(sbot.threads.thread(opts), pull.through(runHooks));
         }),
         publicThreads: rec.source((opts: any) => {
           return pull(
