@@ -51,7 +51,7 @@ export default class CompactThread extends PureComponent<Props> {
   }
 
   public render() {
-    const {thread, selfFeedId, onPressLike, onPressAuthor} = this.props;
+    const {thread} = this.props;
     const first = thread.messages[0];
     const rest = thread.messages.slice(1);
 
