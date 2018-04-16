@@ -17,24 +17,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
-import {ScreensSource} from 'cycle-native-navigation';
+import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
+import {Command} from 'cycle-native-navigation';
+import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
 
-export type ProfileNavEvent = {authorFeedId: FeedId};
+export type Actions = {
+  goToProfile$: Stream<{authorFeedId: FeedId}>;
+};
 
-export type LikeEvent = {msgKey: string; like: boolean};
+export default function navigation(actions: Actions): Stream<Command> {
+  const toProfile$ = actions.goToProfile$.map(
+    ev =>
+      ({
+        type: 'push',
+        screen: 'mmmmm.Profile',
+        navigatorStyle: profileNavigatorStyle,
+        animated: true,
+        animationType: 'slide-horizontal',
+        passProps: {
+          feedId: ev.authorFeedId,
+        },
+      } as Command),
+  );
 
-export default function intent(source: ScreensSource) {
-  return {
-    appear$: source.willAppear('mmmmm.Thread').mapTo(null),
-
-    disappear$: source.didDisappear('mmmmm.Thread').mapTo(null),
-
-    likeMsg$: source.select('thread').events('pressLike') as Stream<LikeEvent>,
-
-    goToProfile$: source.select('thread').events('pressAuthor') as Stream<
-      ProfileNavEvent
-    >,
-  };
+  return toProfile$;
 }

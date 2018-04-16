@@ -26,6 +26,7 @@ import model, {State} from './model';
 import view from './view';
 import intent from './intent';
 import ssb from './ssb';
+import navigation from './navigation';
 
 export type Sources = {
   screen: ScreensSource;
@@ -44,12 +45,13 @@ export type Sinks = {
 export function thread(sources: Sources): Sinks {
   const actions = intent(sources.screen);
   const reducer$ = model(sources.onion.state$, actions, sources.ssb);
+  const command$ = navigation(actions);
   const vdom$ = view(sources.onion.state$);
   const newContent$ = ssb(actions);
 
   return {
     screen: vdom$,
-    navigation: xs.never(),
+    navigation: command$,
     onion: reducer$,
     ssb: newContent$,
   };
