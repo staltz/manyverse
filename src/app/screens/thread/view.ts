@@ -42,10 +42,9 @@ export default function view(state$: Stream<State>) {
           state.thread.messages.length === 0
             ? Loading
             : h(CompactThread, {
+                selector: 'thread',
                 thread: state.thread,
                 selfFeedId: state.selfFeedId,
-                onPressLike: () => {},
-                onPressAuthor: () => {},
                 onPressExpand: () => {},
               }),
         ]),

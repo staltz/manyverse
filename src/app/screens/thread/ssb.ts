@@ -17,18 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
-import {ScreensSource} from 'cycle-native-navigation';
+import xs, {Stream} from 'xstream';
+import {Content} from 'ssb-typescript';
+import {toVoteContent} from '../../../ssb/to-ssb';
 
-export type LikeEvent = {msgKey: string; like: boolean};
+export type SSBActions = {
+  likeMsg$: Stream<{msgKey: string; like: boolean}>;
+};
 
-export default function intent(source: ScreensSource) {
-  return {
-    appear$: source.willAppear('mmmmm.Thread').mapTo(null),
+/**
+ * Define streams of new content to be flushed onto SSB.
+ */
+export default function ssb(actions: SSBActions): Stream<Content> {
+  const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
-    disappear$: source.didDisappear('mmmmm.Thread').mapTo(null),
-
-    likeMsg$: source.select('thread').events('pressLike') as Stream<LikeEvent>,
-  };
+  return toggleLikeMsg$;
 }
-

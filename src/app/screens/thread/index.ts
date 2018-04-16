@@ -25,6 +25,7 @@ import {SSBSource} from '../../drivers/ssb';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
+import ssb from './ssb';
 
 export type Sources = {
   screen: ScreensSource;
@@ -44,11 +45,12 @@ export function thread(sources: Sources): Sinks {
   const actions = intent(sources.screen);
   const reducer$ = model(sources.onion.state$, actions, sources.ssb);
   const vdom$ = view(sources.onion.state$);
+  const newContent$ = ssb(actions);
 
   return {
     screen: vdom$,
     navigation: xs.never(),
     onion: reducer$,
-    ssb: xs.never(),
+    ssb: newContent$,
   };
 }
