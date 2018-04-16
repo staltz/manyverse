@@ -156,7 +156,7 @@ export class SSBSource {
     );
   }
 
-  public profileAbout$(id: FeedId): Stream<About> {
+  public profileAbout$(id: FeedId): Stream<About & {id: FeedId}> {
     return this.api$
       .map(api => {
         const name$ = xsFromMutant<string>(api.about.obs.name[0](id));

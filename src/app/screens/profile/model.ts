@@ -30,7 +30,7 @@ import {Lens} from 'cycle-onionify/lib/types';
 export type State = {
   selfFeedId: FeedId;
   displayFeedId: FeedId;
-  about: About;
+  about: About & {id: FeedId};
   getFeedReadable: GetReadable<ThreadAndExtras> | null;
   edit?: EditProfileState;
 };

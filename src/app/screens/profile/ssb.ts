@@ -26,6 +26,11 @@ import {
   VoteContent,
   ContactContent,
 } from 'ssb-typescript';
+import {
+  toVoteContent,
+  toPostContent,
+  toContactContent,
+} from '../../../ssb/to-ssb';
 
 export type SSBActions = {
   publishMsg$: Stream<string>;
@@ -40,33 +45,14 @@ export default function ssb(
   actions: SSBActions,
   state$: Stream<State>,
 ): Stream<Content> {
-  const publishMsg$ = actions.publishMsg$.map(text => {
-    return {
-      text,
-      type: 'post',
-      mentions: [],
-    } as PostContent;
-  });
+  const publishMsg$ = actions.publishMsg$.map(toPostContent);
 
-  const toggleLikeMsg$ = actions.likeMsg$.map(ev => {
-    return {
-      type: 'vote',
-      vote: {
-        link: ev.msgKey,
-        value: ev.like ? 1 : 0,
-        expression: ev.like ? 'Like' : 'Unlike',
-      },
-    } as VoteContent;
-  });
+  const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
   const followProfileMsg$ = actions.follow$
     .compose(sampleCombine(state$))
     .map(([following, state]) => {
-      return {
-        type: 'contact',
-        following,
-        contact: state.displayFeedId,
-      } as ContactContent;
+      return toContactContent(state.displayFeedId, following);
     });
 
   return xs.merge(publishMsg$, toggleLikeMsg$, followProfileMsg$);

@@ -19,6 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import {Content, PostContent, VoteContent} from 'ssb-typescript';
+import {toPostContent, toVoteContent} from '../../../../ssb/to-ssb';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 
@@ -28,25 +29,9 @@ export type Actions = {
 };
 
 export default function ssb(actions: Actions): Stream<Content> {
-  // TODO: this is duplicate also in profile/ssb. deduplicate it
-  const publishMsg$ = actions.publishMsg$.map(text => {
-    return {
-      text,
-      type: 'post',
-      mentions: [],
-    } as PostContent;
-  });
+  const publishMsg$ = actions.publishMsg$.map(toPostContent);
 
-  const toggleLikeMsg$ = actions.likeMsg$.map(ev => {
-    return {
-      type: 'vote',
-      vote: {
-        link: ev.msgKey,
-        value: ev.like ? 1 : 0,
-        expression: ev.like ? 'Like' : 'Unlike',
-      },
-    } as VoteContent;
-  });
+  const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
   return xs.merge(publishMsg$, toggleLikeMsg$);
 }
