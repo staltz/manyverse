@@ -18,8 +18,7 @@
  */
 
 import {PureComponent, Component} from 'react';
-import {StyleSheet, TextInputProperties} from 'react-native';
-import {View, TextInput} from 'react-native';
+import {View, TextInput, StyleSheet, TextInputProperties} from 'react-native';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
 import {FeedId, MsgId} from 'ssb-typescript';
