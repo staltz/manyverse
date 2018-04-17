@@ -26,7 +26,7 @@ export const navigatorStyle = {
   statusBarColor: Palette.brand.backgroundDarker,
   navBarBackgroundColor: Palette.brand.background,
   navBarTextColor: Palette.white,
-  navBarTextFontSize: Typography.fontSizeBig,
+  navBarTextFontSize: Typography.fontSizeLarge,
   navBarTextFontFamily: Typography.fontFamilyReadableText,
   navBarButtonColor: Palette.white,
   topBarElevationShadowEnabled: false,

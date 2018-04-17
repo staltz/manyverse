@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
 
   title: {
     color: Palette.brand.darkHighlight,
-    fontSize: Typography.fontSizeBig,
+    fontSize: Typography.fontSizeLarge,
     marginBottom: Dimensions.verticalSpaceSmall,
   },
 

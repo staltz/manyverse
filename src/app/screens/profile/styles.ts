@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
 
   name: {
     color: 'white',
-    fontSize: Typography.fontSizeBig,
+    fontSize: Typography.fontSizeLarge,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     maxWidth: 220,

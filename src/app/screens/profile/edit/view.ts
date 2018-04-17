@@ -35,7 +35,7 @@ export const navigatorStyle = {
   navBarBackgroundColor: Palette.brand.background,
   topBarElevationShadowEnabled: false,
   navBarTextColor: Palette.white,
-  navBarTextFontSize: Typography.fontSizeBig,
+  navBarTextFontSize: Typography.fontSizeLarge,
   navBarTextFontFamily: Typography.fontFamilyReadableText,
   navBarButtonColor: Palette.white,
   navBarTextFontBold: true,

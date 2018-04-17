@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
 
   writeInput: {
     flex: 1,
-    fontSize: Typography.fontSizeBig,
+    fontSize: Typography.fontSizeLarge,
     color: Palette.brand.text,
   },
 
