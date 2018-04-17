@@ -35,6 +35,7 @@ import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
 import intent, {Actions} from './intent';
 import model, {publicTabLens, State} from './model';
 import view from './view';
+import {Screens} from '../..';
 
 export type Sources = {
   screen: ScreensSource;
@@ -57,7 +58,7 @@ function navigationCommands(
   const centralCommand$: Stream<Command> = actions.goToSelfProfile$.mapTo(
     {
       type: 'push',
-      screen: 'mmmmm.Profile',
+      screen: Screens.Profile,
       navigatorStyle: profileNavigatorStyle,
       animated: true,
       animationType: 'slide-horizontal',

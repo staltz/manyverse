@@ -31,13 +31,14 @@ import {isVoteMsg} from 'ssb-typescript/utils';
 import {SSBSource} from '../../drivers/ssb';
 import {styles} from './styles';
 import {State} from './model';
+import {Screens} from '../..';
 
 export default function view(state$: Stream<State>) {
   return state$.map((state: State) => {
     const showPublishHeader = state.displayFeedId === state.selfFeedId;
 
     return {
-      screen: 'mmmmm.Profile',
+      screen: Screens.Profile,
       vdom: h(
         View,
         {style: styles.container},

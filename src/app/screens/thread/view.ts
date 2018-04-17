@@ -25,6 +25,7 @@ import {State} from './model';
 import {styles} from './styles';
 import CompactThread from '../../components/CompactThread';
 import {Palette} from '../../global-styles/palette';
+import {Screens} from '../..';
 
 const Loading = h(Progress.CircleSnail, {
   style: styles.loading,
@@ -36,7 +37,7 @@ const Loading = h(Progress.CircleSnail, {
 export default function view(state$: Stream<State>) {
   return state$.map((state: State) => {
     return {
-      screen: 'mmmmm.Thread',
+      screen: Screens.Thread,
       vdom: h(View, {style: styles.container}, [
         h(ScrollView, [
           state.thread.messages.length === 0

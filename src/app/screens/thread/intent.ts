@@ -20,6 +20,7 @@
 import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
+import {Screens} from '../..';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
@@ -27,9 +28,9 @@ export type LikeEvent = {msgKey: string; like: boolean};
 
 export default function intent(source: ScreensSource) {
   return {
-    appear$: source.willAppear('mmmmm.Thread').mapTo(null),
+    appear$: source.willAppear(Screens.Thread).mapTo(null),
 
-    disappear$: source.didDisappear('mmmmm.Thread').mapTo(null),
+    disappear$: source.didDisappear(Screens.Thread).mapTo(null),
 
     likeMsg$: source.select('thread').events('pressLike') as Stream<LikeEvent>,
 

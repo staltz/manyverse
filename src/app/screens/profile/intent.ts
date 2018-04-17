@@ -20,6 +20,7 @@
 import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
+import {Screens} from '../..';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 
@@ -36,8 +37,8 @@ export default function intent(source: ScreensSource) {
 
     edit$: source.select('editProfile').events('press') as Stream<null>,
 
-    appear$: source.willAppear('mmmmm.Profile').mapTo(null),
+    appear$: source.willAppear(Screens.Profile).mapTo(null),
 
-    disappear$: source.didDisappear('mmmmm.Profile').mapTo(null),
+    disappear$: source.didDisappear(Screens.Profile).mapTo(null),
   };
 }

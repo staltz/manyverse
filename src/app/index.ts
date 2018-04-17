@@ -48,11 +48,15 @@ export type Sinks = {
   dialog: Stream<DialogReq>;
 };
 
-export type ScreenID =
-  | 'mmmmm.Central'
-  | 'mmmmm.Profile'
-  | 'mmmmm.Profile.Edit'
-  | 'mmmmm.Thread';
+export enum Screens {
+  Central = 'mmmmm.Central',
+  Profile = 'mmmmm.Profile',
+  ProfileEdit = 'mmmmm.Profile.Edit',
+  Thread = 'mmmmm.Thread',
+}
+
+// tslint:disable-next-line:no-string-literal
+export const screenIDs = Object['values'](Screens);
 
 function addAlphaDisclaimer(screen$: Stream<ScreenVNode>): Stream<ScreenVNode> {
   return screen$.map(screen => ({
@@ -112,7 +116,7 @@ export function app(sources: Sources): Sinks {
     profileSinks.onion,
     threadSinks.onion,
   );
-  const initSSB$ = sources.screen.didAppear('mmmmm.Central').mapTo(null);
+  const initSSB$ = sources.screen.didAppear(Screens.Central).mapTo(null);
   const ssb$ = xs.merge(
     initSSB$,
     centralSinks.ssb,

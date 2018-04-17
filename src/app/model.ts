@@ -35,7 +35,7 @@ import {
   initState as initThreadState,
   updateRootMsgId,
 } from './screens/thread/model';
-import {ScreenID} from './index';
+import {Screens} from './index';
 import {SSBSource} from './drivers/ssb';
 import {FeedId} from 'ssb-typescript';
 import {Lens} from 'cycle-onionify/lib/types';
@@ -113,7 +113,7 @@ export default function model(
 
   const setProfileDisplayFeedId$ = navCommand$
     .filter(isPushCommand)
-    .filter(command => (command.screen as ScreenID) === 'mmmmm.Profile')
+    .filter(command => (command.screen as Screens) === Screens.Profile)
     .map(
       command =>
         function setProfileDisplayFeedId(prev?: State): State {
@@ -142,7 +142,7 @@ export default function model(
 
   const setThreadData$ = navCommand$
     .filter(isPushCommand)
-    .filter(command => (command.screen as ScreenID) === 'mmmmm.Thread')
+    .filter(command => (command.screen as Screens) === Screens.Thread)
     .map(
       command =>
         function setThreadData(prev?: State): State {

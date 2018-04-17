@@ -20,6 +20,7 @@
 import xs, {Stream, Listener} from 'xstream';
 import {Command, PushCommand} from 'cycle-native-navigation';
 import {navigatorStyle as editProfileNavStyle} from './edit';
+import {Screens} from '../..';
 
 export type NavigationActions = {
   edit$: Stream<null>;
@@ -31,7 +32,7 @@ export default function navigation(
   return actions.edit$.mapTo(
     {
       type: 'push',
-      screen: 'mmmmm.Profile.Edit',
+      screen: Screens.ProfileEdit,
       title: 'Edit profile',
       overrideBackPress: true,
       navigatorStyle: editProfileNavStyle,

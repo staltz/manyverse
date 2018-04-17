@@ -25,20 +25,19 @@ import onionify from 'cycle-onionify';
 import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
 import {ssbDriver} from './lib/app/drivers/ssb';
 import {dialogDriver} from './lib/app/drivers/dialogs';
-import {app} from './lib/app/index';
+import {app, screenIDs} from './lib/app/index';
 import {navigatorStyle as centralNavigatorStyle} from './lib/app/screens/central/styles';
 
-const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
-  RNNav,
-  ['mmmmm.Central', 'mmmmm.Profile', 'mmmmm.Profile.Edit', 'mmmmm.Thread'],
-  {
-    screen: {
-      screen: 'mmmmm.Central',
-      navigatorStyle: centralNavigatorStyle,
-    },
-    animationType: 'fade',
+const {
+  screenVNodeDriver,
+  commandDriver,
+} = makeSingleScreenNavDrivers(RNNav, screenIDs, {
+  screen: {
+    screen: 'mmmmm.Central',
+    navigatorStyle: centralNavigatorStyle,
   },
-);
+  animationType: 'fade',
+});
 
 RNNode.start();
 

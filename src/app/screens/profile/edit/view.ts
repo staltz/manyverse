@@ -26,6 +26,7 @@ import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
 import {State} from './model';
+import {Screens} from '../../..';
 
 const avatarSize = 80;
 const avatarSizeHalf = avatarSize * 0.5;
@@ -112,7 +113,7 @@ export default function view(state$: Stream<State>) {
         : state.about.name;
 
     return {
-      screen: 'mmmmm.Profile.Edit',
+      screen: Screens.ProfileEdit,
       vdom: h(View, {style: styles.container}, [
         h(View, {style: styles.cover}),
 

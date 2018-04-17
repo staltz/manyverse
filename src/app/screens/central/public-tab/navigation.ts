@@ -22,6 +22,7 @@ import {FeedId, MsgId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {navigatorStyle as profileNavigatorStyle} from '../../profile/styles';
 import {navigatorStyle as threadNavigatorStyle} from '../../thread/styles';
+import {Screens} from '../../..';
 
 export type Actions = {
   goToProfile$: Stream<{authorFeedId: FeedId}>;
@@ -33,7 +34,7 @@ export default function navigation(actions: Actions): Stream<Command> {
     ev =>
       ({
         type: 'push',
-        screen: 'mmmmm.Profile',
+        screen: Screens.Profile,
         navigatorStyle: profileNavigatorStyle,
         animated: true,
         animationType: 'slide-horizontal',
@@ -47,7 +48,7 @@ export default function navigation(actions: Actions): Stream<Command> {
     ev =>
       ({
         type: 'push',
-        screen: 'mmmmm.Thread',
+        screen: Screens.Thread,
         navigatorStyle: threadNavigatorStyle,
         title: 'Thread',
         animated: true,
