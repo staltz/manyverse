@@ -18,19 +18,15 @@
  */
 
 import 'react-native-ssb-shims';
+import RNNav from 'react-native-navigation';
+import RNNode from 'react-native-node';
 import {run} from '@cycle/run';
-import {makeScreenDriver} from '@cycle/native-screen';
-import {app} from './lib/app/index';
 import onionify from 'cycle-onionify';
+import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
 import {ssbDriver} from './lib/app/drivers/ssb';
 import {dialogDriver} from './lib/app/drivers/dialogs';
-import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
-import RNNav from 'react-native-navigation';
-import {Palette} from './lib/app/global-styles/palette';
-import {Dimensions} from './lib/app/global-styles/dimens';
-import {Typography} from './lib/app/global-styles/typography';
+import {app} from './lib/app/index';
 import {navigatorStyle as centralNavigatorStyle} from './lib/app/screens/central/styles';
-import RNNode from 'react-native-node';
 
 const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
   RNNav,
