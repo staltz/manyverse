@@ -29,6 +29,7 @@ import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import {central} from './screens/central/index';
 import {profile} from './screens/profile/index';
 import {thread} from './screens/thread/index';
+import {compose} from './screens/compose/index';
 import {Content} from 'ssb-typescript';
 import model, {State, centralLens, profileLens, threadLens} from './model';
 
@@ -53,6 +54,8 @@ export enum Screens {
   Profile = 'mmmmm.Profile',
   ProfileEdit = 'mmmmm.Profile.Edit',
   Thread = 'mmmmm.Thread',
+  Compose = 'mmmmm.Compose',
+  ComposePublishButton = 'mmmmm.Compose.PublishButton',
 }
 
 // tslint:disable-next-line:no-string-literal
@@ -90,6 +93,7 @@ export function app(sources: Sources): Sinks {
     onion: centralLens,
     '*': 'central',
   })(sources);
+  const composeSinks: Sinks = isolate(compose, {'*': 'compose'})(sources);
   const profileSinks: Sinks = isolate(profile, {
     onion: profileLens,
     '*': 'profile',
@@ -101,17 +105,20 @@ export function app(sources: Sources): Sinks {
 
   const screen$ = xs.merge(
     centralSinks.screen,
+    composeSinks.screen,
     profileSinks.screen,
     threadSinks.screen,
   );
   const navCommand$ = xs.merge(
     centralSinks.navigation,
+    composeSinks.navigation,
     profileSinks.navigation,
     threadSinks.navigation,
   );
   const mainReducer$ = model(navCommand$, sources.ssb);
   const reducer$ = xs.merge(
     mainReducer$,
+    composeSinks.onion,
     centralSinks.onion,
     profileSinks.onion,
     threadSinks.onion,
@@ -120,6 +127,7 @@ export function app(sources: Sources): Sinks {
   const ssb$ = xs.merge(
     initSSB$,
     centralSinks.ssb,
+    composeSinks.ssb,
     profileSinks.ssb,
     threadSinks.ssb,
   );

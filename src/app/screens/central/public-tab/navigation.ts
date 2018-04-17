@@ -20,16 +20,32 @@
 import xs, {Stream} from 'xstream';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
+import {navigatorStyle as composeNavigatorStyle} from '../../compose/styles';
 import {navigatorStyle as profileNavigatorStyle} from '../../profile/styles';
 import {navigatorStyle as threadNavigatorStyle} from '../../thread/styles';
 import {Screens} from '../../..';
 
 export type Actions = {
+  goToCompose$: Stream<any>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId}>;
 };
 
 export default function navigation(actions: Actions): Stream<Command> {
+  const toCompose$ = actions.goToCompose$.map(
+    () =>
+      ({
+        type: 'showModal',
+        screen: Screens.Compose,
+        navigatorStyle: composeNavigatorStyle,
+        navigatorButtons: {
+          rightButtons: [{component: Screens.ComposePublishButton}],
+        },
+        animated: true,
+        animationType: 'slide-up',
+      } as Command),
+  );
+
   const toProfile$ = actions.goToProfile$.map(
     ev =>
       ({
@@ -59,5 +75,5 @@ export default function navigation(actions: Actions): Stream<Command> {
       } as Command),
   );
 
-  return xs.merge(toProfile$, toThread$);
+  return xs.merge(toCompose$, toProfile$, toThread$);
 }

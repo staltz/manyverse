@@ -18,20 +18,17 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Content, PostContent, VoteContent} from 'ssb-typescript';
-import {toPostContent, toVoteContent} from '../../../../ssb/to-ssb';
+import {Content} from 'ssb-typescript';
+import {toVoteContent} from '../../../../ssb/to-ssb';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 
 export type Actions = {
-  publishMsg$: Stream<string>;
   likeMsg$: Stream<LikeEvent>;
 };
 
 export default function ssb(actions: Actions): Stream<Content> {
-  const publishMsg$ = actions.publishMsg$.map(toPostContent);
-
   const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
-  return xs.merge(publishMsg$, toggleLikeMsg$);
+  return toggleLikeMsg$;
 }

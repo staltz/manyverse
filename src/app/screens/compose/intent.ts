@@ -18,24 +18,26 @@
  */
 
 import {Stream} from 'xstream';
+import sampleCombine from 'xstream/extra/sampleCombine';
 import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId} from 'ssb-typescript';
 import {Screens} from '../..';
+import {State} from './model';
 
-export type LikeEvent = {msgKey: string; like: boolean};
-
-export default function intent(source: ScreensSource) {
+export default function intent(
+  source: ScreensSource,
+  publish$: Stream<any>,
+  state$: Stream<State>,
+) {
   return {
-    goToCompose$: source.select('feed').events('openCompose'),
+    publishMsg$: publish$
+      .compose(sampleCombine(state$))
+      .map(([_, state]) => state.postText)
+      .filter(text => text.length > 0),
 
-    likeMsg$: source.select('feed').events('pressLike') as Stream<LikeEvent>,
+    updatePostText$: source
+      .select('composeInput')
+      .events('changeText') as Stream<string>,
 
-    follow$: source.select('follow').events('press') as Stream<boolean>,
-
-    goToEdit$: source.select('editProfile').events('press') as Stream<null>,
-
-    appear$: source.willAppear(Screens.Profile).mapTo(null),
-
-    disappear$: source.didDisappear(Screens.Profile).mapTo(null),
+    willDisappear$: source.willDisappear(Screens.Compose),
   };
 }

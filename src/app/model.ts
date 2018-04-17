@@ -35,6 +35,7 @@ import {
   initState as initThreadState,
   updateRootMsgId,
 } from './screens/thread/model';
+import {State as ComposeState} from './screens/compose/model';
 import {Screens} from './index';
 import {SSBSource} from './drivers/ssb';
 import {FeedId} from 'ssb-typescript';
@@ -45,6 +46,7 @@ export type State = {
   central: CentralState;
   profile: ProfileState;
   thread: ThreadState;
+  compose?: ComposeState;
 };
 
 function isPushCommand(c: Command): c is PushCommand {

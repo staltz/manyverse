@@ -17,25 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
-import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId} from 'ssb-typescript';
-import {Screens} from '../..';
+import xs, {Stream} from 'xstream';
+import {Content, PostContent} from 'ssb-typescript';
+import {toPostContent} from '../../../ssb/to-ssb';
+import {State} from './model';
 
-export type LikeEvent = {msgKey: string; like: boolean};
+export type Actions = {
+  publishMsg$: Stream<string>;
+};
 
-export default function intent(source: ScreensSource) {
-  return {
-    goToCompose$: source.select('feed').events('openCompose'),
+export default function ssb(actions: Actions): Stream<Content> {
+  const publishMsg$ = actions.publishMsg$.map(toPostContent);
 
-    likeMsg$: source.select('feed').events('pressLike') as Stream<LikeEvent>,
-
-    follow$: source.select('follow').events('press') as Stream<boolean>,
-
-    goToEdit$: source.select('editProfile').events('press') as Stream<null>,
-
-    appear$: source.willAppear(Screens.Profile).mapTo(null),
-
-    disappear$: source.didDisappear(Screens.Profile).mapTo(null),
-  };
+  return publishMsg$;
 }

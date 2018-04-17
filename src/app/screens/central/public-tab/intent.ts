@@ -27,10 +27,7 @@ export type ThreadNavEvent = {rootMsgId: MsgId};
 
 export default function intent(source: ScreensSource) {
   return {
-    publishMsg$: source
-      .select('publicFeed')
-      .events('publish')
-      .map(ev => ev.nativeEvent.text) as Stream<string>,
+    goToCompose$: source.select('publicFeed').events('openCompose'),
 
     likeMsg$: source.select('publicFeed').events('pressLike') as Stream<
       LikeEvent

@@ -19,17 +19,33 @@
 
 import xs, {Stream, Listener} from 'xstream';
 import {Command, PushCommand} from 'cycle-native-navigation';
+import {navigatorStyle as composeNavigatorStyle} from '../compose/styles';
 import {navigatorStyle as editProfileNavStyle} from './edit';
 import {Screens} from '../..';
 
 export type NavigationActions = {
-  edit$: Stream<null>;
+  goToCompose$: Stream<null>;
+  goToEdit$: Stream<null>;
 };
 
 export default function navigation(
   actions: NavigationActions,
 ): Stream<Command> {
-  return actions.edit$.mapTo(
+  const toCompose$ = actions.goToCompose$.map(
+    () =>
+      ({
+        type: 'showModal',
+        screen: Screens.Compose,
+        navigatorStyle: composeNavigatorStyle,
+        navigatorButtons: {
+          rightButtons: [{component: Screens.ComposePublishButton}],
+        },
+        animated: true,
+        animationType: 'slide-up',
+      } as Command),
+  );
+
+  const toEdit$ = actions.goToEdit$.mapTo(
     {
       type: 'push',
       screen: Screens.ProfileEdit,
@@ -38,4 +54,6 @@ export default function navigation(
       navigatorStyle: editProfileNavStyle,
     } as PushCommand,
   );
+
+  return xs.merge(toCompose$, toEdit$);
 }

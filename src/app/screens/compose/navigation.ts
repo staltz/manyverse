@@ -17,25 +17,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
-import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId} from 'ssb-typescript';
-import {Screens} from '../..';
+import xs, {Stream} from 'xstream';
+import {Command, DismissModalCommand} from 'cycle-native-navigation';
 
-export type LikeEvent = {msgKey: string; like: boolean};
+export type Actions = {
+  publishMsg$: Stream<any>;
+};
 
-export default function intent(source: ScreensSource) {
-  return {
-    goToCompose$: source.select('feed').events('openCompose'),
+export default function navigation(actions: Actions): Stream<Command> {
+  const goBack$ = actions.publishMsg$.map(
+    () =>
+      ({
+        type: 'dismissModal',
+        animationType: 'slide-down',
+      } as DismissModalCommand),
+  );
 
-    likeMsg$: source.select('feed').events('pressLike') as Stream<LikeEvent>,
-
-    follow$: source.select('follow').events('press') as Stream<boolean>,
-
-    goToEdit$: source.select('editProfile').events('press') as Stream<null>,
-
-    appear$: source.willAppear(Screens.Profile).mapTo(null),
-
-    disappear$: source.didDisappear(Screens.Profile).mapTo(null),
-  };
+  return goBack$;
 }

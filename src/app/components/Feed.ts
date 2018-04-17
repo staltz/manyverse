@@ -18,7 +18,7 @@
  */
 
 import {PureComponent, Component} from 'react';
-import {View, TextInput, StyleSheet, TextInputProperties} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
 import {FeedId, MsgId} from 'ssb-typescript';
@@ -50,14 +50,19 @@ export const styles = StyleSheet.create({
     width: 45,
     borderRadius: 3,
     backgroundColor: Palette.indigo1,
-    marginRight: Dimensions.horizontalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall,
+  },
+
+  writeInputContainer: {
+    flex: 1,
+    paddingLeft: Dimensions.horizontalSpaceSmall,
+    alignSelf: 'stretch',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
 
   writeInput: {
-    flex: 1,
     fontSize: Typography.fontSizeLarge,
-    color: Palette.brand.text,
+    color: Palette.brand.textVeryWeak,
   },
 
   container: {
@@ -81,46 +86,32 @@ export const styles = StyleSheet.create({
 });
 
 type FeedHeaderProps = {
-  showPlaceholder: boolean;
-  onPublish?: (event: {nativeEvent: {text: string}}) => void;
+  onOpenCompose?: () => void;
 };
 
 class FeedHeader extends PureComponent<FeedHeaderProps> {
-  private _textInput: TextInput;
-
   public render() {
-    const {onPublish, showPlaceholder} = this.props;
-    return h(View, [
+    const touchableProps = {
+      activeOpacity: 0.6,
+      onPress: this.props.onOpenCompose,
+    };
+    return h(TouchableOpacity, touchableProps, [
+      h(View, [
       h(MessageContainer, {style: styles.header}, [
         h(View, {style: styles.writeMessageRow}, [
           h(View, {style: styles.writeMessageAuthorImage}),
           h(
-            TextInput,
+              View,
             {
-              underlineColorAndroid: Palette.brand.textBackground,
-              placeholderTextColor: Palette.brand.textVeryWeak,
-              style: styles.writeInput,
-              placeholder: 'Write a public message',
+                style: styles.writeInputContainer,
               accessible: true,
               accessibilityLabel: 'Feed Text Input',
-              selectionColor: Palette.brand.text,
-              returnKeyType: 'done',
-              ref: (el: any) => {
-                this._textInput = el;
               },
-              onSubmitEditing: (ev: any) => {
-                if (this._textInput) {
-                  this._textInput.clear();
-                }
-                if (onPublish) {
-                  onPublish(ev);
-                }
-              },
-            } as TextInputProperties,
+              [h(Text, {style: styles.writeInput}, 'Write a public message')],
           ),
         ]),
       ]),
-      showPlaceholder ? h(PlaceholderMessage) : null as any,
+      ]),
     ]);
   }
 }
@@ -143,7 +134,7 @@ type Props = {
   selfFeedId: FeedId;
   showPublishHeader: boolean;
   style?: any;
-  onPublish?: (event: {nativeEvent: {text: string}}) => void;
+  onOpenCompose?: () => void;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressExpandThread?: (ev: {rootMsgId: MsgId}) => void;
@@ -158,11 +149,14 @@ export default class Feed extends Component<Props, State> {
     super(props);
     this.state = {showPlaceholder: false};
     this.addedThreadsStream = Pushable();
-    this._onPublish = this.onPublish.bind(this);
+    this._onOpenCompose = () => {
+      const {onOpenCompose} = props;
+      if (onOpenCompose) onOpenCompose();
+    };
   }
 
   private addedThreadsStream: any | null;
-  private _onPublish: (ev: any) => void;
+  private _onOpenCompose: () => void;
 
   public componentDidMount() {
     this.addedThreadsStream = this.addedThreadsStream || Pushable();
@@ -172,33 +166,6 @@ export default class Feed extends Component<Props, State> {
     if (this.addedThreadsStream) {
       this.addedThreadsStream.end();
       this.addedThreadsStream = null;
-    }
-  }
-
-  private _prependAddedMessage() {
-    const {getReadable} = this.props;
-    if (!getReadable) return;
-    const newReadable = getReadable({live: true, old: false});
-    if (!newReadable) return;
-    const addedThreadsStream = this.addedThreadsStream;
-    const that = this;
-
-    that.setState({showPlaceholder: true});
-    pull(
-      newReadable,
-      pull.take(1),
-      pull.drain((thread: ThreadAndExtras) => {
-        that.setState({showPlaceholder: false});
-        addedThreadsStream.push(thread);
-      }),
-    );
-  }
-
-  private onPublish(ev: any) {
-    const {onPublish} = this.props;
-    if (onPublish) {
-      onPublish(ev);
-      this._prependAddedMessage();
     }
   }
 
@@ -225,10 +192,7 @@ export default class Feed extends Component<Props, State> {
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
         thread.messages[0].key || String(index),
       ListHeaderComponent: showPublishHeader
-        ? h(FeedHeader, {
-            onPublish: this._onPublish,
-            showPlaceholder: this.state.showPlaceholder,
-          })
+        ? h(FeedHeader, {onOpenCompose: this._onOpenCompose})
         : null,
       ListFooterComponent: FeedFooter,
       renderItem: ({item}: any) =>
