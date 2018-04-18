@@ -28,11 +28,13 @@ import {
   Response as DialogRes,
   Request as DialogReq,
 } from '../../drivers/dialogs';
+import {Screens} from '../..';
 import editProfile from './edit';
 import intent from './intent';
 import model, {State, editLens} from './model';
 import view from './view';
 import ssb from './ssb';
+import {navigatorStyle} from './styles';
 import navigation from './navigation';
 
 export type Sources = {
@@ -50,6 +52,11 @@ export type Sinks = {
   ssb: Stream<Content>;
   dialog: Stream<DialogReq>;
 };
+
+export const navOptions = () => ({
+  screen: Screens.Profile,
+  navigatorStyle,
+});
 
 export function profile(sources: Sources): Sinks {
   const editSinks: Sinks = isolate(editProfile, {'*': 'edit', onion: editLens})(

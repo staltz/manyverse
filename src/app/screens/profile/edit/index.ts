@@ -23,14 +23,15 @@ import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../../drivers/ssb';
 import {Response as DRes, Request as DReq} from '../../../drivers/dialogs';
+import {Screens} from '../../..';
 import intent from './intent';
 import view from './view';
 import navigation from './navigation';
 import model, {State, Actions} from './model';
 import ssb from './ssb';
+import {navigatorStyle} from './styles';
 import dialogs from './dialogs';
 
-export {navigatorStyle} from './view';
 export {State} from './model';
 
 export type Sources = {
@@ -48,6 +49,13 @@ export type Sinks = {
   ssb: Stream<Content>;
   dialog: Stream<DReq>;
 };
+
+export const navOptions = () => ({
+  screen: Screens.ProfileEdit,
+  title: 'Edit profile',
+  overrideBackPress: true,
+  navigatorStyle,
+});
 
 export default function editProfile(sources: Sources): Sinks {
   const actions = intent(sources.screen);

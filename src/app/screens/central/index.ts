@@ -29,13 +29,14 @@ import {
 } from 'cycle-native-navigation';
 import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
+import {Screens} from '../..';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {syncTab} from './sync-tab/index';
-import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
 import intent, {Actions} from './intent';
 import model, {publicTabLens, State} from './model';
 import view from './view';
-import {Screens} from '../..';
+import navigation from './navigation';
+import {navigatorStyle} from './styles';
 
 export type Sources = {
   screen: ScreensSource;
@@ -51,22 +52,10 @@ export type Sinks = {
   ssb: Stream<Content>;
 };
 
-function navigationCommands(
-  actions: Actions,
-  other$: Stream<Command>,
-): Stream<Command> {
-  const centralCommand$: Stream<Command> = actions.goToSelfProfile$.mapTo(
-    {
-      type: 'push',
-      screen: Screens.Profile,
-      navigatorStyle: profileNavigatorStyle,
-      animated: true,
-      animationType: 'slide-horizontal',
-    } as PushCommand,
-  );
-
-  return xs.merge(centralCommand$, other$);
-}
+export const navOptions = () => ({
+  screen: Screens.Central,
+  navigatorStyle,
+});
 
 export function central(sources: Sources): Sinks {
   const publicTabSinks: PublicTabSinks = isolate(publicTab, {
@@ -76,7 +65,7 @@ export function central(sources: Sources): Sinks {
   const syncTabSinks = syncTab(sources);
 
   const actions = intent(sources.screen);
-  const command$ = navigationCommands(actions, publicTabSinks.navigation);
+  const command$ = navigation(actions, publicTabSinks.navigation);
   const centralReducer$ = model(actions);
   const reducer$ = xs.merge(centralReducer$, publicTabSinks.onion);
   const vdom$ = view(

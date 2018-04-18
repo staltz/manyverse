@@ -17,6 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+export enum Screens {
+  Central = 'mmmmm.Central',
+  Profile = 'mmmmm.Profile',
+  ProfileEdit = 'mmmmm.Profile.Edit',
+  Thread = 'mmmmm.Thread',
+  Compose = 'mmmmm.Compose',
+  ComposePublishButton = 'mmmmm.Compose.PublishButton',
+}
+
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
@@ -48,15 +57,6 @@ export type Sinks = {
   ssb: Stream<Content | null>;
   dialog: Stream<DialogReq>;
 };
-
-export enum Screens {
-  Central = 'mmmmm.Central',
-  Profile = 'mmmmm.Profile',
-  ProfileEdit = 'mmmmm.Profile.Edit',
-  Thread = 'mmmmm.Thread',
-  Compose = 'mmmmm.Compose',
-  ComposePublishButton = 'mmmmm.Compose.PublishButton',
-}
 
 // tslint:disable-next-line:no-string-literal
 export const screenIDs = Object['values'](Screens);

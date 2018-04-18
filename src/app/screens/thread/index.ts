@@ -22,10 +22,12 @@ import {ScreensSource, Command, ScreenVNode} from 'cycle-native-navigation';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
+import {Screens} from '../..';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
 import ssb from './ssb';
+import {navigatorStyle} from './styles';
 import navigation from './navigation';
 
 export type Sources = {
@@ -41,6 +43,12 @@ export type Sinks = {
   onion: Stream<Reducer<State>>;
   ssb: Stream<Content>;
 };
+
+export const navOptions = () => ({
+  screen: Screens.Thread,
+  navigatorStyle,
+  title: 'Thread',
+});
 
 export function thread(sources: Sources): Sinks {
   const actions = intent(sources.screen);

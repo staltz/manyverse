@@ -19,10 +19,10 @@
 
 import xs, {Stream} from 'xstream';
 import {FeedId, MsgId} from 'ssb-typescript';
-import {Command} from 'cycle-native-navigation';
-import {navigatorStyle as composeNavigatorStyle} from '../../compose/styles';
-import {navigatorStyle as profileNavigatorStyle} from '../../profile/styles';
-import {navigatorStyle as threadNavigatorStyle} from '../../thread/styles';
+import {Command, ShowModalCommand} from 'cycle-native-navigation';
+import {navOptions as composeScreenNavOptions} from '../../compose';
+import {navOptions as profileScreenNavOptions} from '../../profile';
+import {navOptions as threadScreenNavOptions} from '../../thread';
 import {Screens} from '../../..';
 
 export type Actions = {
@@ -36,13 +36,9 @@ export default function navigation(actions: Actions): Stream<Command> {
     () =>
       ({
         type: 'showModal',
-        screen: Screens.Compose,
-        navigatorStyle: composeNavigatorStyle,
-        navigatorButtons: {
-          rightButtons: [{component: Screens.ComposePublishButton}],
-        },
         animated: true,
         animationType: 'slide-up',
+        ...composeScreenNavOptions(),
       } as Command),
   );
 
@@ -50,13 +46,12 @@ export default function navigation(actions: Actions): Stream<Command> {
     ev =>
       ({
         type: 'push',
-        screen: Screens.Profile,
-        navigatorStyle: profileNavigatorStyle,
         animated: true,
         animationType: 'slide-horizontal',
         passProps: {
           feedId: ev.authorFeedId,
         },
+        ...profileScreenNavOptions(),
       } as Command),
   );
 
@@ -64,14 +59,12 @@ export default function navigation(actions: Actions): Stream<Command> {
     ev =>
       ({
         type: 'push',
-        screen: Screens.Thread,
-        navigatorStyle: threadNavigatorStyle,
-        title: 'Thread',
         animated: true,
         animationType: 'slide-horizontal',
         passProps: {
           rootMsgId: ev.rootMsgId,
         },
+        ...threadScreenNavOptions(),
       } as Command),
   );
 

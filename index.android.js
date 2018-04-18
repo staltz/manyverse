@@ -26,16 +26,13 @@ import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
 import {ssbDriver} from './lib/app/drivers/ssb';
 import {dialogDriver} from './lib/app/drivers/dialogs';
 import {app, screenIDs} from './lib/app/index';
-import {navigatorStyle as centralNavigatorStyle} from './lib/app/screens/central/styles';
+import {navOptions as centralScreenNavOptions} from './lib/app/screens/central';
 
 const {
   screenVNodeDriver,
   commandDriver,
 } = makeSingleScreenNavDrivers(RNNav, screenIDs, {
-  screen: {
-    screen: 'mmmmm.Central',
-    navigatorStyle: centralNavigatorStyle,
-  },
+  screen: centralScreenNavOptions(),
   animationType: 'fade',
 });
 

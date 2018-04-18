@@ -23,11 +23,13 @@ import {StateSource, Reducer} from 'cycle-onionify';
 import isolate from '@cycle/isolate';
 import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
+import {Screens} from '../..';
 import publishButton, {Sinks as PBSinks} from './publish-button';
 import intent from './intent';
 import model, {State, publishButtonLens} from './model';
 import view from './view';
 import ssb from './ssb';
+import {navigatorStyle} from './styles';
 import navigation from './navigation';
 
 export type Sources = {
@@ -43,6 +45,14 @@ export type Sinks = {
   onion: Stream<Reducer<State>>;
   ssb: Stream<Content>;
 };
+
+export const navOptions = () => ({
+  screen: Screens.Compose,
+  navigatorStyle,
+  navigatorButtons: {
+    rightButtons: [{component: Screens.ComposePublishButton}],
+  },
+});
 
 export function compose(sources: Sources): Sinks {
   const publishButtonSinks: PBSinks = isolate(publishButton, {

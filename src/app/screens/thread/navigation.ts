@@ -20,7 +20,7 @@
 import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
-import {navigatorStyle as profileNavigatorStyle} from '../profile/styles';
+import {navOptions as profileScreenNavOptions} from '../profile';
 import {Screens} from '../..';
 
 export type Actions = {
@@ -32,13 +32,12 @@ export default function navigation(actions: Actions): Stream<Command> {
     ev =>
       ({
         type: 'push',
-        screen: Screens.Profile,
-        navigatorStyle: profileNavigatorStyle,
         animated: true,
         animationType: 'slide-horizontal',
         passProps: {
           feedId: ev.authorFeedId,
         },
+        ...profileScreenNavOptions(),
       } as Command),
   );
 
