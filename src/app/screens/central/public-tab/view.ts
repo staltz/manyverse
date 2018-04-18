@@ -25,12 +25,15 @@ import {Palette} from '../../../global-styles/palette';
 import {Msg} from 'ssb-typescript';
 import Feed from '../../../components/Feed';
 import {State} from './model';
+import {SSBSource} from '../../../drivers/ssb';
 
-export default function view(state$: Stream<State>) {
+export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   const vdom$ = state$.map(state =>
     h(Feed, {
       selector: 'publicFeed',
-      getReadable: state.getFeedReadable,
+      getReadable: state.getPublicFeedReadable,
+      getPublicationsReadable: state.getSelfRootsReadable,
+      publication$: ssbSource.publishHook$,
       selfFeedId: state.selfFeedId,
       showPublishHeader: true,
     }),

@@ -56,6 +56,7 @@ const gives = {
       publicThreads: true,
       profileThreads: true,
       thread: true,
+      selfHistory: true,
       log: true,
       userFeed: true,
       messagesByType: true,
@@ -210,6 +211,9 @@ const create = (api: any) => {
         }),
         thread: rec.source((opts: any) => {
           return pull(sbot.threads.thread(opts), pull.through(runHooks));
+        }),
+        selfHistory: rec.source((opts: any) => {
+          return sbot.createHistoryStream({id: keys.id, ...opts});
         }),
         publicThreads: rec.source((opts: any) => {
           return pull(

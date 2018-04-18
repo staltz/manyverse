@@ -65,7 +65,7 @@ export function profile(sources: Sources): Sinks {
 
   const actions = intent(sources.screen);
   const reducer$ = model(sources.onion.state$, actions, sources.ssb);
-  const vdom$ = view(sources.onion.state$);
+  const vdom$ = view(sources.onion.state$, sources.ssb);
   const newContent$ = ssb(actions, sources.onion.state$);
   const command$ = navigation(actions);
 

@@ -33,9 +33,9 @@ import {styles} from './styles';
 import {State} from './model';
 import {Screens} from '../..';
 
-export default function view(state$: Stream<State>) {
+export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   return state$.map((state: State) => {
-    const showPublishHeader = state.displayFeedId === state.selfFeedId;
+    const isSelfProfile = state.displayFeedId === state.selfFeedId;
 
     return {
       screen: Screens.Profile,
@@ -64,7 +64,7 @@ export default function view(state$: Stream<State>) {
             }),
           ]),
 
-          state.displayFeedId === state.selfFeedId
+          isSelfProfile
             ? h(Button, {
                 selector: 'editProfile',
                 style: styles.follow,
@@ -92,9 +92,13 @@ export default function view(state$: Stream<State>) {
           h(Feed, {
             selector: 'feed',
             getReadable: state.getFeedReadable,
+            getPublicationsReadable: isSelfProfile
+              ? state.getSelfRootsReadable
+              : null,
+            publication$: isSelfProfile ? ssbSource.publishHook$ : null,
             selfFeedId: state.selfFeedId,
-            style: showPublishHeader ? styles.feedWithHeader : styles.feed,
-            showPublishHeader,
+            style: isSelfProfile ? styles.feedWithHeader : styles.feed,
+            showPublishHeader: isSelfProfile,
           }),
         ] as Array<any>,
       ),

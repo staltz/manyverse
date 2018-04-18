@@ -32,6 +32,7 @@ export type State = {
   displayFeedId: FeedId;
   about: About & {id: FeedId};
   getFeedReadable: GetReadable<ThreadAndExtras> | null;
+  getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
   edit?: EditProfileState;
 };
 
@@ -40,6 +41,7 @@ export function initState(selfFeedId: FeedId): State {
     selfFeedId,
     displayFeedId: selfFeedId,
     getFeedReadable: null,
+    getSelfRootsReadable: null,
     about: {
       name: selfFeedId,
       description: '',
@@ -143,6 +145,16 @@ export default function model(
       },
   );
 
+  const updateSelfRootsReducer$ = ssbSource.selfRoots$.map(
+    getReadable =>
+      function updateSelfRootsReducer(prev?: State): State {
+        if (!prev) {
+          throw new Error('Profile/model reducer expects existing state');
+        }
+        return {...prev, getSelfRootsReadable: getReadable};
+      },
+  );
+
   const clearFeedStreamReducer$ = actions.disappear$.mapTo(
     function clearFeedStreamReducer(prev?: State): State {
       if (!prev) {
@@ -155,6 +167,7 @@ export default function model(
   return xs.merge(
     updateAboutReducer$,
     updateFeedStreamReducer$,
+    updateSelfRootsReducer$,
     clearFeedStreamReducer$,
   );
 }

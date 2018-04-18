@@ -17,13 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import xs from 'xstream';
+import Stream from 'xstream';
+import {Msg} from 'ssb-typescript';
 const nest = require('depnest');
 
-const emptyHookOpinion = {
-  gives: nest('sbot.hook.publish'),
+const publishHookOpinion = {
+  gives: nest({
+    'sbot.hook': ['publish', 'publishStream'],
+  }),
   create: (api: any) => {
-    return nest('sbot.hook.publish', () => {});
+    const stream: Stream<Msg> = xs.create<any>();
+    return nest({
+      'sbot.hook': {
+        publish: (msg: Msg) => {
+          stream.shamefullySendNext(msg);
+        },
+        publishStream: () => stream,
+      },
+    });
   },
 };
 
-export default emptyHookOpinion;
+export default publishHookOpinion;

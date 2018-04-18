@@ -31,6 +31,7 @@ import CompactThread from './CompactThread';
 import PlaceholderMessage from './messages/PlaceholderMessage';
 import {GetReadable, ThreadAndExtras} from '../drivers/ssb';
 import PullFlatList from 'pull-flat-list';
+import {Stream, Subscription, Listener} from 'xstream';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 
@@ -86,6 +87,7 @@ export const styles = StyleSheet.create({
 });
 
 type FeedHeaderProps = {
+  showPlaceholder: boolean;
   onOpenCompose?: () => void;
 };
 
@@ -95,23 +97,24 @@ class FeedHeader extends PureComponent<FeedHeaderProps> {
       activeOpacity: 0.6,
       onPress: this.props.onOpenCompose,
     };
-    return h(TouchableOpacity, touchableProps, [
-      h(View, [
-      h(MessageContainer, {style: styles.header}, [
-        h(View, {style: styles.writeMessageRow}, [
-          h(View, {style: styles.writeMessageAuthorImage}),
-          h(
+    return h(View, [
+      h(TouchableOpacity, touchableProps, [
+        h(MessageContainer, {style: styles.header}, [
+          h(View, {style: styles.writeMessageRow}, [
+            h(View, {style: styles.writeMessageAuthorImage}),
+            h(
               View,
-            {
+              {
                 style: styles.writeInputContainer,
-              accessible: true,
-              accessibilityLabel: 'Feed Text Input',
+                accessible: true,
+                accessibilityLabel: 'Feed Text Input',
               },
               [h(Text, {style: styles.writeInput}, 'Write a public message')],
-          ),
+            ),
+          ]),
         ]),
       ]),
-      ]),
+      this.props.showPlaceholder ? h(PlaceholderMessage) : null as any,
     ]);
   }
 }
@@ -131,6 +134,8 @@ class FeedItemContainer extends PureComponent {
 
 type Props = {
   getReadable: GetReadable<ThreadAndExtras> | null;
+  getPublicationsReadable?: GetReadable<ThreadAndExtras> | null;
+  publication$?: Stream<any> | null;
   selfFeedId: FeedId;
   showPublishHeader: boolean;
   style?: any;
@@ -157,16 +162,46 @@ export default class Feed extends Component<Props, State> {
 
   private addedThreadsStream: any | null;
   private _onOpenCompose: () => void;
+  private subscription?: Subscription;
 
   public componentDidMount() {
     this.addedThreadsStream = this.addedThreadsStream || Pushable();
+    const {publication$} = this.props;
+    if (publication$) {
+      const listener = {next: this.onPublication.bind(this)};
+      this.subscription = publication$.subscribe(listener as Listener<any>);
+    }
   }
 
   public componentWillUnmount() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = void 0;
+    }
     if (this.addedThreadsStream) {
       this.addedThreadsStream.end();
       this.addedThreadsStream = null;
     }
+  }
+
+  private onPublication() {
+    const {getPublicationsReadable} = this.props;
+    if (!getPublicationsReadable) return;
+    const readable = getPublicationsReadable({live: true, old: false});
+    if (!readable) return;
+    const addedThreadsStream = this.addedThreadsStream;
+    const that = this;
+
+    console.warn('show placeholder');
+    that.setState({showPlaceholder: true});
+    pull(
+      readable,
+      pull.take(1),
+      pull.drain((thread: ThreadAndExtras) => {
+        that.setState({showPlaceholder: false});
+        addedThreadsStream.push(thread);
+      }),
+    );
   }
 
   public render() {
@@ -192,7 +227,10 @@ export default class Feed extends Component<Props, State> {
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
         thread.messages[0].key || String(index),
       ListHeaderComponent: showPublishHeader
-        ? h(FeedHeader, {onOpenCompose: this._onOpenCompose})
+        ? h(FeedHeader, {
+            onOpenCompose: this._onOpenCompose,
+            showPlaceholder: this.state.showPlaceholder,
+          })
         : null,
       ListFooterComponent: FeedFooter,
       renderItem: ({item}: any) =>

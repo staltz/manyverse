@@ -20,14 +20,14 @@
 import xs, {Stream} from 'xstream';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 import {Msg, PeerMetadata, Content, FeedId, About, MsgId} from 'ssb-typescript';
-import {isMsg} from 'ssb-typescript/utils';
+import {isMsg, isPostMsg} from 'ssb-typescript/utils';
 import {ThreadData} from 'ssb-threads/types';
 import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../../ssb/opinions/about/sync';
 import makeKeysOpinion from '../../ssb/opinions/keys';
 import sbotOpinion from '../../ssb/opinions/sbot';
 import gossipOpinion from '../../ssb/opinions/gossip';
-import emptyHookOpinion from '../../ssb/opinions/hook';
+import publishHookOpinion from '../../ssb/opinions/hook';
 import configOpinion from '../../ssb/opinions/config';
 import feedProfileOpinion from '../../ssb/opinions/feed/pull/profile';
 import {ssbPath, ssbKeysPath} from '../../ssb/defaults';
@@ -93,6 +93,8 @@ export type GetReadable<T> = (opts?: any) => Readable<T>;
 export class SSBSource {
   public selfFeedId$: Stream<FeedId>;
   public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
+  public selfRoots$: Stream<GetReadable<ThreadAndExtras>>;
+  public publishHook$: Stream<Msg>;
   public localSyncPeers$: Stream<Array<PeerMetadata>>;
 
   constructor(private api$: Stream<any>) {
@@ -106,6 +108,23 @@ export class SSBSource {
           pull.map(mutateThreadWithLiveExtras(api)),
         ),
       );
+
+    this.selfRoots$ = api$
+      .take(1)
+      .map(api => (opts?: any) =>
+        pull(
+          api.sbot.pull.selfHistory[0]({reverse: true, ...opts}),
+          pull.filter(isPostMsg),
+          pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
+          pull.map(mutateThreadWithLiveExtras(api)),
+        ),
+      );
+
+    this.publishHook$ = api$
+      .take(1)
+      .map(api => api.sbot.hook.publishStream[0]() as Stream<Msg>)
+      .flatten()
+      .filter(isPostMsg);
 
     this.localSyncPeers$ = api$
       .map(api => {
@@ -196,7 +215,7 @@ export function ssbDriver(sink: Stream<Content | null>): SSBSource {
     .compose(dropCompletion)
     .map(keys => {
       return depjectCombine([
-        emptyHookOpinion,
+        publishHookOpinion,
         blobUrlOpinion,
         aboutSyncOpinion,
         configOpinion,

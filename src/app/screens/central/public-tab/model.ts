@@ -25,21 +25,34 @@ import {SSBSource, GetReadable, ThreadAndExtras} from '../../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
-  getFeedReadable: GetReadable<ThreadAndExtras> | null;
+  getPublicFeedReadable: GetReadable<ThreadAndExtras> | null;
+  getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
 };
 
 export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
-  const setFeedPullStreamReducer$ = ssbSource.publicFeed$.map(
-    getFeedReadable =>
-      function setFeedPullStreamReducer(prev?: State): State {
+  const setPublicFeedReducer$ = ssbSource.publicFeed$.map(
+    getReadable =>
+      function setPublicFeedReducer(prev?: State): State {
         if (!prev) {
           throw new Error(
             'Central/PublicTab/model reducer expects existing state',
           );
         }
-        return {...prev, getFeedReadable};
+        return {...prev, getPublicFeedReadable: getReadable};
       },
   );
 
-  return setFeedPullStreamReducer$;
+  const setSelfRootsReducer$ = ssbSource.selfRoots$.map(
+    getReadable =>
+      function setSelfRootsReducer(prev?: State): State {
+        if (!prev) {
+          throw new Error(
+            'Central/PublicTab/model reducer expects existing state',
+          );
+        }
+        return {...prev, getSelfRootsReadable: getReadable};
+      },
+  );
+
+  return xs.merge(setPublicFeedReducer$, setSelfRootsReducer$);
 }

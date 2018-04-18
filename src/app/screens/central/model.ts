@@ -46,7 +46,8 @@ export const publicTabLens: Lens<State, PublicTabState> = {
     } else {
       return {
         selfFeedId: parent.selfFeedId,
-        getFeedReadable: null,
+        getPublicFeedReadable: null,
+        getSelfRootsReadable: null,
       };
     }
   },
