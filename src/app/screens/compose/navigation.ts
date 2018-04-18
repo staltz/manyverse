@@ -22,10 +22,11 @@ import {Command, DismissModalCommand} from 'cycle-native-navigation';
 
 export type Actions = {
   publishMsg$: Stream<any>;
+  quitFromKeyboard$: Stream<any>;
 };
 
 export default function navigation(actions: Actions): Stream<Command> {
-  const goBack$ = actions.publishMsg$.map(
+  const goBack$ = xs.merge(actions.publishMsg$, actions.quitFromKeyboard$).map(
     () =>
       ({
         type: 'dismissModal',

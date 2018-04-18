@@ -20,13 +20,26 @@
 import {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ScreensSource} from 'cycle-native-navigation';
+import {Event as KeyboardEvent} from '../../drivers/keyboard';
 import {Screens} from '../..';
 import {State} from './model';
+
+/**
+ * source: --a--b----c----d---e-f--g----h---i--j-----
+ * first:  -------F------------------F---------------
+ * second: -----------------S-----------------S------
+ *                         between
+ * output: ----------c----d-------------h---i--------
+ */
+function between<T>(first: Stream<any>, second: Stream<any>) {
+  return (source: Stream<T>) => first.mapTo(source.endWhen(second)).flatten();
+}
 
 export default function intent(
   source: ScreensSource,
   publish$: Stream<any>,
   state$: Stream<State>,
+  keyboard$: Stream<KeyboardEvent>,
 ) {
   return {
     publishMsg$: publish$
@@ -39,5 +52,14 @@ export default function intent(
       .events('changeText') as Stream<string>,
 
     willDisappear$: source.willDisappear(Screens.Compose),
+
+    quitFromKeyboard$: keyboard$
+      .filter(ev => ev === KeyboardEvent.DidHide)
+      .compose(
+        between(
+          source.didAppear(Screens.Compose),
+          source.willDisappear(Screens.Compose),
+        ),
+      ),
   };
 }

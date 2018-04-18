@@ -34,6 +34,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from './drivers/ssb';
 import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';
+import {Command as Dismiss, Event as KeyboardEvent} from './drivers/keyboard';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import {central} from './screens/central/index';
 import {profile} from './screens/profile/index';
@@ -45,6 +46,7 @@ import model, {State, centralLens, profileLens, threadLens} from './model';
 export type Sources = {
   screen: ScreensSource;
   navigation: Stream<any>;
+  keyboard: Stream<KeyboardEvent>;
   onion: StateSource<State>;
   ssb: SSBSource;
   dialog: Stream<DialogRes>;
@@ -53,6 +55,7 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ScreenVNode>;
   navigation: Stream<Command>;
+  keyboard: Stream<Dismiss>;
   onion: Stream<Reducer<State>>;
   ssb: Stream<Content | null>;
   dialog: Stream<DialogReq>;
@@ -135,6 +138,7 @@ export function app(sources: Sources): Sinks {
   return {
     screen: screen$.compose(addAlphaDisclaimer),
     navigation: navCommand$,
+    keyboard: xs.never(),
     onion: reducer$,
     ssb: ssb$,
     dialog: profileSinks.dialog,

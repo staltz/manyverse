@@ -23,6 +23,7 @@ import {StateSource, Reducer} from 'cycle-onionify';
 import isolate from '@cycle/isolate';
 import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
+import {Event as KeyboardEvent} from '../../drivers/keyboard';
 import {Screens} from '../..';
 import publishButton, {Sinks as PBSinks} from './publish-button';
 import intent from './intent';
@@ -35,6 +36,7 @@ import navigation from './navigation';
 export type Sources = {
   screen: ScreensSource;
   navigation: Stream<any>;
+  keyboard: Stream<KeyboardEvent>;
   onion: StateSource<State>;
   ssb: SSBSource;
 };
@@ -64,6 +66,7 @@ export function compose(sources: Sources): Sinks {
     sources.screen,
     publishButtonSinks.done,
     sources.onion.state$,
+    sources.keyboard,
   );
   const vdom$ = view();
   const command$ = navigation(actions);
