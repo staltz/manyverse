@@ -13,7 +13,21 @@ brew update
 brew install coreutils
 ```
 
+```
+npm install --global react-native-cli
+```
+
+```
+npm install
+```
+
 ## Build/run in development
+
+Build the "backend" Node.js project:
+
+```
+npm run build-rnnodeapp
+```
 
 Build the worker thread subproject:
 
