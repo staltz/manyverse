@@ -102,15 +102,17 @@ class FeedHeader extends PureComponent<FeedHeaderProps> {
         h(MessageContainer, {style: styles.header}, [
           h(View, {style: styles.writeMessageRow}, [
             h(View, {style: styles.writeMessageAuthorImage}),
-            h(
-              View,
-              {
-                style: styles.writeInputContainer,
-                accessible: true,
-                accessibilityLabel: 'Feed Text Input',
-              },
-              [h(Text, {style: styles.writeInput}, 'Write a public message')],
-            ),
+            h(View, {style: styles.writeInputContainer}, [
+              h(
+                Text,
+                {
+                  accessible: true,
+                  accessibilityLabel: 'Feed Text Input',
+                  style: styles.writeInput,
+                },
+                'Write a public message',
+              ),
+            ]),
           ]),
         ]),
       ]),

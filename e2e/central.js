@@ -19,7 +19,6 @@
 
 const test = require('tape');
 const wd = require('wd');
-const SPECIAL_KEYS = require('wd/lib/special-keys');
 
 module.exports = function(driver, t) {
   t.test('Central screen is displayed with 4 tabs', async function(t) {
@@ -102,78 +101,6 @@ module.exports = function(driver, t) {
         'new UiSelector().descriptionContains("Feed Text Input")',
       ),
       'I see Feed Text Input',
-    );
-
-    t.end();
-  });
-
-  t.test('Central screen allows posting new public message', async function(t) {
-    const feedTextInput = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Feed Text Input")',
-      6000,
-    );
-    t.ok('I see Feed Text Input');
-    const f1 = await feedTextInput.text();
-    t.equal(f1, 'Write a public message', 'It shows the placeholder');
-    await feedTextInput.tap();
-    t.pass('I tap it');
-    await feedTextInput.keys('Hello world today is a sunny day');
-    t.pass('I type a message into it');
-    const f2 = await feedTextInput.text();
-    t.equal(f2.length, 32, 'Its text content is non-empty');
-    await driver.pressKeycode(66 /* KEYCODE_ENTER */);
-    t.pass('I press Enter');
-    const f3 = await feedTextInput.text();
-    t.equal(f3, 'Write a public message', 'It shows the placeholder');
-
-    t.ok(
-      await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("Hello world today is a sunny day")',
-        6000,
-      ),
-      'I see the new message posted on the feed',
-    );
-
-    t.end();
-  });
-
-  t.test('Central screen shows many in scrolling feed', async function(t) {
-    const feedTextInput = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Feed Text Input")',
-      6000,
-    );
-    t.ok('I see Feed Text Input');
-    const f1 = await feedTextInput.text();
-    const AMOUNT = 10;
-    for (let i = 1; i <= AMOUNT; i++) {
-      await feedTextInput.tap();
-      await feedTextInput.keys('Message number ' + i + 'a');
-      await driver.pressKeycode(66 /* KEYCODE_ENTER */);
-    }
-    t.pass('I created ' + AMOUNT + ' public messages');
-
-    t.ok(
-      await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("Message number 10a")',
-        6000,
-      ),
-      'I see message number 50 on the feed',
-    );
-
-    const action = new wd.TouchAction(driver);
-    action.press({x: 200, y: 1000});
-    action.wait(60);
-    action.moveTo({x: 200, y: 800});
-    action.release();
-    await driver.performTouchAction(action);
-    t.pass('I scroll through the feed');
-
-    t.ok(
-      await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("Message number 1a")',
-        6000,
-      ),
-      'I see message number 1 on the feed',
     );
 
     t.end();
