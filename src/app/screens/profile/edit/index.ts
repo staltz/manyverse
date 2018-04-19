@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import {Content} from 'ssb-typescript';
@@ -27,7 +27,7 @@ import {Screens} from '../../..';
 import intent from './intent';
 import view from './view';
 import navigation from './navigation';
-import model, {State, Actions} from './model';
+import model, {State} from './model';
 import ssb from './ssb';
 import {navigatorStyle} from './styles';
 import dialogs from './dialogs';

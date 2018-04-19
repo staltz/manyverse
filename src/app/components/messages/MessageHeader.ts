@@ -102,7 +102,6 @@ export default class MessageHeader extends Component<Props, {}> {
 
   public shouldComponentUpdate(nextProps: Props) {
     const prevProps = this.props;
-    const prevState = this.state;
     return (
       nextProps.msg.key !== prevProps.msg.key ||
       nextProps.name !== prevProps.name ||

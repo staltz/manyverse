@@ -9,6 +9,7 @@
     "jsx": "react-native",
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
+    "noUnusedLocals": true,
     "allowJs": true,
     "module": "commonjs",
     "target": "es2015",

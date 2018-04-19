@@ -20,7 +20,7 @@
 import {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ScreensSource} from 'cycle-native-navigation';
-import {KeyboardSource, KeyboardEventType} from '@cycle/native-keyboard';
+import {KeyboardSource} from '@cycle/native-keyboard';
 import {Screens} from '../..';
 import {State} from './model';
 

@@ -19,11 +19,10 @@
 
 import xs, {Stream} from 'xstream';
 import {FeedId, MsgId} from 'ssb-typescript';
-import {Command, ShowModalCommand} from 'cycle-native-navigation';
+import {Command} from 'cycle-native-navigation';
 import {navOptions as composeScreenNavOptions} from '../../compose';
 import {navOptions as profileScreenNavOptions} from '../../profile';
 import {navOptions as threadScreenNavOptions} from '../../thread';
-import {Screens} from '../../..';
 
 export type Actions = {
   goToCompose$: Stream<any>;

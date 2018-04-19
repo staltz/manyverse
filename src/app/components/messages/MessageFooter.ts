@@ -149,7 +149,6 @@ export default class MessageFooter extends Component<Props, State> {
   }
 
   public render() {
-    const {msg} = this.props;
     const {likeCount, ilike} = this.state;
 
     const counters = likeCount

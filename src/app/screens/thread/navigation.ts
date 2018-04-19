@@ -17,11 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {navOptions as profileScreenNavOptions} from '../profile';
-import {Screens} from '../..';
 
 export type Actions = {
   goToProfile$: Stream<{authorFeedId: FeedId}>;

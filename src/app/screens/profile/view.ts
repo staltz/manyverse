@@ -17,17 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
-import {PureComponent, Component} from 'react';
-import {View, FlatList, Text, TextInput, Image} from 'react-native';
+import {Stream} from 'xstream';
+import {View, Text, Image} from 'react-native';
 import {h} from '@cycle/native-screen';
-import {Palette} from '../../global-styles/palette';
 import Markdown, {markdownStyles} from '../../global-styles/markdown';
 import Feed from '../../components/Feed';
 import Button from '../../components/Button';
 import ToggleButton from '../../components/ToggleButton';
-import {Msg, About} from 'ssb-typescript';
-import {isVoteMsg} from 'ssb-typescript/utils';
 import {SSBSource} from '../../drivers/ssb';
 import {styles} from './styles';
 import {State} from './model';

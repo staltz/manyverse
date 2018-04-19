@@ -18,7 +18,6 @@
  */
 
 import {
-  Content,
   VoteContent,
   PostContent,
   ContactContent,

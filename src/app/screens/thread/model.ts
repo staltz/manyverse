@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {Reducer} from 'cycle-onionify';
 import {FeedId, MsgId} from 'ssb-typescript';

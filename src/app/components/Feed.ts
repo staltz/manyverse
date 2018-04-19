@@ -22,7 +22,6 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
 import {FeedId, MsgId} from 'ssb-typescript';
-import {Readable} from '../../typings/pull-stream';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';

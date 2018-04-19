@@ -19,7 +19,6 @@
 
 import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId} from 'ssb-typescript';
 import {Screens} from '../..';
 
 export type LikeEvent = {msgKey: string; like: boolean};

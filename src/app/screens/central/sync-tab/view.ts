@@ -17,8 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
-import {ReactElement} from 'react';
+import {Stream} from 'xstream';
 import {h} from '@cycle/native-screen';
 import {View, Text, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

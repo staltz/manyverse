@@ -17,10 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Reducer} from 'cycle-onionify';
-import {FeedId, Msg} from 'ssb-typescript';
-import {Readable} from '../../../../typings/pull-stream';
+import {FeedId} from 'ssb-typescript';
 import {SSBSource, GetReadable, ThreadAndExtras} from '../../../drivers/ssb';
 
 export type State = {

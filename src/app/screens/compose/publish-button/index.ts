@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {ScreensSource, ScreenVNode} from 'cycle-native-navigation';
 import {h} from '@cycle/native-screen';
 import {StateSource} from 'cycle-onionify';

@@ -19,7 +19,7 @@
 
 import {self} from '@staltz/react-native-workers/self';
 import {ssbKeysPath, ssbPath} from '../ssb/defaults';
-import {Readable, Callback} from '../typings/pull-stream';
+import {Readable} from '../typings/pull-stream';
 import {manifest} from '../ssb/manifest-client';
 const ssbKeys = require('react-native-ssb-client-keys');
 const pull = require('pull-stream');

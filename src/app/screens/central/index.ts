@@ -17,23 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
-import {ReactElement} from 'react';
+import xs, {Stream} from 'xstream';
 import {StateSource, Reducer} from 'cycle-onionify';
 import isolate from '@cycle/isolate';
-import {
-  ScreenVNode,
-  Command,
-  PushCommand,
-  ScreensSource,
-} from 'cycle-native-navigation';
+import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {Screens} from '../..';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {syncTab} from './sync-tab/index';
-import intent, {Actions} from './intent';
-import model, {publicTabLens, State} from './model';
+import intent from './intent';
+import model, {publicTabLens} from './model';
 import view from './view';
 import navigation from './navigation';
 import {navigatorStyle} from './styles';

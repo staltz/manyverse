@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {h} from '@cycle/native-screen';
-import {View, Text, TextInput, Modal, Image} from 'react-native';
+import {View, Text, TextInput, Image} from 'react-native';
 import Button from '../../../components/Button';
 import {Palette} from '../../../global-styles/palette';
 import {State} from './model';

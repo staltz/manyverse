@@ -17,10 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
-import {Content, PostContent} from 'ssb-typescript';
+import {Stream} from 'xstream';
+import {Content} from 'ssb-typescript';
 import {toPostContent} from '../../../ssb/to-ssb';
-import {State} from './model';
 
 export type Actions = {
   publishMsg$: Stream<string>;

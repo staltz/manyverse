@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, createElement} from 'react';
+import {Component} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/native-screen';

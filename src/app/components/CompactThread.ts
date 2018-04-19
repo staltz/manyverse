@@ -18,13 +18,10 @@
  */
 
 import {PureComponent} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {FeedId, MsgId} from 'ssb-typescript';
-import {ThreadAndExtras, GetReadable, MsgAndExtras} from '../drivers/ssb';
+import {ThreadAndExtras, MsgAndExtras} from '../drivers/ssb';
 import Message from './messages/Message';
-import {Palette} from '../global-styles/palette';
-import {Dimensions} from '../global-styles/dimens';
 import ExpandThread from './messages/ExpandThread';
 
 export type Props = {

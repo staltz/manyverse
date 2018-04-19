@@ -27,10 +27,9 @@ export enum Screens {
 }
 
 import xs, {Stream} from 'xstream';
-import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
 import {h} from '@cycle/native-screen';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from './drivers/ssb';
 import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';

@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, PureComponent} from 'react';
+import {PureComponent} from 'react';
 import {h} from '@cycle/native-screen';
 import Markdown, {markdownStyles} from '../../global-styles/markdown';
 import MessageContainer from './MessageContainer';

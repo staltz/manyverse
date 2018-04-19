@@ -18,7 +18,6 @@
  */
 
 import xs, {Stream} from 'xstream';
-import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 import {Msg, PeerMetadata, Content, FeedId, About, MsgId} from 'ssb-typescript';
 import {isMsg, isPostMsg} from 'ssb-typescript/utils';
 import {ThreadData} from 'ssb-threads/types';
@@ -30,7 +29,7 @@ import gossipOpinion from '../../ssb/opinions/gossip';
 import publishHookOpinion from '../../ssb/opinions/hook';
 import configOpinion from '../../ssb/opinions/config';
 import feedProfileOpinion from '../../ssb/opinions/feed/pull/profile';
-import {ssbPath, ssbKeysPath} from '../../ssb/defaults';
+import {ssbKeysPath} from '../../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
 import xsFromMutant from 'xstream-from-mutant';
 import {Readable} from '../../typings/pull-stream';
@@ -44,10 +43,6 @@ const unboxOpinion = require('patchcore/message/sync/unbox');
 const msgLikesOpinion = require('patchcore/message/obs/likes');
 const ssbKeys = require('react-native-ssb-client-keys');
 const depjectCombine = require('depject');
-
-function isNotSync(msg: any): boolean {
-  return !msg.sync;
-}
 
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {

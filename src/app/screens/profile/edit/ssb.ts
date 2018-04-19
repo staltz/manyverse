@@ -17,10 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {State} from './model';
-import {Content, AboutContent} from 'ssb-typescript';
+import {Content} from 'ssb-typescript';
 import {toAboutContent} from '../../../../ssb/to-ssb';
 
 export type SSBActions = {

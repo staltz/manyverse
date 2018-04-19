@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import xs from 'xstream';
 import {h} from '@cycle/native-screen';
 import {View, TextInput, TextInputProperties} from 'react-native';
 import {styles} from './styles';

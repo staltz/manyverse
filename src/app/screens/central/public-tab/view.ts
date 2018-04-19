@@ -17,12 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
-import {PureComponent, Component} from 'react';
-import {View, FlatList, Text, TextInput} from 'react-native';
+import {Stream} from 'xstream';
 import {h} from '@cycle/native-screen';
-import {Palette} from '../../../global-styles/palette';
-import {Msg} from 'ssb-typescript';
 import Feed from '../../../components/Feed';
 import {State} from './model';
 import {SSBSource} from '../../../drivers/ssb';

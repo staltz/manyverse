@@ -17,11 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Command, PushCommand} from 'cycle-native-navigation';
 import {navOptions as composeScreenNavOptions} from '../compose';
 import {navOptions as editProfileScreenNavOptions} from './edit';
-import {Screens} from '../..';
 
 export type NavigationActions = {
   goToCompose$: Stream<null>;
