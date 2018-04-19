@@ -113,7 +113,7 @@ export class SSBSource {
       .take(1)
       .map(api => (opts?: any) =>
         pull(
-          api.sbot.pull.selfHistory[0]({reverse: true, ...opts}),
+          api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
           pull.filter(isPostMsg),
           pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
           pull.map(mutateThreadWithLiveExtras(api)),
