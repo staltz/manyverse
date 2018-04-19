@@ -20,7 +20,7 @@
 import {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ScreensSource} from 'cycle-native-navigation';
-import {Event as KeyboardEvent} from '../../drivers/keyboard';
+import {KeyboardSource, KeyboardEventType} from '@cycle/native-keyboard';
 import {Screens} from '../..';
 import {State} from './model';
 
@@ -36,10 +36,10 @@ function between<T>(first: Stream<any>, second: Stream<any>) {
 }
 
 export default function intent(
-  source: ScreensSource,
+  screenSource: ScreensSource,
   publish$: Stream<any>,
   state$: Stream<State>,
-  keyboard$: Stream<KeyboardEvent>,
+  keyboardSource: KeyboardSource,
 ) {
   return {
     publishMsg$: publish$
@@ -47,18 +47,18 @@ export default function intent(
       .map(([_, state]) => state.postText)
       .filter(text => text.length > 0),
 
-    updatePostText$: source
+    updatePostText$: screenSource
       .select('composeInput')
       .events('changeText') as Stream<string>,
 
-    willDisappear$: source.willDisappear(Screens.Compose),
+    willDisappear$: screenSource.willDisappear(Screens.Compose),
 
-    quitFromKeyboard$: keyboard$
-      .filter(ev => ev === KeyboardEvent.DidHide)
+    quitFromKeyboard$: keyboardSource
+      .events('keyboardDidHide')
       .compose(
         between(
-          source.didAppear(Screens.Compose),
-          source.willDisappear(Screens.Compose),
+          screenSource.didAppear(Screens.Compose),
+          screenSource.willDisappear(Screens.Compose),
         ),
       ),
   };

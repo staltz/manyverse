@@ -25,6 +25,7 @@
   "dependencies": {
     "@cycle/isolate": "3.2",
     "@cycle/run": "4.1",
+    "@cycle/native-keyboard": "1.0.0-rc.2",
     "@staltz/react-native-os": "1.2.0",
     "@staltz/react-native-workers": "0.5.3",
     "@staltz/rn-viewpager": "1.2.5",

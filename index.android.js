@@ -22,10 +22,10 @@ import RNNav from 'react-native-navigation';
 import RNNode from 'react-native-node';
 import {run} from '@cycle/run';
 import onionify from 'cycle-onionify';
+import {makeKeyboardDriver} from '@cycle/native-keyboard';
 import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
 import {ssbDriver} from './lib/app/drivers/ssb';
 import {dialogDriver} from './lib/app/drivers/dialogs';
-import {keyboardDriver} from './lib/app/drivers/keyboard';
 import {app, screenIDs} from './lib/app/index';
 import {navOptions as centralScreenNavOptions} from './lib/app/screens/central';
 
@@ -50,7 +50,7 @@ function startCycleApp() {
   run(onionify(app), {
     screen: screenVNodeDriver,
     navigation: commandDriver,
-    keyboard: keyboardDriver,
+    keyboard: makeKeyboardDriver(),
     ssb: ssbDriver,
     dialog: dialogDriver,
   });
