@@ -192,7 +192,6 @@ export default class Feed extends Component<Props, State> {
     const addedThreadsStream = this.addedThreadsStream;
     const that = this;
 
-    console.warn('show placeholder');
     that.setState({showPlaceholder: true});
     pull(
       readable,
