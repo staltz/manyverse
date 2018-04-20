@@ -21,13 +21,22 @@ import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
 import {Screens} from '../..';
+import {State} from './model';
+import sampleCombine from 'xstream/extra/sampleCombine';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
 export type LikeEvent = {msgKey: string; like: boolean};
 
-export default function intent(source: ScreensSource) {
+export default function intent(source: ScreensSource, state$: Stream<State>) {
   return {
+    publishMsg$: source
+      .select('replyButton')
+      .events('press')
+      .compose(sampleCombine(state$))
+      .map(([_, state]) => state)
+      .filter(state => !!state.replyText && !!state.rootMsgId),
+
     appear$: source.willAppear(Screens.Thread).mapTo(null),
 
     disappear$: source.didDisappear(Screens.Thread).mapTo(null),

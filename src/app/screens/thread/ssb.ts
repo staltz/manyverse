@@ -17,12 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Content} from 'ssb-typescript';
-import {toVoteContent} from '../../../ssb/to-ssb';
+import {toVoteContent, toReplyPostContent} from '../../../ssb/to-ssb';
+import {State} from './model';
 
 export type SSBActions = {
   likeMsg$: Stream<{msgKey: string; like: boolean}>;
+  publishMsg$: Stream<State>;
 };
 
 /**
@@ -31,5 +33,9 @@ export type SSBActions = {
 export default function ssb(actions: SSBActions): Stream<Content> {
   const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
-  return toggleLikeMsg$;
+  const publishReply$ = actions.publishMsg$.map(state =>
+    toReplyPostContent(state.replyText, state.rootMsgId as string),
+  );
+
+  return xs.merge(toggleLikeMsg$, publishReply$);
 }

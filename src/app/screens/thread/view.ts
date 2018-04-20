@@ -41,7 +41,7 @@ function ReplySpacer() {
 }
 
 function ReplySendButton() {
-  return h(TouchableOpacity, {style: styles.send}, [
+  return h(TouchableOpacity, {selector: 'replyButton', style: styles.send}, [
     h(Icon, {
       size: Dimensions.iconSizeNormal,
       color: Palette.brand.callToActionForeground,

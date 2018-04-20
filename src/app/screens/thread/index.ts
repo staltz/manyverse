@@ -51,7 +51,7 @@ export const navOptions = () => ({
 });
 
 export function thread(sources: Sources): Sinks {
-  const actions = intent(sources.screen);
+  const actions = intent(sources.screen, sources.onion.state$);
   const reducer$ = model(sources.onion.state$, actions, sources.ssb);
   const command$ = navigation(actions);
   const vdom$ = view(sources.onion.state$);

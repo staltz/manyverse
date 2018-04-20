@@ -23,6 +23,7 @@ import {
   ContactContent,
   FeedId,
   AboutContent,
+  MsgId,
 } from 'ssb-typescript';
 
 export type LikeEvent = {
@@ -45,6 +46,15 @@ export function toPostContent(text: string): PostContent {
   return {
     text,
     type: 'post',
+    mentions: [],
+  };
+}
+
+export function toReplyPostContent(text: string, root: MsgId): PostContent {
+  return {
+    text,
+    type: 'post',
+    root,
     mentions: [],
   };
 }
