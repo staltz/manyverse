@@ -19,7 +19,7 @@
 
 import xs from 'xstream';
 import {h} from '@cycle/native-screen';
-import {View, TextInput, TextInputProperties} from 'react-native';
+import {View, TextInput} from 'react-native';
 import {styles} from './styles';
 import {Palette} from '../../global-styles/palette';
 import {Screens} from '../..';
@@ -29,22 +29,19 @@ export default function view() {
     screen: Screens.Compose,
     vdom: h(View, {style: styles.container}, [
       h(View, {style: styles.writeMessageAuthorImage}),
-      h(
-        TextInput,
-        {
-          style: styles.composeInput,
-          selector: 'composeInput',
-          accessible: true,
-          accessibilityLabel: 'Compose Text Input',
-          autoFocus: true,
-          multiline: true,
-          returnKeyType: 'done',
-          placeholder: 'Write',
-          placeholderTextColor: Palette.brand.textVeryWeak,
-          selectionColor: Palette.indigo3,
-          underlineColorAndroid: Palette.brand.textBackground,
-        } as TextInputProperties,
-      ),
+      h(TextInput, {
+        style: styles.composeInput,
+        selector: 'composeInput',
+        accessible: true,
+        accessibilityLabel: 'Compose Text Input',
+        autoFocus: true,
+        multiline: true,
+        returnKeyType: 'done',
+        placeholder: 'Write',
+        placeholderTextColor: Palette.brand.textVeryWeak,
+        selectionColor: Palette.indigo3,
+        underlineColorAndroid: Palette.brand.textBackground,
+      }),
     ]),
   });
 }
