@@ -22,6 +22,7 @@ import {h} from '@cycle/native-screen';
 import Feed from '../../../components/Feed';
 import {State} from './model';
 import {SSBSource} from '../../../drivers/ssb';
+import {isRootPostMsg} from 'ssb-typescript/utils';
 
 export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   const vdom$ = state$.map(state =>
@@ -29,7 +30,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
       selector: 'publicFeed',
       getReadable: state.getPublicFeedReadable,
       getPublicationsReadable: state.getSelfRootsReadable,
-      publication$: ssbSource.publishHook$,
+      publication$: ssbSource.publishHook$.filter(isRootPostMsg),
       selfFeedId: state.selfFeedId,
       showPublishHeader: true,
     }),

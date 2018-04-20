@@ -28,6 +28,7 @@ import {SSBSource} from '../../drivers/ssb';
 import {styles} from './styles';
 import {State} from './model';
 import {Screens} from '../..';
+import {isRootPostMsg} from 'ssb-typescript/utils';
 
 export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   return state$.map((state: State) => {
@@ -91,7 +92,9 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
             getPublicationsReadable: isSelfProfile
               ? state.getSelfRootsReadable
               : null,
-            publication$: isSelfProfile ? ssbSource.publishHook$ : null,
+            publication$: isSelfProfile
+              ? ssbSource.publishHook$.filter(isRootPostMsg)
+              : null,
             selfFeedId: state.selfFeedId,
             style: isSelfProfile ? styles.feedWithHeader : styles.feed,
             showPublishHeader: isSelfProfile,

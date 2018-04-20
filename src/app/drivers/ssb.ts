@@ -19,7 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import {Msg, PeerMetadata, Content, FeedId, About, MsgId} from 'ssb-typescript';
-import {isMsg, isPostMsg} from 'ssb-typescript/utils';
+import {isMsg, isRootPostMsg} from 'ssb-typescript/utils';
 import {ThreadData} from 'ssb-threads/types';
 import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../../ssb/opinions/about/sync';
@@ -109,7 +109,7 @@ export class SSBSource {
       .map(api => (opts?: any) =>
         pull(
           api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
-          pull.filter(isPostMsg),
+          pull.filter(isRootPostMsg),
           pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
           pull.map(mutateThreadWithLiveExtras(api)),
         ),
@@ -118,8 +118,7 @@ export class SSBSource {
     this.publishHook$ = api$
       .take(1)
       .map(api => api.sbot.hook.publishStream[0]() as Stream<Msg>)
-      .flatten()
-      .filter(isPostMsg);
+      .flatten();
 
     this.localSyncPeers$ = api$
       .map(api => {
