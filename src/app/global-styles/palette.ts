@@ -183,6 +183,7 @@ const brand = {
   darkHighlight: acid3,
 
   callToActionBackground: teal6,
+  callToActionForeground: teal5,
 
   text: gray9,
   textWeak: gray7,

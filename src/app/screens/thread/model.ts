@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {Reducer} from 'cycle-onionify';
 import {FeedId, MsgId} from 'ssb-typescript';
@@ -28,6 +28,7 @@ export type State = {
   selfFeedId: FeedId;
   rootMsgId: MsgId | null;
   thread: ThreadAndExtras;
+  replyText: string;
 };
 
 export function initState(selfFeedId: FeedId): State {
@@ -35,6 +36,7 @@ export function initState(selfFeedId: FeedId): State {
     selfFeedId,
     thread: {full: true, messages: []},
     rootMsgId: null,
+    replyText: '',
   };
 }
 
@@ -53,6 +55,7 @@ export function updateRootMsgId(prev: State, rootMsgId: MsgId): State {
 export type AppearingActions = {
   appear$: Stream<null>;
   disappear$: Stream<null>;
+  updateReplyText$: Stream<string>;
 };
 
 export default function model(
@@ -70,6 +73,16 @@ export default function model(
     .map(([_, id]) => ssbSource.thread$(id))
     .flatten();
 
+  const updateReplyTextReducer$ = actions.updateReplyText$.map(
+    text =>
+      function updateReplyTextReducer(prev?: State): State {
+        if (!prev) {
+          throw new Error('Thread/model reducer expects existing state');
+        }
+        return {...prev, replyText: text};
+      },
+  );
+
   const setThreadReducer$ = thread$.map(
     thread =>
       function setThreadReducer(prev: State): State {
@@ -77,5 +90,18 @@ export default function model(
       },
   );
 
-  return setThreadReducer$;
+  const clearReplyReducer$ = actions.disappear$.mapTo(function clearReducer(
+    prev?: State,
+  ): State {
+    if (!prev) {
+      throw new Error('Thread/model reducer expects existing state');
+    }
+    return {...prev, replyText: ''};
+  });
+
+  return xs.merge(
+    setThreadReducer$,
+    updateReplyTextReducer$,
+    clearReplyReducer$,
+  );
 }

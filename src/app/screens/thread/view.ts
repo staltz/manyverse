@@ -20,12 +20,14 @@
 import {Stream} from 'xstream';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
-import {View, ScrollView} from 'react-native';
+import {View, TextInput, ScrollView, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {State} from './model';
 import {styles} from './styles';
 import CompactThread from '../../components/CompactThread';
 import {Palette} from '../../global-styles/palette';
 import {Screens} from '../..';
+import {Dimensions} from '../../global-styles/dimens';
 
 const Loading = h(Progress.CircleSnail, {
   style: styles.loading,
@@ -34,12 +36,47 @@ const Loading = h(Progress.CircleSnail, {
   color: Palette.brand.backgroundLighterContrast,
 });
 
+function ReplySpacer() {
+  return h(View, {style: styles.spacer});
+}
+
+function ReplySendButton() {
+  return h(TouchableOpacity, {style: styles.send}, [
+    h(Icon, {
+      size: Dimensions.iconSizeNormal,
+      color: Palette.brand.callToActionForeground,
+      name: 'send',
+    }),
+  ]);
+}
+
+function ReplyInput(state: State) {
+  return h(View, {style: styles.writeMessageRow}, [
+    h(View, {style: styles.writeMessageAuthorImage}),
+    h(View, {style: styles.writeInputContainer}, [
+      h(TextInput, {
+        accessible: true,
+        accessibilityLabel: 'Reply Text Input',
+        selector: 'replyInput',
+        multiline: true,
+        returnKeyType: 'done',
+        placeholder: 'Reply',
+        placeholderTextColor: Palette.brand.textVeryWeak,
+        selectionColor: Palette.indigo3,
+        underlineColorAndroid: Palette.brand.voidBackground,
+        style: styles.writeInput,
+      }),
+    ]),
+    state.replyText.length > 0 ? ReplySendButton() : ReplySpacer(),
+  ]);
+}
+
 export default function view(state$: Stream<State>) {
   return state$.map((state: State) => {
     return {
       screen: Screens.Thread,
       vdom: h(View, {style: styles.container}, [
-        h(ScrollView, [
+        h(ScrollView, {style: styles.scrollView}, [
           state.thread.messages.length === 0
             ? Loading
             : h(CompactThread, {
@@ -49,6 +86,7 @@ export default function view(state$: Stream<State>) {
                 onPressExpand: () => {},
               }),
         ]),
+        ReplyInput(state),
       ]),
     };
   });

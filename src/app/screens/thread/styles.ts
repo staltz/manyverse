@@ -44,4 +44,55 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: Dimensions.verticalSpaceBig,
   },
+
+  scrollView: {
+    flex: 1,
+  },
+
+  writeMessageRow: {
+    backgroundColor: Palette.brand.textBackground,
+    paddingLeft: Dimensions.horizontalSpaceBig,
+    borderTopWidth: 1,
+    borderTopColor: Palette.gray1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  spacer: {
+    width: Dimensions.horizontalSpaceBig,
+    height: 10,
+  },
+
+  writeMessageAuthorImage: {
+    height: 32,
+    width: 32,
+    borderRadius: 3,
+    backgroundColor: Palette.indigo1,
+    marginTop: Dimensions.verticalSpaceNormal,
+    marginBottom: Dimensions.verticalSpaceNormal,
+    alignSelf: 'flex-start',
+  },
+
+  writeInputContainer: {
+    flex: 1,
+    paddingLeft: Dimensions.horizontalSpaceSmall,
+    alignSelf: 'stretch',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+
+  writeInput: {
+    fontSize: Typography.fontSizeNormal,
+    color: Palette.brand.text,
+    maxHeight: 136, // approx. 6.5 lines of text
+  },
+
+  send: {
+    alignSelf: 'flex-end',
+    borderRadius: 3,
+    paddingLeft: Dimensions.horizontalSpaceSmall,
+    paddingRight: Dimensions.horizontalSpaceBig,
+    paddingVertical: Dimensions.verticalSpaceTiny,
+    marginBottom: Dimensions.verticalSpaceNormal,
+  },
 });

@@ -34,6 +34,10 @@ export default function intent(source: ScreensSource) {
 
     likeMsg$: source.select('thread').events('pressLike') as Stream<LikeEvent>,
 
+    updateReplyText$: source
+      .select('replyInput')
+      .events('changeText') as Stream<string>,
+
     goToProfile$: source.select('thread').events('pressAuthor') as Stream<
       ProfileNavEvent
     >,
