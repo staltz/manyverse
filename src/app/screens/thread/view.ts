@@ -60,6 +60,8 @@ function ReplyInput(state: State) {
         selector: 'replyInput',
         multiline: true,
         returnKeyType: 'done',
+        value: state.replyText,
+        editable: state.replyEditable,
         placeholder: 'Reply',
         placeholderTextColor: Palette.brand.textVeryWeak,
         selectionColor: Palette.indigo3,

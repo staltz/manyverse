@@ -29,6 +29,7 @@ export type State = {
   rootMsgId: MsgId | null;
   thread: ThreadAndExtras;
   replyText: string;
+  replyEditable: boolean;
 };
 
 export function initState(selfFeedId: FeedId): State {
@@ -37,6 +38,7 @@ export function initState(selfFeedId: FeedId): State {
     thread: {full: true, messages: []},
     rootMsgId: null,
     replyText: '',
+    replyEditable: true,
   };
 }
 
@@ -53,6 +55,7 @@ export function updateRootMsgId(prev: State, rootMsgId: MsgId): State {
 }
 
 export type AppearingActions = {
+  publishMsg$: Stream<any>;
   appear$: Stream<null>;
   disappear$: Stream<null>;
   updateReplyText$: Stream<string>;
@@ -90,18 +93,35 @@ export default function model(
       },
   );
 
-  const clearReplyReducer$ = actions.disappear$.mapTo(function clearReducer(
-    prev?: State,
-  ): State {
-    if (!prev) {
-      throw new Error('Thread/model reducer expects existing state');
-    }
-    return {...prev, replyText: ''};
-  });
+  const publishReplyReducers$ = actions.publishMsg$
+    .map(() =>
+      xs.of(
+        function emptyPublishedReducer(prev?: State): State {
+          if (!prev) {
+            throw new Error('Thread/model reducer expects existing state');
+          }
+          return {...prev, replyText: '', replyEditable: false};
+        },
+        function resetEditableReducer(prev: State): State {
+          return {...prev, replyEditable: true};
+        },
+      ),
+    )
+    .flatten();
+
+  const clearReplyReducer$ = actions.disappear$.mapTo(
+    function clearReplyReducer(prev?: State): State {
+      if (!prev) {
+        throw new Error('Thread/model reducer expects existing state');
+      }
+      return {...prev, replyText: ''};
+    },
+  );
 
   return xs.merge(
     setThreadReducer$,
     updateReplyTextReducer$,
+    publishReplyReducers$,
     clearReplyReducer$,
   );
 }

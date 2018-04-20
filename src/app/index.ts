@@ -133,11 +133,12 @@ export function app(sources: Sources): Sinks {
     profileSinks.ssb,
     threadSinks.ssb,
   );
+  const dismiss$ = threadSinks.keyboard;
 
   return {
     screen: screen$.compose(addAlphaDisclaimer),
     navigation: navCommand$,
-    keyboard: xs.never(),
+    keyboard: dismiss$,
     onion: reducer$,
     ssb: ssb$,
     dialog: profileSinks.dialog,

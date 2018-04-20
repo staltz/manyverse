@@ -40,6 +40,7 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ScreenVNode>;
   navigation: Stream<Command>;
+  keyboard: Stream<'dismiss'>;
   onion: Stream<Reducer<State>>;
   ssb: Stream<Content>;
 };
@@ -56,10 +57,12 @@ export function thread(sources: Sources): Sinks {
   const command$ = navigation(actions);
   const vdom$ = view(sources.onion.state$);
   const newContent$ = ssb(actions);
+  const dismiss$ = actions.publishMsg$.mapTo('dismiss' as 'dismiss');
 
   return {
     screen: vdom$,
     navigation: command$,
+    keyboard: dismiss$,
     onion: reducer$,
     ssb: newContent$,
   };
