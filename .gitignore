@@ -2,6 +2,7 @@
 #
 .DS_Store
 .history/
+nodejs-assets/.ssb/
 # Xcode
 #
 build/
@@ -65,7 +66,7 @@ buck-out/
 # Generated Code
 #
 /lib/
-/rnnodeapp
+/nodejs-assets/nodejs-project
 /android/app/src/main/res/raw/rnnodebundle
 /android/app/src/main/assets/worker.bundle*
 

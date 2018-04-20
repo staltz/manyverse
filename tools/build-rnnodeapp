@@ -4,35 +4,36 @@ echo "Compiling TypeScript...";
 npm run lib;
 
 echo "Setting up...";
-rm -rf ./rnnodeapp;
-mkdir -p ./rnnodeapp;
-cp -r ./lib/rnnodeapp ./;
-cp ./src/rnnodeapp/package.json ./rnnodeapp/;
-rm ./rnnodeapp/*.js.map;
+rm -rf ./nodejs-assets/nodejs-project;
+mkdir -p ./nodejs-assets/nodejs-project;
+cp -r ./lib/nodejs-project ./nodejs-assets;
+cp -r ./src/nodejs-project/patches ./nodejs-assets/nodejs-project
+cp ./src/nodejs-project/package.json ./nodejs-assets/nodejs-project;
+rm ./nodejs-assets/nodejs-project/*.js.map;
 
 echo "Installing dependencies...";
-cd ./rnnodeapp && npm i && cd ..;
+cd ./nodejs-assets/nodejs-project && npm i && cd ../..;
 
-echo "Setting up folder for native bindings...";
-mv ./rnnodeapp/node_modules/leveldown-android-prebuilt/compiled ./rnnodeapp/compiled;
+# echo "Setting up folder for native bindings...";
+# mv ./nodejs-assets/nodejs-project/node_modules/leveldown-android-prebuilt/compiled ./rnnodeapp/compiled;
 
 echo "Patch (in preprocessor style) some dependencies...";
-./tools/patch-rnnodeapp-scuttlebot ./rnnodeapp
+./tools/patch-rnnodeapp-scuttlebot ./nodejs-assets/nodejs-project
 
-echo "Minifying...";
-$(npm bin)/noderify \
-  --replace.chloride=sodium-browserify-tweetnacl \
-  --replace.sodium-chloride=sodium-browserify-tweetnacl \
-  --replace.node-extend=xtend \
-  --replace.leveldown=leveldown-android-prebuilt \
-  ./rnnodeapp/index.js > ./rnnodeapp/_index.js;
-rm ./rnnodeapp/index.js;
-mv ./rnnodeapp/_index.js ./rnnodeapp/index.js;
+# echo "Minifying...";
+# $(npm bin)/noderify \
+#   --replace.chloride=sodium-browserify-tweetnacl \
+#   --replace.sodium-chloride=sodium-browserify-tweetnacl \
+#   --replace.node-extend=xtend \
+#   --replace.leveldown=leveldown-android-prebuilt \
+#   ./rnnodeapp/index.js > ./rnnodeapp/_index.js;
+# rm ./rnnodeapp/index.js;
+# mv ./rnnodeapp/_index.js ./rnnodeapp/index.js;
 
-echo "Cleaning up...";
-rm -rf ./rnnodeapp/node_modules;
+# echo "Cleaning up...";
+# rm -rf ./rnnodeapp/node_modules;
 
-echo "Bundling into Android...";
-$(npm bin)/react-native-node insert ./rnnodeapp
+# echo "Bundling into Android...";
+# $(npm bin)/react-native-node insert ./rnnodeapp
 
 echo "Done."

@@ -25,7 +25,11 @@ const mkdirp = require('mkdirp');
 import manifest = require('./manifest');
 import rootsPlugin = require('./roots');
 
-const ssbPath = path.resolve(os.homedir(), '.ssb');
+// Hack until appDataDir plugin comes out
+const  writablePath = path.join(__dirname, '..');
+// const ssbPath = path.resolve(os.homedir(), '.ssb');
+const ssbPath = path.resolve(writablePath, '.ssb');
+console.log('Starting Scuttlebot on path:', ssbPath)
 if (!fs.existsSync(ssbPath)) {
   mkdirp.sync(ssbPath);
 }
