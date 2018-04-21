@@ -39,6 +39,7 @@ const config = require('ssb-config/inject')();
 config.path = ssbPath;
 config.keys = keys;
 config.manifest = manifest;
+console.log('Loading SSB with config: ', config)
 
 require('scuttlebot/index')
   .use(require('scuttlebot/plugins/plugins'))
