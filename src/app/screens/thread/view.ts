@@ -64,7 +64,7 @@ function ReplyInput(state: State) {
         returnKeyType: 'done',
         value: state.replyText,
         editable: state.replyEditable,
-        placeholder: 'Reply',
+        placeholder: 'Comment',
         placeholderTextColor: Palette.brand.textVeryWeak,
         selectionColor: Palette.indigo3,
         underlineColorAndroid: Palette.brand.voidBackground,
