@@ -22,14 +22,15 @@ import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
 import {View, TextInput, ScrollView, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {State} from './model';
-import {styles} from './styles';
-import FullThread from '../../components/FullThread';
-import {Palette} from '../../global-styles/palette';
+import {propifyMethods} from 'react-propify-methods';
+import {isReplyPostMsg} from 'ssb-typescript/utils';
 import {Screens} from '../..';
+import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {SSBSource} from '../../drivers/ssb';
-import {isReplyPostMsg} from 'ssb-typescript/utils';
+import FullThread from '../../components/FullThread';
+import {State} from './model';
+import {styles} from './styles';
 
 const Loading = h(Progress.CircleSnail, {
   style: styles.loading,
@@ -73,22 +74,39 @@ function ReplyInput(state: State) {
   ]);
 }
 
-export default function view(state$: Stream<State>, ssbSource: SSBSource) {
+const ReactiveScrollView = propifyMethods(ScrollView, 'scrollToEnd' as any);
+
+type Actions = {
+  publishMsg$: Stream<any>;
+};
+
+export default function view(
+  state$: Stream<State>,
+  ssbSource: SSBSource,
+  actions: Actions,
+) {
   return state$.map((state: State) => {
     return {
       screen: Screens.Thread,
       vdom: h(View, {style: styles.container}, [
-        h(ScrollView, {style: styles.scrollView}, [
-          state.thread.messages.length === 0
-            ? Loading
-            : h(FullThread, {
-                selector: 'thread',
-                thread: state.thread,
-                selfFeedId: state.selfFeedId,
-                publication$: ssbSource.publishHook$.filter(isReplyPostMsg),
-                getPublicationsReadable: state.getSelfRepliesReadable,
-              }),
-        ]),
+        h(
+          ReactiveScrollView,
+          {
+            style: styles.scrollView,
+            scrollToEnd$: actions.publishMsg$.mapTo({animated: false}),
+          },
+          [
+            state.thread.messages.length === 0
+              ? Loading
+              : h(FullThread, {
+                  selector: 'thread',
+                  thread: state.thread,
+                  selfFeedId: state.selfFeedId,
+                  publication$: ssbSource.publishHook$.filter(isReplyPostMsg),
+                  getPublicationsReadable: state.getSelfRepliesReadable,
+                }),
+          ],
+        ),
         ReplyInput(state),
       ]),
     };

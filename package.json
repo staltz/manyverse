@@ -59,6 +59,7 @@
     "react-native-ssb-client-keys": "1.1.0",
     "react-native-ssb-shims": "2.0.0",
     "react-native-vector-icons": "4.5.0",
+    "react-propify-methods": "^1.1.0",
     "rn-markdown": "^1.1.1",
     "spawn-sync": "^1.0.15",
     "ssb-ref": "2.9.1",
