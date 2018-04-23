@@ -21,10 +21,17 @@ export const Dimensions = {
   horizontalSpaceBig: 16,
   horizontalSpaceNormal: 12,
   horizontalSpaceSmall: 7,
+
   verticalSpaceBig: 14,
   verticalSpaceNormal: 10,
   verticalSpaceSmall: 7,
   verticalSpaceTiny: 4,
+
+  avatarSizeBig: 80,
+  avatarSizeNormal: 45,
+  avatarSizeSmall: 32,
+  avatarBorderRadius: 3,
+
   iconSizeNormal: 28,
   iconSizeSmall: 20,
   toolbarAndroidHeight: 56,

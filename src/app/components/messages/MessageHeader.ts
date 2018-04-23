@@ -40,16 +40,16 @@ export const styles = StyleSheet.create({
   },
 
   messageAuthorImageContainer: {
-    height: 45,
-    width: 45,
-    borderRadius: 3,
+    height: Dimensions.avatarSizeNormal,
+    width: Dimensions.avatarSizeNormal,
+    borderRadius: Dimensions.avatarBorderRadius,
     backgroundColor: Palette.indigo1,
     marginRight: Dimensions.horizontalSpaceSmall,
     marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   messageAuthorImage: {
-    borderRadius: 3,
+    borderRadius: Dimensions.avatarBorderRadius,
     position: 'absolute',
     top: 0,
     left: 0,

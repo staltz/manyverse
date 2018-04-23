@@ -46,9 +46,9 @@ export const styles = StyleSheet.create({
   },
 
   writeMessageAuthorImage: {
-    height: 45,
-    width: 45,
-    borderRadius: 3,
+    height: Dimensions.avatarSizeNormal,
+    width: Dimensions.avatarSizeNormal,
+    borderRadius: Dimensions.avatarBorderRadius,
     backgroundColor: Palette.indigo1,
   },
 

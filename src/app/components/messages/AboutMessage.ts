@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
   },
 
   aboutImage: {
-    borderRadius: 3,
+    borderRadius: Dimensions.avatarBorderRadius,
     marginTop: Dimensions.verticalSpaceNormal,
     marginBottom: Dimensions.verticalSpaceNormal,
     width: 120,
