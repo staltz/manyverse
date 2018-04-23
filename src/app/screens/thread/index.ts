@@ -55,7 +55,7 @@ export function thread(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.onion.state$);
   const reducer$ = model(sources.onion.state$, actions, sources.ssb);
   const command$ = navigation(actions);
-  const vdom$ = view(sources.onion.state$);
+  const vdom$ = view(sources.onion.state$, sources.ssb);
   const newContent$ = ssb(actions);
   const dismiss$ = actions.publishMsg$.mapTo('dismiss' as 'dismiss');
 

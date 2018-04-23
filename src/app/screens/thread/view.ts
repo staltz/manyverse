@@ -24,10 +24,12 @@ import {View, TextInput, ScrollView, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {State} from './model';
 import {styles} from './styles';
-import CompactThread from '../../components/CompactThread';
+import FullThread from '../../components/FullThread';
 import {Palette} from '../../global-styles/palette';
 import {Screens} from '../..';
 import {Dimensions} from '../../global-styles/dimens';
+import {SSBSource} from '../../drivers/ssb';
+import {isReplyPostMsg} from 'ssb-typescript/utils';
 
 const Loading = h(Progress.CircleSnail, {
   style: styles.loading,
@@ -36,9 +38,7 @@ const Loading = h(Progress.CircleSnail, {
   color: Palette.brand.backgroundLighterContrast,
 });
 
-function ReplySpacer() {
-  return h(View, {style: styles.spacer});
-}
+const ReplySpacer = h(View, {style: styles.spacer});
 
 function ReplySendButton() {
   return h(TouchableOpacity, {selector: 'replyButton', style: styles.send}, [
@@ -69,11 +69,11 @@ function ReplyInput(state: State) {
         style: styles.writeInput,
       }),
     ]),
-    state.replyText.length > 0 ? ReplySendButton() : ReplySpacer(),
+    state.replyText.length > 0 ? ReplySendButton() : ReplySpacer,
   ]);
 }
 
-export default function view(state$: Stream<State>) {
+export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   return state$.map((state: State) => {
     return {
       screen: Screens.Thread,
@@ -81,11 +81,12 @@ export default function view(state$: Stream<State>) {
         h(ScrollView, {style: styles.scrollView}, [
           state.thread.messages.length === 0
             ? Loading
-            : h(CompactThread, {
+            : h(FullThread, {
                 selector: 'thread',
                 thread: state.thread,
                 selfFeedId: state.selfFeedId,
-                onPressExpand: () => {},
+                publication$: ssbSource.publishHook$.filter(isReplyPostMsg),
+                getPublicationsReadable: state.getSelfRepliesReadable,
               }),
         ]),
         ReplyInput(state),

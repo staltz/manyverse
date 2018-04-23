@@ -21,7 +21,12 @@ import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {Reducer} from 'cycle-onionify';
 import {FeedId, MsgId} from 'ssb-typescript';
-import {ThreadAndExtras, SSBSource} from '../../drivers/ssb';
+import {
+  ThreadAndExtras,
+  SSBSource,
+  GetReadable,
+  MsgAndExtras,
+} from '../../drivers/ssb';
 import sampleCombine from 'xstream/extra/sampleCombine';
 
 export type State = {
@@ -30,6 +35,7 @@ export type State = {
   thread: ThreadAndExtras;
   replyText: string;
   replyEditable: boolean;
+  getSelfRepliesReadable: GetReadable<MsgAndExtras> | null;
 };
 
 export function initState(selfFeedId: FeedId): State {
@@ -39,6 +45,7 @@ export function initState(selfFeedId: FeedId): State {
     rootMsgId: null,
     replyText: '',
     replyEditable: true,
+    getSelfRepliesReadable: null,
   };
 }
 
@@ -109,6 +116,16 @@ export default function model(
     )
     .flatten();
 
+  const updateSelfRepliesReducer$ = ssbSource.selfReplies$.map(
+    getReadable =>
+      function updateSelfRepliesReducer(prev?: State): State {
+        if (!prev) {
+          throw new Error('Thread/model reducer expects existing state');
+        }
+        return {...prev, getSelfRepliesReadable: getReadable};
+      },
+  );
+
   const clearReplyReducer$ = actions.disappear$.mapTo(
     function clearReplyReducer(prev?: State): State {
       if (!prev) {
@@ -122,6 +139,7 @@ export default function model(
     setThreadReducer$,
     updateReplyTextReducer$,
     publishReplyReducers$,
+    updateSelfRepliesReducer$,
     clearReplyReducer$,
   );
 }

@@ -19,7 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import {Msg, PeerMetadata, Content, FeedId, About, MsgId} from 'ssb-typescript';
-import {isMsg, isRootPostMsg} from 'ssb-typescript/utils';
+import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {ThreadData} from 'ssb-threads/types';
 import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../../ssb/opinions/about/sync';
@@ -89,6 +89,7 @@ export class SSBSource {
   public selfFeedId$: Stream<FeedId>;
   public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
   public selfRoots$: Stream<GetReadable<ThreadAndExtras>>;
+  public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
   public publishHook$: Stream<Msg>;
   public localSyncPeers$: Stream<Array<PeerMetadata>>;
 
@@ -112,6 +113,16 @@ export class SSBSource {
           pull.filter(isRootPostMsg),
           pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
           pull.map(mutateThreadWithLiveExtras(api)),
+        ),
+      );
+
+    this.selfReplies$ = api$
+      .take(1)
+      .map(api => (opts?: any) =>
+        pull(
+          api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
+          pull.filter(isReplyPostMsg),
+          pull.map(mutateMsgWithLiveExtras(api)),
         ),
       );
 
