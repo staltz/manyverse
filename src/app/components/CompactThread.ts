@@ -27,7 +27,8 @@ import ExpandThread from './messages/ExpandThread';
 export type Props = {
   thread: ThreadAndExtras;
   selfFeedId: FeedId;
-  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+  onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
+  onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressExpand: (ev: {rootMsgId: MsgId}) => void;
 };
@@ -38,12 +39,13 @@ export default class CompactThread extends PureComponent<Props> {
   }
 
   private renderMessage(msg: MsgAndExtras) {
-    const {selfFeedId, onPressLike, onPressAuthor} = this.props;
+    const {selfFeedId, onPressLike, onPressReply, onPressAuthor} = this.props;
     return h(Message, {
       msg,
       ['key' as any]: msg.key,
       selfFeedId,
       onPressLike,
+      onPressReply,
       onPressAuthor,
     });
   }

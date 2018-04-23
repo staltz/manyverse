@@ -36,6 +36,7 @@ export type State = {
   replyText: string;
   replyEditable: boolean;
   getSelfRepliesReadable: GetReadable<MsgAndExtras> | null;
+  startedAsReply: boolean;
 };
 
 export function initState(selfFeedId: FeedId): State {
@@ -46,16 +47,22 @@ export function initState(selfFeedId: FeedId): State {
     replyText: '',
     replyEditable: true,
     getSelfRepliesReadable: null,
+    startedAsReply: false,
   };
 }
 
-export function updateRootMsgId(prev: State, rootMsgId: MsgId): State {
+export function updateRootMsgId(
+  prev: State,
+  rootMsgId: MsgId,
+  replyToMsgId: MsgId | undefined,
+): State {
   if (rootMsgId === prev.rootMsgId) {
     return prev;
   } else {
     return {
       ...prev,
       rootMsgId,
+      startedAsReply: replyToMsgId ? true : false,
       thread: {full: true, messages: []},
     };
   }
@@ -131,7 +138,7 @@ export default function model(
       if (!prev) {
         throw new Error('Thread/model reducer expects existing state');
       }
-      return {...prev, replyText: ''};
+      return {...prev, replyText: '', startedAsReply: false};
     },
   );
 

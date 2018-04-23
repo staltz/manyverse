@@ -60,6 +60,7 @@ function ReplyInput(state: State) {
         accessibilityLabel: 'Reply Text Input',
         selector: 'replyInput',
         multiline: true,
+        autoFocus: state.startedAsReply,
         returnKeyType: 'done',
         value: state.replyText,
         editable: state.replyEditable,

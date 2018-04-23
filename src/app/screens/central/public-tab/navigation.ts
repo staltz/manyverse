@@ -27,7 +27,7 @@ import {navOptions as threadScreenNavOptions} from '../../thread';
 export type Actions = {
   goToCompose$: Stream<any>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
-  goToThread$: Stream<{rootMsgId: MsgId}>;
+  goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
 };
 
 export default function navigation(actions: Actions): Stream<Command> {
@@ -62,6 +62,7 @@ export default function navigation(actions: Actions): Stream<Command> {
         animationType: 'slide-horizontal',
         passProps: {
           rootMsgId: ev.rootMsgId,
+          replyToMsgId: ev.replyToMsgId,
         },
         ...threadScreenNavOptions(),
       } as Command),

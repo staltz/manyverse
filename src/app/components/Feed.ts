@@ -141,7 +141,8 @@ type Props = {
   showPublishHeader: boolean;
   style?: any;
   onOpenCompose?: () => void;
-  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+  onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
+  onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressExpandThread?: (ev: {rootMsgId: MsgId}) => void;
 };
@@ -207,6 +208,7 @@ export default class Feed extends Component<Props, State> {
   public render() {
     const {
       onPressLike,
+      onPressReply,
       onPressAuthor,
       onPressExpandThread,
       showPublishHeader,
@@ -239,6 +241,7 @@ export default class Feed extends Component<Props, State> {
             thread: item as ThreadAndExtras,
             selfFeedId,
             onPressLike,
+            onPressReply,
             onPressAuthor,
             onPressExpand: onPressExpandThread || ((x: any) => {}),
           }),

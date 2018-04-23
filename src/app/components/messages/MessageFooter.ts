@@ -18,10 +18,16 @@
  */
 
 import {Component} from 'react';
-import {View, Text, TouchableNativeFeedback, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableNativeFeedback,
+  StyleSheet,
+  TouchableNativeFeedbackProperties,
+} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Msg, FeedId} from 'ssb-typescript';
+import {Msg, FeedId, PostContent, MsgId} from 'ssb-typescript';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -63,6 +69,23 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.brand.textWeak,
   },
+
+  replyButton: {
+    flexDirection: 'row',
+    paddingTop: Dimensions.verticalSpaceSmall + 6,
+    paddingBottom: Dimensions.verticalSpaceBig,
+    paddingLeft: Dimensions.horizontalSpaceBig,
+    paddingRight: Dimensions.horizontalSpaceBig,
+    marginBottom: -Dimensions.verticalSpaceBig,
+  },
+
+  replyButtonLabel: {
+    fontSize: Typography.fontSizeSmall,
+    fontWeight: 'bold',
+    marginLeft: Dimensions.horizontalSpaceSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.brand.textWeak,
+  },
 });
 
 const iconProps = {
@@ -81,13 +104,19 @@ const iconProps = {
     color: Palette.indigo6,
     name: 'thumb-up',
   },
+  reply: {
+    size: Dimensions.iconSizeSmall,
+    color: Palette.brand.textWeak,
+    name: 'comment-outline',
+  },
 };
 
 export type Props = {
   msg: Msg;
   selfFeedId: FeedId;
   likes: Array<FeedId> | null;
-  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+  onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
+  onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
 };
 
 export type State = {
@@ -99,10 +128,18 @@ export default class MessageFooter extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = this.stateFromProps(props, {ilike: 'maybe', likeCount: 0});
-    this._onPressLike = this.onPressLikeHandler.bind(this);
+    this._likeButtonProps = {
+      background: TouchableNativeFeedback.SelectableBackground(),
+      onPress: this.onPressLikeHandler.bind(this),
+    };
+    this._replyButtonProps = {
+      background: TouchableNativeFeedback.SelectableBackground(),
+      onPress: this.onPressReplyHandler.bind(this),
+    };
   }
 
-  private _onPressLike: () => void;
+  private _likeButtonProps: TouchableNativeFeedbackProperties;
+  private _replyButtonProps: TouchableNativeFeedbackProperties;
 
   public componentWillReceiveProps(nextProps: Props) {
     this.setState((prev: State) => this.stateFromProps(nextProps, prev));
@@ -139,6 +176,17 @@ export default class MessageFooter extends Component<Props, State> {
     }
   }
 
+  private onPressReplyHandler() {
+    const onPressReply = this.props.onPressReply;
+    if (!onPressReply) return;
+    const msgKey = this.props.msg.key;
+    const rootKey =
+      this.props.msg.value &&
+      this.props.msg.value.content &&
+      (this.props.msg.value.content as PostContent).root;
+    onPressReply({msgKey, rootKey: rootKey || msgKey});
+  }
+
   public shouldComponentUpdate(nextProps: Props, nextState: State) {
     const prevProps = this.props;
     const prevState = this.state;
@@ -162,20 +210,29 @@ export default class MessageFooter extends Component<Props, State> {
         ]
       : [];
 
-    const likeButtonProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: this._onPressLike,
-    };
-    const likeButton = h(TouchableNativeFeedback, likeButtonProps, [
-      h(View, {style: styles.likeButton}, [
-        h(Icon, iconProps[ilike + 'Liked']),
-        h(Text, {style: styles.likeButtonLabel}, 'Like'),
+    const buttons = [
+      h(TouchableNativeFeedback, this._likeButtonProps, [
+        h(View, {style: styles.likeButton}, [
+          h(Icon, iconProps[ilike + 'Liked']),
+          h(Text, {style: styles.likeButtonLabel}, 'Like'),
+        ]),
       ]),
-    ]);
+    ];
+
+    if (this.props.onPressReply) {
+      buttons.push(
+        h(TouchableNativeFeedback, this._replyButtonProps, [
+          h(View, {style: styles.replyButton}, [
+            h(Icon, iconProps.reply),
+            h(Text, {style: styles.replyButtonLabel}, 'Comment'),
+          ]),
+        ]),
+      );
+    }
 
     return h(View, {style: styles.col}, [
       ...counters,
-      h(View, {style: styles.row}, [likeButton]),
+      h(View, {style: styles.row}, buttons),
     ]);
   }
 }

@@ -154,7 +154,11 @@ export default function model(
           if (command.passProps && command.passProps.rootMsgId) {
             return {
               ...prev,
-              thread: updateRootMsgId(prev.thread, command.passProps.rootMsgId),
+              thread: updateRootMsgId(
+                prev.thread,
+                command.passProps.rootMsgId,
+                command.passProps.replyToMsgId,
+              ),
             };
           } else {
             return prev;
