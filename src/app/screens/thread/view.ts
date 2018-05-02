@@ -42,13 +42,22 @@ const Loading = h(Progress.CircleSnail, {
 const ReplySpacer = h(View, {style: styles.spacer});
 
 function ReplySendButton() {
-  return h(TouchableOpacity, {selector: 'replyButton', style: styles.send}, [
-    h(Icon, {
-      size: Dimensions.iconSizeNormal,
-      color: Palette.brand.callToActionForeground,
-      name: 'send',
-    }),
-  ]);
+  return h(
+    TouchableOpacity,
+    {
+      selector: 'replyButton',
+      style: styles.send,
+      accessible: true,
+      accessibilityLabel: 'Reply Publish Button',
+    },
+    [
+      h(Icon, {
+        size: Dimensions.iconSizeNormal,
+        color: Palette.brand.callToActionForeground,
+        name: 'send',
+      }),
+    ],
+  );
 }
 
 function ReplyInput(state: State) {
