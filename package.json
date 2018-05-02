@@ -57,7 +57,6 @@
     "react-native": "^0.55.2",
     "react-native-dialogs": "0.0.20",
     "react-native-navigation": "1.1.375",
-    "react-native-node": "3.3.0",
     "react-native-progress": "3.4.0",
     "react-native-ssb-client": "4.0.0",
     "react-native-ssb-client-keys": "1.1.0",
