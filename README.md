@@ -57,3 +57,10 @@ react-native run-android
 ## Integration tests
 
 We use Appium and Tape, just plug in a device through USB and run `npm run test-e2e-android`. This will run tests on top of the *release* variant of the app, so it that doesn't exist, you must run `npm run android-release` first.
+
+## Releases
+
+To build a release APK, follow [these instructions](https://facebook.github.io/react-native/docs/signed-apk-android.html), in short:
+
+1. Put the correct file `my-release-key.keystore` in the folder `android/app/`
+2. Configure the file `~/.gradle/gradle.properties` with the correct values
