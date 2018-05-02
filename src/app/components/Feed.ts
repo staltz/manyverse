@@ -35,10 +35,6 @@ const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 
 export const styles = StyleSheet.create({
-  header: {
-    marginBottom: Dimensions.verticalSpaceNormal * 0.5,
-  },
-
   writeMessageRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -70,11 +66,9 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 
-  itemContainer: {
-    flex: 1,
+  itemSeparator: {
     backgroundColor: Palette.brand.voidBackground,
-    paddingTop: Dimensions.verticalSpaceNormal * 0.5,
-    paddingBottom: Dimensions.verticalSpaceNormal * 0.5,
+    height: Dimensions.verticalSpaceNormal,
   },
 
   footer: {
@@ -98,7 +92,7 @@ class FeedHeader extends PureComponent<FeedHeaderProps> {
     };
     return h(View, [
       h(TouchableOpacity, touchableProps, [
-        h(MessageContainer, {style: styles.header}, [
+        h(MessageContainer, [
           h(View, {style: styles.writeMessageRow}, [
             h(View, {style: styles.writeMessageAuthorImage}),
             h(View, {style: styles.writeInputContainer}, [
@@ -115,7 +109,9 @@ class FeedHeader extends PureComponent<FeedHeaderProps> {
           ]),
         ]),
       ]),
+      h(FeedItemSeparator),
       this.props.showPlaceholder ? h(PlaceholderMessage) : null as any,
+      this.props.showPlaceholder ? h(FeedItemSeparator) : null as any,
     ]);
   }
 }
@@ -127,9 +123,9 @@ const FeedFooter = h(Progress.CircleSnail, {
   color: Palette.brand.backgroundLighterContrast,
 });
 
-class FeedItemContainer extends PureComponent {
+class FeedItemSeparator extends PureComponent {
   public render() {
-    return h(View, {style: styles.itemContainer}, this.props.children as any);
+    return h(View, {style: styles.itemSeparator}, this.props.children as any);
   }
 }
 
@@ -234,9 +230,10 @@ export default class Feed extends Component<Props, State> {
             showPlaceholder: this.state.showPlaceholder,
           })
         : null,
+      ItemSeparatorComponent: FeedItemSeparator,
       ListFooterComponent: FeedFooter,
       renderItem: ({item}: any) =>
-        h(FeedItemContainer, [
+        h(View, [
           h(CompactThread, {
             thread: item as ThreadAndExtras,
             selfFeedId,
