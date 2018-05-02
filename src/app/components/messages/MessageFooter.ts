@@ -131,10 +131,14 @@ export default class MessageFooter extends Component<Props, State> {
     this._likeButtonProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
       onPress: this.onPressLikeHandler.bind(this),
+      accessible: true,
+      accessibilityLabel: 'Like Button',
     };
     this._replyButtonProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
       onPress: this.onPressReplyHandler.bind(this),
+      accessible: true,
+      accessibilityLabel: 'Reply Button',
     };
   }
 
@@ -202,10 +206,18 @@ export default class MessageFooter extends Component<Props, State> {
     const counters = likeCount
       ? [
           h(View, {style: styles.row}, [
-            h(Text, {style: styles.likes}, [
-              h(Text, {style: styles.likeCount}, String(likeCount)),
-              (likeCount === 1 ? ' like' : ' likes') as any,
-            ]),
+            h(
+              Text,
+              {
+                style: styles.likes,
+                accessible: true,
+                accessibilityLabel: 'Like Count',
+              },
+              [
+                h(Text, {style: styles.likeCount}, String(likeCount)),
+                (likeCount === 1 ? ' like' : ' likes') as any,
+              ],
+            ),
           ]),
         ]
       : [];
