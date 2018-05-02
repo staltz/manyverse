@@ -47,6 +47,7 @@ test('...', function(t) {
   require('./central.js')(driver, t);
   require('./compose.js')(driver, t);
   require('./feed.js')(driver, t);
+  require('./thread.js')(driver, t);
   require('./profile.js')(driver, t);
   t.end();
 });
