@@ -71,4 +71,51 @@ module.exports = function(driver, t) {
 
     t.end();
   });
+
+  t.test('A message in the feed can be liked', async function(t) {
+    const feedTextInput = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Feed Text Input")',
+      6000,
+    );
+    t.pass('I see Feed Text Input');
+    await feedTextInput.tap();
+    const composeTextInput = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Compose Text Input")',
+      6000,
+    );
+    await composeTextInput.keys('Please like this message');
+    const composePublishButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Compose Publish Button")',
+      6000,
+    );
+    await composePublishButton.tap();
+
+    t.pass('I created a public message');
+
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Please like this message")',
+        6000,
+      ),
+      'I see that message on the feed',
+    );
+
+    const likeButton = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().textContains("Please like this message")' +
+        '.fromParent(new UiSelector().descriptionContains("Like Button"))',
+      6000,
+    );
+    t.pass('I see a like button on that message');
+    await likeButton.tap();
+    t.pass('I tap the like button');
+    const likeCount = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().textContains("Please like this message")' +
+        '.fromParent(new UiSelector().descriptionContains("Like Count"))',
+      6000,
+    );
+    const count = await likeCount.text();
+    t.equals(count, '1 like', 'I see "1 like" as the counter');
+
+    t.end();
+  });
 };
