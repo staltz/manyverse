@@ -57,9 +57,8 @@ module.exports = function(driver, t) {
     action.wait(60);
     action.moveTo({x: 200, y: 800});
     action.release();
-    t.pass('pre-perform touch');
     await driver.performTouchAction(action);
-    t.pass('I scroll through the feed');
+    t.pass('I scroll down through the feed');
 
     t.pass(
       await driver.waitForElementByAndroidUIAutomator(
@@ -68,6 +67,15 @@ module.exports = function(driver, t) {
       ),
       'I see message number 1 on the feed',
     );
+
+    await driver.performTouchAction(
+      new wd.TouchAction(driver)
+        .press({x: 200, y: 800})
+        .wait(60)
+        .moveTo({x: 200, y: 1000})
+        .release(),
+    );
+    t.pass('I scroll back up');
 
     t.end();
   });
