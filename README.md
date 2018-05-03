@@ -18,11 +18,13 @@ npm install
 
 ### Android
 
-You may need to open your app's /android folder in Android Studio, so that it detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project.
+You may need to open your app's `/android` folder in Android Studio, so that it detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project.
 
-You can also set the environment variable ANDROID_NDK_HOME, as in this example:
+You can also set the environment variable `ANDROID_NDK_HOME`, as in this example:
 
+```
 export ANDROID_NDK_HOME=/Users/username/Library/Android/sdk/ndk-bundle
+```
 
 ## Build/run in development
 
