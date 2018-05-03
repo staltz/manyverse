@@ -29,7 +29,6 @@ const  writablePath = path.join(__dirname, '..');
 // const ssbPath = path.resolve(os.homedir(), '.ssb');
 const ssbPath = path.resolve(writablePath, '.ssb');
 console.log('os.homedir():', os.homedir())
-console.log('Starting Scuttlebot on path:', ssbPath)
 if (!fs.existsSync(ssbPath)) {
   mkdirp.sync(ssbPath);
 }
@@ -39,7 +38,6 @@ const config = require('ssb-config/inject')();
 config.path = ssbPath;
 config.keys = keys;
 config.manifest = manifest;
-console.log('Loading SSB with config: ', config)
 
 require('scuttlebot/index')
   .use(require('scuttlebot/plugins/plugins'))
