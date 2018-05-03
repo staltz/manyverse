@@ -13,9 +13,7 @@ import {
   TouchableOpacity,
   StyleProp,
   ViewStyle,
-  RegisteredStyle,
 } from 'react-native';
-import {IndicatorViewPager} from 'rn-viewpager';
 
 export type Props = {
   initialPage?: number;
@@ -71,7 +69,7 @@ export default class BetterPagerTabIndicator extends Component<Props, State> {
           key={index}
           onPress={() => {
             if (!isSelected) {
-              if (this.props.changePageWithAnimation) pager.setPage(index);
+              if (changePageWithAnimation) pager.setPage(index);
               else pager.setPageWithoutAnimation(index);
             }
           }}

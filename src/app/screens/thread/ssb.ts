@@ -17,36 +17,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Msg} from '../ssb/types';
-const pull = require('pull-stream');
-const rootOpinion = require('patchcore/message/sync/root');
+import xs, {Stream} from 'xstream';
+import {Content} from 'ssb-typescript';
+import {toVoteContent, toReplyPostContent} from '../../../ssb/to-ssb';
+import {State} from './model';
 
-const getRoot = rootOpinion.create().message.sync.root;
-
-function isRoot(msg: Msg): boolean {
-  const msgHasRoot = typeof getRoot(msg) === 'string';
-  return !msgHasRoot;
-}
-
-function init(ssb: any, config: any) {
-  return {
-    read: function read(opts: any) {
-      return pull(
-        ssb.createFeedStream(opts),
-        pull.filter(isRoot)
-      );
-    },
-  };
-}
-
-export = {
-  name: 'roots',
-  version : '1.0.0',
-  manifest : {
-    read: 'source',
-  },
-  permissions : {
-    master: {allow: ['read']}
-  },
-  init,
+export type SSBActions = {
+  likeMsg$: Stream<{msgKey: string; like: boolean}>;
+  publishMsg$: Stream<State>;
 };
+
+/**
+ * Define streams of new content to be flushed onto SSB.
+ */
+export default function ssb(actions: SSBActions): Stream<Content> {
+  const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
+
+  const publishReply$ = actions.publishMsg$.map(state =>
+    toReplyPostContent(state.replyText, state.rootMsgId as string),
+  );
+
+  return xs.merge(toggleLikeMsg$, publishReply$);
+}

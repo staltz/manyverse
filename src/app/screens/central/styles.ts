@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
   },
 
   pagePlaceholder: {
-    fontSize: Typography.fontSizeBig,
+    fontSize: Typography.fontSizeLarge,
     fontFamily: Typography.fontFamilyReadableText,
     textAlign: 'center',
   },

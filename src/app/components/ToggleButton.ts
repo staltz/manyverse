@@ -20,7 +20,6 @@
 import {PureComponent} from 'react';
 import {
   View,
-  TextStyle,
   Text,
   RegisteredStyle,
   TouchableNativeFeedback,
@@ -28,8 +27,6 @@ import {
   ViewStyle,
   StyleSheet,
 } from 'react-native';
-import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
 import {h} from '@cycle/native-screen';
 import {baseContainerStyle, baseTextStyle} from './Button';

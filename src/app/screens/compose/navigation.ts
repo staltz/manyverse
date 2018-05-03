@@ -17,35 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {StyleSheet} from 'react-native';
-import {Dimensions} from '../../../global-styles/dimens';
-import {Typography} from '../../../global-styles/typography';
-import {Palette} from '../../../global-styles/palette';
+import xs, {Stream} from 'xstream';
+import {Command, DismissModalCommand} from 'cycle-native-navigation';
 
-export const styles = StyleSheet.create({
-  writeMessageRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
+export type Actions = {
+  publishMsg$: Stream<any>;
+  quitFromKeyboard$: Stream<any>;
+};
 
-  writeMessageAuthorImage: {
-    height: 45,
-    width: 45,
-    borderRadius: 3,
-    backgroundColor: Palette.indigo1,
-    marginRight: Dimensions.horizontalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall,
-  },
+export default function navigation(actions: Actions): Stream<Command> {
+  const goBack$ = xs.merge(actions.publishMsg$, actions.quitFromKeyboard$).map(
+    () =>
+      ({
+        type: 'dismissModal',
+        animationType: 'slide-down',
+      } as DismissModalCommand),
+  );
 
-  writeInput: {
-    flex: 1,
-    fontSize: Typography.fontSizeBig,
-    color: Palette.brand.text,
-  },
-
-  container: {
-    alignSelf: 'stretch',
-    flex: 1,
-  },
-});
+  return goBack$;
+}

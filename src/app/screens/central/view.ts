@@ -24,11 +24,11 @@ import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {IndicatorViewPager} from 'rn-viewpager';
 import {Palette} from '../../global-styles/palette';
-import {Dimensions as Dimens} from '../../global-styles/dimens';
 import {styles as globalStyles} from '../../global-styles/styles';
 import BetterPagerTabIndicator from '../../components/BetterPagerTabIndicator';
 import {styles, iconProps} from './styles';
 import {State} from './model';
+import {Screens} from '../..';
 
 function renderHeader() {
   return h(View, {style: styles.header}, [
@@ -182,7 +182,7 @@ export default function view(
       metadataTabVDOM$.startWith(h(View)),
     )
     .map(([state, publicTabVDOM, metadataTabVDOM]) => ({
-      screen: 'mmmmm.Central',
+      screen: Screens.Central,
       vdom: h(View, {style: styles.root}, [
         renderHeader(),
         renderTabs(state, publicTabVDOM, metadataTabVDOM),

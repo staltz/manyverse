@@ -17,23 +17,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
+import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import sampleCombine from 'xstream/extra/sampleCombine';
-import {SSBSource, MsgAndExtras, GetReadable} from '../../drivers/ssb';
-import {StateSource, Reducer} from 'cycle-onionify';
-import {FeedId, About} from '../../../ssb/types';
+import {SSBSource, GetReadable, ThreadAndExtras} from '../../drivers/ssb';
+import {Reducer} from 'cycle-onionify';
+import {FeedId, About} from 'ssb-typescript';
 import {State as EditProfileState} from './edit';
-import {Readable} from '../../../typings/pull-stream';
 import {Lens} from 'cycle-onionify/lib/types';
 
 export type State = {
   selfFeedId: FeedId;
   displayFeedId: FeedId;
-  about: About;
-  getFeedReadable: GetReadable<MsgAndExtras> | null;
+  about: About & {id: FeedId};
+  getFeedReadable: GetReadable<ThreadAndExtras> | null;
+  getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
   edit?: EditProfileState;
 };
+
+export function initState(selfFeedId: FeedId): State {
+  return {
+    selfFeedId,
+    displayFeedId: selfFeedId,
+    getFeedReadable: null,
+    getSelfRootsReadable: null,
+    about: {
+      name: selfFeedId,
+      description: '',
+      id: selfFeedId,
+    },
+  };
+}
 
 export const editLens: Lens<State, EditProfileState> = {
   get: (parent: State): EditProfileState => {
@@ -130,6 +144,16 @@ export default function model(
       },
   );
 
+  const updateSelfRootsReducer$ = ssbSource.selfRoots$.map(
+    getReadable =>
+      function updateSelfRootsReducer(prev?: State): State {
+        if (!prev) {
+          throw new Error('Profile/model reducer expects existing state');
+        }
+        return {...prev, getSelfRootsReadable: getReadable};
+      },
+  );
+
   const clearFeedStreamReducer$ = actions.disappear$.mapTo(
     function clearFeedStreamReducer(prev?: State): State {
       if (!prev) {
@@ -142,6 +166,7 @@ export default function model(
   return xs.merge(
     updateAboutReducer$,
     updateFeedStreamReducer$,
+    updateSelfRootsReducer$,
     clearFeedStreamReducer$,
   );
 }

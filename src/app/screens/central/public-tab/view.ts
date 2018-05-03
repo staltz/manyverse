@@ -17,21 +17,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
-import {PureComponent, Component} from 'react';
-import {View, FlatList, Text, TextInput} from 'react-native';
+import {Stream} from 'xstream';
 import {h} from '@cycle/native-screen';
-import {Palette} from '../../../global-styles/palette';
-import {Msg} from '../../../../ssb/types';
-import {styles} from './styles';
 import Feed from '../../../components/Feed';
 import {State} from './model';
+import {SSBSource} from '../../../drivers/ssb';
+import {isRootPostMsg} from 'ssb-typescript/utils';
 
-export default function view(state$: Stream<State>) {
+export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   const vdom$ = state$.map(state =>
     h(Feed, {
       selector: 'publicFeed',
-      getReadable: state.getFeedReadable,
+      getReadable: state.getPublicFeedReadable,
+      getPublicationsReadable: state.getSelfRootsReadable,
+      publication$: ssbSource.publishHook$.filter(isRootPostMsg),
       selfFeedId: state.selfFeedId,
       showPublishHeader: true,
     }),

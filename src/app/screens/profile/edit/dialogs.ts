@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {Request as DialogReq} from '../../../drivers/dialogs';
 
 export default function dialogs(navigation$: Stream<any>) {

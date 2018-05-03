@@ -17,13 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
-import {View, Text} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {ScreensSource} from 'cycle-native-navigation';
 import {SSBSource} from '../../../drivers/ssb';
-import {PeerMetadata} from '../../../../ssb/types';
 import view from './view';
 
 export type Sources = {

@@ -18,31 +18,24 @@
  */
 
 import 'react-native-ssb-shims';
+import RNNav from 'react-native-navigation';
 import {run} from '@cycle/run';
-import {makeScreenDriver} from '@cycle/native-screen';
-import {app} from './lib/app/index';
 import onionify from 'cycle-onionify';
+import {makeKeyboardDriver} from '@cycle/native-keyboard';
+import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
 import {ssbDriver} from './lib/app/drivers/ssb';
 import {dialogDriver} from './lib/app/drivers/dialogs';
-import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
-import RNNav from 'react-native-navigation';
-import {Palette} from './lib/app/global-styles/palette';
-import {Dimensions} from './lib/app/global-styles/dimens';
-import {Typography} from './lib/app/global-styles/typography';
-import {navigatorStyle as centralNavigatorStyle} from './lib/app/screens/central/styles';
+import {app, screenIDs} from './lib/app/index';
+import {navOptions as centralScreenNavOptions} from './lib/app/screens/central';
 import nodejs from 'nodejs-mobile-react-native';
 
-const {screenVNodeDriver, commandDriver} = makeSingleScreenNavDrivers(
-  RNNav,
-  ['mmmmm.Central', 'mmmmm.Profile', 'mmmmm.Profile.Edit'],
-  {
-    screen: {
-      screen: 'mmmmm.Central',
-      navigatorStyle: centralNavigatorStyle,
-    },
-    animationType: 'fade',
-  },
-);
+const {
+  screenVNodeDriver,
+  commandDriver,
+} = makeSingleScreenNavDrivers(RNNav, screenIDs, {
+  screen: centralScreenNavOptions(),
+  animationType: 'fade',
+});
 
 nodejs.start("index.js");
 
@@ -57,6 +50,7 @@ function startCycleApp() {
   run(onionify(app), {
     screen: screenVNodeDriver,
     navigation: commandDriver,
+    keyboard: makeKeyboardDriver(),
     ssb: ssbDriver,
     dialog: dialogDriver,
   });

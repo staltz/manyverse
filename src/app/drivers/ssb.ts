@@ -18,24 +18,18 @@
  */
 
 import xs, {Stream} from 'xstream';
-import flattenConcurrently from 'xstream/extra/flattenConcurrently';
-import {
-  isMsg,
-  Msg,
-  PeerMetadata,
-  Content,
-  FeedId,
-  About,
-} from '../../ssb/types';
+import {Msg, PeerMetadata, Content, FeedId, About, MsgId} from 'ssb-typescript';
+import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
+import {ThreadData} from 'ssb-threads/types';
 import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../../ssb/opinions/about/sync';
 import makeKeysOpinion from '../../ssb/opinions/keys';
 import sbotOpinion from '../../ssb/opinions/sbot';
 import gossipOpinion from '../../ssb/opinions/gossip';
-import emptyHookOpinion from '../../ssb/opinions/hook';
+import publishHookOpinion from '../../ssb/opinions/hook';
 import configOpinion from '../../ssb/opinions/config';
 import feedProfileOpinion from '../../ssb/opinions/feed/pull/profile';
-import {ssbPath, ssbKeysPath} from '../../ssb/defaults';
+import {ssbKeysPath} from '../../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
 import xsFromMutant from 'xstream-from-mutant';
 import {Readable} from '../../typings/pull-stream';
@@ -50,10 +44,6 @@ const msgLikesOpinion = require('patchcore/message/obs/likes');
 const ssbKeys = require('react-native-ssb-client-keys');
 const depjectCombine = require('depject');
 
-function isNotSync(msg: any): boolean {
-  return !msg.sync;
-}
-
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
     _streams: {
@@ -64,6 +54,11 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
       };
     };
   };
+};
+
+export type ThreadAndExtras = {
+  messages: Array<MsgAndExtras>;
+  full: boolean;
 };
 
 function mutateMsgWithLiveExtras(api: any) {
@@ -81,11 +76,21 @@ function mutateMsgWithLiveExtras(api: any) {
   };
 }
 
+function mutateThreadWithLiveExtras(api: any) {
+  return (thread: ThreadData) => {
+    thread.messages.forEach(msg => mutateMsgWithLiveExtras(api)(msg));
+    return thread;
+  };
+}
+
 export type GetReadable<T> = (opts?: any) => Readable<T>;
 
 export class SSBSource {
   public selfFeedId$: Stream<FeedId>;
-  public publicFeed$: Stream<GetReadable<MsgAndExtras>>;
+  public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
+  public selfRoots$: Stream<GetReadable<ThreadAndExtras>>;
+  public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
+  public publishHook$: Stream<Msg>;
   public localSyncPeers$: Stream<Array<PeerMetadata>>;
 
   constructor(private api$: Stream<any>) {
@@ -95,11 +100,36 @@ export class SSBSource {
       .take(1)
       .map(api => (opts?: any) =>
         pull(
-          api.sbot.pull.feed[0]({reverse: true, live: false, ...opts}),
-          pull.filter(isNotSync),
+          api.sbot.pull.publicThreads[0]({reverse: true, live: false, ...opts}),
+          pull.map(mutateThreadWithLiveExtras(api)),
+        ),
+      );
+
+    this.selfRoots$ = api$
+      .take(1)
+      .map(api => (opts?: any) =>
+        pull(
+          api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
+          pull.filter(isRootPostMsg),
+          pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
+          pull.map(mutateThreadWithLiveExtras(api)),
+        ),
+      );
+
+    this.selfReplies$ = api$
+      .take(1)
+      .map(api => (opts?: any) =>
+        pull(
+          api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
+          pull.filter(isReplyPostMsg),
           pull.map(mutateMsgWithLiveExtras(api)),
         ),
       );
+
+    this.publishHook$ = api$
+      .take(1)
+      .map(api => api.sbot.hook.publishStream[0]() as Stream<Msg>)
+      .flatten();
 
     this.localSyncPeers$ = api$
       .map(api => {
@@ -123,17 +153,34 @@ export class SSBSource {
       .flatten();
   }
 
-  public profileFeed$(id: FeedId): Stream<GetReadable<MsgAndExtras>> {
+  public thread$(rootMsgId: MsgId): Stream<ThreadAndExtras> {
+    const apiToThread = (api: any, cb: any) => {
+      pull(
+        api.sbot.pull.thread[0]({root: rootMsgId}),
+        pull.map(mutateThreadWithLiveExtras(api)),
+        pull.take(1),
+        pull.drain((thread: ThreadAndExtras) => cb(null, thread)),
+      );
+    };
+    const apiToThread$ = xsFromCallback<ThreadAndExtras>(apiToThread);
+    return this.api$.map(apiToThread$).flatten();
+  }
+
+  public profileFeed$(id: FeedId): Stream<GetReadable<ThreadAndExtras>> {
     return this.api$.map(api => (opts?: any) =>
       pull(
-        api.feed.pull.profile[0](id)({reverse: true, live: false, ...opts}),
-        pull.filter(isNotSync),
-        pull.map(mutateMsgWithLiveExtras(api)),
+        api.sbot.pull.profileThreads[0]({
+          id,
+          reverse: true,
+          live: false,
+          ...opts,
+        }),
+        pull.map(mutateThreadWithLiveExtras(api)),
       ),
     );
   }
 
-  public profileAbout$(id: FeedId): Stream<About> {
+  public profileAbout$(id: FeedId): Stream<About & {id: FeedId}> {
     return this.api$
       .map(api => {
         const name$ = xsFromMutant<string>(api.about.obs.name[0](id));
@@ -173,7 +220,7 @@ export function ssbDriver(sink: Stream<Content | null>): SSBSource {
     .compose(dropCompletion)
     .map(keys => {
       return depjectCombine([
-        emptyHookOpinion,
+        publishHookOpinion,
         blobUrlOpinion,
         aboutSyncOpinion,
         configOpinion,

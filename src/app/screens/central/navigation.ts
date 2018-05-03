@@ -17,12 +17,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Msg, FeedId} from './types';
+import xs, {Stream} from 'xstream';
+import {Command, PushCommand} from 'cycle-native-navigation';
+import {navOptions as profileScreenNavOptions} from '../profile';
 
-export function authorName(name: string | null, msg: Msg): string {
-  return name || msg.value.author.slice(1, 10);
-}
+export type Actions = {
+  goToSelfProfile$: Stream<null>;
+};
 
-export function shortFeedId(feedId: FeedId): string {
-  return feedId.slice(0, 11) + '\u2026';
+export default function navigationCommands(
+  actions: Actions,
+  other$: Stream<Command>,
+): Stream<Command> {
+  const centralCommand$: Stream<Command> = actions.goToSelfProfile$.map(
+    () =>
+      ({
+        type: 'push',
+        animated: true,
+        animationType: 'slide-horizontal',
+        ...profileScreenNavOptions(),
+      } as PushCommand),
+  );
+
+  return xs.merge(centralCommand$, other$);
 }

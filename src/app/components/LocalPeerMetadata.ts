@@ -25,7 +25,7 @@ import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import Beacon from './Beacon';
-import {PeerMetadata} from '../../ssb/types';
+import {PeerMetadata} from 'ssb-typescript';
 
 export const styles = StyleSheet.create({
   row: {
@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
 
   title: {
     color: Palette.brand.darkHighlight,
-    fontSize: Typography.fontSizeBig,
+    fontSize: Typography.fontSizeLarge,
     marginBottom: Dimensions.verticalSpaceSmall,
   },
 

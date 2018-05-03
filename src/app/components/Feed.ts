@@ -18,28 +18,23 @@
  */
 
 import {PureComponent, Component} from 'react';
-import {StyleSheet, TextInputProperties} from 'react-native';
-import {View, TextInput} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
-import {Msg, isVoteMsg, isPrivate, FeedId} from '../../ssb/types';
-import {Readable} from '../../typings/pull-stream';
+import {FeedId, MsgId} from 'ssb-typescript';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
 import MessageContainer from './messages/MessageContainer';
-import Message from './messages/Message';
+import CompactThread from './CompactThread';
 import PlaceholderMessage from './messages/PlaceholderMessage';
-import {MsgAndExtras, GetReadable} from '../drivers/ssb';
+import {GetReadable, ThreadAndExtras} from '../drivers/ssb';
 import PullFlatList from 'pull-flat-list';
+import {Stream, Subscription, Listener} from 'xstream';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 
 export const styles = StyleSheet.create({
-  header: {
-    paddingTop: 0,
-  },
-
   writeMessageRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -47,23 +42,33 @@ export const styles = StyleSheet.create({
   },
 
   writeMessageAuthorImage: {
-    height: 45,
-    width: 45,
-    borderRadius: 3,
+    height: Dimensions.avatarSizeNormal,
+    width: Dimensions.avatarSizeNormal,
+    borderRadius: Dimensions.avatarBorderRadius,
     backgroundColor: Palette.indigo1,
-    marginRight: Dimensions.horizontalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall,
+  },
+
+  writeInputContainer: {
+    flex: 1,
+    paddingLeft: Dimensions.horizontalSpaceSmall,
+    alignSelf: 'stretch',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
 
   writeInput: {
-    flex: 1,
-    fontSize: Typography.fontSizeBig,
-    color: Palette.brand.text,
+    fontSize: Typography.fontSizeLarge,
+    color: Palette.brand.textVeryWeak,
   },
 
   container: {
     alignSelf: 'stretch',
     flex: 1,
+  },
+
+  itemSeparator: {
+    backgroundColor: Palette.brand.voidBackground,
+    height: Dimensions.verticalSpaceNormal,
   },
 
   footer: {
@@ -76,45 +81,37 @@ export const styles = StyleSheet.create({
 
 type FeedHeaderProps = {
   showPlaceholder: boolean;
-  onPublish?: (event: {nativeEvent: {text: string}}) => void;
+  onOpenCompose?: () => void;
 };
 
 class FeedHeader extends PureComponent<FeedHeaderProps> {
-  private _textInput: TextInput;
-
   public render() {
-    const {onPublish, showPlaceholder} = this.props;
+    const touchableProps = {
+      activeOpacity: 0.6,
+      onPress: this.props.onOpenCompose,
+    };
     return h(View, [
-      h(MessageContainer, {style: styles.header}, [
-        h(View, {style: styles.writeMessageRow}, [
-          h(View, {style: styles.writeMessageAuthorImage}),
-          h(
-            TextInput,
-            {
-              underlineColorAndroid: Palette.brand.textBackground,
-              placeholderTextColor: Palette.brand.textVeryWeak,
-              style: styles.writeInput,
-              placeholder: 'Write a public message',
-              accessible: true,
-              accessibilityLabel: 'Feed Text Input',
-              selectionColor: Palette.brand.text,
-              returnKeyType: 'done',
-              ref: (el: any) => {
-                this._textInput = el;
-              },
-              onSubmitEditing: (ev: any) => {
-                if (this._textInput) {
-                  this._textInput.clear();
-                }
-                if (onPublish) {
-                  onPublish(ev);
-                }
-              },
-            } as TextInputProperties,
-          ),
+      h(TouchableOpacity, touchableProps, [
+        h(MessageContainer, [
+          h(View, {style: styles.writeMessageRow}, [
+            h(View, {style: styles.writeMessageAuthorImage}),
+            h(View, {style: styles.writeInputContainer}, [
+              h(
+                Text,
+                {
+                  accessible: true,
+                  accessibilityLabel: 'Feed Text Input',
+                  style: styles.writeInput,
+                },
+                'Write a public message',
+              ),
+            ]),
+          ]),
         ]),
       ]),
-      showPlaceholder ? h(PlaceholderMessage) : null as any,
+      h(FeedItemSeparator),
+      this.props.showPlaceholder ? h(PlaceholderMessage) : null as any,
+      this.props.showPlaceholder ? h(FeedItemSeparator) : null as any,
     ]);
   }
 }
@@ -126,23 +123,24 @@ const FeedFooter = h(Progress.CircleSnail, {
   color: Palette.brand.backgroundLighterContrast,
 });
 
-/**
- * Whether or not the message should be shown in the feed.
- *
- * TODO: This should be configurable in the app settings!
- */
-function isShowableMsg(msg: Msg): boolean {
-  return !isVoteMsg(msg) && !isPrivate(msg);
+class FeedItemSeparator extends PureComponent {
+  public render() {
+    return h(View, {style: styles.itemSeparator}, this.props.children as any);
+  }
 }
 
 type Props = {
-  getReadable: GetReadable<MsgAndExtras> | null;
+  getReadable: GetReadable<ThreadAndExtras> | null;
+  getPublicationsReadable?: GetReadable<ThreadAndExtras> | null;
+  publication$?: Stream<any> | null;
   selfFeedId: FeedId;
   showPublishHeader: boolean;
   style?: any;
-  onPublish?: (event: {nativeEvent: {text: string}}) => void;
-  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+  onOpenCompose?: () => void;
+  onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
+  onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressExpandThread?: (ev: {rootMsgId: MsgId}) => void;
 };
 
 type State = {
@@ -153,87 +151,98 @@ export default class Feed extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {showPlaceholder: false};
-    this.addedMessagesStream = Pushable();
-    this._onPublish = this.onPublish.bind(this);
+    this.addedThreadsStream = Pushable();
+    this._onOpenCompose = () => {
+      const {onOpenCompose} = props;
+      if (onOpenCompose) onOpenCompose();
+    };
   }
 
-  private addedMessagesStream: any | null;
-  private _onPublish: (ev: any) => void;
+  private addedThreadsStream: any | null;
+  private _onOpenCompose: () => void;
+  private subscription?: Subscription;
 
   public componentDidMount() {
-    this.addedMessagesStream = this.addedMessagesStream || Pushable();
+    this.addedThreadsStream = this.addedThreadsStream || Pushable();
+    const {publication$} = this.props;
+    if (publication$) {
+      const listener = {next: this.onPublication.bind(this)};
+      this.subscription = publication$.subscribe(listener as Listener<any>);
+    }
   }
 
   public componentWillUnmount() {
-    const addedMessagesStream = this.addedMessagesStream;
-    if (addedMessagesStream) {
-      addedMessagesStream.end();
-      this.addedMessagesStream = null;
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = void 0;
+    }
+    if (this.addedThreadsStream) {
+      this.addedThreadsStream.end();
+      this.addedThreadsStream = null;
     }
   }
 
-  private _prependAddedMessage() {
-    const {getReadable} = this.props;
-    if (!getReadable) return;
-    const newReadable = getReadable({live: true, old: false});
-    if (!newReadable) return;
-    const addedMessagesStream = this.addedMessagesStream;
+  private onPublication() {
+    const {getPublicationsReadable} = this.props;
+    if (!getPublicationsReadable) return;
+    const readable = getPublicationsReadable({live: true, old: false});
+    if (!readable) return;
+    const addedThreadsStream = this.addedThreadsStream;
     const that = this;
 
     that.setState({showPlaceholder: true});
-
-    const readable: Readable<MsgAndExtras> = pull(
-      newReadable,
+    pull(
+      readable,
       pull.take(1),
-      pull.drain((msg: MsgAndExtras) => {
+      pull.drain((thread: ThreadAndExtras) => {
         that.setState({showPlaceholder: false});
-        addedMessagesStream.push(msg);
+        addedThreadsStream.push(thread);
       }),
     );
-  }
-
-  private onPublish(ev: any) {
-    const {onPublish} = this.props;
-    if (onPublish) {
-      onPublish(ev);
-      this._prependAddedMessage();
-    }
   }
 
   public render() {
     const {
       onPressLike,
+      onPressReply,
       onPressAuthor,
+      onPressExpandThread,
       showPublishHeader,
       style,
       getReadable,
       selfFeedId,
     } = this.props;
 
-    // TODO: this filter() should probably done in a better place
-    // (not even in this component)
-    const scrollStream = getReadable
-      ? () => pull(getReadable(), pull.filter(isShowableMsg))
-      : null;
-
     return h(PullFlatList, {
-      getScrollStream: scrollStream,
-      getPrefixStream: () => this.addedMessagesStream,
+      getScrollStream: getReadable,
+      getPrefixStream: () => this.addedThreadsStream,
       style: [styles.container, style] as any,
-      initialNumToRender: 5,
+      initialNumToRender: 2,
+      pullAmount: 1,
       numColumns: 1,
       refreshable: true,
       refreshColors: [Palette.indigo7],
-      keyExtractor: (item: any, index: number) => item.key || String(index),
+      keyExtractor: (thread: ThreadAndExtras, index: number) =>
+        thread.messages[0].key || String(index),
       ListHeaderComponent: showPublishHeader
         ? h(FeedHeader, {
-            onPublish: this._onPublish,
+            onOpenCompose: this._onOpenCompose,
             showPlaceholder: this.state.showPlaceholder,
           })
         : null,
+      ItemSeparatorComponent: FeedItemSeparator,
       ListFooterComponent: FeedFooter,
-      renderItem: ({item}: {item: MsgAndExtras}) =>
-        h(Message, {msg: item, selfFeedId, onPressLike, onPressAuthor}),
+      renderItem: ({item}: any) =>
+        h(View, [
+          h(CompactThread, {
+            thread: item as ThreadAndExtras,
+            selfFeedId,
+            onPressLike,
+            onPressReply,
+            onPressAuthor,
+            onPressExpand: onPressExpandThread || ((x: any) => {}),
+          }),
+        ]),
     });
   }
 }

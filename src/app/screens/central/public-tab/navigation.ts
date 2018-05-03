@@ -17,27 +17,56 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
-import {FeedId} from '../../../../ssb/types';
+import xs, {Stream} from 'xstream';
+import {FeedId, MsgId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
-import {navigatorStyle as profileNavigatorStyle} from '../../profile/styles';
+import {navOptions as composeScreenNavOptions} from '../../compose';
+import {navOptions as profileScreenNavOptions} from '../../profile';
+import {navOptions as threadScreenNavOptions} from '../../thread';
 
 export type Actions = {
+  goToCompose$: Stream<any>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
+  goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
 };
 
 export default function navigation(actions: Actions): Stream<Command> {
-  return actions.goToProfile$.map(
+  const toCompose$ = actions.goToCompose$.map(
+    () =>
+      ({
+        type: 'showModal',
+        animated: true,
+        animationType: 'slide-up',
+        ...composeScreenNavOptions(),
+      } as Command),
+  );
+
+  const toProfile$ = actions.goToProfile$.map(
     ev =>
       ({
         type: 'push',
-        screen: 'mmmmm.Profile',
-        navigatorStyle: profileNavigatorStyle,
         animated: true,
         animationType: 'slide-horizontal',
         passProps: {
           feedId: ev.authorFeedId,
         },
+        ...profileScreenNavOptions(),
       } as Command),
   );
+
+  const toThread$ = actions.goToThread$.map(
+    ev =>
+      ({
+        type: 'push',
+        animated: true,
+        animationType: 'slide-horizontal',
+        passProps: {
+          rootMsgId: ev.rootMsgId,
+          replyToMsgId: ev.replyToMsgId,
+        },
+        ...threadScreenNavOptions(),
+      } as Command),
+  );
+
+  return xs.merge(toCompose$, toProfile$, toThread$);
 }

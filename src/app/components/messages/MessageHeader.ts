@@ -27,8 +27,8 @@ import {
 } from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/native-screen';
-import {FeedId, Msg} from '../../../ssb/types';
-import {authorName} from '../../../ssb/utils';
+import {FeedId, Msg} from 'ssb-typescript';
+import {authorName} from '../../../ssb/from-ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -40,16 +40,16 @@ export const styles = StyleSheet.create({
   },
 
   messageAuthorImageContainer: {
-    height: 45,
-    width: 45,
-    borderRadius: 3,
+    height: Dimensions.avatarSizeNormal,
+    width: Dimensions.avatarSizeNormal,
+    borderRadius: Dimensions.avatarBorderRadius,
     backgroundColor: Palette.indigo1,
     marginRight: Dimensions.horizontalSpaceSmall,
     marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   messageAuthorImage: {
-    borderRadius: 3,
+    borderRadius: Dimensions.avatarBorderRadius,
     position: 'absolute',
     top: 0,
     left: 0,
@@ -102,7 +102,6 @@ export default class MessageHeader extends Component<Props, {}> {
 
   public shouldComponentUpdate(nextProps: Props) {
     const prevProps = this.props;
-    const prevState = this.state;
     return (
       nextProps.msg.key !== prevProps.msg.key ||
       nextProps.name !== prevProps.name ||

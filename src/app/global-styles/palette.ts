@@ -175,7 +175,6 @@ const brand = {
   backgroundDarkerContrast: indigo10,
 
   voidBackground: gray2,
-  textBackground: white,
 
   darkVoidBackground: indigo12,
   darkTextBackground: indigo10,
@@ -183,9 +182,13 @@ const brand = {
   darkTextWeak: indigogray,
   darkHighlight: acid3,
 
+  callToActionBackground: teal6,
+  callToActionForeground: teal5,
+
   text: gray9,
   textWeak: gray7,
   textVeryWeak: gray5,
+  textBackground: white,
   textWeakBackground: gray1,
 };
 

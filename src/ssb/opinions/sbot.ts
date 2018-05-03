@@ -22,11 +22,10 @@ import {Readable} from '../../typings/pull-stream';
 import {manifest} from '../manifest-client';
 const pull = require('pull-stream');
 const defer = require('pull-defer');
-const {Value, onceTrue, watch, Set: MutantSet} = require('mutant');
+const {Value, onceTrue, Set: MutantSet} = require('mutant');
 const ref = require('ssb-ref');
 const Reconnect = require('pull-reconnect');
 const nest = require('depnest');
-const createClient = require('ssb-client');
 const createFeed = require('ssb-feed');
 const ssbKeys = require('ssb-keys');
 const muxrpc = require('muxrpc');
@@ -53,6 +52,9 @@ const gives = {
       friendsGet: true,
     },
     pull: {
+      publicThreads: true,
+      profileThreads: true,
+      thread: true,
       log: true,
       userFeed: true,
       messagesByType: true,
@@ -112,6 +114,7 @@ const create = (api: any) => {
         notify(new Error('closed'));
       });
       connection.set(sbot);
+
       notify();
     });
   });
@@ -203,6 +206,29 @@ const create = (api: any) => {
         }),
         messagesByType: rec.source((opts: any) => {
           return sbot.messagesByType(opts);
+        }),
+        thread: rec.source((opts: any) => {
+          return pull(sbot.threads.thread(opts), pull.through(runHooks));
+        }),
+        publicThreads: rec.source((opts: any) => {
+          return pull(
+            pullMore(
+              sbot.threads.public,
+              {limit: 3, threadMaxSize: 3, whitelist: ['post'], ...opts},
+              ['messages', '0', 'value', 'timestamp'],
+            ),
+            pull.through(runHooks),
+          );
+        }),
+        profileThreads: rec.source((opts: any) => {
+          return pull(
+            pullMore(
+              sbot.threads.profile,
+              {limit: 3, threadMaxSize: 3, whitelist: ['post'], ...opts},
+              ['messages', '0', 'value', 'sequence'],
+            ),
+            pull.through(runHooks),
+          );
         }),
         feed: rec.source((opts: any) => {
           return pull(

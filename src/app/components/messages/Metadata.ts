@@ -21,7 +21,6 @@ import {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 
 export const styles = StyleSheet.create({

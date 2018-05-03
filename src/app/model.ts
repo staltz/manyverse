@@ -21,39 +21,37 @@ import xs, {Stream} from 'xstream';
 import {Reducer} from 'cycle-onionify';
 import {Command, PushCommand} from 'cycle-native-navigation';
 import {
+  State as CentralState,
+  initState as initCentralState,
+} from './screens/central/model';
+import {
   State as ProfileState,
+  initState as initProfileState,
   updateSelfFeedId,
   updateDisplayFeedId,
 } from './screens/profile/model';
-import {State as CentralState} from './screens/central/model';
-import {ScreenID} from './index';
+import {
+  State as ThreadState,
+  initState as initThreadState,
+  updateRootMsgId,
+} from './screens/thread/model';
+import {State as ComposeState} from './screens/compose/model';
+import {Screens} from './index';
 import {SSBSource} from './drivers/ssb';
-import {FeedId} from '../ssb/types';
+import {FeedId} from 'ssb-typescript';
 import {Lens} from 'cycle-onionify/lib/types';
 
 export type State = {
   selfFeedId: FeedId;
   central: CentralState;
   profile: ProfileState;
+  thread: ThreadState;
+  compose?: ComposeState;
 };
 
 function isPushCommand(c: Command): c is PushCommand {
   return c.type === 'push';
 }
-
-export const profileLens: Lens<State, ProfileState> = {
-  get: (parent: State): ProfileState => {
-    if (parent.profile.selfFeedId !== parent.selfFeedId) {
-      return updateSelfFeedId(parent.profile, parent.selfFeedId);
-    } else {
-      return parent.profile;
-    }
-  },
-
-  set: (parent: State, child: ProfileState): State => {
-    return {...parent, profile: child};
-  },
-};
 
 export const centralLens: Lens<State, CentralState> = {
   get: (parent: State): CentralState => {
@@ -69,6 +67,34 @@ export const centralLens: Lens<State, CentralState> = {
   },
 };
 
+export const profileLens: Lens<State, ProfileState> = {
+  get: (parent: State): ProfileState => {
+    if (parent.profile.selfFeedId !== parent.selfFeedId) {
+      return updateSelfFeedId(parent.profile, parent.selfFeedId);
+    } else {
+      return parent.profile;
+    }
+  },
+
+  set: (parent: State, child: ProfileState): State => {
+    return {...parent, profile: child};
+  },
+};
+
+export const threadLens: Lens<State, ThreadState> = {
+  get: (parent: State): ThreadState => {
+    if (parent.thread.selfFeedId !== parent.selfFeedId) {
+      return {...parent.thread, selfFeedId: parent.selfFeedId};
+    } else {
+      return parent.thread;
+    }
+  },
+
+  set: (parent: State, child: ThreadState): State => {
+    return {...parent, thread: child};
+  },
+};
+
 export default function model(
   navCommand$: Stream<Command>,
   ssbSource: SSBSource,
@@ -78,24 +104,18 @@ export default function model(
       return prev;
     } else {
       const selfFeedId = '';
-      const central = {selfFeedId, visible: true};
-      const profile = {
+      return {
         selfFeedId,
-        displayFeedId: selfFeedId,
-        getFeedReadable: null,
-        about: {
-          name: selfFeedId,
-          description: '',
-          id: selfFeedId,
-        },
+        central: initCentralState(selfFeedId),
+        profile: initProfileState(selfFeedId),
+        thread: initThreadState(selfFeedId),
       };
-      return {selfFeedId, central, profile};
     }
   });
 
   const setProfileDisplayFeedId$ = navCommand$
     .filter(isPushCommand)
-    .filter(command => (command.screen as ScreenID) === 'mmmmm.Profile')
+    .filter(command => (command.screen as Screens) === Screens.Profile)
     .map(
       command =>
         function setProfileDisplayFeedId(prev?: State): State {
@@ -122,6 +142,30 @@ export default function model(
         },
     );
 
+  const setThreadData$ = navCommand$
+    .filter(isPushCommand)
+    .filter(command => (command.screen as Screens) === Screens.Thread)
+    .map(
+      command =>
+        function setThreadData(prev?: State): State {
+          if (!prev || !prev.thread) {
+            throw new Error('app/model reducer expects existing state');
+          }
+          if (command.passProps && command.passProps.rootMsgId) {
+            return {
+              ...prev,
+              thread: updateRootMsgId(
+                prev.thread,
+                command.passProps.rootMsgId,
+                command.passProps.replyToMsgId,
+              ),
+            };
+          } else {
+            return prev;
+          }
+        },
+    );
+
   const setSelfFeedId$ = ssbSource.selfFeedId$.map(
     selfFeedId =>
       function setSelfFeedId(prev?: State): State {
@@ -137,5 +181,10 @@ export default function model(
       },
   );
 
-  return xs.merge(initReducer$, setProfileDisplayFeedId$, setSelfFeedId$);
+  return xs.merge(
+    initReducer$,
+    setProfileDisplayFeedId$,
+    setThreadData$,
+    setSelfFeedId$,
+  );
 }

@@ -18,10 +18,10 @@
  */
 
 import xs from 'xstream';
+import {PeerMetadata} from 'ssb-typescript';
 const nest = require('depnest');
 const {watch} = require('mutant');
 const pull = require('pull-stream');
-import {PeerMetadata} from '../types';
 
 const gossipOpinion = {
   gives: nest('sbot.obs.connectedPeers'),

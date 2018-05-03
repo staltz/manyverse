@@ -17,24 +17,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Command, PushCommand} from 'cycle-native-navigation';
-import {navigatorStyle as editProfileNavStyle} from './edit';
+import {navOptions as composeScreenNavOptions} from '../compose';
+import {navOptions as editProfileScreenNavOptions} from './edit';
 
 export type NavigationActions = {
-  edit$: Stream<null>;
+  goToCompose$: Stream<null>;
+  goToEdit$: Stream<null>;
 };
 
 export default function navigation(
   actions: NavigationActions,
 ): Stream<Command> {
-  return actions.edit$.mapTo(
+  const toCompose$ = actions.goToCompose$.map(
+    () =>
+      ({
+        type: 'showModal',
+        animated: true,
+        animationType: 'slide-up',
+        ...composeScreenNavOptions(),
+      } as Command),
+  );
+
+  const toEdit$ = actions.goToEdit$.mapTo(
     {
       type: 'push',
-      screen: 'mmmmm.Profile.Edit',
-      title: 'Edit profile',
-      overrideBackPress: true,
-      navigatorStyle: editProfileNavStyle,
+      ...editProfileScreenNavOptions(),
     } as PushCommand,
   );
+
+  return xs.merge(toCompose$, toEdit$);
 }

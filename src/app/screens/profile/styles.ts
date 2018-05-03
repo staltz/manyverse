@@ -22,7 +22,7 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 
-const avatarSize = 80;
+const avatarSize = Dimensions.avatarSizeBig;
 const avatarSizeHalf = avatarSize * 0.5;
 
 export const navigatorStyle = {
@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
 
   name: {
     color: 'white',
-    fontSize: Typography.fontSizeBig,
+    fontSize: Typography.fontSizeLarge,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     maxWidth: 220,
@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
   avatarBackground: {
     height: avatarSize,
     width: avatarSize,
-    borderRadius: 3,
+    borderRadius: Dimensions.avatarBorderRadius,
     top: -avatarSizeHalf,
     left: Dimensions.horizontalSpaceBig,
     zIndex: 20,
@@ -103,7 +103,7 @@ export const styles = StyleSheet.create({
 
   avatar: {
     position: 'absolute',
-    borderRadius: 3,
+    borderRadius: Dimensions.avatarBorderRadius,
     top: 0,
     left: 0,
     bottom: 0,

@@ -17,10 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {State} from './model';
-import {Content, AboutContent} from '../../../../ssb/types';
+import {Content} from 'ssb-typescript';
+import {toAboutContent} from '../../../../ssb/to-ssb';
 
 export type SSBActions = {
   save$: Stream<null>;
@@ -33,28 +34,17 @@ export default function ssb(
   state$: Stream<State>,
   actions: SSBActions,
 ): Stream<Content> {
-  const dataToSave$ = actions.save$
+  const newAboutContent$ = actions.save$
     .compose(sampleCombine(state$))
     .map(([_, state]) => state)
     .filter(
       state =>
         (!!state.newName && state.newName !== state.about.name) ||
         (!!state.newDescription && state.newDescription !== state.about.name),
+    )
+    .map(state =>
+      toAboutContent(state.about.id, state.newName, state.newDescription),
     );
-
-  const newAboutContent$ = dataToSave$.map(state => {
-    const content: AboutContent = {
-      type: 'about',
-      about: state.about.id as string,
-    };
-    if (state.newName) {
-      content.name = state.newName;
-    }
-    if (state.newDescription) {
-      content.description = state.newDescription;
-    }
-    return content;
-  });
 
   return newAboutContent$;
 }

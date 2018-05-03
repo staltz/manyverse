@@ -19,10 +19,10 @@
 
 import xs, {Stream} from 'xstream';
 import {Reducer} from 'cycle-onionify';
-import {About} from '../../../../ssb/types';
+import {About, FeedId} from 'ssb-typescript';
 
 export type State = {
-  about: About;
+  about: About & {id: FeedId};
   newName?: string;
   newDescription?: string;
 };

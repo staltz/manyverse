@@ -1,0 +1,13 @@
+patch-package
+--- a/node_modules/nodejs-mobile-react-native/android/build.gradle
++++ b/node_modules/nodejs-mobile-react-native/android/build.gradle
+@@ -29,6 +29,9 @@ android {
+         ndk {
+             abiFilters = project(":app").android.defaultConfig.ndk.abiFilters
+         }
++        aaptOptions {
++            ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
++        }
+     }
+     
+     externalNativeBuild {

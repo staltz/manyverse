@@ -108,7 +108,9 @@ export = {
   query: {
     read: 'source',
   },
-  roots: {
-    read: 'source',
+  threads: {
+    public: 'source',
+    profile: 'source',
+    thread: 'source',
   },
 };

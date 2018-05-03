@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {shortFeedId} from '../../utils';
+import {shortFeedId} from '../../from-ssb';
 const nest = require('depnest');
 
 const shortFeedIdOpinion = {

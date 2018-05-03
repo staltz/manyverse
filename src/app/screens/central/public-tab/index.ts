@@ -17,34 +17,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
+import {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Command, ScreensSource} from 'cycle-native-navigation';
 import {SSBSource} from '../../../drivers/ssb';
 import intent from './intent';
 import view from './view';
-import model from './model';
+import model, {State} from './model';
 import ssb from './ssb';
 import navigation from './navigation';
 
 export type Sources = {
   screen: ScreensSource;
   navigation: Stream<any>;
-  onion: StateSource<any>;
+  onion: StateSource<State>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  onion: Stream<Reducer<any>>;
+  onion: Stream<Reducer<State>>;
   ssb: Stream<any>;
 };
 
 export function publicTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
-  const vdom$ = view(sources.onion.state$);
+  const vdom$ = view(sources.onion.state$, sources.ssb);
   const command$ = navigation(actions);
   const reducer$ = model(sources.ssb);
   const newContent$ = ssb(actions);

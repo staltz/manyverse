@@ -17,9 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId} from '../../../../ssb/types';
 
 export default function intent(source: ScreensSource) {
   return {

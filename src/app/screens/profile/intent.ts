@@ -19,25 +19,22 @@
 
 import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId} from '../../../ssb/types';
+import {Screens} from '../..';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 
 export default function intent(source: ScreensSource) {
   return {
-    publishMsg$: source
-      .select('feed')
-      .events('publish')
-      .map(ev => ev.nativeEvent.text) as Stream<string>,
+    goToCompose$: source.select('feed').events('openCompose'),
 
     likeMsg$: source.select('feed').events('pressLike') as Stream<LikeEvent>,
 
     follow$: source.select('follow').events('press') as Stream<boolean>,
 
-    edit$: source.select('editProfile').events('press') as Stream<null>,
+    goToEdit$: source.select('editProfile').events('press') as Stream<null>,
 
-    appear$: source.willAppear('mmmmm.Profile').mapTo(null),
+    appear$: source.willAppear(Screens.Profile).mapTo(null),
 
-    disappear$: source.didDisappear('mmmmm.Profile').mapTo(null),
+    disappear$: source.didDisappear(Screens.Profile).mapTo(null),
   };
 }

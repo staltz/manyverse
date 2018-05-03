@@ -8,13 +8,13 @@ rm -rf ./nodejs-assets/nodejs-project;
 mkdir -p ./nodejs-assets/nodejs-project;
 if [ -f ./nodejs-assets/BUILD_NATIVE_MODULES.txt ]
 then
-  echo "Build Native Modules on"
+  echo "Build Native Modules on";
 else
-  echo '1' >./nodejs-assets/BUILD_NATIVE_MODULES.txt
-  echo "Set Build Native Modules on"
+  echo '1' >./nodejs-assets/BUILD_NATIVE_MODULES.txt;
+  echo "Set Build Native Modules on";
 fi
 cp -r ./lib/nodejs-project ./nodejs-assets;
-cp -r ./src/nodejs-project/patches ./nodejs-assets/nodejs-project
+cp -r ./src/nodejs-project/patches ./nodejs-assets/nodejs-project;
 cp ./src/nodejs-project/package.json ./nodejs-assets/nodejs-project;
 rm ./nodejs-assets/nodejs-project/*.js.map;
 
@@ -22,6 +22,6 @@ echo "Installing dependencies...";
 cd ./nodejs-assets/nodejs-project && npm i && cd ../..;
 
 echo "Patch (in preprocessor style) some dependencies...";
-./tools/patch-rnnodeapp-scuttlebot ./nodejs-assets/nodejs-project
+./tools/patch-rnnodeapp-scuttlebot ./nodejs-assets/nodejs-project;
 
-echo "Done."
+echo "Done.";

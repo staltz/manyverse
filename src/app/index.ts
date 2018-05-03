@@ -17,23 +17,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+export enum Screens {
+  Central = 'mmmmm.Central',
+  Profile = 'mmmmm.Profile',
+  ProfileEdit = 'mmmmm.Profile.Edit',
+  Thread = 'mmmmm.Thread',
+  Compose = 'mmmmm.Compose',
+  ComposePublishButton = 'mmmmm.Compose.PublishButton',
+}
+
 import xs, {Stream} from 'xstream';
-import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
 import {h} from '@cycle/native-screen';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from './drivers/ssb';
 import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';
+import {KeyboardSource} from '@cycle/native-keyboard';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import {central} from './screens/central/index';
 import {profile} from './screens/profile/index';
-import {Content} from '../ssb/types';
-import model, {State, centralLens, profileLens} from './model';
+import {thread} from './screens/thread/index';
+import {compose} from './screens/compose/index';
+import {Content} from 'ssb-typescript';
+import model, {State, centralLens, profileLens, threadLens} from './model';
 
 export type Sources = {
   screen: ScreensSource;
   navigation: Stream<any>;
+  keyboard: KeyboardSource;
   onion: StateSource<State>;
   ssb: SSBSource;
   dialog: Stream<DialogRes>;
@@ -42,12 +54,14 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ScreenVNode>;
   navigation: Stream<Command>;
+  keyboard: Stream<'dismiss'>;
   onion: Stream<Reducer<State>>;
   ssb: Stream<Content | null>;
   dialog: Stream<DialogReq>;
 };
 
-export type ScreenID = 'mmmmm.Central' | 'mmmmm.Profile' | 'mmmmm.Profile.Edit';
+// tslint:disable-next-line:no-string-literal
+export const screenIDs = Object['values'](Screens);
 
 function addAlphaDisclaimer(screen$: Stream<ScreenVNode>): Stream<ScreenVNode> {
   return screen$.map(screen => ({
@@ -81,28 +95,50 @@ export function app(sources: Sources): Sinks {
     onion: centralLens,
     '*': 'central',
   })(sources);
+  const composeSinks: Sinks = isolate(compose, {'*': 'compose'})(sources);
   const profileSinks: Sinks = isolate(profile, {
     onion: profileLens,
     '*': 'profile',
   })(sources);
+  const threadSinks: Sinks = isolate(thread, {
+    onion: threadLens,
+    '*': 'thread',
+  })(sources);
 
-  const screen$ = xs.merge(centralSinks.screen, profileSinks.screen);
+  const screen$ = xs.merge(
+    centralSinks.screen,
+    composeSinks.screen,
+    profileSinks.screen,
+    threadSinks.screen,
+  );
   const navCommand$ = xs.merge(
     centralSinks.navigation,
+    composeSinks.navigation,
     profileSinks.navigation,
+    threadSinks.navigation,
   );
   const mainReducer$ = model(navCommand$, sources.ssb);
   const reducer$ = xs.merge(
     mainReducer$,
+    composeSinks.onion,
     centralSinks.onion,
     profileSinks.onion,
+    threadSinks.onion,
   );
-  const initSSB$ = sources.screen.didAppear('mmmmm.Central').mapTo(null);
-  const ssb$ = xs.merge(initSSB$, centralSinks.ssb, profileSinks.ssb);
+  const initSSB$ = sources.screen.didAppear(Screens.Central).mapTo(null);
+  const ssb$ = xs.merge(
+    initSSB$,
+    centralSinks.ssb,
+    composeSinks.ssb,
+    profileSinks.ssb,
+    threadSinks.ssb,
+  );
+  const dismiss$ = threadSinks.keyboard;
 
   return {
     screen: screen$.compose(addAlphaDisclaimer),
     navigation: navCommand$,
+    keyboard: dismiss$,
     onion: reducer$,
     ssb: ssb$,
     dialog: profileSinks.dialog,

@@ -17,36 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
-import {Content, PostContent, VoteContent} from '../../../../ssb/types';
+import {Stream} from 'xstream';
+import {Content} from 'ssb-typescript';
+import {toVoteContent} from '../../../../ssb/to-ssb';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 
 export type Actions = {
-  publishMsg$: Stream<string>;
   likeMsg$: Stream<LikeEvent>;
 };
 
 export default function ssb(actions: Actions): Stream<Content> {
-  // TODO: this is duplicate also in profile/ssb. deduplicate it
-  const publishMsg$ = actions.publishMsg$.map(text => {
-    return {
-      text,
-      type: 'post',
-      mentions: [],
-    } as PostContent;
-  });
+  const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
-  const toggleLikeMsg$ = actions.likeMsg$.map(ev => {
-    return {
-      type: 'vote',
-      vote: {
-        link: ev.msgKey,
-        value: ev.like ? 1 : 0,
-        expression: ev.like ? 'Like' : 'Unlike',
-      },
-    } as VoteContent;
-  });
-
-  return xs.merge(publishMsg$, toggleLikeMsg$);
+  return toggleLikeMsg$;
 }

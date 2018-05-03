@@ -17,11 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
-import dropRepeats from 'xstream/extra/dropRepeats';
-import {SSBSource} from '../../drivers/ssb';
-import {StateSource, Reducer, Lens} from 'cycle-onionify';
-import {FeedId, About, Msg, isVoteMsg} from '../../../ssb/types';
+import xs, {Stream} from 'xstream';
+import {Reducer, Lens} from 'cycle-onionify';
+import {FeedId} from 'ssb-typescript';
 import {Actions} from './intent';
 import {State as PublicTabState} from './public-tab/model';
 
@@ -31,6 +29,13 @@ export type State = {
   publicTab?: PublicTabState;
 };
 
+export function initState(selfFeedId: FeedId): State {
+  return {
+    selfFeedId,
+    visible: true,
+  };
+}
+
 export const publicTabLens: Lens<State, PublicTabState> = {
   get: (parent: State): PublicTabState => {
     if (parent.publicTab) {
@@ -38,7 +43,8 @@ export const publicTabLens: Lens<State, PublicTabState> = {
     } else {
       return {
         selfFeedId: parent.selfFeedId,
-        getFeedReadable: null,
+        getPublicFeedReadable: null,
+        getSelfRootsReadable: null,
       };
     }
   },

@@ -18,11 +18,9 @@
  */
 
 import {PureComponent} from 'react';
-import {Text, View, Image, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {h} from '@cycle/native-screen';
 import MessageContainer from './MessageContainer';
-import {FeedId, Msg} from '../../../ssb/types';
-import {MsgAndExtras} from '../../drivers/ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 
@@ -33,9 +31,9 @@ export const styles = StyleSheet.create({
   },
 
   messageAuthorImageContainer: {
-    height: 45,
-    width: 45,
-    borderRadius: 3,
+    height: Dimensions.avatarSizeNormal,
+    width: Dimensions.avatarSizeNormal,
+    borderRadius: Dimensions.avatarBorderRadius,
     backgroundColor: Palette.gray1,
     marginRight: Dimensions.horizontalSpaceSmall,
     marginBottom: Dimensions.verticalSpaceSmall,
@@ -75,13 +73,6 @@ export const styles = StyleSheet.create({
 
   col: {
     flexDirection: 'column',
-  },
-
-  hr: {
-    backgroundColor: Palette.gray1,
-    height: 1,
-    marginTop: Dimensions.verticalSpaceSmall,
-    marginBottom: 0,
   },
 
   likeButton: {
@@ -128,7 +119,6 @@ class PlaceholderHeader extends PureComponent<{}> {
 class PlaceholderFooter extends PureComponent<{}> {
   public render() {
     return h(View, {style: styles.col}, [
-      h(View, {style: styles.hr}),
       h(View, {style: styles.row}, [
         h(View, {style: styles.likeButton}, [
           h(View, {style: styles.likeIcon}),

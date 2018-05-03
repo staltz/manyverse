@@ -17,19 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
-import {FeedId} from '../../../../ssb/types';
+import {FeedId, MsgId} from 'ssb-typescript';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};
+export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 
 export default function intent(source: ScreensSource) {
   return {
-    publishMsg$: source
-      .select('publicFeed')
-      .events('publish')
-      .map(ev => ev.nativeEvent.text) as Stream<string>,
+    goToCompose$: source.select('publicFeed').events('openCompose'),
 
     likeMsg$: source.select('publicFeed').events('pressLike') as Stream<
       LikeEvent
@@ -38,5 +36,16 @@ export default function intent(source: ScreensSource) {
     goToProfile$: source.select('publicFeed').events('pressAuthor') as Stream<
       ProfileNavEvent
     >,
+
+    goToThread$: xs.merge(
+      source.select('publicFeed').events('pressExpandThread'),
+      source
+        .select('publicFeed')
+        .events('pressReply')
+        .map(({rootKey, msgKey}) => ({
+          rootMsgId: rootKey,
+          replyToMsgId: msgKey,
+        })),
+    ) as Stream<ThreadNavEvent>,
   };
 }

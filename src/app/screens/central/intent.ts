@@ -19,6 +19,7 @@
 
 import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
+import {Screens} from '../..';
 
 export type Actions = {
   goToSelfProfile$: Stream<null>;
@@ -30,8 +31,8 @@ export default function intent(source: ScreensSource): Actions {
   return {
     goToSelfProfile$: source.select('self-profile').events('press').mapTo(null),
 
-    willAppear$: source.willAppear('mmmmm.Central'),
+    willAppear$: source.willAppear(Screens.Central),
 
-    willDisappear$: source.willDisappear('mmmmm.Central'),
+    willDisappear$: source.willDisappear(Screens.Central),
   };
 }

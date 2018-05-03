@@ -20,15 +20,10 @@
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {State} from './model';
-import {
-  Content,
-  PostContent,
-  VoteContent,
-  ContactContent,
-} from '../../../ssb/types';
+import {Content} from 'ssb-typescript';
+import {toVoteContent, toContactContent} from '../../../ssb/to-ssb';
 
 export type SSBActions = {
-  publishMsg$: Stream<string>;
   likeMsg$: Stream<{msgKey: string; like: boolean}>;
   follow$: Stream<boolean>;
 };
@@ -40,34 +35,13 @@ export default function ssb(
   actions: SSBActions,
   state$: Stream<State>,
 ): Stream<Content> {
-  const publishMsg$ = actions.publishMsg$.map(text => {
-    return {
-      text,
-      type: 'post',
-      mentions: [],
-    } as PostContent;
-  });
-
-  const toggleLikeMsg$ = actions.likeMsg$.map(ev => {
-    return {
-      type: 'vote',
-      vote: {
-        link: ev.msgKey,
-        value: ev.like ? 1 : 0,
-        expression: ev.like ? 'Like' : 'Unlike',
-      },
-    } as VoteContent;
-  });
+  const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
   const followProfileMsg$ = actions.follow$
     .compose(sampleCombine(state$))
     .map(([following, state]) => {
-      return {
-        type: 'contact',
-        following,
-        contact: state.displayFeedId,
-      } as ContactContent;
+      return toContactContent(state.displayFeedId, following);
     });
 
-  return xs.merge(publishMsg$, toggleLikeMsg$, followProfileMsg$);
+  return xs.merge(toggleLikeMsg$, followProfileMsg$);
 }

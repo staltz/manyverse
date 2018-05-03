@@ -18,10 +18,16 @@
  */
 
 import {Component} from 'react';
-import {View, Text, TouchableNativeFeedback, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableNativeFeedback,
+  StyleSheet,
+  TouchableNativeFeedbackProperties,
+} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Msg, FeedId} from '../../../ssb/types';
+import {Msg, FeedId, PostContent, MsgId} from 'ssb-typescript';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -34,13 +40,6 @@ export const styles = StyleSheet.create({
 
   col: {
     flexDirection: 'column',
-  },
-
-  hr: {
-    backgroundColor: Palette.gray4,
-    height: 1,
-    marginTop: Dimensions.verticalSpaceSmall,
-    marginBottom: 0,
   },
 
   likeCount: {
@@ -70,6 +69,23 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.brand.textWeak,
   },
+
+  replyButton: {
+    flexDirection: 'row',
+    paddingTop: Dimensions.verticalSpaceSmall + 6,
+    paddingBottom: Dimensions.verticalSpaceBig,
+    paddingLeft: Dimensions.horizontalSpaceBig,
+    paddingRight: Dimensions.horizontalSpaceBig,
+    marginBottom: -Dimensions.verticalSpaceBig,
+  },
+
+  replyButtonLabel: {
+    fontSize: Typography.fontSizeSmall,
+    fontWeight: 'bold',
+    marginLeft: Dimensions.horizontalSpaceSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.brand.textWeak,
+  },
 });
 
 const iconProps = {
@@ -88,13 +104,19 @@ const iconProps = {
     color: Palette.indigo6,
     name: 'thumb-up',
   },
+  reply: {
+    size: Dimensions.iconSizeSmall,
+    color: Palette.brand.textWeak,
+    name: 'comment-outline',
+  },
 };
 
 export type Props = {
   msg: Msg;
   selfFeedId: FeedId;
   likes: Array<FeedId> | null;
-  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+  onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
+  onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
 };
 
 export type State = {
@@ -106,7 +128,22 @@ export default class MessageFooter extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = this.stateFromProps(props, {ilike: 'maybe', likeCount: 0});
+    this._likeButtonProps = {
+      background: TouchableNativeFeedback.SelectableBackground(),
+      onPress: this.onPressLikeHandler.bind(this),
+      accessible: true,
+      accessibilityLabel: 'Like Button',
+    };
+    this._replyButtonProps = {
+      background: TouchableNativeFeedback.SelectableBackground(),
+      onPress: this.onPressReplyHandler.bind(this),
+      accessible: true,
+      accessibilityLabel: 'Reply Button',
+    };
   }
+
+  private _likeButtonProps: TouchableNativeFeedbackProperties;
+  private _replyButtonProps: TouchableNativeFeedbackProperties;
 
   public componentWillReceiveProps(nextProps: Props) {
     this.setState((prev: State) => this.stateFromProps(nextProps, prev));
@@ -126,7 +163,7 @@ export default class MessageFooter extends Component<Props, State> {
     }
   }
 
-  private _onPressLike() {
+  private onPressLikeHandler() {
     const ilike = this.state.ilike;
     this.setState((prev: State) => ({
       ilike: 'maybe',
@@ -143,6 +180,17 @@ export default class MessageFooter extends Component<Props, State> {
     }
   }
 
+  private onPressReplyHandler() {
+    const onPressReply = this.props.onPressReply;
+    if (!onPressReply) return;
+    const msgKey = this.props.msg.key;
+    const rootKey =
+      this.props.msg.value &&
+      this.props.msg.value.content &&
+      (this.props.msg.value.content as PostContent).root;
+    onPressReply({msgKey, rootKey: rootKey || msgKey});
+  }
+
   public shouldComponentUpdate(nextProps: Props, nextState: State) {
     const prevProps = this.props;
     const prevState = this.state;
@@ -153,35 +201,50 @@ export default class MessageFooter extends Component<Props, State> {
   }
 
   public render() {
-    const {msg} = this.props;
     const {likeCount, ilike} = this.state;
 
     const counters = likeCount
       ? [
           h(View, {style: styles.row}, [
-            h(Text, {style: styles.likes}, [
-              h(Text, {style: styles.likeCount}, String(likeCount)),
-              (likeCount === 1 ? ' like' : ' likes') as any,
-            ]),
+            h(
+              Text,
+              {
+                style: styles.likes,
+                accessible: true,
+                accessibilityLabel: 'Like Count',
+              },
+              [
+                h(Text, {style: styles.likeCount}, String(likeCount)),
+                (likeCount === 1 ? ' like' : ' likes') as any,
+              ],
+            ),
           ]),
         ]
       : [];
 
-    const likeButtonProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: () => this._onPressLike(),
-    };
-    const likeButton = h(TouchableNativeFeedback, likeButtonProps, [
-      h(View, {style: styles.likeButton}, [
-        h(Icon, iconProps[ilike + 'Liked']),
-        h(Text, {style: styles.likeButtonLabel}, 'Like'),
+    const buttons = [
+      h(TouchableNativeFeedback, this._likeButtonProps, [
+        h(View, {style: styles.likeButton}, [
+          h(Icon, iconProps[ilike + 'Liked']),
+          h(Text, {style: styles.likeButtonLabel}, 'Like'),
+        ]),
       ]),
-    ]);
+    ];
+
+    if (this.props.onPressReply) {
+      buttons.push(
+        h(TouchableNativeFeedback, this._replyButtonProps, [
+          h(View, {style: styles.replyButton}, [
+            h(Icon, iconProps.reply),
+            h(Text, {style: styles.replyButtonLabel}, 'Comment'),
+          ]),
+        ]),
+      );
+    }
 
     return h(View, {style: styles.col}, [
       ...counters,
-      h(View, {style: styles.hr}),
-      h(View, {style: styles.row}, [likeButton]),
+      h(View, {style: styles.row}, buttons),
     ]);
   }
 }

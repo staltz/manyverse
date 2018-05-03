@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, createElement} from 'react';
+import {Component} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/native-screen';
@@ -26,8 +26,8 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
-import {Msg, AboutContent as About} from '../../../ssb/types';
-import {authorName} from '../../../ssb/utils';
+import {Msg, AboutContent as About} from 'ssb-typescript';
+import {authorName} from '../../../ssb/from-ssb';
 
 export const styles = StyleSheet.create({
   row: {
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
   },
 
   aboutImage: {
-    borderRadius: 3,
+    borderRadius: Dimensions.avatarBorderRadius,
     marginTop: Dimensions.verticalSpaceNormal,
     marginBottom: Dimensions.verticalSpaceNormal,
     width: 120,

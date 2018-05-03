@@ -17,16 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component, createElement, ComponentClass} from 'react';
+import {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/native-screen';
 import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
-import {ContactContent as Contact, Msg} from '../../../ssb/types';
-import {authorName, shortFeedId} from '../../../ssb/utils';
+import {ContactContent as Contact, Msg} from 'ssb-typescript';
+import {authorName, shortFeedId} from '../../../ssb/from-ssb';
 
 export const styles = StyleSheet.create({
   row: {

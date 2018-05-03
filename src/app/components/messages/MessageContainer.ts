@@ -24,18 +24,12 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 
 export const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    backgroundColor: Palette.brand.voidBackground,
-    paddingTop: Dimensions.verticalSpaceNormal * 0.5,
-    paddingBottom: Dimensions.verticalSpaceNormal * 0.5,
-  },
-
   card: {
     flex: 1,
     backgroundColor: Palette.brand.textBackground,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
+    marginBottom: 1,
     flexDirection: 'column',
   },
 });
@@ -46,8 +40,10 @@ type Props = {
 
 export default class MessageContainer extends PureComponent<Props> {
   public render() {
-    return h(View, {style: [styles.wrapper, this.props.style]}, [
-      h(View, {style: styles.card}, this.props.children as any),
-    ]);
+    return h(
+      View,
+      {style: [styles.card, this.props.style]},
+      this.props.children as any,
+    );
   }
 }

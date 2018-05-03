@@ -23,12 +23,12 @@ const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 import manifest = require('./manifest');
-import rootsPlugin = require('./roots');
 
 // Hack until appDataDir plugin comes out
 const  writablePath = path.join(__dirname, '..');
 // const ssbPath = path.resolve(os.homedir(), '.ssb');
 const ssbPath = path.resolve(writablePath, '.ssb');
+console.log('os.homedir():', os.homedir())
 console.log('Starting Scuttlebot on path:', ssbPath)
 if (!fs.existsSync(ssbPath)) {
   mkdirp.sync(ssbPath);
@@ -54,7 +54,7 @@ require('scuttlebot/index')
   .use(require('ssb-about'))
   .use(require('ssb-contacts'))
   .use(require('ssb-query'))
-  .use(rootsPlugin)
+  .use(require('ssb-threads'))
   .use(require('scuttlebot/plugins/invite'))
   .use(require('scuttlebot/plugins/block'))
   .use(require('scuttlebot/plugins/local'))
