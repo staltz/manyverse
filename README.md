@@ -6,12 +6,7 @@
 
 Use node `v8.9.x` and npm `v5.6.x`.
 
-**Mac OS note**: You might need `realpath`, install it through coreutils:
-
-```
-brew update
-brew install coreutils
-```
+Check out [nodejs-mobile](https://github.com/janeasystems/nodejs-mobile) repository for the necessary prerequisites for your system.
 
 ```
 npm install --global react-native-cli
