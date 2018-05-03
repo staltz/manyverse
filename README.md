@@ -23,6 +23,8 @@ npm install
 
 ## Build/run in development
 
+You can run `npm run first-build` which will run all the necessary scripts in order. Or run each step manually.
+
 Build the "backend" Node.js project:
 
 ```
@@ -41,17 +43,20 @@ Then build the entire app:
 react-native run-android
 ```
 
+You can log the Node.js app:
+
+```
+npm run log
+```
+
+
 ## Important Dependencies
 
 - React Native
 - TypeScript
 - Cycle.js with xstream
 - Pull streams
-- react-native-scuttlebot
-  - Uses react-native-node under the hood
-    - Which in turn uses NodeBase (node.js v7 compiled for android arm devices)
 - react-native-workers (fork by staltz)
-- react-native-ssb-client
 - Patchcore (with depject)
 
 ## Integration tests
