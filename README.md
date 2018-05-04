@@ -6,7 +6,12 @@
 
 Use node `v8.9.x` and npm `v5.6.x`.
 
-Check out [nodejs-mobile](https://github.com/janeasystems/nodejs-mobile) repository for the necessary prerequisites for your system.
+**Mac OS note**: You might need `realpath`, install it through coreutils:
+
+```
+brew update
+brew install coreutils
+```
 
 ```
 npm install --global react-native-cli
@@ -15,6 +20,8 @@ npm install --global react-native-cli
 ```
 npm install
 ```
+
+Check out [nodejs-mobile](https://github.com/janeasystems/nodejs-mobile) repository for the necessary prerequisites for your system.
 
 ### Android
 
@@ -78,6 +85,7 @@ react-native run-android
 ## Important Dependencies
 
 - React Native
+- nodejs-mobile-react-native
 - TypeScript
 - Cycle.js with xstream
 - Pull streams
