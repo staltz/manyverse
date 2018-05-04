@@ -3,6 +3,7 @@ package com.mmmmm;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.peel.react.TcpSocketsModule;
@@ -10,7 +11,6 @@ import com.peel.react.rnos.RNOSModule;
 import com.rnfs.RNFSPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.staltz.react.workers.WorkersPackage;
-import com.staltz.reactnativenode.RNNodePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -33,13 +33,13 @@ public class MainApplication extends NavigationApplication {
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
       new MainReactPackage(),
+      new RNNodeJsMobilePackage(),
       new ReactNativeDialogsPackage(),
       new VectorIconsPackage(),
       new TcpSocketsModule(),
       new RNOSModule(),
       new RNFSPackage(),
       new RandomBytesPackage(),
-      new RNNodePackage(),
       new WorkersPackage(
         new TcpSocketsModule(),
         new RNOSModule(),

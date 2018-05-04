@@ -19,7 +19,6 @@
 
 import 'react-native-ssb-shims';
 import RNNav from 'react-native-navigation';
-import RNNode from 'react-native-node';
 import {run} from '@cycle/run';
 import onionify from 'cycle-onionify';
 import {makeKeyboardDriver} from '@cycle/native-keyboard';
@@ -28,6 +27,7 @@ import {ssbDriver} from './lib/app/drivers/ssb';
 import {dialogDriver} from './lib/app/drivers/dialogs';
 import {app, screenIDs} from './lib/app/index';
 import {navOptions as centralScreenNavOptions} from './lib/app/screens/central';
+import nodejs from 'nodejs-mobile-react-native';
 
 const {
   screenVNodeDriver,
@@ -37,7 +37,7 @@ const {
   animationType: 'fade',
 });
 
-RNNode.start();
+nodejs.start("index.js");
 
 RNNav.Navigation.isAppLaunched().then(appLaunched => {
   if (appLaunched) {

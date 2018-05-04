@@ -115,6 +115,9 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        aaptOptions {
+            ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
     }
     signingConfigs {
         release {
@@ -157,13 +160,13 @@ android {
 }
 
 dependencies {
+    compile project(':nodejs-mobile-react-native')
     compile project(':react-native-dialogs')
     compile project(':react-native-vector-icons')
     compile project(':react-native-tcp')
     compile project(':react-native-os')
     compile project(':react-native-fs')
     compile project(':react-native-randombytes')
-    compile project(':react-native-node')
     compile project(':react-native-navigation')
     compile project(':react-native-workers')
     compile fileTree(dir: "libs", include: ["*.jar"])

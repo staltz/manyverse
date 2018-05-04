@@ -50,10 +50,6 @@ function patchApidocsFile(scuttlebotPath) {
       `\`${readMarkdownCompileTime('../plugins/plugins.md')}\``,
     )
     .replace(
-      `fs.readFileSync(path.join(__dirname, '../plugins/private.md'), 'utf-8')`,
-      `\`${readMarkdownCompileTime('../plugins/private.md')}\``,
-    )
-    .replace(
       `fs.readFileSync(path.join(__dirname, '../plugins/replicate.md'), 'utf-8')`,
       `\`${readMarkdownCompileTime('../plugins/replicate.md')}\``,
     );

@@ -18,13 +18,15 @@
  */
 
 const fs = require('fs');
-const os = require('os');
 const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 import manifest = require('./manifest');
 
-const ssbPath = path.resolve(os.homedir(), '.ssb');
+// Hack until appDataDir plugin comes out
+const  writablePath = path.join(__dirname, '..');
+const ssbPath = path.resolve(writablePath, '.ssb');
+
 if (!fs.existsSync(ssbPath)) {
   mkdirp.sync(ssbPath);
 }

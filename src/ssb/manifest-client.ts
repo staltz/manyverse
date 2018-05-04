@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const manifestServer = require('../rnnodeapp/manifest');
+const manifestServer = require('../nodejs-project/manifest');
 
 function objMapDeep(origin: object, transform: (s: string) => string): object {
   return Object.keys(origin).reduce((acc, key) => {

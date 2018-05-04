@@ -1,0 +1,12 @@
+patch-package
+--- a/node_modules/leveldown/deps/snappy/snappy-1.1.4/snappy.cc
++++ b/node_modules/leveldown/deps/snappy/snappy-1.1.4/snappy.cc
+@@ -95,7 +95,7 @@ void UnalignedCopy64(const void* src, void* dst) {
+ void UnalignedCopy128(const void* src, void* dst) {
+   // TODO(alkis): Remove this when we upgrade to a recent compiler that emits
+   // SSE2 moves for memcpy(dst, src, 16).
+-#ifdef __SSE2__
++#if defined(__SSE2__) && !(defined(__ANDROID__) && defined(__i386__))
+   __m128i x = _mm_loadu_si128(static_cast<const __m128i*>(src));
+   _mm_storeu_si128(static_cast<__m128i*>(dst), x);
+ #else

@@ -1,0 +1,28 @@
+{
+  "name": "ssb-nodejs",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "patch-package"
+  },
+  "dependencies": {
+    "bufferutil": "3.0.1",
+    "patchcore": "1.23.3",
+    "scuttlebot": "github:luandro/scuttlebot",
+    "ssb-about": "0.1.x",
+    "ssb-backlinks": "github:luandro/ssb-backlinks",
+    "ssb-blobs": "github:luandro/ssb-blobs",
+    "ssb-contacts": "0.0.x",
+    "ssb-friends": "^2.3.0",
+    "ssb-keys": "7.0.12",
+    "ssb-private": "github:luandro/ssb-private",
+    "ssb-query": "^2.0.1",
+    "ssb-serve-blobs": "1.0.0",
+    "ssb-sort": "1.0.0",
+    "pull-cat": "1.1.11",
+    "ssb-threads": "1.1.0"
+  },
+  "devDependencies": {
+    "patch-package": "^5.1.1"
+  }
+}
