@@ -20,11 +20,5 @@
 const os = require('os');
 const path = require('path');
 
-// export const ssbPath = path.join(os.homedir(), '.ssb');
-const writablePath = path.join(__dirname, '..');
-// export const ssbPath = path.resolve(writablePath, '.ssb');
-export const ssbPath = path.resolve('/data/data/com.mmmmm/files/.ssb');
+export const ssbPath = path.join(os.homedir(), '.ssb');
 export const ssbKeysPath = path.join(ssbPath, 'secret');
-console.log('client os.homedir(): ', os.homedir())
-console.log('client writablePath: ', writablePath)
-console.log('client ssbPath: ', ssbPath)

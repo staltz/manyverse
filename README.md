@@ -37,6 +37,11 @@ export ANDROID_NDK_HOME=/Users/username/Library/Android/sdk/ndk-bundle
 
 You can run `npm run first-build` which will run all the necessary scripts in order. Or run each step manually.
 
+Propagate forks to be called as the original modules using [propagate-replacement-fields](https://github.com/staltz/propagate-replacement-fields):
+```
+npm run propagate-replacements
+```
+
 Build the "backend" Node.js project:
 
 ```
@@ -85,7 +90,8 @@ react-native run-android
 ## Important Dependencies
 
 - React Native
-- nodejs-mobile-react-native
+- Node.js Mobile
+- Scuttlebot
 - TypeScript
 - Cycle.js with xstream
 - Pull streams
