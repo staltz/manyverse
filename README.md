@@ -2,92 +2,7 @@
 
 ***ALPHA version! This is heavily under construction, not ready for real usage.***
 
-## Install dependencies
-
-Use node `v8.9.x` and npm `v5.6.x`.
-
-**Mac OS note**: You might need `realpath`, install it through coreutils:
-
-```
-brew update
-brew install coreutils
-```
-
-```
-npm install --global react-native-cli
-```
-
-```
-npm install
-```
-
-Check out [nodejs-mobile](https://github.com/janeasystems/nodejs-mobile) repository for the necessary prerequisites for your system.
-
-### Android
-
-You may need to open your app's `/android` folder in Android Studio, so that it detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project.
-
-You can also set the environment variable `ANDROID_NDK_HOME`, as in this example:
-
-```
-export ANDROID_NDK_HOME=/Users/username/Library/Android/sdk/ndk-bundle
-```
-
-## Build/run in development
-
-You can run `npm run first-build` which will run all the necessary scripts in order. Or run each step manually.
-
-Propagate forks to be called as the original modules using [propagate-replacement-fields](https://github.com/staltz/propagate-replacement-fields):
-```
-npm run propagate-replacements
-```
-
-Build the "backend" Node.js project:
-
-```
-npm run build-nodejs-app
-```
-
-Build the worker thread subproject:
-
-```
-npm run build-worker-android
-```
-
-Then build the entire app:
-
-```
-react-native run-android
-```
-
-You can log the Node.js app:
-
-```
-npm run log
-```
-
-## Troubleshooting
-
-On Android applications, the `react-native` build process is sometimes unable to rebuild assets.
-If you are getting errors while building the application using `react-native run-android`, the following commands can help you do a clean rebuild of the project, when run in your project's folder.
-
-On Windows:
-```sh
-cd android
-gradlew clean
-cd ..
-react-native run-android
-```
-
-On Linux/macOS:
-```sh
-cd android
-./gradlew clean
-cd ..
-react-native run-android
-```
-
-## Important Dependencies
+## Built with
 
 - React Native
 - Node.js Mobile
@@ -97,6 +12,97 @@ react-native run-android
 - Pull streams
 - react-native-workers (fork by staltz)
 - Patchcore (with depject)
+
+## Install dependencies
+
+### React Native specifics
+
+Use node `v8.9.x` and npm `v5.6.x`, and follow the [official React Native docs](https://facebook.github.io/react-native/docs/getting-started.html).
+
+Also install the CLI:
+
+```
+npm install --global react-native-cli
+```
+
+### macOS specifics
+
+If you are developing on a macOS, then you might need `realpath`, install it through coreutils:
+
+```
+brew update
+brew install coreutils
+```
+
+### Android specifics
+
+You need Android Studio and a recent Android SDK (installable through Android Studio).
+
+You may need to open your app's `/android` folder in Android Studio, so that it detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project.
+
+You can also set the environment variable `ANDROID_NDK_HOME`, as in this example:
+
+```
+export ANDROID_NDK_HOME=/Users/username/Library/Android/sdk/ndk-bundle
+```
+
+Also check out [nodejs-mobile](https://github.com/janeasystems/nodejs-mobile) repository for the necessary prerequisites for your system.
+
+### MMMMM specifics
+
+```
+npm install
+```
+
+## Build and run in development
+
+You can run `npm run build-android-debug` which will run all the necessary scripts in order. Or run each step manually:
+
+`1`: Compile TypeScript files
+
+```
+npm run lib
+```
+
+`2`: Propagate replacement modules throughout all dependencies using [propagate-replacement-fields](https://github.com/staltz/propagate-replacement-fields):
+```
+npm run propagate-replacements
+```
+
+`3`: Build the "backend" Node.js project (which runs Scuttlebot):
+
+```
+npm run build-nodejs-app
+```
+
+`4`: Build the worker thread subproject:
+
+```
+npm run build-worker-android
+```
+
+`5`: Then build the Android apk:
+
+```
+react-native run-android
+```
+
+During step 5, another terminal may spawn with the React Native Metro bundler. The app should be installed automatically, if you have a device connected by USB. You can see the logs with `react-native log-android` or `adb logcat`.
+
+### Continuous compilation
+
+To watch source code files and continuously compile them, use three terminals:
+
+- One terminal running `$(npm bin)/tsc --watch` to compile the TypeScript code
+- One terminal running `npm run clean-bundler && npm start -- --reset-cache` for the Metro bundler
+- One terminal where you can run `npm run build-android-debug` to build the APK
+
+There is no support for continuously compiling the worker thread nor the backend Node.js project.
+
+### Troubleshooting
+
+On Android applications, the `react-native` build process is sometimes unable to rebuild assets.
+If you are getting errors while building the application using `react-native run-android`, then the command `npm run full-clean` can help you do a clean rebuild of the project. Then, reinstall with `npm install` and rebuild.
 
 ## Integration tests
 
