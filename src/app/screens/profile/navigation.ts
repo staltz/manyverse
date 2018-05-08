@@ -21,10 +21,13 @@ import xs, {Stream} from 'xstream';
 import {Command, PushCommand} from 'cycle-native-navigation';
 import {navOptions as composeScreenNavOptions} from '../compose';
 import {navOptions as editProfileScreenNavOptions} from './edit';
+import {navOptions as threadScreenNavOptions} from '../thread';
+import {MsgId} from 'ssb-typescript';
 
 export type NavigationActions = {
   goToCompose$: Stream<null>;
   goToEdit$: Stream<null>;
+  goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
 };
 
 export default function navigation(
@@ -47,5 +50,19 @@ export default function navigation(
     } as PushCommand,
   );
 
-  return xs.merge(toCompose$, toEdit$);
+  const toThread$ = actions.goToThread$.map(
+    ev =>
+      ({
+        type: 'push',
+        animated: true,
+        animationType: 'slide-horizontal',
+        passProps: {
+          rootMsgId: ev.rootMsgId,
+          replyToMsgId: ev.replyToMsgId,
+        },
+        ...threadScreenNavOptions(),
+      } as Command),
+  );
+
+  return xs.merge(toCompose$, toEdit$, toThread$);
 }

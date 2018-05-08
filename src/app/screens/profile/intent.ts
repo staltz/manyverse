@@ -17,10 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
 import {Screens} from '../..';
+import {MsgId} from 'ssb-typescript';
 
+export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 export type LikeEvent = {msgKey: string; like: boolean};
 
 export default function intent(source: ScreensSource) {
@@ -32,6 +34,14 @@ export default function intent(source: ScreensSource) {
     follow$: source.select('follow').events('press') as Stream<boolean>,
 
     goToEdit$: source.select('editProfile').events('press') as Stream<null>,
+
+    goToThread$: xs.merge(
+      source.select('feed').events('pressExpandThread'),
+      source.select('feed').events('pressReply').map(({rootKey, msgKey}) => ({
+        rootMsgId: rootKey,
+        replyToMsgId: msgKey,
+      })),
+    ) as Stream<ThreadNavEvent>,
 
     appear$: source.willAppear(Screens.Profile).mapTo(null),
 
