@@ -24,13 +24,18 @@ import {State} from './model';
 import {SSBSource} from '../../../drivers/ssb';
 import {isRootPostMsg} from 'ssb-typescript/utils';
 
-export default function view(state$: Stream<State>, ssbSource: SSBSource) {
+export default function view(
+  state$: Stream<State>,
+  ssbSource: SSBSource,
+  scrollToTop$: Stream<any>,
+) {
   const vdom$ = state$.map(state =>
     h(Feed, {
       selector: 'publicFeed',
       getReadable: state.getPublicFeedReadable,
       getPublicationsReadable: state.getSelfRootsReadable,
       publication$: ssbSource.publishHook$.filter(isRootPostMsg),
+      scrollToTop$,
       selfFeedId: state.selfFeedId,
       showPublishHeader: true,
     }),

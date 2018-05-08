@@ -52,13 +52,15 @@ export const navOptions = () => ({
 });
 
 export function central(sources: Sources): Sinks {
+  const actions = intent(sources.screen);
+
   const publicTabSinks: PublicTabSinks = isolate(publicTab, {
     onion: publicTabLens,
     '*': 'publicTab',
-  })(sources);
+  })({...sources, scrollToTop: actions.scrollToPublicTabTop$});
+
   const syncTabSinks = syncTab(sources);
 
-  const actions = intent(sources.screen);
   const command$ = navigation(actions, publicTabSinks.navigation);
   const centralReducer$ = model(actions);
   const reducer$ = xs.merge(centralReducer$, publicTabSinks.onion);

@@ -33,6 +33,7 @@ export type Sources = {
   navigation: Stream<any>;
   onion: StateSource<State>;
   ssb: SSBSource;
+  scrollToTop: Stream<any>;
 };
 
 export type Sinks = {
@@ -44,7 +45,7 @@ export type Sinks = {
 
 export function publicTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
-  const vdom$ = view(sources.onion.state$, sources.ssb);
+  const vdom$ = view(sources.onion.state$, sources.ssb, sources.scrollToTop);
   const command$ = navigation(actions);
   const reducer$ = model(sources.ssb);
   const newContent$ = ssb(actions);

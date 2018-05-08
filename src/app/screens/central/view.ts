@@ -68,6 +68,7 @@ function renderTabs(
     {
       style: [styles.indicatorViewPager, {flex: state.visible ? 1 : 0}],
       indicator: h(BetterPagerTabIndicator, {
+        selector: 'tabs',
         style: [globalStyles.noMargin, {elevation: 3}] as any,
         itemStyle: styles.tabItem,
         selectedItemStyle: styles.tabItemSelected,

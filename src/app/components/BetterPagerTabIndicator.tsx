@@ -22,6 +22,7 @@ export type Props = {
   style?: StyleProp<ViewStyle>;
   itemStyle?: StyleProp<ViewStyle>;
   selectedItemStyle?: StyleProp<ViewStyle>;
+  onSelect?: (index: number) => void;
   changePageWithAnimation?: boolean;
 };
 
@@ -51,6 +52,7 @@ export default class BetterPagerTabIndicator extends Component<Props, State> {
       style,
       itemStyle,
       selectedItemStyle,
+      onSelect,
       changePageWithAnimation,
     } = this.props;
     if (!tabs || tabs.length === 0) return null;
@@ -71,6 +73,9 @@ export default class BetterPagerTabIndicator extends Component<Props, State> {
             if (!isSelected) {
               if (changePageWithAnimation) pager.setPage(index);
               else pager.setPageWithoutAnimation(index);
+            }
+            if (onSelect) {
+              onSelect(index);
             }
           }}
         >

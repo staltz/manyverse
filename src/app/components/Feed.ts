@@ -17,6 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import xs from 'xstream';
 import {PureComponent, Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {h} from '@cycle/native-screen';
@@ -31,8 +32,10 @@ import PlaceholderMessage from './messages/PlaceholderMessage';
 import {GetReadable, ThreadAndExtras} from '../drivers/ssb';
 import PullFlatList from 'pull-flat-list';
 import {Stream, Subscription, Listener} from 'xstream';
+import {propifyMethods} from 'react-propify-methods';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
+const PullFlatList2 = propifyMethods(PullFlatList, 'scrollToIndex' as any);
 
 export const styles = StyleSheet.create({
   writeMessageRow: {
@@ -133,6 +136,7 @@ type Props = {
   getReadable: GetReadable<ThreadAndExtras> | null;
   getPublicationsReadable?: GetReadable<ThreadAndExtras> | null;
   publication$?: Stream<any> | null;
+  scrollToTop$?: Stream<any> | null;
   selfFeedId: FeedId;
   showPublishHeader: boolean;
   style?: any;
@@ -209,11 +213,12 @@ export default class Feed extends Component<Props, State> {
       onPressExpandThread,
       showPublishHeader,
       style,
+      scrollToTop$,
       getReadable,
       selfFeedId,
     } = this.props;
 
-    return h(PullFlatList, {
+    return h(PullFlatList2, {
       getScrollStream: getReadable,
       getPrefixStream: () => this.addedThreadsStream,
       style: [styles.container, style] as any,
@@ -221,6 +226,8 @@ export default class Feed extends Component<Props, State> {
       pullAmount: 1,
       numColumns: 1,
       refreshable: true,
+      scrollToIndex$: (scrollToTop$ || xs.never())
+        .mapTo({index: 0, viewOffset: 1000, animated: true}),
       refreshColors: [Palette.indigo7],
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
         thread.messages[0].key || String(index),
