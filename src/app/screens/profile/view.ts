@@ -83,7 +83,13 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
               accessible: true,
               accessibilityLabel: 'Profile Description',
             },
-            [h(Markdown, {markdownStyles}, state.about.description || '')],
+            [
+              h(
+                Text,
+                {style: styles.description, numberOfLines: 2},
+                state.about.description || '',
+              ),
+            ],
           ),
 
           h(Feed, {

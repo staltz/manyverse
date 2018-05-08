@@ -70,6 +70,11 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.brand.textBackground,
   },
 
+  description: {
+    fontSize: Typography.fontSizeNormal,
+    color: Palette.brand.text,
+  },
+
   feed: {
     top: Dimensions.verticalSpaceNormal * 0.5,
     bottom: 0,
