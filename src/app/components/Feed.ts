@@ -35,7 +35,7 @@ import {Stream, Subscription, Listener} from 'xstream';
 import {propifyMethods} from 'react-propify-methods';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
-const PullFlatList2 = propifyMethods(PullFlatList, 'scrollToIndex' as any);
+const PullFlatList2 = propifyMethods(PullFlatList, 'scrollToOffset' as any);
 
 export const styles = StyleSheet.create({
   writeMessageRow: {
@@ -226,8 +226,8 @@ export default class Feed extends Component<Props, State> {
       pullAmount: 1,
       numColumns: 1,
       refreshable: true,
-      scrollToIndex$: (scrollToTop$ || xs.never())
-        .mapTo({index: 0, viewOffset: 1000, animated: true}),
+      scrollToOffset$: (scrollToTop$ || xs.never())
+        .mapTo({offset: 0, animated: true}),
       refreshColors: [Palette.indigo7],
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
         thread.messages[0].key || String(index),
