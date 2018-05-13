@@ -20,7 +20,6 @@
 import {Stream} from 'xstream';
 import {View, Text, Image} from 'react-native';
 import {h} from '@cycle/native-screen';
-import Markdown, {markdownStyles} from '../../global-styles/markdown';
 import Feed from '../../components/Feed';
 import Button from '../../components/Button';
 import ToggleButton from '../../components/ToggleButton';
