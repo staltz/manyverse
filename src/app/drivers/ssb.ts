@@ -96,18 +96,14 @@ export class SSBSource {
   constructor(private api$: Stream<any>) {
     this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]());
 
-    this.publicFeed$ = api$
-      .take(1)
-      .map(api => (opts?: any) =>
+    this.publicFeed$ = api$.map(api => (opts?: any) =>
         pull(
           api.sbot.pull.publicThreads[0]({reverse: true, live: false, ...opts}),
           pull.map(mutateThreadWithLiveExtras(api)),
         ),
       );
 
-    this.selfRoots$ = api$
-      .take(1)
-      .map(api => (opts?: any) =>
+    this.selfRoots$ = api$.map(api => (opts?: any) =>
         pull(
           api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
           pull.filter(isRootPostMsg),
@@ -116,9 +112,7 @@ export class SSBSource {
         ),
       );
 
-    this.selfReplies$ = api$
-      .take(1)
-      .map(api => (opts?: any) =>
+    this.selfReplies$ = api$.map(api => (opts?: any) =>
         pull(
           api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
           pull.filter(isReplyPostMsg),
@@ -127,7 +121,6 @@ export class SSBSource {
       );
 
     this.publishHook$ = api$
-      .take(1)
       .map(api => api.sbot.hook.publishStream[0]() as Stream<Msg>)
       .flatten();
 
