@@ -27,12 +27,14 @@ export type State = {
   selfFeedId: FeedId;
   visible: boolean;
   publicTab?: PublicTabState;
+  numOfPublicUpdates: number;
 };
 
 export function initState(selfFeedId: FeedId): State {
   return {
     selfFeedId,
     visible: true,
+    numOfPublicUpdates: 0,
   };
 }
 
@@ -45,12 +47,17 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         selfFeedId: parent.selfFeedId,
         getPublicFeedReadable: null,
         getSelfRootsReadable: null,
+        numOfUpdates: parent.numOfPublicUpdates,
       };
     }
   },
 
   set: (parent: State, child: PublicTabState): State => {
-    return {...parent, publicTab: child};
+    return {
+      ...parent,
+      numOfPublicUpdates: child.numOfUpdates,
+      publicTab: child,
+    };
   },
 };
 
@@ -58,7 +65,7 @@ export default function model(actions: Actions): Stream<Reducer<State>> {
   const setVisibleReducer$ = actions.willAppear$.mapTo(
     function setVisibleReducer(prev?: State): State {
       if (!prev) {
-        return {selfFeedId: '', visible: true};
+        return {selfFeedId: '', visible: true, numOfPublicUpdates: 0};
       } else if (prev.visible) {
         return prev;
       } else {
@@ -70,7 +77,7 @@ export default function model(actions: Actions): Stream<Reducer<State>> {
   const setInvisibleReducer$ = actions.willDisappear$.mapTo(
     function setInvisibleReducer(prev?: State): State {
       if (!prev) {
-        return {selfFeedId: '', visible: false};
+        return {selfFeedId: '', visible: false, numOfPublicUpdates: 0};
       } else if (!prev.visible) {
         return prev;
       } else {

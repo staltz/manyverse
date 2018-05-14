@@ -26,9 +26,17 @@ export type State = {
   selfFeedId: FeedId;
   getPublicFeedReadable: GetReadable<ThreadAndExtras> | null;
   getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
+  numOfUpdates: number;
 };
 
-export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
+export type Actions = {
+  resetUpdates$: Stream<any>;
+};
+
+export default function model(
+  actions: Actions,
+  ssbSource: SSBSource,
+): Stream<Reducer<State>> {
   const setPublicFeedReducer$ = ssbSource.publicFeed$.map(
     getReadable =>
       function setPublicFeedReducer(prev?: State): State {
@@ -39,6 +47,28 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
         }
         return {...prev, getPublicFeedReadable: getReadable};
       },
+  );
+
+  const incUpdatesReducer$ = ssbSource.publicLiveUpdates$.mapTo(
+    function incUpdatesReducer(prev?: State): State {
+      if (!prev) {
+        throw new Error(
+          'Central/PublicTab/model reducer expects existing state',
+        );
+      }
+      return {...prev, numOfUpdates: prev.numOfUpdates + 1};
+    },
+  );
+
+  const resetUpdatesReducer$ = actions.resetUpdates$.mapTo(
+    function resetUpdatesReducer(prev?: State): State {
+      if (!prev) {
+        throw new Error(
+          'Central/PublicTab/model reducer expects existing state',
+        );
+      }
+      return {...prev, numOfUpdates: 0};
+    },
   );
 
   const setSelfRootsReducer$ = ssbSource.selfRoots$.map(
@@ -53,5 +83,10 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
       },
   );
 
-  return xs.merge(setPublicFeedReducer$, setSelfRootsReducer$);
+  return xs.merge(
+    setPublicFeedReducer$,
+    setSelfRootsReducer$,
+    incUpdatesReducer$,
+    resetUpdatesReducer$,
+  );
 }

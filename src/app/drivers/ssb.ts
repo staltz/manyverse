@@ -32,6 +32,7 @@ import feedProfileOpinion from '../../ssb/opinions/feed/pull/profile';
 import {ssbKeysPath} from '../../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
 import xsFromMutant from 'xstream-from-mutant';
+import xsFromPullStream from 'xstream-from-pull-stream';
 import {Readable} from '../../typings/pull-stream';
 import {Mutant} from 'react-mutant-hoc';
 const pull = require('pull-stream');
@@ -88,6 +89,7 @@ export type GetReadable<T> = (opts?: any) => Readable<T>;
 export class SSBSource {
   public selfFeedId$: Stream<FeedId>;
   public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
+  public publicLiveUpdates$: Stream<null>;
   public selfRoots$: Stream<GetReadable<ThreadAndExtras>>;
   public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
   public publishHook$: Stream<Msg>;
@@ -97,28 +99,41 @@ export class SSBSource {
     this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]());
 
     this.publicFeed$ = api$.map(api => (opts?: any) =>
-        pull(
-          api.sbot.pull.publicThreads[0]({reverse: true, live: false, ...opts}),
-          pull.map(mutateThreadWithLiveExtras(api)),
+      pull(
+        api.sbot.pull.publicThreads[0]({reverse: true, live: false, ...opts}),
+        pull.map(mutateThreadWithLiveExtras(api)),
+      ),
+    );
+
+    this.publicLiveUpdates$ = api$
+      .map(api =>
+        xsFromPullStream(
+          api.sbot.pull.publicThreads[0]({
+            reverse: false,
+            live: true,
+            old: false,
+          }),
         ),
-      );
+      )
+      .flatten()
+      .mapTo(null);
 
     this.selfRoots$ = api$.map(api => (opts?: any) =>
-        pull(
-          api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
-          pull.filter(isRootPostMsg),
-          pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
-          pull.map(mutateThreadWithLiveExtras(api)),
-        ),
-      );
+      pull(
+        api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
+        pull.filter(isRootPostMsg),
+        pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
+        pull.map(mutateThreadWithLiveExtras(api)),
+      ),
+    );
 
     this.selfReplies$ = api$.map(api => (opts?: any) =>
-        pull(
-          api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
-          pull.filter(isReplyPostMsg),
-          pull.map(mutateMsgWithLiveExtras(api)),
-        ),
-      );
+      pull(
+        api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
+        pull.filter(isReplyPostMsg),
+        pull.map(mutateMsgWithLiveExtras(api)),
+      ),
+    );
 
     this.publishHook$ = api$
       .map(api => api.sbot.hook.publishStream[0]() as Stream<Msg>)

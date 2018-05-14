@@ -37,6 +37,8 @@ export default function intent(source: ScreensSource) {
       ProfileNavEvent
     >,
 
+    resetUpdates$: source.select('publicFeed').events('refresh') as Stream<any>,
+
     goToThread$: xs.merge(
       source.select('publicFeed').events('pressExpandThread'),
       source

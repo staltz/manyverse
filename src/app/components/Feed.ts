@@ -141,6 +141,7 @@ type Props = {
   showPublishHeader: boolean;
   style?: any;
   onOpenCompose?: () => void;
+  onRefresh?: () => void;
   onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
@@ -207,6 +208,7 @@ export default class Feed extends Component<Props, State> {
 
   public render() {
     const {
+      onRefresh,
       onPressLike,
       onPressReply,
       onPressAuthor,
@@ -226,6 +228,7 @@ export default class Feed extends Component<Props, State> {
       pullAmount: 1,
       numColumns: 1,
       refreshable: true,
+      onRefresh,
       scrollToOffset$: (scrollToTop$ || xs.never())
         .mapTo({offset: 0, animated: true}),
       refreshColors: [Palette.indigo7],

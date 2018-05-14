@@ -58,6 +58,52 @@ function renderHeader() {
   ]);
 }
 
+const iconData = {
+  public: {
+    name: 'bulletin-board',
+    accessible: true,
+    accessibilityLabel: 'Public Tab Button',
+  },
+
+  private: {
+    name: 'email-secure',
+    accessible: true,
+    accessibilityLabel: 'Private Tab Button',
+  },
+
+  mentions: {
+    name: 'numeric-0-box',
+    accessible: true,
+    accessibilityLabel: 'Notifications Tab Button',
+  },
+
+  sync: {
+    name: 'wan',
+    accessible: true,
+    accessibilityLabel: 'Sync Tab Button',
+  },
+};
+
+function renderPublicIcon(numOfPublicUpdates: number) {
+  return {
+    normal: h(
+      View,
+      [
+        numOfPublicUpdates > 0 ? h(View, {style: styles.updatesDot}) : null,
+        h(Icon, {...iconProps.tab, ...iconData.public}),
+      ] as any,
+    ),
+
+    selected: h(
+      View,
+      [
+        numOfPublicUpdates > 0 ? h(View, {style: styles.updatesDot}) : null,
+        h(Icon, {...iconProps.tabSelected, ...iconData.public}),
+      ] as any,
+    ),
+  };
+}
+
 function renderTabs(
   state: State,
   publicTabVDOM: ReactElement<any>,
@@ -73,87 +119,18 @@ function renderTabs(
         itemStyle: styles.tabItem,
         selectedItemStyle: styles.tabItemSelected,
         tabs: [
+          renderPublicIcon(state.numOfPublicUpdates),
           {
-            normal: h(
-              Icon,
-              {
-                ...iconProps.tab,
-                name: 'bulletin-board',
-                nativeID: 'testid_public_tab',
-                accessible: true,
-                accessibilityLabel: 'Public Tab Button',
-              } as any,
-            ),
-            selected: h(
-              Icon,
-              {
-                ...iconProps.tabSelected,
-                name: 'bulletin-board',
-                nativeID: 'testid_public_tab',
-                accessible: true,
-                accessibilityLabel: 'Public Tab Button',
-              } as any,
-            ),
+            normal: h(Icon, {...iconProps.tab, ...iconData.private}),
+            selected: h(Icon, {...iconProps.tabSelected, ...iconData.private}),
           },
           {
-            normal: h(
-              Icon,
-              {
-                ...iconProps.tab,
-                name: 'email-secure',
-                accessible: true,
-                accessibilityLabel: 'Private Tab Button',
-              } as any,
-            ),
-            selected: h(
-              Icon,
-              {
-                ...iconProps.tabSelected,
-                name: 'email-secure',
-                accessible: true,
-                accessibilityLabel: 'Private Tab Button',
-              } as any,
-            ),
+            normal: h(Icon, {...iconProps.tab, ...iconData.mentions}),
+            selected: h(Icon, {...iconProps.tabSelected, ...iconData.mentions}),
           },
           {
-            normal: h(
-              Icon,
-              {
-                ...iconProps.tab,
-                name: 'numeric-0-box',
-                accessible: true,
-                accessibilityLabel: 'Notifications Tab Button',
-              } as any,
-            ),
-            selected: h(
-              Icon,
-              {
-                ...iconProps.tabSelected,
-                name: 'numeric-0-box',
-                accessible: true,
-                accessibilityLabel: 'Notifications Tab Button',
-              } as any,
-            ),
-          },
-          {
-            normal: h(
-              Icon,
-              {
-                ...iconProps.tab,
-                name: 'wan',
-                accessible: true,
-                accessibilityLabel: 'Sync Tab Button',
-              } as any,
-            ),
-            selected: h(
-              Icon,
-              {
-                ...iconProps.tabSelected,
-                name: 'wan',
-                accessible: true,
-                accessibilityLabel: 'Sync Tab Button',
-              } as any,
-            ),
+            normal: h(Icon, {...iconProps.tab, ...iconData.sync}),
+            selected: h(Icon, {...iconProps.tabSelected, ...iconData.sync}),
           },
         ],
       }),

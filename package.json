@@ -48,7 +48,7 @@
     "nodejs-mobile-react-native": "^0.1.4",
     "patchcore": "1.23.2",
     "prop-types": "15.6.x",
-    "pull-flat-list": "2.1.0",
+    "pull-flat-list": "2.3.0",
     "pull-more": "1.0.0",
     "pull-pushable": "2.1.1",
     "pull-stream": "3.6.0",
@@ -73,7 +73,8 @@
     "utf-8-validate": "^3.0.2",
     "xstream": "11.x",
     "xstream-from-callback": "1.0",
-    "xstream-from-mutant": "1.1"
+    "xstream-from-mutant": "1.1",
+    "xstream-from-pull-stream": "1.1"
   },
   "devDependencies": {
     "appium": "1.7.2",

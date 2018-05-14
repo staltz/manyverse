@@ -84,6 +84,16 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     textAlign: 'center',
   },
+
+  updatesDot: {
+    backgroundColor: Palette.white,
+    width: 7,
+    height: 7,
+    position: 'absolute',
+    top: -4,
+    right: 1,
+    borderRadius: 4,
+  },
 });
 
 export const iconProps = {
