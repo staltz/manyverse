@@ -39,33 +39,61 @@ Markdown.renderer.image = ({markdown, ...props}: any) => {
   });
 };
 
-Markdown.renderer.code = ({markdown, ...props}: any) => {
+Markdown.renderer.code = ({markdown, style, ...props}: any) => {
   const inline = !markdown.children;
   if (inline) {
-    return createElement(Text, {style: styles.inline_code}, markdown.text);
+    return createElement(
+      Text,
+      {selectable: true, style: [style, styles.inline_code]},
+      markdown.text,
+    );
   } else {
-    return createElement(Text, {style: styles.code}, props.children);
+    return createElement(
+      Text,
+      {selectable: true, style: [style, styles.code]},
+      props.children,
+    );
   }
 };
 
-Markdown.renderer.em = ({markdown, ...props}: any) => {
-  return createElement(Text, {style: styles.em}, props.children);
+Markdown.renderer.em = ({markdown, style, ...props}: any) => {
+  return createElement(
+    Text,
+    {selectable: true, style: [style, styles.em]},
+    props.children,
+  );
 };
 
-Markdown.renderer.text = ({markdown, ...props}: any) => {
-  return createElement(Text, {style: styles.text}, props.children);
+Markdown.renderer.text = ({markdown, style, ...props}: any) => {
+  return createElement(
+    Text,
+    {selectable: true, style: [style.text, style]},
+    props.children,
+  );
 };
 
-Markdown.renderer.link = ({markdown, ...props}: any) => {
-  return createElement(Text, {style: styles.link}, props.children);
+Markdown.renderer.link = ({markdown, style, ...props}: any) => {
+  return createElement(
+    Text,
+    {selectable: true, style: [style, styles.link]},
+    props.children,
+  );
 };
 
-Markdown.renderer.strong = ({markdown, ...props}: any) => {
-  return createElement(Text, {style: styles.strong}, props.children);
+Markdown.renderer.strong = ({markdown, style, ...props}: any) => {
+  return createElement(
+    Text,
+    {selectable: true, style: [style, styles.strong]},
+    props.children,
+  );
 };
 
-Markdown.renderer.paragraph = ({markdown, ...props}: any) => {
-  return createElement(Text, {style: styles.paragraph}, props.children);
+Markdown.renderer.paragraph = ({markdown, style, ...props}: any) => {
+  return createElement(
+    Text,
+    {selectable: true, style: [style, styles.paragraph]},
+    props.children,
+  );
 };
 
 const styles = StyleSheet.create({
