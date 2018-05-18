@@ -24,6 +24,7 @@ import {
   Image,
   StyleSheet,
   TouchableNativeFeedback,
+  TouchableOpacity,
 } from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/native-screen';
@@ -37,6 +38,7 @@ export const styles = StyleSheet.create({
   messageHeaderRow: {
     flexDirection: 'row',
     flex: 1,
+    marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   messageAuthorImageContainer: {
@@ -45,7 +47,6 @@ export const styles = StyleSheet.create({
     borderRadius: Dimensions.avatarBorderRadius,
     backgroundColor: Palette.indigo1,
     marginRight: Dimensions.horizontalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   messageAuthorImage: {
@@ -60,11 +61,8 @@ export const styles = StyleSheet.create({
   messageHeaderAuthorColumn: {
     flexDirection: 'column',
     flex: 1,
-  },
-
-  flexRow: {
-    flexDirection: 'row',
-    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'space-around',
   },
 
   messageHeaderAuthorName: {
@@ -72,6 +70,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.brand.text,
+    minWidth: 120,
   },
 
   messageHeaderTimestamp: {
@@ -117,25 +116,23 @@ export default class MessageHeader extends Component<Props, {}> {
       onPress: () => this._onPressAuthor(),
     };
 
-    const messageHeaderAuthorName = h(TouchableNativeFeedback, touchableProps, [
-      h(View, {style: styles.flexRow}, [
-        h(
-          Text,
-          {
-            numberOfLines: 1,
-            ellipsizeMode: 'middle',
-            style: styles.messageHeaderAuthorName,
-          },
-          authorName(name, msg),
-        ),
-      ]),
+    const messageHeaderAuthorName = h(TouchableOpacity, touchableProps, [
+      h(
+        Text,
+        {
+          numberOfLines: 1,
+          ellipsizeMode: 'middle',
+          style: styles.messageHeaderAuthorName,
+        },
+        authorName(name, msg),
+      ),
     ]);
 
-    const messageHeaderTimestamp = h(View, {style: styles.flexRow}, [
-      h(Text, {style: styles.messageHeaderTimestamp}, [
-        h(HumanTime as any, {time: msg.value.timestamp}),
-      ]),
-    ]);
+    const messageHeaderTimestamp = h(
+      Text,
+      {style: styles.messageHeaderTimestamp},
+      [h(HumanTime as any, {time: msg.value.timestamp})],
+    );
 
     return h(View, {style: styles.messageHeaderRow}, [
       h(TouchableNativeFeedback, touchableProps, [
