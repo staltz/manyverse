@@ -19,7 +19,13 @@
 
 import xs from 'xstream';
 import {PureComponent, Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  NativeScrollEvent,
+} from 'react-native';
 import {h} from '@cycle/native-screen';
 import * as Progress from 'react-native-progress';
 import {FeedId, MsgId} from 'ssb-typescript';
@@ -35,7 +41,11 @@ import {Stream, Subscription, Listener} from 'xstream';
 import {propifyMethods} from 'react-propify-methods';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
-const PullFlatList2 = propifyMethods(PullFlatList, 'scrollToOffset' as any);
+const PullFlatList2 = propifyMethods(
+  PullFlatList,
+  'scrollToOffset' as any,
+  'forceRefresh',
+);
 
 export const styles = StyleSheet.create({
   writeMessageRow: {
@@ -152,11 +162,21 @@ type State = {
   showPlaceholder: boolean;
 };
 
+const Y_OFFSET_IS_AT_TOP = 10;
+
 export default class Feed extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {showPlaceholder: false};
     this.addedThreadsStream = Pushable();
+    this.yOffset = 0;
+
+    this._onScroll = (ev: {nativeEvent: NativeScrollEvent}) => {
+      if (ev && ev.nativeEvent && ev.nativeEvent.contentOffset) {
+        this.yOffset = ev.nativeEvent.contentOffset.y || 0;
+      }
+    };
+
     this._onOpenCompose = () => {
       const {onOpenCompose} = props;
       if (onOpenCompose) onOpenCompose();
@@ -164,7 +184,9 @@ export default class Feed extends Component<Props, State> {
   }
 
   private addedThreadsStream: any | null;
+  private yOffset: number;
   private _onOpenCompose: () => void;
+  private _onScroll: (ev: {nativeEvent: NativeScrollEvent}) => void;
   private subscription?: Subscription;
 
   public componentDidMount() {
@@ -229,8 +251,13 @@ export default class Feed extends Component<Props, State> {
       numColumns: 1,
       refreshable: true,
       onRefresh,
+      onScroll: this._onScroll,
       scrollToOffset$: (scrollToTop$ || xs.never())
+        .filter(() => this.yOffset > Y_OFFSET_IS_AT_TOP)
         .mapTo({offset: 0, animated: true}),
+      forceRefresh$: (scrollToTop$ || xs.never())
+        .filter(() => this.yOffset <= Y_OFFSET_IS_AT_TOP)
+        .mapTo(void 0),
       refreshColors: [Palette.indigo7],
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
         thread.messages[0].key || String(index),
