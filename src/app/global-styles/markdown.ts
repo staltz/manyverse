@@ -1,16 +1,36 @@
+/**
+ * MMMMM is a mobile app for Secure Scuttlebutt networks
+ *
+ * Copyright (C) 2017 Andre 'Staltz' Medeiros
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import {createElement} from 'react';
 import {
   View,
   Text,
   Image,
+  ImageBackground,
   Dimensions,
   StyleSheet,
-  PixelRatio,
 } from 'react-native';
 import {Palette} from './palette';
 import {Dimensions as Dimens} from './dimens';
 import {Typography as Typ} from './typography';
 import createMarkdownRenderer from 'rn-markdown';
+const pictureIcon = require('../../../images/image-area.png');
 
 const Markdown: any = createMarkdownRenderer({gfm: true});
 
@@ -21,22 +41,27 @@ Markdown.renderer.blockquote = ({markdown, ...props}: any) => {
 };
 
 Markdown.renderer.image = ({markdown, ...props}: any) => {
-  const {width} = Dimensions.get('window');
-  const size = PixelRatio.getPixelSizeForLayoutSize(width);
-  return createElement(Image, {
-    source: {uri: markdown.href},
-    style: {
-      width: size,
-      height: size * 0.75,
-      position: 'relative',
-      left: 0,
-      right: 0,
-      marginTop: Dimens.verticalSpaceSmall,
-      marginBottom: Dimens.verticalSpaceSmall,
-      backgroundColor: Palette.indigo1,
-      resizeMode: 'cover',
+  const d = Dimensions.get('window');
+  const width = d.width - Dimens.horizontalSpaceBig * 2;
+  const height = width * 0.7;
+  return createElement(
+    ImageBackground,
+    {
+      style: {
+        marginTop: Dimens.verticalSpaceSmall,
+        marginBottom: Dimens.verticalSpaceSmall,
+        backgroundColor: Palette.gray1,
+        width,
+        height,
+      },
+      resizeMode: 'center',
+      source: pictureIcon,
     },
-  });
+    createElement(Image, {
+      source: {uri: markdown.href},
+      style: {resizeMode: 'cover', width, height},
+    }),
+  );
 };
 
 Markdown.renderer.code = ({markdown, style, ...props}: any) => {
@@ -90,8 +115,8 @@ Markdown.renderer.strong = ({markdown, style, ...props}: any) => {
 
 Markdown.renderer.paragraph = ({markdown, style, ...props}: any) => {
   return createElement(
-    Text,
-    {selectable: true, style: [style, styles.paragraph]},
+    View,
+    {style: [style, styles.paragraph]},
     props.children,
   );
 };
