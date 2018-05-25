@@ -195,27 +195,30 @@ export const markdownStyles = {
   },
 
   heading1: {
-    fontSize: Typ.baseSize * Typ.scaleUp * Typ.scaleUp * Typ.scaleUp,
-  },
-
-  heading2: {
+    marginTop: Dimens.verticalSpaceNormal,
     fontSize: Typ.baseSize * Typ.scaleUp * Typ.scaleUp,
   },
 
-  heading3: {
+  heading2: {
+    marginTop: Dimens.verticalSpaceNormal,
     fontSize: Typ.baseSize * Typ.scaleUp,
   },
 
-  heading4: {
+  heading3: {
+    marginTop: Dimens.verticalSpaceSmall,
     fontSize: Typ.baseSize,
   },
 
-  heading5: {
+  heading4: {
     fontSize: Typ.baseSize * Typ.scaleDown,
   },
 
-  heading6: {
+  heading5: {
     fontSize: Typ.baseSize * Typ.scaleDown * Typ.scaleDown,
+  },
+
+  heading6: {
+    fontSize: Typ.baseSize * Typ.scaleDown * Typ.scaleDown * Typ.scaleDown,
   },
 
   hr: {
