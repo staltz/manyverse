@@ -18,6 +18,6 @@
     "ssb-private": "^0.2.1",
     "ssb-query": "^2.0.1",
     "ssb-serve-blobs": "1.0.0",
-    "ssb-threads": "1.1.0"
+    "ssb-threads": "2.0.0"
   }
 }

@@ -53,6 +53,7 @@ const gives = {
     },
     pull: {
       publicThreads: true,
+      publicUpdates: true,
       profileThreads: true,
       thread: true,
       log: true,
@@ -208,27 +209,24 @@ const create = (api: any) => {
           return sbot.messagesByType(opts);
         }),
         thread: rec.source((opts: any) => {
-          return pull(sbot.threads.thread(opts), pull.through(runHooks));
+          return sbot.threads.thread(opts);
         }),
         publicThreads: rec.source((opts: any) => {
-          return pull(
-            pullMore(
-              sbot.threads.public,
-              {limit: 3, threadMaxSize: 3, whitelist: ['post'], ...opts},
-              ['messages', '0', 'value', 'timestamp'],
-            ),
-            pull.through(runHooks),
-          );
+          return sbot.threads.public({
+            threadMaxSize: 3,
+            whitelist: ['post'],
+            ...opts,
+          });
+        }),
+        publicUpdates: rec.source((opts: any) => {
+          return sbot.threads.publicUpdates({whitelist: ['post'], ...opts});
         }),
         profileThreads: rec.source((opts: any) => {
-          return pull(
-            pullMore(
-              sbot.threads.profile,
-              {limit: 3, threadMaxSize: 3, whitelist: ['post'], ...opts},
-              ['messages', '0', 'value', 'sequence'],
-            ),
-            pull.through(runHooks),
-          );
+          return sbot.threads.profile({
+            threadMaxSize: 3,
+            whitelist: ['post'],
+            ...opts,
+          });
         }),
         feed: rec.source((opts: any) => {
           return pull(

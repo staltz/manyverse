@@ -110,6 +110,7 @@ export = {
   },
   threads: {
     public: 'source',
+    publicUpdates: 'source',
     profile: 'source',
     thread: 'source',
   },

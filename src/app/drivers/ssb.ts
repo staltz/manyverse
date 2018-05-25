@@ -106,15 +106,7 @@ export class SSBSource {
     );
 
     this.publicLiveUpdates$ = api$
-      .map(api =>
-        xsFromPullStream(
-          api.sbot.pull.publicThreads[0]({
-            reverse: false,
-            live: true,
-            old: false,
-          }),
-        ),
-      )
+      .map(api => xsFromPullStream(api.sbot.pull.publicUpdates[0]({})))
       .flatten()
       .mapTo(null);
 
