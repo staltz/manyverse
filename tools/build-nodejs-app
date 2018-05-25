@@ -20,6 +20,9 @@ rm ./nodejs-assets/nodejs-project/*.js.map;
 echo "Installing dependencies...";
 cd ./nodejs-assets/nodejs-project && npm i && cd ../..;
 
+echo "Updating package-lock.json";
+cp ./nodejs-assets/nodejs-project/package-lock.json ./src/nodejs-project/package-lock.json
+
 echo "Patch (in preprocessor style) some dependencies...";
 ./tools/patch-rnnodeapp-scuttlebot ./nodejs-assets/nodejs-project;
 
