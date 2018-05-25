@@ -14,7 +14,7 @@
     "module": "commonjs",
     "target": "es2015",
     "outDir": "./lib",
-    "lib": ["dom", "es5", "scripthost", "es2015"]
+    "lib": ["dom", "es5", "scripthost", "es2015", "es2016"]
   },
   "files": [
     "src/app/index.ts",
