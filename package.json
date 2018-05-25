@@ -6,7 +6,7 @@
     "lib": "tsc",
     "clean-bundler": "watchman watch-del-all && rm -rf $TMPDIR/react-*",
     "clean-android": "adb uninstall com.mmmmm && cd android && ./gradlew clean",
-    "full-clean": "rm -rf node_modules && rm -rf lib && npm run clean-bundler && npm run clean-android",
+    "full-clean": "npm run clean-android && npm run clean-bundler && rm -rf node_modules && rm -rf lib",
     "prepare": "patch-package",
     "propagate-replacements": "propagate-replacement-fields --field=react-native",
     "build-nodejs-app": "./tools/build-nodejs-app",
