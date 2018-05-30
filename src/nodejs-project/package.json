@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "dependencies": {
+    "bindings-noderify-nodejs-mobile": "10.3.0",
     "bufferutil": "3.0.1",
     "deferred-leveldown": "4.0.1",
     "encoding-down": "5.0.2",
@@ -18,6 +19,11 @@
     "ssb-private": "^0.2.1",
     "ssb-query": "^2.0.1",
     "ssb-serve-blobs": "1.0.0",
-    "ssb-threads": "2.0.0"
+    "ssb-threads": "2.0.0",
+    "utf-8-validate": "4.0.2",
+    "xtend": "4.0.1"
+  },
+  "devDependencies": {
+    "noderify": "3.0.2"
   }
 }
