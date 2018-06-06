@@ -17,20 +17,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
+import delay from 'xstream/extra/delay';
 import between from 'xstream-between';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ScreensSource} from 'cycle-native-navigation';
 import {KeyboardSource} from '@cycle/native-keyboard';
 import {Screens} from '../..';
 import {State} from './model';
+import {LifecycleEvent} from '../../drivers/lifecycle';
 
 export default function intent(
   screenSource: ScreensSource,
   publish$: Stream<any>,
   state$: Stream<State>,
   keyboardSource: KeyboardSource,
+  lifecycle$: Stream<LifecycleEvent>,
 ) {
+  const activityPaused$ = lifecycle$.filter(ev => ev === 'paused');
+  const activityResumed$ = lifecycle$.filter(ev => ev === 'resumed');
+  const composeAppeared$ = screenSource.didAppear(Screens.Compose);
+  const composeDisappearing$ = screenSource.willDisappear(Screens.Compose);
+
   return {
     publishMsg$: publish$
       .compose(sampleCombine(state$))
@@ -47,8 +55,8 @@ export default function intent(
       .events('keyboardDidHide')
       .compose(
         between(
-          screenSource.didAppear(Screens.Compose),
-          screenSource.willDisappear(Screens.Compose),
+          xs.merge(composeAppeared$, activityResumed$).compose(delay(100)),
+          xs.merge(composeDisappearing$, activityPaused$),
         ),
       ),
   };

@@ -32,6 +32,7 @@ import {h} from '@cycle/native-screen';
 import {View, Text} from 'react-native';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from './drivers/ssb';
+import {LifecycleEvent} from './drivers/lifecycle';
 import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';
 import {KeyboardSource} from '@cycle/native-keyboard';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
@@ -48,6 +49,7 @@ export type Sources = {
   keyboard: KeyboardSource;
   onion: StateSource<State>;
   ssb: SSBSource;
+  lifecycle: Stream<LifecycleEvent>;
   dialog: Stream<DialogRes>;
 };
 

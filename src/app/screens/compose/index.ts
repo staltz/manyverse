@@ -32,11 +32,13 @@ import view from './view';
 import ssb from './ssb';
 import {navigatorStyle} from './styles';
 import navigation from './navigation';
+import {LifecycleEvent} from '../../drivers/lifecycle';
 
 export type Sources = {
   screen: ScreensSource;
   navigation: Stream<any>;
   keyboard: KeyboardSource;
+  lifecycle: Stream<LifecycleEvent>;
   onion: StateSource<State>;
   ssb: SSBSource;
 };
@@ -67,6 +69,7 @@ export function compose(sources: Sources): Sinks {
     publishButtonSinks.done,
     sources.onion.state$,
     sources.keyboard,
+    sources.lifecycle,
   );
   const vdom$ = view();
   const command$ = navigation(actions);

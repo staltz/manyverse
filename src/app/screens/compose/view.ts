@@ -32,6 +32,7 @@ export default function view() {
       h(TextInput, {
         style: styles.composeInput,
         selector: 'composeInput',
+        ['nativeID' as any]: 'FocusViewOnResume',
         accessible: true,
         accessibilityLabel: 'Compose Text Input',
         autoFocus: true,
