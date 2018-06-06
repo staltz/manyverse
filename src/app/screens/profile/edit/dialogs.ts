@@ -18,18 +18,31 @@
  */
 
 import {Stream} from 'xstream';
+import between from 'xstream-between';
 import {Request as DialogReq} from '../../../drivers/dialogs';
+import {ScreensSource} from 'cycle-native-navigation';
+import {Screens} from '../../..';
 
-export default function dialogs(navigation$: Stream<any>) {
+export default function dialogs(
+  navigation$: Stream<any>,
+  screenSource: ScreensSource,
+) {
   const back$ = navigation$.filter(ev => ev.id === 'backPress');
 
-  return back$.mapTo(
-    {
-      title: 'Edit profile',
-      category: 'edit-profile-discard',
-      content: 'Discard changes?',
-      positiveText: 'Discard',
-      negativeText: 'Cancel',
-    } as DialogReq,
-  );
+  return back$
+    .compose(
+      between(
+        screenSource.didAppear(Screens.ProfileEdit),
+        screenSource.willDisappear(Screens.ProfileEdit),
+      ),
+    )
+    .mapTo(
+      {
+        title: 'Edit profile',
+        category: 'edit-profile-discard',
+        content: 'Discard changes?',
+        positiveText: 'Discard',
+        negativeText: 'Cancel',
+      } as DialogReq,
+    );
 }

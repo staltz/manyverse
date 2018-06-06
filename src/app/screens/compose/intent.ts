@@ -18,22 +18,12 @@
  */
 
 import {Stream} from 'xstream';
+import between from 'xstream-between';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ScreensSource} from 'cycle-native-navigation';
 import {KeyboardSource} from '@cycle/native-keyboard';
 import {Screens} from '../..';
 import {State} from './model';
-
-/**
- * source: --a--b----c----d---e-f--g----h---i--j-----
- * first:  -------F------------------F---------------
- * second: -----------------S-----------------S------
- *                         between
- * output: ----------c----d-------------h---i--------
- */
-function between<T>(first: Stream<any>, second: Stream<any>) {
-  return (source: Stream<T>) => first.mapTo(source.endWhen(second)).flatten();
-}
 
 export default function intent(
   screenSource: ScreensSource,

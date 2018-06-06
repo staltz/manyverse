@@ -63,7 +63,7 @@ export default function editProfile(sources: Sources): Sinks {
   const command$ = navigation(sources.dialog, actions);
   const reducer$ = model(actions);
   const content$ = ssb(sources.onion.state$, actions);
-  const dialog$ = dialogs(sources.navigation);
+  const dialog$ = dialogs(sources.navigation, sources.screen);
 
   return {
     screen: vdom$,
