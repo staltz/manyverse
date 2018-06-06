@@ -18,7 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Command, DismissModalCommand} from 'cycle-native-navigation';
+import {Command} from 'cycle-native-navigation';
 
 export type Actions = {
   publishMsg$: Stream<any>;
@@ -31,7 +31,7 @@ export default function navigation(actions: Actions): Stream<Command> {
       ({
         type: 'dismissModal',
         animationType: 'slide-down',
-      } as DismissModalCommand),
+        } as Command),
   );
 
   return goBack$;

@@ -18,7 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Command, PushCommand} from 'cycle-native-navigation';
+import {Command} from 'cycle-native-navigation';
 import {navOptions as profileScreenNavOptions} from '../profile';
 
 export type Actions = {
@@ -36,7 +36,7 @@ export default function navigationCommands(
         animated: true,
         animationType: 'slide-horizontal',
         ...profileScreenNavOptions(),
-      } as PushCommand),
+      } as Command),
   );
 
   return xs.merge(centralCommand$, other$);

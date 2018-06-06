@@ -18,7 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Command, PushCommand} from 'cycle-native-navigation';
+import {Command} from 'cycle-native-navigation';
 import {navOptions as composeScreenNavOptions} from '../compose';
 import {navOptions as editProfileScreenNavOptions} from './edit';
 import {navOptions as threadScreenNavOptions} from '../thread';
@@ -47,7 +47,7 @@ export default function navigation(
     {
       type: 'push',
       ...editProfileScreenNavOptions(),
-    } as PushCommand,
+    } as Command,
   );
 
   const toThread$ = actions.goToThread$.map(
