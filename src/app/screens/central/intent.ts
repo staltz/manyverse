@@ -25,7 +25,7 @@ export type Actions = {
   goToSelfProfile$: Stream<null>;
   willAppear$: Stream<any>;
   willDisappear$: Stream<any>;
-  scrollToPublicTabTop$: Stream<null>;
+  changeTab$: Stream<number>;
 };
 
 export default function intent(source: ScreensSource): Actions {
@@ -36,10 +36,6 @@ export default function intent(source: ScreensSource): Actions {
 
     willDisappear$: source.willDisappear(Screens.Central),
 
-    scrollToPublicTabTop$: source
-      .select('tabs')
-      .events('select')
-      .filter(i => i === 0)
-      .mapTo(null),
+    changeTab$: source.select('tabs').events('select'),
   };
 }

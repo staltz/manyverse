@@ -27,15 +27,16 @@ import {Screens} from '../..';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {syncTab} from './sync-tab/index';
 import intent from './intent';
-import model, {publicTabLens} from './model';
+import model, {State, publicTabLens} from './model';
 import view from './view';
 import navigation from './navigation';
 import {navigatorStyle} from './styles';
+import sampleCombine from 'xstream/extra/sampleCombine';
 
 export type Sources = {
   screen: ScreensSource;
   navigation: Stream<any>;
-  onion: StateSource<any>;
+  onion: StateSource<State>;
   ssb: SSBSource;
 };
 
@@ -54,10 +55,15 @@ export const navOptions = () => ({
 export function central(sources: Sources): Sinks {
   const actions = intent(sources.screen);
 
+  const scrollToTop$ = actions.changeTab$
+    .compose(sampleCombine(sources.onion.state$))
+    .filter(([i, state]) => state.currentTab === 0 && i === 0)
+    .mapTo(null);
+
   const publicTabSinks: PublicTabSinks = isolate(publicTab, {
     onion: publicTabLens,
     '*': 'publicTab',
-  })({...sources, scrollToTop: actions.scrollToPublicTabTop$});
+  })({...sources, scrollToTop: scrollToTop$});
 
   const syncTabSinks = syncTab(sources);
 

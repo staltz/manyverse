@@ -112,7 +112,8 @@ export default function model(
 ): Stream<Reducer<State>> {
   const displayFeedIdChanged$ = state$
     .map(state => state.displayFeedId)
-    .compose(dropRepeats());
+    .compose(dropRepeats())
+    .filter(id => !!id);
 
   const getFeedReadable$ = actions.appear$
     // TODO create custom operator 'sample' and use it instead of sampleCombine
