@@ -20,7 +20,7 @@
 import xs, {Stream} from 'xstream';
 import delay from 'xstream/extra/delay';
 import between from 'xstream-between';
-import sampleCombine from 'xstream/extra/sampleCombine';
+import sample from 'xstream-sample';
 import {ScreensSource} from 'cycle-native-navigation';
 import {KeyboardSource} from '@cycle/native-keyboard';
 import {Screens} from '../..';
@@ -41,8 +41,8 @@ export default function intent(
 
   return {
     publishMsg$: publish$
-      .compose(sampleCombine(state$))
-      .map(([_, state]) => state.postText)
+      .compose(sample(state$))
+      .map(state => state.postText)
       .filter(text => text.length > 0),
 
     updatePostText$: screenSource

@@ -19,7 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
-import sampleCombine from 'xstream/extra/sampleCombine';
+import sample from 'xstream-sample';
 import {SSBSource, GetReadable, ThreadAndExtras} from '../../drivers/ssb';
 import {Reducer} from 'cycle-onionify';
 import {FeedId, About} from 'ssb-typescript';
@@ -116,9 +116,8 @@ export default function model(
     .filter(id => !!id);
 
   const getFeedReadable$ = actions.appear$
-    // TODO create custom operator 'sample' and use it instead of sampleCombine
-    .compose(sampleCombine(displayFeedIdChanged$))
-    .map(([_, id]) => ssbSource.profileFeed$(id))
+    .compose(sample(displayFeedIdChanged$))
+    .map(id => ssbSource.profileFeed$(id))
     .flatten();
 
   const about$ = displayFeedIdChanged$

@@ -75,7 +75,8 @@
     "xstream-between": "1.0.0",
     "xstream-from-callback": "1.0",
     "xstream-from-mutant": "1.1",
-    "xstream-from-pull-stream": "1.1"
+    "xstream-from-pull-stream": "1.1",
+    "xstream-sample": "1.0.0"
   },
   "devDependencies": {
     "appium": "1.7.2",

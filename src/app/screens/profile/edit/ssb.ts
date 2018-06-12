@@ -18,7 +18,7 @@
  */
 
 import {Stream} from 'xstream';
-import sampleCombine from 'xstream/extra/sampleCombine';
+import sample from 'xstream-sample';
 import {State} from './model';
 import {Content} from 'ssb-typescript';
 import {toAboutContent} from '../../../../ssb/to-ssb';
@@ -35,8 +35,7 @@ export default function ssb(
   actions: SSBActions,
 ): Stream<Content> {
   const newAboutContent$ = actions.save$
-    .compose(sampleCombine(state$))
-    .map(([_, state]) => state)
+    .compose(sample(state$))
     .filter(
       state =>
         (!!state.newName && state.newName !== state.about.name) ||

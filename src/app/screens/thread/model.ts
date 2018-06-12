@@ -18,6 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {Reducer} from 'cycle-onionify';
 import {FeedId, MsgId} from 'ssb-typescript';
@@ -27,7 +28,6 @@ import {
   GetReadable,
   MsgAndExtras,
 } from '../../drivers/ssb';
-import sampleCombine from 'xstream/extra/sampleCombine';
 
 export type State = {
   selfFeedId: FeedId;
@@ -86,8 +86,8 @@ export default function model(
     .filter(id => id !== null) as Stream<MsgId>;
 
   const thread$ = actions.appear$
-    .compose(sampleCombine(rootIdChanged$))
-    .map(([_, id]) => ssbSource.thread$(id))
+    .compose(sample(rootIdChanged$))
+    .map(id => ssbSource.thread$(id))
     .flatten();
 
   const updateReplyTextReducer$ = actions.updateReplyText$.map(

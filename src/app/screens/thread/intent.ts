@@ -18,11 +18,11 @@
  */
 
 import {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import {ScreensSource} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
 import {Screens} from '../..';
 import {State} from './model';
-import sampleCombine from 'xstream/extra/sampleCombine';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
@@ -33,8 +33,7 @@ export default function intent(source: ScreensSource, state$: Stream<State>) {
     publishMsg$: source
       .select('replyButton')
       .events('press')
-      .compose(sampleCombine(state$))
-      .map(([_, state]) => state)
+      .compose(sample(state$))
       .filter(state => !!state.replyText && !!state.rootMsgId),
 
     appear$: source.willAppear(Screens.Thread).mapTo(null),
