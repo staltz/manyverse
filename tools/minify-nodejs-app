@@ -15,14 +15,11 @@ cd ./nodejs-assets/nodejs-project;
 $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
   --replace.node-extend=xtend \
-  index.js > _index.js;
+  index.js |
+  sed -e '12s/file/__dirname, file/' > _index.js;
 rm index.js;
 mv _index.js index.js;
 cd ../..;
-echo -en " done.\n";
-
-echo -en "Patching the noderified prelude...";
-sed -i '12s/file/__dirname, file/' ./nodejs-assets/nodejs-project/index.js;
 echo -en " done.\n";
 
 echo -en "Replacing node_modules folder...";
