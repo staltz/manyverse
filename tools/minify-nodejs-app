@@ -11,9 +11,7 @@ function onFailure() {
 
 echo "Building native modules for armeabi-v7a...";
 cd android;
-./gradlew nodejs-mobile-react-native:CopyNodeProjectAssetsarmeabi-v7a;
-./gradlew nodejs-mobile-react-native:MakeToolchainarmeabi-v7a;
-./gradlew nodejs-mobile-react-native:BuildNpmModulesarmeabi-v7a;
+./gradlew nodejs-mobile-react-native:GenerateNodeNativeAssetsListsarmeabi-v7a
 cd ..;
 echo "";
 
