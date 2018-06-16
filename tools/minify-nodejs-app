@@ -28,10 +28,16 @@ cp -r ./android/build/nodejs-native-assets/nodejs-native-assets-armeabi-v7a/node
 echo -en " done.\n";
 
 echo -en "Removing other unused files...";
-cd ./nodejs-assets/nodejs-project;
-rm package-lock.json;
-find . -type d -name "darwin-x64" -exec rm -rf {} \;
-find . -type d -name "win32-ia32" -exec rm -rf {} \;
-find . -type d -name "win32-x64" -exec rm -rf {} \;
-cd ../..;
+rm ./nodejs-assets/nodejs-project/package-lock.json
+# make a list of things to delete then delete them
+# `-exec rm -rf {} \;` confuses find because the recursion can no longer find a step (depth-first traversal (-d) would also work)
+# GNU find and modern BSD/macOS find have a `-delete` operator
+find ./nodejs-assets/nodejs-project \
+  -type d \
+  \( \
+    -name "darwin-x64" \
+    -o -name "win32-ia32" \
+    -o -name "win32-x64" \
+  \) \
+  -print0 | xargs -0 rm -rf # delete everything in the list
 echo -en " done.\n";
