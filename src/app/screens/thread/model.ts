@@ -20,6 +20,7 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import dropRepeats from 'xstream/extra/dropRepeats';
+import xsFromPullStream from 'xstream-from-pull-stream';
 import {Reducer} from 'cycle-onionify';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {
@@ -70,6 +71,7 @@ export function updateRootMsgId(
 
 export type AppearingActions = {
   publishMsg$: Stream<any>;
+  willReply$: Stream<any>;
   appear$: Stream<null>;
   disappear$: Stream<null>;
   updateReplyText$: Stream<string>;
@@ -123,15 +125,32 @@ export default function model(
     )
     .flatten();
 
-  const updateSelfRepliesReducer$ = ssbSource.selfReplies$.map(
-    getReadable =>
-      function updateSelfRepliesReducer(prev?: State): State {
-        if (!prev) {
-          throw new Error('Thread/model reducer expects existing state');
-        }
-        return {...prev, getSelfRepliesReadable: getReadable};
-      },
-  );
+  const addSelfRepliesReducer$ = actions.willReply$
+    .map(() =>
+      ssbSource.selfReplies$
+        .map(getReadable =>
+          xsFromPullStream<MsgAndExtras>(
+            getReadable({live: true, old: false}),
+          ).take(1),
+        )
+        .flatten(),
+    )
+    .flatten()
+    .map(
+      newMsg =>
+        function addSelfRepliesReducer(prev?: State): State {
+          if (!prev) {
+            throw new Error('Thread/model reducer expects existing state');
+          }
+          return {
+            ...prev,
+            thread: {
+              messages: prev.thread.messages.concat([newMsg]),
+              full: true,
+            },
+          };
+        },
+    );
 
   const clearReplyReducer$ = actions.disappear$.mapTo(
     function clearReplyReducer(prev?: State): State {
@@ -146,7 +165,7 @@ export default function model(
     setThreadReducer$,
     updateReplyTextReducer$,
     publishReplyReducers$,
-    updateSelfRepliesReducer$,
+    addSelfRepliesReducer$,
     clearReplyReducer$,
   );
 }

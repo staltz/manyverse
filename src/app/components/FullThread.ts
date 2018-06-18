@@ -18,17 +18,15 @@
  */
 
 import {Stream, Subscription, Listener} from 'xstream';
-import {PureComponent, ReactElement} from 'react';
+import {Component, ReactElement} from 'react';
 import {h} from '@cycle/native-screen';
 import {FeedId} from 'ssb-typescript';
-import {ThreadAndExtras, MsgAndExtras, GetReadable} from '../drivers/ssb';
+import {ThreadAndExtras, MsgAndExtras} from '../drivers/ssb';
 import Message from './messages/Message';
 import PlaceholderMessage from './messages/PlaceholderMessage';
-const pull = require('pull-stream');
 
 export type Props = {
   thread: ThreadAndExtras;
-  getPublicationsReadable?: GetReadable<MsgAndExtras> | null;
   publication$?: Stream<any> | null;
   selfFeedId: FeedId;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
@@ -37,14 +35,13 @@ export type Props = {
 
 type State = {
   showPlaceholder: boolean;
-  thread: ThreadAndExtras;
 };
 
-export default class FullThread extends PureComponent<Props, State> {
+export default class FullThread extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.renderMessage = this.renderMessage.bind(this);
-    this.state = {showPlaceholder: false, thread: this.props.thread};
+    this.state = {showPlaceholder: false};
   }
 
   private subscription?: Subscription;
@@ -57,8 +54,25 @@ export default class FullThread extends PureComponent<Props, State> {
     }
   }
 
-  public componentWillReceiveProps(nextProps: Props) {
-    this.setState(prev => ({...prev, thread: nextProps.thread}));
+  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+    const prevProps = this.props;
+    if (nextProps.selfFeedId !== prevProps.selfFeedId) return true;
+    if (nextProps.onPressAuthor !== prevProps.onPressAuthor) return true;
+    if (nextProps.onPressLike !== prevProps.onPressLike) return true;
+    if (nextProps.publication$ !== prevProps.publication$) return true;
+    const prevMessages = prevProps.thread.messages;
+    const nextMessages = nextProps.thread.messages;
+    if (nextMessages.length !== prevMessages.length) return true;
+    if (nextState.showPlaceholder !== this.state.showPlaceholder) return true;
+    return false;
+  }
+
+  public componentDidUpdate(prevProps: Props, prevState: State) {
+    const prevMessages = prevProps.thread.messages;
+    const nextMessages = this.props.thread.messages;
+    if (nextMessages.length > prevMessages.length) {
+      this.setState({showPlaceholder: false});
+    }
   }
 
   public componentWillUnmount() {
@@ -69,26 +83,7 @@ export default class FullThread extends PureComponent<Props, State> {
   }
 
   private onPublication() {
-    const {getPublicationsReadable} = this.props;
-    if (!getPublicationsReadable) return;
-    const readable = getPublicationsReadable({live: true, old: false});
-    if (!readable) return;
-    const that = this;
-
-    this.setState(() => ({showPlaceholder: true}));
-    pull(
-      readable,
-      pull.take(1),
-      pull.drain((msg: MsgAndExtras) => {
-        that.setState((prev: State) => ({
-          showPlaceholder: false,
-          thread: {
-            messages: prev.thread.messages.concat([msg]),
-            full: prev.thread.full,
-          },
-        }));
-      }),
-    );
+    this.setState({showPlaceholder: true});
   }
 
   private renderMessage(msg: MsgAndExtras) {
@@ -103,7 +98,7 @@ export default class FullThread extends PureComponent<Props, State> {
   }
 
   public render() {
-    const {thread} = this.state;
+    const thread = this.props.thread;
     if (!thread.messages || thread.messages.length <= 0) return [];
     const children: Array<ReactElement<any>> = thread.messages.map(
       this.renderMessage,

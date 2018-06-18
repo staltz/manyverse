@@ -20,21 +20,29 @@
 import {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {ScreensSource} from 'cycle-native-navigation';
+import {isReplyPostMsg} from 'ssb-typescript/utils';
 import {FeedId} from 'ssb-typescript';
 import {Screens} from '../..';
 import {State} from './model';
+import {SSBSource} from '../../drivers/ssb';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
 export type LikeEvent = {msgKey: string; like: boolean};
 
-export default function intent(source: ScreensSource, state$: Stream<State>) {
+export default function intent(
+  source: ScreensSource,
+  ssbSource: SSBSource,
+  state$: Stream<State>,
+) {
   return {
     publishMsg$: source
       .select('replyButton')
       .events('press')
       .compose(sample(state$))
       .filter(state => !!state.replyText && !!state.rootMsgId),
+
+    willReply$: ssbSource.publishHook$.filter(isReplyPostMsg),
 
     appear$: source.willAppear(Screens.Thread).mapTo(null),
 
