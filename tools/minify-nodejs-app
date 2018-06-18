@@ -22,8 +22,7 @@ cd ./nodejs-assets/nodejs-project;
 $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
   --replace.node-extend=xtend \
-  index.js |
-  sed -e '12s/file/__dirname, file/' > _index.js;
+  index.js > _index.js;
 rm index.js;
 mv _index.js index.js;
 cd ../..;

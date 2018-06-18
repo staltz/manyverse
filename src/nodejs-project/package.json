@@ -1,7 +1,7 @@
 {
   "name": "ssb-nodejs",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "loader.js",
   "dependencies": {
     "bindings-noderify-nodejs-mobile": "10.3.0",
     "bufferutil": "3.0.1",

@@ -38,7 +38,7 @@ const {
   animationType: 'fade',
 });
 
-nodejs.start('index.js');
+nodejs.start('loader.js');
 
 RNNav.Navigation.isAppLaunched().then(appLaunched => {
   if (appLaunched) {
