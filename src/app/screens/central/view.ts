@@ -19,7 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
-import {View, Text, TextInput, TouchableHighlight} from 'react-native';
+import {View, Text, TouchableHighlight} from 'react-native';
 import {h} from '@cycle/native-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {IndicatorViewPager} from 'rn-viewpager';
@@ -30,31 +30,26 @@ import {styles, iconProps} from './styles';
 import {State} from './model';
 import {Screens} from '../..';
 
-function renderHeader() {
+function tabTitle(tabIndex: number) {
+  if (tabIndex === 0) return 'Feed';
+  if (tabIndex === 1) return 'Sync';
+  return '';
+}
+
+function renderHeader(state: State) {
   return h(View, {style: styles.header}, [
-    h(TouchableHighlight, {style: styles.headerIcon}, [
-      h(Icon, {...iconProps.headerIcon, name: 'menu'}),
-    ]),
-    h(TextInput, {
-      underlineColorAndroid: Palette.brand.backgroundLighterContrast,
-      placeholderTextColor: Palette.brand.backgroundLighterContrast,
-      placeholder: 'Search',
-      returnKeyType: 'search',
-      accessible: true,
-      accessibilityLabel: 'Search Field',
-      style: styles.searchInput,
-    }),
     h(
       TouchableHighlight,
       {
-        selector: 'self-profile',
+        selector: 'drawer-button',
         style: styles.headerIcon,
         accessible: true,
-        accessibilityLabel: 'My Profile Button',
+        accessibilityLabel: 'Drawer Button',
         underlayColor: Palette.brand.backgroundDarker,
       },
-      [h(Icon, {...iconProps.headerIcon, name: 'account-box'})],
+      [h(Icon, {...iconProps.headerIcon, name: 'menu'})],
     ),
+    h(Text, {style: styles.headerTitle}, tabTitle(state.currentTab)),
   ]);
 }
 
@@ -63,18 +58,6 @@ const iconData = {
     name: 'bulletin-board',
     accessible: true,
     accessibilityLabel: 'Public Tab Button',
-  },
-
-  private: {
-    name: 'email-secure',
-    accessible: true,
-    accessibilityLabel: 'Private Tab Button',
-  },
-
-  mentions: {
-    name: 'numeric-0-box',
-    accessible: true,
-    accessibilityLabel: 'Notifications Tab Button',
   },
 
   sync: {
@@ -121,14 +104,6 @@ function renderTabs(
         tabs: [
           renderPublicIcon(state.numOfPublicUpdates),
           {
-            normal: h(Icon, {...iconProps.tab, ...iconData.private}),
-            selected: h(Icon, {...iconProps.tabSelected, ...iconData.private}),
-          },
-          {
-            normal: h(Icon, {...iconProps.tab, ...iconData.mentions}),
-            selected: h(Icon, {...iconProps.tabSelected, ...iconData.mentions}),
-          },
-          {
             normal: h(Icon, {...iconProps.tab, ...iconData.sync}),
             selected: h(Icon, {...iconProps.tabSelected, ...iconData.sync}),
           },
@@ -137,12 +112,6 @@ function renderTabs(
     },
     [
       h(View, {style: styles.pageContainer}, [publicTabVDOM]),
-      h(View, {style: styles.pageContainer}, [
-        h(Text, {style: styles.pagePlaceholder}, 'Private'),
-      ]),
-      h(View, {style: styles.pageContainer}, [
-        h(Text, {style: styles.pagePlaceholder}, 'Notifications'),
-      ]),
       h(View, {style: styles.pageContainer}, [metadataTabVDOM]),
     ],
   );
@@ -162,7 +131,7 @@ export default function view(
     .map(([state, publicTabVDOM, metadataTabVDOM]) => ({
       screen: Screens.Central,
       vdom: h(View, {style: styles.root}, [
-        renderHeader(),
+        renderHeader(state),
         renderTabs(state, publicTabVDOM, metadataTabVDOM),
       ]),
     }));

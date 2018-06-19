@@ -17,25 +17,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
-import {ScreensSource} from 'cycle-native-navigation';
-import {Screens} from '../..';
+import xs, {Stream} from 'xstream';
+import {Command} from 'cycle-native-navigation';
+import {navOptions as profileScreenNavOptions} from '../profile';
 
 export type Actions = {
-  openDrawer$: Stream<null>;
-  willAppear$: Stream<any>;
-  willDisappear$: Stream<any>;
-  changeTab$: Stream<number>;
+  goToSelfProfile$: Stream<null>;
 };
 
-export default function intent(source: ScreensSource): Actions {
-  return {
-    openDrawer$: source.select('drawer-button').events('press').mapTo(null),
+export default function navigationCommands(actions: Actions): Stream<Command> {
+  const pushSelfProfile$: Stream<Command> = actions.goToSelfProfile$
+    .map(() =>
+      xs.of(
+        {
+          type: 'toggleDrawer',
+          animated: true,
+          side: 'left',
+          to: 'closed',
+        } as Command,
+        {
+          type: 'push',
+          animated: true,
+          animationType: 'slide-horizontal',
+          ...profileScreenNavOptions(),
+        } as Command,
+      ),
+    )
+    .flatten();
 
-    willAppear$: source.willAppear(Screens.Central),
-
-    willDisappear$: source.willDisappear(Screens.Central),
-
-    changeTab$: source.select('tabs').events('select'),
-  };
+  return pushSelfProfile$;
 }

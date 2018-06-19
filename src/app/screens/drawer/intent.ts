@@ -19,23 +19,13 @@
 
 import {Stream} from 'xstream';
 import {ScreensSource} from 'cycle-native-navigation';
-import {Screens} from '../..';
 
 export type Actions = {
-  openDrawer$: Stream<null>;
-  willAppear$: Stream<any>;
-  willDisappear$: Stream<any>;
-  changeTab$: Stream<number>;
+  goToSelfProfile$: Stream<null>;
 };
 
 export default function intent(source: ScreensSource): Actions {
   return {
-    openDrawer$: source.select('drawer-button').events('press').mapTo(null),
-
-    willAppear$: source.willAppear(Screens.Central),
-
-    willDisappear$: source.willDisappear(Screens.Central),
-
-    changeTab$: source.select('tabs').events('select'),
+    goToSelfProfile$: source.select('self-profile').events('press').mapTo(null),
   };
 }

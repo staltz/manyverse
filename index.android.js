@@ -26,7 +26,7 @@ import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
 import {ssbDriver} from './lib/app/drivers/ssb';
 import {dialogDriver} from './lib/app/drivers/dialogs';
 import {makeActivityLifecycleDriver} from './lib/app/drivers/lifecycle';
-import {app, screenIDs} from './lib/app/index';
+import {app, screenIDs, drawerID} from './lib/app/index';
 import {navOptions as centralScreenNavOptions} from './lib/app/screens/central';
 import nodejs from 'nodejs-mobile-react-native';
 
@@ -36,6 +36,12 @@ const {
 } = makeSingleScreenNavDrivers(RNNav, screenIDs, {
   screen: centralScreenNavOptions(),
   animationType: 'fade',
+  drawer: {
+    left: {
+      screen: drawerID,
+      disableOpenGesture: true,
+    },
+  },
 });
 
 nodejs.start('loader.js');

@@ -19,25 +19,23 @@
 
 import xs, {Stream} from 'xstream';
 import {Command} from 'cycle-native-navigation';
-import {navOptions as profileScreenNavOptions} from '../profile';
 
 export type Actions = {
-  goToSelfProfile$: Stream<null>;
+  openDrawer$: Stream<null>;
 };
 
 export default function navigationCommands(
   actions: Actions,
   other$: Stream<Command>,
 ): Stream<Command> {
-  const centralCommand$: Stream<Command> = actions.goToSelfProfile$.map(
+  const openDrawer$: Stream<Command> = actions.openDrawer$.map(
     () =>
       ({
-        type: 'push',
+        type: 'toggleDrawer',
         animated: true,
-        animationType: 'slide-horizontal',
-        ...profileScreenNavOptions(),
+        side: 'left',
       } as Command),
   );
 
-  return xs.merge(centralCommand$, other$);
+  return xs.merge(openDrawer$, other$);
 }

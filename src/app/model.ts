@@ -18,12 +18,13 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Reducer} from 'cycle-onionify';
+import {Reducer, Lens} from 'cycle-onionify';
 import {Command, PushCommand} from 'cycle-native-navigation';
 import {
   State as CentralState,
   initState as initCentralState,
 } from './screens/central/model';
+import {State as DrawerState} from './screens/drawer/model';
 import {
   State as ProfileState,
   initState as initProfileState,
@@ -39,11 +40,11 @@ import {State as ComposeState} from './screens/compose/model';
 import {Screens} from './index';
 import {SSBSource} from './drivers/ssb';
 import {FeedId} from 'ssb-typescript';
-import {Lens} from 'cycle-onionify/lib/types';
 
 export type State = {
   selfFeedId: FeedId;
   central: CentralState;
+  drawer: DrawerState;
   profile: ProfileState;
   thread: ThreadState;
   compose?: ComposeState;
@@ -64,6 +65,20 @@ export const centralLens: Lens<State, CentralState> = {
 
   set: (parent: State, child: CentralState): State => {
     return {...parent, central: child};
+  },
+};
+
+export const drawerLens: Lens<State, DrawerState> = {
+  get: (parent: State): DrawerState => {
+    if (parent.drawer.selfFeedId !== parent.selfFeedId) {
+      return {selfFeedId: parent.selfFeedId};
+    } else {
+      return parent.drawer;
+    }
+  },
+
+  set: (parent: State, child: DrawerState): State => {
+    return {...parent, drawer: child};
   },
 };
 
@@ -107,6 +122,7 @@ export default function model(
       return {
         selfFeedId,
         central: initCentralState(selfFeedId),
+        drawer: {selfFeedId},
         profile: initProfileState(selfFeedId),
         thread: initThreadState(selfFeedId),
       };

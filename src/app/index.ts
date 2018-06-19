@@ -19,6 +19,7 @@
 
 export enum Screens {
   Central = 'mmmmm.Central',
+  Drawer = 'mmmmm.Drawer',
   Profile = 'mmmmm.Profile',
   ProfileEdit = 'mmmmm.Profile.Edit',
   Thread = 'mmmmm.Thread',
@@ -37,11 +38,18 @@ import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';
 import {KeyboardSource} from '@cycle/native-keyboard';
 import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
 import {central} from './screens/central/index';
+import {drawer} from './screens/drawer/index';
 import {profile} from './screens/profile/index';
 import {thread} from './screens/thread/index';
 import {compose} from './screens/compose/index';
 import {Content} from 'ssb-typescript';
-import model, {State, centralLens, profileLens, threadLens} from './model';
+import model, {
+  State,
+  centralLens,
+  drawerLens,
+  profileLens,
+  threadLens,
+} from './model';
 
 export type Sources = {
   screen: ScreensSource;
@@ -64,6 +72,7 @@ export type Sinks = {
 
 // tslint:disable-next-line:no-string-literal
 export const screenIDs = Object['values'](Screens);
+export const drawerID = Screens.Drawer;
 
 function addAlphaDisclaimer(screen$: Stream<ScreenVNode>): Stream<ScreenVNode> {
   return screen$.map(screen => ({
@@ -97,6 +106,10 @@ export function app(sources: Sources): Sinks {
     onion: centralLens,
     '*': 'central',
   })(sources);
+  const drawerSinks: Sinks = isolate(drawer, {
+    onion: drawerLens,
+    '*': 'drawer',
+  })(sources);
   const composeSinks: Sinks = isolate(compose, {'*': 'compose'})(sources);
   const profileSinks: Sinks = isolate(profile, {
     onion: profileLens,
@@ -109,12 +122,14 @@ export function app(sources: Sources): Sinks {
 
   const screen$ = xs.merge(
     centralSinks.screen,
+    drawerSinks.screen,
     composeSinks.screen,
     profileSinks.screen,
     threadSinks.screen,
   );
   const navCommand$ = xs.merge(
     centralSinks.navigation,
+    drawerSinks.navigation,
     composeSinks.navigation,
     profileSinks.navigation,
     threadSinks.navigation,
@@ -124,6 +139,7 @@ export function app(sources: Sources): Sinks {
     mainReducer$,
     composeSinks.onion,
     centralSinks.onion,
+    drawerSinks.onion,
     profileSinks.onion,
     threadSinks.onion,
   );

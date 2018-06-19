@@ -41,6 +41,8 @@ export const styles = StyleSheet.create({
 
   header: {
     flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     backgroundColor: Palette.brand.background,
     minHeight: Dimensions.toolbarAndroidHeight,
   },
@@ -52,17 +54,18 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  headerTitle: {
+    marginLeft: Dimensions.horizontalSpaceNormal,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.white,
+    fontSize: Typography.fontSizeLarge,
+    fontWeight: 'bold',
+  },
+
   indicatorViewPager: {
     flex: 1,
     flexDirection: 'column-reverse',
     backgroundColor: Palette.brand.backgroundDarker,
-  },
-
-  searchInput: {
-    flex: 1,
-    color: 'white',
-    fontSize: Typography.fontSizeNormal,
-    fontFamily: Typography.fontFamilyReadableText,
   },
 
   tabItem: _tabItem,
