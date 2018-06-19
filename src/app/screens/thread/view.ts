@@ -27,7 +27,6 @@ import {propifyMethods} from 'react-propify-methods';
 import {Screens} from '../..';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
-import {SSBSource} from '../../drivers/ssb';
 import FullThread from '../../components/FullThread';
 import {State} from './model';
 import {styles} from './styles';

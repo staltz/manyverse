@@ -27,7 +27,6 @@ import {
   NativeScrollEvent,
 } from 'react-native';
 import {h} from '@cycle/native-screen';
-import * as Progress from 'react-native-progress';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
@@ -129,12 +128,7 @@ class FeedHeader extends PureComponent<FeedHeaderProps> {
   }
 }
 
-const FeedFooter = h(Progress.CircleSnail, {
-  style: styles.footer,
-  indeterminate: true,
-  size: 40,
-  color: Palette.brand.backgroundLighterContrast,
-});
+const FeedFooter = h(PlaceholderMessage);
 
 class FeedItemSeparator extends PureComponent {
   public render() {
@@ -250,6 +244,7 @@ export default class Feed extends Component<Props, State> {
       pullAmount: 1,
       numColumns: 1,
       refreshable: true,
+      progressViewOffset: 34,
       onRefresh,
       onScroll: this._onScroll,
       scrollToOffset$: (scrollToTop$ || xs.never())

@@ -48,7 +48,7 @@
     "nodejs-mobile-react-native": "^0.1.4",
     "patchcore": "1.23.2",
     "prop-types": "15.6.x",
-    "pull-flat-list": "2.5.0",
+    "pull-flat-list": "2.7.0",
     "pull-more": "1.0.0",
     "pull-pushable": "2.1.1",
     "pull-stream": "3.6.0",
