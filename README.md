@@ -106,7 +106,7 @@ If you are getting errors while building the application using `react-native run
 
 ## Integration tests
 
-We use Appium and Tape, just plug in a device through USB and run `npm run test-e2e-android`. This will run tests on top of the *release* variant of the app, so it that doesn't exist, you must run `npm run android-release` first.
+We use Appium and Tape, just plug in a device through USB and run `npm run test-e2e-android`. This will run tests on top of the *release* variant of the app, so it that doesn't exist, you must run `npm run build-android-release` first.
 
 ## Releases
 
