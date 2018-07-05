@@ -104,6 +104,25 @@ There is no support for continuously compiling the worker thread nor the backend
 On Android applications, the `react-native` build process is sometimes unable to rebuild assets.
 If you are getting errors while building the application using `react-native run-android`, then the command `npm run full-clean` can help you do a clean rebuild of the project. Then, reinstall with `npm install` and rebuild.
 
+#### NullPointerException on `npm run build-nodejs-app`
+
+If you see the error below while running the `build-nodejs-app` build script, you should try opening this project's `android` folder in android studio (using the `build.gradle` file to tell android studio it is a gradle project.) It should detect missing dependencies and give you the option to install them via the console window (and rebuild) at the bottom of the window.
+
+```
+
+Building native modules for armeabi-v7a...
+Incremental java compilation is an incubating feature.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+A problem occurred configuring project ':app'.
+> Could not resolve all dependencies for configuration ':app:_debugApk'.
+   > A problem occurred configuring project ':nodejs-mobile-react-native'.
+      > java.lang.NullPointerException (no error message)
+
+```
+
 ## Integration tests
 
 We use Appium and Tape, just plug in a device through USB and run `npm run test-e2e-android`. This will run tests on top of the *release* variant of the app, so it that doesn't exist, you must run `npm run build-android-release` first.
