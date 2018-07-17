@@ -17,14 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {ScreensSource} from 'cycle-native-navigation';
+import xs from 'xstream';
+import between from 'xstream-between';
+import {NavSource} from 'cycle-native-navigation';
+import {Request as DialogReq} from '../../drivers/dialogs';
 
-export default function intent(source: ScreensSource) {
-  return {
-    changeName$: source.select('name').events('changeText'),
+export default function dialogs(navSource: NavSource) {
+  const back$ = xs.merge(
+    navSource.backPress(),
+    navSource.topBarButtonPress('back'),
+  );
 
-    changeDescription$: source.select('description').events('changeText'),
-
-    save$: source.select('save').events('press'),
-  };
+  return back$
+    .compose(between(navSource.didAppear(), navSource.didDisappear()))
+    .mapTo(
+      {
+        title: 'Edit profile',
+        category: 'edit-profile-discard',
+        content: 'Discard changes?',
+        positiveText: 'Discard',
+        negativeText: 'Cancel',
+      } as DialogReq,
+    );
 }

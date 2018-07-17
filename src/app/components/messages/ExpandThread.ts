@@ -19,7 +19,7 @@
 
 import {PureComponent} from 'react';
 import {Text, View, StyleSheet, TouchableNativeFeedback} from 'react-native';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';

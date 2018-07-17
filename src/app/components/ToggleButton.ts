@@ -28,7 +28,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Palette} from '../global-styles/palette';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import {baseContainerStyle, baseTextStyle} from './Button';
 
 export const styles = StyleSheet.create({

@@ -17,62 +17,68 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {StateSource, Reducer} from 'cycle-onionify';
-import isolate from '@cycle/isolate';
-import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
-import {Content} from 'ssb-typescript';
+import {ReactElement} from 'react';
+import {Content, FeedId} from 'ssb-typescript';
+import {ReactSource} from '@cycle/react';
 import {SSBSource} from '../../drivers/ssb';
-import {
-  Response as DialogRes,
-  Request as DialogReq,
-} from '../../drivers/dialogs';
-import {Screens} from '../..';
-import editProfile from './edit';
+import {Command, NavSource} from 'cycle-native-navigation';
 import intent from './intent';
-import model, {State, editLens} from './model';
+import model, {State} from './model';
 import view from './view';
 import ssb from './ssb';
-import {navigatorStyle} from './styles';
 import navigation from './navigation';
+import {Dimensions} from '../../global-styles/dimens';
+
+export type Props = {
+  selfFeedId: FeedId;
+  feedId: FeedId;
+};
 
 export type Sources = {
-  screen: ScreensSource;
-  navigation: Stream<any>;
+  props: Stream<Props>;
+  screen: ReactSource;
+  navigation: NavSource;
   onion: StateSource<State>;
   ssb: SSBSource;
-  dialog: Stream<DialogRes>;
 };
 
 export type Sinks = {
-  screen: Stream<ScreenVNode>;
+  screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
   ssb: Stream<Content>;
-  dialog: Stream<DialogReq>;
 };
 
-export const navOptions = () => ({
-  screen: Screens.Profile,
-  navigatorStyle,
-});
+export const navOptions = {
+  topBar: {
+    height: Dimensions.toolbarAndroidHeight,
+    title: {
+      text: '',
+    },
+    backButton: {
+      icon: require('../../../../images/icon-arrow-left.png'),
+      visible: true,
+    },
+  },
+};
 
 export function profile(sources: Sources): Sinks {
-  const editSinks: Sinks = isolate(editProfile, {'*': 'edit', onion: editLens})(
-    sources,
-  );
-
   const actions = intent(sources.screen);
-  const reducer$ = model(sources.onion.state$, actions, sources.ssb);
+  const reducer$ = model(sources.props, sources.ssb);
   const vdom$ = view(sources.onion.state$, sources.ssb);
   const newContent$ = ssb(actions, sources.onion.state$);
-  const command$ = navigation(actions);
+  const command$ = navigation(
+    actions,
+    sources.navigation,
+    sources.onion.state$,
+  );
 
   return {
-    screen: xs.merge(vdom$, editSinks.screen),
-    navigation: xs.merge(command$, editSinks.navigation),
-    onion: xs.merge(reducer$, editSinks.onion),
-    ssb: xs.merge(newContent$, editSinks.ssb),
-    dialog: editSinks.dialog,
+    screen: vdom$,
+    navigation: command$,
+    onion: reducer$,
+    ssb: newContent$,
   };
 }

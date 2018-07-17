@@ -20,12 +20,11 @@
 import xs, {Stream} from 'xstream';
 import {Reducer, Lens} from 'cycle-onionify';
 import {FeedId} from 'ssb-typescript';
-import {Actions} from './intent';
 import {State as PublicTabState} from './public-tab/model';
+import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
-  visible: boolean;
   currentTab: number;
   publicTab?: PublicTabState;
   numOfPublicUpdates: number;
@@ -34,7 +33,6 @@ export type State = {
 export function initState(selfFeedId: FeedId): State {
   return {
     selfFeedId,
-    visible: true,
     currentTab: 0,
     numOfPublicUpdates: 0,
   };
@@ -63,39 +61,31 @@ export const publicTabLens: Lens<State, PublicTabState> = {
   },
 };
 
-export default function model(actions: Actions): Stream<Reducer<State>> {
-  const setVisibleReducer$ = actions.willAppear$.mapTo(
-    function setVisibleReducer(prev?: State): State {
-      if (!prev) {
-        return {
-          selfFeedId: '',
-          visible: true,
-          currentTab: 0,
-          numOfPublicUpdates: 0,
-        };
-      } else if (prev.visible) {
-        return prev;
-      } else {
-        return {...prev, visible: true};
-      }
-    },
-  );
+export type Actions = {
+  changeTab$: Stream<number>;
+};
 
-  const setInvisibleReducer$ = actions.willDisappear$.mapTo(
-    function setInvisibleReducer(prev?: State): State {
-      if (!prev) {
-        return {
-          selfFeedId: '',
-          visible: false,
-          currentTab: 0,
-          numOfPublicUpdates: 0,
-        };
-      } else if (!prev.visible) {
-        return prev;
-      } else {
-        return {...prev, visible: false};
-      }
-    },
+export default function model(
+  actions: Actions,
+  ssbSource: SSBSource,
+): Stream<Reducer<State>> {
+  const initReducer$ = xs.of(function initReducer(prev?: State): State {
+    if (prev) {
+      return prev;
+    } else {
+      return {
+        selfFeedId: '',
+        currentTab: 0,
+        numOfPublicUpdates: 0,
+      };
+    }
+  });
+
+  const setSelfFeedId$ = ssbSource.selfFeedId$.map(
+    selfFeedId =>
+      function setSelfFeedId(prev: State): State {
+        return {...prev, selfFeedId};
+      },
   );
 
   const changeTabReducer$ = actions.changeTab$.map(
@@ -105,5 +95,5 @@ export default function model(actions: Actions): Stream<Reducer<State>> {
       },
   );
 
-  return xs.merge(setVisibleReducer$, setInvisibleReducer$, changeTabReducer$);
+  return xs.merge(initReducer$, setSelfFeedId$, changeTabReducer$);
 }

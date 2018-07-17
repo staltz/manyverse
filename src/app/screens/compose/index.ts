@@ -18,25 +18,25 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {ScreensSource, Command, ScreenVNode} from 'cycle-native-navigation';
-import {StateSource, Reducer} from 'cycle-onionify';
 import isolate from '@cycle/isolate';
+import {ReactElement} from 'react';
+import {KeyboardSource} from '@cycle/native-keyboard';
+import {ReactSource} from '@cycle/react';
+import {StateSource, Reducer} from 'cycle-onionify';
 import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
-import {KeyboardSource} from '@cycle/native-keyboard';
-import {Screens} from '../..';
-import publishButton, {Sinks as PBSinks} from './publish-button';
+import {Command, NavSource} from 'cycle-native-navigation';
+import {LifecycleEvent} from '../../drivers/lifecycle';
+import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
-import model, {State, publishButtonLens} from './model';
+import model, {State, topBarLens} from './model';
 import view from './view';
 import ssb from './ssb';
-import {navigatorStyle} from './styles';
 import navigation from './navigation';
-import {LifecycleEvent} from '../../drivers/lifecycle';
 
 export type Sources = {
-  screen: ScreensSource;
-  navigation: Stream<any>;
+  screen: ReactSource;
+  navigation: NavSource;
   keyboard: KeyboardSource;
   lifecycle: Stream<LifecycleEvent>;
   onion: StateSource<State>;
@@ -44,40 +44,45 @@ export type Sources = {
 };
 
 export type Sinks = {
-  screen: Stream<ScreenVNode>;
+  screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
+  keyboard: Stream<'dismiss'>;
   ssb: Stream<Content>;
 };
 
-export const navOptions = () => ({
-  screen: Screens.Compose,
-  navigatorStyle,
-  navigatorButtons: {
-    rightButtons: [{component: Screens.ComposePublishButton}],
+export const navOptions = {
+  topBar: {
+    visible: false,
+    height: 0,
   },
-});
+};
 
 export function compose(sources: Sources): Sinks {
-  const publishButtonSinks: PBSinks = isolate(publishButton, {
-    '*': 'publishButton',
-    onion: publishButtonLens,
+  const topBarSinks: TBSinks = isolate(topBar, {
+    '*': 'topBar',
+    onion: topBarLens,
   })(sources);
 
   const actions = intent(
     sources.screen,
-    publishButtonSinks.done,
+    sources.navigation,
+    topBarSinks.done,
     sources.onion.state$,
     sources.keyboard,
     sources.lifecycle,
   );
-  const vdom$ = view();
+  const vdom$ = view(topBarSinks.screen);
   const command$ = navigation(actions);
   const reducer$ = model(actions);
   const newContent$ = ssb(actions);
+  const dismiss$ = xs
+    .merge(actions.publishMsg$, topBarSinks.back)
+    .mapTo('dismiss' as 'dismiss');
 
   return {
-    screen: xs.merge(vdom$, publishButtonSinks.screen),
+    keyboard: dismiss$,
+    screen: vdom$,
     navigation: command$,
     onion: reducer$,
     ssb: newContent$,

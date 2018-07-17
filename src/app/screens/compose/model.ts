@@ -19,28 +19,27 @@
 
 import xs, {Stream} from 'xstream';
 import {Reducer, Lens} from 'cycle-onionify';
-import {State as PublishButtonState} from './publish-button';
+import {State as TopBarState} from './top-bar';
 
 export type State = {
   postText: string;
 };
 
-export const publishButtonLens: Lens<State, PublishButtonState> = {
-  get: (parent: State): PublishButtonState => {
+export const topBarLens: Lens<State, TopBarState> = {
+  get: (parent: State): TopBarState => {
     return {
       enabled: parent.postText.length > 0,
     };
   },
 
   // Ignore writes from the child
-  set: (parent: State, child: PublishButtonState): State => {
+  set: (parent: State, child: TopBarState): State => {
     return parent;
   },
 };
 
 export type Actions = {
   updatePostText$: Stream<string>;
-  willDisappear$: Stream<any>;
 };
 
 export default function model(actions: Actions): Stream<Reducer<State>> {
@@ -56,11 +55,5 @@ export default function model(actions: Actions): Stream<Reducer<State>> {
       },
   );
 
-  const clearReducer$ = actions.willDisappear$.mapTo(
-    function clearReducer(): State {
-      return {postText: ''};
-    },
-  );
-
-  return xs.merge(initReducer$, updatePostTextReducer$, clearReducer$);
+  return xs.merge(initReducer$, updatePostTextReducer$);
 }

@@ -18,7 +18,7 @@
  */
 
 import {Stream} from 'xstream';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import Feed from '../../../components/Feed';
 import {State} from './model';
 import {SSBSource} from '../../../drivers/ssb';
@@ -31,7 +31,7 @@ export default function view(
 ) {
   const vdom$ = state$.map(state =>
     h(Feed, {
-      selector: 'publicFeed',
+      sel: 'publicFeed',
       getReadable: state.getPublicFeedReadable,
       getPublicationsReadable: state.getSelfRootsReadable,
       publication$: ssbSource.publishHook$.filter(isRootPostMsg),

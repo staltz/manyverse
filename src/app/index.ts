@@ -20,145 +20,85 @@
 export enum Screens {
   Central = 'mmmmm.Central',
   Drawer = 'mmmmm.Drawer',
+  Compose = 'mmmmm.Compose',
+  Thread = 'mmmmm.Thread',
   Profile = 'mmmmm.Profile',
   ProfileEdit = 'mmmmm.Profile.Edit',
-  Thread = 'mmmmm.Thread',
-  Compose = 'mmmmm.Compose',
-  ComposePublishButton = 'mmmmm.Compose.PublishButton',
 }
 
-import xs, {Stream} from 'xstream';
-import isolate from '@cycle/isolate';
-import {h} from '@cycle/native-screen';
-import {View, Text} from 'react-native';
-import {StateSource, Reducer} from 'cycle-onionify';
-import {SSBSource} from './drivers/ssb';
-import {LifecycleEvent} from './drivers/lifecycle';
-import {Response as DialogRes, Request as DialogReq} from './drivers/dialogs';
-import {KeyboardSource} from '@cycle/native-keyboard';
-import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
+import onionify from 'cycle-onionify';
 import {central} from './screens/central/index';
 import {drawer} from './screens/drawer/index';
-import {profile} from './screens/profile/index';
-import {thread} from './screens/thread/index';
 import {compose} from './screens/compose/index';
-import {Content} from 'ssb-typescript';
-import model, {
-  State,
-  centralLens,
-  drawerLens,
-  profileLens,
-  threadLens,
-} from './model';
+import {thread} from './screens/thread/index';
+import {profile} from './screens/profile/index';
+import {editProfile} from './screens/profile-edit/index';
+import {makeKeyboardDriver} from '@cycle/native-keyboard';
+import {ssbDriver} from './drivers/ssb';
+import {dialogDriver} from './drivers/dialogs';
+import {makeActivityLifecycleDriver} from './drivers/lifecycle';
+import {Palette} from './global-styles/palette';
+import {Typography} from './global-styles/typography';
+import {addDisclaimer} from './alpha-disclaimer';
 
-export type Sources = {
-  screen: ScreensSource;
-  navigation: Stream<any>;
-  keyboard: KeyboardSource;
-  onion: StateSource<State>;
-  ssb: SSBSource;
-  lifecycle: Stream<LifecycleEvent>;
-  dialog: Stream<DialogRes>;
+export const screens: {[k in Screens]?: (so: any) => any} = {
+  [Screens.Central]: addDisclaimer(onionify(central)),
+  [Screens.Drawer]: onionify(drawer),
+  [Screens.Compose]: onionify(compose),
+  [Screens.Thread]: addDisclaimer(onionify(thread)),
+  [Screens.Profile]: addDisclaimer(onionify(profile)),
+  [Screens.ProfileEdit]: addDisclaimer(onionify(editProfile)),
 };
 
-export type Sinks = {
-  screen: Stream<ScreenVNode>;
-  navigation: Stream<Command>;
-  keyboard: Stream<'dismiss'>;
-  onion: Stream<Reducer<State>>;
-  ssb: Stream<Content | null>;
-  dialog: Stream<DialogReq>;
+export const drivers = {
+  keyboard: makeKeyboardDriver(),
+  ssb: ssbDriver,
+  lifecycle: makeActivityLifecycleDriver(),
+  dialog: dialogDriver,
 };
 
-// tslint:disable-next-line:no-string-literal
-export const screenIDs = Object['values'](Screens);
-export const drawerID = Screens.Drawer;
-
-function addAlphaDisclaimer(screen$: Stream<ScreenVNode>): Stream<ScreenVNode> {
-  return screen$.map(screen => ({
-    screen: screen.screen,
-    vdom: h(View, {style: {flex: 1}}, [
-      screen.vdom,
-      h(
-        Text,
-        {
-          style: {
-            position: 'absolute',
-            left: 0,
-            bottom: 0,
-            color: 'black',
-            fontSize: 15,
-            transform: [
-              {rotateZ: '-90deg'},
-              {translateY: -96},
-              {translateX: 140},
-            ],
-          },
+export const layout = {
+  root: {
+    sideMenu: {
+      left: {
+        visible: false,
+        component: {name: Screens.Drawer},
+      },
+      center: {
+        stack: {
+          id: 'mainstack',
+          children: [{component: {name: Screens.Central}}],
         },
-        'Alpha version, not ready for use',
-      ),
-    ]),
-  }));
-}
+      },
+    },
+  },
+};
 
-export function app(sources: Sources): Sinks {
-  const centralSinks: Sinks = isolate(central, {
-    onion: centralLens,
-    '*': 'central',
-  })(sources);
-  const drawerSinks: Sinks = isolate(drawer, {
-    onion: drawerLens,
-    '*': 'drawer',
-  })(sources);
-  const composeSinks: Sinks = isolate(compose, {'*': 'compose'})(sources);
-  const profileSinks: Sinks = isolate(profile, {
-    onion: profileLens,
-    '*': 'profile',
-  })(sources);
-  const threadSinks: Sinks = isolate(thread, {
-    onion: threadLens,
-    '*': 'thread',
-  })(sources);
-
-  const screen$ = xs.merge(
-    centralSinks.screen,
-    drawerSinks.screen,
-    composeSinks.screen,
-    profileSinks.screen,
-    threadSinks.screen,
-  );
-  const navCommand$ = xs.merge(
-    centralSinks.navigation,
-    drawerSinks.navigation,
-    composeSinks.navigation,
-    profileSinks.navigation,
-    threadSinks.navigation,
-  );
-  const mainReducer$ = model(navCommand$, sources.ssb);
-  const reducer$ = xs.merge(
-    mainReducer$,
-    composeSinks.onion,
-    centralSinks.onion,
-    drawerSinks.onion,
-    profileSinks.onion,
-    threadSinks.onion,
-  );
-  const initSSB$ = sources.screen.didAppear(Screens.Central).mapTo(null);
-  const ssb$ = xs.merge(
-    initSSB$,
-    centralSinks.ssb,
-    composeSinks.ssb,
-    profileSinks.ssb,
-    threadSinks.ssb,
-  );
-  const dismiss$ = threadSinks.keyboard;
-
-  return {
-    screen: screen$.compose(addAlphaDisclaimer),
-    navigation: navCommand$,
-    keyboard: dismiss$,
-    onion: reducer$,
-    ssb: ssb$,
-    dialog: profileSinks.dialog,
-  };
-}
+export const defaultNavOptions = {
+  statusBar: {
+    visible: true,
+    backgroundColor: Palette.brand.backgroundDarker,
+    style: 'light',
+  },
+  layout: {
+    backgroundColor: Palette.brand.voidBackground,
+    orientation: ['portrait', 'landscape'],
+  },
+  topBar: {
+    visible: true,
+    drawBehind: false,
+    hideOnScroll: false,
+    animate: false,
+    borderHeight: 0,
+    elevation: 0,
+    buttonColor: Palette.white,
+    background: {
+      color: Palette.brand.background,
+    },
+    title: {
+      text: '',
+      color: Palette.white,
+      fontSize: Typography.fontSizeLarge,
+    },
+  },
+};

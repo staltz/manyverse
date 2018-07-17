@@ -18,8 +18,6 @@
  */
 
 import xs, {Stream} from 'xstream';
-import sample from 'xstream-sample';
-import dropRepeats from 'xstream/extra/dropRepeats';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {Reducer} from 'cycle-onionify';
 import {FeedId, MsgId} from 'ssb-typescript';
@@ -30,6 +28,12 @@ import {
   MsgAndExtras,
 } from '../../drivers/ssb';
 
+export type Props = {
+  selfFeedId: FeedId;
+  rootMsgId: MsgId;
+  replyToMsgId: MsgId;
+};
+
 export type State = {
   selfFeedId: FeedId;
   rootMsgId: MsgId | null;
@@ -38,84 +42,72 @@ export type State = {
   replyEditable: boolean;
   getSelfRepliesReadable: GetReadable<MsgAndExtras> | null;
   startedAsReply: boolean;
+  keyboardVisible: boolean;
 };
 
-export function initState(selfFeedId: FeedId): State {
-  return {
-    selfFeedId,
-    thread: {full: true, messages: []},
-    rootMsgId: null,
-    replyText: '',
-    replyEditable: true,
-    getSelfRepliesReadable: null,
-    startedAsReply: false,
-  };
-}
-
-export function updateRootMsgId(
-  prev: State,
-  rootMsgId: MsgId,
-  replyToMsgId: MsgId | undefined,
-): State {
-  if (rootMsgId === prev.rootMsgId) {
-    return prev;
-  } else {
-    return {
-      ...prev,
-      rootMsgId,
-      startedAsReply: replyToMsgId ? true : false,
-      thread: {full: true, messages: []},
-    };
-  }
-}
-
-export type AppearingActions = {
+export type Actions = {
   publishMsg$: Stream<any>;
   willReply$: Stream<any>;
-  appear$: Stream<null>;
-  disappear$: Stream<null>;
+  keyboardAppeared$: Stream<any>;
+  keyboardDisappeared$: Stream<any>;
   updateReplyText$: Stream<string>;
 };
 
 export default function model(
-  state$: Stream<State>,
-  actions: AppearingActions,
+  props$: Stream<Props>,
+  actions: Actions,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
-  const rootIdChanged$ = state$
-    .map(state => state.rootMsgId)
-    .compose(dropRepeats())
-    .filter(id => id !== null) as Stream<MsgId>;
-
-  const thread$ = actions.appear$
-    .compose(sample(rootIdChanged$))
-    .map(id => ssbSource.thread$(id))
-    .flatten();
-
-  const updateReplyTextReducer$ = actions.updateReplyText$.map(
-    text =>
-      function updateReplyTextReducer(prev?: State): State {
-        if (!prev) {
-          throw new Error('Thread/model reducer expects existing state');
-        }
-        return {...prev, replyText: text};
+  const propsReducer$ = props$.take(1).map(
+    props =>
+      function propsReducer(prev?: State): State {
+        return {
+          selfFeedId: props.selfFeedId,
+          thread: {full: true, messages: []},
+          rootMsgId: props.rootMsgId || null,
+          replyText: '',
+          replyEditable: true,
+          getSelfRepliesReadable: null,
+          startedAsReply: props.replyToMsgId ? true : false,
+          keyboardVisible: false,
+        };
       },
   );
 
-  const setThreadReducer$ = thread$.map(
-    thread =>
-      function setThreadReducer(prev: State): State {
-        return {...prev, thread};
+  const setThreadReducer$ = props$
+    .take(1)
+    .map(props => ssbSource.thread$(props.rootMsgId))
+    .flatten()
+    .map(
+      thread =>
+        function setThreadReducer(prev: State): State {
+          return {...prev, thread};
+        },
+    );
+
+  const keyboardAppearedReducer$ = actions.keyboardAppeared$.mapTo(
+    function keyboardAppearedReducer(prev: State): State {
+      return {...prev, keyboardVisible: true};
+    },
+  );
+
+  const keyboardDisappearedReducer$ = actions.keyboardDisappeared$.mapTo(
+    function keyboardDisappearedReducer(prev: State): State {
+      return {...prev, keyboardVisible: false};
+    },
+  );
+
+  const updateReplyTextReducer$ = actions.updateReplyText$.map(
+    text =>
+      function updateReplyTextReducer(prev: State): State {
+        return {...prev, replyText: text};
       },
   );
 
   const publishReplyReducers$ = actions.publishMsg$
     .map(() =>
       xs.of(
-        function emptyPublishedReducer(prev?: State): State {
-          if (!prev) {
-            throw new Error('Thread/model reducer expects existing state');
-          }
+        function emptyPublishedReducer(prev: State): State {
           return {...prev, replyText: '', replyEditable: false};
         },
         function resetEditableReducer(prev: State): State {
@@ -138,10 +130,7 @@ export default function model(
     .flatten()
     .map(
       newMsg =>
-        function addSelfRepliesReducer(prev?: State): State {
-          if (!prev) {
-            throw new Error('Thread/model reducer expects existing state');
-          }
+        function addSelfRepliesReducer(prev: State): State {
           return {
             ...prev,
             thread: {
@@ -152,20 +141,13 @@ export default function model(
         },
     );
 
-  const clearReplyReducer$ = actions.disappear$.mapTo(
-    function clearReplyReducer(prev?: State): State {
-      if (!prev) {
-        throw new Error('Thread/model reducer expects existing state');
-      }
-      return {...prev, replyText: '', startedAsReply: false};
-    },
-  );
-
   return xs.merge(
+    propsReducer$,
     setThreadReducer$,
+    keyboardAppearedReducer$,
+    keyboardDisappearedReducer$,
     updateReplyTextReducer$,
     publishReplyReducers$,
     addSelfRepliesReducer$,
-    clearReplyReducer$,
   );
 }

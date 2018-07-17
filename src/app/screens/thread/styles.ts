@@ -22,17 +22,6 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 
-export const navigatorStyle = {
-  statusBarColor: Palette.brand.backgroundDarker,
-  navBarBackgroundColor: Palette.brand.background,
-  navBarTextColor: Palette.white,
-  navBarTextFontSize: Typography.fontSizeLarge,
-  navBarTextFontFamily: Typography.fontFamilyReadableText,
-  navBarButtonColor: Palette.white,
-  topBarElevationShadowEnabled: false,
-  navBarTextFontBold: true,
-};
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,

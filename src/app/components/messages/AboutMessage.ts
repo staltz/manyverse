@@ -20,7 +20,7 @@
 import {Component} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import HumanTime from 'react-human-time';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import Markdown, {markdownStyles} from '../../global-styles/markdown';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';

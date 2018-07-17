@@ -27,7 +27,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import HumanTime from 'react-human-time';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
 import {authorName} from '../../../ssb/from-ssb';
 import {Palette} from '../../global-styles/palette';

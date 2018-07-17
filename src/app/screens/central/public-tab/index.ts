@@ -20,7 +20,8 @@
 import {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {Command, ScreensSource} from 'cycle-native-navigation';
+import {ReactSource} from '@cycle/react';
+import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource} from '../../../drivers/ssb';
 import intent from './intent';
 import view from './view';
@@ -29,8 +30,8 @@ import ssb from './ssb';
 import navigation from './navigation';
 
 export type Sources = {
-  screen: ScreensSource;
-  navigation: Stream<any>;
+  screen: ReactSource;
+  navigation: NavSource;
   onion: StateSource<State>;
   ssb: SSBSource;
   scrollToTop: Stream<any>;
@@ -46,7 +47,7 @@ export type Sinks = {
 export function publicTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
   const vdom$ = view(sources.onion.state$, sources.ssb, sources.scrollToTop);
-  const command$ = navigation(actions);
+  const command$ = navigation(actions, sources.onion.state$);
   const reducer$ = model(actions, sources.ssb);
   const newContent$ = ssb(actions);
 

@@ -37,6 +37,12 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
+    flexDirection: 'column',
+  },
+
+  bodyContainer: {
+    flex: 1,
+    alignSelf: 'stretch',
     flexDirection: 'row',
     backgroundColor: Palette.brand.textBackground,
     paddingHorizontal: Dimensions.horizontalSpaceBig,

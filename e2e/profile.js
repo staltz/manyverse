@@ -18,12 +18,19 @@
  */
 
 const test = require('tape');
+const wd = require('wd');
 
 module.exports = function(driver, t) {
   t.test('Profile screen of self is accessible from menu', async function(t) {
     // Go to my profile
+    const pressMenu = new wd.TouchAction(driver);
+    pressMenu.press({x: 80, y: 150});
+    pressMenu.wait(20);
+    pressMenu.release();
+    await driver.performTouchAction(pressMenu);
+    t.pass('I press the Menu (top left corner)');
     const myProfileButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("My Profile Button")',
+      'new UiSelector().descriptionContains("My Profile Menu Item")',
     );
     t.ok(myProfileButton, 'I see My Profile Button');
     await myProfileButton.tap();
@@ -94,6 +101,9 @@ module.exports = function(driver, t) {
     t.ok(saveProfileButton, 'I see Save Profile Button');
     await saveProfileButton.tap();
     t.pass('I tap it');
+
+    t.pass('I wait a bit (3 seconds)');
+    await driver.sleep(3000);
 
     // Read the name
     const profileName = await driver.elementByAndroidUIAutomator(

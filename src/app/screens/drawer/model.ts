@@ -28,25 +28,20 @@ export type State = {
   name?: string;
 };
 
-export default function model(
-  state$: Stream<State>,
-  ssbSource: SSBSource,
-): Stream<Reducer<State>> {
-  const initAboutReducer$ = state$
-    .filter(state => !!state.selfFeedId)
+export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
+  const initAboutReducer$ = ssbSource.selfFeedId$
     .take(1)
-    .map(state => ssbSource.profileAbout$(state.selfFeedId))
+    .map(selfFeedId => ssbSource.profileAbout$(selfFeedId))
     .flatten()
     .map(
       about =>
         function initAboutReducer(prev: State): State {
-          if (about.name === prev.selfFeedId) {
-            return prev;
-          } else if (about.name === shortFeedId(prev.selfFeedId)) {
-            return prev;
-          } else {
-            return {selfFeedId: prev.selfFeedId, name: about.name};
+          const id = about.id;
+          let name = '';
+          if (about.name !== id && about.name !== shortFeedId(id)) {
+            name = about.name;
           }
+          return {selfFeedId: id, name};
         },
     );
 

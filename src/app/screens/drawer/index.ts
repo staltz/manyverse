@@ -17,27 +17,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {View, Text, ScrollView} from 'react-native';
-import {ScreensSource, ScreenVNode, Command} from 'cycle-native-navigation';
-import {h} from '@cycle/native-screen';
+import {Command} from 'cycle-native-navigation';
+import {h, ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {styles} from './styles';
 import {SSBSource} from '../../drivers/ssb';
-import {Screens} from '../..';
 import model, {State} from './model';
-// import intent from './intent';
-// import navigation from './navigation';
+import intent from './intent';
+import navigation from './navigation';
 import DrawerMenuItem from '../../components/DrawerMenuItem';
+import {ReactElement} from 'react';
 
 export type Sources = {
-  screen: ScreensSource;
+  screen: ReactSource;
   onion: StateSource<State>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
-  screen: Stream<ScreenVNode>;
+  screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
 };
@@ -55,10 +55,9 @@ function renderName(name?: string) {
   );
 }
 
-function view(state$: Stream<State>): Stream<ScreenVNode> {
-  return state$.map(state => ({
-    screen: Screens.Drawer,
-    vdom: h(View, {style: styles.container}, [
+function view(state$: Stream<State>): Stream<ReactElement<any>> {
+  return state$.map(state =>
+    h(View, {style: styles.container}, [
       h(View, {style: styles.header}, [
         h(View, {style: styles.authorImage}),
         renderName(state.name),
@@ -70,7 +69,7 @@ function view(state$: Stream<State>): Stream<ScreenVNode> {
       ]),
       h(ScrollView, {style: null}, [
         h(DrawerMenuItem, {
-          selector: 'self-profile',
+          sel: 'self-profile',
           icon: 'account-box',
           text: 'My profile',
           accessible: true,
@@ -82,17 +81,17 @@ function view(state$: Stream<State>): Stream<ScreenVNode> {
         h(DrawerMenuItem, {icon: 'information', text: 'About MMMMM'}),
       ]),
     ]),
-  }));
+  );
 }
 
 export function drawer(sources: Sources): Sinks {
-  // const actions = intent(sources.screen);
+  const actions = intent(sources.screen);
   const vdom$ = view(sources.onion.state$);
-  // const command$ = navigation(actions);
-  const reducer$ = model(sources.onion.state$, sources.ssb);
+  const command$ = navigation(actions, sources.onion.state$);
+  const reducer$ = model(sources.ssb);
   return {
     screen: vdom$,
-    navigation: xs.never(),
+    navigation: command$,
     onion: reducer$,
   };
 }

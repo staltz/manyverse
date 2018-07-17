@@ -18,7 +18,7 @@
  */
 
 import {PureComponent} from 'react';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import Markdown, {markdownStyles} from '../../global-styles/markdown';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';

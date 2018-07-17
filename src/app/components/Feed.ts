@@ -26,7 +26,7 @@ import {
   TouchableOpacity,
   NativeScrollEvent,
 } from 'react-native';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
@@ -132,7 +132,7 @@ const FeedFooter = h(PlaceholderMessage);
 
 class FeedItemSeparator extends PureComponent {
   public render() {
-    return h(View, {style: styles.itemSeparator}, this.props.children as any);
+    return h(View, {style: styles.itemSeparator});
   }
 }
 

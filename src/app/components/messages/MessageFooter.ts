@@ -25,7 +25,7 @@ import {
   StyleSheet,
   TouchableNativeFeedbackProperties,
 } from 'react-native';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Msg, FeedId, PostContent, MsgId} from 'ssb-typescript';
 import {Palette} from '../../global-styles/palette';

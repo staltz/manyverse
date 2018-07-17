@@ -21,35 +21,34 @@ import xs, {Stream} from 'xstream';
 import delay from 'xstream/extra/delay';
 import between from 'xstream-between';
 import sample from 'xstream-sample';
-import {ScreensSource} from 'cycle-native-navigation';
+import {ReactSource} from '@cycle/react';
 import {KeyboardSource} from '@cycle/native-keyboard';
-import {Screens} from '../..';
+import {NavSource} from 'cycle-native-navigation';
 import {State} from './model';
 import {LifecycleEvent} from '../../drivers/lifecycle';
 
 export default function intent(
-  screenSource: ScreensSource,
-  publish$: Stream<any>,
+  reactSource: ReactSource,
+  navSource: NavSource,
+  topBarDone$: Stream<any>,
   state$: Stream<State>,
   keyboardSource: KeyboardSource,
   lifecycle$: Stream<LifecycleEvent>,
 ) {
   const activityPaused$ = lifecycle$.filter(ev => ev === 'paused');
   const activityResumed$ = lifecycle$.filter(ev => ev === 'resumed');
-  const composeAppeared$ = screenSource.didAppear(Screens.Compose);
-  const composeDisappearing$ = screenSource.willDisappear(Screens.Compose);
+  const composeAppeared$ = navSource.didAppear();
+  const composeDisappearing$ = navSource.didDisappear();
 
   return {
-    publishMsg$: publish$
+    publishMsg$: topBarDone$
       .compose(sample(state$))
       .map(state => state.postText)
       .filter(text => text.length > 0),
 
-    updatePostText$: screenSource
+    updatePostText$: reactSource
       .select('composeInput')
       .events('changeText') as Stream<string>,
-
-    willDisappear$: screenSource.willDisappear(Screens.Compose),
 
     quitFromKeyboard$: keyboardSource
       .events('keyboardDidHide')

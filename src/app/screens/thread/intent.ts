@@ -19,24 +19,21 @@
 
 import {Stream} from 'xstream';
 import sample from 'xstream-sample';
-import {ScreensSource} from 'cycle-native-navigation';
 import {isReplyPostMsg} from 'ssb-typescript/utils';
 import {FeedId} from 'ssb-typescript';
-import {Screens} from '../..';
 import {State} from './model';
 import {SSBSource} from '../../drivers/ssb';
-
-export type ProfileNavEvent = {authorFeedId: FeedId};
-
-export type LikeEvent = {msgKey: string; like: boolean};
+import {ReactSource} from '@cycle/react';
+import {KeyboardSource} from '@cycle/native-keyboard';
 
 export default function intent(
-  source: ScreensSource,
+  reactSource: ReactSource,
+  keyboardSource: KeyboardSource,
   ssbSource: SSBSource,
   state$: Stream<State>,
 ) {
   return {
-    publishMsg$: source
+    publishMsg$: reactSource
       .select('replyButton')
       .events('press')
       .compose(sample(state$))
@@ -44,18 +41,21 @@ export default function intent(
 
     willReply$: ssbSource.publishHook$.filter(isReplyPostMsg),
 
-    appear$: source.willAppear(Screens.Thread).mapTo(null),
+    keyboardAppeared$: keyboardSource.events('keyboardDidShow').mapTo(null),
 
-    disappear$: source.didDisappear(Screens.Thread).mapTo(null),
+    keyboardDisappeared$: keyboardSource.events('keyboardDidHide').mapTo(null),
 
-    likeMsg$: source.select('thread').events('pressLike') as Stream<LikeEvent>,
+    likeMsg$: reactSource.select('thread').events('pressLike') as Stream<{
+      msgKey: string;
+      like: boolean;
+    }>,
 
-    updateReplyText$: source
+    updateReplyText$: reactSource
       .select('replyInput')
       .events('changeText') as Stream<string>,
 
-    goToProfile$: source.select('thread').events('pressAuthor') as Stream<
-      ProfileNavEvent
-    >,
+    goToProfile$: reactSource.select('thread').events('pressAuthor') as Stream<{
+      authorFeedId: FeedId;
+    }>,
   };
 }

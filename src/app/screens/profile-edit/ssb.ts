@@ -18,31 +18,32 @@
  */
 
 import {Stream} from 'xstream';
-import between from 'xstream-between';
-import {Request as DialogReq} from '../../../drivers/dialogs';
-import {ScreensSource} from 'cycle-native-navigation';
-import {Screens} from '../../..';
+import sample from 'xstream-sample';
+import {State} from './model';
+import {Content} from 'ssb-typescript';
+import {toAboutContent} from '../../../ssb/to-ssb';
 
-export default function dialogs(
-  navigation$: Stream<any>,
-  screenSource: ScreensSource,
-) {
-  const back$ = navigation$.filter(ev => ev.id === 'backPress');
+export type SSBActions = {
+  save$: Stream<null>;
+};
 
-  return back$
-    .compose(
-      between(
-        screenSource.didAppear(Screens.ProfileEdit),
-        screenSource.willDisappear(Screens.ProfileEdit),
-      ),
+/**
+ * Define streams of new content to be flushed onto SSB.
+ */
+export default function ssb(
+  state$: Stream<State>,
+  actions: SSBActions,
+): Stream<Content> {
+  const newAboutContent$ = actions.save$
+    .compose(sample(state$))
+    .filter(
+      state =>
+        (!!state.newName && state.newName !== state.about.name) ||
+        (!!state.newDescription && state.newDescription !== state.about.name),
     )
-    .mapTo(
-      {
-        title: 'Edit profile',
-        category: 'edit-profile-discard',
-        content: 'Discard changes?',
-        positiveText: 'Discard',
-        negativeText: 'Cancel',
-      } as DialogReq,
+    .map(state =>
+      toAboutContent(state.about.id, state.newName, state.newDescription),
     );
+
+  return newAboutContent$;
 }

@@ -19,21 +19,18 @@
 
 import xs, {Stream} from 'xstream';
 import {Command, PopCommand} from 'cycle-native-navigation';
-import {Response as DialogRes} from '../../../drivers/dialogs';
 
 export type NavigationActions = {
   save$: Stream<any>;
+  discardChanges$: Stream<any>;
 };
 
 export default function navigation(
-  dialogRes$: Stream<DialogRes>,
   actions: NavigationActions,
 ): Stream<Command> {
-  const goBackDiscarding$ = dialogRes$
-    .filter(
-      res => res.category === 'edit-profile-discard' && res.type === 'positive',
-    )
-    .map(() => ({type: 'pop'} as PopCommand));
+  const goBackDiscarding$ = actions.discardChanges$.map(
+    () => ({type: 'pop'} as PopCommand),
+  );
 
   const goBackSaving$ = actions.save$.map(() => ({type: 'pop'} as PopCommand));
 

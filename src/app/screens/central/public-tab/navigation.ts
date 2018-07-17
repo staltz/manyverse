@@ -18,11 +18,14 @@
  */
 
 import xs, {Stream} from 'xstream';
+import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
+import {Screens} from '../../..';
 import {navOptions as composeScreenNavOptions} from '../../compose';
 import {navOptions as profileScreenNavOptions} from '../../profile';
 import {navOptions as threadScreenNavOptions} from '../../thread';
+import {State} from './model';
 
 export type Actions = {
   goToCompose$: Stream<any>;
@@ -30,41 +33,55 @@ export type Actions = {
   goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
 };
 
-export default function navigation(actions: Actions): Stream<Command> {
+export default function navigation(
+  actions: Actions,
+  state$: Stream<State>,
+): Stream<Command> {
   const toCompose$ = actions.goToCompose$.map(
     () =>
       ({
-        type: 'showModal',
-        animated: true,
-        animationType: 'slide-up',
-        ...composeScreenNavOptions(),
+        type: 'showOverlay',
+        layout: {
+          component: {
+            name: Screens.Compose,
+            options: composeScreenNavOptions,
+          },
+        },
       } as Command),
   );
 
-  const toProfile$ = actions.goToProfile$.map(
-    ev =>
+  const toProfile$ = actions.goToProfile$.compose(sampleCombine(state$)).map(
+    ([ev, state]) =>
       ({
         type: 'push',
-        animated: true,
-        animationType: 'slide-horizontal',
-        passProps: {
-          feedId: ev.authorFeedId,
+        layout: {
+          component: {
+            name: Screens.Profile,
+            passProps: {
+              selfFeedId: state.selfFeedId,
+              feedId: ev.authorFeedId,
+            },
+            options: profileScreenNavOptions,
+          },
         },
-        ...profileScreenNavOptions(),
       } as Command),
   );
 
-  const toThread$ = actions.goToThread$.map(
-    ev =>
+  const toThread$ = actions.goToThread$.compose(sampleCombine(state$)).map(
+    ([ev, state]) =>
       ({
         type: 'push',
-        animated: true,
-        animationType: 'slide-horizontal',
-        passProps: {
-          rootMsgId: ev.rootMsgId,
-          replyToMsgId: ev.replyToMsgId,
+        layout: {
+          component: {
+            name: Screens.Thread,
+            passProps: {
+              selfFeedId: state.selfFeedId,
+              rootMsgId: ev.rootMsgId,
+              replyToMsgId: ev.replyToMsgId,
+            },
+            options: threadScreenNavOptions,
+          },
         },
-        ...threadScreenNavOptions(),
       } as Command),
   );
 

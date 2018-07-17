@@ -18,13 +18,14 @@
  */
 
 import xs, {Stream} from 'xstream';
-import dropRepeats from 'xstream/extra/dropRepeats';
-import sample from 'xstream-sample';
 import {SSBSource, GetReadable, ThreadAndExtras} from '../../drivers/ssb';
 import {Reducer} from 'cycle-onionify';
 import {FeedId, About} from 'ssb-typescript';
-import {State as EditProfileState} from './edit';
-import {Lens} from 'cycle-onionify/lib/types';
+
+export type Props = {
+  selfFeedId: FeedId;
+  feedId: FeedId;
+};
 
 export type State = {
   selfFeedId: FeedId;
@@ -32,141 +33,62 @@ export type State = {
   about: About & {id: FeedId};
   getFeedReadable: GetReadable<ThreadAndExtras> | null;
   getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
-  edit?: EditProfileState;
 };
-
-export function initState(selfFeedId: FeedId): State {
-  return {
-    selfFeedId,
-    displayFeedId: selfFeedId,
-    getFeedReadable: null,
-    getSelfRootsReadable: null,
-    about: {
-      name: selfFeedId,
-      description: '',
-      id: selfFeedId,
-    },
-  };
-}
-
-export const editLens: Lens<State, EditProfileState> = {
-  get: (parent: State): EditProfileState => {
-    if (parent.edit) {
-      return parent.edit;
-    } else {
-      return {about: parent.about};
-    }
-  },
-
-  set: (parent: State, child: EditProfileState): State => {
-    return {...parent, edit: child};
-  },
-};
-
-export type AppearingActions = {
-  appear$: Stream<null>;
-  disappear$: Stream<null>;
-};
-
-export function updateSelfFeedId(prev: State, selfFeedId: FeedId): State {
-  if (selfFeedId === prev.selfFeedId) {
-    return prev;
-  } else if (prev.displayFeedId === prev.selfFeedId) {
-    const displayFeedId = selfFeedId;
-    return {
-      ...prev,
-      selfFeedId,
-      displayFeedId,
-      getFeedReadable: null,
-      about: {
-        ...prev.about,
-        name: displayFeedId,
-        id: displayFeedId,
-      },
-    };
-  } else {
-    return {...prev, selfFeedId};
-  }
-}
-
-export function updateDisplayFeedId(prev: State, displayFeedId: FeedId): State {
-  if (displayFeedId === prev.displayFeedId) {
-    return prev;
-  } else {
-    return {
-      ...prev,
-      displayFeedId,
-      about: {
-        name: displayFeedId,
-        id: displayFeedId,
-      },
-      getFeedReadable: null,
-    };
-  }
-}
 
 export default function model(
-  state$: Stream<State>,
-  actions: AppearingActions,
+  props$: Stream<Props>,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
-  const displayFeedIdChanged$ = state$
-    .map(state => state.displayFeedId)
-    .compose(dropRepeats())
-    .filter(id => !!id);
+  const propsReducer$ = props$.map(
+    props =>
+      function propsReducer(): State {
+        return {
+          selfFeedId: props.selfFeedId,
+          displayFeedId: props.feedId,
+          getFeedReadable: null,
+          getSelfRootsReadable: null,
+          about: {
+            name: props.feedId,
+            description: '',
+            id: props.feedId,
+          },
+        };
+      },
+  );
 
-  const getFeedReadable$ = actions.appear$
-    .compose(sample(displayFeedIdChanged$))
-    .map(id => ssbSource.profileFeed$(id))
-    .flatten();
-
-  const about$ = displayFeedIdChanged$
-    .map(id => ssbSource.profileAbout$(id))
+  const about$ = props$
+    .map(props => ssbSource.profileAbout$(props.feedId))
     .flatten();
 
   const updateAboutReducer$ = about$.map(
     about =>
-      function updateAboutReducer(prev?: State): State {
-        if (!prev) {
-          throw new Error('Profile/model reducer expects existing state');
-        }
+      function updateAboutReducer(prev: State): State {
         return {...prev, about};
       },
   );
 
+  const getFeedReadable$ = props$
+    .map(props => ssbSource.profileFeed$(props.feedId))
+    .flatten();
+
   const updateFeedStreamReducer$ = getFeedReadable$.map(
     getFeedReadable =>
-      function updateFeedStreamReducer(prev?: State): State {
-        if (!prev) {
-          throw new Error('Profile/model reducer expects existing state');
-        }
+      function updateFeedStreamReducer(prev: State): State {
         return {...prev, getFeedReadable};
       },
   );
 
   const updateSelfRootsReducer$ = ssbSource.selfRoots$.map(
     getReadable =>
-      function updateSelfRootsReducer(prev?: State): State {
-        if (!prev) {
-          throw new Error('Profile/model reducer expects existing state');
-        }
+      function updateSelfRootsReducer(prev: State): State {
         return {...prev, getSelfRootsReadable: getReadable};
       },
   );
 
-  const clearFeedStreamReducer$ = actions.disappear$.mapTo(
-    function clearFeedStreamReducer(prev?: State): State {
-      if (!prev) {
-        throw new Error('Profile/model reducer expects existing state');
-      }
-      return {...prev, getFeedReadable: null};
-    },
-  );
-
   return xs.merge(
+    propsReducer$,
     updateAboutReducer$,
     updateFeedStreamReducer$,
     updateSelfRootsReducer$,
-    clearFeedStreamReducer$,
   );
 }

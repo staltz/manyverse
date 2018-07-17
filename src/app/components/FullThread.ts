@@ -19,7 +19,7 @@
 
 import {Stream, Subscription, Listener} from 'xstream';
 import {Component, ReactElement} from 'react';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import {FeedId} from 'ssb-typescript';
 import {ThreadAndExtras, MsgAndExtras} from '../drivers/ssb';
 import Message from './messages/Message';

@@ -21,6 +21,10 @@ import xs, {Stream} from 'xstream';
 import {Reducer} from 'cycle-onionify';
 import {About, FeedId} from 'ssb-typescript';
 
+export type Props = {
+  about: About & {id: FeedId};
+};
+
 export type State = {
   about: About & {id: FeedId};
   newName?: string;
@@ -32,7 +36,19 @@ export type Actions = {
   changeDescription$: Stream<string>;
 };
 
-export default function model(actions: Actions): Stream<Reducer<State>> {
+export default function model(
+  props$: Stream<Props>,
+  actions: Actions,
+): Stream<Reducer<State>> {
+  const propsReducer$ = props$.map(
+    props =>
+      function propsReducer(): State {
+        return {
+          about: props.about,
+        };
+      },
+  );
+
   const changeNameReducer$ = actions.changeName$.map(
     newName =>
       function changeNameReducer(prev: State): State {
@@ -47,5 +63,5 @@ export default function model(actions: Actions): Stream<Reducer<State>> {
       },
   );
 
-  return xs.merge(changeNameReducer$, changeDescriptionReducer$);
+  return xs.merge(propsReducer$, changeNameReducer$, changeDescriptionReducer$);
 }

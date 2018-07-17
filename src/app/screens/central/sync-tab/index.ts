@@ -20,12 +20,12 @@
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {ScreensSource} from 'cycle-native-navigation';
+import {ReactSource} from '@cycle/react';
 import {SSBSource} from '../../../drivers/ssb';
 import view from './view';
 
 export type Sources = {
-  screen: ScreensSource;
+  screen: ReactSource;
   onion: StateSource<any>;
   ssb: SSBSource;
 };

@@ -17,33 +17,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {ReactSource} from '@cycle/react';
 import {Stream} from 'xstream';
-import sample from 'xstream-sample';
-import {State} from './model';
-import {Content} from 'ssb-typescript';
-import {toAboutContent} from '../../../../ssb/to-ssb';
+import {Response as DialogRes} from '../../drivers/dialogs';
 
-export type SSBActions = {
-  save$: Stream<null>;
-};
+export default function intent(
+  source: ReactSource,
+  dialogRes$: Stream<DialogRes>,
+) {
+  return {
+    changeName$: source.select('name').events('changeText'),
 
-/**
- * Define streams of new content to be flushed onto SSB.
- */
-export default function ssb(
-  state$: Stream<State>,
-  actions: SSBActions,
-): Stream<Content> {
-  const newAboutContent$ = actions.save$
-    .compose(sample(state$))
-    .filter(
-      state =>
-        (!!state.newName && state.newName !== state.about.name) ||
-        (!!state.newDescription && state.newDescription !== state.about.name),
-    )
-    .map(state =>
-      toAboutContent(state.about.id, state.newName, state.newDescription),
-    );
+    changeDescription$: source.select('description').events('changeText'),
 
-  return newAboutContent$;
+    save$: source.select('save').events('press'),
+
+    discardChanges$: dialogRes$.filter(
+      res => res.category === 'edit-profile-discard' && res.type === 'positive',
+    ),
+  };
 }

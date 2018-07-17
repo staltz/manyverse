@@ -25,17 +25,6 @@ import {Typography} from '../../global-styles/typography';
 const avatarSize = Dimensions.avatarSizeBig;
 const avatarSizeHalf = avatarSize * 0.5;
 
-export const navigatorStyle = {
-  statusBarColor: Palette.brand.backgroundDarker,
-  navBarBackgroundColor: Palette.brand.background,
-  navBarTextColor: Palette.white,
-  navBarTextFontSize: Typography.fontSizeNormal,
-  navBarTextFontFamily: Typography.fontFamilyReadableText,
-  navBarButtonColor: Palette.white,
-  topBarElevationShadowEnabled: false,
-  navBarTextFontBold: true,
-};
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -18,24 +18,21 @@
  */
 
 import {Stream} from 'xstream';
-import {ScreensSource} from 'cycle-native-navigation';
-import {Screens} from '../..';
+import {ReactSource} from '@cycle/react';
+import {NavSource} from 'cycle-native-navigation';
 
 export type Actions = {
   openDrawer$: Stream<null>;
-  willAppear$: Stream<any>;
-  willDisappear$: Stream<any>;
   changeTab$: Stream<number>;
 };
 
-export default function intent(source: ScreensSource): Actions {
+export default function intent(
+  reactSource: ReactSource,
+  navSource: NavSource,
+): Actions {
   return {
-    openDrawer$: source.select('drawer-button').events('press').mapTo(null),
+    openDrawer$: navSource.topBarButtonPress('menu').mapTo(null),
 
-    willAppear$: source.willAppear(Screens.Central),
-
-    willDisappear$: source.willDisappear(Screens.Central),
-
-    changeTab$: source.select('tabs').events('select'),
+    changeTab$: reactSource.select('tabs').events('select'),
   };
 }

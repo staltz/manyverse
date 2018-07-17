@@ -26,7 +26,7 @@ import {
   ViewStyle,
   StyleSheet,
 } from 'react-native';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 
 export const styles = StyleSheet.create({
   container: {

@@ -18,7 +18,7 @@
  */
 
 import {PureComponent} from 'react';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import MessageContainer from './MessageContainer';
 import MessageHeader, {Props as HeaderP} from './MessageHeader';
 import MessageFooter, {Props as FooterP} from './MessageFooter';

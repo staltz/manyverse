@@ -18,33 +18,33 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {ScreensSource} from 'cycle-native-navigation';
-import {Screens} from '../..';
 import {MsgId} from 'ssb-typescript';
+import {ReactSource} from '@cycle/react';
 
-export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
-export type LikeEvent = {msgKey: string; like: boolean};
-
-export default function intent(source: ScreensSource) {
+export default function intent(reactSource: ReactSource) {
   return {
-    goToCompose$: source.select('feed').events('openCompose'),
+    goToCompose$: reactSource.select('feed').events('openCompose'),
 
-    likeMsg$: source.select('feed').events('pressLike') as Stream<LikeEvent>,
-
-    follow$: source.select('follow').events('press') as Stream<boolean>,
-
-    goToEdit$: source.select('editProfile').events('press') as Stream<null>,
+    goToEdit$: reactSource.select('editProfile').events('press') as Stream<
+      null
+    >,
 
     goToThread$: xs.merge(
-      source.select('feed').events('pressExpandThread'),
-      source.select('feed').events('pressReply').map(({rootKey, msgKey}) => ({
-        rootMsgId: rootKey,
-        replyToMsgId: msgKey,
-      })),
-    ) as Stream<ThreadNavEvent>,
+      reactSource.select('feed').events('pressExpandThread'),
+      reactSource
+        .select('feed')
+        .events('pressReply')
+        .map(({rootKey, msgKey}) => ({
+          rootMsgId: rootKey,
+          replyToMsgId: msgKey,
+        })),
+    ) as Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>,
 
-    appear$: source.willAppear(Screens.Profile).mapTo(null),
+    likeMsg$: reactSource.select('feed').events('pressLike') as Stream<{
+      msgKey: string;
+      like: boolean;
+    }>,
 
-    disappear$: source.didDisappear(Screens.Profile).mapTo(null),
+    follow$: reactSource.select('follow').events('press') as Stream<boolean>,
   };
 }

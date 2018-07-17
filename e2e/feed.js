@@ -22,14 +22,19 @@ const wd = require('wd');
 
 module.exports = function(driver, t) {
   t.test('Central screen shows many in scrolling feed', async function(t) {
-    const feedTextInput = await driver.elementByAndroidUIAutomator(
+    await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Feed Text Input")',
       6000,
     );
-    t.pass('I see Feed Text Input');
-    const f1 = await feedTextInput.text();
+    t.pass('I see Feed Text Input in the Central screen (Public Tab)');
+
     const AMOUNT = 10;
+    t.pass('I begin creating ' + AMOUNT + ' public messages');
     for (let i = 1; i <= AMOUNT; i++) {
+      const feedTextInput = await driver.elementByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("Feed Text Input")',
+        6000,
+      );
       await feedTextInput.tap();
       const composeTextInput = await driver.elementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Compose Text Input")',
@@ -41,6 +46,7 @@ module.exports = function(driver, t) {
         6000,
       );
       await composePublishButton.tap();
+      await driver.sleep(2000);
     }
     t.pass('I created ' + AMOUNT + ' public messages');
 
@@ -60,7 +66,7 @@ module.exports = function(driver, t) {
     await driver.performTouchAction(action);
     t.pass('I scroll down through the feed');
 
-    t.pass(
+    t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().textContains("Message number 1a")',
         6000,

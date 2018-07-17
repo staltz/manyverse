@@ -19,12 +19,17 @@
 
 import {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import * as Progress from 'react-native-progress';
-import {View, TextInput, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  TextInput,
+  KeyboardAvoidingView,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {propifyMethods} from 'react-propify-methods';
-import {Screens} from '../..';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import FullThread from '../../components/FullThread';
@@ -44,7 +49,7 @@ function ReplySendButton() {
   return h(
     TouchableOpacity,
     {
-      selector: 'replyButton',
+      sel: 'replyButton',
       style: styles.send,
       accessible: true,
       accessibilityLabel: 'Reply Publish Button',
@@ -66,7 +71,7 @@ function ReplyInput(state: State) {
       h(TextInput, {
         accessible: true,
         accessibilityLabel: 'Reply Text Input',
-        selector: 'replyInput',
+        sel: 'replyInput',
         multiline: true,
         autoFocus: state.startedAsReply,
         returnKeyType: 'done',
@@ -92,6 +97,7 @@ type Actions = {
 
 function statesAreEqual(s1: State, s2: State): boolean {
   if (s1.replyText !== s2.replyText) return false;
+  if (s1.keyboardVisible !== s2.keyboardVisible) return false;
   if (s1.replyEditable !== s2.replyEditable) return false;
   if (s1.startedAsReply !== s2.startedAsReply) return false;
   if (s1.thread.messages.length !== s2.thread.messages.length) return false;
@@ -104,22 +110,28 @@ function statesAreEqual(s1: State, s2: State): boolean {
 
 export default function view(state$: Stream<State>, actions: Actions) {
   const scrollToEnd$ = actions.publishMsg$.mapTo({animated: false});
-  return state$.compose(dropRepeats(statesAreEqual)).map((state: State) => {
-    return {
-      screen: Screens.Thread,
-      vdom: h(View, {style: styles.container}, [
+  return state$.compose(dropRepeats(statesAreEqual)).map((state: State) =>
+    h(
+      KeyboardAvoidingView,
+      {
+        keyboardVerticalOffset: 80,
+        ['enabled' as any]: state.keyboardVisible,
+        behavior: 'padding',
+        style: styles.container,
+      },
+      [
         h(ReactiveScrollView, {style: styles.scrollView, scrollToEnd$}, [
           state.thread.messages.length === 0
             ? Loading
             : h(FullThread, {
-                selector: 'thread',
+                sel: 'thread',
                 thread: state.thread,
                 selfFeedId: state.selfFeedId,
                 publication$: actions.willReply$,
               }),
         ]),
         ReplyInput(state),
-      ]),
-    };
-  });
+      ],
+    ),
+  );
 }

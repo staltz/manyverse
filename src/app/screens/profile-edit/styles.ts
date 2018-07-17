@@ -18,23 +18,12 @@
  */
 
 import {StyleSheet} from 'react-native';
-import {Palette} from '../../../global-styles/palette';
-import {Dimensions} from '../../../global-styles/dimens';
-import {Typography} from '../../../global-styles/typography';
+import {Palette} from '../../global-styles/palette';
+import {Dimensions} from '../../global-styles/dimens';
+import {Typography} from '../../global-styles/typography';
 
 const avatarSize = Dimensions.avatarSizeBig;
 const avatarSizeHalf = avatarSize * 0.5;
-
-export const navigatorStyle = {
-  statusBarColor: Palette.brand.backgroundDarker,
-  navBarBackgroundColor: Palette.brand.background,
-  topBarElevationShadowEnabled: false,
-  navBarTextColor: Palette.white,
-  navBarTextFontSize: Typography.fontSizeLarge,
-  navBarTextFontFamily: Typography.fontFamilyReadableText,
-  navBarButtonColor: Palette.white,
-  navBarTextFontBold: true,
-};
 
 export const styles = StyleSheet.create({
   container: {

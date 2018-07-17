@@ -30,7 +30,7 @@ import {
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 
 export const baseContainerStyle = {
   borderTopLeftRadius: 3,

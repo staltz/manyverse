@@ -21,7 +21,7 @@ const test = require('tape');
 const wd = require('wd');
 
 module.exports = function(driver, t) {
-  t.test('Central screen is displayed with 4 tabs', async function(t) {
+  t.test('Central screen is displayed with 2 tabs', async function(t) {
     // Public tab
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
@@ -35,44 +35,6 @@ module.exports = function(driver, t) {
         'new UiSelector().descriptionContains("Public Tab Button")',
       ),
       'I see Public tab button',
-    );
-
-    // Private tab
-    const privateTabButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Private Tab Button")',
-    );
-    t.ok(privateTabButton, 'I see Private Tab button');
-    await privateTabButton.tap();
-    t.pass('I tap it');
-    t.ok(
-      await driver.elementByAndroidUIAutomator(
-        'new UiSelector().textContains("Private")',
-      ),
-      'I see Private tab body',
-    );
-    let noFeedTextInput;
-    try {
-      noFeedTextInput = await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Feed Text Input")',
-        1000,
-      );
-      t.fail('Should not have seen Feed Text Input (from public tab)');
-    } catch (err) {
-      t.pass('I dont see Feed Text Input (from public tab)');
-    }
-
-    // Notifications tab
-    const notificationsTabButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Notifications Tab Button")',
-    );
-    t.ok(notificationsTabButton, 'I see Notifications Tab button');
-    await notificationsTabButton.tap();
-    t.pass('I tap it');
-    t.ok(
-      await driver.elementByAndroidUIAutomator(
-        'new UiSelector().textContains("Notifications")',
-      ),
-      'I see Notifications tab body',
     );
 
     // Sync tab

@@ -18,8 +18,8 @@
  */
 
 import {Stream} from 'xstream';
-import {h} from '@cycle/native-screen';
-import {View, Text, FlatList} from 'react-native';
+import {h} from '@cycle/react';
+import {View, Text, FlatList, FlatListProps} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {PeerMetadata} from 'ssb-typescript';
 import LocalPeerMetadata from '../../../components/LocalPeerMetadata';
@@ -27,7 +27,7 @@ import {styles, iconProps} from './styles';
 
 export default function view(localSyncPeers$: Stream<Array<PeerMetadata>>) {
   return localSyncPeers$.map(localSyncPeers =>
-    h(FlatList, {
+    h<FlatListProps<PeerMetadata>>(FlatList, {
       data: localSyncPeers,
       style: styles.container as any,
       ListHeaderComponent: h(View, {style: styles.headerContainer}, [
@@ -40,8 +40,7 @@ export default function view(localSyncPeers$: Stream<Array<PeerMetadata>>) {
       ]),
       keyExtractor: (item: PeerMetadata, index: number) =>
         item.key || String(index),
-      renderItem: ({item}: {item: PeerMetadata}) =>
-        h(LocalPeerMetadata, {peer: item}),
+      renderItem: ({item}) => h(LocalPeerMetadata, {peer: item}),
     }),
   );
 }

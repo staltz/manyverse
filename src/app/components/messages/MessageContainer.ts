@@ -17,8 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PureComponent} from 'react';
-import {h} from '@cycle/native-screen';
+import {PureComponent, createElement} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -40,10 +39,10 @@ type Props = {
 
 export default class MessageContainer extends PureComponent<Props> {
   public render() {
-    return h(
+    return createElement(
       View,
       {style: [styles.card, this.props.style]},
-      this.props.children as any,
+      this.props.children,
     );
   }
 }

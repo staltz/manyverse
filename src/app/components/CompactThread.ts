@@ -18,7 +18,7 @@
  */
 
 import {PureComponent} from 'react';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {ThreadAndExtras, MsgAndExtras} from '../drivers/ssb';
 import Message from './messages/Message';

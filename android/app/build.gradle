@@ -104,14 +104,20 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "27.0.3"
+
+    compileOptions {
+       sourceCompatibility JavaVersion.VERSION_1_8
+       targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "com.mmmmm"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 22
         versionCode 17
         versionName "0.0.14-alpha"
+        missingDimensionStrategy "RNN.reactNativeVersion", "reactNative55"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -119,6 +125,7 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+
     signingConfigs {
         release {
             if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
@@ -129,6 +136,7 @@ android {
             }
         }
     }
+
     splits {
         abi {
             reset()
@@ -137,6 +145,7 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
@@ -144,6 +153,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -160,18 +170,31 @@ android {
 }
 
 dependencies {
-    compile project(':nodejs-mobile-react-native')
-    compile project(':react-native-dialogs')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-tcp')
-    compile project(':react-native-os')
-    compile project(':react-native-fs')
-    compile project(':react-native-randombytes')
-    compile project(':react-native-navigation')
-    compile project(':react-native-workers')
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:23.0.1"
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    implementation project(':nodejs-mobile-react-native')
+    implementation project(':react-native-dialogs')
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-tcp')
+    implementation project(':react-native-os')
+    implementation project(':react-native-fs')
+    implementation project(':react-native-randombytes')
+    implementation project(':react-native-navigation')
+    implementation project(':react-native-workers')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation("com.android.support:appcompat-v7:25.4.0") {
+        force = true
+    }
+    implementation("com.android.support:recyclerview-v7:25.4.0") {
+        force = true
+    }
+    implementation("com.android.support:support-v4:25.4.0") {
+        force = true
+    }
+    implementation("com.android.support:design:25.4.0") {
+        force = true
+    }
+    implementation("com.facebook.react:react-native:0.55.4") {
+        force = true
+    }
 }
 
 // Run this once to be able to run the application with BUCK

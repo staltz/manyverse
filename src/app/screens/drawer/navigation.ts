@@ -18,32 +18,52 @@
  */
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import {Command} from 'cycle-native-navigation';
 import {navOptions as profileScreenNavOptions} from '../profile';
+import {State} from './model';
+import {Screens} from '../..';
 
 export type Actions = {
   goToSelfProfile$: Stream<null>;
 };
 
-export default function navigationCommands(actions: Actions): Stream<Command> {
-  const pushSelfProfile$: Stream<Command> = actions.goToSelfProfile$
-    .map(() =>
-      xs.of(
-        {
-          type: 'toggleDrawer',
-          animated: true,
-          side: 'left',
-          to: 'closed',
-        } as Command,
-        {
-          type: 'push',
-          animated: true,
-          animationType: 'slide-horizontal',
-          ...profileScreenNavOptions(),
-        } as Command,
-      ),
-    )
+export default function navigationCommands(
+  actions: Actions,
+  state$: Stream<State>,
+): Stream<Command> {
+  const toSelfProfile$ = actions.goToSelfProfile$
+    .compose(sample(state$))
+    .map(state => {
+      const hideDrawer: Command = {
+        type: 'mergeOptions',
+        opts: {
+          sideMenu: {
+            left: {
+              visible: false,
+            },
+          },
+        },
+      };
+
+      const openSelfProfile: Command = {
+        type: 'push',
+        id: 'mainstack',
+        layout: {
+          component: {
+            name: Screens.Profile,
+            passProps: {
+              selfFeedId: state.selfFeedId,
+              feedId: state.selfFeedId,
+            },
+            options: profileScreenNavOptions,
+          },
+        },
+      };
+
+      return xs.of<Command>(hideDrawer, openSelfProfile);
+    })
     .flatten();
 
-  return pushSelfProfile$;
+  return toSelfProfile$;
 }

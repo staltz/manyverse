@@ -19,41 +19,37 @@
 
 import xs, {Stream} from 'xstream';
 import {StateSource, Reducer} from 'cycle-onionify';
+import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
-import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
+import {ReactSource} from '@cycle/react';
+import {Command, NavSource} from 'cycle-native-navigation';
 import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
-import {Screens} from '../..';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {syncTab} from './sync-tab/index';
 import intent from './intent';
 import model, {State, publicTabLens} from './model';
-import view from './view';
+import view, {navOpts} from './view';
 import navigation from './navigation';
-import {navigatorStyle} from './styles';
 import sampleCombine from 'xstream/extra/sampleCombine';
 
 export type Sources = {
-  screen: ScreensSource;
-  navigation: Stream<any>;
+  screen: ReactSource;
+  navigation: NavSource;
   onion: StateSource<State>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
-  screen: Stream<ScreenVNode>;
+  screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
+  navOptions: Stream<any>;
   onion: Stream<Reducer<any>>;
   ssb: Stream<Content>;
 };
 
-export const navOptions = () => ({
-  screen: Screens.Central,
-  navigatorStyle,
-});
-
 export function central(sources: Sources): Sinks {
-  const actions = intent(sources.screen);
+  const actions = intent(sources.screen, sources.navigation);
 
   const scrollToTop$ = actions.changeTab$
     .compose(sampleCombine(sources.onion.state$))
@@ -68,7 +64,7 @@ export function central(sources: Sources): Sinks {
   const syncTabSinks = syncTab(sources);
 
   const command$ = navigation(actions, publicTabSinks.navigation);
-  const centralReducer$ = model(actions);
+  const centralReducer$ = model(actions, sources.ssb);
   const reducer$ = xs.merge(centralReducer$, publicTabSinks.onion);
   const vdom$ = view(
     sources.onion.state$,
@@ -80,6 +76,7 @@ export function central(sources: Sources): Sinks {
     screen: vdom$,
     onion: reducer$,
     navigation: command$,
+    navOptions: navOpts(sources.onion.state$),
     ssb: publicTabSinks.ssb,
   };
 }

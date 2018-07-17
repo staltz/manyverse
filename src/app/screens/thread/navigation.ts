@@ -17,28 +17,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
+import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId} from 'ssb-typescript';
-import {Command} from 'cycle-native-navigation';
+import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
+import {State} from './model';
+import {Screens} from '../..';
 import {navOptions as profileScreenNavOptions} from '../profile';
 
 export type Actions = {
   goToProfile$: Stream<{authorFeedId: FeedId}>;
 };
 
-export default function navigation(actions: Actions): Stream<Command> {
-  const toProfile$ = actions.goToProfile$.map(
-    ev =>
+export default function navigation(
+  actions: Actions,
+  navSource: NavSource,
+  state$: Stream<State>,
+): Stream<Command> {
+  const toProfile$ = actions.goToProfile$.compose(sampleCombine(state$)).map(
+    ([ev, state]) =>
       ({
         type: 'push',
-        animated: true,
-        animationType: 'slide-horizontal',
-        passProps: {
-          feedId: ev.authorFeedId,
+        layout: {
+          component: {
+            name: Screens.Profile,
+            passProps: {
+              selfFeedId: state.selfFeedId,
+              feedId: ev.authorFeedId,
+            },
+            options: profileScreenNavOptions,
+          },
         },
-        ...profileScreenNavOptions(),
       } as Command),
   );
 
-  return toProfile$;
+  const pop$ = navSource.backPress().mapTo(
+    {
+      type: 'pop',
+    } as PopCommand,
+  );
+
+  return xs.merge(toProfile$, pop$);
 }

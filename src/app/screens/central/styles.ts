@@ -28,11 +28,6 @@ const _tabItem = {
   paddingBottom: Dimensions.verticalSpaceNormal,
 };
 
-export const navigatorStyle = {
-  navBarHidden: true,
-  statusBarColor: Palette.brand.backgroundDarker,
-};
-
 export const styles = StyleSheet.create({
   root: {
     flex: 1,
@@ -114,4 +109,9 @@ export const iconProps = {
     size: Dimensions.iconSizeNormal,
     color: Palette.white,
   },
+};
+
+export const topBarTitle = {
+  color: Palette.white,
+  fontSize: Typography.fontSizeLarge,
 };

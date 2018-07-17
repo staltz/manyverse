@@ -48,6 +48,8 @@ export ANDROID_NDK_HOME=/Users/username/Library/Android/sdk/ndk-bundle
 
 Also check out [nodejs-mobile](https://github.com/janeasystems/nodejs-mobile) repository for the necessary prerequisites for your system.
 
+This app (theoretically) supports Android 4.4 and above.
+
 ### MMMMM specifics
 
 ```

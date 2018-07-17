@@ -39,46 +39,26 @@ export default function model(
 ): Stream<Reducer<State>> {
   const setPublicFeedReducer$ = ssbSource.publicFeed$.map(
     getReadable =>
-      function setPublicFeedReducer(prev?: State): State {
-        if (!prev) {
-          throw new Error(
-            'Central/PublicTab/model reducer expects existing state',
-          );
-        }
+      function setPublicFeedReducer(prev: State): State {
         return {...prev, getPublicFeedReadable: getReadable};
       },
   );
 
   const incUpdatesReducer$ = ssbSource.publicLiveUpdates$.mapTo(
-    function incUpdatesReducer(prev?: State): State {
-      if (!prev) {
-        throw new Error(
-          'Central/PublicTab/model reducer expects existing state',
-        );
-      }
+    function incUpdatesReducer(prev: State): State {
       return {...prev, numOfUpdates: prev.numOfUpdates + 1};
     },
   );
 
   const resetUpdatesReducer$ = actions.resetUpdates$.mapTo(
-    function resetUpdatesReducer(prev?: State): State {
-      if (!prev) {
-        throw new Error(
-          'Central/PublicTab/model reducer expects existing state',
-        );
-      }
+    function resetUpdatesReducer(prev: State): State {
       return {...prev, numOfUpdates: 0};
     },
   );
 
   const setSelfRootsReducer$ = ssbSource.selfRoots$.map(
     getReadable =>
-      function setSelfRootsReducer(prev?: State): State {
-        if (!prev) {
-          throw new Error(
-            'Central/PublicTab/model reducer expects existing state',
-          );
-        }
+      function setSelfRootsReducer(prev: State): State {
         return {...prev, getSelfRootsReadable: getReadable};
       },
   );

@@ -17,32 +17,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {PureComponent} from 'react';
+import {TouchableHighlight, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
-import {Palette} from '../../global-styles/palette';
-import {Typography} from '../../global-styles/typography';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const styles = StyleSheet.create({
-  metadataBox: {
-    flex: 1,
-    backgroundColor: Palette.brand.darkVoidBackground,
-    padding: 5,
-    borderRadius: 2,
-  },
-
-  metadataText: {
-    fontSize: Typography.fontSizeSmall,
-    color: Palette.brand.darkText,
-    fontFamily: Typography.fontFamilyMonospace,
+  container: {
+    borderRadius: 18,
+    padding: 6,
+    marginLeft: -6,
   },
 });
 
-export default class Metadata extends Component<{msg: any}> {
+export type Props = {
+  onPress?: () => void;
+  color?: string;
+};
+
+export default class AndroidBackButton extends PureComponent<Props> {
   public render() {
-    const {msg} = this.props;
-    return h(View, {style: styles.metadataBox}, [
-      h(Text, {style: styles.metadataText}, JSON.stringify(msg, null, 2)),
-    ]);
+    return h(
+      TouchableHighlight,
+      {
+        style: styles.container,
+        onPress: this.props.onPress,
+        hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
+        underlayColor: '#00000022',
+      },
+      [
+        h(Icon, {
+          size: 24,
+          color: this.props.color || 'white',
+          name: 'arrow-left',
+          accessible: true,
+          accessibilityLabel: 'Back Button',
+        }),
+      ],
+    );
   }
 }

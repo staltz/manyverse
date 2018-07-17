@@ -17,21 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {Command} from 'cycle-native-navigation';
 
 export type Actions = {
-  publishMsg$: Stream<any>;
   quitFromKeyboard$: Stream<any>;
 };
 
 export default function navigation(actions: Actions): Stream<Command> {
-  const goBack$ = xs.merge(actions.publishMsg$, actions.quitFromKeyboard$).map(
-    () =>
-      ({
-        type: 'dismissModal',
-        animationType: 'slide-down',
-      } as Command),
+  const goBack$ = actions.quitFromKeyboard$.map(
+    () => ({type: 'dismissOverlay'} as Command),
   );
 
   return goBack$;

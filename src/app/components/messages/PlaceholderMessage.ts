@@ -19,7 +19,7 @@
 
 import {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import MessageContainer from './MessageContainer';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';

@@ -17,32 +17,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs from 'xstream';
-import {h} from '@cycle/native-screen';
-import {View, TextInput} from 'react-native';
+import {Stream} from 'xstream';
+import {h} from '@cycle/react';
+import {View, TextInput, KeyboardAvoidingView} from 'react-native';
 import {styles} from './styles';
 import {Palette} from '../../global-styles/palette';
-import {Screens} from '../..';
+import {ReactElement} from 'react';
 
-export default function view() {
-  return xs.of({
-    screen: Screens.Compose,
-    vdom: h(View, {style: styles.container}, [
-      h(View, {style: styles.writeMessageAuthorImage}),
-      h(TextInput, {
-        style: styles.composeInput,
-        selector: 'composeInput',
-        ['nativeID' as any]: 'FocusViewOnResume',
-        accessible: true,
-        accessibilityLabel: 'Compose Text Input',
-        autoFocus: true,
-        multiline: true,
-        returnKeyType: 'done',
-        placeholder: 'Write',
-        placeholderTextColor: Palette.brand.textVeryWeak,
-        selectionColor: Palette.indigo3,
-        underlineColorAndroid: Palette.brand.textBackground,
-      }),
+export default function view(topBar$: Stream<ReactElement<any>>) {
+  return topBar$.map(topBar =>
+    h(View, {style: styles.container}, [
+      topBar,
+      h(
+        KeyboardAvoidingView,
+        {
+          style: styles.bodyContainer,
+          ['enabled' as any]: true,
+          keyboardVerticalOffset: 30,
+          behavior: 'padding',
+        },
+        [
+          h(View, {style: styles.writeMessageAuthorImage}),
+          h(TextInput, {
+            style: styles.composeInput,
+            sel: 'composeInput',
+            ['nativeID' as any]: 'FocusViewOnResume',
+            accessible: true,
+            accessibilityLabel: 'Compose Text Input',
+            autoFocus: true,
+            multiline: true,
+            returnKeyType: 'done',
+            placeholder: 'Write',
+            placeholderTextColor: Palette.brand.textVeryWeak,
+            selectionColor: Palette.indigo3,
+            underlineColorAndroid: Palette.brand.textBackground,
+          }),
+        ],
+      ),
     ]),
-  });
+  );
 }

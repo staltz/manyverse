@@ -19,93 +19,85 @@
 
 import {Stream} from 'xstream';
 import {View, Text, Image} from 'react-native';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import Feed from '../../components/Feed';
 import Button from '../../components/Button';
 import ToggleButton from '../../components/ToggleButton';
 import {SSBSource} from '../../drivers/ssb';
 import {styles} from './styles';
 import {State} from './model';
-import {Screens} from '../..';
 import {isRootPostMsg} from 'ssb-typescript/utils';
 
 export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   return state$.map((state: State) => {
     const isSelfProfile = state.displayFeedId === state.selfFeedId;
 
-    return {
-      screen: Screens.Profile,
-      vdom: h(
-        View,
-        {style: styles.container},
-        [
-          h(View, {style: styles.cover}, [
-            h(
-              Text,
-              {
-                style: styles.name,
-                numberOfLines: 1,
-                ellipsizeMode: 'middle',
-                accessible: true,
-                accessibilityLabel: 'Profile Name',
-              } as any,
-              state.about.name,
-            ),
-          ]),
+    return h(View, {style: styles.container}, [
+      h(View, {style: styles.cover}, [
+        h(
+          Text,
+          {
+            style: styles.name,
+            numberOfLines: 1,
+            ellipsizeMode: 'middle',
+            accessible: true,
+            accessibilityLabel: 'Profile Name',
+          },
+          state.about.name,
+        ),
+      ]),
 
-          h(View, {style: styles.avatarBackground}, [
-            h(Image, {
-              style: styles.avatar,
-              source: {uri: state.about.imageUrl || undefined},
-            }),
-          ]),
+      h(View, {style: styles.avatarBackground}, [
+        h(Image, {
+          style: styles.avatar,
+          source: {uri: state.about.imageUrl || undefined},
+        }),
+      ]),
 
-          isSelfProfile
-            ? h(Button, {
-                selector: 'editProfile',
-                style: styles.follow,
-                text: 'Edit profile',
-                accessible: true,
-                accessibilityLabel: 'Edit Profile Button',
-              })
-            : h(ToggleButton, {
-                selector: 'follow',
-                style: styles.follow,
-                text: state.about.following === true ? 'Following' : 'Follow',
-                toggled: state.about.following === true,
-              }),
-
-          h(
-            View,
-            {
-              style: styles.descriptionArea,
-              accessible: true,
-              accessibilityLabel: 'Profile Description',
-            },
-            [
-              h(
-                Text,
-                {style: styles.description, numberOfLines: 2},
-                state.about.description || '',
-              ),
-            ],
-          ),
-
-          h(Feed, {
-            selector: 'feed',
-            getReadable: state.getFeedReadable,
-            getPublicationsReadable: isSelfProfile
-              ? state.getSelfRootsReadable
-              : null,
-            publication$: isSelfProfile
-              ? ssbSource.publishHook$.filter(isRootPostMsg)
-              : null,
-            selfFeedId: state.selfFeedId,
-            style: isSelfProfile ? styles.feedWithHeader : styles.feed,
-            showPublishHeader: isSelfProfile,
+      isSelfProfile
+        ? h(Button, {
+            sel: 'editProfile',
+            style: styles.follow,
+            text: 'Edit profile',
+            accessible: true,
+            accessibilityLabel: 'Edit Profile Button',
+          })
+        : h(ToggleButton, {
+            sel: 'follow',
+            style: styles.follow,
+            text: state.about.following === true ? 'Following' : 'Follow',
+            toggled: state.about.following === true,
           }),
-        ] as Array<any>,
+
+      h(
+        View,
+        {
+          style: styles.descriptionArea,
+          accessible: true,
+          accessibilityLabel: 'Profile Description',
+        },
+        [
+          h(
+            Text,
+            {style: styles.description, numberOfLines: 2},
+            state.about.description || '',
+          ),
+        ],
       ),
-    };
+
+      h(Feed, {
+        sel: 'feed',
+        getReadable: state.getFeedReadable,
+        getPublicationsReadable: isSelfProfile
+          ? state.getSelfRootsReadable
+          : null,
+        publication$: isSelfProfile
+          ? ssbSource.publishHook$.filter(isRootPostMsg)
+          : null,
+        selfFeedId: state.selfFeedId,
+        style: isSelfProfile ? styles.feedWithHeader : styles.feed,
+        showPublishHeader: isSelfProfile,
+      }),
+    ]);
   });
 }

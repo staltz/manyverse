@@ -18,43 +18,69 @@
  */
 
 import {Stream} from 'xstream';
-import {ScreensSource, Command, ScreenVNode} from 'cycle-native-navigation';
+import {Command, NavSource} from 'cycle-native-navigation';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {Content} from 'ssb-typescript';
+import {Content, MsgId, FeedId} from 'ssb-typescript';
+import {KeyboardSource} from '@cycle/native-keyboard';
 import {SSBSource} from '../../drivers/ssb';
-import {Screens} from '../..';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
 import ssb from './ssb';
-import {navigatorStyle} from './styles';
 import navigation from './navigation';
+import {ReactSource} from '@cycle/react';
+import {ReactElement} from 'react';
+import {Dimensions} from '../../global-styles/dimens';
+
+export type Props = {
+  selfFeedId: FeedId;
+  rootMsgId: MsgId;
+  replyToMsgId: MsgId;
+};
 
 export type Sources = {
-  screen: ScreensSource;
-  navigation: Stream<any>;
+  screen: ReactSource;
+  navigation: NavSource;
+  props: Stream<Props>;
+  keyboard: KeyboardSource;
   onion: StateSource<State>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
-  screen: Stream<ScreenVNode>;
+  screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   keyboard: Stream<'dismiss'>;
   onion: Stream<Reducer<State>>;
   ssb: Stream<Content>;
 };
 
-export const navOptions = () => ({
-  screen: Screens.Thread,
-  navigatorStyle,
-  title: 'Thread',
-});
+export const navOptions = {
+  topBar: {
+    height: Dimensions.toolbarAndroidHeight,
+    title: {
+      text: 'Thread',
+    },
+    backButton: {
+      icon: require('../../../../images/icon-arrow-left.png'),
+      visible: true,
+    },
+  },
+};
 
 export function thread(sources: Sources): Sinks {
-  const actions = intent(sources.screen, sources.ssb, sources.onion.state$);
-  const reducer$ = model(sources.onion.state$, actions, sources.ssb);
-  const command$ = navigation(actions);
+  const actions = intent(
+    sources.screen,
+    sources.keyboard,
+    sources.ssb,
+    sources.onion.state$,
+  );
+  const reducer$ = model(sources.props, actions, sources.ssb);
+  const command$ = navigation(
+    actions,
+    sources.navigation,
+    sources.onion.state$,
+  );
   const vdom$ = view(sources.onion.state$, actions);
   const newContent$ = ssb(actions);
   const dismiss$ = actions.publishMsg$.mapTo('dismiss' as 'dismiss');

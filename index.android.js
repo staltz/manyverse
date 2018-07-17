@@ -18,48 +18,9 @@
  */
 
 import 'react-native-ssb-shims';
-import RNNav from 'react-native-navigation';
-import {run} from '@cycle/run';
-import onionify from 'cycle-onionify';
-import {makeKeyboardDriver} from '@cycle/native-keyboard';
-import {makeSingleScreenNavDrivers} from 'cycle-native-navigation';
-import {ssbDriver} from './lib/app/drivers/ssb';
-import {dialogDriver} from './lib/app/drivers/dialogs';
-import {makeActivityLifecycleDriver} from './lib/app/drivers/lifecycle';
-import {app, screenIDs, drawerID} from './lib/app/index';
-import {navOptions as centralScreenNavOptions} from './lib/app/screens/central';
+import {run} from 'cycle-native-navigation';
 import nodejs from 'nodejs-mobile-react-native';
-
-const {
-  screenVNodeDriver,
-  commandDriver,
-} = makeSingleScreenNavDrivers(RNNav, screenIDs, {
-  screen: centralScreenNavOptions(),
-  animationType: 'fade',
-  drawer: {
-    left: {
-      screen: drawerID,
-      disableOpenGesture: true,
-    },
-  },
-});
+import {screens, drivers, layout, defaultNavOptions} from './lib/app/index';
 
 nodejs.start('loader.js');
-
-RNNav.Navigation.isAppLaunched().then(appLaunched => {
-  if (appLaunched) {
-    startCycleApp();
-  }
-  new RNNav.NativeEventsReceiver().appLaunched(startCycleApp);
-});
-
-function startCycleApp() {
-  run(onionify(app), {
-    screen: screenVNodeDriver,
-    navigation: commandDriver,
-    keyboard: makeKeyboardDriver(),
-    ssb: ssbDriver,
-    lifecycle: makeActivityLifecycleDriver(),
-    dialog: dialogDriver,
-  });
-}
+run(screens, drivers, layout, defaultNavOptions);

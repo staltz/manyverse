@@ -18,13 +18,13 @@
  */
 
 import {Stream} from 'xstream';
-import {ScreensSource} from 'cycle-native-navigation';
+import {ReactSource} from '@cycle/react';
 
 export type Actions = {
   goToSelfProfile$: Stream<null>;
 };
 
-export default function intent(source: ScreensSource): Actions {
+export default function intent(source: ReactSource): Actions {
   return {
     goToSelfProfile$: source.select('self-profile').events('press').mapTo(null),
   };

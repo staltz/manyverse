@@ -18,14 +18,14 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {ScreensSource} from 'cycle-native-navigation';
+import {ReactSource} from '@cycle/react';
 import {FeedId, MsgId} from 'ssb-typescript';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};
 export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 
-export default function intent(source: ScreensSource) {
+export default function intent(source: ReactSource) {
   return {
     goToCompose$: source.select('publicFeed').events('openCompose'),
 

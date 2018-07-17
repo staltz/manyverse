@@ -19,56 +19,74 @@
 
 import {Stream} from 'xstream';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {ScreenVNode, Command, ScreensSource} from 'cycle-native-navigation';
-import {Content} from 'ssb-typescript';
-import {SSBSource} from '../../../drivers/ssb';
-import {Response as DRes, Request as DReq} from '../../../drivers/dialogs';
-import {Screens} from '../../..';
+import {Command, NavSource} from 'cycle-native-navigation';
+import {Content, About, FeedId} from 'ssb-typescript';
+import {SSBSource} from '../../drivers/ssb';
+import {Response as DRes, Request as DReq} from '../../drivers/dialogs';
 import intent from './intent';
 import view from './view';
 import navigation from './navigation';
 import model, {State} from './model';
 import ssb from './ssb';
-import {navigatorStyle} from './styles';
 import dialogs from './dialogs';
-
+import {ReactSource} from '@cycle/react';
+import {ReactElement} from 'react';
+import {Dimensions} from '../../global-styles/dimens';
+import {KeyboardSource} from '@cycle/native-keyboard';
 export {State} from './model';
 
+export type Props = {
+  about: About & {id: FeedId};
+};
+
 export type Sources = {
-  screen: ScreensSource;
-  navigation: Stream<any>;
+  props: Stream<Props>;
+  screen: ReactSource;
+  navigation: NavSource;
+  keyboard: KeyboardSource;
   onion: StateSource<State>;
   ssb: SSBSource;
   dialog: Stream<DRes>;
 };
 
 export type Sinks = {
-  screen: Stream<ScreenVNode>;
+  screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
+  keyboard: Stream<'dismiss'>;
   ssb: Stream<Content>;
   dialog: Stream<DReq>;
 };
 
-export const navOptions = () => ({
-  screen: Screens.ProfileEdit,
-  title: 'Edit profile',
-  overrideBackPress: true,
-  navigatorStyle,
-});
+export const navOptions = {
+  topBar: {
+    height: Dimensions.toolbarAndroidHeight,
+    title: {
+      text: 'Edit profile',
+    },
+    leftButtons: [
+      {
+        id: 'back',
+        icon: require('../../../../images/icon-arrow-left.png'),
+      },
+    ],
+  },
+};
 
-export default function editProfile(sources: Sources): Sinks {
-  const actions = intent(sources.screen);
+export function editProfile(sources: Sources): Sinks {
+  const actions = intent(sources.screen, sources.dialog);
   const vdom$ = view(sources.onion.state$);
-  const command$ = navigation(sources.dialog, actions);
-  const reducer$ = model(actions);
+  const command$ = navigation(actions);
+  const reducer$ = model(sources.props, actions);
   const content$ = ssb(sources.onion.state$, actions);
-  const dialog$ = dialogs(sources.navigation, sources.screen);
+  const dialog$ = dialogs(sources.navigation);
+  const dismiss$ = actions.save$.mapTo('dismiss' as 'dismiss');
 
   return {
     screen: vdom$,
     navigation: command$,
     onion: reducer$,
+    keyboard: dismiss$,
     ssb: content$,
     dialog: dialog$,
   };

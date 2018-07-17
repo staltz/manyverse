@@ -18,7 +18,7 @@
  */
 
 import {PureComponent} from 'react';
-import {h} from '@cycle/native-screen';
+import {h} from '@cycle/react';
 import {Msg, FeedId, MsgId} from 'ssb-typescript';
 import {isPostMsg, isContactMsg, isAboutMsg} from 'ssb-typescript/utils';
 import {MsgAndExtras} from '../../drivers/ssb';

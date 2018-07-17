@@ -31,9 +31,14 @@ export default function navigationCommands(
   const openDrawer$: Stream<Command> = actions.openDrawer$.map(
     () =>
       ({
-        type: 'toggleDrawer',
-        animated: true,
-        side: 'left',
+        type: 'mergeOptions',
+        opts: {
+          sideMenu: {
+            left: {
+              visible: true,
+            },
+          },
+        },
       } as Command),
   );
 
