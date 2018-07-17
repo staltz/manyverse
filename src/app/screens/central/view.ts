@@ -32,7 +32,7 @@ import {State} from './model';
 import {Dimensions} from '../../global-styles/dimens';
 
 function tabTitle(tabIndex: number) {
-  if (tabIndex === 0) return 'Feed';
+  if (tabIndex === 0) return 'Messages';
   if (tabIndex === 1) return 'Sync';
   return '';
 }
