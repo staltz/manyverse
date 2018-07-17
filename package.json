@@ -67,7 +67,7 @@
     "rn-markdown": "^1.1.1",
     "spawn-sync": "^1.0.15",
     "ssb-ref": "2.9.1",
-    "ssb-threads": "1.1.0",
+    "ssb-threads": "2.0.0",
     "ssb-typescript": "1.3.0",
     "thread-sleep": "^2.0.0",
     "utf-8-validate": "^3.0.2",

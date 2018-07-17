@@ -20,7 +20,7 @@
 import xs, {Stream} from 'xstream';
 import {Msg, PeerMetadata, Content, FeedId, About, MsgId} from 'ssb-typescript';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
-import {ThreadData} from 'ssb-threads/types';
+import {Thread as ThreadData} from 'ssb-threads/types';
 import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../../ssb/opinions/about/sync';
 import makeKeysOpinion from '../../ssb/opinions/keys';
