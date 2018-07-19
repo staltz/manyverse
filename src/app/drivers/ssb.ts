@@ -79,7 +79,9 @@ function mutateMsgWithLiveExtras(api: any) {
 
 function mutateThreadWithLiveExtras(api: any) {
   return (thread: ThreadData) => {
-    thread.messages.forEach(msg => mutateMsgWithLiveExtras(api)(msg));
+    for (const msg of thread.messages) {
+      mutateMsgWithLiveExtras(api)(msg);
+    }
     return thread;
   };
 }
@@ -88,6 +90,7 @@ export type GetReadable<T> = (opts?: any) => Readable<T>;
 
 export class SSBSource {
   public selfFeedId$: Stream<FeedId>;
+  public publicRawFeed$: Stream<GetReadable<MsgAndExtras>>;
   public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
   public publicLiveUpdates$: Stream<null>;
   public selfRoots$: Stream<GetReadable<ThreadAndExtras>>;
@@ -97,6 +100,13 @@ export class SSBSource {
 
   constructor(private api$: Stream<any>) {
     this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]());
+
+    this.publicRawFeed$ = api$.map(api => (opts?: any) =>
+      pull(
+        api.sbot.pull.feed[0]({reverse: true, live: false, ...opts}),
+        pull.map(mutateMsgWithLiveExtras(api)),
+      ),
+    );
 
     this.publicFeed$ = api$.map(api => (opts?: any) =>
       pull(

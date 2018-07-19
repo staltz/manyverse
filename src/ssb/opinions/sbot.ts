@@ -229,13 +229,7 @@ const create = (api: any) => {
           });
         }),
         feed: rec.source((opts: any) => {
-          return pull(
-            pullMore(sbot.createFeedStream, {...opts, limit: 10}, [
-              'value',
-              'timestamp',
-            ]),
-            pull.through(runHooks),
-          );
+          return sbot.createFeedStream(opts);
         }),
         log: rec.source((opts: any) => {
           return pull(sbot.createLogStream(opts), pull.through(runHooks));

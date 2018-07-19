@@ -65,7 +65,13 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           accessible: true,
           accessibilityLabel: 'Email bug report',
         }),
-        h(DrawerMenuItem, {icon: 'database', text: 'Raw database'}),
+        h(DrawerMenuItem, {
+          sel: 'raw-db',
+          icon: 'database',
+          text: 'Raw database',
+          accessible: true,
+          accessibilityLabel: 'Show Raw Database',
+        }),
         h(DrawerMenuItem, {
           sel: 'about',
           icon: 'information',

@@ -19,34 +19,24 @@
 
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
-import {Command} from 'cycle-native-navigation';
+import {Command, PushCommand} from 'cycle-native-navigation';
 import {navOptions as profileScreenNavOptions} from '../profile';
+import {navOptions as rawDatabaseScreenNavOptions} from '../raw-db';
 import {State} from './model';
 import {Screens} from '../..';
 
 export type Actions = {
   goToSelfProfile$: Stream<null>;
+  showRawDatabase$: Stream<null>;
 };
 
 export default function navigationCommands(
   actions: Actions,
   state$: Stream<State>,
 ): Stream<Command> {
-  const toSelfProfile$ = actions.goToSelfProfile$
-    .compose(sample(state$))
-    .map(state => {
-      const hideDrawer: Command = {
-        type: 'mergeOptions',
-        opts: {
-          sideMenu: {
-            left: {
-              visible: false,
-            },
-          },
-        },
-      };
-
-      const openSelfProfile: Command = {
+  const toSelfProfile$ = actions.goToSelfProfile$.compose(sample(state$)).map(
+    state =>
+      ({
         type: 'push',
         id: 'mainstack',
         layout: {
@@ -59,11 +49,40 @@ export default function navigationCommands(
             options: profileScreenNavOptions,
           },
         },
+      } as PushCommand),
+  );
+
+  const toRawDatabase$ = actions.showRawDatabase$.map(
+    () =>
+      ({
+        type: 'push',
+        id: 'mainstack',
+        layout: {
+          component: {
+            name: Screens.RawDatabase,
+            options: rawDatabaseScreenNavOptions,
+          },
+        },
+      } as PushCommand),
+  );
+
+  const hideDrawerAndPush$ = xs
+    .merge(toSelfProfile$, toRawDatabase$)
+    .map(pushCommand => {
+      const hideDrawer: Command = {
+        type: 'mergeOptions',
+        opts: {
+          sideMenu: {
+            left: {
+              visible: false,
+            },
+          },
+        },
       };
 
-      return xs.of<Command>(hideDrawer, openSelfProfile);
+      return xs.of<Command>(hideDrawer, pushCommand);
     })
     .flatten();
 
-  return toSelfProfile$;
+  return hideDrawerAndPush$;
 }
