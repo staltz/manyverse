@@ -31,7 +31,6 @@ const ssbKeys = require('ssb-keys');
 const muxrpc = require('muxrpc');
 const MultiServer = require('multiserver');
 const workerPlugin = require('multiserver-worker');
-const pullMore = require('pull-more');
 
 const needs = nest({
   'keys.sync.load': 'first',
