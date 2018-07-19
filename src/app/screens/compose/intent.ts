@@ -22,7 +22,7 @@ import delay from 'xstream/extra/delay';
 import between from 'xstream-between';
 import sample from 'xstream-sample';
 import {ReactSource} from '@cycle/react';
-import {KeyboardSource} from '@cycle/native-keyboard';
+import {KeyboardSource} from 'cycle-native-keyboard';
 import {NavSource} from 'cycle-native-navigation';
 import {State} from './model';
 import {LifecycleEvent} from '../../drivers/lifecycle';

@@ -20,7 +20,7 @@
 import xs, {Stream} from 'xstream';
 import isolate from '@cycle/isolate';
 import {ReactElement} from 'react';
-import {KeyboardSource} from '@cycle/native-keyboard';
+import {KeyboardSource} from 'cycle-native-keyboard';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Content} from 'ssb-typescript';

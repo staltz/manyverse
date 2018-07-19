@@ -24,7 +24,7 @@ import {FeedId} from 'ssb-typescript';
 import {State} from './model';
 import {SSBSource} from '../../drivers/ssb';
 import {ReactSource} from '@cycle/react';
-import {KeyboardSource} from '@cycle/native-keyboard';
+import {KeyboardSource} from 'cycle-native-keyboard';
 
 export default function intent(
   reactSource: ReactSource,

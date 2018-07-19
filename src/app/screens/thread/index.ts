@@ -21,7 +21,7 @@ import {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Content, MsgId, FeedId} from 'ssb-typescript';
-import {KeyboardSource} from '@cycle/native-keyboard';
+import {KeyboardSource} from 'cycle-native-keyboard';
 import {SSBSource} from '../../drivers/ssb';
 import model, {State} from './model';
 import view from './view';

@@ -32,7 +32,7 @@ import dialogs from './dialogs';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
 import {Dimensions} from '../../global-styles/dimens';
-import {KeyboardSource} from '@cycle/native-keyboard';
+import {KeyboardSource} from 'cycle-native-keyboard';
 export {State} from './model';
 
 export type Props = {
