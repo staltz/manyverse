@@ -19,7 +19,13 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {View, Text, FlatList, FlatListProps} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  FlatListProps,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {PeerMetadata} from 'ssb-typescript';
 import LocalPeerMetadata from '../../../components/LocalPeerMetadata';
@@ -31,12 +37,22 @@ export default function view(localSyncPeers$: Stream<Array<PeerMetadata>>) {
       data: localSyncPeers,
       style: styles.container as any,
       ListHeaderComponent: h(View, {style: styles.headerContainer}, [
-        h(Text, {style: styles.headerText}, 'Peers around you'),
-        h(Icon, {
-          ...iconProps.info,
-          name: 'information-outline',
-          style: styles.infoIcon as any,
-        }),
+        h(Text, {style: styles.headerText}, 'Friends around you'),
+        h(
+          TouchableOpacity,
+          {
+            sel: 'lan-help',
+            accessible: true,
+            accessibilityLabel: 'Show LAN Help',
+          },
+          [
+            h(Icon, {
+              ...iconProps.info,
+              name: 'information-outline',
+              style: styles.infoIcon as any,
+            }),
+          ],
+        ),
       ]),
       keyExtractor: (item: PeerMetadata, index: number) =>
         item.key || String(index),

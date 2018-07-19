@@ -22,6 +22,7 @@ import {StateSource, Reducer} from 'cycle-onionify';
 import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
+import {Command as AlertCommand} from 'cycle-native-alert';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
@@ -44,6 +45,7 @@ export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   navOptions: Stream<any>;
+  alert: Stream<AlertCommand>;
   onion: Stream<Reducer<any>>;
   ssb: Stream<Content>;
 };
@@ -77,6 +79,7 @@ export function central(sources: Sources): Sinks {
     onion: reducer$,
     navigation: command$,
     navOptions: navOpts(sources.onion.state$),
+    alert: syncTabSinks.alert,
     ssb: publicTabSinks.ssb,
   };
 }

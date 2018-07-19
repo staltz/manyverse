@@ -20,9 +20,11 @@
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
+import {Command as AlertCommand} from 'cycle-native-alert';
 import {ReactSource} from '@cycle/react';
 import {SSBSource} from '../../../drivers/ssb';
 import view from './view';
+import intent from './intent';
 
 export type Sources = {
   screen: ReactSource;
@@ -32,14 +34,25 @@ export type Sources = {
 
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
+  alert: Stream<AlertCommand>;
   onion: Stream<Reducer<any>>;
 };
 
 export function syncTab(sources: Sources): Sinks {
+  const actions = intent(sources.screen);
   const vdom$ = view(sources.ssb.localSyncPeers$.startWith([]));
   const reducer$ = xs.empty();
+  const alert$ = actions.showLANHelp$.mapTo({
+    title: 'Friends around you',
+    message:
+      'This list shows friends (accounts you follow) which are currently ' +
+      'connected to you in the same Local Area Network, for instance the ' +
+      'same Wi-Fi, so they are probably "around you".',
+    buttons: [{text: 'OK', id: 'okay'}],
+  });
 
   return {
+    alert: alert$,
     screen: vdom$,
     onion: reducer$,
   };
