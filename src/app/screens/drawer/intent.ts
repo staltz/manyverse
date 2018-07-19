@@ -17,15 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 
-export type Actions = {
-  goToSelfProfile$: Stream<null>;
-};
-
-export default function intent(source: ReactSource): Actions {
+export default function intent(source: ReactSource) {
   return {
     goToSelfProfile$: source.select('self-profile').events('press').mapTo(null),
+
+    openAbout$: source.select('about').events('press').mapTo(null),
   };
 }

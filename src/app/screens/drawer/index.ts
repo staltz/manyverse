@@ -18,17 +18,17 @@
  */
 
 import {Stream} from 'xstream';
-import {View, Text, ScrollView} from 'react-native';
 import {Command} from 'cycle-native-navigation';
-import {h, ReactSource} from '@cycle/react';
+import {Command as AlertCommand} from 'cycle-native-alert';
+import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {styles} from './styles';
 import {SSBSource} from '../../drivers/ssb';
-import model, {State} from './model';
 import intent from './intent';
+import model, {State} from './model';
+import view from './view';
 import navigation from './navigation';
-import DrawerMenuItem from '../../components/DrawerMenuItem';
 import {ReactElement} from 'react';
+const pkgJSON = require('../../../../package.json');
 
 export type Sources = {
   screen: ReactSource;
@@ -37,59 +37,29 @@ export type Sources = {
 };
 
 export type Sinks = {
+  alert: Stream<AlertCommand>;
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
 };
-
-function renderName(name?: string) {
-  const namelessStyle = !name ? styles.noAuthorName : null;
-  return h(
-    Text,
-    {
-      style: [styles.authorName, namelessStyle],
-      numberOfLines: 1,
-      ellipsizeMode: 'middle',
-    },
-    name || 'No name',
-  );
-}
-
-function view(state$: Stream<State>): Stream<ReactElement<any>> {
-  return state$.map(state =>
-    h(View, {style: styles.container}, [
-      h(View, {style: styles.header}, [
-        h(View, {style: styles.authorImage}),
-        renderName(state.name),
-        h(
-          Text,
-          {style: styles.authorId, numberOfLines: 1, ellipsizeMode: 'middle'},
-          state.selfFeedId,
-        ),
-      ]),
-      h(ScrollView, {style: null}, [
-        h(DrawerMenuItem, {
-          sel: 'self-profile',
-          icon: 'account-box',
-          text: 'My profile',
-          accessible: true,
-          accessibilityLabel: 'My Profile Menu Item',
-        }),
-        h(DrawerMenuItem, {icon: 'email', text: 'Email bug report'}),
-        // incoming+staltz/mmmmm-mobile@incoming.gitlab.com
-        h(DrawerMenuItem, {icon: 'database', text: 'Raw database'}),
-        h(DrawerMenuItem, {icon: 'information', text: 'About MMMMM'}),
-      ]),
-    ]),
-  );
-}
 
 export function drawer(sources: Sources): Sinks {
   const actions = intent(sources.screen);
   const vdom$ = view(sources.onion.state$);
   const command$ = navigation(actions, sources.onion.state$);
   const reducer$ = model(sources.ssb);
+  const alert$ = actions.openAbout$.mapTo({
+    title: 'About MMMMM',
+    message:
+      'An offline-first social network\n' +
+      '(Licensed GPLv3)\n\n' +
+      'Version ' +
+      pkgJSON.version,
+    buttons: [{text: 'OK', id: 'okay'}],
+  });
+
   return {
+    alert: alert$,
     screen: vdom$,
     navigation: command$,
     onion: reducer$,

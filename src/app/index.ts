@@ -27,16 +27,17 @@ export enum Screens {
 }
 
 import onionify from 'cycle-onionify';
+import {makeKeyboardDriver} from 'cycle-native-keyboard';
+import {alertDriver} from 'cycle-native-alert';
+import {ssbDriver} from './drivers/ssb';
+import {dialogDriver} from './drivers/dialogs';
+import {makeActivityLifecycleDriver} from './drivers/lifecycle';
 import {central} from './screens/central/index';
 import {drawer} from './screens/drawer/index';
 import {compose} from './screens/compose/index';
 import {thread} from './screens/thread/index';
 import {profile} from './screens/profile/index';
 import {editProfile} from './screens/profile-edit/index';
-import {makeKeyboardDriver} from 'cycle-native-keyboard';
-import {ssbDriver} from './drivers/ssb';
-import {dialogDriver} from './drivers/dialogs';
-import {makeActivityLifecycleDriver} from './drivers/lifecycle';
 import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
 import {addDisclaimer} from './alpha-disclaimer';
@@ -51,6 +52,7 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
 };
 
 export const drivers = {
+  alert: alertDriver,
   keyboard: makeKeyboardDriver(),
   ssb: ssbDriver,
   lifecycle: makeActivityLifecycleDriver(),
