@@ -25,7 +25,10 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Feed Text Input")',
       6000,
     );
-    t.ok('I see Feed Text Input in the Central screen (Public Tab)');
+    t.ok(
+      feedTextInput,
+      'I see Feed Text Input in the Central screen (Public Tab)',
+    );
     const f1 = await feedTextInput.text();
     t.equal(f1, 'Write a public message', 'It shows the placeholder');
     await feedTextInput.tap();

@@ -46,10 +46,28 @@ module.exports = function(driver, t) {
     t.pass('I tap it');
     t.ok(
       await driver.elementByAndroidUIAutomator(
-        'new UiSelector().textContains("Peers around you")',
+        'new UiSelector().textContains("Friends around you")',
       ),
       'I see Sync tab body',
     );
+
+    const lanHelpButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Show LAN Help")',
+    );
+    t.ok(lanHelpButton, 'I see Info button about LAN peers');
+    await lanHelpButton.tap();
+    t.pass('I tap it');
+
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("This list shows friends")',
+        6000,
+      ),
+      'I see a text explaining what LAN peers are',
+    );
+
+    await driver.back();
+    t.pass('I press the (hardware) back button');
 
     // Back to Public tab
     const publicTabButton = await driver.elementByAndroidUIAutomator(

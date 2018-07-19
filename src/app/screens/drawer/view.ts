@@ -63,7 +63,7 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           icon: 'email',
           text: 'Email bug report',
           accessible: true,
-          accessibilityLabel: 'Email bug report',
+          accessibilityLabel: 'Email Bug Report',
         }),
         h(DrawerMenuItem, {
           sel: 'raw-db',
@@ -77,7 +77,7 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           icon: 'information',
           text: 'About MMMMM',
           accessible: true,
-          accessibilityLabel: 'About this app',
+          accessibilityLabel: 'About This App',
         }),
       ]),
     ]),
