@@ -17,23 +17,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
-import {
-  Command,
-  PopCommand,
-  NavSource,
-  PushCommand,
-} from 'cycle-native-navigation';
+import {Stream} from 'xstream';
+import {Command, PopCommand, NavSource} from 'cycle-native-navigation';
+import {ScrollView, Text, StyleSheet} from 'react-native';
 import {Msg} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
 import {Dimensions} from '../../global-styles/dimens';
-import RawFeed from '../../components/RawFeed';
-import {navOptions as rawMessageScreenNavOptions} from '../raw-msg';
-import {Screens} from '../..';
+import {Palette} from '../../global-styles/palette';
+import {Typography} from '../../global-styles/typography';
+
+export type Props = {
+  msg: Msg;
+};
 
 export type Sources = {
+  props: Stream<Props>;
   screen: ReactSource;
   navigation: NavSource;
   ssb: SSBSource;
@@ -48,7 +48,7 @@ export const navOptions = {
   topBar: {
     height: Dimensions.toolbarAndroidHeight,
     title: {
-      text: 'Raw database',
+      text: 'Raw message',
     },
     backButton: {
       icon: require('../../../../images/icon-arrow-left.png'),
@@ -57,49 +57,35 @@ export const navOptions = {
   },
 };
 
-export type Actions = {
-  goBack$: Stream<any>;
-  goToRawMsg$: Stream<Msg>;
-};
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Palette.brand.darkVoidBackground,
+    padding: 5,
+  },
 
-function navigation(actions: Actions) {
-  const pop$ = actions.goBack$.mapTo(
+  content: {
+    fontSize: Typography.fontSizeSmall,
+    color: Palette.brand.darkText,
+    fontFamily: Typography.fontFamilyMonospace,
+  },
+});
+
+export function rawMessage(sources: Sources): Sinks {
+  const vdom$ = sources.props.map(props =>
+    h(ScrollView, {style: styles.container}, [
+      h(
+        Text,
+        {style: styles.content, selectable: true},
+        JSON.stringify(props.msg, null, 2),
+      ),
+    ]),
+  );
+  const command$ = sources.navigation.backPress().mapTo(
     {
       type: 'pop',
     } as PopCommand,
   );
-
-  const toRawMsg$ = actions.goToRawMsg$.map(
-    msg =>
-      ({
-        type: 'push',
-        layout: {
-          component: {
-            name: Screens.RawMessage,
-            passProps: {msg},
-            options: rawMessageScreenNavOptions,
-          },
-        },
-      } as PushCommand),
-  );
-
-  return xs.merge(pop$, toRawMsg$);
-}
-
-function intent(navSource: NavSource, reactSource: ReactSource) {
-  return {
-    goBack$: navSource.backPress(),
-
-    goToRawMsg$: reactSource.select('raw-feed').events('pressMsg'),
-  };
-}
-
-export function rawDatabase(sources: Sources): Sinks {
-  const actions = intent(sources.navigation, sources.screen);
-  const vdom$ = sources.ssb.publicRawFeed$.map(getReadable =>
-    h(RawFeed, {sel: 'raw-feed', getReadable}),
-  );
-  const command$ = navigation(actions);
 
   return {
     screen: vdom$,

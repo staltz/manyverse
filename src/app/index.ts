@@ -25,6 +25,7 @@ export enum Screens {
   Profile = 'mmmmm.Profile',
   ProfileEdit = 'mmmmm.Profile.Edit',
   RawDatabase = 'mmmmm.RawDatabase',
+  RawMessage = 'mmmmm.RawMessage',
 }
 
 import onionify from 'cycle-onionify';
@@ -41,6 +42,7 @@ import {thread} from './screens/thread/index';
 import {profile} from './screens/profile/index';
 import {editProfile} from './screens/profile-edit/index';
 import {rawDatabase} from './screens/raw-db/index';
+import {rawMessage} from './screens/raw-msg/index';
 import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
 import {addDisclaimer} from './alpha-disclaimer';
@@ -53,6 +55,7 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
   [Screens.Profile]: addDisclaimer(onionify(profile)),
   [Screens.ProfileEdit]: addDisclaimer(onionify(editProfile)),
   [Screens.RawDatabase]: addDisclaimer(rawDatabase),
+  [Screens.RawMessage]: addDisclaimer(rawMessage),
 };
 
 export const drivers = {

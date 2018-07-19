@@ -25,6 +25,7 @@ import {Palette} from '../global-styles/palette';
 import {GetReadable, MsgAndExtras} from '../drivers/ssb';
 import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
 import {withMutantProps} from 'react-mutant-hoc';
+import {Msg} from 'ssb-typescript';
 
 const ShortRawMessageM = withMutantProps(ShortRawMessage, 'name', 'imageUrl');
 
@@ -48,12 +49,13 @@ class RawFeedItemSeparator extends PureComponent {
 
 type Props = {
   getReadable: GetReadable<MsgAndExtras> | null;
+  onPressMsg?: (ev: {msg: Msg}) => void;
   style?: any;
 };
 
 export default class Feed extends PureComponent<Props, {}> {
   public render() {
-    const {style, getReadable} = this.props;
+    const {style, getReadable, onPressMsg} = this.props;
 
     return h<PullFlatListProps<MsgAndExtras>>(PullFlatList, {
       getScrollStream: getReadable,
@@ -70,6 +72,7 @@ export default class Feed extends PureComponent<Props, {}> {
           msg: item,
           name: item.value._streams.about.name,
           imageUrl: item.value._streams.about.imageUrl,
+          onPress: onPressMsg,
         }),
     });
   }

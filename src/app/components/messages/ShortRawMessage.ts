@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PureComponent} from 'react';
+import {Component} from 'react';
 import {h} from '@cycle/react';
 import {
   Text,
@@ -26,9 +26,8 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import MessageContainer from './MessageContainer';
 import HumanTime from 'react-human-time';
-import {MsgId, Msg, PostContent} from 'ssb-typescript';
+import {Msg, PostContent} from 'ssb-typescript';
 import {authorName} from '../../../ssb/from-ssb';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
@@ -37,8 +36,12 @@ import {isPrivate} from 'ssb-typescript/utils';
 
 export const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row',
     flex: 1,
+    backgroundColor: Palette.brand.textBackground,
+    paddingHorizontal: Dimensions.horizontalSpaceBig,
+    paddingVertical: Dimensions.verticalSpaceBig,
+    marginBottom: 1,
+    flexDirection: 'row',
   },
 
   avatarContainer: {
@@ -91,15 +94,24 @@ export type Props = {
   msg: Msg;
   name: string | null;
   imageUrl: string | null;
-  onPress?: (ev: {msgId: MsgId}) => void;
+  onPress?: (ev: {msg: Msg}) => void;
 };
 
-export default class RawMessage extends PureComponent<Props> {
+export default class RawMessage extends Component<Props> {
   private _onPress() {
     const {onPress, msg} = this.props;
     if (onPress) {
-      onPress({msgId: msg.key});
+      onPress({msg});
     }
+  }
+
+  public shouldComponentUpdate(nextProps: Props) {
+    const prevProps = this.props;
+    return (
+      nextProps.msg.key !== prevProps.msg.key ||
+      nextProps.name !== prevProps.name ||
+      nextProps.imageUrl !== prevProps.imageUrl
+    );
   }
 
   public render() {
@@ -132,8 +144,8 @@ export default class RawMessage extends PureComponent<Props> {
       h(HumanTime as any, {time: msg.value.timestamp}),
     ]);
 
-    return h(TouchableNativeFeedback, touchableProps, [
-      h(MessageContainer, [
+    return h(View, [
+      h(TouchableNativeFeedback, touchableProps, [
         h(View, {style: styles.row}, [
           h(View, {style: styles.avatarContainer}, [
             h(Image, {
