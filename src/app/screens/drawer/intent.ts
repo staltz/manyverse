@@ -24,5 +24,7 @@ export default function intent(source: ReactSource) {
     goToSelfProfile$: source.select('self-profile').events('press').mapTo(null),
 
     openAbout$: source.select('about').events('press').mapTo(null),
+
+    emailBugReport$: source.select('bug-report').events('press').mapTo(null),
   };
 }

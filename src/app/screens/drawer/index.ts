@@ -40,6 +40,7 @@ export type Sinks = {
   alert: Stream<AlertCommand>;
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
+  linking: Stream<string>;
   onion: Stream<Reducer<State>>;
 };
 
@@ -57,11 +58,19 @@ export function drawer(sources: Sources): Sinks {
       pkgJSON.version,
     buttons: [{text: 'OK', id: 'okay'}],
   });
+  const mailto$ = actions.emailBugReport$.mapTo(
+    'mailto:' +
+      'incoming+staltz/mmmmm-mobile@incoming.gitlab.com' +
+      '?subject=Bug report for version ' +
+      pkgJSON.version +
+      '&body=Explain what happened and what you expected...',
+  );
 
   return {
     alert: alert$,
     screen: vdom$,
     navigation: command$,
+    linking: mailto$,
     onion: reducer$,
   };
 }

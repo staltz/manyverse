@@ -58,8 +58,13 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           accessible: true,
           accessibilityLabel: 'My Profile Menu Item',
         }),
-        h(DrawerMenuItem, {icon: 'email', text: 'Email bug report'}),
-        // incoming+staltz/mmmmm-mobile@incoming.gitlab.com
+        h(DrawerMenuItem, {
+          sel: 'bug-report',
+          icon: 'email',
+          text: 'Email bug report',
+          accessible: true,
+          accessibilityLabel: 'Email bug report',
+        }),
         h(DrawerMenuItem, {icon: 'database', text: 'Raw database'}),
         h(DrawerMenuItem, {
           sel: 'about',

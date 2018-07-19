@@ -29,6 +29,7 @@ export enum Screens {
 import onionify from 'cycle-onionify';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {alertDriver} from 'cycle-native-alert';
+import {linkingDriver} from 'cycle-native-linking';
 import {ssbDriver} from './drivers/ssb';
 import {dialogDriver} from './drivers/dialogs';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
@@ -54,6 +55,7 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
 export const drivers = {
   alert: alertDriver,
   keyboard: makeKeyboardDriver(),
+  linking: linkingDriver,
   ssb: ssbDriver,
   lifecycle: makeActivityLifecycleDriver(),
   dialog: dialogDriver,
