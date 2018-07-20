@@ -20,12 +20,12 @@
 import {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {h} from '@cycle/react';
-import * as Progress from 'react-native-progress';
 import {
   View,
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
+  RefreshControl,
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -36,12 +36,12 @@ import FullThread from '../../components/FullThread';
 import {State} from './model';
 import {styles} from './styles';
 
-const Loading = h(Progress.CircleSnail, {
-  style: styles.loading,
-  indeterminate: true,
-  size: 40,
-  color: Palette.brand.backgroundLighterContrast,
-});
+// const Loading = h(Progress.CircleSnail, {
+//   style: styles.loading,
+//   indeterminate: true,
+//   size: 40,
+//   color: Palette.brand.backgroundLighterContrast,
+// });
 
 const ReplySpacer = h(View, {style: styles.spacer});
 
@@ -120,16 +120,25 @@ export default function view(state$: Stream<State>, actions: Actions) {
         style: styles.container,
       },
       [
-        h(ReactiveScrollView, {style: styles.scrollView, scrollToEnd$}, [
-          state.thread.messages.length === 0
-            ? Loading
-            : h(FullThread, {
-                sel: 'thread',
-                thread: state.thread,
-                selfFeedId: state.selfFeedId,
-                publication$: actions.willReply$,
-              }),
-        ]),
+        h(
+          ReactiveScrollView,
+          {
+            style: styles.scrollView,
+            scrollToEnd$,
+            refreshControl: h(RefreshControl, {
+              refreshing: state.thread.messages.length === 0,
+              colors: [Palette.brand.background],
+            }),
+          },
+          [
+            h(FullThread, {
+              sel: 'thread',
+              thread: state.thread,
+              selfFeedId: state.selfFeedId,
+              publication$: actions.willReply$,
+            }),
+          ],
+        ),
         ReplyInput(state),
       ],
     ),
