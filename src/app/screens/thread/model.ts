@@ -69,7 +69,7 @@ export default function model(
           replyEditable: true,
           getSelfRepliesReadable: null,
           startedAsReply: props.replyToMsgId ? true : false,
-          keyboardVisible: false,
+          keyboardVisible: props.replyToMsgId ? true : false,
         };
       },
   );
