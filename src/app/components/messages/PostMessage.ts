@@ -19,7 +19,7 @@
 
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
-import Markdown, {markdownStyles} from '../../global-styles/markdown';
+import Markdown from '../../global-styles/markdown';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
@@ -75,7 +75,7 @@ export default class PostMessage extends PureComponent<Props> {
 
     return h(MessageContainer, [
       h(MessageHeader, props),
-      h(Markdown, {markdownStyles}, md),
+      Markdown(md),
       h(MessageFooter, props),
     ]);
   }

@@ -21,7 +21,7 @@ import {Component} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
-import Markdown, {markdownStyles} from '../../global-styles/markdown';
+import Markdown from '../../global-styles/markdown';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -101,7 +101,7 @@ function renderWithNameDesc(name: string | null, msg: Msg<About>) {
         h(Text, {style: styles.followed}, '" and the description: '),
       ]),
     ]),
-    h(Markdown, {markdownStyles}, msg.value.content.description),
+    Markdown(msg.value.content.description as string),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
         h(HumanTime as any, {time: msg.value.timestamp}),
@@ -116,7 +116,7 @@ function renderWithDesc(name: string | null, msg: Msg<About>) {
       h(Text, accountTextProps, authorName(name, msg)),
       h(Text, {style: styles.followed}, ' has a new description: '),
     ]),
-    h(Markdown, {markdownStyles}, msg.value.content.description),
+    Markdown(msg.value.content.description as string),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
         h(HumanTime as any, {time: msg.value.timestamp}),

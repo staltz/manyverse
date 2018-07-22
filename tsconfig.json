@@ -26,7 +26,6 @@
     "src/typings/react-native-dialogs.d.ts",
     "src/typings/react-native-progress.d.ts",
     "src/typings/react-native-workers.d.ts",
-    "src/typings/rn-markdown.d.ts",
     "src/typings/rn-viewpager.d.ts"
   ],
   "exclude": ["node_modules"]
