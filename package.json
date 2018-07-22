@@ -1,6 +1,6 @@
 {
   "name": "mmmmm",
-  "version": "0.0.14-alpha",
+  "version": "0.0.15-alpha",
   "private": true,
   "scripts": {
     "lib": "tsc",
@@ -21,7 +21,7 @@
     "pretest-e2e-android": "adb uninstall com.mmmmm && npm run start-appium-server && sleep 5",
     "test-e2e-android": "tape e2e/index.js | tap-spec; ./tools/stop-appium-server",
     "update-android-version": "react-native-version --never-amend --target android",
-    "move-android-release-apk": "mkdir -p ../dat-release-android && cp android/app/build/outputs/apk/app-release.apk ../dat-release-android/",
+    "move-android-release-apk": "mkdir -p ../dat-release-android && cp android/app/build/outputs/apk/release/app-release.apk ../dat-release-android/",
     "commit-after-release": "./tools/commit-after-release",
     "release": "npm run update-android-version && npm run clean-bundler && npm run clean-android && npm run build-android-release && npm run test-e2e-android && npm run move-android-release-apk && npm run commit-after-release"
   },
