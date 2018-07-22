@@ -18,7 +18,7 @@
  */
 
 import xs from 'xstream';
-import {PureComponent, Component} from 'react';
+import {PureComponent} from 'react';
 import {
   View,
   Text,
@@ -158,7 +158,7 @@ type State = {
 
 const Y_OFFSET_IS_AT_TOP = 10;
 
-export default class Feed extends Component<Props, State> {
+export default class Feed extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {showPlaceholder: false};

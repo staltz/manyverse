@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@cycle/isolate": "3.4",
-    "@cycle/react": "1.3.x",
+    "@cycle/react": "1.3.4",
     "@staltz/react-native-os": "2.0.1",
     "@staltz/react-native-workers": "0.5.3",
     "@staltz/react-markdown": "103.3.4",
