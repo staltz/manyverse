@@ -24,7 +24,7 @@ const mkdirp = require('mkdirp');
 import manifest = require('./manifest');
 
 // Hack until appDataDir plugin comes out
-const  writablePath = path.join(__dirname, '..');
+const writablePath = path.join(__dirname, '..');
 const ssbPath = path.resolve(writablePath, '.ssb');
 
 if (!fs.existsSync(ssbPath)) {
@@ -36,6 +36,7 @@ const config = require('ssb-config/inject')();
 config.path = ssbPath;
 config.keys = keys;
 config.manifest = manifest;
+config.friends.hops = 2;
 
 require('scuttlebot/index')
   .use(require('scuttlebot/plugins/plugins'))

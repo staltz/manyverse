@@ -52,6 +52,7 @@ const ssbClientPromise = keysPromise.then(async function setupSSBClient(keys) {
   config.path = ssbPath;
   config.keys = keys;
   config.manifest = manifest;
+  config.friends.hops = 2;
   let ssbClient = null;
   do {
     try {
