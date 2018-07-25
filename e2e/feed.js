@@ -36,9 +36,10 @@ module.exports = function(driver, t) {
         6000,
       );
       await feedTextInput.tap();
+      await driver.sleep(500);
       const composeTextInput = await driver.elementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Compose Text Input")',
-        6000,
+        4000,
       );
       await composeTextInput.keys('Message number ' + i + 'a');
       const composePublishButton = await driver.elementByAndroidUIAutomator(
@@ -46,7 +47,7 @@ module.exports = function(driver, t) {
         6000,
       );
       await composePublishButton.tap();
-      await driver.sleep(2000);
+      await driver.sleep(1000);
     }
     t.pass('I created ' + AMOUNT + ' public messages');
 
@@ -61,11 +62,11 @@ module.exports = function(driver, t) {
     const action = new wd.TouchAction(driver);
     action.press({x: 200, y: 1000});
     action.wait(60);
-    action.moveTo({x: 200, y: 850});
+    action.moveTo({x: 200, y: 700});
     action.release();
     await driver.performTouchAction(action);
     t.pass('I scroll down through the feed');
-    await driver.sleep(1000);
+    await driver.sleep(2000);
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
@@ -77,7 +78,7 @@ module.exports = function(driver, t) {
 
     await driver.performTouchAction(
       new wd.TouchAction(driver)
-        .press({x: 200, y: 850})
+        .press({x: 200, y: 700})
         .wait(60)
         .moveTo({x: 200, y: 1000})
         .release(),
