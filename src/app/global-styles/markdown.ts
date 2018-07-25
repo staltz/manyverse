@@ -31,7 +31,7 @@ import {Palette} from './palette';
 import {Dimensions as Dimens} from './dimens';
 import {Typography as Typ} from './typography';
 const remark = require('remark');
-const ReactMarkdown = require('@staltz/react-markdown');
+const ReactMarkdown = require('react-markdown');
 const normalizeForReactNative = require('mdast-normalize-react-native');
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const stripHtml = require('remark-strip-html');
@@ -155,8 +155,6 @@ const styles = StyleSheet.create({
 
 const renderers = {
   root: (props: {children: any}) => $(View, null, props.children),
-
-  text: (content: string) => content,
 
   paragraph: (props: {children: any}) =>
     $(
