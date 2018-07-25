@@ -135,3 +135,4 @@ To build a release APK, follow [these instructions](https://facebook.github.io/r
 
 1. Put the correct file `my-release-key.keystore` in the folder `android/app/`
 2. Configure the file `~/.gradle/gradle.properties` with the correct values
+3. Run `cd android && ./gradlew assembleRelease` (just builds the APK) or `npm run release` (for official releases)
