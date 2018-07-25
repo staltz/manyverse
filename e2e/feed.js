@@ -61,10 +61,11 @@ module.exports = function(driver, t) {
     const action = new wd.TouchAction(driver);
     action.press({x: 200, y: 1000});
     action.wait(60);
-    action.moveTo({x: 200, y: 800});
+    action.moveTo({x: 200, y: 850});
     action.release();
     await driver.performTouchAction(action);
     t.pass('I scroll down through the feed');
+    await driver.sleep(1000);
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
@@ -76,7 +77,7 @@ module.exports = function(driver, t) {
 
     await driver.performTouchAction(
       new wd.TouchAction(driver)
-        .press({x: 200, y: 800})
+        .press({x: 200, y: 850})
         .wait(60)
         .moveTo({x: 200, y: 1000})
         .release(),
