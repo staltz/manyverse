@@ -1,5 +1,7 @@
 package com.mmmmm;
 
+import android.content.Context;
+
 import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -11,11 +13,22 @@ import com.staltz.react.workers.WorkersPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.reactnativenavigation.NavigationApplication;
+import org.acra.*;
+import org.acra.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 
+@AcraCore(buildConfigClass = BuildConfig.class)
+@AcraMailSender(mailTo = "incoming+staltz/mmmmm-mobile@incoming.gitlab.com")
+@AcraDialog(resText = R.string.acra_dialog_text, resCommentPrompt = R.string.acra_dialog_comment)
 public class MainApplication extends NavigationApplication {
+
+  @Override
+  protected void attachBaseContext(Context base) {
+    super.attachBaseContext(base);
+    ACRA.init(this);
+  }
 
   @Override
   public boolean isDebug() {

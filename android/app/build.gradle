@@ -114,7 +114,7 @@ android {
     defaultConfig {
         applicationId "com.mmmmm"
         minSdkVersion 19
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 19
         versionName "0.0.15-alpha"
         missingDimensionStrategy "RNN.reactNativeVersion", "reactNative55"
@@ -170,6 +170,9 @@ android {
 }
 
 dependencies {
+    implementation "ch.acra:acra-core:5.0.0"
+    implementation "ch.acra:acra-mail:5.0.0"
+    implementation "ch.acra:acra-dialog:5.0.0"
     implementation project(':nodejs-mobile-react-native')
     implementation project(':react-native-dialogs')
     implementation project(':react-native-vector-icons')
