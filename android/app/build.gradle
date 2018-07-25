@@ -119,7 +119,7 @@ android {
         versionName "0.0.15-alpha"
         missingDimensionStrategy "RNN.reactNativeVersion", "reactNative55"
         ndk {
-            abiFilters "armeabi-v7a", "x86"
+            abiFilters "armeabi-v7a" // , "x86"
         }
         aaptOptions {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
@@ -142,7 +142,7 @@ android {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
             universalApk false  // If true, also generate a universal APK
-            include "armeabi-v7a", "x86"
+            include "armeabi-v7a" // , "x86"
         }
     }
 
