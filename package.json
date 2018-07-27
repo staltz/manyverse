@@ -97,6 +97,7 @@
     "wd": "^1.5.0"
   },
   "react-native": {
+    "os": "@staltz/react-native-os",
     "rn-viewpager": "@staltz/rn-viewpager"
   }
 }
