@@ -182,6 +182,7 @@ dependencies {
     implementation project(':react-native-randombytes')
     implementation project(':react-native-navigation')
     implementation project(':react-native-workers')
+    implementation project(':react-native-android-local-notification')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation("com.android.support:appcompat-v7:25.4.0") {
         force = true

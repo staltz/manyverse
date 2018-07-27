@@ -17,5 +17,7 @@ include ':react-native-navigation'
 project(':react-native-navigation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-navigation/lib/android/app/')
 include ':react-native-workers'
 project(':react-native-workers').projectDir = new File(rootProject.projectDir, '../node_modules/@staltz/react-native-workers/android')
+include ':react-native-android-local-notification'
+project(':react-native-android-local-notification').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-local-notification/android')
 
 include ':app'

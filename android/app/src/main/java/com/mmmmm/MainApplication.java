@@ -13,6 +13,7 @@ import com.staltz.react.workers.WorkersPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.reactnativenavigation.NavigationApplication;
+import com.staltz.reactnativeandroidlocalnotification.NotificationPackage;
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -41,7 +42,7 @@ public class MainApplication extends NavigationApplication {
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(new MainReactPackage(), new TcpSocketsModule(), new RNFSPackage(),
         new RandomBytesPackage(), new RNNodeJsMobilePackage(), new ReactNativeDialogsPackage(),
-        new VectorIconsPackage(), new RNOSModule(),
+        new VectorIconsPackage(), new RNOSModule(), new NotificationPackage(),
         new WorkersPackage(new TcpSocketsModule(), new RNOSModule(), new RNFSPackage(), new RandomBytesPackage()));
   }
 

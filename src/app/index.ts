@@ -32,6 +32,7 @@ import onionify from 'cycle-onionify';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {alertDriver} from 'cycle-native-alert';
 import {linkingDriver} from 'cycle-native-linking';
+import {notificationDriver} from 'cycle-native-android-local-notification';
 import {ssbDriver} from './drivers/ssb';
 import {dialogDriver} from './drivers/dialogs';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
@@ -64,6 +65,7 @@ export const drivers = {
   linking: linkingDriver,
   ssb: ssbDriver,
   lifecycle: makeActivityLifecycleDriver(),
+  notification: notificationDriver,
   dialog: dialogDriver,
 };
 

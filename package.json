@@ -32,6 +32,7 @@
     "@types/react-native-vector-icons": "4.2.0",
     "assert": "^1.4.1",
     "cycle-native-alert": "1.0.0",
+    "cycle-native-android-local-notification": "1.0.1",
     "cycle-native-keyboard": "1.0.1",
     "cycle-native-linking": "1.0.0",
     "cycle-native-navigation": "4.2.0",
