@@ -43,7 +43,8 @@ public class MainApplication extends NavigationApplication {
     return Arrays.<ReactPackage>asList(new MainReactPackage(), new TcpSocketsModule(), new RNFSPackage(),
         new RandomBytesPackage(), new RNNodeJsMobilePackage(), new ReactNativeDialogsPackage(),
         new VectorIconsPackage(), new RNOSModule(), new NotificationPackage(),
-        new WorkersPackage(new TcpSocketsModule(), new RNOSModule(), new RNFSPackage(), new RandomBytesPackage()));
+        new WorkersPackage(new NotificationPackage(), new TcpSocketsModule(), new RNOSModule(), new RNFSPackage(),
+            new RandomBytesPackage()));
   }
 
   @Override

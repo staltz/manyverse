@@ -21,8 +21,10 @@ import {self} from '@staltz/react-native-workers/self';
 import {ssbKeysPath, ssbPath} from '../ssb/defaults';
 import {Readable} from '../typings/pull-stream';
 import {manifest} from '../ssb/manifest-client';
+import {startSyncingNotifications} from './syncing-notifications';
 const ssbKeys = require('react-native-ssb-client-keys');
 const pull = require('pull-stream');
+const delay = require('delay');
 const muxrpc = require('muxrpc');
 const Config = require('ssb-config/inject');
 const MultiServer = require('multiserver');
@@ -40,12 +42,6 @@ const keysPromise = new Promise((resolve, reject) => {
     }
   });
 });
-
-function sleep(period: number): Promise<any> {
-  return new Promise(resolve => {
-    setTimeout(resolve, period);
-  });
-}
 
 const ssbClientPromise = keysPromise.then(async function setupSSBClient(keys) {
   const config = Config('ssb');
@@ -66,7 +62,7 @@ const ssbClientPromise = keysPromise.then(async function setupSSBClient(keys) {
         });
       });
     } catch (err) {
-      await sleep(200);
+      await delay(200);
     }
   } while (ssbClient === null);
   return ssbClient;
@@ -79,3 +75,5 @@ ms.server((stream: Readable<any>) => {
     pull(stream, server.createStream(), stream);
   });
 });
+
+startSyncingNotifications(ssbClientPromise);

@@ -36,6 +36,7 @@ export = {
   getLatest: 'async',
   latest: 'source',
   latestSequence: 'async',
+  status: 'sync',
   whoami: 'sync',
   usage: 'sync',
 
