@@ -94,8 +94,8 @@
     "tap-spec": "^4.1.1",
     "tape": "^4.8.0",
     "try-thread-sleep": "^1.0.2",
-    "tslint": "^5.7.0",
-    "typescript": "2.4.x",
+    "tslint": "^5.11.0",
+    "typescript": "3.0.x",
     "versiony": "2.0.1",
     "wd": "^1.5.0"
   },

@@ -9,6 +9,7 @@
     "interface-over-type-literal": false,
     "array-type": false,
     "trailing-comma": false,
+    "semicolon": false,
     "object-literal-sort-keys": false,
     "object-literal-key-quotes": false,
     "no-unused-expression": true,
