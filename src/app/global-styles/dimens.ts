@@ -32,6 +32,7 @@ export const Dimensions = {
   avatarSizeSmall: 32,
   avatarBorderRadius: 3,
 
+  iconSizeBig: 30,
   iconSizeNormal: 24,
   iconSizeSmall: 18,
   toolbarAndroidHeight: 56,

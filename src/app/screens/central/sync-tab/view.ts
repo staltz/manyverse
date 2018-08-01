@@ -19,44 +19,55 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {
-  View,
-  Text,
-  FlatList,
-  FlatListProps,
-  TouchableOpacity,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {ScrollView} from 'react-native';
 import {PeerMetadata} from 'ssb-typescript';
-import LocalPeerMetadata from '../../../components/LocalPeerMetadata';
-import {styles, iconProps} from './styles';
+import {styles} from './styles';
+import InviteHeader from '../../../components/InviteHeader';
+import SyncChannelAccordion from '../../../components/SyncChannelAccordion';
 
 export default function view(localSyncPeers$: Stream<Array<PeerMetadata>>) {
   return localSyncPeers$.map(localSyncPeers =>
-    h<FlatListProps<PeerMetadata>>(FlatList, {
-      data: localSyncPeers,
-      style: styles.container as any,
-      ListHeaderComponent: h(View, {style: styles.headerContainer}, [
-        h(Text, {style: styles.headerText}, 'Friends around you'),
-        h(
-          TouchableOpacity,
-          {
-            sel: 'lan-help',
-            accessible: true,
-            accessibilityLabel: 'Show LAN Help',
-          },
-          [
-            h(Icon, {
-              ...iconProps.info,
-              name: 'information-outline',
-              style: styles.infoIcon as any,
-            }),
-          ],
-        ),
-      ]),
-      keyExtractor: (item: PeerMetadata, index: number) =>
-        item.key || String(index),
-      renderItem: ({item}) => h(LocalPeerMetadata, {peer: item}),
-    }),
+    h(
+      ScrollView,
+      {
+        style: styles.container as any,
+      },
+      [
+        h(InviteHeader),
+
+        h(SyncChannelAccordion, {
+          icon: 'bluetooth',
+          name: 'Bluetooth',
+          active: false,
+          info: 'Connect with people very near',
+          onPressActivate: () => {},
+          peers: [{id: 'first'}, {id: 'second'}],
+        }),
+
+        h(SyncChannelAccordion, {
+          icon: 'wifi',
+          name: 'Local network',
+          active: true,
+          info: 'Connect with people in the same space',
+          peers: localSyncPeers,
+        }),
+
+        h(SyncChannelAccordion, {
+          icon: 'account-network',
+          name: 'Internet direct',
+          active: false,
+          info: 'Connect with friends online now on the internet',
+          peers: [{id: '@09fc09fcafexx8x861er0xac00sltaii10105'}],
+        }),
+
+        h(SyncChannelAccordion, {
+          icon: 'server-network',
+          name: 'Internet servers',
+          active: true,
+          info: 'Connect with community servers on the internet',
+          peers: [],
+        }),
+      ],
+    ),
   );
 }

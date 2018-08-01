@@ -19,31 +19,13 @@
 
 import {StyleSheet} from 'react-native';
 import {Dimensions as Dimens} from '../../../global-styles/dimens';
-import {Typography} from '../../../global-styles/typography';
 import {Palette} from '../../../global-styles/palette';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: Palette.brand.darkVoidBackground,
+    backgroundColor: Palette.brand.voidBackground,
     alignSelf: 'stretch',
     flex: 1,
-  },
-
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  headerText: {
-    color: Palette.brand.darkTextWeak,
-    fontSize: Typography.fontSizeNormal,
-    marginLeft: Dimens.horizontalSpaceBig,
-    marginTop: Dimens.verticalSpaceBig,
-    marginBottom: Dimens.verticalSpaceBig,
-  },
-
-  infoIcon: {
-    marginLeft: Dimens.horizontalSpaceSmall,
   },
 });
 

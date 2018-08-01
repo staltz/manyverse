@@ -30,8 +30,8 @@ import {h} from '@cycle/react';
 
 export const styles = StyleSheet.create({
   container: {
-    width: 14,
-    height: 14,
+    width: 10,
+    height: 10,
   },
 
   core: {
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    borderRadius: 7,
+    borderRadius: 6,
   },
 });
 
