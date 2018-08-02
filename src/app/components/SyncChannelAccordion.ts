@@ -30,8 +30,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
-import Beacon from './Beacon';
 import Button from './Button';
+import {PeerMetadata} from 'ssb-typescript';
 
 export const styles = StyleSheet.create({
   container: {
@@ -74,6 +74,10 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: 40,
     left: 37,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: Palette.acid3,
   },
 
   body: {
@@ -121,7 +125,7 @@ export type Props = {
   icon: string;
   name: string;
   active: boolean;
-  peers: Array<any>;
+  peers: Array<PeerMetadata>;
   info?: string;
   onPressInfo?: () => void;
   onPressActivate?: () => void;
@@ -162,12 +166,7 @@ export default class SyncChannelAccordion extends PureComponent<Props, State> {
               name: icon,
             }),
 
-            active
-              ? h(Beacon, {
-                  color: Palette.acid3,
-                  style: styles.beacon,
-                })
-              : null,
+            active ? h(View, {style: styles.beacon}) : null,
 
             h(View, {style: styles.headMiddle}, [
               h(Text, {style: styles.headTitle}, name),
@@ -235,7 +234,7 @@ export default class SyncChannelAccordion extends PureComponent<Props, State> {
     });
   }
 
-  private renderItem(peer: any) {
+  private renderItem(peer: PeerMetadata) {
     return h(View, {style: styles.peer}, [
       h(Icon, {
         size: Dimensions.iconSizeBig,
@@ -246,7 +245,7 @@ export default class SyncChannelAccordion extends PureComponent<Props, State> {
       h(
         Text,
         {style: styles.peerTitle, numberOfLines: 1, ellipsizeMode: 'middle'},
-        `${peer.key}`,
+        `${peer.name || peer.key}`,
       ),
     ]);
   }

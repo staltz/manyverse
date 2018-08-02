@@ -20,54 +20,48 @@
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {ScrollView} from 'react-native';
-import {PeerMetadata} from 'ssb-typescript';
 import {styles} from './styles';
+import {State} from './model';
 import InviteHeader from '../../../components/InviteHeader';
 import SyncChannelAccordion from '../../../components/SyncChannelAccordion';
 
-export default function view(localSyncPeers$: Stream<Array<PeerMetadata>>) {
-  return localSyncPeers$.map(localSyncPeers =>
-    h(
-      ScrollView,
-      {
-        style: styles.container as any,
-      },
-      [
-        h(InviteHeader),
+export default function view(state$: Stream<State>) {
+  return state$.map(state =>
+    h(ScrollView, {style: styles.container}, [
+      h(InviteHeader),
 
-        h(SyncChannelAccordion, {
-          icon: 'bluetooth',
-          name: 'Bluetooth',
-          active: false,
-          info: 'Connect with people very near',
-          onPressActivate: () => {},
-          peers: [{id: 'first'}, {id: 'second'}],
-        }),
+      // h(SyncChannelAccordion, {
+      //   icon: 'bluetooth',
+      //   name: 'Bluetooth',
+      //   active: false,
+      //   info: 'Connect with people very near',
+      //   onPressActivate: () => {},
+      //   peers: state.peers.bluetooth,
+      // }),
 
-        h(SyncChannelAccordion, {
-          icon: 'wifi',
-          name: 'Local network',
-          active: true,
-          info: 'Connect with people in the same space',
-          peers: localSyncPeers,
-        }),
+      h(SyncChannelAccordion, {
+        icon: 'wifi',
+        name: 'Local network',
+        active: true,
+        info: 'Connect with people in the same space',
+        peers: state.peers.lan,
+      }),
 
-        h(SyncChannelAccordion, {
-          icon: 'account-network',
-          name: 'Internet direct',
-          active: false,
-          info: 'Connect with friends online now on the internet',
-          peers: [{id: '@09fc09fcafexx8x861er0xac00sltaii10105'}],
-        }),
+      // h(SyncChannelAccordion, {
+      //   icon: 'account-network',
+      //   name: 'Internet P2P',
+      //   active: false,
+      //   info: 'Connect with friends online now on the internet',
+      //   peers: state.peers.dht,
+      // }),
 
-        h(SyncChannelAccordion, {
-          icon: 'server-network',
-          name: 'Internet servers',
-          active: true,
-          info: 'Connect with community servers on the internet',
-          peers: [],
-        }),
-      ],
-    ),
+      h(SyncChannelAccordion, {
+        icon: 'server-network',
+        name: 'Internet servers',
+        active: true,
+        info: 'Connect with community servers on the internet',
+        peers: state.peers.pub,
+      }),
+    ]),
   );
 }

@@ -21,12 +21,14 @@ import xs, {Stream} from 'xstream';
 import {Reducer, Lens} from 'cycle-onionify';
 import {FeedId} from 'ssb-typescript';
 import {State as PublicTabState} from './public-tab/model';
+import {State as SyncTabState} from './sync-tab/model';
 import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
   currentTab: number;
   publicTab?: PublicTabState;
+  syncTab?: SyncTabState;
   numOfPublicUpdates: number;
 };
 

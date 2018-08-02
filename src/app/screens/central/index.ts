@@ -63,11 +63,15 @@ export function central(sources: Sources): Sinks {
     '*': 'publicTab',
   })({...sources, scrollToTop: scrollToTop$});
 
-  const syncTabSinks = syncTab(sources);
+  const syncTabSinks = isolate(syncTab, 'syncTab')(sources);
 
   const command$ = navigation(actions, publicTabSinks.navigation);
   const centralReducer$ = model(actions, sources.ssb);
-  const reducer$ = xs.merge(centralReducer$, publicTabSinks.onion);
+  const reducer$ = xs.merge(
+    centralReducer$,
+    publicTabSinks.onion,
+    syncTabSinks.onion,
+  ) as Stream<Reducer<State>>;
   const vdom$ = view(
     sources.onion.state$,
     publicTabSinks.screen,

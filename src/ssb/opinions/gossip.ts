@@ -46,8 +46,6 @@ const gossipOpinion = {
                 connectedPeers.delete(data.peer.key);
                 stream.shamefullySendNext(connectedPeers);
               } else {
-                if (data.peer.source === 'local') {
-                }
                 if (data.peer.state === 'connected') {
                   connectedPeers.set(data.peer.key, data.peer);
                   stream.shamefullySendNext(connectedPeers);

@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Command as AlertCommand} from 'cycle-native-alert';
@@ -25,23 +25,24 @@ import {ReactSource} from '@cycle/react';
 import {SSBSource} from '../../../drivers/ssb';
 import view from './view';
 import intent from './intent';
+import model, {State} from './model';
 
 export type Sources = {
   screen: ReactSource;
-  onion: StateSource<any>;
+  onion: StateSource<State>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   alert: Stream<AlertCommand>;
-  onion: Stream<Reducer<any>>;
+  onion: Stream<Reducer<State>>;
 };
 
 export function syncTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
-  const vdom$ = view(sources.ssb.localSyncPeers$.startWith([]));
-  const reducer$ = xs.empty();
+  const vdom$ = view(sources.onion.state$);
+  const reducer$ = model(sources.ssb);
   const alert$ = actions.showLANHelp$.mapTo({
     title: 'Friends around you',
     message:

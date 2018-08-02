@@ -96,7 +96,7 @@ export class SSBSource {
   public selfRoots$: Stream<GetReadable<ThreadAndExtras>>;
   public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
   public publishHook$: Stream<Msg>;
-  public localSyncPeers$: Stream<Array<PeerMetadata>>;
+  public peers$: Stream<Array<PeerMetadata>>;
 
   constructor(private api$: Stream<any>) {
     this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]());
@@ -141,7 +141,7 @@ export class SSBSource {
       .map(api => api.sbot.hook.publishStream[0]() as Stream<Msg>)
       .flatten();
 
-    this.localSyncPeers$ = api$
+    this.peers$ = api$
       .map(api => {
         const peers$ = api.sbot.obs.connectedPeers[0]() as Stream<
           Map<string, PeerMetadata>
