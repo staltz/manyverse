@@ -50,19 +50,30 @@ const ssbClientPromise = keysPromise.then(async function setupSSBClient(keys) {
   config.manifest = manifest;
   config.friends.hops = 2;
   let ssbClient = null;
+  let timeoutPeriod = 800;
+  let retryPeriod = 100;
   do {
     try {
       ssbClient = await new Promise<any>((resolve, reject) => {
-        createClient(keys, config, (err: any, sbot: any) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(sbot);
-          }
-        });
+        setTimeout(() => {
+          timeoutPeriod *= 2;
+          return reject('timeout');
+        }, timeoutPeriod);
+        try {
+          createClient(keys, config, (err: any, sbot: any) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(sbot);
+            }
+          });
+        } catch (err) {
+          reject(err);
+        }
       });
     } catch (err) {
-      await delay(200);
+      await delay(retryPeriod);
+      retryPeriod *= 2;
     }
   } while (ssbClient === null);
   return ssbClient;
