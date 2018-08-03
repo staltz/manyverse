@@ -18,11 +18,12 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {PeerMetadata} from 'ssb-typescript';
+import {PeerMetadata, FeedId} from 'ssb-typescript';
 import {Reducer} from 'cycle-onionify';
 import {SSBSource} from '../../../drivers/ssb';
 
 export type State = {
+  selfFeedId: FeedId;
   peers: {
     lan: Array<PeerMetadata>;
     pub: Array<PeerMetadata>;
@@ -31,7 +32,13 @@ export type State = {
 
 export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initReducer(): State {
-    return {peers: {lan: [], pub: []}};
+    return {
+      selfFeedId: '',
+      peers: {
+        lan: [],
+        pub: [],
+      },
+    };
   });
 
   const setPeersReducer$ = ssbSource.peers$.map(
@@ -40,6 +47,7 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
         const lan = peers.filter(peer => peer.source === 'local');
         const pub = peers.filter(peer => peer.source !== 'local');
         return {
+          selfFeedId: prev.selfFeedId,
           peers: {lan, pub},
         };
       },

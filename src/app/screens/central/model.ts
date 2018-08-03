@@ -63,6 +63,29 @@ export const publicTabLens: Lens<State, PublicTabState> = {
   },
 };
 
+export const syncTabLens: Lens<State, SyncTabState> = {
+  get: (parent: State): SyncTabState => {
+    if (parent.syncTab) {
+      return {...parent.syncTab, selfFeedId: parent.selfFeedId};
+    } else {
+      return {
+        selfFeedId: parent.selfFeedId,
+        peers: {
+          lan: [],
+          pub: [],
+        },
+      };
+    }
+  },
+
+  set: (parent: State, child: SyncTabState): State => {
+    return {
+      ...parent,
+      syncTab: child,
+    };
+  },
+};
+
 export type Actions = {
   changeTab$: Stream<number>;
 };

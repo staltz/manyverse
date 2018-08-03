@@ -27,9 +27,9 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
-import {syncTab} from './sync-tab/index';
+import {syncTab, Sinks as SyncTabSinks} from './sync-tab/index';
 import intent from './intent';
-import model, {State, publicTabLens} from './model';
+import model, {State, publicTabLens, syncTabLens} from './model';
 import view, {navOpts} from './view';
 import navigation from './navigation';
 import sampleCombine from 'xstream/extra/sampleCombine';
@@ -63,9 +63,15 @@ export function central(sources: Sources): Sinks {
     '*': 'publicTab',
   })({...sources, scrollToTop: scrollToTop$});
 
-  const syncTabSinks = isolate(syncTab, 'syncTab')(sources);
+  const syncTabSinks: SyncTabSinks = isolate(syncTab, {
+    onion: syncTabLens,
+    '*': 'syncTab',
+  })(sources);
 
-  const command$ = navigation(actions, publicTabSinks.navigation);
+  const command$ = navigation(
+    actions,
+    xs.merge(publicTabSinks.navigation, syncTabSinks.navigation),
+  );
   const centralReducer$ = model(actions, sources.ssb);
   const reducer$ = xs.merge(
     centralReducer$,

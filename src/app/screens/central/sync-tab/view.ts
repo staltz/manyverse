@@ -40,6 +40,7 @@ export default function view(state$: Stream<State>) {
       // }),
 
       h(SyncChannelAccordion, {
+        sel: 'lan-peers',
         icon: 'wifi',
         name: 'Local network',
         active: true,
@@ -56,6 +57,7 @@ export default function view(state$: Stream<State>) {
       // }),
 
       h(SyncChannelAccordion, {
+        sel: 'pub-peers',
         icon: 'server-network',
         name: 'Internet servers',
         active: true,

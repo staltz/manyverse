@@ -22,10 +22,12 @@ import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Command as AlertCommand} from 'cycle-native-alert';
 import {ReactSource} from '@cycle/react';
+import {Command} from 'cycle-native-navigation';
 import {SSBSource} from '../../../drivers/ssb';
 import view from './view';
 import intent from './intent';
 import model, {State} from './model';
+import navigation from './navigation';
 
 export type Sources = {
   screen: ReactSource;
@@ -35,6 +37,7 @@ export type Sources = {
 
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
+  navigation: Stream<Command>;
   alert: Stream<AlertCommand>;
   onion: Stream<Reducer<State>>;
 };
@@ -42,6 +45,7 @@ export type Sinks = {
 export function syncTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
   const vdom$ = view(sources.onion.state$);
+  const command$ = navigation(actions, sources.onion.state$);
   const reducer$ = model(sources.ssb);
   const alert$ = actions.showLANHelp$.mapTo({
     title: 'Friends around you',
@@ -54,6 +58,7 @@ export function syncTab(sources: Sources): Sinks {
 
   return {
     alert: alert$,
+    navigation: command$,
     screen: vdom$,
     onion: reducer$,
   };

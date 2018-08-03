@@ -31,7 +31,7 @@ import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import Button from './Button';
-import {PeerMetadata} from 'ssb-typescript';
+import {PeerMetadata, FeedId} from 'ssb-typescript';
 
 export const styles = StyleSheet.create({
   container: {
@@ -129,6 +129,7 @@ export type Props = {
   info?: string;
   onPressInfo?: () => void;
   onPressActivate?: () => void;
+  onPressPeer?: (id: FeedId) => void;
   accessible?: boolean;
   accessibilityLabel?: string;
 };
@@ -235,6 +236,12 @@ export default class SyncChannelAccordion extends PureComponent<Props, State> {
   }
 
   private renderItem(peer: PeerMetadata) {
+    const onPressPeer = () => {
+      if (this.props.onPressPeer) {
+        this.props.onPressPeer(peer.key);
+      }
+    };
+
     return h(View, {style: styles.peer}, [
       h(Icon, {
         size: Dimensions.iconSizeBig,
@@ -242,11 +249,17 @@ export default class SyncChannelAccordion extends PureComponent<Props, State> {
         name: 'account-box',
       }),
 
-      h(
-        Text,
-        {style: styles.peerTitle, numberOfLines: 1, ellipsizeMode: 'middle'},
-        `${peer.name || peer.key}`,
-      ),
+      h(TouchableOpacity, {onPress: onPressPeer}, [
+        h(
+          Text,
+          {
+            style: styles.peerTitle,
+            numberOfLines: 1,
+            ellipsizeMode: 'middle',
+          },
+          `${peer.name || peer.key}`,
+        ),
+      ]),
     ]);
   }
 

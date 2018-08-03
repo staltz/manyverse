@@ -17,10 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
+import {FeedId} from 'ssb-typescript';
 
 export default function intent(reactSource: ReactSource) {
   return {
     showLANHelp$: reactSource.select('lan-help').events('press').mapTo(null),
+
+    goToPeerProfile$: xs.merge(
+      reactSource.select('lan-peers').events('pressPeer'),
+      reactSource.select('pub-peers').events('pressPeer'),
+    ) as Stream<FeedId>,
   };
 }
