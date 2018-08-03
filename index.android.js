@@ -19,8 +19,6 @@
 
 import 'react-native-ssb-shims';
 import {run} from 'cycle-native-navigation';
-import nodejs from 'nodejs-mobile-react-native';
 import {screens, drivers, layout, defaultNavOptions} from './lib/app/index';
 
-nodejs.start('loader.js');
 run(screens, drivers, layout, defaultNavOptions);

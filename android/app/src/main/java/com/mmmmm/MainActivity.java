@@ -3,12 +3,16 @@ package com.mmmmm;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
+import com.facebook.react.bridge.Arguments;
+import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobileModule;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.bridge.ReactContext;
@@ -27,6 +31,39 @@ public class MainActivity extends NavigationActivity {
     // view.setLayoutParams(lp);
     // return view;
     // }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        try {
+            this.maybeStartNodejs();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void maybeStartNodejs() throws Exception {
+        ReactNativeHost host = MainApplication.instance.getReactNativeHost();
+        if (host == null) {
+            throw new Exception("maybeStartNodejs() failed because of no ReactNativeHost");
+        }
+        ReactInstanceManager manager = host.getReactInstanceManager();
+        if (manager == null) {
+            throw new Exception("maybeStartNodejs() failed because of no ReactInstanceManager");
+        }
+        manager.addReactInstanceEventListener(new ReactInstanceManager.ReactInstanceEventListener() {
+            @Override
+            public void onReactContextInitialized(ReactContext context) {
+                RNNodeJsMobileModule module = context.getNativeModule(RNNodeJsMobileModule.class);
+                try {
+                    module.startNodeProject("loader.js", Arguments.createMap());
+                } catch (Exception e) {
+                    Log.e("NODEJS-RN", "startNodeProject failed to run loader.js");
+                }
+                manager.removeReactInstanceEventListener(this);
+            }
+        });
+    }
 
     @Override
     protected void onResume() {
