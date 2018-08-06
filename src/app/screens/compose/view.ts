@@ -33,8 +33,6 @@ export default function view(topBar$: Stream<ReactElement<any>>) {
         {
           style: styles.bodyContainer,
           ['enabled' as any]: true,
-          keyboardVerticalOffset: 30,
-          behavior: 'padding',
         },
         [
           h(View, {style: styles.writeMessageAuthorImage}),

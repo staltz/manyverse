@@ -37,6 +37,9 @@ subprojects { subproject ->
                     if (names.contains("reactNative51")) {
                         setIgnore(true)
                     }
+                    if (names.contains("reactNative55")) {
+                        setIgnore(true)
+                    }
                 }
             }
         }

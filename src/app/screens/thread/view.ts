@@ -36,13 +36,6 @@ import FullThread from '../../components/FullThread';
 import {State} from './model';
 import {styles} from './styles';
 
-// const Loading = h(Progress.CircleSnail, {
-//   style: styles.loading,
-//   indeterminate: true,
-//   size: 40,
-//   color: Palette.brand.backgroundLighterContrast,
-// });
-
 const ReplySpacer = h(View, {style: styles.spacer});
 
 function ReplySendButton() {
@@ -114,9 +107,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
     h(
       KeyboardAvoidingView,
       {
-        keyboardVerticalOffset: 80,
         ['enabled' as any]: state.keyboardVisible,
-        behavior: 'padding',
         style: styles.container,
       },
       [
