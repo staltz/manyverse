@@ -1,11 +1,5 @@
 apply plugin: "com.android.application"
 
-repositories {
-    maven {
-        url "https://jitpack.io"
-    }
-}
-
 import com.android.build.OutputFile
 
 /**
@@ -117,7 +111,7 @@ android {
         targetSdkVersion 23
         versionCode 20
         versionName "0.0.16-alpha"
-        missingDimensionStrategy "RNN.reactNativeVersion", "reactNative56"
+        missingDimensionStrategy "RNN.reactNativeVersion", "reactNative55"
         ndk {
             abiFilters "armeabi-v7a" // , "x86"
         }
@@ -196,7 +190,7 @@ dependencies {
     implementation("com.android.support:design:25.4.0") {
         force = true
     }
-    implementation("com.facebook.react:react-native:0.56.0") {
+    implementation("com.facebook.react:react-native:0.55.4") {
         force = true
     }
     implementation 'com.facebook.fresco:animated-gif:1.3.0'

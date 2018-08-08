@@ -25,6 +25,9 @@ allprojects {
             url "$rootDir/../node_modules/react-native/android"
         }
         google()
+        maven {
+            url "https://jitpack.io"
+        }
     }
 }
 
@@ -34,10 +37,7 @@ subprojects { subproject ->
             android {
                 variantFilter { variant ->
                     def names = variant.flavors*.name
-                    if (names.contains("reactNative51")) {
-                        setIgnore(true)
-                    }
-                    if (names.contains("reactNative55")) {
+                    if (names.contains("reactNative51") || names.contains("reactNative56")) {
                         setIgnore(true)
                     }
                 }
