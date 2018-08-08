@@ -36,7 +36,7 @@ import {notificationDriver} from 'cycle-native-android-local-notification';
 import {ssbDriver} from './drivers/ssb';
 import {dialogDriver} from './drivers/dialogs';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
-import {central} from './screens/central/index';
+import {central, navOptions as centralNavOpts} from './screens/central/index';
 import {drawer} from './screens/drawer/index';
 import {compose} from './screens/compose/index';
 import {thread} from './screens/thread/index';
@@ -79,7 +79,14 @@ export const layout = {
       center: {
         stack: {
           id: 'mainstack',
-          children: [{component: {name: Screens.Central}}],
+          children: [
+            {
+              component: {
+                name: Screens.Central,
+                options: centralNavOpts,
+              },
+            },
+          ],
         },
       },
     },
@@ -97,10 +104,11 @@ export const defaultNavOptions = {
     orientation: ['portrait', 'landscape'],
   },
   topBar: {
-    visible: true,
+    visible: false,
     drawBehind: false,
     hideOnScroll: false,
     animate: false,
+    height: 0,
     borderHeight: 0,
     elevation: 0,
     buttonColor: Palette.white,

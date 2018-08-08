@@ -91,6 +91,9 @@ export default class BetterPagerTabIndicator extends Component<Props, State> {
   }
 
   public onPageSelected(e: any) {
+    if (this.props.onSelect) {
+      this.props.onSelect(e.position);
+    }
     this.setState({selectedIndex: e.position});
   }
 }

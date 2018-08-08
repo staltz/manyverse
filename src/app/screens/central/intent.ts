@@ -22,7 +22,6 @@ import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
 
 export type Actions = {
-  openDrawer$: Stream<null>;
   changeTab$: Stream<number>;
 };
 
@@ -31,8 +30,6 @@ export default function intent(
   navSource: NavSource,
 ): Actions {
   return {
-    openDrawer$: navSource.topBarButtonPress('menu').mapTo(null),
-
     changeTab$: reactSource.select('tabs').events('select'),
   };
 }

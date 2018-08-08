@@ -28,9 +28,10 @@ import {Content} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {syncTab, Sinks as SyncTabSinks} from './sync-tab/index';
+import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
-import model, {State, publicTabLens, syncTabLens} from './model';
-import view, {navOpts} from './view';
+import model, {State, publicTabLens, syncTabLens, topBarLens} from './model';
+import view from './view';
 import navigation from './navigation';
 import sampleCombine from 'xstream/extra/sampleCombine';
 
@@ -44,13 +45,29 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  navOptions: Stream<any>;
   alert: Stream<AlertCommand>;
   onion: Stream<Reducer<any>>;
   ssb: Stream<Content>;
 };
 
+export const navOptions = {
+  topBar: {
+    visible: false,
+    drawBehind: true,
+    hideOnScroll: false,
+    animate: false,
+    borderHeight: 0,
+    elevation: 0,
+    height: 0,
+  },
+};
+
 export function central(sources: Sources): Sinks {
+  const topBarSinks: TBSinks = isolate(topBar, {
+    '*': 'topBar',
+    onion: topBarLens,
+  })(sources);
+
   const actions = intent(sources.screen, sources.navigation);
 
   const scrollToTop$ = actions.changeTab$
@@ -69,7 +86,7 @@ export function central(sources: Sources): Sinks {
   })(sources);
 
   const command$ = navigation(
-    actions,
+    {openDrawer$: topBarSinks.menuPress},
     xs.merge(publicTabSinks.navigation, syncTabSinks.navigation),
   );
   const centralReducer$ = model(actions, sources.ssb);
@@ -80,6 +97,7 @@ export function central(sources: Sources): Sinks {
   ) as Stream<Reducer<State>>;
   const vdom$ = view(
     sources.onion.state$,
+    topBarSinks.screen,
     publicTabSinks.screen,
     syncTabSinks.screen,
   );
@@ -88,7 +106,6 @@ export function central(sources: Sources): Sinks {
     screen: vdom$,
     onion: reducer$,
     navigation: command$,
-    navOptions: navOpts(sources.onion.state$),
     alert: syncTabSinks.alert,
     ssb: publicTabSinks.ssb,
   };

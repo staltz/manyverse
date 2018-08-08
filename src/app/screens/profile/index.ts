@@ -53,6 +53,7 @@ export type Sinks = {
 
 export const navOptions = {
   topBar: {
+    visible: true,
     height: Dimensions.toolbarAndroidHeight,
     title: {
       text: '',

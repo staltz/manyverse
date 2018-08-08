@@ -21,6 +21,7 @@ import xs, {Stream} from 'xstream';
 import {Reducer, Lens} from 'cycle-onionify';
 import {FeedId} from 'ssb-typescript';
 import {State as PublicTabState} from './public-tab/model';
+import {State as TopBarState} from './top-bar';
 import {State as SyncTabState} from './sync-tab/model';
 import {SSBSource} from '../../drivers/ssb';
 
@@ -39,6 +40,19 @@ export function initState(selfFeedId: FeedId): State {
     numOfPublicUpdates: 0,
   };
 }
+
+export const topBarLens: Lens<State, TopBarState> = {
+  get: (parent: State): TopBarState => {
+    if (parent.currentTab === 0) return {title: 'Messages'};
+    if (parent.currentTab === 1) return {title: 'Connections'};
+    else return {title: ''};
+  },
+
+  // Ignore writes from the child
+  set: (parent: State, child: TopBarState): State => {
+    return parent;
+  },
+};
 
 export const publicTabLens: Lens<State, PublicTabState> = {
   get: (parent: State): PublicTabState => {

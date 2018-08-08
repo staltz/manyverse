@@ -46,6 +46,8 @@ export type Sinks = {
 
 export const navOptions = {
   topBar: {
+    visible: true,
+    drawBehind: false,
     height: Dimensions.toolbarAndroidHeight,
     title: {
       text: 'Raw database',

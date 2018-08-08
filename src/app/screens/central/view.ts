@@ -18,24 +18,15 @@
  */
 
 import xs, {Stream} from 'xstream';
-import dropRepeats from 'xstream/extra/dropRepeats';
 import {ReactElement} from 'react';
 import {View} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {IndicatorViewPager} from 'rn-viewpager';
-import {Palette} from '../../global-styles/palette';
 import {styles as globalStyles} from '../../global-styles/styles';
 import BetterPagerTabIndicator from '../../components/BetterPagerTabIndicator';
-import {styles, iconProps, topBarTitle} from './styles';
+import {styles, iconProps} from './styles';
 import {State} from './model';
-import {Dimensions} from '../../global-styles/dimens';
-
-function tabTitle(tabIndex: number) {
-  if (tabIndex === 0) return 'Messages';
-  if (tabIndex === 1) return 'Sync';
-  return '';
-}
 
 const iconData = {
   public: {
@@ -103,50 +94,21 @@ function renderTabs(
 
 export default function view(
   state$: Stream<State>,
+  topBarVDOM$: Stream<ReactElement<any>>,
   publicTabVDOM$: Stream<ReactElement<any>>,
   metadataTabVDOM$: Stream<ReactElement<any>>,
 ) {
   return xs
     .combine(
       state$,
+      topBarVDOM$,
       publicTabVDOM$.startWith(h(View)),
       metadataTabVDOM$.startWith(h(View)),
     )
-    .map(([state, publicTabVDOM, metadataTabVDOM]) =>
+    .map(([state, topBarVDOM, publicTabVDOM, metadataTabVDOM]) =>
       h(View, {style: styles.root}, [
+        topBarVDOM,
         renderTabs(state, publicTabVDOM, metadataTabVDOM),
       ]),
     );
-}
-
-export function navOpts(state$: Stream<State>) {
-  return state$
-    .compose(dropRepeats((s1, s2) => s1.currentTab === s2.currentTab))
-    .map(state => ({
-      topBar: {
-        visible: true,
-        drawBehind: false,
-        hideOnScroll: false,
-        animate: false,
-        borderHeight: 0,
-        elevation: 0,
-        height: Dimensions.toolbarAndroidHeight,
-        buttonColor: 'white',
-        background: {
-          color: Palette.brand.background,
-        },
-        title: {
-          ...topBarTitle,
-          text: tabTitle(state.currentTab),
-        },
-        leftButtons: [
-          {
-            id: 'menu',
-            icon: require('../../../../images/icon-menu.png'),
-            title: 'Menu',
-            color: Palette.white,
-          },
-        ],
-      },
-    }));
 }

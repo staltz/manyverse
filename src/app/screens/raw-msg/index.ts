@@ -46,6 +46,8 @@ export type Sinks = {
 
 export const navOptions = {
   topBar: {
+    visible: true,
+    drawBehind: false,
     height: Dimensions.toolbarAndroidHeight,
     title: {
       text: 'Raw message',
@@ -61,6 +63,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Palette.brand.darkVoidBackground,
+    marginTop: Dimensions.toolbarAndroidHeight,
     padding: 5,
   },
 
