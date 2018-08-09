@@ -49,27 +49,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    marginTop: Dimens.verticalSpaceSmall,
-    marginBottom: Dimens.verticalSpaceSmall,
+    marginVertical: Dimens.verticalSpaceSmall,
   },
 
   heading1: {
     fontWeight: 'bold',
-    marginTop: Dimens.verticalSpaceNormal,
+    marginVertical: Dimens.verticalSpaceNormal,
     fontSize: Typ.baseSize * Typ.scaleUp * Typ.scaleUp,
     color: Palette.brand.text,
   },
 
   heading2: {
     fontWeight: 'bold',
-    marginTop: Dimens.verticalSpaceNormal,
+    marginVertical: Dimens.verticalSpaceNormal,
     fontSize: Typ.baseSize * Typ.scaleUp,
     color: Palette.brand.text,
   },
 
   heading3: {
     fontWeight: 'bold',
-    marginTop: Dimens.verticalSpaceSmall,
+    marginVertical: Dimens.verticalSpaceSmall,
     fontSize: Typ.baseSize,
     color: Palette.brand.text,
   },
