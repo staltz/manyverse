@@ -254,10 +254,8 @@ const renderers = {
 
 function Markdown(markdownText: string) {
   return $<any>(ReactMarkdown, {
-    source: remark()
-      .use(gemojiToEmoji)
-      .use(stripHtml)
-      .processSync(markdownText),
+    source: remark().use(gemojiToEmoji).use(stripHtml).processSync(markdownText)
+      .contents,
     astPlugins: [normalizeForReactNative()],
     allowedTypes: Object.keys(renderers),
     renderers,
