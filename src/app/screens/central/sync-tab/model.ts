@@ -21,25 +21,42 @@ import xs, {Stream} from 'xstream';
 import {PeerMetadata, FeedId} from 'ssb-typescript';
 import {Reducer} from 'cycle-onionify';
 import {SSBSource} from '../../../drivers/ssb';
+import {WifiSource} from '../../../drivers/wifi';
 
 export type State = {
   selfFeedId: FeedId;
+  lanEnabled: boolean;
   peers: {
     lan: Array<PeerMetadata>;
     pub: Array<PeerMetadata>;
   };
 };
 
-export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
+export default function model(
+  ssbSource: SSBSource,
+  wifiSource: WifiSource,
+): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initReducer(): State {
     return {
       selfFeedId: '',
+      lanEnabled: false,
       peers: {
         lan: [],
         pub: [],
       },
     };
   });
+
+  const updateLanEnabled$ = wifiSource.isEnabled().map(
+    lanEnabled =>
+      function updateLanEnabled(prev: State): State {
+        return {
+          selfFeedId: prev.selfFeedId,
+          lanEnabled,
+          peers: prev.peers,
+        };
+      },
+  );
 
   const setPeersReducer$ = ssbSource.peers$.map(
     peers =>
@@ -48,10 +65,11 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
         const pub = peers.filter(peer => peer.source !== 'local');
         return {
           selfFeedId: prev.selfFeedId,
+          lanEnabled: prev.lanEnabled,
           peers: {lan, pub},
         };
       },
   );
 
-  return xs.merge(initReducer$, setPeersReducer$);
+  return xs.merge(initReducer$, setPeersReducer$, updateLanEnabled$);
 }

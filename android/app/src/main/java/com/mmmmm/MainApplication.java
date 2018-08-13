@@ -14,6 +14,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.reactnativenavigation.NavigationApplication;
 import com.staltz.reactnativeandroidlocalnotification.NotificationPackage;
+import com.devstepbcn.wifi.AndroidWifiPackage;
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -40,7 +41,8 @@ public class MainApplication extends NavigationApplication {
   protected List<ReactPackage> getPackages() {
     // Add additional packages you require here
     // No need to add RnnPackage and MainReactPackage
-    return Arrays.<ReactPackage>asList(new MainReactPackage(), new TcpSocketsModule(), new RNFSPackage(),
+    return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new AndroidWifiPackage(), new TcpSocketsModule(), new RNFSPackage(),
         new RandomBytesPackage(), new RNNodeJsMobilePackage(), new ReactNativeDialogsPackage(),
         new VectorIconsPackage(), new RNOSModule(), new NotificationPackage(),
         new WorkersPackage(new NotificationPackage(), new TcpSocketsModule(), new RNOSModule(), new RNFSPackage(),

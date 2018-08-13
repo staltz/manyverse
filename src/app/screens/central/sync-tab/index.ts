@@ -23,6 +23,7 @@ import {StateSource, Reducer} from 'cycle-onionify';
 import {Command as AlertCommand} from 'cycle-native-alert';
 import {ReactSource} from '@cycle/react';
 import {Command} from 'cycle-native-navigation';
+import {WifiSource} from '../../../drivers/wifi';
 import {SSBSource} from '../../../drivers/ssb';
 import view from './view';
 import intent from './intent';
@@ -33,6 +34,7 @@ export type Sources = {
   screen: ReactSource;
   onion: StateSource<State>;
   ssb: SSBSource;
+  wifi: WifiSource;
 };
 
 export type Sinks = {
@@ -46,7 +48,7 @@ export function syncTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
   const vdom$ = view(sources.onion.state$);
   const command$ = navigation(actions, sources.onion.state$);
-  const reducer$ = model(sources.ssb);
+  const reducer$ = model(sources.ssb, sources.wifi);
   const alert$ = actions.showLANHelp$.mapTo({
     title: 'Friends around you',
     message:

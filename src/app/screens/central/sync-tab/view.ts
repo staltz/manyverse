@@ -43,7 +43,7 @@ export default function view(state$: Stream<State>) {
         sel: 'lan-peers',
         icon: 'wifi',
         name: 'Local network',
-        active: true,
+        active: state.lanEnabled,
         info: 'Connect with people in the same space',
         peers: state.peers.lan,
       }),

@@ -84,6 +84,7 @@ export const syncTabLens: Lens<State, SyncTabState> = {
     } else {
       return {
         selfFeedId: parent.selfFeedId,
+        lanEnabled: false,
         peers: {
           lan: [],
           pub: [],
