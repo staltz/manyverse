@@ -28,7 +28,7 @@ import SyncChannelAccordion from '../../../components/SyncChannelAccordion';
 export default function view(state$: Stream<State>) {
   return state$.map(state =>
     h(ScrollView, {style: styles.container}, [
-      h(InviteHeader),
+      h(InviteHeader, {sel: 'invites'}),
 
       // h(SyncChannelAccordion, {
       //   icon: 'bluetooth',

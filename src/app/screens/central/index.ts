@@ -23,6 +23,7 @@ import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
 import {Command as AlertCommand} from 'cycle-native-alert';
+import {Toast, Duration as ToastDuration} from '../../drivers/toast';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
@@ -47,6 +48,7 @@ export type Sinks = {
   alert: Stream<AlertCommand>;
   onion: Stream<Reducer<any>>;
   ssb: Stream<Req>;
+  toast: Stream<Toast>;
 };
 
 export const navOptions = {
@@ -101,11 +103,27 @@ export function central(sources: Sources): Sinks {
     syncTabSinks.screen,
   );
 
+  const toast$: Stream<Toast> = sources.ssb.acceptInviteResponse$.map(res => {
+    if (res === true)
+      return {
+        type: 'show' as 'show',
+        message: '\u2713 Invite accepted',
+        duration: ToastDuration.SHORT,
+      };
+    else
+      return {
+        type: 'show' as 'show',
+        message: '\u2717 Invite rejected. Are you sure it was correct?',
+        duration: ToastDuration.LONG,
+      };
+  });
+
   return {
     screen: vdom$,
     onion: reducer$,
     navigation: command$,
     alert: syncTabSinks.alert,
     ssb: publicTabSinks.ssb,
+    toast: toast$,
   };
 }

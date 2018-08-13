@@ -17,16 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../..';
 import {navOptions as profileScreenNavOptions} from '../../profile';
+import {navOptions as pasteInviteScreenNavOptions} from '../../invite-paste';
 import {State} from './model';
 
 export type Actions = {
   goToPeerProfile$: Stream<FeedId>;
+  goToPasteInvite$: Stream<any>;
 };
 
 export default function navigation(
@@ -52,5 +54,18 @@ export default function navigation(
         } as Command),
     );
 
-  return toProfile$;
+  const toPasteInvite$ = actions.goToPasteInvite$.map(
+    () =>
+      ({
+        type: 'showOverlay',
+        layout: {
+          component: {
+            name: Screens.InvitePaste,
+            options: pasteInviteScreenNavOptions,
+          },
+        },
+      } as Command),
+  );
+
+  return xs.merge(toProfile$, toPasteInvite$);
 }

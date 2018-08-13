@@ -19,6 +19,7 @@
   "files": [
     "src/app/index.ts",
     "src/app/drivers/lifecycle.ts",
+    "src/app/drivers/toast.ts",
     "src/worker/index.ts",
     "src/nodejs-project/index.ts",
     "src/nodejs-project/loader.ts",

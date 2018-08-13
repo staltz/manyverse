@@ -22,6 +22,7 @@ export enum Screens {
   Drawer = 'mmmmm.Drawer',
   Compose = 'mmmmm.Compose',
   Thread = 'mmmmm.Thread',
+  InvitePaste = 'mmmmm.Invite.Paste',
   Profile = 'mmmmm.Profile',
   ProfileEdit = 'mmmmm.Profile.Edit',
   RawDatabase = 'mmmmm.RawDatabase',
@@ -32,6 +33,7 @@ import onionify from 'cycle-onionify';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {alertDriver} from 'cycle-native-alert';
 import {linkingDriver} from 'cycle-native-linking';
+import {makeToastDriver} from './drivers/toast';
 import {notificationDriver} from 'cycle-native-android-local-notification';
 import {ssbDriver} from './drivers/ssb';
 import {dialogDriver} from './drivers/dialogs';
@@ -40,6 +42,7 @@ import {central, navOptions as centralNavOpts} from './screens/central/index';
 import {drawer} from './screens/drawer/index';
 import {compose} from './screens/compose/index';
 import {thread} from './screens/thread/index';
+import {pasteInvite} from './screens/invite-paste/index';
 import {profile} from './screens/profile/index';
 import {editProfile} from './screens/profile-edit/index';
 import {rawDatabase} from './screens/raw-db/index';
@@ -53,6 +56,7 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
   [Screens.Drawer]: onionify(drawer),
   [Screens.Compose]: onionify(compose),
   [Screens.Thread]: addDisclaimer(onionify(thread)),
+  [Screens.InvitePaste]: addDisclaimer(onionify(pasteInvite)),
   [Screens.Profile]: addDisclaimer(onionify(profile)),
   [Screens.ProfileEdit]: addDisclaimer(onionify(editProfile)),
   [Screens.RawDatabase]: addDisclaimer(rawDatabase),
@@ -67,6 +71,7 @@ export const drivers = {
   lifecycle: makeActivityLifecycleDriver(),
   notification: notificationDriver,
   dialog: dialogDriver,
+  toast: makeToastDriver(),
 };
 
 export const layout = {
