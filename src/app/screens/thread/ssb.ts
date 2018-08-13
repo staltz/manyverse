@@ -18,9 +18,9 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Content} from 'ssb-typescript';
 import {toVoteContent, toReplyPostContent} from '../../../ssb/to-ssb';
 import {State} from './model';
+import {Req, contentToPublishReq} from '../../drivers/ssb';
 
 export type SSBActions = {
   likeMsg$: Stream<{msgKey: string; like: boolean}>;
@@ -30,12 +30,12 @@ export type SSBActions = {
 /**
  * Define streams of new content to be flushed onto SSB.
  */
-export default function ssb(actions: SSBActions): Stream<Content> {
+export default function ssb(actions: SSBActions): Stream<Req> {
   const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
   const publishReply$ = actions.publishMsg$.map(state =>
     toReplyPostContent(state.replyText, state.rootMsgId as string),
   );
 
-  return xs.merge(toggleLikeMsg$, publishReply$);
+  return xs.merge(toggleLikeMsg$, publishReply$).map(contentToPublishReq);
 }

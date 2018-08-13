@@ -24,8 +24,7 @@ import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
 import {Command as AlertCommand} from 'cycle-native-alert';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {Content} from 'ssb-typescript';
-import {SSBSource} from '../../drivers/ssb';
+import {SSBSource, Req} from '../../drivers/ssb';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {syncTab, Sinks as SyncTabSinks} from './sync-tab/index';
 import {topBar, Sinks as TBSinks} from './top-bar';
@@ -47,7 +46,7 @@ export type Sinks = {
   navigation: Stream<Command>;
   alert: Stream<AlertCommand>;
   onion: Stream<Reducer<any>>;
-  ssb: Stream<Content>;
+  ssb: Stream<Req>;
 };
 
 export const navOptions = {

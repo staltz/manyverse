@@ -18,15 +18,17 @@
  */
 
 import {Stream} from 'xstream';
-import {Content} from 'ssb-typescript';
 import {toPostContent} from '../../../ssb/to-ssb';
+import {Req, contentToPublishReq} from '../../drivers/ssb';
 
 export type Actions = {
   publishMsg$: Stream<string>;
 };
 
-export default function ssb(actions: Actions): Stream<Content> {
-  const publishMsg$ = actions.publishMsg$.map(toPostContent);
+export default function ssb(actions: Actions): Stream<Req> {
+  const publishMsg$ = actions.publishMsg$
+    .map(toPostContent)
+    .map(contentToPublishReq);
 
   return publishMsg$;
 }

@@ -18,8 +18,8 @@
  */
 
 import {Stream} from 'xstream';
-import {Content} from 'ssb-typescript';
 import {toVoteContent} from '../../../../ssb/to-ssb';
+import {contentToPublishReq, Req} from '../../../drivers/ssb';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 
@@ -27,8 +27,10 @@ export type Actions = {
   likeMsg$: Stream<LikeEvent>;
 };
 
-export default function ssb(actions: Actions): Stream<Content> {
-  const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
+export default function ssb(actions: Actions): Stream<Req> {
+  const toggleLikeMsg$ = actions.likeMsg$
+    .map(toVoteContent)
+    .map(contentToPublishReq);
 
   return toggleLikeMsg$;
 }

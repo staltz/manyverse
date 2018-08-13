@@ -97,6 +97,7 @@ export class SSBSource {
   public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
   public publishHook$: Stream<Msg>;
   public peers$: Stream<Array<PeerMetadata>>;
+  public acceptInviteResponse$: Stream<true | string>;
 
   constructor(private api$: Stream<any>) {
     this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]());
@@ -161,6 +162,8 @@ export class SSBSource {
         return peersWithNames$;
       })
       .flatten();
+
+    this.acceptInviteResponse$ = xs.create<true | string>();
   }
 
   public thread$(rootMsgId: MsgId): Stream<ThreadAndExtras> {
@@ -218,11 +221,27 @@ export class SSBSource {
   }
 }
 
+export type PublishReq = {
+  type: 'publish';
+  content: Content;
+};
+
+export type AcceptInviteReq = {
+  type: 'invite.accept';
+  invite: string;
+};
+
+export type Req = PublishReq | AcceptInviteReq;
+
 function dropCompletion(stream: Stream<any>): Stream<any> {
   return xs.merge(stream, xs.never());
 }
 
-export function ssbDriver(sink: Stream<Content | null>): SSBSource {
+export function contentToPublishReq(content: Content): PublishReq {
+  return {type: 'publish', content};
+}
+
+export function ssbDriver(sink: Stream<Req>): SSBSource {
   const keys$ = xsFromCallback(ssbKeys.loadOrCreate)(ssbKeysPath);
 
   const api$ = keys$
@@ -247,15 +266,28 @@ export function ssbDriver(sink: Stream<Content | null>): SSBSource {
     })
     .remember();
 
+  const source = new SSBSource(api$);
+
   // Consume the sink
   api$
-    .map(api => sink.map(newContent => [api, newContent]))
+    .map(api => sink.map(req => [api, req] as [any, Req]))
     .flatten()
     .addListener({
-      next: ([api, newContent]) => {
-        api.sbot.async.publish[0](newContent);
+      next: ([api, req]) => {
+        if (req.type === 'publish') {
+          api.sbot.async.publish[0](req.content);
+        }
+        if (req.type === 'invite.accept') {
+          api.sbot.async.acceptInvite[0](req.invite, (err: any, val: any) => {
+            if (err) {
+              source.acceptInviteResponse$._n(err.message || err);
+            } else {
+              source.acceptInviteResponse$._n(true);
+            }
+          });
+        }
       },
     });
 
-  return new SSBSource(api$);
+  return source;
 }

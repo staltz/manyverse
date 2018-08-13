@@ -22,7 +22,7 @@ import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {ReactSource} from '@cycle/react';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {SSBSource} from '../../../drivers/ssb';
+import {SSBSource, Req} from '../../../drivers/ssb';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';
@@ -41,7 +41,7 @@ export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
-  ssb: Stream<any>;
+  ssb: Stream<Req>;
 };
 
 export function publicTab(sources: Sources): Sinks {

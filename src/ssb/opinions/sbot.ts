@@ -46,6 +46,7 @@ const gives = {
     async: {
       get: true,
       publish: true,
+      acceptInvite: true,
       addBlob: true,
       gossipConnect: true,
       friendsGet: true,
@@ -186,6 +187,9 @@ const create = (api: any) => {
             if (err) console.error(err);
             if (cb) cb(err, msg);
           });
+        }),
+        acceptInvite: rec.async((invite: string, cb: any) => {
+          sbot.invite.accept(invite, cb);
         }),
         addBlob: rec.async((stream: any, cb: any) => {
           return pull(stream, sbot.blobs.add(cb));

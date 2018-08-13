@@ -23,8 +23,7 @@ import {ReactElement} from 'react';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {Content} from 'ssb-typescript';
-import {SSBSource} from '../../drivers/ssb';
+import {SSBSource, Req} from '../../drivers/ssb';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {LifecycleEvent} from '../../drivers/lifecycle';
 import {topBar, Sinks as TBSinks} from './top-bar';
@@ -48,7 +47,7 @@ export type Sinks = {
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
   keyboard: Stream<'dismiss'>;
-  ssb: Stream<Content>;
+  ssb: Stream<Req>;
 };
 
 export const navOptions = {

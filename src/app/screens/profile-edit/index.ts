@@ -20,8 +20,8 @@
 import {Stream} from 'xstream';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {Content, About, FeedId} from 'ssb-typescript';
-import {SSBSource} from '../../drivers/ssb';
+import {About, FeedId} from 'ssb-typescript';
+import {SSBSource, Req} from '../../drivers/ssb';
 import {Response as DRes, Request as DReq} from '../../drivers/dialogs';
 import intent from './intent';
 import view from './view';
@@ -54,7 +54,7 @@ export type Sinks = {
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
   keyboard: Stream<'dismiss'>;
-  ssb: Stream<Content>;
+  ssb: Stream<Req>;
   dialog: Stream<DReq>;
 };
 

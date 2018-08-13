@@ -20,8 +20,8 @@
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {State} from './model';
-import {Content} from 'ssb-typescript';
 import {toVoteContent, toContactContent} from '../../../ssb/to-ssb';
+import {Req, contentToPublishReq} from '../../drivers/ssb';
 
 export type SSBActions = {
   likeMsg$: Stream<{msgKey: string; like: boolean}>;
@@ -34,7 +34,7 @@ export type SSBActions = {
 export default function ssb(
   actions: SSBActions,
   state$: Stream<State>,
-): Stream<Content> {
+): Stream<Req> {
   const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
   const followProfileMsg$ = actions.follow$
@@ -43,5 +43,5 @@ export default function ssb(
       return toContactContent(state.displayFeedId, following);
     });
 
-  return xs.merge(toggleLikeMsg$, followProfileMsg$);
+  return xs.merge(toggleLikeMsg$, followProfileMsg$).map(contentToPublishReq);
 }

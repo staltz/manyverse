@@ -20,8 +20,8 @@
 import {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {State} from './model';
-import {Content} from 'ssb-typescript';
 import {toAboutContent} from '../../../ssb/to-ssb';
+import {Req, contentToPublishReq} from '../../drivers/ssb';
 
 export type SSBActions = {
   save$: Stream<null>;
@@ -33,7 +33,7 @@ export type SSBActions = {
 export default function ssb(
   state$: Stream<State>,
   actions: SSBActions,
-): Stream<Content> {
+): Stream<Req> {
   const newAboutContent$ = actions.save$
     .compose(sample(state$))
     .filter(
@@ -43,7 +43,8 @@ export default function ssb(
     )
     .map(state =>
       toAboutContent(state.about.id, state.newName, state.newDescription),
-    );
+    )
+    .map(contentToPublishReq);
 
   return newAboutContent$;
 }
