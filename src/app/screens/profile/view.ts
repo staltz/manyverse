@@ -27,6 +27,8 @@ import {SSBSource} from '../../drivers/ssb';
 import {styles} from './styles';
 import {State} from './model';
 import {isRootPostMsg} from 'ssb-typescript/utils';
+import {FloatingAction} from 'react-native-floating-action';
+import {Palette} from '../../global-styles/palette';
 
 export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   return state$.map((state: State) => {
@@ -96,7 +98,23 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
           : null,
         selfFeedId: state.selfFeedId,
         style: isSelfProfile ? styles.feedWithHeader : styles.feed,
-        showPublishHeader: isSelfProfile,
+      }),
+
+      h(FloatingAction, {
+        sel: 'fab',
+        color: Palette.brand.callToActionBackground,
+        visible: isSelfProfile,
+        actions: [
+          {
+            color: Palette.brand.callToActionBackground,
+            name: 'compose',
+            icon: require('../../../../images/pencil.png'),
+            text: 'Write a public message',
+          },
+        ],
+        overrideWithAction: true,
+        iconHeight: 24,
+        iconWidth: 24,
       }),
     ]);
   });

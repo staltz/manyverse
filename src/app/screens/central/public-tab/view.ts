@@ -37,7 +37,6 @@ export default function view(
       publication$: ssbSource.publishHook$.filter(isRootPostMsg),
       scrollToTop$,
       selfFeedId: state.selfFeedId,
-      showPublishHeader: true,
     }),
   );
 

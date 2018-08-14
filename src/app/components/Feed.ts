@@ -19,19 +19,12 @@
 
 import xs from 'xstream';
 import {PureComponent} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  NativeScrollEvent,
-} from 'react-native';
+import {View, StyleSheet, NativeScrollEvent} from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
-import MessageContainer from './messages/MessageContainer';
 import CompactThread from './CompactThread';
 import PlaceholderMessage from './messages/PlaceholderMessage';
 import {GetReadable, ThreadAndExtras} from '../drivers/ssb';
@@ -91,43 +84,6 @@ export const styles = StyleSheet.create({
   },
 });
 
-type FeedHeaderProps = {
-  showPlaceholder: boolean;
-  onOpenCompose?: () => void;
-};
-
-class FeedHeader extends PureComponent<FeedHeaderProps> {
-  public render() {
-    const touchableProps = {
-      activeOpacity: 0.6,
-      onPress: this.props.onOpenCompose,
-    };
-    return h(View, [
-      h(TouchableOpacity, touchableProps, [
-        h(MessageContainer, [
-          h(View, {style: styles.writeMessageRow}, [
-            h(View, {style: styles.writeMessageAuthorImage}),
-            h(View, {style: styles.writeInputContainer}, [
-              h(
-                Text,
-                {
-                  accessible: true,
-                  accessibilityLabel: 'Feed Text Input',
-                  style: styles.writeInput,
-                },
-                'Write a public message',
-              ),
-            ]),
-          ]),
-        ]),
-      ]),
-      h(FeedItemSeparator),
-      this.props.showPlaceholder ? h(PlaceholderMessage) : null as any,
-      this.props.showPlaceholder ? h(FeedItemSeparator) : null as any,
-    ]);
-  }
-}
-
 const FeedFooter = h(PlaceholderMessage);
 
 class FeedItemSeparator extends PureComponent {
@@ -142,9 +98,7 @@ type Props = {
   publication$?: Stream<any> | null;
   scrollToTop$?: Stream<any> | null;
   selfFeedId: FeedId;
-  showPublishHeader: boolean;
   style?: any;
-  onOpenCompose?: () => void;
   onRefresh?: () => void;
   onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
@@ -170,16 +124,10 @@ export default class Feed extends PureComponent<Props, State> {
         this.yOffset = ev.nativeEvent.contentOffset.y || 0;
       }
     };
-
-    this._onOpenCompose = () => {
-      const {onOpenCompose} = props;
-      if (onOpenCompose) onOpenCompose();
-    };
   }
 
   private addedThreadsStream: any | null;
   private yOffset: number;
-  private _onOpenCompose: () => void;
   private _onScroll: (ev: {nativeEvent: NativeScrollEvent}) => void;
   private subscription?: Subscription;
 
@@ -229,7 +177,6 @@ export default class Feed extends PureComponent<Props, State> {
       onPressReply,
       onPressAuthor,
       onPressExpandThread,
-      showPublishHeader,
       style,
       scrollToTop$,
       getReadable,
@@ -244,7 +191,6 @@ export default class Feed extends PureComponent<Props, State> {
       pullAmount: 1,
       numColumns: 1,
       refreshable: true,
-      progressViewOffset: 34,
       onRefresh,
       onScroll: this._onScroll,
       scrollToOffset$: (scrollToTop$ || xs.never())
@@ -256,12 +202,6 @@ export default class Feed extends PureComponent<Props, State> {
       refreshColors: [Palette.indigo7],
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
         thread.messages[0].key || String(index),
-      ListHeaderComponent: showPublishHeader
-        ? h(FeedHeader, {
-            onOpenCompose: this._onOpenCompose,
-            showPlaceholder: this.state.showPlaceholder,
-          })
-        : null,
       ItemSeparatorComponent: FeedItemSeparator,
       ListFooterComponent: FeedFooter,
       renderItem: ({item}: any) =>

@@ -23,7 +23,7 @@ import {ReactSource} from '@cycle/react';
 
 export default function intent(reactSource: ReactSource) {
   return {
-    goToCompose$: reactSource.select('feed').events('openCompose'),
+    goToCompose$: reactSource.select('fab').events('pressItem'),
 
     goToEdit$: reactSource.select('editProfile').events('press') as Stream<
       null
