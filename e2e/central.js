@@ -37,18 +37,18 @@ module.exports = function(driver, t) {
       'I see Public tab button',
     );
 
-    // Sync tab
-    const syncTabButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Sync Tab Button")',
+    // Connections tab
+    const connectionsTabButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Connections Tab Button")',
     );
-    t.ok(syncTabButton, 'I see Sync Tab button');
-    await syncTabButton.tap();
+    t.ok(connectionsTabButton, 'I see the Connections Tab button');
+    await connectionsTabButton.tap();
     t.pass('I tap it');
     t.ok(
       await driver.elementByAndroidUIAutomator(
         'new UiSelector().textContains("Friends around you")',
       ),
-      'I see Sync tab body',
+      'I see Connections tab body',
     );
 
     const lanHelpButton = await driver.elementByAndroidUIAutomator(

@@ -35,10 +35,10 @@ const iconData = {
     accessibilityLabel: 'Public Tab Button',
   },
 
-  sync: {
+  connections: {
     name: 'wan',
     accessible: true,
-    accessibilityLabel: 'Sync Tab Button',
+    accessibilityLabel: 'Connections Tab Button',
   },
 };
 
@@ -79,8 +79,11 @@ function renderTabs(
         tabs: [
           renderPublicIcon(state.numOfPublicUpdates),
           {
-            normal: h(Icon, {...iconProps.tab, ...iconData.sync}),
-            selected: h(Icon, {...iconProps.tabSelected, ...iconData.sync}),
+            normal: h(Icon, {...iconProps.tab, ...iconData.connections}),
+            selected: h(Icon, {
+              ...iconProps.tabSelected,
+              ...iconData.connections,
+            }),
           },
         ],
       }),

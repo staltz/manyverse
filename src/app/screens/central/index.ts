@@ -27,10 +27,18 @@ import {Toast, Duration as ToastDuration} from '../../drivers/toast';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
-import {syncTab, Sinks as SyncTabSinks} from './sync-tab/index';
+import {
+  connectionsTab,
+  Sinks as ConnectionsTabSinks,
+} from './connections-tab/index';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
-import model, {State, publicTabLens, syncTabLens, topBarLens} from './model';
+import model, {
+  State,
+  publicTabLens,
+  connectionsTabLens,
+  topBarLens,
+} from './model';
 import view from './view';
 import navigation from './navigation';
 import sampleCombine from 'xstream/extra/sampleCombine';
@@ -81,26 +89,26 @@ export function central(sources: Sources): Sinks {
     '*': 'publicTab',
   })({...sources, scrollToTop: scrollToTop$});
 
-  const syncTabSinks: SyncTabSinks = isolate(syncTab, {
-    onion: syncTabLens,
-    '*': 'syncTab',
+  const connectionsTabSinks: ConnectionsTabSinks = isolate(connectionsTab, {
+    onion: connectionsTabLens,
+    '*': 'connectionsTab',
   })(sources);
 
   const command$ = navigation(
     {openDrawer$: topBarSinks.menuPress},
-    xs.merge(publicTabSinks.navigation, syncTabSinks.navigation),
+    xs.merge(publicTabSinks.navigation, connectionsTabSinks.navigation),
   );
   const centralReducer$ = model(actions, sources.ssb);
   const reducer$ = xs.merge(
     centralReducer$,
     publicTabSinks.onion,
-    syncTabSinks.onion,
+    connectionsTabSinks.onion,
   ) as Stream<Reducer<State>>;
   const vdom$ = view(
     sources.onion.state$,
     topBarSinks.screen,
     publicTabSinks.screen,
-    syncTabSinks.screen,
+    connectionsTabSinks.screen,
   );
 
   const toast$: Stream<Toast> = sources.ssb.acceptInviteResponse$.map(res => {
@@ -122,7 +130,7 @@ export function central(sources: Sources): Sinks {
     screen: vdom$,
     onion: reducer$,
     navigation: command$,
-    alert: syncTabSinks.alert,
+    alert: connectionsTabSinks.alert,
     ssb: publicTabSinks.ssb,
     toast: toast$,
   };

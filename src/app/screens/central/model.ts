@@ -22,14 +22,14 @@ import {Reducer, Lens} from 'cycle-onionify';
 import {FeedId} from 'ssb-typescript';
 import {State as PublicTabState} from './public-tab/model';
 import {State as TopBarState} from './top-bar';
-import {State as SyncTabState} from './sync-tab/model';
+import {State as ConnectionsTabState} from './connections-tab/model';
 import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
   currentTab: number;
   publicTab?: PublicTabState;
-  syncTab?: SyncTabState;
+  connectionsTab?: ConnectionsTabState;
   numOfPublicUpdates: number;
 };
 
@@ -77,10 +77,10 @@ export const publicTabLens: Lens<State, PublicTabState> = {
   },
 };
 
-export const syncTabLens: Lens<State, SyncTabState> = {
-  get: (parent: State): SyncTabState => {
-    if (parent.syncTab) {
-      return {...parent.syncTab, selfFeedId: parent.selfFeedId};
+export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
+  get: (parent: State): ConnectionsTabState => {
+    if (parent.connectionsTab) {
+      return {...parent.connectionsTab, selfFeedId: parent.selfFeedId};
     } else {
       return {
         selfFeedId: parent.selfFeedId,
@@ -93,10 +93,10 @@ export const syncTabLens: Lens<State, SyncTabState> = {
     }
   },
 
-  set: (parent: State, child: SyncTabState): State => {
+  set: (parent: State, child: ConnectionsTabState): State => {
     return {
       ...parent,
-      syncTab: child,
+      connectionsTab: child,
     };
   },
 };

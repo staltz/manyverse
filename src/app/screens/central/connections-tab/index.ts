@@ -44,7 +44,7 @@ export type Sinks = {
   onion: Stream<Reducer<State>>;
 };
 
-export function syncTab(sources: Sources): Sinks {
+export function connectionsTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);
   const vdom$ = view(sources.onion.state$);
   const command$ = navigation(actions, sources.onion.state$);
