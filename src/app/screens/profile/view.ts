@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {View, Text, Image} from 'react-native';
 import {h} from '@cycle/react';
 import Feed from '../../components/Feed';
@@ -29,12 +29,19 @@ import {State} from './model';
 import {isRootPostMsg} from 'ssb-typescript/utils';
 import {FloatingAction} from 'react-native-floating-action';
 import {Palette} from '../../global-styles/palette';
+import {ReactElement} from 'react';
 
-export default function view(state$: Stream<State>, ssbSource: SSBSource) {
-  return state$.map((state: State) => {
+export default function view(
+  state$: Stream<State>,
+  ssbSource: SSBSource,
+  topBarElem$: Stream<ReactElement<any>>,
+) {
+  return xs.combine(state$, topBarElem$).map(([state, topBarElem]) => {
     const isSelfProfile = state.displayFeedId === state.selfFeedId;
 
     return h(View, {style: styles.container}, [
+      topBarElem,
+
       h(View, {style: styles.cover}, [
         h(
           Text,

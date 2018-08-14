@@ -17,16 +17,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {View, Text, TextInput, Image} from 'react-native';
 import Button from '../../components/Button';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 import {styles} from './styles';
+import {ReactElement} from 'react';
 
-export default function view(state$: Stream<State>) {
-  return state$.map(state => {
+export default function view(
+  state$: Stream<State>,
+  topBarElem$: Stream<ReactElement<any>>,
+) {
+  return xs.combine(state$, topBarElem$).map(([state, topBarElem]) => {
     const defaultName =
       !state.about.name ||
       (state.about.name.length > 40 && state.about.name[0] === '@')
@@ -34,6 +38,8 @@ export default function view(state$: Stream<State>) {
         : state.about.name;
 
     return h(View, {style: styles.container}, [
+      topBarElem,
+
       h(View, {style: styles.cover}),
 
       h(

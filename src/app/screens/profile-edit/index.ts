@@ -23,6 +23,8 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {About, FeedId} from 'ssb-typescript';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {Response as DRes, Request as DReq} from '../../drivers/dialogs';
+import isolate from '@cycle/isolate';
+import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
 import view from './view';
 import navigation from './navigation';
@@ -31,7 +33,6 @@ import ssb from './ssb';
 import dialogs from './dialogs';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
-import {Dimensions} from '../../global-styles/dimens';
 import {KeyboardSource} from 'cycle-native-keyboard';
 export {State} from './model';
 
@@ -60,27 +61,20 @@ export type Sinks = {
 
 export const navOptions = {
   topBar: {
-    visible: true,
-    height: Dimensions.toolbarAndroidHeight,
-    title: {
-      text: 'Edit profile',
-    },
-    leftButtons: [
-      {
-        id: 'back',
-        icon: require('../../../../images/icon-arrow-left.png'),
-      },
-    ],
+    visible: false,
+    height: 0,
   },
 };
 
 export function editProfile(sources: Sources): Sinks {
+  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
+
   const actions = intent(sources.screen, sources.dialog);
-  const vdom$ = view(sources.onion.state$);
+  const vdom$ = view(sources.onion.state$, topBarSinks.screen);
   const command$ = navigation(actions);
   const reducer$ = model(sources.props, actions);
   const content$ = ssb(sources.onion.state$, actions);
-  const dialog$ = dialogs(sources.navigation);
+  const dialog$ = dialogs(sources.navigation, topBarSinks.back);
   const dismiss$ = actions.save$.mapTo('dismiss' as 'dismiss');
 
   return {

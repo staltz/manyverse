@@ -24,12 +24,13 @@ import {FeedId} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {Command, NavSource} from 'cycle-native-navigation';
+import isolate from '@cycle/isolate';
+import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
 import model, {State} from './model';
 import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
-import {Dimensions} from '../../global-styles/dimens';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -53,27 +54,23 @@ export type Sinks = {
 
 export const navOptions = {
   topBar: {
-    visible: true,
-    height: Dimensions.toolbarAndroidHeight,
-    title: {
-      text: '',
-    },
-    backButton: {
-      icon: require('../../../../images/icon-arrow-left.png'),
-      visible: true,
-    },
+    visible: false,
+    height: 0,
   },
 };
 
 export function profile(sources: Sources): Sinks {
+  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
+
   const actions = intent(sources.screen);
   const reducer$ = model(sources.props, sources.ssb);
-  const vdom$ = view(sources.onion.state$, sources.ssb);
+  const vdom$ = view(sources.onion.state$, sources.ssb, topBarSinks.screen);
   const newContent$ = ssb(actions, sources.onion.state$);
   const command$ = navigation(
     actions,
     sources.navigation,
     sources.onion.state$,
+    topBarSinks.back,
   );
 
   return {

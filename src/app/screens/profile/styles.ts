@@ -80,7 +80,10 @@ export const styles = StyleSheet.create({
 
   follow: {
     position: 'absolute',
-    top: avatarSizeHalf + Dimensions.verticalSpaceSmall,
+    top:
+      Dimensions.toolbarAndroidHeight +
+      avatarSizeHalf +
+      Dimensions.verticalSpaceSmall,
     right: Dimensions.horizontalSpaceBig,
     zIndex: 30,
   },

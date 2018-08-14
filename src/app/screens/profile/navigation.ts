@@ -38,6 +38,7 @@ export default function navigation(
   actions: Actions,
   navSource: NavSource,
   state$: Stream<State>,
+  back$: Stream<any>,
 ): Stream<Command> {
   const toCompose$ = actions.goToCompose$.map(
     () =>
@@ -86,7 +87,7 @@ export default function navigation(
       } as Command),
   );
 
-  const pop$ = navSource.backPress().mapTo(
+  const pop$ = xs.merge(navSource.backPress(), back$).mapTo(
     {
       type: 'pop',
     } as PopCommand,

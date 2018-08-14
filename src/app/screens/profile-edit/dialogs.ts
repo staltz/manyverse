@@ -17,16 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs from 'xstream';
+import xs, {Stream} from 'xstream';
 import between from 'xstream-between';
 import {NavSource} from 'cycle-native-navigation';
 import {Request as DialogReq} from '../../drivers/dialogs';
 
-export default function dialogs(navSource: NavSource) {
-  const back$ = xs.merge(
-    navSource.backPress(),
-    navSource.topBarButtonPress('back'),
-  );
+export default function dialogs(
+  navSource: NavSource,
+  topBarBack$: Stream<any>,
+) {
+  const back$ = xs.merge(navSource.backPress(), topBarBack$);
 
   return back$
     .compose(between(navSource.didAppear(), navSource.didDisappear()))
