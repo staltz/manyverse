@@ -24,7 +24,7 @@ import {Command as AlertCommand} from 'cycle-native-alert';
 import {ReactSource} from '@cycle/react';
 import {Command} from 'cycle-native-navigation';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
-import {WifiSource} from '../../../drivers/wifi';
+import {NetworkSource} from '../../../drivers/network';
 import {SSBSource} from '../../../drivers/ssb';
 import view from './view';
 import intent from './intent';
@@ -36,8 +36,8 @@ import navigation from './navigation';
 export type Sources = {
   screen: ReactSource;
   onion: StateSource<State>;
+  network: NetworkSource;
   ssb: SSBSource;
-  wifi: WifiSource;
   fab: Stream<string>;
 };
 
@@ -53,7 +53,7 @@ export function connectionsTab(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.fab);
   const vdom$ = view(sources.onion.state$);
   const command$ = navigation(actions, sources.onion.state$);
-  const reducer$ = model(sources.ssb, sources.wifi);
+  const reducer$ = model(sources.ssb, sources.network);
   const fabProps$ = floatingAction(sources.onion.state$);
   const alert$ = alert(actions, sources.onion.state$);
 

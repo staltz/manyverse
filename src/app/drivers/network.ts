@@ -19,11 +19,12 @@
 
 import xs, {Stream, Listener} from 'xstream';
 const wifi = require('react-native-android-wifi');
+const hasInternet = require('react-native-has-internet');
 
-export class WifiSource {
+export class NetworkSource {
   constructor() {}
 
-  public isEnabled(): Stream<boolean> {
+  public wifiIsEnabled(): Stream<boolean> {
     return xs.create({
       start(listener: Listener<boolean>) {
         wifi.isEnabled((isEnabled: boolean) => {
@@ -34,10 +35,22 @@ export class WifiSource {
       stop() {},
     });
   }
+
+  public hasInternetConnection(): Stream<boolean> {
+    return xs.create({
+      start(listener: Listener<boolean>) {
+        hasInternet.isConnected().then((connected: boolean) => {
+          listener.next(connected);
+          listener.complete();
+        });
+      },
+      stop() {},
+    });
+  }
 }
 
-export function makeWifiDriver() {
-  return function lifecycleDriver(sink$: Stream<never>): WifiSource {
-    return new WifiSource();
+export function makeNetworkDriver() {
+  return function networkDriver(): NetworkSource {
+    return new NetworkSource();
   };
 }

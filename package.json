@@ -62,6 +62,7 @@
     "react-native-android-wifi": "0.0.34",
     "react-native-dialogs": "0.0.20",
     "react-native-floating-action": "^1.13.0",
+    "react-native-has-internet": "1.0.1",
     "react-native-navigation": "2.0.2452",
     "react-native-progress": "3.4.0",
     "react-native-ssb-client-keys": "1.1.2",

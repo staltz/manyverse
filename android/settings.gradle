@@ -21,5 +21,7 @@ include ':react-native-android-local-notification'
 project(':react-native-android-local-notification').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-local-notification/android')
 include ':react-native-android-wifi'
 project(':react-native-android-wifi').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-wifi/android')
+include ':react-native-has-internet'
+project(':react-native-has-internet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-has-internet/android')
 
 include ':app'

@@ -82,7 +82,7 @@ function ConnectivityModes(state: State) {
 
     h(ConnectivityMode, {
       sel: 'pub-mode',
-      active: true,
+      active: state.internetEnabled,
       icon: 'server-network',
       label: 'Internet Servers Mode',
     }),

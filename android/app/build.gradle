@@ -178,6 +178,7 @@ dependencies {
     implementation project(':react-native-workers')
     implementation project(':react-native-android-local-notification')
     implementation project(':react-native-android-wifi')
+    implementation project(':react-native-has-internet')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation("com.android.support:appcompat-v7:25.4.0") {
         force = true

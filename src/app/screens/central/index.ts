@@ -24,6 +24,7 @@ import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
 import {Command as AlertCommand} from 'cycle-native-alert';
 import {Toast, Duration as ToastDuration} from '../../drivers/toast';
+import {NetworkSource} from '../../drivers/network';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
@@ -46,6 +47,7 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
+  network: NetworkSource;
   onion: StateSource<State>;
   ssb: SSBSource;
 };

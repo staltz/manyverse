@@ -36,7 +36,7 @@ import {linkingDriver} from 'cycle-native-linking';
 import {makeToastDriver} from './drivers/toast';
 import {notificationDriver} from 'cycle-native-android-local-notification';
 import {ssbDriver} from './drivers/ssb';
-import {makeWifiDriver} from './drivers/wifi';
+import {makeNetworkDriver} from './drivers/network';
 import {dialogDriver} from './drivers/dialogs';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
 import {central, navOptions as centralNavOpts} from './screens/central/index';
@@ -70,10 +70,10 @@ export const drivers = {
   linking: linkingDriver,
   ssb: ssbDriver,
   lifecycle: makeActivityLifecycleDriver(),
+  network: makeNetworkDriver(),
   notification: notificationDriver,
   dialog: dialogDriver,
   toast: makeToastDriver(),
-  wifi: makeWifiDriver(),
 };
 
 export const layout = {
