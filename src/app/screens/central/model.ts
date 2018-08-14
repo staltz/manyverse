@@ -43,9 +43,9 @@ export function initState(selfFeedId: FeedId): State {
 
 export const topBarLens: Lens<State, TopBarState> = {
   get: (parent: State): TopBarState => {
-    if (parent.currentTab === 0) return {title: 'Messages'};
-    if (parent.currentTab === 1) return {title: 'Connections'};
-    else return {title: ''};
+    if (parent.currentTab === 0) return {currentTab: 'public'};
+    if (parent.currentTab === 1) return {currentTab: 'connections'};
+    else return {currentTab: 'public'};
   },
 
   // Ignore writes from the child

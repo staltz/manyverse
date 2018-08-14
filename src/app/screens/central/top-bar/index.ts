@@ -29,7 +29,7 @@ import {ReactElement} from 'react';
 import {Typography} from '../../../global-styles/typography';
 
 export type State = {
-  title: string;
+  currentTab: 'public' | 'connections';
 };
 
 export type Sources = {
@@ -69,11 +69,17 @@ function intent(reactSource: ReactSource) {
   };
 }
 
+function tabTitle(tab: 'public' | 'connections') {
+  if (tab === 'public') return 'Messages';
+  if (tab === 'connections') return 'Connections';
+  return '';
+}
+
 function view(state$: Stream<State>) {
   return state$.map(state =>
     h(View, {style: styles.container}, [
       h(AndroidMenuButton, {sel: 'menuButton'}),
-      h(Text, {style: styles.title}, state.title),
+      h(Text, {style: styles.title}, tabTitle(state.currentTab)),
     ]),
   );
 }
