@@ -27,6 +27,22 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
     flex: 1,
   },
+
+  modesContainer: {
+    alignSelf: 'stretch',
+    backgroundColor: Palette.brand.textBackground,
+    paddingVertical: Dimens.verticalSpaceBig,
+    paddingHorizontal: Dimens.horizontalSpaceBig,
+    marginBottom: Dimens.verticalSpaceNormal,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'space-around',
+  },
+
+  modeTouchable: {
+    borderRadius: 30,
+    padding: 6,
+  },
 });
 
 export const iconProps = {

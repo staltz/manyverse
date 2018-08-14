@@ -23,6 +23,8 @@ import {View} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {IndicatorViewPager} from 'rn-viewpager';
+import {FloatingAction} from 'react-native-floating-action';
+import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {styles as globalStyles} from '../../global-styles/styles';
 import BetterPagerTabIndicator from '../../components/BetterPagerTabIndicator';
 import {styles, iconProps} from './styles';
@@ -97,6 +99,7 @@ function renderTabs(
 
 export default function view(
   state$: Stream<State>,
+  fabProps$: Stream<FabProps>,
   topBarVDOM$: Stream<ReactElement<any>>,
   publicTabVDOM$: Stream<ReactElement<any>>,
   metadataTabVDOM$: Stream<ReactElement<any>>,
@@ -104,14 +107,16 @@ export default function view(
   return xs
     .combine(
       state$,
+      fabProps$,
       topBarVDOM$,
       publicTabVDOM$.startWith(h(View)),
       metadataTabVDOM$.startWith(h(View)),
     )
-    .map(([state, topBarVDOM, publicTabVDOM, metadataTabVDOM]) =>
+    .map(([state, fabProps, topBarVDOM, publicTabVDOM, metadataTabVDOM]) =>
       h(View, {style: styles.root}, [
         topBarVDOM,
         renderTabs(state, publicTabVDOM, metadataTabVDOM),
+        h(FloatingAction, fabProps),
       ]),
     );
 }

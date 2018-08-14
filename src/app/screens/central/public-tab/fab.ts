@@ -18,22 +18,28 @@
  */
 
 import {Stream} from 'xstream';
-import {ReactSource} from '@cycle/react';
-import {FeedId} from 'ssb-typescript';
+import {State} from './model';
+import {IFloatingActionProps as Props} from 'react-native-floating-action';
+import {Palette} from '../../../global-styles/palette';
 
-export default function intent(
-  reactSource: ReactSource,
-  fabPress$: Stream<string>,
-) {
-  return {
-    showLANHelp$: reactSource.select('lan-mode').events('press'),
-
-    showPubHelp$: reactSource.select('pub-mode').events('press'),
-
-    goToPeerProfile$: reactSource
-      .select('connections-list')
-      .events('pressPeer') as Stream<FeedId>,
-
-    goToPasteInvite$: fabPress$.filter(action => action === 'invite-paste'),
-  };
+export default function floatingAction(state$: Stream<State>): Stream<Props> {
+  return state$.map(
+    state =>
+      ({
+        sel: 'fab',
+        color: Palette.brand.callToActionBackground,
+        visible: !!state.selfFeedId,
+        actions: [
+          {
+            color: Palette.brand.callToActionBackground,
+            name: 'compose',
+            icon: require('../../../../../images/pencil.png'),
+            text: 'Write a public message',
+          },
+        ],
+        overrideWithAction: true,
+        iconHeight: 24,
+        iconWidth: 24,
+      } as Props),
+  );
 }

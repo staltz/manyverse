@@ -19,51 +19,82 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {ScrollView} from 'react-native';
+import {ScrollView, View, TouchableHighlight} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './styles';
 import {State} from './model';
-import InviteHeader from '../../../components/InviteHeader';
-import SyncChannelAccordion from '../../../components/SyncChannelAccordion';
+import ConnectionsList from '../../../components/ConnectionsList';
+import {Palette} from '../../../global-styles/palette';
+import {Dimensions} from '../../../global-styles/dimens';
+
+type ModeProps = {
+  onPress?: () => void;
+  active: boolean;
+  icon: string;
+  label: string;
+};
+
+function ConnectivityMode(props: ModeProps) {
+  return h(
+    TouchableHighlight,
+    {
+      onPress: props.onPress,
+      style: styles.modeTouchable,
+      hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
+      underlayColor: '#00000022',
+    },
+    [
+      h(Icon, {
+        size: Dimensions.iconSizeBig,
+        color: props.active
+          ? Palette.brand.background
+          : Palette.brand.textVeryWeak,
+        name: props.icon,
+        accessible: true,
+        accessibilityLabel: props.label,
+      }),
+    ],
+  );
+}
+
+function ConnectivityModes(state: State) {
+  return h(View, {style: styles.modesContainer}, [
+    // h(ConnectivityMode, {
+    //   sel: 'bluetooth-mode',
+    //   active: false,
+    //   icon: 'bluetooth',
+    //   label: 'Bluetooth Mode',
+    // }),
+
+    h(ConnectivityMode, {
+      sel: 'lan-mode',
+      active: state.lanEnabled,
+      icon: 'wifi',
+      label: 'Local Network Mode',
+    }),
+
+    // h(ConnectivityMode, {
+    //   sel: 'dht-mode',
+    //   active: false,
+    //   icon: 'account-network',
+    //   label: 'Internet P2P Mode',
+    // }),
+
+    h(ConnectivityMode, {
+      sel: 'pub-mode',
+      active: true,
+      icon: 'server-network',
+      label: 'Internet Servers Mode',
+    }),
+  ]);
+}
 
 export default function view(state$: Stream<State>) {
   return state$.map(state =>
     h(ScrollView, {style: styles.container}, [
-      h(InviteHeader, {sel: 'invites'}),
+      ConnectivityModes(state),
 
-      // h(SyncChannelAccordion, {
-      //   icon: 'bluetooth',
-      //   name: 'Bluetooth',
-      //   active: false,
-      //   info: 'Connect with people very near',
-      //   onPressActivate: () => {},
-      //   peers: state.peers.bluetooth,
-      // }),
-
-      h(SyncChannelAccordion, {
-        sel: 'lan-peers',
-        icon: 'wifi',
-        name: 'Local network',
-        active: state.lanEnabled,
-        info: 'Connect with people in the same space',
-        peers: state.peers.lan,
-      }),
-
-      // h(SyncChannelAccordion, {
-      //   icon: 'account-network',
-      //   name: 'Internet P2P',
-      //   active: false,
-      //   info: 'Connect with friends online now on the internet',
-      //   peers: state.peers.dht,
-      // }),
-
-      h(SyncChannelAccordion, {
-        sel: 'pub-peers',
-        icon: 'server-network',
-        name: 'Internet servers',
-        active: true,
-        info: 'Connect with community servers on the internet',
-        peers: state.peers.pub,
-      }),
+      h(ConnectionsList, {sel: 'connections-list', peers: state.peers}),
     ]),
   );
 }

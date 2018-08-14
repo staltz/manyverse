@@ -45,7 +45,7 @@ export default function view(topBar$: Stream<ReactElement<any>>) {
             autoFocus: true,
             multiline: true,
             returnKeyType: 'done',
-            placeholder: 'Write',
+            placeholder: 'Write a public message',
             placeholderTextColor: Palette.brand.textVeryWeak,
             selectionColor: Palette.indigo3,
             underlineColorAndroid: Palette.brand.textBackground,

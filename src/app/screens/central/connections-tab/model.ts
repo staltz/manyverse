@@ -26,10 +26,8 @@ import {WifiSource} from '../../../drivers/wifi';
 export type State = {
   selfFeedId: FeedId;
   lanEnabled: boolean;
-  peers: {
-    lan: Array<PeerMetadata>;
-    pub: Array<PeerMetadata>;
-  };
+  internetEnabled: boolean;
+  peers: Array<PeerMetadata>;
 };
 
 export default function model(
@@ -40,10 +38,8 @@ export default function model(
     return {
       selfFeedId: '',
       lanEnabled: false,
-      peers: {
-        lan: [],
-        pub: [],
-      },
+      internetEnabled: true,
+      peers: [],
     };
   });
 
@@ -53,6 +49,7 @@ export default function model(
         return {
           selfFeedId: prev.selfFeedId,
           lanEnabled,
+          internetEnabled: prev.internetEnabled,
           peers: prev.peers,
         };
       },
@@ -61,12 +58,11 @@ export default function model(
   const setPeersReducer$ = ssbSource.peers$.map(
     peers =>
       function setPeersReducer(prev: State): State {
-        const lan = peers.filter(peer => peer.source === 'local');
-        const pub = peers.filter(peer => peer.source !== 'local');
         return {
           selfFeedId: prev.selfFeedId,
           lanEnabled: prev.lanEnabled,
-          peers: {lan, pub},
+          internetEnabled: prev.internetEnabled,
+          peers,
         };
       },
   );

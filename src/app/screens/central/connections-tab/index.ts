@@ -23,11 +23,14 @@ import {StateSource, Reducer} from 'cycle-onionify';
 import {Command as AlertCommand} from 'cycle-native-alert';
 import {ReactSource} from '@cycle/react';
 import {Command} from 'cycle-native-navigation';
+import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {WifiSource} from '../../../drivers/wifi';
 import {SSBSource} from '../../../drivers/ssb';
 import view from './view';
 import intent from './intent';
 import model, {State} from './model';
+import floatingAction from './fab';
+import alert from './alert';
 import navigation from './navigation';
 
 export type Sources = {
@@ -35,6 +38,7 @@ export type Sources = {
   onion: StateSource<State>;
   ssb: SSBSource;
   wifi: WifiSource;
+  fab: Stream<string>;
 };
 
 export type Sinks = {
@@ -42,26 +46,22 @@ export type Sinks = {
   navigation: Stream<Command>;
   alert: Stream<AlertCommand>;
   onion: Stream<Reducer<State>>;
+  fab: Stream<FabProps>;
 };
 
 export function connectionsTab(sources: Sources): Sinks {
-  const actions = intent(sources.screen);
+  const actions = intent(sources.screen, sources.fab);
   const vdom$ = view(sources.onion.state$);
   const command$ = navigation(actions, sources.onion.state$);
   const reducer$ = model(sources.ssb, sources.wifi);
-  const alert$ = actions.showLANHelp$.mapTo({
-    title: 'Friends around you',
-    message:
-      'This list shows friends (accounts you follow) which are currently ' +
-      'connected to you in the same Local Area Network, for instance the ' +
-      'same Wi-Fi, so they are probably "around you".',
-    buttons: [{text: 'OK', id: 'okay'}],
-  });
+  const fabProps$ = floatingAction(sources.onion.state$);
+  const alert$ = alert(actions, sources.onion.state$);
 
   return {
     alert: alert$,
     navigation: command$,
     screen: vdom$,
     onion: reducer$,
+    fab: fabProps$,
   };
 }

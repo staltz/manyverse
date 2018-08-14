@@ -25,9 +25,12 @@ export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};
 export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 
-export default function intent(source: ReactSource) {
+export default function intent(source: ReactSource, fabPress$: Stream<string>) {
   return {
-    goToCompose$: source.select('publicFeed').events('openCompose'),
+    goToCompose$: xs.merge(
+      source.select('publicFeed').events('openCompose'),
+      fabPress$.filter(action => action === 'compose'),
+    ),
 
     likeMsg$: source.select('publicFeed').events('pressLike') as Stream<
       LikeEvent

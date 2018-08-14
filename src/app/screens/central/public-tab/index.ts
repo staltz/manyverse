@@ -22,11 +22,13 @@ import {ReactElement} from 'react';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {ReactSource} from '@cycle/react';
 import {Command, NavSource} from 'cycle-native-navigation';
+import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {SSBSource, Req} from '../../../drivers/ssb';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';
 import ssb from './ssb';
+import floatingAction from './fab';
 import navigation from './navigation';
 
 export type Sources = {
@@ -35,6 +37,7 @@ export type Sources = {
   onion: StateSource<State>;
   ssb: SSBSource;
   scrollToTop: Stream<any>;
+  fab: Stream<string>;
 };
 
 export type Sinks = {
@@ -42,13 +45,15 @@ export type Sinks = {
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
   ssb: Stream<Req>;
+  fab: Stream<FabProps>;
 };
 
 export function publicTab(sources: Sources): Sinks {
-  const actions = intent(sources.screen);
+  const actions = intent(sources.screen, sources.fab);
   const vdom$ = view(sources.onion.state$, sources.ssb, sources.scrollToTop);
   const command$ = navigation(actions, sources.onion.state$);
   const reducer$ = model(actions, sources.ssb);
+  const fabProps$ = floatingAction(sources.onion.state$);
   const newContent$ = ssb(actions);
 
   return {
@@ -56,5 +61,6 @@ export function publicTab(sources: Sources): Sinks {
     navigation: command$,
     onion: reducer$,
     ssb: newContent$,
+    fab: fabProps$,
   };
 }

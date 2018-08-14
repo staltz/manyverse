@@ -85,10 +85,8 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
       return {
         selfFeedId: parent.selfFeedId,
         lanEnabled: false,
-        peers: {
-          lan: [],
-          pub: [],
-        },
+        internetEnabled: true,
+        peers: [],
       };
     }
   },

@@ -84,28 +84,43 @@ export function central(sources: Sources): Sinks {
     .filter(([i, state]) => state.currentTab === 0 && i === 0)
     .mapTo(null);
 
+  const fabPress$: Stream<string> = sources.screen
+    .select('fab')
+    .events('pressItem');
+
   const publicTabSinks: PublicTabSinks = isolate(publicTab, {
     onion: publicTabLens,
     '*': 'publicTab',
-  })({...sources, scrollToTop: scrollToTop$});
+  })({...sources, scrollToTop: scrollToTop$, fab: fabPress$});
 
   const connectionsTabSinks: ConnectionsTabSinks = isolate(connectionsTab, {
     onion: connectionsTabLens,
     '*': 'connectionsTab',
-  })(sources);
+  })({...sources, fab: fabPress$});
+
+  const fabProps$ = sources.onion.state$
+    .map(
+      state =>
+        state.currentTab === 0 ? publicTabSinks.fab : connectionsTabSinks.fab,
+    )
+    .flatten();
 
   const command$ = navigation(
     {openDrawer$: topBarSinks.menuPress},
     xs.merge(publicTabSinks.navigation, connectionsTabSinks.navigation),
   );
+
   const centralReducer$ = model(actions, sources.ssb);
+
   const reducer$ = xs.merge(
     centralReducer$,
     publicTabSinks.onion,
     connectionsTabSinks.onion,
   ) as Stream<Reducer<State>>;
+
   const vdom$ = view(
     sources.onion.state$,
+    fabProps$,
     topBarSinks.screen,
     publicTabSinks.screen,
     connectionsTabSinks.screen,
