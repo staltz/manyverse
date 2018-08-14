@@ -149,8 +149,7 @@ export default class ConnectionsList extends PureComponent<Props> {
         h(View, {style: styles.peerAvatarContainer}, [
           h(Image, {
             style: styles.peerAvatar,
-            // source: {uri: peer.imageUrl || undefined},
-            source: require('../../../images/plus-network.png'),
+            source: {uri: peer['imageUrl' as any] || undefined},
           }),
         ]),
       ]),

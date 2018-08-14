@@ -148,18 +148,23 @@ export class SSBSource {
           Map<string, PeerMetadata>
         >;
         const peersArr$ = peers$.map(es6map => Array.from(es6map.entries()));
-        const peersWithNames$ = peersArr$
+        const peersWithExtras$ = peersArr$
           .map(peersArr =>
             xs.combine(
               ...peersArr.map(kv =>
-                xsFromMutant<string>(api.about.obs.name[0](kv[1].key)).map(
-                  name => ({...kv[1], name} as PeerMetadata),
-                ),
+                xsFromMutant<string>(api.about.obs.name[0](kv[1].key))
+                  .map(name => ({...kv[1], name} as PeerMetadata))
+                  .map(peer =>
+                    xsFromMutant<string>(
+                      api.about.obs.imageUrl[0](peer.key),
+                    ).map(imageUrl => ({...peer, imageUrl} as PeerMetadata)),
+                  )
+                  .flatten(),
               ),
             ),
           )
           .flatten();
-        return peersWithNames$;
+        return peersWithExtras$;
       })
       .flatten();
 
