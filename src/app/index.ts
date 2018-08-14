@@ -112,7 +112,7 @@ export const defaultNavOptions = {
   },
   topBar: {
     visible: false,
-    drawBehind: false,
+    drawBehind: true,
     hideOnScroll: false,
     animate: false,
     height: 0,
