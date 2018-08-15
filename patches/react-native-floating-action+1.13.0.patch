@@ -1,0 +1,12 @@
+patch-package
+--- a/node_modules/react-native-floating-action/component/FloatingAction.js
++++ b/node_modules/react-native-floating-action/component/FloatingAction.js
+@@ -286,6 +286,8 @@ class FloatingAction extends Component {
+           propStyles,
+           animatedVisibleView
+         ]}
++        accessible={true}
++        accessibilityLabel={'Floating Action Button'}
+       >
+         <Touchable
+           {...getRippleProps(mainButtonColor)}
