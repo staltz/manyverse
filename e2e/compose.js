@@ -21,17 +21,20 @@ const test = require('tape');
 
 module.exports = function(driver, t) {
   t.test('Compose screen allows posting new public message', async function(t) {
-    const feedTextInput = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Feed Text Input")',
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().text("Messages")',
+        6000,
+      ),
+      'I see the Messages header in the Central screen',
+    );
+
+    const fab = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Floating Action Button")',
       6000,
     );
-    t.ok(
-      feedTextInput,
-      'I see Feed Text Input in the Central screen (Public Tab)',
-    );
-    const f1 = await feedTextInput.text();
-    t.equal(f1, 'Write a public message', 'It shows the placeholder');
-    await feedTextInput.tap();
+    t.ok(fab, 'I see the Floating Action Button');
+    await fab.tap();
     t.pass('I tap it');
     const composeTextInput = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Text Input")',
@@ -62,14 +65,20 @@ module.exports = function(driver, t) {
   });
 
   t.test('Compose screen closes when keyboard gets closed', async function(t) {
-    const feedTextInput = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Feed Text Input")',
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().text("Messages")',
+        6000,
+      ),
+      'I see the Messages header in the Central screen',
+    );
+
+    const fab = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Floating Action Button")',
       6000,
     );
-    t.pass('I see Feed Text Input in the Central screen (Public Tab)');
-    const f1 = await feedTextInput.text();
-    t.equal(f1, 'Write a public message', 'It shows the placeholder');
-    await feedTextInput.tap();
+    t.pass('I see Floating Action Button');
+    await fab.tap();
     t.pass('I tap it');
     const composeTextInput = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Text Input")',

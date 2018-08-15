@@ -95,7 +95,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Feed Text Input")',
+        'new UiSelector().text("Messages")',
         6000,
       ),
       'I see the Central screen and the Messages tab',

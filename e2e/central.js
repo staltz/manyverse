@@ -22,13 +22,21 @@ const wd = require('wd');
 
 module.exports = function(driver, t) {
   t.test('Central screen is displayed with 2 tabs', async function(t) {
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().text("Messages")',
+        6000,
+      ),
+      'I see the Messages header in the Central screen',
+    );
+    await driver.sleep(6000);
     // Public tab
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Feed Text Input")',
-        6000,
+        'new UiSelector().textContains("No messages")',
+        8000,
       ),
-      'I see Feed Text Input',
+      'I see the Messages tab body with no messages',
     );
     t.ok(
       await driver.elementByAndroidUIAutomator(
@@ -46,24 +54,30 @@ module.exports = function(driver, t) {
     t.pass('I tap it');
     t.ok(
       await driver.elementByAndroidUIAutomator(
-        'new UiSelector().textContains("Friends around you")',
+        'new UiSelector().text("Connections")',
       ),
-      'I see Connections tab body',
+      'I see the Connections header in the Central screen',
+    );
+    t.ok(
+      await driver.elementByAndroidUIAutomator(
+        'new UiSelector().textContains("No connections")',
+      ),
+      'I see Connections tab body with no connections',
     );
 
     const lanHelpButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Show LAN Help")',
+      'new UiSelector().descriptionContains("Local Network Mode")',
     );
-    t.ok(lanHelpButton, 'I see Info button about LAN peers');
+    t.ok(lanHelpButton, 'I see LAN mode icon');
     await lanHelpButton.tap();
     t.pass('I tap it');
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("This list shows friends")',
+        'new UiSelector().textContains("Connect with friends in the same Local Area Network")',
         6000,
       ),
-      'I see a text explaining what LAN peers are',
+      'I see a text explaining what LAN connectivity is',
     );
 
     await driver.back();
@@ -77,10 +91,11 @@ module.exports = function(driver, t) {
     await publicTabButton.tap();
     t.pass('I tap it');
     t.ok(
-      await driver.elementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Feed Text Input")',
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().text("Messages")',
+        8000,
       ),
-      'I see Feed Text Input',
+      'I see the Messages header in the Central screen',
     );
 
     t.end();

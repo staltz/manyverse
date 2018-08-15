@@ -22,20 +22,26 @@ const wd = require('wd');
 
 module.exports = function(driver, t) {
   t.test('Central screen shows many in scrolling feed', async function(t) {
+    t.ok(
+      await driver.elementByAndroidUIAutomator(
+        'new UiSelector().text("Messages")',
+      ),
+      'I see the Messages header in the Central screen',
+    );
     await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Feed Text Input")',
+      'new UiSelector().descriptionContains("Floating Action Button")',
       6000,
     );
-    t.pass('I see Feed Text Input in the Central screen (Public Tab)');
+    t.pass('I see the Floating Action Button');
 
     const AMOUNT = 10;
     t.pass('I begin creating ' + AMOUNT + ' public messages');
     for (let i = 1; i <= AMOUNT; i++) {
-      const feedTextInput = await driver.elementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Feed Text Input")',
+      const fab = await driver.elementByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("Floating Action Button")',
         6000,
       );
-      await feedTextInput.tap();
+      await fab.tap();
       await driver.sleep(500);
       const composeTextInput = await driver.elementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Compose Text Input")',
@@ -89,12 +95,19 @@ module.exports = function(driver, t) {
   });
 
   t.test('A message in the feed can be liked', async function(t) {
-    const feedTextInput = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Feed Text Input")',
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().text("Messages")',
+        6000,
+      ),
+      'I see the Messages header in the Central screen',
+    );
+    const fab = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Floating Action Button")',
       6000,
     );
-    t.pass('I see Feed Text Input');
-    await feedTextInput.tap();
+    t.pass('I see the Floating Action Button');
+    await fab.tap();
     const composeTextInput = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Text Input")',
       6000,

@@ -24,12 +24,19 @@ module.exports = function(driver, t) {
   t.test(
     'Thread screen can be accessed from reply button in feed',
     async function(t) {
-      const feedTextInput = await driver.elementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Feed Text Input")',
+      t.ok(
+        await driver.waitForElementByAndroidUIAutomator(
+          'new UiSelector().text("Messages")',
+          6000,
+        ),
+        'I see the Messages header in the Central screen',
+      );
+      const fab = await driver.elementByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("Floating Action Button")',
         6000,
       );
-      t.pass('I see Feed Text Input');
-      await feedTextInput.tap();
+      t.pass('I tap the Floating Action Button');
+      await fab.tap();
       const composeTextInput = await driver.elementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Compose Text Input")',
         6000,
@@ -117,7 +124,7 @@ module.exports = function(driver, t) {
     t.pass('I press the (hardware) back button');
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Feed Text Input")',
+        'new UiSelector().descriptionContains("Floating Action Button")',
         6000,
       ),
       'I am on the Central screen with a feed',
