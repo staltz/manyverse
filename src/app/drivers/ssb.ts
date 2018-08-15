@@ -247,7 +247,9 @@ export function contentToPublishReq(content: Content): PublishReq {
 }
 
 export function ssbDriver(sink: Stream<Req>): SSBSource {
-  const keys$ = xsFromCallback(ssbKeys.loadOrCreate)(ssbKeysPath);
+  const keys$ = xs
+    .throw(new Error('keep retrying ssbKeys.load() until it works'))
+    .replaceError(() => xsFromCallback(ssbKeys.load)(ssbKeysPath));
 
   const api$ = keys$
     .take(1)

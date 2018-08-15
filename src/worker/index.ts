@@ -33,12 +33,16 @@ const createClient = require('ssb-client');
 
 const ms = MultiServer([workerPlugin({worker: self})]);
 
-const keysPromise = new Promise((resolve, reject) => {
-  ssbKeys.loadOrCreate(ssbKeysPath, (err: any, keys: any) => {
-    if (err) {
-      reject(err);
-    } else if (keys) {
+const keysPromise = new Promise(resolve => {
+  let retryPeriod = 400;
+  ssbKeys.load(ssbKeysPath, function done(err: any, keys: any) {
+    if (!err && keys) {
       resolve(keys);
+    } else {
+      setTimeout(() => {
+        retryPeriod *= 2;
+        ssbKeys.load(ssbKeysPath, done);
+      }, retryPeriod);
     }
   });
 });
