@@ -23,6 +23,8 @@ import Feed from '../../../components/Feed';
 import {State} from './model';
 import {SSBSource} from '../../../drivers/ssb';
 import {isRootPostMsg} from 'ssb-typescript/utils';
+import {styles} from './styles';
+import EmptySection from '../../../components/EmptySection';
 
 export default function view(
   state$: Stream<State>,
@@ -37,6 +39,12 @@ export default function view(
       publication$: ssbSource.publishHook$.filter(isRootPostMsg),
       scrollToTop$,
       selfFeedId: state.selfFeedId,
+      EmptyComponent: h(EmptySection, {
+        style: styles.emptySection,
+        image: require('../../../../../images/noun-plant.png'),
+        title: 'No messages',
+        description: 'Write a diary which you can\nshare with friends later',
+      }),
     }),
   );
 

@@ -30,6 +30,7 @@ import {isRootPostMsg} from 'ssb-typescript/utils';
 import {FloatingAction} from 'react-native-floating-action';
 import {Palette} from '../../global-styles/palette';
 import {ReactElement} from 'react';
+import EmptySection from '../../components/EmptySection';
 
 export default function view(
   state$: Stream<State>,
@@ -105,6 +106,19 @@ export default function view(
           : null,
         selfFeedId: state.selfFeedId,
         style: isSelfProfile ? styles.feedWithHeader : styles.feed,
+        EmptyComponent: isSelfProfile
+          ? h(EmptySection, {
+              style: styles.emptySection,
+              image: require('../../../../images/noun-plant.png'),
+              title: 'No messages',
+              description:
+                'Write a diary which you can\nshare with friends later',
+            })
+          : h(EmptySection, {
+              style: styles.emptySection,
+              title: 'No messages',
+              description: "You don't yet have any data\nfrom this account",
+            }),
       }),
 
       h(FloatingAction, {

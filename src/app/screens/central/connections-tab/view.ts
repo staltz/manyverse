@@ -26,6 +26,7 @@ import {State} from './model';
 import ConnectionsList from '../../../components/ConnectionsList';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
+import EmptySection from '../../../components/EmptySection';
 
 type ModeProps = {
   onPress?: () => void;
@@ -90,11 +91,29 @@ function ConnectivityModes(state: State) {
 }
 
 export default function view(state$: Stream<State>) {
-  return state$.map(state =>
-    h(ScrollView, {style: styles.container}, [
+  return state$.map(state => {
+    const isOffline = !state.lanEnabled && !state.internetEnabled;
+
+    return h(ScrollView, {style: styles.container}, [
       ConnectivityModes(state),
 
-      h(ConnectionsList, {sel: 'connections-list', peers: state.peers}),
-    ]),
-  );
+      isOffline
+        ? h(EmptySection, {
+            style: styles.emptySection,
+            image: require('../../../../../images/noun-lantern.png'),
+            title: 'Offline',
+            description:
+              'Turn on some connection mode\nor just enjoy some existing content',
+          })
+        : state.peers.length === 0
+          ? h(EmptySection, {
+              style: styles.emptySection,
+              image: require('../../../../../images/noun-crops.png'),
+              title: 'No connections',
+              description:
+                'Invite a friend to connect with\nor sync with people nearby',
+            })
+          : h(ConnectionsList, {sel: 'connections-list', peers: state.peers}),
+    ]);
+  });
 }

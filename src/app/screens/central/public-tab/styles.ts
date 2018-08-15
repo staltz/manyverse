@@ -19,39 +19,9 @@
 
 import {StyleSheet} from 'react-native';
 import {Dimensions as Dimens} from '../../../global-styles/dimens';
-import {Palette} from '../../../global-styles/palette';
 
 export const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Palette.brand.voidBackground,
-    alignSelf: 'stretch',
-    flex: 1,
-  },
-
-  modesContainer: {
-    alignSelf: 'stretch',
-    backgroundColor: Palette.brand.textBackground,
-    paddingVertical: Dimens.verticalSpaceBig,
-    paddingHorizontal: Dimens.horizontalSpaceBig,
-    marginBottom: Dimens.verticalSpaceNormal,
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    justifyContent: 'space-around',
-  },
-
-  modeTouchable: {
-    borderRadius: 30,
-    padding: 6,
-  },
-
   emptySection: {
     marginTop: Dimens.verticalSpaceBig * 2,
   },
 });
-
-export const iconProps = {
-  info: {
-    size: Dimens.iconSizeSmall,
-    color: Palette.brand.darkTextWeak,
-  },
-};

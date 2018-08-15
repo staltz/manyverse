@@ -18,7 +18,7 @@
  */
 
 import xs from 'xstream';
-import {PureComponent} from 'react';
+import {PureComponent, ReactElement} from 'react';
 import {View, StyleSheet, NativeScrollEvent} from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, MsgId} from 'ssb-typescript';
@@ -98,6 +98,7 @@ type Props = {
   publication$?: Stream<any> | null;
   scrollToTop$?: Stream<any> | null;
   selfFeedId: FeedId;
+  EmptyComponent?: ReactElement<any>;
   style?: any;
   onRefresh?: () => void;
   onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
@@ -181,6 +182,7 @@ export default class Feed extends PureComponent<Props, State> {
       scrollToTop$,
       getReadable,
       selfFeedId,
+      EmptyComponent,
     } = this.props;
 
     return h(PullFlatList2, {
@@ -204,6 +206,7 @@ export default class Feed extends PureComponent<Props, State> {
         thread.messages[0].key || String(index),
       ItemSeparatorComponent: FeedItemSeparator,
       ListFooterComponent: FeedFooter,
+      ListEmptyComponent: EmptyComponent,
       renderItem: ({item}: any) =>
         h(View, [
           h(CompactThread, {
