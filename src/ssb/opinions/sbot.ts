@@ -45,6 +45,7 @@ const gives = {
     },
     async: {
       get: true,
+      status: true,
       publish: true,
       acceptInvite: true,
       addBlob: true,
@@ -149,6 +150,9 @@ const create = (api: any) => {
               cb(null, value);
             });
           }
+        }),
+        status: rec.async((cb: any) => {
+          sbot.status(cb);
         }),
         publish: rec.async((content: any, cb: any) => {
           if (!content) {

@@ -31,12 +31,14 @@ export type State = {
   publicTab?: PublicTabState;
   connectionsTab?: ConnectionsTabState;
   numOfPublicUpdates: number;
+  isSyncing: boolean;
 };
 
 export function initState(selfFeedId: FeedId): State {
   return {
     selfFeedId,
     currentTab: 0,
+    isSyncing: false,
     numOfPublicUpdates: 0,
   };
 }
@@ -86,6 +88,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         selfFeedId: parent.selfFeedId,
         lanEnabled: false,
         internetEnabled: false,
+        isSyncing: parent.isSyncing,
         peers: [],
       };
     }
@@ -94,6 +97,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
   set: (parent: State, child: ConnectionsTabState): State => {
     return {
       ...parent,
+      isSyncing: child.isSyncing,
       connectionsTab: child,
     };
   },
@@ -114,6 +118,7 @@ export default function model(
       return {
         selfFeedId: '',
         currentTab: 0,
+        isSyncing: false,
         numOfPublicUpdates: 0,
       };
     }

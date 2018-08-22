@@ -28,6 +28,7 @@ export type State = {
   lanEnabled: boolean;
   internetEnabled: boolean;
   peers: Array<PeerMetadata>;
+  isSyncing: boolean;
 };
 
 export default function model(
@@ -39,9 +40,23 @@ export default function model(
       selfFeedId: '',
       lanEnabled: false,
       internetEnabled: false,
+      isSyncing: false,
       peers: [],
     };
   });
+
+  const updateIsSyncing$ = ssbSource.isSyncing$.map(
+    isSyncing =>
+      function updateIsSyncing(prev: State): State {
+        return {
+          selfFeedId: prev.selfFeedId,
+          lanEnabled: prev.lanEnabled,
+          internetEnabled: prev.internetEnabled,
+          isSyncing,
+          peers: prev.peers,
+        };
+      },
+  );
 
   const updateLanEnabled$ = networkSource.wifiIsEnabled().map(
     lanEnabled =>
@@ -50,6 +65,7 @@ export default function model(
           selfFeedId: prev.selfFeedId,
           lanEnabled,
           internetEnabled: prev.internetEnabled,
+          isSyncing: prev.isSyncing,
           peers: prev.peers,
         };
       },
@@ -62,6 +78,7 @@ export default function model(
           selfFeedId: prev.selfFeedId,
           lanEnabled: prev.lanEnabled,
           internetEnabled,
+          isSyncing: prev.isSyncing,
           peers: prev.peers,
         };
       },
@@ -74,6 +91,7 @@ export default function model(
           selfFeedId: prev.selfFeedId,
           lanEnabled: prev.lanEnabled,
           internetEnabled: prev.internetEnabled,
+          isSyncing: prev.isSyncing,
           peers,
         };
       },
@@ -81,8 +99,9 @@ export default function model(
 
   return xs.merge(
     initReducer$,
-    setPeersReducer$,
+    updateIsSyncing$,
     updateLanEnabled$,
     updateInternetEnabled$,
+    setPeersReducer$,
   );
 }

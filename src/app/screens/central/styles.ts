@@ -92,6 +92,13 @@ export const styles = StyleSheet.create({
     right: 1,
     borderRadius: 4,
   },
+
+  syncingProgressBar: {
+    position: 'absolute',
+    left: 2,
+    right: 2,
+    bottom: 2.4,
+  },
 });
 
 export const iconProps = {

@@ -9,6 +9,7 @@
     "encoding-down": "5.0.2",
     "leveldown": "4.0.1",
     "pull-cat": "1.1.11",
+    "pull-stream": "git://github.com/staltz/pull-stream.git#abortCb",
     "scuttlebot": "11.4.2",
     "ssb-about": "0.1.x",
     "ssb-backlinks": "0.7.3",

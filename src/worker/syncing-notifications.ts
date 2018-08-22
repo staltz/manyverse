@@ -17,8 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const delay = require('delay');
+const sleep = require('delay');
 const estimateProgress = require('estimate-progress');
+const thenable = require('pull-thenable');
+const pify = require('pify');
 const Notification = require('react-native-android-local-notification');
 
 const NOTIFICATION_ID = 175942; // only used in this module
@@ -46,13 +48,17 @@ function showNotification(data: ProgressData) {
   else message = `${downloadedBytes} bytes synced so far`;
   Notification.create({
     id: NOTIFICATION_ID,
-    subject: 'MMMMM is syncing',
+    subject: 'Syncing',
     message,
     localOnly: true,
+    priority: 0,
     smallIcon: 'outline',
     onlyAlertOnce: true,
     progress,
+    sound: null,
     vibrate: null,
+    lights: null,
+    category: 'progress',
     autoClear: true,
   });
 }
@@ -61,13 +67,8 @@ function hideNotification() {
   Notification.clear(NOTIFICATION_ID);
 }
 
-function getStatus(ssbClient: any) {
-  return new Promise<any>((resolve, reject) => {
-    ssbClient.status((err: any, status: any) => {
-      if (err) reject(err);
-      else resolve(status);
-    });
-  });
+function getLiveMsg(ssbClient: any) {
+  return thenable(ssbClient.threads.publicUpdates({}));
 }
 
 function isUpToDate(data: ProgressData) {
@@ -76,23 +77,26 @@ function isUpToDate(data: ProgressData) {
 
 export async function startSyncingNotifications(ssbClientPromise: any) {
   const ssbClient = await ssbClientPromise;
+  const getProgressStatus = pify(ssbClient.status);
   let status: any;
   let getEstimated: () => ProgressData;
   while (true) {
+    hideNotification();
+
     // Polling cycle
     do {
-      await delay(1500);
-      status = await getStatus(ssbClient);
+      await getLiveMsg(ssbClient);
+      await sleep(3000);
+      status = await getProgressStatus();
     } while (isUpToDate(status.progress.indexes));
 
     // Rendering cycle
     getEstimated = estimateProgress(() => status.progress.indexes, 15, 0.85);
     do {
       showNotification(getEstimated());
-      await delay(150);
-      status = await getStatus(ssbClient);
+      await sleep(150);
+      status = await getProgressStatus();
     } while (!isUpToDate(getEstimated()));
-    await delay(500);
-    hideNotification();
+    await sleep(500);
   }
 }

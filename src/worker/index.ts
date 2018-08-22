@@ -24,7 +24,7 @@ import {manifest} from '../ssb/manifest-client';
 import {startSyncingNotifications} from './syncing-notifications';
 const ssbKeys = require('react-native-ssb-client-keys');
 const pull = require('pull-stream');
-const delay = require('delay');
+const sleep = require('delay');
 const muxrpc = require('muxrpc');
 const Config = require('ssb-config/inject');
 const MultiServer = require('multiserver');
@@ -76,7 +76,7 @@ const ssbClientPromise = keysPromise.then(async function setupSSBClient(keys) {
         }
       });
     } catch (err) {
-      await delay(retryPeriod);
+      await sleep(retryPeriod);
       retryPeriod *= 2;
     }
   } while (ssbClient === null);

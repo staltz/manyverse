@@ -27,8 +27,10 @@ import {FloatingAction} from 'react-native-floating-action';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {styles as globalStyles} from '../../global-styles/styles';
 import BetterPagerTabIndicator from '../../components/BetterPagerTabIndicator';
+import IndeterminateBar from '../../components/IndeterminateBar';
 import {styles, iconProps} from './styles';
 import {State} from './model';
+import {Palette} from '../../global-styles/palette';
 
 const iconData = {
   public: {
@@ -64,6 +66,41 @@ function renderPublicIcon(numOfPublicUpdates: number) {
   };
 }
 
+function renderConnectionsIcon(isSyncing: boolean) {
+  return {
+    normal: h(
+      View,
+      [
+        h(Icon, {...iconProps.tab, ...iconData.connections}),
+        isSyncing
+          ? h(IndeterminateBar, {
+              style: styles.syncingProgressBar,
+              color: Palette.brand.callToActionBackground,
+              height: 2,
+            })
+          : null,
+      ] as any,
+    ),
+
+    selected: h(
+      View,
+      [
+        h(Icon, {
+          ...iconProps.tabSelected,
+          ...iconData.connections,
+        }),
+        isSyncing
+          ? h(IndeterminateBar, {
+              style: styles.syncingProgressBar,
+              color: Palette.brand.callToActionBackground,
+              height: 2,
+            })
+          : null,
+      ] as any,
+    ),
+  };
+}
+
 function renderTabs(
   state: State,
   publicTabVDOM: ReactElement<any>,
@@ -80,13 +117,7 @@ function renderTabs(
         selectedItemStyle: styles.tabItemSelected,
         tabs: [
           renderPublicIcon(state.numOfPublicUpdates),
-          {
-            normal: h(Icon, {...iconProps.tab, ...iconData.connections}),
-            selected: h(Icon, {
-              ...iconProps.tabSelected,
-              ...iconData.connections,
-            }),
-          },
+          renderConnectionsIcon(state.isSyncing),
         ],
       }),
     },
