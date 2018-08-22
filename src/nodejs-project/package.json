@@ -20,7 +20,7 @@
     "ssb-private": "0.2.3",
     "ssb-query": "2.1.0",
     "ssb-serve-blobs": "1.0.0",
-    "ssb-threads": "2.3.1",
+    "ssb-threads": "3.0.0",
     "utf-8-validate": "4.0.2",
     "xtend": "4.0.1"
   },

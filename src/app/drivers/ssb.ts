@@ -129,7 +129,7 @@ export class SSBSource {
       .map(api => {
         const getProgressStatus = pify(api.sbot.async.status[0]);
         const nextUpdate = thenable(
-          api.sbot.pull.publicUpdates[0]({whitelist: undefined}),
+          api.sbot.pull.publicUpdates[0]({allowlist: undefined}),
         );
         return xs.create<boolean>({
           async start(listener: Listener<boolean>) {

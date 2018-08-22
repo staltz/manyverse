@@ -221,17 +221,17 @@ const create = (api: any) => {
         publicThreads: rec.source((opts: any) => {
           return sbot.threads.public({
             threadMaxSize: 3,
-            whitelist: ['post'],
+            allowlist: ['post'],
             ...opts,
           });
         }),
         publicUpdates: rec.source((opts: any) => {
-          return sbot.threads.publicUpdates({whitelist: ['post'], ...opts});
+          return sbot.threads.publicUpdates({allowlist: ['post'], ...opts});
         }),
         profileThreads: rec.source((opts: any) => {
           return sbot.threads.profile({
             threadMaxSize: 3,
-            whitelist: ['post'],
+            allowlist: ['post'],
             ...opts,
           });
         }),
