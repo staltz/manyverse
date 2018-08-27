@@ -75,8 +75,7 @@ function isUpToDate(data: ProgressData) {
   return data.current === data.target;
 }
 
-export async function startSyncingNotifications(ssbClientPromise: any) {
-  const ssbClient = await ssbClientPromise;
+export async function startSyncingNotifications(ssbClient: any) {
   const getProgressStatus = pify(ssbClient.status);
   let status: any;
   let getEstimated: () => ProgressData;

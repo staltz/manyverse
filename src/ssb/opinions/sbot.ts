@@ -19,6 +19,7 @@
 
 import {Readable} from '../../typings/pull-stream';
 import {manifest} from '../manifest-client';
+import {startSyncingNotifications} from '../syncing-notifications';
 const pull = require('pull-stream');
 const defer = require('pull-defer');
 const {Value, onceTrue, Set: MutantSet} = require('mutant');
@@ -29,10 +30,8 @@ const createFeed = require('ssb-feed');
 const ssbKeys = require('react-native-ssb-client-keys');
 const muxrpc = require('muxrpc');
 const MultiServer = require('multiserver');
-// const rnChannelPlugin = require('multiserver-rn-channel');
 const makeWSPlugin = require('multiserver/plugins/ws');
 const noAuthPlugin = require('multiserver/plugins/noauth');
-// const nodejs = require('nodejs-mobile-react-native');
 
 const needs = nest({
   'keys.sync.load': 'first',
@@ -100,39 +99,15 @@ const create = (api: any) => {
       connectionStatus.set(value);
     }
 
-    // let subscription: any = null;
-    // const buffer: Array<any> = [];
-    // const wrappedChannel = {
-    //   send(msg: string) {
-    //     console.log('<>CLIENT SENT ' + msg);
-    //     buffer.push(msg);
-    //     if (subscription) clearImmediate(subscription);
-    //     subscription = setImmediate(() => {
-    //       subscription = null;
-    //       if (buffer.length === 0) return;
-    //       nodejs.channel.send(buffer.join('$$$'));
-    //       while (buffer.length > 0) buffer.pop();
-    //     });
-    //   },
-    //   addListener(type: string, listener: any) {
-    //     nodejs.channel.addListener(type, (msg: string) => {
-    //       console.log('<>CLIENT GOT ' + msg);
-    //       const msgs = msg.split('$$$');
-    //       msgs.forEach(listener);
-    //       // listener(msg);
-    //     });
-    //   },
-    // };
-
     const ms = MultiServer([
       [
-        // rnChannelPlugin(wrappedChannel),
         makeWSPlugin(),
         noAuthPlugin({
           keys: toSodiumKeys(keys),
         }),
       ],
     ]);
+
     const address = [
       'ws:localhost:8422',
       'noauth:' + keys.public.replace('.ed25519', ''),
@@ -166,6 +141,8 @@ const create = (api: any) => {
   };
 
   const feed = createFeed(internal, keys, {remote: true});
+
+  onceTrue(connection, startSyncingNotifications);
 
   return {
     sbot: {
