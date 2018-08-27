@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Worker} from '@staltz/react-native-workers';
 import {Readable} from '../../typings/pull-stream';
 import {manifest} from '../manifest-client';
 const pull = require('pull-stream');
@@ -27,10 +26,13 @@ const ref = require('ssb-ref');
 const Reconnect = require('pull-reconnect');
 const nest = require('depnest');
 const createFeed = require('ssb-feed');
-const ssbKeys = require('ssb-keys');
+const ssbKeys = require('react-native-ssb-client-keys');
 const muxrpc = require('muxrpc');
 const MultiServer = require('multiserver');
-const workerPlugin = require('multiserver-worker');
+// const rnChannelPlugin = require('multiserver-rn-channel');
+const makeWSPlugin = require('multiserver/plugins/ws');
+const noAuthPlugin = require('multiserver/plugins/noauth');
+// const nodejs = require('nodejs-mobile-react-native');
 
 const needs = nest({
   'keys.sync.load': 'first',
@@ -74,13 +76,13 @@ const gives = {
   },
 };
 
-// We need this because react-native-workers constructor
-// is non-standard and uses 3 arguments.
-function OneArgWorker(path: string) {
-  Worker.call(this, path, path, 8091);
+function toSodiumKeys(keys: any) {
+  if (!keys || !keys.public) return null;
+  return {
+    publicKey: Buffer.from(keys.public.replace('.ed25519', ''), 'base64'),
+    secretKey: Buffer.from(keys.private.replace('.ed25519', ''), 'base64'),
+  };
 }
-OneArgWorker.prototype = Object.create(Worker.prototype);
-OneArgWorker.prototype.constructor = OneArgWorker;
 
 const create = (api: any) => {
   const keys = api.keys.sync.load();
@@ -98,16 +100,49 @@ const create = (api: any) => {
       connectionStatus.set(value);
     }
 
-    const ms = MultiServer([
-      workerPlugin({path: 'worker', ctor: OneArgWorker}),
-    ]);
+    // let subscription: any = null;
+    // const buffer: Array<any> = [];
+    // const wrappedChannel = {
+    //   send(msg: string) {
+    //     console.log('<>CLIENT SENT ' + msg);
+    //     buffer.push(msg);
+    //     if (subscription) clearImmediate(subscription);
+    //     subscription = setImmediate(() => {
+    //       subscription = null;
+    //       if (buffer.length === 0) return;
+    //       nodejs.channel.send(buffer.join('$$$'));
+    //       while (buffer.length > 0) buffer.pop();
+    //     });
+    //   },
+    //   addListener(type: string, listener: any) {
+    //     nodejs.channel.addListener(type, (msg: string) => {
+    //       console.log('<>CLIENT GOT ' + msg);
+    //       const msgs = msg.split('$$$');
+    //       msgs.forEach(listener);
+    //       // listener(msg);
+    //     });
+    //   },
+    // };
 
-    ms.client('worker:worker', (err: any, stream: Readable<any>) => {
+    const ms = MultiServer([
+      [
+        // rnChannelPlugin(wrappedChannel),
+        makeWSPlugin(),
+        noAuthPlugin({
+          keys: toSodiumKeys(keys),
+        }),
+      ],
+    ]);
+    const address = [
+      'ws:localhost:8422',
+      'noauth:' + keys.public.replace('.ed25519', ''),
+    ].join('~');
+
+    ms.client(address, (err: any, stream: Readable<any>) => {
       if (err) {
         return notify(err);
       }
-      const codec = (x: any) => x;
-      const client = muxrpc(manifest, null, codec)();
+      const client = muxrpc(manifest, null)();
       pull(stream, client.createStream(), stream);
       sbot = client;
       sbot.on('closed', () => {

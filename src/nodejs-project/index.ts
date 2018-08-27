@@ -21,7 +21,12 @@ const fs = require('fs');
 const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
+// const rn_bridge = require('rn-bridge');
+// const makeRnChannelPlugin = require('multiserver-rn-channel');
+const makeNoauthPlugin = require('multiserver/plugins/noauth');
+const makeWSPlugin = require('multiserver/plugins/ws');
 import manifest = require('./manifest');
+// import {clearImmediate} from 'timers';
 
 // Hack until appDataDir plugin comes out
 const writablePath = path.join(__dirname, '..');
@@ -37,8 +42,81 @@ config.path = ssbPath;
 config.keys = keys;
 config.manifest = manifest;
 config.friends.hops = 2;
+config.connections = {
+  incoming: {
+    net: [{scope: 'public', transform: 'shs'}],
+    // channel: [{scope: 'private', transform: 'noauth'}],
+    ws: [{scope: 'private', transform: 'noauth'}],
+  },
+  outgoing: {
+    net: [{transform: 'shs'}],
+    // channel: [{scope: 'private', transform: 'noauth'}],
+    ws: [{transform: 'noauth'}],
+  },
+};
 
+// let subscription: any = null;
+// const buffer: Array<any> = [];
+// const wrappedChannel = {
+//   send(msg: string) {
+//     console.log('<>SERVER SENT ' + msg);
+//     buffer.push(msg);
+//     if (subscription) clearImmediate(subscription);
+//     subscription = setImmediate(() => {
+//       subscription = null;
+//       if (buffer.length === 0) return;
+//       rn_bridge.channel.send(buffer.join('$$$'));
+//       while (buffer.length > 0) buffer.pop();
+//     });
+//   },
+//   addListener(type: string, listener: any) {
+//     rn_bridge.channel.addListener(type, (msg: string) => {
+//       console.log('<>SERVER GOT ' + msg);
+//       const msgs = msg.split('$$$');
+//       msgs.forEach(listener);
+//       // listener(msg);
+//     });
+//   },
+// };
+
+// function rnChannelTransport(stack: any) {
+//   stack.multiserver.transport({
+//     name: 'channel',
+//     create: () => {
+//       return makeRnChannelPlugin(wrappedChannel);
+//     },
+//   });
+// }
+
+function noauthTransform(stack: any, cfg: any) {
+  stack.multiserver.transform({
+    name: 'noauth',
+    create: () => {
+      return makeNoauthPlugin({
+        keys: {
+          publicKey: Buffer.from(cfg.keys.public, 'base64'),
+        },
+      });
+    },
+  });
+}
+
+function wsTransport(stack: any) {
+  stack.multiserver.transport({
+    name: 'ws',
+    create: (cfg: any) => {
+      // tslint:disable-next-line:no-bitwise
+      // if (!cfg.port) cfg.port = 1024 + ~~(Math.random() * (65536 - 1024));
+      return makeWSPlugin({host: 'localhost', port: '8422'});
+    },
+  });
+}
+
+console.error('WILL construct scuttlebot');
 require('scuttlebot/index')
+  // .use(rnChannelTransport)
+  .use(noauthTransform)
+  .use(wsTransport)
   .use(require('scuttlebot/plugins/plugins'))
   .use(require('scuttlebot/plugins/master'))
   .use(require('scuttlebot/plugins/gossip'))

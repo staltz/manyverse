@@ -22,6 +22,7 @@ cd ./nodejs-assets/nodejs-project;
 $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
   --replace.node-extend=xtend \
+  --filter=rn-bridge \
   index.js > _index.js;
 rm index.js;
 mv _index.js index.js;
