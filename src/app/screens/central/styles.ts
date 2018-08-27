@@ -97,7 +97,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     left: 2,
     right: 2,
-    bottom: 2.4,
+    bottom: 4.9,
   },
 });
 

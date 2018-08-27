@@ -133,9 +133,9 @@ export class SSBSource {
         );
         return xs.create<boolean>({
           async start(listener: Listener<boolean>) {
-            let s: any;
             this.continue = true;
             while (this.continue) {
+              let s: any;
               do {
                 listener.next(false);
                 await nextUpdate;
@@ -144,8 +144,10 @@ export class SSBSource {
               } while (
                 s.progress.indexes.current === s.progress.indexes.target
               );
+              let period = 200;
               do {
-                await sleep(300);
+                await sleep(period);
+                period = Math.min(period * 2, 2000);
                 s = await getProgressStatus();
               } while (s.progress.indexes.current < s.progress.indexes.target);
             }
