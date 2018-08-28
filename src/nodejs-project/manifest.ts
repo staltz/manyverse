@@ -37,6 +37,7 @@ export = {
   latest: 'source',
   latestSequence: 'async',
   status: 'sync',
+  progress: 'sync',
   whoami: 'sync',
   usage: 'sync',
 

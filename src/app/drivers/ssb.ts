@@ -127,7 +127,7 @@ export class SSBSource {
 
     this.isSyncing$ = api$
       .map(api => {
-        const getProgressStatus = pify(api.sbot.async.status[0]);
+        const getProgress = pify(api.sbot.async.progress[0]);
         const nextUpdate = thenable(
           api.sbot.pull.publicUpdates[0]({allowlist: undefined}),
         );
@@ -135,21 +135,19 @@ export class SSBSource {
           async start(listener: Listener<boolean>) {
             this.continue = true;
             while (this.continue) {
-              let s: any;
+              let progress: any;
               do {
                 listener.next(false);
                 await nextUpdate;
                 listener.next(true);
-                s = await getProgressStatus();
-              } while (
-                s.progress.indexes.current === s.progress.indexes.target
-              );
+                progress = await getProgress();
+              } while (progress.indexes.current === progress.indexes.target);
               let period = 200;
               do {
                 await sleep(period);
                 period = Math.min(period * 2, 2000);
-                s = await getProgressStatus();
-              } while (s.progress.indexes.current < s.progress.indexes.target);
+                progress = await getProgress();
+              } while (progress.indexes.current < progress.indexes.target);
             }
           },
           stop() {

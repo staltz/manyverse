@@ -67,34 +67,31 @@ function hideNotification() {
   Notification.clear(NOTIFICATION_ID);
 }
 
-function getLiveMsg(ssbClient: any) {
-  return thenable(ssbClient.threads.publicUpdates({}));
-}
-
 function isUpToDate(data: ProgressData) {
   return data.current === data.target;
 }
 
 export async function startSyncingNotifications(ssbClient: any) {
-  const getProgressStatus = pify(ssbClient.status);
-  let status: any;
+  const getProgress = pify(ssbClient.progress);
+  const nextLiveMsg = thenable(ssbClient.threads.publicUpdates({}));
+  let progress: {indexes: ProgressData};
   let getEstimated: () => ProgressData;
   while (true) {
     hideNotification();
 
     // Polling cycle
     do {
-      await getLiveMsg(ssbClient);
+      await nextLiveMsg;
       await sleep(3000);
-      status = await getProgressStatus();
-    } while (isUpToDate(status.progress.indexes));
+      progress = await getProgress();
+    } while (isUpToDate(progress.indexes));
 
     // Rendering cycle
-    getEstimated = estimateProgress(() => status.progress.indexes, 15, 0.85);
+    getEstimated = estimateProgress(() => progress.indexes, 15, 0.85);
     do {
       showNotification(getEstimated());
-      await sleep(150);
-      status = await getProgressStatus();
+      await sleep(400);
+      progress = await getProgress();
     } while (!isUpToDate(getEstimated()));
     await sleep(500);
   }

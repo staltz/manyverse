@@ -46,7 +46,7 @@ const gives = {
     },
     async: {
       get: true,
-      status: true,
+      progress: true,
       publish: true,
       acceptInvite: true,
       addBlob: true,
@@ -163,8 +163,8 @@ const create = (api: any) => {
             });
           }
         }),
-        status: rec.async((cb: any) => {
-          sbot.status(cb);
+        progress: rec.async((cb: any) => {
+          sbot.progress(cb);
         }),
         publish: rec.async((content: any, cb: any) => {
           if (!content) {
