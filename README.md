@@ -10,7 +10,6 @@
 - TypeScript
 - Cycle.js with xstream
 - Pull streams
-- react-native-workers (fork by staltz)
 - Patchcore (with depject)
 
 ## Install dependencies
@@ -77,13 +76,7 @@ npm run propagate-replacements
 npm run build-nodejs-app
 ```
 
-`4`: Build the worker thread subproject:
-
-```
-npm run build-worker-android
-```
-
-`5`: Then build the Android apk:
+`4`: Build the Android apk:
 
 ```
 react-native run-android
@@ -99,7 +92,7 @@ To watch source code files and continuously compile them, use three terminals:
 - One terminal running `npm run clean-bundler && npm start -- --reset-cache` for the Metro bundler
 - One terminal where you can run `npm run build-android-debug` to build the APK
 
-There is no support for continuously compiling the worker thread nor the backend Node.js project.
+There is no support for continuously compiling the backend Node.js project.
 
 ### Troubleshooting
 
