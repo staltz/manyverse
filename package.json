@@ -25,7 +25,6 @@
   "dependencies": {
     "@cycle/isolate": "3.4",
     "@cycle/react": "1.3.4",
-    "@staltz/react-native-workers": "0.5.3",
     "@staltz/rn-viewpager": "1.2.5",
     "@types/react": "16.4.6",
     "@types/react-native": "0.55.26",

@@ -9,7 +9,6 @@ import com.peel.react.TcpSocketsModule;
 import com.peel.react.rnos.RNOSModule;
 import com.rnfs.RNFSPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
-import com.staltz.react.workers.WorkersPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.reactnativenavigation.NavigationApplication;
@@ -46,9 +45,7 @@ public class MainApplication extends NavigationApplication {
             new HasInternetPackage(),
             new AndroidWifiPackage(), new TcpSocketsModule(), new RNFSPackage(),
         new RandomBytesPackage(), new RNNodeJsMobilePackage(), new ReactNativeDialogsPackage(),
-        new VectorIconsPackage(), new RNOSModule(), new NotificationPackage(),
-        new WorkersPackage(new NotificationPackage(), new TcpSocketsModule(), new RNOSModule(), new RNFSPackage(),
-            new RandomBytesPackage()));
+        new VectorIconsPackage(), new RNOSModule(), new NotificationPackage());
   }
 
   @Override

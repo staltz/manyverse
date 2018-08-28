@@ -175,7 +175,6 @@ dependencies {
     implementation project(':react-native-fs')
     implementation project(':react-native-randombytes')
     implementation project(':react-native-navigation')
-    implementation project(':react-native-workers')
     implementation project(':react-native-android-local-notification')
     implementation project(':react-native-android-wifi')
     implementation project(':react-native-has-internet')
