@@ -22,6 +22,7 @@ import {manifest} from '../manifest-client';
 import {startSyncingNotifications} from '../syncing-notifications';
 const pull = require('pull-stream');
 const defer = require('pull-defer');
+const Notify = require('pull-notify');
 const {Value, onceTrue, Set: MutantSet} = require('mutant');
 const ref = require('ssb-ref');
 const Reconnect = require('pull-reconnect');
@@ -54,6 +55,7 @@ const gives = {
       friendsGet: true,
     },
     pull: {
+      syncing: true,
       publicThreads: true,
       publicUpdates: true,
       profileThreads: true,
@@ -142,7 +144,11 @@ const create = (api: any) => {
 
   const feed = createFeed(internal, keys, {remote: true});
 
-  onceTrue(connection, startSyncingNotifications);
+  const syncingStream = Notify();
+  onceTrue(connection, (ssbClient: any) => {
+    pull(ssbClient.syncing.stream(), pull.drain(syncingStream));
+    startSyncingNotifications(syncingStream.listen());
+  });
 
   return {
     sbot: {
@@ -218,6 +224,9 @@ const create = (api: any) => {
         }),
       },
       pull: {
+        syncing: rec.source(() => {
+          return syncingStream.listen();
+        }),
         backlinks: rec.source((query: any) => {
           return sbot.backlinks.read(query);
         }),

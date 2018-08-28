@@ -17,24 +17,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const sleep = require('delay');
-const estimateProgress = require('estimate-progress');
-const thenable = require('pull-thenable');
-const pify = require('pify');
+const pull = require('pull-stream');
 const Notification = require('react-native-android-local-notification');
 
 const NOTIFICATION_ID = 175942; // only used in this module
 
-type ProgressData = {
-  start: number;
-  current: number;
-  target: number;
+type Response = {
+  started: number;
+  prog: number;
+  bytes: number;
 };
 
-function showNotification(data: ProgressData) {
-  const {start, current, target} = data;
-  const progress = (current - start) / (target - start);
-  const downloadedBytes = current - start;
+function showNotification(data: Response) {
+  const progress = data.prog;
+  const downloadedBytes = data.bytes;
   // tslint:disable-next-line:no-bitwise
   const downloadedKB = downloadedBytes >> 10;
   // tslint:disable-next-line:no-bitwise
@@ -67,32 +63,18 @@ function hideNotification() {
   Notification.clear(NOTIFICATION_ID);
 }
 
-function isUpToDate(data: ProgressData) {
-  return data.current === data.target;
-}
-
-export async function startSyncingNotifications(ssbClient: any) {
-  const getProgress = pify(ssbClient.progress);
-  const nextLiveMsg = thenable(ssbClient.threads.publicUpdates({}));
-  let progress: {indexes: ProgressData};
-  let getEstimated: () => ProgressData;
-  while (true) {
-    hideNotification();
-
-    // Polling cycle
-    do {
-      await nextLiveMsg;
-      await sleep(3000);
-      progress = await getProgress();
-    } while (isUpToDate(progress.indexes));
-
-    // Rendering cycle
-    getEstimated = estimateProgress(() => progress.indexes, 15, 0.85);
-    do {
-      showNotification(getEstimated());
-      await sleep(400);
-      progress = await getProgress();
-    } while (!isUpToDate(getEstimated()));
-    await sleep(500);
-  }
+export function startSyncingNotifications(syncingStream: any) {
+  let showing = false;
+  pull(
+    syncingStream,
+    pull.drain((response: Response) => {
+      if (response.started > 0 && Date.now() - response.started > 3000) {
+        showNotification(response);
+        showing = true;
+      } else if (response.started === 0 && showing) {
+        hideNotification();
+        showing = false;
+      }
+    }),
+  );
 }

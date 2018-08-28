@@ -23,6 +23,7 @@ const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 const makeNoauthPlugin = require('multiserver/plugins/noauth');
 const makeWSPlugin = require('multiserver/plugins/ws');
+import syncingPlugin = require('./plugins/syncing');
 import manifest = require('./manifest');
 
 // Hack until appDataDir plugin comes out
@@ -79,6 +80,7 @@ require('scuttlebot/index')
   .use(require('scuttlebot/plugins/master'))
   .use(require('scuttlebot/plugins/gossip'))
   .use(require('scuttlebot/plugins/replicate'))
+  .use(syncingPlugin)
   .use(require('ssb-friends'))
   .use(require('ssb-blobs'))
   .use(require('ssb-serve-blobs'))

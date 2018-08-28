@@ -116,4 +116,9 @@ export = {
     profile: 'source',
     thread: 'source',
   },
+
+  // This project's plugins
+  syncing: {
+    stream: 'source',
+  },
 };

@@ -17,9 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import 'react-native-ssb-shims';
-import {run} from 'cycle-native-navigation';
-import {screens, drivers, layout, defaultNavOptions} from './lib/app/index';
-// import './snoopy'; // Log and debug the React Native JS<-->Native Bridge
-
-run(screens, drivers, layout, defaultNavOptions);
+import Snoopy from 'rn-snoopy';
+import bars from 'rn-snoopy/stream/bars';
+import filter from 'rn-snoopy/stream/filter';
+import buffer from 'rn-snoopy/stream/buffer';
+import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter';
+const emitter = new EventEmitter();
+const events = Snoopy.stream(emitter);
+filter({}, true)(events).subscribe();

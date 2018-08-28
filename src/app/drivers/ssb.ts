@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import xs, {Stream, Listener} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Msg, PeerMetadata, Content, FeedId, About, MsgId} from 'ssb-typescript';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
@@ -37,9 +37,6 @@ import {Readable} from '../../typings/pull-stream';
 import {Mutant} from 'react-mutant-hoc';
 const pull = require('pull-stream');
 const {computed} = require('mutant');
-const thenable = require('pull-thenable');
-const pify = require('pify');
-const sleep = require('delay');
 const backlinksOpinion = require('patchcore/backlinks/obs');
 const aboutOpinion = require('patchcore/about/obs');
 const contactOpinion = require('patchcore/contact/obs');
@@ -126,36 +123,9 @@ export class SSBSource {
       .mapTo(null);
 
     this.isSyncing$ = api$
-      .map(api => {
-        const getProgress = pify(api.sbot.async.progress[0]);
-        const nextUpdate = thenable(
-          api.sbot.pull.publicUpdates[0]({allowlist: undefined}),
-        );
-        return xs.create<boolean>({
-          async start(listener: Listener<boolean>) {
-            this.continue = true;
-            while (this.continue) {
-              let progress: any;
-              do {
-                listener.next(false);
-                await nextUpdate;
-                listener.next(true);
-                progress = await getProgress();
-              } while (progress.indexes.current === progress.indexes.target);
-              let period = 200;
-              do {
-                await sleep(period);
-                period = Math.min(period * 2, 2000);
-                progress = await getProgress();
-              } while (progress.indexes.current < progress.indexes.target);
-            }
-          },
-          stop() {
-            this.continue = false;
-          },
-        });
-      })
-      .flatten();
+      .map(api => xsFromPullStream(api.sbot.pull.syncing[0]()))
+      .flatten()
+      .map((resp: any) => resp.started > 0);
 
     this.selfRoots$ = api$.map(api => (opts?: any) =>
       pull(
