@@ -58,31 +58,39 @@ export default function model(
       },
   );
 
-  const updateLanEnabled$ = networkSource.wifiIsEnabled().map(
-    lanEnabled =>
-      function updateLanEnabled(prev: State): State {
-        return {
-          selfFeedId: prev.selfFeedId,
-          lanEnabled,
-          internetEnabled: prev.internetEnabled,
-          isSyncing: prev.isSyncing,
-          peers: prev.peers,
-        };
-      },
-  );
+  const updateLanEnabled$ = xs
+    .periodic(4000)
+    .map(() => networkSource.wifiIsEnabled())
+    .flatten()
+    .map(
+      lanEnabled =>
+        function updateLanEnabled(prev: State): State {
+          return {
+            selfFeedId: prev.selfFeedId,
+            lanEnabled,
+            internetEnabled: prev.internetEnabled,
+            isSyncing: prev.isSyncing,
+            peers: prev.peers,
+          };
+        },
+    );
 
-  const updateInternetEnabled$ = networkSource.hasInternetConnection().map(
-    internetEnabled =>
-      function updateInternetEnabled(prev: State): State {
-        return {
-          selfFeedId: prev.selfFeedId,
-          lanEnabled: prev.lanEnabled,
-          internetEnabled,
-          isSyncing: prev.isSyncing,
-          peers: prev.peers,
-        };
-      },
-  );
+  const updateInternetEnabled$ = xs
+    .periodic(3000)
+    .map(() => networkSource.hasInternetConnection())
+    .flatten()
+    .map(
+      internetEnabled =>
+        function updateInternetEnabled(prev: State): State {
+          return {
+            selfFeedId: prev.selfFeedId,
+            lanEnabled: prev.lanEnabled,
+            internetEnabled,
+            isSyncing: prev.isSyncing,
+            peers: prev.peers,
+          };
+        },
+    );
 
   const setPeersReducer$ = ssbSource.peers$.map(
     peers =>
