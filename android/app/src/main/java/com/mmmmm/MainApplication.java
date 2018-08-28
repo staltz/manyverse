@@ -5,7 +5,6 @@ import android.content.Context;
 import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.peel.react.TcpSocketsModule;
 import com.peel.react.rnos.RNOSModule;
 import com.rnfs.RNFSPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
@@ -43,7 +42,7 @@ public class MainApplication extends NavigationApplication {
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(new MainReactPackage(),
             new HasInternetPackage(),
-            new AndroidWifiPackage(), new TcpSocketsModule(), new RNFSPackage(),
+            new AndroidWifiPackage(), new RNFSPackage(),
         new RandomBytesPackage(), new RNNodeJsMobilePackage(), new ReactNativeDialogsPackage(),
         new VectorIconsPackage(), new RNOSModule(), new NotificationPackage());
   }
