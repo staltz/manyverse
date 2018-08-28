@@ -34,6 +34,7 @@ export type Actions = {
 };
 
 export default function model(
+  prevState$: Stream<State>,
   actions: Actions,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
@@ -44,11 +45,16 @@ export default function model(
       },
   );
 
-  const incUpdatesReducer$ = ssbSource.publicLiveUpdates$.mapTo(
-    function incUpdatesReducer(prev: State): State {
-      return {...prev, numOfUpdates: prev.numOfUpdates + 1};
-    },
-  );
+  const incUpdatesReducer$ = prevState$
+    .filter(s => s.numOfUpdates === 0)
+    .map(() =>
+      ssbSource.publicLiveUpdates$
+        .take(1)
+        .mapTo(function incUpdatesReducer(prev: State): State {
+          return {...prev, numOfUpdates: prev.numOfUpdates + 1};
+        }),
+    )
+    .flatten();
 
   const resetUpdatesReducer$ = actions.resetUpdates$.mapTo(
     function resetUpdatesReducer(prev: State): State {

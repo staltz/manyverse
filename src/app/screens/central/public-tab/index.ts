@@ -52,7 +52,7 @@ export function publicTab(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.fab);
   const vdom$ = view(sources.onion.state$, sources.ssb, sources.scrollToTop);
   const command$ = navigation(actions, sources.onion.state$);
-  const reducer$ = model(actions, sources.ssb);
+  const reducer$ = model(sources.onion.state$, actions, sources.ssb);
   const fabProps$ = floatingAction(sources.onion.state$);
   const newContent$ = ssb(actions);
 
