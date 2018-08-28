@@ -91,4 +91,5 @@ require('scuttlebot/index')
   .use(require('scuttlebot/plugins/invite'))
   .use(require('scuttlebot/plugins/local'))
   .use(require('scuttlebot/plugins/logging'))
+  .use(require('ssb-ebt'))
   .call(null, config);

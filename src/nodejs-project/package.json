@@ -18,6 +18,7 @@
     "ssb-backlinks": "0.7.3",
     "ssb-blobs": "1.1.5",
     "ssb-contacts": "0.0.x",
+    "ssb-ebt": "5.2.2",
     "ssb-friends": "2.4.0",
     "ssb-keys": "7.0.16",
     "ssb-private": "0.2.3",
