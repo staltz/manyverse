@@ -17,7 +17,7 @@
     "scuttlebot": "11.4.2",
     "multiserver": "ssbc/multiserver#316a033d10b408fe1d01cc6a467cec53deb3cc0d",
     "secret-stack": "ssbc/secret-stack#363375e672167ee47434a87cb9a3283452d3ce53",
-    "ssb-config": "ssbc/ssb-config#85a92b419b4f538fbf506469dde0a8465eabd778",
+    "ssb-config": "2.2.1",
     "ssb-about": "0.1.x",
     "ssb-backlinks": "0.7.3",
     "ssb-blobs": "1.1.5",
