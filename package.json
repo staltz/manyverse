@@ -51,6 +51,7 @@
     "pull-notify": "0.1.1",
     "pull-pushable": "2.1.1",
     "pull-stream": "3.6.9",
+    "pull-thenable": "1.0.0",
     "quicktask": "1.1.0",
     "react": "16.4.1",
     "react-human-time": "^1.1.0",

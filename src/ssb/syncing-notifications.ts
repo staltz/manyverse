@@ -18,10 +18,10 @@
  */
 
 import {Palette} from '../app/global-styles/palette';
-const pull = require('pull-stream');
+const Thenable = require('pull-thenable');
 const Notification = require('react-native-android-local-notification');
 
-const NOTIFICATION_ID = 175942; // only used in this module
+const NOTIFICATION_ID = 1984; // magic number used only in this file
 
 type Response = {
   started: number;
@@ -29,7 +29,7 @@ type Response = {
   bytes: number;
 };
 
-function showNotification(data: Response) {
+function showNotification(data: Response): Promise<void> {
   const progress = data.prog;
   const downloadedBytes = data.bytes;
   // tslint:disable-next-line:no-bitwise
@@ -43,7 +43,7 @@ function showNotification(data: Response) {
   else if (downloadedKB > 1024) message = `${downloadedMB} MB synced so far`;
   else if (downloadedBytes > 1024) message = `${downloadedKB} KB synced so far`;
   else message = `${downloadedBytes} bytes synced so far`;
-  Notification.create({
+  return Notification.create({
     id: NOTIFICATION_ID,
     subject: 'Syncing',
     message,
@@ -61,22 +61,21 @@ function showNotification(data: Response) {
   });
 }
 
-function hideNotification() {
-  Notification.clear(NOTIFICATION_ID);
+function hideNotification(): Promise<void> {
+  return Notification.clear(NOTIFICATION_ID);
 }
 
-export function startSyncingNotifications(syncingStream: any) {
+export async function startSyncingNotifications(syncingStream: any) {
   let showing = false;
-  pull(
-    syncingStream,
-    pull.drain((response: Response) => {
-      if (response.started > 0 && Date.now() - response.started > 3000) {
-        showNotification(response);
-        showing = true;
-      } else if (response.started === 0 && showing) {
-        hideNotification();
-        showing = false;
-      }
-    }),
-  );
+  const nextSyncingResponse = Thenable(syncingStream);
+  while (true) {
+    const response = await nextSyncingResponse;
+    if (response.started > 0 && Date.now() - response.started > 3000) {
+      await showNotification(response);
+      showing = true;
+    } else if (response.started === 0 && showing) {
+      await hideNotification();
+      showing = false;
+    }
+  }
 }
