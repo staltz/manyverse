@@ -10,5 +10,5 @@ function onFailure() {
 }
 
 git add -A
-git commit -m "Release $(cat package.json | $(npm bin)/jase version)"
+git commit -m "release: $(cat package.json | $(npm bin)/jase version)"
 git tag v$(cat package.json | $(npm bin)/jase version)
