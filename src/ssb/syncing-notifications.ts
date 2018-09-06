@@ -17,6 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {Palette} from '../app/global-styles/palette';
 const pull = require('pull-stream');
 const Notification = require('react-native-android-local-notification');
 
@@ -54,6 +55,7 @@ function showNotification(data: Response) {
     sound: null,
     vibrate: null,
     lights: null,
+    color: Palette.brand.background,
     category: 'progress',
     autoClear: true,
   });
