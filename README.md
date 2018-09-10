@@ -1,7 +1,5 @@
 # Manyverse
 
-***ALPHA version! This is heavily under construction, not ready for real usage.***
-
 ## Built with
 
 - React Native

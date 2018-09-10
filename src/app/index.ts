@@ -53,19 +53,18 @@ import {rawDatabase} from './screens/raw-db/index';
 import {rawMessage} from './screens/raw-msg/index';
 import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
-import {addDisclaimer} from './alpha-disclaimer';
 
 export const screens: {[k in Screens]?: (so: any) => any} = {
-  [Screens.Central]: addDisclaimer(onionify(central)),
+  [Screens.Central]: onionify(central),
   [Screens.Drawer]: onionify(drawer),
   [Screens.Compose]: onionify(compose),
-  [Screens.Thread]: addDisclaimer(onionify(thread)),
-  [Screens.InvitePaste]: addDisclaimer(onionify(pasteInvite)),
-  [Screens.InviteCreate]: addDisclaimer(onionify(createInvite)),
-  [Screens.Profile]: addDisclaimer(onionify(profile)),
-  [Screens.ProfileEdit]: addDisclaimer(onionify(editProfile)),
-  [Screens.RawDatabase]: addDisclaimer(rawDatabase),
-  [Screens.RawMessage]: addDisclaimer(rawMessage),
+  [Screens.Thread]: onionify(thread),
+  [Screens.InvitePaste]: onionify(pasteInvite),
+  [Screens.InviteCreate]: onionify(createInvite),
+  [Screens.Profile]: onionify(profile),
+  [Screens.ProfileEdit]: onionify(editProfile),
+  [Screens.RawDatabase]: rawDatabase,
+  [Screens.RawMessage]: rawMessage,
 };
 
 export const drivers = {
