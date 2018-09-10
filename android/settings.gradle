@@ -1,4 +1,4 @@
-rootProject.name = 'MMMMM'
+rootProject.name = 'Manyverse'
 include ':nodejs-mobile-react-native'
 project(':nodejs-mobile-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/nodejs-mobile-react-native/android')
 include ':react-native-dialogs'

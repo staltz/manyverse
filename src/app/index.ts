@@ -1,5 +1,5 @@
 /**
- * MMMMM is a mobile app for Secure Scuttlebutt networks
+ * Manyverse is a mobile app for Secure Scuttlebutt networks
  *
  * Copyright (C) 2017 Andre 'Staltz' Medeiros
  *
@@ -18,16 +18,16 @@
  */
 
 export enum Screens {
-  Central = 'mmmmm.Central',
-  Drawer = 'mmmmm.Drawer',
-  Compose = 'mmmmm.Compose',
-  Thread = 'mmmmm.Thread',
-  InvitePaste = 'mmmmm.Invite.Paste',
-  InviteCreate = 'mmmmm.Invite.Create',
-  Profile = 'mmmmm.Profile',
-  ProfileEdit = 'mmmmm.Profile.Edit',
-  RawDatabase = 'mmmmm.RawDatabase',
-  RawMessage = 'mmmmm.RawMessage',
+  Central = 'Manyverse.Central',
+  Drawer = 'Manyverse.Drawer',
+  Compose = 'Manyverse.Compose',
+  Thread = 'Manyverse.Thread',
+  InvitePaste = 'Manyverse.Invite.Paste',
+  InviteCreate = 'Manyverse.Invite.Create',
+  Profile = 'Manyverse.Profile',
+  ProfileEdit = 'Manyverse.Profile.Edit',
+  RawDatabase = 'Manyverse.RawDatabase',
+  RawMessage = 'Manyverse.RawMessage',
 }
 
 import onionify from 'cycle-onionify';

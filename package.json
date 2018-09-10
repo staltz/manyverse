@@ -1,11 +1,11 @@
 {
-  "name": "mmmmm",
-  "version": "0.0.20-alpha",
+  "name": "manyverse",
+  "version": "0.0.19-alpha",
   "private": true,
   "scripts": {
     "lib": "tsc",
     "clean-bundler": "watchman watch-del-all && rm -rf $TMPDIR/react-*",
-    "clean-android": "adb uninstall com.mmmmm && cd android && ./gradlew clean",
+    "clean-android": "adb uninstall se.manyver && cd android && ./gradlew clean",
     "full-clean": "npm run clean-android && npm run clean-bundler && rm -rf node_modules && rm -rf lib",
     "prepare": "patch-package",
     "propagate-replacements": "propagate-replacement-fields --field=react-native",

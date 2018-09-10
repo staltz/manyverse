@@ -1,5 +1,5 @@
 /**
- * MMMMM is a mobile app for Secure Scuttlebutt networks
+ * Manyverse is a mobile app for Secure Scuttlebutt networks
  *
  * Copyright (C) 2017 Andre 'Staltz' Medeiros
  *
@@ -116,7 +116,7 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
         h(MenuItem, {
           sel: 'about',
           icon: 'information',
-          text: 'About MMMMM',
+          text: 'About Manyverse',
           accessible: true,
           accessibilityLabel: 'About This App',
         }),

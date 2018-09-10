@@ -1,4 +1,4 @@
-package com.mmmmm;
+package se.manyver;
 
 import android.app.Activity;
 import android.content.Context;

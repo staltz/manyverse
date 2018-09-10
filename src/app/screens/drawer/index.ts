@@ -1,5 +1,5 @@
 /**
- * MMMMM is a mobile app for Secure Scuttlebutt networks
+ * Manyverse is a mobile app for Secure Scuttlebutt networks
  *
  * Copyright (C) 2017 Andre 'Staltz' Medeiros
  *
@@ -50,9 +50,9 @@ export function drawer(sources: Sources): Sinks {
   const command$ = navigation(actions, sources.onion.state$);
   const reducer$ = model(sources.ssb);
   const alert$ = actions.openAbout$.mapTo({
-    title: 'About MMMMM',
+    title: 'About Manyverse',
     message:
-      'An offline-first social network\n' +
+      'A social network off the grid\n' +
       '(Licensed GPLv3)\n\n' +
       'Version ' +
       pkgJSON.version,

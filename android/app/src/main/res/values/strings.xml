@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MMMMM</string>
+    <string name="app_name">Manyverse</string>
     <string name="acra_dialog_text">Sorry, the app crashed. Please send a (private) report to the developers to fix this.</string>
     <string name="acra_dialog_comment">If you wish, explain how you just used the app.</string>
 </resources>

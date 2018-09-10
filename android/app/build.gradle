@@ -106,7 +106,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mmmmm"
+        applicationId "se.manyver"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 24

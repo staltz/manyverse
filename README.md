@@ -1,4 +1,4 @@
-# MMMMM client for Secure Scuttlebutt
+# Manyverse
 
 ***ALPHA version! This is heavily under construction, not ready for real usage.***
 
@@ -49,7 +49,7 @@ Also check out [nodejs-mobile](https://github.com/janeasystems/nodejs-mobile) re
 
 This app (theoretically) supports Android 4.4 and above.
 
-### MMMMM specifics
+### Manyverse specifics
 
 ```
 npm install

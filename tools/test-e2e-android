@@ -9,7 +9,7 @@ function onFailure() {
   exit 1
 }
 
-adb uninstall com.mmmmm
+adb uninstall se.manyver
 $(npm bin)/appium --port 4995 > appium.log & echo $! > appium-server.pid
 sleep 5
 $(npm bin)/tape e2e/index.js | tap-spec
