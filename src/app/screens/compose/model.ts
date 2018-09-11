@@ -20,9 +20,11 @@
 import xs, {Stream} from 'xstream';
 import {Reducer, Lens} from 'cycle-onionify';
 import {State as TopBarState} from './top-bar';
+import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   postText: string;
+  avatarUrl?: string;
 };
 
 export const topBarLens: Lens<State, TopBarState> = {
@@ -42,7 +44,10 @@ export type Actions = {
   updatePostText$: Stream<string>;
 };
 
-export default function model(actions: Actions): Stream<Reducer<State>> {
+export default function model(
+  actions: Actions,
+  ssbSource: SSBSource,
+): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initReducer(prev?: State): State {
     if (prev) return prev;
     return {postText: ''};
@@ -55,5 +60,16 @@ export default function model(actions: Actions): Stream<Reducer<State>> {
       },
   );
 
-  return xs.merge(initReducer$, updatePostTextReducer$);
+  const aboutReducer$ = ssbSource.selfFeedId$
+    .take(1)
+    .map(selfFeedId => ssbSource.profileAbout$(selfFeedId))
+    .flatten()
+    .map(
+      about =>
+        function aboutReducer(prev: State): State {
+          return {postText: prev.postText, avatarUrl: about.imageUrl};
+        },
+    );
+
+  return xs.merge(initReducer$, updatePostTextReducer$, aboutReducer$);
 }

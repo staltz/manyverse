@@ -17,16 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
+import dropRepeats from 'xstream/extra/dropRepeats';
 import {h} from '@cycle/react';
 import {View, TextInput, KeyboardAvoidingView} from 'react-native';
 import {styles, avatarSize} from './styles';
 import {Palette} from '../../global-styles/palette';
 import {ReactElement} from 'react';
 import Avatar from '../../components/Avatar';
+import {State} from './model';
 
-export default function view(topBar$: Stream<ReactElement<any>>) {
-  return topBar$.map(topBar =>
+export default function view(
+  state$: Stream<State>,
+  topBar$: Stream<ReactElement<any>>,
+) {
+  const avatarUrl$ = state$
+    .map(state => state.avatarUrl)
+    .compose(dropRepeats())
+    .startWith(undefined);
+
+  return xs.combine(topBar$, avatarUrl$).map(([topBar, avatarUrl]) =>
     h(View, {style: styles.container}, [
       topBar,
       h(
@@ -39,7 +49,7 @@ export default function view(topBar$: Stream<ReactElement<any>>) {
           h(Avatar, {
             size: avatarSize,
             style: styles.avatar,
-            source: null,
+            source: {uri: avatarUrl || undefined},
           }),
           h(TextInput, {
             style: styles.composeInput,

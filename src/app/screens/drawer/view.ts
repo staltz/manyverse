@@ -82,7 +82,7 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           style: styles.authorImage,
           size: Dimensions.avatarSizeNormal,
           backgroundColor: Palette.indigo9,
-          source: null,
+          source: {uri: state.avatarUrl || undefined},
         }),
         renderName(state.name),
         h(

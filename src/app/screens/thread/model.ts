@@ -37,6 +37,7 @@ export type Props = {
 export type State = {
   selfFeedId: FeedId;
   rootMsgId: MsgId | null;
+  avatarUrl?: string;
   thread: ThreadAndExtras;
   replyText: string;
   replyEditable: boolean;
@@ -117,6 +118,17 @@ export default function model(
     )
     .flatten();
 
+  const aboutReducer$ = ssbSource.selfFeedId$
+    .take(1)
+    .map(selfFeedId => ssbSource.profileAbout$(selfFeedId))
+    .flatten()
+    .map(
+      about =>
+        function aboutReducer(prev: State): State {
+          return {...prev, avatarUrl: about.imageUrl};
+        },
+    );
+
   const addSelfRepliesReducer$ = actions.willReply$
     .map(() =>
       ssbSource.selfReplies$
@@ -148,6 +160,7 @@ export default function model(
     keyboardDisappearedReducer$,
     updateReplyTextReducer$,
     publishReplyReducers$,
+    aboutReducer$,
     addSelfRepliesReducer$,
   );
 }
