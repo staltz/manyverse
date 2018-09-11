@@ -1,6 +1,6 @@
 {
   "name": "mmmmm",
-  "version": "0.0.18-alpha",
+  "version": "0.0.19-alpha",
   "private": true,
   "scripts": {
     "lib": "tsc",
