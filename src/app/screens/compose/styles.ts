@@ -33,6 +33,8 @@ export const navigatorStyle = {
   navBarTextFontBold: true,
 };
 
+export const avatarSize = Dimensions.avatarSizeNormal;
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -48,11 +50,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Dimensions.horizontalSpaceBig,
   },
 
-  writeMessageAuthorImage: {
-    height: Dimensions.avatarSizeNormal,
-    width: Dimensions.avatarSizeNormal,
-    borderRadius: Dimensions.avatarBorderRadius,
-    backgroundColor: Palette.indigo1,
+  avatar: {
     marginTop: Dimensions.verticalSpaceBig,
   },
 
@@ -61,7 +59,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 0,
     paddingLeft: Dimensions.horizontalSpaceSmall,
     paddingRight: 1,
-    paddingTop: Dimensions.verticalSpaceBig,
+    marginTop: Dimensions.verticalSpaceBig,
     alignSelf: 'stretch',
     fontSize: Typography.fontSizeBig,
     textAlign: 'left',

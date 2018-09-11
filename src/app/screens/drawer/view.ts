@@ -24,6 +24,9 @@ import {h} from '@cycle/react';
 import DrawerMenuItem from '../../components/DrawerMenuItem';
 import {styles} from './styles';
 import {State} from './model';
+import {Dimensions} from '../../global-styles/dimens';
+import {Palette} from '../../global-styles/palette';
+import Avatar from '../../components/Avatar';
 
 function renderName(name?: string) {
   const namelessStyle = !name ? styles.noAuthorName : null;
@@ -42,7 +45,12 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
   return state$.map(state =>
     h(View, {style: styles.container}, [
       h(View, {style: styles.header}, [
-        h(View, {style: styles.authorImage}),
+        h(Avatar, {
+          style: styles.authorImage,
+          size: Dimensions.avatarSizeNormal,
+          backgroundColor: Palette.indigo9,
+          source: null,
+        }),
         renderName(state.name),
         h(
           Text,
@@ -53,7 +61,7 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
       h(ScrollView, {style: null}, [
         h(DrawerMenuItem, {
           sel: 'self-profile',
-          icon: 'account-box',
+          icon: 'account-circle',
           text: 'My profile',
           accessible: true,
           accessibilityLabel: 'My Profile Menu Item',

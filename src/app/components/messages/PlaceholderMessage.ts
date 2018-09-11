@@ -25,26 +25,26 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 
 export const styles = StyleSheet.create({
-  messageHeaderRow: {
+  headerRow: {
     flexDirection: 'row',
     flex: 1,
   },
 
-  messageAuthorImageContainer: {
+  headerAvatar: {
     height: Dimensions.avatarSizeNormal,
     width: Dimensions.avatarSizeNormal,
-    borderRadius: Dimensions.avatarBorderRadius,
+    borderRadius: Math.ceil(Dimensions.avatarSizeNormal * 0.5),
     backgroundColor: Palette.gray1,
     marginRight: Dimensions.horizontalSpaceSmall,
     marginBottom: Dimensions.verticalSpaceSmall,
   },
 
-  messageHeaderAuthorColumn: {
+  headerAuthorColumn: {
     flexDirection: 'column',
     flex: 1,
   },
 
-  messageHeaderAuthorName: {
+  headerAuthorName: {
     width: 150,
     height: 16,
     marginTop: 3,
@@ -52,49 +52,46 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.gray1,
   },
 
-  messageHeaderTimestamp: {
-    width: 30,
+  headerTimestamp: {
+    width: 60,
     height: 16,
     backgroundColor: Palette.gray1,
   },
 
-  content: {
+  body: {
     width: 250,
     height: 16,
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 6,
     backgroundColor: Palette.gray1,
   },
 
-  row: {
+  footer: {
     flexDirection: 'row',
     flex: 1,
   },
 
-  col: {
-    flexDirection: 'column',
-  },
-
-  likeButton: {
+  footerButton: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: Dimensions.verticalSpaceSmall + 6,
     paddingBottom: Dimensions.verticalSpaceBig,
     paddingLeft: 1,
     paddingRight: Dimensions.horizontalSpaceBig,
+    marginRight: 3,
     marginBottom: -Dimensions.verticalSpaceBig,
   },
 
-  likeIcon: {
+  footerButtonIcon: {
     height: 20,
     width: 20,
     borderRadius: 5,
     backgroundColor: Palette.gray1,
   },
 
-  likeLabel: {
+  footerButtonLabel: {
     marginLeft: Dimensions.horizontalSpaceSmall,
-    width: 50,
+    width: 34,
     height: Dimensions.verticalSpaceBig,
     backgroundColor: Palette.gray1,
   },
@@ -102,14 +99,14 @@ export const styles = StyleSheet.create({
 
 class PlaceholderHeader extends PureComponent<{}> {
   public render() {
-    return h(View, {style: styles.messageHeaderRow}, [
-      h(View, {style: styles.messageAuthorImageContainer}),
-      h(View, {style: styles.messageHeaderAuthorColumn}, [
+    return h(View, {style: styles.headerRow}, [
+      h(View, {style: styles.headerAvatar}),
+      h(View, {style: styles.headerAuthorColumn}, [
         h(View, {
-          style: styles.messageHeaderAuthorName,
+          style: styles.headerAuthorName,
         }),
         h(View, {
-          style: styles.messageHeaderTimestamp,
+          style: styles.headerTimestamp,
         }),
       ]),
     ]);
@@ -118,12 +115,14 @@ class PlaceholderHeader extends PureComponent<{}> {
 
 class PlaceholderFooter extends PureComponent<{}> {
   public render() {
-    return h(View, {style: styles.col}, [
-      h(View, {style: styles.row}, [
-        h(View, {style: styles.likeButton}, [
-          h(View, {style: styles.likeIcon}),
-          h(View, {style: styles.likeLabel}),
-        ]),
+    return h(View, {style: styles.footer}, [
+      h(View, {style: styles.footerButton}, [
+        h(View, {style: styles.footerButtonIcon}),
+        h(View, {style: styles.footerButtonLabel}),
+      ]),
+      h(View, {style: styles.footerButton}, [
+        h(View, {style: styles.footerButtonIcon}),
+        h(View, {style: styles.footerButtonLabel}),
       ]),
     ]);
   }
@@ -133,7 +132,7 @@ export default class PlaceholderMessage extends PureComponent<{}> {
   public render() {
     return h(MessageContainer, [
       h(PlaceholderHeader),
-      h(View, {style: styles.content}),
+      h(View, {style: styles.body}),
       h(PlaceholderFooter),
     ]);
   }

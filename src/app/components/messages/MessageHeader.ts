@@ -18,18 +18,12 @@
  */
 
 import {Component} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
 import {authorName} from '../../../ssb/from-ssb';
+import Avatar from '../Avatar';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -41,21 +35,8 @@ export const styles = StyleSheet.create({
     marginBottom: Dimensions.verticalSpaceSmall,
   },
 
-  messageAuthorImageContainer: {
-    height: Dimensions.avatarSizeNormal,
-    width: Dimensions.avatarSizeNormal,
-    borderRadius: Dimensions.avatarBorderRadius,
-    backgroundColor: Palette.indigo1,
-    marginRight: Dimensions.horizontalSpaceSmall,
-  },
-
   messageAuthorImage: {
-    borderRadius: Dimensions.avatarBorderRadius,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    marginRight: Dimensions.horizontalSpaceSmall,
   },
 
   messageHeaderAuthorColumn: {
@@ -92,12 +73,12 @@ export default class MessageHeader extends Component<Props, {}> {
     super(props);
   }
 
-  private _onPressAuthor() {
+  private _onPressAuthor = () => {
     const onPressAuthor = this.props.onPressAuthor;
     if (onPressAuthor) {
       onPressAuthor({authorFeedId: this.props.msg.value.author});
     }
-  }
+  };
 
   public shouldComponentUpdate(nextProps: Props) {
     const prevProps = this.props;
@@ -111,10 +92,7 @@ export default class MessageHeader extends Component<Props, {}> {
   public render() {
     const {msg, name, imageUrl} = this.props;
     const avatarUrl = {uri: imageUrl || undefined};
-    const touchableProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: () => this._onPressAuthor(),
-    };
+    const touchableProps = {onPress: this._onPressAuthor};
 
     const messageHeaderAuthorName = h(TouchableOpacity, touchableProps, [
       h(
@@ -135,13 +113,12 @@ export default class MessageHeader extends Component<Props, {}> {
     );
 
     return h(View, {style: styles.messageHeaderRow}, [
-      h(TouchableNativeFeedback, touchableProps, [
-        h(View, {style: styles.messageAuthorImageContainer}, [
-          h(Image, {
-            style: styles.messageAuthorImage,
-            source: avatarUrl,
-          }),
-        ]),
+      h(TouchableOpacity, touchableProps, [
+        h(Avatar, {
+          size: Dimensions.avatarSizeNormal,
+          source: avatarUrl,
+          style: styles.messageAuthorImage,
+        }),
       ]),
       h(View, {style: styles.messageHeaderAuthorColumn}, [
         messageHeaderAuthorName,

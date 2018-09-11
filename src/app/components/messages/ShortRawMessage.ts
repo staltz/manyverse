@@ -19,13 +19,7 @@
 
 import {Component} from 'react';
 import {h} from '@cycle/react';
-import {
-  Text,
-  View,
-  TouchableNativeFeedback,
-  Image,
-  StyleSheet,
-} from 'react-native';
+import {Text, View, TouchableNativeFeedback, StyleSheet} from 'react-native';
 import HumanTime from 'react-human-time';
 import {Msg, PostContent} from 'ssb-typescript';
 import {authorName} from '../../../ssb/from-ssb';
@@ -33,6 +27,7 @@ import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
 import {isPrivate} from 'ssb-typescript/utils';
+import Avatar from '../Avatar';
 
 export const styles = StyleSheet.create({
   row: {
@@ -44,21 +39,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  avatarContainer: {
-    height: Dimensions.avatarSizeNormal,
-    width: Dimensions.avatarSizeNormal,
-    borderRadius: Dimensions.avatarBorderRadius,
-    backgroundColor: Palette.indigo1,
-    marginRight: Dimensions.horizontalSpaceSmall,
-  },
-
   avatar: {
-    borderRadius: Dimensions.avatarBorderRadius,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    marginRight: Dimensions.horizontalSpaceSmall,
   },
 
   authorColumn: {
@@ -147,12 +129,11 @@ export default class RawMessage extends Component<Props> {
     return h(View, [
       h(TouchableNativeFeedback, touchableProps, [
         h(View, {style: styles.row}, [
-          h(View, {style: styles.avatarContainer}, [
-            h(Image, {
-              style: styles.avatar,
-              source: avatarUrl,
-            }),
-          ]),
+          h(Avatar, {
+            source: avatarUrl,
+            size: Dimensions.avatarSizeNormal,
+            style: styles.avatar,
+          }),
           h(View, {style: styles.authorColumn}, [
             authorNameText,
             h(Text, [timestampText, '  ' as any, msgTypeText]),

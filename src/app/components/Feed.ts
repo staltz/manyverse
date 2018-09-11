@@ -23,7 +23,6 @@ import {View, StyleSheet, NativeScrollEvent} from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
 import CompactThread from './CompactThread';
 import PlaceholderMessage from './messages/PlaceholderMessage';
@@ -40,32 +39,6 @@ const PullFlatList2 = propifyMethods(
 );
 
 export const styles = StyleSheet.create({
-  writeMessageRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-
-  writeMessageAuthorImage: {
-    height: Dimensions.avatarSizeNormal,
-    width: Dimensions.avatarSizeNormal,
-    borderRadius: Dimensions.avatarBorderRadius,
-    backgroundColor: Palette.indigo1,
-  },
-
-  writeInputContainer: {
-    flex: 1,
-    paddingLeft: Dimensions.horizontalSpaceSmall,
-    alignSelf: 'stretch',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-
-  writeInput: {
-    fontSize: Typography.fontSizeLarge,
-    color: Palette.brand.textVeryWeak,
-  },
-
   container: {
     alignSelf: 'stretch',
     flex: 1,

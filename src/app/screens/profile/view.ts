@@ -18,19 +18,20 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {View, Text, Image} from 'react-native';
+import {View, Text} from 'react-native';
 import {h} from '@cycle/react';
 import Feed from '../../components/Feed';
 import Button from '../../components/Button';
 import ToggleButton from '../../components/ToggleButton';
 import {SSBSource} from '../../drivers/ssb';
-import {styles} from './styles';
+import {styles, avatarSize} from './styles';
 import {State} from './model';
 import {isRootPostMsg} from 'ssb-typescript/utils';
 import {FloatingAction} from 'react-native-floating-action';
 import {Palette} from '../../global-styles/palette';
 import {ReactElement} from 'react';
 import EmptySection from '../../components/EmptySection';
+import Avatar from '../../components/Avatar';
 
 export default function view(
   state$: Stream<State>,
@@ -57,12 +58,11 @@ export default function view(
         ),
       ]),
 
-      h(View, {style: styles.avatarBackground}, [
-        h(Image, {
-          style: styles.avatar,
-          source: {uri: state.about.imageUrl || undefined},
-        }),
-      ]),
+      h(Avatar, {
+        size: avatarSize,
+        source: {uri: state.about.imageUrl || undefined},
+        style: styles.avatar,
+      }),
 
       isSelfProfile
         ? h(Button, {

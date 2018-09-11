@@ -18,20 +18,14 @@
  */
 
 import {PureComponent} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableNativeFeedback,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {PeerMetadata, FeedId} from 'ssb-typescript';
+import Avatar from './Avatar';
 
 export const styles = StyleSheet.create({
   container: {
@@ -49,21 +43,8 @@ export const styles = StyleSheet.create({
     marginBottom: 1,
   },
 
-  peerAvatarContainer: {
-    height: Dimensions.avatarSizeNormal,
-    width: Dimensions.avatarSizeNormal,
-    borderRadius: Dimensions.avatarBorderRadius,
-    backgroundColor: Palette.indigo1,
-    marginRight: Dimensions.horizontalSpaceSmall,
-  },
-
   peerAvatar: {
-    borderRadius: Dimensions.avatarBorderRadius,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    marginRight: Dimensions.horizontalSpaceSmall,
   },
 
   peerDetails: {
@@ -112,15 +93,12 @@ export type Props = {
 
 export default class ConnectionsList extends PureComponent<Props> {
   private renderItem(peer: PeerMetadata) {
-    const onPressPeer = () => {
-      if (this.props.onPressPeer) {
-        this.props.onPressPeer(peer.key);
-      }
-    };
-
     const touchableProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: onPressPeer,
+      onPress: () => {
+        if (this.props.onPressPeer) {
+          this.props.onPressPeer(peer.key);
+        }
+      },
     };
 
     const peerName = h(TouchableOpacity, touchableProps, [
@@ -145,13 +123,12 @@ export default class ConnectionsList extends PureComponent<Props> {
     ]);
 
     return h(View, {style: styles.peer}, [
-      h(TouchableNativeFeedback, touchableProps, [
-        h(View, {style: styles.peerAvatarContainer}, [
-          h(Image, {
-            style: styles.peerAvatar,
-            source: {uri: peer['imageUrl' as any] || undefined},
-          }),
-        ]),
+      h(TouchableOpacity, touchableProps, [
+        h(Avatar, {
+          size: Dimensions.avatarSizeNormal,
+          source: {uri: peer['imageUrl' as any] || undefined},
+          style: styles.peerAvatar,
+        }),
       ]),
       h(View, {style: styles.peerDetails}, [peerName, peerMode]),
     ]);

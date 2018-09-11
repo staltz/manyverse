@@ -39,10 +39,6 @@ export const styles = StyleSheet.create({
   },
 
   authorImage: {
-    height: Dimensions.avatarSizeNormal,
-    width: Dimensions.avatarSizeNormal,
-    borderRadius: Dimensions.avatarBorderRadius,
-    backgroundColor: Palette.indigo9,
     marginBottom: Dimensions.verticalSpaceNormal,
   },
 

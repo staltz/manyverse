@@ -22,7 +22,7 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 
-const avatarSize = Dimensions.avatarSizeBig;
+export const avatarSize = Dimensions.avatarSizeBig;
 const avatarSizeHalf = avatarSize * 0.5;
 
 export const styles = StyleSheet.create({
@@ -88,23 +88,10 @@ export const styles = StyleSheet.create({
     zIndex: 30,
   },
 
-  avatarBackground: {
-    height: avatarSize,
-    width: avatarSize,
-    borderRadius: Dimensions.avatarBorderRadius,
+  avatar: {
     top: -avatarSizeHalf,
     left: Dimensions.horizontalSpaceBig,
     zIndex: 20,
-    backgroundColor: Palette.indigo1,
-  },
-
-  avatar: {
-    position: 'absolute',
-    borderRadius: Dimensions.avatarBorderRadius,
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
   },
 
   emptySection: {

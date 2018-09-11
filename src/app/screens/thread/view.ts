@@ -34,16 +34,17 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import FullThread from '../../components/FullThread';
 import {State} from './model';
-import {styles} from './styles';
+import {styles, avatarSize} from './styles';
+import Avatar from '../../components/Avatar';
 
-const ReplySpacer = h(View, {style: styles.spacer});
+const ReplySpacer = h(View, {style: styles.spacerInReply});
 
 function ReplySendButton() {
   return h(
     TouchableOpacity,
     {
       sel: 'replyButton',
-      style: styles.send,
+      style: styles.replySend,
       accessible: true,
       accessibilityLabel: 'Reply Publish Button',
     },
@@ -58,9 +59,13 @@ function ReplySendButton() {
 }
 
 function ReplyInput(state: State) {
-  return h(View, {style: styles.writeMessageRow}, [
-    h(View, {style: styles.writeMessageAuthorImage}),
-    h(View, {style: styles.writeInputContainer}, [
+  return h(View, {style: styles.replyRow}, [
+    h(Avatar, {
+      size: avatarSize,
+      source: null,
+      style: styles.replyAvatar,
+    }),
+    h(View, {style: styles.replyInputContainer}, [
       h(TextInput, {
         accessible: true,
         accessibilityLabel: 'Reply Text Input',
@@ -74,7 +79,7 @@ function ReplyInput(state: State) {
         placeholderTextColor: Palette.brand.textVeryWeak,
         selectionColor: Palette.indigo3,
         underlineColorAndroid: Palette.brand.voidBackground,
-        style: styles.writeInput,
+        style: styles.replyInput,
       }),
     ]),
     state.replyText.length > 0 ? ReplySendButton() : ReplySpacer,

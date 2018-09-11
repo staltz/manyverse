@@ -20,9 +20,10 @@
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {View, TextInput, KeyboardAvoidingView} from 'react-native';
-import {styles} from './styles';
+import {styles, avatarSize} from './styles';
 import {Palette} from '../../global-styles/palette';
 import {ReactElement} from 'react';
+import Avatar from '../../components/Avatar';
 
 export default function view(topBar$: Stream<ReactElement<any>>) {
   return topBar$.map(topBar =>
@@ -35,7 +36,11 @@ export default function view(topBar$: Stream<ReactElement<any>>) {
           ['enabled' as any]: true,
         },
         [
-          h(View, {style: styles.writeMessageAuthorImage}),
+          h(Avatar, {
+            size: avatarSize,
+            style: styles.avatar,
+            source: null,
+          }),
           h(TextInput, {
             style: styles.composeInput,
             sel: 'composeInput',

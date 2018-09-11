@@ -19,12 +19,13 @@
 
 import xs, {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {View, Text, TextInput, Image} from 'react-native';
+import {View, Text, TextInput} from 'react-native';
 import Button from '../../components/Button';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
-import {styles} from './styles';
+import {styles, avatarSize} from './styles';
 import {ReactElement} from 'react';
+import Avatar from '../../components/Avatar';
 
 export default function view(
   state$: Stream<State>,
@@ -42,18 +43,11 @@ export default function view(
 
       h(View, {style: styles.cover}),
 
-      h(
-        View,
-        {style: styles.avatarBackground},
-        [
-          !!state.about.imageUrl
-            ? h(Image, {
-                style: styles.avatar,
-                source: {uri: state.about.imageUrl},
-              })
-            : null,
-        ] as Array<any>,
-      ),
+      h(Avatar, {
+        size: avatarSize,
+        source: {uri: state.about.imageUrl || undefined},
+        style: styles.avatar,
+      }),
 
       h(Button, {
         sel: 'save',

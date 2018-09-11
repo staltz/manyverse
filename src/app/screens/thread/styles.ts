@@ -22,6 +22,8 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 
+export const avatarSize = Dimensions.avatarSizeSmall;
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -38,7 +40,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 
-  writeMessageRow: {
+  replyRow: {
     backgroundColor: Palette.brand.textBackground,
     paddingLeft: Dimensions.horizontalSpaceBig,
     borderTopWidth: 1,
@@ -47,22 +49,18 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  spacer: {
+  spacerInReply: {
     width: Dimensions.horizontalSpaceBig,
     height: 10,
   },
 
-  writeMessageAuthorImage: {
-    height: Dimensions.avatarSizeSmall,
-    width: Dimensions.avatarSizeSmall,
-    borderRadius: Dimensions.avatarBorderRadius,
-    backgroundColor: Palette.indigo1,
+  replyAvatar: {
     marginTop: Dimensions.verticalSpaceNormal,
     marginBottom: Dimensions.verticalSpaceNormal,
     alignSelf: 'flex-start',
   },
 
-  writeInputContainer: {
+  replyInputContainer: {
     flex: 1,
     paddingLeft: Dimensions.horizontalSpaceSmall,
     alignSelf: 'stretch',
@@ -70,13 +68,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  writeInput: {
+  replyInput: {
     fontSize: Typography.fontSizeNormal,
     color: Palette.brand.text,
     maxHeight: 136, // approx. 6.5 lines of text
   },
 
-  send: {
+  replySend: {
     alignSelf: 'flex-end',
     borderRadius: 3,
     paddingLeft: Dimensions.horizontalSpaceSmall,
