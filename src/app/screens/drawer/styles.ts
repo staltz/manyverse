@@ -63,4 +63,21 @@ export const styles = StyleSheet.create({
     color: Palette.indigo2,
     fontWeight: 'normal',
   },
+
+  menuItemContainer: {
+    backgroundColor: Palette.white,
+    paddingHorizontal: Dimensions.horizontalSpaceBig,
+    paddingVertical: Dimensions.verticalSpaceBig,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+
+  menuItemText: {
+    fontFamily: Typography.fontFamilyReadableText,
+    marginLeft: Dimensions.horizontalSpaceBig,
+    color: Palette.brand.textWeak,
+    fontSize: Typography.fontSizeNormal,
+    fontWeight: 'bold',
+  },
 });

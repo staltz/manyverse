@@ -18,10 +18,10 @@
  */
 
 import {Stream} from 'xstream';
-import {View, Text, ScrollView} from 'react-native';
-import {ReactElement} from 'react';
+import {PureComponent, ReactElement} from 'react';
+import {View, Text, ScrollView, TouchableNativeFeedback} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {h} from '@cycle/react';
-import DrawerMenuItem from '../../components/DrawerMenuItem';
 import {styles} from './styles';
 import {State} from './model';
 import {Dimensions} from '../../global-styles/dimens';
@@ -39,6 +39,39 @@ function renderName(name?: string) {
     },
     name || 'No name',
   );
+}
+
+type MenuItemProps = {
+  icon: string;
+  text: string;
+  onPress?: () => void;
+  accessible?: boolean;
+  accessibilityLabel?: string;
+};
+
+class MenuItem extends PureComponent<MenuItemProps> {
+  public render() {
+    const {icon, text, onPress, accessibilityLabel, accessible} = this.props;
+    const touchableProps = {
+      background: TouchableNativeFeedback.Ripple(Palette.gray2),
+      onPress: () => {
+        if (onPress) onPress();
+      },
+      accessible,
+      accessibilityLabel,
+    };
+
+    return h(TouchableNativeFeedback, touchableProps, [
+      h(View, {style: styles.menuItemContainer}, [
+        h(Icon, {
+          size: Dimensions.iconSizeNormal,
+          color: Palette.brand.textWeak,
+          name: icon,
+        }),
+        h(Text, {style: styles.menuItemText}, text),
+      ]),
+    ]);
+  }
 }
 
 export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
@@ -59,28 +92,28 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
         ),
       ]),
       h(ScrollView, {style: null}, [
-        h(DrawerMenuItem, {
+        h(MenuItem, {
           sel: 'self-profile',
           icon: 'account-circle',
           text: 'My profile',
           accessible: true,
           accessibilityLabel: 'My Profile Menu Item',
         }),
-        h(DrawerMenuItem, {
+        h(MenuItem, {
           sel: 'bug-report',
           icon: 'email',
           text: 'Email bug report',
           accessible: true,
           accessibilityLabel: 'Email Bug Report',
         }),
-        h(DrawerMenuItem, {
+        h(MenuItem, {
           sel: 'raw-db',
           icon: 'database',
           text: 'Raw database',
           accessible: true,
           accessibilityLabel: 'Show Raw Database',
         }),
-        h(DrawerMenuItem, {
+        h(MenuItem, {
           sel: 'about',
           icon: 'information',
           text: 'About MMMMM',
