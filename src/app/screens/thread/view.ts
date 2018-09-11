@@ -62,7 +62,7 @@ function ReplyInput(state: State) {
   return h(View, {style: styles.replyRow}, [
     h(Avatar, {
       size: avatarSize,
-      source: {uri: state.avatarUrl || undefined},
+      url: state.avatarUrl,
       style: styles.replyAvatar,
     }),
     h(View, {style: styles.replyInputContainer}, [

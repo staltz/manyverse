@@ -18,31 +18,20 @@
  */
 
 import {h} from '@cycle/react';
-import {View, Image, StyleSheet, StyleProp, ViewStyle} from 'react-native';
+import {View, Image, StyleProp, ViewStyle} from 'react-native';
 import {PureComponent} from 'react';
 import {Palette} from '../global-styles/palette';
-import {ImageSource} from 'react-native-vector-icons/Icon';
-
-export const styles = StyleSheet.create({
-  image: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-});
 
 export type Props = {
   size: number;
-  source: ImageSource;
+  url: string | null | undefined;
   backgroundColor?: string;
   style?: StyleProp<ViewStyle>;
 };
 
 export default class Avatar extends PureComponent<Props> {
   public render() {
-    const {style, size, backgroundColor, source} = this.props;
+    const {style, size, backgroundColor, url} = this.props;
     const borderRadius = size >> 1; // tslint:disable-line:no-bitwise
     const baseStyle = {
       height: size,
@@ -52,8 +41,8 @@ export default class Avatar extends PureComponent<Props> {
     };
     return h(View, {style: [baseStyle, style]}, [
       h(Image, {
-        style: [styles.image, {borderRadius}],
-        source,
+        style: {borderRadius, width: size, height: size},
+        source: url ? {uri: url} : require('../../../images/empty-avatar.png'),
       }),
     ]);
   }

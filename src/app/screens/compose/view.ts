@@ -49,7 +49,7 @@ export default function view(
           h(Avatar, {
             size: avatarSize,
             style: styles.avatar,
-            source: {uri: avatarUrl || undefined},
+            url: avatarUrl,
           }),
           h(TextInput, {
             style: styles.composeInput,

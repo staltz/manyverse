@@ -126,7 +126,7 @@ export default class ConnectionsList extends PureComponent<Props> {
       h(TouchableOpacity, touchableProps, [
         h(Avatar, {
           size: Dimensions.avatarSizeNormal,
-          source: {uri: peer['imageUrl' as any] || undefined},
+          url: peer['imageUrl' as any],
           style: styles.peerAvatar,
         }),
       ]),

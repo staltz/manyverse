@@ -91,7 +91,6 @@ export default class MessageHeader extends Component<Props, {}> {
 
   public render() {
     const {msg, name, imageUrl} = this.props;
-    const avatarUrl = {uri: imageUrl || undefined};
     const touchableProps = {onPress: this._onPressAuthor};
 
     const messageHeaderAuthorName = h(TouchableOpacity, touchableProps, [
@@ -116,7 +115,7 @@ export default class MessageHeader extends Component<Props, {}> {
       h(TouchableOpacity, touchableProps, [
         h(Avatar, {
           size: Dimensions.avatarSizeNormal,
-          source: avatarUrl,
+          url: imageUrl,
           style: styles.messageAuthorImage,
         }),
       ]),

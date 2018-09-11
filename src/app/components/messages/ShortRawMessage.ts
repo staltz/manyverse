@@ -98,7 +98,6 @@ export default class RawMessage extends Component<Props> {
 
   public render() {
     const {msg, name, imageUrl} = this.props;
-    const avatarUrl = {uri: imageUrl || undefined};
     const touchableProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
       onPress: () => this._onPress(),
@@ -130,7 +129,7 @@ export default class RawMessage extends Component<Props> {
       h(TouchableNativeFeedback, touchableProps, [
         h(View, {style: styles.row}, [
           h(Avatar, {
-            source: avatarUrl,
+            url: imageUrl,
             size: Dimensions.avatarSizeNormal,
             style: styles.avatar,
           }),

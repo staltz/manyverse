@@ -60,7 +60,7 @@ export default function view(
 
       h(Avatar, {
         size: avatarSize,
-        source: {uri: state.about.imageUrl || undefined},
+        url: state.about.imageUrl,
         style: styles.avatar,
       }),
 
