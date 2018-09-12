@@ -5,54 +5,46 @@ const path = require('path');
 const rnnodeappPath = process.argv[2];
 const scuttlebotPath = path.join(rnnodeappPath, 'node_modules/scuttlebot');
 
-if (fs.existsSync(scuttlebotPath)) {
-  patchApidocsFile(scuttlebotPath);
-} else {
+if (!fs.existsSync(scuttlebotPath)) {
   throw new Error('Cannot find file scuttlebot/lib/apidocs.js to patch');
 }
 
-function patchApidocsFile(scuttlebotPath) {
-  const apidocsPath = path.join(scuttlebotPath, './lib/apidocs.js');
-  const prevContent = fs.readFileSync(apidocsPath, 'utf-8');
+const apidocsPath = path.join(scuttlebotPath, './lib/apidocs.js');
+const prevContent = fs.readFileSync(apidocsPath, 'utf-8');
 
-  const dirname = path.dirname(apidocsPath);
+const dirname = path.dirname(apidocsPath);
 
-  function readMarkdownCompileTime(relPath) {
-    return fs
-      .readFileSync(path.join(dirname, relPath), 'utf-8')
-      .replace(/\`\`\`/g, '')
-      .replace(/\`/g, '"');
-  }
-
-  const nextContent = prevContent
-    .replace(
-      `fs.readFileSync(path.join(__dirname, '../api.md'), 'utf-8')`,
-      `\`${readMarkdownCompileTime('../api.md')}\``,
-    )
-    .replace(
-      `fs.readFileSync(path.join(__dirname, '../plugins/block.md'), 'utf-8')`,
-      `\`${readMarkdownCompileTime('../plugins/block.md')}\``,
-    )
-    .replace(
-      `fs.readFileSync(path.join(__dirname, '../plugins/friends.md'), 'utf-8')`,
-      `\`${readMarkdownCompileTime('../plugins/friends.md')}\``,
-    )
-    .replace(
-      `fs.readFileSync(path.join(__dirname, '../plugins/gossip.md'), 'utf-8')`,
-      `\`${readMarkdownCompileTime('../plugins/gossip.md')}\``,
-    )
-    .replace(
-      `fs.readFileSync(path.join(__dirname, '../plugins/invite.md'), 'utf-8')`,
-      `\`${readMarkdownCompileTime('../plugins/invite.md')}\``,
-    )
-    .replace(
-      `fs.readFileSync(path.join(__dirname, '../plugins/plugins.md'), 'utf-8')`,
-      `\`${readMarkdownCompileTime('../plugins/plugins.md')}\``,
-    )
-    .replace(
-      `fs.readFileSync(path.join(__dirname, '../plugins/replicate.md'), 'utf-8')`,
-      `\`${readMarkdownCompileTime('../plugins/replicate.md')}\``,
-    );
-
-  fs.writeFileSync(apidocsPath, nextContent, 'utf-8');
+function readMarkdownCompileTime(relPath) {
+  return fs
+    .readFileSync(path.join(dirname, relPath), 'utf-8')
+    .replace(/\`\`\`/g, '')
+    .replace(/\`/g, '"');
 }
+
+const nextContent = prevContent
+  .replace(
+    `fs.readFileSync(path.join(__dirname, '../api.md'), 'utf-8')`,
+    `\`${readMarkdownCompileTime('../api.md')}\``,
+  )
+  .replace(
+    `fs.readFileSync(path.join(__dirname, '../plugins/friends.md'), 'utf-8')`,
+    `\`${readMarkdownCompileTime('../plugins/friends.md')}\``,
+  )
+  .replace(
+    `fs.readFileSync(path.join(__dirname, '../plugins/gossip.md'), 'utf-8')`,
+    `\`${readMarkdownCompileTime('../plugins/gossip.md')}\``,
+  )
+  .replace(
+    `fs.readFileSync(path.join(__dirname, '../plugins/invite.md'), 'utf-8')`,
+    `\`${readMarkdownCompileTime('../plugins/invite.md')}\``,
+  )
+  .replace(
+    `fs.readFileSync(path.join(__dirname, '../plugins/plugins.md'), 'utf-8')`,
+    `\`${readMarkdownCompileTime('../plugins/plugins.md')}\``,
+  )
+  .replace(
+    `fs.readFileSync(path.join(__dirname, '../plugins/replicate.md'), 'utf-8')`,
+    `\`${readMarkdownCompileTime('../plugins/replicate.md')}\``,
+  );
+
+fs.writeFileSync(apidocsPath, nextContent, 'utf-8');

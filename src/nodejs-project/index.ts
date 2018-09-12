@@ -21,8 +21,6 @@ const fs = require('fs');
 const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
-const makeNoauthPlugin = require('multiserver/plugins/noauth');
-const makeWSPlugin = require('multiserver/plugins/ws');
 import syncingPlugin = require('./plugins/syncing');
 import manifest = require('./manifest');
 
@@ -43,7 +41,7 @@ config.friends.hops = 2;
 config.connections = {
   incoming: {
     net: [{scope: 'public', transform: 'shs'}],
-    ws: [{scope: 'private', transform: 'noauth'}],
+    ws: [{scope: 'private', transform: 'noauth', port: 8422}],
   },
   outgoing: {
     net: [{transform: 'shs'}],
@@ -51,31 +49,7 @@ config.connections = {
   },
 };
 
-function noauthTransform(stack: any, cfg: any) {
-  stack.multiserver.transform({
-    name: 'noauth',
-    create: () => {
-      return makeNoauthPlugin({
-        keys: {
-          publicKey: Buffer.from(cfg.keys.public, 'base64'),
-        },
-      });
-    },
-  });
-}
-
-function wsTransport(stack: any) {
-  stack.multiserver.transport({
-    name: 'ws',
-    create: () => {
-      return makeWSPlugin({host: 'localhost', port: '8422'});
-    },
-  });
-}
-
 require('scuttlebot/index')
-  .use(wsTransport)
-  .use(noauthTransform)
   .use(require('scuttlebot/plugins/plugins'))
   .use(require('scuttlebot/plugins/master'))
   .use(require('scuttlebot/plugins/gossip'))
