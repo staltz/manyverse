@@ -21,6 +21,7 @@ const fs = require('fs');
 const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
+const makeDHTPlugin = require('multiserver-dht');
 import syncingPlugin = require('./plugins/syncing');
 import manifest = require('./manifest');
 
@@ -41,18 +42,29 @@ config.friends.hops = 2;
 config.connections = {
   incoming: {
     net: [{scope: 'public', transform: 'shs'}],
+    dht: [{scope: 'public', transform: 'noauth'}],
     ws: [{scope: 'private', transform: 'noauth', port: 8422}],
   },
   outgoing: {
     net: [{transform: 'shs'}],
+    dht: [{transform: 'noauth'}],
     ws: [{transform: 'noauth'}],
   },
 };
 
-require('scuttlebot/index')
+function dhtTransport(_sbot: any) {
+  _sbot.multiserver.transport({
+    name: 'dht',
+    create: () => makeDHTPlugin({keys: _sbot.dhtInvite.channels()}),
+  });
+}
+
+const sbot = require('scuttlebot/index')
+  .use(require('ssb-dht-invite'))
+  .use(dhtTransport)
   .use(require('scuttlebot/plugins/plugins'))
   .use(require('scuttlebot/plugins/master'))
-  .use(require('scuttlebot/plugins/gossip'))
+  .use(require('@staltz/sbot-gossip'))
   .use(require('scuttlebot/plugins/replicate'))
   .use(syncingPlugin)
   .use(require('ssb-friends'))
@@ -69,3 +81,5 @@ require('scuttlebot/index')
   .use(require('scuttlebot/plugins/logging'))
   .use(require('ssb-ebt'))
   .call(null, config);
+
+sbot.dhtInvite.start();

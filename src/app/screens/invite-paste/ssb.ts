@@ -17,16 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
-import {Content} from 'ssb-typescript';
-import {AcceptInviteReq} from '../../drivers/ssb';
+import xs, {Stream} from 'xstream';
+import {AcceptInviteReq, AcceptDhtInviteReq} from '../../drivers/ssb';
 
 export type Actions = {
-  done$: Stream<string>;
+  dhtDone$: Stream<string>;
+  normalDone$: Stream<string>;
 };
 
-export default function ssb(actions: Actions): Stream<Content> {
-  const acceptInvite$ = actions.done$.map(
+export default function ssb(actions: Actions) {
+  const acceptInvite$ = actions.normalDone$.map(
     inviteCode =>
       ({
         type: 'invite.accept',
@@ -34,5 +34,13 @@ export default function ssb(actions: Actions): Stream<Content> {
       } as AcceptInviteReq),
   );
 
-  return acceptInvite$ as any;
+  const acceptDhtInvite$ = actions.dhtDone$.map(
+    inviteCode =>
+      ({
+        type: 'dhtInvite.accept',
+        invite: inviteCode,
+      } as AcceptDhtInviteReq),
+  );
+
+  return xs.merge(acceptInvite$, acceptDhtInvite$);
 }

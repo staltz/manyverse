@@ -39,12 +39,15 @@ export default function intent(
   const activityResumed$ = lifecycle$.filter(ev => ev === 'resumed');
   const composeAppeared$ = navSource.didAppear();
   const composeDisappearing$ = navSource.didDisappear();
+  const done$ = topBarDone$
+    .compose(sample(state$))
+    .map(state => state.content)
+    .filter(text => text.length > 0);
 
   return {
-    done$: topBarDone$
-      .compose(sample(state$))
-      .map(state => state.content)
-      .filter(text => text.length > 0),
+    dhtDone$: done$.filter(text => text.substr(0, 4) === 'dht:'),
+
+    normalDone$: done$.filter(text => text.substr(0, 4) !== 'dht:'),
 
     updateContent$: reactSource
       .select('contentInput')

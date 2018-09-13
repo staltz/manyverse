@@ -99,6 +99,7 @@ export class SSBSource {
   public publishHook$: Stream<Msg>;
   public peers$: Stream<Array<PeerMetadata>>;
   public acceptInviteResponse$: Stream<true | string>;
+  public acceptDhtInviteResponse$: Stream<true | string>;
 
   constructor(private api$: Stream<any>) {
     this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]());
@@ -175,6 +176,7 @@ export class SSBSource {
       .flatten();
 
     this.acceptInviteResponse$ = xs.create<true | string>();
+    this.acceptDhtInviteResponse$ = xs.create<true | string>();
   }
 
   public thread$(rootMsgId: MsgId): Stream<ThreadAndExtras> {
@@ -242,7 +244,12 @@ export type AcceptInviteReq = {
   invite: string;
 };
 
-export type Req = PublishReq | AcceptInviteReq;
+export type AcceptDhtInviteReq = {
+  type: 'dhtInvite.accept';
+  invite: string;
+};
+
+export type Req = PublishReq | AcceptInviteReq | AcceptDhtInviteReq;
 
 function dropCompletion(stream: Stream<any>): Stream<any> {
   return xs.merge(stream, xs.never());
@@ -296,6 +303,15 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
               source.acceptInviteResponse$._n(err.message || err);
             } else {
               source.acceptInviteResponse$._n(true);
+            }
+          });
+        }
+        if (req.type === 'dhtInvite.accept') {
+          api.sbot.async.acceptDhtInvite[0](req.invite, (err: any, v: any) => {
+            if (err) {
+              source.acceptDhtInviteResponse$._n(err.message || err);
+            } else {
+              source.acceptDhtInviteResponse$._n(true);
             }
           });
         }

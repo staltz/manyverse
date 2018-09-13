@@ -116,6 +116,13 @@ export = {
     profile: 'source',
     thread: 'source',
   },
+  dhtInvite: {
+    start: 'async',
+    create: 'async',
+    use: 'async',
+    channels: 'source',
+    accept: 'async',
+  },
 
   // This project's plugins
   syncing: {

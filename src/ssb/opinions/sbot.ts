@@ -50,6 +50,7 @@ const gives = {
       progress: true,
       publish: true,
       acceptInvite: true,
+      acceptDhtInvite: true,
       addBlob: true,
       gossipConnect: true,
       friendsGet: true,
@@ -212,6 +213,9 @@ const create = (api: any) => {
         }),
         acceptInvite: rec.async((invite: string, cb: any) => {
           sbot.invite.accept(invite, cb);
+        }),
+        acceptDhtInvite: rec.async((invite: string, cb: any) => {
+          sbot.dhtInvite.accept(invite, cb);
         }),
         addBlob: rec.async((stream: any, cb: any) => {
           return pull(stream, sbot.blobs.add(cb));

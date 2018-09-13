@@ -23,8 +23,7 @@ import {ReactElement} from 'react';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from 'cycle-onionify';
-import {Content} from 'ssb-typescript';
-import {SSBSource} from '../../drivers/ssb';
+import {SSBSource, Req as SSBReq} from '../../drivers/ssb';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {LifecycleEvent} from '../../drivers/lifecycle';
 import {topBar, Sinks as TBSinks} from './top-bar';
@@ -48,7 +47,7 @@ export type Sinks = {
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
   keyboard: Stream<'dismiss'>;
-  ssb: Stream<Content>;
+  ssb: Stream<SSBReq>;
 };
 
 export const navOptions = {
@@ -77,7 +76,7 @@ export function pasteInvite(sources: Sources): Sinks {
   const reducer$ = model(actions);
   const newContent$ = ssb(actions);
   const dismiss$ = xs
-    .merge(actions.done$, topBarSinks.back)
+    .merge(actions.normalDone$, actions.dhtDone$, topBarSinks.back)
     .mapTo('dismiss' as 'dismiss');
 
   return {
