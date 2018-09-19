@@ -23,7 +23,7 @@ import {h} from '@cycle/react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
-import AndroidBackButton from '../../../components/AndroidBackButton';
+import HeaderBackButton from '../../../components/HeaderBackButton';
 import {ReactElement} from 'react';
 import {Typography} from '../../../global-styles/typography';
 
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
 export function topBar(sources: Sources): Sinks {
   const vdom$ = xs.of(
     h(View, {style: styles.container}, [
-      h(AndroidBackButton, {sel: 'profileBackButton'}),
+      HeaderBackButton('profileBackButton'),
       h(Text, {style: styles.title}, 'Edit profile'),
     ]),
   );

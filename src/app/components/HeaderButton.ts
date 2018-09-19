@@ -23,35 +23,45 @@ import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const styles = StyleSheet.create({
-  container: {
+  leftSide: {
     borderRadius: 18,
     padding: 6,
     marginLeft: -6,
+  },
+
+  rightSide: {
+    borderRadius: 18,
+    padding: 6,
+    marginRight: -6,
   },
 });
 
 export type Props = {
   onPress?: () => void;
   color?: string;
+  icon: string;
+  accessibilityLabel: string;
+  rightSide?: boolean;
 };
 
-export default class AndroidBackButton extends PureComponent<Props> {
+export default class HeaderButton extends PureComponent<Props> {
   public render() {
+    const {onPress, color, icon, accessibilityLabel, rightSide} = this.props;
     return h(
       TouchableHighlight,
       {
-        style: styles.container,
-        onPress: this.props.onPress,
+        style: rightSide ? styles.leftSide : styles.rightSide,
+        onPress,
         hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
         underlayColor: '#00000022',
       },
       [
         h(Icon, {
           size: 24,
-          color: this.props.color || 'white',
-          name: 'arrow-left',
+          color: color || 'white',
+          name: icon,
           accessible: true,
-          accessibilityLabel: 'Back Button',
+          accessibilityLabel,
         }),
       ],
     );

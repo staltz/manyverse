@@ -23,7 +23,7 @@ import {h} from '@cycle/react';
 import {View, StyleSheet} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
-import AndroidBackButton from '../../../components/AndroidBackButton';
+import HeaderBackButton from '../../../components/HeaderBackButton';
 import {ReactElement} from 'react';
 
 export type Sources = {
@@ -49,9 +49,7 @@ export const styles = StyleSheet.create({
 
 export function topBar(sources: Sources): Sinks {
   const vdom$ = xs.of(
-    h(View, {style: styles.container}, [
-      h(AndroidBackButton, {sel: 'profileBackButton'}),
-    ]),
+    h(View, {style: styles.container}, [HeaderBackButton('profileBackButton')]),
   );
 
   const back$ = sources.screen.select('profileBackButton').events('press');

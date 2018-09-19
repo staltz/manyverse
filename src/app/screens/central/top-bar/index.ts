@@ -24,7 +24,7 @@ import {StateSource} from 'cycle-onionify';
 import {View, Text, StyleSheet} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
-import AndroidMenuButton from '../../../components/AndroidMenuButton';
+import HeaderMenuButton from '../../../components/HeaderMenuButton';
 import {ReactElement} from 'react';
 import {Typography} from '../../../global-styles/typography';
 
@@ -78,7 +78,7 @@ function tabTitle(tab: 'public' | 'connections') {
 function view(state$: Stream<State>) {
   return state$.map(state =>
     h(View, {style: styles.container}, [
-      h(AndroidMenuButton, {sel: 'menuButton'}),
+      HeaderMenuButton('menuButton'),
       h(Text, {style: styles.title}, tabTitle(state.currentTab)),
     ]),
   );
