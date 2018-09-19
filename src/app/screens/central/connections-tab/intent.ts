@@ -28,6 +28,8 @@ export default function intent(
   return {
     showLANHelp$: reactSource.select('lan-mode').events('press'),
 
+    showDHTHelp$: reactSource.select('dht-mode').events('press'),
+
     showPubHelp$: reactSource.select('pub-mode').events('press'),
 
     goToPeerProfile$: reactSource

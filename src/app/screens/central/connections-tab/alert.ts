@@ -23,6 +23,7 @@ import {Command as AlertCommand} from 'cycle-native-alert';
 
 export type Actions = {
   showLANHelp$: Stream<any>;
+  showDHTHelp$: Stream<any>;
   showPubHelp$: Stream<any>;
 };
 
@@ -39,6 +40,14 @@ export default function alert(
             (state.lanEnabled ? '(ENABLED)' : '(Turn on Wi-Fi to use this)') +
             '\n\nConnect with friends in the same Local Area Network, ' +
             'in other words, friends using the same Wi-Fi.',
+          buttons: [{text: 'OK', id: 'okay'}],
+        }),
+        actions.showDHTHelp$.mapTo({
+          title: 'Internet P2P',
+          message:
+            (state.internetEnabled ? '(ENABLED)' : '(Go online to use this)') +
+            '\n\nConnect directly to friends currently online, ' +
+            'using a peer-to-peer technology called "Distributed Hash Table".',
           buttons: [{text: 'OK', id: 'okay'}],
         }),
         actions.showPubHelp$.mapTo({

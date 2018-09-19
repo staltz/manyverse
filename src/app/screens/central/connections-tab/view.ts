@@ -74,12 +74,12 @@ function ConnectivityModes(state: State) {
       label: 'Local Network Mode',
     }),
 
-    // h(ConnectivityMode, {
-    //   sel: 'dht-mode',
-    //   active: false,
-    //   icon: 'account-network',
-    //   label: 'Internet P2P Mode',
-    // }),
+    h(ConnectivityMode, {
+      sel: 'dht-mode',
+      active: state.internetEnabled,
+      icon: 'account-network',
+      label: 'Internet P2P Mode',
+    }),
 
     h(ConnectivityMode, {
       sel: 'pub-mode',
