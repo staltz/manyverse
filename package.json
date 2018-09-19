@@ -34,6 +34,7 @@
     "cycle-native-keyboard": "1.1.0",
     "cycle-native-linking": "1.0.0",
     "cycle-native-navigation": "4.2.0",
+    "cycle-native-share": "1.0.0",
     "cycle-native-toastandroid": "1.0.0",
     "cycle-onionify": "6.1.0",
     "depject": "^4.1.1",

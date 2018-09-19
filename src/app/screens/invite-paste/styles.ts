@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Dimensions.horizontalSpaceSmall,
     paddingTop: Dimensions.verticalSpaceBig,
     alignSelf: 'stretch',
-    fontSize: Typography.fontSizeBig,
+    fontSize: Typography.fontSizeLarge,
     fontFamily: Typography.fontFamilyMonospace,
     textAlign: 'left',
     textAlignVertical: 'top',

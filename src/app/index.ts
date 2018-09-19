@@ -37,6 +37,7 @@ import {linkingDriver} from 'cycle-native-linking';
 import {makeToastDriver} from './drivers/toast';
 import {notificationDriver} from 'cycle-native-android-local-notification';
 import {ssbDriver} from './drivers/ssb';
+import {shareDriver} from 'cycle-native-share';
 import {makeNetworkDriver} from './drivers/network';
 import {dialogDriver} from './drivers/dialogs';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
@@ -72,6 +73,7 @@ export const drivers = {
   keyboard: makeKeyboardDriver(),
   linking: linkingDriver,
   ssb: ssbDriver,
+  share: shareDriver,
   lifecycle: makeActivityLifecycleDriver(),
   network: makeNetworkDriver(),
   notification: notificationDriver,

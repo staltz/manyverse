@@ -34,7 +34,7 @@ export default function view(
       topBar,
       h(View, {style: styles.bodyContainer}, [
         h(Text, {style: styles.about, textBreakStrategy: 'simple'}, [
-          'SHARE THIS INVITE CODE WITH ' as any,
+          'GIVE THIS INVITE CODE TO ' as any,
           h(Text, {style: styles.bold}, 'ONE'),
           ' FRIEND' as any,
         ]),

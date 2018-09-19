@@ -69,7 +69,7 @@ export function topBar(sources: Sources): Sinks {
     h(View, {style: styles.container}, [
       h(AndroidBackButton, {sel: 'inviteBackButton'}),
       h(Button, {
-        sel: 'inviteAcceptButton',
+        sel: 'inviteShareButton',
         style: styles.buttonEnabled,
         text: 'Share',
         strong: true,
