@@ -120,8 +120,10 @@ export = {
     start: 'async',
     create: 'async',
     use: 'async',
-    channels: 'source',
     accept: 'async',
+    channels: 'source',
+    hostingInvites: 'source',
+    claimingInvites: 'source',
   },
 
   // This project's plugins

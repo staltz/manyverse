@@ -15,13 +15,12 @@ cd android;
 cd ..;
 echo "";
 
-declare -a keepThese=("bufferutil" "level" "leveldown" "sodium-native")
-
 echo -en "Minifying with noderify...";
 cd ./nodejs-assets/nodejs-project;
 $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
   --replace.node-extend=xtend \
+  --replace.utp-native=utp-native-no-prebuild \
   --filter=rn-bridge \
   index.js > _index.js;
 rm index.js;

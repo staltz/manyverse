@@ -21,7 +21,7 @@ const fs = require('fs');
 const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
-const makeDHTPlugin = require('multiserver-dht');
+const DHT = require('multiserver-dht');
 import syncingPlugin = require('./plugins/syncing');
 import manifest = require('./manifest');
 
@@ -42,12 +42,12 @@ config.friends.hops = 2;
 config.connections = {
   incoming: {
     net: [{scope: 'public', transform: 'shs'}],
-    dht: [{scope: 'public', transform: 'noauth'}],
+    dht: [{scope: 'public', transform: 'shs', port: 8423}],
     ws: [{scope: 'private', transform: 'noauth', port: 8422}],
   },
   outgoing: {
     net: [{transform: 'shs'}],
-    dht: [{transform: 'noauth'}],
+    dht: [{transform: 'shs'}],
     ws: [{transform: 'noauth'}],
   },
 };
@@ -55,7 +55,8 @@ config.connections = {
 function dhtTransport(_sbot: any) {
   _sbot.multiserver.transport({
     name: 'dht',
-    create: () => makeDHTPlugin({keys: _sbot.dhtInvite.channels()}),
+    create: (dhtConfig: any) =>
+      DHT({keys: _sbot.dhtInvite.channels(), port: dhtConfig.port}),
   });
 }
 
