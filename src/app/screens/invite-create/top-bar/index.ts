@@ -23,8 +23,8 @@ import {h} from '@cycle/react';
 import {View, StyleSheet} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
-import Button from '../../../components/Button';
 import HeaderBackButton from '../../../components/HeaderBackButton';
+import HeaderButton from '../../../components/HeaderButton';
 import {ReactElement} from 'react';
 
 export type Sources = {
@@ -48,11 +48,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: Dimensions.horizontalSpaceBig,
   },
-
-  buttonEnabled: {
-    backgroundColor: Palette.brand.callToActionBackground,
-    width: 80,
-  },
 });
 
 function intent(reactSource: ReactSource) {
@@ -68,13 +63,11 @@ export function topBar(sources: Sources): Sinks {
   const vdom$ = xs.of(
     h(View, {style: styles.container}, [
       HeaderBackButton('inviteBackButton'),
-      h(Button, {
+      h(HeaderButton, {
         sel: 'inviteShareButton',
-        style: styles.buttonEnabled,
-        text: 'Share',
-        strong: true,
-        accessible: true,
-        accessibilityLabel: 'Share Invite Button',
+        icon: 'share',
+        accessibilityLabel: 'Share Button',
+        rightSide: true,
       }),
     ]),
   );
