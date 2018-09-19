@@ -232,6 +232,12 @@ export class SSBSource {
       })
       .flatten();
   }
+
+  public createDhtInvite$(): Stream<string> {
+    return this.api$
+      .map(api => xsFromCallback<string>(api.sbot.async.createDhtInvite[0])())
+      .flatten();
+  }
 }
 
 export type PublishReq = {

@@ -17,25 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Stream} from 'xstream';
-import {ReactSource} from '@cycle/react';
-import {FeedId} from 'ssb-typescript';
+import xs, {Stream} from 'xstream';
+import {Reducer} from 'cycle-onionify';
+import {SSBSource} from '../../drivers/ssb';
 
-export default function intent(
-  reactSource: ReactSource,
-  fabPress$: Stream<string>,
-) {
-  return {
-    showLANHelp$: reactSource.select('lan-mode').events('press'),
+export type State = {
+  inviteCode: string | null;
+};
 
-    showPubHelp$: reactSource.select('pub-mode').events('press'),
+export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
+  const initReducer$ = xs.of(function initReducer(prev?: State): State {
+    if (prev) return prev;
+    return {inviteCode: null};
+  });
 
-    goToPeerProfile$: reactSource
-      .select('connections-list')
-      .events('pressPeer') as Stream<FeedId>,
+  const createInviteCodeReducer$ = ssbSource.createDhtInvite$().map(
+    inviteCode =>
+      function createInviteCodeReducer(prev?: State): State {
+        return {inviteCode};
+      },
+  );
 
-    goToPasteInvite$: fabPress$.filter(action => action === 'invite-paste'),
-
-    goToCreateInvite$: fabPress$.filter(action => action === 'invite-create'),
-  };
+  return xs.merge(initReducer$, createInviteCodeReducer$);
 }

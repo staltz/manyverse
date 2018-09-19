@@ -23,6 +23,7 @@ export enum Screens {
   Compose = 'mmmmm.Compose',
   Thread = 'mmmmm.Thread',
   InvitePaste = 'mmmmm.Invite.Paste',
+  InviteCreate = 'mmmmm.Invite.Create',
   Profile = 'mmmmm.Profile',
   ProfileEdit = 'mmmmm.Profile.Edit',
   RawDatabase = 'mmmmm.RawDatabase',
@@ -46,6 +47,7 @@ import {thread} from './screens/thread/index';
 import {pasteInvite} from './screens/invite-paste/index';
 import {profile} from './screens/profile/index';
 import {editProfile} from './screens/profile-edit/index';
+import {createInvite} from './screens/invite-create';
 import {rawDatabase} from './screens/raw-db/index';
 import {rawMessage} from './screens/raw-msg/index';
 import {Palette} from './global-styles/palette';
@@ -58,6 +60,7 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
   [Screens.Compose]: onionify(compose),
   [Screens.Thread]: addDisclaimer(onionify(thread)),
   [Screens.InvitePaste]: addDisclaimer(onionify(pasteInvite)),
+  [Screens.InviteCreate]: addDisclaimer(onionify(createInvite)),
   [Screens.Profile]: addDisclaimer(onionify(profile)),
   [Screens.ProfileEdit]: addDisclaimer(onionify(editProfile)),
   [Screens.RawDatabase]: addDisclaimer(rawDatabase),

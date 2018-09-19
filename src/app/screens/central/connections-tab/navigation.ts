@@ -24,11 +24,13 @@ import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../..';
 import {navOptions as profileScreenNavOptions} from '../../profile';
 import {navOptions as pasteInviteScreenNavOptions} from '../../invite-paste';
+import {navOptions as createInviteScreenNavOptions} from '../../invite-create';
 import {State} from './model';
 
 export type Actions = {
   goToPeerProfile$: Stream<FeedId>;
   goToPasteInvite$: Stream<any>;
+  goToCreateInvite$: Stream<any>;
 };
 
 export default function navigation(
@@ -67,5 +69,18 @@ export default function navigation(
       } as Command),
   );
 
-  return xs.merge(toProfile$, toPasteInvite$);
+  const toCreateInvite$ = actions.goToCreateInvite$.map(
+    () =>
+      ({
+        type: 'showOverlay',
+        layout: {
+          component: {
+            name: Screens.InviteCreate,
+            options: createInviteScreenNavOptions,
+          },
+        },
+      } as Command),
+  );
+
+  return xs.merge(toProfile$, toPasteInvite$, toCreateInvite$);
 }

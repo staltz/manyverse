@@ -51,6 +51,7 @@ const gives = {
       publish: true,
       acceptInvite: true,
       acceptDhtInvite: true,
+      createDhtInvite: true,
       addBlob: true,
       gossipConnect: true,
       friendsGet: true,
@@ -216,6 +217,9 @@ const create = (api: any) => {
         }),
         acceptDhtInvite: rec.async((invite: string, cb: any) => {
           sbot.dhtInvite.accept(invite, cb);
+        }),
+        createDhtInvite: rec.async((cb: any) => {
+          sbot.dhtInvite.create(cb);
         }),
         addBlob: rec.async((stream: any, cb: any) => {
           return pull(stream, sbot.blobs.add(cb));
