@@ -41,7 +41,7 @@
     "estimate-progress": "1.0.0",
     "events": "3.0.0",
     "mdast-normalize-react-native": "3.1.x",
-    "multiserver": "ssbc/multiserver#316a033d10b408fe1d01cc6a467cec53deb3cc0d",
+    "multiserver": "1.13.4",
     "mutant": "3.21.2",
     "muxrpc": "6.4.1",
     "nodejs-mobile-react-native": "0.2.1",
