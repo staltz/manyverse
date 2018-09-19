@@ -18,8 +18,6 @@
   },
   "files": [
     "src/app/index.ts",
-    "src/app/drivers/lifecycle.ts",
-    "src/app/drivers/toast.ts",
     "src/nodejs-project/index.ts",
     "src/nodejs-project/loader.ts",
     "src/nodejs-project/manifest.ts",
