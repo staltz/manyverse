@@ -82,13 +82,16 @@ export const publicTabLens: Lens<State, PublicTabState> = {
 export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
   get: (parent: State): ConnectionsTabState => {
     if (parent.connectionsTab) {
-      return {...parent.connectionsTab, selfFeedId: parent.selfFeedId};
+      const isVisible = parent.currentTab === 1;
+      const selfFeedId = parent.selfFeedId;
+      return {...parent.connectionsTab, selfFeedId, isVisible};
     } else {
       return {
         selfFeedId: parent.selfFeedId,
         lanEnabled: false,
         internetEnabled: false,
         isSyncing: parent.isSyncing,
+        isVisible: parent.currentTab === 1,
         peers: [],
         stagedPeers: [],
       };

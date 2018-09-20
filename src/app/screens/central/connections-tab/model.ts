@@ -22,6 +22,7 @@ import {PeerMetadata, FeedId} from 'ssb-typescript';
 import {Reducer} from 'cycle-onionify';
 import {SSBSource, StagedPeerMetadata} from '../../../drivers/ssb';
 import {NetworkSource} from '../../../drivers/network';
+import dropRepeats from 'xstream/extra/dropRepeats';
 
 export type State = {
   selfFeedId: FeedId;
@@ -30,18 +31,22 @@ export type State = {
   peers: Array<PeerMetadata>;
   stagedPeers: Array<StagedPeerMetadata>;
   isSyncing: boolean;
+  isVisible: boolean;
 };
 
 export default function model(
+  state$: Stream<State>,
   ssbSource: SSBSource,
   networkSource: NetworkSource,
 ): Stream<Reducer<State>> {
-  const initReducer$ = xs.of(function initReducer(): State {
+  const initReducer$ = xs.of(function initReducer(prev?: State): State {
+    if (prev) return prev;
     return {
       selfFeedId: '',
       lanEnabled: false,
       internetEnabled: false,
       isSyncing: false,
+      isVisible: false,
       peers: [],
       stagedPeers: [],
     };
@@ -55,6 +60,7 @@ export default function model(
           lanEnabled: prev.lanEnabled,
           internetEnabled: prev.internetEnabled,
           isSyncing,
+          isVisible: prev.isVisible,
           peers: prev.peers,
           stagedPeers: prev.stagedPeers,
         };
@@ -73,14 +79,22 @@ export default function model(
             lanEnabled,
             internetEnabled: prev.internetEnabled,
             isSyncing: prev.isSyncing,
+            isVisible: prev.isVisible,
             peers: prev.peers,
             stagedPeers: prev.stagedPeers,
           };
         },
     );
 
-  const updateInternetEnabled$ = xs
-    .periodic(3000)
+  const updateInternetEnabled$ = state$
+    .map(state => state.isVisible)
+    .compose(dropRepeats())
+    .map(
+      isTabVisible =>
+        isTabVisible ? xs.periodic(4000).startWith(0) : xs.never(),
+    )
+    .flatten()
+    .startWith(null)
     .map(() => networkSource.hasInternetConnection())
     .flatten()
     .map(
@@ -91,6 +105,7 @@ export default function model(
             lanEnabled: prev.lanEnabled,
             internetEnabled,
             isSyncing: prev.isSyncing,
+            isVisible: prev.isVisible,
             peers: prev.peers,
             stagedPeers: prev.stagedPeers,
           };
@@ -105,6 +120,7 @@ export default function model(
           lanEnabled: prev.lanEnabled,
           internetEnabled: prev.internetEnabled,
           isSyncing: prev.isSyncing,
+          isVisible: prev.isVisible,
           peers,
           stagedPeers: prev.stagedPeers,
         };
@@ -119,6 +135,7 @@ export default function model(
           lanEnabled: prev.lanEnabled,
           internetEnabled: prev.internetEnabled,
           isSyncing: prev.isSyncing,
+          isVisible: prev.isVisible,
           peers: prev.peers,
           stagedPeers,
         };
