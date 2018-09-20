@@ -76,12 +76,14 @@ export const styles = StyleSheet.create({
 
 function peerModeIcon(source: PeerMetadata['source']): string {
   if (source === 'local') return 'wifi';
+  if ((source as any) === 'dht') return 'account-network';
   if (source === 'pub') return 'server-network';
   return 'server-network';
 }
 
 function peerModeTitle(source: PeerMetadata['source']): string {
   if (source === 'local') return 'Local network';
+  if ((source as any) === 'dht') return 'Internet P2P';
   if (source === 'pub') return 'Internet server';
   return 'Internet server';
 }
