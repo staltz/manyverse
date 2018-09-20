@@ -41,14 +41,14 @@ config.manifest = manifest;
 config.friends.hops = 2;
 config.connections = {
   incoming: {
-    net: [{scope: 'public', transform: 'shs'}],
+    net: [{scope: 'private', transform: 'shs', port: 8008}],
     dht: [{scope: 'public', transform: 'shs', port: 8423}],
-    ws: [{scope: 'private', transform: 'noauth', port: 8422}],
+    ws: [{scope: 'device', transform: 'noauth', port: 8422}],
   },
   outgoing: {
     net: [{transform: 'shs'}],
     dht: [{transform: 'shs'}],
-    ws: [{transform: 'noauth'}],
+    ws: [{transform: 'shs'}],
   },
 };
 
