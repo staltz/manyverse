@@ -17,22 +17,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const fs = require('fs');
+import fs = require('fs');
 const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 const DHT = require('multiserver-dht');
 import syncingPlugin = require('./plugins/syncing');
 import manifest = require('./manifest');
+import exportSecret = require('./export-secret');
+import importSecret = require('./import-secret');
 
 // Hack until appDataDir plugin comes out
-const writablePath = path.join(__dirname, '..');
-const ssbPath = path.resolve(writablePath, '.ssb');
-
+const appExclusivePath = path.join(__dirname, '..');
+const ssbPath = path.resolve(appExclusivePath, '.ssb');
 if (!fs.existsSync(ssbPath)) {
   mkdirp.sync(ssbPath);
 }
-const keys = ssbKeys.loadOrCreateSync(path.join(ssbPath, '/secret'));
+const keysPath = path.join(ssbPath, '/secret');
+
+/**
+ * This helps us migrate secrets from one location to the other
+ * because app codename will change from alpha to beta.
+ */
+type ReleaseType = 'last-alpha' | 'first-beta' | 'other';
+
+const releaseType: ReleaseType = 'last-alpha';
+
+let keys: any;
+if (releaseType === 'last-alpha') {
+  keys = ssbKeys.loadOrCreateSync(keysPath);
+  exportSecret(ssbPath, keys);
+} else if (releaseType === 'first-beta') {
+  keys = importSecret(ssbPath, keysPath) || ssbKeys.loadOrCreateSync(keysPath);
+} else {
+  keys = ssbKeys.loadOrCreateSync(keysPath);
+}
 
 const config = require('ssb-config/inject')();
 config.path = ssbPath;
