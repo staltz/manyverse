@@ -47,6 +47,10 @@ export const styles = StyleSheet.create({
   emptySection: {
     marginTop: Dimens.verticalSpaceBig * 2,
   },
+
+  connectionsList: {
+    marginBottom: Dimens.verticalSpaceNormal,
+  },
 });
 
 export const iconProps = {

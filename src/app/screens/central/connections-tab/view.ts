@@ -20,12 +20,14 @@
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {ScrollView, View, TouchableHighlight} from 'react-native';
+import * as React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './styles';
 import {State} from './model';
-import ConnectionsList from '../../../components/ConnectionsList';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
+import ConnectionsList from '../../../components/ConnectionsList';
+import StagedConnectionsList from '../../../components/StagedConnectionsList';
 import EmptySection from '../../../components/EmptySection';
 
 type ModeProps = {
@@ -91,7 +93,7 @@ function ConnectivityModes(state: State) {
 }
 
 function Body(state: State) {
-  const {lanEnabled, internetEnabled, peers} = state;
+  const {lanEnabled, internetEnabled, peers, stagedPeers} = state;
   if (!lanEnabled && !internetEnabled) {
     return h(EmptySection, {
       style: styles.emptySection,
@@ -102,7 +104,7 @@ function Body(state: State) {
     });
   }
 
-  if (peers.length === 0) {
+  if (peers.length === 0 && stagedPeers.length === 0) {
     return h(EmptySection, {
       style: styles.emptySection,
       image: require('../../../../../images/noun-crops.png'),
@@ -112,7 +114,19 @@ function Body(state: State) {
     });
   }
 
-  return h(ConnectionsList, {sel: 'connections-list', peers});
+  return h(React.Fragment, [
+    peers.length > 0
+      ? h(ConnectionsList, {
+          sel: 'connections-list',
+          peers,
+          style: styles.connectionsList,
+        })
+      : null as any,
+
+    stagedPeers.length > 0
+      ? h(StagedConnectionsList, {peers: state.stagedPeers})
+      : null as any,
+  ]);
 }
 
 export default function view(state$: Stream<State>) {

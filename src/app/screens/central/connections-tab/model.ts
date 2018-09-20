@@ -20,7 +20,7 @@
 import xs, {Stream} from 'xstream';
 import {PeerMetadata, FeedId} from 'ssb-typescript';
 import {Reducer} from 'cycle-onionify';
-import {SSBSource} from '../../../drivers/ssb';
+import {SSBSource, StagedPeerMetadata} from '../../../drivers/ssb';
 import {NetworkSource} from '../../../drivers/network';
 
 export type State = {
@@ -28,6 +28,7 @@ export type State = {
   lanEnabled: boolean;
   internetEnabled: boolean;
   peers: Array<PeerMetadata>;
+  stagedPeers: Array<StagedPeerMetadata>;
   isSyncing: boolean;
 };
 
@@ -42,6 +43,7 @@ export default function model(
       internetEnabled: false,
       isSyncing: false,
       peers: [],
+      stagedPeers: [],
     };
   });
 
@@ -54,6 +56,7 @@ export default function model(
           internetEnabled: prev.internetEnabled,
           isSyncing,
           peers: prev.peers,
+          stagedPeers: prev.stagedPeers,
         };
       },
   );
@@ -71,6 +74,7 @@ export default function model(
             internetEnabled: prev.internetEnabled,
             isSyncing: prev.isSyncing,
             peers: prev.peers,
+            stagedPeers: prev.stagedPeers,
           };
         },
     );
@@ -88,6 +92,7 @@ export default function model(
             internetEnabled,
             isSyncing: prev.isSyncing,
             peers: prev.peers,
+            stagedPeers: prev.stagedPeers,
           };
         },
     );
@@ -101,6 +106,21 @@ export default function model(
           internetEnabled: prev.internetEnabled,
           isSyncing: prev.isSyncing,
           peers,
+          stagedPeers: prev.stagedPeers,
+        };
+      },
+  );
+
+  const setStagedPeersReducer$ = ssbSource.stagedPeers$.map(
+    stagedPeers =>
+      function setPeersReducer(prev: State): State {
+        return {
+          selfFeedId: prev.selfFeedId,
+          lanEnabled: prev.lanEnabled,
+          internetEnabled: prev.internetEnabled,
+          isSyncing: prev.isSyncing,
+          peers: prev.peers,
+          stagedPeers,
         };
       },
   );
@@ -111,5 +131,6 @@ export default function model(
     updateLanEnabled$,
     updateInternetEnabled$,
     setPeersReducer$,
+    setStagedPeersReducer$,
   );
 }

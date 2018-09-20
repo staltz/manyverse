@@ -18,26 +18,18 @@
  */
 
 import {PureComponent} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import {View, Text, StyleSheet, StyleProp, ViewStyle} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
-import {PeerMetadata, FeedId} from 'ssb-typescript';
-import Avatar from './Avatar';
+import {StagedPeerMetadata} from '../drivers/ssb';
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    backgroundColor: Palette.brand.textBackground,
+    backgroundColor: Palette.indigo0,
   },
 
   peer: {
@@ -52,6 +44,12 @@ export const styles = StyleSheet.create({
 
   peerAvatar: {
     marginRight: Dimensions.horizontalSpaceSmall,
+    height: Dimensions.avatarSizeNormal,
+    width: Dimensions.avatarSizeNormal,
+    borderRadius: Dimensions.avatarSizeNormal * 0.5,
+    backgroundColor: Palette.indigo1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   peerDetails: {
@@ -69,78 +67,54 @@ export const styles = StyleSheet.create({
     minWidth: 120,
   },
 
-  peerMode: {
-    flexDirection: 'row',
-  },
-
   peerModeText: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.brand.textWeak,
-    marginLeft: Dimensions.horizontalSpaceSmall,
   },
 });
 
-function peerModeIcon(source: PeerMetadata['source']): string {
-  if (source === 'local') return 'wifi';
-  if ((source as any) === 'dht') return 'account-network';
-  if (source === 'pub') return 'server-network';
+function peerModeIcon(peer: StagedPeerMetadata): string {
+  if (peer.source === 'local') return 'wifi';
+  if (peer.source === 'dht') return 'account-network';
+  if (peer.source === 'pub') return 'server-network';
   return 'server-network';
 }
 
-function peerModeTitle(source: PeerMetadata['source']): string {
-  if (source === 'local') return 'Local network';
-  if ((source as any) === 'dht') return 'Internet P2P';
-  if (source === 'pub') return 'Internet server';
-  return 'Internet server';
+function peerModeDescription(peer: StagedPeerMetadata): string {
+  if (peer.source === 'local') return 'Local network';
+  if (peer.source === 'dht' && peer.role === 'client')
+    return 'Internet P2P: searching your friend...';
+  if (peer.source === 'dht' && peer.role === 'server')
+    return 'Internet P2P: waiting for friend to connect...';
+  if (peer.source === 'dht' && !peer.role) return 'Internet P2P: searching...';
+  if (peer.source === 'pub') return 'Internet server: connecting...';
+  return '...';
 }
 
 export type Props = {
-  peers: Array<PeerMetadata>;
-  onPressPeer?: (id: FeedId) => void;
+  peers: Array<StagedPeerMetadata>;
   style?: StyleProp<ViewStyle>;
 };
 
-export default class ConnectionsList extends PureComponent<Props> {
-  private renderItem(peer: PeerMetadata) {
-    const touchableProps = {
-      onPress: () => {
-        if (this.props.onPressPeer) {
-          this.props.onPressPeer(peer.key);
-        }
-      },
-    };
-
-    const peerName = h(TouchableOpacity, touchableProps, [
-      h(
-        Text,
-        {
-          numberOfLines: 1,
-          ellipsizeMode: 'middle',
-          style: styles.peerName,
-        },
-        `${peer.name || peer.key}`,
-      ),
-    ]);
-
-    const peerMode = h(View, {style: styles.peerMode}, [
-      h(Icon, {
-        size: Dimensions.iconSizeSmall,
-        color: Palette.brand.textWeak,
-        name: peerModeIcon(peer.source),
-      }),
-      h(Text, {style: styles.peerModeText}, peerModeTitle(peer.source)),
-    ]);
-
+export default class StagedConnectionsList extends PureComponent<Props> {
+  private renderItem(peer: StagedPeerMetadata) {
     return h(View, {style: styles.peer}, [
-      h(TouchableOpacity, touchableProps, [
-        h(Avatar, {
-          size: Dimensions.avatarSizeNormal,
-          url: peer['imageUrl' as any],
-          style: styles.peerAvatar,
+      h(View, {style: styles.peerAvatar}, [
+        h(Icon, {
+          size: Dimensions.iconSizeNormal,
+          color: Palette.indigo3,
+          name: peerModeIcon(peer),
         }),
       ]),
-      h(View, {style: styles.peerDetails}, [peerName, peerMode]),
+      h(View, {style: styles.peerDetails}, [
+        h(
+          Text,
+          {numberOfLines: 1, ellipsizeMode: 'middle', style: styles.peerName},
+          peer.key,
+        ),
+        h(Text, {style: styles.peerModeText}, peerModeDescription(peer)),
+      ]),
     ]);
   }
 

@@ -90,6 +90,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         internetEnabled: false,
         isSyncing: parent.isSyncing,
         peers: [],
+        stagedPeers: [],
       };
     }
   },
