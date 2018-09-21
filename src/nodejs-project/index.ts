@@ -41,10 +41,10 @@ const keysPath = path.join(ssbPath, '/secret');
  */
 type ReleaseType = 'last-alpha' | 'first-beta' | 'other';
 
-const releaseType: ReleaseType = 'last-alpha';
+const releaseType: ReleaseType = 'first-beta';
 
 let keys: any;
-if (releaseType === 'last-alpha') {
+if ((releaseType as any) === 'last-alpha') {
   keys = ssbKeys.loadOrCreateSync(keysPath);
   exportSecret(ssbPath, keys);
 } else if (releaseType === 'first-beta') {
