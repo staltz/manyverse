@@ -1,5 +1,5 @@
 /**
- * MMMMM is a mobile app for Secure Scuttlebutt networks
+ * Manyverse is a mobile app for Secure Scuttlebutt networks
  *
  * Copyright (C) 2017 Andre 'Staltz' Medeiros
  *
@@ -66,9 +66,9 @@ export function createInvite(sources: Sources): Sinks {
     .compose(sample(sources.onion.state$))
     .map(state => ({
       message:
-        'Connect with me on MMMMM by pasting this invite code there:\n\n' +
+        'Connect with me on Manyverse by pasting this invite code there:\n\n' +
         state.inviteCode,
-      title: 'MMMMM Invite Code',
+      title: 'Manyverse Invite Code',
       dialogTitle: 'Give this invite code to one friend',
     }));
 
