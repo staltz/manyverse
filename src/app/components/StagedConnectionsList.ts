@@ -84,9 +84,9 @@ function peerModeIcon(peer: StagedPeerMetadata): string {
 function peerModeDescription(peer: StagedPeerMetadata): string {
   if (peer.source === 'local') return 'Local network';
   if (peer.source === 'dht' && peer.role === 'client')
-    return 'Internet P2P: searching your friend...';
+    return 'Internet P2P: looking for online friend...';
   if (peer.source === 'dht' && peer.role === 'server')
-    return 'Internet P2P: waiting for friend to connect...';
+    return 'Internet P2P: waiting for online friend...';
   if (peer.source === 'dht' && !peer.role) return 'Internet P2P: searching...';
   if (peer.source === 'pub') return 'Internet server: connecting...';
   return '...';

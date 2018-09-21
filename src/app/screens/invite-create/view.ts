@@ -49,6 +49,11 @@ export default function view(
           },
           state.inviteCode || 'loading...',
         ),
+        h(Text, {style: styles.about, textBreakStrategy: 'simple'}, [
+          'YOU WILL SYNC WHEN YOU ARE ' as any,
+          h(Text, {style: styles.bold}, 'BOTH'),
+          ' ONLINE' as any,
+        ]),
       ]),
     ]),
   );
