@@ -69,7 +69,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("An offline-first social network")',
+        'new UiSelector().textContains("A social network off the grid")',
         6000,
       ),
       'I see a textual description of the app',

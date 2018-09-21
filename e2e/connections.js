@@ -69,7 +69,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.elementByAndroidUIAutomator(
-        'new UiSelector().textContains("Internet P2P: waiting for friend")',
+        'new UiSelector().textContains("Internet P2P: waiting for online friend")',
       ),
       'I see Connections tab body with a staged connection',
     );
