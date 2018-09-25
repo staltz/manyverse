@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @AcraCore(buildConfigClass = BuildConfig.class)
-@AcraMailSender(mailTo = "incoming+staltz/mmmmm-mobile@incoming.gitlab.com")
+@AcraMailSender(mailTo = "incoming+staltz/manyverse@incoming.gitlab.com")
 @AcraDialog(resText = R.string.acra_dialog_text, resCommentPrompt = R.string.acra_dialog_comment)
 public class MainApplication extends NavigationApplication {
 

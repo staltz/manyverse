@@ -60,7 +60,7 @@ export function drawer(sources: Sources): Sinks {
   });
   const mailto$ = actions.emailBugReport$.mapTo(
     'mailto:' +
-      'incoming+staltz/mmmmm-mobile@incoming.gitlab.com' +
+      'incoming+staltz/manyverse@incoming.gitlab.com' +
       '?subject=Bug report for version ' +
       pkgJSON.version +
       '&body=Explain what happened and what you expected...',
