@@ -25,6 +25,7 @@ else
 fi
 cp -r ./lib/nodejs-project ./nodejs-assets;
 cp ./src/nodejs-project/package.json ./nodejs-assets/nodejs-project;
+cp ./src/nodejs-project/package-lock.json ./nodejs-assets/nodejs-project;
 rm ./nodejs-assets/nodejs-project/**/*.js.map;
 
 echo "Installing dependencies...";
