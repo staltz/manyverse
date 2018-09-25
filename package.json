@@ -1,6 +1,6 @@
 {
   "name": "manyverse",
-  "version": "0.18.9-21.beta",
+  "version": "0.18.9-25.beta",
   "private": true,
   "scripts": {
     "lib": "tsc",
