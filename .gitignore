@@ -32,6 +32,7 @@ local.properties
 android/.project
 android/app/.classpath
 android/app/.project
+android/app/bin
 android/captures
 android/app/.settings/org.eclipse.buildship.core.prefs
 android/.settings/org.eclipse.buildship.core.prefs
