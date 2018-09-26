@@ -18,6 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
+import concat from 'xstream/extra/concat';
 import {PeerMetadata, FeedId} from 'ssb-typescript';
 import {Reducer} from 'cycle-onionify';
 import {SSBSource, StagedPeerMetadata} from '../../../drivers/ssb';
@@ -86,15 +87,19 @@ export default function model(
         },
     );
 
-  const updateInternetEnabled$ = state$
+  const shouldUpdateInternetEnabled$ = state$
     .map(state => state.isVisible)
     .compose(dropRepeats())
     .map(
       isTabVisible =>
-        isTabVisible ? xs.periodic(4000).startWith(0) : xs.never(),
+        isTabVisible
+          ? concat(xs.of(0), xs.periodic(1000).take(2), xs.periodic(4000))
+          : xs.never(),
     )
     .flatten()
-    .startWith(null)
+    .startWith(null);
+
+  const updateInternetEnabled$ = shouldUpdateInternetEnabled$
     .map(() => networkSource.hasInternetConnection())
     .flatten()
     .map(
