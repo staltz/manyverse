@@ -1,8 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="se.manyver"
-    android:installLocation="preferExternal"
-    android:versionCode="3"
-    android:versionName="0.0.4">
+    android:installLocation="preferExternal">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
