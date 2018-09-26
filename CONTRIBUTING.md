@@ -35,7 +35,7 @@ brew install coreutils
 
 You need Android Studio and a recent Android SDK (installable through Android Studio).
 
-You may need to open your app's `/android` folder in Android Studio, so that it detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project.
+You may need to open your app's `/android` folder in Android Studio, so that it detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. **OR** download those via the sdkmanager `$ANDROID_HOME/tools/bin/sdkmanager 'ndk-bundle' 'cmake;3.6.4111459'`.
 
 You can also set the environment variable `ANDROID_NDK_HOME`, as in this example:
 
