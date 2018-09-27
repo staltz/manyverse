@@ -45,7 +45,7 @@
     "multiserver": "1.13.4",
     "mutant": "3.21.2",
     "muxrpc": "6.4.1",
-    "nodejs-mobile-react-native": "0.2.1",
+    "nodejs-mobile-react-native": "0.3.0",
     "patchcore": "1.23.2",
     "prop-types": "15.6.x",
     "pull-flat-list": "2.8.0",
