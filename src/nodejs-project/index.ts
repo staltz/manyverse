@@ -25,8 +25,6 @@ const DHT = require('multiserver-dht');
 const rnBridge = require('rn-bridge');
 import syncingPlugin = require('./plugins/syncing');
 import manifest = require('./manifest');
-import exportSecret = require('./export-secret');
-import importSecret = require('./import-secret');
 
 const appDataDir = rnBridge.app.datadir();
 const ssbPath = path.resolve(appDataDir, '.ssb');
@@ -34,24 +32,7 @@ if (!fs.existsSync(ssbPath)) {
   mkdirp.sync(ssbPath);
 }
 const keysPath = path.join(ssbPath, '/secret');
-
-/**
- * This helps us migrate secrets from one location to the other
- * because app codename will change from alpha to beta.
- */
-type ReleaseType = 'last-alpha' | 'first-beta' | 'other';
-
-const releaseType: ReleaseType = 'first-beta';
-
-let keys: any;
-if ((releaseType as any) === 'last-alpha') {
-  keys = ssbKeys.loadOrCreateSync(keysPath);
-  exportSecret(ssbPath, keys);
-} else if (releaseType === 'first-beta') {
-  keys = importSecret(ssbPath, keysPath) || ssbKeys.loadOrCreateSync(keysPath);
-} else {
-  keys = ssbKeys.loadOrCreateSync(keysPath);
-}
+const keys = ssbKeys.loadOrCreateSync(keysPath);
 
 const config = require('ssb-config/inject')();
 config.path = ssbPath;
