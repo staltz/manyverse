@@ -15,10 +15,13 @@
     "build-android-release": "npm run build-android-assets && cd android && ./gradlew assembleRelease && cd ..",
     "start": "npm run lib && npm run propagate-replacements && node node_modules/react-native/local-cli/cli.js start",
     "test-e2e-android": "./tools/test-e2e-android",
+    "changelog": "npm run update-repo-changelog && npm run update-dat-latest-readme",
+    "update-repo-changelog": "./tools/update-repo-changelog.js",
+    "update-dat-latest-readme": "./tools/update-dat-latest-readme.js",
     "update-version": "./tools/update-version.js",
     "dat-release": "./tools/dat-release",
-    "commit-after-release": "./tools/commit-after-release",
-    "release": "npm run update-version && npm run clean-bundler && npm run clean-android && npm run build-android-release && npm run test-e2e-android && npm run dat-release && npm run commit-after-release"
+    "commit-release": "./tools/commit-release",
+    "release": "npm run update-version && npm run clean-bundler && npm run clean-android && npm run build-android-release && npm run test-e2e-android && npm run changelog && npm run commit-release && npm run dat-release"
   },
   "dependencies": {
     "@cycle/isolate": "3.4",
@@ -87,9 +90,12 @@
     "xstream-sample": "1.0.0"
   },
   "devDependencies": {
+    "add-stream": "~1.0.0",
     "appium": "1.7.2",
     "babel-preset-react-native": "4.0.0",
     "cheerio": "^1.0.0-rc.2",
+    "conventional-changelog": "~2.0.3",
+    "into-stream": "~3.1.0",
     "jase": "1.2.0",
     "left-pad": "1.3.0",
     "patch-package": "^5.1.1",
