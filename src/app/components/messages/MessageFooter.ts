@@ -53,6 +53,13 @@ export const styles = StyleSheet.create({
     color: Palette.brand.textWeak,
   },
 
+  likesHidden: {
+    marginTop: Dimensions.verticalSpaceSmall,
+    fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.brand.textBackground,
+  },
+
   likeButton: {
     flexDirection: 'row',
     paddingTop: Dimensions.verticalSpaceSmall + 6,
@@ -203,24 +210,20 @@ export default class MessageFooter extends Component<Props, State> {
   public render() {
     const {likeCount, ilike} = this.state;
 
-    const counters = likeCount
-      ? [
-          h(View, {style: styles.row}, [
-            h(
-              Text,
-              {
-                style: styles.likes,
-                accessible: true,
-                accessibilityLabel: 'Like Count',
-              },
-              [
-                h(Text, {style: styles.likeCount}, String(likeCount)),
-                (likeCount === 1 ? ' like' : ' likes') as any,
-              ],
-            ),
-          ]),
-        ]
-      : [];
+    const counter = h(View, {style: styles.row}, [
+      h(
+        Text,
+        {
+          style: likeCount ? styles.likes : styles.likesHidden,
+          accessible: true,
+          accessibilityLabel: 'Like Count',
+        },
+        [
+          h(Text, {style: styles.likeCount}, String(likeCount)),
+          (likeCount === 1 ? ' like' : ' likes') as any,
+        ],
+      ),
+    ]);
 
     const buttons = [
       h(TouchableNativeFeedback, this._likeButtonProps, [
@@ -243,7 +246,7 @@ export default class MessageFooter extends Component<Props, State> {
     }
 
     return h(View, {style: styles.col}, [
-      ...counters,
+      counter,
       h(View, {style: styles.row}, buttons),
     ]);
   }
