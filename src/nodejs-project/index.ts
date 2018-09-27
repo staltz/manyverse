@@ -22,14 +22,14 @@ const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 const DHT = require('multiserver-dht');
+const rnBridge = require('rn-bridge');
 import syncingPlugin = require('./plugins/syncing');
 import manifest = require('./manifest');
 import exportSecret = require('./export-secret');
 import importSecret = require('./import-secret');
 
-// Hack until appDataDir plugin comes out
-const appExclusivePath = path.join(__dirname, '..');
-const ssbPath = path.resolve(appExclusivePath, '.ssb');
+const appDataDir = rnBridge.app.datadir();
+const ssbPath = path.resolve(appDataDir, '.ssb');
 if (!fs.existsSync(ssbPath)) {
   mkdirp.sync(ssbPath);
 }
