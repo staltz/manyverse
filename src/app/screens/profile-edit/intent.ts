@@ -30,6 +30,8 @@ export default function intent(
 
     changeDescription$: source.select('description').events('changeText'),
 
+    changeAvatar$: source.select('avatar').events('press'),
+
     save$: source.select('save').events('press'),
 
     discardChanges$: dialogRes$.filter(

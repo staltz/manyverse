@@ -23,6 +23,7 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {About, FeedId} from 'ssb-typescript';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {Response as DRes, Request as DReq} from '../../drivers/dialogs';
+import {Toast, Duration as ToastDuration} from '../../drivers/toast';
 import isolate from '@cycle/isolate';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
@@ -57,6 +58,7 @@ export type Sinks = {
   keyboard: Stream<'dismiss'>;
   ssb: Stream<Req>;
   dialog: Stream<DReq>;
+  toast: Stream<Toast>;
 };
 
 export const navOptions = {
@@ -76,6 +78,15 @@ export function editProfile(sources: Sources): Sinks {
   const content$ = ssb(sources.onion.state$, actions);
   const dialog$ = dialogs(sources.navigation, topBarSinks.back);
   const dismiss$ = actions.save$.mapTo('dismiss' as 'dismiss');
+  const toast$: Stream<Toast> = actions.changeAvatar$
+    .map(() => {
+      return {
+        type: 'show' as 'show',
+        message: 'No support for uploading profile pictures, yet',
+        duration: ToastDuration.SHORT,
+      };
+    })
+    .debug('toast');
 
   return {
     screen: vdom$,
@@ -84,5 +95,6 @@ export function editProfile(sources: Sources): Sinks {
     keyboard: dismiss$,
     ssb: content$,
     dialog: dialog$,
+    toast: toast$,
   };
 }

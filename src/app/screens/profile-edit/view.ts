@@ -19,7 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, TouchableWithoutFeedback} from 'react-native';
 import Button from '../../components/Button';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
@@ -43,11 +43,23 @@ export default function view(
 
       h(View, {style: styles.cover}),
 
-      h(Avatar, {
-        size: avatarSize,
-        url: state.about.imageUrl,
-        style: styles.avatar,
-      }),
+      h(
+        TouchableWithoutFeedback,
+        {
+          sel: 'avatar',
+          accessible: true,
+          accessibilityLabel: 'Profile Picture',
+        },
+        [
+          h(View, {style: styles.avatarTouchable}, [
+            h(Avatar, {
+              size: avatarSize,
+              url: state.about.imageUrl,
+              style: styles.avatar,
+            }),
+          ]),
+        ],
+      ),
 
       h(Button, {
         sel: 'save',

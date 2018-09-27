@@ -49,9 +49,15 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.brand.textBackground,
   },
 
-  avatar: {
+  avatarTouchable: {
     top: -avatarSizeHalf,
     left: Dimensions.horizontalSpaceBig,
+    width: avatarSize,
+    height: avatarSize,
+    zIndex: 19,
+  },
+
+  avatar: {
     zIndex: 20,
   },
 
@@ -68,7 +74,10 @@ export const styles = StyleSheet.create({
 
   save: {
     position: 'absolute',
-    top: avatarSizeHalf + Dimensions.verticalSpaceSmall,
+    top:
+      Dimensions.toolbarAndroidHeight +
+      avatarSizeHalf +
+      Dimensions.verticalSpaceSmall,
     right: Dimensions.horizontalSpaceBig,
     zIndex: 30,
   },
