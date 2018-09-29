@@ -26,7 +26,7 @@
     "ssb-contacts": "~0.0.2",
     "ssb-dht-invite": "0.9.0",
     "ssb-ebt": "5.2.3",
-    "ssb-friends": "3.1.3",
+    "ssb-friends": "2.4.0",
     "ssb-keys": "7.0.16",
     "ssb-private": "0.2.3",
     "ssb-query": "2.1.0",
