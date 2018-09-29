@@ -23,6 +23,7 @@ const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 const DHT = require('multiserver-dht');
 const rnBridge = require('rn-bridge');
+const rnChannelPlugin = require('multiserver-rn-channel');
 import syncingPlugin = require('./plugins/syncing');
 import manifest = require('./manifest');
 
@@ -43,14 +44,20 @@ config.connections = {
   incoming: {
     net: [{scope: 'private', transform: 'shs', port: 8008}],
     dht: [{scope: 'public', transform: 'shs', port: 8423}],
-    ws: [{scope: 'device', transform: 'noauth', port: 8422}],
+    channel: [{scope: 'device', transform: 'noauth'}],
   },
   outgoing: {
     net: [{transform: 'shs'}],
     dht: [{transform: 'shs'}],
-    ws: [{transform: 'shs'}],
   },
 };
+
+function rnChannelTransport(_sbot: any) {
+  _sbot.multiserver.transport({
+    name: 'channel',
+    create: () => rnChannelPlugin(rnBridge.channel),
+  });
+}
 
 function dhtTransport(_sbot: any) {
   _sbot.multiserver.transport({
@@ -61,6 +68,7 @@ function dhtTransport(_sbot: any) {
 }
 
 const sbot = require('scuttlebot/index')
+  .use(rnChannelTransport)
   .use(require('ssb-dht-invite'))
   .use(dhtTransport)
   .use(require('scuttlebot/plugins/plugins'))

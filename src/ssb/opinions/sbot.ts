@@ -30,8 +30,9 @@ const nest = require('depnest');
 const createFeed = require('ssb-feed');
 const ssbKeys = require('react-native-ssb-client-keys');
 const muxrpc = require('muxrpc');
+const nodejs = require('nodejs-mobile-react-native');
 const MultiServer = require('multiserver');
-const makeWSPlugin = require('multiserver/plugins/ws');
+const rnChannelPlugin = require('multiserver-rn-channel');
 const noAuthPlugin = require('multiserver/plugins/noauth');
 
 const needs = nest({
@@ -107,17 +108,14 @@ const create = (api: any) => {
 
     const ms = MultiServer([
       [
-        makeWSPlugin(),
+        rnChannelPlugin(nodejs.channel),
         noAuthPlugin({
           keys: toSodiumKeys(keys),
         }),
       ],
     ]);
 
-    const address = [
-      'ws:localhost:8422',
-      'noauth:' + keys.public.replace('.ed25519', ''),
-    ].join('~');
+    const address = 'channel~noauth:' + keys.public.replace('.ed25519', '');
 
     ms.client(address, (err: any, stream: Readable<any>) => {
       if (err) {

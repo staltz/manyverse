@@ -13,6 +13,7 @@
     "ip": "1.1.5",
     "leveldown": "4.0.1",
     "multiserver-dht": "3.3.1",
+    "multiserver-rn-channel": "~1.2.0",
     "pull-cat": "1.1.11",
     "pull-stream": "3.6.9",
     "pull-pushable": "2.2.0",
