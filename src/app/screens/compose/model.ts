@@ -24,7 +24,7 @@ import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   postText: string;
-  avatarUrl?: string;
+  avatarUrl: string | undefined;
 };
 
 export const topBarLens: Lens<State, TopBarState> = {
@@ -50,13 +50,13 @@ export default function model(
 ): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initReducer(prev?: State): State {
     if (prev) return prev;
-    return {postText: ''};
+    return {postText: '', avatarUrl: undefined};
   });
 
   const updatePostTextReducer$ = actions.updatePostText$.map(
     text =>
-      function updatePostTextReducer(prev?: State): State {
-        return {postText: text};
+      function updatePostTextReducer(prev: State): State {
+        return {postText: text, avatarUrl: prev.avatarUrl};
       },
   );
 
