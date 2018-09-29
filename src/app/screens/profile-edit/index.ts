@@ -78,15 +78,13 @@ export function editProfile(sources: Sources): Sinks {
   const content$ = ssb(sources.onion.state$, actions);
   const dialog$ = dialogs(sources.navigation, topBarSinks.back);
   const dismiss$ = actions.save$.mapTo('dismiss' as 'dismiss');
-  const toast$: Stream<Toast> = actions.changeAvatar$
-    .map(() => {
-      return {
-        type: 'show' as 'show',
-        message: 'No support for uploading profile pictures, yet',
-        duration: ToastDuration.SHORT,
-      };
-    })
-    .debug('toast');
+  const toast$: Stream<Toast> = actions.changeAvatar$.map(() => {
+    return {
+      type: 'show' as 'show',
+      message: 'No support for uploading profile pictures, yet',
+      duration: ToastDuration.SHORT,
+    };
+  });
 
   return {
     screen: vdom$,
