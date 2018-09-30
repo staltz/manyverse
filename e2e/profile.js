@@ -75,12 +75,7 @@ module.exports = function(driver, t) {
     );
     t.ok(editName, 'I see Name Text Input and it is focused already');
     const e1 = await editName.text();
-    t.true(e1.length > 3, 'Its text content is non-empty');
-    t.equal(e1[0], '@', 'Its text content starts with @');
-    await editName.clear();
-    t.pass('I clear the text input');
-    const e2 = await editName.text();
-    t.equal(e2.length, 0, 'Its text content is empty');
+    t.true(e1.length === 0, 'Its text content is empty');
     await editName.keys('maria');
     t.pass('I type "maria" into it');
 
