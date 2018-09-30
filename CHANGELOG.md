@@ -1,5 +1,7 @@
 # Changelog
 
+**Update from:** [Play Store](https://play.google.com/store/apps/details?id=se.manyver) | [Dat Installer](https://github.com/staltz/dat-installer/) (`dat://manyverse-latest.hashbase.io`)
+
 ## 0.18.9-30.beta
 
 * Fix #160, feed scrolling flickering ([see details](https://gitlab.com/staltz/manyverse/commit/47b5bb697cfba4b2eae83e1b49982997ab6c0c46)), closes [#160](https://gitlab.com/staltz/manyverse/issues/160)
