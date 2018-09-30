@@ -15,7 +15,8 @@ if [ -f ./gradlew ]
 then
   ./gradlew nodejs-mobile-react-native:GenerateNodeNativeAssetsListsarmeabi-v7a
 else
-  gradle nodejs-mobile-react-native:GenerateNodeNativeAssetsListsarmeabi-v7a
+  echo -en " skipped.\n";
+  echo "WARNING: skipped GenerateNodeNativeAssetsListarmeabi-v7a because no gradlew found"
 fi
 cd ..;
 echo "";
