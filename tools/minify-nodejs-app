@@ -11,7 +11,12 @@ function onFailure() {
 
 echo "Building native modules for armeabi-v7a...";
 cd android;
-./gradlew nodejs-mobile-react-native:GenerateNodeNativeAssetsListsarmeabi-v7a
+if [ -f ./gradlew ]
+then
+  ./gradlew nodejs-mobile-react-native:GenerateNodeNativeAssetsListsarmeabi-v7a
+else
+  gradle nodejs-mobile-react-native:GenerateNodeNativeAssetsListsarmeabi-v7a
+fi
 cd ..;
 echo "";
 
