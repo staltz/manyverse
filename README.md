@@ -54,6 +54,7 @@ Support us with a monthly donation and help us continue our activities. [[Become
 
 Become a sponsor and get your logo on our README on GitLab with a link to your site. [[Become a sponsor](https://opencollective.com/manyverse#sponsor)]
 
+<!--
 <a href="https://opencollective.com/manyverse/sponsor/0/website" target="_blank"><img src="https://opencollective.com/manyverse/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/manyverse/sponsor/1/website" target="_blank"><img src="https://opencollective.com/manyverse/sponsor/1/avatar.svg"></a>
 <a href="https://opencollective.com/manyverse/sponsor/2/website" target="_blank"><img src="https://opencollective.com/manyverse/sponsor/2/avatar.svg"></a>
@@ -84,3 +85,4 @@ Become a sponsor and get your logo on our README on GitLab with a link to your s
 <a href="https://opencollective.com/manyverse/sponsor/27/website" target="_blank"><img src="https://opencollective.com/manyverse/sponsor/27/avatar.svg"></a>
 <a href="https://opencollective.com/manyverse/sponsor/28/website" target="_blank"><img src="https://opencollective.com/manyverse/sponsor/28/avatar.svg"></a>
 <a href="https://opencollective.com/manyverse/sponsor/29/website" target="_blank"><img src="https://opencollective.com/manyverse/sponsor/29/avatar.svg"></a>
+-->
