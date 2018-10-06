@@ -2,7 +2,11 @@
 
 **Update from:** [Play Store](https://play.google.com/store/apps/details?id=se.manyver) | [Dat Installer](https://github.com/staltz/dat-installer/) (`dat://manyverse-latest.hashbase.io`)
 
-## 0.18.10-2.beta
+## 0.18.10-6.beta
+
+* Feature: edit profile picture ([see details](https://gitlab.com/staltz/manyverse/commit/dd03f580f7bbbd025b64314e3fa4eef8a71e7bf7)), closes [#199](https://gitlab.com/staltz/manyverse/issues/199)
+
+## 0.18.10-02.beta
 
 * Minor improvements and bug fixes
 
