@@ -89,6 +89,23 @@ module.exports = function(driver, t) {
     await editDescription.sendKeys('teacher');
     t.pass('I type "teacher" into it');
 
+    // Edit avatar
+    const editAvatar = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Profile Picture")',
+    );
+    t.ok(editAvatar, 'I see the Profile Picture');
+    await editAvatar.tap();
+    t.pass('I tap it');
+    await driver.sleep(1000);
+    t.ok(
+      await driver.elementByAndroidUIAutomator(
+        'new UiSelector().text("Recent")',
+      ),
+      'I see the Android Picture Gallery',
+    );
+    await driver.back();
+    t.pass('I press the (hardware) back button');
+
     // Press save
     const saveProfileButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Save Profile Button")',

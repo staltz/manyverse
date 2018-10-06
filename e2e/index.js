@@ -28,6 +28,7 @@ const localCapabilities = {
   browserName: 'Android - local server',
   platformName: 'Android',
   deviceName: 'Android device',
+  autoGrantPermissions: true,
   app: path.resolve(__dirname, str),
 };
 
