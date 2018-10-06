@@ -17,6 +17,7 @@
     "pull-cat": "1.1.11",
     "pull-stream": "3.6.9",
     "pull-pushable": "2.2.0",
+    "pull-file": "1.1.0",
     "pull-thenable": "1.0.0",
     "scuttlebot": "12.0.1",
     "ssb-config": "2.3.1",

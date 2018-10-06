@@ -20,18 +20,45 @@
 import {h} from '@cycle/react';
 import {View, Image, StyleProp, ViewStyle} from 'react-native';
 import {PureComponent} from 'react';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
+import {Dimensions} from '../global-styles/dimens';
 
 export type Props = {
   size: number;
   url: string | null | undefined;
   backgroundColor?: string;
+  overlayIcon?: string;
   style?: StyleProp<ViewStyle>;
 };
 
 export default class Avatar extends PureComponent<Props> {
+  private renderOverlayIcon(
+    size: number,
+    borderRadius: number,
+    overlayIcon: string,
+  ) {
+    const overlayStyle = {
+      height: size,
+      width: size,
+      borderRadius,
+      position: 'absolute' as 'absolute',
+      backgroundColor: '#00000033',
+    };
+    const top = size * 0.5 - Dimensions.iconSizeNormal * 0.5;
+    const left = top;
+    return h(View, {style: overlayStyle}, [
+      h(Icon, {
+        size: Dimensions.iconSizeNormal,
+        color: Palette.white,
+        name: overlayIcon,
+        style: {top, left},
+      }),
+    ]);
+  }
+
   public render() {
-    const {style, size, backgroundColor, url} = this.props;
+    const {style, size, backgroundColor, url, overlayIcon} = this.props;
     const borderRadius = size >> 1; // tslint:disable-line:no-bitwise
     const baseStyle = {
       height: size,
@@ -44,6 +71,9 @@ export default class Avatar extends PureComponent<Props> {
         style: {borderRadius, width: size, height: size},
         source: url ? {uri: url} : require('../../../images/empty-avatar.png'),
       }),
+      overlayIcon
+        ? this.renderOverlayIcon(size, borderRadius, overlayIcon)
+        : null as any,
     ]);
   }
 }

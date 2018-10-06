@@ -20,6 +20,7 @@
 import {Readable} from '../../typings/pull-stream';
 import {manifest} from '../manifest-client';
 import {startSyncingNotifications} from '../syncing-notifications';
+import {AboutContent} from 'ssb-typescript';
 const pull = require('pull-stream');
 const defer = require('pull-defer');
 const Notify = require('pull-notify');
@@ -50,6 +51,7 @@ const gives = {
       get: true,
       progress: true,
       publish: true,
+      publishAbout: true,
       acceptInvite: true,
       acceptDhtInvite: true,
       createDhtInvite: true,
@@ -211,6 +213,23 @@ const create = (api: any) => {
             if (err) console.error(err);
             if (cb) cb(err, msg);
           });
+        }),
+        publishAbout: rec.async((content: AboutContent, cb: any) => {
+          if (content.image && !ref.isBlobId(content.image[0])) {
+            sbot.blobsFromPath.add(content.image, (err: any, hash: string) => {
+              if (err) return console.error(err);
+              content.image = hash;
+              feed.add(content, (err2: any, msg: any) => {
+                if (err2) console.error(err2);
+                if (cb) cb(err2, msg);
+              });
+            });
+          } else {
+            feed.add(content, (err: any, msg: any) => {
+              if (err) console.error(err);
+              if (cb) cb(err, msg);
+            });
+          }
         }),
         acceptInvite: rec.async((invite: string, cb: any) => {
           sbot.invite.accept(invite, cb);

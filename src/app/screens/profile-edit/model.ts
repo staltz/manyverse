@@ -20,6 +20,7 @@
 import xs, {Stream} from 'xstream';
 import {Reducer} from 'cycle-onionify';
 import {About, FeedId} from 'ssb-typescript';
+import {Image} from 'react-native-image-crop-picker';
 
 export type Props = {
   about: About & {id: FeedId};
@@ -28,11 +29,13 @@ export type Props = {
 export type State = {
   about: About & {id: FeedId};
   newName?: string;
+  newAvatar?: string;
   newDescription?: string;
 };
 
 export type Actions = {
   changeName$: Stream<string>;
+  changeAvatar$: Stream<Image>;
   changeDescription$: Stream<string>;
 };
 
@@ -56,6 +59,13 @@ export default function model(
       },
   );
 
+  const changeAvatarReducer$ = actions.changeAvatar$.map(
+    image =>
+      function changeDescriptionReducer(prev: State): State {
+        return {...prev, newAvatar: image.path.replace('file://', '')};
+      },
+  );
+
   const changeDescriptionReducer$ = actions.changeDescription$.map(
     newDescription =>
       function changeDescriptionReducer(prev: State): State {
@@ -63,5 +73,10 @@ export default function model(
       },
   );
 
-  return xs.merge(propsReducer$, changeNameReducer$, changeDescriptionReducer$);
+  return xs.merge(
+    propsReducer$,
+    changeNameReducer$,
+    changeAvatarReducer$,
+    changeDescriptionReducer$,
+  );
 }

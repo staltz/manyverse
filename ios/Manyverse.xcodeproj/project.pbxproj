@@ -56,6 +56,7 @@
 		1614EAD64D0643799D96F26A /* NodeMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C296DAC135B469890D64809 /* NodeMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		08553A5F6E9A4A9DA315D8D1 /* nodejs-project in Resources */ = {isa = PBXBuildFile; fileRef = 8671363C471C406E89C6ECCB /* nodejs-project */; };
 		F2EA81708D02402E96A26723 /* builtin_modules in Resources */ = {isa = PBXBuildFile; fileRef = B168DD7A511648E0B1415628 /* builtin_modules */; };
+		46AB3840219C446C98FABDA6 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9CD13730515442BA6FC3EA4 /* libimageCropPicker.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -308,6 +309,8 @@
 		6C296DAC135B469890D64809 /* NodeMobile.framework */ = {isa = PBXFileReference; name = "NodeMobile.framework"; path = "../node_modules/nodejs-mobile-react-native/ios/NodeMobile.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		8671363C471C406E89C6ECCB /* nodejs-project */ = {isa = PBXFileReference; name = "nodejs-project"; path = "../nodejs-assets/nodejs-project"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		B168DD7A511648E0B1415628 /* builtin_modules */ = {isa = PBXFileReference; name = "builtin_modules"; path = "../node_modules/nodejs-mobile-react-native/install/resources/nodejs-modules/builtin_modules"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C70A1A3736F24275994AE454 /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; name = "imageCropPicker.xcodeproj"; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		A9CD13730515442BA6FC3EA4 /* libimageCropPicker.a */ = {isa = PBXFileReference; name = "libimageCropPicker.a"; path = "libimageCropPicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,6 +346,7 @@
 				BA3570C3DA7C41FB87DA3A55 /* libRNVectorIcons.a in Frameworks */,
 				A03FF7594955491F84C43833 /* libRNNodeJsMobile.a in Frameworks */,
 				7BA397C7699A4B32971919B3 /* NodeMobile.framework in Frameworks */,
+				46AB3840219C446C98FABDA6 /* libimageCropPicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +520,7 @@
 				2732D8C3C5054BE79226E7C6 /* RNOS.xcodeproj */,
 				6891BB4EFE5D4C9F96382670 /* TcpSockets.xcodeproj */,
 				91C746E80A6847A3AAEF2CCF /* RNNodeJsMobile.xcodeproj */,
+				C70A1A3736F24275994AE454 /* imageCropPicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1165,6 +1170,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1173,6 +1179,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"$(SRCROOT)/../node_modules/react-native-os/ios",
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/nodejs-mobile-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1204,6 +1211,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1212,6 +1220,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"$(SRCROOT)/../node_modules/react-native-os/ios",
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/nodejs-mobile-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1244,6 +1253,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"$(SRCROOT)/../node_modules/react-native-os/ios",
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/nodejs-mobile-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1274,6 +1284,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"$(SRCROOT)/../node_modules/react-native-os/ios",
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/nodejs-mobile-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1313,6 +1324,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1321,6 +1333,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"$(SRCROOT)/../node_modules/react-native-os/ios",
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/nodejs-mobile-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1361,6 +1374,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1369,6 +1383,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"$(SRCROOT)/../node_modules/react-native-os/ios",
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/nodejs-mobile-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1404,6 +1419,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1434,6 +1450,7 @@ if [ \"1\" != \"$NODEJS_MOBILE_BUILD_NATIVE_MODULES\" ]; then exit 0; fi
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

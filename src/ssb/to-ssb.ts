@@ -74,6 +74,7 @@ export function toAboutContent(
   id: FeedId,
   name: string | undefined,
   description: string | undefined,
+  image: string | undefined,
 ) {
   const content: AboutContent = {
     type: 'about',
@@ -81,5 +82,6 @@ export function toAboutContent(
   };
   if (name) content.name = name;
   if (description) content.description = description;
+  if (image) content.image = image;
   return content;
 }

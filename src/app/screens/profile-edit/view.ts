@@ -54,8 +54,11 @@ export default function view(
           h(View, {style: styles.avatarTouchable}, [
             h(Avatar, {
               size: avatarSize,
-              url: state.about.imageUrl,
+              url: state.newAvatar
+                ? `file://${state.newAvatar}`
+                : state.about.imageUrl,
               style: styles.avatar,
+              overlayIcon: 'camera',
             }),
           ]),
         ],

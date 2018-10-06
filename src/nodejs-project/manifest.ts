@@ -130,4 +130,7 @@ export = {
   syncing: {
     stream: 'source',
   },
+  blobsFromPath: {
+    add: 'async',
+  },
 };

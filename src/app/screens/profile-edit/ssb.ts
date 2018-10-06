@@ -21,7 +21,7 @@ import {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {State} from './model';
 import {toAboutContent} from '../../../ssb/to-ssb';
-import {Req, contentToPublishReq} from '../../drivers/ssb';
+import {Req, PublishAboutReq} from '../../drivers/ssb';
 
 export type SSBActions = {
   save$: Stream<null>;
@@ -39,12 +39,21 @@ export default function ssb(
     .filter(
       state =>
         (!!state.newName && state.newName !== state.about.name) ||
+        !!state.newAvatar ||
         (!!state.newDescription && state.newDescription !== state.about.name),
     )
-    .map(state =>
-      toAboutContent(state.about.id, state.newName, state.newDescription),
-    )
-    .map(contentToPublishReq);
+    .map(
+      state =>
+        ({
+          type: 'publishAbout',
+          content: toAboutContent(
+            state.about.id,
+            state.newName,
+            state.newDescription,
+            state.newAvatar,
+          ),
+        } as PublishAboutReq),
+    );
 
   return newAboutContent$;
 }

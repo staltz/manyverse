@@ -17,8 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
-import {Stream} from 'xstream';
+import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import {Response as DialogRes} from '../../drivers/dialogs';
 
 export default function intent(
@@ -30,7 +31,24 @@ export default function intent(
 
     changeDescription$: source.select('description').events('changeText'),
 
-    changeAvatar$: source.select('avatar').events('press'),
+    changeAvatar$: source
+      .select('avatar')
+      .events('press')
+      .map(() =>
+        xs
+          .fromPromise(
+            ImagePicker.openPicker({
+              width: 240,
+              height: 240,
+              cropping: true,
+              multiple: false,
+              cropperCircleOverlay: true,
+              mediaType: 'photo',
+            }) as Promise<Image>,
+          )
+          .replaceError(() => xs.never()),
+      )
+      .flatten(),
 
     save$: source.select('save').events('press'),
 

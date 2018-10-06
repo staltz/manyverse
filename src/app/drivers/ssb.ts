@@ -18,7 +18,15 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Msg, PeerMetadata, Content, FeedId, About, MsgId} from 'ssb-typescript';
+import {
+  Msg,
+  PeerMetadata,
+  Content,
+  FeedId,
+  About,
+  MsgId,
+  AboutContent,
+} from 'ssb-typescript';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
@@ -325,6 +333,11 @@ export type PublishReq = {
   content: Content;
 };
 
+export type PublishAboutReq = {
+  type: 'publishAbout';
+  content: AboutContent;
+};
+
 export type AcceptInviteReq = {
   type: 'invite.accept';
   invite: string;
@@ -335,7 +348,11 @@ export type AcceptDhtInviteReq = {
   invite: string;
 };
 
-export type Req = PublishReq | AcceptInviteReq | AcceptDhtInviteReq;
+export type Req =
+  | PublishReq
+  | PublishAboutReq
+  | AcceptInviteReq
+  | AcceptDhtInviteReq;
 
 function dropCompletion(stream: Stream<any>): Stream<any> {
   return xs.merge(stream, xs.never());
@@ -382,6 +399,9 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
       next: ([api, req]) => {
         if (req.type === 'publish') {
           api.sbot.async.publish[0](req.content);
+        }
+        if (req.type === 'publishAbout') {
+          api.sbot.async.publishAbout[0](req.content);
         }
         if (req.type === 'invite.accept') {
           api.sbot.async.acceptInvite[0](req.invite, (err: any, val: any) => {

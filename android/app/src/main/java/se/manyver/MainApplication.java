@@ -14,6 +14,7 @@ import com.reactnativenavigation.NavigationApplication;
 import com.staltz.reactnativeandroidlocalnotification.NotificationPackage;
 import com.staltz.reactnativehasinternet.HasInternetPackage;
 import com.devstepbcn.wifi.AndroidWifiPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -41,6 +42,7 @@ public class MainApplication extends NavigationApplication {
     // Add additional packages you require here
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new PickerPackage(),
             new HasInternetPackage(),
             new AndroidWifiPackage(), new RNFSPackage(),
         new RandomBytesPackage(), new RNNodeJsMobilePackage(), new ReactNativeDialogsPackage(),
