@@ -15,6 +15,12 @@
 - [Feature roadmap](https://gitlab.com/staltz/manyverse/wikis/roadmap)
 - [Contributor docs](./CONTRIBUTING.md)
 
+### Contributors
+
+This project exists thanks to all the people who contribute code. [[Contribute too]](CONTRIBUTING.md).
+
+<a href="graphs/contributors"><img src="https://opencollective.com/manyverse/contributors.svg?width=890" /></a>
+
 ### Backers
 
 Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/manyverse#backer)]
