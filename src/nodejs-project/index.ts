@@ -41,6 +41,10 @@ config.path = ssbPath;
 config.keys = keys;
 config.manifest = manifest;
 config.friends.hops = 2;
+config.ebt = {
+  maxNumConnections: 3,
+  modeChangeThreshold: 30
+}
 config.connections = {
   incoming: {
     net: [{scope: 'private', transform: 'shs', port: 8008}],
