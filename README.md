@@ -5,6 +5,7 @@
 ### [Homepage](https://manyver.se)
 
 ### Install it
+- [Android app on F-Droid](https://f-droid.org/app/se.manyver)
 - [Android app on Google Play](https://play.google.com/store/apps/details?id=se.manyver)
 - [Android app from Dat Installer](https://github.com/staltz/dat-installer/) (input `dat://manyverse-latest.hashbase.io`)
 
