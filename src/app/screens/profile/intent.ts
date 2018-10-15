@@ -18,8 +18,10 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {MsgId} from 'ssb-typescript';
+import {MsgId, FeedId} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
+
+export type ProfileNavEvent = {authorFeedId: FeedId};
 
 export default function intent(reactSource: ReactSource) {
   return {
@@ -27,6 +29,10 @@ export default function intent(reactSource: ReactSource) {
 
     goToEdit$: reactSource.select('editProfile').events('press') as Stream<
       null
+    >,
+
+    goToProfile$: reactSource.select('feed').events('pressAuthor') as Stream<
+      ProfileNavEvent
     >,
 
     goToThread$: xs.merge(

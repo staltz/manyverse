@@ -24,13 +24,15 @@ import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
 import {navOptions as composeScreenNavOptions} from '../compose';
 import {navOptions as editProfileScreenNavOptions} from '../profile-edit';
 import {navOptions as threadScreenNavOptions} from '../thread';
-import {MsgId} from 'ssb-typescript';
+import {navOptions as profileScreenNavOptions} from './index';
+import {MsgId, FeedId} from 'ssb-typescript';
 import {Screens} from '../..';
 import {State} from './model';
 
 export type Actions = {
   goToCompose$: Stream<null>;
   goToEdit$: Stream<null>;
+  goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
 };
 
@@ -69,6 +71,25 @@ export default function navigation(
       } as Command),
   );
 
+  const toOtherProfile$ = actions.goToProfile$
+    .compose(sampleCombine(state$))
+    .map(
+      ([ev, state]) =>
+        ({
+          type: 'push',
+          layout: {
+            component: {
+              name: Screens.Profile,
+              passProps: {
+                selfFeedId: state.selfFeedId,
+                feedId: ev.authorFeedId,
+              },
+              options: profileScreenNavOptions,
+            },
+          },
+        } as Command),
+    );
+
   const toThread$ = actions.goToThread$.compose(sampleCombine(state$)).map(
     ([ev, state]) =>
       ({
@@ -93,5 +114,5 @@ export default function navigation(
     } as PopCommand,
   );
 
-  return xs.merge(toCompose$, toEdit$, toThread$, pop$);
+  return xs.merge(toCompose$, toEdit$, toOtherProfile$, toThread$, pop$);
 }
