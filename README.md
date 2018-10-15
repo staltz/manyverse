@@ -1,6 +1,12 @@
 # Manyverse
 
-![Manyverse banner](./banner.png)
+**A social network off the grid** (Android)
+
+<div>
+<img src="./screenshot-feed.png" width="200">
+<img src="./screenshot-connections.png" width="200">
+<img src="./screenshot-thread.png" width="200">
+</div>
 
 ### [Homepage](https://manyver.se)
 
