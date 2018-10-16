@@ -15,13 +15,13 @@ const rl = readline.createInterface({
 function createTodaysVersion(attempt) {
   const today = new Date();
   const yy = today.getFullYear() - 2000; // So it's two digits
-  const m = today.getMonth() + 1;
-  const d = leftPad(today.getDate(), 2, '0');
+  const mm = leftPad(today.getMonth() + 1, 2, '0');
+  const d = today.getDate();
   if (attempt === 0) {
-    return `0.${yy}.${m}-${d}.beta`;
+    return `0.${yy}${mm}.${d}-beta`;
   } else {
     const letter = String.fromCharCode(97 + attempt); // 0=a, 1=b, 2=c, ...
-    return `0.${yy}.${m}-${d}${letter}.beta`;
+    return `0.${yy}${mm}.${d}-beta.${letter}`;
   }
 }
 
