@@ -6,6 +6,7 @@
     "@staltz/sbot-gossip": "1.1.6",
     "bindings-noderify-nodejs-mobile": "10.3.0",
     "bufferutil": "3.0.1",
+    "chloride": "2.2.10",
     "deferred-leveldown": "4.0.1",
     "delay": "3.1.0",
     "encoding-down": "5.0.2",

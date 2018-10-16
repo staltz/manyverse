@@ -21,4 +21,6 @@ import os = require('os');
 // Hack required because of https://github.com/dominictarr/noderify/issues/20
 os.homedir = () => __dirname;
 process.cwd = () => __dirname;
+process.env = process.env || {};
+process.env.CHLORIDE_JS = 'yes'; // Use WebAssembly libsodium
 require('./index');
