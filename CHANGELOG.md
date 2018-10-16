@@ -6,9 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
-## 0.18.10-6.beta
+## 0.1810.16-beta
 
-* Minor improvements and bug fixes
+* Fix profile screen linking to other profiles ([see details](https://gitlab.com/staltz/manyverse/commit/3ad9e399ad992f7ea98f61a0c34024305b786513)), closes [#212](https://gitlab.com/staltz/manyverse/issues/212)
+* Speed up initial sync by 5x or more ([see details](https://gitlab.com/staltz/manyverse/commit/9b2de0666b0124246ca0dad47aa8d00ed9970728))
 
 ## 0.18.10-06.beta
 
