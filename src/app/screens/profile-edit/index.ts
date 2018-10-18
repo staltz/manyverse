@@ -18,7 +18,7 @@
  */
 
 import {Stream} from 'xstream';
-import {StateSource, Reducer} from 'cycle-onionify';
+import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {About, FeedId} from 'ssb-typescript';
 import {SSBSource, Req} from '../../drivers/ssb';
@@ -45,7 +45,7 @@ export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
   keyboard: KeyboardSource;
-  onion: StateSource<State>;
+  state: StateSource<State>;
   ssb: SSBSource;
   dialog: DialogSource;
 };
@@ -53,7 +53,7 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  onion: Stream<Reducer<State>>;
+  state: Stream<Reducer<State>>;
   keyboard: Stream<'dismiss'>;
   ssb: Stream<Req>;
 };
@@ -74,16 +74,16 @@ export function editProfile(sources: Sources): Sinks {
     sources.dialog,
   );
   const actions = intent(sources.screen, dialogRes$);
-  const vdom$ = view(sources.onion.state$, topBarSinks.screen);
+  const vdom$ = view(sources.state.stream, topBarSinks.screen);
   const command$ = navigation(actions);
   const reducer$ = model(sources.props, actions);
-  const content$ = ssb(sources.onion.state$, actions);
+  const content$ = ssb(sources.state.stream, actions);
   const dismiss$ = actions.save$.mapTo('dismiss' as 'dismiss');
 
   return {
     screen: vdom$,
     navigation: command$,
-    onion: reducer$,
+    state: reducer$,
     keyboard: dismiss$,
     ssb: content$,
   };

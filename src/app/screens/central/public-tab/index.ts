@@ -19,7 +19,7 @@
 
 import {Stream} from 'xstream';
 import {ReactElement} from 'react';
-import {StateSource, Reducer} from 'cycle-onionify';
+import {StateSource, Reducer} from '@cycle/state';
 import {ReactSource} from '@cycle/react';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
@@ -37,7 +37,7 @@ import navigation from './navigation';
 export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
-  onion: StateSource<State>;
+  state: StateSource<State>;
   ssb: SSBSource;
   scrollToTop: Stream<any>;
   dialog: DialogSource;
@@ -47,7 +47,7 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  onion: Stream<Reducer<State>>;
+  state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
@@ -61,16 +61,16 @@ export function publicTab(sources: Sources): Sinks {
     dialog: sources.dialog,
   });
   const actionsPlus = {...actions, goToRawMsg$: messageEtcSinks.goToRawMsg$};
-  const vdom$ = view(sources.onion.state$, sources.ssb, sources.scrollToTop);
-  const command$ = navigation(actionsPlus, sources.onion.state$);
-  const reducer$ = model(sources.onion.state$, actionsPlus, sources.ssb);
-  const fabProps$ = floatingAction(sources.onion.state$);
+  const vdom$ = view(sources.state.stream, sources.ssb, sources.scrollToTop);
+  const command$ = navigation(actionsPlus, sources.state.stream);
+  const reducer$ = model(sources.state.stream, actionsPlus, sources.ssb);
+  const fabProps$ = floatingAction(sources.state.stream);
   const newContent$ = ssb(actionsPlus);
 
   return {
     screen: vdom$,
     navigation: command$,
-    onion: reducer$,
+    state: reducer$,
     ssb: newContent$,
     clipboard: messageEtcSinks.clipboard,
     toast: messageEtcSinks.toast,

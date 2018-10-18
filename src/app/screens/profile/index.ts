@@ -18,7 +18,7 @@
  */
 
 import {Stream} from 'xstream';
-import {StateSource, Reducer} from 'cycle-onionify';
+import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
 import {FeedId} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
@@ -44,7 +44,7 @@ export type Sources = {
   props: Stream<Props>;
   screen: ReactSource;
   navigation: NavSource;
-  onion: StateSource<State>;
+  state: StateSource<State>;
   ssb: SSBSource;
   dialog: DialogSource;
 };
@@ -52,7 +52,7 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  onion: Stream<Reducer<State>>;
+  state: Stream<Reducer<State>>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
   ssb: Stream<Req>;
@@ -75,19 +75,19 @@ export function profile(sources: Sources): Sinks {
   });
   const actionsPlus = {...actions, goToRawMsg$: messageEtcSinks.goToRawMsg$};
   const reducer$ = model(sources.props, sources.ssb);
-  const vdom$ = view(sources.onion.state$, sources.ssb, topBarSinks.screen);
-  const newContent$ = ssb(actionsPlus, sources.onion.state$);
+  const vdom$ = view(sources.state.stream, sources.ssb, topBarSinks.screen);
+  const newContent$ = ssb(actionsPlus, sources.state.stream);
   const command$ = navigation(
     actionsPlus,
     sources.navigation,
-    sources.onion.state$,
+    sources.state.stream,
     topBarSinks.back,
   );
 
   return {
     screen: vdom$,
     navigation: command$,
-    onion: reducer$,
+    state: reducer$,
     clipboard: messageEtcSinks.clipboard,
     toast: messageEtcSinks.toast,
     ssb: newContent$,

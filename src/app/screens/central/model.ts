@@ -18,7 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Reducer, Lens} from 'cycle-onionify';
+import {Reducer, Lens} from '@cycle/state';
 import {FeedId} from 'ssb-typescript';
 import {State as PublicTabState} from './public-tab/model';
 import {State as TopBarState} from './top-bar';

@@ -18,7 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Reducer} from 'cycle-onionify';
+import {Reducer} from '@cycle/state';
 import {About, FeedId} from 'ssb-typescript';
 import {Image} from 'react-native-image-crop-picker';
 

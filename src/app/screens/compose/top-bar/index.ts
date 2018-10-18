@@ -20,7 +20,7 @@
 import {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
-import {StateSource} from 'cycle-onionify';
+import {StateSource} from '@cycle/state';
 import {View, StyleSheet} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
@@ -34,8 +34,7 @@ export type State = {
 
 export type Sources = {
   screen: ReactSource;
-  props: Stream<any>;
-  onion: StateSource<State>;
+  state: StateSource<State>;
 };
 
 export type Sinks = {
@@ -92,7 +91,7 @@ function view(state$: Stream<State>) {
 
 export function topBar(sources: Sources): Sinks {
   const actions = intent(sources.screen);
-  const vdom$ = view(sources.onion.state$);
+  const vdom$ = view(sources.state.stream);
 
   return {
     screen: vdom$,

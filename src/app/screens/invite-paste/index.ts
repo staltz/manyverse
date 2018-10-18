@@ -22,7 +22,7 @@ import isolate from '@cycle/isolate';
 import {ReactElement} from 'react';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {ReactSource} from '@cycle/react';
-import {StateSource, Reducer} from 'cycle-onionify';
+import {StateSource, Reducer} from '@cycle/state';
 import {SSBSource, Req as SSBReq} from '../../drivers/ssb';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {LifecycleEvent} from '../../drivers/lifecycle';
@@ -38,14 +38,14 @@ export type Sources = {
   navigation: NavSource;
   keyboard: KeyboardSource;
   lifecycle: Stream<LifecycleEvent>;
-  onion: StateSource<State>;
+  state: StateSource<State>;
   ssb: SSBSource;
 };
 
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  onion: Stream<Reducer<State>>;
+  state: Stream<Reducer<State>>;
   keyboard: Stream<'dismiss'>;
   ssb: Stream<SSBReq>;
 };
@@ -67,7 +67,7 @@ export function pasteInvite(sources: Sources): Sinks {
     sources.screen,
     sources.navigation,
     topBarSinks.done,
-    sources.onion.state$,
+    sources.state.stream,
     sources.keyboard,
     sources.lifecycle,
   );
@@ -83,7 +83,7 @@ export function pasteInvite(sources: Sources): Sinks {
     keyboard: dismiss$,
     screen: vdom$,
     navigation: command$,
-    onion: reducer$,
+    state: reducer$,
     ssb: newContent$,
   };
 }

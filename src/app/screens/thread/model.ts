@@ -19,7 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import xsFromPullStream from 'xstream-from-pull-stream';
-import {Reducer} from 'cycle-onionify';
+import {Reducer} from '@cycle/state';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {
   ThreadAndExtras,

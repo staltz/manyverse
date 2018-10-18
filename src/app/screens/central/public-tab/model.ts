@@ -18,7 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Reducer} from 'cycle-onionify';
+import {Reducer} from '@cycle/state';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource, GetReadable, ThreadAndExtras} from '../../../drivers/ssb';
 

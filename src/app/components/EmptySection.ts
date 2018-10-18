@@ -78,7 +78,7 @@ export default class EmptySection extends PureComponent<Props> {
       View,
       {style: [styles.container, style || null]},
       [
-        image ? h(Image, {style: styles.image, source: image}) : null,
+        image ? h(Image, {style: styles.image as any, source: image}) : null,
         h(Text, {style: styles.title}, title),
         h(Text, {style: styles.description}, description),
       ] as Array<ReactElement<any>>,

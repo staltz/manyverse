@@ -29,7 +29,6 @@ import {ReactElement} from 'react';
 
 export type Sources = {
   screen: ReactSource;
-  props: Stream<any>;
 };
 
 export type Sinks = {

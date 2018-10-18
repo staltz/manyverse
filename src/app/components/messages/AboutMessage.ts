@@ -80,7 +80,7 @@ function renderWithImage(
       h(Text, {style: styles.followed}, ' is using a new picture:'),
     ]),
     h(Image, {
-      style: styles.aboutImage,
+      style: styles.aboutImage as any,
       source: {uri: imageUrl || undefined},
     }),
     h(View, {style: styles.row}, [

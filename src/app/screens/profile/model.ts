@@ -19,7 +19,7 @@
 
 import xs, {Stream} from 'xstream';
 import {SSBSource, GetReadable, ThreadAndExtras} from '../../drivers/ssb';
-import {Reducer} from 'cycle-onionify';
+import {Reducer} from '@cycle/state';
 import {FeedId, About} from 'ssb-typescript';
 
 export type Props = {

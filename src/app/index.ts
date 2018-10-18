@@ -30,7 +30,7 @@ export enum Screens {
   RawMessage = 'Manyverse.RawMessage',
 }
 
-import onionify from 'cycle-onionify';
+import {withState} from '@cycle/state';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {alertDriver} from 'cycle-native-alert';
 import {makeClipboardDriver} from 'cycle-native-clipboard';
@@ -56,14 +56,14 @@ import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
 
 export const screens: {[k in Screens]?: (so: any) => any} = {
-  [Screens.Central]: onionify(central),
-  [Screens.Drawer]: onionify(drawer),
-  [Screens.Compose]: onionify(compose),
-  [Screens.Thread]: onionify(thread),
-  [Screens.InvitePaste]: onionify(pasteInvite),
-  [Screens.InviteCreate]: onionify(createInvite),
-  [Screens.Profile]: onionify(profile),
-  [Screens.ProfileEdit]: onionify(editProfile),
+  [Screens.Central]: withState(central),
+  [Screens.Drawer]: withState(drawer),
+  [Screens.Compose]: withState(compose),
+  [Screens.Thread]: withState(thread),
+  [Screens.InvitePaste]: withState(pasteInvite),
+  [Screens.InviteCreate]: withState(createInvite),
+  [Screens.Profile]: withState(profile),
+  [Screens.ProfileEdit]: withState(editProfile),
   [Screens.RawDatabase]: rawDatabase,
   [Screens.RawMessage]: rawMessage,
 };

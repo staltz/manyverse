@@ -18,7 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {StateSource, Reducer} from 'cycle-onionify';
+import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
@@ -48,7 +48,7 @@ export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
   network: NetworkSource;
-  onion: StateSource<State>;
+  state: StateSource<State>;
   ssb: SSBSource;
 };
 
@@ -56,7 +56,7 @@ export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   alert: Stream<AlertCommand>;
-  onion: Stream<Reducer<any>>;
+  state: Stream<Reducer<any>>;
   ssb: Stream<Req>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
@@ -77,13 +77,13 @@ export const navOptions = {
 export function central(sources: Sources): Sinks {
   const topBarSinks: TBSinks = isolate(topBar, {
     '*': 'topBar',
-    onion: topBarLens,
+    state: topBarLens,
   })(sources);
 
   const actions = intent(sources.screen, sources.navigation);
 
   const scrollToTop$ = actions.changeTab$
-    .compose(sampleCombine(sources.onion.state$))
+    .compose(sampleCombine(sources.state.stream))
     .filter(([i, state]) => state.currentTab === 0 && i === 0)
     .mapTo(null);
 
@@ -92,16 +92,16 @@ export function central(sources: Sources): Sinks {
     .events('pressItem');
 
   const publicTabSinks: PublicTabSinks = isolate(publicTab, {
-    onion: publicTabLens,
+    state: publicTabLens,
     '*': 'publicTab',
   })({...sources, scrollToTop: scrollToTop$, fab: fabPress$});
 
   const connectionsTabSinks: ConnectionsTabSinks = isolate(connectionsTab, {
-    onion: connectionsTabLens,
+    state: connectionsTabLens,
     '*': 'connectionsTab',
   })({...sources, fab: fabPress$});
 
-  const fabProps$ = sources.onion.state$
+  const fabProps$ = sources.state.stream
     .map(
       state =>
         state.currentTab === 0 ? publicTabSinks.fab : connectionsTabSinks.fab,
@@ -117,12 +117,12 @@ export function central(sources: Sources): Sinks {
 
   const reducer$ = xs.merge(
     centralReducer$,
-    publicTabSinks.onion,
-    connectionsTabSinks.onion,
+    publicTabSinks.state,
+    connectionsTabSinks.state,
   ) as Stream<Reducer<State>>;
 
   const vdom$ = view(
-    sources.onion.state$,
+    sources.state.stream,
     fabProps$,
     topBarSinks.screen,
     publicTabSinks.screen,
@@ -149,7 +149,7 @@ export function central(sources: Sources): Sinks {
 
   return {
     screen: vdom$,
-    onion: reducer$,
+    state: reducer$,
     navigation: command$,
     alert: connectionsTabSinks.alert,
     ssb: publicTabSinks.ssb,

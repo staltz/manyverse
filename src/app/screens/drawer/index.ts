@@ -20,7 +20,7 @@
 import {Stream} from 'xstream';
 import {Command as NavCmd} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
-import {StateSource, Reducer} from 'cycle-onionify';
+import {StateSource, Reducer} from '@cycle/state';
 import {SSBSource} from '../../drivers/ssb';
 import {Command as DialogCmd} from '../../drivers/dialogs';
 import intent from './intent';
@@ -33,7 +33,7 @@ const pkgJSON = require('../../../../package.json');
 
 export type Sources = {
   screen: ReactSource;
-  onion: StateSource<State>;
+  state: StateSource<State>;
   ssb: SSBSource;
 };
 
@@ -42,13 +42,13 @@ export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<NavCmd>;
   linking: Stream<string>;
-  onion: Stream<Reducer<State>>;
+  state: Stream<Reducer<State>>;
 };
 
 export function drawer(sources: Sources): Sinks {
   const actions = intent(sources.screen);
-  const vdom$ = view(sources.onion.state$);
-  const command$ = navigation(actions, sources.onion.state$);
+  const vdom$ = view(sources.state.stream);
+  const command$ = navigation(actions, sources.state.stream);
   const reducer$ = model(sources.ssb);
   const dialog$ = actions.openAbout$.mapTo(
     {
@@ -84,6 +84,6 @@ export function drawer(sources: Sources): Sinks {
     screen: vdom$,
     navigation: command$,
     linking: mailto$,
-    onion: reducer$,
+    state: reducer$,
   };
 }

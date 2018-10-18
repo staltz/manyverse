@@ -22,7 +22,7 @@ import sample from 'xstream-sample';
 import isolate from '@cycle/isolate';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
-import {StateSource, Reducer} from 'cycle-onionify';
+import {StateSource, Reducer} from '@cycle/state';
 import {SSBSource} from '../../drivers/ssb';
 import {SharedContent} from 'cycle-native-share';
 import {Command, NavSource} from 'cycle-native-navigation';
@@ -35,7 +35,7 @@ export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
   lifecycle: Stream<LifecycleEvent>;
-  onion: StateSource<State>;
+  state: StateSource<State>;
   ssb: SSBSource;
   share: Stream<any>;
 };
@@ -43,7 +43,7 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  onion: Stream<Reducer<State>>;
+  state: Stream<Reducer<State>>;
   share: Stream<SharedContent>;
 };
 
@@ -57,13 +57,13 @@ export const navOptions = {
 export function createInvite(sources: Sources): Sinks {
   const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
 
-  const vdom$ = view(sources.onion.state$, topBarSinks.screen);
+  const vdom$ = view(sources.state.stream, topBarSinks.screen);
   const command$ = xs
     .merge(sources.navigation.backPress(), topBarSinks.back)
     .map(() => ({type: 'dismissOverlay'} as Command));
   const reducer$ = model(sources.ssb);
   const share$ = topBarSinks.share
-    .compose(sample(sources.onion.state$))
+    .compose(sample(sources.state.stream))
     .map(state => ({
       message:
         'Connect with me on Manyverse by pasting this invite code there:\n\n' +
@@ -75,7 +75,7 @@ export function createInvite(sources: Sources): Sinks {
   return {
     screen: vdom$,
     navigation: command$,
-    onion: reducer$,
+    state: reducer$,
     share: share$,
   };
 }

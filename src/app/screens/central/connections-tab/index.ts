@@ -19,7 +19,7 @@
 
 import {Stream} from 'xstream';
 import {ReactElement} from 'react';
-import {StateSource, Reducer} from 'cycle-onionify';
+import {StateSource, Reducer} from '@cycle/state';
 import {Command as AlertCommand} from 'cycle-native-alert';
 import {ReactSource} from '@cycle/react';
 import {Command} from 'cycle-native-navigation';
@@ -35,7 +35,7 @@ import navigation from './navigation';
 
 export type Sources = {
   screen: ReactSource;
-  onion: StateSource<State>;
+  state: StateSource<State>;
   network: NetworkSource;
   ssb: SSBSource;
   fab: Stream<string>;
@@ -45,23 +45,23 @@ export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   alert: Stream<AlertCommand>;
-  onion: Stream<Reducer<State>>;
+  state: Stream<Reducer<State>>;
   fab: Stream<FabProps>;
 };
 
 export function connectionsTab(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.fab);
-  const vdom$ = view(sources.onion.state$);
-  const command$ = navigation(actions, sources.onion.state$);
-  const reducer$ = model(sources.onion.state$, sources.ssb, sources.network);
-  const fabProps$ = floatingAction(sources.onion.state$);
-  const alert$ = alert(actions, sources.onion.state$);
+  const vdom$ = view(sources.state.stream);
+  const command$ = navigation(actions, sources.state.stream);
+  const reducer$ = model(sources.state.stream, sources.ssb, sources.network);
+  const fabProps$ = floatingAction(sources.state.stream);
+  const alert$ = alert(actions, sources.state.stream);
 
   return {
     alert: alert$,
     navigation: command$,
     screen: vdom$,
-    onion: reducer$,
+    state: reducer$,
     fab: fabProps$,
   };
 }

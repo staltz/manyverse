@@ -20,7 +20,7 @@
 import xs, {Stream} from 'xstream';
 import concat from 'xstream/extra/concat';
 import {PeerMetadata, FeedId} from 'ssb-typescript';
-import {Reducer} from 'cycle-onionify';
+import {Reducer} from '@cycle/state';
 import {SSBSource, StagedPeerMetadata} from '../../../drivers/ssb';
 import {NetworkSource} from '../../../drivers/network';
 import dropRepeats from 'xstream/extra/dropRepeats';

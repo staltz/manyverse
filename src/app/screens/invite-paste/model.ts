@@ -18,7 +18,7 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {Reducer, Lens} from 'cycle-onionify';
+import {Reducer, Lens} from '@cycle/state';
 import {State as TopBarState} from './top-bar';
 
 export type State = {
