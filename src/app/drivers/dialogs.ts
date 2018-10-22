@@ -20,7 +20,9 @@
 import xs, {Stream} from 'xstream';
 import DialogAndroid from 'react-native-dialogs';
 
-export type Command = 'dismiss';
+export type Command =
+  | {type: 'dismiss'}
+  | {type: 'alert'; title?: string; content?: string; options?: OptionsCommon};
 
 export type OptionsCommon = {
   cancelable?: boolean;
@@ -92,9 +94,12 @@ export class DialogSource {
 
 export function dialogDriver(command$: Stream<Command>): DialogSource {
   command$.subscribe({
-    next: command => {
-      if (command === 'dismiss') {
+    next: cmd => {
+      if (cmd.type === 'dismiss') {
         DialogAndroid.dismiss();
+      }
+      if (cmd.type === 'alert') {
+        DialogAndroid.alert(cmd.title, cmd.content, cmd.options);
       }
     },
   });

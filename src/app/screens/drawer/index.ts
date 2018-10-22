@@ -18,16 +18,17 @@
  */
 
 import {Stream} from 'xstream';
-import {Command} from 'cycle-native-navigation';
-import {Command as AlertCommand} from 'cycle-native-alert';
+import {Command as NavCmd} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from 'cycle-onionify';
 import {SSBSource} from '../../drivers/ssb';
+import {Command as DialogCmd} from '../../drivers/dialogs';
 import intent from './intent';
 import model, {State} from './model';
 import view from './view';
 import navigation from './navigation';
 import {ReactElement} from 'react';
+import {Palette} from '../../global-styles/palette';
 const pkgJSON = require('../../../../package.json');
 
 export type Sources = {
@@ -37,9 +38,9 @@ export type Sources = {
 };
 
 export type Sinks = {
-  alert: Stream<AlertCommand>;
+  dialog: Stream<DialogCmd>;
   screen: Stream<ReactElement<any>>;
-  navigation: Stream<Command>;
+  navigation: Stream<NavCmd>;
   linking: Stream<string>;
   onion: Stream<Reducer<State>>;
 };
@@ -49,15 +50,27 @@ export function drawer(sources: Sources): Sinks {
   const vdom$ = view(sources.onion.state$);
   const command$ = navigation(actions, sources.onion.state$);
   const reducer$ = model(sources.ssb);
-  const alert$ = actions.openAbout$.mapTo({
-    title: 'About Manyverse',
-    message:
-      'A social network off the grid\n' +
-      '(Licensed GPLv3)\n\n' +
-      'Version ' +
-      pkgJSON.version,
-    buttons: [{text: 'OK', id: 'okay'}],
-  });
+  const dialog$ = actions.openAbout$.mapTo(
+    {
+      type: 'alert',
+      title: 'About Manyverse',
+      content:
+        '<a href="https://manyver.se">manyver.se</a><br />' +
+        'A social network off the grid<br />' +
+        'Version ' +
+        pkgJSON.version +
+        '<br /><br />' +
+        "Copyright (C) 2017-2018 Andre 'Staltz' Medeiros<br />" +
+        '<a href="https://gitlab.com/staltz/manyverse">Open source on GitLab</a>' +
+        '<br />' +
+        'Licensed GPL 3.0',
+      options: {
+        contentIsHtml: true,
+        contentColor: Palette.brand.textWeak,
+        linkColor: Palette.brand.text,
+      },
+    } as DialogCmd,
+  );
   const mailto$ = actions.emailBugReport$.mapTo(
     'mailto:' +
       'incoming+staltz/manyverse@incoming.gitlab.com' +
@@ -67,7 +80,7 @@ export function drawer(sources: Sources): Sinks {
   );
 
   return {
-    alert: alert$,
+    dialog: dialog$,
     screen: vdom$,
     navigation: command$,
     linking: mailto$,
