@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    marginLeft: Dimensions.horizontalSpaceBig,
+    marginLeft: Dimensions.horizontalSpaceLarge,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.white,
     fontSize: Typography.fontSizeLarge,
