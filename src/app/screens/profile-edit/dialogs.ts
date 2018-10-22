@@ -20,23 +20,22 @@
 import xs, {Stream} from 'xstream';
 import between from 'xstream-between';
 import {NavSource} from 'cycle-native-navigation';
-import {Request as DialogReq} from '../../drivers/dialogs';
+import {DialogSource} from '../../drivers/dialogs';
 
 export default function dialogs(
   navSource: NavSource,
   topBarBack$: Stream<any>,
+  dialogSource: DialogSource,
 ) {
   const back$ = xs.merge(navSource.backPress(), topBarBack$);
 
   return back$
     .compose(between(navSource.didAppear(), navSource.didDisappear()))
-    .mapTo(
-      {
-        title: 'Edit profile',
-        category: 'edit-profile-discard',
-        content: 'Discard changes?',
+    .map(() =>
+      dialogSource.alert('Edit profile', 'Discard changes?', {
         positiveText: 'Discard',
         negativeText: 'Cancel',
-      } as DialogReq,
-    );
+      }),
+    )
+    .flatten();
 }

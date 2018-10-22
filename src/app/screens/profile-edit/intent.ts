@@ -20,11 +20,11 @@
 import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
-import {Response as DialogRes} from '../../drivers/dialogs';
+import {AlertAction} from '../../drivers/dialogs';
 
 export default function intent(
   source: ReactSource,
-  dialogRes$: Stream<DialogRes>,
+  dialogRes$: Stream<AlertAction>,
 ) {
   return {
     changeName$: source.select('name').events('changeText'),
@@ -52,8 +52,6 @@ export default function intent(
 
     save$: source.select('save').events('press'),
 
-    discardChanges$: dialogRes$.filter(
-      res => res.category === 'edit-profile-discard' && res.type === 'positive',
-    ),
+    discardChanges$: dialogRes$.filter(res => res.action === 'actionPositive'),
   };
 }

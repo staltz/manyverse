@@ -65,7 +65,7 @@
     "react-native": "0.55.4",
     "react-native-android-local-notification": "1.1.0",
     "react-native-android-wifi": "0.0.34",
-    "react-native-dialogs": "0.0.20",
+    "react-native-dialogs": "1.0.2",
     "react-native-floating-action": "^1.13.0",
     "react-native-has-internet": "2.0.0",
     "react-native-image-crop-picker": "^0.21.2",

@@ -22,7 +22,7 @@ import {StateSource, Reducer} from 'cycle-onionify';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {About, FeedId} from 'ssb-typescript';
 import {SSBSource, Req} from '../../drivers/ssb';
-import {Response as DRes, Request as DReq} from '../../drivers/dialogs';
+import {DialogSource} from '../../drivers/dialogs';
 import isolate from '@cycle/isolate';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
@@ -47,7 +47,7 @@ export type Sources = {
   keyboard: KeyboardSource;
   onion: StateSource<State>;
   ssb: SSBSource;
-  dialog: Stream<DRes>;
+  dialog: DialogSource;
 };
 
 export type Sinks = {
@@ -56,7 +56,6 @@ export type Sinks = {
   onion: Stream<Reducer<State>>;
   keyboard: Stream<'dismiss'>;
   ssb: Stream<Req>;
-  dialog: Stream<DReq>;
 };
 
 export const navOptions = {
@@ -69,12 +68,16 @@ export const navOptions = {
 export function editProfile(sources: Sources): Sinks {
   const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
 
-  const actions = intent(sources.screen, sources.dialog);
+  const dialogRes$ = dialogs(
+    sources.navigation,
+    topBarSinks.back,
+    sources.dialog,
+  );
+  const actions = intent(sources.screen, dialogRes$);
   const vdom$ = view(sources.onion.state$, topBarSinks.screen);
   const command$ = navigation(actions);
   const reducer$ = model(sources.props, actions);
   const content$ = ssb(sources.onion.state$, actions);
-  const dialog$ = dialogs(sources.navigation, topBarSinks.back);
   const dismiss$ = actions.save$.mapTo('dismiss' as 'dismiss');
 
   return {
@@ -83,6 +86,5 @@ export function editProfile(sources: Sources): Sinks {
     onion: reducer$,
     keyboard: dismiss$,
     ssb: content$,
-    dialog: dialog$,
   };
 }

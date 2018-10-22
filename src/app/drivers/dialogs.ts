@@ -18,44 +18,86 @@
  */
 
 import xs, {Stream} from 'xstream';
-import DialogAndroid = require('react-native-dialogs');
+import DialogAndroid from 'react-native-dialogs';
 
-export type Request = {
-  title: string;
-  content: string;
-  category: string;
-  positiveText?: string;
+export type Command = 'dismiss';
+
+export type OptionsCommon = {
+  cancelable?: boolean;
+  forceStacking?: boolean;
+
+  title?: string;
+  titleColor?: string;
+
+  content?: string;
+  contentColor?: string;
+  contentIsHtml?: boolean;
+  linkColor?: string;
+
+  negativeColor?: string;
   negativeText?: string;
+
+  neutralColor?: string;
   neutralText?: string;
+
+  positiveColor?: string;
+  positiveText?: string; // default "OK"
 };
 
-export type Response = {
-  type: 'positive' | 'negative' | 'neutral';
-  category: string;
+export type OptionsPicker = OptionsCommon & {
+  items: Array<{label?: string; id?: any}>;
+  idKey?: string;
+  labelKey?: string;
+  neutralIsClear?: boolean;
+  selectedId?: any;
+  selectedIds?: any[];
+  type?: 'listCheckbox' | 'listPlain' | 'listRadio';
+  widgetColor?: string;
 };
 
-export function dialogDriver(request$: Stream<Request>): Stream<Response> {
-  const response$ = xs.create<Response>();
+export type AlertAction = {
+  action:
+    | 'actionDismiss'
+    | 'actionNegative'
+    | 'actionNeutral'
+    | 'actionPositive';
+};
 
-  request$.addListener({
-    next: request => {
-      const category = request.category;
-      const dialog = new DialogAndroid();
-      dialog.set({
-        ...request,
-        onPositive: () => {
-          response$.shamefullySendNext({category, type: 'positive'});
-        },
-        onNegative: () => {
-          response$.shamefullySendNext({category, type: 'negative'});
-        },
-        onNeutral: () => {
-          response$.shamefullySendNext({category, type: 'neutral'});
-        },
-      });
-      dialog.show();
+export type PickerAction =
+  | {action: 'actionNegative' | 'actionNeutral' | 'actionDismiss'}
+  | {
+      action: 'actionSelect';
+      selectedItem: any;
+    };
+
+export class DialogSource {
+  constructor() {}
+
+  public alert(
+    title?: string,
+    content?: string,
+    options?: OptionsCommon,
+  ): Stream<AlertAction> {
+    return xs.fromPromise(DialogAndroid.alert(title, content, options));
+  }
+
+  public showPicker(
+    title?: string,
+    content?: string,
+    options?: OptionsPicker,
+  ): Stream<PickerAction> {
+    return xs.fromPromise(DialogAndroid.showPicker(title, content, options));
+  }
+}
+
+export function dialogDriver(command$: Stream<Command>): DialogSource {
+  command$.subscribe({
+    next: command => {
+      if (command === 'dismiss') {
+        DialogAndroid.dismiss();
+      }
     },
   });
 
-  return response$;
+  return new DialogSource();
 }
