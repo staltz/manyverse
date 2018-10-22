@@ -109,6 +109,7 @@ export default class ConnectionsList extends PureComponent<Props> {
           this.props.onPressPeer(peer.key);
         }
       },
+      activeOpacity: 0.4,
     };
 
     const peerName = h(TouchableOpacity, touchableProps, [
