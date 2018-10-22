@@ -17,24 +17,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const Dimensions = {
-  horizontalSpaceLarge: 26,
-  horizontalSpaceBig: 16,
-  horizontalSpaceNormal: 12,
-  horizontalSpaceSmall: 7,
+import {Msg} from 'ssb-typescript';
+import {DialogSource} from '../../drivers/dialogs';
+import {Palette} from '../../global-styles/palette';
 
-  verticalSpaceBig: 14,
-  verticalSpaceNormal: 10,
-  verticalSpaceSmall: 7,
-  verticalSpaceTiny: 4,
+export type EtcChoiceId = 'raw-msg';
 
-  avatarSizeBig: 80,
-  avatarSizeNormal: 45,
-  avatarSizeSmall: 32,
-  avatarBorderRadius: 3,
-
-  iconSizeBig: 30,
-  iconSizeNormal: 24,
-  iconSizeSmall: 18,
-  toolbarAndroidHeight: 56,
-};
+export default function showMsgEtcPicker(msg: Msg, source: DialogSource) {
+  return source
+    .showPicker(undefined, undefined, {
+      items: [{label: 'View raw message', id: 'raw-msg'}],
+      type: 'listPlain',
+      contentColor: Palette.brand.text,
+      cancelable: true,
+      positiveText: '',
+      negativeText: '',
+      neutralText: '',
+    })
+    .filter(res => res.action === 'actionSelect')
+    .map((res: any) => ({id: res.selectedItem.id as EtcChoiceId, msg}));
+}

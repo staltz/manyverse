@@ -27,6 +27,7 @@ import Avatar from '../Avatar';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const styles = StyleSheet.create({
   messageHeaderRow: {
@@ -66,9 +67,10 @@ export type Props = {
   name: string | null;
   imageUrl: string | null;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressEtc?: (msg: Msg) => void;
 };
 
-export default class MessageHeader extends Component<Props, {}> {
+export default class MessageHeader extends Component<Props> {
   constructor(props: Props) {
     super(props);
   }
@@ -77,6 +79,13 @@ export default class MessageHeader extends Component<Props, {}> {
     const onPressAuthor = this.props.onPressAuthor;
     if (onPressAuthor) {
       onPressAuthor({authorFeedId: this.props.msg.value.author});
+    }
+  };
+
+  private _onPressEtc = () => {
+    const onPressEtc = this.props.onPressEtc;
+    if (onPressEtc) {
+      onPressEtc(this.props.msg);
     }
   };
 
@@ -91,9 +100,13 @@ export default class MessageHeader extends Component<Props, {}> {
 
   public render() {
     const {msg, name, imageUrl} = this.props;
-    const touchableProps = {onPress: this._onPressAuthor};
+    const authorTouchableProps = {
+      onPress: this._onPressAuthor,
+      activeOpacity: 0.4,
+    };
+    const etcTouchableProps = {onPress: this._onPressEtc, activeOpacity: 0.4};
 
-    const messageHeaderAuthorName = h(TouchableOpacity, touchableProps, [
+    const messageHeaderAuthorName = h(TouchableOpacity, authorTouchableProps, [
       h(
         Text,
         {
@@ -112,7 +125,7 @@ export default class MessageHeader extends Component<Props, {}> {
     );
 
     return h(View, {style: styles.messageHeaderRow}, [
-      h(TouchableOpacity, touchableProps, [
+      h(TouchableOpacity, authorTouchableProps, [
         h(Avatar, {
           size: Dimensions.avatarSizeNormal,
           url: imageUrl,
@@ -122,6 +135,15 @@ export default class MessageHeader extends Component<Props, {}> {
       h(View, {style: styles.messageHeaderAuthorColumn}, [
         messageHeaderAuthorName,
         messageHeaderTimestamp,
+      ]),
+      h(TouchableOpacity, etcTouchableProps, [
+        h(Icon, {
+          size: Dimensions.iconSizeNormal,
+          color: Palette.brand.textVeryWeak,
+          name: 'chevron-down',
+          accessible: true,
+          accessibilityLabel: 'Etc Button',
+        }),
       ]),
     ]);
   }

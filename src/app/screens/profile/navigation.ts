@@ -25,7 +25,8 @@ import {navOptions as composeScreenNavOptions} from '../compose';
 import {navOptions as editProfileScreenNavOptions} from '../profile-edit';
 import {navOptions as threadScreenNavOptions} from '../thread';
 import {navOptions as profileScreenNavOptions} from './index';
-import {MsgId, FeedId} from 'ssb-typescript';
+import {navOptions as rawMsgScreenNavOptions} from '../raw-msg';
+import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {Screens} from '../..';
 import {State} from './model';
 
@@ -34,6 +35,7 @@ export type Actions = {
   goToEdit$: Stream<null>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
+  goToRawMsg$: Stream<Msg>;
 };
 
 export default function navigation(
@@ -108,11 +110,32 @@ export default function navigation(
       } as Command),
   );
 
+  const toRawMsg$ = actions.goToRawMsg$.map(
+    msg =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.RawMessage,
+            passProps: {msg},
+            options: rawMsgScreenNavOptions,
+          },
+        },
+      } as Command),
+  );
+
   const pop$ = xs.merge(navSource.backPress(), back$).mapTo(
     {
       type: 'pop',
     } as PopCommand,
   );
 
-  return xs.merge(toCompose$, toEdit$, toOtherProfile$, toThread$, pop$);
+  return xs.merge(
+    toCompose$,
+    toEdit$,
+    toOtherProfile$,
+    toThread$,
+    toRawMsg$,
+    pop$,
+  );
 }

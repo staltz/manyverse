@@ -21,7 +21,7 @@ import xs from 'xstream';
 import {PureComponent, ReactElement} from 'react';
 import {View, StyleSheet, NativeScrollEvent} from 'react-native';
 import {h} from '@cycle/react';
-import {FeedId, MsgId} from 'ssb-typescript';
+import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import CompactThread from './CompactThread';
@@ -77,6 +77,7 @@ type Props = {
   onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressEtc?: (msg: Msg) => void;
   onPressExpandThread?: (ev: {rootMsgId: MsgId}) => void;
 };
 
@@ -150,6 +151,7 @@ export default class Feed extends PureComponent<Props, State> {
       onPressLike,
       onPressReply,
       onPressAuthor,
+      onPressEtc,
       onPressExpandThread,
       style,
       scrollToTop$,
@@ -188,6 +190,7 @@ export default class Feed extends PureComponent<Props, State> {
             onPressLike,
             onPressReply,
             onPressAuthor,
+            onPressEtc,
             onPressExpand: onPressExpandThread || ((x: any) => {}),
           }),
         ]),

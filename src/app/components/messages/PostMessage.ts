@@ -65,6 +65,7 @@ export type Props = {
   onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressEtc?: (msg: Msg) => void;
 };
 
 export default class PostMessage extends PureComponent<Props> {

@@ -20,7 +20,7 @@
 import {Stream, Subscription, Listener} from 'xstream';
 import {Component, ReactElement} from 'react';
 import {h} from '@cycle/react';
-import {FeedId} from 'ssb-typescript';
+import {FeedId, Msg} from 'ssb-typescript';
 import {ThreadAndExtras, MsgAndExtras} from '../drivers/ssb';
 import Message from './messages/Message';
 import PlaceholderMessage from './messages/PlaceholderMessage';
@@ -31,6 +31,7 @@ export type Props = {
   selfFeedId: FeedId;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressEtc?: (msg: Msg) => void;
 };
 
 type State = {
@@ -58,6 +59,7 @@ export default class FullThread extends Component<Props, State> {
     const prevProps = this.props;
     if (nextProps.selfFeedId !== prevProps.selfFeedId) return true;
     if (nextProps.onPressAuthor !== prevProps.onPressAuthor) return true;
+    if (nextProps.onPressEtc !== prevProps.onPressEtc) return true;
     if (nextProps.onPressLike !== prevProps.onPressLike) return true;
     if (nextProps.publication$ !== prevProps.publication$) return true;
     const prevMessages = prevProps.thread.messages;
@@ -87,13 +89,14 @@ export default class FullThread extends Component<Props, State> {
   }
 
   private renderMessage(msg: MsgAndExtras) {
-    const {selfFeedId, onPressLike, onPressAuthor} = this.props;
+    const {selfFeedId, onPressLike, onPressAuthor, onPressEtc} = this.props;
     return h(Message, {
       msg,
       ['key' as any]: msg.key,
       selfFeedId,
       onPressLike,
       onPressAuthor,
+      onPressEtc,
     });
   }
 

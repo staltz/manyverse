@@ -19,29 +19,47 @@
 
 import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
-import {FeedId, MsgId} from 'ssb-typescript';
+import {FeedId, MsgId, Msg} from 'ssb-typescript';
+import {DialogSource} from '../../../drivers/dialogs';
+import showMsgEtcPicker from '../../../components/dialogs/MessageEtcPicker';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};
 export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 
-export default function intent(source: ReactSource, fabPress$: Stream<string>) {
+export default function intent(
+  reactSource: ReactSource,
+  dialogSource: DialogSource,
+  fabPress$: Stream<string>,
+) {
+  const messageEtcChoice$ = reactSource
+    .select('publicFeed')
+    .events('pressEtc')
+    .map((msg: Msg) => showMsgEtcPicker(msg, dialogSource))
+    .flatten();
+
   return {
     goToCompose$: fabPress$.filter(action => action === 'compose'),
 
-    likeMsg$: source.select('publicFeed').events('pressLike') as Stream<
+    likeMsg$: reactSource.select('publicFeed').events('pressLike') as Stream<
       LikeEvent
     >,
 
-    goToProfile$: source.select('publicFeed').events('pressAuthor') as Stream<
-      ProfileNavEvent
+    goToProfile$: reactSource
+      .select('publicFeed')
+      .events('pressAuthor') as Stream<ProfileNavEvent>,
+
+    goToRawMsg$: messageEtcChoice$
+      .filter(choice => choice.id === 'raw-msg')
+      .map(choice => choice.msg),
+
+    resetUpdates$: reactSource.select('publicFeed').events('refresh') as Stream<
+      any
     >,
 
-    resetUpdates$: source.select('publicFeed').events('refresh') as Stream<any>,
-
     goToThread$: xs.merge(
-      source.select('publicFeed').events('pressExpandThread'),
-      source
+      reactSource.select('publicFeed').events('pressExpandThread'),
+      reactSource
         .select('publicFeed')
         .events('pressReply')
         .map(({rootKey, msgKey}) => ({

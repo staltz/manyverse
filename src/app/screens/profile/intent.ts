@@ -18,12 +18,23 @@
  */
 
 import xs, {Stream} from 'xstream';
-import {MsgId, FeedId} from 'ssb-typescript';
+import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
+import showMsgEtcPicker from '../../components/dialogs/MessageEtcPicker';
+import {DialogSource} from '../../drivers/dialogs';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
-export default function intent(reactSource: ReactSource) {
+export default function intent(
+  reactSource: ReactSource,
+  dialogSource: DialogSource,
+) {
+  const messageEtcChoice$ = reactSource
+    .select('feed')
+    .events('pressEtc')
+    .map((msg: Msg) => showMsgEtcPicker(msg, dialogSource))
+    .flatten();
+
   return {
     goToCompose$: reactSource.select('fab').events('pressItem'),
 
@@ -34,6 +45,10 @@ export default function intent(reactSource: ReactSource) {
     goToProfile$: reactSource.select('feed').events('pressAuthor') as Stream<
       ProfileNavEvent
     >,
+
+    goToRawMsg$: messageEtcChoice$
+      .filter(choice => choice.id === 'raw-msg')
+      .map(choice => choice.msg),
 
     goToThread$: xs.merge(
       reactSource.select('feed').events('pressExpandThread'),

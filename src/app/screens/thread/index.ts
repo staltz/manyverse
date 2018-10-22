@@ -31,6 +31,7 @@ import navigation from './navigation';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
 import {Dimensions} from '../../global-styles/dimens';
+import {DialogSource} from '../../drivers/dialogs';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -43,6 +44,7 @@ export type Sources = {
   navigation: NavSource;
   props: Stream<Props>;
   keyboard: KeyboardSource;
+  dialog: DialogSource;
   onion: StateSource<State>;
   ssb: SSBSource;
 };
@@ -74,6 +76,7 @@ export function thread(sources: Sources): Sinks {
   const actions = intent(
     sources.screen,
     sources.keyboard,
+    sources.dialog,
     sources.ssb,
     sources.onion.state$,
   );

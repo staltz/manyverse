@@ -20,18 +20,27 @@
 import {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {isReplyPostMsg} from 'ssb-typescript/utils';
-import {FeedId} from 'ssb-typescript';
+import {FeedId, Msg} from 'ssb-typescript';
 import {State} from './model';
 import {SSBSource} from '../../drivers/ssb';
 import {ReactSource} from '@cycle/react';
 import {KeyboardSource} from 'cycle-native-keyboard';
+import showMsgEtcPicker from '../../components/dialogs/MessageEtcPicker';
+import {DialogSource} from '../../drivers/dialogs';
 
 export default function intent(
   reactSource: ReactSource,
   keyboardSource: KeyboardSource,
+  dialogSource: DialogSource,
   ssbSource: SSBSource,
   state$: Stream<State>,
 ) {
+  const messageEtcChoice$ = reactSource
+    .select('thread')
+    .events('pressEtc')
+    .map((msg: Msg) => showMsgEtcPicker(msg, dialogSource))
+    .flatten();
+
   return {
     publishMsg$: reactSource
       .select('replyButton')
@@ -57,5 +66,9 @@ export default function intent(
     goToProfile$: reactSource.select('thread').events('pressAuthor') as Stream<{
       authorFeedId: FeedId;
     }>,
+
+    goToRawMsg$: messageEtcChoice$
+      .filter(choice => choice.id === 'raw-msg')
+      .map(choice => choice.msg),
   };
 }

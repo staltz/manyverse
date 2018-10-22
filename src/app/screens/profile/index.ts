@@ -31,6 +31,7 @@ import model, {State} from './model';
 import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
+import {DialogSource} from '../../drivers/dialogs';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -43,6 +44,7 @@ export type Sources = {
   navigation: NavSource;
   onion: StateSource<State>;
   ssb: SSBSource;
+  dialog: DialogSource;
 };
 
 export type Sinks = {
@@ -62,7 +64,7 @@ export const navOptions = {
 export function profile(sources: Sources): Sinks {
   const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
 
-  const actions = intent(sources.screen);
+  const actions = intent(sources.screen, sources.dialog);
   const reducer$ = model(sources.props, sources.ssb);
   const vdom$ = view(sources.onion.state$, sources.ssb, topBarSinks.screen);
   const newContent$ = ssb(actions, sources.onion.state$);

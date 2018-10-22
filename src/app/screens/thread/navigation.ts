@@ -19,14 +19,16 @@
 
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
-import {FeedId} from 'ssb-typescript';
+import {FeedId, Msg} from 'ssb-typescript';
 import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
 import {State} from './model';
 import {Screens} from '../..';
 import {navOptions as profileScreenNavOptions} from '../profile';
+import {navOptions as rawMsgScreenNavOptions} from '../raw-msg';
 
 export type Actions = {
   goToProfile$: Stream<{authorFeedId: FeedId}>;
+  goToRawMsg$: Stream<Msg>;
 };
 
 export default function navigation(
@@ -51,11 +53,25 @@ export default function navigation(
       } as Command),
   );
 
+  const toRawMsg$ = actions.goToRawMsg$.map(
+    msg =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.RawMessage,
+            passProps: {msg},
+            options: rawMsgScreenNavOptions,
+          },
+        },
+      } as Command),
+  );
+
   const pop$ = navSource.backPress().mapTo(
     {
       type: 'pop',
     } as PopCommand,
   );
 
-  return xs.merge(toProfile$, pop$);
+  return xs.merge(toProfile$, toRawMsg$, pop$);
 }

@@ -19,7 +19,7 @@
 
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
-import {FeedId, MsgId} from 'ssb-typescript';
+import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {ThreadAndExtras, MsgAndExtras} from '../drivers/ssb';
 import Message from './messages/Message';
 import ExpandThread from './messages/ExpandThread';
@@ -30,6 +30,7 @@ export type Props = {
   onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressEtc?: (msg: Msg) => void;
   onPressExpand: (ev: {rootMsgId: MsgId}) => void;
 };
 
@@ -39,7 +40,14 @@ export default class CompactThread extends PureComponent<Props> {
   }
 
   private renderMessage(msg: MsgAndExtras) {
-    const {selfFeedId, onPressLike, onPressReply, onPressAuthor} = this.props;
+    const {
+      selfFeedId,
+      onPressLike,
+      onPressReply,
+      onPressAuthor,
+      onPressEtc,
+    } = this.props;
+
     return h(Message, {
       msg,
       ['key' as any]: msg.key,
@@ -47,6 +55,7 @@ export default class CompactThread extends PureComponent<Props> {
       onPressLike,
       onPressReply,
       onPressAuthor,
+      onPressEtc,
     });
   }
 

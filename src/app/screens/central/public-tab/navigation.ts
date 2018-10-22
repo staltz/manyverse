@@ -19,18 +19,20 @@
 
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
-import {FeedId, MsgId} from 'ssb-typescript';
+import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../..';
 import {navOptions as composeScreenNavOptions} from '../../compose';
 import {navOptions as profileScreenNavOptions} from '../../profile';
 import {navOptions as threadScreenNavOptions} from '../../thread';
+import {navOptions as rawMsgScreenNavOptions} from '../../raw-msg';
 import {State} from './model';
 
 export type Actions = {
   goToCompose$: Stream<any>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
+  goToRawMsg$: Stream<Msg>;
 };
 
 export default function navigation(
@@ -85,5 +87,19 @@ export default function navigation(
       } as Command),
   );
 
-  return xs.merge(toCompose$, toProfile$, toThread$);
+  const toRawMsg$ = actions.goToRawMsg$.map(
+    msg =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.RawMessage,
+            passProps: {msg},
+            options: rawMsgScreenNavOptions,
+          },
+        },
+      } as Command),
+  );
+
+  return xs.merge(toCompose$, toProfile$, toThread$, toRawMsg$);
 }

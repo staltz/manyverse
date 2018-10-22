@@ -30,6 +30,7 @@ import model, {State} from './model';
 import ssb from './ssb';
 import floatingAction from './fab';
 import navigation from './navigation';
+import {DialogSource} from '../../../drivers/dialogs';
 
 export type Sources = {
   screen: ReactSource;
@@ -37,6 +38,7 @@ export type Sources = {
   onion: StateSource<State>;
   ssb: SSBSource;
   scrollToTop: Stream<any>;
+  dialog: DialogSource;
   fab: Stream<string>;
 };
 
@@ -49,7 +51,7 @@ export type Sinks = {
 };
 
 export function publicTab(sources: Sources): Sinks {
-  const actions = intent(sources.screen, sources.fab);
+  const actions = intent(sources.screen, sources.dialog, sources.fab);
   const vdom$ = view(sources.onion.state$, sources.ssb, sources.scrollToTop);
   const command$ = navigation(actions, sources.onion.state$);
   const reducer$ = model(sources.onion.state$, actions, sources.ssb);
