@@ -58,6 +58,7 @@ export type Sinks = {
   alert: Stream<AlertCommand>;
   onion: Stream<Reducer<any>>;
   ssb: Stream<Req>;
+  clipboard: Stream<string>;
   toast: Stream<Toast>;
 };
 
@@ -128,7 +129,9 @@ export function central(sources: Sources): Sinks {
     connectionsTabSinks.screen,
   );
 
-  const toast$: Stream<Toast> = sources.ssb.acceptInviteResponse$.map(res => {
+  const inviteToast$: Stream<
+    Toast
+  > = sources.ssb.acceptInviteResponse$.map(res => {
     if (res === true)
       return {
         type: 'show' as 'show',
@@ -142,6 +145,7 @@ export function central(sources: Sources): Sinks {
         duration: ToastDuration.LONG,
       };
   });
+  const toast$ = xs.merge(inviteToast$, publicTabSinks.toast);
 
   return {
     screen: vdom$,
@@ -149,6 +153,7 @@ export function central(sources: Sources): Sinks {
     navigation: command$,
     alert: connectionsTabSinks.alert,
     ssb: publicTabSinks.ssb,
+    clipboard: publicTabSinks.clipboard,
     toast: toast$,
   };
 }

@@ -20,8 +20,6 @@
 import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
-import {DialogSource} from '../../../drivers/dialogs';
-import showMsgEtcPicker from '../../../components/dialogs/MessageEtcPicker';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};
@@ -29,15 +27,8 @@ export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 
 export default function intent(
   reactSource: ReactSource,
-  dialogSource: DialogSource,
   fabPress$: Stream<string>,
 ) {
-  const messageEtcChoice$ = reactSource
-    .select('publicFeed')
-    .events('pressEtc')
-    .map((msg: Msg) => showMsgEtcPicker(msg, dialogSource))
-    .flatten();
-
   return {
     goToCompose$: fabPress$.filter(action => action === 'compose'),
 
@@ -49,9 +40,9 @@ export default function intent(
       .select('publicFeed')
       .events('pressAuthor') as Stream<ProfileNavEvent>,
 
-    goToRawMsg$: messageEtcChoice$
-      .filter(choice => choice.id === 'raw-msg')
-      .map(choice => choice.msg),
+    openMessageEtc$: reactSource
+      .select('publicFeed')
+      .events('pressEtc') as Stream<Msg>,
 
     resetUpdates$: reactSource.select('publicFeed').events('refresh') as Stream<
       any

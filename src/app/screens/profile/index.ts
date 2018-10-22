@@ -23,15 +23,17 @@ import {ReactElement} from 'react';
 import {FeedId} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
 import {SSBSource, Req} from '../../drivers/ssb';
+import {DialogSource} from '../../drivers/dialogs';
+import {Toast} from '../../drivers/toast';
 import {Command, NavSource} from 'cycle-native-navigation';
 import isolate from '@cycle/isolate';
+import messageEtc from '../../components/messageEtc';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
 import model, {State} from './model';
 import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
-import {DialogSource} from '../../drivers/dialogs';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -51,6 +53,8 @@ export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   onion: Stream<Reducer<State>>;
+  clipboard: Stream<string>;
+  toast: Stream<Toast>;
   ssb: Stream<Req>;
 };
 
@@ -64,12 +68,17 @@ export const navOptions = {
 export function profile(sources: Sources): Sinks {
   const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
 
-  const actions = intent(sources.screen, sources.dialog);
+  const actions = intent(sources.screen);
+  const messageEtcSinks = messageEtc({
+    appear$: actions.openMessageEtc$,
+    dialog: sources.dialog,
+  });
+  const actionsPlus = {...actions, goToRawMsg$: messageEtcSinks.goToRawMsg$};
   const reducer$ = model(sources.props, sources.ssb);
   const vdom$ = view(sources.onion.state$, sources.ssb, topBarSinks.screen);
-  const newContent$ = ssb(actions, sources.onion.state$);
+  const newContent$ = ssb(actionsPlus, sources.onion.state$);
   const command$ = navigation(
-    actions,
+    actionsPlus,
     sources.navigation,
     sources.onion.state$,
     topBarSinks.back,
@@ -79,6 +88,8 @@ export function profile(sources: Sources): Sinks {
     screen: vdom$,
     navigation: command$,
     onion: reducer$,
+    clipboard: messageEtcSinks.clipboard,
+    toast: messageEtcSinks.toast,
     ssb: newContent$,
   };
 }

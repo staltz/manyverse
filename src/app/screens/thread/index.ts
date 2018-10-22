@@ -23,6 +23,10 @@ import {StateSource, Reducer} from 'cycle-onionify';
 import {MsgId, FeedId} from 'ssb-typescript';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {SSBSource, Req} from '../../drivers/ssb';
+import {DialogSource} from '../../drivers/dialogs';
+import {Toast} from '../../drivers/toast';
+import {Dimensions} from '../../global-styles/dimens';
+import messageEtc from '../../components/messageEtc';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
@@ -30,8 +34,6 @@ import ssb from './ssb';
 import navigation from './navigation';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
-import {Dimensions} from '../../global-styles/dimens';
-import {DialogSource} from '../../drivers/dialogs';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -54,6 +56,8 @@ export type Sinks = {
   navigation: Stream<Command>;
   keyboard: Stream<'dismiss'>;
   onion: Stream<Reducer<State>>;
+  clipboard: Stream<string>;
+  toast: Stream<Toast>;
   ssb: Stream<Req>;
 };
 
@@ -76,18 +80,22 @@ export function thread(sources: Sources): Sinks {
   const actions = intent(
     sources.screen,
     sources.keyboard,
-    sources.dialog,
     sources.ssb,
     sources.onion.state$,
   );
-  const reducer$ = model(sources.props, actions, sources.ssb);
+  const messageEtcSinks = messageEtc({
+    appear$: actions.openMessageEtc$,
+    dialog: sources.dialog,
+  });
+  const actionsPlus = {...actions, goToRawMsg$: messageEtcSinks.goToRawMsg$};
+  const reducer$ = model(sources.props, actionsPlus, sources.ssb);
   const command$ = navigation(
-    actions,
+    actionsPlus,
     sources.navigation,
     sources.onion.state$,
   );
-  const vdom$ = view(sources.onion.state$, actions);
-  const newContent$ = ssb(actions);
+  const vdom$ = view(sources.onion.state$, actionsPlus);
+  const newContent$ = ssb(actionsPlus);
   const dismiss$ = actions.publishMsg$.mapTo('dismiss' as 'dismiss');
 
   return {
@@ -95,6 +103,8 @@ export function thread(sources: Sources): Sinks {
     navigation: command$,
     keyboard: dismiss$,
     onion: reducer$,
+    clipboard: messageEtcSinks.clipboard,
+    toast: messageEtcSinks.toast,
     ssb: newContent$,
   };
 }

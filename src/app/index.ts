@@ -33,6 +33,7 @@ export enum Screens {
 import onionify from 'cycle-onionify';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {alertDriver} from 'cycle-native-alert';
+import {makeClipboardDriver} from 'cycle-native-clipboard';
 import {linkingDriver} from 'cycle-native-linking';
 import {makeToastDriver} from './drivers/toast';
 import {notificationDriver} from 'cycle-native-android-local-notification';
@@ -70,6 +71,7 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
 export const drivers = {
   alert: alertDriver,
   keyboard: makeKeyboardDriver(),
+  clipboard: makeClipboardDriver(),
   linking: linkingDriver,
   ssb: ssbDriver,
   share: shareDriver,
