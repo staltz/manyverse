@@ -78,6 +78,39 @@ module.exports = function(driver, t) {
     },
   );
 
+  t.test('Thread screen shows messages with Etc button', async function(t) {
+    const chevron = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Etc Button")',
+      6000,
+    );
+    t.ok(chevron, 'I see the Etc Button on a message');
+    await chevron.tap();
+    t.pass('I tap it first to hide the keyboard');
+    await chevron.tap();
+    t.pass('I tap it again to open the menu');
+
+    const menuItem = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().text("View raw message")',
+      6000,
+    );
+    t.ok(menuItem, 'I see a menu with an option "View raw message"');
+    await menuItem.tap();
+    t.pass('I tap it');
+
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().text("Raw message")',
+        6000,
+      ),
+      'I see the Raw Message screen',
+    );
+
+    await driver.back();
+    t.pass('I press the (hardware) back button');
+
+    t.end();
+  });
+
   t.test('Thread screen allows adding a reply', async function(t) {
     const replyTextInput = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Reply Text Input")',

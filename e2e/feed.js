@@ -21,13 +21,45 @@ const test = require('tape');
 const wd = require('wd');
 
 module.exports = function(driver, t) {
-  t.test('Central screen shows many in scrolling feed', async function(t) {
+  t.test('Central screen shows messages with Etc button', async function(t) {
     t.ok(
       await driver.elementByAndroidUIAutomator(
         'new UiSelector().text("Messages")',
       ),
       'I see the Messages header in the Central screen',
     );
+
+    const chevron = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Etc Button")',
+      6000,
+    );
+    t.ok(chevron, 'I see the Etc Button on a message');
+    await chevron.tap();
+    t.pass('I tap it');
+
+    const menuItem = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().text("View raw message")',
+      6000,
+    );
+    t.ok(menuItem, 'I see a menu with an option "View raw message"');
+    await menuItem.tap();
+    t.pass('I tap it');
+
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().text("Raw message")',
+        6000,
+      ),
+      'I see the Raw Message screen',
+    );
+
+    await driver.back();
+    t.pass('I press the (hardware) back button');
+
+    t.end();
+  });
+
+  t.test('Central screen shows many in scrolling feed', async function(t) {
     await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Floating Action Button")',
       6000,
