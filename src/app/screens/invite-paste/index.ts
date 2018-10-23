@@ -60,7 +60,7 @@ export const navOptions = {
 export function pasteInvite(sources: Sources): Sinks {
   const topBarSinks: TBSinks = isolate(topBar, {
     '*': 'topBar',
-    onion: topBarLens,
+    state: topBarLens,
   })(sources);
 
   const actions = intent(

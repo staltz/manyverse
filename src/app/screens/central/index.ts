@@ -27,6 +27,7 @@ import {Toast, Duration as ToastDuration} from '../../drivers/toast';
 import {NetworkSource} from '../../drivers/network';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource, Req} from '../../drivers/ssb';
+import {DialogSource} from '../../drivers/dialogs';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {
   connectionsTab,
@@ -49,6 +50,7 @@ export type Sources = {
   navigation: NavSource;
   network: NetworkSource;
   state: StateSource<State>;
+  dialog: DialogSource;
   ssb: SSBSource;
 };
 
