@@ -6,6 +6,14 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1810.23-beta
+
+* Copy message cypherlink, from the 'etc' button ([see details](https://gitlab.com/staltz/manyverse/commit/1001fa5ea90e4f4c45ca0cd67781de54c47504e4))
+* Minor improvement of the look of the app header ([see details](https://gitlab.com/staltz/manyverse/commit/e45a58c9f49cae46db9fc74aef9c3ad951b2af56))
+* Minor improvement to "About Manyverse" screen ([see details](https://gitlab.com/staltz/manyverse/commit/7ffc22a9fcf3494ec8179e5dd39c5df03d1c8873))
+* Minor UI tweaks in the Thread screen ([see details](https://gitlab.com/staltz/manyverse/commit/379355ed4bc2f4fd6ece5606bb6ab049d5456109))
+* View raw message, accessible from new 'etc' button ([see details](https://gitlab.com/staltz/manyverse/commit/b29d28af3d9f129d26c6648b1547716531f62676))
+
 ## 0.1810.16-beta
 
 * Fix profile screen linking to other profiles ([see details](https://gitlab.com/staltz/manyverse/commit/3ad9e399ad992f7ea98f61a0c34024305b786513)), closes [#212](https://gitlab.com/staltz/manyverse/issues/212)
