@@ -45,8 +45,7 @@ function ReplySendButton() {
     {
       sel: 'replyButton',
       style: styles.replySend,
-      activeOpacity: 0.4,
-      hitSlop: {bottom: 12, top: 12},
+      activeOpacity: 0.2,
       accessible: true,
       accessibilityLabel: 'Reply Publish Button',
     },
