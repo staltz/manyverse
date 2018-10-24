@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1810.24-beta
+
+* Fix responsiveness of publish reply button ([see details](https://gitlab.com/staltz/manyverse/commit/79eb5bb18e50428913c638cad859c8a79ea957cd))
+
 ## 0.1810.23-beta
 
 * Copy message cypherlink, from the 'etc' button ([see details](https://gitlab.com/staltz/manyverse/commit/1001fa5ea90e4f4c45ca0cd67781de54c47504e4))
