@@ -40,7 +40,7 @@ class MenuItem extends PureComponent<MenuItemProps> {
   public render() {
     const {icon, text, onPress, accessibilityLabel, accessible} = this.props;
     const touchableProps = {
-      background: TouchableNativeFeedback.Ripple(Palette.gray2),
+      background: TouchableNativeFeedback.Ripple(Palette.colors.gray2),
       onPress: () => {
         if (onPress) onPress();
       },
@@ -68,7 +68,7 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
         h(Avatar, {
           style: styles.authorImage,
           size: Dimensions.avatarSizeNormal,
-          backgroundColor: Palette.indigo9,
+          backgroundColor: Palette.colors.indigo9,
           url: state.avatarUrl,
         }),
         renderName(state.name),

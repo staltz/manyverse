@@ -73,7 +73,6 @@ const indigo9 = '#364fc7';
 const indigo10 = '#2A2E3F';
 const indigo11 = '#1930a0';
 const indigo12 = '#1D202E';
-const indigogray = '#929BAC';
 
 const blue0 = '#e8f7ff';
 const blue1 = '#ccedff';
@@ -154,29 +153,7 @@ const orange7 = '#f76707';
 const orange8 = '#e8590c';
 const orange9 = '#d9480f';
 
-const brand = {
-  backgroundLighterContrast: indigo3,
-  backgroundLighter: indigo6,
-  background: indigo8,
-  backgroundDarker: indigo9,
-  backgroundDarkerContrast: indigo10,
-
-  voidBackground: gray2,
-
-  darkVoidBackground: indigo12,
-  darkTextBackground: indigo10,
-  darkText: teal3,
-  darkTextWeak: indigogray,
-  darkHighlight: acid3,
-
-  callToActionBackground: teal6,
-  callToActionForeground: teal5,
-
-  text: gray9,
-  textBrand: indigo8,
-  textNegative: red6,
-  textHacker: teal3,
-
+export const Palette = {
   backgroundBrandWeakest: indigo1,
   backgroundBrandWeaker: indigo3,
   backgroundBrandWeak: indigo6,
@@ -206,6 +183,15 @@ const brand = {
   transparencyDarkWeak: '#00000020',
   transparencyDark: '#00000033',
   transparencyDarkStrong: '#00000066',
+
+  textVeryWeak: gray5,
+  textWeak: gray7,
+  text: gray9,
+  textBrand: indigo8,
+  textNegative: red6,
+  textHacker: teal3,
+  textBackground: white,
+  textWeakBackground: gray1,
 
   colors: {
     white,

@@ -33,7 +33,7 @@ export default function view(topBar$: Stream<ReactElement<any>>) {
             returnKeyType: 'done',
             placeholder: 'Paste an invitation code',
             placeholderTextColor: Palette.brand.textVeryWeak,
-            selectionColor: Palette.indigo3,
+            selectionColor: Palette.colors.indigo3,
             underlineColorAndroid: Palette.brand.textBackground,
           }),
         ],

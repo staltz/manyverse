@@ -90,12 +90,12 @@ const iconProps = {
   },
   maybeLiked: {
     size: Dimensions.iconSizeSmall,
-    color: Palette.gray6,
+    color: Palette.colors.gray6,
     name: 'thumb-up',
   },
   yesLiked: {
     size: Dimensions.iconSizeSmall,
-    color: Palette.indigo6,
+    color: Palette.colors.indigo6,
     name: 'thumb-up',
   },
   reply: {

@@ -157,7 +157,7 @@ export default class Feed extends PureComponent<Props, State> {
       forceRefresh$: (scrollToTop$ || xs.never())
         .filter(() => this.yOffset <= Y_OFFSET_IS_AT_TOP)
         .mapTo(void 0),
-      refreshColors: [Palette.indigo7],
+      refreshColors: [Palette.colors.indigo7],
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
         thread.messages[0].key || String(index),
       ListFooterComponent: FeedFooter,

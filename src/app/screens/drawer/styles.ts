@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.white,
+    backgroundColor: Palette.colors.white,
   },
 
   header: {
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
 
   noAuthorName: {
     fontSize: Typography.fontSizeNormal,
-    color: Palette.white,
+    color: Palette.colors.white,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     fontStyle: 'italic',
@@ -40,19 +40,19 @@ export const styles = StyleSheet.create({
   authorName: {
     fontFamily: Typography.fontFamilyReadableText,
     fontSize: Typography.fontSizeNormal,
-    color: Palette.white,
+    color: Palette.colors.white,
     fontWeight: 'bold',
   },
 
   authorId: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.indigo2,
+    color: Palette.colors.indigo2,
     fontWeight: 'normal',
   },
 
   menuItemContainer: {
-    backgroundColor: Palette.white,
+    backgroundColor: Palette.colors.white,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
     flexDirection: 'row',

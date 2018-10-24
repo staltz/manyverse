@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
   title: {
     marginLeft: Dimensions.horizontalSpaceLarge,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.white,
+    color: Palette.colors.white,
     fontSize: Typography.fontSizeLarge,
     fontWeight: 'bold',
   },

@@ -49,7 +49,7 @@ export default function view(
             returnKeyType: 'done',
             placeholder: 'Write a public message',
             placeholderTextColor: Palette.brand.textVeryWeak,
-            selectionColor: Palette.indigo3,
+            selectionColor: Palette.colors.indigo3,
             underlineColorAndroid: Palette.brand.textBackground,
           }),
         ],

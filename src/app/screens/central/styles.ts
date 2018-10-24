@@ -18,7 +18,7 @@ const _tabItem = {
 export const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: Palette.white,
+    backgroundColor: Palette.colors.white,
   },
 
   header: {
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   headerTitle: {
     marginLeft: Dimensions.horizontalSpaceNormal,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.white,
+    color: Palette.colors.white,
     fontSize: Typography.fontSizeLarge,
     fontWeight: 'bold',
   },
@@ -71,7 +71,7 @@ export const styles = StyleSheet.create({
   },
 
   updatesDot: {
-    backgroundColor: Palette.white,
+    backgroundColor: Palette.colors.white,
     width: 7,
     height: 7,
     position: 'absolute',
@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
 export const iconProps = {
   headerIcon: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.white,
+    color: Palette.colors.white,
   },
 
   tab: {
@@ -106,11 +106,11 @@ export const iconProps = {
 
   tabSelected: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.white,
+    color: Palette.colors.white,
   },
 };
 
 export const topBarTitle = {
-  color: Palette.white,
+  color: Palette.colors.white,
   fontSize: Typography.fontSizeLarge,
 };

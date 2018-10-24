@@ -37,7 +37,7 @@ export default class Avatar extends PureComponent<Props> {
     return h(View, {style: overlayStyle}, [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.white,
+        color: Palette.colors.white,
         name: overlayIcon,
         style: {top, left},
       }),
@@ -51,7 +51,7 @@ export default class Avatar extends PureComponent<Props> {
       height: size,
       width: size,
       borderRadius,
-      backgroundColor: backgroundColor || Palette.indigo1,
+      backgroundColor: backgroundColor || Palette.colors.indigo1,
     };
     return h(View, {style: [baseStyle, style]}, [
       h(Image, {

@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.avatarSizeNormal,
     width: Dimensions.avatarSizeNormal,
     borderRadius: Math.ceil(Dimensions.avatarSizeNormal * 0.5),
-    backgroundColor: Palette.gray1,
+    backgroundColor: Palette.colors.gray1,
     marginRight: Dimensions.horizontalSpaceSmall,
     marginBottom: Dimensions.verticalSpaceSmall,
   },
@@ -36,13 +36,13 @@ export const styles = StyleSheet.create({
     height: 16,
     marginTop: 3,
     marginBottom: 10,
-    backgroundColor: Palette.gray1,
+    backgroundColor: Palette.colors.gray1,
   },
 
   headerTimestamp: {
     width: 60,
     height: 16,
-    backgroundColor: Palette.gray1,
+    backgroundColor: Palette.colors.gray1,
   },
 
   body: {
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     height: 16,
     marginTop: 10,
     marginBottom: 6,
-    backgroundColor: Palette.gray1,
+    backgroundColor: Palette.colors.gray1,
   },
 
   footer: {
@@ -73,14 +73,14 @@ export const styles = StyleSheet.create({
     height: 20,
     width: 20,
     borderRadius: 5,
-    backgroundColor: Palette.gray1,
+    backgroundColor: Palette.colors.gray1,
   },
 
   footerButtonLabel: {
     marginLeft: Dimensions.horizontalSpaceSmall,
     width: 34,
     height: Dimensions.verticalSpaceBig,
-    backgroundColor: Palette.gray1,
+    backgroundColor: Palette.colors.gray1,
   },
 });
 

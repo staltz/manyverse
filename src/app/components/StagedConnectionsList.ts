@@ -23,7 +23,7 @@ import {StagedPeerMetadata} from '../drivers/ssb';
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    backgroundColor: Palette.indigo0,
+    backgroundColor: Palette.colors.indigo0,
   },
 
   peer: {
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.avatarSizeNormal,
     width: Dimensions.avatarSizeNormal,
     borderRadius: Dimensions.avatarSizeNormal * 0.5,
-    backgroundColor: Palette.indigo1,
+    backgroundColor: Palette.colors.indigo1,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -100,7 +100,7 @@ export default class StagedConnectionsList extends PureComponent<Props> {
           this.props.onPressPeer(peer);
         }
       },
-      underlayColor: Palette.indigo0,
+      underlayColor: Palette.colors.indigo0,
       activeOpacity: 0.4,
     };
 
@@ -109,7 +109,7 @@ export default class StagedConnectionsList extends PureComponent<Props> {
         h(View, {style: styles.peerAvatar}, [
           h(Icon, {
             size: Dimensions.iconSizeNormal,
-            color: Palette.indigo3,
+            color: Palette.colors.indigo3,
             name: peerModeIcon(peer),
           }),
         ]),
