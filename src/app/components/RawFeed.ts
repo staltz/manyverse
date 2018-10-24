@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   },
 
   itemSeparator: {
-    backgroundColor: Palette.brand.voidBackground,
+    backgroundColor: Palette.backgroundVoidWeak,
     height: 1,
   },
 });
@@ -52,7 +52,7 @@ export default class Feed extends PureComponent<Props, {}> {
       pullAmount: 6,
       numColumns: 1,
       refreshable: true,
-      refreshColors: [Palette.colors.indigo7],
+      refreshColors: [Palette.backgroundBrandWeak],
       ItemSeparatorComponent: RawFeedItemSeparator,
       renderItem: ({item}) =>
         h(ShortRawMessageM, {

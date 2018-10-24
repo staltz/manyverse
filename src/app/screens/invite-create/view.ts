@@ -32,7 +32,7 @@ export default function view(
             accessible: true,
             accessibilityLabel: 'Invite Code',
             selectable: true,
-            selectionColor: Palette.colors.indigo3,
+            selectionColor: Palette.backgroundTextSelection,
           },
           state.inviteCode || 'loading...',
         ),

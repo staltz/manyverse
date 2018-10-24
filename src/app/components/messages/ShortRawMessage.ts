@@ -19,7 +19,7 @@ import Avatar from '../Avatar';
 export const styles = StyleSheet.create({
   row: {
     flex: 1,
-    backgroundColor: Palette.brand.textBackground,
+    backgroundColor: Palette.backgroundText,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
     marginBottom: 1,
@@ -41,21 +41,21 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.text,
+    color: Palette.text,
     minWidth: 120,
   },
 
   msgType: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyMonospace,
-    backgroundColor: Palette.brand.darkVoidBackground,
-    color: Palette.brand.darkText,
+    backgroundColor: Palette.backgroundTextHacker,
+    color: Palette.textHacker,
   },
 
   timestamp: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
   },
 });
 

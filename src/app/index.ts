@@ -100,11 +100,11 @@ export const layout = {
 export const defaultNavOptions = {
   statusBar: {
     visible: true,
-    backgroundColor: Palette.brand.backgroundDarker,
+    backgroundColor: Palette.backgroundBrandStrong,
     style: 'light',
   },
   layout: {
-    backgroundColor: Palette.brand.voidBackground,
+    backgroundColor: Palette.backgroundVoid,
     orientation: ['portrait', 'landscape'],
   },
   topBar: {
@@ -115,13 +115,13 @@ export const defaultNavOptions = {
     height: 0,
     borderHeight: 0,
     elevation: 0,
-    buttonColor: Palette.colors.white,
+    buttonColor: Palette.foregroundBrand,
     background: {
-      color: Palette.brand.background,
+      color: Palette.backgroundBrand,
     },
     title: {
       text: '',
-      color: Palette.colors.white,
+      color: Palette.foregroundBrand,
       fontSize: Typography.fontSizeLarge,
     },
   },

@@ -42,7 +42,7 @@ function ReplySendButton() {
     [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.brand.callToActionForeground,
+        color: Palette.foregroundCTA,
         name: 'send',
       }),
     ],
@@ -67,9 +67,9 @@ function ReplyInput(state: State) {
         value: state.replyText,
         editable: state.replyEditable,
         placeholder: 'Comment',
-        placeholderTextColor: Palette.brand.textVeryWeak,
-        selectionColor: Palette.colors.indigo3,
-        underlineColorAndroid: Palette.brand.voidBackground,
+        placeholderTextColor: Palette.textVeryWeak,
+        selectionColor: Palette.backgroundTextSelection,
+        underlineColorAndroid: Palette.backgroundVoid,
         style: styles.replyInput,
       }),
     ]),
@@ -132,7 +132,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
             scrollToEnd$,
             refreshControl: h(RefreshControl, {
               refreshing: state.thread.messages.length === 0,
-              colors: [Palette.brand.background],
+              colors: [Palette.backgroundBrand],
             }),
           },
           [

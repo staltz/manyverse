@@ -53,8 +53,9 @@ export function drawer(sources: Sources): Sinks {
         'Licensed GPL 3.0',
       options: {
         contentIsHtml: true,
-        contentColor: Palette.brand.textWeak,
-        linkColor: Palette.brand.text,
+        contentColor: Palette.textWeak,
+        linkColor: Palette.text,
+        positiveColor: Palette.text,
       },
     } as DialogCmd,
   );

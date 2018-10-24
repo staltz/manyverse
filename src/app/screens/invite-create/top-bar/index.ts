@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
   container: {
     height: Dimensions.toolbarAndroidHeight,
     alignSelf: 'stretch',
-    backgroundColor: Palette.brand.background,
+    backgroundColor: Palette.backgroundBrand,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

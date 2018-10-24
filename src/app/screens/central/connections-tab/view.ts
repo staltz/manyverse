@@ -38,14 +38,14 @@ function ConnectivityMode(props: ModeProps) {
       onPress: props.onPress,
       style: styles.modeTouchable,
       hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
-      underlayColor: '#00000022',
+      underlayColor: Palette.backgroundVoidWeak,
     },
     [
       h(Icon, {
         size: Dimensions.iconSizeBig,
         color: props.active
-          ? Palette.brand.background
-          : Palette.brand.textVeryWeak,
+          ? Palette.backgroundBrand
+          : Palette.backgroundVoidStrong,
         name: props.icon,
         accessible: true,
         accessibilityLabel: props.label,

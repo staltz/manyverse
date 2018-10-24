@@ -8,6 +8,7 @@ import {PureComponent} from 'react';
 import {TouchableHighlight, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Palette} from '../global-styles/palette';
 
 export const styles = StyleSheet.create({
   leftSide: {
@@ -40,7 +41,7 @@ export default class HeaderButton extends PureComponent<Props> {
         style: rightSide ? styles.leftSide : styles.rightSide,
         onPress,
         hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
-        underlayColor: '#00000022',
+        underlayColor: Palette.transparencyDarkWeak,
       },
       [
         h(Icon, {

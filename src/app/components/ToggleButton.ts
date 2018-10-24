@@ -22,28 +22,28 @@ export const styles = StyleSheet.create({
   container: {
     ...baseContainerStyle,
     backgroundColor: 'transparent',
-    borderColor: Palette.brand.background,
+    borderColor: Palette.backgroundBrand,
     borderWidth: 1,
   },
 
   containerMaybe: {
     ...baseContainerStyle,
-    backgroundColor: Palette.colors.gray6,
+    backgroundColor: Palette.backgroundVoidStronger,
   },
 
   containerToggled: {
     ...baseContainerStyle,
-    backgroundColor: Palette.brand.background,
+    backgroundColor: Palette.backgroundBrand,
   },
 
   text: {
     ...baseTextStyle,
-    color: Palette.brand.background,
+    color: Palette.textBrand,
   },
 
   textToggled: {
     ...baseTextStyle,
-    color: Palette.colors.white,
+    color: Palette.foregroundBrand,
   },
 });
 

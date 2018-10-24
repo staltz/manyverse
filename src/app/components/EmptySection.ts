@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceNormal,
     marginBottom: Dimensions.verticalSpaceBig,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
     fontSize: Typography.fontSizeLarge,
     fontWeight: 'bold',
   },
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
   description: {
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textVeryWeak,
+    color: Palette.textVeryWeak,
     fontWeight: 'bold',
     textAlign: 'center',
   },

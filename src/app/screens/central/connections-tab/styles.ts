@@ -11,14 +11,14 @@ import {Typography} from '../../../global-styles/typography';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: Palette.brand.voidBackground,
+    backgroundColor: Palette.backgroundVoid,
     alignSelf: 'stretch',
     flex: 1,
   },
 
   modesContainer: {
     alignSelf: 'stretch',
-    backgroundColor: Palette.brand.textBackground,
+    backgroundColor: Palette.backgroundText,
     paddingVertical: Dimens.verticalSpaceBig,
     paddingHorizontal: Dimens.horizontalSpaceBig,
     marginBottom: Dimens.verticalSpaceNormal,
@@ -56,10 +56,3 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-export const iconProps = {
-  info: {
-    size: Dimens.iconSizeSmall,
-    color: Palette.brand.darkTextWeak,
-  },
-};

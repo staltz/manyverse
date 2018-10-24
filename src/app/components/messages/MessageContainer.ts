@@ -12,7 +12,7 @@ import {Dimensions} from '../../global-styles/dimens';
 export const styles = StyleSheet.create({
   card: {
     flex: 1,
-    backgroundColor: Palette.brand.textBackground,
+    backgroundColor: Palette.backgroundText,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
     marginBottom: 1,

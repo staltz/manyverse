@@ -49,13 +49,13 @@ export const navOptions = {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Palette.brand.darkVoidBackground,
+    backgroundColor: Palette.backgroundHackerVoid,
     padding: 5,
   },
 
   content: {
     fontSize: Typography.fontSizeSmall,
-    color: Palette.brand.darkText,
+    color: Palette.textHacker,
     fontFamily: Typography.fontFamilyMonospace,
   },
 });

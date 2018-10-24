@@ -15,20 +15,20 @@ import {MsgId} from 'ssb-typescript';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Palette.brand.textBackground,
+    backgroundColor: Palette.backgroundText,
     marginBottom: 1,
     flexDirection: 'column',
   },
 
   hr1: {
-    backgroundColor: Palette.brand.voidBackground,
+    backgroundColor: Palette.backgroundVoid,
     height: 1,
     marginTop: Dimensions.verticalSpaceBig,
     marginBottom: Dimensions.verticalSpaceBig,
   },
 
   hr2: {
-    backgroundColor: Palette.brand.voidBackground,
+    backgroundColor: Palette.backgroundVoid,
     height: 1,
     marginTop: 0,
     marginBottom: Dimensions.verticalSpaceBig,
@@ -45,16 +45,16 @@ export const styles = StyleSheet.create({
     top: Dimensions.verticalSpaceBig * 0.6,
     bottom: Dimensions.verticalSpaceBig * 0.6,
     borderRadius: 3,
-    borderColor: Palette.brand.voidBackground,
+    borderColor: Palette.backgroundVoid,
     borderWidth: 1,
-    backgroundColor: Palette.brand.textBackground,
+    backgroundColor: Palette.backgroundText,
   },
 
   labelText: {
     fontSize: Typography.fontSizeNormal,
     textAlign: 'center',
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.background,
+    color: Palette.backgroundBrand,
   },
 });
 

@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   blockquote: {
     backgroundColor: Palette.backgroundTextWeak,
     borderLeftWidth: 3,
-    borderLeftColor: Palette.colors.gray5,
+    borderLeftColor: Palette.backgroundTextWeakStrong,
     paddingLeft: Dimens.horizontalSpaceSmall,
     paddingRight: 1,
   },
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
 
   horizontalLine: {
-    backgroundColor: Palette.colors.gray4,
+    backgroundColor: Palette.textVeryWeak,
     height: 2,
     marginTop: Dimens.verticalSpaceSmall,
     marginBottom: Dimens.verticalSpaceSmall,
@@ -181,7 +181,7 @@ class ImageWithBG extends PureComponent<{src: string}, {loaded: boolean}> {
           style: {
             marginTop: Dimens.verticalSpaceSmall,
             marginBottom: Dimens.verticalSpaceSmall,
-            backgroundColor: Palette.colors.gray1,
+            backgroundColor: Palette.backgroundVoidWeak,
             width,
             height,
           },

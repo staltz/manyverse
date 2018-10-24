@@ -30,14 +30,14 @@ export default class Avatar extends PureComponent<Props> {
       width: size,
       borderRadius,
       position: 'absolute' as 'absolute',
-      backgroundColor: '#00000033',
+      backgroundColor: Palette.transparencyDark,
     };
     const top = size * 0.5 - Dimensions.iconSizeNormal * 0.5;
     const left = top;
     return h(View, {style: overlayStyle}, [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.colors.white,
+        color: Palette.foregroundBrand,
         name: overlayIcon,
         style: {top, left},
       }),
@@ -51,7 +51,7 @@ export default class Avatar extends PureComponent<Props> {
       height: size,
       width: size,
       borderRadius,
-      backgroundColor: backgroundColor || Palette.colors.indigo1,
+      backgroundColor: backgroundColor || Palette.backgroundBrandWeakest,
     };
     return h(View, {style: [baseStyle, style]}, [
       h(Image, {

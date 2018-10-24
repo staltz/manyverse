@@ -14,11 +14,11 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
     state =>
       ({
         sel: 'fab',
-        color: Palette.brand.callToActionBackground,
+        color: Palette.backgroundCTA,
         visible: !!state.selfFeedId,
         actions: [
           {
-            color: Palette.brand.callToActionBackground,
+            color: Palette.backgroundCTA,
             name: 'compose',
             icon: require('../../../../../images/pencil.png'),
             text: 'Write a public message',

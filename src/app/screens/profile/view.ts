@@ -110,11 +110,11 @@ export default function view(
 
       h(FloatingAction, {
         sel: 'fab',
-        color: Palette.brand.callToActionBackground,
+        color: Palette.backgroundCTA,
         visible: isSelfProfile,
         actions: [
           {
-            color: Palette.brand.callToActionBackground,
+            color: Palette.backgroundCTA,
             name: 'compose',
             icon: require('../../../../images/pencil.png'),
             text: 'Write a public message',

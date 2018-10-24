@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   container: {
     height: Dimensions.toolbarAndroidHeight,
     alignSelf: 'stretch',
-    backgroundColor: Palette.brand.background,
+    backgroundColor: Palette.backgroundBrand,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
   title: {
     marginLeft: Dimensions.horizontalSpaceLarge,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.colors.white,
+    color: Palette.foregroundBrand,
     fontSize: Typography.fontSizeLarge,
     fontWeight: 'bold',
   },

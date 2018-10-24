@@ -33,7 +33,7 @@ export default function messageEtc(sources: Sources): Sinks {
             {label: 'View raw message', id: 'raw-msg'},
           ],
           type: 'listPlain',
-          contentColor: Palette.brand.text,
+          contentColor: Palette.text,
           cancelable: true,
           positiveText: '',
           negativeText: '',

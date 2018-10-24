@@ -16,11 +16,11 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.brand.voidBackground,
+    backgroundColor: Palette.backgroundVoid,
   },
 
   cover: {
-    backgroundColor: Palette.brand.background,
+    backgroundColor: Palette.backgroundBrand,
     height: avatarSizeHalf,
     zIndex: 10,
   },
@@ -43,25 +43,25 @@ export const styles = StyleSheet.create({
     paddingBottom: Dimensions.verticalSpaceNormal,
     paddingLeft: Dimensions.horizontalSpaceBig,
     paddingRight: Dimensions.horizontalSpaceBig,
-    backgroundColor: Palette.brand.textBackground,
+    backgroundColor: Palette.backgroundText,
   },
 
   description: {
     fontSize: Typography.fontSizeNormal,
-    color: Palette.brand.text,
+    color: Palette.text,
   },
 
   feed: {
     top: Dimensions.verticalSpaceNormal * 0.5,
     bottom: 0,
-    backgroundColor: Palette.brand.voidBackground,
+    backgroundColor: Palette.backgroundVoid,
     alignSelf: 'stretch',
   },
 
   feedWithHeader: {
     top: Dimensions.verticalSpaceNormal,
     bottom: 0,
-    backgroundColor: Palette.brand.voidBackground,
+    backgroundColor: Palette.backgroundVoid,
     alignSelf: 'stretch',
   },
 

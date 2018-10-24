@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
   container: {
     height: Dimensions.toolbarAndroidHeight,
     alignSelf: 'stretch',
-    backgroundColor: Palette.brand.background,
+    backgroundColor: Palette.backgroundBrand,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -42,12 +42,12 @@ export const styles = StyleSheet.create({
   },
 
   buttonEnabled: {
-    backgroundColor: Palette.brand.callToActionBackground,
+    backgroundColor: Palette.backgroundCTA,
     width: 80,
   },
 
   buttonDisabled: {
-    backgroundColor: Palette.brand.backgroundLighter,
+    backgroundColor: Palette.backgroundBrandWeak,
     width: 80,
   },
 });

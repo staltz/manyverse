@@ -13,14 +13,14 @@ import {Typography} from '../../global-styles/typography';
 export const styles = StyleSheet.create({
   metadataBox: {
     flex: 1,
-    backgroundColor: Palette.brand.darkVoidBackground,
+    backgroundColor: Palette.backgroundTextHacker,
     padding: 5,
     borderRadius: 2,
   },
 
   metadataText: {
     fontSize: Typography.fontSizeSmall,
-    color: Palette.brand.darkText,
+    color: Palette.textHacker,
     fontFamily: Typography.fontFamilyMonospace,
   },
 });

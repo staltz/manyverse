@@ -37,14 +37,14 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceSmall,
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
   },
 
   likesHidden: {
     marginTop: Dimensions.verticalSpaceSmall,
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textBackground,
+    color: Palette.backgroundText,
   },
 
   likeButton: {
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: Dimensions.horizontalSpaceSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
   },
 
   replyButton: {
@@ -78,29 +78,29 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: Dimensions.horizontalSpaceSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
   },
 });
 
 const iconProps = {
   noLiked: {
     size: Dimensions.iconSizeSmall,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
     name: 'thumb-up-outline',
   },
   maybeLiked: {
     size: Dimensions.iconSizeSmall,
-    color: Palette.colors.gray6,
+    color: Palette.foregroundNeutral,
     name: 'thumb-up',
   },
   yesLiked: {
     size: Dimensions.iconSizeSmall,
-    color: Palette.colors.indigo6,
+    color: Palette.backgroundBrandWeak,
     name: 'thumb-up',
   },
   reply: {
     size: Dimensions.iconSizeSmall,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
     name: 'comment-outline',
   },
 };

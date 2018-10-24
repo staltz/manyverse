@@ -24,19 +24,19 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
     maxWidth: 120,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
   },
 
   followed: {
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
   },
 
   timestamp: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
   },
 });
 

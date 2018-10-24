@@ -38,14 +38,14 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.text,
+    color: Palette.text,
     minWidth: 120,
   },
 
   messageHeaderTimestamp: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
   },
 });
 
@@ -126,7 +126,7 @@ export default class MessageHeader extends Component<Props> {
       h(TouchableOpacity, etcTouchableProps, [
         h(Icon, {
           size: Dimensions.iconSizeNormal,
-          color: Palette.brand.textVeryWeak,
+          color: Palette.textVeryWeak,
           name: 'chevron-down',
           accessible: true,
           accessibilityLabel: 'Etc Button',

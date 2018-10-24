@@ -14,18 +14,18 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
     state =>
       ({
         sel: 'fab',
-        color: Palette.brand.callToActionBackground,
+        color: Palette.backgroundCTA,
         visible: state.internetEnabled,
         actions: [
           {
-            color: Palette.brand.callToActionBackground,
+            color: Palette.backgroundCTA,
             name: 'invite-create',
             icon: require('../../../../../images/share.png'),
             text: 'Create invite',
           },
 
           {
-            color: Palette.brand.callToActionBackground,
+            color: Palette.backgroundCTA,
             name: 'invite-paste',
             icon: require('../../../../../images/package-down.png'),
             text: 'Paste invite',

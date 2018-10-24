@@ -8,6 +8,7 @@ import xs, {Stream} from 'xstream';
 import between from 'xstream-between';
 import {NavSource} from 'cycle-native-navigation';
 import {DialogSource} from '../../drivers/dialogs';
+import {Palette} from '../../global-styles/palette';
 
 export default function dialogs(
   navSource: NavSource,
@@ -21,7 +22,9 @@ export default function dialogs(
     .map(() =>
       dialogSource.alert('Edit profile', 'Discard changes?', {
         positiveText: 'Discard',
+        positiveColor: Palette.textNegative,
         negativeText: 'Cancel',
+        negativeColor: Palette.text,
       }),
     )
     .flatten();

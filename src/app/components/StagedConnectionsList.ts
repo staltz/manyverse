@@ -23,7 +23,7 @@ import {StagedPeerMetadata} from '../drivers/ssb';
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    backgroundColor: Palette.colors.indigo0,
+    backgroundColor: Palette.backgroundTextBrand,
   },
 
   peer: {
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.avatarSizeNormal,
     width: Dimensions.avatarSizeNormal,
     borderRadius: Dimensions.avatarSizeNormal * 0.5,
-    backgroundColor: Palette.colors.indigo1,
+    backgroundColor: Palette.backgroundBrandWeakest,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -57,14 +57,14 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.text,
+    color: Palette.text,
     minWidth: 120,
   },
 
   peerModeText: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brand.textWeak,
+    color: Palette.textWeak,
   },
 });
 
@@ -100,7 +100,7 @@ export default class StagedConnectionsList extends PureComponent<Props> {
           this.props.onPressPeer(peer);
         }
       },
-      underlayColor: Palette.colors.indigo0,
+      underlayColor: Palette.backgroundTextBrand,
       activeOpacity: 0.4,
     };
 
@@ -109,7 +109,7 @@ export default class StagedConnectionsList extends PureComponent<Props> {
         h(View, {style: styles.peerAvatar}, [
           h(Icon, {
             size: Dimensions.iconSizeNormal,
-            color: Palette.colors.indigo3,
+            color: Palette.backgroundBrandWeaker,
             name: peerModeIcon(peer),
           }),
         ]),

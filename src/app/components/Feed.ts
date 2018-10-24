@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   },
 
   itemSeparator: {
-    backgroundColor: Palette.brand.voidBackground,
+    backgroundColor: Palette.backgroundVoid,
     height: Dimensions.verticalSpaceNormal,
   },
 
@@ -157,7 +157,7 @@ export default class Feed extends PureComponent<Props, State> {
       forceRefresh$: (scrollToTop$ || xs.never())
         .filter(() => this.yOffset <= Y_OFFSET_IS_AT_TOP)
         .mapTo(void 0),
-      refreshColors: [Palette.colors.indigo7],
+      refreshColors: [Palette.backgroundBrandWeak],
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
         thread.messages[0].key || String(index),
       ListFooterComponent: FeedFooter,

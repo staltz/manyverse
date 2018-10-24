@@ -40,24 +40,24 @@ export const styles = StyleSheet.create({
   container: {
     ...baseContainerStyle,
     backgroundColor: 'transparent',
-    borderColor: Palette.brand.background,
+    borderColor: Palette.backgroundBrand,
     borderWidth: 1,
   },
 
   containerStrong: {
     ...baseContainerStyle,
-    backgroundColor: Palette.brand.background,
+    backgroundColor: Palette.backgroundBrand,
     borderWidth: 0,
   },
 
   text: {
     ...baseTextStyle,
-    color: Palette.brand.background,
+    color: Palette.textBrand,
   },
 
   textStrong: {
     ...baseTextStyle,
-    color: Palette.colors.white,
+    color: Palette.foregroundBrand,
   },
 });
 
@@ -84,7 +84,7 @@ export default class Button extends Component<Props, {}> {
     const {text, strong, style, accessible, accessibilityLabel} = this.props;
 
     const touchableProps = {
-      background: TouchableNativeFeedback.Ripple(Palette.brand.background),
+      background: TouchableNativeFeedback.Ripple(Palette.backgroundBrand),
       onPress: () => {
         if (this.props.onPress) {
           this.props.onPress();
