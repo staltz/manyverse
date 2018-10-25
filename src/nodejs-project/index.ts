@@ -55,7 +55,7 @@ function dhtTransport(_sbot: any) {
   });
 }
 
-const sbot = require('scuttlebot/index')
+require('scuttlebot/index')
   .use(rnChannelTransport)
   .use(require('ssb-dht-invite'))
   .use(dhtTransport)
@@ -77,5 +77,3 @@ const sbot = require('scuttlebot/index')
   .use(require('scuttlebot/plugins/local'))
   .use(require('ssb-ebt'))
   .call(null, config);
-
-sbot.dhtInvite.start();

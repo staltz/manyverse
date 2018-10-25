@@ -413,6 +413,11 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
             }
           });
         }
+        if (req.type === 'dhtInvite.start') {
+          api.sbot.async.startDht[0]((err: any, v: any) => {
+            if (err) console.error(err.message || err);
+          });
+        }
         if (req.type === 'dhtInvite.accept') {
           api.sbot.async.acceptDhtInvite[0](req.invite, (err: any, v: any) => {
             if (err) {

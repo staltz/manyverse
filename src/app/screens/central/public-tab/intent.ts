@@ -42,6 +42,10 @@ export default function intent(
       .select('publicFeed')
       .events('pressEtc') as Stream<Msg>,
 
+    initializationDone$: reactSource
+      .select('publicFeed')
+      .events('initialPullDone') as Stream<void>,
+
     resetUpdates$: reactSource.select('publicFeed').events('refresh') as Stream<
       any
     >,
