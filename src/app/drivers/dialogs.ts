@@ -44,6 +44,10 @@ export type OptionsPicker = OptionsCommon & {
   widgetColor?: string;
 };
 
+export type OptionsPrompt = OptionsCommon & {
+  widgetColor?: string;
+};
+
 export type AlertAction = {
   action:
     | 'actionDismiss'
@@ -58,6 +62,10 @@ export type PickerAction =
       action: 'actionSelect';
       selectedItem: any;
     };
+
+export type PromptAction =
+  | {action: 'actionNegative' | 'actionNeutral' | 'actionDismiss'}
+  | {action: 'actionPositive'; text: string; checked?: boolean};
 
 export class DialogSource {
   constructor() {}
@@ -76,6 +84,14 @@ export class DialogSource {
     options?: OptionsPicker,
   ): Stream<PickerAction> {
     return xs.fromPromise(DialogAndroid.showPicker(title, content, options));
+  }
+
+  public prompt(
+    title?: string,
+    content?: string,
+    options?: OptionsPrompt,
+  ): Stream<PromptAction> {
+    return xs.fromPromise(DialogAndroid.prompt(title, content, options));
   }
 }
 
