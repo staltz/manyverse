@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import xs, {Stream, MemoryStream} from 'xstream';
 import {
   Msg,
   PeerMetadata,
@@ -92,7 +92,7 @@ export type GetReadable<T> = (opts?: any) => Readable<T>;
 export type HostingDhtInvite = {seed: string; claimer: string; online: boolean};
 
 export class SSBSource {
-  public selfFeedId$: Stream<FeedId>;
+  public selfFeedId$: MemoryStream<FeedId>;
   public publicRawFeed$: Stream<GetReadable<MsgAndExtras>>;
   public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
   public publicLiveUpdates$: Stream<null>;
@@ -107,7 +107,7 @@ export class SSBSource {
   public stagedPeers$: Stream<Array<StagedPeerMetadata>>;
 
   constructor(private api$: Stream<any>) {
-    this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]());
+    this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]()).remember();
 
     this.publicRawFeed$ = api$.map(api => (opts?: any) =>
       pull(
