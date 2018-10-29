@@ -62,6 +62,13 @@ export function connectionsTab(sources: Sources): Sinks {
   const fabProps$ = floatingAction(sources.state.stream);
   const ssb$ = ssb(actions);
   const alert$ = alert(actions, sources.state.stream);
+  const share$ = actions.shareDhtInvite$.map(inviteCode => ({
+    message:
+      'Connect with me on Manyverse by pasting this invite code there:\n\n' +
+      inviteCode,
+    title: 'Manyverse Invite Code',
+    dialogTitle: 'Give this invite code to one friend',
+  }));
 
   return {
     alert: alert$,
