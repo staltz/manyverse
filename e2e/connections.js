@@ -65,6 +65,86 @@ module.exports = function(driver, t) {
       'I see that the staged connection refers to the invite code',
     );
 
+    t.end();
+  });
+
+  t.test('Connections tab can add note to DHT invite', async function(t) {
+    const invite = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().textContains("waiting for online friend")',
+    );
+    t.ok(invite, 'I see a staged connection for the invite code');
+    await invite.tap();
+    t.pass('I tap it');
+
+    const addNote = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().textContains("Add note")',
+      6000,
+    );
+    t.ok(addNote, 'I see a slide-in menu with "Add note" option');
+    await addNote.tap();
+    t.pass('I tap it');
+
+    await driver.sleep(2000);
+
+    t.ok(
+      await driver.elementByAndroidUIAutomator(
+        'new UiSelector().textContains("note about this invite code")',
+      ),
+      'I see a dialog prompt asking for the note',
+    );
+    t.pass('I write a note into the text field');
+    await driver.keys('notehere');
+
+    const okButton = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().text("Add")',
+      6000,
+    );
+    t.ok(okButton, 'I see the Add button');
+    await okButton.tap();
+    t.pass('I tap it');
+
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("notehere")',
+        6000,
+      ),
+      'I see the note for the invite code',
+    );
+
+    t.end();
+  });
+
+  t.test('Connections tab can delete DHT invite', async function(t) {
+    const invite = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().textContains("waiting for online friend")',
+      6000,
+    );
+    t.ok(invite, 'I see a staged connection for the invite code');
+    await invite.tap();
+    t.pass('I tap it');
+
+    const addNote = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().textContains("Delete")',
+      6000,
+    );
+    t.ok(addNote, 'I see a slide-in menu with "Delete" option');
+    await addNote.tap();
+    t.pass('I tap it');
+
+    await driver.sleep(2000);
+
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("No connections")',
+        6000,
+      ),
+      'I see Connections tab body with no connections',
+    );
+
+    t.end();
+  });
+
+  t.test('Connections tab changes to Public Tab', async function(t) {
     const publicTabButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Public Tab Button")',
     );

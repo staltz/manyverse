@@ -24,7 +24,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Compose Text Input")',
       6000,
     );
-    t.pass('I see the Compose Text Input in the Compose screen');
+    t.ok(composeTextInput, 'I see the Compose Text Input in Compose screen');
     await composeTextInput.keys('Hello world today is a sunny day');
     t.pass('I type a message into it');
     const f2 = await composeTextInput.text();
@@ -68,7 +68,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Compose Text Input")',
       6000,
     );
-    t.pass('I see the Compose Text Input in the Compose screen');
+    t.ok(composeTextInput, 'I see the Compose Text Input in Compose screen');
     await driver.hideKeyboard();
     t.pass('I hide the keyboard');
 
