@@ -82,6 +82,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         peers: [],
         stagedPeers: [],
         inviteMenuTarget: null,
+        latestInviteMenuTarget: null,
       };
     }
   },

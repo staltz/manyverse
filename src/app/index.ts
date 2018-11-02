@@ -23,6 +23,7 @@ import {alertDriver} from 'cycle-native-alert';
 import {makeClipboardDriver} from 'cycle-native-clipboard';
 import {linkingDriver} from 'cycle-native-linking';
 import {makeToastDriver} from './drivers/toast';
+import {asyncStorageDriver} from 'cycle-native-asyncstorage';
 import {notificationDriver} from 'cycle-native-android-local-notification';
 import {ssbDriver} from './drivers/ssb';
 import {shareDriver} from 'cycle-native-share';
@@ -59,6 +60,7 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
 
 export const drivers = {
   alert: alertDriver,
+  asyncstorage: asyncStorageDriver,
   keyboard: makeKeyboardDriver(),
   clipboard: makeClipboardDriver(),
   linking: linkingDriver,

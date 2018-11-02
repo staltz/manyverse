@@ -21,7 +21,7 @@ import {State} from './model';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import ConnectionsList from '../../../components/ConnectionsList';
-import StagedConnectionsList from '../../../components/StagedConnectionsList';
+import StagedConnectionsList from './StagedConnectionsList';
 import EmptySection from '../../../components/EmptySection';
 
 type ModeProps = {
@@ -168,14 +168,14 @@ function SlideInMenu(state: State) {
             accessibilityLabel: 'About this Invite Code',
           }),
         }),
-        // h(MenuOption, {
-        //   value: 'note',
-        //   ['children' as any]: h(MenuOptionContent, {
-        //     icon: 'pencil',
-        //     text: 'Add note',
-        //     accessibilityLabel: 'Add Note',
-        //   }),
-        // }),
+        h(MenuOption, {
+          value: 'note',
+          ['children' as any]: h(MenuOptionContent, {
+            icon: 'pencil',
+            text: 'Add note',
+            accessibilityLabel: 'Add Note',
+          }),
+        }),
         h(MenuOption, {
           value: 'share',
           ['children' as any]: h(MenuOptionContent, {

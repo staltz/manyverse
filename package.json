@@ -36,6 +36,7 @@
     "buffer": "5.2.0",
     "cycle-native-alert": "1.1.0",
     "cycle-native-android-local-notification": "1.1.0",
+    "cycle-native-asyncstorage": "1.0.0",
     "cycle-native-clipboard": "1.0.0",
     "cycle-native-keyboard": "1.2.0",
     "cycle-native-linking": "1.1.0",

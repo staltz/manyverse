@@ -10,31 +10,41 @@ import {PeerMetadata, FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
 import {SSBSource, StagedPeerMetadata} from '../../../drivers/ssb';
 import {NetworkSource} from '../../../drivers/network';
+import {noteStorageKeyFor} from './asyncstorage';
 import dropRepeats from 'xstream/extra/dropRepeats';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+
+export type StagedPeer = StagedPeerMetadata & {
+  note?: string;
+};
 
 export type State = {
   selfFeedId: FeedId;
   lanEnabled: boolean;
   internetEnabled: boolean;
   peers: Array<PeerMetadata>;
-  stagedPeers: Array<StagedPeerMetadata>;
+  stagedPeers: Array<StagedPeer>;
   isSyncing: boolean;
   isVisible: boolean;
-  inviteMenuTarget: StagedPeerMetadata | null;
+  inviteMenuTarget: StagedPeer | null;
+  latestInviteMenuTarget: StagedPeer | null;
 };
 
 export type Actions = {
-  openStagedPeer$: Stream<StagedPeerMetadata>;
+  openStagedPeer$: Stream<StagedPeer>;
   closeInviteMenu$: Stream<any>;
   infoClientDhtInvite$: Stream<any>;
   infoServerDhtInvite$: Stream<any>;
+  noteDhtInvite$: Stream<any>;
   shareDhtInvite$: Stream<any>;
   removeDhtInvite$: Stream<any>;
+  addNoteFromDialog$: Stream<string>;
 };
 
 export default function model(
   state$: Stream<State>,
   actions: Actions,
+  asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
   networkSource: NetworkSource,
 ): Stream<Reducer<State>> {
@@ -49,6 +59,7 @@ export default function model(
       peers: [],
       stagedPeers: [],
       inviteMenuTarget: null,
+      latestInviteMenuTarget: null,
     };
   });
 
@@ -99,19 +110,43 @@ export default function model(
       },
   );
 
-  const setStagedPeersReducer$ = ssbSource.stagedPeers$.map(
-    stagedPeers =>
-      function setPeersReducer(prev: State): State {
-        return {...prev, stagedPeers};
-      },
-  );
+  const setStagedPeersReducer$ = ssbSource.stagedPeers$
+    .map(stagedPeers => {
+      const dhtInvites = stagedPeers
+        .filter(p => p.source === 'dht')
+        .map(noteStorageKeyFor);
+
+      if (dhtInvites.length === 0) {
+        return xs.of([stagedPeers, []]);
+      } else {
+        return asyncStorageSource
+          .multiGet(dhtInvites)
+          .map(keyValuePairs => [stagedPeers, keyValuePairs]);
+      }
+    })
+    .flatten()
+    .map(
+      ([rawStagedPeers, notes]: [StagedPeerMetadata[], [string, string][]]) =>
+        function setPeersReducer(prev: State): State {
+          const stagedPeers = rawStagedPeers.map(p => {
+            const kv = notes.find(_kv => _kv[0].endsWith(p.key) && !!_kv[1]);
+            if (!kv) return p;
+            return {...p, note: kv[1]};
+          });
+          return {...prev, stagedPeers};
+        },
+    );
 
   const openInviteMenuReducer$ = actions.openStagedPeer$
     .filter(peer => peer.source === 'dht')
     .map(
       peer =>
         function openInviteMenuReducer(prev: State): State {
-          return {...prev, inviteMenuTarget: peer};
+          return {
+            ...prev,
+            inviteMenuTarget: peer,
+            latestInviteMenuTarget: peer,
+          };
         },
     );
 
@@ -120,12 +155,27 @@ export default function model(
       actions.closeInviteMenu$,
       actions.infoClientDhtInvite$,
       actions.infoServerDhtInvite$,
+      actions.noteDhtInvite$,
       actions.shareDhtInvite$,
       actions.removeDhtInvite$,
     )
     .mapTo(function openInviteMenuReducer(prev: State): State {
       return {...prev, inviteMenuTarget: null};
     });
+
+  const addNoteFromDialogReducer$ = actions.addNoteFromDialog$.map(
+    note =>
+      function addNoteFromDialogReducer(prev: State): State {
+        if (!prev.latestInviteMenuTarget) return prev;
+        const stagedPeers = prev.stagedPeers.map(
+          p =>
+            p.key === (prev.latestInviteMenuTarget as StagedPeer).key
+              ? {...p, note}
+              : p,
+        );
+        return {...prev, stagedPeers};
+      },
+  );
 
   return xs.merge(
     initReducer$,
@@ -136,5 +186,6 @@ export default function model(
     setStagedPeersReducer$,
     openInviteMenuReducer$,
     closeInviteMenuReducer$,
+    addNoteFromDialogReducer$,
   );
 }

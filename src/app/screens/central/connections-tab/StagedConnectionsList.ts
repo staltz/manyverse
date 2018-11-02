@@ -15,10 +15,10 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Palette} from '../global-styles/palette';
-import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
-import {StagedPeerMetadata} from '../drivers/ssb';
+import {Palette} from '../../../global-styles/palette';
+import {Dimensions} from '../../../global-styles/dimens';
+import {Typography} from '../../../global-styles/typography';
+import {StagedPeer} from './model';
 
 export const styles = StyleSheet.create({
   container: {
@@ -68,14 +68,14 @@ export const styles = StyleSheet.create({
   },
 });
 
-function peerModeIcon(peer: StagedPeerMetadata): string {
+function peerModeIcon(peer: StagedPeer): string {
   if (peer.source === 'local') return 'wifi';
   if (peer.source === 'dht') return 'account-network';
   if (peer.source === 'pub') return 'server-network';
   return 'server-network';
 }
 
-function peerModeDescription(peer: StagedPeerMetadata): string {
+function peerModeDescription(peer: StagedPeer): string {
   if (peer.source === 'local') return 'Local network';
   if (peer.source === 'dht' && peer.role === 'client')
     return 'Internet P2P: looking for online friend...';
@@ -87,13 +87,13 @@ function peerModeDescription(peer: StagedPeerMetadata): string {
 }
 
 export type Props = {
-  peers: Array<StagedPeerMetadata>;
+  peers: Array<StagedPeer>;
   style?: StyleProp<ViewStyle>;
-  onPressPeer?: (key: StagedPeerMetadata) => void;
+  onPressPeer?: (key: StagedPeer) => void;
 };
 
 export default class StagedConnectionsList extends PureComponent<Props> {
-  private renderItem(peer: StagedPeerMetadata) {
+  private renderItem(peer: StagedPeer) {
     const touchableProps = {
       onPress: () => {
         if (this.props.onPressPeer) {
@@ -117,7 +117,7 @@ export default class StagedConnectionsList extends PureComponent<Props> {
           h(
             Text,
             {numberOfLines: 1, ellipsizeMode: 'middle', style: styles.peerName},
-            peer.key,
+            peer.note || peer.key,
           ),
           h(Text, {style: styles.peerModeText}, peerModeDescription(peer)),
         ]),
