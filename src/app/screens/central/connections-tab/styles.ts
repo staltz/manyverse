@@ -7,6 +7,7 @@
 import {StyleSheet} from 'react-native';
 import {Dimensions as Dimens} from '../../../global-styles/dimens';
 import {Palette} from '../../../global-styles/palette';
+import {Typography} from '../../../global-styles/typography';
 
 export const styles = StyleSheet.create({
   container: {
@@ -37,6 +38,22 @@ export const styles = StyleSheet.create({
 
   connectionsList: {
     marginBottom: Dimens.verticalSpaceNormal,
+  },
+
+  menuOptionContent: {
+    paddingHorizontal: Dimens.horizontalSpaceBig,
+    paddingVertical: Dimens.verticalSpaceBig,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+
+  menuOptionContentText: {
+    fontFamily: Typography.fontFamilyReadableText,
+    marginLeft: Dimens.horizontalSpaceBig,
+    color: Palette.textWeak,
+    fontSize: Typography.fontSizeNormal,
+    fontWeight: 'bold',
   },
 });
 

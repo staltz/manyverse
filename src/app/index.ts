@@ -30,6 +30,7 @@ import {makeNetworkDriver} from './drivers/network';
 import {makeEventBusDriver} from './drivers/eventbus';
 import {dialogDriver} from './drivers/dialogs';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
+import {makeExitDriver} from './drivers/exit';
 import {central, navOptions as centralNavOpts} from './screens/central/index';
 import {drawer} from './screens/drawer/index';
 import {compose} from './screens/compose/index';
@@ -69,6 +70,7 @@ export const drivers = {
   notification: notificationDriver,
   dialog: dialogDriver,
   toast: makeToastDriver(),
+  exit: makeExitDriver(),
 };
 
 export const layout = {

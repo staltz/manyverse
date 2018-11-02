@@ -12,6 +12,8 @@ export type Actions = {
   showLANHelp$: Stream<any>;
   showDHTHelp$: Stream<any>;
   showPubHelp$: Stream<any>;
+  infoClientDhtInvite$: Stream<any>;
+  infoServerDhtInvite$: Stream<any>;
 };
 
 export default function alert(
@@ -43,6 +45,21 @@ export default function alert(
             (state.internetEnabled ? '(ENABLED)' : '(Go online to use this)') +
             '\n\nConnect to a so-called "Pub server" owned by some friend, ' +
             'containing the latest data from multiple accounts.',
+          buttons: [{text: 'OK', id: 'okay'}],
+        }),
+        actions.infoClientDhtInvite$.mapTo({
+          title: 'Connecting via internet P2P...',
+          message:
+            'Currently searching for online friend ' +
+            'who generated this invite code, ' +
+            'to establish a data connection with them.',
+          buttons: [{text: 'OK', id: 'okay'}],
+        }),
+        actions.infoServerDhtInvite$.mapTo({
+          title: 'Connecting via internet P2P...',
+          message:
+            'Currently waiting for online friend ' +
+            'to claim this invite code and establish a data connection.',
           buttons: [{text: 'OK', id: 'okay'}],
         }),
       ),

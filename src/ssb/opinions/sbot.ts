@@ -42,6 +42,7 @@ const gives = {
       acceptInvite: true,
       acceptDhtInvite: true,
       createDhtInvite: true,
+      removeDhtInvite: true,
       addBlob: true,
       gossipConnect: true,
       friendsGet: true,
@@ -226,6 +227,9 @@ const create = (api: any) => {
         }),
         createDhtInvite: rec.async((cb: any) => {
           sbot.dhtInvite.create(cb);
+        }),
+        removeDhtInvite: rec.async((invite: string, cb: any) => {
+          sbot.dhtInvite.remove(invite, cb);
         }),
         addBlob: rec.async((stream: any, cb: any) => {
           return pull(stream, sbot.blobs.add(cb));

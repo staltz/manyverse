@@ -81,6 +81,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         isVisible: parent.currentTab === 1,
         peers: [],
         stagedPeers: [],
+        inviteMenuTarget: null,
       };
     }
   },

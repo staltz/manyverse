@@ -86,6 +86,11 @@ export const styles = StyleSheet.create({
     right: 2,
     bottom: 4.9,
   },
+
+  menuBackdrop: {
+    backgroundColor: Palette.transparencyDarkStrong,
+    opacity: 1,
+  },
 });
 
 export const iconProps = {

@@ -108,6 +108,7 @@ export = {
     create: 'async',
     use: 'async',
     accept: 'async',
+    remove: 'async',
     channels: 'source',
     hostingInvites: 'source',
     claimingInvites: 'source',

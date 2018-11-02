@@ -5,7 +5,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent} from 'react';
-import {View, Text, StyleSheet, StyleProp, ViewStyle} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  TouchableHighlight,
+} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
@@ -82,25 +89,38 @@ function peerModeDescription(peer: StagedPeerMetadata): string {
 export type Props = {
   peers: Array<StagedPeerMetadata>;
   style?: StyleProp<ViewStyle>;
+  onPressPeer?: (key: StagedPeerMetadata) => void;
 };
 
 export default class StagedConnectionsList extends PureComponent<Props> {
   private renderItem(peer: StagedPeerMetadata) {
-    return h(View, {style: styles.peer}, [
-      h(View, {style: styles.peerAvatar}, [
-        h(Icon, {
-          size: Dimensions.iconSizeNormal,
-          color: Palette.indigo3,
-          name: peerModeIcon(peer),
-        }),
-      ]),
-      h(View, {style: styles.peerDetails}, [
-        h(
-          Text,
-          {numberOfLines: 1, ellipsizeMode: 'middle', style: styles.peerName},
-          peer.key,
-        ),
-        h(Text, {style: styles.peerModeText}, peerModeDescription(peer)),
+    const touchableProps = {
+      onPress: () => {
+        if (this.props.onPressPeer) {
+          this.props.onPressPeer(peer);
+        }
+      },
+      underlayColor: Palette.indigo0,
+      activeOpacity: 0.4,
+    };
+
+    return h(TouchableHighlight, touchableProps, [
+      h(View, {style: styles.peer}, [
+        h(View, {style: styles.peerAvatar}, [
+          h(Icon, {
+            size: Dimensions.iconSizeNormal,
+            color: Palette.indigo3,
+            name: peerModeIcon(peer),
+          }),
+        ]),
+        h(View, {style: styles.peerDetails}, [
+          h(
+            Text,
+            {numberOfLines: 1, ellipsizeMode: 'middle', style: styles.peerName},
+            peer.key,
+          ),
+          h(Text, {style: styles.peerModeText}, peerModeDescription(peer)),
+        ]),
       ]),
     ]);
   }

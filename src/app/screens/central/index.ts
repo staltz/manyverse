@@ -10,6 +10,7 @@ import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
 import {Command as AlertCommand} from 'cycle-native-alert';
+import {SharedContent} from 'cycle-native-share';
 import {Toast, Duration as ToastDuration} from '../../drivers/toast';
 import {NetworkSource} from '../../drivers/network';
 import {Command, NavSource} from 'cycle-native-navigation';
@@ -51,6 +52,8 @@ export type Sinks = {
   ssb: Stream<Req>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
+  share: Stream<SharedContent>;
+  exit: Stream<any>;
 };
 
 export const navOptions = {
@@ -138,13 +141,17 @@ export function central(sources: Sources): Sinks {
   });
   const toast$ = xs.merge(inviteToast$, publicTabSinks.toast);
 
+  const ssb$ = xs.merge(publicTabSinks.ssb, connectionsTabSinks.ssb);
+
   return {
     screen: vdom$,
     state: reducer$,
     navigation: command$,
     alert: connectionsTabSinks.alert,
-    ssb: publicTabSinks.ssb,
+    ssb: ssb$,
     clipboard: publicTabSinks.clipboard,
     toast: toast$,
+    share: connectionsTabSinks.share,
+    exit: connectionsTabSinks.exit,
   };
 }

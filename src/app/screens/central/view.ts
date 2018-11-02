@@ -11,6 +11,7 @@ import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {IndicatorViewPager} from 'rn-viewpager';
 import {FloatingAction} from 'react-native-floating-action';
+import {MenuProvider} from 'react-native-popup-menu';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {styles as globalStyles} from '../../global-styles/styles';
 import BetterPagerTabIndicator from '../../components/BetterPagerTabIndicator';
@@ -126,10 +127,12 @@ export default function view(
       metadataTabVDOM$.startWith(h(View)),
     )
     .map(([state, fabProps, topBarVDOM, publicTabVDOM, metadataTabVDOM]) =>
-      h(View, {style: styles.root}, [
-        topBarVDOM,
-        renderTabs(state, publicTabVDOM, metadataTabVDOM),
-        h(FloatingAction, fabProps),
+      h(MenuProvider, {customStyles: {backdrop: styles.menuBackdrop}}, [
+        h(View, {style: styles.root}, [
+          topBarVDOM,
+          renderTabs(state, publicTabVDOM, metadataTabVDOM),
+          h(FloatingAction, fabProps),
+        ]),
       ]),
     );
 }

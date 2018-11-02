@@ -6,9 +6,16 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {ScrollView, View, TouchableHighlight} from 'react-native';
+import {ScrollView, View, Text, TouchableHighlight} from 'react-native';
 import * as React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  renderers,
+} from 'react-native-popup-menu';
 import {styles} from './styles';
 import {State} from './model';
 import {Palette} from '../../../global-styles/palette';
@@ -111,9 +118,83 @@ function Body(state: State) {
       : null as any,
 
     stagedPeers.length > 0
-      ? h(StagedConnectionsList, {peers: state.stagedPeers})
+      ? h(StagedConnectionsList, {sel: 'staged-list', peers: state.stagedPeers})
       : null as any,
   ]);
+}
+
+type MenuOptionContentProps = {
+  icon: string;
+  text: string;
+  accessibilityLabel?: string;
+};
+
+class MenuOptionContent extends React.PureComponent<MenuOptionContentProps> {
+  public render() {
+    const {icon, text, accessibilityLabel} = this.props;
+
+    return h(
+      View,
+      {
+        accessible: true,
+        accessibilityLabel,
+        style: styles.menuOptionContent,
+      },
+      [
+        h(Icon, {
+          size: Dimensions.iconSizeNormal,
+          color: Palette.textWeak,
+          name: icon,
+        }),
+        h(Text, {style: styles.menuOptionContentText}, text),
+      ],
+    );
+  }
+}
+
+function SlideInMenu(state: State) {
+  const opened = !!state.inviteMenuTarget;
+  return h(
+    Menu,
+    {sel: 'slide-in-menu', renderer: renderers.SlideInMenu, opened},
+    [
+      h(MenuTrigger, {disabled: true}),
+      h(MenuOptions, [
+        h(MenuOption, {
+          value: 'info',
+          ['children' as any]: h(MenuOptionContent, {
+            icon: 'information',
+            text: 'About',
+            accessibilityLabel: 'About this Invite Code',
+          }),
+        }),
+        // h(MenuOption, {
+        //   value: 'note',
+        //   ['children' as any]: h(MenuOptionContent, {
+        //     icon: 'pencil',
+        //     text: 'Add note',
+        //     accessibilityLabel: 'Add Note',
+        //   }),
+        // }),
+        h(MenuOption, {
+          value: 'share',
+          ['children' as any]: h(MenuOptionContent, {
+            icon: 'share',
+            text: 'Share',
+            accessibilityLabel: 'Share Invite Code',
+          }),
+        }),
+        h(MenuOption, {
+          value: 'delete',
+          ['children' as any]: h(MenuOptionContent, {
+            icon: 'delete',
+            text: 'Delete',
+            accessibilityLabel: 'Delete Invite Code',
+          }),
+        }),
+      ]),
+    ],
+  );
 }
 
 export default function view(state$: Stream<State>) {
@@ -121,6 +202,7 @@ export default function view(state$: Stream<State>) {
     return h(ScrollView, {style: styles.container}, [
       ConnectivityModes(state),
       Body(state),
+      SlideInMenu(state),
     ]);
   });
 }
