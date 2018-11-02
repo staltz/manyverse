@@ -1,3 +1,6 @@
+/* Any copyright is dedicated to the Public Domain.
+ * http://creativecommons.org/publicdomain/zero/1.0/ */
+
 const conventionalChangelog = require('conventional-changelog');
 
 const firstReleaseCommit = 'e78c434e0e79201def84bc3d940ba7b953ddaf96';

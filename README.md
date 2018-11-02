@@ -20,17 +20,18 @@
 ### Documentation
 - [Privacy policy](https://gitlab.com/staltz/manyverse/wikis/Privacy-Policy)
 - [Feature roadmap](https://gitlab.com/staltz/manyverse/wikis/roadmap)
+- [Financial plan](https://gitlab.com/staltz/manyverse/wikis/Financial-Plan)
 - [Contributor docs](./CONTRIBUTING.md)
 
-### Contributors
+### License
 
-This project exists thanks to all the people who contribute code. [[Contribute too]](CONTRIBUTING.md).
+See file AUTHORS for copyright holders.
 
-<a href="graphs/contributors"><img src="https://opencollective.com/manyverse/contributors.svg?width=890" /></a>
+Most of the source code files for this project are licensed under the **Mozilla Public License 2.0** (see file LICENSE), while the dependency "Patchcore" is licensed under GNU Affero General Public License (see file AGPL-3.0), and some scripts and test files are dedicated to the Public Domain (see file CC0-1.0).
 
 ### Backers
 
-Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/manyverse#backer)]
+Thanks to our many backers, this project has some financial support. Become a backer too, with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/manyverse#backer)]
 
 <a href="https://opencollective.com/manyverse/backer/0/website" target="_blank"><img src="https://opencollective.com/manyverse/backer/0/avatar.svg"></a>
 <a href="https://opencollective.com/manyverse/backer/1/website" target="_blank"><img src="https://opencollective.com/manyverse/backer/1/avatar.svg"></a>
