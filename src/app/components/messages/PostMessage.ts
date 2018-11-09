@@ -35,7 +35,7 @@ function materializeMarkdown(content: Post): string {
         result = replaceAll(
           result,
           `![${name}](${link})`,
-          `![${name}](http://localhost:7777/${encodeURIComponent(link)})`,
+          `![${name}](http://localhost:26835/${encodeURIComponent(link)})`,
         );
       }
     });

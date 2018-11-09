@@ -30,8 +30,8 @@ config.manifest = manifest;
 config.friends.hops = 2;
 config.connections = {
   incoming: {
-    net: [{scope: 'private', transform: 'shs', port: 8008}],
-    dht: [{scope: 'public', transform: 'shs', port: 8423}],
+    net: [{scope: 'private', transform: 'shs', port: 26831}],
+    dht: [{scope: 'public', transform: 'shs', port: 26832}],
     channel: [{scope: 'device', transform: 'noauth'}],
   },
   outgoing: {

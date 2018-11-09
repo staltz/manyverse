@@ -11,7 +11,7 @@ const blobSyncUrlOpinion = {
   create: function create(api: any) {
     return nest(
       'blob.sync.url',
-      (id: any) => `http://localhost:7777/${encodeURIComponent(id)}`,
+      (id: any) => `http://localhost:26835/${encodeURIComponent(id)}`,
     );
   },
 };
