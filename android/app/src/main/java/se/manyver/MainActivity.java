@@ -28,21 +28,23 @@ import com.reactnativenavigation.NavigationActivity;
 
 public class MainActivity extends NavigationActivity {
 
-    // @Override
-    // public LinearLayout createSplashLayout() {
-    // LinearLayout view = new LinearLayout(this);
-    // view.setBackgroundColor(Color.parseColor("#3b5bdb"));
-    // LinearLayout.LayoutParams lp = new
-    // LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 315);
-    // view.setLayoutParams(lp);
-    // return view;
-    // }
-
     private RNNodeJsMobileModule nodejsModule;
+
+    public void setSplashLayout() {
+        LinearLayout view = new LinearLayout(this);
+        view.setBackgroundColor(Color.parseColor("#3b5bdb"));
+        LinearLayout.LayoutParams lp = new
+        LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 315);
+        view.setLayoutParams(lp);
+        // View view = new View(this);
+        // view.setBackgroundColor(Color.WHITE);
+        setContentView(view);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setSplashLayout();
         try {
             this.maybeStartNodejs();
         } catch (Exception e) {
