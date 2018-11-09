@@ -38,6 +38,8 @@ public class MainActivity extends NavigationActivity {
     // return view;
     // }
 
+    private RNNodeJsMobileModule nodejsModule;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,14 @@ public class MainActivity extends NavigationActivity {
     }
 
     void maybeStartNodejs() throws Exception {
+        if (this.nodejsModule != null) {
+            try {
+                this.nodejsModule.startNodeProject("loader.js", Arguments.createMap());
+            } catch (Exception e) {
+                Log.e("NODEJS-RN", "startNodeProject failed to run loader.js");
+            }
+            return;
+        }
         ReactNativeHost host = MainApplication.instance.getReactNativeHost();
         if (host == null) {
             throw new Exception("maybeStartNodejs() failed because of no ReactNativeHost");
@@ -60,9 +70,9 @@ public class MainActivity extends NavigationActivity {
         manager.addReactInstanceEventListener(new ReactInstanceManager.ReactInstanceEventListener() {
             @Override
             public void onReactContextInitialized(ReactContext context) {
-                RNNodeJsMobileModule module = context.getNativeModule(RNNodeJsMobileModule.class);
+                nodejsModule = context.getNativeModule(RNNodeJsMobileModule.class);
                 try {
-                    module.startNodeProject("loader.js", Arguments.createMap());
+                    nodejsModule.startNodeProject("loader.js", Arguments.createMap());
                 } catch (Exception e) {
                     Log.e("NODEJS-RN", "startNodeProject failed to run loader.js");
                 }
@@ -86,6 +96,16 @@ public class MainActivity extends NavigationActivity {
         super.onPause();
         emitIfPossible("paused");
     }
+
+    // @Override
+    // protected void onDestroy() {
+    //     super.onDestroy();
+    // }
+
+    // @Override
+    // public void onReload() {
+    //     super.onReload();
+    // }
 
     View findViewToBeSearched(final Activity activity) {
         View rootView;
