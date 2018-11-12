@@ -6,6 +6,11 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1811.12-beta
+
+* Fix one type of crash (issue #260) ([see details](https://gitlab.com/staltz/manyverse/commit/5dc1d07b6ff395bc5f2f0c226cbbce72308b88e4)), closes [#260](https://gitlab.com/staltz/manyverse/issues/260)
+* Improve the looks of the splash screen ([see details](https://gitlab.com/staltz/manyverse/commit/4ed3509fe7a336c06bec5411c10f054a851f34a9))
+
 ## 0.1810.24-beta
 
 * Fix responsiveness of publish reply button ([see details](https://gitlab.com/staltz/manyverse/commit/79eb5bb18e50428913c638cad859c8a79ea957cd))
