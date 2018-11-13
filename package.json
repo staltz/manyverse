@@ -78,6 +78,7 @@
     "react-propify-methods": "^16.3.1",
     "remark": "9.0.0",
     "remark-gemoji-to-emoji": "1.1.0",
+    "remark-images-to-ssb-serve-blobs": "2.0.0-0",
     "remark-strip-html": "1.0.1",
     "spawn-sync": "^1.0.15",
     "ssb-client": "4.5.7",

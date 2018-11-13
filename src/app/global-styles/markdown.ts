@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {createElement} from 'react';
+import {createElement, PureComponent} from 'react';
 import {
   View,
   Text,
@@ -22,6 +22,7 @@ const ReactMarkdown = require('react-markdown');
 const normalizeForReactNative = require('mdast-normalize-react-native');
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const stripHtml = require('remark-strip-html');
+const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
 
 const pictureIcon = require('../../../images/image-area.png');
 const $ = createElement;
@@ -139,6 +140,56 @@ const styles = StyleSheet.create({
   },
 });
 
+class ImageWithBG extends PureComponent<{src: string}, {loaded: boolean}> {
+  constructor(props: {src: string}) {
+    super(props);
+    this.state = {loaded: false};
+    this.onLoad = () => {
+      this.setState({loaded: true});
+    };
+  }
+
+  private onLoad: () => void;
+
+  public render() {
+    const d = Dimensions.get('window');
+    const width = d.width - Dimens.horizontalSpaceBig * 2;
+    const height = width * 0.7;
+    if (this.state.loaded) {
+      return $(Image, {
+        source: {uri: this.props.src},
+        style: {
+          marginTop: Dimens.verticalSpaceSmall,
+          marginBottom: Dimens.verticalSpaceSmall,
+          resizeMode: 'cover',
+          width,
+          height,
+        },
+      });
+    } else {
+      return $(
+        ImageBackground,
+        {
+          style: {
+            marginTop: Dimens.verticalSpaceSmall,
+            marginBottom: Dimens.verticalSpaceSmall,
+            backgroundColor: Palette.gray1,
+            width,
+            height,
+          },
+          resizeMode: 'center',
+          source: pictureIcon,
+        },
+        $(Image, {
+          source: {uri: this.props.src},
+          onLoad: this.onLoad,
+          style: {resizeMode: 'cover', width, height},
+        }),
+      );
+    }
+  }
+}
+
 const renderers = {
   root: (props: {children: any}) => $(View, null, props.children),
 
@@ -192,27 +243,7 @@ const renderers = {
   thematicBreak: () => $(View, {style: styles.horizontalLine}),
 
   image: (props: {src: string; title: string; alt: string}) => {
-    const d = Dimensions.get('window');
-    const width = d.width - Dimens.horizontalSpaceBig * 2;
-    const height = width * 0.7;
-    return $(
-      ImageBackground,
-      {
-        style: {
-          marginTop: Dimens.verticalSpaceSmall,
-          marginBottom: Dimens.verticalSpaceSmall,
-          backgroundColor: Palette.gray1,
-          width,
-          height,
-        },
-        resizeMode: 'center',
-        source: pictureIcon,
-      },
-      $(Image, {
-        source: {uri: props.src},
-        style: {resizeMode: 'cover', width, height},
-      }),
-    );
+    return $(ImageWithBG, {src: props.src});
   },
 
   list: (props: {children: any; depth: number; ordered: boolean}) =>
@@ -240,8 +271,11 @@ const renderers = {
 
 function Markdown(markdownText: string) {
   return $<any>(ReactMarkdown, {
-    source: remark().use(gemojiToEmoji).use(stripHtml).processSync(markdownText)
-      .contents,
+    source: remark()
+      .use(gemojiToEmoji)
+      .use(stripHtml)
+      .use(imagesToSsbServeBlobs)
+      .processSync(markdownText).contents,
     astPlugins: [normalizeForReactNative()],
     allowedTypes: Object.keys(renderers),
     renderers,
