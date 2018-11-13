@@ -7,6 +7,11 @@
 import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
+import {
+  GlobalEvent,
+  TriggerFeedCypherlink,
+  TriggerMsgCypherlink,
+} from '../../../drivers/eventbus';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};
@@ -14,6 +19,7 @@ export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 
 export default function intent(
   reactSource: ReactSource,
+  globalEventBus: Stream<GlobalEvent>,
   fabPress$: Stream<string>,
 ) {
   return {
@@ -23,9 +29,14 @@ export default function intent(
       LikeEvent
     >,
 
-    goToProfile$: reactSource
-      .select('publicFeed')
-      .events('pressAuthor') as Stream<ProfileNavEvent>,
+    goToProfile$: xs.merge(
+      reactSource.select('publicFeed').events('pressAuthor'),
+      // TODO: move this out of here. it's currently handling
+      // cypherlink clicks from ANY screen, not just central>public-tab
+      globalEventBus
+        .filter(ev => ev.type === 'triggerFeedCypherlink')
+        .map(ev => ({authorFeedId: (ev as TriggerFeedCypherlink).feedId})),
+    ) as Stream<ProfileNavEvent>,
 
     openMessageEtc$: reactSource
       .select('publicFeed')
@@ -44,6 +55,11 @@ export default function intent(
           rootMsgId: rootKey,
           replyToMsgId: msgKey,
         })),
+      // TODO: move this out of here. it's currently handling
+      // cypherlink clicks from ANY screen, not just central>public-tab
+      globalEventBus
+        .filter(ev => ev.type === 'triggerMsgCypherlink')
+        .map(ev => ({rootMsgId: (ev as TriggerMsgCypherlink).msgId})),
     ) as Stream<ThreadNavEvent>,
   };
 }

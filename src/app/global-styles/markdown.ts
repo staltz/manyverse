@@ -17,12 +17,15 @@ import {
 import {Palette} from './palette';
 import {Dimensions as Dimens} from './dimens';
 import {Typography as Typ} from './typography';
+import {GlobalEventBus} from '../drivers/eventbus';
 const remark = require('remark');
 const ReactMarkdown = require('react-markdown');
 const normalizeForReactNative = require('mdast-normalize-react-native');
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const stripHtml = require('remark-strip-html');
 const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
+const ref = require('ssb-ref');
+const linkifyRegex = require('remark-linkify-regex');
 
 const pictureIcon = require('../../../images/image-area.png');
 const $ = createElement;
@@ -88,6 +91,11 @@ const styles = StyleSheet.create({
   },
 
   link: {
+    textDecorationLine: 'underline',
+  },
+
+  cypherlink: {
+    color: Palette.indigo8, // TODO replace this with correct brand foreground
     textDecorationLine: 'underline',
   },
 
@@ -213,16 +221,39 @@ const renderers = {
   strong: (props: {children: any}) =>
     $(Text, {selectable: true, style: styles.strong}, props.children),
 
-  link: (props: {children: any; href: string}) =>
-    $(
+  link: (props: {children: any; href: string}) => {
+    const isFeedCypherlink = ref.isFeedId(props.href);
+    const isMsgCypherlink = ref.isMsgId(props.href);
+    const isCypherlink = isFeedCypherlink || isMsgCypherlink;
+    const isChildCypherlink =
+      props.children.length === 1 &&
+      (ref.isFeedId(props.children[0]) || ref.isMsgId(props.children[0]));
+    return $(
       Text,
       {
         selectable: true,
-        style: styles.link,
-        onPress: () => Linking.openURL(props.href),
+        style: isCypherlink ? styles.cypherlink : styles.link,
+        onPress: () => {
+          if (isFeedCypherlink) {
+            GlobalEventBus.dispatch({
+              type: 'triggerFeedCypherlink',
+              feedId: props.href,
+            });
+          } else if (isMsgCypherlink) {
+            GlobalEventBus.dispatch({
+              type: 'triggerMsgCypherlink',
+              msgId: props.href,
+            });
+          } else {
+            Linking.openURL(props.href);
+          }
+        },
       },
-      props.children,
-    ),
+      isChildCypherlink
+        ? [props.children[0].slice(0, 10) + '\u2026']
+        : props.children,
+    );
+  },
 
   inlineCode: (props: {children: any}) =>
     $(Text, {selectable: true, style: styles.inlineCode}, props.children),
@@ -270,10 +301,15 @@ const renderers = {
 };
 
 function Markdown(markdownText: string) {
+  const linkifySsbFeeds = linkifyRegex(ref.feedIdRegex);
+  const linkifySsbMsgs = linkifyRegex(ref.msgIdRegex);
+
   return $<any>(ReactMarkdown, {
     source: remark()
       .use(gemojiToEmoji)
       .use(stripHtml)
+      .use(linkifySsbFeeds)
+      .use(linkifySsbMsgs)
       .use(imagesToSsbServeBlobs)
       .processSync(markdownText).contents,
     astPlugins: [normalizeForReactNative()],

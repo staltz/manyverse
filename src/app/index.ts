@@ -27,6 +27,7 @@ import {notificationDriver} from 'cycle-native-android-local-notification';
 import {ssbDriver} from './drivers/ssb';
 import {shareDriver} from 'cycle-native-share';
 import {makeNetworkDriver} from './drivers/network';
+import {makeEventBusDriver} from './drivers/eventbus';
 import {dialogDriver} from './drivers/dialogs';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
 import {central, navOptions as centralNavOpts} from './screens/central/index';
@@ -60,6 +61,7 @@ export const drivers = {
   keyboard: makeKeyboardDriver(),
   clipboard: makeClipboardDriver(),
   linking: linkingDriver,
+  globalEventBus: makeEventBusDriver(),
   ssb: ssbDriver,
   share: shareDriver,
   lifecycle: makeActivityLifecycleDriver(),

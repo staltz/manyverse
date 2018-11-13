@@ -13,6 +13,7 @@ import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {SSBSource, Req} from '../../../drivers/ssb';
 import {DialogSource} from '../../../drivers/dialogs';
 import {Toast} from '../../../drivers/toast';
+import {GlobalEvent} from '../../../drivers/eventbus';
 import messageEtc from '../../../components/messageEtc';
 import intent from './intent';
 import view from './view';
@@ -24,6 +25,7 @@ import navigation from './navigation';
 export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
+  globalEventBus: Stream<GlobalEvent>;
   state: StateSource<State>;
   ssb: SSBSource;
   scrollToTop: Stream<any>;
@@ -42,7 +44,7 @@ export type Sinks = {
 };
 
 export function publicTab(sources: Sources): Sinks {
-  const actions = intent(sources.screen, sources.fab);
+  const actions = intent(sources.screen, sources.globalEventBus, sources.fab);
   const messageEtcSinks = messageEtc({
     appear$: actions.openMessageEtc$,
     dialog: sources.dialog,

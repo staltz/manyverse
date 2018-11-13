@@ -9,20 +9,23 @@ import dropRepeats from 'xstream/extra/dropRepeats';
 import {h} from '@cycle/react';
 import {
   View,
+  Text,
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
   RefreshControl,
   TouchableOpacity,
 } from 'react-native';
+import {ReactElement} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {propifyMethods} from 'react-propify-methods';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import FullThread from '../../components/FullThread';
+import Avatar from '../../components/Avatar';
+import EmptySection from '../../components/EmptySection';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
-import Avatar from '../../components/Avatar';
 
 const ReplySpacer = h(View, {style: styles.spacerInReply});
 
@@ -82,6 +85,7 @@ type Actions = {
 };
 
 function statesAreEqual(s1: State, s2: State): boolean {
+  if (s1.loading !== s2.loading) return false;
   if (s1.replyText !== s2.replyText) return false;
   if (s1.keyboardVisible !== s2.keyboardVisible) return false;
   if (s1.replyEditable !== s2.replyEditable) return false;
@@ -96,8 +100,25 @@ function statesAreEqual(s1: State, s2: State): boolean {
 
 export default function view(state$: Stream<State>, actions: Actions) {
   const scrollToEnd$ = actions.publishMsg$.mapTo({animated: false});
-  return state$.compose(dropRepeats(statesAreEqual)).map((state: State) =>
-    h(
+  return state$.compose(dropRepeats(statesAreEqual)).map((state: State) => {
+    if (!state.loading && state.thread.messages.length === 0) {
+      return h(View, {style: styles.container}, [
+        h(EmptySection, {
+          style: styles.emptySection,
+          title: 'No messages',
+          description: [
+            "You don't yet have data \n for the message known by the ID\n",
+            h(
+              Text,
+              {style: styles.missingMsgId},
+              state.rootMsgId as string,
+            ) as ReactElement<any>,
+          ],
+        }),
+      ]);
+    }
+
+    return h(
       KeyboardAvoidingView,
       {
         ['enabled' as any]: state.keyboardVisible,
@@ -125,6 +146,6 @@ export default function view(state$: Stream<State>, actions: Actions) {
         ),
         ReplyInput(state),
       ],
-    ),
-  );
+    );
+  });
 }

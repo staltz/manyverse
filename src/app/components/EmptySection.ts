@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
 export type Props = {
   image?: ImageSourcePropType;
   title: string;
-  description: string;
+  description: string | Array<string | ReactElement<Text>>;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -66,8 +66,12 @@ export default class EmptySection extends PureComponent<Props> {
       {style: [styles.container, style || null]},
       [
         image ? h(Image, {style: styles.image as any, source: image}) : null,
-        h(Text, {style: styles.title}, title),
-        h(Text, {style: styles.description}, description),
+        h(Text, {style: styles.title, selectable: true}, title),
+        h(
+          Text,
+          {style: styles.description, selectable: true},
+          description as Array<ReactElement<Text>>,
+        ),
       ] as Array<ReactElement<any>>,
     );
   }

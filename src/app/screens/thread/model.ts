@@ -24,10 +24,11 @@ export type Props = {
 export type State = {
   selfFeedId: FeedId;
   rootMsgId: MsgId | null;
-  avatarUrl?: string;
+  loading: boolean;
   thread: ThreadAndExtras;
   replyText: string;
   replyEditable: boolean;
+  avatarUrl?: string;
   getSelfRepliesReadable: GetReadable<MsgAndExtras> | null;
   startedAsReply: boolean;
   keyboardVisible: boolean;
@@ -41,6 +42,8 @@ export type Actions = {
   updateReplyText$: Stream<string>;
 };
 
+const emptyThreadData = {full: true, messages: []};
+
 export default function model(
   props$: Stream<Props>,
   actions: Actions,
@@ -51,8 +54,9 @@ export default function model(
       function propsReducer(prev?: State): State {
         return {
           selfFeedId: props.selfFeedId,
-          thread: {full: true, messages: []},
           rootMsgId: props.rootMsgId || null,
+          loading: true,
+          thread: emptyThreadData,
           replyText: '',
           replyEditable: true,
           getSelfRepliesReadable: null,
@@ -64,12 +68,16 @@ export default function model(
 
   const setThreadReducer$ = props$
     .take(1)
-    .map(props => ssbSource.thread$(props.rootMsgId))
+    .map(props =>
+      ssbSource
+        .thread$(props.rootMsgId)
+        .replaceError(_err => xs.of(emptyThreadData)),
+    )
     .flatten()
     .map(
       thread =>
         function setThreadReducer(prev: State): State {
-          return {...prev, thread};
+          return {...prev, thread, loading: false};
         },
     );
 

@@ -14,6 +14,7 @@ import {Toast, Duration as ToastDuration} from '../../drivers/toast';
 import {NetworkSource} from '../../drivers/network';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource, Req} from '../../drivers/ssb';
+import {GlobalEvent} from '../../drivers/eventbus';
 import {DialogSource} from '../../drivers/dialogs';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {
@@ -35,6 +36,7 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
+  globalEventBus: Stream<GlobalEvent>;
   network: NetworkSource;
   state: StateSource<State>;
   dialog: DialogSource;

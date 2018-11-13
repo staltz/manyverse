@@ -260,7 +260,10 @@ export class SSBSource {
         api.sbot.pull.thread[0]({root: rootMsgId}),
         pull.map(mutateThreadWithLiveExtras(api)),
         pull.take(1),
-        pull.drain((thread: ThreadAndExtras) => cb(null, thread)),
+        pull.drain(
+          (thread: ThreadAndExtras) => cb(null, thread),
+          (err: any) => (err ? cb(err) : void 0),
+        ),
       );
     };
     const apiToThread$ = xsFromCallback<ThreadAndExtras>(apiToThread);

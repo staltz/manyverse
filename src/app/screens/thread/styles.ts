@@ -69,4 +69,15 @@ export const styles = StyleSheet.create({
     paddingVertical: Dimensions.verticalSpaceTiny,
     marginBottom: Dimensions.verticalSpaceNormal,
   },
+
+  missingMsgId: {
+    fontSize: Typography.fontSizeNormal,
+    fontFamily: Typography.fontFamilyMonospace,
+    textAlignVertical: 'top',
+    color: Palette.brand.textVeryWeak,
+  },
+
+  emptySection: {
+    marginTop: Dimensions.verticalSpaceBig * 2,
+  },
 });
