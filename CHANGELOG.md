@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1811.14-beta
+
+* Add support for viewing PNG and GIF images ([see details](https://gitlab.com/staltz/manyverse/commit/e00f1d663b0634cee6789d74e1782d7b7773c8b0)), closes [#79](https://gitlab.com/staltz/manyverse/issues/79)
+* Improve looks of placeholders when feed is loading ([see details](https://gitlab.com/staltz/manyverse/commit/0e290979b7d44b4047139669cada9923029f0784))
+* Support cypherlinks to threads and accounts ([see details](https://gitlab.com/staltz/manyverse/commit/ebfcb32229cfb75c8634219404f0aaa28d7816be)), closes [#67](https://gitlab.com/staltz/manyverse/issues/67)
+
 ## 0.1811.12-beta
 
 * Fix one type of crash (issue #260) ([see details](https://gitlab.com/staltz/manyverse/commit/5dc1d07b6ff395bc5f2f0c226cbbce72308b88e4)), closes [#260](https://gitlab.com/staltz/manyverse/issues/260)
