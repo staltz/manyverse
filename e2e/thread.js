@@ -128,6 +128,10 @@ module.exports = function(driver, t) {
     t.end();
   });
 
+  t.skip('(TODO) Thread screen opens for a msg cypherlink', async function(t) {
+    t.end();
+  });
+
   t.test('Thread screen allows going back to feed', async function(t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
