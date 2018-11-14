@@ -10,10 +10,11 @@
 
 ### [Homepage](https://manyver.se)
 
-### Install it
-- [Android app on F-Droid](https://f-droid.org/app/se.manyver)
-- [Android app on Google Play](https://play.google.com/store/apps/details?id=se.manyver)
-- [Android app from Dat Installer](https://github.com/staltz/dat-installer/) (input `dat://manyverse-latest.hashbase.io`)
+### Install the Android app
+- [From F-Droid](https://f-droid.org/app/se.manyver)
+- [From Google Play](https://play.google.com/store/apps/details?id=se.manyver)
+- [From Dat Installer](https://github.com/staltz/dat-installer/) (input `dat://manyverse-latest.hashbase.io`)
+- [As an APK from the web](https://manyverse-all.hashbase.io/) (`https://manyverse-all.hashbase.io`)
 
 ### [Code of conduct](./code-of-conduct.md)
 
