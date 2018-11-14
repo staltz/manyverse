@@ -46,12 +46,6 @@ export const styles = StyleSheet.create({
 
 const FeedFooter = h(PlaceholderMessage);
 
-class FeedItemSeparator extends PureComponent {
-  public render() {
-    return h(View, {style: styles.itemSeparator});
-  }
-}
-
 type Props = {
   getReadable: GetReadable<ThreadAndExtras> | null;
   getPublicationsReadable?: GetReadable<ThreadAndExtras> | null;
@@ -151,7 +145,7 @@ export default class Feed extends PureComponent<Props, State> {
       getScrollStream: getReadable,
       getPrefixStream: () => this.addedThreadsStream,
       style: [styles.container, style] as any,
-      initialNumToRender: 2,
+      initialNumToRender: 1,
       pullAmount: 1,
       numColumns: 1,
       refreshable: true,
@@ -166,7 +160,6 @@ export default class Feed extends PureComponent<Props, State> {
       refreshColors: [Palette.indigo7],
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
         thread.messages[0].key || String(index),
-      ItemSeparatorComponent: FeedItemSeparator,
       ListFooterComponent: FeedFooter,
       ListEmptyComponent: EmptyComponent,
       renderItem: ({item}: any) =>
@@ -180,6 +173,7 @@ export default class Feed extends PureComponent<Props, State> {
             onPressEtc,
             onPressExpand: onPressExpandThread || ((x: any) => {}),
           }),
+          h(View, {style: styles.itemSeparator}),
         ]),
     });
   }
