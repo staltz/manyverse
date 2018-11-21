@@ -6,6 +6,13 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1811.21-beta
+
+* Feature: add notes on internet p2p invite codes ([see details](https://gitlab.com/staltz/manyverse/commit/5e293c7f4701e937c632967d7276ad379962b92d))
+* Feature: delete an internet p2p invite code ([see details](https://gitlab.com/staltz/manyverse/commit/7eab5bd85c73a83f58a81c218adae7d5c27ec23c))
+* Feature: re-share an internet p2p invite code ([see details](https://gitlab.com/staltz/manyverse/commit/547422baecd0fe8b9a0e307ef385336ef187253e))
+* Quicker startup when user has many P2P invites ([see details](https://gitlab.com/staltz/manyverse/commit/6c44cf7fc2c7a3826c3af443f8053aa6582890bd))
+
 ## 0.1811.14-beta
 
 * Add support for viewing PNG and GIF images ([see details](https://gitlab.com/staltz/manyverse/commit/e00f1d663b0634cee6789d74e1782d7b7773c8b0)), closes [#79](https://gitlab.com/staltz/manyverse/issues/79)
