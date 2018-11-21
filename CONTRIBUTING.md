@@ -133,8 +133,6 @@ To build a release APK, follow [these instructions](https://facebook.github.io/r
 After `npm run release` runs, it will update APK files in two folders: `../dat-release-all` and `../dat-release-latest`. The following steps should be done manually (until we automate this):
 
 - `git push origin master`
-- Sync Archival Dat
-  - `cd ../dat-release-all` and `dat sync` (uploads to the Dat swarm)
 - Deploy to Dat Installer
   - `cd ../dat-release-latest` and `dat sync`
 - Deploy to F-Droid: `git push origin --tags`
@@ -144,3 +142,5 @@ After `npm run release` runs, it will update APK files in two folders: `../dat-r
   - Copy-paste `../dat-release-latest/README.md` into Scuttlebutt as a new version announcement
 - Announce on Twitter
   - Copy-paste from CHANGELOG.md the list of updates for the latest version, write it in the Twitter `@manyver_se` account and publish
+- Sync Archival Dat
+  - `cd ../dat-release-all` and `dat sync` (uploads to the Dat swarm)
