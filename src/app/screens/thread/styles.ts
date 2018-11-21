@@ -74,7 +74,7 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyMonospace,
     textAlignVertical: 'top',
-    color: Palette.brand.textVeryWeak,
+    color: Palette.textVeryWeak,
   },
 
   emptySection: {
