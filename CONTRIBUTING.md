@@ -137,7 +137,7 @@ After `npm run release` runs, it will update APK files in two folders: `../dat-r
   - `cd ../dat-release-latest` and `dat sync`
 - Deploy to F-Droid: `git push origin --tags`
 - Deploy to Google Play
-  - Take the relevant APK file from `../dat-release-all`, upload and publish it on Google Play developer website
+  - Take the APK file from `../dat-release-latest`, upload and publish it on Google Play developer website
 - Announce on Scuttlebutt
   - Copy-paste `../dat-release-latest/README.md` into Scuttlebutt as a new version announcement
 - Announce on Twitter
