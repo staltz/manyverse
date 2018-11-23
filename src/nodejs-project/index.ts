@@ -11,6 +11,8 @@ const mkdirp = require('mkdirp');
 const DHT = require('multiserver-dht');
 const rnBridge = require('rn-bridge');
 const rnChannelPlugin = require('multiserver-rn-channel');
+const npip = require('non-private-ip');
+const injectSsbConfig = require('ssb-config/inject');
 import syncingPlugin = require('./plugins/syncing');
 import blobsFromPathPlugin = require('./plugins/blobsFromPath');
 import manifest = require('./manifest');
@@ -23,22 +25,28 @@ if (!fs.existsSync(ssbPath)) {
 const keysPath = path.join(ssbPath, '/secret');
 const keys = ssbKeys.loadOrCreateSync(keysPath);
 
-const config = require('ssb-config/inject')();
-config.path = ssbPath;
-config.keys = keys;
-config.manifest = manifest;
-config.friends.hops = 2;
-config.connections = {
-  incoming: {
-    net: [{scope: 'private', transform: 'shs', port: 26831}],
-    dht: [{scope: 'public', transform: 'shs', port: 26832}],
-    channel: [{scope: 'device', transform: 'noauth'}],
-  },
-  outgoing: {
-    net: [{transform: 'shs'}],
-    dht: [{transform: 'shs'}],
-  },
-};
+const config = (() => {
+  const c = injectSsbConfig();
+  const NET_PORT = 26831;
+  const DHT_PORT = 26832;
+  const host = npip.private(); // Avoid (public) rmnet IP addresses
+  c.path = ssbPath;
+  c.keys = keys;
+  c.manifest = manifest;
+  c.friends.hops = 2;
+  c.connections = {
+    incoming: {
+      net: [{scope: 'private', transform: 'shs', host, port: NET_PORT}],
+      dht: [{scope: 'public', transform: 'shs', port: DHT_PORT}],
+      channel: [{scope: 'device', transform: 'noauth'}],
+    },
+    outgoing: {
+      net: [{transform: 'shs'}],
+      dht: [{transform: 'shs'}],
+    },
+  };
+  return c;
+})();
 
 function rnChannelTransport(_sbot: any) {
   _sbot.multiserver.transport({
