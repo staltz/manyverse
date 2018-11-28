@@ -62,6 +62,7 @@ export default function navigation(
 
   const toOtherProfile$ = actions.goToProfile$
     .compose(sampleCombine(state$))
+    .filter(([ev, state]) => ev.authorFeedId !== state.displayFeedId)
     .map(
       ([ev, state]) =>
         ({

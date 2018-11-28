@@ -44,6 +44,13 @@ module.exports = function(driver, t) {
     t.end();
   });
 
+  t.skip(
+    '(TODO) Profile screen cannot navigate to same profile',
+    async function(t) {
+      t.end();
+    },
+  );
+
   t.test('Profile screen shows messages with Etc button', async function(t) {
     const chevron = await driver.waitForElementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Etc Button")',
