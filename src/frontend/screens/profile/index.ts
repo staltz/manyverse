@@ -15,6 +15,7 @@ import {Toast} from '../../drivers/toast';
 import {Command, NavSource} from 'cycle-native-navigation';
 import isolate from '@cycle/isolate';
 import messageEtc from '../../components/messageEtc';
+import manageContact from './manage-contact';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
 import model, {State} from './model';
@@ -55,12 +56,20 @@ export const navOptions = {
 export function profile(sources: Sources): Sinks {
   const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
 
-  const actions = intent(sources.screen);
+  const actions = intent(sources.screen, sources.state.stream);
   const messageEtcSinks = messageEtc({
     appear$: actions.openMessageEtc$,
     dialog: sources.dialog,
   });
-  const actionsPlus = {...actions, goToRawMsg$: messageEtcSinks.goToRawMsg$};
+  const manageContactSinks = manageContact({
+    manageContact$: actions.manageContact$,
+    dialog: sources.dialog,
+  });
+  const actionsPlus = {
+    ...actions,
+    ...manageContactSinks,
+    goToRawMsg$: messageEtcSinks.goToRawMsg$,
+  };
   const reducer$ = model(sources.props, sources.ssb);
   const vdom$ = view(sources.state.stream, sources.ssb, topBarSinks.screen);
   const newContent$ = ssb(actionsPlus, sources.state.stream);

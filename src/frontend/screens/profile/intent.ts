@@ -7,10 +7,15 @@
 import xs, {Stream} from 'xstream';
 import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
+import {State} from './model';
+import sample from 'xstream-sample';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
-export default function intent(reactSource: ReactSource) {
+export default function intent(
+  reactSource: ReactSource,
+  state$: Stream<State>,
+) {
   return {
     goToCompose$: reactSource.select('fab').events('pressItem'),
 
@@ -25,6 +30,11 @@ export default function intent(reactSource: ReactSource) {
     openMessageEtc$: reactSource.select('feed').events('pressEtc') as Stream<
       Msg
     >,
+
+    manageContact$: reactSource
+      .select('manage')
+      .events('press')
+      .compose(sample(state$)),
 
     goToThread$: xs.merge(
       reactSource.select('feed').events('pressExpandThread'),

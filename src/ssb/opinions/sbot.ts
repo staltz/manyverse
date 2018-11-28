@@ -44,6 +44,8 @@ const gives = {
       acceptDhtInvite: true,
       createDhtInvite: true,
       removeDhtInvite: true,
+      isFollowing: true,
+      isBlocking: true,
       addBlob: true,
       gossipConnect: true,
       friendsGet: true,
@@ -171,6 +173,18 @@ const create = (api: any) => {
             if (cb) cb(new Error('invalid (falsy) content'));
             return;
           }
+          if (sbot) {
+            // instant updating of interface (just incase sbot is busy)
+            runHooks({
+              publishing: true,
+              timestamp: Date.now(),
+              value: {
+                timestamp: Date.now(),
+                author: keys.id,
+                content,
+              },
+            });
+          }
           if (content.recps) {
             content = ssbKeys.box(
               content,
@@ -185,18 +199,6 @@ const create = (api: any) => {
                   if (err) console.error(err);
                 });
               }
-            });
-          }
-          if (sbot) {
-            // instant updating of interface (just incase sbot is busy)
-            runHooks({
-              publishing: true,
-              timestamp: Date.now(),
-              value: {
-                timestamp: Date.now(),
-                author: keys.id,
-                content,
-              },
             });
           }
           feed.add(content, (err: any, msg: any) => {
@@ -235,6 +237,12 @@ const create = (api: any) => {
         }),
         removeDhtInvite: rec.async((invite: string, cb: any) => {
           sbot.dhtInvite.remove(invite, cb);
+        }),
+        isFollowing: rec.async((opts: any, cb: any) => {
+          sbot.friends.isFollowing(opts, cb);
+        }),
+        isBlocking: rec.async((opts: any, cb: any) => {
+          sbot.friends.isBlocking(opts, cb);
         }),
         addBlob: rec.async((stream: any, cb: any) => {
           return pull(stream, sbot.blobs.add(cb));

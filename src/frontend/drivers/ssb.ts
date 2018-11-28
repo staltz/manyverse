@@ -23,6 +23,7 @@ import makeKeysOpinion from '../../ssb/opinions/keys';
 import sbotOpinion from '../../ssb/opinions/sbot';
 import gossipOpinion from '../../ssb/opinions/gossip';
 import publishHookOpinion from '../../ssb/opinions/hook';
+import contactOpinion = require('../../ssb/opinions/contact/obs');
 import configOpinion from '../../ssb/opinions/config';
 import feedProfileOpinion from '../../ssb/opinions/feed/pull/profile';
 import {ssbKeysPath} from '../../ssb/defaults';
@@ -32,9 +33,8 @@ import xsFromPullStream from 'xstream-from-pull-stream';
 import {Readable} from '../../typings/pull-stream';
 import {Mutant} from 'react-mutant-hoc';
 const pull = require('pull-stream');
-const {computed} = require('mutant');
+const cat = require('pull-cat');
 const backlinksOpinion = require('patchcore/backlinks/obs');
-const contactOpinion = require('patchcore/contact/obs');
 const unboxOpinion = require('patchcore/message/sync/unbox');
 const msgLikesOpinion = require('patchcore/message/obs/likes');
 const ssbKeys = require('react-native-ssb-client-keys');
@@ -55,6 +55,7 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
 export type ThreadAndExtras = {
   messages: Array<MsgAndExtras>;
   full: boolean;
+  errorReason?: 'blocked' | 'missing' | 'unknown';
 };
 
 export type StagedPeerMetadata = {
@@ -290,9 +291,8 @@ export class SSBSource {
         const name$ = xsFromMutant<string>(api.about.obs.name[0](id));
         const color$ = xsFromMutant<string>(api.about.obs.color[0](id));
         const imageUrl$ = xsFromMutant<string>(api.about.obs.imageUrl[0](id));
-        const yourFollows = api.contact.obs.following[0](api.keys.sync.id[0]());
         const following$ = xsFromMutant<true | null | false>(
-          computed([yourFollows], (youFollow: any) => youFollow.includes(id)),
+          api.contact.obs.tristate[0](api.keys.sync.id[0](), id),
         );
         const description$ = xsFromMutant<string>(
           api.about.obs.description[0](id),
@@ -307,6 +307,41 @@ export class SSBSource {
             following,
             id,
           }));
+      })
+      .flatten();
+  }
+
+  public isPrivatelyBlocking$(dest: FeedId): Stream<boolean> {
+    return this.api$
+      .map((api: any) => {
+        const source = api.keys.sync.id[0]();
+        return xsFromPullStream<boolean>(
+          pull(
+            cat([
+              pull(
+                api.sbot.pull.links[0]({
+                  source,
+                  dest,
+                  rel: 'contact',
+                  live: false,
+                  reverse: true,
+                }),
+                pull.take(1),
+              ),
+              api.sbot.pull.links[0]({
+                source,
+                dest,
+                rel: 'contact',
+                old: false,
+                live: true,
+              }),
+            ]),
+            pull.asyncMap((link: any, cb2: any) => {
+              api.sbot.async.get[0](link.key, cb2);
+            }),
+            pull.map((val: Msg['value']) => typeof val.content === 'string'),
+          ),
+        );
       })
       .flatten();
   }

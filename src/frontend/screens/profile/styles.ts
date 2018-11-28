@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
 
-  follow: {
+  cta: {
     position: 'absolute',
     top:
       Dimensions.toolbarAndroidHeight +
@@ -73,6 +73,12 @@ export const styles = StyleSheet.create({
       Dimensions.verticalSpaceSmall,
     right: Dimensions.horizontalSpaceBig,
     zIndex: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  follow: {
+    marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
   avatar: {

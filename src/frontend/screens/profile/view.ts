@@ -5,21 +5,23 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {View, Text} from 'react-native';
 import {h} from '@cycle/react';
+import {ReactElement} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {FloatingAction} from 'react-native-floating-action';
+import {isRootPostMsg} from 'ssb-typescript/utils';
+import {SSBSource} from '../../drivers/ssb';
+import {shortFeedId} from '../../../ssb/from-ssb';
+import {Palette} from '../../global-styles/palette';
+import {Dimensions} from '../../global-styles/dimens';
 import Feed from '../../components/Feed';
 import Button from '../../components/Button';
 import ToggleButton from '../../components/ToggleButton';
-import {SSBSource} from '../../drivers/ssb';
-import {shortFeedId} from '../../../ssb/from-ssb';
-import {styles, avatarSize} from './styles';
-import {State} from './model';
-import {isRootPostMsg} from 'ssb-typescript/utils';
-import {FloatingAction} from 'react-native-floating-action';
-import {Palette} from '../../global-styles/palette';
-import {ReactElement} from 'react';
 import EmptySection from '../../components/EmptySection';
 import Avatar from '../../components/Avatar';
+import {styles, avatarSize} from './styles';
+import {State} from './model';
 
 export default function view(
   state$: Stream<State>,
@@ -28,6 +30,7 @@ export default function view(
 ) {
   return xs.combine(state$, topBarElem$).map(([state, topBarElem]) => {
     const isSelfProfile = state.displayFeedId === state.selfFeedId;
+    const isBlocked = state.about.following === false;
 
     return h(View, {style: styles.container}, [
       topBarElem,
@@ -52,20 +55,41 @@ export default function view(
         style: styles.avatar,
       }),
 
-      isSelfProfile
-        ? h(Button, {
-            sel: 'editProfile',
-            style: styles.follow,
-            text: 'Edit profile',
-            accessible: true,
-            accessibilityLabel: 'Edit Profile Button',
-          })
-        : h(ToggleButton, {
-            sel: 'follow',
-            style: styles.follow,
-            text: state.about.following === true ? 'Following' : 'Follow',
-            toggled: state.about.following === true,
-          }),
+      h(View, {style: styles.cta}, [
+        isSelfProfile
+          ? null as any
+          : h(
+              TouchableOpacity,
+              {
+                sel: 'manage',
+                accessible: true,
+                accessibilityLabel: 'Manage Contact',
+              },
+              [
+                h(Icon, {
+                  size: Dimensions.iconSizeNormal,
+                  color: Palette.textVeryWeak,
+                  name: 'settings',
+                }),
+              ],
+            ),
+
+        isSelfProfile
+          ? h(Button, {
+              sel: 'editProfile',
+              text: 'Edit profile',
+              accessible: true,
+              accessibilityLabel: 'Edit Profile Button',
+            })
+          : isBlocked
+            ? null
+            : h(ToggleButton, {
+                sel: 'follow',
+                style: styles.follow,
+                text: state.about.following === true ? 'Following' : 'Follow',
+                toggled: state.about.following === true,
+              }),
+      ]),
 
       h(
         View,
@@ -83,31 +107,38 @@ export default function view(
         ],
       ),
 
-      h(Feed, {
-        sel: 'feed',
-        getReadable: state.getFeedReadable,
-        getPublicationsReadable: isSelfProfile
-          ? state.getSelfRootsReadable
-          : null,
-        publication$: isSelfProfile
-          ? ssbSource.publishHook$.filter(isRootPostMsg)
-          : null,
-        selfFeedId: state.selfFeedId,
-        style: isSelfProfile ? styles.feedWithHeader : styles.feed,
-        EmptyComponent: isSelfProfile
-          ? h(EmptySection, {
-              style: styles.emptySection,
-              image: require('../../../../images/noun-plant.png'),
-              title: 'No messages',
-              description:
-                'Write a diary which you can\nshare with friends later',
-            })
-          : h(EmptySection, {
-              style: styles.emptySection,
-              title: 'No messages',
-              description: "You don't yet have any data\nfrom this account",
-            }),
-      }),
+      isBlocked
+        ? h(EmptySection, {
+            style: styles.emptySection,
+            title: 'Blocked',
+            description:
+              'You have chosen to stop\ninteracting with this account',
+          })
+        : h(Feed, {
+            sel: 'feed',
+            getReadable: state.getFeedReadable,
+            getPublicationsReadable: isSelfProfile
+              ? state.getSelfRootsReadable
+              : null,
+            publication$: isSelfProfile
+              ? ssbSource.publishHook$.filter(isRootPostMsg)
+              : null,
+            selfFeedId: state.selfFeedId,
+            style: isSelfProfile ? styles.feedWithHeader : styles.feed,
+            EmptyComponent: isSelfProfile
+              ? h(EmptySection, {
+                  style: styles.emptySection,
+                  image: require('../../../../images/noun-plant.png'),
+                  title: 'No messages',
+                  description:
+                    'Write a diary which you can\nshare with friends later',
+                })
+              : h(EmptySection, {
+                  style: styles.emptySection,
+                  title: 'No messages',
+                  description: "You don't yet have any data\nfrom this account",
+                }),
+          }),
 
       isSelfProfile
         ? h(FloatingAction, {

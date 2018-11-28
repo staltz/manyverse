@@ -6,6 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
+import sample from 'xstream-sample';
 import {State} from './model';
 import {toVoteContent, toContactContent} from '../../../ssb/to-ssb';
 import {Req, contentToPublishReq} from '../../drivers/ssb';
@@ -13,6 +14,10 @@ import {Req, contentToPublishReq} from '../../drivers/ssb';
 export type SSBActions = {
   likeMsg$: Stream<{msgKey: string; like: boolean}>;
   follow$: Stream<boolean>;
+  blockContact$: Stream<null>;
+  blockSecretlyContact$: Stream<null>;
+  unblockContact$: Stream<null>;
+  unblockSecretlyContact$: Stream<null>;
 };
 
 /**
@@ -24,11 +29,44 @@ export default function ssb(
 ): Stream<Req> {
   const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
-  const followProfileMsg$ = actions.follow$
+  const followContactMsg$ = actions.follow$
     .compose(sampleCombine(state$))
-    .map(([following, state]) => {
-      return toContactContent(state.displayFeedId, following);
+    .map(([following, state]) =>
+      toContactContent(state.displayFeedId, following),
+    );
+
+  const blockContactMsg$ = actions.blockContact$
+    .compose(sample(state$))
+    .map(state => toContactContent(state.displayFeedId, null, true));
+
+  const blockSecretlyContactMsg$ = actions.blockSecretlyContact$
+    .compose(sample(state$))
+    .map(state => {
+      const content = toContactContent(state.displayFeedId, null, true);
+      content.recps = [state.selfFeedId];
+      return content;
     });
 
-  return xs.merge(toggleLikeMsg$, followProfileMsg$).map(contentToPublishReq);
+  const unblockContactMsg$ = actions.unblockContact$
+    .compose(sample(state$))
+    .map(state => toContactContent(state.displayFeedId, null, false));
+
+  const unblockSecretelyContactMsg$ = actions.unblockSecretlyContact$
+    .compose(sample(state$))
+    .map(state => {
+      const content = toContactContent(state.displayFeedId, null, false);
+      content.recps = [state.selfFeedId];
+      return content;
+    });
+
+  return xs
+    .merge(
+      toggleLikeMsg$,
+      followContactMsg$,
+      blockContactMsg$,
+      blockSecretlyContactMsg$,
+      unblockContactMsg$,
+      unblockSecretelyContactMsg$,
+    )
+    .map(contentToPublishReq);
 }

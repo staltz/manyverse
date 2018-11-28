@@ -42,7 +42,22 @@ export type Actions = {
   updateReplyText$: Stream<string>;
 };
 
-const emptyThreadData = {full: true, messages: []};
+const emptyThread: ThreadAndExtras = {full: true, messages: []};
+const missingThread: ThreadAndExtras = {
+  full: true,
+  messages: [],
+  errorReason: 'missing',
+};
+const blockedThread: ThreadAndExtras = {
+  full: true,
+  messages: [],
+  errorReason: 'blocked',
+};
+const unknownErrorThread: ThreadAndExtras = {
+  full: true,
+  messages: [],
+  errorReason: 'unknown',
+};
 
 export default function model(
   props$: Stream<Props>,
@@ -56,7 +71,7 @@ export default function model(
           selfFeedId: props.selfFeedId,
           rootMsgId: props.rootMsgId || null,
           loading: true,
-          thread: emptyThreadData,
+          thread: emptyThread,
           replyText: '',
           replyEditable: true,
           getSelfRepliesReadable: null,
@@ -69,9 +84,11 @@ export default function model(
   const setThreadReducer$ = props$
     .take(1)
     .map(props =>
-      ssbSource
-        .thread$(props.rootMsgId)
-        .replaceError(_err => xs.of(emptyThreadData)),
+      ssbSource.thread$(props.rootMsgId).replaceError(err => {
+        if (/Author Blocked/.test(err.message)) return xs.of(blockedThread);
+        if (/Not Found/.test(err.message)) return xs.of(missingThread);
+        else return xs.of(unknownErrorThread);
+      }),
     )
     .flatten()
     .map(

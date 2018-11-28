@@ -101,11 +101,11 @@ function statesAreEqual(s1: State, s2: State): boolean {
 export default function view(state$: Stream<State>, actions: Actions) {
   const scrollToEnd$ = actions.publishMsg$.mapTo({animated: false});
   return state$.compose(dropRepeats(statesAreEqual)).map((state: State) => {
-    if (!state.loading && state.thread.messages.length === 0) {
+    if (!state.loading && state.thread.errorReason === 'missing') {
       return h(View, {style: styles.container}, [
         h(EmptySection, {
           style: styles.emptySection,
-          title: 'No messages',
+          title: 'Missing data',
           description: [
             "You don't yet have data \n for the message known by the ID\n",
             h(
@@ -114,6 +114,25 @@ export default function view(state$: Stream<State>, actions: Actions) {
               state.rootMsgId as string,
             ) as ReactElement<any>,
           ],
+        }),
+      ]);
+    }
+    if (!state.loading && state.thread.errorReason === 'blocked') {
+      return h(View, {style: styles.container}, [
+        h(EmptySection, {
+          style: styles.emptySection,
+          title: 'Blocked thread',
+          description: 'You have chosen to block\nthe author of this thread',
+        }),
+      ]);
+    }
+    if (!state.loading && state.thread.errorReason === 'unknown') {
+      return h(View, {style: styles.container}, [
+        h(EmptySection, {
+          style: styles.emptySection,
+          title: 'Sorry',
+          description:
+            "This app doesn't know how to process\nand display this thread correctly",
         }),
       ]);
     }

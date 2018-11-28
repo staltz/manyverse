@@ -20,6 +20,7 @@ export type State = {
   about: About & {id: FeedId};
   getFeedReadable: GetReadable<ThreadAndExtras> | null;
   getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
+  blockingSecretly: boolean;
 };
 
 export default function model(
@@ -39,6 +40,7 @@ export default function model(
             description: '',
             id: props.feedId,
           },
+          blockingSecretly: false,
         };
       },
   );
@@ -57,6 +59,18 @@ export default function model(
   const getFeedReadable$ = props$
     .map(props => ssbSource.profileFeed$(props.feedId))
     .flatten();
+
+  const updateBlockingSecretlyReducer$ = props$
+    .filter(props => props.feedId !== props.selfFeedId)
+    .map(props => ssbSource.isPrivatelyBlocking$(props.feedId))
+    .take(1)
+    .flatten()
+    .map(
+      blockingSecretly =>
+        function updateSecretlyBlockingReducer(prev: State): State {
+          return {...prev, blockingSecretly};
+        },
+    );
 
   const updateFeedStreamReducer$ = getFeedReadable$.map(
     getFeedReadable =>
@@ -77,5 +91,6 @@ export default function model(
     updateAboutReducer$,
     updateFeedStreamReducer$,
     updateSelfRootsReducer$,
+    updateBlockingSecretlyReducer$,
   );
 }

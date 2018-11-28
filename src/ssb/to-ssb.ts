@@ -8,6 +8,7 @@ import {
   VoteContent,
   PostContent,
   ContactContent,
+  Privatable,
   FeedId,
   AboutContent,
   MsgId,
@@ -18,7 +19,7 @@ export type LikeEvent = {
   like: boolean;
 };
 
-export function toVoteContent(ev: LikeEvent): VoteContent {
+export function toVoteContent(ev: LikeEvent): Privatable<VoteContent> {
   return {
     type: 'vote',
     vote: {
@@ -29,7 +30,7 @@ export function toVoteContent(ev: LikeEvent): VoteContent {
   };
 }
 
-export function toPostContent(text: string): PostContent {
+export function toPostContent(text: string): Privatable<PostContent> {
   return {
     text,
     type: 'post',
@@ -37,7 +38,10 @@ export function toPostContent(text: string): PostContent {
   };
 }
 
-export function toReplyPostContent(text: string, root: MsgId): PostContent {
+export function toReplyPostContent(
+  text: string,
+  root: MsgId,
+): Privatable<PostContent> {
   return {
     text,
     type: 'post',
@@ -48,13 +52,18 @@ export function toReplyPostContent(text: string, root: MsgId): PostContent {
 
 export function toContactContent(
   contact: FeedId,
-  following: boolean,
-): ContactContent {
-  return {
+  following: boolean | null,
+  blocking?: boolean | undefined,
+): Privatable<ContactContent> {
+  const output: ContactContent = {
     type: 'contact',
-    following,
+    following: following as any,
     contact,
   };
+  if (typeof blocking === 'boolean') {
+    output.blocking = blocking;
+  }
+  return output;
 }
 
 export function toAboutContent(
@@ -62,7 +71,7 @@ export function toAboutContent(
   name: string | undefined,
   description: string | undefined,
   image: string | undefined,
-) {
+): Privatable<AboutContent> {
   const content: AboutContent = {
     type: 'about',
     about: id,
