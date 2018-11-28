@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1811.28-beta
+
+* Fix navigation bug between profile screens ([see details](https://gitlab.com/staltz/manyverse/commit/10f31f042520402263cf90ffefe3ad47162e8e4b)), closes [#214](https://gitlab.com/staltz/manyverse/issues/214)
+* Fix UI glitch in profile screen ([see details](https://gitlab.com/staltz/manyverse/commit/7f5dc0458b3896248ac810a8166d0f7a94c383c8))
+* Fix Wi-Fi discovery and sync on some devices ([see details](https://gitlab.com/staltz/manyverse/commit/1653af13df494cb4bb13fc8e9a91d6ca90a53817))
+
 ## 0.1811.21-beta
 
 * Feature: add notes on internet p2p invite codes ([see details](https://gitlab.com/staltz/manyverse/commit/5e293c7f4701e937c632967d7276ad379962b92d))
