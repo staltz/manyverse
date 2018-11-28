@@ -99,7 +99,7 @@
   },
   "devDependencies": {
     "add-stream": "~1.0.0",
-    "appium": "1.7.2",
+    "appium": "1.10.0",
     "babel-preset-react-native": "4.0.0",
     "cheerio": "^1.0.0-rc.2",
     "conventional-changelog": "~2.0.3",
@@ -111,12 +111,12 @@
     "propagate-replacement-fields": "1.2.0",
     "react-native-version": "^2.3.1",
     "rn-snoopy": "^2.0.2",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.8.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.1",
     "try-thread-sleep": "^1.0.2",
     "tslint": "^5.11.0",
     "typescript": "3.1.x",
-    "wd": "^1.5.0"
+    "wd": "1.11.1"
   },
   "react-native": {
     "os": "@staltz/react-native-os",
