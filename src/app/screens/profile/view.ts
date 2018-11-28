@@ -108,22 +108,24 @@ export default function view(
             }),
       }),
 
-      h(FloatingAction, {
-        sel: 'fab',
-        color: Palette.backgroundCTA,
-        visible: isSelfProfile,
-        actions: [
-          {
+      isSelfProfile
+        ? h(FloatingAction, {
+            sel: 'fab',
             color: Palette.backgroundCTA,
-            name: 'compose',
-            icon: require('../../../../images/pencil.png'),
-            text: 'Write a public message',
-          },
-        ],
-        overrideWithAction: true,
-        iconHeight: 24,
-        iconWidth: 24,
-      }),
+            visible: isSelfProfile,
+            actions: [
+              {
+                color: Palette.backgroundCTA,
+                name: 'compose',
+                icon: require('../../../../images/pencil.png'),
+                text: 'Write a public message',
+              },
+            ],
+            overrideWithAction: true,
+            iconHeight: 24,
+            iconWidth: 24,
+          })
+        : null as any,
     ]);
   });
 }
