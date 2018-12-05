@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Palette} from '../app/global-styles/palette';
+import {Palette} from '../frontend/global-styles/palette';
 const Thenable = require('pull-thenable');
 const Notification = require('react-native-android-local-notification');
 

@@ -6,7 +6,12 @@
 
 import 'react-native-ssb-shims';
 import {run} from 'cycle-native-navigation';
-import {screens, drivers, layout, defaultNavOptions} from './lib/app/index';
+import {
+  screens,
+  drivers,
+  layout,
+  defaultNavOptions,
+} from './lib/frontend/index';
 // import './snoopy'; // Log and debug the React Native JS<-->Native Bridge
 
 run(screens, drivers, layout, defaultNavOptions);

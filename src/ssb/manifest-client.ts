@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-const manifestServer = require('../nodejs-project/manifest');
+const manifestServer = require('../backend/manifest');
 
 function objMapDeep(origin: object, transform: (s: string) => string): object {
   return Object.keys(origin).reduce((acc, key) => {

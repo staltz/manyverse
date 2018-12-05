@@ -17,10 +17,10 @@
     "lib": ["dom", "es5", "scripthost", "es2015", "es2016", "es2017"]
   },
   "files": [
-    "src/app/index.ts",
-    "src/nodejs-project/index.ts",
-    "src/nodejs-project/loader.ts",
-    "src/nodejs-project/manifest.ts",
+    "src/backend/index.ts",
+    "src/backend/loader.ts",
+    "src/backend/manifest.ts",
+    "src/frontend/index.ts",
     "src/typings/react-native-dialogs.d.ts",
     "src/typings/rn-viewpager.d.ts"
   ],

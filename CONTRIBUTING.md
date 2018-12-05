@@ -71,7 +71,7 @@ npm run propagate-replacements
 `3`: Build the "backend" Node.js project (which runs Scuttlebot):
 
 ```
-npm run build-nodejs-app
+npm run build-backend
 ```
 
 `4`: Build the Android apk:
@@ -97,9 +97,9 @@ There is no support for continuously compiling the backend Node.js project.
 On Android applications, the `react-native` build process is sometimes unable to rebuild assets.
 If you are getting errors while building the application using `react-native run-android`, then the command `npm run full-clean` can help you do a clean rebuild of the project. Then, reinstall with `npm i` and rebuild.
 
-#### NullPointerException on `npm run build-nodejs-app`
+#### NullPointerException on `npm run build-backend`
 
-If you see the error below while running the `build-nodejs-app` build script, you should try opening this project's `android` folder in android studio (using the `build.gradle` file to tell android studio it is a gradle project.) It should detect missing dependencies and give you the option to install them via the console window (and rebuild) at the bottom of the window.
+If you see the error below while running the `build-backend` build script, you should try opening this project's `android` folder in android studio (using the `build.gradle` file to tell android studio it is a gradle project.) It should detect missing dependencies and give you the option to install them via the console window (and rebuild) at the bottom of the window.
 
 ```
 
