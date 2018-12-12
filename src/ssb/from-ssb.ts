@@ -7,7 +7,7 @@
 import {Msg, FeedId} from 'ssb-typescript';
 
 export function authorName(name: string | null, msg: Msg): string {
-  return name || msg.value.author.slice(1, 10);
+  return name || shortFeedId(msg.value.author);
 }
 
 export function shortFeedId(feedId: FeedId): string {

@@ -11,6 +11,7 @@ import Feed from '../../components/Feed';
 import Button from '../../components/Button';
 import ToggleButton from '../../components/ToggleButton';
 import {SSBSource} from '../../drivers/ssb';
+import {shortFeedId} from '../../../ssb/from-ssb';
 import {styles, avatarSize} from './styles';
 import {State} from './model';
 import {isRootPostMsg} from 'ssb-typescript/utils';
@@ -41,7 +42,7 @@ export default function view(
             accessible: true,
             accessibilityLabel: 'Profile Name',
           },
-          state.about.name,
+          state.about.name || shortFeedId(state.about.id),
         ),
       ]),
 

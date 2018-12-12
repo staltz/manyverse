@@ -11,6 +11,7 @@ const mkdirp = require('mkdirp');
 const DHT = require('multiserver-dht');
 const rnBridge = require('rn-bridge');
 const rnChannelPlugin = require('multiserver-rn-channel');
+const NoauthTransformPlugin = require('multiserver/plugins/noauth');
 const npip = require('non-private-ip');
 const injectSsbConfig = require('ssb-config/inject');
 import syncingPlugin = require('./plugins/syncing');
@@ -48,6 +49,18 @@ const config = (() => {
   return c;
 })();
 
+function noAuthTransform(_sbot: any, cfg: any) {
+  _sbot.multiserver.transform({
+    name: 'noauth',
+    create: () =>
+      NoauthTransformPlugin({
+        keys: {
+          publicKey: Buffer.from(cfg.keys.public, 'base64'),
+        },
+      }),
+  });
+}
+
 function rnChannelTransport(_sbot: any) {
   _sbot.multiserver.transport({
     name: 'channel',
@@ -64,6 +77,7 @@ function dhtTransport(_sbot: any) {
 }
 
 require('scuttlebot/index')
+  .use(noAuthTransform)
   .use(rnChannelTransport)
   .use(require('ssb-dht-invite'))
   .use(dhtTransport)
@@ -71,13 +85,13 @@ require('scuttlebot/index')
   .use(require('@staltz/sbot-gossip'))
   .use(require('scuttlebot/plugins/replicate'))
   .use(syncingPlugin)
+  .use(require('ssb-backlinks'))
+  .use(require('ssb-about'))
   .use(require('ssb-friends'))
   .use(require('ssb-blobs'))
   .use(blobsFromPathPlugin)
   .use(require('ssb-serve-blobs'))
-  .use(require('ssb-backlinks'))
   .use(require('ssb-private'))
-  .use(require('ssb-about'))
   .use(require('ssb-contacts'))
   .use(require('ssb-query'))
   .use(require('ssb-threads'))

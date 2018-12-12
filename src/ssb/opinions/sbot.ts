@@ -62,6 +62,7 @@ const gives = {
       backlinks: true,
       hostingDhtInvites: true,
       claimingDhtInvites: true,
+      aboutLatestValueStream: true,
       stream: true,
     },
     obs: {
@@ -292,6 +293,9 @@ const create = (api: any) => {
         }),
         claimingDhtInvites: rec.source(() => {
           return sbot.dhtInvite.claimingInvites();
+        }),
+        aboutLatestValueStream: rec.source((opts: any) => {
+          return sbot.about.latestValueStream(opts);
         }),
         stream: (fn: any) => {
           const stream = defer.source();

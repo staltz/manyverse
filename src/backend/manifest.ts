@@ -59,6 +59,10 @@ export = {
 
   // Third-party
   friends: {
+    hopStream: 'source',
+    onEdge: 'sync',
+    isFollowing: 'async',
+    isBlocking: 'async',
     get: 'async',
     createFriendStream: 'source',
     hops: 'async',
@@ -87,8 +91,14 @@ export = {
     read: 'source',
   },
   about: {
-    stream: 'source',
-    get: 'async',
+    socialValue: 'async',
+    latestValue: 'async',
+    socialValues: 'async',
+    latestValues: 'async',
+    socialValueStream: 'source',
+    socialValuesStream: 'source',
+    latestValueStream: 'source',
+    read: 'source',
   },
   contacts: {
     stream: 'source',
