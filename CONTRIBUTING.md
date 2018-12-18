@@ -50,7 +50,7 @@ This app only supports Android 5.0 and above.
 ### Manyverse specifics
 
 ```
-npm ci
+npm i
 ```
 
 ## Build and run in development
@@ -95,7 +95,7 @@ There is no support for continuously compiling the backend Node.js project.
 ### Troubleshooting
 
 On Android applications, the `react-native` build process is sometimes unable to rebuild assets.
-If you are getting errors while building the application using `react-native run-android`, then the command `npm run full-clean` can help you do a clean rebuild of the project. Then, reinstall with `npm ci` and rebuild.
+If you are getting errors while building the application using `react-native run-android`, then the command `npm run full-clean` can help you do a clean rebuild of the project. Then, reinstall with `npm i` and rebuild.
 
 #### NullPointerException on `npm run build-nodejs-app`
 
