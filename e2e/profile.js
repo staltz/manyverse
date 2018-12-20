@@ -51,6 +51,12 @@ module.exports = function(driver, t) {
     },
   );
 
+  t.skip('(TODO) Profile screen allows profile to be blocked', async function(
+    t,
+  ) {
+    t.end();
+  });
+
   t.test('Profile screen shows messages with Etc button', async function(t) {
     const chevron = await driver.waitForElementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Etc Button")',

@@ -132,6 +132,18 @@ module.exports = function(driver, t) {
     t.end();
   });
 
+  t.skip('(TODO) Thread screen alerts missing msg cypherlink', async function(
+    t,
+  ) {
+    t.end();
+  });
+
+  t.skip('(TODO) Thread screen alerts blocked msg cypherlink', async function(
+    t,
+  ) {
+    t.end();
+  });
+
   t.test('Thread screen allows going back to feed', async function(t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
