@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     width: 250,
     height: 16,
     marginTop: 10,
-    marginBottom: 6,
+    marginBottom: 31,
     backgroundColor: Palette.backgroundVoidWeak,
   },
 

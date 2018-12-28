@@ -6,7 +6,13 @@
 
 import xs from 'xstream';
 import {PureComponent, ReactElement} from 'react';
-import {View, StyleSheet, NativeScrollEvent} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  NativeScrollEvent,
+  Animated,
+  Easing,
+} from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Dimensions} from '../global-styles/dimens';
@@ -17,6 +23,7 @@ import {GetReadable, ThreadAndExtras} from '../drivers/ssb';
 import PullFlatList from 'pull-flat-list';
 import {Stream, Subscription, Listener} from 'xstream';
 import {propifyMethods} from 'react-propify-methods';
+import {Typography} from '../global-styles/typography';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 const PullFlatList2 = propifyMethods(
@@ -42,9 +49,73 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceBig,
     marginBottom: Dimensions.verticalSpaceBig,
   },
+
+  initialLoading: {
+    marginTop: Dimensions.verticalSpaceNormal,
+    fontSize: Typography.fontSizeNormal,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.textVeryWeak,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
 
-const FeedFooter = h(PlaceholderMessage);
+function Separator() {
+  return h(View, {style: styles.itemSeparator});
+}
+
+function PlaceholderWithSeparator() {
+  return h(View, [h(PlaceholderMessage), h(Separator)]);
+}
+
+class InitialLoading extends PureComponent<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      fadeAnim: new Animated.Value(0),
+    };
+  }
+
+  public componentDidMount() {
+    Animated.sequence([
+      Animated.delay(8000),
+      Animated.timing(this.state.fadeAnim, {
+        toValue: 1,
+        duration: 4000,
+        useNativeDriver: true,
+      }),
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(this.state.fadeAnim, {
+            toValue: 0.6,
+            duration: 2100,
+            easing: Easing.out(Easing.quad),
+            useNativeDriver: true,
+          }),
+          Animated.timing(this.state.fadeAnim, {
+            toValue: 1,
+            easing: Easing.linear,
+            duration: 2400,
+            useNativeDriver: true,
+          }),
+        ]),
+      ),
+    ]).start();
+  }
+
+  public render() {
+    const {fadeAnim} = this.state;
+
+    return h(View, [
+      h(PlaceholderMessage),
+      h(
+        Animated.Text,
+        {selectable: true, style: [styles.initialLoading, {opacity: fadeAnim}]},
+        'Building database indexes...\nThis may take up to several minutes',
+      ),
+    ]);
+  }
+}
 
 type Props = {
   getReadable: GetReadable<ThreadAndExtras> | null;
@@ -65,6 +136,7 @@ type Props = {
 
 type State = {
   showPlaceholder: boolean;
+  initialLoading: boolean;
 };
 
 const Y_OFFSET_IS_AT_TOP = 10;
@@ -72,7 +144,7 @@ const Y_OFFSET_IS_AT_TOP = 10;
 export default class Feed extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {showPlaceholder: false};
+    this.state = {showPlaceholder: false, initialLoading: true};
     this.addedThreadsStream = Pushable();
     this.yOffset = 0;
 
@@ -81,11 +153,16 @@ export default class Feed extends PureComponent<Props, State> {
         this.yOffset = ev.nativeEvent.contentOffset.y || 0;
       }
     };
+    this._onFeedInitialPullDone = () => {
+      if (this.props.onInitialPullDone) this.props.onInitialPullDone();
+      this.setState({initialLoading: false});
+    };
   }
 
   private addedThreadsStream: any | null;
   private yOffset: number;
   private _onScroll: (ev: {nativeEvent: NativeScrollEvent}) => void;
+  private _onFeedInitialPullDone: () => void;
   private subscription?: Subscription;
 
   public componentDidMount() {
@@ -129,7 +206,6 @@ export default class Feed extends PureComponent<Props, State> {
 
   public render() {
     const {
-      onInitialPullDone,
       onRefresh,
       onPressLike,
       onPressReply,
@@ -142,6 +218,7 @@ export default class Feed extends PureComponent<Props, State> {
       selfFeedId,
       EmptyComponent,
     } = this.props;
+    const {showPlaceholder, initialLoading} = this.state;
 
     return h(PullFlatList2, {
       getScrollStream: getReadable,
@@ -151,7 +228,7 @@ export default class Feed extends PureComponent<Props, State> {
       pullAmount: 1,
       numColumns: 1,
       refreshable: true,
-      onInitialPullDone,
+      onInitialPullDone: this._onFeedInitialPullDone,
       onRefresh,
       onScroll: this._onScroll,
       scrollToOffset$: (scrollToTop$ || xs.never())
@@ -163,7 +240,8 @@ export default class Feed extends PureComponent<Props, State> {
       refreshColors: [Palette.backgroundBrandWeak],
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
         thread.messages[0].key || String(index),
-      ListFooterComponent: FeedFooter,
+      ListHeaderComponent: showPlaceholder ? PlaceholderWithSeparator : null,
+      ListFooterComponent: initialLoading ? InitialLoading : PlaceholderMessage,
       ListEmptyComponent: EmptyComponent,
       renderItem: ({item}: any) =>
         h(View, [
@@ -176,7 +254,7 @@ export default class Feed extends PureComponent<Props, State> {
             onPressEtc,
             onPressExpand: onPressExpandThread || ((x: any) => {}),
           }),
-          h(View, {style: styles.itemSeparator}),
+          h(Separator),
         ]),
     });
   }
