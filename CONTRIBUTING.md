@@ -135,6 +135,7 @@ After `npm run release` runs, it will update APK files in two folders: `../dat-r
 - `git push origin master`
 - Deploy to Dat Installer
   - `cd ../dat-release-latest` and `dat sync`
+- Install new version through Dat Installer and make sure it works
 - Deploy to F-Droid: `git push origin --tags`
 - Deploy to Google Play
   - Take the APK file from `../dat-release-latest`, upload and publish it on Google Play developer website
