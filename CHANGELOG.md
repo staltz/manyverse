@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1901.2-beta
+
+* Minor improvements and bug fixes
+
 ## 0.1812.29-beta
 
 * Feature: block profiles, publicly or secretly ([see details](https://gitlab.com/staltz/manyverse/commit/62429db7fd585cb50bd5d612bf504171d9cfc0ff))
