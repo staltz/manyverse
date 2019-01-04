@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1901.4-beta
+
+* Feature: save draft messages ([see details](https://gitlab.com/staltz/manyverse/commit/3e7882ca4afc55823607133c55695ce0013746a6))
+
 ## 0.1901.2-beta
 
 * Minor improvements and bug fixes
