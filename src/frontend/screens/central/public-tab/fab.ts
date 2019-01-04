@@ -14,7 +14,9 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
     state =>
       ({
         sel: 'fab',
-        color: Palette.backgroundCTA,
+        color: state.hasComposeDraft
+          ? Palette.backgroundWarningAction
+          : Palette.backgroundCTA,
         visible: !!state.selfFeedId,
         actions: [
           {

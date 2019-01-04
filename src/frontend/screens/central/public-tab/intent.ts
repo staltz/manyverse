@@ -7,11 +7,13 @@
 import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
+import {NavSource} from 'cycle-native-navigation';
 import {
   GlobalEvent,
   TriggerFeedCypherlink,
   TriggerMsgCypherlink,
 } from '../../../drivers/eventbus';
+import {Screens} from '../../..';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};
@@ -19,6 +21,7 @@ export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 
 export default function intent(
   reactSource: ReactSource,
+  navSource: NavSource,
   globalEventBus: Stream<GlobalEvent>,
   fabPress$: Stream<string>,
 ) {
@@ -49,6 +52,10 @@ export default function intent(
     resetUpdates$: reactSource.select('publicFeed').events('refresh') as Stream<
       any
     >,
+
+    refreshComposeDraft$: navSource
+      .globalDidDisappear(Screens.Compose)
+      .startWith(null as any) as Stream<any>,
 
     goToThread$: xs.merge(
       reactSource.select('publicFeed').events('pressExpandThread'),

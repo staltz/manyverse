@@ -9,6 +9,7 @@ import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactSource} from '@cycle/react';
 import {Command, NavSource} from 'cycle-native-navigation';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {SSBSource, Req} from '../../../drivers/ssb';
 import {DialogSource} from '../../../drivers/dialogs';
@@ -25,6 +26,7 @@ import navigation from './navigation';
 export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
+  asyncstorage: AsyncStorageSource;
   globalEventBus: Stream<GlobalEvent>;
   state: StateSource<State>;
   ssb: SSBSource;
@@ -44,7 +46,12 @@ export type Sinks = {
 };
 
 export function publicTab(sources: Sources): Sinks {
-  const actions = intent(sources.screen, sources.globalEventBus, sources.fab);
+  const actions = intent(
+    sources.screen,
+    sources.navigation,
+    sources.globalEventBus,
+    sources.fab,
+  );
   const messageEtcSinks = messageEtc({
     appear$: actions.openMessageEtc$,
     dialog: sources.dialog,
@@ -52,7 +59,12 @@ export function publicTab(sources: Sources): Sinks {
   const actionsPlus = {...actions, goToRawMsg$: messageEtcSinks.goToRawMsg$};
   const vdom$ = view(sources.state.stream, sources.ssb, sources.scrollToTop);
   const command$ = navigation(actionsPlus, sources.state.stream);
-  const reducer$ = model(sources.state.stream, actionsPlus, sources.ssb);
+  const reducer$ = model(
+    sources.state.stream,
+    actionsPlus,
+    sources.asyncstorage,
+    sources.ssb,
+  );
   const fabProps$ = floatingAction(sources.state.stream);
   const newContent$ = ssb(actionsPlus);
 

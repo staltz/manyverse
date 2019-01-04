@@ -23,37 +23,45 @@ export default function view(
     .compose(dropRepeats())
     .startWith(undefined);
 
-  return xs.combine(topBar$, avatarUrl$).map(([topBar, avatarUrl]) =>
-    h(View, {style: styles.container}, [
-      topBar,
-      h(
-        KeyboardAvoidingView,
-        {
-          style: styles.bodyContainer,
-          ['enabled' as any]: true,
-        },
-        [
-          h(Avatar, {
-            size: avatarSize,
-            style: styles.avatar,
-            url: avatarUrl,
-          }),
-          h(TextInput, {
-            style: styles.composeInput,
-            sel: 'composeInput',
-            ['nativeID' as any]: 'FocusViewOnResume',
-            accessible: true,
-            accessibilityLabel: 'Compose Text Input',
-            autoFocus: true,
-            multiline: true,
-            returnKeyType: 'done',
-            placeholder: 'Write a public message',
-            placeholderTextColor: Palette.textVeryWeak,
-            selectionColor: Palette.backgroundTextSelection,
-            underlineColorAndroid: Palette.backgroundText,
-          }),
-        ],
-      ),
-    ]),
-  );
+  const postText$ = state$
+    .map(state => state.postText)
+    .compose(dropRepeats())
+    .startWith('');
+
+  return xs
+    .combine(topBar$, avatarUrl$, postText$)
+    .map(([topBar, avatarUrl, postText]) =>
+      h(View, {style: styles.container}, [
+        topBar,
+        h(
+          KeyboardAvoidingView,
+          {
+            style: styles.bodyContainer,
+            ['enabled' as any]: true,
+          },
+          [
+            h(Avatar, {
+              size: avatarSize,
+              style: styles.avatar,
+              url: avatarUrl,
+            }),
+            h(TextInput, {
+              style: styles.composeInput,
+              sel: 'composeInput',
+              ['nativeID' as any]: 'FocusViewOnResume',
+              value: postText,
+              accessible: true,
+              accessibilityLabel: 'Compose Text Input',
+              autoFocus: true,
+              multiline: true,
+              returnKeyType: 'done',
+              placeholder: 'Write a public message',
+              placeholderTextColor: Palette.textVeryWeak,
+              selectionColor: Palette.backgroundTextSelection,
+              underlineColorAndroid: Palette.backgroundText,
+            }),
+          ],
+        ),
+      ]),
+    );
 }

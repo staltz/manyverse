@@ -6,6 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource, GetReadable, ThreadAndExtras} from '../../../drivers/ssb';
 
@@ -14,15 +15,18 @@ export type State = {
   getPublicFeedReadable: GetReadable<ThreadAndExtras> | null;
   getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
   numOfUpdates: number;
+  hasComposeDraft: boolean;
 };
 
 export type Actions = {
   resetUpdates$: Stream<any>;
+  refreshComposeDraft$: Stream<any>;
 };
 
 export default function model(
   prevState$: Stream<State>,
   actions: Actions,
+  asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
   const setPublicFeedReducer$ = ssbSource.publicFeed$.map(
@@ -49,6 +53,16 @@ export default function model(
     },
   );
 
+  const getComposeDraftReducer$ = actions.refreshComposeDraft$
+    .map(() => asyncStorageSource.getItem('composeDraft'))
+    .flatten()
+    .map(
+      composeDraft =>
+        function getComposeDraftReducer(prev: State): State {
+          return {...prev, hasComposeDraft: !!composeDraft};
+        },
+    );
+
   const setSelfRootsReducer$ = ssbSource.selfRoots$.map(
     getReadable =>
       function setSelfRootsReducer(prev: State): State {
@@ -60,6 +74,7 @@ export default function model(
     setPublicFeedReducer$,
     setSelfRootsReducer$,
     incUpdatesReducer$,
+    getComposeDraftReducer$,
     resetUpdatesReducer$,
   );
 }

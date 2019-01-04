@@ -12,7 +12,7 @@ import {View, StyleSheet} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import Button from '../../../components/Button';
-import HeaderBackButton from '../../../components/HeaderBackButton';
+import HeaderCloseButton from '../../../components/HeaderCloseButton';
 import {ReactElement} from 'react';
 
 export type State = {
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
 
 function intent(reactSource: ReactSource) {
   return {
-    back$: reactSource.select('composeBackButton').events('press'),
+    back$: reactSource.select('composeCloseButton').events('press'),
 
     done$: reactSource.select('composePublishButton').events('press'),
   };
@@ -63,7 +63,7 @@ function intent(reactSource: ReactSource) {
 function view(state$: Stream<State>) {
   return state$.map(state =>
     h(View, {style: styles.container}, [
-      HeaderBackButton('composeBackButton'),
+      HeaderCloseButton('composeCloseButton'),
       h(Button, {
         sel: 'composePublishButton',
         style: state.enabled ? styles.buttonEnabled : styles.buttonDisabled,

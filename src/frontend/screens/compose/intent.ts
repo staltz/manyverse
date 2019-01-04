@@ -5,27 +5,42 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import delay from 'xstream/extra/delay';
 import between from 'xstream-between';
 import sample from 'xstream-sample';
 import {ReactSource} from '@cycle/react';
-import {KeyboardSource} from 'cycle-native-keyboard';
 import {NavSource} from 'cycle-native-navigation';
+import {DialogSource} from '../../drivers/dialogs';
+import {Palette} from '../../global-styles/palette';
 import {State} from './model';
-import {LifecycleEvent} from '../../drivers/lifecycle';
 
 export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
   topBarDone$: Stream<any>,
+  topBarBack$: Stream<any>,
   state$: Stream<State>,
-  keyboardSource: KeyboardSource,
-  lifecycle$: Stream<LifecycleEvent>,
+  dialogSource: DialogSource,
 ) {
-  const activityPaused$ = lifecycle$.filter(ev => ev === 'paused');
-  const activityResumed$ = lifecycle$.filter(ev => ev === 'resumed');
-  const composeAppeared$ = navSource.didAppear();
-  const composeDisappearing$ = navSource.didDisappear();
+  const back$ = xs
+    .merge(navSource.backPress(), topBarBack$)
+    .compose(between(navSource.didAppear(), navSource.didDisappear()));
+
+  const backWithoutDialog$ = back$
+    .compose(sample(state$))
+    .filter(state => !state.postText.length);
+
+  const backWithDialog = back$
+    .compose(sample(state$))
+    .filter(state => state.postText.length > 0)
+    .map(() =>
+      dialogSource.alert('', 'Save draft?', {
+        positiveText: 'Save',
+        positiveColor: Palette.text,
+        negativeText: 'Delete',
+        negativeColor: Palette.textNegative,
+      }),
+    )
+    .flatten();
 
   return {
     publishMsg$: topBarDone$
@@ -37,13 +52,14 @@ export default function intent(
       .select('composeInput')
       .events('changeText') as Stream<string>,
 
-    quitFromKeyboard$: keyboardSource
-      .events('keyboardDidHide')
-      .compose(
-        between(
-          xs.merge(composeAppeared$, activityResumed$).compose(delay(100)),
-          xs.merge(composeDisappearing$, activityPaused$),
-        ),
-      ),
+    exit$: backWithoutDialog$,
+
+    exitSavingDraft$: backWithDialog.filter(
+      res => res.action === 'actionPositive',
+    ),
+
+    exitDeletingDraft$: backWithDialog.filter(
+      res => res.action === 'actionNegative',
+    ),
   };
 }

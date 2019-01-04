@@ -7,31 +7,36 @@
 import xs, {Stream} from 'xstream';
 import isolate from '@cycle/isolate';
 import {ReactElement} from 'react';
-import {KeyboardSource} from 'cycle-native-keyboard';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
-import {SSBSource, Req} from '../../drivers/ssb';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {LifecycleEvent} from '../../drivers/lifecycle';
+import {
+  Command as StorageCommand,
+  AsyncStorageSource,
+} from 'cycle-native-asyncstorage';
+import {SSBSource, Req} from '../../drivers/ssb';
+import {DialogSource} from '../../drivers/dialogs';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
 import model, {State, topBarLens} from './model';
 import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
+import asyncStorage from './asyncstorage';
 
 export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
-  keyboard: KeyboardSource;
-  lifecycle: Stream<LifecycleEvent>;
+  asyncstorage: AsyncStorageSource;
   state: StateSource<State>;
   ssb: SSBSource;
+  dialog: DialogSource;
 };
 
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
+  asyncstorage: Stream<StorageCommand>;
   state: Stream<Reducer<State>>;
   keyboard: Stream<'dismiss'>;
   ssb: Stream<Req>;
@@ -54,22 +59,29 @@ export function compose(sources: Sources): Sinks {
     sources.screen,
     sources.navigation,
     topBarSinks.done,
+    topBarSinks.back,
     sources.state.stream,
-    sources.keyboard,
-    sources.lifecycle,
+    sources.dialog,
   );
+  const dismissKeyboard$ = xs
+    .merge(
+      actions.publishMsg$,
+      actions.exitDeletingDraft$,
+      actions.exitSavingDraft$,
+      actions.exit$,
+    )
+    .mapTo('dismiss' as 'dismiss');
   const vdom$ = view(sources.state.stream, topBarSinks.screen);
   const command$ = navigation(actions);
-  const reducer$ = model(actions, sources.ssb);
+  const reducer$ = model(actions, sources.asyncstorage, sources.ssb);
+  const storageCommand$ = asyncStorage(actions, sources.state.stream);
   const newContent$ = ssb(actions);
-  const dismiss$ = xs
-    .merge(actions.publishMsg$, topBarSinks.back)
-    .mapTo('dismiss' as 'dismiss');
 
   return {
-    keyboard: dismiss$,
+    keyboard: dismissKeyboard$,
     screen: vdom$,
     navigation: command$,
+    asyncstorage: storageCommand$,
     state: reducer$,
     ssb: newContent$,
   };

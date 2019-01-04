@@ -174,6 +174,7 @@ export const Palette = {
   backgroundTextHacker: indigo10,
 
   backgroundCTA: teal6,
+  backgroundWarningAction: yellow6,
   backgroundHackerVoid: indigo12,
 
   foregroundCTA: teal5,

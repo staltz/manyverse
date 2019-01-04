@@ -8,6 +8,7 @@ import xs, {Stream} from 'xstream';
 import {Reducer, Lens} from '@cycle/state';
 import {State as TopBarState} from './top-bar';
 import {SSBSource} from '../../drivers/ssb';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 
 export type State = {
   postText: string;
@@ -33,6 +34,7 @@ export type Actions = {
 
 export default function model(
   actions: Actions,
+  asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initReducer(prev?: State): State {
@@ -58,5 +60,20 @@ export default function model(
         },
     );
 
-  return xs.merge(initReducer$, updatePostTextReducer$, aboutReducer$);
+  const getComposeDraftReducer$ = asyncStorageSource
+    .getItem('composeDraft')
+    .filter(str => !!str)
+    .map(
+      composeDraft =>
+        function getComposeDraftReducer(prev: State): State {
+          return {...prev, postText: composeDraft};
+        },
+    );
+
+  return xs.merge(
+    initReducer$,
+    updatePostTextReducer$,
+    aboutReducer$,
+    getComposeDraftReducer$,
+  );
 }

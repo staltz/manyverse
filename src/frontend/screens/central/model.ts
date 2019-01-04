@@ -53,6 +53,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         getPublicFeedReadable: null,
         getSelfRootsReadable: null,
         numOfUpdates: parent.numOfPublicUpdates,
+        hasComposeDraft: false,
       };
     }
   },
