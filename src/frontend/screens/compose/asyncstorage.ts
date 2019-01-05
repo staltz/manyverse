@@ -11,6 +11,7 @@ import {State} from './model';
 
 export type Actions = {
   publishMsg$: Stream<any>;
+  exit$: Stream<any>;
   exitSavingDraft$: Stream<any>;
   exitDeletingDraft$: Stream<any>;
 };
@@ -26,7 +27,7 @@ export default function asyncStorage(actions: Actions, state$: Stream<State>) {
   );
 
   const deleteCommand$ = xs
-    .merge(actions.exitDeletingDraft$, actions.publishMsg$)
+    .merge(actions.exit$, actions.exitDeletingDraft$, actions.publishMsg$)
     .map(
       () =>
         ({
