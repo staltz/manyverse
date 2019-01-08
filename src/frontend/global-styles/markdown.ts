@@ -22,7 +22,6 @@ const remark = require('remark');
 const ReactMarkdown = require('react-markdown');
 const normalizeForReactNative = require('mdast-normalize-react-native');
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
-const stripHtml = require('remark-strip-html');
 const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
 const ref = require('ssb-ref');
 const linkifyRegex = require('remark-linkify-regex');
@@ -122,10 +121,9 @@ const styles = StyleSheet.create({
 
   codeBlock: {
     backgroundColor: Palette.backgroundTextWeak,
-    paddingTop: 3,
-    paddingBottom: 3,
-    paddingLeft: 5,
-    paddingRight: 5,
+    marginVertical: 2,
+    paddingVertical: 3,
+    paddingHorizontal: 5,
     borderRadius: 2,
   },
 
@@ -307,7 +305,6 @@ function Markdown(markdownText: string) {
   return $<any>(ReactMarkdown, {
     source: remark()
       .use(gemojiToEmoji)
-      .use(stripHtml)
       .use(linkifySsbFeeds)
       .use(linkifySsbMsgs)
       .use(imagesToSsbServeBlobs)
