@@ -174,9 +174,9 @@ There are three important parts to the app, executing in runtime as different th
 |     Cycle.js  (framework)       |<------->|                                  |
 | React Native  (JS runtime env)  |         |            Java  (language)      |
 | src/frontend  (path to src)     |         |     Android SDK  (framework)     |
-|        8000+  (lines of code)   |         | android/app/src  (path to src)   |
-+---------------------------------+         |            150+  (lines of code) |
-                                            |                                  |
+|        8000+  (lines of code)   |         |    React Native  (framework)     |
++---------------------------------+         | android/app/src  (path to src)   |
+                                            |            150+  (lines of code) |
 +---------------------------------+         |                                  |
 |         BACKEND THREAD          |         |                                  |
 |                                 |<------->|                                  |
