@@ -153,6 +153,7 @@ module.exports = function(driver, t) {
     t.pass('I see a like button on that message');
     await likeButton.tap();
     t.pass('I tap the like button');
+    await driver.sleep(1000);
     const likeCount = await driver.waitForElementByAndroidUIAutomator(
       'new UiSelector().textContains("Please like this message")' +
         '.fromParent(new UiSelector().descriptionContains("Like Count"))',

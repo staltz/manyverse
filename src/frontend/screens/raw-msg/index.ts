@@ -7,8 +7,7 @@
 import {Stream} from 'xstream';
 import {Command, PopCommand, NavSource} from 'cycle-native-navigation';
 import {ScrollView, Text, StyleSheet} from 'react-native';
-import {Msg} from 'ssb-typescript';
-import {SSBSource} from '../../drivers/ssb';
+import {SSBSource, MsgAndExtras} from '../../drivers/ssb';
 import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
 import {Dimensions} from '../../global-styles/dimens';
@@ -16,7 +15,7 @@ import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
 
 export type Props = {
-  msg: Msg;
+  msg: MsgAndExtras;
 };
 
 export type Sources = {
@@ -66,7 +65,11 @@ export function rawMessage(sources: Sources): Sinks {
       h(
         Text,
         {style: styles.content, selectable: true},
-        JSON.stringify(props.msg, null, 2),
+        JSON.stringify(
+          props.msg,
+          (key, value) => (key === '_$manyverse$metadata' ? undefined : value),
+          2,
+        ),
       ),
     ]),
   );

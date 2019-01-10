@@ -11,8 +11,8 @@ const {watch} = require('mutant');
 const pull = require('pull-stream');
 
 const gossipOpinion = {
-  gives: nest('sbot.obs.connectedPeers'),
   needs: nest('sbot.obs.connection', 'first'),
+  gives: nest('sbot.obs.connectedPeers'),
   create: (api: any) => {
     const connectedPeers = new Map<string, PeerMetadata>();
     const stream = xs.create<Map<string, PeerMetadata>>();

@@ -29,7 +29,15 @@ export default class Metadata extends Component<{msg: any}> {
   public render() {
     const {msg} = this.props;
     return h(View, {style: styles.metadataBox}, [
-      h(Text, {style: styles.metadataText}, JSON.stringify(msg, null, 2)),
+      h(
+        Text,
+        {style: styles.metadataText},
+        JSON.stringify(
+          msg,
+          (key, value) => (key === '_$manyverse$metadata' ? undefined : value),
+          2,
+        ),
+      ),
     ]);
   }
 }

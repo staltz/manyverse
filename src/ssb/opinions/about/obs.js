@@ -4,7 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-var {Value, computed} = require('mutant');
+import xs from 'xstream';
+var {Value} = require('mutant');
 var pull = require('pull-stream');
 var nest = require('depnest');
 var ref = require('ssb-ref');
@@ -25,14 +26,14 @@ exports.gives = nest({
 exports.create = function(api) {
   return nest({
     'about.obs': {
-      name: id => socialValue(id, 'name', api.about.sync.shortFeedId(id)),
-      description: id => socialValue(id, 'description'),
+      name: id => socialValue$(id, 'name', api.about.sync.shortFeedId(id)),
+      description: id => socialValue$(id, 'description'),
       image: id => socialValue(id, 'image'),
       imageUrl: id =>
-        computed(socialValue(id, 'image'), blobId => {
-          return blobId ? api.blob.sync.url(blobId) : null;
-        }),
-      color: id => computed(id, id => colorHash.hex(id)),
+        socialValue$(id, 'image').map(
+          blobId => (blobId ? api.blob.sync.url(blobId) : null),
+        ),
+      color: id => xs.of(colorHash.hex(id)).remember(),
     },
   });
 
@@ -46,5 +47,19 @@ exports.create = function(api) {
       }),
     );
     return value;
+  }
+
+  function socialValue$(id, key, defaultValue) {
+    if (!ref.isLink(id)) throw new Error('About requires an ssb ref!');
+    return xs.createWithMemory({
+      start(listener) {
+        listener.next(defaultValue);
+        this.sink = pull.drain(listener.next.bind(listener));
+        pull(api.sbot.pull.aboutLatestValueStream({key, dest: id}), this.sink);
+      },
+      stop() {
+        if (this.sink) this.sink.abort(true);
+      },
+    });
   }
 };

@@ -4,6 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import debounce from 'xstream/extra/debounce';
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {Msg, FeedId, MsgId} from 'ssb-typescript';
@@ -14,7 +15,7 @@ import PostMessage from './PostMessage';
 import AboutMessage from './AboutMessage';
 import ContactMessage from './ContactMessage';
 import KeylessMessage from './KeylessMessage';
-import {withMutantProps} from 'react-mutant-hoc';
+import {withXstreamProps} from 'react-xstream-hoc';
 
 export type State = {
   hasError: boolean;
@@ -29,10 +30,10 @@ export type Props = {
   onPressEtc?: (msg: Msg) => void;
 };
 
-const PostMessageM = withMutantProps(PostMessage, 'name', 'imageUrl', 'likes');
-const AboutMessageM = withMutantProps(AboutMessage, 'name', 'imageUrl');
-const ContactMessageM = withMutantProps(ContactMessage, 'name');
-const RawMessageM = withMutantProps(RawMessage, 'name', 'imageUrl', 'likes');
+const PostMessageM = withXstreamProps(PostMessage, 'name', 'imageUrl', 'likes');
+const AboutMessageM = withXstreamProps(AboutMessage, 'name', 'imageUrl');
+const ContactMessageM = withXstreamProps(ContactMessage, 'name');
+const RawMessageM = withXstreamProps(RawMessage, 'name', 'imageUrl', 'likes');
 
 export default class Message extends PureComponent<Props, State> {
   constructor(props: Props) {
@@ -47,11 +48,11 @@ export default class Message extends PureComponent<Props, State> {
 
   public render() {
     const {msg} = this.props;
-    const streams = this.props.msg.value._streams;
+    const streams = this.props.msg.value._$manyverse$metadata;
     const props = {
       ...this.props,
       msg: msg as Msg<any>,
-      likes: streams.likes,
+      likes: streams.likes.compose(debounce(80)), // avoid DB reads flickering
       name: streams.about.name,
       imageUrl: streams.about.imageUrl,
     };

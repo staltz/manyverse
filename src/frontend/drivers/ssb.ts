@@ -26,27 +26,25 @@ import publishHookOpinion from '../../ssb/opinions/hook';
 import contactOpinion = require('../../ssb/opinions/contact/obs');
 import configOpinion from '../../ssb/opinions/config';
 import feedProfileOpinion from '../../ssb/opinions/feed/pull/profile';
+import msgLikesOpinion = require('../../ssb/opinions/message/obs/likes');
 import {ssbKeysPath} from '../../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
-import xsFromMutant from 'xstream-from-mutant';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {Readable} from '../../typings/pull-stream';
-import {Mutant} from 'react-mutant-hoc';
 const pull = require('pull-stream');
 const cat = require('pull-cat');
 const backlinksOpinion = require('patchcore/backlinks/obs');
 const unboxOpinion = require('patchcore/message/sync/unbox');
-const msgLikesOpinion = require('patchcore/message/obs/likes');
 const ssbKeys = require('react-native-ssb-client-keys');
 const depjectCombine = require('depject');
 
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
-    _streams: {
-      likes: Mutant<Array<FeedId>>;
+    _$manyverse$metadata: {
+      likes: Stream<Array<FeedId>>;
       about: {
-        name: Mutant<string>;
-        imageUrl: Mutant<string>;
+        name: Stream<string>;
+        imageUrl: Stream<string>;
       };
     };
   };
@@ -72,7 +70,10 @@ function mutateMsgWithLiveExtras(api: any) {
       const imageUrl = api.about.obs.imageUrl[0](msg.value.author);
       if (msg.value) {
         const m = msg as MsgAndExtras;
-        m.value._streams = m.value._streams || {likes, about: {name, imageUrl}};
+        m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
+          likes,
+          about: {name, imageUrl},
+        };
       }
     }
     return msg;
@@ -212,12 +213,12 @@ export class SSBSource {
           .map(peersArr =>
             xs.combine(
               ...peersArr.map(kv =>
-                xsFromMutant<string>(api.about.obs.name[0](kv[1].key))
+                (api.about.obs.name[0](kv[1].key) as Stream<string>)
                   .map(name => ({...kv[1], name} as PeerMetadata))
                   .map(peer =>
-                    xsFromMutant<string>(
-                      api.about.obs.imageUrl[0](peer.key),
-                    ).map(imageUrl => ({...peer, imageUrl} as PeerMetadata)),
+                    (api.about.obs.imageUrl[0](peer.key) as Stream<string>).map(
+                      imageUrl => ({...peer, imageUrl} as PeerMetadata),
+                    ),
                   )
                   .flatten(),
               ),
@@ -302,15 +303,14 @@ export class SSBSource {
   public profileAbout$(id: FeedId): Stream<About & {id: FeedId}> {
     return this.api$
       .map(api => {
-        const name$ = xsFromMutant<string>(api.about.obs.name[0](id));
-        const color$ = xsFromMutant<string>(api.about.obs.color[0](id));
-        const imageUrl$ = xsFromMutant<string>(api.about.obs.imageUrl[0](id));
-        const following$ = xsFromMutant<true | null | false>(
-          api.contact.obs.tristate[0](api.keys.sync.id[0](), id),
-        );
-        const description$ = xsFromMutant<string>(
-          api.about.obs.description[0](id),
-        );
+        const name$ = api.about.obs.name[0](id) as Stream<string>;
+        const color$ = api.about.obs.color[0](id) as Stream<string>;
+        const imageUrl$ = api.about.obs.imageUrl[0](id) as Stream<string>;
+        const following$ = api.contact.obs.tristate[0](
+          api.keys.sync.id[0](),
+          id,
+        ) as Stream<boolean | null>;
+        const description$ = api.about.obs.description[0](id) as Stream<string>;
         return xs
           .combine(name$, color$, description$, following$, imageUrl$)
           .map(([name, color, description, following, imageUrl]) => ({

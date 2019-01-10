@@ -121,7 +121,7 @@ export type State = {
 export default class MessageFooter extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = this.stateFromProps(props, {ilike: 'maybe', likeCount: 0});
+    this.state = this.stateFromProps(props, {ilike: 'no', likeCount: 0});
     this._likeButtonProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
       onPress: this.onPressLikeHandler.bind(this),

@@ -65,7 +65,7 @@
     "react": "16.5.2",
     "react-human-time": "^1.1.0",
     "react-markdown": "3.4.0",
-    "react-mutant-hoc": "^1.1.0",
+    "react-xstream-hoc": "1.0.0",
     "react-native": "0.55.4",
     "react-native-android-local-notification": "1.1.0",
     "react-native-android-wifi": "0.0.34",
@@ -93,7 +93,6 @@
     "xstream": "11.7.0",
     "xstream-between": "1.0.0",
     "xstream-from-callback": "1.0",
-    "xstream-from-mutant": "1.1",
     "xstream-from-pull-stream": "1.1",
     "xstream-sample": "1.0.0"
   },

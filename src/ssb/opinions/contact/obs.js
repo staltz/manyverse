@@ -6,8 +6,8 @@
 
 'use strict';
 
+import xs from 'xstream';
 var nest = require('depnest');
-var {Value} = require('mutant');
 
 exports.needs = nest({
   'sbot.async.isFollowing': 'first',
@@ -20,13 +20,33 @@ exports.gives = nest({
 });
 
 exports.create = function(api) {
-  var mutantValues = {};
+  var streams = {};
+  function getStream(source, dest) {
+    streams[source] = streams[source] || {};
+    if (!streams[source][dest]) {
+      streams[source][dest] = xs.createWithMemory();
+      streams[source][dest].shamefullySendNext(null);
+    }
+    return streams[source][dest];
+  }
+
+  function updateTristateAsync(source, dest) {
+    const stream = getStream(source, dest);
+    api.sbot.async.isFollowing({source, dest}, (err, isFollowing) => {
+      if (err) console.error(err);
+      if (isFollowing) stream.shamefullySendNext(true);
+    });
+    api.sbot.async.isBlocking({source, dest}, (err, isBlocking) => {
+      if (err) console.error(err);
+      if (isBlocking) stream.shamefullySendNext(false);
+    });
+  }
 
   return nest({
     'contact.obs': {
       tristate: (source, dest) => {
         updateTristateAsync(source, dest);
-        return getMutantValue(source, dest);
+        return getStream(source, dest);
       },
     },
     'sbot.hook.publish': function(msg) {
@@ -38,27 +58,9 @@ exports.create = function(api) {
         : msg.value.content.flagged || msg.value.content.blocking
           ? false
           : null;
-      getMutantValue(source, dest).set(tristate);
+      getStream(source, dest).shamefullySendNext(tristate);
     },
   });
-
-  function updateTristateAsync(source, dest) {
-    const value = getMutantValue(source, dest);
-    api.sbot.async.isFollowing({source, dest}, (err, isFollowing) => {
-      if (err) console.error(err);
-      if (isFollowing) value.set(true);
-    });
-    api.sbot.async.isBlocking({source, dest}, (err, isBlocking) => {
-      if (err) console.error(err);
-      if (isBlocking) value.set(false);
-    });
-  }
-
-  function getMutantValue(source, dest) {
-    mutantValues[source] = mutantValues[source] || {};
-    mutantValues[source][dest] = mutantValues[source][dest] || Value(null);
-    return mutantValues[source][dest];
-  }
 };
 
 function isContact(msg) {
