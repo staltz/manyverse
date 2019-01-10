@@ -86,7 +86,6 @@ function toSodiumKeys(keys: any) {
 
 const create = (api: any) => {
   const keys = api.keys.sync.load();
-  const cache = {};
 
   let sbot: any = null;
   const connection = Value();
@@ -149,21 +148,17 @@ const create = (api: any) => {
   return {
     sbot: {
       sync: {
-        cache: () => cache,
+        cache: () => ({}),
       },
       async: {
         get: rec.async((key: any, cb: any) => {
           if (typeof cb !== 'function') {
             throw new Error('cb must be function');
           }
-          if (cache[key]) cb(null, cache[key]);
-          else {
-            sbot.get(key, (err: any, value: any) => {
-              if (err) return cb(err);
-              runHooks({key, value});
-              cb(null, value);
-            });
-          }
+          sbot.get(key, (err: any, value: any) => {
+            if (err) return cb(err);
+            cb(null, value);
+          });
         }),
         progress: rec.async((cb: any) => {
           sbot.progress(cb);
@@ -319,9 +314,6 @@ const create = (api: any) => {
   function runHooks(msg: any) {
     if (msg.publishing) {
       api.sbot.hook.publish(msg);
-    } else if (!cache[msg.key]) {
-      // cache[msg.key] = msg.value
-      // api.sbot.hook.feed(msg)
     }
   }
 };
