@@ -119,13 +119,25 @@ export class SSBSource {
 
     this.publicFeed$ = api$.map(api => (opts?: any) =>
       pull(
-        api.sbot.pull.publicThreads[0]({reverse: true, live: false, ...opts}),
+        api.sbot.pull.publicThreads[0]({
+          threadMaxSize: 3,
+          allowlist: ['post'],
+          reverse: true,
+          live: false,
+          ...opts,
+        }),
         pull.map(mutateThreadWithLiveExtras(api)),
       ),
     );
 
     this.publicLiveUpdates$ = api$
-      .map(api => xsFromPullStream(api.sbot.pull.publicUpdates[0]({})))
+      .map(api =>
+        xsFromPullStream(
+          api.sbot.pull.publicUpdates[0]({
+            allowlist: ['post'],
+          }),
+        ),
+      )
       .flatten()
       .mapTo(null);
 
@@ -278,6 +290,8 @@ export class SSBSource {
           id,
           reverse: true,
           live: false,
+          threadMaxSize: 3,
+          allowlist: ['post'],
           ...opts,
         }),
         pull.map(mutateThreadWithLiveExtras(api)),

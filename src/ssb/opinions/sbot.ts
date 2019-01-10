@@ -271,21 +271,13 @@ const create = (api: any) => {
           return sbot.threads.thread(opts);
         }),
         publicThreads: rec.source((opts: any) => {
-          return sbot.threads.public({
-            threadMaxSize: 3,
-            allowlist: ['post'],
-            ...opts,
-          });
+          return sbot.threads.public(opts);
         }),
         publicUpdates: rec.source((opts: any) => {
-          return sbot.threads.publicUpdates({allowlist: ['post'], ...opts});
+          return sbot.threads.publicUpdates(opts);
         }),
         profileThreads: rec.source((opts: any) => {
-          return sbot.threads.profile({
-            threadMaxSize: 3,
-            allowlist: ['post'],
-            ...opts,
-          });
+          return sbot.threads.profile(opts);
         }),
         feed: rec.source((opts: any) => {
           return sbot.createFeedStream(opts);
