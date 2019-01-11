@@ -13,7 +13,7 @@ var colorHash = new (require('color-hash'))();
 
 exports.needs = nest({
   'sbot.pull.stream': 'first',
-  'sbot.pull.aboutLatestValueStream': 'first',
+  'sbot.pull.aboutSocialValueStream': 'first',
   'blob.sync.url': 'first',
   'about.sync.shortFeedId': 'first',
   'keys.sync.id': 'first',
@@ -30,9 +30,9 @@ exports.create = function(api) {
       description: id => socialValue$(id, 'description'),
       image: id => socialValue(id, 'image'),
       imageUrl: id =>
-        socialValue$(id, 'image').map(
-          blobId => (blobId ? api.blob.sync.url(blobId) : null),
-        ),
+        socialValue$(id, 'image')
+          .map(x => (!!x && typeof x === 'object' && x.link ? x.link : x))
+          .map(blobId => (blobId ? api.blob.sync.url(blobId) : null)),
       color: id => xs.of(colorHash.hex(id)).remember(),
     },
   });
@@ -41,7 +41,7 @@ exports.create = function(api) {
     if (!ref.isLink(id)) throw new Error('About requires an ssb ref!');
     const value = Value(defaultValue);
     pull(
-      api.sbot.pull.aboutLatestValueStream({key, dest: id}),
+      api.sbot.pull.aboutSocialValueStream({key, dest: id}),
       pull.drain(v => {
         value.set(v);
       }),
@@ -55,7 +55,7 @@ exports.create = function(api) {
       start(listener) {
         listener.next(defaultValue);
         this.sink = pull.drain(listener.next.bind(listener));
-        pull(api.sbot.pull.aboutLatestValueStream({key, dest: id}), this.sink);
+        pull(api.sbot.pull.aboutSocialValueStream({key, dest: id}), this.sink);
       },
       stop() {
         if (this.sink) this.sink.abort(true);
