@@ -30,10 +30,8 @@ export type Props = {
   onPressEtc?: (msg: Msg) => void;
 };
 
-const PostMessageM = withXstreamProps(PostMessage, 'name', 'imageUrl', 'likes');
-const AboutMessageM = withXstreamProps(AboutMessage, 'name', 'imageUrl');
-const ContactMessageM = withXstreamProps(ContactMessage, 'name');
-const RawMessageM = withXstreamProps(RawMessage, 'name', 'imageUrl', 'likes');
+const PostMessageM = withXstreamProps(PostMessage, 'likes');
+const RawMessageM = withXstreamProps(RawMessage, 'likes');
 
 export default class Message extends PureComponent<Props, State> {
   constructor(props: Props) {
@@ -48,19 +46,19 @@ export default class Message extends PureComponent<Props, State> {
 
   public render() {
     const {msg} = this.props;
-    const streams = this.props.msg.value._$manyverse$metadata;
+    const metadata = this.props.msg.value._$manyverse$metadata;
     const props = {
       ...this.props,
       msg: msg as Msg<any>,
-      likes: streams.likes.compose(debounce(80)), // avoid DB reads flickering
-      name: streams.about.name,
-      imageUrl: streams.about.imageUrl,
+      likes: metadata.likes.compose(debounce(80)), // avoid DB reads flickering
+      name: metadata.about.name,
+      imageUrl: metadata.about.imageUrl,
     };
     if (this.state.hasError) return h(RawMessageM, props);
     if (!msg.key) return h(KeylessMessage, props);
     if (isPostMsg(msg)) return h(PostMessageM, props);
-    if (isAboutMsg(msg)) return h(AboutMessageM, props);
-    if (isContactMsg(msg)) return h(ContactMessageM, props);
+    if (isAboutMsg(msg)) return h(AboutMessage, props);
+    if (isContactMsg(msg)) return h(ContactMessage, props);
     return h(RawMessageM, props);
   }
 }

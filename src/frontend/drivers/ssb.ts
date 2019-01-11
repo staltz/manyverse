@@ -29,8 +29,10 @@ import feedProfileOpinion from '../../ssb/opinions/feed/pull/profile';
 import msgLikesOpinion = require('../../ssb/opinions/message/obs/likes');
 import {ssbKeysPath} from '../../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
+import runAsync = require('promisify-tuple');
 import xsFromPullStream from 'xstream-from-pull-stream';
-import {Readable} from '../../typings/pull-stream';
+import {Readable, Callback} from '../../typings/pull-stream';
+import {shortFeedId} from '../../ssb/from-ssb';
 const pull = require('pull-stream');
 const cat = require('pull-cat');
 const backlinksOpinion = require('patchcore/backlinks/obs');
@@ -43,8 +45,8 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
     _$manyverse$metadata: {
       likes: Stream<Array<FeedId>>;
       about: {
-        name: Stream<string>;
-        imageUrl: Stream<string>;
+        name: string;
+        imageUrl: string | null;
       };
     };
   };
@@ -63,29 +65,41 @@ export type StagedPeerMetadata = {
 };
 
 function mutateMsgWithLiveExtras(api: any) {
-  return (msg: Msg) => {
-    if (isMsg(msg)) {
-      const likes = api.message.obs.likes[0](msg.key);
-      const name = api.about.obs.name[0](msg.value.author);
-      const imageUrl = api.about.obs.imageUrl[0](msg.value.author);
-      if (msg.value) {
+  return (msg: Msg, cb: Callback<MsgAndExtras>) => {
+    if (!isMsg(msg) || !msg.value) return cb(null, msg as any);
+    const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
+    const nameOpts = {key: 'name', dest: msg.value.author};
+    aboutSocialValue(nameOpts, (e1: any, nameResult: string) => {
+      if (e1) return cb(e1);
+      const name = nameResult || shortFeedId(msg.value.author);
+      const avatarOpts = {key: 'image', dest: msg.value.author};
+      aboutSocialValue(avatarOpts, (e2: any, val: any) => {
+        if (e2) return cb(e2);
+        let imageUrl: string | null = val;
+        if (!!val && typeof val === 'object' && val.link) imageUrl = val.link;
+        if (imageUrl) {
+          imageUrl = api.blob.sync.url[0](imageUrl);
+        } else {
+          imageUrl = null;
+        }
+        const likes = api.message.obs.likes[0](msg.key);
         const m = msg as MsgAndExtras;
         m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
           likes,
           about: {name, imageUrl},
         };
-      }
-    }
-    return msg;
+        cb(null, m);
+      });
+    });
   };
 }
 
 function mutateThreadWithLiveExtras(api: any) {
-  return (thread: ThreadData) => {
+  return async (thread: ThreadData, cb: Callback<ThreadAndExtras>) => {
     for (const msg of thread.messages) {
-      mutateMsgWithLiveExtras(api)(msg);
+      await runAsync(mutateMsgWithLiveExtras(api))(msg);
     }
-    return thread;
+    cb(null, thread as ThreadAndExtras);
   };
 }
 
@@ -114,7 +128,7 @@ export class SSBSource {
     this.publicRawFeed$ = api$.map(api => (opts?: any) =>
       pull(
         api.sbot.pull.feed[0]({reverse: true, live: false, ...opts}),
-        pull.map(mutateMsgWithLiveExtras(api)),
+        pull.asyncMap(mutateMsgWithLiveExtras(api)),
       ),
     );
 
@@ -127,7 +141,7 @@ export class SSBSource {
           live: false,
           ...opts,
         }),
-        pull.map(mutateThreadWithLiveExtras(api)),
+        pull.asyncMap(mutateThreadWithLiveExtras(api)),
       ),
     );
 
@@ -152,7 +166,7 @@ export class SSBSource {
         api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
         pull.filter(isRootPostMsg),
         pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
-        pull.map(mutateThreadWithLiveExtras(api)),
+        pull.asyncMap(mutateThreadWithLiveExtras(api)),
       ),
     );
 
@@ -160,7 +174,7 @@ export class SSBSource {
       pull(
         api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
         pull.filter(isReplyPostMsg),
-        pull.map(mutateMsgWithLiveExtras(api)),
+        pull.asyncMap(mutateMsgWithLiveExtras(api)),
       ),
     );
 
@@ -272,7 +286,7 @@ export class SSBSource {
     const apiToThread = (api: any, cb: any) => {
       pull(
         api.sbot.pull.thread[0]({root: rootMsgId}),
-        pull.map(mutateThreadWithLiveExtras(api)),
+        pull.asyncMap(mutateThreadWithLiveExtras(api)),
         pull.take(1),
         pull.drain(
           (thread: ThreadAndExtras) => cb(null, thread),
@@ -295,7 +309,7 @@ export class SSBSource {
           allowlist: ['post'],
           ...opts,
         }),
-        pull.map(mutateThreadWithLiveExtras(api)),
+        pull.asyncMap(mutateThreadWithLiveExtras(api)),
       ),
     );
   }

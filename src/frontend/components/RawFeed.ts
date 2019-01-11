@@ -11,10 +11,7 @@ import ShortRawMessage from './messages/ShortRawMessage';
 import {Palette} from '../global-styles/palette';
 import {GetReadable, MsgAndExtras} from '../drivers/ssb';
 import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
-import {withXstreamProps} from 'react-xstream-hoc';
 import {Msg} from 'ssb-typescript';
-
-const ShortRawMessageM = withXstreamProps(ShortRawMessage, 'name', 'imageUrl');
 
 export const styles = StyleSheet.create({
   container: {
@@ -55,7 +52,7 @@ export default class Feed extends PureComponent<Props, {}> {
       refreshColors: [Palette.backgroundBrandWeak],
       ItemSeparatorComponent: RawFeedItemSeparator,
       renderItem: ({item}) =>
-        h(ShortRawMessageM, {
+        h(ShortRawMessage, {
           msg: item,
           name: item.value._$manyverse$metadata.about.name,
           imageUrl: item.value._$manyverse$metadata.about.imageUrl,

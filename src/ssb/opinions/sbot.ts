@@ -7,7 +7,7 @@
 import {Readable} from '../../typings/pull-stream';
 import {manifest} from '../manifest-client';
 import {startSyncingNotifications} from '../syncing-notifications';
-import {AboutContent} from 'ssb-typescript';
+import {AboutContent, FeedId} from 'ssb-typescript';
 const pull = require('pull-stream');
 const defer = require('pull-defer');
 const Notify = require('pull-notify');
@@ -22,6 +22,7 @@ const nodejs = require('nodejs-mobile-react-native');
 const MultiServer = require('multiserver');
 const rnChannelPlugin = require('multiserver-rn-channel');
 const noAuthPlugin = require('multiserver/plugins/noauth');
+const QuickLRU = require('quick-lru');
 
 const needs = nest({
   'keys.sync.load': 'first',
@@ -48,6 +49,7 @@ const gives = {
       isBlocking: true,
       addBlob: true,
       gossipConnect: true,
+      aboutSocialValue: true,
       friendsGet: true,
     },
     pull: {
@@ -92,6 +94,11 @@ const create = (api: any) => {
   const connectionStatus = Value();
   const connectedPeers = MutantSet();
   const localPeers = MutantSet();
+  const DUNBAR = 150;
+  const socialValueCache = {
+    name: new QuickLRU({maxSize: DUNBAR}) as Map<FeedId, string>,
+    image: new QuickLRU({maxSize: DUNBAR}) as Map<FeedId, any>,
+  };
 
   const rec = Reconnect((isConn: any) => {
     function notify(value?: any) {
@@ -244,6 +251,22 @@ const create = (api: any) => {
         }),
         gossipConnect: rec.async((opts: any, cb: any) => {
           sbot.gossip.connect(opts, cb);
+        }),
+        aboutSocialValue: rec.async((opts: any, cb: any) => {
+          if (opts.key === 'name' || opts.key === 'image') {
+            const cache = socialValueCache[opts.key];
+            const author = opts.dest;
+            if (cache.has(author)) {
+              return cb(null, cache.get(author));
+            } else {
+              sbot.about.socialValue(opts, (err: any, val: string) => {
+                if (!err) cache.set(author, val);
+                cb(err, val);
+              });
+            }
+          } else {
+            sbot.about.socialValue(opts, cb);
+          }
         }),
         friendsGet: rec.async((opts: any, cb: any) => {
           sbot.friends.get(opts, cb);
