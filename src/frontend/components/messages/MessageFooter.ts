@@ -190,6 +190,7 @@ export default class MessageFooter extends Component<Props, State> {
     const prevState = this.state;
     return (
       nextProps.msg.key !== prevProps.msg.key ||
+      nextState.likeCount !== prevState.likeCount ||
       nextState.ilike !== prevState.ilike
     );
   }
