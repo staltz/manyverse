@@ -90,6 +90,7 @@ function statesAreEqual(s1: State, s2: State): boolean {
   if (s1.keyboardVisible !== s2.keyboardVisible) return false;
   if (s1.replyEditable !== s2.replyEditable) return false;
   if (s1.startedAsReply !== s2.startedAsReply) return false;
+  if (s1.avatarUrl !== s2.avatarUrl) return false;
   if (s1.thread.messages.length !== s2.thread.messages.length) return false;
   if (s1.thread.full !== s2.thread.full) return false;
   if (s1.getSelfRepliesReadable !== s2.getSelfRepliesReadable) return false;
