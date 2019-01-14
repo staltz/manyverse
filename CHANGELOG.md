@@ -6,6 +6,14 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1901.14-beta.b
+
+* Fix calculation and visibility of likes counter ([see details](https://gitlab.com/staltz/manyverse/commit/20a2c5d74279edd606d34929ff54857d5e4e829e))
+* Fix rendering of consecutive code blocks ([see details](https://gitlab.com/staltz/manyverse/commit/9f9f17f524d139af40392ee6896d1cb38714b35a)), closes [#278](https://gitlab.com/staltz/manyverse/issues/278)
+* Fix the display of some avatars and names ([see details](https://gitlab.com/staltz/manyverse/commit/bcfe461d42f64ba6d6108a3b14735035b5ad5a34))
+* Fix visibility of avatar in thread reply field ([see details](https://gitlab.com/staltz/manyverse/commit/98f5b350a03d9c5c0c4ac92327148dba89adf051))
+* Improve speed of loading avatars and names ([see details](https://gitlab.com/staltz/manyverse/commit/a03b4751db754b2f3ff8ef539a044609a59a7836))
+
 ## 0.1901.5-beta
 
 * Fix corner case bug with draft messages ([see details](https://gitlab.com/staltz/manyverse/commit/77591df3d82e17ee33280846b8c63cd1fbc40f46))
