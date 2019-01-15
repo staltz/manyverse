@@ -43,12 +43,12 @@ export const styles = StyleSheet.create({
 
   buttonEnabled: {
     backgroundColor: Palette.backgroundCTA,
-    width: 80,
+    minWidth: 80,
   },
 
   buttonDisabled: {
     backgroundColor: Palette.backgroundBrandWeak,
-    width: 80,
+    minWidth: 80,
   },
 });
 
