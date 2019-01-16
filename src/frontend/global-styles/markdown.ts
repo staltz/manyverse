@@ -9,20 +9,25 @@ import {
   View,
   Text,
   Image,
-  ImageBackground,
   Dimensions,
   Linking,
+  Clipboard,
   StyleSheet,
+  TouchableWithoutFeedback as Touchable,
+  ToastAndroid,
 } from 'react-native';
 import {Palette} from './palette';
 import {Dimensions as Dimens} from './dimens';
 import {Typography as Typ} from './typography';
 import {GlobalEventBus} from '../drivers/eventbus';
+import ImageView from 'react-native-image-view';
+import HeaderButton from '../components/HeaderButton';
 const remark = require('remark');
 const ReactMarkdown = require('react-markdown');
 const normalizeForReactNative = require('mdast-normalize-react-native');
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
+const urlToBlobId = require('ssb-serve-blobs/url-to-id');
 const ref = require('ssb-ref');
 const linkifyRegex = require('remark-linkify-regex');
 
@@ -144,55 +149,110 @@ const styles = StyleSheet.create({
   orderedBullet: {
     fontWeight: 'bold',
   },
+
+  imageBlobIdContainer: {
+    flexDirection: 'row',
+    backgroundColor: Palette.transparencyDark,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: Dimens.horizontalSpaceNormal,
+    paddingVertical: Dimens.verticalSpaceTiny,
+  },
+
+  imageBlobIdText: {
+    flex: 1,
+    color: Palette.colors.white,
+    marginRight: Dimens.horizontalSpaceNormal,
+    fontSize: Typ.fontSizeNormal,
+    fontWeight: 'bold',
+    fontFamily: Typ.fontFamilyReadableText,
+  },
 });
 
-class ImageWithBG extends PureComponent<{src: string}, {loaded: boolean}> {
+type StateImageWithBG = {
+  fullscreen: boolean;
+  fullwidth: number;
+  fullheight: number;
+};
+
+class ZoomableImage extends PureComponent<{src: string}, StateImageWithBG> {
   constructor(props: {src: string}) {
     super(props);
-    this.state = {loaded: false};
-    this.onLoad = () => {
-      this.setState({loaded: true});
-    };
+    this.state = {fullscreen: false, fullwidth: 300, fullheight: 200};
+    this.onOpen = () => this.setState({fullscreen: true});
+    this.onClose = () => this.setState({fullscreen: false});
   }
 
-  private onLoad: () => void;
+  private onOpen: () => void;
+  private onClose: () => void;
+
+  public componentDidMount() {
+    const win = Dimensions.get('window');
+    Image.getSize(
+      this.props.src,
+      (imgWidth: number, imgHeight: number) => {
+        const ratio = imgHeight / imgWidth;
+        this.setState({fullwidth: win.width, fullheight: win.width * ratio});
+      },
+      () => {},
+    );
+  }
+
+  public renderFooter(img: any) {
+    const blobId = urlToBlobId(img.source.uri);
+    return $(View, {style: styles.imageBlobIdContainer}, [
+      $(
+        Text,
+        {
+          numberOfLines: 1,
+          ellipsizeMode: 'middle',
+          style: styles.imageBlobIdText,
+        },
+        blobId,
+      ),
+      $(HeaderButton, {
+        onPress: () => {
+          Clipboard.setString(blobId);
+          ToastAndroid.show("Copied this blob's ID", ToastAndroid.SHORT);
+        },
+        icon: 'content-copy',
+        accessibilityLabel: 'Copy Blob ID',
+        rightSide: true,
+      }),
+    ]);
+  }
 
   public render() {
     const d = Dimensions.get('window');
     const width = d.width - Dimens.horizontalSpaceBig * 2;
     const height = width * 0.7;
-    if (this.state.loaded) {
-      return $(Image, {
-        source: {uri: this.props.src},
-        style: {
-          marginTop: Dimens.verticalSpaceSmall,
-          marginBottom: Dimens.verticalSpaceSmall,
-          resizeMode: 'cover',
-          width,
-          height,
-        },
-      });
-    } else {
-      return $(
-        ImageBackground,
-        {
+    const uri = this.props.src;
+    const {fullwidth, fullheight} = this.state;
+    return $(View, null, [
+      this.state.fullscreen
+        ? $(ImageView, {
+            images: [{source: {uri}, width: fullwidth, height: fullheight}],
+            imageIndex: 0,
+            onClose: this.onClose,
+            renderFooter: this.renderFooter,
+          })
+        : null,
+      $(
+        Touchable,
+        {onPress: this.onOpen},
+        $(Image, {
+          source: {uri},
+          defaultSource: pictureIcon,
           style: {
+            resizeMode: 'cover',
             marginTop: Dimens.verticalSpaceSmall,
             marginBottom: Dimens.verticalSpaceSmall,
-            backgroundColor: Palette.backgroundVoidWeak,
             width,
             height,
           },
-          resizeMode: 'center',
-          source: pictureIcon,
-        },
-        $(Image, {
-          source: {uri: this.props.src},
-          onLoad: this.onLoad,
-          style: {resizeMode: 'cover', width, height},
         }),
-      );
-    }
+      ),
+    ]);
   }
 }
 
@@ -272,7 +332,7 @@ const renderers = {
   thematicBreak: () => $(View, {style: styles.horizontalLine}),
 
   image: (props: {src: string; title: string; alt: string}) => {
-    return $(ImageWithBG, {src: props.src});
+    return $(ZoomableImage, {src: props.src});
   },
 
   list: (props: {children: any; depth: number; ordered: boolean}) =>
