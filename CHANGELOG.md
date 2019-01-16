@@ -6,6 +6,11 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1901.16-beta
+
+* Feature: view images in fullscreen ([see details](https://gitlab.com/staltz/manyverse/commit/201a1ec95299519bf5ea6670c4894f14aa5ac818))
+* Fix size of Publish button in the Compose screen ([see details](https://gitlab.com/staltz/manyverse/commit/2141793f1bb0401b00cccd7a3531b5c20833b682))
+
 ## 0.1901.14-beta.b
 
 * Fix calculation and visibility of likes counter ([see details](https://gitlab.com/staltz/manyverse/commit/20a2c5d74279edd606d34929ff54857d5e4e829e))
