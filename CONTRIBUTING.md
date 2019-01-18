@@ -161,7 +161,6 @@ The app is built on these technologies:
 - [TypeScript](https://www.typescriptlang.org/) (backend and frontend)
 - [Cycle.js / xstream](https://cycle.js.org/) (frontend)
 - [Pull streams](https://github.com/pull-stream/pull-stream/) (backend and frontend)
-- [Patchcore](https://github.com/ssbc/patchcore/) (frontend)
 
 There are three important parts to the app, executing in runtime as different threads: **frontend thread** handles UI logic for the features, **backend thread** handles local database and peer-to-peer networking capabilities, **app thread** lightly coordinates the lifecycle of the app and creation of the other two threads.
 

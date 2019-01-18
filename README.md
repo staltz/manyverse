@@ -28,7 +28,7 @@
 
 See file AUTHORS for copyright holders.
 
-Most of the source code files for this project are licensed under the **Mozilla Public License 2.0** (see file LICENSE), while the dependency "Patchcore" is licensed under GNU Affero General Public License (see file AGPL-3.0), and some scripts and test files are dedicated to the Public Domain (see file CC0-1.0).
+**MPL 2.0.** Most source code files for this project are licensed under the **Mozilla Public License 2.0** (see file `LICENSE`), while some scripts and test files are dedicated to the Public Domain (see file `CC0-1.0`).
 
 ### Backers
 

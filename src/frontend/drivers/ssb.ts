@@ -35,8 +35,6 @@ import {Readable, Callback} from '../../typings/pull-stream';
 import {shortFeedId} from '../../ssb/from-ssb';
 const pull = require('pull-stream');
 const cat = require('pull-cat');
-const backlinksOpinion = require('patchcore/backlinks/obs');
-const unboxOpinion = require('patchcore/message/sync/unbox');
 const ssbKeys = require('react-native-ssb-client-keys');
 const depjectCombine = require('depject');
 
@@ -444,10 +442,8 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
         sbotOpinion,
         feedProfileOpinion,
         gossipOpinion,
-        backlinksOpinion,
         aboutOpinion,
         contactOpinion,
-        unboxOpinion,
         msgLikesOpinion,
       ]);
     })
