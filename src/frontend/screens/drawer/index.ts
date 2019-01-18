@@ -47,10 +47,12 @@ export function drawer(sources: Sources): Sinks {
         'Version ' +
         pkgJSON.version +
         '<br /><br />' +
-        "Copyright (C) 2017-2018 Andre 'Staltz' Medeiros<br />" +
+        'Copyright (C) 2018-2019 ' +
+        '<a href="https://gitlab.com/staltz/manyverse/blob/master/AUTHORS">The Manyverse Authors</a>' +
+        '<br /><br />' +
         '<a href="https://gitlab.com/staltz/manyverse">Open source on GitLab</a>' +
         '<br />' +
-        'Licensed GPL 3.0',
+        'Licensed MPL 2.0',
       options: {
         contentIsHtml: true,
         contentColor: Palette.textWeak,
