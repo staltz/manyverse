@@ -101,9 +101,16 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           accessibilityLabel: 'Show Raw Database',
         }),
         h(MenuItem, {
+          sel: 'thanks',
+          icon: 'heart-circle',
+          text: 'Thanks',
+          accessible: true,
+          accessibilityLabel: 'Show Thanks',
+        }),
+        h(MenuItem, {
           sel: 'about',
           icon: 'information',
-          text: 'About Manyverse',
+          text: 'About',
           accessible: true,
           accessibilityLabel: 'About This App',
         }),

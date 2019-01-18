@@ -12,6 +12,8 @@ export default function intent(source: ReactSource) {
 
     openAbout$: source.select('about').events('press').mapTo(null),
 
+    openThanks$: source.select('thanks').events('press').mapTo(null),
+
     emailBugReport$: source.select('bug-report').events('press').mapTo(null),
 
     showRawDatabase$: source.select('raw-db').events('press').mapTo(null),

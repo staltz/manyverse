@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Command as NavCmd} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
@@ -37,7 +37,25 @@ export function drawer(sources: Sources): Sinks {
   const vdom$ = view(sources.state.stream);
   const command$ = navigation(actions, sources.state.stream);
   const reducer$ = model(sources.ssb);
-  const dialog$ = actions.openAbout$.mapTo(
+  const thanksDialog$ = actions.openThanks$.mapTo(
+    {
+      type: 'alert',
+      title: 'Thank you!',
+      content:
+        'This app is funded through donations from:<br /><br />' +
+        '<strong>DC Posch, Jean-Baptiste Giraudeau</strong>, ' +
+        'and dozens of other backers on our OpenCollective.' +
+        '<br /><br />' +
+        '<a href="https://opencollective.com/manyverse">Become a backer too!</a>',
+      options: {
+        contentIsHtml: true,
+        contentColor: Palette.textWeak,
+        linkColor: Palette.text,
+        positiveColor: Palette.text,
+      },
+    } as DialogCmd,
+  );
+  const aboutDialog$ = actions.openAbout$.mapTo(
     {
       type: 'alert',
       title: 'About Manyverse',
@@ -61,6 +79,7 @@ export function drawer(sources: Sources): Sinks {
       },
     } as DialogCmd,
   );
+  const dialog$ = xs.merge(thanksDialog$, aboutDialog$);
   const mailto$ = actions.emailBugReport$.mapTo(
     'mailto:' +
       'incoming+staltz/manyverse@incoming.gitlab.com' +
