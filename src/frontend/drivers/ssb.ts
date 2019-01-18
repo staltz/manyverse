@@ -461,7 +461,10 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           api.sbot.async.publish[0](req.content);
         }
         if (req.type === 'publishAbout') {
-          api.sbot.async.publishAbout[0](req.content);
+          api.sbot.async.publishAbout[0](req.content, () => {
+            const selfId = api.keys.sync.id[0]();
+            api.sbot.sync.invalidateAboutSocialValue[0](selfId);
+          });
         }
         if (req.type === 'invite.accept') {
           api.sbot.async.acceptInvite[0](req.invite, (err: any, val: any) => {

@@ -34,6 +34,7 @@ const gives = {
   sbot: {
     sync: {
       cache: true,
+      invalidateAboutSocialValue: true,
     },
     async: {
       get: true,
@@ -156,6 +157,10 @@ const create = (api: any) => {
     sbot: {
       sync: {
         cache: () => ({}),
+        invalidateAboutSocialValue: (feedId: FeedId) => {
+          socialValueCache.name.delete(feedId);
+          socialValueCache.image.delete(feedId);
+        },
       },
       async: {
         get: rec.async((key: any, cb: any) => {
