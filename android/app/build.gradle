@@ -106,8 +106,8 @@ android {
     }
 
     defaultConfig {
-        versionCode 45
-        versionName "0.1901.16-beta"
+        versionCode 46
+        versionName "0.1901.21-beta"
         applicationId "se.manyver"
         minSdkVersion 21
         targetSdkVersion 26

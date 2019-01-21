@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1901.21-beta
+
+* Add Thanks Backers screen to the drawer menu ([see details](https://gitlab.com/staltz/manyverse/commit/e593976da84befd738314334a36e32dcd0524d38))
+* Fix info in About Manyverse popup ([see details](https://gitlab.com/staltz/manyverse/commit/68df215a62187b15985c632cedd08f3d93c9205b))
+* Fix update of avatar and name after editing own profile ([see details](https://gitlab.com/staltz/manyverse/commit/08c894ac8e7115dfab19d68783f2c5f323d8357a))
+
 ## 0.1901.16-beta
 
 * Feature: view images in fullscreen ([see details](https://gitlab.com/staltz/manyverse/commit/201a1ec95299519bf5ea6670c4894f14aa5ac818))
