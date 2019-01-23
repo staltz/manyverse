@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1901.23-beta
+
+* Feature: long press fullscreen image button to copy as markdown ([see details](https://gitlab.com/staltz/manyverse/commit/e77270dfe9d679dabc9983bab825f757850ae4e6))
+
 ## 0.1901.21-beta
 
 * Add Thanks Backers screen to the drawer menu ([see details](https://gitlab.com/staltz/manyverse/commit/e593976da84befd738314334a36e32dcd0524d38))
