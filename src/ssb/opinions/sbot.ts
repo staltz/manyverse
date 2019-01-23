@@ -10,7 +10,6 @@ import {manifest} from '../manifest-client';
 import {startSyncingNotifications} from '../syncing-notifications';
 import {AboutContent, FeedId} from 'ssb-typescript';
 const pull = require('pull-stream');
-const defer = require('pull-defer');
 const Notify = require('pull-notify');
 const ref = require('ssb-ref');
 const Reconnect = require('pull-reconnect');
@@ -47,11 +46,9 @@ const gives = {
       removeDhtInvite: true,
       isFollowing: true,
       isBlocking: true,
-      addBlob: true,
       gossipPeers: true,
       gossipConnect: true,
       aboutSocialValue: true,
-      friendsGet: true,
     },
     pull: {
       syncing: true,
@@ -59,9 +56,7 @@ const gives = {
       publicUpdates: true,
       profileThreads: true,
       thread: true,
-      log: true,
       userFeed: true,
-      messagesByType: true,
       feed: true,
       links: true,
       backlinks: true,
@@ -69,7 +64,6 @@ const gives = {
       hostingDhtInvites: true,
       claimingDhtInvites: true,
       aboutSocialValueStream: true,
-      stream: true,
     },
   },
 };
@@ -244,9 +238,6 @@ const create = (api: any) => {
         isBlocking: rec.async((opts: any, cb: any) => {
           sbot.friends.isBlocking(opts, cb);
         }),
-        addBlob: rec.async((stream: any, cb: any) => {
-          pull(stream, sbot.blobs.add(cb));
-        }),
         gossipPeers: rec.async((cb: any) => {
           sbot.gossip.peers(cb);
         }),
@@ -269,9 +260,6 @@ const create = (api: any) => {
             sbot.about.socialValue(opts, cb);
           }
         }),
-        friendsGet: rec.async((opts: any, cb: any) => {
-          sbot.friends.get(opts, cb);
-        }),
       },
       pull: {
         syncing: rec.source(() => {
@@ -282,9 +270,6 @@ const create = (api: any) => {
         }),
         userFeed: rec.source((opts: any) => {
           return sbot.createUserStream(opts);
-        }),
-        messagesByType: rec.source((opts: any) => {
-          return sbot.messagesByType(opts);
         }),
         thread: rec.source((opts: any) => {
           return sbot.threads.thread(opts);
@@ -301,9 +286,6 @@ const create = (api: any) => {
         feed: rec.source((opts: any) => {
           return sbot.createFeedStream(opts);
         }),
-        log: rec.source((opts: any) => {
-          return pull(sbot.createLogStream(opts), pull.through(runHooks));
-        }),
         links: rec.source((query: any) => {
           return sbot.links(query);
         }),
@@ -319,15 +301,6 @@ const create = (api: any) => {
         aboutSocialValueStream: rec.source((opts: any) => {
           return sbot.about.socialValueStream(opts);
         }),
-        stream: (fn: any) => {
-          const stream = defer.source();
-          sbot$.filter(s => !!s).take(1).subscribe({
-            next: ssbClient => {
-              stream.resolve(fn(ssbClient));
-            },
-          });
-          return stream;
-        },
       },
     },
   };

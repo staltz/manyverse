@@ -25,7 +25,6 @@ import gossipOpinion from '../../ssb/opinions/gossip';
 import publishHookOpinion from '../../ssb/opinions/hook';
 import contactOpinion = require('../../ssb/opinions/contact/obs');
 import configOpinion from '../../ssb/opinions/config';
-import feedProfileOpinion from '../../ssb/opinions/feed/pull/profile';
 import msgLikesOpinion = require('../../ssb/opinions/message/obs/likes');
 import {ssbKeysPath} from '../../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
@@ -440,7 +439,6 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
         configOpinion,
         makeKeysOpinion(keys),
         sbotOpinion,
-        feedProfileOpinion,
         gossipOpinion,
         aboutOpinion,
         contactOpinion,

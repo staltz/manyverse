@@ -11,7 +11,6 @@ var ref = require('ssb-ref');
 var colorHash = new (require('color-hash'))();
 
 exports.needs = nest({
-  'sbot.pull.stream': 'first',
   'sbot.pull.aboutSocialValueStream': 'first',
   'blob.sync.url': 'first',
   'about.sync.shortFeedId': 'first',
