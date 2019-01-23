@@ -204,6 +204,7 @@ class ZoomableImage extends PureComponent<{src: string}, StateImageWithBG> {
       $(
         Text,
         {
+          key: 'text',
           numberOfLines: 1,
           ellipsizeMode: 'middle',
           style: styles.imageBlobIdText,
@@ -211,9 +212,14 @@ class ZoomableImage extends PureComponent<{src: string}, StateImageWithBG> {
         blobId,
       ),
       $(HeaderButton, {
+        key: 'btn',
         onPress: () => {
           Clipboard.setString(blobId);
           ToastAndroid.show("Copied this blob's ID", ToastAndroid.SHORT);
+        },
+        onLongPress: () => {
+          Clipboard.setString(`![${blobId}](${blobId})`);
+          ToastAndroid.show('Copied as markdown code', ToastAndroid.SHORT);
         },
         icon: 'content-copy',
         accessibilityLabel: 'Copy Blob ID',
@@ -231,6 +237,7 @@ class ZoomableImage extends PureComponent<{src: string}, StateImageWithBG> {
     return $(View, null, [
       this.state.fullscreen
         ? $(ImageView, {
+            key: 'full',
             images: [{source: {uri}, width: fullwidth, height: fullheight}],
             imageIndex: 0,
             onClose: this.onClose,
@@ -239,8 +246,9 @@ class ZoomableImage extends PureComponent<{src: string}, StateImageWithBG> {
         : null,
       $(
         Touchable,
-        {onPress: this.onOpen},
+        {onPress: this.onOpen, key: 't'},
         $(Image, {
+          key: 'preview',
           source: {uri},
           defaultSource: pictureIcon,
           style: {

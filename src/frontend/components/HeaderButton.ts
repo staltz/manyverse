@@ -26,6 +26,7 @@ export const styles = StyleSheet.create({
 
 export type Props = {
   onPress?: () => void;
+  onLongPress?: () => void;
   color?: string;
   icon: string;
   accessibilityLabel: string;
@@ -34,12 +35,20 @@ export type Props = {
 
 export default class HeaderButton extends PureComponent<Props> {
   public render() {
-    const {onPress, color, icon, accessibilityLabel, rightSide} = this.props;
+    const {
+      onPress,
+      onLongPress,
+      color,
+      icon,
+      accessibilityLabel,
+      rightSide,
+    } = this.props;
     return h(
       TouchableHighlight,
       {
         style: rightSide ? styles.leftSide : styles.rightSide,
         onPress,
+        onLongPress,
         hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
         underlayColor: Palette.transparencyDarkWeak,
       },
