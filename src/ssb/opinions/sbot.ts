@@ -4,6 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import xs from 'xstream';
 import {Readable} from '../../typings/pull-stream';
 import {manifest} from '../manifest-client';
 import {startSyncingNotifications} from '../syncing-notifications';
@@ -11,7 +12,6 @@ import {AboutContent, FeedId} from 'ssb-typescript';
 const pull = require('pull-stream');
 const defer = require('pull-defer');
 const Notify = require('pull-notify');
-const {Value, onceTrue, Set: MutantSet} = require('mutant');
 const ref = require('ssb-ref');
 const Reconnect = require('pull-reconnect');
 const nest = require('depnest');
@@ -26,7 +26,6 @@ const QuickLRU = require('quick-lru');
 
 const needs = nest({
   'keys.sync.load': 'first',
-  'sbot.obs.connectionStatus': 'first',
   'sbot.hook.publish': 'map',
 });
 
@@ -49,6 +48,7 @@ const gives = {
       isFollowing: true,
       isBlocking: true,
       addBlob: true,
+      gossipPeers: true,
       gossipConnect: true,
       aboutSocialValue: true,
       friendsGet: true,
@@ -65,16 +65,11 @@ const gives = {
       feed: true,
       links: true,
       backlinks: true,
+      gossipChanges: true,
       hostingDhtInvites: true,
       claimingDhtInvites: true,
       aboutSocialValueStream: true,
       stream: true,
-    },
-    obs: {
-      connectionStatus: true,
-      connection: true,
-      // connectedPeers: true,
-      localPeers: true,
     },
   },
 };
@@ -91,10 +86,7 @@ const create = (api: any) => {
   const keys = api.keys.sync.load();
 
   let sbot: any = null;
-  const connection = Value();
-  const connectionStatus = Value();
-  const connectedPeers = MutantSet();
-  const localPeers = MutantSet();
+  const sbot$ = xs.createWithMemory<any>();
   const DUNBAR = 150;
   const socialValueCache = {
     name: new QuickLRU({maxSize: DUNBAR}) as Map<FeedId, string>,
@@ -104,7 +96,6 @@ const create = (api: any) => {
   const rec = Reconnect((isConn: any) => {
     function notify(value?: any) {
       isConn(value);
-      connectionStatus.set(value);
     }
 
     const ms = MultiServer([
@@ -125,12 +116,12 @@ const create = (api: any) => {
       const client = muxrpc(manifest, null)();
       pull(stream, client.createStream(), stream);
       sbot = client;
+      sbot$.shamefullySendNext(sbot);
       sbot.on('closed', () => {
         sbot = null;
-        connection.set(null);
+        sbot$.shamefullySendNext(sbot);
         notify(new Error('closed'));
       });
-      connection.set(sbot);
 
       notify();
     });
@@ -148,9 +139,11 @@ const create = (api: any) => {
   const feed = createFeed(internal, keys, {remote: true});
 
   const syncingStream = Notify();
-  onceTrue(connection, (ssbClient: any) => {
-    pull(ssbClient.syncing.stream(), pull.drain(syncingStream));
-    startSyncingNotifications(syncingStream.listen());
+  sbot$.filter(s => !!s).take(1).subscribe({
+    next: ssbClient => {
+      pull(ssbClient.syncing.stream(), pull.drain(syncingStream));
+      startSyncingNotifications(syncingStream.listen());
+    },
   });
 
   return {
@@ -252,7 +245,10 @@ const create = (api: any) => {
           sbot.friends.isBlocking(opts, cb);
         }),
         addBlob: rec.async((stream: any, cb: any) => {
-          return pull(stream, sbot.blobs.add(cb));
+          pull(stream, sbot.blobs.add(cb));
+        }),
+        gossipPeers: rec.async((cb: any) => {
+          sbot.gossip.peers(cb);
         }),
         gossipConnect: rec.async((opts: any, cb: any) => {
           sbot.gossip.connect(opts, cb);
@@ -314,6 +310,9 @@ const create = (api: any) => {
         hostingDhtInvites: rec.source(() => {
           return sbot.dhtInvite.hostingInvites();
         }),
+        gossipChanges: rec.source(() => {
+          return sbot.gossip.changes();
+        }),
         claimingDhtInvites: rec.source(() => {
           return sbot.dhtInvite.claimingInvites();
         }),
@@ -322,17 +321,13 @@ const create = (api: any) => {
         }),
         stream: (fn: any) => {
           const stream = defer.source();
-          onceTrue(connection, (conn: any) => {
-            stream.resolve(fn(conn));
+          sbot$.filter(s => !!s).take(1).subscribe({
+            next: ssbClient => {
+              stream.resolve(fn(ssbClient));
+            },
           });
           return stream;
         },
-      },
-      obs: {
-        connectionStatus: (listener: any) => connectionStatus(listener),
-        connection,
-        connectedPeers: () => connectedPeers,
-        localPeers: () => localPeers,
       },
     },
   };

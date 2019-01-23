@@ -5,7 +5,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs from 'xstream';
-var {Value} = require('mutant');
 var pull = require('pull-stream');
 var nest = require('depnest');
 var ref = require('ssb-ref');
@@ -28,7 +27,7 @@ exports.create = function(api) {
     'about.obs': {
       name: id => socialValue$(id, 'name', api.about.sync.shortFeedId(id)),
       description: id => socialValue$(id, 'description'),
-      image: id => socialValue(id, 'image'),
+      image: id => socialValue$(id, 'image'),
       imageUrl: id =>
         socialValue$(id, 'image')
           .map(x => (!!x && typeof x === 'object' && x.link ? x.link : x))
@@ -36,18 +35,6 @@ exports.create = function(api) {
       color: id => xs.of(colorHash.hex(id)).remember(),
     },
   });
-
-  function socialValue(id, key, defaultValue) {
-    if (!ref.isLink(id)) throw new Error('About requires an ssb ref!');
-    const value = Value(defaultValue);
-    pull(
-      api.sbot.pull.aboutSocialValueStream({key, dest: id}),
-      pull.drain(v => {
-        value.set(v);
-      }),
-    );
-    return value;
-  }
 
   function socialValue$(id, key, defaultValue) {
     if (!ref.isLink(id)) throw new Error('About requires an ssb ref!');

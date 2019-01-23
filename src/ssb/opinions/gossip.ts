@@ -4,47 +4,53 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs from 'xstream';
+import xs, {Listener} from 'xstream';
 import {PeerMetadata} from 'ssb-typescript';
 const nest = require('depnest');
-const {watch} = require('mutant');
 const pull = require('pull-stream');
 
 const gossipOpinion = {
-  needs: nest('sbot.obs.connection', 'first'),
+  needs: nest({
+    'sbot.async.gossipPeers': 'first',
+    'sbot.pull.gossipChanges': 'first',
+  }),
   gives: nest('sbot.obs.connectedPeers'),
   create: (api: any) => {
-    const connectedPeers = new Map<string, PeerMetadata>();
-    const stream = xs.create<Map<string, PeerMetadata>>();
-    watch(api.sbot.obs.connection, (sbot: any) => {
-      if (sbot) {
-        sbot.gossip.peers((err: any, peers: Array<PeerMetadata>) => {
+    const stream = xs.create<Map<string, PeerMetadata>>({
+      start(listener: Listener<Map<string, PeerMetadata>>) {
+        const map = (this.map = new Map<string, PeerMetadata>());
+        api.sbot.async.gossipPeers((err: any, peers: Array<PeerMetadata>) => {
           if (err) return console.error(err);
           peers.filter(p => p.state === 'connected').forEach(p => {
-            connectedPeers.set(p.key, p);
+            map.set(p.key, p);
           });
-          stream.shamefullySendNext(connectedPeers);
+          listener.next(map);
         });
+
         pull(
-          sbot.gossip.changes(),
-          pull.drain((data: any) => {
+          api.sbot.pull.gossipChanges(),
+          (this.sink = pull.drain((data: any) => {
             if (data.peer) {
               if (data.type === 'remove') {
-                connectedPeers.delete(data.peer.key);
-                stream.shamefullySendNext(connectedPeers);
+                map.delete(data.peer.key);
+                listener.next(map);
               } else {
                 if (data.peer.state === 'connected') {
-                  connectedPeers.set(data.peer.key, data.peer);
-                  stream.shamefullySendNext(connectedPeers);
+                  map.set(data.peer.key, data.peer);
+                  listener.next(map);
                 } else {
-                  connectedPeers.delete(data.peer.key);
-                  stream.shamefullySendNext(connectedPeers);
+                  map.delete(data.peer.key);
+                  listener.next(map);
                 }
               }
             }
-          }),
+          })),
         );
-      }
+      },
+      stop() {
+        if (this.sink) this.sink.abort(true);
+        if (this.map) (this.map as Map<any, any>).clear();
+      },
     });
 
     return {
