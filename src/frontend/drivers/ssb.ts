@@ -16,7 +16,6 @@ import {
 } from 'ssb-typescript';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
-import blobUrlOpinion from '../../ssb/opinions/blob/sync/url';
 import aboutSyncOpinion from '../../ssb/opinions/about/sync';
 import aboutOpinion = require('../../ssb/opinions/about/obs');
 import makeKeysOpinion from '../../ssb/opinions/keys';
@@ -32,6 +31,7 @@ import runAsync = require('promisify-tuple');
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {Readable, Callback} from '../../typings/pull-stream';
 import {shortFeedId} from '../../ssb/from-ssb';
+const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
 const pull = require('pull-stream');
 const cat = require('pull-cat');
 const ssbKeys = require('react-native-ssb-client-keys');
@@ -72,13 +72,9 @@ function mutateMsgWithLiveExtras(api: any) {
       const avatarOpts = {key: 'image', dest: msg.value.author};
       aboutSocialValue(avatarOpts, (e2: any, val: any) => {
         if (e2) return cb(e2);
-        let imageUrl: string | null = val;
-        if (!!val && typeof val === 'object' && val.link) imageUrl = val.link;
-        if (imageUrl) {
-          imageUrl = api.blob.sync.url[0](imageUrl);
-        } else {
-          imageUrl = null;
-        }
+        let image: string | null = val;
+        if (!!val && typeof val === 'object' && val.link) image = val.link;
+        const imageUrl: string | null = image ? blobIdToUrl(image) : null;
         const likes = api.message.obs.likes[0](msg.key);
         const m = msg as MsgAndExtras;
         m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
@@ -434,7 +430,6 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
     .map(keys => {
       return depjectCombine([
         publishHookOpinion,
-        blobUrlOpinion,
         aboutSyncOpinion,
         configOpinion,
         makeKeysOpinion(keys),

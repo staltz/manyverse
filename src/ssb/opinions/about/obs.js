@@ -8,11 +8,11 @@ import xs from 'xstream';
 var pull = require('pull-stream');
 var nest = require('depnest');
 var ref = require('ssb-ref');
+var blobIdToUrl = require('ssb-serve-blobs/id-to-url');
 var colorHash = new (require('color-hash'))();
 
 exports.needs = nest({
   'sbot.pull.aboutSocialValueStream': 'first',
-  'blob.sync.url': 'first',
   'about.sync.shortFeedId': 'first',
   'keys.sync.id': 'first',
 });
@@ -30,7 +30,7 @@ exports.create = function(api) {
       imageUrl: id =>
         socialValue$(id, 'image')
           .map(x => (!!x && typeof x === 'object' && x.link ? x.link : x))
-          .map(blobId => (blobId ? api.blob.sync.url(blobId) : null)),
+          .map(blobId => (blobId ? blobIdToUrl(blobId) : null)),
       color: id => xs.of(colorHash.hex(id)).remember(),
     },
   });
