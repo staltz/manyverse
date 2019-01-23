@@ -40,8 +40,6 @@ subprojects { subproject ->
             android {
                 variantFilter { variant ->
                     def names = variant.flavors*.name
-                    project.logger.lifecycle('lets see if names is null')
-                    project.logger.lifecycle(names)
                     if (names.contains("reactNative51")) setIgnore(true)
                     if (names.contains("reactNative56")) setIgnore(true)
                     if (names.contains("reactNative57")) setIgnore(true)
