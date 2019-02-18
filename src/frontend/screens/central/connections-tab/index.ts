@@ -64,14 +64,13 @@ export function connectionsTab(sources: Sources): Sinks {
   const command$ = navigation(actionsPlus, sources.state.stream);
   const storageCommand$ = asyncStorage(sources.state.stream);
   const reducer$ = model(
-    sources.state.stream,
     actionsPlus,
     sources.asyncstorage,
     sources.ssb,
     sources.network,
   );
   const fabProps$ = floatingAction(sources.state.stream);
-  const ssb$ = ssb(actionsPlus);
+  const ssb$ = ssb(actionsPlus, sources.network);
   const alert$ = alert(actionsPlus, sources.state.stream);
   const share$ = actionsPlus.shareDhtInvite$.map(inviteCode => ({
     message:

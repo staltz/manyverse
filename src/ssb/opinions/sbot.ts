@@ -33,6 +33,8 @@ const gives = {
     sync: {
       cache: true,
       invalidateAboutSocialValue: true,
+      enableBluetooth: true,
+      disableBluetooth: true,
     },
     async: {
       get: true,
@@ -40,6 +42,7 @@ const gives = {
       publish: true,
       publishAbout: true,
       acceptInvite: true,
+      searchBluetoothPeers: true,
       startDht: true,
       acceptDhtInvite: true,
       createDhtInvite: true,
@@ -61,9 +64,14 @@ const gives = {
       links: true,
       backlinks: true,
       gossipChanges: true,
+      nearbyBluetoothPeers: true,
+      bluetoothScanState: true,
       hostingDhtInvites: true,
       claimingDhtInvites: true,
       aboutSocialValueStream: true,
+    },
+    obs: {
+      bluetoothEnabled: true,
     },
   },
 };
@@ -80,6 +88,8 @@ const create = (api: any) => {
   const keys = api.keys.sync.load();
 
   let sbot: any = null;
+  const bluetoothEnabled$ = xs.createWithMemory<boolean>();
+  bluetoothEnabled$.shamefullySendNext(false);
   const sbot$ = xs.createWithMemory<any>();
   const DUNBAR = 150;
   const socialValueCache = {
@@ -147,6 +157,12 @@ const create = (api: any) => {
         invalidateAboutSocialValue: (feedId: FeedId) => {
           socialValueCache.name.delete(feedId);
           socialValueCache.image.delete(feedId);
+        },
+        enableBluetooth: () => {
+          bluetoothEnabled$.shamefullySendNext(true);
+        },
+        disableBluetooth: () => {
+          bluetoothEnabled$.shamefullySendNext(false);
         },
       },
       async: {
@@ -219,6 +235,9 @@ const create = (api: any) => {
         }),
         acceptInvite: rec.async((invite: string, cb: any) => {
           sbot.invite.accept(invite, cb);
+        }),
+        searchBluetoothPeers: rec.async((forTime: number, cb: any) => {
+          sbot.bluetooth.makeDeviceDiscoverable(forTime, cb);
         }),
         startDht: rec.async((cb: any) => {
           sbot.dhtInvite.start(cb);
@@ -301,6 +320,15 @@ const create = (api: any) => {
         aboutSocialValueStream: rec.source((opts: any) => {
           return sbot.about.socialValueStream(opts);
         }),
+        nearbyBluetoothPeers: rec.source((refreshInterval: number) => {
+          return sbot.bluetooth.nearbyScuttlebuttDevices(refreshInterval);
+        }),
+        bluetoothScanState: rec.source(() => {
+          return sbot.bluetooth.bluetoothScanState();
+        }),
+      },
+      obs: {
+        bluetoothEnabled: () => bluetoothEnabled$,
       },
     },
   };

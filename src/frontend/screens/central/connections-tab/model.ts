@@ -5,32 +5,32 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import concat from 'xstream/extra/concat';
 import {PeerMetadata, FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
-import {SSBSource, StagedPeerMetadata} from '../../../drivers/ssb';
+import {
+  SSBSource,
+  StagedPeerMetadata as StagedPeer,
+} from '../../../drivers/ssb';
 import {NetworkSource} from '../../../drivers/network';
 import {noteStorageKeyFor} from './asyncstorage';
-import dropRepeats from 'xstream/extra/dropRepeats';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
-
-export type StagedPeer = StagedPeerMetadata & {
-  note?: string;
-};
 
 export type State = {
   selfFeedId: FeedId;
+  bluetoothEnabled: boolean;
   lanEnabled: boolean;
   internetEnabled: boolean;
   peers: Array<PeerMetadata>;
   stagedPeers: Array<StagedPeer>;
   isSyncing: boolean;
   isVisible: boolean;
+  bluetoothLastScanned: number;
   inviteMenuTarget: StagedPeer | null;
   latestInviteMenuTarget: StagedPeer | null;
 };
 
 export type Actions = {
+  pingConnectivityModes$: Stream<any>;
   openStagedPeer$: Stream<StagedPeer>;
   closeInviteMenu$: Stream<any>;
   infoClientDhtInvite$: Stream<any>;
@@ -42,7 +42,6 @@ export type Actions = {
 };
 
 export default function model(
-  state$: Stream<State>,
   actions: Actions,
   asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
@@ -52,10 +51,12 @@ export default function model(
     if (prev) return prev;
     return {
       selfFeedId: '',
+      bluetoothEnabled: false,
       lanEnabled: false,
       internetEnabled: false,
       isSyncing: false,
       isVisible: false,
+      bluetoothLastScanned: 0,
       peers: [],
       stagedPeers: [],
       inviteMenuTarget: null,
@@ -70,8 +71,17 @@ export default function model(
       },
   );
 
-  const updateLanEnabled$ = xs
-    .periodic(4000)
+  const updateBluetoothEnabled$ = actions.pingConnectivityModes$
+    .map(() => networkSource.bluetoothIsEnabled())
+    .flatten()
+    .map(
+      bluetoothEnabled =>
+        function updateBluetoothEnabled(prev: State): State {
+          return {...prev, bluetoothEnabled};
+        },
+    );
+
+  const updateLanEnabled$ = actions.pingConnectivityModes$
     .map(() => networkSource.wifiIsEnabled())
     .flatten()
     .map(
@@ -81,19 +91,7 @@ export default function model(
         },
     );
 
-  const shouldUpdateInternetEnabled$ = state$
-    .map(state => state.isVisible)
-    .compose(dropRepeats())
-    .map(
-      isTabVisible =>
-        isTabVisible
-          ? concat(xs.of(0), xs.periodic(1000).take(2), xs.periodic(4000))
-          : xs.never(),
-    )
-    .flatten()
-    .startWith(null);
-
-  const updateInternetEnabled$ = shouldUpdateInternetEnabled$
+  const updateInternetEnabled$ = actions.pingConnectivityModes$
     .map(() => networkSource.hasInternetConnection())
     .flatten()
     .map(
@@ -107,6 +105,13 @@ export default function model(
     peers =>
       function setPeersReducer(prev: State): State {
         return {...prev, peers};
+      },
+  );
+
+  const updateBluetoothLastScanned$ = ssbSource.bluetoothScanState$.map(
+    (_scanState: string) =>
+      function setBluetoothScanState(prev: State): State {
+        return {...prev, bluetoothLastScanned: Date.now()};
       },
   );
 
@@ -126,7 +131,7 @@ export default function model(
     })
     .flatten()
     .map(
-      ([rawStagedPeers, notes]: [StagedPeerMetadata[], [string, string][]]) =>
+      ([rawStagedPeers, notes]: [StagedPeer[], [string, string][]]) =>
         function setPeersReducer(prev: State): State {
           const stagedPeers = rawStagedPeers.map(p => {
             const kv = notes.find(_kv => _kv[0].endsWith(p.key) && !!_kv[1]);
@@ -180,9 +185,11 @@ export default function model(
   return xs.merge(
     initReducer$,
     updateIsSyncing$,
+    updateBluetoothEnabled$,
     updateLanEnabled$,
     updateInternetEnabled$,
     setPeersReducer$,
+    updateBluetoothLastScanned$,
     setStagedPeersReducer$,
     openInviteMenuReducer$,
     closeInviteMenuReducer$,

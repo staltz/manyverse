@@ -9,6 +9,7 @@ import {State} from './model';
 import {Command as AlertCommand} from 'cycle-native-alert';
 
 export type Actions = {
+  showBluetoothHelp$: Stream<any>;
   showLANHelp$: Stream<any>;
   showDHTHelp$: Stream<any>;
   showPubHelp$: Stream<any>;
@@ -23,6 +24,15 @@ export default function alert(
   return state$
     .map(state =>
       xs.merge(
+        actions.showBluetoothHelp$.mapTo({
+          title: 'Bluetooth',
+          message:
+            (state.bluetoothEnabled
+              ? '(ENABLED)'
+              : '(Turn on Bluetooth to use this)') +
+            '\n\nDiscover users nearby and connect with them using Bluetooth.',
+          buttons: [{text: 'OK', id: 'okay'}],
+        }),
         actions.showLANHelp$.mapTo({
           title: 'Wi-Fi',
           message:

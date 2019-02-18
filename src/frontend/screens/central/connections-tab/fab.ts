@@ -6,34 +6,51 @@
 
 import {Stream} from 'xstream';
 import {State} from './model';
-import {IFloatingActionProps as Props} from 'react-native-floating-action';
+import {
+  IFloatingActionProps as Props,
+  IActionProps,
+} from 'react-native-floating-action';
 import {Palette} from '../../../global-styles/palette';
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
-  return state$.map(
-    state =>
-      ({
-        sel: 'fab',
-        color: Palette.backgroundCTA,
-        visible: state.internetEnabled,
-        actions: [
-          {
-            color: Palette.backgroundCTA,
-            name: 'invite-create',
-            icon: require('../../../../../images/share.png'),
-            text: 'Create invite',
-          },
+  return state$.map(state => {
+    const visible = state.bluetoothEnabled || state.internetEnabled;
 
-          {
-            color: Palette.backgroundCTA,
-            name: 'invite-paste',
-            icon: require('../../../../../images/package-down.png'),
-            text: 'Paste invite',
-          },
-        ],
-        iconHeight: 24,
-        iconWidth: 24,
-        floatingIcon: require('../../../../../images/plus-network.png'),
-      } as Props),
-  );
+    const actions: Array<IActionProps> = [];
+    if (state.internetEnabled) {
+      actions.push(
+        {
+          color: Palette.backgroundCTA,
+          name: 'invite-create',
+          icon: require('../../../../../images/share.png'),
+          text: 'Create invite',
+        },
+        {
+          color: Palette.backgroundCTA,
+          name: 'invite-paste',
+          icon: require('../../../../../images/package-down.png'),
+          text: 'Paste invite',
+        },
+      );
+    }
+
+    if (state.bluetoothEnabled) {
+      actions.push({
+        color: Palette.backgroundCTA,
+        name: 'bluetooth-search',
+        icon: require('../../../../../images/bluetooth.png'),
+        text: 'Bluetooth seek',
+      });
+    }
+
+    return {
+      sel: 'fab',
+      color: Palette.backgroundCTA,
+      visible,
+      actions,
+      iconHeight: 24,
+      iconWidth: 24,
+      floatingIcon: require('../../../../../images/plus-network.png'),
+    } as Props;
+  });
 }

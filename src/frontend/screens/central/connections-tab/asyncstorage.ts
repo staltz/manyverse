@@ -6,14 +6,15 @@
 
 import {Stream} from 'xstream';
 import {Command} from 'cycle-native-asyncstorage';
-import {State, StagedPeer} from './model';
+import {StagedPeerMetadata} from '../../../drivers/ssb';
+import {State} from './model';
 import dropRepeats from 'xstream/extra/dropRepeats';
 
-function isDhtInviteWithNote(invite: StagedPeer) {
+function isDhtInviteWithNote(invite: StagedPeerMetadata) {
   return !!invite.note && invite.source === 'dht';
 }
 
-export function noteStorageKeyFor(invite: StagedPeer) {
+export function noteStorageKeyFor(invite: StagedPeerMetadata) {
   return `dhtInviteNote:${invite.key}`;
 }
 

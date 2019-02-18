@@ -55,10 +55,28 @@ export type ThreadAndExtras = {
   errorReason?: 'blocked' | 'missing' | 'unknown';
 };
 
+export type BTPeer = {remoteAddress: string; id: string; displayName: string};
+
+function btPeerToStagedPeerMetadata(p: BTPeer): StagedPeerMetadata {
+  return {
+    key:
+      `bt:${p.remoteAddress.split(':').join('')}` +
+      '~' +
+      `shs:${p.id.replace(/^\@/, '')}`,
+    source: 'bt',
+    note: p.displayName,
+  };
+}
+
+function btPeerNotYetConnected(btp: BTPeer, connecteds: Array<PeerMetadata>) {
+  return connecteds.findIndex(p => p.key === btp.id) === -1;
+}
+
 export type StagedPeerMetadata = {
   key: string;
-  source: 'local' | 'dht' | 'pub';
+  source: 'local' | 'dht' | 'pub' | 'bt';
   role?: 'client' | 'server';
+  note?: string;
 };
 
 function mutateMsgWithLiveExtras(api: any) {
@@ -114,6 +132,7 @@ export class SSBSource {
   public acceptDhtInviteResponse$: Stream<true | string>;
   public hostingDhtInvites$: Stream<Array<HostingDhtInvite>>;
   public stagedPeers$: Stream<Array<StagedPeerMetadata>>;
+  public bluetoothScanState$: Stream<any>;
 
   constructor(private api$: Stream<any>) {
     this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]()).remember();
@@ -269,10 +288,40 @@ export class SSBSource {
           )
           .startWith([]);
 
-        return xs.combine(hosting$, claiming$);
+        const bluetoothEnabled$: Stream<
+          boolean
+        > = api.sbot.obs.bluetoothEnabled[0]();
+
+        const bluetoothNearby$: Stream<Array<BTPeer>> = xsFromPullStream(
+              api.sbot.pull.nearbyBluetoothPeers[0](1000),
+            ).map((result: any) => result.discovered);
+
+        const bluetoothConnected$ = this.peers$.map(peers =>
+          peers.filter(p => (p.source as any) === 'bt'),
+        );
+
+        const bluetooth$ = xs
+          .combine(bluetoothEnabled$, bluetoothNearby$, bluetoothConnected$)
+          .map(([enabled, nearbys, connecteds]) =>
+            // If bluetooth is disabled, bluetoothNearby$ does not emit anything until it is enabled again,
+            // so we use the 'enabled' boolean to stop peers being displayed which were on the list just
+            // before bluetooth was disabled.
+            nearbys.filter(btPeer => enabled && btPeerNotYetConnected(btPeer, connecteds)),
+          )
+          .map(btPeers => btPeers.map(btPeerToStagedPeerMetadata));
+
+        return xs.combine(bluetooth$, hosting$, claiming$);
       })
       .flatten()
-      .map(([hosting, claiming]) => hosting.concat(claiming));
+      .map(([bluetooth, hosting, claiming]) => [
+        ...bluetooth,
+        ...hosting,
+        ...claiming,
+      ]);
+
+    this.bluetoothScanState$ = api$
+      .map(api => xsFromPullStream<any>(api.sbot.pull.bluetoothScanState[0]()))
+      .flatten();
   }
 
   public thread$(rootMsgId: MsgId): Stream<ThreadAndExtras> {
@@ -403,13 +452,37 @@ export type RemoveDhtInviteReq = {
   invite: string;
 };
 
+export type EnableBluetoothReq = {
+  type: 'bluetooth.enable';
+  interval: number;
+};
+
+export type DisableBluetoothReq = {
+  type: 'bluetooth.disable';
+  interval: number;
+};
+
+export type SearchBluetoothReq = {
+  type: 'bluetooth.search';
+  interval: number;
+};
+
+export type ConnectBluetoothReq = {
+  type: 'bluetooth.connect';
+  address: string;
+};
+
 export type Req =
   | PublishReq
   | PublishAboutReq
   | AcceptInviteReq
   | StartDhtReq
   | AcceptDhtInviteReq
-  | RemoveDhtInviteReq;
+  | RemoveDhtInviteReq
+  | EnableBluetoothReq
+  | DisableBluetoothReq
+  | SearchBluetoothReq
+  | ConnectBluetoothReq;
 
 function dropCompletion(stream: Stream<any>): Stream<any> {
   return xs.merge(stream, xs.never());
@@ -449,7 +522,7 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
     .map(api => sink.map(req => [api, req] as [any, Req]))
     .flatten()
     .addListener({
-      next: ([api, req]) => {
+      next: async ([api, req]) => {
         if (req.type === 'publish') {
           api.sbot.async.publish[0](req.content);
         }
@@ -472,6 +545,36 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           api.sbot.async.startDht[0]((err: any, v: any) => {
             if (err) console.error(err.message || err);
           });
+        }
+        if (req.type === 'bluetooth.enable') {
+          api.sbot.sync.enableBluetooth[0]();
+        }
+        if (req.type === 'bluetooth.disable') {
+          api.sbot.sync.disableBluetooth[0]();
+        }
+        if (req.type === 'bluetooth.search') {
+          api.sbot.async.searchBluetoothPeers[0](req.interval, (err: any) => {
+            if (err) console.error(err.message || err);
+          });
+        }
+        if (req.type === 'bluetooth.connect') {
+          // connect
+          const addr = req.address;
+          const [err] = await runAsync(api.sbot.async.gossipConnect[0])(addr);
+          if (err) return console.error(err.message || err);
+
+          // check if following
+          const selfId = api.keys.sync.id[0]();
+          const friendId = '@' + addr.split('shs:')[1];
+          const opts = {source: selfId, dest: friendId};
+          const [err2, f] = await runAsync(api.sbot.async.isFollowing[0])(opts);
+          if (err2) return console.error(err2.message || err2);
+          if (f) return;
+
+          // follow
+          const msg = {type: 'contact', contact: friendId, following: true};
+          const [err3] = await runAsync(api.sbot.async.publish[0])(msg);
+          if (err3) return console.error(err3.message || err3);
         }
         if (req.type === 'dhtInvite.accept') {
           api.sbot.async.acceptDhtInvite[0](req.invite, (err: any, v: any) => {

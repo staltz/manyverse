@@ -27,6 +27,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
 
+  modeLoading: {
+    position: 'absolute',
+    left: -8.9,
+    top: -8,
+    zIndex: -2,
+  },
+
   modeTouchable: {
     borderRadius: 30,
     padding: 6,

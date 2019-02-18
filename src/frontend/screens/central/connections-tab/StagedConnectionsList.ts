@@ -18,7 +18,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
-import {StagedPeer} from './model';
+import {StagedPeerMetadata as StagedPeer} from '../../../drivers/ssb';
 
 export const styles = StyleSheet.create({
   container: {
@@ -69,6 +69,7 @@ export const styles = StyleSheet.create({
 });
 
 function peerModeIcon(peer: StagedPeer): string {
+  if (peer.source === 'bt') return 'bluetooth';
   if (peer.source === 'local') return 'wifi';
   if (peer.source === 'dht') return 'account-network';
   if (peer.source === 'pub') return 'server-network';
@@ -76,6 +77,7 @@ function peerModeIcon(peer: StagedPeer): string {
 }
 
 function peerModeDescription(peer: StagedPeer): string {
+  if (peer.source === 'bt') return 'Bluetooth';
   if (peer.source === 'local') return 'Local network';
   if (peer.source === 'dht' && peer.role === 'client')
     return 'Internet P2P: looking for online friend...';

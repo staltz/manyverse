@@ -69,6 +69,7 @@ export const styles = StyleSheet.create({
 });
 
 function peerModeIcon(source: PeerMetadata['source']): string {
+  if ((source as any) === 'bt') return 'bluetooth';
   if (source === 'local') return 'wifi';
   if ((source as any) === 'dht') return 'account-network';
   if (source === 'pub') return 'server-network';
@@ -76,6 +77,7 @@ function peerModeIcon(source: PeerMetadata['source']): string {
 }
 
 function peerModeTitle(source: PeerMetadata['source']): string {
+  if ((source as any) === 'bt') return 'Bluetooth';
   if (source === 'local') return 'Local network';
   if ((source as any) === 'dht') return 'Internet P2P';
   if (source === 'pub') return 'Internet server';

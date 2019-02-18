@@ -5,11 +5,26 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream, Listener} from 'xstream';
+import {BluetoothStatus} from 'react-native-bluetooth-status';
 const wifi = require('react-native-android-wifi');
 const hasInternet = require('react-native-has-internet');
 
 export class NetworkSource {
   constructor() {}
+
+  public bluetoothIsEnabled(): Stream<boolean> {
+    return xs.create({
+      async start(listener: Listener<boolean>) {
+        try {
+          listener.next(await BluetoothStatus.state());
+          listener.complete();
+        } catch (e) {
+          listener.error(e);
+        }
+      },
+      stop() {},
+    });
+  }
 
   public wifiIsEnabled(): Stream<boolean> {
     return xs.create({
