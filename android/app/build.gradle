@@ -169,6 +169,8 @@ dependencies {
     implementation "ch.acra:acra-mail:5.0.0"
     implementation "ch.acra:acra-dialog:5.0.0"
     implementation project(':nodejs-mobile-react-native')
+    implementation project(':react-native-bluetooth-socket-bridge')
+    implementation project(':react-native-bluetooth-status')
     implementation project(':react-native-dialogs')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-os')

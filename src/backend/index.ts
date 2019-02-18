@@ -14,6 +14,8 @@ const rnChannelPlugin = require('multiserver-rn-channel');
 const NoauthTransformPlugin = require('multiserver/plugins/noauth');
 const npip = require('non-private-ip');
 const injectSsbConfig = require('ssb-config/inject');
+const BluetoothManager = require('ssb-mobile-bluetooth-manager');
+const bluetoothTransportAndPlugin = require('ssb-bluetooth');
 import syncingPlugin = require('./plugins/syncing');
 import blobsFromPathPlugin = require('./plugins/blobsFromPath');
 import manifest = require('./manifest');
@@ -40,10 +42,12 @@ const config = (() => {
       net: [{scope: 'private', transform: 'shs', host, port: NET_PORT}],
       dht: [{scope: 'public', transform: 'shs', port: DHT_PORT}],
       channel: [{scope: 'device', transform: 'noauth'}],
+      bluetooth: [{scope: 'public', transform: 'shs'}],
     },
     outgoing: {
       net: [{transform: 'shs'}],
       dht: [{transform: 'shs'}],
+      bluetooth: [{scope: 'public', transform: 'shs'}],
     },
   };
   return c;
@@ -76,11 +80,26 @@ function dhtTransport(_sbot: any) {
   });
 }
 
+const bluetoothManager: any = BluetoothManager({
+  socketFolderPath: appDataDir,
+  myIdent: '@' + keys.public,
+  metadataServiceUUID: "b4721184-46dc-4314-b031-bf52c2b197f3",
+  controlSocketFilename: "manyverse_bt_control.sock",
+  incomingSocketFilename: "manyverse_bt_incoming.sock",
+  outgoingSocketFilename: "manyverse_bt_outgoing.sock",
+  logStreams: false,
+});
+
+const bluetoothPluginConfig = {
+  scope: 'public'
+};
+
 require('scuttlebot/index')
   .use(noAuthTransform)
   .use(rnChannelTransport)
   .use(require('ssb-dht-invite'))
   .use(dhtTransport)
+  .use(bluetoothTransportAndPlugin(bluetoothManager, bluetoothPluginConfig))
   .use(require('scuttlebot/plugins/master'))
   .use(require('@staltz/sbot-gossip'))
   .use(require('scuttlebot/plugins/replicate'))

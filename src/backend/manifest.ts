@@ -123,6 +123,12 @@ export = {
     hostingInvites: 'source',
     claimingInvites: 'source',
   },
+  bluetooth: {
+    nearbyScuttlebuttDevices: 'source',
+    bluetoothScanState: 'source',
+    makeDeviceDiscoverable: 'async',
+    isEnabled: 'async',
+  },
 
   // This project's plugins
   syncing: {

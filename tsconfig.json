@@ -21,6 +21,7 @@
     "src/backend/loader.ts",
     "src/backend/manifest.ts",
     "src/frontend/index.ts",
+    "src/typings/react-native-bluetooth-status.d.ts",
     "src/typings/react-native-dialogs.d.ts",
     "src/typings/react-native-image-view.d.ts",
     "src/typings/rn-viewpager.d.ts"
