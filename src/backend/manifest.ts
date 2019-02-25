@@ -137,4 +137,7 @@ export = {
   blobsFromPath: {
     add: 'async',
   },
+  votes: {
+    voterStream: 'source',
+  }
 };

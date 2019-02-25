@@ -18,6 +18,7 @@ const BluetoothManager = require('ssb-mobile-bluetooth-manager');
 const bluetoothTransportAndPlugin = require('ssb-bluetooth');
 import syncingPlugin = require('./plugins/syncing');
 import blobsFromPathPlugin = require('./plugins/blobsFromPath');
+import votesPlugin = require('./plugins/votes');
 import manifest = require('./manifest');
 
 const appDataDir = rnBridge.app.datadir();
@@ -109,6 +110,7 @@ require('scuttlebot/index')
   .use(require('ssb-friends'))
   .use(require('ssb-blobs'))
   .use(blobsFromPathPlugin)
+  .use(votesPlugin)
   .use(require('ssb-serve-blobs'))
   .use(require('ssb-private'))
   .use(require('ssb-contacts'))

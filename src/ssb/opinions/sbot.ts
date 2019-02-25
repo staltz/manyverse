@@ -8,7 +8,7 @@ import xs from 'xstream';
 import {Readable} from '../../typings/pull-stream';
 import {manifest} from '../manifest-client';
 import {startSyncingNotifications} from '../syncing-notifications';
-import {AboutContent, FeedId} from 'ssb-typescript';
+import {AboutContent, FeedId, MsgId} from 'ssb-typescript';
 const pull = require('pull-stream');
 const Notify = require('pull-notify');
 const ref = require('ssb-ref');
@@ -63,6 +63,7 @@ const gives = {
       feed: true,
       links: true,
       backlinks: true,
+      voterStream: true,
       gossipChanges: true,
       nearbyBluetoothPeers: true,
       bluetoothScanState: true,
@@ -286,6 +287,9 @@ const create = (api: any) => {
         }),
         backlinks: rec.source((query: any) => {
           return sbot.backlinks.read(query);
+        }),
+        voterStream: rec.source((msgId: MsgId) => {
+          return sbot.votes.voterStream(msgId);
         }),
         userFeed: rec.source((opts: any) => {
           return sbot.createUserStream(opts);

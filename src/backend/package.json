@@ -36,6 +36,7 @@
     "ssb-query": "2.3.0",
     "ssb-serve-blobs": "2.0.0",
     "ssb-threads": "3.2.1",
+    "ssb-typescript": "1.4.0",
     "utf-8-validate": "4.0.2",
     "utp-native-no-prebuild": "1.7.3-4",
     "xtend": "4.0.1"

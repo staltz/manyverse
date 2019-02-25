@@ -24,7 +24,6 @@ import gossipOpinion from '../../ssb/opinions/gossip';
 import publishHookOpinion from '../../ssb/opinions/hook';
 import contactOpinion = require('../../ssb/opinions/contact/obs');
 import configOpinion from '../../ssb/opinions/config';
-import msgLikesOpinion = require('../../ssb/opinions/message/obs/likes');
 import {ssbKeysPath} from '../../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
@@ -93,7 +92,8 @@ function mutateMsgWithLiveExtras(api: any) {
         let image: string | null = val;
         if (!!val && typeof val === 'object' && val.link) image = val.link;
         const imageUrl: string | null = image ? blobIdToUrl(image) : null;
-        const likes = api.message.obs.likes[0](msg.key);
+        const likes = xsFromPullStream(api.sbot.pull.voterStream[0](msg.key))
+          .startWith([]);
         const m = msg as MsgAndExtras;
         m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
           likes,
@@ -510,7 +510,6 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
         gossipOpinion,
         aboutOpinion,
         contactOpinion,
-        msgLikesOpinion,
       ]);
     })
     .remember();
