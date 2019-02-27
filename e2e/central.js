@@ -42,12 +42,22 @@ module.exports = function(driver, t) {
       ),
       'I see the Connections header in the Central screen',
     );
-    t.ok(
-      await driver.elementByAndroidUIAutomator(
-        'new UiSelector().textContains("No connections")',
-      ),
-      'I see Connections tab body with no connections',
-    );
+
+    try {
+      t.ok(
+        await driver.elementByAndroidUIAutomator(
+          'new UiSelector().textContains("No connections")',
+        ),
+        'I see Connections tab body with no connections',
+      );
+    } catch (err) {
+      t.ok(
+        await driver.elementByAndroidUIAutomator(
+          'new UiSelector().textContains("Connecting")',
+        ),
+        'I see Connections tab body with no connections',
+      );
+    }
 
     const lanHelpButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Local Network Mode")',
