@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1902.27-beta
+
+* Feature: support data sync over Bluetooth ([see details](https://gitlab.com/staltz/manyverse/commit/ce4e8fc492b7e1c3391c5eaaa216266ebfb1475f))
+* Fix reliability of the internet connectivity indicator ([see details](https://gitlab.com/staltz/manyverse/commit/f58c42714ae4dfab2a5124ce67373cca4e57aa17))
+* Fix support for <3 in markdown ([see details](https://gitlab.com/staltz/manyverse/commit/f218bbfcf10b4fb4d02133222a9d7ba3bffb7d5b))
+
 ## 0.1901.23-beta
 
 * Feature: long press fullscreen image button to copy as markdown ([see details](https://gitlab.com/staltz/manyverse/commit/e77270dfe9d679dabc9983bab825f757850ae4e6))
