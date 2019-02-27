@@ -308,7 +308,8 @@ export class SSBSource {
             // before bluetooth was disabled.
             nearbys.filter(btPeer => enabled && btPeerNotYetConnected(btPeer, connecteds)),
           )
-          .map(btPeers => btPeers.map(btPeerToStagedPeerMetadata));
+          .map(btPeers => btPeers.map(btPeerToStagedPeerMetadata))
+          .startWith([]);
 
         return xs.combine(bluetooth$, hosting$, claiming$);
       })
