@@ -34,6 +34,7 @@
     "ssb-mobile-bluetooth-manager": "3.2.0",
     "ssb-private": "0.2.3",
     "ssb-query": "2.3.0",
+    "ssb-ref": "^2.13.9",
     "ssb-serve-blobs": "2.0.0",
     "ssb-threads": "3.2.1",
     "ssb-typescript": "1.4.0",
