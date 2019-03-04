@@ -6,6 +6,11 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1903.4-beta
+
+* Fix Bluetooth scanning so it doesn't happen too early ([see details](https://gitlab.com/staltz/manyverse/commit/5190ca0af4ad5698a131a827eda302a278dde5cc))
+* Fix crash when latest Patchbay is in the same LAN ([see details](https://gitlab.com/staltz/manyverse/commit/e4368d0156497aeaf1f4e018c545db1a38451927)), closes [#340](https://gitlab.com/staltz/manyverse/issues/340)
+
 ## 0.1902.27-beta
 
 * Feature: support data sync over Bluetooth ([see details](https://gitlab.com/staltz/manyverse/commit/ce4e8fc492b7e1c3391c5eaaa216266ebfb1475f))
