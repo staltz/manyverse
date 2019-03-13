@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1903.13-beta
+
+* Quicker establishment of bluetooth connections ([see details](https://gitlab.com/staltz/manyverse/commit/d2a1188a45901e06b9adde7e13a321bfbc381adc))
+
 ## 0.1903.4-beta
 
 * Fix Bluetooth scanning so it doesn't happen too early ([see details](https://gitlab.com/staltz/manyverse/commit/5190ca0af4ad5698a131a827eda302a278dde5cc))
