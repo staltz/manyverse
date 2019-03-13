@@ -49,6 +49,12 @@ module.exports = function(driver, t) {
     t.end();
   });
 
+  t.skip('(TODO) Compose screen allows previewing the markdown', async function(
+    t,
+  ) {
+    t.end();
+  });
+
   t.test('Compose screen does not close when keyboard closes', async function(
     t,
   ) {
