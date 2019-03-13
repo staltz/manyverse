@@ -28,7 +28,7 @@ export = {
   whoami: 'sync',
   usage: 'sync',
 
-  // Scuttlebot
+  // SSB SERVER
   plugins: {
     install: 'source',
     uninstall: 'source',

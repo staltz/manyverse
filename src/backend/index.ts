@@ -95,15 +95,15 @@ const bluetoothPluginConfig = {
   scope: 'public'
 };
 
-require('scuttlebot/index')
+require('ssb-server/index')
   .use(noAuthTransform)
   .use(rnChannelTransport)
   .use(require('ssb-dht-invite'))
   .use(dhtTransport)
   .use(bluetoothTransportAndPlugin(bluetoothManager, bluetoothPluginConfig))
-  .use(require('scuttlebot/plugins/master'))
+  .use(require('ssb-server/plugins/master'))
   .use(require('ssb-legacy-conn'))
-  .use(require('scuttlebot/plugins/replicate'))
+  .use(require('ssb-server/plugins/replicate'))
   .use(syncingPlugin)
   .use(require('ssb-backlinks'))
   .use(require('ssb-about'))
@@ -116,7 +116,7 @@ require('scuttlebot/index')
   .use(require('ssb-contacts'))
   .use(require('ssb-query'))
   .use(require('ssb-threads'))
-  .use(require('scuttlebot/plugins/invite'))
-  .use(require('scuttlebot/plugins/local'))
+  .use(require('ssb-server/plugins/invite'))
+  .use(require('ssb-server/plugins/local'))
   .use(require('ssb-ebt'))
   .call(null, config);

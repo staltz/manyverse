@@ -61,7 +61,7 @@ npm run lib
 npm run propagate-replacements
 ```
 
-`3`: Build the "backend" Node.js project (which runs Scuttlebot):
+`3`: Build the "backend" Node.js project (which runs ssb-server):
 
 ```
 npm run build-backend

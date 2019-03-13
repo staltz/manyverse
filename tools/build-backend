@@ -40,6 +40,6 @@ echo "Updating package-lock.json";
 cp ./nodejs-assets/nodejs-project/package-lock.json ./src/backend/package-lock.json
 
 echo "Patch (in preprocessor style) some dependencies...";
-./tools/patch-rnnodeapp-scuttlebot ./nodejs-assets/nodejs-project;
+./tools/patch-rnnodeapp-ssb-server ./nodejs-assets/nodejs-project;
 
 echo "Done.";
