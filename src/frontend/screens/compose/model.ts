@@ -13,12 +13,14 @@ import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 export type State = {
   postText: string;
   avatarUrl: string | undefined;
+  previewing: boolean;
 };
 
 export const topBarLens: Lens<State, TopBarState> = {
   get: (parent: State): TopBarState => {
     return {
       enabled: parent.postText.length > 0,
+      previewing: parent.previewing,
     };
   },
 
@@ -30,6 +32,7 @@ export const topBarLens: Lens<State, TopBarState> = {
 
 export type Actions = {
   updatePostText$: Stream<string>;
+  togglePreview$: Stream<any>;
 };
 
 export default function model(
@@ -39,13 +42,13 @@ export default function model(
 ): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initReducer(prev?: State): State {
     if (prev) return prev;
-    return {postText: '', avatarUrl: undefined};
+    return {postText: '', avatarUrl: undefined, previewing: false};
   });
 
   const updatePostTextReducer$ = actions.updatePostText$.map(
-    text =>
+    postText =>
       function updatePostTextReducer(prev: State): State {
-        return {postText: text, avatarUrl: prev.avatarUrl};
+        return {...prev, postText};
       },
   );
 
@@ -56,9 +59,14 @@ export default function model(
     .map(
       about =>
         function aboutReducer(prev: State): State {
-          return {postText: prev.postText, avatarUrl: about.imageUrl};
+          return {...prev, avatarUrl: about.imageUrl};
         },
     );
+
+  const togglePreviewReducer$ = actions.togglePreview$
+    .mapTo(function togglePreviewReducer(prev: State): State {
+      return {...prev, previewing: !prev.previewing};
+    })
 
   const getComposeDraftReducer$ = asyncStorageSource
     .getItem('composeDraft')
@@ -73,6 +81,7 @@ export default function model(
   return xs.merge(
     initReducer$,
     updatePostTextReducer$,
+    togglePreviewReducer$,
     aboutReducer$,
     getComposeDraftReducer$,
   );

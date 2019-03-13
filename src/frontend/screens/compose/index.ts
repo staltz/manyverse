@@ -58,8 +58,9 @@ export function compose(sources: Sources): Sinks {
   const actions = intent(
     sources.screen,
     sources.navigation,
-    topBarSinks.done,
     topBarSinks.back,
+    topBarSinks.previewToggle,
+    topBarSinks.done,
     sources.state.stream,
     sources.dialog,
   );

@@ -53,4 +53,13 @@ export const styles = StyleSheet.create({
     textAlignVertical: 'top',
     color: Palette.text,
   },
+
+  composePreview: {
+    flex: 1,
+    paddingBottom: 0,
+    paddingLeft: Dimensions.horizontalSpaceSmall,
+    paddingRight: 1,
+    marginTop: Dimensions.verticalSpaceBig,
+    alignSelf: 'stretch',
+  },
 });

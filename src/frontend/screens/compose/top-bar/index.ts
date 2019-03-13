@@ -6,6 +6,7 @@
 
 import {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
+import {ReactElement} from 'react';
 import {h} from '@cycle/react';
 import {StateSource} from '@cycle/state';
 import {View, StyleSheet} from 'react-native';
@@ -13,10 +14,11 @@ import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import Button from '../../../components/Button';
 import HeaderCloseButton from '../../../components/HeaderCloseButton';
-import {ReactElement} from 'react';
+import HeaderButton from '../../../components/HeaderButton';
 
 export type State = {
   enabled: boolean;
+  previewing: boolean;
 };
 
 export type Sources = {
@@ -26,8 +28,9 @@ export type Sources = {
 
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
-  done: Stream<any>;
   back: Stream<any>;
+  previewToggle: Stream<any>;
+  done: Stream<any>;
 };
 
 export const styles = StyleSheet.create({
@@ -41,20 +44,30 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Dimensions.horizontalSpaceBig,
   },
 
+  buttonsRight: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+  },
+
   buttonEnabled: {
     backgroundColor: Palette.backgroundCTA,
     minWidth: 80,
+    marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
   buttonDisabled: {
     backgroundColor: Palette.backgroundBrandWeak,
     minWidth: 80,
+    marginLeft: Dimensions.horizontalSpaceNormal,
   },
 });
 
 function intent(reactSource: ReactSource) {
   return {
     back$: reactSource.select('composeCloseButton').events('press'),
+
+    previewToggle$: reactSource.select('composePreviewButton').events('press'),
 
     done$: reactSource.select('composePublishButton').events('press'),
   };
@@ -64,14 +77,22 @@ function view(state$: Stream<State>) {
   return state$.map(state =>
     h(View, {style: styles.container}, [
       HeaderCloseButton('composeCloseButton'),
-      h(Button, {
-        sel: 'composePublishButton',
-        style: state.enabled ? styles.buttonEnabled : styles.buttonDisabled,
-        text: 'Publish',
-        strong: state.enabled,
-        accessible: true,
-        accessibilityLabel: 'Compose Publish Button',
-      }),
+      h(View, {style: styles.buttonsRight}, [
+        state.enabled ? h(HeaderButton, {
+          sel: 'composePreviewButton',
+          rightSide: true,
+          icon: state.previewing ? 'pencil' : 'eye',
+          accessibilityLabel: 'Preview Button',
+        }) : null as any,
+        h(Button, {
+          sel: 'composePublishButton',
+          style: state.enabled ? styles.buttonEnabled : styles.buttonDisabled,
+          text: 'Publish',
+          strong: state.enabled,
+          accessible: true,
+          accessibilityLabel: 'Compose Publish Button',
+        })
+      ]),
     ]),
   );
 }
@@ -82,7 +103,8 @@ export function topBar(sources: Sources): Sinks {
 
   return {
     screen: vdom$,
-    done: actions.done$,
     back: actions.back$,
+    previewToggle: actions.previewToggle$,
+    done: actions.done$,
   };
 }

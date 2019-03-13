@@ -7,12 +7,13 @@
 import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {h} from '@cycle/react';
-import {View, TextInput, KeyboardAvoidingView} from 'react-native';
-import {styles, avatarSize} from './styles';
-import {Palette} from '../../global-styles/palette';
 import {ReactElement} from 'react';
+import {View, TextInput, KeyboardAvoidingView} from 'react-native';
+import {Palette} from '../../global-styles/palette';
+import Markdown from '../../global-styles/markdown';
 import Avatar from '../../components/Avatar';
 import {State} from './model';
+import {styles, avatarSize} from './styles';
 
 export default function view(
   state$: Stream<State>,
@@ -23,14 +24,17 @@ export default function view(
     .compose(dropRepeats())
     .startWith(undefined);
 
-  const postText$ = state$
-    .map(state => state.postText)
-    .compose(dropRepeats())
-    .startWith('');
+  const miniState$ = state$
+    .map(state => ({postText: state.postText, previewing: state.previewing}))
+    .compose(dropRepeats((s1, s2) =>
+      s1.previewing === s2.previewing &&
+      s1.postText === s2.postText
+    ))
+    .startWith({postText: '', previewing: false});
 
   return xs
-    .combine(topBar$, avatarUrl$, postText$)
-    .map(([topBar, avatarUrl, postText]) =>
+    .combine(topBar$, avatarUrl$, miniState$)
+    .map(([topBar, avatarUrl, miniState]) =>
       h(View, {style: styles.container}, [
         topBar,
         h(
@@ -45,21 +49,26 @@ export default function view(
               style: styles.avatar,
               url: avatarUrl,
             }),
-            h(TextInput, {
-              style: styles.composeInput,
-              sel: 'composeInput',
-              ['nativeID' as any]: 'FocusViewOnResume',
-              value: postText,
-              accessible: true,
-              accessibilityLabel: 'Compose Text Input',
-              autoFocus: true,
-              multiline: true,
-              returnKeyType: 'done',
-              placeholder: 'Write a public message',
-              placeholderTextColor: Palette.textVeryWeak,
-              selectionColor: Palette.backgroundTextSelection,
-              underlineColorAndroid: Palette.backgroundText,
-            }),
+
+            miniState.previewing ?
+              h(View, {style: styles.composePreview}, [
+                Markdown(miniState.postText),
+              ]) :
+              h(TextInput, {
+                style: styles.composeInput,
+                sel: 'composeInput',
+                ['nativeID' as any]: 'FocusViewOnResume',
+                value: miniState.postText,
+                accessible: true,
+                accessibilityLabel: 'Compose Text Input',
+                autoFocus: true,
+                multiline: true,
+                returnKeyType: 'done',
+                placeholder: 'Write a public message',
+                placeholderTextColor: Palette.textVeryWeak,
+                selectionColor: Palette.backgroundTextSelection,
+                underlineColorAndroid: Palette.backgroundText,
+              }),
           ],
         ),
       ]),

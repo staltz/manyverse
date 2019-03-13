@@ -16,8 +16,9 @@ import {State} from './model';
 export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
-  topBarDone$: Stream<any>,
   topBarBack$: Stream<any>,
+  topBarPreviewToggle$: Stream<any>,
+  topBarDone$: Stream<any>,
   state$: Stream<State>,
   dialogSource: DialogSource,
 ) {
@@ -47,6 +48,8 @@ export default function intent(
       .compose(sample(state$))
       .map(state => state.postText)
       .filter(text => text.length > 0),
+
+    togglePreview$: topBarPreviewToggle$,
 
     updatePostText$: reactSource
       .select('composeInput')
