@@ -90,8 +90,8 @@ export default class ContactMessage extends Component<Props, {}> {
     const tristate: Tristate = msg.value.content.following
       ? 'followed'
       : (msg.value.content as any).flagged || msg.value.content.blocking
-        ? 'blocked'
-        : 'discharged';
+      ? 'blocked'
+      : 'discharged';
 
     return h(MessageContainer, [
       h(View, {style: styles.row}, [
@@ -110,10 +110,11 @@ export default class ContactMessage extends Component<Props, {}> {
             {style: styles.account, onPress: this._onPressDestination},
             contactName || shortFeedId(msg.value.content.contact || '?'),
           ),
-        ])
+        ]),
       ]),
       h(View, {style: styles.row}, [
-        pickFrom(tristate,
+        pickFrom(
+          tristate,
           h(Icon, {
             size: Dimensions.iconSizeSmall,
             color: Palette.textPositive,

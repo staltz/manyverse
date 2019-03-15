@@ -29,9 +29,10 @@ export default function ssb(actions: Actions, networkSource: NetworkSource) {
             ? {type: 'bluetooth.enable'}
             : {type: 'bluetooth.disable'}) as Req,
       ),
-    actions.bluetoothSearch$.mapTo(
-      {type: 'bluetooth.search', interval: 20e3} as Req,
-    ),
+    actions.bluetoothSearch$.mapTo({
+      type: 'bluetooth.search',
+      interval: 20e3,
+    } as Req),
     actions.openStagedPeer$
       .filter(peer => peer.source === 'bt')
       .map(peer => ({type: 'bluetooth.connect', address: peer.key} as Req)),

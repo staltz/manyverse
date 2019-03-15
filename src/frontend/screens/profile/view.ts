@@ -57,7 +57,7 @@ export default function view(
 
       h(View, {style: styles.cta}, [
         isSelfProfile
-          ? null as any
+          ? (null as any)
           : h(
               TouchableOpacity,
               {
@@ -82,13 +82,13 @@ export default function view(
               accessibilityLabel: 'Edit Profile Button',
             })
           : isBlocked
-            ? null
-            : h(ToggleButton, {
-                sel: 'follow',
-                style: styles.follow,
-                text: state.about.following === true ? 'Following' : 'Follow',
-                toggled: state.about.following === true,
-              }),
+          ? null
+          : h(ToggleButton, {
+              sel: 'follow',
+              style: styles.follow,
+              text: state.about.following === true ? 'Following' : 'Follow',
+              toggled: state.about.following === true,
+            }),
       ]),
 
       h(
@@ -157,7 +157,7 @@ export default function view(
             iconHeight: 24,
             iconWidth: 24,
           })
-        : null as any,
+        : (null as any),
     ]);
   });
 }

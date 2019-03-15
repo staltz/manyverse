@@ -52,11 +52,9 @@ export type Actions = {
 };
 
 function navigation(actions: Actions) {
-  const pop$ = actions.goBack$.mapTo(
-    {
-      type: 'pop',
-    } as PopCommand,
-  );
+  const pop$ = actions.goBack$.mapTo({
+    type: 'pop',
+  } as PopCommand);
 
   const toRawMsg$ = actions.goToRawMsg$.map(
     msg =>

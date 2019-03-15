@@ -39,8 +39,10 @@ function calculateRelationship(state: State) {
     tristate === null || typeof tristate === 'undefined'
       ? 'neutral'
       : tristate === true
-        ? 'following'
-        : state.blockingSecretly ? 'blocking-secretly' : 'blocking-publicly';
+      ? 'following'
+      : state.blockingSecretly
+      ? 'blocking-secretly'
+      : 'blocking-publicly';
   return relationship;
 }
 

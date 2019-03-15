@@ -35,21 +35,15 @@ const iconData = {
 
 function renderPublicIcon(numOfPublicUpdates: number) {
   return {
-    normal: h(
-      View,
-      [
-        numOfPublicUpdates > 0 ? h(View, {style: styles.updatesDot}) : null,
-        h(Icon, {...iconProps.tab, ...iconData.public}),
-      ] as any,
-    ),
+    normal: h(View, [
+      numOfPublicUpdates > 0 ? h(View, {style: styles.updatesDot}) : null,
+      h(Icon, {...iconProps.tab, ...iconData.public}),
+    ] as any),
 
-    selected: h(
-      View,
-      [
-        numOfPublicUpdates > 0 ? h(View, {style: styles.updatesDot}) : null,
-        h(Icon, {...iconProps.tabSelected, ...iconData.public}),
-      ] as any,
-    ),
+    selected: h(View, [
+      numOfPublicUpdates > 0 ? h(View, {style: styles.updatesDot}) : null,
+      h(Icon, {...iconProps.tabSelected, ...iconData.public}),
+    ] as any),
   };
 }
 
@@ -64,7 +58,7 @@ function renderConnectionsIcon(isSyncing: boolean) {
             style: styles.syncingProgressBar,
             color: Palette.backgroundBrandStrong,
           })
-        : null as any,
+        : (null as any),
     ]),
 
     selected: h(View, [
@@ -79,7 +73,7 @@ function renderConnectionsIcon(isSyncing: boolean) {
             style: styles.syncingProgressBar,
             color: Palette.colors.blue4,
           })
-        : null as any,
+        : (null as any),
     ]),
   };
 }

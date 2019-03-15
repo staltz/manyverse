@@ -8,14 +8,29 @@ import {ReactSource} from '@cycle/react';
 
 export default function intent(source: ReactSource) {
   return {
-    goToSelfProfile$: source.select('self-profile').events('press').mapTo(null),
+    goToSelfProfile$: source
+      .select('self-profile')
+      .events('press')
+      .mapTo(null),
 
-    openAbout$: source.select('about').events('press').mapTo(null),
+    openAbout$: source
+      .select('about')
+      .events('press')
+      .mapTo(null),
 
-    openThanks$: source.select('thanks').events('press').mapTo(null),
+    openThanks$: source
+      .select('thanks')
+      .events('press')
+      .mapTo(null),
 
-    emailBugReport$: source.select('bug-report').events('press').mapTo(null),
+    emailBugReport$: source
+      .select('bug-report')
+      .events('press')
+      .mapTo(null),
 
-    showRawDatabase$: source.select('raw-db').events('press').mapTo(null),
+    showRawDatabase$: source
+      .select('raw-db')
+      .events('press')
+      .mapTo(null),
   };
 }

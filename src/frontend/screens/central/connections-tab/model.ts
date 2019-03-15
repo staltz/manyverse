@@ -172,11 +172,10 @@ export default function model(
     note =>
       function addNoteFromDialogReducer(prev: State): State {
         if (!prev.latestInviteMenuTarget) return prev;
-        const stagedPeers = prev.stagedPeers.map(
-          p =>
-            p.key === (prev.latestInviteMenuTarget as StagedPeer).key
-              ? {...p, note}
-              : p,
+        const stagedPeers = prev.stagedPeers.map(p =>
+          p.key === (prev.latestInviteMenuTarget as StagedPeer).key
+            ? {...p, note}
+            : p,
         );
         return {...prev, stagedPeers};
       },

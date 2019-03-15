@@ -26,11 +26,10 @@ export default function intent(
     pingConnectivityModes$: state$
       .map(state => state.isVisible)
       .compose(dropRepeats())
-      .map(
-        isTabVisible =>
-          isTabVisible
-            ? concat(xs.of(0), xs.periodic(2000).take(2), xs.periodic(6000))
-            : xs.never(),
+      .map(isTabVisible =>
+        isTabVisible
+          ? concat(xs.of(0), xs.periodic(2000).take(2), xs.periodic(6000))
+          : xs.never(),
       )
       .flatten()
       .startWith(null),

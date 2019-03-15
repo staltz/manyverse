@@ -37,48 +37,44 @@ export function drawer(sources: Sources): Sinks {
   const vdom$ = view(sources.state.stream);
   const command$ = navigation(actions, sources.state.stream);
   const reducer$ = model(sources.ssb);
-  const thanksDialog$ = actions.openThanks$.mapTo(
-    {
-      type: 'alert',
-      title: 'Thank you!',
-      content:
-        'This app is funded through donations from:<br /><br />' +
-        '<strong>DC Posch, Jean-Baptiste Giraudeau</strong>, ' +
-        'and dozens of other backers on our OpenCollective.' +
-        '<br /><br />' +
-        '<a href="https://opencollective.com/manyverse">Become a backer too!</a>',
-      options: {
-        contentIsHtml: true,
-        contentColor: Palette.textWeak,
-        linkColor: Palette.text,
-        positiveColor: Palette.text,
-      },
-    } as DialogCmd,
-  );
-  const aboutDialog$ = actions.openAbout$.mapTo(
-    {
-      type: 'alert',
-      title: 'About Manyverse',
-      content:
-        '<a href="https://manyver.se">manyver.se</a><br />' +
-        'A social network off the grid<br />' +
-        'Version ' +
-        pkgJSON.version +
-        '<br /><br />' +
-        'Copyright (C) 2018-2019 ' +
-        '<a href="https://gitlab.com/staltz/manyverse/blob/master/AUTHORS">The Manyverse Authors</a>' +
-        '<br /><br />' +
-        '<a href="https://gitlab.com/staltz/manyverse">Open source on GitLab</a>' +
-        '<br />' +
-        'Licensed MPL 2.0',
-      options: {
-        contentIsHtml: true,
-        contentColor: Palette.textWeak,
-        linkColor: Palette.text,
-        positiveColor: Palette.text,
-      },
-    } as DialogCmd,
-  );
+  const thanksDialog$ = actions.openThanks$.mapTo({
+    type: 'alert',
+    title: 'Thank you!',
+    content:
+      'This app is funded through donations from:<br /><br />' +
+      '<strong>DC Posch, Jean-Baptiste Giraudeau</strong>, ' +
+      'and dozens of other backers on our OpenCollective.' +
+      '<br /><br />' +
+      '<a href="https://opencollective.com/manyverse">Become a backer too!</a>',
+    options: {
+      contentIsHtml: true,
+      contentColor: Palette.textWeak,
+      linkColor: Palette.text,
+      positiveColor: Palette.text,
+    },
+  } as DialogCmd);
+  const aboutDialog$ = actions.openAbout$.mapTo({
+    type: 'alert',
+    title: 'About Manyverse',
+    content:
+      '<a href="https://manyver.se">manyver.se</a><br />' +
+      'A social network off the grid<br />' +
+      'Version ' +
+      pkgJSON.version +
+      '<br /><br />' +
+      'Copyright (C) 2018-2019 ' +
+      '<a href="https://gitlab.com/staltz/manyverse/blob/master/AUTHORS">The Manyverse Authors</a>' +
+      '<br /><br />' +
+      '<a href="https://gitlab.com/staltz/manyverse">Open source on GitLab</a>' +
+      '<br />' +
+      'Licensed MPL 2.0',
+    options: {
+      contentIsHtml: true,
+      contentColor: Palette.textWeak,
+      linkColor: Palette.text,
+      positiveColor: Palette.text,
+    },
+  } as DialogCmd);
   const dialog$ = xs.merge(thanksDialog$, aboutDialog$);
   const mailto$ = actions.emailBugReport$.mapTo(
     'mailto:' +

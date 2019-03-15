@@ -112,11 +112,9 @@ export default function navigation(
       } as Command),
   );
 
-  const pop$ = xs.merge(navSource.backPress(), back$).mapTo(
-    {
-      type: 'pop',
-    } as PopCommand,
-  );
+  const pop$ = xs.merge(navSource.backPress(), back$).mapTo({
+    type: 'pop',
+  } as PopCommand);
 
   return xs.merge(
     toCompose$,

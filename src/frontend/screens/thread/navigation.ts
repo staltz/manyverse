@@ -54,11 +54,9 @@ export default function navigation(
       } as Command),
   );
 
-  const pop$ = navSource.backPress().mapTo(
-    {
-      type: 'pop',
-    } as PopCommand,
-  );
+  const pop$ = navSource.backPress().mapTo({
+    type: 'pop',
+  } as PopCommand);
 
   return xs.merge(toProfile$, toRawMsg$, pop$);
 }

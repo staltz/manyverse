@@ -95,8 +95,9 @@ function mutateMsgWithLiveExtras(api: any) {
         let image: string | null = val;
         if (!!val && typeof val === 'object' && val.link) image = val.link;
         const imageUrl: string | null = image ? blobIdToUrl(image) : null;
-        const likes = xsFromPullStream(api.sbot.pull.voterStream[0](msg.key))
-          .startWith([]);
+        const likes = xsFromPullStream(
+          api.sbot.pull.voterStream[0](msg.key),
+        ).startWith([]);
         const m = msg as MsgAndExtras;
         m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
           likes,
@@ -111,7 +112,7 @@ function mutateMsgWithLiveExtras(api: any) {
             const destName = nameResult2 || shortFeedId(dest);
             m.value._$manyverse$metadata.contact = {name: destName};
             cb(null, m);
-          })
+          });
         } else {
           cb(null, m);
         }
@@ -228,21 +229,23 @@ export class SSBSource {
 
         const dhtClientsArr$ = this.hostingDhtInvites$
           .map(invites =>
-            invites.filter(invite => invite.online).map(
-              invite =>
-                [
-                  invite.claimer,
-                  {
-                    host: invite.seed,
-                    port: 0,
-                    key: invite.claimer,
-                    source: 'dht' as any,
-                    client: true,
-                    state: 'connected',
-                    stateChange: 0,
-                  } as PeerMetadata,
-                ] as [string, PeerMetadata],
-            ),
+            invites
+              .filter(invite => invite.online)
+              .map(
+                invite =>
+                  [
+                    invite.claimer,
+                    {
+                      host: invite.seed,
+                      port: 0,
+                      key: invite.claimer,
+                      source: 'dht' as any,
+                      client: true,
+                      state: 'connected',
+                      stateChange: 0,
+                    } as PeerMetadata,
+                  ] as [string, PeerMetadata],
+              ),
           )
           .startWith([]);
 
@@ -277,14 +280,16 @@ export class SSBSource {
       .map(api => {
         const hosting$ = this.hostingDhtInvites$
           .map(invites =>
-            invites.filter(invite => !invite.online).map(
-              ({seed}) =>
-                ({
-                  key: seed,
-                  source: 'dht',
-                  role: 'server',
-                } as StagedPeerMetadata),
-            ),
+            invites
+              .filter(invite => !invite.online)
+              .map(
+                ({seed}) =>
+                  ({
+                    key: seed,
+                    source: 'dht',
+                    role: 'server',
+                  } as StagedPeerMetadata),
+              ),
           )
           .startWith([]);
 
@@ -308,8 +313,8 @@ export class SSBSource {
         > = api.sbot.obs.bluetoothEnabled[0]();
 
         const bluetoothNearby$: Stream<Array<BTPeer>> = xsFromPullStream(
-              api.sbot.pull.nearbyBluetoothPeers[0](1000),
-            ).map((result: any) => result.discovered);
+          api.sbot.pull.nearbyBluetoothPeers[0](1000),
+        ).map((result: any) => result.discovered);
 
         const bluetoothConnected$ = this.peers$.map(peers =>
           peers.filter(p => (p.source as any) === 'bt'),
@@ -321,7 +326,9 @@ export class SSBSource {
             // If bluetooth is disabled, bluetoothNearby$ does not emit anything until it is enabled again,
             // so we use the 'enabled' boolean to stop peers being displayed which were on the list just
             // before bluetooth was disabled.
-            nearbys.filter(btPeer => enabled && btPeerNotYetConnected(btPeer, connecteds)),
+            nearbys.filter(
+              btPeer => enabled && btPeerNotYetConnected(btPeer, connecteds),
+            ),
           )
           .map(btPeers => btPeers.map(btPeerToStagedPeerMetadata))
           .startWith([]);

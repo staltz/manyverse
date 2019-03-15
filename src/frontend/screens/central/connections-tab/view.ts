@@ -42,7 +42,7 @@ type ModeProps = {
 
 const CONNECTION_INTERVAL = 10e3;
 
-function recentlyScanned(timestamp: number)  {
+function recentlyScanned(timestamp: number) {
   return timestamp > 0 && Date.now() - timestamp < 1.5 * CONNECTION_INTERVAL;
 }
 
@@ -79,34 +79,37 @@ class FadingLoader extends React.Component<FLProps> {
         animating: true,
         size: 60,
         color: Palette.backgroundBrand,
-      })
+      }),
     ]);
   }
 }
 
 function ConnectivityMode(props: ModeProps) {
   return h(View, [
-    h(TouchableHighlight, {
-      onPress: props.onPress,
-      style: styles.modeTouchable,
-      hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
-      underlayColor: Palette.backgroundVoidWeak,
-    },
-    [
-      h(Icon, {
-        size: Dimensions.iconSizeBig,
-        color: props.active
-          ? Palette.backgroundBrand
-          : Palette.backgroundVoidStrong,
-        name: props.icon,
-        accessible: true,
-        accessibilityLabel: props.label,
-      }),
-    ]),
-    props.lastScanned === 0 ?
-      null as any :
-      h(FadingLoader, {timestamp: props.lastScanned}),
-  ])
+    h(
+      TouchableHighlight,
+      {
+        onPress: props.onPress,
+        style: styles.modeTouchable,
+        hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
+        underlayColor: Palette.backgroundVoidWeak,
+      },
+      [
+        h(Icon, {
+          size: Dimensions.iconSizeBig,
+          color: props.active
+            ? Palette.backgroundBrand
+            : Palette.backgroundVoidStrong,
+          name: props.icon,
+          accessible: true,
+          accessibilityLabel: props.label,
+        }),
+      ],
+    ),
+    props.lastScanned === 0
+      ? (null as any)
+      : h(FadingLoader, {timestamp: props.lastScanned}),
+  ]);
 }
 
 function ConnectivityModes(state: State) {
@@ -171,7 +174,7 @@ function Body(state: State) {
         title: 'Connecting',
         description:
           'Standby while the app is\nattempting to connect to your peers',
-      })
+      });
     } else {
       return h(EmptySection, {
         style: styles.emptySection,
@@ -190,11 +193,11 @@ function Body(state: State) {
           peers,
           style: styles.connectionsList,
         })
-      : null as any,
+      : (null as any),
 
     stagedPeers.length > 0
       ? h(StagedConnectionsList, {sel: 'staged-list', peers: state.stagedPeers})
-      : null as any,
+      : (null as any),
   ]);
 }
 

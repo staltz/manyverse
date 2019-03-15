@@ -102,9 +102,8 @@ export function central(sources: Sources): Sinks {
   })({...sources, fab: fabPress$});
 
   const fabProps$ = sources.state.stream
-    .map(
-      state =>
-        state.currentTab === 0 ? publicTabSinks.fab : connectionsTabSinks.fab,
+    .map(state =>
+      state.currentTab === 0 ? publicTabSinks.fab : connectionsTabSinks.fab,
     )
     .flatten();
 
@@ -129,22 +128,22 @@ export function central(sources: Sources): Sinks {
     connectionsTabSinks.screen,
   );
 
-  const inviteToast$: Stream<
-    Toast
-  > = sources.ssb.acceptInviteResponse$.map(res => {
-    if (res === true)
-      return {
-        type: 'show' as 'show',
-        message: '\u2713 Invite accepted',
-        duration: ToastDuration.SHORT,
-      };
-    else
-      return {
-        type: 'show' as 'show',
-        message: '\u2717 Invite rejected. Are you sure it was correct?',
-        duration: ToastDuration.LONG,
-      };
-  });
+  const inviteToast$: Stream<Toast> = sources.ssb.acceptInviteResponse$.map(
+    res => {
+      if (res === true)
+        return {
+          type: 'show' as 'show',
+          message: '\u2713 Invite accepted',
+          duration: ToastDuration.SHORT,
+        };
+      else
+        return {
+          type: 'show' as 'show',
+          message: '\u2717 Invite rejected. Are you sure it was correct?',
+          duration: ToastDuration.LONG,
+        };
+    },
+  );
   const toast$ = xs.merge(inviteToast$, publicTabSinks.toast);
 
   const ssb$ = xs.merge(publicTabSinks.ssb, connectionsTabSinks.ssb);

@@ -73,11 +73,9 @@ export function rawMessage(sources: Sources): Sinks {
       ),
     ]),
   );
-  const command$ = sources.navigation.backPress().mapTo(
-    {
-      type: 'pop',
-    } as PopCommand,
-  );
+  const command$ = sources.navigation.backPress().mapTo({
+    type: 'pop',
+  } as PopCommand);
 
   return {
     screen: vdom$,

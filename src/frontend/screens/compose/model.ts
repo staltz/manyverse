@@ -63,10 +63,11 @@ export default function model(
         },
     );
 
-  const togglePreviewReducer$ = actions.togglePreview$
-    .mapTo(function togglePreviewReducer(prev: State): State {
+  const togglePreviewReducer$ = actions.togglePreview$.mapTo(
+    function togglePreviewReducer(prev: State): State {
       return {...prev, previewing: !prev.previewing};
-    })
+    },
+  );
 
   const getComposeDraftReducer$ = asyncStorageSource
     .getItem('composeDraft')

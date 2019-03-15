@@ -26,10 +26,12 @@ export default function view(
 
   const miniState$ = state$
     .map(state => ({postText: state.postText, previewing: state.previewing}))
-    .compose(dropRepeats((s1, s2) =>
-      s1.previewing === s2.previewing &&
-      s1.postText === s2.postText
-    ))
+    .compose(
+      dropRepeats(
+        (s1, s2) =>
+          s1.previewing === s2.previewing && s1.postText === s2.postText,
+      ),
+    )
     .startWith({postText: '', previewing: false});
 
   return xs
@@ -50,25 +52,25 @@ export default function view(
               url: avatarUrl,
             }),
 
-            miniState.previewing ?
-              h(View, {style: styles.composePreview}, [
-                Markdown(miniState.postText),
-              ]) :
-              h(TextInput, {
-                style: styles.composeInput,
-                sel: 'composeInput',
-                ['nativeID' as any]: 'FocusViewOnResume',
-                value: miniState.postText,
-                accessible: true,
-                accessibilityLabel: 'Compose Text Input',
-                autoFocus: true,
-                multiline: true,
-                returnKeyType: 'done',
-                placeholder: 'Write a public message',
-                placeholderTextColor: Palette.textVeryWeak,
-                selectionColor: Palette.backgroundTextSelection,
-                underlineColorAndroid: Palette.backgroundText,
-              }),
+            miniState.previewing
+              ? h(View, {style: styles.composePreview}, [
+                  Markdown(miniState.postText),
+                ])
+              : h(TextInput, {
+                  style: styles.composeInput,
+                  sel: 'composeInput',
+                  ['nativeID' as any]: 'FocusViewOnResume',
+                  value: miniState.postText,
+                  accessible: true,
+                  accessibilityLabel: 'Compose Text Input',
+                  autoFocus: true,
+                  multiline: true,
+                  returnKeyType: 'done',
+                  placeholder: 'Write a public message',
+                  placeholderTextColor: Palette.textVeryWeak,
+                  selectionColor: Palette.backgroundTextSelection,
+                  underlineColorAndroid: Palette.backgroundText,
+                }),
           ],
         ),
       ]),

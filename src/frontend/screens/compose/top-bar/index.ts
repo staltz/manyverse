@@ -78,12 +78,14 @@ function view(state$: Stream<State>) {
     h(View, {style: styles.container}, [
       HeaderCloseButton('composeCloseButton'),
       h(View, {style: styles.buttonsRight}, [
-        state.enabled ? h(HeaderButton, {
-          sel: 'composePreviewButton',
-          rightSide: true,
-          icon: state.previewing ? 'pencil' : 'eye',
-          accessibilityLabel: 'Preview Button',
-        }) : null as any,
+        state.enabled
+          ? h(HeaderButton, {
+              sel: 'composePreviewButton',
+              rightSide: true,
+              icon: state.previewing ? 'pencil' : 'eye',
+              accessibilityLabel: 'Preview Button',
+            })
+          : (null as any),
         h(Button, {
           sel: 'composePublishButton',
           style: state.enabled ? styles.buttonEnabled : styles.buttonDisabled,
@@ -91,7 +93,7 @@ function view(state$: Stream<State>) {
           strong: state.enabled,
           accessible: true,
           accessibilityLabel: 'Compose Publish Button',
-        })
+        }),
       ]),
     ]),
   );
