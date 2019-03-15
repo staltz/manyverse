@@ -8,11 +8,13 @@ import {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../global-styles/palette';
+import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import {ContactContent as Contact, Msg, FeedId} from 'ssb-typescript';
 import MessageContainer from './MessageContainer';
-import {ContactContent as Contact, Msg} from 'ssb-typescript';
-import {authorName, shortFeedId} from '../../../ssb/from-ssb';
+import {shortFeedId} from '../../../ssb/from-ssb';
 
 export const styles = StyleSheet.create({
   row: {
@@ -20,30 +22,41 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 
-  account: {
+  message: {
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
-    maxWidth: 120,
-    color: Palette.textWeak,
+    color: Palette.text,
   },
 
-  followed: {
+  account: {
     fontSize: Typography.fontSizeNormal,
+    fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textWeak,
+    color: Palette.text,
   },
 
   timestamp: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
+    marginLeft: Dimensions.horizontalSpaceSmall,
   },
 });
 
 export type Props = {
   msg: Msg<Contact>;
   name: string | null;
+  contactName?: string;
+  onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
+
+type Tristate = 'followed' | 'blocked' | 'discharged';
+
+function pickFrom(t: Tristate, followed: any, blocked: any, discharged: any) {
+  if (t === 'followed') return followed;
+  if (t === 'blocked') return blocked;
+  if (t === 'discharged') return discharged;
+}
 
 export default class ContactMessage extends Component<Props, {}> {
   constructor(props: Props) {
@@ -58,31 +71,65 @@ export default class ContactMessage extends Component<Props, {}> {
     );
   }
 
+  private _onPressOrigin = () => {
+    const onPressAuthor = this.props.onPressAuthor;
+    if (onPressAuthor) {
+      onPressAuthor({authorFeedId: this.props.msg.value.author});
+    }
+  };
+
+  private _onPressDestination = () => {
+    const onPressAuthor = this.props.onPressAuthor;
+    if (onPressAuthor) {
+      onPressAuthor({authorFeedId: this.props.msg.value.content.contact!});
+    }
+  };
+
   public render() {
-    const {msg, name} = this.props;
-    const accountTextProps = {
-      numberOfLines: 1,
-      ellipsizeMode: 'middle' as 'middle',
-      style: styles.account,
-    };
+    const {msg, name, contactName} = this.props;
+    const tristate: Tristate = msg.value.content.following
+      ? 'followed'
+      : (msg.value.content as any).flagged || msg.value.content.blocking
+        ? 'blocked'
+        : 'discharged';
 
     return h(MessageContainer, [
       h(View, {style: styles.row}, [
-        h(Text, accountTextProps, authorName(name, msg)),
-        h(
-          Text,
-          {style: styles.followed},
-          msg.value.content.following
-            ? ' started following '
-            : ' stopped following ',
-        ),
-        h(
-          Text,
-          accountTextProps,
-          shortFeedId(msg.value.content.contact || '?'),
-        ),
+        h(Text, {style: styles.message}, [
+          h(
+            Text,
+            {style: styles.account, onPress: this._onPressOrigin},
+            name || shortFeedId(msg.value.author),
+          ),
+          h(
+            Text,
+            pickFrom(tristate, ' followed ', ' blocked ', ' discharged '),
+          ),
+          h(
+            Text,
+            {style: styles.account, onPress: this._onPressDestination},
+            contactName || shortFeedId(msg.value.content.contact || '?'),
+          ),
+        ])
       ]),
       h(View, {style: styles.row}, [
+        pickFrom(tristate,
+          h(Icon, {
+            size: Dimensions.iconSizeSmall,
+            color: Palette.textPositive,
+            name: 'account-plus',
+          }),
+          h(Icon, {
+            size: Dimensions.iconSizeSmall,
+            color: Palette.textNegative,
+            name: 'account-remove',
+          }),
+          h(Icon, {
+            size: Dimensions.iconSizeSmall,
+            color: Palette.textVeryWeak,
+            name: 'account-minus',
+          }),
+        ),
         h(Text, {style: styles.timestamp}, [
           h(HumanTime as any, {time: msg.value.timestamp}),
         ]),

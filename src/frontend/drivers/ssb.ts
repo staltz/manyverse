@@ -44,6 +44,9 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
         name: string;
         imageUrl: string | null;
       };
+      contact?: {
+        name: string;
+      };
     };
   };
 };
@@ -99,7 +102,19 @@ function mutateMsgWithLiveExtras(api: any) {
           likes,
           about: {name, imageUrl},
         };
-        cb(null, m);
+        const content = msg.value.content;
+        if (content && content.type === 'contact' && content.contact) {
+          const dest: FeedId = content.contact;
+          const destOpts = {key: 'name', dest};
+          aboutSocialValue(destOpts, (e3: any, nameResult2: string) => {
+            if (e3) return cb(e3);
+            const destName = nameResult2 || shortFeedId(dest);
+            m.value._$manyverse$metadata.contact = {name: destName};
+            cb(null, m);
+          })
+        } else {
+          cb(null, m);
+        }
       });
     });
   };
@@ -148,7 +163,7 @@ export class SSBSource {
       pull(
         api.sbot.pull.publicThreads[0]({
           threadMaxSize: 3,
-          allowlist: ['post'],
+          allowlist: ['post', 'contact'],
           reverse: true,
           live: false,
           ...opts,
@@ -161,7 +176,7 @@ export class SSBSource {
       .map(api =>
         xsFromPullStream(
           api.sbot.pull.publicUpdates[0]({
-            allowlist: ['post'],
+            allowlist: ['post', 'contact'],
           }),
         ),
       )
@@ -349,7 +364,7 @@ export class SSBSource {
           reverse: true,
           live: false,
           threadMaxSize: 3,
-          allowlist: ['post'],
+          allowlist: ['post', 'contact'],
           ...opts,
         }),
         pull.asyncMap(mutateThreadWithLiveExtras(api)),

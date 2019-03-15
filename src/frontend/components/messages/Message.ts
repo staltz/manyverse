@@ -53,6 +53,7 @@ export default class Message extends PureComponent<Props, State> {
       likes: metadata.likes.compose(debounce(80)), // avoid DB reads flickering
       name: metadata.about.name,
       imageUrl: metadata.about.imageUrl,
+      contactName: metadata.contact ? metadata.contact.name : undefined,
     };
     if (this.state.hasError) return h(RawMessageM, props);
     if (!msg.key) return h(KeylessMessage, props);
