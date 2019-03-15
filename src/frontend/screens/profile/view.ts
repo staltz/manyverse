@@ -31,6 +31,7 @@ export default function view(
   return xs.combine(state$, topBarElem$).map(([state, topBarElem]) => {
     const isSelfProfile = state.displayFeedId === state.selfFeedId;
     const isBlocked = state.about.following === false;
+    const followsYouTristate = state.about.followsYou;
 
     return h(View, {style: styles.container}, [
       topBarElem,
@@ -55,40 +56,52 @@ export default function view(
         style: styles.avatar,
       }),
 
-      h(View, {style: styles.cta}, [
-        isSelfProfile
-          ? (null as any)
-          : h(
-              TouchableOpacity,
-              {
-                sel: 'manage',
-                accessible: true,
-                accessibilityLabel: 'Manage Contact',
-              },
-              [
-                h(Icon, {
-                  size: Dimensions.iconSizeNormal,
-                  color: Palette.textVeryWeak,
-                  name: 'chevron-down',
-                }),
-              ],
-            ),
+      h(View, {style: styles.sub}, [
+        followsYouTristate === true
+          ? h(View, {style: styles.followsYou}, [
+              h(Text, {style: styles.followsYouText}, 'Follows you'),
+            ])
+          : followsYouTristate === false
+          ? h(View, {style: styles.followsYou}, [
+              h(Text, {style: styles.followsYouText}, 'Blocks you'),
+            ])
+          : (null as any),
 
-        isSelfProfile
-          ? h(Button, {
-              sel: 'editProfile',
-              text: 'Edit profile',
-              accessible: true,
-              accessibilityLabel: 'Edit Profile Button',
-            })
-          : isBlocked
-          ? null
-          : h(ToggleButton, {
-              sel: 'follow',
-              style: styles.follow,
-              text: state.about.following === true ? 'Following' : 'Follow',
-              toggled: state.about.following === true,
-            }),
+        h(View, {style: styles.cta}, [
+          isSelfProfile
+            ? (null as any)
+            : h(
+                TouchableOpacity,
+                {
+                  sel: 'manage',
+                  accessible: true,
+                  accessibilityLabel: 'Manage Contact',
+                },
+                [
+                  h(Icon, {
+                    size: Dimensions.iconSizeNormal,
+                    color: Palette.textVeryWeak,
+                    name: 'chevron-down',
+                  }),
+                ],
+              ),
+
+          isSelfProfile
+            ? h(Button, {
+                sel: 'editProfile',
+                text: 'Edit profile',
+                accessible: true,
+                accessibilityLabel: 'Edit Profile Button',
+              })
+            : isBlocked
+            ? null
+            : h(ToggleButton, {
+                sel: 'follow',
+                style: styles.follow,
+                text: state.about.following === true ? 'Following' : 'Follow',
+                toggled: state.about.following === true,
+              }),
+        ]),
       ]),
 
       h(

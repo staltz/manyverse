@@ -32,7 +32,10 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     maxWidth: 220,
     top: Dimensions.verticalSpaceSmall,
-    left: Dimensions.horizontalSpaceBig + 80 + Dimensions.horizontalSpaceBig,
+    left:
+      Dimensions.horizontalSpaceBig +
+      avatarSize +
+      Dimensions.horizontalSpaceBig,
   },
 
   descriptionArea: {
@@ -65,15 +68,42 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
 
-  cta: {
+  sub: {
     position: 'absolute',
     top:
       Dimensions.toolbarAndroidHeight +
       avatarSizeHalf +
       Dimensions.verticalSpaceSmall,
+    left:
+      Dimensions.horizontalSpaceBig + // left margin to the avatar
+      avatarSize + // avatar
+      Dimensions.horizontalSpaceBig - // right margin to the avatar
+      Dimensions.horizontalSpaceSmall, // minus follows-you-text margin
     right: Dimensions.horizontalSpaceBig,
     zIndex: 30,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  followsYou: {
+    alignSelf: 'flex-start',
+    backgroundColor: Palette.backgroundVoidWeak,
+    borderRadius: 3,
+    paddingHorizontal: Dimensions.horizontalSpaceSmall,
+    paddingVertical: Dimensions.verticalSpaceTiny,
+  },
+
+  followsYouText: {
+    fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.textWeak,
+  },
+
+  cta: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
 

@@ -13,7 +13,7 @@ export const Dimensions = {
   verticalSpaceBig: 14,
   verticalSpaceNormal: 10,
   verticalSpaceSmall: 7,
-  verticalSpaceTiny: 4,
+  verticalSpaceTiny: 3,
 
   avatarSizeBig: 80,
   avatarSizeNormal: 45,

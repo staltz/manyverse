@@ -5,9 +5,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {SSBSource, GetReadable, ThreadAndExtras} from '../../drivers/ssb';
+import {
+  SSBSource,
+  GetReadable,
+  ThreadAndExtras,
+  AboutAndExtras,
+} from '../../drivers/ssb';
 import {Reducer} from '@cycle/state';
-import {FeedId, About} from 'ssb-typescript';
+import {FeedId} from 'ssb-typescript';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -17,7 +22,7 @@ export type Props = {
 export type State = {
   selfFeedId: FeedId;
   displayFeedId: FeedId;
-  about: About & {id: FeedId};
+  about: AboutAndExtras;
   getFeedReadable: GetReadable<ThreadAndExtras> | null;
   getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
   blockingSecretly: boolean;

@@ -56,6 +56,11 @@ export type ThreadAndExtras = {
   errorReason?: 'blocked' | 'missing' | 'unknown';
 };
 
+export type AboutAndExtras = About & {
+  id: FeedId;
+  followsYou?: boolean;
+};
+
 export type BTPeer = {remoteAddress: string; id: string; displayName: string};
 
 function btPeerToStagedPeerMetadata(p: BTPeer): StagedPeerMetadata {
@@ -429,16 +434,20 @@ export class SSBSource {
     );
   }
 
-  public profileAbout$(id: FeedId): Stream<About & {id: FeedId}> {
+  public profileAbout$(id: FeedId): Stream<AboutAndExtras> {
     return this.api$
       .map(api => {
         const selfId = api.keys.sync.id[0]();
         const color = colorHash.hex(id);
         const misc$ = xsFromCallback(getProfileAbout(api))(id);
         const following$ = api.contact.obs.tristate[0](selfId, id);
+        const followsYou$ = api.contact.obs.tristate[0](id, selfId);
         return xs
-          .combine(misc$, following$)
-          .map(([misc, following]) => ({...misc, following, color, id} as any));
+          .combine(misc$, following$, followsYou$)
+          .map(
+            ([misc, following, followsYou]) =>
+              ({...misc, following, followsYou, color, id} as AboutAndExtras),
+          );
       })
       .flatten();
   }
