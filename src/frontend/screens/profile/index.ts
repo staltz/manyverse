@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
 import {FeedId} from 'ssb-typescript';
@@ -62,6 +62,7 @@ export function profile(sources: Sources): Sinks {
     dialog: sources.dialog,
   });
   const manageContactSinks = manageContact({
+    feedId$: sources.state.stream.map(state => state.displayFeedId),
     manageContact$: actions.manageContact$,
     dialog: sources.dialog,
   });
@@ -79,13 +80,18 @@ export function profile(sources: Sources): Sinks {
     sources.state.stream,
     topBarSinks.back,
   );
+  const clipboard$ = xs.merge(
+    messageEtcSinks.clipboard,
+    manageContactSinks.clipboard,
+  );
+  const toast$ = xs.merge(messageEtcSinks.toast, manageContactSinks.toast);
 
   return {
     screen: vdom$,
     navigation: command$,
     state: reducer$,
-    clipboard: messageEtcSinks.clipboard,
-    toast: messageEtcSinks.toast,
+    clipboard: clipboard$,
+    toast: toast$,
     ssb: newContent$,
   };
 }

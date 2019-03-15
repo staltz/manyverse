@@ -69,7 +69,7 @@ export default function view(
                 h(Icon, {
                   size: Dimensions.iconSizeNormal,
                   color: Palette.textVeryWeak,
-                  name: 'settings',
+                  name: 'chevron-down',
                 }),
               ],
             ),
