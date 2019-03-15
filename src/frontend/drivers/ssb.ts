@@ -121,12 +121,50 @@ function mutateMsgWithLiveExtras(api: any) {
   };
 }
 
+function augmentPeerWithExtras(api: any) {
+  return (kv: [string, PeerMetadata], cb: Callback<any>) => {
+    const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
+    const nameOpts = {key: 'name', dest: kv[1].key};
+    aboutSocialValue(nameOpts, (e1: any, nameResult: string) => {
+      if (e1) return cb(e1);
+      const name = nameResult || shortFeedId(kv[1].key);
+      const avatarOpts = {key: 'image', dest: kv[1].key};
+      aboutSocialValue(avatarOpts, (e2: any, val: any) => {
+        if (e2) return cb(e2);
+        let image: string | null = val;
+        if (!!val && typeof val === 'object' && val.link) image = val.link;
+        const imageUrl: string | null = image ? blobIdToUrl(image) : null;
+        const peer = {...kv[1], name, imageUrl};
+        cb(null, peer);
+      });
+    });
+  };
+}
+
 function mutateThreadWithLiveExtras(api: any) {
   return async (thread: ThreadData, cb: Callback<ThreadAndExtras>) => {
     for (const msg of thread.messages) {
       await runAsync(mutateMsgWithLiveExtras(api))(msg);
     }
     cb(null, thread as ThreadAndExtras);
+  };
+}
+
+function augmentPeersWithExtras(api: any) {
+  return async (
+    kvs: Array<[string, PeerMetadata]>,
+    cb: Callback<Array<any>>,
+  ) => {
+    const peers: Array<PeerMetadata> = [];
+    for (const kv of kvs) {
+      const [err, peer] = await runAsync<any>(augmentPeerWithExtras(api))(kv);
+      if (err) {
+        cb(err);
+        return;
+      }
+      peers.push(peer);
+    }
+    cb(null, peers);
   };
 }
 
@@ -255,18 +293,7 @@ export class SSBSource {
 
         const peersWithExtras$ = peersArr$
           .map(peersArr =>
-            xs.combine(
-              ...peersArr.map(kv =>
-                (api.about.obs.name[0](kv[1].key) as Stream<string>)
-                  .map(name => ({...kv[1], name} as PeerMetadata))
-                  .map(peer =>
-                    (api.about.obs.imageUrl[0](peer.key) as Stream<string>).map(
-                      imageUrl => ({...peer, imageUrl} as PeerMetadata),
-                    ),
-                  )
-                  .flatten(),
-              ),
-            ),
+            xsFromCallback<any>(augmentPeersWithExtras(api))(peersArr),
           )
           .flatten();
         return peersWithExtras$;
