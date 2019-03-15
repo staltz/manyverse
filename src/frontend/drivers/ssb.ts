@@ -16,8 +16,6 @@ import {
 } from 'ssb-typescript';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
-import aboutSyncOpinion from '../../ssb/opinions/about/sync';
-import aboutOpinion = require('../../ssb/opinions/about/obs');
 import makeKeysOpinion from '../../ssb/opinions/keys';
 import sbotOpinion from '../../ssb/opinions/sbot';
 import gossipOpinion from '../../ssb/opinions/gossip';
@@ -35,6 +33,7 @@ const pull = require('pull-stream');
 const cat = require('pull-cat');
 const ssbKeys = require('react-native-ssb-client-keys');
 const depjectCombine = require('depject');
+const colorHash = new (require('color-hash'))();
 
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
@@ -165,6 +164,30 @@ function augmentPeersWithExtras(api: any) {
       peers.push(peer);
     }
     cb(null, peers);
+  };
+}
+
+function getProfileAbout(api: any) {
+  return (id: FeedId, cb: Callback<any>) => {
+    const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
+    const nameOpts = {key: 'name', dest: id};
+    aboutSocialValue(nameOpts, (e1: any, nameResult: string) => {
+      if (e1) return cb(e1);
+      const name = nameResult || shortFeedId(id);
+      const avatarOpts = {key: 'image', dest: id};
+      aboutSocialValue(avatarOpts, (e2: any, val: any) => {
+        if (e2) return cb(e2);
+        let image: string | null = val;
+        if (!!val && typeof val === 'object' && val.link) image = val.link;
+        const imageUrl: string | null = image ? blobIdToUrl(image) : null;
+        const descriptionOpts = {key: 'description', dest: id};
+        aboutSocialValue(descriptionOpts, (e3: any, descResult: string) => {
+          if (e3) return cb(e3);
+          const description = typeof descResult === 'string' ? descResult : '';
+          cb(null, {name, imageUrl, description});
+        });
+      });
+    });
   };
 }
 
@@ -409,24 +432,13 @@ export class SSBSource {
   public profileAbout$(id: FeedId): Stream<About & {id: FeedId}> {
     return this.api$
       .map(api => {
-        const name$ = api.about.obs.name[0](id) as Stream<string>;
-        const color$ = api.about.obs.color[0](id) as Stream<string>;
-        const imageUrl$ = api.about.obs.imageUrl[0](id) as Stream<string>;
-        const following$ = api.contact.obs.tristate[0](
-          api.keys.sync.id[0](),
-          id,
-        ) as Stream<boolean | null>;
-        const description$ = api.about.obs.description[0](id) as Stream<string>;
+        const selfId = api.keys.sync.id[0]();
+        const color = colorHash.hex(id);
+        const misc$ = xsFromCallback(getProfileAbout(api))(id);
+        const following$ = api.contact.obs.tristate[0](selfId, id);
         return xs
-          .combine(name$, color$, description$, following$, imageUrl$)
-          .map(([name, color, description, following, imageUrl]) => ({
-            name,
-            color,
-            description,
-            imageUrl,
-            following,
-            id,
-          }));
+          .combine(misc$, following$)
+          .map(([misc, following]) => ({...misc, following, color, id} as any));
       })
       .flatten();
   }
@@ -553,12 +565,10 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
     .map(keys => {
       return depjectCombine([
         publishHookOpinion,
-        aboutSyncOpinion,
         configOpinion,
         makeKeysOpinion(keys),
         sbotOpinion,
         gossipOpinion,
-        aboutOpinion,
         contactOpinion,
       ]);
     })
