@@ -110,6 +110,10 @@ module.exports = function(driver, t) {
     t.end();
   });
 
+  t.skip('(TODO) Feed displays follows and blocks', async function(t) {
+    t.end();
+  });
+
   t.test('A message in the feed can be liked', async function(t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
