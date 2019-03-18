@@ -7,7 +7,12 @@
 import xs, {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {ReactElement} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
 import {isRootPostMsg} from 'ssb-typescript/utils';
@@ -50,11 +55,23 @@ export default function view(
         ),
       ]),
 
-      h(Avatar, {
-        size: avatarSize,
-        url: state.about.imageUrl,
-        style: styles.avatar,
-      }),
+      h(
+        TouchableWithoutFeedback,
+        {
+          sel: 'avatar',
+          accessible: true,
+          accessibilityLabel: 'Profile Picture',
+        },
+        [
+          h(View, {style: styles.avatarTouchable}, [
+            h(Avatar, {
+              size: avatarSize,
+              url: state.about.imageUrl,
+              style: styles.avatar,
+            }),
+          ]),
+        ],
+      ),
 
       h(View, {style: styles.sub}, [
         followsYouTristate === true
@@ -104,21 +121,19 @@ export default function view(
         ]),
       ]),
 
-      h(
-        View,
-        {
-          style: styles.descriptionArea,
-          accessible: true,
-          accessibilityLabel: 'Profile Description',
-        },
-        [
-          h(
-            Text,
-            {style: styles.description, numberOfLines: 2},
-            state.about.description || '',
-          ),
-        ],
-      ),
+      h(View, {style: styles.descriptionArea}, [
+        state.about.description
+          ? h(Button, {
+              sel: 'bio',
+              text: 'Bio',
+              small: true,
+              style: styles.bioButton,
+              accessible: true,
+              accessibilityLabel: 'Biography',
+              strong: false,
+            })
+          : (null as any),
+      ]),
 
       isBlocked
         ? h(EmptySection, {

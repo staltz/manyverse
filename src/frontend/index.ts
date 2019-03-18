@@ -13,6 +13,7 @@ export enum Screens {
   InviteCreate = 'Manyverse.Invite.Create',
   Profile = 'Manyverse.Profile',
   ProfileEdit = 'Manyverse.Profile.Edit',
+  Biography = 'Manyverse.Biography',
   RawDatabase = 'Manyverse.RawDatabase',
   RawMessage = 'Manyverse.RawMessage',
 }
@@ -40,6 +41,7 @@ import {pasteInvite} from './screens/invite-paste/index';
 import {profile} from './screens/profile/index';
 import {editProfile} from './screens/profile-edit/index';
 import {createInvite} from './screens/invite-create';
+import {biography} from './screens/biography/index';
 import {rawDatabase} from './screens/raw-db/index';
 import {rawMessage} from './screens/raw-msg/index';
 import {Palette} from './global-styles/palette';
@@ -54,6 +56,7 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
   [Screens.InviteCreate]: withState(createInvite),
   [Screens.Profile]: withState(profile),
   [Screens.ProfileEdit]: withState(editProfile),
+  [Screens.Biography]: withState(biography),
   [Screens.RawDatabase]: rawDatabase,
   [Screens.RawMessage]: rawMessage,
 };

@@ -13,10 +13,27 @@ import {
   StyleProp,
   ViewStyle,
   StyleSheet,
+  TextStyle,
 } from 'react-native';
 import {Palette} from '../global-styles/palette';
 import {h} from '@cycle/react';
-import {baseContainerStyle, baseTextStyle} from './Button';
+import {Typography} from '../global-styles/typography';
+import {Dimensions} from '../global-styles/dimens';
+
+export const baseContainerStyle = {
+  borderTopLeftRadius: 3,
+  borderTopRightRadius: 3,
+  borderBottomLeftRadius: 3,
+  borderBottomRightRadius: 3,
+  paddingHorizontal: Dimensions.horizontalSpaceNormal,
+  paddingVertical: Dimensions.verticalSpaceSmall,
+};
+
+export const baseTextStyle: TextStyle = {
+  fontSize: Typography.fontSizeNormal,
+  textAlign: 'center',
+  fontWeight: 'bold',
+};
 
 export const styles = StyleSheet.create({
   container: {

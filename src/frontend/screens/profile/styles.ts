@@ -42,11 +42,17 @@ export const styles = StyleSheet.create({
     top: -avatarSize,
     marginBottom: -avatarSize,
     zIndex: 10,
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
     paddingTop: avatarSizeHalf + Dimensions.verticalSpaceNormal,
     paddingBottom: Dimensions.verticalSpaceNormal,
     paddingLeft: Dimensions.horizontalSpaceBig,
     paddingRight: Dimensions.horizontalSpaceBig,
     backgroundColor: Palette.backgroundText,
+  },
+
+  bioButton: {
+    minWidth: avatarSize,
   },
 
   description: {
@@ -111,9 +117,15 @@ export const styles = StyleSheet.create({
     marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
-  avatar: {
+  avatarTouchable: {
     top: -avatarSizeHalf,
     left: Dimensions.horizontalSpaceBig,
+    width: avatarSize,
+    height: avatarSize,
+    zIndex: 19,
+  },
+
+  avatar: {
     zIndex: 20,
   },
 

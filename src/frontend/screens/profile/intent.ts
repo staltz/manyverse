@@ -19,6 +19,15 @@ export default function intent(
   return {
     goToCompose$: reactSource.select('fab').events('pressItem'),
 
+    goToBio$: xs.merge(
+      reactSource.select('bio').events('press'),
+      reactSource
+        .select('avatar')
+        .events('press')
+        .compose(sample(state$))
+        .filter(state => !!state.about.imageUrl),
+    ) as Stream<null>,
+
     goToEdit$: reactSource.select('editProfile').events('press') as Stream<
       null
     >,

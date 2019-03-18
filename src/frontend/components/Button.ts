@@ -24,16 +24,11 @@ export const baseContainerStyle = {
   borderTopRightRadius: 3,
   borderBottomLeftRadius: 3,
   borderBottomRightRadius: 3,
-  paddingLeft: Dimensions.horizontalSpaceNormal,
-  paddingRight: Dimensions.horizontalSpaceNormal,
-  paddingTop: Dimensions.verticalSpaceSmall,
-  paddingBottom: Dimensions.verticalSpaceSmall,
 };
 
 export const baseTextStyle: TextStyle = {
   fontSize: Typography.fontSizeNormal,
   textAlign: 'center',
-  fontWeight: 'bold',
 };
 
 export const styles = StyleSheet.create({
@@ -48,6 +43,20 @@ export const styles = StyleSheet.create({
     ...baseContainerStyle,
     backgroundColor: Palette.backgroundBrand,
     borderWidth: 0,
+  },
+
+  containerSize: {
+    paddingHorizontal: Dimensions.horizontalSpaceNormal,
+    paddingVertical: Dimensions.verticalSpaceSmall,
+  },
+
+  containerSizeSmall: {
+    paddingHorizontal: Dimensions.horizontalSpaceSmall,
+    paddingVertical: Dimensions.verticalSpaceTiny,
+  },
+
+  textWeight: {
+    fontWeight: 'bold',
   },
 
   text: {
@@ -65,6 +74,7 @@ export type Props = {
   text: string;
   onPress?: () => void;
   strong?: boolean;
+  small?: boolean;
   style?: StyleProp<ViewStyle>;
   accessible?: boolean;
   accessibilityLabel?: string;
@@ -81,7 +91,14 @@ export default class Button extends Component<Props, {}> {
   }
 
   public render() {
-    const {text, strong, style, accessible, accessibilityLabel} = this.props;
+    const {
+      text,
+      strong,
+      small,
+      style,
+      accessible,
+      accessibilityLabel,
+    } = this.props;
 
     const touchableProps = {
       background: TouchableNativeFeedback.Ripple(Palette.backgroundBrand),
@@ -97,13 +114,23 @@ export default class Button extends Component<Props, {}> {
     const viewProps = {
       style: [
         strong ? styles.containerStrong : styles.container,
+        small ? styles.containerSizeSmall : styles.containerSize,
         style,
       ] as ViewStyle,
     };
 
     return h(TouchableNativeFeedback, touchableProps, [
       h(View, viewProps, [
-        h(Text, {style: strong ? styles.textStrong : styles.text}, text),
+        h(
+          Text,
+          {
+            style: [
+              strong ? styles.textStrong : styles.text,
+              small ? null : styles.textWeight,
+            ],
+          },
+          text,
+        ),
       ]),
     ]);
   }

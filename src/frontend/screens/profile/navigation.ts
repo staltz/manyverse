@@ -10,6 +10,7 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
 import {navOptions as composeScreenNavOptions} from '../compose';
 import {navOptions as editProfileScreenNavOptions} from '../profile-edit';
+import {navOptions as bioScreenNavOptions} from '../biography';
 import {navOptions as threadScreenNavOptions} from '../thread';
 import {navOptions as profileScreenNavOptions} from './index';
 import {navOptions as rawMsgScreenNavOptions} from '../raw-msg';
@@ -20,6 +21,7 @@ import {State} from './model';
 export type Actions = {
   goToCompose$: Stream<null>;
   goToEdit$: Stream<null>;
+  goToBio$: Stream<any>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
   goToRawMsg$: Stream<Msg>;
@@ -39,6 +41,22 @@ export default function navigation(
           component: {
             name: Screens.Compose,
             options: composeScreenNavOptions,
+          },
+        },
+      } as Command),
+  );
+
+  const toBio$ = actions.goToBio$.compose(sample(state$)).map(
+    state =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Biography,
+            passProps: {
+              about: state.about,
+            },
+            options: bioScreenNavOptions,
           },
         },
       } as Command),
@@ -118,6 +136,7 @@ export default function navigation(
 
   return xs.merge(
     toCompose$,
+    toBio$,
     toEdit$,
     toOtherProfile$,
     toThread$,
