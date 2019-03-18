@@ -6,6 +6,7 @@
     "abstract-leveldown": "5.0.0",
     "bindings-noderify-nodejs-mobile": "10.3.0",
     "bufferutil": "3.0.1",
+    "cached-path-relative": ">=1.0.2",
     "chloride": "2.2.10",
     "delay": "3.1.0",
     "estimate-progress": "1.0.0",
