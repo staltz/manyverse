@@ -129,7 +129,7 @@ export default function view(
               small: true,
               style: styles.bioButton,
               accessible: true,
-              accessibilityLabel: 'Biography',
+              accessibilityLabel: 'Biography Button',
               strong: false,
             })
           : (null as any),

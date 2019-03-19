@@ -159,13 +159,24 @@ module.exports = function(driver, t) {
     t.ok(profileName, 'I see Profile Name');
     const name2 = await profileName.text();
     t.equal(name2, 'maria', 'I see the name: "maria"');
+    t.end();
+  });
+
+  t.test('Profile screen leads to Bio screen', async function(t) {
+    // Press edit
+    const editProfileButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Biography Button")',
+    );
+    t.ok(editProfileButton, 'I see the Biography Button');
+    await editProfileButton.tap();
+    t.pass('I tap it');
 
     // Read the description
     const profileDescription = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Profile Description")' +
+      'new UiSelector().descriptionContains("Biographic Description")' +
         '.childSelector(new UiSelector().textContains("teacher"))',
     );
-    t.ok(profileDescription, 'I see Profile Description');
+    t.ok(profileDescription, 'I see the Description in the Biography Screen');
     const description = await profileDescription.text();
     t.equal(description, 'teacher', 'I see the description with: "teacher"');
 

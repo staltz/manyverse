@@ -31,13 +31,21 @@ export default function view(
                 height: windowWidth,
                 resizeMode: 'cover',
               },
+              accessible: true,
+              accessibilityLabel: 'Biographic Picture',
               source: {uri: state.about.imageUrl},
             })
           : (null as any),
 
-        h(View, {style: styles.bioArea}, [
-          Markdown(state.about.description || ''),
-        ]),
+        h(
+          View,
+          {
+            style: styles.bioArea,
+            accessible: true,
+            accessibilityLabel: 'Biographic Description',
+          },
+          [Markdown(state.about.description || '')],
+        ),
       ]),
     ]);
   });
