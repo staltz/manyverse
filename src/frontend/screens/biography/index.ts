@@ -14,7 +14,7 @@ import {topBar, Sinks as TBSinks} from './top-bar';
 import {AboutAndExtras} from '../../drivers/ssb';
 import view from './view';
 
-export type Props = {about: AboutAndExtras & {description: string}};
+export type Props = {about: AboutAndExtras};
 
 export type Sources = {
   props: Stream<Props>;

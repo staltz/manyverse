@@ -35,7 +35,9 @@ export default function view(
             })
           : (null as any),
 
-        h(View, {style: styles.bioArea}, [Markdown(state.about.description)]),
+        h(View, {style: styles.bioArea}, [
+          Markdown(state.about.description || ''),
+        ]),
       ]),
     ]);
   });

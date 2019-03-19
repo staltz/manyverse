@@ -51,7 +51,7 @@ export default function model(
   );
 
   const about$ = props$
-    .map(props => ssbSource.profileAbout$(props.feedId))
+    .map(props => ssbSource.profileAboutLive$(props.feedId))
     .flatten();
 
   const updateAboutReducer$ = about$.map(

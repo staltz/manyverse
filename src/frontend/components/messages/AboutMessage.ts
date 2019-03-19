@@ -88,7 +88,7 @@ function renderWithNameDesc(name: string | null, msg: Msg<About>) {
         h(Text, {style: styles.followed}, '" and the description: '),
       ]),
     ]),
-    Markdown(msg.value.content.description as string),
+    Markdown(msg.value.content.description || ''),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
         h(HumanTime as any, {time: msg.value.timestamp}),
@@ -103,7 +103,7 @@ function renderWithDesc(name: string | null, msg: Msg<About>) {
       h(Text, accountTextProps, authorName(name, msg)),
       h(Text, {style: styles.followed}, ' has a new description: '),
     ]),
-    Markdown(msg.value.content.description as string),
+    Markdown(msg.value.content.description || ''),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
         h(HumanTime as any, {time: msg.value.timestamp}),

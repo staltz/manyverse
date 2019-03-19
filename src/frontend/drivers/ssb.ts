@@ -27,8 +27,7 @@ import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {Readable, Callback} from '../../typings/pull-stream';
-import {shortFeedId} from '../../ssb/from-ssb';
-const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
+import {shortFeedId, imageToImageUrl} from '../../ssb/from-ssb';
 const pull = require('pull-stream');
 const cat = require('pull-cat');
 const ssbKeys = require('react-native-ssb-client-keys');
@@ -96,9 +95,7 @@ function mutateMsgWithLiveExtras(api: any) {
       const avatarOpts = {key: 'image', dest: msg.value.author};
       aboutSocialValue(avatarOpts, (e2: any, val: any) => {
         if (e2) return cb(e2);
-        let image: string | null = val;
-        if (!!val && typeof val === 'object' && val.link) image = val.link;
-        const imageUrl: string | null = image ? blobIdToUrl(image) : null;
+        const imageUrl = imageToImageUrl(val);
         const likes = xsFromPullStream(
           api.sbot.pull.voterStream[0](msg.key),
         ).startWith([]);
@@ -135,9 +132,7 @@ function augmentPeerWithExtras(api: any) {
       const avatarOpts = {key: 'image', dest: kv[1].key};
       aboutSocialValue(avatarOpts, (e2: any, val: any) => {
         if (e2) return cb(e2);
-        let image: string | null = val;
-        if (!!val && typeof val === 'object' && val.link) image = val.link;
-        const imageUrl: string | null = image ? blobIdToUrl(image) : null;
+        const imageUrl = imageToImageUrl(val);
         const peer = {...kv[1], name, imageUrl};
         cb(null, peer);
       });
@@ -169,30 +164,6 @@ function augmentPeersWithExtras(api: any) {
       peers.push(peer);
     }
     cb(null, peers);
-  };
-}
-
-function getProfileAbout(api: any) {
-  return (id: FeedId, cb: Callback<any>) => {
-    const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
-    const nameOpts = {key: 'name', dest: id};
-    aboutSocialValue(nameOpts, (e1: any, nameResult: string) => {
-      if (e1) return cb(e1);
-      const name = nameResult || shortFeedId(id);
-      const avatarOpts = {key: 'image', dest: id};
-      aboutSocialValue(avatarOpts, (e2: any, val: any) => {
-        if (e2) return cb(e2);
-        let image: string | null = val;
-        if (!!val && typeof val === 'object' && val.link) image = val.link;
-        const imageUrl: string | null = image ? blobIdToUrl(image) : null;
-        const descriptionOpts = {key: 'description', dest: id};
-        aboutSocialValue(descriptionOpts, (e3: any, descResult: string) => {
-          if (e3) return cb(e3);
-          const description = typeof descResult === 'string' ? descResult : '';
-          cb(null, {name, imageUrl, description});
-        });
-      });
-    });
   };
 }
 
@@ -439,14 +410,61 @@ export class SSBSource {
       .map(api => {
         const selfId = api.keys.sync.id[0]();
         const color = colorHash.hex(id);
-        const misc$ = xsFromCallback(getProfileAbout(api))(id);
+        const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
+        const aboutSocialValue$ = xsFromCallback(aboutSocialValue);
+        const name$ = aboutSocialValue$({key: 'name', dest: id});
+        const imageUrl$ = aboutSocialValue$({key: 'image', dest: id}).map(
+          imageToImageUrl,
+        );
+        const description$ = aboutSocialValue$({key: 'description', dest: id});
         const following$ = api.contact.obs.tristate[0](selfId, id);
         const followsYou$ = api.contact.obs.tristate[0](id, selfId);
         return xs
-          .combine(misc$, following$, followsYou$)
+          .combine(name$, imageUrl$, description$, following$, followsYou$)
           .map(
-            ([misc, following, followsYou]) =>
-              ({...misc, following, followsYou, color, id} as AboutAndExtras),
+            ([name, imageUrl, description, following, followsYou]) =>
+              ({
+                id,
+                name,
+                color,
+                imageUrl,
+                description,
+                following,
+                followsYou,
+              } as AboutAndExtras),
+          );
+      })
+      .flatten();
+  }
+
+  public profileAboutLive$(id: FeedId): Stream<AboutAndExtras> {
+    return this.api$
+      .map(api => {
+        const selfId = api.keys.sync.id[0]();
+        const color = colorHash.hex(id);
+        const aboutPS = api.sbot.pull.aboutSocialValueStream[0];
+        const name$ = xsFromPullStream(aboutPS({key: 'name', dest: id}));
+        const imageUrl$ = xsFromPullStream(
+          aboutPS({key: 'image', dest: id}),
+        ).map(imageToImageUrl);
+        const description$ = xsFromPullStream(
+          aboutPS({key: 'description', dest: id}),
+        );
+        const following$ = api.contact.obs.tristate[0](selfId, id);
+        const followsYou$ = api.contact.obs.tristate[0](id, selfId);
+        return xs
+          .combine(name$, imageUrl$, description$, following$, followsYou$)
+          .map(
+            ([name, imageUrl, description, following, followsYou]) =>
+              ({
+                id,
+                name,
+                color,
+                imageUrl,
+                description,
+                following,
+                followsYou,
+              } as AboutAndExtras),
           );
       })
       .flatten();
