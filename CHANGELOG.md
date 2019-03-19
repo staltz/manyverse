@@ -6,6 +6,16 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1903.19-beta
+
+* Feature: copy cypherlink (ID) of a profile ([see details](https://gitlab.com/staltz/manyverse/commit/20c22a25e9209e651aecce9c806d31497ac6bb1f))
+* Feature: preview a post before publishing ([see details](https://gitlab.com/staltz/manyverse/commit/677513c3bfa3293bc8f28a031c802c23626640b4))
+* Feature: show follows and blocks in the newsfeed ([see details](https://gitlab.com/staltz/manyverse/commit/4b05393faeffad37af93df1b0ee1a6fe443a8b5e))
+* Feature: view a user's biography in full screen ([see details](https://gitlab.com/staltz/manyverse/commit/1c59679e3797cc24d5090c503106e9776091c02e))
+* Fix flickering of names in the connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/071e3e5277f165d2014876df4d7c45afc50d616a))
+* Profile screen shows whether they follow you ([see details](https://gitlab.com/staltz/manyverse/commit/79fc6e85d784e6ca662d95b899425634132eb5ea))
+* Update backers in the Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/a4f35487222d33359101cda8d482ab3e8ee4a5b3))
+
 ## 0.1903.13-beta
 
 * Quicker establishment of bluetooth connections ([see details](https://gitlab.com/staltz/manyverse/commit/d2a1188a45901e06b9adde7e13a321bfbc381adc))
