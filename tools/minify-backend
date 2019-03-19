@@ -30,6 +30,7 @@ $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
   --replace.node-extend=xtend \
   --replace.utp-native=utp-native-no-prebuild \
+  --replace.sodium-browserify-tweetnacl=@staltz/sodium-browserify-tweetnacl \
   --filter=rn-bridge \
   index.js > _index.js;
 rm index.js;
