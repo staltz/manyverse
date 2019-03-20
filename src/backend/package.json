@@ -4,7 +4,7 @@
   "main": "loader.js",
   "dependencies": {
     "abstract-leveldown": "5.0.0",
-    "@staltz/sodium-browserify-tweetnacl": "0.2.5",
+    "sodium-browserify-tweetnacl": ">=0.2.5",
     "bindings-noderify-nodejs-mobile": "10.3.0",
     "bufferutil": "3.0.1",
     "cached-path-relative": ">=1.0.2",
