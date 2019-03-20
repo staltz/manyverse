@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1903.20-beta
+
+* Fix crash that was introduced two versions ago ([see details](https://gitlab.com/staltz/manyverse/commit/7a3f6c01c3255af58ef726f327f31d92b446467e))
+
 ## 0.1903.19-beta
 
 * Feature: copy cypherlink (ID) of a profile ([see details](https://gitlab.com/staltz/manyverse/commit/20c22a25e9209e651aecce9c806d31497ac6bb1f))
