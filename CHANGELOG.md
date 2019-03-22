@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1903.22-beta
+
+* Fix Wi-Fi sync between phones ([see details](https://gitlab.com/staltz/manyverse/commit/b90a3900e14c93dad5d7b4004d438905b17468d1))
+
 ## 0.1903.20-beta
 
 * Fix crash that was introduced two versions ago ([see details](https://gitlab.com/staltz/manyverse/commit/7a3f6c01c3255af58ef726f327f31d92b446467e))
