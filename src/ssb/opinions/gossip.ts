@@ -21,9 +21,11 @@ const gossipOpinion = {
         const map = (this.map = new Map<string, PeerMetadata>());
         api.sbot.async.gossipPeers((err: any, peers: Array<PeerMetadata>) => {
           if (err) return console.error(err);
-          peers.filter(p => p.state === 'connected').forEach(p => {
-            map.set(p.key, p);
-          });
+          peers
+            .filter(p => p.state === 'connected')
+            .forEach(p => {
+              map.set(p.key, p);
+            });
           listener.next(map);
         });
 
@@ -31,14 +33,18 @@ const gossipOpinion = {
           api.sbot.pull.gossipChanges(),
           (this.sink = pull.drain((data: any) => {
             if (data.peer) {
-              if (data.type === 'remove') {
+              if (
+                data.type === 'remove' ||
+                data.type === 'disconnect' ||
+                data.type === 'connecting-failed'
+              ) {
                 map.delete(data.peer.key);
                 listener.next(map);
               } else {
                 if (data.peer.state === 'connected') {
                   map.set(data.peer.key, data.peer);
                   listener.next(map);
-                } else {
+                } else if (data.source !== 'local') {
                   map.delete(data.peer.key);
                   listener.next(map);
                 }

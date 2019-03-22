@@ -84,15 +84,15 @@ function dhtTransport(_sbot: any) {
 const bluetoothManager: any = BluetoothManager({
   socketFolderPath: appDataDir,
   myIdent: '@' + keys.public,
-  metadataServiceUUID: "b4721184-46dc-4314-b031-bf52c2b197f3",
-  controlSocketFilename: "manyverse_bt_control.sock",
-  incomingSocketFilename: "manyverse_bt_incoming.sock",
-  outgoingSocketFilename: "manyverse_bt_outgoing.sock",
+  metadataServiceUUID: 'b4721184-46dc-4314-b031-bf52c2b197f3',
+  controlSocketFilename: 'manyverse_bt_control.sock',
+  incomingSocketFilename: 'manyverse_bt_incoming.sock',
+  outgoingSocketFilename: 'manyverse_bt_outgoing.sock',
   logStreams: false,
 });
 
 const bluetoothPluginConfig = {
-  scope: 'public'
+  scope: 'public',
 };
 
 require('ssb-server/index')
