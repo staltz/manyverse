@@ -12,6 +12,7 @@ const DHT = require('multiserver-dht');
 const rnBridge = require('rn-bridge');
 const rnChannelPlugin = require('multiserver-rn-channel');
 const NoauthTransformPlugin = require('multiserver/plugins/noauth');
+const WS = require('multiserver/plugins/ws');
 const npip = require('non-private-ip');
 const injectSsbConfig = require('ssb-config/inject');
 const BluetoothManager = require('ssb-mobile-bluetooth-manager');
@@ -48,6 +49,7 @@ const config = (() => {
     outgoing: {
       net: [{transform: 'shs'}],
       dht: [{transform: 'shs'}],
+      ws: [{transform: 'shs'}],
       bluetooth: [{scope: 'public', transform: 'shs'}],
     },
   };
@@ -70,6 +72,13 @@ function rnChannelTransport(_sbot: any) {
   _sbot.multiserver.transport({
     name: 'channel',
     create: () => rnChannelPlugin(rnBridge.channel),
+  });
+}
+
+function wsTransport(_sbot: any) {
+  _sbot.multiserver.transport({
+    name: 'ws',
+    create: () => WS({}),
   });
 }
 
@@ -98,6 +107,7 @@ const bluetoothPluginConfig = {
 require('ssb-server/index')
   .use(noAuthTransform)
   .use(rnChannelTransport)
+  .use(wsTransport)
   .use(require('ssb-dht-invite'))
   .use(dhtTransport)
   .use(bluetoothTransportAndPlugin(bluetoothManager, bluetoothPluginConfig))
