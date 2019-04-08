@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1904.8-beta
+
+* Slightly faster indexing speeds ([see details](https://gitlab.com/staltz/manyverse/commit/417da7bd993848d29a489f2aeae16ba61e410437))
+* Support pubs and peers that use WebSockets ([see details](https://gitlab.com/staltz/manyverse/commit/12d5f22a826187cf53f7f536945a18ab962ff234))
+* Update backers in the Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/f67541fe3058f53035b5240a3c914629afc6768a))
+
 ## 0.1903.22-beta
 
 * Fix Wi-Fi sync between phones ([see details](https://gitlab.com/staltz/manyverse/commit/b90a3900e14c93dad5d7b4004d438905b17468d1))
