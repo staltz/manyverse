@@ -7,7 +7,7 @@ This project uses React Native, Android SDK, Node.js and NPM.
 
 ### React Native specifics
 
-Use node `v8.9.x` and npm `v5.6.x`, and follow the [official React Native docs](https://facebook.github.io/react-native/docs/getting-started.html).
+Use node `^10.13.0` and npm `~6.4.1`, and follow the [official React Native docs](https://facebook.github.io/react-native/docs/getting-started.html).
 
 Also install the CLI:
 

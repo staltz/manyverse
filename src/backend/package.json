@@ -5,7 +5,7 @@
   "dependencies": {
     "abstract-leveldown": "5.0.0",
     "bindings-noderify-nodejs-mobile": "10.3.0",
-    "bufferutil": "3.0.1",
+    "bufferutil": "4.0.1",
     "cached-path-relative": ">=1.0.2",
     "chloride": "2.2.14",
     "delay": "3.1.0",
@@ -14,7 +14,7 @@
     "ip": "1.1.5",
     "multiserver-dht": "4.0.0",
     "multiserver-rn-channel": "1.2.0",
-    "non-private-ip": "1.4.4",
+    "non-private-ip-android": "1.4.4-1",
     "pull-cat": "1.1.11",
     "pull-file": "1.1.0",
     "pull-pushable": "2.2.0",
@@ -39,7 +39,7 @@
     "ssb-serve-blobs": "2.0.0",
     "ssb-threads": "3.2.1",
     "ssb-typescript": "1.4.0",
-    "utf-8-validate": "4.0.2",
+    "utf-8-validate": "5.0.2",
     "utp-native-no-prebuild": "1.7.3-4",
     "xtend": "4.0.1"
   },
