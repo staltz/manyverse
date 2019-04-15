@@ -46,9 +46,11 @@ export default function intent(
       .select('staged-list')
       .events('pressPeer') as Stream<StagedPeer>,
 
-    closeInviteMenu$: back$
-      .compose(sample(state$))
-      .filter(state => !!state.inviteMenuTarget)
+    closeInviteMenu$: xs
+      .merge(
+        back$.compose(sample(state$)).filter(state => !!state.inviteMenuTarget),
+        reactSource.select('slide-in-menu').events('backdropPress'),
+      )
       .mapTo(null),
 
     goBack$: back$
