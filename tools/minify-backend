@@ -55,8 +55,8 @@ echo -en " done.\n";
 
 echo -en "Replacing node_modules folder...";
 rm -rf ./nodejs-assets/nodejs-project/node_modules;
-# cp -r ./android/build/nodejs-native-assets/nodejs-native-assets-armeabi-v7a/node_modules ./nodejs-assets/nodejs-project;
-# cp -r ./android/build/nodejs-native-assets/nodejs-native-assets-arm64-v8a/node_modules ./nodejs-assets/nodejs-project;
+
+## The for loop below seems unnecessary. TODO: delete it eventually
 # for entry in "${archs[@]}"
 # do
 #   IFS=";" read -r -a arr <<< "${entry}" # entry.split(';')
