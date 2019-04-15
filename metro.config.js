@@ -3,18 +3,13 @@
 
 const path = require('path');
 
-const sharedBlacklist = [
-  /nodejs-assets\/.*/,
-  /android\/.*/,
-  /ios\/.*/,
-  /node_modules\/react-native\/local-cli\/core\/__fixtures__.*/,
-];
-
-const platformBlacklists = {
-  web: ['.ios.js', '.android.js'],
-  ios: ['.web.js', '.android.js'],
-  android: ['.web.js', '.ios.js'],
-};
+const blacklistRE = new RegExp(
+  '(' +
+    [/nodejs-assets\/.*/, /android\/.*/, /ios\/.*/]
+      .map(escapeRegExp)
+      .join('|') +
+    ')$',
+);
 
 function escapeRegExp(pattern) {
   if (Object.prototype.toString.call(pattern) === '[object RegExp]') {
@@ -30,20 +25,18 @@ function escapeRegExp(pattern) {
   throw new Error(`Unexpected packager blacklist pattern: ${pattern}`);
 }
 
-function blacklist(platform, additionalBlacklist) {
-  return new RegExp(
-    '(' +
-      (additionalBlacklist || [])
-        .concat(sharedBlacklist)
-        .concat(platformBlacklists[platform] || [])
-        .map(escapeRegExp)
-        .join('|') +
-      ')$',
-  );
-}
-
 module.exports = {
-  getBlacklistRE(platform) {
-    return blacklist(platform);
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: false,
+      },
+    }),
+  },
+
+  resolver: {
+    platforms: ['android', 'ios', 'web'],
+    blacklistRE,
   },
 };

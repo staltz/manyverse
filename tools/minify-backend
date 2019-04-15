@@ -13,14 +13,27 @@ function onFailure() {
   exit 1
 }
 
-echo "Building native modules for armeabi-v7a...";
+# "NDK_ARCH;NODEJS_ARCH"
+declare -a archs=(
+  "armeabi-v7a;arm"
+  # "arm64-v8a;arm64"
+  # "x86;x86"
+  # "x86_64;x64"
+)
+
+NODE_VERSION=10.13.0 # This is given by nodejs-mobile
+NODE_MODULE_VERSION=64 # See https://nodejs.org/en/download/releases
+
 cd android;
-if [ -f ./gradlew ]
-then
-  ./gradlew nodejs-mobile-react-native:GenerateNodeNativeAssetsListsarmeabi-v7a
-else
-  gradle nodejs-mobile-react-native:GenerateNodeNativeAssetsListsarmeabi-v7a
-fi
+GRADLE_EXEC="gradle" && [[ -f ./gradlew ]] && GRADLE_EXEC="./gradlew"
+for entry in "${archs[@]}"
+do
+  IFS=";" read -r -a arr <<< "${entry}" # entry.split(';')
+  arch="${arr[0]}"
+
+  echo "Building native modules for $arch...";
+  $GRADLE_EXEC nodejs-mobile-react-native:GenerateNodeNativeAssetsLists$arch
+done
 cd ..;
 echo "";
 
@@ -42,7 +55,38 @@ echo -en " done.\n";
 
 echo -en "Replacing node_modules folder...";
 rm -rf ./nodejs-assets/nodejs-project/node_modules;
-cp -r ./android/build/nodejs-native-assets/nodejs-native-assets-armeabi-v7a/node_modules ./nodejs-assets/nodejs-project;
+# cp -r ./android/build/nodejs-native-assets/nodejs-native-assets-armeabi-v7a/node_modules ./nodejs-assets/nodejs-project;
+# cp -r ./android/build/nodejs-native-assets/nodejs-native-assets-arm64-v8a/node_modules ./nodejs-assets/nodejs-project;
+# for entry in "${archs[@]}"
+# do
+#   IFS=";" read -r -a arr <<< "${entry}" # entry.split(';')
+#   ndkArch="${arr[0]}"
+#   nodejsArch="${arr[1]}"
+
+#   origNodeModules="./android/build/nodejs-native-assets/nodejs-native-assets-$ndkArch/node_modules"
+#   destNodeModules="./nodejs-assets/nodejs-project/node_modules"
+#   bindingsDir="compiled/$NODE_VERSION/android/$nodejsArch"
+
+#   # bufferutil
+#   mkdir -p $destNodeModules/bufferutil/$bindingsDir
+#   cp $origNodeModules/bufferutil/prebuilds/linux-x64/node-napi.node $destNodeModules/bufferutil/$bindingsDir/bufferutil.node
+
+#   # leveldown
+#   mkdir -p $destNodeModules/leveldown/$bindingsDir
+#   cp $origNodeModules/leveldown/build/Release/leveldown.node $destNodeModules/leveldown/$bindingsDir/leveldown.node
+
+#   # sodium-native
+#   mkdir -p $destNodeModules/sodium-native/$bindingsDir
+#   cp $origNodeModules/sodium-native/prebuilds/linux-arm/node-$NODE_MODULE_VERSION.node $destNodeModules/sodium-native/$bindingsDir/sodium.node
+
+#   # utf-8-validate
+#   mkdir -p $destNodeModules/utf-8-validate/$bindingsDir
+#   cp $origNodeModules/utf-8-validate/prebuilds/linux-x64/node-napi.node $destNodeModules/utf-8-validate/$bindingsDir/utf-8-validate.node
+
+#   # utp-native-no-prebuild
+#   mkdir -p $destNodeModules/utp-native-no-prebuild/$bindingsDir
+#   cp $origNodeModules/utp-native-no-prebuild/build/Release/utp.node $destNodeModules/utp-native-no-prebuild/$bindingsDir/utp.node
+# done
 echo -en " done.\n";
 
 echo -en "Removing other unused files...";

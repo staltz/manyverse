@@ -97,8 +97,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "27.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
        sourceCompatibility JavaVersion.VERSION_1_8
@@ -109,11 +108,11 @@ android {
         versionCode 54
         versionName "0.1904.8-beta"
         applicationId "se.manyver"
-        minSdkVersion 21
-        targetSdkVersion 26
-        missingDimensionStrategy "RNN.reactNativeVersion", "reactNative55"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        missingDimensionStrategy "RNN.reactNativeVersion", "reactNative57_5"
         ndk {
-            abiFilters "armeabi-v7a" //, "arm64-v8a", "x86"
+            abiFilters "armeabi-v7a" //, "arm64-v8a", "x86", "x86_64"
         }
         aaptOptions {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
@@ -137,7 +136,7 @@ android {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
             universalApk false  // If true, also generate a universal APK
-            include "armeabi-v7a" //, "arm64-v8a", "x86"
+            include "armeabi-v7a", "arm64-v8a"//, "x86", "x86_64"
         }
     }
 
@@ -154,7 +153,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1]//, "arm64-v8a":2, "x86":3]
+            def versionCodes = ["armeabi-v7a":1, "arm64-v8a":2] //, "x86":3, "x86_64":4]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -164,10 +163,12 @@ android {
     }
 }
 
+def acraVersion = '5.1.3'
+
 dependencies {
-    implementation "ch.acra:acra-core:5.0.0"
-    implementation "ch.acra:acra-mail:5.0.0"
-    implementation "ch.acra:acra-dialog:5.0.0"
+    implementation "ch.acra:acra-core:$acraVersion"
+    implementation "ch.acra:acra-mail:$acraVersion"
+    implementation "ch.acra:acra-dialog:$acraVersion"
     implementation project(':nodejs-mobile-react-native')
     implementation project(':react-native-bluetooth-socket-bridge')
     implementation project(':react-native-bluetooth-status')
@@ -182,19 +183,19 @@ dependencies {
     implementation project(':react-native-android-wifi')
     implementation project(':react-native-has-internet')
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation("com.android.support:appcompat-v7:25.4.0") {
+    implementation("com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}") {
         force = true
     }
-    implementation("com.android.support:recyclerview-v7:25.4.0") {
+    implementation("com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}") {
         force = true
     }
-    implementation("com.android.support:support-v4:25.4.0") {
+    implementation("com.android.support:support-v4:${rootProject.ext.supportLibVersion}") {
         force = true
     }
-    implementation("com.android.support:design:25.4.0") {
+    implementation("com.android.support:design:${rootProject.ext.supportLibVersion}") {
         force = true
     }
-    implementation("com.facebook.react:react-native:0.55.4") {
+    implementation("com.facebook.react:react-native:+") {
         force = true
     }
     implementation 'com.facebook.fresco:animated-gif:1.3.0'
