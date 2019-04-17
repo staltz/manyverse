@@ -46,7 +46,7 @@ export default class Feed extends PureComponent<Props, {}> {
       keyExtractor: (msg: MsgAndExtras, idx: number) => msg.key || String(idx),
       style: [styles.container, style] as any,
       initialNumToRender: 7,
-      pullAmount: 6,
+      pullAmount: 2,
       numColumns: 1,
       refreshable: true,
       refreshColors: [Palette.backgroundBrandWeak],
