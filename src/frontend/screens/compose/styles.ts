@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'row',
     backgroundColor: Palette.backgroundText,
-    paddingHorizontal: Dimensions.horizontalSpaceBig,
+    paddingLeft: Dimensions.horizontalSpaceBig,
   },
 
   avatar: {
@@ -43,9 +43,10 @@ export const styles = StyleSheet.create({
 
   composeInput: {
     flex: 1,
-    paddingBottom: 0,
+    paddingBottom: Dimensions.verticalSpaceSmall,
     paddingLeft: Dimensions.horizontalSpaceSmall,
     paddingRight: 1,
+    marginRight: Dimensions.horizontalSpaceBig,
     marginTop: Dimensions.verticalSpaceBig,
     alignSelf: 'stretch',
     fontSize: Typography.fontSizeBig,
@@ -56,10 +57,13 @@ export const styles = StyleSheet.create({
 
   composePreview: {
     flex: 1,
-    paddingBottom: 0,
     paddingLeft: Dimensions.horizontalSpaceSmall,
-    paddingRight: 1,
-    marginTop: Dimensions.verticalSpaceBig,
+    paddingRight: Dimensions.horizontalSpaceBig,
     alignSelf: 'stretch',
+  },
+
+  previewContentContainer: {
+    paddingTop: Dimensions.verticalSpaceBig,
+    paddingBottom: Dimensions.verticalSpaceBig,
   },
 });

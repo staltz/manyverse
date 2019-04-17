@@ -8,7 +8,7 @@ import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {h} from '@cycle/react';
 import {ReactElement} from 'react';
-import {View, TextInput, KeyboardAvoidingView} from 'react-native';
+import {View, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import Markdown from '../../global-styles/markdown';
 import Avatar from '../../components/Avatar';
@@ -53,9 +53,14 @@ export default function view(
             }),
 
             miniState.previewing
-              ? h(View, {style: styles.composePreview}, [
-                  Markdown(miniState.postText),
-                ])
+              ? h(
+                  ScrollView,
+                  {
+                    style: styles.composePreview,
+                    contentContainerStyle: styles.previewContentContainer,
+                  },
+                  [Markdown(miniState.postText)],
+                )
               : h(TextInput, {
                   style: styles.composeInput,
                   sel: 'composeInput',
