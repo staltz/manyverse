@@ -6,6 +6,13 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1904.22-beta
+
+* Bug fix: allow scrolling markdown preview ([see details](https://gitlab.com/staltz/manyverse/commit/850c30aa1afaf6f1acdf92d3fb88aa29b17f4f26))
+* Bug fix: crashes in the raw database screen ([see details](https://gitlab.com/staltz/manyverse/commit/7b825c6ae11c720f821539ed9fdf7d8f8f10c85b))
+* Bug fix: tap outside of invite popup to close ([see details](https://gitlab.com/staltz/manyverse/commit/facee43bb80f176f8afdce7a071ae2846002f8d8))
+* Speed improvements in the UI interactivity ([see details](https://gitlab.com/staltz/manyverse/commit/1019cb71b8090e304426a48cf15493f6e24bc5fe))
+
 ## 0.1904.8-beta
 
 * Slightly faster indexing speeds ([see details](https://gitlab.com/staltz/manyverse/commit/417da7bd993848d29a489f2aeae16ba61e410437))
