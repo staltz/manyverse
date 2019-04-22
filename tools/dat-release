@@ -15,5 +15,5 @@ function onFailure() {
 
 mkdir -p ../dat-release-all
 mkdir -p ../dat-release-latest
-cp android/app/build/outputs/apk/release/app-release.apk ../dat-release-all/manyverse-$(cat package.json | $(npm bin)/jase version).apk
-cp android/app/build/outputs/apk/release/app-release.apk ../dat-release-latest/app-release.apk
+cp android/app/build/outputs/apk/indie/release/app-indie-release.apk ../dat-release-all/manyverse-$(cat package.json | $(npm bin)/jase version).apk
+cp android/app/build/outputs/apk/indie/release/app-indie-release.apk ../dat-release-latest/app-release.apk

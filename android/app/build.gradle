@@ -104,6 +104,8 @@ android {
        targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    flavorDimensions "range"
+
     defaultConfig {
         versionCode 55
         versionName "0.1904.22-beta"
@@ -118,6 +120,20 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
         vectorDrawables.useSupportLibrary = true
+    }
+
+    productFlavors {
+        indie {
+            dimension "range"
+            minSdkVersion rootProject.ext.minSdkVersion
+            targetSdkVersion rootProject.ext.targetSdkVersion
+        }
+
+        googlePlay {
+            dimension "range"
+            minSdkVersion rootProject.ext.googlePlayTargetSdkVersion
+            targetSdkVersion rootProject.ext.googlePlayTargetSdkVersion
+        }
     }
 
     signingConfigs {

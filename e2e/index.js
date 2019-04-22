@@ -7,7 +7,8 @@ const test = require('tape');
 
 const localServerConfig = {host: 'localhost', port: 4995};
 
-const str = '../android/app/build/outputs/apk/release/app-release.apk';
+const str =
+  '../android/app/build/outputs/apk/indie/release/app-indie-release.apk';
 const localCapabilities = {
   browserName: 'Android - local server',
   platformName: 'Android',
@@ -23,9 +24,12 @@ test('Setup and open Android app', function(t) {
   var capabilities = localCapabilities;
 
   driver = wd.promiseChainRemote(serverConfig);
-  driver.init(capabilities).setImplicitWaitTimeout(1000).then(() => {
-    t.end();
-  });
+  driver
+    .init(capabilities)
+    .setImplicitWaitTimeout(1000)
+    .then(() => {
+      t.end();
+    });
 });
 
 test('...', function(t) {
