@@ -122,20 +122,6 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    productFlavors {
-        indie {
-            dimension "range"
-            minSdkVersion rootProject.ext.minSdkVersion
-            targetSdkVersion rootProject.ext.targetSdkVersion
-        }
-
-        googlePlay {
-            dimension "range"
-            minSdkVersion rootProject.ext.googlePlayTargetSdkVersion
-            targetSdkVersion rootProject.ext.googlePlayTargetSdkVersion
-        }
-    }
-
     signingConfigs {
         release {
             if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {

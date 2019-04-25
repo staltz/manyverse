@@ -3,8 +3,7 @@
 buildscript {
     ext {
         minSdkVersion = 21
-        targetSdkVersion = 23
-        googlePlayTargetSdkVersion = 26
+        targetSdkVersion = 26
         compileSdkVersion = 28
         supportLibVersion = "27.0.2"
     }
