@@ -6,6 +6,11 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1904.25-beta
+
+* Bring back support for Android 5.0 in Google Play ([see details](https://gitlab.com/staltz/manyverse/commit/4c1a27c8dc3440bd8cddea4c43c850bfb98f0d73))
+* Bug fix: a type of crash related to peer connections ([see details](https://gitlab.com/staltz/manyverse/commit/dba8cb8dfcecb563c233e7f2e0fe9b534a52deef))
+
 ## 0.1904.22-beta
 
 * Bug fix: allow scrolling markdown preview ([see details](https://gitlab.com/staltz/manyverse/commit/850c30aa1afaf6f1acdf92d3fb88aa29b17f4f26))
