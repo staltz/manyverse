@@ -2,6 +2,9 @@
   "name": "backend",
   "version": "0.0.0",
   "main": "loader.js",
+  "engines": {
+    "node": "10.13.0"
+  },
   "dependencies": {
     "abstract-leveldown": "5.0.0",
     "bindings-noderify-nodejs-mobile": "10.3.0",
