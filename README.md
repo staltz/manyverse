@@ -104,7 +104,7 @@ Become a sponsor and get your logo on our README on GitLab with a link to your s
 
 ### Thanks
 
-![Browserstack](./browserstack2.png)
+![Browserstack](./browserstack.png)
 
 [Browserstack](https://www.browserstack.com/) provides us access to their great mobile app testing tools such as App Live and App Automate. These services are vital for testing Manyverse on dozens of different devices and OS versions.
 
