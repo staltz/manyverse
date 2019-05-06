@@ -101,3 +101,10 @@ Become a sponsor and get your logo on our README on GitLab with a link to your s
 <a href="https://opencollective.com/manyverse/sponsor/28/website" target="_blank"><img src="https://opencollective.com/manyverse/sponsor/28/avatar.svg"></a>
 <a href="https://opencollective.com/manyverse/sponsor/29/website" target="_blank"><img src="https://opencollective.com/manyverse/sponsor/29/avatar.svg"></a>
 -->
+
+### Thanks
+
+![Browserstack](https://wiki.js.org/assets/images/logo_browserstack.png)
+
+[Browserstack](https://www.browserstack.com/) for providing access to their great mobile app testing tools such as App Live and App Automate. These services are vital for testing Manyverse on dozens of different devices and OS versions.
+
