@@ -167,7 +167,7 @@ android {
     }
 }
 
-def acraVersion = '5.1.3'
+def acraVersion = '5.3.0'
 
 dependencies {
     implementation "ch.acra:acra-core:$acraVersion"
@@ -197,6 +197,9 @@ dependencies {
         force = true
     }
     implementation("com.android.support:design:${rootProject.ext.supportLibVersion}") {
+        force = true
+    }
+    implementation("com.android.support:support-fragment:${rootProject.ext.supportLibVersion}") {
         force = true
     }
     implementation("com.facebook.react:react-native:+") {

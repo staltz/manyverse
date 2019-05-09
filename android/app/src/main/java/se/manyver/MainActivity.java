@@ -26,6 +26,8 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.util.ReactFindViewUtil;
 import com.reactnativenavigation.NavigationActivity;
 
+import org.acra.ACRA;
+
 public class MainActivity extends NavigationActivity {
 
     private RNNodeJsMobileModule nodejsModule;
@@ -73,6 +75,11 @@ public class MainActivity extends NavigationActivity {
             @Override
             public void onReactContextInitialized(ReactContext context) {
                 nodejsModule = context.getNativeModule(RNNodeJsMobileModule.class);
+                nodejsModule.setJsExceptionInvokable(new RNNodeJsMobileModule.Invokable<String>() {
+                    public void invoke(String ex) {
+                        ACRA.getErrorReporter().handleException(new Exception(ex));
+                    }
+                });
                 try {
                     nodejsModule.startNodeProject("loader.js", Arguments.createMap());
                 } catch (Exception e) {
