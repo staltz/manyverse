@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1905.9-beta
+
+* Improve crash detection and reports ([see details](https://gitlab.com/staltz/manyverse/commit/512b2390ea6bd8bd486e5351ab0779d9e01a3999))
+
 ## 0.1904.25-beta
 
 * Bring back support for Android 5.0 in Google Play ([see details](https://gitlab.com/staltz/manyverse/commit/4c1a27c8dc3440bd8cddea4c43c850bfb98f0d73))
