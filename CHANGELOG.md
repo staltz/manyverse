@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1905.10-beta
+
+* Bug fix: startup crashes related to IPv6 ([see details](https://gitlab.com/staltz/manyverse/commit/bf4cf50712ddf0a4b663c34d9d9fc790b507fd27))
+
 ## 0.1905.9-beta
 
 * Improve crash detection and reports ([see details](https://gitlab.com/staltz/manyverse/commit/512b2390ea6bd8bd486e5351ab0779d9e01a3999))
