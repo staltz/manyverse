@@ -238,5 +238,7 @@ After `npm run release` runs, it will update APK files in two folders: `../dat-r
   - Copy-paste `../dat-release-latest/README.md` into Scuttlebutt as a new version announcement
 - Announce on Twitter
   - Copy-paste from CHANGELOG.md the list of updates for the latest version, write it in the Twitter `@manyver_se` account and publish
+- Announce on Mastodon
+   - Copy paste from Twitter
 - Sync Archival Dat
   - `cd ../dat-release-all` and `dat sync` (uploads to the Dat swarm)
