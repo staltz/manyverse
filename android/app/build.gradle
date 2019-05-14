@@ -178,7 +178,7 @@ dependencies {
     implementation project(':react-native-bluetooth-status')
     implementation project(':react-native-dialogs')
     implementation project(':react-native-vector-icons')
-    implementation project(':react-native-os')
+    implementation project(':react-native-os-staltz')
     implementation project(':react-native-fs')
     implementation project(':react-native-randombytes')
     implementation project(':react-native-image-crop-picker')
