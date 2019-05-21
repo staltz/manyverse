@@ -11,8 +11,8 @@ const top5backers = [
   'DC Posch',
   'Jean-Baptiste Giraudeau',
   'Sharp Hall',
-  'pia mancini',
-  'anonymous',
+  'Audrey Tang',
+  'Connor Turland',
 ];
 
 export default {
