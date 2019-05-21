@@ -14,6 +14,7 @@
     "build-android-debug": "npm run build-android-assets && react-native run-android",
     "build-android-release": "npm run build-android-assets && cd android && ./gradlew assembleRelease && cd ..",
     "start": "npm run lib && npm run propagate-replacements && node node_modules/react-native/local-cli/cli.js start",
+    "psdr": "./tools/print-service-desk-report.js",
     "test-e2e-android": "./tools/test-e2e-android",
     "changelog": "npm run update-repo-changelog && npm run update-dat-latest-readme",
     "update-repo-changelog": "./tools/update-repo-changelog.js",
