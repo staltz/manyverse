@@ -25,7 +25,13 @@ NODE_VERSION=10.13.0 # This is given by nodejs-mobile
 NODE_MODULE_VERSION=64 # See https://nodejs.org/en/download/releases
 
 cd android;
-GRADLE_EXEC="gradle" && [[ -f ./gradlew ]] && GRADLE_EXEC="./gradlew"
+if [ -f ./gradlew ]
+then
+  GRADLE_EXEC="./gradlew"
+else
+  GRADLE_EXEC="gradle"
+fi
+echo $GRADLE_EXEC;
 for entry in "${archs[@]}"
 do
   IFS=";" read -r -a arr <<< "${entry}" # entry.split(';')
