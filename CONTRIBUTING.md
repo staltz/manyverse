@@ -90,6 +90,12 @@ There is no support for continuously compiling the backend Node.js project.
 On Android applications, the `react-native` build process is sometimes unable to rebuild assets.
 If you are getting errors while building the application using `react-native run-android`, then the command `npm run full-clean` can help you do a clean rebuild of the project. Then, reinstall with `npm i` and rebuild.
 
+#### app:installDebug FAILED - Could not find build of variant which supports .. an ABI in x86
+
+ManyVerse only supports ARM architectures, but most virtual device emulators use an x86 architecture of the host computer, and are therefore not supported. 
+
+Debug your code using a 'real' mobile device connected over USB instead.
+
 #### NullPointerException on `npm run build-backend`
 
 If you see the error below while running the `build-backend` build script, you should try opening this project's `android` folder in android studio (using the `build.gradle` file to tell android studio it is a gradle project.) It should detect missing dependencies and give you the option to install them via the console window (and rebuild) at the bottom of the window.
