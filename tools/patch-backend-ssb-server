@@ -6,8 +6,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const rnnodeappPath = process.argv[2];
-const ssbServerPath = path.join(rnnodeappPath, 'node_modules/ssb-server');
+const backendPath = process.argv[2];
+const ssbServerPath = path.join(backendPath, 'node_modules/ssb-server');
 
 if (!fs.existsSync(ssbServerPath)) {
   throw new Error('Cannot find file ssb-server/lib/apidocs.js to patch');

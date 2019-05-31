@@ -34,12 +34,16 @@ rm ./nodejs-assets/nodejs-project/*.js.map;
 rm ./nodejs-assets/nodejs-project/plugins/*.js.map;
 
 echo "Installing dependencies...";
-cd ./nodejs-assets/nodejs-project && npm i && cd ../..;
+cd ./nodejs-assets/nodejs-project && npm i;
+
+# For more details on this, read issue #398:
+echo "Removing problematic transitive dependencies...";
+cd node_modules && rm -rf chokidar fsevents && cd ../../..;
 
 echo "Updating package-lock.json";
 cp ./nodejs-assets/nodejs-project/package-lock.json ./src/backend/package-lock.json
 
 echo "Patch (in preprocessor style) some dependencies...";
-./tools/patch-rnnodeapp-ssb-server ./nodejs-assets/nodejs-project;
+./tools/patch-backend-ssb-server ./nodejs-assets/nodejs-project;
 
 echo "Done.";
