@@ -122,30 +122,30 @@ function mutateMsgWithLiveExtras(api: any) {
   };
 }
 
-function augmentPeerWithExtras(api: any) {
-  return (kv: [string, PeerMetadata], cb: Callback<any>) => {
-    const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
-    const nameOpts = {key: 'name', dest: kv[1].key};
-    aboutSocialValue(nameOpts, (e1: any, nameResult: string) => {
-      if (e1) return cb(e1);
-      const name = nameResult || shortFeedId(kv[1].key);
-      const avatarOpts = {key: 'image', dest: kv[1].key};
-      aboutSocialValue(avatarOpts, (e2: any, val: any) => {
-        if (e2) return cb(e2);
-        const imageUrl = imageToImageUrl(val);
-        const peer = {...kv[1], name, imageUrl};
-        cb(null, peer);
-      });
-    });
-  };
-}
-
 function mutateThreadWithLiveExtras(api: any) {
   return async (thread: ThreadData, cb: Callback<ThreadAndExtras>) => {
     for (const msg of thread.messages) {
       await runAsync(mutateMsgWithLiveExtras(api))(msg);
     }
     cb(null, thread as ThreadAndExtras);
+  };
+}
+
+function augmentPeerWithExtras(api: any) {
+  return (kv: [string, PeerMetadata], cb: Callback<any>) => {
+    const peer = kv[1];
+    const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
+    const nameOpts = {key: 'name', dest: peer.key};
+    aboutSocialValue(nameOpts, (e1: any, nameResult: string) => {
+      if (e1) return cb(e1);
+      const name = nameResult || shortFeedId(peer.key);
+      const avatarOpts = {key: 'image', dest: peer.key};
+      aboutSocialValue(avatarOpts, (e2: any, val: any) => {
+        if (e2) return cb(e2);
+        const imageUrl = imageToImageUrl(val);
+        cb(null, {...peer, name, imageUrl});
+      });
+    });
   };
 }
 
