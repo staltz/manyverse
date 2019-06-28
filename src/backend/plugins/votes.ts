@@ -12,7 +12,7 @@ type Callback<T> = (endOrErr: boolean | any, data?: T) => void;
 type Readable<T> = (endOrErr: boolean | any, cb: Callback<T>) => void;
 
 function collectUniqueAuthors() {
-  const theSet = new Set();
+  const theSet: Set<FeedId> = new Set();
   return function sink(read: Readable<Msg>) {
     const outputSource: Readable<Array<FeedId>> = (abort, cb) => {
       read(abort, function next(endOrErr, msg) {
@@ -44,9 +44,9 @@ function collectUniqueAuthors() {
         }
         cb(endOrErr, [...theSet]);
       });
-    }
+    };
     return outputSource;
-  }
+  };
 }
 
 function init(sbot: any) {
