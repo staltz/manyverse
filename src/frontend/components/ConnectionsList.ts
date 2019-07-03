@@ -22,6 +22,17 @@ import {FeedId} from 'ssb-typescript';
 import Avatar from './Avatar';
 import {PeerKV} from '../drivers/ssb';
 
+const dotStyle: ViewStyle = {
+  width: 11,
+  height: 11,
+  position: 'absolute',
+  bottom: 6.7,
+  left: 36.45,
+  borderRadius: 6,
+  borderColor: Palette.backgroundText,
+  borderWidth: 1,
+};
+
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
@@ -36,6 +47,21 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 1,
+  },
+
+  connectedDot: {
+    ...dotStyle,
+    backgroundColor: Palette.backgroundPeerConnected,
+  },
+
+  connectingDot: {
+    ...dotStyle,
+    backgroundColor: Palette.backgroundPeerConnecting,
+  },
+
+  disconnectingDot: {
+    ...dotStyle,
+    backgroundColor: Palette.backgroundPeerDisconnecting,
   },
 
   peerAvatar: {
@@ -65,7 +91,7 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
-    marginLeft: Dimensions.horizontalSpaceSmall,
+    marginLeft: Dimensions.horizontalSpaceTiny,
   },
 });
 
@@ -137,6 +163,14 @@ export default class ConnectionsList extends PureComponent<Props> {
           size: Dimensions.avatarSizeNormal,
           url: peer['imageUrl' as any],
           style: styles.peerAvatar,
+        }),
+        h(View, {
+          style:
+            peer.state === 'connected'
+              ? styles.connectedDot
+              : peer.state === 'disconnecting'
+              ? styles.disconnectingDot
+              : styles.connectingDot,
         }),
       ]),
       h(View, {style: styles.peerDetails}, [peerName, peerMode]),

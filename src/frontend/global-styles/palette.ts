@@ -173,6 +173,10 @@ export const Palette = {
   backgroundTextBrand: indigo0,
   backgroundTextHacker: indigo10,
 
+  backgroundPeerConnected: teal6,
+  backgroundPeerConnecting: yellow6,
+  backgroundPeerDisconnecting: red6,
+
   backgroundCTA: teal6,
   backgroundWarningAction: yellow6,
   backgroundHackerVoid: indigo12,

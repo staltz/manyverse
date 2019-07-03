@@ -9,6 +9,7 @@ export const Dimensions = {
   horizontalSpaceBig: 16,
   horizontalSpaceNormal: 12,
   horizontalSpaceSmall: 7,
+  horizontalSpaceTiny: 4,
 
   verticalSpaceBig: 14,
   verticalSpaceNormal: 10,
