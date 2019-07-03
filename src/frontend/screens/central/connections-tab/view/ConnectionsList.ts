@@ -15,12 +15,12 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Palette} from '../global-styles/palette';
-import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
+import {Palette} from '../../../../global-styles/palette';
+import {Dimensions} from '../../../../global-styles/dimens';
+import {Typography} from '../../../../global-styles/typography';
 import {FeedId} from 'ssb-typescript';
-import Avatar from './Avatar';
-import {PeerKV} from '../drivers/ssb';
+import Avatar from '../../../../components/Avatar';
+import {PeerKV} from '../../../../drivers/ssb';
 
 const dotStyle: ViewStyle = {
   width: 11,

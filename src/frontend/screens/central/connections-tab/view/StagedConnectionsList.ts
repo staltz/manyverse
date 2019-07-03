@@ -15,10 +15,10 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Palette} from '../../../global-styles/palette';
-import {Dimensions} from '../../../global-styles/dimens';
-import {Typography} from '../../../global-styles/typography';
-import {StagedPeerKV} from '../../../drivers/ssb';
+import {Palette} from '../../../../global-styles/palette';
+import {Dimensions} from '../../../../global-styles/dimens';
+import {Typography} from '../../../../global-styles/typography';
+import {StagedPeerKV} from '../../../../drivers/ssb';
 
 export const styles = StyleSheet.create({
   container: {

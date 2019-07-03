@@ -25,12 +25,12 @@ import {
   renderers,
 } from 'react-native-popup-menu';
 import {styles} from './styles';
-import {State} from './model';
-import {Palette} from '../../../global-styles/palette';
-import {Dimensions} from '../../../global-styles/dimens';
-import ConnectionsList from '../../../components/ConnectionsList';
+import {State} from '../model';
+import {Palette} from '../../../../global-styles/palette';
+import {Dimensions} from '../../../../global-styles/dimens';
+import ConnectionsList from './ConnectionsList';
 import StagedConnectionsList from './StagedConnectionsList';
-import EmptySection from '../../../components/EmptySection';
+import EmptySection from '../../../../components/EmptySection';
 
 type ModeProps = {
   onPress?: () => void;

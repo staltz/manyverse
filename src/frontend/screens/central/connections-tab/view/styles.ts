@@ -5,9 +5,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {StyleSheet} from 'react-native';
-import {Dimensions as Dimens} from '../../../global-styles/dimens';
-import {Palette} from '../../../global-styles/palette';
-import {Typography} from '../../../global-styles/typography';
+import {Dimensions as Dimens} from '../../../../global-styles/dimens';
+import {Palette} from '../../../../global-styles/palette';
+import {Typography} from '../../../../global-styles/typography';
 
 export const styles = StyleSheet.create({
   container: {
