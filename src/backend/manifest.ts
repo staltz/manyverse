@@ -129,6 +129,19 @@ export = {
     makeDeviceDiscoverable: 'async',
     isEnabled: 'async',
   },
+  conn: {
+    connect: 'async',
+    disconnect: 'async',
+    stage: 'sync',
+    unstage: 'sync',
+    remember: 'sync',
+    forget: 'sync',
+    start: 'sync',
+    stop: 'sync',
+    peers: 'source',
+    stagedPeers: 'source',
+    ping: 'duplex',
+  },
 
   // This project's plugins
   syncing: {
@@ -139,5 +152,5 @@ export = {
   },
   votes: {
     voterStream: 'source',
-  }
+  },
 };

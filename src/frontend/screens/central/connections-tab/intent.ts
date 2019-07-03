@@ -9,7 +9,10 @@ import {ReactSource} from '@cycle/react';
 import {FeedId} from 'ssb-typescript';
 import {PermissionsAndroid} from 'react-native';
 import {NavSource} from 'cycle-native-navigation';
-import {StagedPeerMetadata as StagedPeer} from '../../../drivers/ssb';
+import {
+  StagedPeerMetadata as StagedPeer,
+  StagedPeerKV,
+} from '../../../drivers/ssb';
 import {State} from './model';
 import sample from 'xstream-sample';
 import dropRepeats from 'xstream/extra/dropRepeats';
@@ -44,7 +47,7 @@ export default function intent(
 
     openStagedPeer$: reactSource
       .select('staged-list')
-      .events('pressPeer') as Stream<StagedPeer>,
+      .events('pressPeer') as Stream<StagedPeerKV>,
 
     closeInviteMenu$: xs
       .merge(

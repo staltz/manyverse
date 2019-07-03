@@ -5,13 +5,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {Req, StagedPeerMetadata} from '../../../drivers/ssb';
+import {Req, StagedPeerKV} from '../../../drivers/ssb';
 import {NetworkSource} from '../../../drivers/network';
 
 export type Actions = {
   removeDhtInvite$: Stream<string>;
   bluetoothSearch$: Stream<any>;
-  openStagedPeer$: Stream<StagedPeerMetadata>;
+  openStagedPeer$: Stream<StagedPeerKV>;
   pingConnectivityModes$: Stream<any>;
 };
 
@@ -34,7 +34,7 @@ export default function ssb(actions: Actions, networkSource: NetworkSource) {
       interval: 20e3,
     } as Req),
     actions.openStagedPeer$
-      .filter(peer => peer.source === 'bt')
-      .map(peer => ({type: 'bluetooth.connect', address: peer.key} as Req)),
+      .filter(peer => peer[1].type === 'bt')
+      .map(peer => ({type: 'bluetooth.connect', address: peer[0]} as Req)),
   );
 }

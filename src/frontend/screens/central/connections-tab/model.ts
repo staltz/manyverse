@@ -5,10 +5,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {PeerMetadata, FeedId} from 'ssb-typescript';
+import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
 import {
   SSBSource,
+  PeerKV,
+  StagedPeerKV,
   StagedPeerMetadata as StagedPeer,
 } from '../../../drivers/ssb';
 import {NetworkSource} from '../../../drivers/network';
@@ -20,8 +22,8 @@ export type State = {
   bluetoothEnabled: boolean;
   lanEnabled: boolean;
   internetEnabled: boolean;
-  peers: Array<PeerMetadata>;
-  stagedPeers: Array<StagedPeer>;
+  peers: Array<PeerKV>;
+  stagedPeers: Array<StagedPeerKV>;
   isSyncing: boolean;
   isVisible: boolean;
   bluetoothLastScanned: number;
@@ -31,7 +33,7 @@ export type State = {
 
 export type Actions = {
   pingConnectivityModes$: Stream<any>;
-  openStagedPeer$: Stream<StagedPeer>;
+  openStagedPeer$: Stream<StagedPeerKV>;
   closeInviteMenu$: Stream<any>;
   infoClientDhtInvite$: Stream<any>;
   infoServerDhtInvite$: Stream<any>;
@@ -118,7 +120,7 @@ export default function model(
   const setStagedPeersReducer$ = ssbSource.stagedPeers$
     .map(stagedPeers => {
       const dhtInvites = stagedPeers
-        .filter(p => p.source === 'dht')
+        .filter(([_address, data]) => data.type === 'dht')
         .map(noteStorageKeyFor);
 
       if (dhtInvites.length === 0) {
@@ -131,26 +133,27 @@ export default function model(
     })
     .flatten()
     .map(
-      ([rawStagedPeers, notes]: [StagedPeer[], [string, string][]]) =>
+      ([rawStagedPeers, notes]: [StagedPeerKV[], [string, string][]]) =>
         function setPeersReducer(prev: State): State {
-          const stagedPeers = rawStagedPeers.map(p => {
-            const kv = notes.find(_kv => _kv[0].endsWith(p.key) && !!_kv[1]);
-            if (!kv) return p;
-            return {...p, note: kv[1]};
+          const stagedPeers: Array<StagedPeerKV> = rawStagedPeers.map(peer => {
+            const key = peer[1].key;
+            const noteKV = notes.find(([k, v]) => k.endsWith(key) && !!v);
+            if (!noteKV) return peer;
+            return [peer[0], {...peer[1], note: noteKV[1]}] as StagedPeerKV;
           });
           return {...prev, stagedPeers};
         },
     );
 
   const openInviteMenuReducer$ = actions.openStagedPeer$
-    .filter(peer => peer.source === 'dht')
+    .filter(peer => peer[1].type === 'dht')
     .map(
       peer =>
         function openInviteMenuReducer(prev: State): State {
           return {
             ...prev,
-            inviteMenuTarget: peer,
-            latestInviteMenuTarget: peer,
+            inviteMenuTarget: peer[1],
+            latestInviteMenuTarget: peer[1],
           };
         },
     );
@@ -172,11 +175,12 @@ export default function model(
     note =>
       function addNoteFromDialogReducer(prev: State): State {
         if (!prev.latestInviteMenuTarget) return prev;
-        const stagedPeers = prev.stagedPeers.map(p =>
-          p.key === (prev.latestInviteMenuTarget as StagedPeer).key
-            ? {...p, note}
-            : p,
-        );
+        const stagedPeers: Array<StagedPeerKV> = prev.stagedPeers.map(kv => {
+          const [addr, peer] = kv;
+          return peer.key === (prev.latestInviteMenuTarget as StagedPeer).key
+            ? ([addr, {...peer, note}] as StagedPeerKV)
+            : kv;
+        });
         return {...prev, stagedPeers};
       },
   );

@@ -9,6 +9,7 @@
     "jsx": "react-native",
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
+    "experimentalDecorators": true,
     "noUnusedLocals": true,
     "allowJs": true,
     "module": "commonjs",

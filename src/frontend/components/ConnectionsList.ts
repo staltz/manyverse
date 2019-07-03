@@ -18,8 +18,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
-import {PeerMetadata, FeedId} from 'ssb-typescript';
+import {FeedId} from 'ssb-typescript';
 import Avatar from './Avatar';
+import {PeerKV} from '../drivers/ssb';
 
 export const styles = StyleSheet.create({
   container: {
@@ -68,34 +69,42 @@ export const styles = StyleSheet.create({
   },
 });
 
-function peerModeIcon(source: PeerMetadata['source']): string {
-  if ((source as any) === 'bt') return 'bluetooth';
-  if (source === 'local') return 'wifi';
-  if ((source as any) === 'dht') return 'account-network';
-  if (source === 'pub') return 'server-network';
+function peerModeIcon(peer: PeerKV[1]): string {
+  if (peer.type === 'bt') return 'bluetooth';
+  if (peer.type === 'lan') return 'wifi';
+  if (peer.type === 'internet') return 'server-network';
+  if (peer.type === 'dht') return 'account-network';
+  if (peer.source === 'local') return 'wifi';
+  if (peer.source === 'pub') return 'server-network';
+  if (peer.source === 'internet') return 'server-network';
+  if (peer.source === 'dht') return 'account-network';
   return 'server-network';
 }
 
-function peerModeTitle(source: PeerMetadata['source']): string {
-  if ((source as any) === 'bt') return 'Bluetooth';
-  if (source === 'local') return 'Local network';
-  if ((source as any) === 'dht') return 'Internet P2P';
-  if (source === 'pub') return 'Internet server';
+function peerModeTitle(peer: PeerKV[1]): string {
+  if (peer.type === 'bt') return 'Bluetooth';
+  if (peer.type === 'lan') return 'Local network';
+  if (peer.type === 'internet') return 'Internet server';
+  if (peer.type === 'dht') return 'Internet P2P';
+  if (peer.source === 'local') return 'Local network';
+  if (peer.source === 'pub') return 'Internet server';
+  if (peer.source === 'internet') return 'Internet server';
+  if (peer.source === 'dht') return 'Internet P2P';
   return 'Internet server';
 }
 
 export type Props = {
-  peers: Array<PeerMetadata>;
+  peers: Array<PeerKV>;
   onPressPeer?: (id: FeedId) => void;
   style?: StyleProp<ViewStyle>;
 };
 
 export default class ConnectionsList extends PureComponent<Props> {
-  private renderItem(peer: PeerMetadata) {
+  private renderItem([_addr, peer]: PeerKV) {
     const touchableProps = {
       onPress: () => {
         if (this.props.onPressPeer) {
-          this.props.onPressPeer(peer.key);
+          this.props.onPressPeer(peer.key!);
         }
       },
       activeOpacity: 0.4,
@@ -117,9 +126,9 @@ export default class ConnectionsList extends PureComponent<Props> {
       h(Icon, {
         size: Dimensions.iconSizeSmall,
         color: Palette.textWeak,
-        name: peerModeIcon(peer.source),
+        name: peerModeIcon(peer),
       }),
-      h(Text, {style: styles.peerModeText}, peerModeTitle(peer.source)),
+      h(Text, {style: styles.peerModeText}, peerModeTitle(peer)),
     ]);
 
     return h(View, {style: styles.peer}, [

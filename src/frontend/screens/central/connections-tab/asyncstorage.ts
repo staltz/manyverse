@@ -6,15 +6,15 @@
 
 import {Stream} from 'xstream';
 import {Command} from 'cycle-native-asyncstorage';
-import {StagedPeerMetadata} from '../../../drivers/ssb';
+import {StagedPeerKV} from '../../../drivers/ssb';
 import {State} from './model';
 import dropRepeats from 'xstream/extra/dropRepeats';
 
-function isDhtInviteWithNote(invite: StagedPeerMetadata) {
-  return !!invite.note && invite.source === 'dht';
+function isDhtInviteWithNote([_addr, invite]: StagedPeerKV) {
+  return !!invite.note && invite.type === 'dht';
 }
 
-export function noteStorageKeyFor(invite: StagedPeerMetadata) {
+export function noteStorageKeyFor([_addr, invite]: StagedPeerKV) {
   return `dhtInviteNote:${invite.key}`;
 }
 
@@ -22,10 +22,10 @@ export default function asyncStorage(state$: Stream<State>) {
   const command$ = state$
     .compose(dropRepeats((s1, s2) => s1.stagedPeers === s2.stagedPeers))
     .filter(state => state.stagedPeers.some(isDhtInviteWithNote))
-    .map(state => {
+    .map((state: State) => {
       const keyValuePairs = state.stagedPeers
         .filter(isDhtInviteWithNote)
-        .map(peer => [noteStorageKeyFor(peer), peer.note]);
+        .map(kv => [noteStorageKeyFor(kv), kv[1].note]);
       return {type: 'multiSet', keyValuePairs} as Command;
     });
 

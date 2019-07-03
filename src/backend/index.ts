@@ -20,6 +20,7 @@ const bluetoothTransportAndPlugin = require('ssb-bluetooth');
 import syncingPlugin = require('./plugins/syncing');
 import blobsFromPathPlugin = require('./plugins/blobsFromPath');
 import votesPlugin = require('./plugins/votes');
+import stagingPlugin = require('./plugins/staging');
 import manifest = require('./manifest');
 
 const appDataDir = rnBridge.app.datadir();
@@ -121,6 +122,7 @@ require('ssb-server/index')
   .use(require('ssb-blobs'))
   .use(blobsFromPathPlugin)
   .use(votesPlugin)
+  .use(stagingPlugin)
   .use(require('ssb-serve-blobs'))
   .use(require('ssb-private'))
   .use(require('ssb-contacts'))

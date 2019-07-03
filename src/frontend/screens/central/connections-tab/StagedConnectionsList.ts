@@ -18,7 +18,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
-import {StagedPeerMetadata as StagedPeer} from '../../../drivers/ssb';
+import {StagedPeerKV} from '../../../drivers/ssb';
 
 export const styles = StyleSheet.create({
   container: {
@@ -68,34 +68,36 @@ export const styles = StyleSheet.create({
   },
 });
 
-function peerModeIcon(peer: StagedPeer): string {
-  if (peer.source === 'bt') return 'bluetooth';
-  if (peer.source === 'local') return 'wifi';
-  if (peer.source === 'dht') return 'account-network';
-  if (peer.source === 'pub') return 'server-network';
+function peerModeIcon([_addr, peer]: StagedPeerKV): string {
+  if (peer.type === 'bt') return 'bluetooth';
+  if ((peer.type as any) === 'local') return 'wifi';
+  if (peer.type === 'lan') return 'wifi';
+  if (peer.type === 'dht') return 'account-network';
+  if (peer.type === 'internet') return 'server-network';
   return 'server-network';
 }
 
-function peerModeDescription(peer: StagedPeer): string {
-  if (peer.source === 'bt') return 'Bluetooth';
-  if (peer.source === 'local') return 'Local network';
-  if (peer.source === 'dht' && peer.role === 'client')
+function peerModeDescription([_addr, peer]: StagedPeerKV): string {
+  if (peer.type === 'bt') return 'Bluetooth';
+  if ((peer.type as any) === 'local') return 'Local network';
+  if (peer.type === 'lan') return 'Local network';
+  if (peer.type === 'dht' && peer.role === 'client')
     return 'Internet P2P: looking for online friend...';
-  if (peer.source === 'dht' && peer.role === 'server')
+  if (peer.type === 'dht' && peer.role === 'server')
     return 'Internet P2P: waiting for online friend...';
-  if (peer.source === 'dht' && !peer.role) return 'Internet P2P: searching...';
-  if (peer.source === 'pub') return 'Internet server: connecting...';
+  if (peer.type === 'dht' && !peer.role) return 'Internet P2P: searching...';
+  if (peer.type === 'internet') return 'Internet server: connecting...';
   return '...';
 }
 
 export type Props = {
-  peers: Array<StagedPeer>;
+  peers: Array<StagedPeerKV>;
   style?: StyleProp<ViewStyle>;
-  onPressPeer?: (key: StagedPeer) => void;
+  onPressPeer?: (peer: StagedPeerKV) => void;
 };
 
 export default class StagedConnectionsList extends PureComponent<Props> {
-  private renderItem(peer: StagedPeer) {
+  private renderItem(peer: StagedPeerKV) {
     const touchableProps = {
       onPress: () => {
         if (this.props.onPressPeer) {
@@ -119,7 +121,7 @@ export default class StagedConnectionsList extends PureComponent<Props> {
           h(
             Text,
             {numberOfLines: 1, ellipsizeMode: 'middle', style: styles.peerName},
-            peer.note || peer.key,
+            peer[1].note || peer[1].key,
           ),
           h(Text, {style: styles.peerModeText}, peerModeDescription(peer)),
         ]),

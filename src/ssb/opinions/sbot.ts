@@ -49,8 +49,12 @@ const gives = {
       removeDhtInvite: true,
       isFollowing: true,
       isBlocking: true,
-      gossipPeers: true,
-      gossipConnect: true,
+      connConnect: true,
+      connDisconnect: true,
+      connStage: true,
+      connUnstage: true,
+      connRemember: true,
+      connForget: true,
       aboutSocialValue: true,
     },
     pull: {
@@ -64,7 +68,8 @@ const gives = {
       links: true,
       backlinks: true,
       voterStream: true,
-      gossipChanges: true,
+      connPeers: true,
+      connStagedPeers: true,
       nearbyBluetoothPeers: true,
       bluetoothScanState: true,
       hostingDhtInvites: true,
@@ -144,12 +149,15 @@ const create = (api: any) => {
   const feed = createFeed(internal, keys, {remote: true});
 
   const syncingStream = Notify();
-  sbot$.filter(s => !!s).take(1).subscribe({
-    next: ssbClient => {
-      pull(ssbClient.syncing.stream(), pull.drain(syncingStream));
-      startSyncingNotifications(syncingStream.listen());
-    },
-  });
+  sbot$
+    .filter(s => !!s)
+    .take(1)
+    .subscribe({
+      next: ssbClient => {
+        pull(ssbClient.syncing.stream(), pull.drain(syncingStream));
+        startSyncingNotifications(syncingStream.listen());
+      },
+    });
 
   return {
     sbot: {
@@ -258,11 +266,23 @@ const create = (api: any) => {
         isBlocking: rec.async((opts: any, cb: any) => {
           sbot.friends.isBlocking(opts, cb);
         }),
-        gossipPeers: rec.async((cb: any) => {
-          sbot.gossip.peers(cb);
+        connConnect: rec.async((address: string, data: any, cb: any) => {
+          sbot.conn.connect(address, data, cb);
         }),
-        gossipConnect: rec.async((opts: any, cb: any) => {
-          sbot.gossip.connect(opts, cb);
+        connDisconnect: rec.async((address: string, cb: any) => {
+          sbot.conn.disconnect(address, cb);
+        }),
+        connStage: rec.async((address: string, data: any, cb: any) => {
+          sbot.conn.stage(address, data, cb);
+        }),
+        connUnstage: rec.async((address: string, cb: any) => {
+          sbot.conn.unstage(address, cb);
+        }),
+        connRemember: rec.async((address: string, data: any, cb: any) => {
+          sbot.conn.remember(address, data, cb);
+        }),
+        connForget: rec.async((address: string, cb: any) => {
+          sbot.conn.forget(address, cb);
         }),
         aboutSocialValue: rec.async((opts: any, cb: any) => {
           if (opts.key === 'name' || opts.key === 'image') {
@@ -315,8 +335,11 @@ const create = (api: any) => {
         hostingDhtInvites: rec.source(() => {
           return sbot.dhtInvite.hostingInvites();
         }),
-        gossipChanges: rec.source(() => {
-          return sbot.gossip.changes();
+        connPeers: rec.source(() => {
+          return sbot.conn.peers();
+        }),
+        connStagedPeers: rec.source(() => {
+          return sbot.conn.stagedPeers();
         }),
         claimingDhtInvites: rec.source(() => {
           return sbot.dhtInvite.claimingInvites();

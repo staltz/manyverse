@@ -5,20 +5,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream, MemoryStream} from 'xstream';
-import {
-  Msg,
-  PeerMetadata,
-  Content,
-  FeedId,
-  About,
-  MsgId,
-  AboutContent,
-} from 'ssb-typescript';
+import {Msg, Content, FeedId, About, MsgId, AboutContent} from 'ssb-typescript';
+import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import makeKeysOpinion from '../../ssb/opinions/keys';
 import sbotOpinion from '../../ssb/opinions/sbot';
-import gossipOpinion from '../../ssb/opinions/gossip';
 import publishHookOpinion from '../../ssb/opinions/hook';
 import contactOpinion = require('../../ssb/opinions/contact/obs');
 import configOpinion from '../../ssb/opinions/config';
@@ -60,29 +52,16 @@ export type AboutAndExtras = About & {
   followsYou?: boolean;
 };
 
-export type BTPeer = {remoteAddress: string; id: string; displayName: string};
-
-function btPeerToStagedPeerMetadata(p: BTPeer): StagedPeerMetadata {
-  return {
-    key:
-      `bt:${p.remoteAddress.split(':').join('')}` +
-      '~' +
-      `shs:${p.id.replace(/^\@/, '')}`,
-    source: 'bt',
-    note: p.displayName,
-  };
-}
-
-function btPeerNotYetConnected(btp: BTPeer, connecteds: Array<PeerMetadata>) {
-  return connecteds.findIndex(p => p.key === btp.id) === -1;
-}
+export type PeerKV = ConnQueryPeer;
 
 export type StagedPeerMetadata = {
   key: string;
-  source: 'local' | 'dht' | 'pub' | 'bt';
+  type: 'lan' | 'dht' | 'internet' | 'bt';
   role?: 'client' | 'server';
   note?: string;
 };
+
+export type StagedPeerKV = [string, StagedPeerMetadata];
 
 function mutateMsgWithLiveExtras(api: any) {
   return (msg: Msg, cb: Callback<MsgAndExtras>) => {
@@ -132,29 +111,26 @@ function mutateThreadWithLiveExtras(api: any) {
 }
 
 function augmentPeerWithExtras(api: any) {
-  return (kv: [string, PeerMetadata], cb: Callback<any>) => {
+  return (kv: PeerKV, cb: Callback<[string, any]>) => {
     const peer = kv[1];
     const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
     const nameOpts = {key: 'name', dest: peer.key};
     aboutSocialValue(nameOpts, (e1: any, nameResult: string) => {
       if (e1) return cb(e1);
-      const name = nameResult || shortFeedId(peer.key);
+      const name = nameResult || (peer.key ? shortFeedId(peer.key) : kv[0]);
       const avatarOpts = {key: 'image', dest: peer.key};
       aboutSocialValue(avatarOpts, (e2: any, val: any) => {
         if (e2) return cb(e2);
         const imageUrl = imageToImageUrl(val);
-        cb(null, {...peer, name, imageUrl});
+        cb(null, [kv[0], {...peer, name, imageUrl}]);
       });
     });
   };
 }
 
 function augmentPeersWithExtras(api: any) {
-  return async (
-    kvs: Array<[string, PeerMetadata]>,
-    cb: Callback<Array<any>>,
-  ) => {
-    const peers: Array<PeerMetadata> = [];
+  return async (kvs: Array<PeerKV>, cb: Callback<Array<PeerKV>>) => {
+    const peers: Array<PeerKV> = [];
     for (const kv of kvs) {
       const [err, peer] = await runAsync<any>(augmentPeerWithExtras(api))(kv);
       if (err) {
@@ -180,11 +156,11 @@ export class SSBSource {
   public selfRoots$: Stream<GetReadable<ThreadAndExtras>>;
   public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
   public publishHook$: Stream<Msg>;
-  public peers$: Stream<Array<PeerMetadata>>;
   public acceptInviteResponse$: Stream<true | string>;
   public acceptDhtInviteResponse$: Stream<true | string>;
   public hostingDhtInvites$: Stream<Array<HostingDhtInvite>>;
-  public stagedPeers$: Stream<Array<StagedPeerMetadata>>;
+  public peers$: Stream<Array<PeerKV>>;
+  public stagedPeers$: Stream<Array<StagedPeerKV>>;
   public bluetoothScanState$: Stream<any>;
 
   constructor(private api$: Stream<any>) {
@@ -255,118 +231,27 @@ export class SSBSource {
       )
       .flatten();
 
-    this.peers$ = api$
-      .map(api => {
-        const peers$ = api.sbot.obs.connectedPeers[0]() as Stream<
-          Map<string, PeerMetadata>
-        >;
-        const normalPeersArr$ = peers$
-          .map(es6map => Array.from(es6map.entries()))
-          .startWith([]);
-
-        const dhtClientsArr$ = this.hostingDhtInvites$
-          .map(invites =>
-            invites
-              .filter(invite => invite.online)
-              .map(
-                invite =>
-                  [
-                    invite.claimer,
-                    {
-                      host: invite.seed,
-                      port: 0,
-                      key: invite.claimer,
-                      source: 'dht' as any,
-                      client: true,
-                      state: 'connected',
-                      stateChange: 0,
-                    } as PeerMetadata,
-                  ] as [string, PeerMetadata],
-              ),
-          )
-          .startWith([]);
-
-        const peersArr$ = xs
-          .combine(normalPeersArr$, dhtClientsArr$)
-          .map(([peers1, peers2]) => peers1.concat(peers2));
-
-        const peersWithExtras$ = peersArr$
-          .map(peersArr =>
-            xsFromCallback<any>(augmentPeersWithExtras(api))(peersArr),
-          )
-          .flatten();
-        return peersWithExtras$;
-      })
-      .flatten();
-
     this.acceptInviteResponse$ = xs.create<true | string>();
     this.acceptDhtInviteResponse$ = xs.create<true | string>();
 
+    this.peers$ = api$
+      .map(api =>
+        xsFromPullStream<Array<PeerKV>>(api.sbot.pull.connPeers[0]())
+          .debug('connPeers')
+          .map(peers =>
+            xsFromCallback<Array<PeerKV>>(augmentPeersWithExtras(api))(peers),
+          )
+          .flatten(),
+      )
+      .flatten();
+
     this.stagedPeers$ = api$
-      .map(api => {
-        const hosting$ = this.hostingDhtInvites$
-          .map(invites =>
-            invites
-              .filter(invite => !invite.online)
-              .map(
-                ({seed}) =>
-                  ({
-                    key: seed,
-                    source: 'dht',
-                    role: 'server',
-                  } as StagedPeerMetadata),
-              ),
-          )
-          .startWith([]);
-
-        const claiming$: Stream<Array<StagedPeerMetadata>> = xsFromPullStream(
-          api.sbot.pull.claimingDhtInvites[0](),
-        )
-          .map((invites: Array<string>) =>
-            invites.map(
-              invite =>
-                ({
-                  key: invite,
-                  source: 'dht',
-                  role: 'client',
-                } as StagedPeerMetadata),
-            ),
-          )
-          .startWith([]);
-
-        const bluetoothEnabled$: Stream<
-          boolean
-        > = api.sbot.obs.bluetoothEnabled[0]();
-
-        const bluetoothNearby$: Stream<Array<BTPeer>> = xsFromPullStream(
-          api.sbot.pull.nearbyBluetoothPeers[0](1000),
-        ).map((result: any) => result.discovered);
-
-        const bluetoothConnected$ = this.peers$.map(peers =>
-          peers.filter(p => (p.source as any) === 'bt'),
-        );
-
-        const bluetooth$ = xs
-          .combine(bluetoothEnabled$, bluetoothNearby$, bluetoothConnected$)
-          .map(([enabled, nearbys, connecteds]) =>
-            // If bluetooth is disabled, bluetoothNearby$ does not emit anything until it is enabled again,
-            // so we use the 'enabled' boolean to stop peers being displayed which were on the list just
-            // before bluetooth was disabled.
-            nearbys.filter(
-              btPeer => enabled && btPeerNotYetConnected(btPeer, connecteds),
-            ),
-          )
-          .map(btPeers => btPeers.map(btPeerToStagedPeerMetadata))
-          .startWith([]);
-
-        return xs.combine(bluetooth$, hosting$, claiming$);
-      })
-      .flatten()
-      .map(([bluetooth, hosting, claiming]) => [
-        ...bluetooth,
-        ...hosting,
-        ...claiming,
-      ]);
+      .map(api =>
+        xsFromPullStream<Array<StagedPeerKV>>(
+          api.sbot.pull.connStagedPeers[0](),
+        ).debug('stagedPeers'),
+      )
+      .flatten();
 
     this.bluetoothScanState$ = api$
       .map(api => xsFromPullStream<any>(api.sbot.pull.bluetoothScanState[0]()))
@@ -595,7 +480,6 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
         configOpinion,
         makeKeysOpinion(keys),
         sbotOpinion,
-        gossipOpinion,
         contactOpinion,
       ]);
     })
@@ -646,7 +530,9 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
         if (req.type === 'bluetooth.connect') {
           // connect
           const addr = req.address;
-          const [err] = await runAsync(api.sbot.async.gossipConnect[0])(addr);
+          const [err] = await runAsync(api.sbot.async.connConnect[0])(addr, {
+            type: 'bt',
+          });
           if (err) return console.error(err.message || err);
 
           // check if following
