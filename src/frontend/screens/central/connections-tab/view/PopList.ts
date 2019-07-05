@@ -22,14 +22,23 @@ class PopItem extends PureComponent<PopItemProps, PopItemState> {
   private _val: Animated.Value;
   private _enterAnim: Animated.CompositeAnimation | null;
   private _exitAnim: Animated.CompositeAnimation | null;
+  private _shouldEnter: boolean;
+  private _shouldExit: boolean;
   private _viewRef: any;
 
-  public state = {
-    height: 0,
-  };
+  constructor(props: PopItemProps) {
+    super(props);
+    this._shouldEnter = false;
+    this._shouldExit = false;
+    this.state = {height: 0};
+  }
 
   private _enter() {
-    if (this._exitAnim) this._exitAnim.stop();
+    if (this._exitAnim) {
+      this._shouldEnter = true;
+      return;
+    }
+
     this._val.setValue(0);
     this._enterAnim = Animated.timing(this._val, {
       toValue: 1,
@@ -38,11 +47,19 @@ class PopItem extends PureComponent<PopItemProps, PopItemState> {
     });
     this._enterAnim.start(() => {
       this._enterAnim = null;
+      if (this._shouldExit) {
+        this._shouldExit = false;
+        this._exit();
+      }
     });
   }
 
   private _exit() {
-    if (this._enterAnim) this._enterAnim.stop();
+    if (this._enterAnim) {
+      this._shouldExit = true;
+      return;
+    }
+
     this._exitAnim = Animated.timing(this._val, {
       toValue: 0,
       duration: this.props.animationDuration,
@@ -50,7 +67,12 @@ class PopItem extends PureComponent<PopItemProps, PopItemState> {
     });
     this._exitAnim.start(() => {
       this._exitAnim = null;
-      this.props.onExit();
+      if (this._shouldEnter) {
+        this._shouldEnter = false;
+        this._enter();
+      } else {
+        this.props.onExit();
+      }
     });
   }
 
