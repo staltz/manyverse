@@ -445,6 +445,11 @@ export type ConnectBluetoothReq = {
   address: string;
 };
 
+export type ConnDisconnectReq = {
+  type: 'conn.disconnect';
+  address: string;
+};
+
 export type Req =
   | PublishReq
   | PublishAboutReq
@@ -455,7 +460,8 @@ export type Req =
   | EnableBluetoothReq
   | DisableBluetoothReq
   | SearchBluetoothReq
-  | ConnectBluetoothReq;
+  | ConnectBluetoothReq
+  | ConnDisconnectReq;
 
 function dropCompletion(stream: Stream<any>): Stream<any> {
   return xs.merge(stream, xs.never());
@@ -511,7 +517,12 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           });
         }
         if (req.type === 'dhtInvite.start') {
-          api.sbot.async.startDht[0]((err: any, v: any) => {
+          api.sbot.async.startDht[0]((err: any) => {
+            if (err) console.error(err.message || err);
+          });
+        }
+        if (req.type === 'conn.disconnect') {
+          api.sbot.async.connDisconnect[0](req.address, (err: any) => {
             if (err) console.error(err.message || err);
           });
         }

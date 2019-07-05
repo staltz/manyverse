@@ -84,7 +84,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         bluetoothLastScanned: 0,
         peers: [],
         stagedPeers: [],
-        inviteMenuTarget: null,
+        itemMenu: {opened: false, type: 'conn'},
         latestInviteMenuTarget: null,
       };
     }

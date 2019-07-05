@@ -234,47 +234,80 @@ class MenuOptionContent extends React.PureComponent<MenuOptionContentProps> {
   }
 }
 
+function connMenuOptions() {
+  return [
+    h(MenuOption, {
+      value: 'conn-profile',
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'account-circle',
+        text: 'Open profile',
+        accessibilityLabel: 'Open profile screen for this connected peer',
+      }),
+    }),
+    h(MenuOption, {
+      value: 'conn-disconnect',
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'pipe-disconnected',
+        text: 'Disconnect',
+        accessibilityLabel: 'Disconnect from this peer',
+      }),
+    }),
+  ];
+}
+
+function inviteMenuOptions() {
+  return [
+    h(MenuOption, {
+      value: 'invite-info',
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'information',
+        text: 'About',
+        accessibilityLabel: 'About this Invite Code',
+      }),
+    }),
+    h(MenuOption, {
+      value: 'invite-note',
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'pencil',
+        text: 'Add note',
+        accessibilityLabel: 'Add Note',
+      }),
+    }),
+    h(MenuOption, {
+      value: 'invite-share',
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'share',
+        text: 'Share',
+        accessibilityLabel: 'Share Invite Code',
+      }),
+    }),
+    h(MenuOption, {
+      value: 'invite-delete',
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'delete',
+        text: 'Delete',
+        accessibilityLabel: 'Delete Invite Code',
+      }),
+    }),
+  ];
+}
+
 function SlideInMenu(state: State) {
-  const opened = !!state.inviteMenuTarget;
   return h(
     Menu,
-    {sel: 'slide-in-menu', renderer: renderers.SlideInMenu, opened},
+    {
+      sel: 'slide-in-menu',
+      renderer: renderers.SlideInMenu,
+      opened: state.itemMenu.opened,
+    },
     [
       h(MenuTrigger, {disabled: true}),
-      h(MenuOptions, [
-        h(MenuOption, {
-          value: 'info',
-          ['children' as any]: h(MenuOptionContent, {
-            icon: 'information',
-            text: 'About',
-            accessibilityLabel: 'About this Invite Code',
-          }),
-        }),
-        h(MenuOption, {
-          value: 'note',
-          ['children' as any]: h(MenuOptionContent, {
-            icon: 'pencil',
-            text: 'Add note',
-            accessibilityLabel: 'Add Note',
-          }),
-        }),
-        h(MenuOption, {
-          value: 'share',
-          ['children' as any]: h(MenuOptionContent, {
-            icon: 'share',
-            text: 'Share',
-            accessibilityLabel: 'Share Invite Code',
-          }),
-        }),
-        h(MenuOption, {
-          value: 'delete',
-          ['children' as any]: h(MenuOptionContent, {
-            icon: 'delete',
-            text: 'Delete',
-            accessibilityLabel: 'Delete Invite Code',
-          }),
-        }),
-      ]),
+      h(
+        MenuOptions,
+        state.itemMenu.type === 'conn'
+          ? connMenuOptions()
+          : inviteMenuOptions(),
+      ),
     ],
   );
 }

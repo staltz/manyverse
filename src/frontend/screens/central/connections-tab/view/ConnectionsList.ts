@@ -18,7 +18,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../../global-styles/palette';
 import {Dimensions} from '../../../../global-styles/dimens';
 import {Typography} from '../../../../global-styles/typography';
-import {FeedId} from 'ssb-typescript';
 import Avatar from '../../../../components/Avatar';
 import PopList, {Props as PopListProps} from './PopList';
 import {PeerKV} from '../../../../drivers/ssb';
@@ -130,7 +129,7 @@ function peerModeTitle(peer: PeerKV[1]): string {
 
 export type Props = {
   peers: Array<PeerKV>;
-  onPressPeer?: (id: FeedId) => void;
+  onPressPeer?: (peer: PeerKV) => void;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -142,7 +141,7 @@ export default class ConnectionsList extends PureComponent<Props> {
         ['key' as any]: addr,
         onPress: () => {
           if (this.props.onPressPeer) {
-            this.props.onPressPeer(peer.key!);
+            this.props.onPressPeer([addr, peer]);
           }
         },
         style: styles.itemContainer,

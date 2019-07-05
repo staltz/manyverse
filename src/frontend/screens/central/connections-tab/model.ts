@@ -27,14 +27,21 @@ export type State = {
   isSyncing: boolean;
   isVisible: boolean;
   bluetoothLastScanned: number;
-  inviteMenuTarget: StagedPeer | null;
+  itemMenu: {
+    opened: boolean;
+    type: 'conn' | 'invite' | 'staging';
+    target?: any;
+  };
   latestInviteMenuTarget: StagedPeer | null;
 };
 
 export type Actions = {
   pingConnectivityModes$: Stream<any>;
   openStagedPeer$: Stream<StagedPeerKV>;
-  closeInviteMenu$: Stream<any>;
+  openPeerInConnection$: Stream<PeerKV>;
+  closeItemMenu$: Stream<any>;
+  goToPeerProfile$: Stream<any>;
+  disconnectPeer$: Stream<any>;
   infoClientDhtInvite$: Stream<any>;
   infoServerDhtInvite$: Stream<any>;
   noteDhtInvite$: Stream<any>;
@@ -61,7 +68,7 @@ export default function model(
       bluetoothLastScanned: 0,
       peers: [],
       stagedPeers: [],
-      inviteMenuTarget: null,
+      itemMenu: {opened: false, type: 'conn'},
       latestInviteMenuTarget: null,
     };
   });
@@ -152,23 +159,46 @@ export default function model(
         function openInviteMenuReducer(prev: State): State {
           return {
             ...prev,
-            inviteMenuTarget: peer[1],
+            itemMenu: {
+              opened: true,
+              type: 'invite',
+              target: peer[1],
+            },
             latestInviteMenuTarget: peer[1],
           };
         },
     );
 
+  const openConnMenuReducer$ = actions.openPeerInConnection$.map(
+    peer =>
+      function openInviteMenuReducer(prev: State): State {
+        return {
+          ...prev,
+          itemMenu: {
+            opened: true,
+            type: 'conn',
+            target: peer,
+          },
+        };
+      },
+  );
+
   const closeInviteMenuReducer$ = xs
     .merge(
-      actions.closeInviteMenu$,
+      actions.closeItemMenu$,
+      actions.goToPeerProfile$,
+      actions.disconnectPeer$,
       actions.infoClientDhtInvite$,
       actions.infoServerDhtInvite$,
       actions.noteDhtInvite$,
       actions.shareDhtInvite$,
       actions.removeDhtInvite$,
     )
-    .mapTo(function openInviteMenuReducer(prev: State): State {
-      return {...prev, inviteMenuTarget: null};
+    .mapTo(function closeInviteMenuReducer(prev: State): State {
+      return {
+        ...prev,
+        itemMenu: {...prev.itemMenu, opened: false},
+      };
     });
 
   const addNoteFromDialogReducer$ = actions.addNoteFromDialog$.map(
@@ -195,6 +225,7 @@ export default function model(
     updateBluetoothLastScanned$,
     setStagedPeersReducer$,
     openInviteMenuReducer$,
+    openConnMenuReducer$,
     closeInviteMenuReducer$,
     addNoteFromDialogReducer$,
   );

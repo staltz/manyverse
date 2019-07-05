@@ -13,12 +13,16 @@ export type Actions = {
   bluetoothSearch$: Stream<any>;
   openStagedPeer$: Stream<StagedPeerKV>;
   pingConnectivityModes$: Stream<any>;
+  disconnectPeer$: Stream<string>;
 };
 
 export default function ssb(actions: Actions, networkSource: NetworkSource) {
   return xs.merge(
     actions.removeDhtInvite$.map(
       invite => ({type: 'dhtInvite.remove', invite} as Req),
+    ),
+    actions.disconnectPeer$.map(
+      address => ({type: 'conn.disconnect', address} as Req),
     ),
     actions.pingConnectivityModes$
       .map(() => networkSource.bluetoothIsEnabled())
