@@ -11,15 +11,33 @@ import {NetworkSource} from '../../../drivers/network';
 export type Actions = {
   removeDhtInvite$: Stream<string>;
   bluetoothSearch$: Stream<any>;
-  openStagedPeer$: Stream<StagedPeerKV>;
-  pingConnectivityModes$: Stream<any>;
+  connectPeer$: Stream<StagedPeerKV>;
+  followConnectPeer$: Stream<StagedPeerKV>;
   disconnectPeer$: Stream<string>;
+  pingConnectivityModes$: Stream<any>;
 };
 
 export default function ssb(actions: Actions, networkSource: NetworkSource) {
   return xs.merge(
     actions.removeDhtInvite$.map(
       invite => ({type: 'dhtInvite.remove', invite} as Req),
+    ),
+    actions.connectPeer$.map(
+      peer =>
+        ({
+          type: 'conn.connect',
+          address: peer[0],
+          hubData: {type: peer[1].type},
+        } as Req),
+    ),
+    actions.followConnectPeer$.map(
+      peer =>
+        ({
+          type: 'conn.followConnect',
+          address: peer[0],
+          key: peer[1].key,
+          hubData: {type: peer[1].type},
+        } as Req),
     ),
     actions.disconnectPeer$.map(
       address => ({type: 'conn.disconnect', address} as Req),
@@ -37,8 +55,5 @@ export default function ssb(actions: Actions, networkSource: NetworkSource) {
       type: 'bluetooth.search',
       interval: 20e3,
     } as Req),
-    actions.openStagedPeer$
-      .filter(peer => peer[1].type === 'bt')
-      .map(peer => ({type: 'bluetooth.connect', address: peer[0]} as Req)),
   );
 }

@@ -37,11 +37,14 @@ export type State = {
 
 export type Actions = {
   pingConnectivityModes$: Stream<any>;
-  openStagedPeer$: Stream<StagedPeerKV>;
   openPeerInConnection$: Stream<PeerKV>;
+  openStagedPeer$: Stream<StagedPeerKV>;
+  openDHTStagedPeer$: Stream<StagedPeerKV>;
+  connectPeer$: Stream<any>;
+  followConnectPeer$: Stream<any>;
+  disconnectPeer$: Stream<any>;
   closeItemMenu$: Stream<any>;
   goToPeerProfile$: Stream<any>;
-  disconnectPeer$: Stream<any>;
   infoClientDhtInvite$: Stream<any>;
   infoServerDhtInvite$: Stream<any>;
   noteDhtInvite$: Stream<any>;
@@ -152,26 +155,9 @@ export default function model(
         },
     );
 
-  const openInviteMenuReducer$ = actions.openStagedPeer$
-    .filter(peer => peer[1].type === 'dht')
-    .map(
-      peer =>
-        function openInviteMenuReducer(prev: State): State {
-          return {
-            ...prev,
-            itemMenu: {
-              opened: true,
-              type: 'invite',
-              target: peer[1],
-            },
-            latestInviteMenuTarget: peer[1],
-          };
-        },
-    );
-
   const openConnMenuReducer$ = actions.openPeerInConnection$.map(
     peer =>
-      function openInviteMenuReducer(prev: State): State {
+      function openConnMenuReducer(prev: State): State {
         return {
           ...prev,
           itemMenu: {
@@ -183,10 +169,41 @@ export default function model(
       },
   );
 
+  const openStagingMenuReducer$ = actions.openStagedPeer$.map(
+    peer =>
+      function openStagingMenuReducer(prev: State): State {
+        return {
+          ...prev,
+          itemMenu: {
+            opened: true,
+            type: 'staging',
+            target: peer,
+          },
+        };
+      },
+  );
+
+  const openInviteMenuReducer$ = actions.openDHTStagedPeer$.map(
+    peer =>
+      function openInviteMenuReducer(prev: State): State {
+        return {
+          ...prev,
+          itemMenu: {
+            opened: true,
+            type: 'invite',
+            target: peer[1],
+          },
+          latestInviteMenuTarget: peer[1],
+        };
+      },
+  );
+
   const closeInviteMenuReducer$ = xs
     .merge(
       actions.closeItemMenu$,
       actions.goToPeerProfile$,
+      actions.connectPeer$,
+      actions.followConnectPeer$,
       actions.disconnectPeer$,
       actions.infoClientDhtInvite$,
       actions.infoServerDhtInvite$,
@@ -224,8 +241,9 @@ export default function model(
     setPeersReducer$,
     updateBluetoothLastScanned$,
     setStagedPeersReducer$,
-    openInviteMenuReducer$,
     openConnMenuReducer$,
+    openStagingMenuReducer$,
+    openInviteMenuReducer$,
     closeInviteMenuReducer$,
     addNoteFromDialogReducer$,
   );

@@ -27,6 +27,8 @@ export default function intent(
 ) {
   const back$ = navSource.backPress();
   return {
+    //#region Header actions
+
     pingConnectivityModes$: state$
       .map(state => state.isVisible)
       .compose(dropRepeats())
@@ -46,21 +48,60 @@ export default function intent(
 
     showPubHelp$: reactSource.select('pub-mode').events('press'),
 
+    //#endregion
+
+    //#region Item menu actions
+
+    openPeerInConnection$: reactSource
+      .select('connections-list')
+      .events('pressPeer') as Stream<PeerKV>,
+
     openStagedPeer$: reactSource
       .select('staged-list')
-      .events('pressPeer') as Stream<StagedPeerKV>,
+      .events('pressPeer')
+      .filter((peer: StagedPeerKV) => peer[1].type !== 'dht'),
 
-    closeItemMenu$: xs
-      .merge(
-        back$.compose(sample(state$)).filter(state => state.itemMenu.opened),
-        reactSource.select('slide-in-menu').events('backdropPress'),
-      )
-      .mapTo(null),
+    openDHTStagedPeer$: reactSource
+      .select('staged-list')
+      .events('pressPeer')
+      .filter((peer: StagedPeerKV) => peer[1].type === 'dht'),
 
-    goBack$: back$
+    goToPeerProfile$: xs.merge(
+      reactSource
+        .select('slide-in-menu')
+        .events('select')
+        .filter(val => val === 'conn-profile')
+        .compose(sample(state$))
+        .map(state => (state.itemMenu.target as PeerKV)[1].key as FeedId),
+
+      reactSource
+        .select('slide-in-menu')
+        .events('select')
+        .filter(val => val === 'staging-profile')
+        .compose(sample(state$))
+        .map(state => (state.itemMenu.target as StagedPeerKV)[1].key as FeedId),
+    ),
+
+    connectPeer$: reactSource
+      .select('slide-in-menu')
+      .events('select')
+      .filter(val => val === 'staging-connect')
       .compose(sample(state$))
-      .filter(state => !state.itemMenu.opened)
-      .mapTo(null),
+      .map(state => state.itemMenu.target) as Stream<StagedPeerKV>,
+
+    followConnectPeer$: reactSource
+      .select('slide-in-menu')
+      .events('select')
+      .filter(val => val === 'staging-follow-connect')
+      .compose(sample(state$))
+      .map(state => state.itemMenu.target) as Stream<StagedPeerKV>,
+
+    disconnectPeer$: reactSource
+      .select('slide-in-menu')
+      .events('select')
+      .filter(val => val === 'conn-disconnect')
+      .compose(sample(state$))
+      .map(state => (state.itemMenu.target as PeerKV)[0]),
 
     infoClientDhtInvite$: reactSource
       .select('slide-in-menu')
@@ -104,23 +145,21 @@ export default function intent(
       .compose(sample(state$))
       .map(state => (state.itemMenu.target as StagedPeer).key),
 
-    openPeerInConnection$: reactSource
-      .select('connections-list')
-      .events('pressPeer') as Stream<PeerKV>,
+    closeItemMenu$: xs
+      .merge(
+        back$.compose(sample(state$)).filter(state => state.itemMenu.opened),
+        reactSource.select('slide-in-menu').events('backdropPress'),
+      )
+      .mapTo(null),
 
-    goToPeerProfile$: reactSource
-      .select('slide-in-menu')
-      .events('select')
-      .filter(val => val === 'conn-profile')
+    goBack$: back$
       .compose(sample(state$))
-      .map(state => (state.itemMenu.target as PeerKV)[1].key as FeedId),
+      .filter(state => !state.itemMenu.opened)
+      .mapTo(null),
 
-    disconnectPeer$: reactSource
-      .select('slide-in-menu')
-      .events('select')
-      .filter(val => val === 'conn-disconnect')
-      .compose(sample(state$))
-      .map(state => (state.itemMenu.target as PeerKV)[0]),
+    //#endregion
+
+    //#region FAB actions
 
     goToPasteInvite$: fabPress$.filter(action => action === 'invite-paste'),
 
@@ -142,5 +181,7 @@ export default function intent(
         ),
       )
       .flatten(),
+
+    //#endregion
   };
 }

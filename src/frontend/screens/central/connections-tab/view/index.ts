@@ -255,6 +255,35 @@ function connMenuOptions() {
   ];
 }
 
+function stagingMenuOptions() {
+  return [
+    h(MenuOption, {
+      value: 'staging-profile',
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'account-circle',
+        text: 'Open profile',
+        accessibilityLabel: 'Open profile screen for this suggested connection',
+      }),
+    }),
+    h(MenuOption, {
+      value: 'staging-connect',
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'pipe',
+        text: 'Connect',
+        accessibilityLabel: 'Connect to this suggested peer',
+      }),
+    }),
+    h(MenuOption, {
+      value: 'staging-follow-connect',
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'account-plus',
+        text: 'Connect and follow',
+        accessibilityLabel: 'Connect to this suggested peer then follow them',
+      }),
+    }),
+  ];
+}
+
 function inviteMenuOptions() {
   return [
     h(MenuOption, {
@@ -306,7 +335,11 @@ function SlideInMenu(state: State) {
         MenuOptions,
         state.itemMenu.type === 'conn'
           ? connMenuOptions()
-          : inviteMenuOptions(),
+          : state.itemMenu.type === 'staging'
+          ? stagingMenuOptions()
+          : state.itemMenu.type === 'invite'
+          ? inviteMenuOptions()
+          : [],
       ),
     ],
   );

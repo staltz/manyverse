@@ -48,7 +48,11 @@ export = {
             `bt:${btPeer.remoteAddress.split(':').join('')}` +
             '~' +
             `shs:${btPeer.id.replace(/^\@/, '').replace(/\.ed25519$/, '')}`;
-          ssb.conn.stage(address, {type: 'bt', note: btPeer.displayName});
+          ssb.conn.stage(address, {
+            type: 'bt',
+            note: btPeer.displayName,
+            key: btPeer.id,
+          });
 
           // TODO after some seconds or minutes, unstage each one
         }

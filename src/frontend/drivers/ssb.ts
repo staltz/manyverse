@@ -440,9 +440,17 @@ export type SearchBluetoothReq = {
   interval: number;
 };
 
-export type ConnectBluetoothReq = {
-  type: 'bluetooth.connect';
+export type ConnConnectReq = {
+  type: 'conn.connect';
   address: string;
+  hubData?: any;
+};
+
+export type ConnFollowConnectReq = {
+  type: 'conn.followConnect';
+  address: string;
+  key?: string;
+  hubData?: any;
 };
 
 export type ConnDisconnectReq = {
@@ -460,7 +468,8 @@ export type Req =
   | EnableBluetoothReq
   | DisableBluetoothReq
   | SearchBluetoothReq
-  | ConnectBluetoothReq
+  | ConnConnectReq
+  | ConnFollowConnectReq
   | ConnDisconnectReq;
 
 function dropCompletion(stream: Stream<any>): Stream<any> {
@@ -521,6 +530,37 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
             if (err) console.error(err.message || err);
           });
         }
+        if (req.type === 'conn.connect') {
+          // connect
+          const addr = req.address;
+          const [err] = await runAsync(api.sbot.async.connConnect[0])(
+            addr,
+            req.hubData || {},
+          );
+          if (err) return console.error(err.message || err);
+        }
+        if (req.type === 'conn.followConnect') {
+          // connect
+          const addr = req.address;
+          const [err] = await runAsync(api.sbot.async.connConnect[0])(
+            addr,
+            req.hubData || {},
+          );
+          if (err) return console.error(err.message || err);
+
+          // check if following
+          const selfId = api.keys.sync.id[0]();
+          const friendId = req.key || '@' + addr.split('shs:')[1] + '.ed25519';
+          const opts = {source: selfId, dest: friendId};
+          const [err2, f] = await runAsync(api.sbot.async.isFollowing[0])(opts);
+          if (err2) return console.error(err2.message || err2);
+          if (f) return;
+
+          // follow
+          const msg = {type: 'contact', contact: friendId, following: true};
+          const [err3] = await runAsync(api.sbot.async.publish[0])(msg);
+          if (err3) return console.error(err3.message || err3);
+        }
         if (req.type === 'conn.disconnect') {
           api.sbot.async.connDisconnect[0](req.address, (err: any) => {
             if (err) console.error(err.message || err);
@@ -536,27 +576,6 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           api.sbot.async.searchBluetoothPeers[0](req.interval, (err: any) => {
             if (err) console.error(err.message || err);
           });
-        }
-        if (req.type === 'bluetooth.connect') {
-          // connect
-          const addr = req.address;
-          const [err] = await runAsync(api.sbot.async.connConnect[0])(addr, {
-            type: 'bt',
-          });
-          if (err) return console.error(err.message || err);
-
-          // check if following
-          const selfId = api.keys.sync.id[0]();
-          const friendId = '@' + addr.split('shs:')[1] + '.ed25519';
-          const opts = {source: selfId, dest: friendId};
-          const [err2, f] = await runAsync(api.sbot.async.isFollowing[0])(opts);
-          if (err2) return console.error(err2.message || err2);
-          if (f) return;
-
-          // follow
-          const msg = {type: 'contact', contact: friendId, following: true};
-          const [err3] = await runAsync(api.sbot.async.publish[0])(msg);
-          if (err3) return console.error(err3.message || err3);
         }
         if (req.type === 'dhtInvite.accept') {
           api.sbot.async.acceptDhtInvite[0](req.invite, (err: any, v: any) => {
