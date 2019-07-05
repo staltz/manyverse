@@ -36,7 +36,7 @@
     "ssb-ebt": "5.2.7",
     "ssb-friends": "3.1.9",
     "ssb-keys": "7.1.3",
-    "ssb-legacy-conn": "1.0.26-rc11",
+    "ssb-legacy-conn": "1.0.26-rc12",
     "ssb-mobile-bluetooth-manager": "3.2.2",
     "ssb-private": "0.2.3",
     "ssb-query": "2.3.0",

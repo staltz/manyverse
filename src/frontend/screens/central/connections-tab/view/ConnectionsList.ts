@@ -20,14 +20,15 @@ import {Dimensions} from '../../../../global-styles/dimens';
 import {Typography} from '../../../../global-styles/typography';
 import {FeedId} from 'ssb-typescript';
 import Avatar from '../../../../components/Avatar';
+import PopList, {Props as PopListProps} from './PopList';
 import {PeerKV} from '../../../../drivers/ssb';
 
 const dotStyle: ViewStyle = {
   width: 11,
   height: 11,
   position: 'absolute',
-  bottom: 6.7,
-  left: 36.45,
+  bottom: 18.8,
+  left: 52.65,
   borderRadius: 6,
   borderColor: Palette.backgroundText,
   borderWidth: 1,
@@ -39,9 +40,17 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundText,
   },
 
-  peer: {
+  itemContainer: {
     flex: 1,
     alignSelf: 'stretch',
+  },
+
+  peer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
     flexDirection: 'row',
@@ -126,62 +135,66 @@ export type Props = {
 };
 
 export default class ConnectionsList extends PureComponent<Props> {
-  private renderItem([_addr, peer]: PeerKV) {
-    const touchableProps = {
-      onPress: () => {
-        if (this.props.onPressPeer) {
-          this.props.onPressPeer(peer.key!);
-        }
-      },
-      activeOpacity: 0.4,
-    };
-
-    const peerName = h(TouchableOpacity, touchableProps, [
-      h(
-        Text,
-        {
-          numberOfLines: 1,
-          ellipsizeMode: 'middle',
-          style: styles.peerName,
+  private renderItem = ([addr, peer]: PeerKV) => {
+    return h(
+      TouchableOpacity,
+      {
+        ['key' as any]: addr,
+        onPress: () => {
+          if (this.props.onPressPeer) {
+            this.props.onPressPeer(peer.key!);
+          }
         },
-        `${peer.name || peer.key}`,
-      ),
-    ]);
+        style: styles.itemContainer,
+        activeOpacity: 0.5,
+      },
+      [
+        h(View, {style: styles.peer}, [
+          h(Avatar, {
+            size: Dimensions.avatarSizeNormal,
+            url: peer['imageUrl' as any],
+            style: styles.peerAvatar,
+          }),
+          h(View, {
+            style:
+              peer.state === 'connected'
+                ? styles.connectedDot
+                : peer.state === 'disconnecting'
+                ? styles.disconnectingDot
+                : styles.connectingDot,
+          }),
 
-    const peerMode = h(View, {style: styles.peerMode}, [
-      h(Icon, {
-        size: Dimensions.iconSizeSmall,
-        color: Palette.textWeak,
-        name: peerModeIcon(peer),
-      }),
-      h(Text, {style: styles.peerModeText}, peerModeTitle(peer)),
-    ]);
-
-    return h(View, {style: styles.peer}, [
-      h(TouchableOpacity, touchableProps, [
-        h(Avatar, {
-          size: Dimensions.avatarSizeNormal,
-          url: peer['imageUrl' as any],
-          style: styles.peerAvatar,
-        }),
-        h(View, {
-          style:
-            peer.state === 'connected'
-              ? styles.connectedDot
-              : peer.state === 'disconnecting'
-              ? styles.disconnectingDot
-              : styles.connectingDot,
-        }),
-      ]),
-      h(View, {style: styles.peerDetails}, [peerName, peerMode]),
-    ]);
-  }
+          h(View, {style: styles.peerDetails}, [
+            h(
+              Text,
+              {
+                numberOfLines: 1,
+                ellipsizeMode: 'middle',
+                style: styles.peerName,
+              },
+              `${peer.name || peer.key}`,
+            ),
+            h(View, {style: styles.peerMode}, [
+              h(Icon, {
+                size: Dimensions.iconSizeSmall,
+                color: Palette.textWeak,
+                name: peerModeIcon(peer),
+              }),
+              h(Text, {style: styles.peerModeText}, peerModeTitle(peer)),
+            ]),
+          ]),
+        ]),
+      ],
+    );
+  };
 
   public render() {
-    return h(
-      View,
-      {style: [styles.container, this.props.style]},
-      this.props.peers.map(peer => this.renderItem(peer)),
-    );
+    return h<PopListProps<PeerKV>>(PopList, {
+      style: [styles.container, this.props.style],
+      data: this.props.peers,
+      keyExtractor: ([addr, p]) => p.hubBirth || addr,
+      renderItem: this.renderItem,
+      itemHeight: 70,
+    });
   }
 }

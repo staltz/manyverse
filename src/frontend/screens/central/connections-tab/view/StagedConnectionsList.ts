@@ -11,7 +11,7 @@ import {
   StyleSheet,
   StyleProp,
   ViewStyle,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -19,6 +19,7 @@ import {Palette} from '../../../../global-styles/palette';
 import {Dimensions} from '../../../../global-styles/dimens';
 import {Typography} from '../../../../global-styles/typography';
 import {StagedPeerKV} from '../../../../drivers/ssb';
+import PopList, {Props as PopListProps} from './PopList';
 
 export const styles = StyleSheet.create({
   container: {
@@ -26,9 +27,17 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundTextBrand,
   },
 
-  peer: {
+  itemContainer: {
     flex: 1,
     alignSelf: 'stretch',
+  },
+
+  peer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
     flexDirection: 'row',
@@ -97,43 +106,53 @@ export type Props = {
 };
 
 export default class StagedConnectionsList extends PureComponent<Props> {
-  private renderItem(peer: StagedPeerKV) {
-    const touchableProps = {
-      onPress: () => {
-        if (this.props.onPressPeer) {
-          this.props.onPressPeer(peer);
-        }
+  private renderItem = (peer: StagedPeerKV) => {
+    return h(
+      TouchableOpacity,
+      {
+        ['key' as any]: peer[0],
+        onPress: () => {
+          if (this.props.onPressPeer) {
+            this.props.onPressPeer(peer);
+          }
+        },
+        style: styles.itemContainer,
+        activeOpacity: 0.5,
       },
-      underlayColor: Palette.backgroundTextBrand,
-      activeOpacity: 0.4,
-    };
+      [
+        h(View, {style: styles.peer}, [
+          h(View, {style: styles.peerAvatar}, [
+            h(Icon, {
+              size: Dimensions.iconSizeNormal,
+              color: Palette.backgroundBrandWeaker,
+              name: peerModeIcon(peer),
+            }),
+          ]),
 
-    return h(TouchableHighlight, touchableProps, [
-      h(View, {style: styles.peer}, [
-        h(View, {style: styles.peerAvatar}, [
-          h(Icon, {
-            size: Dimensions.iconSizeNormal,
-            color: Palette.backgroundBrandWeaker,
-            name: peerModeIcon(peer),
-          }),
+          h(View, {style: styles.peerDetails}, [
+            h(
+              Text,
+              {
+                numberOfLines: 1,
+                ellipsizeMode: 'middle',
+                style: styles.peerName,
+              },
+              peer[1].note || peer[1].key,
+            ),
+            h(Text, {style: styles.peerModeText}, peerModeDescription(peer)),
+          ]),
         ]),
-        h(View, {style: styles.peerDetails}, [
-          h(
-            Text,
-            {numberOfLines: 1, ellipsizeMode: 'middle', style: styles.peerName},
-            peer[1].note || peer[1].key,
-          ),
-          h(Text, {style: styles.peerModeText}, peerModeDescription(peer)),
-        ]),
-      ]),
-    ]);
-  }
+      ],
+    );
+  };
 
   public render() {
-    return h(
-      View,
-      {style: [styles.container, this.props.style]},
-      this.props.peers.map(peer => this.renderItem(peer)),
-    );
+    return h<PopListProps<StagedPeerKV>>(PopList, {
+      style: [styles.container, this.props.style],
+      data: this.props.peers,
+      keyExtractor: ([addr]) => addr,
+      renderItem: this.renderItem,
+      itemHeight: 70,
+    });
   }
 }

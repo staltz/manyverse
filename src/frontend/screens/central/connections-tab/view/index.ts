@@ -156,29 +156,30 @@ function Body(state: State) {
     peers,
     stagedPeers,
   } = state;
+
+  // Render empty cases
+  let emptySection: React.ReactElement<any> | null = null;
   if (!bluetoothEnabled && !lanEnabled && !internetEnabled) {
-    return h(EmptySection, {
+    emptySection = h(EmptySection, {
       style: styles.emptySection,
-      image: require('../../../../../images/noun-lantern.png'),
+      image: require('../../../../../../images/noun-lantern.png'),
       title: 'Offline',
       description:
         'Turn on some connection mode\nor just enjoy some existing content',
     });
-  }
-
-  if (peers.length === 0 && stagedPeers.length === 0) {
+  } else if (peers.length === 0 && stagedPeers.length === 0) {
     if (recentlyScanned(state.bluetoothLastScanned)) {
-      return h(EmptySection, {
+      emptySection = h(EmptySection, {
         style: styles.emptySection,
-        image: require('../../../../../images/noun-crops.png'),
+        image: require('../../../../../../images/noun-crops.png'),
         title: 'Connecting',
         description:
           'Standby while the app is\nattempting to connect to your peers',
       });
     } else {
-      return h(EmptySection, {
+      emptySection = h(EmptySection, {
         style: styles.emptySection,
-        image: require('../../../../../images/noun-crops.png'),
+        image: require('../../../../../../images/noun-crops.png'),
         title: 'No connections',
         description:
           'Invite a friend to connect with\nor sync with people nearby',
@@ -187,17 +188,20 @@ function Body(state: State) {
   }
 
   return h(React.Fragment, [
-    peers.length > 0
-      ? h(ConnectionsList, {
-          sel: 'connections-list',
-          peers,
-          style: styles.connectionsList,
-        })
-      : (null as any),
+    h(ConnectionsList, {
+      ['key' as any]: 'a',
+      sel: 'connections-list',
+      peers,
+      style: styles.connectionsList,
+    }),
 
-    stagedPeers.length > 0
-      ? h(StagedConnectionsList, {sel: 'staged-list', peers: state.stagedPeers})
-      : (null as any),
+    h(StagedConnectionsList, {
+      ['key' as any]: 'b',
+      sel: 'staged-list',
+      peers: state.stagedPeers,
+    }),
+
+    emptySection as any,
   ]);
 }
 
