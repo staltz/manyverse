@@ -6,6 +6,15 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1907.5-beta
+
+* Animate connections appearing and disappearing ([see details](https://gitlab.com/staltz/manyverse/commit/d007f86f60fc802cebcf1dcd5991beb7e8705f41))
+* Feature: ability to disconnect from any connection ([see details](https://gitlab.com/staltz/manyverse/commit/cca52807f7fed70424eb5fe389ff8ca4ef7cb504))
+* Feature: more interaction options for staged peers ([see details](https://gitlab.com/staltz/manyverse/commit/13d3541344bccc99574044893f1722ae6e21aa2f))
+* Feature: show online status dot for connected peers ([see details](https://gitlab.com/staltz/manyverse/commit/b2617bd2987f61c89f1977e0a33a5a1081e30c1f))
+* Never connect to blocked peers ([see details](https://gitlab.com/staltz/manyverse/commit/cc8064ab6e69bb9bc1d8137cff7c0b05ef701578))
+* Update backers in the Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/a5df9967676c97387c6878638e150d5eab475e87))
+
 ## 0.1905.10-beta
 
 * Bug fix: startup crashes related to IPv6 ([see details](https://gitlab.com/staltz/manyverse/commit/bf4cf50712ddf0a4b663c34d9d9fc790b507fd27))
