@@ -237,7 +237,6 @@ export class SSBSource {
     this.peers$ = api$
       .map(api =>
         xsFromPullStream<Array<PeerKV>>(api.sbot.pull.connPeers[0]())
-          .debug('connPeers')
           .map(peers =>
             xsFromCallback<Array<PeerKV>>(augmentPeersWithExtras(api))(peers),
           )
@@ -249,7 +248,7 @@ export class SSBSource {
       .map(api =>
         xsFromPullStream<Array<StagedPeerKV>>(
           api.sbot.pull.connStagedPeers[0](),
-        ).debug('stagedPeers'),
+        ),
       )
       .flatten();
 
@@ -537,7 +536,7 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
 
           // check if following
           const selfId = api.keys.sync.id[0]();
-          const friendId = '@' + addr.split('shs:')[1];
+          const friendId = '@' + addr.split('shs:')[1] + '.ed25519';
           const opts = {source: selfId, dest: friendId};
           const [err2, f] = await runAsync(api.sbot.async.isFollowing[0])(opts);
           if (err2) return console.error(err2.message || err2);
