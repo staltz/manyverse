@@ -10,12 +10,12 @@ import {StagedPeerKV} from '../../../drivers/ssb';
 import {State} from './model';
 import dropRepeats from 'xstream/extra/dropRepeats';
 
-function isDhtInviteWithNote([_addr, invite]: StagedPeerKV) {
-  return !!invite.note && invite.type === 'dht';
+function isDhtInviteWithNote([_addr, data]: StagedPeerKV) {
+  return !!data.note && data.type === 'dht';
 }
 
-export function noteStorageKeyFor([_addr, invite]: StagedPeerKV) {
-  return `dhtInviteNote:${invite.key}`;
+export function noteStorageKeyFor([_addr, data]: StagedPeerKV) {
+  return `dhtInviteNote:${data.key}`;
 }
 
 export default function asyncStorage(state$: Stream<State>) {

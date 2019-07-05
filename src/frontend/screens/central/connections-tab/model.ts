@@ -134,7 +134,8 @@ export default function model(
         .map(noteStorageKeyFor);
 
       if (dhtInvites.length === 0) {
-        return xs.of([stagedPeers, []]);
+        const notes: Array<[string, string]> = [];
+        return xs.of([stagedPeers, notes]);
       } else {
         return asyncStorageSource
           .multiGet(dhtInvites)

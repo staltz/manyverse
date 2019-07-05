@@ -235,21 +235,88 @@ export class SSBSource {
     this.acceptDhtInviteResponse$ = xs.create<true | string>();
 
     this.peers$ = api$
-      .map(api =>
-        xsFromPullStream<Array<PeerKV>>(api.sbot.pull.connPeers[0]())
-          .map(peers =>
-            xsFromCallback<Array<PeerKV>>(augmentPeersWithExtras(api))(peers),
+      .map(api => {
+        const connPeers$ = xsFromPullStream<Array<PeerKV>>(
+          api.sbot.pull.connPeers[0](),
+        );
+
+        //#region DHT-related hacks (ideally this should go through CONN)
+        const selfId = api.keys.sync.id[0]();
+        const dhtClientsArr$ = this.hostingDhtInvites$
+          .map(invites =>
+            invites
+              .filter(invite => invite.online)
+              .map(
+                invite =>
+                  [
+                    `dht:${invite.seed}:${selfId}`,
+                    {
+                      pool: 'hub',
+                      key: invite.claimer,
+                      source: 'dht' as any,
+                      client: true,
+                      state: 'connected',
+                    },
+                  ] as PeerKV,
+              ),
           )
-          .flatten(),
-      )
+          .startWith([]);
+        const peersArr$ = xs
+          .combine(connPeers$, dhtClientsArr$)
+          .map(([as, bs]) => [...as, ...bs]);
+        //#endregion
+
+        const peersWithExtras$ = peersArr$
+          .map(peersArr =>
+            xsFromCallback<any>(augmentPeersWithExtras(api))(peersArr),
+          )
+          .flatten();
+
+        return peersWithExtras$;
+      })
       .flatten();
 
     this.stagedPeers$ = api$
-      .map(api =>
-        xsFromPullStream<Array<StagedPeerKV>>(
+      .map(api => {
+        const connStagedPeers$ = xsFromPullStream<Array<StagedPeerKV>>(
           api.sbot.pull.connStagedPeers[0](),
-        ),
-      )
+        );
+
+        //#region DHT-related hacks (ideally this should go through CONN)
+        const selfId = api.keys.sync.id[0]();
+        const hosting$ = this.hostingDhtInvites$
+          .map(invites =>
+            invites
+              .filter(invite => !invite.online)
+              .map(
+                ({seed}) =>
+                  [
+                    `dht:${seed}:${selfId}`,
+                    {key: seed, type: 'dht', role: 'server'},
+                  ] as StagedPeerKV,
+              ),
+          )
+          .startWith([]);
+        const claiming$: Stream<Array<StagedPeerKV>> = xsFromPullStream(
+          api.sbot.pull.claimingDhtInvites[0](),
+        )
+          .map((invites: Array<string>) =>
+            invites.map(
+              invite =>
+                [
+                  invite,
+                  {key: invite, type: 'dht', role: 'client'},
+                ] as StagedPeerKV,
+            ),
+          )
+          .startWith([]);
+        const peersArr$ = xs
+          .combine(connStagedPeers$, hosting$, claiming$)
+          .map(([as, bs, cs]) => [...as, ...bs, ...cs]);
+        //#endregion
+
+        return peersArr$;
+      })
       .flatten();
 
     this.bluetoothScanState$ = api$
