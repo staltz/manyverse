@@ -9,10 +9,10 @@ import {Palette} from '../../global-styles/palette';
 
 const top5backers = [
   'DC Posch',
-  'Jean-Baptiste Giraudeau',
-  'Sharp Hall',
-  'Audrey Tang',
   'Connor Turland',
+  'Jean-Baptiste Giraudeau',
+  'Audrey Tang',
+  'Sharp Hall',
 ];
 
 export default {
