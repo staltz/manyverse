@@ -34,7 +34,7 @@ rm ./nodejs-assets/nodejs-project/*.js.map;
 rm ./nodejs-assets/nodejs-project/plugins/*.js.map;
 
 echo "Installing dependencies...";
-cd ./nodejs-assets/nodejs-project && npm i;
+cd ./nodejs-assets/nodejs-project && npm install --no-optional;
 
 # For more details on this, read issue #398:
 echo "Removing problematic transitive dependencies...";

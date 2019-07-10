@@ -7,16 +7,16 @@ const fs = require('fs');
 const path = require('path');
 
 const backendPath = process.argv[2];
-const ssbServerPath = path.join(backendPath, 'node_modules/ssb-server');
+const ssbDbPath = path.join(backendPath, 'node_modules/ssb-db');
 
-if (!fs.existsSync(ssbServerPath)) {
-  throw new Error('Cannot find file ssb-server/lib/apidocs.js to patch');
+if (!fs.existsSync(ssbDbPath)) {
+  throw new Error('Cannot find file ssb-db/index.js to patch');
 }
 
-const apidocsPath = path.join(ssbServerPath, './lib/apidocs.js');
-const prevContent = fs.readFileSync(apidocsPath, 'utf-8');
+const indexjsPath = path.join(ssbDbPath, './index.js');
+const prevContent = fs.readFileSync(indexjsPath, 'utf-8');
 
-const dirname = path.dirname(apidocsPath);
+const dirname = path.dirname(indexjsPath);
 
 function readMarkdownCompileTime(relPath) {
   return fs
@@ -25,30 +25,9 @@ function readMarkdownCompileTime(relPath) {
     .replace(/\`/g, '"');
 }
 
-const nextContent = prevContent
-  .replace(
-    `fs.readFileSync(path.join(__dirname, '../api.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime('../api.md')}\``,
-  )
-  .replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/friends.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime('../plugins/friends.md')}\``,
-  )
-  .replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/gossip.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime('../plugins/gossip.md')}\``,
-  )
-  .replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/invite.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime('../plugins/invite.md')}\``,
-  )
-  .replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/plugins.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime('../plugins/plugins.md')}\``,
-  )
-  .replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/replicate.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime('../plugins/replicate.md')}\``,
-  );
+const nextContent = prevContent.replace(
+  `fs.readFileSync(path.join(__dirname, 'api.md'), 'utf-8')`,
+  `\`${readMarkdownCompileTime('api.md')}\``,
+);
 
-fs.writeFileSync(apidocsPath, nextContent, 'utf-8');
+fs.writeFileSync(indexjsPath, nextContent, 'utf-8');

@@ -17,6 +17,7 @@ const npip = require('non-private-ip');
 const injectSsbConfig = require('ssb-config/inject');
 const BluetoothManager = require('ssb-mobile-bluetooth-manager');
 const bluetoothTransportAndPlugin = require('ssb-bluetooth');
+const SecretStack = require('secret-stack');
 import syncingPlugin = require('./plugins/syncing');
 import blobsFromPathPlugin = require('./plugins/blobsFromPath');
 import votesPlugin = require('./plugins/votes');
@@ -104,17 +105,18 @@ const bluetoothPluginConfig = {
   scope: 'public',
 };
 
-require('ssb-server/index')
+SecretStack({caps: {shs: Buffer.from(require('ssb-caps').shs, 'base64')}})
+  .use(require('ssb-db'))
   .use(noAuthTransform)
   .use(rnChannelTransport)
   .use(wsTransport)
   .use(require('ssb-dht-invite'))
   .use(dhtTransport)
   .use(bluetoothTransportAndPlugin(bluetoothManager, bluetoothPluginConfig))
-  .use(require('ssb-server/plugins/master'))
+  .use(require('ssb-master'))
   .use(require('ssb-lan'))
   .use(require('ssb-conn'))
-  .use(require('ssb-server/plugins/replicate'))
+  .use(require('ssb-replicate'))
   .use(syncingPlugin)
   .use(require('ssb-backlinks'))
   .use(require('ssb-about'))
@@ -127,6 +129,6 @@ require('ssb-server/index')
   .use(require('ssb-contacts'))
   .use(require('ssb-query'))
   .use(require('ssb-threads'))
-  .use(require('ssb-server/plugins/invite'))
+  .use(require('ssb-invite'))
   .use(require('ssb-ebt'))
   .call(null, config);
