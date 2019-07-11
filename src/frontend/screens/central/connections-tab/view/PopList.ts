@@ -142,6 +142,8 @@ function sortByKey<T>(array: State<T>['data']) {
   });
 }
 
+const DEFAULT_DURATION = 250 /* ms */;
+
 export default class PopList<T> extends PureComponent<Props<T>, State<T>> {
   constructor(props: Props<T>) {
     super(props);
@@ -199,9 +201,29 @@ export default class PopList<T> extends PureComponent<Props<T>, State<T>> {
   }
 
   public componentDidUpdate(prevProps: Props<T>) {
-    if (this.noDifference(prevProps, this.props)) return;
+    if (this.noDifference(prevProps, this.props)) {
+      this.purgeOldItems();
+      return;
+    }
 
     this.setState(this.computeNextState());
+  }
+
+  public purgeOldItems() {
+    const maxDuration = (this.props.animationDuration || DEFAULT_DURATION) * 3;
+    const now = Date.now();
+    let purged: boolean = false;
+    const newData = this.state.data.filter(([, , ts]) => {
+      if (ts > 0 && now - ts > maxDuration) {
+        purged = true;
+        return false;
+      } else {
+        return true;
+      }
+    });
+    if (purged) {
+      this.setState({data: sortByKey(newData)});
+    }
   }
 
   public onItemExit = (key: string | number) => {
@@ -218,7 +240,7 @@ export default class PopList<T> extends PureComponent<Props<T>, State<T>> {
           PopItem,
           {
             key,
-            animationDuration: this.props.animationDuration || 250,
+            animationDuration: this.props.animationDuration || DEFAULT_DURATION,
             itemHeight: this.props.itemHeight,
             removed: ts > 0,
             onExit: () => this.onItemExit(key),
