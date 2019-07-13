@@ -48,6 +48,7 @@ cd ./nodejs-assets/nodejs-project;
 $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
   --replace.node-extend=xtend \
+  --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \
   --replace.non-private-ip=non-private-ip-android \
   --replace.utp-native=utp-native-no-prebuild \
   --filter=rn-bridge \

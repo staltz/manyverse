@@ -13,7 +13,6 @@ const rnBridge = require('rn-bridge');
 const rnChannelPlugin = require('multiserver-rn-channel');
 const NoauthTransformPlugin = require('multiserver/plugins/noauth');
 const WS = require('multiserver/plugins/ws');
-const npip = require('non-private-ip');
 const injectSsbConfig = require('ssb-config/inject');
 const BluetoothManager = require('ssb-mobile-bluetooth-manager');
 const bluetoothTransportAndPlugin = require('ssb-bluetooth');
@@ -35,14 +34,13 @@ const config = (() => {
   const c = injectSsbConfig();
   const NET_PORT = 26831;
   const DHT_PORT = 26832;
-  const host = npip.private(); // Avoid (public) rmnet IP addresses
   c.path = ssbPath;
   c.keys = keys;
   c.manifest = manifest;
   c.friends.hops = 2;
   c.connections = {
     incoming: {
-      net: [{scope: 'private', transform: 'shs', host, port: NET_PORT}],
+      net: [{scope: 'private', transform: 'shs', port: NET_PORT}],
       dht: [{scope: 'public', transform: 'shs', port: DHT_PORT}],
       channel: [{scope: 'device', transform: 'noauth'}],
       bluetooth: [{scope: 'public', transform: 'shs'}],
@@ -105,7 +103,7 @@ const bluetoothPluginConfig = {
   scope: 'public',
 };
 
-SecretStack({caps: {shs: Buffer.from(require('ssb-caps').shs, 'base64')}})
+SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-db'))
   .use(noAuthTransform)
   .use(rnChannelTransport)
