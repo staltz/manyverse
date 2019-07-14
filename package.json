@@ -53,7 +53,7 @@
     "multiserver": "1.13.4",
     "multiserver-rn-channel": "~1.2.0",
     "muxrpc": "6.4.1",
-    "nodejs-mobile-react-native": "0.4.1",
+    "nodejs-mobile-react-native": "0.4.3",
     "promisify-tuple": "1.0.0",
     "prop-types": "15.6.x",
     "pull-cat": "1.1.11",
