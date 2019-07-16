@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1907.16-beta
+
+* Bug fix: visual glitch on the connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/97e863fce7ab176c54c204515949035f1797ae73))
+* Fix bug: crashes related to IPv6 and Wi-Fi ([see details](https://gitlab.com/staltz/manyverse/commit/55c30906392728280c2d5ef79905d20056046f58))
+* Improve how connections and disconnections are scheduled ([see details](https://gitlab.com/staltz/manyverse/commit/0dfd5e9d86c1d86c6acb23b24dbbf6857a1effc9))
+
 ## 0.1907.5-beta
 
 * Animate connections appearing and disappearing ([see details](https://gitlab.com/staltz/manyverse/commit/d007f86f60fc802cebcf1dcd5991beb7e8705f41))
