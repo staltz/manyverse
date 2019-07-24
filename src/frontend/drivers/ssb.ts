@@ -64,40 +64,46 @@ export type StagedPeerMetadata = {
 export type StagedPeerKV = [string, StagedPeerMetadata];
 
 function mutateMsgWithLiveExtras(api: any) {
-  return (msg: Msg, cb: Callback<MsgAndExtras>) => {
+  const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
+  return async (msg: Msg, cb: Callback<MsgAndExtras>) => {
     if (!isMsg(msg) || !msg.value) return cb(null, msg as any);
-    const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
+
+    // Fetch name
     const nameOpts = {key: 'name', dest: msg.value.author};
-    aboutSocialValue(nameOpts, (e1: any, nameResult: string) => {
-      if (e1) return cb(e1);
-      const name = nameResult || shortFeedId(msg.value.author);
-      const avatarOpts = {key: 'image', dest: msg.value.author};
-      aboutSocialValue(avatarOpts, (e2: any, val: any) => {
-        if (e2) return cb(e2);
-        const imageUrl = imageToImageUrl(val);
-        const likes = xsFromPullStream(
-          api.sbot.pull.voterStream[0](msg.key),
-        ).startWith([]);
-        const m = msg as MsgAndExtras;
-        m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
-          likes,
-          about: {name, imageUrl},
-        };
-        const content = msg.value.content;
-        if (content && content.type === 'contact' && content.contact) {
-          const dest: FeedId = content.contact;
-          const destOpts = {key: 'name', dest};
-          aboutSocialValue(destOpts, (e3: any, nameResult2: string) => {
-            if (e3) return cb(e3);
-            const destName = nameResult2 || shortFeedId(dest);
-            m.value._$manyverse$metadata.contact = {name: destName};
-            cb(null, m);
-          });
-        } else {
-          cb(null, m);
-        }
-      });
-    });
+    const [e1, nameResult] = await runAsync(aboutSocialValue)(nameOpts);
+    if (e1) return cb(e1);
+    const name = nameResult || shortFeedId(msg.value.author);
+
+    // Fetch avatar
+    const avatarOpts = {key: 'image', dest: msg.value.author};
+    const [e2, val] = await runAsync(aboutSocialValue)(avatarOpts);
+    if (e2) return cb(e2);
+    const imageUrl = imageToImageUrl(val);
+
+    // Get likes stream
+    const likes = xsFromPullStream(
+      api.sbot.pull.voterStream[0](msg.key),
+    ).startWith([]);
+
+    // Create msg object
+    const m = msg as MsgAndExtras;
+    m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
+      likes,
+      about: {name, imageUrl},
+    };
+
+    // Add name of the target contact, if any
+    const content = msg.value.content;
+    if (!content || content.type !== 'contact' || !content.contact) {
+      return cb(null, m);
+    }
+    const dest: FeedId = content.contact;
+    const dOpts = {key: 'name', dest};
+    const [e3, nameResult2] = await runAsync<string>(aboutSocialValue)(dOpts);
+    if (e3) return cb(e3);
+    const destName = nameResult2 || shortFeedId(dest);
+    m.value._$manyverse$metadata.contact = {name: destName};
+    cb(null, m);
   };
 }
 
@@ -111,20 +117,21 @@ function mutateThreadWithLiveExtras(api: any) {
 }
 
 function augmentPeerWithExtras(api: any) {
-  return (kv: PeerKV, cb: Callback<[string, any]>) => {
-    const peer = kv[1];
-    const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
+  const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
+  return async ([addr, peer]: PeerKV, cb: Callback<[string, any]>) => {
+    // Fetch name
     const nameOpts = {key: 'name', dest: peer.key};
-    aboutSocialValue(nameOpts, (e1: any, nameResult: string) => {
-      if (e1) return cb(e1);
-      const name = nameResult || undefined;
-      const avatarOpts = {key: 'image', dest: peer.key};
-      aboutSocialValue(avatarOpts, (e2: any, val: any) => {
-        if (e2) return cb(e2);
-        const imageUrl = imageToImageUrl(val);
-        cb(null, [kv[0], {...peer, name, imageUrl}]);
-      });
-    });
+    const [e1, nameResult] = await runAsync(aboutSocialValue)(nameOpts);
+    if (e1) return cb(e1);
+    const name = nameResult || undefined;
+
+    // Fetch avatar
+    const avatarOpts = {key: 'image', dest: peer.key};
+    const [e2, val] = await runAsync(aboutSocialValue)(avatarOpts);
+    if (e2) return cb(e2);
+    const imageUrl = imageToImageUrl(val);
+
+    cb(null, [addr, {...peer, name, imageUrl}]);
   };
 }
 
