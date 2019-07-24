@@ -127,6 +127,18 @@ function peerModeTitle(peer: PeerKV[1]): string {
   return 'Internet server';
 }
 
+function peerModeName([addr, peer]: PeerKV): string {
+  if (
+    peer.type === 'bt' ||
+    peer.type === 'lan' ||
+    (peer.type as any) === 'dht'
+  ) {
+    return peer.name || peer.key;
+  }
+
+  return peer.name || addr;
+}
+
 export type Props = {
   peers: Array<PeerKV>;
   onPressPeer?: (peer: PeerKV) => void;
@@ -171,7 +183,7 @@ export default class ConnectionsList extends PureComponent<Props> {
                 ellipsizeMode: 'middle',
                 style: styles.peerName,
               },
-              `${peer.name || peer.key}`,
+              peerModeName([addr, peer]),
             ),
             h(View, {style: styles.peerMode}, [
               h(Icon, {
