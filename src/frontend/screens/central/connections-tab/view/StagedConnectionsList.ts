@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
   },
 });
 
-function peerModeIcon([_addr, peer]: StagedPeerKV): string {
+function peerModeIcon(peer: StagedPeerKV[1]): string {
   if (peer.type === 'bt') return 'bluetooth';
   if ((peer.type as any) === 'local') return 'wifi';
   if (peer.type === 'lan') return 'wifi';
@@ -86,9 +86,8 @@ function peerModeIcon([_addr, peer]: StagedPeerKV): string {
   return 'server-network';
 }
 
-function peerModeDescription([_addr, peer]: StagedPeerKV): string {
+function peerModeDescription(peer: StagedPeerKV[1]): string {
   if (peer.type === 'bt') return 'Bluetooth';
-  if ((peer.type as any) === 'local') return 'Local network';
   if (peer.type === 'lan') return 'Local network';
   if (peer.type === 'dht' && peer.role === 'client')
     return 'Internet P2P: looking for online friend...';
@@ -106,14 +105,14 @@ export type Props = {
 };
 
 export default class StagedConnectionsList extends PureComponent<Props> {
-  private renderItem = (peer: StagedPeerKV) => {
+  private renderItem = ([addr, peer]: StagedPeerKV) => {
     return h(
       TouchableOpacity,
       {
         ['key' as any]: peer[0],
         onPress: () => {
           if (this.props.onPressPeer) {
-            this.props.onPressPeer(peer);
+            this.props.onPressPeer([addr, peer]);
           }
         },
         style: styles.itemContainer,
@@ -137,7 +136,7 @@ export default class StagedConnectionsList extends PureComponent<Props> {
                 ellipsizeMode: 'middle',
                 style: styles.peerName,
               },
-              peer[1].note || peer[1].key,
+              (peer as any).name || peer.note || peer.key,
             ),
             h(Text, {style: styles.peerModeText}, peerModeDescription(peer)),
           ]),

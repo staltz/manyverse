@@ -117,7 +117,7 @@ function augmentPeerWithExtras(api: any) {
     const nameOpts = {key: 'name', dest: peer.key};
     aboutSocialValue(nameOpts, (e1: any, nameResult: string) => {
       if (e1) return cb(e1);
-      const name = nameResult || (peer.key ? shortFeedId(peer.key) : kv[0]);
+      const name = nameResult || undefined;
       const avatarOpts = {key: 'image', dest: peer.key};
       aboutSocialValue(avatarOpts, (e2: any, val: any) => {
         if (e2) return cb(e2);
@@ -280,7 +280,11 @@ export class SSBSource {
       .map(api => {
         const connStagedPeers$ = xsFromPullStream<Array<StagedPeerKV>>(
           api.sbot.pull.connStagedPeers[0](),
-        );
+        )
+          .map(peersArr =>
+            xsFromCallback<any>(augmentPeersWithExtras(api))(peersArr),
+          )
+          .flatten();
 
         //#region DHT-related hacks (ideally this should go through CONN)
         const selfId = api.keys.sync.id[0]();
