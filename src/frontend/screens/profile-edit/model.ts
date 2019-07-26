@@ -48,7 +48,7 @@ export default function model(
 
   const changeAvatarReducer$ = actions.changeAvatar$.map(
     image =>
-      function changeDescriptionReducer(prev: State): State {
+      function changeAvatarReducer(prev: State): State {
         return {...prev, newAvatar: image.path.replace('file://', '')};
       },
   );
