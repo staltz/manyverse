@@ -6,6 +6,15 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1907.26-beta
+
+* Bug fix: edit profile picture was broken ([see details](https://gitlab.com/staltz/manyverse/commit/cbace9a34d66295a543fb03955da980dd75ef6f4))
+* Bug fix: internet P2P invites were not being remembered ([see details](https://gitlab.com/staltz/manyverse/commit/4cc5788f5b3c916d08b1bfb41298c7c598c48ca3))
+* Change how pub names are shown in the connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/a78c63956fcc21b98f4e1aa36be7bfc6646b9993))
+* Improve how connections are scheduled ([see details](https://gitlab.com/staltz/manyverse/commit/caaede8604b8da1aace0bb9139c43b6f74cfceaf))
+* Improve privacy in LAN discovery, through encryption ([see details](https://gitlab.com/staltz/manyverse/commit/0d7ae30ccd24fc1d744218255c8b73e85e509f38))
+* Show names of staged connections, when available ([see details](https://gitlab.com/staltz/manyverse/commit/2eaf99bfea7806be679b2262432eca670fcb66d8))
+
 ## 0.1907.16-beta
 
 * Bug fix: visual glitch on the connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/97e863fce7ab176c54c204515949035f1797ae73))
