@@ -19,7 +19,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(fab, 'I see the Floating Action Button');
-    await fab.tap();
+    await fab.click();
     t.pass('I tap it');
     const composeTextInput = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Text Input")',
@@ -35,7 +35,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.pass('I see the Compose Publish Button');
-    await composePublishButton.tap();
+    await composePublishButton.click();
     t.pass('I tap it');
 
     t.ok(
@@ -71,7 +71,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.pass('I see Floating Action Button');
-    await fab.tap();
+    await fab.click();
     t.pass('I tap it');
     t.ok(
       await driver.elementByAndroidUIAutomator(
@@ -110,7 +110,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.pass('I see the Close Button');
-    await closeButton.tap();
+    await closeButton.click();
     t.pass('I tap it');
 
     t.ok(
@@ -125,7 +125,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(saveButton, 'I see the Save button');
-    await saveButton.tap();
+    await saveButton.click();
     t.pass('I tap it');
 
     t.ok(
@@ -141,7 +141,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(fab, 'I see the Floating Action Button');
-    await fab.tap();
+    await fab.click();
     t.pass('I tap it');
 
     const composeTextInput2 = await driver.elementByAndroidUIAutomator(
@@ -157,7 +157,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.pass('I see the Compose Publish Button');
-    await composePublishButton.tap();
+    await composePublishButton.click();
     t.pass('I tap it');
 
     t.ok(
@@ -187,7 +187,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(fab, 'I see the Floating Action Button');
-    await fab.tap();
+    await fab.click();
     t.pass('I tap it');
 
     const composeTextInput = await driver.elementByAndroidUIAutomator(
@@ -205,7 +205,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.pass('I see the Close Button');
-    await closeButton.tap();
+    await closeButton.click();
     t.pass('I tap it');
 
     t.ok(
@@ -220,7 +220,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(deleteButton, 'I see the Delete button');
-    await deleteButton.tap();
+    await deleteButton.click();
     t.pass('I tap it');
 
     t.ok(
@@ -236,7 +236,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(fab2, 'I see the Floating Action Button');
-    await fab2.tap();
+    await fab2.click();
     t.pass('I tap it');
 
     await driver.sleep(2000);
@@ -253,7 +253,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.pass('I see the Close Button');
-    await closeButton2.tap();
+    await closeButton2.click();
     t.pass('I tap it');
 
     t.ok(

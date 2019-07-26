@@ -4,6 +4,32 @@
 const test = require('tape');
 const wd = require('wd');
 
+async function scrollToFeedBottom(driver) {
+  // Scroll six times just to be sure we got to the bottom
+  for (let x of [1, 2, 3, 4, 5, 6]) {
+    let action = new wd.TouchAction(driver);
+    action
+      .press({x: 600, y: 1100})
+      .wait(200)
+      .moveTo({x: 600, y: 600})
+      .release();
+    await action.perform();
+  }
+}
+
+async function scrollToFeedTop(driver) {
+  // Scroll six times just to be sure we got to the top
+  for (let x of [1, 2, 3, 4, 5, 6]) {
+    let action = new wd.TouchAction(driver);
+    action
+      .press({x: 600, y: 600})
+      .wait(200)
+      .moveTo({x: 600, y: 1100})
+      .release();
+    await action.perform();
+  }
+}
+
 module.exports = function(driver, t) {
   t.test('Central screen shows messages with Etc button', async function(t) {
     t.ok(
@@ -18,7 +44,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(chevron, 'I see the Etc Button on a message');
-    await chevron.tap();
+    await chevron.click();
     t.pass('I tap it');
 
     const menuItem = await driver.waitForElementByAndroidUIAutomator(
@@ -26,7 +52,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(menuItem, 'I see a menu with an option "View raw message"');
-    await menuItem.tap();
+    await menuItem.click();
     t.pass('I tap it');
 
     t.ok(
@@ -57,7 +83,7 @@ module.exports = function(driver, t) {
         'new UiSelector().descriptionContains("Floating Action Button")',
         6000,
       );
-      await fab.tap();
+      await fab.click();
       await driver.sleep(500);
       const composeTextInput = await driver.elementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Compose Text Input")',
@@ -68,7 +94,7 @@ module.exports = function(driver, t) {
         'new UiSelector().descriptionContains("Compose Publish Button")',
         6000,
       );
-      await composePublishButton.tap();
+      await composePublishButton.click();
       await driver.sleep(1000);
     }
     t.pass('I created ' + AMOUNT + ' public messages');
@@ -81,12 +107,7 @@ module.exports = function(driver, t) {
       'I see message number ' + AMOUNT + ' on the feed',
     );
 
-    const action = new wd.TouchAction(driver);
-    action.press({x: 200, y: 1000});
-    action.wait(60);
-    action.moveTo({x: 200, y: 700});
-    action.release();
-    await driver.performTouchAction(action);
+    await scrollToFeedBottom(driver);
     t.pass('I scroll down through the feed');
     await driver.sleep(2000);
 
@@ -98,13 +119,7 @@ module.exports = function(driver, t) {
       'I see message number 1 on the feed',
     );
 
-    await driver.performTouchAction(
-      new wd.TouchAction(driver)
-        .press({x: 200, y: 700})
-        .wait(60)
-        .moveTo({x: 200, y: 1000})
-        .release(),
-    );
+    await scrollToFeedTop(driver);
     t.pass('I scroll back up');
 
     t.end();
@@ -127,7 +142,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.pass('I see the Floating Action Button');
-    await fab.tap();
+    await fab.click();
     const composeTextInput = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Text Input")',
       6000,
@@ -137,7 +152,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Compose Publish Button")',
       6000,
     );
-    await composePublishButton.tap();
+    await composePublishButton.click();
 
     t.pass('I created a public message');
 
@@ -155,7 +170,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.pass('I see a like button on that message');
-    await likeButton.tap();
+    await likeButton.click();
     t.pass('I tap the like button');
     await driver.sleep(1000);
     const likeCount = await driver.waitForElementByAndroidUIAutomator(

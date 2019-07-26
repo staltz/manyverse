@@ -109,8 +109,7 @@
     "@babel/core": "^7.4.3",
     "@babel/runtime": "^7.4.3",
     "add-stream": "~1.0.0",
-    "appium": "1.10.0",
-    "cheerio": "^1.0.0-rc.2",
+    "appium": "1.14.0",
     "conventional-changelog": "~2.0.3",
     "into-stream": "~3.1.0",
     "jase": "1.2.0",
@@ -125,7 +124,7 @@
     "tape": "~4.9.1",
     "tslint": "~5.18.0",
     "typescript": "3.5.x",
-    "wd": "1.11.1"
+    "wd": "1.11.3"
   },
   "react-native": {
     "os": "react-native-os-staltz",

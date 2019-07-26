@@ -9,7 +9,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Connections Tab Button")',
     );
     t.ok(connectionsTabButton, 'I see the Connections Tab button');
-    await connectionsTabButton.tap();
+    await connectionsTabButton.click();
     t.pass('I tap it');
 
     t.ok(
@@ -30,7 +30,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(fab, 'I see the Floating Action Button');
-    await fab.tap();
+    await fab.click();
     t.pass('I tap it');
 
     const createInviteButton = await driver.elementByAndroidUIAutomator(
@@ -38,7 +38,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(createInviteButton, 'I see the Create Invite Button');
-    await createInviteButton.tap();
+    await createInviteButton.click();
     t.pass('I tap it');
 
     const inviteCode = await driver.elementByAndroidUIAutomator(
@@ -73,7 +73,7 @@ module.exports = function(driver, t) {
       'new UiSelector().textContains("waiting for online friend")',
     );
     t.ok(invite, 'I see a staged connection for the invite code');
-    await invite.tap();
+    await invite.click();
     t.pass('I tap it');
 
     const addNote = await driver.waitForElementByAndroidUIAutomator(
@@ -81,7 +81,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(addNote, 'I see a slide-in menu with "Add note" option');
-    await addNote.tap();
+    await addNote.click();
     t.pass('I tap it');
 
     await driver.sleep(2000);
@@ -100,7 +100,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(okButton, 'I see the Add button');
-    await okButton.tap();
+    await okButton.click();
     t.pass('I tap it');
 
     t.ok(
@@ -120,7 +120,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(invite, 'I see a staged connection for the invite code');
-    await invite.tap();
+    await invite.click();
     t.pass('I tap it');
 
     const addNote = await driver.waitForElementByAndroidUIAutomator(
@@ -128,7 +128,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(addNote, 'I see a slide-in menu with "Delete" option');
-    await addNote.tap();
+    await addNote.click();
     t.pass('I tap it');
 
     await driver.sleep(2000);
@@ -149,7 +149,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Public Tab Button")',
     );
     t.ok(publicTabButton, 'I see Public Tab button');
-    await publicTabButton.tap();
+    await publicTabButton.click();
     t.pass('I tap it');
 
     t.end();

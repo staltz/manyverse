@@ -20,7 +20,7 @@ module.exports = function(driver, t) {
         6000,
       );
       t.pass('I tap the Floating Action Button');
-      await fab.tap();
+      await fab.click();
       const composeTextInput = await driver.elementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Compose Text Input")',
         6000,
@@ -30,7 +30,7 @@ module.exports = function(driver, t) {
         'new UiSelector().descriptionContains("Compose Publish Button")',
         6000,
       );
-      await composePublishButton.tap();
+      await composePublishButton.click();
       t.pass('I created a public message about dogs');
 
       t.ok(
@@ -47,7 +47,7 @@ module.exports = function(driver, t) {
         6000,
       );
       t.pass('I see the reply button on that message');
-      await replyButton.tap();
+      await replyButton.click();
       t.pass('I tap the reply button');
 
       t.ok(
@@ -68,9 +68,9 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(chevron, 'I see the Etc Button on a message');
-    await chevron.tap();
+    await chevron.click();
     t.pass('I tap it first to hide the keyboard');
-    await chevron.tap();
+    await chevron.click();
     t.pass('I tap it again to open the menu');
 
     const menuItem = await driver.waitForElementByAndroidUIAutomator(
@@ -78,7 +78,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(menuItem, 'I see a menu with an option "View raw message"');
-    await menuItem.tap();
+    await menuItem.click();
     t.pass('I tap it');
 
     t.ok(
@@ -101,13 +101,13 @@ module.exports = function(driver, t) {
       6000,
     );
     t.pass('I see the Reply Text Input');
-    await replyTextInput.tap();
+    await replyTextInput.click();
     await replyTextInput.keys('I like golden retrievers');
     const replyPublishButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Reply Publish Button")',
       6000,
     );
-    await replyPublishButton.tap();
+    await replyPublishButton.click();
     t.pass('I added a reply about dogs');
 
     t.ok(

@@ -48,7 +48,7 @@ module.exports = function(driver, t) {
     const aboutButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("About This App")',
     );
-    await aboutButton.tap();
+    await aboutButton.click();
     t.pass('I tap the About button');
 
     t.ok(

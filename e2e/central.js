@@ -34,7 +34,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Connections Tab Button")',
     );
     t.ok(connectionsTabButton, 'I see the Connections Tab button');
-    await connectionsTabButton.tap();
+    await connectionsTabButton.click();
     t.pass('I tap it');
     t.ok(
       await driver.elementByAndroidUIAutomator(
@@ -63,7 +63,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Local Network Mode")',
     );
     t.ok(lanHelpButton, 'I see LAN mode icon');
-    await lanHelpButton.tap();
+    await lanHelpButton.click();
     t.pass('I tap it');
 
     t.ok(
@@ -82,7 +82,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Public Tab Button")',
     );
     t.ok(publicTabButton, 'I see Public Tab button');
-    await publicTabButton.tap();
+    await publicTabButton.click();
     t.pass('I tap it');
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(

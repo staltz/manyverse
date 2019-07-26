@@ -17,7 +17,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("My Profile Menu Item")',
     );
     t.ok(myProfileButton, 'I see My Profile Button');
-    await myProfileButton.tap();
+    await myProfileButton.click();
     t.pass('I tap it');
 
     // Read the name
@@ -63,7 +63,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(chevron, 'I see the Etc Button on a message');
-    await chevron.tap();
+    await chevron.click();
     t.pass('I tap it');
 
     const menuItem = await driver.waitForElementByAndroidUIAutomator(
@@ -71,7 +71,7 @@ module.exports = function(driver, t) {
       6000,
     );
     t.ok(menuItem, 'I see a menu with an option "View raw message"');
-    await menuItem.tap();
+    await menuItem.click();
     t.pass('I tap it');
 
     t.ok(
@@ -94,7 +94,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Edit Profile Button")',
     );
     t.ok(editProfileButton, 'I see Edit Profile Button');
-    await editProfileButton.tap();
+    await editProfileButton.click();
     t.pass('I tap it');
 
     // Edit name
@@ -112,7 +112,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Description Text Input")',
     );
     t.ok(editDescription, 'I see Description Text Input');
-    await editDescription.tap();
+    await editDescription.click();
     t.pass('I tap it');
     await editDescription.sendKeys('teacher');
     t.pass('I type "teacher" into it');
@@ -122,7 +122,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Profile Picture")',
     );
     t.ok(editAvatar, 'I see the Profile Picture');
-    await editAvatar.tap();
+    await editAvatar.click();
     t.pass('I tap it');
     await driver.sleep(1000);
     let galleryCamera;
@@ -146,7 +146,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Save Profile Button")',
     );
     t.ok(saveProfileButton, 'I see Save Profile Button');
-    await saveProfileButton.tap();
+    await saveProfileButton.click();
     t.pass('I tap it');
 
     t.pass('I wait a bit (3 seconds)');
@@ -168,7 +168,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Biography Button")',
     );
     t.ok(editProfileButton, 'I see the Biography Button');
-    await editProfileButton.tap();
+    await editProfileButton.click();
     t.pass('I tap it');
 
     // Read the description
