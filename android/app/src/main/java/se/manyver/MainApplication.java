@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.UUID;
 
 @AcraCore(buildConfigClass = BuildConfig.class)
-@AcraMailSender(mailTo = "incoming+staltz/manyverse@incoming.gitlab.com")
+@AcraMailSender(mailTo = "incoming+staltz-manyverse-6814019-issue-@incoming.gitlab.com")
 @AcraDialog(resText = R.string.acra_dialog_text, resCommentPrompt = R.string.acra_dialog_comment)
 public class MainApplication extends NavigationApplication {
 

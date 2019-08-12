@@ -7,7 +7,7 @@
 const pkgJSON = require('../../../../package.json');
 
 export default 'mailto:' +
-  'incoming+staltz/manyverse@incoming.gitlab.com' +
+  'incoming+staltz-manyverse-6814019-issue-@incoming.gitlab.com' +
   '?subject=Bug report for version ' +
   pkgJSON.version +
   '&body=Explain what happened and what you expected...';
