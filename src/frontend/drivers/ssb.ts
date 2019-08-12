@@ -536,6 +536,16 @@ export type ConnDisconnectReq = {
   address: string;
 };
 
+export type ConnDisconnectForgetReq = {
+  type: 'conn.disconnectForget';
+  address: string;
+};
+
+export type ConnForgetReq = {
+  type: 'conn.forget';
+  address: string;
+};
+
 export type Req =
   | PublishReq
   | PublishAboutReq
@@ -548,7 +558,9 @@ export type Req =
   | SearchBluetoothReq
   | ConnConnectReq
   | ConnFollowConnectReq
-  | ConnDisconnectReq;
+  | ConnDisconnectReq
+  | ConnDisconnectForgetReq
+  | ConnForgetReq;
 
 function dropCompletion(stream: Stream<any>): Stream<any> {
   return xs.merge(stream, xs.never());
@@ -640,9 +652,31 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           if (err3) return console.error(err3.message || err3);
         }
         if (req.type === 'conn.disconnect') {
-          api.sbot.async.connDisconnect[0](req.address, (err: any) => {
-            if (err) console.error(err.message || err);
-          });
+          const addr = req.address;
+          const [err] = await runAsync(
+            api.sbot.async.connPersistentDisconnect[0],
+          )(addr);
+          if (err) return console.error(err.message || err);
+        }
+        if (req.type === 'conn.disconnectForget') {
+          const addr = req.address;
+
+          // forget
+          const [e1] = await runAsync(api.sbot.async.connForget[0])(addr);
+          if (e1) console.error(e1.message || e1);
+
+          // disconnect
+          const [e2] = await runAsync(
+            api.sbot.async.connPersistentDisconnect[0],
+          )(addr);
+          if (e2) console.error(e2.message || e2);
+        }
+        if (req.type === 'conn.forget') {
+          const addr = req.address;
+          const [e1] = await runAsync(api.sbot.async.connUnstage[0])(addr);
+          if (e1) console.error(e1.message || e1);
+          const [e2] = await runAsync(api.sbot.async.connForget[0])(addr);
+          if (e2) console.error(e2.message || e2);
         }
         if (req.type === 'bluetooth.enable') {
           api.sbot.sync.enableBluetooth[0]();

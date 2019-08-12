@@ -100,6 +100,11 @@ export default function intent(
       .compose(sample(state$))
       .map(state => (state.itemMenu.target as PeerKV)[0]),
 
+    forgetPeer$: menuChoice$
+      .filter(val => val === 'forget')
+      .compose(sample(state$))
+      .map(state => (state.itemMenu.target as PeerKV)[0]),
+
     infoClientDhtInvite$: menuChoice$
       .filter(val => val === 'invite-info')
       .compose(sample(state$))

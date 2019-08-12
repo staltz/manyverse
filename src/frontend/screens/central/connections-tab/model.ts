@@ -43,6 +43,8 @@ export type Actions = {
   connectPeer$: Stream<any>;
   followConnectPeer$: Stream<any>;
   disconnectPeer$: Stream<any>;
+  disconnectForgetPeer$: Stream<any>;
+  forgetPeer$: Stream<any>;
   closeItemMenu$: Stream<any>;
   goToPeerProfile$: Stream<any>;
   infoClientDhtInvite$: Stream<any>;
@@ -206,6 +208,8 @@ export default function model(
       actions.connectPeer$,
       actions.followConnectPeer$,
       actions.disconnectPeer$,
+      actions.disconnectForgetPeer$,
+      actions.forgetPeer$,
       actions.infoClientDhtInvite$,
       actions.infoServerDhtInvite$,
       actions.noteDhtInvite$,

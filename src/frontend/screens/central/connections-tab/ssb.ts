@@ -14,6 +14,8 @@ export type Actions = {
   connectPeer$: Stream<StagedPeerKV>;
   followConnectPeer$: Stream<StagedPeerKV>;
   disconnectPeer$: Stream<string>;
+  disconnectForgetPeer$: Stream<string>;
+  forgetPeer$: Stream<string>;
   pingConnectivityModes$: Stream<any>;
 };
 
@@ -42,6 +44,10 @@ export default function ssb(actions: Actions, networkSource: NetworkSource) {
     actions.disconnectPeer$.map(
       address => ({type: 'conn.disconnect', address} as Req),
     ),
+    actions.disconnectForgetPeer$.map(
+      address => ({type: 'conn.disconnectForget', address} as Req),
+    ),
+    actions.forgetPeer$.map(address => ({type: 'conn.forget', address} as Req)),
     actions.pingConnectivityModes$
       .map(() => networkSource.bluetoothIsEnabled())
       .flatten()

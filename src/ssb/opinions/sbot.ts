@@ -51,6 +51,9 @@ const gives = {
       isBlocking: true,
       connConnect: true,
       connDisconnect: true,
+      connPersistentConnect: true,
+      connPersistentDisconnect: true,
+      connIsInDB: true,
       connStage: true,
       connUnstage: true,
       connRemember: true,
@@ -271,6 +274,15 @@ const create = (api: any) => {
         }),
         connDisconnect: rec.async((address: string, cb: any) => {
           sbot.conn.disconnect(address, cb);
+        }),
+        connPersistentConnect: rec.async((addr: string, data: any, cb: any) => {
+          sbot.connUtils.persistentConnect(addr, data, cb);
+        }),
+        connPersistentDisconnect: rec.async((address: string, cb: any) => {
+          sbot.connUtils.persistentDisconnect(address, cb);
+        }),
+        connIsInDB: rec.async((address: string, cb: any) => {
+          sbot.connUtils.isInDB(address, cb);
         }),
         connStage: rec.async((address: string, data: any, cb: any) => {
           sbot.conn.stage(address, data, cb);
