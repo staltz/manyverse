@@ -8,11 +8,11 @@ import {Command} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
 
 const top5backers = [
-  'DC Posch',
   'Connor Turland',
+  'DC Posch',
   'Jean-Baptiste Giraudeau',
   'Audrey Tang',
-  'Sharp Hall',
+  'Romain Prignon',
 ];
 
 export default {
