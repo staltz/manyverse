@@ -5,10 +5,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {AcceptInviteReq, AcceptDhtInviteReq} from '../../drivers/ssb';
+import {Req} from '../../drivers/ssb';
+const roomUtils = require('ssb-room/utils');
 
 export type Actions = {
   dhtDone$: Stream<string>;
+  roomDone$: Stream<string>;
   normalDone$: Stream<string>;
 };
 
@@ -18,7 +20,16 @@ export default function ssb(actions: Actions) {
       ({
         type: 'invite.accept',
         invite: inviteCode,
-      } as AcceptInviteReq),
+      } as Req),
+  );
+
+  const acceptRoomInvite$ = actions.roomDone$.map(
+    inviteCode =>
+      ({
+        type: 'conn.rememberConnect',
+        address: roomUtils.inviteToAddress(inviteCode),
+        data: {type: 'room'},
+      } as Req),
   );
 
   const acceptDhtInvite$ = actions.dhtDone$.map(
@@ -26,8 +37,8 @@ export default function ssb(actions: Actions) {
       ({
         type: 'dhtInvite.accept',
         invite: inviteCode,
-      } as AcceptDhtInviteReq),
+      } as Req),
   );
 
-  return xs.merge(acceptInvite$, acceptDhtInvite$);
+  return xs.merge(acceptInvite$, acceptRoomInvite$, acceptDhtInvite$);
 }

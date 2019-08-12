@@ -191,7 +191,8 @@ function Body(state: State) {
     h(StagedConnectionsList, {
       ['key' as any]: 'b',
       sel: 'staged-list',
-      peers: state.stagedPeers,
+      peers,
+      stagedPeers,
     }),
 
     emptySection as any,

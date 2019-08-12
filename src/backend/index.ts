@@ -20,6 +20,7 @@ const SecretStack = require('secret-stack');
 import syncingPlugin = require('./plugins/syncing');
 import blobsFromPathPlugin = require('./plugins/blobsFromPath');
 import votesPlugin = require('./plugins/votes');
+import connUtilsPlugin = require('./plugins/connUtils');
 import manifest = require('./manifest');
 
 const appDataDir = rnBridge.app.datadir();
@@ -44,12 +45,14 @@ const config = (() => {
       dht: [{scope: 'public', transform: 'shs', port: DHT_PORT}],
       channel: [{scope: 'device', transform: 'noauth'}],
       bluetooth: [{scope: 'public', transform: 'shs'}],
+      tunnel: [{scope: 'public', transform: 'shs'}],
     },
     outgoing: {
       net: [{transform: 'shs'}],
       dht: [{transform: 'shs'}],
       ws: [{transform: 'shs'}],
       bluetooth: [{scope: 'public', transform: 'shs'}],
+      tunnel: [{transform: 'shs'}],
     },
   };
   return c;
@@ -114,6 +117,8 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-master'))
   .use(require('ssb-lan'))
   .use(require('ssb-conn'))
+  .use(connUtilsPlugin)
+  .use(require('ssb-room/tunnel/client'))
   .use(require('ssb-replicate'))
   .use(syncingPlugin)
   .use(require('ssb-backlinks'))

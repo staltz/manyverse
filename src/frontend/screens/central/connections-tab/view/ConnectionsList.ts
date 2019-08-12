@@ -103,40 +103,98 @@ export const styles = StyleSheet.create({
   },
 });
 
+type Type =
+  | 'bt'
+  | 'lan'
+  | 'internet'
+  | 'dht'
+  | 'pub'
+  | 'room'
+  | 'room-endpoint'
+  | '?';
+
+function detectType(peer: PeerKV[1]): Type {
+  if (peer.type === 'bt') return 'bt';
+  if (peer.type === 'lan') return 'lan';
+  if (peer.type === 'internet') return 'internet';
+  if (peer.type === 'dht') return 'dht';
+  if (peer.type === 'pub') return 'pub';
+  if (peer.type === 'room') return 'room';
+  if (peer.type === 'room-endpoint') return 'room-endpoint';
+  if (peer.source === 'local') return 'lan';
+  if (peer.source === 'pub') return 'pub';
+  if (peer.source === 'internet') return 'internet';
+  if (peer.source === 'dht') return 'dht';
+  if (peer.inferredType === 'bt') return 'bt';
+  if (peer.inferredType === 'lan') return 'lan';
+  if (peer.inferredType === 'tunnel') return 'room-endpoint';
+  if (peer.inferredType === 'dht') return 'dht';
+  return '?';
+}
+
 function peerModeIcon(peer: PeerKV[1]): string {
-  if (peer.type === 'bt') return 'bluetooth';
-  if (peer.type === 'lan') return 'wifi';
-  if (peer.type === 'internet') return 'server-network';
-  if (peer.type === 'dht') return 'account-network';
-  if (peer.source === 'local') return 'wifi';
-  if (peer.source === 'pub') return 'server-network';
-  if (peer.source === 'internet') return 'server-network';
-  if (peer.source === 'dht') return 'account-network';
-  return 'server-network';
-}
+  const type = detectType(peer);
+  switch (type) {
+    case 'bt':
+      return 'bluetooth';
 
-function peerModeTitle(peer: PeerKV[1]): string {
-  if (peer.type === 'bt') return 'Bluetooth';
-  if (peer.type === 'lan') return 'Local network';
-  if (peer.type === 'internet') return 'Internet server';
-  if (peer.type === 'dht') return 'Internet P2P';
-  if (peer.source === 'local') return 'Local network';
-  if (peer.source === 'pub') return 'Internet server';
-  if (peer.source === 'internet') return 'Internet server';
-  if (peer.source === 'dht') return 'Internet P2P';
-  return 'Internet server';
-}
+    case 'lan':
+      return 'wifi';
 
-function peerModeName([addr, peer]: PeerKV): string {
-  if (
-    peer.type === 'bt' ||
-    peer.type === 'lan' ||
-    (peer.type as any) === 'dht'
-  ) {
-    return peer.name || peer.key;
+    case 'dht':
+    case 'room-endpoint':
+      return 'account-network';
+
+    case 'pub':
+    case 'room':
+    case 'internet':
+      return 'server-network';
+
+    default:
+      return 'help-network';
   }
+}
 
-  return peer.name || addr;
+function peerModeDescription(peer: PeerKV[1]): string {
+  const type = detectType(peer);
+  switch (type) {
+    case 'bt':
+      return 'Bluetooth';
+
+    case 'lan':
+      return 'Local network';
+
+    case 'dht':
+      return 'Internet P2P';
+
+    case 'room-endpoint':
+      if (peer.roomName) return `Peer in room '${peer.roomName}'`;
+      else return 'Room peer';
+
+    case 'room':
+      return 'Room server';
+
+    case 'pub':
+      return 'Pub server';
+
+    case 'internet':
+      return 'Server';
+
+    default:
+      return 'Unknown';
+  }
+}
+
+function peerModeName(addr: PeerKV[0], peer: PeerKV[1]): string {
+  const type = detectType(peer);
+  const secondary =
+    type === 'bt' ||
+    type === 'lan' ||
+    type === 'dht' ||
+    type === 'room-endpoint'
+      ? peer.key
+      : addr;
+  return peer.name || secondary;
 }
 
 export type Props = {
@@ -145,7 +203,21 @@ export type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export default class ConnectionsList extends PureComponent<Props> {
+type State = {
+  peers: Array<PeerKV>;
+};
+
+export default class ConnectionsList extends PureComponent<Props, State> {
+  public state = {peers: []};
+
+  public static getDerivedStateFromProps(props: Props) {
+    const peersExceptRooms = props.peers.filter(
+      ([, data]) => (data.type as any) !== 'room',
+    );
+
+    return {peers: peersExceptRooms};
+  }
+
   private renderItem = ([addr, peer]: PeerKV) => {
     return h(
       TouchableOpacity,
@@ -183,7 +255,7 @@ export default class ConnectionsList extends PureComponent<Props> {
                 ellipsizeMode: 'middle',
                 style: styles.peerName,
               },
-              peerModeName([addr, peer]),
+              peerModeName(addr, peer),
             ),
             h(View, {style: styles.peerMode}, [
               h(Icon, {
@@ -191,7 +263,7 @@ export default class ConnectionsList extends PureComponent<Props> {
                 color: Palette.textWeak,
                 name: peerModeIcon(peer),
               }),
-              h(Text, {style: styles.peerModeText}, peerModeTitle(peer)),
+              h(Text, {style: styles.peerModeText}, peerModeDescription(peer)),
             ]),
           ]),
         ]),
@@ -202,7 +274,7 @@ export default class ConnectionsList extends PureComponent<Props> {
   public render() {
     return h<PopListProps<PeerKV>>(PopList, {
       style: [styles.container, this.props.style],
-      data: this.props.peers,
+      data: this.state.peers,
       keyExtractor: ([addr, p]) => p.hubBirth || addr,
       renderItem: this.renderItem,
       itemHeight: 70,

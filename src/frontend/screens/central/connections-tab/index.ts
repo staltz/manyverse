@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command as AlertCommand} from 'cycle-native-alert';
@@ -72,13 +72,23 @@ export function connectionsTab(sources: Sources): Sinks {
   const fabProps$ = floatingAction(sources.state.stream);
   const ssb$ = ssb(actionsPlus, sources.network);
   const alert$ = alert(actionsPlus, sources.state.stream);
-  const share$ = actionsPlus.shareDhtInvite$.map(inviteCode => ({
-    message:
-      'Connect with me on Manyverse by pasting this invite code there:\n\n' +
-      inviteCode,
-    title: 'Manyverse Invite Code',
-    dialogTitle: 'Give this invite code to one friend',
-  }));
+  const share$ = xs.merge(
+    actionsPlus.shareDhtInvite$.map(inviteCode => ({
+      message:
+        'Connect with me on Manyverse by pasting this invite code there:\n\n' +
+        inviteCode,
+      title: 'Manyverse Invite Code',
+      dialogTitle: 'Give this invite code to one friend',
+    })),
+    actionsPlus.shareRoomInvite$.map(({invite, room}) => ({
+      message:
+        `Join me in the SSB Room "${room}" by pasting this invite ` +
+        'code in Manyverse:\n\n' +
+        invite,
+      title: 'Invite code to an SSB Room',
+      dialogTitle: 'Give this invite code to a friend',
+    })),
+  );
   const vdom$ = view(sources.state.stream);
 
   return {

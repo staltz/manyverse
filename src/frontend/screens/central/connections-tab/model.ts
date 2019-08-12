@@ -29,7 +29,7 @@ export type State = {
   bluetoothLastScanned: number;
   itemMenu: {
     opened: boolean;
-    type: 'conn' | 'invite' | 'staging';
+    type: 'conn' | 'invite' | 'staging' | 'room' | 'staged-room';
     target?: any;
   };
   latestInviteMenuTarget: StagedPeer | null;
@@ -39,12 +39,14 @@ export type Actions = {
   pingConnectivityModes$: Stream<any>;
   openPeerInConnection$: Stream<PeerKV>;
   openStagedPeer$: Stream<StagedPeerKV>;
+  openRoom$: Stream<PeerKV>;
   openDHTStagedPeer$: Stream<StagedPeerKV>;
   connectPeer$: Stream<any>;
   followConnectPeer$: Stream<any>;
   disconnectPeer$: Stream<any>;
   disconnectForgetPeer$: Stream<any>;
   forgetPeer$: Stream<any>;
+  shareRoomInvite$: Stream<any>;
   closeItemMenu$: Stream<any>;
   goToPeerProfile$: Stream<any>;
   infoClientDhtInvite$: Stream<any>;
@@ -179,7 +181,22 @@ export default function model(
           ...prev,
           itemMenu: {
             opened: true,
-            type: 'staging',
+            type:
+              (peer[1].type as string) === 'room' ? 'staged-room' : 'staging',
+            target: peer,
+          },
+        };
+      },
+  );
+
+  const openRoomMenuReducer$ = actions.openRoom$.map(
+    peer =>
+      function openRoomMenuReducer(prev: State): State {
+        return {
+          ...prev,
+          itemMenu: {
+            opened: true,
+            type: 'room',
             target: peer,
           },
         };
@@ -201,7 +218,7 @@ export default function model(
       },
   );
 
-  const closeInviteMenuReducer$ = xs
+  const closeMenuReducer$ = xs
     .merge(
       actions.closeItemMenu$,
       actions.goToPeerProfile$,
@@ -210,13 +227,14 @@ export default function model(
       actions.disconnectPeer$,
       actions.disconnectForgetPeer$,
       actions.forgetPeer$,
+      actions.shareRoomInvite$,
       actions.infoClientDhtInvite$,
       actions.infoServerDhtInvite$,
       actions.noteDhtInvite$,
       actions.shareDhtInvite$,
       actions.removeDhtInvite$,
     )
-    .mapTo(function closeInviteMenuReducer(prev: State): State {
+    .mapTo(function closeMenuReducer(prev: State): State {
       return {
         ...prev,
         itemMenu: {...prev.itemMenu, opened: false},
@@ -248,8 +266,9 @@ export default function model(
     setStagedPeersReducer$,
     openConnMenuReducer$,
     openStagingMenuReducer$,
+    openRoomMenuReducer$,
     openInviteMenuReducer$,
-    closeInviteMenuReducer$,
+    closeMenuReducer$,
     addNoteFromDialogReducer$,
   );
 }

@@ -131,7 +131,11 @@ function augmentPeerWithExtras(api: any) {
     if (e2) return cb(e2);
     const imageUrl = imageToImageUrl(val);
 
-    cb(null, [addr, {...peer, name, imageUrl}]);
+    // Fetch 'isInDB' boolean
+    const [e3, isInDB] = await runAsync(api.sbot.async.connIsInDB[0])(addr);
+    if (e3) return cb(e3);
+
+    cb(null, [addr, {name, imageUrl, isInDB, ...peer}]);
   };
 }
 
@@ -524,6 +528,12 @@ export type ConnConnectReq = {
   hubData?: any;
 };
 
+export type ConnRememberConnectReq = {
+  type: 'conn.rememberConnect';
+  address: string;
+  data?: any;
+};
+
 export type ConnFollowConnectReq = {
   type: 'conn.followConnect';
   address: string;
@@ -557,6 +567,7 @@ export type Req =
   | DisableBluetoothReq
   | SearchBluetoothReq
   | ConnConnectReq
+  | ConnRememberConnectReq
   | ConnFollowConnectReq
   | ConnDisconnectReq
   | ConnDisconnectForgetReq
@@ -623,33 +634,53 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
         if (req.type === 'conn.connect') {
           // connect
           const addr = req.address;
-          const [err] = await runAsync(api.sbot.async.connConnect[0])(
-            addr,
-            req.hubData || {},
-          );
+          const [err, result] = await runAsync(
+            api.sbot.async.connPersistentConnect[0],
+          )(addr, req.hubData || {});
           if (err) return console.error(err.message || err);
+          if (!result) return console.error(`connecting to ${addr} failed`);
+        }
+        if (req.type === 'conn.rememberConnect') {
+          // remember
+          const addr = req.address;
+          const [e1] = await runAsync(api.sbot.async.connRemember[0])(
+            addr,
+            req.data || {},
+          );
+          if (e1) return console.error(e1.message || e1);
+
+          // connect
+          const [e2, result] = await runAsync(
+            api.sbot.async.connPersistentConnect[0],
+          )(addr, req.data || {});
+          if (e2) return console.error(e2.message || e2);
+          if (!result) return console.error(`connecting to ${addr} failed`);
+          // TODO show this error as a Toast
         }
         if (req.type === 'conn.followConnect') {
           // connect
           const addr = req.address;
-          const [err] = await runAsync(api.sbot.async.connConnect[0])(
-            addr,
-            req.hubData || {},
-          );
-          if (err) return console.error(err.message || err);
+          const [e1, result] = await runAsync(
+            api.sbot.async.connPersistentConnect[0],
+          )(addr, req.hubData || {});
+          if (e1) return console.error(e1.message || e1);
+          if (!result) return console.error(`connecting to ${addr} failed`);
+          // TODO show this error as a Toast
 
           // check if following
           const selfId = api.keys.sync.id[0]();
           const friendId = req.key || '@' + addr.split('shs:')[1] + '.ed25519';
           const opts = {source: selfId, dest: friendId};
-          const [err2, f] = await runAsync(api.sbot.async.isFollowing[0])(opts);
-          if (err2) return console.error(err2.message || err2);
-          if (f) return;
+          const [e2, alreadyFollow] = await runAsync<boolean>(
+            api.sbot.async.isFollowing[0],
+          )(opts);
+          if (e2) return console.error(e2.message || e2);
+          if (alreadyFollow) return;
 
           // follow
           const msg = {type: 'contact', contact: friendId, following: true};
-          const [err3] = await runAsync(api.sbot.async.publish[0])(msg);
-          if (err3) return console.error(err3.message || err3);
+          const [e3] = await runAsync(api.sbot.async.publish[0])(msg);
+          if (e3) return console.error(e3.message || e3);
         }
         if (req.type === 'conn.disconnect') {
           const addr = req.address;

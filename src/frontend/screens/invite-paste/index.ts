@@ -63,7 +63,12 @@ export function pasteInvite(sources: Sources): Sinks {
   const reducer$ = model(actions);
   const newContent$ = ssb(actions);
   const dismiss$ = xs
-    .merge(actions.normalDone$, actions.dhtDone$, topBarSinks.back)
+    .merge(
+      actions.dhtDone$,
+      actions.roomDone$,
+      actions.normalDone$,
+      topBarSinks.back,
+    )
     .mapTo('dismiss' as 'dismiss');
 
   return {

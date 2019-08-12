@@ -130,16 +130,17 @@ export = {
     isEnabled: 'async',
   },
   conn: {
-    connect: 'async',
-    disconnect: 'async',
-    stage: 'sync',
-    unstage: 'sync',
     remember: 'sync',
     forget: 'sync',
+    dbPeers: 'sync',
+    connect: 'async',
+    disconnect: 'async',
+    peers: 'source',
+    stage: 'sync',
+    unstage: 'sync',
+    stagedPeers: 'source',
     start: 'sync',
     stop: 'sync',
-    peers: 'source',
-    stagedPeers: 'source',
     ping: 'duplex',
   },
 
@@ -152,5 +153,18 @@ export = {
   },
   votes: {
     voterStream: 'source',
+  },
+  tunnel: {
+    announce: 'sync',
+    leave: 'sync',
+    isRoom: 'async',
+    connect: 'duplex',
+    endpoints: 'source',
+    ping: 'sync',
+  },
+  connUtils: {
+    persistentConnect: 'async',
+    persistentDisconnect: 'async',
+    isInDB: 'async',
   },
 };

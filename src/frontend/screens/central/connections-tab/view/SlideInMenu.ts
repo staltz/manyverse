@@ -27,6 +27,8 @@ export type MenuChoice =
   | 'follow-connect'
   | 'disconnect'
   | 'disconnect-forget'
+  | 'forget'
+  | 'room-share-invite'
   | 'invite-info'
   | 'invite-note'
   | 'invite-share'
@@ -65,6 +67,11 @@ class MenuOptionContent extends React.PureComponent<MenuOptionContentProps> {
   }
 }
 
+/**
+ * This is `x => x`, but exists just to make sure TypeScript will
+ * check for the specific values of `MenuChoice` as opposed to allowing
+ * any string. Maybe TypeScript gets better/smarter in the future?
+ */
 function menuChoice(m: MenuChoice): MenuChoice {
   return m;
 }
@@ -102,6 +109,69 @@ function connMenuOptions(targetPeer: any) {
       }),
     );
   }
+
+  return options;
+}
+
+function stagedRoomMenuOptions() {
+  const options = [
+    h(MenuOption, {
+      value: menuChoice('room-share-invite'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'content-copy',
+        text: 'Share invite code',
+        accessibilityLabel: 'Share the invite code for this room',
+      }),
+    }),
+    h(MenuOption, {
+      value: menuChoice('connect'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'pipe',
+        text: 'Connect',
+        accessibilityLabel: 'Connect to this suggested room',
+      }),
+    }),
+    h(MenuOption, {
+      value: menuChoice('forget'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'delete',
+        text: 'Forget',
+        accessibilityLabel: 'Remove this room from our database',
+      }),
+    }),
+  ];
+
+  return options;
+}
+
+function roomMenuOptions() {
+  const options = [
+    h(MenuOption, {
+      value: menuChoice('room-share-invite'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'content-copy',
+        text: 'Share invite code',
+        accessibilityLabel: 'Share the invite code for this room',
+      }),
+    }),
+    h(MenuOption, {
+      value: menuChoice('disconnect'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'pipe-disconnected',
+        text: 'Disconnect',
+        accessibilityLabel: 'Disconnect from this room',
+      }),
+    }),
+    h(MenuOption, {
+      value: menuChoice('disconnect-forget'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'delete',
+        text: 'Disconnect and forget',
+        accessibilityLabel:
+          'Disconnect from this room and remove it from our database',
+      }),
+    }),
+  ];
 
   return options;
 }
@@ -188,8 +258,12 @@ export default function SlideInMenu(state: State) {
         MenuOptions,
         type === 'conn'
           ? connMenuOptions(target)
+          : type === 'room'
+          ? roomMenuOptions()
           : type === 'staging'
           ? stagingMenuOptions()
+          : type === 'staged-room'
+          ? stagedRoomMenuOptions()
           : type === 'invite'
           ? inviteMenuOptions()
           : [],

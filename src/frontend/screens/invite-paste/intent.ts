@@ -13,6 +13,7 @@ import {KeyboardSource} from 'cycle-native-keyboard';
 import {NavSource} from 'cycle-native-navigation';
 import {State} from './model';
 import {LifecycleEvent} from '../../drivers/lifecycle';
+const roomUtils = require('ssb-room/utils');
 
 export default function intent(
   reactSource: ReactSource,
@@ -32,9 +33,15 @@ export default function intent(
     .filter(text => text.length > 0);
 
   return {
-    dhtDone$: done$.filter(text => text.substr(0, 4) === 'dht:'),
+    dhtDone$: done$.filter(text => text.startsWith('dht:')),
 
-    normalDone$: done$.filter(text => text.substr(0, 4) !== 'dht:'),
+    roomDone$: done$.filter(
+      text => !text.startsWith('dht:') && roomUtils.isInvite(text),
+    ),
+
+    normalDone$: done$.filter(
+      text => !text.startsWith('dht:') && !roomUtils.isInvite(text),
+    ),
 
     updateContent$: reactSource
       .select('contentInput')

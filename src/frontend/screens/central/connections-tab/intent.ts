@@ -19,6 +19,7 @@ import {
 } from '../../../drivers/ssb';
 import {State} from './model';
 import {MenuChoice} from './view/SlideInMenu';
+const roomUtils = require('ssb-room/utils');
 
 export default function intent(
   reactSource: ReactSource,
@@ -64,17 +65,21 @@ export default function intent(
 
     openStagedPeer$: reactSource
       .select('staged-list')
-      .events('pressPeer')
+      .events('pressStagedPeer')
       .filter((peer: StagedPeerKV) => peer[1].type !== 'dht'),
+
+    openRoom$: reactSource.select('staged-list').events('pressRoom') as Stream<
+      PeerKV
+    >,
 
     openDHTStagedPeer$: reactSource
       .select('staged-list')
-      .events('pressPeer')
+      .events('pressStagedPeer')
       .filter((peer: StagedPeerKV) => peer[1].type === 'dht'),
 
     goToPeerProfile$: menuChoice$
       .filter(val => val === 'open-profile')
-        .compose(sample(state$))
+      .compose(sample(state$))
       .map(
         state =>
           (state.itemMenu.target as PeerKV | StagedPeerKV)[1].key as FeedId,
@@ -82,7 +87,7 @@ export default function intent(
 
     connectPeer$: menuChoice$
       .filter(val => val === 'connect')
-        .compose(sample(state$))
+      .compose(sample(state$))
       .map(state => state.itemMenu.target) as Stream<StagedPeerKV>,
 
     followConnectPeer$: menuChoice$
@@ -104,6 +109,17 @@ export default function intent(
       .filter(val => val === 'forget')
       .compose(sample(state$))
       .map(state => (state.itemMenu.target as PeerKV)[0]),
+
+    shareRoomInvite$: menuChoice$
+      .filter(val => val === 'room-share-invite')
+      .compose(sample(state$))
+      .map(state => {
+        const peer = state.itemMenu.target as PeerKV;
+        return {
+          invite: roomUtils.addressToInvite(peer[0]),
+          room: (peer[1].name as string) || peer[0],
+        };
+      }),
 
     infoClientDhtInvite$: menuChoice$
       .filter(val => val === 'invite-info')
