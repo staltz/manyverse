@@ -69,7 +69,7 @@
     "react": "16.8.6",
     "react-human-time": "^1.1.0",
     "react-markdown": "3.4.0",
-    "react-native": "0.59.8",
+    "react-native": "0.59.10",
     "react-native-android-local-notification": "2.0.0",
     "react-native-android-wifi": "0.0.40",
     "react-native-bluetooth-socket-bridge": "1.1.3",
