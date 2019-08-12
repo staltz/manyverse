@@ -5,6 +5,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
+import dropRepeats from 'xstream/extra/dropRepeats';
+import concat from 'xstream/extra/concat';
 import {ReactSource} from '@cycle/react';
 import {FeedId} from 'ssb-typescript';
 import {PermissionsAndroid} from 'react-native';
@@ -15,9 +18,7 @@ import {
   PeerKV,
 } from '../../../drivers/ssb';
 import {State} from './model';
-import sample from 'xstream-sample';
-import dropRepeats from 'xstream/extra/dropRepeats';
-import concat from 'xstream/extra/concat';
+import {MenuChoice} from './view/SlideInMenu';
 
 export default function intent(
   reactSource: ReactSource,
@@ -26,6 +27,11 @@ export default function intent(
   fabPress$: Stream<string>,
 ) {
   const back$ = navSource.backPress();
+
+  const menuChoice$ = reactSource
+    .select('slide-in-menu')
+    .events('select') as Stream<MenuChoice>;
+
   return {
     //#region Header actions
 
@@ -66,68 +72,51 @@ export default function intent(
       .events('pressPeer')
       .filter((peer: StagedPeerKV) => peer[1].type === 'dht'),
 
-    goToPeerProfile$: xs.merge(
-      reactSource
-        .select('slide-in-menu')
-        .events('select')
-        .filter(val => val === 'conn-profile')
+    goToPeerProfile$: menuChoice$
+      .filter(val => val === 'open-profile')
         .compose(sample(state$))
-        .map(state => (state.itemMenu.target as PeerKV)[1].key as FeedId),
+      .map(
+        state =>
+          (state.itemMenu.target as PeerKV | StagedPeerKV)[1].key as FeedId,
+      ),
 
-      reactSource
-        .select('slide-in-menu')
-        .events('select')
-        .filter(val => val === 'staging-profile')
+    connectPeer$: menuChoice$
+      .filter(val => val === 'connect')
         .compose(sample(state$))
-        .map(state => (state.itemMenu.target as StagedPeerKV)[1].key as FeedId),
-    ),
+      .map(state => state.itemMenu.target) as Stream<StagedPeerKV>,
 
-    connectPeer$: reactSource
-      .select('slide-in-menu')
-      .events('select')
-      .filter(val => val === 'staging-connect')
+    followConnectPeer$: menuChoice$
+      .filter(val => val === 'follow-connect')
       .compose(sample(state$))
       .map(state => state.itemMenu.target) as Stream<StagedPeerKV>,
 
-    followConnectPeer$: reactSource
-      .select('slide-in-menu')
-      .events('select')
-      .filter(val => val === 'staging-follow-connect')
-      .compose(sample(state$))
-      .map(state => state.itemMenu.target) as Stream<StagedPeerKV>,
-
-    disconnectPeer$: reactSource
-      .select('slide-in-menu')
-      .events('select')
-      .filter(val => val === 'conn-disconnect')
+    disconnectPeer$: menuChoice$
+      .filter(val => val === 'disconnect')
       .compose(sample(state$))
       .map(state => (state.itemMenu.target as PeerKV)[0]),
 
-    infoClientDhtInvite$: reactSource
-      .select('slide-in-menu')
-      .events('select')
+    disconnectForgetPeer$: menuChoice$
+      .filter(val => val === 'disconnect-forget')
+      .compose(sample(state$))
+      .map(state => (state.itemMenu.target as PeerKV)[0]),
+
+    infoClientDhtInvite$: menuChoice$
       .filter(val => val === 'invite-info')
       .compose(sample(state$))
       .filter(state => (state.itemMenu.target as StagedPeer).role !== 'server')
       .mapTo(null),
 
-    infoServerDhtInvite$: reactSource
-      .select('slide-in-menu')
-      .events('select')
+    infoServerDhtInvite$: menuChoice$
       .filter(val => val === 'invite-info')
       .compose(sample(state$))
       .filter(state => (state.itemMenu.target as StagedPeer).role === 'server')
       .mapTo(null),
 
-    noteDhtInvite$: reactSource
-      .select('slide-in-menu')
-      .events('select')
+    noteDhtInvite$: menuChoice$
       .filter(val => val === 'invite-note')
       .mapTo(null),
 
-    shareDhtInvite$: reactSource
-      .select('slide-in-menu')
-      .events('select')
+    shareDhtInvite$: menuChoice$
       .filter(val => val === 'invite-share')
       .compose(sample(state$))
       .map(
@@ -138,9 +127,7 @@ export default function intent(
           state.selfFeedId,
       ),
 
-    removeDhtInvite$: reactSource
-      .select('slide-in-menu')
-      .events('select')
+    removeDhtInvite$: menuChoice$
       .filter(val => val === 'invite-delete')
       .compose(sample(state$))
       .map(state => (state.itemMenu.target as StagedPeer).key),

@@ -9,7 +9,6 @@ import {h} from '@cycle/react';
 import {
   ScrollView,
   View,
-  Text,
   TouchableHighlight,
   Animated,
   Easing,
@@ -17,13 +16,6 @@ import {
 } from 'react-native';
 import * as React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  Menu,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-  renderers,
-} from 'react-native-popup-menu';
 import {styles} from './styles';
 import {State} from '../model';
 import {Palette} from '../../../../global-styles/palette';
@@ -31,6 +23,7 @@ import {Dimensions} from '../../../../global-styles/dimens';
 import ConnectionsList from './ConnectionsList';
 import StagedConnectionsList from './StagedConnectionsList';
 import EmptySection from '../../../../components/EmptySection';
+import SlideInMenu from './SlideInMenu';
 
 type ModeProps = {
   onPress?: () => void;
@@ -203,146 +196,6 @@ function Body(state: State) {
 
     emptySection as any,
   ]);
-}
-
-type MenuOptionContentProps = {
-  icon: string;
-  text: string;
-  accessibilityLabel?: string;
-};
-
-class MenuOptionContent extends React.PureComponent<MenuOptionContentProps> {
-  public render() {
-    const {icon, text, accessibilityLabel} = this.props;
-
-    return h(
-      View,
-      {
-        accessible: true,
-        accessibilityLabel,
-        style: styles.menuOptionContent,
-      },
-      [
-        h(Icon, {
-          size: Dimensions.iconSizeNormal,
-          color: Palette.textWeak,
-          name: icon,
-        }),
-        h(Text, {style: styles.menuOptionContentText}, text),
-      ],
-    );
-  }
-}
-
-function connMenuOptions() {
-  return [
-    h(MenuOption, {
-      value: 'conn-profile',
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'account-circle',
-        text: 'Open profile',
-        accessibilityLabel: 'Open profile screen for this connected peer',
-      }),
-    }),
-    h(MenuOption, {
-      value: 'conn-disconnect',
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'pipe-disconnected',
-        text: 'Disconnect',
-        accessibilityLabel: 'Disconnect from this peer',
-      }),
-    }),
-  ];
-}
-
-function stagingMenuOptions() {
-  return [
-    h(MenuOption, {
-      value: 'staging-profile',
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'account-circle',
-        text: 'Open profile',
-        accessibilityLabel: 'Open profile screen for this suggested connection',
-      }),
-    }),
-    h(MenuOption, {
-      value: 'staging-connect',
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'pipe',
-        text: 'Connect',
-        accessibilityLabel: 'Connect to this suggested peer',
-      }),
-    }),
-    h(MenuOption, {
-      value: 'staging-follow-connect',
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'account-plus',
-        text: 'Connect and follow',
-        accessibilityLabel: 'Connect to this suggested peer then follow them',
-      }),
-    }),
-  ];
-}
-
-function inviteMenuOptions() {
-  return [
-    h(MenuOption, {
-      value: 'invite-info',
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'information',
-        text: 'About',
-        accessibilityLabel: 'About this Invite Code',
-      }),
-    }),
-    h(MenuOption, {
-      value: 'invite-note',
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'pencil',
-        text: 'Add note',
-        accessibilityLabel: 'Add Note',
-      }),
-    }),
-    h(MenuOption, {
-      value: 'invite-share',
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'share',
-        text: 'Share',
-        accessibilityLabel: 'Share Invite Code',
-      }),
-    }),
-    h(MenuOption, {
-      value: 'invite-delete',
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'delete',
-        text: 'Delete',
-        accessibilityLabel: 'Delete Invite Code',
-      }),
-    }),
-  ];
-}
-
-function SlideInMenu(state: State) {
-  return h(
-    Menu,
-    {
-      sel: 'slide-in-menu',
-      renderer: renderers.SlideInMenu,
-      opened: state.itemMenu.opened,
-    },
-    [
-      h(MenuTrigger, {disabled: true}),
-      h(
-        MenuOptions,
-        state.itemMenu.type === 'conn'
-          ? connMenuOptions()
-          : state.itemMenu.type === 'staging'
-          ? stagingMenuOptions()
-          : state.itemMenu.type === 'invite'
-          ? inviteMenuOptions()
-          : [],
-      ),
-    ],
-  );
 }
 
 export default function view(state$: Stream<State>) {
