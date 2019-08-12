@@ -18,6 +18,6 @@ export function shortFeedId(feedId: FeedId): string {
 export function imageToImageUrl(val: any) {
   let image: string | null = val;
   if (!!val && typeof val === 'object' && val.link) image = val.link;
-  const imageUrl: string | null = image ? blobIdToUrl(image) : null;
+  const imageUrl: string | undefined = image ? blobIdToUrl(image) : undefined;
   return imageUrl;
 }
