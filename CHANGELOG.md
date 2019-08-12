@@ -6,6 +6,13 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1908.12-beta
+
+* Bug fix: crash reports or bug reports via email ([see details](https://gitlab.com/staltz/manyverse/commit/5cd2aa6d8baa04065907f4c68cfbfe8909af7088))
+* Feature: menu option to 'forget' some connected servers ([see details](https://gitlab.com/staltz/manyverse/commit/0fafb461ca84b5be849306f831751c82d9dfe7ad))
+* Support connecting to SSB rooms ([see details](https://gitlab.com/staltz/manyverse/commit/dab3e487694c88cb188e7bd3c7ab6a5724d88527))
+* Update backers in the Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/54050090e9c7a799fa47aa41283e6e63abfdf8ad))
+
 ## 0.1907.26-beta
 
 * Bug fix: edit profile picture was broken ([see details](https://gitlab.com/staltz/manyverse/commit/cbace9a34d66295a543fb03955da980dd75ef6f4))
