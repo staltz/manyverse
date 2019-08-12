@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1908.12-beta.b
+
+* Performance boost for arm64 devices ([see details](https://gitlab.com/staltz/manyverse/commit/d706f5f74a4bf7d7f7ad0e851748c5d5b764df98))
+
 ## 0.1908.12-beta
 
 * Bug fix: crash reports or bug reports via email ([see details](https://gitlab.com/staltz/manyverse/commit/5cd2aa6d8baa04065907f4c68cfbfe8909af7088))
