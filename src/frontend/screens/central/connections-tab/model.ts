@@ -23,6 +23,7 @@ export type State = {
   lanEnabled: boolean;
   internetEnabled: boolean;
   peers: Array<PeerKV>;
+  rooms: Array<PeerKV>;
   stagedPeers: Array<StagedPeerKV>;
   isSyncing: boolean;
   isVisible: boolean;
@@ -74,6 +75,7 @@ export default function model(
       isVisible: false,
       bluetoothLastScanned: 0,
       peers: [],
+      rooms: [],
       stagedPeers: [],
       itemMenu: {opened: false, type: 'conn'},
       latestInviteMenuTarget: null,
@@ -118,9 +120,15 @@ export default function model(
     );
 
   const setPeersReducer$ = ssbSource.peers$.map(
-    peers =>
+    allPeers =>
       function setPeersReducer(prev: State): State {
-        return {...prev, peers};
+        const peers = allPeers.filter(
+          ([, data]) => (data.type as any) !== 'room',
+        );
+        const rooms = allPeers.filter(
+          ([, data]) => (data.type as any) === 'room',
+        );
+        return {...prev, peers, rooms};
       },
   );
 

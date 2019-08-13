@@ -29,13 +29,17 @@ const dotStyle: ViewStyle = {
   borderWidth: 1,
   marginTop: 5,
   marginLeft: 3.5,
-  marginRight: 7,
+  marginRight: Dimensions.horizontalSpaceTiny,
 };
+
+const SHORT_ITEM_HEIGHT = 48;
+const ITEM_HEIGHT = 70;
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     backgroundColor: Palette.backgroundTextBrand,
+    marginBottom: Dimensions.verticalSpaceNormal,
   },
 
   stagedPeerContainer: {
@@ -94,8 +98,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
 
-  row: {
+  roomRow: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   peerName: {
@@ -104,6 +109,16 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.text,
     minWidth: 120,
+  },
+
+  roomName: {
+    fontSize: Typography.fontSizeNormal,
+    fontWeight: 'bold',
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.text,
+    marginLeft: Dimensions.horizontalSpaceTiny,
+    minWidth: 120,
+    flex: 1,
   },
 
   peerModeText: {
@@ -120,8 +135,7 @@ export const styles = StyleSheet.create({
   },
 
   roomOnlineCount: {
-    fontSize: Typography.fontSizeSmall,
-    fontWeight: 'bold',
+    fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
   },
@@ -169,7 +183,6 @@ type RoomData = {
   type: 'room';
   name?: string;
   onlineCount?: number;
-  _isRoomFromConnHub?: boolean;
 };
 
 type StagedRoomPeerData = {
@@ -187,58 +200,47 @@ type MixedPeerKV = RoomKV | StagedKV;
 
 export type Props = {
   style?: StyleProp<ViewStyle>;
-  peers: Array<PeerKV>;
+  rooms: Array<PeerKV | RoomKV>;
   stagedPeers: Array<StagedPeerKV>;
   onPressRoom?: (peer: [string, RoomData]) => void;
   onPressStagedPeer?: (peer: StagedKV) => void;
 };
 
 type State = {
-  mixedPeers: Array<MixedPeerKV>;
+  misc: Array<MixedPeerKV>;
+  peersByRoom: Array<Array<MixedPeerKV>>;
 };
 
 function isRoomKV(kv: MixedPeerKV): kv is RoomKV {
-  return !!(kv as RoomKV)[1]._isRoomFromConnHub;
-}
-
-function getSortingToken([addr, data]: MixedPeerKV): string {
-  if (data.type !== 'room' && data.type !== 'room-endpoint') {
-    return `misc_${addr}`;
-  }
-  if (data.type === 'room' && data.key) {
-    return `room_${data.key}_aaa`;
-  }
-  if (data.type === 'room-endpoint' && data.room) {
-    return `room_${data.room}_${data.key}`;
-  }
-  return `misc`;
+  return kv[1].type === 'room';
 }
 
 export default class StagedConnectionsList extends PureComponent<Props, State> {
-  public state = {mixedPeers: []};
+  public state: State = {
+    misc: [],
+    peersByRoom: [],
+  };
 
-  public static getDerivedStateFromProps(props: Props) {
-    const rooms = (props.peers.filter(
-      ([, data]) => (data.type as any) === 'room',
-    ) as any).map(([addr, data]: RoomKV) => {
-      data._isRoomFromConnHub = true;
-      return [addr, data];
-    });
+  public static getDerivedStateFromProps(props: Props): State {
+    const misc: Array<MixedPeerKV> = [];
+    const roomGroups: Record<string, Array<MixedPeerKV>> = {};
 
-    const mixedPeers = ([] as Array<MixedPeerKV>)
-      .concat(props.stagedPeers)
-      .concat(rooms);
+    for (const peer of props.rooms as Array<RoomKV>) {
+      roomGroups[peer[1].key!] = [peer];
+    }
 
-    mixedPeers.sort((a: MixedPeerKV, b: MixedPeerKV) => {
-      const tokenA = getSortingToken(a);
-      const tokenB = getSortingToken(b);
-      return tokenA.localeCompare(tokenB);
-    });
+    for (const peer of props.stagedPeers as Array<MixedPeerKV>) {
+      if (peer[1].type === 'room-endpoint' && roomGroups[peer[1].room]) {
+        roomGroups[peer[1].room].push(peer);
+      } else {
+        misc.push(peer);
+      }
+    }
 
-    return {mixedPeers};
+    return {misc, peersByRoom: Object.values(roomGroups)};
   }
 
-  private renderStagedPeer([addr, peer]: StagedKV) {
+  private renderStagedPeer = ([addr, peer]: StagedKV) => {
     return h(
       TouchableOpacity,
       {
@@ -276,9 +278,9 @@ export default class StagedConnectionsList extends PureComponent<Props, State> {
         ]),
       ],
     );
-  }
+  };
 
-  private renderRoom([addr, peer]: RoomKV) {
+  private renderRoom = ([addr, peer]: RoomKV) => {
     return h(
       TouchableOpacity,
       {
@@ -294,7 +296,7 @@ export default class StagedConnectionsList extends PureComponent<Props, State> {
       [
         h(View, {style: styles.peer}, [
           h(View, {style: styles.peerDetails}, [
-            h(View, {style: styles.row}, [
+            h(View, {style: styles.roomRow}, [
               h(View, {
                 style:
                   peer.state === 'connected'
@@ -303,18 +305,6 @@ export default class StagedConnectionsList extends PureComponent<Props, State> {
                     ? styles.disconnectingDot
                     : styles.connectingDot,
               }),
-              h(
-                Text,
-                {
-                  numberOfLines: 1,
-                  ellipsizeMode: 'middle',
-                  style: styles.peerName,
-                },
-                peer.name || addr,
-              ),
-            ]),
-
-            h(View, {style: styles.row}, [
               h(Icon, {
                 size: Dimensions.iconSizeSmall,
                 color: Palette.textWeak,
@@ -322,8 +312,12 @@ export default class StagedConnectionsList extends PureComponent<Props, State> {
               }),
               h(
                 Text,
-                {style: styles.roomModeText},
-                peerModeDescription(peer as any),
+                {
+                  numberOfLines: 1,
+                  ellipsizeMode: 'tail',
+                  style: styles.roomName,
+                },
+                peer.name || addr,
               ),
               typeof peer.onlineCount === 'number'
                 ? h(
@@ -339,7 +333,7 @@ export default class StagedConnectionsList extends PureComponent<Props, State> {
         ]),
       ],
     );
-  }
+  };
 
   private renderItem = (entry: MixedPeerKV) => {
     if (isRoomKV(entry)) {
@@ -349,13 +343,33 @@ export default class StagedConnectionsList extends PureComponent<Props, State> {
     }
   };
 
+  private getItemHeight = (entry: MixedPeerKV) => {
+    return isRoomKV(entry) ? SHORT_ITEM_HEIGHT : ITEM_HEIGHT;
+  };
+
   public render() {
-    return h<PopListProps<MixedPeerKV>>(PopList, {
-      style: [styles.container, this.props.style],
-      data: this.state.mixedPeers,
-      keyExtractor: ([addr]) => addr,
-      renderItem: this.renderItem,
-      itemHeight: 70,
-    });
+    return h(View, {style: this.props.style}, [
+      this.state.misc.length
+        ? h<PopListProps<MixedPeerKV>>(PopList, {
+            ['key' as any]: 'misc',
+            style: styles.container,
+            data: this.state.misc,
+            keyExtractor: ([addr]) => addr,
+            renderItem: this.renderStagedPeer,
+            itemHeight: ITEM_HEIGHT,
+          })
+        : (null as any),
+
+      ...this.state.peersByRoom.map(peers =>
+        h<PopListProps<MixedPeerKV>>(PopList, {
+          ['key' as any]: peers.length ? peers[0][0] : Math.random(),
+          style: styles.container,
+          data: peers,
+          keyExtractor: ([addr]) => addr,
+          renderItem: this.renderItem,
+          getItemHeight: this.getItemHeight,
+        }),
+      ),
+    ]);
   }
 }

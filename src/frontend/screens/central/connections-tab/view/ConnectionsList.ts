@@ -203,21 +203,7 @@ export type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-type State = {
-  peers: Array<PeerKV>;
-};
-
-export default class ConnectionsList extends PureComponent<Props, State> {
-  public state = {peers: []};
-
-  public static getDerivedStateFromProps(props: Props) {
-    const peersExceptRooms = props.peers.filter(
-      ([, data]) => (data.type as any) !== 'room',
-    );
-
-    return {peers: peersExceptRooms};
-  }
-
+export default class ConnectionsList extends PureComponent<Props> {
   private renderItem = ([addr, peer]: PeerKV) => {
     return h(
       TouchableOpacity,
@@ -274,7 +260,7 @@ export default class ConnectionsList extends PureComponent<Props, State> {
   public render() {
     return h<PopListProps<PeerKV>>(PopList, {
       style: [styles.container, this.props.style],
-      data: this.state.peers,
+      data: this.props.peers,
       keyExtractor: ([addr, p]) => p.hubBirth || addr,
       renderItem: this.renderItem,
       itemHeight: 70,

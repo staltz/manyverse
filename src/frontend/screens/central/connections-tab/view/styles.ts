@@ -43,8 +43,8 @@ export const styles = StyleSheet.create({
     marginTop: Dimens.verticalSpaceBig * 2,
   },
 
-  connectionsList: {
-    marginBottom: Dimens.verticalSpaceNormal,
+  stagedConnectionsList: {
+    marginTop: Dimens.verticalSpaceNormal,
   },
 
   menuOptionContent: {

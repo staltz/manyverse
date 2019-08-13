@@ -126,7 +126,8 @@ export type Props<T> = {
   data: Array<T>;
   renderItem: (t: T, key?: string | number) => React.ReactElement<any>;
   keyExtractor: (t: T) => string | number;
-  itemHeight: number;
+  itemHeight?: number;
+  getItemHeight?: (t: T) => number;
   animationDuration?: number;
 };
 
@@ -147,6 +148,9 @@ const DEFAULT_DURATION = 250 /* ms */;
 export default class PopList<T> extends PureComponent<Props<T>, State<T>> {
   constructor(props: Props<T>) {
     super(props);
+    if (props.getItemHeight == null && props.itemHeight == null) {
+      throw new Error('PopList needs either itemHeight or getItemHeight');
+    }
     this.state = {data: []};
     this.state = this.computeNextState();
   }
@@ -241,7 +245,8 @@ export default class PopList<T> extends PureComponent<Props<T>, State<T>> {
           {
             key,
             animationDuration: this.props.animationDuration || DEFAULT_DURATION,
-            itemHeight: this.props.itemHeight,
+            itemHeight:
+              this.props.itemHeight || this.props.getItemHeight!(item),
             removed: ts > 0,
             onExit: () => this.onItemExit(key),
           },

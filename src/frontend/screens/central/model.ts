@@ -83,6 +83,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         isVisible: parent.currentTab === 1,
         bluetoothLastScanned: 0,
         peers: [],
+        rooms: [],
         stagedPeers: [],
         itemMenu: {opened: false, type: 'conn'},
         latestInviteMenuTarget: null,

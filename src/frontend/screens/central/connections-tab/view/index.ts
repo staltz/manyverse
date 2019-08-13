@@ -147,6 +147,7 @@ function Body(state: State) {
     lanEnabled,
     internetEnabled,
     peers,
+    rooms,
     stagedPeers,
   } = state;
 
@@ -160,7 +161,7 @@ function Body(state: State) {
       description:
         'Turn on some connection mode\nor just enjoy some existing content',
     });
-  } else if (peers.length === 0 && stagedPeers.length === 0) {
+  } else if (!peers.length && !rooms.length && !stagedPeers.length) {
     if (recentlyScanned(state.bluetoothLastScanned)) {
       emptySection = h(EmptySection, {
         style: styles.emptySection,
@@ -185,14 +186,14 @@ function Body(state: State) {
       ['key' as any]: 'a',
       sel: 'connections-list',
       peers,
-      style: styles.connectionsList,
     }),
 
     h(StagedConnectionsList, {
       ['key' as any]: 'b',
       sel: 'staged-list',
-      peers,
+      rooms,
       stagedPeers,
+      style: peers.length ? styles.stagedConnectionsList : null,
     }),
 
     emptySection as any,
