@@ -132,8 +132,10 @@ function augmentPeerWithExtras(api: any) {
     const imageUrl = imageToImageUrl(val);
 
     // Fetch 'isInDB' boolean
-    const [e3, isInDB] = await runAsync(api.sbot.async.connIsInDB[0])(addr);
+    const [e3, ssb] = await runAsync<any>(api.sbot.async.ssb[0])();
     if (e3) return cb(e3);
+    const [e4, isInDB] = await runAsync<boolean>(ssb.connUtils.isInDB)(addr);
+    if (e4) return cb(e4);
 
     cb(null, [addr, {name, imageUrl, isInDB, ...peer}]);
   };
@@ -608,6 +610,8 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
     .flatten()
     .addListener({
       next: async ([api, req]) => {
+        const [, ssb] = await runAsync<any>(api.sbot.async.ssb[0])();
+
         if (req.type === 'publish') {
           api.sbot.async.publish[0](req.content);
         }
@@ -618,41 +622,34 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           });
         }
         if (req.type === 'invite.accept') {
-          api.sbot.async.acceptInvite[0](req.invite, (err: any, val: any) => {
-            if (err) {
-              source.acceptInviteResponse$._n(err.message || err);
-            } else {
-              source.acceptInviteResponse$._n(true);
-            }
-          });
+          const [err] = await runAsync(ssb.invite.accept)(req.invite);
+          source.acceptInviteResponse$._n(err ? err.message || err : true);
         }
         if (req.type === 'dhtInvite.start') {
-          api.sbot.async.startDht[0]((err: any) => {
-            if (err) console.error(err.message || err);
-          });
+          const [err] = await runAsync(ssb.dhtInvite.start)();
+          if (err) console.error(err.message || err);
         }
         if (req.type === 'conn.connect') {
           // connect
           const addr = req.address;
-          const [err, result] = await runAsync(
-            api.sbot.async.connPersistentConnect[0],
-          )(addr, req.hubData || {});
+          const [err, result] = await runAsync(ssb.connUtils.persistentConnect)(
+            addr,
+            req.hubData || {},
+          );
           if (err) return console.error(err.message || err);
           if (!result) return console.error(`connecting to ${addr} failed`);
         }
         if (req.type === 'conn.rememberConnect') {
           // remember
           const addr = req.address;
-          const [e1] = await runAsync(api.sbot.async.connRemember[0])(
-            addr,
-            req.data || {},
-          );
+          const [e1] = await runAsync(ssb.conn.remember)(addr, req.data || {});
           if (e1) return console.error(e1.message || e1);
 
           // connect
-          const [e2, result] = await runAsync(
-            api.sbot.async.connPersistentConnect[0],
-          )(addr, req.data || {});
+          const [e2, result] = await runAsync(ssb.connUtils.persistentConnect)(
+            addr,
+            req.data || {},
+          );
           if (e2) return console.error(e2.message || e2);
           if (!result) return console.error(`connecting to ${addr} failed`);
           // TODO show this error as a Toast
@@ -660,9 +657,10 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
         if (req.type === 'conn.followConnect') {
           // connect
           const addr = req.address;
-          const [e1, result] = await runAsync(
-            api.sbot.async.connPersistentConnect[0],
-          )(addr, req.hubData || {});
+          const [e1, result] = await runAsync(ssb.connUtils.persistentConnect)(
+            addr,
+            req.hubData || {},
+          );
           if (e1) return console.error(e1.message || e1);
           if (!result) return console.error(`connecting to ${addr} failed`);
           // TODO show this error as a Toast
@@ -684,29 +682,27 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
         }
         if (req.type === 'conn.disconnect') {
           const addr = req.address;
-          const [err] = await runAsync(
-            api.sbot.async.connPersistentDisconnect[0],
-          )(addr);
+          const [err] = await runAsync(ssb.connUtils.persistentDisconnect)(
+            addr,
+          );
           if (err) return console.error(err.message || err);
         }
         if (req.type === 'conn.disconnectForget') {
           const addr = req.address;
 
           // forget
-          const [e1] = await runAsync(api.sbot.async.connForget[0])(addr);
+          const [e1] = await runAsync(ssb.conn.forget)(addr);
           if (e1) console.error(e1.message || e1);
 
           // disconnect
-          const [e2] = await runAsync(
-            api.sbot.async.connPersistentDisconnect[0],
-          )(addr);
+          const [e2] = await runAsync(ssb.connUtils.persistentDisconnect)(addr);
           if (e2) console.error(e2.message || e2);
         }
         if (req.type === 'conn.forget') {
           const addr = req.address;
-          const [e1] = await runAsync(api.sbot.async.connUnstage[0])(addr);
+          const [e1] = await runAsync(ssb.conn.unstage)(addr);
           if (e1) console.error(e1.message || e1);
-          const [e2] = await runAsync(api.sbot.async.connForget[0])(addr);
+          const [e2] = await runAsync(ssb.conn.forget)(addr);
           if (e2) console.error(e2.message || e2);
         }
         if (req.type === 'bluetooth.enable') {
@@ -716,23 +712,18 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           api.sbot.sync.disableBluetooth[0]();
         }
         if (req.type === 'bluetooth.search') {
-          api.sbot.async.searchBluetoothPeers[0](req.interval, (err: any) => {
-            if (err) console.error(err.message || err);
-          });
+          const [err] = await runAsync(ssb.bluetooth.makeDeviceDiscoverable)(
+            req.interval,
+          );
+          if (err) console.error(err.message || err);
         }
         if (req.type === 'dhtInvite.accept') {
-          api.sbot.async.acceptDhtInvite[0](req.invite, (err: any, v: any) => {
-            if (err) {
-              source.acceptDhtInviteResponse$._n(err.message || err);
-            } else {
-              source.acceptDhtInviteResponse$._n(true);
-            }
-          });
+          const [err] = await runAsync(ssb.dhtInvite.accept)(req.invite);
+          source.acceptDhtInviteResponse$._n(err ? err.message || err : true);
         }
         if (req.type === 'dhtInvite.remove') {
-          api.sbot.async.removeDhtInvite[0](req.invite, (err: any, v: any) => {
-            if (err) console.error(err.message || err);
-          });
+          const [err] = await runAsync(ssb.dhtInvite.remove)(req.invite);
+          if (err) console.error(err.message || err);
         }
       },
     });

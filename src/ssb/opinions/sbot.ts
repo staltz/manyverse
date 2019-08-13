@@ -37,27 +37,14 @@ const gives = {
       disableBluetooth: true,
     },
     async: {
+      ssb: true,
       get: true,
       progress: true,
       publish: true,
       publishAbout: true,
-      acceptInvite: true,
-      searchBluetoothPeers: true,
-      startDht: true,
-      acceptDhtInvite: true,
       createDhtInvite: true,
-      removeDhtInvite: true,
       isFollowing: true,
       isBlocking: true,
-      connConnect: true,
-      connDisconnect: true,
-      connPersistentConnect: true,
-      connPersistentDisconnect: true,
-      connIsInDB: true,
-      connStage: true,
-      connUnstage: true,
-      connRemember: true,
-      connForget: true,
       aboutSocialValue: true,
     },
     pull: {
@@ -178,6 +165,9 @@ const create = (api: any) => {
         },
       },
       async: {
+        ssb: rec.async((cb: any) => {
+          cb(null, sbot);
+        }),
         get: rec.async((key: any, cb: any) => {
           if (typeof cb !== 'function') {
             throw new Error('cb must be function');
@@ -245,56 +235,14 @@ const create = (api: any) => {
             });
           }
         }),
-        acceptInvite: rec.async((invite: string, cb: any) => {
-          sbot.invite.accept(invite, cb);
-        }),
-        searchBluetoothPeers: rec.async((forTime: number, cb: any) => {
-          sbot.bluetooth.makeDeviceDiscoverable(forTime, cb);
-        }),
-        startDht: rec.async((cb: any) => {
-          sbot.dhtInvite.start(cb);
-        }),
-        acceptDhtInvite: rec.async((invite: string, cb: any) => {
-          sbot.dhtInvite.accept(invite, cb);
-        }),
         createDhtInvite: rec.async((cb: any) => {
           sbot.dhtInvite.create(cb);
-        }),
-        removeDhtInvite: rec.async((invite: string, cb: any) => {
-          sbot.dhtInvite.remove(invite, cb);
         }),
         isFollowing: rec.async((opts: any, cb: any) => {
           sbot.friends.isFollowing(opts, cb);
         }),
         isBlocking: rec.async((opts: any, cb: any) => {
           sbot.friends.isBlocking(opts, cb);
-        }),
-        connConnect: rec.async((address: string, data: any, cb: any) => {
-          sbot.conn.connect(address, data, cb);
-        }),
-        connDisconnect: rec.async((address: string, cb: any) => {
-          sbot.conn.disconnect(address, cb);
-        }),
-        connPersistentConnect: rec.async((addr: string, data: any, cb: any) => {
-          sbot.connUtils.persistentConnect(addr, data, cb);
-        }),
-        connPersistentDisconnect: rec.async((address: string, cb: any) => {
-          sbot.connUtils.persistentDisconnect(address, cb);
-        }),
-        connIsInDB: rec.async((address: string, cb: any) => {
-          sbot.connUtils.isInDB(address, cb);
-        }),
-        connStage: rec.async((address: string, data: any, cb: any) => {
-          sbot.conn.stage(address, data, cb);
-        }),
-        connUnstage: rec.async((address: string, cb: any) => {
-          sbot.conn.unstage(address, cb);
-        }),
-        connRemember: rec.async((address: string, data: any, cb: any) => {
-          sbot.conn.remember(address, data, cb);
-        }),
-        connForget: rec.async((address: string, cb: any) => {
-          sbot.conn.forget(address, cb);
         }),
         aboutSocialValue: rec.async((opts: any, cb: any) => {
           if (opts.key === 'name' || opts.key === 'image') {
