@@ -107,8 +107,8 @@ android {
     flavorDimensions "range"
 
     defaultConfig {
-        versionCode 63
-        versionName "0.1908.12-beta.b"
+        versionCode 64
+        versionName "0.1908.14-beta"
         applicationId "se.manyver"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

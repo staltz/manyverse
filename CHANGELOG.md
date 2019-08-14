@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1908.14-beta
+
+* Improve how connections are scheduled ([see details](https://gitlab.com/staltz/manyverse/commit/45a6b8e0cc30fba842dcb6b5dae268f4089040cf))
+* Improve the ordering and rendering in the connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/0d0081b10547d200ba30b2e91b2731f2258fcb01))
+* Reduce the size of this app by 1.6MB ([see details](https://gitlab.com/staltz/manyverse/commit/55ffefa723681e55e641710593adc9afb47081e3))
+
 ## 0.1908.12-beta.b
 
 * Performance boost for arm64 devices ([see details](https://gitlab.com/staltz/manyverse/commit/d706f5f74a4bf7d7f7ad0e851748c5d5b764df98))
