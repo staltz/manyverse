@@ -18,6 +18,8 @@ import {Msg, FeedId, PostContent, MsgId} from 'ssb-typescript';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import {Likes} from '../../drivers/ssb';
+import React = require('react');
 
 export const styles = StyleSheet.create({
   row: {
@@ -30,18 +32,23 @@ export const styles = StyleSheet.create({
   },
 
   likeCount: {
+    flexDirection: 'row',
     fontWeight: 'bold',
   },
 
   likes: {
-    marginTop: Dimensions.verticalSpaceSmall,
+    paddingTop: Dimensions.verticalSpaceSmall,
+    paddingBottom: Dimensions.verticalSpaceSmall,
+    paddingRight: Dimensions.horizontalSpaceSmall,
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
   },
 
   likesHidden: {
-    marginTop: Dimensions.verticalSpaceSmall,
+    paddingTop: Dimensions.verticalSpaceSmall,
+    paddingBottom: Dimensions.verticalSpaceSmall,
+    paddingRight: Dimensions.horizontalSpaceSmall,
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.backgroundText,
@@ -49,7 +56,7 @@ export const styles = StyleSheet.create({
 
   likeButton: {
     flexDirection: 'row',
-    paddingTop: Dimensions.verticalSpaceSmall + 6,
+    paddingTop: Dimensions.verticalSpaceBig,
     paddingBottom: Dimensions.verticalSpaceBig,
     paddingLeft: 1,
     paddingRight: Dimensions.horizontalSpaceBig,
@@ -66,7 +73,7 @@ export const styles = StyleSheet.create({
 
   replyButton: {
     flexDirection: 'row',
-    paddingTop: Dimensions.verticalSpaceSmall + 6,
+    paddingTop: Dimensions.verticalSpaceBig,
     paddingBottom: Dimensions.verticalSpaceBig,
     paddingLeft: Dimensions.horizontalSpaceBig,
     paddingRight: Dimensions.horizontalSpaceBig,
@@ -108,7 +115,8 @@ const iconProps = {
 export type Props = {
   msg: Msg;
   selfFeedId: FeedId;
-  likes: Array<FeedId> | null;
+  likes: Likes;
+  onPressLikeCount?: (ev: {msgKey: MsgId; likes: Likes}) => void;
   onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
 };
@@ -122,6 +130,12 @@ export default class MessageFooter extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = this.stateFromProps(props, {ilike: 'no', likeCount: 0});
+    this._likeCountButtonProps = {
+      background: TouchableNativeFeedback.SelectableBackground(),
+      onPress: this.onPressLikeCountHandler.bind(this),
+      accessible: true,
+      accessibilityLabel: 'Like count Button',
+    };
     this._likeButtonProps = {
       background: TouchableNativeFeedback.SelectableBackground(),
       onPress: this.onPressLikeHandler.bind(this),
@@ -136,6 +150,7 @@ export default class MessageFooter extends Component<Props, State> {
     };
   }
 
+  private _likeCountButtonProps: TouchableNativeFeedbackProperties;
   private _likeButtonProps: TouchableNativeFeedbackProperties;
   private _replyButtonProps: TouchableNativeFeedbackProperties;
 
@@ -154,6 +169,15 @@ export default class MessageFooter extends Component<Props, State> {
       };
     } else {
       return prevState;
+    }
+  }
+
+  private onPressLikeCountHandler() {
+    const msgKey = this.props.msg.key;
+    const likes = this.props.likes;
+    const onPressLikeCount = this.props.onPressLikeCount;
+    if (onPressLikeCount) {
+      onPressLikeCount({msgKey, likes});
     }
   }
 
@@ -198,20 +222,26 @@ export default class MessageFooter extends Component<Props, State> {
   public render() {
     const {likeCount, ilike} = this.state;
 
-    const counter = h(View, {style: styles.row}, [
-      h(
-        Text,
-        {
-          style: likeCount ? styles.likes : styles.likesHidden,
-          accessible: true,
-          accessibilityLabel: 'Like Count',
-        },
-        [
-          h(Text, {style: styles.likeCount}, String(likeCount)),
-          (likeCount === 1 ? ' like' : ' likes') as any,
-        ],
-      ),
-    ]);
+    const likesComponent = [
+      h(View, {style: styles.col}, [
+        h(
+          Text,
+          {
+            style: likeCount ? styles.likes : styles.likesHidden,
+            accessible: true,
+            accessibilityLabel: 'Like Count',
+          },
+          [
+            h(Text, {style: styles.likeCount}, String(likeCount)),
+            (likeCount === 1 ? ' like' : ' likes') as any,
+          ],
+        ),
+      ]),
+    ];
+
+    const counter = likeCount
+      ? h(TouchableNativeFeedback, this._likeCountButtonProps, likesComponent)
+      : h(React.Fragment, likesComponent);
 
     const buttons = [
       h(TouchableNativeFeedback, this._likeButtonProps, [
@@ -234,7 +264,7 @@ export default class MessageFooter extends Component<Props, State> {
     }
 
     return h(View, {style: styles.col}, [
-      counter,
+      h(View, {style: styles.row}, [counter]),
       h(View, {style: styles.row}, buttons),
     ]);
   }

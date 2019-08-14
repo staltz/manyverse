@@ -25,6 +25,8 @@ const ssbKeys = require('react-native-ssb-client-keys');
 const depjectCombine = require('depject');
 const colorHash = new (require('color-hash'))();
 
+export type Likes = Array<FeedId> | null;
+
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
     _$manyverse$metadata: {
@@ -391,6 +393,34 @@ export class SSBSource {
         pull.asyncMap(mutateThreadWithLiveExtras(api)),
       ),
     );
+  }
+
+  public liteAbout$(ids: Array<FeedId>): Stream<Array<AboutAndExtras>> {
+    return this.api$
+      .map(async api => {
+        const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
+        const abouts: Array<AboutAndExtras> = [];
+        for (const id of ids) {
+          // Fetch name
+          const [, result1] = await runAsync<string>(aboutSocialValue)({
+            key: 'name',
+            dest: id,
+          });
+          const name = result1 || shortFeedId(id);
+
+          // Fetch avatar
+          const [, result2] = await runAsync(aboutSocialValue)({
+            key: 'image',
+            dest: id,
+          });
+          const imageUrl = imageToImageUrl(result2);
+
+          abouts.push({name, imageUrl, id});
+        }
+        return abouts;
+      })
+      .map(promise => xs.fromPromise(promise))
+      .flatten();
   }
 
   public profileAbout$(id: FeedId): Stream<AboutAndExtras> {

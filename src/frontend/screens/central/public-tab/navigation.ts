@@ -10,13 +10,16 @@ import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../..';
 import {navOptions as composeScreenNavOptions} from '../../compose';
+import {navOptions as accountsScreenNavOptions} from '../../accounts';
 import {navOptions as profileScreenNavOptions} from '../../profile';
 import {navOptions as threadScreenNavOptions} from '../../thread';
 import {navOptions as rawMsgScreenNavOptions} from '../../raw-msg';
 import {State} from './model';
+import {Likes} from '../../../drivers/ssb';
 
 export type Actions = {
   goToCompose$: Stream<any>;
+  goToAccounts$: Stream<{msgKey: MsgId; likes: Likes}>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
   goToRawMsg$: Stream<Msg>;
@@ -34,6 +37,23 @@ export default function navigation(
           component: {
             name: Screens.Compose,
             options: composeScreenNavOptions,
+          },
+        },
+      } as Command),
+  );
+
+  const toAccounts$ = actions.goToAccounts$.compose(sampleCombine(state$)).map(
+    ([ev, state]) =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Accounts,
+            passProps: {
+              ...ev,
+              selfFeedId: state.selfFeedId,
+            },
+            options: accountsScreenNavOptions,
           },
         },
       } as Command),
@@ -88,5 +108,5 @@ export default function navigation(
       } as Command),
   );
 
-  return xs.merge(toCompose$, toProfile$, toThread$, toRawMsg$);
+  return xs.merge(toCompose$, toAccounts$, toProfile$, toThread$, toRawMsg$);
 }

@@ -9,7 +9,7 @@ import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {Msg, FeedId, MsgId} from 'ssb-typescript';
 import {isPostMsg, isContactMsg, isAboutMsg} from 'ssb-typescript/utils';
-import {MsgAndExtras} from '../../drivers/ssb';
+import {MsgAndExtras, Likes} from '../../drivers/ssb';
 import RawMessage from './RawMessage';
 import PostMessage from './PostMessage';
 import AboutMessage from './AboutMessage';
@@ -24,6 +24,7 @@ export type State = {
 export type Props = {
   msg: MsgAndExtras;
   selfFeedId: FeedId;
+  onPressLikeCount?: (ev: {msgKey: MsgId; likes: Likes}) => void;
   onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;

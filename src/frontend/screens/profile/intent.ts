@@ -9,6 +9,7 @@ import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
 import {State} from './model';
 import sample from 'xstream-sample';
+import {Likes} from '../../drivers/ssb';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
@@ -31,6 +32,10 @@ export default function intent(
     goToEdit$: reactSource.select('editProfile').events('press') as Stream<
       null
     >,
+
+    goToAccounts$: reactSource
+      .select('feed')
+      .events('pressLikeCount') as Stream<{msgKey: MsgId; likes: Likes}>,
 
     goToProfile$: reactSource.select('feed').events('pressAuthor') as Stream<
       ProfileNavEvent
