@@ -159,7 +159,7 @@ function Body(state: State) {
       image: require('../../../../../../images/noun-lantern.png'),
       title: 'Offline',
       description:
-        'Turn on some connection mode\nor just enjoy some existing content',
+        'Turn on some connection mode\nor enjoy reading some existing content',
     });
   } else if (!peers.length && !rooms.length && !stagedPeers.length) {
     if (recentlyScanned(state.bluetoothLastScanned)) {
@@ -168,7 +168,7 @@ function Body(state: State) {
         image: require('../../../../../../images/noun-crops.png'),
         title: 'Connecting',
         description:
-          'Standby while the app is\nattempting to connect to your peers',
+          'Wait while the app is\nattempting to connect to your peers',
       });
     } else {
       emptySection = h(EmptySection, {
@@ -176,7 +176,7 @@ function Body(state: State) {
         image: require('../../../../../../images/noun-crops.png'),
         title: 'No connections',
         description:
-          'Invite a friend to connect with\nor sync with people nearby',
+          'Try syncing with people nearby\nor use a server invite code',
       });
     }
   }
