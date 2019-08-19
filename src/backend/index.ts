@@ -13,7 +13,7 @@ const rnBridge = require('rn-bridge');
 const rnChannelPlugin = require('multiserver-rn-channel');
 const NoauthTransformPlugin = require('multiserver/plugins/noauth');
 const WS = require('multiserver/plugins/ws');
-const injectSsbConfig = require('ssb-config/inject');
+const makeConfig = require('ssb-config/inject');
 const BluetoothManager = require('ssb-mobile-bluetooth-manager');
 const bluetoothTransportAndPlugin = require('ssb-bluetooth');
 const SecretStack = require('secret-stack');
@@ -31,18 +31,17 @@ if (!fs.existsSync(ssbPath)) {
 const keysPath = path.join(ssbPath, '/secret');
 const keys = ssbKeys.loadOrCreateSync(keysPath);
 
-const config = (() => {
-  const c = injectSsbConfig();
-  const NET_PORT = 26831;
-  const DHT_PORT = 26832;
-  c.path = ssbPath;
-  c.keys = keys;
-  c.manifest = manifest;
-  c.friends.hops = 2;
-  c.connections = {
+const config = makeConfig('ssb', {
+  path: ssbPath,
+  keys,
+  manifest,
+  friends: {
+    hops: 2,
+  },
+  connections: {
     incoming: {
-      net: [{scope: 'private', transform: 'shs', port: NET_PORT}],
-      dht: [{scope: 'public', transform: 'shs', port: DHT_PORT}],
+      net: [{scope: 'private', transform: 'shs', port: 26831}],
+      dht: [{scope: 'public', transform: 'shs', port: 26832}],
       channel: [{scope: 'device', transform: 'noauth'}],
       bluetooth: [{scope: 'public', transform: 'shs'}],
       tunnel: [{scope: 'public', transform: 'shs'}],
@@ -54,9 +53,8 @@ const config = (() => {
       bluetooth: [{scope: 'public', transform: 'shs'}],
       tunnel: [{transform: 'shs'}],
     },
-  };
-  return c;
-})();
+  },
+});
 
 function noAuthTransform(_sbot: any, cfg: any) {
   _sbot.multiserver.transform({
