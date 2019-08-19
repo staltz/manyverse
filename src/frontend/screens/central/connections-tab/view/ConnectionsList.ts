@@ -129,6 +129,7 @@ function detectType(peer: PeerKV[1]): Type {
   if (peer.inferredType === 'lan') return 'lan';
   if (peer.inferredType === 'tunnel') return 'room-endpoint';
   if (peer.inferredType === 'dht') return 'dht';
+  if (peer.inferredType === 'internet') return 'internet';
   return '?';
 }
 
