@@ -252,7 +252,7 @@ const create = (api: any) => {
               return cb(null, cache.get(author));
             } else {
               sbot.about.socialValue(opts, (err: any, val: string) => {
-                if (!err) cache.set(author, val);
+                if (!err && !!val) cache.set(author, val);
                 cb(err, val);
               });
             }

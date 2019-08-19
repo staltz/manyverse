@@ -102,10 +102,11 @@
     "thread-sleep": "2.0.0",
     "utf-8-validate": "4.0.2",
     "xstream": "11.7.0",
-    "xstream-between": "1.0.0",
+    "xstream-backoff": "1.0",
+    "xstream-between": "1.0",
     "xstream-from-callback": "1.0",
     "xstream-from-pull-stream": "1.1",
-    "xstream-sample": "1.0.0"
+    "xstream-sample": "1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

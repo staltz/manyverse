@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream, MemoryStream} from 'xstream';
+import backoff from 'xstream-backoff';
 import {Msg, Content, FeedId, About, MsgId, AboutContent} from 'ssb-typescript';
 import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
@@ -251,7 +252,20 @@ export class SSBSource {
       .map(api => {
         const connPeers$ = xsFromPullStream<Array<PeerKV>>(
           api.sbot.pull.connPeers[0](),
-        );
+        )
+          .map(peers =>
+            backoff(1e3, 2, 300e3)
+              .startWith(0)
+              .map(() => {
+                for (const [, data] of peers) {
+                  if (data.key) {
+                    api.sbot.sync.invalidateAboutSocialValue[0](data.key);
+                  }
+                }
+                return peers;
+              }),
+          )
+          .flatten();
 
         //#region DHT-related hacks (ideally this should go through CONN)
         const selfId = api.keys.sync.id[0]();
