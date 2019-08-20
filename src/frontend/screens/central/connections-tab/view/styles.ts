@@ -21,7 +21,6 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundText,
     paddingVertical: Dimens.verticalSpaceBig,
     paddingHorizontal: Dimens.horizontalSpaceBig,
-    marginBottom: Dimens.verticalSpaceNormal,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
@@ -41,10 +40,6 @@ export const styles = StyleSheet.create({
 
   emptySection: {
     marginTop: Dimens.verticalSpaceBig * 2,
-  },
-
-  stagedConnectionsList: {
-    marginTop: Dimens.verticalSpaceNormal,
   },
 
   menuOptionContent: {

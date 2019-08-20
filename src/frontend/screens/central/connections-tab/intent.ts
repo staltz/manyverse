@@ -60,21 +60,21 @@ export default function intent(
     //#region Item menu actions
 
     openPeerInConnection$: reactSource
-      .select('connections-list')
+      .select('list-of-peers')
       .events('pressPeer') as Stream<PeerKV>,
 
+    openRoom$: reactSource
+      .select('list-of-peers')
+      .events('pressRoom') as Stream<PeerKV>,
+
     openStagedPeer$: reactSource
-      .select('staged-list')
-      .events('pressStagedPeer')
+      .select('list-of-peers')
+      .events('pressStaged')
       .filter((peer: StagedPeerKV) => peer[1].type !== 'dht'),
 
-    openRoom$: reactSource.select('staged-list').events('pressRoom') as Stream<
-      PeerKV
-    >,
-
     openDHTStagedPeer$: reactSource
-      .select('staged-list')
-      .events('pressStagedPeer')
+      .select('list-of-peers')
+      .events('pressStaged')
       .filter((peer: StagedPeerKV) => peer[1].type === 'dht'),
 
     goToPeerProfile$: menuChoice$

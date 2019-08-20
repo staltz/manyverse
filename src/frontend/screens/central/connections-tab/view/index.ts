@@ -20,8 +20,7 @@ import {styles} from './styles';
 import {State} from '../model';
 import {Palette} from '../../../../global-styles/palette';
 import {Dimensions} from '../../../../global-styles/dimens';
-import ConnectionsList from './ConnectionsList';
-import StagedConnectionsList from './StagedConnectionsList';
+import ListOfPeers from './ListOfPeers';
 import EmptySection from '../../../../components/EmptySection';
 import SlideInMenu from './SlideInMenu';
 
@@ -182,18 +181,12 @@ function Body(state: State) {
   }
 
   return h(React.Fragment, [
-    h(ConnectionsList, {
-      ['key' as any]: 'a',
-      sel: 'connections-list',
-      peers,
-    }),
-
-    h(StagedConnectionsList, {
+    h(ListOfPeers, {
       ['key' as any]: 'b',
-      sel: 'staged-list',
+      sel: 'list-of-peers',
+      peers,
       rooms,
       stagedPeers,
-      style: peers.length ? styles.stagedConnectionsList : null,
     }),
 
     emptySection as any,
