@@ -30,7 +30,7 @@
     "ssb-blobs": "1.2.2",
     "ssb-bluetooth": "1.1.14",
     "ssb-config": "3.3.2",
-    "ssb-conn": "0.8.2",
+    "ssb-conn": "0.8.5",
     "ssb-contacts": "0.0.2",
     "ssb-db": "19.2.0",
     "ssb-dht-invite": "1.1.1",
