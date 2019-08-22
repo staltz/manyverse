@@ -10,7 +10,7 @@ function init(sbot: any) {
   return {
     persistentConnect(address: string, data: any, cb: Callback) {
       // if we had 'autoconnect=false', then make it true
-      sbot.conn.internalConnDB().update(address, (prev: any) => {
+      sbot.conn.db().update(address, (prev: any) => {
         if (!prev.autoconnect) return {autoconnect: true};
         else return {};
       });
@@ -20,7 +20,7 @@ function init(sbot: any) {
 
     persistentDisconnect(address: string, cb: Callback) {
       // if we had 'autoconnect=true', then make it false
-      sbot.conn.internalConnDB().update(address, (prev: any) => {
+      sbot.conn.db().update(address, (prev: any) => {
         if (prev.autoconnect) return {autoconnect: false};
         else return {};
       });
@@ -31,7 +31,7 @@ function init(sbot: any) {
 
     isInDB(address: string, cb: Callback) {
       try {
-        const result = sbot.conn.internalConnDB().has(address);
+        const result = sbot.conn.db().has(address);
         cb(null, result);
       } catch (err) {
         cb(err);
