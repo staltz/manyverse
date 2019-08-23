@@ -6,6 +6,15 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1908.23-beta
+
+* Fix bug: update avatar of newly connected server ([see details](https://gitlab.com/staltz/manyverse/commit/cde72eb7034ab761f6b14a56d5b2e516406aaf69))
+* Fix some LAN connections appearing as "unknown" ([see details](https://gitlab.com/staltz/manyverse/commit/e37914e2d74bb33aff33f6c1f3a67d687f5e3d9e))
+* Improve descriptions and tips on the connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/8bd83e67884a280072496409f441bf3b22975713))
+* Improve how connections to acquaintances are scheduled ([see details](https://gitlab.com/staltz/manyverse/commit/787da3623a2b2eb7ddbb086dbe1001ca4cbb37c6))
+* Improve the rendering and ordering in connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/c329833ea32776de5e9257e8506dad11ccd2da73))
+* Show pubs as staged instead of autoconnecting ([see details](https://gitlab.com/staltz/manyverse/commit/5dc7bec1701da4cc636d926231d9ccc85a355067))
+
 ## 0.1908.14-beta
 
 * Improve how connections are scheduled ([see details](https://gitlab.com/staltz/manyverse/commit/45a6b8e0cc30fba842dcb6b5dae268f4089040cf))
