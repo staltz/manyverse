@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1908.24-beta
+
+* Update text in the Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/095dbe152b03a32468d6bc01caa3e14936ee509a))
+
 ## 0.1908.23-beta
 
 * Fix bug: update avatar of newly connected server ([see details](https://gitlab.com/staltz/manyverse/commit/cde72eb7034ab761f6b14a56d5b2e516406aaf69))
