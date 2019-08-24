@@ -19,14 +19,13 @@ export default {
   type: 'alert',
   title: 'Thank you!',
   content:
-    'This app is funded through donations from:<br /><br />' +
+    'Development of this app was supported by donations from:' + 
+    '<br /><br />' +
     '<strong>' +
     top5backers.join(', ') +
-    '</strong>, ' +
-    'and dozens of other backers on our ' +
-    '<a href="https://opencollective.com/manyverse">OpenCollective</a>.' +
-    '<br /><br />' +
-    '<a href="https://manyver.se/donate">Become a backer too!</a>',
+    '</strong>, and ' +
+    '<a href="https://manyver.se/donate">dozens of other backers</a>. ' + 
+    'Thanks!',
   options: {
     contentIsHtml: true,
     contentColor: Palette.textWeak,
