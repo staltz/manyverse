@@ -6,7 +6,6 @@
 
 const NoauthTransformPlugin = require('multiserver/plugins/noauth');
 const rnChannelPlugin = require('multiserver-rn-channel');
-const rnBridge = require('rn-bridge');
 const WS = require('multiserver/plugins/ws');
 
 export = function multiserverAddons(ssb: any, cfg: any) {
@@ -19,12 +18,16 @@ export = function multiserverAddons(ssb: any, cfg: any) {
   });
 
   ssb.multiserver.transport({
-    name: 'channel',
-    create: () => rnChannelPlugin(rnBridge.channel),
-  });
-
-  ssb.multiserver.transport({
     name: 'ws',
     create: () => WS({}),
   });
+
+  if (process.env.MANYVERSE_PLATFORM !== 'mobile') return;
+  try {
+    const rnBridge = require('rn-' + 'bridge'); // bypass noderify
+    ssb.multiserver.transport({
+      name: 'channel',
+      create: () => rnChannelPlugin(rnBridge.channel),
+    });
+  } catch (err) {}
 };

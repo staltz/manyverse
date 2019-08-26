@@ -17,6 +17,7 @@ module.exports = {
     platforms: ['android', 'ios', 'web'],
     blacklistRE: blacklist([
       /\/android\/.*/,
+      /\/desktop\/.*/,
       /\/e2e\/.*/,
       /\/ios\/.*/,
       /\/nodejs-assets\/.*/,

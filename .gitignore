@@ -69,6 +69,8 @@ buck-out/
 #
 /lib/
 /nodejs-assets
+/desktop/nodejs-project
+/desktop/dist
 /android/app/src/main/res/raw/rnnodebundle
 *.jsbundle
 

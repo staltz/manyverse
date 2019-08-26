@@ -8,18 +8,20 @@ import fs = require('fs');
 const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
-const rnBridge = require('rn-bridge');
 const makeConfig = require('ssb-config/inject');
 import bluetoothTransport = require('./plugins/bluetooth');
 const SecretStack = require('secret-stack');
 
-const appDataDir = rnBridge.app.datadir();
-const ssbPath = path.resolve(appDataDir, '.ssb');
-if (!fs.existsSync(ssbPath)) mkdirp.sync(ssbPath);
-const keys = ssbKeys.loadOrCreateSync(path.join(ssbPath, 'secret'));
+if (!process.env.APP_DATA_DIR || !process.env.SSB_DIR) {
+  throw new Error('misconfigured default paths for the backend');
+}
+
+if (!fs.existsSync(process.env.SSB_DIR)) mkdirp.sync(process.env.SSB_DIR);
+const keysPath = path.join(process.env.SSB_DIR, '/secret');
+const keys = ssbKeys.loadOrCreateSync(keysPath);
 
 const config = makeConfig('ssb', {
-  path: ssbPath,
+  path: process.env.SSB_DIR,
   keys,
   conn: {
     autostart: false,
@@ -57,7 +59,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   // Connections
   .use(require('./plugins/multiserver-addons'))
   .use(require('ssb-lan'))
-  .use(bluetoothTransport(keys, appDataDir))
+  .use(bluetoothTransport(keys, process.env.APP_DATA_DIR))
   .use(require('ssb-conn')) // needs: db, friends, lan, bluetooth
   .use(require('ssb-room/tunnel/client')) // needs: conn
   .use(require('ssb-dht-invite')) // needs: db, conn

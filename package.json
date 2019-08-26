@@ -2,6 +2,7 @@
   "name": "manyverse",
   "version": "0.2002.24-beta",
   "private": true,
+  "main": "desktop/nodejs-project/loader.js",
   "scripts": {
     "postinstall": "patch-package",
     "lib": "tsc",
@@ -20,6 +21,10 @@
     "build-android-release": "npm run build-android-assets && cd android && ./gradlew assembleRelease && cd ..",
     "prearchive-ios-release": "npm run clean-bundler && npm run clean-ios",
     "archive-ios-release": "npm run build-ios-assets && cd ios && xcodebuild -workspace Manyverse.xcworkspace -scheme Manyverse archive && cd ..",
+    "build-desktop-backend": "./tools/build-desktop-backend && ./tools/minify-desktop-backend",
+    "build-desktop-frontend": "webpack --mode production --config desktop/webpack.config.js",
+    "build-desktop": "npm run build-desktop-backend && npm run build-desktop-frontend",
+    "desktop": "cd desktop/nodejs-project && npm run electron",
     "start": "npm run lib && npm run propagate-replacements && react-native start",
     "psdr": "./tools/print-service-desk-report.js",
     "test-e2e-android": "./tools/test-e2e-android",
@@ -119,6 +124,7 @@
     "@babel/runtime": "~7.7.2",
     "add-stream": "~1.0.0",
     "conventional-changelog": "~3.1.15",
+    "electron": "^6.0.10",
     "husky": "^3.1.0",
     "into-stream": "~5.1.1",
     "jase": "1.2.0",
@@ -132,7 +138,9 @@
     "react-native-version": "3.2.0",
     "rn-snoopy": "2.0.2",
     "tslint": "~5.20.1",
-    "typescript": "~3.7.4"
+    "typescript": "~3.7.4",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
   },
   "optionalDependencies": {
     "appium": "1.14.0",
