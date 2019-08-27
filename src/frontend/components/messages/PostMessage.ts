@@ -10,7 +10,10 @@ import Markdown from '../../global-styles/markdown';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
+import ContentWarning from './ContentWarning';
 import {PostContent as Post, FeedId, Msg, MsgId} from 'ssb-typescript';
+
+type CWPost = Post & {contentWarning?: string};
 
 export type Props = {
   msg: Msg<Post>;
@@ -24,14 +27,36 @@ export type Props = {
   onPressEtc?: (msg: Msg) => void;
 };
 
-export default class PostMessage extends PureComponent<Props> {
+type State = {
+  cwOpened: boolean;
+};
+
+export default class PostMessage extends PureComponent<Props, State> {
+  public state: State = {cwOpened: false};
+
+  public onPressToggleCW = () => {
+    this.setState(prev => ({cwOpened: !prev.cwOpened}));
+  };
+
   public render() {
     const props = this.props;
     const {msg} = props;
+    const cwMsg = msg as Msg<CWPost>;
+    const hasCW =
+      !!cwMsg.value.content.contentWarning &&
+      typeof cwMsg.value.content.contentWarning === 'string';
+    const opened = hasCW ? this.state.cwOpened : true;
 
     return h(MessageContainer, [
       h(MessageHeader, props),
-      Markdown(msg.value.content.text),
+      hasCW
+        ? h(ContentWarning, {
+            description: cwMsg.value.content.contentWarning!,
+            opened,
+            onPressToggle: this.onPressToggleCW,
+          })
+        : (null as any),
+      opened ? Markdown(msg.value.content.text) : (null as any),
       h(MessageFooter, props),
     ]);
   }
