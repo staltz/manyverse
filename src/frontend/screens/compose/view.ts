@@ -8,7 +8,14 @@ import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {h} from '@cycle/react';
 import {ReactElement} from 'react';
-import {View, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import Markdown from '../../global-styles/markdown';
 import Avatar from '../../components/Avatar';
@@ -25,14 +32,20 @@ export default function view(
     .startWith(undefined);
 
   const miniState$ = state$
-    .map(state => ({postText: state.postText, previewing: state.previewing}))
+    .map(state => ({
+      postText: state.postText,
+      previewing: state.previewing,
+      contentWarning: state.contentWarning,
+    }))
     .compose(
       dropRepeats(
         (s1, s2) =>
-          s1.previewing === s2.previewing && s1.postText === s2.postText,
+          s1.previewing === s2.previewing &&
+          s1.postText === s2.postText &&
+          s1.contentWarning === s2.contentWarning,
       ),
     )
-    .startWith({postText: '', previewing: false});
+    .startWith({postText: '', previewing: false, contentWarning: ''});
 
   return xs
     .combine(topBar$, avatarUrl$, miniState$)
@@ -46,11 +59,35 @@ export default function view(
             ['enabled' as any]: true,
           },
           [
-            h(Avatar, {
-              size: avatarSize,
-              style: styles.avatar,
-              url: avatarUrl,
-            }),
+            h(View, {style: styles.leftSide}, [
+              h(Avatar, {
+                size: avatarSize,
+                url: avatarUrl,
+              }),
+              h(View, {style: styles.leftSpacer}),
+              h(
+                TouchableOpacity,
+                {
+                  sel: 'content-warning',
+                  activeOpacity: 0.4,
+                  accessible: true,
+                  accessibilityLabel: 'Content Warning Button',
+                },
+                [
+                  h(View, [
+                    h(
+                      Text,
+                      {
+                        style: miniState.contentWarning
+                          ? styles.contentWarningOn
+                          : styles.contentWarningOff,
+                      },
+                      'CW',
+                    ),
+                  ]),
+                ],
+              ),
+            ]),
 
             miniState.previewing
               ? h(

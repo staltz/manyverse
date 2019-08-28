@@ -9,12 +9,12 @@ import {toPostContent} from '../../../ssb/to-ssb';
 import {Req, contentToPublishReq} from '../../drivers/ssb';
 
 export type Actions = {
-  publishMsg$: Stream<string>;
+  publishMsg$: Stream<{text: string; contentWarning: string}>;
 };
 
 export default function ssb(actions: Actions): Stream<Req> {
   const publishMsg$ = actions.publishMsg$
-    .map(toPostContent)
+    .map(({text, contentWarning}) => toPostContent(text, contentWarning))
     .map(contentToPublishReq);
 
   return publishMsg$;

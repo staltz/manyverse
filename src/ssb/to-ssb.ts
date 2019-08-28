@@ -30,12 +30,21 @@ export function toVoteContent(ev: LikeEvent): Privatable<VoteContent> {
   };
 }
 
-export function toPostContent(text: string): Privatable<PostContent> {
-  return {
+export function toPostContent(
+  text: string,
+  contentWarning?: string,
+): Privatable<PostContent> {
+  const content: PostContent = {
     text,
     type: 'post',
     mentions: [],
   };
+
+  if (contentWarning) {
+    (content as any).contentWarning = contentWarning;
+  }
+
+  return content;
 }
 
 export function toReplyPostContent(

@@ -46,14 +46,21 @@ export default function intent(
   return {
     publishMsg$: topBarDone$
       .compose(sample(state$))
-      .map(state => state.postText)
-      .filter(text => text.length > 0),
+      .filter(state => state.postText.length > 0)
+      .map(state => ({
+        text: state.postText,
+        contentWarning: state.contentWarning,
+      })),
 
     togglePreview$: topBarPreviewToggle$,
 
     updatePostText$: reactSource
       .select('composeInput')
       .events('changeText') as Stream<string>,
+
+    openContentWarning$: reactSource
+      .select('content-warning')
+      .events('press') as Stream<null>,
 
     exit$: backWithoutDialog$,
 

@@ -22,6 +22,7 @@ import model, {State, topBarLens} from './model';
 import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
+import dialog from './dialog';
 import asyncStorage from './asyncstorage';
 
 export type Sources = {
@@ -64,6 +65,8 @@ export function compose(sources: Sources): Sinks {
     sources.state.stream,
     sources.dialog,
   );
+  const dialogActions = dialog(actions, sources.dialog);
+  const actionsPlus = {...actions, ...dialogActions};
   const dismissKeyboard$ = xs
     .merge(
       actions.publishMsg$,
@@ -73,10 +76,10 @@ export function compose(sources: Sources): Sinks {
     )
     .mapTo('dismiss' as 'dismiss');
   const vdom$ = view(sources.state.stream, topBarSinks.screen);
-  const command$ = navigation(actions);
-  const reducer$ = model(actions, sources.asyncstorage, sources.ssb);
-  const storageCommand$ = asyncStorage(actions, sources.state.stream);
-  const newContent$ = ssb(actions);
+  const command$ = navigation(actionsPlus);
+  const reducer$ = model(actionsPlus, sources.asyncstorage, sources.ssb);
+  const storageCommand$ = asyncStorage(actionsPlus, sources.state.stream);
+  const newContent$ = ssb(actionsPlus);
 
   return {
     keyboard: dismissKeyboard$,

@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TextStyle} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -22,6 +22,13 @@ export const navigatorStyle = {
 
 export const avatarSize = Dimensions.avatarSizeNormal;
 
+const contentWarning: TextStyle = {
+  fontSize: Typography.fontSizeBig,
+  fontWeight: 'bold',
+  fontFamily: Typography.fontFamilyReadableText,
+  paddingHorizontal: Dimensions.horizontalSpaceSmall,
+};
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -37,8 +44,26 @@ export const styles = StyleSheet.create({
     paddingLeft: Dimensions.horizontalSpaceBig,
   },
 
-  avatar: {
+  leftSide: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     marginTop: Dimensions.verticalSpaceBig,
+    marginBottom: Dimensions.verticalSpaceNormal,
+  },
+
+  contentWarningOff: {
+    ...contentWarning,
+    color: Palette.textVeryWeak,
+  },
+
+  contentWarningOn: {
+    ...contentWarning,
+    color: Palette.textBrand,
+  },
+
+  leftSpacer: {
+    flex: 1,
   },
 
   composeInput: {

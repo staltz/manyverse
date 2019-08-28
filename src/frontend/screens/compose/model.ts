@@ -12,6 +12,7 @@ import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 
 export type State = {
   postText: string;
+  contentWarning: string;
   avatarUrl: string | undefined;
   previewing: boolean;
 };
@@ -32,6 +33,7 @@ export const topBarLens: Lens<State, TopBarState> = {
 
 export type Actions = {
   updatePostText$: Stream<string>;
+  updateContentWarning$: Stream<string>;
   togglePreview$: Stream<any>;
 };
 
@@ -42,13 +44,25 @@ export default function model(
 ): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initReducer(prev?: State): State {
     if (prev) return prev;
-    return {postText: '', avatarUrl: undefined, previewing: false};
+    return {
+      postText: '',
+      contentWarning: '',
+      avatarUrl: undefined,
+      previewing: false,
+    };
   });
 
   const updatePostTextReducer$ = actions.updatePostText$.map(
     postText =>
       function updatePostTextReducer(prev: State): State {
         return {...prev, postText};
+      },
+  );
+
+  const updateContentWarningReducer$ = actions.updateContentWarning$.map(
+    contentWarning =>
+      function updateContentWarningReducer(prev: State): State {
+        return {...prev, contentWarning};
       },
   );
 
@@ -82,6 +96,7 @@ export default function model(
   return xs.merge(
     initReducer$,
     updatePostTextReducer$,
+    updateContentWarningReducer$,
     togglePreviewReducer$,
     aboutReducer$,
     getComposeDraftReducer$,
