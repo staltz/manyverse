@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1908.28-beta
+
+* Feature: add a content warning in the Compose screen ([see details](https://gitlab.com/staltz/manyverse/commit/4988983524fc80491c7fcec4c8b79b91b27edfd1))
+* Feature: display content warnings when they exist ([see details](https://gitlab.com/staltz/manyverse/commit/3233faea6b5ed54167bc0ac898d486d1cd95b7b5))
+* Improve Connections tab to hide blocked staged peers ([see details](https://gitlab.com/staltz/manyverse/commit/a7810ae501d58a693b7b194dc117eb4588d0ecea))
+
 ## 0.1908.24-beta
 
 * Update text in the Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/095dbe152b03a32468d6bc01caa3e14936ee509a))
