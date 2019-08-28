@@ -1,12 +1,10 @@
 /* Any copyright is dedicated to the Public Domain.
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
-const test = require('tape');
 const wd = require('wd');
 
-async function scrollToFeedBottom(driver) {
-  // Scroll six times just to be sure we got to the bottom
-  for (let x of [1, 2, 3, 4, 5, 6]) {
+async function scrollDownUntil(driver, conditionFn) {
+  for (let _ of Array(10)) {
     let action = new wd.TouchAction(driver);
     action
       .press({x: 600, y: 1100})
@@ -14,12 +12,13 @@ async function scrollToFeedBottom(driver) {
       .moveTo({x: 600, y: 600})
       .release();
     await action.perform();
+    await driver.sleep(300);
+    if (await conditionFn()) return;
   }
 }
 
-async function scrollToFeedTop(driver) {
-  // Scroll six times just to be sure we got to the top
-  for (let x of [1, 2, 3, 4, 5, 6]) {
+async function scrollUpUntil(driver, conditionFn) {
+  for (let _ of Array(10)) {
     let action = new wd.TouchAction(driver);
     action
       .press({x: 600, y: 600})
@@ -27,6 +26,8 @@ async function scrollToFeedTop(driver) {
       .moveTo({x: 600, y: 1100})
       .release();
     await action.perform();
+    await driver.sleep(300);
+    if (await conditionFn()) return;
   }
 }
 
@@ -107,9 +108,17 @@ module.exports = function(driver, t) {
       'I see message number ' + AMOUNT + ' on the feed',
     );
 
-    await scrollToFeedBottom(driver);
+    await scrollDownUntil(driver, async () => {
+      try {
+        return !!(await driver.waitForElementByAndroidUIAutomator(
+          'new UiSelector().textContains("Message number 1a")',
+          1000,
+        ));
+      } catch (err) {
+        return false;
+      }
+    });
     t.pass('I scroll down through the feed');
-    await driver.sleep(2000);
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
@@ -119,7 +128,16 @@ module.exports = function(driver, t) {
       'I see message number 1 on the feed',
     );
 
-    await scrollToFeedTop(driver);
+    await scrollUpUntil(driver, async () => {
+      try {
+        return !!(await driver.waitForElementByAndroidUIAutomator(
+          'new UiSelector().textContains("Message number ' + AMOUNT + 'a")',
+          1000,
+        ));
+      } catch (err) {
+        return false;
+      }
+    });
     t.pass('I scroll back up');
 
     t.end();

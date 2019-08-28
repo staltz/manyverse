@@ -1,9 +1,6 @@
 /* Any copyright is dedicated to the Public Domain.
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
-const test = require('tape');
-const wd = require('wd');
-
 module.exports = function(driver, t) {
   t.test('Central screen is displayed with 2 tabs', async function(t) {
     t.ok(

@@ -1,9 +1,6 @@
 /* Any copyright is dedicated to the Public Domain.
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
-const test = require('tape');
-const {End, Home} = require('wd/lib/special-keys');
-
 module.exports = function(driver, t) {
   t.test('Compose screen allows posting new public message', async function(t) {
     t.ok(
@@ -44,6 +41,97 @@ module.exports = function(driver, t) {
         6000,
       ),
       'I see the new message posted on the feed',
+    );
+
+    t.end();
+  });
+
+  t.test('Compose screen supports adding a content warning', async t => {
+    const fab = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Floating Action Button")',
+      6000,
+    );
+    t.ok(fab, 'I see the Floating Action Button');
+    await fab.click();
+    t.pass('I tap it');
+
+    const composeTextInput = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Compose Text Input")',
+      6000,
+    );
+    t.ok(composeTextInput, 'I see the Compose Text Input in Compose screen');
+
+    await composeTextInput.keys('Goodbye world today is a dark day');
+    t.pass('I type a message into it');
+    const f2 = await composeTextInput.text();
+    t.equal(f2.length, 33, 'Its text content is non-empty');
+
+    const contentWarningButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Content Warning Button")',
+      6000,
+    );
+    t.pass('I see the Content Warning Button');
+    await contentWarningButton.click();
+    t.pass('I tap it');
+
+    t.ok(
+      await driver.elementByAndroidUIAutomator(
+        'new UiSelector().textContains("If your post contains sensitive topics")',
+      ),
+      'I see a dialog prompt asking for the note',
+    );
+    t.pass('I write a note into the text field');
+    await driver.keys('depressing message');
+
+    await driver.sleep(1000);
+    const doneButton = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().text("Done")',
+      6000,
+    );
+    t.ok(doneButton, 'I see the Done button');
+    await doneButton.click();
+    t.pass('I tap it');
+
+    const composePublishButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Compose Publish Button")',
+      6000,
+    );
+    t.pass('I see the Compose Publish Button');
+    await composePublishButton.click();
+    t.pass('I tap it');
+
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("depressing message")',
+        6000,
+      ),
+      'I see the content warning replacing the message on the feed',
+    );
+
+    try {
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Goodbye world today is a dark day")',
+        1000,
+      );
+      t.fail('Should not have seen content-warning-protected message');
+    } catch (err) {
+      t.pass('I dont see the content-warned message on the Central screen');
+    }
+
+    const viewButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().text("View")',
+      6000,
+    );
+    t.pass('I see the View Button');
+    await viewButton.click();
+    t.pass('I tap it');
+
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Goodbye world today is a dark day")',
+        6000,
+      ),
+      'I see the actual content-warned message on the feed',
     );
 
     t.end();
