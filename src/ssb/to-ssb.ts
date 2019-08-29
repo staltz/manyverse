@@ -13,6 +13,7 @@ import {
   AboutContent,
   MsgId,
 } from 'ssb-typescript';
+const Mentions = require('remark-ssb-mentions');
 
 export type LikeEvent = {
   msgKey: string;
@@ -37,7 +38,7 @@ export function toPostContent(
   const content: PostContent = {
     text,
     type: 'post',
-    mentions: [],
+    mentions: Mentions(text),
   };
 
   if (contentWarning) {
@@ -55,7 +56,7 @@ export function toReplyPostContent(
     text,
     type: 'post',
     root,
-    mentions: [],
+    mentions: Mentions(text),
   };
 }
 
