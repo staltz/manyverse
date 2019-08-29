@@ -178,6 +178,23 @@ export default class StagedConnectionsList extends Component<Props, State> {
     return isRoomKV(entry) ? SHORT_ITEM_HEIGHT : ITEM_HEIGHT;
   };
 
+  /**
+   * Sort peers lexicographically by the extracted key:
+   * - First, the room server
+   * - Second, room peers in connection
+   * - Third, staged room peers
+   */
+  private roomsKeyExtractor = (entry: MixedPeerKV) => {
+    const [addr] = entry;
+    if (isRoomKV(entry)) {
+      return `A-${addr}`;
+    } else if (isInConnection(entry)) {
+      return `B-${addr}`;
+    } else {
+      return `C-${addr}`;
+    }
+  };
+
   public render() {
     return h(View, {style: this.props.style}, [
       // Hub peers first
@@ -198,7 +215,7 @@ export default class StagedConnectionsList extends Component<Props, State> {
           ['key' as any]: peers.length ? peers[0][0] : Math.random(),
           style: styles.container,
           data: peers,
-          keyExtractor: ([addr]) => addr,
+          keyExtractor: this.roomsKeyExtractor,
           renderItem: this.renderItem,
           getItemHeight: this.getItemHeight,
         }),
