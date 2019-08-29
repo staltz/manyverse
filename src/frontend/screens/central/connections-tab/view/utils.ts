@@ -64,7 +64,6 @@ export function peerModeIcon(peer: KV[1]): string {
 
 export function peerModeDescription(data: KV[1]): string {
   const type = detectType(data);
-  const hubData = data as PeerKV[1];
   switch (type) {
     case 'bt':
       return 'Bluetooth';
@@ -76,8 +75,7 @@ export function peerModeDescription(data: KV[1]): string {
       return 'Internet P2P';
 
     case 'room-endpoint':
-      if (hubData.roomName) return `Peer in room '${hubData.roomName}'`;
-      else return 'Room peer';
+      return 'Room peer';
 
     case 'room':
       return 'Room server';
