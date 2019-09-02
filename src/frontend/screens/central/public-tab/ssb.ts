@@ -22,7 +22,7 @@ export default function ssb(actions: Actions): Stream<Req> {
 
   const startDht$ = actions.initializationDone$
     .take(1)
-    .map(() => ({type: 'dhtInvite.start'} as Req));
+    .map(() => ({type: 'conn.start'} as Req));
 
   return xs.merge(toggleLikeMsg$, startDht$);
 }

@@ -509,10 +509,6 @@ export type AcceptInviteReq = {
   invite: string;
 };
 
-export type StartDhtReq = {
-  type: 'dhtInvite.start';
-};
-
 export type AcceptDhtInviteReq = {
   type: 'dhtInvite.accept';
   invite: string;
@@ -536,6 +532,10 @@ export type DisableBluetoothReq = {
 export type SearchBluetoothReq = {
   type: 'bluetooth.search';
   interval: number;
+};
+
+export type ConnStartReq = {
+  type: 'conn.start';
 };
 
 export type ConnConnectReq = {
@@ -576,12 +576,12 @@ export type Req =
   | PublishReq
   | PublishAboutReq
   | AcceptInviteReq
-  | StartDhtReq
   | AcceptDhtInviteReq
   | RemoveDhtInviteReq
   | EnableBluetoothReq
   | DisableBluetoothReq
   | SearchBluetoothReq
+  | ConnStartReq
   | ConnConnectReq
   | ConnRememberConnectReq
   | ConnFollowConnectReq
@@ -639,9 +639,12 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           const [err] = await runAsync(ssb.invite.accept)(req.invite);
           source.acceptInviteResponse$._n(err ? err.message || err : true);
         }
-        if (req.type === 'dhtInvite.start') {
-          const [err] = await runAsync(ssb.dhtInvite.start)();
-          if (err) console.error(err.message || err);
+        if (req.type === 'conn.start') {
+          const [err1] = await runAsync(ssb.conn.start)();
+          if (err1) console.error(err1.message || err1);
+
+          const [err2] = await runAsync(ssb.dhtInvite.start)();
+          if (err2) console.error(err2.message || err2);
         }
         if (req.type === 'conn.connect') {
           // connect

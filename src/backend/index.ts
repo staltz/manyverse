@@ -35,6 +35,9 @@ const config = makeConfig('ssb', {
   path: ssbPath,
   keys,
   manifest,
+  conn: {
+    autostart: false,
+  },
   friends: {
     hops: 2,
   },
