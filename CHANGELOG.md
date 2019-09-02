@@ -6,6 +6,14 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1909.2-beta
+
+* Bug fix: improve ordering of room peers online ([see details](https://gitlab.com/staltz/manyverse/commit/ec4d4f3c32c112fc4671b79867b87bf3891a1c89))
+* Bug fix: use simpler description for room peers online ([see details](https://gitlab.com/staltz/manyverse/commit/ce50ff7b7eaf1f2d48b6541f9ebf54d09f178d73))
+* Improve how connections are scheduled ([see details](https://gitlab.com/staltz/manyverse/commit/380d6bdcd821f96ba970b06e7783840d9f61615e))
+* Improve how data is published when it mentions other accounts ([see details](https://gitlab.com/staltz/manyverse/commit/7246fb23ee3ecdee6eed781495946b52e74c97fc))
+* Improve startup time by -2 seconds ([see details](https://gitlab.com/staltz/manyverse/commit/b1b3d73be448d7aa5c1e6908475e6f52f66aaf7e))
+
 ## 0.1908.28-beta
 
 * Feature: add a content warning in the Compose screen ([see details](https://gitlab.com/staltz/manyverse/commit/4988983524fc80491c7fcec4c8b79b91b27edfd1))
