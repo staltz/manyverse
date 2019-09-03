@@ -41,9 +41,6 @@ declare -a archs=(
   # "x86_64;x64"
 )
 
-NODE_VERSION=10.13.0 # This is given by nodejs-mobile
-NODE_MODULE_VERSION=64 # See https://nodejs.org/en/download/releases
-
 cd android;
 if [ -f ./gradlew ]
 then
