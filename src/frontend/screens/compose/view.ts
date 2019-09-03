@@ -17,7 +17,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Palette} from '../../global-styles/palette';
-import Markdown from '../../global-styles/markdown';
+import Markdown from '../../components/Markdown';
 import Avatar from '../../components/Avatar';
 import {State} from './model';
 import {styles, avatarSize} from './styles';

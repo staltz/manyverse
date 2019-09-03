@@ -6,7 +6,7 @@
 
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
-import Markdown from '../../global-styles/markdown';
+import Markdown from '../Markdown';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';

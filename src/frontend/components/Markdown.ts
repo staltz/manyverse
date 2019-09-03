@@ -16,9 +16,9 @@ import {
   TouchableWithoutFeedback as Touchable,
   ToastAndroid,
 } from 'react-native';
-import {Palette} from './palette';
-import {Dimensions as Dimens} from './dimens';
-import {Typography as Typ} from './typography';
+import {Palette} from '../global-styles/palette';
+import {Dimensions as Dimens} from '../global-styles/dimens';
+import {Typography as Typ} from '../global-styles/typography';
 import {GlobalEventBus} from '../drivers/eventbus';
 import ImageView from 'react-native-image-view';
 import HeaderButton from '../components/HeaderButton';

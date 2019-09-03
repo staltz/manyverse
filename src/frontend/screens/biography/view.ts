@@ -10,7 +10,7 @@ import {View, Image, Dimensions, ScrollView} from 'react-native';
 import {h} from '@cycle/react';
 import {State} from './index';
 import {styles} from './styles';
-import Markdown from '../../global-styles/markdown';
+import Markdown from '../../components/Markdown';
 
 export default function view(
   state$: Stream<State>,
