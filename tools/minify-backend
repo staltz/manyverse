@@ -13,6 +13,7 @@ function onFailure() {
   exit 1
 }
 
+SECONDS=0
 echo -en "Removing unused files meant for macOS or Windows, etc...";
 # make a list of things to delete then delete them
 # `-exec rm -rf {} \;` confuses find because the recursion can no longer find a step (depth-first traversal (-d) would also work)
@@ -31,7 +32,7 @@ find ./nodejs-assets/nodejs-project/node_modules \
     -name "electron-napi.node" \
   \) \
   -print0 | xargs -0 rm -rf # delete everything in the list
-echo -en " done.\n";
+echo -en " — $SECONDS s\n";
 
 # "NDK_ARCH;NODEJS_ARCH"
 declare -a archs=(
@@ -60,6 +61,7 @@ done
 cd ..;
 echo "";
 
+SECONDS=0
 echo -en "Minifying with noderify...";
 cd ./nodejs-assets/nodejs-project;
 $(npm bin)/noderify \
@@ -75,9 +77,10 @@ $(npm bin)/noderify \
 rm index.js;
 mv _index.js index.js;
 cd ../..;
-echo -en " done.\n";
+echo -en " — $SECONDS s\n";
 
+SECONDS=0
 echo -en "Removing node_modules folder and package-lock.json...";
 rm -rf ./nodejs-assets/nodejs-project/node_modules;
 rm ./nodejs-assets/nodejs-project/package-lock.json
-echo -en " done.\n";
+echo -en " — $SECONDS s\n";

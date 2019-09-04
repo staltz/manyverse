@@ -13,18 +13,21 @@ function onFailure() {
   exit 1
 }
 
-echo "Compiling TypeScript...";
-npm run lib;
+SECONDS=0
+echo -en "Compiling TypeScript...";
+npm run --silent lib;
+echo -en " — $SECONDS s\n";
 
-echo "Setting up...";
+SECONDS=0
+echo -en "Setting up...";
 mkdir -p ./nodejs-assets;
 rm -rf ./nodejs-assets/nodejs-project;
 if [ -f ./nodejs-assets/BUILD_NATIVE_MODULES.txt ]
 then
-  echo "Build Native Modules on";
+  echo -en " Build Native Modules already on";
 else
   echo '1' >./nodejs-assets/BUILD_NATIVE_MODULES.txt;
-  echo "Set Build Native Modules on";
+  echo -en " Build Native Modules turned on";
 fi
 cp -r ./lib/backend ./nodejs-assets;
 mv ./nodejs-assets/backend ./nodejs-assets/nodejs-project;
@@ -32,18 +35,32 @@ cp ./src/backend/package.json ./nodejs-assets/nodejs-project;
 cp ./src/backend/package-lock.json ./nodejs-assets/nodejs-project;
 rm ./nodejs-assets/nodejs-project/*.js.map;
 rm ./nodejs-assets/nodejs-project/plugins/*.js.map;
+echo -en " — $SECONDS s\n";
 
-echo "Installing dependencies...";
-cd ./nodejs-assets/nodejs-project && npm install --no-optional;
+echo "Installing node_modules dependencies...";
+
+NOOP=$(mktemp /tmp/noop_make.XXXXX)
+cat > $NOOP <<EOF
+#!/bin/sh
+# echo "Ignore 'make' because we want to disable node-gyp builds"
+EOF
+chmod +x $NOOP;
+$NOOP one two three;
+
+cd ./nodejs-assets/nodejs-project && npm_config_make=$NOOP npm install --no-optional --silent;
 
 # For more details on this, read issue #398:
-echo "Removing problematic transitive dependencies...";
+SECONDS=0
+echo -en "Removing problematic transitive dependencies...";
 cd node_modules && rm -rf chokidar fsevents && cd ../../..;
+echo -en " — $SECONDS s\n";
 
-echo "Updating package-lock.json";
+SECONDS=0
+echo -en "Updating package-lock.json...";
 cp ./nodejs-assets/nodejs-project/package-lock.json ./src/backend/package-lock.json
+echo -en " — $SECONDS s\n";
 
-echo "Patch (in preprocessor style) some dependencies...";
+SECONDS=0
+echo -en "Patch some dependencies...";
 ./tools/patch-backend-ssb-server ./nodejs-assets/nodejs-project;
-
-echo "Done.";
+echo -en " — $SECONDS s\n";
