@@ -6,7 +6,6 @@
 
 import xs, {Stream} from 'xstream';
 import {Req, StagedPeerKV} from '../../../drivers/ssb';
-import {NetworkSource} from '../../../drivers/network';
 
 export type Actions = {
   removeDhtInvite$: Stream<string>;
@@ -19,7 +18,7 @@ export type Actions = {
   pingConnectivityModes$: Stream<any>;
 };
 
-export default function ssb(actions: Actions, networkSource: NetworkSource) {
+export default function ssb(actions: Actions) {
   return xs.merge(
     actions.removeDhtInvite$.map(
       invite => ({type: 'dhtInvite.remove', invite} as Req),
@@ -48,15 +47,6 @@ export default function ssb(actions: Actions, networkSource: NetworkSource) {
       address => ({type: 'conn.disconnectForget', address} as Req),
     ),
     actions.forgetPeer$.map(address => ({type: 'conn.forget', address} as Req)),
-    actions.pingConnectivityModes$
-      .map(() => networkSource.bluetoothIsEnabled())
-      .flatten()
-      .map(
-        bluetoothEnabled =>
-          (bluetoothEnabled
-            ? {type: 'bluetooth.enable'}
-            : {type: 'bluetooth.disable'}) as Req,
-      ),
     actions.bluetoothSearch$.mapTo({
       type: 'bluetooth.search',
       interval: 20e3,

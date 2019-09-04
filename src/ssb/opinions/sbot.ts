@@ -33,8 +33,6 @@ const gives = {
     sync: {
       cache: true,
       invalidateAboutSocialValue: true,
-      enableBluetooth: true,
-      disableBluetooth: true,
     },
     async: {
       ssb: true,
@@ -66,9 +64,6 @@ const gives = {
       claimingDhtInvites: true,
       aboutSocialValueStream: true,
     },
-    obs: {
-      bluetoothEnabled: true,
-    },
   },
 };
 
@@ -84,8 +79,6 @@ const create = (api: any) => {
   const keys = api.keys.sync.load();
 
   let sbot: any = null;
-  const bluetoothEnabled$ = xs.createWithMemory<boolean>();
-  bluetoothEnabled$.shamefullySendNext(false);
   const sbot$ = xs.createWithMemory<any>();
   const DUNBAR = 150;
   const socialValueCache = {
@@ -156,12 +149,6 @@ const create = (api: any) => {
         invalidateAboutSocialValue: (feedId: FeedId) => {
           socialValueCache.name.delete(feedId);
           socialValueCache.image.delete(feedId);
-        },
-        enableBluetooth: () => {
-          bluetoothEnabled$.shamefullySendNext(true);
-        },
-        disableBluetooth: () => {
-          bluetoothEnabled$.shamefullySendNext(false);
         },
       },
       async: {
@@ -313,9 +300,6 @@ const create = (api: any) => {
         bluetoothScanState: rec.source(() => {
           return sbot.bluetooth.bluetoothScanState();
         }),
-      },
-      obs: {
-        bluetoothEnabled: () => bluetoothEnabled$,
       },
     },
   };

@@ -70,7 +70,7 @@ export function connectionsTab(sources: Sources): Sinks {
     sources.network,
   );
   const fabProps$ = floatingAction(sources.state.stream);
-  const ssb$ = ssb(actionsPlus, sources.network);
+  const ssb$ = ssb(actionsPlus);
   const alert$ = alert(actionsPlus, sources.state.stream);
   const share$ = xs.merge(
     actionsPlus.shareDhtInvite$.map(inviteCode => ({

@@ -518,16 +518,6 @@ export type RemoveDhtInviteReq = {
   invite: string;
 };
 
-export type EnableBluetoothReq = {
-  type: 'bluetooth.enable';
-  interval: number;
-};
-
-export type DisableBluetoothReq = {
-  type: 'bluetooth.disable';
-  interval: number;
-};
-
 export type SearchBluetoothReq = {
   type: 'bluetooth.search';
   interval: number;
@@ -577,8 +567,6 @@ export type Req =
   | AcceptInviteReq
   | AcceptDhtInviteReq
   | RemoveDhtInviteReq
-  | EnableBluetoothReq
-  | DisableBluetoothReq
   | SearchBluetoothReq
   | ConnStartReq
   | ConnConnectReq
@@ -719,12 +707,6 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           if (e1) console.error(e1.message || e1);
           const [e2] = await runAsync(ssb.conn.forget)(addr);
           if (e2) console.error(e2.message || e2);
-        }
-        if (req.type === 'bluetooth.enable') {
-          api.sbot.sync.enableBluetooth[0]();
-        }
-        if (req.type === 'bluetooth.disable') {
-          api.sbot.sync.disableBluetooth[0]();
         }
         if (req.type === 'bluetooth.search') {
           const [err] = await runAsync(ssb.bluetooth.makeDeviceDiscoverable)(
