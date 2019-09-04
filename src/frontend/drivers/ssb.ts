@@ -10,8 +10,7 @@ import {Msg, Content, FeedId, About, MsgId, AboutContent} from 'ssb-typescript';
 import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
-import makeKeysOpinion from '../../ssb/opinions/keys';
-import sbotOpinion from '../../ssb/opinions/sbot';
+import makeSbotOpinion from '../../ssb/opinions/sbot';
 import publishHookOpinion from '../../ssb/opinions/hook';
 import contactOpinion = require('../../ssb/opinions/contact/obs');
 import {ssbKeysPath} from '../../ssb/defaults';
@@ -161,6 +160,8 @@ export type GetReadable<T> = (opts?: any) => Readable<T>;
 export type HostingDhtInvite = {seed: string; claimer: string; online: boolean};
 
 export class SSBSource {
+  private keys$: Stream<any>;
+  private api$: Stream<any>;
   public selfFeedId$: MemoryStream<FeedId>;
   public publicRawFeed$: Stream<GetReadable<MsgAndExtras>>;
   public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
@@ -176,17 +177,23 @@ export class SSBSource {
   public stagedPeers$: Stream<Array<StagedPeerKV>>;
   public bluetoothScanState$: Stream<any>;
 
-  constructor(private api$: Stream<any>) {
-    this.selfFeedId$ = api$.map(api => api.keys.sync.id[0]()).remember();
+  constructor(keysP: Promise<any>, apiP: Promise<any>) {
+    this.keys$ = xs.fromPromise(keysP);
+    this.api$ = xs
+      .fromPromise(apiP)
+      .compose(dropCompletion)
+      .remember();
 
-    this.publicRawFeed$ = api$.map(api => (opts?: any) =>
+    this.selfFeedId$ = this.keys$.map(keys => keys.id).remember();
+
+    this.publicRawFeed$ = this.api$.map(api => (opts?: any) =>
       pull(
         api.sbot.pull.feed[0]({reverse: true, live: false, ...opts}),
         pull.asyncMap(mutateMsgWithLiveExtras(api)),
       ),
     );
 
-    this.publicFeed$ = api$.map(api => (opts?: any) =>
+    this.publicFeed$ = this.api$.map(api => (opts?: any) =>
       pull(
         api.sbot.pull.publicThreads[0]({
           threadMaxSize: 3,
@@ -199,7 +206,7 @@ export class SSBSource {
       ),
     );
 
-    this.publicLiveUpdates$ = api$
+    this.publicLiveUpdates$ = this.api$
       .map(api =>
         xsFromPullStream(
           api.sbot.pull.publicUpdates[0]({
@@ -210,33 +217,33 @@ export class SSBSource {
       .flatten()
       .mapTo(null);
 
-    this.isSyncing$ = api$
+    this.isSyncing$ = this.api$
       .map(api => xsFromPullStream(api.sbot.pull.syncing[0]()))
       .flatten()
       .map((resp: any) => resp.started > 0);
 
-    this.selfRoots$ = api$.map(api => (opts?: any) =>
+    this.selfRoots$ = this.api$.map(api => (opts?: any) =>
       pull(
-        api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
+        api.sbot.pull.userFeed[0]({id: api.sbot.sync.keys[0]().id, ...opts}),
         pull.filter(isRootPostMsg),
         pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
         pull.asyncMap(mutateThreadWithLiveExtras(api)),
       ),
     );
 
-    this.selfReplies$ = api$.map(api => (opts?: any) =>
+    this.selfReplies$ = this.api$.map(api => (opts?: any) =>
       pull(
-        api.sbot.pull.userFeed[0]({id: api.keys.sync.id[0](), ...opts}),
+        api.sbot.pull.userFeed[0]({id: api.sbot.sync.keys[0]().id, ...opts}),
         pull.filter(isReplyPostMsg),
         pull.asyncMap(mutateMsgWithLiveExtras(api)),
       ),
     );
 
-    this.publishHook$ = api$
+    this.publishHook$ = this.api$
       .map(api => api.sbot.hook.publishStream[0]() as Stream<Msg>)
       .flatten();
 
-    this.hostingDhtInvites$ = api$
+    this.hostingDhtInvites$ = this.api$
       .map(api =>
         xsFromPullStream<Array<HostingDhtInvite>>(
           api.sbot.pull.hostingDhtInvites[0](),
@@ -247,7 +254,7 @@ export class SSBSource {
     this.acceptInviteResponse$ = xs.create<true | string>();
     this.acceptDhtInviteResponse$ = xs.create<true | string>();
 
-    this.peers$ = api$
+    this.peers$ = this.api$
       .map(api => {
         const connPeers$ = xsFromPullStream<Array<PeerKV>>(
           api.sbot.pull.connPeers[0](),
@@ -267,7 +274,7 @@ export class SSBSource {
           .flatten();
 
         //#region DHT-related hacks (ideally this should go through CONN)
-        const selfId = api.keys.sync.id[0]();
+        const selfId = api.sbot.sync.keys[0]().id;
         const dhtClientsArr$ = this.hostingDhtInvites$
           .map(invites =>
             invites
@@ -302,7 +309,7 @@ export class SSBSource {
       })
       .flatten();
 
-    this.stagedPeers$ = api$
+    this.stagedPeers$ = this.api$
       .map(api => {
         const connStagedPeers$ = xsFromPullStream<Array<StagedPeerKV>>(
           api.sbot.pull.connStagedPeers[0](),
@@ -313,7 +320,7 @@ export class SSBSource {
           .flatten();
 
         //#region DHT-related hacks (ideally this should go through CONN)
-        const selfId = api.keys.sync.id[0]();
+        const selfId = api.sbot.sync.keys[0]().id;
         const hosting$ = this.hostingDhtInvites$
           .map(invites =>
             invites
@@ -349,7 +356,7 @@ export class SSBSource {
       })
       .flatten();
 
-    this.bluetoothScanState$ = api$
+    this.bluetoothScanState$ = this.api$
       .map(api => xsFromPullStream<any>(api.sbot.pull.bluetoothScanState[0]()))
       .flatten();
   }
@@ -389,7 +396,7 @@ export class SSBSource {
   public profileAbout$(id: FeedId): Stream<AboutAndExtras> {
     return this.api$
       .map(api => {
-        const selfId = api.keys.sync.id[0]();
+        const selfId = api.sbot.sync.keys[0]().id;
         const color = colorHash.hex(id);
         const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
         const aboutSocialValue$ = xsFromCallback(aboutSocialValue);
@@ -421,7 +428,7 @@ export class SSBSource {
   public profileAboutLive$(id: FeedId): Stream<AboutAndExtras> {
     return this.api$
       .map(api => {
-        const selfId = api.keys.sync.id[0]();
+        const selfId = api.sbot.sync.keys[0]().id;
         const color = colorHash.hex(id);
         const aboutPS = api.sbot.pull.aboutSocialValueStream[0];
         const name$ = xsFromPullStream(aboutPS({key: 'name', dest: id}));
@@ -454,7 +461,7 @@ export class SSBSource {
   public isPrivatelyBlocking$(dest: FeedId): Stream<boolean> {
     return this.api$
       .map((api: any) => {
-        const source = api.keys.sync.id[0]();
+        const source = api.sbot.sync.keys[0]().id;
         return xsFromPullStream<boolean>(
           pull(
             cat([
@@ -585,31 +592,32 @@ export function contentToPublishReq(content: Content): PublishReq {
 }
 
 export function ssbDriver(sink: Stream<Req>): SSBSource {
-  const keys$ = xs
-    .throw(new Error('keep retrying ssbKeys.load() until it works'))
-    .replaceError(() => xsFromCallback(ssbKeys.load)(ssbKeysPath));
+  const keysP = (function getKeys(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      ssbKeys.load(ssbKeysPath, (err: any, val: any) => {
+        if (err) reject(err);
+        else resolve(val);
+      });
+    }).catch(() => {
+      console.error('ssbKeys.load() failed, will retry');
+      return getKeys();
+    });
+  })();
 
-  const api$ = keys$
-    .take(1)
-    .compose(dropCompletion)
-    .map(keys => {
-      return depjectCombine([
-        publishHookOpinion,
-        makeKeysOpinion(keys),
-        sbotOpinion,
-        contactOpinion,
-      ]);
-    })
-    .remember();
+  const apiP = keysP.then(keys => {
+    return depjectCombine([
+      publishHookOpinion,
+      makeSbotOpinion(keys),
+      contactOpinion,
+    ]);
+  });
 
-  const source = new SSBSource(api$);
+  const source = new SSBSource(keysP, apiP);
 
   // Consume the sink
-  api$
-    .map(api => sink.map(req => [api, req] as [any, Req]))
-    .flatten()
-    .addListener({
-      next: async ([api, req]) => {
+  apiP.then(api =>
+    sink.addListener({
+      next: async req => {
         const [, ssb] = await runAsync<any>(api.sbot.async.ssb[0])();
 
         if (req.type === 'publish') {
@@ -617,7 +625,7 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
         }
         if (req.type === 'publishAbout') {
           api.sbot.async.publishAbout[0](req.content, () => {
-            const selfId = api.keys.sync.id[0]();
+            const selfId = api.sbot.sync.keys[0]().id;
             api.sbot.sync.invalidateAboutSocialValue[0](selfId);
           });
         }
@@ -669,7 +677,7 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           // TODO show this error as a Toast
 
           // check if following
-          const selfId = api.keys.sync.id[0]();
+          const selfId = api.sbot.sync.keys[0]().id;
           const friendId = req.key || '@' + addr.split('shs:')[1] + '.ed25519';
           const opts = {source: selfId, dest: friendId};
           const [e2, alreadyFollow] = await runAsync<boolean>(
@@ -723,7 +731,8 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           if (err) console.error(err.message || err);
         }
       },
-    });
+    }),
+  );
 
   return source;
 }
