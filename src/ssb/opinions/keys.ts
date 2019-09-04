@@ -8,7 +8,6 @@ const nest = require('depnest');
 
 function makeKeysOpinion(keys: any): any {
   const keysOpinion = {
-    needs: nest('config.sync.load', 'first'),
     gives: nest({
       'keys.sync': ['load', 'id'],
     }),

@@ -14,7 +14,6 @@ import makeKeysOpinion from '../../ssb/opinions/keys';
 import sbotOpinion from '../../ssb/opinions/sbot';
 import publishHookOpinion from '../../ssb/opinions/hook';
 import contactOpinion = require('../../ssb/opinions/contact/obs');
-import configOpinion from '../../ssb/opinions/config';
 import {ssbKeysPath} from '../../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
@@ -608,7 +607,6 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
     .map(keys => {
       return depjectCombine([
         publishHookOpinion,
-        configOpinion,
         makeKeysOpinion(keys),
         sbotOpinion,
         contactOpinion,

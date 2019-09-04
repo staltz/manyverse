@@ -7,5 +7,5 @@
 const os = require('os');
 const path = require('path');
 
-export const ssbPath = path.join(os.homedir(), '.ssb');
+const ssbPath = path.join(os.homedir(), '.ssb');
 export const ssbKeysPath = path.join(ssbPath, 'secret');
