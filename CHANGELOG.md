@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1909.5-beta
+
+* Feature: see which accounts liked a message ([see details](https://gitlab.com/staltz/manyverse/commit/e402d4c6b0707c19147095ba5c5c4384c201ea70))
+
 ## 0.1909.2-beta
 
 * Bug fix: improve ordering of room peers online ([see details](https://gitlab.com/staltz/manyverse/commit/ec4d4f3c32c112fc4671b79867b87bf3891a1c89))
