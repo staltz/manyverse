@@ -101,8 +101,8 @@ function makeSbotOpinion(keys: any) {
       });
 
       const syncingStream = Notify();
-      sbotP.then(ssbClient => {
-        pull(ssbClient.syncing.stream(), pull.drain(syncingStream));
+      sbotP.then(sbot => {
+        pull(sbot.syncing.stream(), pull.drain(syncingStream));
         startSyncingNotifications(syncingStream.listen());
       });
 
