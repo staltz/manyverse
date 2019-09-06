@@ -4,30 +4,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Readable} from '../../typings/pull-stream';
-import {manifest} from '../manifest-client';
 import {startSyncingNotifications} from '../syncing-notifications';
 import {AboutContent, FeedId, MsgId} from 'ssb-typescript';
+import ssbClient from 'react-native-ssb-client';
+import cachedAbout from 'ssb-cached-about';
+const manifest = require('../../backend/manifest');
 const pull = require('pull-stream');
 const Notify = require('pull-notify');
 const Ref = require('ssb-ref');
 const nest = require('depnest');
 const Defer = require('pull-defer');
 const ssbKeys = require('react-native-ssb-client-keys');
-const muxrpc = require('muxrpc');
-const nodejs = require('nodejs-mobile-react-native');
-const MultiServer = require('multiserver');
-const rnChannelPlugin = require('multiserver-rn-channel');
-const noAuthPlugin = require('multiserver/plugins/noauth');
-const QuickLRU = require('quick-lru');
-
-function toSodiumKeys(keys: any) {
-  if (!keys || !keys.public) return null;
-  return {
-    publicKey: Buffer.from(keys.public.replace('.ed25519', ''), 'base64'),
-    secretKey: Buffer.from(keys.private.replace('.ed25519', ''), 'base64'),
-  };
-}
 
 function makeSbotOpinion(keys: any) {
   return {
@@ -75,30 +62,9 @@ function makeSbotOpinion(keys: any) {
     },
 
     create: (api: any) => {
-      const DUNBAR = 150;
-      const socialValueCache = {
-        name: new QuickLRU({maxSize: DUNBAR}) as Map<FeedId, string>,
-        image: new QuickLRU({maxSize: DUNBAR}) as Map<FeedId, any>,
-      };
-
-      const sbotP = new Promise<any>((resolve, reject) => {
-        const ms = MultiServer([
-          [
-            rnChannelPlugin(nodejs.channel),
-            noAuthPlugin({keys: toSodiumKeys(keys)}),
-          ],
-        ]);
-        const address = 'channel~noauth:' + keys.public.replace('.ed25519', '');
-        ms.client(address, (err: any, stream: Readable<any>) => {
-          if (err) {
-            reject(err);
-          } else {
-            const client = muxrpc(manifest, null)();
-            pull(stream, client.createStream(), stream);
-            resolve(client);
-          }
-        });
-      });
+      const sbotP = ssbClient(keys, manifest)
+        .use(cachedAbout())
+        .callPromise();
 
       const syncingStream = Notify();
       sbotP.then(sbot => {
@@ -111,8 +77,9 @@ function makeSbotOpinion(keys: any) {
           sync: {
             keys: () => keys,
             invalidateAboutSocialValue: (feedId: FeedId) => {
-              socialValueCache.name.delete(feedId);
-              socialValueCache.image.delete(feedId);
+              sbotP.then(sbot => {
+                sbot.cachedAbout.invalidate(feedId);
+              });
             },
           },
           async: {
@@ -206,24 +173,9 @@ function makeSbotOpinion(keys: any) {
               });
             },
             aboutSocialValue: (opts: any, cb: any) => {
-              if (opts.key === 'name' || opts.key === 'image') {
-                const cache = socialValueCache[opts.key];
-                const author = opts.dest;
-                if (cache.has(author)) {
-                  return cb(null, cache.get(author));
-                } else {
-                  sbotP.then(sbot => {
-                    sbot.about.socialValue(opts, (err: any, val: string) => {
-                      if (!err && !!val) cache.set(author, val);
-                      cb(err, val);
-                    });
-                  });
-                }
-              } else {
-                sbotP.then(sbot => {
-                  sbot.about.socialValue(opts, cb);
-                });
-              }
+              sbotP.then(sbot => {
+                sbot.cachedAbout.socialValue(opts, cb);
+              });
             },
           },
           pull: {
