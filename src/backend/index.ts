@@ -59,37 +59,35 @@ const config = makeConfig('ssb', {
   },
 });
 
-function noAuthTransform(_sbot: any, cfg: any) {
-  _sbot.multiserver.transform({
+function noAuthTransform(ssb: any, cfg: any) {
+  ssb.multiserver.transform({
     name: 'noauth',
     create: () =>
       NoauthTransformPlugin({
-        keys: {
-          publicKey: Buffer.from(cfg.keys.public, 'base64'),
-        },
+        keys: {publicKey: Buffer.from(cfg.keys.public, 'base64')},
       }),
   });
 }
 
-function rnChannelTransport(_sbot: any) {
-  _sbot.multiserver.transport({
+function rnChannelTransport(ssb: any) {
+  ssb.multiserver.transport({
     name: 'channel',
     create: () => rnChannelPlugin(rnBridge.channel),
   });
 }
 
-function wsTransport(_sbot: any) {
-  _sbot.multiserver.transport({
+function wsTransport(ssb: any) {
+  ssb.multiserver.transport({
     name: 'ws',
     create: () => WS({}),
   });
 }
 
-function dhtTransport(_sbot: any) {
-  _sbot.multiserver.transport({
+function dhtTransport(ssb: any) {
+  ssb.multiserver.transport({
     name: 'dht',
     create: (dhtConfig: any) =>
-      DHT({keys: _sbot.dhtInvite.channels(), port: dhtConfig.port}),
+      DHT({keys: ssb.dhtInvite.channels(), port: dhtConfig.port}),
   });
 }
 
