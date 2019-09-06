@@ -23,6 +23,9 @@ function onFailure() {
 }
 
 adb uninstall se.manyver
+adb uninstall io.appium.settings
+adb uninstall io.appium.uiautomator2.server
+adb uninstall io.appium.uiautomator2.server.test
 $(npm bin)/appium --port 4995 > appium.log & echo $! > appium-server.pid
 sleep 5
 $(npm bin)/tape e2e/index.js | tap-spec
