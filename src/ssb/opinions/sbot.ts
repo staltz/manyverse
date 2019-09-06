@@ -87,14 +87,8 @@ function makeSbotOpinion(keys: any) {
               sbotP.then(sbot => cb(null, sbot));
             },
             get: (key: any, cb: any) => {
-              if (typeof cb !== 'function') {
-                throw new Error('cb must be function');
-              }
               sbotP.then(sbot => {
-                sbot.get(key, (err: any, value: any) => {
-                  if (err) return cb(err);
-                  cb(null, value);
-                });
+                sbot.get(key, cb);
               });
             },
             progress: (cb: any) => {
