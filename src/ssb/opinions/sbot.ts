@@ -136,23 +136,16 @@ function makeSbotOpinion(keys: any) {
               });
             },
             publish: (content: any, cb: any) => {
-              if (!content) {
-                if (cb) cb(new Error('invalid (falsy) content'));
-                return;
-              }
               sbotP.then(sbot => {
-                if (sbot) {
-                  // instant updating of interface (just incase sbot is busy)
-                  runHooks({
-                    publishing: true,
+                // instant updating of interface (just incase sbot is busy)
+                runHooks({
+                  timestamp: Date.now(),
+                  value: {
                     timestamp: Date.now(),
-                    value: {
-                      timestamp: Date.now(),
-                      author: keys.id,
-                      content,
-                    },
-                  });
-                }
+                    author: keys.id,
+                    content,
+                  },
+                });
                 if (content.recps) {
                   content = ssbKeys.box(
                     content,
@@ -358,9 +351,7 @@ function makeSbotOpinion(keys: any) {
       // scoped
 
       function runHooks(msg: any) {
-        if (msg.publishing) {
-          api.sbot.hook.publish(msg);
-        }
+        api.sbot.hook.publish(msg);
       }
     },
   };

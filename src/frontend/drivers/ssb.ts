@@ -532,7 +532,7 @@ export class SSBSource {
 
 export type PublishReq = {
   type: 'publish';
-  content: Content;
+  content: NonNullable<Content>;
 };
 
 export type PublishAboutReq = {
@@ -617,7 +617,7 @@ function dropCompletion(stream: Stream<any>): Stream<any> {
   return xs.merge(stream, xs.never());
 }
 
-export function contentToPublishReq(content: Content): PublishReq {
+export function contentToPublishReq(content: NonNullable<Content>): PublishReq {
   return {type: 'publish', content};
 }
 
@@ -717,8 +717,8 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
           if (alreadyFollow) return;
 
           // follow
-          const msg = {type: 'contact', contact: friendId, following: true};
-          const [e3] = await runAsync(api.sbot.async.publish[0])(msg);
+          const content = {type: 'contact', contact: friendId, following: true};
+          const [e3] = await runAsync(api.sbot.async.publish[0])(content);
           if (e3) return console.error(e3.message || e3);
         }
         if (req.type === 'conn.disconnect') {
