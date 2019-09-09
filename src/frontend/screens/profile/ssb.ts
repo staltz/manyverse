@@ -8,7 +8,7 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import sample from 'xstream-sample';
 import {State} from './model';
-import {toVoteContent, toContactContent} from '../../../ssb/to-ssb';
+import {toVoteContent, toContactContent} from '../../ssb/to-ssb';
 import {Req, contentToPublishReq} from '../../drivers/ssb';
 
 export type SSBActions = {

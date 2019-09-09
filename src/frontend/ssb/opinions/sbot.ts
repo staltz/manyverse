@@ -8,7 +8,7 @@ import {startSyncingNotifications} from '../syncing-notifications';
 import {AboutContent, FeedId, MsgId} from 'ssb-typescript';
 import ssbClient from 'react-native-ssb-client';
 import cachedAbout from 'ssb-cached-about';
-const manifest = require('../../backend/manifest');
+const manifest = require('../../../backend/manifest');
 const pull = require('pull-stream');
 const Notify = require('pull-notify');
 const Ref = require('ssb-ref');

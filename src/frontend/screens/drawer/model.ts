@@ -8,7 +8,7 @@ import {FeedId} from 'ssb-typescript';
 import {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
 import {SSBSource} from '../../drivers/ssb';
-import {shortFeedId} from '../../../ssb/from-ssb';
+import {shortFeedId} from '../../ssb/from-ssb';
 
 export type State = {
   selfFeedId: FeedId;

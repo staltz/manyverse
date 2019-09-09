@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {toVoteContent, toReplyPostContent} from '../../../ssb/to-ssb';
+import {toVoteContent, toReplyPostContent} from '../../ssb/to-ssb';
 import {State} from './model';
 import {Req, contentToPublishReq} from '../../drivers/ssb';
 

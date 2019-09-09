@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {toVoteContent} from '../../../../ssb/to-ssb';
+import {toVoteContent} from '../../../ssb/to-ssb';
 import {contentToPublishReq, Req} from '../../../drivers/ssb';
 
 export type LikeEvent = {msgKey: string; like: boolean};

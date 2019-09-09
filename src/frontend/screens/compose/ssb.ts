@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
-import {toPostContent} from '../../../ssb/to-ssb';
+import {toPostContent} from '../../ssb/to-ssb';
 import {Req, contentToPublishReq} from '../../drivers/ssb';
 
 export type Actions = {

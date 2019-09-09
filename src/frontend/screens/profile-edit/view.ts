@@ -9,7 +9,7 @@ import {h} from '@cycle/react';
 import {View, Text, TextInput, TouchableWithoutFeedback} from 'react-native';
 import Button from '../../components/Button';
 import {Palette} from '../../global-styles/palette';
-import {shortFeedId} from '../../../ssb/from-ssb';
+import {shortFeedId} from '../../ssb/from-ssb';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
 import {ReactElement} from 'react';
