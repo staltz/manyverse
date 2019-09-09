@@ -21,7 +21,6 @@ import syncingPlugin = require('./plugins/syncing');
 import blobsFromPathPlugin = require('./plugins/blobsFromPath');
 import votesPlugin = require('./plugins/votes');
 import connUtilsPlugin = require('./plugins/connUtils');
-import manifest = require('./manifest');
 
 const appDataDir = rnBridge.app.datadir();
 const ssbPath = path.resolve(appDataDir, '.ssb');
@@ -34,7 +33,6 @@ const keys = ssbKeys.loadOrCreateSync(keysPath);
 const config = makeConfig('ssb', {
   path: ssbPath,
   keys,
-  manifest,
   conn: {
     autostart: false,
   },

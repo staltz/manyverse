@@ -20,7 +20,6 @@
   "files": [
     "src/backend/index.ts",
     "src/backend/loader.ts",
-    "src/backend/manifest.ts",
     "src/frontend/index.ts",
     "src/typings/react-native-bluetooth-status.d.ts",
     "src/typings/react-native-dialogs.d.ts",

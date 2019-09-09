@@ -10,10 +10,10 @@ import ssbClient from 'react-native-ssb-client';
 import cachedAbout from 'ssb-cached-about';
 import syncingNotifications from '../syncing-notifications';
 import contactsPlugin from '../contacts';
+import manifest from '../manifest';
 const Ref = require('ssb-ref');
 const Defer = require('pull-defer');
 const ssbKeys = require('react-native-ssb-client-keys');
-const manifest = require('../../../backend/manifest');
 
 const hooksPlugin = {
   name: 'hooks',
