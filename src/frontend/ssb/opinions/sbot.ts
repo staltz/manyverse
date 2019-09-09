@@ -5,14 +5,15 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs from 'xstream';
-import syncingNotifications from '../syncing-notifications';
 import {AboutContent, FeedId, MsgId, Msg} from 'ssb-typescript';
 import ssbClient from 'react-native-ssb-client';
 import cachedAbout from 'ssb-cached-about';
-const manifest = require('../../../backend/manifest');
+import syncingNotifications from '../syncing-notifications';
+import contactsPlugin from '../contacts';
 const Ref = require('ssb-ref');
 const Defer = require('pull-defer');
 const ssbKeys = require('react-native-ssb-client-keys');
+const manifest = require('../../../backend/manifest');
 
 const hooksPlugin = {
   name: 'hooks',
@@ -43,7 +44,6 @@ function makeSbotOpinion(keys: any) {
           publishAbout: true,
           createDhtInvite: true,
           isFollowing: true,
-          isBlocking: true,
           aboutSocialValue: true,
           getHooksPublishStream: true,
         },
@@ -73,6 +73,7 @@ function makeSbotOpinion(keys: any) {
       const sbotP = ssbClient(keys, manifest)
         .use(hooksPlugin)
         .use(cachedAbout())
+        .use(contactsPlugin())
         .use(syncingNotifications())
         .callPromise();
 
@@ -163,11 +164,6 @@ function makeSbotOpinion(keys: any) {
             isFollowing: (opts: any, cb: any) => {
               sbotP.then(sbot => {
                 sbot.friends.isFollowing(opts, cb);
-              });
-            },
-            isBlocking: (opts: any, cb: any) => {
-              sbotP.then(sbot => {
-                sbot.friends.isBlocking(opts, cb);
               });
             },
             aboutSocialValue: (opts: any, cb: any) => {

@@ -11,7 +11,6 @@ import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import makeSbotOpinion from '../ssb/opinions/sbot';
-import contactOpinion = require('../ssb/opinions/contact/obs');
 import {ssbKeysPath} from '../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
@@ -428,7 +427,13 @@ export class SSBSource {
 
   public profileAbout$(id: FeedId): Stream<AboutAndExtras> {
     return this.api$
-      .map(api => {
+      .map(api =>
+        xsFromCallback<any>(api.sbot.async.ssb[0])().map(
+          ssb => [api, ssb] as [any, any],
+        ),
+      )
+      .flatten()
+      .map(([api, ssb]) => {
         const selfId = api.sbot.sync.keys[0]().id;
         const color = colorHash.hex(id);
         const aboutSocialValue = api.sbot.async.aboutSocialValue[0];
@@ -438,8 +443,8 @@ export class SSBSource {
           imageToImageUrl,
         );
         const description$ = aboutSocialValue$({key: 'description', dest: id});
-        const following$ = api.contact.obs.tristate[0](selfId, id);
-        const followsYou$ = api.contact.obs.tristate[0](id, selfId);
+        const following$ = ssb.contacts.tristate(selfId, id);
+        const followsYou$ = ssb.contacts.tristate(id, selfId);
         return xs
           .combine(name$, imageUrl$, description$, following$, followsYou$)
           .map(
@@ -460,7 +465,13 @@ export class SSBSource {
 
   public profileAboutLive$(id: FeedId): Stream<AboutAndExtras> {
     return this.api$
-      .map(api => {
+      .map(api =>
+        xsFromCallback<any>(api.sbot.async.ssb[0])().map(
+          ssb => [api, ssb] as [any, any],
+        ),
+      )
+      .flatten()
+      .map(([api, ssb]) => {
         const selfId = api.sbot.sync.keys[0]().id;
         const color = colorHash.hex(id);
         const aboutPS = api.sbot.pull.aboutSocialValueStream[0];
@@ -471,8 +482,8 @@ export class SSBSource {
         const description$ = xsFromPullStream(
           aboutPS({key: 'description', dest: id}),
         );
-        const following$ = api.contact.obs.tristate[0](selfId, id);
-        const followsYou$ = api.contact.obs.tristate[0](id, selfId);
+        const following$ = ssb.contacts.tristate(selfId, id);
+        const followsYou$ = ssb.contacts.tristate(id, selfId);
         return xs
           .combine(name$, imageUrl$, description$, following$, followsYou$)
           .map(
@@ -638,7 +649,7 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
   })();
 
   const apiP = keysP.then(keys => {
-    return depjectCombine([makeSbotOpinion(keys), contactOpinion]);
+    return depjectCombine([makeSbotOpinion(keys)]);
   });
 
   const source = new SSBSource(keysP, apiP);
