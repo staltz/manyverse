@@ -4,24 +4,33 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import xs from 'xstream';
 import {startSyncingNotifications} from '../syncing-notifications';
-import {AboutContent, FeedId, MsgId} from 'ssb-typescript';
+import {AboutContent, FeedId, MsgId, Msg} from 'ssb-typescript';
 import ssbClient from 'react-native-ssb-client';
 import cachedAbout from 'ssb-cached-about';
 const manifest = require('../../../backend/manifest');
 const pull = require('pull-stream');
 const Notify = require('pull-notify');
 const Ref = require('ssb-ref');
-const nest = require('depnest');
 const Defer = require('pull-defer');
 const ssbKeys = require('react-native-ssb-client-keys');
 
+const hooksPlugin = {
+  name: 'hooks',
+  init: () => {
+    const stream = xs.create<Msg>();
+    return {
+      publish: (msg: Msg) => {
+        stream.shamefullySendNext(msg);
+      },
+      publishStream: () => stream,
+    };
+  },
+};
+
 function makeSbotOpinion(keys: any) {
   return {
-    needs: nest({
-      'sbot.hook.publish': 'map',
-    }),
-
     gives: {
       sbot: {
         sync: {
@@ -38,6 +47,7 @@ function makeSbotOpinion(keys: any) {
           isFollowing: true,
           isBlocking: true,
           aboutSocialValue: true,
+          getHooksPublishStream: true,
         },
         pull: {
           syncing: true,
@@ -63,6 +73,7 @@ function makeSbotOpinion(keys: any) {
 
     create: (api: any) => {
       const sbotP = ssbClient(keys, manifest)
+        .use(hooksPlugin)
         .use(cachedAbout())
         .callPromise();
 
@@ -99,7 +110,7 @@ function makeSbotOpinion(keys: any) {
             publish: (content: any, cb: any) => {
               sbotP.then(sbot => {
                 // instant updating of interface (just incase sbot is busy)
-                runHooks({
+                sbot.hooks.publish({
                   timestamp: Date.now(),
                   value: {
                     timestamp: Date.now(),
@@ -169,6 +180,11 @@ function makeSbotOpinion(keys: any) {
             aboutSocialValue: (opts: any, cb: any) => {
               sbotP.then(sbot => {
                 sbot.cachedAbout.socialValue(opts, cb);
+              });
+            },
+            getHooksPublishStream: (cb: any) => {
+              sbotP.then(sbot => {
+                cb(null, sbot.hooks.publishStream());
               });
             },
           },
@@ -293,12 +309,6 @@ function makeSbotOpinion(keys: any) {
           },
         },
       };
-
-      // scoped
-
-      function runHooks(msg: any) {
-        api.sbot.hook.publish(msg);
-      }
     },
   };
 }

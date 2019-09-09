@@ -11,7 +11,6 @@ import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import makeSbotOpinion from '../ssb/opinions/sbot';
-import publishHookOpinion from '../ssb/opinions/hook';
 import contactOpinion = require('../ssb/opinions/contact/obs');
 import {ssbKeysPath} from '../ssb/defaults';
 import xsFromCallback from 'xstream-from-callback';
@@ -242,7 +241,11 @@ export class SSBSource {
     );
 
     this.publishHook$ = this.api$
-      .map(api => api.sbot.hook.publishStream[0]() as Stream<Msg>)
+      .map(api =>
+        xsFromCallback<Stream<Msg>>(
+          api.sbot.async.getHooksPublishStream[0],
+        )().flatten(),
+      )
       .flatten();
 
     this.hostingDhtInvites$ = this.api$
@@ -635,11 +638,7 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
   })();
 
   const apiP = keysP.then(keys => {
-    return depjectCombine([
-      publishHookOpinion,
-      makeSbotOpinion(keys),
-      contactOpinion,
-    ]);
+    return depjectCombine([makeSbotOpinion(keys), contactOpinion]);
   });
 
   const source = new SSBSource(keysP, apiP);

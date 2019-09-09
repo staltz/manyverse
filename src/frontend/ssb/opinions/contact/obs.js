@@ -12,11 +12,11 @@ var nest = require('depnest');
 exports.needs = nest({
   'sbot.async.isFollowing': 'first',
   'sbot.async.isBlocking': 'first',
+  'sbot.async.ssb': 'first',
 });
 
 exports.gives = nest({
   'contact.obs.tristate': true,
-  'sbot.hook.publish': true,
 });
 
 exports.create = function(api) {
@@ -42,23 +42,29 @@ exports.create = function(api) {
     });
   }
 
+  api.sbot.async.ssb((err, sbot) => {
+    if (err) return;
+    sbot.hooks.publishStream().addListener({
+      next: msg => {
+        if (!isContact(msg)) return;
+        var source = msg.value.author;
+        var dest = msg.value.content.contact;
+        var tristate = msg.value.content.following // from ssb-friends
+          ? true
+          : msg.value.content.flagged || msg.value.content.blocking
+          ? false
+          : null;
+        getStream(source, dest).shamefullySendNext(tristate);
+      },
+    });
+  });
+
   return nest({
     'contact.obs': {
       tristate: (source, dest) => {
         updateTristateAsync(source, dest);
         return getStream(source, dest);
       },
-    },
-    'sbot.hook.publish': function(msg) {
-      if (!isContact(msg)) return;
-      var source = msg.value.author;
-      var dest = msg.value.content.contact;
-      var tristate = msg.value.content.following // from ssb-friends
-        ? true
-        : msg.value.content.flagged || msg.value.content.blocking
-          ? false
-          : null;
-      getStream(source, dest).shamefullySendNext(tristate);
     },
   });
 };
