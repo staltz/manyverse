@@ -184,16 +184,14 @@ export class SSBSource {
     );
 
     this.publicLiveUpdates$ = this.ssb$
-      .map(ssb =>
-        xsFromPullStream(
-          ssb.threads.publicUpdates({allowlist: ['post', 'contact']}),
-        ),
-      )
+      .map(ssb => ssb.threads.publicUpdates({allowlist: ['post', 'contact']}))
+      .map(xsFromPullStream)
       .flatten()
       .mapTo(null);
 
     this.isSyncing$ = this.ssb$
-      .map(ssb => xsFromPullStream(ssb.syncing.stream()))
+      .map(ssb => ssb.syncing.stream())
+      .map(xsFromPullStream)
       .flatten()
       .map((resp: any) => resp.started > 0);
 
@@ -219,11 +217,8 @@ export class SSBSource {
       .flatten();
 
     this.hostingDhtInvites$ = this.ssb$
-      .map(ssb =>
-        xsFromPullStream<Array<HostingDhtInvite>>(
-          ssb.dhtInvite.hostingInvites(),
-        ),
-      )
+      .map(ssb => ssb.dhtInvite.hostingInvites())
+      .map(ps => xsFromPullStream<Array<HostingDhtInvite>>(ps))
       .flatten();
 
     this.acceptInviteResponse$ = xs.create<true | string>();
@@ -326,7 +321,8 @@ export class SSBSource {
       .flatten();
 
     this.bluetoothScanState$ = this.ssb$
-      .map(ssb => xsFromPullStream<any>(ssb.bluetooth.bluetoothScanState()))
+      .map(ssb => ssb.bluetooth.bluetoothScanState())
+      .map(xsFromPullStream)
       .flatten();
   }
 
@@ -457,11 +453,8 @@ export class SSBSource {
 
   public isPrivatelyBlocking$(dest: FeedId): Stream<boolean> {
     return this.ssb$
-      .map((ssb: any) => {
-        return xsFromPullStream<boolean>(
-          ssb.friendsUtils.isPrivatelyBlockingStream(dest),
-        );
-      })
+      .map((ssb: any) => ssb.friendsUtils.isPrivatelyBlockingStream(dest))
+      .map(ps => xsFromPullStream<boolean>(ps))
       .flatten();
   }
 
