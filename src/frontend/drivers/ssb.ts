@@ -17,7 +17,6 @@ import makeClient from '../ssb/client';
 import {PeerKV, StagedPeerKV, HostingDhtInvite} from '../ssb/types';
 import {shortFeedId, imageToImageUrl} from '../ssb/utils/from-ssb';
 const pull = require('pull-stream');
-const cat = require('pull-cat');
 const colorHash = new (require('color-hash'))();
 
 export type MsgAndExtras<C = Content> = Msg<C> & {
@@ -460,31 +459,7 @@ export class SSBSource {
     return this.ssb$
       .map((ssb: any) => {
         return xsFromPullStream<boolean>(
-          pull(
-            cat([
-              pull(
-                ssb.links({
-                  source: ssb.id,
-                  dest,
-                  rel: 'contact',
-                  live: false,
-                  reverse: true,
-                }),
-                pull.take(1),
-              ),
-              ssb.links({
-                source: ssb.id,
-                dest,
-                rel: 'contact',
-                old: false,
-                live: true,
-              }),
-            ]),
-            pull.asyncMap((link: any, cb2: any) => {
-              ssb.get(link.key, cb2);
-            }),
-            pull.map((val: Msg['value']) => typeof val.content === 'string'),
-          ),
+          ssb.friendsUtils.isPrivatelyBlockingStream(dest),
         );
       })
       .flatten();

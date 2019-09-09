@@ -154,6 +154,9 @@ export default {
     publish: 'async',
     publishAbout: 'async',
   },
+  friendsUtils: {
+    isPrivatelyBlockingStream: 'source',
+  },
   syncing: {
     stream: 'source',
   },

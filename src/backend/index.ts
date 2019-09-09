@@ -20,6 +20,7 @@ const SecretStack = require('secret-stack');
 import syncingPlugin = require('./plugins/syncing');
 import votesPlugin = require('./plugins/votes');
 import connUtilsPlugin = require('./plugins/connUtils');
+import friendsUtilsPlugin = require('./plugins/friendsUtils');
 import feedUtilsBackPlugin = require('./plugins/feedUtilsBack');
 
 const appDataDir = rnBridge.app.datadir();
@@ -128,6 +129,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-private'))
   .use(require('ssb-contacts'))
   .use(require('ssb-query'))
+  .use(friendsUtilsPlugin)
   .use(require('ssb-threads'))
   .use(require('ssb-invite'))
   .use(require('ssb-ebt'))
