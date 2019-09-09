@@ -18,9 +18,9 @@ const BluetoothManager = require('ssb-mobile-bluetooth-manager');
 const bluetoothTransportAndPlugin = require('ssb-bluetooth');
 const SecretStack = require('secret-stack');
 import syncingPlugin = require('./plugins/syncing');
-import blobsFromPathPlugin = require('./plugins/blobsFromPath');
 import votesPlugin = require('./plugins/votes');
 import connUtilsPlugin = require('./plugins/connUtils');
+import feedUtilsBackPlugin = require('./plugins/feedUtilsBack');
 
 const appDataDir = rnBridge.app.datadir();
 const ssbPath = path.resolve(appDataDir, '.ssb');
@@ -122,7 +122,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-about'))
   .use(require('ssb-friends'))
   .use(require('ssb-blobs'))
-  .use(blobsFromPathPlugin)
+  .use(feedUtilsBackPlugin)
   .use(votesPlugin)
   .use(require('ssb-serve-blobs'))
   .use(require('ssb-private'))

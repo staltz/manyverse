@@ -145,11 +145,17 @@ export default {
   },
 
   // This project's plugins
+  connUtils: {
+    persistentConnect: 'async',
+    persistentDisconnect: 'async',
+    isInDB: 'async',
+  },
+  feedUtilsBack: {
+    publish: 'async',
+    publishAbout: 'async',
+  },
   syncing: {
     stream: 'source',
-  },
-  blobsFromPath: {
-    add: 'async',
   },
   votes: {
     voterStream: 'source',
@@ -161,10 +167,5 @@ export default {
     connect: 'duplex',
     endpoints: 'source',
     ping: 'sync',
-  },
-  connUtils: {
-    persistentConnect: 'async',
-    persistentDisconnect: 'async',
-    isInDB: 'async',
   },
 };

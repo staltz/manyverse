@@ -642,10 +642,7 @@ export function ssbDriver(sink: Stream<Req>): SSBSource {
         if (err) reject(err);
         else resolve(val);
       });
-    }).catch(() => {
-      console.error('ssbKeys.load() failed, will retry');
-      return getKeys();
-    });
+    }).catch(() => getKeys());
   })();
 
   const apiP = keysP.then(keys => {

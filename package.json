@@ -77,7 +77,7 @@
     "react-native-image-view": "~2.1.5",
     "react-native-navigation": "2.18.5",
     "react-native-popup-menu": "0.15.6",
-    "react-native-ssb-client": "5.0.0-rc1",
+    "react-native-ssb-client": "5.0.0-rc2",
     "react-native-ssb-client-keys": "1.2.0",
     "react-native-ssb-shims": "4.3.0",
     "react-native-vector-icons": "6.4.2",

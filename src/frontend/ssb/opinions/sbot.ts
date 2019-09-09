@@ -10,10 +10,9 @@ import ssbClient from 'react-native-ssb-client';
 import cachedAbout from 'ssb-cached-about';
 import syncingNotifications from '../syncing-notifications';
 import contactsPlugin from '../contacts';
+import feedUtilsPlugin from '../feedUtils';
 import manifest from '../manifest';
-const Ref = require('ssb-ref');
 const Defer = require('pull-defer');
-const ssbKeys = require('react-native-ssb-client-keys');
 
 const hooksPlugin = {
   name: 'hooks',
@@ -72,6 +71,7 @@ function makeSbotOpinion(keys: any) {
     create: (api: any) => {
       const sbotP = ssbClient(keys, manifest)
         .use(hooksPlugin)
+        .use(feedUtilsPlugin())
         .use(cachedAbout())
         .use(contactsPlugin())
         .use(syncingNotifications())
@@ -103,57 +103,12 @@ function makeSbotOpinion(keys: any) {
             },
             publish: (content: any, cb: any) => {
               sbotP.then(sbot => {
-                // instant updating of interface (just incase sbot is busy)
-                sbot.hooks.publish({
-                  timestamp: Date.now(),
-                  value: {
-                    timestamp: Date.now(),
-                    author: keys.id,
-                    content,
-                  },
-                });
-                if (content.recps) {
-                  content = ssbKeys.box(
-                    content,
-                    content.recps.map((e: any) => {
-                      return Ref.isFeed(e) ? e : e.link;
-                    }),
-                  );
-                } else if (content.mentions) {
-                  content.mentions.forEach((mention: any) => {
-                    if (Ref.isBlob(mention.link)) {
-                      sbot.blobs.push(mention.link, (err: any) => {
-                        if (err) console.error(err);
-                      });
-                    }
-                  });
-                }
-                sbot.publish(content, (err: any, msg: any) => {
-                  if (err) console.error(err);
-                  if (cb) cb(err, msg);
-                });
+                sbot.feedUtils.publish(content, cb);
               });
             },
             publishAbout: (content: AboutContent, cb: any) => {
               sbotP.then(sbot => {
-                if (content.image && !Ref.isBlobId(content.image[0])) {
-                  sbot.blobsFromPath.add(
-                    content.image,
-                    (err: any, hash: string) => {
-                      if (err) return console.error(err);
-                      content.image = hash;
-                      sbot.publish(content, (err2: any, msg: any) => {
-                        if (err2) console.error(err2);
-                        if (cb) cb(err2, msg);
-                      });
-                    },
-                  );
-                } else {
-                  sbot.publish(content, (err: any, msg: any) => {
-                    if (err) console.error(err);
-                    if (cb) cb(err, msg);
-                  });
-                }
+                sbot.feedUtils.publishAbout(content, cb);
               });
             },
             createDhtInvite: (cb: any) => {
