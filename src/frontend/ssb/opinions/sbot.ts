@@ -5,13 +5,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs from 'xstream';
-import {startSyncingNotifications} from '../syncing-notifications';
+import syncingNotifications from '../syncing-notifications';
 import {AboutContent, FeedId, MsgId, Msg} from 'ssb-typescript';
 import ssbClient from 'react-native-ssb-client';
 import cachedAbout from 'ssb-cached-about';
 const manifest = require('../../../backend/manifest');
-const pull = require('pull-stream');
-const Notify = require('pull-notify');
 const Ref = require('ssb-ref');
 const Defer = require('pull-defer');
 const ssbKeys = require('react-native-ssb-client-keys');
@@ -75,13 +73,8 @@ function makeSbotOpinion(keys: any) {
       const sbotP = ssbClient(keys, manifest)
         .use(hooksPlugin)
         .use(cachedAbout())
+        .use(syncingNotifications())
         .callPromise();
-
-      const syncingStream = Notify();
-      sbotP.then(sbot => {
-        pull(sbot.syncing.stream(), pull.drain(syncingStream));
-        startSyncingNotifications(syncingStream.listen());
-      });
 
       return {
         sbot: {
@@ -190,7 +183,11 @@ function makeSbotOpinion(keys: any) {
           },
           pull: {
             syncing: () => {
-              return syncingStream.listen();
+              const deferred = Defer.source();
+              sbotP.then(sbot => {
+                deferred.resolve(sbot.syncing.stream());
+              });
+              return deferred;
             },
             backlinks: (query: any) => {
               const deferred = Defer.source();

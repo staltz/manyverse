@@ -52,7 +52,7 @@ function hideNotification(): Promise<void> {
   return Notification.clear(NOTIFICATION_ID);
 }
 
-export async function startSyncingNotifications(syncingStream: any) {
+async function consume(syncingStream: any) {
   let showing = false;
   const nextSyncingResponse = Thenable(syncingStream);
   while (true) {
@@ -65,4 +65,14 @@ export async function startSyncingNotifications(syncingStream: any) {
       showing = false;
     }
   }
+}
+
+export default function syncingNotifications() {
+  return {
+    name: 'notifications',
+    init: (ssb: any) => {
+      consume(ssb.syncing.stream());
+      return {};
+    },
+  };
 }
