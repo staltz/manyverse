@@ -136,6 +136,10 @@ function augmentPeersWithExtras(ssb: any) {
   };
 }
 
+function dropCompletion(stream: Stream<any>): Stream<any> {
+  return xs.merge(stream, xs.never());
+}
+
 export type GetReadable<T> = (opts?: any) => Readable<T>;
 
 export class SSBSource {
@@ -548,164 +552,164 @@ export type Req =
   | ConnDisconnectForgetReq
   | ConnForgetReq;
 
-function dropCompletion(stream: Stream<any>): Stream<any> {
-  return xs.merge(stream, xs.never());
-}
-
 export function contentToPublishReq(content: NonNullable<Content>): PublishReq {
   return {type: 'publish', content};
 }
 
+async function consumeSink(
+  sink: Stream<Req>,
+  source: SSBSource,
+  ssbP: Promise<any>,
+) {
+  const ssb = await ssbP;
+
+  sink.addListener({
+    next: async req => {
+      if (req.type === 'publish') {
+        ssb.feedUtils.publish(req.content);
+        return;
+      }
+
+      if (req.type === 'publishAbout') {
+        ssb.feedUtils.publishAbout(req.content, () => {
+          ssb.cachedAbout.invalidate(ssb.id);
+        });
+        return;
+      }
+
+      if (req.type === 'invite.accept') {
+        ssb.invite.accept(req.invite, (err: any) => {
+          source.acceptInviteResponse$._n(err ? err.message || err : true);
+        });
+        return;
+      }
+
+      if (req.type === 'conn.start') {
+        const [err1] = await runAsync(ssb.conn.start)();
+        if (err1) return console.error(err1.message || err1);
+
+        const [err2] = await runAsync(ssb.dhtInvite.start)();
+        if (err2) return console.error(err2.message || err2);
+        return;
+      }
+
+      if (req.type === 'conn.connect') {
+        const addr = req.address;
+        const data = req.hubData || {};
+
+        // connect
+        ssb.connUtils.persistentConnect(addr, data, (err: any, val: any) => {
+          if (err) return console.error(err.message || err);
+          if (!val) return console.error(`connecting to ${addr} failed`);
+          // TODO show this error as a Toast
+        });
+        return;
+      }
+
+      if (req.type === 'conn.rememberConnect') {
+        const addr = req.address;
+        const data = req.data || {};
+
+        // remember
+        const [e1] = await runAsync(ssb.conn.remember)(addr, data);
+        if (e1) return console.error(e1.message || e1);
+
+        // connect
+        const [e2, result] = await runAsync(ssb.connUtils.persistentConnect)(
+          addr,
+          data,
+        );
+        if (e2) return console.error(e2.message || e2);
+        if (!result) return console.error(`connecting to ${addr} failed`);
+        // TODO show this error as a Toast
+        return;
+      }
+
+      if (req.type === 'conn.followConnect') {
+        const addr = req.address;
+        const data = req.hubData || {};
+
+        // connect
+        const [e1, result] = await runAsync(ssb.connUtils.persistentConnect)(
+          addr,
+          data,
+        );
+        if (e1) return console.error(e1.message || e1);
+        if (!result) return console.error(`connecting to ${addr} failed`);
+        // TODO show this error as a Toast
+
+        // check if following
+        const friendId = req.key || '@' + addr.split('shs:')[1] + '.ed25519';
+        const opts = {source: ssb.id, dest: friendId};
+        const [e2, alreadyFollow] = await runAsync<boolean>(
+          ssb.friends.isFollowing,
+        )(opts);
+        if (e2) return console.error(e2.message || e2);
+        if (alreadyFollow) return;
+
+        // follow
+        const content = {type: 'contact', contact: friendId, following: true};
+        const [e3] = await runAsync(ssb.feedUtils.publish)(content);
+        if (e3) return console.error(e3.message || e3);
+        return;
+      }
+
+      if (req.type === 'conn.disconnect') {
+        ssb.connUtils.persistentDisconnect(req.address, (err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
+      if (req.type === 'conn.disconnectForget') {
+        const addr = req.address;
+
+        // forget
+        const [e1] = await runAsync(ssb.conn.forget)(addr);
+        if (e1) return console.error(e1.message || e1);
+
+        // disconnect
+        const [e2] = await runAsync(ssb.connUtils.persistentDisconnect)(addr);
+        if (e2) return console.error(e2.message || e2);
+        return;
+      }
+
+      if (req.type === 'conn.forget') {
+        const addr = req.address;
+        const [e1] = await runAsync(ssb.conn.unstage)(addr);
+        if (e1) return console.error(e1.message || e1);
+        const [e2] = await runAsync(ssb.conn.forget)(addr);
+        if (e2) return console.error(e2.message || e2);
+        return;
+      }
+
+      if (req.type === 'bluetooth.search') {
+        ssb.bluetooth.makeDeviceDiscoverable(req.interval, (err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
+      if (req.type === 'dhtInvite.accept') {
+        ssb.dhtInvite.accept(req.invite, (err: any) => {
+          source.acceptDhtInviteResponse$._n(err ? err.message || err : true);
+        });
+        return;
+      }
+
+      if (req.type === 'dhtInvite.remove') {
+        ssb.dhtInvite.remove(req.invite, (err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+    },
+  });
+}
+
 export function ssbDriver(sink: Stream<Req>): SSBSource {
   const ssbP = makeClient();
-
   const source = new SSBSource(ssbP);
-
-  // Consume the sink
-  ssbP.then(ssb =>
-    sink.addListener({
-      next: async req => {
-        if (req.type === 'publish') {
-          ssb.feedUtils.publish(req.content);
-          return;
-        }
-
-        if (req.type === 'publishAbout') {
-          ssb.feedUtils.publishAbout(req.content, () => {
-            ssb.cachedAbout.invalidate(ssb.id);
-          });
-          return;
-        }
-
-        if (req.type === 'invite.accept') {
-          ssb.invite.accept(req.invite, (err: any) => {
-            source.acceptInviteResponse$._n(err ? err.message || err : true);
-          });
-          return;
-        }
-
-        if (req.type === 'conn.start') {
-          const [err1] = await runAsync(ssb.conn.start)();
-          if (err1) return console.error(err1.message || err1);
-
-          const [err2] = await runAsync(ssb.dhtInvite.start)();
-          if (err2) return console.error(err2.message || err2);
-          return;
-        }
-
-        if (req.type === 'conn.connect') {
-          const addr = req.address;
-          const data = req.hubData || {};
-
-          // connect
-          ssb.connUtils.persistentConnect(addr, data, (err: any, val: any) => {
-            if (err) return console.error(err.message || err);
-            if (!val) return console.error(`connecting to ${addr} failed`);
-            // TODO show this error as a Toast
-          });
-          return;
-        }
-
-        if (req.type === 'conn.rememberConnect') {
-          const addr = req.address;
-          const data = req.data || {};
-
-          // remember
-          const [e1] = await runAsync(ssb.conn.remember)(addr, data);
-          if (e1) return console.error(e1.message || e1);
-
-          // connect
-          const [e2, result] = await runAsync(ssb.connUtils.persistentConnect)(
-            addr,
-            data,
-          );
-          if (e2) return console.error(e2.message || e2);
-          if (!result) return console.error(`connecting to ${addr} failed`);
-          // TODO show this error as a Toast
-          return;
-        }
-
-        if (req.type === 'conn.followConnect') {
-          const addr = req.address;
-          const data = req.hubData || {};
-
-          // connect
-          const [e1, result] = await runAsync(ssb.connUtils.persistentConnect)(
-            addr,
-            data,
-          );
-          if (e1) return console.error(e1.message || e1);
-          if (!result) return console.error(`connecting to ${addr} failed`);
-          // TODO show this error as a Toast
-
-          // check if following
-          const friendId = req.key || '@' + addr.split('shs:')[1] + '.ed25519';
-          const opts = {source: ssb.id, dest: friendId};
-          const [e2, alreadyFollow] = await runAsync<boolean>(
-            ssb.friends.isFollowing,
-          )(opts);
-          if (e2) return console.error(e2.message || e2);
-          if (alreadyFollow) return;
-
-          // follow
-          const content = {type: 'contact', contact: friendId, following: true};
-          const [e3] = await runAsync(ssb.feedUtils.publish)(content);
-          if (e3) return console.error(e3.message || e3);
-          return;
-        }
-
-        if (req.type === 'conn.disconnect') {
-          ssb.connUtils.persistentDisconnect(req.address, (err: any) => {
-            if (err) return console.error(err.message || err);
-          });
-          return;
-        }
-
-        if (req.type === 'conn.disconnectForget') {
-          const addr = req.address;
-
-          // forget
-          const [e1] = await runAsync(ssb.conn.forget)(addr);
-          if (e1) return console.error(e1.message || e1);
-
-          // disconnect
-          const [e2] = await runAsync(ssb.connUtils.persistentDisconnect)(addr);
-          if (e2) return console.error(e2.message || e2);
-          return;
-        }
-
-        if (req.type === 'conn.forget') {
-          const addr = req.address;
-          const [e1] = await runAsync(ssb.conn.unstage)(addr);
-          if (e1) return console.error(e1.message || e1);
-          const [e2] = await runAsync(ssb.conn.forget)(addr);
-          if (e2) return console.error(e2.message || e2);
-          return;
-        }
-
-        if (req.type === 'bluetooth.search') {
-          ssb.bluetooth.makeDeviceDiscoverable(req.interval, (err: any) => {
-            if (err) return console.error(err.message || err);
-          });
-          return;
-        }
-
-        if (req.type === 'dhtInvite.accept') {
-          ssb.dhtInvite.accept(req.invite, (err: any) => {
-            source.acceptDhtInviteResponse$._n(err ? err.message || err : true);
-          });
-          return;
-        }
-
-        if (req.type === 'dhtInvite.remove') {
-          ssb.dhtInvite.remove(req.invite, (err: any) => {
-            if (err) return console.error(err.message || err);
-          });
-          return;
-        }
-      },
-    }),
-  );
-
+  consumeSink(sink, source, ssbP);
   return source;
 }
