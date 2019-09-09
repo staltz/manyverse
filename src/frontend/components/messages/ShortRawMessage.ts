@@ -9,7 +9,7 @@ import {h} from '@cycle/react';
 import {Text, View, TouchableNativeFeedback, StyleSheet} from 'react-native';
 import HumanTime from 'react-human-time';
 import {Msg, PostContent} from 'ssb-typescript';
-import {authorName} from '../../ssb/from-ssb';
+import {authorName} from '../../ssb/utils/from-ssb';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';

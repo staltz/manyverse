@@ -18,7 +18,7 @@ import {Msg, FeedId, PostContent, MsgId} from 'ssb-typescript';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {Likes} from '../../drivers/ssb';
+import {Likes} from '../../ssb/types';
 import React = require('react');
 
 export const styles = StyleSheet.create({

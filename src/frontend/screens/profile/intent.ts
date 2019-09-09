@@ -9,7 +9,7 @@ import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
 import {State} from './model';
 import sample from 'xstream-sample';
-import {Likes} from '../../drivers/ssb';
+import {Likes} from '../../ssb/types';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 

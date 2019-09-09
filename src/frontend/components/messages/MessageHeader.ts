@@ -9,7 +9,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
-import {authorName} from '../../ssb/from-ssb';
+import {authorName} from '../../ssb/utils/from-ssb';
 import Avatar from '../Avatar';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';

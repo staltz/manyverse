@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
 import {isRootPostMsg} from 'ssb-typescript/utils';
 import {SSBSource} from '../../drivers/ssb';
-import {shortFeedId} from '../../ssb/from-ssb';
+import {shortFeedId} from '../../ssb/utils/from-ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import Feed from '../../components/Feed';

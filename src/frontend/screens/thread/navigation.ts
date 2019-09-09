@@ -13,7 +13,7 @@ import {Screens} from '../..';
 import {navOptions as accountsScreenNavOptions} from '../accounts';
 import {navOptions as profileScreenNavOptions} from '../profile';
 import {navOptions as rawMsgScreenNavOptions} from '../raw-msg';
-import {Likes} from '../../drivers/ssb';
+import {Likes} from '../../ssb/types';
 
 export type Actions = {
   goToAccounts$: Stream<{msgKey: MsgId; likes: Likes}>;

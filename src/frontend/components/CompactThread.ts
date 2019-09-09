@@ -7,7 +7,8 @@
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
-import {ThreadAndExtras, MsgAndExtras, Likes} from '../drivers/ssb';
+import {ThreadAndExtras, MsgAndExtras} from '../drivers/ssb';
+import {Likes} from '../ssb/types';
 import Message from './messages/Message';
 import ExpandThread from './messages/ExpandThread';
 

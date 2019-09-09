@@ -6,7 +6,7 @@
 
 import {Stream} from 'xstream';
 import {Command} from 'cycle-native-asyncstorage';
-import {StagedPeerKV} from '../../../drivers/ssb';
+import {StagedPeerKV} from '../../../ssb/types';
 import {State} from './model';
 import dropRepeats from 'xstream/extra/dropRepeats';
 

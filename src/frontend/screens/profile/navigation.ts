@@ -18,7 +18,7 @@ import {navOptions as rawMsgScreenNavOptions} from '../raw-msg';
 import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {Screens} from '../..';
 import {State} from './model';
-import {Likes} from '../../drivers/ssb';
+import {Likes} from '../../ssb/types';
 
 export type Actions = {
   goToCompose$: Stream<null>;

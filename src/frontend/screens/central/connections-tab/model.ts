@@ -7,12 +7,12 @@
 import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
+import {SSBSource} from '../../../drivers/ssb';
 import {
-  SSBSource,
   PeerKV,
   StagedPeerKV,
   StagedPeerMetadata as StagedPeer,
-} from '../../../drivers/ssb';
+} from '../../../ssb/types';
 import {NetworkSource} from '../../../drivers/network';
 import {noteStorageKeyFor} from './asyncstorage';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';

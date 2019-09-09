@@ -5,7 +5,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {Req, StagedPeerKV} from '../../../drivers/ssb';
+import {Req} from '../../../drivers/ssb';
+import {StagedPeerKV} from '../../../ssb/types';
 
 export type Actions = {
   removeDhtInvite$: Stream<string>;

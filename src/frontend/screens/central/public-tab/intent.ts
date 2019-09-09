@@ -14,7 +14,7 @@ import {
   TriggerMsgCypherlink,
 } from '../../../drivers/eventbus';
 import {Screens} from '../../..';
-import {Likes} from '../../../drivers/ssb';
+import {Likes} from '../../../ssb/types';
 
 export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};

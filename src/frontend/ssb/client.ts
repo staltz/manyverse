@@ -4,32 +4,22 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs from 'xstream';
-import {Msg} from 'ssb-typescript';
 import ssbClient from 'react-native-ssb-client';
 import cachedAbout from 'ssb-cached-about';
-import {ssbKeysPath} from './defaults';
 import manifest from './manifest';
-import feedUtilsPlugin from './feedUtils';
-import contactsPlugin from './contacts';
-import syncingNotifications from './syncing-notifications';
-
-const hooksPlugin = {
-  name: 'hooks',
-  init: () => {
-    const stream = xs.create<Msg>();
-    return {
-      publish: (msg: Msg) => {
-        stream.shamefullySendNext(msg);
-      },
-      publishStream: () => stream,
-    };
-  },
-};
+import hooksPlugin from './plugins/hooks';
+import feedUtilsPlugin from './plugins/feedUtils';
+import contactsPlugin from './plugins/contacts';
+import syncingNotifications from './plugins/syncing-notifications';
+const os = require('os');
+const path = require('path');
 
 function makeClient() {
+  const ssbPath = path.join(os.homedir(), '.ssb');
+  const ssbKeysPath = path.join(ssbPath, 'secret');
+
   return ssbClient(ssbKeysPath, manifest)
-    .use(hooksPlugin)
+    .use(hooksPlugin())
     .use(feedUtilsPlugin())
     .use(cachedAbout())
     .use(contactsPlugin())

@@ -15,7 +15,7 @@ import {navOptions as profileScreenNavOptions} from '../../profile';
 import {navOptions as threadScreenNavOptions} from '../../thread';
 import {navOptions as rawMsgScreenNavOptions} from '../../raw-msg';
 import {State} from './model';
-import {Likes} from '../../../drivers/ssb';
+import {Likes} from '../../../ssb/types';
 
 export type Actions = {
   goToCompose$: Stream<any>;

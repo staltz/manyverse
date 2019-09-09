@@ -7,7 +7,6 @@
 import xs, {Stream, MemoryStream} from 'xstream';
 import backoff from 'xstream-backoff';
 import {Msg, Content, FeedId, About, MsgId, AboutContent} from 'ssb-typescript';
-import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import xsFromCallback from 'xstream-from-callback';
@@ -15,12 +14,11 @@ import runAsync = require('promisify-tuple');
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {Readable, Callback} from '../../typings/pull-stream';
 import makeClient from '../ssb/client';
-import {shortFeedId, imageToImageUrl} from '../ssb/from-ssb';
+import {PeerKV, StagedPeerKV, HostingDhtInvite} from '../ssb/types';
+import {shortFeedId, imageToImageUrl} from '../ssb/utils/from-ssb';
 const pull = require('pull-stream');
 const cat = require('pull-cat');
 const colorHash = new (require('color-hash'))();
-
-export type Likes = Array<FeedId> | null;
 
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
@@ -47,17 +45,6 @@ export type AboutAndExtras = About & {
   id: FeedId;
   followsYou?: boolean;
 };
-
-export type PeerKV = ConnQueryPeer;
-
-export type StagedPeerMetadata = {
-  key: string;
-  type: 'lan' | 'dht' | 'internet' | 'bt';
-  role?: 'client' | 'server';
-  note?: string;
-};
-
-export type StagedPeerKV = [string, StagedPeerMetadata];
 
 function mutateMsgWithLiveExtras(ssb: any) {
   const getAbout = ssb.cachedAbout.socialValue;
@@ -151,8 +138,6 @@ function augmentPeersWithExtras(ssb: any) {
 }
 
 export type GetReadable<T> = (opts?: any) => Readable<T>;
-
-export type HostingDhtInvite = {seed: string; claimer: string; online: boolean};
 
 export class SSBSource {
   private ssb$: Stream<any>;

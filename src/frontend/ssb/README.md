@@ -1,1 +1,1 @@
-This directory contains common SSB-related utilities and types that may be used by `frontend`.
+This directory contains common SSB-related plugins, utilities and types that are used in the frontend.

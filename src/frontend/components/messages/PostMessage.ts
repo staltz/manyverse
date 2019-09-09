@@ -12,7 +12,7 @@ import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
 import ContentWarning from './ContentWarning';
 import {PostContent as Post, FeedId, Msg, MsgId} from 'ssb-typescript';
-import {Likes} from '../../drivers/ssb';
+import {Likes} from '../../ssb/types';
 
 type CWPost = Post & {contentWarning?: string};
 

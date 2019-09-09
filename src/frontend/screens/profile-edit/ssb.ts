@@ -7,7 +7,7 @@
 import {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {State} from './model';
-import {toAboutContent} from '../../ssb/to-ssb';
+import {toAboutContent} from '../../ssb/utils/to-ssb';
 import {Req, PublishAboutReq} from '../../drivers/ssb';
 
 export type SSBActions = {

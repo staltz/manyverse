@@ -9,7 +9,8 @@ import sample from 'xstream-sample';
 import {isReplyPostMsg} from 'ssb-typescript/utils';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {State} from './model';
-import {SSBSource, Likes} from '../../drivers/ssb';
+import {SSBSource} from '../../drivers/ssb';
+import {Likes} from '../../ssb/types';
 import {ReactSource} from '@cycle/react';
 import {KeyboardSource} from 'cycle-native-keyboard';
 
