@@ -6,12 +6,14 @@
 
 import {Content, AboutContent} from 'ssb-typescript';
 
+const noop = () => {};
+
 const feedUtilsPlugin = {
   name: 'feedUtils',
 
   init: (ssb: any) => {
     return {
-      publish(content: Content, cb: any) {
+      publish(content: Content, cb?: any) {
         ssb.hooks.publish({
           timestamp: Date.now(),
           value: {
@@ -21,7 +23,7 @@ const feedUtilsPlugin = {
           },
         });
 
-        ssb.feedUtilsBack.publish(content, cb);
+        ssb.feedUtilsBack.publish(content, cb || noop);
       },
 
       publishAbout(content: AboutContent, cb: any) {
