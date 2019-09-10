@@ -20,7 +20,7 @@ import {Thread as ThreadData} from 'ssb-threads/types';
 import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
 import xsFromPullStream from 'xstream-from-pull-stream';
-import {Readable, Callback} from '../../typings/pull-stream';
+import {Readable, Callback} from 'pull-stream';
 import makeClient from '../ssb/client';
 import {PeerKV, StagedPeerKV, HostingDhtInvite} from '../ssb/types';
 import {shortFeedId, imageToImageUrl} from '../ssb/utils/from-ssb';

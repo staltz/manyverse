@@ -21,10 +21,11 @@
     "src/backend/index.ts",
     "src/backend/loader.ts",
     "src/frontend/index.ts",
-    "src/typings/react-native-bluetooth-status.d.ts",
-    "src/typings/react-native-dialogs.d.ts",
-    "src/typings/react-native-image-view.d.ts",
-    "src/typings/rn-viewpager.d.ts"
+    "typings/pull-stream.d.ts",
+    "typings/react-native-bluetooth-status.d.ts",
+    "typings/react-native-dialogs.d.ts",
+    "typings/react-native-image-view.d.ts",
+    "typings/rn-viewpager.d.ts"
   ],
   "exclude": ["node_modules"]
 }
