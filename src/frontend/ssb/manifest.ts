@@ -145,6 +145,9 @@ export default {
   },
 
   // This project's plugins
+  blobsUtils: {
+    addFromPath: 'async',
+  },
   connUtils: {
     persistentConnect: 'async',
     persistentDisconnect: 'async',

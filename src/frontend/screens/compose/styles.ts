@@ -62,6 +62,12 @@ export const styles = StyleSheet.create({
     color: Palette.textBrand,
   },
 
+  addPictureContainer: {
+    paddingHorizontal: Dimensions.horizontalSpaceSmall,
+    paddingVertical: Dimensions.verticalSpaceSmall,
+    marginBottom: Dimensions.verticalSpaceBig,
+  },
+
   leftSpacer: {
     flex: 1,
   },

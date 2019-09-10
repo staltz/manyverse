@@ -7,14 +7,15 @@
 import {Content, PostContent, AboutContent} from 'ssb-typescript';
 const ssbKeys = require('ssb-keys');
 const Ref = require('ssb-ref');
-const pull = require('pull-stream');
-const Read = require('pull-file');
 
 type Callback = (e: any, x?: any) => void;
 
 function init(ssb: any) {
-  function addBlobFromPath(path: string, cb: Callback) {
-    pull(Read(path, {}), ssb.blobs.add(cb));
+  if (!ssb.blobs || !ssb.blobs.push) {
+    throw new Error('"feedUtilsBack" is missing required plugin "ssb-blobs"');
+  }
+  if (!ssb.blobsUtils || !ssb.blobsUtils.addFromPath) {
+    throw new Error('"feedUtilsBack" is missing required plugin "blobsUtils"');
   }
 
   return {
@@ -44,7 +45,7 @@ function init(ssb: any) {
 
     publishAbout(content: AboutContent, cb: Callback) {
       if (content.image && !Ref.isBlobId(content.image[0])) {
-        addBlobFromPath(content.image, (err: any, hash: string) => {
+        ssb.blobsUtils.addFromPath(content.image, (err: any, hash: string) => {
           if (err) return console.error(err);
           content.image = hash;
           ssb.publish(content, (err2: any, msg: any) => {

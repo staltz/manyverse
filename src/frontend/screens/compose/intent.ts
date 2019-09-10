@@ -9,6 +9,7 @@ import between from 'xstream-between';
 import sample from 'xstream-sample';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
+import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import {DialogSource} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
@@ -61,6 +62,40 @@ export default function intent(
     openContentWarning$: reactSource
       .select('content-warning')
       .events('press') as Stream<null>,
+
+    addPicture$: xs.merge(
+      reactSource
+        .select('open-camera')
+        .events('press')
+        .map(() =>
+          xs
+            .fromPromise(ImagePicker.openCamera({
+              cropping: false,
+              multiple: false,
+              compressImageMaxWidth: 1080,
+              compressImageMaxHeight: 1920,
+              mediaType: 'photo',
+            }) as Promise<Image>)
+            .replaceError(() => xs.never()),
+        )
+        .flatten(),
+
+      reactSource
+        .select('add-picture')
+        .events('press')
+        .map(() =>
+          xs
+            .fromPromise(ImagePicker.openPicker({
+              cropping: false,
+              multiple: false,
+              compressImageMaxWidth: 1080,
+              compressImageMaxHeight: 1920,
+              mediaType: 'photo',
+            }) as Promise<Image>)
+            .replaceError(() => xs.never()),
+        )
+        .flatten(),
+    ),
 
     exit$: backWithoutDialog$,
 

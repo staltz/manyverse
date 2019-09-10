@@ -6,7 +6,15 @@
 
 import xs, {Stream, MemoryStream} from 'xstream';
 import backoff from 'xstream-backoff';
-import {Msg, Content, FeedId, About, MsgId, AboutContent} from 'ssb-typescript';
+import {
+  Msg,
+  Content,
+  FeedId,
+  About,
+  MsgId,
+  AboutContent,
+  BlobId,
+} from 'ssb-typescript';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import xsFromCallback from 'xstream-from-callback';
@@ -452,6 +460,12 @@ export class SSBSource {
               } as AboutAndExtras),
           );
       })
+      .flatten();
+  }
+
+  public addBlobFromPath$(path: string): Stream<BlobId> {
+    return this.ssb$
+      .map(ssb => xsFromCallback<BlobId>(ssb.blobsUtils.addFromPath)(path))
       .flatten();
   }
 

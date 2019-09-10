@@ -9,6 +9,7 @@ import {Reducer, Lens} from '@cycle/state';
 import {State as TopBarState} from './top-bar';
 import {SSBSource} from '../../drivers/ssb';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+import {Image} from 'react-native-image-crop-picker';
 
 export type State = {
   postText: string;
@@ -35,6 +36,7 @@ export type Actions = {
   updatePostText$: Stream<string>;
   updateContentWarning$: Stream<string>;
   togglePreview$: Stream<any>;
+  addPicture$: Stream<Image>;
 };
 
 export default function model(
@@ -58,6 +60,33 @@ export default function model(
         return {...prev, postText};
       },
   );
+
+  const addPictureReducer$ = actions.addPicture$
+    .map(image => ssbSource.addBlobFromPath$(image.path.replace('file://', '')))
+    .flatten()
+    .map(
+      blobId =>
+        function addPictureReducer(prev: State): State {
+          let separator = '';
+          if (prev.postText.trim().length > 0) {
+            // Count how many new lines are already at the end of the postText
+            const res = /(\n+)$/g.exec(prev.postText);
+            const prevLines =
+              !res || !res[0] ? 0 : res[0].split('\n').length - 1;
+
+            // Count how many new lines to add, in order to create space
+            const addLines = Math.max(2 - prevLines, 0);
+            separator = Array(addLines + 1).join('\n');
+          }
+
+          const imgMarkdown = `![CAPTIONS FOR THE VISUALLY IMPAIRED](${blobId})`;
+
+          return {
+            ...prev,
+            postText: prev.postText + separator + imgMarkdown + '\n\n',
+          };
+        },
+    );
 
   const updateContentWarningReducer$ = actions.updateContentWarning$.map(
     contentWarning =>
@@ -96,6 +125,7 @@ export default function model(
   return xs.merge(
     initReducer$,
     updatePostTextReducer$,
+    addPictureReducer$,
     updateContentWarningReducer$,
     togglePreviewReducer$,
     aboutReducer$,

@@ -21,6 +21,8 @@ import Markdown from '../../components/Markdown';
 import Avatar from '../../components/Avatar';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Dimensions} from '../../global-styles/dimens';
 
 type MiniState = Pick<State, 'postText'> &
   Pick<State, 'previewing'> &
@@ -40,6 +42,46 @@ function ContentWarningButton(miniState: MiniState) {
       accessibilityLabel: 'Content Warning Button',
     },
     [h(View, [h(Text, {style}, 'CW')])],
+  );
+}
+
+function OpenCameraButton() {
+  return h(
+    TouchableOpacity,
+    {
+      sel: 'open-camera',
+      style: styles.addPictureContainer,
+      activeOpacity: 0.4,
+      accessible: true,
+      accessibilityLabel: 'Open Camera Button',
+    },
+    [
+      h(Icon, {
+        size: Dimensions.iconSizeNormal,
+        color: Palette.textVeryWeak,
+        name: 'camera',
+      }),
+    ],
+  );
+}
+
+function AddPictureButton() {
+  return h(
+    TouchableOpacity,
+    {
+      sel: 'add-picture',
+      style: styles.addPictureContainer,
+      activeOpacity: 0.4,
+      accessible: true,
+      accessibilityLabel: 'Add Picture Button',
+    },
+    [
+      h(Icon, {
+        size: Dimensions.iconSizeNormal,
+        color: Palette.textVeryWeak,
+        name: 'image',
+      }),
+    ],
   );
 }
 
@@ -109,6 +151,8 @@ export default function view(
           h(View, {style: styles.leftSide}, [
             h(Avatar, {size: avatarSize, url: avatarUrl}),
             h(View, {style: styles.leftSpacer}),
+            OpenCameraButton(),
+            AddPictureButton(),
             ContentWarningButton(miniState),
           ]),
 

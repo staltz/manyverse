@@ -27,6 +27,19 @@ module.exports = function(driver, t) {
     t.pass('I type a message into it');
     const f2 = await composeTextInput.text();
     t.equal(f2.length, 32, 'Its text content is non-empty');
+
+    const openCameraButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Open Camera Button")',
+      6000,
+    );
+    t.ok(openCameraButton, 'I see the Open Camera Button');
+
+    const addPictureButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Add Picture Button")',
+      6000,
+    );
+    t.ok(addPictureButton, 'I see the Add Picture Button');
+
     const composePublishButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Publish Button")',
       6000,

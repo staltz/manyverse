@@ -18,6 +18,7 @@ const BluetoothManager = require('ssb-mobile-bluetooth-manager');
 const bluetoothTransportAndPlugin = require('ssb-bluetooth');
 const SecretStack = require('secret-stack');
 import syncingPlugin = require('./plugins/syncing');
+import blobsUtils = require('./plugins/blobsUtils');
 import votesPlugin = require('./plugins/votes');
 import connUtilsPlugin = require('./plugins/connUtils');
 import friendsUtilsPlugin = require('./plugins/friendsUtils');
@@ -123,6 +124,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-about'))
   .use(require('ssb-friends'))
   .use(require('ssb-blobs'))
+  .use(blobsUtils)
   .use(feedUtilsBackPlugin)
   .use(votesPlugin)
   .use(require('ssb-serve-blobs'))
