@@ -6,40 +6,6 @@
 
 type Callback = (e: any, x?: any) => void;
 
-function init(sbot: any) {
-  return {
-    persistentConnect(address: string, data: any, cb: Callback) {
-      // if we had 'autoconnect=false', then make it true
-      sbot.conn.db().update(address, (prev: any) => {
-        if (!prev.autoconnect) return {autoconnect: true};
-        else return {};
-      });
-
-      sbot.conn.connect(address, data, cb);
-    },
-
-    persistentDisconnect(address: string, cb: Callback) {
-      // if we had 'autoconnect=true', then make it false
-      sbot.conn.db().update(address, (prev: any) => {
-        if (prev.autoconnect) return {autoconnect: false};
-        else return {};
-      });
-
-      // disconnect
-      sbot.conn.disconnect(address, cb);
-    },
-
-    isInDB(address: string, cb: Callback) {
-      try {
-        const result = sbot.conn.db().has(address);
-        cb(null, result);
-      } catch (err) {
-        cb(err);
-      }
-    },
-  };
-}
-
 export = {
   name: 'connUtils',
   version: '1.0.0',
@@ -53,5 +19,37 @@ export = {
       allow: ['persistentConnect', 'persistentDisconnect', 'isInDB'],
     },
   },
-  init,
+  init: function init(ssb: any) {
+    return {
+      persistentConnect(address: string, data: any, cb: Callback) {
+        // if we had 'autoconnect=false', then make it true
+        ssb.conn.db().update(address, (prev: any) => {
+          if (!prev.autoconnect) return {autoconnect: true};
+          else return {};
+        });
+
+        ssb.conn.connect(address, data, cb);
+      },
+
+      persistentDisconnect(address: string, cb: Callback) {
+        // if we had 'autoconnect=true', then make it false
+        ssb.conn.db().update(address, (prev: any) => {
+          if (prev.autoconnect) return {autoconnect: false};
+          else return {};
+        });
+
+        // disconnect
+        ssb.conn.disconnect(address, cb);
+      },
+
+      isInDB(address: string, cb: Callback) {
+        try {
+          const result = ssb.conn.db().has(address);
+          cb(null, result);
+        } catch (err) {
+          cb(err);
+        }
+      },
+    };
+  },
 };

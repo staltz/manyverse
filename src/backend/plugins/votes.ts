@@ -49,26 +49,6 @@ function collectUniqueAuthors() {
   };
 }
 
-function init(sbot: any) {
-  if (!sbot.backlinks || !sbot.backlinks.read) {
-    throw new Error('"votes" is missing required plugin "ssb-backlinks"');
-  }
-
-  return {
-    voterStream: function voterStream(msgId: string) {
-      if (!ref.isLink(msgId)) throw new Error('A message id must be specified');
-      return pull(
-        sbot.backlinks.read({
-          query: [{$filter: {dest: msgId}}],
-          index: 'DTA',
-          live: true,
-        }),
-        collectUniqueAuthors(),
-      );
-    },
-  };
-}
-
 export = {
   name: 'votes',
   version: '1.0.0',
@@ -80,5 +60,24 @@ export = {
       allow: ['voterStream'],
     },
   },
-  init,
+  init: function init(ssb: any) {
+    if (!ssb.backlinks || !ssb.backlinks.read) {
+      throw new Error('"votes" is missing required plugin "ssb-backlinks"');
+    }
+
+    return {
+      voterStream: function voterStream(msgId: string) {
+        if (!ref.isLink(msgId))
+          throw new Error('A message id must be specified');
+        return pull(
+          ssb.backlinks.read({
+            query: [{$filter: {dest: msgId}}],
+            index: 'DTA',
+            live: true,
+          }),
+          collectUniqueAuthors(),
+        );
+      },
+    };
+  },
 };

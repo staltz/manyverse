@@ -8,38 +8,6 @@ import {FeedId, Msg} from 'ssb-typescript';
 const pull = require('pull-stream');
 const cat = require('pull-cat');
 
-function init(ssb: any) {
-  return {
-    isPrivatelyBlockingStream(dest: FeedId) {
-      return pull(
-        cat([
-          pull(
-            ssb.links({
-              source: ssb.id,
-              dest,
-              rel: 'contact',
-              live: false,
-              reverse: true,
-            }),
-            pull.take(1),
-          ),
-          ssb.links({
-            source: ssb.id,
-            dest,
-            rel: 'contact',
-            old: false,
-            live: true,
-          }),
-        ]),
-        pull.asyncMap((link: any, cb: any) => {
-          ssb.get(link.key, cb);
-        }),
-        pull.map((val: Msg['value']) => typeof val.content === 'string'),
-      );
-    },
-  };
-}
-
 export = {
   name: 'friendsUtils',
   version: '1.0.0',
@@ -51,5 +19,35 @@ export = {
       allow: ['isPrivatelyBlockingStream'],
     },
   },
-  init,
+  init: function init(ssb: any) {
+    return {
+      isPrivatelyBlockingStream(dest: FeedId) {
+        return pull(
+          cat([
+            pull(
+              ssb.links({
+                source: ssb.id,
+                dest,
+                rel: 'contact',
+                live: false,
+                reverse: true,
+              }),
+              pull.take(1),
+            ),
+            ssb.links({
+              source: ssb.id,
+              dest,
+              rel: 'contact',
+              old: false,
+              live: true,
+            }),
+          ]),
+          pull.asyncMap((link: any, cb: any) => {
+            ssb.get(link.key, cb);
+          }),
+          pull.map((val: Msg['value']) => typeof val.content === 'string'),
+        );
+      },
+    };
+  },
 };
