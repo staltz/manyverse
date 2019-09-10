@@ -71,11 +71,11 @@ module.exports = function(driver, t) {
   });
 
   t.test('Central screen shows many in scrolling feed', async function(t) {
-    await driver.elementByAndroidUIAutomator(
+    const fab1 = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Floating Action Button")',
       6000,
     );
-    t.pass('I see the Floating Action Button');
+    t.ok(fab1, 'I see the Floating Action Button');
 
     const AMOUNT = 10;
     t.pass('I begin creating ' + AMOUNT + ' public messages');
@@ -159,7 +159,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Floating Action Button")',
       6000,
     );
-    t.pass('I see the Floating Action Button');
+    t.ok(fab, 'I see the Floating Action Button');
     await fab.click();
     const composeTextInput = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Text Input")',
@@ -187,7 +187,7 @@ module.exports = function(driver, t) {
         '.fromParent(new UiSelector().descriptionContains("Like Button"))',
       6000,
     );
-    t.pass('I see a like button on that message');
+    t.ok(likeButton, 'I see a like button on that message');
     await likeButton.click();
     t.pass('I tap the like button');
 

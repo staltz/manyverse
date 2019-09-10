@@ -43,7 +43,7 @@ module.exports = function(driver, t) {
           '.fromParent(new UiSelector().descriptionContains("Reply Button"))',
         6000,
       );
-      t.pass('I see the reply button on that message');
+      t.ok(replyButton, 'I see the reply button on that message');
       await replyButton.click();
       t.pass('I tap the reply button');
 
@@ -97,7 +97,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Reply Text Input")',
       6000,
     );
-    t.pass('I see the Reply Text Input');
+    t.ok(replyTextInput, 'I see the Reply Text Input');
     await replyTextInput.click();
     await replyTextInput.keys('I like golden retrievers');
     const replyPublishButton = await driver.elementByAndroidUIAutomator(

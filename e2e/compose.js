@@ -18,11 +18,13 @@ module.exports = function(driver, t) {
     t.ok(fab, 'I see the Floating Action Button');
     await fab.click();
     t.pass('I tap it');
+
     const composeTextInput = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Text Input")',
       6000,
     );
     t.ok(composeTextInput, 'I see the Compose Text Input in Compose screen');
+
     await composeTextInput.keys('Hello world today is a sunny day');
     t.pass('I type a message into it');
     const f2 = await composeTextInput.text();
@@ -44,7 +46,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Compose Publish Button")',
       6000,
     );
-    t.pass('I see the Compose Publish Button');
+    t.ok(composePublishButton, 'I see the Compose Publish Button');
     await composePublishButton.click();
     t.pass('I tap it');
 
@@ -83,7 +85,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Content Warning Button")',
       6000,
     );
-    t.pass('I see the Content Warning Button');
+    t.ok(contentWarningButton, 'I see the Content Warning Button');
     await contentWarningButton.click();
     t.pass('I tap it');
 
@@ -109,7 +111,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Compose Publish Button")',
       6000,
     );
-    t.pass('I see the Compose Publish Button');
+    t.ok(composePublishButton, 'I see the Compose Publish Button');
     await composePublishButton.click();
     t.pass('I tap it');
 
@@ -135,7 +137,7 @@ module.exports = function(driver, t) {
       'new UiSelector().text("View")',
       6000,
     );
-    t.pass('I see the View Button');
+    t.ok(viewButton, 'I see the View Button');
     await viewButton.click();
     t.pass('I tap it');
 
@@ -171,7 +173,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Floating Action Button")',
       6000,
     );
-    t.pass('I see Floating Action Button');
+    t.ok(fab, 'I see Floating Action Button');
     await fab.click();
     t.pass('I tap it');
     t.ok(
@@ -210,7 +212,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Close Button")',
       6000,
     );
-    t.pass('I see the Close Button');
+    t.ok(closeButton, 'I see the Close Button');
     await closeButton.click();
     t.pass('I tap it');
 
@@ -257,7 +259,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Compose Publish Button")',
       6000,
     );
-    t.pass('I see the Compose Publish Button');
+    t.ok(composePublishButton, 'I see the Compose Publish Button');
     await composePublishButton.click();
     t.pass('I tap it');
 
@@ -305,7 +307,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Close Button")',
       6000,
     );
-    t.pass('I see the Close Button');
+    t.ok(closeButton, 'I see the Close Button');
     await closeButton.click();
     t.pass('I tap it');
 
@@ -353,7 +355,7 @@ module.exports = function(driver, t) {
       'new UiSelector().descriptionContains("Close Button")',
       6000,
     );
-    t.pass('I see the Close Button');
+    t.ok(closeButton2, 'I see the Close Button');
     await closeButton2.click();
     t.pass('I tap it');
 
