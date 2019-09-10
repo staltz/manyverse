@@ -226,7 +226,7 @@ export default class Feed extends PureComponent<Props, State> {
     return h(PullFlatList2, {
       getScrollStream: getReadable,
       getPrefixStream: () => this.addedThreadsStream,
-      style: [styles.container, style] as any,
+      style: [styles.container, style],
       initialNumToRender: 1,
       pullAmount: 1,
       numColumns: 1,

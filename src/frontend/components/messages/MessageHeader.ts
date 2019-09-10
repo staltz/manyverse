@@ -108,7 +108,7 @@ export default class MessageHeader extends Component<Props> {
     const messageHeaderTimestamp = h(
       Text,
       {style: styles.messageHeaderTimestamp},
-      [h(HumanTime as any, {time: msg.value.timestamp})],
+      [h(HumanTime, {time: msg.value.timestamp})],
     );
 
     return h(View, {style: styles.messageHeaderRow}, [

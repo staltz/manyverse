@@ -184,6 +184,8 @@ export default function intent(
               message:
                 'Manyverse needs to use Bluetooth to discover where you are ' +
                 '("coarse location") and what peers are around you.',
+              buttonPositive: 'Yes',
+              buttonNegative: 'No',
             },
           ),
         ),

@@ -140,10 +140,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
 
     return h(
       KeyboardAvoidingView,
-      {
-        ['enabled' as any]: state.keyboardVisible,
-        style: styles.container,
-      },
+      {enabled: state.keyboardVisible, style: styles.container},
       [
         h(
           ReactiveScrollView,

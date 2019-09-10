@@ -44,7 +44,7 @@ export default class Feed extends PureComponent<Props, {}> {
     return h<PullFlatListProps<MsgAndExtras>>(PullFlatList, {
       getScrollStream: getReadable,
       keyExtractor: (msg: MsgAndExtras, idx: number) => msg.key || String(idx),
-      style: [styles.container, style] as any,
+      style: [styles.container, style],
       initialNumToRender: 7,
       pullAmount: 2,
       numColumns: 1,

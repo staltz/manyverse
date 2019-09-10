@@ -15,29 +15,22 @@ export default function view(topBar$: Stream<ReactElement<any>>) {
   return topBar$.map(topBar =>
     h(View, {style: styles.container}, [
       topBar,
-      h(
-        KeyboardAvoidingView,
-        {
-          style: styles.bodyContainer,
-          ['enabled' as any]: true,
-        },
-        [
-          h(TextInput, {
-            style: styles.contentInput,
-            sel: 'contentInput',
-            ['nativeID' as any]: 'FocusViewOnResume',
-            accessible: true,
-            accessibilityLabel: 'Invite Text Input',
-            autoFocus: true,
-            multiline: true,
-            returnKeyType: 'done',
-            placeholder: 'Paste an invitation code',
-            placeholderTextColor: Palette.textVeryWeak,
-            selectionColor: Palette.backgroundTextSelection,
-            underlineColorAndroid: Palette.backgroundText,
-          }),
-        ],
-      ),
+      h(KeyboardAvoidingView, {style: styles.bodyContainer, enabled: true}, [
+        h(TextInput, {
+          style: styles.contentInput,
+          sel: 'contentInput',
+          nativeID: 'FocusViewOnResume',
+          accessible: true,
+          accessibilityLabel: 'Invite Text Input',
+          autoFocus: true,
+          multiline: true,
+          returnKeyType: 'done',
+          placeholder: 'Paste an invitation code',
+          placeholderTextColor: Palette.textVeryWeak,
+          selectionColor: Palette.backgroundTextSelection,
+          underlineColorAndroid: Palette.backgroundText,
+        }),
+      ]),
     ]),
   );
 }

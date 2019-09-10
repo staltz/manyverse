@@ -22,6 +22,56 @@ import Avatar from '../../components/Avatar';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
 
+type MiniState = Pick<State, 'postText'> &
+  Pick<State, 'previewing'> &
+  Pick<State, 'contentWarning'>;
+
+function ContentWarningButton(miniState: MiniState) {
+  const style = miniState.contentWarning
+    ? styles.contentWarningOn
+    : styles.contentWarningOff;
+
+  return h(
+    TouchableOpacity,
+    {
+      sel: 'content-warning',
+      activeOpacity: 0.4,
+      accessible: true,
+      accessibilityLabel: 'Content Warning Button',
+    },
+    [h(View, [h(Text, {style}, 'CW')])],
+  );
+}
+
+function MarkdownPreview(miniState: MiniState) {
+  return h(
+    ScrollView,
+    {
+      style: styles.composePreview,
+      contentContainerStyle: styles.previewContentContainer,
+    },
+    [Markdown(miniState.postText)],
+  );
+}
+
+function MarkdownInput(miniState: MiniState) {
+  return h(TextInput, {
+    style: styles.composeInput,
+    sel: 'composeInput',
+    nativeID: 'FocusViewOnResume',
+    value: miniState.postText,
+    accessible: true,
+    accessibilityLabel: 'Compose Text Input',
+    autoFocus: true,
+    multiline: true,
+    returnKeyType: 'done',
+    placeholder: 'Write a public message',
+    placeholderTextColor: Palette.textVeryWeak,
+    selectionColor: Palette.backgroundTextSelection,
+    underlineColorAndroid: Palette.backgroundText,
+  });
+}
+
 export default function view(
   state$: Stream<State>,
   topBar$: Stream<ReactElement<any>>,
@@ -32,11 +82,14 @@ export default function view(
     .startWith(undefined);
 
   const miniState$ = state$
-    .map(state => ({
-      postText: state.postText,
-      previewing: state.previewing,
-      contentWarning: state.contentWarning,
-    }))
+    .map(
+      state =>
+        ({
+          postText: state.postText,
+          previewing: state.previewing,
+          contentWarning: state.contentWarning,
+        } as MiniState),
+    )
     .compose(
       dropRepeats(
         (s1, s2) =>
@@ -52,69 +105,17 @@ export default function view(
     .map(([topBar, avatarUrl, miniState]) =>
       h(View, {style: styles.container}, [
         topBar,
-        h(
-          KeyboardAvoidingView,
-          {
-            style: styles.bodyContainer,
-            ['enabled' as any]: true,
-          },
-          [
-            h(View, {style: styles.leftSide}, [
-              h(Avatar, {
-                size: avatarSize,
-                url: avatarUrl,
-              }),
-              h(View, {style: styles.leftSpacer}),
-              h(
-                TouchableOpacity,
-                {
-                  sel: 'content-warning',
-                  activeOpacity: 0.4,
-                  accessible: true,
-                  accessibilityLabel: 'Content Warning Button',
-                },
-                [
-                  h(View, [
-                    h(
-                      Text,
-                      {
-                        style: miniState.contentWarning
-                          ? styles.contentWarningOn
-                          : styles.contentWarningOff,
-                      },
-                      'CW',
-                    ),
-                  ]),
-                ],
-              ),
-            ]),
+        h(KeyboardAvoidingView, {style: styles.bodyContainer, enabled: true}, [
+          h(View, {style: styles.leftSide}, [
+            h(Avatar, {size: avatarSize, url: avatarUrl}),
+            h(View, {style: styles.leftSpacer}),
+            ContentWarningButton(miniState),
+          ]),
 
-            miniState.previewing
-              ? h(
-                  ScrollView,
-                  {
-                    style: styles.composePreview,
-                    contentContainerStyle: styles.previewContentContainer,
-                  },
-                  [Markdown(miniState.postText)],
-                )
-              : h(TextInput, {
-                  style: styles.composeInput,
-                  sel: 'composeInput',
-                  ['nativeID' as any]: 'FocusViewOnResume',
-                  value: miniState.postText,
-                  accessible: true,
-                  accessibilityLabel: 'Compose Text Input',
-                  autoFocus: true,
-                  multiline: true,
-                  returnKeyType: 'done',
-                  placeholder: 'Write a public message',
-                  placeholderTextColor: Palette.textVeryWeak,
-                  selectionColor: Palette.backgroundTextSelection,
-                  underlineColorAndroid: Palette.backgroundText,
-                }),
-          ],
-        ),
+          miniState.previewing
+            ? MarkdownPreview(miniState)
+            : MarkdownInput(miniState),
+        ]),
       ]),
     );
 }

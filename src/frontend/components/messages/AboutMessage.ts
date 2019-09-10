@@ -67,12 +67,12 @@ function renderWithImage(
       h(Text, {style: styles.followed}, ' is using a new picture:'),
     ]),
     h(Image, {
-      style: styles.aboutImage as any,
+      style: styles.aboutImage,
       source: {uri: imageUrl || undefined},
     }),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
-        h(HumanTime as any, {time: msg.value.timestamp}),
+        h(HumanTime, {time: msg.value.timestamp}),
       ]),
     ]),
   ]);
@@ -91,7 +91,7 @@ function renderWithNameDesc(name: string | null, msg: Msg<About>) {
     Markdown(msg.value.content.description || ''),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
-        h(HumanTime as any, {time: msg.value.timestamp}),
+        h(HumanTime, {time: msg.value.timestamp}),
       ]),
     ]),
   ]);
@@ -106,7 +106,7 @@ function renderWithDesc(name: string | null, msg: Msg<About>) {
     Markdown(msg.value.content.description || ''),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
-        h(HumanTime as any, {time: msg.value.timestamp}),
+        h(HumanTime, {time: msg.value.timestamp}),
       ]),
     ]),
   ]);
@@ -124,7 +124,7 @@ function renderWithName(name: string | null, msg: Msg<About>) {
     ]),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
-        h(HumanTime as any, {time: msg.value.timestamp}),
+        h(HumanTime, {time: msg.value.timestamp}),
       ]),
     ]),
   ]);

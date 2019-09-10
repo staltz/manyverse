@@ -109,7 +109,7 @@ export default class RawMessage extends Component<Props> {
     );
 
     const timestampText = h(Text, {style: styles.timestamp}, [
-      h(HumanTime as any, {time: msg.value.timestamp}),
+      h(HumanTime, {time: msg.value.timestamp}),
     ]);
 
     return h(View, [

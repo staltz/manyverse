@@ -89,7 +89,7 @@ function renderTabs(
       style: styles.indicatorViewPager,
       indicator: h(BetterPagerTabIndicator, {
         sel: 'tabs',
-        style: [globalStyles.noMargin, {elevation: 3}] as any,
+        style: [globalStyles.noMargin, {elevation: 3}],
         itemStyle: styles.tabItem,
         selectedItemStyle: styles.tabItemSelected,
         tabs: [
