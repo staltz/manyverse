@@ -107,6 +107,33 @@ module.exports = function(driver, t) {
     await doneButton.click();
     t.pass('I tap it');
 
+    const openCameraButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Open Camera Button")',
+      6000,
+    );
+    t.ok(openCameraButton, 'I see the Open Camera Button');
+    await openCameraButton.click();
+    t.pass('I tap it');
+
+    await driver.sleep(2000);
+    const captureButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Capture photo")',
+      6000,
+    );
+    t.ok(captureButton, 'I see the Capture photo Button');
+    await captureButton.click();
+    t.pass('I tap it');
+    await driver.sleep(5000);
+
+    const captureDoneButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Done")',
+      6000,
+    );
+    t.ok(captureDoneButton, 'I see the Capture done Button');
+    await captureDoneButton.click();
+    t.pass('I tap it');
+    await driver.sleep(2000);
+
     const composePublishButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Publish Button")',
       6000,
@@ -133,6 +160,16 @@ module.exports = function(driver, t) {
       t.pass('I dont see the content-warned message on the Central screen');
     }
 
+    try {
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("CAPTIONS FOR THE VISUALLY IMPAIRED")',
+        1000,
+      );
+      t.fail('Should not have seen the content-warning-protected picture');
+    } catch (err) {
+      t.pass('I dont see the content-warned picture on the Central screen');
+    }
+
     const viewButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().text("View")',
       6000,
@@ -148,6 +185,31 @@ module.exports = function(driver, t) {
       ),
       'I see the actual content-warned message on the feed',
     );
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("CAPTIONS FOR THE VISUALLY IMPAIRED")',
+        6000,
+      ),
+      'I see the actual content-warned picture on the feed',
+    );
+
+    const hideButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().text("Hide")',
+      6000,
+    );
+    t.ok(hideButton, 'I see the Hide Button');
+    await hideButton.click();
+    t.pass('I tap it');
+
+    try {
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Goodbye world today is a dark day")',
+        1000,
+      );
+      t.fail('Should not have seen content-warning-protected message');
+    } catch (err) {
+      t.pass('I dont see the content-warned message on the Central screen');
+    }
 
     t.end();
   });
