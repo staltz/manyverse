@@ -1,0 +1,44 @@
+patch-package
+--- a/node_modules/react-native/react.gradle
++++ b/node_modules/react-native/react.gradle
+@@ -16,7 +16,7 @@ def reactRoot = file(config.root ?: "../../")
+ def inputExcludes = config.inputExcludes ?: ["android/**", "ios/**"]
+ def bundleConfig = config.bundleConfig ? "${reactRoot}/${config.bundleConfig}" : null ;
+ def enableVmCleanup = config.enableVmCleanup == null ? true : config.enableVmCleanup
+-def hermesCommand = config.hermesCommand ?: "../../node_modules/hermesvm/%OS-BIN%/hermes"
++def hermesCommand = config.hermesCommand ?: "../../node_modules/hermes-engine/%OS-BIN%/hermes"
+ 
+ def reactNativeDevServerPort() {
+     def value = project.getProperties().get("reactNativeDevServerPort")
+@@ -139,6 +139,7 @@ afterEvaluate {
+             if (enableHermes) {
+                 doLast {
+                     def hermesFlags;
++                    def hbcTempFile = file("${jsBundleFile}.hbc")
+                     exec {
+                         if (targetName.toLowerCase().contains("release")) {
+                             // Can't use ?: since that will also substitute valid empty lists
+@@ -148,13 +149,20 @@ afterEvaluate {
+                             hermesFlags = config.hermesFlagsDebug
+                             if (hermesFlags == null) hermesFlags = []
+                         }
+-                        commandLine(getHermesCommand(), "-emit-binary", "-out", jsBundleFile, jsBundleFile, *hermesFlags)
++                        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
++                            commandLine("cmd", "/c", getHermesCommand(), "-emit-binary", "-out", hbcTempFile, jsBundleFile, *hermesFlags)
++                        } else {
++                            commandLine(getHermesCommand(), "-emit-binary", "-out", hbcTempFile, jsBundleFile, *hermesFlags)
++                        }
+                     }
++                    ant.move(
++                        file: hbcTempFile,
++                        toFile: jsBundleFile
++                    );
+                     if (hermesFlags.contains("-output-source-map")) {
+                         ant.move(
+                             // Hermes will generate a source map with this exact name
+-                            // NOTE: name coincides with jsOutputSourceMapFile
+-                            file: "${jsBundleFile}.map",
++                            file: "${jsBundleFile}.hbc.map",
+                             tofile: jsCompilerSourceMapFile
+                         );
+                         exec {

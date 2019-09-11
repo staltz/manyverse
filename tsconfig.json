@@ -21,6 +21,7 @@
     "src/backend/index.ts",
     "src/backend/loader.ts",
     "src/frontend/index.ts",
+    "src/frontend/app-version.ts",
     "typings/pull-stream.d.ts",
     "typings/react-native-bluetooth-status.d.ts",
     "typings/react-native-dialogs.d.ts",

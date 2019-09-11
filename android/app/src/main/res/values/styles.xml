@@ -10,6 +10,7 @@
         <item name="android:statusBarColor">#364fc7</item>
         <item name="colorPrimary">#3b5bdb</item>
         <item name="android:colorPrimaryDark">#364fc7</item>
+        <item name="android:textColor">#212529</item>
     </style>
 
 </resources>

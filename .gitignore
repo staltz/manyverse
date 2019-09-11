@@ -70,6 +70,9 @@ buck-out/
 /android/app/src/main/res/raw/rnnodebundle
 *.jsbundle
 
+# CocoaPods
+/ios/Pods/
+
 # Misc
 #
 /gitignored/

@@ -7,6 +7,7 @@
 package se.manyver;
 
 import android.content.Context;
+import androidx.annotation.Nullable;
 
 import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
@@ -31,6 +32,7 @@ import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import org.acra.*;
 import org.acra.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -53,14 +55,13 @@ public class MainApplication extends NavigationApplication {
   }
 
   @Override
-  protected ReactGateway createReactGateway() {
-    ReactNativeHost host = new NavigationReactNativeHost(this, isDebug(), createAdditionalReactPackages()) {
-      @Override
-      protected String getJSMainModuleName() {
-        return "index.android";
-      }
-    };
-    return new ReactGateway(this, isDebug(), host);
+  protected ReactNativeHost createReactNativeHost() {
+      return new NavigationReactNativeHost(this) {
+          @Override
+          protected String getJSMainModuleName() {
+              return "index.android";
+          }
+      };
   }
 
   @Override
@@ -69,8 +70,9 @@ public class MainApplication extends NavigationApplication {
     return BuildConfig.DEBUG;
   }
 
-  protected List<ReactPackage> getPackages() {
-
+  @Nullable
+  @Override
+  public List<ReactPackage> createAdditionalReactPackages() {
     String socketDir = this.getApplicationInfo().dataDir + "/files";
 
     UUID uuid = UUID.fromString("b0b2e90d-0cda-4bb0-8e4b-fb165cd17d48");
@@ -78,17 +80,19 @@ public class MainApplication extends NavigationApplication {
     BluetoothSocketBridgeConfiguration bluetoothConfig = new BluetoothSocketBridgeConfiguration(socketDir,
         "manyverse_bt_incoming.sock", "manyverse_bt_outgoing.sock", "manyverse_bt_control.sock", "scuttlebutt", uuid);
 
-    // Add additional packages you require here
-    // No need to add RnnPackage and MainReactPackage
-    return Arrays.<ReactPackage>asList(new MainReactPackage(), new RNBluetoothManagerPackage(),
-        new BluetoothSocketBridgePackage(bluetoothConfig), new PickerPackage(), new HasInternetPackage(),
-        new AndroidWifiPackage(), new RNFSPackage(), new RandomBytesPackage(), new RNNodeJsMobilePackage(),
-        new ReactNativeDialogsPackage(), new VectorIconsPackage(), new RNOSModule(), new NotificationPackage());
+    List<ReactPackage> packages = new ArrayList<>();
+    packages.add(new RNBluetoothManagerPackage());
+    packages.add(new BluetoothSocketBridgePackage(bluetoothConfig));
+    packages.add(new PickerPackage());
+    packages.add(new HasInternetPackage());
+    packages.add(new AndroidWifiPackage());
+    packages.add(new RNFSPackage());
+    packages.add(new RandomBytesPackage());
+    packages.add(new RNNodeJsMobilePackage());
+    packages.add(new ReactNativeDialogsPackage());
+    packages.add(new VectorIconsPackage());
+    packages.add(new RNOSModule());
+    packages.add(new NotificationPackage());
+    return packages;
   }
-
-  @Override
-  public List<ReactPackage> createAdditionalReactPackages() {
-    return getPackages();
-  }
-
 }
