@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1909.11-beta
+
+* Feature: add pictures to your posts ([see details](https://gitlab.com/staltz/manyverse/commit/727b83520ee88d9128a5cf55cb5cc33f390f7691))
+
 ## 0.1909.5-beta
 
 * Feature: see which accounts liked a message ([see details](https://gitlab.com/staltz/manyverse/commit/e402d4c6b0707c19147095ba5c5c4384c201ea70))
