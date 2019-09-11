@@ -175,8 +175,13 @@ type StateImageWithBG = {
   fullheight: number;
 };
 
-class ZoomableImage extends PureComponent<{src: string}, StateImageWithBG> {
-  constructor(props: {src: string}) {
+type PropsImage = {
+  src: string;
+  title?: string;
+};
+
+class ZoomableImage extends PureComponent<PropsImage, StateImageWithBG> {
+  constructor(props: PropsImage) {
     super(props);
     this.state = {fullscreen: false, fullwidth: 300, fullheight: 200};
     this.onOpen = () => this.setState({fullscreen: true});
@@ -250,6 +255,8 @@ class ZoomableImage extends PureComponent<{src: string}, StateImageWithBG> {
         $(Image, {
           key: 'preview',
           source: {uri},
+          accessible: true,
+          accessibilityLabel: this.props.title || 'Picture without caption',
           defaultSource: pictureIcon,
           style: {
             resizeMode: 'cover',
@@ -339,8 +346,8 @@ const renderers = {
 
   thematicBreak: () => $(View, {style: styles.horizontalLine}),
 
-  image: (props: {src: string; title: string; alt: string}) => {
-    return $(ZoomableImage, {src: props.src});
+  image: (props: {src: string; title?: string; alt?: string}) => {
+    return $(ZoomableImage, {src: props.src, title: props.title || props.alt});
   },
 
   list: (props: {children: any; depth: number; ordered: boolean}) =>
