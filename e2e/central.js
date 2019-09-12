@@ -71,8 +71,13 @@ module.exports = function(driver, t) {
       'I see a text explaining what LAN connectivity is',
     );
 
-    await driver.back();
-    t.pass('I press the (hardware) back button');
+    const okButton = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().text("OK")',
+      6000,
+    );
+    t.ok(okButton, 'I see the OK button');
+    await okButton.click();
+    t.pass('I tap it');
 
     // Back to Public tab
     const publicTabButton = await driver.elementByAndroidUIAutomator(
