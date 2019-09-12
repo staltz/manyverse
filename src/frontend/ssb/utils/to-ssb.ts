@@ -35,7 +35,6 @@ export function toPostContent(
   text: string,
   contentWarning?: string,
 ): Privatable<PostContent> {
-  console.warn('manyverse will call remark-ssb-mentions');
   const content: PostContent = {
     text,
     type: 'post',
@@ -46,7 +45,6 @@ export function toPostContent(
     (content as any).contentWarning = contentWarning;
   }
 
-  console.warn('manyverse done, content = ', content);
   return content;
 }
 
