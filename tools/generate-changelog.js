@@ -86,6 +86,7 @@ module.exports = function generateChangelog(releaseCount) {
     host: 'https://gitlab.com',
     owner: 'staltz',
     repository: 'manyverse',
+    releases: 0,
   };
 
   const gitRawCommitsOpts = {from: firstReleaseCommit};
@@ -102,18 +103,22 @@ module.exports = function generateChangelog(releaseCount) {
   const writerOpts = {
     groupBy: 'release',
     transform: function(commit, context) {
-      if (commit.type === 'ux') {
+      if (commit.type === 'release') context.releases += 1;
+
+      if (releaseCount > 0 && context.releases >= releaseCount + 1) {
+        return false;
+      } else if (commit.type === 'ux') {
         commit.subject = capitalize(commit.subject);
         return commit;
       } else {
-        return;
+        return false;
       }
     },
     generateOn: (commit, _commits, context) => {
-      if (releaseCount > 0 && context.releases >= releaseCount) return false;
+      if (releaseCount > 0 && context.releases >= releaseCount + 1) {
+        return false;
+      }
       if (commit.type === 'release') {
-        context.releases = context.releases || 0;
-        context.releases += 1;
         return true;
       }
       return false;
