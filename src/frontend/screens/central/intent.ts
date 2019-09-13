@@ -6,16 +6,12 @@
 
 import {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
-import {NavSource} from 'cycle-native-navigation';
 
 export type Actions = {
   changeTab$: Stream<number>;
 };
 
-export default function intent(
-  reactSource: ReactSource,
-  navSource: NavSource,
-): Actions {
+export default function intent(reactSource: ReactSource): Actions {
   return {
     changeTab$: reactSource.select('tabs').events('select'),
   };

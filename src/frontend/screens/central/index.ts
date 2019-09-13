@@ -80,7 +80,7 @@ export function central(sources: Sources): Sinks {
     state: topBarLens,
   })(sources);
 
-  const actions = intent(sources.screen, sources.navigation);
+  const actions = intent(sources.screen);
 
   const scrollToTop$ = actions.changeTab$
     .compose(sampleCombine(sources.state.stream))
@@ -91,15 +91,15 @@ export function central(sources: Sources): Sinks {
     .select('fab')
     .events('pressItem');
 
-  const publicTabSinks: PublicTabSinks = isolate(publicTab, {
+  const publicTabSinks = isolate(publicTab, {
     state: publicTabLens,
     '*': 'publicTab',
-  })({...sources, scrollToTop: scrollToTop$, fab: fabPress$});
+  })({...sources, scrollToTop: scrollToTop$, fab: fabPress$}) as PublicTabSinks;
 
-  const connectionsTabSinks: ConnectionsTabSinks = isolate(connectionsTab, {
+  const connectionsTabSinks = isolate(connectionsTab, {
     state: connectionsTabLens,
     '*': 'connectionsTab',
-  })({...sources, fab: fabPress$});
+  })({...sources, fab: fabPress$}) as ConnectionsTabSinks;
 
   const fabProps$ = sources.state.stream
     .map(state =>
