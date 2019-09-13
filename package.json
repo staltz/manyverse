@@ -19,10 +19,11 @@
     "changelog": "npm run update-repo-changelog && npm run update-dat-latest-readme",
     "update-repo-changelog": "./tools/update-repo-changelog.js",
     "update-dat-latest-readme": "./tools/update-dat-latest-readme.js",
+    "echo-ssb-post": "./tools/echo-ssb-post.js",
     "update-version": "./tools/update-version.js",
     "dat-release": "./tools/dat-release",
     "commit-release": "./tools/commit-release",
-    "release": "npm run update-version && npm run clean-bundler && npm run clean-android && npm run build-android-release && npm run test-e2e-android && npm run changelog && npm run commit-release && npm run dat-release"
+    "release": "npm run update-version && npm run clean-bundler && npm run clean-android && npm run build-android-release && npm run test-e2e-android && npm run changelog && npm run commit-release && npm run dat-release && npm run echo-ssb-post"
   },
   "dependencies": {
     "@cycle/isolate": "5.1.0",

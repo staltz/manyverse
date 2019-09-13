@@ -92,7 +92,7 @@ If you are getting errors while building the application using `react-native run
 
 #### app:installDebug FAILED - Could not find build of variant which supports .. an ABI in x86
 
-ManyVerse only supports ARM architectures, but most virtual device emulators use an x86 architecture of the host computer, and are therefore not supported. 
+ManyVerse only supports ARM architectures, but most virtual device emulators use an x86 architecture of the host computer, and are therefore not supported.
 
 Debug your code using a 'real' mobile device connected over USB instead.
 
@@ -241,10 +241,10 @@ After `npm run release` runs, it will update APK files in two folders: `../dat-r
 - Deploy to Google Play
   - Take the APK file from `../dat-release-latest`, upload and publish it on Google Play developer website
 - Announce on Scuttlebutt
-  - Copy-paste `../dat-release-latest/README.md` into Scuttlebutt as a new version announcement
+  - After `npm run release` ends, it shows in the terminal a ready markdown post, publish that into Scuttlebutt under the hashtag `#manyverse`
 - Announce on Twitter
   - Copy-paste from CHANGELOG.md the list of updates for the latest version, write it in the Twitter `@manyver_se` account and publish
 - Announce on Mastodon
-   - Copy paste from Twitter
+  - Copy paste from Twitter
 - Sync Archival Dat
   - `cd ../dat-release-all` and `dat sync` (uploads to the Dat swarm)
