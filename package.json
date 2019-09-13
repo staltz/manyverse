@@ -105,7 +105,7 @@
     "patch-package": "6.2.0",
     "prettier": "~1.18.2",
     "propagate-replacement-fields": "1.2.0",
-    "react-native-version": "2.3.1",
+    "react-native-version": "3.1.0",
     "rn-snoopy": "2.0.2",
     "tslint": "~5.20.0",
     "typescript": "~3.6.3"
