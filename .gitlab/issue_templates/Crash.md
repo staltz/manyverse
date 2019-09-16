@@ -4,11 +4,5 @@ Be kind and objective when writing in text. Thanks for informing us! :) -->
 **Steps to reproduce the bug:**
 
 
-**Stack trace of the crash:**
+**Crash reports from `npm run psdr`:**
 
-
-**Technical details**
-
-- Manyverse app version:
-- Device/phone model:
-- Android OS version:
