@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
 
   textStrong: {
     ...baseTextStyle,
-    color: Palette.foregroundBrand,
+    color: Palette.textForBackgroundBrand,
   },
 });
 

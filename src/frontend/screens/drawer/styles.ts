@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
 
   noAuthorName: {
     fontSize: Typography.fontSizeNormal,
-    color: Palette.foregroundBrand,
+    color: Palette.textForBackgroundBrand,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     fontStyle: 'italic',
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
   authorName: {
     fontFamily: Typography.fontFamilyReadableText,
     fontSize: Typography.fontSizeNormal,
-    color: Palette.foregroundBrand,
+    color: Palette.textForBackgroundBrand,
     fontWeight: 'bold',
   },
 

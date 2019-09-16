@@ -181,8 +181,6 @@ export const Palette = {
   backgroundWarningAction: yellow6,
   backgroundHackerVoid: indigo12,
 
-  foregroundCTA: teal5,
-  foregroundBrand: white,
   foregroundNeutral: gray6,
 
   transparencyDarkWeak: '#00000020',
@@ -192,10 +190,12 @@ export const Palette = {
   textVeryWeak: gray5,
   textWeak: gray7,
   text: gray9,
+  textCTA: teal5,
   textBrand: indigo8,
   textPositive: teal5,
   textNegative: red6,
   textHacker: teal3,
+  textForBackgroundBrand: white,
 
   colors: {
     white,

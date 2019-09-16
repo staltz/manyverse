@@ -37,7 +37,7 @@ export default class Avatar extends PureComponent<Props> {
     return h(View, {style: overlayStyle}, [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.foregroundBrand,
+        color: Palette.textForBackgroundBrand,
         name: overlayIcon,
         style: {top, left},
       }),

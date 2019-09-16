@@ -12,10 +12,10 @@ import {Typography} from '../../global-styles/typography';
 export const navigatorStyle = {
   statusBarColor: Palette.backgroundBrandStrong,
   navBarBackgroundColor: Palette.backgroundBrand,
-  navBarTextColor: Palette.foregroundBrand,
+  navBarTextColor: Palette.textForBackgroundBrand,
   navBarTextFontSize: Typography.fontSizeLarge,
   navBarTextFontFamily: Typography.fontFamilyReadableText,
-  navBarButtonColor: Palette.foregroundBrand,
+  navBarButtonColor: Palette.textForBackgroundBrand,
   topBarElevationShadowEnabled: false,
   navBarTextFontBold: true,
 };

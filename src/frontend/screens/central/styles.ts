@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   headerTitle: {
     marginLeft: Dimensions.horizontalSpaceNormal,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.foregroundBrand,
+    color: Palette.textForBackgroundBrand,
     fontSize: Typography.fontSizeLarge,
     fontWeight: 'bold',
   },
@@ -71,7 +71,7 @@ export const styles = StyleSheet.create({
   },
 
   updatesDot: {
-    backgroundColor: Palette.foregroundBrand,
+    backgroundColor: Palette.textForBackgroundBrand,
     width: 7,
     height: 7,
     position: 'absolute',
@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
 export const iconProps = {
   headerIcon: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.foregroundBrand,
+    color: Palette.textForBackgroundBrand,
   },
 
   tab: {
@@ -106,11 +106,11 @@ export const iconProps = {
 
   tabSelected: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.foregroundBrand,
+    color: Palette.textForBackgroundBrand,
   },
 };
 
 export const topBarTitle = {
-  color: Palette.foregroundBrand,
+  color: Palette.textForBackgroundBrand,
   fontSize: Typography.fontSizeLarge,
 };

@@ -123,13 +123,13 @@ export const defaultNavOptions = {
     height: 0,
     borderHeight: 0,
     elevation: 0,
-    buttonColor: Palette.foregroundBrand,
+    buttonColor: Palette.textForBackgroundBrand,
     background: {
       color: Palette.backgroundBrand,
     },
     title: {
       text: '',
-      color: Palette.foregroundBrand,
+      color: Palette.textForBackgroundBrand,
       fontSize: Typography.fontSizeLarge,
     },
   },

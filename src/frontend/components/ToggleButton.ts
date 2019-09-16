@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
 
   textToggled: {
     ...baseTextStyle,
-    color: Palette.foregroundBrand,
+    color: Palette.textForBackgroundBrand,
   },
 });
 
