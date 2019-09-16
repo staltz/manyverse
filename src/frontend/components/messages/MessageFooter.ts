@@ -4,14 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Component} from 'react';
-import {
-  View,
-  Text,
-  TouchableNativeFeedback,
-  StyleSheet,
-  TouchableNativeFeedbackProperties,
-} from 'react-native';
+import {Component, PureComponent} from 'react';
+import {View, Text, TouchableNativeFeedback, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Msg, FeedId, PostContent, MsgId} from 'ssb-typescript';
@@ -112,6 +106,107 @@ const iconProps = {
   },
 };
 
+type LCProps = {
+  onPress: () => void;
+  count: number;
+};
+
+class LikeCount extends PureComponent<LCProps> {
+  public render() {
+    const {count, onPress} = this.props;
+
+    const likesComponent = [
+      h(View, {style: styles.col}, [
+        h(Text, {style: count > 0 ? styles.likes : styles.likesHidden}, [
+          h(Text, {style: styles.likeCount}, String(count)),
+          (count === 1 ? ' like' : ' likes') as any,
+        ]),
+      ]),
+    ];
+
+    if (count > 0) {
+      return h(
+        TouchableNativeFeedback,
+        {
+          background: TouchableNativeFeedback.SelectableBackground(),
+          onPress,
+          accessible: true,
+          accessibilityLabel: 'Like Count Button',
+        },
+        likesComponent,
+      );
+    } else {
+      return h(React.Fragment, likesComponent);
+    }
+  }
+}
+
+type LBProps = {
+  onPress: () => void;
+  toggled: boolean;
+};
+
+class LikeButton extends PureComponent<LBProps, {maybeToggled: boolean}> {
+  public state = {maybeToggled: false};
+
+  private onPress = () => {
+    if (this.state.maybeToggled) return;
+
+    this.setState({maybeToggled: true});
+    this.props.onPress();
+  };
+
+  public render() {
+    const {toggled} = this.props;
+    const {maybeToggled} = this.state;
+    const ilike: 'no' | 'maybe' | 'yes' = maybeToggled
+      ? 'maybe'
+      : toggled
+      ? 'yes'
+      : 'no';
+
+    return h(
+      TouchableNativeFeedback,
+      {
+        background: TouchableNativeFeedback.SelectableBackground(),
+        onPress: this.onPress,
+        accessible: true,
+        accessibilityLabel: 'Like Button',
+      },
+      [
+        h(View, {style: styles.likeButton}, [
+          h(Icon, iconProps[ilike + 'Liked']),
+          h(Text, {style: styles.likeButtonLabel}, 'Like'),
+        ]),
+      ],
+    );
+  }
+}
+
+type RProps = {
+  onPress: () => void;
+};
+
+class ReplyButton extends PureComponent<RProps> {
+  public render() {
+    return h(
+      TouchableNativeFeedback,
+      {
+        background: TouchableNativeFeedback.SelectableBackground(),
+        onPress: this.props.onPress,
+        accessible: true,
+        accessibilityLabel: 'Reply Button',
+      },
+      [
+        h(View, {style: styles.replyButton}, [
+          h(Icon, iconProps.reply),
+          h(Text, {style: styles.replyButtonLabel}, 'Comment'),
+        ]),
+      ],
+    );
+  }
+}
+
 export type Props = {
   msg: Msg;
   selfFeedId: FeedId;
@@ -121,143 +216,70 @@ export type Props = {
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
 };
 
-export type State = {
-  ilike: 'no' | 'maybe' | 'yes';
-  likeCount: number;
-};
+export default class MessageFooter extends Component<Props> {
+  private likeToggled: boolean = false;
 
-export default class MessageFooter extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = this.stateFromProps(props, {ilike: 'no', likeCount: 0});
-    this._likeCountButtonProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: this.onPressLikeCountHandler.bind(this),
-      accessible: true,
-      accessibilityLabel: 'Like Count Button',
-    };
-    this._likeButtonProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: this.onPressLikeHandler.bind(this),
-      accessible: true,
-      accessibilityLabel: 'Like Button',
-    };
-    this._replyButtonProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
-      onPress: this.onPressReplyHandler.bind(this),
-      accessible: true,
-      accessibilityLabel: 'Reply Button',
-    };
-  }
+  private onPressLikeCountHandler = () => {
+    const onPressLikeCount = this.props.onPressLikeCount;
+    if (!onPressLikeCount) return;
 
-  private _likeCountButtonProps: TouchableNativeFeedbackProperties;
-  private _likeButtonProps: TouchableNativeFeedbackProperties;
-  private _replyButtonProps: TouchableNativeFeedbackProperties;
-
-  public componentWillReceiveProps(nextProps: Props) {
-    this.setState((prev: State) => this.stateFromProps(nextProps, prev));
-  }
-
-  private stateFromProps(props: Props, prevState: State): State {
-    if (props.likes) {
-      const ilike = props.likes.some(
-        feedId => feedId === this.props.selfFeedId,
-      );
-      return {
-        ilike: ilike ? 'yes' : 'no',
-        likeCount: props.likes.length,
-      };
-    } else {
-      return prevState;
-    }
-  }
-
-  private onPressLikeCountHandler() {
     const msgKey = this.props.msg.key;
     const likes = this.props.likes;
-    const onPressLikeCount = this.props.onPressLikeCount;
-    if (onPressLikeCount) {
-      onPressLikeCount({msgKey, likes});
-    }
-  }
+    onPressLikeCount({msgKey, likes});
+  };
 
-  private onPressLikeHandler() {
-    const ilike = this.state.ilike;
-    this.setState((prev: State) => ({
-      ilike: 'maybe',
-      likeCount: prev.likeCount,
-    }));
+  private onPressLikeHandler = () => {
     const onPressLike = this.props.onPressLike;
-    if (ilike !== 'maybe' && onPressLike) {
-      setTimeout(() => {
-        onPressLike({
-          msgKey: this.props.msg.key,
-          like: ilike === 'no' ? true : false,
-        });
-      });
-    }
-  }
+    if (!onPressLike) return;
 
-  private onPressReplyHandler() {
+    onPressLike({
+      msgKey: this.props.msg.key,
+      like: this.likeToggled ? false : true,
+    });
+  };
+
+  private onPressReplyHandler = () => {
     const onPressReply = this.props.onPressReply;
     if (!onPressReply) return;
-    const msgKey = this.props.msg.key;
-    const rootKey =
-      this.props.msg.value &&
-      this.props.msg.value.content &&
-      (this.props.msg.value.content as PostContent).root;
-    onPressReply({msgKey, rootKey: rootKey || msgKey});
-  }
 
-  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+    const msg = this.props.msg;
+    const msgKey = msg.key;
+    const rootKey =
+      msg.value && msg.value.content && (msg.value.content as PostContent).root;
+    onPressReply({msgKey, rootKey: rootKey || msgKey});
+  };
+
+  public shouldComponentUpdate(nextProps: Props) {
     const prevProps = this.props;
-    const prevState = this.state;
     return (
-      nextProps.msg.key !== prevProps.msg.key ||
-      nextState.likeCount !== prevState.likeCount ||
-      nextState.ilike !== prevState.ilike
+      (nextProps.likes || []).length !== (prevProps.likes || []).length ||
+      nextProps.msg.key !== prevProps.msg.key
     );
   }
 
   public render() {
-    const {likeCount, ilike} = this.state;
-
-    const likesComponent = [
-      h(View, {style: styles.col}, [
-        h(Text, {style: likeCount ? styles.likes : styles.likesHidden}, [
-          h(Text, {style: styles.likeCount}, String(likeCount)),
-          (likeCount === 1 ? ' like' : ' likes') as any,
-        ]),
-      ]),
-    ];
-
-    const counter = likeCount
-      ? h(TouchableNativeFeedback, this._likeCountButtonProps, likesComponent)
-      : h(React.Fragment, likesComponent);
-
-    const buttons = [
-      h(TouchableNativeFeedback, this._likeButtonProps, [
-        h(View, {style: styles.likeButton}, [
-          h(Icon, iconProps[ilike + 'Liked']),
-          h(Text, {style: styles.likeButtonLabel}, 'Like'),
-        ]),
-      ]),
-    ];
-
-    if (this.props.onPressReply) {
-      buttons.push(
-        h(TouchableNativeFeedback, this._replyButtonProps, [
-          h(View, {style: styles.replyButton}, [
-            h(Icon, iconProps.reply),
-            h(Text, {style: styles.replyButtonLabel}, 'Comment'),
-          ]),
-        ]),
-      );
-    }
+    const timestamp = Date.now();
+    const props = this.props;
+    const shouldShowReply = !!props.onPressReply;
+    const likes = props.likes || [];
+    const likeCount = likes.length;
+    this.likeToggled = likes.some(feedId => feedId === props.selfFeedId);
 
     return h(View, {style: styles.col}, [
-      h(View, {style: styles.row}, [counter]),
-      h(View, {style: styles.row}, buttons),
+      h(View, {style: styles.row}, [
+        h(LikeCount, {count: likeCount, onPress: this.onPressLikeCountHandler}),
+      ]),
+      h(View, {style: styles.row}, [
+        h(LikeButton, {
+          onPress: this.onPressLikeHandler,
+          toggled: this.likeToggled,
+          ['key' as any]: timestamp,
+        }),
+
+        shouldShowReply
+          ? h(ReplyButton, {onPress: this.onPressReplyHandler})
+          : (null as any),
+      ]),
     ]);
   }
 }
