@@ -10,24 +10,32 @@ import {Command} from 'cycle-native-asyncstorage';
 import {State} from './model';
 
 export type Actions = {
-  publishMsg$: Stream<any>;
-  exit$: Stream<any>;
-  exitSavingDraft$: Stream<any>;
-  exitDeletingDraft$: Stream<any>;
+  publishPost$: Stream<any>;
+  publishReply$: Stream<any>;
+  exitPost$: Stream<any>;
+  exitReply$: Stream<any>;
+  exitSavingPostDraft$: Stream<any>;
+  exitDeletingPostDraft$: Stream<any>;
 };
 
 export default function asyncStorage(actions: Actions, state$: Stream<State>) {
-  const saveCommand$ = actions.exitSavingDraft$.compose(sample(state$)).map(
-    state =>
-      ({
-        type: 'setItem',
-        key: 'composeDraft',
-        value: state.postText,
-      } as Command),
-  );
+  const savePostDraft$ = actions.exitSavingPostDraft$
+    .compose(sample(state$))
+    .map(
+      state =>
+        ({
+          type: 'setItem',
+          key: 'composeDraft',
+          value: state.postText,
+        } as Command),
+    );
 
-  const deleteCommand$ = xs
-    .merge(actions.exit$, actions.exitDeletingDraft$, actions.publishMsg$)
+  const deletePostDraft$ = xs
+    .merge(
+      actions.exitPost$,
+      actions.exitDeletingPostDraft$,
+      actions.publishPost$,
+    )
     .map(
       () =>
         ({
@@ -36,5 +44,26 @@ export default function asyncStorage(actions: Actions, state$: Stream<State>) {
         } as Command),
     );
 
-  return xs.merge(saveCommand$, deleteCommand$);
+  const saveReplyDraft$ = actions.exitReply$.compose(sample(state$)).map(
+    state =>
+      ({
+        type: 'setItem',
+        key: `replyDraft:${state.root}`,
+        value: state.postText,
+      } as Command),
+  );
+
+  const deleteReplyDraft$ = actions.publishReply$
+    .compose(sample(state$))
+    .map(
+      state =>
+        ({type: 'removeItem', key: `replyDraft:${state.root}`} as Command),
+    );
+
+  return xs.merge(
+    savePostDraft$,
+    deletePostDraft$,
+    saveReplyDraft$,
+    deleteReplyDraft$,
+  );
 }
