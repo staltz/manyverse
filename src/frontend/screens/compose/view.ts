@@ -58,7 +58,7 @@ function OpenCameraButton() {
     [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.textVeryWeak,
+        color: Palette.foregroundNeutral,
         name: 'camera',
       }),
     ],
@@ -78,7 +78,7 @@ function AddPictureButton() {
     [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.textVeryWeak,
+        color: Palette.foregroundNeutral,
         name: 'image',
       }),
     ],

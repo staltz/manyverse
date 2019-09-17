@@ -6,21 +6,27 @@
 
 import {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
+import {ReactSource} from '@cycle/react';
+import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
 import {MsgId, FeedId} from 'ssb-typescript';
 import {KeyboardSource} from 'cycle-native-keyboard';
+import isolate from '@cycle/isolate';
+import {
+  AsyncStorageSource,
+  Command as StorageCommand,
+} from 'cycle-native-asyncstorage';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import {Toast} from '../../drivers/toast';
-import {Dimensions} from '../../global-styles/dimens';
 import messageEtc from '../../components/messageEtc';
+import {topBar, Sinks as TBSinks} from './top-bar';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
 import ssb from './ssb';
 import navigation from './navigation';
-import {ReactSource} from '@cycle/react';
-import {ReactElement} from 'react';
+import asyncStorage from './asyncstorage';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -31,6 +37,7 @@ export type Props = {
 export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
+  asyncstorage: AsyncStorageSource;
   props: Stream<Props>;
   keyboard: KeyboardSource;
   dialog: DialogSource;
@@ -41,6 +48,7 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
+  asyncstorage: Stream<StorageCommand>;
   keyboard: Stream<'dismiss'>;
   state: Stream<Reducer<State>>;
   clipboard: Stream<string>;
@@ -50,38 +58,38 @@ export type Sinks = {
 
 export const navOptions = {
   topBar: {
-    visible: true,
-    drawBehind: false,
-    height: Dimensions.toolbarAndroidHeight,
-    title: {
-      text: 'Thread',
-    },
-    backButton: {
-      icon: require('../../../../images/icon-arrow-left.png'),
-      visible: true,
-    },
+    visible: false,
+    height: 0,
   },
 };
 
 export function thread(sources: Sources): Sinks {
+  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
+
   const actions = intent(
+    sources.props,
     sources.screen,
     sources.keyboard,
+    sources.navigation,
     sources.ssb,
+    topBarSinks.back,
     sources.state.stream,
+    sources.dialog,
   );
   const messageEtcSinks = messageEtc({
     appear$: actions.openMessageEtc$,
     dialog: sources.dialog,
   });
   const actionsPlus = {...actions, goToRawMsg$: messageEtcSinks.goToRawMsg$};
-  const reducer$ = model(sources.props, actionsPlus, sources.ssb);
-  const command$ = navigation(
+  const reducer$ = model(
+    sources.props,
     actionsPlus,
-    sources.navigation,
-    sources.state.stream,
+    sources.asyncstorage,
+    sources.ssb,
   );
-  const vdom$ = view(sources.state.stream, actionsPlus);
+  const storageCommand$ = asyncStorage(actionsPlus, sources.state.stream);
+  const command$ = navigation(actionsPlus, sources.state.stream);
+  const vdom$ = view(sources.state.stream, actionsPlus, topBarSinks.screen);
   const newContent$ = ssb(actionsPlus);
   const dismiss$ = actions.publishMsg$.mapTo('dismiss' as 'dismiss');
 
@@ -90,6 +98,7 @@ export function thread(sources: Sources): Sinks {
     navigation: command$,
     keyboard: dismiss$,
     state: reducer$,
+    asyncstorage: storageCommand$,
     clipboard: messageEtcSinks.clipboard,
     toast: messageEtcSinks.toast,
     ssb: newContent$,

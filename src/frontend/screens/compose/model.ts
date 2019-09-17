@@ -10,12 +10,15 @@ import {State as TopBarState} from './top-bar';
 import {SSBSource} from '../../drivers/ssb';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Image} from 'react-native-image-crop-picker';
+import {Props} from './index';
+import {MsgId} from 'ssb-typescript';
 
 export type State = {
   postText: string;
   contentWarning: string;
   avatarUrl: string | undefined;
   previewing: boolean;
+  root: MsgId | undefined;
 };
 
 export const topBarLens: Lens<State, TopBarState> = {
@@ -23,6 +26,7 @@ export const topBarLens: Lens<State, TopBarState> = {
     return {
       enabled: parent.postText.length > 0,
       previewing: parent.previewing,
+      isReply: !!parent.root,
     };
   },
 
@@ -40,19 +44,23 @@ export type Actions = {
 };
 
 export default function model(
+  props$: Stream<Props>,
   actions: Actions,
   asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
-  const initReducer$ = xs.of(function initReducer(prev?: State): State {
-    if (prev) return prev;
-    return {
-      postText: '',
-      contentWarning: '',
-      avatarUrl: undefined,
-      previewing: false,
-    };
-  });
+  const propsReducer$ = props$.take(1).map(
+    props =>
+      function propsReducer(): State {
+        return {
+          postText: props.text || '',
+          root: props.root,
+          contentWarning: '',
+          avatarUrl: undefined,
+          previewing: false,
+        };
+      },
+  );
 
   const updatePostTextReducer$ = actions.updatePostText$.map(
     postText =>
@@ -118,12 +126,16 @@ export default function model(
     .map(
       composeDraft =>
         function getComposeDraftReducer(prev: State): State {
-          return {...prev, postText: composeDraft};
+          if (prev.root) {
+            return prev;
+          } else {
+            return {...prev, postText: composeDraft};
+          }
         },
     );
 
   return xs.merge(
-    initReducer$,
+    propsReducer$,
     updatePostTextReducer$,
     addPictureReducer$,
     updateContentWarningReducer$,

@@ -4,18 +4,28 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
-import {toPostContent} from '../../ssb/utils/to-ssb';
+import xs, {Stream} from 'xstream';
+import {toPostContent, toReplyPostContent} from '../../ssb/utils/to-ssb';
 import {Req, contentToPublishReq} from '../../drivers/ssb';
+import {State} from './model';
 
 export type Actions = {
-  publishMsg$: Stream<{text: string; contentWarning: string}>;
+  publishPost$: Stream<State>;
+  publishReply$: Stream<State>;
 };
 
 export default function ssb(actions: Actions): Stream<Req> {
-  const publishMsg$ = actions.publishMsg$
-    .map(({text, contentWarning}) => toPostContent(text, contentWarning))
+  const publishPost$ = actions.publishPost$
+    .map(({postText, contentWarning}) =>
+      toPostContent(postText, contentWarning),
+    )
     .map(contentToPublishReq);
 
-  return publishMsg$;
+  const publishReply$ = actions.publishReply$
+    .map(({postText, contentWarning, root}) =>
+      toReplyPostContent(postText, root!, contentWarning),
+    )
+    .map(contentToPublishReq);
+
+  return xs.merge(publishPost$, publishReply$);
 }

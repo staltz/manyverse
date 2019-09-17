@@ -7,6 +7,7 @@
 import xs, {Stream} from 'xstream';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {Reducer} from '@cycle/state';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {
   ThreadAndExtras,
@@ -14,12 +15,7 @@ import {
   GetReadable,
   MsgAndExtras,
 } from '../../drivers/ssb';
-
-export type Props = {
-  selfFeedId: FeedId;
-  rootMsgId: MsgId;
-  replyToMsgId: MsgId;
-};
+import {Props} from './index';
 
 export type State = {
   selfFeedId: FeedId;
@@ -37,6 +33,7 @@ export type State = {
 export type Actions = {
   publishMsg$: Stream<any>;
   willReply$: Stream<any>;
+  loadReplyDraft$: Stream<MsgId>;
   keyboardAppeared$: Stream<any>;
   keyboardDisappeared$: Stream<any>;
   updateReplyText$: Stream<string>;
@@ -62,6 +59,7 @@ const unknownErrorThread: ThreadAndExtras = {
 export default function model(
   props$: Stream<Props>,
   actions: Actions,
+  asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
   const propsReducer$ = props$.take(1).map(
@@ -141,6 +139,26 @@ export default function model(
         },
     );
 
+  const emptyReplyTextReducer$ = actions.willReply$.mapTo(
+    function emptyReplyTextReducer(prev: State): State {
+      return {...prev, replyText: ''};
+    },
+  );
+
+  const loadReplyDraftReducer$ = actions.loadReplyDraft$
+    .map(rootMsgId => asyncStorageSource.getItem(`replyDraft:${rootMsgId}`))
+    .flatten()
+    .map(
+      replyText =>
+        function loadReplyDraftReducer(prev: State): State {
+          if (!replyText) {
+            return {...prev, replyText: ''};
+          } else {
+            return {...prev, replyText};
+          }
+        },
+    );
+
   const addSelfRepliesReducer$ = actions.willReply$
     .map(() =>
       ssbSource.selfReplies$
@@ -173,6 +191,8 @@ export default function model(
     updateReplyTextReducer$,
     publishReplyReducers$,
     aboutReducer$,
+    emptyReplyTextReducer$,
+    loadReplyDraftReducer$,
     addSelfRepliesReducer$,
   );
 }

@@ -4,25 +4,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {Command} from 'cycle-native-navigation';
 import delay from 'xstream/extra/delay';
 
 export type Actions = {
-  publishMsg$: Stream<any>;
-  exit$: Stream<any>;
-  exitSavingDraft$: Stream<any>;
-  exitDeletingDraft$: Stream<any>;
+  exitOfAnyKind$: Stream<any>;
 };
 
 export default function navigation(actions: Actions): Stream<Command> {
-  const goBack$ = xs
-    .merge(
-      actions.publishMsg$,
-      actions.exit$,
-      actions.exitDeletingDraft$,
-      actions.exitSavingDraft$,
-    )
+  const goBack$ = actions.exitOfAnyKind$
     .compose(delay(100))
     .map(() => ({type: 'dismissOverlay'} as Command));
 

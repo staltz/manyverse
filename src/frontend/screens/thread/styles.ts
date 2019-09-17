@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     backgroundColor: Palette.backgroundVoid,
+    flexDirection: 'column',
   },
 
   loading: {
@@ -36,11 +37,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  spacerInReply: {
-    width: Dimensions.horizontalSpaceBig,
-    height: 10,
-  },
-
   replyAvatar: {
     marginTop: Dimensions.verticalSpaceNormal,
     marginBottom: Dimensions.verticalSpaceNormal,
@@ -58,10 +54,18 @@ export const styles = StyleSheet.create({
   replyInput: {
     fontSize: Typography.fontSizeNormal,
     color: Palette.text,
-    maxHeight: 136, // approx. 6.5 lines of text
+    maxHeight: 84, // approx. 3.5 lines of text
   },
 
-  replySend: {
+  buttonInReply: {
+    alignSelf: 'flex-end',
+    borderRadius: 3,
+    paddingHorizontal: Dimensions.horizontalSpaceSmall,
+    paddingVertical: Dimensions.verticalSpaceTiny,
+    marginBottom: Dimensions.verticalSpaceNormal,
+  },
+
+  lastButtonInReply: {
     alignSelf: 'flex-end',
     borderRadius: 3,
     paddingLeft: Dimensions.horizontalSpaceSmall,

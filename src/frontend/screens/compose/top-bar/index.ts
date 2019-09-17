@@ -13,12 +13,12 @@ import {View, StyleSheet} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import Button from '../../../components/Button';
-import HeaderCloseButton from '../../../components/HeaderCloseButton';
 import HeaderButton from '../../../components/HeaderButton';
 
 export type State = {
   enabled: boolean;
   previewing: boolean;
+  isReply: boolean;
 };
 
 export type Sources = {
@@ -50,9 +50,16 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 
+  publishButton: {
+    minWidth: 80,
+  },
+
+  replyButton: {
+    minWidth: 68,
+  },
+
   buttonEnabled: {
     backgroundColor: Palette.backgroundCTA,
-    minWidth: 80,
     marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
@@ -76,7 +83,11 @@ function intent(reactSource: ReactSource) {
 function view(state$: Stream<State>) {
   return state$.map(state =>
     h(View, {style: styles.container}, [
-      HeaderCloseButton('composeCloseButton'),
+      h(HeaderButton, {
+        sel: 'composeCloseButton',
+        icon: state.isReply ? 'arrow-collapse' : 'close',
+        accessibilityLabel: 'Close Button',
+      }),
       h(View, {style: styles.buttonsRight}, [
         state.enabled
           ? h(HeaderButton, {
@@ -88,8 +99,11 @@ function view(state$: Stream<State>) {
           : (null as any),
         h(Button, {
           sel: 'composePublishButton',
-          style: state.enabled ? styles.buttonEnabled : styles.buttonDisabled,
-          text: 'Publish',
+          style: [
+            state.enabled ? styles.buttonEnabled : styles.buttonDisabled,
+            state.isReply ? styles.replyButton : styles.publishButton,
+          ],
+          text: state.isReply ? 'Reply' : 'Publish',
           strong: state.enabled,
           accessible: true,
           accessibilityLabel: 'Compose Publish Button',

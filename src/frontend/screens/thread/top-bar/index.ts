@@ -4,26 +4,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
-import {StateSource} from '@cycle/state';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
 import HeaderBackButton from '../../../components/HeaderBackButton';
 import {ReactElement} from 'react';
 
-export type State = {
-  about: {
-    name: string;
-  };
-};
-
 export type Sources = {
   screen: ReactSource;
-  state: StateSource<State>;
 };
 
 export type Sinks = {
@@ -52,13 +44,14 @@ export const styles = StyleSheet.create({
 });
 
 export function topBar(sources: Sources): Sinks {
-  const back$ = sources.screen.select('bioBackButton').events('press');
-  const vdom$ = sources.state.stream.map(state =>
+  const vdom$ = xs.of(
     h(View, {style: styles.container}, [
-      HeaderBackButton('bioBackButton'),
-      h(Text, {style: styles.title}, state.about.name),
+      HeaderBackButton('threadBackButton'),
+      h(Text, {style: styles.title}, 'Thread'),
     ]),
   );
+
+  const back$ = sources.screen.select('threadBackButton').events('press');
 
   return {
     screen: vdom$,

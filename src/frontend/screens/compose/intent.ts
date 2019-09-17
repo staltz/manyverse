@@ -14,6 +14,22 @@ import {DialogSource} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 
+function isPost(state: State): boolean {
+  return !state.root;
+}
+
+function isReply(state: State): boolean {
+  return !!state.root;
+}
+
+function isTextEmpty(state: State): boolean {
+  return !state.postText;
+}
+
+function hasText(state: State): boolean {
+  return state.postText.length > 0;
+}
+
 export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
@@ -27,13 +43,15 @@ export default function intent(
     .merge(navSource.backPress(), topBarBack$)
     .compose(between(navSource.didAppear(), navSource.didDisappear()));
 
-  const backWithoutDialog$ = back$
+  const backPostWithoutDialog$ = back$
     .compose(sample(state$))
-    .filter(state => !state.postText.length);
+    .filter(isPost)
+    .filter(isTextEmpty);
 
-  const backWithDialog = back$
+  const backPostWithDialog$ = back$
     .compose(sample(state$))
-    .filter(state => state.postText.length > 0)
+    .filter(isPost)
+    .filter(hasText)
     .map(() =>
       dialogSource.alert('', 'Save draft?', {
         positiveText: 'Save',
@@ -44,14 +62,22 @@ export default function intent(
     )
     .flatten();
 
+  const backReply$ = back$.compose(sample(state$)).filter(isReply);
+
+  const publishPost$ = topBarDone$
+    .compose(sample(state$))
+    .filter(isPost)
+    .filter(hasText);
+
+  const publishReply$ = topBarDone$
+    .compose(sample(state$))
+    .filter(isReply)
+    .filter(hasText);
+
   return {
-    publishMsg$: topBarDone$
-      .compose(sample(state$))
-      .filter(state => state.postText.length > 0)
-      .map(state => ({
-        text: state.postText,
-        contentWarning: state.contentWarning,
-      })),
+    publishPost$,
+
+    publishReply$,
 
     togglePreview$: topBarPreviewToggle$,
 
@@ -99,14 +125,24 @@ export default function intent(
         .flatten(),
     ),
 
-    exit$: backWithoutDialog$,
+    exitPost$: backPostWithoutDialog$,
 
-    exitSavingDraft$: backWithDialog.filter(
+    exitReply$: backReply$,
+
+    exitSavingPostDraft$: backPostWithDialog$.filter(
       res => res.action === 'actionPositive',
     ),
 
-    exitDeletingDraft$: backWithDialog.filter(
+    exitDeletingPostDraft$: backPostWithDialog$.filter(
       res => res.action === 'actionNegative',
+    ),
+
+    exitOfAnyKind$: xs.merge(
+      publishPost$,
+      publishReply$,
+      backPostWithoutDialog$,
+      backReply$,
+      backPostWithDialog$,
     ),
   };
 }

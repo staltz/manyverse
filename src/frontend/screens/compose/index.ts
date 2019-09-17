@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import isolate from '@cycle/isolate';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
@@ -14,6 +14,7 @@ import {
   Command as StorageCommand,
   AsyncStorageSource,
 } from 'cycle-native-asyncstorage';
+import {MsgId} from 'ssb-typescript';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import {topBar, Sinks as TBSinks} from './top-bar';
@@ -25,9 +26,15 @@ import navigation from './navigation';
 import dialog from './dialog';
 import asyncStorage from './asyncstorage';
 
+export type Props = {
+  text?: string;
+  root?: MsgId;
+};
+
 export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
+  props: Stream<Props>;
   asyncstorage: AsyncStorageSource;
   state: StateSource<State>;
   ssb: SSBSource;
@@ -67,17 +74,15 @@ export function compose(sources: Sources): Sinks {
   );
   const dialogActions = dialog(actions, sources.dialog);
   const actionsPlus = {...actions, ...dialogActions};
-  const dismissKeyboard$ = xs
-    .merge(
-      actions.publishMsg$,
-      actions.exitDeletingDraft$,
-      actions.exitSavingDraft$,
-      actions.exit$,
-    )
-    .mapTo('dismiss' as 'dismiss');
+  const dismissKeyboard$ = actions.exitOfAnyKind$.mapTo('dismiss' as 'dismiss');
   const vdom$ = view(sources.state.stream, topBarSinks.screen);
   const command$ = navigation(actionsPlus);
-  const reducer$ = model(actionsPlus, sources.asyncstorage, sources.ssb);
+  const reducer$ = model(
+    sources.props,
+    actionsPlus,
+    sources.asyncstorage,
+    sources.ssb,
+  );
   const storageCommand$ = asyncStorage(actionsPlus, sources.state.stream);
   const newContent$ = ssb(actionsPlus);
 

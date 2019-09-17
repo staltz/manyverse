@@ -51,13 +51,20 @@ export function toPostContent(
 export function toReplyPostContent(
   text: string,
   root: MsgId,
+  contentWarning?: string,
 ): Privatable<PostContent> {
-  return {
+  const content: PostContent = {
     text,
     type: 'post',
     root,
     mentions: Mentions(text),
   };
+
+  if (contentWarning) {
+    (content as any).contentWarning = contentWarning;
+  }
+
+  return content;
 }
 
 export function toContactContent(

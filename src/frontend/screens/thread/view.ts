@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {h} from '@cycle/react';
 import {
@@ -27,14 +27,32 @@ import EmptySection from '../../components/EmptySection';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
 
-const ReplySpacer = h(View, {style: styles.spacerInReply});
+function ExpandReplyButton(isLastButton: boolean) {
+  return h(
+    TouchableOpacity,
+    {
+      sel: 'reply-expand',
+      style: isLastButton ? styles.lastButtonInReply : styles.buttonInReply,
+      activeOpacity: 0.2,
+      accessible: true,
+      accessibilityLabel: 'Expand Reply Button',
+    },
+    [
+      h(Icon, {
+        size: Dimensions.iconSizeNormal,
+        color: Palette.foregroundNeutral,
+        name: 'arrow-expand',
+      }),
+    ],
+  );
+}
 
 function ReplySendButton() {
   return h(
     TouchableOpacity,
     {
-      sel: 'replyButton',
-      style: styles.replySend,
+      sel: 'reply-send',
+      style: styles.lastButtonInReply,
       activeOpacity: 0.2,
       accessible: true,
       accessibilityLabel: 'Reply Publish Button',
@@ -42,7 +60,7 @@ function ReplySendButton() {
     [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.foregroundCTA,
+        color: Palette.textCTA,
         name: 'send',
       }),
     ],
@@ -60,7 +78,7 @@ function ReplyInput(state: State) {
       h(TextInput, {
         accessible: true,
         accessibilityLabel: 'Reply Text Input',
-        sel: 'replyInput',
+        sel: 'reply-input',
         multiline: true,
         autoFocus: state.startedAsReply,
         returnKeyType: 'done',
@@ -73,14 +91,14 @@ function ReplyInput(state: State) {
         style: styles.replyInput,
       }),
     ]),
-    state.replyText.length > 0 ? ReplySendButton() : ReplySpacer,
+    ExpandReplyButton(state.replyText.length === 0),
+    state.replyText.length > 0 ? ReplySendButton() : (null as any),
   ]);
 }
 
 const ReactiveScrollView = propifyMethods(ScrollView, 'scrollToEnd' as any);
 
 type Actions = {
-  publishMsg$: Stream<any>;
   willReply$: Stream<any>;
 };
 
@@ -99,70 +117,83 @@ function statesAreEqual(s1: State, s2: State): boolean {
   return true;
 }
 
-export default function view(state$: Stream<State>, actions: Actions) {
-  const scrollToEnd$ = actions.publishMsg$.mapTo({animated: false});
-  return state$.compose(dropRepeats(statesAreEqual)).map((state: State) => {
-    if (!state.loading && state.thread.errorReason === 'missing') {
-      return h(View, {style: styles.container}, [
-        h(EmptySection, {
-          style: styles.emptySection,
-          title: 'Missing data',
-          description: [
-            "You don't yet have data \n for the message known by the ID\n",
-            h(
-              Text,
-              {style: styles.missingMsgId},
-              state.rootMsgId as string,
-            ) as ReactElement<any>,
-          ],
-        }),
-      ]);
-    }
-    if (!state.loading && state.thread.errorReason === 'blocked') {
-      return h(View, {style: styles.container}, [
-        h(EmptySection, {
-          style: styles.emptySection,
-          title: 'Blocked thread',
-          description: 'You have chosen to block\nthe author of this thread',
-        }),
-      ]);
-    }
-    if (!state.loading && state.thread.errorReason === 'unknown') {
-      return h(View, {style: styles.container}, [
-        h(EmptySection, {
-          style: styles.emptySection,
-          title: 'Sorry',
-          description:
-            "This app doesn't know how to process\nand display this thread correctly",
-        }),
-      ]);
-    }
+export default function view(
+  state$: Stream<State>,
+  actions: Actions,
+  topBar$: Stream<ReactElement<any>>,
+) {
+  const scrollToEnd$ = actions.willReply$.mapTo({animated: false});
 
-    return h(
-      KeyboardAvoidingView,
-      {enabled: state.keyboardVisible, style: styles.container},
-      [
+  return xs
+    .combine(state$.compose(dropRepeats(statesAreEqual)), topBar$)
+    .map(([state, topBar]) => {
+      if (!state.loading && state.thread.errorReason === 'missing') {
+        return h(View, {style: styles.container}, [
+          topBar,
+          h(EmptySection, {
+            style: styles.emptySection,
+            title: 'Missing data',
+            description: [
+              "You don't yet have data \n for the message known by the ID\n",
+              h(
+                Text,
+                {style: styles.missingMsgId},
+                state.rootMsgId as string,
+              ) as ReactElement<any>,
+            ],
+          }),
+        ]);
+      }
+      if (!state.loading && state.thread.errorReason === 'blocked') {
+        return h(View, {style: styles.container}, [
+          topBar,
+          h(EmptySection, {
+            style: styles.emptySection,
+            title: 'Blocked thread',
+            description: 'You have chosen to block\nthe author of this thread',
+          }),
+        ]);
+      }
+      if (!state.loading && state.thread.errorReason === 'unknown') {
+        return h(View, {style: styles.container}, [
+          topBar,
+          h(EmptySection, {
+            style: styles.emptySection,
+            title: 'Sorry',
+            description:
+              "This app doesn't know how to process\nand display this thread correctly",
+          }),
+        ]);
+      }
+
+      return h(View, {style: styles.container}, [
+        topBar,
         h(
-          ReactiveScrollView,
-          {
-            style: styles.scrollView,
-            scrollToEnd$,
-            refreshControl: h(RefreshControl, {
-              refreshing: state.thread.messages.length === 0,
-              colors: [Palette.backgroundBrand],
-            }),
-          },
+          KeyboardAvoidingView,
+          {enabled: state.keyboardVisible, style: styles.container},
           [
-            h(FullThread, {
-              sel: 'thread',
-              thread: state.thread,
-              selfFeedId: state.selfFeedId,
-              publication$: actions.willReply$,
-            }),
+            h(
+              ReactiveScrollView,
+              {
+                style: styles.scrollView,
+                scrollToEnd$,
+                refreshControl: h(RefreshControl, {
+                  refreshing: state.thread.messages.length === 0,
+                  colors: [Palette.backgroundBrand],
+                }),
+              },
+              [
+                h(FullThread, {
+                  sel: 'thread',
+                  thread: state.thread,
+                  selfFeedId: state.selfFeedId,
+                  publication$: actions.willReply$,
+                }),
+              ],
+            ),
+            ReplyInput(state),
           ],
         ),
-        ReplyInput(state),
-      ],
-    );
-  });
+      ]);
+    });
 }
