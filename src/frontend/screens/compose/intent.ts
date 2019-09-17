@@ -74,6 +74,7 @@ export default function intent(
               multiple: false,
               compressImageMaxWidth: 1080,
               compressImageMaxHeight: 1920,
+              compressImageQuality: 0.88,
               mediaType: 'photo',
             }) as Promise<Image>)
             .replaceError(() => xs.never()),
@@ -90,6 +91,7 @@ export default function intent(
               multiple: false,
               compressImageMaxWidth: 1080,
               compressImageMaxHeight: 1920,
+              compressImageQuality: 0.88,
               mediaType: 'photo',
             }) as Promise<Image>)
             .replaceError(() => xs.never()),
