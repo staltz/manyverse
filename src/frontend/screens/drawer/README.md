@@ -1,0 +1,1 @@
+This Cycle.js component is not actually a screen, but behaves like one. It's the left-side "drawer" which can be swiped into view or activated through the menu button ("hamburger icon") on the Central screen.
