@@ -6,6 +6,15 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1909.18-beta
+
+* Accessibility fix: picture captions were missing ([see details](https://gitlab.com/staltz/manyverse/commit/a8dce4585e58d036707307646fe5768585d25323))
+* Apply compression to added images, to reduce size ([see details](https://gitlab.com/staltz/manyverse/commit/1318b771b316afec56dd1f3c1037d51f246dc1ab))
+* Bug fix: room connections should not crash app ([see details](https://gitlab.com/staltz/manyverse/commit/af13c832cb8583b5e8e358e7eaa8228dd876daed))
+* Feature: compose replies in full screen ([see details](https://gitlab.com/staltz/manyverse/commit/b8573647edbfc7f049342f5d5a9380e5414578bd))
+* Feature: save drafts of thread replies ([see details](https://gitlab.com/staltz/manyverse/commit/399c9a1ff2042456c7cb1a25f573f618fe6f1377))
+* Improve startup time and overall performance ([see details](https://gitlab.com/staltz/manyverse/commit/61117f4239f5205405d5e71ec258ca19bee93677))
+
 ## 0.1909.11-beta
 
 * Feature: add pictures to your posts ([see details](https://gitlab.com/staltz/manyverse/commit/727b83520ee88d9128a5cf55cb5cc33f390f7691))
