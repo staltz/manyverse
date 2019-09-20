@@ -8,7 +8,6 @@ import fs = require('fs');
 const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
-const DHT = require('multiserver-dht');
 const rnBridge = require('rn-bridge');
 const rnChannelPlugin = require('multiserver-rn-channel');
 const NoauthTransformPlugin = require('multiserver/plugins/noauth');
@@ -83,14 +82,6 @@ function wsTransport(ssb: any) {
   });
 }
 
-function dhtTransport(ssb: any) {
-  ssb.multiserver.transport({
-    name: 'dht',
-    create: (dhtConfig: any) =>
-      DHT({keys: ssb.dhtInvite.channels(), port: dhtConfig.port}),
-  });
-}
-
 const bluetoothManager: any = BluetoothManager({
   socketFolderPath: appDataDir,
   myIdent: '@' + keys.public,
@@ -110,13 +101,12 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(noAuthTransform)
   .use(rnChannelTransport)
   .use(wsTransport)
-  .use(require('ssb-dht-invite'))
-  .use(dhtTransport)
   .use(bluetoothTransportAndPlugin(bluetoothManager, bluetoothPluginConfig))
   .use(require('ssb-master'))
   .use(require('ssb-lan'))
   .use(require('ssb-conn'))
   .use(connUtilsPlugin)
+  .use(require('ssb-dht-invite'))
   .use(require('ssb-room/tunnel/client'))
   .use(require('ssb-replicate'))
   .use(syncingPlugin)

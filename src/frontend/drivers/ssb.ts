@@ -162,7 +162,6 @@ export class SSBSource {
   public publishHook$: Stream<Msg>;
   public acceptInviteResponse$: Stream<true | string>;
   public acceptDhtInviteResponse$: Stream<true | string>;
-  public hostingDhtInvites$: Stream<Array<HostingDhtInvite>>;
   public peers$: Stream<Array<PeerKV>>;
   public stagedPeers$: Stream<Array<StagedPeerKV>>;
   public bluetoothScanState$: Stream<any>;
@@ -228,17 +227,12 @@ export class SSBSource {
       .map(ssb => ssb.hooks.publishStream())
       .flatten();
 
-    this.hostingDhtInvites$ = this.ssb$
-      .map(ssb => ssb.dhtInvite.hostingInvites())
-      .map(ps => xsFromPullStream<Array<HostingDhtInvite>>(ps))
-      .flatten();
-
     this.acceptInviteResponse$ = xs.create<true | string>();
     this.acceptDhtInviteResponse$ = xs.create<true | string>();
 
     this.peers$ = this.ssb$
-      .map(ssb => {
-        const connPeers$ = xsFromPullStream<Array<PeerKV>>(ssb.conn.peers())
+      .map(ssb =>
+        xsFromPullStream<Array<PeerKV>>(ssb.conn.peers())
           .map(peers =>
             backoff(1e3, 2, 300e3)
               .startWith(0)
@@ -249,41 +243,12 @@ export class SSBSource {
                 return peers;
               }),
           )
-          .flatten();
-
-        //#region DHT-related hacks (ideally this should go through CONN)
-        const dhtClientsArr$ = this.hostingDhtInvites$
-          .map(invites =>
-            invites
-              .filter(invite => invite.online)
-              .map(
-                invite =>
-                  [
-                    `dht:${invite.seed}:${ssb.id}`,
-                    {
-                      pool: 'hub',
-                      key: invite.claimer,
-                      source: 'dht' as any,
-                      client: true,
-                      state: 'connected',
-                    },
-                  ] as PeerKV,
-              ),
-          )
-          .startWith([]);
-        const peersArr$ = xs
-          .combine(connPeers$, dhtClientsArr$)
-          .map(([as, bs]) => [...as, ...bs]);
-        //#endregion
-
-        const peersWithExtras$ = peersArr$
+          .flatten()
           .map(peersArr =>
             xsFromCallback<any>(augmentPeersWithExtras(ssb))(peersArr),
           )
-          .flatten();
-
-        return peersWithExtras$;
-      })
+          .flatten(),
+      )
       .flatten();
 
     this.stagedPeers$ = this.ssb$
@@ -297,7 +262,9 @@ export class SSBSource {
           .flatten();
 
         //#region DHT-related hacks (ideally this should go through CONN)
-        const hosting$ = this.hostingDhtInvites$
+        const hosting$ = xsFromPullStream<Array<HostingDhtInvite>>(
+          ssb.dhtInvite.hostingInvites(),
+        )
           .map(invites =>
             invites
               .filter(invite => !invite.online)
@@ -310,22 +277,9 @@ export class SSBSource {
               ),
           )
           .startWith([]);
-        const claiming$: Stream<Array<StagedPeerKV>> = xsFromPullStream(
-          ssb.dhtInvite.claimingInvites(),
-        )
-          .map((invites: Array<string>) =>
-            invites.map(
-              invite =>
-                [
-                  invite,
-                  {key: invite, type: 'dht', role: 'client'},
-                ] as StagedPeerKV,
-            ),
-          )
-          .startWith([]);
         const peersArr$ = xs
-          .combine(connStagedPeers$, hosting$, claiming$)
-          .map(([as, bs, cs]) => [...as, ...bs, ...cs]);
+          .combine(connStagedPeers$, hosting$)
+          .map(([as, bs]) => [...as, ...bs]);
         //#endregion
 
         return peersArr$;

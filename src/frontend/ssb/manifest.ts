@@ -35,15 +35,6 @@ export default {
     enable: 'async',
     disable: 'async',
   },
-  gossip: {
-    peers: 'sync',
-    add: 'sync',
-    remove: 'sync',
-    ping: 'duplex',
-    connect: 'async',
-    changes: 'source',
-    reconnect: 'sync',
-  },
   replicate: {
     changes: 'source',
     upto: 'source',
@@ -119,9 +110,7 @@ export default {
     use: 'async',
     accept: 'async',
     remove: 'async',
-    channels: 'source',
     hostingInvites: 'source',
-    claimingInvites: 'source',
   },
   bluetooth: {
     nearbyScuttlebuttDevices: 'source',
@@ -142,6 +131,14 @@ export default {
     start: 'sync',
     stop: 'sync',
     ping: 'duplex',
+  },
+  tunnel: {
+    announce: 'sync',
+    leave: 'sync',
+    isRoom: 'async',
+    connect: 'duplex',
+    endpoints: 'source',
+    ping: 'sync',
   },
 
   // This project's plugins
@@ -165,13 +162,5 @@ export default {
   },
   votes: {
     voterStream: 'source',
-  },
-  tunnel: {
-    announce: 'sync',
-    leave: 'sync',
-    isRoom: 'async',
-    connect: 'duplex',
-    endpoints: 'source',
-    ping: 'sync',
   },
 };

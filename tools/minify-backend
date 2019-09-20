@@ -69,7 +69,7 @@ $(npm bin)/noderify \
   --replace.node-extend=xtend \
   --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \
   --replace.non-private-ip=non-private-ip-android \
-  --replace.utp-native=utp-native-no-prebuild \
+  --replace.utp-native=utp-native-nodejs-mobile \
   --filter=rn-bridge \
   --filter=bufferutil \
   --filter=utf-8-validate \
