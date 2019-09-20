@@ -46,7 +46,7 @@
     "cycle-native-toastandroid": "1.1.0",
     "hermes-engine": "0.2.1",
     "mdast-normalize-react-native": "3.1.x",
-    "nodejs-mobile-react-native": "0.4.3",
+    "nodejs-mobile-react-native": "0.5.0",
     "promisify-tuple": "1.0.0",
     "pull-flat-list": "2.9.0",
     "pull-pushable": "2.2.0",
