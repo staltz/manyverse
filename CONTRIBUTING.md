@@ -219,15 +219,55 @@ Most app development happens in `src/frontend` and thus follows the [Cycle.js](h
 
 ## Integration tests
 
-We use Appium and Tape, just plug in a device through USB and run `npm run test-e2e-android`. This will run tests on top of the *release* variant of the app, so it that doesn't exist, you must run `npm run build-android-release` first.
+We use Appium and Tape, just plug in a device through USB and run `npm run test-e2e-android`. This will run tests on top of the *release* variant of the app, so it that doesn't exist, you must run `npm run build-android-release` first. See the guide below on how to generate release builds.
 
 ## Releases
 
-To build a release APK, follow [these instructions](https://facebook.github.io/react-native/docs/signed-apk-android.html), in short:
+To build a release APK, follow these instructions:
 
-1. Put the correct file `my-release-key.keystore` in the folder `android/app/`
-2. Configure the file `~/.gradle/gradle.properties` with the correct values
-3. Run `cd android && ./gradlew assembleRelease` (just builds the APK) or `npm run release` (for official releases)
+### Generating an upload key
+
+You can generate a private signing key using `keytool`. On Windows `keytool` must be run from `C:\Program Files\Java\jdkx.x.x_x\bin`.
+
+    $ keytool -genkeypair -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+
+This command prompts you for passwords for the keystore and key and for the Distinguished Name fields for your key. It then generates the keystore as a file called `my-release-key.keystore`.
+
+The keystore contains a single key, valid for 10000 days. The alias is a name that you will use later when signing your app, so remember to take note of the alias.
+
+On Mac, if you're not sure where your JDK bin folder is, then perform the following command to find it:
+
+    $ /usr/libexec/java_home
+
+It will output the directory of the JDK, which will look something like this:
+
+    /Library/Java/JavaVirtualMachines/jdkX.X.X_XXX.jdk/Contents/Home
+
+Navigate to that directory by using the command `$ cd /your/jdk/path` and use the keytool command with sudo permission as shown below.
+
+    $ sudo keytool -genkey -v -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+
+_Note: Remember to keep the keystore file private. In case you've lost upload key or it's been compromised you should [follow these instructions](https://support.google.com/googleplay/android-developer/answer/7384423#reset)._
+
+### Setting up Gradle variables
+
+1. Place the `my-release-key.keystore` file under the `android/app/` directory in your Manyverse project folder.
+2. Edit the file `~/.gradle/gradle.properties` or `android/gradle.properties`, and add the following (replace `*****` with the correct keystore password, alias and key password),
+
+```
+MYAPP_RELEASE_STORE_FILE=my-upload-key.keystore
+MYAPP_RELEASE_KEY_ALIAS=my-key-alias
+MYAPP_RELEASE_STORE_PASSWORD=*****
+MYAPP_RELEASE_KEY_PASSWORD=*****
+```
+
+These are going to be global Gradle variables, which we can later use in our Gradle config to sign our app.
+
+_Note about security: If you are not keen on storing your passwords in plaintext, and you are running OSX, you can also [store your credentials in the Keychain Access app](https://pilloxa.gitlab.io/posts/safer-passwords-in-gradle/). Then you can skip the two last rows in `~/.gradle/gradle.properties`._
+
+### Generating the release APK
+
+Run `cd android && ./gradlew assembleRelease` (just builds the APK) or `npm run release` (for official releases)
 
 ## Deploying
 
