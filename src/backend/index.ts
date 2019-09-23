@@ -9,9 +9,6 @@ const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 const rnBridge = require('rn-bridge');
-const rnChannelPlugin = require('multiserver-rn-channel');
-const NoauthTransformPlugin = require('multiserver/plugins/noauth');
-const WS = require('multiserver/plugins/ws');
 const makeConfig = require('ssb-config/inject');
 const BluetoothManager = require('ssb-mobile-bluetooth-manager');
 const bluetoothTransportAndPlugin = require('ssb-bluetooth');
@@ -22,14 +19,12 @@ import votesPlugin = require('./plugins/votes');
 import connUtilsPlugin = require('./plugins/connUtils');
 import friendsUtilsPlugin = require('./plugins/friendsUtils');
 import feedUtilsBackPlugin = require('./plugins/feedUtilsBack');
+import multiserverAddons = require('./multiserver');
 
 const appDataDir = rnBridge.app.datadir();
 const ssbPath = path.resolve(appDataDir, '.ssb');
-if (!fs.existsSync(ssbPath)) {
-  mkdirp.sync(ssbPath);
-}
-const keysPath = path.join(ssbPath, '/secret');
-const keys = ssbKeys.loadOrCreateSync(keysPath);
+if (!fs.existsSync(ssbPath)) mkdirp.sync(ssbPath);
+const keys = ssbKeys.loadOrCreateSync(path.join(ssbPath, '/secret'));
 
 const config = makeConfig('ssb', {
   path: ssbPath,
@@ -58,30 +53,6 @@ const config = makeConfig('ssb', {
   },
 });
 
-function noAuthTransform(ssb: any, cfg: any) {
-  ssb.multiserver.transform({
-    name: 'noauth',
-    create: () =>
-      NoauthTransformPlugin({
-        keys: {publicKey: Buffer.from(cfg.keys.public, 'base64')},
-      }),
-  });
-}
-
-function rnChannelTransport(ssb: any) {
-  ssb.multiserver.transport({
-    name: 'channel',
-    create: () => rnChannelPlugin(rnBridge.channel),
-  });
-}
-
-function wsTransport(ssb: any) {
-  ssb.multiserver.transport({
-    name: 'ws',
-    create: () => WS({}),
-  });
-}
-
 const bluetoothManager: any = BluetoothManager({
   socketFolderPath: appDataDir,
   myIdent: '@' + keys.public,
@@ -92,17 +63,11 @@ const bluetoothManager: any = BluetoothManager({
   logStreams: false,
 });
 
-const bluetoothPluginConfig = {
-  scope: 'public',
-};
-
 SecretStack({appKey: require('ssb-caps').shs})
-  .use(require('ssb-db'))
-  .use(noAuthTransform)
-  .use(rnChannelTransport)
-  .use(wsTransport)
-  .use(bluetoothTransportAndPlugin(bluetoothManager, bluetoothPluginConfig))
   .use(require('ssb-master'))
+  .use(multiserverAddons)
+  .use(bluetoothTransportAndPlugin(bluetoothManager, {scope: 'public'}))
+  .use(require('ssb-db'))
   .use(require('ssb-lan'))
   .use(require('ssb-conn'))
   .use(connUtilsPlugin)
