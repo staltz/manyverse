@@ -132,7 +132,7 @@ export default class ContactMessage extends Component<Props, {}> {
           }),
         ),
         h(Text, {style: styles.timestamp}, [
-          h(HumanTime as any, {time: msg.value.timestamp}),
+          h(HumanTime, {time: msg.value.timestamp}),
         ]),
       ]),
     ]);

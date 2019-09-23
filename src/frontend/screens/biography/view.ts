@@ -35,7 +35,7 @@ export default function view(
               accessibilityLabel: 'Biographic Picture',
               source: {uri: state.about.imageUrl},
             })
-          : (null as any),
+          : null,
 
         h(
           View,

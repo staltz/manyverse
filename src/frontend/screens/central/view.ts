@@ -58,7 +58,7 @@ function renderConnectionsIcon(isSyncing: boolean) {
             style: styles.syncingProgressBar,
             color: Palette.backgroundBrandStrong,
           })
-        : (null as any),
+        : null,
     ]),
 
     selected: h(View, [
@@ -73,7 +73,7 @@ function renderConnectionsIcon(isSyncing: boolean) {
             style: styles.syncingProgressBar,
             color: Palette.colors.blue4,
           })
-        : (null as any),
+        : null,
     ]),
   };
 }

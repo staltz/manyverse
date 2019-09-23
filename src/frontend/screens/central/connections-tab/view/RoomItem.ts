@@ -125,7 +125,7 @@ export default class RoomItem extends PureComponent<Props> {
     return h(
       TouchableOpacity,
       {
-        ['key' as any]: addr,
+        key: addr,
         onPress: () => {
           if (this.props.onPressRoom) {
             this.props.onPressRoom([addr, data]);
@@ -168,7 +168,7 @@ export default class RoomItem extends PureComponent<Props> {
                       ? '(only you online)'
                       : `(${data.onlineCount - 1} online)`,
                   )
-                : (null as any),
+                : null,
             ]),
           ]),
         ]),

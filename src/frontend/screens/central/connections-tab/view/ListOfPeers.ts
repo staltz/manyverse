@@ -200,19 +200,19 @@ export default class StagedConnectionsList extends Component<Props, State> {
       // Hub peers first
       this.state.peers.length
         ? h<PopListProps<PeerKV>>(PopList, {
-            ['key' as any]: 'inconnection',
+            key: 'inconnection',
             style: styles.container,
             data: this.state.peers,
             keyExtractor: ([addr, data]) => data.hubBirth || addr,
             renderItem: this.renderPeer,
             itemHeight: ITEM_HEIGHT,
           })
-        : (null as any),
+        : null,
 
       // Rooms
       ...this.state.mixedByRoom.map(peers =>
         h<PopListProps<MixedPeerKV>>(PopList, {
-          ['key' as any]: peers.length ? peers[0][0] : Math.random(),
+          key: peers.length ? peers[0][0] : Math.random(),
           style: styles.container,
           data: peers,
           keyExtractor: this.roomsKeyExtractor,
@@ -224,14 +224,14 @@ export default class StagedConnectionsList extends Component<Props, State> {
       // Staging peers last
       this.state.staged.length
         ? h<PopListProps<StagedKV>>(PopList, {
-            ['key' as any]: 'staged',
+            key: 'staged',
             style: styles.container,
             data: this.state.staged,
             keyExtractor: ([addr]) => addr,
             renderItem: this.renderStagedPeer,
             itemHeight: ITEM_HEIGHT,
           })
-        : (null as any),
+        : null,
     ]);
   }
 }

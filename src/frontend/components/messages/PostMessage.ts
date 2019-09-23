@@ -57,8 +57,8 @@ export default class PostMessage extends PureComponent<Props, State> {
             opened,
             onPressToggle: this.onPressToggleCW,
           })
-        : (null as any),
-      opened ? Markdown(msg.value.content.text) : (null as any),
+        : null,
+      opened ? Markdown(msg.value.content.text) : null,
       h(MessageFooter, props),
     ]);
   }

@@ -119,7 +119,7 @@ class LikeCount extends PureComponent<LCProps> {
       h(View, {style: styles.col}, [
         h(Text, {style: count > 0 ? styles.likes : styles.likesHidden}, [
           h(Text, {style: styles.likeCount}, String(count)),
-          (count === 1 ? ' like' : ' likes') as any,
+          count === 1 ? ' like' : ' likes',
         ]),
       ]),
     ];
@@ -273,12 +273,12 @@ export default class MessageFooter extends Component<Props> {
         h(LikeButton, {
           onPress: this.onPressLikeHandler,
           toggled: this.likeToggled,
-          ['key' as any]: timestamp,
+          key: timestamp,
         }),
 
         shouldShowReply
           ? h(ReplyButton, {onPress: this.onPressReplyHandler})
-          : (null as any),
+          : null,
       ]),
     ]);
   }

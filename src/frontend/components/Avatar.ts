@@ -60,7 +60,7 @@ export default class Avatar extends PureComponent<Props> {
       }),
       overlayIcon
         ? this.renderOverlayIcon(size, borderRadius, overlayIcon)
-        : (null as any),
+        : null,
     ]);
   }
 }

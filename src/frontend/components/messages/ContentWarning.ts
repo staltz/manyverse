@@ -69,7 +69,7 @@ export default class EmptySection extends PureComponent<Props> {
           size: Typography.fontSizeNormal,
           color: Palette.textWeak,
           name: 'alert',
-        }) as any,
+        }),
         ' ',
         description,
       ]),

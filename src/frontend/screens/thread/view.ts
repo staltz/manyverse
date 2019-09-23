@@ -92,7 +92,7 @@ function ReplyInput(state: State) {
       }),
     ]),
     ExpandReplyButton(state.replyText.length === 0),
-    state.replyText.length > 0 ? ReplySendButton() : (null as any),
+    state.replyText.length > 0 ? ReplySendButton() : null,
   ]);
 }
 

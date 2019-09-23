@@ -110,7 +110,7 @@ export default class ConnectionsItem extends PureComponent<Props> {
     return h(
       TouchableOpacity,
       {
-        ['key' as any]: addr,
+        key: addr,
         onPress: () => {
           if (this.props.onPressPeer) {
             this.props.onPressPeer([addr, data]);

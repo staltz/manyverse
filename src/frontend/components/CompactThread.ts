@@ -40,7 +40,7 @@ export default class CompactThread extends PureComponent<Props> {
 
     return h(Message, {
       msg,
-      ['key' as any]: msg.key,
+      key: msg.key,
       selfFeedId,
       onPressLikeCount,
       onPressLike,
@@ -61,7 +61,7 @@ export default class CompactThread extends PureComponent<Props> {
       thread.full
         ? null
         : h(ExpandThread, {
-            ['key' as any]: '1',
+            key: '1',
             rootMsgId: first.key,
             onPress: onPressExpand,
           }),

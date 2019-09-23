@@ -96,7 +96,7 @@ function view(state$: Stream<State>) {
               icon: state.previewing ? 'pencil' : 'eye',
               accessibilityLabel: 'Preview Button',
             })
-          : (null as any),
+          : null,
         h(Button, {
           sel: 'composePublishButton',
           style: [

@@ -88,7 +88,7 @@ export default class FullThread extends Component<Props, State> {
     } = this.props;
     return h(Message, {
       msg,
-      ['key' as any]: msg.key,
+      key: msg.key,
       selfFeedId,
       onPressLikeCount,
       onPressLike,
@@ -104,7 +104,7 @@ export default class FullThread extends Component<Props, State> {
       this.renderMessage,
     );
     if (this.state.showPlaceholder) {
-      children.push(h(PlaceholderMessage, {['key' as any]: 'placeholder'}));
+      children.push(h(PlaceholderMessage, {key: 'placeholder'}));
     }
     return children;
   }

@@ -122,7 +122,7 @@ export default class RawMessage extends Component<Props> {
           }),
           h(View, {style: styles.authorColumn}, [
             authorNameText,
-            h(Text, [timestampText, '  ' as any, msgTypeText]),
+            h(Text, [timestampText, '  ', msgTypeText]),
           ]),
         ]),
       ]),

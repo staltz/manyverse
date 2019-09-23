@@ -82,11 +82,11 @@ export default function view(
           ? h(View, {style: styles.followsYou}, [
               h(Text, {style: styles.followsYouText}, 'Blocks you'),
             ])
-          : (null as any),
+          : null,
 
         h(View, {style: styles.cta}, [
           isSelfProfile
-            ? (null as any)
+            ? null
             : h(
                 TouchableOpacity,
                 {
@@ -132,7 +132,7 @@ export default function view(
               accessibilityLabel: 'Biography Button',
               strong: false,
             })
-          : (null as any),
+          : null,
       ]),
 
       isBlocked
@@ -185,7 +185,7 @@ export default function view(
             iconHeight: 24,
             iconWidth: 24,
           })
-        : (null as any),
+        : null,
     ]);
   });
 }

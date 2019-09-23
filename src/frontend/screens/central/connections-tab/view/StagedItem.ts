@@ -78,7 +78,7 @@ export default class StagedItem extends PureComponent<Props> {
     return h(
       TouchableOpacity,
       {
-        ['key' as any]: addr,
+        key: addr,
         onPress: () => {
           if (this.props.onPressStaged) {
             this.props.onPressStaged(this.props.peer);

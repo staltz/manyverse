@@ -99,7 +99,7 @@ function ConnectivityMode(props: ModeProps) {
       ],
     ),
     props.lastScanned === 0
-      ? (null as any)
+      ? null
       : h(FadingLoader, {timestamp: props.lastScanned}),
   ]);
 }
@@ -182,7 +182,7 @@ function Body(state: State) {
 
   return h(React.Fragment, [
     h(ListOfPeers, {
-      ['key' as any]: 'b',
+      key: 'b',
       sel: 'list-of-peers',
       peers,
       rooms,
