@@ -205,4 +205,29 @@ module.exports = function(driver, t) {
 
     t.end();
   });
+
+  t.test('I can see that someone has liked a message in the Accounts screen', async function(t) {
+    const likeCount = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().textContains("Please like this message")' +
+        '.fromParent(' +
+        'new UiSelector().descriptionContains("Like Count Button")' +
+        ')',
+      6000,
+    );
+    t.pass('I see the like count');
+
+    await likeCount.click();
+    t.pass('I tap it')
+
+    const likeList = await driver.waitForElementsByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Link To Account")',
+      6000,
+    )
+    t.equals(likeList.length, 1, 'I see 1 person having liked the message');
+
+    await driver.back();
+    t.pass('I press the (hardware) back button');
+
+    t.end();
+  })
 };

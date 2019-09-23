@@ -82,18 +82,24 @@ class Account extends PureComponent<AccountProps> {
       name,
     );
 
-    return h(View, [
-      h(TouchableNativeFeedback, touchableProps, [
-        h(View, {style: styles.row}, [
-          h(Avatar, {
-            url: imageUrl,
-            size: Dimensions.avatarSizeNormal,
-            style: styles.avatar,
-          }),
-          h(View, {style: styles.authorColumn}, [authorNameText]),
+    return h(
+      View,
+      {
+        accessibilityLabel: 'Link To Account',
+      },
+      [
+        h(TouchableNativeFeedback, touchableProps, [
+          h(View, {style: styles.row}, [
+            h(Avatar, {
+              url: imageUrl,
+              size: Dimensions.avatarSizeNormal,
+              style: styles.avatar,
+            }),
+            h(View, {style: styles.authorColumn}, [authorNameText]),
+          ]),
         ]),
-      ]),
-    ]);
+      ]
+    );
   }
 }
 
