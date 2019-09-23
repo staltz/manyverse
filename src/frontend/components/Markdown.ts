@@ -4,33 +4,21 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {createElement, PureComponent} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  Dimensions,
-  Linking,
-  Clipboard,
-  StyleSheet,
-  TouchableWithoutFeedback as Touchable,
-  ToastAndroid,
-} from 'react-native';
+import {createElement} from 'react';
+import {View, Text, Linking, StyleSheet} from 'react-native';
 import {Palette} from '../global-styles/palette';
-import {Dimensions as Dimens} from '../global-styles/dimens';
+import {Dimensions} from '../global-styles/dimens';
 import {Typography as Typ} from '../global-styles/typography';
 import {GlobalEventBus} from '../drivers/eventbus';
-import ImageView from 'react-native-image-view';
-import HeaderButton from '../components/HeaderButton';
+import ZoomableImage from './ZoomableImage';
+const remark = require('remark');
 const ReactMarkdown = require('react-markdown');
 const normalizeForReactNative = require('mdast-normalize-react-native');
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
-const urlToBlobId = require('ssb-serve-blobs/url-to-id');
-const ref = require('ssb-ref');
+const Ref = require('ssb-ref');
 const linkifyRegex = require('remark-linkify-regex');
 
-const pictureIcon = require('../../../images/image-area.png');
 const $ = createElement;
 
 const styles = StyleSheet.create({
@@ -43,26 +31,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    marginVertical: Dimens.verticalSpaceSmall,
+    marginVertical: Dimensions.verticalSpaceSmall,
   },
 
   heading1: {
     fontWeight: 'bold',
-    marginVertical: Dimens.verticalSpaceNormal,
+    marginVertical: Dimensions.verticalSpaceNormal,
     fontSize: Typ.baseSize * Typ.scaleUp * Typ.scaleUp,
     color: Palette.text,
   },
 
   heading2: {
     fontWeight: 'bold',
-    marginVertical: Dimens.verticalSpaceNormal,
+    marginVertical: Dimensions.verticalSpaceNormal,
     fontSize: Typ.baseSize * Typ.scaleUp,
     color: Palette.text,
   },
 
   heading3: {
     fontWeight: 'bold',
-    marginVertical: Dimens.verticalSpaceSmall,
+    marginVertical: Dimensions.verticalSpaceSmall,
     fontSize: Typ.baseSize,
     color: Palette.text,
   },
@@ -119,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundTextWeak,
     borderLeftWidth: 3,
     borderLeftColor: Palette.backgroundTextWeakStrong,
-    paddingLeft: Dimens.horizontalSpaceSmall,
+    paddingLeft: Dimensions.horizontalSpaceSmall,
     paddingRight: 1,
   },
 
@@ -141,134 +129,14 @@ const styles = StyleSheet.create({
   horizontalLine: {
     backgroundColor: Palette.textVeryWeak,
     height: 2,
-    marginTop: Dimens.verticalSpaceSmall,
-    marginBottom: Dimens.verticalSpaceSmall,
+    marginTop: Dimensions.verticalSpaceSmall,
+    marginBottom: Dimensions.verticalSpaceSmall,
   },
 
   orderedBullet: {
     fontWeight: 'bold',
   },
-
-  imageBlobIdContainer: {
-    flexDirection: 'row',
-    backgroundColor: Palette.transparencyDark,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: Dimens.horizontalSpaceNormal,
-    paddingVertical: Dimens.verticalSpaceTiny,
-  },
-
-  imageBlobIdText: {
-    flex: 1,
-    color: Palette.colors.white,
-    marginRight: Dimens.horizontalSpaceNormal,
-    fontSize: Typ.fontSizeNormal,
-    fontWeight: 'bold',
-    fontFamily: Typ.fontFamilyReadableText,
-  },
 });
-
-type StateImageWithBG = {
-  fullscreen: boolean;
-  fullwidth: number;
-  fullheight: number;
-};
-
-type PropsImage = {
-  src: string;
-  title?: string;
-};
-
-class ZoomableImage extends PureComponent<PropsImage, StateImageWithBG> {
-  constructor(props: PropsImage) {
-    super(props);
-    this.state = {fullscreen: false, fullwidth: 300, fullheight: 200};
-    this.onOpen = () => this.setState({fullscreen: true});
-    this.onClose = () => this.setState({fullscreen: false});
-  }
-
-  private onOpen: () => void;
-  private onClose: () => void;
-
-  public componentDidMount() {
-    const win = Dimensions.get('window');
-    Image.getSize(
-      this.props.src,
-      (imgWidth: number, imgHeight: number) => {
-        const ratio = imgHeight / imgWidth;
-        this.setState({fullwidth: win.width, fullheight: win.width * ratio});
-      },
-      () => {},
-    );
-  }
-
-  public renderFooter(img: any) {
-    const blobId = urlToBlobId(img.source.uri);
-    return $(View, {style: styles.imageBlobIdContainer}, [
-      $(
-        Text,
-        {
-          key: 'text',
-          numberOfLines: 1,
-          ellipsizeMode: 'middle',
-          style: styles.imageBlobIdText,
-        },
-        blobId,
-      ),
-      $(HeaderButton, {
-        key: 'btn',
-        onPress: () => {
-          Clipboard.setString(blobId);
-          ToastAndroid.show("Copied this blob's ID", ToastAndroid.SHORT);
-        },
-        onLongPress: () => {
-          Clipboard.setString(`![${blobId}](${blobId})`);
-          ToastAndroid.show('Copied as markdown code', ToastAndroid.SHORT);
-        },
-        icon: 'content-copy',
-        accessibilityLabel: 'Copy Blob ID',
-        rightSide: true,
-      }),
-    ]);
-  }
-
-  public render() {
-    const d = Dimensions.get('window');
-    const width = d.width - Dimens.horizontalSpaceBig * 2;
-    const height = width * 0.7;
-    const uri = this.props.src;
-    const {fullwidth, fullheight} = this.state;
-    return $(View, null, [
-      this.state.fullscreen
-        ? $(ImageView, {
-            key: 'full',
-            images: [{source: {uri}, width: fullwidth, height: fullheight}],
-            imageIndex: 0,
-            onClose: this.onClose,
-            renderFooter: this.renderFooter,
-          })
-        : null,
-      $(
-        Touchable,
-        {onPress: this.onOpen, key: 't'},
-        $(Image, {
-          key: 'preview',
-          source: {uri},
-          accessible: true,
-          accessibilityLabel: this.props.title || 'Picture without caption',
-          defaultSource: pictureIcon,
-          style: {
-            resizeMode: 'cover',
-            marginTop: Dimens.verticalSpaceSmall,
-            marginBottom: Dimens.verticalSpaceSmall,
-            width,
-            height,
-          },
-        }),
-      ),
-    ]);
-  }
-}
 
 const renderers = {
   root: (props: {children: any}) => $(View, null, props.children),
@@ -296,12 +164,12 @@ const renderers = {
     $(Text, {selectable: true, style: styles.strong}, props.children),
 
   link: (props: {children: any; href: string}) => {
-    const isFeedCypherlink = ref.isFeedId(props.href);
-    const isMsgCypherlink = ref.isMsgId(props.href);
+    const isFeedCypherlink = Ref.isFeedId(props.href);
+    const isMsgCypherlink = Ref.isMsgId(props.href);
     const isCypherlink = isFeedCypherlink || isMsgCypherlink;
     const isChildCypherlink =
       props.children.length === 1 &&
-      (ref.isFeedId(props.children[0]) || ref.isMsgId(props.children[0]));
+      (Ref.isFeedId(props.children[0]) || Ref.isMsgId(props.children[0]));
     return $(
       Text,
       {
@@ -356,7 +224,7 @@ const renderers = {
       View,
       {
         style: {
-          paddingLeft: Dimens.horizontalSpaceNormal * (props.depth + 1),
+          paddingLeft: Dimensions.horizontalSpaceNormal * (props.depth + 1),
         },
       },
       props.children,
@@ -375,17 +243,16 @@ const renderers = {
 };
 
 function Markdown(markdownText: string) {
-  const linkifySsbFeeds = linkifyRegex(ref.feedIdRegex);
-  const linkifySsbMsgs = linkifyRegex(ref.msgIdRegex);
+  const linkifySsbFeeds = linkifyRegex(Ref.feedIdRegex);
+  const linkifySsbMsgs = linkifyRegex(Ref.msgIdRegex);
 
   return $<any>(ReactMarkdown, {
-    source: markdownText,
-    plugins: [
-      gemojiToEmoji,
-      linkifySsbFeeds,
-      linkifySsbMsgs,
-      imagesToSsbServeBlobs,
-    ],
+    source: remark()
+      .use(gemojiToEmoji)
+      .use(linkifySsbFeeds)
+      .use(linkifySsbMsgs)
+      .use(imagesToSsbServeBlobs)
+      .processSync(markdownText).contents,
     astPlugins: [normalizeForReactNative()],
     allowedTypes: Object.keys(renderers),
     renderers,
