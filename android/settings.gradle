@@ -1,5 +1,7 @@
 rootProject.name = 'Manyverse'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':@react-native-community_async-storage'
+project(':@react-native-community_async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/async-storage/android')
 include ':react-native-bluetooth-status'
 project(':react-native-bluetooth-status').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-bluetooth-status/android')
 include ':react-native-bluetooth-socket-bridge'

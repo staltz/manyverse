@@ -27,6 +27,7 @@ import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgeConfiguration;
 import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgePackage;
 import com.staltz.reactnativeandroidlocalnotification.NotificationPackage;
 import com.staltz.reactnativehasinternet.HasInternetPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.devstepbcn.wifi.AndroidWifiPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import org.acra.*;
@@ -81,6 +82,7 @@ public class MainApplication extends NavigationApplication {
         "manyverse_bt_incoming.sock", "manyverse_bt_outgoing.sock", "manyverse_bt_control.sock", "scuttlebutt", uuid);
 
     List<ReactPackage> packages = new ArrayList<>();
+    packages.add(new AsyncStoragePackage());
     packages.add(new RNBluetoothManagerPackage());
     packages.add(new BluetoothSocketBridgePackage(bluetoothConfig));
     packages.add(new PickerPackage());

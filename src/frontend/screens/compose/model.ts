@@ -129,7 +129,7 @@ export default function model(
           if (prev.root) {
             return prev;
           } else {
-            return {...prev, postText: composeDraft};
+            return {...prev, postText: composeDraft!};
           }
         },
     );

@@ -222,6 +222,7 @@ dependencies {
     implementation "ch.acra:acra-mail:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
     implementation project(':nodejs-mobile-react-native')
+    implementation project(':@react-native-community_async-storage')
     implementation project(':react-native-bluetooth-socket-bridge')
     implementation project(':react-native-bluetooth-status')
     implementation project(':react-native-dialogs')
