@@ -22,7 +22,6 @@ import {Typography as Typ} from '../global-styles/typography';
 import {GlobalEventBus} from '../drivers/eventbus';
 import ImageView from 'react-native-image-view';
 import HeaderButton from '../components/HeaderButton';
-const remark = require('remark');
 const ReactMarkdown = require('react-markdown');
 const normalizeForReactNative = require('mdast-normalize-react-native');
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
@@ -274,6 +273,8 @@ class ZoomableImage extends PureComponent<PropsImage, StateImageWithBG> {
 const renderers = {
   root: (props: {children: any}) => $(View, null, props.children),
 
+  text: (props: {children: any}) => $(Text, null, props.children),
+
   paragraph: (props: {children: any}) =>
     $(
       View,
@@ -378,12 +379,13 @@ function Markdown(markdownText: string) {
   const linkifySsbMsgs = linkifyRegex(ref.msgIdRegex);
 
   return $<any>(ReactMarkdown, {
-    source: remark()
-      .use(gemojiToEmoji)
-      .use(linkifySsbFeeds)
-      .use(linkifySsbMsgs)
-      .use(imagesToSsbServeBlobs)
-      .processSync(markdownText).contents,
+    source: markdownText,
+    plugins: [
+      gemojiToEmoji,
+      linkifySsbFeeds,
+      linkifySsbMsgs,
+      imagesToSsbServeBlobs,
+    ],
     astPlugins: [normalizeForReactNative()],
     allowedTypes: Object.keys(renderers),
     renderers,
