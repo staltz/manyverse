@@ -64,6 +64,10 @@ echo "";
 SECONDS=0
 echo -en "Minifying with noderify...";
 cd ./nodejs-assets/nodejs-project;
+# Why some packages are filter'd:
+#   rn-bridge: this is not an npm package, it's just a nodejs-mobile shortcut
+#   bl: we didn't use it, and bl@0.8.x has security vulnerabilities
+#   braces: we didn't use it, and braces@1.8.x has vulnerabilities
 $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
   --replace.node-extend=xtend \
@@ -71,6 +75,8 @@ $(npm bin)/noderify \
   --replace.non-private-ip=non-private-ip-android \
   --replace.utp-native=utp-native-nodejs-mobile \
   --filter=rn-bridge \
+  --filter=bl \
+  --filter=braces \
   --filter=bufferutil \
   --filter=utf-8-validate \
   index.js > _index.js;
