@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1909.23-beta
+
+* Bug fix: images loading should have placeholder ([see details](https://gitlab.com/staltz/manyverse/commit/a31d2f76d2840f02c2a099e8aa2c9109e4c9c53c))
+* Bug fix: should not crash when previewing a markdown post ([see details](https://gitlab.com/staltz/manyverse/commit/110dc0eaaf2622271f375f37f3e2b321a2cb51c2)), closes [#556](https://gitlab.com/staltz/manyverse/issues/556)
+* Improve reliability of internet P2P invites ([see details](https://gitlab.com/staltz/manyverse/commit/1aab2d006eee7fcccfe0eee5b9ef69c2af70d760))
+
 ## 0.1909.18-beta
 
 * Accessibility fix: picture captions were missing ([see details](https://gitlab.com/staltz/manyverse/commit/a8dce4585e58d036707307646fe5768585d25323))
