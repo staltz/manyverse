@@ -59,8 +59,3 @@ SECONDS=0
 echo -en "Updating package-lock.json...";
 cp ./nodejs-assets/nodejs-project/package-lock.json ./src/backend/package-lock.json
 echo -en " — $SECONDS s\n";
-
-SECONDS=0
-echo -en "Patch some dependencies...";
-./tools/patch-backend-ssb-server ./nodejs-assets/nodejs-project;
-echo -en " — $SECONDS s\n";
