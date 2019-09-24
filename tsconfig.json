@@ -17,16 +17,6 @@
     "outDir": "./lib",
     "lib": ["dom", "es5", "scripthost", "es2015", "es2016", "es2017"]
   },
-  "files": [
-    "src/backend/index.ts",
-    "src/backend/loader.ts",
-    "src/frontend/index.ts",
-    "src/frontend/app-version.ts",
-    "typings/pull-stream.d.ts",
-    "typings/react-native-bluetooth-status.d.ts",
-    "typings/react-native-dialogs.d.ts",
-    "typings/react-native-image-view.d.ts",
-    "typings/rn-viewpager.d.ts"
-  ],
+  "include": ["src/backend/**/*.ts", "src/frontend/**/*.ts", "typings/*.d.ts"],
   "exclude": ["node_modules"]
 }

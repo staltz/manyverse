@@ -13,13 +13,6 @@ const makeConfig = require('ssb-config/inject');
 const BluetoothManager = require('ssb-mobile-bluetooth-manager');
 const bluetoothTransportAndPlugin = require('ssb-bluetooth');
 const SecretStack = require('secret-stack');
-import syncingPlugin = require('./plugins/syncing');
-import blobsUtils = require('./plugins/blobsUtils');
-import votesPlugin = require('./plugins/votes');
-import connUtilsPlugin = require('./plugins/connUtils');
-import friendsUtilsPlugin = require('./plugins/friendsUtils');
-import feedUtilsBackPlugin = require('./plugins/feedUtilsBack');
-import multiserverAddons = require('./multiserver');
 
 const appDataDir = rnBridge.app.datadir();
 const ssbPath = path.resolve(appDataDir, '.ssb');
@@ -65,29 +58,29 @@ const bluetoothManager: any = BluetoothManager({
 
 SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-master'))
-  .use(multiserverAddons)
+  .use(require('./multiserver'))
   .use(bluetoothTransportAndPlugin(bluetoothManager, {scope: 'public'}))
   .use(require('ssb-db'))
   .use(require('ssb-lan'))
   .use(require('ssb-conn'))
-  .use(connUtilsPlugin)
   .use(require('ssb-dht-invite'))
   .use(require('ssb-room/tunnel/client'))
   .use(require('ssb-replicate'))
-  .use(syncingPlugin)
   .use(require('ssb-backlinks'))
   .use(require('ssb-about'))
   .use(require('ssb-friends'))
   .use(require('ssb-blobs'))
-  .use(blobsUtils)
-  .use(feedUtilsBackPlugin)
-  .use(votesPlugin)
   .use(require('ssb-serve-blobs'))
   .use(require('ssb-private'))
   .use(require('ssb-contacts'))
   .use(require('ssb-query'))
-  .use(friendsUtilsPlugin)
   .use(require('ssb-threads'))
   .use(require('ssb-invite'))
   .use(require('ssb-ebt'))
+  .use(require('./plugins/blobsUtils'))
+  .use(require('./plugins/connUtils'))
+  .use(require('./plugins/feedUtilsBack'))
+  .use(require('./plugins/friendsUtils'))
+  .use(require('./plugins/syncing'))
+  .use(require('./plugins/votes'))
   .call(null, config);
