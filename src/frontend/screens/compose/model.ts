@@ -87,7 +87,7 @@ export default function model(
             separator = Array(addLines + 1).join('\n');
           }
 
-          const imgMarkdown = `![CAPTIONS FOR THE VISUALLY IMPAIRED](${blobId})`;
+          const imgMarkdown = `![image](${blobId})`;
 
           return {
             ...prev,
