@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1909.30-beta
+
+* Fix F-Droid build ([see details](https://gitlab.com/staltz/manyverse/commit/3bd5783ba5d52d2889fe0ddd8de9d145243af353))
+
 ## 0.1909.23-beta
 
 * Bug fix: images loading should have placeholder ([see details](https://gitlab.com/staltz/manyverse/commit/a31d2f76d2840f02c2a099e8aa2c9109e4c9c53c))
