@@ -26,6 +26,7 @@ import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgeConfiguration;
 import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgePackage;
 import com.staltz.reactnativeandroidlocalnotification.NotificationPackage;
 import com.staltz.reactnativehasinternet.HasInternetPackage;
+import com.staltz.flagsecure.FlagSecurePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.devstepbcn.wifi.AndroidWifiPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
@@ -94,6 +95,7 @@ public class MainApplication extends NavigationApplication {
     packages.add(new VectorIconsPackage());
     packages.add(new RNOSModule());
     packages.add(new NotificationPackage());
+    packages.add(new FlagSecurePackage());
     return packages;
   }
 }

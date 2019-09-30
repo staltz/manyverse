@@ -81,6 +81,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('./plugins/connUtils'))
   .use(require('./plugins/feedUtilsBack'))
   .use(require('./plugins/friendsUtils'))
+  .use(require('./plugins/keysUtils'))
   .use(require('./plugins/syncing'))
   .use(require('./plugins/votes'))
   .call(null, config);

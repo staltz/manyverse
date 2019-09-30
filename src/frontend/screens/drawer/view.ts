@@ -94,7 +94,7 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
         }),
         h(MenuItem, {
           sel: 'bug-report',
-          icon: 'email',
+          icon: 'email-alert',
           text: 'Email bug report',
           accessible: true,
           accessibilityLabel: 'Email Bug Report',
@@ -105,6 +105,13 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           text: 'Raw database',
           accessible: true,
           accessibilityLabel: 'Show Raw Database',
+        }),
+        h(MenuItem, {
+          sel: 'backup',
+          icon: 'key',
+          text: 'Backup',
+          accessible: true,
+          accessibilityLabel: 'Back Up My Account',
         }),
         // Google Play Store has banned Manyverse a couple times
         // over a "policy violation regarding Payments", and this

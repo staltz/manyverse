@@ -157,6 +157,9 @@ export default {
   friendsUtils: {
     isPrivatelyBlockingStream: 'source',
   },
+  keysUtils: {
+    getMnemonic: 'sync',
+  },
   syncing: {
     stream: 'source',
   },

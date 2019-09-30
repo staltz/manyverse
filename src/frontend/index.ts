@@ -15,6 +15,9 @@ export enum Screens {
   ProfileEdit = 'Manyverse.Profile.Edit',
   Biography = 'Manyverse.Biography',
   Accounts = 'Manyverse.Accounts',
+  Backup = 'Manyverse.Backup',
+  SecretOutput = 'Manyverse.SecretOutput',
+  SecretInput = 'Manyverse.SecretInput',
   RawDatabase = 'Manyverse.RawDatabase',
   RawMessage = 'Manyverse.RawMessage',
 }
@@ -46,6 +49,9 @@ import {biography} from './screens/biography/index';
 import {accounts} from './screens/accounts/index';
 import {rawDatabase} from './screens/raw-db/index';
 import {rawMessage} from './screens/raw-msg/index';
+import {backup} from './screens/backup/index';
+import {secretOutput} from './screens/secret-output/index';
+import {secretInput} from './screens/secret-input/index';
 import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
 
@@ -60,6 +66,9 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
   [Screens.ProfileEdit]: withState(editProfile),
   [Screens.Biography]: withState(biography),
   [Screens.Accounts]: withState(accounts),
+  [Screens.Backup]: withState(backup),
+  [Screens.SecretOutput]: withState(secretOutput),
+  [Screens.SecretInput]: withState(secretInput),
   [Screens.RawDatabase]: rawDatabase,
   [Screens.RawMessage]: rawMessage,
 };

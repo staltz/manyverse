@@ -84,6 +84,13 @@ $(npm bin)/noderify \
   --filter=bufferutil \
   --filter=supports-color \
   --filter=utf-8-validate \
+  --filter=bip39/src/wordlists/chinese_simplified.json \
+  --filter=bip39/src/wordlists/chinese_traditional.json \
+  --filter=bip39/src/wordlists/french.json \
+  --filter=bip39/src/wordlists/italian.json \
+  --filter=bip39/src/wordlists/japanese.json \
+  --filter=bip39/src/wordlists/korean.json \
+  --filter=bip39/src/wordlists/spanish.json \
   index.js > _index.js;
 rm index.js; mv _index.js index.js;
 rm multiserver.js;

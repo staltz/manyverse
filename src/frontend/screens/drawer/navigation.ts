@@ -9,11 +9,13 @@ import sample from 'xstream-sample';
 import {Command, PushCommand} from 'cycle-native-navigation';
 import {navOptions as profileScreenNavOptions} from '../profile';
 import {navOptions as rawDatabaseScreenNavOptions} from '../raw-db';
+import {navOptions as backupScreenNavOptions} from '../backup';
 import {State} from './model';
 import {Screens} from '../..';
 
 export type Actions = {
   goToSelfProfile$: Stream<null>;
+  goToBackup$: Stream<null>;
   showRawDatabase$: Stream<null>;
 };
 
@@ -53,8 +55,21 @@ export default function navigationCommands(
       } as PushCommand),
   );
 
+  const toBackup$ = actions.goToBackup$.map(
+    () =>
+      ({
+        type: 'showOverlay',
+        layout: {
+          component: {
+            name: Screens.Backup,
+            options: backupScreenNavOptions,
+          },
+        },
+      } as Command),
+  );
+
   const hideDrawerAndPush$ = xs
-    .merge(toSelfProfile$, toRawDatabase$)
+    .merge(toSelfProfile$, toRawDatabase$, toBackup$)
     .map(pushCommand => {
       const hideDrawer: Command = {
         type: 'mergeOptions',

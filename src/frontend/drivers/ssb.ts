@@ -435,6 +435,12 @@ export class SSBSource {
       .map(ssb => xsFromCallback<string>(ssb.dhtInvite.create)())
       .flatten();
   }
+
+  public getMnemonic$(): Stream<string> {
+    return this.ssb$
+      .map(ssb => xsFromCallback<string>(ssb.keysUtils.getMnemonic)())
+      .flatten();
+  }
 }
 
 export type PublishReq = {
