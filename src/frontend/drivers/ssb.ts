@@ -234,7 +234,7 @@ export class SSBSource {
       .map(ssb =>
         xsFromPullStream<Array<PeerKV>>(ssb.conn.peers())
           .map(peers =>
-            backoff(1e3, 2, 300e3)
+            backoff(1e3, 2, 60e3)
               .startWith(0)
               .map(() => {
                 for (const [, data] of peers) {
