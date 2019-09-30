@@ -6,7 +6,7 @@
 
 import os = require('os');
 import path = require('path');
-import {BrowserWindow, app} from 'electron';
+import {BrowserWindow, app, WebContents} from 'electron';
 
 process.env = process.env ?? {};
 process.env.MANYVERSE_PLATFORM = 'desktop';
@@ -17,6 +17,12 @@ process.env.APP_DATA_DIR = process.cwd();
 process.env.SSB_DIR = path.resolve(os.homedir(), '.ssb');
 
 let win: BrowserWindow | null;
+
+let resolveWebContents: ((wc: WebContents) => void) | undefined;
+// This will be used by multiserver to communicate with the frontend
+(process as any).webContentsP = new Promise(resolve => {
+  resolveWebContents = resolve;
+});
 
 function createWindow() {
   win = new BrowserWindow({
@@ -29,6 +35,7 @@ function createWindow() {
 
   win.loadFile('../index.html');
 
+  if (resolveWebContents) resolveWebContents(win.webContents);
   win.webContents.openDevTools();
 
   win.on('closed', () => {

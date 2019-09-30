@@ -4,13 +4,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-function component() {
-  const element = document.createElement('div');
+import ssbClient from 'electron-ssb-client';
+import cachedAbout from 'ssb-cached-about';
+import manifest from './manifest';
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = 'Frontend JS activated';
-
-  return element;
+function makeClient() {
+  return ssbClient(manifest)
+    .use(cachedAbout())
+    .callPromise();
 }
 
-document.body.appendChild(component());
+export default makeClient;

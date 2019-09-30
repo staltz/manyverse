@@ -13,14 +13,22 @@ function onFailure() {
   exit 1
 }
 
-echo -en "Minifying with noderify...";
+echo -en "Bundling with noderify...";
 cd ./desktop/nodejs-project;
+# Why some packages are filter'd or replaced:
+#   electron: we want nodejs-mobile to load its native bindings
+#   bufferutil: because we want nodejs-mobile to load its native bindings
+#   utf-8-validate: because we want nodejs-mobile to load its native bindings
 $(npm bin)/noderify \
   --replace.node-extend=xtend \
   --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \
   --replace.non-private-ip=non-private-ip-android \
+  --filter=electron \
+  --filter=bufferutil \
+  --filter=utf-8-validate \
   index.js > _index.js;
-rm index.js;
-mv _index.js index.js;
+rm index.js; mv _index.js index.js;
+rm multiserver.js;
+rm -rf plugins;
 cd ../..;
 echo -en " done.\n";

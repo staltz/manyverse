@@ -31,11 +31,8 @@ rm ./loader.mobile.js;
 cd ../..;
 
 echo "Installing dependencies...";
-cd ./desktop/nodejs-project && npm install;
-
-# For more details on this, read issue #398:
-echo "Removing problematic transitive dependencies...";
-cd node_modules && rm -rf chokidar fsevents && cd ../../..;
+cd ./desktop/nodejs-project && npm install --silent;
+cd ../..;
 
 echo "Updating package-lock.json";
 cp ./desktop/nodejs-project/package-lock.json ./src/backend/package-lock.json

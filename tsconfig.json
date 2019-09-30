@@ -17,6 +17,11 @@
     "outDir": "./lib",
     "lib": ["dom", "es5", "scripthost", "es2015", "es2016", "es2017"]
   },
-  "include": ["src/backend/**/*.ts", "src/frontend/**/*.ts", "typings/*.d.ts"],
+  "include": [
+    "src/backend/**/*.ts",
+    "src/frontend/**/*.ts",
+    "src/desktop/**/*.ts",
+    "typings/*.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
