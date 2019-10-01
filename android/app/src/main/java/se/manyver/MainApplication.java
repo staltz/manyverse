@@ -13,7 +13,6 @@ import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.peel.react.rnos.RNOSModule;
-import com.rnfs.RNFSPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -88,7 +87,6 @@ public class MainApplication extends NavigationApplication {
     packages.add(new PickerPackage());
     packages.add(new HasInternetPackage());
     packages.add(new AndroidWifiPackage());
-    packages.add(new RNFSPackage());
     packages.add(new RandomBytesPackage());
     packages.add(new RNNodeJsMobilePackage());
     packages.add(new ReactNativeDialogsPackage());

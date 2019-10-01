@@ -11,14 +11,9 @@ import hooksPlugin from './plugins/hooks';
 import feedUtilsPlugin from './plugins/feedUtils';
 import contactsPlugin from './plugins/contacts';
 import syncingNotifications from './plugins/syncing-notifications';
-const os = require('os');
-const path = require('path');
 
 function makeClient() {
-  const ssbPath = path.join(os.homedir(), '.ssb');
-  const ssbKeysPath = path.join(ssbPath, 'secret');
-
-  return ssbClient(ssbKeysPath, manifest)
+  return ssbClient(manifest)
     .use(hooksPlugin())
     .use(feedUtilsPlugin())
     .use(cachedAbout())
