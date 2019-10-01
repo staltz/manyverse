@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {createElement} from 'react';
-import {View, Text, Linking, StyleSheet} from 'react-native';
+import {View, Text, Linking, StyleSheet, TextProperties} from 'react-native';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography as Typ} from '../global-styles/typography';
@@ -21,17 +21,30 @@ const linkifyRegex = require('remark-linkify-regex');
 
 const $ = createElement;
 
-const styles = StyleSheet.create({
-  text: {
-    color: Palette.text,
-  },
+const textProps: TextProperties = {
+  selectable: true,
+  textBreakStrategy: 'simple',
+};
 
+const styles = StyleSheet.create({
   paragraph: {
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     marginVertical: Dimensions.verticalSpaceSmall,
+  },
+
+  paragraphText: {
+    flexWrap: 'wrap',
+    overflow: 'visible',
+    color: Palette.text,
+  },
+
+  text: {},
+
+  listItemText: {
+    color: Palette.text,
   },
 
   heading1: {
@@ -141,27 +154,28 @@ const styles = StyleSheet.create({
 const renderers = {
   root: (props: {children: any}) => $(View, null, props.children),
 
-  text: (props: {children: any}) => $(Text, null, props.children),
-
   paragraph: (props: {children: any}) =>
     $(
       View,
       {style: styles.paragraph},
-      $(Text, {selectable: true, style: styles.text}, props.children),
+      $(Text, {...textProps, style: styles.paragraphText}, props.children),
     ),
+
+  text: (props: {children: any}) =>
+    $(Text, {...textProps, style: styles.text}, props.children),
 
   heading: (props: {children: any; level: 1 | 2 | 3 | 4 | 5 | 6}) =>
     $(
       Text,
-      {selectable: true, style: styles['heading' + props.level]},
+      {...textProps, style: styles['heading' + props.level]},
       props.children,
     ),
 
   emphasis: (props: {children: any}) =>
-    $(Text, {selectable: true, style: styles.em}, props.children),
+    $(Text, {...textProps, style: styles.em}, props.children),
 
   strong: (props: {children: any}) =>
-    $(Text, {selectable: true, style: styles.strong}, props.children),
+    $(Text, {...textProps, style: styles.strong}, props.children),
 
   link: (props: {children: any; href: string}) => {
     const isFeedCypherlink = Ref.isFeedId(props.href);
@@ -173,7 +187,7 @@ const renderers = {
     return $(
       Text,
       {
-        selectable: true,
+        ...textProps,
         style: isCypherlink ? styles.cypherlink : styles.link,
         onPress: () => {
           if (isFeedCypherlink) {
@@ -198,10 +212,10 @@ const renderers = {
   },
 
   inlineCode: (props: {children: any}) =>
-    $(Text, {selectable: true, style: styles.inlineCode}, props.children),
+    $(Text, {...textProps, style: styles.inlineCode}, props.children),
 
   delete: (props: {children: any}) =>
-    $(Text, {selectable: true, style: styles.strikethrough}, props.children),
+    $(Text, {...textProps, style: styles.strikethrough}, props.children),
 
   blockquote: (props: {children: any}) =>
     $(View, {style: styles.blockquote}, props.children),
@@ -210,14 +224,13 @@ const renderers = {
     $(
       View,
       {style: styles.codeBlock},
-      $(Text, {selectable: true, style: styles.codeText}, props.value),
+      $(Text, {...textProps, style: styles.codeText}, props.value),
     ),
 
   thematicBreak: () => $(View, {style: styles.horizontalLine}),
 
-  image: (props: {src: string; title?: string; alt?: string}) => {
-    return $(ZoomableImage, {src: props.src, title: props.title || props.alt});
-  },
+  image: (props: {src: string; title?: string; alt?: string}) =>
+    $(ZoomableImage, {src: props.src, title: props.title || props.alt}),
 
   list: (props: {children: any; depth: number; ordered: boolean}) =>
     $(
@@ -233,7 +246,7 @@ const renderers = {
   listItem: (props: {children: any; index: number; ordered: boolean}) => {
     return $(
       Text,
-      {selectable: true, style: styles.text},
+      {...textProps, style: styles.listItemText},
       props.ordered
         ? $(Text, {style: styles.orderedBullet}, `${props.index + 1}. `)
         : $(Text, null, `\u2022 `),
