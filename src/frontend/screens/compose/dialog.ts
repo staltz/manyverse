@@ -7,9 +7,11 @@
 import {Stream} from 'xstream';
 import {DialogSource} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
+import {Image} from 'react-native-image-crop-picker';
 
 export type Actions = {
   openContentWarning$: Stream<any>;
+  addPicture$: Stream<Image>;
 };
 
 export default function dialog(actions: Actions, dialogSource: DialogSource) {
@@ -32,5 +34,22 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
       .flatten()
       .filter(res => res.action === 'actionPositive')
       .map(res => (res as any).text as string),
+
+    addPictureWithCaption$: actions.addPicture$
+      .map(image =>
+        dialogSource
+          .prompt(
+            'Caption',
+            'Add some description of this picture, ' +
+              'particularly for the visually impaired.',
+            {
+              contentColor: Palette.textWeak,
+              positiveColor: Palette.text,
+              positiveText: 'Done',
+            },
+          )
+          .map(res => ({caption: (res as any).text, image})),
+      )
+      .flatten(),
   };
 }
