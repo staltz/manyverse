@@ -6,6 +6,13 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1910.2-beta
+
+* Bug fix: markdown posts sometimes had omissions ([see details](https://gitlab.com/staltz/manyverse/commit/07e1536c57b2606e499a8c54f93d580645a2f04c))
+* Improve how picture captions are authored ([see details](https://gitlab.com/staltz/manyverse/commit/ce39e76e501c0767f07943710041faaa06e05847))
+* Improve startup time ([see details](https://gitlab.com/staltz/manyverse/commit/62b4b1f127f68fd9314c04281d917f29cf637f00))
+* Update Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/7cba3ba3e1beb681e1a2f2b4b4f19a9e89b99031))
+
 ## 0.1909.30-beta
 
 * Fix F-Droid build ([see details](https://gitlab.com/staltz/manyverse/commit/3bd5783ba5d52d2889fe0ddd8de9d145243af353))
