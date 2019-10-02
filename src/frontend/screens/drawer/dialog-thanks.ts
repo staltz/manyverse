@@ -12,19 +12,22 @@ const top5backers = [
   'DC Posch',
   'Jean-Baptiste Giraudeau',
   'Audrey Tang',
-  'Romain Prignon',
+  'C Moid',
 ];
 
 export default {
   type: 'alert',
   title: 'Thank you!',
   content:
-    'Development of this app was supported by donations from:' + 
+    'Development of this app was supported by grants from ' +
+    '<a href="https://nlnet.nl/project/Manyverse/">NGI0 PET</a> and ' +
+    '<a href="https://opencollective.com/access">Handshake / ACCESS</a>, ' +
+    ' and donations from:' +
     '<br /><br />' +
     '<strong>' +
     top5backers.join(', ') +
     '</strong>, and ' +
-    '<a href="https://manyver.se/donate">dozens of other backers</a>. ' + 
+    '<a href="https://manyver.se/donate">dozens of other backers</a>. ' +
     'Thanks!',
   options: {
     contentIsHtml: true,
