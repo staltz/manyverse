@@ -134,6 +134,24 @@ module.exports = function(driver, t) {
     t.pass('I tap it');
     await driver.sleep(2000);
 
+    t.ok(
+      await driver.elementByAndroidUIAutomator(
+        'new UiSelector().textContains("Add some description of this picture")',
+      ),
+      'I see a dialog prompt asking for a caption',
+    );
+    t.pass('I write a caption into the text field');
+    await driver.keys('serendipitous');
+
+    await driver.sleep(1000);
+    const doneButton2 = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().text("Done")',
+      6000,
+    );
+    t.ok(doneButton2, 'I see the Done button');
+    await doneButton2.click();
+    t.pass('I tap it');
+
     const composePublishButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Publish Button")',
       6000,
@@ -162,7 +180,7 @@ module.exports = function(driver, t) {
 
     try {
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("CAPTIONS FOR THE VISUALLY IMPAIRED")',
+        'new UiSelector().descriptionContains("serendipitous")',
         1000,
       );
       t.fail('Should not have seen the content-warning-protected picture');
@@ -187,7 +205,7 @@ module.exports = function(driver, t) {
     );
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("CAPTIONS FOR THE VISUALLY IMPAIRED")',
+        'new UiSelector().descriptionContains("serendipitous")',
         6000,
       ),
       'I see the actual content-warned picture on the feed',
