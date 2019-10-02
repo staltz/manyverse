@@ -79,9 +79,15 @@ During step 5, another terminal may spawn with the React Native Metro bundler. T
 
 To watch source code files and continuously compile them, use three terminals:
 
-- One terminal running `$(npm bin)/tsc --watch` to compile the TypeScript code
-- One terminal running `npm run clean-bundler && npm start -- --reset-cache` for the Metro bundler
-- One terminal where you can run `npm run build-android-debug` to build the APK
+- One terminal continuously running `$(npm bin)/tsc --watch` to compile the TypeScript code
+- One terminal continuously running `npm run clean-bundler && npm start -- --reset-cache` for the Metro bundler
+- One terminal where you run `npm run build-android-debug` once to build and install the APK
+
+To "refresh" the app after editing frontend TypeScript code, run the following (it refreshes the JS and re-opens the app):
+
+```
+adb shell input text "RR" && sleep 5 && adb shell am force-stop se.manyver && adb shell monkey -p se.manyver 1
+```
 
 There is no support for continuously compiling the backend Node.js project.
 
