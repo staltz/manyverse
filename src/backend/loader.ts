@@ -24,6 +24,7 @@ process.on('uncaughtException', err => {
   } else {
     rnBridge.channel.post('exception', err.message + '\n' + err.stack);
   }
+  console.error(err);
   setTimeout(() => {
     process.exit(1);
   });
