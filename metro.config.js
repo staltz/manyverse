@@ -25,6 +25,11 @@ module.exports = {
       /\/tools\/.*/,
       // Not used in runtime (is either dev dependency or surely not used)
       /\/node_modules\/appium\/.*/,
+      // Used only by Electron for desktop
+      /\/node_modules\/electron\/.*/,
+      /\/node_modules\/electron\.*\/.*/,
+      /\/node_modules\/webpack\/.*/,
+      /\/node_modules\/webpack-cli\/.*/,
     ]),
   },
 };
