@@ -1,0 +1,27 @@
+/* Any copyright is dedicated to the Public Domain.
+ * http://creativecommons.org/publicdomain/zero/1.0/ */
+
+// Replace the noderified backend index.js prelude with this, and
+// run `node index.js` to analyse the sizes of modules
+
+function prelude(defs, names) {
+  var sizes = [];
+  var fn;
+  var hash;
+  for (let name of Object.keys(names)) {
+    hash = names[name][0];
+    fn = defs[hash];
+    if (!fn) {
+      console.log('undefined implementation for ' + name);
+      continue;
+    }
+    sizes.push([name, fn.toString().length]);
+  }
+  sizes.sort(function(a, b) {
+    return a[1] - b[1];
+  });
+  console.log('\n');
+  for (let pair of sizes) {
+    console.log(pair[1] + '\t' + pair[0]);
+  }
+}

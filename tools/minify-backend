@@ -62,15 +62,15 @@ cd ..;
 echo "";
 
 SECONDS=0
-echo -en "Minifying with noderify...";
+echo -en "Bundling with noderify...";
 cd ./nodejs-assets/nodejs-project;
 # Why some packages are filter'd or replaced:
-#   rn-bridge: this is not an npm package, it's just a nodejs-mobile shortcut
 #   chloride: needs special compilation configs for android, and we'd like to
 #      remove unused packages such as sodium-browserify etc
+#   rn-bridge: this is not an npm package, it's just a nodejs-mobile shortcut
 #   bl: we didn't use it, and bl@0.8.x has security vulnerabilities
-#   braces: we didn't use it, and braces@1.8.x has vulnerabilities
-#   mdmanifest: only ssb-invite requires this, but doesn't actually use it
+#   bufferutil: because we want nodejs-mobile to load its native bindings
+#   utf-8-validate: because we want nodejs-mobile to load its native bindings
 $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
   --replace.node-extend=xtend \
@@ -78,17 +78,28 @@ $(npm bin)/noderify \
   --replace.non-private-ip=non-private-ip-android \
   --replace.chloride=sodium-chloride-native-nodejs-mobile \
   --replace.utp-native=utp-native-nodejs-mobile \
-  --replace.mdmanifest=nop \
   --filter=rn-bridge \
   --filter=bl \
-  --filter=braces \
   --filter=bufferutil \
   --filter=utf-8-validate \
   index.js > _index.js;
-rm index.js;
-mv _index.js index.js;
-cd ../..;
+rm index.js; mv _index.js index.js;
+rm multiserver.js;
+rm -rf plugins;
 echo -en " — $SECONDS s\n";
+
+# Uncomment this once we sort out all the crashes that Terser is causing
+# SECONDS=0
+# echo -en "Compressing with terser...";
+# $(npm bin)/terser \
+#   --ecma 8 \
+#   --parse ecma=8,bare_returns \
+#   --compress ecma=8 \
+#   --beautify \
+#   --output _index.js -- index.js;
+# rm index.js; mv _index.js index.js;
+# echo -en " — $SECONDS s\n";
+cd ../..;
 
 echo -en "Moving some shared dynamic native libraries to android jniLibs...";
 mkdir -p android/app/src/main/jniLibs/armeabi-v7a;
