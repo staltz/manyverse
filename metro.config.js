@@ -26,8 +26,10 @@ module.exports = {
       // Not used in runtime (is either dev dependency or surely not used)
       /\/node_modules\/appium\/.*/,
       // Used only by Electron for desktop
+      /\/node_modules\/@cycle\/react-dom\/.*/,
       /\/node_modules\/electron\/.*/,
       /\/node_modules\/electron\.*\/.*/,
+      /\/node_modules\/react-dom\/.*/,
       /\/node_modules\/webpack\/.*/,
       /\/node_modules\/webpack-cli\/.*/,
     ]),
