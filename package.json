@@ -1,6 +1,6 @@
 {
   "name": "manyverse",
-  "version": "0.1910.2-beta",
+  "version": "0.1910.15-beta",
   "private": true,
   "scripts": {
     "postinstall": "patch-package",

@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1910.15-beta
+
+* Improve responsiveness of the UI ([see details](https://gitlab.com/staltz/manyverse/commit/6897d3395bad4f1024b65ebbd9b1635fea5d0312))
+
 ## 0.1910.2-beta
 
 * Bug fix: markdown posts sometimes had omissions ([see details](https://gitlab.com/staltz/manyverse/commit/07e1536c57b2606e499a8c54f93d580645a2f04c))
