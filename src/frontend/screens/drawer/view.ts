@@ -6,7 +6,13 @@
 
 import {Stream} from 'xstream';
 import {PureComponent, ReactElement} from 'react';
-import {View, Text, ScrollView, TouchableNativeFeedback} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableNativeFeedback,
+  NativeModules,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {h} from '@cycle/react';
 import {styles} from './styles';
@@ -100,13 +106,18 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           accessible: true,
           accessibilityLabel: 'Show Raw Database',
         }),
-        h(MenuItem, {
-          sel: 'thanks',
-          icon: 'heart-circle',
-          text: 'Thanks',
-          accessible: true,
-          accessibilityLabel: 'Show Thanks',
-        }),
+        // Google Play Store has banned Manyverse a couple times
+        // over a "policy violation regarding Payments", and this
+        // Thanks screen is possibly the reason for that.
+        NativeModules.BuildConfig.FLAVOR === 'googlePlay'
+          ? null
+          : h(MenuItem, {
+              sel: 'thanks',
+              icon: 'heart-circle',
+              text: 'Thanks',
+              accessible: true,
+              accessibilityLabel: 'Show Thanks',
+            }),
         h(MenuItem, {
           sel: 'about',
           icon: 'information',

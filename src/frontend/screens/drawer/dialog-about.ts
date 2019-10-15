@@ -6,7 +6,7 @@
 
 import {Command} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
-const json = require('../../app-version');
+import {NativeModules} from 'react-native';
 
 export default {
   type: 'alert',
@@ -15,7 +15,7 @@ export default {
     '<a href="https://manyver.se">manyver.se</a><br />' +
     'A social network off the grid<br />' +
     'Version ' +
-    json.version +
+    NativeModules.BuildConfig.VERSION_NAME +
     '<br /><br />' +
     'Copyright (C) 2018-2019 ' +
     '<a href="https://gitlab.com/staltz/manyverse/blob/master/AUTHORS">The Manyverse Authors</a>' +

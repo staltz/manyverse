@@ -131,7 +131,7 @@ android {
        targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    flavorDimensions "range"
+    flavorDimensions "store"
 
     defaultConfig {
         versionCode 74
@@ -147,6 +147,18 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
         vectorDrawables.useSupportLibrary = true
+    }
+
+     productFlavors {
+        indie {
+            dimension "store"
+            versionNameSuffix "-indie"
+        }
+
+        googlePlay {
+            dimension "store"
+            versionNameSuffix "-googlePlay"
+        }
     }
 
     signingConfigs {
