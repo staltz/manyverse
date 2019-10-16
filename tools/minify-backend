@@ -70,6 +70,7 @@ cd ./nodejs-assets/nodejs-project;
 #   rn-bridge: this is not an npm package, it's just a nodejs-mobile shortcut
 #   bl: we didn't use it, and bl@0.8.x has security vulnerabilities
 #   bufferutil: because we want nodejs-mobile to load its native bindings
+#   supports-color: optional dependency within package `debug`
 #   utf-8-validate: because we want nodejs-mobile to load its native bindings
 $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
@@ -81,6 +82,7 @@ $(npm bin)/noderify \
   --filter=rn-bridge \
   --filter=bl \
   --filter=bufferutil \
+  --filter=supports-color \
   --filter=utf-8-validate \
   index.js > _index.js;
 rm index.js; mv _index.js index.js;
