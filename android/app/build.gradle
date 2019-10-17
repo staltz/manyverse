@@ -152,7 +152,6 @@ android {
      productFlavors {
         indie {
             dimension "store"
-            versionNameSuffix "-indie"
         }
 
         googlePlay {
