@@ -57,20 +57,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  button: {
-    borderColor: Palette.colors.white,
-    marginBottom: 62,
-  },
-
-  buttonText: {
-    color: Palette.colors.white,
-  },
-
-  ctaButton: {
-    backgroundColor: Palette.backgroundCTA,
-    marginBottom: 62,
-  },
-
   slide: {
     flex: 1,
     flexDirection: 'column',
@@ -94,8 +80,9 @@ type SlideProps = {
   image: ImageSourcePropType;
   title: string;
   renderDescription: () => Array<string | ReactElement<TextProps>>;
-  renderButton: () => ReactElement<any>;
+  renderBottom: () => ReactElement<any> | Array<ReactElement<any>>;
   show: boolean;
+  portraitMode?: boolean;
 };
 
 class InternalSlide extends PureComponent<SlideProps> {
@@ -123,6 +110,17 @@ class InternalSlide extends PureComponent<SlideProps> {
       this._enter();
     } else if (this.props.show === false && prevProps.show === true) {
       this._exit();
+    }
+
+    // Reset image transparency to full opaque when
+    // changing orientation (after animation has ended)
+    if (
+      this.props.portraitMode === true &&
+      prevProps.portraitMode === false &&
+      this.props.show === true &&
+      prevProps.show === true
+    ) {
+      this.animVal1.setValue(1);
     }
   }
 
@@ -153,7 +151,13 @@ class InternalSlide extends PureComponent<SlideProps> {
   }
 
   public render() {
-    const {image, title, renderDescription, renderButton} = this.props;
+    const {
+      image,
+      title,
+      renderDescription,
+      renderBottom,
+      portraitMode,
+    } = this.props;
 
     const INTERPOLATION = {inputRange: [0, 1], outputRange: [20, 0]};
 
@@ -184,16 +188,20 @@ class InternalSlide extends PureComponent<SlideProps> {
       ],
     };
 
-    const buttonAnimStyle = {
+    const bottomAnimStyle = {
       opacity: this.animVal4,
     };
 
+    const bottom = renderBottom();
+
     return h(View, {style: [styles.slide]}, [
       h(View, {style: styles.slideTop}, [
-        h(Animated.Image, {
-          style: [styles.image, imageAnimStyle],
-          source: image,
-        }),
+        portraitMode === true || typeof portraitMode === 'undefined'
+          ? h(Animated.Image, {
+              style: [styles.image, imageAnimStyle],
+              source: image,
+            })
+          : null,
         h(Animated.Text, {style: [styles.title, titleAnimStyle]}, title),
         h(
           Animated.Text,
@@ -202,9 +210,11 @@ class InternalSlide extends PureComponent<SlideProps> {
         ),
       ]),
 
-      h(Animated.View, {style: [styles.slideBottom, buttonAnimStyle]}, [
-        renderButton(),
-      ]),
+      h(
+        Animated.View,
+        {style: [styles.slideBottom, bottomAnimStyle]},
+        Array.isArray(bottom) ? bottom : [bottom],
+      ),
     ]);
   }
 }

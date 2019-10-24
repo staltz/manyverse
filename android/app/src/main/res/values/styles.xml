@@ -7,10 +7,11 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:statusBarColor">#364fc7</item>
-        <item name="colorPrimary">#3b5bdb</item>
-        <item name="android:colorPrimaryDark">#364fc7</item>
-        <item name="android:textColor">#212529</item>
+        <item name="android:statusBarColor">@color/background_brand_strong</item>
+        <item name="colorPrimary">@color/background_brand</item>
+        <item name="colorPrimaryDark">@color/background_brand</item>
+        <item name="android:textColor">@color/text_normal</item>
+        <item name="android:windowBackground">@color/background_brand</item>
     </style>
 
 </resources>

@@ -147,12 +147,16 @@ export function central(sources: Sources): Sinks {
   const toast$ = xs.merge(inviteToast$, publicTabSinks.toast);
 
   const ssb$ = xs.merge(publicTabSinks.ssb, connectionsTabSinks.ssb);
+  const storageCommand$ = xs.merge(
+    connectionsTabSinks.asyncstorage,
+    publicTabSinks.asyncstorage,
+  );
 
   return {
     screen: vdom$,
     state: reducer$,
     navigation: command$,
-    asyncstorage: connectionsTabSinks.asyncstorage,
+    asyncstorage: storageCommand$,
     alert: connectionsTabSinks.alert,
     ssb: ssb$,
     clipboard: publicTabSinks.clipboard,

@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-const mnemonic = require('ssb-keys-mnemonic');
+const Mnemonic = require('ssb-keys-mnemonic');
 
 export = {
   name: 'keysUtils',
@@ -17,10 +17,10 @@ export = {
       allow: ['getMnemonic'],
     },
   },
-  init: function init(ssb: any) {
+  init: function init(ssb: any, _config: any) {
     return {
       getMnemonic() {
-        return mnemonic.keysToWords(ssb.keys);
+        return Mnemonic.keysToWords(ssb.keys);
       },
     };
   },

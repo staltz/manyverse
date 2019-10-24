@@ -246,6 +246,9 @@ dependencies {
     implementation project(':react-native-android-wifi')
     implementation project(':react-native-has-internet')
     implementation project(':react-native-flag-secure-android')
+    implementation project(':react-native-orientation-locker')
+    implementation project(':react-native-fs')
+    implementation project(':react-native-splash-screen')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     // implementation("com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}") {

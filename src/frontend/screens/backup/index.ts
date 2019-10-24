@@ -5,28 +5,30 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {Command, NavSource} from 'cycle-native-navigation';
-import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Dimensions} from '../../global-styles/dimens';
-import {Palette} from '../../global-styles/palette';
-import tutorialSlide from '../../components/tutorial-slide';
-import tutorialPresentation from '../../components/tutorial-presentation';
-import {navOptions as outputSecretScreenNavOptions} from '../secret-output';
-import Button from '../../components/Button';
-import {Screens} from '../..';
-import {StateSource, Reducer} from '@cycle/state';
-import {topBar, Sinks as TBSinks} from './top-bar';
+import {Command, NavSource} from 'cycle-native-navigation';
+import {ReactSource, h} from '@cycle/react';
 import isolate from '@cycle/isolate';
+import {StateSource, Reducer} from '@cycle/state';
+import {OrientationEvent} from '../../drivers/orientation';
+import {Palette} from '../../global-styles/palette';
+import tutorialPresentation from '../../components/tutorial-presentation';
+import tutorialSlide from '../../components/tutorial-slide';
+import Button from '../../components/Button';
+import {navOptions as outputSecretScreenNavOptions} from '../secret-output';
+import {Screens} from '../..';
+import {topBar, Sinks as TBSinks} from './top-bar';
 
 export type State = {
   index: number;
+  isPortraitMode: boolean;
 };
 
 export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
+  orientation: Stream<OrientationEvent>;
   state: StateSource<State>;
 };
 
@@ -65,16 +67,8 @@ export const styles = StyleSheet.create({
 
 export const navOptions = {
   topBar: {
-    visible: true,
-    drawBehind: false,
-    height: Dimensions.toolbarAndroidHeight,
-    title: {
-      text: 'Backup',
-    },
-    backButton: {
-      icon: require('../../../../images/icon-arrow-left.png'),
-      visible: true,
-    },
+    visible: false,
+    height: 0,
   },
 };
 
@@ -127,10 +121,11 @@ export function backup(sources: Sources): Sinks {
         tutorialPresentation('swiper', {scrollBy$}, [
           tutorialSlide({
             show: state.index >= 0,
+            portraitMode: state.isPortraitMode,
             image: require('../../../../images/noun-glassware.png'),
             title: 'Your account has\ntwo parts to keep safe',
             renderDescription: () => [],
-            renderButton: () =>
+            renderBottom: () =>
               h(Button, {
                 sel: 'confirm-start',
                 style: styles.button,
@@ -138,12 +133,13 @@ export function backup(sources: Sources): Sinks {
                 text: 'Continue',
                 strong: false,
                 accessible: true,
-                accessibilityLabel: 'x',
+                accessibilityLabel: 'Continue Button',
               }),
           }),
 
           tutorialSlide({
             show: state.index >= 1,
+            portraitMode: state.isPortraitMode,
             image: require('../../../../images/noun-books.png'),
             title: 'Data',
             renderDescription: () => [
@@ -162,7 +158,7 @@ export function backup(sources: Sources): Sinks {
               h(Text, {style: styles.bold}, 'nothing else to do'),
               '! Your friends back you up.',
             ],
-            renderButton: () =>
+            renderBottom: () =>
               h(Button, {
                 sel: 'confirm-data',
                 style: styles.button,
@@ -170,12 +166,13 @@ export function backup(sources: Sources): Sinks {
                 text: 'I understand',
                 strong: false,
                 accessible: true,
-                accessibilityLabel: 'y',
+                accessibilityLabel: 'I understand Button',
               }),
           }),
 
           tutorialSlide({
             show: state.index >= 2,
+            portraitMode: state.isPortraitMode,
             image: require('../../../../images/noun-fingerprint.png'),
             title: 'Identity',
             renderDescription: () => [
@@ -189,7 +186,7 @@ export function backup(sources: Sources): Sinks {
               h(Text, {style: styles.bold}, 'Take responsibility'),
               ' over it, since you and only you can recover your account!',
             ],
-            renderButton: () =>
+            renderBottom: () =>
               h(Button, {
                 sel: 'show-recovery-phrase',
                 style: styles.ctaButton,
@@ -206,8 +203,18 @@ export function backup(sources: Sources): Sinks {
   const command$ = xs.merge(goBack$, goToExportSecret$);
 
   const initReducer$ = xs.of(function initReducer(_prev?: State): State {
-    return {index: 0};
+    return {index: 0, isPortraitMode: true};
   });
+
+  const updateOrientationReducer$ = sources.orientation.map(
+    ori =>
+      function updateOrientationReducer(prev: State): State {
+        return {
+          ...prev,
+          isPortraitMode: ori === 'PORTRAIT' || ori === 'PORTRAIT-UPSIDEDOWN',
+        };
+      },
+  );
 
   const updateIndexReducer$ = sources.screen
     .select('swiper')
@@ -216,11 +223,15 @@ export function backup(sources: Sources): Sinks {
       (newIndex: number) =>
         function updateIndexReducer(prev: State): State {
           // only go forward
-          return {index: Math.max(prev.index, newIndex)};
+          return {...prev, index: Math.max(prev.index, newIndex)};
         },
     );
 
-  const reducer$ = xs.merge(initReducer$, updateIndexReducer$);
+  const reducer$ = xs.merge(
+    initReducer$,
+    updateOrientationReducer$,
+    updateIndexReducer$,
+  );
 
   return {
     screen: vdom$,

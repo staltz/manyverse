@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
@@ -110,19 +111,27 @@ export type Actions = {
   confirm$: Stream<any>;
 };
 
-function navigation(actions: Actions) {
-  return xs.merge(
-    actions.goBack$.mapTo({type: 'pop'} as Command),
-    actions.confirm$.mapTo({
-      type: 'push',
-      layout: {
-        component: {
-          name: Screens.SecretInput,
-          options: inputSecretScreenNavOptions,
+function navigation(actions: Actions, state$: Stream<State>) {
+  const goBack$ = actions.goBack$.mapTo({type: 'pop'} as Command);
+
+  const goToPractice$ = actions.confirm$.compose(sample(state$)).map(
+    state =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.SecretInput,
+            options: inputSecretScreenNavOptions,
+            passProps: {
+              practiceMode: true,
+              backendWords: state.words,
+            },
+          },
         },
-      },
-    } as Command),
+      } as Command),
   );
+
+  return xs.merge(goBack$, goToPractice$);
 }
 
 function intent(
@@ -189,7 +198,7 @@ export function secretOutput(sources: Sources): Sinks {
 
   const vdom$ = view(sources.state.stream, topBarSinks.screen);
 
-  const command$ = navigation(actions);
+  const command$ = navigation(actions, sources.state.stream);
 
   const initReducer$ = xs.of(function initReducer() {
     return {words: ''};

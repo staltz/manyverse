@@ -9,9 +9,9 @@ import {run} from 'cycle-native-navigation';
 import {
   screens,
   drivers,
-  layout,
+  welcomeLayout,
   defaultNavOptions,
 } from './lib/frontend/index';
 // import './snoopy'; // Log and debug the React Native JS<-->Native Bridge
 
-run(screens, drivers, layout, defaultNavOptions);
+run(screens, drivers, welcomeLayout, defaultNavOptions);

@@ -26,3 +26,18 @@ patch-package
          versionCode 1
          versionName "1.0"
      }
+diff --git a/node_modules/react-native-bluetooth-socket-bridge/android/src/main/java/com/scuttlebutt/bluetoothbridge/control/ControlUnixSocket.java b/node_modules/react-native-bluetooth-socket-bridge/android/src/main/java/com/scuttlebutt/bluetoothbridge/control/ControlUnixSocket.java
+index b087cfe..dc87ec8 100644
+--- a/node_modules/react-native-bluetooth-socket-bridge/android/src/main/java/com/scuttlebutt/bluetoothbridge/control/ControlUnixSocket.java
++++ b/node_modules/react-native-bluetooth-socket-bridge/android/src/main/java/com/scuttlebutt/bluetoothbridge/control/ControlUnixSocket.java
+@@ -102,7 +102,9 @@ public class ControlUnixSocket {
+         return new Runnable() {
+             @Override
+             public void run() {
+-                LocalSocket localSocket = establishConnection(10);
++                // Run 100000 retries because we dont know when ssb-server
++                // starts, due to user being on welcome screen
++                LocalSocket localSocket = establishConnection(100000);
+
+                 Thread responseWriter =  new Thread(responseWriterThread(localSocket));
+                 responseWriter.start();

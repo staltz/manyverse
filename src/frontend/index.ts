@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 export enum Screens {
+  Welcome = 'Manyverse.Welcome',
   Central = 'Manyverse.Central',
   Drawer = 'Manyverse.Drawer',
   Compose = 'Manyverse.Compose',
@@ -37,6 +38,9 @@ import {makeEventBusDriver} from './drivers/eventbus';
 import {dialogDriver} from './drivers/dialogs';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
 import {makeExitDriver} from './drivers/exit';
+import {makeOrientationDriver} from './drivers/orientation';
+import {makeSplashScreenDriver} from './drivers/splashscreen';
+import {welcome, navOptions as welcomeNavOpts} from './screens/welcome/index';
 import {central, navOptions as centralNavOpts} from './screens/central/index';
 import {drawer} from './screens/drawer/index';
 import {compose} from './screens/compose/index';
@@ -56,6 +60,7 @@ import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
 
 export const screens: {[k in Screens]?: (so: any) => any} = {
+  [Screens.Welcome]: withState(welcome),
   [Screens.Central]: withState(central),
   [Screens.Drawer]: withState(drawer),
   [Screens.Compose]: withState(compose),
@@ -87,28 +92,44 @@ export const drivers = {
   notification: notificationDriver,
   dialog: dialogDriver,
   toast: makeToastDriver(),
+  orientation: makeOrientationDriver(),
+  splashscreen: makeSplashScreenDriver(),
   exit: makeExitDriver(),
 };
 
-export const layout = {
+export const welcomeLayout = {
   root: {
-    sideMenu: {
-      left: {
-        visible: false,
-        component: {name: Screens.Drawer},
-      },
-      center: {
-        stack: {
-          id: 'mainstack',
-          children: [
-            {
-              component: {
-                name: Screens.Central,
-                options: centralNavOpts,
-              },
-            },
-          ],
+    stack: {
+      id: 'mainstack',
+      children: [
+        {
+          component: {
+            name: Screens.Welcome,
+            options: welcomeNavOpts,
+          },
         },
+      ],
+    },
+  },
+};
+
+export const centralLayout = {
+  sideMenu: {
+    left: {
+      visible: false,
+      component: {name: Screens.Drawer},
+    },
+    center: {
+      stack: {
+        id: 'mainstack',
+        children: [
+          {
+            component: {
+              name: Screens.Central,
+              options: centralNavOpts,
+            },
+          },
+        ],
       },
     },
   },

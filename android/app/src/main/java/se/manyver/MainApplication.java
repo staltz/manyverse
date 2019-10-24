@@ -30,6 +30,9 @@ import com.staltz.flagsecure.FlagSecurePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.devstepbcn.wifi.AndroidWifiPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
+import org.wonday.orientation.OrientationPackage;
+import com.rnfs.RNFSPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -96,6 +99,9 @@ public class MainApplication extends NavigationApplication {
     packages.add(new RNOSModule());
     packages.add(new NotificationPackage());
     packages.add(new FlagSecurePackage());
+    packages.add(new OrientationPackage());
+    packages.add(new RNFSPackage());
+    packages.add(new SplashScreenReactPackage());
     return packages;
   }
 }

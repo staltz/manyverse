@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
 import {View, Text, StyleSheet} from 'react-native';
@@ -13,9 +13,15 @@ import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
 import HeaderBackButton from '../../../components/HeaderBackButton';
 import {ReactElement} from 'react';
+import {StateSource} from '@cycle/state';
+
+export type State = {
+  practiceMode: boolean;
+};
 
 export type Sources = {
   screen: ReactSource;
+  state: StateSource<State>;
 };
 
 export type Sinks = {
@@ -44,10 +50,14 @@ export const styles = StyleSheet.create({
 });
 
 export function topBar(sources: Sources): Sinks {
-  const vdom$ = xs.of(
+  const vdom$ = sources.state.stream.map(state =>
     h(View, {style: styles.container}, [
       HeaderBackButton('secretInputBackButton'),
-      h(Text, {style: styles.title}, 'Recovery Phrase'),
+      h(
+        Text,
+        {style: styles.title},
+        state.practiceMode ? 'Practice' : 'Restore account',
+      ),
     ]),
   );
 
