@@ -33,6 +33,7 @@ test('Setup and open Android app', function(t) {
 });
 
 test('...', function(t) {
+  require('./welcome.js')(driver, t);
   require('./central.js')(driver, t);
   require('./connections.js')(driver, t);
   require('./compose.js')(driver, t);

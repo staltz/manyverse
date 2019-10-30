@@ -10,7 +10,7 @@ module.exports = function(driver, t) {
       ),
       'I see the Messages header in the Central screen',
     );
-    await driver.sleep(6000);
+    await driver.sleep(3000);
     // Public tab
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
