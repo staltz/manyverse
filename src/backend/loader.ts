@@ -18,6 +18,13 @@ process.env = process.env || {};
 // process.env.CHLORIDE_JS = 'yes';
 
 // Report JS backend crashes to Java, and in turn, to ACRA
+process.on('unhandledRejection', (reason, _promise) => {
+  rnBridge.channel.post('exception', reason);
+  console.error(reason);
+  setTimeout(() => {
+    process.exit(1);
+  });
+});
 process.on('uncaughtException', err => {
   if (typeof err === 'string') {
     rnBridge.channel.post('exception', err);
