@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1910.31-beta
+
+* Feature: backup your account ([see details](https://gitlab.com/staltz/manyverse/commit/7744238b946e917e665af004237791783b6c9f83))
+* Feature: Welcome screen with Restore account option ([see details](https://gitlab.com/staltz/manyverse/commit/f3225b817c0dc3939d484304759046d177a57fe5))
+* Improve crash detection and reporting ([see details](https://gitlab.com/staltz/manyverse/commit/84d5230dc300e5523a7e176cfd37ccfc7bfe7ff5))
+
 ## 0.1910.15-beta
 
 * Improve responsiveness of the UI ([see details](https://gitlab.com/staltz/manyverse/commit/6897d3395bad4f1024b65ebbd9b1635fea5d0312))
