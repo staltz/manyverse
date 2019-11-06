@@ -96,9 +96,7 @@ export default class ContactMessage extends Component<Props, {}> {
     if (msgBlocking === undefined && msgFollowing === undefined) {
       // if both are undefined then the message is nonstandard and we don't
       // render it
-      return h(MessageContainer, [
-        // TODO
-      ])
+      return null
     }
 
     const fourstate: Fourstate = msgBlocking === undefined
