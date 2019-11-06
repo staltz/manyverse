@@ -89,6 +89,7 @@ export default class ContactMessage extends Component<Props, {}> {
   public render() {
     const {msg, name, contactName} = this.props;
 
+    // we're not sure what .flagged means
     const msgBlocking =
       (msg.value.content as any).flagged || msg.value.content.blocking
     const msgFollowing = msg.value.content.following
