@@ -7,7 +7,8 @@ const test = require('tape');
 
 const localServerConfig = {host: 'localhost', port: 4995};
 
-const str = '../android/app/build/outputs/apk/release/app-release.apk';
+const str =
+  '../android/app/build/outputs/apk/indie/release/app-indie-release.apk';
 const localCapabilities = {
   browserName: 'Android - local server',
   platformName: 'Android',
@@ -32,6 +33,7 @@ test('Setup and open Android app', function(t) {
 });
 
 test('...', function(t) {
+  require('./welcome.js')(driver, t);
   require('./central.js')(driver, t);
   require('./connections.js')(driver, t);
   require('./compose.js')(driver, t);

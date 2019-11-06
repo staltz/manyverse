@@ -26,5 +26,13 @@ include ':react-native-android-wifi'
 project(':react-native-android-wifi').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-wifi/android')
 include ':react-native-has-internet'
 project(':react-native-has-internet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-has-internet/android')
+include ':react-native-flag-secure-android'
+project(':react-native-flag-secure-android').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-flag-secure-android/android')
+include ':react-native-orientation-locker', ':app'
+project(':react-native-orientation-locker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-orientation-locker/android')
+include ':react-native-fs'
+project(':react-native-fs').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fs/android')
+include ':react-native-splash-screen'
+project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
 
 include ':app'

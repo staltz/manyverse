@@ -26,9 +26,13 @@ import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgeConfiguration;
 import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgePackage;
 import com.staltz.reactnativeandroidlocalnotification.NotificationPackage;
 import com.staltz.reactnativehasinternet.HasInternetPackage;
+import com.staltz.flagsecure.FlagSecurePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.devstepbcn.wifi.AndroidWifiPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
+import org.wonday.orientation.OrientationPackage;
+import com.rnfs.RNFSPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -81,6 +85,7 @@ public class MainApplication extends NavigationApplication {
         "manyverse_bt_incoming.sock", "manyverse_bt_outgoing.sock", "manyverse_bt_control.sock", "scuttlebutt", uuid);
 
     List<ReactPackage> packages = new ArrayList<>();
+    packages.add(new BuildConfigPackage());
     packages.add(new AsyncStoragePackage());
     packages.add(new RNBluetoothManagerPackage());
     packages.add(new BluetoothSocketBridgePackage(bluetoothConfig));
@@ -93,6 +98,10 @@ public class MainApplication extends NavigationApplication {
     packages.add(new VectorIconsPackage());
     packages.add(new RNOSModule());
     packages.add(new NotificationPackage());
+    packages.add(new FlagSecurePackage());
+    packages.add(new OrientationPackage());
+    packages.add(new RNFSPackage());
+    packages.add(new SplashScreenReactPackage());
     return packages;
   }
 }

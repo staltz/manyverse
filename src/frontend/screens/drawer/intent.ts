@@ -28,6 +28,11 @@ export default function intent(source: ReactSource) {
       .events('press')
       .mapTo(null),
 
+    goToBackup$: source
+      .select('backup')
+      .events('press')
+      .mapTo(null),
+
     showRawDatabase$: source
       .select('raw-db')
       .events('press')

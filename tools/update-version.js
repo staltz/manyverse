@@ -10,7 +10,6 @@ const path = require('path');
 const fs = require('fs');
 
 const currentVersion = JSON.parse(fs.readFileSync('./package.json')).version;
-const licenseHeader = fs.readFileSync('./tools/license-header.txt');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -51,10 +50,6 @@ rl.question('Next version will be `' + nextVersion + '`, okay? y/n ', yn => {
   const pkgLockJSON = JSON.parse(fs.readFileSync('./package-lock.json'));
   pkgJSON.version = nextVersion;
   pkgLockJSON.version = nextVersion;
-  fs.writeFileSync(
-    './src/frontend/app-version.ts',
-    licenseHeader + `export = {version: '${nextVersion}'};\n`,
-  );
   fs.writeFileSync('./package.json', JSON.stringify(pkgJSON, null, 2));
   fs.writeFileSync('./package-lock.json', JSON.stringify(pkgLockJSON, null, 2));
 

@@ -36,6 +36,8 @@ android/app/bin
 android/captures
 android/app/.settings/org.eclipse.buildship.core.prefs
 android/.settings/org.eclipse.buildship.core.prefs
+# This should always be generated, not committed, specially for F-Droid builds:
+android/app/src/main/jniLibs/**/libsodium.so
 
 # Visual Studio Code
 #

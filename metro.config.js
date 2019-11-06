@@ -1,29 +1,7 @@
 /* Any copyright is dedicated to the Public Domain.
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
-const path = require('path');
-
-const blacklistRE = new RegExp(
-  '(' +
-    [/nodejs-assets\/.*/, /android\/.*/, /ios\/.*/]
-      .map(escapeRegExp)
-      .join('|') +
-    ')$',
-);
-
-function escapeRegExp(pattern) {
-  if (Object.prototype.toString.call(pattern) === '[object RegExp]') {
-    return pattern.source.replace(/\//g, path.sep);
-  } else if (typeof pattern === 'string') {
-    const escaped = pattern.replace(
-      /[\-\[\]\{\}\(\)\*\+\?\.\\\^\$\|]/g,
-      '\\$&',
-    );
-    // convert the '/' into an escaped local file separator
-    return escaped.replace(/\//g, `\\${path.sep}`);
-  }
-  throw new Error(`Unexpected packager blacklist pattern: ${pattern}`);
-}
+const blacklist = require('metro-config/src/defaults/blacklist');
 
 module.exports = {
   transformer: {
@@ -37,6 +15,15 @@ module.exports = {
 
   resolver: {
     platforms: ['android', 'ios', 'web'],
-    blacklistRE,
+    blacklistRE: blacklist([
+      /\/android\/.*/,
+      /\/e2e\/.*/,
+      /\/ios\/.*/,
+      /\/nodejs-assets\/.*/,
+      /\/patches\/.*/,
+      /\/tools\/.*/,
+      // Not used in runtime (is either dev dependency or surely not used)
+      /\/node_modules\/appium\/.*/,
+    ]),
   },
 };

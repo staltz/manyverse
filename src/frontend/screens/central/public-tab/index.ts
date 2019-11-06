@@ -9,7 +9,10 @@ import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactSource} from '@cycle/react';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+import {
+  Command as StorageCommand,
+  AsyncStorageSource,
+} from 'cycle-native-asyncstorage';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {SSBSource, Req} from '../../../drivers/ssb';
 import {DialogSource} from '../../../drivers/dialogs';
@@ -21,6 +24,7 @@ import view from './view';
 import model, {State} from './model';
 import ssb from './ssb';
 import floatingAction from './fab';
+import asyncStorage from './asyncstorage';
 import navigation from './navigation';
 
 export type Sources = {
@@ -39,6 +43,7 @@ export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
+  asyncstorage: Stream<StorageCommand>;
   ssb: Stream<Req>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
@@ -67,12 +72,14 @@ export function publicTab(sources: Sources): Sinks {
   );
   const fabProps$ = floatingAction(sources.state.stream);
   const newContent$ = ssb(actionsPlus);
+  const storageCommand$ = asyncStorage();
 
   return {
     screen: vdom$,
     navigation: command$,
     state: reducer$,
     ssb: newContent$,
+    asyncstorage: storageCommand$,
     clipboard: messageEtcSinks.clipboard,
     toast: messageEtcSinks.toast,
     fab: fabProps$,

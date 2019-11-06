@@ -76,6 +76,7 @@ export type Props = {
   strong?: boolean;
   small?: boolean;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   accessible?: boolean;
   accessibilityLabel?: string;
 };
@@ -96,12 +97,15 @@ export default class Button extends Component<Props, {}> {
       strong,
       small,
       style,
+      textStyle,
       accessible,
       accessibilityLabel,
     } = this.props;
 
     const touchableProps = {
-      background: TouchableNativeFeedback.Ripple(Palette.backgroundBrand),
+      background: TouchableNativeFeedback.Ripple(
+        Palette.transparencyDarkStrong,
+      ),
       onPress: () => {
         if (this.props.onPress) {
           this.props.onPress();
@@ -127,6 +131,7 @@ export default class Button extends Component<Props, {}> {
             style: [
               strong ? styles.textStrong : styles.text,
               small ? null : styles.textWeight,
+              textStyle,
             ],
           },
           text,

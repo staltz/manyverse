@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream, MemoryStream} from 'xstream';
+import xs, {Stream, MemoryStream, Listener} from 'xstream';
 import backoff from 'xstream-backoff';
 import {
   Msg,
@@ -15,6 +15,7 @@ import {
   AboutContent,
   BlobId,
 } from 'ssb-typescript';
+const nodejs = require('nodejs-mobile-react-native');
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import xsFromCallback from 'xstream-from-callback';
@@ -52,6 +53,14 @@ export type AboutAndExtras = About & {
   id: FeedId;
   followsYou?: boolean;
 };
+
+export type RestoreIdentityResponse =
+  | 'OVERWRITE_RISK'
+  | 'TOO_SHORT'
+  | 'TOO_LONG'
+  | 'WRONG_LENGTH'
+  | 'INCORRECT'
+  | 'IDENTITY_READY';
 
 function mutateMsgWithLiveExtras(ssb: any) {
   const getAbout = ssb.cachedAbout.socialValue;
@@ -423,6 +432,19 @@ export class SSBSource {
       .flatten();
   }
 
+  public restoreIdentity$(inputWords: string): Stream<RestoreIdentityResponse> {
+    return xs.create<RestoreIdentityResponse>({
+      start(listener: Listener<RestoreIdentityResponse>) {
+        this.fn = (msg: RestoreIdentityResponse) => listener.next(msg);
+        nodejs.channel.addListener('identity', this.fn);
+        nodejs.channel.post('identity', `RESTORE: ${inputWords}`);
+      },
+      stop() {
+        nodejs.channel.removeListener('identity', this.fn);
+      },
+    });
+  }
+
   public isPrivatelyBlocking$(dest: FeedId): Stream<boolean> {
     return this.ssb$
       .map((ssb: any) => ssb.friendsUtils.isPrivatelyBlockingStream(dest))
@@ -435,7 +457,21 @@ export class SSBSource {
       .map(ssb => xsFromCallback<string>(ssb.dhtInvite.create)())
       .flatten();
   }
+
+  public getMnemonic$(): Stream<string> {
+    return this.ssb$
+      .map(ssb => xsFromCallback<string>(ssb.keysUtils.getMnemonic)())
+      .flatten();
+  }
 }
+
+export type CreateIdentityReq = {
+  type: 'identity.create';
+};
+
+export type UseIdentityReq = {
+  type: 'identity.use';
+};
 
 export type PublishReq = {
   type: 'publish';
@@ -506,6 +542,8 @@ export type ConnForgetReq = {
 };
 
 export type Req =
+  | CreateIdentityReq
+  | UseIdentityReq
   | PublishReq
   | PublishAboutReq
   | AcceptInviteReq
@@ -529,6 +567,20 @@ async function consumeSink(
   source: SSBSource,
   ssbP: Promise<any>,
 ) {
+  sink
+    .filter(r => r.type === 'identity.create' || r.type === 'identity.use')
+    .take(1)
+    .addListener({
+      next(r) {
+        if (r.type === 'identity.create') {
+          nodejs.channel.post('identity', 'CREATE');
+        }
+        if (r.type === 'identity.use') {
+          nodejs.channel.post('identity', 'USE');
+        }
+      },
+    });
+
   const ssb = await ssbP;
 
   sink.addListener({
@@ -675,8 +727,16 @@ async function consumeSink(
   });
 }
 
+function waitForIdentity() {
+  return new Promise<boolean>(resolve => {
+    nodejs.channel.addListener('identity', (msg: RestoreIdentityResponse) => {
+      if (msg === 'IDENTITY_READY') resolve(true);
+    });
+  });
+}
+
 export function ssbDriver(sink: Stream<Req>): SSBSource {
-  const ssbP = makeClient();
+  const ssbP = waitForIdentity().then(makeClient);
   const source = new SSBSource(ssbP);
   consumeSink(sink, source, ssbP);
   return source;

@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 export enum Screens {
+  Welcome = 'Manyverse.Welcome',
   Central = 'Manyverse.Central',
   Drawer = 'Manyverse.Drawer',
   Compose = 'Manyverse.Compose',
@@ -15,6 +16,9 @@ export enum Screens {
   ProfileEdit = 'Manyverse.Profile.Edit',
   Biography = 'Manyverse.Biography',
   Accounts = 'Manyverse.Accounts',
+  Backup = 'Manyverse.Backup',
+  SecretOutput = 'Manyverse.SecretOutput',
+  SecretInput = 'Manyverse.SecretInput',
   RawDatabase = 'Manyverse.RawDatabase',
   RawMessage = 'Manyverse.RawMessage',
 }
@@ -34,6 +38,9 @@ import {makeEventBusDriver} from './drivers/eventbus';
 import {dialogDriver} from './drivers/dialogs';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
 import {makeExitDriver} from './drivers/exit';
+import {makeOrientationDriver} from './drivers/orientation';
+import {makeSplashScreenDriver} from './drivers/splashscreen';
+import {welcome, navOptions as welcomeNavOpts} from './screens/welcome/index';
 import {central, navOptions as centralNavOpts} from './screens/central/index';
 import {drawer} from './screens/drawer/index';
 import {compose} from './screens/compose/index';
@@ -46,10 +53,14 @@ import {biography} from './screens/biography/index';
 import {accounts} from './screens/accounts/index';
 import {rawDatabase} from './screens/raw-db/index';
 import {rawMessage} from './screens/raw-msg/index';
+import {backup} from './screens/backup/index';
+import {secretOutput} from './screens/secret-output/index';
+import {secretInput} from './screens/secret-input/index';
 import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
 
 export const screens: {[k in Screens]?: (so: any) => any} = {
+  [Screens.Welcome]: withState(welcome),
   [Screens.Central]: withState(central),
   [Screens.Drawer]: withState(drawer),
   [Screens.Compose]: withState(compose),
@@ -60,6 +71,9 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
   [Screens.ProfileEdit]: withState(editProfile),
   [Screens.Biography]: withState(biography),
   [Screens.Accounts]: withState(accounts),
+  [Screens.Backup]: withState(backup),
+  [Screens.SecretOutput]: withState(secretOutput),
+  [Screens.SecretInput]: withState(secretInput),
   [Screens.RawDatabase]: rawDatabase,
   [Screens.RawMessage]: rawMessage,
 };
@@ -78,28 +92,44 @@ export const drivers = {
   notification: notificationDriver,
   dialog: dialogDriver,
   toast: makeToastDriver(),
+  orientation: makeOrientationDriver(),
+  splashscreen: makeSplashScreenDriver(),
   exit: makeExitDriver(),
 };
 
-export const layout = {
+export const welcomeLayout = {
   root: {
-    sideMenu: {
-      left: {
-        visible: false,
-        component: {name: Screens.Drawer},
-      },
-      center: {
-        stack: {
-          id: 'mainstack',
-          children: [
-            {
-              component: {
-                name: Screens.Central,
-                options: centralNavOpts,
-              },
-            },
-          ],
+    stack: {
+      id: 'mainstack',
+      children: [
+        {
+          component: {
+            name: Screens.Welcome,
+            options: welcomeNavOpts,
+          },
         },
+      ],
+    },
+  },
+};
+
+export const centralLayout = {
+  sideMenu: {
+    left: {
+      visible: false,
+      component: {name: Screens.Drawer},
+    },
+    center: {
+      stack: {
+        id: 'mainstack',
+        children: [
+          {
+            component: {
+              name: Screens.Central,
+              options: centralNavOpts,
+            },
+          },
+        ],
       },
     },
   },

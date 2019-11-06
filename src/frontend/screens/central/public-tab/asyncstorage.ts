@@ -4,4 +4,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-export = {version: '0.1910.2-beta'};
+import xs from 'xstream';
+import {Command} from 'cycle-native-asyncstorage';
+
+export default function asyncStorage() {
+  return xs.of({
+    type: 'setItem',
+    key: 'latestVisit',
+    value: `${Date.now()}`,
+  } as Command);
+}
