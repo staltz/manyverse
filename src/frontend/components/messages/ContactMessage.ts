@@ -50,12 +50,13 @@ export type Props = {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
-type Tristate = 'followed' | 'blocked' | 'discharged';
+type ContactEvent = 'followed' | 'blocked' | 'unfollowed' | 'unblocked';
 
-function pickFrom(t: Tristate, followed: any, blocked: any, discharged: any) {
+function pickFrom(t: ContactEvent, followed: any, blocked: any, unfollowed: any, unblocked: any) {
   if (t === 'followed') return followed;
   if (t === 'blocked') return blocked;
-  if (t === 'discharged') return discharged;
+  if (t === 'unfollowed') return unfollowed;
+  if (t === 'unblocked') return unblocked;
 }
 
 export default class ContactMessage extends Component<Props, {}> {
@@ -87,11 +88,25 @@ export default class ContactMessage extends Component<Props, {}> {
 
   public render() {
     const {msg, name, contactName} = this.props;
-    const tristate: Tristate = msg.value.content.following
-      ? 'followed'
-      : (msg.value.content as any).flagged || msg.value.content.blocking
-      ? 'blocked'
-      : 'discharged';
+
+    // we're not sure what .flagged means
+    const msgBlocking =
+      (msg.value.content as any).flagged || msg.value.content.blocking
+    const msgFollowing = msg.value.content.following
+
+    if (msgBlocking === undefined && msgFollowing === undefined) {
+      // if both are undefined then the message is nonstandard and we don't
+      // render it
+      return null
+    }
+
+    const contactEvent: ContactEvent = msgBlocking === undefined
+      ? msgFollowing === true
+        ? 'followed'
+        : 'unfollowed'
+      : msgBlocking === true
+        ? 'blocked'
+        : 'unblocked'
 
     return h(MessageContainer, [
       h(View, {style: styles.row}, [
@@ -103,7 +118,7 @@ export default class ContactMessage extends Component<Props, {}> {
           ),
           h(
             Text,
-            pickFrom(tristate, ' followed ', ' blocked ', ' discharged '),
+            pickFrom(contactEvent, ' followed ', ' blocked ', ' unfollowed ', ' unblocked '),
           ),
           h(
             Text,
@@ -114,7 +129,7 @@ export default class ContactMessage extends Component<Props, {}> {
       ]),
       h(View, {style: styles.row}, [
         pickFrom(
-          tristate,
+          contactEvent,
           h(Icon, {
             size: Dimensions.iconSizeSmall,
             color: Palette.textPositive,
@@ -124,6 +139,11 @@ export default class ContactMessage extends Component<Props, {}> {
             size: Dimensions.iconSizeSmall,
             color: Palette.textNegative,
             name: 'account-remove',
+          }),
+          h(Icon, {
+            size: Dimensions.iconSizeSmall,
+            color: Palette.textVeryWeak,
+            name: 'account-minus',
           }),
           h(Icon, {
             size: Dimensions.iconSizeSmall,
