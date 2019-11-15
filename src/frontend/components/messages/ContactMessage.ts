@@ -50,9 +50,9 @@ export type Props = {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
-type Fourstate = 'followed' | 'blocked' | 'unfollowed' | 'unblocked';
+type ContactEvent = 'followed' | 'blocked' | 'unfollowed' | 'unblocked';
 
-function pickFrom(t: Fourstate, followed: any, blocked: any, unfollowed: any, unblocked: any) {
+function pickFrom(t: ContactEvent, followed: any, blocked: any, unfollowed: any, unblocked: any) {
   if (t === 'followed') return followed;
   if (t === 'blocked') return blocked;
   if (t === 'unfollowed') return unfollowed;
@@ -100,7 +100,7 @@ export default class ContactMessage extends Component<Props, {}> {
       return null
     }
 
-    const fourstate: Fourstate = msgBlocking === undefined
+    const contactEvent: ContactEvent = msgBlocking === undefined
       ? msgFollowing === true
         ? 'followed'
         : 'unfollowed'
@@ -118,7 +118,7 @@ export default class ContactMessage extends Component<Props, {}> {
           ),
           h(
             Text,
-            pickFrom(fourstate, ' followed ', ' blocked ', ' unfollowed ', ' unblocked '),
+            pickFrom(contactEvent, ' followed ', ' blocked ', ' unfollowed ', ' unblocked '),
           ),
           h(
             Text,
@@ -129,7 +129,7 @@ export default class ContactMessage extends Component<Props, {}> {
       ]),
       h(View, {style: styles.row}, [
         pickFrom(
-          fourstate,
+          contactEvent,
           h(Icon, {
             size: Dimensions.iconSizeSmall,
             color: Palette.textPositive,
