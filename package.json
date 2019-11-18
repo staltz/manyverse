@@ -103,12 +103,14 @@
     "@babel/runtime": "~7.7.2",
     "add-stream": "~1.0.0",
     "conventional-changelog": "~3.1.15",
+    "husky": "^3.1.0",
     "into-stream": "~5.1.1",
     "jase": "1.2.0",
     "left-pad": "1.3.0",
     "metro-react-native-babel-preset": "^0.56.0",
     "patch-package": "6.2.0",
-    "prettier": "~1.18.2",
+    "prettier": "~1.19.1",
+    "pretty-quick": "~2.0.1",
     "propagate-replacement-fields": "1.2.0",
     "react-native-version": "3.2.0",
     "rn-snoopy": "2.0.2",
@@ -120,6 +122,11 @@
     "tap-spec": "5.0.0",
     "tape": "~4.9.1",
     "wd": "1.11.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged --pattern \"**/*.*(ts|tsx|js|jsx)\""
+    }
   },
   "react-native": {
     "os": "react-native-os-staltz"

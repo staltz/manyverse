@@ -95,14 +95,16 @@ export default function intent(
         .events('press')
         .map(() =>
           xs
-            .fromPromise(ImagePicker.openCamera({
-              cropping: false,
-              multiple: false,
-              compressImageMaxWidth: 1080,
-              compressImageMaxHeight: 1920,
-              compressImageQuality: 0.88,
-              mediaType: 'photo',
-            }) as Promise<Image>)
+            .fromPromise(
+              ImagePicker.openCamera({
+                cropping: false,
+                multiple: false,
+                compressImageMaxWidth: 1080,
+                compressImageMaxHeight: 1920,
+                compressImageQuality: 0.88,
+                mediaType: 'photo',
+              }) as Promise<Image>,
+            )
             .replaceError(() => xs.never()),
         )
         .flatten(),
@@ -112,14 +114,16 @@ export default function intent(
         .events('press')
         .map(() =>
           xs
-            .fromPromise(ImagePicker.openPicker({
-              cropping: false,
-              multiple: false,
-              compressImageMaxWidth: 1080,
-              compressImageMaxHeight: 1920,
-              compressImageQuality: 0.88,
-              mediaType: 'photo',
-            }) as Promise<Image>)
+            .fromPromise(
+              ImagePicker.openPicker({
+                cropping: false,
+                multiple: false,
+                compressImageMaxWidth: 1080,
+                compressImageMaxHeight: 1920,
+                compressImageQuality: 0.88,
+                mediaType: 'photo',
+              }) as Promise<Image>,
+            )
             .replaceError(() => xs.never()),
         )
         .flatten(),

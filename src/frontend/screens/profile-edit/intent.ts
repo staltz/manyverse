@@ -23,14 +23,16 @@ export default function intent(
       .events('press')
       .map(() =>
         xs
-          .fromPromise(ImagePicker.openPicker({
-            width: 240,
-            height: 240,
-            cropping: true,
-            multiple: false,
-            cropperCircleOverlay: true,
-            mediaType: 'photo',
-          }) as Promise<Image>)
+          .fromPromise(
+            ImagePicker.openPicker({
+              width: 240,
+              height: 240,
+              cropping: true,
+              multiple: false,
+              cropperCircleOverlay: true,
+              mediaType: 'photo',
+            }) as Promise<Image>,
+          )
           .replaceError(() => xs.never()),
       )
       .flatten(),

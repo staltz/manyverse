@@ -52,7 +52,13 @@ export type Props = {
 
 type ContactEvent = 'followed' | 'blocked' | 'unfollowed' | 'unblocked';
 
-function pickFrom(t: ContactEvent, followed: any, blocked: any, unfollowed: any, unblocked: any) {
+function pickFrom(
+  t: ContactEvent,
+  followed: any,
+  blocked: any,
+  unfollowed: any,
+  unblocked: any,
+) {
   if (t === 'followed') return followed;
   if (t === 'blocked') return blocked;
   if (t === 'unfollowed') return unfollowed;
@@ -91,22 +97,23 @@ export default class ContactMessage extends Component<Props, {}> {
 
     // we're not sure what .flagged means
     const msgBlocking =
-      (msg.value.content as any).flagged || msg.value.content.blocking
-    const msgFollowing = msg.value.content.following
+      (msg.value.content as any).flagged || msg.value.content.blocking;
+    const msgFollowing = msg.value.content.following;
 
     if (msgBlocking === undefined && msgFollowing === undefined) {
       // if both are undefined then the message is nonstandard and we don't
       // render it
-      return null
+      return null;
     }
 
-    const contactEvent: ContactEvent = msgBlocking === undefined
-      ? msgFollowing === true
-        ? 'followed'
-        : 'unfollowed'
-      : msgBlocking === true
+    const contactEvent: ContactEvent =
+      msgBlocking === undefined
+        ? msgFollowing === true
+          ? 'followed'
+          : 'unfollowed'
+        : msgBlocking === true
         ? 'blocked'
-        : 'unblocked'
+        : 'unblocked';
 
     return h(MessageContainer, [
       h(View, {style: styles.row}, [
@@ -118,7 +125,13 @@ export default class ContactMessage extends Component<Props, {}> {
           ),
           h(
             Text,
-            pickFrom(contactEvent, ' followed ', ' blocked ', ' unfollowed ', ' unblocked '),
+            pickFrom(
+              contactEvent,
+              ' followed ',
+              ' blocked ',
+              ' unfollowed ',
+              ' unblocked ',
+            ),
           ),
           h(
             Text,

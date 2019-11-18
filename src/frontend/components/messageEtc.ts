@@ -52,13 +52,11 @@ export default function messageEtc(sources: Sources): Sinks {
     .filter(choice => choice.id === 'copy-id')
     .map(choice => choice.msg.key);
 
-  const toast$ = copyCypherlink$.mapTo(
-    {
-      type: 'show',
-      message: 'Copied to clipboard',
-      duration: Duration.SHORT,
-    } as Toast,
-  );
+  const toast$ = copyCypherlink$.mapTo({
+    type: 'show',
+    message: 'Copied to clipboard',
+    duration: Duration.SHORT,
+  } as Toast);
 
   return {
     clipboard: copyCypherlink$,

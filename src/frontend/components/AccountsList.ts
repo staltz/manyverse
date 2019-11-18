@@ -98,7 +98,7 @@ class Account extends PureComponent<AccountProps> {
             h(View, {style: styles.authorColumn}, [authorNameText]),
           ]),
         ]),
-      ]
+      ],
     );
   }
 }
