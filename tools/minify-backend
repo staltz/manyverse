@@ -77,6 +77,7 @@ $(npm bin)/noderify \
   --replace.node-extend=xtend \
   --replace.non-private-ip=non-private-ip-android \
   --replace.chloride=sodium-chloride-native-nodejs-mobile \
+  --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \
   --replace.utp-native=utp-native-nodejs-mobile \
   --filter=rn-bridge \
   --filter=bl \

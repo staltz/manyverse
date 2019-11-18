@@ -25,6 +25,7 @@
     "secret-stack-decorators": "~1.0.0",
     "sodium-chloride-native-nodejs-mobile": "1.0.1",
     "sodium-native-nodejs-mobile": "2.4.2-24",
+    "staltz-multiserver": "3.3.6-1",
     "ssb-about": "2.0.0",
     "ssb-backlinks": "0.7.3",
     "ssb-blobs": "1.2.2",
