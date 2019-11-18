@@ -36,7 +36,7 @@
     "ssb-dht-invite": "1.9.0",
     "ssb-ebt": "5.6.7",
     "ssb-friends": "4.1.4",
-    "ssb-invite-client": "1.0.0",
+    "ssb-invite-client": "1.1.0",
     "ssb-keys": "7.2.0",
     "ssb-keys-mnemonic": "~0.2.0",
     "ssb-lan": "0.1.4",
