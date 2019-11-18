@@ -6,19 +6,20 @@
 
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
+import {ReactElement} from 'react';
+import {ReactSource, h} from '@cycle/react';
+import {StyleSheet, View, ScrollView, RefreshControl} from 'react-native';
 import {Command, PopCommand, NavSource} from 'cycle-native-navigation';
+import {Reducer, StateSource} from '@cycle/state';
+import isolate from '@cycle/isolate';
 import {MsgId, About, FeedId} from 'ssb-typescript';
+import {Screens} from '../..';
 import {SSBSource} from '../../drivers/ssb';
 import {Likes} from '../../ssb/types';
-import {ReactSource, h} from '@cycle/react';
-import {ReactElement} from 'react';
-import {Dimensions} from '../../global-styles/dimens';
 import {navOptions as profileScreenNavOptions} from '../profile';
-import {Screens} from '../..';
-import {StyleSheet, ScrollView, RefreshControl} from 'react-native';
-import {Reducer, StateSource} from '@cycle/state';
 import AccountsList, {Props as ListProps} from '../../components/AccountsList';
 import {Palette} from '../../global-styles/palette';
+import {topBar, Sinks as TBSinks} from './top-bar';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -46,6 +47,13 @@ export type State = {
 };
 
 export const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignSelf: 'stretch',
+    backgroundColor: Palette.backgroundVoid,
+    flexDirection: 'column',
+  },
+
   container: {
     alignSelf: 'stretch',
     flex: 1,
@@ -54,16 +62,8 @@ export const styles = StyleSheet.create({
 
 export const navOptions = {
   topBar: {
-    visible: true,
-    drawBehind: false,
-    height: Dimensions.toolbarAndroidHeight,
-    title: {
-      text: 'Likes',
-    },
-    backButton: {
-      icon: require('../../../../images/icon-arrow-left.png'),
-      visible: true,
-    },
+    visible: false,
+    height: 0,
   },
 };
 
@@ -97,32 +97,43 @@ function navigation(actions: Actions, state$: Stream<State>) {
   return xs.merge(pop$, toProfile$);
 }
 
-function intent(navSource: NavSource, reactSource: ReactSource) {
+function intent(
+  navSource: NavSource,
+  reactSource: ReactSource,
+  back$: Stream<any>,
+) {
   return {
-    goBack$: navSource.backPress(),
+    goBack$: xs.merge(navSource.backPress(), back$),
 
     goToProfile$: reactSource.select('accounts').events('pressAccount'),
   };
 }
 
 export function accounts(sources: Sources): Sinks {
-  const actions = intent(sources.navigation, sources.screen);
+  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
 
-  const vdom$ = sources.state.stream.map(state => {
-    const likers = state.likers;
+  const actions = intent(sources.navigation, sources.screen, topBarSinks.back);
 
-    return h(
-      ScrollView,
-      {
-        style: styles.container,
-        refreshControl: h(RefreshControl, {
-          refreshing: state.likers.length === 0,
-          colors: [Palette.backgroundBrand],
-        }),
-      },
-      [h(AccountsList, {sel: 'accounts', accounts: likers} as ListProps)],
-    );
-  });
+  const vdom$ = xs
+    .combine(topBarSinks.screen, sources.state.stream)
+    .map(([topBarVDOM, state]) => {
+      const likers = state.likers;
+
+      return h(View, {style: styles.screen}, [
+        topBarVDOM,
+        h(
+          ScrollView,
+          {
+            style: styles.container,
+            refreshControl: h(RefreshControl, {
+              refreshing: state.likers.length === 0,
+              colors: [Palette.backgroundBrand],
+            }),
+          },
+          [h(AccountsList, {sel: 'accounts', accounts: likers} as ListProps)],
+        ),
+      ]);
+    });
 
   const command$ = navigation(actions, sources.state.stream);
 
