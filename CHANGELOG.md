@@ -6,6 +6,14 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1911.19-beta
+
+* Bug fix: correct metadata for links inside messages ([see details](https://gitlab.com/staltz/manyverse/commit/7defdf9c55f160e73c26a31ce60dc12565b108b2))
+* Bug fix: crash when selecting popup menu option ([see details](https://gitlab.com/staltz/manyverse/commit/cdbe7e3391223e0d84d2a314d394364c98e31bbd))
+* Bug fix: likes screen back button ([see details](https://gitlab.com/staltz/manyverse/commit/ae6fd5172b7480354171846b3df5fb0076be0693))
+* Bug fix: pub invite codes were crashing the app ([see details](https://gitlab.com/staltz/manyverse/commit/b1d824e61b9a154533614f689e931ad397916a4e))
+* Change "discharged" messages to "unfollowed"/"unblocked" ([see details](https://gitlab.com/staltz/manyverse/commit/bc4be266dfda22454a69213c22874292fed5d4fa))
+
 ## 0.1910.31-beta
 
 * Feature: backup your account ([see details](https://gitlab.com/staltz/manyverse/commit/7744238b946e917e665af004237791783b6c9f83))
