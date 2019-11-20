@@ -157,6 +157,7 @@ android {
         googlePlay {
             dimension "store"
             versionNameSuffix "-googlePlay"
+            targetSdkVersion rootProject.ext.targetSdkVersionForGooglePlay
         }
     }
 
