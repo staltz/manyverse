@@ -70,7 +70,7 @@ npm run build-backend
 `4`: Build the Android apk:
 
 ```
-react-native run-android
+react-native run-android --variant=indieDebug
 ```
 
 During step 5, another terminal may spawn with the React Native Metro bundler. The app should be installed automatically, if you have a device connected by USB. You can see the logs with `react-native log-android` or `adb logcat`.
@@ -94,7 +94,7 @@ There is no support for continuously compiling the backend Node.js project.
 ### Troubleshooting
 
 On Android applications, the `react-native` build process is sometimes unable to rebuild assets.
-If you are getting errors while building the application using `react-native run-android`, then the command `npm run full-clean` can help you do a clean rebuild of the project. Then, reinstall with `npm i` and rebuild.
+If you are getting errors while building the application using `react-native run-android --variant=indieDebug`, then the command `npm run full-clean` can help you do a clean rebuild of the project. Then, reinstall with `npm i` and rebuild.
 
 #### app:installDebug FAILED - Could not find build of variant which supports .. an ABI in x86
 

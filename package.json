@@ -11,7 +11,7 @@
     "propagate-replacements": "propagate-replacement-fields --field=react-native",
     "build-backend": "./tools/build-backend && ./tools/minify-backend",
     "build-android-assets": "npm run lib && npm run propagate-replacements && npm run build-backend",
-    "build-android-debug": "npm run build-android-assets && react-native run-android",
+    "build-android-debug": "npm run build-android-assets && react-native run-android --variant=indieDebug",
     "build-android-release": "npm run build-android-assets && cd android && ./gradlew assembleRelease && cd ..",
     "start": "npm run lib && npm run propagate-replacements && react-native start",
     "psdr": "./tools/print-service-desk-report.js",
