@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
 
   horizontalLine: {
-    backgroundColor: Palette.textVeryWeak,
+    backgroundColor: Palette.textLine,
     height: 2,
     marginTop: Dimensions.verticalSpaceSmall,
     marginBottom: Dimensions.verticalSpaceSmall,

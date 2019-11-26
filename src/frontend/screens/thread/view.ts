@@ -87,7 +87,7 @@ function ReplyInput(state: State) {
         placeholder: 'Comment',
         placeholderTextColor: Palette.textVeryWeak,
         selectionColor: Palette.backgroundTextSelection,
-        underlineColorAndroid: Palette.backgroundVoid,
+        underlineColorAndroid: Palette.textLine,
         style: styles.replyInput,
       }),
     ]),

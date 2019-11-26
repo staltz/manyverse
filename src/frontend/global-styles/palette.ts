@@ -191,6 +191,7 @@ export const Palette = {
   textWeak: gray7,
   text: gray9,
   textCTA: teal5,
+  textLine: gray3,
   textBrand: indigo8,
   textPositive: teal5,
   textNegative: red6,
