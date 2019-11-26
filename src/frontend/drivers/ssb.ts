@@ -54,6 +54,13 @@ export type AboutAndExtras = About & {
   followsYou?: boolean;
 };
 
+export type MentionSuggestion = {
+  id: FeedId;
+  name: string;
+  image: any;
+  following: boolean;
+};
+
 export type RestoreIdentityResponse =
   | 'OVERWRITE_RISK'
   | 'TOO_SHORT'
@@ -456,6 +463,22 @@ export class SSBSource {
     return this.ssb$
       .map(ssb => xsFromCallback<string>(ssb.dhtInvite.create)())
       .flatten();
+  }
+
+  public getMentionSuggestions(text: string | null, authors: Array<FeedId>) {
+    if (!text) return xs.of([]);
+    const opts = {text, limit: 10, defaultIds: authors};
+    return this.ssb$
+      .map(ssb =>
+        xsFromCallback<Array<MentionSuggestion>>(ssb.suggest.profile)(opts),
+      )
+      .flatten()
+      .map(arr => {
+        return arr.map(suggestion => {
+          const imageUrl = imageToImageUrl(suggestion.image);
+          return {...suggestion, imageUrl};
+        });
+      });
   }
 
   public getMnemonic$(): Stream<string> {

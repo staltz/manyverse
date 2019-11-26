@@ -63,19 +63,29 @@ export default function navigation(
       } as Command),
   );
 
-  const toCompose$ = actions.goToCompose$.compose(sample(state$)).map(
-    state =>
-      ({
-        type: 'showOverlay',
-        layout: {
-          component: {
-            name: Screens.Compose,
-            options: composeScreenNavOptions,
-            passProps: {text: state.replyText, root: state.rootMsgId},
-          },
+  const toCompose$ = actions.goToCompose$.compose(sample(state$)).map(state => {
+    const authors = (() => {
+      const set = new Set<FeedId>();
+      for (const msg of state.thread.messages) {
+        const author = msg.value.author;
+        if (author !== state.selfFeedId && !set.has(author)) {
+          set.add(author);
+        }
+      }
+      return [...set.values()];
+    })();
+
+    return {
+      type: 'showOverlay',
+      layout: {
+        component: {
+          name: Screens.Compose,
+          options: composeScreenNavOptions,
+          passProps: {text: state.replyText, root: state.rootMsgId, authors},
         },
-      } as Command),
-  );
+      },
+    } as Command;
+  });
 
   const toRawMsg$ = actions.goToRawMsg$.map(
     msg =>

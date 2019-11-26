@@ -105,7 +105,7 @@ class Account extends PureComponent<AccountProps> {
 
 export type Props = {
   accounts: Array<{name: string; imageUrl: string; id: string}>;
-  onPressAccount?: (ev: {id: FeedId}) => void;
+  onPressAccount?: (ev: {id: FeedId; name: string}) => void;
 };
 
 export default class AccountsList extends PureComponent<Props> {
@@ -115,10 +115,11 @@ export default class AccountsList extends PureComponent<Props> {
       React.Fragment,
       this.props.accounts.map(({id, name, imageUrl}) =>
         h<AccountProps>(Account, {
+          key: id,
           name,
           imageUrl,
           id,
-          onPress: () => onPressAccount && onPressAccount({id}),
+          onPress: () => onPressAccount && onPressAccount({id, name}),
         }),
       ),
     );

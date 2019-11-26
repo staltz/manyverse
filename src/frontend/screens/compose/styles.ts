@@ -97,4 +97,60 @@ export const styles = StyleSheet.create({
     paddingTop: Dimensions.verticalSpaceBig,
     paddingBottom: Dimensions.verticalSpaceBig,
   },
+
+  mentionsOverlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: Palette.backgroundText,
+  },
+
+  mentionsInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    backgroundColor: Palette.backgroundText,
+    paddingLeft:
+      Dimensions.horizontalSpaceBig +
+      (Dimensions.avatarSizeNormal - Dimensions.iconSizeNormal) * 0.5,
+    elevation: 3,
+  },
+
+  mentionsInput: {
+    flex: 1,
+    alignSelf: 'stretch',
+    paddingBottom: Dimensions.verticalSpaceSmall,
+    paddingLeft: 3,
+    marginLeft:
+      (Dimensions.avatarSizeNormal - Dimensions.iconSizeNormal) * 0.5 +
+      Dimensions.horizontalSpaceTiny,
+    marginTop: Dimensions.verticalSpaceBig,
+    fontSize: Typography.fontSizeBig,
+    textAlign: 'left',
+    textAlignVertical: 'top',
+    color: Palette.text,
+  },
+
+  mentionsIcon: {
+    marginBottom: Dimensions.verticalSpaceSmall,
+  },
+
+  mentionsCancelButton: {
+    borderRadius: 3,
+    paddingHorizontal: Dimensions.horizontalSpaceSmall,
+    paddingVertical: Dimensions.verticalSpaceTiny,
+    marginRight: Dimensions.horizontalSpaceBig,
+    marginBottom: Dimensions.verticalSpaceSmall,
+  },
+
+  mentionsCancelText: {
+    color: Palette.textBrand,
+    fontSize: Typography.fontSizeBig,
+  },
+
+  mentionsList: {
+    flex: 1,
+    alignSelf: 'stretch',
+  },
 });

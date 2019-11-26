@@ -91,9 +91,8 @@ export default {
     latestValueStream: 'source',
     read: 'source',
   },
-  contacts: {
-    stream: 'source',
-    get: 'async',
+  suggest: {
+    profile: 'async',
   },
   query: {
     read: 'source',

@@ -5,20 +5,28 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import sampleCombine from 'xstream/extra/sampleCombine';
 import {Reducer, Lens} from '@cycle/state';
-import {State as TopBarState} from './top-bar';
-import {SSBSource} from '../../drivers/ssb';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Image} from 'react-native-image-crop-picker';
+import {MsgId, FeedId} from 'ssb-typescript';
+import {SSBSource, MentionSuggestion} from '../../drivers/ssb';
+import {State as TopBarState} from './top-bar';
 import {Props} from './index';
-import {MsgId} from 'ssb-typescript';
+
+type Selection = {start: number; end: number};
 
 export type State = {
   postText: string;
+  postTextSelection: Selection;
+  mentionQuery: string;
+  mentionSuggestions: Array<MentionSuggestion>;
+  mentionChoiceTimestamp: number;
   contentWarning: string;
   avatarUrl: string | undefined;
   previewing: boolean;
   root: MsgId | undefined;
+  authors: Array<FeedId>;
 };
 
 export const topBarLens: Lens<State, TopBarState> = {
@@ -36,8 +44,39 @@ export const topBarLens: Lens<State, TopBarState> = {
   },
 };
 
+export function isPost(state: State): boolean {
+  return !state.root;
+}
+
+export function isReply(state: State): boolean {
+  return !!state.root;
+}
+
+export function isTextEmpty(state: State): boolean {
+  return !state.postText;
+}
+
+export function hasText(state: State): boolean {
+  return state.postText.length > 0;
+}
+
+export function parseMention(
+  postText: string,
+  selection: Selection,
+): string | null {
+  if (selection.start !== selection.end) return null;
+  const results = /(^| )@(\w+)$/gm.exec(postText.substr(0, selection.start));
+  if (!results || !results[2]) return null;
+  return results[2];
+}
+
 export type Actions = {
   updatePostText$: Stream<string>;
+  updateSelection$: Stream<Selection>;
+  updateMentionQuery$: Stream<string>;
+  suggestMention$: Stream<[string | null, Selection]>;
+  chooseMention$: Stream<{name: string; id: FeedId}>;
+  cancelMention$: Stream<any>;
   updateContentWarning$: Stream<string>;
   togglePreview$: Stream<any>;
   addPictureWithCaption$: Stream<{caption: string; image: Image}>;
@@ -46,6 +85,7 @@ export type Actions = {
 export default function model(
   props$: Stream<Props>,
   actions: Actions,
+  state$: Stream<State>,
   asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
@@ -54,11 +94,30 @@ export default function model(
       function propsReducer(): State {
         return {
           postText: props.text || '',
+          postTextSelection: props.text
+            ? {start: props.text.length, end: props.text.length}
+            : {start: 0, end: 0},
+          mentionQuery: '',
+          mentionSuggestions: [],
+          mentionChoiceTimestamp: 0,
           root: props.root,
+          authors: props.authors || [],
           contentWarning: '',
           avatarUrl: undefined,
           previewing: false,
         };
+      },
+  );
+
+  const updateSelectionReducer$ = actions.updateSelection$.map(
+    postTextSelection =>
+      function updateCursorPositionReducer(prev: State): State {
+        // If the mention TextInput is open, dont update the postText selection
+        if (prev.mentionQuery) {
+          return prev;
+        } else {
+          return {...prev, postTextSelection};
+        }
       },
   );
 
@@ -67,6 +126,117 @@ export default function model(
       function updatePostTextReducer(prev: State): State {
         return {...prev, postText};
       },
+  );
+
+  const updateMentionSuggestionsReducer1$ = actions.suggestMention$
+    .compose(sampleCombine(state$))
+    .map(([[mentionQuery, selection], state]) =>
+      ssbSource
+        .getMentionSuggestions(mentionQuery, state.authors)
+        .map(
+          suggestions =>
+            [suggestions, selection] as [Array<MentionSuggestion>, Selection],
+        ),
+    )
+    .flatten()
+    .map(
+      ([mentionSuggestions, prevSelection]) =>
+        function updateMentionSuggestionsReducer1(prev: State): State {
+          let mentionQuery = parseMention(prev.postText, prevSelection);
+          const cursor = prevSelection.start;
+          if (mentionSuggestions.length && mentionQuery) {
+            mentionQuery = '@' + mentionQuery;
+            const mentionPosition = cursor - mentionQuery.length;
+            const preMention = prev.postText.substr(0, mentionPosition);
+            const postMention = prev.postText.substr(cursor);
+            const postText = preMention + postMention;
+            const postTextSelection = {
+              start: cursor - mentionQuery.length,
+              end: cursor - mentionQuery.length,
+            };
+            return {
+              ...prev,
+              postText,
+              postTextSelection,
+              mentionQuery,
+              mentionSuggestions,
+            };
+          } else {
+            return {...prev, mentionSuggestions};
+          }
+        },
+    );
+
+  const updateMentionQueryReducer$ = actions.updateMentionQuery$.map(
+    mentionQuery =>
+      function updateMentionQueryReducer(prev: State): State {
+        if (mentionQuery.length) {
+          return {...prev, mentionQuery};
+        } else {
+          return {...prev, mentionQuery, mentionSuggestions: []};
+        }
+      },
+  );
+
+  const updateMentionSuggestionsReducer2$ = actions.updateMentionQuery$
+    .compose(sampleCombine(state$))
+    .map(([mentionQuery, state]) =>
+      ssbSource.getMentionSuggestions(
+        mentionQuery.replace(/^@+/g, ''),
+        state.authors,
+      ),
+    )
+    .flatten()
+    .map(
+      mentionSuggestions =>
+        function updateMentionSuggestionsReducer2(prev: State): State {
+          return {...prev, mentionSuggestions};
+        },
+    );
+
+  const chooseMentionReducer$ = actions.chooseMention$.map(
+    chosen =>
+      function chooseMentionReducer(prev: State): State {
+        const cursor = prev.postTextSelection.start;
+        const preMention = prev.postText.substr(0, cursor);
+        const postMention = prev.postText.substr(cursor);
+        const mention = `[@${chosen.name}](${chosen.id}) `;
+        const postText = preMention + mention + postMention;
+        const postTextSelection = {
+          start: cursor + mention.length,
+          end: cursor + mention.length,
+        };
+        return {
+          ...prev,
+          postText,
+          postTextSelection,
+          mentionQuery: '',
+          mentionSuggestions: [],
+          mentionChoiceTimestamp: Date.now(),
+        };
+      },
+  );
+
+  const cancelMentionReducer$ = actions.cancelMention$.mapTo(
+    function cancelMentionReducer(prev: State): State {
+      const cursor = prev.postTextSelection.start;
+      const preMention = prev.postText.substr(0, cursor);
+      const postMention = prev.postText.substr(cursor);
+      const mention = prev.mentionQuery + ' ';
+      const postText = preMention + mention + postMention;
+      const postTextSelection = {
+        start: cursor + mention.length,
+        end: cursor + mention.length,
+      };
+      return {
+        ...prev,
+        postText,
+        postTextSelection,
+        mentionQuery: '',
+        mentionSuggestions: [],
+        mentionChoiceTimestamp: Date.now(),
+      };
+    },
   );
 
   const addPictureReducer$ = actions.addPictureWithCaption$
@@ -137,7 +307,13 @@ export default function model(
 
   return xs.merge(
     propsReducer$,
+    updateSelectionReducer$,
     updatePostTextReducer$,
+    updateMentionQueryReducer$,
+    updateMentionSuggestionsReducer1$,
+    updateMentionSuggestionsReducer2$,
+    chooseMentionReducer$,
+    cancelMentionReducer$,
     addPictureReducer$,
     updateContentWarningReducer$,
     togglePreviewReducer$,

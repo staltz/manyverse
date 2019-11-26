@@ -14,7 +14,7 @@ import {
   Command as StorageCommand,
   AsyncStorageSource,
 } from 'cycle-native-asyncstorage';
-import {MsgId} from 'ssb-typescript';
+import {MsgId, FeedId} from 'ssb-typescript';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import {topBar, Sinks as TBSinks} from './top-bar';
@@ -28,6 +28,7 @@ import asyncStorage from './asyncstorage';
 
 export type Props = {
   text?: string;
+  authors?: Array<FeedId>;
   root?: MsgId;
 };
 
@@ -80,6 +81,7 @@ export function compose(sources: Sources): Sinks {
   const reducer$ = model(
     sources.props,
     actionsPlus,
+    sources.state.stream,
     sources.asyncstorage,
     sources.ssb,
   );

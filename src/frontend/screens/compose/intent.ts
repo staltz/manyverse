@@ -7,28 +7,25 @@
 import xs, {Stream} from 'xstream';
 import between from 'xstream-between';
 import sample from 'xstream-sample';
+import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactSource} from '@cycle/react';
+import {
+  TextInputSelectionChangeEventData,
+  NativeSyntheticEvent,
+} from 'react-native';
 import {NavSource} from 'cycle-native-navigation';
+import {FeedId} from 'ssb-typescript';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import {DialogSource} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
-import {State} from './model';
-
-function isPost(state: State): boolean {
-  return !state.root;
-}
-
-function isReply(state: State): boolean {
-  return !!state.root;
-}
-
-function isTextEmpty(state: State): boolean {
-  return !state.postText;
-}
-
-function hasText(state: State): boolean {
-  return state.postText.length > 0;
-}
+import {
+  State,
+  isPost,
+  isTextEmpty,
+  hasText,
+  isReply,
+  parseMention,
+} from './model';
 
 export default function intent(
   reactSource: ReactSource,
@@ -74,6 +71,20 @@ export default function intent(
     .filter(isReply)
     .filter(hasText);
 
+  // TextInput Selection events, but ignore the first event caused by a focus
+  const updateSelection$ = reactSource
+    .select('composeInput')
+    .events('focus')
+    .startWith('initial focus')
+    .map(() =>
+      (reactSource.select('composeInput').events('selectionChange') as Stream<
+        NativeSyntheticEvent<TextInputSelectionChangeEventData>
+      >)
+        .drop(1)
+        .map(ev => ev.nativeEvent.selection),
+    )
+    .flatten();
+
   return {
     publishPost$,
 
@@ -84,6 +95,28 @@ export default function intent(
     updatePostText$: reactSource
       .select('composeInput')
       .events('changeText') as Stream<string>,
+
+    updateMentionQuery$: reactSource
+      .select('mentionInput')
+      .events('changeText') as Stream<string>,
+
+    updateSelection$,
+
+    suggestMention$: updateSelection$
+      .compose(sampleCombine(state$))
+      .map(
+        ([selection, state]) =>
+          [parseMention(state.postText, selection), selection] as [
+            ReturnType<typeof parseMention>,
+            typeof selection,
+          ],
+      ),
+
+    chooseMention$: reactSource
+      .select('suggestions')
+      .events('pressAccount') as Stream<{id: FeedId; name: string}>,
+
+    cancelMention$: reactSource.select('mentions-cancel').events('press'),
 
     openContentWarning$: reactSource
       .select('content-warning')

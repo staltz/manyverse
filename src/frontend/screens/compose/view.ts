@@ -6,6 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
+import pairwise from 'xstream/extra/pairwise';
 import {h} from '@cycle/react';
 import {ReactElement} from 'react';
 import {
@@ -15,7 +16,9 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  TextInputProps,
 } from 'react-native';
+import {propifyMethods} from 'react-propify-methods';
 import {Palette} from '../../global-styles/palette';
 import Markdown from '../../components/Markdown';
 import Avatar from '../../components/Avatar';
@@ -23,10 +26,16 @@ import {State} from './model';
 import {styles, avatarSize} from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Dimensions} from '../../global-styles/dimens';
+import AccountsList from '../../components/AccountsList';
+const FocusableTextInput = propifyMethods(TextInput, 'focus' as any);
 
 type MiniState = Pick<State, 'postText'> &
-  Pick<State, 'previewing'> &
-  Pick<State, 'contentWarning'>;
+  Pick<State, 'postTextSelection'> &
+  Pick<State, 'mentionQuery'> &
+  Pick<State, 'mentionSuggestions'> &
+  Pick<State, 'mentionChoiceTimestamp'> &
+  Pick<State, 'contentWarning'> &
+  Pick<State, 'previewing'>;
 
 function ContentWarningButton(miniState: MiniState) {
   const style = miniState.contentWarning
@@ -85,23 +94,33 @@ function AddPictureButton() {
   );
 }
 
-function MarkdownPreview(miniState: MiniState) {
+function MarkdownPreview(state: MiniState) {
   return h(
     ScrollView,
     {
       style: styles.composePreview,
       contentContainerStyle: styles.previewContentContainer,
     },
-    [Markdown(miniState.postText)],
+    [Markdown(state.postText)],
   );
 }
 
-function MarkdownInput(miniState: MiniState) {
-  return h(TextInput, {
+function maybeSelectionProp(state: MiniState): keyof TextInputProps {
+  if (Date.now() < state.mentionChoiceTimestamp + 200) {
+    return 'selection';
+  } else {
+    return 'doNotApplySelection' as any;
+  }
+}
+
+function MarkdownInput(state: MiniState, focus$: Stream<undefined>) {
+  return h(FocusableTextInput, {
     style: styles.composeInput,
     sel: 'composeInput',
     nativeID: 'FocusViewOnResume',
-    value: miniState.postText,
+    focus$,
+    value: state.postText,
+    [maybeSelectionProp(state)]: state.postTextSelection,
     accessible: true,
     accessibilityLabel: 'Compose Text Input',
     autoFocus: true,
@@ -114,6 +133,53 @@ function MarkdownInput(miniState: MiniState) {
   });
 }
 
+function MentionSuggestions(state: MiniState, focus$: Stream<undefined>) {
+  return h(View, {style: styles.mentionsOverlay}, [
+    h(View, {style: styles.mentionsInputContainer}, [
+      h(Icon, {
+        size: Dimensions.iconSizeNormal,
+        style: styles.mentionsIcon,
+        color: Palette.textVeryWeak,
+        name: 'account-search',
+      }),
+      h(FocusableTextInput, {
+        style: styles.mentionsInput,
+        sel: 'mentionInput',
+        value: state.mentionQuery,
+        focus$,
+        accessible: true,
+        accessibilityLabel: 'Mention Account Text Input',
+        multiline: false,
+        returnKeyType: 'done',
+        selectionColor: Palette.backgroundTextSelection,
+        underlineColorAndroid: Palette.textLine,
+      }),
+      h(
+        TouchableOpacity,
+        {
+          sel: 'mentions-cancel',
+          style: styles.mentionsCancelButton,
+          activeOpacity: 0.2,
+          accessible: true,
+          accessibilityLabel: 'Cancel Button',
+        },
+        [h(Text, {style: styles.mentionsCancelText}, 'Cancel')],
+      ),
+    ]),
+
+    h(
+      ScrollView,
+      {style: styles.mentionsList, keyboardShouldPersistTaps: 'always'},
+      [
+        h(AccountsList, {
+          sel: 'suggestions',
+          accounts: state.mentionSuggestions as any,
+        }),
+      ],
+    ),
+  ]);
+}
+
 export default function view(
   state$: Stream<State>,
   topBar$: Stream<ReactElement<any>>,
@@ -123,28 +189,44 @@ export default function view(
     .compose(dropRepeats())
     .startWith(undefined);
 
-  const miniState$ = state$
-    .map(
-      state =>
-        ({
-          postText: state.postText,
-          previewing: state.previewing,
-          contentWarning: state.contentWarning,
-        } as MiniState),
-    )
+  const miniState$ = (state$ as Stream<MiniState>)
     .compose(
-      dropRepeats(
+      dropRepeats<MiniState>(
         (s1, s2) =>
           s1.previewing === s2.previewing &&
           s1.postText === s2.postText &&
-          s1.contentWarning === s2.contentWarning,
+          s1.postTextSelection === s2.postTextSelection &&
+          s1.contentWarning === s2.contentWarning &&
+          s1.mentionQuery === s2.mentionQuery &&
+          s1.mentionSuggestions === s2.mentionSuggestions &&
+          s1.mentionChoiceTimestamp === s2.mentionChoiceTimestamp,
       ),
     )
-    .startWith({postText: '', previewing: false, contentWarning: ''});
+    .startWith({
+      postText: '',
+      postTextSelection: {start: 0, end: 0},
+      previewing: false,
+      contentWarning: '',
+      mentionQuery: '',
+      mentionSuggestions: [],
+      mentionChoiceTimestamp: 0,
+    });
+
+  const mentionQueryPairwise$ = miniState$
+    .map(s => s.mentionQuery)
+    .compose(pairwise);
+
+  const focusMarkdownInput$ = mentionQueryPairwise$
+    .filter(([prev, curr]) => !!prev && !curr)
+    .mapTo(void 0);
+
+  const focusMentionQuery$ = mentionQueryPairwise$
+    .filter(([prev, curr]) => !prev && !!curr)
+    .mapTo(void 0);
 
   return xs
     .combine(topBar$, avatarUrl$, miniState$)
-    .map(([topBar, avatarUrl, miniState]) =>
+    .map(([topBar, avatarUrl, state]) =>
       h(View, {style: styles.container}, [
         topBar,
         h(KeyboardAvoidingView, {style: styles.bodyContainer, enabled: true}, [
@@ -153,12 +235,16 @@ export default function view(
             h(View, {style: styles.leftSpacer}),
             OpenCameraButton(),
             AddPictureButton(),
-            ContentWarningButton(miniState),
+            ContentWarningButton(state),
           ]),
 
-          miniState.previewing
-            ? MarkdownPreview(miniState)
-            : MarkdownInput(miniState),
+          state.previewing
+            ? MarkdownPreview(state)
+            : MarkdownInput(state, focusMarkdownInput$),
+
+          state.mentionSuggestions.length || state.mentionQuery
+            ? MentionSuggestions(state, focusMentionQuery$)
+            : null,
         ]),
       ]),
     );
