@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.1911.27-beta
+
+* Feature: mention other accounts using @ ([see details](https://gitlab.com/staltz/manyverse/commit/b57df464d7464b3a75866c5f7125caa6ccedb917))
+
 ## 0.1911.19-beta
 
 * Bug fix: correct metadata for links inside messages ([see details](https://gitlab.com/staltz/manyverse/commit/7defdf9c55f160e73c26a31ce60dc12565b108b2))
