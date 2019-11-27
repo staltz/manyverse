@@ -57,31 +57,37 @@ const bluetoothManager: any = BluetoothManager({
 });
 
 SecretStack({appKey: require('ssb-caps').shs})
+  // Core
   .use(require('ssb-master'))
-  .use(require('./multiserver'))
-  .use(bluetoothTransportAndPlugin(bluetoothManager, {scope: 'public'}))
   .use(require('ssb-db'))
+  // Replication
+  .use(require('ssb-replicate')) // needs: db
+  .use(require('ssb-friends')) // needs: db, replicate
+  .use(require('ssb-ebt')) // needs: db, replicate, friends
+  // Connections
+  .use(require('./multiserver'))
   .use(require('ssb-lan'))
-  .use(require('ssb-conn')) // needs: lan, bluetooth
-  .use(require('ssb-dht-invite'))
-  .use(require('ssb-room/tunnel/client'))
-  .use(require('ssb-replicate'))
-  .use(require('ssb-backlinks'))
-  .use(require('ssb-about'))
-  .use(require('ssb-friends'))
-  .use(require('ssb-suggest-fork')) // needs: backlinks, about, friends
+  .use(bluetoothTransportAndPlugin(bluetoothManager, {scope: 'public'}))
+  .use(require('ssb-conn')) // needs: db, friends, lan, bluetooth
+  .use(require('ssb-room/tunnel/client')) // needs: conn
+  .use(require('ssb-dht-invite')) // needs: db, conn
+  .use(require('ssb-invite-client')) // needs: db, conn
+  // Queries
+  .use(require('ssb-query')) // needs: db
+  .use(require('ssb-private')) // needs: db
+  .use(require('ssb-backlinks')) // needs: db
+  .use(require('ssb-about')) // needs: db, backlinks
+  .use(require('ssb-suggest-fork')) // needs: db, backlinks, about, friends
+  .use(require('ssb-threads')) // needs: db, backlinks, friends
+  // Blobs
   .use(require('ssb-blobs'))
-  .use(require('ssb-serve-blobs'))
-  .use(require('ssb-private'))
-  .use(require('ssb-query'))
-  .use(require('ssb-threads'))
-  .use(require('ssb-invite-client'))
-  .use(require('ssb-ebt')) // needs: replicate
-  .use(require('./plugins/blobsUtils'))
-  .use(require('./plugins/connUtils'))
-  .use(require('./plugins/feedUtilsBack'))
-  .use(require('./plugins/friendsUtils'))
+  .use(require('ssb-serve-blobs')) // needs: blobs
+  // Customizations
+  .use(require('./plugins/blobsUtils')) // needs: blobs
+  .use(require('./plugins/connUtils')) // needs: conn
+  .use(require('./plugins/feedUtilsBack')) // needs: db, blobs, blobsUtils
+  .use(require('./plugins/friendsUtils')) // needs: db
   .use(require('./plugins/keysUtils'))
-  .use(require('./plugins/syncing'))
-  .use(require('./plugins/votes'))
+  .use(require('./plugins/syncing')) // needs: db
+  .use(require('./plugins/votes')) // needs: backlinks
   .call(null, config);
