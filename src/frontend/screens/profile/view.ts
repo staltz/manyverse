@@ -51,7 +51,7 @@ export default function view(
             accessible: true,
             accessibilityLabel: 'Profile Name',
           },
-          state.about.name || shortFeedId(state.about.id),
+          state.about.name ?? shortFeedId(state.about.id),
         ),
       ]),
 

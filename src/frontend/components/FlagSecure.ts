@@ -45,6 +45,6 @@ export default class FlagSecure extends Component {
   }
 
   public render() {
-    return this.props.children || null;
+    return this.props.children ?? null;
   }
 }

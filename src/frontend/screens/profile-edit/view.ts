@@ -79,7 +79,7 @@ export default function view(
           multiline: true,
           autoFocus: false,
           numberOfLines: 1,
-          defaultValue: state.about.description || '',
+          defaultValue: state.about.description ?? '',
           underlineColorAndroid: Palette.backgroundBrand,
           accessible: true,
           accessibilityLabel: 'Description Text Input',

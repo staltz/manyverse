@@ -96,7 +96,7 @@ function connMenuOptions(targetPeer: any) {
     }),
   ];
 
-  if (targetPeer && targetPeer[1] && targetPeer[1].isInDB) {
+  if (targetPeer?.[1]?.isInDB) {
     options.push(
       h(MenuOption, {
         value: menuChoice('disconnect-forget'),

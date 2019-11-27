@@ -8,7 +8,7 @@ import {Msg, FeedId} from 'ssb-typescript';
 const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
 
 export function authorName(name: string | null, msg: Msg): string {
-  return name || shortFeedId(msg.value.author);
+  return name ?? shortFeedId(msg.value.author);
 }
 
 export function shortFeedId(feedId: FeedId): string {

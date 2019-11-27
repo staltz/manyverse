@@ -55,7 +55,7 @@ export default class HeaderButton extends PureComponent<Props> {
       [
         h(Icon, {
           size: 24,
-          color: color || 'white',
+          color: color ?? 'white',
           name: icon,
           accessible: true,
           accessibilityLabel,

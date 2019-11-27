@@ -34,7 +34,7 @@ export default function view(
             selectable: true,
             selectionColor: Palette.backgroundTextSelection,
           },
-          state.inviteCode || 'loading...',
+          state.inviteCode ?? 'loading...',
         ),
         h(Text, {style: styles.about, textBreakStrategy: 'simple'}, [
           'YOU WILL SYNC WHEN YOU ARE ' as any,

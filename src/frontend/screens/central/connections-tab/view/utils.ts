@@ -134,5 +134,5 @@ export function peerModeName(addr: KV[0], data: KV[1]): string {
     type === 'room-endpoint'
       ? data.note || data.key
       : addr;
-  return (data as any).name || secondary;
+  return (data as any).name ?? secondary;
 }

@@ -203,7 +203,7 @@ export default class StagedConnectionsList extends Component<Props, State> {
             key: 'inconnection',
             style: styles.container,
             data: this.state.peers,
-            keyExtractor: ([addr, data]) => data.hubBirth || addr,
+            keyExtractor: ([addr, data]) => data.hubBirth ?? addr,
             renderItem: this.renderPeer,
             itemHeight: ITEM_HEIGHT,
           })

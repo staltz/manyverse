@@ -151,8 +151,8 @@ export default class Feed extends PureComponent<Props, State> {
     this.yOffset = 0;
 
     this._onScroll = (ev: {nativeEvent: NativeScrollEvent}) => {
-      if (ev && ev.nativeEvent && ev.nativeEvent.contentOffset) {
-        this.yOffset = ev.nativeEvent.contentOffset.y || 0;
+      if (ev?.nativeEvent?.contentOffset) {
+        this.yOffset = ev.nativeEvent.contentOffset.y ?? 0;
       }
     };
     this._onFeedInitialPullDone = () => {
@@ -168,7 +168,7 @@ export default class Feed extends PureComponent<Props, State> {
   private subscription?: Subscription;
 
   public componentDidMount() {
-    this.addedThreadsStream = this.addedThreadsStream || Pushable();
+    this.addedThreadsStream = this.addedThreadsStream ?? Pushable();
     const {publication$} = this.props;
     if (publication$) {
       const listener = {next: this.onPublication.bind(this)};
@@ -234,15 +234,15 @@ export default class Feed extends PureComponent<Props, State> {
       onInitialPullDone: this._onFeedInitialPullDone,
       onRefresh,
       onScroll: this._onScroll,
-      scrollToOffset$: (scrollToTop$ || xs.never())
+      scrollToOffset$: (scrollToTop$ ?? xs.never())
         .filter(() => this.yOffset > Y_OFFSET_IS_AT_TOP)
         .mapTo({offset: 0, animated: true}),
-      forceRefresh$: (scrollToTop$ || xs.never())
+      forceRefresh$: (scrollToTop$ ?? xs.never())
         .filter(() => this.yOffset <= Y_OFFSET_IS_AT_TOP)
         .mapTo(void 0),
       refreshColors: [Palette.backgroundBrandWeak],
       keyExtractor: (thread: ThreadAndExtras, index: number) =>
-        thread.messages[0].key || String(index),
+        thread.messages[0].key ?? String(index),
       ListHeaderComponent: showPlaceholder ? PlaceholderWithSeparator : null,
       ListFooterComponent: initialLoading ? InitialLoading : PlaceholderMessage,
       ListEmptyComponent: EmptyComponent,
@@ -256,7 +256,7 @@ export default class Feed extends PureComponent<Props, State> {
             onPressReply,
             onPressAuthor,
             onPressEtc,
-            onPressExpand: onPressExpandThread || ((x: any) => {}),
+            onPressExpand: onPressExpandThread ?? (() => {}),
           }),
           h(Separator),
         ]),

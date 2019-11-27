@@ -121,7 +121,7 @@ export default class ContactMessage extends Component<Props, {}> {
           h(
             Text,
             {style: styles.account, onPress: this._onPressOrigin},
-            name || shortFeedId(msg.value.author),
+            name ?? shortFeedId(msg.value.author),
           ),
           h(
             Text,
@@ -136,7 +136,7 @@ export default class ContactMessage extends Component<Props, {}> {
           h(
             Text,
             {style: styles.account, onPress: this._onPressDestination},
-            contactName || shortFeedId(msg.value.content.contact || '?'),
+            contactName ?? shortFeedId(msg.value.content.contact ?? '?'),
           ),
         ]),
       ]),

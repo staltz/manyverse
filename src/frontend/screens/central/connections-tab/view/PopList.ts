@@ -214,7 +214,7 @@ export default class PopList<T> extends PureComponent<Props<T>, State<T>> {
   }
 
   public purgeOldItems() {
-    const maxDuration = (this.props.animationDuration || DEFAULT_DURATION) * 3;
+    const maxDuration = (this.props.animationDuration ?? DEFAULT_DURATION) * 3;
     const now = Date.now();
     let purged: boolean = false;
     const newData = this.state.data.filter(([, , ts]) => {
@@ -244,9 +244,9 @@ export default class PopList<T> extends PureComponent<Props<T>, State<T>> {
           PopItem,
           {
             key,
-            animationDuration: this.props.animationDuration || DEFAULT_DURATION,
+            animationDuration: this.props.animationDuration ?? DEFAULT_DURATION,
             itemHeight:
-              this.props.itemHeight || this.props.getItemHeight!(item),
+              this.props.itemHeight ?? this.props.getItemHeight!(item),
             removed: ts > 0,
             onExit: () => this.onItemExit(key),
           },

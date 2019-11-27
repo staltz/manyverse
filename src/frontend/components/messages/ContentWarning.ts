@@ -63,7 +63,7 @@ export default class EmptySection extends PureComponent<Props> {
       activeOpacity: 0.4,
     };
 
-    return h(View, {style: [styles.container, style || null]}, [
+    return h(View, {style: [styles.container, style ?? null]}, [
       h(Text, {style: styles.description, selectable: true}, [
         h(Icon, {
           size: Typography.fontSizeNormal,

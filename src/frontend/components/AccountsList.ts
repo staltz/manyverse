@@ -119,7 +119,7 @@ export default class AccountsList extends PureComponent<Props> {
           name,
           imageUrl,
           id,
-          onPress: () => onPressAccount && onPressAccount({id, name}),
+          onPress: () => onPressAccount?.({id, name}),
         }),
       ),
     );

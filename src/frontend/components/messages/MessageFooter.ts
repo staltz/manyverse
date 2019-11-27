@@ -239,20 +239,16 @@ export default class MessageFooter extends Component<Props> {
   };
 
   private onPressReplyHandler = () => {
-    const onPressReply = this.props.onPressReply;
-    if (!onPressReply) return;
-
     const msg = this.props.msg;
     const msgKey = msg.key;
-    const rootKey =
-      msg.value && msg.value.content && (msg.value.content as PostContent).root;
-    onPressReply({msgKey, rootKey: rootKey || msgKey});
+    const rootKey = (msg?.value?.content as PostContent)?.root ?? msgKey;
+    this.props.onPressReply?.({msgKey, rootKey});
   };
 
   public shouldComponentUpdate(nextProps: Props) {
     const prevProps = this.props;
     return (
-      (nextProps.likes || []).length !== (prevProps.likes || []).length ||
+      (nextProps.likes ?? []).length !== (prevProps.likes ?? []).length ||
       nextProps.msg.key !== prevProps.msg.key
     );
   }
@@ -261,7 +257,7 @@ export default class MessageFooter extends Component<Props> {
     const timestamp = Date.now();
     const props = this.props;
     const shouldShowReply = !!props.onPressReply;
-    const likes = props.likes || [];
+    const likes = props.likes ?? [];
     const likeCount = likes.length;
     this.likeToggled = likes.some(feedId => feedId === props.selfFeedId);
 

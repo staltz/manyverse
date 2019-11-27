@@ -166,7 +166,7 @@ function view(state$: Stream<State>, topBar$: Stream<ReactElement<any>>) {
               selectable: true,
               selectionColor: Palette.backgroundTextSelection,
             },
-            state.words || 'loading...',
+            state.words ?? 'loading...',
           ),
 
           h(Text, {style: styles.topDescription, textBreakStrategy: 'simple'}, [

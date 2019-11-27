@@ -30,7 +30,7 @@ function renderName(name?: string) {
       numberOfLines: 1,
       ellipsizeMode: 'middle',
     },
-    name || 'No name',
+    name ?? 'No name',
   );
 }
 

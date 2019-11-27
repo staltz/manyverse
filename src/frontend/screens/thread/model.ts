@@ -64,10 +64,10 @@ export default function model(
 ): Stream<Reducer<State>> {
   const propsReducer$ = props$.take(1).map(
     props =>
-      function propsReducer(prev?: State): State {
+      function propsReducer(_prev?: State): State {
         return {
           selfFeedId: props.selfFeedId,
-          rootMsgId: props.rootMsgId || null,
+          rootMsgId: props.rootMsgId ?? null,
           loading: true,
           thread: emptyThread,
           replyText: '',

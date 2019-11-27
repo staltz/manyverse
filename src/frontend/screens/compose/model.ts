@@ -66,8 +66,7 @@ export function parseMention(
 ): string | null {
   if (selection.start !== selection.end) return null;
   const results = /(^| )@(\w+)$/gm.exec(postText.substr(0, selection.start));
-  if (!results || !results[2]) return null;
-  return results[2];
+  return results?.[2] ?? null;
 }
 
 export type Actions = {
@@ -93,7 +92,7 @@ export default function model(
     props =>
       function propsReducer(): State {
         return {
-          postText: props.text || '',
+          postText: props.text ?? '',
           postTextSelection: props.text
             ? {start: props.text.length, end: props.text.length}
             : {start: 0, end: 0},
@@ -101,7 +100,7 @@ export default function model(
           mentionSuggestions: [],
           mentionChoiceTimestamp: 0,
           root: props.root,
-          authors: props.authors || [],
+          authors: props.authors ?? [],
           contentWarning: '',
           avatarUrl: undefined,
           previewing: false,
@@ -256,7 +255,7 @@ export default function model(
               separator = Array(addLines + 1).join('\n');
             }
 
-            const imgMarkdown = `![${caption || 'image'}](${blobId})`;
+            const imgMarkdown = `![${caption ?? 'image'}](${blobId})`;
 
             return {
               ...prev,

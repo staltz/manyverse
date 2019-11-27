@@ -61,7 +61,7 @@ export default class EmptySection extends PureComponent<Props> {
   public render() {
     const {image, title, description, style} = this.props;
 
-    return h(View, {style: [styles.container, style || null]}, [
+    return h(View, {style: [styles.container, style ?? null]}, [
       image ? h(Image, {style: styles.image, source: image}) : null,
       h(Text, {style: styles.title, selectable: true}, title),
       h(

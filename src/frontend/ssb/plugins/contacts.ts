@@ -16,7 +16,7 @@ const contactPlugin = {
   init: (ssb: any) => {
     const streams: Record<FeedId, Record<FeedId, Stream<Tristate>>> = {};
     function getStream(source: FeedId, dest: FeedId) {
-      streams[source] = streams[source] || {};
+      streams[source] = streams[source] ?? {};
       if (!streams[source][dest]) {
         streams[source][dest] = xs.createWithMemory();
         streams[source][dest].shamefullySendNext(null);

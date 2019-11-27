@@ -21,7 +21,7 @@ export = {
     },
   },
   init: function init(ssb: any) {
-    if (!ssb.blobs || !ssb.blobs.add) {
+    if (!ssb.blobs?.add) {
       throw new Error('"blobsUtils" is missing required plugin "ssb-blobs"');
     }
 

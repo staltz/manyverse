@@ -23,10 +23,10 @@ export = {
     },
   },
   init: function init(ssb: any) {
-    if (!ssb.blobs || !ssb.blobs.push) {
+    if (!ssb.blobs?.push) {
       throw new Error('"feedUtilsBack" is missing required plugin "ssb-blobs"');
     }
-    if (!ssb.blobsUtils || !ssb.blobsUtils.addFromPath) {
+    if (!ssb.blobsUtils?.addFromPath) {
       throw new Error(
         '"feedUtilsBack" is missing required plugin "blobsUtils"',
       );

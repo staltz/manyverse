@@ -44,7 +44,7 @@ export default function tutorialPresentation(
         showsButtons: false,
         horizontal: true,
         loop: false,
-        scrollBy$: (props || {}).scrollBy$ || xs.never(),
+        scrollBy$: props?.scrollBy$ ?? xs.never(),
         activeDotColor: Palette.colors.white,
         automaticallyAdjustContentInsets: true,
       },

@@ -44,7 +44,7 @@ export default function view(
             accessible: true,
             accessibilityLabel: 'Biographic Description',
           },
-          [Markdown(state.about.description || '')],
+          [Markdown(state.about.description ?? '')],
         ),
       ]),
     ]);

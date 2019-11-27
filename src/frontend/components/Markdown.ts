@@ -230,7 +230,7 @@ const renderers = {
   thematicBreak: () => $(View, {style: styles.horizontalLine}),
 
   image: (props: {src: string; title?: string; alt?: string}) =>
-    $(ZoomableImage, {src: props.src, title: props.title || props.alt}),
+    $(ZoomableImage, {src: props.src, title: props.title ?? props.alt}),
 
   list: (props: {children: any; depth: number; ordered: boolean}) =>
     $(

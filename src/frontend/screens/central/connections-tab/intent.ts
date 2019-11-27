@@ -117,7 +117,7 @@ export default function intent(
         const peer = state.itemMenu.target as PeerKV;
         return {
           invite: roomUtils.addressToInvite(peer[0]),
-          room: (peer[1].name as string) || peer[0],
+          room: (peer[1].name as string) ?? peer[0],
         };
       }),
 

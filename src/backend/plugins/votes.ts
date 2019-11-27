@@ -23,8 +23,7 @@ function collectUniqueAuthors() {
         if (
           !msg ||
           (msg as any).sync ||
-          !msg.value ||
-          !msg.value.content ||
+          !msg.value?.content ||
           msg.value.content.type !== 'vote' ||
           !msg.value.content.vote
         ) {
