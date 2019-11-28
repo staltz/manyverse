@@ -45,7 +45,7 @@
     "ssb-private": "0.2.3",
     "ssb-query": "2.4.3",
     "ssb-ref": "2.13.9",
-    "ssb-replicate": "1.3.0",
+    "ssb-replicate": "1.3.2",
     "ssb-room": "1.1.1",
     "ssb-serve-blobs": "2.1.0",
     "ssb-suggest": "1.0.6",
