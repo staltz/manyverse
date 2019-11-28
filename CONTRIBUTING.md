@@ -279,13 +279,13 @@ Run `cd android && ./gradlew assembleRelease` (just builds the APK) or `npm run 
 
 After `npm run release` runs, it will update APK files in two folders: `../dat-release-all` and `../dat-release-latest`. The following steps should be done manually (until we automate this):
 
-- `git push origin master`
 - Deploy to Dat Installer
   - `cd ../dat-release-latest` and `dat sync`
 - Install new version through Dat Installer and make sure it works
+- `git push origin master`
 - Deploy to F-Droid: `git push origin --tags`
 - Deploy to Google Play
-  - Take the APK file from `../dat-release-latest`, upload and publish it on Google Play developer website
+  - Take the APK file from `android/app/build/outputs/apk/googlePlay/release`, upload and publish it on Google Play developer website
 - Announce on Scuttlebutt
   - After `npm run release` ends, it shows in the terminal a ready markdown post, publish that into Scuttlebutt under the hashtag `#manyverse`
 - Announce on Twitter
