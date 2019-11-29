@@ -4,6 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import {Platform} from 'react-native';
+
 const BASE_SIZE = 15; // px
 const SCALE = 1.125;
 
@@ -18,6 +20,13 @@ export const Typography = {
   fontSizeBig: BASE_SIZE * scaleUp,
   fontSizeNormal: BASE_SIZE,
   fontSizeSmall: BASE_SIZE * scaleDown,
-  fontFamilyReadableText: 'sans-serif-light',
-  fontFamilyMonospace: 'monospace',
+  fontFamilyReadableText: Platform.select({
+    android: 'sans-serif-light',
+    ios: 'Helvetica Neue',
+    default: 'sans-serif',
+  }),
+  fontFamilyMonospace: Platform.select({
+    ios: 'Courier New',
+    default: 'monospace',
+  }),
 };
