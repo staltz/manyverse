@@ -6,7 +6,9 @@
 
 import xs, {Stream, Listener} from 'xstream';
 import {BluetoothStatus} from 'react-native-bluetooth-status';
+import {Platform} from 'react-native';
 const wifi = require('react-native-android-wifi');
+const SystemSetting = require('react-native-system-setting').default;
 const hasInternet = require('react-native-has-internet');
 
 export class NetworkSource {
@@ -29,10 +31,17 @@ export class NetworkSource {
   public wifiIsEnabled(): Stream<boolean> {
     return xs.create({
       start(listener: Listener<boolean>) {
-        wifi.isEnabled((isEnabled: boolean) => {
-          listener.next(isEnabled);
-          listener.complete();
-        });
+        if (Platform.OS === 'android') {
+          wifi.isEnabled((isEnabled: boolean) => {
+            listener.next(isEnabled);
+            listener.complete();
+          });
+        } else {
+          SystemSetting.isWifiEnabled().then((isEnabled: boolean) => {
+            listener.next(isEnabled);
+            listener.complete();
+          });
+        }
       },
       stop() {},
     });

@@ -35,6 +35,7 @@ target 'Manyverse' do
 
   pod 'ReactNativeNavigation', :podspec => '../node_modules/react-native-navigation/ReactNativeNavigation.podspec'
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+  pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
 
   target 'ManyverseTests' do
     inherit! :search_paths

@@ -17,5 +17,11 @@ module.exports = {
         ios: null,
       },
     },
+    'react-native-system-setting': {
+      platforms: {
+        // On Android, we use react-native-android-wifi, so we don't need this
+        android: null,
+      },
+    },
   },
 };

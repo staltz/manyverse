@@ -14,6 +14,8 @@ PODS:
   - nodejs-mobile-react-native (0.5.0):
     - React
   - QBImagePickerController (3.4.0)
+  - RCTSystemSetting (1.7.3):
+    - React
   - React (0.60.5):
     - React-Core (= 0.60.5)
     - React-DevSupport (= 0.60.5)
@@ -109,6 +111,7 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - nodejs-mobile-react-native (from `../node_modules/nodejs-mobile-react-native`)
+  - RCTSystemSetting (from `../node_modules/react-native-system-setting`)
   - React (from `../node_modules/react-native/`)
   - React-Core (from `../node_modules/react-native/React`)
   - React-cxxreact (from `../node_modules/react-native/ReactCommon/cxxreact`)
@@ -129,7 +132,7 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
-  - ReactNativeNavigation (from `../node_modules/react-native-navigation`)
+  - ReactNativeNavigation (from `../node_modules/react-native-navigation/ReactNativeNavigation.podspec`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
@@ -151,6 +154,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   nodejs-mobile-react-native:
     :path: "../node_modules/nodejs-mobile-react-native"
+  RCTSystemSetting:
+    :path: "../node_modules/react-native-system-setting"
   React:
     :path: "../node_modules/react-native/"
   React-Core:
@@ -192,7 +197,7 @@ EXTERNAL SOURCES:
   React-RCTWebSocket:
     :path: "../node_modules/react-native/Libraries/WebSocket"
   ReactNativeNavigation:
-    :path: "../node_modules/react-native-navigation"
+    :podspec: "../node_modules/react-native-navigation/ReactNativeNavigation.podspec"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
   RNFS:
@@ -211,6 +216,7 @@ SPEC CHECKSUMS:
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   nodejs-mobile-react-native: 1bdef45fb27ac8416414042b45e3d35830dd2e3e
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
+  RCTSystemSetting: 2870be06565f2398a8786bfe8486ff6880a4326a
   React: 53c53c4d99097af47cf60594b8706b4e3321e722
   React-Core: ba421f6b4f4cbe2fb17c0b6fc675f87622e78a64
   React-cxxreact: 8384287780c4999351ad9b6e7a149d9ed10a2395
@@ -239,6 +245,6 @@ SPEC CHECKSUMS:
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: e3929b037da8f960d0646bafae7ed89ae2aad82a
+PODFILE CHECKSUM: 12d934b3715679ccb3efdebe0cb632762e87806d
 
 COCOAPODS: 1.8.4
