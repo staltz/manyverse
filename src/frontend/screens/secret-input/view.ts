@@ -6,7 +6,14 @@
 
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
-import {StyleSheet, View, Text, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Platform,
+  KeyboardTypeOptions,
+} from 'react-native';
 import {h} from '@cycle/react';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
@@ -100,7 +107,11 @@ export default function view(
             multiline: true,
             autoCapitalize: 'none',
             autoCompleteType: 'password',
-            keyboardType: 'visible-password',
+            keyboardType: Platform.select<KeyboardTypeOptions>({
+              android: 'visible-password',
+              ios: 'ascii-capable',
+              default: 'default',
+            }),
             secureTextEntry: true,
             returnKeyType: 'done',
             placeholder: '48-word recovery phrase',
