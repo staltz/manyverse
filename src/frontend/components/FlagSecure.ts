@@ -17,21 +17,21 @@
  */
 
 import {Component} from 'react';
-import {NativeModules} from 'react-native';
+import {NativeModules, Platform} from 'react-native';
 
 export default class FlagSecure extends Component {
   public static isActive = false;
 
   public static activate() {
     if (!FlagSecure.isActive) {
-      NativeModules.FlagSecure.activate();
+      if (Platform.OS === 'android') NativeModules.FlagSecure.activate();
       FlagSecure.isActive = true;
     }
   }
 
   public static deactivate() {
     if (FlagSecure.isActive) {
-      NativeModules.FlagSecure.deactivate();
+      if (Platform.OS === 'android') NativeModules.FlagSecure.deactivate();
       FlagSecure.isActive = false;
     }
   }
