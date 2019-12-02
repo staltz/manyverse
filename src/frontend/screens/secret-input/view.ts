@@ -12,6 +12,7 @@ import {
   Text,
   TextInput,
   Platform,
+  KeyboardAvoidingView,
   KeyboardTypeOptions,
 } from 'react-native';
 import {h} from '@cycle/react';
@@ -83,53 +84,61 @@ export default function view(
     h(View, {style: styles.screen}, [
       topBarVDOM,
 
-      h(View, {style: styles.container}, [
-        h(FlagSecure, [
-          h(Text, {style: styles.topDescription, textBreakStrategy: 'simple'}, [
-            state.practiceMode
-              ? h(
-                  Text,
-                  {style: styles.bold},
-                  'REPEAT IT TO CONFIRM IT IS CORRECT:\n',
-                )
-              : '',
-            'CAREFULLY INPUT YOUR RECOVERY PHRASE',
-          ]),
+      h(
+        KeyboardAvoidingView,
+        {style: styles.container, enabled: true, behavior: 'height'},
+        [
+          h(FlagSecure, [
+            h(
+              Text,
+              {style: styles.topDescription, textBreakStrategy: 'simple'},
+              [
+                state.practiceMode
+                  ? h(
+                      Text,
+                      {style: styles.bold},
+                      'REPEAT IT TO CONFIRM IT IS CORRECT:\n',
+                    )
+                  : '',
+                'CAREFULLY INPUT YOUR RECOVERY PHRASE',
+              ],
+            ),
 
-          h(TextInput, {
-            style: styles.inputField,
-            sel: 'inputField',
-            nativeID: 'FocusViewOnResume',
-            value: state.inputWords,
-            accessible: true,
-            accessibilityLabel: 'Recovery Phrase Text Input',
-            autoFocus: true,
-            multiline: true,
-            autoCapitalize: 'none',
-            autoCompleteType: 'password',
-            keyboardType: Platform.select<KeyboardTypeOptions>({
-              android: 'visible-password',
-              ios: 'ascii-capable',
-              default: 'default',
+            h(TextInput, {
+              style: styles.inputField,
+              sel: 'inputField',
+              nativeID: 'FocusViewOnResume',
+              value: state.inputWords,
+              accessible: true,
+              accessibilityLabel: 'Recovery Phrase Text Input',
+              autoFocus: true,
+              multiline: true,
+              autoCapitalize: 'none',
+              autoCompleteType: 'password',
+              keyboardType: Platform.select<KeyboardTypeOptions>({
+                android: 'visible-password',
+                ios: 'ascii-capable',
+                default: 'default',
+              }),
+              secureTextEntry: true,
+              returnKeyType: 'done',
+              placeholder: '48-word recovery phrase',
+              placeholderTextColor: Palette.textVeryWeak,
+              selectionColor: Palette.backgroundTextSelection,
+              underlineColorAndroid: Palette.backgroundTextWeak,
             }),
-            secureTextEntry: true,
-            returnKeyType: 'done',
-            placeholder: '48-word recovery phrase',
-            placeholderTextColor: Palette.textVeryWeak,
-            selectionColor: Palette.backgroundTextSelection,
-            underlineColorAndroid: Palette.backgroundTextWeak,
-          }),
 
-          h(Button, {
-            sel: 'confirm',
-            style: styles.ctaButton,
-            text: 'Confirm',
-            strong: true,
-            accessible: true,
-            accessibilityLabel: 'Confirm Recovery Phrase Button',
-          }),
-        ]),
-      ]),
+            h(Button, {
+              sel: 'confirm',
+              style: styles.ctaButton,
+              text: 'Confirm',
+              strong: true,
+              accessible: true,
+              accessibilityLabel: 'Confirm Recovery Phrase Button',
+            }),
+          ]),
+        ],
+      ),
     ]),
   );
 }
