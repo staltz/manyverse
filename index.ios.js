@@ -12,6 +12,10 @@ import {
   welcomeLayout,
   defaultNavOptions,
 } from './lib/frontend/index';
+import nodejs from 'nodejs-mobile-react-native';
 // import './snoopy'; // Log and debug the React Native JS<-->Native Bridge
 
+setTimeout(() => {
+  nodejs.start('loader.js');
+}, 1);
 run(screens, drivers, welcomeLayout, defaultNavOptions);
