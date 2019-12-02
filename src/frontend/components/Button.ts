@@ -9,7 +9,9 @@ import {
   View,
   TextStyle,
   Text,
+  Platform,
   TouchableNativeFeedback,
+  TouchableOpacity,
   StyleProp,
   ViewStyle,
   StyleSheet,
@@ -102,18 +104,33 @@ export default class Button extends Component<Props, {}> {
       accessibilityLabel,
     } = this.props;
 
-    const touchableProps = {
-      background: TouchableNativeFeedback.Ripple(
-        Palette.transparencyDarkStrong,
-      ),
-      onPress: () => {
-        if (this.props.onPress) {
-          this.props.onPress();
-        }
+    const Touchable = Platform.select<any>({
+      android: TouchableNativeFeedback,
+      default: TouchableOpacity,
+    });
+    const touchableProps = Platform.select<any>({
+      android: {
+        background: TouchableNativeFeedback.Ripple(
+          Palette.transparencyDarkStrong,
+        ),
+        onPress: () => {
+          if (this.props.onPress) {
+            this.props.onPress();
+          }
+        },
+        accessible,
+        accessibilityLabel,
       },
-      accessible,
-      accessibilityLabel,
-    };
+      default: {
+        onPress: () => {
+          if (this.props.onPress) {
+            this.props.onPress();
+          }
+        },
+        accessible,
+        accessibilityLabel,
+      },
+    });
 
     const viewProps = {
       style: [
@@ -123,7 +140,7 @@ export default class Button extends Component<Props, {}> {
       ] as ViewStyle,
     };
 
-    return h(TouchableNativeFeedback, touchableProps, [
+    return h(Touchable, touchableProps, [
       h(View, viewProps, [
         h(
           Text,
