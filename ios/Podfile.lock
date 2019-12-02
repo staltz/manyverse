@@ -101,6 +101,8 @@ PODS:
     - React-Core
     - React-RCTImage
     - RSKImageCropper
+  - RNOS (2.2.0):
+    - React
   - RNVectorIcons (6.6.0):
     - React
   - RSKImageCropper (2.2.3)
@@ -136,6 +138,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - RNOS (from `../node_modules/react-native-os-staltz/RNOS.podspec`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -204,6 +207,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fs"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
+  RNOS:
+    :podspec: "../node_modules/react-native-os-staltz/RNOS.podspec"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -241,10 +246,11 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 621bad7a889b5bf1583a52547f2dcd3a4d1ff15e
   RNFS: cf1bd19f8bf3c1400f8d3ececbe84e42aa29d2e7
   RNImageCropPicker: f675353bbe18f66113a39b319c0aeb36655a6e4c
+  RNOS: 6299cef6f70a1bc5f53f00ed516f0f9ef35fea5a
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: 12d934b3715679ccb3efdebe0cb632762e87806d
+PODFILE CHECKSUM: 11ed9e3162821bb0f2f1972e2502ed534dbbf8f2
 
 COCOAPODS: 1.8.4
