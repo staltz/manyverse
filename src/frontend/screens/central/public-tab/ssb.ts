@@ -20,9 +20,9 @@ export default function ssb(actions: Actions): Stream<Req> {
     .map(toVoteContent)
     .map(contentToPublishReq);
 
-  const startDht$ = actions.initializationDone$
+  const startConn$ = actions.initializationDone$
     .take(1)
     .map(() => ({type: 'conn.start'} as Req));
 
-  return xs.merge(toggleLikeMsg$, startDht$);
+  return xs.merge(toggleLikeMsg$, startConn$);
 }
