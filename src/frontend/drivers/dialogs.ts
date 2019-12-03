@@ -4,8 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import xs, {Listener, Stream} from 'xstream';
 import DialogAndroid from 'react-native-dialogs';
+import {Platform, Alert, AlertButton} from 'react-native';
 
 export type Command =
   | {type: 'dismiss'}
@@ -75,7 +76,38 @@ export class DialogSource {
     content?: string,
     options?: OptionsCommon,
   ): Stream<AlertAction> {
-    return xs.fromPromise(DialogAndroid.alert(title, content, options));
+    if (Platform.OS === 'android') {
+      return xs.fromPromise(DialogAndroid.alert(title, content, options));
+    } else {
+      return xs.create({
+        start: (listener: Listener<AlertAction>) => {
+          const buttons: Array<AlertButton> = [];
+          if (options?.positiveText) {
+            buttons.push({
+              text: options.positiveText,
+              onPress: () => listener.next({action: 'actionPositive'}),
+            });
+          }
+          if (options?.negativeText) {
+            buttons.push({
+              text: options.negativeText,
+              onPress: () => listener.next({action: 'actionNegative'}),
+            });
+          }
+          if (options?.neutralText) {
+            buttons.push({
+              text: options.neutralText,
+              onPress: () => listener.next({action: 'actionNeutral'}),
+            });
+          }
+          Alert.alert(title ?? 'Title', content ?? 'Content', buttons, {
+            cancelable: true,
+            onDismiss: () => listener.next({action: 'actionDismiss'}),
+          });
+        },
+        stop: () => {},
+      });
+    }
   }
 
   public showPicker(
