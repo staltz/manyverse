@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ManyverseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ManyverseTests.m */; };
-		0A1ECAE75D2A41B68ECEAE7E /* ReactNativeNavigationTests.xctest in Frameworks */ = {isa = PBXBuildFile; fileRef = E1C9A43B2D634F1DAF3C6F27 /* ReactNativeNavigationTests.xctest */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1E5AE288EBEE42078346E630 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 132E82D2026A40EC99C4FA06 /* libReactNativeNavigation.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -21,12 +19,14 @@
 		2DCD954D1E0B4F2C00145EB5 /* ManyverseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ManyverseTests.m */; };
 		2E51C8276F344E4DA473A380 /* builtin_modules in Resources */ = {isa = PBXBuildFile; fileRef = E80D84E54E234123A08089F9 /* builtin_modules */; };
 		352063B875A14C9FA88465A1 /* nodejs-project in Resources */ = {isa = PBXBuildFile; fileRef = 5BB9B4D4F82E436CBA5500FA /* nodejs-project */; };
-		7D96CA91DF1ABBF8D23EA346 /* libPods-Manyverse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7400F27687BB1453112D1E9F /* libPods-Manyverse.a */; };
+		727AE88AC203051E7A17BEAD /* Pods_ManyverseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3B3A1A4A76BA693BE007F0 /* Pods_ManyverseTests.framework */; };
 		8084E351FF1EF55B94B9E64E /* libPods-Manyverse-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D241C197A7374573763E16 /* libPods-Manyverse-tvOS.a */; };
+		CA84E39540F2F29737F0E956 /* Pods_Manyverse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0C8CB622111DA795E66B57 /* Pods_Manyverse.framework */; };
 		D6BAC7FD447B981A633A4CD5 /* libPods-Manyverse-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 305E432713E178CD4CF714AB /* libPods-Manyverse-tvOSTests.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
-		F09923DA83AB794E38EA9B19 /* libPods-ManyverseTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0D08281D79627F317BBEE5 /* libPods-ManyverseTests.a */; };
+		F6C413A5239680DD005F377A /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6C413A123967C9F005F377A /* MaterialIcons.ttf */; };
+		F6C413A6239680E1005F377A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6C413A223967CB0005F377A /* MaterialCommunityIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,9 +68,9 @@
 		3A451807D81240EFB1546901 /* libRNReactNativeBluetoothSocketBridge.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNReactNativeBluetoothSocketBridge.a; sourceTree = "<group>"; };
 		4CBF10B8B65D804CEDB2BF17 /* Pods-Manyverse-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manyverse-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Manyverse-tvOS/Pods-Manyverse-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5BB9B4D4F82E436CBA5500FA /* nodejs-project */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "nodejs-project"; path = "../nodejs-assets/nodejs-project"; sourceTree = "<group>"; };
-		6D0D08281D79627F317BBEE5 /* libPods-ManyverseTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ManyverseTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7350D8127267556FB05435BB /* Pods-ManyverseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManyverseTests.release.xcconfig"; path = "Target Support Files/Pods-ManyverseTests/Pods-ManyverseTests.release.xcconfig"; sourceTree = "<group>"; };
-		7400F27687BB1453112D1E9F /* libPods-Manyverse.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Manyverse.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A0C8CB622111DA795E66B57 /* Pods_Manyverse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manyverse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F3B3A1A4A76BA693BE007F0 /* Pods_ManyverseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ManyverseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A249C8A3C83EC969F2C0A78 /* Pods-ManyverseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManyverseTests.debug.xcconfig"; path = "Target Support Files/Pods-ManyverseTests/Pods-ManyverseTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A779B6F989B6C7EF64CD153F /* Pods-Manyverse-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manyverse-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Manyverse-tvOSTests/Pods-Manyverse-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		B1D241C197A7374573763E16 /* libPods-Manyverse-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Manyverse-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F09923DA83AB794E38EA9B19 /* libPods-ManyverseTests.a in Frameworks */,
+				727AE88AC203051E7A17BEAD /* Pods_ManyverseTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,9 +101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
-				1E5AE288EBEE42078346E630 /* libReactNativeNavigation.a in Frameworks */,
-				0A1ECAE75D2A41B68ECEAE7E /* ReactNativeNavigationTests.xctest in Frameworks */,
-				7D96CA91DF1ABBF8D23EA346 /* libPods-Manyverse.a in Frameworks */,
+				CA84E39540F2F29737F0E956 /* Pods_Manyverse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,10 +165,10 @@
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				344661FAA9F7425E8211FC47 /* NodeMobile.framework */,
-				7400F27687BB1453112D1E9F /* libPods-Manyverse.a */,
 				B1D241C197A7374573763E16 /* libPods-Manyverse-tvOS.a */,
 				305E432713E178CD4CF714AB /* libPods-Manyverse-tvOSTests.a */,
-				6D0D08281D79627F317BBEE5 /* libPods-ManyverseTests.a */,
+				7A0C8CB622111DA795E66B57 /* Pods_Manyverse.framework */,
+				8F3B3A1A4A76BA693BE007F0 /* Pods_ManyverseTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -290,7 +288,6 @@
 				02D8F95B909243D5BDE64FCA /* Sign NodeJS Mobile Native Modules */,
 				495B21A0BEFE446FBBB568EC /* Remove NodeJS Mobile Framework Simulator Strips */,
 				158189E94CFD06C172A7554B /* [CP] Embed Pods Frameworks */,
-				A4128CAC2C6E095D869CBA51 /* [CP] Copy Pods Resources */,
 				99B50F19C382748FAD314717 /* [CP-User] [NODEJS MOBILE] Copy Node.js Project files */,
 				87EF291D3744235704908467 /* [CP-User] [NODEJS MOBILE] Build Native Modules */,
 				7220FD3F8D5C8BC087F420E9 /* [CP-User] [NODEJS MOBILE] Sign Native Modules */,
@@ -620,23 +617,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\nset -e\nNODEJS_ASSETS_DIR=\"$( cd \"$PROJECT_DIR\" && cd ../nodejs-assets/ && pwd )\"\nNODEJS_BUILT_IN_MODULES_DIR=\"$( cd \"$PROJECT_DIR\" && cd ../node_modules/nodejs-mobile-react-native/install/resources/nodejs-modules/ && pwd )\"\nif [ -d \"$CODESIGNING_FOLDER_PATH/nodejs-project/\" ]\nthen\nrm -rf \"$CODESIGNING_FOLDER_PATH/nodejs-project/\"\nfi\nif [ -d \"$CODESIGNING_FOLDER_PATH/builtin_modules/\" ]\nthen\nrm -rf \"$CODESIGNING_FOLDER_PATH/builtin_modules/\"\nfi\nrsync -av --delete \"$NODEJS_ASSETS_DIR/nodejs-project\" \"$CODESIGNING_FOLDER_PATH\"\nrsync -av --delete \"$NODEJS_BUILT_IN_MODULES_DIR/builtin_modules\" \"$CODESIGNING_FOLDER_PATH\"\n";
-		};
-		A4128CAC2C6E095D869CBA51 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Manyverse/Pods-Manyverse-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Manyverse/Pods-Manyverse-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Manyverse/Pods-Manyverse-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		E05A094CE5FC459EF860073C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
