@@ -64,7 +64,7 @@ npm run propagate-replacements
 `3`: Build the "backend" Node.js project (which runs ssb-server):
 
 ```
-npm run build-backend
+npm run build-backend-android
 ```
 
 `4`: Build the Android apk:
@@ -102,9 +102,9 @@ ManyVerse only supports ARM architectures, but most virtual device emulators use
 
 Debug your code using a 'real' mobile device connected over USB instead.
 
-#### NullPointerException on `npm run build-backend`
+#### NullPointerException on `npm run build-backend-android`
 
-If you see the error below while running the `build-backend` build script, you should try opening this project's `android` folder in android studio (using the `build.gradle` file to tell android studio it is a gradle project.) It should detect missing dependencies and give you the option to install them via the console window (and rebuild) at the bottom of the window.
+If you see the error below while running the `build-backend-android` build script, you should try opening this project's `android` folder in android studio (using the `build.gradle` file to tell android studio it is a gradle project.) It should detect missing dependencies and give you the option to install them via the console window (and rebuild) at the bottom of the window.
 
 ```
 

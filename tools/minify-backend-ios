@@ -1,0 +1,106 @@
+#!/bin/bash
+
+# Any copyright is dedicated to the Public Domain.
+# http://creativecommons.org/publicdomain/zero/1.0/
+
+set -eEu -o pipefail
+shopt -s extdebug
+IFS=$'\n\t'
+trap 'onFailure $?' ERR
+
+function onFailure() {
+  echo "Unhandled script error $1 at ${BASH_SOURCE[0]}:${BASH_LINENO[0]}" >&2
+  exit 1
+}
+
+SECONDS=0
+echo -en "Removing unused files meant for macOS or Windows or Electron...";
+# make a list of things to delete then delete them
+# `-exec rm -rf {} \;` confuses find because the recursion can no longer find a step (depth-first traversal (-d) would also work)
+# GNU find and modern BSD/macOS find have a `-delete` operator
+find ./nodejs-assets/nodejs-project/node_modules \
+  -type d \
+  \( \
+    -name "darwin-x64" \
+    -o -name "win32-ia32" \
+    -o -name "win32-x64" \
+  \) \
+  -print0 | xargs -0 rm -rf # delete everything in the list
+find ./nodejs-assets/nodejs-project/node_modules \
+  -type f \
+  \( \
+    -name "electron-napi.node" \
+  \) \
+  -print0 | xargs -0 rm -rf # delete everything in the list
+echo -en " — $SECONDS s\n";
+
+SECONDS=0
+echo -en "Bundling with noderify...";
+cd ./nodejs-assets/nodejs-project;
+# Why some packages are filter'd or replaced:
+#   chloride: needs special compilation configs for android, and we'd like to
+#      remove unused packages such as sodium-browserify etc
+#   rn-bridge: this is not an npm package, it's just a nodejs-mobile shortcut
+#   bl: we didn't use it, and bl@0.8.x has security vulnerabilities
+#   bufferutil: because we want nodejs-mobile to load its native bindings
+#   supports-color: optional dependency within package `debug`
+#   utf-8-validate: because we want nodejs-mobile to load its native bindings
+$(npm bin)/noderify \
+  --replace.bindings=bindings-noderify-nodejs-mobile \
+  --replace.node-extend=xtend \
+  --replace.non-private-ip=non-private-ip-android \
+  --replace.leveldown=leveldown-nodejs-mobile \
+  --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \
+  --replace.utp-native=utp-native-nodejs-mobile \
+  --filter=rn-bridge \
+  --filter=bl \
+  --filter=bufferutil \
+  --filter=supports-color \
+  --filter=utf-8-validate \
+  --filter=bip39/src/wordlists/chinese_simplified.json \
+  --filter=bip39/src/wordlists/chinese_traditional.json \
+  --filter=bip39/src/wordlists/french.json \
+  --filter=bip39/src/wordlists/italian.json \
+  --filter=bip39/src/wordlists/japanese.json \
+  --filter=bip39/src/wordlists/korean.json \
+  --filter=bip39/src/wordlists/spanish.json \
+  index.js > _index.js;
+rm index.js; mv _index.js index.js;
+  # --replace.chloride=sodium-chloride-native-nodejs-mobile \
+rm restore.js;
+rm ssb.js;
+rm -rf plugins;
+echo -en " — $SECONDS s\n";
+
+# Uncomment this once we sort out all the crashes that Terser is causing
+# SECONDS=0
+# echo -en "Compressing with terser...";
+# $(npm bin)/terser \
+#   --ecma 8 \
+#   --parse ecma=8,bare_returns \
+#   --compress ecma=8 \
+#   --beautify \
+#   --output _index.js -- index.js;
+# rm index.js; mv _index.js index.js;
+# echo -en " — $SECONDS s\n";
+cd ../..;
+
+# SECONDS=0
+#echo -en "Removing node_modules folder and package-lock.json...";
+#rm -rf ./nodejs-assets/nodejs-project/node_modules;
+#rm ./nodejs-assets/nodejs-project/package-lock.json
+#echo -en " — $SECONDS s\n";
+
+SECONDS=0
+# echo -en "Removing all files in node_modules except .node, .so, .a ...";
+# find ./nodejs-assets/nodejs-project/node_modules \
+#   -type f \
+#   ! \( \
+#     -name "*.node" \
+#     -o -name "*.so" \
+#     -o -name "*.a" \
+#   \) \
+#   -print0 | xargs -0 rm -rf # delete everything in the list
+# # Delete empty directories
+# find ./nodejs-assets/nodejs-project/node_modules -depth -type d -empty -delete
+echo -en " — $SECONDS s\n";
