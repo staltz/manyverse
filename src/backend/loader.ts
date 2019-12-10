@@ -15,7 +15,8 @@ process.cwd = () => nodejsProjectDir;
 
 // Force libsodium to use a WebAssembly implementation
 process.env = process.env ?? {};
-// process.env.CHLORIDE_JS = 'yes';
+// process.env.DEBUG = '*'; // uncomment this to debug! don't commit it tho
+// process.env.CHLORIDE_JS = 'yes'; // uncomment to enable WASM libsodium
 
 // Report JS backend crashes to Java, and in turn, to ACRA
 process.on('unhandledRejection', (reason, _promise) => {
