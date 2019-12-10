@@ -93,7 +93,6 @@ $(npm bin)/noderify \
   --filter=bip39/src/wordlists/spanish.json \
   index.js > _index.js;
 rm index.js; mv _index.js index.js;
-rm multiserver.js;
 rm restore.js;
 rm ssb.js;
 rm -rf plugins;

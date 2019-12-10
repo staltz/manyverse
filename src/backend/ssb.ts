@@ -10,8 +10,7 @@ const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 const rnBridge = require('rn-bridge');
 const makeConfig = require('ssb-config/inject');
-const BluetoothManager = require('ssb-mobile-bluetooth-manager');
-const bluetoothTransportAndPlugin = require('ssb-bluetooth');
+import bluetoothTransport = require('./plugins/bluetooth');
 const SecretStack = require('secret-stack');
 
 const appDataDir = rnBridge.app.datadir();
@@ -46,16 +45,6 @@ const config = makeConfig('ssb', {
   },
 });
 
-const bluetoothManager: any = BluetoothManager({
-  socketFolderPath: appDataDir,
-  myIdent: '@' + keys.public,
-  metadataServiceUUID: 'b4721184-46dc-4314-b031-bf52c2b197f3',
-  controlSocketFilename: 'manyverse_bt_control.sock',
-  incomingSocketFilename: 'manyverse_bt_incoming.sock',
-  outgoingSocketFilename: 'manyverse_bt_outgoing.sock',
-  logStreams: false,
-});
-
 SecretStack({appKey: require('ssb-caps').shs})
   // Core
   .use(require('ssb-master'))
@@ -65,9 +54,9 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-friends')) // needs: db, replicate
   .use(require('ssb-ebt')) // needs: db, replicate, friends
   // Connections
-  .use(require('./multiserver'))
+  .use(require('./plugins/multiserver-addons'))
   .use(require('ssb-lan'))
-  .use(bluetoothTransportAndPlugin(bluetoothManager, {scope: 'public'}))
+  .use(bluetoothTransport(keys, appDataDir))
   .use(require('ssb-conn')) // needs: db, friends, lan, bluetooth
   .use(require('ssb-room/tunnel/client')) // needs: conn
   .use(require('ssb-dht-invite')) // needs: db, conn
