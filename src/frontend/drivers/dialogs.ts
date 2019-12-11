@@ -12,6 +12,8 @@ export type Command =
   | {type: 'dismiss'}
   | {type: 'alert'; title?: string; content?: string; options?: OptionsCommon};
 
+export type ButtonStyleIOS = 'default' | 'cancel' | 'destructive';
+
 export type OptionsCommon = {
   cancelable?: boolean;
   forceStacking?: boolean;
@@ -25,12 +27,15 @@ export type OptionsCommon = {
   linkColor?: string;
 
   negativeColor?: string;
+  negativeStyleIOS?: ButtonStyleIOS;
   negativeText?: string;
 
   neutralColor?: string;
+  neutralStyleIOS?: ButtonStyleIOS;
   neutralText?: string;
 
   positiveColor?: string;
+  positiveStyleIOS?: ButtonStyleIOS;
   positiveText?: string; // default "OK"
 };
 
@@ -85,19 +90,29 @@ export class DialogSource {
           if (options?.positiveText) {
             buttons.push({
               text: options.positiveText,
+              style: options.positiveStyleIOS ?? 'default',
               onPress: () => listener.next({action: 'actionPositive'}),
             });
           }
           if (options?.negativeText) {
             buttons.push({
               text: options.negativeText,
+              style: options.negativeStyleIOS ?? 'default',
               onPress: () => listener.next({action: 'actionNegative'}),
             });
           }
           if (options?.neutralText) {
             buttons.push({
               text: options.neutralText,
+              style: options.neutralStyleIOS ?? 'default',
               onPress: () => listener.next({action: 'actionNeutral'}),
+            });
+          }
+          if (!options) {
+            buttons.push({
+              text: 'OK',
+              style: 'default',
+              onPress: () => listener.next({action: 'actionPositive'}),
             });
           }
           Alert.alert(title ?? 'Title', content ?? 'Content', buttons, {

@@ -51,6 +51,7 @@ export const styles = StyleSheet.create({
     textAlignVertical: 'top',
     fontSize: Typography.fontSizeLarge,
     fontFamily: Typography.fontFamilyMonospace,
+    fontWeight: '500',
     color: Palette.textWeak,
     backgroundColor: Palette.backgroundTextWeak,
   },
