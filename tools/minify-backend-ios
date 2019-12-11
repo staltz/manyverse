@@ -91,7 +91,7 @@ cd ../..;
 #rm ./nodejs-assets/nodejs-project/package-lock.json
 #echo -en " — $SECONDS s\n";
 
-SECONDS=0
+# SECONDS=0
 # echo -en "Removing all files in node_modules except .node, .so, .a ...";
 # find ./nodejs-assets/nodejs-project/node_modules \
 #   -type f \
@@ -103,4 +103,4 @@ SECONDS=0
 #   -print0 | xargs -0 rm -rf # delete everything in the list
 # # Delete empty directories
 # find ./nodejs-assets/nodejs-project/node_modules -depth -type d -empty -delete
-echo -en " — $SECONDS s\n";
+# echo -en " — $SECONDS s\n";
