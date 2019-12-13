@@ -55,13 +55,6 @@ export const styles = StyleSheet.create({
     minWidth: 120,
   },
 
-  msgType: {
-    fontSize: Typography.fontSizeSmall,
-    fontFamily: Typography.fontFamilyMonospace,
-    backgroundColor: Palette.backgroundTextHacker,
-    color: Palette.textHacker,
-  },
-
   timestamp: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
