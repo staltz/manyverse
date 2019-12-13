@@ -5,12 +5,24 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent} from 'react';
-import {Text, View, StyleSheet, TouchableNativeFeedback} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableNativeFeedback,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import {h} from '@cycle/react';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import {MsgId} from 'ssb-typescript';
+
+const Touchable = Platform.select<any>({
+  android: TouchableNativeFeedback,
+  default: TouchableOpacity,
+});
 
 export const styles = StyleSheet.create({
   container: {
@@ -77,12 +89,14 @@ export default class ExpandThread extends PureComponent<Props> {
   }
 
   public render() {
-    const touchableProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
+    const touchableProps: any = {
       onPress: this._onPress,
     };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+    }
 
-    return h(TouchableNativeFeedback, touchableProps, [
+    return h(Touchable, touchableProps, [
       h(View, {style: styles.container}, [
         h(View, {style: styles.hr1}),
         h(View, {style: styles.hr2}),
