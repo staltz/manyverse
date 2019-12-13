@@ -46,16 +46,24 @@ export const styles = StyleSheet.create({
     marginBottom: Dimensions.verticalSpaceBig,
   },
 
+  labelBoxContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: Dimensions.verticalSpaceBig * 0.6,
+    bottom: Dimensions.verticalSpaceBig * 0.6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   labelBox: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    left: 135,
-    right: 135,
-    top: Dimensions.verticalSpaceBig * 0.6,
-    bottom: Dimensions.verticalSpaceBig * 0.6,
+    minWidth: 100,
+    minHeight: 30,
     borderRadius: 3,
     borderColor: Palette.backgroundVoid,
     borderWidth: 1,
@@ -100,8 +108,10 @@ export default class ExpandThread extends PureComponent<Props> {
       h(View, {style: styles.container}, [
         h(View, {style: styles.hr1}),
         h(View, {style: styles.hr2}),
-        h(View, {style: styles.labelBox}, [
-          h(Text, {style: styles.labelText}, 'Read more'),
+        h(View, {style: styles.labelBoxContainer}, [
+          h(View, {style: styles.labelBox}, [
+            h(Text, {style: styles.labelText}, 'Read more'),
+          ]),
         ]),
       ]),
     ]);
