@@ -13,11 +13,18 @@ import {
   ViewStyle,
   StyleSheet,
   TextStyle,
+  Platform,
+  TouchableOpacity,
 } from 'react-native';
 import {Palette} from '../global-styles/palette';
 import {h} from '@cycle/react';
 import {Typography} from '../global-styles/typography';
 import {Dimensions} from '../global-styles/dimens';
+
+const Touchable = Platform.select<any>({
+  android: TouchableNativeFeedback,
+  default: TouchableOpacity,
+});
 
 export const baseContainerStyle = {
   borderTopLeftRadius: 3,
@@ -119,12 +126,14 @@ export default class ToggleButton extends PureComponent<Props, State> {
       textStyle = styles.textToggled;
     }
 
-    const touchableProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
+    const touchableProps: any = {
       onPress: () => this._onPress(),
     };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+    }
 
-    return h(TouchableNativeFeedback, touchableProps, [
+    return h(Touchable, touchableProps, [
       h(View, {style: [containerStyle, style]}, [
         h(Text, {style: textStyle}, text),
       ]),
