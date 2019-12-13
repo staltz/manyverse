@@ -17,8 +17,6 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* ManyverseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ManyverseTests.m */; };
-		2E51C8276F344E4DA473A380 /* builtin_modules in Resources */ = {isa = PBXBuildFile; fileRef = E80D84E54E234123A08089F9 /* builtin_modules */; };
-		352063B875A14C9FA88465A1 /* nodejs-project in Resources */ = {isa = PBXBuildFile; fileRef = 5BB9B4D4F82E436CBA5500FA /* nodejs-project */; };
 		727AE88AC203051E7A17BEAD /* Pods_ManyverseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3B3A1A4A76BA693BE007F0 /* Pods_ManyverseTests.framework */; };
 		8084E351FF1EF55B94B9E64E /* libPods-Manyverse-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D241C197A7374573763E16 /* libPods-Manyverse-tvOS.a */; };
 		CA84E39540F2F29737F0E956 /* Pods_Manyverse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0C8CB622111DA795E66B57 /* Pods_Manyverse.framework */; };
@@ -401,8 +399,6 @@
 				F6C413A5239680DD005F377A /* MaterialIcons.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				352063B875A14C9FA88465A1 /* nodejs-project in Resources */,
-				2E51C8276F344E4DA473A380 /* builtin_modules in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
