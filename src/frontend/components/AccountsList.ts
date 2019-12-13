@@ -6,13 +6,25 @@
 
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
-import {Text, View, TouchableNativeFeedback, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableNativeFeedback,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import {FeedId} from 'ssb-typescript';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
 import Avatar from './Avatar';
 import React = require('react');
+
+const Touchable = Platform.select<any>({
+  android: TouchableNativeFeedback,
+  default: TouchableOpacity,
+});
 
 export const styles = StyleSheet.create({
   row: {
@@ -67,10 +79,13 @@ type AccountProps = {
 class Account extends PureComponent<AccountProps> {
   public render() {
     const {name, imageUrl, onPress} = this.props;
-    const touchableProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
+
+    const touchableProps: any = {
       onPress,
     };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+    }
 
     const authorNameText = h(
       Text,
@@ -88,7 +103,7 @@ class Account extends PureComponent<AccountProps> {
         accessibilityLabel: 'Link To Account',
       },
       [
-        h(TouchableNativeFeedback, touchableProps, [
+        h(Touchable, touchableProps, [
           h(View, {style: styles.row}, [
             h(Avatar, {
               url: imageUrl,
