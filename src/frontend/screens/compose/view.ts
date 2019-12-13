@@ -17,6 +17,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   TextInputProps,
+  Platform,
 } from 'react-native';
 import {propifyMethods} from 'react-propify-methods';
 import {Palette} from '../../global-styles/palette';
@@ -224,28 +225,38 @@ export default function view(
     .filter(([prev, curr]) => !prev && !!curr)
     .mapTo(void 0);
 
+  const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
+
   return xs
     .combine(topBar$, avatarUrl$, miniState$)
     .map(([topBar, avatarUrl, state]) =>
       h(View, {style: styles.container}, [
         topBar,
-        h(KeyboardAvoidingView, {style: styles.bodyContainer, enabled: true}, [
-          h(View, {style: styles.leftSide}, [
-            h(Avatar, {size: avatarSize, url: avatarUrl}),
-            h(View, {style: styles.leftSpacer}),
-            OpenCameraButton(),
-            AddPictureButton(),
-            ContentWarningButton(state),
-          ]),
+        h(
+          KeyboardAvoidingView,
+          {
+            style: styles.bodyContainer,
+            enabled: true,
+            [behaviorProp]: 'padding',
+          },
+          [
+            h(View, {style: styles.leftSide}, [
+              h(Avatar, {size: avatarSize, url: avatarUrl}),
+              h(View, {style: styles.leftSpacer}),
+              OpenCameraButton(),
+              AddPictureButton(),
+              ContentWarningButton(state),
+            ]),
 
-          state.previewing
-            ? MarkdownPreview(state)
-            : MarkdownInput(state, focusMarkdownInput$),
+            state.previewing
+              ? MarkdownPreview(state)
+              : MarkdownInput(state, focusMarkdownInput$),
 
-          state.mentionSuggestions.length || state.mentionQuery
-            ? MentionSuggestions(state, focusMentionQuery$)
-            : null,
-        ]),
+            state.mentionSuggestions.length || state.mentionQuery
+              ? MentionSuggestions(state, focusMentionQuery$)
+              : null,
+          ],
+        ),
       ]),
     );
 }

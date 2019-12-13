@@ -15,6 +15,7 @@ import {
   ScrollView,
   RefreshControl,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import {ReactElement} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -166,11 +167,18 @@ export default function view(
         ]);
       }
 
+      const behaviorProp =
+        Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
+
       return h(View, {style: styles.container}, [
         topBar,
         h(
           KeyboardAvoidingView,
-          {enabled: state.keyboardVisible, style: styles.container},
+          {
+            enabled: state.keyboardVisible,
+            style: styles.container,
+            [behaviorProp]: 'padding',
+          },
           [
             h(
               ReactiveScrollView,

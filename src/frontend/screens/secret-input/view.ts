@@ -81,13 +81,15 @@ export default function view(
   state$: Stream<State>,
   topBar$: Stream<ReactElement<any>>,
 ) {
+  const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
+
   return xs.combine(topBar$, state$).map(([topBarVDOM, state]) =>
     h(View, {style: styles.screen}, [
       topBarVDOM,
 
       h(
         KeyboardAvoidingView,
-        {style: styles.container, enabled: true, behavior: 'height'},
+        {style: styles.container, enabled: true, [behaviorProp]: 'padding'},
         [
           h(FlagSecure, [
             h(

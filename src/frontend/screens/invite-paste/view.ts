@@ -6,31 +6,37 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {View, TextInput, KeyboardAvoidingView} from 'react-native';
+import {View, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
 import {styles} from './styles';
 import {Palette} from '../../global-styles/palette';
 import {ReactElement} from 'react';
 
 export default function view(topBar$: Stream<ReactElement<any>>) {
+  const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
+
   return topBar$.map(topBar =>
     h(View, {style: styles.container}, [
       topBar,
-      h(KeyboardAvoidingView, {style: styles.bodyContainer, enabled: true}, [
-        h(TextInput, {
-          style: styles.contentInput,
-          sel: 'contentInput',
-          nativeID: 'FocusViewOnResume',
-          accessible: true,
-          accessibilityLabel: 'Invite Text Input',
-          autoFocus: true,
-          multiline: true,
-          returnKeyType: 'done',
-          placeholder: 'Paste an invitation code',
-          placeholderTextColor: Palette.textVeryWeak,
-          selectionColor: Palette.backgroundTextSelection,
-          underlineColorAndroid: Palette.backgroundText,
-        }),
-      ]),
+      h(
+        KeyboardAvoidingView,
+        {style: styles.bodyContainer, enabled: true, [behaviorProp]: 'padding'},
+        [
+          h(TextInput, {
+            style: styles.contentInput,
+            sel: 'contentInput',
+            nativeID: 'FocusViewOnResume',
+            accessible: true,
+            accessibilityLabel: 'Invite Text Input',
+            autoFocus: true,
+            multiline: true,
+            returnKeyType: 'done',
+            placeholder: 'Paste an invitation code',
+            placeholderTextColor: Palette.textVeryWeak,
+            selectionColor: Palette.backgroundTextSelection,
+            underlineColorAndroid: Palette.backgroundText,
+          }),
+        ],
+      ),
     ]),
   );
 }
