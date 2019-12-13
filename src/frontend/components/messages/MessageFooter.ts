@@ -5,7 +5,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Component, PureComponent} from 'react';
-import {View, Text, TouchableNativeFeedback, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Msg, FeedId, PostContent, MsgId} from 'ssb-typescript';
@@ -14,6 +21,11 @@ import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import {Likes} from '../../ssb/types';
 import React = require('react');
+
+const Touchable = Platform.select<any>({
+  android: TouchableNativeFeedback,
+  default: TouchableOpacity,
+});
 
 export const styles = StyleSheet.create({
   row: {
@@ -124,17 +136,17 @@ class LikeCount extends PureComponent<LCProps> {
       ]),
     ];
 
+    const touchableProps: any = {
+      onPress,
+      accessible: true,
+      accessibilityLabel: 'Like Count Button',
+    };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+    }
+
     if (count > 0) {
-      return h(
-        TouchableNativeFeedback,
-        {
-          background: TouchableNativeFeedback.SelectableBackground(),
-          onPress,
-          accessible: true,
-          accessibilityLabel: 'Like Count Button',
-        },
-        likesComponent,
-      );
+      return h(Touchable, touchableProps, likesComponent);
     } else {
       return h(React.Fragment, likesComponent);
     }
@@ -165,21 +177,21 @@ class LikeButton extends PureComponent<LBProps, {maybeToggled: boolean}> {
       ? 'yes'
       : 'no';
 
-    return h(
-      TouchableNativeFeedback,
-      {
-        background: TouchableNativeFeedback.SelectableBackground(),
-        onPress: this.onPress,
-        accessible: true,
-        accessibilityLabel: 'Like Button',
-      },
-      [
-        h(View, {style: styles.likeButton}, [
-          h(Icon, iconProps[ilike + 'Liked']),
-          h(Text, {style: styles.likeButtonLabel}, 'Like'),
-        ]),
-      ],
-    );
+    const touchableProps: any = {
+      onPress: this.onPress,
+      accessible: true,
+      accessibilityLabel: 'Like Button',
+    };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+    }
+
+    return h(Touchable, touchableProps, [
+      h(View, {style: styles.likeButton}, [
+        h(Icon, iconProps[ilike + 'Liked']),
+        h(Text, {style: styles.likeButtonLabel}, 'Like'),
+      ]),
+    ]);
   }
 }
 
@@ -189,21 +201,21 @@ type RProps = {
 
 class ReplyButton extends PureComponent<RProps> {
   public render() {
-    return h(
-      TouchableNativeFeedback,
-      {
-        background: TouchableNativeFeedback.SelectableBackground(),
-        onPress: this.props.onPress,
-        accessible: true,
-        accessibilityLabel: 'Reply Button',
-      },
-      [
-        h(View, {style: styles.replyButton}, [
-          h(Icon, iconProps.reply),
-          h(Text, {style: styles.replyButtonLabel}, 'Comment'),
-        ]),
-      ],
-    );
+    const touchableProps: any = {
+      onPress: this.props.onPress,
+      accessible: true,
+      accessibilityLabel: 'Reply Button',
+    };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+    }
+
+    return h(Touchable, touchableProps, [
+      h(View, {style: styles.replyButton}, [
+        h(Icon, iconProps.reply),
+        h(Text, {style: styles.replyButtonLabel}, 'Comment'),
+      ]),
+    ]);
   }
 }
 

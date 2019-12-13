@@ -21,6 +21,11 @@ import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
 import {h} from '@cycle/react';
 
+const Touchable = Platform.select<any>({
+  android: TouchableNativeFeedback,
+  default: TouchableOpacity,
+});
+
 export const baseContainerStyle = {
   borderTopLeftRadius: 3,
   borderTopRightRadius: 3,
@@ -104,33 +109,20 @@ export default class Button extends Component<Props, {}> {
       accessibilityLabel,
     } = this.props;
 
-    const Touchable = Platform.select<any>({
-      android: TouchableNativeFeedback,
-      default: TouchableOpacity,
-    });
-    const touchableProps = Platform.select<any>({
-      android: {
-        background: TouchableNativeFeedback.Ripple(
-          Palette.transparencyDarkStrong,
-        ),
-        onPress: () => {
-          if (this.props.onPress) {
-            this.props.onPress();
-          }
-        },
-        accessible,
-        accessibilityLabel,
+    const touchableProps: any = {
+      onPress: () => {
+        if (this.props.onPress) {
+          this.props.onPress();
+        }
       },
-      default: {
-        onPress: () => {
-          if (this.props.onPress) {
-            this.props.onPress();
-          }
-        },
-        accessible,
-        accessibilityLabel,
-      },
-    });
+      accessible,
+      accessibilityLabel,
+    };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.Ripple(
+        Palette.transparencyDarkStrong,
+      );
+    }
 
     const viewProps = {
       style: [
