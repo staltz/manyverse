@@ -77,9 +77,7 @@ export const styles = StyleSheet.create({
   sub: {
     position: 'absolute',
     top:
-      Dimensions.toolbarAndroidHeight +
-      avatarSizeHalf +
-      Dimensions.verticalSpaceSmall,
+      Dimensions.toolbarHeight + avatarSizeHalf + Dimensions.verticalSpaceSmall,
     left:
       Dimensions.horizontalSpaceBig + // left margin to the avatar
       avatarSize + // avatar

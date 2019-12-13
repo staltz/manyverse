@@ -8,12 +8,13 @@ import {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
 import {StateSource} from '@cycle/state';
+import {ReactElement} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
 import HeaderBackButton from '../../../components/HeaderBackButton';
-import {ReactElement} from 'react';
 
 export type State = {
   about: {
@@ -33,7 +34,8 @@ export type Sinks = {
 
 export const styles = StyleSheet.create({
   container: {
-    height: Dimensions.toolbarAndroidHeight,
+    height: Dimensions.toolbarHeight,
+    paddingTop: getStatusBarHeight(true),
     alignSelf: 'stretch',
     backgroundColor: Palette.backgroundBrand,
     flexDirection: 'row',

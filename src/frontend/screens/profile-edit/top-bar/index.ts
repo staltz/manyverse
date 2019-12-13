@@ -7,11 +7,12 @@
 import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
+import {ReactElement} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import HeaderBackButton from '../../../components/HeaderBackButton';
-import {ReactElement} from 'react';
 import {Typography} from '../../../global-styles/typography';
 
 export type Sources = {
@@ -25,7 +26,8 @@ export type Sinks = {
 
 export const styles = StyleSheet.create({
   container: {
-    height: Dimensions.toolbarAndroidHeight,
+    height: Dimensions.toolbarHeight,
+    paddingTop: getStatusBarHeight(true),
     alignSelf: 'stretch',
     backgroundColor: Palette.backgroundBrand,
     flexDirection: 'row',

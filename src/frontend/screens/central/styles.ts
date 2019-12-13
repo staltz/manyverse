@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: Palette.backgroundBrand,
-    minHeight: Dimensions.toolbarAndroidHeight,
+    minHeight: Dimensions.toolbarHeight,
   },
 
   headerIcon: {

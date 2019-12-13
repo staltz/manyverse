@@ -6,10 +6,11 @@
 
 import {Stream} from 'xstream';
 import {Command, PopCommand, NavSource} from 'cycle-native-navigation';
-import {ScrollView, Text, StyleSheet} from 'react-native';
-import {SSBSource, MsgAndExtras} from '../../drivers/ssb';
 import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
+import {ScrollView, Text, StyleSheet} from 'react-native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {SSBSource, MsgAndExtras} from '../../drivers/ssb';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
@@ -34,7 +35,8 @@ export const navOptions = {
   topBar: {
     visible: true,
     drawBehind: false,
-    height: Dimensions.toolbarAndroidHeight,
+    height: Dimensions.toolbarHeight,
+    paddingTop: getStatusBarHeight(true),
     title: {
       text: 'Raw message',
     },

@@ -62,9 +62,7 @@ export const styles = StyleSheet.create({
   save: {
     position: 'absolute',
     top:
-      Dimensions.toolbarAndroidHeight +
-      avatarSizeHalf +
-      Dimensions.verticalSpaceSmall,
+      Dimensions.toolbarHeight + avatarSizeHalf + Dimensions.verticalSpaceSmall,
     right: Dimensions.horizontalSpaceBig,
     zIndex: 30,
   },

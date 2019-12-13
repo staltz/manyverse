@@ -12,9 +12,10 @@ import {
   PushCommand,
 } from 'cycle-native-navigation';
 import {Msg} from 'ssb-typescript';
-import {SSBSource} from '../../drivers/ssb';
-import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
+import {ReactSource, h} from '@cycle/react';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {SSBSource} from '../../drivers/ssb';
 import {Dimensions} from '../../global-styles/dimens';
 import RawFeed from '../../components/RawFeed';
 import {navOptions as rawMessageScreenNavOptions} from '../raw-msg';
@@ -35,7 +36,8 @@ export const navOptions = {
   topBar: {
     visible: true,
     drawBehind: false,
-    height: Dimensions.toolbarAndroidHeight,
+    height: Dimensions.toolbarHeight,
+    paddingTop: getStatusBarHeight(true),
     title: {
       text: 'Raw database',
     },
