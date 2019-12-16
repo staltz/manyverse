@@ -12,6 +12,8 @@ import {
   ScrollView,
   TouchableNativeFeedback,
   NativeModules,
+  Platform,
+  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {h} from '@cycle/react';
@@ -20,6 +22,19 @@ import {State} from './model';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import Avatar from '../../components/Avatar';
+
+const Touchable = Platform.select<any>({
+  android: TouchableNativeFeedback,
+  default: TouchableOpacity,
+});
+
+// Google Play Store has banned Manyverse a couple times
+// over a "policy violation regarding Payments", and this
+// Thanks screen is possibly the reason for that.
+const canShowThanks =
+  Platform.OS === 'android'
+    ? NativeModules.BuildConfig.FLAVOR !== 'googlePlay'
+    : true;
 
 function renderName(name?: string) {
   const namelessStyle = !name ? styles.noAuthorName : null;
@@ -44,17 +59,21 @@ type MenuItemProps = {
 
 class MenuItem extends PureComponent<MenuItemProps> {
   public render() {
-    const {icon, text, onPress, accessibilityLabel, accessible} = this.props;
-    const touchableProps = {
-      background: TouchableNativeFeedback.Ripple(Palette.backgroundVoid),
+    const {icon, text, accessibilityLabel, accessible} = this.props;
+    const touchableProps: any = {
       onPress: () => {
-        if (onPress) onPress();
+        this.props.onPress?.();
       },
       accessible,
       accessibilityLabel,
     };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.Ripple(
+        Palette.backgroundVoid,
+      );
+    }
 
-    return h(TouchableNativeFeedback, touchableProps, [
+    return h(Touchable, touchableProps, [
       h(View, {style: styles.menuItemContainer}, [
         h(Icon, {
           size: Dimensions.iconSizeNormal,
@@ -113,18 +132,15 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           accessible: true,
           accessibilityLabel: 'Back Up My Account',
         }),
-        // Google Play Store has banned Manyverse a couple times
-        // over a "policy violation regarding Payments", and this
-        // Thanks screen is possibly the reason for that.
-        NativeModules.BuildConfig.FLAVOR === 'googlePlay'
-          ? null
-          : h(MenuItem, {
+        canShowThanks
+          ? h(MenuItem, {
               sel: 'thanks',
               icon: 'heart-circle',
               text: 'Thanks',
               accessible: true,
               accessibilityLabel: 'Show Thanks',
-            }),
+            })
+          : null,
         h(MenuItem, {
           sel: 'about',
           icon: 'information',

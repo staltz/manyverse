@@ -4,7 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -14,12 +15,22 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     backgroundColor: Palette.backgroundText,
+    maxWidth: Platform.select({
+      ios: 290,
+      default: 1024,
+    }),
   },
 
   header: {
     backgroundColor: Palette.backgroundBrand,
-    minHeight: 109,
-    paddingTop: Dimensions.verticalSpaceBig,
+    minHeight: Platform.select({
+      android: 109,
+      default: 100,
+    }),
+    paddingTop: Platform.select({
+      ios: Dimensions.verticalSpaceBig + getStatusBarHeight(true) - 7,
+      default: Dimensions.verticalSpaceBig,
+    }),
     paddingLeft: Dimensions.horizontalSpaceBig,
     paddingBottom: Dimensions.verticalSpaceNormal,
     paddingRight: Dimensions.horizontalSpaceNormal,
