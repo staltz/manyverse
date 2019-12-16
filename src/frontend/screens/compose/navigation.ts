@@ -15,7 +15,7 @@ export type Actions = {
 export default function navigation(actions: Actions): Stream<Command> {
   const goBack$ = actions.exitOfAnyKind$
     .compose(delay(100))
-    .map(() => ({type: 'dismissOverlay'} as Command));
+    .map(() => ({type: 'pop'} as Command));
 
   return goBack$;
 }

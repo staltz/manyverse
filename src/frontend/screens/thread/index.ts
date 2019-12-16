@@ -61,6 +61,11 @@ export const navOptions = {
     visible: false,
     height: 0,
   },
+  sideMenu: {
+    left: {
+      enabled: false,
+    },
+  },
 };
 
 export function thread(sources: Sources): Sinks {

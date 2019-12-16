@@ -66,9 +66,25 @@ export const styles = StyleSheet.create({
 });
 
 export const navOptions = {
+  layout: {
+    backgroundColor: Palette.backgroundBrand,
+  },
   topBar: {
     visible: false,
     height: 0,
+  },
+  sideMenu: {
+    left: {
+      enabled: false,
+    },
+  },
+  animations: {
+    push: {
+      enabled: false,
+    },
+    pop: {
+      enabled: false,
+    },
   },
 };
 
@@ -81,29 +97,20 @@ export function backup(sources: Sources): Sinks {
 
   const goBack$ = xs
     .merge(sources.navigation.backPress(), topBarSinks.back)
-    .mapTo({type: 'dismissOverlay'} as Command);
+    .mapTo({type: 'pop'} as Command);
 
   const goToExportSecret$ = sources.screen
     .select('show-recovery-phrase')
     .events('press')
-    .mapTo(
-      xs.of(
-        {
-          type: 'dismissOverlay',
-        } as Command,
-        {
-          type: 'push',
-          id: 'mainstack',
-          layout: {
-            component: {
-              name: Screens.SecretOutput,
-              options: outputSecretScreenNavOptions,
-            },
-          },
-        } as Command,
-      ),
-    )
-    .flatten();
+    .mapTo({
+      type: 'push',
+      layout: {
+        component: {
+          name: Screens.SecretOutput,
+          options: outputSecretScreenNavOptions,
+        },
+      },
+    } as Command);
 
   const scrollBy$ = xs
     .merge(

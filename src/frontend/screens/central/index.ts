@@ -72,6 +72,11 @@ export const navOptions = {
     elevation: 0,
     height: 0,
   },
+  sideMenu: {
+    left: {
+      enabled: true,
+    },
+  },
 };
 
 export function central(sources: Sources): Sinks {

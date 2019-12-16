@@ -46,7 +46,7 @@ export default function navigation(
   const toPasteInvite$ = actions.goToPasteInvite$.map(
     () =>
       ({
-        type: 'showOverlay',
+        type: 'push',
         layout: {
           component: {
             name: Screens.InvitePaste,
@@ -59,7 +59,7 @@ export default function navigation(
   const toCreateInvite$ = actions.goToCreateInvite$.map(
     () =>
       ({
-        type: 'showOverlay',
+        type: 'push',
         layout: {
           component: {
             name: Screens.InviteCreate,

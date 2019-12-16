@@ -39,7 +39,7 @@ export default function navigation(
   const toCompose$ = actions.goToCompose$.map(
     () =>
       ({
-        type: 'showOverlay',
+        type: 'push',
         layout: {
           component: {
             name: Screens.Compose,

@@ -76,7 +76,7 @@ export default function navigation(
     })();
 
     return {
-      type: 'showOverlay',
+      type: 'push',
       layout: {
         component: {
           name: Screens.Compose,

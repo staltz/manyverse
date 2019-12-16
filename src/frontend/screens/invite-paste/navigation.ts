@@ -13,7 +13,7 @@ export type Actions = {
 
 export default function navigation(actions: Actions): Stream<Command> {
   const goBack$ = actions.quitFromKeyboard$.map(
-    () => ({type: 'dismissOverlay'} as Command),
+    () => ({type: 'pop'} as Command),
   );
 
   return goBack$;

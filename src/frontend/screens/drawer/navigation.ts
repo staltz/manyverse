@@ -58,7 +58,7 @@ export default function navigationCommands(
   const toBackup$ = actions.goToBackup$.map(
     () =>
       ({
-        type: 'showOverlay',
+        type: 'push',
         layout: {
           component: {
             name: Screens.Backup,

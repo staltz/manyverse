@@ -56,6 +56,19 @@ export const navOptions = {
     visible: false,
     height: 0,
   },
+  sideMenu: {
+    left: {
+      enabled: false,
+    },
+  },
+  animations: {
+    push: {
+      enabled: false,
+    },
+    pop: {
+      enabled: false,
+    },
+  },
 };
 
 export function compose(sources: Sources): Sinks {

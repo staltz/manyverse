@@ -39,6 +39,19 @@ export const navOptions = {
     visible: false,
     height: 0,
   },
+  sideMenu: {
+    left: {
+      enabled: false,
+    },
+  },
+  animations: {
+    push: {
+      enabled: false,
+    },
+    pop: {
+      enabled: false,
+    },
+  },
 };
 
 export function createInvite(sources: Sources): Sinks {
@@ -47,7 +60,7 @@ export function createInvite(sources: Sources): Sinks {
   const vdom$ = view(sources.state.stream, topBarSinks.screen);
   const command$ = xs
     .merge(sources.navigation.backPress(), topBarSinks.back)
-    .map(() => ({type: 'dismissOverlay'} as Command));
+    .map(() => ({type: 'pop'} as Command));
   const reducer$ = model(sources.ssb);
   const share$ = topBarSinks.share
     .compose(sample(sources.state.stream))
