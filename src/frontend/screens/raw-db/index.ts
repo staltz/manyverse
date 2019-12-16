@@ -13,13 +13,15 @@ import {
 } from 'cycle-native-navigation';
 import {Msg} from 'ssb-typescript';
 import {ReactElement} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {ReactSource, h} from '@cycle/react';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import isolate from '@cycle/isolate';
+import {Palette} from '../../global-styles/palette';
 import {SSBSource} from '../../drivers/ssb';
-import {Dimensions} from '../../global-styles/dimens';
 import RawFeed from '../../components/RawFeed';
 import {navOptions as rawMessageScreenNavOptions} from '../raw-msg';
 import {Screens} from '../..';
+import {topBar, Sinks as TBSinks} from './top-bar';
 
 export type Sources = {
   screen: ReactSource;
@@ -34,20 +36,19 @@ export type Sinks = {
 
 export const navOptions = {
   topBar: {
-    visible: true,
-    drawBehind: false,
-    height: Dimensions.toolbarHeight,
-    paddingTop: getStatusBarHeight(true),
-    title: {
-      text: 'Raw database',
-    },
-    backButton: {
-      icon: require('../../../../images/icon-arrow-left.png'),
-      visible: true,
-    },
+    visible: false,
+    height: 0,
   },
 };
 
+export const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignSelf: 'stretch',
+    backgroundColor: Palette.backgroundVoid,
+    flexDirection: 'column',
+  },
+});
 export type Actions = {
   goBack$: Stream<any>;
   goToRawMsg$: Stream<Msg>;
@@ -75,19 +76,29 @@ function navigation(actions: Actions) {
   return xs.merge(pop$, toRawMsg$);
 }
 
-function intent(navSource: NavSource, reactSource: ReactSource) {
+function intent(
+  navSource: NavSource,
+  reactSource: ReactSource,
+  back$: Stream<any>,
+) {
   return {
-    goBack$: navSource.backPress(),
+    goBack$: xs.merge(navSource.backPress(), back$),
 
     goToRawMsg$: reactSource.select('raw-feed').events('pressMsg'),
   };
 }
 
 export function rawDatabase(sources: Sources): Sinks {
-  const actions = intent(sources.navigation, sources.screen);
-  const vdom$ = sources.ssb.publicRawFeed$.map(getReadable =>
-    h(RawFeed, {sel: 'raw-feed', getReadable}),
-  );
+  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
+  const actions = intent(sources.navigation, sources.screen, topBarSinks.back);
+  const vdom$ = xs
+    .combine(topBarSinks.screen, sources.ssb.publicRawFeed$)
+    .map(([topBarVDOM, getReadable]) =>
+      h(View, {style: styles.screen}, [
+        topBarVDOM,
+        h(RawFeed, {sel: 'raw-feed', getReadable}),
+      ]),
+    );
   const command$ = navigation(actions);
 
   return {

@@ -6,7 +6,14 @@
 
 import {Component} from 'react';
 import {h} from '@cycle/react';
-import {Text, View, TouchableNativeFeedback, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableNativeFeedback,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import HumanTime from 'react-human-time';
 import {Msg, PostContent} from 'ssb-typescript';
 import {authorName} from '../../ssb/utils/from-ssb';
@@ -15,6 +22,11 @@ import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
 import {isPrivate} from 'ssb-typescript/utils';
 import Avatar from '../Avatar';
+
+const Touchable = Platform.select<any>({
+  android: TouchableNativeFeedback,
+  default: TouchableOpacity,
+});
 
 export const styles = StyleSheet.create({
   row: {
@@ -85,10 +97,12 @@ export default class RawMessage extends Component<Props> {
 
   public render() {
     const {msg, name, imageUrl} = this.props;
-    const touchableProps = {
-      background: TouchableNativeFeedback.SelectableBackground(),
+    const touchableProps: any = {
       onPress: () => this._onPress(),
     };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+    }
 
     const authorNameText = h(
       Text,
@@ -113,7 +127,7 @@ export default class RawMessage extends Component<Props> {
     ]);
 
     return h(View, [
-      h(TouchableNativeFeedback, touchableProps, [
+      h(Touchable, touchableProps, [
         h(View, {style: styles.row}, [
           h(Avatar, {
             url: imageUrl,
