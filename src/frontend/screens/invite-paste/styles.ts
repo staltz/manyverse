@@ -37,14 +37,16 @@ export const styles = StyleSheet.create({
 
   contentInput: {
     flex: 1,
-    paddingBottom: 0,
-    paddingHorizontal: Dimensions.horizontalSpaceSmall,
-    paddingTop: Dimensions.verticalSpaceBig,
     alignSelf: 'stretch',
+    marginVertical: Dimensions.verticalSpaceBig,
     fontSize: Typography.fontSizeLarge,
     fontFamily: Typography.fontFamilyMonospace,
     textAlign: 'left',
     textAlignVertical: 'top',
-    color: Palette.text,
+    color: Palette.textWeak,
+    backgroundColor: Palette.backgroundTextWeak,
+    paddingHorizontal: 4,
+    paddingVertical: 3,
+    borderRadius: 2,
   },
 });

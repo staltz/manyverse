@@ -10,7 +10,7 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
 import {ReactElement} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Platform} from 'react-native';
 import {SSBSource} from '../../drivers/ssb';
 import {Dimensions} from '../../global-styles/dimens';
 import FlagSecure from '../../components/FlagSecure';
@@ -83,6 +83,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
     fontSize: Typography.fontSizeLarge,
     fontFamily: Typography.fontFamilyMonospace,
+    fontWeight: Platform.select({ios: '500', default: 'normal'}),
     textAlign: 'left',
     textAlignVertical: 'top',
     color: Palette.textWeak,
