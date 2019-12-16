@@ -6,7 +6,14 @@
 
 import xs, {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {View, Text, TextInput, TouchableWithoutFeedback} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import Button from '../../components/Button';
 import {Palette} from '../../global-styles/palette';
 import {shortFeedId} from '../../ssb/utils/from-ssb';
@@ -24,6 +31,8 @@ export default function view(
       !state.about.name || state.about.name === shortFeedId(state.about.id)
         ? ''
         : state.about.name;
+
+    const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
 
     return h(View, {style: styles.container}, [
       topBarElem,
@@ -60,32 +69,36 @@ export default function view(
         accessibilityLabel: 'Save Profile Button',
       }),
 
-      h(View, {style: styles.fields}, [
-        h(Text, {style: styles.label}, 'Name'),
-        h(TextInput, {
-          sel: 'name',
-          multiline: false,
-          autoFocus: true,
-          defaultValue: defaultName,
-          underlineColorAndroid: Palette.backgroundBrand,
-          accessible: true,
-          accessibilityLabel: 'Name Text Input',
-          style: styles.textInput,
-        }),
+      h(
+        KeyboardAvoidingView,
+        {style: styles.fields, enabled: true, [behaviorProp]: 'padding'},
+        [
+          h(Text, {style: styles.label}, 'Name'),
+          h(TextInput, {
+            sel: 'name',
+            multiline: false,
+            autoFocus: true,
+            defaultValue: defaultName,
+            underlineColorAndroid: Palette.backgroundBrand,
+            accessible: true,
+            accessibilityLabel: 'Name Text Input',
+            style: styles.textInput,
+          }),
 
-        h(Text, {style: styles.label}, 'Bio'),
-        h(TextInput, {
-          sel: 'description',
-          multiline: true,
-          autoFocus: false,
-          numberOfLines: 1,
-          defaultValue: state.about.description ?? '',
-          underlineColorAndroid: Palette.backgroundBrand,
-          accessible: true,
-          accessibilityLabel: 'Description Text Input',
-          style: styles.textInput,
-        }),
-      ]),
+          h(Text, {style: styles.label}, 'Bio'),
+          h(TextInput, {
+            sel: 'description',
+            multiline: true,
+            autoFocus: false,
+            numberOfLines: 1,
+            defaultValue: state.about.description ?? '',
+            underlineColorAndroid: Palette.backgroundBrand,
+            accessible: true,
+            accessibilityLabel: 'Description Text Input',
+            style: styles.textInput,
+          }),
+        ],
+      ),
     ]);
   });
 }
