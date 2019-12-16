@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -51,12 +51,25 @@ export const styles = StyleSheet.create({
   label: {
     fontSize: Typography.fontSizeSmall,
     color: Palette.textWeak,
-    marginLeft: 3,
+    marginLeft: Platform.select({
+      android: 3,
+      default: Dimensions.horizontalSpaceSmall,
+    }),
   },
 
   textInput: {
     fontSize: Typography.fontSizeNormal,
     marginBottom: Dimensions.verticalSpaceBig,
+    ...Platform.select({
+      android: {},
+      default: {
+        borderColor: Palette.textVeryWeak,
+        borderWidth: 1,
+        borderRadius: 3,
+        paddingHorizontal: Dimensions.horizontalSpaceSmall,
+        paddingVertical: Dimensions.verticalSpaceSmall,
+      },
+    }),
   },
 
   save: {
