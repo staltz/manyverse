@@ -8,6 +8,8 @@ export enum Screens {
   Welcome = 'Manyverse.Welcome',
   Central = 'Manyverse.Central',
   Drawer = 'Manyverse.Drawer',
+  DialogAbout = 'Manyverse.Dialog.About',
+  DialogThanks = 'Manyverse.Dialog.Thanks',
   Compose = 'Manyverse.Compose',
   Thread = 'Manyverse.Thread',
   InvitePaste = 'Manyverse.Invite.Paste',
@@ -43,6 +45,8 @@ import {makeSplashScreenDriver} from './drivers/splashscreen';
 import {welcome, navOptions as welcomeNavOpts} from './screens/welcome/index';
 import {central, navOptions as centralNavOpts} from './screens/central/index';
 import {drawer} from './screens/drawer/index';
+import {dialogAbout} from './screens/dialog-about/index';
+import {dialogThanks} from './screens/dialog-thanks/index';
 import {compose} from './screens/compose/index';
 import {thread} from './screens/thread/index';
 import {pasteInvite} from './screens/invite-paste/index';
@@ -64,6 +68,8 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
   [Screens.Welcome]: withState(welcome),
   [Screens.Central]: withState(central),
   [Screens.Drawer]: withState(drawer),
+  [Screens.DialogAbout]: dialogAbout,
+  [Screens.DialogThanks]: dialogThanks,
   [Screens.Compose]: withState(compose),
   [Screens.Thread]: withState(thread),
   [Screens.InvitePaste]: withState(pasteInvite),
@@ -99,17 +105,17 @@ export const drivers = {
 };
 
 export const welcomeLayout: Layout = {
-    stack: {
-      id: 'mainstack',
-      children: [
-        {
-          component: {
-            name: Screens.Welcome,
-            options: welcomeNavOpts,
-          },
+  stack: {
+    id: 'mainstack',
+    children: [
+      {
+        component: {
+          name: Screens.Welcome,
+          options: welcomeNavOpts,
         },
-      ],
-    },
+      },
+    ],
+  },
 };
 
 export const centralLayout: Layout = {

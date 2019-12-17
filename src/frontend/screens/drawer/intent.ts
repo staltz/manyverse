@@ -13,12 +13,12 @@ export default function intent(source: ReactSource) {
       .events('press')
       .mapTo(null),
 
-    openAbout$: source
+    goToAbout$: source
       .select('about')
       .events('press')
       .mapTo(null),
 
-    openThanks$: source
+    goToThanks$: source
       .select('thanks')
       .events('press')
       .mapTo(null),

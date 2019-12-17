@@ -9,6 +9,8 @@ import sample from 'xstream-sample';
 import {Command, PushCommand} from 'cycle-native-navigation';
 import {navOptions as profileScreenNavOptions} from '../profile';
 import {navOptions as rawDatabaseScreenNavOptions} from '../raw-db';
+import {navOptions as dialogAboutNavOptions} from '../dialog-about';
+import {navOptions as dialogThanksNavOptions} from '../dialog-thanks';
 import {navOptions as backupScreenNavOptions} from '../backup';
 import {State} from './model';
 import {Screens} from '../..';
@@ -16,6 +18,8 @@ import {Screens} from '../..';
 export type Actions = {
   goToSelfProfile$: Stream<null>;
   goToBackup$: Stream<null>;
+  goToAbout$: Stream<any>;
+  goToThanks$: Stream<any>;
   showRawDatabase$: Stream<null>;
 };
 
@@ -40,6 +44,26 @@ export default function navigationCommands(
         },
       } as PushCommand),
   );
+
+  const toAbout$ = actions.goToAbout$.mapTo({
+    type: 'showModal',
+    layout: {
+      component: {
+        name: Screens.DialogAbout,
+        options: dialogAboutNavOptions,
+      },
+    },
+  } as Command);
+
+  const toThanks$ = actions.goToThanks$.mapTo({
+    type: 'showModal',
+    layout: {
+      component: {
+        name: Screens.DialogThanks,
+        options: dialogThanksNavOptions,
+      },
+    },
+  } as Command);
 
   const toRawDatabase$ = actions.showRawDatabase$.map(
     () =>
@@ -86,5 +110,5 @@ export default function navigationCommands(
     })
     .flatten();
 
-  return hideDrawerAndPush$;
+  return xs.merge(hideDrawerAndPush$, toAbout$, toThanks$);
 }
