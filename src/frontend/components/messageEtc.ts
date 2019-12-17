@@ -9,6 +9,7 @@ import {Msg} from 'ssb-typescript';
 import {DialogSource} from '../drivers/dialogs';
 import {Palette} from '../global-styles/palette';
 import {Toast, Duration} from '../drivers/toast';
+import {Platform} from 'react-native';
 
 export type EtcChoiceId = 'copy-id' | 'raw-msg';
 
@@ -27,7 +28,7 @@ export default function messageEtc(sources: Sources): Sinks {
   const messageEtcChoice$ = sources.appear$
     .map(msg =>
       sources.dialog
-        .showPicker(undefined, undefined, {
+        .showPicker(Platform.OS === 'ios' ? 'Message' : undefined, undefined, {
           items: [
             {label: 'Copy cypherlink', id: 'copy-id'},
             {label: 'View raw message', id: 'raw-msg'},

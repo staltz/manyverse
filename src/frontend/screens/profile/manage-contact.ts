@@ -10,6 +10,7 @@ import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 import {Duration, Toast} from '../../drivers/toast';
 import {FeedId} from 'ssb-typescript';
+import {Platform} from 'react-native';
 
 export type ManageChoiceId =
   | 'copy-id'
@@ -73,7 +74,7 @@ export default function manageContact$(sources: Sources): Sinks {
       }
 
       return sources.dialog
-        .showPicker(undefined, undefined, {
+        .showPicker(Platform.OS === 'ios' ? 'Account' : undefined, undefined, {
           items,
           type: 'listPlain',
           contentColor: Palette.text,

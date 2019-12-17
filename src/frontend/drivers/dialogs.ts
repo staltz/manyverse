@@ -115,7 +115,7 @@ export class DialogSource {
               onPress: () => listener.next({action: 'actionPositive'}),
             });
           }
-          Alert.alert(title ?? 'Title', content ?? 'Content', buttons, {
+          Alert.alert(title ?? '', content ?? '', buttons, {
             cancelable: true,
             onDismiss: () => listener.next({action: 'actionDismiss'}),
           });
@@ -130,7 +130,35 @@ export class DialogSource {
     content?: string,
     options?: OptionsPicker,
   ): Stream<PickerAction> {
-    return xs.fromPromise(DialogAndroid.showPicker(title, content, options));
+    if (Platform.OS === 'android') {
+      return xs.fromPromise(DialogAndroid.showPicker(title, content, options));
+    } else {
+      return xs.create({
+        start: (listener: Listener<PickerAction>) => {
+          const buttons: Array<AlertButton> = [];
+          if (options) {
+            for (const item of options.items) {
+              buttons.push({
+                text: item.label,
+                style: 'default',
+                onPress: () =>
+                  listener.next({
+                    action: 'actionSelect',
+                    selectedItem: {id: item.id},
+                  }),
+              });
+            }
+          }
+          buttons.push({
+            text: 'Cancel',
+            style: 'cancel',
+            onPress: () => listener.next({action: 'actionDismiss'}),
+          });
+          Alert.alert(title ?? '', content, buttons);
+        },
+        stop: () => {},
+      });
+    }
   }
 
   public prompt(
