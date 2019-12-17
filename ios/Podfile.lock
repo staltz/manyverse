@@ -292,7 +292,6 @@ DEPENDENCIES:
   - RNFS (from `../node_modules/react-native-fs`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNOS (from `../node_modules/react-native-os-staltz/RNOS.podspec`)
-  - RNStyledDialogs (from `../node_modules/react-native-styled-dialogs/ios`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -376,8 +375,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-crop-picker"
   RNOS:
     :podspec: "../node_modules/react-native-os-staltz/RNOS.podspec"
-  RNStyledDialogs:
-    :path: "../node_modules/react-native-styled-dialogs/ios"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:

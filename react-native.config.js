@@ -23,11 +23,5 @@ module.exports = {
         android: null,
       },
     },
-    'react-native-styled-dialogs': {
-      platforms: {
-        // On Android, we use react-native-dialogs, so we don't need this
-        android: null,
-      },
-    },
   },
 };

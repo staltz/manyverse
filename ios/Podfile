@@ -46,8 +46,6 @@ target 'Manyverse' do
 
   use_native_modules!
 
-  pod 'RNStyledDialogs', :path => '../node_modules/react-native-styled-dialogs/ios'
-
   use_frameworks!
 
   pod 'PMAlertController', :git => 'https://github.com/prscX/PMAlertController', :branch => 'swift-version-fix'
