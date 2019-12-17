@@ -58,6 +58,7 @@ import {secretOutput} from './screens/secret-output/index';
 import {secretInput} from './screens/secret-input/index';
 import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
+import {Options, Layout} from 'react-native-navigation';
 
 export const screens: {[k in Screens]?: (so: any) => any} = {
   [Screens.Welcome]: withState(welcome),
@@ -97,8 +98,7 @@ export const drivers = {
   exit: makeExitDriver(),
 };
 
-export const welcomeLayout = {
-  root: {
+export const welcomeLayout: Layout = {
     stack: {
       id: 'mainstack',
       children: [
@@ -110,13 +110,11 @@ export const welcomeLayout = {
         },
       ],
     },
-  },
 };
 
-export const centralLayout = {
+export const centralLayout: Layout = {
   sideMenu: {
     left: {
-      visible: false,
       component: {name: Screens.Drawer},
     },
     center: {
@@ -135,11 +133,16 @@ export const centralLayout = {
   },
 };
 
-export const defaultNavOptions = {
+export const defaultNavOptions: Options = {
   statusBar: {
     visible: true,
     backgroundColor: Palette.backgroundBrandStrong,
     style: 'light',
+  },
+  sideMenu: {
+    left: {
+      shouldStretchDrawer: false,
+    },
   },
   layout: {
     backgroundColor: Palette.backgroundVoid,
@@ -153,7 +156,7 @@ export const defaultNavOptions = {
     height: 0,
     borderHeight: 0,
     elevation: 0,
-    buttonColor: Palette.textForBackgroundBrand,
+    leftButtonColor: Palette.textForBackgroundBrand,
     background: {
       color: Palette.backgroundBrand,
     },
