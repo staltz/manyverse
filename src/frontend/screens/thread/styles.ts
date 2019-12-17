@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -54,7 +54,8 @@ export const styles = StyleSheet.create({
   replyInput: {
     fontSize: Typography.fontSizeNormal,
     color: Palette.text,
-    maxHeight: 84, // approx. 3.5 lines of text
+    ...Platform.select({ios: {paddingTop: 0}}),
+    maxHeight: Platform.select({android: 84, default: 75}), // approx. 3.5 lines of text
   },
 
   buttonInReply: {
