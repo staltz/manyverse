@@ -15,12 +15,16 @@ export const styles = StyleSheet.create({
     borderRadius: 18,
     padding: 6,
     marginLeft: -6,
+    maxWidth: 36,
+    maxHeight: 36,
   },
 
   rightSide: {
     borderRadius: 18,
     padding: 6,
     marginRight: -6,
+    maxWidth: 36,
+    maxHeight: 36,
   },
 });
 
