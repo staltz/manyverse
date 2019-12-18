@@ -7,6 +7,8 @@
 import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+import {Platform} from 'react-native';
 import {SSBSource} from '../../../drivers/ssb';
 import {
   PeerKV,
@@ -15,7 +17,6 @@ import {
 } from '../../../ssb/types';
 import {NetworkSource} from '../../../drivers/network';
 import {noteStorageKeyFor} from './asyncstorage';
-import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 
 export type State = {
   selfFeedId: FeedId;
@@ -89,15 +90,18 @@ export default function model(
       },
   );
 
-  const updateBluetoothEnabled$ = actions.pingConnectivityModes$
-    .map(() => networkSource.bluetoothIsEnabled())
-    .flatten()
-    .map(
-      bluetoothEnabled =>
-        function updateBluetoothEnabled(prev: State): State {
-          return {...prev, bluetoothEnabled};
-        },
-    );
+  const updateBluetoothEnabled$ =
+    Platform.OS === 'ios'
+      ? xs.empty()
+      : actions.pingConnectivityModes$
+          .map(() => networkSource.bluetoothIsEnabled())
+          .flatten()
+          .map(
+            bluetoothEnabled =>
+              function updateBluetoothEnabled(prev: State): State {
+                return {...prev, bluetoothEnabled};
+              },
+          );
 
   const updateLanEnabled$ = actions.pingConnectivityModes$
     .map(() => networkSource.wifiIsEnabled())

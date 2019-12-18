@@ -16,6 +16,7 @@ import {
   BlobId,
 } from 'ssb-typescript';
 const nodejs = require('nodejs-mobile-react-native');
+import {Platform} from 'react-native';
 import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import xsFromCallback from 'xstream-from-callback';
@@ -302,10 +303,13 @@ export class SSBSource {
       })
       .flatten();
 
-    this.bluetoothScanState$ = this.ssb$
-      .map(ssb => ssb.bluetooth.bluetoothScanState())
-      .map(xsFromPullStream)
-      .flatten();
+    this.bluetoothScanState$ =
+      Platform.OS === 'ios'
+        ? xs.empty()
+        : this.ssb$
+            .map(ssb => ssb.bluetooth.bluetoothScanState())
+            .map(xsFromPullStream)
+            .flatten();
   }
 
   public thread$(rootMsgId: MsgId): Stream<ThreadAndExtras> {
@@ -727,9 +731,11 @@ async function consumeSink(
       }
 
       if (req.type === 'bluetooth.search') {
-        ssb.bluetooth.makeDeviceDiscoverable(req.interval, (err: any) => {
-          if (err) return console.error(err.message || err);
-        });
+        if (Platform.OS !== 'ios') {
+          ssb.bluetooth.makeDeviceDiscoverable(req.interval, (err: any) => {
+            if (err) return console.error(err.message || err);
+          });
+        }
         return;
       }
 

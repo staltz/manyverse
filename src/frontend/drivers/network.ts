@@ -17,6 +17,12 @@ export class NetworkSource {
   public bluetoothIsEnabled(): Stream<boolean> {
     return xs.create({
       async start(listener: Listener<boolean>) {
+        if (Platform.OS === 'ios') {
+          listener.next(false);
+          listener.complete();
+          return;
+        }
+
         try {
           listener.next(await BluetoothStatus.state());
           listener.complete();

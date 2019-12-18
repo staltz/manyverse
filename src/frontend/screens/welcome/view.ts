@@ -8,7 +8,7 @@ import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, Platform} from 'react-native';
 import tutorialSlide from '../../components/tutorial-slide';
 import tutorialPresentation from '../../components/tutorial-presentation';
 import Button from '../../components/Button';
@@ -140,9 +140,14 @@ export default function view(state$: Stream<State>, actions: Actions) {
                 'To connect with friends and synchronize content, you can ' +
                   'either: join the same ',
                 h(Text, {style: styles.bold}, 'Wi-Fi'),
-                ', use ',
-                h(Text, {style: styles.bold}, 'Bluetooth sync'),
-                ', or exchange ',
+                ...Platform.select({
+                  ios: [' or exchange '],
+                  default: [
+                    ', use ',
+                    h(Text, {style: styles.bold}, 'Bluetooth sync'),
+                    ', or exchange ',
+                  ],
+                }),
                 h(Text, {style: styles.bold}, 'P2P invites'),
                 '. To find new people on the internet, look for an invite code ' +
                   'to a ',

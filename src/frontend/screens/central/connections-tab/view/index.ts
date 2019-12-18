@@ -13,6 +13,7 @@ import {
   Animated,
   Easing,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import * as React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -106,13 +107,15 @@ function ConnectivityMode(props: ModeProps) {
 
 function ConnectivityModes(state: State) {
   return h(View, {style: styles.modesContainer}, [
-    h(ConnectivityMode, {
-      sel: 'bluetooth-mode',
-      active: state.bluetoothEnabled,
-      icon: 'bluetooth',
-      label: 'Bluetooth Mode',
-      lastScanned: state.bluetoothLastScanned,
-    }),
+    Platform.OS === 'ios'
+      ? null
+      : h(ConnectivityMode, {
+          sel: 'bluetooth-mode',
+          active: state.bluetoothEnabled,
+          icon: 'bluetooth',
+          label: 'Bluetooth Mode',
+          lastScanned: state.bluetoothLastScanned,
+        }),
 
     h(ConnectivityMode, {
       sel: 'lan-mode',
