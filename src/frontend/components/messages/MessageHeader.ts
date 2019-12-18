@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
@@ -91,7 +91,13 @@ export default class MessageHeader extends Component<Props> {
       onPress: this._onPressAuthor,
       activeOpacity: 0.4,
     };
-    const etcTouchableProps = {onPress: this._onPressEtc, activeOpacity: 0.4};
+    const etcTouchableProps = {
+      onPress: this._onPressEtc,
+      activeOpacity: 0.4,
+      ...Platform.select({
+        ios: {hitSlop: {top: 6, left: 6, bottom: 6, right: 6}},
+      }),
+    };
 
     const messageHeaderAuthorName = h(TouchableOpacity, authorTouchableProps, [
       h(
