@@ -8,7 +8,7 @@ import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
 import {ReactElement} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
@@ -37,11 +37,23 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    marginLeft: Dimensions.horizontalSpaceLarge,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textForBackgroundBrand,
     fontSize: Typography.fontSizeLarge,
     fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        position: 'absolute',
+        top: getStatusBarHeight() + Dimensions.verticalSpaceIOSTitle,
+        left: 40,
+        right: 40,
+        textAlign: 'center',
+        marginLeft: 0,
+      },
+      default: {
+        marginLeft: Dimensions.horizontalSpaceLarge,
+      },
+    }),
   },
 });
 

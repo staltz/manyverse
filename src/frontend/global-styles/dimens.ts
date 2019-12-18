@@ -18,6 +18,11 @@ export const Dimensions = {
   verticalSpaceSmall: 7,
   verticalSpaceTiny: 3,
 
+  /**
+   * Space between top of the screen and the beginning of the screen title.
+   */
+  verticalSpaceIOSTitle: 16,
+
   avatarSizeBig: 80,
   avatarSizeNormal: 45,
   avatarSizeSmall: 32,
