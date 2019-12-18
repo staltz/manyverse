@@ -166,7 +166,24 @@ export class DialogSource {
     content?: string,
     options?: OptionsPrompt,
   ): Stream<PromptAction> {
-    return xs.fromPromise(DialogAndroid.prompt(title, content, options));
+    if (Platform.OS === 'android') {
+      return xs.fromPromise(DialogAndroid.showPicker(title, content, options));
+    } else {
+      return xs.create({
+        start: (listener: Listener<PromptAction>) => {
+          const buttons = [
+            {
+              text: options?.positiveText ?? 'OK',
+              onPress: (text: string) => {
+                listener.next({action: 'actionPositive', text});
+              },
+            },
+          ];
+          Alert.prompt(title ?? '', content, buttons);
+        },
+        stop: () => {},
+      });
+    }
   }
 }
 
