@@ -21,7 +21,6 @@ PODS:
   - glog (0.3.5)
   - nodejs-mobile-react-native (0.5.0):
     - React
-  - PMAlertController (3.5.0)
   - QBImagePickerController (3.4.0)
   - RCTRequired (0.61.5)
   - RCTSystemSetting (1.7.3):
@@ -244,9 +243,6 @@ PODS:
     - RSKImageCropper
   - RNOS (2.2.0):
     - React
-  - RNStyledDialogs (1.0.0):
-    - PMAlertController
-    - React
   - RNVectorIcons (6.6.0):
     - React
   - RSKImageCropper (2.2.3)
@@ -259,7 +255,6 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - nodejs-mobile-react-native (from `../node_modules/nodejs-mobile-react-native`)
-  - PMAlertController (from `https://github.com/prscX/PMAlertController`, branch `swift-version-fix`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTSystemSetting (from `../node_modules/react-native-system-setting`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -314,9 +309,6 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   nodejs-mobile-react-native:
     :path: "../node_modules/nodejs-mobile-react-native"
-  PMAlertController:
-    :branch: swift-version-fix
-    :git: https://github.com/prscX/PMAlertController
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTSystemSetting:
@@ -380,11 +372,6 @@ EXTERNAL SOURCES:
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
-CHECKOUT OPTIONS:
-  PMAlertController:
-    :commit: 874b572d92605593b82598ae8acc9915794c2882
-    :git: https://github.com/prscX/PMAlertController
-
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
@@ -393,7 +380,6 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   nodejs-mobile-react-native: 1bdef45fb27ac8416414042b45e3d35830dd2e3e
-  PMAlertController: 7726ab978bacd6a5d63a6c943841f678b008d4cf
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTSystemSetting: 2870be06565f2398a8786bfe8486ff6880a4326a
@@ -424,11 +410,10 @@ SPEC CHECKSUMS:
   RNFS: 0d4191b1052bef9ce70deff00a5b4169c62bbd9b
   RNImageCropPicker: e1d8c3381e5b05a1bdcd13ea57a4f1c020a09cef
   RNOS: 6299cef6f70a1bc5f53f00ed516f0f9ef35fea5a
-  RNStyledDialogs: 7407dcc63489cfb94062a38cd79cfa4a9339b02f
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 84ad9e2d52538d035cfd67de996285b393649b05
+PODFILE CHECKSUM: a3b4ff5abf4eecf20c6ce774e8d35005a0cac1f3
 
 COCOAPODS: 1.8.4

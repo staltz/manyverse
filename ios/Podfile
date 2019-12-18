@@ -45,20 +45,7 @@ target 'Manyverse' do
   end
 
   use_native_modules!
-
   use_frameworks!
-
-  pod 'PMAlertController', :git => 'https://github.com/prscX/PMAlertController', :branch => 'swift-version-fix'
-
-  post_install do |installer|
-    installer.pods_project.targets.each do |target|
-      if target.name.include?('PMAlertController')
-        target.build_configurations.each do |config|
-          config.build_settings['SWIFT_VERSION'] = '4.2'
-        end
-      end
-    end
-  end
 end
 
 target 'Manyverse-tvOS' do
