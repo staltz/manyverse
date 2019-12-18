@@ -37,6 +37,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera access is needed to allow the user to take a picture to add to their posts</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library access is needed to allow the user to pick pictures to add to their posts</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>
