@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
     paddingRight: 4,
     borderRadius: 2,
-    fontFamily: 'monospace',
+    fontFamily: Typ.fontFamilyMonospace,
   },
 
   strikethrough: {
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     color: Palette.textWeak,
     fontSize: Typ.fontSizeSmall,
     fontWeight: 'normal',
-    fontFamily: 'monospace',
+    fontFamily: Typ.fontFamilyMonospace,
   },
 
   horizontalLine: {
