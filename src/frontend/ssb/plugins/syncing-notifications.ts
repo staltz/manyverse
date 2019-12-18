@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Palette} from '../../global-styles/palette';
+import {Platform} from 'react-native';
 const Thenable = require('pull-thenable');
 const Notification = require('react-native-android-local-notification');
 
@@ -71,7 +72,9 @@ export default function syncingNotifications() {
   return {
     name: 'notifications',
     init: (ssb: any) => {
-      consume(ssb.syncing.stream());
+      if (Platform.OS === 'android') {
+        consume(ssb.syncing.stream());
+      }
       return {};
     },
   };

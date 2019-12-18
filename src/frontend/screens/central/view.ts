@@ -6,7 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
-import {View, ActivityIndicator} from 'react-native';
+import {View, ActivityIndicator, Platform} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {IndicatorViewPager} from 'rn-viewpager';
@@ -51,7 +51,7 @@ function renderConnectionsIcon(isSyncing: boolean) {
   return {
     normal: h(View, [
       h(Icon, {...iconProps.tab, ...iconData.connections}),
-      isSyncing
+      isSyncing && Platform.OS === 'android'
         ? h(ActivityIndicator, {
             animating: true,
             size: 19,
@@ -66,7 +66,7 @@ function renderConnectionsIcon(isSyncing: boolean) {
         ...iconProps.tabSelected,
         ...iconData.connections,
       }),
-      isSyncing
+      isSyncing && Platform.OS === 'android'
         ? h(ActivityIndicator, {
             animating: true,
             size: 19,
