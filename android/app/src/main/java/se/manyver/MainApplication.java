@@ -32,6 +32,7 @@ import org.wonday.orientation.OrientationPackage;
 import com.rnfs.RNFSPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
+import com.ninty.system.setting.SystemSettingPackage;
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -100,6 +101,7 @@ public class MainApplication extends NavigationApplication {
     packages.add(new RNFSPackage());
     packages.add(new SplashScreenReactPackage());
     packages.add(new RNCViewPagerPackage());
+    packages.add(new SystemSettingPackage());
     return packages;
   }
 }
