@@ -2,8 +2,6 @@ rootProject.name = 'Manyverse'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':@react-native-community_async-storage'
 project(':@react-native-community_async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/async-storage/android')
-include ':react-native-bluetooth-status'
-project(':react-native-bluetooth-status').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-bluetooth-status/android')
 include ':react-native-bluetooth-socket-bridge'
 project(':react-native-bluetooth-socket-bridge').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-bluetooth-socket-bridge/android')
 include ':react-native-image-crop-picker'
@@ -22,8 +20,6 @@ include ':react-native-navigation'
 project(':react-native-navigation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-navigation/lib/android/app/')
 include ':react-native-android-local-notification'
 project(':react-native-android-local-notification').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-local-notification/android')
-include ':react-native-android-wifi'
-project(':react-native-android-wifi').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-wifi/android')
 include ':react-native-has-internet'
 project(':react-native-has-internet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-has-internet/android')
 include ':react-native-flag-secure-android'

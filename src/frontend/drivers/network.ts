@@ -5,9 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream, Listener} from 'xstream';
-import {BluetoothStatus} from 'react-native-bluetooth-status';
 import {Platform} from 'react-native';
-const wifi = require('react-native-android-wifi');
 const SystemSetting = require('react-native-system-setting').default;
 const hasInternet = require('react-native-has-internet');
 
@@ -24,7 +22,7 @@ export class NetworkSource {
         }
 
         try {
-          listener.next(await BluetoothStatus.state());
+          listener.next(await SystemSetting.isBluetoothEnabled());
           listener.complete();
         } catch (e) {
           listener.error(e);
@@ -36,18 +34,9 @@ export class NetworkSource {
 
   public wifiIsEnabled(): Stream<boolean> {
     return xs.create({
-      start(listener: Listener<boolean>) {
-        if (Platform.OS === 'android') {
-          wifi.isEnabled((isEnabled: boolean) => {
-            listener.next(isEnabled);
-            listener.complete();
-          });
-        } else {
-          SystemSetting.isWifiEnabled().then((isEnabled: boolean) => {
-            listener.next(isEnabled);
-            listener.complete();
-          });
-        }
+      async start(listener: Listener<boolean>) {
+        listener.next(await SystemSetting.isWifiEnabled());
+        listener.complete();
       },
       stop() {},
     });
