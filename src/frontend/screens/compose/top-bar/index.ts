@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
 
   buttonsRight: {
     flexDirection: 'row',
-    alignItems: 'stretch',
+    alignItems: 'center',
     justifyContent: 'flex-end',
   },
 
@@ -62,6 +62,7 @@ export const styles = StyleSheet.create({
 
   buttonEnabled: {
     backgroundColor: Palette.backgroundCTA,
+    minWidth: 80,
     marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
