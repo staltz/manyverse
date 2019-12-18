@@ -94,7 +94,7 @@ function view(state$: Stream<State>) {
         state.enabled
           ? h(HeaderButton, {
               sel: 'composePreviewButton',
-              rightSide: true,
+              side: 'neutral',
               icon: state.previewing ? 'pencil' : 'eye',
               accessibilityLabel: 'Preview Button',
             })

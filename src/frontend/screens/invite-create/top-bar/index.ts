@@ -55,7 +55,7 @@ export function topBar(sources: Sources): Sinks {
         sel: 'inviteShareButton',
         icon: 'share',
         accessibilityLabel: 'Share Button',
-        rightSide: true,
+        side: 'right',
       }),
     ]),
   );

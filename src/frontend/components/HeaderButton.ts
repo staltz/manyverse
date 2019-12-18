@@ -9,23 +9,23 @@ import {TouchableHighlight, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
+import {Dimensions} from '../global-styles/dimens';
+
+const size = 36;
+const space = Dimensions.horizontalSpaceNormal * 0.5;
+const iconSize = size - space - space;
 
 export const styles = StyleSheet.create({
-  leftSide: {
-    borderRadius: 18,
-    padding: 6,
-    marginLeft: -6,
-    maxWidth: 36,
-    maxHeight: 36,
+  basics: {
+    maxWidth: size,
+    maxHeight: size,
+    borderRadius: size * 0.5,
+    padding: space,
   },
 
-  rightSide: {
-    borderRadius: 18,
-    padding: 6,
-    marginRight: -6,
-    maxWidth: 36,
-    maxHeight: 36,
-  },
+  leftSide: {marginLeft: -space},
+
+  rightSide: {marginRight: -space},
 });
 
 export type Props = {
@@ -34,7 +34,7 @@ export type Props = {
   color?: string;
   icon: string;
   accessibilityLabel: string;
-  rightSide?: boolean;
+  side?: 'left' | 'right' | 'neutral';
 };
 
 export default class HeaderButton extends PureComponent<Props> {
@@ -45,12 +45,21 @@ export default class HeaderButton extends PureComponent<Props> {
       color,
       icon,
       accessibilityLabel,
-      rightSide,
+      side,
     } = this.props;
+    const sideStyle =
+      side === 'left'
+        ? styles.leftSide
+        : side === 'right'
+        ? styles.rightSide
+        : side === 'neutral'
+        ? null
+        : styles.leftSide;
+
     return h(
       TouchableHighlight,
       {
-        style: rightSide ? styles.leftSide : styles.rightSide,
+        style: [styles.basics, sideStyle],
         onPress,
         onLongPress,
         hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
@@ -58,7 +67,7 @@ export default class HeaderButton extends PureComponent<Props> {
       },
       [
         h(Icon, {
-          size: 24,
+          size: iconSize,
           color: color ?? 'white',
           name: icon,
           accessible: true,

@@ -124,7 +124,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
         },
         icon: 'content-copy',
         accessibilityLabel: 'Copy Blob ID',
-        rightSide: true,
+        side: 'neutral',
       }),
     ]);
   }
