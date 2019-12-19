@@ -13,14 +13,15 @@ import {Dimensions} from '../global-styles/dimens';
 
 const size = 36;
 const space = Dimensions.horizontalSpaceNormal * 0.5;
-const iconSize = size - space - space;
+const defaultIconSize = 24;
 
 export const styles = StyleSheet.create({
   basics: {
     maxWidth: size,
     maxHeight: size,
     borderRadius: size * 0.5,
-    padding: space,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   leftSide: {marginLeft: -space},
@@ -33,6 +34,7 @@ export type Props = {
   onLongPress?: () => void;
   color?: string;
   icon: string;
+  iconSize?: number;
   accessibilityLabel: string;
   side?: 'left' | 'right' | 'neutral';
 };
@@ -44,6 +46,7 @@ export default class HeaderButton extends PureComponent<Props> {
       onLongPress,
       color,
       icon,
+      iconSize,
       accessibilityLabel,
       side,
     } = this.props;
@@ -55,11 +58,12 @@ export default class HeaderButton extends PureComponent<Props> {
         : side === 'neutral'
         ? null
         : styles.leftSide;
+    const padding = (size - (iconSize ?? defaultIconSize)) * 0.5;
 
     return h(
       TouchableHighlight,
       {
-        style: [styles.basics, sideStyle],
+        style: [styles.basics, sideStyle, {padding}],
         onPress,
         onLongPress,
         hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
@@ -67,7 +71,7 @@ export default class HeaderButton extends PureComponent<Props> {
       },
       [
         h(Icon, {
-          size: iconSize,
+          size: iconSize ?? defaultIconSize,
           color: color ?? 'white',
           name: icon,
           accessible: true,

@@ -28,6 +28,7 @@ export const Dimensions = {
   avatarSizeSmall: 32,
   avatarBorderRadius: 3,
 
+  iconSizeLarge: 36,
   iconSizeBig: 30,
   iconSizeNormal: 24,
   iconSizeSmall: 18,

@@ -6,11 +6,14 @@
 
 import {h} from '@cycle/react';
 import HeaderButton from './HeaderButton';
+import {Platform} from 'react-native';
+import {Dimensions} from '../global-styles/dimens';
 
 export default function HeaderBackButton(sel: string) {
   return h(HeaderButton, {
     sel,
-    icon: 'arrow-left',
+    icon: Platform.select({ios: 'chevron-left', default: 'arrow-left'}),
+    ...Platform.select({ios: {iconSize: Dimensions.iconSizeLarge}}),
     accessibilityLabel: 'Back Button',
   });
 }
