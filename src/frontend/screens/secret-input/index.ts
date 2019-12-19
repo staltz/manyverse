@@ -11,7 +11,6 @@ import {ReactSource} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
 import isolate from '@cycle/isolate';
 import {SSBSource} from '../../drivers/ssb';
-import {Toast} from '../../drivers/toast';
 import {DialogSource} from '../../drivers/dialogs';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import navigation from './navigation';
@@ -37,7 +36,6 @@ export type Sinks = {
   keyboard: Stream<'dismiss'>;
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  toast: Stream<Toast>;
   state: Stream<Reducer<State>>;
 };
 
@@ -87,7 +85,6 @@ export function secretInput(sources: Sources): Sinks {
     keyboard: dismissKeyboard$,
     screen: vdom$,
     navigation: command$,
-    toast: xs.never(),
     state: reducer$,
   };
 }

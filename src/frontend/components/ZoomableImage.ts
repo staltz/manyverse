@@ -15,12 +15,14 @@ import {
   TouchableWithoutFeedback as Touchable,
   ToastAndroid,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import ImageView from 'react-native-image-view';
 import {Dimensions as Dimens} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
 import HeaderButton from './HeaderButton';
+const ToastIOS = require('react-native-tiny-toast').default;
 const urlToBlobId = require('ssb-serve-blobs/url-to-id');
 
 const $ = createElement;
@@ -116,11 +118,29 @@ export default class ZoomableImage extends PureComponent<Props, State> {
         key: 'btn',
         onPress: () => {
           Clipboard.setString(blobId);
-          ToastAndroid.show("Copied this blob's ID", ToastAndroid.SHORT);
+          const toastMsg = "Copied this blob's ID";
+          if (Platform.OS === 'android') {
+            ToastAndroid.show(toastMsg, ToastAndroid.SHORT);
+          } else {
+            ToastIOS.show(toastMsg, {
+              position: 0,
+              duration: ToastAndroid.SHORT,
+            });
+          }
+          this.onClose();
         },
         onLongPress: () => {
           Clipboard.setString(`![${blobId}](${blobId})`);
-          ToastAndroid.show('Copied as markdown code', ToastAndroid.SHORT);
+          const toastMsg = 'Copied as markdown code';
+          if (Platform.OS === 'android') {
+            ToastAndroid.show(toastMsg, ToastAndroid.SHORT);
+          } else {
+            ToastIOS.show(toastMsg, {
+              position: 0,
+              duration: ToastAndroid.SHORT,
+            });
+          }
+          this.onClose();
         },
         icon: 'content-copy',
         accessibilityLabel: 'Copy Blob ID',
@@ -144,7 +164,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
               images: [{source: {uri}, width: fullwidth, height: fullheight}],
               imageIndex: 0,
               onClose: this.onClose,
-              renderFooter: this.renderFooter,
+              renderFooter: this.renderFooter.bind(this),
             })
           : null,
         $(
@@ -174,6 +194,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
           [
             $(Image, {
               source: {uri},
+              key: 'img',
               onLoad: this.onLoad,
               style: [styles.imageLoading, {width, height}],
             }),

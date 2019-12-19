@@ -138,15 +138,17 @@ export function central(sources: Sources): Sinks {
       if (res === true)
         return {
           type: 'show' as 'show',
-          message: '\u2713 Invite accepted',
+          flavor: 'success',
+          message: 'Invite accepted',
           duration: ToastDuration.SHORT,
-        };
+        } as Toast;
       else
         return {
           type: 'show' as 'show',
-          message: '\u2717 Invite rejected. Are you sure it was correct?',
+          flavor: 'failure',
+          message: 'Invite rejected. Are you sure it was correct?',
           duration: ToastDuration.LONG,
-        };
+        } as Toast;
     },
   );
   const toast$ = xs.merge(inviteToast$, publicTabSinks.toast);
