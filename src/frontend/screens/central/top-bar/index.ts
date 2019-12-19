@@ -70,7 +70,9 @@ function intent(reactSource: ReactSource) {
 }
 
 function tabTitle(tab: 'public' | 'connections') {
-  if (tab === 'public') return 'Messages';
+  if (tab === 'public') {
+    return Platform.OS === 'ios' ? 'Manyverse' : 'Messages';
+  }
   if (tab === 'connections') return 'Connections';
   return '';
 }
