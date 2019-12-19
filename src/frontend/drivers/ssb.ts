@@ -656,19 +656,34 @@ async function consumeSink(
       if (req.type === 'conn.rememberConnect') {
         const addr = req.address;
         const data = req.data || {};
+        const isRoomInvite = data.type === 'room';
 
         // remember
         const [e1] = await runAsync(ssb.conn.remember)(addr, data);
-        if (e1) return console.error(e1.message || e1);
+        if (e1) {
+          console.error(e1.message || e1);
+          console.error(`conn.remembering ${addr} failed`);
+          if (isRoomInvite) {
+            source.acceptInviteResponse$._n(`connecting to ${addr} failed`);
+          }
+          return;
+        }
 
         // connect
-        const [e2, result] = await runAsync(ssb.connUtils.persistentConnect)(
+        const [e2] = await runAsync(ssb.connUtils.persistentConnect)(
           addr,
           data,
         );
-        if (e2) return console.error(e2.message || e2);
-        if (!result) return console.error(`connecting to ${addr} failed`);
-        // TODO show this error as a Toast
+        if (e2) {
+          console.error(e2.message || e2);
+          console.error(`connecting to ${addr} failed`);
+          if (isRoomInvite) {
+            source.acceptInviteResponse$._n(`connecting to ${addr} failed`);
+          }
+          return;
+        }
+
+        if (isRoomInvite) source.acceptInviteResponse$._n(true);
         return;
       }
 
