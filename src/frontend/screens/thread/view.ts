@@ -185,6 +185,7 @@ export default function view(
               {
                 style: styles.scrollView,
                 scrollToEnd$,
+                keyboardDismissMode: 'interactive',
                 refreshControl: h(RefreshControl, {
                   refreshing: state.thread.messages.length === 0,
                   colors: [Palette.backgroundBrand],
