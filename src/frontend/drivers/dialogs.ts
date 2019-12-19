@@ -39,8 +39,14 @@ export type OptionsCommon = {
   positiveText?: string; // default "OK"
 };
 
+export type PickerItem = {
+  label?: string;
+  id?: any;
+  iosStyle?: AlertButton['style'];
+};
+
 export type OptionsPicker = OptionsCommon & {
-  items: Array<{label?: string; id?: any}>;
+  items: Array<PickerItem>;
   idKey?: string;
   labelKey?: string;
   neutralIsClear?: boolean;
@@ -140,7 +146,7 @@ export class DialogSource {
             for (const item of options.items) {
               buttons.push({
                 text: item.label,
-                style: 'default',
+                style: item.iosStyle ?? 'default',
                 onPress: () =>
                   listener.next({
                     action: 'actionSelect',

@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
-import {DialogSource} from '../../drivers/dialogs';
+import {DialogSource, PickerItem} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 import {Duration, Toast} from '../../drivers/toast';
@@ -53,20 +53,18 @@ function calculateRelationship(state: State) {
   return relationship;
 }
 
-type Item = {id: ManageChoiceId; label: string};
-
 export default function manageContact$(sources: Sources): Sinks {
   const manageContactChoice$ = sources.manageContact$
     .map(state => {
       const relationship = calculateRelationship(state);
-      const items: Array<Item> = [];
+      const items: Array<Omit<PickerItem, 'id'> & {id: ManageChoiceId}> = [];
 
       items.push({id: 'copy-id', label: 'Copy cypherlink'});
       if (relationship === 'neutral') {
-        items.push({id: 'block', label: 'Block'});
+        items.push({id: 'block', label: 'Block', iosStyle: 'destructive'});
         items.push({id: 'block-secretly', label: 'Block secretly'});
       } else if (relationship === 'following') {
-        items.push({id: 'block', label: 'Block'});
+        items.push({id: 'block', label: 'Block', iosStyle: 'destructive'});
       } else if (relationship === 'blocking-secretly') {
         items.push({id: 'unblock-secretly', label: 'Unblock secretly'});
       } else if (relationship === 'blocking-publicly') {
