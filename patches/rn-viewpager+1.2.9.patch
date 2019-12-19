@@ -1,5 +1,5 @@
 diff --git a/node_modules/rn-viewpager/viewpager/ViewPager.js b/node_modules/rn-viewpager/viewpager/ViewPager.js
-index 41f8f1b..0215ffa 100644
+index 41f8f1b..6bf72d3 100644
 --- a/node_modules/rn-viewpager/viewpager/ViewPager.js
 +++ b/node_modules/rn-viewpager/viewpager/ViewPager.js
 @@ -4,7 +4,8 @@
@@ -12,3 +12,35 @@ index 41f8f1b..0215ffa 100644
  import React, { Component } from 'react'
  
  const SCROLLVIEW_REF = 'scrollView'
+@@ -31,6 +32,8 @@ export default class ViewPager extends Component {
+ 
+     _scrollState = SCROLL_STATE.idle
+ 
++    _scrollingAutomatically = false
++
+     _preScrollX = null
+ 
+     _panResponder = PanResponder.create({
+@@ -121,7 +124,8 @@ export default class ViewPager extends Component {
+         if (this.props.onPageScroll) this.props.onPageScroll({offset, position})
+ 
+         if (this.props.onPageSelected && offset === 0) {
+-            this.props.onPageSelected({position})
++            if (!this._scrollingAutomatically) this.props.onPageSelected({position})
++            this._scrollingAutomatically = false
+             this.props.onPageScrollStateChanged && this._setScrollState(SCROLL_STATE.idle)
+             this.setState({page: position})
+         }
+@@ -173,7 +177,11 @@ export default class ViewPager extends Component {
+ 
+     setPage (selectedPage) {
+         this.setState({page: selectedPage})
+-        if (this.props.forceScrollView || Platform.OS === 'ios') this.refs[SCROLLVIEW_REF].scrollTo({x: this.state.width * selectedPage})
++        if (this.props.forceScrollView || Platform.OS === 'ios') {
++            this._scrollingAutomatically = true
++            this.props.onPageSelected && this.props.onPageSelected({position: selectedPage})
++            this.refs[SCROLLVIEW_REF].scrollTo({x: this.state.width * selectedPage})
++        }
+         else {
+             this.refs[VIEWPAGER_REF].setPage(selectedPage)
+             if (this.props.onPageSelected) this.props.onPageSelected({position: selectedPage})

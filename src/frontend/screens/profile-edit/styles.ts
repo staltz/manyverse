@@ -74,9 +74,17 @@ export const styles = StyleSheet.create({
 
   save: {
     position: 'absolute',
-    top:
-      Dimensions.toolbarHeight + avatarSizeHalf + Dimensions.verticalSpaceSmall,
-    right: Dimensions.horizontalSpaceBig,
+    top: Platform.select({
+      ios: -44,
+      default:
+        Dimensions.toolbarHeight +
+        avatarSizeHalf +
+        Dimensions.verticalSpaceSmall,
+    }),
+    right: Platform.select({
+      ios: 0,
+      default: Dimensions.horizontalSpaceBig,
+    }),
     zIndex: 30,
   },
 });

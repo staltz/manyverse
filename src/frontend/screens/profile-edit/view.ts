@@ -60,19 +60,32 @@ export default function view(
         ],
       ),
 
-      h(Button, {
-        sel: 'save',
-        style: styles.save,
-        strong: true,
-        text: 'SAVE',
-        accessible: true,
-        accessibilityLabel: 'Save Profile Button',
-      }),
+      Platform.OS === 'ios'
+        ? null
+        : h(Button, {
+            sel: 'save',
+            style: styles.save,
+            strong: true,
+            text: 'SAVE',
+            accessible: true,
+            accessibilityLabel: 'Save Profile Button',
+          }),
 
       h(
         KeyboardAvoidingView,
         {style: styles.fields, enabled: true, [behaviorProp]: 'padding'},
         [
+          Platform.OS === 'ios'
+            ? h(Button, {
+                sel: 'save',
+                style: styles.save,
+                strong: true,
+                text: 'SAVE',
+                accessible: true,
+                accessibilityLabel: 'Save Profile Button',
+              })
+            : null,
+
           h(Text, {style: styles.label}, 'Name'),
           h(TextInput, {
             sel: 'name',
