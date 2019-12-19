@@ -83,8 +83,8 @@ export default function model(
     .take(1)
     .map(props =>
       ssbSource.thread$(props.rootMsgId).replaceError(err => {
-        if (/Author Blocked/.test(err.message)) return xs.of(blockedThread);
-        if (/Not Found/.test(err.message)) return xs.of(missingThread);
+        if (/Author Blocked/i.test(err.message)) return xs.of(blockedThread);
+        if (/Not Found/i.test(err.message)) return xs.of(missingThread);
         else return xs.of(unknownErrorThread);
       }),
     )
