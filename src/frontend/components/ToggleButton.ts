@@ -134,7 +134,7 @@ export default class ToggleButton extends PureComponent<Props, State> {
     }
 
     return h(Touchable, touchableProps, [
-      h(View, {style: [containerStyle, style]}, [
+      h(View, {style: [containerStyle, style] as readonly ViewStyle[]}, [
         h(Text, {style: textStyle}, text),
       ]),
     ]);

@@ -141,7 +141,7 @@ export default class Button extends Component<Props, {}> {
               strong ? styles.textStrong : styles.text,
               small ? null : styles.textWeight,
               textStyle,
-            ],
+            ] as readonly ViewStyle[],
           },
           text,
         ),

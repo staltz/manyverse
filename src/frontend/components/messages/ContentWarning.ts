@@ -63,27 +63,31 @@ export default class EmptySection extends PureComponent<Props> {
       activeOpacity: 0.4,
     };
 
-    return h(View, {style: [styles.container, style ?? null]}, [
-      h(Text, {style: styles.description, selectable: true}, [
-        h(Icon, {
-          size: Typography.fontSizeNormal,
-          color: Palette.textWeak,
-          name: 'alert',
-        }),
-        ' ',
-        description,
-      ]),
-      h(TouchableOpacity, touchableProps, [
-        h(
-          Text,
-          {
-            numberOfLines: 1,
-            ellipsizeMode: 'middle',
-            style: styles.toggle,
-          },
-          opened ? 'Hide' : 'View',
-        ),
-      ]),
-    ]);
+    return h(
+      View,
+      {style: [styles.container, style ?? null] as readonly ViewStyle[]},
+      [
+        h(Text, {style: styles.description, selectable: true}, [
+          h(Icon, {
+            size: Typography.fontSizeNormal,
+            color: Palette.textWeak,
+            name: 'alert',
+          }),
+          ' ',
+          description,
+        ]),
+        h(TouchableOpacity, touchableProps, [
+          h(
+            Text,
+            {
+              numberOfLines: 1,
+              ellipsizeMode: 'middle',
+              style: styles.toggle,
+            },
+            opened ? 'Hide' : 'View',
+          ),
+        ]),
+      ],
+    );
   }
 }
