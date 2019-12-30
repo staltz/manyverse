@@ -56,7 +56,8 @@ rl.question('Next version will be `' + nextVersion + '`, okay? y/n ', yn => {
   ReactNativeVersion.version(
     {
       neverAmend: true,
-      target: 'android',
+      target: ['android', 'ios'],
+      legacy: true,
     },
     path.resolve(__dirname, '../'),
   ).catch(err => {

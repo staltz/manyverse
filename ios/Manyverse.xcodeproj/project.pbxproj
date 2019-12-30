@@ -23,6 +23,7 @@
 		D6BAC7FD447B981A633A4CD5 /* libPods-Manyverse-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 305E432713E178CD4CF714AB /* libPods-Manyverse-tvOSTests.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
+		F6915CCA23BA629F00F7090A /* BuildConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F6915CC823BA629F00F7090A /* BuildConfig.m */; };
 		F6C413A5239680DD005F377A /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6C413A123967C9F005F377A /* MaterialIcons.ttf */; };
 		F6C413A6239680E1005F377A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6C413A223967CB0005F377A /* MaterialCommunityIcons.ttf */; };
 /* End PBXBuildFile section */
@@ -79,6 +80,8 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EE52736297C1056C319DEA6F /* Pods_ManyverseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ManyverseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39A46BC11A4B9559DC5EC8F /* Pods-Manyverse.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manyverse.release.xcconfig"; path = "Target Support Files/Pods-Manyverse/Pods-Manyverse.release.xcconfig"; sourceTree = "<group>"; };
+		F6915CC823BA629F00F7090A /* BuildConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuildConfig.m; path = Manyverse/BuildConfig.m; sourceTree = "<group>"; };
+		F6915CC923BA629F00F7090A /* BuildConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuildConfig.h; path = Manyverse/BuildConfig.h; sourceTree = "<group>"; };
 		F6C413A123967C9F005F377A /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		F6C413A223967CB0005F377A /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		F6C413A3239680AE005F377A /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 		13B07FAE1A68108700A75B9A /* Manyverse */ = {
 			isa = PBXGroup;
 			children = (
+				F6915CC923BA629F00F7090A /* BuildConfig.h */,
+				F6915CC823BA629F00F7090A /* BuildConfig.m */,
 				F6C413A023967C27005F377A /* Fonts */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -645,6 +650,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				F6915CCA23BA629F00F7090A /* BuildConfig.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

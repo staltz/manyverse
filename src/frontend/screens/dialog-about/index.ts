@@ -8,12 +8,11 @@ import xs, {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
-import {Text, StyleSheet, NativeModules, Platform} from 'react-native';
+import {Text, StyleSheet, NativeModules} from 'react-native';
 import {Options} from 'react-native-navigation';
 import TextDialog from '../../components/dialogs/TextDialog';
 
-const version =
-  Platform.OS === 'android' ? NativeModules.BuildConfig.VERSION_NAME : '?';
+const version = NativeModules.BuildConfig.VERSION_NAME;
 
 export type Sources = {
   screen: ReactSource;

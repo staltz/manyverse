@@ -6,8 +6,10 @@
 
 import {NativeModules} from 'react-native';
 
+const version = NativeModules.BuildConfig.VERSION_NAME;
+
 export default 'mailto:' +
   'incoming+staltz-manyverse-6814019-issue-@incoming.gitlab.com' +
   '?subject=Bug report for version ' +
-  NativeModules.BuildConfig.VERSION_NAME +
+  version +
   '&body=Explain what happened and what you expected...';
