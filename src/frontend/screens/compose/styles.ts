@@ -115,6 +115,16 @@ export const styles = StyleSheet.create({
       Dimensions.horizontalSpaceBig +
       (Dimensions.avatarSizeNormal - Dimensions.iconSizeNormal) * 0.5,
     elevation: 3,
+    ...Platform.select({
+      ios: {
+        zIndex: 10,
+        paddingBottom: Dimensions.verticalSpaceSmall,
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      },
+    }),
   },
 
   mentionsInput: {
@@ -125,7 +135,10 @@ export const styles = StyleSheet.create({
     marginLeft:
       (Dimensions.avatarSizeNormal - Dimensions.iconSizeNormal) * 0.5 +
       Dimensions.horizontalSpaceTiny,
-    marginTop: Dimensions.verticalSpaceBig,
+    marginTop: Platform.select({
+      ios: 25.5,
+      default: Dimensions.verticalSpaceBig,
+    }),
     fontSize: Typography.fontSizeBig,
     textAlign: 'left',
     textAlignVertical: 'top',
@@ -133,7 +146,10 @@ export const styles = StyleSheet.create({
   },
 
   mentionsIcon: {
-    marginBottom: Dimensions.verticalSpaceSmall,
+    marginBottom: Platform.select({
+      ios: Dimensions.verticalSpaceTiny,
+      default: Dimensions.verticalSpaceSmall,
+    }),
   },
 
   mentionsCancelButton: {

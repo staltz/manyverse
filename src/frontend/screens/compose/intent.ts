@@ -7,25 +7,18 @@
 import xs, {Stream} from 'xstream';
 import between from 'xstream-between';
 import sample from 'xstream-sample';
-import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactSource} from '@cycle/react';
 import {
   TextInputSelectionChangeEventData,
   NativeSyntheticEvent,
+  Platform,
 } from 'react-native';
 import {NavSource} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import {DialogSource} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
-import {
-  State,
-  isPost,
-  isTextEmpty,
-  hasText,
-  isReply,
-  parseMention,
-} from './model';
+import {State, isPost, isTextEmpty, hasText, isReply} from './model';
 
 export default function intent(
   reactSource: ReactSource,
@@ -71,19 +64,13 @@ export default function intent(
     .filter(isReply)
     .filter(hasText);
 
-  // TextInput Selection events, but ignore the first event caused by a focus
-  const updateSelection$ = reactSource
+  const selectionChange$ = reactSource
     .select('composeInput')
-    .events('focus')
-    .startWith('initial focus')
-    .map(() =>
-      (reactSource.select('composeInput').events('selectionChange') as Stream<
-        NativeSyntheticEvent<TextInputSelectionChangeEventData>
-      >)
-        .drop(1)
-        .map(ev => ev.nativeEvent.selection),
-    )
-    .flatten();
+    .events('selectionChange') as Stream<
+    NativeSyntheticEvent<TextInputSelectionChangeEventData>
+  >;
+  const focusInput$ = reactSource.select('composeInput').events('focus');
+  const blurInput$ = reactSource.select('composeInput').events('blur');
 
   return {
     publishPost$,
@@ -100,17 +87,19 @@ export default function intent(
       .select('mentionInput')
       .events('changeText') as Stream<string>,
 
-    updateSelection$,
+    // Android and iOS behave slightly different
+    updateSelection$: Platform.select({
+      // TextInput Selection events that happen after focus and before blur
+      ios: selectionChange$
+        .compose(between(focusInput$, blurInput$))
+        .map(ev => ev.nativeEvent.selection),
 
-    suggestMention$: updateSelection$
-      .compose(sampleCombine(state$))
-      .map(
-        ([selection, state]) =>
-          [parseMention(state.postText, selection), selection] as [
-            ReturnType<typeof parseMention>,
-            typeof selection,
-          ],
-      ),
+      // TextInput Selection events, but ignore the first event caused by a focus
+      default: focusInput$
+        .startWith('initial focus')
+        .map(() => selectionChange$.drop(1).map(ev => ev.nativeEvent.selection))
+        .flatten(),
+    }),
 
     chooseMention$: reactSource
       .select('suggestions')

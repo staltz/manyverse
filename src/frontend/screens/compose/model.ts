@@ -6,6 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
+import debounce from 'xstream/extra/debounce';
 import {Reducer, Lens} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Image} from 'react-native-image-crop-picker';
@@ -60,10 +61,7 @@ export function hasText(state: State): boolean {
   return state.postText.length > 0;
 }
 
-export function parseMention(
-  postText: string,
-  selection: Selection,
-): string | null {
+function parseMention(postText: string, selection: Selection): string | null {
   if (selection.start !== selection.end) return null;
   const results = /(^| )@(\w+)$/gm.exec(postText.substr(0, selection.start));
   return results?.[2] ?? null;
@@ -73,7 +71,6 @@ export type Actions = {
   updatePostText$: Stream<string>;
   updateSelection$: Stream<Selection>;
   updateMentionQuery$: Stream<string>;
-  suggestMention$: Stream<[string | null, Selection]>;
   chooseMention$: Stream<{name: string; id: FeedId}>;
   cancelMention$: Stream<any>;
   updateContentWarning$: Stream<string>;
@@ -127,16 +124,20 @@ export default function model(
       },
   );
 
-  const updateMentionSuggestionsReducer1$ = actions.suggestMention$
+  const updateMentionSuggestionsReducer1$ = actions.updateSelection$
     .compose(sampleCombine(state$))
-    .map(([[mentionQuery, selection], state]) =>
-      ssbSource
+    .compose(debounce(100))
+    .map(([selection, state]) => {
+      const mentionQuery = parseMention(state.postText, selection);
+      if (!mentionQuery) return xs.never();
+
+      return ssbSource
         .getMentionSuggestions(mentionQuery, state.authors)
         .map(
           suggestions =>
             [suggestions, selection] as [Array<MentionSuggestion>, Selection],
-        ),
-    )
+        );
+    })
     .flatten()
     .map(
       ([mentionSuggestions, prevSelection]) =>

@@ -107,6 +107,10 @@ function MarkdownPreview(state: MiniState) {
 }
 
 function maybeSelectionProp(state: MiniState): keyof TextInputProps {
+  // On iOS, the selection overriding is snappy and quick, no lag
+  if (Platform.OS === 'ios') return 'selection';
+
+  // On Android, we have to do this debounce hack...
   if (Date.now() < state.mentionChoiceTimestamp + 200) {
     return 'selection';
   } else {
