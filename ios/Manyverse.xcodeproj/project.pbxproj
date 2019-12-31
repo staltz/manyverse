@@ -782,6 +782,8 @@
 			baseConfigurationReference = D714099FF6DFBFEF5F534668 /* Pods-Manyverse.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 3Y2H7D665X;
@@ -808,6 +810,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.manyver;
 				PRODUCT_NAME = Manyverse;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -819,6 +822,8 @@
 			baseConfigurationReference = F39A46BC11A4B9559DC5EC8F /* Pods-Manyverse.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3Y2H7D665X;
 				ENABLE_BITCODE = NO;
@@ -844,6 +849,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.manyver;
 				PRODUCT_NAME = Manyverse;
+				PROVISIONING_PROFILE_SPECIFIER = "App Store Prov Profile";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
 				VERSIONING_SYSTEM = "apple-generic";
