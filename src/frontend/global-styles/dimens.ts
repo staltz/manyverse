@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Platform} from 'react-native';
+const {isIPhoneX} = require('react-native-status-bar-height');
 
 export const Dimensions = {
   horizontalSpaceLarge: 26,
@@ -33,7 +34,7 @@ export const Dimensions = {
   iconSizeNormal: 24,
   iconSizeSmall: 18,
   toolbarHeight: Platform.select({
-    ios: 76,
+    ios: isIPhoneX ? 100 : 76,
     default: 56,
   }),
 };

@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-status-bar-height/index.js b/node_modules/react-native-status-bar-height/index.js
+index 16e19d5..966ee3b 100644
+--- a/node_modules/react-native-status-bar-height/index.js
++++ b/node_modules/react-native-status-bar-height/index.js
+@@ -8,7 +8,7 @@ const XSMAX_HEIGHT = 896;
+ 
+ const { height: W_HEIGHT, width: W_WIDTH } = Dimensions.get('window');
+ 
+-let isIPhoneX = false;
++export let isIPhoneX = false;
+ 
+ if (Platform.OS === 'ios' && !Platform.isPad && !Platform.isTVOS) {
+     isIPhoneX = W_WIDTH === X_WIDTH && W_HEIGHT === X_HEIGHT || W_WIDTH === XSMAX_WIDTH && W_HEIGHT === XSMAX_HEIGHT;
