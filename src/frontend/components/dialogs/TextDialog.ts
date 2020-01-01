@@ -15,12 +15,24 @@ import DialogButton from './DialogButton';
 
 export const styles = StyleSheet.create({
   content: {
-    paddingVertical: Dimensions.verticalSpaceBig,
-    paddingHorizontal: Dimensions.horizontalSpaceBig,
+    ...Platform.select({
+      default: {
+        paddingVertical: Dimensions.verticalSpaceLarger,
+        paddingHorizontal: Dimensions.horizontalSpaceLarge,
+        fontFamily: 'normal',
+        textAlign: 'left',
+        marginBottom: Dimensions.verticalSpaceLarge * 2,
+      },
+      ios: {
+        paddingVertical: Dimensions.verticalSpaceBig,
+        paddingHorizontal: Dimensions.horizontalSpaceBig,
+        fontFamily: Typography.fontFamilyReadableText,
+        textAlign: 'center',
+      },
+    }),
+    ...Platform.select({android: {minWidth: 300}}),
     color: Palette.textWeak,
     fontSize: Typography.fontSizeNormal,
-    fontFamily: Typography.fontFamilyReadableText,
-    textAlign: Platform.select({ios: 'center', default: 'left'}),
   },
 
   title: {
@@ -29,7 +41,7 @@ export const styles = StyleSheet.create({
     color: Palette.text,
   },
 
-  spacer: {fontSize: 5},
+  spacer: {fontSize: Platform.select({ios: 5, default: 15})},
 });
 
 export type Props = {

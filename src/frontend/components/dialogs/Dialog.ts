@@ -29,7 +29,16 @@ export const styles = StyleSheet.create({
     maxWidth: 270,
     minHeight: 100,
     backgroundColor: Palette.backgroundText,
-    borderRadius: Platform.select({ios: 10, default: 0}),
+    borderRadius: Platform.select({
+      default: 2,
+      ios: 10,
+    }),
+    ...Platform.select({
+      android: {
+        minWidth: 300,
+        elevation: 8,
+      },
+    }),
   },
 
   content: {
@@ -38,7 +47,10 @@ export const styles = StyleSheet.create({
     color: Palette.text,
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
-    textAlign: Platform.select({ios: 'center', default: 'left'}),
+    textAlign: Platform.select({
+      default: 'left',
+      ios: 'center',
+    }),
   },
 });
 

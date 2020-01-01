@@ -14,6 +14,8 @@ export const Dimensions = {
   horizontalSpaceSmall: 7,
   horizontalSpaceTiny: 4,
 
+  verticalSpaceLarger: 28,
+  verticalSpaceLarge: 20,
   verticalSpaceBig: 14,
   verticalSpaceNormal: 10,
   verticalSpaceSmall: 7,

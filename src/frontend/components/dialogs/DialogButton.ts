@@ -16,6 +16,7 @@ import {
 import {h} from '@cycle/react';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
+import {Dimensions} from '../../global-styles/dimens';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -27,27 +28,42 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    minHeight: 48,
     ...Platform.select({
+      default: {
+        justifyContent: 'center',
+        width: 70,
+        height: 40,
+        position: 'absolute',
+        bottom: Dimensions.verticalSpaceLarge,
+        right: Dimensions.horizontalSpaceBig,
+      },
       ios: {
+        minHeight: 48,
         justifyContent: 'center',
         borderTopColor: Palette.backgroundTextWeak,
         borderTopWidth: 1,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
       },
-      android: {
-        justifyContent: 'flex-end',
-      },
     }),
   },
 
   text: {
-    color: Palette.textBrand,
     textAlignVertical: 'center',
-    fontWeight: Platform.select({ios: 'normal', default: 'bold'}),
-    fontSize: Typography.fontSizeBig,
-    textAlign: Platform.select({ios: 'center', android: 'right'}),
+    ...Platform.select({
+      default: {
+        color: Palette.text,
+        fontWeight: 'bold',
+        fontSize: Typography.fontSizeNormal,
+        textAlign: 'right',
+      },
+      ios: {
+        color: Palette.textBrand,
+        fontWeight: 'normal',
+        fontSize: Typography.fontSizeBig,
+        textAlign: 'center',
+      },
+    }),
   },
 });
 

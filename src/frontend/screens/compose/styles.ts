@@ -78,7 +78,10 @@ export const styles = StyleSheet.create({
     paddingLeft: Dimensions.horizontalSpaceSmall,
     paddingRight: 1,
     marginRight: Dimensions.horizontalSpaceBig,
-    marginTop: Platform.select({ios: 20, default: Dimensions.verticalSpaceBig}),
+    marginTop: Platform.select({
+      ios: Dimensions.verticalSpaceLarge,
+      default: Dimensions.verticalSpaceBig,
+    }),
     alignSelf: 'stretch',
     fontSize: Typography.fontSizeBig,
     textAlign: 'left',
