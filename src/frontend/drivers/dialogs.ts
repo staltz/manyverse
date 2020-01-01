@@ -173,7 +173,7 @@ export class DialogSource {
     options?: OptionsPrompt,
   ): Stream<PromptAction> {
     if (Platform.OS === 'android') {
-      return xs.fromPromise(DialogAndroid.showPicker(title, content, options));
+      return xs.fromPromise(DialogAndroid.prompt(title, content, options));
     } else {
       return xs.create({
         start: (listener: Listener<PromptAction>) => {
