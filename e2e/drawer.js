@@ -68,14 +68,19 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("A social network off the grid")',
+        'new UiSelector().textContains("Licensed MPL")',
         6000,
       ),
       'I see a textual description of the app',
     );
 
-    await driver.back();
-    t.pass('I press the (hardware) back button');
+    const okButton = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().text("OK")',
+      6000,
+    );
+    t.ok(okButton, 'I see the OK button');
+    await okButton.click();
+    t.pass('I tap it');
 
     t.end();
   });
