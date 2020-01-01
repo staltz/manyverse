@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
-import {Command as NavCmd} from 'cycle-native-navigation';
+import {Command as NavCmd, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {SSBSource} from '../../drivers/ssb';
@@ -19,6 +19,7 @@ import bugReport from './bug-report';
 export type Sources = {
   screen: ReactSource;
   state: StateSource<State>;
+  navigation: NavSource;
   ssb: SSBSource;
 };
 
@@ -30,6 +31,13 @@ export type Sinks = {
 };
 
 export function drawer(sources: Sources): Sinks {
+  sources.navigation.backPress().addListener({
+    next: () => {
+      // This "consumes" the hardware back press but
+      // doesn't cause any effect in navigation, on purpose
+    },
+  });
+
   const actions = intent(sources.screen);
   const vdom$ = view(sources.state.stream);
   const command$ = navigation(actions, sources.state.stream);
