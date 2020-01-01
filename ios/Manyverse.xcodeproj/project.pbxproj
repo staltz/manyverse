@@ -614,7 +614,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Removing all files in node_modules except .node, .so, .a\nfind $CODESIGNING_FOLDER_PATH/nodejs-project/node_modules \\\n  -type f \\\n   ! \\( \\\n    -name \"*.node\" \\\n    -o -name \"*.so\" \\\n    -o -name \"*.a\" \\\n  \\) \\\n  -print0 | xargs -0 rm -rf\n# Delete symbolic links\nfind $CODESIGNING_FOLDER_PATH/nodejs-project/node_modules -depth -type l -delete\n# Delete empty directories\nfind $CODESIGNING_FOLDER_PATH/nodejs-project/node_modules -depth -type d -empty -delete\nfind $CODESIGNING_FOLDER_PATH/nodejs-project\n";
+			shellScript = "# Removing all files in node_modules except .node, .so, .a\nfind $CODESIGNING_FOLDER_PATH/nodejs-project/node_modules \\\n  -type f \\\n   ! \\( \\\n    -name \"*.node\" \\\n    \\) \\\n  -print0 | xargs -0 rm -rf\n# We used to keep .so files too, but those are \n# counted as executables by App Store policies\n# -o -name \"*.so\" \\\n# -o -name \"*.a\" \\  \n# Delete symbolic links\nfind $CODESIGNING_FOLDER_PATH/nodejs-project/node_modules -depth -type l -delete\n# Delete empty directories\nfind $CODESIGNING_FOLDER_PATH/nodejs-project/node_modules -depth -type d -empty -delete\nfind $CODESIGNING_FOLDER_PATH/nodejs-project\n";
 		};
 		F6ED38FC23998F44006539C5 /* Pre-minify Node.js Mobile project */ = {
 			isa = PBXShellScriptBuildPhase;
