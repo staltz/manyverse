@@ -52,7 +52,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   // Replication
   .use(require('ssb-replicate')) // needs: db
   .use(require('ssb-friends')) // needs: db, replicate
-  .use(require('ssb-ebt')) // needs: db, replicate, friends
+  .use(require('ssb-ebt-fork-staltz')) // needs: db, replicate, friends
   // Connections
   .use(require('./plugins/multiserver-addons'))
   .use(require('ssb-lan'))
