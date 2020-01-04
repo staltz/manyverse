@@ -20,7 +20,7 @@ const mainTemplate = `{{> header}}
 `;
 const headerPartial = `## {{version}}
 `;
-const commitPartial = `* {{subject}}
+const commitPartial = `* {{platform}}{{subject}}
 {{~!-- commit link --}} {{#if @root.linkReferences~}}
   ([see details](
   {{~#if @root.repository}}
@@ -92,8 +92,8 @@ module.exports = function generateChangelog(releaseCount) {
   const gitRawCommitsOpts = {from: firstReleaseCommit};
 
   const parserOpts = {
-    headerPattern: /^(\w*): (.*)$/,
-    headerCorrespondence: [`type`, `subject`],
+    headerPattern: /^(\w*): (\[ios\]|\[and\] )?(.*)$/,
+    headerCorrespondence: [`type`, `platform`, `subject`],
   };
 
   function capitalize(str) {
@@ -104,6 +104,10 @@ module.exports = function generateChangelog(releaseCount) {
     groupBy: 'release',
     transform: function(commit, context) {
       if (commit.type === 'release') context.releases += 1;
+
+      if (commit.platform === '[ios] ') commit.platform = '(iOS) ';
+      else if (commit.platform === '[and] ') commit.platform = '(Android) ';
+      else commit.platform = '';
 
       if (releaseCount > 0 && context.releases >= releaseCount + 1) {
         return false;
