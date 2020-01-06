@@ -24,7 +24,8 @@
     "update-version": "./tools/update-version.js",
     "dat-release": "./tools/dat-release",
     "commit-release": "./tools/commit-release",
-    "release": "npm run update-version && npm run clean-bundler && npm run clean-android && npm run build-android-release && npm run test-e2e-android && npm run changelog && npm run commit-release && npm run dat-release && npm run echo-ssb-post"
+    "release-android": "npm run update-version && npm run clean-bundler && npm run clean-android && npm run build-android-release && npm run test-e2e-android && npm run changelog && npm run commit-release && npm run dat-release",
+    "prerelease-ios": "npm run clean-bundler && npm run build-backend-ios"
   },
   "dependencies": {
     "@cycle/isolate": "5.1.0",

@@ -273,21 +273,40 @@ _Note about security: If you are not keen on storing your passwords in plaintext
 
 ### Generating the release APK
 
-Run `cd android && ./gradlew assembleRelease` (just builds the APK) or `npm run release` (for official releases)
+Run `cd android && ./gradlew assembleRelease` (just builds the APK).
 
-## Deploying
+## Deploying new versions
 
-After `npm run release` runs, it will update APK files in two folders: `../dat-release-all` and `../dat-release-latest`. The following steps should be done manually (until we automate this):
+Follow this guideline strictly.
 
+### Android
+
+First make an Android release, then an iOS release.
+
+- Run `npm run release-android` on a computer that can build Android
 - Deploy to Dat Installer
   - `cd ../dat-release-latest` and `dat sync`
 - Install new version through Dat Installer and make sure it works
 - `git push origin master`
-- Deploy to F-Droid: `git push origin --tags`
-- Deploy to Google Play
+
+### iOS
+
+Then make an iOS release:
+
+- `git pull origin master` on a computer that can build iOS
+- Run `npm run prerelease-ios`
+- In Xcode: `Product` > `Archive`
+- Once archiving is complete, Upload the app version to App Store
+
+### Publish
+
+- Publish Android on F-Droid: `git push origin --tags` (F-Droid server pulls our updates)
+- Publish Android to Google Play
   - Take the APK file from `android/app/build/outputs/apk/googlePlay/release`, upload and publish it on Google Play developer website
+- Publish iOS to the App Store
+  - Open the website and the new version should have been uploaded by now
 - Announce on Scuttlebutt
-  - After `npm run release` ends, it shows in the terminal a ready markdown post, publish that into Scuttlebutt under the hashtag `#manyverse`
+  - Run `npm run echo-ssb-post`, it shows in the terminal a ready markdown post, publish that into Scuttlebutt under the hashtag `#manyverse`
 - Announce on Twitter
   - Copy-paste from CHANGELOG.md the list of updates for the latest version, write it in the Twitter `@manyver_se` account and publish
 - Announce on Mastodon
