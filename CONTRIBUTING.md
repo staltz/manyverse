@@ -1,6 +1,5 @@
 # Contributor docs
 
-
 ## Installation and dev setup
 
 This project uses React Native, Android SDK, Node.js and NPM.
@@ -57,6 +56,7 @@ npm run lib
 ```
 
 `2`: Propagate replacement modules throughout all dependencies using [propagate-replacement-fields](https://github.com/staltz/propagate-replacement-fields):
+
 ```
 npm run propagate-replacements
 ```
@@ -128,7 +128,7 @@ For every issue, pick a **type**, a **scope**, and a **priority**:
 - **Type** indicates what audience the issue is relevant to
   - `dx` means "developer experience" so these are issues that are related to refactoring, improving build system, tests, etc
   - `ux` means "user experience" and can be either `ux: feature` or `ux: bug fix` to indicate to the user what kind of improvement this was
-  - Every git commit message starts with either `ux: ` or `dx: `, and the changelog is generated from the commit history, where only `ux` commit messages are shown. This means the commit messages are literally the changelog that appears to users when they update the app
+  - Every git commit message starts with either `ux:` or `dx:`, and the changelog is generated from the commit history, where only `ux` commit messages are shown. This means the commit messages are literally the changelog that appears to users when they update the app
 - **Scope** indicates what part of the codebase this issue is about. So far the codebase has only two relevant "places":
   - `scope: backend` refers to the background Node.js project running the SSB server
   - `scope: frontend` refers to the UI code in React Native and Cycle.js
@@ -143,8 +143,8 @@ There's also a rule for `priority` labeling: `must < should < could < maybe`. In
 
 Ideally, in a team of N developers working on Manyverse, there are N issues marked **work in progress**. In the "must" column, there are usually 2~4 issues per developer, which means at any time I choose the next work to do, I only have to pick one issue out of three, approximately. I try to keep a somewhat golden ratio progression (i.e. more than 1x, less than 2x multiplication) to the shape of the funnel, but it doesn't need to be so strictly organized. The importance of organizing the issues is also proportional to the priority:
 
-- It's *very* important to keep the "must" column organized and well chosen
-- It's *somewhat* important to keep the "should" column organized and well chosen
+- It's _very_ important to keep the "must" column organized and well chosen
+- It's _somewhat_ important to keep the "should" column organized and well chosen
 - It's not that important to keep the "could" column organized
 - It's not important to keep the "maybe" column organized
 
@@ -202,7 +202,7 @@ There are three important parts to the app, executing in runtime as different th
 
 Most app development happens in `src/frontend` and thus follows the [Cycle.js](https://cycle.js.org/) architecture, but utilizes React Native components for rendering. It's good to get familiar with the architecture, but here is an explanation of it in a nutshell:
 
-- Each *screen* in the app is a Cycle.js component
+- Each _screen_ in the app is a Cycle.js component
 - A Cycle.js component is a function with `sources` as input and `sinks` as output
 - `Sources` is an object with several "source" streams, one stream per "channel"
 - `Sinks` is an object with several "sink" streams, one stream per channel
@@ -214,7 +214,7 @@ Most app development happens in `src/frontend` and thus follows the [Cycle.js](h
   - `dialog`: for creating and interacting with UI dialogs overlaying the app
   - etc
 - **Drivers** handle interactions with channels, there is typically one **driver** per channel, for instance see `src/frontend/drivers/dialogs.ts`
-- In a Cycle.js component, *data flows* from the sources to the sinks, passing through *transformations and combination* steps in between
+- In a Cycle.js component, _data flows_ from the sources to the sinks, passing through _transformations and combination_ steps in between
 - Transformation and combination of streams is done with **stream operators** from the library [xstream](https://github.com/staltz/xstream/)
 - Typically, streams are created and transformed in these sections:
   - `intent`: handles raw streams of UI events and interprets what they mean, creating "action" streams
@@ -225,7 +225,7 @@ Most app development happens in `src/frontend` and thus follows the [Cycle.js](h
 
 ## Integration tests
 
-We use Appium and Tape, just plug in a device through USB and run `npm run test-e2e-android`. This will run tests on top of the *release* variant of the app, so it that doesn't exist, you must run `npm run build-android-release` first. See the guide below on how to generate release builds.
+We use Appium and Tape, just plug in a device through USB and run `npm run test-e2e-android`. This will run tests on top of the _release_ variant of the app, so it that doesn't exist, you must run `npm run build-android-release` first. See the guide below on how to generate release builds.
 
 ## Releases
 
@@ -294,9 +294,8 @@ First make an Android release, then an iOS release.
 Then make an iOS release:
 
 - `git pull origin master` on a computer that can build iOS
-- Run `npm run prerelease-ios`
-- In Xcode: `Product` > `Archive`
-- Once archiving is complete, Upload the app version to App Store
+- Run `npm run release-ios`
+- Once done, it should an _Organizer_ window where you should upload the new version to App Store
 
 ### Publish
 
