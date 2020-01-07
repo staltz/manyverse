@@ -6,6 +6,15 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2001.7-beta
+
+* (Android) New app icon ([see details](https://gitlab.com/staltz/manyverse/commit/c20a3d37810c5a650e5535bdccf2d9ee7f1fdda0))
+*  bug fix: EditProfile's name input should be visible ([see details](https://gitlab.com/staltz/manyverse/commit/48f434d67d94c38f83fbdb73dd70d43903dc6eb8))
+* Bug fix: correct email subject for bug reports ([see details](https://gitlab.com/staltz/manyverse/commit/88aae5056c76bf8df439eb92a8afaecfc986de08))
+* Bug fix: data sync over rooms wasn't always working ([see details](https://gitlab.com/staltz/manyverse/commit/3de1ee821141063ea8c2b9c3970690ae4a1f90fd))
+* Bug fix: more accurate warnings when messages are missing ([see details](https://gitlab.com/staltz/manyverse/commit/2a258f4e8edb025d372367cacf2ee04661214700))
+* Bug fix: show success/failure toasts for room invites ([see details](https://gitlab.com/staltz/manyverse/commit/6970f5d031f1b2ae11705306da2ccdbdf91db3bc))
+
 ## 0.1911.27-beta
 
 * Feature: mention other accounts using @ ([see details](https://gitlab.com/staltz/manyverse/commit/b57df464d7464b3a75866c5f7125caa6ccedb917))
