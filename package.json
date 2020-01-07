@@ -22,10 +22,11 @@
     "update-dat-latest-readme": "./tools/update-dat-latest-readme.js",
     "echo-ssb-post": "./tools/echo-ssb-post.js",
     "update-version": "./tools/update-version.js",
+    "update-version-ios": "./tools/update-version-ios.js",
     "dat-release": "./tools/dat-release",
     "commit-release": "./tools/commit-release",
     "release-android": "npm run update-version && npm run clean-bundler && npm run clean-android && npm run build-android-release && npm run test-e2e-android && npm run changelog && npm run commit-release && npm run dat-release",
-    "prerelease-ios": "npm run clean-bundler && npm run build-backend-ios"
+    "prerelease-ios": "npm run clean-bundler && npm run build-backend-ios && npm run update-version-ios && git commit -am\"dx: update ios version\" && echo \"\n\nYOU SHOULD NOW ARCHIVE A NEW RELEASE IN XCODE\n\n\""
   },
   "dependencies": {
     "@cycle/isolate": "5.1.0",

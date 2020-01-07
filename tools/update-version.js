@@ -54,11 +54,7 @@ rl.question('Next version will be `' + nextVersion + '`, okay? y/n ', yn => {
   fs.writeFileSync('./package-lock.json', JSON.stringify(pkgLockJSON, null, 2));
 
   ReactNativeVersion.version(
-    {
-      neverAmend: true,
-      target: ['android', 'ios'],
-      legacy: true,
-    },
+    {neverAmend: true, target: ['android']},
     path.resolve(__dirname, '../'),
   ).catch(err => {
     console.error(err);
