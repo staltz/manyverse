@@ -92,7 +92,7 @@ module.exports = function generateChangelog(releaseCount) {
   const gitRawCommitsOpts = {from: firstReleaseCommit};
 
   const parserOpts = {
-    headerPattern: /^(\w*): (\[ios\]|\[and\] )?(.*)$/,
+    headerPattern: /^(\w*): (\[ios\] |\[and\] )?(.*)$/,
     headerCorrespondence: [`type`, `platform`, `subject`],
   };
 
