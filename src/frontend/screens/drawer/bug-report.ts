@@ -4,12 +4,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {NativeModules} from 'react-native';
+import {NativeModules, Platform} from 'react-native';
 
-const version = NativeModules.BuildConfig.VERSION_NAME;
+const version = 'v' + NativeModules.BuildConfig.VERSION_NAME;
+const platform = Platform.select({
+  ios: 'iOS',
+  android: 'Android',
+  default: '',
+});
 
 export default 'mailto:' +
   'incoming+staltz-manyverse-6814019-issue-@incoming.gitlab.com' +
-  '?subject=Bug report for version ' +
-  version +
+  `?subject=Bug report for ${platform} ${version}` +
   '&body=Explain what happened and what you expected...';
