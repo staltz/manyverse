@@ -13,13 +13,6 @@ function onFailure() {
   exit 1
 }
 
-SECONDS=0
-echo -en "Compiling TypeScript...";
-npm run --silent lib;
-echo -en " — $SECONDS s\n";
-
-SECONDS=0
-echo -en "Setting up...";
 mkdir -p ./nodejs-assets;
 rm -rf ./nodejs-assets/nodejs-project;
 if [ -f ./nodejs-assets/BUILD_NATIVE_MODULES.txt ]
@@ -35,13 +28,3 @@ cp ./src/backend/package.json ./nodejs-assets/nodejs-project;
 cp ./src/backend/package-lock.json ./nodejs-assets/nodejs-project;
 rm ./nodejs-assets/nodejs-project/*.js.map;
 rm ./nodejs-assets/nodejs-project/plugins/*.js.map;
-echo -en " — $SECONDS s\n";
-
-echo "Installing node_modules dependencies...";
-cd ./nodejs-assets/nodejs-project && npm install --no-optional --silent;
-cd ../..;
-
-SECONDS=0
-echo -en "Updating package-lock.json...";
-cp ./nodejs-assets/nodejs-project/package-lock.json ./src/backend/package-lock.json
-echo -en " — $SECONDS s\n";

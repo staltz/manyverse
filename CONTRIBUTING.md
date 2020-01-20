@@ -73,7 +73,9 @@ npm run build-backend-android
 react-native run-android --variant=indieDebug
 ```
 
-During step 5, another terminal may spawn with the React Native Metro bundler. The app should be installed automatically, if you have a device connected by USB. You can see the logs with `react-native log-android` or `adb logcat`.
+During step 4, another terminal may spawn with the React Native Metro bundler. The app should be installed automatically, if you have a device connected by USB. You can see the logs with `react-native log-android` or `adb logcat`.
+
+In step 3, if you want to see more logs, then run `npm run build-backend-android -- --verbose`.
 
 ### Continuous compilation
 
