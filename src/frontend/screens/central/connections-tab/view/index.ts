@@ -183,22 +183,18 @@ function Body(state: State) {
     }
   }
 
-  // Don't render empty section if there are peers:
-  if (peers.length || rooms.length || stagedPeers.length) {
-    emptySection = null;
-  }
-
-  return h(React.Fragment, [
-    h(ListOfPeers, {
+  // Render either one, but not both
+  if (emptySection) {
+    return emptySection;
+  } else {
+    return h(ListOfPeers, {
       key: 'b',
       sel: 'list-of-peers',
       peers,
       rooms,
       stagedPeers,
-    }),
-
-    emptySection,
-  ]);
+    });
+  }
 }
 
 export default function view(state$: Stream<State>) {
