@@ -36,13 +36,27 @@ const iconData = {
 function renderPublicIcon(numOfPublicUpdates: number) {
   return {
     normal: h(View, [
-      numOfPublicUpdates > 0 ? h(View, {style: styles.updatesDot}) : null,
       h(Icon, {...iconProps.tab, ...iconData.public}),
+      h(View, {
+        style:
+          numOfPublicUpdates > 10
+            ? styles.updatesCoverNone
+            : numOfPublicUpdates > 0
+            ? styles.updatesCoverSome
+            : styles.updatesCoverAll,
+      }),
     ] as any),
 
     selected: h(View, [
-      numOfPublicUpdates > 0 ? h(View, {style: styles.updatesDot}) : null,
       h(Icon, {...iconProps.tabSelected, ...iconData.public}),
+      h(View, {
+        style:
+          numOfPublicUpdates > 10
+            ? styles.updatesCoverNone
+            : numOfPublicUpdates > 0
+            ? styles.updatesCoverSome
+            : styles.updatesCoverAll,
+      }),
     ] as any),
   };
 }

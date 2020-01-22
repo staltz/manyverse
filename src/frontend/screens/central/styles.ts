@@ -70,14 +70,26 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  updatesDot: {
-    backgroundColor: Palette.textForBackgroundBrand,
-    width: 7,
-    height: 7,
+  updatesCoverAll: {
+    height: 11,
     position: 'absolute',
-    top: -4,
-    right: 1,
-    borderRadius: 4,
+    top: 8.5,
+    left: 5,
+    right: 5,
+    backgroundColor: Palette.backgroundText,
+  },
+
+  updatesCoverSome: {
+    height: 11,
+    position: 'absolute',
+    top: 8.5,
+    left: 5,
+    right: 11,
+    backgroundColor: Palette.backgroundText,
+  },
+
+  updatesCoverNone: {
+    display: 'none',
   },
 
   syncingProgressBar: {
