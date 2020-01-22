@@ -9,7 +9,7 @@ import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
 import {StateSource} from '@cycle/state';
 import {ReactElement} from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {Text, StyleSheet, Platform, Animated} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
@@ -18,6 +18,7 @@ import {Typography} from '../../../global-styles/typography';
 
 export type State = {
   currentTab: 'public' | 'connections';
+  scrollHeaderBy: Animated.Value;
 };
 
 export type Sources = {
@@ -32,6 +33,11 @@ export type Sinks = {
 
 export const styles = StyleSheet.create({
   container: {
+    zIndex: 30,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
     height: Dimensions.toolbarHeight,
     paddingTop: getStatusBarHeight(true),
     alignSelf: 'stretch',
@@ -78,12 +84,26 @@ function tabTitle(tab: 'public' | 'connections') {
 }
 
 function view(state$: Stream<State>) {
-  return state$.map(state =>
-    h(View, {style: styles.container}, [
-      HeaderMenuButton('menuButton'),
-      h(Text, {style: styles.title}, tabTitle(state.currentTab)),
-    ]),
-  );
+  let translateY: Animated.AnimatedMultiplication | null = null;
+
+  return state$.map(state => {
+    // Avoid re-instantiating a new animated value on every stream emission
+    if (!translateY) {
+      translateY = Animated.multiply(
+        Animated.diffClamp(state.scrollHeaderBy, 0, Dimensions.toolbarHeight),
+        -1,
+      );
+    }
+
+    return h(
+      Animated.View,
+      {style: [styles.container, {transform: [{translateY}]}]},
+      [
+        HeaderMenuButton('menuButton'),
+        h(Text, {style: styles.title}, tabTitle(state.currentTab)),
+      ],
+    );
+  });
 }
 
 export function topBar(sources: Sources): Sinks {

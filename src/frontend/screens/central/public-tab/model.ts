@@ -9,6 +9,7 @@ import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource, GetReadable, ThreadAndExtras} from '../../../drivers/ssb';
+import {Animated} from 'react-native';
 
 export type State = {
   selfFeedId: FeedId;
@@ -16,6 +17,8 @@ export type State = {
   getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
   numOfUpdates: number;
   hasComposeDraft: boolean;
+  isVisible: boolean;
+  scrollHeaderBy: Animated.Value;
 };
 
 export type Actions = {
@@ -24,7 +27,6 @@ export type Actions = {
 };
 
 export default function model(
-  prevState$: Stream<State>,
   actions: Actions,
   asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
@@ -38,7 +40,7 @@ export default function model(
 
   const incUpdatesReducer$ = ssbSource.publicLiveUpdates$.mapTo(
     function incUpdatesReducer(prev: State): State {
-          return {...prev, numOfUpdates: prev.numOfUpdates + 1};
+      return {...prev, numOfUpdates: prev.numOfUpdates + 1};
     },
   );
 

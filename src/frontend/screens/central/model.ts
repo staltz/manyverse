@@ -6,6 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import {Reducer, Lens} from '@cycle/state';
+import {Animated} from 'react-native';
 import {FeedId} from 'ssb-typescript';
 import {State as PublicTabState} from './public-tab/model';
 import {State as TopBarState} from './top-bar';
@@ -14,7 +15,8 @@ import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
-  currentTab: number;
+  currentTab: 'public' | 'connections';
+  scrollHeaderBy: Animated.Value;
   publicTab?: PublicTabState;
   connectionsTab?: ConnectionsTabState;
   numOfPublicUpdates: number;
@@ -24,20 +26,21 @@ export type State = {
 export function initState(selfFeedId: FeedId): State {
   return {
     selfFeedId,
-    currentTab: 0,
+    currentTab: 'public',
     isSyncing: false,
     numOfPublicUpdates: 0,
+    scrollHeaderBy: new Animated.Value(0),
   };
 }
 
+/**
+ * Identity lens
+ */
 export const topBarLens: Lens<State, TopBarState> = {
   get: (parent: State): TopBarState => {
-    if (parent.currentTab === 0) return {currentTab: 'public'};
-    if (parent.currentTab === 1) return {currentTab: 'connections'};
-    else return {currentTab: 'public'};
+    return parent;
   },
 
-  // Ignore writes from the child
   set: (parent: State, child: TopBarState): State => {
     return parent;
   },
@@ -45,8 +48,9 @@ export const topBarLens: Lens<State, TopBarState> = {
 
 export const publicTabLens: Lens<State, PublicTabState> = {
   get: (parent: State): PublicTabState => {
+    const isVisible = parent.currentTab === 'public';
     if (parent.publicTab) {
-      return {...parent.publicTab, selfFeedId: parent.selfFeedId};
+      return {...parent.publicTab, isVisible, selfFeedId: parent.selfFeedId};
     } else {
       return {
         selfFeedId: parent.selfFeedId,
@@ -54,6 +58,8 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         getSelfRootsReadable: null,
         numOfUpdates: parent.numOfPublicUpdates,
         hasComposeDraft: false,
+        isVisible,
+        scrollHeaderBy: parent.scrollHeaderBy,
       };
     }
   },
@@ -69,8 +75,8 @@ export const publicTabLens: Lens<State, PublicTabState> = {
 
 export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
   get: (parent: State): ConnectionsTabState => {
+    const isVisible = parent.currentTab === 'connections';
     if (parent.connectionsTab) {
-      const isVisible = parent.currentTab === 1;
       const selfFeedId = parent.selfFeedId;
       return {...parent.connectionsTab, selfFeedId, isVisible};
     } else {
@@ -80,7 +86,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         lanEnabled: false,
         internetEnabled: false,
         isSyncing: parent.isSyncing,
-        isVisible: parent.currentTab === 1,
+        isVisible,
         bluetoothLastScanned: 0,
         peers: [],
         rooms: [],
@@ -101,7 +107,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
 };
 
 export type Actions = {
-  changeTab$: Stream<number>;
+  changeTab$: Stream<State['currentTab']>;
 };
 
 export default function model(
@@ -114,9 +120,10 @@ export default function model(
     } else {
       return {
         selfFeedId: '',
-        currentTab: 0,
+        currentTab: 'public',
         isSyncing: false,
         numOfPublicUpdates: 0,
+        scrollHeaderBy: new Animated.Value(0),
       };
     }
   });
@@ -129,9 +136,11 @@ export default function model(
   );
 
   const changeTabReducer$ = actions.changeTab$.map(
-    i =>
+    nextTab =>
       function changeTabReducer(prev: State): State {
-        return {...prev, currentTab: i};
+        prev.scrollHeaderBy.stopAnimation();
+        prev.scrollHeaderBy.setValue(0);
+        return {...prev, currentTab: nextTab};
       },
   );
 

@@ -198,11 +198,16 @@ function Body(state: State) {
 }
 
 export default function view(state$: Stream<State>) {
-  return state$.map(state => {
-    return h(ScrollView, {style: styles.container}, [
-      ConnectivityModes(state),
-      Body(state),
-      SlideInMenu(state),
-    ]);
-  });
+  return state$
+    .filter(state => state.isVisible)
+    .map(state => {
+      return h(
+        ScrollView,
+        {
+          style: styles.container,
+          contentContainerStyle: styles.containerInner,
+        },
+        [ConnectivityModes(state), Body(state), SlideInMenu(state)],
+      );
+    });
 }

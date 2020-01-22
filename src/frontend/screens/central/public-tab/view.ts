@@ -6,34 +6,41 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import Feed from '../../../components/Feed';
-import {State} from './model';
-import {SSBSource} from '../../../drivers/ssb';
 import {isRootPostMsg} from 'ssb-typescript/utils';
-import {styles} from './styles';
+import Feed from '../../../components/Feed';
+import {SSBSource} from '../../../drivers/ssb';
 import EmptySection from '../../../components/EmptySection';
+import {Dimensions} from '../../../global-styles/dimens';
+import {State} from './model';
+import {styles} from './styles';
 
 export default function view(
   state$: Stream<State>,
   ssbSource: SSBSource,
   scrollToTop$: Stream<any>,
 ) {
-  const vdom$ = state$.map(state =>
-    h(Feed, {
-      sel: 'publicFeed',
-      getReadable: state.getPublicFeedReadable,
-      getPublicationsReadable: state.getSelfRootsReadable,
-      publication$: ssbSource.publishHook$.filter(isRootPostMsg),
-      scrollToTop$,
-      selfFeedId: state.selfFeedId,
-      EmptyComponent: h(EmptySection, {
-        style: styles.emptySection,
-        image: require('../../../../../images/noun-plant.png'),
-        title: 'No messages',
-        description: 'Write a diary which you can\nshare with friends later',
+  const vdom$ = state$
+    .filter(state => state.isVisible)
+    .map(state =>
+      h(Feed, {
+        sel: 'publicFeed',
+        style: styles.feed,
+        contentContainerStyle: styles.feedInner,
+        progressViewOffset: Dimensions.toolbarHeight,
+        yOffsetAnimVal: state.scrollHeaderBy,
+        getReadable: state.getPublicFeedReadable,
+        getPublicationsReadable: state.getSelfRootsReadable,
+        publication$: ssbSource.publishHook$.filter(isRootPostMsg),
+        scrollToTop$,
+        selfFeedId: state.selfFeedId,
+        EmptyComponent: h(EmptySection, {
+          style: styles.emptySection,
+          image: require('../../../../../images/noun-plant.png'),
+          title: 'No messages',
+          description: 'Write a diary which you can\nshare with friends later',
+        }),
       }),
-    }),
-  );
+    );
 
   return vdom$;
 }

@@ -11,6 +11,7 @@ import {
   IActionProps,
 } from 'react-native-floating-action';
 import {Palette} from '../../../global-styles/palette';
+import {Dimensions} from '../../../global-styles/dimens';
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
   return state$.map(state => {
@@ -50,6 +51,11 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
       actions,
       iconHeight: 24,
       iconWidth: 24,
+      overlayColor: Palette.transparencyDark,
+      distanceToEdge: {
+        vertical: Dimensions.verticalSpaceLarge,
+        horizontal: Dimensions.horizontalSpaceBig,
+      } as any,
       floatingIcon: require('../../../../../images/plus-network.png'),
     } as Props;
   });

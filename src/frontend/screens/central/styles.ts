@@ -4,15 +4,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
 
-const _tabItem = {
-  backgroundColor: Palette.backgroundBrand,
-  paddingTop: Dimensions.verticalSpaceNormal,
-  paddingBottom: Dimensions.verticalSpaceNormal,
+const page: ViewStyle = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  bottom: Dimensions.toolbarHeight,
+  right: 0,
+  backgroundColor: Palette.backgroundVoid,
+  justifyContent: 'center',
+  alignItems: 'center',
 };
 
 export const styles = StyleSheet.create({
@@ -21,53 +25,34 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundVoid,
   },
 
-  header: {
+  pageHidden: {...page, zIndex: 10},
+
+  pageShown: {...page, zIndex: 20},
+
+  tabBar: {
+    zIndex: 30,
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    right: 0,
+    height: Dimensions.toolbarHeight,
+    borderTopColor: Palette.textLine,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    backgroundColor: Palette.backgroundText,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: Palette.backgroundBrand,
-    minHeight: Dimensions.toolbarHeight,
-  },
-
-  headerIcon: {
-    width: Dimensions.iconSizeNormal + Dimensions.horizontalSpaceBig * 2,
-    height: Dimensions.iconSizeNormal + Dimensions.verticalSpaceNormal * 2,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'stretch',
   },
 
-  headerTitle: {
-    marginLeft: Dimensions.horizontalSpaceNormal,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textForBackgroundBrand,
-    fontSize: Typography.fontSizeLarge,
-    fontWeight: 'bold',
-  },
-
-  indicatorViewPager: {
+  tabButton: {
     flex: 1,
-    flexDirection: 'column-reverse',
-    backgroundColor: Palette.backgroundBrandStrong,
-  },
-
-  tabItem: _tabItem,
-
-  tabItemSelected: {
-    ..._tabItem,
-    borderBottomWidth: 4,
-    borderBottomColor: Palette.backgroundBrandWeaker,
-  },
-
-  pageContainer: {
-    backgroundColor: Palette.backgroundVoid,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
-  pagePlaceholder: {
-    fontSize: Typography.fontSizeLarge,
-    fontFamily: Typography.fontFamilyReadableText,
-    textAlign: 'center',
+  menuBackdrop: {
+    backgroundColor: Palette.transparencyDarkStrong,
+    opacity: 1,
   },
 
   updatesCoverAll: {
@@ -91,18 +76,6 @@ export const styles = StyleSheet.create({
   updatesCoverNone: {
     display: 'none',
   },
-
-  syncingProgressBar: {
-    position: 'absolute',
-    left: 2,
-    right: 2,
-    bottom: 4.9,
-  },
-
-  menuBackdrop: {
-    backgroundColor: Palette.transparencyDarkStrong,
-    opacity: 1,
-  },
 });
 
 export const iconProps = {
@@ -113,16 +86,11 @@ export const iconProps = {
 
   tab: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.backgroundBrandStronger,
+    color: Palette.foregroundNeutral,
   },
 
   tabSelected: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.textForBackgroundBrand,
+    color: Palette.textBrand,
   },
-};
-
-export const topBarTitle = {
-  color: Palette.textForBackgroundBrand,
-  fontSize: Typography.fontSizeLarge,
 };

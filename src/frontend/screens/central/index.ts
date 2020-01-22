@@ -89,7 +89,10 @@ export function central(sources: Sources): Sinks {
 
   const scrollToTop$ = actions.changeTab$
     .compose(sampleCombine(sources.state.stream))
-    .filter(([i, state]) => state.currentTab === 0 && i === 0)
+    .filter(
+      ([nextTab, state]) =>
+        state.currentTab === 'public' && nextTab === 'public',
+    )
     .mapTo(null);
 
   const fabPress$: Stream<string> = sources.screen
@@ -108,7 +111,9 @@ export function central(sources: Sources): Sinks {
 
   const fabProps$ = sources.state.stream
     .map(state =>
-      state.currentTab === 0 ? publicTabSinks.fab : connectionsTabSinks.fab,
+      state.currentTab === 'public'
+        ? publicTabSinks.fab
+        : connectionsTabSinks.fab,
     )
     .flatten();
 

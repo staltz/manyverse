@@ -12,6 +12,7 @@ import {
   NativeScrollEvent,
   Animated,
   Easing,
+  ViewStyle,
 } from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
@@ -125,7 +126,9 @@ type Props = {
   scrollToTop$?: Stream<any> | null;
   selfFeedId: FeedId;
   EmptyComponent?: ReactElement<any>;
-  style?: any;
+  style?: ViewStyle;
+  contentContainerStyle?: ViewStyle;
+  progressViewOffset?: number;
   onInitialPullDone?: () => void;
   onRefresh?: () => void;
   onPressLikeCount?: (ev: {msgKey: MsgId; likes: Likes}) => void;
@@ -134,6 +137,7 @@ type Props = {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
   onPressExpandThread?: (ev: {rootMsgId: MsgId}) => void;
+  yOffsetAnimVal?: Animated.Value;
 };
 
 type State = {
@@ -144,28 +148,27 @@ type State = {
 const Y_OFFSET_IS_AT_TOP = 10;
 
 export default class Feed extends PureComponent<Props, State> {
+  private addedThreadsStream: any | null;
+  private yOffset: number;
+  private subscription?: Subscription;
+
   constructor(props: Props) {
     super(props);
     this.state = {showPlaceholder: false, initialLoading: true};
     this.addedThreadsStream = Pushable();
     this.yOffset = 0;
-
-    this._onScroll = (ev: {nativeEvent: NativeScrollEvent}) => {
-      if (ev?.nativeEvent?.contentOffset) {
-        this.yOffset = ev.nativeEvent.contentOffset.y ?? 0;
-      }
-    };
-    this._onFeedInitialPullDone = () => {
-      if (this.props.onInitialPullDone) this.props.onInitialPullDone();
-      this.setState({initialLoading: false});
-    };
   }
 
-  private addedThreadsStream: any | null;
-  private yOffset: number;
-  private _onScroll: (ev: {nativeEvent: NativeScrollEvent}) => void;
-  private _onFeedInitialPullDone: () => void;
-  private subscription?: Subscription;
+  private _onScroll = (ev: {nativeEvent: NativeScrollEvent}) => {
+    if (ev?.nativeEvent?.contentOffset) {
+      this.yOffset = ev.nativeEvent.contentOffset.y ?? 0;
+    }
+  };
+
+  private _onFeedInitialPullDone = () => {
+    if (this.props.onInitialPullDone) this.props.onInitialPullDone();
+    this.setState({initialLoading: false});
+  };
 
   public componentDidMount() {
     this.addedThreadsStream = this.addedThreadsStream ?? Pushable();
@@ -216,6 +219,9 @@ export default class Feed extends PureComponent<Props, State> {
       onPressEtc,
       onPressExpandThread,
       style,
+      contentContainerStyle,
+      progressViewOffset,
+      yOffsetAnimVal,
       scrollToTop$,
       getReadable,
       selfFeedId,
@@ -227,13 +233,25 @@ export default class Feed extends PureComponent<Props, State> {
       getScrollStream: getReadable,
       getPrefixStream: () => this.addedThreadsStream,
       style: [styles.container, style],
+      contentContainerStyle,
+      keyboardDismissMode: 'on-drag',
       initialNumToRender: 1,
+      progressViewOffset: progressViewOffset ?? 0,
+      scrollEventThrottle: 1,
       pullAmount: 1,
       numColumns: 1,
       refreshable: true,
       onInitialPullDone: this._onFeedInitialPullDone,
       onRefresh,
-      onScroll: this._onScroll,
+      onScroll: yOffsetAnimVal
+        ? Animated.event(
+            [{nativeEvent: {contentOffset: {y: yOffsetAnimVal}}}],
+            {
+              useNativeDriver: true,
+              listener: this._onScroll,
+            },
+          )
+        : this._onScroll,
       scrollToOffset$: (scrollToTop$ ?? xs.never())
         .filter(() => this.yOffset > Y_OFFSET_IS_AT_TOP)
         .mapTo({offset: 0, animated: true}),

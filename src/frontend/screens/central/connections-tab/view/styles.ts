@@ -12,8 +12,13 @@ import {Typography} from '../../../../global-styles/typography';
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: Palette.backgroundVoid,
+    paddingTop: Dimens.toolbarHeight, // for the topBar
     alignSelf: 'stretch',
     flex: 1,
+  },
+
+  containerInner: {
+    paddingBottom: Dimens.toolbarHeight + Dimens.verticalSpaceNormal,
   },
 
   modesContainer: {

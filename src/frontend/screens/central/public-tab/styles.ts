@@ -11,4 +11,12 @@ export const styles = StyleSheet.create({
   emptySection: {
     marginTop: Dimens.verticalSpaceBig * 2,
   },
+
+  feed: {
+    paddingTop: Dimens.toolbarHeight, // for the topBar
+  },
+
+  feedInner: {
+    paddingBottom: Dimens.toolbarHeight + Dimens.verticalSpaceNormal,
+  },
 });

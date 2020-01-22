@@ -8,6 +8,7 @@ import {Stream} from 'xstream';
 import {State} from './model';
 import {IFloatingActionProps as Props} from 'react-native-floating-action';
 import {Palette} from '../../../global-styles/palette';
+import {Dimensions} from '../../../global-styles/dimens';
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
   return state$.map(
@@ -29,6 +30,11 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
         overrideWithAction: true,
         iconHeight: 24,
         iconWidth: 24,
+        overlayColor: Palette.transparencyDark,
+        distanceToEdge: {
+          vertical: Dimensions.verticalSpaceLarge,
+          horizontal: Dimensions.horizontalSpaceBig,
+        } as any,
       } as Props),
   );
 }

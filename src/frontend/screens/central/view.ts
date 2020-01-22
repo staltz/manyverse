@@ -5,141 +5,122 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {ReactElement} from 'react';
-import {View, ActivityIndicator, Platform} from 'react-native';
+import {ReactElement, Fragment} from 'react';
+import {
+  View,
+  Platform,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {IndicatorViewPager} from 'rn-viewpager';
 import {FloatingAction} from 'react-native-floating-action';
 import {MenuProvider} from 'react-native-popup-menu';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
-import {styles as globalStyles} from '../../global-styles/styles';
-import BetterPagerTabIndicator from '../../components/BetterPagerTabIndicator';
 import {styles, iconProps} from './styles';
 import {State} from './model';
-import {Palette} from '../../global-styles/palette';
 
-const iconData = {
-  public: {
-    name: 'bulletin-board',
-    accessible: true,
-    accessibilityLabel: 'Public Tab Button',
+const Touchable = Platform.select<any>({
+  android: TouchableNativeFeedback,
+  default: TouchableOpacity,
+});
+
+const touchableProps = Platform.select<any>({
+  android: {
+    background: TouchableNativeFeedback.SelectableBackground(),
   },
+  default: {},
+});
 
-  connections: {
-    accessible: true,
-    accessibilityLabel: 'Connections Tab Button',
-  },
-};
-
-function renderPublicIcon(numOfPublicUpdates: number) {
-  return {
-    normal: h(View, [
-      h(Icon, {...iconProps.tab, ...iconData.public}),
-      h(View, {
-        style:
-          numOfPublicUpdates > 10
-            ? styles.updatesCoverNone
-            : numOfPublicUpdates > 0
-            ? styles.updatesCoverSome
-            : styles.updatesCoverAll,
-      }),
-    ] as any),
-
-    selected: h(View, [
-      h(Icon, {...iconProps.tabSelected, ...iconData.public}),
-      h(View, {
-        style:
-          numOfPublicUpdates > 10
-            ? styles.updatesCoverNone
-            : numOfPublicUpdates > 0
-            ? styles.updatesCoverSome
-            : styles.updatesCoverAll,
-      }),
-    ] as any),
-  };
+function renderPublicIcon(isSelected: boolean, numOfPublicUpdates: number) {
+  return h(
+    Touchable,
+    {
+      ...touchableProps,
+      sel: 'public-tab-button',
+      accessible: true,
+      accessibilityLabel: 'Public Tab Button',
+    },
+    [
+      h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
+        h(View, [
+          h(Icon, {
+            name: 'bulletin-board',
+            ...(isSelected ? iconProps.tabSelected : iconProps.tab),
+          }),
+          h(View, {
+            style:
+              numOfPublicUpdates > 10
+                ? styles.updatesCoverNone
+                : numOfPublicUpdates > 0
+                ? styles.updatesCoverSome
+                : styles.updatesCoverAll,
+          }),
+        ]),
+      ]),
+    ],
+  );
 }
 
 function renderConnectionsIcon(
-  isSyncing: boolean,
+  isSelected: boolean,
   state: State['connectionsTab'],
 ) {
-  return {
-    normal: h(View, [
-      h(Icon, {
-        ...iconProps.tab,
-        ...iconData.connections,
-        name:
-          !state?.bluetoothEnabled &&
-          !state?.internetEnabled &&
-          !state?.lanEnabled
-            ? 'network-off-outline'
-            : (state?.peers || []).filter(p => p[1].state === 'connected')
-                .length > 0
-            ? 'check-network-outline'
-            : 'network-outline',
-      }),
-      isSyncing && Platform.OS === 'android'
-        ? h(ActivityIndicator, {
-            animating: true,
-            size: 19,
-            style: styles.syncingProgressBar,
-            color: Palette.backgroundBrandStrong,
-          })
-        : null,
-    ]),
+  let iconName = isSelected ? 'network-off' : 'network-off-outline';
+  if (state?.bluetoothEnabled || state?.internetEnabled || state?.lanEnabled) {
+    iconName = isSelected ? 'network' : 'network-outline';
+  }
+  if ((state?.peers || []).filter(p => p[1].state === 'connected').length > 0) {
+    iconName = isSelected ? 'check-network' : 'check-network-outline';
+  }
 
-    selected: h(View, [
-      h(Icon, {
-        ...iconProps.tabSelected,
-        ...iconData.connections,
-        name:
-          !state?.bluetoothEnabled &&
-          !state?.internetEnabled &&
-          !state?.lanEnabled
-            ? 'network-off'
-            : (state?.peers || []).filter(p => p[1].state === 'connected')
-                .length > 0
-            ? 'check-network'
-            : 'network',
-      }),
-      isSyncing && Platform.OS === 'android'
-        ? h(ActivityIndicator, {
-            animating: true,
-            size: 19,
-            style: styles.syncingProgressBar,
-            color: Palette.colors.blue4,
-          })
-        : null,
-    ]),
-  };
+  return h(
+    Touchable,
+    {
+      ...touchableProps,
+      sel: 'connections-tab-button',
+      accessible: true,
+      accessibilityLabel: 'Connections Tab Button',
+    },
+    [
+      h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
+        h(Icon, {
+          name: iconName,
+          ...(isSelected ? iconProps.tabSelected : iconProps.tab),
+        }),
+      ]),
+    ],
+  );
 }
 
-function renderTabs(
+function renderTabPage(
   state: State,
+  fabProps: FabProps,
   publicTabVDOM: ReactElement<any>,
   metadataTabVDOM: ReactElement<any>,
 ) {
-  return h(
-    IndicatorViewPager,
-    {
-      style: styles.indicatorViewPager,
-      indicator: h(BetterPagerTabIndicator, {
-        sel: 'tabs',
-        style: [globalStyles.noMargin, {elevation: 3}],
-        itemStyle: styles.tabItem,
-        selectedItemStyle: styles.tabItemSelected,
-        tabs: [
-          renderPublicIcon(state.numOfPublicUpdates),
-          renderConnectionsIcon(state.isSyncing, state.connectionsTab),
-        ],
-      }),
-    },
-    [
-      h(View, {style: styles.pageContainer}, [publicTabVDOM]),
-      h(View, {style: styles.pageContainer}, [metadataTabVDOM]),
-    ],
-  );
+  const shown = styles.pageShown;
+  const hidden = styles.pageHidden;
+  return h(Fragment, [
+    h(View, {style: [state.currentTab === 'public' ? shown : hidden]}, [
+      publicTabVDOM,
+      h(FloatingAction, fabProps),
+    ]),
+    h(View, {style: [state.currentTab === 'connections' ? shown : hidden]}, [
+      metadataTabVDOM,
+      h(FloatingAction, fabProps),
+    ]),
+  ]);
+}
+
+function renderTabBar(state: State) {
+  return h(View, {style: styles.tabBar}, [
+    renderPublicIcon(state.currentTab === 'public', state.numOfPublicUpdates),
+    renderConnectionsIcon(
+      state.currentTab === 'connections',
+      state.connectionsTab,
+    ),
+  ]);
 }
 
 export default function view(
@@ -147,7 +128,7 @@ export default function view(
   fabProps$: Stream<FabProps>,
   topBarVDOM$: Stream<ReactElement<any>>,
   publicTabVDOM$: Stream<ReactElement<any>>,
-  metadataTabVDOM$: Stream<ReactElement<any>>,
+  connectionsTabVDOM$: Stream<ReactElement<any>>,
 ) {
   return xs
     .combine(
@@ -155,14 +136,14 @@ export default function view(
       fabProps$,
       topBarVDOM$,
       publicTabVDOM$.startWith(h(View)),
-      metadataTabVDOM$.startWith(h(View)),
+      connectionsTabVDOM$.startWith(h(View)),
     )
-    .map(([state, fabProps, topBarVDOM, publicTabVDOM, metadataTabVDOM]) =>
+    .map(([state, fabProps, topBarVDOM, publicTabVDOM, connectionsTabVDOM]) =>
       h(MenuProvider, {customStyles: {backdrop: styles.menuBackdrop}}, [
         h(View, {style: styles.root}, [
           topBarVDOM,
-          renderTabs(state, publicTabVDOM, metadataTabVDOM),
-          h(FloatingAction, fabProps),
+          renderTabPage(state, fabProps, publicTabVDOM, connectionsTabVDOM),
+          renderTabBar(state),
         ]),
       ]),
     );
