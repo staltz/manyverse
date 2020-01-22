@@ -183,6 +183,11 @@ function Body(state: State) {
     }
   }
 
+  // Don't render empty section if there are peers:
+  if (peers.length || rooms.length || stagedPeers.length) {
+    emptySection = null;
+  }
+
   return h(React.Fragment, [
     h(ListOfPeers, {
       key: 'b',
@@ -192,7 +197,7 @@ function Body(state: State) {
       stagedPeers,
     }),
 
-    emptySection as any,
+    emptySection,
   ]);
 }
 
