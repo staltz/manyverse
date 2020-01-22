@@ -27,7 +27,6 @@ const iconData = {
   },
 
   connections: {
-    name: 'wan',
     accessible: true,
     accessibilityLabel: 'Connections Tab Button',
   },
@@ -61,10 +60,25 @@ function renderPublicIcon(numOfPublicUpdates: number) {
   };
 }
 
-function renderConnectionsIcon(isSyncing: boolean) {
+function renderConnectionsIcon(
+  isSyncing: boolean,
+  state: State['connectionsTab'],
+) {
   return {
     normal: h(View, [
-      h(Icon, {...iconProps.tab, ...iconData.connections}),
+      h(Icon, {
+        ...iconProps.tab,
+        ...iconData.connections,
+        name:
+          !state?.bluetoothEnabled &&
+          !state?.internetEnabled &&
+          !state?.lanEnabled
+            ? 'network-off-outline'
+            : (state?.peers || []).filter(p => p[1].state === 'connected')
+                .length > 0
+            ? 'check-network-outline'
+            : 'network-outline',
+      }),
       isSyncing && Platform.OS === 'android'
         ? h(ActivityIndicator, {
             animating: true,
@@ -79,6 +93,15 @@ function renderConnectionsIcon(isSyncing: boolean) {
       h(Icon, {
         ...iconProps.tabSelected,
         ...iconData.connections,
+        name:
+          !state?.bluetoothEnabled &&
+          !state?.internetEnabled &&
+          !state?.lanEnabled
+            ? 'network-off'
+            : (state?.peers || []).filter(p => p[1].state === 'connected')
+                .length > 0
+            ? 'check-network'
+            : 'network',
       }),
       isSyncing && Platform.OS === 'android'
         ? h(ActivityIndicator, {
@@ -108,7 +131,7 @@ function renderTabs(
         selectedItemStyle: styles.tabItemSelected,
         tabs: [
           renderPublicIcon(state.numOfPublicUpdates),
-          renderConnectionsIcon(state.isSyncing),
+          renderConnectionsIcon(state.isSyncing, state.connectionsTab),
         ],
       }),
     },
