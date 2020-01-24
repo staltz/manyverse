@@ -17,7 +17,7 @@ import {
   Command as StorageCommand,
 } from 'cycle-native-asyncstorage';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {Toast, Duration as ToastDuration} from '../../drivers/toast';
+import {Toast} from '../../drivers/toast';
 import {NetworkSource} from '../../drivers/network';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {GlobalEvent} from '../../drivers/eventbus';
@@ -138,27 +138,10 @@ export function central(sources: Sources): Sinks {
     connectionsTabSinks.screen,
   );
 
-  const inviteToast$: Stream<Toast> = sources.ssb.acceptInviteResponse$.map(
-    res => {
-      if (res === true)
-        return {
-          type: 'show' as 'show',
-          flavor: 'success',
-          message: 'Invite accepted',
-          duration: ToastDuration.SHORT,
-        } as Toast;
-      else
-        return {
-          type: 'show' as 'show',
-          flavor: 'failure',
-          message: 'Invite rejected. Are you sure it was correct?',
-          duration: ToastDuration.LONG,
-        } as Toast;
-    },
-  );
-  const toast$ = xs.merge(inviteToast$, publicTabSinks.toast);
+  const toast$ = xs.merge(publicTabSinks.toast, connectionsTabSinks.toast);
 
   const ssb$ = xs.merge(publicTabSinks.ssb, connectionsTabSinks.ssb);
+
   const storageCommand$ = xs.merge(
     connectionsTabSinks.asyncstorage,
     publicTabSinks.asyncstorage,

@@ -19,6 +19,7 @@ import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {NetworkSource} from '../../../drivers/network';
 import {SSBSource, Req} from '../../../drivers/ssb';
 import {DialogSource} from '../../../drivers/dialogs';
+import {Toast, Duration as ToastDuration} from '../../../drivers/toast';
 import view from './view';
 import intent from './intent';
 import model, {State} from './model';
@@ -49,6 +50,7 @@ export type Sinks = {
   ssb: Stream<Req>;
   fab: Stream<FabProps>;
   share: Stream<SharedContent>;
+  toast: Stream<Toast>;
   exit: Stream<any>;
 };
 
@@ -72,6 +74,8 @@ export function connectionsTab(sources: Sources): Sinks {
   const fabProps$ = floatingAction(sources.state.stream);
   const ssb$ = ssb(actionsPlus);
   const alert$ = alert(actionsPlus, sources.state.stream);
+  const vdom$ = view(sources.state.stream);
+
   const share$ = xs.merge(
     actionsPlus.shareDhtInvite$.map(inviteCode => ({
       message:
@@ -89,7 +93,25 @@ export function connectionsTab(sources: Sources): Sinks {
       dialogTitle: 'Give this invite code to a friend',
     })),
   );
-  const vdom$ = view(sources.state.stream);
+
+  const inviteToast$: Stream<Toast> = sources.ssb.acceptInviteResponse$.map(
+    res => {
+      if (res === true)
+        return {
+          type: 'show' as 'show',
+          flavor: 'success',
+          message: 'Invite accepted',
+          duration: ToastDuration.SHORT,
+        } as Toast;
+      else
+        return {
+          type: 'show' as 'show',
+          flavor: 'failure',
+          message: 'Invite rejected. Are you sure it was correct?',
+          duration: ToastDuration.LONG,
+        } as Toast;
+    },
+  );
 
   return {
     alert: alert$,
@@ -100,6 +122,7 @@ export function connectionsTab(sources: Sources): Sinks {
     fab: fabProps$,
     ssb: ssb$,
     share: share$,
+    toast: inviteToast$,
     exit: actionsPlus.goBack$,
   };
 }
