@@ -138,8 +138,6 @@ export default function model(
   const changeTabReducer$ = actions.changeTab$.map(
     nextTab =>
       function changeTabReducer(prev: State): State {
-        prev.scrollHeaderBy.stopAnimation();
-        prev.scrollHeaderBy.setValue(0);
         return {...prev, currentTab: nextTab};
       },
   );

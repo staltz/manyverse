@@ -84,16 +84,20 @@ function tabTitle(tab: 'public' | 'connections') {
 }
 
 function view(state$: Stream<State>) {
-  let translateY: Animated.AnimatedMultiplication | null = null;
+  const fixAtTop = new Animated.Value(0);
+  let hideWhenScrolling: Animated.AnimatedMultiplication | null = null;
 
   return state$.map(state => {
     // Avoid re-instantiating a new animated value on every stream emission
-    if (!translateY) {
-      translateY = Animated.multiply(
+    if (!hideWhenScrolling) {
+      hideWhenScrolling = Animated.multiply(
         Animated.diffClamp(state.scrollHeaderBy, 0, Dimensions.toolbarHeight),
         -1,
       );
     }
+
+    const translateY =
+      state.currentTab === 'public' ? hideWhenScrolling : fixAtTop;
 
     return h(
       Animated.View,
