@@ -70,31 +70,48 @@ function PlaceholderWithSeparator() {
   return h(View, [h(PlaceholderMessage), h(Separator)]);
 }
 
-class InitialLoading extends PureComponent<any, any> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      fadeAnim: new Animated.Value(0),
-    };
-  }
+class InitialLoading extends PureComponent<any> {
+  private loadingAnim = new Animated.Value(0);
+  private indexesAnim = new Animated.Value(0);
 
   public componentDidMount() {
+    // Breathing animation
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(this.loadingAnim, {
+          toValue: 0.6,
+          duration: 2100,
+          easing: Easing.out(Easing.quad),
+          useNativeDriver: true,
+        }),
+        Animated.timing(this.loadingAnim, {
+          toValue: 1,
+          easing: Easing.linear,
+          duration: 2400,
+          useNativeDriver: true,
+        }),
+      ]),
+    ).start();
+
+    // Wait for 10 seconds before starting animation
     Animated.sequence([
-      Animated.delay(8000),
-      Animated.timing(this.state.fadeAnim, {
+      Animated.delay(10000),
+      // Take 4 seconds to slowly appear
+      Animated.timing(this.indexesAnim, {
         toValue: 1,
         duration: 4000,
         useNativeDriver: true,
       }),
+      // Breathing animation
       Animated.loop(
         Animated.sequence([
-          Animated.timing(this.state.fadeAnim, {
+          Animated.timing(this.indexesAnim, {
             toValue: 0.6,
             duration: 2100,
             easing: Easing.out(Easing.quad),
             useNativeDriver: true,
           }),
-          Animated.timing(this.state.fadeAnim, {
+          Animated.timing(this.indexesAnim, {
             toValue: 1,
             easing: Easing.linear,
             duration: 2400,
@@ -106,13 +123,19 @@ class InitialLoading extends PureComponent<any, any> {
   }
 
   public render() {
-    const {fadeAnim} = this.state;
-
     return h(View, [
       h(PlaceholderMessage),
       h(
         Animated.Text,
-        {selectable: true, style: [styles.initialLoading, {opacity: fadeAnim}]},
+        {style: [styles.initialLoading, {opacity: this.loadingAnim}]},
+        'Loading...',
+      ),
+      h(
+        Animated.Text,
+        {
+          selectable: true,
+          style: [styles.initialLoading, {opacity: this.indexesAnim}],
+        },
         'Building database indexes...\nThis may take up to several minutes',
       ),
     ]);
