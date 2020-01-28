@@ -20,9 +20,15 @@ export type SSBActions = {
 export default function ssb(actions: SSBActions): Stream<Req> {
   const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
 
-  const publishReply$ = actions.publishMsg$.map(state =>
-    toReplyPostContent(state.replyText, state.rootMsgId as string),
-  );
+  const publishReply$ = actions.publishMsg$.map(state => {
+    const messages = state.thread.messages;
+    return toReplyPostContent(
+      state.replyText,
+      state.rootMsgId as string,
+      messages[messages.length - 1].key,
+      void 0, // no content warning
+    );
+  });
 
   return xs.merge(toggleLikeMsg$, publishReply$).map(contentToPublishReq);
 }

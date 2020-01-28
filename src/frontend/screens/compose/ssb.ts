@@ -22,8 +22,8 @@ export default function ssb(actions: Actions): Stream<Req> {
     .map(contentToPublishReq);
 
   const publishReply$ = actions.publishReply$
-    .map(({postText, contentWarning, root}) =>
-      toReplyPostContent(postText, root!, contentWarning),
+    .map(({postText, contentWarning, root, branch}) =>
+      toReplyPostContent(postText, root!, branch, contentWarning),
     )
     .map(contentToPublishReq);
 

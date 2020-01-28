@@ -27,6 +27,7 @@ export type State = {
   avatarUrl: string | undefined;
   previewing: boolean;
   root: MsgId | undefined;
+  branch: MsgId | undefined;
   authors: Array<FeedId>;
 };
 
@@ -97,6 +98,7 @@ export default function model(
           mentionSuggestions: [],
           mentionChoiceTimestamp: 0,
           root: props.root,
+          branch: props.branch,
           authors: props.authors ?? [],
           contentWarning: '',
           avatarUrl: undefined,

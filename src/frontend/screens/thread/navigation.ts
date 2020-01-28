@@ -64,6 +64,8 @@ export default function navigation(
   );
 
   const toCompose$ = actions.goToCompose$.compose(sample(state$)).map(state => {
+    const messages = state.thread.messages;
+    const lastMsgInThread = messages[messages.length - 1];
     const authors = (() => {
       const set = new Set<FeedId>();
       for (const msg of state.thread.messages) {
@@ -81,7 +83,12 @@ export default function navigation(
         component: {
           name: Screens.Compose,
           options: composeScreenNavOptions,
-          passProps: {text: state.replyText, root: state.rootMsgId, authors},
+          passProps: {
+            text: state.replyText,
+            root: state.rootMsgId,
+            branch: lastMsgInThread.key,
+            authors,
+          },
         },
       },
     } as Command;

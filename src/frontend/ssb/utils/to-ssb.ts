@@ -51,6 +51,7 @@ export function toPostContent(
 export function toReplyPostContent(
   text: string,
   root: MsgId,
+  branch?: MsgId,
   contentWarning?: string,
 ): Privatable<PostContent> {
   const content: PostContent = {
@@ -59,6 +60,7 @@ export function toReplyPostContent(
     root,
     mentions: Mentions(text),
   };
+  if (branch) content.branch = branch;
 
   if (contentWarning) {
     (content as any).contentWarning = contentWarning;

@@ -30,6 +30,7 @@ export type Props = {
   text?: string;
   authors?: Array<FeedId>;
   root?: MsgId;
+  branch?: MsgId;
 };
 
 export type Sources = {
