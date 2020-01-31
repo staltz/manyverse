@@ -55,7 +55,7 @@ export type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export default class EmptySection extends PureComponent<Props> {
+export default class ContentWarning extends PureComponent<Props> {
   public render() {
     const {description, opened, style} = this.props;
     const touchableProps = {
