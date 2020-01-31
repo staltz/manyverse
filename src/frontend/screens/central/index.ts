@@ -1,11 +1,10 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import sampleCombine from 'xstream/extra/sampleCombine';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
@@ -23,6 +22,7 @@ import {SSBSource, Req} from '../../drivers/ssb';
 import {GlobalEvent} from '../../drivers/eventbus';
 import {DialogSource} from '../../drivers/dialogs';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
+import {privateTab, Sinks as PrivateTabSinks} from './private-tab/index';
 import {
   connectionsTab,
   Sinks as ConnectionsTabSinks,
@@ -32,6 +32,7 @@ import intent from './intent';
 import model, {
   State,
   publicTabLens,
+  privateTabLens,
   connectionsTabLens,
   topBarLens,
 } from './model';
@@ -85,15 +86,7 @@ export function central(sources: Sources): Sinks {
     state: topBarLens,
   })(sources);
 
-  const actions = intent(sources.screen);
-
-  const scrollToTop$ = actions.changeTab$
-    .compose(sampleCombine(sources.state.stream))
-    .filter(
-      ([nextTab, state]) =>
-        state.currentTab === 'public' && nextTab === 'public',
-    )
-    .mapTo(null);
+  const actions = intent(sources.screen, sources.state.stream);
 
   const fabPress$: Stream<string> = sources.screen
     .select('fab')
@@ -102,7 +95,20 @@ export function central(sources: Sources): Sinks {
   const publicTabSinks = isolate(publicTab, {
     state: publicTabLens,
     '*': 'publicTab',
-  })({...sources, scrollToTop: scrollToTop$, fab: fabPress$}) as PublicTabSinks;
+  })({
+    ...sources,
+    fab: fabPress$,
+    scrollToTop: actions.scrollToPublicTop$,
+  }) as PublicTabSinks;
+
+  const privateTabSinks = isolate(privateTab, {
+    state: privateTabLens,
+    '*': 'privateTab',
+  })({
+    ...sources,
+    fab: fabPress$,
+    scrollToTop: actions.scrollToPrivateTop$,
+  }) as PrivateTabSinks;
 
   const connectionsTabSinks = isolate(connectionsTab, {
     state: connectionsTabLens,
@@ -113,13 +119,19 @@ export function central(sources: Sources): Sinks {
     .map(state =>
       state.currentTab === 'public'
         ? publicTabSinks.fab
+        : state.currentTab === 'private'
+        ? privateTabSinks.fab
         : connectionsTabSinks.fab,
     )
     .flatten();
 
   const command$ = navigation(
     {openDrawer$: topBarSinks.menuPress},
-    xs.merge(publicTabSinks.navigation, connectionsTabSinks.navigation),
+    xs.merge(
+      publicTabSinks.navigation,
+      privateTabSinks.navigation,
+      connectionsTabSinks.navigation,
+    ),
   );
 
   const centralReducer$ = model(actions, sources.ssb);
@@ -127,6 +139,7 @@ export function central(sources: Sources): Sinks {
   const reducer$ = xs.merge(
     centralReducer$,
     publicTabSinks.state,
+    privateTabSinks.state,
     connectionsTabSinks.state,
   ) as Stream<Reducer<State>>;
 
@@ -135,6 +148,7 @@ export function central(sources: Sources): Sinks {
     fabProps$,
     topBarSinks.screen,
     publicTabSinks.screen,
+    privateTabSinks.screen,
     connectionsTabSinks.screen,
   );
 

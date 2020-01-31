@@ -1,24 +1,25 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
-import {StateSource} from '@cycle/state';
 import {ReactElement} from 'react';
-import {Text, StyleSheet, Platform, Animated} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
-import HeaderMenuButton from '../../../components/HeaderMenuButton';
 import {Typography} from '../../../global-styles/typography';
+import HeaderBackButton from '../../../components/HeaderBackButton';
+import {StateSource} from '@cycle/state';
+import Button from '../../../components/Button';
 
 export type State = {
-  currentTab: 'public' | 'private' | 'connections';
-  scrollHeaderBy: Animated.Value;
+  enabled: boolean;
 };
 
 export type Sources = {
@@ -28,16 +29,12 @@ export type Sources = {
 
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
-  menuPress: Stream<any>;
+  back: Stream<any>;
+  next: Stream<any>;
 };
 
 export const styles = StyleSheet.create({
   container: {
-    zIndex: 30,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
     height: Dimensions.toolbarHeight,
     paddingTop: getStatusBarHeight(true),
     alignSelf: 'stretch',
@@ -67,56 +64,60 @@ export const styles = StyleSheet.create({
       },
     }),
   },
+
+  buttonsRight: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+
+  buttonEnabled: {
+    minWidth: 68,
+    backgroundColor: Palette.backgroundCTA,
+    marginLeft: Dimensions.horizontalSpaceNormal,
+  },
+
+  buttonDisabled: {
+    backgroundColor: Palette.backgroundBrandWeak,
+    minWidth: 68,
+    marginLeft: Dimensions.horizontalSpaceNormal,
+  },
 });
 
-function intent(reactSource: ReactSource) {
-  return {
-    menu$: reactSource.select('menuButton').events('press'),
-  };
-}
-
-function tabTitle(tab: State['currentTab']) {
-  if (tab === 'public') {
-    return Platform.OS === 'ios' ? 'Manyverse' : 'Public board';
-  }
-  if (tab === 'private') return 'Private messages';
-  if (tab === 'connections') return 'Connections';
-  return '';
-}
-
-function view(state$: Stream<State>) {
-  const fixAtTop = new Animated.Value(0);
-  let hideWhenScrolling: Animated.AnimatedMultiplication | null = null;
-
-  return state$.map(state => {
-    // Avoid re-instantiating a new animated value on every stream emission
-    if (!hideWhenScrolling) {
-      hideWhenScrolling = Animated.multiply(
-        Animated.diffClamp(state.scrollHeaderBy, 0, Dimensions.toolbarHeight),
-        -1,
-      );
-    }
-
-    const translateY =
-      state.currentTab === 'public' ? hideWhenScrolling : fixAtTop;
-
-    return h(
-      Animated.View,
-      {style: [styles.container, {transform: [{translateY}]}]},
-      [
-        HeaderMenuButton('menuButton'),
-        h(Text, {style: styles.title}, tabTitle(state.currentTab)),
-      ],
-    );
-  });
-}
-
 export function topBar(sources: Sources): Sinks {
-  const actions = intent(sources.screen);
-  const vdom$ = view(sources.state.stream);
+  const state$ = sources.state.stream;
+
+  const vdom$ = state$.map(state =>
+    h(View, {style: styles.container}, [
+      HeaderBackButton('recipientsInputBackButton'),
+      h(Text, {style: styles.title}, 'New message'),
+      h(View, {style: styles.buttonsRight}, [
+        h(Button, {
+          sel: 'recipientsInputNextButton',
+          style: [state.enabled ? styles.buttonEnabled : styles.buttonDisabled],
+          text: 'Next',
+          strong: state.enabled,
+          accessible: true,
+          accessibilityLabel: 'Next Button',
+        }),
+      ]),
+    ]),
+  );
+
+  const back$ = sources.screen
+    .select('recipientsInputBackButton')
+    .events('press');
+
+  const next$ = sources.screen
+    .select('recipientsInputNextButton')
+    .events('press')
+    .compose(sample(state$))
+    .filter(state => state.enabled);
 
   return {
     screen: vdom$,
-    menuPress: actions.menu$,
+    back: back$,
+    next: next$,
   };
 }

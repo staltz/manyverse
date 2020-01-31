@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -62,6 +62,33 @@ function renderPublicIcon(isSelected: boolean, numOfPublicUpdates: number) {
   );
 }
 
+function renderPrivateIcon(isSelected: boolean, numOfPrivateUpdates: number) {
+  let iconName = isSelected ? 'message' : 'message-outline';
+  if (numOfPrivateUpdates > 0) {
+    iconName = isSelected ? 'message-text' : 'message-text-outline';
+  }
+
+  return h(
+    Touchable,
+    {
+      ...touchableProps,
+      sel: 'private-tab-button',
+      accessible: true,
+      accessibilityLabel: 'Private Tab Button',
+    },
+    [
+      h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
+        h(View, [
+          h(Icon, {
+            name: iconName,
+            ...(isSelected ? iconProps.tabSelected : iconProps.tab),
+          }),
+        ]),
+      ]),
+    ],
+  );
+}
+
 function renderConnectionsIcon(
   isSelected: boolean,
   state: State['connectionsTab'],
@@ -97,6 +124,7 @@ function renderTabPage(
   state: State,
   fabProps: FabProps,
   publicTabVDOM: ReactElement<any>,
+  privateTabVDOM: ReactElement<any>,
   metadataTabVDOM: ReactElement<any>,
 ) {
   const shown = styles.pageShown;
@@ -104,6 +132,10 @@ function renderTabPage(
   return h(Fragment, [
     h(View, {style: [state.currentTab === 'public' ? shown : hidden]}, [
       publicTabVDOM,
+      h(FloatingAction, fabProps),
+    ]),
+    h(View, {style: [state.currentTab === 'private' ? shown : hidden]}, [
+      privateTabVDOM,
       h(FloatingAction, fabProps),
     ]),
     h(View, {style: [state.currentTab === 'connections' ? shown : hidden]}, [
@@ -114,35 +146,37 @@ function renderTabPage(
 }
 
 function renderTabBar(state: State) {
+  const {currentTab, numOfPublicUpdates, numOfPrivateUpdates} = state;
+
   return h(View, {style: styles.tabBar}, [
-    renderPublicIcon(state.currentTab === 'public', state.numOfPublicUpdates),
-    renderConnectionsIcon(
-      state.currentTab === 'connections',
-      state.connectionsTab,
-    ),
+    renderPublicIcon(currentTab === 'public', numOfPublicUpdates),
+    renderPrivateIcon(currentTab === 'private', numOfPrivateUpdates),
+    renderConnectionsIcon(currentTab === 'connections', state.connectionsTab),
   ]);
 }
 
 export default function view(
   state$: Stream<State>,
   fabProps$: Stream<FabProps>,
-  topBarVDOM$: Stream<ReactElement<any>>,
-  publicTabVDOM$: Stream<ReactElement<any>>,
-  connectionsTabVDOM$: Stream<ReactElement<any>>,
+  topBar$: Stream<ReactElement<any>>,
+  publicTab$: Stream<ReactElement<any>>,
+  privateTab$: Stream<ReactElement<any>>,
+  connectionsTab$: Stream<ReactElement<any>>,
 ) {
   return xs
     .combine(
       state$,
       fabProps$,
-      topBarVDOM$,
-      publicTabVDOM$.startWith(h(View)),
-      connectionsTabVDOM$.startWith(h(View)),
+      topBar$,
+      publicTab$.startWith(h(View)),
+      privateTab$.startWith(h(View)),
+      connectionsTab$.startWith(h(View)),
     )
-    .map(([state, fabProps, topBarVDOM, publicTabVDOM, connectionsTabVDOM]) =>
+    .map(([state, fabProps, topBar, publicTab, privateTab, connectionsTab]) =>
       h(MenuProvider, {customStyles: {backdrop: styles.menuBackdrop}}, [
         h(View, {style: styles.root}, [
-          topBarVDOM,
-          renderTabPage(state, fabProps, publicTabVDOM, connectionsTabVDOM),
+          topBar,
+          renderTabPage(state, fabProps, publicTab, privateTab, connectionsTab),
           renderTabBar(state),
         ]),
       ]),

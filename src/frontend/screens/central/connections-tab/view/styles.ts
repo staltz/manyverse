@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,13 +12,13 @@ import {Typography} from '../../../../global-styles/typography';
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: Palette.backgroundVoid,
-    paddingTop: Dimens.toolbarHeight, // for the topBar
+    marginTop: Dimens.toolbarHeight, // for the topBar
     alignSelf: 'stretch',
     flex: 1,
   },
 
   containerInner: {
-    paddingBottom: Dimens.toolbarHeight + Dimens.verticalSpaceNormal,
+    paddingBottom: Dimens.verticalSpaceNormal,
   },
 
   modesContainer: {

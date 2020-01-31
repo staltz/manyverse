@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,19 +7,22 @@
 import xs, {Stream} from 'xstream';
 import {Reducer, Lens} from '@cycle/state';
 import {Animated} from 'react-native';
-import {FeedId} from 'ssb-typescript';
-import {State as PublicTabState} from './public-tab/model';
+import {FeedId, MsgId} from 'ssb-typescript';
 import {State as TopBarState} from './top-bar';
+import {State as PublicTabState} from './public-tab/model';
+import {State as PrivateTabState} from './private-tab/model';
 import {State as ConnectionsTabState} from './connections-tab/model';
 import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
-  currentTab: 'public' | 'connections';
+  currentTab: 'public' | 'private' | 'connections';
   scrollHeaderBy: Animated.Value;
   publicTab?: PublicTabState;
+  privateTab?: PrivateTabState;
   connectionsTab?: ConnectionsTabState;
   numOfPublicUpdates: number;
+  numOfPrivateUpdates: number;
   isSyncing: boolean;
 };
 
@@ -29,6 +32,7 @@ export function initState(selfFeedId: FeedId): State {
     currentTab: 'public',
     isSyncing: false,
     numOfPublicUpdates: 0,
+    numOfPrivateUpdates: 0,
     scrollHeaderBy: new Animated.Value(0),
   };
 }
@@ -69,6 +73,32 @@ export const publicTabLens: Lens<State, PublicTabState> = {
       ...parent,
       numOfPublicUpdates: child.numOfUpdates,
       publicTab: child,
+    };
+  },
+};
+
+export const privateTabLens: Lens<State, PrivateTabState> = {
+  get: (parent: State): PrivateTabState => {
+    const isVisible = parent.currentTab === 'private';
+    if (parent.privateTab) {
+      return {...parent.privateTab, isVisible, selfFeedId: parent.selfFeedId};
+    } else {
+      return {
+        isVisible,
+        selfFeedId: parent.selfFeedId,
+        getPrivateFeedReadable: null,
+        flag: false,
+        updates: new Set<MsgId>(),
+        conversationOpen: null,
+      };
+    }
+  },
+
+  set: (parent: State, child: PrivateTabState): State => {
+    return {
+      ...parent,
+      numOfPrivateUpdates: child.updates.size,
+      privateTab: child,
     };
   },
 };
@@ -123,6 +153,7 @@ export default function model(
         currentTab: 'public',
         isSyncing: false,
         numOfPublicUpdates: 0,
+        numOfPrivateUpdates: 0,
         scrollHeaderBy: new Animated.Value(0),
       };
     }

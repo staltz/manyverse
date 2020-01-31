@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -153,6 +153,16 @@ const orange7 = '#f76707';
 const orange8 = '#e8590c';
 const orange9 = '#d9480f';
 
+const HASHABLES = [lime6, indigo7, teal6, red6, grape6, blue5];
+function colorHash(str: string) {
+  let hash = 0;
+  for (let i = 0, len = str.length; i < len; i++) {
+    hash = (hash << 5) + hash + str.charCodeAt(i); // tslint:disable-line
+    hash |= 0; // tslint:disable-line
+  }
+  return HASHABLES[Math.abs(hash) % HASHABLES.length];
+}
+
 export const Palette = {
   backgroundBrandWeakest: indigo1,
   backgroundBrandWeaker: indigo3,
@@ -197,6 +207,8 @@ export const Palette = {
   textNegative: red6,
   textHacker: teal3,
   textForBackgroundBrand: white,
+
+  colorHash,
 
   colors: {
     white,

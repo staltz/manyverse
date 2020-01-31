@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,7 +17,12 @@ import {
 } from 'ssb-typescript';
 const nodejs = require('nodejs-mobile-react-native');
 import {Platform} from 'react-native';
-import {isMsg, isRootPostMsg, isReplyPostMsg} from 'ssb-typescript/utils';
+import {
+  isMsg,
+  isRootPostMsg,
+  isReplyPostMsg,
+  isPublic,
+} from 'ssb-typescript/utils';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
@@ -25,7 +30,11 @@ import xsFromPullStream from 'xstream-from-pull-stream';
 import {Readable, Callback} from 'pull-stream';
 import makeClient from '../ssb/client';
 import {PeerKV, StagedPeerKV, HostingDhtInvite} from '../ssb/types';
-import {shortFeedId, imageToImageUrl} from '../ssb/utils/from-ssb';
+import {
+  shortFeedId,
+  imageToImageUrl,
+  getRecipient,
+} from '../ssb/utils/from-ssb';
 const pull = require('pull-stream');
 const colorHash = new (require('color-hash'))();
 
@@ -49,6 +58,16 @@ export type ThreadAndExtras = {
   full: boolean;
   errorReason?: 'blocked' | 'missing' | 'unknown';
 };
+
+export type PrivateThreadAndExtras = ThreadAndExtras & {
+  recps: Array<{
+    id: string;
+    name: string;
+    imageUrl: string | null | undefined;
+  }>;
+};
+
+export type AnyThread = ThreadAndExtras | PrivateThreadAndExtras;
 
 export type AboutAndExtras = About & {
   id: FeedId;
@@ -123,6 +142,40 @@ function mutateThreadWithLiveExtras(ssb: any) {
   };
 }
 
+function mutatePrivateThreadWithLiveExtras(ssb: any) {
+  const getAbout = ssb.cachedAbout.socialValue;
+  return async (thread: ThreadData, cb: Callback<PrivateThreadAndExtras>) => {
+    for (const msg of thread.messages) {
+      await runAsync(mutateMsgWithLiveExtras(ssb))(msg);
+    }
+    const root: Msg<Content> | undefined = thread.messages[0];
+    const pvthread: PrivateThreadAndExtras = thread as any;
+    if (root && root?.value?.content?.recps) {
+      pvthread.recps = [];
+      for (const recp of root?.value?.content?.recps) {
+        const id = getRecipient(recp);
+        if (!id) continue;
+
+        // Fetch name
+        const nameOpts = {key: 'name', dest: id};
+        const [e1, nameResult] = await runAsync<string>(getAbout)(nameOpts);
+        if (e1) return cb(e1);
+        const name = nameResult || shortFeedId(id);
+
+        // Fetch avatar
+        const avatarOpts = {key: 'image', dest: id};
+        const [e2, val] = await runAsync<string>(getAbout)(avatarOpts);
+        if (e2) return cb(e2);
+        const imageUrl = imageToImageUrl(val);
+
+        // Push
+        pvthread.recps.push({id, name, imageUrl});
+      }
+    }
+    cb(null, pvthread as PrivateThreadAndExtras);
+  };
+}
+
 function augmentPeerWithExtras(ssb: any) {
   const getAbout = ssb.cachedAbout.socialValue;
   return async ([addr, peer]: PeerKV, cb: Callback<[string, any]>) => {
@@ -173,8 +226,11 @@ export class SSBSource {
   public publicRawFeed$: Stream<GetReadable<MsgAndExtras>>;
   public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
   public publicLiveUpdates$: Stream<null>;
+  public privateFeed$: Stream<GetReadable<PrivateThreadAndExtras>>;
+  public privateLiveUpdates$: Stream<MsgId>;
   public isSyncing$: Stream<boolean>;
-  public selfRoots$: Stream<GetReadable<ThreadAndExtras>>;
+  public selfPublicRoots$: Stream<GetReadable<ThreadAndExtras>>;
+  public selfPrivateRoots$: Stream<Msg>;
   public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
   public publishHook$: Stream<Msg>;
   public acceptInviteResponse$: Stream<true | string>;
@@ -191,6 +247,7 @@ export class SSBSource {
 
     this.selfFeedId$ = this.ssb$.map(ssb => ssb.id).remember();
 
+    // TODO put in the backend
     this.publicRawFeed$ = this.ssb$.map(ssb => (opts?: any) =>
       pull(
         ssb.createFeedStream({reverse: true, live: false, ...opts}),
@@ -198,44 +255,69 @@ export class SSBSource {
       ),
     );
 
+    // TODO put in the backend
     this.publicFeed$ = this.ssb$.map(ssb => (opts?: any) =>
       pull(
         ssb.threads.public({
           threadMaxSize: 3,
           allowlist: ['post', 'contact'],
-          reverse: true,
-          live: false,
           ...opts,
         }),
         pull.asyncMap(mutateThreadWithLiveExtras(ssb)),
       ),
     );
 
-    this.publicLiveUpdates$ = this.ssb$
-      .map(ssb => ssb.threads.publicUpdates({allowlist: ['post', 'contact']}))
-      .map(xsFromPullStream)
-      .flatten()
-      .mapTo(null);
+    this.publicLiveUpdates$ = this.getStream(ssb =>
+      ssb.threads.publicUpdates({allowlist: ['post', 'contact']}),
+    ).mapTo(null);
 
-    this.isSyncing$ = this.ssb$
-      .map(ssb => ssb.syncing.stream())
-      .map(xsFromPullStream)
-      .flatten()
-      .map((resp: any) => resp.started > 0);
+    // TODO put in the backend
+    this.privateFeed$ = this.ssb$.map(ssb => (opts?: any) =>
+      pull(
+        ssb.threads.private({threadMaxSize: 1, allowlist: ['post'], ...opts}),
+        pull.asyncMap(mutatePrivateThreadWithLiveExtras(ssb)),
+      ),
+    );
 
-    this.selfRoots$ = this.ssb$.map(ssb => (opts?: any) =>
+    this.privateLiveUpdates$ = this.getStream<MsgId>(ssb =>
+      ssb.threads.privateUpdates({allowlist: ['post'], includeSelf: true}),
+    );
+
+    this.isSyncing$ = this.getStream(ssb => ssb.syncing.stream()).map(
+      (resp: any) => resp.started > 0,
+    );
+
+    // TODO put in the backend
+    this.selfPublicRoots$ = this.ssb$.map(ssb => (opts?: any) =>
       pull(
         ssb.createUserStream({id: ssb.id, ...opts}),
         pull.filter(isRootPostMsg),
+        pull.filter(isPublic),
         pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
         pull.asyncMap(mutateThreadWithLiveExtras(ssb)),
       ),
     );
 
+    // TODO put in the backend
+    this.selfPrivateRoots$ = this.getStream<Msg>(ssb =>
+      pull(
+        ssb.threads.private({
+          threadMaxSize: 1,
+          allowlist: ['post'],
+          old: false,
+          live: true,
+        }),
+        pull.map((thread: ThreadData) => thread?.messages?.[0]),
+        pull.filter((msg: Msg) => msg?.value?.author === ssb.id),
+      ),
+    );
+
+    // TODO put in the backend
     this.selfReplies$ = this.ssb$.map(ssb => (opts?: any) =>
       pull(
         ssb.createUserStream({id: ssb.id, ...opts}),
         pull.filter(isReplyPostMsg),
+        pull.filter(isPublic),
         pull.asyncMap(mutateMsgWithLiveExtras(ssb)),
       ),
     );
@@ -247,6 +329,7 @@ export class SSBSource {
     this.acceptInviteResponse$ = xs.create<true | string>();
     this.acceptDhtInviteResponse$ = xs.create<true | string>();
 
+    // TODO put in the backend
     this.peers$ = this.ssb$
       .map(ssb =>
         xsFromPullStream<Array<PeerKV>>(ssb.conn.peers())
@@ -268,6 +351,7 @@ export class SSBSource {
       )
       .flatten();
 
+    // TODO put in the backend
     this.stagedPeers$ = this.ssb$
       .map(ssb => {
         const connStagedPeers$ = xsFromPullStream<Array<StagedPeerKV>>(
@@ -306,28 +390,56 @@ export class SSBSource {
     this.bluetoothScanState$ =
       Platform.OS === 'ios'
         ? xs.empty()
-        : this.ssb$
-            .map(ssb => ssb.bluetooth.bluetoothScanState())
-            .map(xsFromPullStream)
-            .flatten();
+        : this.getStream(ssb => ssb.bluetooth.bluetoothScanState());
   }
 
-  public thread$(rootMsgId: MsgId): Stream<ThreadAndExtras> {
+  private getStream<T>(fn: (ssb: any) => any): Stream<T> {
+    return this.ssb$
+      .map(fn)
+      .map(xsFromPullStream)
+      .flatten() as Stream<T>;
+  }
+
+  // TODO put in the backend
+  public thread$(rootMsgId: MsgId, privately: boolean): Stream<AnyThread> {
     const ssbToThread = (ssb: any, cb: any) => {
       pull(
-        ssb.threads.thread({root: rootMsgId}),
-        pull.asyncMap(mutateThreadWithLiveExtras(ssb)),
+        ssb.threads.thread({root: rootMsgId, private: privately}),
+        pull.asyncMap((t: ThreadData, cb2: Callback<AnyThread>) => {
+          if (privately) {
+            mutatePrivateThreadWithLiveExtras(ssb)(t, cb2);
+          } else {
+            mutateThreadWithLiveExtras(ssb)(t, cb2);
+          }
+        }),
         pull.take(1),
         pull.drain(
-          (thread: ThreadAndExtras) => cb(null, thread),
+          (thread: AnyThread) => cb(null, thread),
           (err: any) => (err ? cb(err) : void 0),
         ),
       );
     };
-    const toThread$ = xsFromCallback<ThreadAndExtras>(ssbToThread);
+    const toThread$ = xsFromCallback<AnyThread>(ssbToThread);
     return this.ssb$.map(toThread$).flatten();
   }
 
+  // TODO put in the backend
+  public threadUpdates$(
+    rootMsgId: MsgId,
+    privately: boolean,
+  ): Stream<MsgAndExtras> {
+    return this.ssb$
+      .map(ssb =>
+        pull(
+          ssb.threads.threadUpdates({root: rootMsgId, private: privately}),
+          pull.asyncMap(mutateMsgWithLiveExtras(ssb)),
+        ),
+      )
+      .map<Stream<MsgAndExtras>>(xsFromPullStream)
+      .flatten();
+  }
+
+  // TODO put in the backend
   public profileFeed$(id: FeedId): Stream<GetReadable<ThreadAndExtras>> {
     return this.ssb$.map(ssb => (opts?: any) =>
       pull(
@@ -457,10 +569,9 @@ export class SSBSource {
   }
 
   public isPrivatelyBlocking$(dest: FeedId): Stream<boolean> {
-    return this.ssb$
-      .map((ssb: any) => ssb.friendsUtils.isPrivatelyBlockingStream(dest))
-      .map(ps => xsFromPullStream<boolean>(ps))
-      .flatten();
+    return this.getStream<boolean>(ssb =>
+      ssb.friendsUtils.isPrivatelyBlockingStream(dest),
+    );
   }
 
   public createDhtInvite$(): Stream<string> {
@@ -470,19 +581,22 @@ export class SSBSource {
   }
 
   public getMentionSuggestions(text: string | null, authors: Array<FeedId>) {
-    if (!text) return xs.of([]);
-    const opts = {text, limit: 10, defaultIds: authors};
+    const opts: Record<string, any> = {limit: 10};
+    if (!!text) opts.text = text;
+    if (authors.length) opts.defaultIds = authors;
     return this.ssb$
       .map(ssb =>
-        xsFromCallback<Array<MentionSuggestion>>(ssb.suggest.profile)(opts),
+        xsFromCallback<Array<MentionSuggestion>>(ssb.suggest.profile)(opts).map(
+          arr =>
+            arr
+              .filter(suggestion => suggestion.id !== ssb.id)
+              .map(suggestion => ({
+                ...suggestion,
+                imageUrl: imageToImageUrl(suggestion.image),
+              })),
+        ),
       )
-      .flatten()
-      .map(arr => {
-        return arr.map(suggestion => {
-          const imageUrl = imageToImageUrl(suggestion.image);
-          return {...suggestion, imageUrl};
-        });
-      });
+      .flatten();
   }
 
   public getMnemonic$(): Stream<string> {

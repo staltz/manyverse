@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
-import {isRootPostMsg} from 'ssb-typescript/utils';
+import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
 import {SSBSource} from '../../drivers/ssb';
 import {shortFeedId} from '../../ssb/utils/from-ssb';
 import {Palette} from '../../global-styles/palette';
@@ -149,7 +149,7 @@ export default function view(
               ? state.getSelfRootsReadable
               : null,
             publication$: isSelfProfile
-              ? ssbSource.publishHook$.filter(isRootPostMsg)
+              ? ssbSource.publishHook$.filter(isPublic).filter(isRootPostMsg)
               : null,
             selfFeedId: state.selfFeedId,
             style: isSelfProfile ? styles.feedWithHeader : styles.feed,

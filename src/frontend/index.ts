@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,6 +12,8 @@ export enum Screens {
   DialogThanks = 'Manyverse.Dialog.Thanks',
   Compose = 'Manyverse.Compose',
   Thread = 'Manyverse.Thread',
+  Conversation = 'Manyverse.Conversation',
+  RecipientsInput = 'Manyverse.RecipientsInput',
   InvitePaste = 'Manyverse.Invite.Paste',
   InviteCreate = 'Manyverse.Invite.Create',
   Profile = 'Manyverse.Profile',
@@ -49,6 +51,8 @@ import {dialogAbout} from './screens/dialog-about/index';
 import {dialogThanks} from './screens/dialog-thanks/index';
 import {compose} from './screens/compose/index';
 import {thread} from './screens/thread/index';
+import {conversation} from './screens/conversation/index';
+import {recipientsInput} from './screens/recipients-input';
 import {pasteInvite} from './screens/invite-paste/index';
 import {profile} from './screens/profile/index';
 import {editProfile} from './screens/profile-edit/index';
@@ -72,6 +76,8 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
   [Screens.DialogThanks]: dialogThanks,
   [Screens.Compose]: withState(compose),
   [Screens.Thread]: withState(thread),
+  [Screens.Conversation]: withState(conversation),
+  [Screens.RecipientsInput]: withState(recipientsInput),
   [Screens.InvitePaste]: withState(pasteInvite),
   [Screens.InviteCreate]: withState(createInvite),
   [Screens.Profile]: withState(profile),

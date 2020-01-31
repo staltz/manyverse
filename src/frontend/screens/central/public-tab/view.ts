@@ -6,7 +6,7 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {isRootPostMsg} from 'ssb-typescript/utils';
+import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
 import Feed from '../../../components/Feed';
 import {SSBSource} from '../../../drivers/ssb';
 import EmptySection from '../../../components/EmptySection';
@@ -30,7 +30,9 @@ export default function view(
         yOffsetAnimVal: state.scrollHeaderBy,
         getReadable: state.getPublicFeedReadable,
         getPublicationsReadable: state.getSelfRootsReadable,
-        publication$: ssbSource.publishHook$.filter(isRootPostMsg),
+        publication$: ssbSource.publishHook$
+          .filter(isPublic)
+          .filter(isRootPostMsg),
         scrollToTop$,
         selfFeedId: state.selfFeedId,
         EmptyComponent: h(EmptySection, {

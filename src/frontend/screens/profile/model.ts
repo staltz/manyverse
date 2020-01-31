@@ -84,7 +84,7 @@ export default function model(
       },
   );
 
-  const updateSelfRootsReducer$ = ssbSource.selfRoots$.map(
+  const updateSelfRootsReducer$ = ssbSource.selfPublicRoots$.map(
     getReadable =>
       function updateSelfRootsReducer(prev: State): State {
         return {...prev, getSelfRootsReadable: getReadable};

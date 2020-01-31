@@ -13,7 +13,7 @@ import {Dimensions} from '../global-styles/dimens';
 
 const size = 36;
 const space = Dimensions.horizontalSpaceNormal * 0.5;
-const defaultIconSize = 24;
+const defaultIconSize = Dimensions.iconSizeNormal;
 
 export const styles = StyleSheet.create({
   basics: {

@@ -181,12 +181,12 @@ export default function model(
   );
 
   const updateMentionSuggestionsReducer2$ = actions.updateMentionQuery$
+    .map(query => query.replace(/^@+/g, ''))
     .compose(sampleCombine(state$))
     .map(([mentionQuery, state]) =>
-      ssbSource.getMentionSuggestions(
-        mentionQuery.replace(/^@+/g, ''),
-        state.authors,
-      ),
+      !mentionQuery
+        ? xs.never()
+        : ssbSource.getMentionSuggestions(mentionQuery, state.authors),
     )
     .flatten()
     .map(
