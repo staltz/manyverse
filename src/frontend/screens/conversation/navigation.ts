@@ -5,16 +5,22 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId} from 'ssb-typescript';
 import {State} from './model';
 import {Command} from 'cycle-native-navigation';
-import {navOptions as profileScreenNavOptions} from '../profile';
+import {navOptions as profileScreenNavOpts} from '../profile';
+import {
+  navOptions as accountsScreenNavOpts,
+  Props as AccountsProps,
+} from '../accounts';
 import {Screens} from '../..';
 
 type Actions = {
   goBack$: Stream<any>;
   goToProfile$: Stream<FeedId>;
+  goToRecipients$: Stream<any>;
 };
 
 export default function navigation(actions: Actions, state$: Stream<State>) {
@@ -33,11 +39,30 @@ export default function navigation(actions: Actions, state$: Stream<State>) {
               selfFeedId: state.selfFeedId,
               feedId: id,
             },
-            options: profileScreenNavOptions,
+            options: profileScreenNavOpts,
           },
         },
       } as Command),
   );
 
-  return xs.merge(pop$, toProfile$);
+  const toAccounts$ = actions.goToRecipients$.compose(sample(state$)).map(
+    state =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Accounts,
+            passProps: {
+              title: 'Recipients',
+              msgKey: state.rootMsgId,
+              ids: state.thread.recps.map(r => r.id),
+              selfFeedId: state.selfFeedId,
+            } as AccountsProps,
+            options: accountsScreenNavOpts,
+          },
+        },
+      } as Command),
+  );
+
+  return xs.merge(pop$, toProfile$, toAccounts$);
 }

@@ -14,6 +14,7 @@ import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
 import HeaderBackButton from '../../../components/HeaderBackButton';
+import HeaderButton from '../../../components/HeaderButton';
 
 export type Sources = {
   screen: ReactSource;
@@ -22,6 +23,7 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   back: Stream<any>;
+  goToRecipients$: Stream<any>;
 };
 
 export const styles = StyleSheet.create({
@@ -55,6 +57,10 @@ export const styles = StyleSheet.create({
       },
     }),
   },
+
+  spacer: {
+    flex: 1,
+  },
 });
 
 export function topBar(sources: Sources): Sinks {
@@ -62,13 +68,24 @@ export function topBar(sources: Sources): Sinks {
     h(View, {style: styles.container}, [
       HeaderBackButton('conversationBackButton'),
       h(Text, {style: styles.title}, 'Conversation'),
+      h(View, {style: styles.spacer}),
+      h(HeaderButton, {
+        sel: 'showRecipients',
+        icon: 'account-multiple',
+        accessibilityLabel: 'Recipients Button',
+        side: 'right',
+      }),
     ]),
   );
 
   const back$ = sources.screen.select('conversationBackButton').events('press');
+  const goToRecipients$ = sources.screen
+    .select('showRecipients')
+    .events('press');
 
   return {
     screen: vdom$,
     back: back$,
+    goToRecipients$,
   };
 }

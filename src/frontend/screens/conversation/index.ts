@@ -73,7 +73,11 @@ export function conversation(sources: Sources): Sinks {
   const state$ = sources.state.stream;
   const vdom$ = view(state$, topBarSinks.screen);
   const actions = intent(sources.screen, sources.navigation, topBarSinks.back);
-  const cmd$ = navigation(actions, state$);
+  const actionsPlus = {
+    ...actions,
+    goToRecipients$: topBarSinks.goToRecipients$,
+  };
+  const cmd$ = navigation(actionsPlus, state$);
   const reducer$ = model(sources.props, sources.ssb);
   const newContent$ = ssb(actions, state$);
 
