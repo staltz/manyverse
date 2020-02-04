@@ -229,10 +229,10 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
-      'I see the Central screen and the Messages tab',
+      'I see the Central screen and the Public tab',
     );
 
     t.end();

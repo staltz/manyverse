@@ -7,10 +7,10 @@ module.exports = function(driver, t) {
     async function(t) {
       t.ok(
         await driver.waitForElementByAndroidUIAutomator(
-          'new UiSelector().text("Messages")',
+          'new UiSelector().text("Public board")',
           6000,
         ),
-        'I see the Messages header in the Central screen',
+        'I see the Public header in the Central screen',
       );
       const fab = await driver.elementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Floating Action Button")',
@@ -255,7 +255,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
       'I see the Central screen',
@@ -348,7 +348,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
       'I see the Central screen',
@@ -400,7 +400,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
       'I see the Central screen',

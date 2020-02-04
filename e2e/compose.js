@@ -5,10 +5,10 @@ module.exports = function(driver, t) {
   t.test('Compose screen allows posting new public message', async function(t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
-      'I see the Messages header in the Central screen',
+      'I see the Public header in the Central screen',
     );
 
     const fab = await driver.elementByAndroidUIAutomator(
@@ -243,10 +243,10 @@ module.exports = function(driver, t) {
   ) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
-      'I see the Messages header in the Central screen',
+      'I see the Public header in the Central screen',
     );
 
     const fab = await driver.elementByAndroidUIAutomator(
@@ -313,7 +313,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
       'I see the Central screen',
@@ -359,7 +359,7 @@ module.exports = function(driver, t) {
   ) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
       'I see the Central screen',
@@ -408,7 +408,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
       'I see the Central screen',
@@ -441,7 +441,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
       'I see the Central screen',

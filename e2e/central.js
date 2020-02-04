@@ -5,10 +5,10 @@ module.exports = function(driver, t) {
   t.test('Central screen is displayed with 2 tabs', async function(t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
-      'I see the Messages header in the Central screen',
+      'I see the Public header in the Central screen',
     );
     await driver.sleep(3000);
     // Public tab
@@ -17,13 +17,34 @@ module.exports = function(driver, t) {
         'new UiSelector().textContains("No messages")',
         8000,
       ),
-      'I see the Messages tab body with no messages',
+      'I see the Public tab body with no messages',
     );
     t.ok(
       await driver.elementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Public Tab Button")',
       ),
       'I see Public tab button',
+    );
+
+    // Private tab
+    const privateTabButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Private Tab Button")',
+    );
+    t.ok(privateTabButton, 'I see the Private Tab button');
+    await privateTabButton.click();
+    t.pass('I tap it');
+    t.ok(
+      await driver.elementByAndroidUIAutomator(
+        'new UiSelector().text("Private messages")',
+      ),
+      'I see the Private header in the Central screen',
+    );
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Write a private message")',
+        8000,
+      ),
+      'I see the Private tab body with no messages',
     );
 
     // Connections tab
@@ -88,10 +109,10 @@ module.exports = function(driver, t) {
     t.pass('I tap it');
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         8000,
       ),
-      'I see the Messages header in the Central screen',
+      'I see the Public header in the Central screen',
     );
 
     t.end();

@@ -35,9 +35,9 @@ module.exports = function(driver, t) {
   t.test('Central screen shows messages with Etc button', async function(t) {
     t.ok(
       await driver.elementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
       ),
-      'I see the Messages header in the Central screen',
+      'I see the Public header in the Central screen',
     );
 
     const chevron = await driver.waitForElementByAndroidUIAutomator(
@@ -150,10 +150,10 @@ module.exports = function(driver, t) {
   t.test('A message in the feed can be liked', async function(t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Messages")',
+        'new UiSelector().text("Public board")',
         6000,
       ),
-      'I see the Messages header in the Central screen',
+      'I see the Public header in the Central screen',
     );
     const fab = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Floating Action Button")',
@@ -206,28 +206,31 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('I can see that someone has liked a message in the Accounts screen', async function(t) {
-    const likeCount = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().textContains("Please like this message")' +
-        '.fromParent(' +
-        'new UiSelector().descriptionContains("Like Count Button")' +
-        ')',
-      6000,
-    );
-    t.pass('I see the like count');
+  t.test(
+    'I can see that someone has liked a message in the Accounts screen',
+    async function(t) {
+      const likeCount = await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Please like this message")' +
+          '.fromParent(' +
+          'new UiSelector().descriptionContains("Like Count Button")' +
+          ')',
+        6000,
+      );
+      t.pass('I see the like count');
 
-    await likeCount.click();
-    t.pass('I tap it')
+      await likeCount.click();
+      t.pass('I tap it');
 
-    const likeList = await driver.waitForElementsByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Link To Account")',
-      6000,
-    )
-    t.equals(likeList.length, 1, 'I see 1 person having liked the message');
+      const likeList = await driver.waitForElementsByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("Link To Account")',
+        6000,
+      );
+      t.equals(likeList.length, 1, 'I see 1 person having liked the message');
 
-    await driver.back();
-    t.pass('I press the (hardware) back button');
+      await driver.back();
+      t.pass('I press the (hardware) back button');
 
-    t.end();
-  })
+      t.end();
+    },
+  );
 };
