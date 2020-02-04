@@ -29,9 +29,12 @@ export default function intent(
   return {
     goToCompose$: fabPress$.filter(action => action === 'compose'),
 
-    goToAccounts$: reactSource
+    goToAccounts$: (reactSource
       .select('publicFeed')
-      .events('pressLikeCount') as Stream<{msgKey: MsgId; likes: Likes}>,
+      .events('pressLikeCount') as Stream<{
+      msgKey: MsgId;
+      likes: Likes;
+    }>).map(({msgKey, likes}) => ({title: 'Likes', msgKey, ids: likes})),
 
     likeMsg$: reactSource.select('publicFeed').events('pressLike') as Stream<
       LikeEvent

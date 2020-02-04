@@ -11,14 +11,20 @@ import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {Command, PopCommand} from 'cycle-native-navigation';
 import {State} from './model';
 import {Screens} from '../..';
-import {navOptions as accountsScreenNavOptions} from '../accounts';
-import {navOptions as profileScreenNavOptions} from '../profile';
-import {navOptions as rawMsgScreenNavOptions} from '../raw-msg';
-import {navOptions as composeScreenNavOptions} from '../compose';
-import {Likes} from '../../ssb/types';
+import {
+  navOptions as accountsScreenNavOpts,
+  Props as AccountProps,
+} from '../accounts';
+import {navOptions as profileScreenNavOpts} from '../profile';
+import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
+import {navOptions as composeScreenNavOpts} from '../compose';
 
 export type Actions = {
-  goToAccounts$: Stream<{msgKey: MsgId; likes: Likes}>;
+  goToAccounts$: Stream<{
+    title: string;
+    msgKey: MsgId;
+    ids: Array<FeedId> | null;
+  }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToRawMsg$: Stream<Msg>;
   goToCompose$: Stream<any>;
@@ -37,10 +43,12 @@ export default function navigation(
           component: {
             name: Screens.Accounts,
             passProps: {
-              ...ev,
+              title: ev.title,
+              msgKey: ev.msgKey,
+              ids: ev.ids,
               selfFeedId: state.selfFeedId,
-            },
-            options: accountsScreenNavOptions,
+            } as AccountProps,
+            options: accountsScreenNavOpts,
           },
         },
       } as Command),
@@ -57,7 +65,7 @@ export default function navigation(
               selfFeedId: state.selfFeedId,
               feedId: ev.authorFeedId,
             },
-            options: profileScreenNavOptions,
+            options: profileScreenNavOpts,
           },
         },
       } as Command),
@@ -82,7 +90,7 @@ export default function navigation(
       layout: {
         component: {
           name: Screens.Compose,
-          options: composeScreenNavOptions,
+          options: composeScreenNavOpts,
           passProps: {
             text: state.replyText,
             root: state.rootMsgId,
@@ -102,7 +110,7 @@ export default function navigation(
           component: {
             name: Screens.RawMessage,
             passProps: {msg},
-            options: rawMsgScreenNavOptions,
+            options: rawMsgScreenNavOpts,
           },
         },
       } as Command),

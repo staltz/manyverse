@@ -15,16 +15,16 @@ import isolate from '@cycle/isolate';
 import {MsgId, About, FeedId} from 'ssb-typescript';
 import {Screens} from '../..';
 import {SSBSource} from '../../drivers/ssb';
-import {Likes} from '../../ssb/types';
 import {navOptions as profileScreenNavOptions} from '../profile';
 import AccountsList, {Props as ListProps} from '../../components/AccountsList';
 import {Palette} from '../../global-styles/palette';
 import {topBar, Sinks as TBSinks} from './top-bar';
 
 export type Props = {
+  title: string;
   selfFeedId: FeedId;
   msgKey: MsgId;
-  likes: Likes;
+  ids: Array<FeedId> | null;
 };
 
 export type Sources = {
@@ -42,7 +42,7 @@ export type Sinks = {
 };
 
 export type State = {
-  likers: Array<About>;
+  abouts: Array<About>;
   selfFeedId: FeedId;
 };
 
@@ -122,7 +122,7 @@ export function accounts(sources: Sources): Sinks {
   const vdom$ = xs
     .combine(topBarSinks.screen, sources.state.stream)
     .map(([topBarVDOM, state]) => {
-      const likers = state.likers;
+      const abouts = state.abouts;
 
       return h(View, {style: styles.screen}, [
         topBarVDOM,
@@ -131,11 +131,11 @@ export function accounts(sources: Sources): Sinks {
           {
             style: styles.container,
             refreshControl: h(RefreshControl, {
-              refreshing: state.likers.length === 0,
+              refreshing: state.abouts.length === 0,
               colors: [Palette.backgroundBrand],
             }),
           },
-          [h(AccountsList, {sel: 'accounts', accounts: likers} as ListProps)],
+          [h(AccountsList, {sel: 'accounts', accounts: abouts} as ListProps)],
         ),
       ]);
     });
@@ -148,18 +148,18 @@ export function accounts(sources: Sources): Sinks {
         if (prev) {
           return {...prev, selfFeedId: props.selfFeedId};
         } else {
-          return {likers: [], selfFeedId: props.selfFeedId};
+          return {abouts: [], selfFeedId: props.selfFeedId};
         }
       },
   );
 
   const aboutsReducer$ = sources.props
-    .filter(props => !!props.likes)
-    .map(props => sources.ssb.liteAbout$(props.likes!))
+    .filter(props => !!props.ids)
+    .map(props => sources.ssb.liteAbout$(props.ids!))
     .flatten()
     .map(abouts => {
       return function propsReducer(prev: State): State {
-        return {...prev, likers: abouts};
+        return {...prev, abouts};
       };
     });
 

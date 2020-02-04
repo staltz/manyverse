@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
 import {ReactElement} from 'react';
@@ -17,6 +17,7 @@ import HeaderBackButton from '../../../components/HeaderBackButton';
 
 export type Sources = {
   screen: ReactSource;
+  props: Stream<{title: string}>;
 };
 
 export type Sinks = {
@@ -58,14 +59,14 @@ export const styles = StyleSheet.create({
 });
 
 export function topBar(sources: Sources): Sinks {
-  const vdom$ = xs.of(
+  const vdom$ = sources.props.map(props =>
     h(View, {style: styles.container}, [
-      HeaderBackButton('likesBackButton'),
-      h(Text, {style: styles.title}, 'Likes'),
+      HeaderBackButton('accountsTopBackButton'),
+      h(Text, {style: styles.title}, props.title),
     ]),
   );
 
-  const back$ = sources.screen.select('likesBackButton').events('press');
+  const back$ = sources.screen.select('accountsTopBackButton').events('press');
 
   return {
     screen: vdom$,

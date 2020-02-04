@@ -10,16 +10,22 @@ import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../..';
 import {navOptions as composeScreenNavOptions} from '../../compose';
-import {navOptions as accountsScreenNavOptions} from '../../accounts';
-import {navOptions as profileScreenNavOptions} from '../../profile';
-import {navOptions as threadScreenNavOptions} from '../../thread';
-import {navOptions as rawMsgScreenNavOptions} from '../../raw-msg';
+import {
+  navOptions as accountsScreenNavOpts,
+  Props as AccountsProps,
+} from '../../accounts';
+import {navOptions as profileScreenNavOpts} from '../../profile';
+import {navOptions as threadScreenNavOpts} from '../../thread';
+import {navOptions as rawMsgScreenNavOpts} from '../../raw-msg';
 import {State} from './model';
-import {Likes} from '../../../ssb/types';
 
 export type Actions = {
   goToCompose$: Stream<any>;
-  goToAccounts$: Stream<{msgKey: MsgId; likes: Likes}>;
+  goToAccounts$: Stream<{
+    title: string;
+    msgKey: MsgId;
+    ids: Array<FeedId> | null;
+  }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
   goToRawMsg$: Stream<Msg>;
@@ -50,10 +56,12 @@ export default function navigation(
           component: {
             name: Screens.Accounts,
             passProps: {
-              ...ev,
+              title: ev.title,
+              msgKey: ev.msgKey,
+              ids: ev.ids,
               selfFeedId: state.selfFeedId,
-            },
-            options: accountsScreenNavOptions,
+            } as AccountsProps,
+            options: accountsScreenNavOpts,
           },
         },
       } as Command),
@@ -70,7 +78,7 @@ export default function navigation(
               selfFeedId: state.selfFeedId,
               feedId: ev.authorFeedId,
             },
-            options: profileScreenNavOptions,
+            options: profileScreenNavOpts,
           },
         },
       } as Command),
@@ -88,7 +96,7 @@ export default function navigation(
               rootMsgId: ev.rootMsgId,
               replyToMsgId: ev.replyToMsgId,
             },
-            options: threadScreenNavOptions,
+            options: threadScreenNavOpts,
           },
         },
       } as Command),
@@ -102,7 +110,7 @@ export default function navigation(
           component: {
             name: Screens.RawMessage,
             passProps: {msg},
-            options: rawMsgScreenNavOptions,
+            options: rawMsgScreenNavOpts,
           },
         },
       } as Command),

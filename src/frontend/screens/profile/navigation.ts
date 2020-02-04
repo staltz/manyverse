@@ -8,23 +8,29 @@ import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
-import {navOptions as composeScreenNavOptions} from '../compose';
-import {navOptions as editProfileScreenNavOptions} from '../profile-edit';
-import {navOptions as bioScreenNavOptions} from '../biography';
-import {navOptions as threadScreenNavOptions} from '../thread';
-import {navOptions as accountsScreenNavOptions} from '../accounts';
-import {navOptions as profileScreenNavOptions} from './index';
-import {navOptions as rawMsgScreenNavOptions} from '../raw-msg';
+import {navOptions as composeScreenNavOpts} from '../compose';
+import {navOptions as editProfileScreenNavOpts} from '../profile-edit';
+import {navOptions as bioScreenNavOpts} from '../biography';
+import {navOptions as threadScreenNavOpts} from '../thread';
+import {
+  navOptions as accountsScreenNavOptions,
+  Props as AccountProps,
+} from '../accounts';
+import {navOptions as profileScreenNavOpts} from './index';
+import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
 import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {Screens} from '../..';
 import {State} from './model';
-import {Likes} from '../../ssb/types';
 
 export type Actions = {
   goToCompose$: Stream<null>;
   goToEdit$: Stream<null>;
   goToBio$: Stream<any>;
-  goToAccounts$: Stream<{msgKey: MsgId; likes: Likes}>;
+  goToAccounts$: Stream<{
+    title: string;
+    msgKey: MsgId;
+    ids: Array<FeedId> | null;
+  }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
   goToRawMsg$: Stream<Msg>;
@@ -43,7 +49,7 @@ export default function navigation(
         layout: {
           component: {
             name: Screens.Compose,
-            options: composeScreenNavOptions,
+            options: composeScreenNavOpts,
           },
         },
       } as Command),
@@ -59,7 +65,7 @@ export default function navigation(
             passProps: {
               about: state.about,
             },
-            options: bioScreenNavOptions,
+            options: bioScreenNavOpts,
           },
         },
       } as Command),
@@ -75,7 +81,7 @@ export default function navigation(
             passProps: {
               about: state.about,
             },
-            options: editProfileScreenNavOptions,
+            options: editProfileScreenNavOpts,
           },
         },
       } as Command),
@@ -89,9 +95,11 @@ export default function navigation(
           component: {
             name: Screens.Accounts,
             passProps: {
-              ...ev,
+              title: ev.title,
+              msgKey: ev.msgKey,
+              ids: ev.ids,
               selfFeedId: state.selfFeedId,
-            },
+            } as AccountProps,
             options: accountsScreenNavOptions,
           },
         },
@@ -112,7 +120,7 @@ export default function navigation(
                 selfFeedId: state.selfFeedId,
                 feedId: ev.authorFeedId,
               },
-              options: profileScreenNavOptions,
+              options: profileScreenNavOpts,
             },
           },
         } as Command),
@@ -130,7 +138,7 @@ export default function navigation(
               rootMsgId: ev.rootMsgId,
               replyToMsgId: ev.replyToMsgId,
             },
-            options: threadScreenNavOptions,
+            options: threadScreenNavOpts,
           },
         },
       } as Command),
@@ -144,7 +152,7 @@ export default function navigation(
           component: {
             name: Screens.RawMessage,
             passProps: {msg},
-            options: rawMsgScreenNavOptions,
+            options: rawMsgScreenNavOpts,
           },
         },
       } as Command),

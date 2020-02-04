@@ -33,9 +33,12 @@ export default function intent(
       null
     >,
 
-    goToAccounts$: reactSource
+    goToAccounts$: (reactSource
       .select('feed')
-      .events('pressLikeCount') as Stream<{msgKey: MsgId; likes: Likes}>,
+      .events('pressLikeCount') as Stream<{
+      msgKey: MsgId;
+      likes: Likes;
+    }>).map(({msgKey, likes}) => ({title: 'Likes', msgKey, ids: likes})),
 
     goToProfile$: reactSource.select('feed').events('pressAuthor') as Stream<
       ProfileNavEvent
