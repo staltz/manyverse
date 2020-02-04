@@ -98,7 +98,9 @@ function view(state$: Stream<State>) {
     }
 
     const translateY =
-      state.currentTab === 'public' ? hideWhenScrolling : fixAtTop;
+      Platform.OS === 'android' && state.currentTab === 'public'
+        ? hideWhenScrolling
+        : fixAtTop;
 
     return h(
       Animated.View,

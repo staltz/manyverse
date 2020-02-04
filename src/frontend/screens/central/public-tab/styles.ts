@@ -6,6 +6,7 @@
 
 import {StyleSheet} from 'react-native';
 import {Dimensions as Dimens} from '../../../global-styles/dimens';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 export const styles = StyleSheet.create({
   emptySection: {
@@ -13,7 +14,7 @@ export const styles = StyleSheet.create({
   },
 
   feed: {
-    paddingTop: Dimens.toolbarHeight, // for the topBar
+    paddingTop: Dimens.toolbarHeight - getStatusBarHeight(true), // for the topBar
   },
 
   feedInner: {
