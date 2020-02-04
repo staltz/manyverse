@@ -52,6 +52,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   // Replication
   .use(require('ssb-replicate')) // needs: db
   .use(require('ssb-friends')) // needs: db, replicate
+  // FIXME: see issue https://github.com/ssbc/ssb-ebt/issues/33
   .use(require('ssb-ebt-fork-staltz')) // needs: db, replicate, friends
   // Connections
   .use(require('./plugins/multiserver-addons'))
