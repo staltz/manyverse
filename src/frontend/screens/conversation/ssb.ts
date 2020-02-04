@@ -10,6 +10,7 @@ import {toReplyPostContent, toPostContent} from '../../ssb/utils/to-ssb';
 import {State} from './model';
 import {Req, contentToPublishReq} from '../../drivers/ssb';
 import {PostContent} from 'ssb-typescript';
+import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '../../ssb/utils/constants';
 
 export type SSBActions = {
   publishMsg$: Stream<string>;
@@ -27,8 +28,12 @@ function createRootContent(text: string, state: State): PostContent {
   if (state.thread.recps.length === 0) {
     throw new Error('Cannot publish new conversation without recipients');
   }
-  if (state.thread.recps.length > 7) {
-    throw new Error('Cannot publish conversation with more than 7 recipients');
+  if (state.thread.recps.length > MAX_PRIVATE_MESSAGE_RECIPIENTS) {
+    throw new Error(
+      'Cannot publish conversation with more than ' +
+        MAX_PRIVATE_MESSAGE_RECIPIENTS +
+        ' recipients',
+    );
   }
   const content = toPostContent(text);
   content.recps = state.thread.recps.map(recp => recp.id);

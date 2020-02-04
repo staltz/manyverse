@@ -10,13 +10,15 @@ import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import isolate from '@cycle/isolate';
 import {StateSource, Reducer} from '@cycle/state';
+import {FeedId} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
+import {Toast, Duration} from '../../drivers/toast';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import model, {State, topBarLens} from './model';
 import view from './view';
 import intent from './intent';
 import navigation from './navigation';
-import {FeedId} from 'ssb-typescript';
+import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '../../ssb/utils/constants';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -34,6 +36,7 @@ export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
+  toast: Stream<Toast>;
 };
 
 export const navOptions = {
@@ -64,10 +67,19 @@ export function recipientsInput(sources: Sources): Sinks {
   );
   const reducer$ = model(sources.props, sources.ssb, actions);
   const command$ = navigation(actions, state$);
+  const toast$ = actions.maxReached$.mapTo({
+    type: 'show',
+    message:
+      'Cannot choose more than ' +
+      MAX_PRIVATE_MESSAGE_RECIPIENTS +
+      ' recipients',
+    duration: Duration.LONG,
+  } as Toast);
 
   return {
     screen: vdom$,
     navigation: command$,
+    toast: toast$,
     state: reducer$,
   };
 }

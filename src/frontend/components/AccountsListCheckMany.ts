@@ -124,6 +124,7 @@ class Account extends PureComponent<AccountProps> {
 export type Props = {
   accounts: Array<{name: string; imageUrl: string; id: string}>;
   onUpdated?: (ev: Props['accounts']) => void;
+  onMaxReached?: () => void;
   maximumCheckable?: number;
 };
 
@@ -181,6 +182,8 @@ export default class AccountsListCheckMany extends PureComponent<Props, State> {
               const newChecked = checked.concat([account]);
               this.setState({checked: newChecked});
               onUpdated?.(newChecked);
+            } else {
+              this.props.onMaxReached?.();
             }
           },
         });

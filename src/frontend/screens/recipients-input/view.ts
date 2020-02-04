@@ -5,16 +5,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {State} from './model';
+import {ReactElement} from 'react';
 import {h} from '@cycle/react';
 import {View, TextInput, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
-import {styles} from './styles';
-import {ReactElement} from 'react';
 import EmptySection from '../../components/EmptySection';
 import AccountsListCheckMany from '../../components/AccountsListCheckMany';
+import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '../../ssb/utils/constants';
+import {State} from './model';
+import {styles} from './styles';
 
 export default function view(
   state$: Stream<State>,
@@ -51,7 +52,7 @@ export default function view(
             h(AccountsListCheckMany, {
               sel: 'recipients',
               accounts: state.mentionSuggestions as any,
-              maximumCheckable: 7,
+              maximumCheckable: MAX_PRIVATE_MESSAGE_RECIPIENTS,
             }),
             state.mentionSuggestions.length
               ? null

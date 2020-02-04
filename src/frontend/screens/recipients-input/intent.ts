@@ -24,6 +24,10 @@ export default function intent(
       .select('recipients')
       .events('updated') as Stream<PrivateThreadAndExtras['recps']>,
 
+    maxReached$: reactSource
+      .select('recipients')
+      .events('maxReached') as Stream<undefined>,
+
     goBack$: xs.merge(navSource.backPress(), topBarBack$) as Stream<null>,
 
     goToNewConversation$: topBarNext$,
