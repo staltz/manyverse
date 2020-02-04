@@ -6,6 +6,19 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2002.4-beta
+
+* Bug fix: do not crash on startup due to faulty conn-db ([see details](https://gitlab.com/staltz/manyverse/commit/668b2bc4dc1e34e1ea7ee7f22fb4fadcd9e897ba))
+* Bug fix: searching people to mention is case-insensitive ([see details](https://gitlab.com/staltz/manyverse/commit/e580857ce50d54c154e7fabd8bfb38f77620b354))
+* Bug fix: visual glitch in the connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/fe09767f57c90052eddf5dc2c64c6e5caac5154b))
+* Feature: private messaging ([see details](https://gitlab.com/staltz/manyverse/commit/8195c20e16677ea69bc60cbc473cd190746ed392))
+* Fix how replies reference previous messages in SSB ([see details](https://gitlab.com/staltz/manyverse/commit/ce3662ae07ca137a08145d15c710209f6e0227a5))
+* Improve how peer connections are scheduled ([see details](https://gitlab.com/staltz/manyverse/commit/4ecec9bcf6f17bf05d91dd5cf5c35b1ccf0330e6))
+* Improve loading animation at start up ([see details](https://gitlab.com/staltz/manyverse/commit/fb169e217dd506b9b962d97ba83ed58383b84755))
+* Improve the updates indicator for the public tab ([see details](https://gitlab.com/staltz/manyverse/commit/cca51431719e8cb2119e89f1303ad52fc2f7e847))
+* Improved dynamic icon for the connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/68e235648bf379fea542192eb7f80d23f6821e49))
+* New layout with bottom tabs and more space to read ([see details](https://gitlab.com/staltz/manyverse/commit/6cf4443e7342a0bb251dd7b11be1393e76da0bac))
+
 ## 0.2001.7-beta
 
 * (Android) New app icon ([see details](https://gitlab.com/staltz/manyverse/commit/c20a3d37810c5a650e5535bdccf2d9ee7f1fdda0))
