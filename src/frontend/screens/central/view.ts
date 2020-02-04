@@ -38,6 +38,7 @@ function renderPublicIcon(isSelected: boolean, numOfPublicUpdates: number) {
     {
       ...touchableProps,
       sel: 'public-tab-button',
+      style: styles.tabButton, // iOS needs this
       accessible: true,
       accessibilityLabel: 'Public Tab Button',
     },
@@ -73,6 +74,7 @@ function renderPrivateIcon(isSelected: boolean, numOfPrivateUpdates: number) {
     {
       ...touchableProps,
       sel: 'private-tab-button',
+      style: styles.tabButton, // iOS needs this
       accessible: true,
       accessibilityLabel: 'Private Tab Button',
     },
@@ -106,6 +108,7 @@ function renderConnectionsIcon(
     {
       ...touchableProps,
       sel: 'connections-tab-button',
+      style: styles.tabButton, // iOS needs this
       accessible: true,
       accessibilityLabel: 'Connections Tab Button',
     },

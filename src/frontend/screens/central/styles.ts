@@ -7,12 +7,13 @@
 import {StyleSheet, ViewStyle} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 const page: ViewStyle = {
   position: 'absolute',
   top: 0,
   left: 0,
-  bottom: Dimensions.toolbarHeight,
+  bottom: Dimensions.toolbarHeight - getStatusBarHeight(true),
   right: 0,
   backgroundColor: Palette.backgroundVoid,
   justifyContent: 'center',
@@ -35,7 +36,7 @@ export const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    height: Dimensions.toolbarHeight,
+    height: Dimensions.toolbarHeight - getStatusBarHeight(true),
     borderTopColor: Palette.textLine,
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: Palette.backgroundText,
