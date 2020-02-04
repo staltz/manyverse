@@ -13,10 +13,10 @@ import {Options} from 'react-native-navigation';
 import TextDialog from '../../components/dialogs/TextDialog';
 
 const top5backers = [
-  'Connor Turland',
   'DC Posch',
-  'Jean-Baptiste Giraudeau',
   'Audrey Tang',
+  'Connor Turland',
+  'Jean-Baptiste Giraudeau',
   'C Moid',
 ];
 
