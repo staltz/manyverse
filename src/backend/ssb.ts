@@ -67,7 +67,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-private')) // needs: db
   .use(require('ssb-backlinks')) // needs: db
   .use(require('ssb-about')) // needs: db, backlinks
-  .use(require('ssb-suggest')) // needs: db, backlinks, about, friends
+  .use(require('ssb-suggest-fork')) // needs: db, backlinks, about, friends
   .use(require('ssb-threads')) // needs: db, backlinks, friends
   // Blobs
   .use(require('ssb-blobs'))
