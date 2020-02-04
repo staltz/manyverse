@@ -9,7 +9,7 @@ import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
 import {StateSource} from '@cycle/state';
 import {ReactElement} from 'react';
-import {Text, StyleSheet, Platform, Animated} from 'react-native';
+import {StyleSheet, Platform, Animated} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
@@ -84,30 +84,62 @@ function tabTitle(tab: State['currentTab']) {
   return '';
 }
 
+function calcTranslateY(scrollY: Animated.Value) {
+  const minScroll = -getStatusBarHeight(true);
+  const clampedScrollY = scrollY.interpolate({
+    inputRange: [minScroll, minScroll + 1],
+    outputRange: [0, 1],
+    extrapolateLeft: 'clamp',
+  });
+  const translateY = Animated.diffClamp(
+    clampedScrollY,
+    0,
+    Dimensions.toolbarHeight - getStatusBarHeight(true),
+  );
+  return Animated.multiply(translateY, -1);
+}
+
+function calcOpacity(scrollY: Animated.AnimatedMultiplication) {
+  if (Platform.OS === 'android') return new Animated.Value(1);
+
+  const height = Dimensions.toolbarHeight - getStatusBarHeight(true);
+  return scrollY.interpolate({
+    inputRange: [-height, 0],
+    outputRange: [0, 1],
+    extrapolate: 'clamp',
+  });
+}
+
 function view(state$: Stream<State>) {
   const fixAtTop = new Animated.Value(0);
-  let hideWhenScrolling: Animated.AnimatedMultiplication | null = null;
+  const opaque = new Animated.Value(1);
+  let hideYWhenScrolling: Animated.AnimatedMultiplication | null = null;
+  let hideOpacityWhenScrolling: Animated.AnimatedMultiplication | null = null;
 
   return state$.map(state => {
     // Avoid re-instantiating a new animated value on every stream emission
-    if (!hideWhenScrolling) {
-      hideWhenScrolling = Animated.multiply(
-        Animated.diffClamp(state.scrollHeaderBy, 0, Dimensions.toolbarHeight),
-        -1,
-      );
+    if (!hideYWhenScrolling) {
+      hideYWhenScrolling = calcTranslateY(state.scrollHeaderBy);
+    }
+    if (!hideOpacityWhenScrolling) {
+      hideOpacityWhenScrolling = calcOpacity(hideYWhenScrolling);
     }
 
     const translateY =
-      Platform.OS === 'android' && state.currentTab === 'public'
-        ? hideWhenScrolling
-        : fixAtTop;
+      state.currentTab === 'public' ? hideYWhenScrolling : fixAtTop;
+    const opacity =
+      state.currentTab === 'public' ? hideOpacityWhenScrolling : opaque;
 
     return h(
       Animated.View,
       {style: [styles.container, {transform: [{translateY}]}]},
       [
         HeaderMenuButton('menuButton'),
-        h(Text, {style: styles.title}, tabTitle(state.currentTab)),
+        h(
+          Animated.Text,
+          {style: [styles.title, {opacity}]},
+          tabTitle(state.currentTab),
+        ),
       ],
     );
   });
