@@ -20,7 +20,11 @@ const mainTemplate = `{{> header}}
 `;
 const headerPartial = `## {{version}}
 `;
-const commitPartial = `* {{platform}}{{subject}}
+const emojiCommitPartial = `{{emoji}}  {{platform}}{{subject}}
+`;
+const simpleCommitPartial = `* {{subject}}
+`;
+const detailedCommitPartial = `* {{platform}}{{subject}}
 {{~!-- commit link --}} {{#if @root.linkReferences~}}
   ([see details](
   {{~#if @root.repository}}
@@ -77,7 +81,7 @@ const commitPartial = `* {{platform}}{{subject}}
 
 `;
 
-module.exports = function generateChangelog(releaseCount) {
+module.exports = function generateChangelog(releaseCount, platform) {
   const options = {
     releaseCount,
   };
@@ -92,7 +96,7 @@ module.exports = function generateChangelog(releaseCount) {
   const gitRawCommitsOpts = {from: firstReleaseCommit};
 
   const parserOpts = {
-    headerPattern: /^(\w*): (\[ios\] |\[and\] )?(.*)$/,
+    headerPattern: /^(\w*): (\[ios\]|\[and\])? ?(.*)$/,
     headerCorrespondence: [`type`, `platform`, `subject`],
   };
 
@@ -105,8 +109,19 @@ module.exports = function generateChangelog(releaseCount) {
     transform: function(commit, context) {
       if (commit.type === 'release') context.releases += 1;
 
-      if (commit.platform === '[ios] ') commit.platform = '(iOS) ';
-      else if (commit.platform === '[and] ') commit.platform = '(Android) ';
+      if (platform === 'emoji' && commit.type === 'ux') {
+        const subject = commit.subject.toLowerCase();
+        if (subject.includes('feature')) commit.emoji = '🎉';
+        else if (subject.includes('bug fix')) commit.emoji = '☑';
+        else if (subject.includes('fix')) commit.emoji = '☑';
+        else if (subject.includes('new')) commit.emoji = '🎉';
+        else commit.emoji = '🔷';
+      }
+
+      if (platform === 'ios' && commit.platform === '[and]') return false;
+      else if (platform === 'and' && commit.platform === '[ios]') return false;
+      else if (commit.platform === '[and]') commit.platform = '(Android) ';
+      else if (commit.platform === '[ios]') commit.platform = '(iOS) ';
       else commit.platform = '';
 
       if (releaseCount > 0 && context.releases >= releaseCount + 1) {
@@ -128,8 +143,14 @@ module.exports = function generateChangelog(releaseCount) {
       return false;
     },
     mainTemplate,
-    headerPartial,
-    commitPartial,
+    headerPartial:
+      platform === 'ios' || platform === 'and' ? '' : headerPartial,
+    commitPartial:
+      platform === 'ios' || platform === 'and'
+        ? simpleCommitPartial
+        : platform === 'emoji'
+        ? emojiCommitPartial
+        : detailedCommitPartial,
   };
 
   return conventionalChangelog(
