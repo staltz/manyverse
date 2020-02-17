@@ -75,7 +75,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
               renderDescription: () => [
                 'Social networking can be simple, ' +
                   'neutral, non-commercial, and built on trust between friends. ' +
-                  'This is what Manyverses stands for, and we hope you too ' +
+                  'This is what Manyverse stands for, and we hope you too ' +
                   'can make it your digital home. ' +
                   'All this is made possible by the novel SSB protocol. ',
                 h(
