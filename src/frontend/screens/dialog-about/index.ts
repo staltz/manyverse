@@ -8,9 +8,9 @@ import xs, {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
-import {Text, StyleSheet, NativeModules} from 'react-native';
+import {StyleSheet, NativeModules} from 'react-native';
 import {Options} from 'react-native-navigation';
-import TextDialog from '../../components/dialogs/TextDialog';
+import MarkdownDialog from '../../components/dialogs/MarkdownDialog';
 
 const version = NativeModules.BuildConfig.VERSION_NAME;
 
@@ -22,10 +22,9 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  linking: Stream<string>;
 };
 
-export const navOptions: Options = TextDialog.navOptions;
+export const navOptions: Options = MarkdownDialog.navOptions;
 
 export const styles = StyleSheet.create({
   link: {
@@ -34,23 +33,22 @@ export const styles = StyleSheet.create({
 });
 
 export function dialogAbout(sources: Sources): Sinks {
+  const authorsLink =
+    'https://gitlab.com/staltz/manyverse/-/raw/master/AUTHORS';
+
   const vdom$ = xs.of(
-    h(TextDialog, {sel: 'dialog', title: 'About Manyverse'}, [
-      h(Text, {sel: 'manyverse-website', style: styles.link}, 'manyver.se'),
-      '\nVersion ' + version + '\n\nCopyright (C) 2018-2019 ',
-      h(
-        Text,
-        {sel: 'manyverse-authors', style: styles.link},
-        'The Manyverse Authors',
-      ),
-      '\n\n',
-      h(
-        Text,
-        {sel: 'manyverse-source', style: styles.link},
-        'Open source on GitLab',
-      ),
-      '\nLicensed MPL 2.0',
-    ]),
+    h(MarkdownDialog, {
+      sel: 'dialog',
+      title: 'About Manyverse',
+      content:
+        '[manyver.se](https://manyver.se)\n' +
+        `Version ${version}\n` +
+        '\n' +
+        `Copyright (C) 2018-2020 [The Manyverse Authors](${authorsLink})\n` +
+        '\n' +
+        '[Open source on GitLab](https://gitlab.com/staltz/manyverse)\n' +
+        'Licensed MPL 2.0 and AGPL 3.0',
+    }),
   );
 
   const command$ = xs
@@ -60,24 +58,8 @@ export function dialogAbout(sources: Sources): Sinks {
     )
     .mapTo({type: 'dismissModal'} as Command);
 
-  const visitLinks$ = xs.merge(
-    sources.screen
-      .select('manyverse-website')
-      .events('press')
-      .mapTo('https://manyver.se'),
-    sources.screen
-      .select('manyverse-authors')
-      .events('press')
-      .mapTo('https://gitlab.com/staltz/manyverse/blob/master/AUTHORS'),
-    sources.screen
-      .select('manyverse-source')
-      .events('press')
-      .mapTo('https://gitlab.com/staltz/manyverse'),
-  );
-
   return {
     screen: vdom$,
     navigation: command$,
-    linking: visitLinks$,
   };
 }

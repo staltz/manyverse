@@ -5,13 +5,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent, createElement as $} from 'react';
-import {Text, StyleSheet, Platform} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
 import {Options} from 'react-native-navigation';
 import Dialog from './Dialog';
 import DialogButton from './DialogButton';
+import Markdown from '../Markdown';
 
 export const styles = StyleSheet.create({
   content: {
@@ -19,23 +20,29 @@ export const styles = StyleSheet.create({
       default: {
         paddingVertical: Dimensions.verticalSpaceLarger,
         paddingHorizontal: Dimensions.horizontalSpaceLarge,
-        fontFamily: 'normal',
-        textAlign: 'left',
         marginBottom: Dimensions.verticalSpaceLarge * 2,
       },
       ios: {
         paddingVertical: Dimensions.verticalSpaceBig,
         paddingHorizontal: Dimensions.horizontalSpaceBig,
-        fontFamily: Typography.fontFamilyReadableText,
-        textAlign: 'center',
       },
     }),
     ...Platform.select({android: {minWidth: 300}}),
     color: Palette.textWeak,
-    fontSize: Typography.fontSizeNormal,
   },
 
   title: {
+    marginBottom: Dimensions.verticalSpaceNormal,
+    ...Platform.select({
+      default: {
+        fontFamily: 'normal',
+        textAlign: 'left',
+      },
+      ios: {
+        fontFamily: Typography.fontFamilyReadableText,
+        textAlign: 'center',
+      },
+    }),
     fontSize: Typography.fontSizeBig,
     fontWeight: 'bold',
     color: Palette.text,
@@ -46,6 +53,7 @@ export const styles = StyleSheet.create({
 
 export type Props = {
   title?: string;
+  content: string;
   onClose?: () => {};
 };
 
@@ -57,16 +65,14 @@ export default class TextDialog extends PureComponent<Props> {
   };
 
   public render() {
-    return $(Dialog, {}, [
-      this.props.title
-        ? $(Text, {style: styles.content}, [
-            $(Text, {style: styles.title}, this.props.title),
-            $(Text, {style: styles.spacer}, '\n\n'),
-            this.props.children,
-          ])
-        : $(Text, {style: styles.content}, this.props.children),
-
+    const {title, content} = this.props;
+    return $(Dialog, {key: 'dialog'}, [
+      $(View, {key: 'content', style: styles.content}, [
+        title ? $(Text, {key: 'title', style: styles.title}, title) : null,
+        Markdown(content),
+      ]),
       $(DialogButton, {
+        key: 'button',
         onPress: this.onOkay,
         text: 'OK',
         accessible: true,

@@ -8,9 +8,9 @@ import xs, {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Options} from 'react-native-navigation';
-import TextDialog from '../../components/dialogs/TextDialog';
+import MarkdownDialog from '../../components/dialogs/MarkdownDialog';
 
 const top5backers = [
   'DC Posch',
@@ -28,10 +28,9 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  linking: Stream<string>;
 };
 
-export const navOptions: Options = TextDialog.navOptions;
+export const navOptions: Options = MarkdownDialog.navOptions;
 
 export const styles = StyleSheet.create({
   link: {
@@ -45,21 +44,19 @@ export const styles = StyleSheet.create({
 
 export function dialogThanks(sources: Sources): Sinks {
   const vdom$ = xs.of(
-    h(TextDialog, {sel: 'dialog', title: 'Thank you!'}, [
-      'Development of this app was supported by grants from ',
-      h(Text, {sel: 'link-ngizero', style: styles.link}, 'NGI0 PET'),
-      ' and ',
-      h(Text, {sel: 'link-access', style: styles.link}, 'Handshake / ACCESS'),
-      ', and donations from:\n\n',
-      h(Text, {style: styles.bold}, top5backers.join(', ')),
-      ', and ',
-      h(
-        Text,
-        {sel: 'link-backers', style: styles.link},
-        'dozens of other backers',
-      ),
-      '. Thanks!',
-    ]),
+    h(MarkdownDialog, {
+      sel: 'dialog',
+      title: 'Thank you!',
+      content:
+        'Development of this app was supported by grants from ' +
+        '[NGI0 PET](https://nlnet.nl/project/Manyverse) and ' +
+        '[Handshake / ACCESS](https://opencollective.com/access), ' +
+        'and donations from:\n' +
+        '\n' +
+        `**${top5backers.join(', ')}**, and ` +
+        '[dozens of other backers](https://manyver.se/donate). ' +
+        'Thanks!',
+    }),
   );
 
   const command$ = xs
@@ -69,24 +66,8 @@ export function dialogThanks(sources: Sources): Sinks {
     )
     .mapTo({type: 'dismissModal'} as Command);
 
-  const visitLinks$ = xs.merge(
-    sources.screen
-      .select('link-ngizero')
-      .events('press')
-      .mapTo('https://nlnet.nl/project/Manyverse/'),
-    sources.screen
-      .select('link-access')
-      .events('press')
-      .mapTo('https://opencollective.com/access'),
-    sources.screen
-      .select('link-backers')
-      .events('press')
-      .mapTo('https://manyver.se/donate'),
-  );
-
   return {
     screen: vdom$,
     navigation: command$,
-    linking: visitLinks$,
   };
 }
