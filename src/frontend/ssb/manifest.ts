@@ -152,7 +152,7 @@ export default {
     persistentDisconnect: 'async',
     isInDB: 'async',
   },
-  feedUtilsBack: {
+  publishUtilsBack: {
     publish: 'async',
     publishAbout: 'async',
   },

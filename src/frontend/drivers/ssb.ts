@@ -727,12 +727,12 @@ async function consumeSink(
   sink.addListener({
     next: async req => {
       if (req.type === 'publish') {
-        ssb.feedUtils.publish(req.content);
+        ssb.publishUtils.publish(req.content);
         return;
       }
 
       if (req.type === 'publishAbout') {
-        ssb.feedUtils.publishAbout(req.content, () => {
+        ssb.publishUtils.publishAbout(req.content, () => {
           ssb.cachedAbout.invalidate(ssb.id);
         });
         return;
@@ -825,7 +825,7 @@ async function consumeSink(
 
         // follow
         const content = {type: 'contact', contact: friendId, following: true};
-        const [e3] = await runAsync(ssb.feedUtils.publish)(content);
+        const [e3] = await runAsync(ssb.publishUtils.publish)(content);
         if (e3) return console.error(e3.message || e3);
         return;
       }

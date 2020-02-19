@@ -11,7 +11,7 @@ const Ref = require('ssb-ref');
 type Callback = (e: any, x?: any) => void;
 
 export = {
-  name: 'feedUtilsBack',
+  name: 'publishUtilsBack',
   version: '1.0.0',
   manifest: {
     publish: 'async',
@@ -24,11 +24,13 @@ export = {
   },
   init: function init(ssb: any) {
     if (!ssb.blobs?.push) {
-      throw new Error('"feedUtilsBack" is missing required plugin "ssb-blobs"');
+      throw new Error(
+        '"publishUtilsBack" is missing required plugin "ssb-blobs"',
+      );
     }
     if (!ssb.blobsUtils?.addFromPath) {
       throw new Error(
-        '"feedUtilsBack" is missing required plugin "blobsUtils"',
+        '"publishUtilsBack" is missing required plugin "blobsUtils"',
       );
     }
 

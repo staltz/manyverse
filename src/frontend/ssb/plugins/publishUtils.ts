@@ -8,8 +8,8 @@ import {Content, AboutContent} from 'ssb-typescript';
 
 const noop = () => {};
 
-const feedUtilsPlugin = {
-  name: 'feedUtils',
+const publishUtilsPlugin = {
+  name: 'publishUtils',
 
   init: (ssb: any) => {
     return {
@@ -23,14 +23,14 @@ const feedUtilsPlugin = {
           },
         });
 
-        ssb.feedUtilsBack.publish(content, cb || noop);
+        ssb.publishUtilsBack.publish(content, cb || noop);
       },
 
       publishAbout(content: AboutContent, cb: any) {
-        ssb.feedUtilsBack.publishAbout(content, cb);
+        ssb.publishUtilsBack.publishAbout(content, cb);
       },
     };
   },
 };
 
-export default () => feedUtilsPlugin;
+export default () => publishUtilsPlugin;
