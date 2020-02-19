@@ -1,14 +1,13 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Content, PostContent, AboutContent, FeedId} from 'ssb-typescript';
+import {Content, PostContent, AboutContent, FeedId, Msg} from 'ssb-typescript';
 const ssbKeys = require('ssb-keys');
 const Ref = require('ssb-ref');
-
-type Callback = (e: any, x?: any) => void;
+import {Callback} from './helpers/types';
 
 export = {
   name: 'publishUtilsBack',
@@ -35,7 +34,7 @@ export = {
     }
 
     return {
-      publish(content: NonNullable<Content>, cb: Callback) {
+      publish(content: NonNullable<Content>, cb: Callback<Msg>) {
         if ((content as PostContent).mentions) {
           for (const mention of (content as PostContent).mentions!) {
             if (Ref.isBlob(mention.link)) {
@@ -66,7 +65,7 @@ export = {
         });
       },
 
-      publishAbout(content: AboutContent, cb: Callback) {
+      publishAbout(content: AboutContent, cb: Callback<Msg>) {
         if (content.image && !Ref.isBlobId(content.image[0])) {
           ssb.blobsUtils.addFromPath(
             content.image,

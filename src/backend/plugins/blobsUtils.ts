@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,8 +6,7 @@
 
 const pull = require('pull-stream');
 const Read = require('pull-file');
-
-type Callback = (e: any, x?: any) => void;
+import {Callback} from './helpers/types';
 
 export = {
   name: 'blobsUtils',
@@ -26,7 +25,7 @@ export = {
     }
 
     return {
-      addFromPath(path: string, cb: Callback) {
+      addFromPath(path: string, cb: Callback<any>) {
         pull(Read(path, {}), ssb.blobs.add(cb));
       },
     };

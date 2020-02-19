@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,9 +7,7 @@
 import {Msg, FeedId} from 'ssb-typescript';
 const pull = require('pull-stream');
 const ref = require('ssb-ref');
-
-type Callback<T> = (endOrErr: boolean | any, data?: T) => void;
-type Readable<T> = (endOrErr: boolean | any, cb: Callback<T>) => void;
+import {Readable} from './helpers/types';
 
 function collectUniqueAuthors() {
   const theSet: Set<FeedId> = new Set();
