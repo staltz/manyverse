@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,7 +9,7 @@ import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {Msg, FeedId, MsgId} from 'ssb-typescript';
 import {isPostMsg, isContactMsg, isAboutMsg} from 'ssb-typescript/utils';
-import {MsgAndExtras} from '../../drivers/ssb';
+import {MsgAndExtras} from '../../../shared-types';
 import {Likes} from '../../ssb/types';
 import RawMessage from './RawMessage';
 import PostMessage from './PostMessage';

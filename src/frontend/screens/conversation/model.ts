@@ -5,7 +5,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {PrivateThreadAndExtras, SSBSource} from '../../drivers/ssb';
+import {SSBSource} from '../../drivers/ssb';
+import {PrivateThreadAndExtras} from '../../../shared-types';
 import {Props} from '.';
 import {Reducer} from '@cycle/state';
 import {FeedId, MsgId} from 'ssb-typescript';

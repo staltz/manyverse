@@ -10,7 +10,6 @@ import {
   Msg,
   Content,
   FeedId,
-  About,
   MsgId,
   AboutContent,
   BlobId,
@@ -28,6 +27,13 @@ import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {Readable, Callback} from 'pull-stream';
+import {
+  MsgAndExtras,
+  PrivateThreadAndExtras,
+  ThreadAndExtras,
+  AnyThread,
+  AboutAndExtras,
+} from '../../shared-types';
 import makeClient from '../ssb/client';
 import {PeerKV, StagedPeerKV, HostingDhtInvite} from '../ssb/types';
 import {
@@ -37,42 +43,6 @@ import {
 } from '../ssb/utils/from-ssb';
 const pull = require('pull-stream');
 const colorHash = new (require('color-hash'))();
-
-export type MsgAndExtras<C = Content> = Msg<C> & {
-  value: {
-    _$manyverse$metadata: {
-      likes: Stream<Array<FeedId>>;
-      about: {
-        name: string;
-        imageUrl: string | null;
-      };
-      contact?: {
-        name: string;
-      };
-    };
-  };
-};
-
-export type ThreadAndExtras = {
-  messages: Array<MsgAndExtras>;
-  full: boolean;
-  errorReason?: 'blocked' | 'missing' | 'unknown';
-};
-
-export type PrivateThreadAndExtras = ThreadAndExtras & {
-  recps: Array<{
-    id: string;
-    name: string;
-    imageUrl: string | null | undefined;
-  }>;
-};
-
-export type AnyThread = ThreadAndExtras | PrivateThreadAndExtras;
-
-export type AboutAndExtras = About & {
-  id: FeedId;
-  followsYou?: boolean;
-};
 
 export type MentionSuggestion = {
   id: FeedId;

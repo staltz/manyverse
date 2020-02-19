@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,7 +8,8 @@ import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
-import {SSBSource, GetReadable, ThreadAndExtras} from '../../../drivers/ssb';
+import {SSBSource, GetReadable} from '../../../drivers/ssb';
+import {ThreadAndExtras} from '../../../../shared-types';
 import {Animated} from 'react-native';
 
 export type State = {

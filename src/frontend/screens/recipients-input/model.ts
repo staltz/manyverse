@@ -5,11 +5,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {
-  MentionSuggestion,
-  SSBSource,
-  PrivateThreadAndExtras,
-} from '../../drivers/ssb';
+import {PrivateThreadAndExtras} from '../../../shared-types';
+import {MentionSuggestion, SSBSource} from '../../drivers/ssb';
 import {FeedId} from 'ssb-typescript';
 import {Lens} from '@cycle/state';
 import {State as TopBarState} from './top-bar';

@@ -18,7 +18,8 @@ import {
 import {propifyMethods} from 'react-propify-methods';
 import PullFlatList from 'pull-flat-list';
 import {MsgId} from 'ssb-typescript';
-import {PrivateThreadAndExtras, GetReadable} from '../../../drivers/ssb';
+import {PrivateThreadAndExtras} from '../../../../shared-types';
+import {GetReadable} from '../../../drivers/ssb';
 import {Dimensions} from '../../../global-styles/dimens';
 import AnimatedLoading from '../../../components/AnimatedLoading';
 import EmptySection from '../../../components/EmptySection';

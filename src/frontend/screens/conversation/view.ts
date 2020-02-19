@@ -22,7 +22,7 @@ import {
 } from 'react-native-gifted-chat';
 import HumanTime from 'react-human-time';
 import {PostContent} from 'ssb-typescript';
-import {MsgAndExtras} from '../../drivers/ssb';
+import {MsgAndExtras} from '../../../shared-types';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';

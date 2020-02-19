@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,7 +9,8 @@ import {View, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import ShortRawMessage from './messages/ShortRawMessage';
 import {Palette} from '../global-styles/palette';
-import {GetReadable, MsgAndExtras} from '../drivers/ssb';
+import {GetReadable} from '../drivers/ssb';
+import {MsgAndExtras} from '../../shared-types';
 import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
 import {Msg} from 'ssb-typescript';
 

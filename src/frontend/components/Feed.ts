@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -20,7 +20,8 @@ import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import CompactThread from './CompactThread';
 import PlaceholderMessage from './messages/PlaceholderMessage';
-import {GetReadable, ThreadAndExtras} from '../drivers/ssb';
+import {GetReadable} from '../drivers/ssb';
+import {ThreadAndExtras} from '../../shared-types';
 import {Likes} from '../ssb/types';
 import PullFlatList from 'pull-flat-list';
 import {Stream, Subscription, Listener} from 'xstream';

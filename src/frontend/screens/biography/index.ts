@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,7 +11,7 @@ import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {topBar, Sinks as TBSinks} from './top-bar';
-import {AboutAndExtras} from '../../drivers/ssb';
+import {AboutAndExtras} from '../../../shared-types';
 import view from './view';
 
 export type Props = {about: AboutAndExtras};
