@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 import Button from '../../components/Button';
 import {Palette} from '../../global-styles/palette';
-import {shortFeedId} from '../../ssb/utils/from-ssb';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
 import {ReactElement} from 'react';
@@ -27,10 +26,7 @@ export default function view(
   topBarElem$: Stream<ReactElement<any>>,
 ) {
   return xs.combine(state$, topBarElem$).map(([state, topBarElem]) => {
-    const defaultName =
-      !state.about.name || state.about.name === shortFeedId(state.about.id)
-        ? ''
-        : state.about.name;
+    const defaultName: string = state.about.name ?? '';
 
     const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
 

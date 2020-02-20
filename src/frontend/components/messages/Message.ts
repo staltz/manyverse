@@ -4,6 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import xs, {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
@@ -49,14 +50,18 @@ export default class Message extends PureComponent<Props, State> {
   public render() {
     const {msg} = this.props;
     const metadata = this.props.msg.value._$manyverse$metadata;
+    const likes = (
+      metadata.likes ?? (xs.never() as Stream<Array<string>>)
+    ).compose(debounce(80)); // avoid DB reads flickering
     const props = {
       ...this.props,
       msg: msg as Msg<any>,
-      likes: metadata.likes.compose(debounce(80)), // avoid DB reads flickering
+      likes,
       name: metadata.about.name,
       imageUrl: metadata.about.imageUrl,
       contactName: metadata.contact ? metadata.contact.name : undefined,
     };
+
     if (this.state.hasError) return h(RawMessageM, props);
     if (!msg.key) return h(KeylessMessage, props);
     if (isPostMsg(msg)) return h(PostMessageM, props);

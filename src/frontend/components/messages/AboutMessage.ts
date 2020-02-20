@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,7 +14,7 @@ import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import MessageContainer from './MessageContainer';
 import {Msg, AboutContent as About} from 'ssb-typescript';
-import {authorName} from '../../ssb/utils/from-ssb';
+import {displayName} from '../../ssb/utils/from-ssb';
 
 export const styles = StyleSheet.create({
   row: {
@@ -57,13 +57,13 @@ const accountTextProps = {
 };
 
 function renderWithImage(
-  name: string | null,
+  name: string | undefined,
   imageUrl: string | null,
   msg: Msg<About>,
 ) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
-      h(Text, accountTextProps, authorName(name, msg)),
+      h(Text, accountTextProps, displayName(name, msg.value.author)),
       h(Text, {style: styles.followed}, ' is using a new picture:'),
     ]),
     h(Image, {
@@ -78,11 +78,11 @@ function renderWithImage(
   ]);
 }
 
-function renderWithNameDesc(name: string | null, msg: Msg<About>) {
+function renderWithNameDesc(name: string | undefined, msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
       h(Text, [
-        h(Text, accountTextProps, authorName(name, msg)),
+        h(Text, accountTextProps, displayName(name, msg.value.author)),
         h(Text, {style: styles.followed}, ' is using the name "'),
         h(Text, accountTextProps, msg.value.content.name),
         h(Text, {style: styles.followed}, '" and the description: '),
@@ -97,10 +97,10 @@ function renderWithNameDesc(name: string | null, msg: Msg<About>) {
   ]);
 }
 
-function renderWithDesc(name: string | null, msg: Msg<About>) {
+function renderWithDesc(name: string | undefined, msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
-      h(Text, accountTextProps, authorName(name, msg)),
+      h(Text, accountTextProps, displayName(name, msg.value.author)),
       h(Text, {style: styles.followed}, ' has a new description: '),
     ]),
     Markdown(msg.value.content.description ?? ''),
@@ -112,11 +112,11 @@ function renderWithDesc(name: string | null, msg: Msg<About>) {
   ]);
 }
 
-function renderWithName(name: string | null, msg: Msg<About>) {
+function renderWithName(name: string | undefined, msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
       h(Text, [
-        h(Text, accountTextProps, authorName(name, msg)),
+        h(Text, accountTextProps, displayName(name, msg.value.author)),
         h(Text, {style: styles.followed}, ' is using the name "'),
         h(Text, accountTextProps, msg.value.content.name),
         h(Text, '"'),
@@ -132,7 +132,7 @@ function renderWithName(name: string | null, msg: Msg<About>) {
 
 export type Props = {
   msg: Msg<About>;
-  name: string | null;
+  name?: string;
   imageUrl: string | null;
 };
 

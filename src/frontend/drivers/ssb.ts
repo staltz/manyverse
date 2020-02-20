@@ -36,12 +36,9 @@ import {
 } from '../../shared-types';
 import makeClient from '../ssb/client';
 import {PeerKV, StagedPeerKV, HostingDhtInvite} from '../ssb/types';
-import {
-  shortFeedId,
-  imageToImageUrl,
-  getRecipient,
-} from '../ssb/utils/from-ssb';
+import {imageToImageUrl} from '../ssb/utils/from-ssb';
 const pull = require('pull-stream');
+const Ref = require('ssb-ref');
 const colorHash = new (require('color-hash'))();
 
 export type MentionSuggestion = {
@@ -66,9 +63,8 @@ function mutateMsgWithLiveExtras(ssb: any) {
 
     // Fetch name
     const nameOpts = {key: 'name', dest: msg.value.author};
-    const [e1, nameResult] = await runAsync(getAbout)(nameOpts);
+    const [e1, name] = await runAsync<string | undefined>(getAbout)(nameOpts);
     if (e1) return cb(e1);
-    const name = nameResult || shortFeedId(msg.value.author);
 
     // Fetch avatar
     const avatarOpts = {key: 'image', dest: msg.value.author};
@@ -95,9 +91,8 @@ function mutateMsgWithLiveExtras(ssb: any) {
     }
     const dest: FeedId = content.contact;
     const dOpts = {key: 'name', dest};
-    const [e3, nameResult2] = await runAsync<string>(getAbout)(dOpts);
+    const [e3, destName] = await runAsync<string | undefined>(getAbout)(dOpts);
     if (e3) return cb(e3);
-    const destName = nameResult2 || shortFeedId(dest);
     m.value._$manyverse$metadata.contact = {name: destName};
     cb(null, m);
   };
@@ -110,6 +105,15 @@ function mutateThreadWithLiveExtras(ssb: any) {
     }
     cb(null, thread as ThreadAndExtras);
   };
+}
+
+function getRecipient(recp: string | Record<string, any>): string | undefined {
+  if (typeof recp === 'object' && Ref.isFeed(recp.link)) {
+    return recp.link;
+  }
+  if (typeof recp === 'string' && Ref.isFeed(recp)) {
+    return recp;
+  }
 }
 
 function mutatePrivateThreadWithLiveExtras(ssb: any) {
@@ -128,9 +132,10 @@ function mutatePrivateThreadWithLiveExtras(ssb: any) {
 
         // Fetch name
         const nameOpts = {key: 'name', dest: id};
-        const [e1, nameResult] = await runAsync<string>(getAbout)(nameOpts);
+        const [e1, name] = await runAsync<string | undefined>(getAbout)(
+          nameOpts,
+        );
         if (e1) return cb(e1);
-        const name = nameResult || shortFeedId(id);
 
         // Fetch avatar
         const avatarOpts = {key: 'image', dest: id};
@@ -151,9 +156,8 @@ function augmentPeerWithExtras(ssb: any) {
   return async ([addr, peer]: PeerKV, cb: Callback<[string, any]>) => {
     // Fetch name
     const nameOpts = {key: 'name', dest: peer.key};
-    const [e1, nameResult] = await runAsync(getAbout)(nameOpts);
+    const [e1, name] = await runAsync<string | undefined>(getAbout)(nameOpts);
     if (e1) return cb(e1);
-    const name = nameResult || undefined;
 
     // Fetch avatar
     const avatarOpts = {key: 'image', dest: peer.key};
@@ -433,11 +437,10 @@ export class SSBSource {
         const abouts: Array<AboutAndExtras> = [];
         for (const id of ids) {
           // Fetch name
-          const [, result1] = await runAsync<string>(getAbout)({
+          const [, name] = await runAsync<string | undefined>(getAbout)({
             key: 'name',
             dest: id,
           });
-          const name = result1 || shortFeedId(id);
 
           // Fetch avatar
           const [, result2] = await runAsync(getAbout)({

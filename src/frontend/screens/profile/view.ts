@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
 import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
 import {SSBSource} from '../../drivers/ssb';
-import {shortFeedId} from '../../ssb/utils/from-ssb';
+import {displayName} from '../../ssb/utils/from-ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import Feed from '../../components/Feed';
@@ -51,7 +51,7 @@ export default function view(
             accessible: true,
             accessibilityLabel: 'Profile Name',
           },
-          state.about.name ?? shortFeedId(state.about.id),
+          displayName(state.about.name, state.about.id),
         ),
       ]),
 

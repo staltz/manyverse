@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -18,7 +18,7 @@ import HeaderBackButton from '../../../components/HeaderBackButton';
 
 export type State = {
   about: {
-    name: string;
+    name?: string;
   };
 };
 
@@ -70,7 +70,7 @@ export function topBar(sources: Sources): Sinks {
   const vdom$ = sources.state.stream.map(state =>
     h(View, {style: styles.container}, [
       HeaderBackButton('bioBackButton'),
-      h(Text, {style: styles.title}, state.about.name),
+      h(Text, {style: styles.title}, state.about.name ?? ''),
     ]),
   );
 

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import HumanTime from 'react-human-time';
 import {Msg, PostContent} from 'ssb-typescript';
-import {authorName} from '../../ssb/utils/from-ssb';
+import {displayName} from '../../ssb/utils/from-ssb';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
 
 export type Props = {
   msg: Msg;
-  name: string | null;
+  name?: string;
   imageUrl: string | null;
   onPress?: (ev: {msg: Msg}) => void;
 };
@@ -111,7 +111,7 @@ export default class RawMessage extends Component<Props> {
         ellipsizeMode: 'middle',
         style: styles.authorName,
       },
-      authorName(name, msg),
+      displayName(name, msg.value.author),
     );
 
     const msgTypeText = h(

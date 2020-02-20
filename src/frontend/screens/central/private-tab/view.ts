@@ -26,6 +26,7 @@ import EmptySection from '../../../components/EmptySection';
 import Avatar from '../../../components/Avatar';
 import {State} from './model';
 import {styles} from './styles';
+import {displayName} from '../../../ssb/utils/from-ssb';
 
 const PullFlatList2 = propifyMethods(
   PullFlatList,
@@ -40,7 +41,7 @@ const Touchable = Platform.select<any>({
 
 type CIProps = {
   recps: Array<{
-    name: string;
+    name?: string;
     imageUrl?: string | null;
     id: string;
   }>;
@@ -111,7 +112,7 @@ class ConversationItem extends PureComponent<CIProps> {
                 ? styles.conversationAuthorsUnread
                 : styles.conversationAuthors,
             },
-            recps.map(x => x.name).join(', '),
+            recps.map(x => displayName(x.name, x.id)).join(', '),
           ),
         ]),
       ]),

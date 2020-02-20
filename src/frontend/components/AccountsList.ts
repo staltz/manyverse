@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -20,6 +20,7 @@ import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
 import Avatar from './Avatar';
 import React = require('react');
+import {displayName} from '../ssb/utils/from-ssb';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -63,7 +64,7 @@ export const styles = StyleSheet.create({
 });
 
 type AccountProps = {
-  name: string;
+  name?: string;
   imageUrl?: string;
   id: string;
   onPress?: () => void;
@@ -71,7 +72,7 @@ type AccountProps = {
 
 class Account extends PureComponent<AccountProps> {
   public render() {
-    const {name, imageUrl, onPress} = this.props;
+    const {name, imageUrl, id, onPress} = this.props;
 
     const touchableProps: any = {
       onPress,
@@ -87,7 +88,7 @@ class Account extends PureComponent<AccountProps> {
         ellipsizeMode: 'middle',
         style: styles.authorName,
       },
-      name,
+      displayName(name, id),
     );
 
     return h(
@@ -112,7 +113,7 @@ class Account extends PureComponent<AccountProps> {
 }
 
 export type Props = {
-  accounts: Array<{name: string; imageUrl: string; id: string}>;
+  accounts: Array<{name?: string; imageUrl?: string; id: string}>;
   onPressAccount?: (ev: {id: FeedId; name: string}) => void;
 };
 
@@ -127,7 +128,7 @@ export default class AccountsList extends PureComponent<Props> {
           name,
           imageUrl,
           id,
-          onPress: () => onPressAccount?.({id, name}),
+          onPress: () => onPressAccount?.({id, name: displayName(name, id)}),
         }),
       ),
     );

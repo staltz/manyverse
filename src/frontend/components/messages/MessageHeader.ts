@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,7 +9,7 @@ import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
-import {authorName} from '../../ssb/utils/from-ssb';
+import {displayName} from '../../ssb/utils/from-ssb';
 import Avatar from '../Avatar';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
 
 export type Props = {
   msg: Msg;
-  name: string | null;
+  name?: string;
   imageUrl: string | null;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
@@ -107,7 +107,7 @@ export default class MessageHeader extends Component<Props> {
           ellipsizeMode: 'middle',
           style: styles.messageHeaderAuthorName,
         },
-        authorName(name, msg),
+        displayName(name, msg.value.author),
       ),
     ]);
 

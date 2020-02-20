@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,7 +14,7 @@ import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import {ContactContent as Contact, Msg, FeedId} from 'ssb-typescript';
 import MessageContainer from './MessageContainer';
-import {shortFeedId} from '../../ssb/utils/from-ssb';
+import {displayName} from '../../ssb/utils/from-ssb';
 
 export const styles = StyleSheet.create({
   row: {
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
 
 export type Props = {
   msg: Msg<Contact>;
-  name: string | null;
+  name?: string;
   contactName?: string;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
@@ -121,7 +121,7 @@ export default class ContactMessage extends Component<Props, {}> {
           h(
             Text,
             {style: styles.account, onPress: this._onPressOrigin},
-            name ?? shortFeedId(msg.value.author),
+            displayName(name, msg.value.author),
           ),
           h(
             Text,
@@ -136,7 +136,7 @@ export default class ContactMessage extends Component<Props, {}> {
           h(
             Text,
             {style: styles.account, onPress: this._onPressDestination},
-            contactName ?? shortFeedId(msg.value.content.contact ?? '?'),
+            displayName(contactName, msg.value.content.contact!),
           ),
         ]),
       ]),

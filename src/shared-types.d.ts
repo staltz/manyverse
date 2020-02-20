@@ -10,13 +10,13 @@ import {Stream} from 'xstream';
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
     _$manyverse$metadata: {
-      likes: Stream<Array<FeedId>>;
+      likes?: Stream<Array<FeedId>>;
       about: {
-        name: string;
+        name?: string;
         imageUrl: string | null;
       };
       contact?: {
-        name: string;
+        name?: string;
       };
     };
   };
@@ -31,7 +31,7 @@ export type ThreadAndExtras = {
 export type PrivateThreadAndExtras = ThreadAndExtras & {
   recps: Array<{
     id: string;
-    name: string;
+    name?: string;
     imageUrl: string | null | undefined;
   }>;
 };

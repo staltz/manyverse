@@ -13,6 +13,7 @@ import {GetReadable} from '../drivers/ssb';
 import {MsgAndExtras} from '../../shared-types';
 import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
 import {Msg} from 'ssb-typescript';
+import {displayName} from '../ssb/utils/from-ssb';
 
 export const styles = StyleSheet.create({
   container: {
@@ -55,7 +56,10 @@ export default class Feed extends PureComponent<Props, {}> {
       renderItem: ({item}) =>
         h(ShortRawMessage, {
           msg: item,
-          name: item.value._$manyverse$metadata.about.name,
+          name: displayName(
+            item.value._$manyverse$metadata.about.name,
+            item.value.author,
+          ),
           imageUrl: item.value._$manyverse$metadata.about.imageUrl,
           onPress: onPressMsg,
         }),
