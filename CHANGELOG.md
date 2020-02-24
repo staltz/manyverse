@@ -6,6 +6,14 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2002.24-beta
+
+* Bug fix: connections disappeared, issue #802 ([see details](https://gitlab.com/staltz/manyverse/commit/97440ec7023a6e4d9fa0fd995468cb5a7b0ea4b7)), closes [#802](https://gitlab.com/staltz/manyverse/issues/802)
+* Bug fix: crash from issue #799 ([see details](https://gitlab.com/staltz/manyverse/commit/a06115f597f3282a904b483e05a58398d05f6de4)), closes [#799](https://gitlab.com/staltz/manyverse/issues/799)
+* Bug fix: links in Thanks and About screens ([see details](https://gitlab.com/staltz/manyverse/commit/6a9820b59373ea9b819b4da4ac89a6e8f5520926))
+* Bug fix: simple typo in the welcome screen ([see details](https://gitlab.com/staltz/manyverse/commit/90bc4051e4ceff6c09ebc872e1006eab44da6f71))
+* Improve autocomplete list when mentioning people ([see details](https://gitlab.com/staltz/manyverse/commit/db7a29f77e589391eb290deed46fdc0c9f60e652))
+
 ## 0.2002.4-beta
 
 * Bug fix: do not crash on startup due to faulty conn-db ([see details](https://gitlab.com/staltz/manyverse/commit/668b2bc4dc1e34e1ea7ee7f22fb4fadcd9e897ba))
