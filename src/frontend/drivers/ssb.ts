@@ -33,12 +33,11 @@ import {
   ThreadAndExtras,
   AnyThread,
   AboutAndExtras,
+  PeerKV,
+  StagedPeerKV,
 } from '../../shared-types';
 import makeClient from '../ssb/client';
-import {PeerKV, StagedPeerKV, HostingDhtInvite} from '../ssb/types';
 import {imageToImageUrl} from '../ssb/utils/from-ssb';
-const pull = require('pull-stream');
-const Ref = require('ssb-ref');
 const colorHash = new (require('color-hash'))();
 
 export type MentionSuggestion = {

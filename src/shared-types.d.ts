@@ -6,6 +6,7 @@
 
 import {Msg, Content, FeedId, About} from 'ssb-typescript';
 import {Stream} from 'xstream';
+import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
 
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
@@ -42,3 +43,14 @@ export type AboutAndExtras = About & {
   id: FeedId;
   followsYou?: boolean;
 };
+
+export type PeerKV = ConnQueryPeer;
+
+export type StagedPeerMetadata = {
+  key: string;
+  type: 'lan' | 'dht' | 'internet' | 'bt';
+  role?: 'client' | 'server';
+  note?: string;
+};
+
+export type StagedPeerKV = [string, StagedPeerMetadata];

@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../../global-styles/palette';
 import {Dimensions} from '../../../../global-styles/dimens';
 import {Typography} from '../../../../global-styles/typography';
-import {PeerKV} from '../../../../ssb/types';
+import {PeerKV} from '../../../../../shared-types';
 import {peerModeIcon, peerModeName} from './utils';
 
 const dotStyle: ViewStyle = {

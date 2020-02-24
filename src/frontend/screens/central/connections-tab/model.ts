@@ -14,7 +14,7 @@ import {
   PeerKV,
   StagedPeerKV,
   StagedPeerMetadata as StagedPeer,
-} from '../../../ssb/types';
+} from '../../../../shared-types';
 import {NetworkSource} from '../../../drivers/network';
 import {noteStorageKeyFor} from './asyncstorage';
 

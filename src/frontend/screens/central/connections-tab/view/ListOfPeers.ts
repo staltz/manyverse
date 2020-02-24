@@ -8,7 +8,7 @@ import {Component} from 'react';
 import {View, StyleSheet, StyleProp, ViewStyle} from 'react-native';
 import {h} from '@cycle/react';
 import {Dimensions} from '../../../../global-styles/dimens';
-import {StagedPeerKV, PeerKV} from '../../../../ssb/types';
+import {StagedPeerKV, PeerKV} from '../../../../../shared-types';
 import PopList, {Props as PopListProps} from './PopList';
 import StagedItem, {Props as StagedItemProps} from './StagedItem';
 import RoomItem, {Props as RoomItemProps} from './RoomItem';
