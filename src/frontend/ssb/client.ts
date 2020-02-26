@@ -8,17 +8,21 @@ import ssbClient from 'react-native-ssb-client';
 import cachedAbout from 'ssb-cached-about';
 import manifest from './manifest';
 import hooksPlugin from './plugins/hooks';
+import connUtilsPlugin from './plugins/connUtils';
 import publishUtilsPlugin from './plugins/publishUtils';
 import contactsPlugin from './plugins/contacts';
+import threadsUtilsPlugin from './plugins/threadsUtils';
 import syncingNotifications from './plugins/syncing-notifications';
 
 function makeClient() {
   return ssbClient(manifest)
+    .use(cachedAbout())
+    .use(connUtilsPlugin())
     .use(hooksPlugin())
     .use(publishUtilsPlugin())
-    .use(cachedAbout())
     .use(contactsPlugin())
     .use(syncingNotifications())
+    .use(threadsUtilsPlugin())
     .callPromise();
 }
 

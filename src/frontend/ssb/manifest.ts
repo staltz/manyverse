@@ -147,7 +147,7 @@ export default {
   blobsUtils: {
     addFromPath: 'async',
   },
-  connUtils: {
+  connUtilsBack: {
     persistentConnect: 'async',
     persistentDisconnect: 'async',
     isInDB: 'async',

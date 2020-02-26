@@ -7,7 +7,7 @@
 import {Callback} from './helpers/types';
 
 export = {
-  name: 'connUtils',
+  name: 'connUtilsBack',
   version: '1.0.0',
   manifest: {
     persistentConnect: 'async',
