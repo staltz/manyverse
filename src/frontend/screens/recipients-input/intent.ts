@@ -7,7 +7,7 @@
 import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
-import {PrivateThreadAndExtras} from '../../../shared-types';
+import {PrivateThreadAndExtras} from '../../ssb/types';
 
 export default function intent(
   reactSource: ReactSource,

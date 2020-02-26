@@ -11,7 +11,7 @@ import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {topBar, Sinks as TBSinks} from './top-bar';
-import {AboutAndExtras} from '../../../shared-types';
+import {AboutAndExtras} from '../../ssb/types';
 import view from './view';
 
 export type Props = {about: AboutAndExtras};

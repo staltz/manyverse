@@ -16,7 +16,7 @@ import {
   StagedPeerMetadata as StagedPeer,
   StagedPeerKV,
   PeerKV,
-} from '../../../../shared-types';
+} from '../../../ssb/types';
 import {State} from './model';
 import {MenuChoice} from './view/SlideInMenu';
 const roomUtils = require('ssb-room/utils');

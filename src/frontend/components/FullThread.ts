@@ -8,8 +8,7 @@ import {Stream, Subscription, Listener} from 'xstream';
 import {Component, ReactElement} from 'react';
 import {h} from '@cycle/react';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
-import {ThreadAndExtras, MsgAndExtras} from '../../shared-types';
-import {Likes} from '../ssb/types';
+import {ThreadAndExtras, MsgAndExtras, Likes} from '../ssb/types';
 import Message from './messages/Message';
 import PlaceholderMessage from './messages/PlaceholderMessage';
 

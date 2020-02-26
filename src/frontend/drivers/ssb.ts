@@ -27,7 +27,7 @@ import {
   AboutAndExtras,
   PeerKV,
   StagedPeerKV,
-} from '../../shared-types';
+} from '../ssb/types';
 import makeClient, {SSBClient} from '../ssb/client';
 import {imageToImageUrl} from '../ssb/utils/from-ssb';
 const colorHash = new (require('color-hash'))();

@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../../global-styles/palette';
 import {Dimensions} from '../../../../global-styles/dimens';
 import {Typography} from '../../../../global-styles/typography';
-import {StagedPeerKV} from '../../../../../shared-types';
+import {StagedPeerKV} from '../../../../ssb/types';
 import {peerModeName, peerModeIcon, peerModeStagedDescription} from './utils';
 
 export const styles = StyleSheet.create({

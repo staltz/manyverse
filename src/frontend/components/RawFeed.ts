@@ -10,7 +10,7 @@ import {h} from '@cycle/react';
 import ShortRawMessage from './messages/ShortRawMessage';
 import {Palette} from '../global-styles/palette';
 import {GetReadable} from '../drivers/ssb';
-import {MsgAndExtras} from '../../shared-types';
+import {MsgAndExtras} from '../ssb/types';
 import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
 import {Msg} from 'ssb-typescript';
 import {displayName} from '../ssb/utils/from-ssb';

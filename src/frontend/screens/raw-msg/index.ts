@@ -11,7 +11,7 @@ import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
 import {ScrollView, View, Text, StyleSheet} from 'react-native';
 import {SSBSource} from '../../drivers/ssb';
-import {MsgAndExtras} from '../../../shared-types';
+import {MsgAndExtras} from '../../ssb/types';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
 import {topBar, Sinks as TBSinks} from './top-bar';

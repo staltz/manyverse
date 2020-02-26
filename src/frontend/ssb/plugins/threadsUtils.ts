@@ -21,7 +21,7 @@ import {
   MsgAndExtras,
   ThreadAndExtras,
   PrivateThreadAndExtras,
-} from '../../../shared-types';
+} from '../types';
 import {imageToImageUrl} from '../utils/from-ssb';
 import {Callback} from 'pull-stream';
 import xsFromPullStream from 'xstream-from-pull-stream';

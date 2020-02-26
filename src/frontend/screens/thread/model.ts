@@ -9,7 +9,7 @@ import xsFromPullStream from 'xstream-from-pull-stream';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId, MsgId} from 'ssb-typescript';
-import {ThreadAndExtras, MsgAndExtras} from '../../../shared-types';
+import {ThreadAndExtras, MsgAndExtras} from '../../ssb/types';
 import {SSBSource, GetReadable} from '../../drivers/ssb';
 import {Props} from './index';
 

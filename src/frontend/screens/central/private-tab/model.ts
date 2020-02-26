@@ -7,7 +7,7 @@
 import xs, {Stream} from 'xstream';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {GetReadable, SSBSource} from '../../../drivers/ssb';
-import {PrivateThreadAndExtras} from '../../../../shared-types';
+import {PrivateThreadAndExtras} from '../../../ssb/types';
 import {NavSource} from 'cycle-native-navigation';
 
 export type State = {

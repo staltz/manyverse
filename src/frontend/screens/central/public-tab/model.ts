@@ -9,7 +9,7 @@ import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource, GetReadable} from '../../../drivers/ssb';
-import {ThreadAndExtras} from '../../../../shared-types';
+import {ThreadAndExtras} from '../../../ssb/types';
 import {Animated} from 'react-native';
 
 export type State = {

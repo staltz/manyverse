@@ -6,7 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import {SSBSource} from '../../drivers/ssb';
-import {PrivateThreadAndExtras} from '../../../shared-types';
+import {PrivateThreadAndExtras} from '../../ssb/types';
 import {Props} from '.';
 import {Reducer} from '@cycle/state';
 import {FeedId, MsgId} from 'ssb-typescript';

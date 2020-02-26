@@ -12,7 +12,7 @@ import isolate from '@cycle/isolate';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {FeedId, MsgId} from 'ssb-typescript';
-import {PrivateThreadAndExtras} from '../../../shared-types';
+import {PrivateThreadAndExtras} from '../../ssb/types';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';

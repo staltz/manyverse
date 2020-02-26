@@ -6,7 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import {Req} from '../../../drivers/ssb';
-import {StagedPeerKV} from '../../../../shared-types';
+import {StagedPeerKV} from '../../../ssb/types';
 
 export type Actions = {
   removeDhtInvite$: Stream<string>;
