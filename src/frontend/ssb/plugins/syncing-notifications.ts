@@ -6,6 +6,8 @@
 
 import {Palette} from '../../global-styles/palette';
 import {Platform} from 'react-native';
+import {ClientAPI} from 'react-native-ssb-client';
+import manifest from '../manifest';
 const Thenable = require('pull-thenable');
 const Notification = require('react-native-android-local-notification');
 
@@ -16,6 +18,8 @@ type Response = {
   prog: number;
   bytes: number;
 };
+
+type SSB = ClientAPI<typeof manifest>;
 
 function showNotification(data: Response): Promise<void> {
   const progress = data.prog;
@@ -70,8 +74,8 @@ async function consume(syncingStream: any) {
 
 export default function syncingNotifications() {
   return {
-    name: 'notifications',
-    init: (ssb: any) => {
+    name: 'notifications' as const,
+    init: (ssb: SSB) => {
       if (Platform.OS === 'android') {
         consume(ssb.syncing.stream());
       }

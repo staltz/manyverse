@@ -7,13 +7,23 @@
 import xs, {Stream} from 'xstream';
 import {isContactMsg} from 'ssb-typescript/utils';
 import {FeedId, Msg} from 'ssb-typescript';
+import {ClientAPI, AnyFunction} from 'react-native-ssb-client';
+import manifest from '../manifest';
 
 type Tristate = true | false | null;
 
-const contactPlugin = {
-  name: 'contacts',
+type SSB = ClientAPI<
+  typeof manifest & {
+    hooks: {
+      publishStream: AnyFunction;
+    };
+  }
+>;
 
-  init: (ssb: any) => {
+const contactPlugin = {
+  name: 'contacts' as const,
+
+  init: (ssb: SSB) => {
     const streams: Record<FeedId, Record<FeedId, Stream<Tristate>>> = {};
     function getStream(source: FeedId, dest: FeedId) {
       streams[source] = streams[source] ?? {};

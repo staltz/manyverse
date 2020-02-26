@@ -17,13 +17,17 @@ import syncingNotifications from './plugins/syncing-notifications';
 function makeClient() {
   return ssbClient(manifest)
     .use(cachedAbout())
-    .use(connUtilsPlugin())
     .use(hooksPlugin())
     .use(publishUtilsPlugin())
     .use(contactsPlugin())
-    .use(syncingNotifications())
+    .use(connUtilsPlugin())
     .use(threadsUtilsPlugin())
+    .use(syncingNotifications())
     .callPromise();
 }
+
+type PromiseInnerType<P> = P extends Promise<infer T> ? T : never;
+
+export type SSBClient = PromiseInnerType<ReturnType<typeof makeClient>>;
 
 export default makeClient;

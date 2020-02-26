@@ -8,7 +8,7 @@ import xs from 'xstream';
 import {Msg} from 'ssb-typescript';
 
 const hooksPlugin = {
-  name: 'hooks',
+  name: 'hooks' as const,
   init: () => {
     const stream = xs.create<Msg>();
     return {

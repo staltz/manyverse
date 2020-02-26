@@ -25,6 +25,16 @@ import {
 import {imageToImageUrl} from '../utils/from-ssb';
 import {Callback} from 'pull-stream';
 import xsFromPullStream from 'xstream-from-pull-stream';
+import {ClientAPI, AnyFunction} from 'react-native-ssb-client';
+import manifest from '../manifest';
+
+type SSB = ClientAPI<
+  typeof manifest & {
+    cachedAbout: {
+      socialValue: AnyFunction;
+    };
+  }
+>;
 
 function getRecipient(recp: string | Record<string, any>): string | undefined {
   if (typeof recp === 'object' && Ref.isFeed(recp.link)) {
@@ -35,7 +45,7 @@ function getRecipient(recp: string | Record<string, any>): string | undefined {
   }
 }
 
-function mutateMsgWithLiveExtras(ssb: any, includeLikes: boolean = true) {
+function mutateMsgWithLiveExtras(ssb: SSB, includeLikes: boolean = true) {
   const getAbout = ssb.cachedAbout.socialValue;
   return async (msg: Msg, cb: Callback<MsgAndExtras>) => {
     if (!isMsg(msg) || !msg.value) return cb(null, msg as any);
@@ -77,7 +87,7 @@ function mutateMsgWithLiveExtras(ssb: any, includeLikes: boolean = true) {
   };
 }
 
-function mutateThreadWithLiveExtras(ssb: any) {
+function mutateThreadWithLiveExtras(ssb: SSB) {
   return async (thread: ThreadData, cb: Callback<ThreadAndExtras>) => {
     for (const msg of thread.messages) {
       await run(mutateMsgWithLiveExtras(ssb))(msg);
@@ -86,7 +96,7 @@ function mutateThreadWithLiveExtras(ssb: any) {
   };
 }
 
-function mutatePrivateThreadWithLiveExtras(ssb: any) {
+function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
   const getAbout = ssb.cachedAbout.socialValue;
   return async (thread: ThreadData, cb: Callback<PrivateThreadAndExtras>) => {
     for (const msg of thread.messages) {
@@ -120,9 +130,9 @@ function mutatePrivateThreadWithLiveExtras(ssb: any) {
 }
 
 const threadsUtils = {
-  name: 'threadsUtils',
+  name: 'threadsUtils' as const,
 
-  init: function init(ssb: any) {
+  init: function init(ssb: SSB) {
     return {
       publicRawFeed(opts: any) {
         return pull(

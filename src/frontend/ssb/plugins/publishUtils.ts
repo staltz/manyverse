@@ -5,13 +5,23 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Content, AboutContent} from 'ssb-typescript';
+import {ClientAPI, AnyFunction} from 'react-native-ssb-client';
+import manifest from '../manifest';
+
+type SSB = ClientAPI<
+  typeof manifest & {
+    hooks: {
+      publish: AnyFunction;
+    };
+  }
+>;
 
 const noop = () => {};
 
 const publishUtilsPlugin = {
-  name: 'publishUtils',
+  name: 'publishUtils' as const,
 
-  init: (ssb: any) => {
+  init: (ssb: SSB) => {
     return {
       publish(content: Content, cb?: any) {
         ssb.hooks.publish({

@@ -18,7 +18,7 @@ import {Platform} from 'react-native';
 import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
 import xsFromPullStream from 'xstream-from-pull-stream';
-import {Readable} from 'pull-stream';
+import {Readable, Callback} from 'pull-stream';
 import {
   MsgAndExtras,
   PrivateThreadAndExtras,
@@ -28,7 +28,7 @@ import {
   PeerKV,
   StagedPeerKV,
 } from '../../shared-types';
-import makeClient from '../ssb/client';
+import makeClient, {SSBClient} from '../ssb/client';
 import {imageToImageUrl} from '../ssb/utils/from-ssb';
 const colorHash = new (require('color-hash'))();
 
@@ -47,14 +47,14 @@ export type RestoreIdentityResponse =
   | 'INCORRECT'
   | 'IDENTITY_READY';
 
-function dropCompletion(stream: Stream<any>): Stream<any> {
+function dropCompletion<T>(stream: Stream<T>): Stream<T> {
   return xs.merge(stream, xs.never());
 }
 
 export type GetReadable<T> = (opts?: any) => Readable<T>;
 
 export class SSBSource {
-  private ssb$: Stream<any>;
+  private ssb$: Stream<SSBClient>;
   public selfFeedId$: MemoryStream<FeedId>;
   public publicRawFeed$: Stream<GetReadable<MsgAndExtras>>;
   public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
@@ -72,7 +72,7 @@ export class SSBSource {
   public stagedPeers$: Stream<Array<StagedPeerKV>>;
   public bluetoothScanState$: Stream<any>;
 
-  constructor(ssbP: Promise<any>) {
+  constructor(ssbP: Promise<SSBClient>) {
     this.ssb$ = xs
       .fromPromise(ssbP)
       .compose(dropCompletion)
@@ -137,14 +137,16 @@ export class SSBSource {
         : this.fromPullStream(ssb => ssb.bluetooth.bluetoothScanState());
   }
 
-  private fromPullStream<T>(fn: (ssb: any) => any): Stream<T> {
+  private fromPullStream<T>(fn: (ssb: SSBClient) => Readable<T>): Stream<T> {
     return this.ssb$
       .map(fn)
       .map(xsFromPullStream)
       .flatten() as Stream<T>;
   }
 
-  private fromCallback<T>(fn: (ssb: any, cb: any) => any): Stream<T> {
+  private fromCallback<T>(
+    fn: (ssb: SSBClient, cb: Callback<T>) => void,
+  ): Stream<T> {
     return this.ssb$.map(xsFromCallback<T>(fn)).flatten();
   }
 
@@ -416,7 +418,7 @@ export function contentToPublishReq(content: NonNullable<Content>): PublishReq {
 async function consumeSink(
   sink: Stream<Req>,
   source: SSBSource,
-  ssbP: Promise<any>,
+  ssbP: Promise<SSBClient>,
 ) {
   sink
     .filter(r => r.type === 'identity.create' || r.type === 'identity.use')

@@ -8,6 +8,8 @@ import {PeerKV, StagedPeerKV} from '../../../shared-types';
 import {Callback} from 'pull-stream';
 import run = require('promisify-tuple');
 import {imageToImageUrl} from '../utils/from-ssb';
+import {ClientAPI, AnyFunction} from 'react-native-ssb-client';
+import manifest from '../manifest';
 const pull = require('pull-stream');
 const cat = require('pull-cat');
 const backoff = require('pull-backoff');
@@ -16,7 +18,16 @@ const combineLatest = require('pull-combine-latest');
 
 type HostingDhtInvite = {seed: string; claimer: string; online: boolean};
 
-function augmentPeerWithExtras(ssb: any) {
+type SSB = ClientAPI<
+  typeof manifest & {
+    cachedAbout: {
+      socialValue: AnyFunction;
+      invalidate: AnyFunction;
+    };
+  }
+>;
+
+function augmentPeerWithExtras(ssb: SSB) {
   const getAbout = ssb.cachedAbout.socialValue;
   return async ([addr, peer]: PeerKV, cb: Callback<[string, any]>) => {
     // Fetch name
@@ -38,7 +49,7 @@ function augmentPeerWithExtras(ssb: any) {
   };
 }
 
-function augmentPeersWithExtras(ssb: any) {
+function augmentPeersWithExtras(ssb: SSB) {
   return async (kvs: Array<PeerKV>, cb: Callback<Array<PeerKV>>) => {
     const peers: Array<PeerKV> = [];
     for (const kv of kvs) {
@@ -54,9 +65,9 @@ function augmentPeersWithExtras(ssb: any) {
 }
 
 const connUtils = {
-  name: 'connUtils',
+  name: 'connUtils' as const,
 
-  init: (ssb: any) => {
+  init: (ssb: SSB) => {
     return {
       persistentConnect(address: string, data: any, cb: Callback<any>) {
         return ssb.connUtilsBack.persistentConnect(address, data, cb);
