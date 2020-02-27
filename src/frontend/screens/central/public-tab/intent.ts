@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -66,7 +66,7 @@ export default function intent(
       .startWith(null as any) as Stream<any>,
 
     goToThread$: xs.merge(
-      reactSource.select('publicFeed').events('pressExpandThread'),
+      reactSource.select('publicFeed').events('goToThread'),
       reactSource
         .select('publicFeed')
         .events('pressReply')

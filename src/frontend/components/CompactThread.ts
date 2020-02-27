@@ -6,14 +6,16 @@
 
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
-import {FeedId, MsgId, Msg} from 'ssb-typescript';
+import {FeedId, MsgId, Msg, PostContent} from 'ssb-typescript';
 import {ThreadAndExtras, MsgAndExtras, Likes} from '../ssb/types';
 import Message from './messages/Message';
 import ExpandThread from './messages/ExpandThread';
+import ForkNote from './messages/ForkNote';
 
 export type Props = {
   thread: ThreadAndExtras;
   selfFeedId: FeedId;
+  onPressFork?: (ev: {rootMsgId: MsgId}) => void;
   onPressLikeCount?: (ev: {msgKey: MsgId; likes: Likes}) => void;
   onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
@@ -50,12 +52,22 @@ export default class CompactThread extends PureComponent<Props> {
   }
 
   public render() {
-    const {thread, onPressExpand} = this.props;
+    const {thread, onPressExpand, onPressFork} = this.props;
     const first = thread.messages[0];
     if (!first) return [];
     const rest = thread.messages.slice(1);
+    const forkedRoot: MsgId | undefined = (first as Msg<PostContent>).value
+      .content.root;
 
     return [
+      forkedRoot
+        ? h(ForkNote, {
+            rootId: forkedRoot,
+            onPress: () => {
+              onPressFork?.({rootMsgId: forkedRoot});
+            },
+          })
+        : null,
       this.renderMessage(first),
       thread.full
         ? null

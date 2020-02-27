@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,6 +17,7 @@ import {
 } from '../accounts';
 import {navOptions as profileScreenNavOpts} from '../profile';
 import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
+import {navOptions as threadScreenNavOpts} from './index';
 import {navOptions as composeScreenNavOpts} from '../compose';
 
 export type Actions = {
@@ -25,6 +26,7 @@ export type Actions = {
     msgKey: MsgId;
     ids: Array<FeedId> | null;
   }>;
+  goToAnotherThread$: Stream<{rootMsgId: FeedId}>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToRawMsg$: Stream<Msg>;
   goToCompose$: Stream<any>;
@@ -102,6 +104,25 @@ export default function navigation(
     } as Command;
   });
 
+  const toThread$ = actions.goToAnotherThread$
+    .compose(sampleCombine(state$))
+    .map(
+      ([ev, state]) =>
+        ({
+          type: 'push',
+          layout: {
+            component: {
+              name: Screens.Thread,
+              passProps: {
+                selfFeedId: state.selfFeedId,
+                rootMsgId: ev.rootMsgId,
+              },
+              options: threadScreenNavOpts,
+            },
+          },
+        } as Command),
+    );
+
   const toRawMsg$ = actions.goToRawMsg$.map(
     msg =>
       ({
@@ -120,5 +141,12 @@ export default function navigation(
     type: 'pop',
   } as PopCommand);
 
-  return xs.merge(toAccounts$, toProfile$, toCompose$, toRawMsg$, pop$);
+  return xs.merge(
+    toAccounts$,
+    toProfile$,
+    toCompose$,
+    toThread$,
+    toRawMsg$,
+    pop$,
+  );
 }

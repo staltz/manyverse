@@ -159,7 +159,7 @@ type Props = {
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
-  onPressExpandThread?: (ev: {rootMsgId: MsgId}) => void;
+  onGoToThread?: (ev: {rootMsgId: MsgId}) => void;
   yOffsetAnimVal?: Animated.Value;
 };
 
@@ -240,7 +240,7 @@ export default class Feed extends PureComponent<Props, State> {
       onPressReply,
       onPressAuthor,
       onPressEtc,
-      onPressExpandThread,
+      onGoToThread,
       style,
       contentContainerStyle,
       progressViewOffset,
@@ -297,7 +297,8 @@ export default class Feed extends PureComponent<Props, State> {
             onPressReply,
             onPressAuthor,
             onPressEtc,
-            onPressExpand: onPressExpandThread ?? (() => {}),
+            onPressExpand: onGoToThread ?? (() => {}),
+            onPressFork: onGoToThread,
           }),
           h(Separator),
         ]),

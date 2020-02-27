@@ -7,15 +7,17 @@
 import {Stream, Subscription, Listener} from 'xstream';
 import {Component, ReactElement} from 'react';
 import {h} from '@cycle/react';
-import {FeedId, Msg, MsgId} from 'ssb-typescript';
+import {FeedId, Msg, MsgId, PostContent} from 'ssb-typescript';
 import {ThreadAndExtras, MsgAndExtras, Likes} from '../ssb/types';
 import Message from './messages/Message';
 import PlaceholderMessage from './messages/PlaceholderMessage';
+import ForkNote from './messages/ForkNote';
 
 export type Props = {
   thread: ThreadAndExtras;
   publication$?: Stream<any> | null;
   selfFeedId: FeedId;
+  onPressFork?: (ev: {rootMsgId: MsgId}) => void;
   onPressLikeCount?: (ev: {msgKey: MsgId; likes: Likes}) => void;
   onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
@@ -97,14 +99,35 @@ export default class FullThread extends Component<Props, State> {
   }
 
   public render() {
-    const thread = this.props.thread;
+    const {thread, onPressFork} = this.props;
     if (!thread.messages || thread.messages.length <= 0) return [];
+
+    // Render all messages
     const children: Array<ReactElement<any>> = thread.messages.map(
       this.renderMessage,
     );
+
+    // Render (top) fork note
+    if (thread.messages[0]) {
+      const first = thread.messages[0] as Msg<PostContent>;
+      const rootId: MsgId | undefined = first.value.content.root;
+      if (rootId) {
+        children.unshift(
+          h(ForkNote, {
+            rootId,
+            onPress: () => {
+              onPressFork?.({rootMsgId: rootId});
+            },
+          }),
+        );
+      }
+    }
+
+    // Render (bottom) placeholder message
     if (this.state.showPlaceholder) {
       children.push(h(PlaceholderMessage, {key: 'placeholder'}));
     }
+
     return children;
   }
 }

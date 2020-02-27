@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -73,6 +73,10 @@ export default function intent(
       msgKey: MsgId;
       likes: Likes;
     }>).map(({msgKey, likes}) => ({title: 'Likes', msgKey, ids: likes})),
+
+    goToAnotherThread$: reactSource
+      .select('thread')
+      .events('pressFork') as Stream<{rootMsgId: MsgId}>,
 
     goToCompose$: reactSource
       .select('reply-expand')
