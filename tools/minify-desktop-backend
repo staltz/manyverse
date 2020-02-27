@@ -29,9 +29,10 @@ $(npm bin)/noderify \
   --filter=utf-8-validate \
   index.js > _index.js;
 rm index.js; mv _index.js index.js;
-rm multiserver.js;
+
 rm restore.js;
 rm ssb.js;
 rm -rf plugins;
+
 cd ../..;
 echo -en " done.\n";
