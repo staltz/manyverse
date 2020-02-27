@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -91,9 +91,8 @@ export default {
     latestValueStream: 'source',
     read: 'source',
   },
-  contacts: {
-    stream: 'source',
-    get: 'async',
+  suggest: {
+    profile: 'async',
   },
   query: {
     read: 'source',
@@ -101,8 +100,11 @@ export default {
   threads: {
     public: 'source',
     publicUpdates: 'source',
+    private: 'source',
+    privateUpdates: 'source',
     profile: 'source',
     thread: 'source',
+    threadUpdates: 'source',
   },
   dhtInvite: {
     start: 'async',
@@ -145,17 +147,20 @@ export default {
   blobsUtils: {
     addFromPath: 'async',
   },
-  connUtils: {
+  connUtilsBack: {
     persistentConnect: 'async',
     persistentDisconnect: 'async',
     isInDB: 'async',
   },
-  feedUtilsBack: {
+  publishUtilsBack: {
     publish: 'async',
     publishAbout: 'async',
   },
   friendsUtils: {
     isPrivatelyBlockingStream: 'source',
+  },
+  keysUtils: {
+    getMnemonic: 'sync',
   },
   syncing: {
     stream: 'source',
