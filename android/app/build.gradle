@@ -178,6 +178,8 @@ android {
                 storePassword MYAPP_RELEASE_STORE_PASSWORD
                 keyAlias MYAPP_RELEASE_KEY_ALIAS
                 keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            } else {
+                throw new Exception('Refusing to make release build with wrong keystore')
             }
         }
     }
@@ -203,6 +205,8 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
                 signingConfig signingConfigs.release
+            } else {
+                throw new Exception('Refusing to make release build with wrong keystore')
             }
         }
     }
