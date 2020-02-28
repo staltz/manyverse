@@ -13,16 +13,20 @@ function onFailure() {
   exit 1
 }
 
-echo -en "Bundling with noderify...";
 cd ./desktop/nodejs-project;
+
 # Why some packages are filter'd or replaced:
-#   electron: we want nodejs-mobile to load its native bindings
-#   bufferutil: because we want nodejs-mobile to load its native bindings
-#   utf-8-validate: because we want nodejs-mobile to load its native bindings
+#   node-extend: can't remember why we need to replace it, build seemed to fail
+#   multiserver net plugin: we're fixing a corner case bug with error recovery
+#   non-private-ip: we use a "better" fork of this package
+#   electron: we want to load its native bindings
+#   rn-bridge: not used on desktop, it's specific to mobile
+#   bufferutil: because we want to load its native bindings
+#   utf-8-validate: because we want to load its native bindings
 $(npm bin)/noderify \
   --replace.node-extend=xtend \
-  --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \
   --replace.non-private-ip=non-private-ip-android \
+  --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \
   --filter=rn-bridge \
   --filter=electron \
   --filter=bufferutil \
@@ -35,4 +39,3 @@ rm ssb.js;
 rm -rf plugins;
 
 cd ../..;
-echo -en " done.\n";

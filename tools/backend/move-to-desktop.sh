@@ -13,10 +13,6 @@ function onFailure() {
   exit 1
 }
 
-echo "Compiling TypeScript...";
-npm run lib;
-
-echo "Setting up...";
 mkdir -p ./desktop;
 rm -rf ./desktop/nodejs-project;
 cp -r ./lib/backend ./desktop;
@@ -29,12 +25,3 @@ rm ./*.js.map;
 rm ./plugins/*.js.map;
 rm ./loader.mobile.js;
 cd ../..;
-
-echo "Installing dependencies...";
-cd ./desktop/nodejs-project && npm install --silent;
-cd ../..;
-
-echo "Updating package-lock.json";
-cp ./desktop/nodejs-project/package-lock.json ./src/backend/package-lock.json
-
-echo "Done.";

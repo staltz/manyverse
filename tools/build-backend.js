@@ -8,7 +8,11 @@ const exec = util.promisify(require('child_process').exec);
 
 const loading = ora('...').start();
 const verbose = !!process.argv.includes('--verbose');
-const targetPlatform = !!process.argv.includes('--ios') ? 'ios' : 'android';
+const targetPlatform = process.argv.includes('--ios')
+  ? 'ios'
+  : process.argv.includes('--desktop')
+  ? 'desktop'
+  : 'android';
 
 async function runAndReport(label, task) {
   const now = Date.now();
@@ -39,42 +43,77 @@ async function runAndReport(label, task) {
 (async function() {
   await runAndReport('Compile TypeScript', exec('npm run lib'));
 
-  await runAndReport(
-    'Move backend project to ./nodejs-assets',
-    exec('./tools/backend/move-to-nodejs-assets.sh'),
-  );
+  if (targetPlatform === 'desktop') {
+    await runAndReport(
+      'Move backend project to ./desktop',
+      exec('./tools/backend/move-to-desktop.sh'),
+    );
+  } else {
+    await runAndReport(
+      'Move backend project to ./nodejs-assets',
+      exec('./tools/backend/move-to-nodejs-assets.sh'),
+    );
+  }
 
-  await runAndReport(
-    'Install backend node modules',
-    exec('npm install --no-optional', {cwd: './nodejs-assets/nodejs-project'}),
-  );
+  if (targetPlatform === 'desktop') {
+    await runAndReport(
+      'Install backend node modules',
+      exec('npm install', {cwd: './desktop/nodejs-project'}),
+    );
+  } else {
+    await runAndReport(
+      'Install backend node modules',
+      exec('npm install --no-optional', {
+        cwd: './nodejs-assets/nodejs-project',
+      }),
+    );
+  }
 
-  await runAndReport(
-    'Update package-lock.json in ./src/backend',
-    exec(
-      'cp ./nodejs-assets/nodejs-project/package-lock.json ' +
-        './src/backend/package-lock.json',
-    ),
-  );
+  if (targetPlatform === 'desktop') {
+    await runAndReport(
+      'Update package-lock.json in ./src/backend',
+      exec(
+        'cp ./desktop/nodejs-project/package-lock.json ' +
+          './src/backend/package-lock.json',
+      ),
+    );
+  } else {
+    await runAndReport(
+      'Update package-lock.json in ./src/backend',
+      exec(
+        'cp ./nodejs-assets/nodejs-project/package-lock.json ' +
+          './src/backend/package-lock.json',
+      ),
+    );
+  }
 
-  await runAndReport(
-    'Remove unused files meant for macOS or Windows or Electron',
-    exec('./tools/backend/remove-unused-files.sh'),
-  );
+  if (targetPlatform === 'android' || targetPlatform === 'ios') {
+    await runAndReport(
+      'Remove unused files meant for macOS or Windows or Electron',
+      exec('./tools/backend/remove-unused-files.sh'),
+    );
+  }
 
   if (targetPlatform === 'android') {
     await runAndReport(
       'Build native modules for Android armeabi-v7a and arm64-v8a',
       exec('./tools/backend/build-native-modules.sh', {
-        maxBuffer: 1024 * 1024 * 4 /* 4MB */,
+        maxBuffer: 4 * 1024 * 1024 /* 4MB worth of logs in stdout */,
       }),
     );
   }
 
-  await runAndReport(
-    'Bundle and minify backend JS into one file',
-    exec('./tools/backend/bundle-noderify.sh'),
-  );
+  if (targetPlatform === 'desktop') {
+    await runAndReport(
+      'Bundle and minify backend JS into one file',
+      exec('./tools/backend/noderify-desktop.sh'),
+    );
+  } else {
+    await runAndReport(
+      'Bundle and minify backend JS into one file',
+      exec('./tools/backend/noderify-mobile.sh'),
+    );
+  }
 
   if (targetPlatform === 'android') {
     await runAndReport(
