@@ -1,31 +1,47 @@
 # Contributor docs
 
-## Installation and dev setup
+Thank you for your interest in contributing code to Manyverse! Follow this guide **rigorously**, as it contains a lot of important details. The compilation of the app may not work with other settings.
 
-This project uses React Native, Android SDK, Node.js and NPM.
+In the explanations below, we will constantly refer to "development" and "target" operating systems.
 
-### React Native specifics
+💻 "Development OS" means the operating system of the computer you are using to develop and compile the app.
 
-Use node `^10.13.0` and npm `~6.4.1`, and follow the [official React Native docs](https://facebook.github.io/react-native/docs/getting-started.html).
+📱 "Target OS" means the operating system of the devices that you wish Manyverse to run on once you compile the app.
 
-Also install the CLI:
+## 💻 Setting up your development computer
 
-```
-npm install --global react-native-cli
-```
+### Development OS
+
+- If your target OS is **iOS**, only **macOS** computers are supported
+- If your target OS is **Android**, only **Linux and macOS** computers are supported
+  - *No Windows support* so far, unfortunately; but you can always choose to install Linux for free if you have a Windows computer
 
 ### macOS specifics
 
-If you are developing on a macOS, then you might need `realpath`, install it through coreutils:
+If you are developing on a macOS computer, then you might need `realpath`, install it through coreutils:
 
 ```
 brew update
 brew install coreutils
 ```
 
-### Android specifics
+### Node.js
 
-You need Android Studio and a recent Android SDK (installable through Android Studio).
+Use node `^10.13.0` and npm `~6.4.1`. To manage versions of node easily, we recommend [nvm](https://github.com/nvm-sh/nvm).
+
+### React Native
+
+Install the React Native CLI:
+
+```
+npm install --global react-native-cli
+```
+
+and follow the [official React Native docs](https://facebook.github.io/react-native/docs/getting-started.html), choose "React Native CLI Quickstart", and then choose the **Development OS** and **Target OS** to match your use case.
+
+### Android SDK
+
+If your target OS is Android, you need Android Studio and a recent Android SDK (installable through Android Studio).
 
 You may need to open your app's `/android` folder in Android Studio, so that it detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. **OR** download those via the sdkmanager `$ANDROID_HOME/tools/bin/sdkmanager 'ndk-bundle' 'cmake;3.6.4111459'`.
 
@@ -35,19 +51,65 @@ You can also set the environment variable `ANDROID_NDK_HOME`, as in this example
 export ANDROID_NDK_HOME=/Users/username/Library/Android/sdk/ndk-bundle
 ```
 
-Also check out [nodejs-mobile](https://github.com/janeasystems/nodejs-mobile) repository for the necessary prerequisites for your system.
+Also check out [nodejs-mobile docs](https://code.janeasystems.com/nodejs-mobile/getting-started-android#android-sdk-requirements) for the additional Android SDK requirements on your computer.
 
 This app only supports Android 5.0 and above.
 
-### Manyverse specifics
+### iOS SDK
+
+If your target OS is iOS, you need to install Xcode (preferably version 11 or higher, we are not sure if the app can build on lower versions of Xcode). You can find Xcode from the macOS App Store. The iOS SDK must be version 11 or higher.
+
+See also [nodejs-mobile docs](https://code.janeasystems.com/nodejs-mobile/getting-started-ios#development-prerequisites) for additional details.
+
+## 📱 Setting up you target device
+
+### Android
+
+⚠️ **Emulators are not supported!** You must have a real device (smartphone or tablet) available, and a USB cable to connect it with your development computer.
+
+The reason why emulators are not supported is because we use nodejs-mobile for the backend thread in the app, and this only supports ARM architectures. Most emulators are x86 architectures. There may be ARM-supporting emulators that are compatible with Manyverse, but we don't promise that it will work correctly there.
+
+**Enable developer mode.** Before developing, you need to set up the Android device, following these steps:
+
+- Open the Android settings, scroll down to "About phone"
+- Scroll down to "Build number", and tap it 7 times
+- It should inform "you are now a developer!" as a toast
+- Plug your Android device to your computer via USB
+- On the Android device, a popup appears, allow your computer access to the device
+
+### iOS
+
+⚠️ **Simulators are not supported!** You must have a real device (iPhone or iPad) available, and a USB cable to connect it with your development computer.
+
+The reason why simulators are not supported is because we use nodejs-mobile for the backend thread in the app, and this only supports ARM architectures. iOS simulators run on your development computer, and use the x86 architecture.
+
+It might be necessary to have an Apple's developer account, and your devices must be registered for development under that account. Take a look at React Native's [Running on device](https://reactnative.dev/docs/running-on-device) page, select target "iOS" and "Development OS: macOS".
+
+## Setting up the Manyverse project
+
+Git clone this repository to your computer, and then `cd` into the folder and run:
 
 ```
-npm i
+npm install
+```
+
+### When targeting Android
+
+There is nothing else you need to install at this point.
+
+### When targeting iOS
+
+You need to also install the Cocoapods:
+
+```
+cd ios && pod install
 ```
 
 ## Build and run in development
 
-You can run `npm run build-android-debug` which will run all the necessary scripts in order. Or run each step manually:
+### When targeting Android
+
+You can run `npm run android-dev` which will run all the necessary scripts in order. Or you can run each step manually:
 
 `1`: Compile TypeScript files
 
@@ -67,7 +129,7 @@ npm run propagate-replacements
 npm run build-backend-android
 ```
 
-`4`: Build the Android apk:
+`4`: Build and run the Android app:
 
 ```
 react-native run-android --variant=indieDebug
@@ -77,15 +139,49 @@ During step 4, another terminal may spawn with the React Native Metro bundler. T
 
 In step 3, if you want to see more logs, then run `npm run build-backend-android -- --verbose`.
 
+### When targeting iOS
+
+You can do it in Xcode or in the terminal. In Xcode, open the Manyverse project located in `./ios/Manyverse.xcworkspace`, and then press the "play" button.
+
+In the terminal, you can run `npm run ios-dev` which will run all the necessary scripts in order. Or you can run each step manually:
+
+`1`: Compile TypeScript files
+
+```
+npm run lib
+```
+
+`2`: Propagate replacement modules throughout all dependencies using [propagate-replacement-fields](https://github.com/staltz/propagate-replacement-fields):
+
+```
+npm run propagate-replacements
+```
+
+`3`: Build the "backend" Node.js project (which runs ssb-server):
+
+```
+npm run build-backend-ios
+```
+
+`4`: Build and run the iOS app:
+
+```
+react-native run-ios --device
+```
+
+During step 4, another terminal may spawn with the React Native Metro bundler. The app should be installed automatically, if you have a device connected by USB.
+
+In step 3, if you want to see more logs, then run `npm run build-backend-ios -- --verbose`.
+
 ### Continuous compilation
 
 To watch source code files and continuously compile them, use three terminals:
 
 - One terminal continuously running `$(npm bin)/tsc --watch` to compile the TypeScript code
 - One terminal continuously running `npm run clean-bundler && npm start -- --reset-cache` for the Metro bundler
-- One terminal where you run `npm run build-android-debug` once to build and install the APK
+- One terminal where you run `npm run android-dev` or `npm run ios-dev` once to build and install the app
 
-To "refresh" the app after editing frontend TypeScript code, run the following (it refreshes the JS and re-opens the app):
+For Android, to "refresh" the app after editing frontend TypeScript code, run the following (it refreshes the JS and re-opens the app):
 
 ```
 adb shell input text "RR" && sleep 5 && adb shell am force-stop se.manyver && adb shell monkey -p se.manyver 1
@@ -185,11 +281,12 @@ There are three important parts to the app, executing in runtime as different th
 |   TypeScript  (dev language)    |         |            APP THREAD            |
 |   JavaScript  (target language) |         |----------------------------------|
 |     Cycle.js  (framework)       |<------->|                                  |
-| React Native  (JS runtime env)  |         |            Java  (language)      |
-| src/frontend  (path to src)     |         |     Android SDK  (framework)     |
+| React Native  (JS runtime env)  |         | Java/ObjectiveC  (language)      |
+| src/frontend  (path to src)     |         | Android/iOS SDK  (framework)     |
 |        8000+  (lines of code)   |         |    React Native  (framework)     |
 +---------------------------------+         | android/app/src  (path to src)   |
-                                            |            150+  (lines of code) |
+                                            |   ios/Manyverse  (path to src)   |
+                                            |            250+  (lines of code) |
 +---------------------------------+         |                                  |
 |         BACKEND THREAD          |         |                                  |
 |                                 |<------->|                                  |
@@ -226,6 +323,8 @@ Most app development happens in `src/frontend` and thus follows the [Cycle.js](h
   - etc
 
 ## Integration tests
+
+**Only Android is supported for end-to-end tests at the moment.**
 
 We use Appium and Tape, just plug in a device through USB and run `npm run test-e2e-android`. This will run tests on top of the _release_ variant of the app, so it that doesn't exist, you must run `npm run build-android-release` first. See the guide below on how to generate release builds.
 
