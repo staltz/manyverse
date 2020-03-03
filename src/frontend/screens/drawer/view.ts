@@ -11,7 +11,6 @@ import {
   Text,
   ScrollView,
   TouchableNativeFeedback,
-  NativeModules,
   Platform,
   TouchableOpacity,
 } from 'react-native';
@@ -27,14 +26,6 @@ const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
   default: TouchableOpacity,
 });
-
-// Google Play Store has banned Manyverse a couple times
-// over a "policy violation regarding Payments", and this
-// Thanks screen is possibly the reason for that.
-const canShowThanks =
-  Platform.OS === 'android'
-    ? NativeModules.BuildConfig.FLAVOR !== 'googlePlay'
-    : true;
 
 function renderName(name?: string) {
   const namelessStyle = !name ? styles.noAuthorName : null;
@@ -112,13 +103,6 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           accessibilityLabel: 'My Profile Menu Item',
         }),
         h(MenuItem, {
-          sel: 'bug-report',
-          icon: 'email-alert',
-          text: 'Email bug report',
-          accessible: true,
-          accessibilityLabel: 'Email Bug Report',
-        }),
-        h(MenuItem, {
           sel: 'raw-db',
           icon: 'database',
           text: 'Raw database',
@@ -126,27 +110,18 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           accessibilityLabel: 'Show Raw Database',
         }),
         h(MenuItem, {
-          sel: 'backup',
-          icon: 'key',
-          text: 'Backup',
+          sel: 'bug-report',
+          icon: 'email-alert',
+          text: 'Email bug report',
           accessible: true,
-          accessibilityLabel: 'Back Up My Account',
+          accessibilityLabel: 'Email Bug Report',
         }),
-        canShowThanks
-          ? h(MenuItem, {
-              sel: 'thanks',
-              icon: 'heart-circle',
-              text: 'Thanks',
-              accessible: true,
-              accessibilityLabel: 'Show Thanks',
-            })
-          : null,
         h(MenuItem, {
-          sel: 'about',
-          icon: 'information',
-          text: 'About',
+          sel: 'settings',
+          icon: 'settings',
+          text: 'Settings',
           accessible: true,
-          accessibilityLabel: 'About This App',
+          accessibilityLabel: 'Settings',
         }),
       ]),
     ]),

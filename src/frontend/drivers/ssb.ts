@@ -89,7 +89,7 @@ export class SSBSource {
     );
 
     this.publicLiveUpdates$ = this.fromPullStream(ssb =>
-      ssb.threads.publicUpdates({allowlist: ['post', 'contact']}),
+      ssb.threadsUtils.publicUpdates(),
     ).mapTo(null);
 
     this.privateFeed$ = this.ssb$.map(ssb => (opts?: any) =>
@@ -97,7 +97,7 @@ export class SSBSource {
     );
 
     this.privateLiveUpdates$ = this.fromPullStream<MsgId>(ssb =>
-      ssb.threads.privateUpdates({allowlist: ['post'], includeSelf: true}),
+      ssb.threadsUtils.privateUpdates(),
     );
 
     this.isSyncing$ = this.fromPullStream(ssb => ssb.syncing.stream()).map(
@@ -316,6 +316,15 @@ export class SSBSource {
       ssb.keysUtils.getMnemonic(cb),
     );
   }
+
+  public readSettings(): Stream<{
+    hops?: number;
+    blobsStorageLimit?: number;
+    detailedLogs?: boolean;
+    showFollows?: boolean;
+  }> {
+    return this.fromCallback<any>((ssb, cb) => ssb.settingsUtils.read(cb));
+  }
 }
 
 export type CreateIdentityReq = {
@@ -394,6 +403,26 @@ export type ConnForgetReq = {
   address: string;
 };
 
+export type SettingsHopsReq = {
+  type: 'settings.hops';
+  hops: number;
+};
+
+export type SettingsBlobsPurgeReq = {
+  type: 'settings.blobsPurge';
+  storageLimit: number;
+};
+
+export type SettingsShowFollowsReq = {
+  type: 'settings.showFollows';
+  showFollows: boolean;
+};
+
+export type SettingsDetailedLogsReq = {
+  type: 'settings.detailedLogs';
+  detailedLogs: boolean;
+};
+
 export type Req =
   | CreateIdentityReq
   | UseIdentityReq
@@ -409,7 +438,11 @@ export type Req =
   | ConnFollowConnectReq
   | ConnDisconnectReq
   | ConnDisconnectForgetReq
-  | ConnForgetReq;
+  | ConnForgetReq
+  | SettingsHopsReq
+  | SettingsBlobsPurgeReq
+  | SettingsShowFollowsReq
+  | SettingsDetailedLogsReq;
 
 export function contentToPublishReq(content: NonNullable<Content>): PublishReq {
   return {type: 'publish', content};
@@ -463,6 +496,10 @@ async function consumeSink(
 
         const [err2] = await runAsync(ssb.dhtInvite.start)();
         if (err2) return console.error(err2.message || err2);
+
+        // FIXME: make a settings plugin in the backend, when it inits it
+        // should call ssb.blobsPurge.start if we loaded the amount from fs
+
         return;
       }
 
@@ -589,6 +626,35 @@ async function consumeSink(
 
       if (req.type === 'dhtInvite.remove') {
         ssb.dhtInvite.remove(req.invite, (err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
+      if (req.type === 'settings.hops') {
+        ssb.settingsUtils.updateHops(req.hops, (err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
+      if (req.type === 'settings.blobsPurge') {
+        ssb.settingsUtils.updateBlobsPurge(req.storageLimit, (err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
+      if (req.type === 'settings.showFollows') {
+        ssb.threadsUtils.updateShowFollows(req.showFollows);
+        ssb.settingsUtils.updateShowFollows(req.showFollows, (err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
+      if (req.type === 'settings.detailedLogs') {
+        ssb.settingsUtils.updateDetailedLogs(req.detailedLogs, (err: any) => {
           if (err) return console.error(err.message || err);
         });
         return;

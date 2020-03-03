@@ -9,12 +9,16 @@ import path = require('path');
 import {BrowserWindow, app, WebContents} from 'electron';
 
 process.env = process.env ?? {};
-process.env.MANYVERSE_PLATFORM = 'desktop';
-process.env.DEBUG = '*';
 
 // Set default directories
 process.env.APP_DATA_DIR = process.cwd();
 process.env.SSB_DIR = path.resolve(os.homedir(), '.ssb');
+
+// Set global variables
+process.env.MANYVERSE_PLATFORM = 'desktop';
+// if (fs.existsSync(path.join(process.env.SSB_DIR, 'DETAILED_LOGS'))) {
+process.env.DEBUG = '*';
+// }
 
 let win: BrowserWindow | null;
 

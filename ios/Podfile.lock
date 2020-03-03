@@ -189,6 +189,8 @@ PODS:
   - React-jsinspector (0.61.5)
   - react-native-orientation-locker (1.1.7):
     - React
+  - react-native-slider (2.0.8):
+    - React
   - react-native-splash-screen (3.2.0):
     - React
   - react-native-viewpager (3.1.0):
@@ -269,6 +271,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
+  - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -333,6 +336,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-orientation-locker:
     :path: "../node_modules/react-native-orientation-locker"
+  react-native-slider:
+    :path: "../node_modules/@react-native-community/slider"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
   react-native-viewpager:
@@ -394,6 +399,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-orientation-locker: ec7d590e2a52ae4abda5b5b79ce71e50ffcd52a5
+  react-native-slider: b2f361499888302147205f17f6fffa921a7bda70
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-viewpager: 0070878575304aef182e5ff9fcc019335aa278a6
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76

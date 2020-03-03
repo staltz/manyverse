@@ -1,0 +1,159 @@
+/* Copyright (C) 2020 The Manyverse Authors.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+import fs = require('fs');
+import path = require('path');
+const mkdirp = require('mkdirp');
+
+const FILENAME = 'manyverse-settings.json';
+const DETAILED_LOGS = 'DETAILED_LOGS';
+
+type SettingsFile = {
+  hops?: number;
+  showFollows?: boolean;
+  blobsStorageLimit?: number;
+};
+
+function writeSync(data: SettingsFile): void {
+  if (!process.env.SSB_DIR) {
+    throw new Error('writeSync needs the SSB_DIR env var');
+  }
+  if (!fs.existsSync(process.env.SSB_DIR)) mkdirp.sync(process.env.SSB_DIR);
+
+  const filePath = path.join(process.env.SSB_DIR, FILENAME);
+  try {
+    const content = JSON.stringify(data);
+    fs.writeFileSync(filePath, content, {encoding: 'ascii'});
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function readSync(): SettingsFile & {detailedLogs?: boolean} {
+  if (!process.env.SSB_DIR) {
+    throw new Error('readSync needs the SSB_DIR env var');
+  }
+  if (!fs.existsSync(process.env.SSB_DIR)) mkdirp.sync(process.env.SSB_DIR);
+
+  const filePath = path.join(process.env.SSB_DIR, FILENAME);
+  let settings: ReturnType<typeof readSync>;
+
+  try {
+    const content = fs.readFileSync(filePath, {encoding: 'ascii'});
+    settings = JSON.parse(content);
+  } catch (err) {
+    if (err.code !== 'ENOENT') console.error(err);
+    settings = {};
+  }
+
+  if (fs.existsSync(path.join(process.env.SSB_DIR, DETAILED_LOGS))) {
+    settings.detailedLogs = true;
+  } else {
+    settings.detailedLogs = false;
+  }
+  return settings;
+}
+
+function writeDetailedLogs(detailedLogs: boolean) {
+  if (!process.env.SSB_DIR) {
+    throw new Error('writeSync needs the SSB_DIR env var');
+  }
+  if (!fs.existsSync(process.env.SSB_DIR)) mkdirp.sync(process.env.SSB_DIR);
+  const filePath = path.join(process.env.SSB_DIR, DETAILED_LOGS);
+  try {
+    if (detailedLogs) {
+      fs.writeFileSync(filePath, '1', {encoding: 'ascii'});
+    } else {
+      fs.unlinkSync(filePath);
+    }
+  } catch (err) {
+    if (err.code !== 'ENOENT') console.error(err);
+  }
+}
+
+function updateField<K extends keyof SettingsFile>(
+  key: K,
+  value: SettingsFile[K],
+) {
+  const prev = readSync();
+  const next = {...prev, [key]: value};
+  writeSync(next);
+}
+
+export = {
+  name: 'settingsUtils',
+  version: '1.0.0',
+  manifest: {
+    read: 'sync',
+    updateHops: 'sync',
+    updateBlobsPurge: 'sync',
+    updateShowFollows: 'sync',
+    updateDetailedLogs: 'sync',
+  },
+  permissions: {
+    master: {
+      allow: [
+        'read',
+        'updateHops',
+        'updateBlobsPurge',
+        'updateShowFollows',
+        'updateDetailedLogs',
+      ],
+    },
+  },
+
+  readSync,
+
+  init: function init(ssb: any, _config: any) {
+    if (!ssb.blobsPurge?.start) {
+      throw new Error(
+        '"settingsUtils" is missing required plugin "ssb-blobs-purge"',
+      );
+    }
+
+    // TODO: this logic could be moved to the frontend, and the storage of
+    // the settings could be put in React Native's async-storage, as long as
+    // we have a "global component" in cycle-native-navigation
+    const current = readSync();
+    let initialTimeout: ReturnType<typeof setTimeout>;
+    if (current.blobsStorageLimit && current.blobsStorageLimit >= 0) {
+      initialTimeout = setTimeout(() => {
+        ssb.blobsPurge.start({storage: current.blobsStorageLimit});
+      }, 30e3);
+    }
+
+    return {
+      updateHops(hops: number) {
+        updateField('hops', hops);
+      },
+
+      updateShowFollows(showFollows: boolean) {
+        // TODO: like above, this could also be moved to the frontend
+        updateField('showFollows', showFollows);
+      },
+
+      updateBlobsPurge(storageLimit: number) {
+        // TODO: like above, this could also be moved to the frontend
+        if (storageLimit >= 0) {
+          ssb.blobsPurge.start({storageLimit});
+          updateField('blobsStorageLimit', storageLimit);
+        } else {
+          clearTimeout(initialTimeout);
+          ssb.blobsPurge.stop();
+          updateField('blobsStorageLimit', void 0);
+        }
+      },
+
+      updateDetailedLogs(detailedLogs: boolean) {
+        writeDetailedLogs(detailedLogs);
+      },
+
+      read() {
+        return readSync();
+      },
+    };
+  },
+};

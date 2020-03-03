@@ -248,6 +248,7 @@ dependencies {
     implementation project(':react-native-fs')
     implementation project(':react-native-splash-screen')
     implementation project(':@react-native-community_viewpager')
+    implementation project(':@react-native-community_slider')
     implementation project(':react-native-system-setting')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.0.2'

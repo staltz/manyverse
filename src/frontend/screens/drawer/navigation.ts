@@ -9,17 +9,13 @@ import sample from 'xstream-sample';
 import {Command, PushCommand} from 'cycle-native-navigation';
 import {navOptions as profileScreenNavOptions} from '../profile';
 import {navOptions as rawDatabaseScreenNavOptions} from '../raw-db';
-import {navOptions as dialogAboutNavOptions} from '../dialog-about';
-import {navOptions as dialogThanksNavOptions} from '../dialog-thanks';
-import {navOptions as backupScreenNavOptions} from '../backup';
+import {navOptions as settingsScreenNavOptions} from '../settings';
 import {State} from './model';
 import {Screens} from '../..';
 
 export type Actions = {
   goToSelfProfile$: Stream<null>;
-  goToBackup$: Stream<null>;
-  goToAbout$: Stream<any>;
-  goToThanks$: Stream<any>;
+  goToSettings$: Stream<any>;
   showRawDatabase$: Stream<null>;
 };
 
@@ -45,26 +41,6 @@ export default function navigationCommands(
       } as PushCommand),
   );
 
-  const toAbout$ = actions.goToAbout$.mapTo({
-    type: 'showModal',
-    layout: {
-      component: {
-        name: Screens.DialogAbout,
-        options: dialogAboutNavOptions,
-      },
-    },
-  } as Command);
-
-  const toThanks$ = actions.goToThanks$.mapTo({
-    type: 'showModal',
-    layout: {
-      component: {
-        name: Screens.DialogThanks,
-        options: dialogThanksNavOptions,
-      },
-    },
-  } as Command);
-
   const toRawDatabase$ = actions.showRawDatabase$.map(
     () =>
       ({
@@ -79,21 +55,22 @@ export default function navigationCommands(
       } as PushCommand),
   );
 
-  const toBackup$ = actions.goToBackup$.map(
+  const toSettings$ = actions.goToSettings$.map(
     () =>
       ({
         type: 'push',
+        id: 'mainstack',
         layout: {
           component: {
-            name: Screens.Backup,
-            options: backupScreenNavOptions,
+            name: Screens.Settings,
+            options: settingsScreenNavOptions,
           },
         },
-      } as Command),
+      } as PushCommand),
   );
 
   const hideDrawerAndPush$ = xs
-    .merge(toSelfProfile$, toRawDatabase$, toBackup$)
+    .merge(toSelfProfile$, toRawDatabase$, toSettings$)
     .map(pushCommand => {
       const hideDrawer: Command = {
         type: 'mergeOptions',
@@ -110,5 +87,5 @@ export default function navigationCommands(
     })
     .flatten();
 
-  return xs.merge(hideDrawerAndPush$, toAbout$, toThanks$);
+  return hideDrawerAndPush$;
 }

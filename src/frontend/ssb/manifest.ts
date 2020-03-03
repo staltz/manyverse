@@ -73,6 +73,11 @@ export default {
     changes: 'source',
     createWants: 'source',
   },
+  blobsPurge: {
+    start: 'sync',
+    stop: 'sync',
+    changes: 'source',
+  },
   backlinks: {
     read: 'source',
   },
@@ -161,6 +166,13 @@ export default {
   },
   keysUtils: {
     getMnemonic: 'sync',
+  },
+  settingsUtils: {
+    read: 'sync',
+    updateHops: 'sync',
+    updateBlobsPurge: 'sync',
+    updateShowFollows: 'sync',
+    updateDetailedLogs: 'sync',
   },
   syncing: {
     stream: 'source',

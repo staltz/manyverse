@@ -34,6 +34,7 @@
     "ssb-about": "2.0.0",
     "ssb-backlinks": "0.7.3",
     "ssb-blobs": "1.2.2",
+    "ssb-blobs-purge": "0.1.1",
     "ssb-bluetooth": "1.1.14",
     "ssb-config": "3.3.2",
     "ssb-conn": "0.16.2",

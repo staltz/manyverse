@@ -10,6 +10,7 @@ const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 const makeConfig = require('ssb-config/inject');
 import bluetoothTransport = require('./plugins/bluetooth');
+import settingsUtils = require('./plugins/settingsUtils');
 const SecretStack = require('secret-stack');
 
 if (!process.env.APP_DATA_DIR || !process.env.SSB_DIR) {
@@ -23,11 +24,17 @@ const keys = ssbKeys.loadOrCreateSync(keysPath);
 const config = makeConfig('ssb', {
   path: process.env.SSB_DIR,
   keys,
+  blobs: {
+    sympathy: 2,
+  },
+  blobsPurge: {
+    cpuMax: 30,
+  },
   conn: {
     autostart: false,
   },
   friends: {
-    hops: 2,
+    hops: settingsUtils.readSync().hops ?? 2,
   },
   connections: {
     incoming: {
@@ -74,12 +81,14 @@ SecretStack({appKey: require('ssb-caps').shs})
   // Blobs
   .use(require('ssb-blobs'))
   .use(require('ssb-serve-blobs')) // needs: blobs
+  .use(require('ssb-blobs-purge')) // needs: blobs, backlinks
   // Customizations
   .use(require('./plugins/blobsUtils')) // needs: blobs
   .use(require('./plugins/connUtilsBack')) // needs: conn
   .use(require('./plugins/publishUtilsBack')) // needs: db, blobs, blobsUtils
   .use(require('./plugins/friendsUtils')) // needs: db
   .use(require('./plugins/keysUtils'))
+  .use(settingsUtils) // needs: blobs-purge
   .use(require('./plugins/syncing')) // needs: db
   .use(require('./plugins/votes')) // needs: backlinks
   .call(null, config);

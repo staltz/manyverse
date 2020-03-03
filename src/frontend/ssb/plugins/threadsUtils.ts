@@ -129,11 +129,35 @@ function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
   };
 }
 
+const ALLOW_POSTS = ['post'];
+const ALLOW_POSTS_AND_CONTACTS = ['post', 'contact'];
+
 const threadsUtils = {
   name: 'threadsUtils' as const,
 
   init: function init(ssb: SSB) {
+    if (!ssb.settingsUtils?.read) {
+      throw new Error(
+        '"threadsUtils" is missing required plugin "settingsUtils"',
+      );
+    }
+
+    const privateAllowlist = ALLOW_POSTS;
+    let publicAllowlist = ALLOW_POSTS_AND_CONTACTS;
+
+    // TODO: this could be in a "global component" in cycle-native-navigation
+    ssb.settingsUtils.read((err: any, settings?: {showFollows?: boolean}) => {
+      if (err) console.error(err);
+      else if (settings?.showFollows === false) {
+        publicAllowlist = ALLOW_POSTS;
+      }
+    });
+
     return {
+      updateShowFollows(showFollows: boolean) {
+        publicAllowlist = showFollows ? ALLOW_POSTS_AND_CONTACTS : ALLOW_POSTS;
+      },
+
       publicRawFeed(opts: any) {
         return pull(
           ssb.createFeedStream({reverse: true, live: false, ...opts}),
@@ -145,18 +169,33 @@ const threadsUtils = {
         return pull(
           ssb.threads.public({
             threadMaxSize: 3,
-            allowlist: ['post', 'contact'],
+            allowlist: publicAllowlist,
             ...opts,
           }),
           pull.asyncMap(mutateThreadWithLiveExtras(ssb)),
         );
       },
 
+      publicUpdates() {
+        return ssb.threads.publicUpdates({allowlist: publicAllowlist});
+      },
+
       privateFeed(opts: any) {
         return pull(
-          ssb.threads.private({threadMaxSize: 1, allowlist: ['post'], ...opts}),
+          ssb.threads.private({
+            threadMaxSize: 1,
+            allowlist: privateAllowlist,
+            ...opts,
+          }),
           pull.asyncMap(mutatePrivateThreadWithLiveExtras(ssb)),
         );
+      },
+
+      privateUpdates() {
+        return ssb.threads.privateUpdates({
+          allowlist: privateAllowlist,
+          includeSelf: true,
+        });
       },
 
       selfPublicRoots(opts: any) {
@@ -173,7 +212,7 @@ const threadsUtils = {
         return pull(
           ssb.threads.private({
             threadMaxSize: 1,
-            allowlist: ['post'],
+            allowlist: privateAllowlist,
             old: false,
             live: true,
           }),
@@ -198,7 +237,7 @@ const threadsUtils = {
             reverse: true,
             live: false,
             threadMaxSize: 3,
-            allowlist: ['post', 'contact'],
+            allowlist: publicAllowlist,
             ...opts,
           }),
           pull.asyncMap(mutateThreadWithLiveExtras(ssb)),

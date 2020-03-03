@@ -25,6 +25,7 @@ export enum Screens {
   SecretInput = 'Manyverse.SecretInput',
   RawDatabase = 'Manyverse.RawDatabase',
   RawMessage = 'Manyverse.RawMessage',
+  Settings = 'Manyverse.Settings',
 }
 
 import {withState} from '@cycle/state';
@@ -64,6 +65,7 @@ import {rawMessage} from './screens/raw-msg/index';
 import {backup} from './screens/backup/index';
 import {secretOutput} from './screens/secret-output/index';
 import {secretInput} from './screens/secret-input/index';
+import {settings} from './screens/settings/index';
 import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
 import {Options, Layout} from 'react-native-navigation';
@@ -89,6 +91,7 @@ export const screens: {[k in Screens]?: (so: any) => any} = {
   [Screens.SecretInput]: withState(secretInput),
   [Screens.RawDatabase]: rawDatabase,
   [Screens.RawMessage]: rawMessage,
+  [Screens.Settings]: withState(settings),
 };
 
 export const drivers = {

@@ -14,7 +14,7 @@ import model, {State} from './model';
 import view from './view';
 import navigation from './navigation';
 import {ReactElement} from 'react';
-import bugReport from './bug-report';
+import linking from './linking';
 
 export type Sources = {
   screen: ReactSource;
@@ -42,7 +42,7 @@ export function drawer(sources: Sources): Sinks {
   const vdom$ = view(sources.state.stream);
   const command$ = navigation(actions, sources.state.stream);
   const reducer$ = model(sources.ssb);
-  const mailto$ = actions.emailBugReport$.mapTo(bugReport);
+  const mailto$ = linking(actions);
 
   return {
     screen: vdom$,
