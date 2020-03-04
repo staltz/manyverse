@@ -133,7 +133,9 @@ function view(state$: Stream<State>) {
       Animated.View,
       {style: [styles.container, {transform: [{translateY}]}]},
       [
-        HeaderMenuButton('menuButton'),
+        h(Animated.View, {style: [{opacity}]}, [
+          HeaderMenuButton('menuButton'),
+        ]),
         h(
           Animated.Text,
           {style: [styles.title, {opacity}]},
