@@ -6,6 +6,12 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2003.4-beta
+
+* Bug fix: on Android 9+ images were not showing ([see details](https://gitlab.com/staltz/manyverse/commit/523210152fb7b23260eb6ade2f6ad7f25f71b8ff))
+* Feature: links to forked threads ([see details](https://gitlab.com/staltz/manyverse/commit/990461d38fca528d30b3a5b62464d4af9ae7a13e))
+* Feature: new settings screen ([see details](https://gitlab.com/staltz/manyverse/commit/d127159c162e649357f09d5e07527c1c13805729))
+
 ## 0.2002.24-beta
 
 * Bug fix: connections disappeared, issue #802 ([see details](https://gitlab.com/staltz/manyverse/commit/97440ec7023a6e4d9fa0fd995468cb5a7b0ea4b7)), closes [#802](https://gitlab.com/staltz/manyverse/issues/802)
