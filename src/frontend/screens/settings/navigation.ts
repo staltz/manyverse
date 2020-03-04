@@ -8,11 +8,13 @@ import xs, {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {navOptions as dialogAboutNavOptions} from '../dialog-about';
 import {navOptions as dialogThanksNavOptions} from '../dialog-thanks';
+import {navOptions as librariesNavOptions} from '../libraries';
 import {navOptions as backupScreenNavOptions} from '../backup';
 import {Screens} from '../..';
 
 export type Actions = {
   goToBackup$: Stream<any>;
+  goToLibraries$: Stream<any>;
   goToAbout$: Stream<any>;
   goToThanks$: Stream<any>;
 };
@@ -39,6 +41,19 @@ export default function navigationCommands(
       } as Command),
   );
 
+  const toLibraries$ = actions.goToLibraries$.map(
+    () =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Libraries,
+            options: librariesNavOptions,
+          },
+        },
+      } as Command),
+  );
+
   const toAbout$ = actions.goToAbout$.mapTo({
     type: 'showModal',
     layout: {
@@ -59,5 +74,5 @@ export default function navigationCommands(
     },
   } as Command);
 
-  return xs.merge(back$, toBackup$, toAbout$, toThanks$);
+  return xs.merge(back$, toBackup$, toLibraries$, toAbout$, toThanks$);
 }

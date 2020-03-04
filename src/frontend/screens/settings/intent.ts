@@ -51,6 +51,8 @@ export default function intent(screenSource: ReactSource) {
 
     goToBackup$: screenSource.select('backup').events('press'),
 
+    goToLibraries$: screenSource.select('libraries').events('press'),
+
     goToThanks$: screenSource.select('thanks').events('press'),
 
     goToAbout$: screenSource.select('about').events('press'),

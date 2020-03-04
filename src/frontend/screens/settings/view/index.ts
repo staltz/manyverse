@@ -115,9 +115,9 @@ export default function view(
             : null,
           canShowThanks ? h(View, {style: styles.spacer}) : null,
           h(LinkSetting, {
-            sel: 'licenses',
-            title: 'Open source licenses',
-            accessibilityLabel: 'View Open Source Licenses',
+            sel: 'libraries',
+            title: 'Third party libraries',
+            accessibilityLabel: 'View third party libraries used in this app',
           }),
           h(View, {style: styles.spacer}),
           h(LinkSetting, {
