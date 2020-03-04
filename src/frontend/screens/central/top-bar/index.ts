@@ -102,9 +102,8 @@ function calcTranslateY(scrollY: Animated.Value) {
 function calcOpacity(scrollY: Animated.AnimatedMultiplication) {
   if (Platform.OS === 'android') return new Animated.Value(1);
 
-  const height = Dimensions.toolbarHeight - getStatusBarHeight(true);
   return scrollY.interpolate({
-    inputRange: [-height, 0],
+    inputRange: [-getStatusBarHeight(true), 0],
     outputRange: [0, 1],
     extrapolate: 'clamp',
   });
