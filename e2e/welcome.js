@@ -238,12 +238,11 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Welcome back!")',
+        'new UiSelector().textContains("Welcome back")',
         6000,
       ),
       'I see an alert saying that recovery succeeded',
     );
-
     await driver.sleep(3000);
 
     const okButton = await driver.waitForElementByAndroidUIAutomator(

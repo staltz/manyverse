@@ -38,6 +38,7 @@ test('...', function(t) {
   require('./connections.js')(driver, t);
   require('./compose.js')(driver, t);
   require('./drawer.js')(driver, t);
+  require('./settings.js')(driver, t);
   require('./feed.js')(driver, t);
   require('./thread.js')(driver, t);
   require('./profile.js')(driver, t);
