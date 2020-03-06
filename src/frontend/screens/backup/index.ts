@@ -185,7 +185,7 @@ export function backup(sources: Sources): Sinks {
             renderDescription: () => [
               'Your account\'s "fingerprint" is made up of a highly unique ',
               h(Text, {style: styles.bold}, 'recovery phrase'),
-              '. This is a sequence of 42 words that unlocks ' +
+              '. This is a sequence of 48 words that unlocks ' +
                 'your account. ',
               h(Text, {style: styles.bold}, 'Keep it confidential'),
               ', because if anyone else has access to it, they can take control of ' +
