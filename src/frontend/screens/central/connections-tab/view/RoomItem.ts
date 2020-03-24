@@ -135,7 +135,7 @@ export default class RoomItem extends PureComponent<Props> {
         activeOpacity: 0.5,
       },
       [
-        h(View, {style: styles.item}, [
+        h(View, {style: styles.item, pointerEvents: 'box-only'}, [
           h(View, {style: styles.details}, [
             h(View, {style: styles.row}, [
               h(View, {

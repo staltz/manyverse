@@ -74,7 +74,7 @@ export type Props = {
   accessibilityLabel?: string;
 };
 
-export default class Button extends Component<Props> {
+export default class DialogButton extends Component<Props> {
   constructor(props: Props) {
     super(props);
   }
@@ -103,7 +103,9 @@ export default class Button extends Component<Props> {
     }
 
     return h(Touchable, touchableProps, [
-      h(View, {style: styles.container}, [h(Text, {style: styles.text}, text)]),
+      h(View, {style: styles.container, pointerEvents: 'box-only'}, [
+        h(Text, {style: styles.text}, text),
+      ]),
     ]);
   }
 }

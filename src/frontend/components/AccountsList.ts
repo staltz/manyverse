@@ -98,7 +98,7 @@ class Account extends PureComponent<AccountProps> {
       },
       [
         h(Touchable, touchableProps, [
-          h(View, {style: styles.row}, [
+          h(View, {style: styles.row, pointerEvents: 'box-only'}, [
             h(Avatar, {
               url: imageUrl,
               size: Dimensions.avatarSizeNormal,

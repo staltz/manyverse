@@ -120,7 +120,7 @@ export default class ConnectionsItem extends PureComponent<Props> {
         activeOpacity: 0.5,
       },
       [
-        h(View, {style: styles.item}, [
+        h(View, {style: styles.item, pointerEvents: 'box-only'}, [
           h(Avatar, {
             size: Dimensions.avatarSizeNormal,
             url: data['imageUrl' as any],

@@ -132,11 +132,13 @@ export default class ToggleButton extends PureComponent<Props, State> {
     if (Platform.OS === 'android') {
       touchableProps.background = TouchableNativeFeedback.SelectableBackground();
     }
+    const viewProps = {
+      style: [containerStyle, style] as readonly ViewStyle[],
+      pointerEvents: 'box-only' as const,
+    };
 
     return h(Touchable, touchableProps, [
-      h(View, {style: [containerStyle, style] as readonly ViewStyle[]}, [
-        h(Text, {style: textStyle}, text),
-      ]),
+      h(View, viewProps, [h(Text, {style: textStyle}, text)]),
     ]);
   }
 }

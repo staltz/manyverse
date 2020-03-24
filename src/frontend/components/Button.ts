@@ -125,6 +125,7 @@ export default class Button extends Component<Props, {}> {
     }
 
     const viewProps = {
+      pointerEvents: 'box-only' as const,
       style: [
         strong ? styles.containerStrong : styles.container,
         small ? styles.containerSizeSmall : styles.containerSize,

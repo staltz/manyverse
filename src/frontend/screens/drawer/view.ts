@@ -65,7 +65,7 @@ class MenuItem extends PureComponent<MenuItemProps> {
     }
 
     return h(Touchable, touchableProps, [
-      h(View, {style: styles.menuItemContainer}, [
+      h(View, {style: styles.menuItemContainer, pointerEvents: 'box-only'}, [
         h(Icon, {
           size: Dimensions.iconSizeNormal,
           color: Palette.textWeak,

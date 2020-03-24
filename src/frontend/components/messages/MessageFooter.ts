@@ -128,7 +128,7 @@ class LikeCount extends PureComponent<LCProps> {
     const {count, onPress} = this.props;
 
     const likesComponent = [
-      h(View, {style: styles.col}, [
+      h(View, {style: styles.col, pointerEvents: 'box-only'}, [
         h(Text, {style: count > 0 ? styles.likes : styles.likesHidden}, [
           h(Text, {style: styles.likeCount}, String(count)),
           count === 1 ? ' like' : ' likes',
@@ -187,7 +187,7 @@ class LikeButton extends PureComponent<LBProps, {maybeToggled: boolean}> {
     }
 
     return h(Touchable, touchableProps, [
-      h(View, {style: styles.likeButton}, [
+      h(View, {style: styles.likeButton, pointerEvents: 'box-only'}, [
         h(Icon, iconProps[ilike + 'Liked']),
         h(Text, {style: styles.likeButtonLabel}, 'Like'),
       ]),
@@ -211,7 +211,7 @@ class ReplyButton extends PureComponent<RProps> {
     }
 
     return h(Touchable, touchableProps, [
-      h(View, {style: styles.replyButton}, [
+      h(View, {style: styles.replyButton, pointerEvents: 'box-only'}, [
         h(Icon, iconProps.reply),
         h(Text, {style: styles.replyButtonLabel}, 'Comment'),
       ]),

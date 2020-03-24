@@ -105,7 +105,7 @@ export default class ExpandThread extends PureComponent<Props> {
     }
 
     return h(Touchable, touchableProps, [
-      h(View, {style: styles.container}, [
+      h(View, {style: styles.container, pointerEvents: 'box-only'}, [
         h(View, {style: styles.hr1}),
         h(View, {style: styles.hr2}),
         h(View, {style: styles.labelBoxContainer}, [

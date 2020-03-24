@@ -128,7 +128,7 @@ export default class RawMessage extends Component<Props> {
 
     return h(View, [
       h(Touchable, touchableProps, [
-        h(View, {style: styles.row}, [
+        h(View, {style: styles.row, pointerEvents: 'box-only'}, [
           h(Avatar, {
             url: imageUrl,
             size: Dimensions.avatarSizeNormal,

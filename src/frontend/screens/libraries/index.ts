@@ -124,7 +124,7 @@ class Dep extends PureComponent<{
     }
 
     return h(Touchable, touchableProps, [
-      h(View, {style: styles.itemContainer}, [
+      h(View, {style: styles.itemContainer, pointerEvents: 'box-only'}, [
         h(
           View,
           {style: styles.itemTitleSubtitleColumn},

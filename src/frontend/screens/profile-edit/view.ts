@@ -43,7 +43,7 @@ export default function view(
           accessibilityLabel: 'Profile Picture',
         },
         [
-          h(View, {style: styles.avatarTouchable}, [
+          h(View, {style: styles.avatarTouchable, pointerEvents: 'box-only'}, [
             h(Avatar, {
               size: avatarSize,
               url: state.newAvatar

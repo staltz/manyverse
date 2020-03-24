@@ -74,7 +74,7 @@ export default class LinkSetting extends PureComponent<Props> {
     }
 
     return h(Touchable, touchableProps, [
-      h(View, {style: styles.container}, [
+      h(View, {style: styles.container, pointerEvents: 'box-only'}, [
         h(View, {style: styles.titleSubtitleColumn}, [
           h(Text, {style: styles.title}, title),
           subtitle ? h(Text, {style: styles.subtitle}, subtitle) : null,

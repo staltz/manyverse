@@ -51,7 +51,7 @@ function ContentWarningButton(miniState: MiniState) {
       accessible: true,
       accessibilityLabel: 'Content Warning Button',
     },
-    [h(View, [h(Text, {style}, 'CW')])],
+    [h(View, {pointerEvents: 'box-only'}, [h(Text, {style}, 'CW')])],
   );
 }
 

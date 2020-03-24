@@ -88,7 +88,7 @@ export default class StagedItem extends PureComponent<Props> {
         activeOpacity: 0.5,
       },
       [
-        h(View, {style: styles.item}, [
+        h(View, {style: styles.item, pointerEvents: 'box-only'}, [
           h(View, {style: styles.avatar}, [
             h(Icon, {
               size: Dimensions.iconSizeNormal,
