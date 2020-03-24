@@ -8,11 +8,9 @@ import {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
-import isolate from '@cycle/isolate';
 import {Reducer, StateSource} from '@cycle/state';
 import {Command as AlertCommand} from 'cycle-native-alert';
 import {SSBSource, Req} from '../../drivers/ssb';
-import {topBar, Sinks as TBSinks} from './top-bar';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
@@ -50,14 +48,12 @@ export const navOptions = {
 };
 
 export function settings(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
-
   const actions = intent(sources.screen);
   const reducer$ = model(actions, sources.ssb);
-  const vdom$ = view(topBarSinks.screen, sources.state.stream);
+  const vdom$ = view(sources.state.stream);
   const req$ = ssb(actions);
   const alert$ = alert(actions);
-  const command$ = navigation(actions, sources.navigation, topBarSinks.back);
+  const command$ = navigation(actions, sources.navigation);
   const links$ = linking(actions);
 
   return {

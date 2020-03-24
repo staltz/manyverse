@@ -4,8 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
-import {ReactElement} from 'react';
+import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {ScrollView, View, Text, Platform, NativeModules} from 'react-native';
 import {styles} from './styles';
@@ -13,6 +12,7 @@ import ToggleSetting from './ToggleSetting';
 import {State, blobsStorageOptions, hopsOptions} from '../model';
 import LinkSetting from './LinkSetting';
 import SliderSetting from './SliderSetting';
+import TopBar from '../../../components/TopBar';
 
 // Google Play Store has banned Manyverse a couple times
 // over a "policy violation regarding Payments", and this
@@ -22,10 +22,7 @@ const canShowThanks =
     ? NativeModules.BuildConfig.FLAVOR !== 'googlePlay'
     : true;
 
-export default function view(
-  topBarVDOM$: Stream<ReactElement<any>>,
-  state$: Stream<State>,
-) {
+export default function view(state$: Stream<State>) {
   const localizedBlobsStorageOptions = blobsStorageOptions.map(opt => {
     if (opt === 'unlimited') return 'Unlimited' as string;
     else return opt as string;
@@ -36,9 +33,9 @@ export default function view(
     else return opt as string;
   });
 
-  return xs.combine(topBarVDOM$, state$).map(([topBarVDOM, state]) =>
+  return state$.map(state =>
     h(View, {style: styles.screen}, [
-      topBarVDOM,
+      h(TopBar, {sel: 'topbar', title: 'Settings'}),
       h(ScrollView, {style: styles.container}, [
         h(View, {style: styles.section}, [
           h(Text, {style: styles.sectionTitle}, 'Preferences'),

@@ -4,8 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
-import {ReactElement} from 'react';
+import {Stream} from 'xstream';
 import {
   StyleSheet,
   View,
@@ -22,6 +21,7 @@ import {Typography} from '../../global-styles/typography';
 import Button from '../../components/Button';
 import FlagSecure from '../../components/FlagSecure';
 import {State} from './model';
+import TopBar from '../../components/TopBar';
 
 export const styles = StyleSheet.create({
   screen: {
@@ -77,15 +77,15 @@ export const styles = StyleSheet.create({
   },
 });
 
-export default function view(
-  state$: Stream<State>,
-  topBar$: Stream<ReactElement<any>>,
-) {
+export default function view(state$: Stream<State>) {
   const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
 
-  return xs.combine(topBar$, state$).map(([topBarVDOM, state]) =>
+  return state$.map(state =>
     h(View, {style: styles.screen}, [
-      topBarVDOM,
+      h(TopBar, {
+        sel: 'topbar',
+        title: state.practiceMode ? 'Practice' : 'Restore account',
+      }),
 
       h(
         KeyboardAvoidingView,

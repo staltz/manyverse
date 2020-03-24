@@ -16,11 +16,10 @@ import {Dimensions} from '../../global-styles/dimens';
 import FlagSecure from '../../components/FlagSecure';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
-import {topBar, Sinks as TBSinks} from './top-bar';
-import isolate from '@cycle/isolate';
 import {navOptions as inputSecretScreenNavOptions} from '../secret-input';
 import Button from '../../components/Button';
 import {Screens} from '../..';
+import TopBar from '../../components/TopBar';
 
 export type Sources = {
   screen: ReactSource;
@@ -140,21 +139,20 @@ function navigation(actions: Actions, state$: Stream<State>) {
   return xs.merge(goBack$, goToPractice$);
 }
 
-function intent(
-  navSource: NavSource,
-  screenSource: ReactSource,
-  back$: Stream<any>,
-) {
+function intent(navSource: NavSource, screenSource: ReactSource) {
   return {
-    goBack$: xs.merge(navSource.backPress(), back$),
+    goBack$: xs.merge(
+      navSource.backPress(),
+      screenSource.select('topbar').events('pressBack'),
+    ),
     confirm$: screenSource.select('confirm-recovery-phrase').events('press'),
   };
 }
 
-function view(state$: Stream<State>, topBar$: Stream<ReactElement<any>>) {
-  return xs.combine(topBar$, state$).map(([topBarVDOM, state]) =>
+function view(state$: Stream<State>) {
+  return state$.map(state =>
     h(View, {style: styles.screen}, [
-      topBarVDOM,
+      h(TopBar, {sel: 'topbar', title: 'Recovery Phrase'}),
 
       h(View, {style: styles.container}, [
         h(FlagSecure, [
@@ -198,11 +196,9 @@ function view(state$: Stream<State>, topBar$: Stream<ReactElement<any>>) {
 }
 
 export function secretOutput(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
+  const actions = intent(sources.navigation, sources.screen);
 
-  const actions = intent(sources.navigation, sources.screen, topBarSinks.back);
-
-  const vdom$ = view(sources.state.stream, topBarSinks.screen);
+  const vdom$ = view(sources.state.stream);
 
   const command$ = navigation(actions, sources.state.stream);
 

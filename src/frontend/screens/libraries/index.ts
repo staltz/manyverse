@@ -18,10 +18,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
-import isolate from '@cycle/isolate';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import TopBar from '../../components/TopBar';
 import {Palette} from '../../global-styles/palette';
-import {topBar, Sinks as TBSinks} from './top-bar';
 import librariesData from '../../libraries';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -213,26 +212,23 @@ export default class DepList extends PureComponent<{
   }
 }
 
-function intent(
-  navSource: NavSource,
-  reactSource: ReactSource,
-  back$: Stream<any>,
-) {
+function intent(navSource: NavSource, reactSource: ReactSource) {
   return {
-    goBack$: xs.merge(navSource.backPress(), back$),
+    goBack$: xs.merge(
+      navSource.backPress(),
+      reactSource.select('topbar').events('pressBack'),
+    ),
 
     openLink$: reactSource.select('libraries').events('pressLibrary'),
   };
 }
 
 export function libraries(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
+  const actions = intent(sources.navigation, sources.screen);
 
-  const actions = intent(sources.navigation, sources.screen, topBarSinks.back);
-
-  const vdom$ = topBarSinks.screen.map(topBarVDOM =>
+  const vdom$ = xs.of(
     h(View, {style: styles.screen}, [
-      topBarVDOM,
+      h(TopBar, {sel: 'topbar', title: 'Third party libraries'}),
       h(ScrollView, {style: styles.container}, [
         h(DepList, {sel: 'libraries', libraries: librariesData}),
       ]),

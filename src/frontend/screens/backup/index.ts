@@ -9,16 +9,15 @@ import {ReactElement} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
-import isolate from '@cycle/isolate';
 import {StateSource, Reducer} from '@cycle/state';
 import {OrientationEvent} from '../../drivers/orientation';
 import {Palette} from '../../global-styles/palette';
 import tutorialPresentation from '../../components/tutorial-presentation';
 import tutorialSlide from '../../components/tutorial-slide';
 import Button from '../../components/Button';
+import TopBar from '../../components/TopBar';
 import {navOptions as outputSecretScreenNavOptions} from '../secret-output';
 import {Screens} from '../..';
-import {topBar, Sinks as TBSinks} from './top-bar';
 
 export type State = {
   index: number;
@@ -93,10 +92,11 @@ export type Actions = {
 };
 
 export function backup(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
-
   const goBack$ = xs
-    .merge(sources.navigation.backPress(), topBarSinks.back)
+    .merge(
+      sources.navigation.backPress(),
+      sources.screen.select('topbar').events('pressBack'),
+    )
     .mapTo({type: 'pop'} as Command);
 
   const goToExportSecret$ = sources.screen
@@ -119,93 +119,86 @@ export function backup(sources: Sources): Sinks {
     )
     .mapTo([/* offset */ +1, /* animated */ true] as [number, boolean]);
 
-  const vdom$ = xs
-    .combine(topBarSinks.screen, sources.state.stream)
-    .map(([topBarVDOM, state]) =>
-      h(View, {style: styles.screen}, [
-        topBarVDOM,
+  const vdom$ = sources.state.stream.map(state =>
+    h(View, {style: styles.screen}, [
+      h(TopBar, {sel: 'topbar', title: 'Backup'}),
 
-        tutorialPresentation('swiper', {scrollBy$}, [
-          tutorialSlide({
-            show: state.index >= 0,
-            portraitMode: state.isPortraitMode,
-            image: require('../../../../images/noun-glassware.png'),
-            title: 'Your account has\ntwo parts to keep safe',
-            renderDescription: () => [],
-            renderBottom: () =>
-              h(Button, {
-                sel: 'confirm-start',
-                style: styles.button,
-                textStyle: styles.buttonText,
-                text: 'Continue',
-                strong: false,
-                accessible: true,
-                accessibilityLabel: 'Continue Button',
-              }),
-          }),
+      tutorialPresentation('swiper', {scrollBy$}, [
+        tutorialSlide({
+          show: state.index >= 0,
+          portraitMode: state.isPortraitMode,
+          image: require('../../../../images/noun-glassware.png'),
+          title: 'Your account has\ntwo parts to keep safe',
+          renderDescription: () => [],
+          renderBottom: () =>
+            h(Button, {
+              sel: 'confirm-start',
+              style: styles.button,
+              textStyle: styles.buttonText,
+              text: 'Continue',
+              strong: false,
+              accessible: true,
+              accessibilityLabel: 'Continue Button',
+            }),
+        }),
 
-          tutorialSlide({
-            show: state.index >= 1,
-            portraitMode: state.isPortraitMode,
-            image: require('../../../../images/noun-books.png'),
-            title: 'Data',
-            renderDescription: () => [
-              "This is your account's posts, messages, pictures, likes and " +
-                'similar activity. To keep it safe against sudden loss, we ' +
-                'use ',
-              h(Text, {style: styles.bold}, 'crowd backup'),
-              '. You only ' + 'need to ',
-              h(
-                Text,
-                {style: styles.bold},
-                'synchronize with reliable friends',
-              ),
-              ' or other devices you own. Just use Manyverse ' +
-                'with friends often, there is ',
-              h(Text, {style: styles.bold}, 'nothing else to do'),
-              '! Your friends back you up.',
-            ],
-            renderBottom: () =>
-              h(Button, {
-                sel: 'confirm-data',
-                style: styles.button,
-                textStyle: styles.buttonText,
-                text: 'I understand',
-                strong: false,
-                accessible: true,
-                accessibilityLabel: 'I understand Button',
-              }),
-          }),
+        tutorialSlide({
+          show: state.index >= 1,
+          portraitMode: state.isPortraitMode,
+          image: require('../../../../images/noun-books.png'),
+          title: 'Data',
+          renderDescription: () => [
+            "This is your account's posts, messages, pictures, likes and " +
+              'similar activity. To keep it safe against sudden loss, we ' +
+              'use ',
+            h(Text, {style: styles.bold}, 'crowd backup'),
+            '. You only ' + 'need to ',
+            h(Text, {style: styles.bold}, 'synchronize with reliable friends'),
+            ' or other devices you own. Just use Manyverse ' +
+              'with friends often, there is ',
+            h(Text, {style: styles.bold}, 'nothing else to do'),
+            '! Your friends back you up.',
+          ],
+          renderBottom: () =>
+            h(Button, {
+              sel: 'confirm-data',
+              style: styles.button,
+              textStyle: styles.buttonText,
+              text: 'I understand',
+              strong: false,
+              accessible: true,
+              accessibilityLabel: 'I understand Button',
+            }),
+        }),
 
-          tutorialSlide({
-            show: state.index >= 2,
-            portraitMode: state.isPortraitMode,
-            image: require('../../../../images/noun-fingerprint.png'),
-            title: 'Identity',
-            renderDescription: () => [
-              'Your account\'s "fingerprint" is made up of a highly unique ',
-              h(Text, {style: styles.bold}, 'recovery phrase'),
-              '. This is a sequence of 48 words that unlocks ' +
-                'your account. ',
-              h(Text, {style: styles.bold}, 'Keep it confidential'),
-              ', because if anyone else has access to it, they can take control of ' +
-                'your account. ',
-              h(Text, {style: styles.bold}, 'Take responsibility'),
-              ' over it, since you and only you can recover your account!',
-            ],
-            renderBottom: () =>
-              h(Button, {
-                sel: 'show-recovery-phrase',
-                style: styles.ctaButton,
-                text: 'Show Recovery Phrase',
-                strong: true,
-                accessible: true,
-                accessibilityLabel: 'Show Recovery Phrase Button',
-              }),
-          }),
-        ]),
+        tutorialSlide({
+          show: state.index >= 2,
+          portraitMode: state.isPortraitMode,
+          image: require('../../../../images/noun-fingerprint.png'),
+          title: 'Identity',
+          renderDescription: () => [
+            'Your account\'s "fingerprint" is made up of a highly unique ',
+            h(Text, {style: styles.bold}, 'recovery phrase'),
+            '. This is a sequence of 48 words that unlocks ' + 'your account. ',
+            h(Text, {style: styles.bold}, 'Keep it confidential'),
+            ', because if anyone else has access to it, they can take control of ' +
+              'your account. ',
+            h(Text, {style: styles.bold}, 'Take responsibility'),
+            ' over it, since you and only you can recover your account!',
+          ],
+          renderBottom: () =>
+            h(Button, {
+              sel: 'show-recovery-phrase',
+              style: styles.ctaButton,
+              text: 'Show Recovery Phrase',
+              strong: true,
+              accessible: true,
+              accessibilityLabel: 'Show Recovery Phrase Button',
+            }),
+        }),
       ]),
-    );
+    ]),
+  );
 
   const command$ = xs.merge(goBack$, goToExportSecret$);
 

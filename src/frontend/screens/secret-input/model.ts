@@ -6,8 +6,6 @@
 
 import xs, {Stream} from 'xstream';
 import {Props} from './index';
-import {Lens} from '@cycle/state';
-import {State as TopBarState} from './top-bar';
 
 export type State = {
   practiceMode: boolean;
@@ -17,19 +15,6 @@ export type State = {
 
 type Actions = {
   updateWords$: Stream<string>;
-};
-
-export const topBarLens: Lens<State, TopBarState> = {
-  get: (parent: State): TopBarState => {
-    return {
-      practiceMode: parent.practiceMode,
-    };
-  },
-
-  // Ignore writes from the child
-  set: (parent: State, _child: TopBarState): State => {
-    return parent;
-  },
 };
 
 export default function model(props$: Stream<Props>, actions: Actions) {

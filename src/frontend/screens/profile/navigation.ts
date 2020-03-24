@@ -23,6 +23,7 @@ import {Screens} from '../..';
 import {State} from './model';
 
 export type Actions = {
+  goBack$: Stream<any>;
   goToCompose$: Stream<null>;
   goToEdit$: Stream<null>;
   goToBio$: Stream<any>;
@@ -40,7 +41,6 @@ export default function navigation(
   actions: Actions,
   navSource: NavSource,
   state$: Stream<State>,
-  back$: Stream<any>,
 ): Stream<Command> {
   const toCompose$ = actions.goToCompose$.map(
     () =>
@@ -158,7 +158,7 @@ export default function navigation(
       } as Command),
   );
 
-  const pop$ = xs.merge(navSource.backPress(), back$).mapTo({
+  const pop$ = xs.merge(navSource.backPress(), actions.goBack$).mapTo({
     type: 'pop',
   } as PopCommand);
 

@@ -13,6 +13,7 @@ import {navOptions as backupScreenNavOptions} from '../backup';
 import {Screens} from '../..';
 
 export type Actions = {
+  goBack$: Stream<any>;
   goToBackup$: Stream<any>;
   goToLibraries$: Stream<any>;
   goToAbout$: Stream<any>;
@@ -22,9 +23,8 @@ export type Actions = {
 export default function navigationCommands(
   actions: Actions,
   navSource: NavSource,
-  topBarBack$: Stream<any>,
 ): Stream<Command> {
-  const back$ = xs.merge(navSource.backPress(), topBarBack$).mapTo({
+  const back$ = xs.merge(navSource.backPress(), actions.goBack$).mapTo({
     type: 'pop',
   } as Command);
 

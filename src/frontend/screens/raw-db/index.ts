@@ -15,13 +15,12 @@ import {Msg} from 'ssb-typescript';
 import {ReactElement} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ReactSource, h} from '@cycle/react';
-import isolate from '@cycle/isolate';
 import {Palette} from '../../global-styles/palette';
 import {SSBSource} from '../../drivers/ssb';
 import RawFeed from '../../components/RawFeed';
 import {navOptions as rawMessageScreenNavOptions} from '../raw-msg';
 import {Screens} from '../..';
-import {topBar, Sinks as TBSinks} from './top-bar';
+import TopBar from '../../components/TopBar';
 
 export type Sources = {
   screen: ReactSource;
@@ -94,16 +93,19 @@ function intent(
 }
 
 export function rawDatabase(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
-  const actions = intent(sources.navigation, sources.screen, topBarSinks.back);
-  const vdom$ = xs
-    .combine(topBarSinks.screen, sources.ssb.publicRawFeed$)
-    .map(([topBarVDOM, getReadable]) =>
-      h(View, {style: styles.screen}, [
-        topBarVDOM,
-        h(RawFeed, {sel: 'raw-feed', getReadable}),
-      ]),
-    );
+  const actions = intent(
+    sources.navigation,
+    sources.screen,
+    sources.screen.select('topbar').events('pressBack'),
+  );
+
+  const vdom$ = sources.ssb.publicRawFeed$.map(getReadable =>
+    h(View, {style: styles.screen}, [
+      h(TopBar, {sel: 'topbar', title: 'Raw database'}),
+      h(RawFeed, {sel: 'raw-feed', getReadable}),
+    ]),
+  );
+
   const command$ = navigation(actions);
 
   return {

@@ -18,6 +18,8 @@ export default function intent(
   state$: Stream<State>,
 ) {
   return {
+    goBack$: reactSource.select('topbar').events('pressBack'),
+
     goToCompose$: reactSource.select('fab').events('pressItem'),
 
     goToBio$: xs.merge(

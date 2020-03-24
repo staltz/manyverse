@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {
   View,
@@ -18,20 +18,17 @@ import Button from '../../components/Button';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
-import {ReactElement} from 'react';
 import Avatar from '../../components/Avatar';
+import TopBar from '../../components/TopBar';
 
-export default function view(
-  state$: Stream<State>,
-  topBarElem$: Stream<ReactElement<any>>,
-) {
-  return xs.combine(state$, topBarElem$).map(([state, topBarElem]) => {
+export default function view(state$: Stream<State>) {
+  return state$.map(state => {
     const defaultName: string = state.about.name ?? '';
 
     const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
 
     return h(View, {style: styles.container}, [
-      topBarElem,
+      h(TopBar, {sel: 'topbar', title: 'Edit profile'}),
 
       h(View, {style: styles.cover}),
 

@@ -5,12 +5,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-// import isolate from '@cycle/isolate';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {topBar, Sinks as TBSinks} from './top-bar';
 import {AboutAndExtras} from '../../ssb/types';
 import view from './view';
 
@@ -39,12 +37,13 @@ export const navOptions = {
 };
 
 export function biography(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = topBar(sources);
-
-  const vdom$ = view(sources.state.stream, topBarSinks.screen);
+  const vdom$ = view(sources.state.stream);
 
   const command$ = xs
-    .merge(sources.navigation.backPress(), topBarSinks.back)
+    .merge(
+      sources.navigation.backPress(),
+      sources.screen.select('topbar').events('pressBack'),
+    )
     .mapTo({type: 'pop'} as Command);
 
   const reducer$ = sources.props.map(

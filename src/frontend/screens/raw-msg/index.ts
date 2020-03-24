@@ -8,13 +8,12 @@ import xs, {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
-import isolate from '@cycle/isolate';
 import {ScrollView, View, Text, StyleSheet} from 'react-native';
 import {SSBSource} from '../../drivers/ssb';
 import {MsgAndExtras} from '../../ssb/types';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
-import {topBar, Sinks as TBSinks} from './top-bar';
+import TopBar from '../../components/TopBar';
 
 export type Props = {
   msg: MsgAndExtras;
@@ -66,30 +65,29 @@ export const styles = StyleSheet.create({
 });
 
 export function rawMessage(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
-
-  const vdom$ = xs
-    .combine(topBarSinks.screen, sources.props)
-    .map(([topBarVDOM, props]) =>
-      h(View, {style: styles.screen}, [
-        topBarVDOM,
-        h(ScrollView, {style: styles.container}, [
-          h(
-            Text,
-            {style: styles.content, selectable: true},
-            JSON.stringify(
-              props.msg,
-              (key, value) =>
-                key === '_$manyverse$metadata' ? undefined : value,
-              2,
-            ),
+  const vdom$ = sources.props.map(props =>
+    h(View, {style: styles.screen}, [
+      h(TopBar, {sel: 'topbar', title: 'Raw message'}),
+      h(ScrollView, {style: styles.container}, [
+        h(
+          Text,
+          {style: styles.content, selectable: true},
+          JSON.stringify(
+            props.msg,
+            (key, value) =>
+              key === '_$manyverse$metadata' ? undefined : value,
+            2,
           ),
-        ]),
+        ),
       ]),
-    );
+    ]),
+  );
 
   const command$ = xs
-    .merge(sources.navigation.backPress(), topBarSinks.back)
+    .merge(
+      sources.navigation.backPress(),
+      sources.screen.select('topbar').events('pressBack'),
+    )
     .mapTo({
       type: 'pop',
     } as Command);

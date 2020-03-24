@@ -49,6 +49,8 @@ export default function intent(screenSource: ReactSource) {
 
     emailBugReport$: screenSource.select('bug-report').events('press'),
 
+    goBack$: screenSource.select('topbar').events('pressBack'),
+
     goToBackup$: screenSource.select('backup').events('press'),
 
     goToLibraries$: screenSource.select('libraries').events('press'),

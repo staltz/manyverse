@@ -11,7 +11,6 @@ import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
 import {MsgId, FeedId} from 'ssb-typescript';
 import {KeyboardSource} from 'cycle-native-keyboard';
-import isolate from '@cycle/isolate';
 import {
   AsyncStorageSource,
   Command as StorageCommand,
@@ -20,7 +19,6 @@ import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import {Toast} from '../../drivers/toast';
 import messageEtc from '../../components/messageEtc';
-import {topBar, Sinks as TBSinks} from './top-bar';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
@@ -69,15 +67,12 @@ export const navOptions = {
 };
 
 export function thread(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
-
   const actions = intent(
     sources.props,
     sources.screen,
     sources.keyboard,
     sources.navigation,
     sources.ssb,
-    topBarSinks.back,
     sources.state.stream,
     sources.dialog,
   );
@@ -94,7 +89,7 @@ export function thread(sources: Sources): Sinks {
   );
   const storageCommand$ = asyncStorage(actionsPlus, sources.state.stream);
   const command$ = navigation(actionsPlus, sources.state.stream);
-  const vdom$ = view(sources.state.stream, actionsPlus, topBarSinks.screen);
+  const vdom$ = view(sources.state.stream, actionsPlus);
   const newContent$ = ssb(actionsPlus);
   const dismiss$ = actions.publishMsg$.mapTo('dismiss' as 'dismiss');
 

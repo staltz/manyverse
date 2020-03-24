@@ -11,14 +11,13 @@ import {ReactSource, h} from '@cycle/react';
 import {StyleSheet, View, ScrollView, RefreshControl} from 'react-native';
 import {Command, PopCommand, NavSource} from 'cycle-native-navigation';
 import {Reducer, StateSource} from '@cycle/state';
-import isolate from '@cycle/isolate';
 import {MsgId, About, FeedId} from 'ssb-typescript';
 import {Screens} from '../..';
 import {SSBSource} from '../../drivers/ssb';
 import {navOptions as profileScreenNavOptions} from '../profile';
 import AccountsList, {Props as ListProps} from '../../components/AccountsList';
+import TopBar from '../../components/TopBar';
 import {Palette} from '../../global-styles/palette';
-import {topBar, Sinks as TBSinks} from './top-bar';
 
 export type Props = {
   title: string;
@@ -42,6 +41,7 @@ export type Sinks = {
 };
 
 export type State = {
+  title: string;
   abouts: Array<About>;
   selfFeedId: FeedId;
 };
@@ -102,53 +102,48 @@ function navigation(actions: Actions, state$: Stream<State>) {
   return xs.merge(pop$, toProfile$);
 }
 
-function intent(
-  navSource: NavSource,
-  reactSource: ReactSource,
-  back$: Stream<any>,
-) {
+function intent(navSource: NavSource, reactSource: ReactSource) {
   return {
-    goBack$: xs.merge(navSource.backPress(), back$),
+    goBack$: xs.merge(
+      navSource.backPress(),
+      reactSource.select('topbar').events('pressBack'),
+    ),
 
     goToProfile$: reactSource.select('accounts').events('pressAccount'),
   };
 }
 
 export function accounts(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
+  const actions = intent(sources.navigation, sources.screen);
 
-  const actions = intent(sources.navigation, sources.screen, topBarSinks.back);
+  const vdom$ = sources.state.stream.map(state => {
+    const abouts = state.abouts;
 
-  const vdom$ = xs
-    .combine(topBarSinks.screen, sources.state.stream)
-    .map(([topBarVDOM, state]) => {
-      const abouts = state.abouts;
-
-      return h(View, {style: styles.screen}, [
-        topBarVDOM,
-        h(
-          ScrollView,
-          {
-            style: styles.container,
-            refreshControl: h(RefreshControl, {
-              refreshing: state.abouts.length === 0,
-              colors: [Palette.backgroundBrand],
-            }),
-          },
-          [h(AccountsList, {sel: 'accounts', accounts: abouts} as ListProps)],
-        ),
-      ]);
-    });
+    return h(View, {style: styles.screen}, [
+      h(TopBar, {sel: 'topbar', title: state.title}),
+      h(
+        ScrollView,
+        {
+          style: styles.container,
+          refreshControl: h(RefreshControl, {
+            refreshing: state.abouts.length === 0,
+            colors: [Palette.backgroundBrand],
+          }),
+        },
+        [h(AccountsList, {sel: 'accounts', accounts: abouts} as ListProps)],
+      ),
+    ]);
+  });
 
   const command$ = navigation(actions, sources.state.stream);
 
   const propsReducer$ = sources.props.map(
-    props =>
+    ({selfFeedId, title}) =>
       function propsReducer(prev?: State): State {
         if (prev) {
-          return {...prev, selfFeedId: props.selfFeedId};
+          return {...prev, selfFeedId, title};
         } else {
-          return {abouts: [], selfFeedId: props.selfFeedId};
+          return {abouts: [], selfFeedId, title};
         }
       },
   );

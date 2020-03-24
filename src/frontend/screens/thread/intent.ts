@@ -33,11 +33,13 @@ export default function intent(
   keyboardSource: KeyboardSource,
   navSource: NavSource,
   ssbSource: SSBSource,
-  topBarBack$: Stream<any>,
   state$: Stream<State>,
   dialogSource: DialogSource,
 ) {
-  const back$ = xs.merge(navSource.backPress(), topBarBack$);
+  const back$ = xs.merge(
+    navSource.backPress(),
+    reactSource.select('topbar').events('pressBack'),
+  );
 
   const backWithoutDialog$ = back$.compose(sample(state$)).filter(isTextEmpty);
 

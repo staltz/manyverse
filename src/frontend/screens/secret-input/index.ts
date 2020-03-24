@@ -9,13 +9,11 @@ import {ReactElement} from 'react';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
-import isolate from '@cycle/isolate';
 import {SSBSource} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
-import {topBar, Sinks as TBSinks} from './top-bar';
 import navigation from './navigation';
 import view from './view';
-import model, {State, topBarLens} from './model';
+import model, {State} from './model';
 import dialog from './dialog';
 
 export type Props = {
@@ -51,13 +49,12 @@ export const navOptions = {
   },
 };
 
-function intent(
-  navSource: NavSource,
-  screenSource: ReactSource,
-  back$: Stream<any>,
-) {
+function intent(navSource: NavSource, screenSource: ReactSource) {
   return {
-    goBack$: xs.merge(navSource.backPress(), back$),
+    goBack$: xs.merge(
+      navSource.backPress(),
+      screenSource.select('topbar').events('pressBack'),
+    ),
 
     updateWords$: screenSource
       .select('inputField')
@@ -68,16 +65,11 @@ function intent(
 }
 
 export function secretInput(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, {
-    '*': 'topBar',
-    state: topBarLens,
-  })(sources);
-
   const state$ = sources.state.stream;
-  const actions = intent(sources.navigation, sources.screen, topBarSinks.back);
+  const actions = intent(sources.navigation, sources.screen);
   const confirmation$ = dialog(actions, state$, sources.ssb, sources.dialog);
   const dismissKeyboard$ = actions.goBack$.mapTo('dismiss' as 'dismiss');
-  const vdom$ = view(state$, topBarSinks.screen);
+  const vdom$ = view(state$);
   const command$ = navigation(state$, actions, confirmation$);
   const reducer$ = model(sources.props, actions);
 

@@ -4,9 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {ReactElement} from 'react';
 import {
   View,
   Text,
@@ -25,21 +24,18 @@ import Button from '../../components/Button';
 import ToggleButton from '../../components/ToggleButton';
 import EmptySection from '../../components/EmptySection';
 import Avatar from '../../components/Avatar';
+import TopBar from '../../components/TopBar';
 import {styles, avatarSize} from './styles';
 import {State} from './model';
 
-export default function view(
-  state$: Stream<State>,
-  ssbSource: SSBSource,
-  topBarElem$: Stream<ReactElement<any>>,
-) {
-  return xs.combine(state$, topBarElem$).map(([state, topBarElem]) => {
+export default function view(state$: Stream<State>, ssbSource: SSBSource) {
+  return state$.map(state => {
     const isSelfProfile = state.displayFeedId === state.selfFeedId;
     const isBlocked = state.about.following === false;
     const followsYouTristate = state.about.followsYou;
 
     return h(View, {style: styles.container}, [
-      topBarElem,
+      h(TopBar, {sel: 'topbar'}),
 
       h(View, {style: styles.cover}, [
         h(

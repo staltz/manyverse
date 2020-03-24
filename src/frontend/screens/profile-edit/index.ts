@@ -10,8 +10,6 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {About, FeedId} from 'ssb-typescript';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
-import isolate from '@cycle/isolate';
-import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
 import view from './view';
 import navigation from './navigation';
@@ -58,15 +56,13 @@ export const navOptions = {
 };
 
 export function editProfile(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
-
   const dialogRes$ = dialogs(
     sources.navigation,
-    topBarSinks.back,
+    sources.screen,
     sources.dialog,
   );
   const actions = intent(sources.screen, dialogRes$);
-  const vdom$ = view(sources.state.stream, topBarSinks.screen);
+  const vdom$ = view(sources.state.stream);
   const command$ = navigation(actions);
   const reducer$ = model(sources.props, actions);
   const content$ = ssb(sources.state.stream, actions);
