@@ -189,6 +189,20 @@ adb shell input text "RR" && sleep 5 && adb shell am force-stop se.manyver && ad
 
 There is no support for continuously compiling the backend Node.js project.
 
+Pro tip: instead of `npm run clean-bundler && npm start -- --reset-cache`, you can also call make your own bash script called `rn-clean` which does a full clean and rebuild of the Metro bundling. This is useful also for other React Native projects you may have. Add the following to your `~/.bashrc` or `~/.zshrc`:
+
+```bash
+function rn-clean() {
+  watchman watch-del-all
+  rm -rf $TMPDIR/react-*
+  rm -rf $TMPDIR/haste-*
+  rm -rf $TMPDIR/metro-*
+  npm start -- --reset-cache
+}
+```
+
+Then just call `rn-clean` in the terminal.
+
 ### Troubleshooting
 
 On Android applications, the `react-native` build process is sometimes unable to rebuild assets.
