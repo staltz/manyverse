@@ -8,7 +8,6 @@ import {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StyleSheet} from 'react-native';
 import {ReactSource} from '@cycle/react';
-import isolate from '@cycle/isolate';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {FeedId, MsgId} from 'ssb-typescript';
@@ -16,7 +15,6 @@ import {PrivateThreadAndExtras} from '../../ssb/types';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
-import {topBar, Sinks as TBSinks} from './top-bar';
 import model, {State} from './model';
 import view from './view';
 import ssb from './ssb';
@@ -70,15 +68,10 @@ export const navOptions = {
 };
 
 export function conversation(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
   const state$ = sources.state.stream;
-  const vdom$ = view(state$, topBarSinks.screen);
-  const actions = intent(sources.screen, sources.navigation, topBarSinks.back);
-  const actionsPlus = {
-    ...actions,
-    goToRecipients$: topBarSinks.goToRecipients$,
-  };
-  const cmd$ = navigation(actionsPlus, state$);
+  const vdom$ = view(state$);
+  const actions = intent(sources.screen, sources.navigation);
+  const cmd$ = navigation(actions, state$);
   const reducer$ = model(sources.props, sources.ssb);
   const newContent$ = ssb(actions, state$);
 

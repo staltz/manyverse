@@ -5,24 +5,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {Reducer, Lens} from '@cycle/state';
-import {State as TopBarState} from './top-bar';
+import {Reducer} from '@cycle/state';
 
 export type State = {
   content: string;
-};
-
-export const topBarLens: Lens<State, TopBarState> = {
-  get: (parent: State): TopBarState => {
-    return {
-      enabled: parent.content.length > 0,
-    };
-  },
-
-  // Ignore writes from the child
-  set: (parent: State, child: TopBarState): State => {
-    return parent;
-  },
 };
 
 export type Actions = {

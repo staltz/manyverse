@@ -5,7 +5,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import isolate from '@cycle/isolate';
 import {ReactElement} from 'react';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {ReactSource} from '@cycle/react';
@@ -13,9 +12,8 @@ import {StateSource, Reducer} from '@cycle/state';
 import {SSBSource, Req as SSBReq} from '../../drivers/ssb';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {LifecycleEvent} from '../../drivers/lifecycle';
-import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
-import model, {State, topBarLens} from './model';
+import model, {State} from './model';
 import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
@@ -58,20 +56,14 @@ export const navOptions = {
 };
 
 export function pasteInvite(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, {
-    '*': 'topBar',
-    state: topBarLens,
-  })(sources);
-
   const actions = intent(
     sources.screen,
     sources.navigation,
-    topBarSinks.done,
     sources.state.stream,
     sources.keyboard,
     sources.lifecycle,
   );
-  const vdom$ = view(topBarSinks.screen);
+  const vdom$ = view(sources.state.stream);
   const command$ = navigation(actions);
   const reducer$ = model(actions);
   const newContent$ = ssb(actions);
@@ -80,7 +72,7 @@ export function pasteInvite(sources: Sources): Sinks {
       actions.dhtDone$,
       actions.roomDone$,
       actions.normalDone$,
-      topBarSinks.back,
+      actions.back$,
     )
     .mapTo('dismiss' as 'dismiss');
 

@@ -49,4 +49,14 @@ export const styles = StyleSheet.create({
     paddingVertical: 3,
     borderRadius: 2,
   },
+
+  acceptButtonEnabled: {
+    backgroundColor: Palette.backgroundCTA,
+    width: 80,
+  },
+
+  acceptButtonDisabled: {
+    backgroundColor: Palette.backgroundBrandWeak,
+    width: 80,
+  },
 });

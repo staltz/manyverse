@@ -18,7 +18,6 @@ const roomUtils = require('ssb-room/utils');
 export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
-  topBarDone$: Stream<any>,
   state$: Stream<State>,
   keyboardSource: KeyboardSource,
   lifecycle$: Stream<LifecycleEvent>,
@@ -27,12 +26,17 @@ export default function intent(
   const activityResumed$ = lifecycle$.filter(ev => ev === 'resumed');
   const composeAppeared$ = navSource.didAppear();
   const composeDisappearing$ = navSource.didDisappear();
-  const done$ = topBarDone$
+
+  const done$ = reactSource
+    .select('inviteAcceptButton')
+    .events('press')
     .compose(sample(state$))
     .map(state => state.content)
     .filter(text => text.length > 0);
 
   return {
+    back$: reactSource.select('inviteBackButton').events('press'),
+
     dhtDone$: done$.filter(text => text.startsWith('dht:')),
 
     roomDone$: done$.filter(

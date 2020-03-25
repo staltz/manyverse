@@ -8,13 +8,11 @@ import {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
-import isolate from '@cycle/isolate';
 import {StateSource, Reducer} from '@cycle/state';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {Toast, Duration} from '../../drivers/toast';
-import {topBar, Sinks as TBSinks} from './top-bar';
-import model, {State, topBarLens} from './model';
+import model, {State} from './model';
 import view from './view';
 import intent from './intent';
 import navigation from './navigation';
@@ -52,19 +50,9 @@ export const navOptions = {
 };
 
 export function recipientsInput(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, {
-    '*': 'topBar',
-    state: topBarLens,
-  })(sources);
-
   const state$ = sources.state.stream;
-  const vdom$ = view(state$, topBarSinks.screen);
-  const actions = intent(
-    sources.screen,
-    sources.navigation,
-    topBarSinks.back,
-    topBarSinks.next,
-  );
+  const vdom$ = view(state$);
+  const actions = intent(sources.screen, sources.navigation, state$);
   const reducer$ = model(sources.props, sources.ssb, actions);
   const command$ = navigation(actions, state$);
   const toast$ = actions.maxReached$.mapTo({

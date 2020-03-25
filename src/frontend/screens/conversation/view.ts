@@ -4,9 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
-import {ReactElement, ComponentClass} from 'react';
+import {ComponentClass} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -28,6 +28,8 @@ import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import Markdown from '../../components/Markdown';
 import Avatar from '../../components/Avatar';
+import TopBar from '../../components/TopBar';
+import HeaderButton from '../../components/HeaderButton';
 import {State} from './model';
 
 const GiftedChat = (GiftedChatWithWrongTypes as any) as ComponentClass<
@@ -171,49 +173,51 @@ function renderDay(props: any) {
   return h(Day, {textStyle: styles.time, ...props});
 }
 
-export default function view(
-  state$: Stream<State>,
-  topBar$: Stream<ReactElement<any>>,
-) {
+export default function view(state$: Stream<State>) {
   const appStartTime = Date.now();
-  return xs
-    .combine(state$.compose(dropRepeats(statesAreEqual)), topBar$)
-    .map(([state, topBarVDOM]) => {
-      const sysMessages: Array<GiftedMsg> = state.emptyThreadSysMessage
-        ? [
-            {
-              _id: 1,
-              text: 'This is a new private conversation',
-              createdAt: appStartTime,
-              system: true,
-            } as any,
-          ]
-        : [];
-      const realMessages: Array<GiftedMsg> = state.thread.messages.map(
-        toGiftedMessage,
-      );
+  return state$.compose(dropRepeats(statesAreEqual)).map(state => {
+    const sysMessages: Array<GiftedMsg> = state.emptyThreadSysMessage
+      ? [
+          {
+            _id: 1,
+            text: 'This is a new private conversation',
+            createdAt: appStartTime,
+            system: true,
+          } as any,
+        ]
+      : [];
+    const realMessages: Array<GiftedMsg> = state.thread.messages.map(
+      toGiftedMessage,
+    );
 
-      return h(View, {style: styles.container}, [
-        topBarVDOM,
-        h(GiftedChat, {
-          sel: 'chat',
-          user: {_id: state.selfFeedId},
-          inverted: false,
-          messages: sysMessages.concat(realMessages),
-          renderFooter,
-          renderBubble,
-          renderAvatar,
-          renderSend,
-          renderTime,
-          renderDay,
-          renderMessageText: (item: {currentMessage: GiftedMsg}) =>
-            h(View, {style: styles.bubbleText}, [
-              item.currentMessage.user._id !== state.selfFeedId
-                ? renderMessageAuthor(item.currentMessage.user)
-                : null,
-              Markdown(item.currentMessage.text),
-            ]),
+    return h(View, {style: styles.container}, [
+      h(TopBar, {sel: 'topbar', title: 'Conversation'}, [
+        h(HeaderButton, {
+          sel: 'showRecipients',
+          icon: 'account-multiple',
+          accessibilityLabel: 'Recipients Button',
+          side: 'right',
         }),
-      ]);
-    });
+      ]),
+      h(GiftedChat, {
+        sel: 'chat',
+        user: {_id: state.selfFeedId},
+        inverted: false,
+        messages: sysMessages.concat(realMessages),
+        renderFooter,
+        renderBubble,
+        renderAvatar,
+        renderSend,
+        renderTime,
+        renderDay,
+        renderMessageText: (item: {currentMessage: GiftedMsg}) =>
+          h(View, {style: styles.bubbleText}, [
+            item.currentMessage.user._id !== state.selfFeedId
+              ? renderMessageAuthor(item.currentMessage.user)
+              : null,
+            Markdown(item.currentMessage.text),
+          ]),
+      }),
+    ]);
+  });
 }

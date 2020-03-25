@@ -8,10 +8,7 @@ import xs, {Stream} from 'xstream';
 import {PrivateThreadAndExtras} from '../../ssb/types';
 import {MentionSuggestion, SSBSource} from '../../drivers/ssb';
 import {FeedId} from 'ssb-typescript';
-import {Lens} from '@cycle/state';
-import {State as TopBarState} from './top-bar';
 import {Props} from '.';
-import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '../../ssb/utils/constants';
 
 export type State = {
   selfFeedId: FeedId;
@@ -23,21 +20,6 @@ export type State = {
 type Actions = {
   updateQuery$: Stream<string>;
   updateRecipients$: Stream<PrivateThreadAndExtras['recps']>;
-};
-
-export const topBarLens: Lens<State, TopBarState> = {
-  get: (parent: State): TopBarState => {
-    return {
-      enabled:
-        0 < parent.recipients.length &&
-        parent.recipients.length <= MAX_PRIVATE_MESSAGE_RECIPIENTS,
-    };
-  },
-
-  // Ignore writes from the child
-  set: (parent: State, child: TopBarState): State => {
-    return parent;
-  },
 };
 
 export default function model(

@@ -81,4 +81,16 @@ export const styles = StyleSheet.create({
   hidden: {
     display: 'none',
   },
+
+  nextButtonEnabled: {
+    minWidth: 68,
+    backgroundColor: Palette.backgroundCTA,
+    marginLeft: Dimensions.horizontalSpaceNormal,
+  },
+
+  nextButtonDisabled: {
+    backgroundColor: Palette.backgroundBrandWeak,
+    minWidth: 68,
+    marginLeft: Dimensions.horizontalSpaceNormal,
+  },
 });

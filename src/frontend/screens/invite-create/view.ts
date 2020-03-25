@@ -4,21 +4,27 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {View, Text} from 'react-native';
-import {styles} from './styles';
 import {Palette} from '../../global-styles/palette';
-import {ReactElement} from 'react';
+import HeaderButton from '../../components/HeaderButton';
+import TopBar from '../../components/TopBar';
 import {State} from './model';
+import {styles} from './styles';
 
-export default function view(
-  state$: Stream<State>,
-  topBar$: Stream<ReactElement<any>>,
-) {
-  return xs.combine(state$, topBar$).map(([state, topBar]) =>
+export default function view(state$: Stream<State>) {
+  return state$.map(state =>
     h(View, {style: styles.container}, [
-      topBar,
+      h(TopBar, {sel: 'topbar'}, [
+        h(HeaderButton, {
+          sel: 'inviteShareButton',
+          icon: 'share',
+          accessibilityLabel: 'Share Button',
+          side: 'right',
+        }),
+      ]),
+
       h(View, {style: styles.bodyContainer}, [
         h(Text, {style: styles.about, textBreakStrategy: 'simple'}, [
           'GIVE THIS INVITE CODE TO ' as any,

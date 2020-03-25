@@ -5,15 +5,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
 import {PrivateThreadAndExtras} from '../../ssb/types';
+import {State} from './model';
 
 export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
-  topBarBack$: Stream<any>,
-  topBarNext$: Stream<any>,
+  state$: Stream<State>,
 ) {
   return {
     updateQuery$: reactSource
@@ -28,8 +29,15 @@ export default function intent(
       .select('recipients')
       .events('maxReached') as Stream<undefined>,
 
-    goBack$: xs.merge(navSource.backPress(), topBarBack$) as Stream<null>,
+    goBack$: xs.merge(
+      navSource.backPress(),
+      reactSource.select('recipientsInputBackButton').events('press'),
+    ) as Stream<null>,
 
-    goToNewConversation$: topBarNext$,
+    goToNewConversation$: reactSource
+      .select('recipientsInputNextButton')
+      .events('press')
+      .compose(sample(state$))
+      .filter(state => state.recipients.length > 0),
   };
 }

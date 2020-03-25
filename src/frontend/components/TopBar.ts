@@ -43,6 +43,13 @@ const styles = StyleSheet.create({
       },
     }),
   },
+
+  rightSide: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
 });
 
 export type Props = {
@@ -65,6 +72,9 @@ export default class TopBar extends PureComponent<Props> {
         accessibilityLabel: 'Back Button',
       }),
       title ? $(Text, {style: styles.title}, title) : null,
+      this.props.children
+        ? $(View, {style: styles.rightSide}, this.props.children)
+        : null,
     ]);
   }
 }

@@ -6,7 +6,6 @@
 
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
-import isolate from '@cycle/isolate';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
@@ -14,7 +13,6 @@ import {SSBSource} from '../../drivers/ssb';
 import {SharedContent} from 'cycle-native-share';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {LifecycleEvent} from '../../drivers/lifecycle';
-import {topBar, Sinks as TBSinks} from './top-bar';
 import model, {State} from './model';
 import view from './view';
 
@@ -55,14 +53,18 @@ export const navOptions = {
 };
 
 export function createInvite(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, 'topBar')(sources);
+  const vdom$ = view(sources.state.stream);
 
-  const vdom$ = view(sources.state.stream, topBarSinks.screen);
   const command$ = xs
-    .merge(sources.navigation.backPress(), topBarSinks.back)
+    .merge(
+      sources.navigation.backPress(),
+      sources.screen.select('topbar').events('pressBack'),
+    )
     .map(() => ({type: 'pop'} as Command));
-  const reducer$ = model(sources.ssb);
-  const share$ = topBarSinks.share
+
+  const share$ = sources.screen
+    .select('inviteShareButton')
+    .events('press')
     .compose(sample(sources.state.stream))
     .map(state => ({
       message:
@@ -71,6 +73,8 @@ export function createInvite(sources: Sources): Sinks {
       title: 'Manyverse Invite Code',
       dialogTitle: 'Give this invite code to one friend',
     }));
+
+  const reducer$ = model(sources.ssb);
 
   return {
     screen: vdom$,

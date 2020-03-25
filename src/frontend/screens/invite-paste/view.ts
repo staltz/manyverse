@@ -9,14 +9,30 @@ import {h} from '@cycle/react';
 import {View, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
 import {styles} from './styles';
 import {Palette} from '../../global-styles/palette';
-import {ReactElement} from 'react';
+import TopBar from '../../components/TopBar';
+import Button from '../../components/Button';
+import {State} from './model';
 
-export default function view(topBar$: Stream<ReactElement<any>>) {
+export default function view(state$: Stream<State>) {
   const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
 
-  return topBar$.map(topBar =>
-    h(View, {style: styles.container}, [
-      topBar,
+  return state$.map(state => {
+    const acceptEnabled = state.content.length > 0;
+
+    return h(View, {style: styles.container}, [
+      h(TopBar, {sel: 'topbar'}, [
+        h(Button, {
+          sel: 'inviteAcceptButton',
+          style: acceptEnabled
+            ? styles.acceptButtonEnabled
+            : styles.acceptButtonDisabled,
+          text: 'Done',
+          strong: acceptEnabled,
+          accessible: true,
+          accessibilityLabel: 'Accept Invite Button',
+        }),
+      ]),
+
       h(
         KeyboardAvoidingView,
         {style: styles.bodyContainer, enabled: true, [behaviorProp]: 'padding'},
@@ -37,6 +53,6 @@ export default function view(topBar$: Stream<ReactElement<any>>) {
           }),
         ],
       ),
-    ]),
-  );
+    ]);
+  });
 }
