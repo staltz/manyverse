@@ -102,7 +102,7 @@ function MarkdownPreview(state: MiniState) {
       style: styles.composePreview,
       contentContainerStyle: styles.previewContentContainer,
     },
-    [Markdown(state.postText)],
+    [h(Markdown, {text: state.postText})],
   );
 }
 

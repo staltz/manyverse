@@ -62,6 +62,7 @@ export default class CompactThread extends PureComponent<Props> {
     return [
       forkedRoot
         ? h(ForkNote, {
+            key: 'f',
             rootId: forkedRoot,
             onPress: () => {
               onPressFork?.({rootMsgId: forkedRoot});
@@ -72,7 +73,7 @@ export default class CompactThread extends PureComponent<Props> {
       thread.full
         ? null
         : h(ExpandThread, {
-            key: '1',
+            key: 'e',
             rootMsgId: first.key,
             onPress: onPressExpand,
           }),

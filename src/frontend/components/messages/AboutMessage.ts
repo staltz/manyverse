@@ -88,7 +88,7 @@ function renderWithNameDesc(name: string | undefined, msg: Msg<About>) {
         h(Text, {style: styles.followed}, '" and the description: '),
       ]),
     ]),
-    Markdown(msg.value.content.description ?? ''),
+    h(Markdown, {text: msg.value.content.description ?? ''}),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
         h(HumanTime, {time: msg.value.timestamp}),
@@ -99,12 +99,12 @@ function renderWithNameDesc(name: string | undefined, msg: Msg<About>) {
 
 function renderWithDesc(name: string | undefined, msg: Msg<About>) {
   return h(MessageContainer, [
-    h(View, {style: styles.row}, [
+    h(View, {key: 'a', style: styles.row}, [
       h(Text, accountTextProps, displayName(name, msg.value.author)),
       h(Text, {style: styles.followed}, ' has a new description: '),
     ]),
-    Markdown(msg.value.content.description ?? ''),
-    h(View, {style: styles.row}, [
+    h(Markdown, {key: 'b', text: msg.value.content.description ?? ''}),
+    h(View, {key: 'c', style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
         h(HumanTime, {time: msg.value.timestamp}),
       ]),

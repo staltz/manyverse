@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {createElement} from 'react';
+import {createElement, PureComponent} from 'react';
 import {View, Text, Linking, StyleSheet, TextProperties} from 'react-native';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
@@ -255,21 +255,21 @@ const renderers = {
   },
 };
 
-function Markdown(markdownText: string) {
-  const linkifySsbFeeds = linkifyRegex(Ref.feedIdRegex);
-  const linkifySsbMsgs = linkifyRegex(Ref.msgIdRegex);
+export default class Markdown extends PureComponent<{text: string}> {
+  public render() {
+    const linkifySsbFeeds = linkifyRegex(Ref.feedIdRegex);
+    const linkifySsbMsgs = linkifyRegex(Ref.msgIdRegex);
 
-  return $<any>(ReactMarkdown, {
-    source: remark()
-      .use(gemojiToEmoji)
-      .use(linkifySsbFeeds)
-      .use(linkifySsbMsgs)
-      .use(imagesToSsbServeBlobs)
-      .processSync(markdownText).contents,
-    astPlugins: [normalizeForReactNative()],
-    allowedTypes: Object.keys(renderers),
-    renderers,
-  });
+    return $<any>(ReactMarkdown, {
+      source: remark()
+        .use(gemojiToEmoji)
+        .use(linkifySsbFeeds)
+        .use(linkifySsbMsgs)
+        .use(imagesToSsbServeBlobs)
+        .processSync(this.props.text).contents,
+      astPlugins: [normalizeForReactNative()],
+      allowedTypes: Object.keys(renderers),
+      renderers,
+    });
+  }
 }
-
-export default Markdown;

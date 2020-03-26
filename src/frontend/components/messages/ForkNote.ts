@@ -55,6 +55,7 @@ export default class ForkNote extends PureComponent<Props> {
         $(
           Text,
           {
+            key: 'r',
             style: styles.cypherlink,
             onPress: () => {
               onPress?.({rootMsgId: rootId});

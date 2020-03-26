@@ -53,12 +53,13 @@ export default class PostMessage extends PureComponent<Props, State> {
       h(MessageHeader, props),
       hasCW
         ? h(ContentWarning, {
+            key: 'cw',
             description: cwMsg.value.content.contentWarning!,
             opened,
             onPressToggle: this.onPressToggleCW,
           })
         : null,
-      opened ? Markdown(msg.value.content.text) : null,
+      opened ? h(Markdown, {key: 'md', text: msg.value.content.text}) : null,
       h(MessageFooter, props),
     ]);
   }

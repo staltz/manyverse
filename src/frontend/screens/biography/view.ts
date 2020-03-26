@@ -41,7 +41,7 @@ export default function view(state$: Stream<State>) {
             accessible: true,
             accessibilityLabel: 'Biographic Description',
           },
-          [Markdown(state.about.description ?? '')],
+          [h(Markdown, {text: state.about.description ?? ''})],
         ),
       ]),
     ]);

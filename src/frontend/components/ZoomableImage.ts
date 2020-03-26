@@ -193,8 +193,8 @@ export default class ZoomableImage extends PureComponent<Props, State> {
           },
           [
             $(Image, {
-              source: {uri},
               key: 'img',
+              source: {uri},
               onLoad: this.onLoad,
               style: [styles.imageLoading, {width, height}],
             }),

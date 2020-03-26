@@ -61,13 +61,14 @@ export default class ContentWarning extends PureComponent<Props> {
     const touchableProps = {
       onPress: this.props.onPressToggle,
       activeOpacity: 0.4,
+      key: 'b',
     };
 
     return h(
       View,
       {style: [styles.container, style ?? null] as readonly ViewStyle[]},
       [
-        h(Text, {style: styles.description, selectable: true}, [
+        h(Text, {key: 'a', style: styles.description, selectable: true}, [
           h(Icon, {
             size: Typography.fontSizeNormal,
             color: Palette.textWeak,

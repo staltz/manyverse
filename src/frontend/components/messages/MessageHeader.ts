@@ -88,34 +88,18 @@ export default class MessageHeader extends Component<Props> {
   public render() {
     const {msg, name, imageUrl} = this.props;
     const authorTouchableProps = {
+      key: 'a',
       onPress: this._onPressAuthor,
       activeOpacity: 0.4,
     };
     const etcTouchableProps = {
+      key: 'b',
       onPress: this._onPressEtc,
       activeOpacity: 0.4,
       ...Platform.select({
         ios: {hitSlop: {top: 6, left: 6, bottom: 6, right: 6}},
       }),
     };
-
-    const messageHeaderAuthorName = h(TouchableOpacity, authorTouchableProps, [
-      h(
-        Text,
-        {
-          numberOfLines: 1,
-          ellipsizeMode: 'middle',
-          style: styles.messageHeaderAuthorName,
-        },
-        displayName(name, msg.value.author),
-      ),
-    ]);
-
-    const messageHeaderTimestamp = h(
-      Text,
-      {style: styles.messageHeaderTimestamp},
-      [h(HumanTime, {time: msg.value.timestamp})],
-    );
 
     return h(View, {style: styles.messageHeaderRow}, [
       h(TouchableOpacity, authorTouchableProps, [
@@ -125,9 +109,21 @@ export default class MessageHeader extends Component<Props> {
           style: styles.messageAuthorImage,
         }),
       ]),
-      h(View, {style: styles.messageHeaderAuthorColumn}, [
-        messageHeaderAuthorName,
-        messageHeaderTimestamp,
+      h(View, {key: 'x', style: styles.messageHeaderAuthorColumn}, [
+        h(TouchableOpacity, authorTouchableProps, [
+          h(
+            Text,
+            {
+              numberOfLines: 1,
+              ellipsizeMode: 'middle',
+              style: styles.messageHeaderAuthorName,
+            },
+            displayName(name, msg.value.author),
+          ),
+        ]),
+        h(Text, {key: 't', style: styles.messageHeaderTimestamp}, [
+          h(HumanTime, {time: msg.value.timestamp}),
+        ]),
       ]),
       h(TouchableOpacity, etcTouchableProps, [
         h(Icon, {

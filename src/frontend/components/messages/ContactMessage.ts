@@ -116,15 +116,16 @@ export default class ContactMessage extends Component<Props, {}> {
         : 'unblocked';
 
     return h(MessageContainer, [
-      h(View, {style: styles.row}, [
+      h(View, {key: 'a', style: styles.row}, [
         h(Text, {style: styles.message}, [
           h(
             Text,
-            {style: styles.account, onPress: this._onPressOrigin},
+            {key: 'x', style: styles.account, onPress: this._onPressOrigin},
             displayName(name, msg.value.author),
           ),
           h(
             Text,
+            {key: 'y'},
             pickFrom(
               contactEvent,
               ' followed ',
@@ -135,36 +136,44 @@ export default class ContactMessage extends Component<Props, {}> {
           ),
           h(
             Text,
-            {style: styles.account, onPress: this._onPressDestination},
+            {
+              key: 'z',
+              style: styles.account,
+              onPress: this._onPressDestination,
+            },
             displayName(contactName, msg.value.content.contact!),
           ),
         ]),
       ]),
-      h(View, {style: styles.row}, [
+      h(View, {key: 'b', style: styles.row}, [
         pickFrom(
           contactEvent,
           h(Icon, {
+            key: 'icon',
             size: Dimensions.iconSizeSmall,
             color: Palette.textPositive,
             name: 'account-plus',
           }),
           h(Icon, {
+            key: 'icon',
             size: Dimensions.iconSizeSmall,
             color: Palette.textNegative,
             name: 'account-remove',
           }),
           h(Icon, {
+            key: 'icon',
             size: Dimensions.iconSizeSmall,
             color: Palette.textVeryWeak,
             name: 'account-minus',
           }),
           h(Icon, {
+            key: 'icon',
             size: Dimensions.iconSizeSmall,
             color: Palette.textVeryWeak,
             name: 'account-minus',
           }),
         ),
-        h(Text, {style: styles.timestamp}, [
+        h(Text, {key: 'ts', style: styles.timestamp}, [
           h(HumanTime, {time: msg.value.timestamp}),
         ]),
       ]),

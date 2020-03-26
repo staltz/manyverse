@@ -69,7 +69,7 @@ export default class TextDialog extends PureComponent<Props> {
     return $(Dialog, {key: 'dialog'}, [
       $(View, {key: 'content', style: styles.content}, [
         title ? $(Text, {key: 'title', style: styles.title}, title) : null,
-        Markdown(content),
+        $(Markdown, {text: content}),
       ]),
       $(DialogButton, {
         key: 'button',

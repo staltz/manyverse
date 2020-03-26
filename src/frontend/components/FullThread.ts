@@ -114,6 +114,7 @@ export default class FullThread extends Component<Props, State> {
       if (rootId) {
         children.unshift(
           h(ForkNote, {
+            key: 'fn',
             rootId,
             onPress: () => {
               onPressFork?.({rootMsgId: rootId});
@@ -125,7 +126,7 @@ export default class FullThread extends Component<Props, State> {
 
     // Render (bottom) placeholder message
     if (this.state.showPlaceholder) {
-      children.push(h(PlaceholderMessage, {key: 'placeholder'}));
+      children.push(h(PlaceholderMessage, {key: 'p'}));
     }
 
     return children;

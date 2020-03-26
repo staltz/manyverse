@@ -97,21 +97,25 @@ export const styles = StyleSheet.create({
 
 const iconProps = {
   noLiked: {
+    key: 'icon',
     size: Dimensions.iconSizeSmall,
     color: Palette.textWeak,
     name: 'thumb-up-outline',
   },
   maybeLiked: {
+    key: 'icon',
     size: Dimensions.iconSizeSmall,
     color: Palette.foregroundNeutral,
     name: 'thumb-up',
   },
   yesLiked: {
+    key: 'icon',
     size: Dimensions.iconSizeSmall,
     color: Palette.backgroundBrandWeak,
     name: 'thumb-up',
   },
   reply: {
+    key: 'icon',
     size: Dimensions.iconSizeSmall,
     color: Palette.textWeak,
     name: 'comment-outline',
@@ -130,7 +134,7 @@ class LikeCount extends PureComponent<LCProps> {
     const likesComponent = [
       h(View, {style: styles.col, pointerEvents: 'box-only'}, [
         h(Text, {style: count > 0 ? styles.likes : styles.likesHidden}, [
-          h(Text, {style: styles.likeCount}, String(count)),
+          h(Text, {key: 'c', style: styles.likeCount}, String(count)),
           count === 1 ? ' like' : ' likes',
         ]),
       ]),
@@ -189,7 +193,7 @@ class LikeButton extends PureComponent<LBProps, {maybeToggled: boolean}> {
     return h(Touchable, touchableProps, [
       h(View, {style: styles.likeButton, pointerEvents: 'box-only'}, [
         h(Icon, iconProps[ilike + 'Liked']),
-        h(Text, {style: styles.likeButtonLabel}, 'Like'),
+        h(Text, {key: 't', style: styles.likeButtonLabel}, 'Like'),
       ]),
     ]);
   }
@@ -213,7 +217,7 @@ class ReplyButton extends PureComponent<RProps> {
     return h(Touchable, touchableProps, [
       h(View, {style: styles.replyButton, pointerEvents: 'box-only'}, [
         h(Icon, iconProps.reply),
-        h(Text, {style: styles.replyButtonLabel}, 'Comment'),
+        h(Text, {key: 't', style: styles.replyButtonLabel}, 'Comment'),
       ]),
     ]);
   }
@@ -274,10 +278,10 @@ export default class MessageFooter extends Component<Props> {
     this.likeToggled = likes.some(feedId => feedId === props.selfFeedId);
 
     return h(View, {style: styles.col}, [
-      h(View, {style: styles.row}, [
+      h(View, {key: 'count', style: styles.row}, [
         h(LikeCount, {count: likeCount, onPress: this.onPressLikeCountHandler}),
       ]),
-      h(View, {style: styles.row}, [
+      h(View, {key: 'button', style: styles.row}, [
         h(LikeButton, {
           onPress: this.onPressLikeHandler,
           toggled: this.likeToggled,
@@ -285,7 +289,7 @@ export default class MessageFooter extends Component<Props> {
         }),
 
         shouldShowReply
-          ? h(ReplyButton, {onPress: this.onPressReplyHandler})
+          ? h(ReplyButton, {key: 'reply', onPress: this.onPressReplyHandler})
           : null,
       ]),
     ]);

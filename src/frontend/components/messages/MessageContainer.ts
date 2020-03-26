@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {PureComponent, createElement} from 'react';
+import {PureComponent, createElement as $} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -26,7 +26,7 @@ type Props = {
 
 export default class MessageContainer extends PureComponent<Props> {
   public render() {
-    return createElement(
+    return $(
       View,
       {style: [styles.card, this.props.style]},
       this.props.children,

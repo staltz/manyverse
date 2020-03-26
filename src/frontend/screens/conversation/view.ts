@@ -215,7 +215,7 @@ export default function view(state$: Stream<State>) {
             item.currentMessage.user._id !== state.selfFeedId
               ? renderMessageAuthor(item.currentMessage.user)
               : null,
-            Markdown(item.currentMessage.text),
+            h(Markdown, {text: item.currentMessage.text}),
           ]),
       }),
     ]);

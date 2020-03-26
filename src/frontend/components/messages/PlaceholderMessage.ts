@@ -87,14 +87,10 @@ export const styles = StyleSheet.create({
 class PlaceholderHeader extends PureComponent<{}> {
   public render() {
     return h(View, {style: styles.headerRow}, [
-      h(View, {style: styles.headerAvatar}),
-      h(View, {style: styles.headerAuthorColumn}, [
-        h(View, {
-          style: styles.headerAuthorName,
-        }),
-        h(View, {
-          style: styles.headerTimestamp,
-        }),
+      h(View, {key: 'a', style: styles.headerAvatar}),
+      h(View, {key: 'b', style: styles.headerAuthorColumn}, [
+        h(View, {key: 'x', style: styles.headerAuthorName}),
+        h(View, {key: 'y', style: styles.headerTimestamp}),
       ]),
     ]);
   }
@@ -103,13 +99,13 @@ class PlaceholderHeader extends PureComponent<{}> {
 class PlaceholderFooter extends PureComponent<{}> {
   public render() {
     return h(View, {style: styles.footer}, [
-      h(View, {style: styles.footerButton}, [
-        h(View, {style: styles.footerButtonIcon}),
-        h(View, {style: styles.footerButtonLabel}),
+      h(View, {key: 'a', style: styles.footerButton}, [
+        h(View, {key: 'x', style: styles.footerButtonIcon}),
+        h(View, {key: 'y', style: styles.footerButtonLabel}),
       ]),
-      h(View, {style: styles.footerButton}, [
-        h(View, {style: styles.footerButtonIcon}),
-        h(View, {style: styles.footerButtonLabel}),
+      h(View, {key: 'b', style: styles.footerButton}, [
+        h(View, {key: 'x', style: styles.footerButtonIcon}),
+        h(View, {key: 'y', style: styles.footerButtonLabel}),
       ]),
     ]);
   }
@@ -118,9 +114,9 @@ class PlaceholderFooter extends PureComponent<{}> {
 export default class PlaceholderMessage extends PureComponent<{}> {
   public render() {
     return h(MessageContainer, [
-      h(PlaceholderHeader),
-      h(View, {style: styles.body}),
-      h(PlaceholderFooter),
+      h(PlaceholderHeader, {key: 'ph'}),
+      h(View, {key: 'b', style: styles.body}),
+      h(PlaceholderFooter, {key: 'pf'}),
     ]);
   }
 }
