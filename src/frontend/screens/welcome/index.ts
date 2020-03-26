@@ -5,7 +5,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import delay from 'xstream/extra/delay';
 import {ReactElement} from 'react';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
@@ -59,10 +58,7 @@ export function welcome(sources: Sources): Sinks {
   const vdom$ = view(sources.state.stream, actions);
   const reducer$ = model(actions, sources.orientation);
 
-  const hideSplash$ = vdom$
-    .take(1)
-    .mapTo('hide' as 'hide')
-    .compose(delay(80));
+  const hideSplash$ = vdom$.take(1).mapTo('hide' as const);
 
   const FAQSITE = 'https://manyver.se/faq';
   const visitLinks$ = xs.merge(
