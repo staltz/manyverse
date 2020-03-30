@@ -6,6 +6,7 @@
 
 import {Stream} from 'xstream';
 import concat from 'xstream/extra/concat';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {PureComponent} from 'react';
 import {
@@ -78,12 +79,12 @@ class ConversationItem extends PureComponent<CIProps> {
       h(Touchable, touchableProps, [
         h(View, {style: styles.conversationRow, pointerEvents: 'box-only'}, [
           amount === 1
-            ? h(View, {style: styles.singleAvatar}, [
+            ? h(View, {key: 'a', style: styles.singleAvatar}, [
                 h(Avatar, {url: recps[0].imageUrl, size: GROUP_SIZE}),
               ])
             : h(
                 View,
-                {style: styles.avatarGroup},
+                {key: 'b', style: styles.avatarGroup},
                 recps
                   .slice()
                   .reverse()
@@ -102,10 +103,11 @@ class ConversationItem extends PureComponent<CIProps> {
                     }),
                   ),
               ),
-          isUnread ? h(View, {style: styles.unreadDot}) : null,
+          isUnread ? h(View, {key: 'c', style: styles.unreadDot}) : null,
           h(
             Text,
             {
+              key: 'd',
               numberOfLines: 3,
               ellipsizeMode: 'tail',
               style: isUnread
@@ -196,17 +198,17 @@ export default function view(
   const viewState$ = concat(
     state$.filter(state => !!state.getPrivateFeedReadable).take(1),
     state$.filter(state => state.isVisible),
-  );
+  ).compose(dropRepeatsByKeys(['updatesFlag', 'getPrivateFeedReadable']));
 
-  const vdom$ = viewState$.map(state =>
-    h(ConversationsList, {
+  const vdom$ = viewState$.map(state => {
+    return h(ConversationsList, {
       sel: 'conversationList',
       unreadSet: state.updates,
       forceRefresh$,
       scrollToTop$,
       getScrollStream: state.getPrivateFeedReadable,
-    }),
-  );
+    });
+  });
 
   return vdom$;
 }

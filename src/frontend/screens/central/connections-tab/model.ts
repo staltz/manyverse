@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -26,6 +26,8 @@ export type State = {
   peers: Array<PeerKV>;
   rooms: Array<PeerKV>;
   stagedPeers: Array<StagedPeerKV>;
+  timestampPeersAndRooms: number;
+  timestampStagedPeers: number;
   isSyncing: boolean;
   isVisible: boolean;
   bluetoothLastScanned: number;
@@ -78,6 +80,8 @@ export default function model(
       peers: [],
       rooms: [],
       stagedPeers: [],
+      timestampPeersAndRooms: 0,
+      timestampStagedPeers: 0,
       itemMenu: {opened: false, type: 'conn'},
       latestInviteMenuTarget: null,
     };
@@ -132,7 +136,7 @@ export default function model(
         const rooms = allPeers.filter(
           ([, data]) => (data.type as any) === 'room',
         );
-        return {...prev, peers, rooms};
+        return {...prev, peers, rooms, timestampPeersAndRooms: Date.now()};
       },
   );
 
@@ -168,7 +172,7 @@ export default function model(
             if (!noteKV) return peer;
             return [peer[0], {...peer[1], note: noteKV[1]}] as StagedPeerKV;
           });
-          return {...prev, stagedPeers};
+          return {...prev, stagedPeers, timestampStagedPeers: Date.now()};
         },
     );
 
@@ -263,7 +267,7 @@ export default function model(
             ? ([addr, {...peer, note}] as StagedPeerKV)
             : kv;
         });
-        return {...prev, stagedPeers};
+        return {...prev, stagedPeers, timestampStagedPeers: Date.now()};
       },
   );
 

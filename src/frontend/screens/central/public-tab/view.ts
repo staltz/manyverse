@@ -1,10 +1,11 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
 import Feed from '../../../components/Feed';
@@ -21,8 +22,16 @@ export default function view(
 ) {
   const vdom$ = state$
     .filter(state => state.isVisible)
-    .map(state =>
-      h(Feed, {
+    .compose(
+      dropRepeatsByKeys([
+        'selfFeedId',
+        'getSelfRootsReadable',
+        'getPublicFeedReadable',
+        'scrollHeaderBy',
+      ]),
+    )
+    .map(state => {
+      return h(Feed, {
         sel: 'publicFeed',
         style: styles.feed,
         contentContainerStyle: styles.feedInner,
@@ -41,8 +50,8 @@ export default function view(
           title: 'No messages',
           description: 'Write a diary which you can\nshare with friends later',
         }),
-      }),
-    );
+      });
+    });
 
   return vdom$;
 }

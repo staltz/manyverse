@@ -116,6 +116,7 @@
     "ssb-typescript": "2.0.0",
     "xstream": "11.11.0",
     "xstream-between": "1.0",
+    "xstream-drop-repeats-by-keys": "1.1.0",
     "xstream-from-callback": "1.1",
     "xstream-from-pull-stream": "1.2",
     "xstream-sample": "1.0"

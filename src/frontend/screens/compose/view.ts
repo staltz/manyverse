@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,6 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import pairwise from 'xstream/extra/pairwise';
 import {h} from '@cycle/react';
 import {ReactElement} from 'react';
@@ -196,16 +197,15 @@ export default function view(
 
   const miniState$ = (state$ as Stream<MiniState>)
     .compose(
-      dropRepeats<MiniState>(
-        (s1, s2) =>
-          s1.previewing === s2.previewing &&
-          s1.postText === s2.postText &&
-          s1.postTextSelection === s2.postTextSelection &&
-          s1.contentWarning === s2.contentWarning &&
-          s1.mentionQuery === s2.mentionQuery &&
-          s1.mentionSuggestions === s2.mentionSuggestions &&
-          s1.mentionChoiceTimestamp === s2.mentionChoiceTimestamp,
-      ),
+      dropRepeatsByKeys([
+        'previewing',
+        'postText',
+        'postTextSelection',
+        'contentWarning',
+        'mentionQuery',
+        'mentionSuggestions',
+        'mentionChoiceTimestamp',
+      ]),
     )
     .startWith({
       postText: '',

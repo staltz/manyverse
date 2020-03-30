@@ -1,11 +1,11 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
-import dropRepeats from 'xstream/extra/dropRepeats';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {
   View,
@@ -25,9 +25,9 @@ import {Dimensions} from '../../global-styles/dimens';
 import FullThread from '../../components/FullThread';
 import Avatar from '../../components/Avatar';
 import EmptySection from '../../components/EmptySection';
+import TopBar from '../../components/TopBar';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
-import TopBar from '../../components/TopBar';
 
 function ExpandReplyButton(isLastButton: boolean) {
   return h(
@@ -104,101 +104,103 @@ type Actions = {
   willReply$: Stream<any>;
 };
 
-function statesAreEqual(s1: State, s2: State): boolean {
-  if (s1.loading !== s2.loading) return false;
-  if (s1.replyText !== s2.replyText) return false;
-  if (s1.keyboardVisible !== s2.keyboardVisible) return false;
-  if (s1.replyEditable !== s2.replyEditable) return false;
-  if (s1.startedAsReply !== s2.startedAsReply) return false;
-  if (s1.avatarUrl !== s2.avatarUrl) return false;
-  if (s1.thread.messages.length !== s2.thread.messages.length) return false;
-  if (s1.thread.full !== s2.thread.full) return false;
-  if (s1.getSelfRepliesReadable !== s2.getSelfRepliesReadable) return false;
-  if (s1.rootMsgId !== s2.rootMsgId) return false;
-  if (s1.selfFeedId !== s2.selfFeedId) return false;
-  return true;
-}
-
 export default function view(state$: Stream<State>, actions: Actions) {
   const scrollToEnd$ = actions.willReply$.mapTo({animated: false});
 
-  return state$.compose(dropRepeats(statesAreEqual)).map(state => {
-    const topBar = h(TopBar, {sel: 'topbar', title: 'Thread'});
+  return state$
+    .compose(
+      dropRepeatsByKeys([
+        'loading',
+        'replyText',
+        'keyboardVisible',
+        'replyEditable',
+        'startedAsReply',
+        'avatarUrl',
+        'getSelfRepliesReadable',
+        'rootMsgId',
+        'selfFeedId',
+        s => s.thread.messages.length,
+        s => s.thread.full,
+      ]),
+    )
+    .map(state => {
+      const topBar = h(TopBar, {sel: 'topbar', title: 'Thread'});
 
-    if (!state.loading && state.thread.errorReason === 'missing') {
-      return h(View, {style: styles.container}, [
-        topBar,
-        h(EmptySection, {
-          style: styles.emptySection,
-          title: 'Missing data',
-          description: [
-            "You don't yet have data \n for the message known by the ID\n",
-            h(
-              Text,
-              {style: styles.missingMsgId},
-              state.rootMsgId as string,
-            ) as ReactElement<any>,
-          ],
-        }),
-      ]);
-    }
-    if (!state.loading && state.thread.errorReason === 'blocked') {
-      return h(View, {style: styles.container}, [
-        topBar,
-        h(EmptySection, {
-          style: styles.emptySection,
-          title: 'Blocked thread',
-          description: 'You have chosen to block\nthe author of this thread',
-        }),
-      ]);
-    }
-    if (!state.loading && state.thread.errorReason === 'unknown') {
-      return h(View, {style: styles.container}, [
-        topBar,
-        h(EmptySection, {
-          style: styles.emptySection,
-          title: 'Sorry',
-          description:
-            "This app doesn't know how to process\nand display this thread correctly",
-        }),
-      ]);
-    }
-
-    const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
-
-    return h(View, {style: styles.container}, [
-      topBar,
-      h(
-        KeyboardAvoidingView,
-        {
-          enabled: state.keyboardVisible,
-          style: styles.container,
-          [behaviorProp]: 'padding',
-        },
-        [
-          h(
-            ReactiveScrollView,
-            {
-              style: styles.scrollView,
-              scrollToEnd$,
-              keyboardDismissMode: 'interactive',
-              refreshControl: h(RefreshControl, {
-                refreshing: state.thread.messages.length === 0,
-                colors: [Palette.backgroundBrand],
-              }),
-            },
-            [
-              h(FullThread, {
-                sel: 'thread',
-                thread: state.thread,
-                selfFeedId: state.selfFeedId,
-                publication$: actions.willReply$,
-              }),
+      if (!state.loading && state.thread.errorReason === 'missing') {
+        return h(View, {style: styles.container}, [
+          topBar,
+          h(EmptySection, {
+            style: styles.emptySection,
+            title: 'Missing data',
+            description: [
+              "You don't yet have data \n for the message known by the ID\n",
+              h(
+                Text,
+                {style: styles.missingMsgId},
+                state.rootMsgId as string,
+              ) as ReactElement<any>,
             ],
-          ),
-          ReplyInput(state),
-        ],
-      ),
-    ]);
-  });
+          }),
+        ]);
+      }
+      if (!state.loading && state.thread.errorReason === 'blocked') {
+        return h(View, {style: styles.container}, [
+          topBar,
+          h(EmptySection, {
+            style: styles.emptySection,
+            title: 'Blocked thread',
+            description: 'You have chosen to block\nthe author of this thread',
+          }),
+        ]);
+      }
+      if (!state.loading && state.thread.errorReason === 'unknown') {
+        return h(View, {style: styles.container}, [
+          topBar,
+          h(EmptySection, {
+            style: styles.emptySection,
+            title: 'Sorry',
+            description:
+              "This app doesn't know how to process\nand display this thread correctly",
+          }),
+        ]);
+      }
+
+      const behaviorProp =
+        Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
+
+      return h(View, {style: styles.container}, [
+        topBar,
+        h(
+          KeyboardAvoidingView,
+          {
+            enabled: state.keyboardVisible,
+            style: styles.container,
+            [behaviorProp]: 'padding',
+          },
+          [
+            h(
+              ReactiveScrollView,
+              {
+                style: styles.scrollView,
+                scrollToEnd$,
+                keyboardDismissMode: 'interactive',
+                refreshControl: h(RefreshControl, {
+                  refreshing: state.thread.messages.length === 0,
+                  colors: [Palette.backgroundBrand],
+                }),
+              },
+              [
+                h(FullThread, {
+                  sel: 'thread',
+                  thread: state.thread,
+                  selfFeedId: state.selfFeedId,
+                  publication$: actions.willReply$,
+                }),
+              ],
+            ),
+            ReplyInput(state),
+          ],
+        ),
+      ]);
+    });
 }

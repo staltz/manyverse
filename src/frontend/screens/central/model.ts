@@ -87,8 +87,8 @@ export const privateTabLens: Lens<State, PrivateTabState> = {
         isVisible,
         selfFeedId: parent.selfFeedId,
         getPrivateFeedReadable: null,
-        flag: false,
         updates: new Set<MsgId>(),
+        updatesFlag: false,
         conversationOpen: null,
       };
     }
@@ -121,6 +121,8 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         peers: [],
         rooms: [],
         stagedPeers: [],
+        timestampPeersAndRooms: 0,
+        timestampStagedPeers: 0,
         itemMenu: {opened: false, type: 'conn'},
         latestInviteMenuTarget: null,
       };

@@ -1,10 +1,11 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {
   ScrollView,
@@ -146,6 +147,7 @@ function ConnectivityModes(state: State) {
 function Body(state: State) {
   const {
     bluetoothEnabled,
+    bluetoothLastScanned,
     lanEnabled,
     internetEnabled,
     peers,
@@ -157,6 +159,7 @@ function Body(state: State) {
   let emptySection: React.ReactElement<any> | null = null;
   if (!bluetoothEnabled && !lanEnabled && !internetEnabled) {
     emptySection = h(EmptySection, {
+      key: 'es',
       style: styles.emptySection,
       image: require('../../../../../../images/noun-lantern.png'),
       title: 'Offline',
@@ -164,8 +167,9 @@ function Body(state: State) {
         'Turn on some connection mode\nor enjoy reading some existing content',
     });
   } else if (!peers.length && !rooms.length && !stagedPeers.length) {
-    if (recentlyScanned(state.bluetoothLastScanned)) {
+    if (recentlyScanned(bluetoothLastScanned)) {
       emptySection = h(EmptySection, {
+        key: 'es',
         style: styles.emptySection,
         image: require('../../../../../../images/noun-crops.png'),
         title: 'Connecting',
@@ -174,6 +178,7 @@ function Body(state: State) {
       });
     } else {
       emptySection = h(EmptySection, {
+        key: 'es',
         style: styles.emptySection,
         image: require('../../../../../../images/noun-crops.png'),
         title: 'No connections',
@@ -200,6 +205,17 @@ function Body(state: State) {
 export default function view(state$: Stream<State>) {
   return state$
     .filter(state => state.isVisible)
+    .compose(
+      dropRepeatsByKeys([
+        'bluetoothEnabled',
+        'bluetoothLastScanned',
+        'lanEnabled',
+        'internetEnabled',
+        'timestampPeersAndRooms',
+        'timestampStagedPeers',
+        'itemMenu',
+      ]),
+    )
     .map(state => {
       return h(
         ScrollView,

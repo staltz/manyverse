@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
-import dropRepeats from 'xstream/extra/dropRepeats';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {ComponentClass} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {h} from '@cycle/react';
@@ -90,15 +90,6 @@ export const styles = StyleSheet.create({
   },
 });
 
-function statesAreEqual(s1: State, s2: State): boolean {
-  if (s1.avatarUrl !== s2.avatarUrl) return false;
-  if (s1.thread.messages.length !== s2.thread.messages.length) return false;
-  if (s1.thread.full !== s2.thread.full) return false;
-  if (s1.rootMsgId !== s2.rootMsgId) return false;
-  if (s1.selfFeedId !== s2.selfFeedId) return false;
-  return true;
-}
-
 function toGiftedMessage(msg: MsgAndExtras<PostContent>): GiftedMsg {
   return {
     _id: msg.key,
@@ -175,49 +166,59 @@ function renderDay(props: any) {
 
 export default function view(state$: Stream<State>) {
   const appStartTime = Date.now();
-  return state$.compose(dropRepeats(statesAreEqual)).map(state => {
-    const sysMessages: Array<GiftedMsg> = state.emptyThreadSysMessage
-      ? [
-          {
-            _id: 1,
-            text: 'This is a new private conversation',
-            createdAt: appStartTime,
-            system: true,
-          } as any,
-        ]
-      : [];
-    const realMessages: Array<GiftedMsg> = state.thread.messages.map(
-      toGiftedMessage,
-    );
-
-    return h(View, {style: styles.container}, [
-      h(TopBar, {sel: 'topbar', title: 'Conversation'}, [
-        h(HeaderButton, {
-          sel: 'showRecipients',
-          icon: 'account-multiple',
-          accessibilityLabel: 'Recipients Button',
-          side: 'right',
-        }),
+  return state$
+    .compose(
+      dropRepeatsByKeys([
+        'avatarUrl',
+        'rootMsgId',
+        'selfFeedId',
+        s => s.thread.messages.length,
+        s => s.thread.full,
       ]),
-      h(GiftedChat, {
-        sel: 'chat',
-        user: {_id: state.selfFeedId},
-        inverted: false,
-        messages: sysMessages.concat(realMessages),
-        renderFooter,
-        renderBubble,
-        renderAvatar,
-        renderSend,
-        renderTime,
-        renderDay,
-        renderMessageText: (item: {currentMessage: GiftedMsg}) =>
-          h(View, {style: styles.bubbleText}, [
-            item.currentMessage.user._id !== state.selfFeedId
-              ? renderMessageAuthor(item.currentMessage.user)
-              : null,
-            h(Markdown, {text: item.currentMessage.text}),
-          ]),
-      }),
-    ]);
-  });
+    )
+    .map(state => {
+      const sysMessages: Array<GiftedMsg> = state.emptyThreadSysMessage
+        ? [
+            {
+              _id: 1,
+              text: 'This is a new private conversation',
+              createdAt: appStartTime,
+              system: true,
+            } as any,
+          ]
+        : [];
+      const realMessages: Array<GiftedMsg> = state.thread.messages.map(
+        toGiftedMessage,
+      );
+
+      return h(View, {style: styles.container}, [
+        h(TopBar, {sel: 'topbar', title: 'Conversation'}, [
+          h(HeaderButton, {
+            sel: 'showRecipients',
+            icon: 'account-multiple',
+            accessibilityLabel: 'Recipients Button',
+            side: 'right',
+          }),
+        ]),
+        h(GiftedChat, {
+          sel: 'chat',
+          user: {_id: state.selfFeedId},
+          inverted: false,
+          messages: sysMessages.concat(realMessages),
+          renderFooter,
+          renderBubble,
+          renderAvatar,
+          renderSend,
+          renderTime,
+          renderDay,
+          renderMessageText: (item: {currentMessage: GiftedMsg}) =>
+            h(View, {style: styles.bubbleText}, [
+              item.currentMessage.user._id !== state.selfFeedId
+                ? renderMessageAuthor(item.currentMessage.user)
+                : null,
+              h(Markdown, {text: item.currentMessage.text}),
+            ]),
+        }),
+      ]);
+    });
 }

@@ -15,8 +15,8 @@ export type State = {
   getPrivateFeedReadable: GetReadable<PrivateThreadAndExtras> | null;
   isVisible: boolean;
   updates: Set<MsgId>;
+  updatesFlag: boolean;
   conversationOpen: MsgId | 'new' | null;
-  flag: boolean;
 };
 
 export type Actions = {
@@ -46,7 +46,11 @@ export default function model(
         // The updated conversation is already open, don't mark it read
         if (rootId === prev.conversationOpen) return prev;
 
-        return {...prev, updates: prev.updates.add(rootId), flag: !prev.flag};
+        return {
+          ...prev,
+          updates: prev.updates.add(rootId),
+          updatesFlag: !prev.updatesFlag,
+        };
       },
   );
 
@@ -74,7 +78,7 @@ export default function model(
         return {
           ...prev,
           conversationOpen: rootId,
-          flag: !prev.flag,
+          updatesFlag: !prev.updatesFlag,
         };
       },
   );
