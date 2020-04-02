@@ -55,12 +55,6 @@ export const styles = StyleSheet.create({
     color: Palette.text,
     minWidth: 120,
   },
-
-  timestamp: {
-    fontSize: Typography.fontSizeSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textWeak,
-  },
 });
 
 type AccountProps = {
