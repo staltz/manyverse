@@ -192,40 +192,43 @@ module.exports = function(driver, t) {
     t.pass('I tap the like button');
 
     await driver.sleep(1000);
-    const likeCount = await driver.waitForElementByAndroidUIAutomator(
+    const reactions = await driver.waitForElementByAndroidUIAutomator(
       'new UiSelector().textContains("Please like this message")' +
         '.fromParent(' +
-        'new UiSelector().descriptionContains("Like Count Button")' +
-        '.childSelector(new UiSelector().textContains("like"))' +
+        'new UiSelector().descriptionContains("Reactions Button")' +
+        '.childSelector(new UiSelector().textContains("👍"))' +
         ')',
       6000,
     );
-    const count = await likeCount.text();
-    t.equals(count, '1 like', 'I see "1 like" as the counter');
+    t.ok(reactions, 'I see the reactions displaying a thumbs up');
 
     t.end();
   });
 
   t.test(
-    'I can see that someone has liked a message in the Accounts screen',
+    'I can see that someone has reacted to a message in the Reactions screen',
     async function(t) {
-      const likeCount = await driver.waitForElementByAndroidUIAutomator(
+      const reactions = await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().textContains("Please like this message")' +
           '.fromParent(' +
-          'new UiSelector().descriptionContains("Like Count Button")' +
+          'new UiSelector().descriptionContains("Reactions Button")' +
           ')',
         6000,
       );
-      t.pass('I see the like count');
+      t.pass('I see the reactions');
 
-      await likeCount.click();
+      await reactions.click();
       t.pass('I tap it');
 
-      const likeList = await driver.waitForElementsByAndroidUIAutomator(
+      const reactionsList = await driver.waitForElementsByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Link To Account")',
         6000,
       );
-      t.equals(likeList.length, 1, 'I see 1 person having liked the message');
+      t.equals(
+        reactionsList.length,
+        1,
+        'I see 1 person reacted to the message',
+      );
 
       await driver.back();
       t.pass('I press the (hardware) back button');
