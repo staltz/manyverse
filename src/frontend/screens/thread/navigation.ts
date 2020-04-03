@@ -9,8 +9,8 @@ import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {Command, PopCommand} from 'cycle-native-navigation';
-import {State} from './model';
 import {Screens} from '../..';
+import {Reactions} from '../../ssb/types';
 import {
   navOptions as accountsScreenNavOpts,
   Props as AccountProps,
@@ -19,12 +19,13 @@ import {navOptions as profileScreenNavOpts} from '../profile';
 import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
 import {navOptions as threadScreenNavOpts} from './index';
 import {navOptions as composeScreenNavOpts} from '../compose';
+import {State} from './model';
 
 export type Actions = {
   goToAccounts$: Stream<{
     title: string;
     msgKey: MsgId;
-    ids: Array<FeedId> | null;
+    accounts: Array<FeedId> | Reactions;
   }>;
   goToAnotherThread$: Stream<{rootMsgId: FeedId}>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
@@ -47,7 +48,7 @@ export default function navigation(
             passProps: {
               title: ev.title,
               msgKey: ev.msgKey,
-              ids: ev.ids,
+              accounts: ev.accounts,
               selfFeedId: state.selfFeedId,
             } as AccountProps,
             options: accountsScreenNavOpts,

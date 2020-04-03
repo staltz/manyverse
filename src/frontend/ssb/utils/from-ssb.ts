@@ -21,3 +21,17 @@ export function imageToImageUrl(val: any) {
   const imageUrl: string | undefined = image ? blobIdToUrl(image) : undefined;
   return imageUrl;
 }
+
+const THUMBS_UP_UNICODE = '\ud83d\udc4d';
+const DIG_UNICODE = '\u270c\ufe0f';
+const HEART_UNICODE = '\u2764\ufe0f';
+
+export function voteExpressionToReaction(expression: string) {
+  if (expression === 'Like') return THUMBS_UP_UNICODE;
+  if (expression === 'like') return THUMBS_UP_UNICODE;
+  if (expression === 'Yup') return THUMBS_UP_UNICODE;
+  if (expression === 'heart') return HEART_UNICODE;
+  if (expression === 'dig') return DIG_UNICODE;
+
+  return expression ?? THUMBS_UP_UNICODE;
+}

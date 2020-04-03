@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -21,6 +21,7 @@ import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
 import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {Screens} from '../..';
 import {State} from './model';
+import {Reactions} from '../../ssb/types';
 
 export type Actions = {
   goBack$: Stream<any>;
@@ -30,7 +31,7 @@ export type Actions = {
   goToAccounts$: Stream<{
     title: string;
     msgKey: MsgId;
-    ids: Array<FeedId> | null;
+    accounts: Array<FeedId> | Reactions;
   }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
@@ -97,7 +98,7 @@ export default function navigation(
             passProps: {
               title: ev.title,
               msgKey: ev.msgKey,
-              ids: ev.ids,
+              accounts: ev.accounts,
               selfFeedId: state.selfFeedId,
             } as AccountProps,
             options: accountsScreenNavOptions,

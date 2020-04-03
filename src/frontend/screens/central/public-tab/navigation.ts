@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,6 +9,7 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../..';
+import {Reactions} from '../../../ssb/types';
 import {navOptions as composeScreenNavOptions} from '../../compose';
 import {
   navOptions as accountsScreenNavOpts,
@@ -24,7 +25,7 @@ export type Actions = {
   goToAccounts$: Stream<{
     title: string;
     msgKey: MsgId;
-    ids: Array<FeedId> | null;
+    accounts: Array<FeedId> | Reactions;
   }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
@@ -58,7 +59,7 @@ export default function navigation(
             passProps: {
               title: ev.title,
               msgKey: ev.msgKey,
-              ids: ev.ids,
+              accounts: ev.accounts,
               selfFeedId: state.selfFeedId,
             } as AccountsProps,
             options: accountsScreenNavOpts,

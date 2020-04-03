@@ -8,7 +8,12 @@ import {Stream, Subscription, Listener} from 'xstream';
 import {Component, ReactElement} from 'react';
 import {h} from '@cycle/react';
 import {FeedId, Msg, MsgId, PostContent} from 'ssb-typescript';
-import {ThreadAndExtras, MsgAndExtras, Likes} from '../ssb/types';
+import {
+  ThreadAndExtras,
+  MsgAndExtras,
+  PressReactionsEvent,
+  PressAddReactionEvent,
+} from '../ssb/types';
 import Message from './messages/Message';
 import PlaceholderMessage from './messages/PlaceholderMessage';
 import ForkNote from './messages/ForkNote';
@@ -18,8 +23,8 @@ export type Props = {
   publication$?: Stream<any> | null;
   selfFeedId: FeedId;
   onPressFork?: (ev: {rootMsgId: MsgId}) => void;
-  onPressLikeCount?: (ev: {msgKey: MsgId; likes: Likes}) => void;
-  onPressLike?: (ev: {msgKey: string; like: boolean}) => void;
+  onPressReactions?: (ev: PressReactionsEvent) => void;
+  onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
 };
@@ -50,8 +55,9 @@ export default class FullThread extends Component<Props, State> {
     if (nextProps.selfFeedId !== prevProps.selfFeedId) return true;
     if (nextProps.onPressAuthor !== prevProps.onPressAuthor) return true;
     if (nextProps.onPressEtc !== prevProps.onPressEtc) return true;
-    if (nextProps.onPressLikeCount !== prevProps.onPressLikeCount) return true;
-    if (nextProps.onPressLike !== prevProps.onPressLike) return true;
+    if (nextProps.onPressReactions !== prevProps.onPressReactions) return true;
+    if (nextProps.onPressAddReaction !== prevProps.onPressAddReaction)
+      return true;
     if (nextProps.publication$ !== prevProps.publication$) return true;
     const prevMessages = prevProps.thread.messages;
     const nextMessages = nextProps.thread.messages;
@@ -82,8 +88,8 @@ export default class FullThread extends Component<Props, State> {
   private renderMessage(msg: MsgAndExtras) {
     const {
       selfFeedId,
-      onPressLikeCount,
-      onPressLike,
+      onPressReactions,
+      onPressAddReaction,
       onPressAuthor,
       onPressEtc,
     } = this.props;
@@ -91,8 +97,8 @@ export default class FullThread extends Component<Props, State> {
       msg,
       key: msg.key,
       selfFeedId,
-      onPressLikeCount,
-      onPressLike,
+      onPressReactions,
+      onPressAddReaction,
       onPressAuthor,
       onPressEtc,
     });

@@ -6,7 +6,7 @@
 
 const pull = require('pull-stream');
 const Ref = require('ssb-ref');
-import xs from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import {Msg, Content, FeedId} from 'ssb-typescript';
 import {
@@ -21,8 +21,9 @@ import {
   MsgAndExtras,
   ThreadAndExtras,
   PrivateThreadAndExtras,
+  Reactions,
 } from '../types';
-import {imageToImageUrl} from '../utils/from-ssb';
+import {imageToImageUrl, voteExpressionToReaction} from '../utils/from-ssb';
 import {Callback} from 'pull-stream';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {ClientAPI, AnyFunction} from 'react-native-ssb-client';
@@ -45,7 +46,7 @@ function getRecipient(recp: string | Record<string, any>): string | undefined {
   }
 }
 
-function mutateMsgWithLiveExtras(ssb: SSB, includeLikes: boolean = true) {
+function mutateMsgWithLiveExtras(ssb: SSB, includeReactions: boolean = true) {
   const getAbout = ssb.cachedAbout.socialValue;
   return async (msg: Msg, cb: Callback<MsgAndExtras>) => {
     if (!isMsg(msg) || !msg.value) return cb(null, msg as any);
@@ -61,15 +62,24 @@ function mutateMsgWithLiveExtras(ssb: SSB, includeLikes: boolean = true) {
     if (e2) return cb(e2);
     const imageUrl = imageToImageUrl(val);
 
-    // Get likes stream
-    const likes = includeLikes
-      ? xsFromPullStream(ssb.votes.voterStream(msg.key)).startWith([])
+    // Get reactions stream
+    const reactions: Stream<Reactions> = includeReactions
+      ? xsFromPullStream(ssb.votes.voterStream(msg.key))
+          .startWith([])
+          .map((arr: Array<unknown>) =>
+            arr
+              .reverse() // recent ones first
+              .map(([feedId, expression]) => {
+                const reaction = voteExpressionToReaction(expression);
+                return [feedId, reaction];
+              }),
+          )
       : xs.never();
 
     // Create msg object
     const m = msg as MsgAndExtras;
     m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
-      likes,
+      reactions,
       about: {name, imageUrl},
     };
 

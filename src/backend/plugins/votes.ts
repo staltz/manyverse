@@ -10,9 +10,9 @@ const ref = require('ssb-ref');
 import {Readable} from './helpers/types';
 
 function collectUniqueAuthors() {
-  const theSet: Set<FeedId> = new Set();
+  const theMap: Map<FeedId, string> = new Map();
   return function sink(read: Readable<Msg>) {
-    const outputSource: Readable<Array<FeedId>> = (abort, cb) => {
+    const outputSource: Readable<Array<[FeedId, string]>> = (abort, cb) => {
       read(abort, function next(endOrErr, msg) {
         if (endOrErr) {
           cb(endOrErr);
@@ -31,15 +31,18 @@ function collectUniqueAuthors() {
 
         const author = msg.value.author;
         const voteValue = msg.value.content.vote.value;
-        if (voteValue < 1 && theSet.has(author)) {
-          theSet.delete(author);
-        } else if (voteValue >= 1 && !theSet.has(author)) {
-          theSet.add(author);
+        const voteExpression = msg.value.content.vote.expression ?? 'Like';
+        if (voteValue < 1 && theMap.has(author)) {
+          theMap.delete(author);
+        } else if (voteValue >= 1) {
+          // this delete is used on purpose, to reset the insertion order
+          theMap.delete(author);
+          theMap.set(author, voteExpression);
         } else {
           read(abort, next);
           return;
         }
-        cb(endOrErr, [...theSet]);
+        cb(endOrErr, [...theMap]);
       });
     };
     return outputSource;

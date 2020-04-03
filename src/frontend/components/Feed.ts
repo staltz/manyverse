@@ -21,7 +21,11 @@ import {Palette} from '../global-styles/palette';
 import CompactThread from './CompactThread';
 import PlaceholderMessage from './messages/PlaceholderMessage';
 import {GetReadable} from '../drivers/ssb';
-import {ThreadAndExtras, Likes} from '../ssb/types';
+import {
+  ThreadAndExtras,
+  PressReactionsEvent,
+  PressAddReactionEvent,
+} from '../ssb/types';
 import PullFlatList from 'pull-flat-list';
 import {Stream, Subscription, Listener} from 'xstream';
 import {propifyMethods} from 'react-propify-methods';
@@ -154,8 +158,8 @@ type Props = {
   progressViewOffset?: number;
   onInitialPullDone?: () => void;
   onRefresh?: () => void;
-  onPressLikeCount?: (ev: {msgKey: MsgId; likes: Likes}) => void;
-  onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
+  onPressReactions?: (ev: PressReactionsEvent) => void;
+  onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
@@ -235,8 +239,8 @@ export default class Feed extends PureComponent<Props, State> {
   public render() {
     const {
       onRefresh,
-      onPressLikeCount,
-      onPressLike,
+      onPressReactions,
+      onPressAddReaction,
       onPressReply,
       onPressAuthor,
       onPressEtc,
@@ -292,8 +296,8 @@ export default class Feed extends PureComponent<Props, State> {
           h(CompactThread, {
             thread: item as ThreadAndExtras,
             selfFeedId,
-            onPressLikeCount,
-            onPressLike,
+            onPressReactions,
+            onPressAddReaction,
             onPressReply,
             onPressAuthor,
             onPressEtc,

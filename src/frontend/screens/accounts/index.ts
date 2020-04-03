@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,7 +23,7 @@ export type Props = {
   title: string;
   selfFeedId: FeedId;
   msgKey: MsgId;
-  ids: Array<FeedId> | null;
+  accounts: Array<FeedId | [string, string]> | null;
 };
 
 export type Sources = {
@@ -149,14 +149,35 @@ export function accounts(sources: Sources): Sinks {
   );
 
   const aboutsReducer$ = sources.props
-    .filter(props => !!props.ids)
-    .map(props => sources.ssb.liteAbout$(props.ids!))
-    .flatten()
-    .map(abouts => {
-      return function propsReducer(prev: State): State {
-        return {...prev, abouts};
-      };
-    });
+    .filter(props => !!props.accounts)
+    .map(props => {
+      const hasReactions =
+        props.accounts &&
+        props.accounts.length >= 1 &&
+        Array.isArray(props.accounts[0]);
+
+      const reactions = new Map(
+        hasReactions ? (props.accounts as Array<[FeedId, string]>) : undefined,
+      );
+
+      const ids = hasReactions
+        ? (props.accounts! as Array<[FeedId, string]>).map(x => x[0])
+        : (props.accounts! as Array<FeedId>);
+
+      return sources.ssb.liteAbout$(ids).map(
+        rawAbouts =>
+          function propsReducer(prev: State): State {
+            const abouts = hasReactions
+              ? rawAbouts.map(about => ({
+                  ...about,
+                  reaction: reactions.get(about.id),
+                }))
+              : rawAbouts;
+            return {...prev, abouts};
+          },
+      );
+    })
+    .flatten();
 
   const reducer$ = xs.merge(propsReducer$, aboutsReducer$);
 

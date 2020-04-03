@@ -4,16 +4,27 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Msg, Content, FeedId, About} from 'ssb-typescript';
+import {Msg, Content, FeedId, About, MsgId} from 'ssb-typescript';
 import {Stream} from 'xstream';
 import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
 
-export type Likes = Array<FeedId> | null;
+export type Reactions = Array<[FeedId, string]> | null;
+
+export type PressAddReactionEvent = {
+  msgKey: MsgId;
+  value: 0 | 1;
+  reaction: string | null;
+};
+
+export type PressReactionsEvent = {
+  msgKey: MsgId;
+  reactions: Reactions;
+};
 
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
     _$manyverse$metadata: {
-      likes?: Stream<Array<FeedId>>;
+      reactions?: Stream<NonNullable<Reactions>>;
       about: {
         name?: string;
         imageUrl: string | null;

@@ -14,9 +14,8 @@ import {
   TriggerMsgCypherlink,
 } from '../../../drivers/eventbus';
 import {Screens} from '../../..';
-import {Likes} from '../../../ssb/types';
+import {PressAddReactionEvent, PressReactionsEvent} from '../../../ssb/types';
 
-export type LikeEvent = {msgKey: string; like: boolean};
 export type ProfileNavEvent = {authorFeedId: FeedId};
 export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 
@@ -31,14 +30,17 @@ export default function intent(
 
     goToAccounts$: (reactSource
       .select('publicFeed')
-      .events('pressLikeCount') as Stream<{
-      msgKey: MsgId;
-      likes: Likes;
-    }>).map(({msgKey, likes}) => ({title: 'Likes', msgKey, ids: likes})),
+      .events('pressReactions') as Stream<PressReactionsEvent>).map(
+      ({msgKey, reactions}) => ({
+        title: 'Reactions',
+        msgKey,
+        accounts: reactions,
+      }),
+    ),
 
-    likeMsg$: reactSource.select('publicFeed').events('pressLike') as Stream<
-      LikeEvent
-    >,
+    addReactionMsg$: reactSource
+      .select('publicFeed')
+      .events('pressAddReaction') as Stream<PressAddReactionEvent>,
 
     goToProfile$: xs.merge(
       reactSource.select('publicFeed').events('pressAuthor'),

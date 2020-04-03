@@ -7,7 +7,12 @@
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {FeedId, MsgId, Msg, PostContent} from 'ssb-typescript';
-import {ThreadAndExtras, MsgAndExtras, Likes} from '../ssb/types';
+import {
+  ThreadAndExtras,
+  MsgAndExtras,
+  PressReactionsEvent,
+  PressAddReactionEvent,
+} from '../ssb/types';
 import Message from './messages/Message';
 import ExpandThread from './messages/ExpandThread';
 import ForkNote from './messages/ForkNote';
@@ -16,8 +21,8 @@ export type Props = {
   thread: ThreadAndExtras;
   selfFeedId: FeedId;
   onPressFork?: (ev: {rootMsgId: MsgId}) => void;
-  onPressLikeCount?: (ev: {msgKey: MsgId; likes: Likes}) => void;
-  onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
+  onPressReactions?: (ev: PressReactionsEvent) => void;
+  onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
@@ -32,8 +37,8 @@ export default class CompactThread extends PureComponent<Props> {
   private renderMessage(msg: MsgAndExtras) {
     const {
       selfFeedId,
-      onPressLikeCount,
-      onPressLike,
+      onPressReactions,
+      onPressAddReaction,
       onPressReply,
       onPressAuthor,
       onPressEtc,
@@ -43,8 +48,8 @@ export default class CompactThread extends PureComponent<Props> {
       msg,
       key: msg.key,
       selfFeedId,
-      onPressLikeCount,
-      onPressLike,
+      onPressReactions,
+      onPressAddReaction,
       onPressReply,
       onPressAuthor,
       onPressEtc,

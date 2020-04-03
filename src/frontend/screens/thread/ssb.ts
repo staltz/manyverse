@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,9 +8,10 @@ import xs, {Stream} from 'xstream';
 import {toVoteContent, toReplyPostContent} from '../../ssb/utils/to-ssb';
 import {State} from './model';
 import {Req, contentToPublishReq} from '../../drivers/ssb';
+import {PressAddReactionEvent} from '../../ssb/types';
 
 export type SSBActions = {
-  likeMsg$: Stream<{msgKey: string; like: boolean}>;
+  addReactionMsg$: Stream<PressAddReactionEvent>;
   publishMsg$: Stream<State>;
 };
 
@@ -18,7 +19,7 @@ export type SSBActions = {
  * Define streams of new content to be flushed onto SSB.
  */
 export default function ssb(actions: SSBActions): Stream<Req> {
-  const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
+  const addReaction$ = actions.addReactionMsg$.map(toVoteContent);
 
   const publishReply$ = actions.publishMsg$.map(state => {
     const messages = state.thread.messages;
@@ -30,5 +31,5 @@ export default function ssb(actions: SSBActions): Stream<Req> {
     );
   });
 
-  return xs.merge(toggleLikeMsg$, publishReply$).map(contentToPublishReq);
+  return xs.merge(addReaction$, publishReply$).map(contentToPublishReq);
 }

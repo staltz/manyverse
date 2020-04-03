@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,11 +8,12 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import sample from 'xstream-sample';
 import {State} from './model';
-import {toVoteContent, toContactContent} from '../../ssb/utils/to-ssb';
 import {Req, contentToPublishReq} from '../../drivers/ssb';
+import {toVoteContent, toContactContent} from '../../ssb/utils/to-ssb';
+import {PressAddReactionEvent} from '../../ssb/types';
 
 export type SSBActions = {
-  likeMsg$: Stream<{msgKey: string; like: boolean}>;
+  addReactionMsg$: Stream<PressAddReactionEvent>;
   follow$: Stream<boolean>;
   blockContact$: Stream<null>;
   blockSecretlyContact$: Stream<null>;
@@ -27,7 +28,7 @@ export default function ssb(
   actions: SSBActions,
   state$: Stream<State>,
 ): Stream<Req> {
-  const toggleLikeMsg$ = actions.likeMsg$.map(toVoteContent);
+  const addReaction$ = actions.addReactionMsg$.map(toVoteContent);
 
   const followContactMsg$ = actions.follow$
     .compose(sampleCombine(state$))
@@ -61,7 +62,7 @@ export default function ssb(
 
   return xs
     .merge(
-      toggleLikeMsg$,
+      addReaction$,
       followContactMsg$,
       blockContactMsg$,
       blockSecretlyContactMsg$,

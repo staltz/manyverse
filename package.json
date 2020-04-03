@@ -82,6 +82,7 @@
     "react-native-android-local-notification": "3.0.0",
     "react-native-bluetooth-socket-bridge": "1.2.0",
     "react-native-dialogs": "1.1.0",
+    "react-native-emoji-picker-staltz": "0.2.2",
     "react-native-flag-secure-android": "1.0.2",
     "react-native-floating-action": "1.19.1",
     "react-native-fs": "~2.16.2",

@@ -468,6 +468,13 @@ export default [
     homepage: 'https://github.com/aakashns/react-native-dialogs#readme',
   },
   {
+    name: 'react-native-emoji-picker-staltz',
+    type: 'library',
+    version: '0.2.2',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/staltz/react-native-emoji-picker',
+  },
+  {
     name: 'react-native-flag-secure-android',
     type: 'library',
     version: '1.0.2',
@@ -898,6 +905,13 @@ export default [
     version: '1.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/xstream-between#readme',
+  },
+  {
+    name: 'xstream-drop-repeats-by-keys',
+    type: 'library',
+    version: '1.1.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://gitlab.com/staltz/xstream-drop-repeats-by-keys#readme',
   },
   {
     name: 'xstream-from-callback',

@@ -9,7 +9,7 @@ import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
 import {State} from './model';
 import sample from 'xstream-sample';
-import {Likes} from '../../ssb/types';
+import {PressReactionsEvent, PressAddReactionEvent} from '../../ssb/types';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
@@ -37,10 +37,13 @@ export default function intent(
 
     goToAccounts$: (reactSource
       .select('feed')
-      .events('pressLikeCount') as Stream<{
-      msgKey: MsgId;
-      likes: Likes;
-    }>).map(({msgKey, likes}) => ({title: 'Likes', msgKey, ids: likes})),
+      .events('pressReactions') as Stream<PressReactionsEvent>).map(
+      ({msgKey, reactions}) => ({
+        title: 'Reactions',
+        msgKey,
+        accounts: reactions,
+      }),
+    ),
 
     goToProfile$: reactSource.select('feed').events('pressAuthor') as Stream<
       ProfileNavEvent
@@ -66,10 +69,9 @@ export default function intent(
         })),
     ) as Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>,
 
-    likeMsg$: reactSource.select('feed').events('pressLike') as Stream<{
-      msgKey: string;
-      like: boolean;
-    }>,
+    addReactionMsg$: reactSource
+      .select('feed')
+      .events('pressAddReaction') as Stream<PressAddReactionEvent>,
 
     follow$: reactSource.select('follow').events('press') as Stream<boolean>,
   };

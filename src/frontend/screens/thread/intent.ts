@@ -14,7 +14,7 @@ import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {DialogSource} from '../../drivers/dialogs';
 import {SSBSource} from '../../drivers/ssb';
 import {Palette} from '../../global-styles/palette';
-import {Likes} from '../../ssb/types';
+import {PressAddReactionEvent, PressReactionsEvent} from '../../ssb/types';
 import {Screens} from '../..';
 import {State} from './model';
 import {Props} from './index';
@@ -71,10 +71,13 @@ export default function intent(
 
     goToAccounts$: (reactSource
       .select('thread')
-      .events('pressLikeCount') as Stream<{
-      msgKey: MsgId;
-      likes: Likes;
-    }>).map(({msgKey, likes}) => ({title: 'Likes', msgKey, ids: likes})),
+      .events('pressReactions') as Stream<PressReactionsEvent>).map(
+      ({msgKey, reactions}) => ({
+        title: 'Reactions',
+        msgKey,
+        accounts: reactions,
+      }),
+    ),
 
     goToAnotherThread$: reactSource
       .select('thread')
@@ -85,10 +88,9 @@ export default function intent(
       .events('press')
       .mapTo(null),
 
-    likeMsg$: reactSource.select('thread').events('pressLike') as Stream<{
-      msgKey: string;
-      like: boolean;
-    }>,
+    addReactionMsg$: reactSource
+      .select('thread')
+      .events('pressAddReaction') as Stream<PressAddReactionEvent>,
 
     loadReplyDraft$: xs
       .merge(

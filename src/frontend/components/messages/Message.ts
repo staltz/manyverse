@@ -10,7 +10,12 @@ import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {Msg, FeedId, MsgId} from 'ssb-typescript';
 import {isPostMsg, isContactMsg, isAboutMsg} from 'ssb-typescript/utils';
-import {Likes, MsgAndExtras} from '../../ssb/types';
+import {
+  Reactions,
+  MsgAndExtras,
+  PressReactionsEvent,
+  PressAddReactionEvent,
+} from '../../ssb/types';
 import RawMessage from './RawMessage';
 import PostMessage from './PostMessage';
 import AboutMessage from './AboutMessage';
@@ -25,15 +30,15 @@ export type State = {
 export type Props = {
   msg: MsgAndExtras;
   selfFeedId: FeedId;
-  onPressLikeCount?: (ev: {msgKey: MsgId; likes: Likes}) => void;
-  onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
+  onPressReactions?: (ev: PressReactionsEvent) => void;
+  onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
 };
 
-const PostMessageM = withXstreamProps(PostMessage, 'likes');
-const RawMessageM = withXstreamProps(RawMessage, 'likes');
+const PostMessageM = withXstreamProps(PostMessage, 'reactions');
+const RawMessageM = withXstreamProps(RawMessage, 'reactions');
 
 export default class Message extends PureComponent<Props, State> {
   constructor(props: Props) {
@@ -49,13 +54,13 @@ export default class Message extends PureComponent<Props, State> {
   public render() {
     const {msg} = this.props;
     const metadata = this.props.msg.value._$manyverse$metadata;
-    const likes = (
-      metadata.likes ?? (xs.never() as Stream<Array<string>>)
+    const reactions = (
+      metadata.reactions ?? (xs.never() as Stream<Reactions>)
     ).compose(debounce(80)); // avoid DB reads flickering
     const props = {
       ...this.props,
       msg: msg as Msg<any>,
-      likes,
+      reactions,
       name: metadata.about.name,
       imageUrl: metadata.about.imageUrl,
       contactName: metadata.contact ? metadata.contact.name : undefined,

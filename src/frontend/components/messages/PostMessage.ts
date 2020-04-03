@@ -12,7 +12,11 @@ import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
 import ContentWarning from './ContentWarning';
 import {PostContent as Post, FeedId, Msg, MsgId} from 'ssb-typescript';
-import {Likes} from '../../ssb/types';
+import {
+  Reactions,
+  PressReactionsEvent,
+  PressAddReactionEvent,
+} from '../../ssb/types';
 
 type CWPost = Post & {contentWarning?: string};
 
@@ -20,10 +24,10 @@ export type Props = {
   msg: Msg<Post>;
   name?: string;
   imageUrl: string | null;
-  likes: Likes;
+  reactions: Reactions;
   selfFeedId: FeedId;
-  onPressLikeCount?: (ev: {msgKey: MsgId; likes: Likes}) => void;
-  onPressLike?: (ev: {msgKey: MsgId; like: boolean}) => void;
+  onPressReactions?: (ev: PressReactionsEvent) => void;
+  onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;

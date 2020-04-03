@@ -35,6 +35,7 @@ export const styles = StyleSheet.create({
     paddingVertical: Dimensions.verticalSpaceBig,
     marginBottom: 1,
     flexDirection: 'row',
+    alignItems: 'center',
   },
 
   avatar: {
@@ -55,18 +56,24 @@ export const styles = StyleSheet.create({
     color: Palette.text,
     minWidth: 120,
   },
+
+  reaction: {
+    fontSize: Typography.fontSizeLarge,
+    lineHeight: Typography.fontSizeLarge * 1.15,
+  },
 });
 
 type AccountProps = {
+  id: string;
   name?: string;
   imageUrl?: string;
-  id: string;
+  reaction?: string;
   onPress?: () => void;
 };
 
 class Account extends PureComponent<AccountProps> {
   public render() {
-    const {name, imageUrl, id, onPress} = this.props;
+    const {id, name, imageUrl, reaction, onPress} = this.props;
 
     const touchableProps: any = {
       onPress,
@@ -99,6 +106,8 @@ class Account extends PureComponent<AccountProps> {
               style: styles.avatar,
             }),
             h(View, {style: styles.authorColumn}, [authorNameText]),
+
+            h(Text, {style: styles.reaction}, reaction),
           ]),
         ]),
       ],
@@ -107,7 +116,12 @@ class Account extends PureComponent<AccountProps> {
 }
 
 export type Props = {
-  accounts: Array<{name?: string; imageUrl?: string; id: string}>;
+  accounts: Array<{
+    name?: string;
+    imageUrl?: string;
+    id: string;
+    reaction?: string;
+  }>;
   onPressAccount?: (ev: {id: FeedId; name: string}) => void;
 };
 
@@ -116,12 +130,13 @@ export default class AccountsList extends PureComponent<Props> {
     const {onPressAccount} = this.props;
     return h(
       React.Fragment,
-      this.props.accounts.map(({id, name, imageUrl}) =>
+      this.props.accounts.map(({id, name, imageUrl, reaction}) =>
         h<AccountProps>(Account, {
           key: id,
+          id,
           name,
           imageUrl,
-          id,
+          reaction,
           onPress: () => onPressAccount?.({id, name: displayName(name, id)}),
         }),
       ),

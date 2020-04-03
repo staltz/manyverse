@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,20 +13,18 @@ import {
   AboutContent,
   MsgId,
 } from 'ssb-typescript';
+import {PressAddReactionEvent} from '../types';
 const Mentions = require('remark-ssb-mentions');
 
-export type LikeEvent = {
-  msgKey: string;
-  like: boolean;
-};
-
-export function toVoteContent(ev: LikeEvent): Privatable<VoteContent> {
+export function toVoteContent(
+  ev: PressAddReactionEvent,
+): Privatable<VoteContent> {
   return {
     type: 'vote',
     vote: {
       link: ev.msgKey,
-      value: ev.like ? 1 : 0,
-      expression: ev.like ? 'Like' : 'Unlike',
+      value: ev.value,
+      expression: ev.reaction ?? 'Unlike',
     },
   };
 }

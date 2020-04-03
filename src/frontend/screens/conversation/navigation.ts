@@ -55,7 +55,7 @@ export default function navigation(actions: Actions, state$: Stream<State>) {
             passProps: {
               title: 'Recipients',
               msgKey: state.rootMsgId,
-              ids: state.thread.recps.map(r => r.id),
+              accounts: state.thread.recps.map(r => r.id),
               selfFeedId: state.selfFeedId,
             } as AccountsProps,
             options: accountsScreenNavOpts,
