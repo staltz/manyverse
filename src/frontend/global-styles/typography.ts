@@ -6,8 +6,9 @@
 
 import {Platform} from 'react-native';
 
-const BASE_SIZE = 15; // px
+const BASE_SIZE = 16; // px | pt
 const SCALE = 1.125;
+const LEADING = 1.5;
 
 const scaleUp = SCALE;
 const scaleDown = 1 / SCALE;
@@ -16,6 +17,7 @@ export const Typography = {
   scaleUp,
   scaleDown,
   baseSize: BASE_SIZE,
+  baseLeading: LEADING,
   fontSizeLarge: BASE_SIZE * scaleUp * scaleUp,
   fontSizeBig: BASE_SIZE * scaleUp,
   fontSizeNormal: BASE_SIZE,

@@ -4,22 +4,20 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {createElement, PureComponent} from 'react';
-import {View, Text, Linking, StyleSheet, TextProperties} from 'react-native';
+import {createElement as $, PureComponent} from 'react';
+import {Linking, StyleSheet, Text, TextProperties, View} from 'react-native';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography as Typ} from '../global-styles/typography';
 import {GlobalEventBus} from '../drivers/eventbus';
 import ZoomableImage from './ZoomableImage';
-const remark = require('remark');
-const ReactMarkdown = require('react-markdown');
-const normalizeForReactNative = require('mdast-normalize-react-native');
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
-const Ref = require('ssb-ref');
 const linkifyRegex = require('remark-linkify-regex');
-
-const $ = createElement;
+const normalizeForReactNative = require('mdast-normalize-react-native');
+const ReactMarkdown = require('react-markdown');
+const Ref = require('ssb-ref');
+const remark = require('remark');
 
 const textProps: TextProperties = {
   selectable: true,
@@ -27,6 +25,56 @@ const textProps: TextProperties = {
 };
 
 const styles = StyleSheet.create({
+  text: {},
+
+  heading1: {
+    fontWeight: '700',
+    color: Palette.text,
+    fontSize: Typ.baseSize * Math.pow(Typ.scaleUp, 3),
+    lineHeight: Typ.baseSize * Math.pow(Typ.scaleUp, 3) * Typ.baseLeading,
+    marginVertical: Dimensions.verticalSpaceSmall,
+  },
+
+  heading2: {
+    fontWeight: '700',
+    color: Palette.text,
+    fontSize: Typ.baseSize * Math.pow(Typ.scaleUp, 2),
+    lineHeight: Typ.baseSize * Math.pow(Typ.scaleUp, 2) * Typ.baseLeading,
+    marginVertical: Dimensions.verticalSpaceSmall,
+  },
+
+  heading3: {
+    fontWeight: '700',
+    color: Palette.text,
+    fontSize: Typ.baseSize * Typ.scaleUp,
+    lineHeight: Typ.baseSize * Typ.scaleUp * Typ.baseLeading,
+    marginVertical: Dimensions.verticalSpaceSmall,
+  },
+
+  heading4: {
+    fontWeight: '700',
+    color: Palette.text,
+    fontSize: Typ.baseSize,
+    lineHeight: Typ.baseSize * Typ.baseLeading,
+    marginVertical: Dimensions.verticalSpaceSmall,
+  },
+
+  heading5: {
+    fontWeight: '700',
+    color: Palette.text,
+    fontSize: Typ.baseSize * Typ.scaleDown,
+    lineHeight: Typ.baseSize * Typ.baseLeading,
+    marginVertical: Dimensions.verticalSpaceSmall,
+  },
+
+  heading6: {
+    fontWeight: '700',
+    color: Palette.text,
+    fontSize: Typ.baseSize * Math.pow(Typ.scaleDown, 2),
+    lineHeight: Typ.baseSize * Typ.baseLeading,
+    marginVertical: Dimensions.verticalSpaceSmall,
+  },
+
   paragraph: {
     flexWrap: 'wrap',
     flexDirection: 'row',
@@ -39,59 +87,20 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     overflow: 'visible',
     color: Palette.text,
-  },
-
-  text: {},
-
-  listItemText: {
-    color: Palette.text,
-  },
-
-  heading1: {
-    fontWeight: 'bold',
-    marginVertical: Dimensions.verticalSpaceNormal,
-    fontSize: Typ.baseSize * Typ.scaleUp * Typ.scaleUp,
-    color: Palette.text,
-  },
-
-  heading2: {
-    fontWeight: 'bold',
-    marginVertical: Dimensions.verticalSpaceNormal,
-    fontSize: Typ.baseSize * Typ.scaleUp,
-    color: Palette.text,
-  },
-
-  heading3: {
-    fontWeight: 'bold',
-    marginVertical: Dimensions.verticalSpaceSmall,
     fontSize: Typ.baseSize,
-    color: Palette.text,
+    lineHeight: Typ.baseSize * Typ.baseLeading,
   },
 
-  heading4: {
-    fontWeight: 'bold',
-    fontSize: Typ.baseSize * Typ.scaleDown,
-    color: Palette.text,
-  },
-
-  heading5: {
-    fontWeight: 'bold',
-    fontSize: Typ.baseSize * Typ.scaleDown * Typ.scaleDown,
-    color: Palette.text,
-  },
-
-  heading6: {
-    fontWeight: 'bold',
-    fontSize: Typ.baseSize * Typ.scaleDown * Typ.scaleDown * Typ.scaleDown,
-    color: Palette.text,
+  strong: {
+    fontWeight: '700',
   },
 
   em: {
     fontStyle: 'italic',
   },
 
-  strong: {
-    fontWeight: 'bold',
+  strikethrough: {
+    textDecorationLine: 'line-through',
   },
 
   link: {
@@ -103,51 +112,49 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
 
-  inlineCode: {
-    backgroundColor: Palette.backgroundTextWeak,
-    color: Palette.textWeak,
-    paddingLeft: 4,
-    paddingRight: 4,
-    borderRadius: 2,
-    fontFamily: Typ.fontFamilyMonospace,
+  listItemText: {
+    color: Palette.text,
+    fontSize: Typ.baseSize,
+    lineHeight: Typ.baseSize * Typ.baseLeading,
   },
 
-  strikethrough: {
-    textDecorationLine: 'line-through',
+  orderedBullet: {
+    fontWeight: '700',
+  },
+
+  inlineCode: {
+    backgroundColor: Palette.backgroundTextWeak,
+    fontFamily: Typ.fontFamilyMonospace,
+    color: Palette.textWeak,
+  },
+
+  codeBlock: {
+    backgroundColor: Palette.backgroundTextWeak,
+    marginVertical: Dimensions.verticalSpaceSmall,
+    padding: Dimensions.verticalSpaceSmall,
+  },
+
+  codeText: {
+    fontFamily: Typ.fontFamilyMonospace,
+    fontWeight: '400',
+    color: Palette.textWeak,
+    fontSize: Typ.fontSizeSmall,
+    lineHeight: Typ.fontSizeSmall * Typ.baseLeading,
   },
 
   blockquote: {
     backgroundColor: Palette.backgroundTextWeak,
     borderLeftWidth: 3,
     borderLeftColor: Palette.backgroundTextWeakStrong,
+    marginVertical: Dimensions.verticalSpaceSmall,
     paddingLeft: Dimensions.horizontalSpaceSmall,
     paddingRight: 1,
   },
 
-  codeBlock: {
-    backgroundColor: Palette.backgroundTextWeak,
-    marginVertical: 2,
-    paddingVertical: 3,
-    paddingHorizontal: 5,
-    borderRadius: 2,
-  },
-
-  codeText: {
-    color: Palette.textWeak,
-    fontSize: Typ.fontSizeSmall,
-    fontWeight: 'normal',
-    fontFamily: Typ.fontFamilyMonospace,
-  },
-
   horizontalLine: {
     backgroundColor: Palette.textLine,
+    marginVertical: Dimensions.verticalSpaceSmall,
     height: 2,
-    marginTop: Dimensions.verticalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceSmall,
-  },
-
-  orderedBullet: {
-    fontWeight: 'bold',
   },
 });
 
