@@ -6,6 +6,17 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2004.4-beta
+
+* (iOS) Bug fix: reduce menu icon opacity on scroll ([see details](https://gitlab.com/staltz/manyverse/commit/73e29503f57baef2d0a8ac17c7379f1f64599784)), closes [#805](https://gitlab.com/staltz/manyverse/issues/805)
+* (iOS) Bug fix: Save button and others should be pressable ([see details](https://gitlab.com/staltz/manyverse/commit/95956fb5c3b9d68c673d7dbd1e768d96e01525b8))
+* (iOS) Bug fix: top bar opacity animation ([see details](https://gitlab.com/staltz/manyverse/commit/c027d5246230ccadc0bc452ab2142f592219d166))
+* Bug fix: splashscreen sometimes got stuck ([see details](https://gitlab.com/staltz/manyverse/commit/10f7a62c202dc40f3cba35708400446fa607f195))
+* Bug fix: typo in the backup instructions screen ([see details](https://gitlab.com/staltz/manyverse/commit/18bfc0f549f19d239621723f5955fc29c68136e6))
+* Feature: emoji reactions instead of likes ([see details](https://gitlab.com/staltz/manyverse/commit/ea1dfd54ee007f3f2de1fa3d332656d9cb810efd))
+* Improve typography and styling in markdown posts ([see details](https://gitlab.com/staltz/manyverse/commit/9dfef253826782c2dfb5b6335d3dd317756bf3f3))
+* Improve UI performance slightly ([see details](https://gitlab.com/staltz/manyverse/commit/8f628c49cdf2ebd52857d8683a407ef769da9a87))
+
 ## 0.2003.4-beta
 
 * Bug fix: on Android 9+ images were not showing ([see details](https://gitlab.com/staltz/manyverse/commit/523210152fb7b23260eb6ade2f6ad7f25f71b8ff))
