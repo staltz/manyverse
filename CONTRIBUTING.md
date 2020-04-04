@@ -413,6 +413,12 @@ Then make an iOS release:
 - `git pull origin master` on a computer that can build iOS
 - Run `npm run release-ios`
 - Once done, it should an _Organizer_ window where you should upload the new version to App Store
+- Get the folder `e2e/apple-app-store-demo` and make it your `~/.ssb` (beware to backup any existing `~/.ssb` before)
+- Open a desktop SSB client such as Patchwork to use that `~/.ssb`
+- Create a new [ssb-room](https://github.com/staltz/ssb-room) server
+- Put the ssb-room invite code in Patchwork
+- Keep this Patchwork open (and the computer in non-sleep mode) for ~24 hours
+- Apple's reviewers should use the ssb-room invite and will connect to your Patchwork
 
 ### Publish
 
