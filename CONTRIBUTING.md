@@ -336,6 +336,8 @@ Most app development happens in `src/frontend` and thus follows the [Cycle.js](h
   - `ssb`: takes a stream of actions as input and returns a stream of SSB requests to make
   - etc
 
+📽️ **Watch this [screencast on YouTube](https://www.youtube.com/watch?v=iv7FEbLKNUI) where Andre Staltz and David Gómez have a walkthrough the basics of thee app architecture**
+
 ## Integration tests
 
 **Only Android is supported for end-to-end tests at the moment.**
