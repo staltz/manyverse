@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {ReactElement, Fragment} from 'react';
+import {ReactElement, Fragment, PureComponent, Component} from 'react';
 import {
   View,
   Platform,
@@ -32,130 +32,243 @@ const touchableProps = Platform.select<any>({
   default: {},
 });
 
-function renderPublicIcon(isSelected: boolean, numOfPublicUpdates: number) {
-  return h(
-    Touchable,
-    {
-      ...touchableProps,
-      sel: 'public-tab-button',
-      style: styles.tabButton, // iOS needs this
-      accessible: true,
-      accessibilityLabel: 'Public Tab Button',
-    },
-    [
-      h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
-        h(View, [
+class CurrentTabPage extends PureComponent<{
+  currentTab: State['currentTab'];
+  fab: FabProps;
+  publicTab: ReactElement<any>;
+  privateTab: ReactElement<any>;
+  connectionsTab: ReactElement<any>;
+}> {
+  public render() {
+    const {currentTab, fab, publicTab, privateTab, connectionsTab} = this.props;
+    const shown = styles.pageShown;
+    const hidden = styles.pageHidden;
+
+    return h(Fragment, [
+      h(View, {style: [currentTab === 'public' ? shown : hidden]}, [
+        publicTab,
+        h(FloatingAction, fab),
+      ]),
+      h(View, {style: [currentTab === 'private' ? shown : hidden]}, [
+        privateTab,
+        h(FloatingAction, fab),
+      ]),
+      h(View, {style: [currentTab === 'connections' ? shown : hidden]}, [
+        connectionsTab,
+        h(FloatingAction, fab),
+      ]),
+    ]);
+  }
+}
+
+class PublicTabIcon extends Component<{
+  isSelected: boolean;
+  numOfUpdates: number;
+}> {
+  public shouldComponentUpdate(nextProps: PublicTabIcon['props']) {
+    const prevProps = this.props;
+    if (nextProps.isSelected !== prevProps.isSelected) return true;
+    const nextNum = nextProps.numOfUpdates;
+    const prevNum = prevProps.numOfUpdates;
+    // numOfUpdates has two thresholds: >=1 and >=10
+    if (prevNum === nextNum) return false;
+    if (prevNum < 1 && nextNum >= 1) return true;
+    if (prevNum < 10 && nextNum >= 10) return true;
+    if (prevNum >= 10 && nextNum < 10) return true;
+    if (prevNum >= 1 && nextNum < 1) return true;
+    return false;
+  }
+
+  public render() {
+    const {isSelected, numOfUpdates} = this.props;
+
+    return h(
+      Touchable,
+      {
+        ...touchableProps,
+        sel: 'public-tab-button',
+        style: styles.tabButton, // iOS needs this
+        accessible: true,
+        accessibilityLabel: 'Public Tab Button',
+      },
+      [
+        h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
+          h(View, [
+            h(Icon, {
+              name: 'bulletin-board',
+              ...(isSelected ? iconProps.tabSelected : iconProps.tab),
+            }),
+            h(View, {
+              style:
+                numOfUpdates >= 10
+                  ? styles.updatesCoverNone
+                  : numOfUpdates >= 1
+                  ? styles.updatesCoverSome
+                  : styles.updatesCoverAll,
+            }),
+          ]),
+        ]),
+      ],
+    );
+  }
+}
+
+class PrivateTabIcon extends Component<{
+  isSelected: boolean;
+  numOfUpdates: number;
+}> {
+  public shouldComponentUpdate(nextProps: PrivateTabIcon['props']) {
+    const prevProps = this.props;
+    if (nextProps.isSelected !== prevProps.isSelected) return true;
+    // numOfPrivateUpdates has one threshold: >=1
+    const nextNum = nextProps.numOfUpdates;
+    const prevNum = prevProps.numOfUpdates;
+    if (prevNum === nextNum) return false;
+    if (prevNum < 1 && nextNum >= 1) return true;
+    if (prevNum >= 1 && nextNum < 1) return true;
+    return false;
+  }
+
+  private getIconName() {
+    const {isSelected, numOfUpdates} = this.props;
+    if (numOfUpdates >= 1) {
+      return isSelected ? 'message-text' : 'message-text-outline';
+    } else {
+      return isSelected ? 'message' : 'message-outline';
+    }
+  }
+
+  public render() {
+    const {isSelected} = this.props;
+    return h(
+      Touchable,
+      {
+        ...touchableProps,
+        sel: 'private-tab-button',
+        style: styles.tabButton, // iOS needs this
+        accessible: true,
+        accessibilityLabel: 'Private Tab Button',
+      },
+      [
+        h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
+          h(View, [
+            h(Icon, {
+              name: this.getIconName(),
+              ...(isSelected ? iconProps.tabSelected : iconProps.tab),
+            }),
+          ]),
+        ]),
+      ],
+    );
+  }
+}
+
+class ConnectionsTabIcon extends Component<{
+  isSelected: boolean;
+  details: State['connectionsTab'];
+}> {
+  private static countConnected(d: ConnectionsTabIcon['props']['details']) {
+    return (d?.peers ?? []).filter(p => p[1].state === 'connected').length;
+  }
+
+  public shouldComponentUpdate(nextProps: ConnectionsTabIcon['props']) {
+    const prevProps = this.props;
+    // Compare isSelected:
+    if (nextProps.isSelected !== prevProps.isSelected) return true;
+
+    // Don't look into `details` object if the object has not changed:
+    const nextDetails = nextProps.details;
+    const prevDetails = prevProps.details;
+    if (nextDetails === prevDetails) return false;
+
+    // Compare fooEnabled fields:
+    const nextEnabled =
+      nextDetails?.bluetoothEnabled ||
+      nextDetails?.internetEnabled ||
+      nextDetails?.lanEnabled;
+    const prevEnabled =
+      prevDetails?.bluetoothEnabled ||
+      prevDetails?.internetEnabled ||
+      prevDetails?.lanEnabled;
+    if (nextEnabled !== prevEnabled) return true;
+
+    // Compare peers.length (has one threshold, >=1):
+    const prevNumConnected = ConnectionsTabIcon.countConnected(prevDetails);
+    const nextNumConnected = ConnectionsTabIcon.countConnected(nextDetails);
+    if (prevNumConnected === nextNumConnected) return false;
+    if (prevNumConnected < 1 && nextNumConnected >= 1) return true;
+    if (prevNumConnected >= 1 && nextNumConnected < 1) return true;
+
+    return false;
+  }
+
+  private getIconName() {
+    const {isSelected, details} = this.props;
+    if (ConnectionsTabIcon.countConnected(details) > 0) {
+      return isSelected ? 'check-network' : 'check-network-outline';
+    }
+    const d = details;
+    if (d?.bluetoothEnabled || d?.internetEnabled || d?.lanEnabled) {
+      return isSelected ? 'network' : 'network-outline';
+    }
+    return isSelected ? 'network-off' : 'network-off-outline';
+  }
+
+  public render() {
+    return h(
+      Touchable,
+      {
+        ...touchableProps,
+        sel: 'connections-tab-button',
+        style: styles.tabButton, // iOS needs this
+        accessible: true,
+        accessibilityLabel: 'Connections Tab Button',
+      },
+      [
+        h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
           h(Icon, {
-            name: 'bulletin-board',
-            ...(isSelected ? iconProps.tabSelected : iconProps.tab),
-          }),
-          h(View, {
-            style:
-              numOfPublicUpdates > 10
-                ? styles.updatesCoverNone
-                : numOfPublicUpdates > 0
-                ? styles.updatesCoverSome
-                : styles.updatesCoverAll,
+            name: this.getIconName(),
+            ...(this.props.isSelected ? iconProps.tabSelected : iconProps.tab),
           }),
         ]),
-      ]),
-    ],
-  );
+      ],
+    );
+  }
 }
 
-function renderPrivateIcon(isSelected: boolean, numOfPrivateUpdates: number) {
-  let iconName = isSelected ? 'message' : 'message-outline';
-  if (numOfPrivateUpdates > 0) {
-    iconName = isSelected ? 'message-text' : 'message-text-outline';
+class TabsBar extends Component<State> {
+  public shouldComponentUpdate(nextProps: TabsBar['props']) {
+    const prevProps = this.props;
+    if (nextProps.currentTab !== prevProps.currentTab) return true;
+    if (nextProps.numOfPublicUpdates !== prevProps.numOfPublicUpdates) {
+      return true;
+    }
+    if (nextProps.numOfPrivateUpdates !== prevProps.numOfPrivateUpdates) {
+      return true;
+    }
+    if (nextProps.connectionsTab !== prevProps.connectionsTab) {
+      return true;
+    }
+    return false;
   }
 
-  return h(
-    Touchable,
-    {
-      ...touchableProps,
-      sel: 'private-tab-button',
-      style: styles.tabButton, // iOS needs this
-      accessible: true,
-      accessibilityLabel: 'Private Tab Button',
-    },
-    [
-      h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
-        h(View, [
-          h(Icon, {
-            name: iconName,
-            ...(isSelected ? iconProps.tabSelected : iconProps.tab),
-          }),
-        ]),
-      ]),
-    ],
-  );
-}
-
-function renderConnectionsIcon(
-  isSelected: boolean,
-  state: State['connectionsTab'],
-) {
-  let iconName = isSelected ? 'network-off' : 'network-off-outline';
-  if (state?.bluetoothEnabled || state?.internetEnabled || state?.lanEnabled) {
-    iconName = isSelected ? 'network' : 'network-outline';
+  public render() {
+    const {currentTab} = this.props;
+    return h(View, {style: styles.tabBar}, [
+      h(PublicTabIcon, {
+        isSelected: currentTab === 'public',
+        numOfUpdates: this.props.numOfPublicUpdates,
+      }),
+      h(PrivateTabIcon, {
+        isSelected: currentTab === 'private',
+        numOfUpdates: this.props.numOfPrivateUpdates,
+      }),
+      h(ConnectionsTabIcon, {
+        isSelected: currentTab === 'connections',
+        details: this.props.connectionsTab,
+      }),
+    ]);
   }
-  if ((state?.peers || []).filter(p => p[1].state === 'connected').length > 0) {
-    iconName = isSelected ? 'check-network' : 'check-network-outline';
-  }
-
-  return h(
-    Touchable,
-    {
-      ...touchableProps,
-      sel: 'connections-tab-button',
-      style: styles.tabButton, // iOS needs this
-      accessible: true,
-      accessibilityLabel: 'Connections Tab Button',
-    },
-    [
-      h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
-        h(Icon, {
-          name: iconName,
-          ...(isSelected ? iconProps.tabSelected : iconProps.tab),
-        }),
-      ]),
-    ],
-  );
-}
-
-function renderTabPage(
-  state: State,
-  fabProps: FabProps,
-  publicTabVDOM: ReactElement<any>,
-  privateTabVDOM: ReactElement<any>,
-  metadataTabVDOM: ReactElement<any>,
-) {
-  const shown = styles.pageShown;
-  const hidden = styles.pageHidden;
-  return h(Fragment, [
-    h(View, {style: [state.currentTab === 'public' ? shown : hidden]}, [
-      publicTabVDOM,
-      h(FloatingAction, fabProps),
-    ]),
-    h(View, {style: [state.currentTab === 'private' ? shown : hidden]}, [
-      privateTabVDOM,
-      h(FloatingAction, fabProps),
-    ]),
-    h(View, {style: [state.currentTab === 'connections' ? shown : hidden]}, [
-      metadataTabVDOM,
-      h(FloatingAction, fabProps),
-    ]),
-  ]);
-}
-
-function renderTabBar(state: State) {
-  const {currentTab, numOfPublicUpdates, numOfPrivateUpdates} = state;
-
-  return h(View, {style: styles.tabBar}, [
-    renderPublicIcon(currentTab === 'public', numOfPublicUpdates),
-    renderPrivateIcon(currentTab === 'private', numOfPrivateUpdates),
-    renderConnectionsIcon(currentTab === 'connections', state.connectionsTab),
-  ]);
 }
 
 export default function view(
@@ -179,8 +292,14 @@ export default function view(
       h(MenuProvider, {customStyles: {backdrop: styles.menuBackdrop}}, [
         h(View, {style: styles.root}, [
           topBar,
-          renderTabPage(state, fabProps, publicTab, privateTab, connectionsTab),
-          renderTabBar(state),
+          h(CurrentTabPage, {
+            currentTab: state.currentTab,
+            fab: fabProps,
+            publicTab,
+            privateTab,
+            connectionsTab,
+          }),
+          h(TabsBar, state),
         ]),
       ]),
     );
