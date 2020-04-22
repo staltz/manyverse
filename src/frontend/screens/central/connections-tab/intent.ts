@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,11 +12,7 @@ import {ReactSource} from '@cycle/react';
 import {FeedId} from 'ssb-typescript';
 import {PermissionsAndroid} from 'react-native';
 import {NavSource} from 'cycle-native-navigation';
-import {
-  StagedPeerMetadata as StagedPeer,
-  StagedPeerKV,
-  PeerKV,
-} from '../../../ssb/types';
+import {StagedPeerKV, PeerKV} from '../../../ssb/types';
 import {State} from './model';
 import {MenuChoice} from './view/SlideInMenu';
 const roomUtils = require('ssb-room/utils');
@@ -124,13 +120,13 @@ export default function intent(
     infoClientDhtInvite$: menuChoice$
       .filter(val => val === 'invite-info')
       .compose(sample(state$))
-      .filter(state => (state.itemMenu.target as StagedPeer).role !== 'server')
+      .filter(state => state.itemMenu.target![1].role !== 'server')
       .mapTo(null),
 
     infoServerDhtInvite$: menuChoice$
       .filter(val => val === 'invite-info')
       .compose(sample(state$))
-      .filter(state => (state.itemMenu.target as StagedPeer).role === 'server')
+      .filter(state => state.itemMenu.target![1].role === 'server')
       .mapTo(null),
 
     noteDhtInvite$: menuChoice$
@@ -142,16 +138,13 @@ export default function intent(
       .compose(sample(state$))
       .map(
         state =>
-          'dht:' +
-          (state.itemMenu.target as StagedPeer).key +
-          ':' +
-          state.selfFeedId,
+          'dht:' + state.itemMenu.target![1].key + ':' + state.selfFeedId,
       ),
 
     removeDhtInvite$: menuChoice$
       .filter(val => val === 'invite-delete')
       .compose(sample(state$))
-      .map(state => (state.itemMenu.target as StagedPeer).key),
+      .map(state => state.itemMenu.target![1].key!),
 
     closeItemMenu$: xs
       .merge(

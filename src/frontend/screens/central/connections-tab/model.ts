@@ -10,11 +10,7 @@ import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Platform} from 'react-native';
 import {SSBSource} from '../../../drivers/ssb';
-import {
-  PeerKV,
-  StagedPeerKV,
-  StagedPeerMetadata as StagedPeer,
-} from '../../../ssb/types';
+import {PeerKV, StagedPeerKV} from '../../../ssb/types';
 import {NetworkSource} from '../../../drivers/network';
 import {noteStorageKeyFor} from './asyncstorage';
 
@@ -34,9 +30,9 @@ export type State = {
   itemMenu: {
     opened: boolean;
     type: 'conn' | 'invite' | 'staging' | 'room' | 'staged-room';
-    target?: any;
+    target?: PeerKV | StagedPeerKV;
   };
-  latestInviteMenuTarget: StagedPeer | null;
+  latestInviteMenuTarget?: StagedPeerKV;
 };
 
 export type Actions = {
@@ -83,7 +79,6 @@ export default function model(
       timestampPeersAndRooms: 0,
       timestampStagedPeers: 0,
       itemMenu: {opened: false, type: 'conn'},
-      latestInviteMenuTarget: null,
     };
   });
 
@@ -227,9 +222,9 @@ export default function model(
           itemMenu: {
             opened: true,
             type: 'invite',
-            target: peer[1],
+            target: peer,
           },
-          latestInviteMenuTarget: peer[1],
+          latestInviteMenuTarget: peer,
         };
       },
   );
@@ -263,7 +258,7 @@ export default function model(
         if (!prev.latestInviteMenuTarget) return prev;
         const stagedPeers: Array<StagedPeerKV> = prev.stagedPeers.map(kv => {
           const [addr, peer] = kv;
-          return peer.key === (prev.latestInviteMenuTarget as StagedPeer).key
+          return peer.key === prev.latestInviteMenuTarget![1].key
             ? ([addr, {...peer, note}] as StagedPeerKV)
             : kv;
         });
