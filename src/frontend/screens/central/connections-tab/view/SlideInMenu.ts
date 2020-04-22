@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -68,9 +68,10 @@ class MenuOptionContent extends React.PureComponent<MenuOptionContentProps> {
 }
 
 /**
- * This is `x => x`, but exists just to make sure TypeScript will
- * check for the specific values of `MenuChoice` as opposed to allowing
- * any string. Maybe TypeScript gets better/smarter in the future?
+ * This does nothing in runtime, but exists just to make sure that TypeScript
+ * will check for the specific values of `MenuChoice` as opposed to allowing any
+ * string.
+ * TODO remove this once TypeScript gets smarter
  */
 function menuChoice(m: MenuChoice): MenuChoice {
   return m;
@@ -113,161 +114,169 @@ function connMenuOptions(targetPeer: any) {
   return options;
 }
 
-function stagedRoomMenuOptions() {
-  const options = [
-    h(MenuOption, {
-      value: menuChoice('room-share-invite'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'content-copy',
-        text: 'Share invite code',
-        accessibilityLabel: 'Share the invite code for this room',
-      }),
+const stagedRoomMenuOptions = [
+  h(MenuOption, {
+    value: menuChoice('room-share-invite'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'content-copy',
+      text: 'Share invite code',
+      accessibilityLabel: 'Share the invite code for this room',
     }),
-    h(MenuOption, {
-      value: menuChoice('connect'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'pipe',
-        text: 'Connect',
-        accessibilityLabel: 'Connect to this suggested room',
-      }),
+  }),
+  h(MenuOption, {
+    value: menuChoice('connect'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'pipe',
+      text: 'Connect',
+      accessibilityLabel: 'Connect to this suggested room',
     }),
-    h(MenuOption, {
-      value: menuChoice('forget'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'delete',
-        text: 'Forget',
-        accessibilityLabel: 'Remove this room from our database',
-      }),
+  }),
+  h(MenuOption, {
+    value: menuChoice('forget'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'delete',
+      text: 'Forget',
+      accessibilityLabel: 'Remove this room from our database',
     }),
-  ];
+  }),
+];
 
-  return options;
-}
+const roomMenuOptions = [
+  h(MenuOption, {
+    value: menuChoice('room-share-invite'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'content-copy',
+      text: 'Share invite code',
+      accessibilityLabel: 'Share the invite code for this room',
+    }),
+  }),
+  h(MenuOption, {
+    value: menuChoice('disconnect'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'pipe-disconnected',
+      text: 'Disconnect',
+      accessibilityLabel: 'Disconnect from this room',
+    }),
+  }),
+  h(MenuOption, {
+    value: menuChoice('disconnect-forget'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'delete',
+      text: 'Disconnect and forget',
+      accessibilityLabel:
+        'Disconnect from this room and remove it from our database',
+    }),
+  }),
+];
 
-function roomMenuOptions() {
-  const options = [
-    h(MenuOption, {
-      value: menuChoice('room-share-invite'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'content-copy',
-        text: 'Share invite code',
-        accessibilityLabel: 'Share the invite code for this room',
-      }),
+const stagingMenuOptions = [
+  h(MenuOption, {
+    value: menuChoice('open-profile'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'account-circle',
+      text: 'Open profile',
+      accessibilityLabel: 'Open profile screen for this suggested connection',
     }),
-    h(MenuOption, {
-      value: menuChoice('disconnect'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'pipe-disconnected',
-        text: 'Disconnect',
-        accessibilityLabel: 'Disconnect from this room',
-      }),
+  }),
+  h(MenuOption, {
+    value: menuChoice('connect'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'pipe',
+      text: 'Connect',
+      accessibilityLabel: 'Connect to this suggested peer',
     }),
-    h(MenuOption, {
-      value: menuChoice('disconnect-forget'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'delete',
-        text: 'Disconnect and forget',
-        accessibilityLabel:
-          'Disconnect from this room and remove it from our database',
-      }),
+  }),
+  h(MenuOption, {
+    value: menuChoice('follow-connect'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'account-plus',
+      text: 'Connect and follow',
+      accessibilityLabel: 'Connect to this suggested peer then follow them',
     }),
-  ];
+  }),
+];
 
-  return options;
-}
+const inviteMenuOptions = [
+  h(MenuOption, {
+    value: menuChoice('invite-info'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'information',
+      text: 'About',
+      accessibilityLabel: 'About this Invite Code',
+    }),
+  }),
+  h(MenuOption, {
+    value: menuChoice('invite-note'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'pencil',
+      text: 'Add note',
+      accessibilityLabel: 'Add Note',
+    }),
+  }),
+  h(MenuOption, {
+    value: menuChoice('invite-share'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'share',
+      text: 'Share',
+      accessibilityLabel: 'Share Invite Code',
+    }),
+  }),
+  h(MenuOption, {
+    value: menuChoice('invite-delete'),
+    ['children' as any]: h(MenuOptionContent, {
+      icon: 'delete',
+      text: 'Delete',
+      accessibilityLabel: 'Delete Invite Code',
+    }),
+  }),
+];
 
-function stagingMenuOptions() {
-  return [
-    h(MenuOption, {
-      value: menuChoice('open-profile'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'account-circle',
-        text: 'Open profile',
-        accessibilityLabel: 'Open profile screen for this suggested connection',
-      }),
-    }),
-    h(MenuOption, {
-      value: menuChoice('connect'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'pipe',
-        text: 'Connect',
-        accessibilityLabel: 'Connect to this suggested peer',
-      }),
-    }),
-    h(MenuOption, {
-      value: menuChoice('follow-connect'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'account-plus',
-        text: 'Connect and follow',
-        accessibilityLabel: 'Connect to this suggested peer then follow them',
-      }),
-    }),
-  ];
-}
+export default class SlideInMenu extends React.Component<
+  Pick<State, 'itemMenu'>
+> {
+  public shouldComponentUpdate(nextProps: SlideInMenu['props']) {
+    const prevItemMenu = this.props.itemMenu;
+    const nextItemMenu = nextProps.itemMenu;
 
-function inviteMenuOptions() {
-  return [
-    h(MenuOption, {
-      value: menuChoice('invite-info'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'information',
-        text: 'About',
-        accessibilityLabel: 'About this Invite Code',
-      }),
-    }),
-    h(MenuOption, {
-      value: menuChoice('invite-note'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'pencil',
-        text: 'Add note',
-        accessibilityLabel: 'Add Note',
-      }),
-    }),
-    h(MenuOption, {
-      value: menuChoice('invite-share'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'share',
-        text: 'Share',
-        accessibilityLabel: 'Share Invite Code',
-      }),
-    }),
-    h(MenuOption, {
-      value: menuChoice('invite-delete'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'delete',
-        text: 'Delete',
-        accessibilityLabel: 'Delete Invite Code',
-      }),
-    }),
-  ];
-}
+    // Don't update while it's remaining closed
+    if (nextItemMenu.opened === false && prevItemMenu.opened === false) {
+      return false;
+    }
 
-export default function SlideInMenu(state: State) {
-  const {itemMenu} = state;
-  const {type, target, opened} = itemMenu;
-  return h(
-    Menu,
-    {
-      sel: 'slide-in-menu',
-      renderer: renderers.SlideInMenu,
-      opened,
-    },
-    [
-      h(MenuTrigger, {disabled: true}),
-      h(
-        MenuOptions,
-        type === 'conn'
-          ? connMenuOptions(target)
-          : type === 'room'
-          ? roomMenuOptions()
-          : type === 'staging'
-          ? stagingMenuOptions()
-          : type === 'staged-room'
-          ? stagedRoomMenuOptions()
-          : type === 'invite'
-          ? inviteMenuOptions()
-          : [],
-      ),
-    ],
-  );
+    if (nextItemMenu.opened !== prevItemMenu.opened) return true;
+    if (nextItemMenu.type !== prevItemMenu.type) return true;
+    if (!!nextItemMenu.target !== !!prevItemMenu.target) return true;
+    if (nextItemMenu.target?.[0] !== prevItemMenu.target?.[0]) return true;
+    return false;
+  }
+
+  public render() {
+    const {itemMenu} = this.props;
+    const {type, target, opened} = itemMenu;
+    return h(
+      Menu,
+      {
+        sel: 'slide-in-menu',
+        renderer: renderers.SlideInMenu,
+        opened,
+      },
+      [
+        h(MenuTrigger, {disabled: true}),
+        h(
+          MenuOptions,
+          type === 'conn'
+            ? connMenuOptions(target)
+            : type === 'room'
+            ? roomMenuOptions
+            : type === 'staging'
+            ? stagingMenuOptions
+            : type === 'staged-room'
+            ? stagedRoomMenuOptions
+            : type === 'invite'
+            ? inviteMenuOptions
+            : [],
+        ),
+      ],
+    );
+  }
 }

@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
 
   containerInner: {
     paddingBottom: Dimens.verticalSpaceNormal,
+    minHeight: 400,
   },
 
   modesContainer: {
@@ -41,6 +42,17 @@ export const styles = StyleSheet.create({
   modeTouchable: {
     borderRadius: 30,
     padding: 6,
+  },
+
+  emptySectionContainer: {
+    position: 'absolute',
+    zIndex: -1,
+    top:
+      Dimens.toolbarHeight /* approximately the modesContainer height */ +
+      Dimens.verticalSpaceBig * 2,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
 
   emptySection: {

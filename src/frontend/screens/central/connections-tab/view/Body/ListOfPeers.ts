@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,8 +7,8 @@
 import {Component} from 'react';
 import {View, StyleSheet, StyleProp, ViewStyle} from 'react-native';
 import {h} from '@cycle/react';
-import {Dimensions} from '../../../../global-styles/dimens';
-import {StagedPeerKV, PeerKV} from '../../../../ssb/types';
+import {Dimensions} from '../../../../../global-styles/dimens';
+import {StagedPeerKV, PeerKV} from '../../../../../ssb/types';
 import PopList, {Props as PopListProps} from './PopList';
 import StagedItem, {Props as StagedItemProps} from './StagedItem';
 import RoomItem, {Props as RoomItemProps} from './RoomItem';
@@ -58,7 +58,7 @@ export type Props = {
 type State = {
   peers: Array<PeerKV>;
   staged: Array<StagedKV>;
-  mixedByRoom: Array<Array<MixedPeerKV>>;
+  mixedByRoom: Array<[string, Array<MixedPeerKV>]>;
 };
 
 function isRoomKV(kv: MixedPeerKV): kv is RoomKV {
@@ -135,7 +135,14 @@ export default class StagedConnectionsList extends Component<Props, State> {
       }
     }
 
-    return {peers, staged, mixedByRoom: Object.values(roomGroups)};
+    // Convert Record to Array and sort by roomKey
+    const mixedByRoom = Object.entries(roomGroups).sort((a, b) => {
+      if (a[0] < b[0]) return -1;
+      if (a[0] > b[0]) return 1;
+      return 0;
+    });
+
+    return {peers, staged, mixedByRoom};
   }
 
   public shouldComponentUpdate(nextProps: Props) {
@@ -198,21 +205,19 @@ export default class StagedConnectionsList extends Component<Props, State> {
   public render() {
     return h(View, {style: this.props.style}, [
       // Hub peers first
-      this.state.peers.length
-        ? h<PopListProps<PeerKV>>(PopList, {
-            key: 'inconnection',
-            style: styles.container,
-            data: this.state.peers,
-            keyExtractor: ([addr, data]) => data.hubBirth ?? addr,
-            renderItem: this.renderPeer,
-            itemHeight: ITEM_HEIGHT,
-          })
-        : null,
+      h<PopListProps<PeerKV>>(PopList, {
+        key: 'inconnection',
+        style: styles.container,
+        data: this.state.peers,
+        keyExtractor: ([addr, data]) => data.hubBirth ?? addr,
+        renderItem: this.renderPeer,
+        itemHeight: ITEM_HEIGHT,
+      }),
 
       // Rooms
-      ...this.state.mixedByRoom.map(peers =>
+      ...this.state.mixedByRoom.map(([roomKey, peers]) =>
         h<PopListProps<MixedPeerKV>>(PopList, {
-          key: peers.length ? peers[0][0] : Math.random(),
+          key: roomKey,
           style: styles.container,
           data: peers,
           keyExtractor: this.roomsKeyExtractor,
@@ -222,16 +227,14 @@ export default class StagedConnectionsList extends Component<Props, State> {
       ),
 
       // Staging peers last
-      this.state.staged.length
-        ? h<PopListProps<StagedKV>>(PopList, {
-            key: 'staged',
-            style: styles.container,
-            data: this.state.staged,
-            keyExtractor: ([addr]) => addr,
-            renderItem: this.renderStagedPeer,
-            itemHeight: ITEM_HEIGHT,
-          })
-        : null,
+      h<PopListProps<StagedKV>>(PopList, {
+        key: 'staged',
+        style: styles.container,
+        data: this.state.staged,
+        keyExtractor: ([addr]) => addr,
+        renderItem: this.renderStagedPeer,
+        itemHeight: ITEM_HEIGHT,
+      }),
     ]);
   }
 }

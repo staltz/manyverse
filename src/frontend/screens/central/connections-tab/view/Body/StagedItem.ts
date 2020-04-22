@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,10 +8,10 @@ import {PureComponent} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Palette} from '../../../../global-styles/palette';
-import {Dimensions} from '../../../../global-styles/dimens';
-import {Typography} from '../../../../global-styles/typography';
-import {StagedPeerKV} from '../../../../ssb/types';
+import {Palette} from '../../../../../global-styles/palette';
+import {Dimensions} from '../../../../../global-styles/dimens';
+import {Typography} from '../../../../../global-styles/typography';
+import {StagedPeerKV} from '../../../../../ssb/types';
 import {peerModeName, peerModeIcon, peerModeStagedDescription} from './utils';
 
 export const styles = StyleSheet.create({
