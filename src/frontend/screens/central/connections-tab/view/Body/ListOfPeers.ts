@@ -153,34 +153,6 @@ export default class StagedConnectionsList extends Component<Props, State> {
     return false;
   }
 
-  private renderStagedPeer = (peer: StagedKV) => {
-    return h(StagedItem, {
-      peer,
-      onPressStaged: this.props.onPressStaged,
-    } as StagedItemProps);
-  };
-
-  private renderPeer = (peer: PeerKV) => {
-    return h(ConnectionItem, {peer, onPressPeer: this.props.onPressPeer});
-  };
-
-  private renderRoom = (room: RoomKV) => {
-    return h(RoomItem, {
-      room,
-      onPressRoom: this.props.onPressRoom,
-    } as RoomItemProps);
-  };
-
-  private renderItem = (entry: MixedPeerKV) => {
-    if (isRoomKV(entry)) {
-      return this.renderRoom(entry);
-    } else if (isInConnection(entry)) {
-      return this.renderPeer(entry);
-    } else {
-      return this.renderStagedPeer(entry);
-    }
-  };
-
   private getItemHeight = (entry: MixedPeerKV) => {
     return isRoomKV(entry) ? SHORT_ITEM_HEIGHT : ITEM_HEIGHT;
   };
@@ -199,6 +171,34 @@ export default class StagedConnectionsList extends Component<Props, State> {
       return `B-${addr}`;
     } else {
       return `C-${addr}`;
+    }
+  };
+
+  private renderPeer = (peer: PeerKV) => {
+    return h(ConnectionItem, {peer, onPressPeer: this.props.onPressPeer});
+  };
+
+  private renderStagedPeer = (peer: StagedKV) => {
+    return h(StagedItem, {
+      peer,
+      onPressStaged: this.props.onPressStaged,
+    } as StagedItemProps);
+  };
+
+  private renderRoom = (room: RoomKV) => {
+    return h(RoomItem, {
+      room,
+      onPressRoom: this.props.onPressRoom,
+    } as RoomItemProps);
+  };
+
+  private renderItem = (entry: MixedPeerKV) => {
+    if (isRoomKV(entry)) {
+      return this.renderRoom(entry);
+    } else if (isInConnection(entry)) {
+      return this.renderPeer(entry);
+    } else {
+      return this.renderStagedPeer(entry);
     }
   };
 
