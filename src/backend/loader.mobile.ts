@@ -20,6 +20,7 @@ process.cwd = () => nodejsProjectDir;
 
 // Set global variables
 process.env.MANYVERSE_PLATFORM = 'mobile';
+// process.env.PROFILER_NODEJS = 'yes'; // uncomment to enable the profiler
 // process.env.CHLORIDE_JS = 'yes'; // uncomment to enable WASM libsodium
 if (fs.existsSync(path.join(process.env.SSB_DIR, 'DETAILED_LOGS'))) {
   process.env.DEBUG = '*';
@@ -52,4 +53,29 @@ process.removeAllListeners = function removeAllListeners(eventName: string) {
   return process;
 };
 
-require('./index');
+// Profile Node.js CPU usage, output to the tmp dir
+// TODO unfortunately this is still unsupported in nodejs-mobile
+if (process.env.PROFILER_NODEJS) {
+  const inspector = require('inspector');
+  const session = new inspector.Session();
+  session.connect();
+  session.post('Profiler.enable', () => {
+    session.post('Profiler.start', () => {
+      require('./index');
+      setTimeout(() => {
+        session.post('Profiler.stop', (err: any, res: any) => {
+          if (err) return console.error(err);
+          const data = res.profile || res.result;
+          const date = new Date();
+          const file = `${nodejsProjectDir}/flamechart_${date.getTime()}.json`;
+          fs.writeFile(file, JSON.stringify(data), err2 => {
+            if (err2) console.error(err2);
+          });
+        });
+      }, 20e3);
+    });
+  });
+} else {
+  // Just run the backend without profiling
+  require('./index');
+}
