@@ -4,13 +4,23 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {PureComponent, createElement as $} from 'react';
-import {View, Animated, StyleProp, ViewStyle} from 'react-native';
+import {PureComponent, createElement as $, ReactElement} from 'react';
+import {
+  View,
+  Animated,
+  StyleProp,
+  ViewStyle,
+  Platform,
+  UIManager,
+  LayoutAnimation,
+} from 'react-native';
 
-type PopItemProps = {
+type PopItemProps<T> = {
   removed: boolean;
   onExit: () => void;
   animationDuration: number;
+  item: T;
+  renderItem: (item: T, animVal?: Animated.Value) => ReactElement<any>;
   itemHeight: number;
 };
 
@@ -18,15 +28,21 @@ type PopItemState = {
   height: number;
 };
 
-class PopItem extends PureComponent<PopItemProps, PopItemState> {
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
+class PopItem<T> extends PureComponent<PopItemProps<T>, PopItemState> {
   private _val: Animated.Value;
   private _enterAnim: Animated.CompositeAnimation | null;
   private _exitAnim: Animated.CompositeAnimation | null;
   private _shouldEnter: boolean;
   private _shouldExit: boolean;
-  private _viewRef: any;
 
-  constructor(props: PopItemProps) {
+  constructor(props: PopItemProps<T>) {
     super(props);
     this._shouldEnter = false;
     this._shouldExit = false;
@@ -52,6 +68,15 @@ class PopItem extends PureComponent<PopItemProps, PopItemState> {
         this._exit();
       }
     });
+
+    LayoutAnimation.configureNext(
+      LayoutAnimation.create(
+        this.props.animationDuration,
+        LayoutAnimation.Types.linear,
+        LayoutAnimation.Properties['scaleY' as any],
+      ),
+    );
+    this.setState({height: this.props.itemHeight});
   }
 
   private _exit() {
@@ -74,6 +99,15 @@ class PopItem extends PureComponent<PopItemProps, PopItemState> {
         this.props.onExit();
       }
     });
+
+    LayoutAnimation.configureNext(
+      LayoutAnimation.create(
+        this.props.animationDuration,
+        LayoutAnimation.Types.linear,
+        LayoutAnimation.Properties['scaleY' as any],
+      ),
+    );
+    this.setState({height: 0});
   }
 
   public componentWillMount() {
@@ -82,12 +116,9 @@ class PopItem extends PureComponent<PopItemProps, PopItemState> {
 
   public componentDidMount() {
     this._enter();
-    this._val.addListener(x => {
-      this._viewRef.setNativeProps({height: x.value * this.props.itemHeight});
-    });
   }
 
-  public componentDidUpdate(prevProps: PopItemProps) {
+  public componentDidUpdate(prevProps: PopItemProps<T>) {
     if (this.props.removed && !prevProps.removed) {
       this._exit();
       return;
@@ -106,17 +137,8 @@ class PopItem extends PureComponent<PopItemProps, PopItemState> {
   public render() {
     return $(
       Animated.View,
-      {
-        ref: ref => (this._viewRef = ref),
-        style: {
-          height: 0,
-          opacity: this._val.interpolate({
-            inputRange: [0, 0.75, 1],
-            outputRange: [0, 0, 1],
-          }),
-        },
-      },
-      this.props.children,
+      {style: {height: this.state.height}},
+      this.props.renderItem(this.props.item, this._val),
     );
   }
 }
@@ -124,7 +146,7 @@ class PopItem extends PureComponent<PopItemProps, PopItemState> {
 export type Props<T> = {
   style?: StyleProp<ViewStyle>;
   data: Array<T>;
-  renderItem: (t: T, key?: string | number) => React.ReactElement<any>;
+  renderItem: (t: T, animVal?: Animated.Value) => React.ReactElement<any>;
   keyExtractor: (t: T) => string | number;
   itemHeight?: number;
   getItemHeight?: (t: T) => number;
@@ -240,18 +262,15 @@ export default class PopList<T> extends PureComponent<Props<T>, State<T>> {
       View,
       {style: this.props.style},
       this.state.data.map(([key, item, ts]) =>
-        $(
-          PopItem,
-          {
-            key,
-            animationDuration: this.props.animationDuration ?? DEFAULT_DURATION,
-            itemHeight:
-              this.props.itemHeight ?? this.props.getItemHeight!(item),
-            removed: ts > 0,
-            onExit: () => this.onItemExit(key),
-          },
-          this.props.renderItem(item, key),
-        ),
+        $(PopItem, {
+          key,
+          item,
+          renderItem: this.props.renderItem,
+          animationDuration: this.props.animationDuration ?? DEFAULT_DURATION,
+          itemHeight: this.props.itemHeight ?? this.props.getItemHeight!(item),
+          removed: ts > 0,
+          onExit: () => this.onItemExit(key),
+        }),
       ),
     );
   }

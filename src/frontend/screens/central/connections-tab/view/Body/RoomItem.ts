@@ -11,6 +11,7 @@ import {
   StyleSheet,
   ViewStyle,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -115,12 +116,21 @@ type RoomKV = [string, RoomData];
 
 export type Props = {
   room: RoomKV;
+  animVal: Animated.Value;
   onPressRoom?: (peer: RoomKV) => void;
 };
 
 export default class RoomItem extends PureComponent<Props> {
   public render() {
-    const [addr, data] = this.props.room;
+    const {animVal, room} = this.props;
+    const [addr, data] = room;
+
+    const animatedOpacity = {
+      opacity: animVal.interpolate({
+        inputRange: [0, 0.75, 1],
+        outputRange: [0, 0, 1],
+      }),
+    };
 
     return h(
       TouchableOpacity,
@@ -135,43 +145,47 @@ export default class RoomItem extends PureComponent<Props> {
         activeOpacity: 0.5,
       },
       [
-        h(View, {style: styles.item, pointerEvents: 'box-only'}, [
-          h(View, {style: styles.details}, [
-            h(View, {style: styles.row}, [
-              h(View, {
-                style:
-                  data.state === 'connected'
-                    ? styles.connectedDot
-                    : data.state === 'disconnecting'
-                    ? styles.disconnectingDot
-                    : styles.connectingDot,
-              }),
-              h(Icon, {
-                size: Dimensions.iconSizeSmall,
-                color: Palette.textWeak,
-                name: peerModeIcon(data as any),
-              }),
-              h(
-                Text,
-                {
-                  numberOfLines: 1,
-                  ellipsizeMode: 'tail',
-                  style: styles.name,
-                },
-                peerModeName(addr, data),
-              ),
-              typeof data.onlineCount === 'number'
-                ? h(
-                    Text,
-                    {style: styles.onlineCount},
-                    data.onlineCount <= 1
-                      ? '(only you online)'
-                      : `(${data.onlineCount - 1} online)`,
-                  )
-                : null,
+        h(
+          Animated.View,
+          {style: [styles.item, animatedOpacity], pointerEvents: 'box-only'},
+          [
+            h(View, {style: styles.details}, [
+              h(View, {style: styles.row}, [
+                h(View, {
+                  style:
+                    data.state === 'connected'
+                      ? styles.connectedDot
+                      : data.state === 'disconnecting'
+                      ? styles.disconnectingDot
+                      : styles.connectingDot,
+                }),
+                h(Icon, {
+                  size: Dimensions.iconSizeSmall,
+                  color: Palette.textWeak,
+                  name: peerModeIcon(data as any),
+                }),
+                h(
+                  Text,
+                  {
+                    numberOfLines: 1,
+                    ellipsizeMode: 'tail',
+                    style: styles.name,
+                  },
+                  peerModeName(addr, data),
+                ),
+                typeof data.onlineCount === 'number'
+                  ? h(
+                      Text,
+                      {style: styles.onlineCount},
+                      data.onlineCount <= 1
+                        ? '(only you online)'
+                        : `(${data.onlineCount - 1} online)`,
+                    )
+                  : null,
+              ]),
             ]),
-          ]),
-        ]),
+          ],
+        ),
       ],
     );
   }

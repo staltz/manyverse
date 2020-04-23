@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Component} from 'react';
-import {View, StyleSheet, StyleProp, ViewStyle} from 'react-native';
+import {View, StyleSheet, StyleProp, ViewStyle, Animated} from 'react-native';
 import {h} from '@cycle/react';
 import {Dimensions} from '../../../../../global-styles/dimens';
 import {StagedPeerKV, PeerKV} from '../../../../../ssb/types';
@@ -174,31 +174,37 @@ export default class StagedConnectionsList extends Component<Props, State> {
     }
   };
 
-  private renderPeer = (peer: PeerKV) => {
-    return h(ConnectionItem, {peer, onPressPeer: this.props.onPressPeer});
+  private renderPeer = (peer: PeerKV, animVal: Animated.Value) => {
+    return h(ConnectionItem, {
+      peer,
+      animVal,
+      onPressPeer: this.props.onPressPeer,
+    });
   };
 
-  private renderStagedPeer = (peer: StagedKV) => {
+  private renderStagedPeer = (peer: StagedKV, animVal: Animated.Value) => {
     return h(StagedItem, {
       peer,
+      animVal,
       onPressStaged: this.props.onPressStaged,
     } as StagedItemProps);
   };
 
-  private renderRoom = (room: RoomKV) => {
+  private renderRoom = (room: RoomKV, animVal: Animated.Value) => {
     return h(RoomItem, {
       room,
+      animVal,
       onPressRoom: this.props.onPressRoom,
     } as RoomItemProps);
   };
 
-  private renderItem = (entry: MixedPeerKV) => {
+  private renderItem = (entry: MixedPeerKV, animVal: Animated.Value) => {
     if (isRoomKV(entry)) {
-      return this.renderRoom(entry);
+      return this.renderRoom(entry, animVal);
     } else if (isInConnection(entry)) {
-      return this.renderPeer(entry);
+      return this.renderPeer(entry, animVal);
     } else {
-      return this.renderStagedPeer(entry);
+      return this.renderStagedPeer(entry, animVal);
     }
   };
 

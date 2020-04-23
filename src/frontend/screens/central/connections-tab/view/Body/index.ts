@@ -42,11 +42,10 @@ export default class Body extends Component<
     }
     if (nextProps.lanEnabled !== prevProps.lanEnabled) return true;
     if (nextProps.internetEnabled !== prevProps.internetEnabled) return true;
-    const GAP = 150; // milliseconds
-    if (nextProps.timestampPeersAndRooms - this.timestampLatestRender > GAP) {
+    if (nextProps.timestampPeersAndRooms > this.timestampLatestRender) {
       return true;
     }
-    if (nextProps.timestampStagedPeers - this.timestampLatestRender > GAP) {
+    if (nextProps.timestampStagedPeers > this.timestampLatestRender) {
       return true;
     }
     return false;

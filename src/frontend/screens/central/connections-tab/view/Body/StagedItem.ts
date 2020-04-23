@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../../../global-styles/palette';
@@ -68,12 +68,21 @@ export const styles = StyleSheet.create({
 
 export type Props = {
   peer: StagedPeerKV;
+  animVal: Animated.Value;
   onPressStaged?: (peer: StagedPeerKV) => void;
 };
 
 export default class StagedItem extends PureComponent<Props> {
   public render() {
-    const [addr, data] = this.props.peer;
+    const {animVal, peer} = this.props;
+    const [addr, data] = peer;
+
+    const animatedOpacity = {
+      opacity: animVal.interpolate({
+        inputRange: [0, 0.75, 1],
+        outputRange: [0, 0, 1],
+      }),
+    };
 
     return h(
       TouchableOpacity,
@@ -88,28 +97,36 @@ export default class StagedItem extends PureComponent<Props> {
         activeOpacity: 0.5,
       },
       [
-        h(View, {style: styles.item, pointerEvents: 'box-only'}, [
-          h(View, {style: styles.avatar}, [
-            h(Icon, {
-              size: Dimensions.iconSizeNormal,
-              color: Palette.backgroundBrandWeaker,
-              name: peerModeIcon(data),
-            }),
-          ]),
+        h(
+          Animated.View,
+          {style: [styles.item, animatedOpacity], pointerEvents: 'box-only'},
+          [
+            h(View, {style: styles.avatar}, [
+              h(Icon, {
+                size: Dimensions.iconSizeNormal,
+                color: Palette.backgroundBrandWeaker,
+                name: peerModeIcon(data),
+              }),
+            ]),
 
-          h(View, {style: styles.details}, [
-            h(
-              Text,
-              {
-                numberOfLines: 1,
-                ellipsizeMode: 'middle',
-                style: styles.name,
-              },
-              peerModeName(addr, data),
-            ),
-            h(Text, {style: styles.modeText}, peerModeStagedDescription(data)),
-          ]),
-        ]),
+            h(View, {style: styles.details}, [
+              h(
+                Text,
+                {
+                  numberOfLines: 1,
+                  ellipsizeMode: 'middle',
+                  style: styles.name,
+                },
+                peerModeName(addr, data),
+              ),
+              h(
+                Text,
+                {style: styles.modeText},
+                peerModeStagedDescription(data),
+              ),
+            ]),
+          ],
+        ),
       ],
     );
   }
