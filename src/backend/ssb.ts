@@ -74,7 +74,8 @@ SecretStack({appKey: require('ssb-caps').shs})
   // Queries
   .use(require('ssb-query')) // needs: db
   .use(require('ssb-private')) // needs: db
-  .use(require('ssb-backlinks')) // needs: db
+  // FIXME: see issue https://github.com/ssbc/ssb-backlinks/issues/16
+  .use(require('ssb-backlinks-fork')) // needs: db
   .use(require('ssb-about')) // needs: db, backlinks
   .use(require('ssb-suggest')) // needs: db, backlinks, about, friends
   .use(require('ssb-threads')) // needs: db, backlinks, friends
