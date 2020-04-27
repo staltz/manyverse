@@ -64,6 +64,24 @@ function augmentPeersWithExtras(ssb: SSB) {
   };
 }
 
+function removeOlderDuplicates(kvs: Array<PeerKV>) {
+  // Only allow those that don't have a newer duplicate
+  return kvs.filter(([_addr1, peer1]) => {
+    const newerDuplicate = kvs.find(([_addr2, peer2]) => {
+      if (!peer2.key) return false;
+      if (peer2.key !== peer1.key) return false;
+      if (peer1.hubUpdated && peer2.hubUpdated) {
+        return peer2.hubUpdated > peer1.hubUpdated;
+      }
+      if (peer1.stagingUpdated && peer2.stagingUpdated) {
+        return peer2.stagingUpdated > peer1.stagingUpdated;
+      }
+      return false;
+    });
+    return !newerDuplicate;
+  });
+}
+
 const connUtils = {
   name: 'connUtils' as const,
 
@@ -90,6 +108,7 @@ const connUtils = {
               pull.map(() => peers),
             ),
           ),
+          pull.map(removeOlderDuplicates),
           pull.through((peers: Array<PeerKV>) => {
             for (const [, data] of peers) {
               if (data.key) ssb.cachedAbout.invalidate(data.key);
@@ -102,6 +121,7 @@ const connUtils = {
       stagedPeers() {
         const connStagedPeers = pull(
           ssb.conn.stagedPeers(),
+          pull.map(removeOlderDuplicates),
           pull.asyncMap(augmentPeersWithExtras(ssb)),
         );
 
