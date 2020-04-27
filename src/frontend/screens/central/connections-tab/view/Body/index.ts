@@ -59,24 +59,8 @@ export default class Body extends Component<
     prevProps: Body['props'],
     nextProps: Body['props'],
   ) {
-    const nextAnyEnabled =
-      nextProps.bluetoothEnabled ||
-      nextProps.lanEnabled ||
-      nextProps.internetEnabled;
-    const prevAnyEnabled =
-      prevProps.bluetoothEnabled ||
-      prevProps.lanEnabled ||
-      prevProps.internetEnabled;
-    const nextHasPeers =
-      nextProps.peers.length ||
-      nextProps.rooms.length ||
-      nextProps.stagedPeers.length;
-    const prevHasPeers =
-      prevProps.peers.length ||
-      prevProps.rooms.length ||
-      prevProps.stagedPeers.length;
-    const nextShouldShow = !nextAnyEnabled || !nextHasPeers;
-    const prevShouldShow = !prevAnyEnabled || !prevHasPeers;
+    const nextShouldShow = this.shouldShowEmptySection(nextProps);
+    const prevShouldShow = this.shouldShowEmptySection(prevProps);
     if (!prevShouldShow && nextShouldShow) {
       Animated.timing(this.emptySectionOpacity, {
         toValue: 1,
@@ -91,6 +75,14 @@ export default class Body extends Component<
         useNativeDriver: true,
       }).start();
     }
+  }
+
+  private shouldShowEmptySection(props: Body['props']) {
+    const anyEnabled =
+      props.bluetoothEnabled || props.lanEnabled || props.internetEnabled;
+    const hasPeers =
+      props.peers.length || props.rooms.length || props.stagedPeers.length;
+    return !anyEnabled || !hasPeers;
   }
 
   private renderEmptySection() {
@@ -143,14 +135,15 @@ export default class Body extends Component<
   public render() {
     this.timestampLatestRender = Date.now();
     const {peers, rooms, stagedPeers} = this.props;
+    const showEmptySection = this.shouldShowEmptySection(this.props);
 
     return h(Fragment, [
       h(ListOfPeers, {
         key: 'b',
         sel: 'list-of-peers',
-        peers,
-        rooms,
-        stagedPeers,
+        peers: showEmptySection ? [] : peers,
+        rooms: showEmptySection ? [] : rooms,
+        stagedPeers: showEmptySection ? [] : stagedPeers,
       }),
 
       h(
