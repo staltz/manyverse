@@ -64,7 +64,7 @@
     "cycle-native-toastandroid": "1.1.0",
     "electron-ssb-client": "1.2.0",
     "mdast-normalize-react-native": "3.2.x",
-    "nodejs-mobile-react-native": "0.5.0",
+    "nodejs-mobile-react-native": "0.6.0",
     "path": "~0.12.7",
     "promisify-tuple": "1.0.0",
     "pull-backoff": "1.0.0",
