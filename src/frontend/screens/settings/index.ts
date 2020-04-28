@@ -48,7 +48,7 @@ export const navOptions = {
 };
 
 export function settings(sources: Sources): Sinks {
-  const actions = intent(sources.screen);
+  const actions = intent(sources.screen, sources.navigation);
   const reducer$ = model(actions, sources.ssb);
   const vdom$ = view(sources.state.stream);
   const req$ = ssb(actions);

@@ -5,20 +5,25 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
-import {State} from './model';
-import sample from 'xstream-sample';
+import {NavSource} from 'cycle-native-navigation';
 import {PressReactionsEvent, PressAddReactionEvent} from '../../ssb/types';
+import {State} from './model';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 
 export default function intent(
   reactSource: ReactSource,
+  navSource: NavSource,
   state$: Stream<State>,
 ) {
   return {
-    goBack$: reactSource.select('topbar').events('pressBack'),
+    goBack$: xs.merge(
+      navSource.backPress(),
+      reactSource.select('topbar').events('pressBack'),
+    ),
 
     goToCompose$: reactSource.select('fab').events('pressItem'),
 

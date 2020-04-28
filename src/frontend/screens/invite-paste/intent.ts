@@ -35,7 +35,10 @@ export default function intent(
     .filter(text => text.length > 0);
 
   return {
-    back$: reactSource.select('inviteBackButton').events('press'),
+    back$: xs.merge(
+      navSource.backPress(),
+      reactSource.select('topbar').events('pressBack'),
+    ),
 
     dhtDone$: done$.filter(text => text.startsWith('dht:')),
 

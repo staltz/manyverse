@@ -31,7 +31,7 @@ export default function intent(
 
     goBack$: xs.merge(
       navSource.backPress(),
-      reactSource.select('recipientsInputBackButton').events('press'),
+      reactSource.select('topbar').events('pressBack'),
     ) as Stream<null>,
 
     goToNewConversation$: reactSource

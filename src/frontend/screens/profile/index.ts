@@ -57,7 +57,11 @@ export const navOptions = {
 };
 
 export function profile(sources: Sources): Sinks {
-  const actions = intent(sources.screen, sources.state.stream);
+  const actions = intent(
+    sources.screen,
+    sources.navigation,
+    sources.state.stream,
+  );
   const messageEtcSinks = messageEtc({
     appear$: actions.openMessageEtc$,
     dialog: sources.dialog,

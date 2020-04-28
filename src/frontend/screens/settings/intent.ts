@@ -4,10 +4,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import xs from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {blobsStorageOptions, hopsOptions} from './model';
+import {NavSource} from 'cycle-native-navigation';
 
-export default function intent(screenSource: ReactSource) {
+export default function intent(
+  screenSource: ReactSource,
+  navSource: NavSource,
+) {
   return {
     toggleFollowEvents$: screenSource
       .select('show-follows')
@@ -49,7 +54,10 @@ export default function intent(screenSource: ReactSource) {
 
     emailBugReport$: screenSource.select('bug-report').events('press'),
 
-    goBack$: screenSource.select('topbar').events('pressBack'),
+    goBack$: xs.merge(
+      navSource.backPress(),
+      screenSource.select('topbar').events('pressBack'),
+    ),
 
     goToBackup$: screenSource.select('backup').events('press'),
 
