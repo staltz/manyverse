@@ -94,7 +94,7 @@ module.exports = function(driver, t) {
     await driver.keys('notehere');
 
     const okButton = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().text("Add")',
+      'new UiSelector().textMatches("(ADD|Add)")',
       6000,
     );
     t.ok(okButton, 'I see the Add button');

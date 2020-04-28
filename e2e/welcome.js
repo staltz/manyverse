@@ -236,14 +236,15 @@ module.exports = function(driver, t) {
     await confirmButton.click();
     t.pass('I tap it');
 
+    await driver.sleep(2000);
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("Welcome back")',
+        'new UiSelector().textContains("now restored")',
         6000,
       ),
       'I see an alert saying that recovery succeeded',
     );
-    await driver.sleep(3000);
+    await driver.sleep(2000);
 
     const okButton = await driver.waitForElementByAndroidUIAutomator(
       'new UiSelector().text("OK")',

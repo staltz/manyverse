@@ -100,7 +100,7 @@ module.exports = function(driver, t) {
 
     await driver.sleep(1000);
     const doneButton = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().text("Done")',
+      'new UiSelector().textMatches("(Done|DONE)")',
       6000,
     );
     t.ok(doneButton, 'I see the Done button');
@@ -145,7 +145,7 @@ module.exports = function(driver, t) {
 
     await driver.sleep(1000);
     const doneButton2 = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().text("Done")',
+      'new UiSelector().textMatches("(Done|DONE)")',
       6000,
     );
     t.ok(doneButton2, 'I see the Done button');

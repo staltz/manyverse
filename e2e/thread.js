@@ -246,7 +246,7 @@ module.exports = function(driver, t) {
     );
 
     const saveButton = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().text("Save")',
+      'new UiSelector().textMatches("(Save|SAVE)")',
       6000,
     );
     t.ok(saveButton, 'I see the Save button');
@@ -339,7 +339,7 @@ module.exports = function(driver, t) {
     );
 
     const deleteButton = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().text("Delete")',
+      'new UiSelector().textMatches("(Delete|DELETE)")',
       6000,
     );
     t.ok(deleteButton, 'I see the Delete button');

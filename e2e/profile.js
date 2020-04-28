@@ -124,19 +124,10 @@ module.exports = function(driver, t) {
     await editAvatar.click();
     t.pass('I tap it');
     await driver.sleep(1000);
-    let galleryCamera;
-    let galleryRecent;
-    try {
-      galleryCamera = await driver.elementByAndroidUIAutomator(
-        'new UiSelector().text("Camera")',
-      );
-    } catch (err) {}
-    try {
-      galleryRecent = await driver.elementByAndroidUIAutomator(
-        'new UiSelector().text("Recent")',
-      );
-    } catch (err) {}
-    t.ok(galleryCamera || galleryRecent, 'I see the Android Picture Gallery');
+    const galleryCameraOrRecent = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().textMatches("(Camera|Recent)")',
+    );
+    t.ok(galleryCameraOrRecent, 'I see the Android Picture Gallery');
     await driver.back();
     t.pass('I press the (hardware) back button');
 
