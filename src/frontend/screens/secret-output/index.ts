@@ -18,7 +18,7 @@ import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
 import {navOptions as inputSecretScreenNavOptions} from '../secret-input';
 import Button from '../../components/Button';
-import {Screens} from '../..';
+import {Screens} from '../../enums';
 import TopBar from '../../components/TopBar';
 
 export type Sources = {

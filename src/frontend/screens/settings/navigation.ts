@@ -10,7 +10,7 @@ import {navOptions as dialogAboutNavOptions} from '../dialog-about';
 import {navOptions as dialogThanksNavOptions} from '../dialog-thanks';
 import {navOptions as librariesNavOptions} from '../libraries';
 import {navOptions as backupScreenNavOptions} from '../backup';
-import {Screens} from '../..';
+import {Screens} from '../../enums';
 
 export type Actions = {
   goBack$: Stream<any>;

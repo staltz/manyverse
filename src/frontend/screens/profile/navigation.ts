@@ -7,21 +7,19 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
+import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
+import {Reactions} from '../../ssb/types';
+import {Screens} from '../../enums';
 import {navOptions as composeScreenNavOpts} from '../compose';
 import {navOptions as editProfileScreenNavOpts} from '../profile-edit';
 import {navOptions as bioScreenNavOpts} from '../biography';
-import {navOptions as threadScreenNavOpts} from '../thread';
-import {
-  navOptions as accountsScreenNavOptions,
-  Props as AccountProps,
-} from '../accounts';
-import {navOptions as profileScreenNavOpts} from './index';
+import {navOptions as threadScreenNavOpts} from '../thread/layout';
+import {navOptions as accountsScreenNavOptions} from '../accounts/layout';
+import {navOptions as profileScreenNavOpts} from './layout';
 import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
-import {MsgId, FeedId, Msg} from 'ssb-typescript';
-import {Screens} from '../..';
+import {Props as AccountProps} from '../accounts';
 import {State} from './model';
-import {Reactions} from '../../ssb/types';
 
 export type Actions = {
   goBack$: Stream<any>;

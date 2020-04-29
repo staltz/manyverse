@@ -9,15 +9,15 @@ import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {Command, PopCommand} from 'cycle-native-navigation';
-import {Screens} from '../..';
+import {Screens} from '../../enums';
 import {Reactions} from '../../ssb/types';
 import {
   navOptions as accountsScreenNavOpts,
   Props as AccountProps,
 } from '../accounts';
-import {navOptions as profileScreenNavOpts} from '../profile';
+import {navOptions as profileScreenNavOpts} from '../profile/layout';
 import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
-import {navOptions as threadScreenNavOpts} from './index';
+import {navOptions as threadScreenNavOpts} from './layout';
 import {navOptions as composeScreenNavOpts} from '../compose';
 import {State} from './model';
 

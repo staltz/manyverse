@@ -11,7 +11,7 @@ import {navOptions as profileScreenNavOptions} from '../profile';
 import {navOptions as rawDatabaseScreenNavOptions} from '../raw-db';
 import {navOptions as settingsScreenNavOptions} from '../settings';
 import {State} from './model';
-import {Screens} from '../..';
+import {Screens} from '../../enums';
 
 export type Actions = {
   goToSelfProfile$: Stream<null>;

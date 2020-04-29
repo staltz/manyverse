@@ -8,7 +8,7 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
-import {Screens} from '../../..';
+import {Screens} from '../../../enums';
 import {navOptions as profileScreenNavOptions} from '../../profile';
 import {navOptions as pasteInviteScreenNavOptions} from '../../invite-paste';
 import {navOptions as createInviteScreenNavOptions} from '../../invite-create';

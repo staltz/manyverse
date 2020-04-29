@@ -8,13 +8,11 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
-import {Screens} from '../../..';
+import {Screens} from '../../../enums';
 import {Reactions} from '../../../ssb/types';
 import {navOptions as composeScreenNavOptions} from '../../compose';
-import {
-  navOptions as accountsScreenNavOpts,
-  Props as AccountsProps,
-} from '../../accounts';
+import {Props as AccountsProps} from '../../accounts';
+import {navOptions as accountsScreenNavOpts} from '../../accounts/layout';
 import {navOptions as profileScreenNavOpts} from '../../profile';
 import {navOptions as threadScreenNavOpts} from '../../thread';
 import {navOptions as rawMsgScreenNavOpts} from '../../raw-msg';

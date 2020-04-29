@@ -4,31 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-export enum Screens {
-  Welcome = 'Manyverse.Welcome',
-  Central = 'Manyverse.Central',
-  Drawer = 'Manyverse.Drawer',
-  DialogAbout = 'Manyverse.Dialog.About',
-  DialogThanks = 'Manyverse.Dialog.Thanks',
-  Compose = 'Manyverse.Compose',
-  Thread = 'Manyverse.Thread',
-  Conversation = 'Manyverse.Conversation',
-  RecipientsInput = 'Manyverse.RecipientsInput',
-  Libraries = 'Manyverse.Libraries',
-  InvitePaste = 'Manyverse.Invite.Paste',
-  InviteCreate = 'Manyverse.Invite.Create',
-  Profile = 'Manyverse.Profile',
-  ProfileEdit = 'Manyverse.Profile.Edit',
-  Biography = 'Manyverse.Biography',
-  Accounts = 'Manyverse.Accounts',
-  Backup = 'Manyverse.Backup',
-  SecretOutput = 'Manyverse.SecretOutput',
-  SecretInput = 'Manyverse.SecretInput',
-  RawDatabase = 'Manyverse.RawDatabase',
-  RawMessage = 'Manyverse.RawMessage',
-  Settings = 'Manyverse.Settings',
-}
-
+import {Screens} from './enums';
 import {withState} from '@cycle/state';
 import {GlobalScreen, MoreScreenSinks} from 'cycle-native-navigation';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
@@ -48,8 +24,8 @@ import {makeExitDriver} from './drivers/exit';
 import {makeOrientationDriver} from './drivers/orientation';
 import {makeSplashScreenDriver} from './drivers/splashscreen';
 import {global} from './screens/global/index';
-import {welcome, navOptions as welcomeNavOpts} from './screens/welcome/index';
-import {central, navOptions as centralNavOpts} from './screens/central/index';
+import {welcome} from './screens/welcome/index';
+import {central} from './screens/central/index';
 import {drawer} from './screens/drawer/index';
 import {dialogAbout} from './screens/dialog-about/index';
 import {dialogThanks} from './screens/dialog-thanks/index';
@@ -70,9 +46,6 @@ import {backup} from './screens/backup/index';
 import {secretOutput} from './screens/secret-output/index';
 import {secretInput} from './screens/secret-input/index';
 import {settings} from './screens/settings/index';
-import {Palette} from './global-styles/palette';
-import {Typography} from './global-styles/typography';
-import {Options, Layout} from 'react-native-navigation';
 
 export const drivers = {
   alert: alertDriver,
@@ -128,74 +101,4 @@ export const screens: ScreensMapping = {
   [Screens.RawDatabase]: rawDatabase,
   [Screens.RawMessage]: rawMessage,
   [Screens.Settings]: withState(settings),
-};
-
-export const welcomeLayout: Layout = {
-  stack: {
-    id: 'mainstack',
-    children: [
-      {
-        component: {
-          name: Screens.Welcome,
-          options: welcomeNavOpts,
-        },
-      },
-    ],
-  },
-};
-
-export const centralLayout: Layout = {
-  sideMenu: {
-    left: {
-      component: {name: Screens.Drawer},
-    },
-    center: {
-      stack: {
-        id: 'mainstack',
-        children: [
-          {
-            component: {
-              name: Screens.Central,
-              options: centralNavOpts,
-            },
-          },
-        ],
-      },
-    },
-  },
-};
-
-export const defaultNavOptions: Options = {
-  statusBar: {
-    visible: true,
-    backgroundColor: Palette.backgroundBrandStrong,
-    style: 'light',
-  },
-  sideMenu: {
-    left: {
-      shouldStretchDrawer: false,
-    },
-  },
-  layout: {
-    backgroundColor: Palette.backgroundVoid,
-    orientation: ['portrait', 'landscape'],
-  },
-  topBar: {
-    visible: false,
-    drawBehind: true,
-    hideOnScroll: false,
-    animate: false,
-    height: 0,
-    borderHeight: 0,
-    elevation: 0,
-    leftButtonColor: Palette.textForBackgroundBrand,
-    background: {
-      color: Palette.backgroundBrand,
-    },
-    title: {
-      text: '',
-      color: Palette.textForBackgroundBrand,
-      fontSize: Typography.fontSizeLarge,
-    },
-  },
 };

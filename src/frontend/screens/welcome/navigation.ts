@@ -7,7 +7,9 @@
 import xs, {Stream} from 'xstream';
 import {Command} from 'cycle-native-navigation';
 import {navOptions as secretInputNavOpts} from '../secret-input';
-import {Screens, centralLayout} from '../..';
+import {Screens} from '../../enums';
+import {navOptions as centralNavOpts} from '../central';
+// import {centralLayout} from '../../layouts';
 
 export type Actions = {
   createAccount$: Stream<any>;
@@ -20,7 +22,26 @@ export default function navigation(actions: Actions): Stream<Command> {
 
   const goToCentral$ = xs.merge(actions.createAccount$, skipWelcome$).mapTo({
     type: 'setStackRoot',
-    layout: centralLayout,
+    layout: {
+      sideMenu: {
+        left: {
+          component: {name: Screens.Drawer},
+        },
+        center: {
+          stack: {
+            id: 'mainstack',
+            children: [
+              {
+                component: {
+                  name: Screens.Central,
+                  options: centralNavOpts,
+                },
+              },
+            ],
+          },
+        },
+      },
+    },
   } as Command);
 
   const goToSecretInput$ = actions.restoreAccount$.mapTo({

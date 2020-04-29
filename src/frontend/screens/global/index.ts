@@ -15,7 +15,7 @@ import {
   TriggerMsgCypherlink,
 } from '../../drivers/eventbus';
 import {SSBSource} from '../../drivers/ssb';
-import {Screens} from '../..';
+import {Screens} from '../../enums';
 import {navOptions as profileScreenNavOpts} from '../profile';
 import {navOptions as threadScreenNavOpts} from '../thread';
 

@@ -6,8 +6,10 @@
 
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
-import {centralLayout} from '../..';
 import {Command} from 'cycle-native-navigation';
+// import {centralLayout} from '../../layouts';
+import {Screens} from '../../enums';
+import {navOptions as centralNavOpts} from '../central';
 import {State} from './model';
 
 type Actions = {
@@ -28,7 +30,29 @@ export default function navigation(
       .map(state =>
         state.practiceMode
           ? ({type: 'popToRoot'} as Command)
-          : ({type: 'setStackRoot', layout: centralLayout} as Command),
+          : ({
+              type: 'setStackRoot',
+              layout: {
+                sideMenu: {
+                  left: {
+                    component: {name: Screens.Drawer},
+                  },
+                  center: {
+                    stack: {
+                      id: 'mainstack',
+                      children: [
+                        {
+                          component: {
+                            name: Screens.Central,
+                            options: centralNavOpts,
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              },
+            } as Command),
       ),
   );
 }

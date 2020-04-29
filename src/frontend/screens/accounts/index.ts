@@ -12,12 +12,13 @@ import {StyleSheet, View, ScrollView, RefreshControl} from 'react-native';
 import {Command, PopCommand, NavSource} from 'cycle-native-navigation';
 import {Reducer, StateSource} from '@cycle/state';
 import {MsgId, About, FeedId} from 'ssb-typescript';
-import {Screens} from '../..';
+import {Screens} from '../../enums';
 import {SSBSource} from '../../drivers/ssb';
 import {navOptions as profileScreenNavOptions} from '../profile';
 import AccountsList, {Props as ListProps} from '../../components/AccountsList';
 import TopBar from '../../components/TopBar';
 import {Palette} from '../../global-styles/palette';
+export {navOptions} from './layout';
 
 export type Props = {
   title: string;
@@ -59,18 +60,6 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-export const navOptions = {
-  topBar: {
-    visible: false,
-    height: 0,
-  },
-  sideMenu: {
-    left: {
-      enabled: false,
-    },
-  },
-};
 
 export type Actions = {
   goBack$: Stream<any>;

@@ -25,6 +25,7 @@ import intent from './intent';
 import ssb from './ssb';
 import navigation from './navigation';
 import asyncStorage from './asyncstorage';
+export {navOptions} from './layout';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -52,18 +53,6 @@ export type Sinks = {
   clipboard: Stream<string>;
   toast: Stream<Toast>;
   ssb: Stream<Req>;
-};
-
-export const navOptions = {
-  topBar: {
-    visible: false,
-    height: 0,
-  },
-  sideMenu: {
-    left: {
-      enabled: false,
-    },
-  },
 };
 
 export function thread(sources: Sources): Sinks {

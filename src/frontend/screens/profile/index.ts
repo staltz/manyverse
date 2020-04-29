@@ -20,6 +20,7 @@ import model, {State} from './model';
 import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
+export {navOptions} from './layout';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -42,18 +43,6 @@ export type Sinks = {
   clipboard: Stream<string>;
   toast: Stream<Toast>;
   ssb: Stream<Req>;
-};
-
-export const navOptions = {
-  topBar: {
-    visible: false,
-    height: 0,
-  },
-  sideMenu: {
-    left: {
-      enabled: false,
-    },
-  },
 };
 
 export function profile(sources: Sources): Sinks {
