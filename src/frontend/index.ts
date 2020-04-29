@@ -30,7 +30,7 @@ export enum Screens {
 }
 
 import {withState} from '@cycle/state';
-import {GlobalScreen} from 'cycle-native-navigation';
+import {GlobalScreen, MoreScreenSinks} from 'cycle-native-navigation';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {alertDriver} from 'cycle-native-alert';
 import {makeClipboardDriver} from 'cycle-native-clipboard';
@@ -74,10 +74,34 @@ import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
 import {Options, Layout} from 'react-native-navigation';
 
+export const drivers = {
+  alert: alertDriver,
+  asyncstorage: asyncStorageDriver,
+  keyboard: makeKeyboardDriver(),
+  clipboard: makeClipboardDriver(),
+  linking: linkingDriver,
+  globalEventBus: makeEventBusDriver(),
+  ssb: ssbDriver,
+  share: shareDriver,
+  lifecycle: makeActivityLifecycleDriver(),
+  network: makeNetworkDriver(),
+  notification: notificationDriver,
+  dialog: dialogDriver,
+  toast: makeToastDriver(),
+  orientation: makeOrientationDriver(),
+  splashscreen: makeSplashScreenDriver(),
+  exit: makeExitDriver(),
+};
+
+type AcceptableSinks = MoreScreenSinks &
+  {
+    [k in keyof typeof drivers]?: Parameters<typeof drivers[k]>[0];
+  };
+
 type ScreensMapping = {
-  [GlobalScreen]?: (so: any) => any;
+  [GlobalScreen]?: (so: any) => AcceptableSinks;
 } & {
-  [k in Screens]?: (so: any) => any;
+  [k in Screens]?: (so: any) => AcceptableSinks;
 };
 
 export const screens: ScreensMapping = {
@@ -104,25 +128,6 @@ export const screens: ScreensMapping = {
   [Screens.RawDatabase]: rawDatabase,
   [Screens.RawMessage]: rawMessage,
   [Screens.Settings]: withState(settings),
-};
-
-export const drivers = {
-  alert: alertDriver,
-  asyncstorage: asyncStorageDriver,
-  keyboard: makeKeyboardDriver(),
-  clipboard: makeClipboardDriver(),
-  linking: linkingDriver,
-  globalEventBus: makeEventBusDriver(),
-  ssb: ssbDriver,
-  share: shareDriver,
-  lifecycle: makeActivityLifecycleDriver(),
-  network: makeNetworkDriver(),
-  notification: notificationDriver,
-  dialog: dialogDriver,
-  toast: makeToastDriver(),
-  orientation: makeOrientationDriver(),
-  splashscreen: makeSplashScreenDriver(),
-  exit: makeExitDriver(),
 };
 
 export const welcomeLayout: Layout = {
