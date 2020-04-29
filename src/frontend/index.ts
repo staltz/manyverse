@@ -30,6 +30,7 @@ export enum Screens {
 }
 
 import {withState} from '@cycle/state';
+import {GlobalScreen} from 'cycle-native-navigation';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {alertDriver} from 'cycle-native-alert';
 import {makeClipboardDriver} from 'cycle-native-clipboard';
@@ -46,6 +47,7 @@ import {makeActivityLifecycleDriver} from './drivers/lifecycle';
 import {makeExitDriver} from './drivers/exit';
 import {makeOrientationDriver} from './drivers/orientation';
 import {makeSplashScreenDriver} from './drivers/splashscreen';
+import {global} from './screens/global/index';
 import {welcome, navOptions as welcomeNavOpts} from './screens/welcome/index';
 import {central, navOptions as centralNavOpts} from './screens/central/index';
 import {drawer} from './screens/drawer/index';
@@ -72,7 +74,14 @@ import {Palette} from './global-styles/palette';
 import {Typography} from './global-styles/typography';
 import {Options, Layout} from 'react-native-navigation';
 
-export const screens: {[k in Screens]?: (so: any) => any} = {
+type ScreensMapping = {
+  [GlobalScreen]?: (so: any) => any;
+} & {
+  [k in Screens]?: (so: any) => any;
+};
+
+export const screens: ScreensMapping = {
+  [GlobalScreen]: withState(global),
   [Screens.Welcome]: withState(welcome),
   [Screens.Central]: withState(central),
   [Screens.Drawer]: withState(drawer),

@@ -8,11 +8,6 @@ import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {NavSource} from 'cycle-native-navigation';
-import {
-  GlobalEvent,
-  TriggerFeedCypherlink,
-  TriggerMsgCypherlink,
-} from '../../../drivers/eventbus';
 import {Screens} from '../../..';
 import {PressAddReactionEvent, PressReactionsEvent} from '../../../ssb/types';
 
@@ -22,7 +17,6 @@ export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
-  globalEventBus: Stream<GlobalEvent>,
   fabPress$: Stream<string>,
 ) {
   return {
@@ -44,11 +38,6 @@ export default function intent(
 
     goToProfile$: xs.merge(
       reactSource.select('publicFeed').events('pressAuthor'),
-      // TODO: move this out of here. it's currently handling
-      // cypherlink clicks from ANY screen, not just central>public-tab
-      globalEventBus
-        .filter(ev => ev.type === 'triggerFeedCypherlink')
-        .map(ev => ({authorFeedId: (ev as TriggerFeedCypherlink).feedId})),
     ) as Stream<ProfileNavEvent>,
 
     openMessageEtc$: reactSource
@@ -76,11 +65,6 @@ export default function intent(
           rootMsgId: rootKey,
           replyToMsgId: msgKey,
         })),
-      // TODO: move this out of here. it's currently handling
-      // cypherlink clicks from ANY screen, not just central>public-tab
-      globalEventBus
-        .filter(ev => ev.type === 'triggerMsgCypherlink')
-        .map(ev => ({rootMsgId: (ev as TriggerMsgCypherlink).msgId})),
     ) as Stream<ThreadNavEvent>,
   };
 }

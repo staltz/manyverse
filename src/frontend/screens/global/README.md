@@ -1,0 +1,1 @@
+This Cycle.js component is very different from the others: it is not a "screen", it is just a component that is active in the background, taking care of mapping sources and sinks unrelated to GUI, such as handling SSB streams, handling 'links' across screens, etc.
