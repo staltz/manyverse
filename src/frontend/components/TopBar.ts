@@ -66,14 +66,15 @@ export default class TopBar extends PureComponent<Props> {
     const {title, onPressBack} = this.props;
     return $(View, {style: styles.container}, [
       $(HeaderButton, {
+        key: 'back',
         onPress: onPressBack,
         icon: Platform.select({ios: 'chevron-left', default: 'arrow-left'}),
         ...Platform.select({ios: {iconSize: Dimensions.iconSizeLarge}}),
         accessibilityLabel: 'Back Button',
       }),
-      title ? $(Text, {style: styles.title}, title) : null,
+      title ? $(Text, {key: 'title', style: styles.title}, title) : null,
       this.props.children
-        ? $(View, {style: styles.rightSide}, this.props.children)
+        ? $(View, {key: 'right', style: styles.rightSide}, this.props.children)
         : null,
     ]);
   }
