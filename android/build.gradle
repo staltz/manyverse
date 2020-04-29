@@ -57,6 +57,7 @@ subprojects { subproject ->
                     if (names.contains("reactNative57_5")) setIgnore(true)
                     if (names.contains("reactNative57WixFork")) setIgnore(true)
                     if (names.contains("reactNative59")) setIgnore(true)
+                    if (names.contains("reactNative62")) setIgnore(true)
                 }
             }
         }

@@ -27,7 +27,7 @@ brew install coreutils
 
 ### Node.js
 
-Use node `^10.13.0` and npm `~6.4.1`. To manage versions of node easily, we recommend [nvm](https://github.com/nvm-sh/nvm).
+Use node (preferably exactly) `12.16.x` and npm `6.13.x`. To manage versions of node easily, we recommend [nvm](https://github.com/nvm-sh/nvm).
 
 ### React Native
 
