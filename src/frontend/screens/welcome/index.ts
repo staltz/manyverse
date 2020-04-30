@@ -13,17 +13,19 @@ import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Palette} from '../../global-styles/palette';
 import {OrientationEvent} from '../../drivers/orientation';
 import {SSBSource, Req} from '../../drivers/ssb';
+import {SplashCommand} from '../../drivers/splashscreen';
+import {FSSource} from '../../drivers/fs';
 import navigation from './navigation';
 import view from './view';
 import intent from './intent';
 import model, {State} from './model';
-import {SplashCommand} from '../../drivers/splashscreen';
 
 export type Sources = {
   screen: ReactSource;
   orientation: Stream<OrientationEvent>;
   asyncstorage: AsyncStorageSource;
   navigation: NavSource;
+  fs: FSSource;
   state: StateSource<State>;
   ssb: SSBSource;
 };
@@ -48,7 +50,7 @@ export const navOptions = {
 };
 
 export function welcome(sources: Sources): Sinks {
-  const actions = intent(sources.screen, sources.asyncstorage);
+  const actions = intent(sources.screen, sources.fs, sources.asyncstorage);
   const skip$ = actions.skipOrNot$.filter(skip => skip === true);
   const ssb$ = xs.merge(
     actions.createAccount$.mapTo({type: 'identity.create'} as Req),

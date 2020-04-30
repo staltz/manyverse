@@ -13,6 +13,7 @@ import {linkingDriver} from 'cycle-native-linking';
 import {makeToastDriver} from './drivers/toast';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
 import {notificationDriver} from 'cycle-native-android-local-notification';
+import {makeFSDriver} from './drivers/fs';
 import {ssbDriver} from './drivers/ssb';
 import {shareDriver} from 'cycle-native-share';
 import {makeNetworkDriver} from './drivers/network';
@@ -53,6 +54,7 @@ export const drivers = {
   asyncstorage: asyncStorageDriver,
   keyboard: makeKeyboardDriver(),
   clipboard: makeClipboardDriver(),
+  fs: makeFSDriver(),
   linking: linkingDriver,
   globalEventBus: makeEventBusDriver(),
   ssb: ssbDriver,

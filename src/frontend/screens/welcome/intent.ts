@@ -7,23 +7,25 @@
 import xs from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
-import RNFS = require('react-native-fs');
 import path = require('path');
+import {FSSource} from '../../drivers/fs';
 
 export default function intent(
   screenSource: ReactSource,
+  fsSource: FSSource,
   storageSource: AsyncStorageSource,
 ) {
-  const accountExists$ = xs.fromPromise(
-    (async () => {
-      const appPath = RNFS.DocumentDirectoryPath;
-      const flumeLogPath = path.join(appPath, '.ssb', 'flume', 'log.offset');
-      if (!(await RNFS.exists(flumeLogPath))) return false;
-      const stat = await RNFS.stat(flumeLogPath);
-      const exists = ((stat.size as any) as number) >= 10;
-      return exists;
-    })(),
-  );
+  const appPath = FSSource.DocumentDirectoryPath;
+  const flumeLogPath = path.join(appPath, '.ssb', 'flume', 'log.offset');
+  const accountExists$ = fsSource
+    .exists(flumeLogPath)
+    .map(flumeLogExists => {
+      if (!flumeLogExists) return xs.of(false);
+      return fsSource
+        .stat(flumeLogPath)
+        .map(stat => ((stat.size as any) as number) >= 10);
+    })
+    .flatten();
 
   const latestVisit$ = storageSource.getItem('latestVisit');
 
