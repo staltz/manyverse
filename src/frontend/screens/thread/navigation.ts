@@ -9,7 +9,7 @@ import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {Command, PopCommand} from 'cycle-native-navigation';
-import {Screens} from '../../enums';
+import {Screens} from '../enums';
 import {Reactions} from '../../ssb/types';
 import {
   navOptions as accountsScreenNavOpts,

@@ -15,7 +15,7 @@ import {DialogSource} from '../../drivers/dialogs';
 import {SSBSource} from '../../drivers/ssb';
 import {Palette} from '../../global-styles/palette';
 import {PressAddReactionEvent, PressReactionsEvent} from '../../ssb/types';
-import {Screens} from '../../enums';
+import {Screens} from '../enums';
 import {State} from './model';
 import {Props} from './index';
 

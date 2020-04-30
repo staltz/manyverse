@@ -19,7 +19,7 @@ import {Palette} from '../../global-styles/palette';
 import {SSBSource} from '../../drivers/ssb';
 import RawFeed from '../../components/RawFeed';
 import {navOptions as rawMessageScreenNavOptions} from '../raw-msg';
-import {Screens} from '../../enums';
+import {Screens} from '../enums';
 import TopBar from '../../components/TopBar';
 
 export type Sources = {

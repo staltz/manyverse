@@ -17,7 +17,7 @@ import tutorialSlide from '../../components/tutorial-slide';
 import Button from '../../components/Button';
 import TopBar from '../../components/TopBar';
 import {navOptions as outputSecretScreenNavOptions} from '../secret-output';
-import {Screens} from '../../enums';
+import {Screens} from '../enums';
 
 export type State = {
   index: number;

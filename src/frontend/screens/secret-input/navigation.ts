@@ -7,8 +7,7 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {Command} from 'cycle-native-navigation';
-// import {centralLayout} from '../../layouts';
-import {Screens} from '../../enums';
+import {Screens} from '../enums';
 import {navOptions as centralNavOpts} from '../central';
 import {State} from './model';
 

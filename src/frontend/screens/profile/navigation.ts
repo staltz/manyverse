@@ -10,7 +10,7 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
 import {Reactions} from '../../ssb/types';
-import {Screens} from '../../enums';
+import {Screens} from '../enums';
 import {navOptions as composeScreenNavOpts} from '../compose';
 import {navOptions as editProfileScreenNavOpts} from '../profile-edit';
 import {navOptions as bioScreenNavOpts} from '../biography';

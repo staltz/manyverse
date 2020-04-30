@@ -4,7 +4,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Screens} from './enums';
 import {withState} from '@cycle/state';
 import {GlobalScreen, MoreScreenSinks} from 'cycle-native-navigation';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
@@ -24,6 +23,7 @@ import {makeExitDriver} from './drivers/exit';
 import {makeOrientationDriver} from './drivers/orientation';
 import {makeSplashScreenDriver} from './drivers/splashscreen';
 
+import {Screens} from './screens/enums';
 import {global} from './screens/global';
 import {welcome} from './screens/welcome';
 import {central} from './screens/central';

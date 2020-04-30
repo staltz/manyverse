@@ -12,7 +12,7 @@ import {StyleSheet, View, ScrollView, RefreshControl} from 'react-native';
 import {Command, PopCommand, NavSource} from 'cycle-native-navigation';
 import {Reducer, StateSource} from '@cycle/state';
 import {MsgId, About, FeedId} from 'ssb-typescript';
-import {Screens} from '../../enums';
+import {Screens} from '../enums';
 import {SSBSource} from '../../drivers/ssb';
 import {navOptions as profileScreenNavOptions} from '../profile';
 import AccountsList, {Props as ListProps} from '../../components/AccountsList';

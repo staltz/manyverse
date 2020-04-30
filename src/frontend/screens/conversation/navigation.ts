@@ -13,7 +13,7 @@ import {Command} from 'cycle-native-navigation';
 import {navOptions as profileScreenNavOpts} from '../profile';
 import {navOptions as accountsScreenNavOpts} from '../accounts/layout';
 import {Props as AccountsProps} from '../accounts';
-import {Screens} from '../../enums';
+import {Screens} from '../enums';
 
 type Actions = {
   goBack$: Stream<any>;

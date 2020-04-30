@@ -9,7 +9,7 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 import sample from 'xstream-sample';
 import {MsgId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
-import {Screens} from '../../../enums';
+import {Screens} from '../../enums';
 import {navOptions as conversationNavOpts} from '../../conversation';
 import {navOptions as recipientsInputNavOpts} from '../../recipients-input';
 import {State} from './model';

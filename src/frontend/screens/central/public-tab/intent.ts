@@ -8,7 +8,7 @@ import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {NavSource} from 'cycle-native-navigation';
-import {Screens} from '../../../enums';
+import {Screens} from '../../enums';
 import {PressAddReactionEvent, PressReactionsEvent} from '../../../ssb/types';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};

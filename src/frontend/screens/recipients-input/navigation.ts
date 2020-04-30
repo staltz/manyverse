@@ -7,7 +7,7 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {Command} from 'cycle-native-navigation';
-import {Screens} from '../../enums';
+import {Screens} from '../enums';
 import {navOptions as conversationNavOpts} from '../conversation';
 import {State} from './model';
 
