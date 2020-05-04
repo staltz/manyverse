@@ -36,5 +36,7 @@ include ':@react-native-community_slider'
 project(':@react-native-community_slider').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/slider/android')
 include ':react-native-system-setting'
 project(':react-native-system-setting').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-system-setting/android')
+include ':react-native-localize'
+project(':react-native-localize').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-localize/android')
 
 include ':app'

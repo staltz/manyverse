@@ -34,6 +34,7 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.ninty.system.setting.SystemSettingPackage;
+import com.reactcommunity.rnlocalize.RNLocalizePackage;
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -104,6 +105,7 @@ public class MainApplication extends NavigationApplication {
     packages.add(new RNCViewPagerPackage());
     packages.add(new ReactSliderPackage());
     packages.add(new SystemSettingPackage());
+    packages.add(new RNLocalizePackage());
     return packages;
   }
 }

@@ -39,6 +39,7 @@ target 'Manyverse' do
   pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'QBImagePickerController', :path => '../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePickerController.podspec'
+  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
 
   target 'ManyverseTests' do
     inherit! :search_paths

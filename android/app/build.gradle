@@ -250,6 +250,7 @@ dependencies {
     implementation project(':@react-native-community_viewpager')
     implementation project(':@react-native-community_slider')
     implementation project(':react-native-system-setting')
+    implementation project(':react-native-localize')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation("com.facebook.react:react-native:+") {

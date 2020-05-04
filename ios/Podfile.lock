@@ -243,6 +243,8 @@ PODS:
     - React-Core
     - React-RCTImage
     - RSKImageCropper
+  - RNLocalize (1.4.0):
+    - React
   - RNOS (2.2.0):
     - React
   - RNVectorIcons (6.6.0):
@@ -290,6 +292,7 @@ DEPENDENCIES:
   - RNFS (from `../node_modules/react-native-fs`)
   - RNHasInternet (from `../node_modules/react-native-has-internet`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - RNLocalize (from `../node_modules/react-native-localize`)
   - RNOS (from `../node_modules/react-native-os-staltz/RNOS.podspec`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -372,6 +375,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-has-internet"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
+  RNLocalize:
+    :path: "../node_modules/react-native-localize"
   RNOS:
     :podspec: "../node_modules/react-native-os-staltz/RNOS.podspec"
   RNVectorIcons:
@@ -417,11 +422,12 @@ SPEC CHECKSUMS:
   RNFS: 0d4191b1052bef9ce70deff00a5b4169c62bbd9b
   RNHasInternet: a0e082ec9ec2244a251fd95f70ed4b16ea7b0089
   RNImageCropPicker: e1d8c3381e5b05a1bdcd13ea57a4f1c020a09cef
+  RNLocalize: fc27ee5878ce5a3af73873fb2d8e866e0d1e6d84
   RNOS: 6299cef6f70a1bc5f53f00ed516f0f9ef35fea5a
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 948545714f4704982d320b495796e21f91f08447
+PODFILE CHECKSUM: a7c8a9a7f72613c9f105defde79f47e275f1f749
 
 COCOAPODS: 1.8.4

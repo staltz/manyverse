@@ -26,6 +26,7 @@
 		F6915CCA23BA629F00F7090A /* BuildConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F6915CC823BA629F00F7090A /* BuildConfig.m */; };
 		F6C413A5239680DD005F377A /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6C413A123967C9F005F377A /* MaterialIcons.ttf */; };
 		F6C413A6239680E1005F377A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6C413A223967CB0005F377A /* MaterialCommunityIcons.ttf */; };
+		F6D4D02B24604770001D319D /* translations in Resources */ = {isa = PBXBuildFile; fileRef = F6D4D02A24604770001D319D /* translations */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		F6C413A223967CB0005F377A /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		F6C413A3239680AE005F377A /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		F6C413A4239680B9005F377A /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		F6D4D02A24604770001D319D /* translations */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translations; path = ../android/app/src/main/assets/translations; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 		13B07FAE1A68108700A75B9A /* Manyverse */ = {
 			isa = PBXGroup;
 			children = (
+				F6D4D02A24604770001D319D /* translations */,
 				F6915CC923BA629F00F7090A /* BuildConfig.h */,
 				F6915CC823BA629F00F7090A /* BuildConfig.m */,
 				F6C413A023967C27005F377A /* Fonts */,
@@ -403,6 +406,7 @@
 				F6C413A6239680E1005F377A /* MaterialCommunityIcons.ttf in Resources */,
 				F6C413A5239680DD005F377A /* MaterialIcons.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				F6D4D02B24604770001D319D /* translations in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
