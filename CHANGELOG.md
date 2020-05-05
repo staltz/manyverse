@@ -6,6 +6,15 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2005.5-beta
+
+* (iOS) Bug fix: back button logic on some screens ([see details](https://gitlab.com/staltz/manyverse/commit/6790b707daa474119f555b4576a5638385827946))
+* Bug fix: don't show duplicate connections ([see details](https://gitlab.com/staltz/manyverse/commit/6a22e2580015fe958762132961b8d5350844608d))
+* Improve app startup time (update node.js mobile) ([see details](https://gitlab.com/staltz/manyverse/commit/4ac4fb0ceacb6c5e12d20695d80512b5cbf8e713))
+* Improve UI performance of the connections screen ([see details](https://gitlab.com/staltz/manyverse/commit/30e7400a4536d5c071c03b9872921073a33e627d))
+* Improve UI performance of the three main tabs ([see details](https://gitlab.com/staltz/manyverse/commit/d8ead4f60fb59f99488ce7daf9581cb960d4be61))
+* Speed up building of database indexes a bit ([see details](https://gitlab.com/staltz/manyverse/commit/c201feeb7742e849a2f50824123c38e9bec4b733))
+
 ## 0.2004.4-beta
 
 * (iOS) Bug fix: reduce menu icon opacity on scroll ([see details](https://gitlab.com/staltz/manyverse/commit/73e29503f57baef2d0a8ac17c7379f1f64599784)), closes [#805](https://gitlab.com/staltz/manyverse/issues/805)
