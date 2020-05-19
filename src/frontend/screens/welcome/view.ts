@@ -104,12 +104,12 @@ export default function view(state$: Stream<State>, actions: Actions) {
               renderDescription: () => [
                 "Manyverse can use internet connectivity, but it's not ",
                 h(Text, {style: styles.italicBold}, 'on'),
-                ' the internet. Everything happens right here on your phone. ' +
+                ' the internet. Everything happens right here on your device. ' +
                   'This means you can use it normally even when offline! Your ',
                 h(
                   Text,
                   {style: styles.bold},
-                  'content is stored first on your phone',
+                  'content is stored first on your device',
                 ),
                 ', and you can ' +
                   'synchronize it with friends once you connect with them. ',
@@ -179,12 +179,12 @@ export default function view(state$: Stream<State>, actions: Actions) {
               portraitMode: state.isPortraitMode,
               title: 'Shared moderation',
               renderDescription: () => [
-                'Because your phone holds your social network, no one can ban or ' +
+                'Because your device holds your social network, no one can ban or ' +
                   'remove accounts on your behalf. Only you can moderate your ' +
                   'space, by ',
                 h(Text, {style: styles.bold}, 'blocking accounts'),
                 " you don't wish to have on your " +
-                  'phone. Then, your friends can choose to block those same ' +
+                  'device. Then, your friends can choose to block those same ' +
                   'accounts. This is how moderation can spread naturally! ',
                 h(
                   Text,
@@ -211,10 +211,10 @@ export default function view(state$: Stream<State>, actions: Actions) {
               title: 'Permanence',
               renderDescription: () => [
                 'Once your content is synchronized with friends, they now hold a ' +
-                  'copy of it on their phones. Because they could go offline after ' +
+                  'copy of it on their devices. Because they could go offline after ' +
                   'that, it is ',
                 h(Text, {style: styles.bold}, 'not possible to delete'),
-                ' your content globally from all phones! This is why we have ' +
+                ' your content globally from all devices! This is why we have ' +
                   'chosen to make content permanent. It also makes communities ' +
                   'more respectful and considerate of what is being posted. ',
                 h(
