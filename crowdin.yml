@@ -1,0 +1,3 @@
+files:
+  - source: /android/app/src/main/assets/translations/en.json
+    translation: /android/app/src/main/assets/translations/%locale%.json
