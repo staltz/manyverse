@@ -193,7 +193,7 @@ function connectionsSlide(state: State) {
         sel: 'continue3',
         style: styles.button,
         textStyle: styles.buttonText,
-        text: 'Continue',
+        text: t('call_to_action.continue'),
         strong: false,
         accessible: true,
         accessibilityLabel: t('call_to_action.continue'),
