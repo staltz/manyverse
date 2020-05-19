@@ -651,12 +651,12 @@
         },
         "incorrect": {
           "title": "Incorreto",
-          "description": "Try again: write down your recovery phrase consisting of 48 words separated by whitespace."
+          "description": "Tente novamente: coloque a sua frase de recuperação composta por 48 palavras separadas por espaços em branco."
         }
       },
       "restore": {
         "correct": {
-          "title": "Welcome back!",
+          "title": "Bem-vindo(a) de volta!",
           "description": "Your account's identity is now restored.\n\nNow, to restore your data, connect with friends that have interacted with you before, to redownload your data from them."
         },
         "incorrect": {
