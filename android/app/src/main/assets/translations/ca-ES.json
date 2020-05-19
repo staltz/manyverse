@@ -1,0 +1,920 @@
+{
+  "call_to_action": {
+    "ok": "OK",
+    "add": "Add",
+    "done": "Done",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "delete": "Delete",
+    "save": "Save",
+    "yes": "Yes",
+    "no": "No",
+    "open_menu": {
+      "accessibility_label": "Menu Button"
+    },
+    "go_back": {
+      "accessibility_label": "Back Button"
+    },
+    "close": {
+      "accessibility_label": "Close Button"
+    },
+    "close_dialog": {
+      "accessibility_label": "Close Dialog Button"
+    }
+  },
+  "welcome": {
+    "learn_more": "Learn more",
+    "overview": {
+      "title": "Welcome to Manyverse!",
+      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+    },
+    "off_the_grid": {
+      "title": "Off the grid",
+      "description": {
+        "1_normal": "Manyverse can use internet connectivity, but it's not ",
+        "2_bold": "on",
+        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
+        "4_bold": "content is stored first on your device",
+        "5_normal": ", and you can synchronize it with friends once you connect with them."
+      }
+    },
+    "connections": {
+      "title": "Many ways to connect",
+      "description": {
+        "ios": {
+          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
+          "2_bold": "Wi-Fi",
+          "3_normal": " or exchange",
+          "4_bold": "P2P invites",
+          "5_normal": ". To find new people on the internet, look for an invite code to a ",
+          "6_bold": "pub server",
+          "7_normal": " or a ",
+          "8_bold": "room server",
+          "9_normal": ", or start your own server!"
+        },
+        "default": {
+          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
+          "2_bold": "Wi-Fi",
+          "3_normal": ", use ",
+          "4_bold": "Bluetooth sync",
+          "5_normal": ", or exchange ",
+          "6_bold": "P2P invites",
+          "7_normal": ". To find new people on the internet, look for an invite code to a ",
+          "8_bold": "pub server",
+          "9_normal": " or a ",
+          "10_bold": "room server",
+          "11_normal": ", or start your own server!"
+        }
+      }
+    },
+    "moderation": {
+      "title": "Shared moderation",
+      "description": {
+        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
+        "2_bold": "blocking accounts",
+        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+      }
+    },
+    "permanence": {
+      "title": "Permanence",
+      "description": {
+        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
+        "2_bold": "not possible to delete",
+        "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
+      }
+    },
+    "in_construction": {
+      "title": "In construction!",
+      "description": {
+        "1_normal": "Manyverse is ",
+        "2_bold": "beta-quality software",
+        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+      }
+    },
+    "setup_account": {
+      "title": "Is this your first time?",
+      "description": "Do you want to create a new account, or would you like to restore your old account from a 48-word recovery phrase?",
+      "call_to_action": {
+        "create": {
+          "label": "Create account",
+          "accessibility_label": "Create Account Button"
+        },
+        "restore": {
+          "label": "Restore account",
+          "accessibility_label": "Restore Account Button"
+        }
+      }
+    }
+  },
+  "central": {
+    "app_name": "Manyverse",
+    "tab_headers": {
+      "public": "Public board",
+      "private": "Private messages",
+      "connections": "Connections"
+    },
+    "loading": "Loading...",
+    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "tabs": {
+      "public": {
+        "accessibility_label": "Public Tab Button"
+      },
+      "private": {
+        "accessibility_label": "Private Tab Button"
+      },
+      "connections": {
+        "accessibility_label": "Connections Tab Button"
+      }
+    }
+  },
+  "public": {
+    "floating_action_button": {
+      "compose": "Write a public message"
+    },
+    "empty": {
+      "title": "No messages",
+      "description": "Write a diary to be\nshared with friends later"
+    }
+  },
+  "private": {
+    "floating_action_button": {
+      "compose": "Start a private conversation"
+    },
+    "empty": {
+      "title": "No conversations",
+      "description": "Start a private conversation\nwith any of your friends"
+    },
+    "conversation": {
+      "accessibility_label": "Go To Conversation"
+    }
+  },
+  "accounts": {
+    "reactions": {
+      "title": "Reactions"
+    },
+    "recipients": {
+      "title": "Recipients"
+    },
+    "call_to_action": {
+      "open_account": {
+        "accessibility_label": "Go To Account"
+      }
+    }
+  },
+  "connections": {
+    "floating_action_button": {
+      "create_invite": "Create invite",
+      "paste_invite": "Paste invite",
+      "bluetooth_seek": "Bluetooth seek"
+    },
+    "empty": {
+      "offline": {
+        "title": "Offline",
+        "description": "Turn on some connection mode\nor enjoy reading some existing content"
+      },
+      "connecting": {
+        "title": "Connecting",
+        "description": "Wait while the app is\nattempting to connect to your peers"
+      },
+      "no_peers": {
+        "title": "No connections",
+        "description": "Try syncing with people nearby\nor use a server invite code"
+      }
+    },
+    "toasts": {
+      "invite_accepted": "Invite accepted",
+      "invite_rejected": "Invite rejected. Are you sure it was correct?"
+    },
+    "peers": {
+      "types": {
+        "bluetooth": "Bluetooth",
+        "lan": "Wi-Fi",
+        "dht": {
+          "connected": "Internet P2P",
+          "staging": {
+            "host": "Internet P2P: waiting for online friend...",
+            "client": "Internet P2P: looking for online friend...",
+            "unknown": "Internet P2P: searching..."
+          }
+        },
+        "room": {
+          "server": "Room server",
+          "endpoint": "Room peer",
+          "alone_online": "(only you online)",
+          "others_online": "({{amount}} online)"
+        },
+        "pub": "Pub server",
+        "server": "Server",
+        "unknown": "Unknown"
+      }
+    },
+    "modes": {
+      "generic": {
+        "enabled": "(ENABLED)"
+      },
+      "bluetooth": {
+        "title": "Bluetooth",
+        "accessibility_label": "Bluetooth Mode",
+        "disabled": "(Turn on Bluetooth to use this)",
+        "description": "Discover users nearby and connect with them using Bluetooth.",
+        "permission_request": {
+          "title": "Allow locating via Bluetooth?",
+          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
+        }
+      },
+      "wifi": {
+        "title": "Wi-Fi",
+        "accessibility_label": "Wi-Fi Mode",
+        "disabled": "(Turn on Wi-Fi to use this)",
+        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
+      },
+      "p2p": {
+        "title": "Internet P2P",
+        "accessibility_label": "Internet P2P Mode",
+        "disabled": "(Go online to use this)",
+        "description": "Connect directly to friends currently online, using a peer-to-peer technology called \"Distributed Hash Table\".",
+        "connecting": "Connecting via internet P2P...",
+        "searching_friend": "Currently searching for online friend who generated this invite code, to establish a data connection with them.",
+        "waiting_friend": "Currently waiting for online friend to claim this invite code and establish a data connection."
+      },
+      "servers": {
+        "title": "Internet servers",
+        "accessibility_label": "Internet Servers Mode",
+        "disabled": "(Go online to use this)",
+        "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
+      }
+    },
+    "menu": {
+      "open_profile": {
+        "label": "Open profile",
+        "accessibility_label": {
+          "connected": "Open profile screen for this connected peer",
+          "staged": "Open profile screen for this suggested connection"
+        }
+      },
+      "connect": {
+        "label": "Connect",
+        "accessibility_label": {
+          "staged_peer": "Connect to this suggested peer",
+          "staged_room": "Connect to this suggested room"
+        }
+      },
+      "follow_connect": {
+        "label": "Connect and follow",
+        "accessibility_label": "Connect to this suggested peer then follow them"
+      },
+      "disconnect": {
+        "label": "Disconnect",
+        "accessibility_label": {
+          "peer": "Disconnect from this peer",
+          "room": "Disconnect from this room"
+        }
+      },
+      "disconnect_forget": {
+        "label": "Disconnect and forget",
+        "accessibility_label": {
+          "peer": "Disconnect from this peer and remove it from our database",
+          "room": "Disconnect from this room and remove it from our database"
+        }
+      },
+      "forget": {
+        "label": "Forget",
+        "accessibility_label": {
+          "room": "Remove this room from our database"
+        }
+      },
+      "room_share_invite": {
+        "label": "Share invite code",
+        "accessibility_label": "Share the invite code for this room"
+      },
+      "invite_info": {
+        "label": "About",
+        "accessibility_label": "About this Invite Code"
+      },
+      "invite_note": {
+        "label": "Add note",
+        "accessibility_label": "Add Reminder Note To Self"
+      },
+      "invite_share": {
+        "label": "Share",
+        "accessibility_label": "Share Invite Code"
+      },
+      "invite_delete": {
+        "label": "Delete",
+        "accessibility_label": "Delete Invite Code"
+      }
+    },
+    "notes": {
+      "add": {
+        "title": "Add note",
+        "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
+      }
+    },
+    "share_code": {
+      "p2p": {
+        "title": "Manyverse Invite Code",
+        "message": "Connect with me on Manyverse by pasting this invite code there:",
+        "dialog_note": "Give this invite code to one friend"
+      },
+      "room": {
+        "title": "Invite code to an SSB Room",
+        "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
+        "dialog_note": "Give this invite code to a friend"
+      }
+    }
+  },
+  "compose": {
+    "call_to_action": {
+      "publish_new_thread": {
+        "label": "Publish",
+        "accessibility_label": "Publish Message Button"
+      },
+      "reply_to_thread": {
+        "label": "Reply",
+        "accessibility_label": "Publish Reply Button"
+      },
+      "preview": {
+        "accessibility_label": "Preview Button"
+      },
+      "close": {
+        "accessibility_label": "Close Button"
+      },
+      "open_camera": {
+        "accessibility_label": "Open Camera Button"
+      },
+      "add_picture": {
+        "accessibility_label": "Add Picture Button"
+      }
+    },
+    "dialogs": {
+      "content_warning": {
+        "title": "Content warning",
+        "description": "If your post contains sensitive topics, please add a short note to alert people of them."
+      },
+      "image_caption": {
+        "title": "Caption",
+        "description": "Add some description of this picture, particularly for the visually impaired."
+      },
+      "save_prompt": {
+        "title": "Save draft?"
+      }
+    },
+    "content_warning_initials": {
+      "label": "CW",
+      "accessibility_label": "Content Warning Button"
+    },
+    "mention_field": {
+      "accessibility_label": "Mention Account Text Input"
+    },
+    "text_field": {
+      "placeholder": "Write a public message",
+      "accessibility_label": "Compose Text Input"
+    }
+  },
+  "backup": {
+    "title": "Backup",
+    "introduction": {
+      "title": "Your account has\ntwo parts to keep safe"
+    },
+    "data": {
+      "title": "Data",
+      "description": {
+        "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
+        "2_bold": "crowd backup",
+        "3_normal": ". You only need to ",
+        "4_bold": "synchronize with reliable friends",
+        "5_normal": " or other devices you own. There is ",
+        "6_bold": "nothing else to do",
+        "7_normal": ", just use Manyverse often and your friends are backing you up!"
+      },
+      "call_to_action": {
+        "acknowledge": {
+          "label": "I understand",
+          "accessibility_label": "Acknowledge"
+        }
+      }
+    },
+    "identity": {
+      "title": "Identity",
+      "description": {
+        "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
+        "2_bold": "recovery phrase",
+        "3_normal": ". This is a sequence of 48 words that unlocks your account. ",
+        "4_bold": "Keep it confidential",
+        "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
+        "6_bold": "Take responsibility",
+        "7_normal": " over it, since you and only you can recover your account!"
+      },
+      "call_to_action": {
+        "show_recovery_phrase": "Show Recovery Phrase"
+      }
+    }
+  },
+  "biography": {
+    "picture": {
+      "accessibility_label": "Biographic Picture"
+    },
+    "description": {
+      "accessibility_label": "Biographic Description"
+    }
+  },
+  "conversation": {
+    "title": "Conversation",
+    "call_to_action": {
+      "show_recipients": {
+        "accessibility_label": "Show Recipients"
+      }
+    },
+    "notifications": {
+      "new_conversation": "This is a new private conversation"
+    }
+  },
+  "dialog_about": {
+    "title": "About Manyverse",
+    "version": "Version {{version}}",
+    "copyright": "Copyright (C)",
+    "authors": "The Manyverse Authors",
+    "repository": "Open source repository",
+    "licensed": "Licensed {{license1}} and {{license2}}"
+  },
+  "dialog_thanks": {
+    "title": "Thank you!",
+    "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
+  },
+  "drawer": {
+    "profile_no_name": "No name",
+    "menu": {
+      "my_profile": {
+        "label": "My profile",
+        "accessibility_label": "My Profile Menu Item"
+      },
+      "raw_database": {
+        "label": "Raw database",
+        "accessibility_label": "Show Raw Database"
+      },
+      "email_bug_report": {
+        "label": "Email bug report",
+        "accessibility_label": "Send Bug Report as Email"
+      },
+      "settings": {
+        "label": "Settings",
+        "accessibility_label": "Go To Settings"
+      }
+    }
+  },
+  "invite_create": {
+    "loading": "loading...",
+    "call_to_action": {
+      "share": {
+        "accessibility_label": "Share Invite Code"
+      }
+    },
+    "invite_code": {
+      "accessibility_label": "Invite Code"
+    },
+    "share_info": {
+      "1_normal": "Give this invite code to ",
+      "2_bold": "one",
+      "3_normal": " friend"
+    },
+    "sync_info": {
+      "1_normal": "You will sync when you are ",
+      "2_bold": "both",
+      "3_normal": " online"
+    }
+  },
+  "invite_paste": {
+    "placeholder": "Paste an invite code",
+    "call_to_action": {
+      "accept": {
+        "accessibility_label": "Accept Invite Code"
+      }
+    },
+    "text_field": {
+      "accessibility_label": "Invite Code Text Input"
+    }
+  },
+  "libraries": {
+    "title": "Third party libraries",
+    "description": "Manyverse makes use of the following open source libraries and components. We want to thank the authors of these libraries and link to their websites for proper attribution.",
+    "image": {
+      "name": "Image {{name}}",
+      "attribution": " is created by {{author}}, licensed {{license}}"
+    }
+  },
+  "profile": {
+    "call_to_action": {
+      "copy_cypherlink": "Copy cypherlink",
+      "block": "Block",
+      "block_secretly": "Block secretly",
+      "unblock": "Unblock",
+      "unblock_secretly": "Unblock secretly",
+      "follow": "Follow",
+      "edit_profile": {
+        "label": "Edit profile",
+        "accessibility_label": "Edit Profile Button"
+      },
+      "open_biography": {
+        "label": "Bio",
+        "accessibility_label": "Show Biography"
+      },
+      "manage": {
+        "accessibility_label": "Manage Contact"
+      }
+    },
+    "dialog_etc": {
+      "title": "Account"
+    },
+    "toast": {
+      "copied_to_clipboard": "Copied to clipboard"
+    },
+    "info": {
+      "follows_you": "Follows you",
+      "blocks_you": "Blocks you",
+      "following": "Following"
+    },
+    "picture": {
+      "accessibility_label": "Profile Picture"
+    },
+    "name": {
+      "accessibility_label": "Profile Name"
+    },
+    "empty": {
+      "blocked": {
+        "title": "Blocked",
+        "description": "You have chosen to stop\ninteracting with this account"
+      },
+      "no_self_messages": {
+        "title": "No messages",
+        "description": "Write a diary which you can\nshare with friends later"
+      },
+      "no_messages": {
+        "title": "No messages",
+        "description": "You don't yet have any data\nfrom this account"
+      }
+    },
+    "floating_action_button": {
+      "compose": "Write a public message"
+    }
+  },
+  "profile_edit": {
+    "title": "Edit profile",
+    "call_to_action": {
+      "discard": "Discard",
+      "save": {
+        "label": "Save",
+        "accessibility_label": "Save Profile"
+      },
+      "edit_picture": {
+        "accessbility_label": "Edit Profile Picture"
+      }
+    },
+    "dialogs": {
+      "discard": {
+        "title": "Edit profile",
+        "question": "Discard changes?"
+      }
+    },
+    "fields": {
+      "name": {
+        "label": "Name",
+        "accessibility_label": "Name Text Input"
+      },
+      "description": {
+        "label": "Bio",
+        "accessibility_label": "Biography Text Input"
+      }
+    }
+  },
+  "raw_db": {
+    "title": "Raw database",
+    "item": {
+      "type": {
+        "any": "type: {{type}}",
+        "encrypted": "encrypted"
+      }
+    }
+  },
+  "raw_msg": {
+    "title": "Raw message"
+  },
+  "recipients_input": {
+    "title": "New message",
+    "call_to_action": {
+      "proceed": {
+        "label": "Next",
+        "accessibility_label": "Next Button"
+      }
+    },
+    "fields": {
+      "mention_input": {
+        "placeholder": "Search for people to add",
+        "accessibility_label": "Mention Account Text Input"
+      }
+    },
+    "empty": {
+      "none_to_choose": {
+        "title": "No one",
+        "description": "There is nobody in your\ncommunity with that name"
+      }
+    },
+    "toasts": {
+      "limit_reached": "Cannot choose more than {{limit}} recipients"
+    }
+  },
+  "secret_input": {
+    "practice": {
+      "title": "Practice",
+      "header": "Repeat it to confirm it is correct:"
+    },
+    "restore": {
+      "title": "Restore account"
+    },
+    "header": "Carefully input your recovery phrase",
+    "call_to_action": {
+      "confirm": {
+        "label": "Confirm",
+        "accessibility_label": "Confirm Recovery Phrase Button"
+      }
+    },
+    "fields": {
+      "words_input": {
+        "placeholder": "48-word recovery phrase",
+        "accessibility_label": "Recovery Phrase Text Input"
+      }
+    },
+    "dialogs": {
+      "practice": {
+        "correct": {
+          "title": "Correct!",
+          "description": "Your account's identity is now secure because you know the recovery phrase."
+        },
+        "incorrect": {
+          "title": "Incorrect",
+          "description": "Try again: write down your recovery phrase consisting of 48 words separated by whitespace."
+        }
+      },
+      "restore": {
+        "correct": {
+          "title": "Welcome back!",
+          "description": "Your account's identity is now restored.\n\nNow, to restore your data, connect with friends that have interacted with you before, to redownload your data from them."
+        },
+        "incorrect": {
+          "title": "Incorrect",
+          "description": {
+            "try_again": "Try again by inserting your recovery phrase consisting of 48 words separated by whitespace.",
+            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
+            "too_short": "There are some words missing. Your recovery phrase should be 48 words long.",
+            "too_long": "There are too many words. Your recovery phrase should be exactly 48 words long.",
+            "wrong_length": "Your recovery phrase should be exactly 48 words long.",
+            "generic": "The recovery phrase you gave does not look like a valid identity generated by Manyverse."
+          }
+        }
+      }
+    }
+  },
+  "secret_output": {
+    "title": "Recovery Phrase",
+    "header": {
+      "1_normal": "Carefully write down the following recovery phrase on a ",
+      "2_bold": "piece of paper",
+      "3_normal": ""
+    },
+    "footer": {
+      "1_normal": "Keep it ",
+      "2_bold": "confidential",
+      "3_normal": ", and\ntake sole ",
+      "4_bold": "responsibility",
+      "5_normal": " over it"
+    },
+    "words": {
+      "accessibility_label": "Secret Words"
+    },
+    "call_to_action": {
+      "confirm": {
+        "accessibility_label": "Confirm Recovery Phrase Button"
+      }
+    },
+    "loading": "Loading..."
+  },
+  "settings": {
+    "title": "Settings",
+    "preferences": {
+      "title": "Preferences",
+      "show_follows": {
+        "title": "Show follow events",
+        "subtitle": "Show follow or block or unfollow cases on the public board",
+        "accessibility_label": "Toggle follow events on the public board"
+      },
+      "hops": {
+        "title": "Replication hops",
+        "subtitle": "How far out in the social graph should Manyverse download data; 1 is friends-only, 2 is friends-of-friends, etc. Caution: the higher this is, the more data is downloaded!",
+        "unlimited": "Unlimited",
+        "accessibility_label": "Replication hops slider"
+      }
+    },
+    "data_and_storage": {
+      "title": "Data & Storage",
+      "backup": {
+        "title": "Backup",
+        "subtitle": "View your 48-word recovery phrase",
+        "accessibility_label": "Back Up My Account"
+      },
+      "blobs_storage": {
+        "title": "Blobs storage limit",
+        "subtitle": "Automatically delete old images and blobs until they occupy at most this amount of storage on your device",
+        "unlimited": "Unlimited",
+        "accessibility_label": "Storage limit slider"
+      }
+    },
+    "troubleshooting": {
+      "title": "Troubleshooting",
+      "bug_report": {
+        "title": "Email bug report",
+        "accessibility_label": "Send Bug Report as Email"
+      },
+      "detailed_logs": {
+        "title": "Enable detailed logs",
+        "accessibility_label": "Toggle detailed developer logs"
+      }
+    },
+    "more_information": {
+      "title": "More information",
+      "thanks": {
+        "title": "Thanks",
+        "accessibility_label": "Show Thanks"
+      },
+      "third_party_libs": {
+        "title": "Third party libraries",
+        "accessibility_label": "View third party libraries"
+      },
+      "about": {
+        "title": "About",
+        "accessibility_label": "About This App"
+      }
+    },
+    "dialogs": {
+      "restart_required": {
+        "title": "Restart required",
+        "description": "This setting will only enter into effect when you kill the app and restart Manyverse."
+      }
+    }
+  },
+  "thread": {
+    "title": "Thread",
+    "call_to_action": {
+      "expand_reply": {
+        "accessibility_label": "Expand Reply Button"
+      },
+      "publish_reply": {
+        "accessibility_label": "Reply Publish Button"
+      }
+    },
+    "dialogs": {
+      "save_draft_prompt": {
+        "title": "Save reply draft?"
+      }
+    },
+    "fields": {
+      "reply": {
+        "placeholder": "Comment",
+        "accessibility_label": "Reply Text Input"
+      }
+    },
+    "empty": {
+      "missing": {
+        "title": "Missing data",
+        "description": "You don't yet have data\nfor the message known by the ID\n"
+      },
+      "blocked": {
+        "title": "Blocked thread",
+        "description": "You have chosen to block\nthe author of this thread"
+      },
+      "incompatible": {
+        "title": "Sorry",
+        "description": "This app doesn't know how to process\nand display this thread correctly"
+      }
+    }
+  },
+  "notifications": {
+    "syncing": {
+      "title": "Syncing",
+      "gigabytes": "{{gb}} GB synced so far",
+      "megabytes": "{{mb}} MB synced so far",
+      "kilobytes": "{{kb}} KB synced so far",
+      "bytes": "{{b}} bytes synced so far"
+    }
+  },
+  "message": {
+    "call_to_action": {
+      "show_reactions": {
+        "accessibility_label": "Show Reactions"
+      },
+      "add_reaction": {
+        "label": "Like",
+        "accessibility_label": "Like Button"
+      },
+      "reply": {
+        "label": "Comment",
+        "accessibility_label": "Reply Button"
+      },
+      "etc": {
+        "dialog_title": "Message",
+        "accessibility_label": "Etc Button"
+      },
+      "copy_blob_id": {
+        "accessibility_label": "Copy Blob ID"
+      },
+      "copy_msg_id": "Copy cypherlink",
+      "view_raw": "View raw message",
+      "read_more": "Read more"
+    },
+    "toast": {
+      "copied_to_clipboard": "Copied to clipboard"
+    },
+    "reactions": {
+      "categories": {
+        "smileys_and_emotion": "Smileys and emotion",
+        "people_and_body": "People and body",
+        "animals_and_nature": "Animals and nature",
+        "food_and_drink": "Food and drink",
+        "activities": "Activities",
+        "travel_and_places": "Travel and places",
+        "objects": "Objects",
+        "symbols": "Symbols"
+      }
+    },
+    "image": {
+      "without_caption": {
+        "accessibility_label": "Picture without caption"
+      }
+    },
+    "content_warning": {
+      "call_to_action": {
+        "hide": "Hide",
+        "show": "View"
+      }
+    },
+    "fork_note": {
+      "1_normal": "Forked from ",
+      "2_bold": "{{cypherlink}}",
+      "3_normal": ""
+    },
+    "about": {
+      "new_picture": {
+        "1_normal": "",
+        "2_bold": "{{name}}",
+        "3_normal": " has a new profile picture: "
+      },
+      "new_name_and_description": {
+        "1_normal": "",
+        "2_bold": "{{name}}",
+        "3_normal": " is using the name \"",
+        "4_bold": "{{name}}",
+        "5_normal": "\" and the description: "
+      },
+      "new_description": {
+        "1_normal": "",
+        "2_bold": "{{name}}",
+        "3_normal": " has a new biography: "
+      },
+      "new_name": {
+        "1_normal": "",
+        "2_bold": "{{name}}",
+        "3_normal": " is using the name \"",
+        "4_bold": "{{name}}",
+        "5_normal": "\""
+      }
+    },
+    "contact": {
+      "follow_event": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " followed ",
+        "4_bold": "{{target}}",
+        "5_normal": ""
+      },
+      "block_event": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " blocked ",
+        "4_bold": "{{target}}",
+        "5_normal": ""
+      },
+      "unfollow_event": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " unfollowed ",
+        "4_bold": "{{target}}",
+        "5_normal": ""
+      },
+      "unblock_event": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " unblocked ",
+        "4_bold": "{{target}}",
+        "5_normal": ""
+      }
+    }
+  }
+}
