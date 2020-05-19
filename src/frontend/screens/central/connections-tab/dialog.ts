@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,6 +6,7 @@
 
 import {Stream} from 'xstream';
 import {DialogSource} from '../../../drivers/dialogs';
+import {t} from '../../../drivers/localization';
 import {Palette} from '../../../global-styles/palette';
 
 export type Actions = {
@@ -17,15 +18,14 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
     addNoteFromDialog$: actions.noteDhtInvite$
       .map(() =>
         dialogSource.prompt(
-          'Add note',
-          'Write a private (just for yourself) note about this invite code. ' +
-            'For example: "This is for Alice"',
+          t('connections.notes.add.title'),
+          t('connections.notes.add.description'),
           {
             contentColor: Palette.textWeak,
             positiveColor: Palette.text,
-            positiveText: 'Add',
+            positiveText: t('call_to_action.add'),
             negativeColor: Palette.text,
-            negativeText: 'Cancel',
+            negativeText: t('call_to_action.cancel'),
           },
         ),
       )

@@ -13,9 +13,10 @@ import {FeedId} from 'ssb-typescript';
 import {PermissionsAndroid} from 'react-native';
 import {NavSource} from 'cycle-native-navigation';
 import {StagedPeerKV, PeerKV} from '../../../ssb/types';
+import {t} from '../../../drivers/localization';
+const roomUtils = require('ssb-room/utils');
 import {State} from './model';
 import {MenuChoice} from './view/SlideInMenu';
-const roomUtils = require('ssb-room/utils');
 
 export default function intent(
   reactSource: ReactSource,
@@ -173,12 +174,12 @@ export default function intent(
           PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
             {
-              title: 'Allow locating via Bluetooth?',
-              message:
-                'Manyverse needs to use Bluetooth to discover where you are ' +
-                '("coarse location") and what peers are around you.',
-              buttonPositive: 'Yes',
-              buttonNegative: 'No',
+              title: t('connections.modes.bluetooth.permission_request.title'),
+              message: t(
+                'connections.modes.bluetooth.permission_request.message',
+              ),
+              buttonPositive: t('call_to_action.yes'),
+              buttonNegative: t('call_to_action.no'),
             },
           ),
         ),

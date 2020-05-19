@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,6 +11,7 @@ import {h} from '@cycle/react';
 import {StateSource} from '@cycle/state';
 import {View, StyleSheet} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {t} from '../../../drivers/localization';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import Button from '../../../components/Button';
@@ -89,7 +90,9 @@ function view(state$: Stream<State>) {
       h(HeaderButton, {
         sel: 'composeCloseButton',
         icon: state.isReply ? 'arrow-collapse' : 'close',
-        accessibilityLabel: 'Close Button',
+        accessibilityLabel: t(
+          'compose.call_to_action.close.accessibility_label',
+        ),
       }),
       h(View, {style: styles.buttonsRight}, [
         state.enabled
@@ -97,7 +100,9 @@ function view(state$: Stream<State>) {
               sel: 'composePreviewButton',
               side: 'neutral',
               icon: state.previewing ? 'pencil' : 'eye',
-              accessibilityLabel: 'Preview Button',
+              accessibilityLabel: t(
+                'compose.call_to_action.preview.accessibility_label',
+              ),
             })
           : null,
         h(Button, {
@@ -106,10 +111,16 @@ function view(state$: Stream<State>) {
             state.enabled ? styles.buttonEnabled : styles.buttonDisabled,
             state.isReply ? styles.replyButton : styles.publishButton,
           ],
-          text: state.isReply ? 'Reply' : 'Publish',
+          text: state.isReply
+            ? t('compose.call_to_action.reply_to_thread.label')
+            : t('compose.call_to_action.publish_new_thread.label'),
           strong: state.enabled,
           accessible: true,
-          accessibilityLabel: 'Compose Publish Button',
+          accessibilityLabel: state.isReply
+            ? t('compose.call_to_action.reply_to_thread.accessibility_label')
+            : t(
+                'compose.call_to_action.publish_new_thread.accessibility_label',
+              ),
         }),
       ]),
     ]),

@@ -29,6 +29,9 @@
     "psdr": "./tools/print-service-desk-report.js",
     "report-libraries": "./tools/report-libraries.js",
     "test-e2e-android": "./tools/test-e2e-android",
+    "apply-prettier": "pretty-quick --staged --pattern \"**/*.*(ts|tsx|js|jsx)\"",
+    "validate-license-year": "./tools/validate-license-year.sh",
+    "precommit-hook": "npm run apply-prettier && npm run validate-license-year",
     "changelog": "npm run update-repo-changelog && npm run update-dat-latest-readme",
     "update-repo-changelog": "./tools/update-repo-changelog.js",
     "update-dat-latest-readme": "./tools/update-dat-latest-readme.js",
@@ -64,6 +67,7 @@
     "cycle-native-toastandroid": "1.1.0",
     "electron-ssb-client": "1.2.0",
     "i18n-js": "3.5.1",
+    "lodash.memoize": "~4.1.2",
     "mdast-normalize-react-native": "3.2.x",
     "nodejs-mobile-react-native": "0.6.0",
     "path": "~0.12.7",
@@ -164,7 +168,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged --pattern \"**/*.*(ts|tsx|js|jsx)\""
+      "pre-commit": "npm run precommit-hook"
     }
   },
   "react-native": {

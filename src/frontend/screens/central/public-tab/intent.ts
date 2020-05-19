@@ -10,6 +10,7 @@ import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {NavSource} from 'cycle-native-navigation';
 import {Screens} from '../../enums';
 import {PressAddReactionEvent, PressReactionsEvent} from '../../../ssb/types';
+import {t} from '../../../drivers/localization';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
@@ -26,7 +27,7 @@ export default function intent(
       .select('publicFeed')
       .events('pressReactions') as Stream<PressReactionsEvent>).map(
       ({msgKey, reactions}) => ({
-        title: 'Reactions',
+        title: t('accounts.reactions.title'),
         msgKey,
         accounts: reactions,
       }),

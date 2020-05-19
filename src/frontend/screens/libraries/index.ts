@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -19,11 +19,12 @@ import {
 } from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {t} from '../../drivers/localization';
 import TopBar from '../../components/TopBar';
 import {Palette} from '../../global-styles/palette';
-import librariesData from '../../libraries';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import librariesData from '../../libraries';
 
 export type Sources = {
   screen: ReactSource;
@@ -130,11 +131,15 @@ class Dep extends PureComponent<{
           type === 'image'
             ? [
                 h(Text, [
-                  h(Text, {style: styles.itemName}, 'Image ' + name),
+                  h(
+                    Text,
+                    {style: styles.itemName},
+                    t('libraries.image.name', {name}),
+                  ),
                   h(
                     Text,
                     {style: styles.itemVersion},
-                    ' is created by ' + author! + ', licensed ' + license,
+                    t('libraries.image.attribution', {author, license}),
                   ),
                 ]),
               ]
@@ -190,9 +195,7 @@ export default class DepList extends PureComponent<{
       ListHeaderComponent: h(
         Text,
         {style: styles.header},
-        'Manyverse makes use of the following open source libraries and ' +
-          'components. We want to thank the authors of these libraries and ' +
-          'link to their websites for appropriate attribution.',
+        t('libraries.description'),
       ),
       data: this.props.libraries,
       keyExtractor: (item: DepMetadata) => item.name,
@@ -228,7 +231,7 @@ export function libraries(sources: Sources): Sinks {
 
   const vdom$ = xs.of(
     h(View, {style: styles.screen}, [
-      h(TopBar, {sel: 'topbar', title: 'Third party libraries'}),
+      h(TopBar, {sel: 'topbar', title: t('libraries.title')}),
       h(ScrollView, {style: styles.container}, [
         h(DepList, {sel: 'libraries', libraries: librariesData}),
       ]),

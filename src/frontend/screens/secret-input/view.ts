@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -15,13 +15,14 @@ import {
   KeyboardTypeOptions,
 } from 'react-native';
 import {h} from '@cycle/react';
+import {t} from '../../drivers/localization';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
 import Button from '../../components/Button';
 import FlagSecure from '../../components/FlagSecure';
-import {State} from './model';
 import TopBar from '../../components/TopBar';
+import {State} from './model';
 
 export const styles = StyleSheet.create({
   screen: {
@@ -67,6 +68,7 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
     textAlign: 'center',
+    textTransform: 'uppercase',
   },
 
   ctaButton: {
@@ -84,7 +86,9 @@ export default function view(state$: Stream<State>) {
     h(View, {style: styles.screen}, [
       h(TopBar, {
         sel: 'topbar',
-        title: state.practiceMode ? 'Practice' : 'Restore account',
+        title: state.practiceMode
+          ? t('secret_input.practice.title')
+          : t('secret_input.restore.title'),
       }),
 
       h(
@@ -100,10 +104,10 @@ export default function view(state$: Stream<State>) {
                   ? h(
                       Text,
                       {style: styles.bold},
-                      'REPEAT IT TO CONFIRM IT IS CORRECT:\n',
+                      t('secret_input.practice.header') + '\n',
                     )
                   : '',
-                'CAREFULLY INPUT YOUR RECOVERY PHRASE',
+                t('secret_input.header'),
               ],
             ),
 
@@ -113,7 +117,9 @@ export default function view(state$: Stream<State>) {
               nativeID: 'FocusViewOnResume',
               value: state.inputWords,
               accessible: true,
-              accessibilityLabel: 'Recovery Phrase Text Input',
+              accessibilityLabel: t(
+                'secret_input.fields.words_input.accessibility_label',
+              ),
               autoFocus: true,
               multiline: true,
               autoCapitalize: 'none',
@@ -125,7 +131,7 @@ export default function view(state$: Stream<State>) {
               }),
               secureTextEntry: true,
               returnKeyType: 'done',
-              placeholder: '48-word recovery phrase',
+              placeholder: t('secret_input.fields.words_input.placeholder'),
               placeholderTextColor: Palette.textVeryWeak,
               selectionColor: Palette.backgroundTextSelection,
               underlineColorAndroid: Palette.backgroundTextWeak,
@@ -134,10 +140,12 @@ export default function view(state$: Stream<State>) {
             h(Button, {
               sel: 'confirm',
               style: styles.ctaButton,
-              text: 'Confirm',
+              text: t('secret_input.call_to_action.confirm.label'),
               strong: true,
               accessible: true,
-              accessibilityLabel: 'Confirm Recovery Phrase Button',
+              accessibilityLabel: t(
+                'secret_input.call_to_action.confirm.accessibility_label',
+              ),
             }),
           ]),
         ],

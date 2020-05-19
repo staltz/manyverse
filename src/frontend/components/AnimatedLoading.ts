@@ -6,6 +6,7 @@
 
 import {PureComponent, createElement as $} from 'react';
 import {Animated, Easing, StyleSheet, View} from 'react-native';
+import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
@@ -51,7 +52,7 @@ export default class InitialLoading extends PureComponent<any> {
       $(
         Animated.Text,
         {style: [styles.initialLoading, {opacity: this.loadingAnim}]},
-        'Loading...',
+        t('central.loading'),
       ),
     );
   }

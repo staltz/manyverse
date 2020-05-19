@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,6 +10,7 @@ import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
 import {StyleSheet, NativeModules} from 'react-native';
 import {Options} from 'react-native-navigation';
+import {t} from '../../drivers/localization';
 import MarkdownDialog from '../../components/dialogs/MarkdownDialog';
 
 const version = NativeModules.BuildConfig.VERSION_NAME;
@@ -33,21 +34,24 @@ export const styles = StyleSheet.create({
 });
 
 export function dialogAbout(sources: Sources): Sinks {
+  const repoLink = 'https://gitlab.com/staltz/manyverse';
   const authorsLink =
     'https://gitlab.com/staltz/manyverse/-/raw/master/AUTHORS';
 
   const vdom$ = xs.of(
     h(MarkdownDialog, {
       sel: 'dialog',
-      title: 'About Manyverse',
+      title: t('dialog_about.title'),
       content:
         '[manyver.se](https://manyver.se)\n' +
-        `Version ${version}\n` +
+        t('dialog_about.version', {version}) +
+        '\n\n' +
+        t('dialog_about.copyright') +
+        ' 2018-2020 ' +
+        `[${t('dialog_about.authors')}](${authorsLink})\n` +
         '\n' +
-        `Copyright (C) 2018-2020 [The Manyverse Authors](${authorsLink})\n` +
-        '\n' +
-        '[Open source on GitLab](https://gitlab.com/staltz/manyverse)\n' +
-        'Licensed MPL 2.0 and AGPL 3.0',
+        `[${t('dialog_about.repository')}](${repoLink})\n` +
+        t('dialog_about.licensed', {license1: 'MPL 2.0', license2: 'AGPL 3.0'}),
     }),
   );
 

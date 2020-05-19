@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -19,6 +19,7 @@ import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import {DialogSource} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
 import {State, isPost, isTextEmpty, hasText, isReply} from './model';
+import {t} from '../../drivers/localization';
 
 export default function intent(
   reactSource: ReactSource,
@@ -43,10 +44,10 @@ export default function intent(
     .filter(isPost)
     .filter(hasText)
     .map(() =>
-      dialogSource.alert('', 'Save draft?', {
-        positiveText: 'Save',
+      dialogSource.alert('', t('compose.dialogs.save_prompt.title'), {
+        positiveText: t('call_to_action.save'),
         positiveColor: Palette.text,
-        negativeText: 'Delete',
+        negativeText: t('call_to_action.delete'),
         negativeColor: Palette.textNegative,
       }),
     )

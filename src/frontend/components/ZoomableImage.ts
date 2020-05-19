@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -18,6 +18,7 @@ import {
   Platform,
 } from 'react-native';
 import ImageView from 'react-native-image-view';
+import {t} from '../drivers/localization';
 import {Dimensions as Dimens} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
@@ -143,7 +144,9 @@ export default class ZoomableImage extends PureComponent<Props, State> {
           this.onClose();
         },
         icon: 'content-copy',
-        accessibilityLabel: 'Copy Blob ID',
+        accessibilityLabel: t(
+          'message.call_to_action.copy_blob_id.accessibility_label',
+        ),
         side: 'neutral',
       }),
     ]);
@@ -174,7 +177,10 @@ export default class ZoomableImage extends PureComponent<Props, State> {
             key: 'preview',
             source: {uri},
             accessible: true,
-            accessibilityLabel: this.props.title ?? 'Picture without caption',
+            accessibilityRole: 'image',
+            accessibilityLabel:
+              this.props.title ??
+              t('message.image.without_caption.accessibility_label'),
             style: [styles.imageLoaded, {width, height}],
           }),
         ),
@@ -187,7 +193,10 @@ export default class ZoomableImage extends PureComponent<Props, State> {
             key: 'loading',
             source: pictureIcon,
             accessible: true,
-            accessibilityLabel: this.props.title ?? 'Picture without caption',
+            accessibilityRole: 'image',
+            accessibilityLabel:
+              this.props.title ??
+              t('message.image.without_caption.accessibility_label'),
             resizeMode: 'center',
             style: [styles.imagePlaceholder, {width, height}],
           },

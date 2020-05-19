@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent} from 'react';
+import React = require('react');
 import {h} from '@cycle/react';
 import {
   Text,
@@ -15,12 +16,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {FeedId} from 'ssb-typescript';
+import {displayName} from '../ssb/utils/from-ssb';
+import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
 import Avatar from './Avatar';
-import React = require('react');
-import {displayName} from '../ssb/utils/from-ssb';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -95,7 +96,11 @@ class Account extends PureComponent<AccountProps> {
     return h(
       View,
       {
-        accessibilityLabel: 'Link To Account',
+        accessible: true,
+        accessibilityRole: 'button',
+        accessibilityLabel: t(
+          'accounts.call_to_action.open_account.accessibility_label',
+        ),
       },
       [
         h(Touchable, touchableProps, [

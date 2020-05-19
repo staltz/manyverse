@@ -16,20 +16,22 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
+import {Stream, Subscription, Listener} from 'xstream';
+import {propifyMethods} from 'react-propify-methods';
+import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
+import {Typography} from '../global-styles/typography';
 import CompactThread from './CompactThread';
-import PlaceholderMessage from './messages/PlaceholderMessage';
 import {GetReadable} from '../drivers/ssb';
 import {
   ThreadAndExtras,
   PressReactionsEvent,
   PressAddReactionEvent,
 } from '../ssb/types';
+import PlaceholderMessage from './messages/PlaceholderMessage';
 import PullFlatList from 'pull-flat-list';
-import {Stream, Subscription, Listener} from 'xstream';
-import {propifyMethods} from 'react-propify-methods';
-import {Typography} from '../global-styles/typography';
+
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 const PullFlatList2 = propifyMethods(
@@ -132,7 +134,7 @@ class InitialLoading extends PureComponent<any> {
       h(
         Animated.Text,
         {style: [styles.initialLoading, {opacity: this.loadingAnim}]},
-        'Loading...',
+        t('central.loading'),
       ),
       h(
         Animated.Text,
@@ -140,7 +142,7 @@ class InitialLoading extends PureComponent<any> {
           selectable: true,
           style: [styles.initialLoading, {opacity: this.indexesAnim}],
         },
-        'Building database indexes...\nThis may take up to several minutes',
+        t('central.building_indexes'),
       ),
     ]);
   }

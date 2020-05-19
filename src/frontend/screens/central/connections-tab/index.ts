@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -20,6 +20,7 @@ import {NetworkSource} from '../../../drivers/network';
 import {SSBSource, Req} from '../../../drivers/ssb';
 import {DialogSource} from '../../../drivers/dialogs';
 import {Toast, Duration as ToastDuration} from '../../../drivers/toast';
+import {t} from '../../../drivers/localization';
 import view from './view';
 import intent from './intent';
 import model, {State} from './model';
@@ -78,19 +79,17 @@ export function connectionsTab(sources: Sources): Sinks {
 
   const share$ = xs.merge(
     actionsPlus.shareDhtInvite$.map(inviteCode => ({
-      message:
-        'Connect with me on Manyverse by pasting this invite code there:\n\n' +
-        inviteCode,
-      title: 'Manyverse Invite Code',
-      dialogTitle: 'Give this invite code to one friend',
+      title: t('connections.share_code.p2p.title'),
+      message: t('connections.share_code.p2p.message') + '\n\n' + inviteCode,
+      dialogTitle: t('connections.share_code.p2p.dialog_note'),
     })),
     actionsPlus.shareRoomInvite$.map(({invite, room}) => ({
+      title: t('connections.share_code.room.title'),
       message:
-        `Join me in the SSB Room "${room}" by pasting this invite ` +
-        'code in Manyverse:\n\n' +
+        t('connections.share_code.room.message', {name: room}) +
+        '\n\n' +
         invite,
-      title: 'Invite code to an SSB Room',
-      dialogTitle: 'Give this invite code to a friend',
+      dialogTitle: t('connections.share_code.room.dialog_note'),
     })),
   );
 
@@ -100,14 +99,14 @@ export function connectionsTab(sources: Sources): Sinks {
         return {
           type: 'show' as 'show',
           flavor: 'success',
-          message: 'Invite accepted',
+          message: t('connections.toasts.invite_accepted'),
           duration: ToastDuration.SHORT,
         } as Toast;
       else
         return {
           type: 'show' as 'show',
           flavor: 'failure',
-          message: 'Invite rejected. Are you sure it was correct?',
+          message: t('connections.toasts.invite_rejected'),
           duration: ToastDuration.LONG,
         } as Toast;
     },

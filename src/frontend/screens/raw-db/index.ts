@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,10 +17,11 @@ import {StyleSheet, View} from 'react-native';
 import {ReactSource, h} from '@cycle/react';
 import {Palette} from '../../global-styles/palette';
 import {SSBSource} from '../../drivers/ssb';
+import {t} from '../../drivers/localization';
 import RawFeed from '../../components/RawFeed';
+import TopBar from '../../components/TopBar';
 import {navOptions as rawMessageScreenNavOptions} from '../raw-msg';
 import {Screens} from '../enums';
-import TopBar from '../../components/TopBar';
 
 export type Sources = {
   screen: ReactSource;
@@ -101,7 +102,7 @@ export function rawDatabase(sources: Sources): Sinks {
 
   const vdom$ = sources.ssb.publicRawFeed$.map(getReadable =>
     h(View, {style: styles.screen}, [
-      h(TopBar, {sel: 'topbar', title: 'Raw database'}),
+      h(TopBar, {sel: 'topbar', title: t('raw_db.title')}),
       h(RawFeed, {sel: 'raw-feed', getReadable}),
     ]),
   );

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,6 +10,7 @@ import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
 import {StyleSheet} from 'react-native';
 import {Options} from 'react-native-navigation';
+import {t} from '../../drivers/localization';
 import MarkdownDialog from '../../components/dialogs/MarkdownDialog';
 
 const top5backers = [
@@ -46,16 +47,13 @@ export function dialogThanks(sources: Sources): Sinks {
   const vdom$ = xs.of(
     h(MarkdownDialog, {
       sel: 'dialog',
-      title: 'Thank you!',
-      content:
-        'Development of this app was supported by grants from ' +
-        '[NGI0 PET](https://nlnet.nl/project/Manyverse) and ' +
-        '[Handshake / ACCESS](https://opencollective.com/access), ' +
-        'and donations from:\n' +
-        '\n' +
-        `**${top5backers.join(', ')}**, and ` +
-        '[dozens of other backers](https://manyver.se/donate). ' +
-        'Thanks!',
+      title: t('dialog_thanks.title'),
+      content: t('dialog_thanks.description', {
+        sponsor1: '[NGI0 PET](https://nlnet.nl/project/Manyverse)',
+        sponsor2: '[Handshake / ACCESS](https://opencollective.com/access)',
+        topBackers: top5backers.join(', '),
+        donateLink: 'https://manyver.se/donate',
+      }),
     }),
   );
 

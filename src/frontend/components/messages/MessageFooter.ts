@@ -18,6 +18,7 @@ import {h} from '@cycle/react';
 import EmojiPicker from 'react-native-emoji-picker-staltz';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Msg, FeedId, PostContent, MsgId} from 'ssb-typescript';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -172,7 +173,10 @@ class Reactions extends PureComponent<{
     const touchableProps: any = {
       onPress,
       accessible: true,
-      accessibilityLabel: 'Reactions Button',
+      accessibilityRole: 'button',
+      accessibilityLabel: t(
+        'message.call_to_action.show_reactions.accessibility_label',
+      ),
     };
     if (Platform.OS === 'android') {
       touchableProps.background = TouchableNativeFeedback.SelectableBackground();
@@ -228,7 +232,10 @@ class LikeButton extends PureComponent<
       delayLongPress: 100,
       delayPressIn: 20,
       accessible: true,
-      accessibilityLabel: 'Like Button',
+      accessibilityRole: 'button',
+      accessibilityLabel: t(
+        'message.call_to_action.add_reaction.accessibility_label',
+      ),
     };
     if (Platform.OS === 'android') {
       touchableProps.background = TouchableNativeFeedback.SelectableBackground();
@@ -239,7 +246,11 @@ class LikeButton extends PureComponent<
         myReaction === null
           ? h(Icon, iconProps[ilike + 'Liked'])
           : h(Text, {key: 'm', style: styles.myReaction}, myReaction),
-        h(Text, {key: 't', style: styles.likeButtonLabel}, 'Like'),
+        h(
+          Text,
+          {key: 't', style: styles.likeButtonLabel},
+          t('message.call_to_action.add_reaction.label'),
+        ),
       ]),
     ]);
   }
@@ -250,7 +261,8 @@ class ReplyButton extends PureComponent<{onPress: () => void}> {
     const touchableProps: any = {
       onPress: this.props.onPress,
       accessible: true,
-      accessibilityLabel: 'Reply Button',
+      accessibilityRole: 'button',
+      accessibilityLabel: t('message.call_to_action.reply.accessibility_label'),
     };
     if (Platform.OS === 'android') {
       touchableProps.background = TouchableNativeFeedback.SelectableBackground();
@@ -259,7 +271,11 @@ class ReplyButton extends PureComponent<{onPress: () => void}> {
     return h(Touchable, touchableProps, [
       h(View, {style: styles.replyButton, pointerEvents: 'box-only'}, [
         h(Icon, iconProps.reply),
-        h(Text, {key: 't', style: styles.replyButtonLabel}, 'Comment'),
+        h(
+          Text,
+          {key: 't', style: styles.replyButtonLabel},
+          t('message.call_to_action.reply.label'),
+        ),
       ]),
     ]);
   }
@@ -384,14 +400,14 @@ export default class MessageFooter extends Component<Props, State> {
           rows: 6,
           hideClearButton: true,
           localizedCategories: [
-            'Smileys and emotion',
-            'People and body',
-            'Animals and nature',
-            'Food and drink',
-            'Activities',
-            'Travel and places',
-            'Objects',
-            'Symbols',
+            t('message.reactions.categories.smileys_and_emotion'),
+            t('message.reactions.categories.people_and_body'),
+            t('message.reactions.categories.animals_and_nature'),
+            t('message.reactions.categories.food_and_drink'),
+            t('message.reactions.categories.activities'),
+            t('message.reactions.categories.travel_and_places'),
+            t('message.reactions.categories.objects'),
+            t('message.reactions.categories.symbols'),
           ],
           modalStyle: styles.emojiPickerModal,
           backgroundStyle: styles.emojiPickerBackground,

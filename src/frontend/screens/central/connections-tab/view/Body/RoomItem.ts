@@ -18,6 +18,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../../../global-styles/palette';
 import {Dimensions} from '../../../../../global-styles/dimens';
 import {Typography} from '../../../../../global-styles/typography';
+import {t} from '../../../../../drivers/localization';
 import {PeerKV} from '../../../../../ssb/types';
 import {peerModeIcon, peerModeName} from './utils';
 
@@ -178,8 +179,10 @@ export default class RoomItem extends PureComponent<Props> {
                       Text,
                       {style: styles.onlineCount},
                       data.onlineCount <= 1
-                        ? '(only you online)'
-                        : `(${data.onlineCount - 1} online)`,
+                        ? t('connections.peers.types.room.alone_online')
+                        : t('connections.peers.types.room.others_online', {
+                            amount: data.onlineCount - 1,
+                          }),
                     )
                   : null,
               ]),

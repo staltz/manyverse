@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -15,11 +15,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {FeedId} from 'ssb-typescript';
+import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
 import Avatar from './Avatar';
-import {FeedId} from 'ssb-typescript';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -80,7 +81,11 @@ class Account extends PureComponent<AccountProps> {
     return h(
       View,
       {
-        accessibilityLabel: 'Link To Account',
+        accessible: true,
+        accessibilityRole: 'button',
+        accessibilityLabel: t(
+          'accounts.call_to_action.open_account.accessibility_label',
+        ),
       },
       [
         h(Touchable, touchableProps, [

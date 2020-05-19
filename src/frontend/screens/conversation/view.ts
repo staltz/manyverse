@@ -23,6 +23,7 @@ import {
 import HumanTime from 'react-human-time';
 import {PostContent} from 'ssb-typescript';
 import {MsgAndExtras} from '../../ssb/types';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -181,7 +182,7 @@ export default function view(state$: Stream<State>) {
         ? [
             {
               _id: 1,
-              text: 'This is a new private conversation',
+              text: t('conversation.notifications.new_conversation'),
               createdAt: appStartTime,
               system: true,
             } as any,
@@ -192,11 +193,13 @@ export default function view(state$: Stream<State>) {
       );
 
       return h(View, {style: styles.container}, [
-        h(TopBar, {sel: 'topbar', title: 'Conversation'}, [
+        h(TopBar, {sel: 'topbar', title: t('conversation.title')}, [
           h(HeaderButton, {
             sel: 'showRecipients',
             icon: 'account-multiple',
-            accessibilityLabel: 'Recipients Button',
+            accessibilityLabel: t(
+              'conversation.call_to_action.show_recipients.accessibility_label',
+            ),
             side: 'right',
           }),
         ]),

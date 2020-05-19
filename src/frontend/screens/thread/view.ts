@@ -20,6 +20,7 @@ import {
 import {ReactElement} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {propifyMethods} from 'react-propify-methods';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import FullThread from '../../components/FullThread';
@@ -37,7 +38,10 @@ function ExpandReplyButton(isLastButton: boolean) {
       style: isLastButton ? styles.lastButtonInReply : styles.buttonInReply,
       activeOpacity: 0.2,
       accessible: true,
-      accessibilityLabel: 'Expand Reply Button',
+      accessibilityRole: 'button',
+      accessibilityLabel: t(
+        'thread.call_to_action.expand_reply.accessibility_label',
+      ),
     },
     [
       h(Icon, {
@@ -57,7 +61,10 @@ function ReplySendButton() {
       style: styles.lastButtonInReply,
       activeOpacity: 0.2,
       accessible: true,
-      accessibilityLabel: 'Reply Publish Button',
+      accessibilityRole: 'button',
+      accessibilityLabel: t(
+        'thread.call_to_action.publish_reply.accessibility_label',
+      ),
     },
     [
       h(Icon, {
@@ -79,14 +86,14 @@ function ReplyInput(state: State) {
     h(View, {style: styles.replyInputContainer}, [
       h(TextInput, {
         accessible: true,
-        accessibilityLabel: 'Reply Text Input',
+        accessibilityLabel: t('thread.fields.reply.accessibility_label'),
         sel: 'reply-input',
         multiline: true,
         autoFocus: state.startedAsReply,
         returnKeyType: 'done',
         value: state.replyText,
         editable: state.replyEditable,
-        placeholder: 'Comment',
+        placeholder: t('thread.fields.reply.placeholder'),
         placeholderTextColor: Palette.textVeryWeak,
         selectionColor: Palette.backgroundTextSelection,
         underlineColorAndroid: Palette.textLine,
@@ -124,16 +131,16 @@ export default function view(state$: Stream<State>, actions: Actions) {
       ]),
     )
     .map(state => {
-      const topBar = h(TopBar, {sel: 'topbar', title: 'Thread'});
+      const topBar = h(TopBar, {sel: 'topbar', title: t('thread.title')});
 
       if (!state.loading && state.thread.errorReason === 'missing') {
         return h(View, {style: styles.container}, [
           topBar,
           h(EmptySection, {
             style: styles.emptySection,
-            title: 'Missing data',
+            title: t('thread.empty.missing.title'),
             description: [
-              "You don't yet have data \n for the message known by the ID\n",
+              t('thread.empty.missing.description'),
               h(
                 Text,
                 {style: styles.missingMsgId},
@@ -148,8 +155,8 @@ export default function view(state$: Stream<State>, actions: Actions) {
           topBar,
           h(EmptySection, {
             style: styles.emptySection,
-            title: 'Blocked thread',
-            description: 'You have chosen to block\nthe author of this thread',
+            title: t('thread.empty.blocked.title'),
+            description: t('thread.empty.blocked.description'),
           }),
         ]);
       }
@@ -158,9 +165,8 @@ export default function view(state$: Stream<State>, actions: Actions) {
           topBar,
           h(EmptySection, {
             style: styles.emptySection,
-            title: 'Sorry',
-            description:
-              "This app doesn't know how to process\nand display this thread correctly",
+            title: t('thread.empty.incompatible.title'),
+            description: t('thread.empty.incompatible.description'),
           }),
         ]);
       }

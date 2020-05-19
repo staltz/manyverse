@@ -21,14 +21,15 @@ import {
   Platform,
 } from 'react-native';
 import {propifyMethods} from 'react-propify-methods';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
+import {Dimensions} from '../../global-styles/dimens';
 import Markdown from '../../components/Markdown';
 import Avatar from '../../components/Avatar';
+import AccountsList from '../../components/AccountsList';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Dimensions} from '../../global-styles/dimens';
-import AccountsList from '../../components/AccountsList';
 const FocusableTextInput = propifyMethods(TextInput, 'focus' as any);
 
 type MiniState = Pick<State, 'postText'> &
@@ -50,9 +51,16 @@ function ContentWarningButton(miniState: MiniState) {
       sel: 'content-warning',
       activeOpacity: 0.4,
       accessible: true,
-      accessibilityLabel: 'Content Warning Button',
+      accessibilityRole: 'button',
+      accessibilityLabel: t(
+        'compose.content_warning_initials.accessibility_label',
+      ),
     },
-    [h(View, {pointerEvents: 'box-only'}, [h(Text, {style}, 'CW')])],
+    [
+      h(View, {pointerEvents: 'box-only'}, [
+        h(Text, {style}, t('compose.content_warning_initials.label')),
+      ]),
+    ],
   );
 }
 
@@ -64,7 +72,10 @@ function OpenCameraButton() {
       style: styles.addPictureContainer,
       activeOpacity: 0.4,
       accessible: true,
-      accessibilityLabel: 'Open Camera Button',
+      accessibilityRole: 'button',
+      accessibilityLabel: t(
+        'compose.call_to_action.open_camera.accessibility_label',
+      ),
     },
     [
       h(Icon, {
@@ -84,7 +95,10 @@ function AddPictureButton() {
       style: styles.addPictureContainer,
       activeOpacity: 0.4,
       accessible: true,
-      accessibilityLabel: 'Add Picture Button',
+      accessibilityRole: 'button',
+      accessibilityLabel: t(
+        'compose.call_to_action.add_picture.accessibility_label',
+      ),
     },
     [
       h(Icon, {
@@ -128,11 +142,11 @@ function MarkdownInput(state: MiniState, focus$: Stream<undefined>) {
     value: state.postText,
     [maybeSelectionProp(state)]: state.postTextSelection,
     accessible: true,
-    accessibilityLabel: 'Compose Text Input',
+    accessibilityLabel: t('compose.text_field.accessibility_label'),
     autoFocus: true,
     multiline: true,
     returnKeyType: 'done',
-    placeholder: 'Write a public message',
+    placeholder: t('compose.text_field.placeholder'),
     placeholderTextColor: Palette.textVeryWeak,
     selectionColor: Palette.backgroundTextSelection,
     underlineColorAndroid: Palette.backgroundText,
@@ -154,7 +168,8 @@ function MentionSuggestions(state: MiniState, focus$: Stream<undefined>) {
         value: state.mentionQuery,
         focus$,
         accessible: true,
-        accessibilityLabel: 'Mention Account Text Input',
+        accessibilityRole: 'search',
+        accessibilityLabel: t('compose.mention_field.accessibility_label'),
         multiline: false,
         returnKeyType: 'done',
         selectionColor: Palette.backgroundTextSelection,
@@ -167,9 +182,16 @@ function MentionSuggestions(state: MiniState, focus$: Stream<undefined>) {
           style: styles.mentionsCancelButton,
           activeOpacity: 0.2,
           accessible: true,
-          accessibilityLabel: 'Cancel Button',
+          accessibilityRole: 'button',
+          accessibilityLabel: t('call_to_action.cancel'),
         },
-        [h(Text, {style: styles.mentionsCancelText}, 'Cancel')],
+        [
+          h(
+            Text,
+            {style: styles.mentionsCancelText},
+            t('call_to_action.cancel'),
+          ),
+        ],
       ),
     ]),
 

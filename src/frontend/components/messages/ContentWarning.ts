@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,10 +14,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {h} from '@cycle/react';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const styles = StyleSheet.create({
   container: {
@@ -85,7 +86,9 @@ export default class ContentWarning extends PureComponent<Props> {
               ellipsizeMode: 'middle',
               style: styles.toggle,
             },
-            opened ? 'Hide' : 'View',
+            opened
+              ? t('message.content_warning.call_to_action.hide')
+              : t('message.content_warning.call_to_action.show'),
           ),
         ]),
       ],

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -87,5 +87,9 @@ export const styles = StyleSheet.create({
       default: Dimensions.horizontalSpaceBig,
     }),
     zIndex: 30,
+  },
+
+  saveText: {
+    textTransform: 'uppercase',
   },
 });

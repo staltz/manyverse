@@ -150,7 +150,7 @@ module.exports = function(driver, t) {
       'I see the first title in the Backup screen',
     );
     const continueButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Continue Button")',
+      'new UiSelector().descriptionContains("Continue")',
     );
     t.ok(continueButton, 'I see the Continue button');
     await continueButton.click();
@@ -164,7 +164,7 @@ module.exports = function(driver, t) {
       'I see the second title in the Backup screen',
     );
     const iUnderstandButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("I understand Button")',
+      'new UiSelector().descriptionContains("Acknowledge")',
     );
     t.ok(iUnderstandButton, 'I see the I Understand button');
     await iUnderstandButton.click();

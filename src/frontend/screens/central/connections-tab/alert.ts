@@ -1,12 +1,13 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {State} from './model';
 import {Command as AlertCommand} from 'cycle-native-alert';
+import {t} from '../../../drivers/localization';
+import {State} from './model';
 
 export type Actions = {
   showBluetoothHelp$: Stream<any>;
@@ -25,52 +26,54 @@ export default function alert(
     .map(state =>
       xs.merge(
         actions.showBluetoothHelp$.mapTo({
-          title: 'Bluetooth',
+          title: t('connections.modes.bluetooth.title'),
           message:
             (state.bluetoothEnabled
-              ? '(ENABLED)'
-              : '(Turn on Bluetooth to use this)') +
-            '\n\nDiscover users nearby and connect with them using Bluetooth.',
-          buttons: [{text: 'OK', id: 'okay'}],
+              ? t('connections.modes.generic.enabled')
+              : t('connections.modes.bluetooth.disabled')) +
+            '\n\n' +
+            t('connections.modes.bluetooth.description'),
+          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
         }),
         actions.showLANHelp$.mapTo({
-          title: 'Wi-Fi',
+          title: t('connections.modes.wifi.title'),
           message:
-            (state.lanEnabled ? '(ENABLED)' : '(Turn on Wi-Fi to use this)') +
-            '\n\nConnect with friends in the same Local Area Network, ' +
-            'in other words, friends using the same Wi-Fi.',
-          buttons: [{text: 'OK', id: 'okay'}],
+            (state.lanEnabled
+              ? t('connections.modes.generic.enabled')
+              : t('connections.modes.wifi.disabled')) +
+            '\n\n' +
+            t('connections.modes.wifi.description'),
+          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
         }),
         actions.showDHTHelp$.mapTo({
-          title: 'Internet P2P',
+          title: t('connections.modes.p2p.title'),
           message:
-            (state.internetEnabled ? '(ENABLED)' : '(Go online to use this)') +
-            '\n\nConnect directly to friends currently online, ' +
-            'using a peer-to-peer technology called "Distributed Hash Table".',
-          buttons: [{text: 'OK', id: 'okay'}],
+            (state.internetEnabled
+              ? t('connections.modes.generic.enabled')
+              : t('connections.modes.p2p.disabled')) +
+            '\n\n' +
+            t('connections.modes.p2p.description'),
+          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
         }),
         actions.showPubHelp$.mapTo({
-          title: 'Internet servers',
+          title: t('connections.modes.servers.title'),
           message:
-            (state.internetEnabled ? '(ENABLED)' : '(Go online to use this)') +
-            '\n\nConnect to a so-called "Pub server" owned by some friend, ' +
-            'containing the latest data from multiple accounts.',
-          buttons: [{text: 'OK', id: 'okay'}],
+            (state.internetEnabled
+              ? t('connections.modes.generic.enabled')
+              : t('connections.modes.servers.disabled')) +
+            '\n\n' +
+            t('connections.modes.servers.description'),
+          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
         }),
         actions.infoClientDhtInvite$.mapTo({
-          title: 'Connecting via internet P2P...',
-          message:
-            'Currently searching for online friend ' +
-            'who generated this invite code, ' +
-            'to establish a data connection with them.',
-          buttons: [{text: 'OK', id: 'okay'}],
+          title: t('connections.modes.p2p.connecting'),
+          message: t('connections.modes.p2p.searching_friend'),
+          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
         }),
         actions.infoServerDhtInvite$.mapTo({
-          title: 'Connecting via internet P2P...',
-          message:
-            'Currently waiting for online friend ' +
-            'to claim this invite code and establish a data connection.',
-          buttons: [{text: 'OK', id: 'okay'}],
+          title: t('connections.modes.p2p.connecting'),
+          message: t('connections.modes.p2p.waiting_friend'),
+          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
         }),
       ),
     )

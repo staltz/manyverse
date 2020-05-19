@@ -10,6 +10,7 @@ import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
 import {ScrollView, View, Text, StyleSheet} from 'react-native';
 import {SSBSource} from '../../drivers/ssb';
+import {t} from '../../drivers/localization';
 import {MsgAndExtras} from '../../ssb/types';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
@@ -67,7 +68,7 @@ export const styles = StyleSheet.create({
 export function rawMessage(sources: Sources): Sinks {
   const vdom$ = sources.props.map(props =>
     h(View, {style: styles.screen}, [
-      h(TopBar, {sel: 'topbar', title: 'Raw message'}),
+      h(TopBar, {sel: 'topbar', title: t('raw_msg.title')}),
       h(ScrollView, {style: styles.container}, [
         h(
           Text,

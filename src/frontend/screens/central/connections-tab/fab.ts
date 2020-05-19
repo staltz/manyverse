@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,6 +12,7 @@ import {
 } from 'react-native-floating-action';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
+import {t} from '../../../drivers/localization';
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
   return state$.map(state => {
@@ -24,13 +25,13 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
           color: Palette.backgroundCTA,
           name: 'invite-create',
           icon: require('../../../../../images/share.png'),
-          text: 'Create invite',
+          text: t('connections.floating_action_button.create_invite'),
         },
         {
           color: Palette.backgroundCTA,
           name: 'invite-paste',
           icon: require('../../../../../images/package-down.png'),
-          text: 'Paste invite',
+          text: t('connections.floating_action_button.paste_invite'),
         },
       );
     }
@@ -40,7 +41,7 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
         color: Palette.backgroundCTA,
         name: 'bluetooth-search',
         icon: require('../../../../../images/bluetooth.png'),
-        text: 'Bluetooth seek',
+        text: t('connections.floating_action_button.bluetooth_seek'),
       });
     }
 

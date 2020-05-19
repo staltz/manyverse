@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
 import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
 import {SSBSource} from '../../drivers/ssb';
+import {t} from '../../drivers/localization';
 import {displayName} from '../../ssb/utils/from-ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -56,7 +57,8 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
               numberOfLines: 1,
               ellipsizeMode: 'middle',
               accessible: true,
-              accessibilityLabel: 'Profile Name',
+              accessibilityRole: 'text',
+              accessibilityLabel: t('profile.name.accessibility_label'),
             },
             displayName(state.about.name, state.about.id),
           ),
@@ -67,7 +69,8 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
           {
             sel: 'avatar',
             accessible: true,
-            accessibilityLabel: 'Profile Picture',
+            accessibilityRole: 'image',
+            accessibilityLabel: t('profile.picture.accessibility_label'),
           },
           [
             h(
@@ -87,11 +90,19 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         h(View, {style: styles.sub}, [
           followsYouTristate === true
             ? h(View, {style: styles.followsYou}, [
-                h(Text, {style: styles.followsYouText}, 'Follows you'),
+                h(
+                  Text,
+                  {style: styles.followsYouText},
+                  t('profile.info.follows_you'),
+                ),
               ])
             : followsYouTristate === false
             ? h(View, {style: styles.followsYou}, [
-                h(Text, {style: styles.followsYouText}, 'Blocks you'),
+                h(
+                  Text,
+                  {style: styles.followsYouText},
+                  t('profile.info.blocks_you'),
+                ),
               ])
             : null,
 
@@ -103,7 +114,10 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                   {
                     sel: 'manage',
                     accessible: true,
-                    accessibilityLabel: 'Manage Contact',
+                    accessibilityRole: 'button',
+                    accessibilityLabel: t(
+                      'profile.call_to_action.manage.accessibility_label',
+                    ),
                   },
                   [
                     h(Icon, {
@@ -117,16 +131,21 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
             isSelfProfile
               ? h(Button, {
                   sel: 'editProfile',
-                  text: 'Edit profile',
+                  text: t('profile.call_to_action.edit_profile.label'),
                   accessible: true,
-                  accessibilityLabel: 'Edit Profile Button',
+                  accessibilityLabel: t(
+                    'profile.call_to_action.edit_profile.accessibility_label',
+                  ),
                 })
               : isBlocked
               ? null
               : h(ToggleButton, {
                   sel: 'follow',
                   style: styles.follow,
-                  text: state.about.following === true ? 'Following' : 'Follow',
+                  text:
+                    state.about.following === true
+                      ? t('profile.info.following')
+                      : t('profile.call_to_action.follow'),
                   toggled: state.about.following === true,
                 }),
           ]),
@@ -136,11 +155,13 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
           state.about.description
             ? h(Button, {
                 sel: 'bio',
-                text: 'Bio',
+                text: t('profile.call_to_action.open_biography.label'),
                 small: true,
                 style: styles.bioButton,
                 accessible: true,
-                accessibilityLabel: 'Biography Button',
+                accessibilityLabel: t(
+                  'profile.call_to_action.open_biography.accessibility_label',
+                ),
                 strong: false,
               })
             : null,
@@ -149,9 +170,8 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         isBlocked
           ? h(EmptySection, {
               style: styles.emptySection,
-              title: 'Blocked',
-              description:
-                'You have chosen to stop\ninteracting with this account',
+              title: t('profile.empty.blocked.title'),
+              description: t('profile.empty.blocked.description'),
             })
           : h(Feed, {
               sel: 'feed',
@@ -168,15 +188,15 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                 ? h(EmptySection, {
                     style: styles.emptySection,
                     image: require('../../../../images/noun-plant.png'),
-                    title: 'No messages',
-                    description:
-                      'Write a diary which you can\nshare with friends later',
+                    title: t('profile.empty.no_self_messages.title'),
+                    description: t(
+                      'profile.empty.no_self_messages.description',
+                    ),
                   })
                 : h(EmptySection, {
                     style: styles.emptySection,
-                    title: 'No messages',
-                    description:
-                      "You don't yet have any data\nfrom this account",
+                    title: t('profile.empty.no_messages.title'),
+                    description: t('profile.empty.no_messages.description'),
                   }),
             }),
 
@@ -190,7 +210,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                   color: Palette.backgroundCTA,
                   name: 'compose',
                   icon: require('../../../../images/pencil.png'),
-                  text: 'Write a public message',
+                  text: t('profile.floating_action_button.compose'),
                 },
               ],
               overrideWithAction: true,

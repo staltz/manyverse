@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PeerKV, StagedPeerKV} from '../../../../../ssb/types';
+import {t} from '../../../../../drivers/localization';
 
 type KV = PeerKV | StagedPeerKV;
 
@@ -66,28 +67,28 @@ export function peerModeDescription(data: KV[1]): string {
   const type = detectType(data);
   switch (type) {
     case 'bt':
-      return 'Bluetooth';
+      return t('connections.peers.types.bluetooth');
 
     case 'lan':
-      return 'Local network';
+      return t('connections.peers.types.lan');
 
     case 'dht':
-      return 'Internet P2P';
+      return t('connections.peers.types.dht.connected');
 
     case 'room-endpoint':
-      return 'Room peer';
+      return t('connections.peers.types.room.endpoint');
 
     case 'room':
-      return 'Room server';
+      return t('connections.peers.types.room.server');
 
     case 'pub':
-      return 'Pub server';
+      return t('connections.peers.types.pub');
 
     case 'internet':
-      return 'Server';
+      return t('connections.peers.types.server');
 
     default:
-      return 'Unknown';
+      return t('connections.peers.types.unknown');
   }
 }
 
@@ -96,32 +97,32 @@ export function peerModeStagedDescription(peer: KV[1]): string {
   const type = detectType(peer);
   switch (type) {
     case 'bt':
-      return 'Bluetooth';
+      return t('connections.peers.types.bluetooth');
 
     case 'lan':
-      return 'Local network';
+      return t('connections.peers.types.lan');
 
     case 'dht':
       if (peer.role === 'client')
-        return 'Internet P2P: looking for online friend...';
+        return t('connections.peers.types.dht.staging.client');
       else if (peer.role === 'server')
-        return 'Internet P2P: waiting for online friend...';
-      else return 'Internet P2P: searching...';
+        return t('connections.peers.types.dht.staging.host');
+      else return t('connections.peers.types.dht.staging.unknown');
 
     case 'room-endpoint':
-      return 'Room peer';
+      return t('connections.peers.types.room.endpoint');
 
     case 'room':
-      return 'Room server';
+      return t('connections.peers.types.room.server');
 
     case 'pub':
-      return 'Pub server';
+      return t('connections.peers.types.pub');
 
     case 'internet':
-      return 'Server';
+      return t('connections.peers.types.server');
 
     default:
-      return 'Unknown';
+      return t('connections.peers.types.unknown');
   }
 }
 

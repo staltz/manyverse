@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -16,11 +16,12 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {h} from '@cycle/react';
-import {styles} from './styles';
-import {State} from './model';
+import {t} from '../../drivers/localization';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import Avatar from '../../components/Avatar';
+import {State} from './model';
+import {styles} from './styles';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -36,7 +37,7 @@ function renderName(name?: string) {
       numberOfLines: 1,
       ellipsizeMode: 'middle',
     },
-    name ?? 'No name',
+    name ?? t('drawer.profile_no_name'),
   );
 }
 
@@ -44,18 +45,18 @@ type MenuItemProps = {
   icon: string;
   text: string;
   onPress?: () => void;
-  accessible?: boolean;
-  accessibilityLabel?: string;
+  accessibilityLabel: string;
 };
 
 class MenuItem extends PureComponent<MenuItemProps> {
   public render() {
-    const {icon, text, accessibilityLabel, accessible} = this.props;
+    const {icon, text, accessibilityLabel} = this.props;
     const touchableProps: any = {
       onPress: () => {
         this.props.onPress?.();
       },
-      accessible,
+      accessible: true,
+      accessibilityRole: 'menuitem',
       accessibilityLabel,
     };
     if (Platform.OS === 'android') {
@@ -98,30 +99,28 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
         h(MenuItem, {
           sel: 'self-profile',
           icon: 'account-circle',
-          text: 'My profile',
-          accessible: true,
-          accessibilityLabel: 'My Profile Menu Item',
+          text: t('drawer.menu.my_profile.label'),
+          accessibilityLabel: t('drawer.menu.my_profile.accessibility_label'),
         }),
         h(MenuItem, {
           sel: 'raw-db',
           icon: 'database',
-          text: 'Raw database',
-          accessible: true,
-          accessibilityLabel: 'Show Raw Database',
+          text: t('drawer.menu.raw_database.label'),
+          accessibilityLabel: t('drawer.menu.raw_database.accessibility_label'),
         }),
         h(MenuItem, {
           sel: 'bug-report',
           icon: 'email-alert',
-          text: 'Email bug report',
-          accessible: true,
-          accessibilityLabel: 'Email Bug Report',
+          text: t('drawer.menu.email_bug_report.label'),
+          accessibilityLabel: t(
+            'drawer.menu.email_bug_report.accessibility_label',
+          ),
         }),
         h(MenuItem, {
           sel: 'settings',
           icon: 'settings',
-          text: 'Settings',
-          accessible: true,
-          accessibilityLabel: 'Settings',
+          text: t('drawer.menu.settings.label'),
+          accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
         }),
       ]),
     ]),

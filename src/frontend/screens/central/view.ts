@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
 import {MenuProvider} from 'react-native-popup-menu';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
+import {t} from '../../drivers/localization';
 import {styles, iconProps} from './styles';
 import {State} from './model';
 
@@ -89,7 +90,8 @@ class PublicTabIcon extends Component<{
         sel: 'public-tab-button',
         style: styles.tabButton, // iOS needs this
         accessible: true,
-        accessibilityLabel: 'Public Tab Button',
+        accessibilityRole: 'tab',
+        accessibilityLabel: t('central.tabs.public.accessibility_label'),
       },
       [
         h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
@@ -147,7 +149,8 @@ class PrivateTabIcon extends Component<{
         sel: 'private-tab-button',
         style: styles.tabButton, // iOS needs this
         accessible: true,
-        accessibilityLabel: 'Private Tab Button',
+        accessibilityRole: 'tab',
+        accessibilityLabel: t('central.tabs.private.accessibility_label'),
       },
       [
         h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
@@ -222,7 +225,8 @@ class ConnectionsTabIcon extends Component<{
         sel: 'connections-tab-button',
         style: styles.tabButton, // iOS needs this
         accessible: true,
-        accessibilityLabel: 'Connections Tab Button',
+        accessibilityRole: 'tab',
+        accessibilityLabel: t('central.tabs.connections.accessibility_label'),
       },
       [
         h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [

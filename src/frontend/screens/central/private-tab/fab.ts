@@ -9,6 +9,7 @@ import {State} from './model';
 import {IFloatingActionProps as Props} from 'react-native-floating-action';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
+import {t} from '../../../drivers/localization';
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
   return state$.map(
@@ -22,7 +23,7 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
             color: Palette.backgroundCTA,
             name: 'recipients-input',
             icon: require('../../../../../images/message-plus.png'),
-            text: 'New private conversation',
+            text: t('private.floating_action_button.compose'),
           },
         ],
         overrideWithAction: true,

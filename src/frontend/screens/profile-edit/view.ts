@@ -14,12 +14,13 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import Button from '../../components/Button';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
-import {State} from './model';
-import {styles, avatarSize} from './styles';
+import Button from '../../components/Button';
 import Avatar from '../../components/Avatar';
 import TopBar from '../../components/TopBar';
+import {State} from './model';
+import {styles, avatarSize} from './styles';
 
 export default function view(state$: Stream<State>) {
   return state$.map(state => {
@@ -28,7 +29,7 @@ export default function view(state$: Stream<State>) {
     const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
 
     return h(View, {style: styles.container}, [
-      h(TopBar, {sel: 'topbar', title: 'Edit profile'}),
+      h(TopBar, {sel: 'topbar', title: t('profile_edit.title')}),
 
       h(View, {style: styles.cover}),
 
@@ -37,7 +38,10 @@ export default function view(state$: Stream<State>) {
         {
           sel: 'avatar',
           accessible: true,
-          accessibilityLabel: 'Profile Picture',
+          accessibilityRole: 'button',
+          accessibilityLabel: t(
+            'profile_edit.call_to_action.edit_picture.accessbility_label',
+          ),
         },
         [
           h(View, {style: styles.avatarTouchable, pointerEvents: 'box-only'}, [
@@ -58,10 +62,13 @@ export default function view(state$: Stream<State>) {
         : h(Button, {
             sel: 'save',
             style: styles.save,
+            textStyle: styles.saveText,
             strong: true,
-            text: 'SAVE',
+            text: t('profile_edit.call_to_action.save.label'),
             accessible: true,
-            accessibilityLabel: 'Save Profile Button',
+            accessibilityLabel: t(
+              'profile_edit.call_to_action.save.accessibility_label',
+            ),
           }),
 
       h(
@@ -72,14 +79,17 @@ export default function view(state$: Stream<State>) {
             ? h(Button, {
                 sel: 'save',
                 style: styles.save,
+                textStyle: styles.saveText,
                 strong: true,
-                text: 'SAVE',
+                text: t('profile_edit.call_to_action.save.label'),
                 accessible: true,
-                accessibilityLabel: 'Save Profile Button',
+                accessibilityLabel: t(
+                  'profile_edit.call_to_action.save.accessibility_label',
+                ),
               })
             : null,
 
-          h(Text, {style: styles.label}, 'Name'),
+          h(Text, {style: styles.label}, t('profile_edit.fields.name.label')),
           h(TextInput, {
             sel: 'name',
             multiline: false,
@@ -87,11 +97,17 @@ export default function view(state$: Stream<State>) {
             defaultValue: defaultName,
             underlineColorAndroid: Palette.backgroundBrand,
             accessible: true,
-            accessibilityLabel: 'Name Text Input',
+            accessibilityLabel: t(
+              'profile_edit.fields.name.accessibility_label',
+            ),
             style: styles.textInput,
           }),
 
-          h(Text, {style: styles.label}, 'Bio'),
+          h(
+            Text,
+            {style: styles.label},
+            t('profile_edit.fields.description.label'),
+          ),
           h(TextInput, {
             sel: 'description',
             multiline: true,
@@ -100,7 +116,9 @@ export default function view(state$: Stream<State>) {
             defaultValue: state.about.description ?? '',
             underlineColorAndroid: Palette.backgroundBrand,
             accessible: true,
-            accessibilityLabel: 'Description Text Input',
+            accessibilityLabel: t(
+              'profile_edit.fields.description.accessibility_label',
+            ),
             style: styles.textInput,
           }),
         ],

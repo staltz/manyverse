@@ -8,12 +8,13 @@ import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId} from 'ssb-typescript';
-import {State} from './model';
 import {Command} from 'cycle-native-navigation';
+import {t} from '../../drivers/localization';
 import {navOptions as profileScreenNavOpts} from '../profile';
 import {navOptions as accountsScreenNavOpts} from '../accounts/layout';
 import {Props as AccountsProps} from '../accounts';
 import {Screens} from '../enums';
+import {State} from './model';
 
 type Actions = {
   goBack$: Stream<any>;
@@ -51,7 +52,7 @@ export default function navigation(actions: Actions, state$: Stream<State>) {
           component: {
             name: Screens.Accounts,
             passProps: {
-              title: 'Recipients',
+              title: t('accounts.recipients.title'),
               msgKey: state.rootMsgId,
               accounts: state.thread.recps.map(r => r.id),
               selfFeedId: state.selfFeedId,

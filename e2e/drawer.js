@@ -17,7 +17,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.elementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("My Profile Menu Item")',
+        'new UiSelector().descriptionContains("Go To My Profile")',
       ),
       'I see "My profile"',
     );
@@ -31,14 +31,14 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.elementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Email Bug Report")',
+        'new UiSelector().descriptionContains("Send Bug Report as Email")',
       ),
       'I see "Email bug report"',
     );
 
     t.ok(
       await driver.elementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Settings")',
+        'new UiSelector().descriptionContains("Go To Settings")',
       ),
       'I see "Settings"',
     );
@@ -102,7 +102,7 @@ module.exports = function(driver, t) {
     t.pass('I open the drawer');
 
     const aboutButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Settings")',
+      'new UiSelector().descriptionContains("Go To Settings")',
     );
     await aboutButton.click();
     t.pass('I tap the Settings button');

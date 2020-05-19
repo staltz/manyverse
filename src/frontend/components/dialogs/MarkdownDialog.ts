@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,13 +6,14 @@
 
 import {PureComponent, createElement as $} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
+import {Options} from 'react-native-navigation';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
-import {Options} from 'react-native-navigation';
+import {t} from '../../drivers/localization';
+import Markdown from '../Markdown';
 import Dialog from './Dialog';
 import DialogButton from './DialogButton';
-import Markdown from '../Markdown';
 
 export const styles = StyleSheet.create({
   content: {
@@ -74,9 +75,11 @@ export default class TextDialog extends PureComponent<Props> {
       $(DialogButton, {
         key: 'button',
         onPress: this.onOkay,
-        text: 'OK',
+        text: t('call_to_action.ok'),
         accessible: true,
-        accessibilityLabel: 'Close Dialog Button',
+        accessibilityLabel: t(
+          'call_to_action.close_dialog.accessibility_label',
+        ),
       }),
     ]);
   }

@@ -13,6 +13,7 @@ import {isReplyPostMsg} from 'ssb-typescript/utils';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {DialogSource} from '../../drivers/dialogs';
 import {SSBSource} from '../../drivers/ssb';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {PressAddReactionEvent, PressReactionsEvent} from '../../ssb/types';
 import {Screens} from '../enums';
@@ -47,10 +48,10 @@ export default function intent(
     .compose(sample(state$))
     .filter(hasText)
     .map(() =>
-      dialogSource.alert('', 'Save reply draft?', {
-        positiveText: 'Save',
+      dialogSource.alert('', t('thread.dialogs.save_draft_prompt.title'), {
+        positiveText: t('call_to_action.save'),
         positiveColor: Palette.text,
-        negativeText: 'Delete',
+        negativeText: t('call_to_action.delete'),
         negativeColor: Palette.textNegative,
       }),
     )
@@ -73,7 +74,7 @@ export default function intent(
       .select('thread')
       .events('pressReactions') as Stream<PressReactionsEvent>).map(
       ({msgKey, reactions}) => ({
-        title: 'Reactions',
+        title: t('accounts.reactions.title'),
         msgKey,
         accounts: reactions,
       }),

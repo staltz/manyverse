@@ -92,7 +92,7 @@ module.exports = function(driver, t) {
       );
       await composeTextInput.keys('Message number ' + i + 'a');
       const composePublishButton = await driver.elementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Compose Publish Button")',
+        'new UiSelector().descriptionContains("Publish Message Button")',
         6000,
       );
       await composePublishButton.click();
@@ -167,7 +167,7 @@ module.exports = function(driver, t) {
     );
     await composeTextInput.keys('Please like this message');
     const composePublishButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Compose Publish Button")',
+      'new UiSelector().descriptionContains("Publish Message Button")',
       6000,
     );
     await composePublishButton.click();
@@ -184,7 +184,7 @@ module.exports = function(driver, t) {
 
     const likeButton = await driver.waitForElementByAndroidUIAutomator(
       'new UiSelector().textContains("Please like this message")' +
-        '.fromParent(new UiSelector().descriptionContains("Like Button"))',
+        '.fromParent(new UiSelector().descriptionContains("Add Reaction"))',
       6000,
     );
     t.ok(likeButton, 'I see a like button on that message');
@@ -195,7 +195,7 @@ module.exports = function(driver, t) {
     const reactions = await driver.waitForElementByAndroidUIAutomator(
       'new UiSelector().textContains("Please like this message")' +
         '.fromParent(' +
-        'new UiSelector().descriptionContains("Reactions Button")' +
+        'new UiSelector().descriptionContains("Show Reactions")' +
         '.childSelector(new UiSelector().textContains("👍"))' +
         ')',
       6000,
@@ -211,7 +211,7 @@ module.exports = function(driver, t) {
       const reactions = await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().textContains("Please like this message")' +
           '.fromParent(' +
-          'new UiSelector().descriptionContains("Reactions Button")' +
+          'new UiSelector().descriptionContains("Show Reactions")' +
           ')',
         6000,
       );
@@ -221,7 +221,7 @@ module.exports = function(driver, t) {
       t.pass('I tap it');
 
       const reactionsList = await driver.waitForElementsByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Link To Account")',
+        'new UiSelector().descriptionContains("Go To Account")',
         6000,
       );
       t.equals(

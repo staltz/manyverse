@@ -43,10 +43,10 @@ module.exports = function(driver, t) {
     t.ok(addPictureButton, 'I see the Add Picture Button');
 
     const composePublishButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Compose Publish Button")',
+      'new UiSelector().descriptionContains("Publish Message Button")',
       6000,
     );
-    t.ok(composePublishButton, 'I see the Compose Publish Button');
+    t.ok(composePublishButton, 'I see the Publish Message Button');
     await composePublishButton.click();
     t.pass('I tap it');
 
@@ -153,10 +153,10 @@ module.exports = function(driver, t) {
     t.pass('I tap it');
 
     const composePublishButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Compose Publish Button")',
+      'new UiSelector().descriptionContains("Publish Message Button")',
       6000,
     );
-    t.ok(composePublishButton, 'I see the Compose Publish Button');
+    t.ok(composePublishButton, 'I see the Publish Message Button');
     await composePublishButton.click();
     t.pass('I tap it');
 
@@ -336,10 +336,10 @@ module.exports = function(driver, t) {
     t.equal(f2, 'color of my shirt is green', 'I see the saved draft text');
 
     const composePublishButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Compose Publish Button")',
+      'new UiSelector().descriptionContains("Publish Message Button")',
       6000,
     );
-    t.ok(composePublishButton, 'I see the Compose Publish Button');
+    t.ok(composePublishButton, 'I see the Publish Message Button');
     await composePublishButton.click();
     t.pass('I tap it');
 

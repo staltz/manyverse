@@ -24,7 +24,7 @@ module.exports = function(driver, t) {
       );
       await composeTextInput.keys('Do you like dogs');
       const composePublishButton = await driver.elementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Compose Publish Button")',
+        'new UiSelector().descriptionContains("Publish Message Button")',
         6000,
       );
       await composePublishButton.click();

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,6 +11,7 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {OrientationEvent} from '../../drivers/orientation';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import tutorialPresentation from '../../components/tutorial-presentation';
 import tutorialSlide from '../../components/tutorial-slide';
@@ -63,6 +64,10 @@ export const styles = StyleSheet.create({
     marginBottom: 62,
   },
 });
+
+function bold(innerText: string) {
+  return h(Text, {style: styles.bold}, innerText);
+}
 
 export const navOptions = {
   layout: {
@@ -121,24 +126,24 @@ export function backup(sources: Sources): Sinks {
 
   const vdom$ = sources.state.stream.map(state =>
     h(View, {style: styles.screen}, [
-      h(TopBar, {sel: 'topbar', title: 'Backup'}),
+      h(TopBar, {sel: 'topbar', title: t('backup.title')}),
 
       tutorialPresentation('swiper', {scrollBy$}, [
         tutorialSlide({
           show: state.index >= 0,
           portraitMode: state.isPortraitMode,
           image: require('../../../../images/noun-glassware.png'),
-          title: 'Your account has\ntwo parts to keep safe',
+          title: t('backup.introduction.title'),
           renderDescription: () => [],
           renderBottom: () =>
             h(Button, {
               sel: 'confirm-start',
               style: styles.button,
               textStyle: styles.buttonText,
-              text: 'Continue',
+              text: t('call_to_action.continue'),
               strong: false,
               accessible: true,
-              accessibilityLabel: 'Continue Button',
+              accessibilityLabel: t('call_to_action.continue'),
             }),
         }),
 
@@ -148,26 +153,25 @@ export function backup(sources: Sources): Sinks {
           image: require('../../../../images/noun-books.png'),
           title: 'Data',
           renderDescription: () => [
-            "This is your account's posts, messages, pictures, likes and " +
-              'similar activity. To keep it safe against sudden loss, we ' +
-              'use ',
-            h(Text, {style: styles.bold}, 'crowd backup'),
-            '. You only ' + 'need to ',
-            h(Text, {style: styles.bold}, 'synchronize with reliable friends'),
-            ' or other devices you own. Just use Manyverse ' +
-              'with friends often, there is ',
-            h(Text, {style: styles.bold}, 'nothing else to do'),
-            '! Your friends back you up.',
+            t('backup.data.description.1_normal'),
+            bold(t('backup.data.description.2_bold')),
+            t('backup.data.description.3_normal'),
+            bold(t('backup.data.description.4_bold')),
+            t('backup.data.description.5_normal'),
+            bold(t('backup.data.description.6_bold')),
+            t('backup.data.description.7_normal'),
           ],
           renderBottom: () =>
             h(Button, {
               sel: 'confirm-data',
               style: styles.button,
               textStyle: styles.buttonText,
-              text: 'I understand',
+              text: t('backup.data.call_to_action.acknowledge.label'),
               strong: false,
               accessible: true,
-              accessibilityLabel: 'I understand Button',
+              accessibilityLabel: t(
+                'backup.data.call_to_action.acknowledge.accessibility_label',
+              ),
             }),
         }),
 
@@ -175,25 +179,26 @@ export function backup(sources: Sources): Sinks {
           show: state.index >= 2,
           portraitMode: state.isPortraitMode,
           image: require('../../../../images/noun-fingerprint.png'),
-          title: 'Identity',
+          title: t('backup.identity.title'),
           renderDescription: () => [
-            'Your account\'s "fingerprint" is made up of a highly unique ',
-            h(Text, {style: styles.bold}, 'recovery phrase'),
-            '. This is a sequence of 48 words that unlocks ' + 'your account. ',
-            h(Text, {style: styles.bold}, 'Keep it confidential'),
-            ', because if anyone else has access to it, they can take control of ' +
-              'your account. ',
-            h(Text, {style: styles.bold}, 'Take responsibility'),
-            ' over it, since you and only you can recover your account!',
+            t('backup.identity.description.1_normal'),
+            bold(t('backup.identity.description.2_bold')),
+            t('backup.identity.description.3_normal'),
+            bold(t('backup.identity.description.4_bold')),
+            t('backup.identity.description.5_normal'),
+            bold(t('backup.identity.description.6_bold')),
+            t('backup.identity.description.7_normal'),
           ],
           renderBottom: () =>
             h(Button, {
               sel: 'show-recovery-phrase',
               style: styles.ctaButton,
-              text: 'Show Recovery Phrase',
+              text: t('backup.identity.call_to_action.show_recovery_phrase'),
               strong: true,
               accessible: true,
-              accessibilityLabel: 'Show Recovery Phrase Button',
+              accessibilityLabel: t(
+                'backup.identity.call_to_action.show_recovery_phrase',
+              ),
             }),
         }),
       ]),

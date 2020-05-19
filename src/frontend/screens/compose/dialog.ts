@@ -1,13 +1,14 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
-import {DialogSource} from '../../drivers/dialogs';
-import {Palette} from '../../global-styles/palette';
 import {Image} from 'react-native-image-crop-picker';
+import {DialogSource} from '../../drivers/dialogs';
+import {t} from '../../drivers/localization';
+import {Palette} from '../../global-styles/palette';
 
 export type Actions = {
   openContentWarning$: Stream<any>;
@@ -19,15 +20,14 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
     updateContentWarning$: actions.openContentWarning$
       .map(() =>
         dialogSource.prompt(
-          'Content warning',
-          'If your post contains sensitive topics, ' +
-            'please add a short note to alert people of them.',
+          t('compose.dialogs.content_warning.title'),
+          t('compose.dialogs.content_warning.description'),
           {
             contentColor: Palette.textWeak,
             positiveColor: Palette.text,
-            positiveText: 'Done',
+            positiveText: t('call_to_action.done'),
             negativeColor: Palette.text,
-            negativeText: 'Cancel',
+            negativeText: t('call_to_action.cancel'),
           },
         ),
       )
@@ -39,13 +39,12 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
       .map(image =>
         dialogSource
           .prompt(
-            'Caption',
-            'Add some description of this picture, ' +
-              'particularly for the visually impaired.',
+            t('compose.dialogs.image_caption.title'),
+            t('compose.dialogs.image_caption.description'),
             {
               contentColor: Palette.textWeak,
               positiveColor: Palette.text,
-              positiveText: 'Done',
+              positiveText: t('call_to_action.done'),
             },
           )
           .map(res => ({caption: (res as any).text, image})),

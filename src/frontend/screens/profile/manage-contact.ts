@@ -1,16 +1,17 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
+import {Platform} from 'react-native';
+import {FeedId} from 'ssb-typescript';
+import {Duration, Toast} from '../../drivers/toast';
+import {t} from '../../drivers/localization';
 import {DialogSource, PickerItem} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
-import {Duration, Toast} from '../../drivers/toast';
-import {FeedId} from 'ssb-typescript';
-import {Platform} from 'react-native';
 
 export type ManageChoiceId =
   | 'copy-id'
@@ -59,28 +60,52 @@ export default function manageContact$(sources: Sources): Sinks {
       const relationship = calculateRelationship(state);
       const items: Array<Omit<PickerItem, 'id'> & {id: ManageChoiceId}> = [];
 
-      items.push({id: 'copy-id', label: 'Copy cypherlink'});
+      items.push({
+        id: 'copy-id',
+        label: t('profile.call_to_action.copy_cypherlink'),
+      });
       if (relationship === 'neutral') {
-        items.push({id: 'block', label: 'Block', iosStyle: 'destructive'});
-        items.push({id: 'block-secretly', label: 'Block secretly'});
+        items.push({
+          id: 'block',
+          label: t('profile.call_to_action.block'),
+          iosStyle: 'destructive',
+        });
+        items.push({
+          id: 'block-secretly',
+          label: t('profile.call_to_action.block_secretly'),
+        });
       } else if (relationship === 'following') {
-        items.push({id: 'block', label: 'Block', iosStyle: 'destructive'});
+        items.push({
+          id: 'block',
+          label: t('profile.call_to_action.block'),
+          iosStyle: 'destructive',
+        });
       } else if (relationship === 'blocking-secretly') {
-        items.push({id: 'unblock-secretly', label: 'Unblock secretly'});
+        items.push({
+          id: 'unblock-secretly',
+          label: t('profile.call_to_action.unblock_secretly'),
+        });
       } else if (relationship === 'blocking-publicly') {
-        items.push({id: 'unblock', label: 'Unblock'});
+        items.push({
+          id: 'unblock',
+          label: t('profile.call_to_action.unblock'),
+        });
       }
 
       return sources.dialog
-        .showPicker(Platform.OS === 'ios' ? 'Account' : undefined, undefined, {
-          items,
-          type: 'listPlain',
-          contentColor: Palette.text,
-          cancelable: true,
-          positiveText: '',
-          negativeText: '',
-          neutralText: '',
-        })
+        .showPicker(
+          Platform.OS === 'ios' ? t('profile.dialog_etc.title') : undefined,
+          undefined,
+          {
+            items,
+            type: 'listPlain',
+            contentColor: Palette.text,
+            cancelable: true,
+            positiveText: '',
+            negativeText: '',
+            neutralText: '',
+          },
+        )
         .filter(res => res.action === 'actionSelect')
         .map((res: any) => ({id: res.selectedItem.id as ManageChoiceId}));
     })
@@ -109,7 +134,7 @@ export default function manageContact$(sources: Sources): Sinks {
 
   const toast$ = copyCypherlink$.mapTo({
     type: 'show',
-    message: 'Copied to clipboard',
+    message: t('profile.toast.copied_to_clipboard'),
     duration: Duration.SHORT,
   } as Toast);
 

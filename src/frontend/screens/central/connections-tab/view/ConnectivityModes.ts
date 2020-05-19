@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {t} from '../../../../drivers/localization';
 import {Palette} from '../../../../global-styles/palette';
 import {Dimensions} from '../../../../global-styles/dimens';
 import {State} from '../model';
@@ -61,7 +62,7 @@ function ConnectivityMode(props: {
   onPress?: () => void;
   active: boolean;
   icon: string;
-  label: string;
+  accessibilityLabel: string;
   lastScanned: number;
 }) {
   return h(View, [
@@ -81,7 +82,7 @@ function ConnectivityMode(props: {
             : Palette.backgroundVoidStrong,
           name: props.icon,
           accessible: true,
-          accessibilityLabel: props.label,
+          accessibilityLabel: props.accessibilityLabel,
         }),
       ],
     ),
@@ -126,7 +127,9 @@ export default class ConnectivityModes extends Component<
             sel: 'bluetooth-mode',
             active: bluetoothEnabled,
             icon: 'bluetooth',
-            label: 'Bluetooth Mode',
+            accessibilityLabel: t(
+              'connections.modes.bluetooth.accessibility_label',
+            ),
             lastScanned: bluetoothLastScanned,
           }),
 
@@ -134,7 +137,7 @@ export default class ConnectivityModes extends Component<
         sel: 'lan-mode',
         active: lanEnabled,
         icon: 'wifi',
-        label: 'Local Network Mode',
+        accessibilityLabel: t('connections.modes.wifi.accessibility_label'),
         lastScanned: 0,
       }),
 
@@ -142,7 +145,7 @@ export default class ConnectivityModes extends Component<
         sel: 'dht-mode',
         active: internetEnabled,
         icon: 'account-network',
-        label: 'Internet P2P Mode',
+        accessibilityLabel: t('connections.modes.p2p.accessibility_label'),
         lastScanned: 0,
       }),
 
@@ -150,7 +153,7 @@ export default class ConnectivityModes extends Component<
         sel: 'pub-mode',
         active: internetEnabled,
         icon: 'server-network',
-        label: 'Internet Servers Mode',
+        accessibilityLabel: t('connections.modes.servers.accessibility_label'),
         lastScanned: 0,
       }),
     ]);

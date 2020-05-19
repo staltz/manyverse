@@ -13,7 +13,7 @@ module.exports = function(driver, t) {
     await driver.performTouchAction(pressMenu);
     t.pass('I press the Menu (top left corner)');
     const myProfileButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("My Profile Menu Item")',
+      'new UiSelector().descriptionContains("Go To My Profile")',
     );
     t.ok(myProfileButton, 'I see My Profile Button');
     await myProfileButton.click();
@@ -32,7 +32,7 @@ module.exports = function(driver, t) {
     let noMyProfileButton;
     try {
       noMyProfileButton = await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("My Profile Button")',
+        'new UiSelector().descriptionContains("Go To My Profile")',
         1000,
       );
       t.fail('Should not have seen My Profile Button belonging to Central');
@@ -108,9 +108,9 @@ module.exports = function(driver, t) {
 
     // Edit description
     const editDescription = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Description Text Input")',
+      'new UiSelector().descriptionContains("Biography Text Input")',
     );
-    t.ok(editDescription, 'I see Description Text Input');
+    t.ok(editDescription, 'I see Biography Text Input');
     await editDescription.click();
     t.pass('I tap it');
     await editDescription.sendKeys('teacher');
@@ -118,7 +118,7 @@ module.exports = function(driver, t) {
 
     // Edit avatar
     const editAvatar = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Profile Picture")',
+      'new UiSelector().descriptionContains("Edit Profile Picture")',
     );
     t.ok(editAvatar, 'I see the Profile Picture');
     await editAvatar.click();
@@ -133,7 +133,7 @@ module.exports = function(driver, t) {
 
     // Press save
     const saveProfileButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Save Profile Button")',
+      'new UiSelector().descriptionContains("Save Profile")',
     );
     t.ok(saveProfileButton, 'I see Save Profile Button');
     await saveProfileButton.click();
@@ -155,7 +155,7 @@ module.exports = function(driver, t) {
   t.test('Profile screen leads to Bio screen', async function(t) {
     // Press edit
     const editProfileButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Biography Button")',
+      'new UiSelector().descriptionContains("Show Biography")',
     );
     t.ok(editProfileButton, 'I see the Biography Button');
     await editProfileButton.click();

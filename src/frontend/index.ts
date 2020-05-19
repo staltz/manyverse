@@ -10,6 +10,7 @@ import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {alertDriver} from 'cycle-native-alert';
 import {makeClipboardDriver} from 'cycle-native-clipboard';
 import {linkingDriver} from 'cycle-native-linking';
+import {makeLocalizationDriver} from './drivers/localization';
 import {makeToastDriver} from './drivers/toast';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
 import {notificationDriver} from 'cycle-native-android-local-notification';
@@ -56,6 +57,7 @@ export const drivers = {
   clipboard: makeClipboardDriver(),
   fs: makeFSDriver(),
   linking: linkingDriver,
+  localization: makeLocalizationDriver(),
   globalEventBus: makeEventBusDriver(),
   ssb: ssbDriver,
   share: shareDriver,

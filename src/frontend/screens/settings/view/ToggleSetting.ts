@@ -73,6 +73,7 @@ export default class ToggleSetting extends PureComponent<Props> {
       },
       pointerEvents: 'box-only',
       accessible: true,
+      accessibilityRole: 'switch',
       accessibilityLabel,
     };
     if (Platform.OS === 'android') {

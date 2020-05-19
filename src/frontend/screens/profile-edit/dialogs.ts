@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,6 +8,7 @@ import xs from 'xstream';
 import between from 'xstream-between';
 import {NavSource} from 'cycle-native-navigation';
 import {DialogSource} from '../../drivers/dialogs';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {ReactSource} from '@cycle/react';
 
@@ -24,12 +25,16 @@ export default function dialogs(
   return back$
     .compose(between(navSource.didAppear(), navSource.didDisappear()))
     .map(() =>
-      dialogSource.alert('Edit profile', 'Discard changes?', {
-        positiveText: 'Discard',
-        positiveColor: Palette.textNegative,
-        negativeText: 'Cancel',
-        negativeColor: Palette.text,
-      }),
+      dialogSource.alert(
+        t('profile_edit.dialogs.discard.title'),
+        t('profile_edit.dialogs.discard.question'),
+        {
+          positiveText: t('profile_edit.call_to_action.discard'),
+          positiveColor: Palette.textNegative,
+          negativeText: t('call_to_action.cancel'),
+          negativeColor: Palette.text,
+        },
+      ),
     )
     .flatten();
 }

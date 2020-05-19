@@ -9,12 +9,13 @@ import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {displayName} from '../../ssb/utils/from-ssb';
-import Avatar from '../Avatar';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Avatar from '../Avatar';
 
 export const styles = StyleSheet.create({
   messageHeaderRow: {
@@ -131,7 +132,10 @@ export default class MessageHeader extends Component<Props> {
           color: Palette.textVeryWeak,
           name: 'chevron-down',
           accessible: true,
-          accessibilityLabel: 'Etc Button',
+          accessibilityRole: 'button',
+          accessibilityLabel: t(
+            'message.call_to_action.etc.accessibility_label',
+          ),
         }),
       ]),
     ]);

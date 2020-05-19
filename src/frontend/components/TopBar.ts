@@ -5,12 +5,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent, createElement as $} from 'react';
-import HeaderButton from './HeaderButton';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {t} from '../drivers/localization';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
+import HeaderButton from './HeaderButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -70,7 +71,7 @@ export default class TopBar extends PureComponent<Props> {
         onPress: onPressBack,
         icon: Platform.select({ios: 'chevron-left', default: 'arrow-left'}),
         ...Platform.select({ios: {iconSize: Dimensions.iconSizeLarge}}),
-        accessibilityLabel: 'Back Button',
+        accessibilityLabel: t('call_to_action.go_back.accessibility_label'),
       }),
       title ? $(Text, {key: 'title', style: styles.title}, title) : null,
       this.props.children

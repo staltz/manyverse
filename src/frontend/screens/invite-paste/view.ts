@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,11 +7,12 @@
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {View, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
-import {styles} from './styles';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import TopBar from '../../components/TopBar';
 import Button from '../../components/Button';
 import {State} from './model';
+import {styles} from './styles';
 
 export default function view(state$: Stream<State>) {
   const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
@@ -26,10 +27,12 @@ export default function view(state$: Stream<State>) {
           style: acceptEnabled
             ? styles.acceptButtonEnabled
             : styles.acceptButtonDisabled,
-          text: 'Done',
+          text: t('call_to_action.done'),
           strong: acceptEnabled,
           accessible: true,
-          accessibilityLabel: 'Accept Invite Button',
+          accessibilityLabel: t(
+            'invite_paste.call_to_action.accept.accessibility_label',
+          ),
         }),
       ]),
 
@@ -42,11 +45,13 @@ export default function view(state$: Stream<State>) {
             sel: 'contentInput',
             nativeID: 'FocusViewOnResume',
             accessible: true,
-            accessibilityLabel: 'Invite Text Input',
+            accessibilityLabel: t(
+              'invite_paste.text_field.accessibility_label',
+            ),
             autoFocus: true,
             multiline: true,
             returnKeyType: 'done',
-            placeholder: 'Paste an invitation code',
+            placeholder: t('invite_paste.placeholder'),
             placeholderTextColor: Palette.textVeryWeak,
             selectionColor: Palette.backgroundTextSelection,
             underlineColorAndroid: Palette.backgroundTextWeak,

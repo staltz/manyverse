@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,10 +6,11 @@
 
 import {Stream} from 'xstream';
 import {Msg} from 'ssb-typescript';
-import {DialogSource} from '../drivers/dialogs';
-import {Palette} from '../global-styles/palette';
-import {Toast, Duration} from '../drivers/toast';
 import {Platform} from 'react-native';
+import {t} from '../drivers/localization';
+import {DialogSource} from '../drivers/dialogs';
+import {Toast, Duration} from '../drivers/toast';
+import {Palette} from '../global-styles/palette';
 
 export type EtcChoiceId = 'copy-id' | 'raw-msg';
 
@@ -28,18 +29,24 @@ export default function messageEtc(sources: Sources): Sinks {
   const messageEtcChoice$ = sources.appear$
     .map(msg =>
       sources.dialog
-        .showPicker(Platform.OS === 'ios' ? 'Message' : undefined, undefined, {
-          items: [
-            {label: 'Copy cypherlink', id: 'copy-id'},
-            {label: 'View raw message', id: 'raw-msg'},
-          ],
-          type: 'listPlain',
-          contentColor: Palette.text,
-          cancelable: true,
-          positiveText: '',
-          negativeText: '',
-          neutralText: '',
-        })
+        .showPicker(
+          Platform.OS === 'ios'
+            ? t('message.call_to_action.etc.dialog_title')
+            : undefined,
+          undefined,
+          {
+            items: [
+              {label: t('message.call_to_action.copy_msg_id'), id: 'copy-id'},
+              {label: t('message.call_to_action.view_raw'), id: 'raw-msg'},
+            ],
+            type: 'listPlain',
+            contentColor: Palette.text,
+            cancelable: true,
+            positiveText: '',
+            negativeText: '',
+            neutralText: '',
+          },
+        )
         .filter(res => res.action === 'actionSelect')
         .map((res: any) => ({id: res.selectedItem.id as EtcChoiceId, msg})),
     )
@@ -55,7 +62,7 @@ export default function messageEtc(sources: Sources): Sinks {
 
   const toast$ = copyCypherlink$.mapTo({
     type: 'show',
-    message: 'Copied to clipboard',
+    message: t('message.toast.copied_to_clipboard'),
     duration: Duration.SHORT,
   } as Toast);
 

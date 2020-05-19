@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,10 +14,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {h} from '@cycle/react';
+import {MsgId} from 'ssb-typescript';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {MsgId} from 'ssb-typescript';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -110,7 +111,11 @@ export default class ExpandThread extends PureComponent<Props> {
         h(View, {key: 'hr2', style: styles.hr2}),
         h(View, {key: 'box', style: styles.labelBoxContainer}, [
           h(View, {style: styles.labelBox}, [
-            h(Text, {style: styles.labelText}, 'Read more'),
+            h(
+              Text,
+              {style: styles.labelText},
+              t('message.call_to_action.read_more'),
+            ),
           ]),
         ]),
       ]),

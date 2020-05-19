@@ -7,10 +7,11 @@
 import {Animated} from 'react-native';
 import {Component, ReactElement, Fragment} from 'react';
 import {h} from '@cycle/react';
-import ListOfPeers from './ListOfPeers';
 import EmptySection from '../../../../../components/EmptySection';
+import {t} from '../../../../../drivers/localization';
 import {State} from '../../model';
 import {styles} from '../styles';
+import ListOfPeers from './ListOfPeers';
 
 function recentlyScanned(timestamp: number) {
   return timestamp > 0 && Date.now() - timestamp < 15e3;
@@ -101,9 +102,8 @@ export default class Body extends Component<
         key: 'es',
         style: styles.emptySection,
         image: require('../../../../../../../images/noun-lantern.png'),
-        title: 'Offline',
-        description:
-          'Turn on some connection mode\nor enjoy reading some existing content',
+        title: t('connections.empty.offline.title'),
+        description: t('connections.empty.offline.description'),
       });
     }
 
@@ -113,18 +113,16 @@ export default class Body extends Component<
           key: 'es',
           style: styles.emptySection,
           image: require('../../../../../../../images/noun-crops.png'),
-          title: 'Connecting',
-          description:
-            'Wait while the app is\nattempting to connect to your peers',
+          title: t('connections.empty.connecting.title'),
+          description: t('connections.empty.connecting.description'),
         });
       } else {
         this.latestEmptySection = h(EmptySection, {
           key: 'es',
           style: styles.emptySection,
           image: require('../../../../../../../images/noun-crops.png'),
-          title: 'No connections',
-          description:
-            'Try syncing with people nearby\nor use a server invite code',
+          title: t('connections.empty.no_peers.title'),
+          description: t('connections.empty.no_peers.description'),
         });
       }
     }

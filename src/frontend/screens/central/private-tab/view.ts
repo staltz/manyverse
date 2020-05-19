@@ -21,13 +21,14 @@ import PullFlatList from 'pull-flat-list';
 import {MsgId} from 'ssb-typescript';
 import {PrivateThreadAndExtras} from '../../../ssb/types';
 import {GetReadable} from '../../../drivers/ssb';
+import {t} from '../../../drivers/localization';
 import {Dimensions} from '../../../global-styles/dimens';
-import AnimatedLoading from '../../../components/AnimatedLoading';
+import {displayName} from '../../../ssb/utils/from-ssb';
 import EmptySection from '../../../components/EmptySection';
+import AnimatedLoading from '../../../components/AnimatedLoading';
 import Avatar from '../../../components/Avatar';
 import {State} from './model';
 import {styles} from './styles';
-import {displayName} from '../../../ssb/utils/from-ssb';
 
 const PullFlatList2 = propifyMethods(
   PullFlatList,
@@ -75,50 +76,55 @@ class ConversationItem extends PureComponent<CIProps> {
 
     const D_ANG = (2 * Math.PI) / amount;
 
-    return h(View, {accessibilityLabel: 'Link To Conversation'}, [
-      h(Touchable, touchableProps, [
-        h(View, {style: styles.conversationRow, pointerEvents: 'box-only'}, [
-          amount === 1
-            ? h(View, {key: 'a', style: styles.singleAvatar}, [
-                h(Avatar, {url: recps[0].imageUrl, size: GROUP_SIZE}),
-              ])
-            : h(
-                View,
-                {key: 'b', style: styles.avatarGroup},
-                recps
-                  .slice()
-                  .reverse()
-                  .map(({imageUrl}, i) =>
-                    h(Avatar, {
-                      url: imageUrl,
-                      size: SIZE,
-                      style: [
-                        styles.avatar,
-                        {
-                          left:
-                            CX - HALFSIZE + DIST * Math.cos(ANG - D_ANG * i),
-                          top: CY - HALFSIZE + DIST * Math.sin(ANG - D_ANG * i),
-                        },
-                      ],
-                    }),
-                  ),
-              ),
-          isUnread ? h(View, {key: 'c', style: styles.unreadDot}) : null,
-          h(
-            Text,
-            {
-              key: 'd',
-              numberOfLines: 3,
-              ellipsizeMode: 'tail',
-              style: isUnread
-                ? styles.conversationAuthorsUnread
-                : styles.conversationAuthors,
-            },
-            recps.map(x => displayName(x.name, x.id)).join(', '),
-          ),
+    return h(
+      View,
+      {accessibilityLabel: t('private.conversation.accessibility_label')},
+      [
+        h(Touchable, touchableProps, [
+          h(View, {style: styles.conversationRow, pointerEvents: 'box-only'}, [
+            amount === 1
+              ? h(View, {key: 'a', style: styles.singleAvatar}, [
+                  h(Avatar, {url: recps[0].imageUrl, size: GROUP_SIZE}),
+                ])
+              : h(
+                  View,
+                  {key: 'b', style: styles.avatarGroup},
+                  recps
+                    .slice()
+                    .reverse()
+                    .map(({imageUrl}, i) =>
+                      h(Avatar, {
+                        url: imageUrl,
+                        size: SIZE,
+                        style: [
+                          styles.avatar,
+                          {
+                            left:
+                              CX - HALFSIZE + DIST * Math.cos(ANG - D_ANG * i),
+                            top:
+                              CY - HALFSIZE + DIST * Math.sin(ANG - D_ANG * i),
+                          },
+                        ],
+                      }),
+                    ),
+                ),
+            isUnread ? h(View, {key: 'c', style: styles.unreadDot}) : null,
+            h(
+              Text,
+              {
+                key: 'd',
+                numberOfLines: 3,
+                ellipsizeMode: 'tail',
+                style: isUnread
+                  ? styles.conversationAuthorsUnread
+                  : styles.conversationAuthors,
+              },
+              recps.map(x => displayName(x.name, x.id)).join(', '),
+            ),
+          ]),
         ]),
-      ]),
-    ]);
+      ],
+    );
   }
 }
 
@@ -167,8 +173,8 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
       ListEmptyComponent: h(EmptySection, {
         style: styles.emptySection,
         image: require('../../../../../images/noun-plant.png'),
-        title: 'No messages',
-        description: 'Write a private message to\nany of your friends',
+        title: t('private.empty.title'),
+        description: t('private.empty.description'),
       }),
       keyExtractor: (thread: PrivateThreadAndExtras, index: number) =>
         thread.messages[0].key ?? String(index),

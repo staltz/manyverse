@@ -6,6 +6,7 @@
 
 import {h} from '@cycle/react';
 import * as React from 'react';
+import {View, Text} from 'react-native';
 import {
   Menu,
   MenuOptions,
@@ -14,12 +15,12 @@ import {
   MenuTrigger,
   renderers,
 } from 'react-native-popup-menu';
-import {styles} from './styles';
-import {State} from '../model';
-import {View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Dimensions} from '../../../../global-styles/dimens';
 import {Palette} from '../../../../global-styles/palette';
+import {t} from '../../../../drivers/localization';
+import {State} from '../model';
+import {styles} from './styles';
 
 export type MenuChoice =
   | 'open-profile'
@@ -53,6 +54,7 @@ class MenuOptionContent extends React.PureComponent<MenuOptionContentProps> {
       {
         accessible: true,
         accessibilityLabel,
+        accessibilityRole: 'menuitem',
         style: styles.menuOptionContent,
       },
       [
@@ -77,22 +79,26 @@ function menuChoice(m: MenuChoice): MenuChoice {
   return m;
 }
 
-function connMenuOptions(targetPeer: any) {
+function createConnMenuOptions(targetPeer: any) {
   const options = [
     h(MenuOption, {
       value: menuChoice('open-profile'),
       ['children' as any]: h(MenuOptionContent, {
         icon: 'account-circle',
-        text: 'Open profile',
-        accessibilityLabel: 'Open profile screen for this connected peer',
+        text: t('connections.menu.open_profile.label'),
+        accessibilityLabel: t(
+          'connections.menu.open_profile.accessibility_label.connected',
+        ),
       }),
     }),
     h(MenuOption, {
       value: menuChoice('disconnect'),
       ['children' as any]: h(MenuOptionContent, {
         icon: 'pipe-disconnected',
-        text: 'Disconnect',
-        accessibilityLabel: 'Disconnect from this peer',
+        text: t('connections.menu.disconnect.label'),
+        accessibilityLabel: t(
+          'connections.menu.disconnect.accessibility_label.peer',
+        ),
       }),
     }),
   ];
@@ -103,9 +109,10 @@ function connMenuOptions(targetPeer: any) {
         value: menuChoice('disconnect-forget'),
         ['children' as any]: h(MenuOptionContent, {
           icon: 'delete',
-          text: 'Disconnect and forget',
-          accessibilityLabel:
-            'Disconnect from this peer and remove it from our database',
+          text: t('connections.menu.disconnect_forget.label'),
+          accessibilityLabel: t(
+            'connections.menu.disconnect_forget.accessibility_label.peer',
+          ),
         }),
       }),
     );
@@ -114,122 +121,160 @@ function connMenuOptions(targetPeer: any) {
   return options;
 }
 
-const stagedRoomMenuOptions = [
-  h(MenuOption, {
-    value: menuChoice('room-share-invite'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'content-copy',
-      text: 'Share invite code',
-      accessibilityLabel: 'Share the invite code for this room',
+function createStagedRoomMenuOptions() {
+  return [
+    h(MenuOption, {
+      value: menuChoice('room-share-invite'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'content-copy',
+        text: t('connections.menu.room_share_invite.label'),
+        accessibilityLabel: t(
+          'connections.menu.room_share_invite.accessibility_label',
+        ),
+      }),
     }),
-  }),
-  h(MenuOption, {
-    value: menuChoice('connect'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'pipe',
-      text: 'Connect',
-      accessibilityLabel: 'Connect to this suggested room',
+    h(MenuOption, {
+      value: menuChoice('connect'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'pipe',
+        text: t('connections.menu.connect.label'),
+        accessibilityLabel: t(
+          'connections.menu.connect.accessibility_label.staged_room',
+        ),
+      }),
     }),
-  }),
-  h(MenuOption, {
-    value: menuChoice('forget'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'delete',
-      text: 'Forget',
-      accessibilityLabel: 'Remove this room from our database',
+    h(MenuOption, {
+      value: menuChoice('forget'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'delete',
+        text: t('connections.menu.forget.label'),
+        accessibilityLabel: t(
+          'connections.menu.forget.accessibility_label.room',
+        ),
+      }),
     }),
-  }),
-];
+  ];
+}
 
-const roomMenuOptions = [
-  h(MenuOption, {
-    value: menuChoice('room-share-invite'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'content-copy',
-      text: 'Share invite code',
-      accessibilityLabel: 'Share the invite code for this room',
+function createRoomMenuOptions() {
+  return [
+    h(MenuOption, {
+      value: menuChoice('room-share-invite'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'content-copy',
+        text: t('connections.menu.room_share_invite.label'),
+        accessibilityLabel: t(
+          'connections.menu.room_share_invite.accessibility_label',
+        ),
+      }),
     }),
-  }),
-  h(MenuOption, {
-    value: menuChoice('disconnect'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'pipe-disconnected',
-      text: 'Disconnect',
-      accessibilityLabel: 'Disconnect from this room',
+    h(MenuOption, {
+      value: menuChoice('disconnect'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'pipe-disconnected',
+        text: t('connections.menu.disconnect.label'),
+        accessibilityLabel: t(
+          'connections.menu.disconnect.accessibility_label.room',
+        ),
+      }),
     }),
-  }),
-  h(MenuOption, {
-    value: menuChoice('disconnect-forget'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'delete',
-      text: 'Disconnect and forget',
-      accessibilityLabel:
-        'Disconnect from this room and remove it from our database',
+    h(MenuOption, {
+      value: menuChoice('disconnect-forget'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'delete',
+        text: t('connections.menu.disconnect_forget.label'),
+        accessibilityLabel: t(
+          'connections.menu.disconnect_forget.accessibility_label.room',
+        ),
+      }),
     }),
-  }),
-];
+  ];
+}
 
-const stagingMenuOptions = [
-  h(MenuOption, {
-    value: menuChoice('open-profile'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'account-circle',
-      text: 'Open profile',
-      accessibilityLabel: 'Open profile screen for this suggested connection',
+function createStagingMenuOptions() {
+  return [
+    h(MenuOption, {
+      value: menuChoice('open-profile'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'account-circle',
+        text: t('connections.menu.open_profile.label'),
+        accessibilityLabel: t(
+          'connections.menu.open_profile.accessibility_label.staged',
+        ),
+      }),
     }),
-  }),
-  h(MenuOption, {
-    value: menuChoice('connect'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'pipe',
-      text: 'Connect',
-      accessibilityLabel: 'Connect to this suggested peer',
+    h(MenuOption, {
+      value: menuChoice('connect'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'pipe',
+        text: t('connections.menu.connect.label'),
+        accessibilityLabel: t(
+          'connections.menu.connect.accessibility_label.staged_peer',
+        ),
+      }),
     }),
-  }),
-  h(MenuOption, {
-    value: menuChoice('follow-connect'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'account-plus',
-      text: 'Connect and follow',
-      accessibilityLabel: 'Connect to this suggested peer then follow them',
+    h(MenuOption, {
+      value: menuChoice('follow-connect'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'account-plus',
+        text: t('connections.menu.follow_connect.label'),
+        accessibilityLabel: t(
+          'connections.menu.follow_connect.accessibility_label',
+        ),
+      }),
     }),
-  }),
-];
+  ];
+}
 
-const inviteMenuOptions = [
-  h(MenuOption, {
-    value: menuChoice('invite-info'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'information',
-      text: 'About',
-      accessibilityLabel: 'About this Invite Code',
+function createInviteMenuOptions() {
+  return [
+    h(MenuOption, {
+      value: menuChoice('invite-info'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'information',
+        text: t('connections.menu.invite_info.label'),
+        accessibilityLabel: t(
+          'connections.menu.invite_info.accessibility_label',
+        ),
+      }),
     }),
-  }),
-  h(MenuOption, {
-    value: menuChoice('invite-note'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'pencil',
-      text: 'Add note',
-      accessibilityLabel: 'Add Note',
+    h(MenuOption, {
+      value: menuChoice('invite-note'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'pencil',
+        text: t('connections.menu.invite_note.label'),
+        accessibilityLabel: t(
+          'connections.menu.invite_note.accessibility_label',
+        ),
+      }),
     }),
-  }),
-  h(MenuOption, {
-    value: menuChoice('invite-share'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'share',
-      text: 'Share',
-      accessibilityLabel: 'Share Invite Code',
+    h(MenuOption, {
+      value: menuChoice('invite-share'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'share',
+        text: t('connections.menu.invite_share.label'),
+        accessibilityLabel: t(
+          'connections.menu.invite_share.accessibility_label',
+        ),
+      }),
     }),
-  }),
-  h(MenuOption, {
-    value: menuChoice('invite-delete'),
-    ['children' as any]: h(MenuOptionContent, {
-      icon: 'delete',
-      text: 'Delete',
-      accessibilityLabel: 'Delete Invite Code',
+    h(MenuOption, {
+      value: menuChoice('invite-delete'),
+      ['children' as any]: h(MenuOptionContent, {
+        icon: 'delete',
+        text: t('connections.menu.invite_delete.label'),
+        accessibilityLabel: t(
+          'connections.menu.invite_delete.accessibility_label',
+        ),
+      }),
     }),
-  }),
-];
+  ];
+}
+
+let roomMenuOptions: Array<React.ReactElement<any>> | undefined;
+let stagingMenuOptions: Array<React.ReactElement<any>> | undefined;
+let stagedRoomMenuOptions: Array<React.ReactElement<any>> | undefined;
+let inviteMenuOptions: Array<React.ReactElement<any>> | undefined;
 
 export default class SlideInMenu extends React.Component<
   Pick<State, 'itemMenu'>
@@ -253,6 +298,25 @@ export default class SlideInMenu extends React.Component<
   public render() {
     const {itemMenu} = this.props;
     const {type, target, opened} = itemMenu;
+
+    // These options could have been created at module `require` time,
+    // but that would be a problem to fetch the localization strings t()
+    // BEFORE localization has had time to load up. So we're fetching the
+    // localization strings once, at the first time this menu renders.
+    // Subsequent menu renders don't refetch the strings nor recreate options.
+    if (!inviteMenuOptions) {
+      inviteMenuOptions = createInviteMenuOptions();
+    }
+    if (!roomMenuOptions) {
+      roomMenuOptions = createRoomMenuOptions();
+    }
+    if (!stagingMenuOptions) {
+      stagingMenuOptions = createStagingMenuOptions();
+    }
+    if (!stagedRoomMenuOptions) {
+      stagedRoomMenuOptions = createStagedRoomMenuOptions();
+    }
+
     return h(
       Menu,
       {
@@ -265,7 +329,7 @@ export default class SlideInMenu extends React.Component<
         h(
           MenuOptions,
           type === 'conn'
-            ? connMenuOptions(target)
+            ? createConnMenuOptions(target)
             : type === 'room'
             ? roomMenuOptions
             : type === 'staging'

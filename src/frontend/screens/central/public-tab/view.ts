@@ -10,6 +10,7 @@ import {h} from '@cycle/react';
 import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
 import Feed from '../../../components/Feed';
 import {SSBSource} from '../../../drivers/ssb';
+import {t} from '../../../drivers/localization';
 import EmptySection from '../../../components/EmptySection';
 import {Dimensions} from '../../../global-styles/dimens';
 import {State} from './model';
@@ -47,8 +48,8 @@ export default function view(
         EmptyComponent: h(EmptySection, {
           style: styles.emptySection,
           image: require('../../../../../images/noun-plant.png'),
-          title: 'No messages',
-          description: 'Write a diary which you can\nshare with friends later',
+          title: t('public.empty.title'),
+          description: t('public.empty.description'),
         }),
       });
     });

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,10 +9,11 @@ import sample from 'xstream-sample';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
-import {SSBSource} from '../../drivers/ssb';
 import {SharedContent} from 'cycle-native-share';
 import {Command, NavSource} from 'cycle-native-navigation';
+import {SSBSource} from '../../drivers/ssb';
 import {LifecycleEvent} from '../../drivers/lifecycle';
+import {t} from '../../drivers/localization';
 import model, {State} from './model';
 import view from './view';
 
@@ -67,11 +68,10 @@ export function createInvite(sources: Sources): Sinks {
     .events('press')
     .compose(sample(sources.state.stream))
     .map(state => ({
+      title: t('connections.share_code.p2p.title'),
       message:
-        'Connect with me on Manyverse by pasting this invite code there:\n\n' +
-        state.inviteCode,
-      title: 'Manyverse Invite Code',
-      dialogTitle: 'Give this invite code to one friend',
+        t('connections.share_code.p2p.message') + '\n\n' + state.inviteCode,
+      dialogTitle: t('connections.share_code.p2p.dialog_note'),
     }));
 
   const reducer$ = model(sources.ssb);

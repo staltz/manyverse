@@ -12,11 +12,12 @@ import {StateSource, Reducer} from '@cycle/state';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {Toast, Duration} from '../../drivers/toast';
+import {t} from '../../drivers/localization';
+import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '../../ssb/utils/constants';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
 import navigation from './navigation';
-import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '../../ssb/utils/constants';
 
 export type Props = {
   selfFeedId: FeedId;
@@ -57,10 +58,9 @@ export function recipientsInput(sources: Sources): Sinks {
   const command$ = navigation(actions, state$);
   const toast$ = actions.maxReached$.mapTo({
     type: 'show',
-    message:
-      'Cannot choose more than ' +
-      MAX_PRIVATE_MESSAGE_RECIPIENTS +
-      ' recipients',
+    message: t('recipients_input.toasts.limit_reached', {
+      limit: MAX_PRIVATE_MESSAGE_RECIPIENTS,
+    }),
     duration: Duration.LONG,
   } as Toast);
 

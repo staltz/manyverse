@@ -24,7 +24,7 @@ module.exports = function(driver, t) {
       'I see the first description in the Welcome sceren',
     );
     const continueButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Continue Button")',
+      'new UiSelector().descriptionContains("Continue")',
     );
     t.ok(continueButton, 'I see the Continue button');
     await continueButton.click();
@@ -51,7 +51,7 @@ module.exports = function(driver, t) {
       'I see the second description in the Welcome sceren',
     );
     const continueButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Continue Button")',
+      'new UiSelector().descriptionContains("Continue")',
     );
     t.ok(continueButton, 'I see the Continue button');
     await continueButton.click();
@@ -78,7 +78,7 @@ module.exports = function(driver, t) {
       'I see the third description in the Welcome sceren',
     );
     const continueButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Continue Button")',
+      'new UiSelector().descriptionContains("Continue")',
     );
     t.ok(continueButton, 'I see the Continue button');
     await continueButton.click();
@@ -105,7 +105,7 @@ module.exports = function(driver, t) {
       'I see the forth description in the Welcome sceren',
     );
     const continueButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Continue Button")',
+      'new UiSelector().descriptionContains("Continue")',
     );
     t.ok(continueButton, 'I see the Continue button');
     await continueButton.click();
@@ -132,7 +132,7 @@ module.exports = function(driver, t) {
       'I see the fifth description in the Welcome sceren',
     );
     const continueButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Continue Button")',
+      'new UiSelector().descriptionContains("Continue")',
     );
     t.ok(continueButton, 'I see the Continue button');
     await continueButton.click();
@@ -161,7 +161,7 @@ module.exports = function(driver, t) {
         'I see the sixth description in the Welcome sceren',
       );
       const continueButton = await driver.elementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Continue Button")',
+        'new UiSelector().descriptionContains("Continue")',
       );
       t.ok(continueButton, 'I see the Continue button');
       await continueButton.click();

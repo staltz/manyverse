@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,14 +12,15 @@ import {Reducer, StateSource} from '@cycle/state';
 import {ReactElement} from 'react';
 import {StyleSheet, View, Text, Platform} from 'react-native';
 import {SSBSource} from '../../drivers/ssb';
+import {t} from '../../drivers/localization';
 import {Dimensions} from '../../global-styles/dimens';
-import FlagSecure from '../../components/FlagSecure';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
-import {navOptions as inputSecretScreenNavOptions} from '../secret-input';
+import FlagSecure from '../../components/FlagSecure';
 import Button from '../../components/Button';
-import {Screens} from '../enums';
 import TopBar from '../../components/TopBar';
+import {navOptions as inputSecretScreenNavOptions} from '../secret-input';
+import {Screens} from '../enums';
 
 export type Sources = {
   screen: ReactSource;
@@ -62,6 +63,7 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
     textAlign: 'center',
+    textTransform: 'uppercase',
   },
 
   bottomDescription: {
@@ -149,16 +151,21 @@ function intent(navSource: NavSource, screenSource: ReactSource) {
   };
 }
 
+function bold(innerText: string) {
+  return h(Text, {style: styles.bold}, innerText);
+}
+
 function view(state$: Stream<State>) {
   return state$.map(state =>
     h(View, {style: styles.screen}, [
-      h(TopBar, {sel: 'topbar', title: 'Recovery Phrase'}),
+      h(TopBar, {sel: 'topbar', title: t('secret_output.title')}),
 
       h(View, {style: styles.container}, [
         h(FlagSecure, [
           h(Text, {style: styles.topDescription, textBreakStrategy: 'simple'}, [
-            'CAREFULLY WRITE DOWN THE FOLLOWING RECOVERY PHRASE ON A ',
-            h(Text, {style: styles.bold}, 'PIECE OF PAPER'),
+            t('secret_output.header.1_normal'),
+            bold(t('secret_output.header.2_bold')),
+            t('secret_output.header.3_normal'),
           ]),
 
           h(
@@ -166,28 +173,31 @@ function view(state$: Stream<State>) {
             {
               style: styles.secretWords,
               accessible: true,
-              accessibilityLabel: 'Secret Words',
+              accessibilityRole: 'text',
+              accessibilityLabel: t('secret_output.words.accessibility_label'),
               selectable: true,
               selectionColor: Palette.backgroundTextSelection,
             },
-            state.words ?? 'loading...',
+            state.words ?? t('secret_output.loading'),
           ),
 
           h(Text, {style: styles.topDescription, textBreakStrategy: 'simple'}, [
-            'KEEP IT ',
-            h(Text, {style: styles.bold}, 'CONFIDENTIAL'),
-            ', AND\nTAKE SOLE ',
-            h(Text, {style: styles.bold}, 'RESPONSIBILITY'),
-            ' OVER IT',
+            t('secret_output.footer.1_normal'),
+            bold(t('secret_output.footer.2_bold')),
+            t('secret_output.footer.3_normal'),
+            bold(t('secret_output.footer.4_bold')),
+            t('secret_output.footer.5_normal'),
           ]),
 
           h(Button, {
             sel: 'confirm-recovery-phrase',
             style: styles.ctaButton,
-            text: 'Done',
+            text: t('call_to_action.done'),
             strong: true,
             accessible: true,
-            accessibilityLabel: 'Confirm Recovery Phrase Button',
+            accessibilityLabel: t(
+              'secret_output.call_to_action.confirm.accessibility_label',
+            ),
           }),
         ]),
       ]),

@@ -8,13 +8,14 @@ import {Component} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
-import Markdown from '../Markdown';
+import {Msg, AboutContent as About} from 'ssb-typescript';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import MessageContainer from './MessageContainer';
-import {Msg, AboutContent as About} from 'ssb-typescript';
 import {displayName} from '../../ssb/utils/from-ssb';
+import Markdown from '../Markdown';
+import MessageContainer from './MessageContainer';
 
 export const styles = StyleSheet.create({
   row: {
@@ -63,8 +64,23 @@ function renderWithImage(
 ) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
-      h(Text, accountTextProps, displayName(name, msg.value.author)),
-      h(Text, {style: styles.followed}, ' is using a new picture:'),
+      h(
+        Text,
+        {style: styles.followed},
+        t('message.about.new_picture.1_normal'),
+      ),
+      h(
+        Text,
+        accountTextProps,
+        t('message.about.new_picture.2_bold', {
+          name: displayName(name, msg.value.author),
+        }),
+      ),
+      h(
+        Text,
+        {style: styles.followed},
+        t('message.about.new_picture.3_normal'),
+      ),
     ]),
     h(Image, {
       style: styles.aboutImage,
@@ -82,10 +98,35 @@ function renderWithNameDesc(name: string | undefined, msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
       h(Text, [
-        h(Text, accountTextProps, displayName(name, msg.value.author)),
-        h(Text, {style: styles.followed}, ' is using the name "'),
-        h(Text, accountTextProps, msg.value.content.name),
-        h(Text, {style: styles.followed}, '" and the description: '),
+        h(
+          Text,
+          {style: styles.followed},
+          t('message.about.new_name_and_description.1_normal'),
+        ),
+        h(
+          Text,
+          accountTextProps,
+          t('message.about.new_name_and_description.2_bold', {
+            name: displayName(name, msg.value.author),
+          }),
+        ),
+        h(
+          Text,
+          {style: styles.followed},
+          t('message.about.new_name_and_description.3_normal'),
+        ),
+        h(
+          Text,
+          accountTextProps,
+          t('message.about.new_name_and_description.4_bold', {
+            name: msg.value.content.name,
+          }),
+        ),
+        h(
+          Text,
+          {style: styles.followed},
+          t('message.about.new_name_and_description.5_normal'),
+        ),
       ]),
     ]),
     h(Markdown, {text: msg.value.content.description ?? ''}),
@@ -100,8 +141,23 @@ function renderWithNameDesc(name: string | undefined, msg: Msg<About>) {
 function renderWithDesc(name: string | undefined, msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {key: 'a', style: styles.row}, [
-      h(Text, accountTextProps, displayName(name, msg.value.author)),
-      h(Text, {style: styles.followed}, ' has a new description: '),
+      h(
+        Text,
+        {style: styles.followed},
+        t('message.about.new_description.1_normal'),
+      ),
+      h(
+        Text,
+        accountTextProps,
+        t('message.about.new_description.2_bold', {
+          name: displayName(name, msg.value.author),
+        }),
+      ),
+      h(
+        Text,
+        {style: styles.followed},
+        t('message.about.new_description.3_normal'),
+      ),
     ]),
     h(Markdown, {key: 'b', text: msg.value.content.description ?? ''}),
     h(View, {key: 'c', style: styles.row}, [
@@ -116,10 +172,23 @@ function renderWithName(name: string | undefined, msg: Msg<About>) {
   return h(MessageContainer, [
     h(View, {style: styles.row}, [
       h(Text, [
-        h(Text, accountTextProps, displayName(name, msg.value.author)),
-        h(Text, {style: styles.followed}, ' is using the name "'),
-        h(Text, accountTextProps, msg.value.content.name),
-        h(Text, '"'),
+        h(Text, {style: styles.followed}, t('message.about.new_name.1_normal')),
+        h(
+          Text,
+          accountTextProps,
+          t('message.about.new_name.2_bold', {
+            name: displayName(name, msg.value.author),
+          }),
+        ),
+        h(Text, {style: styles.followed}, t('message.about.new_name.3_normal')),
+        h(
+          Text,
+          accountTextProps,
+          t('message.about.new_name.4_bold', {
+            name: msg.value.content.name,
+          }),
+        ),
+        h(Text, {style: styles.followed}, t('message.about.new_name.5_normal')),
       ]),
     ]),
     h(View, {style: styles.row}, [

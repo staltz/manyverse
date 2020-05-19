@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,6 +6,9 @@
 
 import {Stream} from 'xstream';
 import {StateSource, Reducer} from '@cycle/state';
+import {ReactSource} from '@cycle/react';
+import {ReactElement} from 'react';
+import {KeyboardSource} from 'cycle-native-keyboard';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {About, FeedId} from 'ssb-typescript';
 import {SSBSource, Req} from '../../drivers/ssb';
@@ -16,9 +19,6 @@ import navigation from './navigation';
 import model, {State} from './model';
 import ssb from './ssb';
 import dialogs from './dialogs';
-import {ReactSource} from '@cycle/react';
-import {ReactElement} from 'react';
-import {KeyboardSource} from 'cycle-native-keyboard';
 export {State} from './model';
 
 export type Props = {

@@ -15,6 +15,7 @@ import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import HeaderMenuButton from '../../../components/HeaderMenuButton';
 import {Typography} from '../../../global-styles/typography';
+import {t} from '../../../drivers/localization';
 
 export type State = {
   currentTab: 'public' | 'private' | 'connections';
@@ -77,10 +78,18 @@ function intent(reactSource: ReactSource) {
 
 function tabTitle(tab: State['currentTab']) {
   if (tab === 'public') {
-    return Platform.OS === 'ios' ? 'Manyverse' : 'Public board';
+    if (Platform.OS === 'ios') {
+      return t('central.app_name');
+    } else {
+      return t('central.tab_headers.public');
+    }
   }
-  if (tab === 'private') return 'Private messages';
-  if (tab === 'connections') return 'Connections';
+  if (tab === 'private') {
+    return t('central.tab_headers.private');
+  }
+  if (tab === 'connections') {
+    return t('central.tab_headers.connections');
+  }
   return '';
 }
 

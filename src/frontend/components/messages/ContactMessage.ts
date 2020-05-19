@@ -8,13 +8,14 @@ import {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
+import {ContactContent as Contact, Msg, FeedId} from 'ssb-typescript';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import {ContactContent as Contact, Msg, FeedId} from 'ssb-typescript';
-import MessageContainer from './MessageContainer';
 import {displayName} from '../../ssb/utils/from-ssb';
+import MessageContainer from './MessageContainer';
 
 export const styles = StyleSheet.create({
   row: {
@@ -53,16 +54,16 @@ export type Props = {
 type ContactEvent = 'followed' | 'blocked' | 'unfollowed' | 'unblocked';
 
 function pickFrom(
-  t: ContactEvent,
+  x: ContactEvent,
   followed: any,
   blocked: any,
   unfollowed: any,
   unblocked: any,
 ) {
-  if (t === 'followed') return followed;
-  if (t === 'blocked') return blocked;
-  if (t === 'unfollowed') return unfollowed;
-  if (t === 'unblocked') return unblocked;
+  if (x === 'followed') return followed;
+  if (x === 'blocked') return blocked;
+  if (x === 'unfollowed') return unfollowed;
+  if (x === 'unblocked') return unblocked;
 }
 
 export default class ContactMessage extends Component<Props, {}> {
@@ -106,6 +107,9 @@ export default class ContactMessage extends Component<Props, {}> {
       return null;
     }
 
+    const author = displayName(name, msg.value.author);
+    const target = displayName(contactName, msg.value.content.contact!);
+
     const contactEvent: ContactEvent =
       msgBlocking === undefined
         ? msgFollowing === true
@@ -115,34 +119,58 @@ export default class ContactMessage extends Component<Props, {}> {
         ? 'blocked'
         : 'unblocked';
 
+    const texts: [string, string, string, string, string] = pickFrom(
+      contactEvent,
+      [
+        t('message.contact.follow_event.1_normal'),
+        t('message.contact.follow_event.2_bold', {author}),
+        t('message.contact.follow_event.3_normal'),
+        t('message.contact.follow_event.4_bold', {target}),
+        t('message.contact.follow_event.5_normal'),
+      ],
+      [
+        t('message.contact.block_event.1_normal'),
+        t('message.contact.block_event.2_bold', {author}),
+        t('message.contact.block_event.3_normal'),
+        t('message.contact.block_event.4_bold', {target}),
+        t('message.contact.block_event.5_normal'),
+      ],
+      [
+        t('message.contact.unfollow_event.1_normal'),
+        t('message.contact.unfollow_event.2_bold', {author}),
+        t('message.contact.unfollow_event.3_normal'),
+        t('message.contact.unfollow_event.4_bold', {target}),
+        t('message.contact.unfollow_event.5_normal'),
+      ],
+      [
+        t('message.contact.unblock_event.1_normal'),
+        t('message.contact.unblock_event.2_bold', {author}),
+        t('message.contact.unblock_event.3_normal'),
+        t('message.contact.unblock_event.4_bold', {target}),
+        t('message.contact.unblock_event.5_normal'),
+      ],
+    );
+
     return h(MessageContainer, [
       h(View, {key: 'a', style: styles.row}, [
         h(Text, {style: styles.message}, [
+          h(Text, {key: 'a0'}, texts[0]),
           h(
             Text,
-            {key: 'x', style: styles.account, onPress: this._onPressOrigin},
-            displayName(name, msg.value.author),
+            {key: 'a1', style: styles.account, onPress: this._onPressOrigin},
+            texts[1],
           ),
-          h(
-            Text,
-            {key: 'y'},
-            pickFrom(
-              contactEvent,
-              ' followed ',
-              ' blocked ',
-              ' unfollowed ',
-              ' unblocked ',
-            ),
-          ),
+          h(Text, {key: 'a2'}, texts[2]),
           h(
             Text,
             {
-              key: 'z',
+              key: 'a3',
               style: styles.account,
               onPress: this._onPressDestination,
             },
-            displayName(contactName, msg.value.content.contact!),
+            texts[3],
           ),
+          h(Text, {key: 'a4'}, texts[4]),
         ]),
       ]),
       h(View, {key: 'b', style: styles.row}, [

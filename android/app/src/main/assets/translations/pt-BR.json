@@ -1,0 +1,22 @@
+{
+  "call_to_action": {
+    "continue": "Continuar"
+  },
+  "welcome": {
+    "learn_more": "Leia mais",
+    "overview": {
+      "title": "Bem vindo ao Manyverse!",
+      "description": "Redes sociais podem ser simples, neutras, não comerciais, e fundadas na solidariedade entre amigos. É pra isso que o Manyverse existe, e esperamos que você também possa fazer desse espaço o seu lar digital. Tudo isso é possível graças ao protocolo SSB."
+    },
+    "off_the_grid": {
+      "title": "Fora da rede",
+      "description": {
+        "1_normal": "Manyverse consegue comunicar pela internet, mas não ",
+        "2_bold": "vive",
+        "3_normal": " na internet. Tudo acontece aqui no seu celular. Isso significa que dá para usar mesmo quando desconectado da internet! ",
+        "4_bold": "Todo conteúdo é armazenado primeiro no seu celular",
+        "5_normal": ", e depois quando você encontrar seus amigos, vocês podem sincronizar os dados."
+      }
+    }
+  }
+}

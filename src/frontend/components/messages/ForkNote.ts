@@ -7,6 +7,7 @@
 import {PureComponent, createElement as $} from 'react';
 import {MsgId} from 'ssb-typescript';
 import {View, Text, StyleSheet} from 'react-native';
+import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -51,7 +52,7 @@ export default class ForkNote extends PureComponent<Props> {
       View,
       {style: styles.container},
       $(Text, {style: styles.label, ellipsizeMode: 'tail', numberOfLines: 1}, [
-        'Forked from ',
+        t('message.fork_note.1_normal'),
         $(
           Text,
           {
@@ -61,8 +62,9 @@ export default class ForkNote extends PureComponent<Props> {
               onPress?.({rootMsgId: rootId});
             },
           },
-          rootId,
+          t('message.fork_note.2_bold', {cypherlink: rootId}),
         ),
+        t('message.fork_note.3_normal'),
       ]),
     );
   }

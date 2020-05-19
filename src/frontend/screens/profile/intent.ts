@@ -9,6 +9,7 @@ import sample from 'xstream-sample';
 import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
+import {t} from '../../drivers/localization';
 import {PressReactionsEvent, PressAddReactionEvent} from '../../ssb/types';
 import {State} from './model';
 
@@ -44,7 +45,7 @@ export default function intent(
       .select('feed')
       .events('pressReactions') as Stream<PressReactionsEvent>).map(
       ({msgKey, reactions}) => ({
-        title: 'Reactions',
+        title: t('accounts.reactions.title'),
         msgKey,
         accounts: reactions,
       }),

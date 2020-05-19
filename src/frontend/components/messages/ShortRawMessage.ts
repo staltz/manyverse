@@ -16,11 +16,12 @@ import {
 } from 'react-native';
 import HumanTime from 'react-human-time';
 import {Msg, PostContent} from 'ssb-typescript';
+import {isPrivate} from 'ssb-typescript/utils';
+import {t} from '../../drivers/localization';
 import {displayName} from '../../ssb/utils/from-ssb';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
-import {isPrivate} from 'ssb-typescript/utils';
 import Avatar from '../Avatar';
 
 const Touchable = Platform.select<any>({
@@ -118,8 +119,10 @@ export default class RawMessage extends Component<Props> {
       Text,
       {style: styles.msgType},
       isPrivate(msg)
-        ? 'encrypted'
-        : 'type: ' + (msg.value.content as PostContent).type,
+        ? t('raw_db.item.type.encrypted')
+        : t('raw_db.item.type.any', {
+            type: (msg.value.content as PostContent).type,
+          }),
     );
 
     const timestampText = h(Text, {style: styles.timestamp}, [

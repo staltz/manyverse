@@ -8,6 +8,7 @@ import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {View, TextInput, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {t} from '../../drivers/localization';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import EmptySection from '../../components/EmptySection';
@@ -23,16 +24,18 @@ export default function view(state$: Stream<State>) {
     const nextButtonEnabled = state.recipients.length > 0;
 
     return h(View, {style: styles.screen}, [
-      h(TopBar, {sel: 'topbar', title: 'New message'}, [
+      h(TopBar, {sel: 'topbar', title: t('recipients_input.title')}, [
         h(Button, {
           sel: 'recipientsInputNextButton',
           style: nextButtonEnabled
             ? styles.nextButtonEnabled
             : styles.nextButtonDisabled,
-          text: 'Next',
+          text: t('recipients_input.call_to_action.proceed.label'),
           strong: nextButtonEnabled,
           accessible: true,
-          accessibilityLabel: 'Next Button',
+          accessibilityLabel: t(
+            'recipients_input.call_to_action.proceed.accessibility_label',
+          ),
         }),
       ]),
 
@@ -49,8 +52,10 @@ export default function view(state$: Stream<State>) {
             sel: 'mentionInput',
             value: state.mentionQuery,
             accessible: true,
-            accessibilityLabel: 'Mention Account Text Input',
-            placeholder: 'Search for people to add',
+            accessibilityLabel: t(
+              'recipients_input.fields.mention_input.accessibility_label',
+            ),
+            placeholder: t('recipients_input.fields.mention_input.placeholder'),
             multiline: false,
             returnKeyType: 'done',
             selectionColor: Palette.backgroundTextSelection,
@@ -70,10 +75,10 @@ export default function view(state$: Stream<State>) {
               ? null
               : h(EmptySection, {
                   style: styles.empty,
-                  title: 'No one',
-                  description: [
-                    'There is nobody in your\ncommunity with that name',
-                  ],
+                  title: t('recipients_input.empty.none_to_choose.title'),
+                  description: t(
+                    'recipients_input.empty.none_to_choose.description',
+                  ),
                 }),
           ],
         ),
