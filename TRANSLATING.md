@@ -10,7 +10,7 @@ Make an account at Crowdin, then join our Crowdin project by opening this link: 
 
 - On the main page for the project, **click on a language** that you are fluent in
 - Once the language page opens, click on **ALL STRINGS** then **Crowdsourcing**
-- You now see the crowdsourcing dashboard where you can already start translating **strings that ar marked with a red dot**
+- You now see the crowdsourcing dashboard where you can already start translating **strings that are marked with a red dot**
 
 ## Tips
 
