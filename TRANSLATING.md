@@ -6,7 +6,7 @@ We use the online platform [Crowdin](https://crowdin.com) to easily craft the tr
 
 ## Manyverse Crowdin project
 
-- Make an account at Crowdin by following this link: https://manyverse.crowdin.com/u/signup?hash=3c7e23ce8b52e4a440b249571032d1244
+- Make an account at Crowdin by following this link: https://manyverse.crowdin.com/u/signup
 - Open our translation project: https://manyverse.crowdin.com/u/projects/4
 - On the main page for the project, **click on a language** that you are fluent in
 - Once the language page opens, click on **ALL STRINGS** then **Crowdsourcing**
