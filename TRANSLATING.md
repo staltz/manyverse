@@ -28,6 +28,14 @@ Note that you **must preserve** the `{{amount}}` in your text. For instance, if 
 Há {{amount}} amigos online
 ```
 
+### Context
+
+The purpose of the string is signalled by the "context" field which is usually a chain such as `connections -> peers -> types -> room -> others_online`. The first part in this chain is usually an individual screen in the app. So the string `({{amount}} online)` might be ambiguous when read in isolation, but we know from the context that it is in the `connections` screen, describing on the peer types, in specific a `room` and indicating the amount of `others_online`.
+
+### Duplicate strings
+
+Sometimes the same string in English may be repeated in multiple places. This is not a problem, and it's okay to repeat it in your target language too. But note that not all languages would have repeated strings, the context may alter the specific translation. For instance, English may repeat the string "Comment" which is simultaneously a noun and a verb, but in Portuguese, the noun is "Comentário" and the verb is "Comentar", so if the context dictates a verb or a noun, the translation will be different.
+
 ### Sentences with bold formatting
 
 Some texts in the app are split into parts, because we need to make some parts **bold**. You can notice that this is the case when the "context" looks something like:
@@ -38,7 +46,23 @@ Some texts in the app are split into parts, because we need to make some parts *
 - welcome -> off_the_grid -> description -> **4_bold**
 - welcome -> off_the_grid -> description -> **5_normal**
 
-Pay careful attention that these 5 texts will be joined together as one sentence, so there **may need to be a whitespace at the end** or beginning of some of these. Also, depending on your language, you may not need all of these parts. For instance, if you want to **start the sentence with bold**, you can just make the "1_normal" string empty, and put the bold starter text in "2_bold".
+Pay careful attention that these 5 texts will be joined together as one sentence, so there **may need to be a whitespace at the end** or beginning of some of these. Also, depending on your language, you may not need all of these parts. For instance, if you want to **start the sentence with bold**, you can just make the "1_normal" string empty, and put the bold starter text in "2_bold". For example, assume the original string in English:
+
+- 1_normal: "The "
+- 2_bold: "book"
+- 3_normal: " is on the table"
+
+Some languages might not start with a preposition such as "The". In that case it's perfectly fine to leave `1_normal` empty and start the string with bold. For example, the above translated to Finnish would be:
+
+- 1_normal: ""
+- 2_bold: "Kirja"
+- 3_normal: " on pöydällä"
+
+If the split doesn't work in your language or if you don't want to use bold, then it's also fine to put the entire sentence in one of the parts, for example:
+
+- 1_normal: "The book is on the table"
+- 2_bold: ""
+- 3_normal: ""
 
 ## When you're done
 
