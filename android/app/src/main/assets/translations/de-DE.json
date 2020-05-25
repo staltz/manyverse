@@ -22,6 +22,64 @@
       "accessibility_label": "Schließen-Dialog-Taste"
     }
   },
+  "date": {
+    "relative": {
+      "past": {
+        "years": {
+          "one": "1 year ago",
+          "other": "{{count}} years ago"
+        },
+        "months": {
+          "one": "1 month ago",
+          "other": "{{count}} months ago"
+        },
+        "weeks": {
+          "one": "1 week ago",
+          "other": "{{count}} weeks ago"
+        },
+        "days": {
+          "one": "1 day ago",
+          "other": "{{count}} days ago"
+        },
+        "hours": {
+          "one": "1 hour ago",
+          "other": "{{count}} hours ago"
+        },
+        "minutes": {
+          "one": "1 minute ago",
+          "other": "{{count}} minutes ago"
+        },
+        "now": "Just now"
+      },
+      "future": {
+        "years": {
+          "one": "1 year from now",
+          "other": "{{count}} years from now"
+        },
+        "months": {
+          "one": "1 month from now",
+          "other": "{{count}} months from now"
+        },
+        "weeks": {
+          "one": "1 week from now",
+          "other": "{{count}} weeks from now"
+        },
+        "days": {
+          "one": "1 day from now",
+          "other": "{{count}} days from now"
+        },
+        "hours": {
+          "one": "1 hour from now",
+          "other": "{{count}} hours from now"
+        },
+        "minutes": {
+          "one": "1 minute from now",
+          "other": "{{count}} minutes from now"
+        },
+        "now": "Very soon"
+      }
+    }
+  },
   "welcome": {
     "learn_more": "Weitere Informationen",
     "overview": {
@@ -201,7 +259,10 @@
           "server": "Raumserver",
           "endpoint": "Raumpeer",
           "alone_online": "(nur Du bist online)",
-          "others_online": "({{amount}} online)"
+          "others_online": {
+            "one": "({{count}} online)",
+            "other": "({{count}} online)"
+          }
         },
         "pub": "Pub Server",
         "server": "Server",

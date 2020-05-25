@@ -22,6 +22,64 @@
       "accessibility_label": "Botão de Fechar Diálogo"
     }
   },
+  "date": {
+    "relative": {
+      "past": {
+        "years": {
+          "one": "1 ano atrás",
+          "other": "{{count}} anos atrás"
+        },
+        "months": {
+          "one": "1 mês atrás",
+          "other": "{{count}} meses atrás"
+        },
+        "weeks": {
+          "one": "1 semana atrás",
+          "other": "{{count}} semanas atrás"
+        },
+        "days": {
+          "one": "1 dia atrás",
+          "other": "{{count}} dias atrás"
+        },
+        "hours": {
+          "one": "1 hora atrás",
+          "other": "{{count}} horas atrás"
+        },
+        "minutes": {
+          "one": "1 minuto atrás",
+          "other": "{{count}} minutos atrás"
+        },
+        "now": "Agora há pouco"
+      },
+      "future": {
+        "years": {
+          "one": "Daqui a 1 ano",
+          "other": "Daqui a {{count}} anos"
+        },
+        "months": {
+          "one": "Daqui a 1 mês",
+          "other": "Daqui a {{count}} meses"
+        },
+        "weeks": {
+          "one": "Daqui a 1 semana",
+          "other": "Daqui a {{count}} semanas"
+        },
+        "days": {
+          "one": "Daqui a 1 dia",
+          "other": "Daqui a {{count}} dias"
+        },
+        "hours": {
+          "one": "Daqui a 1 hora",
+          "other": "Daqui a {{count}} horas"
+        },
+        "minutes": {
+          "one": "Daqui a 1 minuto",
+          "other": "Daqui a {{count}} minutos"
+        },
+        "now": "Daqui a pouco"
+      }
+    }
+  },
   "welcome": {
     "learn_more": "Leia mais",
     "overview": {
@@ -201,7 +259,10 @@
           "server": "Servidor 'sala'",
           "endpoint": "Conta numa sala",
           "alone_online": "(só você online)",
-          "others_online": "({{amount}} online)"
+          "others_online": {
+            "one": "({{count}} online)",
+            "other": "({{count}} online)"
+          }
         },
         "pub": "Servidor pub",
         "server": "Servidor",
