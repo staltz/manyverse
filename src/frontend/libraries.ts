@@ -425,13 +425,6 @@ export default [
     homepage: 'https://reactjs.org/',
   },
   {
-    name: 'react-human-time',
-    type: 'library',
-    version: '1.2.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/staltz/react-human-time',
-  },
-  {
     name: 'react-markdown',
     type: 'library',
     version: '4.0.2',

@@ -26,8 +26,13 @@ function traverse(obj, ancestors, isFirst) {
     if (typeof obj[name] === 'object') {
       traverse(obj[name], ancestors.concat(name));
     } else {
-      const key = ancestors.concat(name).join('.');
-      keys.push(key);
+      const isCountable = name === 'one' || name === 'other';
+      const key = isCountable
+        ? ancestors.join('.')
+        : ancestors.concat(name).join('.');
+      if (!isCountable || !keys[keys.length - 1].includes(key)) {
+        keys.push(key);
+      }
     }
   }
   if (isFirst) {

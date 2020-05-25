@@ -14,7 +14,6 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import HumanTime from 'react-human-time';
 import {Msg, PostContent} from 'ssb-typescript';
 import {isPrivate} from 'ssb-typescript/utils';
 import {t} from '../../drivers/localization';
@@ -22,6 +21,7 @@ import {displayName} from '../../ssb/utils/from-ssb';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
+import LocalizedHumanTime from '../LocalizedHumanTime';
 import Avatar from '../Avatar';
 
 const Touchable = Platform.select<any>({
@@ -126,7 +126,7 @@ export default class RawMessage extends Component<Props> {
     );
 
     const timestampText = h(Text, {style: styles.timestamp}, [
-      h(HumanTime, {time: msg.value.timestamp}),
+      h(LocalizedHumanTime, {time: msg.value.timestamp}),
     ]);
 
     return h(View, [

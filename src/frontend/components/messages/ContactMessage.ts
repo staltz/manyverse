@@ -6,7 +6,6 @@
 
 import {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
 import {ContactContent as Contact, Msg, FeedId} from 'ssb-typescript';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -15,6 +14,7 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import {displayName} from '../../ssb/utils/from-ssb';
+import LocalizedHumanTime from '../LocalizedHumanTime';
 import MessageContainer from './MessageContainer';
 
 export const styles = StyleSheet.create({
@@ -202,7 +202,7 @@ export default class ContactMessage extends Component<Props, {}> {
           }),
         ),
         h(Text, {key: 'ts', style: styles.timestamp}, [
-          h(HumanTime, {time: msg.value.timestamp}),
+          h(LocalizedHumanTime, {time: msg.value.timestamp}),
         ]),
       ]),
     ]);

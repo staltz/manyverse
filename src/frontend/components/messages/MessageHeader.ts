@@ -6,7 +6,6 @@
 
 import {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
-import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -15,6 +14,7 @@ import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import LocalizedHumanTime from '../LocalizedHumanTime';
 import Avatar from '../Avatar';
 
 export const styles = StyleSheet.create({
@@ -123,7 +123,7 @@ export default class MessageHeader extends Component<Props> {
           ),
         ]),
         h(Text, {key: 't', style: styles.messageHeaderTimestamp}, [
-          h(HumanTime, {time: msg.value.timestamp}),
+          h(LocalizedHumanTime, {time: msg.value.timestamp}),
         ]),
       ]),
       h(TouchableOpacity, etcTouchableProps, [

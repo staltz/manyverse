@@ -81,7 +81,6 @@
     "pull-thenable": "1.0.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
-    "react-human-time": "^1.2.0",
     "react-markdown": "4.0.2",
     "react-native": "0.61.5",
     "react-native-android-local-notification": "3.0.0",

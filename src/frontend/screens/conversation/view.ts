@@ -20,7 +20,6 @@ import {
   IMessage as GiftedMsg,
   Send,
 } from 'react-native-gifted-chat';
-import HumanTime from 'react-human-time';
 import {PostContent} from 'ssb-typescript';
 import {MsgAndExtras} from '../../ssb/types';
 import {t} from '../../drivers/localization';
@@ -31,6 +30,7 @@ import Markdown from '../../components/Markdown';
 import Avatar from '../../components/Avatar';
 import TopBar from '../../components/TopBar';
 import HeaderButton from '../../components/HeaderButton';
+import LocalizedHumanTime from '../../components/LocalizedHumanTime';
 import {State} from './model';
 
 const GiftedChat = (GiftedChatWithWrongTypes as any) as ComponentClass<
@@ -157,7 +157,7 @@ function renderAvatar(props: any) {
 
 function renderTime(props: any) {
   return h(Text, {style: styles.time}, [
-    h(HumanTime, {time: props.currentMessage.createdAt as number}),
+    h(LocalizedHumanTime, {time: props.currentMessage.createdAt as number}),
   ]);
 }
 

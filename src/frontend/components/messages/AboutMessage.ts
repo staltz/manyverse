@@ -6,7 +6,6 @@
 
 import {Component} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
-import HumanTime from 'react-human-time';
 import {h} from '@cycle/react';
 import {Msg, AboutContent as About} from 'ssb-typescript';
 import {t} from '../../drivers/localization';
@@ -14,6 +13,7 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 import {displayName} from '../../ssb/utils/from-ssb';
+import LocalizedHumanTime from '../LocalizedHumanTime';
 import Markdown from '../Markdown';
 import MessageContainer from './MessageContainer';
 
@@ -88,7 +88,7 @@ function renderWithImage(
     }),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
-        h(HumanTime, {time: msg.value.timestamp}),
+        h(LocalizedHumanTime, {time: msg.value.timestamp}),
       ]),
     ]),
   ]);
@@ -132,7 +132,7 @@ function renderWithNameDesc(name: string | undefined, msg: Msg<About>) {
     h(Markdown, {text: msg.value.content.description ?? ''}),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
-        h(HumanTime, {time: msg.value.timestamp}),
+        h(LocalizedHumanTime, {time: msg.value.timestamp}),
       ]),
     ]),
   ]);
@@ -162,7 +162,7 @@ function renderWithDesc(name: string | undefined, msg: Msg<About>) {
     h(Markdown, {key: 'b', text: msg.value.content.description ?? ''}),
     h(View, {key: 'c', style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
-        h(HumanTime, {time: msg.value.timestamp}),
+        h(LocalizedHumanTime, {time: msg.value.timestamp}),
       ]),
     ]),
   ]);
@@ -193,7 +193,7 @@ function renderWithName(name: string | undefined, msg: Msg<About>) {
     ]),
     h(View, {style: styles.row}, [
       h(Text, {style: styles.timestamp}, [
-        h(HumanTime, {time: msg.value.timestamp}),
+        h(LocalizedHumanTime, {time: msg.value.timestamp}),
       ]),
     ]),
   ]);
