@@ -1,107 +1,107 @@
 {
   "call_to_action": {
-    "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "ok": "Ок",
+    "add": "Добавить",
+    "done": "Готово",
+    "cancel": "Отменить",
+    "continue": "Продолжить",
+    "delete": "Удалить",
+    "save": "Сохранить",
+    "yes": "Да",
+    "no": "Нет",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "Кнопка меню"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "Кнопка Назад"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Кнопка Закрытия"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "Кнопка закрытия диалогового окна"
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Узнать больше",
     "overview": {
-      "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "title": "Добро пожаловать в Manyverse!",
+      "description": "Социальные сети могут быть простыми, нейтральными, некоммерческими и опираться на доверие между друзьями. Это то, за что стоит Manyverse, и мы надеемся, что вы тоже можете сделать это вашим цифровым домом. Все это стало возможным благодаря новому протоколу SSB."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Покинуть сеть",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Маниверс может использовать интернет-соединение, но оно не ",
+        "2_bold": "в",
+        "3_normal": " интернет. Все происходит прямо на вашем устройстве. Это означает, что вы можете использовать его даже в автономном режиме! Ваш ",
+        "4_bold": "контент хранится на вашем устройстве",
+        "5_normal": ", и вы можете синхронизировать его с друзьями после того, как вы соединитесь с ними."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Много способов подключения",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
+          "1_normal": "Чтобы соединиться с друзьями и синхронизировать контент, вы можете присоединится к тому же ",
           "2_bold": "Wi-Fi",
-          "3_normal": " or exchange",
-          "4_bold": "P2P invites",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "3_normal": " или обменяться",
+          "4_bold": "P2P приглашениями",
+          "5_normal": ". Чтобы найти новых людей в интернете, найдите код приглашения в ",
+          "6_bold": "pub-сервер",
+          "7_normal": " или в ",
+          "8_bold": "сервер комнаты",
+          "9_normal": ", или запустите свой собственный сервер!"
         },
         "default": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
+          "1_normal": "Чтобы соединиться с друзьями и синхронизировать контент, вы можете присоединится к тому же ",
           "2_bold": "Wi-Fi",
-          "3_normal": ", use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ", or exchange ",
-          "6_bold": "P2P invites",
-          "7_normal": ". To find new people on the internet, look for an invite code to a ",
-          "8_bold": "pub server",
-          "9_normal": " or a ",
-          "10_bold": "room server",
-          "11_normal": ", or start your own server!"
+          "3_normal": ", использовать ",
+          "4_bold": "Синхронизация по Bluetooth",
+          "5_normal": ", или обменяться ",
+          "6_bold": "P2P приглашениями",
+          "7_normal": ". Чтобы найти новых людей в интернете, найдите код приглашения в ",
+          "8_bold": "pub-сервер",
+          "9_normal": " или в ",
+          "10_bold": "сервер комнаты",
+          "11_normal": ", или запустите свой собственный сервер!"
         }
       }
     },
     "moderation": {
-      "title": "Shared moderation",
+      "title": "Общая модерация",
       "description": {
-        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "1_normal": "Так как ваше устройство содержит вашу социальную сеть, никто другой не может забанить или удалить учетные записи от вашего имени. Только вы можете модерировать ваше пространство ",
+        "2_bold": "блокировка аккаунтов",
+        "3_normal": " вы не хотите иметь на вашем устройстве. Затем ваши друзья могут заблокировать эти аккаунты. Вот как модерация может распространяться естественным образом!"
       }
     },
     "permanence": {
-      "title": "Permanence",
+      "title": "Постоянство",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
+        "1_normal": "После того, как ваш контент синхронизируется с друзьями, он будет храниться на их устройствах. Потому что они могут выйти в автономный режим ",
+        "2_bold": "невозможно удалить",
         "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "В разработке!",
       "description": {
-        "1_normal": "Manyverse is ",
+        "1_normal": "Manyverse это ",
         "2_bold": "beta-quality software",
         "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
+      "title": "Это ваш первый раз?",
       "description": "Do you want to create a new account, or would you like to restore your old account from a 48-word recovery phrase?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "Создать аккаунт",
+          "accessibility_label": "Кнопка \"Создать аккаунт\""
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "Восстановить аккаунт",
+          "accessibility_label": "Кнопка \"Восстановить аккаунт\""
         }
       }
     }
@@ -109,178 +109,178 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public board",
-      "private": "Private messages",
-      "connections": "Connections"
+      "public": "Публичная доска",
+      "private": "Личные сообщения",
+      "connections": "Соединения"
     },
-    "loading": "Loading...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "loading": "Загрузка...",
+    "building_indexes": "Построение индексов базы данных...\nЭто может занять некоторое время",
     "tabs": {
       "public": {
-        "accessibility_label": "Public Tab Button"
+        "accessibility_label": "Кнопка \"Публичная вкладка\""
       },
       "private": {
-        "accessibility_label": "Private Tab Button"
+        "accessibility_label": "Кнопка \"Частная вкладка\""
       },
       "connections": {
-        "accessibility_label": "Connections Tab Button"
+        "accessibility_label": "Кнопка \"Вкладка подключений\""
       }
     }
   },
   "public": {
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Написать публичное сообщение"
     },
     "empty": {
-      "title": "No messages",
-      "description": "Write a diary to be\nshared with friends later"
+      "title": "Нет сообщений",
+      "description": "Напишите дневник\n, чтобы поделися с друзьями позже"
     }
   },
   "private": {
     "floating_action_button": {
-      "compose": "Start a private conversation"
+      "compose": "Начать приватную беседу"
     },
     "empty": {
-      "title": "No conversations",
-      "description": "Start a private conversation\nwith any of your friends"
+      "title": "Нет бесед",
+      "description": "Начните приватную беседу\nс любым из ваших друзей"
     },
     "conversation": {
-      "accessibility_label": "Go To Conversation"
+      "accessibility_label": "Перейти к беседе"
     }
   },
   "accounts": {
     "reactions": {
-      "title": "Reactions"
+      "title": "Реакции"
     },
     "recipients": {
-      "title": "Recipients"
+      "title": "Получатели"
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "Открыть учетную запись"
       }
     }
   },
   "connections": {
     "floating_action_button": {
-      "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
-      "bluetooth_seek": "Bluetooth seek"
+      "create_invite": "Создать приглашение",
+      "paste_invite": "Вставьте приглашение",
+      "bluetooth_seek": "Поиск по Bluetooth"
     },
     "empty": {
       "offline": {
-        "title": "Offline",
+        "title": "Автономный",
         "description": "Turn on some connection mode\nor enjoy reading some existing content"
       },
       "connecting": {
-        "title": "Connecting",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "Соединение",
+        "description": "Подождите, пока приложение\nпытается подключиться к вашим пирам"
       },
       "no_peers": {
-        "title": "No connections",
-        "description": "Try syncing with people nearby\nor use a server invite code"
+        "title": "Нет соединений",
+        "description": "Попробуйте синхронизировать с людьми поблизости\nили используйте код приглашения сервера"
       }
     },
     "toasts": {
-      "invite_accepted": "Invite accepted",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?"
+      "invite_accepted": "Приглашение принято",
+      "invite_rejected": "Приглашение отклонено. Вы уверены, что оно было правильным?"
     },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
         "lan": "Wi-Fi",
         "dht": {
-          "connected": "Internet P2P",
+          "connected": "Интернет P2P",
           "staging": {
-            "host": "Internet P2P: waiting for online friend...",
-            "client": "Internet P2P: looking for online friend...",
-            "unknown": "Internet P2P: searching..."
+            "host": "Интернет P2P: ждет онлайн друга...",
+            "client": "Internet P2P: ищет друга в Интернете...",
+            "unknown": "Интернет P2P: поиск..."
           }
         },
         "room": {
-          "server": "Room server",
-          "endpoint": "Room peer",
-          "alone_online": "(only you online)",
-          "others_online": "({{amount}} online)"
+          "server": "Сервер комнаты",
+          "endpoint": "Участник комнаты",
+          "alone_online": "(только вы онлайн)",
+          "others_online": "({{amount}} онлайн)"
         },
-        "pub": "Pub server",
-        "server": "Server",
-        "unknown": "Unknown"
+        "pub": "Паб-сервер",
+        "server": "Сервер",
+        "unknown": "Неизвестно"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(ENABLED)"
+        "enabled": "(РАЗРЕШЕНО)"
       },
       "bluetooth": {
         "title": "Bluetooth",
-        "accessibility_label": "Bluetooth Mode",
-        "disabled": "(Turn on Bluetooth to use this)",
-        "description": "Discover users nearby and connect with them using Bluetooth.",
+        "accessibility_label": "Режим Bluetooth",
+        "disabled": "(Для использования включите Bluetooth)",
+        "description": "Обнаружить ближайших пользователей и связаться с ними используя Bluetooth.",
         "permission_request": {
-          "title": "Allow locating via Bluetooth?",
-          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
+          "title": "Разрешить обнаружение через Bluetooth?",
+          "message": "Маниверу необходимо использовать Bluetooth, чтобы выяснить, где вы находитесь (\"грубое местоположение\") и кто из участников вокруг вас."
         }
       },
       "wifi": {
         "title": "Wi-Fi",
-        "accessibility_label": "Wi-Fi Mode",
-        "disabled": "(Turn on Wi-Fi to use this)",
-        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
+        "accessibility_label": "Режим Wi-Fi",
+        "disabled": "(Включите Wi-Fi, чтобы использовать это)",
+        "description": "Подключитесь к друзьям в этой сети, или, другими словами, друзьям использующим этот-же Wi-fi."
       },
       "p2p": {
-        "title": "Internet P2P",
-        "accessibility_label": "Internet P2P Mode",
-        "disabled": "(Go online to use this)",
-        "description": "Connect directly to friends currently online, using a peer-to-peer technology called \"Distributed Hash Table\".",
+        "title": "Интернет P2P",
+        "accessibility_label": "Режим Internet P2P",
+        "disabled": "(Выйти в онлайн, чтобы использовать это)",
+        "description": "Подключайтесь напрямую к друзьям, которые в настоящее время онлайн используют, peer-to-peer технологию \"Distributed Hash Table\".",
         "connecting": "Connecting via internet P2P...",
         "searching_friend": "Currently searching for online friend who generated this invite code, to establish a data connection with them.",
         "waiting_friend": "Currently waiting for online friend to claim this invite code and establish a data connection."
       },
       "servers": {
-        "title": "Internet servers",
-        "accessibility_label": "Internet Servers Mode",
-        "disabled": "(Go online to use this)",
+        "title": "Интернет-серверы",
+        "accessibility_label": "Режим Интернет сервера",
+        "disabled": "(Выйти в онлайн, чтобы использовать это)",
         "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
       }
     },
     "menu": {
       "open_profile": {
-        "label": "Open profile",
+        "label": "Открыть профиль",
         "accessibility_label": {
-          "connected": "Open profile screen for this connected peer",
+          "connected": "Открыть экран профиля для этого участника",
           "staged": "Open profile screen for this suggested connection"
         }
       },
       "connect": {
-        "label": "Connect",
+        "label": "Подключить",
         "accessibility_label": {
-          "staged_peer": "Connect to this suggested peer",
+          "staged_peer": "Подключиться к предлагаемому участнику",
           "staged_room": "Connect to this suggested room"
         }
       },
       "follow_connect": {
-        "label": "Connect and follow",
-        "accessibility_label": "Connect to this suggested peer then follow them"
+        "label": "Подключиться и следовать",
+        "accessibility_label": "Подключиться к этому рекомендованному участнику, а затем следовать за ними"
       },
       "disconnect": {
-        "label": "Disconnect",
+        "label": "Отключить",
         "accessibility_label": {
-          "peer": "Disconnect from this peer",
-          "room": "Disconnect from this room"
+          "peer": "Отключиться от этого участника",
+          "room": "Отключиться от этой комнаты"
         }
       },
       "disconnect_forget": {
-        "label": "Disconnect and forget",
+        "label": "Отключиться и забыть",
         "accessibility_label": {
-          "peer": "Disconnect from this peer and remove it from our database",
+          "peer": "Отсоединиться от этого участника и удалить его из базы данных",
           "room": "Disconnect from this room and remove it from our database"
         }
       },
       "forget": {
-        "label": "Forget",
+        "label": "Забыть",
         "accessibility_label": {
-          "room": "Remove this room from our database"
+          "room": "Удалить эту комнату из базы данных"
         }
       },
       "room_share_invite": {
@@ -288,96 +288,96 @@
         "accessibility_label": "Share the invite code for this room"
       },
       "invite_info": {
-        "label": "About",
+        "label": "Об этом",
         "accessibility_label": "About this Invite Code"
       },
       "invite_note": {
-        "label": "Add note",
+        "label": "Добавить примечание",
         "accessibility_label": "Add Reminder Note To Self"
       },
       "invite_share": {
-        "label": "Share",
-        "accessibility_label": "Share Invite Code"
+        "label": "Поделиться",
+        "accessibility_label": "Поделиться кодом приглашения"
       },
       "invite_delete": {
-        "label": "Delete",
-        "accessibility_label": "Delete Invite Code"
+        "label": "Удалить",
+        "accessibility_label": "Удалить код приглашения"
       }
     },
     "notes": {
       "add": {
-        "title": "Add note",
+        "title": "Добавить примечание",
         "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
       }
     },
     "share_code": {
       "p2p": {
-        "title": "Manyverse Invite Code",
-        "message": "Connect with me on Manyverse by pasting this invite code there:",
-        "dialog_note": "Give this invite code to one friend"
+        "title": "Код приглашения Manyverse",
+        "message": "Связаться со мной на Manyverse вставив этот код приглашения здесь:",
+        "dialog_note": "Дать код приглашения одному другу"
       },
       "room": {
-        "title": "Invite code to an SSB Room",
+        "title": "Код приглашения в SSB комнату",
         "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
-        "dialog_note": "Give this invite code to a friend"
+        "dialog_note": "Дать этот код приглашения другу"
       }
     }
   },
   "compose": {
     "call_to_action": {
       "publish_new_thread": {
-        "label": "Publish",
-        "accessibility_label": "Publish Message Button"
+        "label": "Публиковать",
+        "accessibility_label": "Кнопка \"Опубликовать сообщение\""
       },
       "reply_to_thread": {
-        "label": "Reply",
-        "accessibility_label": "Publish Reply Button"
+        "label": "Ответить",
+        "accessibility_label": "Кнопка \"Опубликовать ответ\""
       },
       "preview": {
-        "accessibility_label": "Preview Button"
+        "accessibility_label": "Кнопка предварительного просмотра"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Кнопка Закрытия"
       },
       "open_camera": {
         "accessibility_label": "Open Camera Button"
       },
       "add_picture": {
-        "accessibility_label": "Add Picture Button"
+        "accessibility_label": "кнопка \"Добавить изображение\""
       }
     },
     "dialogs": {
       "content_warning": {
-        "title": "Content warning",
-        "description": "If your post contains sensitive topics, please add a short note to alert people of them."
+        "title": "Предупреждение о содержимом",
+        "description": "Если ваше сообщение содержит чувствительные темы, пожалуйста, добавьте короткую заметку для оповещения людей об этом."
       },
       "image_caption": {
-        "title": "Caption",
-        "description": "Add some description of this picture, particularly for the visually impaired."
+        "title": "Заголовок",
+        "description": "Добавьте описание этого изображения, особенно для людей с нарушениями зрения."
       },
       "save_prompt": {
-        "title": "Save draft?"
+        "title": "Сохранить черновик?"
       }
     },
     "content_warning_initials": {
-      "label": "CW",
-      "accessibility_label": "Content Warning Button"
+      "label": "ПС",
+      "accessibility_label": "кнопка \"Предупреждение о содержимом\""
     },
     "mention_field": {
       "accessibility_label": "Mention Account Text Input"
     },
     "text_field": {
-      "placeholder": "Write a public message",
+      "placeholder": "Написать публичное сообщение",
       "accessibility_label": "Compose Text Input"
     }
   },
   "backup": {
-    "title": "Backup",
+    "title": "Резервное копирование",
     "introduction": {
-      "title": "Your account has\ntwo parts to keep safe"
+      "title": "Ваша учетная запись разделен на две части чтобы храниться в безопасности"
     },
     "data": {
-      "title": "Data",
+      "title": "Данные",
       "description": {
         "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
         "2_bold": "crowd backup",
@@ -389,7 +389,7 @@
       },
       "call_to_action": {
         "acknowledge": {
-          "label": "I understand",
+          "label": "Я понимаю",
           "accessibility_label": "Acknowledge"
         }
       }
@@ -398,11 +398,11 @@
       "title": "Identity",
       "description": {
         "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
-        "2_bold": "recovery phrase",
+        "2_bold": "фраза восстановления",
         "3_normal": ". This is a sequence of 48 words that unlocks your account. ",
-        "4_bold": "Keep it confidential",
+        "4_bold": "Держите его в секрете",
         "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
-        "6_bold": "Take responsibility",
+        "6_bold": "Взять ответственность",
         "7_normal": " over it, since you and only you can recover your account!"
       },
       "call_to_action": {
@@ -412,86 +412,86 @@
   },
   "biography": {
     "picture": {
-      "accessibility_label": "Biographic Picture"
+      "accessibility_label": "Биографическое изображение"
     },
     "description": {
-      "accessibility_label": "Biographic Description"
+      "accessibility_label": "Биографическое описание"
     }
   },
   "conversation": {
-    "title": "Conversation",
+    "title": "Беседы",
     "call_to_action": {
       "show_recipients": {
-        "accessibility_label": "Show Recipients"
+        "accessibility_label": "Показать получателей"
       }
     },
     "notifications": {
-      "new_conversation": "This is a new private conversation"
+      "new_conversation": "Это новая личная беседа"
     }
   },
   "dialog_about": {
-    "title": "About Manyverse",
-    "version": "Version {{version}}",
-    "copyright": "Copyright (C)",
-    "authors": "The Manyverse Authors",
-    "repository": "Open source repository",
-    "licensed": "Licensed {{license1}} and {{license2}}"
+    "title": "О Manyverse",
+    "version": "Версия {{version}}",
+    "copyright": "Авторские права (C)",
+    "authors": "Авторы Manyverse",
+    "repository": "Репозиторий с открытым исходным кодом",
+    "licensed": "Лицензировано {{license1}} и {{license2}}"
   },
   "dialog_thanks": {
-    "title": "Thank you!",
-    "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
+    "title": "Спасибо Вам!",
+    "description": "Разработка этого приложения поддерживалась грантами от {{sponsor1}} и {{sponsor2}}, и пожертвования от:\n\n**{{topBackers}}**, и [сто backers]({{donateLink}}). Спасибо!"
   },
   "drawer": {
-    "profile_no_name": "No name",
+    "profile_no_name": "Без названия",
     "menu": {
       "my_profile": {
-        "label": "My profile",
-        "accessibility_label": "My Profile Menu Item"
+        "label": "Мой профиль",
+        "accessibility_label": "пункт меню \"Мой профиль\""
       },
       "raw_database": {
-        "label": "Raw database",
-        "accessibility_label": "Show Raw Database"
+        "label": "Сырая база данных",
+        "accessibility_label": "Показывать сырую базу данных"
       },
       "email_bug_report": {
-        "label": "Email bug report",
-        "accessibility_label": "Send Bug Report as Email"
+        "label": "Отправить по электронной почте  отчет об ошибке",
+        "accessibility_label": "Отправить отчёт об ошибке как e-mail"
       },
       "settings": {
-        "label": "Settings",
-        "accessibility_label": "Go To Settings"
+        "label": "Настройки",
+        "accessibility_label": "Перейти к настройкам"
       }
     }
   },
   "invite_create": {
-    "loading": "loading...",
+    "loading": "загрузка...",
     "call_to_action": {
       "share": {
-        "accessibility_label": "Share Invite Code"
+        "accessibility_label": "Поделиться кодом приглашения"
       }
     },
     "invite_code": {
-      "accessibility_label": "Invite Code"
+      "accessibility_label": "Код приглашения"
     },
     "share_info": {
-      "1_normal": "Give this invite code to ",
-      "2_bold": "one",
-      "3_normal": " friend"
+      "1_normal": "Дать этот код приглашения ",
+      "2_bold": "один",
+      "3_normal": " друг"
     },
     "sync_info": {
-      "1_normal": "You will sync when you are ",
-      "2_bold": "both",
-      "3_normal": " online"
+      "1_normal": "Вы будете синхронизировать, когда  ",
+      "2_bold": "оба",
+      "3_normal": " в сети"
     }
   },
   "invite_paste": {
-    "placeholder": "Paste an invite code",
+    "placeholder": "Вставить код приглашения",
     "call_to_action": {
       "accept": {
-        "accessibility_label": "Accept Invite Code"
+        "accessibility_label": "Принять код приглашения"
       }
     },
     "text_field": {
-      "accessibility_label": "Invite Code Text Input"
+      "accessibility_label": "Ввод текста кода приглашения"
     }
   },
   "libraries": {
@@ -509,24 +509,24 @@
       "block_secretly": "Block secretly",
       "unblock": "Unblock",
       "unblock_secretly": "Unblock secretly",
-      "follow": "Follow",
+      "follow": "Следить за",
       "edit_profile": {
-        "label": "Edit profile",
-        "accessibility_label": "Edit Profile Button"
+        "label": "Редактировать профиль",
+        "accessibility_label": "Кнопка \"Редактировать профиль\""
       },
       "open_biography": {
-        "label": "Bio",
-        "accessibility_label": "Show Biography"
+        "label": "Биография",
+        "accessibility_label": "Показать биографию"
       },
       "manage": {
-        "accessibility_label": "Manage Contact"
+        "accessibility_label": "Управление контактами"
       }
     },
     "dialog_etc": {
-      "title": "Account"
+      "title": "Учетная запись"
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Скопировано в буфер обмена"
     },
     "info": {
       "follows_you": "Follows you",
@@ -572,7 +572,7 @@
     "dialogs": {
       "discard": {
         "title": "Edit profile",
-        "question": "Discard changes?"
+        "question": "Отклонить изменения?"
       }
     },
     "fields": {
@@ -702,7 +702,7 @@
     "preferences": {
       "title": "Preferences",
       "show_follows": {
-        "title": "Show follow events",
+        "title": "Показывать события подписки",
         "subtitle": "Show follow or block or unfollow cases on the public board",
         "accessibility_label": "Toggle follow events on the public board"
       },

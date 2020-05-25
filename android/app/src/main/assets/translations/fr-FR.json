@@ -1,19 +1,19 @@
 {
   "call_to_action": {
-    "ok": "Ok",
+    "ok": "OK",
     "add": "Ajouter",
     "done": "Terminé",
     "cancel": "Annuler",
-    "continue": "Poursuivre",
+    "continue": "Suivant",
     "delete": "Supprimer",
-    "save": "Enregistrer",
+    "save": "Sauvegarder",
     "yes": "Oui",
     "no": "Non",
     "open_menu": {
       "accessibility_label": "Bouton Menu"
     },
     "go_back": {
-      "accessibility_label": "Bouton Retour"
+      "accessibility_label": "Bouton Précédent"
     },
     "close": {
       "accessibility_label": "Bouton Fermer"
@@ -25,16 +25,16 @@
   "welcome": {
     "learn_more": "En savoir plus",
     "overview": {
-      "title": "Bienvenue dans Manyverse!",
-      "description": "Les réseaux sociaux peuvent être simples, neutres, non commerciaux et fondés sur la confiance entre amis. C'est ce que propose Manyverse, et nous espérons que vous aussi pourrez en faire votre foyer numérique. Tout cela est rendu possible par le nouveau protocole SSB."
+      "title": "Bienvenue sur Manyverse !",
+      "description": "Le réseautage social peut être simple, neutre, non commercial et fondé sur la confiance entre amis. C'est ce que propose Manyverse, et nous espérons que vous aussi pourrez en faire votre foyer numérique. Tout cela est rendu possible par le récent protocole SSB."
     },
     "off_the_grid": {
       "title": "Hors réseau",
       "description": {
-        "1_normal": "Manyverse peut utiliser la connectivité internet, mais ce n'est pas ",
-        "2_bold": "activé",
+        "1_normal": "Manyverse peut utiliser l'accès à Internet, mais ce n'est pas ",
+        "2_bold": "sur",
         "3_normal": " l'Internet. Tout se passe ici même, sur votre appareil. Cela signifie que vous pouvez l'utiliser normalement même lorsque vous êtes hors ligne ! Votre ",
-        "4_bold": "le contenu est d'abord stocké sur votre appareil",
+        "4_bold": " contenu est d'abord stocké sur votre appareil",
         "5_normal": "et vous pouvez le synchroniser avec vos amis dès que vous vous connectez avec eux."
       }
     },
@@ -42,65 +42,65 @@
       "title": "Plusieurs façons de se connecter",
       "description": {
         "ios": {
-          "1_normal": "Pour vous connecter avec vos amis et synchroniser le contenu, vous pouvez soit : rejoindre le même ",
+          "1_normal": "Pour vous connecter avec vos amis et synchroniser le contenu, vous pouvez soit : rejoindre le même réseau local ",
           "2_bold": "Wi-Fi",
-          "3_normal": " ou échanger",
-          "4_bold": "Invitations P2P",
-          "5_normal": ". Pour trouver de nouvelles personnes sur l'internet, cherchez un code d'invitation à un ",
-          "6_bold": "serveur Pub",
+          "3_normal": " ou échanger des",
+          "4_bold": "Invitations P2P \"Pair-à-Pair\"",
+          "5_normal": ". Pour trouver de nouvelles personnes sur l'internet, cherchez un code d'invitation pour un ",
+          "6_bold": "serveur de type Pub (forum)",
           "7_normal": " ou un ",
-          "8_bold": "serveur de salon",
-          "9_normal": ", ou démarrez votre propre serveur!"
+          "8_bold": "serveur de type Room (salon)",
+          "9_normal": ", ou démarrez votre propre serveur !"
         },
         "default": {
-          "1_normal": "Pour vous connecter avec vos amis et synchroniser le contenu, vous pouvez soit : rejoindre le même ",
+          "1_normal": "Pour vous connecter avec vos amis et synchroniser le contenu, vous pouvez soit : rejoindre le même réseau local ",
           "2_bold": "Wi-Fi",
           "3_normal": ", utiliser ",
-          "4_bold": "Synchronisation Bluetooth",
-          "5_normal": ", ou échanger ",
-          "6_bold": "Invitations P2P",
-          "7_normal": ". Pour trouver de nouvelles personnes sur l'internet, cherchez un code d'invitation auprès d'un ",
-          "8_bold": "serveur Pub",
+          "4_bold": "la synchronisation Bluetooth",
+          "5_normal": ", ou échanger des ",
+          "6_bold": "Invitations P2P \"Pair-à-Pair\"",
+          "7_normal": ". Pour trouver de nouvelles personnes sur l'internet, cherchez un code d'invitation pour un ",
+          "8_bold": "serveur de type Pub (forum)",
           "9_normal": " ou un ",
-          "10_bold": "serveur de salon",
-          "11_normal": ", ou démarrez votre propre serveur!"
+          "10_bold": "serveur de type Room (salon)",
+          "11_normal": ", ou démarrez votre propre serveur !"
         }
       }
     },
     "moderation": {
       "title": "Modération partagée",
       "description": {
-        "1_normal": "Comme votre appareil contient votre réseau social, personne d'autre ne peut interdire ou supprimer des comptes en votre nom. Vous seul pouvez modérer votre espace, en ",
-        "2_bold": "bloquer les comptes",
+        "1_normal": "Comme votre appareil contient votre réseau social, personne d'autre ne peut interdire ou supprimer de compte en votre nom. Vous seul pouvez modérer votre espace, en ",
+        "2_bold": "bloquant les comptes",
         "3_normal": " que vous ne souhaitez pas avoir sur votre appareil. Vos amis peuvent alors choisir de bloquer ces mêmes comptes. C'est ainsi que la modération peut se répandre naturellement !"
       }
     },
     "permanence": {
       "title": "Permanence",
       "description": {
-        "1_normal": "Une fois que votre contenu est synchronisé avec vos amis, ils en détiennent désormais une copie sur leurs appareils. Comme ils peuvent ensuite se déconnecter, c'est ",
-        "2_bold": "impossible à supprimer",
-        "3_normal": " votre contenu à l'échelle mondiale à partir de tous les appareils ! C'est pourquoi nous avons choisi de rendre le contenu permanent. Cela rend également les communautés plus respectueuses et plus attentives à ce qui est publié."
+        "1_normal": "Une fois que votre contenu est synchronisé avec vos amis, ils en détiennent eux aussi une copie sur leurs appareils. Ils peuvent également se déconnecter, c'est pour cela qu'il ",
+        "2_bold": "n'est pas possible de supprimer",
+        "3_normal": " complètement votre contenu de tous les appareils ! C'est pourquoi nous avons choisi de rendre le contenu permanent. Cela rend également les communautés plus respectueuses et plus attentives à ce qui est publié."
       }
     },
     "in_construction": {
-      "title": "En construction!",
+      "title": "En construction !",
       "description": {
         "1_normal": "Manyverse est ",
-        "2_bold": "logiciel de qualité bêta",
-        "3_normal": ". Nous n'avons pas encore tout compris et certaines pièces doivent être réparées. Lors de la synchronisation, l'application peut apparaître figée pendant plusieurs minutes. Soyez patients ! Informez-nous de tout autre bogue que vous avez rencontré, et avec suffisamment de temps et de dons, nous pourrons faire de cette application une réussite."
+        "2_bold": "logiciel en phase de tests bêta",
+        "3_normal": ". Nous n'avons pas encore penser à tout et certaines parties doivent être dépannées. Lors de la synchronisation l'application peut paraître figée pendant plusieurs minutes. Soyez patients ! Informez-nous de tout autre bogue que vous avez rencontré, et avec suffisamment de temps et de dons, nous pourrons faire de Manyverse une application majeure."
       }
     },
     "setup_account": {
-      "title": "Est-ce votre première fois?",
-      "description": "Vous souhaitez créer un nouveau compte ou restaurer votre ancien compte à partir d'une phrase de récupération de 48 mots ?",
+      "title": "Est-ce votre première fois ?",
+      "description": "Voulez-vous créer un nouveau compte ou restaurer votre ancien compte à partir de la phrase de récupération de 48 mots ?",
       "call_to_action": {
         "create": {
           "label": "Créer un compte",
           "accessibility_label": "Bouton de création de compte"
         },
         "restore": {
-          "label": "Restaurer le compte",
+          "label": "Restaurer un compte",
           "accessibility_label": "Bouton de restauration du compte"
         }
       }
@@ -109,18 +109,18 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Tableau public",
+      "public": "Affichage public",
       "private": "Messages privés",
       "connections": "Connexions"
     },
     "loading": "Chargement en cours...",
-    "building_indexes": "Construction de l'index de la base de données...\nCela peut prendre jusqu'à plusieurs minutes",
+    "building_indexes": "Construction de l'index de la base de données...\nCela peut prendre plusieurs minutes",
     "tabs": {
       "public": {
         "accessibility_label": "Bouton Onglet Public"
       },
       "private": {
-        "accessibility_label": "Bouton Onglet privé"
+        "accessibility_label": "Bouton Onglet Privé"
       },
       "connections": {
         "accessibility_label": "Bouton Onglet Connexions"
@@ -170,15 +170,15 @@
     "empty": {
       "offline": {
         "title": "Hors-ligne",
-        "description": "Activez le mode de connexion\nou profitez de la lecture de certains contenus existants"
+        "description": "Activez un mode de connexion\nou profitez de la lecture de certains contenus existants"
       },
       "connecting": {
-        "title": "Connexion",
+        "title": "Connexion en cours...",
         "description": "Attendez pendant que l'application\ntente de se connecter à vos pairs"
       },
       "no_peers": {
         "title": "Aucune connexion",
-        "description": "Essaie de synchroniser avec les personnes à proximité\nou utilise un code d'invitation du serveur"
+        "description": "Tenter de synchroniser avec les personnes à proximité\nou utiliser un code d'invitation de serveur"
       }
     },
     "toasts": {
@@ -194,23 +194,23 @@
           "staging": {
             "host": "Internet P2P: en attente d'un ami en ligne...",
             "client": "Internet P2P: recherche d'un ami en ligne...",
-            "unknown": "Internet P2P : recherche..."
+            "unknown": "Internet P2P : recherche en cours..."
           }
         },
         "room": {
-          "server": "Serveur de salon",
-          "endpoint": "Participant du salon",
+          "server": "Serveur de type Room",
+          "endpoint": "Participants du salon",
           "alone_online": "(uniquement vous en ligne)",
           "others_online": "({{amount}} en ligne)"
         },
-        "pub": "Serveur Pub",
+        "pub": "Serveur de type Pub",
         "server": "Serveur",
         "unknown": "Inconnu"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(ENABLED)"
+        "enabled": "(ACTIVÉ)"
       },
       "bluetooth": {
         "title": "Bluetooth",
@@ -218,37 +218,37 @@
         "disabled": "(Activez le Bluetooth pour l'utiliser)",
         "description": "Découvrez les utilisateurs à proximité et connectez-vous avec eux en utilisant le Bluetooth.",
         "permission_request": {
-          "title": "Autoriser la localisation via Bluetooth?",
-          "message": "Manyverse a besoin d'utiliser Bluetooth pour découvrir où vous êtes (\"localisation grossière\") et quels sont vos pairs autour de vous."
+          "title": "Autoriser la localisation via Bluetooth ?",
+          "message": "Manyverse a besoin d'utiliser le Bluetooth pour découvrir où vous êtes (\"localisation approximative\") et quels sont vos pairs autour de vous."
         }
       },
       "wifi": {
         "title": "Wi-Fi",
         "accessibility_label": "Mode Wi-Fi",
         "disabled": "(Activez le Wi-Fi pour l'utiliser)",
-        "description": "Se connecter avec des amis dans le même réseau local, en d'autres termes, des amis utilisant le même Wi-Fi."
+        "description": "Se connecter avec des amis sur le même réseau local, en d'autres termes, des amis utilisant le même réseau Wi-Fi."
       },
       "p2p": {
         "title": "Internet P2P",
-        "accessibility_label": "Mode Internet P2P",
-        "disabled": "(Allez en ligne pour l'utiliser)",
-        "description": "Connectez-vous directement à vos amis actuellement en ligne, en utilisant une technologie peer-to-peer appelée \"Distributed Hash Table\".",
-        "connecting": "Connexion via internet P2P...",
+        "accessibility_label": "Mode Internet Pair à Pair",
+        "disabled": "(Soyez en ligne pour l'utiliser)",
+        "description": "Connectez-vous directement à vos amis actuellement en ligne, en utilisant une technologie pair-à-pair appelée \"Table de Hachage Distribuée\" (\"Distributed Hash Table\").",
+        "connecting": "Connexion via internet P2P en cours...",
         "searching_friend": "Nous recherchons actuellement l'ami en ligne qui a généré ce code d'invitation, afin d'établir une connexion de données avec lui.",
         "waiting_friend": "En attente qu'un ami réclame ce code d'invitation et établisse une connexion de données."
       },
       "servers": {
         "title": "Serveurs Internet",
         "accessibility_label": "Mode serveurs Internet",
-        "disabled": "(Allez en ligne pour l'utiliser)",
-        "description": "Connectez-vous à un \"serveur Pub\" appartenant à un ami et contenant les dernières données de plusieurs comptes."
+        "disabled": "(Soyez en ligne pour l'utiliser)",
+        "description": "Se connecter à un \"serveur de type Pub\" appartenant à un ami et contenant les dernières données de plusieurs comptes."
       }
     },
     "menu": {
       "open_profile": {
         "label": "Ouvrir le profil",
         "accessibility_label": {
-          "connected": "Ouvrir l'écran de profil pour ce pair connecté",
+          "connected": "Ouvrir l'écran de profil de ce pair connecté",
           "staged": "Ouvrir l'écran du profil pour cette connexion suggérée"
         }
       },
@@ -256,7 +256,7 @@
         "label": "Se connecter",
         "accessibility_label": {
           "staged_peer": "Se connecter à ce pair suggéré",
-          "staged_room": "Se connecter à ce salon suggéré"
+          "staged_room": "Se connecter à ce salon (room) suggéré"
         }
       },
       "follow_connect": {
@@ -267,25 +267,25 @@
         "label": "Se déconnecter",
         "accessibility_label": {
           "peer": "Se déconnecter de ce pair",
-          "room": "Se déconnecter de ce salon"
+          "room": "Se déconnecter de ce salon (room)"
         }
       },
       "disconnect_forget": {
         "label": "Se déconnecter et oublier",
         "accessibility_label": {
-          "peer": "Se déconnecter de ce pair et le supprimer de notre base de données",
-          "room": "Déconnectez-vous de ce salon et le retirer de notre base de données"
+          "peer": "Se déconnecter de ce pair et le supprimer de votre base de données",
+          "room": "Se déconnecter de ce salon (room) et le retirer de votre base de données"
         }
       },
       "forget": {
         "label": "Oublier",
         "accessibility_label": {
-          "room": "Retirer ce salon de notre base de données"
+          "room": "Retirer ce salon de votre base de données"
         }
       },
       "room_share_invite": {
         "label": "Partager le code d'invitation",
-        "accessibility_label": "Partager le code d'invitation pour ce salon"
+        "accessibility_label": "Partager le code d'invitation de ce salon (room)"
       },
       "invite_info": {
         "label": "À propos",
@@ -385,7 +385,7 @@
         "4_bold": "synchroniser avec des amis fiables",
         "5_normal": " ou d'autres appareils que vous possédez. Il y a ",
         "6_bold": "rien d'autre à faire",
-        "7_normal": "Utilisez souvent Manyverse et vos amis vous soutiennent !"
+        "7_normal": ". Utilisez souvent Manyverse et vos amis vous soutiennent !"
       },
       "call_to_action": {
         "acknowledge": {
@@ -663,7 +663,7 @@
           "title": "Mauvais",
           "description": {
             "try_again": "Réessayez : écrivez votre phrase de récupération composée de 48 mots séparés par des espaces.",
-            "overwrite_risk": "Il y a déjà un compte dans l'application, nous ne pouvons pas l'écraser. Si vous êtes sûr de vouloir remplacer, désinstaller et réinstaller Manyverse pour récupérer votre compte dans un état propre.",
+            "overwrite_risk": "Il y a déjà un compte dans l'application, nous ne pouvons pas l'écraser. Si vous êtes sûr de vouloir le remplacer, désinstaller et réinstaller Manyverse pour récupérer votre compte dans un état propre.",
             "too_short": "Il manque quelques mots. Votre phrase de récupération devrait être de 48 mots.",
             "too_long": "Il y a trop de mots. Votre phrase de récupération doit contenir exactement 48 mots.",
             "wrong_length": "Votre phrase de récupération devrait contenir exactement 48 mots.",
@@ -772,7 +772,7 @@
     },
     "dialogs": {
       "save_draft_prompt": {
-        "title": "Enregistrer votre réponse comme brouillon?"
+        "title": "Enregistrer votre réponse comme brouillon ?"
       }
     },
     "fields": {

@@ -1,14 +1,14 @@
 {
   "call_to_action": {
     "ok": "OK",
-    "add": "Add",
+    "add": "Tilføj",
     "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "cancel": "Afbryd",
+    "continue": "Fortsæt",
+    "delete": "Slet",
+    "save": "Gem",
+    "yes": "Ja",
+    "no": "Nej",
     "open_menu": {
       "accessibility_label": "Menu Button"
     },
@@ -25,11 +25,11 @@
   "welcome": {
     "learn_more": "Learn more",
     "overview": {
-      "title": "Welcome to Manyverse!",
+      "title": "Velkommern til Manyverse!",
       "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Offline",
       "description": {
         "1_normal": "Manyverse can use internet connectivity, but it's not ",
         "2_bold": "on",
@@ -43,22 +43,22 @@
       "description": {
         "ios": {
           "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
+          "2_bold": "Wi-fi",
           "3_normal": " or exchange",
-          "4_bold": "P2P invites",
+          "4_bold": "P2P-invitationer",
           "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
+          "6_bold": "pubserver",
           "7_normal": " or a ",
           "8_bold": "room server",
           "9_normal": ", or start your own server!"
         },
         "default": {
           "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
+          "2_bold": "Wi-fi",
           "3_normal": ", use ",
           "4_bold": "Bluetooth sync",
           "5_normal": ", or exchange ",
-          "6_bold": "P2P invites",
+          "6_bold": "P2P-invitationer",
           "7_normal": ". To find new people on the internet, look for an invite code to a ",
           "8_bold": "pub server",
           "9_normal": " or a ",
@@ -79,28 +79,28 @@
       "title": "Permanence",
       "description": {
         "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
+        "2_bold": "kan ikke slettes",
         "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "Under udarbejdelse!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
+        "1_normal": "Manyverse er ",
+        "2_bold": "software i betakvalitet",
         "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
-      "description": "Do you want to create a new account, or would you like to restore your old account from a 48-word recovery phrase?",
+      "title": "Er dette din første gang her?",
+      "description": "Ønsker du at åbne en ny konto, eller vil du genskabe din gamle konto med en gendannelsessætning på 48 ord?",
       "call_to_action": {
         "create": {
           "label": "Create account",
           "accessibility_label": "Create Account Button"
         },
         "restore": {
-          "label": "Restore account",
+          "label": "Gendan konto",
           "accessibility_label": "Restore Account Button"
         }
       }
@@ -164,7 +164,7 @@
   "connections": {
     "floating_action_button": {
       "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
+      "paste_invite": "Indsæt en invitation",
       "bluetooth_seek": "Bluetooth seek"
     },
     "empty": {
@@ -182,13 +182,13 @@
       }
     },
     "toasts": {
-      "invite_accepted": "Invite accepted",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?"
+      "invite_accepted": "Invitation accepteret",
+      "invite_rejected": "Invitationen blev afvist: Er du sikker på at den var gyldig?"
     },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
-        "lan": "Wi-Fi",
+        "lan": "Wi-fi",
         "dht": {
           "connected": "Internet P2P",
           "staging": {
@@ -200,7 +200,7 @@
         "room": {
           "server": "Room server",
           "endpoint": "Room peer",
-          "alone_online": "(only you online)",
+          "alone_online": "(kun du er online)",
           "others_online": "({{amount}} online)"
         },
         "pub": "Pub server",
@@ -223,9 +223,9 @@
         }
       },
       "wifi": {
-        "title": "Wi-Fi",
+        "title": "Wi-fi",
         "accessibility_label": "Wi-Fi Mode",
-        "disabled": "(Turn on Wi-Fi to use this)",
+        "disabled": "(Slå wi-fi til for at bruge denne funktion)",
         "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
       },
       "p2p": {
@@ -241,96 +241,96 @@
         "title": "Internet servers",
         "accessibility_label": "Internet Servers Mode",
         "disabled": "(Go online to use this)",
-        "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
+        "description": "Forbind til en såkaldt ‘pubserver’ der drives af en ven, og som har seneste data fra flere konti."
       }
     },
     "menu": {
       "open_profile": {
-        "label": "Open profile",
+        "label": "Åbn profil",
         "accessibility_label": {
-          "connected": "Open profile screen for this connected peer",
-          "staged": "Open profile screen for this suggested connection"
+          "connected": "Åbn denne peers profilside",
+          "staged": "Åbn denne forbindelses profilside"
         }
       },
       "connect": {
-        "label": "Connect",
+        "label": "Forbind",
         "accessibility_label": {
-          "staged_peer": "Connect to this suggested peer",
-          "staged_room": "Connect to this suggested room"
+          "staged_peer": "Forbind til foreslåede peer",
+          "staged_room": "Forbind til det foreslåede rum"
         }
       },
       "follow_connect": {
-        "label": "Connect and follow",
-        "accessibility_label": "Connect to this suggested peer then follow them"
+        "label": "Forbind og følg",
+        "accessibility_label": "Forbind til foreslåede peer og følg vedkommende"
       },
       "disconnect": {
-        "label": "Disconnect",
+        "label": "Afbryd",
         "accessibility_label": {
-          "peer": "Disconnect from this peer",
-          "room": "Disconnect from this room"
+          "peer": "Afbryd fra denne peer",
+          "room": "Forlad dette rum"
         }
       },
       "disconnect_forget": {
-        "label": "Disconnect and forget",
+        "label": "Afbryd og glem",
         "accessibility_label": {
-          "peer": "Disconnect from this peer and remove it from our database",
-          "room": "Disconnect from this room and remove it from our database"
+          "peer": "Afbryd fforbindelsen til denne peer og slet den fra databasen",
+          "room": "Forlad dette rum og fjern det fra databasen"
         }
       },
       "forget": {
-        "label": "Forget",
+        "label": "Glem",
         "accessibility_label": {
-          "room": "Remove this room from our database"
+          "room": "Fjern dette rum fra databasen"
         }
       },
       "room_share_invite": {
-        "label": "Share invite code",
-        "accessibility_label": "Share the invite code for this room"
+        "label": "Del invitation",
+        "accessibility_label": "Del en invitation til dette rum"
       },
       "invite_info": {
-        "label": "About",
-        "accessibility_label": "About this Invite Code"
+        "label": "Om",
+        "accessibility_label": "Om denne invitation"
       },
       "invite_note": {
-        "label": "Add note",
-        "accessibility_label": "Add Reminder Note To Self"
+        "label": "Tilføj note",
+        "accessibility_label": "Tilføj påmindelse til eget brug"
       },
       "invite_share": {
-        "label": "Share",
-        "accessibility_label": "Share Invite Code"
+        "label": "Del",
+        "accessibility_label": "Del invitation"
       },
       "invite_delete": {
-        "label": "Delete",
-        "accessibility_label": "Delete Invite Code"
+        "label": "Slet",
+        "accessibility_label": "Slet invitation"
       }
     },
     "notes": {
       "add": {
-        "title": "Add note",
-        "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
+        "title": "Tilføj note",
+        "description": "Skriv en privat note til dig selv om denne invitation. Fx “Dette er til Alice”."
       }
     },
     "share_code": {
       "p2p": {
-        "title": "Manyverse Invite Code",
+        "title": "Invitation til Manyverse",
         "message": "Connect with me on Manyverse by pasting this invite code there:",
-        "dialog_note": "Give this invite code to one friend"
+        "dialog_note": "Giv denne invitation til én ven"
       },
       "room": {
-        "title": "Invite code to an SSB Room",
+        "title": "Invitation til et SSB-rum",
         "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
-        "dialog_note": "Give this invite code to a friend"
+        "dialog_note": "Giv denne invitation til en ven"
       }
     }
   },
   "compose": {
     "call_to_action": {
       "publish_new_thread": {
-        "label": "Publish",
+        "label": "Offentliggør",
         "accessibility_label": "Publish Message Button"
       },
       "reply_to_thread": {
-        "label": "Reply",
+        "label": "Svar",
         "accessibility_label": "Publish Reply Button"
       },
       "preview": {
@@ -348,20 +348,20 @@
     },
     "dialogs": {
       "content_warning": {
-        "title": "Content warning",
-        "description": "If your post contains sensitive topics, please add a short note to alert people of them."
+        "title": "Advarsel om indhold",
+        "description": "Hvis din besked omhandler et følsomt emne, så vær rar at tilføje en kort advarsel til andre."
       },
       "image_caption": {
-        "title": "Caption",
-        "description": "Add some description of this picture, particularly for the visually impaired."
+        "title": "Beskrivelse",
+        "description": "Tilføj en beskrivelse af dette billede, til brug for især synshæmmede."
       },
       "save_prompt": {
-        "title": "Save draft?"
+        "title": "Gem kladde?"
       }
     },
     "content_warning_initials": {
-      "label": "CW",
-      "accessibility_label": "Content Warning Button"
+      "label": "Advarsel",
+      "accessibility_label": "Advarselsknap"
     },
     "mention_field": {
       "accessibility_label": "Mention Account Text Input"
@@ -562,11 +562,11 @@
     "call_to_action": {
       "discard": "Discard",
       "save": {
-        "label": "Save",
-        "accessibility_label": "Save Profile"
+        "label": "Gem",
+        "accessibility_label": "Gem profil"
       },
       "edit_picture": {
-        "accessbility_label": "Edit Profile Picture"
+        "accessbility_label": "Redigér profilbillede"
       }
     },
     "dialogs": {
@@ -581,28 +581,28 @@
         "accessibility_label": "Name Text Input"
       },
       "description": {
-        "label": "Bio",
+        "label": "Beskrivelse",
         "accessibility_label": "Biography Text Input"
       }
     }
   },
   "raw_db": {
-    "title": "Raw database",
+    "title": "Rå database",
     "item": {
       "type": {
         "any": "type: {{type}}",
-        "encrypted": "encrypted"
+        "encrypted": "krypteret"
       }
     }
   },
   "raw_msg": {
-    "title": "Raw message"
+    "title": "Rå besked"
   },
   "recipients_input": {
-    "title": "New message",
+    "title": "Ny besked",
     "call_to_action": {
       "proceed": {
-        "label": "Next",
+        "label": "Næste",
         "accessibility_label": "Next Button"
       }
     },
@@ -614,26 +614,26 @@
     },
     "empty": {
       "none_to_choose": {
-        "title": "No one",
+        "title": "Ingen",
         "description": "There is nobody in your\ncommunity with that name"
       }
     },
     "toasts": {
-      "limit_reached": "Cannot choose more than {{limit}} recipients"
+      "limit_reached": "Man kan vælge højst {{limit}} modtagere"
     }
   },
   "secret_input": {
     "practice": {
-      "title": "Practice",
-      "header": "Repeat it to confirm it is correct:"
+      "title": "Øvelse gør mester",
+      "header": "Gentag for at bekræfte rigtigheden:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "Gendan konto"
     },
-    "header": "Carefully input your recovery phrase",
+    "header": "Intast omhyggeligt din gendannelsessætning",
     "call_to_action": {
       "confirm": {
-        "label": "Confirm",
+        "label": "Bekræft",
         "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
@@ -646,61 +646,61 @@
     "dialogs": {
       "practice": {
         "correct": {
-          "title": "Correct!",
+          "title": "Korrekt!",
           "description": "Your account's identity is now secure because you know the recovery phrase."
         },
         "incorrect": {
-          "title": "Incorrect",
+          "title": "Forkert",
           "description": "Try again: write down your recovery phrase consisting of 48 words separated by whitespace."
         }
       },
       "restore": {
         "correct": {
-          "title": "Welcome back!",
-          "description": "Your account's identity is now restored.\n\nNow, to restore your data, connect with friends that have interacted with you before, to redownload your data from them."
+          "title": "Velkommen igen!",
+          "description": "Din konto er nu gendannet.\n\nFor også at gendanne alle data, forbind din med venner du har haft forbindelse til før, så du kan downloade data fra dem."
         },
         "incorrect": {
-          "title": "Incorrect",
+          "title": "Ukorrekt",
           "description": {
             "try_again": "Try again by inserting your recovery phrase consisting of 48 words separated by whitespace.",
             "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
-            "too_short": "There are some words missing. Your recovery phrase should be 48 words long.",
-            "too_long": "There are too many words. Your recovery phrase should be exactly 48 words long.",
-            "wrong_length": "Your recovery phrase should be exactly 48 words long.",
-            "generic": "The recovery phrase you gave does not look like a valid identity generated by Manyverse."
+            "too_short": "Der mangler nogle ord. Din gendannelsessætning bør indeholde 48 ord.",
+            "too_long": "Der er for mange ord. Din gendannelsessætning bør indeholde nøjagtig 48 ord.",
+            "wrong_length": "Din gendannelsessætning bør indeholde nøjagtig 48 ord.",
+            "generic": "Den gendannelsessætning du gav ser ikke ud til at svare til en gyldig identitet lavet af Manyverse."
           }
         }
       }
     }
   },
   "secret_output": {
-    "title": "Recovery Phrase",
+    "title": "Gendannelsessætning",
     "header": {
-      "1_normal": "Carefully write down the following recovery phrase on a ",
-      "2_bold": "piece of paper",
+      "1_normal": "Skriv omhyggeligt følgende gendannelsessætning ned på et ",
+      "2_bold": "stykke papir",
       "3_normal": ""
     },
     "footer": {
-      "1_normal": "Keep it ",
-      "2_bold": "confidential",
-      "3_normal": ", and\ntake sole ",
-      "4_bold": "responsibility",
-      "5_normal": " over it"
+      "1_normal": "Hold det ",
+      "2_bold": "fortroligt",
+      "3_normal": ", og tag det fulde ",
+      "4_bold": "ansvar",
+      "5_normal": " for det"
     },
     "words": {
-      "accessibility_label": "Secret Words"
+      "accessibility_label": "Hemmelige ord"
     },
     "call_to_action": {
       "confirm": {
         "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
-    "loading": "Loading..."
+    "loading": "Henter indhold…"
   },
   "settings": {
-    "title": "Settings",
+    "title": "Indstillinger",
     "preferences": {
-      "title": "Preferences",
+      "title": "Præferencer",
       "show_follows": {
         "title": "Show follow events",
         "subtitle": "Show follow or block or unfollow cases on the public board",

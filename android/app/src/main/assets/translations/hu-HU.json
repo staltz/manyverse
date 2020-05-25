@@ -2,30 +2,30 @@
   "call_to_action": {
     "ok": "OK",
     "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
+    "done": "Kész",
+    "cancel": "Mégsem",
+    "continue": "Folytatás",
     "delete": "Delete",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "save": "Mentés",
+    "yes": "Igen",
+    "no": "Nem",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "Menü gomb"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "Vissza gomb"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Bezárás gomb"
     },
     "close_dialog": {
       "accessibility_label": "Close Dialog Button"
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Tudj meg többet",
     "overview": {
-      "title": "Welcome to Manyverse!",
+      "title": "Üdv a Manyverse-ben!",
       "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
     },
     "off_the_grid": {
@@ -39,31 +39,31 @@
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Többféleképpen csatlakozhatsz",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": " or exchange",
-          "4_bold": "P2P invites",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "1_normal": "Ha a barátaiddal szeretnél kapcsolódni és tartalmat megosztani: csatlakozzatok ugyanarra a ",
+          "2_bold": "Wi-Fi hálózatra",
+          "3_normal": ", vagy vagy használjatok ",
+          "4_bold": "P2P meghívókat",
+          "5_normal": ". Ha új embereket szeretnél találni az Interneten, keress meghívó-kódokat ",
+          "6_bold": "pub kiszolgálókhoz",
+          "7_normal": " vagy ",
+          "8_bold": "szoba kiszolgálókhoz",
+          "9_normal": ", vagy hozz létre saját kiszolgálót!"
         },
         "default": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ", or exchange ",
-          "6_bold": "P2P invites",
-          "7_normal": ". To find new people on the internet, look for an invite code to a ",
-          "8_bold": "pub server",
-          "9_normal": " or a ",
-          "10_bold": "room server",
-          "11_normal": ", or start your own server!"
+          "1_normal": "Ha a barátaiddal szeretnél kapcsolódni és tartalmat megosztani: csatlakozzatok ugyanarra a ",
+          "2_bold": "Wi-Fi hálózatra",
+          "3_normal": ", használjátok a ",
+          "4_bold": "Bluetooth szinkronizálást",
+          "5_normal": ", vagy használjatok ",
+          "6_bold": "P2P meghívókat",
+          "7_normal": ". Ha új embereket szeretnél találni az Interneten, keress meghívó kódokat ",
+          "8_bold": "pub kiszolgálókhoz",
+          "9_normal": " vagy ",
+          "10_bold": "szoba kiszolgálókhoz",
+          "11_normal": ", vagy hozz létre saját kiszolgálót!"
         }
       }
     },
@@ -84,7 +84,7 @@
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "Építés alatt!",
       "description": {
         "1_normal": "Manyverse is ",
         "2_bold": "beta-quality software",
@@ -96,12 +96,12 @@
       "description": "Do you want to create a new account, or would you like to restore your old account from a 48-word recovery phrase?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "Fiók létrehozása",
+          "accessibility_label": "Fiók létrehozása gomb"
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "Fiók visszaállítása",
+          "accessibility_label": "Fiók visszaállítása gomb"
         }
       }
     }
@@ -110,10 +110,10 @@
     "app_name": "Manyverse",
     "tab_headers": {
       "public": "Public board",
-      "private": "Private messages",
+      "private": "Privát üzenetek",
       "connections": "Connections"
     },
-    "loading": "Loading...",
+    "loading": "Betöltés...",
     "building_indexes": "Building database indexes...\nThis may take up to several minutes",
     "tabs": {
       "public": {
@@ -164,7 +164,7 @@
   "connections": {
     "floating_action_button": {
       "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
+      "paste_invite": "Meghívó beillesztése",
       "bluetooth_seek": "Bluetooth seek"
     },
     "empty": {
@@ -173,7 +173,7 @@
         "description": "Turn on some connection mode\nor enjoy reading some existing content"
       },
       "connecting": {
-        "title": "Connecting",
+        "title": "Csatlakozás",
         "description": "Wait while the app is\nattempting to connect to your peers"
       },
       "no_peers": {
@@ -182,7 +182,7 @@
       }
     },
     "toasts": {
-      "invite_accepted": "Invite accepted",
+      "invite_accepted": "Meghívó elfogadva",
       "invite_rejected": "Invite rejected. Are you sure it was correct?"
     },
     "peers": {
@@ -204,18 +204,18 @@
           "others_online": "({{amount}} online)"
         },
         "pub": "Pub server",
-        "server": "Server",
-        "unknown": "Unknown"
+        "server": "Kiszolgáló",
+        "unknown": "Ismeretlen"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(ENABLED)"
+        "enabled": "(ENGEDÉLYEZVE)"
       },
       "bluetooth": {
         "title": "Bluetooth",
-        "accessibility_label": "Bluetooth Mode",
-        "disabled": "(Turn on Bluetooth to use this)",
+        "accessibility_label": "Bluetooth mód",
+        "disabled": "(Kapcsold be a Bluetooth-t a használatához)",
         "description": "Discover users nearby and connect with them using Bluetooth.",
         "permission_request": {
           "title": "Allow locating via Bluetooth?",
@@ -253,7 +253,7 @@
         }
       },
       "connect": {
-        "label": "Connect",
+        "label": "Kapcsolódás",
         "accessibility_label": {
           "staged_peer": "Connect to this suggested peer",
           "staged_room": "Connect to this suggested room"
@@ -274,7 +274,7 @@
         "label": "Disconnect and forget",
         "accessibility_label": {
           "peer": "Disconnect from this peer and remove it from our database",
-          "room": "Disconnect from this room and remove it from our database"
+          "room": "Kilépés a szobából, és a szoba törlése az adatbázisból"
         }
       },
       "forget": {
@@ -319,7 +319,7 @@
       "room": {
         "title": "Invite code to an SSB Room",
         "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
-        "dialog_note": "Give this invite code to a friend"
+        "dialog_note": "Küldd el ezt a meghívó kódot egy barátodnak"
       }
     }
   },
@@ -330,7 +330,7 @@
         "accessibility_label": "Publish Message Button"
       },
       "reply_to_thread": {
-        "label": "Reply",
+        "label": "Válasz",
         "accessibility_label": "Publish Reply Button"
       },
       "preview": {
@@ -372,7 +372,7 @@
     }
   },
   "backup": {
-    "title": "Backup",
+    "title": "Biztonsági mentés",
     "introduction": {
       "title": "Your account has\ntwo parts to keep safe"
     },
@@ -430,7 +430,7 @@
     }
   },
   "dialog_about": {
-    "title": "About Manyverse",
+    "title": "A Manyverse-ről",
     "version": "Version {{version}}",
     "copyright": "Copyright (C)",
     "authors": "The Manyverse Authors",
@@ -457,7 +457,7 @@
         "accessibility_label": "Send Bug Report as Email"
       },
       "settings": {
-        "label": "Settings",
+        "label": "Beállítások",
         "accessibility_label": "Go To Settings"
       }
     }
@@ -577,7 +577,7 @@
     },
     "fields": {
       "name": {
-        "label": "Name",
+        "label": "Név",
         "accessibility_label": "Name Text Input"
       },
       "description": {
@@ -666,15 +666,15 @@
             "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
             "too_short": "There are some words missing. Your recovery phrase should be 48 words long.",
             "too_long": "There are too many words. Your recovery phrase should be exactly 48 words long.",
-            "wrong_length": "Your recovery phrase should be exactly 48 words long.",
-            "generic": "The recovery phrase you gave does not look like a valid identity generated by Manyverse."
+            "wrong_length": "A visszaállító mondatodnak pontosan 48 szóból kell állnia.",
+            "generic": "A visszaállító mondat amit megadtál nem Manyverse által előállított azonosítónak tűnik."
           }
         }
       }
     }
   },
   "secret_output": {
-    "title": "Recovery Phrase",
+    "title": "Visszaállító Mondat",
     "header": {
       "1_normal": "Carefully write down the following recovery phrase on a ",
       "2_bold": "piece of paper",
@@ -688,17 +688,17 @@
       "5_normal": " over it"
     },
     "words": {
-      "accessibility_label": "Secret Words"
+      "accessibility_label": "Titkos szavak"
     },
     "call_to_action": {
       "confirm": {
         "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
-    "loading": "Loading..."
+    "loading": "Betöltés..."
   },
   "settings": {
-    "title": "Settings",
+    "title": "Beállítások",
     "preferences": {
       "title": "Preferences",
       "show_follows": {
@@ -709,21 +709,21 @@
       "hops": {
         "title": "Replication hops",
         "subtitle": "How far out in the social graph should Manyverse download data; 1 is friends-only, 2 is friends-of-friends, etc. Caution: the higher this is, the more data is downloaded!",
-        "unlimited": "Unlimited",
+        "unlimited": "Korlátlan",
         "accessibility_label": "Replication hops slider"
       }
     },
     "data_and_storage": {
-      "title": "Data & Storage",
+      "title": "Adatok & Tárhely",
       "backup": {
-        "title": "Backup",
+        "title": "Biztonsági mentés",
         "subtitle": "View your 48-word recovery phrase",
         "accessibility_label": "Back Up My Account"
       },
       "blobs_storage": {
         "title": "Blobs storage limit",
         "subtitle": "Automatically delete old images and blobs until they occupy at most this amount of storage on your device",
-        "unlimited": "Unlimited",
+        "unlimited": "Korlátlan",
         "accessibility_label": "Storage limit slider"
       }
     },
@@ -739,7 +739,7 @@
       }
     },
     "more_information": {
-      "title": "More information",
+      "title": "További információk",
       "thanks": {
         "title": "Thanks",
         "accessibility_label": "Show Thanks"
@@ -750,12 +750,12 @@
       },
       "about": {
         "title": "About",
-        "accessibility_label": "About This App"
+        "accessibility_label": "Az alkalmazásról"
       }
     },
     "dialogs": {
       "restart_required": {
-        "title": "Restart required",
+        "title": "Újraindítás szükséges",
         "description": "This setting will only enter into effect when you kill the app and restart Manyverse."
       }
     }
@@ -799,10 +799,10 @@
   "notifications": {
     "syncing": {
       "title": "Syncing",
-      "gigabytes": "{{gb}} GB synced so far",
-      "megabytes": "{{mb}} MB synced so far",
-      "kilobytes": "{{kb}} KB synced so far",
-      "bytes": "{{b}} bytes synced so far"
+      "gigabytes": "Eddig {{gb}} GB szinkronizálva",
+      "megabytes": "Eddig {{mb}} MB szinkronizálva",
+      "kilobytes": "Eddig {{kb}} szinkronizálva",
+      "bytes": "Eddig {{b}} byte szinkronizálva"
     }
   },
   "message": {
@@ -827,32 +827,32 @@
       },
       "copy_msg_id": "Copy cypherlink",
       "view_raw": "View raw message",
-      "read_more": "Read more"
+      "read_more": "Tudj meg többet"
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Vágólapra másolva"
     },
     "reactions": {
       "categories": {
         "smileys_and_emotion": "Smileys and emotion",
         "people_and_body": "People and body",
-        "animals_and_nature": "Animals and nature",
-        "food_and_drink": "Food and drink",
+        "animals_and_nature": "Állatok és természet",
+        "food_and_drink": "Ételek és italok",
         "activities": "Activities",
-        "travel_and_places": "Travel and places",
-        "objects": "Objects",
-        "symbols": "Symbols"
+        "travel_and_places": "Utazás és helyek",
+        "objects": "Tárgyak",
+        "symbols": "Szimbólumok"
       }
     },
     "image": {
       "without_caption": {
-        "accessibility_label": "Picture without caption"
+        "accessibility_label": "Kép leírás nélkül"
       }
     },
     "content_warning": {
       "call_to_action": {
-        "hide": "Hide",
-        "show": "View"
+        "hide": "Elrejt",
+        "show": "Mutat"
       }
     },
     "fork_note": {
@@ -864,14 +864,14 @@
       "new_picture": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new profile picture: "
+        "3_normal": " új profilképet állított be: "
       },
       "new_name_and_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " új neve \"",
         "4_bold": "{{name}}",
-        "5_normal": "\" and the description: "
+        "5_normal": "\" leírása pedig: "
       },
       "new_description": {
         "1_normal": "",

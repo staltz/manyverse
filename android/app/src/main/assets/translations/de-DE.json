@@ -29,31 +29,31 @@
       "description": "Ein soziales Netzwerk kann einfach, neutral, nicht-kommerziell und auf Vertrauen zwischen Freund:innen aufgebaut sein. Dafür steht Manyverse und wir hoffen auch Du findest im Manyverse Dein digitales zu Hause. All das wird möglich gemacht durch das neue SSB Protokoll."
     },
     "off_the_grid": {
-      "title": "netzunabhängig",
+      "title": "Autark",
       "description": {
         "1_normal": "Manyverse kann eine Internetverbindung benutzen, aber es ist nicht ",
         "2_bold": "im",
         "3_normal": " Internet. Alles läuft direkt auf Deinem Gerät ab. Das bedeutet, dass Du es ganz normal verwenden kannst selbst während Du nicht mit dem Internet verbunden bist. Deine ",
         "4_bold": "Inhalte werden zunächst auf Deinem Gerät gespeichert",
-        "5_normal": "und Du kannst sie mit Freund:innen synchronisieren sobald Du Dich mit ihnen verbindest."
+        "5_normal": " und Du kannst sie mit Freund:innen synchronisieren sobald Du Dich mit ihnen verbindest."
       }
     },
     "connections": {
-      "title": "Viele Verbindungsmöglichkeiten",
+      "title": "Viele Interaktionsmöglichkeiten",
       "description": {
         "ios": {
-          "1_normal": "Dich mit Freunden verbinden und Inhalte synchronisieren kannst Du entweder durch: Beitreten des selben ",
+          "1_normal": "Dich mit Freund:innen verbinden und Inhalte synchronisieren kannst Du entweder durch: Beitreten des selben ",
           "2_bold": "WLANs",
           "3_normal": " oder Austauschen von",
           "4_bold": "P2P Einladungen",
-          "5_normal": "Um neue Leute im Internet zu finden schaue nach einem Einladungscode zu einem ",
+          "5_normal": ". Um neue Leute im Internet zu finden schaue nach einem Einladungscode zu einem ",
           "6_bold": "Pubserver",
           "7_normal": " oder einem ",
           "8_bold": "Raumserver",
-          "9_normal": "oder erstelle Deinen eigenen Server!"
+          "9_normal": " oder erstelle Deinen eigenen Server!"
         },
         "default": {
-          "1_normal": "Dich mit Freunden verbinden und Inhalte synchronisieren kannst Du entweder durch: Beitreten des selben ",
+          "1_normal": "Dich mit Freund:innen verbinden und Inhalte synchronisieren kannst Du entweder durch: Beitreten des selben ",
           "2_bold": "WLANs",
           "3_normal": ", beitreten, ",
           "4_bold": "via Bluetooth synchronisieren",
