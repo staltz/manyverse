@@ -259,7 +259,10 @@
           "server": "Room server",
           "endpoint": "Room peer",
           "alone_online": "(only you online)",
-          "others_online": "({{amount}} online)"
+          "others_online": {
+            "one": "({{count}} online)",
+            "other": "({{count}} online)"
+          }
         },
         "pub": "Pub server",
         "server": "Server",

@@ -181,7 +181,7 @@ export default class RoomItem extends PureComponent<Props> {
                       data.onlineCount <= 1
                         ? t('connections.peers.types.room.alone_online')
                         : t('connections.peers.types.room.others_online', {
-                            amount: data.onlineCount - 1,
+                            count: data.onlineCount - 1,
                           }),
                     )
                   : null,
