@@ -13,6 +13,7 @@ import {
   Modal,
   StyleSheet,
   Platform,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {h} from '@cycle/react';
 import EmojiPicker from 'react-native-emoji-picker-staltz';
@@ -29,11 +30,24 @@ import {
 } from '../../ssb/types';
 
 const THUMBS_UP_UNICODE = '\ud83d\udc4d';
+const HEART_UNICODE = '\u2665';
+const SMILING_FACE_UNICODE = '\ud83d\ude0a';
+const CRYING_FACE_UNICODE = '\ud83d\ude22';
+const SMILING_GRINNING_UNICODE = '\ud83d\ude04';
+const THINKING_FACE_UNICODE = '\ud83e\udd14';
+const SURPRISED_UNICODE = '\ud83d\ude2e';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
   default: TouchableOpacity,
 });
+
+const touchableProps =
+  Platform.OS === 'android'
+    ? {
+        background: TouchableNativeFeedback.SelectableBackground(),
+      }
+    : {};
 
 export const styles = StyleSheet.create({
   row: {
@@ -69,26 +83,65 @@ export const styles = StyleSheet.create({
     lineHeight: Typography.fontSizeBig * 1.15,
   },
 
-  emojiPickerModal: {
+  quickEmojiPickerModal: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'center',
     flex: 1,
   },
 
-  emojiPickerBackground: {
+  quickEmojiPickerBackground: {
+    backgroundColor: Palette.transparencyDark,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: -1,
+  },
+
+  quickEmojiPickerContainer: {
+    backgroundColor: Palette.backgroundText,
+    borderRadius: 10,
+    marginHorizontal: Dimensions.horizontalSpaceNormal,
+    marginVertical: Dimensions.verticalSpaceNormal,
+    paddingHorizontal: Dimensions.horizontalSpaceNormal,
+    paddingVertical: Dimensions.verticalSpaceNormal,
+    flexDirection: 'column',
+  },
+
+  quickEmojiPickerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  quickEmojiChoice: {
+    flex: 1,
+    fontSize: 30,
+    padding: 15,
+  },
+
+  fullEmojiPickerModal: {
+    flex: 1,
+  },
+
+  fullEmojiPickerBackground: {
     backgroundColor: Palette.transparencyDark,
   },
 
-  emojiPickerContainer: {
+  fullEmojiPickerContainer: {
     backgroundColor: Palette.backgroundText,
     padding: 0,
   },
 
-  emojiPickerScroll: {
+  fullEmojiPickerScroll: {
     paddingTop: Dimensions.verticalSpaceTiny,
     paddingHorizontal: Dimensions.horizontalSpaceNormal,
     paddingBottom: Dimensions.verticalSpaceNormal,
   },
 
-  emojiPickerHeader: {
+  fullEmojiPickerHeader: {
     fontSize: Typography.fontSizeSmall,
     fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
@@ -170,18 +223,6 @@ class Reactions extends PureComponent<{
       .map(([_feed, reaction]) => reaction)
       .join('');
 
-    const touchableProps: any = {
-      onPress,
-      accessible: true,
-      accessibilityRole: 'button',
-      accessibilityLabel: t(
-        'message.call_to_action.show_reactions.accessibility_label',
-      ),
-    };
-    if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
-    }
-
     const child = [
       h(View, {style: styles.col, pointerEvents: 'box-only'}, [
         h(
@@ -193,7 +234,19 @@ class Reactions extends PureComponent<{
     ];
 
     if (count > 0) {
-      return h(Touchable, touchableProps, child);
+      return h(
+        Touchable,
+        {
+          ...touchableProps,
+          onPress,
+          accessible: true,
+          accessibilityRole: 'button',
+          accessibilityLabel: t(
+            'message.call_to_action.show_reactions.accessibility_label',
+          ),
+        },
+        child,
+      );
     } else {
       return h(Fragment, child);
     }
@@ -226,58 +279,60 @@ class LikeButton extends PureComponent<
       ? 'no'
       : 'yes';
 
-    const touchableProps: any = {
-      onPress: this.onPress,
-      onLongPress: this.props.onLongPress,
-      delayLongPress: 100,
-      delayPressIn: 20,
-      accessible: true,
-      accessibilityRole: 'button',
-      accessibilityLabel: t(
-        'message.call_to_action.add_reaction.accessibility_label',
-      ),
-    };
-    if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
-    }
-
-    return h(Touchable, touchableProps, [
-      h(View, {style: styles.likeButton, pointerEvents: 'box-only'}, [
-        myReaction === null
-          ? h(Icon, iconProps[ilike + 'Liked'])
-          : h(Text, {key: 'm', style: styles.myReaction}, myReaction),
-        h(
-          Text,
-          {key: 't', style: styles.likeButtonLabel},
-          t('message.call_to_action.add_reaction.label'),
+    return h(
+      Touchable,
+      {
+        ...touchableProps,
+        onPress: this.onPress,
+        onLongPress: this.props.onLongPress,
+        delayLongPress: 100,
+        delayPressIn: 20,
+        accessible: true,
+        accessibilityRole: 'button',
+        accessibilityLabel: t(
+          'message.call_to_action.add_reaction.accessibility_label',
         ),
-      ]),
-    ]);
+      },
+      [
+        h(View, {style: styles.likeButton, pointerEvents: 'box-only'}, [
+          myReaction === null
+            ? h(Icon, iconProps[ilike + 'Liked'])
+            : h(Text, {key: 'm', style: styles.myReaction}, myReaction),
+          h(
+            Text,
+            {key: 't', style: styles.likeButtonLabel},
+            t('message.call_to_action.add_reaction.label'),
+          ),
+        ]),
+      ],
+    );
   }
 }
 
 class ReplyButton extends PureComponent<{onPress: () => void}> {
   public render() {
-    const touchableProps: any = {
-      onPress: this.props.onPress,
-      accessible: true,
-      accessibilityRole: 'button',
-      accessibilityLabel: t('message.call_to_action.reply.accessibility_label'),
-    };
-    if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
-    }
-
-    return h(Touchable, touchableProps, [
-      h(View, {style: styles.replyButton, pointerEvents: 'box-only'}, [
-        h(Icon, iconProps.reply),
-        h(
-          Text,
-          {key: 't', style: styles.replyButtonLabel},
-          t('message.call_to_action.reply.label'),
+    return h(
+      Touchable,
+      {
+        ...touchableProps,
+        onPress: this.props.onPress,
+        accessible: true,
+        accessibilityRole: 'button',
+        accessibilityLabel: t(
+          'message.call_to_action.reply.accessibility_label',
         ),
-      ]),
-    ]);
+      },
+      [
+        h(View, {style: styles.replyButton, pointerEvents: 'box-only'}, [
+          h(Icon, iconProps.reply),
+          h(
+            Text,
+            {key: 't', style: styles.replyButtonLabel},
+            t('message.call_to_action.reply.label'),
+          ),
+        ]),
+      ],
+    );
   }
 }
 
@@ -290,11 +345,15 @@ export type Props = {
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
 };
 export type State = {
-  showEmojis: boolean;
+  showQuickEmojis: boolean;
+  showFullEmojis: boolean;
 };
 
 export default class MessageFooter extends Component<Props, State> {
-  public state = {showEmojis: false};
+  public state = {
+    showQuickEmojis: false,
+    showFullEmojis: false,
+  };
 
   private myReaction: string | null = null;
 
@@ -314,11 +373,19 @@ export default class MessageFooter extends Component<Props, State> {
   };
 
   private onLongPressAddReactionHandler = () => {
-    this.setState(prev => ({showEmojis: !prev.showEmojis}));
+    this.setState(prev => ({showQuickEmojis: !prev.showQuickEmojis}));
   };
 
-  private closeEmojiPicker = () => {
-    this.setState({showEmojis: false});
+  private closeQuickEmojiPicker = () => {
+    this.setState({showQuickEmojis: false});
+  };
+
+  private openFullEmojiPicker = () => {
+    this.setState({showQuickEmojis: false, showFullEmojis: true});
+  };
+
+  private closeFullEmojiPicker = () => {
+    this.setState({showQuickEmojis: false, showFullEmojis: false});
   };
 
   private onSelectEmojiReaction = (emoji: string | null) => {
@@ -329,7 +396,7 @@ export default class MessageFooter extends Component<Props, State> {
         reaction: emoji,
       });
     }
-    this.setState({showEmojis: false});
+    this.setState({showQuickEmojis: false, showFullEmojis: false});
   };
 
   private onPressReplyHandler = () => {
@@ -357,7 +424,10 @@ export default class MessageFooter extends Component<Props, State> {
     if (nextP.msg.key !== prevP.msg.key) {
       return true;
     }
-    if (nextS.showEmojis !== prevS.showEmojis) {
+    if (nextS.showQuickEmojis !== prevS.showQuickEmojis) {
+      return true;
+    }
+    if (nextS.showFullEmojis !== prevS.showFullEmojis) {
       return true;
     }
     if ((nextP.reactions ?? []).length !== (prevP.reactions ?? []).length) {
@@ -383,20 +453,92 @@ export default class MessageFooter extends Component<Props, State> {
     return false;
   }
 
-  private renderEmojiPickerModal() {
+  private renderQuickEmojiChoice(emoji: string) {
+    return h(
+      Touchable,
+      {
+        ...touchableProps,
+        onPress: () => this.onSelectEmojiReaction(emoji),
+        accessible: true,
+        accessibilityRole: 'button',
+      },
+      [h(Text, {style: styles.quickEmojiChoice}, emoji)],
+    );
+  }
+
+  private renderShowAllEmojisChoice() {
+    return h(
+      Touchable,
+      {
+        ...touchableProps,
+        onPress: this.openFullEmojiPicker,
+        accessible: true,
+        accessibilityRole: 'button',
+        accessibilityLabel: t(
+          'message.reactions.show_more.accessibility_label',
+        ),
+      },
+      [
+        h(Icon, {
+          style: styles.quickEmojiChoice,
+          key: 'showall',
+          color: Palette.textWeak,
+          name: 'dots-horizontal',
+        }),
+      ],
+    );
+  }
+
+  private renderQuickEmojiPickerModal() {
     return h(
       Modal,
       {
         animationType: 'none',
         transparent: true,
         hardwareAccelerated: true,
-        visible: this.state.showEmojis,
-        onRequestClose: this.closeEmojiPicker,
+        visible: this.state.showQuickEmojis,
+        onRequestClose: this.closeQuickEmojiPicker,
+      },
+      [
+        h(View, {style: styles.quickEmojiPickerModal}, [
+          h(View, {style: styles.quickEmojiPickerContainer}, [
+            h(View, {style: styles.quickEmojiPickerRow}, [
+              this.renderQuickEmojiChoice(THUMBS_UP_UNICODE),
+              this.renderQuickEmojiChoice(HEART_UNICODE),
+              this.renderQuickEmojiChoice(SMILING_FACE_UNICODE),
+              this.renderQuickEmojiChoice(CRYING_FACE_UNICODE),
+            ]),
+            h(View, {style: styles.quickEmojiPickerRow}, [
+              this.renderQuickEmojiChoice(SMILING_GRINNING_UNICODE),
+              this.renderQuickEmojiChoice(THINKING_FACE_UNICODE),
+              this.renderQuickEmojiChoice(SURPRISED_UNICODE),
+              this.renderShowAllEmojisChoice(),
+            ]),
+          ]),
+          h(TouchableWithoutFeedback, {onPress: this.closeQuickEmojiPicker}, [
+            h(View, {style: styles.quickEmojiPickerBackground}),
+          ]),
+        ]),
+      ],
+    );
+  }
+
+  private renderFullEmojiPickerModal() {
+    if (!this.state.showQuickEmojis && !this.state.showFullEmojis) return null;
+
+    return h(
+      Modal,
+      {
+        animationType: 'none',
+        transparent: true,
+        hardwareAccelerated: true,
+        visible: this.state.showFullEmojis,
+        onRequestClose: this.closeFullEmojiPicker,
       },
       [
         h(EmojiPicker, {
           onEmojiSelected: this.onSelectEmojiReaction,
-          onPressOutside: this.closeEmojiPicker,
+          onPressOutside: this.closeFullEmojiPicker,
           rows: 6,
           hideClearButton: true,
           localizedCategories: [
@@ -409,11 +551,11 @@ export default class MessageFooter extends Component<Props, State> {
             t('message.reactions.categories.objects'),
             t('message.reactions.categories.symbols'),
           ],
-          modalStyle: styles.emojiPickerModal,
-          backgroundStyle: styles.emojiPickerBackground,
-          containerStyle: styles.emojiPickerContainer,
-          scrollStyle: styles.emojiPickerScroll,
-          headerStyle: styles.emojiPickerHeader,
+          modalStyle: styles.fullEmojiPickerModal,
+          backgroundStyle: styles.fullEmojiPickerBackground,
+          containerStyle: styles.fullEmojiPickerContainer,
+          scrollStyle: styles.fullEmojiPickerScroll,
+          headerStyle: styles.fullEmojiPickerHeader,
         }),
       ],
     );
@@ -427,7 +569,8 @@ export default class MessageFooter extends Component<Props, State> {
     this.myReaction = this.findMyLatestReaction();
 
     return h(View, {style: styles.col}, [
-      this.renderEmojiPickerModal(),
+      this.renderQuickEmojiPickerModal(),
+      this.renderFullEmojiPickerModal(),
 
       h(View, {key: 'summary', style: styles.row}, [
         h(Reactions, {reactions, onPress: this.onPressReactionsHandler}),

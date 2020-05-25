@@ -903,6 +903,9 @@
         "travel_and_places": "Travel and places",
         "objects": "Objects",
         "symbols": "Symbols"
+      },
+      "show_more": {
+        "accessibility_label": "Show More Reaction Options"
       }
     },
     "image": {
