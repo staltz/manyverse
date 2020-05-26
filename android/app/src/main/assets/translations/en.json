@@ -171,6 +171,11 @@
       "private": "Private messages",
       "connections": "Connections"
     },
+    "tab_footers": {
+      "public": "Public",
+      "private": "Private",
+      "connections": "Connections"
+    },
     "loading": "Loading...",
     "building_indexes": "Building database indexes...\nThis may take up to several minutes",
     "tabs": {

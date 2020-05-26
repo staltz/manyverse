@@ -1,13 +1,14 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {StyleSheet, ViewStyle} from 'react-native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {Typography} from '../../global-styles/typography';
 
 const page: ViewStyle = {
   position: 'absolute',
@@ -49,6 +50,19 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  tabButtonText: {
+    fontFamily: Typography.fontFamilyReadableText,
+    fontSize: Typography.fontSizeSmall,
+    color: Palette.textWeak,
+  },
+
+  tabButtonTextSelected: {
+    fontFamily: Typography.fontFamilyReadableText,
+    fontSize: Typography.fontSizeSmall,
+    color: Palette.textBrand,
+    fontWeight: 'bold',
   },
 
   menuBackdrop: {

@@ -8,6 +8,7 @@ import xs, {Stream} from 'xstream';
 import {ReactElement, Fragment, PureComponent, Component} from 'react';
 import {
   View,
+  Text,
   Platform,
   TouchableNativeFeedback,
   TouchableOpacity,
@@ -109,6 +110,17 @@ class PublicTabIcon extends Component<{
                   : styles.updatesCoverAll,
             }),
           ]),
+
+          h(
+            Text,
+            {
+              style: isSelected
+                ? styles.tabButtonTextSelected
+                : styles.tabButtonText,
+              numberOfLines: 1,
+            },
+            t('central.tab_footers.public'),
+          ),
         ]),
       ],
     );
@@ -131,17 +143,8 @@ class PrivateTabIcon extends Component<{
     return false;
   }
 
-  private getIconName() {
-    const {isSelected, numOfUpdates} = this.props;
-    if (numOfUpdates >= 1) {
-      return isSelected ? 'message-text' : 'message-text-outline';
-    } else {
-      return isSelected ? 'message' : 'message-outline';
-    }
-  }
-
   public render() {
-    const {isSelected} = this.props;
+    const {isSelected, numOfUpdates} = this.props;
     return h(
       Touchable,
       {
@@ -156,10 +159,22 @@ class PrivateTabIcon extends Component<{
         h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
           h(View, [
             h(Icon, {
-              name: this.getIconName(),
+              name:
+                numOfUpdates >= 1 ? 'message-text-outline' : 'message-outline',
               ...(isSelected ? iconProps.tabSelected : iconProps.tab),
             }),
           ]),
+
+          h(
+            Text,
+            {
+              style: isSelected
+                ? styles.tabButtonTextSelected
+                : styles.tabButtonText,
+              numberOfLines: 1,
+            },
+            t('central.tab_footers.private'),
+          ),
         ]),
       ],
     );
@@ -206,18 +221,19 @@ class ConnectionsTabIcon extends Component<{
   }
 
   private getIconName() {
-    const {isSelected, details} = this.props;
+    const {details} = this.props;
     if (ConnectionsTabIcon.countConnected(details) > 0) {
-      return isSelected ? 'check-network' : 'check-network-outline';
+      return 'check-network-outline';
     }
     const d = details;
     if (d?.bluetoothEnabled || d?.internetEnabled || d?.lanEnabled) {
-      return isSelected ? 'network' : 'network-outline';
+      return 'network-outline';
     }
-    return isSelected ? 'network-off' : 'network-off-outline';
+    return 'network-off-outline';
   }
 
   public render() {
+    const {isSelected} = this.props;
     return h(
       Touchable,
       {
@@ -232,8 +248,19 @@ class ConnectionsTabIcon extends Component<{
         h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
           h(Icon, {
             name: this.getIconName(),
-            ...(this.props.isSelected ? iconProps.tabSelected : iconProps.tab),
+            ...(isSelected ? iconProps.tabSelected : iconProps.tab),
           }),
+
+          h(
+            Text,
+            {
+              style: isSelected
+                ? styles.tabButtonTextSelected
+                : styles.tabButtonText,
+              numberOfLines: 1,
+            },
+            t('central.tab_footers.connections'),
+          ),
         ]),
       ],
     );
