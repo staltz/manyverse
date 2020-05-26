@@ -260,8 +260,8 @@
           "endpoint": "Conta numa sala",
           "alone_online": "(só você online)",
           "others_online": {
-            "one": "({{count}} online)",
-            "other": "({{count}} online)"
+            "one": "(1 outro ligado)",
+            "other": "({{count}} ligados)"
           }
         },
         "pub": "Servidor pub",

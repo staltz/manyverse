@@ -401,7 +401,7 @@
         "accessibility_label": "Кнопка Закрытия"
       },
       "open_camera": {
-        "accessibility_label": "Open Camera Button"
+        "accessibility_label": "Копка \"Открыть Фотокамеру\""
       },
       "add_picture": {
         "accessibility_label": "кнопка \"Добавить изображение\""

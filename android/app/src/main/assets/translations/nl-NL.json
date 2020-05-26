@@ -26,57 +26,57 @@
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 jaar geleden",
+          "other": "{{count}} jaren geleden"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1 maand geleden",
+          "other": "{{count}} maanden geleden"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "1 week geleden",
+          "other": "{{count}} weken geleden"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 dag geleden",
+          "other": "{{count}} dagen geleden"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 uur geleden",
+          "other": "{{count}} uren geleden"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "1 minuut geleden",
+          "other": "{{count}} minuten geleden"
         },
-        "now": "Just now"
+        "now": "Op dit moment"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "1 jaar vanaf nu",
+          "other": "{{count}} jaren vanaf nu"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1 maand vanaf nu",
+          "other": "{{count}} maanden vanaf nu"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "1 week vanaf nu",
+          "other": "{{count}} weken vanaf nu"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "1 dag vanaf nu",
+          "other": "{{count}} dagen vanaf nu"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "1 uur vanaf nu",
+          "other": "{{count}} uren vanaf nu"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "1 minuut vanaf nu",
+          "other": "{{count}} minuten vanaf nu"
         },
-        "now": "Very soon"
+        "now": "Zeer binnenkort"
       }
     }
   },
