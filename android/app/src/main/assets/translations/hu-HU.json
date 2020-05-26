@@ -171,6 +171,11 @@
       "private": "Privát üzenetek",
       "connections": "Connections"
     },
+    "tab_footers": {
+      "public": "Public",
+      "private": "Private",
+      "connections": "Connections"
+    },
     "loading": "Betöltés...",
     "building_indexes": "Building database indexes...\nThis may take up to several minutes",
     "tabs": {
@@ -903,6 +908,9 @@
         "travel_and_places": "Utazás és helyek",
         "objects": "Tárgyak",
         "symbols": "Szimbólumok"
+      },
+      "show_more": {
+        "accessibility_label": "Show More Reaction Options"
       }
     },
     "image": {

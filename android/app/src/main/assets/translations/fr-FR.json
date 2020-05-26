@@ -171,6 +171,11 @@
       "private": "Messages privés",
       "connections": "Connexions"
     },
+    "tab_footers": {
+      "public": "Public",
+      "private": "Private",
+      "connections": "Connexions"
+    },
     "loading": "Chargement en cours...",
     "building_indexes": "Construction de l'index de la base de données...\nCela peut prendre plusieurs minutes",
     "tabs": {
@@ -903,6 +908,9 @@
         "travel_and_places": "Voyage et endroits",
         "objects": "Objets",
         "symbols": "Symboles"
+      },
+      "show_more": {
+        "accessibility_label": "Show More Reaction Options"
       }
     },
     "image": {

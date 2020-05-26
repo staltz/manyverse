@@ -171,6 +171,11 @@
       "private": "Личные сообщения",
       "connections": "Соединения"
     },
+    "tab_footers": {
+      "public": "Public",
+      "private": "Private",
+      "connections": "Соединения"
+    },
     "loading": "Загрузка...",
     "building_indexes": "Построение индексов базы данных...\nЭто может занять некоторое время",
     "tabs": {
@@ -903,6 +908,9 @@
         "travel_and_places": "Travel and places",
         "objects": "Objects",
         "symbols": "Symbols"
+      },
+      "show_more": {
+        "accessibility_label": "Show More Reaction Options"
       }
     },
     "image": {

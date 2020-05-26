@@ -171,6 +171,11 @@
       "private": "Privé berichten",
       "connections": "Verbindingen"
     },
+    "tab_footers": {
+      "public": "Publiek",
+      "private": "Privé",
+      "connections": "Verbindingen"
+    },
     "loading": "Laden...",
     "building_indexes": "Database-indexen worden gebouwd...\nDit kan enkele minuten duren",
     "tabs": {
@@ -903,6 +908,9 @@
         "travel_and_places": "Reizen en plaatsen",
         "objects": "Objecten",
         "symbols": "Symbolen"
+      },
+      "show_more": {
+        "accessibility_label": "Show More Reaction Options"
       }
     },
     "image": {
