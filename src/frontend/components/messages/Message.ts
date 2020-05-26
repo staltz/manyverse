@@ -53,7 +53,7 @@ export default class Message extends PureComponent<Props, State> {
 
   public render() {
     const {msg} = this.props;
-    const metadata = this.props.msg.value._$manyverse$metadata;
+    const metadata = msg.value._$manyverse$metadata;
     const reactions = (
       metadata.reactions ?? (xs.never() as Stream<Reactions>)
     ).compose(debounce(80)); // avoid DB reads flickering
