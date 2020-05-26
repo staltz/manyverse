@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,27 +7,27 @@
 import {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
-import MessageContainer from './MessageContainer';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import PlaceholderHeader from './PlaceholderMessageHeader';
-import PlaceholderFooter from './PlaceholderMessageFooter';
+import {Dimensions} from '../global-styles/dimens';
+import MessageContainer from './messages/MessageContainer';
+import PlaceholderHeader from './messages/PlaceholderMessageHeader';
+import PlaceholderFooter from './messages/PlaceholderMessageFooter';
+import ThreadCard from './ThreadCard';
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: Dimensions.verticalSpaceNormal,
+    flex: 0,
+    height: ThreadCard.HEIGHT,
   },
 
   body: {
-    width: 250,
-    height: 16,
-    marginTop: Dimensions.verticalSpaceNormal + 2,
-    marginBottom: 10,
-    backgroundColor: Palette.backgroundVoidWeak,
+    flex: 1,
+    marginTop: Dimensions.verticalSpaceNormal + 12,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 });
 
-export default class PlaceholderMessage extends PureComponent<{}> {
+export default class PlaceholderThreadCard extends PureComponent<{}> {
   public render() {
     return h(MessageContainer, {style: styles.container}, [
       h(PlaceholderHeader, {key: 'ph'}),

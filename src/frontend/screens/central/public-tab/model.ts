@@ -9,13 +9,13 @@ import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource, GetReadable} from '../../../drivers/ssb';
-import {ThreadAndExtras} from '../../../ssb/types';
+import {ThreadSummaryWithExtras} from '../../../ssb/types';
 import {Animated} from 'react-native';
 
 export type State = {
   selfFeedId: FeedId;
-  getPublicFeedReadable: GetReadable<ThreadAndExtras> | null;
-  getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
+  getPublicFeedReadable: GetReadable<ThreadSummaryWithExtras> | null;
+  getSelfRootsReadable: GetReadable<ThreadSummaryWithExtras> | null;
   numOfUpdates: number;
   hasComposeDraft: boolean;
   isVisible: boolean;

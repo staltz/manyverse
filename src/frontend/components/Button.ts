@@ -121,7 +121,7 @@ export default class Button extends Component<Props, {}> {
     };
     if (Platform.OS === 'android') {
       touchableProps.background = TouchableNativeFeedback.Ripple(
-        Palette.transparencyDarkStrong,
+        strong ? Palette.transparencyDarkStrong : Palette.backgroundBrand,
       );
     }
 

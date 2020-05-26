@@ -104,10 +104,12 @@ export default {
   },
   threads: {
     public: 'source',
+    publicSummary: 'source',
     publicUpdates: 'source',
     private: 'source',
     privateUpdates: 'source',
     profile: 'source',
+    profileSummary: 'source',
     thread: 'source',
     threadUpdates: 'source',
   },

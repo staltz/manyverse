@@ -5,33 +5,52 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream, Subscription, Listener} from 'xstream';
-import {Component, ReactElement} from 'react';
+import {Component, PureComponent} from 'react';
+import {StyleSheet, FlatList, View} from 'react-native';
 import {h} from '@cycle/react';
-import {FeedId, Msg, MsgId, PostContent} from 'ssb-typescript';
+import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {
   ThreadAndExtras,
   MsgAndExtras,
   PressReactionsEvent,
   PressAddReactionEvent,
 } from '../ssb/types';
+import {Dimensions} from '../global-styles/dimens';
+import {Palette} from '../global-styles/palette';
 import Message from './messages/Message';
 import PlaceholderMessage from './messages/PlaceholderMessage';
-import ForkNote from './messages/ForkNote';
 
 export type Props = {
   thread: ThreadAndExtras;
   publication$?: Stream<any> | null;
   selfFeedId: FeedId;
-  onPressFork?: (ev: {rootMsgId: MsgId}) => void;
+  onPressFork?: (ev: {rootMsgId: MsgId}) => void; // FIXME: support this?
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
 };
 
+export const styles = StyleSheet.create({
+  separator: {
+    backgroundColor: Palette.backgroundVoid,
+    height: Dimensions.verticalSpaceNormal,
+  },
+
+  contentContainer: {
+    paddingBottom: Dimensions.verticalSpaceNormal,
+  },
+});
+
 type State = {
   showPlaceholder: boolean;
 };
+
+class Separator extends PureComponent {
+  public render() {
+    return h(View, {style: styles.separator});
+  }
+}
 
 export default class FullThread extends Component<Props, State> {
   constructor(props: Props) {
@@ -85,7 +104,8 @@ export default class FullThread extends Component<Props, State> {
     this.setState({showPlaceholder: true});
   }
 
-  private renderMessage(msg: MsgAndExtras) {
+  private renderMessage = ({item}: any) => {
+    const msg = item as MsgAndExtras;
     const {
       selfFeedId,
       onPressReactions,
@@ -93,6 +113,7 @@ export default class FullThread extends Component<Props, State> {
       onPressAuthor,
       onPressEtc,
     } = this.props;
+
     return h(Message, {
       msg,
       key: msg.key,
@@ -102,39 +123,19 @@ export default class FullThread extends Component<Props, State> {
       onPressAuthor,
       onPressEtc,
     });
-  }
+  };
 
   public render() {
-    const {thread, onPressFork} = this.props;
-    if (!thread.messages || thread.messages.length <= 0) return [];
+    const {thread} = this.props;
+    const {showPlaceholder} = this.state;
 
-    // Render all messages
-    const children: Array<ReactElement<any>> = thread.messages.map(
-      this.renderMessage,
-    );
-
-    // Render (top) fork note
-    if (thread.messages[0]) {
-      const first = thread.messages[0] as Msg<PostContent>;
-      const rootId: MsgId | undefined = first.value.content.root;
-      if (rootId) {
-        children.unshift(
-          h(ForkNote, {
-            key: 'fn',
-            rootId,
-            onPress: () => {
-              onPressFork?.({rootMsgId: rootId});
-            },
-          }),
-        );
-      }
-    }
-
-    // Render (bottom) placeholder message
-    if (this.state.showPlaceholder) {
-      children.push(h(PlaceholderMessage, {key: 'p'}));
-    }
-
-    return children;
+    return h(FlatList, {
+      data: thread.messages ?? [],
+      renderItem: this.renderMessage,
+      keyExtractor: (msg: MsgAndExtras) => msg.key,
+      contentContainerStyle: styles.contentContainer,
+      ItemSeparatorComponent: Separator,
+      ListFooterComponent: showPlaceholder ? h(PlaceholderMessage) : null,
+    });
   }
 }

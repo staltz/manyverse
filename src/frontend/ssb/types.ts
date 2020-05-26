@@ -36,6 +36,16 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
   };
 };
 
+export type ThreadSummary<C = Content> = {
+  root: Msg<C>;
+  replyCount: number;
+};
+
+export type ThreadSummaryWithExtras = {
+  root: MsgAndExtras;
+  replyCount: number;
+};
+
 export type ThreadAndExtras = {
   messages: Array<MsgAndExtras>;
   full: boolean;

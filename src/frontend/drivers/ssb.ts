@@ -22,11 +22,11 @@ import {Readable, Callback} from 'pull-stream';
 import {
   MsgAndExtras,
   PrivateThreadAndExtras,
-  ThreadAndExtras,
   AnyThread,
   AboutAndExtras,
   PeerKV,
   StagedPeerKV,
+  ThreadSummaryWithExtras,
 } from '../ssb/types';
 import makeClient, {SSBClient} from '../ssb/client';
 import {imageToImageUrl} from '../ssb/utils/from-ssb';
@@ -57,12 +57,12 @@ export class SSBSource {
   private ssb$: Stream<SSBClient>;
   public selfFeedId$: MemoryStream<FeedId>;
   public publicRawFeed$: Stream<GetReadable<MsgAndExtras>>;
-  public publicFeed$: Stream<GetReadable<ThreadAndExtras>>;
+  public publicFeed$: Stream<GetReadable<ThreadSummaryWithExtras>>;
   public publicLiveUpdates$: Stream<null>;
   public privateFeed$: Stream<GetReadable<PrivateThreadAndExtras>>;
   public privateLiveUpdates$: Stream<MsgId>;
   public isSyncing$: Stream<boolean>;
-  public selfPublicRoots$: Stream<GetReadable<ThreadAndExtras>>;
+  public selfPublicRoots$: Stream<GetReadable<ThreadSummaryWithExtras>>;
   public selfPrivateRoots$: Stream<Msg>;
   public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
   public publishHook$: Stream<Msg>;
@@ -165,7 +165,9 @@ export class SSBSource {
     );
   }
 
-  public profileFeed$(id: FeedId): Stream<GetReadable<ThreadAndExtras>> {
+  public profileFeed$(
+    id: FeedId,
+  ): Stream<GetReadable<ThreadSummaryWithExtras>> {
     return this.ssb$.map(ssb => (opts?: any) =>
       ssb.threadsUtils.profileFeed(id, opts),
     );

@@ -20,6 +20,8 @@ import {
   AnyThread,
   MsgAndExtras,
   ThreadAndExtras,
+  ThreadSummary,
+  ThreadSummaryWithExtras,
   PrivateThreadAndExtras,
   Reactions,
 } from '../types';
@@ -106,6 +108,16 @@ function mutateThreadWithLiveExtras(ssb: SSB) {
   };
 }
 
+function mutateThreadSummaryWithLiveExtras(ssb: SSB) {
+  return async (
+    summary: ThreadSummary,
+    cb: Callback<ThreadSummaryWithExtras>,
+  ) => {
+    await run(mutateMsgWithLiveExtras(ssb))(summary.root);
+    cb(null, summary as ThreadSummaryWithExtras);
+  };
+}
+
 function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
   const getAbout = ssb.cachedAbout.socialValue;
   return async (thread: ThreadData, cb: Callback<PrivateThreadAndExtras>) => {
@@ -177,12 +189,11 @@ const threadsUtils = {
 
       publicFeed(opts: any) {
         return pull(
-          ssb.threads.public({
-            threadMaxSize: 3,
+          ssb.threads.publicSummary({
             allowlist: publicAllowlist,
             ...opts,
           }),
-          pull.asyncMap(mutateThreadWithLiveExtras(ssb)),
+          pull.asyncMap(mutateThreadSummaryWithLiveExtras(ssb)),
         );
       },
 
@@ -213,8 +224,8 @@ const threadsUtils = {
           ssb.createUserStream({id: ssb.id, ...opts}),
           pull.filter(isRootPostMsg),
           pull.filter(isPublic),
-          pull.map((msg: Msg) => ({messages: [msg], full: true} as ThreadData)),
-          pull.asyncMap(mutateThreadWithLiveExtras(ssb)),
+          pull.map((root: Msg) => ({root, replyCount: 0} as ThreadSummary)),
+          pull.asyncMap(mutateThreadSummaryWithLiveExtras(ssb)),
         );
       },
 
@@ -242,7 +253,7 @@ const threadsUtils = {
 
       profileFeed(id: FeedId, opts: any) {
         return pull(
-          ssb.threads.profile({
+          ssb.threads.profileSummary({
             id,
             reverse: true,
             live: false,
@@ -250,7 +261,7 @@ const threadsUtils = {
             allowlist: publicAllowlist,
             ...opts,
           }),
-          pull.asyncMap(mutateThreadWithLiveExtras(ssb)),
+          pull.asyncMap(mutateThreadSummaryWithLiveExtras(ssb)),
         );
       },
 

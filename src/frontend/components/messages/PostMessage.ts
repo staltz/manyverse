@@ -6,17 +6,19 @@
 
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
-import Markdown from '../Markdown';
-import MessageContainer from './MessageContainer';
-import MessageHeader from './MessageHeader';
-import MessageFooter from './MessageFooter';
-import ContentWarning from './ContentWarning';
+import {StyleSheet} from 'react-native';
 import {PostContent as Post, FeedId, Msg, MsgId} from 'ssb-typescript';
 import {
   Reactions,
   PressReactionsEvent,
   PressAddReactionEvent,
 } from '../../ssb/types';
+import {Dimensions} from '../../global-styles/dimens';
+import Markdown from '../Markdown';
+import MessageContainer from './MessageContainer';
+import MessageHeader from './MessageHeader';
+import MessageFooter from './MessageFooter';
+import ContentWarning from './ContentWarning';
 
 type CWPost = Post & {contentWarning?: string};
 
@@ -25,6 +27,7 @@ export type Props = {
   name?: string;
   imageUrl: string | null;
   reactions: Reactions;
+  replyCount: number;
   selfFeedId: FeedId;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
@@ -32,6 +35,14 @@ export type Props = {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
 };
+
+export const styles = StyleSheet.create({
+  footer: {
+    flex: 0,
+    height: MessageFooter.HEIGHT,
+    marginBottom: -Dimensions.verticalSpaceBig,
+  },
+});
 
 type State = {
   cwOpened: boolean;
@@ -64,7 +75,7 @@ export default class PostMessage extends PureComponent<Props, State> {
           })
         : null,
       opened ? h(Markdown, {key: 'md', text: msg.value.content.text}) : null,
-      h(MessageFooter, props),
+      h(MessageFooter, {...props, style: styles.footer}),
     ]);
   }
 }

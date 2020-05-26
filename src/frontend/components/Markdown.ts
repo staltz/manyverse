@@ -1,11 +1,18 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {createElement as $, PureComponent} from 'react';
-import {Linking, StyleSheet, Text, TextProperties, View} from 'react-native';
+import {
+  Linking,
+  StyleSheet,
+  Text,
+  TextProperties,
+  View,
+  ViewProps,
+} from 'react-native';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography as Typ} from '../global-styles/typography';
@@ -158,114 +165,122 @@ const styles = StyleSheet.create({
   },
 });
 
-const renderers = {
-  root: (props: {children: any}) => $(View, null, props.children),
+function makeRenderers(onLayout?: ViewProps['onLayout']) {
+  return {
+    root: (props: {children: any}) => $(View, {onLayout}, props.children),
 
-  paragraph: (props: {children: any}) =>
-    $(
-      View,
-      {style: styles.paragraph},
-      $(Text, {...textProps, style: styles.paragraphText}, props.children),
-    ),
+    paragraph: (props: {children: any}) =>
+      $(
+        View,
+        {style: styles.paragraph},
+        $(Text, {...textProps, style: styles.paragraphText}, props.children),
+      ),
 
-  text: (props: {children: any}) =>
-    $(Text, {...textProps, style: styles.text}, props.children),
+    text: (props: {children: any}) =>
+      $(Text, {...textProps, style: styles.text}, props.children),
 
-  heading: (props: {children: any; level: 1 | 2 | 3 | 4 | 5 | 6}) =>
-    $(
-      Text,
-      {...textProps, style: styles['heading' + props.level]},
-      props.children,
-    ),
+    heading: (props: {children: any; level: 1 | 2 | 3 | 4 | 5 | 6}) =>
+      $(
+        Text,
+        {...textProps, style: styles['heading' + props.level]},
+        props.children,
+      ),
 
-  emphasis: (props: {children: any}) =>
-    $(Text, {...textProps, style: styles.em}, props.children),
+    emphasis: (props: {children: any}) =>
+      $(Text, {...textProps, style: styles.em}, props.children),
 
-  strong: (props: {children: any}) =>
-    $(Text, {...textProps, style: styles.strong}, props.children),
+    strong: (props: {children: any}) =>
+      $(Text, {...textProps, style: styles.strong}, props.children),
 
-  link: (props: {children: any; href: string}) => {
-    const isFeedCypherlink = Ref.isFeedId(props.href);
-    const isMsgCypherlink = Ref.isMsgId(props.href);
-    const isCypherlink = isFeedCypherlink || isMsgCypherlink;
-    const isChildCypherlink =
-      props.children.length === 1 &&
-      (Ref.isFeedId(props.children[0]) || Ref.isMsgId(props.children[0]));
-    return $(
-      Text,
-      {
-        ...textProps,
-        style: isCypherlink ? styles.cypherlink : styles.link,
-        onPress: () => {
-          if (isFeedCypherlink) {
-            GlobalEventBus.dispatch({
-              type: 'triggerFeedCypherlink',
-              feedId: props.href,
-            });
-          } else if (isMsgCypherlink) {
-            GlobalEventBus.dispatch({
-              type: 'triggerMsgCypherlink',
-              msgId: props.href,
-            });
-          } else {
-            Linking.openURL(props.href);
-          }
+    link: (props: {children: any; href: string}) => {
+      const isFeedCypherlink = Ref.isFeedId(props.href);
+      const isMsgCypherlink = Ref.isMsgId(props.href);
+      const isCypherlink = isFeedCypherlink || isMsgCypherlink;
+      const isChildCypherlink =
+        props.children.length === 1 &&
+        (Ref.isFeedId(props.children[0]) || Ref.isMsgId(props.children[0]));
+      return $(
+        Text,
+        {
+          ...textProps,
+          style: isCypherlink ? styles.cypherlink : styles.link,
+          onPress: () => {
+            if (isFeedCypherlink) {
+              GlobalEventBus.dispatch({
+                type: 'triggerFeedCypherlink',
+                feedId: props.href,
+              });
+            } else if (isMsgCypherlink) {
+              GlobalEventBus.dispatch({
+                type: 'triggerMsgCypherlink',
+                msgId: props.href,
+              });
+            } else {
+              Linking.openURL(props.href);
+            }
+          },
         },
-      },
-      isChildCypherlink
-        ? [props.children[0].slice(0, 10) + '\u2026']
-        : props.children,
-    );
-  },
+        isChildCypherlink
+          ? [props.children[0].slice(0, 10) + '\u2026']
+          : props.children,
+      );
+    },
 
-  inlineCode: (props: {children: any}) =>
-    $(Text, {...textProps, style: styles.inlineCode}, props.children),
+    inlineCode: (props: {children: any}) =>
+      $(Text, {...textProps, style: styles.inlineCode}, props.children),
 
-  delete: (props: {children: any}) =>
-    $(Text, {...textProps, style: styles.strikethrough}, props.children),
+    delete: (props: {children: any}) =>
+      $(Text, {...textProps, style: styles.strikethrough}, props.children),
 
-  blockquote: (props: {children: any}) =>
-    $(View, {style: styles.blockquote}, props.children),
+    blockquote: (props: {children: any}) =>
+      $(View, {style: styles.blockquote}, props.children),
 
-  code: (props: {value: string; language: string}) =>
-    $(
-      View,
-      {style: styles.codeBlock},
-      $(Text, {...textProps, style: styles.codeText}, props.value),
-    ),
+    code: (props: {value: string; language: string}) =>
+      $(
+        View,
+        {style: styles.codeBlock},
+        $(Text, {...textProps, style: styles.codeText}, props.value),
+      ),
 
-  thematicBreak: () => $(View, {style: styles.horizontalLine}),
+    thematicBreak: () => $(View, {style: styles.horizontalLine}),
 
-  image: (props: {src: string; title?: string; alt?: string}) =>
-    $(ZoomableImage, {src: props.src, title: props.title ?? props.alt}),
+    image: (props: {src: string; title?: string; alt?: string}) =>
+      $(ZoomableImage, {src: props.src, title: props.title ?? props.alt}),
 
-  list: (props: {children: any; depth: number; ordered: boolean}) =>
-    $(
-      View,
-      {
-        style: {
-          paddingLeft: Dimensions.horizontalSpaceNormal * (props.depth + 1),
+    list: (props: {children: any; depth: number; ordered: boolean}) =>
+      $(
+        View,
+        {
+          style: {
+            paddingLeft: Dimensions.horizontalSpaceNormal * (props.depth + 1),
+          },
         },
-      },
-      props.children,
-    ),
+        props.children,
+      ),
 
-  listItem: (props: {children: any; index: number; ordered: boolean}) => {
-    return $(
-      Text,
-      {...textProps, style: styles.listItemText},
-      props.ordered
-        ? $(Text, {style: styles.orderedBullet}, `${props.index + 1}. `)
-        : $(Text, null, `\u2022 `),
-      props.children,
-    );
-  },
+    listItem: (props: {children: any; index: number; ordered: boolean}) => {
+      return $(
+        Text,
+        {...textProps, style: styles.listItemText},
+        props.ordered
+          ? $(Text, {style: styles.orderedBullet}, `${props.index + 1}. `)
+          : $(Text, null, `\u2022 `),
+        props.children,
+      );
+    },
+  };
+}
+
+export type Props = {
+  text: string;
+  onLayout?: ViewProps['onLayout'];
 };
 
-export default class Markdown extends PureComponent<{text: string}> {
+export default class Markdown extends PureComponent<Props> {
   public render() {
     const linkifySsbFeeds = linkifyRegex(Ref.feedIdRegex);
     const linkifySsbMsgs = linkifyRegex(Ref.msgIdRegex);
+    const renderers = makeRenderers(this.props.onLayout);
 
     return $<any>(ReactMarkdown, {
       source: remark()

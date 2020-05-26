@@ -877,11 +877,9 @@
         "accessibility_label": "Show Reactions"
       },
       "add_reaction": {
-        "label": "Like",
-        "accessibility_label": "Like Button"
+        "accessibility_label": "Add Reaction Button"
       },
       "reply": {
-        "label": "Comment",
         "accessibility_label": "Reply Button"
       },
       "etc": {
@@ -893,7 +891,10 @@
       },
       "copy_msg_id": "Copy cypherlink",
       "view_raw": "View raw message",
-      "read_more": "Read more"
+      "read_more": {
+        "label": "Read more",
+        "accessibility_label": "Read more content in this thread"
+      }
     },
     "toast": {
       "copied_to_clipboard": "Copied to clipboard"

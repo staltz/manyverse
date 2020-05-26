@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {ThreadAndExtras, AboutAndExtras} from '../../ssb/types';
+import {AboutAndExtras} from '../../ssb/types';
 import {SSBSource, GetReadable} from '../../drivers/ssb';
 import {Reducer} from '@cycle/state';
 import {FeedId} from 'ssb-typescript';
@@ -19,8 +19,9 @@ export type State = {
   selfFeedId: FeedId;
   displayFeedId: FeedId;
   about: AboutAndExtras;
-  getFeedReadable: GetReadable<ThreadAndExtras> | null;
-  getSelfRootsReadable: GetReadable<ThreadAndExtras> | null;
+  // FIXME: use `ThreadSummaryWithExtras` but somehow support reply summaries
+  getFeedReadable: GetReadable<any> | null;
+  getSelfRootsReadable: GetReadable<any> | null;
   blockingSecretly: boolean;
 };
 

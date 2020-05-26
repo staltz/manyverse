@@ -14,6 +14,7 @@ import {
   StyleSheet,
   Platform,
   TouchableWithoutFeedback,
+  ViewStyle,
 } from 'react-native';
 import {h} from '@cycle/react';
 import EmojiPicker from 'react-native-emoji-picker-staltz';
@@ -50,37 +51,24 @@ const touchableProps =
     : {};
 
 export const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    flex: 1,
-  },
-
-  col: {
+  container: {
     flexDirection: 'column',
   },
 
-  reactionsShown: {
-    minWidth: 60,
-    paddingTop: Dimensions.verticalSpaceSmall,
-    paddingBottom: Dimensions.verticalSpaceSmall,
-    fontSize: Typography.fontSizeSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textWeak,
-    letterSpacing: -3,
-    fontWeight: 'bold',
+  reactionsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    flex: 2,
   },
 
-  reactionsHidden: {
-    paddingTop: Dimensions.verticalSpaceSmall,
-    paddingBottom: Dimensions.verticalSpaceSmall,
-    fontSize: Typography.fontSizeSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.backgroundText,
-  },
-
-  myReaction: {
-    fontSize: Typography.fontSizeBig,
-    lineHeight: Typography.fontSizeBig * 1.15,
+  buttonsContainer: {
+    borderTopWidth: 1,
+    borderTopColor: Palette.textLine,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+    flex: 3,
   },
 
   quickEmojiPickerModal: {
@@ -148,87 +136,63 @@ export const styles = StyleSheet.create({
     color: Palette.textWeak,
   },
 
-  likeButton: {
+  reactions: {
     flexDirection: 'row',
-    paddingTop: Dimensions.verticalSpaceBig,
-    paddingBottom: Dimensions.verticalSpaceBig,
-    paddingLeft: 1,
-    paddingRight: Dimensions.horizontalSpaceBig,
-    marginBottom: -Dimensions.verticalSpaceBig,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
   },
 
-  likeButtonLabel: {
-    fontSize: Typography.fontSizeSmall,
-    fontWeight: 'bold',
-    marginLeft: Dimensions.horizontalSpaceSmall,
+  reactionsText: {
+    minWidth: 60,
     fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
+    fontSize: Typography.fontSizeSmall,
+    textAlignVertical: 'center',
+    textAlign: 'left',
     color: Palette.textWeak,
   },
 
-  replyButton: {
-    flexDirection: 'row',
-    paddingTop: Dimensions.verticalSpaceBig,
-    paddingBottom: Dimensions.verticalSpaceBig,
-    paddingLeft: Dimensions.horizontalSpaceBig,
-    paddingRight: Dimensions.horizontalSpaceBig,
-    marginBottom: -Dimensions.verticalSpaceBig,
+  repliesCounter: {
+    marginRight: Dimensions.horizontalSpaceTiny,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontSize: Typography.fontSizeNormal,
+    textAlignVertical: 'center',
+    textAlign: 'right',
+    color: Palette.textWeak,
   },
 
-  replyButtonLabel: {
-    fontSize: Typography.fontSizeSmall,
-    fontWeight: 'bold',
-    marginLeft: Dimensions.horizontalSpaceSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textWeak,
+  myReaction: {
+    fontSize: Typography.fontSizeBig,
+    lineHeight: Typography.fontSizeBig * 1.15,
+  },
+
+  prominentButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
-
-const iconProps = {
-  noLiked: {
-    key: 'icon',
-    size: Dimensions.iconSizeSmall,
-    color: Palette.textWeak,
-    name: 'thumb-up-outline',
-  },
-  maybeLiked: {
-    key: 'icon',
-    size: Dimensions.iconSizeSmall,
-    color: Palette.foregroundNeutral,
-    name: 'thumb-up',
-  },
-  yesLiked: {
-    key: 'icon',
-    size: Dimensions.iconSizeSmall,
-    color: Palette.backgroundBrandWeak,
-    name: 'thumb-up',
-  },
-  reply: {
-    key: 'icon',
-    size: Dimensions.iconSizeSmall,
-    color: Palette.textWeak,
-    name: 'comment-outline',
-  },
-};
 
 class Reactions extends PureComponent<{
   onPress: () => void;
   reactions: NonNullable<ReactionsType>;
 }> {
   public render() {
-    const MAX = 10;
     const {reactions, onPress} = this.props;
     const count = reactions.length;
-    const summary = reactions
-      .slice(0, Math.min(count, MAX)) // take first `MAX` recent reactions
-      .map(([_feed, reaction]) => reaction)
-      .join('');
+    const summary = reactions.map(([_feed, reaction]) => reaction).join('');
 
     const child = [
-      h(View, {style: styles.col, pointerEvents: 'box-only'}, [
+      h(View, {style: styles.reactions, pointerEvents: 'box-only'}, [
         h(
           Text,
-          {style: count > 0 ? styles.reactionsShown : styles.reactionsHidden},
-          ['\u2002', summary, '\u2002', count > MAX ? '\u2026' : ''],
+          {
+            style: styles.reactionsText,
+            numberOfLines: 1,
+            ellipsizeMode: 'tail',
+          },
+          count > 0 ? summary : ' ',
         ),
       ]),
     ];
@@ -253,38 +217,18 @@ class Reactions extends PureComponent<{
   }
 }
 
-class LikeButton extends PureComponent<
-  {
-    onPress: () => void;
-    onLongPress: () => void;
-    myReaction: string | null;
-  },
-  {maybeToggled: boolean}
-> {
-  public state = {maybeToggled: false};
-
-  private onPress = () => {
-    if (this.state.maybeToggled) return;
-
-    this.setState({maybeToggled: true});
-    this.props.onPress();
-  };
-
+class AddReactionButton extends PureComponent<{
+  onPress: () => void;
+  myReaction: string | null;
+}> {
   public render() {
     const {myReaction} = this.props;
-    const {maybeToggled} = this.state;
-    const ilike: 'no' | 'maybe' | 'yes' = maybeToggled
-      ? 'maybe'
-      : myReaction === null
-      ? 'no'
-      : 'yes';
 
     return h(
       Touchable,
       {
         ...touchableProps,
-        onPress: this.onPress,
-        onLongPress: this.props.onLongPress,
+        onPress: this.props.onPress,
         delayLongPress: 100,
         delayPressIn: 20,
         accessible: true,
@@ -294,23 +238,28 @@ class LikeButton extends PureComponent<
         ),
       },
       [
-        h(View, {style: styles.likeButton, pointerEvents: 'box-only'}, [
+        h(View, {style: styles.prominentButton, pointerEvents: 'box-only'}, [
           myReaction === null
-            ? h(Icon, iconProps[ilike + 'Liked'])
+            ? h(Icon, {
+                key: 'icon',
+                size: Dimensions.iconSizeSmall,
+                color: Palette.textWeak,
+                name: 'emoticon-happy-outline',
+              })
             : h(Text, {key: 'm', style: styles.myReaction}, myReaction),
-          h(
-            Text,
-            {key: 't', style: styles.likeButtonLabel},
-            t('message.call_to_action.add_reaction.label'),
-          ),
         ]),
       ],
     );
   }
 }
 
-class ReplyButton extends PureComponent<{onPress: () => void}> {
+class ReplyButton extends PureComponent<{
+  onPress: () => void;
+  replyCount: number;
+}> {
   public render() {
+    const {replyCount} = this.props;
+
     return h(
       Touchable,
       {
@@ -323,13 +272,48 @@ class ReplyButton extends PureComponent<{onPress: () => void}> {
         ),
       },
       [
-        h(View, {style: styles.replyButton, pointerEvents: 'box-only'}, [
-          h(Icon, iconProps.reply),
-          h(
-            Text,
-            {key: 't', style: styles.replyButtonLabel},
-            t('message.call_to_action.reply.label'),
-          ),
+        h(View, {style: styles.prominentButton, pointerEvents: 'box-only'}, [
+          replyCount > 0
+            ? h(
+                Text,
+                {
+                  key: 't',
+                  style: styles.repliesCounter,
+                  numberOfLines: 1,
+                },
+                String(replyCount),
+              )
+            : null,
+          h(Icon, {
+            key: 'icon',
+            size: Dimensions.iconSizeSmall,
+            color: Palette.textWeak,
+            name: 'comment-outline',
+          }),
+        ]),
+      ],
+    );
+  }
+}
+
+class EtcButton extends PureComponent<{onPress: () => void}> {
+  public render() {
+    return h(
+      Touchable,
+      {
+        ...touchableProps,
+        onPress: this.props.onPress,
+        accessible: true,
+        accessibilityRole: 'button',
+        accessibilityLabel: t('message.call_to_action.etc.accessibility_label'),
+      },
+      [
+        h(View, {style: styles.prominentButton, pointerEvents: 'box-only'}, [
+          h(Icon, {
+            size: Dimensions.iconSizeNormal,
+            color: Palette.textWeak,
+            name: 'dots-horizontal',
+          }),
         ]),
       ],
     );
@@ -340,9 +324,12 @@ export type Props = {
   msg: Msg;
   selfFeedId: FeedId;
   reactions: ReactionsType;
+  replyCount: number;
+  style?: ViewStyle;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
+  onPressEtc?: (msg: Msg) => void;
 };
 export type State = {
   showQuickEmojis: boolean;
@@ -355,6 +342,11 @@ export default class MessageFooter extends Component<Props, State> {
     showFullEmojis: false,
   };
 
+  /**
+   * in pixels
+   */
+  public static HEIGHT = 75;
+
   private myReaction: string | null = null;
 
   private onPressReactionsHandler = () => {
@@ -365,15 +357,15 @@ export default class MessageFooter extends Component<Props, State> {
   };
 
   private onPressAddReactionHandler = () => {
-    this.props.onPressAddReaction?.({
-      msgKey: this.props.msg.key,
-      value: this.myReaction === null ? 1 : 0,
-      reaction: this.myReaction === null ? THUMBS_UP_UNICODE : null,
-    });
-  };
-
-  private onLongPressAddReactionHandler = () => {
-    this.setState(prev => ({showQuickEmojis: !prev.showQuickEmojis}));
+    if (this.myReaction === null) {
+      this.setState(prev => ({showQuickEmojis: !prev.showQuickEmojis}));
+    } else {
+      this.props.onPressAddReaction?.({
+        msgKey: this.props.msg.key,
+        value: 0,
+        reaction: null,
+      });
+    }
   };
 
   private closeQuickEmojiPicker = () => {
@@ -404,6 +396,10 @@ export default class MessageFooter extends Component<Props, State> {
     const msgKey = msg.key;
     const rootKey = (msg?.value?.content as PostContent)?.root ?? msgKey;
     this.props.onPressReply?.({msgKey, rootKey});
+  };
+
+  private onPressEtcHandler = () => {
+    this.props.onPressEtc?.(this.props.msg);
   };
 
   private findMyLatestReaction(): string | null {
@@ -562,31 +558,36 @@ export default class MessageFooter extends Component<Props, State> {
   }
 
   public render() {
-    const timestamp = Date.now();
     const props = this.props;
     const shouldShowReply = !!props.onPressReply;
     const reactions = props.reactions ?? [];
+    const replyCount = props.replyCount;
     this.myReaction = this.findMyLatestReaction();
 
-    return h(View, {style: styles.col}, [
+    return h(View, {style: [styles.container, props.style]}, [
       this.renderQuickEmojiPickerModal(),
       this.renderFullEmojiPickerModal(),
 
-      h(View, {key: 'summary', style: styles.row}, [
+      h(View, {key: 'summary', style: styles.reactionsContainer}, [
         h(Reactions, {reactions, onPress: this.onPressReactionsHandler}),
       ]),
 
-      h(View, {key: 'button', style: styles.row}, [
-        h(LikeButton, {
+      h(View, {key: 'buttons', style: styles.buttonsContainer}, [
+        h(AddReactionButton, {
+          key: 'react',
           onPress: this.onPressAddReactionHandler,
-          onLongPress: this.onLongPressAddReactionHandler,
           myReaction: this.myReaction,
-          key: timestamp,
         }),
 
         shouldShowReply
-          ? h(ReplyButton, {key: 'reply', onPress: this.onPressReplyHandler})
+          ? h(ReplyButton, {
+              key: 'reply',
+              replyCount,
+              onPress: this.onPressReplyHandler,
+            })
           : null,
+
+        h(EtcButton, {key: 'etc', onPress: this.onPressEtcHandler}),
       ]),
     ]);
   }

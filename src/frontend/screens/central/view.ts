@@ -322,6 +322,7 @@ export default function view(
     .map(([state, fabProps, topBar, publicTab, privateTab, connectionsTab]) =>
       h(MenuProvider, {customStyles: {backdrop: styles.menuBackdrop}}, [
         h(View, {style: styles.root}, [
+          // h(RNBridgeDebug),
           topBar,
           h(CurrentTabPage, {
             currentTab: state.currentTab,

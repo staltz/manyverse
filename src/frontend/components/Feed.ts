@@ -18,19 +18,19 @@ import {h} from '@cycle/react';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Stream, Subscription, Listener} from 'xstream';
 import {propifyMethods} from 'react-propify-methods';
+import PullFlatList from 'pull-flat-list';
 import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
-import CompactThread from './CompactThread';
 import {GetReadable} from '../drivers/ssb';
 import {
-  ThreadAndExtras,
+  ThreadSummaryWithExtras,
   PressReactionsEvent,
   PressAddReactionEvent,
 } from '../ssb/types';
-import PlaceholderMessage from './messages/PlaceholderMessage';
-import PullFlatList from 'pull-flat-list';
+import ThreadCard from './ThreadCard';
+import PlaceholderThreadCard from './PlaceholderThreadCard';
 
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
@@ -40,6 +40,9 @@ const PullFlatList2 = propifyMethods(
   'forceRefresh',
 );
 
+const SEPARATOR_HEIGHT = Dimensions.verticalSpaceNormal;
+const Y_OFFSET_IS_AT_TOP = 10;
+
 export const styles = StyleSheet.create({
   container: {
     alignSelf: 'stretch',
@@ -48,7 +51,7 @@ export const styles = StyleSheet.create({
 
   itemSeparator: {
     backgroundColor: Palette.backgroundVoid,
-    height: Dimensions.verticalSpaceNormal,
+    height: SEPARATOR_HEIGHT,
   },
 
   footer: {
@@ -73,7 +76,7 @@ function Separator() {
 }
 
 function PlaceholderWithSeparator() {
-  return h(View, [h(PlaceholderMessage), h(Separator)]);
+  return h(View, [h(PlaceholderThreadCard), h(Separator)]);
 }
 
 class InitialLoading extends PureComponent<any> {
@@ -130,7 +133,7 @@ class InitialLoading extends PureComponent<any> {
 
   public render() {
     return h(View, [
-      h(PlaceholderMessage),
+      h(PlaceholderThreadCard),
       h(
         Animated.Text,
         {style: [styles.initialLoading, {opacity: this.loadingAnim}]},
@@ -149,8 +152,8 @@ class InitialLoading extends PureComponent<any> {
 }
 
 type Props = {
-  getReadable: GetReadable<ThreadAndExtras> | null;
-  getPublicationsReadable?: GetReadable<ThreadAndExtras> | null;
+  getReadable: GetReadable<ThreadSummaryWithExtras> | null;
+  getPublicationsReadable?: GetReadable<ThreadSummaryWithExtras> | null;
   publication$?: Stream<any> | null;
   scrollToTop$?: Stream<any> | null;
   selfFeedId: FeedId;
@@ -173,8 +176,6 @@ type State = {
   showPlaceholder: boolean;
   initialLoading: boolean;
 };
-
-const Y_OFFSET_IS_AT_TOP = 10;
 
 export default class Feed extends PureComponent<Props, State> {
   private addedThreadsStream: any | null;
@@ -231,7 +232,7 @@ export default class Feed extends PureComponent<Props, State> {
     pull(
       readable,
       pull.take(1),
-      pull.drain((thread: ThreadAndExtras) => {
+      pull.drain((thread: ThreadSummaryWithExtras) => {
         that.setState({showPlaceholder: false});
         addedThreadsStream.push(thread);
       }),
@@ -269,6 +270,7 @@ export default class Feed extends PureComponent<Props, State> {
       scrollEventThrottle: 1,
       pullAmount: 1,
       numColumns: 1,
+      onEndReachedThreshold: 6,
       refreshable: true,
       onInitialPullDone: this._onFeedInitialPullDone,
       onRefresh,
@@ -288,15 +290,17 @@ export default class Feed extends PureComponent<Props, State> {
         .filter(() => this.yOffset <= Y_OFFSET_IS_AT_TOP)
         .mapTo(void 0),
       refreshColors: [Palette.backgroundBrandWeak],
-      keyExtractor: (thread: ThreadAndExtras, index: number) =>
-        thread.messages[0].key ?? String(index),
+      keyExtractor: (thread: ThreadSummaryWithExtras, index: number) =>
+        thread.root.key ?? String(index),
       ListHeaderComponent: showPlaceholder ? PlaceholderWithSeparator : null,
-      ListFooterComponent: initialLoading ? InitialLoading : PlaceholderMessage,
+      ListFooterComponent: initialLoading
+        ? InitialLoading
+        : PlaceholderThreadCard,
       ListEmptyComponent: EmptyComponent,
       renderItem: ({item}: any) =>
         h(View, [
-          h(CompactThread, {
-            thread: item as ThreadAndExtras,
+          h(ThreadCard, {
+            thread: item as ThreadSummaryWithExtras,
             selfFeedId,
             onPressReactions,
             onPressAddReaction,
