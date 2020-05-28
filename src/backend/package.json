@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "loader.js",
   "engines": {
-    "node": "10.13.0"
+    "node": "12.16.x"
   },
   "scripts": {
     "electron": "electron .",
