@@ -120,9 +120,9 @@
     "ssb-serve-blobs": "2.1.0",
     "ssb-threads": "4.1.0",
     "ssb-typescript": "2.1.0",
-    "xstream": "11.11.0",
+    "xstream": "11.12",
     "xstream-between": "1.0",
-    "xstream-drop-repeats-by-keys": "1.1.0",
+    "xstream-drop-repeats-by-keys": "1.1",
     "xstream-from-callback": "1.1",
     "xstream-from-pull-stream": "1.2",
     "xstream-sample": "1.0"
