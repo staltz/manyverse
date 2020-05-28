@@ -10,6 +10,7 @@ import {MsgAndExtras} from '../../ssb/types';
 type Basics = {
   selfFeedId: FeedId;
   replyToMsgId?: MsgId;
+  expandRootCW?: boolean;
 };
 
 export type Props =

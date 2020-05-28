@@ -68,9 +68,13 @@ export default function intent(
       .events('press')
       .compose(sample(state$)),
 
-    goToThread$: reactSource.select('feed').events('pressReply') as Stream<
+    goToThread$: reactSource.select('feed').events('pressExpand') as Stream<
       MsgAndExtras
     >,
+
+    goToThreadExpandCW$: reactSource
+      .select('feed')
+      .events('pressExpandCW') as Stream<MsgAndExtras>,
 
     addReactionMsg$: reactSource
       .select('feed')

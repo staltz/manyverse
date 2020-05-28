@@ -30,6 +30,7 @@ export type State = {
 export type Props = {
   msg: MsgAndExtras;
   selfFeedId: FeedId;
+  expandCW?: boolean;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;

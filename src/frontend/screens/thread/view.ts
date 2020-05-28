@@ -130,6 +130,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
         'selfFeedId',
         s => s.thread.messages.length,
         s => s.thread.full,
+        'expandRootCW',
       ]),
     )
     .map(state => {
@@ -202,6 +203,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
                   sel: 'thread',
                   thread: state.thread,
                   selfFeedId: state.selfFeedId,
+                  expandRootCW: state.expandRootCW,
                   publication$: actions.willReply$,
                 }),
                 state.loadingReplies

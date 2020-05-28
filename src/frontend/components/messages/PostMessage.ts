@@ -29,6 +29,7 @@ export type Props = {
   reactions: Reactions;
   replyCount: number;
   selfFeedId: FeedId;
+  expandCW?: boolean;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
@@ -42,6 +43,10 @@ export const styles = StyleSheet.create({
     height: MessageFooter.HEIGHT,
     marginBottom: -Dimensions.verticalSpaceBig,
   },
+
+  cw: {
+    marginTop: Dimensions.verticalSpaceNormal,
+  },
 });
 
 type State = {
@@ -49,7 +54,10 @@ type State = {
 };
 
 export default class PostMessage extends PureComponent<Props, State> {
-  public state: State = {cwOpened: false};
+  constructor(props: Props) {
+    super(props);
+    this.state = {cwOpened: props.expandCW ?? false};
+  }
 
   public onPressToggleCW = () => {
     this.setState(prev => ({cwOpened: !prev.cwOpened}));
@@ -70,6 +78,7 @@ export default class PostMessage extends PureComponent<Props, State> {
         ? h(ContentWarning, {
             key: 'cw',
             description: cwMsg.value.content.contentWarning!,
+            style: styles.cw,
             opened,
             onPressToggle: this.onPressToggleCW,
           })

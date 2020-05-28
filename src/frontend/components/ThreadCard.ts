@@ -24,6 +24,7 @@ import {Palette} from '../global-styles/palette';
 import MessageContainer from './messages/MessageContainer';
 import MessageFooter from './messages/MessageFooter';
 import MessageHeader from './messages/MessageHeader';
+import ContentWarning from './messages/ContentWarning';
 import Markdown from './Markdown';
 import Button from './Button';
 
@@ -32,10 +33,10 @@ export type Props = {
   selfFeedId: FeedId;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
-  onPressReply?: (msg: MsgAndExtras) => void; // FIXME: delete this?
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
   onPressExpand?: (msg: MsgAndExtras) => void;
+  onPressExpandCW?: (msg: MsgAndExtras) => void;
 };
 
 /**
@@ -117,6 +118,10 @@ export default class ThreadCard extends PureComponent<Props, State> {
     this.props.onPressExpand?.(this.props.thread.root);
   };
 
+  private onExpandCW = () => {
+    this.props.onPressExpandCW?.(this.props.thread.root);
+  };
+
   public render() {
     const {
       thread,
@@ -131,6 +136,10 @@ export default class ThreadCard extends PureComponent<Props, State> {
     const reactions = (
       metadata.reactions ?? (xs.never() as Stream<Reactions>)
     ).compose(debounce(80)); // avoid DB reads flickering
+    const cwMsg = root as Msg<{contentWarning?: string}>;
+    const hasCW =
+      !!cwMsg.value.content.contentWarning &&
+      typeof cwMsg.value.content.contentWarning === 'string';
 
     return h(MessageContainer, {style: styles.container}, [
       h(MessageHeader, {
@@ -140,28 +149,35 @@ export default class ThreadCard extends PureComponent<Props, State> {
         imageUrl: metadata.about.imageUrl,
         onPressAuthor,
       }),
-      h(View, {style: styles.post}, [
-        h(Markdown, {
-          key: 'md',
-          text: (root as Msg<PostContent>).value.content?.text ?? '',
-          onLayout: this.onMarkdownMeasured,
-        }),
-        this.state.showReadMore
-          ? h(View, {key: 'rm', style: styles.readMoreContainer}, [
-              h(Button, {
-                text: t('message.call_to_action.read_more.label'),
-                onPress: this.onPressReadMore,
-                strong: false,
-                small: true,
-                style: styles.readMore,
-                accessible: true,
-                accessibilityLabel: t(
-                  'message.call_to_action.read_more.accessibility_label',
-                ),
-              }),
-            ])
-          : null,
-      ]),
+      hasCW
+        ? h(ContentWarning, {
+            key: 'cw',
+            description: cwMsg.value.content.contentWarning!,
+            opened: false,
+            onPressToggle: this.onExpandCW,
+          })
+        : h(View, {key: 'p', style: styles.post}, [
+            h(Markdown, {
+              key: 'md',
+              text: (root as Msg<PostContent>).value.content?.text ?? '',
+              onLayout: this.onMarkdownMeasured,
+            }),
+            this.state.showReadMore
+              ? h(View, {key: 'rm', style: styles.readMoreContainer}, [
+                  h(Button, {
+                    text: t('message.call_to_action.read_more.label'),
+                    onPress: this.onPressReadMore,
+                    strong: false,
+                    small: true,
+                    style: styles.readMore,
+                    accessible: true,
+                    accessibilityLabel: t(
+                      'message.call_to_action.read_more.accessibility_label',
+                    ),
+                  }),
+                ])
+              : null,
+          ]),
       h(MessageFooter$, {
         key: 'mf',
         style: styles.footer,

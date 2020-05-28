@@ -62,6 +62,10 @@ export default function intent(
 
     goToThread$: reactSource
       .select('publicFeed')
-      .events('pressReply') as Stream<MsgAndExtras>,
+      .events('pressExpand') as Stream<MsgAndExtras>,
+
+    goToThreadExpandCW$: reactSource
+      .select('publicFeed')
+      .events('pressExpandCW') as Stream<MsgAndExtras>,
   };
 }

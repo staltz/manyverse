@@ -24,6 +24,7 @@ export type Props = {
   thread: ThreadAndExtras;
   publication$?: Stream<any> | null;
   selfFeedId: FeedId;
+  expandRootCW?: boolean;
   onPressFork?: (ev: {rootMsgId: MsgId}) => void; // FIXME: support this?
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
@@ -104,7 +105,7 @@ export default class FullThread extends Component<Props, State> {
     this.setState({showPlaceholder: true});
   }
 
-  private renderMessage = ({item}: any) => {
+  private renderMessage = ({item, index}: any) => {
     const msg = item as MsgAndExtras;
     const {
       selfFeedId,
@@ -117,6 +118,7 @@ export default class FullThread extends Component<Props, State> {
     return h(Message, {
       msg,
       key: msg.key,
+      expandCW: index === 0 && this.props.expandRootCW === true,
       selfFeedId,
       onPressReactions,
       onPressAddReaction,

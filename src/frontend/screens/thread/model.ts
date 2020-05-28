@@ -19,6 +19,7 @@ export type State = {
   loading: boolean;
   loadingReplies: boolean;
   thread: ThreadAndExtras;
+  expandRootCW: boolean;
   replyText: string;
   replyEditable: boolean;
   avatarUrl?: string;
@@ -68,6 +69,7 @@ export default function model(
           loading: true,
           loadingReplies: !!props.rootMsg,
           thread: emptyThread,
+          expandRootCW: props.expandRootCW ?? false,
           replyText: '',
           replyEditable: true,
           getSelfRepliesReadable: null,

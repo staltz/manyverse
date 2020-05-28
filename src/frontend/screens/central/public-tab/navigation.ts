@@ -30,6 +30,7 @@ export type Actions = {
   }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<MsgAndExtras>;
+  goToThreadExpandCW$: Stream<MsgAndExtras>;
   goToRawMsg$: Stream<Msg>;
 };
 
@@ -103,6 +104,26 @@ export default function navigation(
       } as Command),
   );
 
+  const toThreadExpandCW$ = actions.goToThreadExpandCW$
+    .compose(sampleCombine(state$))
+    .map(
+      ([msg, state]) =>
+        ({
+          type: 'push',
+          layout: {
+            component: {
+              name: Screens.Thread,
+              passProps: {
+                selfFeedId: state.selfFeedId,
+                rootMsg: msg,
+                expandRootCW: true,
+              } as ThreadProps,
+              options: threadScreenNavOpts,
+            },
+          },
+        } as Command),
+    );
+
   const toRawMsg$ = actions.goToRawMsg$.map(
     msg =>
       ({
@@ -117,5 +138,12 @@ export default function navigation(
       } as Command),
   );
 
-  return xs.merge(toCompose$, toAccounts$, toProfile$, toThread$, toRawMsg$);
+  return xs.merge(
+    toCompose$,
+    toAccounts$,
+    toProfile$,
+    toThread$,
+    toThreadExpandCW$,
+    toRawMsg$,
+  );
 }

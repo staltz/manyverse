@@ -921,6 +921,7 @@
       }
     },
     "content_warning": {
+      "title": "Content Warning",
       "call_to_action": {
         "hide": "Hide",
         "show": "View"
