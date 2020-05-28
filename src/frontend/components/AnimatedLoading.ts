@@ -6,7 +6,6 @@
 
 import {PureComponent, createElement as $} from 'react';
 import {Animated, Easing, StyleSheet, View} from 'react-native';
-import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
@@ -22,7 +21,7 @@ export const styles = StyleSheet.create({
   },
 });
 
-export default class InitialLoading extends PureComponent<any> {
+export default class AnimatedLoading extends PureComponent<{text: string}> {
   private loadingAnim = new Animated.Value(0);
 
   public componentDidMount() {
@@ -52,7 +51,7 @@ export default class InitialLoading extends PureComponent<any> {
       $(
         Animated.Text,
         {style: [styles.initialLoading, {opacity: this.loadingAnim}]},
-        t('central.loading'),
+        this.props.text,
       ),
     );
   }

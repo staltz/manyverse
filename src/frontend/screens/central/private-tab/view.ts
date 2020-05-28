@@ -169,7 +169,9 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
       forceRefresh$,
       scrollToOffset$: scrollToTop$.mapTo({offset: 0, animated: true}),
       onInitialPullDone: this._onFeedInitialPullDone,
-      ListFooterComponent: initialLoading ? AnimatedLoading : null,
+      ListFooterComponent: initialLoading
+        ? h(AnimatedLoading, {text: t('central.loading')})
+        : null,
       ListEmptyComponent: h(EmptySection, {
         style: styles.emptySection,
         image: require('../../../../../images/noun-plant.png'),
