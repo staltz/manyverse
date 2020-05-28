@@ -11,12 +11,13 @@ import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {ThreadAndExtras, MsgAndExtras} from '../../ssb/types';
 import {SSBSource, GetReadable} from '../../drivers/ssb';
-import {Props} from './index';
+import {Props} from './props';
 
 export type State = {
   selfFeedId: FeedId;
   rootMsgId: MsgId | null;
   loading: boolean;
+  loadingReplies: boolean;
   thread: ThreadAndExtras;
   replyText: string;
   replyEditable: boolean;
@@ -63,8 +64,9 @@ export default function model(
       function propsReducer(_prev?: State): State {
         return {
           selfFeedId: props.selfFeedId,
-          rootMsgId: props.rootMsgId ?? null,
+          rootMsgId: props.rootMsgId ?? props.rootMsg.key,
           loading: true,
+          loadingReplies: !!props.rootMsg,
           thread: emptyThread,
           replyText: '',
           replyEditable: true,
@@ -75,20 +77,39 @@ export default function model(
       },
   );
 
+  const setRootMsgReducer$ = props$
+    .take(1)
+    .map(props =>
+      props.rootMsg ? ssbSource.rehydrateMessage$(props.rootMsg) : xs.never(),
+    )
+    .flatten()
+    .map(
+      rootMsg =>
+        function setRootMsgReducer(prev: State): State {
+          if (prev.thread.full && prev.thread.messages.length > 0) {
+            return prev;
+          } else {
+            return {...prev, thread: {full: false, messages: [rootMsg]}};
+          }
+        },
+    );
+
   const setThreadReducer$ = props$
     .take(1)
     .map(props =>
-      ssbSource.thread$(props.rootMsgId, false).replaceError(err => {
-        if (/Author Blocked/i.test(err.message)) return xs.of(blockedThread);
-        if (/Not Found/i.test(err.message)) return xs.of(missingThread);
-        else return xs.of(unknownErrorThread);
-      }),
+      ssbSource
+        .thread$(props.rootMsgId ?? props.rootMsg.key, false)
+        .replaceError(err => {
+          if (/Author Blocked/i.test(err.message)) return xs.of(blockedThread);
+          if (/Not Found/i.test(err.message)) return xs.of(missingThread);
+          else return xs.of(unknownErrorThread);
+        }),
     )
     .flatten()
     .map(
       thread =>
         function setThreadReducer(prev: State): State {
-          return {...prev, thread, loading: false};
+          return {...prev, thread, loading: false, loadingReplies: false};
         },
     );
 
@@ -181,6 +202,7 @@ export default function model(
 
   return xs.merge(
     propsReducer$,
+    setRootMsgReducer$,
     setThreadReducer$,
     keyboardAppearedReducer$,
     keyboardDisappearedReducer$,

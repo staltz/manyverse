@@ -165,6 +165,12 @@ export class SSBSource {
     );
   }
 
+  public rehydrateMessage$(msg: MsgAndExtras): Stream<MsgAndExtras> {
+    return this.fromCallback<MsgAndExtras>((ssb, cb) =>
+      ssb.threadsUtils.rehydrateLiveExtras(msg, cb),
+    );
+  }
+
   public profileFeed$(
     id: FeedId,
   ): Stream<GetReadable<ThreadSummaryWithExtras>> {

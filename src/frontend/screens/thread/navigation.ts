@@ -20,6 +20,7 @@ import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
 import {navOptions as threadScreenNavOpts} from './layout';
 import {navOptions as composeScreenNavOpts} from '../compose';
 import {State} from './model';
+import {Props} from './props';
 
 export type Actions = {
   goToAccounts$: Stream<{
@@ -117,7 +118,7 @@ export default function navigation(
               passProps: {
                 selfFeedId: state.selfFeedId,
                 rootMsgId: ev.rootMsgId,
-              },
+              } as Props,
               options: threadScreenNavOpts,
             },
           },

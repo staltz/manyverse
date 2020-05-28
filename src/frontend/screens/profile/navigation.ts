@@ -9,15 +9,16 @@ import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
-import {Reactions} from '../../ssb/types';
+import {Reactions, MsgAndExtras} from '../../ssb/types';
 import {Screens} from '../enums';
 import {navOptions as composeScreenNavOpts} from '../compose';
 import {navOptions as editProfileScreenNavOpts} from '../profile-edit';
 import {navOptions as bioScreenNavOpts} from '../biography';
 import {navOptions as threadScreenNavOpts} from '../thread/layout';
+import {Props as ThreadProps} from '../thread/props';
 import {navOptions as accountsScreenNavOptions} from '../accounts/layout';
-import {navOptions as profileScreenNavOpts} from './layout';
 import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
+import {navOptions as profileScreenNavOpts} from './layout';
 import {Props as AccountProps} from '../accounts';
 import {State} from './model';
 
@@ -32,7 +33,7 @@ export type Actions = {
     accounts: Array<FeedId> | Reactions;
   }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
-  goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
+  goToThread$: Stream<MsgAndExtras>;
   goToRawMsg$: Stream<Msg>;
 };
 
@@ -126,7 +127,7 @@ export default function navigation(
     );
 
   const toThread$ = actions.goToThread$.compose(sampleCombine(state$)).map(
-    ([ev, state]) =>
+    ([msg, state]) =>
       ({
         type: 'push',
         layout: {
@@ -134,9 +135,8 @@ export default function navigation(
             name: Screens.Thread,
             passProps: {
               selfFeedId: state.selfFeedId,
-              rootMsgId: ev.rootMsgId,
-              replyToMsgId: ev.replyToMsgId,
-            },
+              rootMsg: msg,
+            } as ThreadProps,
             options: threadScreenNavOpts,
           },
         },

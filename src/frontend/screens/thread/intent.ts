@@ -18,7 +18,7 @@ import {Palette} from '../../global-styles/palette';
 import {PressAddReactionEvent, PressReactionsEvent} from '../../ssb/types';
 import {Screens} from '../enums';
 import {State} from './model';
-import {Props} from './index';
+import {Props} from './props';
 
 function isTextEmpty(state: State): boolean {
   return !state.replyText;
@@ -95,7 +95,7 @@ export default function intent(
 
     loadReplyDraft$: xs
       .merge(
-        props$.map(props => props.rootMsgId),
+        props$.map(props => props.rootMsgId ?? props.rootMsg.key),
         navSource
           .globalDidDisappear(Screens.Compose)
           .compose(sample(state$))

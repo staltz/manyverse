@@ -15,7 +15,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {h} from '@cycle/react';
-import {FeedId, MsgId, Msg} from 'ssb-typescript';
+import {FeedId, Msg} from 'ssb-typescript';
 import {Stream, Subscription, Listener} from 'xstream';
 import {propifyMethods} from 'react-propify-methods';
 import PullFlatList from 'pull-flat-list';
@@ -28,6 +28,7 @@ import {
   ThreadSummaryWithExtras,
   PressReactionsEvent,
   PressAddReactionEvent,
+  MsgAndExtras,
 } from '../ssb/types';
 import ThreadCard from './ThreadCard';
 import PlaceholderThreadCard from './PlaceholderThreadCard';
@@ -165,10 +166,9 @@ type Props = {
   onRefresh?: () => void;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
-  onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
+  onPressReply?: (msg: MsgAndExtras) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
-  onGoToThread?: (ev: {rootMsgId: MsgId}) => void;
   yOffsetAnimVal?: Animated.Value;
 };
 
@@ -247,7 +247,6 @@ export default class Feed extends PureComponent<Props, State> {
       onPressReply,
       onPressAuthor,
       onPressEtc,
-      onGoToThread,
       style,
       contentContainerStyle,
       progressViewOffset,
@@ -307,8 +306,7 @@ export default class Feed extends PureComponent<Props, State> {
             onPressReply,
             onPressAuthor,
             onPressEtc,
-            onPressExpand: onGoToThread ?? (() => {}),
-            onPressFork: onGoToThread,
+            onPressExpand: onPressReply,
           }),
           h(Separator),
         ]),

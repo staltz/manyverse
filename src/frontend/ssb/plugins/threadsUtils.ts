@@ -272,6 +272,28 @@ const threadsUtils = {
         );
       },
 
+      rehydrateLiveExtras(msg: MsgAndExtras, cb: Callback<MsgAndExtras>) {
+        if (!isMsg(msg) || !msg.value) {
+          return cb(new Error('not a msg'));
+        }
+        if (!msg.value._$manyverse$metadata) {
+          return cb(new Error('missing live extras metadata'));
+        }
+        msg.value._$manyverse$metadata.reactions = xsFromPullStream(
+          ssb.votes.voterStream(msg.key),
+        )
+          .startWith([])
+          .map((arr: Array<unknown>) =>
+            arr
+              .reverse() // recent ones first
+              .map(([feedId, expression]) => {
+                const reaction = voteExpressionToReaction(expression);
+                return [feedId, reaction];
+              }),
+          );
+        cb(null, msg);
+      },
+
       thread(opts: {root: FeedId; private: boolean}, cb: Callback<AnyThread>) {
         pull(
           ssb.threads.thread(opts),

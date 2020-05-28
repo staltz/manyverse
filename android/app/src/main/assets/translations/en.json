@@ -847,6 +847,7 @@
         "accessibility_label": "Reply Text Input"
       }
     },
+    "loading_replies": "Loading replies...",
     "empty": {
       "missing": {
         "title": "Missing data",

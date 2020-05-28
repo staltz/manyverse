@@ -373,6 +373,7 @@ declare module 'i18n-js' {
     | 'thread.dialogs.save_draft_prompt.title'
     | 'thread.fields.reply.placeholder'
     | 'thread.fields.reply.accessibility_label'
+    | 'thread.loading_replies'
     | 'thread.empty.missing.title'
     | 'thread.empty.missing.description'
     | 'thread.empty.blocked.title'

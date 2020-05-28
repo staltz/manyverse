@@ -9,12 +9,15 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../enums';
-import {Reactions} from '../../../ssb/types';
+import {Reactions, MsgAndExtras} from '../../../ssb/types';
 import {navOptions as composeScreenNavOptions} from '../../compose';
 import {Props as AccountsProps} from '../../accounts';
 import {navOptions as accountsScreenNavOpts} from '../../accounts/layout';
 import {navOptions as profileScreenNavOpts} from '../../profile';
-import {navOptions as threadScreenNavOpts} from '../../thread';
+import {
+  navOptions as threadScreenNavOpts,
+  Props as ThreadProps,
+} from '../../thread';
 import {navOptions as rawMsgScreenNavOpts} from '../../raw-msg';
 import {State} from './model';
 
@@ -26,7 +29,7 @@ export type Actions = {
     accounts: Array<FeedId> | Reactions;
   }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
-  goToThread$: Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>;
+  goToThread$: Stream<MsgAndExtras>;
   goToRawMsg$: Stream<Msg>;
 };
 
@@ -84,7 +87,7 @@ export default function navigation(
   );
 
   const toThread$ = actions.goToThread$.compose(sampleCombine(state$)).map(
-    ([ev, state]) =>
+    ([msg, state]) =>
       ({
         type: 'push',
         layout: {
@@ -92,9 +95,8 @@ export default function navigation(
             name: Screens.Thread,
             passProps: {
               selfFeedId: state.selfFeedId,
-              rootMsgId: ev.rootMsgId,
-              replyToMsgId: ev.replyToMsgId,
-            },
+              rootMsg: msg,
+            } as ThreadProps,
             options: threadScreenNavOpts,
           },
         },

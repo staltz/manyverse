@@ -9,13 +9,14 @@ import debounce from 'xstream/extra/debounce';
 import {PureComponent} from 'react';
 import {StyleSheet, View, ViewProps} from 'react-native';
 import {h} from '@cycle/react';
-import {FeedId, MsgId, Msg, PostContent} from 'ssb-typescript';
+import {FeedId, Msg, PostContent} from 'ssb-typescript';
 import {withXstreamProps} from 'react-xstream-hoc';
 import {
   PressReactionsEvent,
   PressAddReactionEvent,
   ThreadSummaryWithExtras,
   Reactions,
+  MsgAndExtras,
 } from '../ssb/types';
 import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
@@ -29,13 +30,12 @@ import Button from './Button';
 export type Props = {
   thread: ThreadSummaryWithExtras;
   selfFeedId: FeedId;
-  onPressFork?: (ev: {rootMsgId: MsgId}) => void; // FIXME: delete this?
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
-  onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void; // FIXME: delete this?
+  onPressReply?: (msg: MsgAndExtras) => void; // FIXME: delete this?
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
-  onPressExpand: (ev: {rootMsgId: MsgId}) => void;
+  onPressExpand?: (msg: MsgAndExtras) => void;
 };
 
 /**
@@ -110,11 +110,11 @@ export default class ThreadCard extends PureComponent<Props, State> {
   };
 
   private onPressReadMore = () => {
-    this.props.onPressExpand({rootMsgId: this.props.thread.root.key});
+    this.props.onPressExpand?.(this.props.thread.root);
   };
 
-  private onPressReplyHandler: MessageFooter['props']['onPressReply'] = ev => {
-    this.props.onPressExpand({rootMsgId: ev.rootKey});
+  private onPressReplyHandler = () => {
+    this.props.onPressExpand?.(this.props.thread.root);
   };
 
   public render() {
@@ -171,7 +171,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
         replyCount: thread.replyCount,
         onPressReactions,
         onPressAddReaction,
-        onPressReply: this.onPressReplyHandler!,
+        onPressReply: this.onPressReplyHandler,
         onPressEtc,
       }),
     ]);

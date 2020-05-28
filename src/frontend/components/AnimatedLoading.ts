@@ -12,7 +12,7 @@ import {Palette} from '../global-styles/palette';
 
 export const styles = StyleSheet.create({
   initialLoading: {
-    marginTop: Dimensions.verticalSpaceNormal,
+    marginVertical: Dimensions.verticalSpaceNormal,
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textVeryWeak,

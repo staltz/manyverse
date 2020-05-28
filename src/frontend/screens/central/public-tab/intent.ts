@@ -6,14 +6,17 @@
 
 import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
-import {FeedId, MsgId, Msg} from 'ssb-typescript';
+import {FeedId, Msg} from 'ssb-typescript';
 import {NavSource} from 'cycle-native-navigation';
 import {Screens} from '../../enums';
-import {PressAddReactionEvent, PressReactionsEvent} from '../../../ssb/types';
+import {
+  PressAddReactionEvent,
+  PressReactionsEvent,
+  MsgAndExtras,
+} from '../../../ssb/types';
 import {t} from '../../../drivers/localization';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
-export type ThreadNavEvent = {rootMsgId: MsgId; replyToMsgId?: MsgId};
 
 export default function intent(
   reactSource: ReactSource,
@@ -57,15 +60,8 @@ export default function intent(
       .globalDidDisappear(Screens.Compose)
       .startWith(null as any) as Stream<any>,
 
-    goToThread$: xs.merge(
-      reactSource.select('publicFeed').events('goToThread'),
-      reactSource
-        .select('publicFeed')
-        .events('pressReply')
-        .map(({rootKey, msgKey}) => ({
-          rootMsgId: rootKey,
-          replyToMsgId: msgKey,
-        })),
-    ) as Stream<ThreadNavEvent>,
+    goToThread$: reactSource
+      .select('publicFeed')
+      .events('pressReply') as Stream<MsgAndExtras>,
   };
 }

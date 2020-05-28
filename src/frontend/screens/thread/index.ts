@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,7 +9,6 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
-import {MsgId, FeedId} from 'ssb-typescript';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {
   AsyncStorageSource,
@@ -26,12 +25,9 @@ import ssb from './ssb';
 import navigation from './navigation';
 import asyncStorage from './asyncstorage';
 export {navOptions} from './layout';
+import {Props as P} from './props';
 
-export type Props = {
-  selfFeedId: FeedId;
-  rootMsgId: MsgId;
-  replyToMsgId: MsgId;
-};
+export type Props = P;
 
 export type Sources = {
   screen: ReactSource;

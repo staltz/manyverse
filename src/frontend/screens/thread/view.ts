@@ -26,6 +26,7 @@ import {Dimensions} from '../../global-styles/dimens';
 import FullThread from '../../components/FullThread';
 import Avatar from '../../components/Avatar';
 import EmptySection from '../../components/EmptySection';
+import AnimatedLoading from '../../components/AnimatedLoading';
 import TopBar from '../../components/TopBar';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
@@ -118,6 +119,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
     .compose(
       dropRepeatsByKeys([
         'loading',
+        'loadingReplies',
         'replyText',
         'keyboardVisible',
         'replyEditable',
@@ -202,6 +204,9 @@ export default function view(state$: Stream<State>, actions: Actions) {
                   selfFeedId: state.selfFeedId,
                   publication$: actions.willReply$,
                 }),
+                state.loadingReplies
+                  ? h(AnimatedLoading, {text: t('thread.loading_replies')})
+                  : null,
               ],
             ),
             ReplyInput(state),

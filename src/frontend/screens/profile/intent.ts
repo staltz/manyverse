@@ -6,11 +6,15 @@
 
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
-import {MsgId, FeedId, Msg} from 'ssb-typescript';
+import {FeedId, Msg} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
 import {t} from '../../drivers/localization';
-import {PressReactionsEvent, PressAddReactionEvent} from '../../ssb/types';
+import {
+  PressReactionsEvent,
+  PressAddReactionEvent,
+  MsgAndExtras,
+} from '../../ssb/types';
 import {State} from './model';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
@@ -64,16 +68,9 @@ export default function intent(
       .events('press')
       .compose(sample(state$)),
 
-    goToThread$: xs.merge(
-      reactSource.select('feed').events('goToThread'),
-      reactSource
-        .select('feed')
-        .events('pressReply')
-        .map(({rootKey, msgKey}) => ({
-          rootMsgId: rootKey,
-          replyToMsgId: msgKey,
-        })),
-    ) as Stream<{rootMsgId: MsgId; replyToMsgId?: MsgId}>,
+    goToThread$: reactSource.select('feed').events('pressReply') as Stream<
+      MsgAndExtras
+    >,
 
     addReactionMsg$: reactSource
       .select('feed')
