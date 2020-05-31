@@ -26,57 +26,57 @@
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "Il y a 1 an",
+          "other": "Il y a {{count}} ans"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "Il y a 1 mois",
+          "other": "Il y a {{count}} mois"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "Il y a 1 semaine",
+          "other": "Il y a {{count}} semaines"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "Il y a 1 jour",
+          "other": "Il y a {{count}} jours"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "Il y a 1 heure",
+          "other": "Il y a {{count}} heures"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "Il y a 1 minute",
+          "other": "Il y a {{count}} minutes"
         },
-        "now": "Just now"
+        "now": "À l'instant"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "Dans 1 an",
+          "other": "Dans {{count}} ans"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "Dans 1 mois",
+          "other": "Dans {{count}} mois"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "Dans 1 semaine",
+          "other": "Dans {{count}} semaines"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "Dans 1 jour",
+          "other": "Dans {{count}} jours"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "Dans 1 heure",
+          "other": "Dans {{count}} heures"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "Dans 1 minute",
+          "other": "Dans {{count}} minutes"
         },
-        "now": "Very soon"
+        "now": "Tout de suite"
       }
     }
   },
@@ -144,7 +144,7 @@
     "in_construction": {
       "title": "En construction !",
       "description": {
-        "1_normal": "Manyverse est ",
+        "1_normal": "Manyverse est un ",
         "2_bold": "logiciel en phase de tests bêta",
         "3_normal": ". Nous n'avons pas encore penser à tout et certaines parties doivent être dépannées. Lors de la synchronisation l'application peut paraître figée pendant plusieurs minutes. Soyez patients ! Informez-nous de tout autre bogue que vous avez rencontré, et avec suffisamment de temps et de dons, nous pourrons faire de Manyverse une application majeure."
       }
@@ -173,7 +173,7 @@
     },
     "tab_footers": {
       "public": "Public",
-      "private": "Private",
+      "private": "Privé",
       "connections": "Connexions"
     },
     "loading": "Chargement en cours...",
@@ -196,7 +196,7 @@
     },
     "empty": {
       "title": "Aucun message",
-      "description": "Écrivez un journal qui sera \npartagé avec vos amis plus tard"
+      "description": "Écrivez une note qui sera \npartagé avec vos amis plus tard"
     }
   },
   "private": {
@@ -255,8 +255,8 @@
         "dht": {
           "connected": "Internet P2P",
           "staging": {
-            "host": "Internet P2P: en attente d'un ami en ligne...",
-            "client": "Internet P2P: recherche d'un ami en ligne...",
+            "host": "Internet P2P : en attente d'un ami en ligne...",
+            "client": "Internet P2P : recherche d'un ami en ligne...",
             "unknown": "Internet P2P : recherche en cours..."
           }
         },
@@ -284,8 +284,8 @@
         "disabled": "(Activez le Bluetooth pour l'utiliser)",
         "description": "Découvrez les utilisateurs à proximité et connectez-vous avec eux en utilisant le Bluetooth.",
         "permission_request": {
-          "title": "Autoriser la localisation via Bluetooth ?",
-          "message": "Manyverse a besoin d'utiliser le Bluetooth pour découvrir où vous êtes (\"localisation approximative\") et quels sont vos pairs autour de vous."
+          "title": "Autoriser la découverte via Bluetooth ?",
+          "message": "Manyverse a besoin d'utiliser le Bluetooth pour permettre à vos pairs autour de vous de vous découvrir et à vous de les trouver (\"localisation approximative\")."
         }
       },
       "wifi": {
@@ -379,12 +379,12 @@
     "share_code": {
       "p2p": {
         "title": "Code d'invitation Manyverse",
-        "message": "Connectez-vous avec moi sur Manyverse en collant ce code d'invitation ici:",
+        "message": "Connectez-vous avec moi sur Manyverse en collant ce code d'invitation là :",
         "dialog_note": "Donner ce code d'invitation à un ami"
       },
       "room": {
-        "title": "Code d'invitation à un salon SSB",
-        "message": "Rejoignez-moi dans le salon SSB {{name}} en collant ce code d'invitation dans Manyverse:",
+        "title": "Code d'invitation à un salon Secure ScuttleButt (SSB Room)",
+        "message": "Rejoignez-moi dans le salon SSB {{name}} en collant ce code d'invitation dans Manyverse :",
         "dialog_note": "Donnez ce code d'invitation à un ami"
       }
     }
@@ -414,11 +414,11 @@
     },
     "dialogs": {
       "content_warning": {
-        "title": "Avertissement sur le contenu",
-        "description": "Si votre message contient des sujets sensibles, veuillez ajouter une courte note pour avertir les gens."
+        "title": "Avertissement sur le contenu (Content Warning)",
+        "description": "Si votre message contient des sujets sensibles, veuillez ajouter une courte note pour en avertir les lecteurs."
       },
       "image_caption": {
-        "title": "Sous-titre",
+        "title": "Légende",
         "description": "Ajoutez une description de cette photo, en particulier pour les malvoyants."
       },
       "save_prompt": {
@@ -427,25 +427,25 @@
     },
     "content_warning_initials": {
       "label": "CW",
-      "accessibility_label": "Bouton d'avertissement de contenu"
+      "accessibility_label": "Bouton Avertissement de contenu"
     },
     "mention_field": {
-      "accessibility_label": "Saisie du texte de description du compte"
+      "accessibility_label": "Saisie du texte de description"
     },
     "text_field": {
       "placeholder": "Écrire un message public",
-      "accessibility_label": "Saisir texte"
+      "accessibility_label": "Saisie du texte"
     }
   },
   "backup": {
-    "title": "Sauvegarder",
+    "title": "Sauvegarde",
     "introduction": {
       "title": "Votre compte a\ndeux parties à garder en sécurité"
     },
     "data": {
       "title": "Données",
       "description": {
-        "1_normal": "Il s'agit des messages, photos, goûts et autres activités similaires de votre compte. Pour le protéger contre les pertes soudaines, nous utilisons ",
+        "1_normal": "Il s'agit des messages, photos, j'aime (likes) et autres activités similaires de votre compte. Pour le protéger contre les pertes soudaines, nous utilisons ",
         "2_bold": "sauvegarde distribuée",
         "3_normal": ". - Vous devez seulement ",
         "4_bold": "synchroniser avec des amis fiables",

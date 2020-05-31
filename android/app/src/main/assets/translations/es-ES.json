@@ -2,12 +2,12 @@
   "call_to_action": {
     "ok": "Aceptar",
     "add": "Agregar",
-    "done": "Terminar",
+    "done": "Listo",
     "cancel": "Cancelar",
     "continue": "Continuar",
     "delete": "Eliminar",
     "save": "Guardar",
-    "yes": "Si",
+    "yes": "Sí",
     "no": "No",
     "open_menu": {
       "accessibility_label": "Menú"
@@ -81,7 +81,7 @@
     }
   },
   "welcome": {
-    "learn_more": "Más información",
+    "learn_more": "Leer más",
     "overview": {
       "title": "¡Bienvenido a Manyverse!",
       "description": "Las redes sociales pueden ser sencillas, neutrales, no comerciales, y basarse en la confianza entre amigos. Esto es lo que Manyverse representa, y esperamos que tú también puedas hacer que sea tu hogar digital. Todo esto es posible gracias al nuevo protocolo SSB."
@@ -91,24 +91,24 @@
       "description": {
         "1_normal": "Manyverse puede usar una conección a internet, pero no está ",
         "2_bold": "en",
-        "3_normal": " la Internet. Todo pasa aquí mismo en tu dispositivo. Esto significa que puedes usarlo normalmente aun cuando no estás en línea. Tu ",
+        "3_normal": " la Internet. Todo pasa aquí mismo en tu dispositivo. Ésto significa que puedes usarlo normalmente aun cuando no estás en línea. Tu ",
         "4_bold": "contenido se almacena primero en tu dispositivo",
         "5_normal": ", y puedes sincronizarlo con tus amigos una vez que te conectes con ellos."
       }
     },
     "connections": {
-      "title": "Muchas formas de conectarte",
+      "title": "Muchas formas de conectarse",
       "description": {
         "ios": {
           "1_normal": "Para conectarte con amigos y sincronizar contenido, puedes: unirte al mismo ",
           "2_bold": "Wi-Fi",
           "3_normal": " o intercambiar",
-          "4_bold": "invitaciones P2P",
+          "4_bold": "Invitaciones Extremo-A-Extremo",
           "5_normal": ". Para encontrar gente nueva en Internet, busca un código de invitación a un ",
           "6_bold": "servidor pub",
-          "7_normal": " o a ",
-          "8_bold": "un servidor room",
-          "9_normal": ", o crea tu propio servidor!"
+          "7_normal": " o un ",
+          "8_bold": "servidor room",
+          "9_normal": ", ¡O crea tu propio servidor SSB con Docker o DigitalOcean!"
         },
         "default": {
           "1_normal": "Para conectarte con amigos y sincronizar contenido, puedes: unirte al mismo ",
@@ -116,49 +116,49 @@
           "3_normal": ", usar ",
           "4_bold": "sincronización por Bluetooth",
           "5_normal": ", o intercambiar ",
-          "6_bold": "invitaciones P2P",
+          "6_bold": "invitaciones Extremo-A-Extremo",
           "7_normal": ". Para encontrar gente nueva en Internet, busca un código de invitación a un ",
           "8_bold": "servidor pub",
           "9_normal": " o a ",
           "10_bold": "un servidor room",
-          "11_normal": ", o crea tu propio servidor!"
+          "11_normal": ", ¡O crea tu propio servidor SSB con Docker o DigitalOcean!"
         }
       }
     },
     "moderation": {
       "title": "Moderación compartida",
       "description": {
-        "1_normal": "Debido a que tu dispositivo mantiene tu red social, nadie más puede bloquear o eliminar cuentas en tu nombre. Sólo tu puedes moderar tu espacio, ",
+        "1_normal": "Debido a que tu dispositivo mantiene tu red social, nadie más puede bloquear o eliminar cuentas en tu nombre. Sólo tú puedes moderar tu espacio, ",
         "2_bold": "bloqueando cuentas",
-        "3_normal": " que no quieres tener en tu dispositivo. Entonces, tus amigos pueden elegir bloquear esas mismas cuentas. Así es como la moderación puede propagarse naturalmente!"
+        "3_normal": " que no quieres tener en tu dispositivo. Entonces, tus amigos pueden elegir bloquear esas mismas cuentas. ¡Así es como la moderación puede propagarse naturalmente!"
       }
     },
     "permanence": {
       "title": "Permanencia",
       "description": {
-        "1_normal": "Una vez que tu contenido se sincroniza con amigos, ellos ahora poseen una copia del mismo en sus dispositivos. Ya que podrían desconectarse después de eso, no es ",
-        "2_bold": "posible eliminarlo",
-        "3_normal": " tu contenido globalmente desde todos los dispositivos! Es por ello que hemos elegido hacer que el contenido sea permanente. Esto también crea comunidades más respetuosas y consideradas respecto a lo que se publica."
+        "1_normal": "Una vez que tu contenido se sincroniza con amigos, ellos ahora poseen una copia del mismo en sus dispositivos. Ya que podrían desconectarse después de eso, éso es ",
+        "2_bold": "imposible de eliminar",
+        "3_normal": " tu contenido globalmente desde todos los dispositivos! Es por éso que hemos elegido hacer que el contenido sea permanente. Ésto también crea comunidades más respetuosas y consideradas respecto a lo que se publica."
       }
     },
     "in_construction": {
       "title": "¡En construcción!",
       "description": {
         "1_normal": "Manyverse es ",
-        "2_bold": "software en desarrollo",
+        "2_bold": "software de calidad beta (Bajo desarrollo)",
         "3_normal": ". Todavía no hemos resuelto todo y algunas partes requieren arreglos. Durante la sincronización, la aplicación puede aparentar estar congelada durante varios minutos. ¡Ten paciencia! Infórmanos de cualquier otro fallo que llegues a encontrar, y con suficiente tiempo y donativos, podremos hacer de esta una gran aplicación."
       }
     },
     "setup_account": {
-      "title": "Es esta tu primera vez?",
+      "title": "¿Es tu primera vez?",
       "description": "¿Quieres crear una nueva cuenta, o te gustaría restaurar tu anterior cuenta a partir de una frase de recuperación de 48 palabras?",
       "call_to_action": {
         "create": {
           "label": "Crear una cuenta",
-          "accessibility_label": "Crear una cuenta"
+          "accessibility_label": "Botón de crear cuenta"
         },
         "restore": {
-          "label": "Restaurar una cuenta",
+          "label": "Recuperar una cuenta",
           "accessibility_label": "Restaurar una cuenta"
         }
       }
@@ -281,33 +281,33 @@
       "bluetooth": {
         "title": "Bluetooth",
         "accessibility_label": "Modo Bluetooth",
-        "disabled": "(Activa el Bluetooth para usar esto)",
+        "disabled": "(Activa el Bluetooth para usar ésto)",
         "description": "Descubre usuarios cercanos y conéctate con ellos mediante Bluetooth.",
         "permission_request": {
-          "title": "¿Permitir localizar a través de Bluetooth?",
+          "title": "¿Permitir localización a través de Bluetooth?",
           "message": "Manyverse necesita usar Bluetooth para descubrir en dónde estás (\"ubicación gruesa\") y qué pares están a tu alrededor."
         }
       },
       "wifi": {
         "title": "Wi-Fi",
         "accessibility_label": "Modo Wi-Fi",
-        "disabled": "(Activa el Wi-Fi para usar esto)",
-        "description": "Conecta con amistades en la misma LAN, es decir, amistades que estén usando la misma Wi-Fi."
+        "disabled": "(Activa el Bluetooth para usar ésto)",
+        "description": "Conecta con amistades en la misma red, es decir, amigos que estén usando el mismo Wi-Fi."
       },
       "p2p": {
-        "title": "Internet P2P",
+        "title": "Internet Extremo-A-Extremo",
         "accessibility_label": "Modo de Internet P2P",
-        "disabled": "(Conéctate para usar esto)",
-        "description": "Conecta directamente con amistades que se encuentren actualmente en línea, usando una tecnología punto-a-punto llamada \"Tabla Hash Distribuida\".",
+        "disabled": "(Conéctate a Internet para usar ésto)",
+        "description": "Conecta directamente con amigos que se encuentren actualmente en línea, usando una tecnología extremo-a-extremo llamada \"Tabla Hash Distribuida\".",
         "connecting": "Conectando a través de Internet P2P...",
-        "searching_friend": "Actualmente buscando al contacto en línea que generó este código de invitación, para establecer una conexión de datos con él.",
-        "waiting_friend": "Actualmente esperando a que el contacto en línea haga uso de este código de invitación y establecer una conexión de datos."
+        "searching_friend": "Buscando al contacto en línea que generó este código de invitación, para establecer una conexión de datos con él.",
+        "waiting_friend": "Actualmente esperando a que el contacto en línea haga uso de este código de invitación para establecer una conexión de datos."
       },
       "servers": {
         "title": "Servidores de Internet",
         "accessibility_label": "Modo de servidores de Internet",
         "disabled": "(Conéctate para usar esto)",
-        "description": "Conecta al denominado 'Pub server' propiedad de alguna de amistad, el cual contiene los datos más recientes de múltiples cuentas."
+        "description": "Conéctate a un llamado 'Servidor de Pub' propiedad de algún amigo, que contiene los datos más recientes de varias cuentas."
       }
     },
     "menu": {
@@ -373,7 +373,7 @@
     "notes": {
       "add": {
         "title": "Agregar nota",
-        "description": "Escribe una nota privada (sólo para ti mismo) sobre este código de invitación. Por ejemplo: \"Esto es para Alicia\""
+        "description": "Escribe una nota privada (sólo para tí) sobre este código de invitación. Por ejemplo: \"Ésto es para Alicia\""
       }
     },
     "share_code": {
