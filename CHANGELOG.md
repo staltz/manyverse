@@ -6,9 +6,13 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
-## 0.2005.28-beta
+## 0.2005.31-beta
 
 * (Android) Bug fix: startup crashes happening exclusively in F-Droid's Manyverse
+
+## 0.2005.28-beta
+
+* Minor improvements and bug fixes
 
 ## 0.2005.5-beta
 
