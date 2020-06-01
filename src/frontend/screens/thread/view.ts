@@ -12,21 +12,17 @@ import {
   Text,
   TextInput,
   KeyboardAvoidingView,
-  ScrollView,
-  RefreshControl,
   TouchableOpacity,
   Platform,
 } from 'react-native';
 import {ReactElement} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {propifyMethods} from 'react-propify-methods';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import FullThread from '../../components/FullThread';
 import Avatar from '../../components/Avatar';
 import EmptySection from '../../components/EmptySection';
-import AnimatedLoading from '../../components/AnimatedLoading';
 import TopBar from '../../components/TopBar';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
@@ -105,8 +101,6 @@ function ReplyInput(state: State) {
     state.replyText.length > 0 ? ReplySendButton() : null,
   ]);
 }
-
-const ReactiveScrollView = propifyMethods(ScrollView, 'scrollToEnd' as any);
 
 type Actions = {
   willReply$: Stream<any>;
@@ -187,30 +181,15 @@ export default function view(state$: Stream<State>, actions: Actions) {
             [behaviorProp]: 'padding',
           },
           [
-            h(
-              ReactiveScrollView,
-              {
-                style: styles.scrollView,
-                scrollToEnd$,
-                keyboardDismissMode: 'interactive',
-                refreshControl: h(RefreshControl, {
-                  refreshing: state.thread.messages.length === 0,
-                  colors: [Palette.backgroundBrand],
-                }),
-              },
-              [
-                h(FullThread, {
-                  sel: 'thread',
-                  thread: state.thread,
-                  selfFeedId: state.selfFeedId,
-                  expandRootCW: state.expandRootCW,
-                  publication$: actions.willReply$,
-                }),
-                state.loadingReplies
-                  ? h(AnimatedLoading, {text: t('thread.loading_replies')})
-                  : null,
-              ],
-            ),
+            h(FullThread, {
+              sel: 'thread',
+              thread: state.thread,
+              selfFeedId: state.selfFeedId,
+              expandRootCW: state.expandRootCW,
+              loadingReplies: state.loadingReplies,
+              scrollToEnd$,
+              publication$: actions.willReply$,
+            }),
             ReplyInput(state),
           ],
         ),

@@ -6,8 +6,9 @@
 
 import {Stream, Subscription, Listener} from 'xstream';
 import {Component, PureComponent} from 'react';
-import {StyleSheet, FlatList, View} from 'react-native';
+import {StyleSheet, FlatList, View, RefreshControl} from 'react-native';
 import {h} from '@cycle/react';
+import {propifyMethods} from 'react-propify-methods';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {
   ThreadAndExtras,
@@ -15,15 +16,21 @@ import {
   PressReactionsEvent,
   PressAddReactionEvent,
 } from '../ssb/types';
+import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import Message from './messages/Message';
 import PlaceholderMessage from './messages/PlaceholderMessage';
+import AnimatedLoading from './AnimatedLoading';
+
+const FlatList$ = propifyMethods(FlatList, 'scrollToEnd' as any);
 
 export type Props = {
   thread: ThreadAndExtras;
   publication$?: Stream<any> | null;
+  scrollToEnd$?: Stream<Parameters<FlatList<any>['scrollToEnd']>[0]>;
   selfFeedId: FeedId;
+  loadingReplies: boolean;
   expandRootCW?: boolean;
   onPressFork?: (ev: {rootMsgId: MsgId}) => void; // FIXME: support this?
   onPressReactions?: (ev: PressReactionsEvent) => void;
@@ -73,12 +80,16 @@ export default class FullThread extends Component<Props, State> {
   public shouldComponentUpdate(nextProps: Props, nextState: State) {
     const prevProps = this.props;
     if (nextProps.selfFeedId !== prevProps.selfFeedId) return true;
+    if (nextProps.loadingReplies !== prevProps.loadingReplies) return true;
     if (nextProps.onPressAuthor !== prevProps.onPressAuthor) return true;
     if (nextProps.onPressEtc !== prevProps.onPressEtc) return true;
     if (nextProps.onPressReactions !== prevProps.onPressReactions) return true;
     if (nextProps.onPressAddReaction !== prevProps.onPressAddReaction)
       return true;
+    if (nextProps.expandRootCW !== prevProps.expandRootCW) return true;
     if (nextProps.publication$ !== prevProps.publication$) return true;
+    if (nextProps.scrollToEnd$ !== prevProps.scrollToEnd$) return true;
+    if (nextProps.thread.full !== prevProps.thread.full) return true;
     const prevMessages = prevProps.thread.messages;
     const nextMessages = nextProps.thread.messages;
     if (nextMessages.length !== prevMessages.length) return true;
@@ -127,17 +138,37 @@ export default class FullThread extends Component<Props, State> {
     });
   };
 
-  public render() {
-    const {thread} = this.props;
+  private renderFooter = () => {
+    const {loadingReplies} = this.props;
     const {showPlaceholder} = this.state;
+    const text = t('thread.loading_replies');
 
-    return h(FlatList, {
+    if (loadingReplies && showPlaceholder) {
+      return h(View, [h(PlaceholderMessage), h(AnimatedLoading, {text})]);
+    } else if (loadingReplies) {
+      return h(AnimatedLoading, {text});
+    } else if (showPlaceholder) {
+      return h(PlaceholderMessage);
+    } else {
+      return null;
+    }
+  };
+
+  public render() {
+    const {thread, scrollToEnd$} = this.props;
+
+    return h(FlatList$, {
       data: thread.messages ?? [],
       renderItem: this.renderMessage,
       keyExtractor: (msg: MsgAndExtras) => msg.key,
       contentContainerStyle: styles.contentContainer,
+      scrollToEnd$,
+      refreshControl: h(RefreshControl, {
+        refreshing: thread.messages.length === 0,
+        colors: [Palette.backgroundBrand],
+      }),
       ItemSeparatorComponent: Separator,
-      ListFooterComponent: showPlaceholder ? h(PlaceholderMessage) : null,
+      ListFooterComponent: this.renderFooter(),
     });
   }
 }
