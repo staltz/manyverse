@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -22,8 +22,14 @@ export default function ssb(actions: Actions): Stream<Req> {
     .map(contentToPublishReq);
 
   const publishReply$ = actions.publishReply$
-    .map(({postText, contentWarning, root, branch}) =>
-      toReplyPostContent(postText, root!, branch, contentWarning),
+    .map(({postText, contentWarning, root, branch, fork}) =>
+      toReplyPostContent({
+        text: postText,
+        root: root!,
+        branch,
+        fork,
+        contentWarning,
+      }),
     )
     .map(contentToPublishReq);
 

@@ -15,7 +15,11 @@ import {DialogSource} from '../../drivers/dialogs';
 import {SSBSource} from '../../drivers/ssb';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
-import {PressAddReactionEvent, PressReactionsEvent} from '../../ssb/types';
+import {
+  PressAddReactionEvent,
+  PressReactionsEvent,
+  MsgAndExtras,
+} from '../../ssb/types';
 import {Screens} from '../enums';
 import {State} from './model';
 import {Props} from './props';
@@ -62,7 +66,7 @@ export default function intent(
       .select('reply-send')
       .events('press')
       .compose(sample(state$))
-      .filter(state => !!state.replyText && !!state.rootMsgId),
+      .filter(state => !!state.replyText),
 
     willReply$: ssbSource.publishHook$.filter(isReplyPostMsg),
 
@@ -82,7 +86,10 @@ export default function intent(
 
     goToAnotherThread$: reactSource
       .select('thread')
-      .events('pressFork') as Stream<{rootMsgId: MsgId}>,
+      .events('pressReplyToReply') as Stream<{
+      rootMsgId: MsgId;
+      msg: MsgAndExtras;
+    }>,
 
     goToCompose$: reactSource
       .select('reply-expand')
@@ -93,15 +100,21 @@ export default function intent(
       .select('thread')
       .events('pressAddReaction') as Stream<PressAddReactionEvent>,
 
-    loadReplyDraft$: xs
-      .merge(
-        props$.map(props => props.rootMsgId ?? props.rootMsg.key),
-        navSource
-          .globalDidDisappear(Screens.Compose)
-          .compose(sample(state$))
-          .map(state => state.rootMsgId),
-      )
-      .filter(rootMsgId => !!rootMsgId) as Stream<MsgId>,
+    loadReplyDraft$: xs.merge(
+      props$.map(props => props.rootMsgId ?? props.rootMsg.key),
+      navSource
+        .globalDidDisappear(Screens.Compose)
+        .compose(sample(state$))
+        .map(state => state.rootMsgId),
+    ) as Stream<MsgId>,
+
+    replySeen$: reactSource.select('thread').events('replySeen') as Stream<
+      MsgId
+    >,
+
+    focusTextInput$: reactSource
+      .select('thread')
+      .events('pressReplyToRoot') as Stream<undefined>,
 
     openMessageEtc$: reactSource.select('thread').events('pressEtc') as Stream<
       Msg

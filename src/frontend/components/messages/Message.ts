@@ -8,7 +8,7 @@ import xs, {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
-import {Msg, FeedId, MsgId} from 'ssb-typescript';
+import {Msg, FeedId} from 'ssb-typescript';
 import {isPostMsg, isContactMsg, isAboutMsg} from 'ssb-typescript/utils';
 import {
   Reactions,
@@ -31,9 +31,10 @@ export type Props = {
   msg: MsgAndExtras;
   selfFeedId: FeedId;
   expandCW?: boolean;
+  replyCount?: number;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
-  onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
+  onPressReply?: () => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
 };
@@ -53,7 +54,7 @@ export default class Message extends PureComponent<Props, State> {
   }
 
   public render() {
-    const {msg} = this.props;
+    const {msg, replyCount} = this.props;
     const metadata = msg.value._$manyverse$metadata;
     const reactions = (
       metadata.reactions ?? (xs.never() as Stream<Reactions>)
@@ -62,7 +63,7 @@ export default class Message extends PureComponent<Props, State> {
       ...this.props,
       msg: msg as Msg<any>,
       reactions,
-      replyCount: 0,
+      replyCount: replyCount ?? 0,
       name: metadata.about.name,
       imageUrl: metadata.about.imageUrl,
       contactName: metadata.contact ? metadata.contact.name : undefined,

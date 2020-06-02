@@ -46,24 +46,28 @@ export function toPostContent(
   return content;
 }
 
-export function toReplyPostContent(
-  text: string,
-  root: MsgId,
-  branch?: MsgId,
-  contentWarning?: string,
-): Privatable<PostContent> {
-  const content: PostContent = {
+export function toReplyPostContent({
+  text,
+  root,
+  fork,
+  branch,
+  contentWarning,
+}: {
+  text: string;
+  root: MsgId;
+  fork?: MsgId;
+  branch?: MsgId;
+  contentWarning?: string;
+}): Privatable<PostContent> {
+  const content: PostContent & {contentWarning?: string; fork?: MsgId} = {
     text,
     type: 'post',
     root,
     mentions: Mentions(text),
   };
   if (branch) content.branch = branch;
-
-  if (contentWarning) {
-    (content as any).contentWarning = contentWarning;
-  }
-
+  if (fork) content.fork = fork;
+  if (contentWarning) content.contentWarning = contentWarning;
   return content;
 }
 

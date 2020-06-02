@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import {ReactElement} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {propifyMethods} from 'react-propify-methods';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -26,6 +27,7 @@ import EmptySection from '../../components/EmptySection';
 import TopBar from '../../components/TopBar';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
+const FocusableTextInput = propifyMethods(TextInput, 'focus' as any);
 
 function ExpandReplyButton(isLastButton: boolean) {
   return h(
@@ -73,7 +75,7 @@ function ReplySendButton() {
   );
 }
 
-function ReplyInput(state: State) {
+function ReplyInput(state: State, focus$: Stream<undefined>) {
   return h(View, {style: styles.replyRow}, [
     h(Avatar, {
       size: avatarSize,
@@ -81,12 +83,13 @@ function ReplyInput(state: State) {
       style: styles.replyAvatar,
     }),
     h(View, {style: styles.replyInputContainer}, [
-      h(TextInput, {
+      h(FocusableTextInput, {
         accessible: true,
         accessibilityLabel: t('thread.fields.reply.accessibility_label'),
         sel: 'reply-input',
         multiline: true,
         autoFocus: state.startedAsReply,
+        focus$,
         returnKeyType: 'done',
         value: state.replyText,
         editable: state.replyEditable,
@@ -104,6 +107,7 @@ function ReplyInput(state: State) {
 
 type Actions = {
   willReply$: Stream<any>;
+  focusTextInput$: Stream<undefined>;
 };
 
 export default function view(state$: Stream<State>, actions: Actions) {
@@ -124,6 +128,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
         'selfFeedId',
         s => s.thread.messages.length,
         s => s.thread.full,
+        'subthreads',
         'expandRootCW',
       ]),
     )
@@ -184,13 +189,14 @@ export default function view(state$: Stream<State>, actions: Actions) {
             h(FullThread, {
               sel: 'thread',
               thread: state.thread,
+              subthreads: state.subthreads,
               selfFeedId: state.selfFeedId,
               expandRootCW: state.expandRootCW,
               loadingReplies: state.loadingReplies,
               scrollToEnd$,
               publication$: actions.willReply$,
             }),
-            ReplyInput(state),
+            ReplyInput(state, actions.focusTextInput$),
           ],
         ),
       ]);

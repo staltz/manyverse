@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
@@ -15,10 +16,12 @@ import {Props} from './props';
 
 export type State = {
   selfFeedId: FeedId;
-  rootMsgId: MsgId | null;
+  rootMsgId: MsgId;
+  higherRootMsgId: MsgId | undefined;
   loading: boolean;
   loadingReplies: boolean;
   thread: ThreadAndExtras;
+  subthreads: Record<MsgId, ThreadAndExtras>;
   expandRootCW: boolean;
   replyText: string;
   replyEditable: boolean;
@@ -32,6 +35,7 @@ export type Actions = {
   publishMsg$: Stream<any>;
   willReply$: Stream<any>;
   loadReplyDraft$: Stream<MsgId>;
+  replySeen$: Stream<MsgId>;
   keyboardAppeared$: Stream<any>;
   keyboardDisappeared$: Stream<any>;
   updateReplyText$: Stream<string>;
@@ -66,9 +70,11 @@ export default function model(
         return {
           selfFeedId: props.selfFeedId,
           rootMsgId: props.rootMsgId ?? props.rootMsg.key,
+          higherRootMsgId: props.higherRootMsgId,
           loading: true,
           loadingReplies: !!props.rootMsg,
           thread: emptyThread,
+          subthreads: {},
           expandRootCW: props.expandRootCW ?? false,
           replyText: '',
           replyEditable: true,
@@ -114,6 +120,27 @@ export default function model(
           return {...prev, thread, loading: false, loadingReplies: false};
         },
     );
+
+  const setSubthreadReducer$ = actions.replySeen$
+    .map(msgId =>
+      ssbSource
+        .thread$(msgId, false)
+        .replaceError(_err => xs.of(emptyThread))
+        .map(
+          subthread =>
+            function setSubthreadReducer(prev: State): State {
+              if (prev.subthreads[msgId]) {
+                return prev;
+              } else {
+                return {
+                  ...prev,
+                  subthreads: {...prev.subthreads, [msgId]: subthread},
+                };
+              }
+            },
+        ),
+    )
+    .compose(flattenConcurrently);
 
   const keyboardAppearedReducer$ = actions.keyboardAppeared$.mapTo(
     function keyboardAppearedReducer(prev: State): State {
@@ -206,6 +233,7 @@ export default function model(
     propsReducer$,
     setRootMsgReducer$,
     setThreadReducer$,
+    setSubthreadReducer$,
     keyboardAppearedReducer$,
     keyboardDisappearedReducer$,
     updateReplyTextReducer$,

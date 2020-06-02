@@ -10,7 +10,7 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {Command, PopCommand} from 'cycle-native-navigation';
 import {Screens} from '../enums';
-import {Reactions} from '../../ssb/types';
+import {Reactions, MsgAndExtras} from '../../ssb/types';
 import {
   navOptions as accountsScreenNavOpts,
   Props as AccountProps,
@@ -18,7 +18,10 @@ import {
 import {navOptions as profileScreenNavOpts} from '../profile/layout';
 import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
 import {navOptions as threadScreenNavOpts} from './layout';
-import {navOptions as composeScreenNavOpts} from '../compose';
+import {
+  navOptions as composeScreenNavOpts,
+  Props as ComposeProps,
+} from '../compose';
 import {State} from './model';
 import {Props} from './props';
 
@@ -28,7 +31,7 @@ export type Actions = {
     msgKey: MsgId;
     accounts: Array<FeedId> | Reactions;
   }>;
-  goToAnotherThread$: Stream<{rootMsgId: FeedId}>;
+  goToAnotherThread$: Stream<{rootMsgId: MsgId; msg: MsgAndExtras}>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToRawMsg$: Stream<Msg>;
   goToCompose$: Stream<any>;
@@ -98,9 +101,10 @@ export default function navigation(
           passProps: {
             text: state.replyText,
             root: state.rootMsgId,
+            fork: state.higherRootMsgId,
             branch: lastMsgInThread.key,
             authors,
-          },
+          } as ComposeProps,
         },
       },
     } as Command;
@@ -117,7 +121,8 @@ export default function navigation(
               name: Screens.Thread,
               passProps: {
                 selfFeedId: state.selfFeedId,
-                rootMsgId: ev.rootMsgId,
+                rootMsg: ev.msg,
+                higherRootMsgId: ev.rootMsgId,
               } as Props,
               options: threadScreenNavOpts,
             },

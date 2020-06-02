@@ -23,12 +23,12 @@ export default function ssb(actions: SSBActions): Stream<Req> {
 
   const publishReply$ = actions.publishMsg$.map(state => {
     const messages = state.thread.messages;
-    return toReplyPostContent(
-      state.replyText,
-      state.rootMsgId as string,
-      messages[messages.length - 1].key,
-      void 0, // no content warning
-    );
+    return toReplyPostContent({
+      text: state.replyText,
+      root: state.rootMsgId,
+      fork: state.higherRootMsgId,
+      branch: messages[messages.length - 1].key,
+    });
   });
 
   return xs.merge(addReaction$, publishReply$).map(contentToPublishReq);

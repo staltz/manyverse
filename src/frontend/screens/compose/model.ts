@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -27,6 +27,7 @@ export type State = {
   avatarUrl: string | undefined;
   previewing: boolean;
   root: MsgId | undefined;
+  fork: MsgId | undefined;
   branch: MsgId | undefined;
   authors: Array<FeedId>;
 };
@@ -98,6 +99,7 @@ export default function model(
           mentionSuggestions: [],
           mentionChoiceTimestamp: 0,
           root: props.root,
+          fork: props.fork,
           branch: props.branch,
           authors: props.authors ?? [],
           contentWarning: '',

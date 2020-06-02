@@ -6,7 +6,7 @@
 
 import {Stream, Subscription, Listener} from 'xstream';
 import {Component, PureComponent} from 'react';
-import {StyleSheet, FlatList, View, RefreshControl} from 'react-native';
+import {StyleSheet, FlatList, View, ViewabilityConfig} from 'react-native';
 import {h} from '@cycle/react';
 import {propifyMethods} from 'react-propify-methods';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
@@ -24,17 +24,24 @@ import PlaceholderMessage from './messages/PlaceholderMessage';
 import AnimatedLoading from './AnimatedLoading';
 
 const FlatList$ = propifyMethods(FlatList, 'scrollToEnd' as any);
+type ViewabilityInfo = Parameters<
+  NonNullable<FlatList<MsgAndExtras>['props']['onViewableItemsChanged']>
+>[0];
+type ScrollToEndArg = Parameters<FlatList<any>['scrollToEnd']>[0];
 
 export type Props = {
   thread: ThreadAndExtras;
+  subthreads: Record<MsgId, ThreadAndExtras>;
   publication$?: Stream<any> | null;
-  scrollToEnd$?: Stream<Parameters<FlatList<any>['scrollToEnd']>[0]>;
+  scrollToEnd$?: Stream<ScrollToEndArg>;
   selfFeedId: FeedId;
   loadingReplies: boolean;
   expandRootCW?: boolean;
-  onPressFork?: (ev: {rootMsgId: MsgId}) => void; // FIXME: support this?
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
+  onPressReplyToRoot?: () => void;
+  onPressReplyToReply?: (ev: {rootMsgId: MsgId; msg: MsgAndExtras}) => void;
+  onReplySeen?: (msgId: MsgId) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
 };
@@ -68,6 +75,7 @@ export default class FullThread extends Component<Props, State> {
   }
 
   private subscription?: Subscription;
+  private repliesSeen: Set<MsgId> = new Set();
 
   public componentDidMount() {
     const {publication$} = this.props;
@@ -90,6 +98,7 @@ export default class FullThread extends Component<Props, State> {
     if (nextProps.publication$ !== prevProps.publication$) return true;
     if (nextProps.scrollToEnd$ !== prevProps.scrollToEnd$) return true;
     if (nextProps.thread.full !== prevProps.thread.full) return true;
+    if (nextProps.subthreads !== prevProps.subthreads) return true;
     const prevMessages = prevProps.thread.messages;
     const nextMessages = nextProps.thread.messages;
     if (nextMessages.length !== prevMessages.length) return true;
@@ -117,20 +126,42 @@ export default class FullThread extends Component<Props, State> {
   }
 
   private renderMessage = ({item, index}: any) => {
-    const msg = item as MsgAndExtras;
     const {
       selfFeedId,
       onPressReactions,
       onPressAddReaction,
       onPressAuthor,
       onPressEtc,
+      onPressReplyToRoot,
+      onPressReplyToReply,
+      thread,
+      subthreads,
     } = this.props;
+    const msg = item as MsgAndExtras;
+    const root = thread.messages[0];
+
+    let onPressReply: Message['props']['onPressReply'];
+    let replyCount = 0;
+    if (index === 0) {
+      onPressReply = () => {
+        onPressReplyToRoot?.();
+      };
+      replyCount = thread.messages.length - 1;
+    } else if (subthreads[msg.key]) {
+      const subthread = subthreads[msg.key];
+      onPressReply = () => {
+        onPressReplyToReply?.({rootMsgId: root.key, msg});
+      };
+      replyCount = subthread.messages.length - 1;
+    }
 
     return h(Message, {
       msg,
       key: msg.key,
       expandCW: index === 0 && this.props.expandRootCW === true,
       selfFeedId,
+      onPressReply,
+      replyCount,
       onPressReactions,
       onPressAddReaction,
       onPressAuthor,
@@ -154,6 +185,26 @@ export default class FullThread extends Component<Props, State> {
     }
   };
 
+  private onViewableItemsChanged = (info: ViewabilityInfo) => {
+    const {onReplySeen} = this.props;
+    if (!onReplySeen) return;
+    for (const token of info.changed) {
+      if (
+        token.isViewable && // User sees it
+        (token.index ?? 0) > 0 && // It's not the root
+        !this.repliesSeen.has(token.item.key) // User hasn't seen it before
+      ) {
+        this.repliesSeen.add(token.item.key);
+        onReplySeen(token.item.key);
+      }
+    }
+  };
+
+  private static viewabilityConfig: ViewabilityConfig = {
+    minimumViewTime: 200,
+    itemVisiblePercentThreshold: 10,
+  };
+
   public render() {
     const {thread, scrollToEnd$} = this.props;
 
@@ -163,10 +214,8 @@ export default class FullThread extends Component<Props, State> {
       keyExtractor: (msg: MsgAndExtras) => msg.key,
       contentContainerStyle: styles.contentContainer,
       scrollToEnd$,
-      refreshControl: h(RefreshControl, {
-        refreshing: thread.messages.length === 0,
-        colors: [Palette.backgroundBrand],
-      }),
+      onViewableItemsChanged: this.onViewableItemsChanged,
+      viewabilityConfig: FullThread.viewabilityConfig,
       ItemSeparatorComponent: Separator,
       ListFooterComponent: this.renderFooter(),
     });

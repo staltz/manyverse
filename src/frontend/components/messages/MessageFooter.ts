@@ -19,7 +19,7 @@ import {
 import {h} from '@cycle/react';
 import EmojiPicker from 'react-native-emoji-picker-staltz';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Msg, FeedId, PostContent, MsgId} from 'ssb-typescript';
+import {Msg, FeedId} from 'ssb-typescript';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -260,45 +260,57 @@ class AddReactionButton extends PureComponent<{
 }
 
 class ReplyButton extends PureComponent<{
-  onPress: () => void;
+  onPress?: () => void;
+  enabled: boolean;
   replyCount: number;
 }> {
   public render() {
-    const {replyCount} = this.props;
+    const {replyCount, enabled} = this.props;
 
-    return h(
-      Touchable,
-      {
-        ...touchableProps,
-        onPress: this.props.onPress,
-        accessible: true,
-        accessibilityRole: 'button',
-        accessibilityLabel: t(
-          'message.call_to_action.reply.accessibility_label',
-        ),
-      },
-      [
-        h(View, {style: styles.prominentButton, pointerEvents: 'box-only'}, [
-          replyCount > 0
-            ? h(
-                Text,
-                {
-                  key: 't',
-                  style: styles.repliesCounter,
-                  numberOfLines: 1,
-                },
-                String(replyCount),
-              )
-            : null,
-          h(Icon, {
-            key: 'icon',
-            size: Dimensions.iconSizeSmall,
-            color: Palette.textWeak,
-            name: 'comment-outline',
-          }),
-        ]),
-      ],
-    );
+    if (enabled) {
+      return h(
+        Touchable,
+        {
+          ...touchableProps,
+          onPress: this.props.onPress,
+          accessible: true,
+          accessibilityRole: 'button',
+          accessibilityLabel: t(
+            'message.call_to_action.reply.accessibility_label',
+          ),
+        },
+        [
+          h(View, {style: styles.prominentButton, pointerEvents: 'box-only'}, [
+            replyCount > 0
+              ? h(
+                  Text,
+                  {
+                    key: 't',
+                    style: styles.repliesCounter,
+                    numberOfLines: 1,
+                  },
+                  String(replyCount),
+                )
+              : null,
+            h(Icon, {
+              key: 'icon',
+              size: Dimensions.iconSizeSmall,
+              color: Palette.textWeak,
+              name: 'comment-outline',
+            }),
+          ]),
+        ],
+      );
+    } else {
+      return h(View, {style: styles.prominentButton}, [
+        h(Icon, {
+          key: 'icon',
+          size: Dimensions.iconSizeSmall,
+          color: Palette.textVeryWeak,
+          name: 'comment-outline',
+        }),
+      ]);
+    }
   }
 }
 
@@ -334,7 +346,7 @@ export type Props = {
   style?: ViewStyle;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
-  onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
+  onPressReply?: () => void;
   onPressEtc?: (msg: Msg) => void;
 };
 export type State = {
@@ -397,13 +409,6 @@ export default class MessageFooter extends Component<Props, State> {
     this.setState({showQuickEmojis: false, showFullEmojis: false});
   };
 
-  private onPressReplyHandler = () => {
-    const msg = this.props.msg;
-    const msgKey = msg.key;
-    const rootKey = (msg?.value?.content as PostContent)?.root ?? msgKey;
-    this.props.onPressReply?.({msgKey, rootKey});
-  };
-
   private onPressEtcHandler = () => {
     this.props.onPressEtc?.(this.props.msg);
   };
@@ -423,15 +428,11 @@ export default class MessageFooter extends Component<Props, State> {
   public shouldComponentUpdate(nextP: Props, nextS: State) {
     const prevP = this.props;
     const prevS = this.state;
-    if (nextP.msg.key !== prevP.msg.key) {
-      return true;
-    }
-    if (nextS.showQuickEmojis !== prevS.showQuickEmojis) {
-      return true;
-    }
-    if (nextS.showFullEmojis !== prevS.showFullEmojis) {
-      return true;
-    }
+    if (nextP.msg.key !== prevP.msg.key) return true;
+    if (nextS.showQuickEmojis !== prevS.showQuickEmojis) return true;
+    if (nextS.showFullEmojis !== prevS.showFullEmojis) return true;
+    if (nextP.onPressReply !== prevP.onPressReply) return true;
+    if (nextP.replyCount !== prevP.replyCount) return true;
     if ((nextP.reactions ?? []).length !== (prevP.reactions ?? []).length) {
       return true;
     }
@@ -585,13 +586,12 @@ export default class MessageFooter extends Component<Props, State> {
           myReaction: this.myReaction,
         }),
 
-        shouldShowReply
-          ? h(ReplyButton, {
-              key: 'reply',
-              replyCount,
-              onPress: this.onPressReplyHandler,
-            })
-          : null,
+        h(ReplyButton, {
+          key: 'reply',
+          replyCount,
+          enabled: shouldShowReply,
+          onPress: props.onPressReply,
+        }),
 
         h(EtcButton, {key: 'etc', onPress: this.onPressEtcHandler}),
       ]),

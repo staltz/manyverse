@@ -9,6 +9,7 @@ import {MsgAndExtras} from '../../ssb/types';
 
 type Basics = {
   selfFeedId: FeedId;
+  higherRootMsgId?: MsgId;
   replyToMsgId?: MsgId;
   expandRootCW?: boolean;
 };

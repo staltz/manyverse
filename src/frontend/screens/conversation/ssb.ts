@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 The Manyverse Authors.
+/* Copyright (C) 2019-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -19,7 +19,7 @@ export type SSBActions = {
 function createReplyContent(text: string, state: State): PostContent {
   const messages = state.thread.messages;
   const branch = messages[messages.length - 1].key;
-  const content = toReplyPostContent(text, state.rootMsgId!, branch);
+  const content = toReplyPostContent({text, root: state.rootMsgId!, branch});
   content.recps = state.thread.recps.map(recp => recp.id);
   return content;
 }

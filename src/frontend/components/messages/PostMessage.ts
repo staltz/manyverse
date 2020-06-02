@@ -7,7 +7,7 @@
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {StyleSheet} from 'react-native';
-import {PostContent as Post, FeedId, Msg, MsgId} from 'ssb-typescript';
+import {PostContent as Post, FeedId, Msg} from 'ssb-typescript';
 import {
   Reactions,
   PressReactionsEvent,
@@ -32,7 +32,7 @@ export type Props = {
   expandCW?: boolean;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
-  onPressReply?: (ev: {msgKey: MsgId; rootKey: MsgId}) => void;
+  onPressReply?: () => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
 };
