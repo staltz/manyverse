@@ -39,8 +39,9 @@ export type Props = {
   onPressEtc?: (msg: Msg) => void;
 };
 
-const PostMessageM = withXstreamProps(PostMessage, 'reactions');
-const RawMessageM = withXstreamProps(RawMessage, 'reactions');
+const RawMessage$ = withXstreamProps(RawMessage, 'reactions');
+const PostMessage$ = withXstreamProps(PostMessage, 'reactions');
+const ContactMessage$ = withXstreamProps(ContactMessage, 'reactions');
 
 export default class Message extends PureComponent<Props, State> {
   constructor(props: Props) {
@@ -69,11 +70,11 @@ export default class Message extends PureComponent<Props, State> {
       contactName: metadata.contact ? metadata.contact.name : undefined,
     };
 
-    if (this.state.hasError) return h(RawMessageM, props);
+    if (this.state.hasError) return h(RawMessage$, props);
     if (!msg.key) return h(KeylessMessage, props);
-    if (isPostMsg(msg)) return h(PostMessageM, props);
+    if (isPostMsg(msg)) return h(PostMessage$, props);
     if (isAboutMsg(msg)) return h(AboutMessage, props);
-    if (isContactMsg(msg)) return h(ContactMessage, props);
-    return h(RawMessageM, props);
+    if (isContactMsg(msg)) return h(ContactMessage$, props);
+    return h(RawMessage$, props);
   }
 }

@@ -32,6 +32,7 @@ import {
 } from '../ssb/types';
 import ThreadCard from './ThreadCard';
 import PlaceholderThreadCard from './PlaceholderThreadCard';
+import FollowCard from './FollowCard';
 
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
@@ -298,20 +299,37 @@ export default class Feed extends PureComponent<Props, State> {
         ? InitialLoading
         : PlaceholderThreadCard,
       ListEmptyComponent: EmptyComponent,
-      renderItem: ({item}: any) =>
-        h(View, [
-          h(ThreadCard, {
-            thread: item as ThreadSummaryWithExtras,
-            selfFeedId,
-            onPressReactions,
-            onPressAddReaction,
-            onPressAuthor,
-            onPressEtc,
-            onPressExpand,
-            onPressExpandCW,
-          }),
-          h(Separator),
-        ]),
+      renderItem: ({item}: any) => {
+        const thread = item as ThreadSummaryWithExtras;
+        if (thread?.root?.value?.content?.type === 'contact') {
+          return h(View, [
+            h(FollowCard, {
+              thread,
+              selfFeedId,
+              onPressReactions,
+              onPressAddReaction,
+              onPressAuthor,
+              onPressEtc,
+              onPressExpand,
+            }),
+            h(Separator),
+          ]);
+        } else {
+          return h(View, [
+            h(ThreadCard, {
+              thread,
+              selfFeedId,
+              onPressReactions,
+              onPressAddReaction,
+              onPressAuthor,
+              onPressEtc,
+              onPressExpand,
+              onPressExpandCW,
+            }),
+            h(Separator),
+          ]);
+        }
+      },
     });
   }
 }

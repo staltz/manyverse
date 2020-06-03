@@ -13,6 +13,7 @@ import {
   isMsg,
   isRootPostMsg,
   isPublic,
+  isContactMsg,
   isReplyPostMsg,
 } from 'ssb-typescript/utils';
 import run = require('promisify-tuple');
@@ -192,6 +193,18 @@ const threadsUtils = {
           ssb.threads.publicSummary({
             allowlist: publicAllowlist,
             ...opts,
+          }),
+          pull.filter((summary: ThreadSummary) => {
+            if (isContactMsg(summary.root)) {
+              // Only accept blocking or unblocking messages
+              const content = summary.root?.value?.content;
+              return (
+                typeof content?.blocking === 'boolean' &&
+                typeof content?.following !== 'boolean'
+              );
+            } else {
+              return true;
+            }
           }),
           pull.asyncMap(mutateThreadSummaryWithLiveExtras(ssb)),
         );
