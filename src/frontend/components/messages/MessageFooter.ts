@@ -171,6 +171,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    ...Platform.select({
+      ios: {
+        paddingHorizontal: Dimensions.horizontalSpaceNormal,
+        marginHorizontal: -Dimensions.horizontalSpaceNormal,
+      },
+    }),
   },
 });
 
