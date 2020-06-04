@@ -13,7 +13,7 @@ module.exports = function(driver, t) {
     await driver.performTouchAction(pressMenu);
     t.pass('I press the Menu (top left corner)');
     const myProfileButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Go To My Profile")',
+      'new UiSelector().descriptionContains("My Profile")',
     );
     t.ok(myProfileButton, 'I see My Profile Button');
     await myProfileButton.click();
@@ -29,10 +29,9 @@ module.exports = function(driver, t) {
     t.equal(name[0], '@', 'I see that the name starts with @');
 
     // Dont see "go to profile" button
-    let noMyProfileButton;
     try {
-      noMyProfileButton = await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Go To My Profile")',
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("My Profile")',
         1000,
       );
       t.fail('Should not have seen My Profile Button belonging to Central');

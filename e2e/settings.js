@@ -179,7 +179,7 @@ module.exports = function(driver, t) {
     );
 
     const showRecoveryButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Show Recovery Phrase Button")',
+      'new UiSelector().descriptionContains("Show Recovery Phrase")',
     );
     t.ok(showRecoveryButton, 'I see the Show Recovery Phrase button');
     await showRecoveryButton.click();

@@ -198,17 +198,25 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("Reply Text Input")',
+        6000,
+      ),
+      'I am on the Thread screen',
+    );
+
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().textContains("Goodbye world today is a dark day")',
         6000,
       ),
-      'I see the actual content-warned message on the feed',
+      'I see the actual content-warned message in the Thread',
     );
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("serendipitous")',
         6000,
       ),
-      'I see the actual content-warned picture on the feed',
+      'I see the actual content-warned picture in the Thread',
     );
 
     const hideButton = await driver.elementByAndroidUIAutomator(
@@ -226,8 +234,11 @@ module.exports = function(driver, t) {
       );
       t.fail('Should not have seen content-warning-protected message');
     } catch (err) {
-      t.pass('I dont see the content-warned message on the Central screen');
+      t.pass('I dont see the content-warned message on the Thread screen');
     }
+
+    await driver.back();
+    t.pass('I press the (hardware) back button');
 
     t.end();
   });

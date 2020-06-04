@@ -17,7 +17,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.elementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Go To My Profile")',
+        'new UiSelector().descriptionContains("My Profile")',
       ),
       'I see "My profile"',
     );

@@ -38,11 +38,19 @@ module.exports = function(driver, t) {
         'I see that message in the feed',
       );
 
-      const replyButton = await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("Do you like dogs")' +
-          '.fromParent(new UiSelector().descriptionContains("Reply Button"))',
-        6000,
-      );
+      let replyButton;
+      try {
+        replyButton = await driver.waitForElementByAndroidUIAutomator(
+          'new UiSelector().textContains("Do you like dogs")' +
+            '.fromParent(new UiSelector().descriptionContains("Reply Button"))',
+          3000,
+        );
+      } catch (err) {
+        replyButton = await driver.waitForElementByAndroidUIAutomator(
+          'new UiSelector().descriptionContains("Reply Button")',
+          6000,
+        );
+      }
       t.ok(replyButton, 'I see the reply button on that message');
       await replyButton.click();
       t.pass('I tap the reply button');
@@ -66,9 +74,7 @@ module.exports = function(driver, t) {
     );
     t.ok(chevron, 'I see the Etc Button on a message');
     await chevron.click();
-    t.pass('I tap it first to hide the keyboard');
-    await chevron.click();
-    t.pass('I tap it again to open the menu');
+    t.pass('I tap it to open the menu');
 
     const menuItem = await driver.waitForElementByAndroidUIAutomator(
       'new UiSelector().text("View raw message")',
@@ -172,11 +178,19 @@ module.exports = function(driver, t) {
       'I see the thread in the feed',
     );
 
-    const replyButton = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().textContains("Do you like dogs")' +
-        '.fromParent(new UiSelector().descriptionContains("Reply Button"))',
-      6000,
-    );
+    let replyButton;
+    try {
+      replyButton = await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Do you like dogs")' +
+          '.fromParent(new UiSelector().descriptionContains("Reply Button"))',
+        3000,
+      );
+    } catch (err) {
+      replyButton = await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("Reply Button")',
+        6000,
+      );
+    }
     t.ok(replyButton, 'I see the reply button on that thread');
     await replyButton.click();
     t.pass('I tap it');
@@ -269,11 +283,19 @@ module.exports = function(driver, t) {
       'I see the thread in the feed',
     );
 
-    const replyButton = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().textContains("Do you like dogs")' +
-        '.fromParent(new UiSelector().descriptionContains("Reply Button"))',
-      6000,
-    );
+    let replyButton;
+    try {
+      replyButton = await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Do you like dogs")' +
+          '.fromParent(new UiSelector().descriptionContains("Reply Button"))',
+        3000,
+      );
+    } catch (err) {
+      replyButton = await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("Reply Button")',
+        6000,
+      );
+    }
     t.ok(replyButton, 'I see the reply button on that thread');
     await replyButton.click();
     t.pass('I tap it');
@@ -362,11 +384,19 @@ module.exports = function(driver, t) {
       'I see the thread in the feed',
     );
 
-    const replyButton = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().textContains("Do you like dogs")' +
-        '.fromParent(new UiSelector().descriptionContains("Reply Button"))',
-      6000,
-    );
+    let replyButton;
+    try {
+      replyButton = await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Do you like dogs")' +
+          '.fromParent(new UiSelector().descriptionContains("Reply Button"))',
+        3000,
+      );
+    } catch (err) {
+      replyButton = await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().descriptionContains("Reply Button")',
+        6000,
+      );
+    }
     t.ok(replyButton, 'I see the reply button on that thread');
     await replyButton.click();
     t.pass('I tap it');

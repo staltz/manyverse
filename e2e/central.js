@@ -2,7 +2,7 @@
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
 module.exports = function(driver, t) {
-  t.test('Central screen is displayed with 2 tabs', async function(t) {
+  t.test('Central screen is displayed with three tabs', async function(t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().text("Public board")',
@@ -41,7 +41,7 @@ module.exports = function(driver, t) {
     );
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("Write a private message")',
+        'new UiSelector().textContains("Start a private conversation")',
         8000,
       ),
       'I see the Private tab body with no messages',
@@ -77,11 +77,11 @@ module.exports = function(driver, t) {
       );
     }
 
-    const lanHelpButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Local Network Mode")',
+    const wifiHelpButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Wi-Fi Mode")',
     );
-    t.ok(lanHelpButton, 'I see LAN mode icon');
-    await lanHelpButton.click();
+    t.ok(wifiHelpButton, 'I see Wi-Fi mode icon');
+    await wifiHelpButton.click();
     t.pass('I tap it');
 
     t.ok(
@@ -89,7 +89,7 @@ module.exports = function(driver, t) {
         'new UiSelector().textContains("Connect with friends in the same Local Area Network")',
         6000,
       ),
-      'I see a text explaining what LAN connectivity is',
+      'I see a text explaining what Wi-Fi connectivity is',
     );
 
     const okButton = await driver.waitForElementByAndroidUIAutomator(

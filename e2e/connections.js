@@ -44,7 +44,7 @@ module.exports = function(driver, t) {
       6000,
     );
     const inviteCodeText = await inviteCode.text();
-    t.ok(inviteCodeText.length > 70, 'I see the Invite Code');
+    t.ok(inviteCodeText.length > 50, 'I see the Invite Code');
 
     await driver.back();
     t.pass('I press the (hardware) back button');

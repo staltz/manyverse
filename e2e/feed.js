@@ -182,24 +182,55 @@ module.exports = function(driver, t) {
       'I see that message on the feed',
     );
 
-    const likeButton = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().textContains("Please like this message")' +
-        '.fromParent(new UiSelector().descriptionContains("Add Reaction"))',
-      6000,
+    let addReactionButton;
+    try {
+      addReactionButton = await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Please like this message")' +
+          '.fromParent(new UiSelector().descriptionContains("Add Reaction"))',
+        3000,
+      );
+    } catch (err1) {
+      try {
+        addReactionButton = await driver.waitForElementByAndroidUIAutomator(
+          'new UiSelector().descriptionContains("Add Reaction")',
+          3000,
+        );
+      } catch (err2) {
+        addReactionButton = await driver.waitForElementByAndroidUIAutomator(
+          'new UiSelector().descriptionContains("Like Button")',
+          3000,
+        );
+      }
+    }
+    t.ok(addReactionButton, 'I see the add-reaction button on that message');
+    await addReactionButton.click();
+    t.pass('I tap it');
+
+    const thumbsUpButton = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().textContains("👍")',
     );
-    t.ok(likeButton, 'I see a like button on that message');
-    await likeButton.click();
-    t.pass('I tap the like button');
+    t.ok(thumbsUpButton, 'I see the thumbs-up emoji button');
+    await thumbsUpButton.click();
+    t.pass('I tap it');
 
     await driver.sleep(1000);
-    const reactions = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().textContains("Please like this message")' +
-        '.fromParent(' +
+    let reactions;
+    try {
+      reactions = await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("Please like this message")' +
+          '.fromParent(' +
+          'new UiSelector().descriptionContains("Show Reactions")' +
+          '.childSelector(new UiSelector().textContains("👍"))' +
+          ')',
+        3000,
+      );
+    } catch (err) {
+      reactions = await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Show Reactions")' +
-        '.childSelector(new UiSelector().textContains("👍"))' +
-        ')',
-      6000,
-    );
+          '.childSelector(new UiSelector().textContains("👍"))',
+        3000,
+      );
+    }
     t.ok(reactions, 'I see the reactions displaying a thumbs up');
 
     t.end();
@@ -208,13 +239,23 @@ module.exports = function(driver, t) {
   t.test(
     'I can see that someone has reacted to a message in the Reactions screen',
     async function(t) {
-      const reactions = await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("Please like this message")' +
-          '.fromParent(' +
+      let reactions;
+      try {
+        reactions = await driver.waitForElementByAndroidUIAutomator(
+          'new UiSelector().textContains("Please like this message")' +
+            '.fromParent(' +
+            'new UiSelector().descriptionContains("Show Reactions")' +
+            '.childSelector(new UiSelector().textContains("👍"))' +
+            ')',
+          3000,
+        );
+      } catch (err) {
+        reactions = await driver.waitForElementByAndroidUIAutomator(
           'new UiSelector().descriptionContains("Show Reactions")' +
-          ')',
-        6000,
-      );
+            '.childSelector(new UiSelector().textContains("👍"))',
+          3000,
+        );
+      }
       t.pass('I see the reactions');
 
       await reactions.click();

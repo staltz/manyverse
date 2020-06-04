@@ -34,7 +34,7 @@ module.exports = function(driver, t) {
   });
 
   t.test('Welcome screen displays the off grid tutorial', async function(t) {
-    const title = 'Off the grid';
+    const title = 'Off-the-grid';
     const desc = 'Manyverse can use internet connectivity';
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
@@ -89,7 +89,7 @@ module.exports = function(driver, t) {
 
   t.test('Welcome screen displays the moderation tutorial', async function(t) {
     const title = 'Shared moderation';
-    const desc = 'Because your phone holds your social network';
+    const desc = 'Because your device holds your social network';
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().text("' + title + '")',
@@ -253,6 +253,15 @@ module.exports = function(driver, t) {
     t.ok(okButton, 'I see the OK button');
     await okButton.click();
     t.pass('I tap it');
+
+    // Try clicking again, because for some reason we get hiccups sometimes
+    try {
+      const ok2Button = await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().text("OK")',
+        6000,
+      );
+      if (ok2Button) await ok2Button.click();
+    } catch (err) {}
 
     t.end();
   });
