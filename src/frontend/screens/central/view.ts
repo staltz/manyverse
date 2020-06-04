@@ -189,6 +189,10 @@ class ConnectionsTabIcon extends Component<{
     return (d?.peers ?? []).filter(p => p[1].state === 'connected').length;
   }
 
+  private static countStaged(d: ConnectionsTabIcon['props']['details']) {
+    return (d?.stagedPeers ?? []).length;
+  }
+
   public shouldComponentUpdate(nextProps: ConnectionsTabIcon['props']) {
     const prevProps = this.props;
     // Compare isSelected:
@@ -217,6 +221,13 @@ class ConnectionsTabIcon extends Component<{
     if (prevNumConnected < 1 && nextNumConnected >= 1) return true;
     if (prevNumConnected >= 1 && nextNumConnected < 1) return true;
 
+    // Compare stagedPeers.length (has one threshold, >=1):
+    const prevNumStaged = ConnectionsTabIcon.countStaged(prevDetails);
+    const nextNumStaged = ConnectionsTabIcon.countStaged(nextDetails);
+    if (prevNumStaged === nextNumStaged) return false;
+    if (prevNumStaged < 1 && nextNumStaged >= 1) return true;
+    if (prevNumStaged >= 1 && nextNumStaged < 1) return true;
+
     return false;
   }
 
@@ -224,6 +235,9 @@ class ConnectionsTabIcon extends Component<{
     const {details} = this.props;
     if (ConnectionsTabIcon.countConnected(details) > 0) {
       return 'check-network-outline';
+    }
+    if (ConnectionsTabIcon.countStaged(details) > 0) {
+      return 'help-network-outline';
     }
     const d = details;
     if (d?.bluetoothEnabled || d?.internetEnabled || d?.lanEnabled) {
