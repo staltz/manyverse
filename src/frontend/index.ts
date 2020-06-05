@@ -20,6 +20,7 @@ import {shareDriver} from 'cycle-native-share';
 import {makeNetworkDriver} from './drivers/network';
 import {makeEventBusDriver} from './drivers/eventbus';
 import {dialogDriver} from './drivers/dialogs';
+import {makeAppStateDriver} from './drivers/appstate';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
 import {makeExitDriver} from './drivers/exit';
 import {makeOrientationDriver} from './drivers/orientation';
@@ -51,6 +52,7 @@ import {secretInput} from './screens/secret-input';
 import {settings} from './screens/settings';
 
 export const drivers = {
+  appstate: makeAppStateDriver(),
   alert: alertDriver,
   asyncstorage: asyncStorageDriver,
   keyboard: makeKeyboardDriver(),

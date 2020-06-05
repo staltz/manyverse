@@ -17,6 +17,7 @@ import {
 } from 'cycle-native-asyncstorage';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {Toast} from '../../drivers/toast';
+import {State as AppState} from '../../drivers/appstate';
 import {NetworkSource} from '../../drivers/network';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {GlobalEvent} from '../../drivers/eventbus';
@@ -44,6 +45,7 @@ export type Sources = {
   navigation: NavSource;
   globalEventBus: Stream<GlobalEvent>;
   asyncstorage: AsyncStorageSource;
+  appstate: Stream<AppState>;
   network: NetworkSource;
   state: StateSource<State>;
   dialog: DialogSource;

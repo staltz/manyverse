@@ -10,6 +10,7 @@ import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Platform} from 'react-native';
 import {SSBSource} from '../../../drivers/ssb';
+import {State as AppState} from '../../../drivers/appstate';
 import {PeerKV, StagedPeerKV} from '../../../ssb/types';
 import {NetworkSource} from '../../../drivers/network';
 import {noteStorageKeyFor} from './asyncstorage';
@@ -57,11 +58,31 @@ export type Actions = {
   addNoteFromDialog$: Stream<string>;
 };
 
+/**
+ * Listen to the `factory()` stream only while the AppState is 'active'.
+ */
+function onlyWhileAppIsInForeground<T>(
+  appstate$: Stream<AppState>,
+  factory: () => Stream<T>,
+): Stream<T> {
+  return appstate$
+    .startWith('active')
+    .map(appstate => {
+      if (appstate === 'active') {
+        return factory();
+      } else {
+        return xs.never() as Stream<T>;
+      }
+    })
+    .flatten();
+}
+
 export default function model(
   actions: Actions,
   asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
   networkSource: NetworkSource,
+  appstate$: Stream<AppState>,
 ): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initReducer(prev?: State): State {
     if (prev) return prev;
@@ -122,7 +143,17 @@ export default function model(
         },
     );
 
-  const setPeersReducer$ = ssbSource.peers$.map(
+  const updateBluetoothLastScanned$ = ssbSource.bluetoothScanState$.map(
+    (_scanState: string) =>
+      function setBluetoothScanState(prev: State): State {
+        return {...prev, bluetoothLastScanned: Date.now()};
+      },
+  );
+
+  const setPeersReducer$ = onlyWhileAppIsInForeground(
+    appstate$,
+    () => ssbSource.peers$,
+  ).map(
     allPeers =>
       function setPeersReducer(prev: State): State {
         const peers = allPeers.filter(
@@ -135,14 +166,10 @@ export default function model(
       },
   );
 
-  const updateBluetoothLastScanned$ = ssbSource.bluetoothScanState$.map(
-    (_scanState: string) =>
-      function setBluetoothScanState(prev: State): State {
-        return {...prev, bluetoothLastScanned: Date.now()};
-      },
-  );
-
-  const setStagedPeersReducer$ = ssbSource.stagedPeers$
+  const setStagedPeersReducer$ = onlyWhileAppIsInForeground(
+    appstate$,
+    () => ssbSource.stagedPeers$,
+  )
     .map(stagedPeers => {
       const dhtInvites = stagedPeers
         .filter(([_address, data]) => data.type === 'dht')

@@ -16,6 +16,7 @@ import {
   AsyncStorageSource,
 } from 'cycle-native-asyncstorage';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
+import {State as AppState} from '../../../drivers/appstate';
 import {NetworkSource} from '../../../drivers/network';
 import {SSBSource, Req} from '../../../drivers/ssb';
 import {DialogSource} from '../../../drivers/dialogs';
@@ -35,6 +36,7 @@ export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
   asyncstorage: AsyncStorageSource;
+  appstate: Stream<AppState>;
   state: StateSource<State>;
   network: NetworkSource;
   ssb: SSBSource;
@@ -71,6 +73,7 @@ export function connectionsTab(sources: Sources): Sinks {
     sources.asyncstorage,
     sources.ssb,
     sources.network,
+    sources.appstate,
   );
   const fabProps$ = floatingAction(sources.state.stream);
   const ssb$ = ssb(actionsPlus);
