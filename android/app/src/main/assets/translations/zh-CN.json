@@ -3,10 +3,10 @@
     "ok": "OK",
     "add": "Add",
     "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "save": "Save",
+    "cancel": "取消",
+    "continue": "继续",
+    "delete": "删除",
+    "save": "保存",
     "yes": "Yes",
     "no": "No",
     "open_menu": {
@@ -26,64 +26,64 @@
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 年前",
+          "other": "{{count}} 年前"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1 个月前",
+          "other": "{{count}} 个月前"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "1 周前",
+          "other": "{{count}} 周前"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 天前",
+          "other": "{{count}} 天前"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 小时前",
+          "other": "{{count}} 小时前"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "1 分钟前",
+          "other": "{{count}} 分钟前"
         },
-        "now": "Just now"
+        "now": "刚刚"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "1 年后",
+          "other": "{{count}} 年后"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1 个月后",
+          "other": "{{count}} 个月后"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "1 周后",
+          "other": "{{count}} 周后"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "1 天后",
+          "other": "{{count}} 天后"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "1 小时后",
+          "other": "{{count}} 小时后"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "1 分钟后",
+          "other": "{{count}} 分钟后"
         },
         "now": "Very soon"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "了解更多",
     "overview": {
-      "title": "Welcome to Manyverse!",
+      "title": "欢迎使用 Manyverse ！",
       "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
     },
     "off_the_grid": {
@@ -154,11 +154,11 @@
       "description": "Do you want to create a new account, or would you like to restore your old account from a 48-word recovery phrase?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
+          "label": "创建帐户",
           "accessibility_label": "Create Account Button"
         },
         "restore": {
-          "label": "Restore account",
+          "label": "恢复帐户",
           "accessibility_label": "Restore Account Button"
         }
       }
@@ -523,7 +523,7 @@
         "accessibility_label": "Send Bug Report as Email"
       },
       "settings": {
-        "label": "Settings",
+        "label": "设置",
         "accessibility_label": "Go To Settings"
       }
     }
@@ -782,7 +782,7 @@
     "data_and_storage": {
       "title": "Data & Storage",
       "backup": {
-        "title": "Backup",
+        "title": "备份",
         "subtitle": "View your 48-word recovery phrase",
         "accessibility_label": "Back Up My Account"
       },

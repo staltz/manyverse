@@ -1,89 +1,89 @@
 {
   "call_to_action": {
-    "ok": "אישור",
-    "add": "הוסף",
-    "done": "סיים",
-    "cancel": "בטל",
-    "continue": "המשך",
-    "delete": "מחק",
-    "save": "שמור",
-    "yes": "כן",
-    "no": "לא",
+    "ok": "OK",
+    "add": "Add",
+    "done": "Done",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "delete": "Delete",
+    "save": "Save",
+    "yes": "Yes",
+    "no": "No",
     "open_menu": {
-      "accessibility_label": "כפתור תפריט"
+      "accessibility_label": "Menu Button"
     },
     "go_back": {
-      "accessibility_label": "כפתור חזרה"
+      "accessibility_label": "Back Button"
     },
     "close": {
-      "accessibility_label": "כפתור סגירה"
+      "accessibility_label": "Close Button"
     },
     "close_dialog": {
-      "accessibility_label": "כפתור סגירת חלון"
+      "accessibility_label": "Close Dialog Button"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "לפני שנה",
-          "other": "לפני {{count}} שנים"
+          "one": "1 year ago",
+          "other": "{{count}} years ago"
         },
         "months": {
-          "one": "לפני חודש",
-          "other": "לפני {{count}} חודשים"
+          "one": "1 month ago",
+          "other": "{{count}} months ago"
         },
         "weeks": {
-          "one": "לפני שבוע",
-          "other": "לפני {{count}} שבועות"
+          "one": "1 week ago",
+          "other": "{{count}} weeks ago"
         },
         "days": {
-          "one": "לפני יום",
-          "other": "לפני {{count}} ימים"
+          "one": "1 day ago",
+          "other": "{{count}} days ago"
         },
         "hours": {
-          "one": "לפני שעה",
-          "other": "לפני {{count}} שעות"
+          "one": "1 hour ago",
+          "other": "{{count}} hours ago"
         },
         "minutes": {
-          "one": "לפני דקה",
-          "other": "לפני {{count}} דקות"
+          "one": "1 minute ago",
+          "other": "{{count}} minutes ago"
         },
-        "now": "ברגע זה"
+        "now": "Just now"
       },
       "future": {
         "years": {
-          "one": "בעוד שנה",
-          "other": "בעוד {{count}} שנים"
+          "one": "1 year from now",
+          "other": "{{count}} years from now"
         },
         "months": {
-          "one": "בעוד חודש",
-          "other": "בעוד {{count}} חודשים"
+          "one": "1 month from now",
+          "other": "{{count}} months from now"
         },
         "weeks": {
-          "one": "בעוד שבוע",
-          "other": "בעוד {{count}} שבועות"
+          "one": "1 week from now",
+          "other": "{{count}} weeks from now"
         },
         "days": {
-          "one": "בעוד יום",
-          "other": "בעוד {{count}} ימים"
+          "one": "1 day from now",
+          "other": "{{count}} days from now"
         },
         "hours": {
-          "one": "בעוד שעה",
-          "other": "בעוד {{count}} שעות"
+          "one": "1 hour from now",
+          "other": "{{count}} hours from now"
         },
         "minutes": {
-          "one": "בעוד דקה",
-          "other": "בעוד {{count}} דקות"
+          "one": "1 minute from now",
+          "other": "{{count}} minutes from now"
         },
-        "now": "בקרוב מאוד"
+        "now": "Very soon"
       }
     }
   },
   "welcome": {
-    "learn_more": "למד יותר",
+    "learn_more": "Learn more",
     "overview": {
-      "title": "ברוכים הבאים ל-Manyverse!",
+      "title": "Welcome to Manyverse!",
       "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
     },
     "off_the_grid": {
