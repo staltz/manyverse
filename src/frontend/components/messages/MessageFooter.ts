@@ -171,17 +171,15 @@ export const styles = StyleSheet.create({
     lineHeight: Typography.fontSizeBig * 1.15,
   },
 
+  prominentButtonContainer: {
+    flex: 1,
+  },
+
   prominentButton: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    ...Platform.select({
-      ios: {
-        paddingHorizontal: Dimensions.horizontalSpaceNormal,
-        marginHorizontal: -Dimensions.horizontalSpaceNormal,
-      },
-    }),
   },
 });
 
@@ -239,6 +237,7 @@ class AddReactionButton extends PureComponent<{
       Touchable,
       {
         ...touchableProps,
+        style: styles.prominentButtonContainer,
         onPress: this.props.onPress,
         delayLongPress: 100,
         delayPressIn: 20,
@@ -277,6 +276,7 @@ class ReplyButton extends PureComponent<{
         Touchable,
         {
           ...touchableProps,
+          style: styles.prominentButtonContainer,
           onPress: this.props.onPress,
           accessible: true,
           accessibilityRole: 'button',
@@ -325,6 +325,7 @@ class EtcButton extends PureComponent<{onPress: () => void}> {
       Touchable,
       {
         ...touchableProps,
+        style: styles.prominentButtonContainer,
         onPress: this.props.onPress,
         accessible: true,
         accessibilityRole: 'button',
