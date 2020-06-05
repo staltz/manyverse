@@ -847,6 +847,7 @@
         "accessibility_label": "Reply Text Input"
       }
     },
+    "loading_replies": "Loading replies...",
     "empty": {
       "missing": {
         "title": "Missing data",
@@ -877,11 +878,9 @@
         "accessibility_label": "Show Reactions"
       },
       "add_reaction": {
-        "label": "Like",
-        "accessibility_label": "Like Button"
+        "accessibility_label": "Add Reaction Button"
       },
       "reply": {
-        "label": "Comment",
         "accessibility_label": "Reply Button"
       },
       "etc": {
@@ -893,7 +892,10 @@
       },
       "copy_msg_id": "Copy cypherlink",
       "view_raw": "View raw message",
-      "read_more": "Tudj meg többet"
+      "read_more": {
+        "label": "Tudj meg többet",
+        "accessibility_label": "Read more content in this thread"
+      }
     },
     "toast": {
       "copied_to_clipboard": "Vágólapra másolva"
@@ -919,6 +921,7 @@
       }
     },
     "content_warning": {
+      "title": "Content Warning",
       "call_to_action": {
         "hide": "Elrejt",
         "show": "Mutat"

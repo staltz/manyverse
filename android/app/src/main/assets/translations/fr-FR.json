@@ -847,6 +847,7 @@
         "accessibility_label": "Saisir Réponse"
       }
     },
+    "loading_replies": "Loading replies...",
     "empty": {
       "missing": {
         "title": "Donnée manquante",
@@ -877,11 +878,9 @@
         "accessibility_label": "Voir les réactions"
       },
       "add_reaction": {
-        "label": "J'aime",
-        "accessibility_label": "Bouton \"J'aime\""
+        "accessibility_label": "Add Reaction Button"
       },
       "reply": {
-        "label": "Commentaire",
         "accessibility_label": "Bouton Répondre"
       },
       "etc": {
@@ -893,7 +892,10 @@
       },
       "copy_msg_id": "Copier le lien de chiffrement",
       "view_raw": "Afficher le message brut",
-      "read_more": "En savoir plus"
+      "read_more": {
+        "label": "En savoir plus",
+        "accessibility_label": "Read more content in this thread"
+      }
     },
     "toast": {
       "copied_to_clipboard": "Copié dans le presse-papier"
@@ -919,6 +921,7 @@
       }
     },
     "content_warning": {
+      "title": "Content Warning",
       "call_to_action": {
         "hide": "Cacher",
         "show": "Voir"

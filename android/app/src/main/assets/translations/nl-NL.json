@@ -847,6 +847,7 @@
         "accessibility_label": "Tekstinvoer beantwoorden"
       }
     },
+    "loading_replies": "Loading replies...",
     "empty": {
       "missing": {
         "title": "Ontbrekende gegevens",
@@ -877,11 +878,9 @@
         "accessibility_label": "Toon reacties"
       },
       "add_reaction": {
-        "label": "Vind-ik-leuk",
-        "accessibility_label": "Likeknop"
+        "accessibility_label": "Add Reaction Button"
       },
       "reply": {
-        "label": "Reactie",
         "accessibility_label": "Antwoordknop"
       },
       "etc": {
@@ -893,7 +892,10 @@
       },
       "copy_msg_id": "Kopieer cypherlink",
       "view_raw": "Ruw bericht weergeven",
-      "read_more": "Lees meer"
+      "read_more": {
+        "label": "Lees meer",
+        "accessibility_label": "Read more content in this thread"
+      }
     },
     "toast": {
       "copied_to_clipboard": "Gekopieerd naar klembord"
@@ -919,6 +921,7 @@
       }
     },
     "content_warning": {
+      "title": "Content Warning",
       "call_to_action": {
         "hide": "Verberg",
         "show": "Bekijken"

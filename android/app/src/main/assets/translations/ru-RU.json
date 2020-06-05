@@ -847,6 +847,7 @@
         "accessibility_label": "Reply Text Input"
       }
     },
+    "loading_replies": "Loading replies...",
     "empty": {
       "missing": {
         "title": "Missing data",
@@ -877,11 +878,9 @@
         "accessibility_label": "Show Reactions"
       },
       "add_reaction": {
-        "label": "Like",
-        "accessibility_label": "Like Button"
+        "accessibility_label": "Add Reaction Button"
       },
       "reply": {
-        "label": "Comment",
         "accessibility_label": "Reply Button"
       },
       "etc": {
@@ -893,7 +892,10 @@
       },
       "copy_msg_id": "Копировать шифро-ссылку",
       "view_raw": "Просмотр исходных сообщений",
-      "read_more": "Подробнее"
+      "read_more": {
+        "label": "Подробнее",
+        "accessibility_label": "Read more content in this thread"
+      }
     },
     "toast": {
       "copied_to_clipboard": "Скопировано в буфер обмена"
@@ -919,6 +921,7 @@
       }
     },
     "content_warning": {
+      "title": "Content Warning",
       "call_to_action": {
         "hide": "Скрыть",
         "show": "Просмотр"

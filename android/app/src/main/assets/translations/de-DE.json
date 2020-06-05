@@ -847,6 +847,7 @@
         "accessibility_label": "Antwort Texteingabefeld"
       }
     },
+    "loading_replies": "Loading replies...",
     "empty": {
       "missing": {
         "title": "Fehlende Daten",
@@ -877,11 +878,9 @@
         "accessibility_label": "Reaktionen anzeigen"
       },
       "add_reaction": {
-        "label": "Like",
-        "accessibility_label": "Like Button"
+        "accessibility_label": "Add Reaction Button"
       },
       "reply": {
-        "label": "Kommentar",
         "accessibility_label": "Antwort Schaltfläche"
       },
       "etc": {
@@ -893,7 +892,10 @@
       },
       "copy_msg_id": "Cypherlink kopieren",
       "view_raw": "Rohnachricht anzeigen",
-      "read_more": "Mehr lesen"
+      "read_more": {
+        "label": "Read more",
+        "accessibility_label": "Read more content in this thread"
+      }
     },
     "toast": {
       "copied_to_clipboard": "In Zwischenablage kopiert"
@@ -919,6 +921,7 @@
       }
     },
     "content_warning": {
+      "title": "Content Warning",
       "call_to_action": {
         "hide": "Verstecken",
         "show": "Anzeigen"
