@@ -6,9 +6,26 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2006.5-beta
+
+* (Android) Indicate F-Droid or Dat Installer in the version name ([see details](https://gitlab.com/staltz/manyverse/commit/61e6142e2c494930cb6a5e1ebc51f139c545da5b))
+* Add translation to Spanish ([see details](https://gitlab.com/staltz/manyverse/commit/906361853781855270e6e1561d825d860ea41fd7))
+* Add translations to Dutch, French, German, Portuguese-BR ([see details](https://gitlab.com/staltz/manyverse/commit/31a067d8ee3fec2e5e9bedf34c0c36d355667761))
+* Bug fix: temporarily unresponsive when reopening app ([see details](https://gitlab.com/staltz/manyverse/commit/05c89f93f92614247b40bbfebca7582ac18b080f))
+* Feature: allow replying to follow/block events ([see details](https://gitlab.com/staltz/manyverse/commit/8e78e5cd30ce215e633241716ad4c706b637a365))
+* Feature: new emoji picker with 7 preset reactions ([see details](https://gitlab.com/staltz/manyverse/commit/008d3f1c6557714916f5a1eb6ea05ab51add37de))
+* Feature: reply in nested threads ([see details](https://gitlab.com/staltz/manyverse/commit/6c9be6a1cdab2c26e897d46812df088533bc96af))
+* Improve performance of loading data in Thread screen ([see details](https://gitlab.com/staltz/manyverse/commit/dc50c943b097bb1f0a3e1fcaa50a6764fa1dea1d))
+* Improve some texts on the Welcome screen  ([see details](https://gitlab.com/staltz/manyverse/commit/14c17736b3e78e4afe55072e1572f6cb6cc13bc7)), closes [#65](https://gitlab.com/staltz/manyverse/issues/65)
+* Improve the connections tab icon to indicate staged peers ([see details](https://gitlab.com/staltz/manyverse/commit/47a1f7548bc114986dfeec2e61de35b6cd34e90c))
+* Improve the looks of content warnings ([see details](https://gitlab.com/staltz/manyverse/commit/4e69dd32e0721775b7ca65afd28db63fe42a4570))
+* Improve the looks of the bottom tab buttons ([see details](https://gitlab.com/staltz/manyverse/commit/8d76d0cd2ee434d8c1eff5f8d5a4eddb5385dd8e))
+* Localize to Brazilian Portuguese (pt-BR) ([see details](https://gitlab.com/staltz/manyverse/commit/cd31b28cb8b995ddf50437a19ac04ac4e8b6e55d))
+* New design for summarized threads in the feed ([see details](https://gitlab.com/staltz/manyverse/commit/acd89ea3f47bc7995c9ea2beded254f6ccbdf343))
+
 ## 0.2005.31-beta
 
-* (Android) Bug fix: startup crashes happening exclusively in F-Droid's Manyverse
+* Minor improvements and bug fixes
 
 ## 0.2005.28-beta
 
