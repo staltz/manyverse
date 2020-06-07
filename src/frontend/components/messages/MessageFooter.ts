@@ -31,7 +31,7 @@ import {
 } from '../../ssb/types';
 
 const THUMBS_UP_UNICODE = '\ud83d\udc4d';
-const HEART_UNICODE = '\u2665';
+const HEART_UNICODE = '\u2764\ufe0f';
 const SMILING_FACE_UNICODE = '\ud83d\ude0a';
 const CRYING_FACE_UNICODE = '\ud83d\ude22';
 const SMILING_GRINNING_UNICODE = '\ud83d\ude04';
