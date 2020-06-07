@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
 
   title: {
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     color: Palette.text,
   },
 
@@ -34,6 +35,7 @@ export const styles = StyleSheet.create({
 
   subtitle: {
     fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
     color: Palette.textWeak,
     marginBottom: Dimensions.verticalSpaceNormal,
   },

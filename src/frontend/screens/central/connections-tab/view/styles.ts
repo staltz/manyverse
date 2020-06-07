@@ -68,10 +68,11 @@ export const styles = StyleSheet.create({
   },
 
   menuOptionContentText: {
-    fontFamily: Typography.fontFamilyReadableText,
     marginLeft: Dimens.horizontalSpaceBig,
     color: Palette.textWeak,
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
+    fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
   },
 });

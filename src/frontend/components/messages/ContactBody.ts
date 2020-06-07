@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
 
   message: {
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.text,
   },

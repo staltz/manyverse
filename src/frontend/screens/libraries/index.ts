@@ -54,6 +54,7 @@ export const styles = StyleSheet.create({
     paddingVertical: Dimensions.verticalSpaceBig,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     color: Palette.textWeak,
   },
 
@@ -74,17 +75,20 @@ export const styles = StyleSheet.create({
 
   itemName: {
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     color: Palette.text,
     fontWeight: 'bold',
   },
 
   itemVersion: {
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     color: Palette.text,
   },
 
   itemLicense: {
     fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
     color: Palette.textWeak,
   },
 });

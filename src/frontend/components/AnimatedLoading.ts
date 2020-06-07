@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
   initialLoading: {
     marginVertical: Dimensions.verticalSpaceNormal,
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textVeryWeak,
     fontWeight: 'bold',

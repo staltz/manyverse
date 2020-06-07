@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -42,15 +42,15 @@ export const styles = StyleSheet.create({
 
   noAuthorName: {
     fontSize: Typography.fontSizeNormal,
-    color: Palette.textForBackgroundBrand,
     fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.textForBackgroundBrand,
     fontWeight: 'bold',
     fontStyle: 'italic',
   },
 
   authorName: {
-    fontFamily: Typography.fontFamilyReadableText,
     fontSize: Typography.fontSizeNormal,
+    fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textForBackgroundBrand,
     fontWeight: 'bold',
   },
@@ -72,10 +72,11 @@ export const styles = StyleSheet.create({
   },
 
   menuItemText: {
-    fontFamily: Typography.fontFamilyReadableText,
     marginLeft: Dimensions.horizontalSpaceBig,
     color: Palette.textWeak,
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
+    fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
   },
 });

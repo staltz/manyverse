@@ -53,14 +53,15 @@ export const styles = StyleSheet.create({
 
   name: {
     fontSize: Typography.fontSizeNormal,
-    fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
     color: Palette.text,
     minWidth: 120,
   },
 
   modeText: {
     fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
   },

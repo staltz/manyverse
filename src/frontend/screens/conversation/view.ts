@@ -60,8 +60,8 @@ export const styles = StyleSheet.create({
 
   username: {
     fontSize: Typography.fontSizeNormal,
-    fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
     color: Palette.text,
     minWidth: 120,
   },

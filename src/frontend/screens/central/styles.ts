@@ -53,14 +53,14 @@ export const styles = StyleSheet.create({
   },
 
   tabButtonText: {
-    fontFamily: Typography.fontFamilyReadableText,
     fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
   },
 
   tabButtonTextSelected: {
-    fontFamily: Typography.fontFamilyReadableText,
     fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textBrand,
     fontWeight: 'bold',
   },

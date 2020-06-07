@@ -44,6 +44,7 @@ export const styles = StyleSheet.create({
 
   content: {
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     color: Palette.text,
   },
 });

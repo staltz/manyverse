@@ -49,7 +49,9 @@ export const styles = StyleSheet.create({
     color: Palette.text,
   },
 
-  spacer: {fontSize: Platform.select({ios: 5, default: 15})},
+  spacer: {
+    fontSize: Platform.select({ios: 5, default: Typography.fontSizeNormal}),
+  },
 });
 
 export type Props = {

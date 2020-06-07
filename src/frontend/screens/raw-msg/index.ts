@@ -60,8 +60,9 @@ export const styles = StyleSheet.create({
 
   content: {
     fontSize: Typography.fontSizeSmall,
-    color: Palette.textHacker,
+    lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyMonospace,
+    color: Palette.textHacker,
   },
 });
 

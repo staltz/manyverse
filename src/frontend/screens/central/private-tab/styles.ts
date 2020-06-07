@@ -69,8 +69,8 @@ export const styles = StyleSheet.create({
   conversationAuthorsUnread: {
     flex: 1,
     fontSize: Typography.fontSizeNormal,
-    fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
     color: Palette.text,
     textAlign: 'left',
     textAlignVertical: 'center',

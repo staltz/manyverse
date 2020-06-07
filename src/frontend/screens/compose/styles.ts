@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -24,8 +24,9 @@ export const avatarSize = Dimensions.avatarSizeNormal;
 
 const contentWarning: TextStyle = {
   fontSize: Typography.fontSizeBig,
-  fontWeight: 'bold',
+  lineHeight: Typography.lineHeightBig,
   fontFamily: Typography.fontFamilyReadableText,
+  fontWeight: 'bold',
   paddingHorizontal: Dimensions.horizontalSpaceSmall,
 };
 
@@ -84,6 +85,7 @@ export const styles = StyleSheet.create({
     }),
     alignSelf: 'stretch',
     fontSize: Typography.fontSizeBig,
+    lineHeight: Typography.lineHeightBig,
     textAlign: 'left',
     textAlignVertical: 'top',
     color: Palette.text,
@@ -143,6 +145,7 @@ export const styles = StyleSheet.create({
       default: Dimensions.verticalSpaceBig,
     }),
     fontSize: Typography.fontSizeBig,
+    lineHeight: Typography.lineHeightBig,
     textAlign: 'left',
     textAlignVertical: 'top',
     color: Palette.text,
@@ -166,6 +169,7 @@ export const styles = StyleSheet.create({
   mentionsCancelText: {
     color: Palette.textBrand,
     fontSize: Typography.fontSizeBig,
+    lineHeight: Typography.lineHeightBig,
   },
 
   mentionsList: {

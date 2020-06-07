@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textForBackgroundBrand,
     fontSize: Typography.fontSizeLarge,
+    fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     ...Platform.select({
       ios: {

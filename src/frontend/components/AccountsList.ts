@@ -52,15 +52,15 @@ export const styles = StyleSheet.create({
 
   authorName: {
     fontSize: Typography.fontSizeNormal,
-    fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
     color: Palette.text,
     minWidth: 120,
   },
 
   reaction: {
     fontSize: Typography.fontSizeLarge,
-    lineHeight: Typography.fontSizeLarge * 1.15,
+    lineHeight: Typography.lineHeightLarge,
   },
 });
 

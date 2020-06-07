@@ -136,8 +136,8 @@ export const styles = StyleSheet.create({
 
   fullEmojiPickerHeader: {
     fontSize: Typography.fontSizeSmall,
-    fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
     color: Palette.textWeak,
   },
 
@@ -149,9 +149,10 @@ export const styles = StyleSheet.create({
 
   reactionsText: {
     minWidth: 60,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
-    fontSize: Typography.fontSizeSmall,
     textAlignVertical: 'center',
     textAlign: 'left',
     color: Palette.textWeak,
@@ -159,8 +160,8 @@ export const styles = StyleSheet.create({
 
   repliesCounter: {
     marginRight: Dimensions.horizontalSpaceTiny,
-    fontFamily: Typography.fontFamilyReadableText,
     fontSize: Typography.fontSizeNormal,
+    fontFamily: Typography.fontFamilyReadableText,
     textAlignVertical: 'center',
     textAlign: 'right',
     color: Palette.textWeak,
@@ -168,7 +169,7 @@ export const styles = StyleSheet.create({
 
   myReaction: {
     fontSize: Typography.fontSizeBig,
-    lineHeight: Typography.fontSizeBig * 1.15,
+    lineHeight: Typography.lineHeightSmall,
   },
 
   prominentButtonContainer: {

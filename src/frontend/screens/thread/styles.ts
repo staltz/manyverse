@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -53,6 +53,7 @@ export const styles = StyleSheet.create({
 
   replyInput: {
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     color: Palette.text,
     ...Platform.select({ios: {paddingTop: 0}}),
     maxHeight: Platform.select({android: 84, default: 75}), // approx. 3.5 lines of text

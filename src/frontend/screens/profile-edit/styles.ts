@@ -59,6 +59,7 @@ export const styles = StyleSheet.create({
 
   textInput: {
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     marginBottom: Dimensions.verticalSpaceBig,
     color: Palette.text,
     ...Platform.select({

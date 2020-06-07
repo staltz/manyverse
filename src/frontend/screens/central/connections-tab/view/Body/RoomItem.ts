@@ -82,8 +82,9 @@ export const styles = StyleSheet.create({
 
   name: {
     fontSize: Typography.fontSizeNormal,
-    fontWeight: 'bold',
+    lineHeight: Typography.lineHeightNormal,
     fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
     color: Palette.text,
     marginLeft: Dimensions.horizontalSpaceTiny,
     minWidth: 120,
@@ -92,6 +93,7 @@ export const styles = StyleSheet.create({
 
   modeText: {
     fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
     marginHorizontal: Dimensions.horizontalSpaceTiny,
@@ -99,6 +101,7 @@ export const styles = StyleSheet.create({
 
   onlineCount: {
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
   },

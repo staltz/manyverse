@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
-import {Typography as Typ} from '../global-styles/typography';
+import {Typography} from '../global-styles/typography';
 import {GlobalEventBus} from '../drivers/eventbus';
 import ZoomableImage from './ZoomableImage';
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
@@ -37,48 +37,48 @@ const styles = StyleSheet.create({
   heading1: {
     fontWeight: '700',
     color: Palette.text,
-    fontSize: Typ.baseSize * Math.pow(Typ.scaleUp, 3),
-    lineHeight: Typ.baseSize * Math.pow(Typ.scaleUp, 3) * Typ.baseLeading,
+    fontSize: Typography.fontSizeLarger,
+    lineHeight: Typography.lineHeightLarger,
     marginVertical: Dimensions.verticalSpaceSmall,
   },
 
   heading2: {
     fontWeight: '700',
     color: Palette.text,
-    fontSize: Typ.baseSize * Math.pow(Typ.scaleUp, 2),
-    lineHeight: Typ.baseSize * Math.pow(Typ.scaleUp, 2) * Typ.baseLeading,
+    fontSize: Typography.fontSizeLarge,
+    lineHeight: Typography.lineHeightLarge,
     marginVertical: Dimensions.verticalSpaceSmall,
   },
 
   heading3: {
     fontWeight: '700',
     color: Palette.text,
-    fontSize: Typ.baseSize * Typ.scaleUp,
-    lineHeight: Typ.baseSize * Typ.scaleUp * Typ.baseLeading,
+    fontSize: Typography.fontSizeBig,
+    lineHeight: Typography.lineHeightBig,
     marginVertical: Dimensions.verticalSpaceSmall,
   },
 
   heading4: {
     fontWeight: '700',
     color: Palette.text,
-    fontSize: Typ.baseSize,
-    lineHeight: Typ.baseSize * Typ.baseLeading,
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     marginVertical: Dimensions.verticalSpaceSmall,
   },
 
   heading5: {
     fontWeight: '700',
     color: Palette.text,
-    fontSize: Typ.baseSize * Typ.scaleDown,
-    lineHeight: Typ.baseSize * Typ.baseLeading,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
     marginVertical: Dimensions.verticalSpaceSmall,
   },
 
   heading6: {
     fontWeight: '700',
     color: Palette.text,
-    fontSize: Typ.baseSize * Math.pow(Typ.scaleDown, 2),
-    lineHeight: Typ.baseSize * Typ.baseLeading,
+    fontSize: Typography.fontSizeTiny,
+    lineHeight: Typography.lineHeightTiny,
     marginVertical: Dimensions.verticalSpaceSmall,
   },
 
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     overflow: 'visible',
     color: Palette.text,
-    fontSize: Typ.baseSize,
-    lineHeight: Typ.baseSize * Typ.baseLeading,
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
   },
 
   strong: {
@@ -121,8 +121,8 @@ const styles = StyleSheet.create({
 
   listItemText: {
     color: Palette.text,
-    fontSize: Typ.baseSize,
-    lineHeight: Typ.baseSize * Typ.baseLeading,
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
   },
 
   orderedBullet: {
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 
   inlineCode: {
     backgroundColor: Palette.backgroundTextWeak,
-    fontFamily: Typ.fontFamilyMonospace,
+    fontFamily: Typography.fontFamilyMonospace,
     color: Palette.textWeak,
   },
 
@@ -142,11 +142,11 @@ const styles = StyleSheet.create({
   },
 
   codeText: {
-    fontFamily: Typ.fontFamilyMonospace,
     fontWeight: '400',
     color: Palette.textWeak,
-    fontSize: Typ.fontSizeSmall,
-    lineHeight: Typ.fontSizeSmall * Typ.baseLeading,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
+    fontFamily: Typography.fontFamilyMonospace,
   },
 
   blockquote: {

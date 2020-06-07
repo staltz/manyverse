@@ -19,7 +19,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
-import {Typography as Typ} from '../../global-styles/typography';
+import {Typography} from '../../global-styles/typography';
 import Button from '../Button';
 
 export const styles = StyleSheet.create({
@@ -58,8 +58,9 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: Typ.fontSizeLarge,
-    fontFamily: Typ.fontFamilyReadableText,
+    fontSize: Typography.fontSizeLarge,
+    lineHeight: Typography.lineHeightLarge,
+    fontFamily: Typography.fontFamilyReadableText,
     marginBottom: Dimensions.verticalSpaceSmall,
     ...Platform.select({
       default: {
@@ -73,26 +74,27 @@ export const styles = StyleSheet.create({
 
   descriptionOpened: {
     color: Palette.textWeak,
-    fontSize: Typ.fontSizeNormal,
-    fontFamily: Typ.fontFamilyReadableText,
-    lineHeight: Typ.baseSize * Typ.baseLeading,
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
+    fontFamily: Typography.fontFamilyReadableText,
     flex: 1,
     textAlign: 'left',
   },
 
   descriptionClosed: {
     color: Palette.textWeak,
-    fontSize: Typ.fontSizeNormal,
-    fontFamily: Typ.fontFamilyReadableText,
-    lineHeight: Typ.baseSize * Typ.baseLeading,
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
+    fontFamily: Typography.fontFamilyReadableText,
     textAlign: 'left',
   },
 
   toggleOpened: {
     marginLeft: Dimensions.horizontalSpaceNormal,
     color: Palette.text,
-    fontFamily: Typ.fontFamilyReadableText,
-    fontSize: Typ.fontSizeNormal,
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
+    fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
   },
 
