@@ -1,165 +1,165 @@
 {
   "call_to_action": {
     "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "save": "Save",
-    "yes": "Yes",
+    "add": "Aggiungi",
+    "done": "Fatto",
+    "cancel": "Annulla",
+    "continue": "Continua",
+    "delete": "Elimina",
+    "save": "Salva",
+    "yes": "Sì",
     "no": "No",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "Tasto Menu"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "Tasto Indietro"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Tasto Chiudi"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "Tasto Chiudi Finestra"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 anno fa",
+          "other": "{{count}} anni fa"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1 mese fa",
+          "other": "{{count}} anni fa"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "1 settimana fa",
+          "other": "{{count}} settimane fa"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 giorno fa",
+          "other": "{{count}} giorni fa"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 ora fa",
+          "other": "{{count}} ore fa"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "1 minuto fa",
+          "other": "{{count}} minuti fa"
         },
-        "now": "Just now"
+        "now": "Proprio ora"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "1 anno da adesso",
+          "other": "{{count}} anni da adesso"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1 mese da adesso",
+          "other": "{{count}} mesi da adesso"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "1 settimana da adesso",
+          "other": "{{count}} settimane da adesso"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "1 giorno da adesso",
+          "other": "{{count}} giorni da adesso"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "1 ora da adesso",
+          "other": "{{count}} ore da adesso"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "1 minuto da adesso",
+          "other": "{{count}} minuti da adesso"
         },
-        "now": "Very soon"
+        "now": "Molto presto"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Scopri di più",
     "overview": {
-      "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "title": "Benvenuto su Manyverse!",
+      "description": "Il social networking può essere semplice, neutrale, non commerciale e costruito sulla fiducia tra amici. Questo è ciò che Manyverse rappresenta e speriamo che anche tu possa renderlo la tua casa digitale. Tutto ciò è reso possibile dall'innovativo protocollo SSB."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Fuori dalla rete",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse può usare la connettività internet, ma non è ",
+        "2_bold": "su",
+        "3_normal": " internet. Tutto accade qui sul tuo dispositivo. Questo significa che lo puoi usare normalmente anche quando sei disconnesso da internet! ",
+        "4_bold": "Il tuo contenuto viene prima memorizzato sul tuo dispositivo",
+        "5_normal": " e puoi sincronizzarlo con i tuoi amici una volta che vi siete connessi."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Tanti modi per connettersi",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
+          "1_normal": "Per connetterti con gli amici e sincronizzare i contenuti, potete: unirvi allo stesso ",
           "2_bold": "Wi-Fi",
-          "3_normal": " or exchange",
-          "4_bold": "P2P invites",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
+          "3_normal": " o scambiare",
+          "4_bold": "Inviti P2P",
+          "5_normal": ". Per trovare nuove persone su internet, cerca un codice di invito su un ",
           "6_bold": "pub server",
-          "7_normal": " or a ",
+          "7_normal": " o su un ",
           "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "9_normal": ", o avvia il tuo server!"
         },
         "default": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
+          "1_normal": "Per connetterti con gli amici e sincronizzare i contenuti, potete: unirvi allo stesso ",
           "2_bold": "Wi-Fi",
-          "3_normal": ", use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ", or exchange ",
-          "6_bold": "P2P invites",
-          "7_normal": ". To find new people on the internet, look for an invite code to a ",
+          "3_normal": ", usare ",
+          "4_bold": "la sincronizzazione Bluetooth",
+          "5_normal": ", o scambiare ",
+          "6_bold": "inviti P2P",
+          "7_normal": ". Per trovare nuove persone su internet, cerca un codice di invito su un ",
           "8_bold": "pub server",
-          "9_normal": " or a ",
+          "9_normal": " o su un ",
           "10_bold": "room server",
-          "11_normal": ", or start your own server!"
+          "11_normal": ", o avvia il tuo server!"
         }
       }
     },
     "moderation": {
-      "title": "Shared moderation",
+      "title": "Moderazione condivisa",
       "description": {
-        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "1_normal": "Poiché il tuo dispositivo ospita il tuo social network, nessun altro può bannare o rimuovere account al posto tuo. Solo tu puoi moderare il tuo spazio, ",
+        "2_bold": "bloccare gli account",
+        "3_normal": " che non vuoi avere sul tuo dispositivo. Quindi i tuoi amici possono scegliere di bloccare gli stessi account. Così la moderazione può diffondersi naturalmente!"
       }
     },
     "permanence": {
-      "title": "Permanence",
+      "title": "Permanenza",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
-        "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
+        "1_normal": "Una volta sincronizzato il tuo contenuto con gli amici, questi hanno una copia nei loro dispositivi. Poiché successivamente possono andare offline, ",
+        "2_bold": "non è possibile eliminare",
+        "3_normal": " il tuo contenuto globalmente da tutti i dispositivi! Ecco perché abbiamo scelto di rendere permanenti i contenuti. Inoltre questo rende le comunità più rispettose e premurose su ciò che viene pubblicato."
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "In costruzione!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
-        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+        "1_normal": "Manyverse è ",
+        "2_bold": "software in fase beta",
+        "3_normal": ". Non ci è ancora tutto chiaro e alcune parti necessitano di correzione. Durante la sincronizzazione l'app potrebbe apparire bloccata per diversi minuti. Abbi pazienza! Segnalaci qualsiasi altro bug incontri, con abbastanza tempo e donazioni possiamo fare di questa una grande app."
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
-      "description": "Do you want to create a new account, or would you like to restore your old account from a 48-word recovery phrase?",
+      "title": "È la prima volta?",
+      "description": "Vuoi creare un nuovo account o vuoi ripristinare il tuo vecchio account con una frase di recupero da 48 parole?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "Crea un account",
+          "accessibility_label": "Tasto Crea Un Account"
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "Ripristina account",
+          "accessibility_label": "Tasto Ripristina Account"
         }
       }
     }
@@ -167,86 +167,86 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public board",
-      "private": "Private messages",
-      "connections": "Connections"
+      "public": "Board pubblica",
+      "private": "Messaggi privati",
+      "connections": "Connessioni"
     },
     "tab_footers": {
-      "public": "Public",
-      "private": "Private",
-      "connections": "Connections"
+      "public": "Pubblico",
+      "private": "Privato",
+      "connections": "Connessioni"
     },
-    "loading": "Loading...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "loading": "Caricamento...",
+    "building_indexes": "Creazioni degli indici del database...\nPotrebbe richiedere alcuni minuti",
     "tabs": {
       "public": {
-        "accessibility_label": "Public Tab Button"
+        "accessibility_label": "Tasto Tab Pubblico"
       },
       "private": {
-        "accessibility_label": "Private Tab Button"
+        "accessibility_label": "Tasto Tab Privato"
       },
       "connections": {
-        "accessibility_label": "Connections Tab Button"
+        "accessibility_label": "Tasto Tab Connessioni"
       }
     }
   },
   "public": {
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Scrivi un messaggio pubblico"
     },
     "empty": {
-      "title": "No messages",
-      "description": "Write a diary to be\nshared with friends later"
+      "title": "Nessun messaggio",
+      "description": "Scrivi un diario che sarà\ncondiviso con gli amici più tardi"
     }
   },
   "private": {
     "floating_action_button": {
-      "compose": "Start a private conversation"
+      "compose": "Inizia una conversazione privata"
     },
     "empty": {
-      "title": "No conversations",
-      "description": "Start a private conversation\nwith any of your friends"
+      "title": "Nessuna conversazione",
+      "description": "Inizia una conversazione privata\ncon un tuo amico qualsiasi"
     },
     "conversation": {
-      "accessibility_label": "Go To Conversation"
+      "accessibility_label": "Vai Alla Conversazione"
     }
   },
   "accounts": {
     "reactions": {
-      "title": "Reactions"
+      "title": "Reazioni"
     },
     "recipients": {
-      "title": "Recipients"
+      "title": "Destinatari"
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "Vai All'Account"
       }
     }
   },
   "connections": {
     "floating_action_button": {
-      "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
-      "bluetooth_seek": "Bluetooth seek"
+      "create_invite": "Crea invito",
+      "paste_invite": "Incolla invito",
+      "bluetooth_seek": "Ricerca Bluetooth"
     },
     "empty": {
       "offline": {
-        "title": "Offline",
-        "description": "Turn on some connection mode\nor enjoy reading some existing content"
+        "title": "Disconnesso",
+        "description": "Attiva una modalità di connessione\noppure puoi leggere i contenuti esistenti"
       },
       "connecting": {
-        "title": "Connecting",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "In Connessione",
+        "description": "Attendi mentre l'app\ntenta di connettersi ai tuoi peer"
       },
       "no_peers": {
-        "title": "No connections",
-        "description": "Try syncing with people nearby\nor use a server invite code"
+        "title": "Nessuna connessione",
+        "description": "Prova a sincronizzarti con le persone vicine\noppure usa codice di invito ad un server"
       }
     },
     "toasts": {
-      "invite_accepted": "Invite accepted",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?"
+      "invite_accepted": "Invito accettato",
+      "invite_rejected": "Invito rifiutato. Sei sicuro che sia corretto?"
     },
     "peers": {
       "types": {
@@ -255,15 +255,15 @@
         "dht": {
           "connected": "Internet P2P",
           "staging": {
-            "host": "Internet P2P: waiting for online friend...",
-            "client": "Internet P2P: looking for online friend...",
-            "unknown": "Internet P2P: searching..."
+            "host": "Internet P2P: in attesa di un amico online...",
+            "client": "Internet P2P: alla ricerca di un amico online...",
+            "unknown": "Internet P2P: cercando..."
           }
         },
         "room": {
           "server": "Room server",
           "endpoint": "Room peer",
-          "alone_online": "(only you online)",
+          "alone_online": "(solo tu online)",
           "others_online": {
             "one": "({{count}} online)",
             "other": "({{count}} online)"
@@ -271,48 +271,48 @@
         },
         "pub": "Pub server",
         "server": "Server",
-        "unknown": "Unknown"
+        "unknown": "Sconosciuto"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(ENABLED)"
+        "enabled": "(ATTIVO)"
       },
       "bluetooth": {
         "title": "Bluetooth",
-        "accessibility_label": "Bluetooth Mode",
-        "disabled": "(Turn on Bluetooth to use this)",
-        "description": "Discover users nearby and connect with them using Bluetooth.",
+        "accessibility_label": "Modalità Bluetooth",
+        "disabled": "(Attiva il Bluetooth per usarlo)",
+        "description": "Scopri gli utenti vicini e connettiti con loro utilizzando il Bluetooth.",
         "permission_request": {
-          "title": "Allow locating via Bluetooth?",
-          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
+          "title": "Consentire la localizzazione via Bluetooth?",
+          "message": "Manyverse ha bisogno di utilizzare il Bluetooth per scoprire dove sei (\"posizione approssimativa\") e i peer attorno a te."
         }
       },
       "wifi": {
         "title": "Wi-Fi",
-        "accessibility_label": "Wi-Fi Mode",
-        "disabled": "(Turn on Wi-Fi to use this)",
-        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
+        "accessibility_label": "Modalità Wi-Fi",
+        "disabled": "(Attiva il Wi-Fi per usarlo)",
+        "description": "Connettiti con gli amici nella stessa rete locale, in altre parole, con lo stesso Wi-Fi."
       },
       "p2p": {
         "title": "Internet P2P",
-        "accessibility_label": "Internet P2P Mode",
-        "disabled": "(Go online to use this)",
-        "description": "Connect directly to friends currently online, using a peer-to-peer technology called \"Distributed Hash Table\".",
-        "connecting": "Connecting via internet P2P...",
-        "searching_friend": "Currently searching for online friend who generated this invite code, to establish a data connection with them.",
-        "waiting_friend": "Currently waiting for online friend to claim this invite code and establish a data connection."
+        "accessibility_label": "Modalità Internet P2P",
+        "disabled": "(Connettiti a internet per usarlo)",
+        "description": "Connettiti direttamente agli amici attualmente online, utilizzando una tecnologia peer-to-peer chiamata \"Distributed Hash Table\".",
+        "connecting": "Connettendo via internet P2P...",
+        "searching_friend": "Alla ricerca dell'amico online che ha generato questo codice di invito per stabilire una connessione dati con lui.",
+        "waiting_friend": "In attesa che un amico online richieda questo codice di invito per stabilire una connessione dati."
       },
       "servers": {
-        "title": "Internet servers",
-        "accessibility_label": "Internet Servers Mode",
-        "disabled": "(Go online to use this)",
-        "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
+        "title": "Server di Internet",
+        "accessibility_label": "Modalità Server Di Internet",
+        "disabled": "(Connettiti a internet per usarlo)",
+        "description": "Connettiti a un cosiddetto 'Pub server' di qualche amico che contiene i dati aggiornati di più account."
       }
     },
     "menu": {
       "open_profile": {
-        "label": "Open profile",
+        "label": "Apri il profilo",
         "accessibility_label": {
           "connected": "Open profile screen for this connected peer",
           "staged": "Open profile screen for this suggested connection"
