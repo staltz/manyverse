@@ -14,20 +14,20 @@ In the explanations below, we will constantly refer to "development" and "target
 
 - If your target OS is **iOS**, only **macOS** computers are supported
 - If your target OS is **Android**, only **Linux and macOS** computers are supported
-  - *No Windows support* so far, unfortunately; but you can always choose to install Linux for free if you have a Windows computer
+  - _No Windows support_ so far, unfortunately; but you can always choose to install Linux for free if you have a Windows computer
 
 ### macOS specifics
 
-If you are developing on a macOS computer, then you might need `realpath`, install it through coreutils:
+If you are developing on a macOS computer, then you might need `realpath`, install it through coreutils and some additional `node-sodium` compilation dependencies:
 
 ```
 brew update
-brew install coreutils
+brew install coreutils libtool autoconf automake
 ```
 
 ### Node.js
 
-Use node (preferably exactly) `12.16.x` and npm `6.13.x`. To manage versions of node easily, we recommend [nvm](https://github.com/nvm-sh/nvm).
+Use node (preferably exactly) `10.13.0` and npm `6.x`. To manage node versions easily, we recommend [nvm](https://github.com/nvm-sh/nvm) and use its deep integration feature to install and load the required node version automatically.
 
 ### React Native
 
@@ -37,7 +37,7 @@ Install the React Native CLI:
 npm install --global react-native-cli
 ```
 
-and follow the [official React Native docs](https://facebook.github.io/react-native/docs/getting-started.html), choose "React Native CLI Quickstart", and then choose the **Development OS** and **Target OS** to match your use case.
+and follow the [official React Native docs](https://reactnative.dev/docs/environment-setup), choose "React Native CLI Quickstart", and then choose the **Development OS** and **Target OS** to match your use case.
 
 ### Android SDK
 
@@ -48,7 +48,7 @@ You may need to open your app's `/android` folder in Android Studio, so that it 
 You can also set the environment variable `ANDROID_NDK_HOME`, as in this example:
 
 ```
-export ANDROID_NDK_HOME=/Users/username/Library/Android/sdk/ndk-bundle
+export ANDROID_NDK_HOME=/Users/<username>/Library/Android/sdk/ndk-bundle
 ```
 
 Also check out [nodejs-mobile docs](https://code.janeasystems.com/nodejs-mobile/getting-started-android#android-sdk-requirements) for the additional Android SDK requirements on your computer.
