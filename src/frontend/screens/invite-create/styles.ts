@@ -54,8 +54,8 @@ export const styles = StyleSheet.create({
   inviteCode: {
     marginTop: Dimensions.verticalSpaceBig,
     alignSelf: 'stretch',
-    fontSize: Typography.fontSizeLarge,
-    lineHeight: Typography.lineHeightLarge,
+    fontSize: Typography.fontSizeBig,
+    lineHeight: Typography.lineHeightBig,
     fontFamily: Typography.fontFamilyMonospace,
     textAlign: 'left',
     textAlignVertical: 'top',
