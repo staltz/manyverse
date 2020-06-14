@@ -6,7 +6,7 @@
 
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {PostContent as Post, FeedId, Msg} from 'ssb-typescript';
 import {
   Reactions,
@@ -38,6 +38,11 @@ export type Props = {
 };
 
 export const styles = StyleSheet.create({
+  post: {
+    marginTop: Dimensions.verticalSpaceNormal,
+    flex: 1,
+  },
+
   footer: {
     flex: 0,
     height: MessageFooter.HEIGHT,
@@ -83,7 +88,14 @@ export default class PostMessage extends PureComponent<Props, State> {
             onPressToggle: this.onPressToggleCW,
           })
         : null,
-      opened ? h(Markdown, {key: 'md', text: msg.value.content.text}) : null,
+      opened
+        ? h(View, {key: 'p', style: styles.post}, [
+            h(Markdown, {
+              key: 'md',
+              text: msg.value.content.text,
+            }),
+          ])
+        : null,
       h(MessageFooter, {...props, style: styles.footer}),
     ]);
   }
