@@ -1,96 +1,96 @@
 {
   "call_to_action": {
-    "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "ok": "Ок",
+    "add": "Добавити",
+    "done": "Готово",
+    "cancel": "Скасувати",
+    "continue": "Продовжити",
+    "delete": "Видалити",
+    "save": "Зберегти",
+    "yes": "Так",
+    "no": "Ні",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "Кнопка Меню"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "Кнопка Назад"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Кнопка Закрити"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "Кнопка закриття діалогу"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 рік тому",
+          "other": "{{count}} роки(-ів) тому"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1 місяць тому",
+          "other": "{{count}} місяць(-ів) тому"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "тиждень тому",
+          "other": "{{count}} тиждень(-ів) тому"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 день тому",
+          "other": "{{count}} дні(-ів) тому"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 годину тому",
+          "other": "{{count}} годин(и) тому"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "1 хвилину тому",
+          "other": "{{count}} хвилин(и) тому"
         },
-        "now": "Just now"
+        "now": "Щойно"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "1 рік відтепер",
+          "other": "{{count}} років відтепер"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1 місяць відтепер",
+          "other": "{{count}} місяців відтепер"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "1 тиждень відтепер",
+          "other": "{{count}} тижнів відтепер"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "1 день відтепер",
+          "other": "{{count}} дня(ів) відтепер"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "1 година відтепер",
+          "other": "{{count}} год. відтепер"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "1 хвилина відтепер",
+          "other": "{{count}} хвилин відтепер"
         },
-        "now": "Very soon"
+        "now": "Дуже скоро"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Дізнатися більше",
     "overview": {
-      "title": "Welcome to Manyverse!",
+      "title": "Ласкаво просимо до Manyverse!",
       "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
     },
     "off_the_grid": {
       "title": "Off the grid",
       "description": {
         "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
+        "2_bold": "вкл",
         "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
         "4_bold": "content is stored first on your device",
         "5_normal": ", and you can synchronize it with friends once you connect with them."
@@ -176,7 +176,7 @@
       "private": "Private",
       "connections": "Connections"
     },
-    "loading": "Loading...",
+    "loading": "Завантаження...",
     "building_indexes": "Building database indexes...\nThis may take up to several minutes",
     "tabs": {
       "public": {
@@ -213,21 +213,21 @@
   },
   "accounts": {
     "reactions": {
-      "title": "Reactions"
+      "title": "Реакції"
     },
     "recipients": {
-      "title": "Recipients"
+      "title": "Отримувачі"
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "Перейти до облікового запису"
       }
     }
   },
   "connections": {
     "floating_action_button": {
-      "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
+      "create_invite": "Створити запрошення",
+      "paste_invite": "Вставити запрошення",
       "bluetooth_seek": "Bluetooth seek"
     },
     "empty": {
