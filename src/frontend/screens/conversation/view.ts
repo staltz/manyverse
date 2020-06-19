@@ -60,16 +60,18 @@ export const styles = StyleSheet.create({
 
   username: {
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     color: Palette.text,
+    paddingTop: Dimensions.verticalSpaceTiny,
     minWidth: 120,
   },
 
   time: {
     marginHorizontal: Dimensions.horizontalSpaceNormal,
-    marginBottom: Dimensions.verticalSpaceTiny,
     fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
   },
@@ -82,12 +84,18 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundText,
     borderColor: Palette.backgroundVoidStrong,
     borderWidth: StyleSheet.hairlineWidth,
+    paddingHorizontal: Dimensions.verticalSpaceTiny,
+    paddingTop: Dimensions.verticalSpaceTiny,
+    paddingBottom: Dimensions.verticalSpaceNormal,
   },
 
   bubbleRight: {
     backgroundColor: Palette.backgroundBrandWeakest,
     borderColor: Palette.backgroundBrandWeaker,
     borderWidth: StyleSheet.hairlineWidth,
+    paddingHorizontal: Dimensions.verticalSpaceTiny,
+    paddingTop: Dimensions.verticalSpaceTiny,
+    paddingBottom: Dimensions.verticalSpaceNormal,
   },
 });
 
@@ -105,11 +113,23 @@ function toGiftedMessage(msg: MsgAndExtras<PostContent>): GiftedMsg {
 }
 
 function renderBubble(props: any) {
+  const {previousMessage, currentMessage} = props;
+  const marginTop =
+    previousMessage?.user?._id === currentMessage.user._id
+      ? 0
+      : Dimensions.verticalSpaceBig;
+
   return h(Bubble, {
     ...props,
     wrapperStyle: {
-      left: styles.bubbleLeft,
-      right: styles.bubbleRight,
+      left: {
+        ...styles.bubbleLeft,
+        marginTop,
+      },
+      right: {
+        ...styles.bubbleRight,
+        marginTop,
+      },
     },
   });
 }
@@ -162,7 +182,12 @@ function renderTime(props: any) {
 }
 
 function renderDay(props: any) {
-  return h(Day, {textStyle: styles.time, ...props});
+  const {currentMessage, nextMessage} = props;
+  const marginBottom =
+    currentMessage.user._id !== nextMessage?.user?._id
+      ? 0
+      : -Dimensions.verticalSpaceBig;
+  return h(Day, {textStyle: {...styles.time, marginBottom}, ...props});
 }
 
 export default function view(state$: Stream<State>) {
