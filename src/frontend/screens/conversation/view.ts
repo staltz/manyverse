@@ -14,10 +14,14 @@ import {
   GiftedChat as GiftedChatWithWrongTypes,
   Bubble as BubbleWithWrongTypes,
   Day as DayWithWrongTypes,
+  Composer as ComposerWithWrongTypes,
+  InputToolbar as InputToolbarWithWrongTypes,
+  IMessage as GiftedMsg,
   GiftedChatProps,
   BubbleProps,
   DayProps,
-  IMessage as GiftedMsg,
+  ComposerProps,
+  InputToolbarProps,
   Send,
 } from 'react-native-gifted-chat';
 import {PostContent} from 'ssb-typescript';
@@ -40,6 +44,12 @@ const Bubble = (BubbleWithWrongTypes as any) as ComponentClass<
   BubbleProps<GiftedMsg>
 >;
 const Day = (DayWithWrongTypes as any) as ComponentClass<DayProps<GiftedMsg>>;
+const InputToolbar = (InputToolbarWithWrongTypes as any) as ComponentClass<
+  InputToolbarProps
+>;
+const Composer = (ComposerWithWrongTypes as any) as ComponentClass<
+  ComposerProps
+>;
 
 export const styles = StyleSheet.create({
   container: {
@@ -78,6 +88,11 @@ export const styles = StyleSheet.create({
 
   footer: {
     paddingBottom: Dimensions.verticalSpaceSmall,
+  },
+
+  textInputStyle: {
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
   },
 
   bubbleLeft: {
@@ -153,6 +168,20 @@ function renderSend(props: any) {
       }),
     ]),
   ]);
+}
+
+function renderComposer(props: any) {
+  return h(Composer, {
+    ...props,
+    textInputStyle: styles.textInputStyle,
+  });
+}
+
+function renderInputToolbar(props: any) {
+  return h(InputToolbar, {
+    ...props,
+    renderComposer,
+  });
 }
 
 /**
@@ -239,6 +268,7 @@ export default function view(state$: Stream<State>) {
           renderSend,
           renderTime,
           renderDay,
+          renderInputToolbar,
           renderMessageText: (item: {currentMessage: GiftedMsg}) =>
             h(View, {style: styles.bubbleText}, [
               item.currentMessage.user._id !== state.selfFeedId
