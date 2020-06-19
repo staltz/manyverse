@@ -220,6 +220,7 @@ declare module 'i18n-js' {
     | 'biography.picture.accessibility_label'
     | 'biography.description.accessibility_label'
     | 'conversation.title'
+    | 'conversation.placeholder'
     | 'conversation.call_to_action.show_recipients.accessibility_label'
     | 'conversation.notifications.new_conversation'
     | 'dialog_about.title'

@@ -173,6 +173,7 @@ function renderSend(props: any) {
 function renderComposer(props: any) {
   return h(Composer, {
     ...props,
+    placeholder: t('conversation.placeholder'),
     textInputStyle: styles.textInputStyle,
   });
 }
