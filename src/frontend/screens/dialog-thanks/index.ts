@@ -14,11 +14,11 @@ import {t} from '../../drivers/localization';
 import MarkdownDialog from '../../components/dialogs/MarkdownDialog';
 
 const top5backers = [
-  'DC Posch',
-  'Audrey Tang',
-  'Connor Turland',
-  'Jean-Baptiste Giraudeau',
   'C Moid',
+  'Audrey Tang',
+  'DC Posch',
+  'Andrew Lewman',
+  'Jean-Baptiste Giraudeau',
 ];
 
 export type Sources = {
