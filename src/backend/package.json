@@ -39,7 +39,7 @@
     "ssb-config": "3.3.2",
     "ssb-conn": "0.16.2",
     "ssb-db": "19.3.1",
-    "ssb-dht-invite": "1.10.0",
+    "ssb-dht-invite": "1.11.0",
     "ssb-ebt-fork-staltz": "5.6.7-1",
     "ssb-friends": "4.1.4",
     "ssb-invite-client": "1.1.0",
