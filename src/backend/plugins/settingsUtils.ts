@@ -120,8 +120,9 @@ export = {
     const current = readSync();
     let initialTimeout: ReturnType<typeof setTimeout>;
     if (current.blobsStorageLimit && current.blobsStorageLimit >= 0) {
+      const storageLimit = current.blobsStorageLimit;
       initialTimeout = setTimeout(() => {
-        ssb.blobsPurge.start({storage: current.blobsStorageLimit});
+        ssb.blobsPurge.start({storageLimit});
       }, 30e3);
     }
 
@@ -137,11 +138,11 @@ export = {
 
       updateBlobsPurge(storageLimit: number) {
         // TODO: like above, this could also be moved to the frontend
+        clearTimeout(initialTimeout);
         if (storageLimit >= 0) {
           ssb.blobsPurge.start({storageLimit});
           updateField('blobsStorageLimit', storageLimit);
         } else {
-          clearTimeout(initialTimeout);
           ssb.blobsPurge.stop();
           updateField('blobsStorageLimit', void 0);
         }
