@@ -26,17 +26,6 @@ export type State = {
   isSyncing: boolean;
 };
 
-export function initState(selfFeedId: FeedId): State {
-  return {
-    selfFeedId,
-    currentTab: 'public',
-    isSyncing: false,
-    numOfPublicUpdates: 0,
-    numOfPrivateUpdates: 0,
-    scrollHeaderBy: new Animated.Value(0),
-  };
-}
-
 /**
  * Identity lens
  */
