@@ -14,6 +14,7 @@ import {Animated} from 'react-native';
 
 export type State = {
   selfFeedId: FeedId;
+  selfAvatarUrl?: string;
   getPublicFeedReadable: GetReadable<ThreadSummaryWithExtras> | null;
   getSelfRootsReadable: GetReadable<ThreadSummaryWithExtras> | null;
   numOfUpdates: number;

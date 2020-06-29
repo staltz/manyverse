@@ -12,6 +12,7 @@ import {Props} from '.';
 
 export type State = {
   selfFeedId: FeedId;
+  selfAvatarUrl?: string;
   mentionQuery: string;
   mentionSuggestions: Array<MentionSuggestion>;
   recipients: PrivateThreadAndExtras['recps'];
@@ -32,6 +33,7 @@ export default function model(
       function propsReducer(_prev?: State): State {
         return {
           selfFeedId: props.selfFeedId,
+          selfAvatarUrl: props.selfAvatarUrl,
           mentionQuery: '',
           mentionSuggestions: [],
           recipients: [],

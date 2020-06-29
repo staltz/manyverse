@@ -41,6 +41,7 @@ function dropCompletion(stream: Stream<any>): Stream<any> {
 
 export type State = {
   selfFeedId: FeedId;
+  selfAvatarUrl?: string;
   rootMsgId: MsgId | null;
   thread: PrivateThreadAndExtras;
   emptyThreadSysMessage: boolean;
@@ -57,6 +58,7 @@ export default function model(
         if (props.rootMsgId) {
           return {
             selfFeedId: props.selfFeedId,
+            selfAvatarUrl: props.selfAvatarUrl,
             rootMsgId: props.rootMsgId ?? null,
             emptyThreadSysMessage: false,
             thread: emptyThread,
@@ -64,6 +66,7 @@ export default function model(
         } else if (props.recps) {
           return {
             selfFeedId: props.selfFeedId,
+            selfAvatarUrl: props.selfAvatarUrl,
             rootMsgId: null,
             emptyThreadSysMessage: true,
             thread: {
@@ -77,17 +80,6 @@ export default function model(
         }
       },
   );
-
-  const aboutReducer$ = ssbSource.selfFeedId$
-    .take(1)
-    .map(selfFeedId => ssbSource.profileAbout$(selfFeedId))
-    .flatten()
-    .map(
-      about =>
-        function aboutReducer(prev: State): State {
-          return {...prev, avatarUrl: about.imageUrl};
-        },
-    );
 
   const rootMsgId$ = xs
     .merge(
@@ -150,7 +142,6 @@ export default function model(
   return xs.merge(
     propsReducer$,
     loadExistingThreadReducer$,
-    aboutReducer$,
     updateWithLiveRepliesReducer$,
   );
 }

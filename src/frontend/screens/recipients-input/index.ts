@@ -9,7 +9,6 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
-import {FeedId} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {Toast, Duration} from '../../drivers/toast';
 import {t} from '../../drivers/localization';
@@ -18,10 +17,9 @@ import model, {State} from './model';
 import view from './view';
 import intent from './intent';
 import navigation from './navigation';
+import {Props as P} from './props';
 
-export type Props = {
-  selfFeedId: FeedId;
-};
+export type Props = P;
 
 export type Sources = {
   screen: ReactSource;

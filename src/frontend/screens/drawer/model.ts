@@ -11,7 +11,7 @@ import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
-  avatarUrl?: string;
+  selfAvatarUrl?: string;
   name?: string;
 };
 
@@ -28,7 +28,7 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
           if (!!about.name && about.name !== id) {
             name = about.name;
           }
-          return {selfFeedId: id, name, avatarUrl: about.imageUrl};
+          return {selfFeedId: id, name, selfAvatarUrl: about.imageUrl};
         },
     );
 

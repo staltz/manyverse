@@ -15,6 +15,7 @@ import {MsgId, About, FeedId} from 'ssb-typescript';
 import {Screens} from '../enums';
 import {SSBSource} from '../../drivers/ssb';
 import {navOptions as profileScreenNavOptions} from '../profile';
+import {Props as ProfileProps} from '../profile/props';
 import AccountsList, {Props as ListProps} from '../../components/AccountsList';
 import TopBar from '../../components/TopBar';
 import {Palette} from '../../global-styles/palette';
@@ -23,6 +24,7 @@ export {navOptions} from './layout';
 export type Props = {
   title: string;
   selfFeedId: FeedId;
+  selfAvatarUrl?: string;
   msgKey: MsgId;
   accounts: Array<FeedId | [string, string]> | null;
 };
@@ -45,6 +47,7 @@ export type State = {
   title: string;
   abouts: Array<About>;
   selfFeedId: FeedId;
+  selfAvatarUrl?: string;
 };
 
 export const styles = StyleSheet.create({
@@ -80,8 +83,9 @@ function navigation(actions: Actions, state$: Stream<State>) {
             name: Screens.Profile,
             passProps: {
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
               feedId: ev.id,
-            },
+            } as ProfileProps,
             options: profileScreenNavOptions,
           },
         },
@@ -127,12 +131,12 @@ export function accounts(sources: Sources): Sinks {
   const command$ = navigation(actions, sources.state.stream);
 
   const propsReducer$ = sources.props.map(
-    ({selfFeedId, title}) =>
+    ({selfFeedId, selfAvatarUrl, title}) =>
       function propsReducer(prev?: State): State {
         if (prev) {
-          return {...prev, selfFeedId, title};
+          return {...prev, selfFeedId, selfAvatarUrl, title};
         } else {
-          return {abouts: [], selfFeedId, title};
+          return {abouts: [], selfFeedId, selfAvatarUrl, title};
         }
       },
   );

@@ -6,14 +6,17 @@
 
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
+import sample from 'xstream-sample';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../enums';
 import {Reactions, MsgAndExtras} from '../../../ssb/types';
 import {navOptions as composeScreenNavOptions} from '../../compose';
+import {Props as ComposeProps} from '../../compose/props';
 import {Props as AccountsProps} from '../../accounts';
 import {navOptions as accountsScreenNavOpts} from '../../accounts/layout';
 import {navOptions as profileScreenNavOpts} from '../../profile';
+import {Props as ProfileProps} from '../../profile/props';
 import {
   navOptions as threadScreenNavOpts,
   Props as ThreadProps,
@@ -38,13 +41,16 @@ export default function navigation(
   actions: Actions,
   state$: Stream<State>,
 ): Stream<Command> {
-  const toCompose$ = actions.goToCompose$.map(
-    () =>
+  const toCompose$ = actions.goToCompose$.compose(sample(state$)).map(
+    state =>
       ({
         type: 'push',
         layout: {
           component: {
             name: Screens.Compose,
+            passProps: {
+              selfAvatarUrl: state.selfAvatarUrl,
+            } as ComposeProps,
             options: composeScreenNavOptions,
           },
         },
@@ -63,6 +69,7 @@ export default function navigation(
               msgKey: ev.msgKey,
               accounts: ev.accounts,
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
             } as AccountsProps,
             options: accountsScreenNavOpts,
           },
@@ -79,8 +86,9 @@ export default function navigation(
             name: Screens.Profile,
             passProps: {
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
               feedId: ev.authorFeedId,
-            },
+            } as ProfileProps,
             options: profileScreenNavOpts,
           },
         },
@@ -96,6 +104,7 @@ export default function navigation(
             name: Screens.Thread,
             passProps: {
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
               rootMsg: msg,
             } as ThreadProps,
             options: threadScreenNavOpts,
@@ -115,6 +124,7 @@ export default function navigation(
               name: Screens.Thread,
               passProps: {
                 selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
                 rootMsg: msg,
                 expandRootCW: true,
               } as ThreadProps,

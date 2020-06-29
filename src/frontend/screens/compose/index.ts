@@ -14,7 +14,6 @@ import {
   Command as StorageCommand,
   AsyncStorageSource,
 } from 'cycle-native-asyncstorage';
-import {MsgId, FeedId} from 'ssb-typescript';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import {topBar, Sinks as TBSinks} from './top-bar';
@@ -25,14 +24,9 @@ import ssb from './ssb';
 import navigation from './navigation';
 import dialog from './dialog';
 import asyncStorage from './asyncstorage';
+import {Props as P} from './props';
 
-export type Props = {
-  text?: string;
-  authors?: Array<FeedId>;
-  root?: MsgId;
-  fork?: MsgId;
-  branch?: MsgId;
-};
+export type Props = P;
 
 export type Sources = {
   screen: ReactSource;

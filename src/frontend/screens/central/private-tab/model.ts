@@ -12,6 +12,7 @@ import {NavSource} from 'cycle-native-navigation';
 
 export type State = {
   selfFeedId: FeedId;
+  selfAvatarUrl?: string;
   getPrivateFeedReadable: GetReadable<PrivateThreadAndExtras> | null;
   isVisible: boolean;
   updates: Set<MsgId>;

@@ -9,6 +9,7 @@ import sample from 'xstream-sample';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../enums';
 import {navOptions as conversationNavOpts} from '../conversation';
+import {Props as ConversationProps} from '../conversation/props';
 import {State} from './model';
 
 type Actions = {
@@ -30,8 +31,9 @@ export default function navigation(actions: Actions, state$: Stream<State>) {
               name: Screens.Conversation,
               passProps: {
                 selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
                 recps: state.recipients,
-              },
+              } as ConversationProps,
               options: conversationNavOpts,
             },
           },

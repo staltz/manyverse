@@ -16,6 +16,7 @@ import {Props} from './props';
 
 export type State = {
   selfFeedId: FeedId;
+  selfAvatarUrl?: string;
   rootMsgId: MsgId;
   higherRootMsgId: MsgId | undefined;
   loading: boolean;
@@ -25,7 +26,6 @@ export type State = {
   expandRootCW: boolean;
   replyText: string;
   replyEditable: boolean;
-  avatarUrl?: string;
   getSelfRepliesReadable: GetReadable<MsgAndExtras> | null;
   startedAsReply: boolean;
   keyboardVisible: boolean;
@@ -69,6 +69,7 @@ export default function model(
       function propsReducer(_prev?: State): State {
         return {
           selfFeedId: props.selfFeedId,
+          selfAvatarUrl: props.selfAvatarUrl,
           rootMsgId: props.rootMsgId ?? props.rootMsg.key,
           higherRootMsgId: props.higherRootMsgId,
           loading: true,
@@ -174,17 +175,6 @@ export default function model(
     )
     .flatten();
 
-  const aboutReducer$ = ssbSource.selfFeedId$
-    .take(1)
-    .map(selfFeedId => ssbSource.profileAbout$(selfFeedId))
-    .flatten()
-    .map(
-      about =>
-        function aboutReducer(prev: State): State {
-          return {...prev, avatarUrl: about.imageUrl};
-        },
-    );
-
   const emptyReplyTextReducer$ = actions.willReply$.mapTo(
     function emptyReplyTextReducer(prev: State): State {
       return {...prev, replyText: ''};
@@ -238,7 +228,6 @@ export default function model(
     keyboardDisappearedReducer$,
     updateReplyTextReducer$,
     publishReplyReducers$,
-    aboutReducer$,
     emptyReplyTextReducer$,
     loadReplyDraftReducer$,
     addSelfRepliesReducer$,

@@ -17,6 +17,7 @@ import {noteStorageKeyFor} from './asyncstorage';
 
 export type State = {
   selfFeedId: FeedId;
+  selfAvatarUrl?: string;
   bluetoothEnabled: boolean;
   lanEnabled: boolean;
   internetEnabled: boolean;

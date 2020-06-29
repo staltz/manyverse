@@ -16,6 +16,7 @@ import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
+  selfAvatarUrl?: string;
   currentTab: 'public' | 'private' | 'connections';
   scrollHeaderBy: Animated.Value;
   publicTab?: PublicTabState;
@@ -42,16 +43,18 @@ export const topBarLens: Lens<State, TopBarState> = {
 export const publicTabLens: Lens<State, PublicTabState> = {
   get: (parent: State): PublicTabState => {
     const isVisible = parent.currentTab === 'public';
+    const {selfFeedId, selfAvatarUrl} = parent;
     if (parent.publicTab) {
-      return {...parent.publicTab, isVisible, selfFeedId: parent.selfFeedId};
+      return {...parent.publicTab, isVisible, selfFeedId, selfAvatarUrl};
     } else {
       return {
-        selfFeedId: parent.selfFeedId,
+        isVisible,
+        selfFeedId,
+        selfAvatarUrl,
         getPublicFeedReadable: null,
         getSelfRootsReadable: null,
         numOfUpdates: parent.numOfPublicUpdates,
         hasComposeDraft: false,
-        isVisible,
         scrollHeaderBy: parent.scrollHeaderBy,
       };
     }
@@ -69,12 +72,14 @@ export const publicTabLens: Lens<State, PublicTabState> = {
 export const privateTabLens: Lens<State, PrivateTabState> = {
   get: (parent: State): PrivateTabState => {
     const isVisible = parent.currentTab === 'private';
+    const {selfFeedId, selfAvatarUrl} = parent;
     if (parent.privateTab) {
-      return {...parent.privateTab, isVisible, selfFeedId: parent.selfFeedId};
+      return {...parent.privateTab, isVisible, selfFeedId, selfAvatarUrl};
     } else {
       return {
         isVisible,
-        selfFeedId: parent.selfFeedId,
+        selfFeedId,
+        selfAvatarUrl,
         getPrivateFeedReadable: null,
         updates: new Set<MsgId>(),
         updatesFlag: false,
@@ -95,17 +100,18 @@ export const privateTabLens: Lens<State, PrivateTabState> = {
 export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
   get: (parent: State): ConnectionsTabState => {
     const isVisible = parent.currentTab === 'connections';
+    const {selfFeedId, selfAvatarUrl} = parent;
     if (parent.connectionsTab) {
-      const selfFeedId = parent.selfFeedId;
-      return {...parent.connectionsTab, selfFeedId, isVisible};
+      return {...parent.connectionsTab, isVisible, selfFeedId, selfAvatarUrl};
     } else {
       return {
-        selfFeedId: parent.selfFeedId,
+        isVisible,
+        selfFeedId,
+        selfAvatarUrl,
         bluetoothEnabled: false,
         lanEnabled: false,
         internetEnabled: false,
         isSyncing: parent.isSyncing,
-        isVisible,
         bluetoothLastScanned: 0,
         peers: [],
         rooms: [],
@@ -157,6 +163,17 @@ export default function model(
       },
   );
 
+  const aboutReducer$ = ssbSource.selfFeedId$
+    .take(1)
+    .map(selfFeedId => ssbSource.profileAbout$(selfFeedId))
+    .flatten()
+    .map(
+      about =>
+        function aboutReducer(prev: State): State {
+          return {...prev, selfAvatarUrl: about.imageUrl};
+        },
+    );
+
   const changeTabReducer$ = actions.changeTab$.map(
     nextTab =>
       function changeTabReducer(prev: State): State {
@@ -164,5 +181,10 @@ export default function model(
       },
   );
 
-  return xs.merge(initReducer$, setSelfFeedId$, changeTabReducer$);
+  return xs.merge(
+    initReducer$,
+    setSelfFeedId$,
+    aboutReducer$,
+    changeTabReducer$,
+  );
 }

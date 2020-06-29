@@ -10,6 +10,7 @@ import {Command} from 'cycle-native-navigation';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {Screens} from '../enums';
 import {navOptions as profileScreenNavOpts} from '../profile';
+import {Props as ProfileProps} from '../profile/props';
 import {
   navOptions as threadScreenNavOpts,
   Props as ThreadProps,
@@ -34,8 +35,9 @@ export default function navigation(
             name: Screens.Profile,
             passProps: {
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
               feedId: ev.authorFeedId,
-            },
+            } as ProfileProps,
             options: profileScreenNavOpts,
           },
         },
@@ -51,6 +53,7 @@ export default function navigation(
             name: Screens.Thread,
             passProps: {
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
               rootMsgId: ev.rootMsgId,
             } as ThreadProps,
             options: threadScreenNavOpts,

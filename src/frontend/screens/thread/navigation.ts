@@ -16,6 +16,7 @@ import {
   Props as AccountProps,
 } from '../accounts';
 import {navOptions as profileScreenNavOpts} from '../profile/layout';
+import {Props as ProfileProps} from '../profile/props';
 import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
 import {navOptions as threadScreenNavOpts} from './layout';
 import {
@@ -54,6 +55,7 @@ export default function navigation(
               msgKey: ev.msgKey,
               accounts: ev.accounts,
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
             } as AccountProps,
             options: accountsScreenNavOpts,
           },
@@ -70,8 +72,9 @@ export default function navigation(
             name: Screens.Profile,
             passProps: {
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
               feedId: ev.authorFeedId,
-            },
+            } as ProfileProps,
             options: profileScreenNavOpts,
           },
         },
@@ -104,6 +107,7 @@ export default function navigation(
             fork: state.higherRootMsgId,
             branch: lastMsgInThread.key,
             authors,
+            selfAvatarUrl: state.selfAvatarUrl,
           } as ComposeProps,
         },
       },
@@ -121,6 +125,7 @@ export default function navigation(
               name: Screens.Thread,
               passProps: {
                 selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
                 rootMsg: ev.msg,
                 higherRootMsgId: ev.rootMsgId,
               } as Props,

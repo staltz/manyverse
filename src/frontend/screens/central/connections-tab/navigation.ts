@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,6 +10,7 @@ import {FeedId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../enums';
 import {navOptions as profileScreenNavOptions} from '../../profile';
+import {Props as ProfileProps} from '../../profile/props';
 import {navOptions as pasteInviteScreenNavOptions} from '../../invite-paste';
 import {navOptions as createInviteScreenNavOptions} from '../../invite-create';
 import {State} from './model';
@@ -35,8 +36,9 @@ export default function navigation(
               name: Screens.Profile,
               passProps: {
                 selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
                 feedId,
-              },
+              } as ProfileProps,
               options: profileScreenNavOptions,
             },
           },

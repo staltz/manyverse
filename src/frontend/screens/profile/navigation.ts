@@ -12,6 +12,7 @@ import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
 import {Reactions, MsgAndExtras} from '../../ssb/types';
 import {Screens} from '../enums';
 import {navOptions as composeScreenNavOpts} from '../compose';
+import {Props as ComposeProps} from '../compose/props';
 import {navOptions as editProfileScreenNavOpts} from '../profile-edit';
 import {navOptions as bioScreenNavOpts} from '../biography';
 import {navOptions as threadScreenNavOpts} from '../thread/layout';
@@ -19,6 +20,7 @@ import {Props as ThreadProps} from '../thread/props';
 import {navOptions as accountsScreenNavOptions} from '../accounts/layout';
 import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
 import {navOptions as profileScreenNavOpts} from './layout';
+import {Props} from './props';
 import {Props as AccountProps} from '../accounts';
 import {State} from './model';
 
@@ -43,13 +45,16 @@ export default function navigation(
   navSource: NavSource,
   state$: Stream<State>,
 ): Stream<Command> {
-  const toCompose$ = actions.goToCompose$.map(
-    () =>
+  const toCompose$ = actions.goToCompose$.compose(sample(state$)).map(
+    state =>
       ({
         type: 'push',
         layout: {
           component: {
             name: Screens.Compose,
+            passProps: {
+              selfAvatarUrl: state.selfAvatarUrl,
+            } as ComposeProps,
             options: composeScreenNavOpts,
           },
         },
@@ -100,6 +105,7 @@ export default function navigation(
               msgKey: ev.msgKey,
               accounts: ev.accounts,
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
             } as AccountProps,
             options: accountsScreenNavOptions,
           },
@@ -119,8 +125,9 @@ export default function navigation(
               name: Screens.Profile,
               passProps: {
                 selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
                 feedId: ev.authorFeedId,
-              },
+              } as Props,
               options: profileScreenNavOpts,
             },
           },
@@ -136,6 +143,7 @@ export default function navigation(
             name: Screens.Thread,
             passProps: {
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
               rootMsg: msg,
             } as ThreadProps,
             options: threadScreenNavOpts,
@@ -155,6 +163,7 @@ export default function navigation(
               name: Screens.Thread,
               passProps: {
                 selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
                 rootMsg: msg,
                 expandRootCW: true,
               } as ThreadProps,

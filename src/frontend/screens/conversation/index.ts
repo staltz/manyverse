@@ -10,8 +10,6 @@ import {StyleSheet} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {FeedId, MsgId} from 'ssb-typescript';
-import {PrivateThreadAndExtras} from '../../ssb/types';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -20,12 +18,9 @@ import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
 import intent from './intent';
+import {Props as P} from './props';
 
-export type Props = {
-  selfFeedId: FeedId;
-  rootMsgId?: MsgId;
-  recps?: PrivateThreadAndExtras['recps'];
-};
+export type Props = P;
 
 export type Sources = {
   props: Stream<Props>;

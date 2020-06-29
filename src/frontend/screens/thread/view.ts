@@ -79,7 +79,7 @@ function ReplyInput(state: State, focus$: Stream<undefined>) {
   return h(View, {style: styles.replyRow}, [
     h(Avatar, {
       size: avatarSize,
-      url: state.avatarUrl,
+      url: state.selfAvatarUrl,
       style: styles.replyAvatar,
     }),
     h(View, {style: styles.replyInputContainer}, [
@@ -122,10 +122,10 @@ export default function view(state$: Stream<State>, actions: Actions) {
         'keyboardVisible',
         'replyEditable',
         'startedAsReply',
-        'avatarUrl',
         'getSelfRepliesReadable',
         'rootMsgId',
         'selfFeedId',
+        'selfAvatarUrl',
         s => s.thread.messages.length,
         s => s.thread.full,
         'subthreads',

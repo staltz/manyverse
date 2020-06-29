@@ -24,7 +24,7 @@ export type State = {
   mentionSuggestions: Array<MentionSuggestion>;
   mentionChoiceTimestamp: number;
   contentWarning: string;
-  avatarUrl: string | undefined;
+  selfAvatarUrl?: string;
   previewing: boolean;
   root: MsgId | undefined;
   fork: MsgId | undefined;
@@ -103,7 +103,7 @@ export default function model(
           branch: props.branch,
           authors: props.authors ?? [],
           contentWarning: '',
-          avatarUrl: undefined,
+          selfAvatarUrl: props.selfAvatarUrl,
           previewing: false,
         };
       },
@@ -278,17 +278,6 @@ export default function model(
       },
   );
 
-  const aboutReducer$ = ssbSource.selfFeedId$
-    .take(1)
-    .map(selfFeedId => ssbSource.profileAbout$(selfFeedId))
-    .flatten()
-    .map(
-      about =>
-        function aboutReducer(prev: State): State {
-          return {...prev, avatarUrl: about.imageUrl};
-        },
-    );
-
   const togglePreviewReducer$ = actions.togglePreview$.mapTo(
     function togglePreviewReducer(prev: State): State {
       return {...prev, previewing: !prev.previewing};
@@ -321,7 +310,6 @@ export default function model(
     addPictureReducer$,
     updateContentWarningReducer$,
     togglePreviewReducer$,
-    aboutReducer$,
     getComposeDraftReducer$,
   );
 }

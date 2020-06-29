@@ -11,7 +11,9 @@ import {MsgId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../enums';
 import {navOptions as conversationNavOpts} from '../../conversation';
+import {Props as ConversationProps} from '../../conversation/props';
 import {navOptions as recipientsInputNavOpts} from '../../recipients-input';
+import {Props as RecipientsInputProps} from '../../recipients-input/props';
 import {State} from './model';
 
 export type Actions = {
@@ -34,8 +36,9 @@ export default function navigation(
               name: Screens.Conversation,
               passProps: {
                 selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
                 rootMsgId: ev,
-              },
+              } as ConversationProps,
               options: conversationNavOpts,
             },
           },
@@ -53,7 +56,8 @@ export default function navigation(
               name: Screens.RecipientsInput,
               passProps: {
                 selfFeedId: state.selfFeedId,
-              },
+                selfAvatarUrl: state.selfAvatarUrl,
+              } as RecipientsInputProps,
               options: recipientsInputNavOpts,
             },
           },

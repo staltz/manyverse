@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,7 +7,6 @@
 import xs, {Stream} from 'xstream';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
-import {FeedId} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
@@ -21,11 +20,9 @@ import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
 export {navOptions} from './layout';
+import {Props as P} from './props';
 
-export type Props = {
-  selfFeedId: FeedId;
-  feedId: FeedId;
-};
+export type Props = P;
 
 export type Sources = {
   props: Stream<Props>;

@@ -5,16 +5,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {FeedId, MsgId} from 'ssb-typescript';
-import {MsgAndExtras} from '../../ssb/types';
 
-type Basics = {
-  selfFeedId: FeedId;
+export type Props = {
+  text?: string;
+  authors?: Array<FeedId>;
+  root?: MsgId;
+  fork?: MsgId;
+  branch?: MsgId;
   selfAvatarUrl?: string;
-  higherRootMsgId?: MsgId;
-  replyToMsgId?: MsgId;
-  expandRootCW?: boolean;
 };
-
-export type Props =
-  | (Basics & {rootMsgId: MsgId; rootMsg?: never})
-  | (Basics & {rootMsg: MsgAndExtras; rootMsgId?: never});

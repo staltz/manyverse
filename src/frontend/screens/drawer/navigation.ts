@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,6 +8,7 @@ import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {Command, PushCommand} from 'cycle-native-navigation';
 import {navOptions as profileScreenNavOptions} from '../profile';
+import {Props as ProfileProps} from '../profile/props';
 import {navOptions as rawDatabaseScreenNavOptions} from '../raw-db';
 import {navOptions as settingsScreenNavOptions} from '../settings';
 import {State} from './model';
@@ -33,8 +34,9 @@ export default function navigationCommands(
             name: Screens.Profile,
             passProps: {
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
               feedId: state.selfFeedId,
-            },
+            } as ProfileProps,
             options: profileScreenNavOptions,
           },
         },

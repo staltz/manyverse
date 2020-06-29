@@ -11,6 +11,7 @@ import {FeedId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
 import {t} from '../../drivers/localization';
 import {navOptions as profileScreenNavOpts} from '../profile';
+import {Props as ProfileProps} from '../profile/props';
 import {navOptions as accountsScreenNavOpts} from '../accounts/layout';
 import {Props as AccountsProps} from '../accounts';
 import {Screens} from '../enums';
@@ -36,8 +37,9 @@ export default function navigation(actions: Actions, state$: Stream<State>) {
             name: Screens.Profile,
             passProps: {
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
               feedId: id,
-            },
+            } as ProfileProps,
             options: profileScreenNavOpts,
           },
         },
@@ -56,6 +58,7 @@ export default function navigation(actions: Actions, state$: Stream<State>) {
               msgKey: state.rootMsgId,
               accounts: state.thread.recps.map(r => r.id),
               selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
             } as AccountsProps,
             options: accountsScreenNavOpts,
           },

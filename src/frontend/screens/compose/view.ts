@@ -5,7 +5,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import dropRepeats from 'xstream/extra/dropRepeats';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import pairwise from 'xstream/extra/pairwise';
 import {h} from '@cycle/react';
@@ -34,6 +33,7 @@ const FocusableTextInput = propifyMethods(TextInput, 'focus' as any);
 
 type MiniState = Pick<State, 'postText'> &
   Pick<State, 'postTextSelection'> &
+  Pick<State, 'selfAvatarUrl'> &
   Pick<State, 'mentionQuery'> &
   Pick<State, 'mentionSuggestions'> &
   Pick<State, 'mentionChoiceTimestamp'> &
@@ -212,17 +212,13 @@ export default function view(
   state$: Stream<State>,
   topBar$: Stream<ReactElement<any>>,
 ) {
-  const avatarUrl$ = state$
-    .map(state => state.avatarUrl)
-    .compose(dropRepeats())
-    .startWith(undefined);
-
   const miniState$ = (state$ as Stream<MiniState>)
     .compose(
       dropRepeatsByKeys([
-        'previewing',
         'postText',
         'postTextSelection',
+        'previewing',
+        'selfAvatarUrl',
         'contentWarning',
         'mentionQuery',
         'mentionSuggestions',
@@ -253,36 +249,34 @@ export default function view(
 
   const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
 
-  return xs
-    .combine(topBar$, avatarUrl$, miniState$)
-    .map(([topBar, avatarUrl, state]) =>
-      h(View, {style: styles.container}, [
-        topBar,
-        h(
-          KeyboardAvoidingView,
-          {
-            style: styles.bodyContainer,
-            enabled: true,
-            [behaviorProp]: 'padding',
-          },
-          [
-            h(View, {style: styles.leftSide}, [
-              h(Avatar, {size: avatarSize, url: avatarUrl}),
-              h(View, {style: styles.leftSpacer}),
-              OpenCameraButton(),
-              AddPictureButton(),
-              ContentWarningButton(state),
-            ]),
+  return xs.combine(topBar$, miniState$).map(([topBar, state]) =>
+    h(View, {style: styles.container}, [
+      topBar,
+      h(
+        KeyboardAvoidingView,
+        {
+          style: styles.bodyContainer,
+          enabled: true,
+          [behaviorProp]: 'padding',
+        },
+        [
+          h(View, {style: styles.leftSide}, [
+            h(Avatar, {size: avatarSize, url: state.selfAvatarUrl}),
+            h(View, {style: styles.leftSpacer}),
+            OpenCameraButton(),
+            AddPictureButton(),
+            ContentWarningButton(state),
+          ]),
 
-            state.previewing
-              ? MarkdownPreview(state)
-              : MarkdownInput(state, focusMarkdownInput$),
+          state.previewing
+            ? MarkdownPreview(state)
+            : MarkdownInput(state, focusMarkdownInput$),
 
-            state.mentionSuggestions.length || state.mentionQuery
-              ? MentionSuggestions(state, focusMentionQuery$)
-              : null,
-          ],
-        ),
-      ]),
-    );
+          state.mentionSuggestions.length || state.mentionQuery
+            ? MentionSuggestions(state, focusMentionQuery$)
+            : null,
+        ],
+      ),
+    ]),
+  );
 }

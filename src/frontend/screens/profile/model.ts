@@ -9,14 +9,11 @@ import {AboutAndExtras} from '../../ssb/types';
 import {SSBSource, GetReadable} from '../../drivers/ssb';
 import {Reducer} from '@cycle/state';
 import {FeedId} from 'ssb-typescript';
-
-export type Props = {
-  selfFeedId: FeedId;
-  feedId: FeedId;
-};
+import {Props} from './props';
 
 export type State = {
   selfFeedId: FeedId;
+  selfAvatarUrl?: string;
   displayFeedId: FeedId;
   about: AboutAndExtras;
   // FIXME: use `ThreadSummaryWithExtras` but somehow support reply summaries
@@ -34,6 +31,7 @@ export default function model(
       function propsReducer(): State {
         return {
           selfFeedId: props.selfFeedId,
+          selfAvatarUrl: props.selfAvatarUrl,
           displayFeedId: props.feedId,
           getFeedReadable: null,
           getSelfRootsReadable: null,
