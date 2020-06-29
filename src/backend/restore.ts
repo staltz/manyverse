@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -31,7 +31,7 @@ module.exports = function restore(words: string) {
 
   // Basic validation of input words
   const wordsArr = words.split(' ').map(s => s.trim().toLowerCase());
-  if (wordsArr.length < 48) return 'TOO_SHORT';
+  if (wordsArr.length < 24) return 'TOO_SHORT';
   if (wordsArr.length > 48) return 'TOO_LONG';
 
   // Convert words to keys
@@ -40,10 +40,10 @@ module.exports = function restore(words: string) {
     keys = Mnemonic.wordsToKeys(wordsArr.join(' '));
   } catch (err) {
     if (err.message) {
-      if (err.message.startsWith('invalid words part')) {
+      if (err.message.startsWith('invalid words')) {
         return 'INCORRECT';
       }
-      if (err.message.startsWith('there should be 48 words')) {
+      if (err.message.startsWith('there should be 24 words')) {
         return 'WRONG_LENGTH';
       }
     }

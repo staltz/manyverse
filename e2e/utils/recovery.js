@@ -52,4 +52,6 @@ module.exports.words = [
   'off',
 ];
 
+module.exports.words24 = module.exports.words.slice(0, 24);
+
 module.exports.id = '@WOchhgXspSh0iyT+pjX6hrrR/v1j+p2uyiGOBEk+/Qw=.ed25519';

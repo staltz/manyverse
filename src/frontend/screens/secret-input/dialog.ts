@@ -75,6 +75,7 @@ export default function dialog(
         state.backendWords ===
         state.inputWords
           .split(' ')
+          .slice(0, 24)
           .map(s => s.trim().toLowerCase())
           .join(' '),
     )

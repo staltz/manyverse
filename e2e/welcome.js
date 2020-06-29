@@ -224,10 +224,10 @@ module.exports = function(driver, t) {
       'I see the Recovery Phrase Text Input in Secret Input screen',
     );
 
-    await secretInputField.keys(RECOVERY.words.join(' '));
-    t.pass('I type my 48 words into it');
+    await secretInputField.keys(RECOVERY.words24.join(' '));
+    t.pass('I type my 24 words into it');
     const f2 = await secretInputField.text();
-    t.equal(f2.split(' ').length, 48, 'Its text content now has 48 words');
+    t.equal(f2.split(' ').length, 24, 'Its text content now has 24 words');
 
     const confirmButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Confirm Recovery Phrase Button")',
