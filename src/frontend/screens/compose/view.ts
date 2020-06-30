@@ -247,8 +247,6 @@ export default function view(
     .filter(([prev, curr]) => !prev && !!curr)
     .mapTo(void 0);
 
-  const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
-
   return xs.combine(topBar$, miniState$).map(([topBar, state]) =>
     h(View, {style: styles.container}, [
       topBar,
@@ -257,7 +255,7 @@ export default function view(
         {
           style: styles.bodyContainer,
           enabled: true,
-          [behaviorProp]: 'padding',
+          ...Platform.select({ios: {behavior: 'padding' as const}}),
         },
         [
           h(View, {style: styles.leftSide}, [

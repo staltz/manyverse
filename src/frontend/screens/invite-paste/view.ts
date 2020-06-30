@@ -15,8 +15,6 @@ import {State} from './model';
 import {styles} from './styles';
 
 export default function view(state$: Stream<State>) {
-  const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
-
   return state$.map(state => {
     const acceptEnabled = state.content.length > 0;
 
@@ -38,7 +36,11 @@ export default function view(state$: Stream<State>) {
 
       h(
         KeyboardAvoidingView,
-        {style: styles.bodyContainer, enabled: true, [behaviorProp]: 'padding'},
+        {
+          style: styles.bodyContainer,
+          enabled: true,
+          ...Platform.select({ios: {behavior: 'padding' as const}}),
+        },
         [
           h(TextInput, {
             style: styles.contentInput,

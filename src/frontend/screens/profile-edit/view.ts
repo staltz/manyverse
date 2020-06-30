@@ -26,8 +26,6 @@ export default function view(state$: Stream<State>) {
   return state$.map(state => {
     const defaultName: string = state.about.name ?? '';
 
-    const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
-
     return h(View, {style: styles.container}, [
       h(TopBar, {sel: 'topbar', title: t('profile_edit.title')}),
 
@@ -73,7 +71,11 @@ export default function view(state$: Stream<State>) {
 
       h(
         KeyboardAvoidingView,
-        {style: styles.fields, enabled: true, [behaviorProp]: 'padding'},
+        {
+          style: styles.fields,
+          enabled: true,
+          ...Platform.select({ios: {behavior: 'padding' as const}}),
+        },
         [
           Platform.OS === 'ios'
             ? h(Button, {

@@ -173,9 +173,6 @@ export default function view(state$: Stream<State>, actions: Actions) {
         ]);
       }
 
-      const behaviorProp =
-        Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
-
       return h(View, {style: styles.container}, [
         topBar,
         h(
@@ -183,7 +180,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
           {
             enabled: state.keyboardVisible,
             style: styles.container,
-            [behaviorProp]: 'padding',
+            ...Platform.select({ios: {behavior: 'padding' as const}}),
           },
           [
             h(FullThread, {

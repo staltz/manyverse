@@ -82,8 +82,6 @@ export const styles = StyleSheet.create({
 });
 
 export default function view(state$: Stream<State>) {
-  const behaviorProp = Platform.OS === 'ios' ? 'behavior' : 'IGNOREbehavior';
-
   return state$.map(state =>
     h(View, {style: styles.screen}, [
       h(TopBar, {
@@ -95,7 +93,11 @@ export default function view(state$: Stream<State>) {
 
       h(
         KeyboardAvoidingView,
-        {style: styles.container, enabled: true, [behaviorProp]: 'padding'},
+        {
+          style: styles.container,
+          enabled: true,
+          ...Platform.select({ios: {behavior: 'padding' as const}}),
+        },
         [
           h(FlagSecure, [
             h(
