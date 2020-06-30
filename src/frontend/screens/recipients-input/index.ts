@@ -52,7 +52,7 @@ export function recipientsInput(sources: Sources): Sinks {
   const state$ = sources.state.stream;
   const vdom$ = view(state$);
   const actions = intent(sources.screen, sources.navigation, state$);
-  const reducer$ = model(sources.props, sources.ssb, actions);
+  const reducer$ = model(sources.props, state$, sources.ssb, actions);
   const command$ = navigation(actions, state$);
   const toast$ = actions.maxReached$.mapTo({
     type: 'show',

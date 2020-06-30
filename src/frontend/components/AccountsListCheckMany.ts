@@ -56,6 +56,13 @@ export const styles = StyleSheet.create({
     color: Palette.text,
     minWidth: 120,
   },
+
+  authorId: {
+    fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.textWeak,
+    minWidth: 120,
+  },
 });
 
 type AccountProps = {
@@ -105,6 +112,17 @@ class Account extends PureComponent<AccountProps> {
                 },
                 name ?? id,
               ),
+              !!name
+                ? h(
+                    Text,
+                    {
+                      numberOfLines: 1,
+                      ellipsizeMode: 'middle',
+                      style: styles.authorId,
+                    },
+                    id,
+                  )
+                : null,
             ]),
             isChecked
               ? h(Icon, {

@@ -5,9 +5,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import dropRepeats from 'xstream/extra/dropRepeats';
+import {FeedId} from 'ssb-typescript';
 import {PrivateThreadAndExtras} from '../../ssb/types';
 import {MentionSuggestion, SSBSource} from '../../drivers/ssb';
-import {FeedId} from 'ssb-typescript';
 import {Props} from '.';
 
 export type State = {
@@ -25,6 +26,7 @@ type Actions = {
 
 export default function model(
   props$: Stream<Props>,
+  state$: Stream<State>,
   ssbSource: SSBSource,
   actions: Actions,
 ) {
@@ -48,8 +50,11 @@ export default function model(
       },
   );
 
-  const updateMentionSuggestionsReducer$ = actions.updateQuery$
-    .startWith('')
+  const mentionQuery$ = state$
+    .map(state => state.mentionQuery)
+    .compose(dropRepeats());
+
+  const updateMentionSuggestionsReducer$ = mentionQuery$
     .map(query => ssbSource.getMentionSuggestions(query, []))
     .flatten()
     .map(
@@ -62,7 +67,12 @@ export default function model(
   const updateRecipientsReducer$ = actions.updateRecipients$.map(
     recipients =>
       function updateRecipientsReducer(prev: State): State {
-        return {...prev, recipients};
+        if (prev.recipients.length < recipients.length) {
+          // Added a new recipient, so clear the text input field
+          return {...prev, recipients, mentionQuery: ''};
+        } else {
+          return {...prev, recipients};
+        }
       },
   );
 
