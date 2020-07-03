@@ -98,6 +98,7 @@ export const styles = StyleSheet.create({
   bubbleLeft: {
     backgroundColor: Palette.backgroundText,
     borderColor: Palette.backgroundVoidStrong,
+    borderRadius: 10,
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Dimensions.verticalSpaceTiny,
     paddingTop: Dimensions.verticalSpaceTiny,
@@ -107,6 +108,7 @@ export const styles = StyleSheet.create({
   bubbleRight: {
     backgroundColor: Palette.backgroundBrandWeakest,
     borderColor: Palette.backgroundBrandWeaker,
+    borderRadius: 10,
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Dimensions.verticalSpaceTiny,
     paddingTop: Dimensions.verticalSpaceTiny,
@@ -212,11 +214,12 @@ function renderTime(props: any) {
 }
 
 function renderDay(props: any) {
-  const {currentMessage, nextMessage} = props;
+  const {previousMessage, currentMessage} = props;
   const marginBottom =
-    currentMessage.user._id !== nextMessage?.user?._id
+    previousMessage?.user?._id === currentMessage.user._id
       ? 0
       : -Dimensions.verticalSpaceBig;
+
   return h(Day, {textStyle: {...styles.time, marginBottom}, ...props});
 }
 
