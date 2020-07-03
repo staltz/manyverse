@@ -706,7 +706,7 @@
     },
     "fields": {
       "words_input": {
-        "placeholder": "24-word (or 48-word) recovery phrase",
+        "placeholder": "24-woord herstel zin",
         "accessibility_label": "Herstel zin tekstinvoer"
       }
     },

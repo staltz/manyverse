@@ -706,7 +706,7 @@
     },
     "fields": {
       "words_input": {
-        "placeholder": "24-word (or 48-word) recovery phrase",
+        "placeholder": "24-Wort-Wiederherstellungsphrase",
         "accessibility_label": "Recovery Phrase Text Input"
       }
     },
@@ -729,11 +729,11 @@
         "incorrect": {
           "title": "Falsch",
           "description": {
-            "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
+            "try_again": "Versuche es noch einmal, indem Du Deine Wiederherstellungsphrase aus 24, von Leerzeichen getrennten, Worten eingibst.",
             "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
-            "too_short": "There are some words missing. Your recovery phrase should be 24 words long.",
+            "too_short": "Es fehlen Wörter. Deine Wiederherstellungsphrase sollte 24 Wörter lang sein.",
             "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
-            "wrong_length": "Your recovery phrase should be exactly 24 words long.",
+            "wrong_length": "Deine Wiederherstellungsphrase sollte genau 24 Wörter lang sein.",
             "generic": "Die angegebene Wiederherstellungsphrase sieht nicht aus als wäre sie von Manyverse generiert."
           }
         }
