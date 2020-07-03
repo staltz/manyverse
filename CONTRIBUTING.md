@@ -403,6 +403,8 @@ Follow this guideline strictly.
 First make an Android release, then an iOS release.
 
 - Run `npm run release-android` on a computer that can build Android
+- (Unfortunately!) run `cd android` and `./gradlew assembleRelease` to rebuild it because apparently there's some issue where the previous step didn't use the correct signing keystores (we should fix this eventually, so that only the first step is needed)
+- Check that the signing certificates are correct, running `jarsigner -verify -verbose:summary -certs app/build/outputs/apk/indie/release/app-indie-release.apk`
 - Deploy to Dat Installer
   - `cd ../dat-release-latest` and `dat sync`
 - Install new version through Dat Installer and make sure it works
@@ -414,7 +416,7 @@ Then make an iOS release:
 
 - `git pull origin master` on a computer that can build iOS
 - Run `npm run release-ios`
-- Once done, it should an _Organizer_ window where you should upload the new version to App Store
+- Once done, it should open an _Organizer_ window where you must upload the new version to App Store
 - Get the folder `e2e/apple-app-store-demo` and make it your `~/.ssb` (beware to backup any existing `~/.ssb` before)
 - Open a desktop SSB client such as Patchwork to use that `~/.ssb`
 - Create a new [ssb-room](https://github.com/staltz/ssb-room) server
