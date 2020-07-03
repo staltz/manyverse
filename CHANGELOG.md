@@ -6,6 +6,23 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2007.3-beta
+
+* (iOS) Fix tab bar height on iPhone X and later ([see details](https://gitlab.com/staltz/manyverse/commit/74a53176603c357b3889b5180631399fefc46438))
+* Add German translation ([see details](https://gitlab.com/staltz/manyverse/commit/44746747669e682e5985b54161bd49049bcedb58))
+* Bug fix: blobs purging settings should work ([see details](https://gitlab.com/staltz/manyverse/commit/8e44856ec72da05ad7bf5079c7fcfa5c2e833b0d))
+* Bug fix: correct heart emoji in the emoji picker ([see details](https://gitlab.com/staltz/manyverse/commit/6a8ebe87be2f4a439cf204b080312452190664ca))
+* Bug fix: margin between header and Thread posts ([see details](https://gitlab.com/staltz/manyverse/commit/f7c3eccdead788a1f809fe8d0d0aab96cbadc1f5)), closes [#1033](https://gitlab.com/staltz/manyverse/issues/1033)
+* Feature: shorten recovery phrase to only 24 words ([see details](https://gitlab.com/staltz/manyverse/commit/523bf4d3ca247afa0289a25b66b26c484d2faee6))
+* Improve loading time of own avatar in several screens ([see details](https://gitlab.com/staltz/manyverse/commit/40dd5c01555731da79dd84240ad7e3e3c8658099))
+* Improve looks of private chat message bubbles ([see details](https://gitlab.com/staltz/manyverse/commit/5fb0d0dc6b1fe609d473e988d9cb3b95cfe26d14))
+* Improve spacing around Private chat bubbles ([see details](https://gitlab.com/staltz/manyverse/commit/fb690775e89d87bccc4d1a9d2850e6bb3588681f))
+* Improve the Recipients Input screen for private conversations ([see details](https://gitlab.com/staltz/manyverse/commit/48ad4c36e0bb8adb2bad8481a4dbb2e92a8bdf4c))
+* Improve typography in Invite screens ([see details](https://gitlab.com/staltz/manyverse/commit/f6ba8baab1880d77f07b450ca9306eca0e6a5bc3))
+* Improve typography in Private messages ([see details](https://gitlab.com/staltz/manyverse/commit/16b075ee8dc72fbf74270a8aa4520c6f819e87ee))
+* Improve typography, particularly line heights ([see details](https://gitlab.com/staltz/manyverse/commit/254c82ebde496c3868e04019aa46509e68bda810))
+* Update backers in Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/982d46ab8426d129fd87944624d2aefc8413d93f))
+
 ## 0.2006.5-beta
 
 * (Android) Indicate F-Droid or Dat Installer in the version name ([see details](https://gitlab.com/staltz/manyverse/commit/61e6142e2c494930cb6a5e1ebc51f139c545da5b))
