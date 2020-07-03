@@ -151,7 +151,7 @@
     },
     "setup_account": {
       "title": "Er dette din første gang her?",
-      "description": "Ønsker du at åbne en ny konto, eller vil du genskabe din gamle konto med en gendannelsessætning på 48 ord?",
+      "description": "Ønsker du at åbne en ny konto, eller vil du genskabe din gamle konto med en gendannelsessætning på 24 ord?",
       "call_to_action": {
         "create": {
           "label": "Create account",
@@ -465,7 +465,7 @@
       "description": {
         "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
         "2_bold": "recovery phrase",
-        "3_normal": ". This is a sequence of 48 words that unlocks your account. ",
+        "3_normal": ". This is a sequence of 24 words that unlocks your account. ",
         "4_bold": "Keep it confidential",
         "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
         "6_bold": "Take responsibility",
@@ -486,6 +486,7 @@
   },
   "conversation": {
     "title": "Conversation",
+    "placeholder": "Type a message...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Show Recipients"
@@ -705,7 +706,7 @@
     },
     "fields": {
       "words_input": {
-        "placeholder": "48-word recovery phrase",
+        "placeholder": "24-word (or 48-word) recovery phrase",
         "accessibility_label": "Recovery Phrase Text Input"
       }
     },
@@ -717,7 +718,7 @@
         },
         "incorrect": {
           "title": "Forkert",
-          "description": "Try again: write down your recovery phrase consisting of 48 words separated by whitespace."
+          "description": "Try again: write down your recovery phrase consisting of 24 words separated by whitespace."
         }
       },
       "restore": {
@@ -728,11 +729,11 @@
         "incorrect": {
           "title": "Ukorrekt",
           "description": {
-            "try_again": "Try again by inserting your recovery phrase consisting of 48 words separated by whitespace.",
+            "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
             "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
-            "too_short": "Der mangler nogle ord. Din gendannelsessætning bør indeholde 48 ord.",
-            "too_long": "Der er for mange ord. Din gendannelsessætning bør indeholde nøjagtig 48 ord.",
-            "wrong_length": "Din gendannelsessætning bør indeholde nøjagtig 48 ord.",
+            "too_short": "Der mangler nogle ord. Din gendannelsessætning bør indeholde 24 ord.",
+            "too_long": "Der er for mange ord. Din gendannelsessætning bør indeholde nøjagtig 24 ord.",
+            "wrong_length": "Din gendannelsessætning bør indeholde nøjagtig 24 ord.",
             "generic": "Den gendannelsessætning du gav ser ikke ud til at svare til en gyldig identitet lavet af Manyverse."
           }
         }
@@ -783,7 +784,7 @@
       "title": "Data & Storage",
       "backup": {
         "title": "Backup",
-        "subtitle": "View your 48-word recovery phrase",
+        "subtitle": "View your 24-word recovery phrase",
         "accessibility_label": "Back Up My Account"
       },
       "blobs_storage": {

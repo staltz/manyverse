@@ -151,7 +151,7 @@
     },
     "setup_account": {
       "title": "Neuling oder Wiederkehrer?",
-      "description": "Möchtest Du ein neues Konto erstellen oder ein vorheriges Konto aus einer 48-Wort-Wiederherstellungsphrase wiederherstellen?",
+      "description": "Möchtest Du ein neues Konto erstellen oder ein vorheriges Konto aus einer 24-Wort-Wiederherstellungsphrase wiederherstellen?",
       "call_to_action": {
         "create": {
           "label": "Konto erstellen",
@@ -465,7 +465,7 @@
       "description": {
         "1_normal": "Der \"Fingerabdruck\" Deines Kontos besteht aus einer höchst einzigartigen ",
         "2_bold": "Wiederherstellungsphrase",
-        "3_normal": ". Dies ist eine Sequenz von 48 Wörtern, die Dein Konto entsperren kann. ",
+        "3_normal": ". Dies ist eine Sequenz von 24 Wörtern, die Dein Konto entsperren kann. ",
         "4_bold": "Halte sie geheim",
         "5_normal": ", denn falls jemand anderes Zugriff darauf hat, kann er die Kontrolle über Dein Konto übernehmen. ",
         "6_bold": "Übernehme Verantwortung",
@@ -486,6 +486,7 @@
   },
   "conversation": {
     "title": "Unterhaltung",
+    "placeholder": "Type a message...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Empfänger anzeigen"
@@ -705,7 +706,7 @@
     },
     "fields": {
       "words_input": {
-        "placeholder": "48-Wort-Wiederherstellungsphrase",
+        "placeholder": "24-word (or 48-word) recovery phrase",
         "accessibility_label": "Recovery Phrase Text Input"
       }
     },
@@ -717,7 +718,7 @@
         },
         "incorrect": {
           "title": "Falsch",
-          "description": "Try again: write down your recovery phrase consisting of 48 words separated by whitespace."
+          "description": "Try again: write down your recovery phrase consisting of 24 words separated by whitespace."
         }
       },
       "restore": {
@@ -728,11 +729,11 @@
         "incorrect": {
           "title": "Falsch",
           "description": {
-            "try_again": "Versuche es noch einmal, indem Du Deine Wiederherstellungsphrase aus 48, von Leerzeichen getrennten, Worten eingibst.",
+            "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
             "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
-            "too_short": "Es fehlen Wörter. Deine Wiederherstellungsphrase sollte 48 Wörter lang sein.",
-            "too_long": "There are too many words. Your recovery phrase should be exactly 48 words long.",
-            "wrong_length": "Deine Wiederherstellungsphrase sollte genau 48 Wörter lang sein.",
+            "too_short": "There are some words missing. Your recovery phrase should be 24 words long.",
+            "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
+            "wrong_length": "Your recovery phrase should be exactly 24 words long.",
             "generic": "Die angegebene Wiederherstellungsphrase sieht nicht aus als wäre sie von Manyverse generiert."
           }
         }
@@ -783,7 +784,7 @@
       "title": "Daten & Speicher",
       "backup": {
         "title": "Backup",
-        "subtitle": "48-Wort-Wiederherstellungsphrase anzeigen",
+        "subtitle": "24-Wort-Wiederherstellungsphrase anzeigen",
         "accessibility_label": "Mein Konto sichern"
       },
       "blobs_storage": {

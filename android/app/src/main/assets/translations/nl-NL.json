@@ -151,7 +151,7 @@
     },
     "setup_account": {
       "title": "Nieuw hier?",
-      "description": "Wil je een nieuw account aanmaken, of wil je je oude account herstellen met een 48-word herstel zin?",
+      "description": "Wil je een nieuw account aanmaken, of wil je je oude account herstellen met een 24-word herstel zin?",
       "call_to_action": {
         "create": {
           "label": "Account aanmaken",
@@ -465,7 +465,7 @@
       "description": {
         "1_normal": "De \"vingerafdruk\" van je account bestaat uit een zeer uniek ",
         "2_bold": "herstelzin",
-        "3_normal": ". Dit is een reeks van 48 woorden die je account deblokkeren. ",
+        "3_normal": ". Dit is een reeks van 24 woorden die je account deblokkeren. ",
         "4_bold": "Hou het geheim",
         "5_normal": ", want als iemand anders er toegang toe heeft, dan kan men de controle over je account overnemen. ",
         "6_bold": "Neem verantwoordelijkheid",
@@ -486,6 +486,7 @@
   },
   "conversation": {
     "title": "Conversatie",
+    "placeholder": "Type a message...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Toon Ontvangers"
@@ -705,7 +706,7 @@
     },
     "fields": {
       "words_input": {
-        "placeholder": "48-woord herstel zin",
+        "placeholder": "24-word (or 48-word) recovery phrase",
         "accessibility_label": "Herstel zin tekstinvoer"
       }
     },
@@ -717,7 +718,7 @@
         },
         "incorrect": {
           "title": "Verkeerd",
-          "description": "Probeer opnieuw: schrijf uw herstel zin op bestaande uit 48 woorden gescheiden door een spatie."
+          "description": "Probeer opnieuw: schrijf uw herstel zin op bestaande uit 24 woorden gescheiden door een spatie."
         }
       },
       "restore": {
@@ -728,11 +729,11 @@
         "incorrect": {
           "title": "Verkeerd",
           "description": {
-            "try_again": "Probeer het opnieuw door uw herstel zin in te voegen bestaande uit 48 woorden gescheiden door een spatie.",
+            "try_again": "Probeer het opnieuw door uw herstel zin in te voegen bestaande uit 24 woorden gescheiden door een spatie.",
             "overwrite_risk": "Er is al een account in de app, we kunnen deze niet overschrijven. Als je zeker weet dat je Manyverse wilt overschrijven, verwijderen en opnieuw installeren om je account te herstellen vanuit een schone staat.",
-            "too_short": "Er ontbreken enkele woorden. Uw herstelzin moet 48 woorden lang zijn.",
-            "too_long": "Er zijn te veel woorden. Uw herstelzin moet precies 48 woorden lang zijn.",
-            "wrong_length": "Uw herstelzin moet precies 48 woorden lang zijn.",
+            "too_short": "Er ontbreken enkele woorden. Uw herstelzin moet 24 woorden lang zijn.",
+            "too_long": "Er zijn te veel woorden. Uw herstelzin moet precies 24 woorden lang zijn.",
+            "wrong_length": "Uw herstelzin moet precies 24 woorden lang zijn.",
             "generic": "De herstel zin die je hebt opgegeven lijkt niet op een geldige identiteit gegenereerd door Manyverse."
           }
         }
@@ -783,7 +784,7 @@
       "title": "Gegevens & opslag",
       "backup": {
         "title": "Back-up",
-        "subtitle": "Bekijk uw 48-woord herstelzin",
+        "subtitle": "Bekijk uw 24-woord herstelzin",
         "accessibility_label": "Back-up maken van mijn account"
       },
       "blobs_storage": {

@@ -151,7 +151,7 @@
     },
     "setup_account": {
       "title": "¿Es tu primera vez?",
-      "description": "¿Quieres crear una nueva cuenta, o te gustaría restaurar tu anterior cuenta a partir de una frase de recuperación de 48 palabras?",
+      "description": "¿Quieres crear una nueva cuenta, o te gustaría restaurar tu anterior cuenta a partir de una frase de recuperación de 24 palabras?",
       "call_to_action": {
         "create": {
           "label": "Crear una cuenta",
@@ -465,7 +465,7 @@
       "description": {
         "1_normal": "La 'huella dactilar' de tu cuenta está compuesta por una irrepetible ",
         "2_bold": "frase de recuperación",
-        "3_normal": ". Esta es una secuencia de 48 palabras que desbloquea tu cuenta. ",
+        "3_normal": ". Esta es una secuencia de 24 palabras que desbloquea tu cuenta. ",
         "4_bold": "Mantenla en privado",
         "5_normal": ", porque si alguna otra persona tiene acceso a ella, podría tomar el control de tu cuenta. ",
         "6_bold": "¡Asume la responsabilidad",
@@ -486,6 +486,7 @@
   },
   "conversation": {
     "title": "Conversación",
+    "placeholder": "Type a message...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Mostrar Destinatarios"
@@ -705,7 +706,7 @@
     },
     "fields": {
       "words_input": {
-        "placeholder": "Frase de recuperación de 48 palabras",
+        "placeholder": "24-word (or 48-word) recovery phrase",
         "accessibility_label": "Entrada de texto de frase de recuperación"
       }
     },
@@ -717,7 +718,7 @@
         },
         "incorrect": {
           "title": "Incorrecto",
-          "description": "Inténtalo de nuevo: escribe tu frase de recuperación consistente en 48 palabras separadas por espacios en blanco."
+          "description": "Inténtalo de nuevo: escribe tu frase de recuperación consistente en 24 palabras separadas por espacios en blanco."
         }
       },
       "restore": {
@@ -728,11 +729,11 @@
         "incorrect": {
           "title": "Incorrecto",
           "description": {
-            "try_again": "Inténtalo de nuevo: escribe tu frase de recuperación consistente en 48 palabras separadas por espacios en blanco.",
+            "try_again": "Inténtalo de nuevo: escribe tu frase de recuperación consistente en 24 palabras separadas por espacios en blanco.",
             "overwrite_risk": "Ya hay una cuenta en la aplicación, no podemos sobrescribirla. Si estás seguro de que la quieres descartar, desinstala y reinstala Manyverse para recuperar tu cuenta desde un estado limpio.",
-            "too_short": "Faltan algunas palabras. La frase de recuperación debe tener 48 palabras.",
-            "too_long": "Hay demasiadas palabras. La frase de recuperación debe tener exactamente 48 palabras.",
-            "wrong_length": "Tu frase de recuperación debería ser de 48 palabras exactamente.",
+            "too_short": "Faltan algunas palabras. La frase de recuperación debe tener 24 palabras.",
+            "too_long": "Hay demasiadas palabras. La frase de recuperación debe tener exactamente 24 palabras.",
+            "wrong_length": "Tu frase de recuperación debería ser de 24 palabras exactamente.",
             "generic": "La frase de recuperación que introdujiste no aparenta ser una identidad validad generada por Manyverse."
           }
         }
@@ -783,7 +784,7 @@
       "title": "Datos y Almacenamiento",
       "backup": {
         "title": "Copia de Seguridad",
-        "subtitle": "Mostrar tu frase de recuperación de 48 palabras",
+        "subtitle": "Mostrar tu frase de recuperación de 24 palabras",
         "accessibility_label": "Hacer copia de seguridad de mi cuenta"
       },
       "blobs_storage": {

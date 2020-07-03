@@ -151,7 +151,7 @@
     },
     "setup_account": {
       "title": "Est-ce votre première fois ?",
-      "description": "Voulez-vous créer un nouveau compte ou restaurer votre ancien compte à partir de la phrase de récupération de 48 mots ?",
+      "description": "Voulez-vous créer un nouveau compte ou restaurer votre ancien compte à partir de la phrase de récupération de 24 mots ?",
       "call_to_action": {
         "create": {
           "label": "Créer un compte",
@@ -465,7 +465,7 @@
       "description": {
         "1_normal": "L'\"empreinte digitale\" de votre compte est constituée d'un ",
         "2_bold": "phrase de récupération",
-        "3_normal": ". Il s'agit d'une séquence de 48 mots qui déverrouille votre compte. ",
+        "3_normal": ". Il s'agit d'une séquence de 24 mots qui déverrouille votre compte. ",
         "4_bold": "Gardez-le confidentiel",
         "5_normal": ", car si quelqu'un d'autre y a accès, il peut prendre le contrôle de votre compte. ",
         "6_bold": "Soyez responsable",
@@ -486,6 +486,7 @@
   },
   "conversation": {
     "title": "Conversation",
+    "placeholder": "Type a message...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Voir les destinataires"
@@ -705,7 +706,7 @@
     },
     "fields": {
       "words_input": {
-        "placeholder": "Phrase de récupération de 48 mots",
+        "placeholder": "24-word (or 48-word) recovery phrase",
         "accessibility_label": "Saisie de la phrase de récupération"
       }
     },
@@ -717,7 +718,7 @@
         },
         "incorrect": {
           "title": "Mauvais",
-          "description": "Réessayez : écrivez votre phrase de récupération composée de 48 mots séparés par des espaces."
+          "description": "Réessayez : écrivez votre phrase de récupération composée de 24 mots séparés par des espaces."
         }
       },
       "restore": {
@@ -728,11 +729,11 @@
         "incorrect": {
           "title": "Mauvais",
           "description": {
-            "try_again": "Réessayez : écrivez votre phrase de récupération composée de 48 mots séparés par des espaces.",
+            "try_again": "Réessayez : écrivez votre phrase de récupération composée de 24 mots séparés par des espaces.",
             "overwrite_risk": "Il y a déjà un compte dans l'application, nous ne pouvons pas l'écraser. Si vous êtes sûr de vouloir le remplacer, désinstaller et réinstaller Manyverse pour récupérer votre compte dans un état propre.",
-            "too_short": "Il manque quelques mots. Votre phrase de récupération devrait être de 48 mots.",
-            "too_long": "Il y a trop de mots. Votre phrase de récupération doit contenir exactement 48 mots.",
-            "wrong_length": "Votre phrase de récupération devrait contenir exactement 48 mots.",
+            "too_short": "Il manque quelques mots. Votre phrase de récupération devrait être de 24 mots.",
+            "too_long": "Il y a trop de mots. Votre phrase de récupération doit contenir exactement 24 mots.",
+            "wrong_length": "Votre phrase de récupération devrait contenir exactement 24 mots.",
             "generic": "La phrase de récupération que vous avez donnée ne ressemble pas à une identité valide générée par Manyverse."
           }
         }
@@ -783,7 +784,7 @@
       "title": "Données & Stockage",
       "backup": {
         "title": "Sauvegarder",
-        "subtitle": "Afficher votre phrase de récupération de 48 mots",
+        "subtitle": "Afficher votre phrase de récupération de 24 mots",
         "accessibility_label": "Sauvegarder Mon Compte"
       },
       "blobs_storage": {
