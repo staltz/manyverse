@@ -1,6 +1,8 @@
 /* Any copyright is dedicated to the Public Domain.
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
+const RECOVERY = require('./utils/recovery');
+
 module.exports = function(driver, t) {
   t.test('Connections tab can create DHT invites', async function(t) {
     const connectionsTabButton = await driver.elementByAndroidUIAutomator(
@@ -38,9 +40,10 @@ module.exports = function(driver, t) {
     t.ok(createInviteButton, 'I see the Create Invite Button');
     await createInviteButton.click();
     t.pass('I tap it');
+    await driver.sleep(2000);
 
     const inviteCode = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Invite Code")',
+      `new UiSelector().textContains("${RECOVERY.id}")`,
       6000,
     );
     const inviteCodeText = await inviteCode.text();
