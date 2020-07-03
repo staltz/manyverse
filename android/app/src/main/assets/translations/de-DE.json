@@ -26,64 +26,64 @@
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "Vor 1 Jahr",
+          "other": "Vor {{count}} Jahren"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "Vor 1 Monat",
+          "other": "Vor {{count}} Monaten"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "Vor 1 Woche",
+          "other": "Vor {{count}} Wochen"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "Vor 1 Jahr",
+          "other": "Vor {{count}} Tagen"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "Vor 1 Stunde",
+          "other": "Vor {{count}} Stunden"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "Vor 1 Minute",
+          "other": "Vor {{count}} Minuten"
         },
-        "now": "Just now"
+        "now": "Gerade eben"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "In 1 Jahr",
+          "other": "In {{count}} Jahren"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "In 1 Monat",
+          "other": "In {{count}} Monaten"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "In 1 Woche",
+          "other": "In {{count}} Wochen"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "In 1 Tag",
+          "other": "In {{count}} Tagen"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "In 1 Stunde",
+          "other": "In {{count}} Stunden"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "In 1 Minute",
+          "other": "In {{count}} Minuten"
         },
-        "now": "Very soon"
+        "now": "Bald"
       }
     }
   },
   "welcome": {
     "learn_more": "Weitere Informationen",
     "overview": {
-      "title": "Willkommen in Manyverse!",
+      "title": "Willkommen bei Manyverse!",
       "description": "Ein soziales Netzwerk kann einfach, neutral, nicht-kommerziell und auf Vertrauen zwischen Freund:innen aufgebaut sein. Dafür steht Manyverse und wir hoffen auch Du findest im Manyverse Dein digitales zu Hause. All das wird möglich gemacht durch das neue SSB Protokoll."
     },
     "off_the_grid": {
@@ -172,18 +172,18 @@
       "connections": "Verbindungen"
     },
     "tab_footers": {
-      "public": "Public",
-      "private": "Private",
+      "public": "Öffentlich",
+      "private": "Privat",
       "connections": "Verbindungen"
     },
     "loading": "Lädt...",
     "building_indexes": "Datenbankindizes werden erstellt...\nDies kann einige Minuten dauern",
     "tabs": {
       "public": {
-        "accessibility_label": "Öffentlich Tab Schaltfläche"
+        "accessibility_label": "Öffentlich Timeline Taste"
       },
       "private": {
-        "accessibility_label": "Privat Tab Schaltfläche"
+        "accessibility_label": "Private Timeline Taste"
       },
       "connections": {
         "accessibility_label": "Verbindungen Tab Schaltfläche"
@@ -314,15 +314,15 @@
       "open_profile": {
         "label": "Profil öffnen",
         "accessibility_label": {
-          "connected": "Open profile screen for this connected peer",
-          "staged": "Open profile screen for this suggested connection"
+          "connected": "Profil für diesen verbundenen Peer öffnen",
+          "staged": "Profil für diese vorgeschlagene Verbindung öffnen"
         }
       },
       "connect": {
         "label": "Verbinden",
         "accessibility_label": {
-          "staged_peer": "Connect to this suggested peer",
-          "staged_room": "Connect to this suggested room"
+          "staged_peer": "Mit vorgeschlagenem Peer verbinden",
+          "staged_room": "Mit vorgeschlagenem Raum verbinden"
         }
       },
       "follow_connect": {
@@ -384,8 +384,8 @@
       },
       "room": {
         "title": "Einladungscode für einen SSB Raum",
-        "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
-        "dialog_note": "Gib diesen Einladungscode einem Freund"
+        "message": "Schließe dich mir im SSB-Raum {{name}} an, indem du diesen Einladungscode in Manyverse einfügst:",
+        "dialog_note": "Gib diesen Einladungscode eine:r Freund:in"
       }
     }
   },
@@ -393,47 +393,47 @@
     "call_to_action": {
       "publish_new_thread": {
         "label": "Veröffentlichen",
-        "accessibility_label": "Publish Message Button"
+        "accessibility_label": "Veröffentlichen-Taste"
       },
       "reply_to_thread": {
         "label": "Antworten",
-        "accessibility_label": "Publish Reply Button"
+        "accessibility_label": "Antwort-Taste"
       },
       "preview": {
         "accessibility_label": "Vorschau Schaltfläche"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Schließen-Taste"
       },
       "open_camera": {
-        "accessibility_label": "Open Camera Button"
+        "accessibility_label": "Kamerataste"
       },
       "add_picture": {
-        "accessibility_label": "Add Picture Button"
+        "accessibility_label": "Bild öffnen Taste"
       }
     },
     "dialogs": {
       "content_warning": {
         "title": "Inhaltswarnung",
-        "description": "If your post contains sensitive topics, please add a short note to alert people of them."
+        "description": "Sollte dein Beitrag Auslösereize enthalten, füge bitte einen kurzen Hinweis (Triggerwarnung) hinzu, um andere davor zu warnen."
       },
       "image_caption": {
         "title": "Überschrift",
-        "description": "Add some description of this picture, particularly for the visually impaired."
+        "description": "Füge eine Beschreibung dieses Bildes hinzu, insbesondere für Sehbehinderte."
       },
       "save_prompt": {
         "title": "Entwurf speichern?"
       }
     },
     "content_warning_initials": {
-      "label": "CW",
-      "accessibility_label": "Content Warning Button"
+      "label": "IW",
+      "accessibility_label": "Inhaltswarnung Taste"
     },
     "mention_field": {
-      "accessibility_label": "Mention Account Text Input"
+      "accessibility_label": "Accounterwähnung Texteingabe"
     },
     "text_field": {
-      "placeholder": "Write a public message",
+      "placeholder": "Eine öffentliche Nachricht schreiben",
       "accessibility_label": "Compose Text Input"
     }
   },
@@ -447,7 +447,7 @@
       "description": {
         "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
         "2_bold": "crowd backup",
-        "3_normal": ". You only need to ",
+        "3_normal": ". Du musst nur ",
         "4_bold": "synchronisiere mit zuverlässigen Freund:innen",
         "5_normal": " oder anderen Geräten in Deinem Besitz. Mehr ",
         "6_bold": "ist nicht zu tun",
@@ -669,13 +669,13 @@
     "call_to_action": {
       "proceed": {
         "label": "Weiter",
-        "accessibility_label": "Next Button"
+        "accessibility_label": "Weiter Taste"
       }
     },
     "fields": {
       "mention_input": {
         "placeholder": "Suche nach Personen zum Hinzufügen",
-        "accessibility_label": "Mention Account Text Input"
+        "accessibility_label": "Accounterwähnung Texteingabe"
       }
     },
     "empty": {
@@ -690,8 +690,8 @@
   },
   "secret_input": {
     "practice": {
-      "title": "Practice",
-      "header": "Repeat it to confirm it is correct:"
+      "title": "Üben",
+      "header": "Wiederholen um zu bestätigen, dass es korrekt ist:"
     },
     "restore": {
       "title": "Konto wiederherstellen"
@@ -700,7 +700,7 @@
     "call_to_action": {
       "confirm": {
         "label": "Bestätigen",
-        "accessibility_label": "Confirm Recovery Phrase Button"
+        "accessibility_label": "Wiederherstellungsphrase bestätigen Taste"
       }
     },
     "fields": {
@@ -783,7 +783,7 @@
       "title": "Daten & Speicher",
       "backup": {
         "title": "Backup",
-        "subtitle": "View your 48-word recovery phrase",
+        "subtitle": "48-Wort-Wiederherstellungsphrase anzeigen",
         "accessibility_label": "Mein Konto sichern"
       },
       "blobs_storage": {
@@ -796,7 +796,7 @@
     "troubleshooting": {
       "title": "Fehlerbehebung",
       "bug_report": {
-        "title": "Email bug report",
+        "title": "Fehlerbericht per E-Mail",
         "accessibility_label": "Fehlerbericht als E-Mail versenden"
       },
       "detailed_logs": {
@@ -878,7 +878,7 @@
         "accessibility_label": "Reaktionen anzeigen"
       },
       "add_reaction": {
-        "accessibility_label": "Add Reaction Button"
+        "accessibility_label": "Reaktions-Taste"
       },
       "reply": {
         "accessibility_label": "Antwort Schaltfläche"
@@ -893,8 +893,8 @@
       "copy_msg_id": "Cypherlink kopieren",
       "view_raw": "Rohnachricht anzeigen",
       "read_more": {
-        "label": "Read more",
-        "accessibility_label": "Read more content in this thread"
+        "label": "Mehr lesen",
+        "accessibility_label": "Mehr in diesem Thema lesen"
       }
     },
     "toast": {
@@ -921,7 +921,7 @@
       }
     },
     "content_warning": {
-      "title": "Content Warning",
+      "title": "Inhaltswarnung",
       "call_to_action": {
         "hide": "Verstecken",
         "show": "Anzeigen"

@@ -504,7 +504,7 @@
     "licensed": "Licensed {{license1}} and {{license2}}"
   },
   "dialog_thanks": {
-    "title": "Thank you!",
+    "title": "Baie dankie!",
     "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
   },
   "drawer": {

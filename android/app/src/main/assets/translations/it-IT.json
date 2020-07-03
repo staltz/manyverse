@@ -314,8 +314,8 @@
       "open_profile": {
         "label": "Apri il profilo",
         "accessibility_label": {
-          "connected": "Open profile screen for this connected peer",
-          "staged": "Open profile screen for this suggested connection"
+          "connected": "Apri la schermata del profilo per questo nodo connesso",
+          "staged": "Apri la schermata del profilo per questa connessione suggerita"
         }
       },
       "connect": {

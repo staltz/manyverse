@@ -847,7 +847,7 @@
         "accessibility_label": "Entrada de Texto de la Respuesta"
       }
     },
-    "loading_replies": "Loading replies...",
+    "loading_replies": "Cargando respuestas...",
     "empty": {
       "missing": {
         "title": "Faltan datos",
@@ -878,7 +878,7 @@
         "accessibility_label": "Mostrar Reacciones"
       },
       "add_reaction": {
-        "accessibility_label": "Add Reaction Button"
+        "accessibility_label": "Añadir botón de reacción"
       },
       "reply": {
         "accessibility_label": "Botón Responder"
@@ -894,7 +894,7 @@
       "view_raw": "Ver mensaje en crudo",
       "read_more": {
         "label": "Leer más",
-        "accessibility_label": "Read more content in this thread"
+        "accessibility_label": "Leer más contenido en este hilo"
       }
     },
     "toast": {
@@ -921,7 +921,7 @@
       }
     },
     "content_warning": {
-      "title": "Content Warning",
+      "title": "Advertencia de contenido",
       "call_to_action": {
         "hide": "Ocultar",
         "show": "Ver"
