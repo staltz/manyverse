@@ -16,7 +16,7 @@ You can think of this app as a diary app, you can write posts but when published
 
 1. Go through the welcome screen until the end
 2. Choose "Restore account"
-3. Type in the following 48 words
+3. Type in the following 24 words
 
 `% JANE's RECOVERY WORDS %`
 
