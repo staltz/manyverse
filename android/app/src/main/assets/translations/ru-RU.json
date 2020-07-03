@@ -706,7 +706,7 @@
     },
     "fields": {
       "words_input": {
-        "placeholder": "24-word (or 48-word) recovery phrase",
+        "placeholder": "Ключевая фраза восстановления из 24 слов",
         "accessibility_label": "текстовое поле \"Фраза восстановления\""
       }
     },

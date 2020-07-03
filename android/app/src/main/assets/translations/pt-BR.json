@@ -706,7 +706,7 @@
     },
     "fields": {
       "words_input": {
-        "placeholder": "24-word (or 48-word) recovery phrase",
+        "placeholder": "Frase de recuperação com 48 palavras (ou 24 palavras)",
         "accessibility_label": "Entrada de Texto da Frase de Recuperação"
       }
     },
