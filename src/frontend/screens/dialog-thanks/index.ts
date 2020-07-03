@@ -18,7 +18,7 @@ const top5backers = [
   'Audrey Tang',
   'DC Posch',
   'Andrew Lewman',
-  'Jean-Baptiste Giraudeau',
+  'Irakli Gozalishvili',
 ];
 
 export type Sources = {
