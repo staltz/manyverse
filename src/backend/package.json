@@ -61,7 +61,7 @@
     "utp-native-nodejs-mobile": "2.1.3-1"
   },
   "optionalDependencies": {
-    "electron": "~6.0.10"
+    "electron": "~7.2.4"
   },
   "devDependencies": {
     "license-ls": "~1.4.1",
