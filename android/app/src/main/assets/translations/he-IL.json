@@ -103,7 +103,7 @@
           "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
           "2_bold": "Wi-Fi",
           "3_normal": " or exchange",
-          "4_bold": "P2P invites",
+          "4_bold": "הזמנות P2P",
           "5_normal": ". To find new people on the internet, look for an invite code to a ",
           "6_bold": "pub server",
           "7_normal": " or a ",
@@ -114,9 +114,9 @@
           "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
           "2_bold": "Wi-Fi",
           "3_normal": ", use ",
-          "4_bold": "Bluetooth sync",
+          "4_bold": "סינכרון בלוטוס",
           "5_normal": ", or exchange ",
-          "6_bold": "P2P invites",
+          "6_bold": "הזמנות P2P",
           "7_normal": ". To find new people on the internet, look for an invite code to a ",
           "8_bold": "pub server",
           "9_normal": " or a ",
@@ -129,7 +129,7 @@
       "title": "Shared moderation",
       "description": {
         "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
+        "2_bold": "חסימת חשבונות",
         "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
       }
     },
@@ -137,29 +137,29 @@
       "title": "Permanence",
       "description": {
         "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
+        "2_bold": "בלתי אפשרי למחוק",
         "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "בבניה!",
       "description": {
-        "1_normal": "Manyverse is ",
+        "1_normal": "Manyverse זה ",
         "2_bold": "beta-quality software",
         "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
+      "title": "זאת הפעם הראשונה שלך?",
       "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "צור חשבון",
+          "accessibility_label": "כפתור צור חשבון"
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "שחזר חשבון",
+          "accessibility_label": "כפתור שחזר חשבון"
         }
       }
     }
@@ -167,9 +167,9 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public board",
-      "private": "Private messages",
-      "connections": "Connections"
+      "public": "לוח פומבי",
+      "private": "הודעות פרטיות",
+      "connections": "חיבורים"
     },
     "tab_footers": {
       "public": "Public",
@@ -220,40 +220,40 @@
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "לחשבון"
       }
     }
   },
   "connections": {
     "floating_action_button": {
-      "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
-      "bluetooth_seek": "Bluetooth seek"
+      "create_invite": "צור הזמנה",
+      "paste_invite": "הדבק הזמנה",
+      "bluetooth_seek": "חיפוש בלוטוס"
     },
     "empty": {
       "offline": {
-        "title": "Offline",
+        "title": "לא מחובר",
         "description": "Turn on some connection mode\nor enjoy reading some existing content"
       },
       "connecting": {
-        "title": "Connecting",
+        "title": "מתחבר",
         "description": "Wait while the app is\nattempting to connect to your peers"
       },
       "no_peers": {
-        "title": "No connections",
+        "title": "אין חיבורים",
         "description": "Try syncing with people nearby\nor use a server invite code"
       }
     },
     "toasts": {
-      "invite_accepted": "Invite accepted",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?"
+      "invite_accepted": "הזמנה היתקבלה",
+      "invite_rejected": "הזמנה נדחתה. האם היא הייתה תקינה?"
     },
     "peers": {
       "types": {
-        "bluetooth": "Bluetooth",
+        "bluetooth": "בלוטוס",
         "lan": "Wi-Fi",
         "dht": {
-          "connected": "Internet P2P",
+          "connected": "אינטרנט P2P",
           "staging": {
             "host": "Internet P2P: waiting for online friend...",
             "client": "Internet P2P: looking for online friend...",
@@ -263,10 +263,10 @@
         "room": {
           "server": "Room server",
           "endpoint": "Room peer",
-          "alone_online": "(only you online)",
+          "alone_online": "(רק את/ה מחובר/ת)",
           "others_online": {
-            "one": "({{count}} online)",
-            "other": "({{count}} online)"
+            "one": "({{count}} מחוברים)",
+            "other": "({{count}} מחוברים)"
           }
         },
         "pub": "Pub server",
@@ -279,8 +279,8 @@
         "enabled": "(ENABLED)"
       },
       "bluetooth": {
-        "title": "Bluetooth",
-        "accessibility_label": "Bluetooth Mode",
+        "title": "בלוטוס",
+        "accessibility_label": "מצב בלוטוס",
         "disabled": "(Turn on Bluetooth to use this)",
         "description": "Discover users nearby and connect with them using Bluetooth.",
         "permission_request": {
@@ -290,16 +290,16 @@
       },
       "wifi": {
         "title": "Wi-Fi",
-        "accessibility_label": "Wi-Fi Mode",
+        "accessibility_label": "מצב Wi-Fi",
         "disabled": "(Turn on Wi-Fi to use this)",
         "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
       },
       "p2p": {
-        "title": "Internet P2P",
-        "accessibility_label": "Internet P2P Mode",
-        "disabled": "(Go online to use this)",
+        "title": "אינטרנט P2P",
+        "accessibility_label": "מצב אינטרנט P2P",
+        "disabled": "(התחבר כדי להשתמש)",
         "description": "Connect directly to friends currently online, using a peer-to-peer technology called \"Distributed Hash Table\".",
-        "connecting": "Connecting via internet P2P...",
+        "connecting": "מתחבר דרך אינטרנט P2P...",
         "searching_friend": "Currently searching for online friend who generated this invite code, to establish a data connection with them.",
         "waiting_friend": "Currently waiting for online friend to claim this invite code and establish a data connection."
       },
