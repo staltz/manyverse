@@ -5,7 +5,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Component} from 'react';
-import {View, StyleSheet, StyleProp, ViewStyle, Animated} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  Animated,
+  Platform,
+} from 'react-native';
 import {h} from '@cycle/react';
 import {Dimensions} from '../../../../../global-styles/dimens';
 import {StagedPeerKV, PeerKV} from '../../../../../ssb/types';
@@ -14,7 +21,7 @@ import StagedItem, {Props as StagedItemProps} from './StagedItem';
 import RoomItem, {Props as RoomItemProps} from './RoomItem';
 import ConnectionItem from './ConnectionItem';
 
-const SHORT_ITEM_HEIGHT = 48;
+const SHORT_ITEM_HEIGHT = Platform.OS === 'android' ? 48 : 50;
 const ITEM_HEIGHT = 70;
 
 export const styles = StyleSheet.create({
