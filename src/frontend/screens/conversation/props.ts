@@ -12,4 +12,5 @@ export type Props = {
   selfAvatarUrl?: string;
   rootMsgId?: MsgId;
   recps?: PrivateThreadAndExtras['recps'];
+  goBackActionType?: string;
 };

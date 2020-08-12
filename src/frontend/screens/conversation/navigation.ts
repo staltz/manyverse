@@ -15,6 +15,7 @@ import {Props as ProfileProps} from '../profile/props';
 import {navOptions as accountsScreenNavOpts} from '../accounts/layout';
 import {Props as AccountsProps} from '../accounts';
 import {Screens} from '../enums';
+import {Props} from './props';
 import {State} from './model';
 
 type Actions = {
@@ -23,10 +24,17 @@ type Actions = {
   goToRecipients$: Stream<any>;
 };
 
-export default function navigation(actions: Actions, state$: Stream<State>) {
-  const pop$ = actions.goBack$.mapTo({
-    type: 'popToRoot',
-  } as Command);
+export default function navigation(
+  actions: Actions,
+  props$: Stream<Props>,
+  state$: Stream<State>,
+) {
+  const pop$ = actions.goBack$.compose(sample(props$)).map(
+    props =>
+      ({
+        type: props.goBackActionType ?? 'popToRoot',
+      } as Command),
+  );
 
   const toProfile$ = actions.goToProfile$.compose(sampleCombine(state$)).map(
     ([id, state]) =>

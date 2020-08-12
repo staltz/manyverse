@@ -15,6 +15,7 @@ import {State} from './model';
 
 export type ManageChoiceId =
   | 'copy-id'
+  | 'private-chat'
   | 'block'
   | 'block-secretly'
   | 'unblock'
@@ -29,6 +30,7 @@ export type Sources = {
 export type Sinks = {
   clipboard: Stream<string>;
   toast: Stream<Toast>;
+  goToPrivateChat$: Stream<string>;
   blockContact$: Stream<null>;
   blockSecretlyContact$: Stream<null>;
   unblockContact$: Stream<null>;
@@ -63,6 +65,10 @@ export default function manageContact$(sources: Sources): Sinks {
       items.push({
         id: 'copy-id',
         label: t('profile.call_to_action.copy_cypherlink'),
+      });
+      items.push({
+        id: 'private-chat',
+        label: t('profile.call_to_action.private_chat'),
       });
       if (relationship === 'neutral') {
         items.push({
@@ -116,6 +122,11 @@ export default function manageContact$(sources: Sources): Sinks {
     .map(() => sources.feedId$.take(1))
     .flatten();
 
+  const privateChat$ = manageContactChoice$
+    .filter(choice => choice.id === 'private-chat')
+    .map(() => sources.feedId$.take(1))
+    .flatten();
+
   const blockContact$ = manageContactChoice$
     .filter(choice => choice.id === 'block')
     .mapTo(null);
@@ -141,6 +152,7 @@ export default function manageContact$(sources: Sources): Sinks {
   return {
     clipboard: copyCypherlink$,
     toast: toast$,
+    goToPrivateChat$: privateChat$,
     blockContact$,
     blockSecretlyContact$,
     unblockContact$,

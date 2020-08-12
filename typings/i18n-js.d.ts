@@ -257,6 +257,7 @@ declare module 'i18n-js' {
     | 'libraries.image.name'
     | 'libraries.image.attribution'
     | 'profile.call_to_action.copy_cypherlink'
+    | 'profile.call_to_action.private_chat'
     | 'profile.call_to_action.block'
     | 'profile.call_to_action.block_secretly'
     | 'profile.call_to_action.unblock'

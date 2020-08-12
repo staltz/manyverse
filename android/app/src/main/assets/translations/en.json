@@ -572,6 +572,7 @@
   "profile": {
     "call_to_action": {
       "copy_cypherlink": "Copy cypherlink",
+      "private_chat": "Open private conversation",
       "block": "Block",
       "block_secretly": "Block secretly",
       "unblock": "Unblock",

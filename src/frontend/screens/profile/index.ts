@@ -67,6 +67,7 @@ export function profile(sources: Sources): Sinks {
   const newContent$ = ssb(actionsPlus, sources.state.stream);
   const command$ = navigation(
     actionsPlus,
+    sources.ssb,
     sources.navigation,
     sources.state.stream,
   );

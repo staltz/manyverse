@@ -9,7 +9,8 @@ import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {MsgId, FeedId, Msg} from 'ssb-typescript';
 import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
-import {Reactions, MsgAndExtras} from '../../ssb/types';
+import {SSBSource, GetReadable} from '../../drivers/ssb';
+import {Reactions, MsgAndExtras, PrivateThreadAndExtras} from '../../ssb/types';
 import {Screens} from '../enums';
 import {navOptions as composeScreenNavOpts} from '../compose';
 import {Props as ComposeProps} from '../compose/props';
@@ -22,7 +23,9 @@ import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
 import {navOptions as profileScreenNavOpts} from './layout';
 import {Props} from './props';
 import {Props as AccountProps} from '../accounts';
+import {Props as ConversationProps} from '../conversation';
 import {State} from './model';
+import {navOptions as conversationNavOpts} from '../conversation';
 
 export type Actions = {
   goBack$: Stream<any>;
@@ -38,10 +41,63 @@ export type Actions = {
   goToThread$: Stream<MsgAndExtras>;
   goToThreadExpandCW$: Stream<MsgAndExtras>;
   goToRawMsg$: Stream<Msg>;
+  goToPrivateChat$: Stream<string>;
 };
+
+function getPrivateMessageWithRecipient(
+  getReadable: GetReadable<PrivateThreadAndExtras>,
+  recpId: string,
+): Promise<string | undefined> {
+  return new Promise(function(resolve) {
+    const privateFeedReadable = getReadable();
+
+    privateFeedReadable(null, function read(
+      end: any,
+      item: PrivateThreadAndExtras,
+    ) {
+      if (end) {
+        return resolve(undefined);
+      }
+
+      // Conversation just between user and the open profile
+      if (
+        item.recps.length === 2 &&
+        item.recps.some(recp => recp.id === recpId)
+      ) {
+        return resolve(item.messages[0].key);
+      }
+
+      return privateFeedReadable(null, read);
+    });
+  });
+}
+
+function getConversationPassProps(
+  feedId: string,
+  avatarUrl: string | undefined,
+  profileId: string,
+  rootMsgId: string | undefined,
+): ConversationProps {
+  return {
+    goBackActionType: 'pop',
+    selfFeedId: feedId,
+    selfAvatarUrl: avatarUrl,
+    rootMsgId,
+    ...(rootMsgId
+      ? {}
+      : {
+          recps: [
+            {
+              id: profileId,
+            },
+          ],
+        }),
+  } as ConversationProps;
+}
 
 export default function navigation(
   actions: Actions,
+  ssbSource: SSBSource,
   navSource: NavSource,
   state$: Stream<State>,
 ): Stream<Command> {
@@ -187,6 +243,34 @@ export default function navigation(
       } as Command),
   );
 
+  const goToPrivateChat$ = actions.goToPrivateChat$
+    .compose(sampleCombine(state$, ssbSource.privateFeed$))
+    .map(([openProfileId, state, privateFeed]) => {
+      return xs
+        .fromPromise(getPrivateMessageWithRecipient(privateFeed, openProfileId))
+        .map((rootMsgId: string | undefined) =>
+          getConversationPassProps(
+            state.selfFeedId,
+            state.selfAvatarUrl,
+            openProfileId,
+            rootMsgId,
+          ),
+        );
+    })
+    .flatten()
+    .map(passProps => {
+      return {
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Conversation,
+            passProps,
+            options: conversationNavOpts,
+          },
+        },
+      } as Command;
+    });
+
   const pop$ = xs.merge(navSource.backPress(), actions.goBack$).mapTo({
     type: 'pop',
   } as PopCommand);
@@ -200,6 +284,7 @@ export default function navigation(
     toThread$,
     toThreadExpandCW$,
     toRawMsg$,
+    goToPrivateChat$,
     pop$,
   );
 }
