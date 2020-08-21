@@ -1,132 +1,132 @@
 {
   "call_to_action": {
-    "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "save": "Save",
-    "yes": "Yes",
+    "ok": "Accepta",
+    "add": "Afegeix",
+    "done": "Fet",
+    "cancel": "Cancel·la",
+    "continue": "Continua",
+    "delete": "Suprimeix",
+    "save": "Desa",
+    "yes": "Sí",
     "no": "No",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "Botó Menú"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "Botó enrera"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Botó Tanca"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "Botó Tanca Diàleg"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "Fa 1 any",
+          "other": "Fa {{count}} anys"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "Fa 1 mes",
+          "other": "Fa {{count}} mesos"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "Fa 1 setmana",
+          "other": "Fa {{count}} setmanes"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "Fa 1 dia",
+          "other": "Fa {{count}} dies"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "Fa 1 hora",
+          "other": "Fa {{count}} hores"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "Fa 1 minut",
+          "other": "Fa {{count}} minuts"
         },
-        "now": "Just now"
+        "now": "Ara mateix"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "D'aquí 1 any",
+          "other": "D'aquí {{count}} anys"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "D'aquí 1 mes",
+          "other": "D'aquí {{count}} mesos"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "D'aquí 1 setmana",
+          "other": "D'aquí {{count}} setmanes"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "D'aquí 1 dia",
+          "other": "D'aquí {{count}} dies"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "D'aquí 1 hora",
+          "other": "D'aquí {{count}} hores"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "D'aquí 1 minut",
+          "other": "D'aquí {{count}} minuts"
         },
-        "now": "Very soon"
+        "now": "Ben aviat"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Més informació",
     "overview": {
-      "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "title": "Benvinguts a Manyverse!",
+      "description": "Les xarxes socials poden ser simples, neutrals, no comercials i basades en la confiança entre amistats. Això és el que defensa Manyverse, i esperem que tu en facis la teva llar digital. Tot això és possible gràcies al nou protocol SSB."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Fora del sistema",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse pot utilitzar connexió a Internet, però no és ",
+        "2_bold": "a",
+        "3_normal": " Internet. Tot passa aquí mateix, al teu dispositiu. Això vol dir que el pots utilitzar amb normalitat fins i tot quan estàs sense connexió. El teu ",
+        "4_bold": "contingut s'emmagatzema en primer lloc al teu dispositiu",
+        "5_normal": ", i el pots sincronitzar amb les teves amistats quan et connectis amb elles."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Moltes maneres de connectar",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
+          "1_normal": "Per connectar amb les teves amistats i sincronitzar continguts pots: connectar-te al mateix ",
           "2_bold": "Wi-Fi",
-          "3_normal": " or exchange",
-          "4_bold": "P2P invites",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "3_normal": " o intercanviar",
+          "4_bold": "invitacions P2P",
+          "5_normal": ". Per a trobar noves persones a Internet, busca codis d'invitació en ",
+          "6_bold": "servidors públics",
+          "7_normal": " o en ",
+          "8_bold": "servidors d'habitacions",
+          "9_normal": ", o engega el teu propi servidor!"
         },
         "default": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
+          "1_normal": "Per connectar amb les teves amistats i sincronitzar continguts pots: connectar-te al mateix ",
           "2_bold": "Wi-Fi",
-          "3_normal": ", use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ", or exchange ",
-          "6_bold": "P2P invites",
-          "7_normal": ". To find new people on the internet, look for an invite code to a ",
-          "8_bold": "pub server",
-          "9_normal": " or a ",
-          "10_bold": "room server",
-          "11_normal": ", or start your own server!"
+          "3_normal": ", utilitza ",
+          "4_bold": "sincronització per Bluetooth",
+          "5_normal": ", o intercanvia ",
+          "6_bold": "invitacions P2P",
+          "7_normal": ". Per a trobar noves persones a Internet, busca codis d'invitació en ",
+          "8_bold": "servidors públics",
+          "9_normal": " o en ",
+          "10_bold": "servidors d'habitacions",
+          "11_normal": ", o engega el teu propi servidor!"
         }
       }
     },
     "moderation": {
-      "title": "Shared moderation",
+      "title": "Moderació compartida",
       "description": {
         "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
         "2_bold": "blocking accounts",

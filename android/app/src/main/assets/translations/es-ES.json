@@ -486,7 +486,7 @@
   },
   "conversation": {
     "title": "Conversación",
-    "placeholder": "Type a message...",
+    "placeholder": "Escriba un mensaje...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Mostrar Destinatarios"

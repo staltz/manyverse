@@ -319,185 +319,185 @@
         }
       },
       "connect": {
-        "label": "Connect",
+        "label": "Connettiti",
         "accessibility_label": {
-          "staged_peer": "Connect to this suggested peer",
-          "staged_room": "Connect to this suggested room"
+          "staged_peer": "Connettiti a questo nodo suggerito",
+          "staged_room": "Connettiti a questa stanza suggerita"
         }
       },
       "follow_connect": {
-        "label": "Connect and follow",
-        "accessibility_label": "Connect to this suggested peer then follow them"
+        "label": "Connettiti e segui",
+        "accessibility_label": "Connetitti a questo nodo suggerito e seguilo"
       },
       "disconnect": {
-        "label": "Disconnect",
+        "label": "Disconnettiti",
         "accessibility_label": {
-          "peer": "Disconnect from this peer",
-          "room": "Disconnect from this room"
+          "peer": "Disconettiti da questo nodo",
+          "room": "Disconnettiti da questa stanza"
         }
       },
       "disconnect_forget": {
-        "label": "Disconnect and forget",
+        "label": "Disconnettiti e dimentica",
         "accessibility_label": {
-          "peer": "Disconnect from this peer and remove it from our database",
-          "room": "Disconnect from this room and remove it from our database"
+          "peer": "Disconnettiti da questo nodo e rimouvilo dalla banca dati",
+          "room": "Disconnetiti da questa stanza e rimouvila dalla banca dati"
         }
       },
       "forget": {
-        "label": "Forget",
+        "label": "Dimentica",
         "accessibility_label": {
-          "room": "Remove this room from our database"
+          "room": "Rimuovi questa stanza dalla banca dati"
         }
       },
       "room_share_invite": {
-        "label": "Share invite code",
-        "accessibility_label": "Share the invite code for this room"
+        "label": "Condividi il codice d'invito",
+        "accessibility_label": "Condividi il codice d'invito di questa stanza"
       },
       "invite_info": {
-        "label": "About",
-        "accessibility_label": "About this Invite Code"
+        "label": "Informazioni",
+        "accessibility_label": "Informazioni su questo codice d'invito"
       },
       "invite_note": {
-        "label": "Add note",
-        "accessibility_label": "Add Reminder Note To Self"
+        "label": "Aggiungi una nota",
+        "accessibility_label": "Aggiungi un promemoria"
       },
       "invite_share": {
-        "label": "Share",
-        "accessibility_label": "Share Invite Code"
+        "label": "Condividi",
+        "accessibility_label": "Condividi il codice d'invito"
       },
       "invite_delete": {
-        "label": "Delete",
-        "accessibility_label": "Delete Invite Code"
+        "label": "Elimina",
+        "accessibility_label": "Elimina il codice d'invito"
       }
     },
     "notes": {
       "add": {
-        "title": "Add note",
-        "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
+        "title": "Aggiungi una nota",
+        "description": "Scrivi una nota privata (solo per te stesso) riguardando questo codice d'invito. Ad esempio: \"Questo è per Alice\""
       }
     },
     "share_code": {
       "p2p": {
-        "title": "Manyverse Invite Code",
-        "message": "Connect with me on Manyverse by pasting this invite code there:",
-        "dialog_note": "Give this invite code to one friend"
+        "title": "Codice d'invito di Manyverse",
+        "message": "Connettiti con me su Manyverse incollando questo codice d'invito:",
+        "dialog_note": "Dai questo codice d'invito ad un amico"
       },
       "room": {
-        "title": "Invite code to an SSB Room",
-        "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
-        "dialog_note": "Give this invite code to a friend"
+        "title": "Codice d'invito d'una stanza SSB",
+        "message": "Unisciti a me nella stanza SSB {{name}} incollando questo codice d'invito in Manyverse:",
+        "dialog_note": "Dai questo codice d'invito ad un amico"
       }
     }
   },
   "compose": {
     "call_to_action": {
       "publish_new_thread": {
-        "label": "Publish",
-        "accessibility_label": "Publish Message Button"
+        "label": "Pubblica",
+        "accessibility_label": "Pulsante di pubblicazione messaggio"
       },
       "reply_to_thread": {
-        "label": "Reply",
-        "accessibility_label": "Publish Reply Button"
+        "label": "Rispondi",
+        "accessibility_label": "Pulsante di risposta messaggio"
       },
       "preview": {
-        "accessibility_label": "Preview Button"
+        "accessibility_label": "Pulsante d'anteprima"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Pulsante di chiusura"
       },
       "open_camera": {
-        "accessibility_label": "Open Camera Button"
+        "accessibility_label": "Pulsante d'apertura fotocamera"
       },
       "add_picture": {
-        "accessibility_label": "Add Picture Button"
+        "accessibility_label": "Pulsante d'aggiunta d'imaggine"
       }
     },
     "dialogs": {
       "content_warning": {
-        "title": "Content warning",
-        "description": "If your post contains sensitive topics, please add a short note to alert people of them."
+        "title": "Avviso di contenuto",
+        "description": "Se il tuo messaggio contiene argomenti sensibili, aggiungi una breve nota per avvisare le persone di essi."
       },
       "image_caption": {
-        "title": "Caption",
-        "description": "Add some description of this picture, particularly for the visually impaired."
+        "title": "Didascalia",
+        "description": "Aggiungi una descrizione per questa immagine, in particolare per i non vedenti."
       },
       "save_prompt": {
-        "title": "Save draft?"
+        "title": "Salva bozza?"
       }
     },
     "content_warning_initials": {
-      "label": "CW",
-      "accessibility_label": "Content Warning Button"
+      "label": "AC",
+      "accessibility_label": "Pulsante d'avviso di contenuto"
     },
     "mention_field": {
-      "accessibility_label": "Mention Account Text Input"
+      "accessibility_label": "Inserimento di testo del conto di menzione"
     },
     "text_field": {
-      "placeholder": "Write a public message",
-      "accessibility_label": "Compose Text Input"
+      "placeholder": "Scrivi un messaggio pubblico",
+      "accessibility_label": "Inserimento di testo composito"
     }
   },
   "backup": {
     "title": "Backup",
     "introduction": {
-      "title": "Your account has\ntwo parts to keep safe"
+      "title": "Il tuo account ha due parti da mantenere al sicuro"
     },
     "data": {
-      "title": "Data",
+      "title": "Dati",
       "description": {
-        "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
+        "1_normal": "Questi sono i tuoi messaggi, immagini, like e attività simili. Per mantenerli al sicuro contro perdita improvvisa, usiamo ",
         "2_bold": "crowd backup",
-        "3_normal": ". You only need to ",
-        "4_bold": "synchronize with reliable friends",
-        "5_normal": " or other devices you own. There is ",
-        "6_bold": "nothing else to do",
-        "7_normal": ", just use Manyverse often and your friends are backing you up!"
+        "3_normal": ". Hai solo bisogno di ",
+        "4_bold": "sincronizza con amici affidabili",
+        "5_normal": " o altri dispositivi che possiedi. C'è ",
+        "6_bold": "nient'altro da fare",
+        "7_normal": ", basta usare Manyverse spesso e i tuoi amici ti sostengono!"
       },
       "call_to_action": {
         "acknowledge": {
-          "label": "I understand",
-          "accessibility_label": "Acknowledge"
+          "label": "Ho capito",
+          "accessibility_label": "Riconoscimento"
         }
       }
     },
     "identity": {
-      "title": "Identity",
+      "title": "Identità",
       "description": {
-        "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
-        "2_bold": "recovery phrase",
-        "3_normal": ". This is a sequence of 24 words that unlocks your account. ",
-        "4_bold": "Keep it confidential",
-        "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
-        "6_bold": "Take responsibility",
-        "7_normal": " over it, since you and only you can recover your account!"
+        "1_normal": "L' \"impronta digitale\" del tuo account è composta da un unico ",
+        "2_bold": "frase di ripristino",
+        "3_normal": ". Questa è una sequenza di 24 parole che sblocca la tua identitá. ",
+        "4_bold": "Mantienilo confidenziale",
+        "5_normal": ", perché se qualcun altro ha accesso ad esso, possono prendere il controllo della tua identitá. ",
+        "6_bold": "Assumi responsabilità",
+        "7_normal": " su di esso, dal momento che solo tu puoi recuperare la tua identitá!"
       },
       "call_to_action": {
-        "show_recovery_phrase": "Show Recovery Phrase"
+        "show_recovery_phrase": "Mostra frase di ripristino"
       }
     }
   },
   "biography": {
     "picture": {
-      "accessibility_label": "Biographic Picture"
+      "accessibility_label": "Imaggine biografica"
     },
     "description": {
-      "accessibility_label": "Biographic Description"
+      "accessibility_label": "Descrizione biografica"
     }
   },
   "conversation": {
-    "title": "Conversation",
-    "placeholder": "Type a message...",
+    "title": "Conversazione",
+    "placeholder": "Digita un messaggio...",
     "call_to_action": {
       "show_recipients": {
-        "accessibility_label": "Show Recipients"
+        "accessibility_label": "Mostra destinatari"
       }
     },
     "notifications": {
-      "new_conversation": "This is a new private conversation"
+      "new_conversation": "Questa è una nuova conversazione privata"
     }
   },
   "dialog_about": {
-    "title": "About Manyverse",
+    "title": "Informazioni su Manyverse",
     "version": "Version {{version}}",
     "copyright": "Copyright (C)",
     "authors": "The Manyverse Authors",
@@ -512,7 +512,7 @@
     "profile_no_name": "No name",
     "menu": {
       "my_profile": {
-        "label": "My profile",
+        "label": "Il mio profilo",
         "accessibility_label": "My Profile Menu Item"
       },
       "raw_database": {
@@ -520,24 +520,24 @@
         "accessibility_label": "Show Raw Database"
       },
       "email_bug_report": {
-        "label": "Email bug report",
+        "label": "Segnala bug per email",
         "accessibility_label": "Send Bug Report as Email"
       },
       "settings": {
-        "label": "Settings",
+        "label": "Impostazioni",
         "accessibility_label": "Go To Settings"
       }
     }
   },
   "invite_create": {
-    "loading": "loading...",
+    "loading": "caricamento...",
     "call_to_action": {
       "share": {
         "accessibility_label": "Share Invite Code"
       }
     },
     "invite_code": {
-      "accessibility_label": "Invite Code"
+      "accessibility_label": "Codice d'invito"
     },
     "share_info": {
       "1_normal": "Give this invite code to ",
@@ -546,15 +546,15 @@
     },
     "sync_info": {
       "1_normal": "You will sync when you are ",
-      "2_bold": "both",
-      "3_normal": " online"
+      "2_bold": "entrambi",
+      "3_normal": " in linea"
     }
   },
   "invite_paste": {
-    "placeholder": "Paste an invite code",
+    "placeholder": "Incolla un codice d'invito",
     "call_to_action": {
       "accept": {
-        "accessibility_label": "Accept Invite Code"
+        "accessibility_label": "Accetta il codice d'invito"
       }
     },
     "text_field": {
@@ -608,7 +608,7 @@
     },
     "empty": {
       "blocked": {
-        "title": "Blocked",
+        "title": "Bloccato",
         "description": "You have chosen to stop\ninteracting with this account"
       },
       "no_self_messages": {

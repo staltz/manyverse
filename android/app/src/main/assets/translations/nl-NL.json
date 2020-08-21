@@ -486,7 +486,7 @@
   },
   "conversation": {
     "title": "Conversatie",
-    "placeholder": "Type a message...",
+    "placeholder": "Schrijf een bericht...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Toon Ontvangers"
@@ -848,7 +848,7 @@
         "accessibility_label": "Tekstinvoer beantwoorden"
       }
     },
-    "loading_replies": "Loading replies...",
+    "loading_replies": "Reacties laden...",
     "empty": {
       "missing": {
         "title": "Ontbrekende gegevens",
@@ -879,7 +879,7 @@
         "accessibility_label": "Toon reacties"
       },
       "add_reaction": {
-        "accessibility_label": "Add Reaction Button"
+        "accessibility_label": "Voeg reactie knop toe"
       },
       "reply": {
         "accessibility_label": "Antwoordknop"
@@ -895,7 +895,7 @@
       "view_raw": "Ruw bericht weergeven",
       "read_more": {
         "label": "Lees meer",
-        "accessibility_label": "Read more content in this thread"
+        "accessibility_label": "Lees meer in deze conversatie"
       }
     },
     "toast": {
@@ -913,7 +913,7 @@
         "symbols": "Symbolen"
       },
       "show_more": {
-        "accessibility_label": "Show More Reaction Options"
+        "accessibility_label": "Laat meer reactie opties zien"
       }
     },
     "image": {
@@ -922,7 +922,7 @@
       }
     },
     "content_warning": {
-      "title": "Content Warning",
+      "title": "Waarschuwing voor inhoud",
       "call_to_action": {
         "hide": "Verberg",
         "show": "Bekijken"

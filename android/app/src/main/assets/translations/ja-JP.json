@@ -1,52 +1,52 @@
 {
   "call_to_action": {
     "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "add": "追加",
+    "done": "終わり",
+    "cancel": "キャンセル",
+    "continue": "続く",
+    "delete": "削除",
+    "save": "保存",
+    "yes": "はい",
+    "no": "いいえ",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "メニューボタン"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "戻るボタン"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "閉じるボタン"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "ダイアログを閉じるボタン"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 年前",
+          "other": "{{count}} 年前"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1ヶ月前",
+          "other": "{{count}} ヶ月前"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "1 週間前",
+          "other": "{{count}} 週間前"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 日前",
+          "other": "{{count}} 日前"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 時間前",
+          "other": "{{count}} 時間前"
         },
         "minutes": {
-          "one": "1 minute ago",
+          "one": "1 分前",
           "other": "{{count}} minutes ago"
         },
         "now": "Just now"
