@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,6 +9,7 @@ import {Command} from 'cycle-native-navigation';
 
 export type Actions = {
   openDrawer$: Stream<null>;
+  closeDrawer$: Stream<null>;
 };
 
 export default function navigationCommands(
@@ -29,5 +30,19 @@ export default function navigationCommands(
       } as Command),
   );
 
-  return xs.merge(openDrawer$, other$);
+  const closeDrawer$: Stream<Command> = actions.closeDrawer$.map(
+    () =>
+      ({
+        type: 'mergeOptions',
+        opts: {
+          sideMenu: {
+            left: {
+              visible: false,
+            },
+          },
+        },
+      } as Command),
+  );
+
+  return xs.merge(openDrawer$, closeDrawer$, other$);
 }

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,7 +17,20 @@ export type TriggerMsgCypherlink = {
   msgId: MsgId;
 };
 
-export type GlobalEvent = TriggerFeedCypherlink | TriggerMsgCypherlink;
+export type HardwareBackOnCentralScreen = {
+  type: 'hardwareBackOnCentralScreen';
+};
+
+export type DrawerToggleOnCentralScreen = {
+  type: 'drawerToggleOnCentralScreen';
+  open: boolean;
+};
+
+export type GlobalEvent =
+  | TriggerFeedCypherlink
+  | TriggerMsgCypherlink
+  | HardwareBackOnCentralScreen
+  | DrawerToggleOnCentralScreen;
 
 export class EventBus {
   public _stream?: Stream<GlobalEvent>;
@@ -39,7 +52,9 @@ export function makeEventBusDriver() {
   const response$ = xs.create<GlobalEvent>();
   GlobalEventBus._stream = response$;
 
-  return function eventBusDriver(): Stream<GlobalEvent> {
-    return response$;
+  return function eventBusDriver(
+    sink$: Stream<GlobalEvent>,
+  ): Stream<GlobalEvent> {
+    return xs.merge(response$, sink$);
   };
 }

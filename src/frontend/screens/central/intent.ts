@@ -8,11 +8,14 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactSource} from '@cycle/react';
 import {State} from './model';
+import {GlobalEvent, DrawerToggleOnCentralScreen} from '../../drivers/eventbus';
+import sample from 'xstream-sample';
 
 type TabID = State['currentTab'];
 
 export default function intent(
   reactSource: ReactSource,
+  globalEventBus: Stream<GlobalEvent>,
   state$: Stream<State>,
 ) {
   const changeTab$ = xs.merge(
@@ -48,9 +51,36 @@ export default function intent(
     )
     .mapTo(null);
 
+  const hardwareBackWithState$ = globalEventBus
+    .filter(event => event.type === 'hardwareBackOnCentralScreen')
+    .compose(sample(state$));
+
+  const closeDrawer$ = hardwareBackWithState$
+    .filter(state => state.isDrawerOpen)
+    .mapTo(null);
+
+  const backToPublicTab$ = hardwareBackWithState$
+    .filter(state => !state.isDrawerOpen && state.currentTab !== 'public')
+    .mapTo(null);
+
+  const exitApp$ = hardwareBackWithState$
+    .filter(state => !state.isDrawerOpen && state.currentTab === 'public')
+    .mapTo(null);
+
+  const drawerToggled$ = globalEventBus
+    .filter(
+      (event): event is DrawerToggleOnCentralScreen =>
+        event.type === 'drawerToggleOnCentralScreen',
+    )
+    .map(event => event.open);
+
   return {
     changeTab$,
     scrollToPublicTop$,
     scrollToPrivateTop$,
+    closeDrawer$,
+    backToPublicTab$,
+    exitApp$,
+    drawerToggled$,
   };
 }

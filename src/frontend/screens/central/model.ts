@@ -25,6 +25,7 @@ export type State = {
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;
   isSyncing: boolean;
+  isDrawerOpen: boolean;
 };
 
 /**
@@ -135,6 +136,8 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
 
 export type Actions = {
   changeTab$: Stream<State['currentTab']>;
+  backToPublicTab$: Stream<null>;
+  drawerToggled$: Stream<boolean>;
 };
 
 export default function model(
@@ -152,6 +155,7 @@ export default function model(
         numOfPublicUpdates: 0,
         numOfPrivateUpdates: 0,
         scrollHeaderBy: new Animated.Value(0),
+        isDrawerOpen: false,
       };
     }
   });
@@ -181,10 +185,26 @@ export default function model(
       },
   );
 
+  const backToPublicTabReducer$ = actions.backToPublicTab$.map(
+    () =>
+      function changeTabReducer(prev: State): State {
+        return {...prev, currentTab: 'public'};
+      },
+  );
+
+  const isDrawerOpenReducer$ = actions.drawerToggled$.map(
+    isOpen =>
+      function isDrawerOpenReducer(prev: State): State {
+        return {...prev, isDrawerOpen: isOpen};
+      },
+  );
+
   return xs.merge(
     initReducer$,
     setSelfFeedId$,
     aboutReducer$,
     changeTabReducer$,
+    backToPublicTabReducer$,
+    isDrawerOpenReducer$,
   );
 }

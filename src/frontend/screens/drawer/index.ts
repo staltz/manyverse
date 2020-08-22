@@ -1,10 +1,10 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Command as NavCmd, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
@@ -15,6 +15,7 @@ import view from './view';
 import navigation from './navigation';
 import {ReactElement} from 'react';
 import linking from './linking';
+import {GlobalEvent} from '../../drivers/eventbus';
 
 export type Sources = {
   screen: ReactSource;
@@ -28,15 +29,21 @@ export type Sinks = {
   navigation: Stream<NavCmd>;
   linking: Stream<string>;
   state: Stream<Reducer<State>>;
+  globalEventBus: Stream<GlobalEvent>;
 };
 
 export function drawer(sources: Sources): Sinks {
-  sources.navigation.backPress().addListener({
-    next: () => {
-      // This "consumes" the hardware back press but
-      // doesn't cause any effect in navigation, on purpose
-    },
-  });
+  const globalEvents$ = xs.merge<GlobalEvent>(
+    sources.navigation
+      .backPress()
+      .map(() => ({type: 'hardwareBackOnCentralScreen'})),
+    sources.navigation
+      .didAppear()
+      .map(() => ({type: 'drawerToggleOnCentralScreen', open: true})),
+    sources.navigation
+      .didDisappear()
+      .map(() => ({type: 'drawerToggleOnCentralScreen', open: false})),
+  );
 
   const actions = intent(sources.screen);
   const vdom$ = view(sources.state.stream);
@@ -49,5 +56,6 @@ export function drawer(sources: Sources): Sinks {
     navigation: command$,
     linking: mailto$,
     state: reducer$,
+    globalEventBus: globalEvents$,
   };
 }

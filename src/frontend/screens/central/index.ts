@@ -88,7 +88,11 @@ export function central(sources: Sources): Sinks {
     state: topBarLens,
   })(sources);
 
-  const actions = intent(sources.screen, sources.state.stream);
+  const actions = intent(
+    sources.screen,
+    sources.globalEventBus,
+    sources.state.stream,
+  );
 
   const fabPress$: Stream<string> = sources.screen
     .select('fab')
@@ -128,7 +132,10 @@ export function central(sources: Sources): Sinks {
     .flatten();
 
   const command$ = navigation(
-    {openDrawer$: topBarSinks.menuPress},
+    {
+      openDrawer$: topBarSinks.menuPress,
+      closeDrawer$: actions.closeDrawer$,
+    },
     xs.merge(
       publicTabSinks.navigation,
       privateTabSinks.navigation,
@@ -173,6 +180,6 @@ export function central(sources: Sources): Sinks {
     clipboard: publicTabSinks.clipboard,
     toast: toast$,
     share: connectionsTabSinks.share,
-    exit: connectionsTabSinks.exit,
+    exit: actions.exitApp$,
   };
 }
