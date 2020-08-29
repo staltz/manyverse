@@ -84,7 +84,7 @@ export const privateTabLens: Lens<State, PrivateTabState> = {
         getPrivateFeedReadable: null,
         updates: new Set<MsgId>(),
         updatesFlag: false,
-        conversationOpen: null,
+        conversationsOpen: new Map(),
       };
     }
   },

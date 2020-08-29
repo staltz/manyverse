@@ -9,6 +9,8 @@ import {FeedId, MsgId} from 'ssb-typescript';
 import {GetReadable, SSBSource} from '../../../drivers/ssb';
 import {PrivateThreadAndExtras} from '../../../ssb/types';
 import {NavSource} from 'cycle-native-navigation';
+import {Screens} from '../../enums';
+import {Props as ConversationProps} from '../../conversation/props';
 
 export type State = {
   selfFeedId: FeedId;
@@ -17,7 +19,7 @@ export type State = {
   isVisible: boolean;
   updates: Set<MsgId>;
   updatesFlag: boolean;
-  conversationOpen: MsgId | 'new' | null;
+  conversationsOpen: Map<string, string>;
 };
 
 export type Actions = {
@@ -42,10 +44,10 @@ export default function model(
       function incUpdatesReducer(prev: State): State {
         // FIXME: this if guard also means that every other new root will be
         // ignored, not just the one that *we* are creating.
-        if (prev.conversationOpen === 'new') return prev;
+        if (prev.conversationsOpen.has('new')) return prev;
 
         // The updated conversation is already open, don't mark it read
-        if (rootId === prev.conversationOpen) return prev;
+        if (prev.conversationsOpen.has(rootId)) return prev;
 
         return {
           ...prev,
@@ -55,40 +57,69 @@ export default function model(
       },
   );
 
-  const closeConversationReducer$ = navSource.didAppear().map(
-    () =>
-      function closeConversationReducer(prev: State): State {
-        return {...prev, conversationOpen: null};
-      },
-  );
+  const conversationOpenedReducer$ = navSource
+    .globalDidAppear(Screens.Conversation)
+    .map(
+      ev =>
+        function conversationOpenedReducer(prev: State): State {
+          const conversationProps = ev.passProps as ConversationProps;
+          const {selfFeedId, recps, rootMsgId} = conversationProps;
+          const {conversationsOpen} = prev;
+          if (!selfFeedId) return prev;
+          if (rootMsgId) {
+            prev.updates.delete(rootMsgId);
+            if (conversationsOpen.has(rootMsgId)) {
+              return {
+                ...prev,
+                updatesFlag: !prev.updatesFlag,
+              };
+            }
+            // store in both directions
+            conversationsOpen.set(rootMsgId, ev.componentId);
+            conversationsOpen.set(ev.componentId, rootMsgId);
+            return {
+              ...prev,
+              conversationsOpen,
+              updatesFlag: !prev.updatesFlag,
+            };
+          } else if (Array.isArray(recps)) {
+            if (conversationsOpen.has('new')) return prev;
+            // store in both directions
+            conversationsOpen.set('new', ev.componentId);
+            conversationsOpen.set(ev.componentId, 'new');
+            return {
+              ...prev,
+              conversationsOpen,
+              updatesFlag: !prev.updatesFlag,
+            };
+          } else {
+            return prev;
+          }
+        },
+    );
 
-  const newConversationOpenReducer$ = actions.goToRecipientsInput$.map(
-    () =>
-      function newConversationOpenReducer(prev: State): State {
-        return {
-          ...prev,
-          conversationOpen: 'new',
-        };
-      },
-  );
-
-  const markReadReducer$ = actions.goToConversation$.map(
-    rootId =>
-      function markReadReducer(prev: State): State {
-        prev.updates.delete(rootId);
-        return {
-          ...prev,
-          conversationOpen: rootId,
-          updatesFlag: !prev.updatesFlag,
-        };
-      },
-  );
+  const conversationClosedReducer$ = navSource
+    .globalDidDisappear(Screens.Conversation)
+    .map(
+      ev =>
+        function conversationClosedReducer(prev: State): State {
+          const {conversationsOpen} = prev;
+          if (conversationsOpen.has(ev.componentId)) {
+            // delete in both directions
+            const rootMsgId = conversationsOpen.get(ev.componentId)!;
+            conversationsOpen.delete(ev.componentId);
+            conversationsOpen.delete(rootMsgId);
+            return {...prev, conversationsOpen};
+          } else {
+            return prev;
+          }
+        },
+    );
 
   return xs.merge(
     setPrivateFeedReducer$,
     incUpdatesReducer$,
-    closeConversationReducer$,
-    newConversationOpenReducer$,
-    markReadReducer$,
+    conversationOpenedReducer$,
+    conversationClosedReducer$,
   );
 }
