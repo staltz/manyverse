@@ -22,16 +22,7 @@ export type State = {
   conversationsOpen: Map<string, string>;
 };
 
-export type Actions = {
-  goToConversation$: Stream<MsgId>;
-  goToRecipientsInput$: Stream<any>;
-};
-
-export default function model(
-  ssbSource: SSBSource,
-  navSource: NavSource,
-  actions: Actions,
-) {
+export default function model(ssbSource: SSBSource, navSource: NavSource) {
   const setPrivateFeedReducer$ = ssbSource.privateFeed$.map(
     getReadable =>
       function setPrivateFeedReducer(prev: State): State {

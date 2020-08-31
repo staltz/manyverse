@@ -36,7 +36,7 @@ export type Sinks = {
 
 export function privateTab(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.fab);
-  const reducer$ = model(sources.ssb, sources.navigation, actions);
+  const reducer$ = model(sources.ssb, sources.navigation);
   const fabProps$ = floatingAction(sources.state.stream);
   const cmd$ = navigation(actions, sources.state.stream);
   const vdom$ = view(
