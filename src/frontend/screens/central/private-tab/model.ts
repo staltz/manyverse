@@ -4,13 +4,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import xs from 'xstream';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {GetReadable, SSBSource} from '../../../drivers/ssb';
 import {PrivateThreadAndExtras} from '../../../ssb/types';
 import {NavSource} from 'cycle-native-navigation';
 import {Screens} from '../../enums';
-import {Props as ConversationProps} from '../../conversation/props';
+import {
+  Props as ConversationProps,
+  isExistingConversationProps,
+  isNewConversationProps,
+} from '../../conversation/props';
 
 export type State = {
   selfFeedId: FeedId;
@@ -33,10 +37,6 @@ export default function model(ssbSource: SSBSource, navSource: NavSource) {
   const incUpdatesReducer$ = ssbSource.privateLiveUpdates$.map(
     rootId =>
       function incUpdatesReducer(prev: State): State {
-        // FIXME: this if guard also means that every other new root will be
-        // ignored, not just the one that *we* are creating.
-        if (prev.conversationsOpen.has('new')) return prev;
-
         // The updated conversation is already open, don't mark it read
         if (prev.conversationsOpen.has(rootId)) return prev;
 
@@ -48,44 +48,64 @@ export default function model(ssbSource: SSBSource, navSource: NavSource) {
       },
   );
 
-  const conversationOpenedReducer$ = navSource
+  const newConversationOpenedReducer$ = navSource
+    .globalDidAppear(Screens.Conversation)
+    .filter(ev => isNewConversationProps(ev.passProps as any))
+    .map(appear => {
+      const conversationDisappears$ = navSource
+        .globalDidDisappear(Screens.Conversation)
+        .filter(disappear => disappear.componentId === appear.componentId);
+      return ssbSource.selfPrivateRoots$
+        .map(msg => [msg.key, appear.componentId])
+        .endWhen(conversationDisappears$)
+        .take(1);
+    })
+    .flatten()
+    .map(
+      ([rootMsgId, componentId]) =>
+        function newRootReducer(prev: State): State {
+          prev.updates.delete(rootMsgId); // mark the new conversation read
+          if (prev.conversationsOpen.has(rootMsgId)) {
+            return {
+              ...prev,
+              updatesFlag: !prev.updatesFlag,
+            };
+          }
+          // store in both directions
+          prev.conversationsOpen.set(rootMsgId, componentId);
+          prev.conversationsOpen.set(componentId, rootMsgId);
+          return {
+            ...prev,
+            conversationsOpen: prev.conversationsOpen,
+            updatesFlag: !prev.updatesFlag,
+          };
+        },
+    );
+
+  const oldConversationOpenedReducer$ = navSource
     .globalDidAppear(Screens.Conversation)
     .map(
       ev =>
         function conversationOpenedReducer(prev: State): State {
-          const conversationProps = ev.passProps as ConversationProps;
-          const {selfFeedId, recps, rootMsgId} = conversationProps;
+          const props = ev.passProps as ConversationProps;
+          if (!isExistingConversationProps(props)) return prev;
+          const {rootMsgId} = props;
           const {conversationsOpen} = prev;
-          if (!selfFeedId) return prev;
-          if (rootMsgId) {
-            prev.updates.delete(rootMsgId);
-            if (conversationsOpen.has(rootMsgId)) {
-              return {
-                ...prev,
-                updatesFlag: !prev.updatesFlag,
-              };
-            }
-            // store in both directions
-            conversationsOpen.set(rootMsgId, ev.componentId);
-            conversationsOpen.set(ev.componentId, rootMsgId);
+          prev.updates.delete(rootMsgId); // mark the conversation read
+          if (conversationsOpen.has(rootMsgId)) {
             return {
               ...prev,
-              conversationsOpen,
               updatesFlag: !prev.updatesFlag,
             };
-          } else if (Array.isArray(recps)) {
-            if (conversationsOpen.has('new')) return prev;
-            // store in both directions
-            conversationsOpen.set('new', ev.componentId);
-            conversationsOpen.set(ev.componentId, 'new');
-            return {
-              ...prev,
-              conversationsOpen,
-              updatesFlag: !prev.updatesFlag,
-            };
-          } else {
-            return prev;
           }
+          // store in both directions
+          conversationsOpen.set(rootMsgId, ev.componentId);
+          conversationsOpen.set(ev.componentId, rootMsgId);
+          return {
+            ...prev,
+            conversationsOpen,
+            updatesFlag: !prev.updatesFlag,
+          };
         },
     );
 
@@ -110,7 +130,8 @@ export default function model(ssbSource: SSBSource, navSource: NavSource) {
   return xs.merge(
     setPrivateFeedReducer$,
     incUpdatesReducer$,
-    conversationOpenedReducer$,
+    newConversationOpenedReducer$,
+    oldConversationOpenedReducer$,
     conversationClosedReducer$,
   );
 }
