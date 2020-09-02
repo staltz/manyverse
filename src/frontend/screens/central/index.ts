@@ -122,7 +122,7 @@ export function central(sources: Sources): Sinks {
   })({...sources, fab: fabPress$}) as ConnectionsTabSinks;
 
   const fabProps$ = sources.state.stream
-    .map(state =>
+    .map((state) =>
       state.currentTab === 'public'
         ? publicTabSinks.fab
         : state.currentTab === 'private'

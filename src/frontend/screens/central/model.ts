@@ -161,7 +161,7 @@ export default function model(
   });
 
   const setSelfFeedId$ = ssbSource.selfFeedId$.map(
-    selfFeedId =>
+    (selfFeedId) =>
       function setSelfFeedId(prev: State): State {
         return {...prev, selfFeedId};
       },
@@ -169,17 +169,17 @@ export default function model(
 
   const aboutReducer$ = ssbSource.selfFeedId$
     .take(1)
-    .map(selfFeedId => ssbSource.profileAbout$(selfFeedId))
+    .map((selfFeedId) => ssbSource.profileAbout$(selfFeedId))
     .flatten()
     .map(
-      about =>
+      (about) =>
         function aboutReducer(prev: State): State {
           return {...prev, selfAvatarUrl: about.imageUrl};
         },
     );
 
   const changeTabReducer$ = actions.changeTab$.map(
-    nextTab =>
+    (nextTab) =>
       function changeTabReducer(prev: State): State {
         return {...prev, currentTab: nextTab};
       },
@@ -193,7 +193,7 @@ export default function model(
   );
 
   const isDrawerOpenReducer$ = actions.drawerToggled$.map(
-    isOpen =>
+    (isOpen) =>
       function isDrawerOpenReducer(prev: State): State {
         return {...prev, isDrawerOpen: isOpen};
       },

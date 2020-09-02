@@ -48,7 +48,7 @@ function getPrivateMessageWithRecipient(
   getReadable: GetReadable<PrivateThreadAndExtras>,
   recpId: string,
 ): Promise<string | undefined> {
-  return new Promise(function(resolve) {
+  return new Promise(function (resolve) {
     const privateFeedReadable = getReadable();
 
     privateFeedReadable(null, function read(
@@ -62,7 +62,7 @@ function getPrivateMessageWithRecipient(
       // Conversation just between user and the open profile
       if (
         item.recps.length === 2 &&
-        item.recps.some(recp => recp.id === recpId)
+        item.recps.some((recp) => recp.id === recpId)
       ) {
         return resolve(item.messages[0].key);
       }
@@ -102,7 +102,7 @@ export default function navigation(
   state$: Stream<State>,
 ): Stream<Command> {
   const toCompose$ = actions.goToCompose$.compose(sample(state$)).map(
-    state =>
+    (state) =>
       ({
         type: 'push',
         layout: {
@@ -118,7 +118,7 @@ export default function navigation(
   );
 
   const toBio$ = actions.goToBio$.compose(sample(state$)).map(
-    state =>
+    (state) =>
       ({
         type: 'push',
         layout: {
@@ -134,7 +134,7 @@ export default function navigation(
   );
 
   const toEdit$ = actions.goToEdit$.compose(sample(state$)).map(
-    state =>
+    (state) =>
       ({
         type: 'push',
         layout: {
@@ -230,7 +230,7 @@ export default function navigation(
     );
 
   const toRawMsg$ = actions.goToRawMsg$.map(
-    msg =>
+    (msg) =>
       ({
         type: 'push',
         layout: {
@@ -258,7 +258,7 @@ export default function navigation(
         );
     })
     .flatten()
-    .map(passProps => {
+    .map((passProps) => {
       return {
         type: 'push',
         layout: {

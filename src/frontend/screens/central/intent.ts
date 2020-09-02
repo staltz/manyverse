@@ -52,19 +52,19 @@ export default function intent(
     .mapTo(null);
 
   const hardwareBackWithState$ = globalEventBus
-    .filter(event => event.type === 'hardwareBackOnCentralScreen')
+    .filter((event) => event.type === 'hardwareBackOnCentralScreen')
     .compose(sample(state$));
 
   const closeDrawer$ = hardwareBackWithState$
-    .filter(state => state.isDrawerOpen)
+    .filter((state) => state.isDrawerOpen)
     .mapTo(null);
 
   const backToPublicTab$ = hardwareBackWithState$
-    .filter(state => !state.isDrawerOpen && state.currentTab !== 'public')
+    .filter((state) => !state.isDrawerOpen && state.currentTab !== 'public')
     .mapTo(null);
 
   const exitApp$ = hardwareBackWithState$
-    .filter(state => !state.isDrawerOpen && state.currentTab === 'public')
+    .filter((state) => !state.isDrawerOpen && state.currentTab === 'public')
     .mapTo(null);
 
   const drawerToggled$ = globalEventBus
@@ -72,7 +72,7 @@ export default function intent(
       (event): event is DrawerToggleOnCentralScreen =>
         event.type === 'drawerToggleOnCentralScreen',
     )
-    .map(event => event.open);
+    .map((event) => event.open);
 
   return {
     changeTab$,

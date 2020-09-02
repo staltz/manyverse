@@ -30,7 +30,7 @@ export default function navigation(
   state$: Stream<State>,
 ) {
   const pop$ = actions.goBack$.compose(sample(props$)).map(
-    props =>
+    (props) =>
       ({
         type: props.goBackActionType ?? 'popToRoot',
       } as Command),
@@ -55,7 +55,7 @@ export default function navigation(
   );
 
   const toAccounts$ = actions.goToRecipients$.compose(sample(state$)).map(
-    state =>
+    (state) =>
       ({
         type: 'push',
         layout: {
@@ -64,7 +64,7 @@ export default function navigation(
             passProps: {
               title: t('accounts.recipients.title'),
               msgKey: state.rootMsgId,
-              accounts: state.thread.recps.map(r => r.id),
+              accounts: state.thread.recps.map((r) => r.id),
               selfFeedId: state.selfFeedId,
               selfAvatarUrl: state.selfAvatarUrl,
             } as AccountsProps,

@@ -28,14 +28,14 @@ export type State = {
 
 export default function model(ssbSource: SSBSource, navSource: NavSource) {
   const setPrivateFeedReducer$ = ssbSource.privateFeed$.map(
-    getReadable =>
+    (getReadable) =>
       function setPrivateFeedReducer(prev: State): State {
         return {...prev, getPrivateFeedReadable: getReadable};
       },
   );
 
   const incUpdatesReducer$ = ssbSource.privateLiveUpdates$.map(
-    rootId =>
+    (rootId) =>
       function incUpdatesReducer(prev: State): State {
         // The updated conversation is already open, don't mark it read
         if (prev.conversationsOpen.has(rootId)) return prev;
@@ -50,13 +50,13 @@ export default function model(ssbSource: SSBSource, navSource: NavSource) {
 
   const newConversationOpenedReducer$ = navSource
     .globalDidAppear(Screens.Conversation)
-    .filter(ev => isNewConversationProps(ev.passProps as any))
-    .map(appear => {
+    .filter((ev) => isNewConversationProps(ev.passProps as any))
+    .map((appear) => {
       const conversationDisappears$ = navSource
         .globalDidDisappear(Screens.Conversation)
-        .filter(disappear => disappear.componentId === appear.componentId);
+        .filter((disappear) => disappear.componentId === appear.componentId);
       return ssbSource.selfPrivateRoots$
-        .map(msg => [msg.key, appear.componentId])
+        .map((msg) => [msg.key, appear.componentId])
         .endWhen(conversationDisappears$)
         .take(1);
     })
@@ -85,7 +85,7 @@ export default function model(ssbSource: SSBSource, navSource: NavSource) {
   const oldConversationOpenedReducer$ = navSource
     .globalDidAppear(Screens.Conversation)
     .map(
-      ev =>
+      (ev) =>
         function conversationOpenedReducer(prev: State): State {
           const props = ev.passProps as ConversationProps;
           if (!isExistingConversationProps(props)) return prev;
@@ -112,7 +112,7 @@ export default function model(ssbSource: SSBSource, navSource: NavSource) {
   const conversationClosedReducer$ = navSource
     .globalDidDisappear(Screens.Conversation)
     .map(
-      ev =>
+      (ev) =>
         function conversationClosedReducer(prev: State): State {
           const {conversationsOpen} = prev;
           if (conversationsOpen.has(ev.componentId)) {

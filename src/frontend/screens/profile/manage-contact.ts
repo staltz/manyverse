@@ -58,7 +58,7 @@ function calculateRelationship(state: State) {
 
 export default function manageContact$(sources: Sources): Sinks {
   const manageContactChoice$ = sources.manageContact$
-    .map(state => {
+    .map((state) => {
       const relationship = calculateRelationship(state);
       const items: Array<Omit<PickerItem, 'id'> & {id: ManageChoiceId}> = [];
 
@@ -112,35 +112,35 @@ export default function manageContact$(sources: Sources): Sinks {
             neutralText: '',
           },
         )
-        .filter(res => res.action === 'actionSelect')
+        .filter((res) => res.action === 'actionSelect')
         .map((res: any) => ({id: res.selectedItem.id as ManageChoiceId}));
     })
     .flatten();
 
   const copyCypherlink$ = manageContactChoice$
-    .filter(choice => choice.id === 'copy-id')
+    .filter((choice) => choice.id === 'copy-id')
     .map(() => sources.feedId$.take(1))
     .flatten();
 
   const privateChat$ = manageContactChoice$
-    .filter(choice => choice.id === 'private-chat')
+    .filter((choice) => choice.id === 'private-chat')
     .map(() => sources.feedId$.take(1))
     .flatten();
 
   const blockContact$ = manageContactChoice$
-    .filter(choice => choice.id === 'block')
+    .filter((choice) => choice.id === 'block')
     .mapTo(null);
 
   const blockSecretlyContact$ = manageContactChoice$
-    .filter(choice => choice.id === 'block-secretly')
+    .filter((choice) => choice.id === 'block-secretly')
     .mapTo(null);
 
   const unblockContact$ = manageContactChoice$
-    .filter(choice => choice.id === 'unblock')
+    .filter((choice) => choice.id === 'unblock')
     .mapTo(null);
 
   const unblockSecretlyContact$ = manageContactChoice$
-    .filter(choice => choice.id === 'unblock-secretly')
+    .filter((choice) => choice.id === 'unblock-secretly')
     .mapTo(null);
 
   const toast$ = copyCypherlink$.mapTo({

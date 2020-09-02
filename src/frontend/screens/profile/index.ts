@@ -53,7 +53,7 @@ export function profile(sources: Sources): Sinks {
     dialog: sources.dialog,
   });
   const manageContactSinks = manageContact({
-    feedId$: sources.state.stream.map(state => state.displayFeedId),
+    feedId$: sources.state.stream.map((state) => state.displayFeedId),
     manageContact$: actions.manageContact$,
     dialog: sources.dialog,
   });
