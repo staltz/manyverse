@@ -231,7 +231,7 @@ export default [
   {
     name: 'cycle-native-navigation',
     type: 'library',
-    version: '7.1.0',
+    version: '7.8.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation',
   },
@@ -259,7 +259,7 @@ export default [
   {
     name: 'electron',
     type: 'library',
-    version: '6.0.12',
+    version: '7.2.4',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/electron/electron#readme',
   },
@@ -278,6 +278,13 @@ export default [
     homepage: 'https://gitlab.com/staltz/estimate-progress#readme',
   },
   {
+    name: 'i18n-js',
+    type: 'library',
+    version: '3.5.1',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/fnando/i18n-js',
+  },
+  {
     name: 'ip',
     type: 'library',
     version: '1.1.5',
@@ -290,6 +297,13 @@ export default [
     version: '5.1.1-3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/leveldown-nodejs-mobile',
+  },
+  {
+    name: 'lodash.memoize',
+    type: 'library',
+    version: '4.1.2',
+    license: 'MIT License (MIT)',
+    homepage: 'https://lodash.com/',
   },
   {
     name: 'mdast-normalize-react-native',
@@ -315,7 +329,7 @@ export default [
   {
     name: 'nodejs-mobile-react-native',
     type: 'library',
-    version: '0.5.0',
+    version: '0.6.1',
     license: 'MIT License (MIT)',
     homepage: 'https://code.janeasystems.com/nodejs-mobile',
   },
@@ -486,14 +500,14 @@ export default [
   {
     name: 'react-native-fs',
     type: 'library',
-    version: '2.16.2',
+    version: '2.16.6',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/itinance/react-native-fs#readme',
   },
   {
     name: 'react-native-gifted-chat',
     type: 'library',
-    version: '0.13.0',
+    version: '0.16.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/FaridSafi/react-native-gifted-chat#readme',
   },
@@ -513,16 +527,23 @@ export default [
       'https://github.com/ivpusic/react-native-image-crop-picker#readme',
   },
   {
-    name: 'react-native-image-view',
+    name: 'react-native-image-viewing',
     type: 'library',
-    version: '2.1.8',
+    version: '0.2.0',
     license: 'MIT License (MIT)',
-    homepage: 'https://github.com/antonKalinin/react-native-image-view#readme',
+    homepage: 'https://github.com/jobtoday/react-native-image-viewing#readme',
+  },
+  {
+    name: 'react-native-localize',
+    type: 'library',
+    version: '1.4.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/react-native-community/react-native-localize',
   },
   {
     name: 'react-native-navigation',
     type: 'library',
-    version: '4.0.6',
+    version: '4.8.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/wix/react-native-navigation',
   },
@@ -664,7 +685,7 @@ export default [
   {
     name: 'sodium-chloride-native-nodejs-mobile',
     type: 'library',
-    version: '1.1.0',
+    version: '1.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/sodium-chloride-native-nodejs-mobile',
   },
@@ -678,7 +699,7 @@ export default [
   {
     name: 'ssb-backlinks',
     type: 'library',
-    version: '0.7.3',
+    version: '1.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-backlinks',
   },
@@ -692,7 +713,7 @@ export default [
   {
     name: 'ssb-blobs-purge',
     type: 'library',
-    version: '0.1.1',
+    version: '0.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-blobs-purge',
   },
@@ -720,7 +741,7 @@ export default [
   {
     name: 'ssb-conn',
     type: 'library',
-    version: '0.16.2',
+    version: '0.18.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn',
   },
@@ -741,7 +762,7 @@ export default [
   {
     name: 'ssb-dht-invite',
     type: 'library',
-    version: '1.10.0',
+    version: '1.11.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/ssb-dht-invite#readme',
   },
@@ -769,14 +790,14 @@ export default [
   {
     name: 'ssb-keys',
     type: 'library',
-    version: '7.2.0',
+    version: '7.2.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-keys',
   },
   {
     name: 'ssb-keys-mnemonic',
     type: 'library',
-    version: '0.2.0',
+    version: '0.3.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-keys-mnemonic',
   },
@@ -839,7 +860,7 @@ export default [
   {
     name: 'ssb-serve-blobs',
     type: 'library',
-    version: '2.1.0',
+    version: '2.5.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-serve-blobs',
   },
@@ -853,14 +874,14 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '4.1.0',
+    version: '5.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
   {
     name: 'ssb-typescript',
     type: 'library',
-    version: '2.0.0',
+    version: '2.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-typescript#readme',
   },
@@ -888,7 +909,7 @@ export default [
   {
     name: 'xstream',
     type: 'library',
-    version: '11.11.0',
+    version: '11.12.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/xstream#readme',
   },
