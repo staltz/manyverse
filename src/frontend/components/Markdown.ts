@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
 });
 
 function makeRenderers(onLayout?: ViewProps['onLayout']) {
-  return {
+  const renderers = {
     root: (props: {children: any}) => $(View, {onLayout}, props.children),
 
     paragraph: (props: {children: any}) =>
@@ -193,6 +193,7 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
       $(Text, {...textProps, style: styles.strong}, props.children),
 
     link: (props: {children: any; href: string}) => {
+      if (!props.href) return renderers.text(props);
       const isFeedCypherlink = Ref.isFeedId(props.href);
       const isMsgCypherlink = Ref.isMsgId(props.href);
       const isCypherlink = isFeedCypherlink || isMsgCypherlink;
@@ -269,6 +270,8 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
       );
     },
   };
+
+  return renderers;
 }
 
 export type Props = {
