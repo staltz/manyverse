@@ -17,7 +17,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import ImageView from 'react-native-image-view';
+import ImageView from 'react-native-image-viewing';
 import {t} from '../drivers/localization';
 import {Dimensions as Dimens} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
@@ -101,8 +101,8 @@ export default class ZoomableImage extends PureComponent<Props, State> {
     );
   }
 
-  public renderFooter(img: any) {
-    const blobId = urlToBlobId(img.source.uri);
+  public renderFooter(img: {uri: string}) {
+    const blobId = urlToBlobId(img.uri);
     return $(View, {style: styles.imageBlobIdContainer}, [
       $(
         Text,
@@ -157,19 +157,20 @@ export default class ZoomableImage extends PureComponent<Props, State> {
     const width = d.width - Dimens.horizontalSpaceBig * 2;
     const height = width * 0.7;
     const uri = this.props.src;
-    const {fullwidth, fullheight, loaded, fullscreen} = this.state;
+    const {loaded, fullscreen} = this.state;
+    const images = [{uri}];
 
     if (loaded) {
       return $(View, {key: uri}, [
-        fullscreen
-          ? $(ImageView, {
-              key: 'full',
-              images: [{source: {uri}, width: fullwidth, height: fullheight}],
-              imageIndex: 0,
-              onClose: this.onClose,
-              renderFooter: this.renderFooter.bind(this),
-            })
-          : null,
+        $(ImageView, {
+          key: 'full',
+          images,
+          imageIndex: 0,
+          visible: fullscreen,
+          onRequestClose: this.onClose,
+          FooterComponent: ({imageIndex}) =>
+            this.renderFooter(images[imageIndex]),
+        }),
         $(
           Touchable,
           {onPress: this.onOpen, key: 't'},
