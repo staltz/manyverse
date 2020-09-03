@@ -9,15 +9,15 @@ import {
   Linking,
   StyleSheet,
   Text,
-  TextProperties,
+  TextProps,
   View,
   ViewProps,
 } from 'react-native';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
-import {GlobalEventBus} from '../drivers/eventbus';
 import ZoomableImage from './ZoomableImage';
+import {FeedId, MsgId} from 'ssb-typescript';
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
 const linkifyRegex = require('remark-linkify-regex');
@@ -26,7 +26,7 @@ const ReactMarkdown = require('react-markdown');
 const Ref = require('ssb-ref');
 const remark = require('remark');
 
-const textProps: TextProperties = {
+const textProps: TextProps = {
   selectable: true,
   textBreakStrategy: 'simple',
 };
@@ -165,7 +165,11 @@ const styles = StyleSheet.create({
   },
 });
 
-function makeRenderers(onLayout?: ViewProps['onLayout']) {
+function makeRenderers(
+  onLayout?: ViewProps['onLayout'],
+  onPressMsgCypherlink?: (msgId: MsgId) => void,
+  onPressFeedCypherlink?: (feedId: FeedId) => void,
+) {
   const renderers = {
     root: (props: {children: any}) => $(View, {onLayout}, props.children),
 
@@ -206,16 +210,20 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
           ...textProps,
           style: isCypherlink ? styles.cypherlink : styles.link,
           onPress: () => {
-            if (isFeedCypherlink) {
-              GlobalEventBus.dispatch({
-                type: 'triggerFeedCypherlink',
-                feedId: props.href,
-              });
-            } else if (isMsgCypherlink) {
-              GlobalEventBus.dispatch({
-                type: 'triggerMsgCypherlink',
-                msgId: props.href,
-              });
+            if (isMsgCypherlink) {
+              onPressMsgCypherlink?.(props.href);
+              // FIXME:
+              // GlobalEventBus.dispatch({
+              //   type: 'triggerMsgCypherlink',
+              //   msgId: props.href,
+              // });
+            } else if (isFeedCypherlink) {
+              onPressFeedCypherlink?.(props.href);
+              // FIXME:
+              // GlobalEventBus.dispatch({
+              //   type: 'triggerFeedCypherlink',
+              //   feedId: props.href,
+              // });
             } else {
               Linking.openURL(props.href);
             }
@@ -277,13 +285,20 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
 export type Props = {
   text: string;
   onLayout?: ViewProps['onLayout'];
+  onPressMsgCypherlink?: (msgId: MsgId) => void;
+  onPressFeedCypherlink?: (feedId: FeedId) => void;
 };
 
 export default class Markdown extends PureComponent<Props> {
   public render() {
     const linkifySsbFeeds = linkifyRegex(Ref.feedIdRegex);
     const linkifySsbMsgs = linkifyRegex(Ref.msgIdRegex);
-    const renderers = makeRenderers(this.props.onLayout);
+    const {onLayout, onPressFeedCypherlink, onPressMsgCypherlink} = this.props;
+    const renderers = makeRenderers(
+      onLayout,
+      onPressMsgCypherlink,
+      onPressFeedCypherlink,
+    );
 
     return $<any>(ReactMarkdown, {
       source: remark()
