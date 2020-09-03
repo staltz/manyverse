@@ -18,6 +18,7 @@ import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {GlobalEventBus} from '../drivers/eventbus';
 import ZoomableImage from './ZoomableImage';
+import AudioPlayer from './AudioPlayer';
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
 const linkifyRegex = require('remark-linkify-regex');
@@ -245,9 +246,17 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
 
     thematicBreak: () => $(View, {style: styles.horizontalLine}),
 
-    image: (props: {src: string; title?: string; alt?: string}) =>
-      $(ZoomableImage, {src: props.src, title: props.title ?? props.alt}),
+    image: (props: {src: string; title?: string; alt?: string}) => {
+      // Audio and video are recognized as images but their caption start with `audio:` or `video:`
+      if (props.alt?.startsWith('audio:')) {
+        return $(AudioPlayer, {src: props.src});
+      }
 
+      return $(ZoomableImage, {
+        src: props.src,
+        title: props.title ?? props.alt,
+      });
+    },
     list: (props: {children: any; depth: number; ordered: boolean}) =>
       $(
         View,

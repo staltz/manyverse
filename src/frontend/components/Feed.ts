@@ -23,6 +23,7 @@ import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
+import {getBreathingComposition} from '../global-styles/animations';
 import {GetReadable} from '../drivers/ssb';
 import {
   ThreadSummaryWithExtras,
@@ -88,22 +89,7 @@ class InitialLoading extends PureComponent<any> {
 
   public componentDidMount() {
     // Breathing animation
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(this.loadingAnim, {
-          toValue: 0.6,
-          duration: 2100,
-          easing: Easing.out(Easing.quad),
-          useNativeDriver: true,
-        }),
-        Animated.timing(this.loadingAnim, {
-          toValue: 1,
-          easing: Easing.linear,
-          duration: 2400,
-          useNativeDriver: true,
-        }),
-      ]),
-    ).start();
+    getBreathingComposition(this.loadingAnim).start();
 
     // Wait for 10 seconds before starting animation
     Animated.sequence([
