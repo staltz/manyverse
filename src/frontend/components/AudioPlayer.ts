@@ -260,10 +260,9 @@ export default class AudioPlayer extends PureComponent<Props, State> {
       View,
       {
         style: {
-          flex: 1,
           justifyContent: 'center',
           backgroundColor: Palette.backgroundTextWeak,
-          minHeight: 300, // Exagerated to debug purposes
+          minHeight: 100,
           overflow: 'visible',
           position: 'relative',
         },
@@ -306,7 +305,6 @@ export default class AudioPlayer extends PureComponent<Props, State> {
           View,
           {
             style: {
-              flex: 1,
               flexDirection: 'row',
               justifyContent: 'center',
               marginVertical: 15,
