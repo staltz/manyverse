@@ -27,7 +27,7 @@ export default function model(
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
   const propsReducer$ = props$.map(
-    props =>
+    (props) =>
       function propsReducer(): State {
         return {
           selfFeedId: props.selfFeedId,
@@ -46,41 +46,41 @@ export default function model(
   );
 
   const about$ = props$
-    .map(props => ssbSource.profileAboutLive$(props.feedId))
+    .map((props) => ssbSource.profileAboutLive$(props.feedId))
     .flatten();
 
   const updateAboutReducer$ = about$.map(
-    about =>
+    (about) =>
       function updateAboutReducer(prev: State): State {
         return {...prev, about};
       },
   );
 
   const getFeedReadable$ = props$
-    .map(props => ssbSource.profileFeed$(props.feedId))
+    .map((props) => ssbSource.profileFeed$(props.feedId))
     .flatten();
 
   const updateBlockingSecretlyReducer$ = props$
-    .filter(props => props.feedId !== props.selfFeedId)
-    .map(props => ssbSource.isPrivatelyBlocking$(props.feedId))
+    .filter((props) => props.feedId !== props.selfFeedId)
+    .map((props) => ssbSource.isPrivatelyBlocking$(props.feedId))
     .take(1)
     .flatten()
     .map(
-      blockingSecretly =>
+      (blockingSecretly) =>
         function updateSecretlyBlockingReducer(prev: State): State {
           return {...prev, blockingSecretly};
         },
     );
 
   const updateFeedStreamReducer$ = getFeedReadable$.map(
-    getFeedReadable =>
+    (getFeedReadable) =>
       function updateFeedStreamReducer(prev: State): State {
         return {...prev, getFeedReadable};
       },
   );
 
   const updateSelfRootsReducer$ = ssbSource.selfPublicRoots$.map(
-    getReadable =>
+    (getReadable) =>
       function updateSelfRootsReducer(prev: State): State {
         return {...prev, getSelfRootsReadable: getReadable};
       },

@@ -15,9 +15,9 @@ export type State = {
 export default function model(ssbSource: SSBSource) {
   const aboutReducer$ = ssbSource.selfFeedId$
     .take(1)
-    .map(selfFeedId =>
+    .map((selfFeedId) =>
       ssbSource.profileAbout$(selfFeedId).map(
-        about =>
+        (about) =>
           function aboutReducer(prev: State): State {
             const selfAvatarUrl = about.imageUrl;
             return {...(prev ?? {}), selfFeedId, selfAvatarUrl};

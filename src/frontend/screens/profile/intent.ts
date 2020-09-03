@@ -38,7 +38,7 @@ export default function intent(
         .select('avatar')
         .events('press')
         .compose(sample(state$))
-        .filter(state => !!state.about.imageUrl),
+        .filter((state) => !!state.about.imageUrl),
     ) as Stream<null>,
 
     goToEdit$: reactSource.select('editProfile').events('press') as Stream<

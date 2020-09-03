@@ -22,7 +22,7 @@ export default function view(
   scrollToTop$: Stream<any>,
 ) {
   const vdom$ = state$
-    .filter(state => state.isVisible)
+    .filter((state) => state.isVisible)
     .compose(
       dropRepeatsByKeys([
         'selfFeedId',
@@ -31,7 +31,7 @@ export default function view(
         'scrollHeaderBy',
       ]),
     )
-    .map(state => {
+    .map((state) => {
       return h(Feed, {
         sel: 'publicFeed',
         style: styles.feed,

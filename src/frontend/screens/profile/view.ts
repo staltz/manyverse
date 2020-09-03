@@ -41,7 +41,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         'getSelfRootsReadable',
       ]),
     )
-    .map(state => {
+    .map((state) => {
       const isSelfProfile = state.displayFeedId === state.selfFeedId;
       const isBlocked = state.about.following === false;
       const followsYouTristate = state.about.followsYou;

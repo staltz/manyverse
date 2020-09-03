@@ -14,11 +14,11 @@ import {
 export default function intent(globalEventBus: Stream<GlobalEvent>) {
   return {
     goToProfile$: globalEventBus
-      .filter(ev => ev.type === 'triggerFeedCypherlink')
-      .map(ev => ({authorFeedId: (ev as TriggerFeedCypherlink).feedId})),
+      .filter((ev) => ev.type === 'triggerFeedCypherlink')
+      .map((ev) => ({authorFeedId: (ev as TriggerFeedCypherlink).feedId})),
 
     goToThread$: globalEventBus
-      .filter(ev => ev.type === 'triggerMsgCypherlink')
-      .map(ev => ({rootMsgId: (ev as TriggerMsgCypherlink).msgId})),
+      .filter((ev) => ev.type === 'triggerMsgCypherlink')
+      .map((ev) => ({rootMsgId: (ev as TriggerMsgCypherlink).msgId})),
   };
 }

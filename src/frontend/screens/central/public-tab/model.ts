@@ -34,7 +34,7 @@ export default function model(
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
   const setPublicFeedReducer$ = ssbSource.publicFeed$.map(
-    getReadable =>
+    (getReadable) =>
       function setPublicFeedReducer(prev: State): State {
         return {...prev, getPublicFeedReadable: getReadable};
       },
@@ -56,14 +56,14 @@ export default function model(
     .map(() => asyncStorageSource.getItem('composeDraft'))
     .flatten()
     .map(
-      composeDraft =>
+      (composeDraft) =>
         function getComposeDraftReducer(prev: State): State {
           return {...prev, hasComposeDraft: !!composeDraft};
         },
     );
 
   const setSelfRootsReducer$ = ssbSource.selfPublicRoots$.map(
-    getReadable =>
+    (getReadable) =>
       function setSelfRootsReducer(prev: State): State {
         return {...prev, getSelfRootsReadable: getReadable};
       },
