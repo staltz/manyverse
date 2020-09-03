@@ -925,7 +925,7 @@
     "audio": {
       "loading": {
         "text": "Loading...",
-        "accessbility_label": "Loading file"
+        "accessibility_label": "Loading file"
       },
       "play": {
         "accessibility_label": "Play audio"

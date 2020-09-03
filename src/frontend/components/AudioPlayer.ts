@@ -309,7 +309,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
                 accessible: true,
                 accessibilityRole: 'text',
                 accessibilityLabel: t(
-                  'message.audio.loading.accessbility_label',
+                  'message.audio.loading.accessibility_label',
                 ),
                 style: [styles.initialLoading, {opacity: this.loadingAnim}],
               },

@@ -409,7 +409,7 @@ declare module 'i18n-js' {
     | 'message.reactions.show_more.accessibility_label'
     | 'message.image.without_caption.accessibility_label'
     | 'message.audio.loading.text'
-    | 'message.audio.loading.accessbility_label'
+    | 'message.audio.loading.accessibility_label'
     | 'message.audio.play.accessibility_label'
     | 'message.audio.pause.accessibility_label'
     | 'message.audio.stop.accessibility_label'
