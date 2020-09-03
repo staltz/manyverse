@@ -1,3 +1,9 @@
+/* Copyright (C) 2020 The Manyverse Authors.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {
@@ -10,7 +16,7 @@ import {
   TextProps,
   StyleSheet,
 } from 'react-native';
-import Slider, {SliderProps} from '@react-native-community/slider';
+import Slider from '@react-native-community/slider';
 import {
   Player,
   MediaStates,
@@ -18,7 +24,6 @@ import {
 } from '@react-native-community/audio-toolkit';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import RNFetchBlob from 'rn-fetch-blob';
-
 import {t} from '../drivers/localization';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
@@ -30,23 +35,15 @@ enum PlayState {
   PLAYING = MediaStates.PLAYING,
 }
 
-export type Props = {
-  src: string;
-};
-
-export type State = {
-  playState: PlayState;
-  elapsed: number;
-  elapsedSlider: number;
-  duration: number;
-
-  editingSlider: boolean;
-  fetchingFile: boolean;
-
-  timer?: number;
-};
-
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    backgroundColor: Palette.backgroundTextWeak,
+    minHeight: 100,
+    overflow: 'visible',
+    position: 'relative',
+  },
+
   initialLoading: {
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
@@ -54,6 +51,16 @@ const styles = StyleSheet.create({
     color: Palette.backgroundBrandStrong,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+
+  sliderContainer: {
+    marginVertical: Dimensions.verticalSpaceBig,
+    marginHorizontal: Dimensions.horizontalSpaceBig,
+    flexDirection: 'row',
+  },
+
+  timeText: {
+    alignSelf: 'center',
   },
 
   slider: {
@@ -67,11 +74,35 @@ const styles = StyleSheet.create({
     paddingLeft: Dimensions.horizontalSpaceSmall,
     paddingRight: Dimensions.horizontalSpaceBig,
   },
+
+  controlsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: Dimensions.verticalSpaceBig,
+  },
+
+  controlButtons: {
+    marginHorizontal: Dimensions.horizontalSpaceLarge,
+  },
 });
 
 function convertMillisecondsToSeconds(milliseconds: number): number {
   return Math.floor(milliseconds / 1000);
 }
+
+export type Props = {
+  src: string;
+};
+
+export type State = {
+  playState: PlayState;
+  elapsed: number;
+  elapsedSlider: number;
+  duration: number;
+  editingSlider: boolean;
+  fetchingFile: boolean;
+  timer?: number;
+};
 
 export default class AudioPlayer extends PureComponent<Props, State> {
   private player: Player | null = null;
@@ -82,7 +113,6 @@ export default class AudioPlayer extends PureComponent<Props, State> {
     elapsed: 0,
     elapsedSlider: 0,
     duration: 0,
-
     editingSlider: false,
     fetchingFile: true,
   };
@@ -96,18 +126,15 @@ export default class AudioPlayer extends PureComponent<Props, State> {
       fileCache: true,
     })
       .fetch('GET', this.props.src)
-      .then(blob => {
+      .then((blob) => {
         this.player = new Player(blob.path(), {
           autoDestroy: false,
         }).prepare((err: PlayerError | null): void => {
-          if (err || !this.player) {
-            return;
-          }
+          if (err || !this.player) return;
 
           const duration = convertMillisecondsToSeconds(
             Math.round(this.player.duration),
           );
-
           this.setState({duration, fetchingFile: false}, () =>
             breathingAnimation.stop(),
           );
@@ -129,27 +156,24 @@ export default class AudioPlayer extends PureComponent<Props, State> {
   private onSliderEditStart = () => {
     this.setState({editingSlider: true});
   };
+
   private onSliderEditEnd = (value: number) => {
     this.setState({elapsedSlider: value});
     this.player?.seek(value * 1000, () => {
       this.setState({editingSlider: false, elapsed: value});
     });
   };
+
   private onSliderValueChange = (value: number) => {
     this.setState({editingSlider: true, elapsed: value});
   };
 
   private play = () => {
     requestAnimationFrame(() => {
-      if (!this.player) {
-        return;
-      }
+      if (!this.player) return;
 
       const timer = setInterval(() => {
-        if (!this.player) {
-          return;
-        }
-
+        if (!this.player) return;
         if (
           this.state.playState !== PlayState.PLAYING ||
           this.state.editingSlider
@@ -159,7 +183,6 @@ export default class AudioPlayer extends PureComponent<Props, State> {
 
         const currentTime = Math.round(this.player.currentTime);
         const elapsed = convertMillisecondsToSeconds(Math.max(0, currentTime));
-
         this.setState({elapsed, elapsedSlider: elapsed});
       }, 100);
 
@@ -189,40 +212,29 @@ export default class AudioPlayer extends PureComponent<Props, State> {
     }`;
   }
 
-  public render() {
-    const currentTimeString = this.getAudioTimeString(this.state.elapsed);
-    const durationString = this.getAudioTimeString(this.state.duration);
+  private renderTimeText(time: number, accessibilityLabel: string) {
+    const timeTextProps: TextProps = {
+      accessible: true,
+      accessibilityRole: 'text',
+      style: styles.timeText,
+    };
+
+    return h(
+      Text,
+      {...timeTextProps, accessibilityLabel},
+      this.getAudioTimeString(time),
+    );
+  }
+
+  private renderControlButtons() {
     const touchableProps: TouchableOpacityProps = {
       style: styles.touchable,
       activeOpacity: 0.2,
       accessible: true,
       accessibilityRole: 'button',
     };
-    const sliderProps: SliderProps = {
-      onSlidingStart: this.onSliderEditStart,
-      onSlidingComplete: this.onSliderEditEnd,
-      onValueChange: this.onSliderValueChange,
-      disabled: this.state.fetchingFile,
-      value: this.state.elapsedSlider,
-      step: 1,
-      minimumValue: 0,
-      maximumValue: this.state.duration,
-      maximumTrackTintColor: Palette.colors.gray6,
-      minimumTrackTintColor: Palette.backgroundBrandWeaker,
-      thumbTintColor: Palette.backgroundBrandStrong,
-      accessible: true,
-      accessibilityRole: 'adjustable',
-      accessibilityLabel: t('message.audio.slider.accessibility_label'),
-      style: styles.slider,
-    };
-    const timeTextProps: TextProps = {
-      accessible: true,
-      accessibilityRole: 'text',
-      accessibilityLabel: 'none',
-      style: {alignSelf: 'center'},
-    };
 
-    const controlButtons = h(View, {style: {marginHorizontal: 30}}, [
+    return h(View, {style: styles.controlButtons}, [
       this.state.playState === PlayState.PLAYING
         ? h(
             TouchableOpacity,
@@ -255,79 +267,56 @@ export default class AudioPlayer extends PureComponent<Props, State> {
             ],
           ),
     ]);
+  }
 
-    return h(
-      View,
-      {
-        style: {
-          justifyContent: 'center',
-          backgroundColor: Palette.backgroundTextWeak,
-          minHeight: 100,
-          overflow: 'visible',
-          position: 'relative',
-        },
-      },
-      [
-        h(
-          View,
-          {
-            style: {
-              marginVertical: 15,
-              marginHorizontal: 15,
-              flexDirection: 'row',
-            },
-          },
-          [
-            h(
-              Text,
-              {
-                ...timeTextProps,
-                accessibilityLabel: t(
-                  'message.audio.elapsed.accessibility_label',
-                ),
-              },
-              currentTimeString,
-            ),
-            h(Slider, sliderProps),
-            h(
-              Text,
-              {
-                ...timeTextProps,
-                accessibilityLabel: t(
-                  'message.audio.duration.accessibility_label',
-                ),
-              },
-              durationString,
-            ),
-          ],
+  public render() {
+    return h(View, {style: styles.container}, [
+      h(View, {style: styles.sliderContainer}, [
+        this.renderTimeText(
+          this.state.elapsed,
+          t('message.audio.elapsed.accessibility_label'),
         ),
-        h(
-          View,
-          {
-            style: {
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginVertical: 15,
-            },
-          },
-          [
-            this.state.fetchingFile
-              ? h(
-                  Animated.Text,
-                  {
-                    accessible: true,
-                    accessibilityRole: 'text',
-                    accessibilityLabel: t(
-                      'message.audio.loading.accessbility_label',
-                    ),
-                    style: [styles.initialLoading, {opacity: this.loadingAnim}],
-                  },
-                  [t('message.audio.loading.text')],
-                )
-              : controlButtons,
-          ],
+
+        h(Slider, {
+          onSlidingStart: this.onSliderEditStart,
+          onSlidingComplete: this.onSliderEditEnd,
+          onValueChange: this.onSliderValueChange,
+          disabled: this.state.fetchingFile,
+          value: this.state.elapsedSlider,
+          step: 1,
+          minimumValue: 0,
+          maximumValue: this.state.duration,
+          maximumTrackTintColor: Palette.colors.gray6,
+          minimumTrackTintColor: Palette.backgroundBrandWeaker,
+          thumbTintColor: Palette.backgroundBrandStrong,
+          accessible: true,
+          accessibilityRole: 'adjustable',
+          accessibilityLabel: t('message.audio.slider.accessibility_label'),
+          style: styles.slider,
+        }),
+
+        this.renderTimeText(
+          this.state.duration,
+          t('message.audio.duration.accessibility_label'),
         ),
-      ],
-    );
+      ]),
+
+      h(View, {style: styles.controlsContainer}, [
+        this.state.fetchingFile
+          ? h(
+              Animated.Text,
+              {
+                accessible: true,
+                accessibilityRole: 'text',
+                accessibilityLabel: t(
+                  'message.audio.loading.accessbility_label',
+                ),
+                style: [styles.initialLoading, {opacity: this.loadingAnim}],
+              },
+              [t('message.audio.loading.text')],
+            )
+          : this.renderControlButtons(),
+      ]),
+    ]);
   }
 }
