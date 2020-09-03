@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent, createElement as $} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Animated} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 
@@ -19,18 +19,32 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
   },
+
+  unread: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: Palette.backgroundBrandWeakest,
+  },
 });
 
 type Props = {
   style?: any;
+  unreadOpacity?: Animated.Value;
 };
 
 export default class MessageContainer extends PureComponent<Props> {
   public render() {
-    return $(
-      View,
-      {style: [styles.card, this.props.style]},
-      this.props.children,
-    );
+    const {style, children, unreadOpacity} = this.props;
+    if (unreadOpacity) {
+      return $(View, {style: [styles.card, style]}, [
+        $(Animated.View, {style: [styles.unread, {opacity: unreadOpacity}]}),
+        children,
+      ]);
+    } else {
+      return $(View, {style: [styles.card, style]}, children);
+    }
   }
 }

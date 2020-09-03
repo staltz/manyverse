@@ -120,7 +120,7 @@
     "ssb-ref": "2.14.0",
     "ssb-room": "~1.2.2",
     "ssb-serve-blobs": "2.5.0",
-    "ssb-threads": "5.0.0",
+    "ssb-threads": "5.1.0",
     "ssb-typescript": "2.1.0",
     "xstream": "11.12",
     "xstream-between": "1.0",

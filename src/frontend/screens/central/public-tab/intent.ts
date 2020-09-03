@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import debounce from 'xstream/extra/debounce';
 import {ReactSource} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
 import {NavSource} from 'cycle-native-navigation';
@@ -23,6 +24,10 @@ export default function intent(
   navSource: NavSource,
   fabPress$: Stream<string>,
 ) {
+  const feedRefreshed$ = reactSource
+    .select('publicFeed')
+    .events('refresh') as Stream<any>;
+
   return {
     goToCompose$: fabPress$.filter(action => action === 'compose'),
 
@@ -52,9 +57,9 @@ export default function intent(
       .select('publicFeed')
       .events('initialPullDone') as Stream<void>,
 
-    resetUpdates$: reactSource.select('publicFeed').events('refresh') as Stream<
-      any
-    >,
+    resetUpdates$: feedRefreshed$,
+
+    updateSessionTimestamp$: feedRefreshed$.compose(debounce(2e3)),
 
     refreshComposeDraft$: navSource
       .globalDidDisappear(Screens.Compose)

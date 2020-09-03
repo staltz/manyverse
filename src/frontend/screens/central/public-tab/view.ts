@@ -26,6 +26,7 @@ export default function view(
     .compose(
       dropRepeatsByKeys([
         'selfFeedId',
+        'lastSessionTimestamp',
         'getSelfRootsReadable',
         'getPublicFeedReadable',
         'scrollHeaderBy',
@@ -45,6 +46,7 @@ export default function view(
           .filter(isRootPostMsg),
         scrollToTop$,
         selfFeedId: state.selfFeedId,
+        lastSessionTimestamp: state.lastSessionTimestamp,
         EmptyComponent: h(EmptySection, {
           style: styles.emptySection,
           image: require('../../../../../images/noun-plant.png'),

@@ -36,6 +36,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
       dropRepeatsByKeys([
         'displayFeedId',
         'selfFeedId',
+        'lastSessionTimestamp',
         'about',
         'getFeedReadable',
         'getSelfRootsReadable',
@@ -183,6 +184,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                 ? ssbSource.publishHook$.filter(isPublic).filter(isRootPostMsg)
                 : null,
               selfFeedId: state.selfFeedId,
+              lastSessionTimestamp: state.lastSessionTimestamp,
               style: isSelfProfile ? styles.feedWithHeader : styles.feed,
               EmptyComponent: isSelfProfile
                 ? h(EmptySection, {

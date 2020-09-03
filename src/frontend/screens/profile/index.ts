@@ -10,6 +10,7 @@ import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
+import {GlobalEvent} from '../../drivers/eventbus';
 import {Toast} from '../../drivers/toast';
 import {Command, NavSource} from 'cycle-native-navigation';
 import messageEtc from '../../components/messageEtc';
@@ -29,6 +30,7 @@ export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
   state: StateSource<State>;
+  globalEventBus: Stream<GlobalEvent>;
   ssb: SSBSource;
   dialog: DialogSource;
 };
@@ -40,12 +42,14 @@ export type Sinks = {
   clipboard: Stream<string>;
   toast: Stream<Toast>;
   ssb: Stream<Req>;
+  globalEventBus: Stream<GlobalEvent>;
 };
 
 export function profile(sources: Sources): Sinks {
   const actions = intent(
     sources.screen,
     sources.navigation,
+    sources.globalEventBus,
     sources.state.stream,
   );
   const messageEtcSinks = messageEtc({
@@ -62,7 +66,7 @@ export function profile(sources: Sources): Sinks {
     ...manageContactSinks,
     goToRawMsg$: messageEtcSinks.goToRawMsg$,
   };
-  const reducer$ = model(sources.props, sources.ssb);
+  const reducer$ = model(actionsPlus, sources.props, sources.ssb);
   const vdom$ = view(sources.state.stream, sources.ssb);
   const newContent$ = ssb(actionsPlus, sources.state.stream);
   const command$ = navigation(
@@ -77,12 +81,17 @@ export function profile(sources: Sources): Sinks {
   );
   const toast$ = xs.merge(messageEtcSinks.toast, manageContactSinks.toast);
 
+  const globalEvent$ = xs.of({
+    type: 'requestLastSessionTimestamp',
+  } as GlobalEvent);
+
   return {
     screen: vdom$,
     navigation: command$,
     state: reducer$,
     clipboard: clipboard$,
     toast: toast$,
+    globalEventBus: globalEvent$,
     ssb: newContent$,
   };
 }

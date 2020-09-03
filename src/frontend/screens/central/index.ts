@@ -62,6 +62,7 @@ export type Sinks = {
   clipboard: Stream<string>;
   toast: Stream<Toast>;
   share: Stream<SharedContent>;
+  globalEventBus: Stream<GlobalEvent>;
   exit: Stream<any>;
 };
 
@@ -170,6 +171,10 @@ export function central(sources: Sources): Sinks {
     publicTabSinks.asyncstorage,
   );
 
+  const globalEvent$ = xs.of({
+    type: 'requestLastSessionTimestamp',
+  } as GlobalEvent);
+
   return {
     screen: vdom$,
     state: reducer$,
@@ -180,6 +185,7 @@ export function central(sources: Sources): Sinks {
     clipboard: publicTabSinks.clipboard,
     toast: toast$,
     share: connectionsTabSinks.share,
+    globalEventBus: globalEvent$,
     exit: actions.exitApp$,
   };
 }

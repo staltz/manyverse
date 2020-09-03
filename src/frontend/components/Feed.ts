@@ -146,6 +146,7 @@ type Props = {
   publication$?: Stream<any> | null;
   scrollToTop$?: Stream<any> | null;
   selfFeedId: FeedId;
+  lastSessionTimestamp: number;
   EmptyComponent?: ReactElement<any>;
   style?: ViewStyle;
   contentContainerStyle?: ViewStyle;
@@ -243,6 +244,7 @@ export default class Feed extends PureComponent<Props, State> {
       yOffsetAnimVal,
       scrollToTop$,
       getReadable,
+      lastSessionTimestamp,
       selfFeedId,
       EmptyComponent,
     } = this.props;
@@ -305,6 +307,7 @@ export default class Feed extends PureComponent<Props, State> {
           return h(View, [
             h(ThreadCard, {
               thread,
+              lastSessionTimestamp,
               selfFeedId,
               onPressReactions,
               onPressAddReaction,

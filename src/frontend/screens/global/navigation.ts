@@ -26,41 +26,47 @@ export default function navigation(
   actions: Actions,
   state$: Stream<State>,
 ): Stream<Command> {
-  const toProfile$ = actions.goToProfile$.compose(sampleCombine(state$)).map(
-    ([ev, state]) =>
-      ({
-        type: 'push',
-        layout: {
-          component: {
-            name: Screens.Profile,
-            passProps: {
-              selfFeedId: state.selfFeedId,
-              selfAvatarUrl: state.selfAvatarUrl,
-              feedId: ev.authorFeedId,
-            } as ProfileProps,
-            options: profileScreenNavOpts,
+  const toProfile$ = actions.goToProfile$
+    .compose(sampleCombine(state$))
+    .filter(([_ev, state]) => !!state.selfFeedId)
+    .map(
+      ([ev, state]) =>
+        ({
+          type: 'push',
+          layout: {
+            component: {
+              name: Screens.Profile,
+              passProps: {
+                selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
+                feedId: ev.authorFeedId,
+              } as ProfileProps,
+              options: profileScreenNavOpts,
+            },
           },
-        },
-      } as Command),
-  );
+        } as Command),
+    );
 
-  const toThread$ = actions.goToThread$.compose(sampleCombine(state$)).map(
-    ([ev, state]) =>
-      ({
-        type: 'push',
-        layout: {
-          component: {
-            name: Screens.Thread,
-            passProps: {
-              selfFeedId: state.selfFeedId,
-              selfAvatarUrl: state.selfAvatarUrl,
-              rootMsgId: ev.rootMsgId,
-            } as ThreadProps,
-            options: threadScreenNavOpts,
+  const toThread$ = actions.goToThread$
+    .compose(sampleCombine(state$))
+    .filter(([_ev, state]) => !!state.selfFeedId)
+    .map(
+      ([ev, state]) =>
+        ({
+          type: 'push',
+          layout: {
+            component: {
+              name: Screens.Thread,
+              passProps: {
+                selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
+                rootMsgId: ev.rootMsgId,
+              } as ThreadProps,
+              options: threadScreenNavOpts,
+            },
           },
-        },
-      } as Command),
-  );
+        } as Command),
+    );
 
   return xs.merge(toProfile$, toThread$);
 }

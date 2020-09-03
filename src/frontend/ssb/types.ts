@@ -44,6 +44,7 @@ export type ThreadSummary<C = Content> = {
 export type ThreadSummaryWithExtras = {
   root: MsgAndExtras;
   replyCount: number;
+  timestamp: number;
 };
 
 export type ThreadAndExtras = {

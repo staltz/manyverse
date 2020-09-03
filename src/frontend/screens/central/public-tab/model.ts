@@ -14,6 +14,7 @@ import {Animated} from 'react-native';
 
 export type State = {
   selfFeedId: FeedId;
+  lastSessionTimestamp: number;
   selfAvatarUrl?: string;
   getPublicFeedReadable: GetReadable<ThreadSummaryWithExtras> | null;
   getSelfRootsReadable: GetReadable<ThreadSummaryWithExtras> | null;
@@ -25,6 +26,7 @@ export type State = {
 
 export type Actions = {
   resetUpdates$: Stream<any>;
+  updateSessionTimestamp$: Stream<any>;
   refreshComposeDraft$: Stream<any>;
 };
 
@@ -52,6 +54,12 @@ export default function model(
     },
   );
 
+  const updateSessionTimestampReducer$ = actions.updateSessionTimestamp$.mapTo(
+    function updateSessionTimestampReducer(prev: State): State {
+      return {...prev, lastSessionTimestamp: Date.now()};
+    },
+  );
+
   const getComposeDraftReducer$ = actions.refreshComposeDraft$
     .map(() => asyncStorageSource.getItem('composeDraft'))
     .flatten()
@@ -73,6 +81,7 @@ export default function model(
     setPublicFeedReducer$,
     setSelfRootsReducer$,
     incUpdatesReducer$,
+    updateSessionTimestampReducer$,
     getComposeDraftReducer$,
     resetUpdatesReducer$,
   );

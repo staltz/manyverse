@@ -16,6 +16,7 @@ import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   selfFeedId: FeedId;
+  lastSessionTimestamp: number;
   selfAvatarUrl?: string;
   currentTab: 'public' | 'private' | 'connections';
   scrollHeaderBy: Animated.Value;
@@ -51,6 +52,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
       return {
         isVisible,
         selfFeedId,
+        lastSessionTimestamp: parent.lastSessionTimestamp,
         selfAvatarUrl,
         getPublicFeedReadable: null,
         getSelfRootsReadable: null,
@@ -65,6 +67,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
     return {
       ...parent,
       numOfPublicUpdates: child.numOfUpdates,
+      lastSessionTimestamp: child.lastSessionTimestamp,
       publicTab: child,
     };
   },
@@ -137,6 +140,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
 export type Actions = {
   changeTab$: Stream<State['currentTab']>;
   backToPublicTab$: Stream<null>;
+  loadLastSessionTimestamp$: Stream<number>;
   drawerToggled$: Stream<boolean>;
 };
 
@@ -150,6 +154,7 @@ export default function model(
     } else {
       return {
         selfFeedId: '',
+        lastSessionTimestamp: Infinity,
         currentTab: 'public',
         isSyncing: false,
         numOfPublicUpdates: 0,
@@ -178,6 +183,13 @@ export default function model(
         },
     );
 
+  const lastSessionTimestampReducer$ = actions.loadLastSessionTimestamp$.map(
+    (lastSessionTimestamp) =>
+      function lastSessionTimestampReducer(prev: State): State {
+        return {...prev, lastSessionTimestamp};
+      },
+  );
+
   const changeTabReducer$ = actions.changeTab$.map(
     (nextTab) =>
       function changeTabReducer(prev: State): State {
@@ -203,6 +215,7 @@ export default function model(
     initReducer$,
     setSelfFeedId$,
     aboutReducer$,
+    lastSessionTimestampReducer$,
     changeTabReducer$,
     backToPublicTabReducer$,
     isDrawerOpenReducer$,

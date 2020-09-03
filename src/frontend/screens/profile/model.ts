@@ -13,6 +13,7 @@ import {Props} from './props';
 
 export type State = {
   selfFeedId: FeedId;
+  lastSessionTimestamp: number;
   selfAvatarUrl?: string;
   displayFeedId: FeedId;
   about: AboutAndExtras;
@@ -22,7 +23,12 @@ export type State = {
   blockingSecretly: boolean;
 };
 
+type Actions = {
+  loadLastSessionTimestamp$: Stream<number>;
+};
+
 export default function model(
+  actions: Actions,
   props$: Stream<Props>,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
@@ -33,6 +39,7 @@ export default function model(
           selfFeedId: props.selfFeedId,
           selfAvatarUrl: props.selfAvatarUrl,
           displayFeedId: props.feedId,
+          lastSessionTimestamp: Infinity,
           getFeedReadable: null,
           getSelfRootsReadable: null,
           about: {
@@ -59,6 +66,13 @@ export default function model(
   const getFeedReadable$ = props$
     .map((props) => ssbSource.profileFeed$(props.feedId))
     .flatten();
+
+  const lastSessionTimestampReducer$ = actions.loadLastSessionTimestamp$.map(
+    (lastSessionTimestamp) =>
+      function lastSessionTimestampReducer(prev: State): State {
+        return {...prev, lastSessionTimestamp};
+      },
+  );
 
   const updateBlockingSecretlyReducer$ = props$
     .filter((props) => props.feedId !== props.selfFeedId)
@@ -88,6 +102,7 @@ export default function model(
 
   return xs.merge(
     propsReducer$,
+    lastSessionTimestampReducer$,
     updateAboutReducer$,
     updateFeedStreamReducer$,
     updateSelfRootsReducer$,
