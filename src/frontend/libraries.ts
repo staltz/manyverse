@@ -129,6 +129,14 @@ export default [
     homepage: 'https://cycle.js.org',
   },
   {
+    name: '@react-native-community/audio-toolkit',
+    type: 'library',
+    version: '2.0.3',
+    license: 'MIT License (MIT)',
+    homepage:
+      'https://github.com/react-native-community/react-native-audio-toolkit#readme',
+  },
+  {
     name: '@react-native-community/slider',
     type: 'library',
     version: '2.0.8',
@@ -669,6 +677,13 @@ export default [
     homepage: 'https://gitlab.com/staltz/ssb-mentions',
   },
   {
+    name: 'rn-fetch-blob',
+    type: 'library',
+    version: '0.12.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/joltup/rn-fetch-blob#readme',
+  },
+  {
     name: 'secret-stack',
     type: 'library',
     version: '6.3.1',
@@ -748,7 +763,7 @@ export default [
   {
     name: 'ssb-conn-query',
     type: 'library',
-    version: '0.4.4',
+    version: '0.4.5',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn-query',
   },
@@ -874,7 +889,7 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '5.0.0',
+    version: '5.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
