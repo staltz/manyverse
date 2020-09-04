@@ -572,6 +572,7 @@
   "profile": {
     "call_to_action": {
       "copy_cypherlink": "Cypherlink kopieren",
+      "private_chat": "Open private conversation",
       "block": "Blockieren",
       "block_secretly": "Heimlich blockieren",
       "unblock": "Freischalten",
@@ -919,6 +920,30 @@
     "image": {
       "without_caption": {
         "accessibility_label": "Bild ohne Bildunterschrift"
+      }
+    },
+    "audio": {
+      "loading": {
+        "text": "Lädt...",
+        "accessibility_label": "Loading file"
+      },
+      "play": {
+        "accessibility_label": "Play audio"
+      },
+      "pause": {
+        "accessibility_label": "Pause audio"
+      },
+      "stop": {
+        "accessibility_label": "Stop audio"
+      },
+      "duration": {
+        "accessibility_label": "Audio duration"
+      },
+      "elapsed": {
+        "accessibility_label": "Audio current time"
+      },
+      "slider": {
+        "accessibility_label": "Change audio time"
       }
     },
     "content_warning": {
