@@ -230,11 +230,15 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
+  - ReactNativeAudioToolkit (2.0.3):
+    - React
   - ReactNativeNavigation (4.8.1):
     - React
+  - rn-fetch-blob (0.12.0):
+    - React-Core
   - RNCAsyncStorage (1.6.1):
     - React
-  - RNFS (2.16.2):
+  - RNFS (2.16.6):
     - React
   - RNHasInternet (4.1.0):
     - React
@@ -287,7 +291,9 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "ReactNativeAudioToolkit (from `../node_modules/@react-native-community/audio-toolkit`)"
   - ReactNativeNavigation (from `../node_modules/react-native-navigation/ReactNativeNavigation.podspec`)
+  - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNHasInternet (from `../node_modules/react-native-has-internet`)
@@ -365,8 +371,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativeAudioToolkit:
+    :path: "../node_modules/@react-native-community/audio-toolkit"
   ReactNativeNavigation:
     :podspec: "../node_modules/react-native-navigation/ReactNativeNavigation.podspec"
+  rn-fetch-blob:
+    :path: "../node_modules/rn-fetch-blob"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
   RNFS:
@@ -417,9 +427,11 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
+  ReactNativeAudioToolkit: e3e27fbcd12080f54f8715c54de7a232d3beb98d
   ReactNativeNavigation: dd001e289d2828340579521adc054f21330d18b1
+  rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: 621bad7a889b5bf1583a52547f2dcd3a4d1ff15e
-  RNFS: 0d4191b1052bef9ce70deff00a5b4169c62bbd9b
+  RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
   RNHasInternet: a0e082ec9ec2244a251fd95f70ed4b16ea7b0089
   RNImageCropPicker: e1d8c3381e5b05a1bdcd13ea57a4f1c020a09cef
   RNLocalize: fc27ee5878ce5a3af73873fb2d8e866e0d1e6d84
@@ -428,6 +440,6 @@ SPEC CHECKSUMS:
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: a7c8a9a7f72613c9f105defde79f47e275f1f749
+PODFILE CHECKSUM: ab59726829845da6cb6215514715dd66c5d24bf1
 
 COCOAPODS: 1.9.3
