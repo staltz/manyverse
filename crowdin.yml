@@ -1,4 +1,5 @@
 commit_message: 'dx: new translations for %language%'
+append_commit_message: false
 files:
   - source: /android/app/src/main/assets/translations/en.json
     translation: /android/app/src/main/assets/translations/%locale%.json
