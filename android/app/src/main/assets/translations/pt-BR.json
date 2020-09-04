@@ -265,7 +265,7 @@
           "endpoint": "Conta numa sala",
           "alone_online": "(só você online)",
           "others_online": {
-            "one": "(1 outro ligado)",
+            "one": "({{count}} outro ligado)",
             "other": "({{count}} ligados)"
           }
         },
@@ -486,7 +486,7 @@
   },
   "conversation": {
     "title": "Conversa",
-    "placeholder": "Type a message...",
+    "placeholder": "Digite uma mensagem...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Mostrar Destinatários"
