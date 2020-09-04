@@ -6,6 +6,18 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2009.4-beta
+
+* (Android) Bug fix: hardware back button on Central screen ([see details](https://gitlab.com/staltz/manyverse/commit/c7ec4cdfcfef550f23a2e016c5c090a06727a3ac))
+* (iOS) Fix vertical space of peers row ([see details](https://gitlab.com/staltz/manyverse/commit/d91224a64873777e3ea4bd8ec9f08b7ea3c4db62))
+* Bug fix: crash when markdown link href was wrong ([see details](https://gitlab.com/staltz/manyverse/commit/ec32ba0b217c58843cc9879cccde2451c22b01c0))
+* Bug fix: unread dot on Private tab should behave correctly ([see details](https://gitlab.com/staltz/manyverse/commit/08654a085d8863748507c772005f4da8298f6338))
+* Feature: highlight new and unread content on the Feed ([see details](https://gitlab.com/staltz/manyverse/commit/09a426848766f222c244370438537357e7e850ef))
+* Feature: play audio messages attached to posts ([see details](https://gitlab.com/staltz/manyverse/commit/e2da4c2ff7efd3a35bb310b9fe172949f4b97a6a))
+* Feature: profile screen has "go to private chat" button ([see details](https://gitlab.com/staltz/manyverse/commit/0582484e6860daea32a52a01df924702aa4ff653))
+* Improve usability of fullscreen image viewer ([see details](https://gitlab.com/staltz/manyverse/commit/7465229261b1c020fceb8faaa7bf86be2cfe503d))
+* Update list of open source libraries used ([see details](https://gitlab.com/staltz/manyverse/commit/83f6d23ed1bb81e1be4ae2b42f4199cdf3bbda30))
+
 ## 0.2007.3-beta
 
 * (iOS) Fix tab bar height on iPhone X and later ([see details](https://gitlab.com/staltz/manyverse/commit/74a53176603c357b3889b5180631399fefc46438))
