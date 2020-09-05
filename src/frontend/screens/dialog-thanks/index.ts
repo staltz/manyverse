@@ -15,9 +15,9 @@ import MarkdownDialog from '../../components/dialogs/MarkdownDialog';
 
 const top5backers = [
   'C Moid',
+  'Andrew Lewman',
   'Audrey Tang',
   'DC Posch',
-  'Andrew Lewman',
   'Irakli Gozalishvili',
 ];
 
