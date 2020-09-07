@@ -6,6 +6,11 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2009.7-beta
+
+* (iOS) Tweak Welcome screen for Apple App Store guidelines ([see details](https://gitlab.com/staltz/manyverse/commit/1b15b359ea85a9218e2954430c9647e52b2f9395))
+* Add Greek translation ([see details](https://gitlab.com/staltz/manyverse/commit/065cc66229d795e497e6c9f89e48bca039fad13d))
+
 ## 0.2009.4-beta
 
 * (Android) Bug fix: hardware back button on Central screen ([see details](https://gitlab.com/staltz/manyverse/commit/c7ec4cdfcfef550f23a2e016c5c090a06727a3ac))
