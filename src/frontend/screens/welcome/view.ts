@@ -96,7 +96,7 @@ function overviewSlide(state: State) {
     ],
     renderBottom: () =>
       h(Button, {
-        sel: 'continue1',
+        sel: 'overview-continue',
         style: styles.button,
         textStyle: styles.buttonText,
         text: t('call_to_action.continue', {
@@ -132,7 +132,7 @@ function offTheGridSlide(state: State) {
     ],
     renderBottom: () =>
       h(Button, {
-        sel: 'continue2',
+        sel: 'offgrid-continue',
         style: styles.button,
         textStyle: styles.buttonText,
         text: t('call_to_action.continue'),
@@ -190,7 +190,7 @@ function connectionsSlide(state: State) {
       }),
     renderBottom: () =>
       h(Button, {
-        sel: 'continue3',
+        sel: 'connections-continue',
         style: styles.button,
         textStyle: styles.buttonText,
         text: t('call_to_action.continue'),
@@ -220,7 +220,7 @@ function moderationSlide(state: State) {
     ],
     renderBottom: () =>
       h(Button, {
-        sel: 'continue4',
+        sel: 'moderation-continue',
         style: styles.button,
         textStyle: styles.buttonText,
         text: t('call_to_action.continue'),
@@ -250,7 +250,7 @@ function permanenceSlide(state: State) {
     ],
     renderBottom: () =>
       h(Button, {
-        sel: 'continue5',
+        sel: 'permanence-continue',
         style: styles.button,
         textStyle: styles.buttonText,
         text: t('call_to_action.continue'),
@@ -274,7 +274,7 @@ function inConstructionSlide(state: State) {
     ],
     renderBottom: () =>
       h(Button, {
-        sel: 'continue6',
+        sel: 'inconstruction-continue',
         style: styles.button,
         textStyle: styles.buttonText,
         text: t('call_to_action.continue'),
@@ -287,7 +287,7 @@ function inConstructionSlide(state: State) {
 
 function setupAccountSlide(state: State) {
   return tutorialSlide({
-    show: state.index >= 6,
+    show: state.index >= (Platform.OS === 'ios' ? 5 : 6),
     image: require('../../../../images/noun-flower.png'),
     portraitMode: state.isPortraitMode,
     title: t('welcome.setup_account.title'),
@@ -319,7 +319,7 @@ function setupAccountSlide(state: State) {
 }
 
 export default function view(state$: Stream<State>, actions: Actions) {
-  return state$.map(state =>
+  return state$.map((state) =>
     h(View, {style: styles.screen}, [
       !state.readyToStart
         ? h(Image, {source: {uri: 'logo_outline'}, style: styles.logo})
@@ -329,7 +329,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
             connectionsSlide(state),
             moderationSlide(state),
             permanenceSlide(state),
-            inConstructionSlide(state),
+            Platform.OS === 'ios' ? null : inConstructionSlide(state),
             setupAccountSlide(state),
           ]),
     ]),

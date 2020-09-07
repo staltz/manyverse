@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -34,7 +34,7 @@ export type Props = {
 export default function tutorialPresentation(
   sel: string | symbol,
   props: Props | null,
-  children: Array<ReactElement>,
+  children: Array<ReactElement | null>,
 ) {
   return h(View, {style: styles.container}, [
     h(
@@ -48,7 +48,7 @@ export default function tutorialPresentation(
         activeDotColor: Palette.colors.white,
         automaticallyAdjustContentInsets: true,
       },
-      children,
+      children.filter((x) => !!x),
     ),
   ]);
 }

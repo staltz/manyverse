@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs from 'xstream';
+import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import path = require('path');
@@ -40,14 +41,17 @@ export default function intent(
 
     scrollBy$: xs
       .merge(
-        screenSource.select('continue1').events('press'),
-        screenSource.select('continue2').events('press'),
-        screenSource.select('continue3').events('press'),
-        screenSource.select('continue4').events('press'),
-        screenSource.select('continue5').events('press'),
-        screenSource.select('continue6').events('press'),
+        screenSource.select('overview-continue').events('press').mapTo(1),
+        screenSource.select('offgrid-continue').events('press').mapTo(1),
+        screenSource.select('connections-continue').events('press').mapTo(1),
+        screenSource.select('moderation-continue').events('press').mapTo(1),
+        screenSource
+          .select('permanence-continue')
+          .events('press')
+          .mapTo(Platform.OS === 'ios' ? 2 : 1),
+        screenSource.select('inconstruction-continue').events('press').mapTo(1),
       )
-      .mapTo([/* offset */ +1, /* animated */ true] as [number, boolean]),
+      .map((offset) => [offset, /* animated */ true] as [number, boolean]),
 
     pageChanged$: screenSource.select('swiper').events('indexChanged'),
 
