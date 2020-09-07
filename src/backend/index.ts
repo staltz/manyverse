@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,7 +7,6 @@
 // Setup initial communication with the frontend, to create or restore identity
 if (process.env.MANYVERSE_PLATFORM === 'mobile') {
   const rnBridge = require('rn-bridge');
-  const restore = require('./restore');
   rnBridge.channel.on('identity', (request: string) => {
     const startSSB = () => require('./ssb');
     let response;
@@ -16,6 +15,7 @@ if (process.env.MANYVERSE_PLATFORM === 'mobile') {
       response = 'IDENTITY_READY';
     } else if (request.startsWith('RESTORE:')) {
       const words = request.split('RESTORE: ')[1].trim();
+      const restore = require('./restore');
       response = restore(words);
       if (response === 'IDENTITY_READY') startSSB();
     }
