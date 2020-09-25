@@ -1,25 +1,25 @@
 {
   "call_to_action": {
-    "ok": "OK",
-    "add": "Add",
-    "done": "Done",
+    "ok": "好的",
+    "add": "添加",
+    "done": "完成",
     "cancel": "取消",
     "continue": "继续",
     "delete": "删除",
     "save": "保存",
-    "yes": "Yes",
-    "no": "No",
+    "yes": "是",
+    "no": "不",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "菜单键"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "返回按钮"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "关闭按钮"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "关闭对话按钮"
     }
   },
   "date": {
@@ -76,7 +76,7 @@
           "one": "1 分钟后",
           "other": "{{count}} 分钟后"
         },
-        "now": "Very soon"
+        "now": "即将到来"
       }
     }
   },
@@ -84,69 +84,69 @@
     "learn_more": "了解更多",
     "overview": {
       "title": "欢迎使用 Manyverse ！",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "description": "社交网络可以是简单的，中立的，非商业的和建立在朋友间的信任之上。这就是Manyverse所代表的，并且我们希望你也可以使它成为你的数字之家。新奇的SSB协议使这一切成为可能。"
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "无网络",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse可以使用互联网连接，但是它不是 ",
+        "2_bold": "在",
+        "3_normal": " 互联网。所有一切都在你的设备中。这就是说你可以在线下正常使用它！你的 ",
+        "4_bold": "数据内容都首先储存在你的设备上",
+        "5_normal": "，你可以在与朋友连接后与他们同步。"
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "多种连接方式",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": " or exchange",
-          "4_bold": "P2P invites",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "1_normal": "为了与朋友链接并同步内容，你可以：加入相同 ",
+          "2_bold": "无线局域网",
+          "3_normal": " 或者交换",
+          "4_bold": "点对点邀请",
+          "5_normal": "。要想在互联网上发现新用户，请寻找邀请码到一 ",
+          "6_bold": "pub（酒馆）服务器",
+          "7_normal": " 或者一个 ",
+          "8_bold": "房间服务器",
+          "9_normal": "，或者开启你自己的服务器！"
         },
         "default": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ", or exchange ",
-          "6_bold": "P2P invites",
-          "7_normal": ". To find new people on the internet, look for an invite code to a ",
-          "8_bold": "pub server",
-          "9_normal": " or a ",
-          "10_bold": "room server",
-          "11_normal": ", or start your own server!"
+          "1_normal": "为了与朋友链接并同步内容，你可以：加入相同 ",
+          "2_bold": "无线局域网",
+          "3_normal": "，使用 ",
+          "4_bold": "蓝牙同步",
+          "5_normal": "，或者交换 ",
+          "6_bold": "点对点邀请",
+          "7_normal": "。要想在互联网上发现新用户，请寻找邀请码到一 ",
+          "8_bold": "pub（酒馆）服务器",
+          "9_normal": " 或者一个 ",
+          "10_bold": "房间服务器",
+          "11_normal": "，或者开启你自己的服务器！"
         }
       }
     },
     "moderation": {
-      "title": "Shared moderation",
+      "title": "共享审核权力",
       "description": {
-        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "1_normal": "由于你的设备托管了你的社交网络，没有其他人可以代替你封禁或删除账号。只有你可以管理你的空间，通过 ",
+        "2_bold": "屏蔽账号",
+        "3_normal": " 那些你不想在你设备上看到的。然后，你的朋友也可以选择屏蔽这些相同的账号。通过这样审核权被自然分散！"
       }
     },
     "permanence": {
-      "title": "Permanence",
+      "title": "永久性",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
-        "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
+        "1_normal": "一旦你的内容与好友同步，他们的设备上就会有一份拷贝。因为他们可以在这之后下线， ",
+        "2_bold": "你不可能删除",
+        "3_normal": " 你的内容从所有的设备上！这也是为什么我们选择使内容永久化。这也使社区成员们更加慎重考虑他们要发出的内容。"
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "正在建设中！",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
-        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+        "1_normal": "Manyverse是 ",
+        "2_bold": "beta测试质量的软件",
+        "3_normal": "。我们还没有完全熟悉一切，且一些地方需要改进。在同步过程中，软件会出现冻结若干分钟的情况。请保持耐心！请告知我们你遇到的任何程序错误，同时在足够的时间和募捐下，我们可以做出一个非常棒的应用。"
       }
     },
     "setup_account": {
