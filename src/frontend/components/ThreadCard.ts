@@ -7,7 +7,7 @@
 import xs, {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import {PureComponent} from 'react';
-import {Animated, StyleSheet, View, ViewProps} from 'react-native';
+import {StyleSheet, View, ViewProps} from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, Msg, PostContent} from 'ssb-typescript';
 import {withXstreamProps} from 'react-xstream-hoc';
@@ -105,33 +105,6 @@ export default class ThreadCard extends PureComponent<Props, State> {
    */
   public static HEIGHT = CARD_HEIGHT;
 
-  private unreadOpacityAnim = new Animated.Value(0);
-
-  public componentDidMount() {
-    this.maybeAnimateUnreadBackground();
-  }
-
-  public componentDidUpdate(prev: Props) {
-    const next = this.props;
-    if (next.lastSessionTimestamp !== prev.lastSessionTimestamp) {
-      this.maybeAnimateUnreadBackground();
-    }
-  }
-
-  private maybeAnimateUnreadBackground() {
-    const threadTimestamp = this.props.thread.timestamp;
-    const lastSession = this.props.lastSessionTimestamp;
-    if (threadTimestamp > lastSession) {
-      this.unreadOpacityAnim.setValue(1);
-      Animated.timing(this.unreadOpacityAnim, {
-        toValue: 0,
-        duration: 6000,
-        delay: 3000,
-        useNativeDriver: true,
-      }).start();
-    }
-  }
-
   private onMarkdownMeasured: ViewProps['onLayout'] = (ev) => {
     if (ev.nativeEvent.layout.height > POST_HEIGHT) {
       this.setState({showReadMore: true});
@@ -154,6 +127,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
     const {
       thread,
       selfFeedId,
+      lastSessionTimestamp,
       onPressAddReaction,
       onPressReactions,
       onPressAuthor,
@@ -168,9 +142,9 @@ export default class ThreadCard extends PureComponent<Props, State> {
     const hasCW =
       !!cwMsg.value.content.contentWarning &&
       typeof cwMsg.value.content.contentWarning === 'string';
-    const unreadOpacity = this.unreadOpacityAnim;
+    const unread = thread.timestamp > lastSessionTimestamp;
 
-    return h(MessageContainer, {style: styles.container, unreadOpacity}, [
+    return h(MessageContainer, {style: styles.container, unread}, [
       h(MessageHeader, {
         key: 'mh',
         msg: root,

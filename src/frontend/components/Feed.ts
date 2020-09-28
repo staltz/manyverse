@@ -294,6 +294,7 @@ export default class Feed extends PureComponent<Props, State> {
           return h(View, [
             h(FollowCard, {
               thread,
+              lastSessionTimestamp,
               selfFeedId,
               onPressReactions,
               onPressAddReaction,

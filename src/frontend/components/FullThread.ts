@@ -32,6 +32,7 @@ type ScrollToEndArg = Parameters<FlatList<any>['scrollToEnd']>[0];
 export type Props = {
   thread: ThreadAndExtras;
   subthreads: Record<MsgId, ThreadAndExtras>;
+  lastSessionTimestamp: number;
   publication$?: Stream<any> | null;
   scrollToEnd$?: Stream<ScrollToEndArg>;
   selfFeedId: FeedId;
@@ -136,6 +137,7 @@ export default class FullThread extends Component<Props, State> {
       onPressReplyToReply,
       thread,
       subthreads,
+      lastSessionTimestamp,
     } = this.props;
     const msg = item as MsgAndExtras;
     const root = thread.messages[0];
@@ -160,6 +162,7 @@ export default class FullThread extends Component<Props, State> {
       key: msg.key,
       expandCW: index === 0 && this.props.expandRootCW === true,
       selfFeedId,
+      lastSessionTimestamp,
       onPressReply,
       replyCount,
       onPressReactions,

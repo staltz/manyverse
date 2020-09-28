@@ -37,6 +37,7 @@ export type Props = {
   name?: string;
   contactName?: string;
   imageUrl: string | null;
+  lastSessionTimestamp: number;
   reactions: Reactions;
   replyCount: number;
   selfFeedId: FeedId;
@@ -59,8 +60,9 @@ export default class ContactMessage extends Component<Props, {}> {
 
   public render() {
     const props = this.props;
+    const unread = props.msg.timestamp > props.lastSessionTimestamp;
 
-    return h(MessageContainer, [
+    return h(MessageContainer, {unread}, [
       h(MessageHeader, props),
       h(ContactBody, props),
       h(MessageFooter, {...props, style: styles.footer}),

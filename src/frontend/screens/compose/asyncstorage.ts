@@ -60,10 +60,22 @@ export default function asyncStorage(actions: Actions, state$: Stream<State>) {
         ({type: 'removeItem', key: `replyDraft:${state.root}`} as Command),
     );
 
+  const lastSession$ = xs
+    .merge(actions.publishPost$, actions.publishReply$)
+    .map(
+      () =>
+        ({
+          type: 'setItem',
+          key: 'lastSessionTimestamp',
+          value: `${Date.now() + 2e3}`,
+        } as Command),
+    );
+
   return xs.merge(
     savePostDraft$,
     deletePostDraft$,
     saveReplyDraft$,
     deleteReplyDraft$,
+    lastSession$,
   );
 }

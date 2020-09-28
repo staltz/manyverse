@@ -5,46 +5,43 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent, createElement as $} from 'react';
-import {View, StyleSheet, Animated} from 'react-native';
+import {View, StyleSheet, ViewStyle} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 
+const card: ViewStyle = {
+  flex: 1,
+  paddingHorizontal: Dimensions.horizontalSpaceBig,
+  paddingVertical: Dimensions.verticalSpaceBig,
+  marginBottom: 1,
+  flexDirection: 'column',
+  alignItems: 'stretch',
+};
+
 export const styles = StyleSheet.create({
-  card: {
-    flex: 1,
+  readCard: {
+    ...card,
     backgroundColor: Palette.backgroundText,
-    paddingHorizontal: Dimensions.horizontalSpaceBig,
-    paddingVertical: Dimensions.verticalSpaceBig,
-    marginBottom: 1,
-    flexDirection: 'column',
-    alignItems: 'stretch',
   },
 
-  unread: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    backgroundColor: Palette.backgroundBrandWeakest,
+  unreadCard: {
+    ...card,
+    backgroundColor: Palette.backgroundTextBrand,
   },
 });
 
 type Props = {
   style?: any;
-  unreadOpacity?: Animated.Value;
+  unread?: boolean;
 };
 
 export default class MessageContainer extends PureComponent<Props> {
   public render() {
-    const {style, children, unreadOpacity} = this.props;
-    if (unreadOpacity) {
-      return $(View, {style: [styles.card, style]}, [
-        $(Animated.View, {style: [styles.unread, {opacity: unreadOpacity}]}),
-        children,
-      ]);
-    } else {
-      return $(View, {style: [styles.card, style]}, children);
-    }
+    const {style, children, unread} = this.props;
+    return $(
+      View,
+      {style: [unread ? styles.unreadCard : styles.readCard, style]},
+      children,
+    );
   }
 }

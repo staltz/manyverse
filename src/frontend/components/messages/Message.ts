@@ -30,6 +30,7 @@ export type State = {
 export type Props = {
   msg: MsgAndExtras;
   selfFeedId: FeedId;
+  lastSessionTimestamp: number;
   expandCW?: boolean;
   replyCount?: number;
   onPressReactions?: (ev: PressReactionsEvent) => void;

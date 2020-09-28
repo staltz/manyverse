@@ -27,6 +27,7 @@ import ContactBody from './messages/ContactBody';
 export type Props = {
   thread: ThreadSummaryWithExtras;
   selfFeedId: FeedId;
+  lastSessionTimestamp: number;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
@@ -57,6 +58,7 @@ export default class FollowCard extends PureComponent<Props> {
     const {
       thread,
       selfFeedId,
+      lastSessionTimestamp,
       onPressAddReaction,
       onPressReactions,
       onPressAuthor,
@@ -68,8 +70,9 @@ export default class FollowCard extends PureComponent<Props> {
       metadata.reactions ?? (xs.never() as Stream<Reactions>)
     ).compose(debounce(80)); // avoid DB reads flickering
     const contactName = metadata.contact?.name;
+    const unread = thread.timestamp > lastSessionTimestamp;
 
-    return h(MessageContainer, {style: styles.container}, [
+    return h(MessageContainer, {style: styles.container, unread}, [
       h(MessageHeader, {
         key: 'mh',
         msg: root,

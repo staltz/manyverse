@@ -61,8 +61,9 @@ function renderWithImage(
   name: string | undefined,
   imageUrl: string | null,
   msg: Msg<About>,
+  unread: boolean,
 ) {
-  return h(MessageContainer, [
+  return h(MessageContainer, {unread}, [
     h(View, {style: styles.row}, [
       h(
         Text,
@@ -94,8 +95,12 @@ function renderWithImage(
   ]);
 }
 
-function renderWithNameDesc(name: string | undefined, msg: Msg<About>) {
-  return h(MessageContainer, [
+function renderWithNameDesc(
+  name: string | undefined,
+  msg: Msg<About>,
+  unread: boolean,
+) {
+  return h(MessageContainer, {unread}, [
     h(View, {style: styles.row}, [
       h(Text, [
         h(
@@ -138,8 +143,12 @@ function renderWithNameDesc(name: string | undefined, msg: Msg<About>) {
   ]);
 }
 
-function renderWithDesc(name: string | undefined, msg: Msg<About>) {
-  return h(MessageContainer, [
+function renderWithDesc(
+  name: string | undefined,
+  msg: Msg<About>,
+  unread: boolean,
+) {
+  return h(MessageContainer, {unread}, [
     h(View, {key: 'a', style: styles.row}, [
       h(
         Text,
@@ -168,8 +177,12 @@ function renderWithDesc(name: string | undefined, msg: Msg<About>) {
   ]);
 }
 
-function renderWithName(name: string | undefined, msg: Msg<About>) {
-  return h(MessageContainer, [
+function renderWithName(
+  name: string | undefined,
+  msg: Msg<About>,
+  unread: boolean,
+) {
+  return h(MessageContainer, {unread}, [
     h(View, {style: styles.row}, [
       h(Text, [
         h(Text, {style: styles.followed}, t('message.about.new_name.1_normal')),
@@ -203,6 +216,7 @@ export type Props = {
   msg: Msg<About>;
   name?: string;
   imageUrl: string | null;
+  lastSessionTimestamp: number;
 };
 
 export default class AboutMessage extends Component<Props, {}> {
@@ -220,20 +234,21 @@ export default class AboutMessage extends Component<Props, {}> {
   }
 
   public render() {
-    const {msg, name, imageUrl} = this.props;
+    const {msg, name, imageUrl, lastSessionTimestamp} = this.props;
 
     const hasImage = !!imageUrl;
     const hasName = !!msg.value.content.name;
     const hasDescription = !!msg.value.content.description;
+    const unread = msg.timestamp > lastSessionTimestamp;
 
     if (hasImage) {
-      return renderWithImage(name, imageUrl, msg);
+      return renderWithImage(name, imageUrl, msg, unread);
     } else if (hasName && hasDescription) {
-      return renderWithNameDesc(name, msg);
+      return renderWithNameDesc(name, msg, unread);
     } else if (hasDescription) {
-      return renderWithDesc(name, msg);
+      return renderWithDesc(name, msg, unread);
     } else {
-      return renderWithName(name, msg);
+      return renderWithName(name, msg, unread);
     }
   }
 }

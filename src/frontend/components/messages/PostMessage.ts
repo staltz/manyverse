@@ -26,6 +26,7 @@ export type Props = {
   msg: Msg<Post>;
   name?: string;
   imageUrl: string | null;
+  lastSessionTimestamp: number;
   reactions: Reactions;
   replyCount: number;
   selfFeedId: FeedId;
@@ -70,14 +71,15 @@ export default class PostMessage extends PureComponent<Props, State> {
 
   public render() {
     const props = this.props;
-    const {msg} = props;
+    const {msg, lastSessionTimestamp} = props;
     const cwMsg = msg as Msg<CWPost>;
     const hasCW =
       !!cwMsg.value.content.contentWarning &&
       typeof cwMsg.value.content.contentWarning === 'string';
     const opened = hasCW ? this.state.cwOpened : true;
+    const unread = msg.timestamp > lastSessionTimestamp;
 
-    return h(MessageContainer, [
+    return h(MessageContainer, {unread}, [
       h(MessageHeader, props),
       hasCW
         ? h(ContentWarning, {

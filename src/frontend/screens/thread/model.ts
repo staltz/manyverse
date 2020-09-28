@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import concat from 'xstream/extra/concat';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {Reducer} from '@cycle/state';
@@ -23,6 +24,7 @@ export type State = {
   loadingReplies: boolean;
   thread: ThreadAndExtras;
   subthreads: Record<MsgId, ThreadAndExtras>;
+  lastSessionTimestamp: number;
   expandRootCW: boolean;
   replyText: string;
   replyEditable: boolean;
@@ -76,6 +78,7 @@ export default function model(
           loadingReplies: !!props.rootMsg,
           thread: emptyThread,
           subthreads: {},
+          lastSessionTimestamp: Infinity,
           expandRootCW: props.expandRootCW ?? false,
           replyText: '',
           replyEditable: true,
@@ -181,6 +184,20 @@ export default function model(
     },
   );
 
+  const loadLastSessionTimestampReducer$ = asyncStorageSource
+    .getItem('lastSessionTimestamp')
+    .map(
+      (resultStr) =>
+        function lastSessionTimestampReducer(prev: State): State {
+          const lastSessionTimestamp = parseInt(resultStr ?? '', 10);
+          if (isNaN(lastSessionTimestamp)) {
+            return prev;
+          } else {
+            return {...prev, lastSessionTimestamp};
+          }
+        },
+    );
+
   const loadReplyDraftReducer$ = actions.loadReplyDraft$
     .map((rootMsgId) => asyncStorageSource.getItem(`replyDraft:${rootMsgId}`))
     .flatten()
@@ -219,17 +236,20 @@ export default function model(
         },
     );
 
-  return xs.merge(
+  return concat(
     propsReducer$,
-    setRootMsgReducer$,
-    setThreadReducer$,
-    setSubthreadReducer$,
-    keyboardAppearedReducer$,
-    keyboardDisappearedReducer$,
-    updateReplyTextReducer$,
-    publishReplyReducers$,
-    emptyReplyTextReducer$,
-    loadReplyDraftReducer$,
-    addSelfRepliesReducer$,
+    xs.merge(
+      setRootMsgReducer$,
+      setThreadReducer$,
+      setSubthreadReducer$,
+      keyboardAppearedReducer$,
+      keyboardDisappearedReducer$,
+      updateReplyTextReducer$,
+      publishReplyReducers$,
+      emptyReplyTextReducer$,
+      loadLastSessionTimestampReducer$,
+      loadReplyDraftReducer$,
+      addSelfRepliesReducer$,
+    ),
   );
 }

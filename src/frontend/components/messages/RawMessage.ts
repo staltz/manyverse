@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,10 +11,17 @@ import MessageHeader, {Props as HeaderP} from './MessageHeader';
 import MessageFooter, {Props as FooterP} from './MessageFooter';
 import Metadata from './Metadata';
 
-export default class RawMessage extends PureComponent<HeaderP & FooterP> {
+type Props = HeaderP &
+  FooterP & {
+    lastSessionTimestamp: number;
+  };
+
+export default class RawMessage extends PureComponent<Props> {
   public render() {
     const props = this.props;
-    return h(MessageContainer, [
+    const unread = props.msg.timestamp > props.lastSessionTimestamp;
+
+    return h(MessageContainer, {unread}, [
       h(MessageHeader, props),
       h(Metadata, props),
       h(MessageFooter, props),
