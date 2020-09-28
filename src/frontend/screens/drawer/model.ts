@@ -18,10 +18,10 @@ export type State = {
 export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
   const initAboutReducer$ = ssbSource.selfFeedId$
     .take(1)
-    .map(selfFeedId => ssbSource.profileAboutLive$(selfFeedId))
+    .map((selfFeedId) => ssbSource.profileAboutLive$(selfFeedId))
     .flatten()
     .map(
-      about =>
+      (about) =>
         function initAboutReducer(prev: State): State {
           const id = about.id;
           let name = '';

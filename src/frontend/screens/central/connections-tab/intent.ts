@@ -34,9 +34,9 @@ export default function intent(
     //#region Header actions
 
     pingConnectivityModes$: state$
-      .map(state => state.isVisible)
+      .map((state) => state.isVisible)
       .compose(dropRepeats())
-      .map(isTabVisible =>
+      .map((isTabVisible) =>
         isTabVisible
           ? concat(xs.of(0), xs.periodic(2000).take(2), xs.periodic(6000))
           : xs.never(),
@@ -75,42 +75,42 @@ export default function intent(
       .filter((peer: StagedPeerKV) => peer[1].type === 'dht'),
 
     goToPeerProfile$: menuChoice$
-      .filter(val => val === 'open-profile')
+      .filter((val) => val === 'open-profile')
       .compose(sample(state$))
       .map(
-        state =>
+        (state) =>
           (state.itemMenu.target as PeerKV | StagedPeerKV)[1].key as FeedId,
       ),
 
     connectPeer$: menuChoice$
-      .filter(val => val === 'connect')
+      .filter((val) => val === 'connect')
       .compose(sample(state$))
-      .map(state => state.itemMenu.target) as Stream<StagedPeerKV>,
+      .map((state) => state.itemMenu.target) as Stream<StagedPeerKV>,
 
     followConnectPeer$: menuChoice$
-      .filter(val => val === 'follow-connect')
+      .filter((val) => val === 'follow-connect')
       .compose(sample(state$))
-      .map(state => state.itemMenu.target) as Stream<StagedPeerKV>,
+      .map((state) => state.itemMenu.target) as Stream<StagedPeerKV>,
 
     disconnectPeer$: menuChoice$
-      .filter(val => val === 'disconnect')
+      .filter((val) => val === 'disconnect')
       .compose(sample(state$))
-      .map(state => (state.itemMenu.target as PeerKV)[0]),
+      .map((state) => (state.itemMenu.target as PeerKV)[0]),
 
     disconnectForgetPeer$: menuChoice$
-      .filter(val => val === 'disconnect-forget')
+      .filter((val) => val === 'disconnect-forget')
       .compose(sample(state$))
-      .map(state => (state.itemMenu.target as PeerKV)[0]),
+      .map((state) => (state.itemMenu.target as PeerKV)[0]),
 
     forgetPeer$: menuChoice$
-      .filter(val => val === 'forget')
+      .filter((val) => val === 'forget')
       .compose(sample(state$))
-      .map(state => (state.itemMenu.target as PeerKV)[0]),
+      .map((state) => (state.itemMenu.target as PeerKV)[0]),
 
     shareRoomInvite$: menuChoice$
-      .filter(val => val === 'room-share-invite')
+      .filter((val) => val === 'room-share-invite')
       .compose(sample(state$))
-      .map(state => {
+      .map((state) => {
         const peer = state.itemMenu.target as PeerKV;
         return {
           invite: roomUtils.addressToInvite(peer[0]),
@@ -119,56 +119,56 @@ export default function intent(
       }),
 
     infoClientDhtInvite$: menuChoice$
-      .filter(val => val === 'invite-info')
+      .filter((val) => val === 'invite-info')
       .compose(sample(state$))
-      .filter(state => state.itemMenu.target![1].role !== 'server')
+      .filter((state) => state.itemMenu.target![1].role !== 'server')
       .mapTo(null),
 
     infoServerDhtInvite$: menuChoice$
-      .filter(val => val === 'invite-info')
+      .filter((val) => val === 'invite-info')
       .compose(sample(state$))
-      .filter(state => state.itemMenu.target![1].role === 'server')
+      .filter((state) => state.itemMenu.target![1].role === 'server')
       .mapTo(null),
 
     noteDhtInvite$: menuChoice$
-      .filter(val => val === 'invite-note')
+      .filter((val) => val === 'invite-note')
       .mapTo(null),
 
     shareDhtInvite$: menuChoice$
-      .filter(val => val === 'invite-share')
+      .filter((val) => val === 'invite-share')
       .compose(sample(state$))
       .map(
-        state =>
+        (state) =>
           'dht:' + state.itemMenu.target![1].key + ':' + state.selfFeedId,
       ),
 
     removeDhtInvite$: menuChoice$
-      .filter(val => val === 'invite-delete')
+      .filter((val) => val === 'invite-delete')
       .compose(sample(state$))
-      .map(state => state.itemMenu.target![1].key!),
+      .map((state) => state.itemMenu.target![1].key!),
 
     closeItemMenu$: xs
       .merge(
-        back$.compose(sample(state$)).filter(state => state.itemMenu.opened),
+        back$.compose(sample(state$)).filter((state) => state.itemMenu.opened),
         reactSource.select('slide-in-menu').events('backdropPress'),
       )
       .mapTo(null),
 
     goBack$: back$
       .compose(sample(state$))
-      .filter(state => !state.itemMenu.opened)
+      .filter((state) => !state.itemMenu.opened)
       .mapTo(null),
 
     //#endregion
 
     //#region FAB actions
 
-    goToPasteInvite$: fabPress$.filter(action => action === 'invite-paste'),
+    goToPasteInvite$: fabPress$.filter((action) => action === 'invite-paste'),
 
-    goToCreateInvite$: fabPress$.filter(action => action === 'invite-create'),
+    goToCreateInvite$: fabPress$.filter((action) => action === 'invite-create'),
 
     bluetoothSearch$: fabPress$
-      .filter(action => action === 'bluetooth-search')
+      .filter((action) => action === 'bluetooth-search')
       .map(() =>
         xs.fromPromise(
           PermissionsAndroid.request(

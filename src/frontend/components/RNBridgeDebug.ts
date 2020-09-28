@@ -50,7 +50,7 @@ export default class RNBridgeDebug extends Component<
         Text,
         {style: styles.chart},
         this.state.stress
-          .map(x => {
+          .map((x) => {
             if (x === 0) return ' ';
             const y = Math.min(x, MAX_STRESS) / MAX_STRESS;
             if (y < 0.14) return '▁';
@@ -70,7 +70,7 @@ export default class RNBridgeDebug extends Component<
     const emitter = new EventEmitter();
     const events = Snoopy.stream(emitter);
     buffer(1000)(events).subscribe((x: any) => {
-      this.setState(prev => {
+      this.setState((prev) => {
         prev.stress.shift();
         prev.stress.push(x.length);
         return {stress: prev.stress};

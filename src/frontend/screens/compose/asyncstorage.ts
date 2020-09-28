@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -22,7 +22,7 @@ export default function asyncStorage(actions: Actions, state$: Stream<State>) {
   const savePostDraft$ = actions.exitSavingPostDraft$
     .compose(sample(state$))
     .map(
-      state =>
+      (state) =>
         ({
           type: 'setItem',
           key: 'composeDraft',
@@ -45,7 +45,7 @@ export default function asyncStorage(actions: Actions, state$: Stream<State>) {
     );
 
   const saveReplyDraft$ = actions.exitReply$.compose(sample(state$)).map(
-    state =>
+    (state) =>
       ({
         type: 'setItem',
         key: `replyDraft:${state.root}`,
@@ -56,7 +56,7 @@ export default function asyncStorage(actions: Actions, state$: Stream<State>) {
   const deleteReplyDraft$ = actions.publishReply$
     .compose(sample(state$))
     .map(
-      state =>
+      (state) =>
         ({type: 'removeItem', key: `replyDraft:${state.root}`} as Command),
     );
 

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -35,7 +35,7 @@ process.on('unhandledRejection', (reason, _promise) => {
     process.exit(1);
   });
 });
-process.on('uncaughtException', err => {
+process.on('uncaughtException', (err) => {
   if (typeof err === 'string') {
     rnBridge.channel.post('exception', err);
   } else {
@@ -80,7 +80,7 @@ if (process.env.PROFILER_NODEJS) {
             const data = res.profile || res.result;
             const date = new Date();
             const file = `${nodejsProjectDir}/flamechart_${date.getTime()}.json`;
-            fs.writeFile(file, JSON.stringify(data), err2 => {
+            fs.writeFile(file, JSON.stringify(data), (err2) => {
               if (err2) console.error(err2);
             });
           });

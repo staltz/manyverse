@@ -25,7 +25,7 @@ export const t: typeof i18n.t = memoize(
 export function makeLocalizationDriver() {
   return function localizationDriver(sink: Stream<Command>): Stream<void> {
     sink.subscribe({
-      next: cmd => {
+      next: (cmd) => {
         i18n.fallbacks = true;
         i18n.defaultLocale = cmd.defaultLocale;
         i18n.locale = cmd.locale;

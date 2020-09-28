@@ -119,7 +119,7 @@ class ConversationItem extends PureComponent<CIProps> {
                   ? styles.conversationAuthorsUnread
                   : styles.conversationAuthors,
               },
-              recps.map(x => displayName(x.name, x.id)).join(', '),
+              recps.map((x) => displayName(x.name, x.id)).join(', '),
             ),
           ]),
         ]),
@@ -204,11 +204,11 @@ export default function view(
   // to populate the ConversationList with data ASAP), but the subsequent state
   // emissions are guarded by the visibility check.
   const viewState$ = concat(
-    state$.filter(state => !!state.getPrivateFeedReadable).take(1),
-    state$.filter(state => state.isVisible),
+    state$.filter((state) => !!state.getPrivateFeedReadable).take(1),
+    state$.filter((state) => state.isVisible),
   ).compose(dropRepeatsByKeys(['updatesFlag', 'getPrivateFeedReadable']));
 
-  const vdom$ = viewState$.map(state => {
+  const vdom$ = viewState$.map((state) => {
     return h(ConversationsList, {
       sel: 'conversationList',
       unreadSet: state.updates,

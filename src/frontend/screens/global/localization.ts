@@ -16,7 +16,7 @@ export default function localization(fsSource: FSSource) {
       ? fsSource.readDirAssets('translations')
       : fsSource.readDir(FSSource.MainBundlePath + '/translations');
 
-  const translationPaths$ = translationsDir$.map(translationsDir =>
+  const translationPaths$ = translationsDir$.map((translationsDir) =>
     translationsDir
       .filter(({isFile, name}) => isFile() && name.endsWith('.json'))
       .reduce((all, {name, path}) => {
@@ -29,7 +29,7 @@ export default function localization(fsSource: FSSource) {
     Platform.OS === 'android' ? fsSource.readFileAssets : fsSource.readFile;
 
   const command$: Stream<LocalizationCmd> = translationPaths$
-    .map(translationPaths => {
+    .map((translationPaths) => {
       const fallbackLanguageTag = 'en';
 
       const fallbackFileContent$ = readFile(
@@ -37,7 +37,7 @@ export default function localization(fsSource: FSSource) {
         'utf8',
       );
 
-      return fallbackFileContent$.map(fallbackFileContent => ({
+      return fallbackFileContent$.map((fallbackFileContent) => ({
         translationPaths,
         fallbackLanguageTag,
         fallbackFileContent,
@@ -64,7 +64,7 @@ export default function localization(fsSource: FSSource) {
         'utf8',
       );
 
-      return bestFileContent$.map(bestFileContent => {
+      return bestFileContent$.map((bestFileContent) => {
         return {
           locale: bestLanguageTag,
           defaultLocale: fallbackLanguageTag,

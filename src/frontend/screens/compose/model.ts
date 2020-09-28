@@ -88,7 +88,7 @@ export default function model(
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
   const propsReducer$ = props$.take(1).map(
-    props =>
+    (props) =>
       function propsReducer(): State {
         return {
           postText: props.text ?? '',
@@ -110,7 +110,7 @@ export default function model(
   );
 
   const updateSelectionReducer$ = actions.updateSelection$.map(
-    postTextSelection =>
+    (postTextSelection) =>
       function updateCursorPositionReducer(prev: State): State {
         // If the mention TextInput is open, dont update the postText selection
         if (prev.mentionQuery) {
@@ -122,7 +122,7 @@ export default function model(
   );
 
   const updatePostTextReducer$ = actions.updatePostText$.map(
-    postText =>
+    (postText) =>
       function updatePostTextReducer(prev: State): State {
         return {...prev, postText};
       },
@@ -138,7 +138,7 @@ export default function model(
       return ssbSource
         .getMentionSuggestions(mentionQuery, state.authors)
         .map(
-          suggestions =>
+          (suggestions) =>
             [suggestions, selection] as [Array<MentionSuggestion>, Selection],
         );
     })
@@ -172,7 +172,7 @@ export default function model(
     );
 
   const updateMentionQueryReducer$ = actions.updateMentionQuery$.map(
-    mentionQuery =>
+    (mentionQuery) =>
       function updateMentionQueryReducer(prev: State): State {
         if (mentionQuery.length) {
           return {...prev, mentionQuery};
@@ -183,7 +183,7 @@ export default function model(
   );
 
   const updateMentionSuggestionsReducer2$ = actions.updateMentionQuery$
-    .map(query => query.replace(/^@+/g, ''))
+    .map((query) => query.replace(/^@+/g, ''))
     .compose(sampleCombine(state$))
     .map(([mentionQuery, state]) =>
       !mentionQuery
@@ -192,14 +192,14 @@ export default function model(
     )
     .flatten()
     .map(
-      mentionSuggestions =>
+      (mentionSuggestions) =>
         function updateMentionSuggestionsReducer2(prev: State): State {
           return {...prev, mentionSuggestions};
         },
     );
 
   const chooseMentionReducer$ = actions.chooseMention$.map(
-    chosen =>
+    (chosen) =>
       function chooseMentionReducer(prev: State): State {
         const cursor = prev.postTextSelection.start;
         const preMention = prev.postText.substr(0, cursor);
@@ -246,7 +246,7 @@ export default function model(
   const addPictureReducer$ = actions.addPictureWithCaption$
     .map(({caption, image}) =>
       ssbSource.addBlobFromPath$(image.path.replace('file://', '')).map(
-        blobId =>
+        (blobId) =>
           function addPictureReducer(prev: State): State {
             let separator = '';
             if (prev.postText.trim().length > 0) {
@@ -272,7 +272,7 @@ export default function model(
     .flatten();
 
   const updateContentWarningReducer$ = actions.updateContentWarning$.map(
-    contentWarning =>
+    (contentWarning) =>
       function updateContentWarningReducer(prev: State): State {
         return {...prev, contentWarning};
       },
@@ -286,9 +286,9 @@ export default function model(
 
   const getComposeDraftReducer$ = asyncStorageSource
     .getItem('composeDraft')
-    .filter(str => !!str)
+    .filter((str) => !!str)
     .map(
-      composeDraft =>
+      (composeDraft) =>
         function getComposeDraftReducer(prev: State): State {
           if (prev.root) {
             return prev;

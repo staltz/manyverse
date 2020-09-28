@@ -38,6 +38,6 @@ export default function intent(
       .select('recipientsInputNextButton')
       .events('press')
       .compose(sample(state$))
-      .filter(state => state.recipients.length > 0),
+      .filter((state) => state.recipients.length > 0),
   };
 }

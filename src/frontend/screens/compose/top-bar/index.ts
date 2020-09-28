@@ -85,7 +85,7 @@ function intent(reactSource: ReactSource) {
 }
 
 function view(state$: Stream<State>) {
-  return state$.map(state =>
+  return state$.map((state) =>
     h(View, {style: styles.container}, [
       h(HeaderButton, {
         sel: 'composeCloseButton',

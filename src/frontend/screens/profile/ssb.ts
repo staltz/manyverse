@@ -38,11 +38,11 @@ export default function ssb(
 
   const blockContactMsg$ = actions.blockContact$
     .compose(sample(state$))
-    .map(state => toContactContent(state.displayFeedId, null, true));
+    .map((state) => toContactContent(state.displayFeedId, null, true));
 
   const blockSecretlyContactMsg$ = actions.blockSecretlyContact$
     .compose(sample(state$))
-    .map(state => {
+    .map((state) => {
       const content = toContactContent(state.displayFeedId, null, true);
       content.recps = [state.selfFeedId];
       return content;
@@ -50,11 +50,11 @@ export default function ssb(
 
   const unblockContactMsg$ = actions.unblockContact$
     .compose(sample(state$))
-    .map(state => toContactContent(state.displayFeedId, null, false));
+    .map((state) => toContactContent(state.displayFeedId, null, false));
 
   const unblockSecretelyContactMsg$ = actions.unblockSecretlyContact$
     .compose(sample(state$))
-    .map(state => {
+    .map((state) => {
       const content = toContactContent(state.displayFeedId, null, false);
       content.recps = [state.selfFeedId];
       return content;

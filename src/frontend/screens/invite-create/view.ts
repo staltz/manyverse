@@ -19,7 +19,7 @@ function bold(innerText: string) {
 }
 
 export default function view(state$: Stream<State>) {
-  return state$.map(state =>
+  return state$.map((state) =>
     h(View, {style: styles.container}, [
       h(TopBar, {sel: 'topbar'}, [
         h(HeaderButton, {

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -22,8 +22,8 @@ export default function intent(
   keyboardSource: KeyboardSource,
   lifecycle$: Stream<LifecycleEvent>,
 ) {
-  const activityPaused$ = lifecycle$.filter(ev => ev === 'paused');
-  const activityResumed$ = lifecycle$.filter(ev => ev === 'resumed');
+  const activityPaused$ = lifecycle$.filter((ev) => ev === 'paused');
+  const activityResumed$ = lifecycle$.filter((ev) => ev === 'resumed');
   const composeAppeared$ = navSource.didAppear();
   const composeDisappearing$ = navSource.didDisappear();
 
@@ -31,8 +31,8 @@ export default function intent(
     .select('inviteAcceptButton')
     .events('press')
     .compose(sample(state$))
-    .map(state => state.content)
-    .filter(text => text.length > 0);
+    .map((state) => state.content)
+    .filter((text) => text.length > 0);
 
   return {
     back$: xs.merge(
@@ -40,14 +40,14 @@ export default function intent(
       reactSource.select('topbar').events('pressBack'),
     ),
 
-    dhtDone$: done$.filter(text => text.startsWith('dht:')),
+    dhtDone$: done$.filter((text) => text.startsWith('dht:')),
 
     roomDone$: done$.filter(
-      text => !text.startsWith('dht:') && roomUtils.isInvite(text),
+      (text) => !text.startsWith('dht:') && roomUtils.isInvite(text),
     ),
 
     normalDone$: done$.filter(
-      text => !text.startsWith('dht:') && !roomUtils.isInvite(text),
+      (text) => !text.startsWith('dht:') && !roomUtils.isInvite(text),
     ),
 
     updateContent$: reactSource

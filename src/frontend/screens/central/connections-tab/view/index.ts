@@ -16,7 +16,7 @@ import SlideInMenu from './SlideInMenu';
 
 export default function view(state$: Stream<State>) {
   return state$
-    .filter(state => state.isVisible)
+    .filter((state) => state.isVisible)
     .compose(
       dropRepeatsByKeys([
         'bluetoothEnabled',
@@ -28,7 +28,7 @@ export default function view(state$: Stream<State>) {
         'itemMenu',
       ]),
     )
-    .map(state => {
+    .map((state) => {
       return h(
         ScrollView,
         {

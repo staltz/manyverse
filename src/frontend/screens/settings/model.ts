@@ -84,7 +84,7 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
   });
 
   const readSettingsReducer$ = ssbSource.readSettings().map(
-    settings =>
+    (settings) =>
       function readSettingsReducer(prev: State): State {
         return {
           ...prev,
@@ -99,14 +99,14 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
   );
 
   const toggleFollowEventsReducer$ = actions.toggleFollowEvents$.map(
-    showFollows =>
+    (showFollows) =>
       function toggleFollowEventsReducer(prev: State): State {
         return {...prev, showFollows};
       },
   );
 
   const toggleDetailedLogsReducer$ = actions.toggleDetailedLogs$.map(
-    enableDetailedLogs =>
+    (enableDetailedLogs) =>
       function toggleDetailedLogsReducer(prev: State): State {
         return {...prev, enableDetailedLogs};
       },

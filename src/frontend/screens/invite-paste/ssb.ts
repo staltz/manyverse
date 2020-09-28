@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -16,7 +16,7 @@ export type Actions = {
 
 export default function ssb(actions: Actions) {
   const acceptInvite$ = actions.normalDone$.map(
-    inviteCode =>
+    (inviteCode) =>
       ({
         type: 'invite.accept',
         invite: inviteCode,
@@ -24,7 +24,7 @@ export default function ssb(actions: Actions) {
   );
 
   const acceptRoomInvite$ = actions.roomDone$.map(
-    inviteCode =>
+    (inviteCode) =>
       ({
         type: 'conn.rememberConnect',
         address: roomUtils.inviteToAddress(inviteCode),
@@ -33,7 +33,7 @@ export default function ssb(actions: Actions) {
   );
 
   const acceptDhtInvite$ = actions.dhtDone$.map(
-    inviteCode =>
+    (inviteCode) =>
       ({
         type: 'dhtInvite.accept',
         invite: inviteCode,

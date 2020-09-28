@@ -124,7 +124,7 @@ export function backup(sources: Sources): Sinks {
     )
     .mapTo([/* offset */ +1, /* animated */ true] as [number, boolean]);
 
-  const vdom$ = sources.state.stream.map(state =>
+  const vdom$ = sources.state.stream.map((state) =>
     h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('backup.title')}),
 
@@ -212,7 +212,7 @@ export function backup(sources: Sources): Sinks {
   });
 
   const updateOrientationReducer$ = sources.orientation.map(
-    ori =>
+    (ori) =>
       function updateOrientationReducer(prev: State): State {
         return {
           ...prev,

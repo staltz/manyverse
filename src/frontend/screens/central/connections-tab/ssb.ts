@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -22,10 +22,10 @@ export type Actions = {
 export default function ssb(actions: Actions) {
   return xs.merge(
     actions.removeDhtInvite$.map(
-      invite => ({type: 'dhtInvite.remove', invite} as Req),
+      (invite) => ({type: 'dhtInvite.remove', invite} as Req),
     ),
     actions.connectPeer$.map(
-      peer =>
+      (peer) =>
         ({
           type: 'conn.connect',
           address: peer[0],
@@ -33,7 +33,7 @@ export default function ssb(actions: Actions) {
         } as Req),
     ),
     actions.followConnectPeer$.map(
-      peer =>
+      (peer) =>
         ({
           type: 'conn.followConnect',
           address: peer[0],
@@ -42,12 +42,14 @@ export default function ssb(actions: Actions) {
         } as Req),
     ),
     actions.disconnectPeer$.map(
-      address => ({type: 'conn.disconnect', address} as Req),
+      (address) => ({type: 'conn.disconnect', address} as Req),
     ),
     actions.disconnectForgetPeer$.map(
-      address => ({type: 'conn.disconnectForget', address} as Req),
+      (address) => ({type: 'conn.disconnectForget', address} as Req),
     ),
-    actions.forgetPeer$.map(address => ({type: 'conn.forget', address} as Req)),
+    actions.forgetPeer$.map(
+      (address) => ({type: 'conn.forget', address} as Req),
+    ),
     actions.bluetoothSearch$.mapTo({
       type: 'bluetooth.search',
       interval: 20e3,

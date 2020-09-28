@@ -126,13 +126,13 @@ export default function view(state$: Stream<State>, actions: Actions) {
         'rootMsgId',
         'selfFeedId',
         'selfAvatarUrl',
-        s => s.thread.messages.length,
-        s => s.thread.full,
+        (s) => s.thread.messages.length,
+        (s) => s.thread.full,
         'subthreads',
         'expandRootCW',
       ]),
     )
-    .map(state => {
+    .map((state) => {
       const topBar = h(TopBar, {sel: 'topbar', title: t('thread.title')});
 
       if (!state.loading && state.thread.errorReason === 'missing') {

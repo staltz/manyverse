@@ -42,7 +42,7 @@ export default function navigation(
   state$: Stream<State>,
 ): Stream<Command> {
   const toCompose$ = actions.goToCompose$.compose(sample(state$)).map(
-    state =>
+    (state) =>
       ({
         type: 'push',
         layout: {
@@ -135,7 +135,7 @@ export default function navigation(
     );
 
   const toRawMsg$ = actions.goToRawMsg$.map(
-    msg =>
+    (msg) =>
       ({
         type: 'push',
         layout: {

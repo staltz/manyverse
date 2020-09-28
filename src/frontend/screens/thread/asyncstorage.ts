@@ -18,7 +18,7 @@ export type Actions = {
 
 export default function asyncStorage(actions: Actions, state$: Stream<State>) {
   const saveDraft$ = actions.exitSavingDraft$.compose(sample(state$)).map(
-    state =>
+    (state) =>
       ({
         type: 'setItem',
         key: `replyDraft:${state.rootMsgId}`,
@@ -30,7 +30,7 @@ export default function asyncStorage(actions: Actions, state$: Stream<State>) {
     .merge(actions.exit$, actions.exitDeletingDraft$, actions.publishMsg$)
     .compose(sample(state$))
     .map(
-      state =>
+      (state) =>
         ({
           type: 'removeItem',
           key: `replyDraft:${state.rootMsgId}`,

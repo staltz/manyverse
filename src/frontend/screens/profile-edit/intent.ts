@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -39,6 +39,8 @@ export default function intent(
 
     save$: source.select('save').events('press'),
 
-    discardChanges$: dialogRes$.filter(res => res.action === 'actionPositive'),
+    discardChanges$: dialogRes$.filter(
+      (res) => res.action === 'actionPositive',
+    ),
   };
 }

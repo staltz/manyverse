@@ -29,7 +29,7 @@ export default function intent(
     .events('refresh') as Stream<any>;
 
   return {
-    goToCompose$: fabPress$.filter(action => action === 'compose'),
+    goToCompose$: fabPress$.filter((action) => action === 'compose'),
 
     goToAccounts$: (reactSource
       .select('publicFeed')

@@ -23,7 +23,7 @@ export default function alert(
   state$: Stream<State>,
 ): Stream<AlertCommand> {
   return state$
-    .map(state =>
+    .map((state) =>
       xs.merge(
         actions.showBluetoothHelp$.mapTo({
           title: t('connections.modes.bluetooth.title'),

@@ -69,17 +69,17 @@ export default function dialog(
 ) {
   const practiceModeConfirmation$ = actions.confirm$
     .compose(sample(state$))
-    .filter(state => state.practiceMode === true)
+    .filter((state) => state.practiceMode === true)
     .map(
-      state =>
+      (state) =>
         state.backendWords ===
         state.inputWords
           .split(' ')
           .slice(0, 24)
-          .map(s => s.trim().toLowerCase())
+          .map((s) => s.trim().toLowerCase())
           .join(' '),
     )
-    .map(passed =>
+    .map((passed) =>
       dialogSource
         .alert(
           passed
@@ -95,10 +95,10 @@ export default function dialog(
 
   const realRecoveryConfirmation$ = actions.confirm$
     .compose(sample(state$))
-    .filter(state => state.practiceMode === false)
-    .map(state => ssbSource.restoreIdentity$(state.inputWords))
+    .filter((state) => state.practiceMode === false)
+    .map((state) => ssbSource.restoreIdentity$(state.inputWords))
     .flatten()
-    .map(response => {
+    .map((response) => {
       const passed = response === 'IDENTITY_READY';
       return dialogSource
         .alert(

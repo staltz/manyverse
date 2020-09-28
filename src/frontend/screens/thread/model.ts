@@ -65,7 +65,7 @@ export default function model(
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
   const propsReducer$ = props$.take(1).map(
-    props =>
+    (props) =>
       function propsReducer(_prev?: State): State {
         return {
           selfFeedId: props.selfFeedId,
@@ -88,12 +88,12 @@ export default function model(
 
   const setRootMsgReducer$ = props$
     .take(1)
-    .map(props =>
+    .map((props) =>
       props.rootMsg ? ssbSource.rehydrateMessage$(props.rootMsg) : xs.never(),
     )
     .flatten()
     .map(
-      rootMsg =>
+      (rootMsg) =>
         function setRootMsgReducer(prev: State): State {
           if (prev.thread.full && prev.thread.messages.length > 0) {
             return prev;
@@ -105,10 +105,10 @@ export default function model(
 
   const setThreadReducer$ = props$
     .take(1)
-    .map(props =>
+    .map((props) =>
       ssbSource
         .thread$(props.rootMsgId ?? props.rootMsg.key, false)
-        .replaceError(err => {
+        .replaceError((err) => {
           if (/Author Blocked/i.test(err.message)) return xs.of(blockedThread);
           if (/Not Found/i.test(err.message)) return xs.of(missingThread);
           else return xs.of(unknownErrorThread);
@@ -116,19 +116,19 @@ export default function model(
     )
     .flatten()
     .map(
-      thread =>
+      (thread) =>
         function setThreadReducer(prev: State): State {
           return {...prev, thread, loading: false, loadingReplies: false};
         },
     );
 
   const setSubthreadReducer$ = actions.replySeen$
-    .map(msgId =>
+    .map((msgId) =>
       ssbSource
         .thread$(msgId, false)
-        .replaceError(_err => xs.of(emptyThread))
+        .replaceError((_err) => xs.of(emptyThread))
         .map(
-          subthread =>
+          (subthread) =>
             function setSubthreadReducer(prev: State): State {
               if (prev.subthreads[msgId]) {
                 return prev;
@@ -156,7 +156,7 @@ export default function model(
   );
 
   const updateReplyTextReducer$ = actions.updateReplyText$.map(
-    text =>
+    (text) =>
       function updateReplyTextReducer(prev: State): State {
         return {...prev, replyText: text};
       },
@@ -182,10 +182,10 @@ export default function model(
   );
 
   const loadReplyDraftReducer$ = actions.loadReplyDraft$
-    .map(rootMsgId => asyncStorageSource.getItem(`replyDraft:${rootMsgId}`))
+    .map((rootMsgId) => asyncStorageSource.getItem(`replyDraft:${rootMsgId}`))
     .flatten()
     .map(
-      replyText =>
+      (replyText) =>
         function loadReplyDraftReducer(prev: State): State {
           if (!replyText) {
             return {...prev, replyText: ''};
@@ -198,7 +198,7 @@ export default function model(
   const addSelfRepliesReducer$ = actions.willReply$
     .map(() =>
       ssbSource.selfReplies$
-        .map(getReadable =>
+        .map((getReadable) =>
           xsFromPullStream<MsgAndExtras>(
             getReadable({live: true, old: false}),
           ).take(1),
@@ -207,7 +207,7 @@ export default function model(
     )
     .flatten()
     .map(
-      newMsg =>
+      (newMsg) =>
         function addSelfRepliesReducer(prev: State): State {
           return {
             ...prev,

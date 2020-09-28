@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,7 +23,7 @@ export default function model(props$: Stream<Props>, actions: Actions) {
   });
 
   const propsReducer$ = props$.take(1).map(
-    props =>
+    (props) =>
       function propsReducer(prev: State): State {
         if (typeof props.practiceMode !== 'undefined') {
           return {
@@ -38,7 +38,7 @@ export default function model(props$: Stream<Props>, actions: Actions) {
   );
 
   const updateWordsReducer$ = actions.updateWords$.map(
-    text =>
+    (text) =>
       function updateWordsReducer(prev: State): State {
         return {
           ...prev,

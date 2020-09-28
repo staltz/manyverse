@@ -17,17 +17,17 @@ type Actions = {
 export default function ssb(actions: Actions) {
   const req$ = xs.merge(
     actions.toggleFollowEvents$.map(
-      showFollows => ({type: 'settings.showFollows', showFollows} as Req),
+      (showFollows) => ({type: 'settings.showFollows', showFollows} as Req),
     ),
 
-    actions.updateHops$.map(hops => ({type: 'settings.hops', hops} as Req)),
+    actions.updateHops$.map((hops) => ({type: 'settings.hops', hops} as Req)),
 
     actions.updateBlobsStorage$.map(
-      storageLimit => ({type: 'settings.blobsPurge', storageLimit} as Req),
+      (storageLimit) => ({type: 'settings.blobsPurge', storageLimit} as Req),
     ),
 
     actions.toggleDetailedLogs$.map(
-      detailedLogs => ({type: 'settings.detailedLogs', detailedLogs} as Req),
+      (detailedLogs) => ({type: 'settings.detailedLogs', detailedLogs} as Req),
     ),
   );
 

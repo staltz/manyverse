@@ -20,7 +20,7 @@ import {State} from './model';
 import {styles} from './styles';
 
 export default function view(state$: Stream<State>) {
-  return state$.map(state => {
+  return state$.map((state) => {
     const nextButtonEnabled = state.recipients.length > 0;
 
     return h(View, {style: styles.screen}, [

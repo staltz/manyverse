@@ -93,12 +93,14 @@ export default function intent(
       // TextInput Selection events that happen after focus and before blur
       ios: selectionChange$
         .compose(between(focusInput$, blurInput$))
-        .map(ev => ev.nativeEvent.selection),
+        .map((ev) => ev.nativeEvent.selection),
 
       // TextInput Selection events, but ignore the first event caused by a focus
       default: focusInput$
         .startWith('initial focus')
-        .map(() => selectionChange$.drop(1).map(ev => ev.nativeEvent.selection))
+        .map(() =>
+          selectionChange$.drop(1).map((ev) => ev.nativeEvent.selection),
+        )
         .flatten(),
     }),
 
@@ -157,11 +159,11 @@ export default function intent(
     exitReply$: backReply$,
 
     exitSavingPostDraft$: backPostWithDialog$.filter(
-      res => res.action === 'actionPositive',
+      (res) => res.action === 'actionPositive',
     ),
 
     exitDeletingPostDraft$: backPostWithDialog$.filter(
-      res => res.action === 'actionNegative',
+      (res) => res.action === 'actionNegative',
     ),
 
     exitOfAnyKind$: xs.merge(

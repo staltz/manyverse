@@ -159,7 +159,7 @@ export default class AccountsListCheckMany extends PureComponent<Props, State> {
     let checkSet: Set<FeedId> | undefined = new Set<FeedId>();
     for (const a of checked) {
       checkSet.add(a.id);
-      if (accounts.findIndex(x => x.id === a.id) === -1) {
+      if (accounts.findIndex((x) => x.id === a.id) === -1) {
         (a as any)._retained = true;
         displayAccounts.push(a);
       }
@@ -181,7 +181,7 @@ export default class AccountsListCheckMany extends PureComponent<Props, State> {
 
     return h(
       Fragment,
-      displayAccounts.map(account => {
+      displayAccounts.map((account) => {
         const {id, name, imageUrl} = account;
         const isChecked = (account as any)._retained;
         return h<AccountProps>(Account, {
@@ -192,7 +192,7 @@ export default class AccountsListCheckMany extends PureComponent<Props, State> {
           isChecked,
           onPress: () => {
             if (isChecked) {
-              const newChecked = checked.filter(x => x.id !== id);
+              const newChecked = checked.filter((x) => x.id !== id);
               this.setState({checked: newChecked});
               onUpdated?.(newChecked);
             } else if (checked.length < max) {

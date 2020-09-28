@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -24,9 +24,9 @@ export default function navigation(
     actions.goBack$.mapTo({type: 'pop'} as Command),
 
     confirmation$
-      .filter(x => x === true)
+      .filter((x) => x === true)
       .compose(sample(state$))
-      .map(state =>
+      .map((state) =>
         state.practiceMode
           ? ({type: 'popToRoot'} as Command)
           : ({

@@ -32,11 +32,11 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
         ),
       )
       .flatten()
-      .filter(res => res.action === 'actionPositive')
-      .map(res => (res as any).text as string),
+      .filter((res) => res.action === 'actionPositive')
+      .map((res) => (res as any).text as string),
 
     addPictureWithCaption$: actions.addPicture$
-      .map(image =>
+      .map((image) =>
         dialogSource
           .prompt(
             t('compose.dialogs.image_caption.title'),
@@ -47,7 +47,7 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
               positiveText: t('call_to_action.done'),
             },
           )
-          .map(res => ({caption: (res as any).text, image})),
+          .map((res) => ({caption: (res as any).text, image})),
       )
       .flatten(),
   };

@@ -14,7 +14,7 @@ import {State} from './index';
 import {styles} from './styles';
 
 export default function view(state$: Stream<State>) {
-  return state$.map(state => {
+  return state$.map((state) => {
     const windowDimensions = Dimensions.get('window');
     const windowWidth = windowDimensions.width;
 

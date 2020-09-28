@@ -30,7 +30,7 @@ module.exports = function restore(words: string) {
   if (flumeLogSize >= 10) return 'OVERWRITE_RISK';
 
   // Basic validation of input words
-  const wordsArr = words.split(' ').map(s => s.trim().toLowerCase());
+  const wordsArr = words.split(' ').map((s) => s.trim().toLowerCase());
   if (wordsArr.length < 24) return 'TOO_SHORT';
   if (wordsArr.length > 48) return 'TOO_LONG';
 

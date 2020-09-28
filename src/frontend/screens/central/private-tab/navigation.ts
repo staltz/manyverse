@@ -48,7 +48,7 @@ export default function navigation(
   const toRecipientsInput$ = actions.goToRecipientsInput$
     .compose(sample(state$))
     .map(
-      state =>
+      (state) =>
         ({
           type: 'push',
           layout: {

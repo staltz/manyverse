@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -31,7 +31,7 @@ export default function model(
   actions: Actions,
 ): Stream<Reducer<State>> {
   const propsReducer$ = props$.map(
-    props =>
+    (props) =>
       function propsReducer(): State {
         return {
           about: props.about,
@@ -40,21 +40,21 @@ export default function model(
   );
 
   const changeNameReducer$ = actions.changeName$.map(
-    newName =>
+    (newName) =>
       function changeNameReducer(prev: State): State {
         return {...prev, newName};
       },
   );
 
   const changeAvatarReducer$ = actions.changeAvatar$.map(
-    image =>
+    (image) =>
       function changeAvatarReducer(prev: State): State {
         return {...prev, newAvatar: image.path.replace('file://', '')};
       },
   );
 
   const changeDescriptionReducer$ = actions.changeDescription$.map(
-    newDescription =>
+    (newDescription) =>
       function changeDescriptionReducer(prev: State): State {
         return {...prev, newDescription};
       },

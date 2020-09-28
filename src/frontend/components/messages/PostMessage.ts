@@ -65,7 +65,7 @@ export default class PostMessage extends PureComponent<Props, State> {
   }
 
   public onPressToggleCW = () => {
-    this.setState(prev => ({cwOpened: !prev.cwOpened}));
+    this.setState((prev) => ({cwOpened: !prev.cwOpened}));
   };
 
   public render() {

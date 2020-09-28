@@ -20,7 +20,7 @@ function createReplyContent(text: string, state: State): PostContent {
   const messages = state.thread.messages;
   const branch = messages[messages.length - 1].key;
   const content = toReplyPostContent({text, root: state.rootMsgId!, branch});
-  content.recps = state.thread.recps.map(recp => recp.id);
+  content.recps = state.thread.recps.map((recp) => recp.id);
   return content;
 }
 
@@ -36,7 +36,7 @@ function createRootContent(text: string, state: State): PostContent {
     );
   }
   const content = toPostContent(text);
-  content.recps = state.thread.recps.map(recp => recp.id);
+  content.recps = state.thread.recps.map((recp) => recp.id);
   if (!content.recps.includes(state.selfFeedId)) {
     content.recps.push(state.selfFeedId);
   }

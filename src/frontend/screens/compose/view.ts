@@ -236,7 +236,7 @@ export default function view(
     });
 
   const mentionQueryPairwise$ = miniState$
-    .map(s => s.mentionQuery)
+    .map((s) => s.mentionQuery)
     .compose(pairwise);
 
   const focusMarkdownInput$ = mentionQueryPairwise$

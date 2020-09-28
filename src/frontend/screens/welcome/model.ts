@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -27,7 +27,7 @@ export default function model(
   });
 
   const updateOrientationReducer$ = orientation$.map(
-    ori =>
+    (ori) =>
       function updateOrientationReducer(prev: State): State {
         return {
           ...prev,
@@ -37,7 +37,7 @@ export default function model(
   );
 
   const setReadyReducer$ = actions.skipOrNot$
-    .filter(skip => skip === false)
+    .filter((skip) => skip === false)
     .mapTo(function setReadyReducer(prev: State): State {
       return {...prev, readyToStart: true};
     });

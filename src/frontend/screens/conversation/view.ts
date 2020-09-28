@@ -231,11 +231,11 @@ export default function view(state$: Stream<State>) {
         'avatarUrl',
         'rootMsgId',
         'selfFeedId',
-        s => s.thread.messages.length,
-        s => s.thread.full,
+        (s) => s.thread.messages.length,
+        (s) => s.thread.full,
       ]),
     )
-    .map(state => {
+    .map((state) => {
       const sysMessages: Array<GiftedMsg> = state.emptyThreadSysMessage
         ? [
             {

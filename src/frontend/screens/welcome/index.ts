@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -51,7 +51,7 @@ export const navOptions = {
 
 export function welcome(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.fs, sources.asyncstorage);
-  const skip$ = actions.skipOrNot$.filter(skip => skip === true);
+  const skip$ = actions.skipOrNot$.filter((skip) => skip === true);
   const ssb$ = xs.merge(
     actions.createAccount$.mapTo({type: 'identity.create'} as Req),
     skip$.mapTo({type: 'identity.use'} as Req),

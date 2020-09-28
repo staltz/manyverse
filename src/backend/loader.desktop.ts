@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -26,7 +26,7 @@ let win: BrowserWindow | null;
 
 let resolveWebContents: ((wc: WebContents) => void) | undefined;
 // This will be used by multiserver to communicate with the frontend
-(process as any).webContentsP = new Promise(resolve => {
+(process as any).webContentsP = new Promise((resolve) => {
   resolveWebContents = resolve;
 });
 
@@ -78,7 +78,7 @@ if (process.env.PROFILER_NODEJS) {
           const date = new Date();
           const dir = path.resolve(process.env.SSB_DIR!, 'manyverse');
           const file = `${dir}/flamechart_${date.getTime()}.json`;
-          fs.writeFile(file, JSON.stringify(data), err2 => {
+          fs.writeFile(file, JSON.stringify(data), (err2) => {
             if (err2) console.error(err2);
           });
         });

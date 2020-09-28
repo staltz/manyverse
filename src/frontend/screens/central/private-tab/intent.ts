@@ -14,7 +14,7 @@ export default function intent(
 ) {
   return {
     goToRecipientsInput$: fabPress$
-      .filter(action => action === 'recipients-input')
+      .filter((action) => action === 'recipients-input')
       .mapTo(null),
 
     goToConversation$: reactSource

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -21,11 +21,11 @@ export function noteStorageKeyFor([_addr, data]: StagedPeerKV) {
 export default function asyncStorage(state$: Stream<State>) {
   const command$ = state$
     .compose(dropRepeats((s1, s2) => s1.stagedPeers === s2.stagedPeers))
-    .filter(state => state.stagedPeers.some(isDhtInviteWithNote))
+    .filter((state) => state.stagedPeers.some(isDhtInviteWithNote))
     .map((state: State) => {
       const keyValuePairs = state.stagedPeers
         .filter(isDhtInviteWithNote)
-        .map(kv => [noteStorageKeyFor(kv), kv[1].note]);
+        .map((kv) => [noteStorageKeyFor(kv), kv[1].note]);
       return {type: 'multiSet', keyValuePairs} as Command;
     });
 

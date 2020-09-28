@@ -24,7 +24,7 @@ const canShowThanks =
     : true;
 
 export default function view(state$: Stream<State>) {
-  const localizedBlobsStorageOptions = blobsStorageOptions.map(opt => {
+  const localizedBlobsStorageOptions = blobsStorageOptions.map((opt) => {
     if (opt === 'unlimited') {
       return t('settings.data_and_storage.blobs_storage.unlimited') as string;
     } else {
@@ -32,7 +32,7 @@ export default function view(state$: Stream<State>) {
     }
   });
 
-  const localizedHopsOptions = hopsOptions.map(opt => {
+  const localizedHopsOptions = hopsOptions.map((opt) => {
     if (opt === 'unlimited') {
       return t('settings.preferences.hops.unlimited') as string;
     } else {
@@ -40,7 +40,7 @@ export default function view(state$: Stream<State>) {
     }
   });
 
-  return state$.map(state =>
+  return state$.map((state) =>
     h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('settings.title')}),
       h(ScrollView, {style: styles.container}, [

@@ -383,7 +383,7 @@ export default class MessageFooter extends Component<Props, State> {
 
   private onPressAddReactionHandler = () => {
     if (this.myReaction === null) {
-      this.setState(prev => ({showQuickEmojis: !prev.showQuickEmojis}));
+      this.setState((prev) => ({showQuickEmojis: !prev.showQuickEmojis}));
     } else {
       this.props.onPressAddReaction?.({
         msgKey: this.props.msg.key,

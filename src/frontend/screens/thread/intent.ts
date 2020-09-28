@@ -66,7 +66,7 @@ export default function intent(
       .select('reply-send')
       .events('press')
       .compose(sample(state$))
-      .filter(state => !!state.replyText),
+      .filter((state) => !!state.replyText),
 
     willReply$: ssbSource.publishHook$.filter(isReplyPostMsg),
 
@@ -101,11 +101,11 @@ export default function intent(
       .events('pressAddReaction') as Stream<PressAddReactionEvent>,
 
     loadReplyDraft$: xs.merge(
-      props$.map(props => props.rootMsgId ?? props.rootMsg.key),
+      props$.map((props) => props.rootMsgId ?? props.rootMsg.key),
       navSource
         .globalDidDisappear(Screens.Compose)
         .compose(sample(state$))
-        .map(state => state.rootMsgId),
+        .map((state) => state.rootMsgId),
     ) as Stream<MsgId>,
 
     replySeen$: reactSource.select('thread').events('replySeen') as Stream<
@@ -131,11 +131,11 @@ export default function intent(
     exit$: backWithoutDialog$,
 
     exitSavingDraft$: backWithDialog$.filter(
-      res => res.action === 'actionPositive',
+      (res) => res.action === 'actionPositive',
     ),
 
     exitDeletingDraft$: backWithDialog$.filter(
-      res => res.action === 'actionNegative',
+      (res) => res.action === 'actionNegative',
     ),
 
     exitOfAnyKind$: xs.merge(backWithoutDialog$, backWithDialog$),

@@ -165,7 +165,7 @@ function sortByKey<T>(array: State<T>['data']) {
   });
 }
 
-const DEFAULT_DURATION = 250 /* ms */;
+const DEFAULT_DURATION = 250; /* ms */
 
 export default class PopList<T> extends PureComponent<Props<T>, State<T>> {
   constructor(props: Props<T>) {
@@ -179,8 +179,8 @@ export default class PopList<T> extends PureComponent<Props<T>, State<T>> {
 
   private noDifference(prevProps: Props<T>, nextProps: Props<T>): boolean {
     // TODO make this faster
-    const prevData = prevProps.data.map(x => [0, x, 0]) as State<T>['data'];
-    const nextData = nextProps.data.map(x => [0, x, 0]) as State<T>['data'];
+    const prevData = prevProps.data.map((x) => [0, x, 0]) as State<T>['data'];
+    const nextData = nextProps.data.map((x) => [0, x, 0]) as State<T>['data'];
     const prevCode = sortByKey<T>(prevData)
       .map(([_key, item]) => JSON.stringify(item))
       .join();

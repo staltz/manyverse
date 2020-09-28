@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -37,7 +37,7 @@ export const Gravity = {
 export function makeToastDriver() {
   return function toastDriver(sink: Stream<Toast | GravityToast>): void {
     sink.addListener({
-      next: t => {
+      next: (t) => {
         if (Platform.OS === 'android') {
           const flavorPrefix =
             t.flavor === 'success'
@@ -49,7 +49,7 @@ export function makeToastDriver() {
             flavorPrefix + t.message,
             t.duration,
             (t as GravityToast).gravity,
-          ].filter(x => typeof x !== 'undefined');
+          ].filter((x) => typeof x !== 'undefined');
           (ToastAndroid[t.type] as any)(...args);
         } else {
           if (t.flavor === 'success') {

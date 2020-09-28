@@ -13,7 +13,7 @@ import {t} from '../../../drivers/localization';
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
   return state$.map(
-    state =>
+    (state) =>
       ({
         sel: 'fab',
         color: state.hasComposeDraft

@@ -79,7 +79,7 @@ class MenuItem extends PureComponent<MenuItemProps> {
 }
 
 export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
-  return state$.map(state =>
+  return state$.map((state) =>
     h(View, {style: styles.container}, [
       h(View, {style: styles.header}, [
         h(Avatar, {

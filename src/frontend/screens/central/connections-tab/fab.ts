@@ -15,7 +15,7 @@ import {Dimensions} from '../../../global-styles/dimens';
 import {t} from '../../../drivers/localization';
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
-  return state$.map(state => {
+  return state$.map((state) => {
     const visible = state.bluetoothEnabled || state.internetEnabled;
 
     const actions: Array<IActionProps> = [];

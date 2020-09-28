@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
 });
 
 export function rawMessage(sources: Sources): Sinks {
-  const vdom$ = sources.props.map(props =>
+  const vdom$ = sources.props.map((props) =>
     h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('raw_msg.title')}),
       h(ScrollView, {style: styles.container}, [

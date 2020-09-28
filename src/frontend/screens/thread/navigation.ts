@@ -81,38 +81,40 @@ export default function navigation(
       } as Command),
   );
 
-  const toCompose$ = actions.goToCompose$.compose(sample(state$)).map(state => {
-    const messages = state.thread.messages;
-    const lastMsgInThread = messages[messages.length - 1];
-    const authors = (() => {
-      const set = new Set<FeedId>();
-      for (const msg of state.thread.messages) {
-        const author = msg.value.author;
-        if (author !== state.selfFeedId && !set.has(author)) {
-          set.add(author);
+  const toCompose$ = actions.goToCompose$
+    .compose(sample(state$))
+    .map((state) => {
+      const messages = state.thread.messages;
+      const lastMsgInThread = messages[messages.length - 1];
+      const authors = (() => {
+        const set = new Set<FeedId>();
+        for (const msg of state.thread.messages) {
+          const author = msg.value.author;
+          if (author !== state.selfFeedId && !set.has(author)) {
+            set.add(author);
+          }
         }
-      }
-      return [...set.values()];
-    })();
+        return [...set.values()];
+      })();
 
-    return {
-      type: 'push',
-      layout: {
-        component: {
-          name: Screens.Compose,
-          options: composeScreenNavOpts,
-          passProps: {
-            text: state.replyText,
-            root: state.rootMsgId,
-            fork: state.higherRootMsgId,
-            branch: lastMsgInThread.key,
-            authors,
-            selfAvatarUrl: state.selfAvatarUrl,
-          } as ComposeProps,
+      return {
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Compose,
+            options: composeScreenNavOpts,
+            passProps: {
+              text: state.replyText,
+              root: state.rootMsgId,
+              fork: state.higherRootMsgId,
+              branch: lastMsgInThread.key,
+              authors,
+              selfAvatarUrl: state.selfAvatarUrl,
+            } as ComposeProps,
+          },
         },
-      },
-    } as Command;
-  });
+      } as Command;
+    });
 
   const toThread$ = actions.goToAnotherThread$
     .compose(sampleCombine(state$))
@@ -136,7 +138,7 @@ export default function navigation(
     );
 
   const toRawMsg$ = actions.goToRawMsg$.map(
-    msg =>
+    (msg) =>
       ({
         type: 'push',
         layout: {

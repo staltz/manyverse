@@ -81,7 +81,7 @@ export function connectionsTab(sources: Sources): Sinks {
   const vdom$ = view(sources.state.stream);
 
   const share$ = xs.merge(
-    actionsPlus.shareDhtInvite$.map(inviteCode => ({
+    actionsPlus.shareDhtInvite$.map((inviteCode) => ({
       title: t('connections.share_code.p2p.title'),
       message: t('connections.share_code.p2p.message') + '\n\n' + inviteCode,
       dialogTitle: t('connections.share_code.p2p.dialog_note'),
@@ -97,7 +97,7 @@ export function connectionsTab(sources: Sources): Sinks {
   );
 
   const inviteToast$: Stream<Toast> = sources.ssb.acceptInviteResponse$.map(
-    res => {
+    (res) => {
       if (res === true)
         return {
           type: 'show' as 'show',

@@ -15,7 +15,7 @@ export default function intent(reactSource: ReactSource, navSource: NavSource) {
     publishMsg$: reactSource
       .select('chat')
       .events('send')
-      .map(arr => arr[0].text),
+      .map((arr) => arr[0].text),
 
     goBack$: xs.merge(
       navSource.backPress(),

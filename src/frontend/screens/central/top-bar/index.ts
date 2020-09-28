@@ -124,7 +124,7 @@ function view(state$: Stream<State>) {
   let hideYWhenScrolling: Animated.AnimatedMultiplication | null = null;
   let hideOpacityWhenScrolling: Animated.AnimatedMultiplication | null = null;
 
-  return state$.map(state => {
+  return state$.map((state) => {
     // Avoid re-instantiating a new animated value on every stream emission
     if (!hideYWhenScrolling) {
       hideYWhenScrolling = calcTranslateY(state.scrollHeaderBy);

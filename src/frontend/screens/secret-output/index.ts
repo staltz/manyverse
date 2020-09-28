@@ -125,7 +125,7 @@ function navigation(actions: Actions, state$: Stream<State>) {
   const goBack$ = actions.goBack$.mapTo({type: 'pop'} as Command);
 
   const goToPractice$ = actions.confirm$.compose(sample(state$)).map(
-    state =>
+    (state) =>
       ({
         type: 'push',
         layout: {
@@ -159,7 +159,7 @@ function bold(innerText: string) {
 }
 
 function view(state$: Stream<State>) {
-  return state$.map(state =>
+  return state$.map((state) =>
     h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('secret_output.title')}),
 
@@ -220,7 +220,7 @@ export function secretOutput(sources: Sources): Sinks {
   });
 
   const loadedReducer$ = sources.ssb.getMnemonic$().map(
-    words =>
+    (words) =>
       function loadedReducer(_prev: State): State {
         return {words};
       },

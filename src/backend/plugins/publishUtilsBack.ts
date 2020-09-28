@@ -52,7 +52,7 @@ export = {
                 .map((e: FeedId | Record<string, any>) =>
                   Ref.isFeed(e) ? e : Ref.isFeed(e.link) ? e.link : void 0,
                 )
-                .filter(x => !!x),
+                .filter((x) => !!x),
             );
           } catch (e) {
             return cb(e);

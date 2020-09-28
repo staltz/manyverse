@@ -68,7 +68,7 @@ function onlyWhileAppIsInForeground<T>(
 ): Stream<T> {
   return appstate$
     .startWith('active')
-    .map(appstate => {
+    .map((appstate) => {
       if (appstate === 'active') {
         return factory();
       } else {
@@ -105,7 +105,7 @@ export default function model(
   });
 
   const updateIsSyncing$ = ssbSource.isSyncing$.map(
-    isSyncing =>
+    (isSyncing) =>
       function updateIsSyncing(prev: State): State {
         return {...prev, isSyncing};
       },
@@ -118,7 +118,7 @@ export default function model(
           .map(() => networkSource.bluetoothIsEnabled())
           .flatten()
           .map(
-            bluetoothEnabled =>
+            (bluetoothEnabled) =>
               function updateBluetoothEnabled(prev: State): State {
                 return {...prev, bluetoothEnabled};
               },
@@ -128,7 +128,7 @@ export default function model(
     .map(() => networkSource.wifiIsEnabled())
     .flatten()
     .map(
-      lanEnabled =>
+      (lanEnabled) =>
         function updateLanEnabled(prev: State): State {
           return {...prev, lanEnabled};
         },
@@ -138,7 +138,7 @@ export default function model(
     .map(() => networkSource.hasInternetConnection())
     .flatten()
     .map(
-      internetEnabled =>
+      (internetEnabled) =>
         function updateInternetEnabled(prev: State): State {
           return {...prev, internetEnabled};
         },
@@ -155,7 +155,7 @@ export default function model(
     appstate$,
     () => ssbSource.peers$,
   ).map(
-    allPeers =>
+    (allPeers) =>
       function setPeersReducer(prev: State): State {
         const peers = allPeers.filter(
           ([, data]) => (data.type as any) !== 'room',
@@ -171,7 +171,7 @@ export default function model(
     appstate$,
     () => ssbSource.stagedPeers$,
   )
-    .map(stagedPeers => {
+    .map((stagedPeers) => {
       const dhtInvites = stagedPeers
         .filter(([_address, data]) => data.type === 'dht')
         .map(noteStorageKeyFor);
@@ -182,25 +182,27 @@ export default function model(
       } else {
         return asyncStorageSource
           .multiGet(dhtInvites)
-          .map(keyValuePairs => [stagedPeers, keyValuePairs]);
+          .map((keyValuePairs) => [stagedPeers, keyValuePairs]);
       }
     })
     .flatten()
     .map(
       ([rawStagedPeers, notes]: [StagedPeerKV[], [string, string][]]) =>
         function setPeersReducer(prev: State): State {
-          const stagedPeers: Array<StagedPeerKV> = rawStagedPeers.map(peer => {
-            const key = peer[1].key;
-            const noteKV = notes.find(([k, v]) => k.endsWith(key) && !!v);
-            if (!noteKV) return peer;
-            return [peer[0], {...peer[1], note: noteKV[1]}] as StagedPeerKV;
-          });
+          const stagedPeers: Array<StagedPeerKV> = rawStagedPeers.map(
+            (peer) => {
+              const key = peer[1].key;
+              const noteKV = notes.find(([k, v]) => k.endsWith(key) && !!v);
+              if (!noteKV) return peer;
+              return [peer[0], {...peer[1], note: noteKV[1]}] as StagedPeerKV;
+            },
+          );
           return {...prev, stagedPeers, timestampStagedPeers: Date.now()};
         },
     );
 
   const openConnMenuReducer$ = actions.openPeerInConnection$.map(
-    peer =>
+    (peer) =>
       function openConnMenuReducer(prev: State): State {
         return {
           ...prev,
@@ -214,7 +216,7 @@ export default function model(
   );
 
   const openStagingMenuReducer$ = actions.openStagedPeer$.map(
-    peer =>
+    (peer) =>
       function openStagingMenuReducer(prev: State): State {
         return {
           ...prev,
@@ -229,7 +231,7 @@ export default function model(
   );
 
   const openRoomMenuReducer$ = actions.openRoom$.map(
-    peer =>
+    (peer) =>
       function openRoomMenuReducer(prev: State): State {
         return {
           ...prev,
@@ -243,7 +245,7 @@ export default function model(
   );
 
   const openInviteMenuReducer$ = actions.openDHTStagedPeer$.map(
-    peer =>
+    (peer) =>
       function openInviteMenuReducer(prev: State): State {
         return {
           ...prev,
@@ -281,10 +283,10 @@ export default function model(
     });
 
   const addNoteFromDialogReducer$ = actions.addNoteFromDialog$.map(
-    note =>
+    (note) =>
       function addNoteFromDialogReducer(prev: State): State {
         if (!prev.latestInviteMenuTarget) return prev;
-        const stagedPeers: Array<StagedPeerKV> = prev.stagedPeers.map(kv => {
+        const stagedPeers: Array<StagedPeerKV> = prev.stagedPeers.map((kv) => {
           const [addr, peer] = kv;
           return peer.key === prev.latestInviteMenuTarget![1].key
             ? ([addr, {...peer, note}] as StagedPeerKV)

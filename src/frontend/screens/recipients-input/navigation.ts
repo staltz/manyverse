@@ -23,7 +23,7 @@ export default function navigation(actions: Actions, state$: Stream<State>) {
   const toNewConversation$ = actions.goToNewConversation$
     .compose(sample(state$))
     .map(
-      state =>
+      (state) =>
         ({
           type: 'push',
           layout: {

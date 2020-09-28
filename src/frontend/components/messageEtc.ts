@@ -27,7 +27,7 @@ export type Sinks = {
 
 export default function messageEtc(sources: Sources): Sinks {
   const messageEtcChoice$ = sources.appear$
-    .map(msg =>
+    .map((msg) =>
       sources.dialog
         .showPicker(
           Platform.OS === 'ios'
@@ -47,18 +47,18 @@ export default function messageEtc(sources: Sources): Sinks {
             neutralText: '',
           },
         )
-        .filter(res => res.action === 'actionSelect')
+        .filter((res) => res.action === 'actionSelect')
         .map((res: any) => ({id: res.selectedItem.id as EtcChoiceId, msg})),
     )
     .flatten();
 
   const goToRawMsg$ = messageEtcChoice$
-    .filter(choice => choice.id === 'raw-msg')
-    .map(choice => choice.msg);
+    .filter((choice) => choice.id === 'raw-msg')
+    .map((choice) => choice.msg);
 
   const copyCypherlink$ = messageEtcChoice$
-    .filter(choice => choice.id === 'copy-id')
-    .map(choice => choice.msg.key);
+    .filter((choice) => choice.id === 'copy-id')
+    .map((choice) => choice.msg.key);
 
   const toast$ = copyCypherlink$.mapTo({
     type: 'show',

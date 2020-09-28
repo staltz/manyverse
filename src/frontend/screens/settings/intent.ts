@@ -25,7 +25,7 @@ export default function intent(
     updateHops$: screenSource
       .select('hops')
       .events('change')
-      .map(i => {
+      .map((i) => {
         const opt = hopsOptions[i];
         if (opt === '1') return 1;
         if (opt === '2') return 2;
@@ -38,7 +38,7 @@ export default function intent(
     updateBlobsStorage$: screenSource
       .select('blobs-storage')
       .events('change')
-      .map(i => {
+      .map((i) => {
         const opt = blobsStorageOptions[i];
         if (opt === '100MB') return 100e6;
         if (opt === '250MB') return 250e6;

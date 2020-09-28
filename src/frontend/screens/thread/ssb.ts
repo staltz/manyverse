@@ -21,7 +21,7 @@ export type SSBActions = {
 export default function ssb(actions: SSBActions): Stream<Req> {
   const addReaction$ = actions.addReactionMsg$.map(toVoteContent);
 
-  const publishReply$ = actions.publishMsg$.map(state => {
+  const publishReply$ = actions.publishMsg$.map((state) => {
     const messages = state.thread.messages;
     return toReplyPostContent({
       text: state.replyText,

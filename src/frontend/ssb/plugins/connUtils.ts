@@ -130,7 +130,7 @@ const connUtils = {
           cat([pull.values([[]]), ssb.dhtInvite.hostingInvites()]),
           pull.map((invites: Array<HostingDhtInvite>) =>
             invites
-              .filter(invite => !invite.online)
+              .filter((invite) => !invite.online)
               .map(
                 ({seed}) =>
                   [

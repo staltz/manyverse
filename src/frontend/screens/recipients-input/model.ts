@@ -31,7 +31,7 @@ export default function model(
   actions: Actions,
 ) {
   const propsReducer$ = props$.take(1).map(
-    props =>
+    (props) =>
       function propsReducer(_prev?: State): State {
         return {
           selfFeedId: props.selfFeedId,
@@ -44,28 +44,28 @@ export default function model(
   );
 
   const updateMentionQueryReducer$ = actions.updateQuery$.map(
-    mentionQuery =>
+    (mentionQuery) =>
       function updateMentionSuggestionsReducer(prev: State): State {
         return {...prev, mentionQuery};
       },
   );
 
   const mentionQuery$ = state$
-    .map(state => state.mentionQuery)
+    .map((state) => state.mentionQuery)
     .compose(dropRepeats());
 
   const updateMentionSuggestionsReducer$ = mentionQuery$
-    .map(query => ssbSource.getMentionSuggestions(query, []))
+    .map((query) => ssbSource.getMentionSuggestions(query, []))
     .flatten()
     .map(
-      mentionSuggestions =>
+      (mentionSuggestions) =>
         function updateMentionSuggestionsReducer(prev: State): State {
           return {...prev, mentionSuggestions};
         },
     );
 
   const updateRecipientsReducer$ = actions.updateRecipients$.map(
-    recipients =>
+    (recipients) =>
       function updateRecipientsReducer(prev: State): State {
         if (prev.recipients.length < recipients.length) {
           // Added a new recipient, so clear the text input field

@@ -67,7 +67,7 @@ export function createInvite(sources: Sources): Sinks {
     .select('inviteShareButton')
     .events('press')
     .compose(sample(sources.state.stream))
-    .map(state => ({
+    .map((state) => ({
       title: t('connections.share_code.p2p.title'),
       message:
         t('connections.share_code.p2p.message') + '\n\n' + state.inviteCode,

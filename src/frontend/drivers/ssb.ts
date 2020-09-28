@@ -73,75 +73,69 @@ export class SSBSource {
   public bluetoothScanState$: Stream<any>;
 
   constructor(ssbP: Promise<SSBClient>) {
-    this.ssb$ = xs
-      .fromPromise(ssbP)
-      .compose(dropCompletion)
-      .remember();
+    this.ssb$ = xs.fromPromise(ssbP).compose(dropCompletion).remember();
 
-    this.selfFeedId$ = this.ssb$.map(ssb => ssb.id).remember();
+    this.selfFeedId$ = this.ssb$.map((ssb) => ssb.id).remember();
 
-    this.publicRawFeed$ = this.ssb$.map(ssb => (opts?: any) =>
+    this.publicRawFeed$ = this.ssb$.map((ssb) => (opts?: any) =>
       ssb.threadsUtils.publicRawFeed(opts),
     );
 
-    this.publicFeed$ = this.ssb$.map(ssb => (opts?: any) =>
+    this.publicFeed$ = this.ssb$.map((ssb) => (opts?: any) =>
       ssb.threadsUtils.publicFeed(opts),
     );
 
-    this.publicLiveUpdates$ = this.fromPullStream(ssb =>
+    this.publicLiveUpdates$ = this.fromPullStream((ssb) =>
       ssb.threadsUtils.publicUpdates(),
     ).mapTo(null);
 
-    this.privateFeed$ = this.ssb$.map(ssb => (opts?: any) =>
+    this.privateFeed$ = this.ssb$.map((ssb) => (opts?: any) =>
       ssb.threadsUtils.privateFeed(opts),
     );
 
-    this.privateLiveUpdates$ = this.fromPullStream<MsgId>(ssb =>
+    this.privateLiveUpdates$ = this.fromPullStream<MsgId>((ssb) =>
       ssb.threadsUtils.privateUpdates(),
     );
 
-    this.isSyncing$ = this.fromPullStream(ssb => ssb.syncing.stream()).map(
+    this.isSyncing$ = this.fromPullStream((ssb) => ssb.syncing.stream()).map(
       (resp: any) => resp.started > 0,
     );
 
-    this.selfPublicRoots$ = this.ssb$.map(ssb => (opts?: any) =>
+    this.selfPublicRoots$ = this.ssb$.map((ssb) => (opts?: any) =>
       ssb.threadsUtils.selfPublicRoots(opts),
     );
 
-    this.selfPrivateRoots$ = this.fromPullStream<Msg>(ssb =>
+    this.selfPrivateRoots$ = this.fromPullStream<Msg>((ssb) =>
       ssb.threadsUtils.selfPrivateRoots(),
     );
 
-    this.selfReplies$ = this.ssb$.map(ssb => (opts?: any) =>
+    this.selfReplies$ = this.ssb$.map((ssb) => (opts?: any) =>
       ssb.threadsUtils.selfReplies(opts),
     );
 
     this.publishHook$ = this.ssb$
-      .map(ssb => ssb.hooks.publishStream())
+      .map((ssb) => ssb.hooks.publishStream())
       .flatten();
 
     this.acceptInviteResponse$ = xs.create<true | string>();
     this.acceptDhtInviteResponse$ = xs.create<true | string>();
 
-    this.peers$ = this.fromPullStream<Array<PeerKV>>(ssb =>
+    this.peers$ = this.fromPullStream<Array<PeerKV>>((ssb) =>
       ssb.connUtils.peers(),
     );
 
-    this.stagedPeers$ = this.fromPullStream<Array<StagedPeerKV>>(ssb =>
+    this.stagedPeers$ = this.fromPullStream<Array<StagedPeerKV>>((ssb) =>
       ssb.connUtils.stagedPeers(),
     );
 
     this.bluetoothScanState$ =
       Platform.OS === 'ios' // TODO: remove this, because the backend checks too
         ? xs.empty()
-        : this.fromPullStream(ssb => ssb.bluetooth.bluetoothScanState());
+        : this.fromPullStream((ssb) => ssb.bluetooth.bluetoothScanState());
   }
 
   private fromPullStream<T>(fn: (ssb: SSBClient) => Readable<T>): Stream<T> {
-    return this.ssb$
-      .map(fn)
-      .map(xsFromPullStream)
-      .flatten() as Stream<T>;
+    return this.ssb$.map(fn).map(xsFromPullStream).flatten() as Stream<T>;
   }
 
   private fromCallback<T>(
@@ -160,7 +154,7 @@ export class SSBSource {
     rootMsgId: MsgId,
     privately: boolean,
   ): Stream<MsgAndExtras> {
-    return this.fromPullStream<MsgAndExtras>(ssb =>
+    return this.fromPullStream<MsgAndExtras>((ssb) =>
       ssb.threadsUtils.threadUpdates({root: rootMsgId, private: privately}),
     );
   }
@@ -174,14 +168,14 @@ export class SSBSource {
   public profileFeed$(
     id: FeedId,
   ): Stream<GetReadable<ThreadSummaryWithExtras>> {
-    return this.ssb$.map(ssb => (opts?: any) =>
+    return this.ssb$.map((ssb) => (opts?: any) =>
       ssb.threadsUtils.profileFeed(id, opts),
     );
   }
 
   public liteAbout$(ids: Array<FeedId>): Stream<Array<AboutAndExtras>> {
     return this.ssb$
-      .map(async ssb => {
+      .map(async (ssb) => {
         const getAbout = ssb.cachedAbout.socialValue;
         const abouts: Array<AboutAndExtras> = [];
         for (const id of ids) {
@@ -202,13 +196,13 @@ export class SSBSource {
         }
         return abouts;
       })
-      .map(promise => xs.fromPromise(promise))
+      .map((promise) => xs.fromPromise(promise))
       .flatten();
   }
 
   public profileAbout$(id: FeedId): Stream<AboutAndExtras> {
     return this.ssb$
-      .map(ssb => {
+      .map((ssb) => {
         const selfId = ssb.id;
         const color = colorHash.hex(id);
         const getAbout = ssb.cachedAbout.socialValue;
@@ -240,7 +234,7 @@ export class SSBSource {
 
   public profileAboutLive$(id: FeedId): Stream<AboutAndExtras> {
     return this.ssb$
-      .map(ssb => {
+      .map((ssb) => {
         const selfId = ssb.id;
         const color = colorHash.hex(id);
         const getAboutPS = ssb.about.socialValueStream;
@@ -291,7 +285,7 @@ export class SSBSource {
   }
 
   public isPrivatelyBlocking$(dest: FeedId): Stream<boolean> {
-    return this.fromPullStream<boolean>(ssb =>
+    return this.fromPullStream<boolean>((ssb) =>
       ssb.friendsUtils.isPrivatelyBlockingStream(dest),
     );
   }
@@ -305,12 +299,12 @@ export class SSBSource {
     if (!!text) opts.text = text;
     if (authors.length) opts.defaultIds = authors;
     return this.ssb$
-      .map(ssb =>
+      .map((ssb) =>
         xsFromCallback<Array<MentionSuggestion>>(ssb.suggest.profile)(opts).map(
-          arr =>
+          (arr) =>
             arr
-              .filter(suggestion => suggestion.id !== ssb.id)
-              .map(suggestion => ({
+              .filter((suggestion) => suggestion.id !== ssb.id)
+              .map((suggestion) => ({
                 ...suggestion,
                 imageUrl: imageToImageUrl(suggestion.image),
               })),
@@ -462,7 +456,7 @@ async function consumeSink(
   ssbP: Promise<SSBClient>,
 ) {
   sink
-    .filter(r => r.type === 'identity.create' || r.type === 'identity.use')
+    .filter((r) => r.type === 'identity.create' || r.type === 'identity.use')
     .take(1)
     .addListener({
       next(r) {
@@ -478,7 +472,7 @@ async function consumeSink(
   const ssb = await ssbP;
 
   sink.addListener({
-    next: async req => {
+    next: async (req) => {
       if (req.type === 'publish') {
         ssb.publishUtils.publish(req.content);
         return;
@@ -672,7 +666,7 @@ async function consumeSink(
 }
 
 function waitForIdentity() {
-  return new Promise<boolean>(resolve => {
+  return new Promise<boolean>((resolve) => {
     nodejs.channel.addListener('identity', (msg: RestoreIdentityResponse) => {
       if (msg === 'IDENTITY_READY') resolve(true);
     });

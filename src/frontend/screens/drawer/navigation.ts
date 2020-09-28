@@ -25,7 +25,7 @@ export default function navigationCommands(
   state$: Stream<State>,
 ): Stream<Command> {
   const toSelfProfile$ = actions.goToSelfProfile$.compose(sample(state$)).map(
-    state =>
+    (state) =>
       ({
         type: 'push',
         id: 'mainstack',
@@ -73,7 +73,7 @@ export default function navigationCommands(
 
   const hideDrawerAndPush$ = xs
     .merge(toSelfProfile$, toRawDatabase$, toSettings$)
-    .map(pushCommand => {
+    .map((pushCommand) => {
       const hideDrawer: Command = {
         type: 'mergeOptions',
         opts: {

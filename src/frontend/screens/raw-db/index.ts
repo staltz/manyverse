@@ -65,7 +65,7 @@ function navigation(actions: Actions) {
   } as PopCommand);
 
   const toRawMsg$ = actions.goToRawMsg$.map(
-    msg =>
+    (msg) =>
       ({
         type: 'push',
         layout: {
@@ -100,7 +100,7 @@ export function rawDatabase(sources: Sources): Sinks {
     sources.screen.select('topbar').events('pressBack'),
   );
 
-  const vdom$ = sources.ssb.publicRawFeed$.map(getReadable =>
+  const vdom$ = sources.ssb.publicRawFeed$.map((getReadable) =>
     h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('raw_db.title')}),
       h(RawFeed, {sel: 'raw-feed', getReadable}),

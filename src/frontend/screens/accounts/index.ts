@@ -109,7 +109,7 @@ function intent(navSource: NavSource, reactSource: ReactSource) {
 export function accounts(sources: Sources): Sinks {
   const actions = intent(sources.navigation, sources.screen);
 
-  const vdom$ = sources.state.stream.map(state => {
+  const vdom$ = sources.state.stream.map((state) => {
     const abouts = state.abouts;
 
     return h(View, {style: styles.screen}, [
@@ -142,8 +142,8 @@ export function accounts(sources: Sources): Sinks {
   );
 
   const aboutsReducer$ = sources.props
-    .filter(props => !!props.accounts)
-    .map(props => {
+    .filter((props) => !!props.accounts)
+    .map((props) => {
       const hasReactions =
         props.accounts &&
         props.accounts.length >= 1 &&
@@ -154,14 +154,14 @@ export function accounts(sources: Sources): Sinks {
       );
 
       const ids = hasReactions
-        ? (props.accounts! as Array<[FeedId, string]>).map(x => x[0])
+        ? (props.accounts! as Array<[FeedId, string]>).map((x) => x[0])
         : (props.accounts! as Array<FeedId>);
 
       return sources.ssb.liteAbout$(ids).map(
-        rawAbouts =>
+        (rawAbouts) =>
           function propsReducer(prev: State): State {
             const abouts = hasReactions
-              ? rawAbouts.map(about => ({
+              ? rawAbouts.map((about) => ({
                   ...about,
                   reaction: reactions.get(about.id),
                 }))

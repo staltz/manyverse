@@ -47,7 +47,7 @@ export function biography(sources: Sources): Sinks {
     .mapTo({type: 'pop'} as Command);
 
   const reducer$ = sources.props.map(
-    props =>
+    (props) =>
       function propsReducer(): State {
         return props;
       },

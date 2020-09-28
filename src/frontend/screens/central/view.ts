@@ -186,7 +186,7 @@ class ConnectionsTabIcon extends Component<{
   details: State['connectionsTab'];
 }> {
   private static countConnected(d: ConnectionsTabIcon['props']['details']) {
-    return (d?.peers ?? []).filter(p => p[1].state === 'connected').length;
+    return (d?.peers ?? []).filter((p) => p[1].state === 'connected').length;
   }
 
   private static countStaged(d: ConnectionsTabIcon['props']['details']) {

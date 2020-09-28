@@ -35,9 +35,11 @@ export type MenuChoice =
   | 'invite-share'
   | 'invite-delete';
 
-const MenuOption: React.ComponentClass<MenuOptionProps & {
-  value: MenuChoice;
-}> = _MenuOption as any;
+const MenuOption: React.ComponentClass<
+  MenuOptionProps & {
+    value: MenuChoice;
+  }
+> = _MenuOption as any;
 
 type MenuOptionContentProps = {
   icon: string;

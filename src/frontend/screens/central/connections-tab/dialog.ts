@@ -30,7 +30,7 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
         ),
       )
       .flatten()
-      .filter(res => res.action === 'actionPositive')
-      .map(res => (res as any).text as string),
+      .filter((res) => res.action === 'actionPositive')
+      .map((res) => (res as any).text as string),
   };
 }

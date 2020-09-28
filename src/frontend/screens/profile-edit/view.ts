@@ -23,7 +23,7 @@ import {State} from './model';
 import {styles, avatarSize} from './styles';
 
 export default function view(state$: Stream<State>) {
-  return state$.map(state => {
+  return state$.map((state) => {
     const defaultName: string = state.about.name ?? '';
 
     return h(View, {style: styles.container}, [
