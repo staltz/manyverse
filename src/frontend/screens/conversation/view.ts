@@ -36,6 +36,7 @@ import TopBar from '../../components/TopBar';
 import HeaderButton from '../../components/HeaderButton';
 import LocalizedHumanTime from '../../components/LocalizedHumanTime';
 import {State} from './model';
+import {displayName} from '../../ssb/utils/from-ssb';
 
 const GiftedChat = (GiftedChatWithWrongTypes as any) as ComponentClass<
   GiftedChatProps<GiftedMsg>
@@ -153,7 +154,11 @@ function renderBubble(props: any) {
 
 function renderMessageAuthor(user: GiftedMsg['user']) {
   const color = Palette.colorHash(user._id as string);
-  return h(Text, {style: [styles.username, {color}]}, user.name);
+  return h(
+    Text,
+    {style: [styles.username, {color}]},
+    displayName(user.name, String(user._id)),
+  );
 }
 
 function renderFooter() {
