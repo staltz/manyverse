@@ -5,10 +5,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import concat from 'xstream/extra/concat';
+import {Reducer} from '@cycle/state';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+import {FeedId} from 'ssb-typescript';
 import {AboutAndExtras} from '../../ssb/types';
 import {SSBSource, GetReadable} from '../../drivers/ssb';
-import {Reducer} from '@cycle/state';
-import {FeedId} from 'ssb-typescript';
 import {Props} from './props';
 
 export type State = {
@@ -24,15 +26,16 @@ export type State = {
 };
 
 type Actions = {
-  loadLastSessionTimestamp$: Stream<number>;
+  refreshFeed$: Stream<any>;
 };
 
 export default function model(
   actions: Actions,
+  asyncStorageSource: AsyncStorageSource,
   props$: Stream<Props>,
   ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
-  const propsReducer$ = props$.map(
+  const propsReducer$ = props$.take(1).map(
     (props) =>
       function propsReducer(): State {
         return {
@@ -67,12 +70,22 @@ export default function model(
     .map((props) => ssbSource.profileFeed$(props.feedId))
     .flatten();
 
-  const lastSessionTimestampReducer$ = actions.loadLastSessionTimestamp$.map(
-    (lastSessionTimestamp) =>
-      function lastSessionTimestampReducer(prev: State): State {
-        return {...prev, lastSessionTimestamp};
-      },
-  );
+  const loadLastSessionTimestampReducer$ = actions.refreshFeed$
+    .startWith(null)
+    .map(() =>
+      asyncStorageSource.getItem('lastSessionTimestamp').map(
+        (resultStr) =>
+          function lastSessionTimestampReducer(prev: State): State {
+            const lastSessionTimestamp = parseInt(resultStr ?? '', 10);
+            if (isNaN(lastSessionTimestamp)) {
+              return prev;
+            } else {
+              return {...prev, lastSessionTimestamp};
+            }
+          },
+      ),
+    )
+    .flatten();
 
   const updateBlockingSecretlyReducer$ = props$
     .filter((props) => props.feedId !== props.selfFeedId)
@@ -100,12 +113,14 @@ export default function model(
       },
   );
 
-  return xs.merge(
+  return concat(
     propsReducer$,
-    lastSessionTimestampReducer$,
-    updateAboutReducer$,
-    updateFeedStreamReducer$,
-    updateSelfRootsReducer$,
-    updateBlockingSecretlyReducer$,
+    xs.merge(
+      loadLastSessionTimestampReducer$,
+      updateAboutReducer$,
+      updateFeedStreamReducer$,
+      updateSelfRootsReducer$,
+      updateBlockingSecretlyReducer$,
+    ),
   );
 }

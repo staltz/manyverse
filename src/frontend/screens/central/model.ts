@@ -140,7 +140,6 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
 export type Actions = {
   changeTab$: Stream<State['currentTab']>;
   backToPublicTab$: Stream<null>;
-  loadLastSessionTimestamp$: Stream<number>;
   drawerToggled$: Stream<boolean>;
 };
 
@@ -183,13 +182,6 @@ export default function model(
         },
     );
 
-  const lastSessionTimestampReducer$ = actions.loadLastSessionTimestamp$.map(
-    (lastSessionTimestamp) =>
-      function lastSessionTimestampReducer(prev: State): State {
-        return {...prev, lastSessionTimestamp};
-      },
-  );
-
   const changeTabReducer$ = actions.changeTab$.map(
     (nextTab) =>
       function changeTabReducer(prev: State): State {
@@ -215,7 +207,6 @@ export default function model(
     initReducer$,
     setSelfFeedId$,
     aboutReducer$,
-    lastSessionTimestampReducer$,
     changeTabReducer$,
     backToPublicTabReducer$,
     isDrawerOpenReducer$,

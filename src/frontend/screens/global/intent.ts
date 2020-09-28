@@ -20,9 +20,5 @@ export default function intent(globalEventBus: Stream<GlobalEvent>) {
     goToThread$: globalEventBus
       .filter((ev) => ev.type === 'triggerMsgCypherlink')
       .map((ev) => ({rootMsgId: (ev as TriggerMsgCypherlink).msgId})),
-
-    requestLastSessionTimestamp$: globalEventBus.filter(
-      (ev) => ev.type === 'requestLastSessionTimestamp',
-    ),
   };
 }

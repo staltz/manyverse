@@ -25,8 +25,7 @@ export type State = {
 };
 
 export type Actions = {
-  resetUpdates$: Stream<any>;
-  updateSessionTimestamp$: Stream<any>;
+  refreshFeed$: Stream<any>;
   refreshComposeDraft$: Stream<any>;
 };
 
@@ -48,17 +47,28 @@ export default function model(
     },
   );
 
-  const resetUpdatesReducer$ = actions.resetUpdates$.mapTo(
+  const resetUpdatesReducer$ = actions.refreshFeed$.mapTo(
     function resetUpdatesReducer(prev: State): State {
       return {...prev, numOfUpdates: 0};
     },
   );
 
-  const updateSessionTimestampReducer$ = actions.updateSessionTimestamp$.mapTo(
-    function updateSessionTimestampReducer(prev: State): State {
-      return {...prev, lastSessionTimestamp: Date.now()};
-    },
-  );
+  const loadLastSessionTimestampReducer$ = actions.refreshFeed$
+    .startWith(null)
+    .map(() =>
+      asyncStorageSource.getItem('lastSessionTimestamp').map(
+        (resultStr) =>
+          function lastSessionTimestampReducer(prev: State): State {
+            const lastSessionTimestamp = parseInt(resultStr ?? '', 10);
+            if (isNaN(lastSessionTimestamp)) {
+              return prev;
+            } else {
+              return {...prev, lastSessionTimestamp};
+            }
+          },
+      ),
+    )
+    .flatten();
 
   const getComposeDraftReducer$ = actions.refreshComposeDraft$
     .map(() => asyncStorageSource.getItem('composeDraft'))
@@ -81,7 +91,7 @@ export default function model(
     setPublicFeedReducer$,
     setSelfRootsReducer$,
     incUpdatesReducer$,
-    updateSessionTimestampReducer$,
+    loadLastSessionTimestampReducer$,
     getComposeDraftReducer$,
     resetUpdatesReducer$,
   );

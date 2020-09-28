@@ -4,21 +4,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs from 'xstream';
 import {FeedId} from 'ssb-typescript';
-import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
-  lastSessionTimestamp?: number;
   selfFeedId?: FeedId;
   selfAvatarUrl?: string;
 };
 
-export default function model(
-  ssbSource: SSBSource,
-  asyncStorageSource: AsyncStorageSource,
-) {
+export default function model(ssbSource: SSBSource) {
   const aboutReducer$ = ssbSource.selfFeedId$
     .take(1)
     .map((selfFeedId) =>
@@ -32,19 +26,5 @@ export default function model(
     )
     .flatten();
 
-  const lastSessionTimestampReducer$ = asyncStorageSource
-    .getItem('lastSessionTimestamp')
-    .map(
-      (resultStr) =>
-        function lastSessionTimestampReducer(prev?: State): State {
-          const lastSessionTimestamp = parseInt(resultStr ?? '', 10);
-          if (isNaN(lastSessionTimestamp)) {
-            return prev ?? {};
-          } else {
-            return {...prev, lastSessionTimestamp};
-          }
-        },
-    );
-
-  return xs.merge(aboutReducer$, lastSessionTimestampReducer$);
+  return aboutReducer$;
 }

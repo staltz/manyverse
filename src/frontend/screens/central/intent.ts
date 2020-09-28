@@ -8,11 +8,7 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactSource} from '@cycle/react';
 import {State} from './model';
-import {
-  GlobalEvent,
-  DrawerToggleOnCentralScreen,
-  ResponseLastSessionTimestamp,
-} from '../../drivers/eventbus';
+import {GlobalEvent, DrawerToggleOnCentralScreen} from '../../drivers/eventbus';
 import sample from 'xstream-sample';
 
 type TabID = State['currentTab'];
@@ -40,10 +36,6 @@ export default function intent(
   );
 
   const changeTabWithState$ = changeTab$.compose(sampleCombine(state$));
-
-  const loadLastSessionTimestamp$ = globalEventBus
-    .filter((ev) => ev.type === 'responseLastSessionTimestamp')
-    .map((ev: ResponseLastSessionTimestamp) => ev.lastSessionTimestamp);
 
   const scrollToPublicTop$ = changeTabWithState$
     .filter(
@@ -86,7 +78,6 @@ export default function intent(
     changeTab$,
     scrollToPublicTop$,
     scrollToPrivateTop$,
-    loadLastSessionTimestamp$,
     closeDrawer$,
     backToPublicTab$,
     exitApp$,

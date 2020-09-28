@@ -26,22 +26,11 @@ export type DrawerToggleOnCentralScreen = {
   open: boolean;
 };
 
-export type RequestLastSessionTimestamp = {
-  type: 'requestLastSessionTimestamp';
-};
-
-export type ResponseLastSessionTimestamp = {
-  type: 'responseLastSessionTimestamp';
-  lastSessionTimestamp: number;
-};
-
 export type GlobalEvent =
   | TriggerFeedCypherlink
   | TriggerMsgCypherlink
   | HardwareBackOnCentralScreen
-  | DrawerToggleOnCentralScreen
-  | RequestLastSessionTimestamp
-  | ResponseLastSessionTimestamp;
+  | DrawerToggleOnCentralScreen;
 
 export class EventBus {
   public _stream?: Stream<GlobalEvent>;

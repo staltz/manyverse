@@ -57,7 +57,7 @@ export default function intent(
       .select('publicFeed')
       .events('initialPullDone') as Stream<void>,
 
-    resetUpdates$: feedRefreshed$,
+    refreshFeed$: feedRefreshed$,
 
     updateSessionTimestamp$: feedRefreshed$.compose(debounce(2e3)),
 

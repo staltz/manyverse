@@ -11,10 +11,6 @@ import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
 import {t} from '../../drivers/localization';
 import {
-  ResponseLastSessionTimestamp,
-  GlobalEvent,
-} from '../../drivers/eventbus';
-import {
   PressReactionsEvent,
   PressAddReactionEvent,
   MsgAndExtras,
@@ -26,7 +22,6 @@ export type ProfileNavEvent = {authorFeedId: FeedId};
 export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
-  globalEventBus: Stream<GlobalEvent>,
   state$: Stream<State>,
 ) {
   return {
@@ -50,10 +45,6 @@ export default function intent(
       null
     >,
 
-    loadLastSessionTimestamp$: globalEventBus
-      .filter((ev) => ev.type === 'responseLastSessionTimestamp')
-      .map((ev: ResponseLastSessionTimestamp) => ev.lastSessionTimestamp),
-
     goToAccounts$: (reactSource
       .select('feed')
       .events('pressReactions') as Stream<PressReactionsEvent>).map(
@@ -71,6 +62,8 @@ export default function intent(
     openMessageEtc$: reactSource.select('feed').events('pressEtc') as Stream<
       Msg
     >,
+
+    refreshFeed$: reactSource.select('feed').events('refresh') as Stream<any>,
 
     manageContact$: reactSource
       .select('manage')
