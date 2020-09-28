@@ -6,6 +6,10 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2009.28-beta
+
+* Translate to Arabic (100%) ([see details](https://gitlab.com/staltz/manyverse/commit/307938176563e312e76235fd95006e4b74048014))
+
 ## 0.2009.7-beta
 
 * (iOS) Tweak Welcome screen for Apple App Store guidelines ([see details](https://gitlab.com/staltz/manyverse/commit/1b15b359ea85a9218e2954430c9647e52b2f9395))
