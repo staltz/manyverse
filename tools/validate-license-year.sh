@@ -23,7 +23,8 @@ if (fs.existsSync(filename)) {\
   }\
 }\
   " $f || exitstatus=$?;
-  if [[ $exitstatus -ne 0 ]]; then
-    exit $exitstatus;
-  fi
 done
+
+if [[ $exitstatus -ne 0 ]]; then
+  exit $exitstatus;
+fi
