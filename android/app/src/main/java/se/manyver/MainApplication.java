@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,7 +13,6 @@ import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.peel.react.rnos.RNOSModule;
-import com.bitgo.randombytes.RandomBytesPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.react.ReactNativeHost;
@@ -94,7 +93,6 @@ public class MainApplication extends NavigationApplication {
     packages.add(new BluetoothSocketBridgePackage(bluetoothConfig));
     packages.add(new PickerPackage());
     packages.add(new HasInternetPackage());
-    packages.add(new RandomBytesPackage());
     packages.add(new RNNodeJsMobilePackage());
     packages.add(new ReactNativeDialogsPackage());
     packages.add(new VectorIconsPackage());

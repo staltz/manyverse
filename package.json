@@ -101,7 +101,7 @@
     "react-native-popup-menu": "0.15.6",
     "react-native-splash-screen": "^3.2.0",
     "react-native-ssb-client": "7.1.0",
-    "react-native-ssb-shims": "4.6.0",
+    "react-native-ssb-shims": "5.0.0",
     "react-native-status-bar-height": "2.5.0",
     "react-native-swiper": "1.5.14",
     "react-native-system-setting": "1.7.5",
