@@ -55,6 +55,44 @@ function renderTopBar(isSelfProfile: boolean) {
   ]);
 }
 
+function renderCover(state: State) {
+  return h(View, {style: styles.cover}, [
+    h(
+      Text,
+      {
+        style: styles.name,
+        numberOfLines: 1,
+        ellipsizeMode: 'middle',
+        accessible: true,
+        accessibilityRole: 'text',
+        accessibilityLabel: t('profile.name.accessibility_label'),
+      },
+      displayName(state.about.name, state.about.id),
+    ),
+  ]);
+}
+
+function renderAvatar(state: State) {
+  return h(
+    TouchableWithoutFeedback,
+    {
+      sel: 'avatar',
+      accessible: true,
+      accessibilityRole: 'image',
+      accessibilityLabel: t('profile.picture.accessibility_label'),
+    },
+    [
+      h(View, {style: styles.avatarTouchable, pointerEvents: 'box-only'}, [
+        h(Avatar, {
+          size: avatarSize,
+          url: state.about.imageUrl,
+          style: styles.avatar,
+        }),
+      ]),
+    ],
+  );
+}
+
 export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   return state$
     .compose(
@@ -75,43 +113,9 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
       return h(View, {style: styles.container}, [
         renderTopBar(isSelfProfile),
 
-        h(View, {style: styles.cover}, [
-          h(
-            Text,
-            {
-              style: styles.name,
-              numberOfLines: 1,
-              ellipsizeMode: 'middle',
-              accessible: true,
-              accessibilityRole: 'text',
-              accessibilityLabel: t('profile.name.accessibility_label'),
-            },
-            displayName(state.about.name, state.about.id),
-          ),
-        ]),
+        renderCover(state),
 
-        h(
-          TouchableWithoutFeedback,
-          {
-            sel: 'avatar',
-            accessible: true,
-            accessibilityRole: 'image',
-            accessibilityLabel: t('profile.picture.accessibility_label'),
-          },
-          [
-            h(
-              View,
-              {style: styles.avatarTouchable, pointerEvents: 'box-only'},
-              [
-                h(Avatar, {
-                  size: avatarSize,
-                  url: state.about.imageUrl,
-                  style: styles.avatar,
-                }),
-              ],
-            ),
-          ],
-        ),
+        renderAvatar(state),
 
         h(View, {style: styles.sub}, [
           followsYouTristate === true
