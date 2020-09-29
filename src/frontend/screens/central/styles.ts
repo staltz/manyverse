@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     height:
       Dimensions.toolbarHeight -
       getStatusBarHeight(true) +
-      (isIPhoneX ? 10 : 0),
+      (isIPhoneX() ? 10 : 0),
     borderTopColor: Palette.textLine,
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: Palette.backgroundText,
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: isIPhoneX ? -5 : 0,
+    marginTop: isIPhoneX() ? -5 : 0,
   },
 
   tabButtonText: {

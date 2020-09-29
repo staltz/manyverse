@@ -38,7 +38,7 @@ export const Dimensions = {
   iconSizeNormal: 24,
   iconSizeSmall: 18,
   toolbarHeight: Platform.select({
-    ios: isIPhoneX ? 100 : 76,
+    ios: isIPhoneX() ? 100 : 76,
     default: 56,
   }),
 };
