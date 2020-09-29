@@ -30,6 +30,31 @@ import TopBar from '../../components/TopBar';
 import {styles, avatarSize} from './styles';
 import {State} from './model';
 
+function renderTopBar(isSelfProfile: boolean) {
+  return h(TopBar, {sel: 'topbar'}, [
+    isSelfProfile
+      ? null
+      : h(
+          TouchableOpacity,
+          {
+            sel: 'manage',
+            accessible: true,
+            accessibilityRole: 'button',
+            accessibilityLabel: t(
+              'profile.call_to_action.manage.accessibility_label',
+            ),
+          },
+          [
+            h(Icon, {
+              size: Dimensions.iconSizeNormal,
+              color: Palette.textForBackgroundBrand,
+              name: 'dots-vertical',
+            }),
+          ],
+        ),
+  ]);
+}
+
 export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   return state$
     .compose(
@@ -48,7 +73,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
       const followsYouTristate = state.about.followsYou;
 
       return h(View, {style: styles.container}, [
-        h(TopBar, {sel: 'topbar'}),
+        renderTopBar(isSelfProfile),
 
         h(View, {style: styles.cover}, [
           h(
@@ -108,27 +133,6 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
             : null,
 
           h(View, {style: styles.cta}, [
-            isSelfProfile
-              ? null
-              : h(
-                  TouchableOpacity,
-                  {
-                    sel: 'manage',
-                    accessible: true,
-                    accessibilityRole: 'button',
-                    accessibilityLabel: t(
-                      'profile.call_to_action.manage.accessibility_label',
-                    ),
-                  },
-                  [
-                    h(Icon, {
-                      size: Dimensions.iconSizeNormal,
-                      color: Palette.textVeryWeak,
-                      name: 'chevron-down',
-                    }),
-                  ],
-                ),
-
             isSelfProfile
               ? h(Button, {
                   sel: 'editProfile',
