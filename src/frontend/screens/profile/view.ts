@@ -7,6 +7,7 @@
 import {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
+import {PureComponent} from 'react';
 import {
   View,
   Text,
@@ -17,6 +18,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
 import {SSBSource} from '../../drivers/ssb';
 import {t} from '../../drivers/localization';
@@ -30,6 +32,7 @@ import ToggleButton from '../../components/ToggleButton';
 import EmptySection from '../../components/EmptySection';
 import Avatar from '../../components/Avatar';
 import TopBar from '../../components/TopBar';
+import Markdown from '../../components/Markdown';
 import {State} from './model';
 import {
   styles,
@@ -38,14 +41,13 @@ import {
   COVER_HEIGHT,
   BIO_MARKDOWN_MAX_HEIGHT,
 } from './styles';
-import {PureComponent} from 'react';
-import Markdown from '../../components/Markdown';
 
 function calcNameTransY(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [0, COVER_HEIGHT],
-    outputRange: [0, -COVER_HEIGHT - Typography.fontSizeLarge * 0.5],
-    extrapolate: 'clamp',
+    inputRange: [-10, 0, COVER_HEIGHT],
+    outputRange: [10, 0, -COVER_HEIGHT - Typography.fontSizeLarge * 0.5 + 2],
+    extrapolateRight: 'clamp',
+    extrapolateLeft: 'extend',
   });
 }
 
@@ -58,11 +60,16 @@ function calcAvatarTransX(scrollY: Animated.Value): Animated.Animated {
 }
 
 function calcAvatarTransY(scrollY: Animated.Value): Animated.Animated {
-  const margin = (Dimensions.toolbarHeight - AVATAR_SIZE_TOOLBAR) * 0.5;
+  const margin =
+    (Dimensions.toolbarHeight -
+      getStatusBarHeight(true) -
+      AVATAR_SIZE_TOOLBAR) *
+    0.5;
   return scrollY.interpolate({
-    inputRange: [0, COVER_HEIGHT],
-    outputRange: [0, -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.5 - margin],
-    extrapolate: 'clamp',
+    inputRange: [-10, 0, COVER_HEIGHT],
+    outputRange: [10, 0, -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.5 - margin],
+    extrapolateRight: 'clamp',
+    extrapolateLeft: 'extend',
   });
 }
 
@@ -110,7 +117,7 @@ function ProfileAvatar({
   translateY: Animated.Animated;
   scale: Animated.Animated;
 }) {
-  const animStyle = {transform: [{translateX, translateY}, {scale}]};
+  const animStyle = {transform: [{translateX}, {translateY}, {scale}]};
 
   return h(
     TouchableWithoutFeedback,

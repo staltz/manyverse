@@ -18,6 +18,8 @@ export const COVER_HEIGHT = AVATAR_SIZE_HALF;
 
 export const BIO_MARKDOWN_MAX_HEIGHT = 54;
 
+const SCROLL_BOUNCE_REGION = 250;
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,8 +28,12 @@ export const styles = StyleSheet.create({
   },
 
   cover: {
+    position: 'absolute',
+    top: -SCROLL_BOUNCE_REGION,
+    left: 0,
+    right: 0,
     backgroundColor: Palette.backgroundBrand,
-    height: COVER_HEIGHT,
+    height: SCROLL_BOUNCE_REGION + COVER_HEIGHT,
     zIndex: 10,
   },
 
@@ -66,7 +72,7 @@ export const styles = StyleSheet.create({
   },
 
   sub: {
-    marginTop: Dimensions.verticalSpaceSmall,
+    marginTop: COVER_HEIGHT + Dimensions.verticalSpaceSmall,
     marginLeft:
       Dimensions.horizontalSpaceBig + // left margin to the avatar
       AVATAR_SIZE + // avatar
