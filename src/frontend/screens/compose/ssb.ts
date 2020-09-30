@@ -15,14 +15,12 @@ export type Actions = {
 };
 
 export default function ssb(actions: Actions): Stream<Req> {
-  const publishPost$ = actions.publishPost$
-    .map(({postText, contentWarning}) =>
-      toPostContent(postText, contentWarning),
-    )
-    .map(contentToPublishReq);
+  const publishPostContent$ = actions.publishPost$.map(
+    ({postText, contentWarning}) => toPostContent(postText, contentWarning),
+  );
 
-  const publishReply$ = actions.publishReply$
-    .map(({postText, contentWarning, root, branch, fork}) =>
+  const publishReplyContent$ = actions.publishReply$.map(
+    ({postText, contentWarning, root, branch, fork}) =>
       toReplyPostContent({
         text: postText,
         root: root!,
@@ -30,8 +28,12 @@ export default function ssb(actions: Actions): Stream<Req> {
         fork,
         contentWarning,
       }),
-    )
-    .map(contentToPublishReq);
+  );
 
-  return xs.merge(publishPost$, publishReply$);
+  const publishReq$ = xs
+    .merge(publishPostContent$, publishReplyContent$)
+    .map(contentToPublishReq)
+    .take(1);
+
+  return publishReq$;
 }
