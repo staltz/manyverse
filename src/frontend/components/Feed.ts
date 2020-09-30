@@ -79,10 +79,6 @@ function Separator() {
   return h(View, {style: styles.itemSeparator});
 }
 
-function PlaceholderWithSeparator() {
-  return h(View, [h(PlaceholderThreadCard), h(Separator)]);
-}
-
 class InitialLoading extends PureComponent<any> {
   private loadingAnim = new Animated.Value(0);
   private indexesAnim = new Animated.Value(0);
@@ -148,6 +144,7 @@ type Props = {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
   EmptyComponent?: ReactElement<any>;
+  HeaderComponent?: ReactElement<any>;
   style?: ViewStyle;
   contentContainerStyle?: ViewStyle;
   progressViewOffset?: number;
@@ -229,6 +226,26 @@ export default class Feed extends PureComponent<Props, State> {
     );
   }
 
+  public renderHeader() {
+    const {showPlaceholder} = this.state;
+    const {HeaderComponent} = this.props;
+
+    if (showPlaceholder && HeaderComponent) {
+      return h(View, [
+        HeaderComponent,
+        h(Separator),
+        h(PlaceholderThreadCard),
+        h(Separator),
+      ]);
+    } else if (showPlaceholder) {
+      return h(View, [h(PlaceholderThreadCard), h(Separator)]);
+    } else if (HeaderComponent) {
+      return h(View, [HeaderComponent, h(Separator)]);
+    } else {
+      return null;
+    }
+  }
+
   public render() {
     const {
       onRefresh,
@@ -248,7 +265,7 @@ export default class Feed extends PureComponent<Props, State> {
       selfFeedId,
       EmptyComponent,
     } = this.props;
-    const {showPlaceholder, initialLoading} = this.state;
+    const {initialLoading} = this.state;
 
     return h(PullFlatList2, {
       getScrollStream: getReadable,
@@ -283,7 +300,7 @@ export default class Feed extends PureComponent<Props, State> {
       refreshColors: [Palette.backgroundBrandWeak],
       keyExtractor: (thread: ThreadSummaryWithExtras, index: number) =>
         thread.root.key ?? String(index),
-      ListHeaderComponent: showPlaceholder ? PlaceholderWithSeparator : null,
+      ListHeaderComponent: this.renderHeader(),
       ListFooterComponent: initialLoading
         ? InitialLoading
         : PlaceholderThreadCard,

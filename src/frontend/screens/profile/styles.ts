@@ -11,6 +11,9 @@ import {Typography} from '../../global-styles/typography';
 
 export const avatarSize = Dimensions.avatarSizeBig;
 const avatarSizeHalf = avatarSize * 0.5;
+export const toolbarAvatarSize = Dimensions.avatarSizeSmall;
+
+export const coverHeight = avatarSizeHalf;
 
 export const styles = StyleSheet.create({
   container: {
@@ -21,71 +24,52 @@ export const styles = StyleSheet.create({
 
   cover: {
     backgroundColor: Palette.backgroundBrand,
-    height: avatarSizeHalf,
+    height: coverHeight,
     zIndex: 10,
   },
 
+  avatarTouchable: {
+    position: 'absolute',
+    top: Dimensions.toolbarHeight + coverHeight - avatarSizeHalf,
+    left: Dimensions.horizontalSpaceBig,
+    width: avatarSize,
+    height: avatarSize,
+    zIndex: 19,
+  },
+
+  avatar: {
+    zIndex: 20,
+  },
+
   name: {
+    position: 'absolute',
     color: 'white',
-    fontSize: Typography.fontSizeLarge,
-    lineHeight: Typography.lineHeightLarge,
-    fontFamily: Typography.fontFamilyReadableText,
-    fontWeight: 'bold',
-    maxWidth: 220,
-    top: Dimensions.verticalSpaceSmall,
+    top:
+      Dimensions.toolbarHeight + coverHeight - Typography.fontSizeLarge * 1.75,
     left:
       Dimensions.horizontalSpaceBig +
       avatarSize +
       Dimensions.horizontalSpaceBig,
+    right: Dimensions.horizontalSpaceBig + Dimensions.iconSizeNormal,
+    fontSize: Typography.fontSizeLarge,
+    lineHeight: Typography.lineHeightLarge,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
+    zIndex: 20,
   },
 
-  descriptionArea: {
-    top: -avatarSize,
-    marginBottom: -avatarSize,
-    zIndex: 10,
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    paddingTop: avatarSizeHalf + Dimensions.verticalSpaceNormal,
-    paddingBottom: Dimensions.verticalSpaceNormal,
-    paddingLeft: Dimensions.horizontalSpaceBig,
-    paddingRight: Dimensions.horizontalSpaceBig,
+  header: {
     backgroundColor: Palette.backgroundText,
   },
 
-  bioButton: {
-    minWidth: avatarSize,
-  },
-
-  description: {
-    fontSize: Typography.fontSizeNormal,
-    lineHeight: Typography.lineHeightNormal,
-    color: Palette.text,
-  },
-
-  feed: {
-    top: Dimensions.verticalSpaceNormal * 0.5,
-    bottom: 0,
-    backgroundColor: Palette.backgroundVoid,
-    alignSelf: 'stretch',
-  },
-
-  feedWithHeader: {
-    top: Dimensions.verticalSpaceNormal,
-    bottom: 0,
-    backgroundColor: Palette.backgroundVoid,
-    alignSelf: 'stretch',
-  },
-
   sub: {
-    position: 'absolute',
-    top:
-      Dimensions.toolbarHeight + avatarSizeHalf + Dimensions.verticalSpaceSmall,
-    left:
+    marginTop: Dimensions.verticalSpaceSmall,
+    marginLeft:
       Dimensions.horizontalSpaceBig + // left margin to the avatar
       avatarSize + // avatar
       Dimensions.horizontalSpaceBig - // right margin to the avatar
       Dimensions.horizontalSpaceSmall, // minus follows-you-text margin
-    right: Dimensions.horizontalSpaceBig,
+    marginRight: Dimensions.horizontalSpaceBig,
     zIndex: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -118,16 +102,25 @@ export const styles = StyleSheet.create({
     marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
-  avatarTouchable: {
-    top: -avatarSizeHalf,
-    left: Dimensions.horizontalSpaceBig,
-    width: avatarSize,
-    height: avatarSize,
-    zIndex: 19,
+  descriptionArea: {
+    zIndex: 10,
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    paddingTop: Dimensions.verticalSpaceNormal,
+    paddingBottom: Dimensions.verticalSpaceNormal,
+    paddingLeft: Dimensions.horizontalSpaceBig,
+    paddingRight: Dimensions.horizontalSpaceBig,
+    backgroundColor: Palette.backgroundText,
   },
 
-  avatar: {
-    zIndex: 20,
+  bioButton: {
+    minWidth: avatarSize,
+  },
+
+  feed: {
+    bottom: 0,
+    backgroundColor: Palette.backgroundVoid,
+    alignSelf: 'stretch',
   },
 
   emptySection: {
