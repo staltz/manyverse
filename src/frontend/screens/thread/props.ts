@@ -9,6 +9,7 @@ import {MsgAndExtras} from '../../ssb/types';
 
 type Basics = {
   selfFeedId: FeedId;
+  lastSessionTimestamp: number;
   selfAvatarUrl?: string;
   higherRootMsgId?: MsgId;
   replyToMsgId?: MsgId;

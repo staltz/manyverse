@@ -61,6 +61,7 @@ export default function navigation(
                 selfFeedId: state.selfFeedId,
                 selfAvatarUrl: state.selfAvatarUrl,
                 rootMsgId: ev.rootMsgId,
+                lastSessionTimestamp: state.lastSessionTimestamp ?? Infinity,
               } as ThreadProps,
               options: threadScreenNavOpts,
             },

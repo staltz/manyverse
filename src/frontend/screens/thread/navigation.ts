@@ -130,6 +130,7 @@ export default function navigation(
                 selfAvatarUrl: state.selfAvatarUrl,
                 rootMsg: ev.msg,
                 higherRootMsgId: ev.rootMsgId,
+                lastSessionTimestamp: state.lastSessionTimestamp,
               } as Props,
               options: threadScreenNavOpts,
             },

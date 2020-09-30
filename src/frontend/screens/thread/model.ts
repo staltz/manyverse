@@ -78,7 +78,7 @@ export default function model(
           loadingReplies: !!props.rootMsg,
           thread: emptyThread,
           subthreads: {},
-          lastSessionTimestamp: Infinity,
+          lastSessionTimestamp: props.lastSessionTimestamp,
           expandRootCW: props.expandRootCW ?? false,
           replyText: '',
           replyEditable: true,
@@ -184,20 +184,6 @@ export default function model(
     },
   );
 
-  const loadLastSessionTimestampReducer$ = asyncStorageSource
-    .getItem('lastSessionTimestamp')
-    .map(
-      (resultStr) =>
-        function lastSessionTimestampReducer(prev: State): State {
-          const lastSessionTimestamp = parseInt(resultStr ?? '', 10);
-          if (isNaN(lastSessionTimestamp)) {
-            return prev;
-          } else {
-            return {...prev, lastSessionTimestamp};
-          }
-        },
-    );
-
   const loadReplyDraftReducer$ = actions.loadReplyDraft$
     .map((rootMsgId) => asyncStorageSource.getItem(`replyDraft:${rootMsgId}`))
     .flatten()
@@ -247,7 +233,6 @@ export default function model(
       updateReplyTextReducer$,
       publishReplyReducers$,
       emptyReplyTextReducer$,
-      loadLastSessionTimestampReducer$,
       loadReplyDraftReducer$,
       addSelfRepliesReducer$,
     ),
