@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
+    flexDirection: 'column',
     backgroundColor: Palette.backgroundText,
   },
 
@@ -78,10 +79,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: Platform.select({
       ios: -44,
-      default:
-        Dimensions.toolbarHeight +
-        avatarSizeHalf +
-        Dimensions.verticalSpaceSmall,
+      default: avatarSizeHalf + Dimensions.verticalSpaceSmall,
     }),
     right: Platform.select({
       ios: 0,

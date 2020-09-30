@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Animated,
+  ViewProps,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
@@ -30,37 +31,45 @@ import EmptySection from '../../components/EmptySection';
 import Avatar from '../../components/Avatar';
 import TopBar from '../../components/TopBar';
 import {State} from './model';
-import {styles, avatarSize, toolbarAvatarSize, coverHeight} from './styles';
+import {
+  styles,
+  AVATAR_SIZE,
+  AVATAR_SIZE_TOOLBAR,
+  COVER_HEIGHT,
+  BIO_MARKDOWN_MAX_HEIGHT,
+} from './styles';
+import {PureComponent} from 'react';
+import Markdown from '../../components/Markdown';
 
 function calcNameTransY(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [0, coverHeight],
-    outputRange: [0, -coverHeight - Typography.fontSizeLarge * 0.5],
+    inputRange: [0, COVER_HEIGHT],
+    outputRange: [0, -COVER_HEIGHT - Typography.fontSizeLarge * 0.5],
     extrapolate: 'clamp',
   });
 }
 
 function calcAvatarTransX(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [0, coverHeight],
+    inputRange: [0, COVER_HEIGHT],
     outputRange: [0, Dimensions.iconSizeNormal],
     extrapolate: 'clamp',
   });
 }
 
 function calcAvatarTransY(scrollY: Animated.Value): Animated.Animated {
-  const margin = (Dimensions.toolbarHeight - toolbarAvatarSize) * 0.5;
+  const margin = (Dimensions.toolbarHeight - AVATAR_SIZE_TOOLBAR) * 0.5;
   return scrollY.interpolate({
-    inputRange: [0, coverHeight],
-    outputRange: [0, -coverHeight - toolbarAvatarSize * 0.5 - margin],
+    inputRange: [0, COVER_HEIGHT],
+    outputRange: [0, -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.5 - margin],
     extrapolate: 'clamp',
   });
 }
 
 function calcAvatarScale(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [0, coverHeight],
-    outputRange: [1, toolbarAvatarSize / avatarSize],
+    inputRange: [0, COVER_HEIGHT],
+    outputRange: [1, AVATAR_SIZE_TOOLBAR / AVATAR_SIZE],
     extrapolate: 'clamp',
   });
 }
@@ -117,7 +126,7 @@ function ProfileAvatar({
         {style: [styles.avatarTouchable, animStyle], pointerEvents: 'box-only'},
         [
           h(Avatar, {
-            size: avatarSize,
+            size: AVATAR_SIZE,
             url: state.about.imageUrl,
             style: styles.avatar,
           }),
@@ -150,73 +159,98 @@ function ProfileName({
   );
 }
 
-function ProfileHeader({state}: {state: State}) {
-  const followsYouTristate = state.about.followsYou;
-  const isSelfProfile = state.displayFeedId === state.selfFeedId;
-  const isBlocked = state.about.following === false;
+class ProfileHeader extends PureComponent<{
+  about: State['about'];
+  isSelfProfile: boolean;
+}> {
+  public state = {
+    showReadBio: false,
+  };
 
-  return h(View, {style: styles.header}, [
-    h(View, {style: styles.cover}),
+  private onMarkdownMeasured: ViewProps['onLayout'] = (ev) => {
+    if (ev.nativeEvent.layout.height > BIO_MARKDOWN_MAX_HEIGHT) {
+      this.setState({showReadBio: true});
+    }
+  };
 
-    h(View, {style: styles.sub}, [
-      followsYouTristate === true
-        ? h(View, {style: styles.followsYou}, [
-            h(
-              Text,
-              {style: styles.followsYouText},
-              t('profile.info.follows_you'),
-            ),
-          ])
-        : followsYouTristate === false
-        ? h(View, {style: styles.followsYou}, [
-            h(
-              Text,
-              {style: styles.followsYouText},
-              t('profile.info.blocks_you'),
-            ),
-          ])
-        : null,
+  public render() {
+    const {about, isSelfProfile} = this.props;
+    const followsYouTristate = about.followsYou;
+    const isBlocked = about.following === false;
 
-      h(View, {style: styles.cta}, [
-        isSelfProfile
-          ? h(Button, {
-              sel: 'editProfile',
-              text: t('profile.call_to_action.edit_profile.label'),
-              accessible: true,
-              accessibilityLabel: t(
-                'profile.call_to_action.edit_profile.accessibility_label',
+    return h(View, {style: styles.header}, [
+      h(View, {style: styles.cover}),
+
+      h(View, {style: styles.sub}, [
+        followsYouTristate === true
+          ? h(View, {style: styles.followsYou}, [
+              h(
+                Text,
+                {style: styles.followsYouText},
+                t('profile.info.follows_you'),
               ),
-            })
-          : isBlocked
-          ? null
-          : h(ToggleButton, {
-              sel: 'follow',
-              style: styles.follow,
-              text:
-                state.about.following === true
-                  ? t('profile.info.following')
-                  : t('profile.call_to_action.follow'),
-              toggled: state.about.following === true,
-            }),
-      ]),
-    ]),
+            ])
+          : followsYouTristate === false
+          ? h(View, {style: styles.followsYou}, [
+              h(
+                Text,
+                {style: styles.followsYouText},
+                t('profile.info.blocks_you'),
+              ),
+            ])
+          : null,
 
-    h(View, {style: styles.descriptionArea}, [
-      state.about.description
-        ? h(Button, {
-            sel: 'bio',
-            text: t('profile.call_to_action.open_biography.label'),
-            small: true,
-            style: styles.bioButton,
-            accessible: true,
-            accessibilityLabel: t(
-              'profile.call_to_action.open_biography.accessibility_label',
-            ),
-            strong: false,
-          })
+        h(View, {style: styles.cta}, [
+          isSelfProfile
+            ? h(Button, {
+                sel: 'editProfile',
+                text: t('profile.call_to_action.edit_profile.label'),
+                accessible: true,
+                accessibilityLabel: t(
+                  'profile.call_to_action.edit_profile.accessibility_label',
+                ),
+              })
+            : isBlocked
+            ? null
+            : h(ToggleButton, {
+                sel: 'follow',
+                style: styles.follow,
+                text:
+                  about.following === true
+                    ? t('profile.info.following')
+                    : t('profile.call_to_action.follow'),
+                toggled: about.following === true,
+              }),
+        ]),
+      ]),
+
+      about.description
+        ? h(View, {style: styles.descriptionArea}, [
+            h(Markdown, {
+              key: 'md',
+              text: about.description!,
+              onLayout: this.onMarkdownMeasured,
+            }),
+            this.state.showReadBio
+              ? h(Button, {
+                  sel: 'bio',
+                  key: 'bio',
+                  text: t('profile.call_to_action.open_biography.label'),
+                  strong: false,
+                  small: true,
+                  style: styles.readBio,
+                  accessible: true,
+                  accessibilityLabel: t(
+                    'profile.call_to_action.open_biography.accessibility_label',
+                  ),
+                })
+              : null,
+          ])
         : null,
-    ]),
-  ]);
+
+      h(View, {style: styles.headerMarginBottom}),
+    ]);
+  }
 }
 
 export default function view(state$: Stream<State>, ssbSource: SSBSource) {
@@ -271,7 +305,10 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
               selfFeedId: state.selfFeedId,
               lastSessionTimestamp: state.lastSessionTimestamp,
               yOffsetAnimVal: scrollHeaderBy,
-              HeaderComponent: h(ProfileHeader, {state}),
+              HeaderComponent: h(ProfileHeader, {
+                about: state.about,
+                isSelfProfile,
+              }),
               style: styles.feed,
               EmptyComponent: isSelfProfile
                 ? h(EmptySection, {

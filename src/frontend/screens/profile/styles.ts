@@ -9,11 +9,14 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 
-export const avatarSize = Dimensions.avatarSizeBig;
-const avatarSizeHalf = avatarSize * 0.5;
-export const toolbarAvatarSize = Dimensions.avatarSizeSmall;
+export const AVATAR_SIZE = Dimensions.avatarSizeBig;
+const AVATAR_SIZE_HALF = AVATAR_SIZE * 0.5;
 
-export const coverHeight = avatarSizeHalf;
+export const AVATAR_SIZE_TOOLBAR = Dimensions.avatarSizeSmall;
+
+export const COVER_HEIGHT = AVATAR_SIZE_HALF;
+
+export const BIO_MARKDOWN_MAX_HEIGHT = 54;
 
 export const styles = StyleSheet.create({
   container: {
@@ -24,16 +27,16 @@ export const styles = StyleSheet.create({
 
   cover: {
     backgroundColor: Palette.backgroundBrand,
-    height: coverHeight,
+    height: COVER_HEIGHT,
     zIndex: 10,
   },
 
   avatarTouchable: {
     position: 'absolute',
-    top: Dimensions.toolbarHeight + coverHeight - avatarSizeHalf,
+    top: Dimensions.toolbarHeight + COVER_HEIGHT - AVATAR_SIZE_HALF,
     left: Dimensions.horizontalSpaceBig,
-    width: avatarSize,
-    height: avatarSize,
+    width: AVATAR_SIZE,
+    height: AVATAR_SIZE,
     zIndex: 19,
   },
 
@@ -45,10 +48,10 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     color: 'white',
     top:
-      Dimensions.toolbarHeight + coverHeight - Typography.fontSizeLarge * 1.75,
+      Dimensions.toolbarHeight + COVER_HEIGHT - Typography.fontSizeLarge * 1.75,
     left:
       Dimensions.horizontalSpaceBig +
-      avatarSize +
+      AVATAR_SIZE +
       Dimensions.horizontalSpaceBig,
     right: Dimensions.horizontalSpaceBig + Dimensions.iconSizeNormal,
     fontSize: Typography.fontSizeLarge,
@@ -66,7 +69,7 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceSmall,
     marginLeft:
       Dimensions.horizontalSpaceBig + // left margin to the avatar
-      avatarSize + // avatar
+      AVATAR_SIZE + // avatar
       Dimensions.horizontalSpaceBig - // right margin to the avatar
       Dimensions.horizontalSpaceSmall, // minus follows-you-text margin
     marginRight: Dimensions.horizontalSpaceBig,
@@ -103,18 +106,26 @@ export const styles = StyleSheet.create({
   },
 
   descriptionArea: {
-    zIndex: 10,
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    paddingTop: Dimensions.verticalSpaceNormal,
-    paddingBottom: Dimensions.verticalSpaceNormal,
     paddingLeft: Dimensions.horizontalSpaceBig,
     paddingRight: Dimensions.horizontalSpaceBig,
     backgroundColor: Palette.backgroundText,
+    maxHeight: BIO_MARKDOWN_MAX_HEIGHT + 1,
   },
 
-  bioButton: {
-    minWidth: avatarSize,
+  readBio: {
+    backgroundColor: Palette.backgroundText,
+    minWidth: 50,
+    position: 'absolute',
+    bottom: 0,
+    right: Dimensions.horizontalSpaceBig,
+    zIndex: 20,
+  },
+
+  headerMarginBottom: {
+    backgroundColor: Palette.backgroundText,
+    paddingBottom: Dimensions.verticalSpaceNormal,
   },
 
   feed: {
