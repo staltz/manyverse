@@ -20,6 +20,8 @@ export const BIO_MARKDOWN_MAX_HEIGHT = 54;
 
 const SCROLL_BOUNCE_REGION = 250;
 
+export const NAME_MARGIN_TOOLBAR = Typography.fontSizeLarge * 0.5 - 2;
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,

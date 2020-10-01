@@ -25,7 +25,6 @@ import {t} from '../../drivers/localization';
 import {displayName} from '../../ssb/utils/from-ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
 import Feed from '../../components/Feed';
 import Button from '../../components/Button';
 import ToggleButton from '../../components/ToggleButton';
@@ -39,21 +38,22 @@ import {
   AVATAR_SIZE,
   AVATAR_SIZE_TOOLBAR,
   COVER_HEIGHT,
+  NAME_MARGIN_TOOLBAR,
   BIO_MARKDOWN_MAX_HEIGHT,
 } from './styles';
 
 function calcNameTransY(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [-10, 0, COVER_HEIGHT],
-    outputRange: [10, 0, -COVER_HEIGHT - Typography.fontSizeLarge * 0.5 + 2],
-    extrapolateRight: 'clamp',
+    inputRange: [-10, 0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
+    outputRange: [10, 0, -COVER_HEIGHT - NAME_MARGIN_TOOLBAR],
     extrapolateLeft: 'extend',
+    extrapolateRight: 'clamp',
   });
 }
 
 function calcAvatarTransX(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [0, COVER_HEIGHT],
+    inputRange: [0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
     outputRange: [0, Dimensions.iconSizeNormal],
     extrapolate: 'clamp',
   });
@@ -66,16 +66,16 @@ function calcAvatarTransY(scrollY: Animated.Value): Animated.Animated {
       AVATAR_SIZE_TOOLBAR) *
     0.5;
   return scrollY.interpolate({
-    inputRange: [-10, 0, COVER_HEIGHT],
+    inputRange: [-10, 0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
     outputRange: [10, 0, -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.5 - margin],
-    extrapolateRight: 'clamp',
     extrapolateLeft: 'extend',
+    extrapolateRight: 'clamp',
   });
 }
 
 function calcAvatarScale(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [0, COVER_HEIGHT],
+    inputRange: [0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
     outputRange: [1, AVATAR_SIZE_TOOLBAR / AVATAR_SIZE],
     extrapolate: 'clamp',
   });
