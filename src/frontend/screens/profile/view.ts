@@ -81,28 +81,26 @@ function calcAvatarScale(scrollY: Animated.Value): Animated.Animated {
   });
 }
 
-function ProfileTopBar({isSelfProfile}: {isSelfProfile: boolean}) {
+function ProfileTopBar() {
   return h(TopBar, {sel: 'topbar'}, [
-    isSelfProfile
-      ? null
-      : h(
-          TouchableOpacity,
-          {
-            sel: 'manage',
-            accessible: true,
-            accessibilityRole: 'button',
-            accessibilityLabel: t(
-              'profile.call_to_action.manage.accessibility_label',
-            ),
-          },
-          [
-            h(Icon, {
-              size: Dimensions.iconSizeNormal,
-              color: Palette.textForBackgroundBrand,
-              name: 'dots-vertical',
-            }),
-          ],
+    h(
+      TouchableOpacity,
+      {
+        sel: 'manage',
+        accessible: true,
+        accessibilityRole: 'button',
+        accessibilityLabel: t(
+          'profile.call_to_action.manage.accessibility_label',
         ),
+      },
+      [
+        h(Icon, {
+          size: Dimensions.iconSizeNormal,
+          color: Palette.textForBackgroundBrand,
+          name: 'dots-vertical',
+        }),
+      ],
+    ),
   ]);
 }
 
@@ -283,7 +281,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
       const isBlocked = state.about.following === false;
 
       return h(View, {style: styles.container}, [
-        h(ProfileTopBar, {isSelfProfile}),
+        h(ProfileTopBar),
 
         h(ProfileAvatar, {
           state,

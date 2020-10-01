@@ -59,6 +59,7 @@ function calculateRelationship(state: State) {
 export default function manageContact$(sources: Sources): Sinks {
   const manageContactChoice$ = sources.manageContact$
     .map((state) => {
+      const isSelfProfile = state.displayFeedId === state.selfFeedId;
       const relationship = calculateRelationship(state);
       const items: Array<Omit<PickerItem, 'id'> & {id: ManageChoiceId}> = [];
 
@@ -66,36 +67,39 @@ export default function manageContact$(sources: Sources): Sinks {
         id: 'copy-id',
         label: t('profile.call_to_action.copy_cypherlink'),
       });
-      items.push({
-        id: 'private-chat',
-        label: t('profile.call_to_action.private_chat'),
-      });
-      if (relationship === 'neutral') {
+
+      if (!isSelfProfile) {
         items.push({
-          id: 'block',
-          label: t('profile.call_to_action.block'),
-          iosStyle: 'destructive',
+          id: 'private-chat',
+          label: t('profile.call_to_action.private_chat'),
         });
-        items.push({
-          id: 'block-secretly',
-          label: t('profile.call_to_action.block_secretly'),
-        });
-      } else if (relationship === 'following') {
-        items.push({
-          id: 'block',
-          label: t('profile.call_to_action.block'),
-          iosStyle: 'destructive',
-        });
-      } else if (relationship === 'blocking-secretly') {
-        items.push({
-          id: 'unblock-secretly',
-          label: t('profile.call_to_action.unblock_secretly'),
-        });
-      } else if (relationship === 'blocking-publicly') {
-        items.push({
-          id: 'unblock',
-          label: t('profile.call_to_action.unblock'),
-        });
+        if (relationship === 'neutral') {
+          items.push({
+            id: 'block',
+            label: t('profile.call_to_action.block'),
+            iosStyle: 'destructive',
+          });
+          items.push({
+            id: 'block-secretly',
+            label: t('profile.call_to_action.block_secretly'),
+          });
+        } else if (relationship === 'following') {
+          items.push({
+            id: 'block',
+            label: t('profile.call_to_action.block'),
+            iosStyle: 'destructive',
+          });
+        } else if (relationship === 'blocking-secretly') {
+          items.push({
+            id: 'unblock-secretly',
+            label: t('profile.call_to_action.unblock_secretly'),
+          });
+        } else if (relationship === 'blocking-publicly') {
+          items.push({
+            id: 'unblock',
+            label: t('profile.call_to_action.unblock'),
+          });
+        }
       }
 
       return sources.dialog
