@@ -120,7 +120,7 @@ export const styles = StyleSheet.create({
 function toGiftedMessage(msg: MsgAndExtras<PostContent>): GiftedMsg {
   return {
     _id: msg.key,
-    createdAt: msg.timestamp,
+    createdAt: msg.value.timestamp,
     text: msg.value.content.text,
     user: {
       _id: msg.value.author,
