@@ -583,7 +583,7 @@
         "accessibility_label": "Кнопка \"Редактировать профиль\""
       },
       "open_biography": {
-        "label": "Биография",
+        "label": "Read bio",
         "accessibility_label": "Показать биографию"
       },
       "manage": {

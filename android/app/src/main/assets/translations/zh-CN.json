@@ -583,7 +583,7 @@
         "accessibility_label": "Edit Profile Button"
       },
       "open_biography": {
-        "label": "Bio",
+        "label": "Read bio",
         "accessibility_label": "Show Biography"
       },
       "manage": {
