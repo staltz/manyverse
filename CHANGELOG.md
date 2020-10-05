@@ -6,6 +6,18 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2010.5-beta
+
+* Bug fix: correct timestamps of private messages ([see details](https://gitlab.com/staltz/manyverse/commit/677bce02049476010045f590ad4e8b47818a46c9))
+* Bug fix: crash when opening private message ([see details](https://gitlab.com/staltz/manyverse/commit/890df8026ef4358d506bf9e4ac1d9c5c7378086c))
+* Bug fix: tapping Publish twice should not actually publish twice ([see details](https://gitlab.com/staltz/manyverse/commit/a3293cea8ff6a88f92b39f6f42b4f4d7314bf39d))
+* Bug fix: unread markers behave more consistently ([see details](https://gitlab.com/staltz/manyverse/commit/be0430d5721081db17a7e2b1febfb422b2d15ce2))
+* Feature: copy cypherlink on your own Profile screen ([see details](https://gitlab.com/staltz/manyverse/commit/5534ee3d666e61bdc822f5fd51c08e928b618175))
+* Feature: dynamic header in the Profile screen ([see details](https://gitlab.com/staltz/manyverse/commit/44790022cba3e30de2a6a516798072ceab04d31a))
+* Feature: show biography preview in Profile screen ([see details](https://gitlab.com/staltz/manyverse/commit/16ba51fb4a567b222522acdd26310439f216b10a))
+* Feature: unread markers inside the Thread screen ([see details](https://gitlab.com/staltz/manyverse/commit/8416b522c955281f357c4930a74ccc5dd6662ec9))
+* Improve Profile screen, restyle the menu icon ([see details](https://gitlab.com/staltz/manyverse/commit/26955609fe763416046629a057c0ce0191c5d4ed))
+
 ## 0.2009.28-beta
 
 * Translate to Arabic (100%) ([see details](https://gitlab.com/staltz/manyverse/commit/307938176563e312e76235fd95006e4b74048014))

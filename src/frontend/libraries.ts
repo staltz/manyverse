@@ -96,7 +96,7 @@ export default [
   {
     name: '@cycle/isolate',
     type: 'library',
-    version: '5.1.0',
+    version: '5.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://cycle.js.org',
   },
@@ -117,14 +117,14 @@ export default [
   {
     name: '@cycle/run',
     type: 'library',
-    version: '5.3.0',
+    version: '5.5.0',
     license: 'MIT License (MIT)',
     homepage: 'https://cycle.js.org',
   },
   {
     name: '@cycle/state',
     type: 'library',
-    version: '1.3.0',
+    version: '1.4.0',
     license: 'MIT License (MIT)',
     homepage: 'https://cycle.js.org',
   },
@@ -161,7 +161,7 @@ export default [
   {
     name: 'buffer',
     type: 'library',
-    version: '5.4.3',
+    version: '5.6.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/feross/buffer',
   },
@@ -288,7 +288,7 @@ export default [
   {
     name: 'i18n-js',
     type: 'library',
-    version: '3.5.1',
+    version: '3.7.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/fnando/i18n-js',
   },
@@ -358,7 +358,7 @@ export default [
   {
     name: 'promisify-tuple',
     type: 'library',
-    version: '1.0.0',
+    version: '1.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/promisify-tuple#readme',
   },
@@ -478,7 +478,7 @@ export default [
   {
     name: 'react-native-dialogs',
     type: 'library',
-    version: '1.1.0',
+    version: '1.1.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/aakashns/react-native-dialogs#readme',
   },
@@ -500,7 +500,7 @@ export default [
   {
     name: 'react-native-floating-action',
     type: 'library',
-    version: '1.19.1',
+    version: '1.21.0',
     license: 'MIT License (MIT)',
     homepage:
       'https://github.com/santomegonzalo/react-native-floating-action#readme',
@@ -522,9 +522,9 @@ export default [
   {
     name: 'react-native-has-internet',
     type: 'library',
-    version: '4.1.0',
+    version: '4.2.0',
     license: 'MIT License (MIT)',
-    homepage: 'https://gitlab.com/staltz/react-native-has-internet#readme',
+    homepage: 'https://gitlab.com/staltz/react-native-has-internet',
   },
   {
     name: 'react-native-image-crop-picker',
@@ -544,7 +544,7 @@ export default [
   {
     name: 'react-native-localize',
     type: 'library',
-    version: '1.4.0',
+    version: '1.4.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/react-native-community/react-native-localize',
   },
@@ -587,14 +587,14 @@ export default [
   {
     name: 'react-native-ssb-shims',
     type: 'library',
-    version: '4.6.0',
+    version: '5.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/react-native-ssb-shims',
   },
   {
     name: 'react-native-status-bar-height',
     type: 'library',
-    version: '2.4.0',
+    version: '2.5.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ovr/react-native-status-bar-height#readme',
   },
@@ -608,7 +608,7 @@ export default [
   {
     name: 'react-native-system-setting',
     type: 'library',
-    version: '1.7.3',
+    version: '1.7.5',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/c19354837/react-native-system-setting',
   },
@@ -924,7 +924,7 @@ export default [
   {
     name: 'xstream',
     type: 'library',
-    version: '11.12.0',
+    version: '11.13.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/xstream#readme',
   },
