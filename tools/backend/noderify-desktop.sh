@@ -17,6 +17,7 @@ cd ./desktop/nodejs-project;
 
 # Why some packages are filter'd or replaced:
 #   node-extend: can't remember why we need to replace it, build seemed to fail
+#   ssb-keys: we use ssb-neon-keys for better performance in Rust
 #   multiserver net plugin: we're fixing a corner case bug with error recovery
 #   non-private-ip: we use a "better" fork of this package
 #   electron: we want to load its native bindings
@@ -25,6 +26,7 @@ cd ./desktop/nodejs-project;
 #   utf-8-validate: because we want to load its native bindings
 $(npm bin)/noderify \
   --replace.node-extend=xtend \
+  --replace.ssb-keys=ssb-neon-keys \
   --replace.non-private-ip=non-private-ip-android \
   --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \
   --filter=rn-bridge \
