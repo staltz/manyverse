@@ -7,10 +7,7 @@
 import {Stream} from 'xstream';
 import {Command} from 'cycle-native-navigation';
 import {Reducer, StateSource} from '@cycle/state';
-import {
-  Command as StorageCommand,
-  AsyncStorageSource,
-} from 'cycle-native-asyncstorage';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {GlobalEvent} from '../../drivers/eventbus';
 import {SSBSource} from '../../drivers/ssb';
 import {Command as LocalizationCmd} from '../../drivers/localization';
@@ -19,7 +16,6 @@ import model, {State} from './model';
 import intent from './intent';
 import navigation from './navigation';
 import localization from './localization';
-import asyncStorage from './asyncstorage';
 
 export type Sources = {
   state: StateSource<State>;
@@ -33,7 +29,6 @@ export type Sinks = {
   state: Stream<Reducer<State>>;
   navigation: Stream<Command>;
   localization: Stream<LocalizationCmd>;
-  asyncstorage: Stream<StorageCommand>;
 };
 
 export function global(sources: Sources): Sinks {
@@ -41,12 +36,10 @@ export function global(sources: Sources): Sinks {
   const cmd$ = navigation(actions, sources.state.stream);
   const reducer$ = model(sources.ssb, sources.asyncstorage);
   const updateLocalization$ = localization(sources.fs);
-  const storageCommand$ = asyncStorage();
 
   return {
     navigation: cmd$,
     state: reducer$,
     localization: updateLocalization$,
-    asyncstorage: storageCommand$,
   };
 }
