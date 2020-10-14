@@ -29,6 +29,22 @@ brew install coreutils libtool autoconf automake
 
 Use node (preferably exactly) `10.13.0` and npm `6.x`. To manage node versions easily, we recommend [nvm](https://github.com/nvm-sh/nvm) and use its deep integration feature to install and load the required node version automatically.
 
+### Rust
+
+Install Rust and Cargo preferably through [Rustup](https://rustup.rs/). Then, use Rustup to install cross-compilation support for various ARM architectures, like this:
+
+```
+rustup target add aarch64-linux-android
+```
+
+```
+rustup target add arm-linux-androideabi
+```
+
+```
+rustup target add armv7-linux-androideabi
+```
+
 ### React Native
 
 Install the React Native CLI:

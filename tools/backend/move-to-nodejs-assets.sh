@@ -24,6 +24,8 @@ else
 fi
 cp -r ./lib/backend ./nodejs-assets;
 mv ./nodejs-assets/backend ./nodejs-assets/nodejs-project;
+mkdir -p ./nodejs-assets/nodejs-project/patches;
+cp ./src/backend/patches/* ./nodejs-assets/nodejs-project/patches/;
 cp ./src/backend/package.json ./nodejs-assets/nodejs-project;
 cp ./src/backend/package-lock.json ./nodejs-assets/nodejs-project;
 cd ./nodejs-assets/nodejs-project;

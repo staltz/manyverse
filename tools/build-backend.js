@@ -69,6 +69,13 @@ async function runAndReport(label, task) {
     );
   }
 
+  if (targetPlatform === 'android' || targetPlatform === 'ios') {
+    await runAndReport(
+      'Patch some Rust crates (ssb-neon) to link them with nodejs-mobile',
+      exec('./tools/backend/patch-rust-crates.sh'),
+    );
+  }
+
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Update package-lock.json in ./src/backend',
@@ -132,6 +139,7 @@ async function runAndReport(label, task) {
       'Remove node_modules folder from the Android project',
       exec(
         'rm -rf ./nodejs-assets/nodejs-project/node_modules && ' +
+          'rm -rf ./nodejs-assets/nodejs-project/patches &&' +
           'rm ./nodejs-assets/nodejs-project/package-lock.json',
       ),
     );
