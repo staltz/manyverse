@@ -1,165 +1,165 @@
 {
   "call_to_action": {
     "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "add": "Lägg till",
+    "done": "Klar",
+    "cancel": "Avbryt",
+    "continue": "Fortsätt",
+    "delete": "Radera",
+    "save": "Spara",
+    "yes": "Ja",
+    "no": "Nej",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "Menyknapp"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "Bakåtknapp"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Stängknapp"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "Stäng dialog-knapp"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 år sedan",
+          "other": "{{count}} år sedan"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1 månad sedan",
+          "other": "{{count}} månader sedan"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "1 vecka sedan",
+          "other": "{{count}} veckor sedan"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 dag sedan",
+          "other": "{{count}} dagar sedan"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 timme sedan",
+          "other": "{{count}} timmar sedan"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "1 minut sedan",
+          "other": "{{count}} minuter sedan"
         },
-        "now": "Just now"
+        "now": "Nyss"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "1 år från nu",
+          "other": "{{count}} år från nu"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1 månad från nu",
+          "other": "{{count}} månader från nu"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "1 vecka från nu",
+          "other": "{{count}} veckor från nu"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "1 dag från nu",
+          "other": "{{count}} dagar från nu"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "1 timme från nu",
+          "other": "{{count}} timmar från nu"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "1 minut från nu",
+          "other": "{{count}} minuter från nu"
         },
-        "now": "Very soon"
+        "now": "Mycket snart"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Läs mer",
     "overview": {
-      "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "title": "Välkommen till Manyverse!",
+      "description": "Socialt nätverkande online kan vara enkelt, neutralt, icke-kommersiellt och bygga på förtroende mellan vänner. Detta är vad Manyverse står för, och vi hoppas att också du kan göra dig digitalt hemmastadd här. Allt detta möjliggörs av det nya SSB-protokollet."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Off grid",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse kan använda en internetuppkoppling, men det är inte ",
+        "2_bold": "på",
+        "3_normal": " internet. Allting händer här på din enhet. Det betyder att du kan använda det som vanligt även när du är nedkopplad, offline! ",
+        "4_bold": "Innehållet, meddelandena, lagras först på din enhet",
+        "5_normal": ", och du kan synkronisera det med dina vänner när din enhet ansluts till deras."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Anslutning kan göras på olika sätt",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": " or exchange",
-          "4_bold": "P2P invites",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "1_normal": "För att ansluta till dina vänners enheter och synkronisera innehåll så kan du antingen: vara uppkopplad på samma ",
+          "2_bold": "trådlösa Wi-Fi-nätverk",
+          "3_normal": " eller utbyta",
+          "4_bold": "P2P-inbjudningar",
+          "5_normal": ". För att hitta nya vänner på internet, håll utkik efter en inbjudningskod till en ",
+          "6_bold": "pub-server",
+          "7_normal": " eller en ",
+          "8_bold": "rum-server",
+          "9_normal": ", eller starta din egen server!"
         },
         "default": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ", or exchange ",
-          "6_bold": "P2P invites",
-          "7_normal": ". To find new people on the internet, look for an invite code to a ",
-          "8_bold": "pub server",
-          "9_normal": " or a ",
-          "10_bold": "room server",
-          "11_normal": ", or start your own server!"
+          "1_normal": "För att ansluta till dina vänners enheter och synkronisera innehåll, kan du antingen: vara uppkopplad på samma ",
+          "2_bold": "trådlösa Wi-Fi-nätverk",
+          "3_normal": ", använda ",
+          "4_bold": "Bluetooth-synkronisering",
+          "5_normal": ", eller utbyta ",
+          "6_bold": "P2P-inbjudningar",
+          "7_normal": ". För att hitta nya vänner på internet, håll utkik efter en inbjudningskod till en ",
+          "8_bold": "pub-server",
+          "9_normal": " eller en ",
+          "10_bold": "rum-server",
+          "11_normal": ", eller starta din egen server!"
         }
       }
     },
     "moderation": {
-      "title": "Shared moderation",
+      "title": "Gemensam moderering",
       "description": {
-        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "1_normal": "Eftersom din enhet innehåller hela ditt sociala nätverk, så kan ingen annan blockera eller ta bort konton åt dig. Bara du kan moderera ditt eget nätverk, genom att ",
+        "2_bold": "blockera konton",
+        "3_normal": " som du inte vill ha på din enhet. Dina vänner kan välja att blockera samma konton. På så vis kan moderering sprida sig naturligt!"
       }
     },
     "permanence": {
-      "title": "Permanence",
+      "title": "Beständighet",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
-        "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
+        "1_normal": "Att det innehåll du skapar synkroniseras med dina vänners enheter betyder att en de har en kopia på det. Eftersom någon sedan kan koppla ner, och vara offline, innebär det att det ",
+        "2_bold": "inte går att radera",
+        "3_normal": " innehåll globalt från alla enheter, när det en gång skapats och synkroniserats. Därför har vi valt att göra allt innehåll permanent. Det gör också communityn, nätgemenskapen, mer respektfull och hänsynstagande gällande vad som publiceras."
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "Under byggnation!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
-        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+        "1_normal": "Manyverse är ",
+        "2_bold": "mjukvara av beta-kvalitet",
+        "3_normal": ". Vi har ännu inte kommit underfund med hur allt ska fungera, och flera delar behöver lagas. När innehåll synkroniseras kan appen verka fryst i flera minuter. Ha tålamod! Rapportera gärna om du träffar på andra buggar. Med tid och donationer kan vi tillsammans göra något bra av det här."
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
-      "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
+      "title": "Är du här för första gången?",
+      "description": "Vill du skapa ett nytt konto, eller vill du återställa ett gammalt konto från återställningsfrasen (24 ord)?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "Skapa konto",
+          "accessibility_label": "Skapa konto-knapp"
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "Återställ konto",
+          "accessibility_label": "Återställ konto-knapp"
         }
       }
     }
@@ -167,794 +167,794 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public board",
-      "private": "Private messages",
-      "connections": "Connections"
+      "public": "Publikt forum",
+      "private": "Privata meddelanden",
+      "connections": "Anslutningar"
     },
     "tab_footers": {
-      "public": "Public",
-      "private": "Private",
-      "connections": "Connections"
+      "public": "Publikt",
+      "private": "Privat",
+      "connections": "Anslutningar"
     },
-    "loading": "Loading...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "loading": "Laddar...",
+    "building_indexes": "Indexerar databasen...\nDetta kan ta flera minuter",
     "tabs": {
       "public": {
-        "accessibility_label": "Public Tab Button"
+        "accessibility_label": "Publikt forum-flikknapp"
       },
       "private": {
-        "accessibility_label": "Private Tab Button"
+        "accessibility_label": "Privat flikknapp"
       },
       "connections": {
-        "accessibility_label": "Connections Tab Button"
+        "accessibility_label": "Flikknapp för anslutningar"
       }
     }
   },
   "public": {
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Skriv ett publikt meddelande"
     },
     "empty": {
-      "title": "No messages",
-      "description": "Write a diary to be\nshared with friends later"
+      "title": "Inga meddelanden",
+      "description": "Skriv ett inlägg som\nsenare delas med dina vänner"
     }
   },
   "private": {
     "floating_action_button": {
-      "compose": "Start a private conversation"
+      "compose": "Inled en privat konversation"
     },
     "empty": {
-      "title": "No conversations",
-      "description": "Start a private conversation\nwith any of your friends"
+      "title": "Inga konversationer",
+      "description": "Inled en privat konversation\nmed någon av dina vänner"
     },
     "conversation": {
-      "accessibility_label": "Go To Conversation"
+      "accessibility_label": "Gå till konversation"
     }
   },
   "accounts": {
     "reactions": {
-      "title": "Reactions"
+      "title": "Reaktioner"
     },
     "recipients": {
-      "title": "Recipients"
+      "title": "Mottagare"
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "Gå till konto"
       }
     }
   },
   "connections": {
     "floating_action_button": {
-      "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
-      "bluetooth_seek": "Bluetooth seek"
+      "create_invite": "Skapa inbjudan",
+      "paste_invite": "Klistra in inbjudan",
+      "bluetooth_seek": "Bluetooth-sökning"
     },
     "empty": {
       "offline": {
-        "title": "Offline",
-        "description": "Turn on some connection mode\nor enjoy reading some existing content"
+        "title": "Nedkopplad",
+        "description": "Slå på någon uppkopplingstyp\neller läs befintligt innehåll"
       },
       "connecting": {
-        "title": "Connecting",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "Ansluter",
+        "description": "Vänta medan appen\nförsöker ansluta till dina kontakter"
       },
       "no_peers": {
-        "title": "No connections",
-        "description": "Try syncing with people nearby\nor use a server invite code"
+        "title": "Inga anslutningar",
+        "description": "Prova att synkronisera med folk i närheten,\neller använd en inbjudningskod till en server"
       }
     },
     "toasts": {
-      "invite_accepted": "Invite accepted",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?"
+      "invite_accepted": "Inbjudan godkändes",
+      "invite_rejected": "Inbjudan avvisades. Blev det rätt?"
     },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
-        "lan": "Wi-Fi",
+        "lan": "trådlöst Wi-Fi-nätverk",
         "dht": {
-          "connected": "Internet P2P",
+          "connected": "Internet-P2P",
           "staging": {
-            "host": "Internet P2P: waiting for online friend...",
-            "client": "Internet P2P: looking for online friend...",
-            "unknown": "Internet P2P: searching..."
+            "host": "Internet-P2P: väntar på uppkopplad vän...",
+            "client": "Internet-P2P: letar efter uppkopplad vän...",
+            "unknown": "Internet-P2P: letar..."
           }
         },
         "room": {
-          "server": "Room server",
-          "endpoint": "Room peer",
-          "alone_online": "(only you online)",
+          "server": "Rum-server",
+          "endpoint": "Närvarande i rummet",
+          "alone_online": "(bara du uppkopplad)",
           "others_online": {
-            "one": "({{count}} online)",
-            "other": "({{count}} online)"
+            "one": "({{count}} uppkopplad)",
+            "other": "({{count}} uppkopplade)"
           }
         },
-        "pub": "Pub server",
+        "pub": "Pub-server",
         "server": "Server",
-        "unknown": "Unknown"
+        "unknown": "Okänd"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(ENABLED)"
+        "enabled": "(AKTIVERAD)"
       },
       "bluetooth": {
         "title": "Bluetooth",
-        "accessibility_label": "Bluetooth Mode",
-        "disabled": "(Turn on Bluetooth to use this)",
-        "description": "Discover users nearby and connect with them using Bluetooth.",
+        "accessibility_label": "Bluetooth-läge",
+        "disabled": "(Slå på Bluetooth för att använda detta)",
+        "description": "Hitta kontakter i närheten och anslut till dem med Bluetooth.",
         "permission_request": {
-          "title": "Allow locating via Bluetooth?",
-          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
+          "title": "Tillåt åtkomst av din geografiska position via Bluetooth?",
+          "message": "Manyverse behöver använda Bluetooth för att avläsa din geografiska position (\"coarse location\"), hitta kontakter i din närhet."
         }
       },
       "wifi": {
-        "title": "Wi-Fi",
-        "accessibility_label": "Wi-Fi Mode",
-        "disabled": "(Turn on Wi-Fi to use this)",
-        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
+        "title": "trålöst nätverk",
+        "accessibility_label": "trådlöst nätverksläge",
+        "disabled": "(Slå på Wi-Fi för att använda detta)",
+        "description": "Anslut till vänner vars enheter befinner sig på samma lokala nätverk (LAN), för mobila enheter samma trådlösa nätverk (WLAN, eller Wifi)."
       },
       "p2p": {
-        "title": "Internet P2P",
-        "accessibility_label": "Internet P2P Mode",
-        "disabled": "(Go online to use this)",
-        "description": "Connect directly to friends currently online, using a peer-to-peer technology called \"Distributed Hash Table\".",
-        "connecting": "Connecting via internet P2P...",
-        "searching_friend": "Currently searching for online friend who generated this invite code, to establish a data connection with them.",
-        "waiting_friend": "Currently waiting for online friend to claim this invite code and establish a data connection."
+        "title": "Internet-P2P",
+        "accessibility_label": "Internet P2P-läge",
+        "disabled": "(Anslut till Internet för att använda detta)",
+        "description": "Anslut direk till vänner som är uppkopplade på Internet, genom en peer-to-peer (P2P)-teknik som kallas \"Distribuerad Hash-Tabell\" (DHT).",
+        "connecting": "Ansluter via Internet-P2P...",
+        "searching_friend": "Söker och försöker ansluta till den Internetuppkopplade vän som skapade denna inbjudningskod.",
+        "waiting_friend": "Väntar på att en Internetansluten vän ska använda denna inbjudningskod och försöka ansluta till oss."
       },
       "servers": {
-        "title": "Internet servers",
-        "accessibility_label": "Internet Servers Mode",
-        "disabled": "(Go online to use this)",
-        "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
+        "title": "Internet-servrar",
+        "accessibility_label": "Internet-server-baserat läge",
+        "disabled": "(Anslut till Internet för att använda detta)",
+        "description": "Anslut till en så kallad \"Pub-server\" som driftas av någon vän. En sådan innehåller den senaste datan från en mängd konton."
       }
     },
     "menu": {
       "open_profile": {
-        "label": "Open profile",
+        "label": "Öppna profil",
         "accessibility_label": {
-          "connected": "Open profile screen for this connected peer",
-          "staged": "Open profile screen for this suggested connection"
+          "connected": "Öppna profilskärmen för den anslutna parten",
+          "staged": "Öppna profilskärmen för den föreslagna parten"
         }
       },
       "connect": {
-        "label": "Connect",
+        "label": "Anslut",
         "accessibility_label": {
-          "staged_peer": "Connect to this suggested peer",
-          "staged_room": "Connect to this suggested room"
+          "staged_peer": "Anslut till den här föreslagna kontakten",
+          "staged_room": "Anslut till det här föreslagna rummet"
         }
       },
       "follow_connect": {
-        "label": "Connect and follow",
-        "accessibility_label": "Connect to this suggested peer then follow them"
+        "label": "Anslut och följ",
+        "accessibility_label": "Anslut till den här föreslagna parten och börja följa"
       },
       "disconnect": {
-        "label": "Disconnect",
+        "label": "Koppla från",
         "accessibility_label": {
-          "peer": "Disconnect from this peer",
-          "room": "Disconnect from this room"
+          "peer": "Koppla från den här kontakten",
+          "room": "Lämna detta rum"
         }
       },
       "disconnect_forget": {
-        "label": "Disconnect and forget",
+        "label": "Lämna och glöm bort",
         "accessibility_label": {
-          "peer": "Disconnect from this peer and remove it from our database",
-          "room": "Disconnect from this room and remove it from our database"
+          "peer": "Koppla ner från den här kontakten och ta bort den från vår databas",
+          "room": "Lämna detta rum och ta bort det från vår databas"
         }
       },
       "forget": {
-        "label": "Forget",
+        "label": "Glöm",
         "accessibility_label": {
-          "room": "Remove this room from our database"
+          "room": "Ta bort detta rum från vår databas"
         }
       },
       "room_share_invite": {
-        "label": "Share invite code",
-        "accessibility_label": "Share the invite code for this room"
+        "label": "Dela inbjudningskod",
+        "accessibility_label": "Dela inbjudningskod för detta rum"
       },
       "invite_info": {
-        "label": "About",
-        "accessibility_label": "About this Invite Code"
+        "label": "Om",
+        "accessibility_label": "Information om denna inbjudningskod"
       },
       "invite_note": {
-        "label": "Add note",
-        "accessibility_label": "Add Reminder Note To Self"
+        "label": "Lägg till anteckning",
+        "accessibility_label": "Lägg till påminnelseanteckning till dig själv"
       },
       "invite_share": {
-        "label": "Share",
-        "accessibility_label": "Share Invite Code"
+        "label": "Dela",
+        "accessibility_label": "Dela inbjudningskod"
       },
       "invite_delete": {
-        "label": "Delete",
-        "accessibility_label": "Delete Invite Code"
+        "label": "Radera",
+        "accessibility_label": "Radera inbjudningskod"
       }
     },
     "notes": {
       "add": {
-        "title": "Add note",
-        "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
+        "title": "Lägg till anteckning",
+        "description": "Skriv en privat anteckning för dig själv om denna inbjudningskod. Till exempel: \"Den här är till Alice\""
       }
     },
     "share_code": {
       "p2p": {
-        "title": "Manyverse Invite Code",
-        "message": "Connect with me on Manyverse by pasting this invite code there:",
-        "dialog_note": "Give this invite code to one friend"
+        "title": "Inbjudningskod till Manyverse",
+        "message": "Häng med mig på Manyverse genom att klistra in följande inbjudningskod där:",
+        "dialog_note": "Ge den här inbjudningskoden till en vän"
       },
       "room": {
-        "title": "Invite code to an SSB Room",
-        "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
-        "dialog_note": "Give this invite code to a friend"
+        "title": "Inbjudningskod till ett SSB-rum",
+        "message": "Häng med mig i SSB-rummet {{name}} genom att klistra in följande inbjudningskod i Manyverse:",
+        "dialog_note": "Ge den här inbjudningskoden till en vän"
       }
     }
   },
   "compose": {
     "call_to_action": {
       "publish_new_thread": {
-        "label": "Publish",
-        "accessibility_label": "Publish Message Button"
+        "label": "Publicera",
+        "accessibility_label": "Publicera meddelande-knapp"
       },
       "reply_to_thread": {
-        "label": "Reply",
-        "accessibility_label": "Publish Reply Button"
+        "label": "Svara",
+        "accessibility_label": "Publicera svarsknapp"
       },
       "preview": {
-        "accessibility_label": "Preview Button"
+        "accessibility_label": "Förhandsgranska-knapp"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Stängknapp"
       },
       "open_camera": {
-        "accessibility_label": "Open Camera Button"
+        "accessibility_label": "Öppna kamera-knapp"
       },
       "add_picture": {
-        "accessibility_label": "Add Picture Button"
+        "accessibility_label": "Knapp för att lägga till bild"
       }
     },
     "dialogs": {
       "content_warning": {
-        "title": "Content warning",
-        "description": "If your post contains sensitive topics, please add a short note to alert people of them."
+        "title": "Innehållsvarning",
+        "description": "Om ditt inlägg berör känsliga ämnen, skriv en kort notering för att förvarna andra om detta."
       },
       "image_caption": {
-        "title": "Caption",
-        "description": "Add some description of this picture, particularly for the visually impaired."
+        "title": "Bildtext",
+        "description": "Lägg en beskrivning till bilden, särskilt för synskadade."
       },
       "save_prompt": {
-        "title": "Save draft?"
+        "title": "Spara utkast?"
       }
     },
     "content_warning_initials": {
-      "label": "CW",
-      "accessibility_label": "Content Warning Button"
+      "label": "IV",
+      "accessibility_label": "Knapp för innehållsvarning"
     },
     "mention_field": {
-      "accessibility_label": "Mention Account Text Input"
+      "accessibility_label": "Fält för inmatning av konto att nämna"
     },
     "text_field": {
-      "placeholder": "Write a public message",
-      "accessibility_label": "Compose Text Input"
+      "placeholder": "Skriv ett publikt meddelande",
+      "accessibility_label": "Fält för inmatning av text"
     }
   },
   "backup": {
-    "title": "Backup",
+    "title": "Säkerhetskopia",
     "introduction": {
-      "title": "Your account has\ntwo parts to keep safe"
+      "title": "Ditt konto har två delar\nsom måste hållas säkra"
     },
     "data": {
       "title": "Data",
       "description": {
-        "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
-        "2_bold": "crowd backup",
-        "3_normal": ". You only need to ",
-        "4_bold": "synchronize with reliable friends",
-        "5_normal": " or other devices you own. There is ",
-        "6_bold": "nothing else to do",
-        "7_normal": ", just use Manyverse often and your friends are backing you up!"
+        "1_normal": "Detta är ditt kontos allas inlägg, meddelanden, bilder, reaktioner och liknande. För att hålla detta säkert mot förslut så gör vi ",
+        "2_bold": "säkerhetskopiering mellan vänner",
+        "3_normal": ". Du behöver se till att ",
+        "4_bold": "synkronisera med pålitliga vänner",
+        "5_normal": " eller andra egna enheter. Det är ",
+        "6_bold": "det enda du behöver göra",
+        "7_normal": ". Använd bara Manyverse ofta, så håller dina vänner en säkerhetskopia på allt!"
       },
       "call_to_action": {
         "acknowledge": {
-          "label": "I understand",
-          "accessibility_label": "Acknowledge"
+          "label": "Jag förstår",
+          "accessibility_label": "Bekräfta"
         }
       }
     },
     "identity": {
-      "title": "Identity",
+      "title": "Identitet",
       "description": {
-        "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
-        "2_bold": "recovery phrase",
-        "3_normal": ". This is a sequence of 24 words that unlocks your account. ",
-        "4_bold": "Keep it confidential",
-        "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
-        "6_bold": "Take responsibility",
-        "7_normal": " over it, since you and only you can recover your account!"
+        "1_normal": "Ditt kontos \"fingeravtryck\" består av en, matematiskt sett, högst unik ",
+        "2_bold": "återställningsfras",
+        "3_normal": ". Detta är en lista av 24 stycken ord, som tillsammans låser upp ditt konto. ",
+        "4_bold": "Håll den hemlig",
+        "5_normal": ", får om någon annan får tillgång till den så kan de ta kontroll över ditt konto. ",
+        "6_bold": "Ta ansvar",
+        "7_normal": " för den, eftersom bara du kan återställa ditt konto!"
       },
       "call_to_action": {
-        "show_recovery_phrase": "Show Recovery Phrase"
+        "show_recovery_phrase": "Visa återställningsfras"
       }
     }
   },
   "biography": {
     "picture": {
-      "accessibility_label": "Biographic Picture"
+      "accessibility_label": "Biografisk bild"
     },
     "description": {
-      "accessibility_label": "Biographic Description"
+      "accessibility_label": "Biografisk beskrivning"
     }
   },
   "conversation": {
-    "title": "Conversation",
-    "placeholder": "Type a message...",
+    "title": "Konversation",
+    "placeholder": "Skriv ett meddelande...",
     "call_to_action": {
       "show_recipients": {
-        "accessibility_label": "Show Recipients"
+        "accessibility_label": "Visa mottagare"
       }
     },
     "notifications": {
-      "new_conversation": "This is a new private conversation"
+      "new_conversation": "Detta är en ny privat konversation"
     }
   },
   "dialog_about": {
-    "title": "About Manyverse",
+    "title": "Om Manyverse",
     "version": "Version {{version}}",
     "copyright": "Copyright (C)",
-    "authors": "The Manyverse Authors",
-    "repository": "Open source repository",
-    "licensed": "Licensed {{license1}} and {{license2}}"
+    "authors": "Manyverse författare",
+    "repository": "Öppna källkodsrepositoriet",
+    "licensed": "Licensierad med {{license1}} och {{license2}}"
   },
   "dialog_thanks": {
-    "title": "Thank you!",
-    "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
+    "title": "Tack så mycket!",
+    "description": "Utveckling av denna app stöddes av bidrag från {{sponsor1}} och {{sponsor2}}, och donationer från:\n\n**{{topBackers}}**, och [ett hundratal fler uppbackare]({{donateLink}}). Tack!"
   },
   "drawer": {
-    "profile_no_name": "No name",
+    "profile_no_name": "Inget namn",
     "menu": {
       "my_profile": {
-        "label": "My profile",
-        "accessibility_label": "My Profile Menu Item"
+        "label": "Min profil",
+        "accessibility_label": "Min profil-menyknapp"
       },
       "raw_database": {
-        "label": "Raw database",
-        "accessibility_label": "Show Raw Database"
+        "label": "Visa rå-databasen",
+        "accessibility_label": "Visa databasen i rått format"
       },
       "email_bug_report": {
-        "label": "Email bug report",
-        "accessibility_label": "Send Bug Report as Email"
+        "label": "E-posta felrapport",
+        "accessibility_label": "Skicka felrapport via e-post"
       },
       "settings": {
-        "label": "Settings",
-        "accessibility_label": "Go To Settings"
+        "label": "Inställningar",
+        "accessibility_label": "Gå till inställningar"
       }
     }
   },
   "invite_create": {
-    "loading": "loading...",
+    "loading": "laddar...",
     "call_to_action": {
       "share": {
-        "accessibility_label": "Share Invite Code"
+        "accessibility_label": "Dela inbjudningskod"
       }
     },
     "invite_code": {
-      "accessibility_label": "Invite Code"
+      "accessibility_label": "Inbjudningskod"
     },
     "share_info": {
-      "1_normal": "Give this invite code to ",
-      "2_bold": "one",
-      "3_normal": " friend"
+      "1_normal": "Ge den här inbjudningskoden till ",
+      "2_bold": "en",
+      "3_normal": " vän"
     },
     "sync_info": {
-      "1_normal": "You will sync when you are ",
-      "2_bold": "both",
-      "3_normal": " online"
+      "1_normal": "Synkroniserar när ",
+      "2_bold": "båda",
+      "3_normal": " är anslutna till Internet"
     }
   },
   "invite_paste": {
-    "placeholder": "Paste an invite code",
+    "placeholder": "Klistra in en inbjudningskod",
     "call_to_action": {
       "accept": {
-        "accessibility_label": "Accept Invite Code"
+        "accessibility_label": "Acceptera inbjudningskod"
       }
     },
     "text_field": {
-      "accessibility_label": "Invite Code Text Input"
+      "accessibility_label": "Fält för inmatning av inbjudningskod"
     }
   },
   "libraries": {
-    "title": "Third party libraries",
-    "description": "Manyverse makes use of the following open source libraries and components. We want to thank the authors of these libraries and link to their websites for proper attribution.",
+    "title": "Tredjepartsbibliotek",
+    "description": "Manyverse använder sig av följande bibliotek och komponenter med öppen källkod. Vi vill tacka författarna till dessa bibliotek och länka till deras webbplatser för korrekt kreditering.",
     "image": {
-      "name": "Image {{name}}",
-      "attribution": " is created by {{author}}, licensed {{license}}"
+      "name": "Bilden {{name}}",
+      "attribution": " är skapad av {{author}}, licensierad med {{license}}"
     }
   },
   "profile": {
     "call_to_action": {
-      "copy_cypherlink": "Copy cypherlink",
-      "private_chat": "Open private conversation",
-      "block": "Block",
-      "block_secretly": "Block secretly",
-      "unblock": "Unblock",
-      "unblock_secretly": "Unblock secretly",
-      "follow": "Follow",
+      "copy_cypherlink": "Kopiera cypher-länk",
+      "private_chat": "Inled en privat konversation",
+      "block": "Blockera",
+      "block_secretly": "Blockera i hemlighet",
+      "unblock": "Ta bort blockering",
+      "unblock_secretly": "Ta bort blockering in hemlighet",
+      "follow": "Följ",
       "edit_profile": {
-        "label": "Edit profile",
-        "accessibility_label": "Edit Profile Button"
+        "label": "Redigera profil",
+        "accessibility_label": "Redigera profil-knapp"
       },
       "open_biography": {
-        "label": "Read bio",
-        "accessibility_label": "Show Biography"
+        "label": "Läs bio",
+        "accessibility_label": "Visa biografi"
       },
       "manage": {
-        "accessibility_label": "Manage Contact"
+        "accessibility_label": "Hantera kontakt"
       }
     },
     "dialog_etc": {
-      "title": "Account"
+      "title": "Konto"
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Kopierad till urklipp"
     },
     "info": {
-      "follows_you": "Follows you",
-      "blocks_you": "Blocks you",
-      "following": "Following"
+      "follows_you": "Följer dig",
+      "blocks_you": "Blockerar dig",
+      "following": "Följer"
     },
     "picture": {
-      "accessibility_label": "Profile Picture"
+      "accessibility_label": "Profilbild"
     },
     "name": {
-      "accessibility_label": "Profile Name"
+      "accessibility_label": "Profilnamn"
     },
     "empty": {
       "blocked": {
-        "title": "Blocked",
-        "description": "You have chosen to stop\ninteracting with this account"
+        "title": "Blockerad",
+        "description": "Du har valt att sluta\ninteragera med detta konto"
       },
       "no_self_messages": {
-        "title": "No messages",
-        "description": "Write a diary which you can\nshare with friends later"
+        "title": "Inga meddelanden",
+        "description": "Skriv ett inlägg som du\nsenare kan dela med dina vänner"
       },
       "no_messages": {
-        "title": "No messages",
-        "description": "You don't yet have any data\nfrom this account"
+        "title": "Inga meddelanden",
+        "description": "Du har ännu inte någon data\nfrån detta konto"
       }
     },
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Skriv ett publikt meddelande"
     }
   },
   "profile_edit": {
-    "title": "Edit profile",
+    "title": "Redigera profil",
     "call_to_action": {
-      "discard": "Discard",
+      "discard": "Kasta",
       "save": {
-        "label": "Save",
-        "accessibility_label": "Save Profile"
+        "label": "Spara",
+        "accessibility_label": "Spara profil"
       },
       "edit_picture": {
-        "accessbility_label": "Edit Profile Picture"
+        "accessbility_label": "Knapp för att redigera profilbild"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Edit profile",
-        "question": "Discard changes?"
+        "title": "Redigera profil",
+        "question": "Kasta bort ändringar?"
       }
     },
     "fields": {
       "name": {
-        "label": "Name",
-        "accessibility_label": "Name Text Input"
+        "label": "Namn",
+        "accessibility_label": "Fält för inmatning av namn"
       },
       "description": {
         "label": "Bio",
-        "accessibility_label": "Biography Text Input"
+        "accessibility_label": "Fält för inmatning av biografisk text"
       }
     }
   },
   "raw_db": {
-    "title": "Raw database",
+    "title": "Rå-databas",
     "item": {
       "type": {
-        "any": "type: {{type}}",
-        "encrypted": "encrypted"
+        "any": "typ: {{type}}",
+        "encrypted": "krypterad"
       }
     }
   },
   "raw_msg": {
-    "title": "Raw message"
+    "title": "Rått meddelande"
   },
   "recipients_input": {
-    "title": "New message",
+    "title": "Nytt meddelande",
     "call_to_action": {
       "proceed": {
-        "label": "Next",
-        "accessibility_label": "Next Button"
+        "label": "Nästa",
+        "accessibility_label": "Nästa-knapp"
       }
     },
     "fields": {
       "mention_input": {
-        "placeholder": "Search for people to add",
-        "accessibility_label": "Mention Account Text Input"
+        "placeholder": "Sök efter personer att lägga till",
+        "accessibility_label": "Fält för inmatning av konto att nämna"
       }
     },
     "empty": {
       "none_to_choose": {
-        "title": "No one",
-        "description": "There is nobody in your\ncommunity with that name"
+        "title": "Ingen",
+        "description": "Det finns ingen i din\ngemenskap med det namnet"
       }
     },
     "toasts": {
-      "limit_reached": "Cannot choose more than {{limit}} recipients"
+      "limit_reached": "Fler än {{limit}} mottagare kan inte väljas"
     }
   },
   "secret_input": {
     "practice": {
-      "title": "Practice",
-      "header": "Repeat it to confirm it is correct:"
+      "title": "Öva",
+      "header": "Upprepa den för att bekräfta att den är korrekt:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "Återställ konto"
     },
-    "header": "Carefully input your recovery phrase",
+    "header": "Skriv noggrant in din återställningsfras",
     "call_to_action": {
       "confirm": {
-        "label": "Confirm",
-        "accessibility_label": "Confirm Recovery Phrase Button"
+        "label": "Bekräfta",
+        "accessibility_label": "Knapp för att bekräfta återställningsfras"
       }
     },
     "fields": {
       "words_input": {
-        "placeholder": "24-word (or 48-word) recovery phrase",
-        "accessibility_label": "Recovery Phrase Text Input"
+        "placeholder": "Återställningsfras med 24 (eller 48) ord",
+        "accessibility_label": "Fält för inmatning av återställningsfras"
       }
     },
     "dialogs": {
       "practice": {
         "correct": {
-          "title": "Correct!",
-          "description": "Your account's identity is now secure because you know the recovery phrase."
+          "title": "Rätt!",
+          "description": "Ditt kontos identitet är nu säker eftersom du känner till återställningsfrasen."
         },
         "incorrect": {
-          "title": "Incorrect",
-          "description": "Try again: write down your recovery phrase consisting of 24 words separated by whitespace."
+          "title": "Fel",
+          "description": "Försök igen: skriv ner din återställningsfras bestående av 24 ord separerade med blanktecken."
         }
       },
       "restore": {
         "correct": {
-          "title": "Welcome back!",
-          "description": "Your account's identity is now restored.\n\nNow, to restore your data, connect with friends that have interacted with you before, to redownload your data from them."
+          "title": "Välkommen tillbaka!",
+          "description": "Ditt kontos identitet är nu återställd.\n\nFör att återställa din data, anslut till vänner som har interagerat med dig tidigare, så laddas din data ner från deras kopior."
         },
         "incorrect": {
-          "title": "Incorrect",
+          "title": "Fel",
           "description": {
-            "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
-            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
-            "too_short": "There are some words missing. Your recovery phrase should be 24 words long.",
-            "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
-            "wrong_length": "Your recovery phrase should be exactly 24 words long.",
-            "generic": "The recovery phrase you gave does not look like a valid identity generated by Manyverse."
+            "try_again": "Försök igen genom att mata in din återställningsfras bestående av 24 ord separerade med blanktecken.",
+            "overwrite_risk": "Det finns redan ett konto i appen, och vi kommer inte att ersätta och låta det försvinna. Om du är säker på att du vill återställa ditt konto från noll så måste du först avinstallera Manyverse-appen och sedan åter installera den.",
+            "too_short": "Några ord saknas. Din återställningsfras ska bestå av 24 ord.",
+            "too_long": "För många ord. Din återställningsfras ska bestå av exakt 24 ord.",
+            "wrong_length": "Din återställningsfras ska bestå av exakt 24 ord.",
+            "generic": "Återhämtningsfrasen du angav verkar inte vara en giltig konto-identitet som skapats av Manyverse."
           }
         }
       }
     }
   },
   "secret_output": {
-    "title": "Recovery Phrase",
+    "title": "Återställningsfras",
     "header": {
-      "1_normal": "Carefully write down the following recovery phrase on a ",
-      "2_bold": "piece of paper",
+      "1_normal": "Skriv noggrant ner följande återställningsfras med penna på ett ",
+      "2_bold": "på ett papper",
       "3_normal": ""
     },
     "footer": {
-      "1_normal": "Keep it ",
-      "2_bold": "confidential",
-      "3_normal": ", and\ntake sole ",
-      "4_bold": "responsibility",
-      "5_normal": " over it"
+      "1_normal": "Håll pappret ",
+      "2_bold": "hemligt",
+      "3_normal": ", och ta ensam ",
+      "4_bold": "ansvar",
+      "5_normal": " för det"
     },
     "words": {
-      "accessibility_label": "Secret Words"
+      "accessibility_label": "Hemliga ord"
     },
     "call_to_action": {
       "confirm": {
-        "accessibility_label": "Confirm Recovery Phrase Button"
+        "accessibility_label": "Knapp för att bekräfta återställningsfras"
       }
     },
-    "loading": "Loading..."
+    "loading": "Laddar..."
   },
   "settings": {
-    "title": "Settings",
+    "title": "Inställningar",
     "preferences": {
-      "title": "Preferences",
+      "title": "Inställningar",
       "show_follows": {
-        "title": "Show follow events",
-        "subtitle": "Show follow or block or unfollow cases on the public board",
-        "accessibility_label": "Toggle follow events on the public board"
+        "title": "Visa följ-händelser",
+        "subtitle": "Visa följ-, blockerings- och sluta följ-händelser i det publika forumet",
+        "accessibility_label": "Växla visning av följ-händelser i det publika forumet"
       },
       "hops": {
-        "title": "Replication hops",
-        "subtitle": "How far out in the social graph should Manyverse download data; 1 is friends-only, 2 is friends-of-friends, etc. Caution: the higher this is, the more data is downloaded!",
-        "unlimited": "Unlimited",
-        "accessibility_label": "Replication hops slider"
+        "title": "Replikeringssteg",
+        "subtitle": "Hur många steg ut i den sociala grafen som Manyverse ska gå när data inhämtas; 1 steg betyder bara vänner, 2 är vänners vänner, etc. Varning: ju fler steg, desto mer data hämtas!",
+        "unlimited": "Obegränsat",
+        "accessibility_label": "Ställ in antal replikeringssteg"
       }
     },
     "data_and_storage": {
-      "title": "Data & Storage",
+      "title": "Data och lagring",
       "backup": {
-        "title": "Backup",
-        "subtitle": "View your 24-word recovery phrase",
-        "accessibility_label": "Back Up My Account"
+        "title": "Säkerhetskopiering",
+        "subtitle": "Se din återställningsfras, 24 ord",
+        "accessibility_label": "Säkerhetskopiera mitt konto"
       },
       "blobs_storage": {
-        "title": "Blobs storage limit",
-        "subtitle": "Automatically delete old images and blobs until they occupy at most this amount of storage on your device",
-        "unlimited": "Unlimited",
-        "accessibility_label": "Storage limit slider"
+        "title": "Lagringsgräns för bilder och andra Blobar",
+        "subtitle": "Ta automatiskt bort gamla bilder och andra Blobar så att högst så här mycket av din enhets lagringsutrymme används",
+        "unlimited": "Obegränsad",
+        "accessibility_label": "Reglage för lagringsgräns"
       }
     },
     "troubleshooting": {
-      "title": "Troubleshooting",
+      "title": "Felsökning",
       "bug_report": {
-        "title": "Email bug report",
-        "accessibility_label": "Send Bug Report as Email"
+        "title": "E-posta felrapport",
+        "accessibility_label": "Skicka felrapport via e-post"
       },
       "detailed_logs": {
-        "title": "Enable detailed logs",
-        "accessibility_label": "Toggle detailed developer logs"
+        "title": "Aktivera detaljerad loggning",
+        "accessibility_label": "Växla detaljerad loggning för utvecklare"
       }
     },
     "more_information": {
-      "title": "More information",
+      "title": "Mer information",
       "thanks": {
-        "title": "Thanks",
-        "accessibility_label": "Show Thanks"
+        "title": "Tack",
+        "accessibility_label": "Visa tacksamhet"
       },
       "third_party_libs": {
-        "title": "Third party libraries",
-        "accessibility_label": "View third party libraries"
+        "title": "Tredjepartsbibliotek",
+        "accessibility_label": "Visa tredjepartsbibliotek"
       },
       "about": {
-        "title": "About",
-        "accessibility_label": "About This App"
+        "title": "Om",
+        "accessibility_label": "Om den här appen"
       }
     },
     "dialogs": {
       "restart_required": {
-        "title": "Restart required",
-        "description": "This setting will only enter into effect when you kill the app and restart Manyverse."
+        "title": "Omstart krävs",
+        "description": "Den här inställningen träder bara i kraft när du dödar appen och startar om Manyverse."
       }
     }
   },
   "thread": {
-    "title": "Thread",
+    "title": "Tråd",
     "call_to_action": {
       "expand_reply": {
-        "accessibility_label": "Expand Reply Button"
+        "accessibility_label": "Knapp för att expandera svar"
       },
       "publish_reply": {
-        "accessibility_label": "Reply Publish Button"
+        "accessibility_label": "Knapp för att publicera svar"
       }
     },
     "dialogs": {
       "save_draft_prompt": {
-        "title": "Save reply draft?"
+        "title": "Spara svar som utkast?"
       }
     },
     "fields": {
       "reply": {
-        "placeholder": "Comment",
-        "accessibility_label": "Reply Text Input"
+        "placeholder": "Kommentar",
+        "accessibility_label": "Text för inmatning av svar"
       }
     },
-    "loading_replies": "Loading replies...",
+    "loading_replies": "Laddar svar...",
     "empty": {
       "missing": {
-        "title": "Missing data",
-        "description": "You don't yet have data\nfor the message known by the ID\n"
+        "title": "Data saknas",
+        "description": "Du har ännu inte data\nför meddelandet (känt genom dess ID)\n"
       },
       "blocked": {
-        "title": "Blocked thread",
-        "description": "You have chosen to block\nthe author of this thread"
+        "title": "Blockerad tråd",
+        "description": "Du har valt att blockera\nursprungsförfattaren till denna tråd"
       },
       "incompatible": {
-        "title": "Sorry",
-        "description": "This app doesn't know how to process\nand display this thread correctly"
+        "title": "Tyvärr",
+        "description": "Den här appen vet inte hur den här tråden\nska hanteras och visas korrekt"
       }
     }
   },
   "notifications": {
     "syncing": {
-      "title": "Syncing",
-      "gigabytes": "{{gb}} GB synced so far",
-      "megabytes": "{{mb}} MB synced so far",
-      "kilobytes": "{{kb}} KB synced so far",
-      "bytes": "{{b}} bytes synced so far"
+      "title": "Synkroniserar",
+      "gigabytes": "{{gb}} GB synkade hittills",
+      "megabytes": "{{mb}} MB synkade hittills",
+      "kilobytes": "{{kb}} KB synkade hittills",
+      "bytes": "{{b}} byte synkade hittills"
     }
   },
   "message": {
     "call_to_action": {
       "show_reactions": {
-        "accessibility_label": "Show Reactions"
+        "accessibility_label": "Visa reaktioner"
       },
       "add_reaction": {
-        "accessibility_label": "Add Reaction Button"
+        "accessibility_label": "Knapp för att lägga till reaktion"
       },
       "reply": {
-        "accessibility_label": "Reply Button"
+        "accessibility_label": "Svarsknapp"
       },
       "etc": {
-        "dialog_title": "Message",
-        "accessibility_label": "Etc Button"
+        "dialog_title": "Meddelande",
+        "accessibility_label": "Etc-knapp"
       },
       "copy_blob_id": {
-        "accessibility_label": "Copy Blob ID"
+        "accessibility_label": "Kopiera Blob-ID"
       },
-      "copy_msg_id": "Copy cypherlink",
-      "view_raw": "View raw message",
+      "copy_msg_id": "Kopiera cypher-länk",
+      "view_raw": "Visa rå-meddelande",
       "read_more": {
-        "label": "Read more",
-        "accessibility_label": "Read more content in this thread"
+        "label": "Läs mer",
+        "accessibility_label": "Läs mer i denna tråd"
       }
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Kopierad till urklipp"
     },
     "reactions": {
       "categories": {
-        "smileys_and_emotion": "Smileys and emotion",
-        "people_and_body": "People and body",
-        "animals_and_nature": "Animals and nature",
-        "food_and_drink": "Food and drink",
-        "activities": "Activities",
-        "travel_and_places": "Travel and places",
-        "objects": "Objects",
-        "symbols": "Symbols"
+        "smileys_and_emotion": "Smileys och känslor",
+        "people_and_body": "Personer och kropp",
+        "animals_and_nature": "Djur och natur",
+        "food_and_drink": "Mat och dryck",
+        "activities": "Aktiviteter",
+        "travel_and_places": "Resor och platser",
+        "objects": "Objekt",
+        "symbols": "Symboler"
       },
       "show_more": {
-        "accessibility_label": "Show More Reaction Options"
+        "accessibility_label": "Visa fler reaktionsalternativ"
       }
     },
     "image": {
       "without_caption": {
-        "accessibility_label": "Picture without caption"
+        "accessibility_label": "Bild utan bildtext"
       }
     },
     "audio": {
       "loading": {
-        "text": "Loading...",
-        "accessibility_label": "Loading file"
+        "text": "Laddar...",
+        "accessibility_label": "Laddar fil"
       },
       "play": {
-        "accessibility_label": "Play audio"
+        "accessibility_label": "Spela upp ljud"
       },
       "pause": {
-        "accessibility_label": "Pause audio"
+        "accessibility_label": "Pausa ljud"
       },
       "stop": {
-        "accessibility_label": "Stop audio"
+        "accessibility_label": "Stoppa ljud"
       },
       "duration": {
-        "accessibility_label": "Audio duration"
+        "accessibility_label": "Ljudets längd"
       },
       "elapsed": {
-        "accessibility_label": "Audio current time"
+        "accessibility_label": "Nuvarande längd för ljudet"
       },
       "slider": {
-        "accessibility_label": "Change audio time"
+        "accessibility_label": "Ändra ljudets längd"
       }
     },
     "content_warning": {
-      "title": "Content Warning",
+      "title": "Innehållsvarning",
       "call_to_action": {
-        "hide": "Hide",
-        "show": "View"
+        "hide": "Dölj",
+        "show": "Visa"
       }
     },
     "fork_note": {
-      "1_normal": "Forked from ",
+      "1_normal": "Förgrenad från ",
       "2_bold": "{{cypherlink}}",
       "3_normal": ""
     },
@@ -962,24 +962,24 @@
       "new_picture": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new profile picture: "
+        "3_normal": " har en ny profilbild: "
       },
       "new_name_and_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " använder nu namnet \"",
         "4_bold": "{{name}}",
-        "5_normal": "\" and the description: "
+        "5_normal": "\" och beskrivningen: "
       },
       "new_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new biography: "
+        "3_normal": " har en ny biografi: "
       },
       "new_name": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " använder nu namnet \"",
         "4_bold": "{{name}}",
         "5_normal": "\""
       }
@@ -988,28 +988,28 @@
       "follow_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed ",
+        "3_normal": " började följa ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "block_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " blocked ",
+        "3_normal": " blockerar nu ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "unfollow_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " unfollowed ",
+        "3_normal": " slutade följa ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "unblock_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " unblocked ",
+        "3_normal": " slutade blockera ",
         "4_bold": "{{target}}",
         "5_normal": ""
       }
