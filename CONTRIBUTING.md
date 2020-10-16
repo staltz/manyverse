@@ -33,6 +33,10 @@ Use node (preferably exactly) `10.13.0` and npm `6.x`. To manage node versions e
 
 Install Rust and Cargo preferably through [Rustup](https://rustup.rs/). Then, use Rustup to install cross-compilation support for various ARM architectures, like this:
 
+#### Android
+
+If your target OS is Android, then run:
+
 ```
 rustup target add aarch64-linux-android
 ```
@@ -43,6 +47,18 @@ rustup target add arm-linux-androideabi
 
 ```
 rustup target add armv7-linux-androideabi
+```
+
+#### iOS
+
+If your target OS is iOS, then run:
+
+```
+rustup target add aarch64-apple-ios
+```
+
+```
+rustup target add x86_64-apple-ios
 ```
 
 ### React Native

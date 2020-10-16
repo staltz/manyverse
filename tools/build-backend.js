@@ -69,10 +69,15 @@ async function runAndReport(label, task) {
     );
   }
 
-  if (targetPlatform === 'android' || targetPlatform === 'ios') {
+  if (targetPlatform === 'android') {
     await runAndReport(
-      'Patch some Rust crates (ssb-neon) to link them with nodejs-mobile',
-      exec('./tools/backend/patch-rust-crates.sh'),
+      'Patch ssb-neon packages to configure linking with nodejs-mobile',
+      exec('./tools/backend/patch-android-ssb-neon-modules.sh'),
+    );
+  } else if (targetPlatform === 'ios') {
+    await runAndReport(
+      'Patch ssb-neon packages to add a postinstall script specific to iOS',
+      exec('./tools/backend/patch-ios-ssb-neon-modules.js'),
     );
   }
 
