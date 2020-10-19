@@ -24,7 +24,7 @@ cd ./nodejs-assets/nodejs-project;
 #      nodejs-mobile support, so we run an older version
 #   utp-native: we want to compile for nodejs-mobile instead of using prebuilds
 #   node-extend: can't remember why we need to replace it, build seemed to fail
-#   ssb-keys: we use ssb-neon-keys for better performance in Rust
+#   ssb-keys: we use ssb-keys-neon for better performance in Rust
 #   non-private-ip: we use a "better" fork of this package
 #   multiserver net plugin: we're fixing a corner case bug with error recovery
 #   rn-bridge: this is not an npm package, it's just a nodejs-mobile shortcut
@@ -38,7 +38,7 @@ $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
   --replace.chloride=sodium-chloride-native-nodejs-mobile \
   --replace.leveldown=leveldown-nodejs-mobile \
-  --replace.ssb-keys=ssb-neon-keys \
+  --replace.ssb-keys=ssb-keys-neon \
   --replace.utp-native=utp-native-nodejs-mobile \
   --replace.node-extend=xtend \
   --replace.non-private-ip=non-private-ip-android \

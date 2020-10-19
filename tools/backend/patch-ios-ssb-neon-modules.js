@@ -5,7 +5,7 @@
 var fs = require('fs');
 
 // All the neon npm packages we want to patch
-const modules = ['ssb-neon-keys'];
+const modules = ['ssb-keys-neon'];
 
 const projectPath = process.cwd();
 for (let module of modules) {
