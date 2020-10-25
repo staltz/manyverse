@@ -372,6 +372,27 @@ Most app development happens in `src/frontend` and thus follows the [Cycle.js](h
 
 📽️ **Watch this [screencast on YouTube](https://www.youtube.com/watch?v=iv7FEbLKNUI) where Andre Staltz and David Gómez have a walkthrough the basics of thee app architecture**
 
+## Backend in Node.js Mobile
+
+There is lots to be explained about the backend part of this project, so consider this subsection docs a work in progress.
+
+### How to add a new ssb-neon package
+
+- Add it in `src/backend/package.json`
+- Create a patch for this package using `patch-package`
+  - Run `rm -rf nodejs-assets`
+  - Run `tools/backend/move-to-nodejs-assets.sh`
+  - Run `cd nodejs-assets/nodejs-project`
+  - Run `rm -rf patches`
+  - Run `npm install --no-optional`
+  - Run `$(npm bin)/patch-package NAME_OF_THE_PACKAGE`
+  - Copy the file `./patches/NAME_OF_THE_PACKAGE` to `src/backend/patches`
+- Update `tools/backend/noderify-mobile.sh` to add a `replace` option
+- Update `tools/backend/noderify-desktop.sh` to add a `replace` option
+- Update `tools/backend/patch-android-ssb-neon-modules.sh` to add the package in the `modules` array
+- Update `tools/backend/patch-ios-ssb-neon-modules.sh` to add the package in the `modules` array
+- (Optional) Update `tools/backend/remove-unused-files.sh` to remove the package's `prebuilds` folder and others
+
 ## Integration tests
 
 **Only Android is supported for end-to-end tests at the moment.**

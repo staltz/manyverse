@@ -16,6 +16,7 @@ function onFailure() {
 # All the crates we want to patch
 declare -a modules=(
   "ssb-keys-neon/native"
+  "ssb-keys-mnemonic-neon/native"
 )
 
 # "rustTriple;ndkArch"

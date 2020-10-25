@@ -25,6 +25,7 @@ cd ./nodejs-assets/nodejs-project;
 #   utp-native: we want to compile for nodejs-mobile instead of using prebuilds
 #   node-extend: can't remember why we need to replace it, build seemed to fail
 #   ssb-keys: we use ssb-keys-neon for better performance in Rust
+#   ssb-keys-mnemonic: we use ssb-keys-mnemonic-neon for better performance
 #   non-private-ip: we use a "better" fork of this package
 #   multiserver net plugin: we're fixing a corner case bug with error recovery
 #   rn-bridge: this is not an npm package, it's just a nodejs-mobile shortcut
@@ -39,6 +40,7 @@ $(npm bin)/noderify \
   --replace.chloride=sodium-chloride-native-nodejs-mobile \
   --replace.leveldown=leveldown-nodejs-mobile \
   --replace.ssb-keys=ssb-keys-neon \
+  --replace.ssb-keys-mnemonic=ssb-keys-mnemonic-neon \
   --replace.utp-native=utp-native-nodejs-mobile \
   --replace.node-extend=xtend \
   --replace.non-private-ip=non-private-ip-android \
@@ -50,13 +52,6 @@ $(npm bin)/noderify \
   --filter=electron \
   --filter=multiserver-electron-ipc \
   --filter=utf-8-validate \
-  --filter=bip39/src/wordlists/chinese_simplified.json \
-  --filter=bip39/src/wordlists/chinese_traditional.json \
-  --filter=bip39/src/wordlists/french.json \
-  --filter=bip39/src/wordlists/italian.json \
-  --filter=bip39/src/wordlists/japanese.json \
-  --filter=bip39/src/wordlists/korean.json \
-  --filter=bip39/src/wordlists/spanish.json \
   index.js > _index.js;
 rm index.js; mv _index.js index.js;
 
