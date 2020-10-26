@@ -22,6 +22,7 @@ cd ./desktop/nodejs-project;
 #   non-private-ip: we use a "better" fork of this package
 #   electron: we want to load its native bindings
 #   rn-bridge: not used on desktop, it's specific to mobile
+#   multiserver-rn-channel: not used on desktop, it's specific to mobile
 #   bufferutil: because we want to load its native bindings
 #   utf-8-validate: because we want to load its native bindings
 $(npm bin)/noderify \
@@ -29,8 +30,9 @@ $(npm bin)/noderify \
   --replace.ssb-keys=ssb-neon-keys \
   --replace.non-private-ip=non-private-ip-android \
   --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \
-  --filter=rn-bridge \
   --filter=electron \
+  --filter=rn-bridge \
+  --filter=multiserver-rn-channel \
   --filter=bufferutil \
   --filter=utf-8-validate \
   index.js > _index.js;

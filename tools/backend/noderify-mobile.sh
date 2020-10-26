@@ -30,6 +30,8 @@ cd ./nodejs-assets/nodejs-project;
 #   bl: we didn't use it, and bl@0.8.x has security vulnerabilities
 #   bufferutil: because we want nodejs-mobile to load its native bindings
 #   supports-color: optional dependency within package `debug`
+#   electron: not used on mobile, it's specific to desktop
+#   multiserver-electron-ipc: not used on mobile, it's specific to desktop
 #   utf-8-validate: because we want nodejs-mobile to load its native bindings
 $(npm bin)/noderify \
   --replace.bindings=bindings-noderify-nodejs-mobile \
@@ -43,6 +45,8 @@ $(npm bin)/noderify \
   --filter=bl \
   --filter=bufferutil \
   --filter=supports-color \
+  --filter=electron \
+  --filter=multiserver-electron-ipc \
   --filter=utf-8-validate \
   --filter=bip39/src/wordlists/chinese_simplified.json \
   --filter=bip39/src/wordlists/chinese_traditional.json \
