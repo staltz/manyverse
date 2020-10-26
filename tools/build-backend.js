@@ -40,7 +40,7 @@ async function runAndReport(label, task) {
   }
 }
 
-(async function() {
+(async function () {
   await runAndReport('Compile TypeScript', exec('npm run lib'));
 
   if (targetPlatform === 'desktop') {
@@ -89,8 +89,8 @@ async function runAndReport(label, task) {
 
   if (targetPlatform === 'android' || targetPlatform === 'ios') {
     await runAndReport(
-      'Remove unused files meant for macOS or Windows or Electron',
-      exec('./tools/backend/remove-unused-files.sh'),
+      'Pre-remove files not necessary for Android nor iOS',
+      exec('./tools/backend/pre-remove-unused-files.sh'),
     );
   }
 
@@ -100,6 +100,13 @@ async function runAndReport(label, task) {
       exec('./tools/backend/build-native-modules.sh', {
         maxBuffer: 4 * 1024 * 1024 /* 4MB worth of logs in stdout */,
       }),
+    );
+  }
+
+  if (targetPlatform === 'android') {
+    await runAndReport(
+      'Post-remove files not necessary for Android',
+      exec('./tools/backend/post-remove-unused-files.sh'),
     );
   }
 
