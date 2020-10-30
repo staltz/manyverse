@@ -114,7 +114,6 @@
     "remark-images-to-ssb-serve-blobs": "2.1.0-1",
     "remark-linkify-regex": "1.0.0",
     "remark-ssb-mentions": "~2.0.0",
-    "rn-fetch-blob": "^0.12.0",
     "ssb-cached-about": "~1.2.0",
     "ssb-conn-query": "~0.4.5",
     "ssb-ref": "2.14.2",

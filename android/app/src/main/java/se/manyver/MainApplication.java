@@ -35,7 +35,6 @@ import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.ninty.system.setting.SystemSettingPackage;
 import com.reactcommunity.rnlocalize.RNLocalizePackage;
 import com.reactnativecommunity.rctaudiotoolkit.AudioPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -107,7 +106,6 @@ public class MainApplication extends NavigationApplication {
     packages.add(new SystemSettingPackage());
     packages.add(new RNLocalizePackage());
     packages.add(new AudioPackage());
-    packages.add(new RNFetchBlobPackage());
     return packages;
   }
 }

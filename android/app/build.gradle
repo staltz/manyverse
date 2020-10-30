@@ -235,8 +235,6 @@ android {
 def acraVersion = '5.5.0'
 
 dependencies {
-    implementation project(':@react-native-community_audio-toolkit')
-    implementation project(':rn-fetch-blob')
     implementation "ch.acra:acra-core:$acraVersion"
     implementation "ch.acra:acra-mail:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
@@ -256,6 +254,7 @@ dependencies {
     implementation project(':react-native-splash-screen')
     implementation project(':@react-native-community_viewpager')
     implementation project(':@react-native-community_slider')
+    implementation project(':@react-native-community_audio-toolkit')
     implementation project(':react-native-system-setting')
     implementation project(':react-native-localize')
     implementation fileTree(dir: "libs", include: ["*.jar"])

@@ -677,13 +677,6 @@ export default [
     homepage: 'https://gitlab.com/staltz/ssb-mentions',
   },
   {
-    name: 'rn-fetch-blob',
-    type: 'library',
-    version: '0.12.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/joltup/rn-fetch-blob#readme',
-  },
-  {
     name: 'secret-stack',
     type: 'library',
     version: '6.3.1',

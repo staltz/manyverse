@@ -23,7 +23,6 @@ import {
   PlayerError,
 } from '@react-native-community/audio-toolkit';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import RNFetchBlob from 'rn-fetch-blob';
 import {t} from '../drivers/localization';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
@@ -122,24 +121,19 @@ export default class AudioPlayer extends PureComponent<Props, State> {
 
     breathingAnimation.start();
 
-    RNFetchBlob.config({
-      fileCache: true,
-    })
-      .fetch('GET', this.props.src)
-      .then((blob) => {
-        this.player = new Player(blob.path(), {
-          autoDestroy: false,
-        }).prepare((err: PlayerError | null): void => {
-          if (err || !this.player) return;
+    this.player = new Player(this.props.src, {
+      autoDestroy: false,
+    }).prepare((err: PlayerError | null): void => {
+      if (err) console.error(err);
+      if (err || !this.player) return;
 
-          const duration = convertMillisecondsToSeconds(
-            Math.round(this.player.duration),
-          );
-          this.setState({duration, fetchingFile: false}, () =>
-            breathingAnimation.stop(),
-          );
-        });
-      });
+      const duration = convertMillisecondsToSeconds(
+        Math.round(this.player.duration),
+      );
+      this.setState({duration, fetchingFile: false}, () =>
+        breathingAnimation.stop(),
+      );
+    });
   }
 
   public componentWillUnmount() {
@@ -184,7 +178,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
         const currentTime = Math.round(this.player.currentTime);
         const elapsed = convertMillisecondsToSeconds(Math.max(0, currentTime));
         this.setState({elapsed, elapsedSlider: elapsed});
-      }, 100);
+      }, 333);
 
       this.player.play(() => {
         this.setState({playState: PlayState.PLAYING, timer});
