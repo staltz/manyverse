@@ -4,6 +4,8 @@
 const wd = require('wd');
 const path = require('path');
 const test = require('tape');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 const localServerConfig = {host: 'localhost', port: 4995};
 
@@ -19,7 +21,12 @@ const localCapabilities = {
 
 let driver;
 
-test('Setup and open Android app', function(t) {
+test('Setup and open Android app', async function (t) {
+  try {
+    await exec('adb uninstall se.manyver');
+  } catch (err) {}
+  t.pass('Uninstalled existing se.manyver');
+
   var serverConfig = localServerConfig;
   var capabilities = localCapabilities;
 
@@ -32,7 +39,7 @@ test('Setup and open Android app', function(t) {
     });
 });
 
-test('...', function(t) {
+test('...', function (t) {
   require('./welcome.js')(driver, t);
   require('./central.js')(driver, t);
   require('./connections.js')(driver, t);
@@ -45,7 +52,7 @@ test('...', function(t) {
   t.end();
 });
 
-test('Teardown', function(t) {
+test('Teardown', function (t) {
   driver.quit().then(() => {
     t.end();
   });

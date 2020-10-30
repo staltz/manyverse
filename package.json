@@ -163,6 +163,7 @@
   },
   "optionalDependencies": {
     "appium": "1.14.0",
+    "ssb-keys-mnemonic-neon": "1.0.0-2",
     "tap-spec": "5.0.0",
     "tape": "~4.9.1",
     "wd": "1.11.3"

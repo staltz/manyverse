@@ -1,0 +1,9 @@
+/data/conn.json
+/data/blobs
+/data/blobs_push
+/data/flume/*
+!/data/flume/log.offset
+!/data/report.md
+!/data/secret
+!/data/secret-b
+!/data/secret-c
