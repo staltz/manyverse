@@ -137,6 +137,15 @@ export default class AudioPlayer extends PureComponent<Props, State> {
       this.setState({duration, fetchingFile: false}, () =>
         breathingAnimation.stop(),
       );
+
+      (this.player as any).on?.('ended', () => {
+        this.setState({
+          playState: PlayState.PAUSED,
+          elapsed: 0,
+          elapsedSlider: 0,
+          editingSlider: false,
+        });
+      });
     });
   }
 
@@ -167,26 +176,26 @@ export default class AudioPlayer extends PureComponent<Props, State> {
   };
 
   private play = () => {
-    requestAnimationFrame(() => {
+    if (!this.player) return;
+
+    if (this.state.timer) clearInterval(this.state.timer);
+
+    const timer = setInterval(() => {
       if (!this.player) return;
+      if (
+        this.state.playState !== PlayState.PLAYING ||
+        this.state.editingSlider
+      ) {
+        return;
+      }
 
-      const timer = setInterval(() => {
-        if (!this.player) return;
-        if (
-          this.state.playState !== PlayState.PLAYING ||
-          this.state.editingSlider
-        ) {
-          return;
-        }
+      const currentTime = Math.round(this.player.currentTime);
+      const elapsed = convertMillisecondsToSeconds(Math.max(0, currentTime));
+      this.setState({elapsed, elapsedSlider: elapsed});
+    }, 333);
 
-        const currentTime = Math.round(this.player.currentTime);
-        const elapsed = convertMillisecondsToSeconds(Math.max(0, currentTime));
-        this.setState({elapsed, elapsedSlider: elapsed});
-      }, 333);
-
-      this.player.play(() => {
-        this.setState({playState: PlayState.PLAYING, timer});
-      });
+    this.player.play(() => {
+      this.setState({playState: PlayState.PLAYING, timer});
     });
   };
 
