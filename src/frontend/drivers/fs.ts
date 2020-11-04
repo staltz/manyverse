@@ -18,6 +18,7 @@ export class FSSource {
 
   public static readonly DocumentDirectoryPath = RNFS.DocumentDirectoryPath;
   public static readonly MainBundlePath = RNFS.MainBundlePath;
+  public static readonly CachesDirectoryPath = RNFS.CachesDirectoryPath;
 
   public exists(...args: In<typeof RNFS.exists>): Out<typeof RNFS.exists> {
     return xs.fromPromise(RNFS.exists(...args));
@@ -48,10 +49,22 @@ export class FSSource {
   ): Out<typeof RNFS.readFileAssets> {
     return xs.fromPromise(RNFS.readFileAssets(...args));
   }
+
+  public unlink(...args: In<typeof RNFS.unlink>): Out<typeof RNFS.unlink> {
+    return xs.fromPromise(RNFS.unlink(...args));
+  }
+
+  public moveFile(
+    ...args: In<typeof RNFS.moveFile>
+  ): Out<typeof RNFS.moveFile> {
+    return xs.fromPromise(RNFS.moveFile(...args));
+  }
 }
 
 export function makeFSDriver() {
-  return function fsDriver(_sink: Stream<never>): FSSource {
+  return function fsDriver(sink: Stream<any>): FSSource {
+    // just subscribe to "enable" the chain of streams
+    sink.addListener({next: () => {}});
     return new FSSource();
   };
 }

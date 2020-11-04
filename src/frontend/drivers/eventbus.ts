@@ -26,11 +26,17 @@ export type DrawerToggleOnCentralScreen = {
   open: boolean;
 };
 
+export type AudioBlobComposed = {
+  type: 'audioBlobComposed';
+  blobId: string;
+};
+
 export type GlobalEvent =
   | TriggerFeedCypherlink
   | TriggerMsgCypherlink
   | HardwareBackOnCentralScreen
-  | DrawerToggleOnCentralScreen;
+  | DrawerToggleOnCentralScreen
+  | AudioBlobComposed;
 
 export class EventBus {
   public _stream?: Stream<GlobalEvent>;

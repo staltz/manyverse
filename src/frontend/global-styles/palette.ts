@@ -188,6 +188,7 @@ export const Palette = {
   backgroundPeerDisconnecting: red6,
 
   backgroundCTA: teal6,
+  backgroundRecord: red6,
   backgroundWarningAction: yellow6,
   backgroundHackerVoid: indigo12,
 

@@ -69,6 +69,21 @@ function parseMention(postText: string, selection: Selection): string | null {
   return results?.[2] ?? null;
 }
 
+function appendToPostText(postText: string, other: string) {
+  let separator = '';
+  if (postText.trim().length > 0) {
+    // Count how many new lines are already at the end of the postText
+    const res = /(\n+)$/g.exec(postText);
+    const prevLines = !res || !res[0] ? 0 : res[0].split('\n').length - 1;
+
+    // Count how many new lines to add, in order to create space
+    const addLines = Math.max(2 - prevLines, 0);
+    separator = Array(addLines + 1).join('\n');
+  }
+
+  return postText + separator + other + '\n\n';
+}
+
 export type Actions = {
   updatePostText$: Stream<string>;
   updateSelection$: Stream<Selection>;
@@ -77,6 +92,7 @@ export type Actions = {
   cancelMention$: Stream<any>;
   updateContentWarning$: Stream<string>;
   togglePreview$: Stream<any>;
+  addAudio$: Stream<string>;
   addPictureWithCaption$: Stream<{caption: string; image: Image}>;
 };
 
@@ -248,28 +264,26 @@ export default function model(
       ssbSource.addBlobFromPath$(image.path.replace('file://', '')).map(
         (blobId) =>
           function addPictureReducer(prev: State): State {
-            let separator = '';
-            if (prev.postText.trim().length > 0) {
-              // Count how many new lines are already at the end of the postText
-              const res = /(\n+)$/g.exec(prev.postText);
-              const prevLines =
-                !res || !res[0] ? 0 : res[0].split('\n').length - 1;
-
-              // Count how many new lines to add, in order to create space
-              const addLines = Math.max(2 - prevLines, 0);
-              separator = Array(addLines + 1).join('\n');
-            }
-
             const imgMarkdown = `![${caption ?? 'image'}](${blobId})`;
-
             return {
               ...prev,
-              postText: prev.postText + separator + imgMarkdown + '\n\n',
+              postText: appendToPostText(prev.postText, imgMarkdown),
             };
           },
       ),
     )
     .flatten();
+
+  const addAudioReducer$ = actions.addAudio$.map(
+    (blobId) =>
+      function addAudioReducer(prev: State): State {
+        const audioMarkdown = `![audio:recording.mp3](${blobId})`;
+        return {
+          ...prev,
+          postText: appendToPostText(prev.postText, audioMarkdown),
+        };
+      },
+  );
 
   const updateContentWarningReducer$ = actions.updateContentWarning$.map(
     (contentWarning) =>
@@ -308,6 +322,7 @@ export default function model(
     chooseMentionReducer$,
     cancelMentionReducer$,
     addPictureReducer$,
+    addAudioReducer$,
     updateContentWarningReducer$,
     togglePreviewReducer$,
     getComposeDraftReducer$,

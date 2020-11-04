@@ -12,18 +12,21 @@ import {
   TextInputSelectionChangeEventData,
   NativeSyntheticEvent,
   Platform,
+  PermissionsAndroid,
 } from 'react-native';
 import {NavSource} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import {DialogSource} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
-import {State, isPost, isTextEmpty, hasText, isReply} from './model';
 import {t} from '../../drivers/localization';
+import {GlobalEvent, AudioBlobComposed} from '../../drivers/eventbus';
+import {State, isPost, isTextEmpty, hasText, isReply} from './model';
 
 export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
+  globalEvent$: Stream<GlobalEvent>,
   topBarBack$: Stream<any>,
   topBarPreviewToggle$: Stream<any>,
   topBarDone$: Stream<any>,
@@ -114,6 +117,38 @@ export default function intent(
       .select('content-warning')
       .events('press') as Stream<null>,
 
+    goToComposeAudio$: reactSource
+      .select('record-audio')
+      .events('press')
+      .map(() =>
+        Platform.OS === 'android'
+          ? xs.fromPromise(
+              PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+                {
+                  title: t(
+                    'compose.call_to_action.record_audio.permission_request.title',
+                  ),
+                  message: t(
+                    'compose.call_to_action.record_audio.permission_request.message',
+                  ),
+                  buttonNeutral: t(
+                    'compose.call_to_action.record_audio.permission_request.neutral',
+                  ),
+                  buttonNegative: t(
+                    'compose.call_to_action.record_audio.permission_request.negative',
+                  ),
+                  buttonPositive: t(
+                    'compose.call_to_action.record_audio.permission_request.positive',
+                  ),
+                },
+              ),
+            )
+          : xs.of('granted'),
+      )
+      .flatten()
+      .filter((ev) => ev === 'granted') as Stream<'granted'>,
+
     addPicture$: xs.merge(
       reactSource
         .select('open-camera')
@@ -153,6 +188,10 @@ export default function intent(
         )
         .flatten(),
     ),
+
+    addAudio$: globalEvent$
+      .filter((ev): ev is AudioBlobComposed => ev.type === 'audioBlobComposed')
+      .map((event) => event.blobId),
 
     exitPost$: backPostWithoutDialog$,
 

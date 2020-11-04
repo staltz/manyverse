@@ -23,6 +23,7 @@ import {dialogDriver} from './drivers/dialogs';
 import {makeAppStateDriver} from './drivers/appstate';
 import {makeActivityLifecycleDriver} from './drivers/lifecycle';
 import {makeExitDriver} from './drivers/exit';
+import {makeRecorderDriver} from './drivers/recorder';
 import {makeOrientationDriver} from './drivers/orientation';
 import {makeSplashScreenDriver} from './drivers/splashscreen';
 
@@ -34,6 +35,7 @@ import {drawer} from './screens/drawer';
 import {dialogAbout} from './screens/dialog-about';
 import {dialogThanks} from './screens/dialog-thanks';
 import {compose} from './screens/compose';
+import {composeAudio} from './screens/compose-audio';
 import {thread} from './screens/thread';
 import {conversation} from './screens/conversation';
 import {recipientsInput} from './screens/recipients-input';
@@ -68,6 +70,7 @@ export const drivers = {
   notification: notificationDriver,
   dialog: dialogDriver,
   toast: makeToastDriver(),
+  recorder: makeRecorderDriver(),
   orientation: makeOrientationDriver(),
   splashscreen: makeSplashScreenDriver(),
   exit: makeExitDriver(),
@@ -92,6 +95,7 @@ export const screens: ScreensMapping = {
   [Screens.DialogAbout]: dialogAbout,
   [Screens.DialogThanks]: dialogThanks,
   [Screens.Compose]: withState(compose),
+  [Screens.ComposeAudio]: withState(composeAudio),
   [Screens.Thread]: withState(thread),
   [Screens.Conversation]: withState(conversation),
   [Screens.RecipientsInput]: withState(recipientsInput),

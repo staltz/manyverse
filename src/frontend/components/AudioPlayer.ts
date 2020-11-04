@@ -15,6 +15,8 @@ import {
   TouchableOpacityProps,
   TextProps,
   StyleSheet,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import {
@@ -28,6 +30,7 @@ import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {getBreathingComposition} from '../global-styles/animations';
+import {getAudioTimeString} from './utils/audio';
 
 enum PlayState {
   PAUSED = MediaStates.PAUSED,
@@ -91,6 +94,7 @@ function convertMillisecondsToSeconds(milliseconds: number): number {
 
 export type Props = {
   src: string;
+  style?: StyleProp<ViewStyle>;
 };
 
 export type State = {
@@ -190,22 +194,6 @@ export default class AudioPlayer extends PureComponent<Props, State> {
     this.player?.pause(() => this.setState({playState: PlayState.PAUSED}));
   };
 
-  private getAudioTimeString(seconds: number) {
-    const secondsPreview = Math.floor(seconds % 60);
-    const minutes = Math.floor((seconds / 60) % 60);
-    const hours = Math.floor((seconds / 3600) % 24);
-
-    if (hours > 0) {
-      return `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${
-        secondsPreview < 10 ? '0' + secondsPreview : secondsPreview
-      }`;
-    }
-
-    return `${minutes}:${
-      secondsPreview < 10 ? '0' + secondsPreview : secondsPreview
-    }`;
-  }
-
   private renderTimeText(time: number, accessibilityLabel: string) {
     const timeTextProps: TextProps = {
       accessible: true,
@@ -216,7 +204,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
     return h(
       Text,
       {...timeTextProps, accessibilityLabel},
-      this.getAudioTimeString(time),
+      getAudioTimeString(time),
     );
   }
 
@@ -264,7 +252,8 @@ export default class AudioPlayer extends PureComponent<Props, State> {
   }
 
   public render() {
-    return h(View, {style: styles.container}, [
+    const extraStyle = this.props.style as ViewStyle;
+    return h(View, {style: [styles.container, extraStyle]}, [
       h(View, {style: styles.sliderContainer}, [
         this.renderTimeText(
           this.state.elapsed,

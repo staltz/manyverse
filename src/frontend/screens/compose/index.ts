@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import isolate from '@cycle/isolate';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
@@ -16,6 +16,7 @@ import {
 } from 'cycle-native-asyncstorage';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
+import {GlobalEvent} from '../../drivers/eventbus';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
 import model, {State, topBarLens} from './model';
@@ -33,6 +34,7 @@ export type Sources = {
   navigation: NavSource;
   props: Stream<Props>;
   asyncstorage: AsyncStorageSource;
+  globalEventBus: Stream<GlobalEvent>;
   state: StateSource<State>;
   ssb: SSBSource;
   dialog: DialogSource;
@@ -76,6 +78,7 @@ export function compose(sources: Sources): Sinks {
   const actions = intent(
     sources.screen,
     sources.navigation,
+    sources.globalEventBus,
     topBarSinks.back,
     topBarSinks.previewToggle,
     topBarSinks.done,
@@ -84,7 +87,9 @@ export function compose(sources: Sources): Sinks {
   );
   const dialogActions = dialog(actions, sources.dialog);
   const actionsPlus = {...actions, ...dialogActions};
-  const dismissKeyboard$ = actions.exitOfAnyKind$.mapTo('dismiss' as 'dismiss');
+  const dismissKeyboard$ = xs
+    .merge(actionsPlus.exitOfAnyKind$, actionsPlus.goToComposeAudio$)
+    .mapTo('dismiss' as 'dismiss');
   const vdom$ = view(sources.state.stream, topBarSinks.screen);
   const command$ = navigation(actionsPlus);
   const reducer$ = model(

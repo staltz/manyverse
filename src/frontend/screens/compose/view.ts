@@ -64,12 +64,35 @@ function ContentWarningButton(miniState: MiniState) {
   );
 }
 
+function RecordAudioButton() {
+  return h(
+    TouchableOpacity,
+    {
+      sel: 'record-audio',
+      style: styles.sideButtonContainer,
+      activeOpacity: 0.4,
+      accessible: true,
+      accessibilityRole: 'button',
+      accessibilityLabel: t(
+        'compose.call_to_action.record_audio.accessibility_label',
+      ),
+    },
+    [
+      h(Icon, {
+        size: Dimensions.iconSizeNormal,
+        color: Palette.foregroundNeutral,
+        name: 'microphone',
+      }),
+    ],
+  );
+}
+
 function OpenCameraButton() {
   return h(
     TouchableOpacity,
     {
       sel: 'open-camera',
-      style: styles.addPictureContainer,
+      style: styles.sideButtonContainer,
       activeOpacity: 0.4,
       accessible: true,
       accessibilityRole: 'button',
@@ -92,7 +115,7 @@ function AddPictureButton() {
     TouchableOpacity,
     {
       sel: 'add-picture',
-      style: styles.addPictureContainer,
+      style: styles.sideButtonContainer,
       activeOpacity: 0.4,
       accessible: true,
       accessibilityRole: 'button',
@@ -261,6 +284,7 @@ export default function view(
           h(View, {style: styles.leftSide}, [
             h(Avatar, {size: avatarSize, url: state.selfAvatarUrl}),
             h(View, {style: styles.leftSpacer}),
+            RecordAudioButton(),
             OpenCameraButton(),
             AddPictureButton(),
             ContentWarningButton(state),

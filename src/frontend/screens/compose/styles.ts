@@ -63,10 +63,10 @@ export const styles = StyleSheet.create({
     color: Palette.textBrand,
   },
 
-  addPictureContainer: {
+  sideButtonContainer: {
     paddingHorizontal: Dimensions.horizontalSpaceSmall,
     paddingVertical: Dimensions.verticalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceBig,
+    marginBottom: Dimensions.verticalSpaceNormal,
   },
 
   leftSpacer: {
