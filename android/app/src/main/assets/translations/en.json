@@ -958,18 +958,11 @@
       }
     },
     "audio": {
-      "loading": {
-        "text": "Loading...",
-        "accessibility_label": "Loading file"
-      },
       "play": {
         "accessibility_label": "Play audio"
       },
       "pause": {
         "accessibility_label": "Pause audio"
-      },
-      "stop": {
-        "accessibility_label": "Stop audio"
       },
       "duration": {
         "accessibility_label": "Audio duration"

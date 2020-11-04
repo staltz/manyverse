@@ -7,7 +7,6 @@
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {
-  Animated,
   View,
   TouchableOpacity,
   Platform,
@@ -17,6 +16,7 @@ import {
   StyleSheet,
   StyleProp,
   ViewStyle,
+  ActivityIndicator,
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import {
@@ -29,7 +29,6 @@ import {t} from '../drivers/localization';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
-import {getBreathingComposition} from '../global-styles/animations';
 import {getAudioTimeString} from './utils/audio';
 
 enum PlayState {
@@ -37,32 +36,32 @@ enum PlayState {
   PLAYING = MediaStates.PLAYING,
 }
 
+const DIAMETER = 40;
+const RADIUS = DIAMETER * 0.5;
+
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    marginTop: Dimensions.verticalSpaceNormal,
     backgroundColor: Palette.backgroundTextWeak,
-    minHeight: 100,
+    minHeight: 60,
     overflow: 'visible',
     position: 'relative',
-  },
-
-  initialLoading: {
-    fontSize: Typography.fontSizeNormal,
-    lineHeight: Typography.lineHeightNormal,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.backgroundBrandStrong,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-
-  sliderContainer: {
-    marginVertical: Dimensions.verticalSpaceBig,
-    marginHorizontal: Dimensions.horizontalSpaceBig,
+    paddingHorizontal: Dimensions.horizontalSpaceNormal,
+    justifyContent: 'space-around',
     flexDirection: 'row',
+    alignItems: 'center',
   },
 
   timeText: {
     alignSelf: 'center',
+    fontSize: Typography.fontSizeNormal,
+    color: Palette.text,
+    textAlign: 'center',
+    ...Platform.select({
+      android: {
+        marginBottom: 2,
+      },
+    }),
   },
 
   slider: {
@@ -71,20 +70,22 @@ const styles = StyleSheet.create({
     marginHorizontal: Platform.select({ios: 5}),
   },
 
-  touchable: {
-    borderRadius: 3,
-    paddingLeft: Dimensions.horizontalSpaceSmall,
-    paddingRight: Dimensions.horizontalSpaceBig,
+  controlsTouchable: {
+    width: DIAMETER,
+    height: DIAMETER,
+    borderRadius: RADIUS,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Palette.backgroundBrand,
   },
 
   controlsContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: Dimensions.verticalSpaceBig,
   },
 
   controlButtons: {
-    marginHorizontal: Dimensions.horizontalSpaceLarge,
+    marginRight: Dimensions.horizontalSpaceNormal,
   },
 });
 
@@ -109,7 +110,6 @@ export type State = {
 
 export default class AudioPlayer extends PureComponent<Props, State> {
   private player: Player | null = null;
-  private loadingAnim = new Animated.Value(0);
 
   state: State = {
     playState: PlayState.PAUSED,
@@ -121,10 +121,6 @@ export default class AudioPlayer extends PureComponent<Props, State> {
   };
 
   public componentDidMount() {
-    const breathingAnimation = getBreathingComposition(this.loadingAnim);
-
-    breathingAnimation.start();
-
     this.player = new Player(this.props.src, {
       autoDestroy: false,
     }).prepare((err: PlayerError | null): void => {
@@ -134,9 +130,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
       const duration = convertMillisecondsToSeconds(
         Math.round(this.player.duration),
       );
-      this.setState({duration, fetchingFile: false}, () =>
-        breathingAnimation.stop(),
-      );
+      this.setState({duration, fetchingFile: false});
 
       (this.player as any).on?.('ended', () => {
         this.setState({
@@ -219,8 +213,8 @@ export default class AudioPlayer extends PureComponent<Props, State> {
 
   private renderControlButtons() {
     const touchableProps: TouchableOpacityProps = {
-      style: styles.touchable,
-      activeOpacity: 0.2,
+      style: styles.controlsTouchable,
+      activeOpacity: 0.7,
       accessible: true,
       accessibilityRole: 'button',
     };
@@ -237,7 +231,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
             [
               h(Icon, {
                 size: Dimensions.iconSizeBig,
-                color: Palette.backgroundBrandStrong,
+                color: Palette.textForBackgroundBrand,
                 name: 'pause',
               }),
             ],
@@ -252,7 +246,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
             [
               h(Icon, {
                 size: Dimensions.iconSizeBig,
-                color: Palette.backgroundBrandStrong,
+                color: Palette.textForBackgroundBrand,
                 name: 'play',
               }),
             ],
@@ -263,52 +257,42 @@ export default class AudioPlayer extends PureComponent<Props, State> {
   public render() {
     const extraStyle = this.props.style as ViewStyle;
     return h(View, {style: [styles.container, extraStyle]}, [
-      h(View, {style: styles.sliderContainer}, [
-        this.renderTimeText(
-          this.state.elapsed,
-          t('message.audio.elapsed.accessibility_label'),
-        ),
+      this.state.fetchingFile
+        ? h(ActivityIndicator, {
+            style: styles.controlButtons,
+            animating: true,
+            size: DIAMETER,
+            color: Palette.backgroundBrand,
+          })
+        : this.renderControlButtons(),
 
-        h(Slider, {
-          onSlidingStart: this.onSliderEditStart,
-          onSlidingComplete: this.onSliderEditEnd,
-          onValueChange: this.onSliderValueChange,
-          disabled: this.state.fetchingFile,
-          value: this.state.elapsedSlider,
-          step: 1,
-          minimumValue: 0,
-          maximumValue: this.state.duration,
-          maximumTrackTintColor: Palette.colors.gray6,
-          minimumTrackTintColor: Palette.backgroundBrandWeaker,
-          thumbTintColor: Palette.backgroundBrandStrong,
-          accessible: true,
-          accessibilityRole: 'adjustable',
-          accessibilityLabel: t('message.audio.slider.accessibility_label'),
-          style: styles.slider,
-        }),
+      this.renderTimeText(
+        this.state.elapsed,
+        t('message.audio.elapsed.accessibility_label'),
+      ),
 
-        this.renderTimeText(
-          this.state.duration,
-          t('message.audio.duration.accessibility_label'),
-        ),
-      ]),
+      h(Slider, {
+        onSlidingStart: this.onSliderEditStart,
+        onSlidingComplete: this.onSliderEditEnd,
+        onValueChange: this.onSliderValueChange,
+        disabled: this.state.fetchingFile,
+        value: this.state.elapsedSlider,
+        step: 1,
+        minimumValue: 0,
+        maximumValue: this.state.duration,
+        maximumTrackTintColor: Palette.colors.gray6,
+        minimumTrackTintColor: Palette.backgroundBrand,
+        thumbTintColor: Palette.backgroundBrand,
+        accessible: true,
+        accessibilityRole: 'adjustable',
+        accessibilityLabel: t('message.audio.slider.accessibility_label'),
+        style: styles.slider,
+      }),
 
-      h(View, {style: styles.controlsContainer}, [
-        this.state.fetchingFile
-          ? h(
-              Animated.Text,
-              {
-                accessible: true,
-                accessibilityRole: 'text',
-                accessibilityLabel: t(
-                  'message.audio.loading.accessibility_label',
-                ),
-                style: [styles.initialLoading, {opacity: this.loadingAnim}],
-              },
-              [t('message.audio.loading.text')],
-            )
-          : this.renderControlButtons(),
-      ]),
+      this.renderTimeText(
+        this.state.duration,
+        t('message.audio.duration.accessibility_label'),
+      ),
     ]);
   }
 }
