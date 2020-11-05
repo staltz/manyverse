@@ -6,6 +6,18 @@
 - [F-Droid](https://f-droid.org/packages/se.manyver/)
 - [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
 
+## 0.2011.5-beta
+
+* (Android) Fix audio message playback on some devices ([see details](https://gitlab.com/staltz/manyverse/commit/2833f77d7e230beccb8163f1ccd1b3534b3ca4c2))
+* (Android) Make APK size 4MB smaller ([see details](https://gitlab.com/staltz/manyverse/commit/3d8fa3d5b0f328e521aab2c74cb44c5154a133bc))
+* (Android) Remove unnecessary Android Permission ([see details](https://gitlab.com/staltz/manyverse/commit/5cba6ab3559df22f82033afcc7e58a81eb372f0f))
+* Bug fix: unread markers behave more consistently ([see details](https://gitlab.com/staltz/manyverse/commit/dcaf71aa131215b5bdec0c70c6cfaad52ce43626))
+* Feature: record audio messages and attach them ([see details](https://gitlab.com/staltz/manyverse/commit/b772acd28751e153112a3a83641af57ab5cda45c))
+* Improve Arabic translation ([see details](https://gitlab.com/staltz/manyverse/commit/6a61d8fd51dd2d4f79f25160869fd90ec3765605))
+* Improve looks of the audio player ([see details](https://gitlab.com/staltz/manyverse/commit/3dc05c7382e620dfe665b3ea09e0dbb6f236dcd4))
+* Improve the user experience of the audio player ([see details](https://gitlab.com/staltz/manyverse/commit/a0b4d5eca339d751888099af99692167b4c58ddb))
+* Translate to Swedish (100%) ([see details](https://gitlab.com/staltz/manyverse/commit/3d46f543e4ad34e0135d74cb9eb079c0481356dc))
+
 ## 0.2010.5-beta
 
 * Bug fix: correct timestamps of private messages ([see details](https://gitlab.com/staltz/manyverse/commit/677bce02049476010045f590ad4e8b47818a46c9))

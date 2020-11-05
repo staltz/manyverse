@@ -267,7 +267,7 @@ export default [
   {
     name: 'electron',
     type: 'library',
-    version: '7.2.4',
+    version: '10.1.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/electron/electron#readme',
   },
@@ -798,16 +798,30 @@ export default [
   {
     name: 'ssb-keys',
     type: 'library',
-    version: '7.2.2',
+    version: '8.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-keys',
   },
   {
     name: 'ssb-keys-mnemonic',
     type: 'library',
-    version: '0.3.0',
+    version: '1.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-keys-mnemonic',
+  },
+  {
+    name: 'ssb-keys-mnemonic-neon',
+    type: 'library',
+    version: '1.0.0-2',
+    license: 'GNU Affero General Public License v3.0 (AGPL-3.0)',
+    homepage: 'https://github.com/staltz/ssb-keys-mnemonic-neon#readme',
+  },
+  {
+    name: 'ssb-keys-neon',
+    type: 'library',
+    version: '8.0.0-8',
+    license: 'GNU Affero General Public License v3.0 (AGPL-3.0)',
+    homepage: 'https://github.com/staltz/ssb-keys-neon#readme',
   },
   {
     name: 'ssb-lan',
