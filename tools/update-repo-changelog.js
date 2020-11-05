@@ -13,9 +13,10 @@ intoStream(
     '\n' +
     '**Update from one of these sources:**\n' +
     '\n' +
-    '- [Play Store](https://play.google.com/store/apps/details?id=se.manyver)\n' +
-    '- [F-Droid](https://f-droid.org/packages/se.manyver/)\n' +
-    '- [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)\n' +
+    '- (Android) [Play Store](https://play.google.com/store/apps/details?id=se.manyver)\n' +
+    '- (Android) [F-Droid](https://f-droid.org/packages/se.manyver/)\n' +
+    '- (Android) [APK file](https://manyver.se/apk)\n' +
+    '- (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)\n' +
     '\n',
 )
   .pipe(addStream(generateChangelog(0)))

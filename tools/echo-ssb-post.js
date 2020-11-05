@@ -13,9 +13,7 @@ intoStream('--------------BEGIN SCUTTLEBUTT POST--------------\n')
     addStream(
       intoStream(
         '**Update from one of these sources:**\n\n' +
-          '- (Android) [Dat Installer](https://github.com/staltz/dat-installer/) (available now)\n' +
-          '  - insert `dat://manyverse-latest.hashbase.io`\n' +
-          '  - or insert `dat://520a00daf0a309bef7722b3f3338854e9da667d01e48dc7b83b118d86354d6d3`\n' +
+          '- (Android) [APK file](https://manyver.se/apk) (available now)\n' +
           '- (Android) [Play Store](https://play.google.com/store/apps/details?id=se.manyver) (available within 12h)\n' +
           '- (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617) (available within 24h)\n' +
           '- (Android) [F-Droid](https://f-droid.org/packages/se.manyver/) (available within 72h or more)\n' +
