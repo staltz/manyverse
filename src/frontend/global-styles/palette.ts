@@ -5,16 +5,18 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 const white = '#ffffff';
-const gray0 = '#f8f9fa';
-const gray1 = '#f1f3f5';
-const gray2 = '#e9ecef';
-const gray3 = '#dee2e6';
-const gray4 = '#ced4da';
-const gray5 = '#adb5bd';
-const gray6 = '#868e96';
-const gray7 = '#495057';
-const gray8 = '#343a40';
-const gray9 = '#212529';
+const black = '#000000';
+
+const comet0 = '#f3f4f6';
+const comet1 = '#d4d6de';
+const comet2 = '#b5b8c7';
+const comet3 = '#959baf';
+const comet4 = '#767d98';
+const comet5 = '#575f80';
+const comet6 = '#474d68';
+const comet7 = '#373c50';
+const comet8 = '#262a39';
+const comet9 = '#161821';
 
 const red0 = '#fff5f5';
 const red1 = '#ffe3e3';
@@ -171,13 +173,13 @@ export const Palette = {
   backgroundBrandStrong: indigo9,
   backgroundBrandStronger: indigo10,
 
-  backgroundVoidWeak: gray1,
-  backgroundVoid: gray2,
-  backgroundVoidStrong: gray4,
-  backgroundVoidStronger: gray6,
+  backgroundVoidWeak: comet1,
+  backgroundVoid: comet2,
+  backgroundVoidStrong: comet4,
+  backgroundVoidStronger: comet6,
 
-  backgroundTextWeak: gray1,
-  backgroundTextWeakStrong: gray5,
+  backgroundTextWeak: comet1,
+  backgroundTextWeakStrong: comet5,
   backgroundText: white,
   backgroundTextSelection: indigo3,
   backgroundTextBrand: indigo0,
@@ -192,17 +194,17 @@ export const Palette = {
   backgroundWarningAction: yellow6,
   backgroundHackerVoid: indigo12,
 
-  foregroundNeutral: gray6,
+  foregroundNeutral: comet6,
 
   transparencyDarkWeak: '#00000020',
   transparencyDark: '#00000033',
   transparencyDarkStrong: '#00000066',
 
-  textVeryWeak: gray5,
-  textWeak: gray7,
-  text: gray9,
+  textVeryWeak: comet5,
+  textWeak: comet7,
+  text: comet9,
   textCTA: teal5,
-  textLine: gray3,
+  textLine: comet3,
   textBrand: indigo8,
   textPositive: teal5,
   textNegative: red6,
@@ -213,16 +215,18 @@ export const Palette = {
 
   colors: {
     white,
-    gray0,
-    gray1,
-    gray2,
-    gray3,
-    gray4,
-    gray5,
-    gray6,
-    gray7,
-    gray8,
-    gray9,
+    black,
+
+    comet0,
+    comet1,
+    comet2,
+    comet3,
+    comet4,
+    comet5,
+    comet6,
+    comet7,
+    comet8,
+    comet9,
 
     red0,
     red1,

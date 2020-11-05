@@ -280,7 +280,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
         step: 1,
         minimumValue: 0,
         maximumValue: this.state.duration,
-        maximumTrackTintColor: Palette.colors.gray6,
+        maximumTrackTintColor: Palette.colors.comet6,
         minimumTrackTintColor: Palette.backgroundBrand,
         thumbTintColor: Palette.backgroundBrand,
         accessible: true,
