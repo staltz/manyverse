@@ -70,7 +70,7 @@
     "i18n-js": "3.7.1",
     "lodash.memoize": "~4.1.2",
     "mdast-normalize-react-native": "3.2.x",
-    "nodejs-mobile-react-native": "0.6.1",
+    "nodejs-mobile-react-native": "0.6.2",
     "path": "~0.12.7",
     "promisify-tuple": "1.0.1",
     "pull-backoff": "1.0.0",

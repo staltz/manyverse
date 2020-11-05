@@ -19,7 +19,7 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - nodejs-mobile-react-native (0.6.1):
+  - nodejs-mobile-react-native (0.6.2):
     - React
   - QBImagePickerController (3.4.0)
   - RCTRequired (0.61.5)
@@ -396,7 +396,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 118d0d177724c2d67f08a59136eb29ef5943ec75
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  nodejs-mobile-react-native: eb53f8f704895c6ca096620dea7fc3e521442dd1
+  nodejs-mobile-react-native: e11b064239f4daeb130a02a7cdea5a4d0ea8d6e0
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTSystemSetting: f1273cd074d852c98fc5490e7a1d21b3eb91b948

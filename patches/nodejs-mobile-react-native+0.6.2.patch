@@ -1,10 +1,11 @@
-patch-package
+diff --git a/node_modules/nodejs-mobile-react-native/android/src/main/java/com/janeasystems/rn_nodejs_mobile/RNNodeJsMobileModule.java b/node_modules/nodejs-mobile-react-native/android/src/main/java/com/janeasystems/rn_nodejs_mobile/RNNodeJsMobileModule.java
+index e882a0c..824097a 100644
 --- a/node_modules/nodejs-mobile-react-native/android/src/main/java/com/janeasystems/rn_nodejs_mobile/RNNodeJsMobileModule.java
 +++ b/node_modules/nodejs-mobile-react-native/android/src/main/java/com/janeasystems/rn_nodejs_mobile/RNNodeJsMobileModule.java
 @@ -45,6 +45,11 @@ public class RNNodeJsMobileModule extends ReactContextBaseJavaModule implements
    private static String builtinModulesPath;
    private static String nativeAssetsPath;
-
+ 
 +  public interface Invokable<T> {
 +    public void invoke(T param);
 +  }
@@ -16,7 +17,7 @@ patch-package
 @@ -91,6 +96,10 @@ public class RNNodeJsMobileModule extends ReactContextBaseJavaModule implements
      asyncInit();
    }
-
+ 
 +  public void setJsExceptionInvokable(Invokable<String> i) {
 +    jsExceptionInvokable = i;
 +  }
@@ -24,7 +25,7 @@ patch-package
    private void asyncInit() {
      if (wasAPKUpdated()) {
        try {
-@@ -243,6 +236,12 @@ public class RNNodeJsMobileModule extends ReactContextBaseJavaModule implements
+@@ -243,6 +252,12 @@ public class RNNodeJsMobileModule extends ReactContextBaseJavaModule implements
        final RNNodeJsMobileModule _moduleInstance = _instance;
        final String _channelNameToPass = new String(channelName);
        final String _msgToPass = new String(msg);
