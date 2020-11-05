@@ -7,6 +7,7 @@
 import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
 import {Response as RecorderResponse} from '../../drivers/recorder';
+import {Platform} from 'react-native';
 
 export type State = {
   filename: string;
@@ -32,8 +33,9 @@ export default function model(
   const initOrResetReducer$ = actions.discardRecording$.startWith(null).map(
     () =>
       function initOrResetReducer(_prev?: State): State {
+        const ext = Platform.OS === 'ios' ? 'mp4' : 'mp3';
         return {
-          filename: `${Date.now()}.mp3`,
+          filename: `${Date.now()}.${ext}`,
           status: 'idle',
           path: null,
           startedRecordingAt: 0,

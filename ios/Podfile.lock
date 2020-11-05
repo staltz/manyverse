@@ -23,7 +23,7 @@ PODS:
     - React
   - QBImagePickerController (3.4.0)
   - RCTRequired (0.61.5)
-  - RCTSystemSetting (1.7.3):
+  - RCTSystemSetting (1.7.5):
     - React
   - RCTTypeSafety (0.61.5):
     - FBLazyVector (= 0.61.5)
@@ -234,26 +234,24 @@ PODS:
     - React
   - ReactNativeNavigation (4.8.1):
     - React
-  - rn-fetch-blob (0.12.0):
-    - React-Core
-  - RNCAsyncStorage (1.6.1):
+  - RNCAsyncStorage (1.11.0):
     - React
   - RNFS (2.16.6):
     - React
-  - RNHasInternet (4.1.0):
+  - RNHasInternet (4.2.0):
     - React
   - RNImageCropPicker (0.26.1):
     - QBImagePickerController
     - React-Core
     - React-RCTImage
     - RSKImageCropper
-  - RNLocalize (1.4.0):
+  - RNLocalize (1.4.1):
     - React
   - RNOS (2.2.0):
     - React
   - RNVectorIcons (6.6.0):
     - React
-  - RSKImageCropper (2.2.3)
+  - RSKImageCropper (3.0.0)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -293,7 +291,6 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "ReactNativeAudioToolkit (from `../node_modules/@react-native-community/audio-toolkit`)"
   - ReactNativeNavigation (from `../node_modules/react-native-navigation/ReactNativeNavigation.podspec`)
-  - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNHasInternet (from `../node_modules/react-native-has-internet`)
@@ -375,8 +372,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/audio-toolkit"
   ReactNativeNavigation:
     :podspec: "../node_modules/react-native-navigation/ReactNativeNavigation.podspec"
-  rn-fetch-blob:
-    :path: "../node_modules/rn-fetch-blob"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
   RNFS:
@@ -404,7 +399,7 @@ SPEC CHECKSUMS:
   nodejs-mobile-react-native: eb53f8f704895c6ca096620dea7fc3e521442dd1
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
-  RCTSystemSetting: 2870be06565f2398a8786bfe8486ff6880a4326a
+  RCTSystemSetting: f1273cd074d852c98fc5490e7a1d21b3eb91b948
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
   React: b6a59ef847b2b40bb6e0180a97d0ca716969ac78
   React-Core: 688b451f7d616cc1134ac95295b593d1b5158a04
@@ -429,17 +424,16 @@ SPEC CHECKSUMS:
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   ReactNativeAudioToolkit: e3e27fbcd12080f54f8715c54de7a232d3beb98d
   ReactNativeNavigation: dd001e289d2828340579521adc054f21330d18b1
-  rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
-  RNCAsyncStorage: 621bad7a889b5bf1583a52547f2dcd3a4d1ff15e
+  RNCAsyncStorage: db711e29e5e0500d9bd21aa0c2e397efa45302b1
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
-  RNHasInternet: a0e082ec9ec2244a251fd95f70ed4b16ea7b0089
+  RNHasInternet: 77abd78adf7f721bf4d00e38fbf91f5b64e0d312
   RNImageCropPicker: e1d8c3381e5b05a1bdcd13ea57a4f1c020a09cef
-  RNLocalize: fc27ee5878ce5a3af73873fb2d8e866e0d1e6d84
+  RNLocalize: c388679af021ddd6069c215f7fdd2acf4e77ede5
   RNOS: 6299cef6f70a1bc5f53f00ed516f0f9ef35fea5a
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
-  RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
+  RSKImageCropper: 81f449b4df96bdaf28e1ad6dcce28dcda2235458
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: ab59726829845da6cb6215514715dd66c5d24bf1
+PODFILE CHECKSUM: 073ea557a337472a05f7729ebe775f19a07e2ff1
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0
