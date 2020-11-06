@@ -71,7 +71,7 @@ function bold(innerText: string) {
 
 export const navOptions = {
   layout: {
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
   },
   topBar: {
     visible: false,

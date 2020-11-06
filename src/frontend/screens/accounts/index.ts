@@ -120,7 +120,7 @@ export function accounts(sources: Sources): Sinks {
           style: styles.container,
           refreshControl: h(RefreshControl, {
             refreshing: state.abouts.length === 0,
-            colors: [Palette.backgroundBrand],
+            colors: [Palette.brandMain],
           }),
         },
         [h(AccountsList, {sel: 'accounts', accounts: abouts} as ListProps)],

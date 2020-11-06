@@ -107,8 +107,8 @@ export const styles = StyleSheet.create({
   },
 
   bubbleRight: {
-    backgroundColor: Palette.backgroundBrandWeakest,
-    borderColor: Palette.backgroundBrandWeaker,
+    backgroundColor: Palette.brandWeakest,
+    borderColor: Palette.brandWeaker,
     borderRadius: 10,
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Dimensions.verticalSpaceTiny,

@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.avatarSizeNormal,
     width: Dimensions.avatarSizeNormal,
     borderRadius: Dimensions.avatarSizeNormal * 0.5,
-    backgroundColor: Palette.backgroundBrandWeakest,
+    backgroundColor: Palette.brandWeakest,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -105,7 +105,7 @@ export default class StagedItem extends PureComponent<Props> {
             h(View, {style: styles.avatar}, [
               h(Icon, {
                 size: Dimensions.iconSizeNormal,
-                color: Palette.backgroundBrandWeaker,
+                color: Palette.brandWeaker,
                 name: peerModeIcon(data),
               }),
             ]),

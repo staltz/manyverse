@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     width: Dimens.dotSize,
     height: Dimens.dotSize,
     borderRadius: Dimens.dotSize * 0.5,
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
     marginRight: Dimens.horizontalSpaceSmall,
   },
 

@@ -52,7 +52,7 @@ class FadingLoader extends Component<{timestamp: number}> {
       h(ActivityIndicator, {
         animating: true,
         size: 60,
-        color: Palette.backgroundBrand,
+        color: Palette.brandMain,
       }),
     ]);
   }
@@ -78,7 +78,7 @@ function ConnectivityMode(props: {
         h(Icon, {
           size: Dimensions.iconSizeBig,
           color: props.active
-            ? Palette.backgroundBrand
+            ? Palette.brandMain
             : Palette.backgroundVoidStrong,
           name: props.icon,
           accessible: true,

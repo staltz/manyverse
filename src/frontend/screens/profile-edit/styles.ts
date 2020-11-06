@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   },
 
   cover: {
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
     height: avatarSizeHalf,
     zIndex: 10,
   },

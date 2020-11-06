@@ -83,7 +83,7 @@ export default class SliderSetting extends PureComponent<Props, State> {
           maximumValue: options.length - 1,
           step: 1,
           value: initial,
-          minimumTrackTintColor: Palette.backgroundBrand,
+          minimumTrackTintColor: Palette.brandMain,
           onValueChange: this.onSlide,
           onSlidingComplete: this.onSlidingComplete,
         }),

@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
     flexDirection: 'column',
   },
 

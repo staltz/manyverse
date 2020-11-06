@@ -51,7 +51,7 @@ export default class Feed extends PureComponent<Props, {}> {
       pullAmount: 2,
       numColumns: 1,
       refreshable: true,
-      refreshColors: [Palette.backgroundBrandWeak],
+      refreshColors: [Palette.brandWeak],
       ItemSeparatorComponent: RawFeedItemSeparator,
       renderItem: ({item}) =>
         h(ShortRawMessage, {

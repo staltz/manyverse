@@ -51,7 +51,7 @@ export default class Avatar extends PureComponent<Props> {
       height: size,
       width: size,
       borderRadius,
-      backgroundColor: backgroundColor ?? Palette.backgroundBrandWeakest,
+      backgroundColor: backgroundColor ?? Palette.brandWeakest,
     };
     return h(View, {style: [baseStyle, style] as readonly ViewStyle[]}, [
       h(Image, {

@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.toolbarHeight,
     paddingTop: getStatusBarHeight(true),
     alignSelf: 'stretch',
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -68,7 +68,7 @@ export const styles = StyleSheet.create({
   },
 
   buttonDisabled: {
-    backgroundColor: Palette.backgroundBrandWeak,
+    backgroundColor: Palette.brandWeak,
     minWidth: 80,
     marginLeft: Dimensions.horizontalSpaceNormal,
   },

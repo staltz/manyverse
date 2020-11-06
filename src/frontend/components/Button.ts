@@ -42,13 +42,13 @@ export const styles = StyleSheet.create({
   container: {
     ...baseContainerStyle,
     backgroundColor: 'transparent',
-    borderColor: Palette.backgroundBrand,
+    borderColor: Palette.brandMain,
     borderWidth: 1,
   },
 
   containerStrong: {
     ...baseContainerStyle,
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
     borderWidth: 0,
   },
 
@@ -121,7 +121,7 @@ export default class Button extends Component<Props, {}> {
     };
     if (Platform.OS === 'android') {
       touchableProps.background = TouchableNativeFeedback.Ripple(
-        strong ? Palette.transparencyDarkStrong : Palette.backgroundBrand,
+        strong ? Palette.transparencyDarkStrong : Palette.brandMain,
       );
     }
 

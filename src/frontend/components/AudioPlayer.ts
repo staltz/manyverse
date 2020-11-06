@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: RADIUS,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
   },
 
   controlsContainer: {
@@ -262,7 +262,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
             style: styles.controlButtons,
             animating: true,
             size: DIAMETER,
-            color: Palette.backgroundBrand,
+            color: Palette.brandMain,
           })
         : this.renderControlButtons(),
 
@@ -281,8 +281,8 @@ export default class AudioPlayer extends PureComponent<Props, State> {
         minimumValue: 0,
         maximumValue: this.state.duration,
         maximumTrackTintColor: Palette.colors.comet6,
-        minimumTrackTintColor: Palette.backgroundBrand,
-        thumbTintColor: Palette.backgroundBrand,
+        minimumTrackTintColor: Palette.brandMain,
+        thumbTintColor: Palette.brandMain,
         accessible: true,
         accessibilityRole: 'adjustable',
         accessibilityLabel: t('message.audio.slider.accessibility_label'),

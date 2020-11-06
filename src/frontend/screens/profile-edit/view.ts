@@ -103,7 +103,7 @@ export default function view(state$: Stream<State>) {
               multiline: false,
               autoFocus: true,
               defaultValue: defaultName,
-              underlineColorAndroid: Palette.backgroundBrand,
+              underlineColorAndroid: Palette.brandMain,
               accessible: true,
               accessibilityLabel: t(
                 'profile_edit.fields.name.accessibility_label',
@@ -123,7 +123,7 @@ export default function view(state$: Stream<State>) {
               // numberOfLines: 1,
               scrollEnabled: false,
               defaultValue: state.about.description ?? '',
-              underlineColorAndroid: Palette.backgroundBrand,
+              underlineColorAndroid: Palette.brandMain,
               accessible: true,
               accessibilityLabel: t(
                 'profile_edit.fields.description.accessibility_label',

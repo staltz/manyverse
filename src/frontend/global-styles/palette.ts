@@ -166,12 +166,12 @@ function colorHash(str: string) {
 }
 
 export const Palette = {
-  backgroundBrandWeakest: indigo1,
-  backgroundBrandWeaker: indigo3,
-  backgroundBrandWeak: indigo6,
-  backgroundBrand: indigo8,
-  backgroundBrandStrong: indigo9,
-  backgroundBrandStronger: indigo10,
+  brandWeakest: indigo1,
+  brandWeaker: indigo3,
+  brandWeak: indigo5,
+  brandMain: indigo7,
+  brandStrong: indigo9,
+  brandStronger: indigo11,
 
   backgroundVoidWeak: comet1,
   backgroundVoid: comet2,

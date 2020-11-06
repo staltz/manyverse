@@ -53,7 +53,7 @@ function showNotification(data: Response): Promise<void> {
     sound: null,
     vibrate: null,
     lights: null,
-    color: Palette.backgroundBrand,
+    color: Palette.brandMain,
     category: 'progress',
     autoClear: true,
   });

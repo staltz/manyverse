@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
   container: {
     ...baseContainerStyle,
     backgroundColor: 'transparent',
-    borderColor: Palette.backgroundBrand,
+    borderColor: Palette.brandMain,
     borderWidth: 1,
   },
 
@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
 
   containerToggled: {
     ...baseContainerStyle,
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
   },
 
   text: {

@@ -92,8 +92,8 @@ export default class ToggleSetting extends PureComponent<Props> {
           ...Platform.select({
             ios: {
               trackColor: {
-                false: Palette.backgroundBrand,
-                true: Palette.backgroundBrand,
+                false: Palette.brandMain,
+                true: Palette.brandMain,
               },
             },
           }),

@@ -85,7 +85,7 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
         h(Avatar, {
           style: styles.authorImage,
           size: Dimensions.avatarSizeNormal,
-          backgroundColor: Palette.backgroundBrandStrong,
+          backgroundColor: Palette.brandStrong,
           url: state.selfAvatarUrl,
         }),
         renderName(state.name),

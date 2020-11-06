@@ -45,7 +45,7 @@ export const navOptions = {
     height: 0,
   },
   layout: {
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
   },
 };
 

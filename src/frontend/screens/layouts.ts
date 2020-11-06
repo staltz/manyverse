@@ -49,7 +49,7 @@ export const centralLayout: Layout = {
 export const defaultNavOptions: Options = {
   statusBar: {
     visible: true,
-    backgroundColor: Palette.backgroundBrandStrong,
+    backgroundColor: Palette.brandStrong,
     style: 'light',
   },
   sideMenu: {
@@ -71,7 +71,7 @@ export const defaultNavOptions: Options = {
     elevation: 0,
     leftButtonColor: Palette.textForBackgroundBrand,
     background: {
-      color: Palette.backgroundBrand,
+      color: Palette.brandMain,
     },
     title: {
       text: '',

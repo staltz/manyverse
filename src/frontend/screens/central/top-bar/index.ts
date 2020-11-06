@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.toolbarHeight,
     paddingTop: getStatusBarHeight(true),
     alignSelf: 'stretch',
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',

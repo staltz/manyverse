@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     top: -SCROLL_BOUNCE_REGION,
     left: 0,
     right: 0,
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
     height: SCROLL_BOUNCE_REGION + COVER_HEIGHT,
     zIndex: 10,
   },

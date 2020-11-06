@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
   },
 

@@ -10,8 +10,8 @@ import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
 
 export const navigatorStyle = {
-  statusBarColor: Palette.backgroundBrandStrong,
-  navBarBackgroundColor: Palette.backgroundBrand,
+  statusBarColor: Palette.brandStrong,
+  navBarBackgroundColor: Palette.brandMain,
   navBarTextColor: Palette.textForBackgroundBrand,
   navBarTextFontSize: Typography.fontSizeLarge,
   navBarTextFontFamily: Typography.fontFamilyReadableText,
@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
   },
 
   acceptButtonDisabled: {
-    backgroundColor: Palette.backgroundBrandWeak,
+    backgroundColor: Palette.brandWeak,
     width: 80,
   },
 });

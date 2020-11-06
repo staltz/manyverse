@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
 
   header: {
-    backgroundColor: Palette.backgroundBrand,
+    backgroundColor: Palette.brandMain,
     minHeight: Platform.select({
       android: 109,
       default: 100,
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
   authorId: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.backgroundBrandWeakest,
+    color: Palette.brandWeakest,
     fontWeight: 'normal',
   },
 

@@ -89,7 +89,7 @@ export const styles = StyleSheet.create({
   },
 
   nextButtonDisabled: {
-    backgroundColor: Palette.backgroundBrandWeak,
+    backgroundColor: Palette.brandWeak,
     minWidth: 68,
     marginLeft: Dimensions.horizontalSpaceNormal,
   },
