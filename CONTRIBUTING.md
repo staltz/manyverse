@@ -73,17 +73,21 @@ and follow the [official React Native docs](https://reactnative.dev/docs/environ
 
 ### Android SDK
 
-If your target OS is Android, you need Android Studio and a recent Android SDK (installable through Android Studio).
+If your target OS is Android, make sure you have the Android SDK CLI installed locally so you can run [`sdkmanager`](https://developer.android.com/studio/command-line/sdkmanager). To install the Android SDK CLI, [follow these instructions](https://developer.android.com/studio/#command-tools) ("Command line tools only").
 
-Add the debug keystore information to the `~/.gradle/gradle.properties` file.
+Then use `sdkmanager` to install these components:
+
+```
+sdkmanager 'build-tools;28.0.3' 'cmake;3.6.4111459' 'ndk;21.3.6528147' 'platforms;android-29' 'tools'
+```
 
 You should also set the environment variable `ANDROID_NDK_HOME`, as in this example:
 
 ```
-export ANDROID_NDK_HOME=/Users/<username>/Library/Android/sdk/ndk-bundle
+export ANDROID_NDK_HOME=/path/to/your/android/sdk/ndk/21.3.6528147
 ```
 
-Then, open this project's `./android` folder in Android Studio (as an existing project), so that it detects, downloads and configures requirements that might be missing, like the NDK and CMake to build the native code part of the project. **OR** download those via the sdkmanager `$ANDROID_HOME/tools/bin/sdkmanager 'ndk-bundle' 'cmake;3.6.4111459'`. If Android Studio recommends updating the Gradle plugin, **reject it**.
+Add your debug keystore information to the `~/.gradle/gradle.properties` file.
 
 Also check out [nodejs-mobile docs](https://code.janeasystems.com/nodejs-mobile/getting-started-android#android-sdk-requirements) for the additional Android SDK requirements on your computer.
 
