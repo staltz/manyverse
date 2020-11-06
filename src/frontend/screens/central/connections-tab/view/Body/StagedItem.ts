@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Animated, Appearance} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../../../global-styles/palette';
@@ -13,6 +13,8 @@ import {Dimensions} from '../../../../../global-styles/dimens';
 import {Typography} from '../../../../../global-styles/typography';
 import {StagedPeerKV} from '../../../../../ssb/types';
 import {peerModeName, peerModeIcon, peerModeStagedDescription} from './utils';
+
+const colorScheme = Appearance.getColorScheme();
 
 export const styles = StyleSheet.create({
   itemContainer: {
@@ -39,7 +41,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.avatarSizeNormal,
     width: Dimensions.avatarSizeNormal,
     borderRadius: Dimensions.avatarSizeNormal * 0.5,
-    backgroundColor: Palette.brandWeakest,
+    backgroundColor: colorScheme === 'dark' ? Palette.backgroundText : Palette.brandWeakest,
     alignItems: 'center',
     justifyContent: 'center',
   },

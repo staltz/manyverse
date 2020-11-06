@@ -5,11 +5,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Appearance} from 'react-native';
 import {h} from '@cycle/react';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import MessageFooter from './MessageFooter';
+
+const colorScheme = Appearance.getColorScheme();
 
 export const styles = StyleSheet.create({
   container: {
@@ -45,7 +47,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.iconSizeNormal,
     width: Dimensions.iconSizeNormal,
     borderRadius: 6,
-    backgroundColor: Palette.voidWeak,
+    backgroundColor: colorScheme === 'dark' ? Palette.voidStronger : Palette.voidWeak,
   },
 });
 

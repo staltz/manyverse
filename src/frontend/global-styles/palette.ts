@@ -7,7 +7,6 @@
 import {Appearance} from 'react-native'
 
 const colorScheme = Appearance.getColorScheme();
-console.log(colorScheme);
 
 const white = '#ffffff';
 const black = '#000000';
@@ -178,42 +177,42 @@ export const Palette = {
   brandStrong: indigo9,
   brandStronger: indigo11,
 
-  voidWeak: comet0,
-  voidMain: comet1,
-  voidStrong: comet2,
-  voidStronger: comet3,
+  voidWeak: colorScheme === 'dark' ? black : comet0,
+  voidMain: colorScheme === 'dark' ? comet9 : comet1,
+  voidStrong: colorScheme === 'dark' ? comet8 : comet2,
+  voidStronger: colorScheme === 'dark' ? comet7 : comet3,
 
-  backgroundTextWeak: comet1,
-  backgroundTextWeakStrong: comet5,
-  backgroundText: white,
+  backgroundTextWeak: colorScheme === 'dark' ? comet9 : comet0,
+  backgroundTextWeakStrong: colorScheme === 'dark' ? comet6 : comet3,
+  backgroundText: colorScheme === 'dark' ? comet8 : white,
   backgroundTextSelection: indigo3,
-  backgroundTextBrand: indigo0,
-  backgroundTextHacker: indigo10,
+  backgroundTextBrand: colorScheme === 'dark' ? comet9 :indigo0,
+  backgroundTextHacker: colorScheme === 'dark' ? comet1 : comet9,
 
-  backgroundPeerConnected: teal6,
-  backgroundPeerConnecting: yellow6,
-  backgroundPeerDisconnecting: red6,
+  backgroundPeerConnected: teal5,
+  backgroundPeerConnecting: yellow5,
+  backgroundPeerDisconnecting: red5,
 
-  backgroundCTA: teal6,
-  backgroundRecord: red6,
-  backgroundWarningAction: yellow6,
-  backgroundHackerVoid: indigo12,
+  backgroundCTA: teal5,
+  backgroundRecord: red5,
+  backgroundWarningAction: yellow5,
+  backgroundHackerVoid: colorScheme === 'dark' ? comet1 : comet9,
 
-  foregroundNeutral: comet6,
+  foregroundNeutral: colorScheme === 'dark' ? comet6 : comet4,
 
   transparencyDarkWeak: '#00000020',
   transparencyDark: '#00000033',
   transparencyDarkStrong: '#00000066',
 
-  textVeryWeak: comet5,
-  textWeak: comet7,
-  text: comet9,
-  textCTA: teal5,
-  textLine: comet3,
-  textBrand: indigo8,
-  textPositive: teal5,
-  textNegative: red6,
-  textHacker: teal3,
+  textVeryWeak: colorScheme === 'dark' ? comet5 : comet3,
+  textWeak: colorScheme === 'dark' ? comet4 : comet5,
+  text: colorScheme === 'dark' ? comet1 : comet9,
+  textCTA: teal4,
+  textLine: comet2,
+  textBrand: colorScheme === 'dark' ? indigo4 : indigo7,
+  textPositive: teal4,
+  textNegative: red5,
+  textHacker: teal2,
   textForBackgroundBrand: white,
 
   colorHash,
