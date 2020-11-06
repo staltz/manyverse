@@ -69,7 +69,7 @@ export default class LinkSetting extends PureComponent<Props> {
     };
     if (Platform.OS === 'android') {
       touchableProps.background = TouchableNativeFeedback.Ripple(
-        Palette.backgroundVoid,
+        Palette.voidMain,
       );
     }
 

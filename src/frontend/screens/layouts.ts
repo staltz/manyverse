@@ -58,7 +58,7 @@ export const defaultNavOptions: Options = {
     },
   },
   layout: {
-    backgroundColor: Palette.backgroundVoid,
+    backgroundColor: Palette.voidMain,
     orientation: ['portrait', 'landscape'],
   },
   topBar: {

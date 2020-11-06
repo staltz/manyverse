@@ -61,7 +61,7 @@ class MenuItem extends PureComponent<MenuItemProps> {
     };
     if (Platform.OS === 'android') {
       touchableProps.background = TouchableNativeFeedback.Ripple(
-        Palette.backgroundVoid,
+        Palette.voidMain,
       );
     }
 

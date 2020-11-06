@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.iconSizeNormal,
     width: Dimensions.iconSizeNormal,
     borderRadius: 6,
-    backgroundColor: Palette.backgroundVoidWeak,
+    backgroundColor: Palette.voidWeak,
   },
 });
 

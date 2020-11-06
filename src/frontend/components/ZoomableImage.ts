@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 
   imagePlaceholder: {
     marginVertical: Dimens.verticalSpaceSmall,
-    backgroundColor: Palette.backgroundVoidWeak,
+    backgroundColor: Palette.voidWeak,
     resizeMode: 'center',
   },
 });

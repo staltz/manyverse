@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.avatarSizeNormal,
     width: Dimensions.avatarSizeNormal,
     borderRadius: Math.ceil(Dimensions.avatarSizeNormal * 0.5),
-    backgroundColor: Palette.backgroundVoidWeak,
+    backgroundColor: Palette.voidWeak,
     marginRight: Dimensions.horizontalSpaceSmall + 2,
   },
 
@@ -37,14 +37,14 @@ export const styles = StyleSheet.create({
     width: 110,
     height: 16,
     marginTop: 2,
-    backgroundColor: Palette.backgroundVoidWeak,
+    backgroundColor: Palette.voidWeak,
   },
 
   timestamp: {
     width: 100,
     height: 16,
     marginTop: 2,
-    backgroundColor: Palette.backgroundVoidWeak,
+    backgroundColor: Palette.voidWeak,
   },
 });
 

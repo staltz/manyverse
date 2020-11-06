@@ -17,7 +17,7 @@ const page: ViewStyle = {
   left: 0,
   bottom: Dimensions.toolbarHeight - getStatusBarHeight(true),
   right: 0,
-  backgroundColor: Palette.backgroundVoid,
+  backgroundColor: Palette.voidMain,
   justifyContent: 'center',
   alignItems: 'center',
 };
@@ -25,7 +25,7 @@ const page: ViewStyle = {
 export const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: Palette.backgroundVoid,
+    backgroundColor: Palette.voidMain,
   },
 
   pageHidden: {...page, zIndex: 10},

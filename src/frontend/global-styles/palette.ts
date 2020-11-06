@@ -178,10 +178,10 @@ export const Palette = {
   brandStrong: indigo9,
   brandStronger: indigo11,
 
-  backgroundVoidWeak: comet1,
-  backgroundVoid: comet2,
-  backgroundVoidStrong: comet4,
-  backgroundVoidStronger: comet6,
+  voidWeak: comet0,
+  voidMain: comet1,
+  voidStrong: comet2,
+  voidStronger: comet3,
 
   backgroundTextWeak: comet1,
   backgroundTextWeakStrong: comet5,

@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
 
   containerMaybe: {
     ...baseContainerStyle,
-    backgroundColor: Palette.backgroundVoidStronger,
+    backgroundColor: Palette.voidStronger,
   },
 
   containerToggled: {

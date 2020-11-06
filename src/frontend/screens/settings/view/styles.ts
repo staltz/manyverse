@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     flexDirection: 'column',
-    backgroundColor: Palette.backgroundVoid,
+    backgroundColor: Palette.voidMain,
   },
 
   section: {
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
 
   spacer: {
     height: 1,
-    backgroundColor: Palette.backgroundVoid,
+    backgroundColor: Palette.voidMain,
   },
 
   content: {

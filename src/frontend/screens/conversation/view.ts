@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.backgroundVoid,
+    backgroundColor: Palette.voidMain,
     flexDirection: 'column',
   },
 
@@ -98,7 +98,7 @@ export const styles = StyleSheet.create({
 
   bubbleLeft: {
     backgroundColor: Palette.backgroundText,
-    borderColor: Palette.backgroundVoidStrong,
+    borderColor: Palette.voidStrong,
     borderRadius: 10,
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Dimensions.verticalSpaceTiny,

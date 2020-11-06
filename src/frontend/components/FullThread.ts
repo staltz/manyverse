@@ -49,7 +49,7 @@ export type Props = {
 
 export const styles = StyleSheet.create({
   separator: {
-    backgroundColor: Palette.backgroundVoid,
+    backgroundColor: Palette.voidMain,
     height: Dimensions.verticalSpaceNormal,
   },
 

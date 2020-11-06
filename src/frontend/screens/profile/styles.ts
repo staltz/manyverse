@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.backgroundVoid,
+    backgroundColor: Palette.voidMain,
   },
 
   cover: {
@@ -89,7 +89,7 @@ export const styles = StyleSheet.create({
 
   followsYou: {
     alignSelf: 'flex-start',
-    backgroundColor: Palette.backgroundVoidWeak,
+    backgroundColor: Palette.voidWeak,
     borderRadius: 3,
     paddingHorizontal: Dimensions.horizontalSpaceSmall,
     paddingVertical: Dimensions.verticalSpaceTiny,
@@ -138,7 +138,7 @@ export const styles = StyleSheet.create({
 
   feed: {
     bottom: 0,
-    backgroundColor: Palette.backgroundVoid,
+    backgroundColor: Palette.voidMain,
     alignSelf: 'stretch',
   },
 

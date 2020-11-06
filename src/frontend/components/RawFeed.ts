@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
 
   itemSeparator: {
-    backgroundColor: Palette.backgroundVoidWeak,
+    backgroundColor: Palette.voidWeak,
     height: 1,
   },
 });

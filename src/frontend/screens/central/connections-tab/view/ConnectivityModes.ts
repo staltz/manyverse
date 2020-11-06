@@ -72,14 +72,14 @@ function ConnectivityMode(props: {
         onPress: props.onPress,
         style: styles.modeTouchable,
         hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
-        underlayColor: Palette.backgroundVoidWeak,
+        underlayColor: Palette.voidWeak,
       },
       [
         h(Icon, {
           size: Dimensions.iconSizeBig,
           color: props.active
             ? Palette.brandMain
-            : Palette.backgroundVoidStrong,
+            : Palette.voidStrong,
           name: props.icon,
           accessible: true,
           accessibilityLabel: props.accessibilityLabel,

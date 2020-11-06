@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
   },
 
   itemSeparator: {
-    backgroundColor: Palette.backgroundVoid,
+    backgroundColor: Palette.voidMain,
     height: SEPARATOR_HEIGHT,
   },
 

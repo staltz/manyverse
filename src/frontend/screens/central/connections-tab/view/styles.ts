@@ -11,7 +11,7 @@ import {Typography} from '../../../../global-styles/typography';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: Palette.backgroundVoid,
+    backgroundColor: Palette.voidMain,
     marginTop: Dimens.toolbarHeight, // for the topBar
     alignSelf: 'stretch',
     flex: 1,
