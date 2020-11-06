@@ -124,7 +124,7 @@ export default class ContentWarning extends PureComponent<Props> {
           styles.container,
           opened ? styles.containerOpened : styles.containerClosed,
           style ?? null,
-        ] as readonly ViewStyle[],
+        ],
       },
       [
         h(

@@ -111,9 +111,9 @@ function ProfileAvatar({
   scale,
 }: {
   state: State;
-  translateX: Animated.Animated;
-  translateY: Animated.Animated;
-  scale: Animated.Animated;
+  translateX: Animated.AnimatedInterpolation;
+  translateY: Animated.AnimatedInterpolation;
+  scale: Animated.AnimatedInterpolation;
 }) {
   const animStyle = {transform: [{translateX}, {translateY}, {scale}]};
 
@@ -146,7 +146,7 @@ function ProfileName({
   translateY,
 }: {
   state: State;
-  translateY: Animated.Animated;
+  translateY: Animated.AnimatedInterpolation;
 }) {
   const animStyle = {transform: [{translateY}]};
 

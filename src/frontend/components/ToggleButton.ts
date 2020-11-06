@@ -134,7 +134,7 @@ export default class ToggleButton extends PureComponent<Props, State> {
       touchableProps.background = TouchableNativeFeedback.SelectableBackground();
     }
     const viewProps = {
-      style: [containerStyle, style] as readonly ViewStyle[],
+      style: [containerStyle, style],
       pointerEvents: 'box-only' as const,
     };
 

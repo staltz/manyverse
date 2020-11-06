@@ -53,7 +53,7 @@ export default class Avatar extends PureComponent<Props> {
       borderRadius,
       backgroundColor: backgroundColor ?? Palette.brandWeakest,
     };
-    return h(View, {style: [baseStyle, style] as readonly ViewStyle[]}, [
+    return h(View, {style: [baseStyle, style]}, [
       h(Image, {
         style: {borderRadius, width: size, height: size},
         source: url ? {uri: url} : require('../../../images/empty-avatar.png'),

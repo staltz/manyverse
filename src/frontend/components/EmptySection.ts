@@ -64,7 +64,7 @@ export default class EmptySection extends PureComponent<Props> {
 
     return h(
       View,
-      {style: [styles.container, style ?? null] as readonly ViewStyle[]},
+      {style: [styles.container, style ?? null]},
       [
         image ? h(Image, {style: styles.image, source: image}) : null,
         h(Text, {style: styles.title, selectable: true}, title),

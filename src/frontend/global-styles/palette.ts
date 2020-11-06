@@ -4,6 +4,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import {Appearance} from 'react-native'
+
+const colorScheme = Appearance.getColorScheme();
+console.log(colorScheme);
+
 const white = '#ffffff';
 const black = '#000000';
 

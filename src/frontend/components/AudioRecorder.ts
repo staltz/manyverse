@@ -119,6 +119,7 @@ export default class AudioPlayer extends PureComponent<Props> {
       Animated.timing(this.teaseAnim, {
         toValue: 1 + nextLoudness * 0.6,
         duration: 140,
+        useNativeDriver: true,
       }).start();
     }
   }
