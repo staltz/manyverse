@@ -405,6 +405,16 @@
       "close": {
         "accessibility_label": "Κουμπί κλεισίματος"
       },
+      "record_audio": {
+        "accessibility_label": "Record Audio Button",
+        "permission_request": {
+          "title": "Allow Manyverse to record audio?",
+          "message": "Manyverse needs access to your microphone so you can compose audio messages",
+          "neutral": "Ask me later",
+          "positive": "Εντάξει",
+          "negative": "Ακύρωση"
+        }
+      },
       "open_camera": {
         "accessibility_label": "Κουμπί ανοίγματος κάμερας"
       },
@@ -435,6 +445,31 @@
     "text_field": {
       "placeholder": "Γράψτε ένα δημόσιο μήνυμα",
       "accessibility_label": "Σύνταξη εισαγωγής κειμένου"
+    }
+  },
+  "compose_audio": {
+    "title": "Audio message",
+    "call_to_action": {
+      "start_recording": {
+        "accessibility_label": "Start recording"
+      },
+      "stop_recording": {
+        "accessibility_label": "Stop recording"
+      },
+      "discard_recording": {
+        "label": "Απόρριψη",
+        "accessibility_label": "Discard Recording Button"
+      },
+      "submit_recording": {
+        "label": "Ολοκληρώθηκε",
+        "accessibility_label": "Submit Recording Button"
+      }
+    },
+    "dialogs": {
+      "discard": {
+        "title": "Audio message",
+        "question": "Discard draft?"
+      }
     }
   },
   "backup": {
@@ -923,18 +958,11 @@
       }
     },
     "audio": {
-      "loading": {
-        "text": "Φόρτωση...",
-        "accessibility_label": "Φόρτωση αρχείου"
-      },
       "play": {
         "accessibility_label": "Αναπαραγωγή ήχου"
       },
       "pause": {
         "accessibility_label": "Παύση ήχου"
-      },
-      "stop": {
-        "accessibility_label": "Διακοπή ήχου"
       },
       "duration": {
         "accessibility_label": "Διάρκεια ήχου"

@@ -405,6 +405,16 @@
       "close": {
         "accessibility_label": "Stängknapp"
       },
+      "record_audio": {
+        "accessibility_label": "Record Audio Button",
+        "permission_request": {
+          "title": "Allow Manyverse to record audio?",
+          "message": "Manyverse needs access to your microphone so you can compose audio messages",
+          "neutral": "Ask me later",
+          "positive": "OK",
+          "negative": "Avbryt"
+        }
+      },
       "open_camera": {
         "accessibility_label": "Öppna kamera-knapp"
       },
@@ -435,6 +445,31 @@
     "text_field": {
       "placeholder": "Skriv ett publikt meddelande",
       "accessibility_label": "Fält för inmatning av text"
+    }
+  },
+  "compose_audio": {
+    "title": "Audio message",
+    "call_to_action": {
+      "start_recording": {
+        "accessibility_label": "Start recording"
+      },
+      "stop_recording": {
+        "accessibility_label": "Stop recording"
+      },
+      "discard_recording": {
+        "label": "Kasta",
+        "accessibility_label": "Discard Recording Button"
+      },
+      "submit_recording": {
+        "label": "Klar",
+        "accessibility_label": "Submit Recording Button"
+      }
+    },
+    "dialogs": {
+      "discard": {
+        "title": "Audio message",
+        "question": "Discard draft?"
+      }
     }
   },
   "backup": {
@@ -923,18 +958,11 @@
       }
     },
     "audio": {
-      "loading": {
-        "text": "Laddar...",
-        "accessibility_label": "Laddar fil"
-      },
       "play": {
         "accessibility_label": "Spela upp ljud"
       },
       "pause": {
         "accessibility_label": "Pausa ljud"
-      },
-      "stop": {
-        "accessibility_label": "Stoppa ljud"
       },
       "duration": {
         "accessibility_label": "Ljudets längd"

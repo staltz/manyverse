@@ -405,6 +405,16 @@
       "close": {
         "accessibility_label": "Close Button"
       },
+      "record_audio": {
+        "accessibility_label": "Record Audio Button",
+        "permission_request": {
+          "title": "Allow Manyverse to record audio?",
+          "message": "Manyverse needs access to your microphone so you can compose audio messages",
+          "neutral": "Ask me later",
+          "positive": "OK",
+          "negative": "Mégsem"
+        }
+      },
       "open_camera": {
         "accessibility_label": "Open Camera Button"
       },
@@ -435,6 +445,31 @@
     "text_field": {
       "placeholder": "Write a public message",
       "accessibility_label": "Compose Text Input"
+    }
+  },
+  "compose_audio": {
+    "title": "Audio message",
+    "call_to_action": {
+      "start_recording": {
+        "accessibility_label": "Start recording"
+      },
+      "stop_recording": {
+        "accessibility_label": "Stop recording"
+      },
+      "discard_recording": {
+        "label": "Discard",
+        "accessibility_label": "Discard Recording Button"
+      },
+      "submit_recording": {
+        "label": "Kész",
+        "accessibility_label": "Submit Recording Button"
+      }
+    },
+    "dialogs": {
+      "discard": {
+        "title": "Audio message",
+        "question": "Discard draft?"
+      }
     }
   },
   "backup": {
@@ -923,18 +958,11 @@
       }
     },
     "audio": {
-      "loading": {
-        "text": "Betöltés...",
-        "accessibility_label": "Loading file"
-      },
       "play": {
         "accessibility_label": "Play audio"
       },
       "pause": {
         "accessibility_label": "Pause audio"
-      },
-      "stop": {
-        "accessibility_label": "Stop audio"
       },
       "duration": {
         "accessibility_label": "Audio duration"

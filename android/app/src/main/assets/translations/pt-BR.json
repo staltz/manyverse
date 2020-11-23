@@ -405,6 +405,16 @@
       "close": {
         "accessibility_label": "Botão de fechar"
       },
+      "record_audio": {
+        "accessibility_label": "Record Audio Button",
+        "permission_request": {
+          "title": "Allow Manyverse to record audio?",
+          "message": "Manyverse needs access to your microphone so you can compose audio messages",
+          "neutral": "Ask me later",
+          "positive": "OK",
+          "negative": "Cancelar"
+        }
+      },
       "open_camera": {
         "accessibility_label": "Botão de Abrir Câmera"
       },
@@ -435,6 +445,31 @@
     "text_field": {
       "placeholder": "Escrever uma nova mensagem pública",
       "accessibility_label": "Entrada de texto para compor uma mensagem"
+    }
+  },
+  "compose_audio": {
+    "title": "Audio message",
+    "call_to_action": {
+      "start_recording": {
+        "accessibility_label": "Start recording"
+      },
+      "stop_recording": {
+        "accessibility_label": "Stop recording"
+      },
+      "discard_recording": {
+        "label": "Descartar",
+        "accessibility_label": "Discard Recording Button"
+      },
+      "submit_recording": {
+        "label": "Pronto",
+        "accessibility_label": "Submit Recording Button"
+      }
+    },
+    "dialogs": {
+      "discard": {
+        "title": "Audio message",
+        "question": "Discard draft?"
+      }
     }
   },
   "backup": {
@@ -923,18 +958,11 @@
       }
     },
     "audio": {
-      "loading": {
-        "text": "Carregando...",
-        "accessibility_label": "Carregando arquivo"
-      },
       "play": {
         "accessibility_label": "Tocar áudio"
       },
       "pause": {
         "accessibility_label": "Pausar áudio"
-      },
-      "stop": {
-        "accessibility_label": "Parar áudio"
       },
       "duration": {
         "accessibility_label": "Duração do áudio"

@@ -405,6 +405,16 @@
       "close": {
         "accessibility_label": "زر إغلاق"
       },
+      "record_audio": {
+        "accessibility_label": "Record Audio Button",
+        "permission_request": {
+          "title": "Allow Manyverse to record audio?",
+          "message": "Manyverse needs access to your microphone so you can compose audio messages",
+          "neutral": "Ask me later",
+          "positive": "موافق",
+          "negative": "ألغ"
+        }
+      },
       "open_camera": {
         "accessibility_label": "زر فتح الكاميرا"
       },
@@ -435,6 +445,31 @@
     "text_field": {
       "placeholder": "اكتب رسالة عامة",
       "accessibility_label": "دَخل النص"
+    }
+  },
+  "compose_audio": {
+    "title": "Audio message",
+    "call_to_action": {
+      "start_recording": {
+        "accessibility_label": "Start recording"
+      },
+      "stop_recording": {
+        "accessibility_label": "Stop recording"
+      },
+      "discard_recording": {
+        "label": "ألغِ",
+        "accessibility_label": "Discard Recording Button"
+      },
+      "submit_recording": {
+        "label": "تم",
+        "accessibility_label": "Submit Recording Button"
+      }
+    },
+    "dialogs": {
+      "discard": {
+        "title": "Audio message",
+        "question": "Discard draft?"
+      }
     }
   },
   "backup": {
@@ -923,18 +958,11 @@
       }
     },
     "audio": {
-      "loading": {
-        "text": "يحمل...",
-        "accessibility_label": "يحمل ملفا"
-      },
       "play": {
         "accessibility_label": "شغل الصوت"
       },
       "pause": {
         "accessibility_label": "أوقف الصوت مؤقتًا"
-      },
-      "stop": {
-        "accessibility_label": "أوقف الصوت"
       },
       "duration": {
         "accessibility_label": "مدة الصوت"
