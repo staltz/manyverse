@@ -20,7 +20,7 @@ async function scrollUpUntil(driver, conditionFn) {
 }
 
 module.exports = function (driver, t) {
-  t.test('Welcome screen setup', async function (t) {
+  t.test('Initial sync with a LAN peer', async function (t) {
     await driver.sleep(3000);
 
     var title = 'Welcome to Manyverse!';
@@ -142,7 +142,7 @@ module.exports = function (driver, t) {
       fs.readFileSync(__dirname + '/sync-server/data/secret-b', 'utf-8'),
     );
     const words24 = mnemonic.keysToWords(secretB);
-    t.pass('I loaded these words from ./data/secret-b: ' + words24);
+    t.pass('I loaded 24 words from ./data/secret-b');
 
     const secretInputField = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Recovery Phrase Text Input")',
@@ -192,10 +192,6 @@ module.exports = function (driver, t) {
       if (ok2Button) await ok2Button.click();
     } catch (err) {}
 
-    t.end();
-  });
-
-  t.test('Initial sync with a LAN peer', async function (t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().text("Public board")',

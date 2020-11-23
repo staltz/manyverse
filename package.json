@@ -162,6 +162,7 @@
   },
   "optionalDependencies": {
     "appium": "1.14.0",
+    "faucet": "0.0.1",
     "ssb-keys-mnemonic-neon": "1.0.0-2",
     "tap-spec": "5.0.0",
     "tape": "~4.9.1",
