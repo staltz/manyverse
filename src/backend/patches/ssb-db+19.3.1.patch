@@ -1,0 +1,44 @@
+diff --git a/node_modules/ssb-db/extras.js b/node_modules/ssb-db/extras.js
+index 78f6cda..9a6f9e7 100644
+--- a/node_modules/ssb-db/extras.js
++++ b/node_modules/ssb-db/extras.js
+@@ -9,7 +9,7 @@ module.exports = function (db, config, keys) {
+     .use('time', ViewLevel(2, function (data) {
+       return [data.timestamp]
+     }))
+-    .use('feed', require('./indexes/feed')())
++    // .use('feed', require('./indexes/feed')())
+     .use('links', require('./indexes/links')())
+ 
+   db.createLogStream = function (opts) {
+@@ -24,7 +24,7 @@ module.exports = function (db, config, keys) {
+   }
+ 
+   // TODO: eventually, this should filter out authors you do not follow.
+-  db.createFeedStream = db.feed.createFeedStream
++  // db.createFeedStream = db.feed.createFeedStream
+ 
+   db.createUserStream = db.clock.createUserStream
+ 
+diff --git a/node_modules/ssb-db/index.js b/node_modules/ssb-db/index.js
+index 7be3093..3fe2136 100644
+--- a/node_modules/ssb-db/index.js
++++ b/node_modules/ssb-db/index.js
+@@ -13,7 +13,7 @@ function isFunction (f) { return 'function' === typeof f }
+ 
+ var manifest = {
+   get: 'async',
+-  createFeedStream: 'source',
++  // createFeedStream: 'source',
+   createLogStream: 'source',
+   messagesByType: 'source',
+   createHistoryStream: 'source',
+@@ -142,7 +142,7 @@ module.exports = {
+       latestSequence           : valid.async(ssb.latestSequence, 'feedId'),
+       createFeed               : ssb.createFeed,
+       whoami                   : function () { return { id: feed.id } },
+-      createFeedStream         : valid.source(ssb.createFeedStream, 'readStreamOpts?'),
++      // createFeedStream         : valid.source(ssb.createFeedStream, 'readStreamOpts?'),
+       createHistoryStream      : valid.source(ssb.createHistoryStream, ['createHistoryStreamOpts'], ['feedId', 'number?', 'boolean?']),
+       createLogStream          : valid.source(ssb.createLogStream, 'readStreamOpts?'),
+       createUserStream         : valid.source(ssb.createUserStream, 'createUserStreamOpts'),

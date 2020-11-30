@@ -258,13 +258,6 @@ export default [
     homepage: 'https://gitlab.com/staltz/cycle-native-toastandroid#readme',
   },
   {
-    name: 'delay',
-    type: 'library',
-    version: '3.1.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/sindresorhus/delay#readme',
-  },
-  {
     name: 'electron',
     type: 'library',
     version: '10.1.3',

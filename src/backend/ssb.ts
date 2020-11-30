@@ -72,7 +72,6 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-dht-invite')) // needs: db, conn
   .use(require('ssb-invite-client')) // needs: db, conn
   // Queries
-  .use(require('ssb-query')) // needs: db
   .use(require('ssb-private')) // needs: db
   .use(require('ssb-backlinks')) // needs: db
   .use(require('ssb-about')) // needs: db, backlinks

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2020 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,7 +6,7 @@
 
 const Pushable = require('pull-pushable');
 const Thenable = require('pull-thenable');
-const sleep = require('delay');
+const sleep = require('util').promisify(setTimeout);
 const estimateProgress = require('estimate-progress');
 
 type Response = {
@@ -38,7 +38,7 @@ export = {
       stream: function stream() {
         const pushable = Pushable();
         const nextFeedMsg = Thenable(
-          ssb.createFeedStream({reverse: false, old: false, live: true}),
+          ssb.createLogStream({reverse: false, old: false, live: true}),
         );
         (async () => {
           let progress: any;

@@ -183,7 +183,7 @@ const threadsUtils = {
 
       publicRawFeed(opts: any) {
         return pull(
-          ssb.createFeedStream({reverse: true, live: false, ...opts}),
+          ssb.createLogStream({reverse: true, live: false, ...opts}),
           pull.asyncMap(mutateMsgWithLiveExtras(ssb, false)),
         );
       },
