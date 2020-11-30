@@ -24,6 +24,9 @@ const keys = ssbKeys.loadOrCreateSync(keysPath);
 const config = makeConfig('ssb', {
   path: process.env.SSB_DIR,
   keys,
+  db2: {
+    automigrate: false,
+  },
   blobs: {
     sympathy: 2,
   },
@@ -58,6 +61,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   // Core
   .use(require('ssb-master'))
   .use(require('ssb-db'))
+  .use(require('ssb-db2/migrate'))
   // Replication
   .use(require('ssb-replicate')) // needs: db
   .use(require('ssb-friends')) // needs: db, replicate

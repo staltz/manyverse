@@ -367,6 +367,10 @@ export type SearchBluetoothReq = {
   interval: number;
 };
 
+export type DB2MigrateReq = {
+  type: 'db2.migrate.start';
+};
+
 export type ConnStartReq = {
   type: 'conn.start';
 };
@@ -434,6 +438,7 @@ export type Req =
   | AcceptDhtInviteReq
   | RemoveDhtInviteReq
   | SearchBluetoothReq
+  | DB2MigrateReq
   | ConnStartReq
   | ConnConnectReq
   | ConnRememberConnectReq
@@ -489,6 +494,11 @@ async function consumeSink(
         ssb.invite.accept(req.invite, (err: any) => {
           source.acceptInviteResponse$._n(err ? err.message || err : true);
         });
+        return;
+      }
+
+      if (req.type === 'db2.migrate.start') {
+        ssb.db2migrate.start();
         return;
       }
 

@@ -48,6 +48,10 @@ export default {
     isBlocked: 'sync',
   },
 
+  db2migrate: {
+    start: 'sync',
+  },
+
   // Third-party
   friends: {
     hopStream: 'source',

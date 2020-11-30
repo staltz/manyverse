@@ -23,5 +23,9 @@ export default function ssb(actions: Actions): Stream<Req> {
     .take(1)
     .map(() => ({type: 'conn.start'} as Req));
 
-  return xs.merge(addReaction$, startConn$);
+  const startDB2Migration$ = actions.initializationDone$
+    .take(1)
+    .map(() => ({type: 'db2.migrate.start'} as Req));
+
+  return xs.merge(addReaction$, startConn$, startDB2Migration$);
 }
