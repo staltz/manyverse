@@ -34,7 +34,8 @@ target 'Manyverse' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'ReactNativeNavigation', :podspec => '../node_modules/react-native-navigation/ReactNativeNavigation.podspec'
+  # FIXME: Can we delete this? See https://github.com/wix/react-native-navigation/blob/master/CHANGELOG.md#remove-rnn-pod-from-podspec
+  # pod 'ReactNativeNavigation', :podspec => '../node_modules/react-native-navigation/ReactNativeNavigation.podspec'
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
   pod 'RNOS', :podspec => '../node_modules/react-native-os-staltz/RNOS.podspec'
   pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'

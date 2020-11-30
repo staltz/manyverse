@@ -10,31 +10,20 @@ import android.content.Context;
 import androidx.annotation.Nullable;
 
 import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
-import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.peel.react.rnos.RNOSModule;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.react.ReactNativeHost;
+import com.facebook.react.PackageList;
 import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
 import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgeConfiguration;
 import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgePackage;
-import com.staltz.reactnativeandroidlocalnotification.NotificationPackage;
-import com.staltz.reactnativehasinternet.HasInternetPackage;
-import com.staltz.flagsecure.FlagSecurePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
-import com.reactnative.ivpusic.imagepicker.PickerPackage;
-import org.wonday.orientation.OrientationPackage;
-import com.rnfs.RNFSPackage;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
-import com.ninty.system.setting.SystemSettingPackage;
-import com.reactcommunity.rnlocalize.RNLocalizePackage;
-import com.reactnativecommunity.rctaudiotoolkit.AudioPackage;
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -60,52 +49,41 @@ public class MainApplication extends NavigationApplication {
     SoLoader.init(this, /* native exopackage */ false);
   }
 
-  @Override
-  protected ReactNativeHost createReactNativeHost() {
-      return new NavigationReactNativeHost(this) {
-          @Override
-          protected String getJSMainModuleName() {
-              return "index.android";
-          }
-      };
-  }
+  private final ReactNativeHost mReactNativeHost =
+    new NavigationReactNativeHost(this) {
+      @Override
+      protected String getJSMainModuleName() {
+        return "index.android";
+      }
+
+      @Override
+      public boolean getUseDeveloperSupport() {
+        return BuildConfig.DEBUG;
+      }
+
+      @Override
+      public List<ReactPackage> getPackages() {
+        ArrayList<ReactPackage> packages = new PackageList(this).getPackages();
+        String socketDir = MainApplication.this.getApplicationInfo().dataDir + "/files";
+
+        UUID uuid = UUID.fromString("b0b2e90d-0cda-4bb0-8e4b-fb165cd17d48");
+
+        BluetoothSocketBridgeConfiguration bluetoothConfig = new BluetoothSocketBridgeConfiguration(socketDir,
+          "manyverse_bt_incoming.sock", "manyverse_bt_outgoing.sock", "manyverse_bt_control.sock", "scuttlebutt", uuid);
+
+        packages.add(new BuildConfigPackage());
+        packages.add(new AsyncStoragePackage());
+        packages.add(new BluetoothSocketBridgePackage(bluetoothConfig));
+        packages.add(new RNNodeJsMobilePackage());
+        packages.add(new RNOSModule());
+        packages.add(new RNCViewPagerPackage());
+        packages.add(new ReactSliderPackage());
+        return packages;
+      }
+    };
 
   @Override
-  public boolean isDebug() {
-    // Make sure you are using BuildConfig from your own application
-    return BuildConfig.DEBUG;
-  }
-
-  @Nullable
-  @Override
-  public List<ReactPackage> createAdditionalReactPackages() {
-    String socketDir = this.getApplicationInfo().dataDir + "/files";
-
-    UUID uuid = UUID.fromString("b0b2e90d-0cda-4bb0-8e4b-fb165cd17d48");
-
-    BluetoothSocketBridgeConfiguration bluetoothConfig = new BluetoothSocketBridgeConfiguration(socketDir,
-        "manyverse_bt_incoming.sock", "manyverse_bt_outgoing.sock", "manyverse_bt_control.sock", "scuttlebutt", uuid);
-
-    List<ReactPackage> packages = new ArrayList<>();
-    packages.add(new BuildConfigPackage());
-    packages.add(new AsyncStoragePackage());
-    packages.add(new BluetoothSocketBridgePackage(bluetoothConfig));
-    packages.add(new PickerPackage());
-    packages.add(new HasInternetPackage());
-    packages.add(new RNNodeJsMobilePackage());
-    packages.add(new ReactNativeDialogsPackage());
-    packages.add(new VectorIconsPackage());
-    packages.add(new RNOSModule());
-    packages.add(new NotificationPackage());
-    packages.add(new FlagSecurePackage());
-    packages.add(new OrientationPackage());
-    packages.add(new RNFSPackage());
-    packages.add(new SplashScreenReactPackage());
-    packages.add(new RNCViewPagerPackage());
-    packages.add(new ReactSliderPackage());
-    packages.add(new SystemSettingPackage());
-    packages.add(new RNLocalizePackage());
-    packages.add(new AudioPackage());
-    return packages;
+  public ReactNativeHost getReactNativeHost() {
+    return mReactNativeHost;
   }
 }
