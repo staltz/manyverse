@@ -16,7 +16,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  TextInputProps,
   Platform,
 } from 'react-native';
 import {propifyMethods} from 'react-propify-methods';
@@ -27,11 +26,13 @@ import {Dimensions} from '../../global-styles/dimens';
 import Markdown from '../../components/Markdown';
 import Avatar from '../../components/Avatar';
 import AccountsList from '../../components/AccountsList';
+import SettableTextInput from '../../components/SettableTextInput';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
 const FocusableTextInput = propifyMethods(TextInput, 'focus' as any);
 
 type MiniState = Pick<State, 'postText'> &
+  Pick<State, 'postTextOverride'> &
   Pick<State, 'postTextSelection'> &
   Pick<State, 'selfAvatarUrl'> &
   Pick<State, 'mentionQuery'> &
@@ -144,26 +145,12 @@ function MarkdownPreview(state: MiniState) {
   );
 }
 
-function maybeSelectionProp(state: MiniState): keyof TextInputProps {
-  // On iOS, the selection overriding is snappy and quick, no lag
-  if (Platform.OS === 'ios') return 'selection';
-
-  // On Android, we have to do this debounce hack...
-  if (Date.now() < state.mentionChoiceTimestamp + 200) {
-    return 'selection';
-  } else {
-    return 'doNotApplySelection' as any;
-  }
-}
-
-function MarkdownInput(state: MiniState, focus$: Stream<undefined>) {
-  return h(FocusableTextInput, {
+function MarkdownInput(nativePropsAndFocus$: Stream<any>) {
+  return h(SettableTextInput, {
     style: styles.composeInput,
     sel: 'composeInput',
     nativeID: 'FocusViewOnResume',
-    focus$,
-    value: state.postText,
-    [maybeSelectionProp(state)]: state.postTextSelection,
+    nativePropsAndFocus$,
     accessible: true,
     accessibilityLabel: t('compose.text_field.accessibility_label'),
     autoFocus: true,
@@ -188,7 +175,7 @@ function MentionSuggestions(state: MiniState, focus$: Stream<undefined>) {
       h(FocusableTextInput, {
         style: styles.mentionsInput,
         sel: 'mentionInput',
-        value: state.mentionQuery,
+        defaultValue: state.mentionQuery,
         focus$,
         accessible: true,
         accessibilityRole: 'search',
@@ -239,6 +226,7 @@ export default function view(
     .compose(
       dropRepeatsByKeys([
         'postText',
+        'postTextOverride',
         'postTextSelection',
         'previewing',
         'selfAvatarUrl',
@@ -250,6 +238,7 @@ export default function view(
     )
     .startWith({
       postText: '',
+      postTextOverride: '',
       postTextSelection: {start: 0, end: 0},
       previewing: false,
       contentWarning: '',
@@ -262,13 +251,17 @@ export default function view(
     .map((s) => s.mentionQuery)
     .compose(pairwise);
 
-  const focusMarkdownInput$ = mentionQueryPairwise$
-    .filter(([prev, curr]) => !!prev && !curr)
-    .mapTo(void 0);
-
   const focusMentionQuery$ = mentionQueryPairwise$
     .filter(([prev, curr]) => !prev && !!curr)
     .mapTo(void 0);
+
+  const setMarkdownInputNativeProps$ = state$
+    .compose(dropRepeatsByKeys(['postTextOverride']))
+    .map((s) => ({
+      focus: true,
+      text: s.postTextOverride,
+      selection: s.postTextSelection,
+    }));
 
   return xs.combine(topBar$, miniState$).map(([topBar, state]) =>
     h(View, {style: styles.container}, [
@@ -292,7 +285,7 @@ export default function view(
 
           state.previewing
             ? MarkdownPreview(state)
-            : MarkdownInput(state, focusMarkdownInput$),
+            : MarkdownInput(setMarkdownInputNativeProps$),
 
           state.mentionSuggestions.length || state.mentionQuery
             ? MentionSuggestions(state, focusMentionQuery$)

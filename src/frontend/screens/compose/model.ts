@@ -19,6 +19,7 @@ type Selection = {start: number; end: number};
 
 export type State = {
   postText: string;
+  postTextOverride: string;
   postTextSelection: Selection;
   mentionQuery: string;
   mentionSuggestions: Array<MentionSuggestion>;
@@ -108,6 +109,7 @@ export default function model(
       function propsReducer(): State {
         return {
           postText: props.text ?? '',
+          postTextOverride: props.text ?? '',
           postTextSelection: props.text
             ? {start: props.text.length, end: props.text.length}
             : {start: 0, end: 0},
@@ -229,6 +231,7 @@ export default function model(
         return {
           ...prev,
           postText,
+          postTextOverride: postText,
           postTextSelection,
           mentionQuery: '',
           mentionSuggestions: [],
@@ -265,9 +268,16 @@ export default function model(
         (blobId) =>
           function addPictureReducer(prev: State): State {
             const imgMarkdown = `![${caption ?? 'image'}](${blobId})`;
+            const postText = appendToPostText(prev.postText, imgMarkdown);
+            const postTextSelection = {
+              start: postText.length,
+              end: postText.length,
+            };
             return {
               ...prev,
-              postText: appendToPostText(prev.postText, imgMarkdown),
+              postText,
+              postTextOverride: postText,
+              postTextSelection,
             };
           },
       ),
@@ -278,9 +288,16 @@ export default function model(
     (blobId) =>
       function addAudioReducer(prev: State): State {
         const audioMarkdown = `![audio:recording.mp3](${blobId})`;
+        const postText = appendToPostText(prev.postText, audioMarkdown);
+        const postTextSelection = {
+          start: postText.length,
+          end: postText.length,
+        };
         return {
           ...prev,
-          postText: appendToPostText(prev.postText, audioMarkdown),
+          postText,
+          postTextOverride: postText,
+          postTextSelection,
         };
       },
   );
@@ -307,7 +324,11 @@ export default function model(
           if (prev.root) {
             return prev;
           } else {
-            return {...prev, postText: composeDraft!};
+            return {
+              ...prev,
+              postText: composeDraft!,
+              postTextOverride: composeDraft!,
+            };
           }
         },
     );
