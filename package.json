@@ -75,7 +75,7 @@
     "promisify-tuple": "1.0.1",
     "pull-backoff": "1.0.0",
     "pull-combine-latest": "1.1.2",
-    "pull-flat-list": "2.13.0",
+    "pull-flat-list": "2.14.0",
     "pull-pushable": "2.2.0",
     "pull-stream": "3.6.14",
     "pull-switch-map": "1.0.0",
