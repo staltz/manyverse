@@ -15,14 +15,11 @@ import {
   StyleProp,
   ViewStyle,
   StyleSheet,
-  Appearance,
 } from 'react-native';
 import {Dimensions} from '../global-styles/dimens';
 import {Typography} from '../global-styles/typography';
 import {Palette} from '../global-styles/palette';
-import { h } from '@cycle/react';
-
-const colorScheme = Appearance.getColorScheme();
+import {h} from '@cycle/react';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -45,7 +42,7 @@ export const styles = StyleSheet.create({
   container: {
     ...baseContainerStyle,
     backgroundColor: 'transparent',
-    borderColor: colorScheme === 'dark' ? Palette.textBrand : Palette.brandMain,
+    borderColor: Palette.isDarkTheme ? Palette.textBrand : Palette.brandMain,
     borderWidth: 1,
   },
 

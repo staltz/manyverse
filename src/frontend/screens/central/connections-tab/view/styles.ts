@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
 
   menuOptionContentText: {
     marginLeft: Dimens.horizontalSpaceBig,
-    color: Palette.textWeak,
+    color: Palette.text,
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
     fontFamily: Typography.fontFamilyReadableText,

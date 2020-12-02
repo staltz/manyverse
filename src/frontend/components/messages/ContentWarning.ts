@@ -58,6 +58,7 @@ export const styles = StyleSheet.create({
   },
 
   title: {
+    color: Palette.text,
     fontSize: Typography.fontSizeLarge,
     lineHeight: Typography.lineHeightLarge,
     fontFamily: Typography.fontFamilyReadableText,

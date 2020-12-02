@@ -31,8 +31,8 @@ export const styles = StyleSheet.create({
   replyRow: {
     backgroundColor: Palette.backgroundText,
     paddingLeft: Dimensions.horizontalSpaceBig,
-    borderTopWidth: 1,
-    borderTopColor: Palette.voidWeak,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: Palette.textLine,
     flexDirection: 'row',
     alignItems: 'center',
   },

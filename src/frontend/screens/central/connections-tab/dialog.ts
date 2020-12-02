@@ -21,10 +21,10 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
           t('connections.notes.add.title'),
           t('connections.notes.add.description'),
           {
-            contentColor: Palette.textWeak,
-            positiveColor: Palette.text,
+            contentColor: Palette.colors.comet6,
+            positiveColor: Palette.colors.comet8,
             positiveText: t('call_to_action.add'),
-            negativeColor: Palette.text,
+            negativeColor: Palette.colors.comet8,
             negativeText: t('call_to_action.cancel'),
           },
         ),

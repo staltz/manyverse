@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
 
   name: {
     position: 'absolute',
-    color: 'white',
+    color: Palette.textForBackgroundBrand,
     top:
       Dimensions.toolbarHeight + COVER_HEIGHT - Typography.fontSizeLarge * 1.75,
     left:

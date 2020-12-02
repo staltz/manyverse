@@ -109,7 +109,7 @@ export default function manageContact$(sources: Sources): Sinks {
           {
             items,
             type: 'listPlain',
-            contentColor: Palette.text,
+            contentColor: Palette.colors.comet8,
             cancelable: true,
             positiveText: '',
             negativeText: '',

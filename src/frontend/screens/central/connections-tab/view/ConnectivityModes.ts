@@ -77,9 +77,7 @@ function ConnectivityMode(props: {
       [
         h(Icon, {
           size: Dimensions.iconSizeBig,
-          color: props.active
-            ? Palette.brandMain
-            : Palette.voidStrong,
+          color: props.active ? Palette.brandMain : Palette.textVeryWeak,
           name: props.icon,
           accessible: true,
           accessibilityLabel: props.accessibilityLabel,

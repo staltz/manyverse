@@ -106,7 +106,7 @@ export const iconProps = {
 
   tab: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.foregroundNeutral,
+    color: Palette.textVeryWeak,
   },
 
   tabSelected: {

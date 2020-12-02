@@ -58,6 +58,7 @@ export default function view(state$: Stream<State>) {
             placeholder: t('recipients_input.fields.mention_input.placeholder'),
             multiline: false,
             returnKeyType: 'done',
+            placeholderTextColor: Palette.textVeryWeak,
             selectionColor: Palette.backgroundTextSelection,
             underlineColorAndroid: Palette.textLine,
           }),

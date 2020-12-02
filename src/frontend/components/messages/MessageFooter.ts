@@ -63,7 +63,7 @@ export const styles = StyleSheet.create({
   },
 
   buttonsContainer: {
-    borderTopWidth: 1,
+    borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: Palette.textLine,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -168,6 +168,7 @@ export const styles = StyleSheet.create({
   },
 
   myReaction: {
+    color: Palette.text,
     fontSize: Typography.fontSizeBig,
     lineHeight: Typography.lineHeightSmall,
   },

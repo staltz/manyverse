@@ -81,7 +81,7 @@ function RecordAudioButton() {
     [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.foregroundNeutral,
+        color: Palette.textVeryWeak,
         name: 'microphone',
       }),
     ],
@@ -104,7 +104,7 @@ function OpenCameraButton() {
     [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.foregroundNeutral,
+        color: Palette.textVeryWeak,
         name: 'camera',
       }),
     ],
@@ -127,7 +127,7 @@ function AddPictureButton() {
     [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.foregroundNeutral,
+        color: Palette.textVeryWeak,
         name: 'image',
       }),
     ],

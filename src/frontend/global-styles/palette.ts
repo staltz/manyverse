@@ -4,23 +4,24 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Appearance} from 'react-native'
+import {Appearance} from 'react-native';
 
-const colorScheme = Appearance.getColorScheme();
+const isDarkTheme = Appearance.getColorScheme() === 'dark';
 
 const white = '#ffffff';
 const black = '#000000';
 
 const comet0 = '#f3f4f6';
-const comet1 = '#d4d6de';
-const comet2 = '#b5b8c7';
-const comet3 = '#959baf';
-const comet4 = '#767d98';
-const comet5 = '#575f80';
-const comet6 = '#474d68';
-const comet7 = '#373c50';
-const comet8 = '#262a39';
-const comet9 = '#161821';
+const comet1 = '#ecedf0';
+const comet2 = '#d4d6de';
+const comet3 = '#b5b8c7';
+const comet4 = '#959baf';
+const comet5 = '#767d98';
+const comet6 = '#575f80';
+const comet7 = '#474d68';
+const comet8 = '#373c50';
+const comet9 = '#262a39';
+const comet10 = '#161821';
 
 const red0 = '#fff5f5';
 const red1 = '#ffe3e3';
@@ -76,9 +77,9 @@ const indigo6 = '#4c6ef5';
 const indigo7 = '#4263eb';
 const indigo8 = '#3b5bdb';
 const indigo9 = '#364fc7';
-const indigo10 = '#2A2E3F';
-const indigo11 = '#1930a0';
-const indigo12 = '#1D202E';
+const indigo10 = '#3346A2';
+const indigo11 = '#2C3B83';
+const indigo12 = '#242B46';
 
 const blue0 = '#e8f7ff';
 const blue1 = '#ccedff';
@@ -170,6 +171,8 @@ function colorHash(str: string) {
 }
 
 export const Palette = {
+  isDarkTheme,
+
   brandWeakest: indigo1,
   brandWeaker: indigo3,
   brandWeak: indigo5,
@@ -177,17 +180,17 @@ export const Palette = {
   brandStrong: indigo9,
   brandStronger: indigo11,
 
-  voidWeak: colorScheme === 'dark' ? black : comet0,
-  voidMain: colorScheme === 'dark' ? comet9 : comet1,
-  voidStrong: colorScheme === 'dark' ? comet8 : comet2,
-  voidStronger: colorScheme === 'dark' ? comet7 : comet3,
+  voidWeak: isDarkTheme ? comet7 : comet0,
+  voidMain: isDarkTheme ? comet10 : comet1,
+  voidStrong: isDarkTheme ? comet9 : comet2,
+  voidStronger: isDarkTheme ? comet8 : comet3,
 
-  backgroundTextWeak: colorScheme === 'dark' ? comet9 : comet0,
-  backgroundTextWeakStrong: colorScheme === 'dark' ? comet6 : comet3,
-  backgroundText: colorScheme === 'dark' ? comet8 : white,
+  backgroundTextWeak: isDarkTheme ? comet8 : comet0,
+  backgroundTextWeakStrong: isDarkTheme ? comet9 : comet3,
+  backgroundText: isDarkTheme ? comet9 : white,
   backgroundTextSelection: indigo3,
-  backgroundTextBrand: colorScheme === 'dark' ? comet9 :indigo0,
-  backgroundTextHacker: colorScheme === 'dark' ? comet1 : comet9,
+  backgroundTextBrand: isDarkTheme ? indigo12 : indigo0,
+  backgroundTextHacker: comet10,
 
   backgroundPeerConnected: teal5,
   backgroundPeerConnecting: yellow5,
@@ -196,20 +199,20 @@ export const Palette = {
   backgroundCTA: teal5,
   backgroundRecord: red5,
   backgroundWarningAction: yellow5,
-  backgroundHackerVoid: colorScheme === 'dark' ? comet1 : comet9,
+  backgroundHackerVoid: comet10,
 
-  foregroundNeutral: colorScheme === 'dark' ? comet6 : comet4,
+  foregroundNeutral: isDarkTheme ? comet7 : comet4,
 
   transparencyDarkWeak: '#00000020',
   transparencyDark: '#00000033',
   transparencyDarkStrong: '#00000066',
 
-  textVeryWeak: colorScheme === 'dark' ? comet5 : comet3,
-  textWeak: colorScheme === 'dark' ? comet4 : comet5,
-  text: colorScheme === 'dark' ? comet1 : comet9,
+  textVeryWeak: isDarkTheme ? comet5 : comet4,
+  textWeak: isDarkTheme ? comet4 : comet6,
+  text: isDarkTheme ? white : comet10,
   textCTA: teal4,
-  textLine: comet2,
-  textBrand: colorScheme === 'dark' ? indigo4 : indigo7,
+  textLine: isDarkTheme ? comet8 : comet2,
+  textBrand: isDarkTheme ? indigo4 : indigo7,
   textPositive: teal4,
   textNegative: red5,
   textHacker: teal2,
@@ -231,6 +234,7 @@ export const Palette = {
     comet7,
     comet8,
     comet9,
+    comet10,
 
     red0,
     red1,

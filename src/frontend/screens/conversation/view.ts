@@ -92,6 +92,7 @@ export const styles = StyleSheet.create({
   },
 
   textInputStyle: {
+    color: Palette.text,
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
   },
@@ -107,13 +108,24 @@ export const styles = StyleSheet.create({
   },
 
   bubbleRight: {
-    backgroundColor: Palette.brandWeakest,
-    borderColor: Palette.brandWeaker,
+    backgroundColor: Palette.isDarkTheme
+      ? Palette.brandStrong
+      : Palette.brandWeakest,
+    borderColor: Palette.isDarkTheme
+      ? Palette.brandStronger
+      : Palette.brandWeaker,
     borderRadius: 10,
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Dimensions.verticalSpaceTiny,
     paddingTop: Dimensions.verticalSpaceTiny,
     paddingBottom: Dimensions.verticalSpaceNormal,
+  },
+
+  inputToolbarContainer: {
+    backgroundColor: Palette.backgroundText,
+    // FIXME: enable this but also avoid the borderTop on the Send component
+    borderTopWidth: 0, // StyleSheet.hairlineWidth,
+    borderTopColor: Palette.textLine,
   },
 });
 
@@ -166,7 +178,7 @@ function renderFooter() {
 }
 
 function renderSend(props: any) {
-  return h(Send as any, props, [
+  return h(Send as any, {...props, style: null}, [
     h(View, {style: styles.send}, [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
@@ -181,6 +193,7 @@ function renderComposer(props: any) {
   return h(Composer, {
     ...props,
     placeholder: t('conversation.placeholder'),
+    placeholderTextColor: Palette.textVeryWeak,
     textInputStyle: styles.textInputStyle,
   });
 }
@@ -188,6 +201,7 @@ function renderComposer(props: any) {
 function renderInputToolbar(props: any) {
   return h(InputToolbar, {
     ...props,
+    containerStyle: styles.inputToolbarContainer,
     renderComposer,
   });
 }

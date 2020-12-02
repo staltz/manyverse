@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
 
   contentWarningOff: {
     ...contentWarning,
-    color: Palette.foregroundNeutral,
+    color: Palette.textVeryWeak,
   },
 
   contentWarningOn: {

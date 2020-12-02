@@ -5,13 +5,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent} from 'react';
-import {View, StyleSheet, Appearance} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import MessageHeader from './MessageHeader';
-
-const colorScheme = Appearance.getColorScheme();
 
 export const styles = StyleSheet.create({
   container: {
@@ -27,7 +25,9 @@ export const styles = StyleSheet.create({
     height: Dimensions.avatarSizeNormal,
     width: Dimensions.avatarSizeNormal,
     borderRadius: Math.ceil(Dimensions.avatarSizeNormal * 0.5),
-    backgroundColor: colorScheme === 'dark' ? Palette.voidStronger : Palette.voidWeak,
+    backgroundColor: Palette.isDarkTheme
+      ? Palette.voidStronger
+      : Palette.voidWeak,
     marginRight: Dimensions.horizontalSpaceSmall + 2,
   },
 
@@ -39,14 +39,18 @@ export const styles = StyleSheet.create({
     width: 110,
     height: 16,
     marginTop: 2,
-    backgroundColor: colorScheme === 'dark' ? Palette.voidStronger : Palette.voidWeak,
+    backgroundColor: Palette.isDarkTheme
+      ? Palette.voidStronger
+      : Palette.voidWeak,
   },
 
   timestamp: {
     width: 100,
     height: 16,
     marginTop: 2,
-    backgroundColor: colorScheme === 'dark' ? Palette.voidStronger : Palette.voidWeak,
+    backgroundColor: Palette.isDarkTheme
+      ? Palette.voidStronger
+      : Palette.voidWeak,
   },
 });
 

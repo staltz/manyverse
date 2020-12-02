@@ -32,7 +32,7 @@ export default function dialogs(
           positiveText: t('profile_edit.call_to_action.discard'),
           positiveColor: Palette.textNegative,
           negativeText: t('call_to_action.cancel'),
-          negativeColor: Palette.text,
+          negativeColor: Palette.colors.comet8,
         },
       ),
     )

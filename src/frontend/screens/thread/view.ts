@@ -45,7 +45,7 @@ function ExpandReplyButton(isLastButton: boolean) {
     [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
-        color: Palette.foregroundNeutral,
+        color: Palette.textVeryWeak,
         name: 'arrow-expand',
       }),
     ],
