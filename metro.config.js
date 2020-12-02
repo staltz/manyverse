@@ -18,6 +18,7 @@ module.exports = {
     blacklistRE: blacklist([
       /\/android\/.*/,
       /\/desktop\/.*/,
+      /\/benchmark\/.*/,
       /\/e2e\/.*/,
       /\/ios\/.*/,
       /\/nodejs-assets\/.*/,
