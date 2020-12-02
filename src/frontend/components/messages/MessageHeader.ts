@@ -56,6 +56,13 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
   },
+
+  timestampUnread: {
+    fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
+    color: Palette.textPositive,
+  },
 });
 
 export type Props = {
@@ -63,6 +70,7 @@ export type Props = {
   style?: ViewStyle;
   name?: string;
   imageUrl: string | null;
+  unread?: boolean;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 };
 
@@ -94,6 +102,7 @@ export default class MessageHeader extends Component<Props> {
 
   public render() {
     const {msg, name, imageUrl} = this.props;
+    const unread = this.props.unread;
     const authorTouchableProps = {
       onPress: this._onPressAuthor,
       activeOpacity: 0.4,
@@ -122,9 +131,11 @@ export default class MessageHeader extends Component<Props> {
           ),
         ],
       ),
-      h(Text, {key: 't', style: styles.timestamp}, [
-        h(LocalizedHumanTime, {time: msg.value.timestamp}),
-      ]),
+      h(
+        Text,
+        {key: 't', style: unread ? styles.timestampUnread : styles.timestamp},
+        [h(LocalizedHumanTime, {time: msg.value.timestamp})],
+      ),
     ]);
   }
 }

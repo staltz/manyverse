@@ -62,8 +62,8 @@ export default class ContactMessage extends Component<Props, {}> {
     const props = this.props;
     const unread = props.msg.timestamp > props.lastSessionTimestamp;
 
-    return h(MessageContainer, {unread}, [
-      h(MessageHeader, props),
+    return h(MessageContainer, {}, [
+      h(MessageHeader, {...props, unread}),
       h(ContactBody, props),
       h(MessageFooter, {...props, style: styles.footer}),
     ]);

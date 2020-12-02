@@ -144,10 +144,11 @@ export default class ThreadCard extends PureComponent<Props, State> {
       typeof cwMsg.value.content.contentWarning === 'string';
     const unread = thread.timestamp > lastSessionTimestamp;
 
-    return h(MessageContainer, {style: styles.container, unread}, [
+    return h(MessageContainer, {style: styles.container}, [
       h(MessageHeader, {
         key: 'mh',
         msg: root,
+        unread,
         name: metadata.about.name,
         imageUrl: metadata.about.imageUrl,
         onPressAuthor,

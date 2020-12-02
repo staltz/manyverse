@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   itemContainer: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.backgroundTextBrand,
+    backgroundColor: Palette.backgroundTextWeak,
   },
 
   item: {
@@ -40,8 +40,8 @@ export const styles = StyleSheet.create({
     width: Dimensions.avatarSizeNormal,
     borderRadius: Dimensions.avatarSizeNormal * 0.5,
     backgroundColor: Palette.isDarkTheme
-      ? Palette.voidStronger
-      : Palette.brandWeakest,
+      ? Palette.voidWeak
+      : Palette.backgroundText,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -108,8 +108,8 @@ export default class StagedItem extends PureComponent<Props> {
               h(Icon, {
                 size: Dimensions.iconSizeNormal,
                 color: Palette.isDarkTheme
-                  ? Palette.brandWeak
-                  : Palette.brandWeaker,
+                  ? Palette.voidStronger
+                  : Palette.voidStrong,
                 name: peerModeIcon(data),
               }),
             ]),

@@ -72,10 +72,11 @@ export default class FollowCard extends PureComponent<Props> {
     const contactName = metadata.contact?.name;
     const unread = thread.timestamp > lastSessionTimestamp;
 
-    return h(MessageContainer, {style: styles.container, unread}, [
+    return h(MessageContainer, {style: styles.container}, [
       h(MessageHeader, {
         key: 'mh',
         msg: root,
+        unread,
         name: metadata.about.name,
         imageUrl: metadata.about.imageUrl,
         onPressAuthor,

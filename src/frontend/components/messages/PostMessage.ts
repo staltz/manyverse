@@ -79,8 +79,8 @@ export default class PostMessage extends PureComponent<Props, State> {
     const opened = hasCW ? this.state.cwOpened : true;
     const unread = msg.timestamp > lastSessionTimestamp;
 
-    return h(MessageContainer, {unread}, [
-      h(MessageHeader, props),
+    return h(MessageContainer, {}, [
+      h(MessageHeader, {...props, unread}),
       hasCW
         ? h(ContentWarning, {
             key: 'cw',
