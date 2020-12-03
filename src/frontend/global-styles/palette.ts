@@ -213,8 +213,8 @@ export const Palette = {
   textCTA: teal4,
   textLine: isDarkTheme ? comet8 : comet2,
   textBrand: isDarkTheme ? indigo4 : indigo7,
-  textPositive: teal4,
-  textNegative: red5,
+  textPositive: isDarkTheme ? teal4 : teal7,
+  textNegative: red6,
   textHacker: teal2,
   textForBackgroundBrand: white,
 

@@ -62,7 +62,7 @@ class MenuOptionContent extends React.PureComponent<MenuOptionContentProps> {
       [
         h(Icon, {
           size: Dimensions.iconSizeNormal,
-          color: Palette.text,
+          color: Palette.colors.comet6,
           name: icon,
         }),
         h(Text, {style: styles.menuOptionContentText}, text),

@@ -54,7 +54,7 @@ export default function intent(
     .map(() =>
       dialogSource.alert('', t('thread.dialogs.save_draft_prompt.title'), {
         positiveText: t('call_to_action.save'),
-        positiveColor: Palette.text,
+        positiveColor: Palette.colors.comet8,
         negativeText: t('call_to_action.delete'),
         negativeColor: Palette.textNegative,
       }),
