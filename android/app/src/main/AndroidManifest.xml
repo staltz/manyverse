@@ -32,7 +32,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|layoutDirection|locale"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|layoutDirection|locale|uiMode"
+            android:launchMode="singleTask"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateUnchanged">
             <intent-filter>
