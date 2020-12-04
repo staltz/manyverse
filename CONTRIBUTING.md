@@ -462,9 +462,10 @@ First make an Android release, then an iOS release.
 - Run `npm run release-android` on a computer that can build Android
 - (Unfortunately!) run `cd android` and `./gradlew assembleRelease` to rebuild it because apparently there's some issue where the previous step didn't use the correct signing keystores (we should fix this eventually, so that only the first step is needed)
 - Check that the signing certificates are correct, running `jarsigner -verify -verbose:summary -certs app/build/outputs/apk/indie/release/app-indie-release.apk`
-- Deploy to Dat Installer
-  - `cd ../dat-release-latest` and `dat sync`
-- Install new version through Dat Installer and make sure it works
+- Install the new APK to make sure it works
+- Deploy as an APK on the website
+  - Go to `android/app/build/outputs/apk/indie/release` and copy the `app-indie-release.apk` file
+  - Put the file in the manyverse-website repo and deploy the website
 - `git push origin master`
 
 ### iOS
@@ -494,5 +495,3 @@ Then make an iOS release:
   - Copy-paste from CHANGELOG.md the list of updates for the latest version, write it in the Twitter `@manyver_se` account and publish
 - Announce on Mastodon
   - Copy paste from Twitter
-- Sync Archival Dat
-  - `cd ../dat-release-all` and `dat sync` (uploads to the Dat swarm)
