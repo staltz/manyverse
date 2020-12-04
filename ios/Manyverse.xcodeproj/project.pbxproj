@@ -18,7 +18,7 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* ManyverseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ManyverseTests.m */; };
 		39623D3B69ED876C5DDAB932 /* libPods-Manyverse-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E33996D198E902BE41E55FB8 /* libPods-Manyverse-tvOSTests.a */; };
-		B92380132921F9AE61ACD77B /* Pods_ManyverseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF7D39C86405F816EC799B0 /* Pods_ManyverseTests.framework */; };
+		A0DC940F39358F801676E977 /* Pods_Manyverse_ManyverseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 735DC489D02685065789B0EE /* Pods_Manyverse_ManyverseTests.framework */; };
 		DFFA4253A34EAA25B3F359F2 /* Pods_Manyverse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9972E806A6E6F6AA3D9900FC /* Pods_Manyverse.framework */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
@@ -66,6 +66,7 @@
 		344661FAA9F7425E8211FC47 /* NodeMobile.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = NodeMobile.framework; path = "../node_modules/nodejs-mobile-react-native/ios/NodeMobile.framework"; sourceTree = "<group>"; };
 		3A451807D81240EFB1546901 /* libRNReactNativeBluetoothSocketBridge.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNReactNativeBluetoothSocketBridge.a; sourceTree = "<group>"; };
 		5BB9B4D4F82E436CBA5500FA /* nodejs-project */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "nodejs-project"; path = "../nodejs-assets/nodejs-project"; sourceTree = "<group>"; };
+		735DC489D02685065789B0EE /* Pods_Manyverse_ManyverseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manyverse_ManyverseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		820B24C5E4502C22E6730984 /* libPods-Manyverse-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Manyverse-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90DF7C3FFE7DB98D2DAF21C5 /* Pods-ManyverseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManyverseTests.debug.xcconfig"; path = "Target Support Files/Pods-ManyverseTests/Pods-ManyverseTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9972E806A6E6F6AA3D9900FC /* Pods_Manyverse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manyverse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,11 +74,11 @@
 		AE7062D311A3E275B6470CF9 /* Pods-Manyverse.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manyverse.debug.xcconfig"; path = "Target Support Files/Pods-Manyverse/Pods-Manyverse.debug.xcconfig"; sourceTree = "<group>"; };
 		B0EA167AEB9A883B6A30DA5F /* Pods-Manyverse.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manyverse.release.xcconfig"; path = "Target Support Files/Pods-Manyverse/Pods-Manyverse.release.xcconfig"; sourceTree = "<group>"; };
 		B9544A647C65887AFE9A9D1C /* Pods-ManyverseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManyverseTests.release.xcconfig"; path = "Target Support Files/Pods-ManyverseTests/Pods-ManyverseTests.release.xcconfig"; sourceTree = "<group>"; };
-		CFF7D39C86405F816EC799B0 /* Pods_ManyverseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ManyverseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E192F3FD08308917ABCA123E /* Pods-Manyverse-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manyverse-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Manyverse-tvOS/Pods-Manyverse-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		E1C9A43B2D634F1DAF3C6F27 /* ReactNativeNavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ReactNativeNavigationTests.xctest; sourceTree = "<group>"; };
 		E33996D198E902BE41E55FB8 /* libPods-Manyverse-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Manyverse-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E80D84E54E234123A08089F9 /* builtin_modules */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = builtin_modules; path = "../node_modules/nodejs-mobile-react-native/install/resources/nodejs-modules/builtin_modules"; sourceTree = "<group>"; };
+		E8413DB13EC34201AB63CBC7 /* Pods-Manyverse-ManyverseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manyverse-ManyverseTests.debug.xcconfig"; path = "Target Support Files/Pods-Manyverse-ManyverseTests/Pods-Manyverse-ManyverseTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EA6B488562DC3CFE2F62A466 /* Pods-Manyverse-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manyverse-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Manyverse-tvOS/Pods-Manyverse-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -88,6 +89,7 @@
 		F6C413A3239680AE005F377A /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		F6C413A4239680B9005F377A /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		F6D4D02A24604770001D319D /* translations */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translations; path = ../android/app/src/main/assets/translations; sourceTree = "<group>"; };
+		F747BD77FC2CE573FAA8CDBA /* Pods-Manyverse-ManyverseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manyverse-ManyverseTests.release.xcconfig"; path = "Target Support Files/Pods-Manyverse-ManyverseTests/Pods-Manyverse-ManyverseTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B92380132921F9AE61ACD77B /* Pods_ManyverseTests.framework in Frameworks */,
+				A0DC940F39358F801676E977 /* Pods_Manyverse_ManyverseTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +176,7 @@
 				9972E806A6E6F6AA3D9900FC /* Pods_Manyverse.framework */,
 				820B24C5E4502C22E6730984 /* libPods-Manyverse-tvOS.a */,
 				E33996D198E902BE41E55FB8 /* libPods-Manyverse-tvOSTests.a */,
-				CFF7D39C86405F816EC799B0 /* Pods_ManyverseTests.framework */,
+				735DC489D02685065789B0EE /* Pods_Manyverse_ManyverseTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -197,6 +199,8 @@
 				1DFC527AB5387C115F0E11BC /* Pods-Manyverse-tvOSTests.release.xcconfig */,
 				90DF7C3FFE7DB98D2DAF21C5 /* Pods-ManyverseTests.debug.xcconfig */,
 				B9544A647C65887AFE9A9D1C /* Pods-ManyverseTests.release.xcconfig */,
+				E8413DB13EC34201AB63CBC7 /* Pods-Manyverse-ManyverseTests.debug.xcconfig */,
+				F747BD77FC2CE573FAA8CDBA /* Pods-Manyverse-ManyverseTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -270,6 +274,7 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				715E9E6DF21E89DD16027984 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -480,7 +485,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ManyverseTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Manyverse-ManyverseTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -580,6 +585,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		715E9E6DF21E89DD16027984 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Manyverse-ManyverseTests/Pods-Manyverse-ManyverseTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Manyverse-ManyverseTests/Pods-Manyverse-ManyverseTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Manyverse-ManyverseTests/Pods-Manyverse-ManyverseTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9505CAD399ED2071B4566E69 /* [CP-User] [NODEJS MOBILE] Sign Native Modules */ = {
@@ -706,7 +728,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90DF7C3FFE7DB98D2DAF21C5 /* Pods-ManyverseTests.debug.xcconfig */;
+			baseConfigurationReference = E8413DB13EC34201AB63CBC7 /* Pods-Manyverse-ManyverseTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 3Y2H7D665X;
@@ -746,7 +768,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9544A647C65887AFE9A9D1C /* Pods-ManyverseTests.release.xcconfig */;
+			baseConfigurationReference = F747BD77FC2CE573FAA8CDBA /* Pods-Manyverse-ManyverseTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;

@@ -11,11 +11,7 @@ target 'Manyverse' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
   pod 'RNOS', :podspec => '../node_modules/react-native-os-staltz/RNOS.podspec'
-  pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'QBImagePickerController', :path => '../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePickerController.podspec'
-  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
-  pod 'ReactNativeAudioToolkit', :path => '../node_modules/@react-native-community/audio-toolkit'
 
   target 'ManyverseTests' do
     inherit! :complete

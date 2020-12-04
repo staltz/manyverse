@@ -5,7 +5,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {StyleSheet} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -79,7 +78,7 @@ export const styles = StyleSheet.create({
   },
 
   header: {
-    marginTop: Dimensions.toolbarHeight + getStatusBarHeight(true),
+    marginTop: Dimensions.toolbarHeight,
     backgroundColor: Palette.backgroundText,
   },
 

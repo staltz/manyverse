@@ -18,6 +18,9 @@ import {
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    ...Platform.select({
+      ios: {backgroundColor: Palette.transparencyDarkIOSModal},
+    }),
     alignSelf: 'stretch',
     flexDirection: 'column',
     alignItems: 'center',
@@ -58,17 +61,29 @@ export const styles = StyleSheet.create({
 export type Props = {};
 
 export default class Dialog extends PureComponent<Props> {
-  public static navOptions: Options = {
-    layout: {
-      backgroundColor: Palette.transparencyDarkStrong,
+  public static navOptions: Options = Platform.select({
+    ios: {
+      layout: {
+        componentBackgroundColor: 'transparent',
+      },
+      modalTransitionStyle: OptionsModalTransitionStyle.crossDissolve,
     },
-    modalPresentationStyle: OptionsModalPresentationStyle.overCurrentContext,
-    modalTransitionStyle: OptionsModalTransitionStyle.crossDissolve,
-    animations: {
-      showModal: {alpha: {from: 0, to: 1, duration: 150}, waitForRender: true},
-      dismissModal: {alpha: {from: 1, to: 0, duration: 150}},
+
+    default: {
+      layout: {
+        backgroundColor: Palette.transparencyDarkStrong,
+      },
+      modalPresentationStyle: OptionsModalPresentationStyle.overCurrentContext,
+      modalTransitionStyle: OptionsModalTransitionStyle.crossDissolve,
+      animations: {
+        showModal: {
+          alpha: {from: 0, to: 1, duration: 150},
+          waitForRender: true,
+        },
+        dismissModal: {alpha: {from: 1, to: 0, duration: 150}},
+      },
     },
-  };
+  });
 
   public render() {
     return $(

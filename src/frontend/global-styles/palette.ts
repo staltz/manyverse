@@ -204,6 +204,7 @@ export const Palette = {
   foregroundNeutral: isDarkTheme ? comet7 : comet4,
 
   transparencyDarkWeak: '#00000020',
+  transparencyDarkIOSModal: '#00000014',
   transparencyDark: '#00000033',
   transparencyDarkStrong: '#00000066',
 
