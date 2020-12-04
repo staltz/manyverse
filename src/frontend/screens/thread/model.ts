@@ -27,9 +27,10 @@ export type State = {
   lastSessionTimestamp: number;
   expandRootCW: boolean;
   replyText: string;
+  replyTextOverride: string;
   replyEditable: boolean;
   getSelfRepliesReadable: GetReadable<MsgAndExtras> | null;
-  startedAsReply: boolean;
+  focusTimestamp: number;
   keyboardVisible: boolean;
 };
 
@@ -81,9 +82,10 @@ export default function model(
           lastSessionTimestamp: props.lastSessionTimestamp,
           expandRootCW: props.expandRootCW ?? false,
           replyText: '',
+          replyTextOverride: '',
           replyEditable: true,
           getSelfRepliesReadable: null,
-          startedAsReply: props.replyToMsgId ? true : false,
+          focusTimestamp: props.replyToMsgId ? Date.now() : 0,
           keyboardVisible: props.replyToMsgId ? true : false,
         };
       },
@@ -169,7 +171,12 @@ export default function model(
     .map(() =>
       xs.of(
         function emptyPublishedReducer(prev: State): State {
-          return {...prev, replyText: '', replyEditable: false};
+          return {
+            ...prev,
+            replyText: '',
+            replyTextOverride: '',
+            replyEditable: false,
+          };
         },
         function resetEditableReducer(prev: State): State {
           return {...prev, replyEditable: true};
@@ -180,7 +187,7 @@ export default function model(
 
   const emptyReplyTextReducer$ = actions.willReply$.mapTo(
     function emptyReplyTextReducer(prev: State): State {
-      return {...prev, replyText: ''};
+      return {...prev, replyText: '', replyTextOverride: ''};
     },
   );
 
@@ -191,9 +198,9 @@ export default function model(
       (replyText) =>
         function loadReplyDraftReducer(prev: State): State {
           if (!replyText) {
-            return {...prev, replyText: ''};
+            return {...prev, replyText: '', replyTextOverride: ''};
           } else {
-            return {...prev, replyText};
+            return {...prev, replyText, replyTextOverride: replyText};
           }
         },
     );

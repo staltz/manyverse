@@ -4,30 +4,28 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {
   View,
   Text,
-  TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform,
 } from 'react-native';
 import {ReactElement} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {propifyMethods} from 'react-propify-methods';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import FullThread from '../../components/FullThread';
 import Avatar from '../../components/Avatar';
 import EmptySection from '../../components/EmptySection';
+import SettableTextInput from '../../components/SettableTextInput';
 import TopBar from '../../components/TopBar';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
-const FocusableTextInput = propifyMethods(TextInput, 'focus' as any);
 
 function ExpandReplyButton(isLastButton: boolean) {
   return h(
@@ -75,7 +73,7 @@ function ReplySendButton() {
   );
 }
 
-function ReplyInput(state: State, focus$: Stream<undefined>) {
+function ReplyInput(state: State, nativePropsAndFocus$: Stream<any>) {
   return h(View, {style: styles.replyRow}, [
     h(Avatar, {
       size: avatarSize,
@@ -83,15 +81,13 @@ function ReplyInput(state: State, focus$: Stream<undefined>) {
       style: styles.replyAvatar,
     }),
     h(View, {style: styles.replyInputContainer}, [
-      h(FocusableTextInput, {
+      h(SettableTextInput, {
         accessible: true,
         accessibilityLabel: t('thread.fields.reply.accessibility_label'),
         sel: 'reply-input',
         multiline: true,
-        autoFocus: state.startedAsReply,
-        focus$,
+        nativePropsAndFocus$,
         returnKeyType: 'done',
-        value: state.replyText,
         editable: state.replyEditable,
         placeholder: t('thread.fields.reply.placeholder'),
         placeholderTextColor: Palette.textVeryWeak,
@@ -113,6 +109,17 @@ type Actions = {
 export default function view(state$: Stream<State>, actions: Actions) {
   const scrollToEnd$ = actions.willReply$.mapTo({animated: false});
 
+  const setMarkdownInputNativeProps$ = xs.merge(
+    actions.focusTextInput$.mapTo({focus: true}),
+
+    state$
+      .compose(dropRepeatsByKeys(['replyTextOverride', 'focusTimestamp']))
+      .map((s) => ({
+        focus: Date.now() < s.focusTimestamp + 500,
+        text: s.replyTextOverride,
+      })),
+  );
+
   return state$
     .compose(
       dropRepeatsByKeys([
@@ -121,7 +128,6 @@ export default function view(state$: Stream<State>, actions: Actions) {
         'replyText',
         'keyboardVisible',
         'replyEditable',
-        'startedAsReply',
         'getSelfRepliesReadable',
         'rootMsgId',
         'selfFeedId',
@@ -195,7 +201,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
               scrollToEnd$,
               publication$: actions.willReply$,
             }),
-            ReplyInput(state, actions.focusTextInput$),
+            ReplyInput(state, setMarkdownInputNativeProps$),
           ],
         ),
       ]);
