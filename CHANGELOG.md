@@ -2,9 +2,17 @@
 
 **Update from one of these sources:**
 
-- [Play Store](https://play.google.com/store/apps/details?id=se.manyver)
-- [F-Droid](https://f-droid.org/packages/se.manyver/)
-- [Dat Installer](https://github.com/staltz/dat-installer/) (insert `dat://manyverse-latest.hashbase.io`)
+- (Android) [Play Store](https://play.google.com/store/apps/details?id=se.manyver)
+- (Android) [F-Droid](https://f-droid.org/packages/se.manyver/)
+- (Android) [APK file](https://manyver.se/apk)
+- (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
+
+## 0.2012.4-beta
+
+* Bug fix: profile screen layout when you block someone ([see details](https://gitlab.com/staltz/manyverse/commit/227c857db3867f69a5f73292709e7b23bc8a5aa1))
+* Feature: dark mode ([see details](https://gitlab.com/staltz/manyverse/commit/2adab6ef4689d47d0368e8e52f0de589493d31ef))
+* Improve colors and style of unread content ([see details](https://gitlab.com/staltz/manyverse/commit/c0b349acb0ac0596e39b8ce93233597f75e31a1c))
+* Improve the color palette ([see details](https://gitlab.com/staltz/manyverse/commit/bade78fc0b627fee11edeccef0a634ba71c4321d))
 
 ## 0.2011.5-beta
 

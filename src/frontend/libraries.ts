@@ -279,6 +279,13 @@ export default [
     homepage: 'https://gitlab.com/staltz/estimate-progress#readme',
   },
   {
+    name: 'faucet',
+    type: 'library',
+    version: '0.0.1',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/substack/faucet',
+  },
+  {
     name: 'i18n-js',
     type: 'library',
     version: '3.7.1',
@@ -330,7 +337,7 @@ export default [
   {
     name: 'nodejs-mobile-react-native',
     type: 'library',
-    version: '0.6.1',
+    version: '0.6.2',
     license: 'MIT License (MIT)',
     homepage: 'https://code.janeasystems.com/nodejs-mobile',
   },
@@ -386,7 +393,7 @@ export default [
   {
     name: 'pull-flat-list',
     type: 'library',
-    version: '2.13.0',
+    version: '2.14.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/pull-flat-list',
   },
@@ -428,14 +435,14 @@ export default [
   {
     name: 'react',
     type: 'library',
-    version: '16.9.0',
+    version: '16.13.1',
     license: 'MIT License (MIT)',
     homepage: 'https://reactjs.org/',
   },
   {
     name: 'react-dom',
     type: 'library',
-    version: '16.9.0',
+    version: '16.13.1',
     license: 'MIT License (MIT)',
     homepage: 'https://reactjs.org/',
   },
@@ -449,7 +456,7 @@ export default [
   {
     name: 'react-native',
     type: 'library',
-    version: '0.61.5',
+    version: '0.63.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/facebook/react-native#readme',
   },
@@ -544,7 +551,7 @@ export default [
   {
     name: 'react-native-navigation',
     type: 'library',
-    version: '4.8.1',
+    version: '6.12.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/wix/react-native-navigation',
   },
@@ -735,14 +742,14 @@ export default [
   {
     name: 'ssb-config',
     type: 'library',
-    version: '3.3.2',
+    version: '3.4.5',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-config',
   },
   {
     name: 'ssb-conn',
     type: 'library',
-    version: '0.18.0',
+    version: '0.19.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn',
   },
@@ -759,6 +766,13 @@ export default [
     version: '19.3.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-db',
+  },
+  {
+    name: 'ssb-db2',
+    type: 'library',
+    version: '0.4.0',
+    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
+    homepage: 'https://github.com/arj03/ssb-db2',
   },
   {
     name: 'ssb-dht-invite',
@@ -845,13 +859,6 @@ export default [
     homepage: 'https://github.com/ssbc/ssb-private',
   },
   {
-    name: 'ssb-query',
-    type: 'library',
-    version: '2.4.3',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/dominictarr/ssb-query',
-  },
-  {
     name: 'ssb-ref',
     type: 'library',
     version: '2.13.9',
@@ -868,7 +875,7 @@ export default [
   {
     name: 'ssb-room',
     type: 'library',
-    version: '1.2.2',
+    version: '1.3.0',
     license: 'GNU Affero General Public License v3.0 (AGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-room#readme',
   },
@@ -889,7 +896,7 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '5.1.0',
+    version: '5.1.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
