@@ -472,12 +472,6 @@ Then make an iOS release:
 - `git pull origin master` on a computer that can build iOS
 - Run `npm run release-ios`
 - Once done, it should open an _Organizer_ window where you must upload the new version to App Store
-- Get the folder `e2e/apple-app-store-demo` and make it your `~/.ssb` (beware to backup any existing `~/.ssb` before)
-- Open a desktop SSB client such as Patchwork to use that `~/.ssb`
-- Create a new [ssb-room](https://github.com/staltz/ssb-room) server
-- Put the ssb-room invite code in Patchwork
-- Keep this Patchwork open (and the computer in non-sleep mode) for ~24 hours
-- Apple's reviewers should use the ssb-room invite and will connect to your Patchwork
 
 ### Publish
 
@@ -489,6 +483,14 @@ Then make an iOS release:
   - Take the APK file from `android/app/build/outputs/apk/googlePlay/release`, upload and publish it on Google Play developer website
 - Publish iOS to the App Store
   - Open the website and the new version should have been uploaded by now
+  - Don't submit the new version yet, instead, do the below
+  - Get the folder `e2e/apple-app-store-demo` and make it your `~/.ssb` (beware to backup any existing `~/.ssb` before)
+  - Open a desktop SSB client such as Patchwork to use that `~/.ssb`
+  - Create a new [ssb-room](https://github.com/staltz/ssb-room) server
+  - Put the ssb-room invite code in Patchwork
+  - Keep this Patchwork open (and the computer in non-sleep mode) for ~24 hours
+  - Apple's reviewers should use the ssb-room invite and will connect to your Patchwork
+  - Now should be safe to press submit on the App Store dashboard
 - Announce on Scuttlebutt
   - Run `npm run echo-ssb-post`, it shows in the terminal a ready markdown post, publish that into Scuttlebutt under the hashtag `#manyverse`
 - Announce on Twitter
