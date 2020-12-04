@@ -463,9 +463,6 @@ First make an Android release, then an iOS release.
 - (Unfortunately!) run `cd android` and `./gradlew assembleRelease` to rebuild it because apparently there's some issue where the previous step didn't use the correct signing keystores (we should fix this eventually, so that only the first step is needed)
 - Check that the signing certificates are correct, running `jarsigner -verify -verbose:summary -certs app/build/outputs/apk/indie/release/app-indie-release.apk`
 - Install the new APK to make sure it works
-- Deploy as an APK on the website
-  - Go to `android/app/build/outputs/apk/indie/release` and copy the `app-indie-release.apk` file
-  - Put the file in the manyverse-website repo and deploy the website
 - `git push origin master`
 
 ### iOS
@@ -484,6 +481,9 @@ Then make an iOS release:
 
 ### Publish
 
+- Deploy as an APK on the website
+  - Go to `android/app/build/outputs/apk/indie/release` and copy the `app-indie-release.apk` file
+  - Put the file in the manyverse-website repo and deploy the website
 - Publish Android on F-Droid: `git push origin --tags` (F-Droid server pulls our updates)
 - Publish Android to Google Play
   - Take the APK file from `android/app/build/outputs/apk/googlePlay/release`, upload and publish it on Google Play developer website
