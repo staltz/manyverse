@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {StyleSheet} from 'react-native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -27,6 +28,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     backgroundColor: Palette.voidMain,
+  },
+
+  topBar: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 11,
   },
 
   cover: {
@@ -70,6 +79,7 @@ export const styles = StyleSheet.create({
   },
 
   header: {
+    marginTop: Dimensions.toolbarHeight + getStatusBarHeight(true),
     backgroundColor: Palette.backgroundText,
   },
 
@@ -80,6 +90,7 @@ export const styles = StyleSheet.create({
       AVATAR_SIZE + // avatar
       Dimensions.horizontalSpaceBig - // right margin to the avatar
       Dimensions.horizontalSpaceSmall, // minus follows-you-text margin
+    minHeight: AVATAR_SIZE_HALF,
     marginRight: Dimensions.horizontalSpaceBig,
     zIndex: 30,
     flexDirection: 'row',

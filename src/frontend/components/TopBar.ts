@@ -5,7 +5,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent, createElement as $} from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {t} from '../drivers/localization';
 import {Palette} from '../global-styles/palette';
@@ -56,6 +63,7 @@ const styles = StyleSheet.create({
 export type Props = {
   title?: string;
   onPressBack?: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 
 export default class TopBar extends PureComponent<Props> {
@@ -64,8 +72,8 @@ export default class TopBar extends PureComponent<Props> {
   }
 
   public render() {
-    const {title, onPressBack} = this.props;
-    return $(View, {style: styles.container}, [
+    const {title, onPressBack, style} = this.props;
+    return $(View, {style: [styles.container, style]}, [
       $(HeaderButton, {
         key: 'back',
         onPress: onPressBack,

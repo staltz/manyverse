@@ -82,7 +82,7 @@ function calcAvatarScale(scrollY: Animated.Value): Animated.Animated {
 }
 
 function ProfileTopBar() {
-  return h(TopBar, {sel: 'topbar'}, [
+  return h(TopBar, {sel: 'topbar', style: styles.topBar}, [
     h(
       TouchableOpacity,
       {
@@ -292,44 +292,54 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
 
         h(ProfileName, {state, translateY: nameTransY}),
 
-        isBlocked
-          ? h(EmptySection, {
-              style: styles.emptySection,
-              title: t('profile.empty.blocked.title'),
-              description: t('profile.empty.blocked.description'),
-            })
-          : h(Feed, {
-              sel: 'feed',
-              getReadable: state.getFeedReadable,
-              getPublicationsReadable: isSelfProfile
-                ? state.getSelfRootsReadable
-                : null,
-              publication$: isSelfProfile
-                ? ssbSource.publishHook$.filter(isPublic).filter(isRootPostMsg)
-                : null,
-              selfFeedId: state.selfFeedId,
-              lastSessionTimestamp: state.lastSessionTimestamp,
-              yOffsetAnimVal: scrollHeaderBy,
-              HeaderComponent: h(ProfileHeader, {
+        ...(isBlocked
+          ? [
+              h(ProfileHeader, {
                 about: state.about,
                 isSelfProfile,
               }),
-              style: styles.feed,
-              EmptyComponent: isSelfProfile
-                ? h(EmptySection, {
-                    style: styles.emptySection,
-                    image: require('../../../../images/noun-plant.png'),
-                    title: t('profile.empty.no_self_messages.title'),
-                    description: t(
-                      'profile.empty.no_self_messages.description',
-                    ),
-                  })
-                : h(EmptySection, {
-                    style: styles.emptySection,
-                    title: t('profile.empty.no_messages.title'),
-                    description: t('profile.empty.no_messages.description'),
-                  }),
-            }),
+              h(EmptySection, {
+                style: styles.emptySection,
+                title: t('profile.empty.blocked.title'),
+                description: t('profile.empty.blocked.description'),
+              }),
+            ]
+          : [
+              h(Feed, {
+                sel: 'feed',
+                getReadable: state.getFeedReadable,
+                getPublicationsReadable: isSelfProfile
+                  ? state.getSelfRootsReadable
+                  : null,
+                publication$: isSelfProfile
+                  ? ssbSource.publishHook$
+                      .filter(isPublic)
+                      .filter(isRootPostMsg)
+                  : null,
+                selfFeedId: state.selfFeedId,
+                lastSessionTimestamp: state.lastSessionTimestamp,
+                yOffsetAnimVal: scrollHeaderBy,
+                HeaderComponent: h(ProfileHeader, {
+                  about: state.about,
+                  isSelfProfile,
+                }),
+                style: styles.feed,
+                EmptyComponent: isSelfProfile
+                  ? h(EmptySection, {
+                      style: styles.emptySection,
+                      image: require('../../../../images/noun-plant.png'),
+                      title: t('profile.empty.no_self_messages.title'),
+                      description: t(
+                        'profile.empty.no_self_messages.description',
+                      ),
+                    })
+                  : h(EmptySection, {
+                      style: styles.emptySection,
+                      title: t('profile.empty.no_messages.title'),
+                      description: t('profile.empty.no_messages.description'),
+                    }),
+              }),
+            ]),
 
         isSelfProfile
           ? h(FloatingAction, {
