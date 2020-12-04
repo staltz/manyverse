@@ -478,7 +478,6 @@ Then make an iOS release:
 - Deploy as an APK on the website
   - Go to `android/app/build/outputs/apk/indie/release` and copy the `app-indie-release.apk` file
   - Put the file in the manyverse-website repo and deploy the website
-- Publish Android on F-Droid: `git push origin --tags` (F-Droid server pulls our updates)
 - Publish Android to Google Play
   - Take the APK file from `android/app/build/outputs/apk/googlePlay/release`, upload and publish it on Google Play developer website
 - Publish iOS to the App Store
@@ -491,6 +490,7 @@ Then make an iOS release:
   - Keep this Patchwork open (and the computer in non-sleep mode) for ~24 hours
   - Apple's reviewers should use the ssb-room invite and will connect to your Patchwork
   - Now should be safe to press submit on the App Store dashboard
+- Publish Android on F-Droid: `git push origin --tags` (F-Droid server pulls our updates)
 - Announce on Scuttlebutt
   - Run `npm run echo-ssb-post`, it shows in the terminal a ready markdown post, publish that into Scuttlebutt under the hashtag `#manyverse`
 - Announce on Twitter
