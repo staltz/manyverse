@@ -15,3 +15,4 @@ Be kind and objective when writing in text. Thanks for informing us! :) -->
 - Manyverse app version:
 - Device/phone model:
 - Android OS version:
+- iOS version:
