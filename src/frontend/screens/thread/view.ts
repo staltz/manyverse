@@ -22,7 +22,10 @@ import {Dimensions} from '../../global-styles/dimens';
 import FullThread from '../../components/FullThread';
 import Avatar from '../../components/Avatar';
 import EmptySection from '../../components/EmptySection';
-import SettableTextInput from '../../components/SettableTextInput';
+import {
+  Payload as SettablePayload,
+  default as SettableTextInput,
+} from '../../components/SettableTextInput';
 import TopBar from '../../components/TopBar';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
@@ -113,11 +116,25 @@ export default function view(state$: Stream<State>, actions: Actions) {
     actions.focusTextInput$.mapTo({focus: true}),
 
     state$
-      .compose(dropRepeatsByKeys(['replyTextOverride', 'focusTimestamp']))
-      .map((s) => ({
-        focus: Date.now() < s.focusTimestamp + 500,
-        text: s.replyTextOverride,
-      })),
+      .compose(
+        dropRepeatsByKeys([
+          'replyTextOverride',
+          'replyTextOverrideTimestamp',
+          'focusTimestamp',
+        ]),
+      )
+      .map((s) => {
+        const now = Date.now();
+        const TIME_BUDGET = 500; // milliseconds
+        const payload: SettablePayload = {};
+        if (now < s.focusTimestamp + TIME_BUDGET) {
+          payload.focus = true;
+        }
+        if (now < s.replyTextOverrideTimestamp + TIME_BUDGET) {
+          payload.text = s.replyTextOverride;
+        }
+        return payload;
+      }),
   );
 
   return state$

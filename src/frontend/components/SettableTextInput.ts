@@ -8,7 +8,7 @@ import {PureComponent, createElement as $, createRef, RefObject} from 'react';
 import {TextInput, TextInputProps} from 'react-native';
 import {Stream, Subscription} from 'xstream';
 
-interface Payload {
+export interface Payload {
   text?: string;
   selection?: any;
   focus?: boolean;

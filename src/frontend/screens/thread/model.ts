@@ -28,6 +28,7 @@ export type State = {
   expandRootCW: boolean;
   replyText: string;
   replyTextOverride: string;
+  replyTextOverrideTimestamp: number;
   replyEditable: boolean;
   getSelfRepliesReadable: GetReadable<MsgAndExtras> | null;
   focusTimestamp: number;
@@ -83,6 +84,7 @@ export default function model(
           expandRootCW: props.expandRootCW ?? false,
           replyText: '',
           replyTextOverride: '',
+          replyTextOverrideTimestamp: 0,
           replyEditable: true,
           getSelfRepliesReadable: null,
           focusTimestamp: props.replyToMsgId ? Date.now() : 0,
@@ -175,6 +177,7 @@ export default function model(
             ...prev,
             replyText: '',
             replyTextOverride: '',
+            replyTextOverrideTimestamp: Date.now(),
             replyEditable: false,
           };
         },
@@ -187,7 +190,12 @@ export default function model(
 
   const emptyReplyTextReducer$ = actions.willReply$.mapTo(
     function emptyReplyTextReducer(prev: State): State {
-      return {...prev, replyText: '', replyTextOverride: ''};
+      return {
+        ...prev,
+        replyText: '',
+        replyTextOverride: '',
+        replyTextOverrideTimestamp: Date.now(),
+      };
     },
   );
 
@@ -198,9 +206,19 @@ export default function model(
       (replyText) =>
         function loadReplyDraftReducer(prev: State): State {
           if (!replyText) {
-            return {...prev, replyText: '', replyTextOverride: ''};
+            return {
+              ...prev,
+              replyText: '',
+              replyTextOverride: '',
+              replyTextOverrideTimestamp: Date.now(),
+            };
           } else {
-            return {...prev, replyText, replyTextOverride: replyText};
+            return {
+              ...prev,
+              replyText,
+              replyTextOverride: replyText,
+              replyTextOverrideTimestamp: Date.now(),
+            };
           }
         },
     );
