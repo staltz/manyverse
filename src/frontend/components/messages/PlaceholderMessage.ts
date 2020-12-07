@@ -23,7 +23,9 @@ export const styles = StyleSheet.create({
     height: 16,
     marginTop: Dimensions.verticalSpaceNormal + 2,
     marginBottom: 10,
-    backgroundColor: Palette.voidWeak,
+    backgroundColor: Palette.isDarkTheme
+      ? Palette.voidStronger
+      : Palette.voidWeak,
   },
 });
 
