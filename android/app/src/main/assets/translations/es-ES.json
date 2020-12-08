@@ -4,7 +4,7 @@
     "add": "Agregar",
     "done": "Listo",
     "cancel": "Cancelar",
-    "continue": "Continuar",
+    "continue": "Seguir",
     "delete": "Eliminar",
     "save": "Guardar",
     "yes": "Sí",
@@ -16,7 +16,7 @@
       "accessibility_label": "Volver"
     },
     "close": {
-      "accessibility_label": "Cerrar"
+      "accessibility_label": "Botón Cerrar"
     },
     "close_dialog": {
       "accessibility_label": "Cerrar diálogo"
@@ -83,7 +83,7 @@
   "welcome": {
     "learn_more": "Leer más",
     "overview": {
-      "title": "¡Bienvenido a Manyverse!",
+      "title": "¡Bienvenidx a Manyverse!",
       "description": "Las redes sociales pueden ser sencillas, neutrales, no comerciales, y basarse en la confianza entre amigos. Esto es lo que Manyverse representa, y esperamos que tú también puedas hacer que sea tu hogar digital. Todo esto es posible gracias al nuevo protocolo SSB."
     },
     "off_the_grid": {
@@ -108,7 +108,7 @@
           "6_bold": "servidor pub",
           "7_normal": " o un ",
           "8_bold": "servidor room",
-          "9_normal": ", ¡O crea tu propio servidor SSB con Docker o DigitalOcean!"
+          "9_normal": ", o crea tu propio servidor!"
         },
         "default": {
           "1_normal": "Para conectarte con amigos y sincronizar contenido, puedes: unirte al mismo ",
@@ -121,7 +121,7 @@
           "8_bold": "servidor pub",
           "9_normal": " o a ",
           "10_bold": "un servidor room",
-          "11_normal": ", ¡O crea tu propio servidor SSB con Docker o DigitalOcean!"
+          "11_normal": ", o crea tu propio servidor!"
         }
       }
     },
@@ -145,7 +145,7 @@
       "title": "¡En construcción!",
       "description": {
         "1_normal": "Manyverse es ",
-        "2_bold": "software de calidad beta (Bajo desarrollo)",
+        "2_bold": "software de calidad \"beta\"",
         "3_normal": ". Todavía no hemos resuelto todo y algunas partes requieren arreglos. Durante la sincronización, la aplicación puede aparentar estar congelada durante varios minutos. ¡Ten paciencia! Infórmanos de cualquier otro fallo que llegues a encontrar, y con suficiente tiempo y donativos, podremos hacer de esta una gran aplicación."
       }
     },
@@ -406,13 +406,13 @@
         "accessibility_label": "Botón Cerrar"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "Botón de grabar audio",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
-          "neutral": "Ask me later",
+          "title": "Permitir a Manyverse grabar audio?",
+          "message": "Manyverse necesita acceso al micrófono para grabar mensajes de audio",
+          "neutral": "Pregúntame más tarde",
           "positive": "Aceptar",
-          "negative": "Cancel"
+          "negative": "Cancelar"
         }
       },
       "open_camera": {
@@ -448,27 +448,27 @@
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "Mensaje de audio",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "Empezar a grabar"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "Parar grabación"
       },
       "discard_recording": {
         "label": "Descartar",
-        "accessibility_label": "Discard Recording Button"
+        "accessibility_label": "Botón de descartar grabación"
       },
       "submit_recording": {
         "label": "Listo",
-        "accessibility_label": "Submit Recording Button"
+        "accessibility_label": "Botón de enviar grabación"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
-        "question": "Discard draft?"
+        "title": "Mensaje de audio",
+        "question": "¿Descartar borrador?"
       }
     }
   },
@@ -607,7 +607,7 @@
   "profile": {
     "call_to_action": {
       "copy_cypherlink": "Copia enlace-cifrado",
-      "private_chat": "Open private conversation",
+      "private_chat": "Abrir conversación privada",
       "block": "Bloquear",
       "block_secretly": "Bloquear secretamente",
       "unblock": "Desbloquear",
@@ -618,7 +618,7 @@
         "accessibility_label": "Botón Editar Perfil"
       },
       "open_biography": {
-        "label": "Read bio",
+        "label": "Leer biografía",
         "accessibility_label": "Mostrar Biografía"
       },
       "manage": {
@@ -959,16 +959,16 @@
     },
     "audio": {
       "play": {
-        "accessibility_label": "Play audio"
+        "accessibility_label": "Reproducir audio"
       },
       "pause": {
-        "accessibility_label": "Pause audio"
+        "accessibility_label": "Pausar audio"
       },
       "duration": {
-        "accessibility_label": "Audio duration"
+        "accessibility_label": "Duración del audio"
       },
       "elapsed": {
-        "accessibility_label": "Audio current time"
+        "accessibility_label": "Tiempo actual del audio"
       },
       "slider": {
         "accessibility_label": "Change audio time"
