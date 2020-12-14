@@ -101,7 +101,7 @@
       "description": {
         "ios": {
           "1_normal": "Dich mit Freund:innen verbinden und Inhalte synchronisieren kannst Du entweder durch: Beitreten des selben ",
-          "2_bold": "WLANs",
+          "2_bold": "WLAN beitreten",
           "3_normal": " oder Austauschen von",
           "4_bold": "P2P Einladungen",
           "5_normal": ". Um neue Leute im Internet zu finden schaue nach einem Einladungscode zu einem ",
@@ -167,7 +167,7 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Öffentliches Brett",
+      "public": "Öffentlicher Bereich",
       "private": "Private Nachrichten",
       "connections": "Verbindungen"
     },
@@ -251,7 +251,7 @@
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
-        "lan": "Wi-Fi",
+        "lan": "WLAN",
         "dht": {
           "connected": "Internet P2P",
           "staging": {
@@ -289,10 +289,10 @@
         }
       },
       "wifi": {
-        "title": "Wi-Fi",
+        "title": "WLAN",
         "accessibility_label": "Wi-Fi-Modus",
         "disabled": "(Wi-Fi einschalten, um dies zu verwenden)",
-        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same WLAN."
+        "description": "Verbinden Sie sich mit Freunden im gleichen Local Area Network, anders gesagt, mit Freunden im gleichen WLAN."
       },
       "p2p": {
         "title": "Internet P2P",
@@ -406,11 +406,11 @@
         "accessibility_label": "Schließen-Taste"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "Aufnahme-Taste",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
-          "neutral": "Ask me later",
+          "title": "Manyverse das Aufzeichnen von Audio erlauben?",
+          "message": "Manyverse benötigt Zugriff auf Ihr Mikrofon, damit Sie Audionachrichten erstellen können",
+          "neutral": "Später nachfragen",
           "positive": "OK",
           "negative": "Abbrechen"
         }
@@ -443,32 +443,32 @@
       "accessibility_label": "Accounterwähnung Texteingabe"
     },
     "text_field": {
-      "placeholder": "Eine öffentliche Nachricht schreiben",
-      "accessibility_label": "Compose Text Input"
+      "placeholder": "Schreiben Sie eine öffentliche Nachricht",
+      "accessibility_label": "Texteingabefeld"
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "Audio-Nachricht",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "Aufnahme starten"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "Aufnahme beenden"
       },
       "discard_recording": {
-        "label": "Discard",
-        "accessibility_label": "Discard Recording Button"
+        "label": "Abbrechen",
+        "accessibility_label": "Aufzeichnung verwerfen Taste"
       },
       "submit_recording": {
-        "label": "Done",
-        "accessibility_label": "Submit Recording Button"
+        "label": "Fertig",
+        "accessibility_label": "Aufnahme senden Taste"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
-        "question": "Discard draft?"
+        "title": "Audio-Nachricht",
+        "question": "Entwurf verwerfen?"
       }
     }
   },
@@ -480,13 +480,13 @@
     "data": {
       "title": "Daten",
       "description": {
-        "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
-        "2_bold": "crowd backup",
-        "3_normal": ". Du musst nur ",
-        "4_bold": "synchronisiere mit zuverlässigen Freund:innen",
-        "5_normal": " oder anderen Geräten in Deinem Besitz. Mehr ",
+        "1_normal": "Dies sind die Beiträge, Nachrichten, Bilder, Likes und anderen Aktivitäten Ihres Kontos. Um sie vor unerwartetem Verlust zu schützen, verwenden wir ",
+        "2_bold": "Crowd-Backup",
+        "3_normal": ". Sie müssen sich nur ",
+        "4_bold": "mit zuverlässigen Freund:innen",
+        "5_normal": " oder anderen Geräten in Ihrem Besitz synchronisieren. Mehr ",
         "6_bold": "ist nicht zu tun",
-        "7_normal": ", verwende Manyverse einfach möglichst oft und Deine Freunde werden Deine Inhalte absichern!"
+        "7_normal": ", verwenden Sie Manyverse einfach möglichst oft und Ihre Freunde werden Ihre Inhalte sichern!"
       },
       "call_to_action": {
         "acknowledge": {
@@ -521,7 +521,7 @@
   },
   "conversation": {
     "title": "Unterhaltung",
-    "placeholder": "Type a message...",
+    "placeholder": "Nachricht eingeben...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Empfänger anzeigen"
@@ -607,7 +607,7 @@
   "profile": {
     "call_to_action": {
       "copy_cypherlink": "Cypherlink kopieren",
-      "private_chat": "Open private conversation",
+      "private_chat": "Private Unterhaltung öffnen",
       "block": "Blockieren",
       "block_secretly": "Heimlich blockieren",
       "unblock": "Freischalten",
@@ -618,7 +618,7 @@
         "accessibility_label": "Profil bearbeiten Schaltfläche"
       },
       "open_biography": {
-        "label": "Read bio",
+        "label": "Biografie lesen",
         "accessibility_label": "Biografie anzeigen"
       },
       "manage": {
@@ -657,7 +657,7 @@
       }
     },
     "floating_action_button": {
-      "compose": "Öffentliche Nachricht schreiben"
+      "compose": "Schreiben Sie eine öffentliche Nachricht"
     }
   },
   "profile_edit": {
@@ -743,32 +743,32 @@
     "fields": {
       "words_input": {
         "placeholder": "24-Wort-Wiederherstellungsphrase",
-        "accessibility_label": "Recovery Phrase Text Input"
+        "accessibility_label": "Wiederherstellungsphrase Texteingabe"
       }
     },
     "dialogs": {
       "practice": {
         "correct": {
           "title": "Richtig!",
-          "description": "Your account's identity is now secure because you know the recovery phrase."
+          "description": "Die Identität Ihres Kontos ist jetzt gesichert, da Sie die Wiederherstellungs-Phrase kennen."
         },
         "incorrect": {
           "title": "Falsch",
-          "description": "Try again: write down your recovery phrase consisting of 24 words separated by whitespace."
+          "description": "Versuchen Sie es erneut: Schreiben Sie Ihre Wiederherstellungsphrase aus 24 Wörtern getrennt durch Leerzeichen auf."
         }
       },
       "restore": {
         "correct": {
           "title": "Willkommen zurück!",
-          "description": "Your account's identity is now restored.\n\nNow, to restore your data, connect with friends that have interacted with you before, to redownload your data from them."
+          "description": "Die Identität Ihres Kontos wurde wiederhergestellt.\n\nUm Ihre Daten jetzt wiederherzustellen, verbinden Sie sich mit Freunden, mit denen Sie vorher kommuniziert hatten, um Ihre Daten von ihnen wieder herunterzuladen."
         },
         "incorrect": {
           "title": "Falsch",
           "description": {
             "try_again": "Versuche es noch einmal, indem Du Deine Wiederherstellungsphrase aus 24, von Leerzeichen getrennten, Worten eingibst.",
-            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
+            "overwrite_risk": "Es existiert bereits ein Konto in der App, wir können es nicht überschreiben. Wenn Sie sicher sind, es überschreiben zu wollen, deinstallieren und installieren Sie Manyverse neu, um Ihr Konto aus einem sauberen Zustand wiederherzustellen.",
             "too_short": "Es fehlen Wörter. Deine Wiederherstellungsphrase sollte 24 Wörter lang sein.",
-            "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
+            "too_long": "Zu viele Wörter eingegeben. Ihre Wiederherstellungsphrase sollte exakt 24 Wörter lang sein.",
             "wrong_length": "Deine Wiederherstellungsphrase sollte genau 24 Wörter lang sein.",
             "generic": "Die angegebene Wiederherstellungsphrase sieht nicht aus als wäre sie von Manyverse generiert."
           }
@@ -779,23 +779,23 @@
   "secret_output": {
     "title": "Wiederherstellungsphrase",
     "header": {
-      "1_normal": "Carefully write down the following recovery phrase on a ",
-      "2_bold": "piece of paper",
+      "1_normal": "Schreiben Sie die folgende Wiederherstellungsphrase sorgfältig auf ein ",
+      "2_bold": "Stück Papier",
       "3_normal": ""
     },
     "footer": {
-      "1_normal": "Keep it ",
-      "2_bold": "confidential",
-      "3_normal": ", and\ntake sole ",
-      "4_bold": "responsibility",
-      "5_normal": " over it"
+      "1_normal": "Verwahren Sie es ",
+      "2_bold": "vertraulich",
+      "3_normal": ", und übernehmen Sie die alleinige ",
+      "4_bold": "Verantwortung",
+      "5_normal": " dafür"
     },
     "words": {
       "accessibility_label": "Geheime Worte"
     },
     "call_to_action": {
       "confirm": {
-        "accessibility_label": "Confirm Recovery Phrase Button"
+        "accessibility_label": "Wiederherstellungsphrase bestätigen"
       }
     },
     "loading": "Lädt..."
@@ -805,21 +805,21 @@
     "preferences": {
       "title": "Einstellungen",
       "show_follows": {
-        "title": "Show follow events",
-        "subtitle": "Show follow or block or unfollow cases on the public board",
-        "accessibility_label": "Toggle follow events on the public board"
+        "title": "'Folgen' Ereignisse",
+        "subtitle": "Zeige 'Folgen', 'Blockieren', 'Nicht mehr folgen' Ereignisse im öffentlichen Bereich",
+        "accessibility_label": "Folge-Ereignisse im öffentlichen Bereich umschalten"
       },
       "hops": {
-        "title": "Replication hops",
+        "title": "Replikationsweite",
         "subtitle": "Wie weit in Dein soziales Netzwerk soll Manyverse Daten herunterladen; 1 bedeutet nur von Freund:innen; 2 bedeutet von Freund:innen von Freund:innen, etc. Achtung: Je höher, desto mehr Daten werden heruntergeladen!",
         "unlimited": "Unbegrenzt",
-        "accessibility_label": "Replication hops slider"
+        "accessibility_label": "Replikationsweite Schieber"
       }
     },
     "data_and_storage": {
       "title": "Daten & Speicher",
       "backup": {
-        "title": "Backup",
+        "title": "Sicherung",
         "subtitle": "24-Wort-Wiederherstellungsphrase anzeigen",
         "accessibility_label": "Mein Konto sichern"
       },
@@ -884,7 +884,7 @@
         "accessibility_label": "Antwort Texteingabefeld"
       }
     },
-    "loading_replies": "Loading replies...",
+    "loading_replies": "Lade Antworten...",
     "empty": {
       "missing": {
         "title": "Fehlende Daten",
@@ -949,7 +949,7 @@
         "symbols": "Symbole"
       },
       "show_more": {
-        "accessibility_label": "Show More Reaction Options"
+        "accessibility_label": "Weitere Reaktionsoptionen anzeigen"
       }
     },
     "image": {
@@ -959,19 +959,19 @@
     },
     "audio": {
       "play": {
-        "accessibility_label": "Play audio"
+        "accessibility_label": "Audio wiedergeben"
       },
       "pause": {
-        "accessibility_label": "Pause audio"
+        "accessibility_label": "Audio anhalten"
       },
       "duration": {
-        "accessibility_label": "Audio duration"
+        "accessibility_label": "Audio Dauer"
       },
       "elapsed": {
-        "accessibility_label": "Audio current time"
+        "accessibility_label": "Aktuelle Audio-Zeit"
       },
       "slider": {
-        "accessibility_label": "Change audio time"
+        "accessibility_label": "Audio-Zeit ändern"
       }
     },
     "content_warning": {
