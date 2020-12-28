@@ -1,3 +1,25 @@
+diff --git a/node_modules/ssb-db/create.js b/node_modules/ssb-db/create.js
+index ec47ca5..da1ac54 100644
+--- a/node_modules/ssb-db/create.js
++++ b/node_modules/ssb-db/create.js
+@@ -55,7 +55,7 @@ module.exports = function (path, opts, keys) {
+     }
+ 
+     if (ref.isMsg(key)) {
+-      return db.keys.get(key, function (err, data) {
++      return db.keys.get(key, function (err, data, offset) {
+         if (err) return cb(err)
+ 
+         if (isPrivate && unbox) {
+@@ -70,7 +70,7 @@ module.exports = function (path, opts, keys) {
+           result = u.originalValue(data.value)
+         }
+ 
+-        cb(null, !meta ? result : {key: data.key, value: result, timestamp: data.timestamp})
++        cb(null, !meta ? result : {key: data.key, value: result, timestamp: data.timestamp}, offset)
+       })
+     } else if (ref.isMsgLink(key)) {
+       var link = ref.parseLink(key)
 diff --git a/node_modules/ssb-db/extras.js b/node_modules/ssb-db/extras.js
 index 78f6cda..9a6f9e7 100644
 --- a/node_modules/ssb-db/extras.js

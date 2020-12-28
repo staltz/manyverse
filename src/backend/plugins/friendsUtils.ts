@@ -7,6 +7,14 @@
 import {FeedId, Msg} from 'ssb-typescript';
 const pull = require('pull-stream');
 const cat = require('pull-cat');
+const {
+  and,
+  author,
+  contact,
+  descending,
+  live,
+  toPullStream,
+} = require('ssb-db2/operators');
 
 export = {
   name: 'friendsUtils',
@@ -25,27 +33,25 @@ export = {
         return pull(
           cat([
             pull(
-              ssb.links({
-                source: ssb.id,
-                dest,
-                rel: 'contact',
-                live: false,
-                reverse: true,
-              }),
+              ssb.db.query(
+                and(author(ssb.id), contact(dest)),
+                descending(),
+                toPullStream(),
+              ),
               pull.take(1),
             ),
-            ssb.links({
-              source: ssb.id,
-              dest,
-              rel: 'contact',
-              old: false,
-              live: true,
-            }),
+            ssb.db.query(
+              and(author(ssb.id), contact(dest)),
+              live(),
+              toPullStream(),
+            ),
           ]),
-          pull.asyncMap((link: any, cb: any) => {
-            ssb.get(link.key, cb);
+          pull.map((msg: Msg) => {
+            if (!msg || !msg.value) return false;
+            if (typeof msg.value.content === 'string') return true;
+            if ((msg.value as any).meta?.private === true) return true;
+            return false;
           }),
-          pull.map((val: Msg['value']) => typeof val.content === 'string'),
         );
       },
     };
