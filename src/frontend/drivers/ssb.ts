@@ -77,8 +77,8 @@ export class SSBSource {
 
     this.selfFeedId$ = this.ssb$.map((ssb) => ssb.id).remember();
 
-    this.publicRawFeed$ = this.ssb$.map((ssb) => (opts?: any) =>
-      ssb.threadsUtils.publicRawFeed(opts),
+    this.publicRawFeed$ = this.ssb$.map((ssb) => () =>
+      ssb.threadsUtils.publicRawFeed(),
     );
 
     this.publicFeed$ = this.ssb$.map((ssb) => (opts?: any) =>

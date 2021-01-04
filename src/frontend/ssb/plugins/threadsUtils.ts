@@ -164,6 +164,9 @@ const threadsUtils = {
         '"threadsUtils" is missing required plugin "settingsUtils"',
       );
     }
+    if (!ssb.dbUtils?.rawLogReversed) {
+      throw new Error('"threadsUtils" is missing required plugin "dbUtils"');
+    }
 
     const privateAllowlist = ALLOW_POSTS;
     let publicAllowlist = ALLOW_POSTS_AND_CONTACTS;
@@ -181,9 +184,9 @@ const threadsUtils = {
         publicAllowlist = showFollows ? ALLOW_POSTS_AND_CONTACTS : ALLOW_POSTS;
       },
 
-      publicRawFeed(opts: any) {
+      publicRawFeed() {
         return pull(
-          ssb.createLogStream({reverse: true, live: false, ...opts}),
+          ssb.dbUtils.rawLogReversed(),
           pull.asyncMap(mutateMsgWithLiveExtras(ssb, false)),
         );
       },

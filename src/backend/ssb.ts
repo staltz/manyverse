@@ -88,6 +88,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   // Customizations
   .use(require('./plugins/blobsUtils')) // needs: blobs
   .use(require('./plugins/connUtilsBack')) // needs: conn
+  .use(require('./plugins/dbUtils')) // needs: db2
   .use(require('./plugins/publishUtilsBack')) // needs: db, blobs, blobsUtils
   .use(require('./plugins/friendsUtils')) // needs: db
   .use(require('./plugins/keysUtils'))

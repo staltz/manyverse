@@ -163,6 +163,9 @@ export default {
     persistentDisconnect: 'async',
     isInDB: 'async',
   },
+  dbUtils: {
+    rawLogReversed: 'source',
+  },
   publishUtilsBack: {
     publish: 'async',
     publishAbout: 'async',
