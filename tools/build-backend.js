@@ -58,7 +58,10 @@ async function runAndReport(label, task) {
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Install backend node modules',
-      exec('npm install', {cwd: './desktop/nodejs-project'}),
+      exec('npm install', {
+        cwd: './desktop/nodejs-project',
+        maxBuffer: 1000 * 1000 * 10, // 10 MiB
+      }),
     );
   } else {
     await runAndReport(
