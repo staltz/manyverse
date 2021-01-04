@@ -97,12 +97,12 @@
       }
     },
     "connections": {
-      "title": "Viele Interaktionsmöglichkeiten",
+      "title": "Viele Verbindungsmöglichkeiten",
       "description": {
         "ios": {
-          "1_normal": "Dich mit Freund:innen verbinden und Inhalte synchronisieren kannst Du entweder durch: Beitreten des selben ",
+          "1_normal": "Um sich mit Freunden zu verbinden und Inhalte zu synchronisieren, können Sie entweder: dem gleichen ",
           "2_bold": "WLAN beitreten",
-          "3_normal": " oder Austauschen von",
+          "3_normal": " oder",
           "4_bold": "P2P Einladungen",
           "5_normal": ". Um neue Leute im Internet zu finden schaue nach einem Einladungscode zu einem ",
           "6_bold": "Pubserver",
@@ -111,12 +111,12 @@
           "9_normal": " oder erstelle Deinen eigenen Server!"
         },
         "default": {
-          "1_normal": "Dich mit Freund:innen verbinden und Inhalte synchronisieren kannst Du entweder durch: Beitreten des selben ",
-          "2_bold": "WLANs",
-          "3_normal": ", beitreten, ",
+          "1_normal": "Um sich mit Freunden zu verbinden und Inhalte zu synchronisieren, können Sie entweder: dem gleichen ",
+          "2_bold": "WLAN beitreten",
+          "3_normal": ", ",
           "4_bold": "via Bluetooth synchronisieren",
           "5_normal": ", oder ",
-          "6_bold": "P2P Einladungen",
+          "6_bold": "P2P Einladungen austauschen",
           "7_normal": ". Um neue Leute im Internet zu finden, schaue nach einem Einladungscode zu einem ",
           "8_bold": "Pub-Server",
           "9_normal": " oder einem ",
