@@ -1,0 +1,12 @@
+diff --git a/node_modules/sodium-chloride/index.js b/node_modules/sodium-chloride/index.js
+index 816e696..df99e8d 100644
+--- a/node_modules/sodium-chloride/index.js
++++ b/node_modules/sodium-chloride/index.js
+@@ -1,6 +1,6 @@
+ 
+ function Z(n) {
+-  return new Buffer(n)
++  return Buffer.alloc(n)
+ }
+ 
+ module.exports = function (na) {
