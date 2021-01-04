@@ -52,12 +52,16 @@ export const styles = StyleSheet.create({
   },
 
   timestamp: {
+    marginTop: 1,
+    marginLeft: Dimensions.horizontalSpaceTiny,
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
   },
 
   timestampUnread: {
+    marginTop: 1,
+    marginLeft: Dimensions.horizontalSpaceTiny,
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
