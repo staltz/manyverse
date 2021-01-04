@@ -311,7 +311,18 @@ export default function model(
 
   const togglePreviewReducer$ = actions.togglePreview$.mapTo(
     function togglePreviewReducer(prev: State): State {
-      return {...prev, previewing: !prev.previewing};
+      if (prev.previewing) {
+        return {
+          ...prev,
+          previewing: false,
+          postTextOverride: prev.postText,
+        };
+      } else {
+        return {
+          ...prev,
+          previewing: true,
+        };
+      }
     },
   );
 
