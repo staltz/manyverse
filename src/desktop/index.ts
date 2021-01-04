@@ -6,7 +6,6 @@
 
 import {run} from '@cycle/run';
 import {makeReactNativeDriver, View, Text, Button} from '@cycle/react-native';
-import {AppRegistry} from 'react-native';
 import makeClient from './ssb/client';
 const pull = require('pull-stream');
 
@@ -16,64 +15,8 @@ function main(sources: any) {
 
   const count$ = inc$.fold((count: number) => count + 1, 0);
 
-  makeClient().then((ssb) => {
-    ssb.whoami((err: any, {id}: {id: string}) => {
-      console.log('whoami', id);
-
-      ssb.aboutSelf.get(id, (err2: any, x: any) => {
-        if (err2) console.error(err2);
-        else console.log('aboutSelf', 'get', x);
-      }),
-        pull(
-          ssb.aboutSelf.stream(id),
-          pull.drain((x: any) => console.log('aboutSelf', 'stream', x)),
-        );
-    });
-
-    ssb.db2migrate.start();
-
-    pull(
-      ssb.threadsUtils.publicUpdates(),
-      pull.drain((x: any) => console.log('publicUpdates', x)),
-    );
-
-    pull(
-      ssb.threadsUtils.privateUpdates(),
-      pull.drain((x: any) => console.log('privateUpdates', x)),
-    );
-
-    pull(
-      ssb.threadsUtils.publicFeed({}),
-      pull.take(3),
-      pull.drain((thread: any) => {
-        console.log(thread);
-      }),
-    );
-
-    pull(
-      ssb.threadsUtils.selfPublicRoots({live: true, old: false}),
-      pull.drain((thread: any) => {
-        console.log(thread);
-      }),
-    );
-
-    pull(
-      ssb.threadsUtils.privateFeed({}),
-      pull.take(3),
-      pull.drain((thread: any) => {
-        console.log(thread);
-      }),
-    );
-  });
-
   const vdom$ = count$.map((i: number) =>
-    View([
-      Text(`Counter: ${i}`),
-      Button(inc, {
-        title: 'Increment',
-        onPress: () => {},
-      }),
-    ]),
+    View([Text(`Counter: ${i}`), Button(inc, 'Increment')]),
   );
 
   return {
@@ -82,8 +25,46 @@ function main(sources: any) {
 }
 
 run(main, {
-  react: makeReactNativeDriver('manyverse'),
+  react: makeReactNativeDriver('Desktop Manyverse'),
 });
-AppRegistry.runApplication('manyverse', {
-  rootTag: document.getElementById('app'),
-});
+
+function myapp() {
+  const element = document.createElement('div');
+
+  // Lodash, currently included via a script, is required for this line to work
+  element.innerHTML = 'Frontend JS activated';
+
+  makeClient().then((ssb) => {
+    pull(
+      ssb.conn.peers(),
+      pull.drain((peers: Array<any>) => {
+        element.innerHTML =
+          '<ul>' +
+          peers
+            .map((peer) => peer[1].name || peer[1].key || '?')
+            .map((name) => `<li>${name}</li>`)
+            .join('\n') +
+          '</ul>';
+      }),
+    );
+
+    pull(
+      ssb.threads.public({
+        threadMaxSize: 3,
+        allowlist: ['post', 'contact'],
+        reverse: true,
+        live: false,
+      }),
+      pull.take(3),
+      pull.drain((thread: any) => {
+        console.warn(thread);
+      }),
+    );
+
+    ssb.conn.start();
+  });
+
+  return element;
+}
+
+document.body.appendChild(myapp());
