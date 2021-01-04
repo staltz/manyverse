@@ -2,3 +2,4 @@
 "a39b6fb4146143b7f26d95bf2c161bf7b923cc74",48.95,"first"
 "f184732b90a40456bbf2801a9e092658887398f3",54.30,"added two ssb-neon modules"
 "575ddcd95dd82353ef3ed323194d467df20f6eab",50.63,"https://github.com/ssb-ngi-pointer/ssb-db2/issues/31"
+"235dcc6af93cf2a10fecbb8cb5aad30742b8fe72",51.45,"use ssb-db2@0.12.0 which does private.decrypt in log.stream"
