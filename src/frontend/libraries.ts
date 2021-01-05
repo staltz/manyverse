@@ -302,7 +302,7 @@ export default [
   {
     name: 'leveldown-nodejs-mobile',
     type: 'library',
-    version: '5.1.1-3',
+    version: '5.4.1-1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/leveldown-nodejs-mobile',
   },
@@ -770,7 +770,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '0.4.0',
+    version: '0.17.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/arj03/ssb-db2',
   },

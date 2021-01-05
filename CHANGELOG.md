@@ -7,6 +7,19 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2101.5-beta
+
+* Bug fix: Compose preview should not reset post ([see details](https://gitlab.com/staltz/manyverse/commit/d00a86171110a072f6d88641b479124c113ac2ee))
+* Bug fix: glitches in the Thread screen's reply box ([see details](https://gitlab.com/staltz/manyverse/commit/29ee7c7f71f3b1023327836f4e0c4449eac1b576))
+* Bug fix: tiny tweaks to colors on placeholder content ([see details](https://gitlab.com/staltz/manyverse/commit/bdc16eadf99ba000d81d832704accef256db1bd5))
+* Bug fix: tweak the style of the message header ([see details](https://gitlab.com/staltz/manyverse/commit/235dcc6af93cf2a10fecbb8cb5aad30742b8fe72))
+* Improve German translation ([see details](https://gitlab.com/staltz/manyverse/commit/1679c03c9b24dafb71f492aff7d40a5e2c326477))
+* Improve Italian and German translations ([see details](https://gitlab.com/staltz/manyverse/commit/7e298bc16c96537785a5de152648eef1ff2ba42b))
+* Improve Spanish translation ([see details](https://gitlab.com/staltz/manyverse/commit/1d58e0736b8833eb6b406acf6397eb8399942361))
+* Improve translations missing spaces on Welcome screen ([see details](https://gitlab.com/staltz/manyverse/commit/d0bf96eeae48341b2e3532dd5519d008445e3b91))
+* Update backers in the Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/e5cbeca503b93d4df2a5b82e22a08536417ae9c0))
+* Update backers in the Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/666a8fe76e9d996240468def7f00e88bb8b66443))
+
 ## 0.2012.4-beta
 
 * Bug fix: profile screen layout when you block someone ([see details](https://gitlab.com/staltz/manyverse/commit/227c857db3867f69a5f73292709e7b23bc8a5aa1))

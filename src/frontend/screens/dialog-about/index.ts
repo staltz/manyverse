@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -47,7 +47,7 @@ export function dialogAbout(sources: Sources): Sinks {
         t('dialog_about.version', {version}) +
         '\n\n' +
         t('dialog_about.copyright') +
-        ' 2018-2020 ' +
+        ' 2018-2021 ' +
         `[${t('dialog_about.authors')}](${authorsLink})\n` +
         '\n' +
         `[${t('dialog_about.repository')}](${repoLink})\n` +
