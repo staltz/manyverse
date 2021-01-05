@@ -106,14 +106,14 @@ module.exports = function generateChangelog(releaseCount, platform) {
 
   const writerOpts = {
     groupBy: 'release',
-    transform: function(commit, context) {
+    transform: function (commit, context) {
       if (commit.type === 'release') context.releases += 1;
 
       if (platform === 'emoji' && commit.type === 'ux') {
         const subject = commit.subject.toLowerCase();
         if (subject.includes('feature')) commit.emoji = '🎉';
-        else if (subject.includes('bug fix')) commit.emoji = '☑';
-        else if (subject.includes('fix')) commit.emoji = '☑';
+        else if (subject.includes('bug fix')) commit.emoji = '✅';
+        else if (subject.includes('fix')) commit.emoji = '✅';
         else if (subject.includes('new')) commit.emoji = '🎉';
         else commit.emoji = '🔷';
       }
