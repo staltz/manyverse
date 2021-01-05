@@ -48,3 +48,12 @@ allprojects {
         jcenter()
     }
 }
+
+File propsFile = project.file('local.properties')
+propsFile.withReader('UTF-8') { reader ->
+    Properties props = new Properties()
+    props.load(reader)
+    props.forEach { key, value ->
+        project.properties.put(key.toString(), value.toString())
+    }
+}

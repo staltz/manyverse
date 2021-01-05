@@ -18,6 +18,8 @@
     "build-desktop": "npm run build-backend-desktop && npm run build-frontend-desktop",
     "build-ios-assets": "npm run lib && npm run propagate-replacements && npm run build-backend-ios",
     "build-android-assets": "npm run lib && npm run propagate-replacements && npm run build-backend-android",
+    "check-android-sig": "jarsigner -verify -verbose:summary -certs android/app/build/outputs/apk/indie/release/app-indie-release.apk | grep -q Uusimaa",
+    "install-android-indie": "adb install -r android/app/build/outputs/apk/indie/release/app-indie-release.apk",
     "android-dev": "npm run build-android-assets && react-native run-android --variant=indieDebug",
     "ios-dev": "npm run build-ios-assets && react-native run-ios --device",
     "prebuild-android-release": "npm run clean-bundler && npm run clean-android",
@@ -41,7 +43,7 @@
     "update-version": "./tools/update-version.js",
     "update-version-ios": "./tools/update-version-ios.js",
     "commit-release": "./tools/commit-release",
-    "release-android": "npm run update-version && npm run build-android-release && npm run test-e2e-android && npm run changelog && npm run commit-release",
+    "release-android": "npm run update-version && npm run build-android-release && npm run check-android-sig && npm run test-e2e-android && npm run changelog && npm run commit-release",
     "release-ios": "npm run update-version-ios && npm run archive-ios-release && git commit -am\"dx: update ios version\""
   },
   "dependencies": {

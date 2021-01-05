@@ -459,18 +459,19 @@ Follow this guideline strictly.
 
 First make an Android release, then an iOS release.
 
-- Run `npm run release-android` on a computer that can build Android
-- (Unfortunately!) run `cd android` and `./gradlew assembleRelease` to rebuild it because apparently there's some issue where the previous step didn't use the correct signing keystores (we should fix this eventually, so that only the first step is needed)
-- Check that the signing certificates are correct, running `jarsigner -verify -verbose:summary -certs app/build/outputs/apk/indie/release/app-indie-release.apk`
-- Install the new APK to make sure it works
-- `git push origin master`
+- Use a computer that can build Android apps
+- `npm run release-android` to compile the Android APK
+- `npm run install-android-indie` to install the new APK on a device and make sure it works
+- `git push origin master` to update the repository
 
 ### iOS
 
 Then make an iOS release:
 
-- `git pull origin master` on a computer that can build iOS
-- Run `npm run release-ios`
+- Use a computer that can build iOS apps
+- `git pull origin master` to update the repository
+- `npm run release-ios` to compile the iOS IPA
+- `git push origin master` to update the repository
 - Once done, it should open an _Organizer_ window where you must upload the new version to App Store
 
 ### Publish
