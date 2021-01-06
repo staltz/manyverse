@@ -4,28 +4,44 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {run} from '@cycle/run';
-import {makeReactNativeDriver, View, Text, Button} from '@cycle/react-native';
-import makeClient from './ssb/client';
-const pull = require('pull-stream');
+import {Component} from 'react';
+import {AppRegistry} from 'react-native';
 
-function main(sources: any) {
-  const inc = Symbol();
-  const inc$ = sources.react.select(inc).events('press');
+// import {run} from '@cycle/run';
+// import {makeReactNativeDriver, View, Text, Button} from '@cycle/react-native';
+// import { AppRegistry} from 'react-native';
+// import makeClient from './ssb/client';
+// const pull = require('pull-stream');
 
-  const count$ = inc$.fold((count: number) => count + 1, 0);
+// function main(sources: any) {
+//   const inc = Symbol();
+//   const inc$ = sources.react.select(inc).events('click');
+//
+//   const count$ = inc$.fold((count: number) => count + 1, 0);
+//
+//   const vdom$ = count$.map((i: number) =>
+//     View([Text(`Counter: ${i}`), Button(inc, 'Increment')]),
+//   );
+//
+//   return {
+//     react: vdom$,
+//   };
+// }
 
-  const vdom$ = count$.map((i: number) =>
-    View([Text(`Counter: ${i}`), Button(inc, 'Increment')]),
-  );
+// run(main, {
+//   react: makeReactNativeDriver('manyverse'),
+// });
+// AppRegistry.runApplication('manyverse', { rootTag: document.getElementById('app') });
 
-  return {
-    react: vdom$,
-  };
+class App extends Component {
+  render() {
+    return 'hello world?';
+  }
 }
 
-run(main, {
-  react: makeReactNativeDriver('Desktop Manyverse'),
+AppRegistry.registerComponent('manyverse', () => App);
+AppRegistry.runApplication('manyverse', {
+  rootTag: document.getElementById('app'),
 });
 
 function myapp() {
@@ -34,35 +50,35 @@ function myapp() {
   // Lodash, currently included via a script, is required for this line to work
   element.innerHTML = 'Frontend JS activated';
 
-  makeClient().then((ssb) => {
-    pull(
-      ssb.conn.peers(),
-      pull.drain((peers: Array<any>) => {
-        element.innerHTML =
-          '<ul>' +
-          peers
-            .map((peer) => peer[1].name || peer[1].key || '?')
-            .map((name) => `<li>${name}</li>`)
-            .join('\n') +
-          '</ul>';
-      }),
-    );
+  // makeClient().then((ssb) => {
+  //   pull(
+  //     ssb.conn.peers(),
+  //     pull.drain((peers: Array<any>) => {
+  //       element.innerHTML =
+  //         '<ul>' +
+  //         peers
+  //           .map((peer) => peer[1].name || peer[1].key || '?')
+  //           .map((name) => `<li>${name}</li>`)
+  //           .join('\n') +
+  //         '</ul><div>potato</div>';
+  //     }),
+  //   );
 
-    pull(
-      ssb.threads.public({
-        threadMaxSize: 3,
-        allowlist: ['post', 'contact'],
-        reverse: true,
-        live: false,
-      }),
-      pull.take(3),
-      pull.drain((thread: any) => {
-        console.warn(thread);
-      }),
-    );
+  //   pull(
+  //     ssb.threads.public({
+  //       threadMaxSize: 3,
+  //       allowlist: ['post', 'contact'],
+  //       reverse: true,
+  //       live: false,
+  //     }),
+  //     pull.take(3),
+  //     pull.drain((thread: any) => {
+  //       console.warn(thread);
+  //     }),
+  //   );
 
-    ssb.conn.start();
-  });
+  //   ssb.conn.start();
+  // });
 
   return element;
 }
