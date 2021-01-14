@@ -4,45 +4,56 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Component, createElement} from 'react';
-import {AppRegistry, Text} from 'react-native';
+// import {Component} from 'react';
+// import {AppRegistry} from 'react-native';
+// import {View, Text, Button} from '@cycle/react-native'
 
-// import {run} from '@cycle/run';
-// import {makeReactNativeDriver, View, Text, Button} from '@cycle/react-native';
-// import { AppRegistry} from 'react-native';
+import {run} from '@cycle/run';
+import {makeReactNativeDriver, View, Text, Button} from '@cycle/react-native';
+import {AppRegistry} from 'react-native';
+
 // import makeClient from './ssb/client';
 // const pull = require('pull-stream');
 
-// function main(sources: any) {
-//   const inc = Symbol();
-//   const inc$ = sources.react.select(inc).events('click');
-//
-//   const count$ = inc$.fold((count: number) => count + 1, 0);
-//
-//   const vdom$ = count$.map((i: number) =>
-//     View([Text(`Counter: ${i}`), Button(inc, 'Increment')]),
-//   );
-//
-//   return {
-//     react: vdom$,
-//   };
-// }
+function main(sources: any) {
+  const inc = Symbol();
+  const inc$ = sources.react.select(inc).events('press');
 
-// run(main, {
-//   react: makeReactNativeDriver('manyverse'),
-// });
-// AppRegistry.runApplication('manyverse', { rootTag: document.getElementById('app') });
+  const count$ = inc$.fold((count: number) => count + 1, 0);
 
-class App extends Component {
-  render() {
-    return createElement(Text, {}, 'hello world?');
-  }
+  const vdom$ = count$.map((i: number) =>
+    View([
+      Text(`Counter: ${i}`),
+      Button(inc, {
+        title: 'Increment',
+        onPress: () => {},
+      }),
+    ]),
+  );
+
+  return {
+    react: vdom$,
+  };
 }
 
-AppRegistry.registerComponent('manyverse', () => App);
+run(main, {
+  react: makeReactNativeDriver('manyverse'),
+});
 AppRegistry.runApplication('manyverse', {
   rootTag: document.getElementById('app'),
 });
+
+// class App extends Component {
+//   render() {
+//     // return createElement(Text, {}, 'hello world?');
+//     return View([Text('Hello dude'), Button('hello',{title:'asdf',onPress:()=>console.log('click')})]);
+//   }
+// }
+
+// AppRegistry.registerComponent('manyverse', () => App);
+// AppRegistry.runApplication('manyverse', {
+//   rootTag: document.getElementById('app'),
+// });
 
 function myapp() {
   const element = document.createElement('div');
