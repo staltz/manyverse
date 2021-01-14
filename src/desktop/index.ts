@@ -4,8 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Component} from 'react';
-import {AppRegistry} from 'react-native';
+import {Component, createElement} from 'react';
+import {AppRegistry, Text} from 'react-native';
 
 // import {run} from '@cycle/run';
 // import {makeReactNativeDriver, View, Text, Button} from '@cycle/react-native';
@@ -35,7 +35,7 @@ import {AppRegistry} from 'react-native';
 
 class App extends Component {
   render() {
-    return 'hello world?';
+    return createElement(Text, {}, 'hello world?');
   }
 }
 
