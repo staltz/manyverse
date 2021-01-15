@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,7 +17,6 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import ImageView from 'react-native-image-viewing';
 import {t} from '../drivers/localization';
 import {Dimensions as Dimens} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
@@ -25,6 +24,11 @@ import {Typography} from '../global-styles/typography';
 import HeaderButton from './HeaderButton';
 const ToastIOS = require('react-native-tiny-toast').default;
 const urlToBlobId = require('ssb-serve-blobs/url-to-id');
+const ImageView = Platform.select({
+  // ios: () => require('react-native-image-viewing'),
+  // android: () => require('react-native-image-viewing'),
+  default: () => () => createElement(Text, {}, 'hi'),
+})();
 
 const $ = createElement;
 
@@ -168,7 +172,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
           imageIndex: 0,
           visible: fullscreen,
           onRequestClose: this.onClose,
-          FooterComponent: ({imageIndex}) =>
+          FooterComponent: ({imageIndex}: {imageIndex: any}) =>
             this.renderFooter(images[imageIndex]),
         }),
         $(
