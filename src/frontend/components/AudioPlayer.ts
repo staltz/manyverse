@@ -18,7 +18,7 @@ import {
   ViewStyle,
   ActivityIndicator,
 } from 'react-native';
-// import Slider from '@react-native-community/slider';
+import Slider from '@react-native-community/slider';
 import {
   Player,
   MediaStates,
@@ -154,7 +154,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
     }
   }
 
-  /*private onSliderEditStart = () => {
+  private onSliderEditStart = () => {
     this.setState({editingSlider: true});
   };
 
@@ -167,7 +167,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
 
   private onSliderValueChange = (value: number) => {
     this.setState({editingSlider: true, elapsed: value});
-  };*/
+  };
 
   private play = () => {
     if (!this.player) return;
@@ -271,7 +271,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
         t('message.audio.elapsed.accessibility_label'),
       ),
 
-      /*h(Slider, {
+      h(Slider, {
         onSlidingStart: this.onSliderEditStart,
         onSlidingComplete: this.onSliderEditEnd,
         onValueChange: this.onSliderValueChange,
@@ -287,7 +287,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
         accessibilityRole: 'adjustable',
         accessibilityLabel: t('message.audio.slider.accessibility_label'),
         style: styles.slider,
-      }),*/
+      }),
 
       this.renderTimeText(
         this.state.duration,
