@@ -22,9 +22,11 @@ import {Dimensions as Dimens} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
 import HeaderButton from './HeaderButton';
-// const ToastIOS = require('react-native-tiny-toast').default;
-const ToastIOS = {} as any;
 const urlToBlobId = require('ssb-serve-blobs/url-to-id');
+const ToastIOS =
+  Platform.OS === 'ios'
+    ? require('react-native-tiny-toast').default
+    : undefined;
 const ImageView =
   Platform.OS !== 'web'
     ? () => require('react-native-image-viewing')
@@ -131,8 +133,9 @@ export default class ZoomableImage extends PureComponent<Props, State> {
               position: 0,
               duration: ToastAndroid.SHORT,
             });
+          } else {
+            window.alert(toastMsg);
           }
-          // TODO: toasts desktop
           this.onClose();
         },
         onLongPress: () => {
@@ -145,8 +148,9 @@ export default class ZoomableImage extends PureComponent<Props, State> {
               position: 0,
               duration: ToastAndroid.SHORT,
             });
+          } else {
+            window.alert(toastMsg);
           }
-          // TODO: toasts desktop
           this.onClose();
         },
         icon: 'content-copy',

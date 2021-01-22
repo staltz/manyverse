@@ -6,8 +6,10 @@
 
 import {Stream} from 'xstream';
 import {ToastAndroid, Platform} from 'react-native';
-// const ToastIOS = require('react-native-tiny-toast').default;
-const ToastIOS = {} as any;
+const ToastIOS =
+  Platform.OS === 'ios'
+    ? require('react-native-tiny-toast').default
+    : undefined;
 
 export type Toast = {
   type: 'show';
@@ -65,8 +67,9 @@ export function makeToastDriver() {
               position: 0,
             });
           }
+        } else {
+          window.alert(t.message);
         }
-        // TODO: toasts on desktop
       },
     });
   };
