@@ -25,10 +25,10 @@ export default function intent(
     .map(([oldLogExists, newLogExists]) => {
       if (!oldLogExists && !newLogExists) return xs.of(false);
       const oldLogSize$ = oldLogExists
-        ? fsSource.stat(oldLogPath).map((stat) => (stat.size as any) as number)
+        ? fsSource.stat(oldLogPath).map((stat: any) => stat.size as number)
         : xs.of(0);
       const newLogSize$ = newLogExists
-        ? fsSource.stat(newLogPath).map((stat) => (stat.size as any) as number)
+        ? fsSource.stat(newLogPath).map((stat: any) => stat.size as number)
         : xs.of(0);
       return xs
         .combine(oldLogSize$, newLogSize$)

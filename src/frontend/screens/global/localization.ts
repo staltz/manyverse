@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,9 +17,9 @@ export default function localization(fsSource: FSSource) {
       : fsSource.readDir(FSSource.MainBundlePath + '/translations');
 
   const translationPaths$ = translationsDir$.map((translationsDir) =>
-    translationsDir
-      .filter(({isFile, name}) => isFile() && name.endsWith('.json'))
-      .reduce((all, {name, path}) => {
+    (translationsDir as any)
+      .filter(({isFile, name}: any) => isFile() && name.endsWith('.json'))
+      .reduce((all: any, {name, path}: any) => {
         const languageTag = name.replace('.json', '');
         return {...all, [languageTag]: path};
       }, {} as Record<string, string>),
@@ -54,7 +54,7 @@ export default function localization(fsSource: FSSource) {
           locale: fallbackLanguageTag,
           defaultLocale: fallbackLanguageTag,
           translations: {
-            [fallbackLanguageTag]: JSON.parse(fallbackFileContent),
+            [fallbackLanguageTag]: JSON.parse(fallbackFileContent as any),
           },
         });
       }
@@ -69,8 +69,8 @@ export default function localization(fsSource: FSSource) {
           locale: bestLanguageTag,
           defaultLocale: fallbackLanguageTag,
           translations: {
-            [bestLanguageTag]: JSON.parse(bestFileContent),
-            [fallbackLanguageTag]: JSON.parse(fallbackFileContent),
+            [bestLanguageTag]: JSON.parse(bestFileContent as any),
+            [fallbackLanguageTag]: JSON.parse(fallbackFileContent as any),
           },
         };
       });

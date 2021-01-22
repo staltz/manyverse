@@ -7,7 +7,8 @@
 import ssbClient from 'electron-ssb-client';
 import cachedAboutSelf from '../../frontend/ssb/plugins/cachedAboutSelf';
 import threadsUtilsPlugin from '../../frontend/ssb/plugins/threadsUtils';
-import manifest from './manifest';
+// import manifest from './manifest';
+import manifest from '../../frontend/ssb/manifest';
 
 function makeClient() {
   return ssbClient(manifest)
@@ -16,5 +17,9 @@ function makeClient() {
     .use(threadsUtilsPlugin())
     .callPromise();
 }
+
+type PromiseInnerType<P> = P extends Promise<infer T> ? T : never;
+
+export type SSBClient = PromiseInnerType<ReturnType<typeof makeClient>>;
 
 export default makeClient;

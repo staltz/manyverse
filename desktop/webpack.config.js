@@ -11,6 +11,12 @@ const compileNodeModules = [
   'react-native-root-siblings',
   'react-native-tiny-toast',
   'react-native-vector-icons',
+  'react-native-floating-action',
+  'react-native-fs',
+  'react-native-gifted-chat',
+  'react-native-typing-animation',
+  'react-native-parsed-text',
+  'react-native-lightbox',
   'static-container',
 ].map((moduleName) => path.resolve(__dirname, `../node_modules/${moduleName}`));
 

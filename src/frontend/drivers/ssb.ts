@@ -15,7 +15,7 @@ import {
   About,
   AliasContent,
 } from 'ssb-typescript';
-const nodejs = require('nodejs-mobile-react-native');
+// const nodejs = require('nodejs-mobile-react-native');
 import {Platform} from 'react-native';
 import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
@@ -383,11 +383,11 @@ export class SSBSource {
     return xs.create<RestoreIdentityResponse>({
       start(listener: Listener<RestoreIdentityResponse>) {
         this.fn = (msg: RestoreIdentityResponse) => listener.next(msg);
-        nodejs.channel.addListener('identity', this.fn);
-        nodejs.channel.post('identity', `RESTORE: ${inputWords}`);
+        // nodejs.channel.addListener('identity', this.fn);
+        // nodejs.channel.post('identity', `RESTORE: ${inputWords}`);
       },
       stop() {
-        nodejs.channel.removeListener('identity', this.fn);
+        // nodejs.channel.removeListener('identity', this.fn);
       },
     });
   }
@@ -584,13 +584,13 @@ async function consumeSink(
   sink.addListener({
     next: async (req) => {
       if (req.type === 'identity.create' && !identityAvailable) {
-        nodejs.channel.post('identity', 'CREATE');
+        // nodejs.channel.post('identity', 'CREATE');
         identityAvailable = true;
         return;
       }
 
       if (req.type === 'identity.use' && !identityAvailable) {
-        nodejs.channel.post('identity', 'USE');
+        // nodejs.channel.post('identity', 'USE');
         identityAvailable = true;
         return;
       }
@@ -819,16 +819,16 @@ async function consumeSink(
   });
 }
 
-function waitForIdentity() {
-  return new Promise<boolean>((resolve) => {
-    nodejs.channel.addListener('identity', (msg: RestoreIdentityResponse) => {
-      if (msg === 'IDENTITY_READY') resolve(true);
-    });
-  });
-}
+// function waitForIdentity() {
+//   return new Promise<boolean>((resolve) => {
+//     nodejs.channel.addListener('identity', (msg: RestoreIdentityResponse) => {
+//       if (msg === 'IDENTITY_READY') resolve(true);
+//     });
+//   });
+// }
 
 export function ssbDriver(sink: Stream<Req>): SSBSource {
-  const ssbP = waitForIdentity().then(makeClient);
+  const ssbP = makeClient(); // waitForIdentity().then(makeClient);
   const source = new SSBSource(ssbP);
   consumeSink(sink, source, ssbP);
   return source;
