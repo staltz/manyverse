@@ -11,7 +11,6 @@ import {makeReactNativeDriver} from '@cycle/react-native';
 // import {makeReactNativeDriver, View, Text, Button} from '@cycle/react-native';
 import {AppRegistry} from 'react-native';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
-// import makeClient from './ssb/client';
 import {ssbDriver} from '../frontend/drivers/ssb';
 // import {dialogDriver} from '../frontend/drivers/dialogs';
 import {thread} from '../frontend/screens/thread';
