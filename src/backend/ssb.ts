@@ -8,6 +8,7 @@ import fs = require('fs');
 const path = require('path');
 const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
+const rimraf = require('rimraf');
 const makeConfig = require('ssb-config/inject');
 import bluetoothTransport = require('./plugins/bluetooth');
 import settingsUtils = require('./plugins/settingsUtils');
@@ -18,6 +19,13 @@ if (!process.env.APP_DATA_DIR || !process.env.SSB_DIR) {
 }
 
 if (!fs.existsSync(process.env.SSB_DIR)) mkdirp.sync(process.env.SSB_DIR);
+
+const ISSUE_1223 = path.join(process.env.SSB_DIR, 'issue1223');
+if (!fs.existsSync(ISSUE_1223)) {
+  rimraf.sync(path.join(process.env.SSB_DIR, 'db2'));
+  fs.closeSync(fs.openSync(ISSUE_1223, 'w'));
+}
+
 const keysPath = path.join(process.env.SSB_DIR, '/secret');
 const keys = ssbKeys.loadOrCreateSync(keysPath);
 
@@ -26,6 +34,7 @@ const config = makeConfig('ssb', {
   keys,
   db2: {
     automigrate: false,
+    maxCpu: 88,
   },
   blobs: {
     sympathy: 2,
