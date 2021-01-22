@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,7 +6,8 @@
 
 import {Stream} from 'xstream';
 import {ToastAndroid, Platform} from 'react-native';
-const ToastIOS = require('react-native-tiny-toast').default;
+// const ToastIOS = require('react-native-tiny-toast').default;
+const ToastIOS = {} as any;
 
 export type Toast = {
   type: 'show';
@@ -51,7 +52,7 @@ export function makeToastDriver() {
             (t as GravityToast).gravity,
           ].filter((x) => typeof x !== 'undefined');
           (ToastAndroid[t.type] as any)(...args);
-        } else {
+        } else if (Platform.OS === 'ios') {
           if (t.flavor === 'success') {
             ToastIOS.showSuccess(t.message, {
               duration: t.duration,
@@ -65,6 +66,7 @@ export function makeToastDriver() {
             });
           }
         }
+        // TODO: toasts on desktop
       },
     });
   };

@@ -22,7 +22,8 @@ import {Dimensions as Dimens} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
 import HeaderButton from './HeaderButton';
-const ToastIOS = require('react-native-tiny-toast').default;
+// const ToastIOS = require('react-native-tiny-toast').default;
+const ToastIOS = {} as any;
 const urlToBlobId = require('ssb-serve-blobs/url-to-id');
 const ImageView = Platform.select({
   // ios: () => require('react-native-image-viewing'),
@@ -126,12 +127,13 @@ export default class ZoomableImage extends PureComponent<Props, State> {
           const toastMsg = "Copied this blob's ID";
           if (Platform.OS === 'android') {
             ToastAndroid.show(toastMsg, ToastAndroid.SHORT);
-          } else {
+          } else if (Platform.OS === 'ios') {
             ToastIOS.show(toastMsg, {
               position: 0,
               duration: ToastAndroid.SHORT,
             });
           }
+          // TODO: toasts desktop
           this.onClose();
         },
         onLongPress: () => {
@@ -139,12 +141,13 @@ export default class ZoomableImage extends PureComponent<Props, State> {
           const toastMsg = 'Copied as markdown code';
           if (Platform.OS === 'android') {
             ToastAndroid.show(toastMsg, ToastAndroid.SHORT);
-          } else {
+          } else if (Platform.OS === 'ios') {
             ToastIOS.show(toastMsg, {
               position: 0,
               duration: ToastAndroid.SHORT,
             });
           }
+          // TODO: toasts desktop
           this.onClose();
         },
         icon: 'content-copy',
