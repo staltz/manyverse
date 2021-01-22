@@ -25,11 +25,10 @@ import HeaderButton from './HeaderButton';
 // const ToastIOS = require('react-native-tiny-toast').default;
 const ToastIOS = {} as any;
 const urlToBlobId = require('ssb-serve-blobs/url-to-id');
-const ImageView = Platform.select({
-  // ios: () => require('react-native-image-viewing'),
-  // android: () => require('react-native-image-viewing'),
-  default: () => () => createElement(Text, {}, 'hi'),
-})();
+const ImageView =
+  Platform.OS !== 'web'
+    ? () => require('react-native-image-viewing')
+    : () => undefined;
 
 const $ = createElement;
 
@@ -169,15 +168,17 @@ export default class ZoomableImage extends PureComponent<Props, State> {
 
     if (loaded) {
       return $(View, {key: uri}, [
-        $(ImageView, {
-          key: 'full',
-          images,
-          imageIndex: 0,
-          visible: fullscreen,
-          onRequestClose: this.onClose,
-          FooterComponent: ({imageIndex}: {imageIndex: any}) =>
-            this.renderFooter(images[imageIndex]),
-        }),
+        Platform.OS !== 'web'
+          ? $(ImageView, {
+              key: 'full',
+              images,
+              imageIndex: 0,
+              visible: fullscreen,
+              onRequestClose: this.onClose,
+              FooterComponent: ({imageIndex}: {imageIndex: any}) =>
+                this.renderFooter(images[imageIndex]),
+            })
+          : $(View),
         $(
           Touchable,
           {onPress: this.onOpen, key: 't'},

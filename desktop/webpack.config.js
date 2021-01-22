@@ -71,5 +71,8 @@ module.exports = {
       // See: https://github.com/necolas/react-native-web/issues/349
       __DEV__: JSON.stringify(true),
     }),
+    // for packages that break stuff even when you import them behind
+    // a platform check
+    new webpack.IgnorePlugin(/^(react-native-image-viewing|potato)$/),
   ],
 };
