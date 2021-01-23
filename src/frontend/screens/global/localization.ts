@@ -11,15 +11,17 @@ import {FSSource} from '../../drivers/fs';
 import {Command as LocalizationCmd} from '../../drivers/localization';
 
 export default function localization(fsSource: FSSource) {
-  const translationsDir$ =
+  const translationsDir$: Stream<
+    {isFile: Function; name: string; path: string}[]
+  > =
     Platform.OS === 'android'
-      ? fsSource.readDirAssets('translations')
-      : fsSource.readDir(FSSource.MainBundlePath + '/translations');
+      ? (fsSource.readDirAssets('translations') as any)
+      : (fsSource.readDir(FSSource.MainBundlePath + '/translations') as any);
 
   const translationPaths$ = translationsDir$.map((translationsDir) =>
-    (translationsDir as any)
-      .filter(({isFile, name}: any) => isFile() && name.endsWith('.json'))
-      .reduce((all: any, {name, path}: any) => {
+    translationsDir
+      .filter(({isFile, name}) => isFile() && name.endsWith('.json'))
+      .reduce((all, {name, path}) => {
         const languageTag = name.replace('.json', '');
         return {...all, [languageTag]: path};
       }, {} as Record<string, string>),

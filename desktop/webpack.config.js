@@ -6,13 +6,11 @@ const {presets} = require(`../babel.config.js`);
 const compileNodeModules = [
   '@react-native-community/slider',
   '@react-native-community/audio-toolkit',
-  // 'react-native-image-viewing',
   'react-native-localize',
   'react-native-root-siblings',
   'react-native-tiny-toast',
   'react-native-vector-icons',
   'react-native-floating-action',
-  'react-native-fs',
   'react-native-gifted-chat',
   'react-native-typing-animation',
   'react-native-parsed-text',
@@ -73,6 +71,6 @@ module.exports = {
     }),
     // for packages that break stuff even when you import them behind
     // a platform check
-    new webpack.IgnorePlugin(/^(react-native-image-viewing|potato)$/),
+    new webpack.IgnorePlugin(/^(react-native-image-viewing|react-native-fs)$/),
   ],
 };
