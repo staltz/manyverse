@@ -8,52 +8,26 @@ import xs from 'xstream';
 import {run} from '@cycle/run';
 import {withState} from '@cycle/state';
 import {makeReactNativeDriver} from '@cycle/react-native';
-// import {makeReactNativeDriver, View, Text, Button} from '@cycle/react-native';
 import {AppRegistry} from 'react-native';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
 import {ssbDriver} from '../frontend/drivers/ssb';
 // import {dialogDriver} from '../frontend/drivers/dialogs';
+import {makeFSDriver} from '../frontend/drivers/fs';
+import {makeEventBusDriver} from '../frontend/drivers/eventbus';
+import {global} from '../frontend/screens/global';
 import {thread} from '../frontend/screens/thread';
-// import threadView from '../frontend/screens/thread/view';
 
-// function main(sources: any) {
-//   const inc = Symbol();
-//   const inc$ = sources.react.select(inc).events('press');
-//
-//   const count$ = inc$.fold((count: number) => count + 1, 0);
-//
-//   // makeClient().then((ssb) => {
-//   //   ssb.whoami((err: any, {id}: {id: string}) => {
-//   //     console.log('whoami', id);
-//   //   });
-//   // });
-//
-//   const vdom$ = count$.map((i: number) =>
-//     View([
-//       Text(`Counter: ${i}`),
-//       Button(inc, {
-//         title: 'Increment',
-//         onPress: () => {},
-//       }),
-//     ]),
-//   );
-//
-//   //const vdom$ =
-//
-//   return {
-//     // react: vdom$,
-//   };
-// }
-
-// function main(sources: any) {
-//   const vdom$ = threadView(sources, {
-//     willReply$: xs.never(),
-//     focusTextInput$: xs.never(),
-//   });
-//   return {
-//     screen: vdom$,
-//   };
-// }
+run(withState(global), {
+  asyncstorage: asyncStorageDriver,
+  ssb: ssbDriver,
+  fs: makeFSDriver(),
+  navigation: (x: any) =>
+    ({
+      backPress: () => xs.never() as any,
+      globalDidDisappear: () => xs.never() as any,
+    } as any),
+  globalEventBus: makeEventBusDriver(),
+} as any);
 
 run(withState(thread), {
   screen: makeReactNativeDriver('manyverse'),
