@@ -16,7 +16,9 @@ export default function localization(fsSource: FSSource) {
   > =
     Platform.OS === 'android'
       ? (fsSource.readDirAssets('translations') as any)
-      : (fsSource.readDir(FSSource.MainBundlePath + '/translations') as any);
+      : Platform.OS === 'ios'
+      ? fsSource.readDir(FSSource.MainBundlePath + '/translations')
+      : fsSource.readDir('./translations');
 
   const translationPaths$ = translationsDir$.map((translationsDir) =>
     translationsDir

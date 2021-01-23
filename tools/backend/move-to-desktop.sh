@@ -17,6 +17,7 @@ mkdir -p ./desktop;
 rm -rf ./desktop/nodejs-project;
 cp -r ./lib/backend ./desktop;
 mv ./desktop/backend ./desktop/nodejs-project;
+cp -r ./translations/ ./desktop/nodejs-project/translations/;
 cp ./src/backend/package.json ./desktop/nodejs-project;
 cp ./src/backend/package-lock.json ./desktop/nodejs-project;
 cd ./desktop/nodejs-project;
