@@ -14,6 +14,7 @@ import {ssbDriver} from '../frontend/drivers/ssb';
 // import {dialogDriver} from '../frontend/drivers/dialogs';
 import {makeFSDriver} from '../frontend/drivers/fs';
 import {makeEventBusDriver} from '../frontend/drivers/eventbus';
+import {makeLocalizationDriver} from '../frontend/drivers/localization';
 import {global} from '../frontend/screens/global';
 import {thread} from '../frontend/screens/thread';
 
@@ -27,6 +28,7 @@ run(withState(global), {
       globalDidDisappear: () => xs.never() as any,
     } as any),
   globalEventBus: makeEventBusDriver(),
+  localization: makeLocalizationDriver(),
 } as any);
 
 run(withState(thread), {
