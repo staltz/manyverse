@@ -5,3 +5,4 @@
 "235dcc6af93cf2a10fecbb8cb5aad30742b8fe72",51.45,"use ssb-db2@0.12.0 which does private.decrypt in log.stream"
 "cb1d1f5eaa48cc8010c0150932550fa88e8783f8",60.29,"use ssb-db@0.16.0 where query() waits for migrate to finish"
 "aafa24359b6da4c1039e25bb21c5a64642167fd9",53.46,"replace new Buffer() with Buffer.alloc in sodium-chloride"
+"ce8999e7e79909406d08b7098ef5bb8202eef6ea",53.88,"use ssb-db@0.17.0"
