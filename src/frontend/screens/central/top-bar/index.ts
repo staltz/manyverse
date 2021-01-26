@@ -1,10 +1,10 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
 import {StateSource} from '@cycle/state';
@@ -14,12 +14,15 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import HeaderMenuButton from '../../../components/HeaderMenuButton';
+import HeaderMenuProgress from '../../../components/HeaderMenuProgress';
 import {Typography} from '../../../global-styles/typography';
 import {t} from '../../../drivers/localization';
 
 export type State = {
   currentTab: 'public' | 'private' | 'connections';
   scrollHeaderBy: Animated.Value;
+  migrationProgress: number;
+  indexingProgress: number;
 };
 
 export type Sources = {
@@ -72,7 +75,10 @@ export const styles = StyleSheet.create({
 
 function intent(reactSource: ReactSource) {
   return {
-    menu$: reactSource.select('menuButton').events('press'),
+    menu$: xs.merge(
+      reactSource.select('menuButton').events('press'),
+      reactSource.select('menuProgress').events('press'),
+    ),
   };
 }
 
@@ -118,9 +124,15 @@ function calcOpacity(scrollY: Animated.AnimatedMultiplication) {
   });
 }
 
+function calcProgress(state: State) {
+  const [p1, p2] = [state.migrationProgress, state.indexingProgress];
+  if (p1 > 0 && p2 > 0) return (p1 + p2) * 0.5;
+  else if (p1 > 0) return p1;
+  else if (p2 > 0) return p2;
+  else return 1;
+}
+
 function view(state$: Stream<State>) {
-  const fixAtTop = new Animated.Value(0);
-  const opaque = new Animated.Value(1);
   let hideYWhenScrolling: Animated.AnimatedMultiplication | null = null;
   let hideOpacityWhenScrolling: Animated.AnimatedMultiplication | null = null;
 
@@ -133,16 +145,23 @@ function view(state$: Stream<State>) {
       hideOpacityWhenScrolling = calcOpacity(hideYWhenScrolling);
     }
 
-    const translateY =
-      state.currentTab === 'public' ? hideYWhenScrolling : fixAtTop;
+    const translateY = state.currentTab === 'public' ? hideYWhenScrolling : 0;
     const opacity =
-      state.currentTab === 'public' ? hideOpacityWhenScrolling : opaque;
+      state.currentTab === 'public' ? hideOpacityWhenScrolling : 1;
+    const progress = calcProgress(state);
 
     return h(
       Animated.View,
       {style: [styles.container, {transform: [{translateY}]}]},
       [
-        h(Animated.View, {style: {opacity}}, [HeaderMenuButton('menuButton')]),
+        h(Animated.View, {style: {opacity}}, [
+          progress > 0 && progress < 1
+            ? h(HeaderMenuProgress, {
+                sel: 'menuProgress',
+                progress,
+              })
+            : HeaderMenuButton('menuButton'),
+        ]),
         h(
           Animated.Text,
           {style: [styles.title, {opacity}]},

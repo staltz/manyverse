@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -61,11 +61,12 @@ export class SSBSource {
   public publicLiveUpdates$: Stream<null>;
   public privateFeed$: Stream<GetReadable<PrivateThreadAndExtras>>;
   public privateLiveUpdates$: Stream<MsgId>;
-  public isSyncing$: Stream<boolean>;
   public selfPublicRoots$: Stream<GetReadable<ThreadSummaryWithExtras>>;
   public selfPrivateRoots$: Stream<Msg>;
   public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
   public publishHook$: Stream<Msg>;
+  public migrationProgress$: Stream<number>;
+  public indexingProgress$: Stream<number>;
   public acceptInviteResponse$: Stream<true | string>;
   public acceptDhtInviteResponse$: Stream<true | string>;
   public peers$: Stream<Array<PeerKV>>;
@@ -97,10 +98,6 @@ export class SSBSource {
       ssb.threadsUtils.privateUpdates(),
     );
 
-    this.isSyncing$ = this.fromPullStream((ssb) => ssb.syncing.stream()).map(
-      (resp: any) => resp.started > 0,
-    );
-
     this.selfPublicRoots$ = this.ssb$.map((ssb) => (opts?: any) =>
       ssb.threadsUtils.selfPublicRoots(opts),
     );
@@ -116,6 +113,14 @@ export class SSBSource {
     this.publishHook$ = this.ssb$
       .map((ssb) => ssb.hooks.publishStream())
       .flatten();
+
+    this.migrationProgress$ = this.fromPullStream<number>((ssb) =>
+      ssb.syncing.migrating(),
+    );
+
+    this.indexingProgress$ = this.fromPullStream<number>((ssb) =>
+      ssb.syncing.indexing(),
+    );
 
     this.acceptInviteResponse$ = xs.create<true | string>();
     this.acceptDhtInviteResponse$ = xs.create<true | string>();

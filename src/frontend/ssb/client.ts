@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,7 +12,6 @@ import connUtilsPlugin from './plugins/connUtils';
 import publishUtilsPlugin from './plugins/publishUtils';
 import contactsPlugin from './plugins/contacts';
 import threadsUtilsPlugin from './plugins/threadsUtils';
-import syncingNotifications from './plugins/syncing-notifications';
 
 function makeClient() {
   return ssbClient(manifest)
@@ -22,7 +21,6 @@ function makeClient() {
     .use(contactsPlugin())
     .use(connUtilsPlugin())
     .use(threadsUtilsPlugin())
-    .use(syncingNotifications())
     .callPromise();
 }
 

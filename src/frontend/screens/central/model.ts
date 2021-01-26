@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -25,7 +25,8 @@ export type State = {
   connectionsTab?: ConnectionsTabState;
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;
-  isSyncing: boolean;
+  migrationProgress: number;
+  indexingProgress: number;
   isDrawerOpen: boolean;
 };
 
@@ -115,7 +116,6 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         bluetoothEnabled: false,
         lanEnabled: false,
         internetEnabled: false,
-        isSyncing: parent.isSyncing,
         bluetoothLastScanned: 0,
         peers: [],
         rooms: [],
@@ -131,7 +131,6 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
   set: (parent: State, child: ConnectionsTabState): State => {
     return {
       ...parent,
-      isSyncing: child.isSyncing,
       connectionsTab: child,
     };
   },
@@ -155,9 +154,10 @@ export default function model(
         selfFeedId: '',
         lastSessionTimestamp: Infinity,
         currentTab: 'public',
-        isSyncing: false,
         numOfPublicUpdates: 0,
         numOfPrivateUpdates: 0,
+        migrationProgress: 0,
+        indexingProgress: 0,
         scrollHeaderBy: new Animated.Value(0),
         isDrawerOpen: false,
       };
@@ -181,6 +181,20 @@ export default function model(
           return {...prev, selfAvatarUrl: about.imageUrl};
         },
     );
+
+  const migrationProgressReducer$ = ssbSource.migrationProgress$.map(
+    (migrationProgress) =>
+      function migrationProgressReducer(prev: State): State {
+        return {...prev, migrationProgress};
+      },
+  );
+
+  const indexingProgressReducer$ = ssbSource.indexingProgress$.map(
+    (indexingProgress) =>
+      function indexingProgressReducer(prev: State): State {
+        return {...prev, indexingProgress};
+      },
+  );
 
   const changeTabReducer$ = actions.changeTab$.map(
     (nextTab) =>
@@ -207,6 +221,8 @@ export default function model(
     initReducer$,
     setSelfFeedId$,
     aboutReducer$,
+    migrationProgressReducer$,
+    indexingProgressReducer$,
     changeTabReducer$,
     backToPublicTabReducer$,
     isDrawerOpenReducer$,

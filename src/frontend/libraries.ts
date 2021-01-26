@@ -852,13 +852,6 @@ export default [
     homepage: 'https://github.com/happy0/ssb-mobile-bluetooth-manager#readme',
   },
   {
-    name: 'ssb-private',
-    type: 'library',
-    version: '0.2.3',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/ssbc/ssb-private',
-  },
-  {
     name: 'ssb-ref',
     type: 'library',
     version: '2.13.9',

@@ -247,7 +247,6 @@ dependencies {
     implementation project(':react-native-os-staltz')
     implementation project(':react-native-image-crop-picker')
     implementation project(':react-native-navigation')
-    implementation project(':react-native-android-local-notification')
     implementation project(':react-native-has-internet')
     implementation project(':react-native-flag-secure-android')
     implementation project(':react-native-orientation-locker')

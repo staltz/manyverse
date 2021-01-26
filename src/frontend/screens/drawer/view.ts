@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import * as Progress from 'react-native-progress';
 import {h} from '@cycle/react';
 import {t} from '../../drivers/localization';
 import {Dimensions} from '../../global-styles/dimens';
@@ -22,6 +23,7 @@ import {Palette} from '../../global-styles/palette';
 import Avatar from '../../components/Avatar';
 import {State} from './model';
 import {styles} from './styles';
+import LocalizedHumanTime from '../../components/LocalizedHumanTime';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -78,6 +80,37 @@ class MenuItem extends PureComponent<MenuItemProps> {
   }
 }
 
+class Syncing extends PureComponent<{
+  label: string;
+  progress: number;
+  timeRemaining: number;
+}> {
+  public render() {
+    const {label, progress, timeRemaining} = this.props;
+    const progressPretty = `${(progress * 100).toFixed(1)}%`;
+
+    return h(View, {style: styles.syncingContainer}, [
+      h(Text, {style: styles.syncingText}, `${label} (${progressPretty})`),
+      h(Progress.Bar as any, {
+        animated: false,
+        progress: Math.max(0.01, progress), // at least 1%
+        color: Palette.brandMain,
+        unfilledColor: Palette.transparencyDark,
+        borderWidth: 0,
+        width: 250,
+        height: 6,
+      }),
+      timeRemaining > 60e3
+        ? h(Text, {style: styles.syncingEstimateText}, [
+            t('drawer.menu.ready_estimate.label'),
+            ' ',
+            h(LocalizedHumanTime, {time: Date.now() + timeRemaining}),
+          ])
+        : null,
+    ]);
+  }
+}
+
 export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
   return state$.map((state) =>
     h(View, {style: styles.container}, [
@@ -122,6 +155,13 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           text: t('drawer.menu.settings.label'),
           accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
         }),
+        state.combinedProgress > 0 && state.combinedProgress < 1
+          ? h(Syncing, {
+              label: t('drawer.menu.preparing_database.label'),
+              progress: state.combinedProgress,
+              timeRemaining: state.estimateProgressDone,
+            })
+          : null,
       ]),
     ]),
   );

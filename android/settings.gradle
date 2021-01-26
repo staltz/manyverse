@@ -16,8 +16,6 @@ include ':react-native-vector-icons'
 project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
 include ':react-native-os-staltz'
 project(':react-native-os-staltz').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-os-staltz/android')
-include ':react-native-android-local-notification'
-project(':react-native-android-local-notification').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-local-notification/android')
 include ':react-native-has-internet'
 project(':react-native-has-internet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-has-internet/android')
 include ':react-native-flag-secure-android'

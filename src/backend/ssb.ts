@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -34,7 +34,7 @@ const config = makeConfig('ssb', {
   keys,
   db2: {
     automigrate: false,
-    maxCpu: 88,
+    maxCpu: 86,
   },
   blobs: {
     sympathy: 2,
@@ -85,7 +85,6 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-dht-invite')) // needs: db, conn
   .use(require('ssb-invite-client')) // needs: db, conn
   // Queries
-  .use(require('ssb-private')) // needs: db
   .use(require('ssb-backlinks')) // needs: db
   .use(require('ssb-about')) // needs: db, backlinks
   .use(require('ssb-suggest')) // needs: db, backlinks, about, friends

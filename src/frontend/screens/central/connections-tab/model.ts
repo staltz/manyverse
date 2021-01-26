@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -26,7 +26,6 @@ export type State = {
   stagedPeers: Array<StagedPeerKV>;
   timestampPeersAndRooms: number;
   timestampStagedPeers: number;
-  isSyncing: boolean;
   isVisible: boolean;
   bluetoothLastScanned: number;
   itemMenu: {
@@ -92,7 +91,6 @@ export default function model(
       bluetoothEnabled: false,
       lanEnabled: false,
       internetEnabled: false,
-      isSyncing: false,
       isVisible: false,
       bluetoothLastScanned: 0,
       peers: [],
@@ -103,13 +101,6 @@ export default function model(
       itemMenu: {opened: false, type: 'conn'},
     };
   });
-
-  const updateIsSyncing$ = ssbSource.isSyncing$.map(
-    (isSyncing) =>
-      function updateIsSyncing(prev: State): State {
-        return {...prev, isSyncing};
-      },
-  );
 
   const updateBluetoothEnabled$ =
     Platform.OS === 'ios'
@@ -298,7 +289,6 @@ export default function model(
 
   return xs.merge(
     initReducer$,
-    updateIsSyncing$,
     updateBluetoothEnabled$,
     updateLanEnabled$,
     updateInternetEnabled$,
