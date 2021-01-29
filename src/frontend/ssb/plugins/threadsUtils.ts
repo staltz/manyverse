@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,13 +9,7 @@ const Ref = require('ssb-ref');
 import xs, {Stream} from 'xstream';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import {Msg, Content, FeedId} from 'ssb-typescript';
-import {
-  isMsg,
-  isRootPostMsg,
-  isPublic,
-  isContactMsg,
-  isReplyPostMsg,
-} from 'ssb-typescript/utils';
+import {isMsg, isContactMsg} from 'ssb-typescript/utils';
 import run = require('promisify-tuple');
 import {
   AnyThread,
@@ -237,9 +231,7 @@ const threadsUtils = {
 
       selfPublicRoots(opts: any) {
         return pull(
-          ssb.createUserStream({id: ssb.id, ...opts}),
-          pull.filter(isRootPostMsg),
-          pull.filter(isPublic),
+          ssb.dbUtils.selfPublicRoots(opts),
           pull.map((root: Msg) => ({root, replyCount: 0} as ThreadSummary)),
           pull.asyncMap(mutateThreadSummaryWithLiveExtras(ssb)),
         );
@@ -260,9 +252,7 @@ const threadsUtils = {
 
       selfReplies(opts: any) {
         return pull(
-          ssb.createUserStream({id: ssb.id, ...opts}),
-          pull.filter(isReplyPostMsg),
-          pull.filter(isPublic),
+          ssb.dbUtils.selfPublicReplies(opts),
           pull.asyncMap(mutateMsgWithLiveExtras(ssb)),
         );
       },

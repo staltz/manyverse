@@ -165,6 +165,8 @@ export default {
   },
   dbUtils: {
     rawLogReversed: 'source',
+    selfPublicRoots: 'source',
+    selfPublicReplies: 'source',
   },
   publishUtilsBack: {
     publish: 'async',

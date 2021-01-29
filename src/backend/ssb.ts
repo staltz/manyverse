@@ -71,6 +71,8 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-master'))
   .use(require('ssb-db'))
   .use(require('ssb-db2'))
+  .use(require('ssb-db2/compat/ebt'))
+  .use(require('ssb-db2/compat/history-stream'))
   // Replication
   .use(require('ssb-replicate')) // needs: db
   .use(require('ssb-friends')) // needs: db, replicate

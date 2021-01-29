@@ -1,26 +1,54 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
-const {descending, toPullStream} = require('ssb-db2/operators');
 
 export = {
   name: 'dbUtils',
   version: '1.0.0',
   manifest: {
     rawLogReversed: 'source',
+    selfPublicRoots: 'source',
+    selfPublicReplies: 'source',
   },
   permissions: {
     master: {
-      allow: ['rawLogReversed'],
+      allow: ['rawLogReversed', 'selfPublicRoots', 'selfPublicReplies'],
     },
   },
   init: function init(ssb: any) {
+    const {
+      and,
+      not,
+      type,
+      live: liveOperator,
+      author,
+      isRoot,
+      isPublic,
+      descending,
+      toPullStream,
+    } = ssb.db.operators;
+
     return {
       rawLogReversed() {
         return ssb.db.query(descending(), toPullStream());
+      },
+
+      selfPublicRoots(opts: {live?: boolean; old?: boolean}) {
+        return ssb.db.query(
+          and(author(ssb.id), type('post'), isPublic(), isRoot()),
+          opts.live ? liveOperator({old: opts.old}) : null,
+          toPullStream(),
+        );
+      },
+
+      selfPublicReplies(opts: {live?: boolean; old?: boolean}) {
+        return ssb.db.query(
+          and(author(ssb.id), type('post'), isPublic(), not(isRoot())),
+          opts.live ? liveOperator({old: opts.old}) : null,
+          toPullStream(),
+        );
       },
     };
   },
