@@ -147,7 +147,6 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-react-native-web": "^0.14.10",
     "conventional-changelog": "~3.1.23",
-    "electron": "10.3.0",
     "file-loader": "^6.2.0",
     "graceful-fs": "~4.2.6",
     "husky": "^4.3.0",

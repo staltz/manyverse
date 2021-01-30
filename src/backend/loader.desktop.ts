@@ -6,7 +6,7 @@
 
 import os = require('os');
 import path = require('path');
-import {BrowserWindow, app, WebContents} from 'electron';
+const {BrowserWindow, app, WebContents} = require('electron');
 
 process.env = process.env ?? {};
 
@@ -22,9 +22,9 @@ process.env.MANYVERSE_PLATFORM = 'desktop';
 process.env.DEBUG = 'ssb:*,jitdb,jitdb:*';
 // }
 
-let win: BrowserWindow | null;
+let win: typeof BrowserWindow | null;
 
-let resolveWebContents: ((wc: WebContents) => void) | undefined;
+let resolveWebContents: ((wc: typeof WebContents) => void) | undefined;
 // This will be used by multiserver to communicate with the frontend
 (process as any).webContentsP = new Promise((resolve) => {
   resolveWebContents = resolve;
