@@ -22,7 +22,7 @@ export default function localization(fsSource: FSSource) {
 
   const translationPaths$ = translationsDir$.map((translationsDir) =>
     translationsDir
-      .filter(({isFile, name}) => isFile() && name.endsWith('.json'))
+      .filter((dirent) => dirent.isFile() && dirent.name.endsWith('.json'))
       .reduce((all, {name, path}) => {
         const languageTag = name.replace('.json', '');
         return {...all, [languageTag]: path};
