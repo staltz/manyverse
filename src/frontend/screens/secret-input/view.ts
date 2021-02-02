@@ -136,7 +136,7 @@ export default function view(state$: Stream<State>) {
               secureTextEntry: true,
               returnKeyType: 'done',
               placeholder: t('secret_input.fields.words_input.placeholder'),
-              placeholderTextColor: Palette.textVeryWeak,
+              placeholderTextColor: Palette.textWeak,
               selectionColor: Palette.backgroundTextSelection,
               underlineColorAndroid: Palette.backgroundTextWeak,
             }),

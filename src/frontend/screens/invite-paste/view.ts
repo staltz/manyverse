@@ -54,7 +54,7 @@ export default function view(state$: Stream<State>) {
             multiline: true,
             returnKeyType: 'done',
             placeholder: t('invite_paste.placeholder'),
-            placeholderTextColor: Palette.textVeryWeak,
+            placeholderTextColor: Palette.textWeak,
             selectionColor: Palette.backgroundTextSelection,
             underlineColorAndroid: Palette.backgroundTextWeak,
           }),
