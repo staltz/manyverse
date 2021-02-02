@@ -17,6 +17,15 @@ import {makeEventBusDriver} from '../frontend/drivers/eventbus';
 import {makeLocalizationDriver} from '../frontend/drivers/localization';
 import {global} from '../frontend/screens/global';
 import {thread} from '../frontend/screens/thread';
+const iconFont = require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf');
+
+const iconFontStyles = `@font-face {
+  src: url(dist/${iconFont});
+  font-family: MaterialCommunityIcons;
+}`;
+const style = document.createElement('style');
+style.appendChild(document.createTextNode(iconFontStyles));
+document.head.appendChild(style);
 
 const engine = setupReusable({
   asyncstorage: asyncStorageDriver,

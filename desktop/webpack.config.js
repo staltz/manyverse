@@ -53,6 +53,7 @@ module.exports = {
   },
   module: {
     rules: [
+      babelLoaderConfiguration,
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: [
@@ -61,7 +62,21 @@ module.exports = {
           },
         ],
       },
-      babelLoaderConfiguration,
+      {
+        test: /\.ttf$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false,
+            },
+          },
+        ],
+        include: path.resolve(
+          __dirname,
+          '../node_modules/react-native-vector-icons',
+        ),
+      },
     ],
   },
   plugins: [
