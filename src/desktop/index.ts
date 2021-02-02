@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs from 'xstream';
-import {run} from '@cycle/run';
+import {setupReusable} from '@cycle/run';
 import {withState} from '@cycle/state';
 import {makeReactNativeDriver} from '@cycle/react-native';
 import {AppRegistry} from 'react-native';
@@ -18,9 +18,10 @@ import {makeLocalizationDriver} from '../frontend/drivers/localization';
 import {global} from '../frontend/screens/global';
 import {thread} from '../frontend/screens/thread';
 
-run(withState(global), {
+const engine = setupReusable({
   asyncstorage: asyncStorageDriver,
   ssb: ssbDriver,
+  screen: makeReactNativeDriver('manyverse'),
   fs: makeFSDriver(),
   navigation: (x: any) =>
     ({
@@ -28,32 +29,29 @@ run(withState(global), {
       globalDidDisappear: () => xs.never() as any,
     } as any),
   globalEventBus: makeEventBusDriver(),
-  localization: makeLocalizationDriver(),
-} as any);
-
-run(withState(thread), {
-  screen: makeReactNativeDriver('manyverse'),
-  asyncstorage: asyncStorageDriver,
-  ssb: ssbDriver,
   dialog: (x: any) => ({
     alert: () => xs.never() as any,
     showPicker: () => xs.never() as any,
   }),
-  props: (x: any) =>
-    xs.of({
-      selfFeedId: '@Vz6v3xKpzViiTM/GAe+hKkACZSqrErQQZgv4iqQxEn8=.ed25519',
-      lastSessionTimestamp: 0,
-      rootMsgId: '%vdPBFaZbVnlWHxGdN0giPaHTh4BQgTmj8lb039N510g=.sha256',
-    }),
-  navigation: (x: any) =>
-    ({
-      backPress: () => xs.never() as any,
-      globalDidDisappear: () => xs.never() as any,
-    } as any),
+  localization: makeLocalizationDriver(),
   keyboard: (x: any) => ({
     events: () => xs.never() as any,
   }),
-} as any);
+});
+
+engine.run(withState(global)(engine.sources));
+engine.run(
+  withState(thread)({
+    ...engine.sources,
+    props: xs
+      .of({
+        selfFeedId: '@Vz6v3xKpzViiTM/GAe+hKkACZSqrErQQZgv4iqQxEn8=.ed25519',
+        lastSessionTimestamp: 0,
+        rootMsgId: '%vdPBFaZbVnlWHxGdN0giPaHTh4BQgTmj8lb039N510g=.sha256',
+      })
+      .remember(),
+  } as any),
+);
 AppRegistry.runApplication('manyverse', {
   rootTag: document.getElementById('app'),
 });
