@@ -28,8 +28,9 @@ import manifest from '../manifest';
 
 type SSB = ClientAPI<
   typeof manifest & {
-    cachedAbout: {
-      socialValue: AnyFunction;
+    cachedAboutSelf: {
+      getNameAndImage: AnyFunction;
+      invalidate: AnyFunction;
     };
   }
 >;
@@ -44,20 +45,16 @@ function getRecipient(recp: string | Record<string, any>): string | undefined {
 }
 
 function mutateMsgWithLiveExtras(ssb: SSB, includeReactions: boolean = true) {
-  const getAbout = ssb.cachedAbout.socialValue;
+  const getNameAndImage = ssb.cachedAboutSelf.getNameAndImage;
   return async (msg: Msg, cb: Callback<MsgAndExtras>) => {
     if (!isMsg(msg) || !msg.value) return cb(null, msg as any);
 
-    // Fetch name
-    const nameOpts = {key: 'name', dest: msg.value.author};
-    const [e1, name] = await run<string | undefined>(getAbout)(nameOpts);
+    // Fetch name and image
+    const id = msg.value.author;
+    const [e1, output] = await run<any>(getNameAndImage)(id);
     if (e1) return cb(e1);
-
-    // Fetch avatar
-    const avatarOpts = {key: 'image', dest: msg.value.author};
-    const [e2, val] = await run(getAbout)(avatarOpts);
-    if (e2) return cb(e2);
-    const imageUrl = imageToImageUrl(val);
+    const name = output.name;
+    const imageUrl = imageToImageUrl(output.image);
 
     // Get reactions stream
     const reactions: Stream<Reactions> = includeReactions
@@ -86,10 +83,9 @@ function mutateMsgWithLiveExtras(ssb: SSB, includeReactions: boolean = true) {
       return cb(null, m);
     }
     const dest: FeedId = content.contact;
-    const dOpts = {key: 'name', dest};
-    const [e3, destName] = await run<string | undefined>(getAbout)(dOpts);
+    const [e3, destNameAndImage] = await run<any>(getNameAndImage)(dest);
     if (e3) return cb(e3);
-    m.value._$manyverse$metadata.contact = {name: destName};
+    m.value._$manyverse$metadata.contact = {name: destNameAndImage.name};
     cb(null, m);
   };
 }
@@ -114,7 +110,7 @@ function mutateThreadSummaryWithLiveExtras(ssb: SSB) {
 }
 
 function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
-  const getAbout = ssb.cachedAbout.socialValue;
+  const getNameAndImage = ssb.cachedAboutSelf.getNameAndImage;
   return async (thread: ThreadData, cb: Callback<PrivateThreadAndExtras>) => {
     for (const msg of thread.messages) {
       await run(mutateMsgWithLiveExtras(ssb, false))(msg);
@@ -127,16 +123,11 @@ function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
         const id = getRecipient(recp);
         if (!id) continue;
 
-        // Fetch name
-        const nameOpts = {key: 'name', dest: id};
-        const [e1, name] = await run<string | undefined>(getAbout)(nameOpts);
+        // Fetch name and image
+        const [e1, output] = await run<any>(getNameAndImage)(id);
         if (e1) return cb(e1);
-
-        // Fetch avatar
-        const avatarOpts = {key: 'image', dest: id};
-        const [e2, val] = await run<string>(getAbout)(avatarOpts);
-        if (e2) return cb(e2);
-        const imageUrl = imageToImageUrl(val);
+        const name = output.name;
+        const imageUrl = imageToImageUrl(output.image);
 
         // Push
         pvthread.recps.push({id, name, imageUrl});

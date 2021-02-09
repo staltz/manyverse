@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -20,26 +20,21 @@ type HostingDhtInvite = {seed: string; claimer: string; online: boolean};
 
 type SSB = ClientAPI<
   typeof manifest & {
-    cachedAbout: {
-      socialValue: AnyFunction;
+    cachedAboutSelf: {
+      getNameAndImage: AnyFunction;
       invalidate: AnyFunction;
     };
   }
 >;
 
 function augmentPeerWithExtras(ssb: SSB) {
-  const getAbout = ssb.cachedAbout.socialValue;
+  const getNameAndImage = ssb.cachedAboutSelf.getNameAndImage;
   return async ([addr, peer]: PeerKV, cb: Callback<[string, any]>) => {
-    // Fetch name
-    const nameOpts = {key: 'name', dest: peer.key};
-    const [e1, name] = await run<string | undefined>(getAbout)(nameOpts);
+    // Fetch name and image
+    const [e1, output] = await run<any>(getNameAndImage)(peer.key);
     if (e1) return cb(e1);
-
-    // Fetch avatar
-    const avatarOpts = {key: 'image', dest: peer.key};
-    const [e2, val] = await run(getAbout)(avatarOpts);
-    if (e2) return cb(e2);
-    const imageUrl = imageToImageUrl(val);
+    const name = output.name;
+    const imageUrl = imageToImageUrl(output.image);
 
     // Fetch 'isInDB' boolean
     const [e4, isInDB] = await run<boolean>(ssb.connUtilsBack.isInDB)(addr);
@@ -111,7 +106,7 @@ const connUtils = {
           pull.map(removeOlderDuplicates),
           pull.through((peers: Array<PeerKV>) => {
             for (const [, data] of peers) {
-              if (data.key) ssb.cachedAbout.invalidate(data.key);
+              if (data.key) ssb.cachedAboutSelf.invalidate(data.key);
             }
           }),
           pull.asyncMap(augmentPeersWithExtras(ssb)),

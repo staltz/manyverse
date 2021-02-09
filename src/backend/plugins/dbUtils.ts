@@ -37,7 +37,12 @@ export = {
 
       selfPublicRoots(opts: {live?: boolean; old?: boolean}) {
         return ssb.db.query(
-          and(author(ssb.id), type('post'), isPublic(), isRoot()),
+          and(
+            author(ssb.id, {dedicated: true}),
+            type('post'),
+            isPublic(),
+            isRoot(),
+          ),
           opts.live ? liveOperator({old: opts.old}) : null,
           toPullStream(),
         );
@@ -45,7 +50,12 @@ export = {
 
       selfPublicReplies(opts: {live?: boolean; old?: boolean}) {
         return ssb.db.query(
-          and(author(ssb.id), type('post'), isPublic(), not(isRoot())),
+          and(
+            author(ssb.id, {dedicated: true}),
+            type('post'),
+            isPublic(),
+            not(isRoot()),
+          ),
           opts.live ? liveOperator({old: opts.old}) : null,
           toPullStream(),
         );

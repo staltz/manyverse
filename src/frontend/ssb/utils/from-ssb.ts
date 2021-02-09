@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -15,11 +15,9 @@ function shortFeedId(feedId: FeedId): string {
   return feedId.slice(0, 11) + '\u2026';
 }
 
-export function imageToImageUrl(val: any) {
-  let image: string | null = val;
-  if (!!val && typeof val === 'object' && val.link) image = val.link;
-  const imageUrl: string | undefined = image ? blobIdToUrl(image) : undefined;
-  return imageUrl;
+export function imageToImageUrl(image: string | undefined) {
+  if (!image) return undefined;
+  else return blobIdToUrl(image) as string;
 }
 
 const THUMBS_UP_UNICODE = '\ud83d\udc4d';

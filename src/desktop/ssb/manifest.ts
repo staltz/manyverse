@@ -73,23 +73,14 @@ export default {
     changes: 'source',
     createWants: 'source',
   },
-  backlinks: {
-    read: 'source',
-  },
   private: {
     publish: 'async',
     unbox: 'sync',
     read: 'source',
   },
-  about: {
-    socialValue: 'async',
-    latestValue: 'async',
-    socialValues: 'async',
-    latestValues: 'async',
-    socialValueStream: 'source',
-    socialValuesStream: 'source',
-    latestValueStream: 'source',
-    read: 'source',
+  aboutSelf: {
+    get: 'async',
+    stream: 'source',
   },
   suggest: {
     profile: 'async',
@@ -97,12 +88,17 @@ export default {
   query: {
     read: 'source',
   },
+  db2migrate: {
+    start: 'async',
+  },
   threads: {
     public: 'source',
+    publicSummary: 'source',
     publicUpdates: 'source',
     private: 'source',
     privateUpdates: 'source',
     profile: 'source',
+    profileSummary: 'source',
     thread: 'source',
     threadUpdates: 'source',
   },
@@ -152,6 +148,11 @@ export default {
     persistentDisconnect: 'async',
     isInDB: 'async',
   },
+  dbUtils: {
+    rawLogReversed: 'source',
+    selfPublicRoots: 'source',
+    selfPublicReplies: 'source',
+  },
   publishUtilsBack: {
     publish: 'async',
     publishAbout: 'async',
@@ -162,8 +163,16 @@ export default {
   keysUtils: {
     getMnemonic: 'sync',
   },
+  settingsUtils: {
+    read: 'sync',
+    updateHops: 'sync',
+    updateBlobsPurge: 'sync',
+    updateShowFollows: 'sync',
+    updateDetailedLogs: 'sync',
+  },
   syncing: {
-    stream: 'source',
+    migrating: 'source',
+    indexing: 'source',
   },
   votes: {
     voterStream: 'source',

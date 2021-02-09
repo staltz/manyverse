@@ -82,23 +82,14 @@ export default {
     stop: 'sync',
     changes: 'source',
   },
-  backlinks: {
-    read: 'source',
-  },
   private: {
     publish: 'async',
     unbox: 'sync',
     read: 'source',
   },
-  about: {
-    socialValue: 'async',
-    latestValue: 'async',
-    socialValues: 'async',
-    latestValues: 'async',
-    socialValueStream: 'source',
-    socialValuesStream: 'source',
-    latestValueStream: 'source',
-    read: 'source',
+  aboutSelf: {
+    get: 'async',
+    stream: 'source',
   },
   suggest: {
     profile: 'async',

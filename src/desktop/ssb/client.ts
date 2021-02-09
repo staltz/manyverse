@@ -5,11 +5,15 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import ssbClient from 'electron-ssb-client';
-import cachedAbout from 'ssb-cached-about';
+import cachedAboutSelf from '../../frontend/ssb/plugins/cachedAboutSelf';
+import threadsUtilsPlugin from '../../frontend/ssb/plugins/threadsUtils';
 import manifest from './manifest';
 
 function makeClient() {
-  return ssbClient(manifest).use(cachedAbout()).callPromise();
+  return ssbClient(manifest)
+    .use(cachedAboutSelf())
+    .use(threadsUtilsPlugin())
+    .callPromise();
 }
 
 export default makeClient;

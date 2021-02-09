@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -22,10 +22,9 @@ export default function model(
   const aboutReducer$ = ssbSource.selfFeedId$
     .take(1)
     .map((selfFeedId) =>
-      ssbSource.profileAbout$(selfFeedId).map(
-        (about) =>
+      ssbSource.profileImage$(selfFeedId).map(
+        (selfAvatarUrl) =>
           function aboutReducer(prev?: State): State {
-            const selfAvatarUrl = about.imageUrl;
             return {...(prev ?? {}), selfFeedId, selfAvatarUrl};
           },
       ),

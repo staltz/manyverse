@@ -181,22 +181,12 @@ export class SSBSource {
   public liteAbout$(ids: Array<FeedId>): Stream<Array<AboutAndExtras>> {
     return this.ssb$
       .map(async (ssb) => {
-        const getAbout = ssb.cachedAbout.socialValue;
+        const getNameAndImage = ssb.cachedAboutSelf.getNameAndImage;
         const abouts: Array<AboutAndExtras> = [];
         for (const id of ids) {
-          // Fetch name
-          const [, name] = await runAsync<string | undefined>(getAbout)({
-            key: 'name',
-            dest: id,
-          });
-
-          // Fetch avatar
-          const [, result2] = await runAsync(getAbout)({
-            key: 'image',
-            dest: id,
-          });
-          const imageUrl = imageToImageUrl(result2);
-
+          const [, output] = await runAsync<any>(getNameAndImage)(id);
+          const name = output.name;
+          const imageUrl = imageToImageUrl(output.image);
           abouts.push({name, imageUrl, id});
         }
         return abouts;
@@ -205,36 +195,13 @@ export class SSBSource {
       .flatten();
   }
 
-  public profileAbout$(id: FeedId): Stream<AboutAndExtras> {
+  public profileImage$(id: FeedId): Stream<string | undefined> {
     return this.ssb$
-      .map((ssb) => {
-        const selfId = ssb.id;
-        const color = colorHash.hex(id);
-        const getAbout = ssb.cachedAbout.socialValue;
-        const getAbout$ = xsFromCallback(getAbout);
-        const name$ = getAbout$({key: 'name', dest: id});
-        const imageUrl$ = getAbout$({key: 'image', dest: id}).map(
-          imageToImageUrl,
-        );
-        const description$ = getAbout$({key: 'description', dest: id});
-        const following$ = ssb.contacts.tristate(selfId, id);
-        const followsYou$ = ssb.contacts.tristate(id, selfId);
-        return xs
-          .combine(name$, imageUrl$, description$, following$, followsYou$)
-          .map(
-            ([name, imageUrl, description, following, followsYou]) =>
-              ({
-                id,
-                name,
-                color,
-                imageUrl,
-                description,
-                following,
-                followsYou,
-              } as AboutAndExtras),
-          );
-      })
-      .flatten();
+      .map((ssb) =>
+        xsFromCallback<{image: string}>(ssb.aboutSelf.get)({id, image: true}),
+      )
+      .flatten()
+      .map((output) => imageToImageUrl(output.image));
   }
 
   public profileAboutLive$(id: FeedId): Stream<AboutAndExtras> {
@@ -242,18 +209,24 @@ export class SSBSource {
       .map((ssb) => {
         const selfId = ssb.id;
         const color = colorHash.hex(id);
-        const getAboutPS = ssb.about.socialValueStream;
-        const name$ = xsFromPullStream(getAboutPS({key: 'name', dest: id}));
+        const getAboutStream = ssb.aboutSelf.stream;
+        const name$ = xsFromPullStream(getAboutStream({id, field: 'name'}));
         const imageUrl$ = xsFromPullStream(
-          getAboutPS({key: 'image', dest: id}),
+          getAboutStream({id, field: 'image'}),
         ).map(imageToImageUrl);
         const description$ = xsFromPullStream(
-          getAboutPS({key: 'description', dest: id}),
+          getAboutStream({id, field: 'description'}),
         );
         const following$ = ssb.contacts.tristate(selfId, id);
         const followsYou$ = ssb.contacts.tristate(id, selfId);
         return xs
-          .combine(name$, imageUrl$, description$, following$, followsYou$)
+          .combine(
+            name$.startWith(undefined),
+            imageUrl$.startWith(undefined),
+            description$.startWith(undefined),
+            following$,
+            followsYou$,
+          )
           .map(
             ([name, imageUrl, description, following, followsYou]) =>
               ({
@@ -490,7 +463,7 @@ async function consumeSink(
 
       if (req.type === 'publishAbout') {
         ssb.publishUtils.publishAbout(req.content, () => {
-          ssb.cachedAbout.invalidate(ssb.id);
+          ssb.cachedAboutSelf.invalidate(ssb.id);
         });
         return;
       }

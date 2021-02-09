@@ -69,40 +69,43 @@ const config = makeConfig('ssb', {
 SecretStack({appKey: require('ssb-caps').shs})
   // Core
   .use(require('ssb-master'))
-  .use(require('ssb-db'))
+  // .use(require('ssb-db'))
   .use(require('ssb-db2'))
+  .use(require('ssb-db2/compat/db'))
   .use(require('ssb-db2/compat/ebt'))
+  .use(require('ssb-db2/compat/log-stream'))
   .use(require('ssb-db2/compat/history-stream'))
   // Replication
-  .use(require('ssb-replicate')) // needs: db
+  .use(require('ssb-replicate')) // needs: db2/compat/log- & history-stream
   .use(require('ssb-friends')) // needs: db, replicate
   // FIXME: see issue https://github.com/ssbc/ssb-ebt/issues/33
-  .use(require('ssb-ebt-fork-staltz')) // needs: db, replicate, friends
+  .use(require('ssb-ebt-fork-staltz')) // needs: db2/compat, replicate, friends
   // Connections
   .use(require('./plugins/multiserver-addons'))
   .use(require('ssb-lan'))
   .use(bluetoothTransport(keys, process.env.APP_DATA_DIR))
   .use(require('ssb-conn')) // needs: db, friends, lan, bluetooth
   .use(require('ssb-room/tunnel/client')) // needs: conn
-  .use(require('ssb-dht-invite')) // needs: db, conn
+  .use(require('ssb-dht-invite')) // needs: db, friends, conn
   .use(require('ssb-invite-client')) // needs: db, conn
   // Queries
-  .use(require('ssb-backlinks')) // needs: db
-  .use(require('ssb-about')) // needs: db, backlinks
-  .use(require('ssb-suggest')) // needs: db, backlinks, about, friends
-  .use(require('ssb-threads')) // needs: db, backlinks, friends
+  .use(require('ssb-about')) // needs: db, db2
+  .use(require('ssb-suggest')) // needs: db2, about, friends
+  .use(require('ssb-threads')) // needs: db, db2, friends
+  .use(require('ssb-db2/full-mentions')) // needs: db2
   // Blobs
   .use(require('ssb-blobs'))
   .use(require('ssb-serve-blobs')) // needs: blobs
-  .use(require('ssb-blobs-purge')) // needs: blobs, backlinks
+  .use(require('ssb-blobs-purge')) // needs: blobs, db2/full-mentions
   // Customizations
   .use(require('./plugins/blobsUtils')) // needs: blobs
   .use(require('./plugins/connUtilsBack')) // needs: conn
   .use(require('./plugins/dbUtils')) // needs: db2
+  .use(require('./plugins/aboutSelf')) // needs: db2
   .use(require('./plugins/publishUtilsBack')) // needs: db, blobs, blobsUtils
-  .use(require('./plugins/friendsUtils')) // needs: db
+  .use(require('./plugins/friendsUtils')) // needs: db2
   .use(require('./plugins/keysUtils'))
   .use(settingsUtils) // needs: blobs-purge
-  .use(require('./plugins/syncing')) // needs: db
-  .use(require('./plugins/votes')) // needs: backlinks
+  .use(require('./plugins/syncing')) // needs: db2
+  .use(require('./plugins/votes')) // needs: db2
   .call(null, config);

@@ -5,17 +5,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import ssbClient from 'react-native-ssb-client';
-import cachedAbout from 'ssb-cached-about';
 import manifest from './manifest';
 import hooksPlugin from './plugins/hooks';
 import connUtilsPlugin from './plugins/connUtils';
 import publishUtilsPlugin from './plugins/publishUtils';
 import contactsPlugin from './plugins/contacts';
 import threadsUtilsPlugin from './plugins/threadsUtils';
+import cachedAboutSelf from './plugins/cachedAboutSelf';
 
 function makeClient() {
   return ssbClient(manifest)
-    .use(cachedAbout())
+    .use(cachedAboutSelf())
     .use(hooksPlugin())
     .use(publishUtilsPlugin())
     .use(contactsPlugin())

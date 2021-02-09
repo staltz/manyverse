@@ -115,6 +115,12 @@ export default [
     homepage: 'https://github.com/cyclejs/react-dom',
   },
   {
+    name: '@cycle/react-native',
+    type: 'library',
+    version: '2.0.0',
+    license: 'MIT License (MIT)',
+  },
+  {
     name: '@cycle/run',
     type: 'library',
     version: '5.5.0',
@@ -127,6 +133,13 @@ export default [
     version: '1.4.0',
     license: 'MIT License (MIT)',
     homepage: 'https://cycle.js.org',
+  },
+  {
+    name: '@react-native-community/art',
+    type: 'library',
+    version: '1.2.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/react-native-community/react-native-art',
   },
   {
     name: '@react-native-community/audio-toolkit',
@@ -182,7 +195,7 @@ export default [
   {
     name: 'chloride',
     type: 'library',
-    version: '2.2.14',
+    version: '2.4.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/dominictarr/chloride#readme',
   },
@@ -272,13 +285,6 @@ export default [
     homepage: 'https://github.com/staltz/electron-ssb-client',
   },
   {
-    name: 'estimate-progress',
-    type: 'library',
-    version: '1.0.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://gitlab.com/staltz/estimate-progress#readme',
-  },
-  {
     name: 'faucet',
     type: 'library',
     version: '0.0.1',
@@ -319,6 +325,13 @@ export default [
     version: '3.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/mdast-normalize-react-native#readme',
+  },
+  {
+    name: 'mkdirp',
+    type: 'library',
+    version: '1.0.4',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/isaacs/node-mkdirp#readme',
   },
   {
     name: 'multiserver-electron-ipc',
@@ -419,6 +432,13 @@ export default [
     homepage: 'https://pull-stream.github.io',
   },
   {
+    name: 'pull-stream-util',
+    type: 'library',
+    version: '0.1.2',
+    license: 'ISC License (ISC)',
+    homepage: 'https://github.com/nichoth/pull-stream-util#readme',
+  },
+  {
     name: 'pull-switch-map',
     type: 'library',
     version: '1.0.0',
@@ -459,14 +479,6 @@ export default [
     version: '0.63.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/facebook/react-native#readme',
-  },
-  {
-    name: 'react-native-android-local-notification',
-    type: 'library',
-    version: '3.0.0',
-    license: 'MIT License (MIT)',
-    homepage:
-      'https://github.com/staltz/react-native-android-local-notification#readme',
   },
   {
     name: 'react-native-bluetooth-socket-bridge',
@@ -570,6 +582,13 @@ export default [
     homepage: 'https://github.com/instea/react-native-popup-menu',
   },
   {
+    name: 'react-native-progress',
+    type: 'library',
+    version: '4.1.2',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/oblador/react-native-progress',
+  },
+  {
     name: 'react-native-splash-screen',
     type: 'library',
     version: '3.2.0',
@@ -627,6 +646,13 @@ export default [
     homepage: 'https://github.com/oblador/react-native-vector-icons',
   },
   {
+    name: 'react-native-web',
+    type: 'library',
+    version: '0.14.10',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/necolas/react-native-web#readme',
+  },
+  {
     name: 'react-propify-methods',
     type: 'library',
     version: '16.3.2',
@@ -677,9 +703,16 @@ export default [
     homepage: 'https://gitlab.com/staltz/ssb-mentions',
   },
   {
+    name: 'rimraf',
+    type: 'library',
+    version: '3.0.2',
+    license: 'ISC License (ISC)',
+    homepage: 'https://github.com/isaacs/rimraf#readme',
+  },
+  {
     name: 'secret-stack',
     type: 'library',
-    version: '6.3.1',
+    version: '6.3.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/secret-stack',
   },
@@ -700,16 +733,9 @@ export default [
   {
     name: 'ssb-about',
     type: 'library',
-    version: '2.0.0',
+    version: '2.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-about',
-  },
-  {
-    name: 'ssb-backlinks',
-    type: 'library',
-    version: '1.0.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/ssbc/ssb-backlinks',
   },
   {
     name: 'ssb-blobs',
@@ -721,7 +747,7 @@ export default [
   {
     name: 'ssb-blobs-purge',
     type: 'library',
-    version: '0.2.0',
+    version: '1.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-blobs-purge',
   },
@@ -740,6 +766,13 @@ export default [
     homepage: 'https://gitlab.com/staltz/ssb-cached-about',
   },
   {
+    name: 'ssb-caps',
+    type: 'library',
+    version: '1.1.0',
+    license: 'Creative Commons Zero v1.0 Universal (CC0-1.0)',
+    homepage: 'https://github.com/ssbc/ssb-caps#readme',
+  },
+  {
     name: 'ssb-config',
     type: 'library',
     version: '3.4.5',
@@ -749,7 +782,7 @@ export default [
   {
     name: 'ssb-conn',
     type: 'library',
-    version: '0.19.1',
+    version: '2.0.0-rc2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn',
   },
@@ -761,18 +794,11 @@ export default [
     homepage: 'https://github.com/staltz/ssb-conn-query',
   },
   {
-    name: 'ssb-db',
-    type: 'library',
-    version: '19.3.1',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/ssbc/ssb-db',
-  },
-  {
     name: 'ssb-db2',
     type: 'library',
-    version: '0.17.0',
+    version: '1.11.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
-    homepage: 'https://github.com/arj03/ssb-db2',
+    homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
   {
     name: 'ssb-dht-invite',
@@ -791,7 +817,7 @@ export default [
   {
     name: 'ssb-friends',
     type: 'library',
-    version: '4.1.4',
+    version: '4.4.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-friends',
   },
@@ -882,21 +908,21 @@ export default [
   {
     name: 'ssb-suggest',
     type: 'library',
-    version: '1.2.0',
+    version: '1.3.0',
     license: 'GNU Affero General Public License v3.0 (AGPL-3.0)',
     homepage: 'https://github.com/ssbc/ssb-suggest#readme',
   },
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '5.1.1',
+    version: '7.0.0-rc4',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
   {
     name: 'ssb-typescript',
     type: 'library',
-    version: '2.1.0',
+    version: '2.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-typescript#readme',
   },
@@ -910,7 +936,7 @@ export default [
   {
     name: 'utf-8-validate',
     type: 'library',
-    version: '5.0.2',
+    version: '5.0.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/websockets/utf-8-validate',
   },

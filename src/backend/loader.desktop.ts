@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -19,7 +19,8 @@ process.env.SSB_DIR = path.resolve(os.homedir(), '.ssb');
 process.env.MANYVERSE_PLATFORM = 'desktop';
 // process.env.PROFILER_NODEJS = 'yes'; // uncomment to enable the profiler
 // if (fs.existsSync(path.join(process.env.SSB_DIR, 'DETAILED_LOGS'))) {
-process.env.DEBUG = '*';
+// process.env.DEBUG = '*';
+process.env.DEBUG = 'ssb:*,jitdb,jitdb:*';
 // }
 
 let win: BrowserWindow | null;

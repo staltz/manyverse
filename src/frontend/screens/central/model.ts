@@ -173,12 +173,12 @@ export default function model(
 
   const aboutReducer$ = ssbSource.selfFeedId$
     .take(1)
-    .map((selfFeedId) => ssbSource.profileAbout$(selfFeedId))
+    .map((selfFeedId) => ssbSource.profileImage$(selfFeedId))
     .flatten()
     .map(
-      (about) =>
+      (selfAvatarUrl) =>
         function aboutReducer(prev: State): State {
-          return {...prev, selfAvatarUrl: about.imageUrl};
+          return {...prev, selfAvatarUrl};
         },
     );
 

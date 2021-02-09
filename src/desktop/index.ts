@@ -8,6 +8,7 @@ import {run} from '@cycle/run';
 import {makeReactNativeDriver, View, Text, Button} from '@cycle/react-native';
 import {AppRegistry} from 'react-native';
 import makeClient from './ssb/client';
+const pull = require('pull-stream');
 
 function main(sources: any) {
   const inc = Symbol();
@@ -19,6 +20,14 @@ function main(sources: any) {
     ssb.whoami((err: any, {id}: {id: string}) => {
       console.log('whoami', id);
     });
+    ssb.db2migrate.start();
+    pull(
+      ssb.threadsUtils.publicFeed({}),
+      pull.take(3),
+      pull.drain((thread: any) => {
+        console.log(thread);
+      }),
+    );
   });
 
   const vdom$ = count$.map((i: number) =>

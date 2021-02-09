@@ -31,22 +31,14 @@ export function calcProgress(p1: number, p2: number) {
 }
 
 export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
-  const initAboutReducer$ = ssbSource.selfFeedId$
-    .take(1)
-    .map((selfFeedId) => ssbSource.profileAboutLive$(selfFeedId))
-    .flatten()
-    .map(
-      (about) =>
-        function initAboutReducer(prev: State): State {
-          const id = about.id;
-          let name = '';
-          if (!!about.name && about.name !== id) {
-            name = about.name;
-          }
+  const selfFeedId$ = ssbSource.selfFeedId$.take(1);
+
+  const selfFeedIdReducer$ = selfFeedId$.map(
+    (selfFeedId: FeedId) =>
+      function selfFeedIdReducer(prev: State): State {
+        if (!prev) {
           return {
-            selfFeedId: id,
-            selfAvatarUrl: about.imageUrl,
-            name,
+            selfFeedId,
             migrationProgress: 0,
             indexingProgress: 0,
             combinedProgress: 0,
@@ -54,6 +46,41 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
             checkpoint: Date.now(),
             estimateProgressDone: 0,
           };
+        } else {
+          return {...prev, selfFeedId};
+        }
+      },
+  );
+
+  const aboutReducer$ = selfFeedId$
+    .map((selfFeedId) => ssbSource.profileAboutLive$(selfFeedId))
+    .flatten()
+    .map(
+      (about) =>
+        function aboutReducer(prev: State): State {
+          let name;
+          if (!!about.name && about.name !== about.id) {
+            name = about.name;
+          }
+          if (!prev) {
+            return {
+              selfFeedId: about.id,
+              selfAvatarUrl: about.imageUrl,
+              name,
+              migrationProgress: 0,
+              indexingProgress: 0,
+              combinedProgress: 0,
+              checkpointCombinedProgress: 0,
+              estimateProgressDone: 0,
+              checkpoint: Date.now(),
+            };
+          } else {
+            return {
+              ...prev,
+              selfAvatarUrl: about.imageUrl,
+              name,
+            };
+          }
         },
     );
 
@@ -108,7 +135,8 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
   );
 
   return xs.merge(
-    initAboutReducer$,
+    selfFeedIdReducer$,
+    aboutReducer$,
     migrationProgressReducer$,
     indexingProgressReducer$,
   );
