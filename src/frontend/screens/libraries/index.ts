@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -237,7 +237,7 @@ export function libraries(sources: Sources): Sinks {
     h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('libraries.title')}),
       h(ScrollView, {style: styles.container}, [
-        h(DepList, {sel: 'libraries', libraries: librariesData}),
+        h(DepList, {sel: 'libraries', libraries: librariesData as any}),
       ]),
     ]),
   );
