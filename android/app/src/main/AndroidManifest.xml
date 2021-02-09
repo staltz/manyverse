@@ -1,4 +1,4 @@
-<!-- Copyright (C) 2018-2020 The Manyverse Authors.
+<!-- Copyright (C) 2018-2021 The Manyverse Authors.
    -
    - This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -43,13 +43,6 @@
         </activity>
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
-        <receiver android:name="com.staltz.reactnativeandroidlocalnotification.NotificationEventReceiver" />
-        <receiver android:name="com.staltz.reactnativeandroidlocalnotification.NotificationPublisher" />
-        <receiver android:name="com.staltz.reactnativeandroidlocalnotification.SystemBootEventReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
