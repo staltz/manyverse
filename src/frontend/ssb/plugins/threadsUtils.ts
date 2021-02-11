@@ -32,6 +32,9 @@ type SSB = ClientAPI<
       getNameAndImage: AnyFunction;
       invalidate: AnyFunction;
     };
+    deweird: {
+      source: AnyFunction;
+    };
   }
 >;
 
@@ -171,14 +174,14 @@ const threadsUtils = {
 
       publicRawFeed() {
         return pull(
-          ssb.dbUtils.rawLogReversed(),
+          ssb.deweird.source(['dbUtils', 'rawLogReversed']),
           pull.asyncMap(mutateMsgWithLiveExtras(ssb, false)),
         );
       },
 
       publicFeed(opts: any) {
         return pull(
-          ssb.threads.publicSummary({
+          ssb.deweird.source(['threads', 'publicSummary'], {
             allowlist: publicAllowlist,
             ...opts,
           }),
@@ -204,7 +207,7 @@ const threadsUtils = {
 
       privateFeed(opts: any) {
         return pull(
-          ssb.threads.private({
+          ssb.deweird.source(['threads', 'private'], {
             threadMaxSize: 1,
             allowlist: privateAllowlist,
             ...opts,
@@ -250,7 +253,7 @@ const threadsUtils = {
 
       profileFeed(id: FeedId, opts: any) {
         return pull(
-          ssb.threads.profileSummary({
+          ssb.deweird.source(['threads', 'profileSummary'], {
             id,
             reverse: true,
             live: false,
@@ -293,7 +296,7 @@ const threadsUtils = {
 
       thread(opts: {root: FeedId; private: boolean}, cb: Callback<AnyThread>) {
         pull(
-          ssb.threads.thread(opts),
+          ssb.deweird.source(['threads', 'thread'], opts),
           pull.asyncMap((t: ThreadData, cb2: Callback<AnyThread>) => {
             if (opts.private) {
               mutatePrivateThreadWithLiveExtras(ssb)(t, cb2);

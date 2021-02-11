@@ -49,6 +49,11 @@ export default {
   },
 
   // Third-party
+  deweirdProducer: {
+    start: 'async',
+    more: 'async',
+    close: 'async',
+  },
   friends: {
     hopStream: 'source',
     onEdge: 'sync',

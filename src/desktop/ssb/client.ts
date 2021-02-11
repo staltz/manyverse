@@ -11,6 +11,7 @@ import manifest from './manifest';
 
 function makeClient() {
   return ssbClient(manifest)
+    .use(require('ssb-deweird/consumer'))
     .use(cachedAboutSelf())
     .use(threadsUtilsPlugin())
     .callPromise();

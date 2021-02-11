@@ -19,10 +19,29 @@ function main(sources: any) {
   makeClient().then((ssb) => {
     ssb.whoami((err: any, {id}: {id: string}) => {
       console.log('whoami', id);
+      pull(
+        ssb.aboutSelf.stream({id, field: 'name'}),
+        pull.drain((x: any) => console.log(x)),
+      );
+      pull(
+        ssb.aboutSelf.stream({id, field: 'image'}),
+        pull.drain((x: any) => console.log(x)),
+      );
+      pull(
+        ssb.aboutSelf.stream({id, field: 'description'}),
+        pull.drain((x: any) => console.log(x)),
+      );
     });
-    ssb.db2migrate.start();
+    // ssb.db2migrate.start();
     pull(
       ssb.threadsUtils.publicFeed({}),
+      pull.take(3),
+      pull.drain((thread: any) => {
+        console.log(thread);
+      }),
+    );
+    pull(
+      ssb.threadsUtils.privateFeed({}),
       pull.take(3),
       pull.drain((thread: any) => {
         console.log(thread);

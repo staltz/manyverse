@@ -15,6 +15,7 @@ import cachedAboutSelf from './plugins/cachedAboutSelf';
 
 function makeClient() {
   return ssbClient(manifest)
+    .use(require('ssb-deweird/consumer'))
     .use(cachedAboutSelf())
     .use(hooksPlugin())
     .use(publishUtilsPlugin())
