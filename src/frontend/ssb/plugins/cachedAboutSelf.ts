@@ -1,3 +1,9 @@
+/* Copyright (C) 2021 The Manyverse Authors.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 import {Callback} from 'pull-stream';
 import QuickLRU = require('quick-lru');
 import {FeedId} from 'ssb-typescript';
@@ -5,6 +11,7 @@ import {FeedId} from 'ssb-typescript';
 interface Output {
   name?: string;
   image?: string;
+  description?: string;
 }
 
 const cachedAboutSelf = {
@@ -19,7 +26,7 @@ const cachedAboutSelf = {
 
   permissions: {
     master: {
-      allow: ['invalidate', 'getNameAndImage'],
+      allow: ['invalidate', 'get'],
     },
   },
 
@@ -38,12 +45,11 @@ const cachedAboutSelf = {
         cache.delete(id);
       },
 
-      getNameAndImage(id: FeedId, cb: Callback<Output>) {
+      get(id: FeedId, cb: Callback<Output>) {
         if (cache.has(id)) {
           cb(null, cache.get(id));
         } else {
-          const coldOpts = {id, name: true, image: true};
-          ssb.aboutSelf.get(coldOpts, (err: any, out: Output) => {
+          ssb.aboutSelf.get(id, (err: any, out: Output) => {
             if (!err && isValid(out)) cache.set(id, out);
             cb(err, out);
           });

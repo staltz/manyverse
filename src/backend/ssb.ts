@@ -33,14 +33,13 @@ const config = makeConfig('ssb', {
   path: process.env.SSB_DIR,
   keys,
   db2: {
-    automigrate: false,
-    maxCpu: 86,
+    automigrate: true,
   },
   blobs: {
     sympathy: 2,
   },
   blobsPurge: {
-    cpuMax: 30,
+    cpuMax: 90,
   },
   conn: {
     autostart: false,
@@ -91,6 +90,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-invite-client')) // needs: db, conn
   // Queries
   .use(require('ssb-about')) // needs: db, db2
+  .use(require('ssb-db2/about-self')) // needs: db2
   .use(require('ssb-suggest')) // needs: db2, about, friends
   .use(require('ssb-threads')) // needs: db, db2, friends
   .use(require('ssb-db2/full-mentions')) // needs: db2

@@ -29,7 +29,7 @@ import manifest from '../manifest';
 type SSB = ClientAPI<
   typeof manifest & {
     cachedAboutSelf: {
-      getNameAndImage: AnyFunction;
+      get: AnyFunction;
       invalidate: AnyFunction;
     };
     deweird: {
@@ -48,14 +48,12 @@ function getRecipient(recp: string | Record<string, any>): string | undefined {
 }
 
 function mutateMsgWithLiveExtras(ssb: SSB, includeReactions: boolean = true) {
-  const getNameAndImage = ssb.cachedAboutSelf.getNameAndImage;
   return async (msg: Msg, cb: Callback<MsgAndExtras>) => {
     if (!isMsg(msg) || !msg.value) return cb(null, msg as any);
 
     // Fetch name and image
     const id = msg.value.author;
-    const [e1, output] = await run<any>(getNameAndImage)(id);
-    if (e1) return cb(e1);
+    const [, output] = await run<any>(ssb.cachedAboutSelf.get)(id);
     const name = output.name;
     const imageUrl = imageToImageUrl(output.image);
 
@@ -86,9 +84,8 @@ function mutateMsgWithLiveExtras(ssb: SSB, includeReactions: boolean = true) {
       return cb(null, m);
     }
     const dest: FeedId = content.contact;
-    const [e3, destNameAndImage] = await run<any>(getNameAndImage)(dest);
-    if (e3) return cb(e3);
-    m.value._$manyverse$metadata.contact = {name: destNameAndImage.name};
+    const [, destOutput] = await run<any>(ssb.cachedAboutSelf.get)(dest);
+    m.value._$manyverse$metadata.contact = {name: destOutput.name};
     cb(null, m);
   };
 }
@@ -113,7 +110,6 @@ function mutateThreadSummaryWithLiveExtras(ssb: SSB) {
 }
 
 function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
-  const getNameAndImage = ssb.cachedAboutSelf.getNameAndImage;
   return async (thread: ThreadData, cb: Callback<PrivateThreadAndExtras>) => {
     for (const msg of thread.messages) {
       await run(mutateMsgWithLiveExtras(ssb, false))(msg);
@@ -127,8 +123,7 @@ function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
         if (!id) continue;
 
         // Fetch name and image
-        const [e1, output] = await run<any>(getNameAndImage)(id);
-        if (e1) return cb(e1);
+        const [, output] = await run<any>(ssb.cachedAboutSelf.get)(id);
         const name = output.name;
         const imageUrl = imageToImageUrl(output.image);
 

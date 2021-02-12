@@ -21,24 +21,21 @@ type HostingDhtInvite = {seed: string; claimer: string; online: boolean};
 type SSB = ClientAPI<
   typeof manifest & {
     cachedAboutSelf: {
-      getNameAndImage: AnyFunction;
+      get: AnyFunction;
       invalidate: AnyFunction;
     };
   }
 >;
 
 function augmentPeerWithExtras(ssb: SSB) {
-  const getNameAndImage = ssb.cachedAboutSelf.getNameAndImage;
   return async ([addr, peer]: PeerKV, cb: Callback<[string, any]>) => {
     // Fetch name and image
-    const [e1, output] = await run<any>(getNameAndImage)(peer.key);
-    if (e1) return cb(e1);
+    const [, output] = await run<any>(ssb.cachedAboutSelf.get)(peer.key);
     const name = output.name;
     const imageUrl = imageToImageUrl(output.image);
 
     // Fetch 'isInDB' boolean
-    const [e4, isInDB] = await run<boolean>(ssb.connUtilsBack.isInDB)(addr);
-    if (e4) return cb(e4);
+    const [, isInDB] = await run<boolean>(ssb.connUtilsBack.isInDB)(addr);
 
     cb(null, [addr, {name, imageUrl, isInDB, ...peer}]);
   };

@@ -181,10 +181,9 @@ export class SSBSource {
   public liteAbout$(ids: Array<FeedId>): Stream<Array<AboutAndExtras>> {
     return this.ssb$
       .map(async (ssb) => {
-        const getNameAndImage = ssb.cachedAboutSelf.getNameAndImage;
         const abouts: Array<AboutAndExtras> = [];
         for (const id of ids) {
-          const [, output] = await runAsync<any>(getNameAndImage)(id);
+          const [, output] = await runAsync<any>(ssb.cachedAboutSelf.get)(id);
           const name = output.name;
           const imageUrl = imageToImageUrl(output.image);
           abouts.push({name, imageUrl, id});
@@ -198,7 +197,7 @@ export class SSBSource {
   public profileImage$(id: FeedId): Stream<string | undefined> {
     return this.ssb$
       .map((ssb) =>
-        xsFromCallback<{image: string}>(ssb.aboutSelf.get)({id, image: true}),
+        xsFromCallback<{image?: string}>(ssb.cachedAboutSelf.get)(id),
       )
       .flatten()
       .map((output) => imageToImageUrl(output.image));
@@ -209,36 +208,34 @@ export class SSBSource {
       .map((ssb) => {
         const selfId = ssb.id;
         const color = colorHash.hex(id);
-        const getAboutStream = ssb.aboutSelf.stream;
-        const name$ = xsFromPullStream(getAboutStream({id, field: 'name'}));
-        const imageUrl$ = xsFromPullStream(
-          getAboutStream({id, field: 'image'}),
-        ).map(imageToImageUrl);
-        const description$ = xsFromPullStream(
-          getAboutStream({id, field: 'description'}),
-        );
-        const following$ = ssb.contacts.tristate(selfId, id);
-        const followsYou$ = ssb.contacts.tristate(id, selfId);
-        return xs
-          .combine(
-            name$.startWith(undefined),
-            imageUrl$.startWith(undefined),
-            description$.startWith(undefined),
-            following$,
-            followsYou$,
-          )
+        const aboutBasics$ = xsFromPullStream(ssb.aboutSelf.stream(id))
           .map(
-            ([name, imageUrl, description, following, followsYou]) =>
-              ({
-                id,
-                name,
-                color,
-                imageUrl,
-                description,
-                following,
-                followsYou,
-              } as AboutAndExtras),
-          );
+            (profile: {
+              name?: string;
+              image?: string;
+              description?: string;
+            }) => {
+              if (profile.image) profile.image = imageToImageUrl(profile.image);
+              return profile;
+            },
+          )
+          .startWith({});
+        const following$ =
+          selfId === id ? xs.of(null) : ssb.contacts.tristate(selfId, id);
+        const followsYou$ =
+          selfId === id ? xs.of(null) : ssb.contacts.tristate(id, selfId);
+        return xs.combine(aboutBasics$, following$, followsYou$).map(
+          ([aboutBasics, following, followsYou]) =>
+            ({
+              id,
+              name: aboutBasics.name,
+              color,
+              imageUrl: aboutBasics.image,
+              description: aboutBasics.description,
+              following,
+              followsYou,
+            } as AboutAndExtras),
+        );
       })
       .flatten();
   }
@@ -345,10 +342,6 @@ export type SearchBluetoothReq = {
   interval: number;
 };
 
-export type DB2MigrateReq = {
-  type: 'db2.migrate.start';
-};
-
 export type ConnStartReq = {
   type: 'conn.start';
 };
@@ -416,7 +409,6 @@ export type Req =
   | AcceptDhtInviteReq
   | RemoveDhtInviteReq
   | SearchBluetoothReq
-  | DB2MigrateReq
   | ConnStartReq
   | ConnConnectReq
   | ConnRememberConnectReq
@@ -472,11 +464,6 @@ async function consumeSink(
         ssb.invite.accept(req.invite, (err: any) => {
           source.acceptInviteResponse$._n(err ? err.message || err : true);
         });
-        return;
-      }
-
-      if (req.type === 'db2.migrate.start') {
-        ssb.db2migrate.start();
         return;
       }
 

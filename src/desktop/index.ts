@@ -19,20 +19,29 @@ function main(sources: any) {
   makeClient().then((ssb) => {
     ssb.whoami((err: any, {id}: {id: string}) => {
       console.log('whoami', id);
-      pull(
-        ssb.aboutSelf.stream({id, field: 'name'}),
-        pull.drain((x: any) => console.log(x)),
-      );
-      pull(
-        ssb.aboutSelf.stream({id, field: 'image'}),
-        pull.drain((x: any) => console.log(x)),
-      );
-      pull(
-        ssb.aboutSelf.stream({id, field: 'description'}),
-        pull.drain((x: any) => console.log(x)),
-      );
+
+      ssb.aboutSelf.get(id, (err2: any, x: any) => {
+        if (err2) console.error(err2);
+        else console.log('aboutSelf', 'get', x);
+      }),
+        pull(
+          ssb.aboutSelf.stream(id),
+          pull.drain((x: any) => console.log('aboutSelf', 'stream', x)),
+        );
     });
-    // ssb.db2migrate.start();
+
+    ssb.db2migrate.start();
+
+    pull(
+      ssb.threadsUtils.publicUpdates(),
+      pull.drain((x: any) => console.log('publicUpdates', x)),
+    );
+
+    pull(
+      ssb.threadsUtils.privateUpdates(),
+      pull.drain((x: any) => console.log('privateUpdates', x)),
+    );
+
     pull(
       ssb.threadsUtils.publicFeed({}),
       pull.take(3),
@@ -40,6 +49,7 @@ function main(sources: any) {
         console.log(thread);
       }),
     );
+
     pull(
       ssb.threadsUtils.privateFeed({}),
       pull.take(3),

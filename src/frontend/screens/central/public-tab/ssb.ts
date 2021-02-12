@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,9 +23,5 @@ export default function ssb(actions: Actions): Stream<Req> {
     .take(1)
     .map(() => ({type: 'conn.start'} as Req));
 
-  const startDB2Migration$ = actions.initializationDone$
-    .take(1)
-    .map(() => ({type: 'db2.migrate.start'} as Req));
-
-  return xs.merge(addReaction$, startConn$, startDB2Migration$);
+  return xs.merge(addReaction$, startConn$);
 }

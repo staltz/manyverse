@@ -4,6 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+const pull = require('pull-stream');
+
 export = {
   name: 'dbUtils',
   version: '1.0.0',
@@ -29,6 +31,14 @@ export = {
       descending,
       toPullStream,
     } = ssb.db.operators;
+
+    // Query the non-dedicated author index, to eagerly build it since
+    // it will be needed for all profile screens
+    pull(
+      ssb.db.query(and(author(ssb.id, {dedicated: false})), toPullStream()),
+      pull.take(1),
+      pull.drain(),
+    );
 
     return {
       rawLogReversed() {
