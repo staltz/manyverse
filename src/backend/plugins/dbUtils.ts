@@ -29,15 +29,30 @@ export = {
       isRoot,
       isPublic,
       descending,
+      votesFor,
       toPullStream,
     } = ssb.db.operators;
 
-    // Query the non-dedicated author index, to eagerly build it since
-    // it will be needed for all profile screens
+    // Wait until migration progress is somewhere in the middle
     pull(
-      ssb.db.query(and(author(ssb.id, {dedicated: false})), toPullStream()),
+      ssb.syncing.migrating(),
+      pull.filter((x: number) => x > 0.4 && x < 1),
       pull.take(1),
-      pull.drain(),
+      pull.drain(() => {
+        // Query some indexes to eagerly build them during migration
+        // (1) non-dedicated author index needed for all profile screens
+        pull(
+          ssb.db.query(and(author(ssb.id, {dedicated: false})), toPullStream()),
+          pull.take(1),
+          pull.drain(),
+        );
+        // (2) votes prefix index needed as soon as threads load
+        pull(
+          ssb.db.query(and(votesFor('whatever')), toPullStream()),
+          pull.take(1),
+          pull.drain(),
+        );
+      }),
     );
 
     return {
