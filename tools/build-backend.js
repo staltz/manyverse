@@ -152,12 +152,20 @@ async function runAndReport(label, task) {
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Bundle and minify backend JS into one file',
-      exec('./tools/backend/noderify-desktop.sh'),
+      exec('./tools/backend/esbuild-desktop.sh'),
+    );
+    await runAndReport(
+      'Cleanup after bundling',
+      exec('./tools/backend/post-esbuild-desktop.sh'),
     );
   } else {
     await runAndReport(
       'Bundle and minify backend JS into one file',
-      exec('./tools/backend/noderify-mobile.sh'),
+      exec('./tools/backend/esbuild-mobile.js'),
+    );
+    await runAndReport(
+      'Cleanup after bundling',
+      exec('./tools/backend/post-esbuild-mobile.sh'),
     );
   }
 

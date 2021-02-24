@@ -143,6 +143,8 @@
     "add-stream": "~1.0.0",
     "conventional-changelog": "~3.1.23",
     "electron": "~10.1.3",
+    "esbuild": "^0.8.51",
+    "esbuild-plugin-alias": "^0.1.2",
     "husky": "^4.3.0",
     "into-stream": "~6.0.0",
     "jase": "1.2.0",
