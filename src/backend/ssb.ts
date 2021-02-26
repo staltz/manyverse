@@ -34,6 +34,8 @@ const config = makeConfig('ssb', {
   keys,
   db2: {
     automigrate: true,
+    dangerouslyKillFlumeWhenMigrated:
+      process.env.MANYVERSE_PLATFORM === 'mobile',
   },
   blobs: {
     sympathy: 2,
