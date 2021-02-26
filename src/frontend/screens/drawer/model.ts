@@ -17,6 +17,7 @@ export type State = {
   checkpointCombinedProgress: number;
   checkpoint: number;
   estimateProgressDone: number;
+  canPublishSSB: boolean;
   selfAvatarUrl?: string;
   name?: string;
 };
@@ -45,6 +46,7 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
             checkpointCombinedProgress: 0,
             checkpoint: Date.now(),
             estimateProgressDone: 0,
+            canPublishSSB: true,
           };
         } else {
           return {...prev, selfFeedId};
@@ -73,6 +75,7 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
               checkpointCombinedProgress: 0,
               estimateProgressDone: 0,
               checkpoint: Date.now(),
+              canPublishSSB: true,
             };
           } else {
             return {
@@ -105,6 +108,7 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
   const migrationProgressReducer$ = ssbSource.migrationProgress$.map(
     (migrationProgress) =>
       function migrationProgressReducer(prev: State): State {
+        const canPublishSSB = migrationProgress >= 1;
         const state: State = {
           ...prev,
           migrationProgress,
@@ -112,6 +116,7 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
             prev.indexingProgress,
             migrationProgress,
           ),
+          canPublishSSB,
         };
         updateEstimateProgressDone_mutating(state);
         return state;

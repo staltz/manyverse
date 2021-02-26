@@ -27,6 +27,7 @@ export type State = {
   numOfPrivateUpdates: number;
   migrationProgress: number;
   indexingProgress: number;
+  canPublishSSB: boolean;
   isDrawerOpen: boolean;
 };
 
@@ -46,9 +47,15 @@ export const topBarLens: Lens<State, TopBarState> = {
 export const publicTabLens: Lens<State, PublicTabState> = {
   get: (parent: State): PublicTabState => {
     const isVisible = parent.currentTab === 'public';
-    const {selfFeedId, selfAvatarUrl} = parent;
+    const {selfFeedId, selfAvatarUrl, canPublishSSB} = parent;
     if (parent.publicTab) {
-      return {...parent.publicTab, isVisible, selfFeedId, selfAvatarUrl};
+      return {
+        ...parent.publicTab,
+        isVisible,
+        selfFeedId,
+        selfAvatarUrl,
+        canPublishSSB,
+      };
     } else {
       return {
         isVisible,
@@ -59,6 +66,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         getSelfRootsReadable: null,
         numOfUpdates: parent.numOfPublicUpdates,
         hasComposeDraft: false,
+        canPublishSSB,
         scrollHeaderBy: parent.scrollHeaderBy,
       };
     }
@@ -160,6 +168,7 @@ export default function model(
         indexingProgress: 0,
         scrollHeaderBy: new Animated.Value(0),
         isDrawerOpen: false,
+        canPublishSSB: true,
       };
     }
   });
@@ -185,7 +194,8 @@ export default function model(
   const migrationProgressReducer$ = ssbSource.migrationProgress$.map(
     (migrationProgress) =>
       function migrationProgressReducer(prev: State): State {
-        return {...prev, migrationProgress};
+        const canPublishSSB = migrationProgress >= 1;
+        return {...prev, migrationProgress, canPublishSSB};
       },
   );
 

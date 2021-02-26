@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {PureComponent, ReactElement} from 'react';
 import {
   View,
@@ -112,57 +113,74 @@ class Syncing extends PureComponent<{
 }
 
 export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
-  return state$.map((state) =>
-    h(View, {style: styles.container}, [
-      h(View, {style: styles.header}, [
-        h(Avatar, {
-          style: styles.authorImage,
-          size: Dimensions.avatarSizeNormal,
-          backgroundColor: Palette.brandStrong,
-          url: state.selfAvatarUrl,
-        }),
-        renderName(state.name),
-        h(
-          Text,
-          {style: styles.authorId, numberOfLines: 1, ellipsizeMode: 'middle'},
-          state.selfFeedId,
-        ),
+  return state$
+    .compose(
+      dropRepeatsByKeys([
+        'selfFeedId',
+        'selfAvatarUrl',
+        'name',
+        'canPublishSSB',
+        'combinedProgress',
+        'estimateProgressDone',
       ]),
-      h(ScrollView, {style: null}, [
-        h(MenuItem, {
-          sel: 'self-profile',
-          icon: 'account-circle',
-          text: t('drawer.menu.my_profile.label'),
-          accessibilityLabel: t('drawer.menu.my_profile.accessibility_label'),
-        }),
-        h(MenuItem, {
-          sel: 'raw-db',
-          icon: 'database',
-          text: t('drawer.menu.raw_database.label'),
-          accessibilityLabel: t('drawer.menu.raw_database.accessibility_label'),
-        }),
-        h(MenuItem, {
-          sel: 'bug-report',
-          icon: 'email-alert',
-          text: t('drawer.menu.email_bug_report.label'),
-          accessibilityLabel: t(
-            'drawer.menu.email_bug_report.accessibility_label',
+    )
+    .map((state) =>
+      h(View, {style: styles.container}, [
+        h(View, {style: styles.header}, [
+          h(Avatar, {
+            style: styles.authorImage,
+            size: Dimensions.avatarSizeNormal,
+            backgroundColor: Palette.brandStrong,
+            url: state.selfAvatarUrl,
+          }),
+          renderName(state.name),
+          h(
+            Text,
+            {style: styles.authorId, numberOfLines: 1, ellipsizeMode: 'middle'},
+            state.selfFeedId,
           ),
-        }),
-        h(MenuItem, {
-          sel: 'settings',
-          icon: 'settings',
-          text: t('drawer.menu.settings.label'),
-          accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
-        }),
-        state.combinedProgress > 0 && state.combinedProgress < 1
-          ? h(Syncing, {
-              label: t('drawer.menu.preparing_database.label'),
-              progress: state.combinedProgress,
-              timeRemaining: state.estimateProgressDone,
-            })
-          : null,
+        ]),
+        h(ScrollView, {style: null}, [
+          state.canPublishSSB
+            ? h(MenuItem, {
+                sel: 'self-profile',
+                icon: 'account-circle',
+                text: t('drawer.menu.my_profile.label'),
+                accessibilityLabel: t(
+                  'drawer.menu.my_profile.accessibility_label',
+                ),
+              })
+            : null,
+          h(MenuItem, {
+            sel: 'raw-db',
+            icon: 'database',
+            text: t('drawer.menu.raw_database.label'),
+            accessibilityLabel: t(
+              'drawer.menu.raw_database.accessibility_label',
+            ),
+          }),
+          h(MenuItem, {
+            sel: 'bug-report',
+            icon: 'email-alert',
+            text: t('drawer.menu.email_bug_report.label'),
+            accessibilityLabel: t(
+              'drawer.menu.email_bug_report.accessibility_label',
+            ),
+          }),
+          h(MenuItem, {
+            sel: 'settings',
+            icon: 'settings',
+            text: t('drawer.menu.settings.label'),
+            accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
+          }),
+          state.combinedProgress > 0 && state.combinedProgress < 1
+            ? h(Syncing, {
+                label: t('drawer.menu.preparing_database.label'),
+                progress: state.combinedProgress,
+                timeRemaining: state.estimateProgressDone,
+              })
+            : null,
+        ]),
       ]),
-    ]),
-  );
+    );
 }
