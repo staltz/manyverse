@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -27,26 +27,38 @@ export type State = {
 };
 
 export default function model(ssbSource: SSBSource, navSource: NavSource) {
-  const setPrivateFeedReducer$ = ssbSource.privateFeed$.map(
-    (getReadable) =>
-      function setPrivateFeedReducer(prev: State): State {
-        return {...prev, getPrivateFeedReadable: getReadable};
-      },
-  );
+  /**
+   * Wait for some time, to give priority to other queries at startup-time
+   * such as those for the public-tab, which must appear before.
+   */
+  const initialWait$ = xs.periodic(4000).take(1);
 
-  const incUpdatesReducer$ = ssbSource.privateLiveUpdates$.map(
-    (rootId) =>
-      function incUpdatesReducer(prev: State): State {
-        // The updated conversation is already open, don't mark it read
-        if (prev.conversationsOpen.has(rootId)) return prev;
+  const setPrivateFeedReducer$ = initialWait$
+    .map(() => ssbSource.privateFeed$)
+    .flatten()
+    .map(
+      (getReadable) =>
+        function setPrivateFeedReducer(prev: State): State {
+          return {...prev, getPrivateFeedReadable: getReadable};
+        },
+    );
 
-        return {
-          ...prev,
-          updates: prev.updates.add(rootId),
-          updatesFlag: !prev.updatesFlag,
-        };
-      },
-  );
+  const incUpdatesReducer$ = initialWait$
+    .map(() => ssbSource.privateLiveUpdates$)
+    .flatten()
+    .map(
+      (rootId) =>
+        function incUpdatesReducer(prev: State): State {
+          // The updated conversation is already open, don't mark it read
+          if (prev.conversationsOpen.has(rootId)) return prev;
+
+          return {
+            ...prev,
+            updates: prev.updates.add(rootId),
+            updatesFlag: !prev.updatesFlag,
+          };
+        },
+    );
 
   const newConversationOpenedReducer$ = navSource
     .globalDidAppear(Screens.Conversation)
