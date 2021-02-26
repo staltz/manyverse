@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -25,9 +25,12 @@ module.exports = function restore(words: string) {
   const appDataDir = rnBridge.app.datadir();
   const ssbPath = path.join(appDataDir, '.ssb');
   if (!fs.existsSync(ssbPath)) mkdirp.sync(ssbPath);
-  const flumeLogPath = path.join(ssbPath, 'flume', 'log.offset');
-  const flumeLogSize = fileSize(flumeLogPath);
-  if (flumeLogSize >= 10) return 'OVERWRITE_RISK';
+  const oldLogPath = path.join(ssbPath, 'flume', 'log.offset');
+  const oldLogSize = fileSize(oldLogPath);
+  if (oldLogSize >= 10) return 'OVERWRITE_RISK';
+  const newLogPath = path.join(ssbPath, 'db2', 'log.bipf');
+  const newLogSize = fileSize(newLogPath);
+  if (newLogSize >= 10) return 'OVERWRITE_RISK';
 
   // Basic validation of input words
   const wordsArr = words.split(' ').map((s) => s.trim().toLowerCase());

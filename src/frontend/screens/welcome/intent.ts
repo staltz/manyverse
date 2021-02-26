@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,14 +17,24 @@ export default function intent(
   storageSource: AsyncStorageSource,
 ) {
   const appPath = FSSource.DocumentDirectoryPath;
-  const flumeLogPath = path.join(appPath, '.ssb', 'flume', 'log.offset');
-  const accountExists$ = fsSource
-    .exists(flumeLogPath)
-    .map((flumeLogExists) => {
-      if (!flumeLogExists) return xs.of(false);
-      return fsSource
-        .stat(flumeLogPath)
-        .map((stat) => ((stat.size as any) as number) >= 10);
+  const oldLogPath = path.join(appPath, '.ssb', 'flume', 'log.offset');
+  const newLogPath = path.join(appPath, '.ssb', 'db2', 'log.bipf');
+
+  const accountExists$ = xs
+    .combine(fsSource.exists(oldLogPath), fsSource.exists(newLogPath))
+    .map(([oldLogExists, newLogExists]) => {
+      if (!oldLogExists && !newLogExists) return xs.of(false);
+      const oldLogSize$ = oldLogExists
+        ? fsSource.stat(oldLogPath).map((stat) => (stat.size as any) as number)
+        : xs.of(0);
+      const newLogSize$ = newLogExists
+        ? fsSource.stat(newLogPath).map((stat) => (stat.size as any) as number)
+        : xs.of(0);
+      return xs
+        .combine(oldLogSize$, newLogSize$)
+        .map(
+          ([oldLogSize, newLogSize]) => oldLogSize >= 10 || newLogSize >= 10,
+        );
     })
     .flatten();
 
