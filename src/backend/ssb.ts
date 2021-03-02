@@ -80,8 +80,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   // Replication
   .use(require('ssb-replicate')) // needs: db2/compat/log- & history-stream
   .use(require('ssb-friends')) // needs: db, replicate
-  // FIXME: see issue https://github.com/ssbc/ssb-ebt/issues/33
-  .use(require('ssb-ebt-fork-staltz')) // needs: db2/compat, replicate, friends
+  .use(require('ssb-ebt')) // needs: db2/compat, replicate, friends
   // Connections
   .use(require('./plugins/multiserver-addons'))
   .use(require('ssb-lan'))
