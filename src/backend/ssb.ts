@@ -26,7 +26,7 @@ if (!fs.existsSync(ISSUE_1223)) {
   fs.closeSync(fs.openSync(ISSUE_1223, 'w'));
 }
 
-const keysPath = path.join(process.env.SSB_DIR, '/secret');
+const keysPath = path.join(process.env.SSB_DIR, 'secret');
 const keys = ssbKeys.loadOrCreateSync(keysPath);
 
 const config = makeConfig('ssb', {
@@ -70,7 +70,6 @@ const config = makeConfig('ssb', {
 SecretStack({appKey: require('ssb-caps').shs})
   // Core
   .use(require('ssb-master'))
-  // .use(require('ssb-db'))
   .use(require('ssb-db2'))
   .use(require('ssb-db2/compat/db'))
   .use(require('ssb-db2/compat/ebt'))
