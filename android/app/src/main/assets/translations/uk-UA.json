@@ -84,7 +84,7 @@
     "learn_more": "Дізнатися більше",
     "overview": {
       "title": "Ласкаво просимо до Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "description": "Соціальна мережа може бути простою, нейтральною, побудованою не задля грошей, а для довіри. Manyverse існує саме для цього. Маємо надію, що ви зможете знайти тут свій цифровий затишок. Це можливо дякуючи новітньому протоколу SSB."
     },
     "off_the_grid": {
       "title": "Off the grid",
@@ -150,7 +150,7 @@
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
+      "title": "Це твій перший раз?",
       "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
       "call_to_action": {
         "create": {
@@ -168,11 +168,11 @@
     "app_name": "Manyverse",
     "tab_headers": {
       "public": "Public board",
-      "private": "Private messages",
-      "connections": "Connections"
+      "private": "Тільки між нами",
+      "connections": "Мої контакти"
     },
     "tab_footers": {
-      "public": "Public",
+      "public": "Публічне",
       "private": "Private",
       "connections": "Connections"
     },
@@ -186,29 +186,29 @@
         "accessibility_label": "Private Tab Button"
       },
       "connections": {
-        "accessibility_label": "Connections Tab Button"
+        "accessibility_label": "Вкладка \"Підключення\""
       }
     }
   },
   "public": {
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Написати публічного листа"
     },
     "empty": {
-      "title": "No messages",
-      "description": "Write a diary to be\nshared with friends later"
+      "title": "Листів не має",
+      "description": "Ведіть щоденик, яким ви поділитеся с друзями пізніше"
     }
   },
   "private": {
     "floating_action_button": {
-      "compose": "Start a private conversation"
+      "compose": "Почати приватну бесіду"
     },
     "empty": {
-      "title": "No conversations",
-      "description": "Start a private conversation\nwith any of your friends"
+      "title": "Немає бесід",
+      "description": "Розпочніть приватну бесіду з будь-яким з ваших друзів"
     },
     "conversation": {
-      "accessibility_label": "Go To Conversation"
+      "accessibility_label": "Перейти до бесіди"
     }
   },
   "accounts": {
@@ -228,40 +228,40 @@
     "floating_action_button": {
       "create_invite": "Створити запрошення",
       "paste_invite": "Вставити запрошення",
-      "bluetooth_seek": "Bluetooth seek"
+      "bluetooth_seek": "Пошук по Bluetooth"
     },
     "empty": {
       "offline": {
-        "title": "Offline",
-        "description": "Turn on some connection mode\nor enjoy reading some existing content"
+        "title": "Офлайн",
+        "description": "Включіть один з режимів підключення або насолождуйтесь тим що є"
       },
       "connecting": {
-        "title": "Connecting",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "Підключення",
+        "description": "Зачекайте доки застосунок приєднається до ваших пірів"
       },
       "no_peers": {
-        "title": "No connections",
-        "description": "Try syncing with people nearby\nor use a server invite code"
+        "title": "Нема зв'язку",
+        "description": "Спробуйте синхронізуватись з людьми поряд, або використайте код запрошення на сервер"
       }
     },
     "toasts": {
-      "invite_accepted": "Invite accepted",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?"
+      "invite_accepted": "Запрошення прийнято",
+      "invite_rejected": "Запрошення відхилено. Ви впевнені, що воно вірне?"
     },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
         "lan": "Wi-Fi",
         "dht": {
-          "connected": "Internet P2P",
+          "connected": "Інтернет P2P",
           "staging": {
-            "host": "Internet P2P: waiting for online friend...",
-            "client": "Internet P2P: looking for online friend...",
+            "host": "Internet P2P: очікуємо друга...",
+            "client": "Internet P2P: пошук друга...",
             "unknown": "Internet P2P: searching..."
           }
         },
         "room": {
-          "server": "Room server",
+          "server": "Сервер кімнати",
           "endpoint": "Room peer",
           "alone_online": "(only you online)",
           "others_online": {
@@ -366,19 +366,19 @@
         "accessibility_label": "Share Invite Code"
       },
       "invite_delete": {
-        "label": "Delete",
-        "accessibility_label": "Delete Invite Code"
+        "label": "Видалити",
+        "accessibility_label": "Видалити код запрошення"
       }
     },
     "notes": {
       "add": {
-        "title": "Add note",
+        "title": "Додати нотатку",
         "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
       }
     },
     "share_code": {
       "p2p": {
-        "title": "Manyverse Invite Code",
+        "title": "Код Запрошення Manyverse",
         "message": "Connect with me on Manyverse by pasting this invite code there:",
         "dialog_note": "Give this invite code to one friend"
       },
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Settings",
         "accessibility_label": "Go To Settings"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Sorry",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Syncing",
-      "gigabytes": "{{gb}} GB synced so far",
-      "megabytes": "{{mb}} MB synced so far",
-      "kilobytes": "{{kb}} KB synced so far",
-      "bytes": "{{b}} bytes synced so far"
     }
   },
   "message": {

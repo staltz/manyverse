@@ -101,11 +101,11 @@
       "description": {
         "ios": {
           "1_normal": "Um sich mit Freunden zu verbinden und Inhalte zu synchronisieren, können Sie entweder: dem gleichen ",
-          "2_bold": "WLAN beitreten",
-          "3_normal": " oder",
+          "2_bold": "WLAN",
+          "3_normal": " oder austauschen ",
           "4_bold": "P2P Einladungen",
           "5_normal": ". Um neue Leute im Internet zu finden schaue nach einem Einladungscode zu einem ",
-          "6_bold": "Pubserver",
+          "6_bold": "Pub-Server",
           "7_normal": " oder einem ",
           "8_bold": "Raumserver",
           "9_normal": " oder erstelle Deinen eigenen Server!"
@@ -290,8 +290,8 @@
       },
       "wifi": {
         "title": "WLAN",
-        "accessibility_label": "Wi-Fi-Modus",
-        "disabled": "(Wi-Fi einschalten, um dies zu verwenden)",
+        "accessibility_label": "WLAN-Modus",
+        "disabled": "(WLAN einschalten, um dies zu verwenden)",
         "description": "Verbinden Sie sich mit Freunden im gleichen Local Area Network, anders gesagt, mit Freunden im gleichen WLAN."
       },
       "p2p": {
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Einstellungen",
         "accessibility_label": "Gehe zu Einstellungen"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Entschuldigung",
         "description": "Diese App weiß nicht, wie sie\ndieses Thema korrekt verarbeiten und anzeigen soll"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Synchronisiert",
-      "gigabytes": "{{gb}} GB synchronisiert",
-      "megabytes": "{{mb}} MB synchronisiert",
-      "kilobytes": "{{kb}} KB synchronisiert",
-      "bytes": "{{b}} Bytes synchronisiert"
     }
   },
   "message": {

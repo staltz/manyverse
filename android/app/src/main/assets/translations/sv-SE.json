@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "För att ansluta till dina vänners enheter och synkronisera innehåll så kan du antingen: vara uppkopplad på samma ",
           "2_bold": "trådlösa Wi-Fi-nätverk",
-          "3_normal": " eller utbyta",
+          "3_normal": " eller utbyta ",
           "4_bold": "P2P-inbjudningar",
           "5_normal": ". För att hitta nya vänner på internet, håll utkik efter en inbjudningskod till en ",
           "6_bold": "pub-server",
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Inställningar",
         "accessibility_label": "Gå till inställningar"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Tyvärr",
         "description": "Den här appen vet inte hur den här tråden\nska hanteras och visas korrekt"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Synkroniserar",
-      "gigabytes": "{{gb}} GB synkade hittills",
-      "megabytes": "{{mb}} MB synkade hittills",
-      "kilobytes": "{{kb}} KB synkade hittills",
-      "bytes": "{{b}} byte synkade hittills"
     }
   },
   "message": {

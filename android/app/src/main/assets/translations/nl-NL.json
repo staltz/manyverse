@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "Om te verbinden met vrienden en inhoud te synchroniseren, kunt u: neem deel aan dezelfde ",
           "2_bold": "Wi-Fi",
-          "3_normal": " of wissel uit",
+          "3_normal": " of wissel uit ",
           "4_bold": "P2P-uitnodigingen",
           "5_normal": ". Om nieuwe mensen op het internet te vinden, zoek je naar een uitnodigingscode voor een ",
           "6_bold": "pubserver",
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Instellingen",
         "accessibility_label": "Ga naar instellingen"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Sorry",
         "description": "Deze app weet niet hoe het deze thread correct moet verwerken en weergeven"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Synchroniseren",
-      "gigabytes": "{{gb}} GB tot nu toe gesynchroniseerd",
-      "megabytes": "{{mb}} MB tot nu toe gesynchroniseerd",
-      "kilobytes": "{{kb}} KB tot nu toe gesynchroniseerd",
-      "bytes": "{{b}} bytes tot nu toe gesynchroniseerd"
     }
   },
   "message": {

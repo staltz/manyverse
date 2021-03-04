@@ -83,7 +83,7 @@
   "welcome": {
     "learn_more": "Lisätietoja",
     "overview": {
-      "title": "Welcome to Manyverse!",
+      "title": "Tervetuloa Manyverseen!",
       "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
     },
     "off_the_grid": {
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Settings",
         "accessibility_label": "Go To Settings"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Sorry",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Syncing",
-      "gigabytes": "{{gb}} GB synced so far",
-      "megabytes": "{{mb}} MB synced so far",
-      "kilobytes": "{{kb}} KB synced so far",
-      "bytes": "{{b}} bytes synced so far"
     }
   },
   "message": {

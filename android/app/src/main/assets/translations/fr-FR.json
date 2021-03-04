@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "Pour vous connecter avec vos amis et synchroniser le contenu, vous pouvez soit : rejoindre le même réseau local ",
           "2_bold": "Wi-Fi",
-          "3_normal": " ou échanger des",
+          "3_normal": " ou échanger des ",
           "4_bold": "Invitations P2P \"Pair-à-Pair\"",
           "5_normal": ". Pour trouver de nouvelles personnes sur l'internet, cherchez un code d'invitation pour un ",
           "6_bold": "serveur de type Pub (forum)",
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Paramètres",
         "accessibility_label": "Aller aux paramètres"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Désolé",
         "description": "Cette application ne sait pas comment traiter\net afficher ce fil de discussion correctement"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Synchronisation en cours",
-      "gigabytes": "{{gb}} Go synchronisés pour le moment",
-      "megabytes": "{{mb}} Mo synchronisés pour le moment",
-      "kilobytes": "{{kb}} Ko synchronisés pour le moment",
-      "bytes": "{{b}} octets synchronisés pour le moment"
     }
   },
   "message": {

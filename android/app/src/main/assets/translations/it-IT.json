@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "Per connetterti con gli amici e sincronizzare i contenuti, potete: unirvi allo stesso ",
           "2_bold": "Wi-Fi",
-          "3_normal": " o scambiare",
+          "3_normal": " o scambiare ",
           "4_bold": "Inviti P2P",
           "5_normal": ". Per trovare nuove persone su internet, cerca un codice di invito su un ",
           "6_bold": "pub server",
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Impostazioni",
         "accessibility_label": "Vai alle Impostazioni"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Sorry",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Syncing",
-      "gigabytes": "{{gb}} GB synced so far",
-      "megabytes": "{{mb}} MB synced so far",
-      "kilobytes": "{{kb}} KB synced so far",
-      "bytes": "{{b}} bytes synced so far"
     }
   },
   "message": {

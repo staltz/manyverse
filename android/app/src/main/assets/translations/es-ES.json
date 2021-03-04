@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "Para conectarte con amigos y sincronizar contenido, puedes: unirte al mismo ",
           "2_bold": "Wi-Fi",
-          "3_normal": " o intercambiar",
+          "3_normal": " o intercambiar ",
           "4_bold": "Invitaciones Extremo-A-Extremo",
           "5_normal": ". Para encontrar gente nueva en Internet, busca un código de invitación a un ",
           "6_bold": "servidor pub",
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Ajustes",
         "accessibility_label": "Ir a Ajustes"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Lo siento",
         "description": "Esta aplicación no sabe como procesar y mostrar este hilo correctamente"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Sincronizando",
-      "gigabytes": "{{gb}} GB sincronizados hasta ahora",
-      "megabytes": "{{mb}} MB sincronizados hasta ahora",
-      "kilobytes": "{{kb}} KB sincronizados hasta ahora",
-      "bytes": "{{b}} bytes sincronizados hasta ahora"
     }
   },
   "message": {

@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "Чтобы соединиться с друзьями и синхронизировать контент, вы можете присоединится к одному и тому же ",
           "2_bold": "Wi-Fi",
-          "3_normal": " или обменяться",
+          "3_normal": " или обменяться ",
           "4_bold": "P2P приглашениями",
           "5_normal": ". Чтобы познакомиться с новыми людей в интернете, получите код приглашения в ",
           "6_bold": "pub-сервер",
@@ -406,11 +406,11 @@
         "accessibility_label": "Кнопка Закрытия"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "Кнопка аудио записи",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
-          "neutral": "Ask me later",
+          "title": "Разрешить Manyverse записывать аудио?",
+          "message": "Manyverse нужен доступ к вашему микрофону, чтобы вы могли записывать звуковые сообщения",
+          "neutral": "Спросите позже",
           "positive": "ОК",
           "negative": "Отменить"
         }
@@ -448,27 +448,27 @@
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "Аудио сообщение",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "Начать запись"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "Остановить запись"
       },
       "discard_recording": {
         "label": "Отказаться",
-        "accessibility_label": "Discard Recording Button"
+        "accessibility_label": "Кнопка отмены записи"
       },
       "submit_recording": {
         "label": "Готово",
-        "accessibility_label": "Submit Recording Button"
+        "accessibility_label": "Кнопка отправки записи"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
-        "question": "Discard draft?"
+        "title": "Аудио сообщение",
+        "question": "Очистить черновик?"
       }
     }
   },
@@ -521,7 +521,7 @@
   },
   "conversation": {
     "title": "Беседы",
-    "placeholder": "Type a message...",
+    "placeholder": "Введите сообщение...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Показать получателей"
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Настройки",
         "accessibility_label": "Перейти к настройкам"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -607,7 +613,7 @@
   "profile": {
     "call_to_action": {
       "copy_cypherlink": "Копировать шифро-ссылку",
-      "private_chat": "Open private conversation",
+      "private_chat": "Открыть приватный чат",
       "block": "Блокировка",
       "block_secretly": "Закрытый блок",
       "unblock": "Разблокировать",
@@ -618,7 +624,7 @@
         "accessibility_label": "Кнопка \"Редактировать профиль\""
       },
       "open_biography": {
-        "label": "Read bio",
+        "label": "Читать биографию",
         "accessibility_label": "Показать биографию"
       },
       "manage": {
@@ -900,15 +906,6 @@
       }
     }
   },
-  "notifications": {
-    "syncing": {
-      "title": "Синхронизация",
-      "gigabytes": "Пока синхронизировано {{gb}} ГБ",
-      "megabytes": "Пока синхронизировано {{mb}} МБ",
-      "kilobytes": "Пока синхронизировано {{kb}} КБ",
-      "bytes": "Пока синхронизировано {{b}} байт"
-    }
-  },
   "message": {
     "call_to_action": {
       "show_reactions": {
@@ -959,19 +956,19 @@
     },
     "audio": {
       "play": {
-        "accessibility_label": "Play audio"
+        "accessibility_label": "Воспроизвести аудио"
       },
       "pause": {
-        "accessibility_label": "Pause audio"
+        "accessibility_label": "Приостановить аудио"
       },
       "duration": {
-        "accessibility_label": "Audio duration"
+        "accessibility_label": "Продолжительность аудио"
       },
       "elapsed": {
-        "accessibility_label": "Audio current time"
+        "accessibility_label": "Текущее время аудио"
       },
       "slider": {
-        "accessibility_label": "Change audio time"
+        "accessibility_label": "Изменить время аудио"
       }
     },
     "content_warning": {

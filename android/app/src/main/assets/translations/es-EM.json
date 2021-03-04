@@ -26,55 +26,55 @@
     "relative": {
       "past": {
         "years": {
-          "one": "hace un año",
-          "other": "hace {{count}} años"
+          "one": "Hace 1 año",
+          "other": "Hace {{count}} años"
         },
         "months": {
-          "one": "hace un mes",
-          "other": "hace {{count}} meses"
+          "one": "Hace 1 mes",
+          "other": "Hace {{count}} meses"
         },
         "weeks": {
-          "one": "hace una semana",
-          "other": "hace {{count}} semanas"
+          "one": "Hace 1 semana",
+          "other": "Hace {{count}} semanas"
         },
         "days": {
-          "one": "hace un día",
-          "other": "hace {{count}} días"
+          "one": "Hace 1 día",
+          "other": "Hace {{count}} días"
         },
         "hours": {
-          "one": "hace una hora",
-          "other": "hace {{count}} horas"
+          "one": "Hace 1 hora",
+          "other": "Hace {{count}} horas"
         },
         "minutes": {
-          "one": "hace un minuto",
-          "other": "hace {{count}} minutos"
+          "one": "Hace 1 minuto",
+          "other": "Hace {{count}} minutos"
         },
         "now": "Ahora mismo"
       },
       "future": {
         "years": {
-          "one": "dentro de un año",
-          "other": "dentro de {{count}} años"
+          "one": "Dentro de 1 año",
+          "other": "Dentro de {{count}} años"
         },
         "months": {
-          "one": "dentro un mes",
-          "other": "dentro de {{count}} meses"
+          "one": "Dentro 1 mes",
+          "other": "Dentro de {{count}} meses"
         },
         "weeks": {
-          "one": "dentro de una semana",
-          "other": "dentro de {{count}} semanas"
+          "one": "Dentro de 1 semana",
+          "other": "Dentro de {{count}} semanas"
         },
         "days": {
-          "one": "dentro de un día",
-          "other": "dentro de {{count}} días"
+          "one": "Dentro de 1 día",
+          "other": "Dentro de {{count}} días"
         },
         "hours": {
-          "one": "dentro de una hora",
-          "other": "dentro de {{count}} horas"
+          "one": "Dentro de 1 hora",
+          "other": "Dentro de {{count}} horas"
         },
         "minutes": {
-          "one": "dentro de un minuto",
-          "other": "dentro de {{count}} minutos"
+          "one": "Dentro de 1 minuto",
+          "other": "Dentro de {{count}} minutos"
         },
         "now": "Muy pronto"
       }
@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "Para conectarte con amigos y sincronizar contenido, puedes: unirte al mismo ",
           "2_bold": "Wi-Fi",
-          "3_normal": " o intercambiar",
+          "3_normal": " o intercambiar ",
           "4_bold": "Invitaciones Extremo-A-Extremo",
           "5_normal": ". Para encontrar gente nueva en Internet, busca un código de invitación a un ",
           "6_bold": "servidor pub",
@@ -208,7 +208,7 @@
       "description": "Comienza una conversación privada\ncon cualquiera de tus amigos"
     },
     "conversation": {
-      "accessibility_label": "Ir a la conversación"
+      "accessibility_label": "Go To Conversation"
     }
   },
   "accounts": {
@@ -220,15 +220,15 @@
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Ir a la cuenta"
+        "accessibility_label": "Go To Account"
       }
     }
   },
   "connections": {
     "floating_action_button": {
-      "create_invite": "Crear invitación",
-      "paste_invite": "Pegar invitación",
-      "bluetooth_seek": "Buscar Bluetooth"
+      "create_invite": "Create invite",
+      "paste_invite": "Paste invite",
+      "bluetooth_seek": "Bluetooth seek"
     },
     "empty": {
       "offline": {
@@ -255,734 +255,731 @@
         "dht": {
           "connected": "Internet P2P",
           "staging": {
-            "host": "Internet P2P: esperando a un amigo en línea...",
-            "client": "Internet P2P: buscando a un amigo en línea...",
-            "unknown": "Internet P2P: buscando..."
+            "host": "Internet P2P: waiting for online friend...",
+            "client": "Internet P2P: looking for online friend...",
+            "unknown": "Internet P2P: searching..."
           }
         },
         "room": {
-          "server": "Servidor room",
-          "endpoint": "Peer de room",
-          "alone_online": "(sólo tú en línea)",
+          "server": "Room server",
+          "endpoint": "Room peer",
+          "alone_online": "(only you online)",
           "others_online": {
-            "one": "({{count}} en línea)",
-            "other": "({{count}} en línea)"
+            "one": "({{count}} online)",
+            "other": "({{count}} online)"
           }
         },
-        "pub": "Servidor pub",
-        "server": "Servidor",
-        "unknown": "Desconocido"
+        "pub": "Pub server",
+        "server": "Server",
+        "unknown": "Unknown"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(HABILITADO)"
+        "enabled": "(ENABLED)"
       },
       "bluetooth": {
         "title": "Bluetooth",
-        "accessibility_label": "Modo Bluetooth",
-        "disabled": "(Activa el Bluetooth para usar ésto)",
-        "description": "Descubre usuarios cercanos y conéctate con ellos mediante Bluetooth.",
+        "accessibility_label": "Bluetooth Mode",
+        "disabled": "(Turn on Bluetooth to use this)",
+        "description": "Discover users nearby and connect with them using Bluetooth.",
         "permission_request": {
-          "title": "¿Permitir localización a través de Bluetooth?",
-          "message": "Manyverse necesita usar Bluetooth para descubrir en dónde estás (\"ubicación gruesa\") y qué pares están a tu alrededor."
+          "title": "Allow locating via Bluetooth?",
+          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
         }
       },
       "wifi": {
         "title": "Wi-Fi",
-        "accessibility_label": "Modo Wi-Fi",
-        "disabled": "(Activa el Bluetooth para usar ésto)",
-        "description": "Conecta con amistades en la misma red, es decir, amigos que estén usando el mismo Wi-Fi."
+        "accessibility_label": "Wi-Fi Mode",
+        "disabled": "(Turn on Wi-Fi to use this)",
+        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
       },
       "p2p": {
-        "title": "Internet Extremo-A-Extremo",
-        "accessibility_label": "Modo de Internet P2P",
-        "disabled": "(Conéctate a Internet para usar ésto)",
-        "description": "Conecta directamente con amigos que se encuentren actualmente en línea, usando una tecnología extremo-a-extremo llamada \"Tabla Hash Distribuida\".",
-        "connecting": "Conectando a través de Internet P2P...",
-        "searching_friend": "Buscando al contacto en línea que generó este código de invitación, para establecer una conexión de datos con él.",
-        "waiting_friend": "Actualmente esperando a que el contacto en línea haga uso de este código de invitación para establecer una conexión de datos."
+        "title": "Internet P2P",
+        "accessibility_label": "Internet P2P Mode",
+        "disabled": "(Go online to use this)",
+        "description": "Connect directly to friends currently online, using a peer-to-peer technology called \"Distributed Hash Table\".",
+        "connecting": "Connecting via internet P2P...",
+        "searching_friend": "Currently searching for online friend who generated this invite code, to establish a data connection with them.",
+        "waiting_friend": "Currently waiting for online friend to claim this invite code and establish a data connection."
       },
       "servers": {
-        "title": "Servidores de Internet",
-        "accessibility_label": "Modo de servidores de Internet",
-        "disabled": "(Conéctate para usar esto)",
-        "description": "Conéctate a un llamado 'Servidor de Pub' propiedad de algún amigo, que contiene los datos más recientes de varias cuentas."
+        "title": "Internet servers",
+        "accessibility_label": "Internet Servers Mode",
+        "disabled": "(Go online to use this)",
+        "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
       }
     },
     "menu": {
       "open_profile": {
-        "label": "Abrir perfil",
+        "label": "Open profile",
         "accessibility_label": {
-          "connected": "Abrir pantalla de perfil para este peer conectado",
-          "staged": "Abrir la pantalla de perfil para esta conexión sugerida"
+          "connected": "Open profile screen for this connected peer",
+          "staged": "Open profile screen for this suggested connection"
         }
       },
       "connect": {
-        "label": "Conectarse",
+        "label": "Connect",
         "accessibility_label": {
-          "staged_peer": "Conectarse a este peer sugerido",
-          "staged_room": "Conectarse a este room sugerido"
+          "staged_peer": "Connect to this suggested peer",
+          "staged_room": "Connect to this suggested room"
         }
       },
       "follow_connect": {
-        "label": "Conectarse y seguir",
-        "accessibility_label": "Conectarse a este peer sugerido y seguirlo"
+        "label": "Connect and follow",
+        "accessibility_label": "Connect to this suggested peer then follow them"
       },
       "disconnect": {
-        "label": "Desconectarse",
+        "label": "Disconnect",
         "accessibility_label": {
-          "peer": "Desconectarse de este peer",
-          "room": "Desconectarse de este room"
+          "peer": "Disconnect from this peer",
+          "room": "Disconnect from this room"
         }
       },
       "disconnect_forget": {
-        "label": "Desconectarse y olvidar",
+        "label": "Disconnect and forget",
         "accessibility_label": {
-          "peer": "Desconectarse de este peer y eliminarlo de la base de datos",
-          "room": "Desconectarse de este room y eliminarlo de la base de datos"
+          "peer": "Disconnect from this peer and remove it from our database",
+          "room": "Disconnect from this room and remove it from our database"
         }
       },
       "forget": {
-        "label": "Olvidar",
+        "label": "Forget",
         "accessibility_label": {
-          "room": "Eliminar este room de la base de datos"
+          "room": "Remove this room from our database"
         }
       },
       "room_share_invite": {
-        "label": "Compartir código de invitación",
-        "accessibility_label": "Compartir el código de invitación para este room"
+        "label": "Share invite code",
+        "accessibility_label": "Share the invite code for this room"
       },
       "invite_info": {
-        "label": "Acerca",
-        "accessibility_label": "Acerca de este código de invitación"
+        "label": "About",
+        "accessibility_label": "About this Invite Code"
       },
       "invite_note": {
-        "label": "Agregar nota",
-        "accessibility_label": "Agregar nota de recordatorio para sí mismo"
+        "label": "Add note",
+        "accessibility_label": "Add Reminder Note To Self"
       },
       "invite_share": {
-        "label": "Compartir",
-        "accessibility_label": "Compartir código de invitación"
+        "label": "Share",
+        "accessibility_label": "Share Invite Code"
       },
       "invite_delete": {
-        "label": "Eliminar",
-        "accessibility_label": "Eliminar código de invitación"
+        "label": "Delete",
+        "accessibility_label": "Delete Invite Code"
       }
     },
     "notes": {
       "add": {
-        "title": "Agregar nota",
-        "description": "Escribe una nota privada (sólo para tí) sobre este código de invitación. Por ejemplo: \"Ésto es para Alicia\""
+        "title": "Add note",
+        "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
       }
     },
     "share_code": {
       "p2p": {
-        "title": "Código de invitación de Manyverse",
-        "message": "Conecta conmigo en Manyverse pegando este código de invitación aquí:",
-        "dialog_note": "Envía este código de invitación a algún amigo/a"
+        "title": "Manyverse Invite Code",
+        "message": "Connect with me on Manyverse by pasting this invite code there:",
+        "dialog_note": "Give this invite code to one friend"
       },
       "room": {
-        "title": "Código de invitación a una 'Habitación SSB'",
-        "message": "Reúnete conmigo en la 'Habitación SSB' {{name}} pegando este código de invitación en Manyverse:",
-        "dialog_note": "Envía este código de invitación a un amigo/a"
+        "title": "Invite code to an SSB Room",
+        "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
+        "dialog_note": "Give this invite code to a friend"
       }
     }
   },
   "compose": {
     "call_to_action": {
       "publish_new_thread": {
-        "label": "Publicar",
-        "accessibility_label": "Botón Publicar Mensaje"
+        "label": "Publish",
+        "accessibility_label": "Publish Message Button"
       },
       "reply_to_thread": {
-        "label": "Contestar",
-        "accessibility_label": "Botón Publicar Respuesta"
+        "label": "Reply",
+        "accessibility_label": "Publish Reply Button"
       },
       "preview": {
-        "accessibility_label": "Botón Previsualizar"
+        "accessibility_label": "Preview Button"
       },
       "close": {
-        "accessibility_label": "Botón Cerrar"
+        "accessibility_label": "Close Button"
       },
       "record_audio": {
-        "accessibility_label": "Botón de grabar audio",
+        "accessibility_label": "Record Audio Button",
         "permission_request": {
-          "title": "Permitir a Manyverse grabar audio?",
-          "message": "Manyverse necesita acceso al micrófono para grabar mensajes de audio",
-          "neutral": "Pregúntame más tarde",
-          "positive": "Aceptar",
-          "negative": "Cancelar"
+          "title": "Allow Manyverse to record audio?",
+          "message": "Manyverse needs access to your microphone so you can compose audio messages",
+          "neutral": "Ask me later",
+          "positive": "OK",
+          "negative": "Cancel"
         }
       },
       "open_camera": {
-        "accessibility_label": "Botón Abrir Cámara"
+        "accessibility_label": "Open Camera Button"
       },
       "add_picture": {
-        "accessibility_label": "Botón Añadir Imagen"
+        "accessibility_label": "Add Picture Button"
       }
     },
     "dialogs": {
       "content_warning": {
-        "title": "Advertencia de contenido",
-        "description": "Si tu publicación contiene temas sensibles, por favor añade una pequeña nota para alertar al público sobre ellos."
+        "title": "Content warning",
+        "description": "If your post contains sensitive topics, please add a short note to alert people of them."
       },
       "image_caption": {
-        "title": "Subtítulo",
-        "description": "Añade alguna descripción sobre esta imagen, en particular para las personas con limitaciones visuales."
+        "title": "Caption",
+        "description": "Add some description of this picture, particularly for the visually impaired."
       },
       "save_prompt": {
-        "title": "¿Guardar borrador?"
+        "title": "Save draft?"
       }
     },
     "content_warning_initials": {
-      "label": "AC",
-      "accessibility_label": "Botón de Advertencia de Contenido"
+      "label": "CW",
+      "accessibility_label": "Content Warning Button"
     },
     "mention_field": {
-      "accessibility_label": "Entrada de Texto de Mencionar Cuenta"
+      "accessibility_label": "Mention Account Text Input"
     },
     "text_field": {
-      "placeholder": "Escribir un mensaje público",
-      "accessibility_label": "Entrada de Texto de Componer mensaje"
+      "placeholder": "Write a public message",
+      "accessibility_label": "Compose Text Input"
     }
   },
   "compose_audio": {
-    "title": "Mensaje de audio",
+    "title": "Audio message",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Empezar a grabar"
+        "accessibility_label": "Start recording"
       },
       "stop_recording": {
-        "accessibility_label": "Parar grabación"
+        "accessibility_label": "Stop recording"
       },
       "discard_recording": {
-        "label": "Descartar",
-        "accessibility_label": "Botón de descartar grabación"
+        "label": "Discard",
+        "accessibility_label": "Discard Recording Button"
       },
       "submit_recording": {
-        "label": "Listo",
-        "accessibility_label": "Botón de enviar grabación"
+        "label": "Done",
+        "accessibility_label": "Submit Recording Button"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Mensaje de audio",
-        "question": "¿Descartar borrador?"
+        "title": "Audio message",
+        "question": "Discard draft?"
       }
     }
   },
   "backup": {
-    "title": "Copia de Seguridad",
+    "title": "Backup",
     "introduction": {
-      "title": "Tu cuenta tiene dos partes para mantenerla segura"
+      "title": "Your account has\ntwo parts to keep safe"
     },
     "data": {
-      "title": "Datos",
+      "title": "Data",
       "description": {
-        "1_normal": "Esto son las publicaciones, mensajes, imagenes, 'me gusta' y actividades similares de tu cuenta. Para mantener esta información a salvo de pérdidas repentinas, usamos ",
-        "2_bold": "un sistema de respaldo colaborativo",
-        "3_normal": ". Únicamente necesitas ",
-        "4_bold": "sincronizar con amistades de confianza",
-        "5_normal": " u otros dispositivos que tengas. No hay que ",
-        "6_bold": "hacer nada más",
-        "7_normal": ", ¡simplemente usa Manyverse frecuentemente y tus amistades mantedrán tus copias de seguridad!"
+        "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
+        "2_bold": "crowd backup",
+        "3_normal": ". You only need to ",
+        "4_bold": "synchronize with reliable friends",
+        "5_normal": " or other devices you own. There is ",
+        "6_bold": "nothing else to do",
+        "7_normal": ", just use Manyverse often and your friends are backing you up!"
       },
       "call_to_action": {
         "acknowledge": {
-          "label": "Entendido",
-          "accessibility_label": "Reconocer"
+          "label": "I understand",
+          "accessibility_label": "Acknowledge"
         }
       }
     },
     "identity": {
-      "title": "Identidad",
+      "title": "Identity",
       "description": {
-        "1_normal": "La 'huella dactilar' de tu cuenta está compuesta por una irrepetible ",
-        "2_bold": "frase de recuperación",
-        "3_normal": ". Esta es una secuencia de 24 palabras que desbloquea tu cuenta. ",
-        "4_bold": "Mantenla en privado",
-        "5_normal": ", porque si alguna otra persona tiene acceso a ella, podría tomar el control de tu cuenta. ",
-        "6_bold": "¡Asume la responsabilidad",
-        "7_normal": " sobre ella, ya que tú y sólo tu puedes recuperar tu cuenta!"
+        "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
+        "2_bold": "recovery phrase",
+        "3_normal": ". This is a sequence of 24 words that unlocks your account. ",
+        "4_bold": "Keep it confidential",
+        "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
+        "6_bold": "Take responsibility",
+        "7_normal": " over it, since you and only you can recover your account!"
       },
       "call_to_action": {
-        "show_recovery_phrase": "Mostrar Frase de Recuperación"
+        "show_recovery_phrase": "Show Recovery Phrase"
       }
     }
   },
   "biography": {
     "picture": {
-      "accessibility_label": "Imagen Biográfica"
+      "accessibility_label": "Biographic Picture"
     },
     "description": {
-      "accessibility_label": "Descripción Biográfica"
+      "accessibility_label": "Biographic Description"
     }
   },
   "conversation": {
-    "title": "Conversación",
-    "placeholder": "Escriba un mensaje...",
+    "title": "Conversation",
+    "placeholder": "Type a message...",
     "call_to_action": {
       "show_recipients": {
-        "accessibility_label": "Mostrar Destinatarios"
+        "accessibility_label": "Show Recipients"
       }
     },
     "notifications": {
-      "new_conversation": "Esta es una nueva conversación privada"
+      "new_conversation": "This is a new private conversation"
     }
   },
   "dialog_about": {
-    "title": "Acerca de Manyverse",
-    "version": "Versión {{version}}",
+    "title": "About Manyverse",
+    "version": "Version {{version}}",
     "copyright": "Copyright (C)",
-    "authors": "Los Autores de Manyverse",
-    "repository": "Repositorio Open Source",
-    "licensed": "Licenciado bajo {{license1}} y {{license2}}"
+    "authors": "The Manyverse Authors",
+    "repository": "Open source repository",
+    "licensed": "Licensed {{license1}} and {{license2}}"
   },
   "dialog_thanks": {
-    "title": "¡Gracias!",
-    "description": "El desarrollo de esta app fue soportado por subvenciones de {{sponsor1}} y {{sponsor2}}, y donaciones por parte de:\n\n**{{topBackers}}** y [una centena más de donantes]({{donateLink}}). ¡Gracias!"
+    "title": "Thank you!",
+    "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
   },
   "drawer": {
-    "profile_no_name": "Sin nombre",
+    "profile_no_name": "No name",
     "menu": {
       "my_profile": {
-        "label": "Mi Perfil",
-        "accessibility_label": "Elemento de Menu Mi Perfil"
+        "label": "My profile",
+        "accessibility_label": "My Profile Menu Item"
       },
       "raw_database": {
-        "label": "Base de datos en crudo",
-        "accessibility_label": "Mostrar Base de Datos en crudo"
+        "label": "Raw database",
+        "accessibility_label": "Show Raw Database"
       },
       "email_bug_report": {
-        "label": "Enviar informe de fallos por email",
-        "accessibility_label": "Enviar Informe de Fallos por Email"
+        "label": "Email bug report",
+        "accessibility_label": "Send Bug Report as Email"
       },
       "settings": {
-        "label": "Ajustes",
-        "accessibility_label": "Ir a Ajustes"
+        "label": "Settings",
+        "accessibility_label": "Go To Settings"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
   "invite_create": {
-    "loading": "cargando...",
+    "loading": "loading...",
     "call_to_action": {
       "share": {
-        "accessibility_label": "Compartir Código de Invitación"
+        "accessibility_label": "Share Invite Code"
       }
     },
     "invite_code": {
-      "accessibility_label": "Código de Invitación"
+      "accessibility_label": "Invite Code"
     },
     "share_info": {
-      "1_normal": "Enviar este código de invitación a ",
-      "2_bold": "uno",
-      "3_normal": " amigo/a"
+      "1_normal": "Give this invite code to ",
+      "2_bold": "one",
+      "3_normal": " friend"
     },
     "sync_info": {
-      "1_normal": "Sincronizarás cuando estés ",
-      "2_bold": "ambos",
-      "3_normal": " en línea"
+      "1_normal": "You will sync when you are ",
+      "2_bold": "both",
+      "3_normal": " online"
     }
   },
   "invite_paste": {
-    "placeholder": "Pegar un código de invitación",
+    "placeholder": "Paste an invite code",
     "call_to_action": {
       "accept": {
-        "accessibility_label": "Aceptar Código de Invitación"
+        "accessibility_label": "Accept Invite Code"
       }
     },
     "text_field": {
-      "accessibility_label": "Entrada del Texto del Código de Invitación"
+      "accessibility_label": "Invite Code Text Input"
     }
   },
   "libraries": {
-    "title": "Librerías de terceras partes",
-    "description": "Manyverse utiliza las siguientes librerías y componentes con licencia 'Open Source'. Queremos expresar agradecimiento a los autores de estas librerías e incluimos los enlaces a sus correspondientes webs para el debido reconocimiento.",
+    "title": "Third party libraries",
+    "description": "Manyverse makes use of the following open source libraries and components. We want to thank the authors of these libraries and link to their websites for proper attribution.",
     "image": {
-      "name": "Imagen {{name}}",
-      "attribution": " ha sido creado por {{author}}, bajo licencia {{license}}"
+      "name": "Image {{name}}",
+      "attribution": " is created by {{author}}, licensed {{license}}"
     }
   },
   "profile": {
     "call_to_action": {
-      "copy_cypherlink": "Copia enlace-cifrado",
-      "private_chat": "Abrir conversación privada",
-      "block": "Bloquear",
-      "block_secretly": "Bloquear secretamente",
-      "unblock": "Desbloquear",
-      "unblock_secretly": "Desbloquear secretamente",
-      "follow": "Seguir",
+      "copy_cypherlink": "Copy cypherlink",
+      "private_chat": "Open private conversation",
+      "block": "Block",
+      "block_secretly": "Block secretly",
+      "unblock": "Unblock",
+      "unblock_secretly": "Unblock secretly",
+      "follow": "Follow",
       "edit_profile": {
-        "label": "Editar perfil",
-        "accessibility_label": "Botón Editar Perfil"
+        "label": "Edit profile",
+        "accessibility_label": "Edit Profile Button"
       },
       "open_biography": {
-        "label": "Leer biografía",
-        "accessibility_label": "Mostrar Biografía"
+        "label": "Read bio",
+        "accessibility_label": "Show Biography"
       },
       "manage": {
-        "accessibility_label": "Administrar Contacto"
+        "accessibility_label": "Manage Contact"
       }
     },
     "dialog_etc": {
-      "title": "Cuenta"
+      "title": "Account"
     },
     "toast": {
-      "copied_to_clipboard": "Copiado al portapapeles"
+      "copied_to_clipboard": "Copied to clipboard"
     },
     "info": {
-      "follows_you": "Te sigue",
-      "blocks_you": "Te tiene bloqueado",
-      "following": "Siguiendo"
+      "follows_you": "Follows you",
+      "blocks_you": "Blocks you",
+      "following": "Following"
     },
     "picture": {
-      "accessibility_label": "Imagen de Perfil"
+      "accessibility_label": "Profile Picture"
     },
     "name": {
-      "accessibility_label": "Nombre del Perfil"
+      "accessibility_label": "Profile Name"
     },
     "empty": {
       "blocked": {
-        "title": "Bloqueado",
-        "description": "Has elegido dejar de interactuar con esta cuenta"
+        "title": "Blocked",
+        "description": "You have chosen to stop\ninteracting with this account"
       },
       "no_self_messages": {
-        "title": "No hay mensajes",
-        "description": "Escribe un diario que puedes compartir posteriormente con tus amistades"
+        "title": "No messages",
+        "description": "Write a diary which you can\nshare with friends later"
       },
       "no_messages": {
-        "title": "No hay mensajes",
-        "description": "Todavía no has recibido ninguna información desde esta cuenta"
+        "title": "No messages",
+        "description": "You don't yet have any data\nfrom this account"
       }
     },
     "floating_action_button": {
-      "compose": "Escribe un mensaje público"
+      "compose": "Write a public message"
     }
   },
   "profile_edit": {
-    "title": "Edita el perfil",
+    "title": "Edit profile",
     "call_to_action": {
-      "discard": "Descartar",
+      "discard": "Discard",
       "save": {
-        "label": "Guardar",
-        "accessibility_label": "Guardar Perfil"
+        "label": "Save",
+        "accessibility_label": "Save Profile"
       },
       "edit_picture": {
-        "accessbility_label": "Editar Imagen del Perfil"
+        "accessbility_label": "Edit Profile Picture"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Editar perfil",
-        "question": "¿Descartar cambios?"
+        "title": "Edit profile",
+        "question": "Discard changes?"
       }
     },
     "fields": {
       "name": {
-        "label": "Nombre",
-        "accessibility_label": "Entrada de Texto del Nombre"
+        "label": "Name",
+        "accessibility_label": "Name Text Input"
       },
       "description": {
         "label": "Bio",
-        "accessibility_label": "Entrada de Texto de la Biografía"
+        "accessibility_label": "Biography Text Input"
       }
     }
   },
   "raw_db": {
-    "title": "Base de Datos en crudo",
+    "title": "Raw database",
     "item": {
       "type": {
-        "any": "tipo: {{type}}",
-        "encrypted": "cifrado"
+        "any": "type: {{type}}",
+        "encrypted": "encrypted"
       }
     }
   },
   "raw_msg": {
-    "title": "Mensaje en crudo"
+    "title": "Raw message"
   },
   "recipients_input": {
-    "title": "Nuevo mensaje",
+    "title": "New message",
     "call_to_action": {
       "proceed": {
-        "label": "Siguiente",
-        "accessibility_label": "Botón Siguiente"
+        "label": "Next",
+        "accessibility_label": "Next Button"
       }
     },
     "fields": {
       "mention_input": {
-        "placeholder": "Buscar a gente para añadir",
-        "accessibility_label": "Entrada de Texto para Mencionar Cuenta"
+        "placeholder": "Search for people to add",
+        "accessibility_label": "Mention Account Text Input"
       }
     },
     "empty": {
       "none_to_choose": {
-        "title": "Nadie",
-        "description": "No hay nadie en tu comunidad con ese nombre"
+        "title": "No one",
+        "description": "There is nobody in your\ncommunity with that name"
       }
     },
     "toasts": {
-      "limit_reached": "No puedes elegir más de {{limit}} destinatarios"
+      "limit_reached": "Cannot choose more than {{limit}} recipients"
     }
   },
   "secret_input": {
     "practice": {
-      "title": "Practica",
-      "header": "Repite para confirmar que es correcto:"
+      "title": "Practice",
+      "header": "Repeat it to confirm it is correct:"
     },
     "restore": {
-      "title": "Restaurar cuenta"
+      "title": "Restore account"
     },
-    "header": "Introduce cuidadosamente tu frase de recuperación",
+    "header": "Carefully input your recovery phrase",
     "call_to_action": {
       "confirm": {
-        "label": "Confirmar",
-        "accessibility_label": "Botón Confirmar Frase de recuperación"
+        "label": "Confirm",
+        "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
     "fields": {
       "words_input": {
-        "placeholder": "Frase de recuperación de 24 palabras",
-        "accessibility_label": "Entrada de texto de frase de recuperación"
+        "placeholder": "24-word (or 48-word) recovery phrase",
+        "accessibility_label": "Recovery Phrase Text Input"
       }
     },
     "dialogs": {
       "practice": {
         "correct": {
-          "title": "¡Correcto!",
-          "description": "La identidad de tu cuenta ahora está segura porque conoces la frase de recuperación."
+          "title": "Correct!",
+          "description": "Your account's identity is now secure because you know the recovery phrase."
         },
         "incorrect": {
-          "title": "Incorrecto",
-          "description": "Inténtalo de nuevo: escribe tu frase de recuperación consistente en 24 palabras separadas por espacios en blanco."
+          "title": "Incorrect",
+          "description": "Try again: write down your recovery phrase consisting of 24 words separated by whitespace."
         }
       },
       "restore": {
         "correct": {
-          "title": "¡Bienvenido/a de nuevo!",
-          "description": "La identidad de tu cuenta ha sido restaurada.\n\nAhora, para restaurar tus datos, conéctate con amistades que han interactuado contigo anteriormente, para volver a descargar tus datos de ellas."
+          "title": "Welcome back!",
+          "description": "Your account's identity is now restored.\n\nNow, to restore your data, connect with friends that have interacted with you before, to redownload your data from them."
         },
         "incorrect": {
-          "title": "Incorrecto",
+          "title": "Incorrect",
           "description": {
-            "try_again": "Inténtalo de nuevo: escribe tu frase de recuperación consistente en 24 palabras separadas por espacios en blanco.",
-            "overwrite_risk": "Ya hay una cuenta en la aplicación, no podemos sobrescribirla. Si estás seguro de que la quieres descartar, desinstala y reinstala Manyverse para recuperar tu cuenta desde un estado limpio.",
-            "too_short": "Faltan algunas palabras. La frase de recuperación debe tener 24 palabras.",
-            "too_long": "Hay demasiadas palabras. La frase de recuperación debe tener exactamente 24 palabras.",
-            "wrong_length": "Tu frase de recuperación debería ser de 24 palabras exactamente.",
-            "generic": "La frase de recuperación que introdujiste no aparenta ser una identidad validad generada por Manyverse."
+            "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
+            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
+            "too_short": "There are some words missing. Your recovery phrase should be 24 words long.",
+            "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
+            "wrong_length": "Your recovery phrase should be exactly 24 words long.",
+            "generic": "The recovery phrase you gave does not look like a valid identity generated by Manyverse."
           }
         }
       }
     }
   },
   "secret_output": {
-    "title": "Frase de Recuperación",
+    "title": "Recovery Phrase",
     "header": {
-      "1_normal": "Escribe cuidadosamente la siguiente frase de recuperación en un ",
-      "2_bold": "papel",
+      "1_normal": "Carefully write down the following recovery phrase on a ",
+      "2_bold": "piece of paper",
       "3_normal": ""
     },
     "footer": {
-      "1_normal": "Manténgala ",
-      "2_bold": "confidencial",
-      "3_normal": ", y no comparta ",
-      "4_bold": "la responsabilidad",
-      "5_normal": " sobre ella"
+      "1_normal": "Keep it ",
+      "2_bold": "confidential",
+      "3_normal": ", and\ntake sole ",
+      "4_bold": "responsibility",
+      "5_normal": " over it"
     },
     "words": {
-      "accessibility_label": "Palabras Secretas"
+      "accessibility_label": "Secret Words"
     },
     "call_to_action": {
       "confirm": {
-        "accessibility_label": "Botón Confirmar Frase de recuperación"
+        "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
-    "loading": "Cargando..."
+    "loading": "Loading..."
   },
   "settings": {
-    "title": "Ajustes",
+    "title": "Settings",
     "preferences": {
-      "title": "Preferencias",
+      "title": "Preferences",
       "show_follows": {
-        "title": "Mostrar eventos de seguimientos",
-        "subtitle": "Mostrar casos de seguimientos, bloqueos, o ceses de seguimiento en el tablón público",
-        "accessibility_label": "Alternar eventos de seguimientos en el tablón público"
+        "title": "Show follow events",
+        "subtitle": "Show follow or block or unfollow cases on the public board",
+        "accessibility_label": "Toggle follow events on the public board"
       },
       "hops": {
-        "title": "Saltos de replicación",
-        "subtitle": "Desde que distancia en el grafo social debería descargar datos Maniverse; 1 es únicamente desde las amistades, 2 es desde amistades de las amistades, etc. ¡Precaución: cuanto más alto el valor, más datos se descargan!",
-        "unlimited": "Ilimitado",
-        "accessibility_label": "Deslizador de saltos de replicación"
+        "title": "Replication hops",
+        "subtitle": "How far out in the social graph should Manyverse download data; 1 is friends-only, 2 is friends-of-friends, etc. Caution: the higher this is, the more data is downloaded!",
+        "unlimited": "Unlimited",
+        "accessibility_label": "Replication hops slider"
       }
     },
     "data_and_storage": {
-      "title": "Datos y Almacenamiento",
+      "title": "Data & Storage",
       "backup": {
-        "title": "Copia de Seguridad",
-        "subtitle": "Mostrar tu frase de recuperación de 24 palabras",
-        "accessibility_label": "Hacer copia de seguridad de mi cuenta"
+        "title": "Backup",
+        "subtitle": "View your 24-word recovery phrase",
+        "accessibility_label": "Back Up My Account"
       },
       "blobs_storage": {
-        "title": "Límite de almacenamiento para los 'Blobs'",
-        "subtitle": "Borrar automáticamente antiguas imágenes y blobs hasta que ocupen como mucho esta cantidad de almacenamiento en tu dispositivo",
-        "unlimited": "Ilimitado",
-        "accessibility_label": "Deslizador del limite de almacenamiento"
+        "title": "Blobs storage limit",
+        "subtitle": "Automatically delete old images and blobs until they occupy at most this amount of storage on your device",
+        "unlimited": "Unlimited",
+        "accessibility_label": "Storage limit slider"
       }
     },
     "troubleshooting": {
-      "title": "Solución de problemas",
+      "title": "Troubleshooting",
       "bug_report": {
-        "title": "Enviar informe de fallos por email",
-        "accessibility_label": "Enviar Informe de Fallos por Email"
+        "title": "Email bug report",
+        "accessibility_label": "Send Bug Report as Email"
       },
       "detailed_logs": {
-        "title": "Habilitar logs detallados",
-        "accessibility_label": "Alternar logs detallados para desarrolladores"
+        "title": "Enable detailed logs",
+        "accessibility_label": "Toggle detailed developer logs"
       }
     },
     "more_information": {
-      "title": "Más información",
+      "title": "More information",
       "thanks": {
-        "title": "Gracias",
-        "accessibility_label": "Mostrar Agradecimiento"
+        "title": "Thanks",
+        "accessibility_label": "Show Thanks"
       },
       "third_party_libs": {
-        "title": "Librerías de terceras partes",
-        "accessibility_label": "Ver librerías de terceras partes"
+        "title": "Third party libraries",
+        "accessibility_label": "View third party libraries"
       },
       "about": {
-        "title": "Acerca de",
-        "accessibility_label": "Acerca de esta App"
+        "title": "About",
+        "accessibility_label": "About This App"
       }
     },
     "dialogs": {
       "restart_required": {
-        "title": "Es necesario reiniciar",
-        "description": "Este ajuste sólo surtirá efecto cuando cierres la app y reinicies Manyverse."
+        "title": "Restart required",
+        "description": "This setting will only enter into effect when you kill the app and restart Manyverse."
       }
     }
   },
   "thread": {
-    "title": "Hilo",
+    "title": "Thread",
     "call_to_action": {
       "expand_reply": {
-        "accessibility_label": "Expandir Botón de Responder"
+        "accessibility_label": "Expand Reply Button"
       },
       "publish_reply": {
-        "accessibility_label": "Botón Publicar Respuesta"
+        "accessibility_label": "Reply Publish Button"
       }
     },
     "dialogs": {
       "save_draft_prompt": {
-        "title": "¿Salvar borrador de la respuesta?"
+        "title": "Save reply draft?"
       }
     },
     "fields": {
       "reply": {
-        "placeholder": "Comentar",
-        "accessibility_label": "Entrada de Texto de la Respuesta"
+        "placeholder": "Comment",
+        "accessibility_label": "Reply Text Input"
       }
     },
-    "loading_replies": "Cargando respuestas...",
+    "loading_replies": "Loading replies...",
     "empty": {
       "missing": {
-        "title": "Faltan datos",
-        "description": "Todavía no tienes datos para el mensaje conocido por la ID\n"
+        "title": "Missing data",
+        "description": "You don't yet have data\nfor the message known by the ID\n"
       },
       "blocked": {
-        "title": "Hilo bloqueado",
-        "description": "Has elegido bloquear al autor de este hilo"
+        "title": "Blocked thread",
+        "description": "You have chosen to block\nthe author of this thread"
       },
       "incompatible": {
-        "title": "Lo siento",
-        "description": "Esta aplicación no sabe como procesar y mostrar este hilo correctamente"
+        "title": "Sorry",
+        "description": "This app doesn't know how to process\nand display this thread correctly"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Sincronizando",
-      "gigabytes": "{{gb}} GB sincronizados hasta ahora",
-      "megabytes": "{{mb}} MB sincronizados hasta ahora",
-      "kilobytes": "{{kb}} KB sincronizados hasta ahora",
-      "bytes": "{{b}} bytes sincronizados hasta ahora"
     }
   },
   "message": {
     "call_to_action": {
       "show_reactions": {
-        "accessibility_label": "Mostrar Reacciones"
+        "accessibility_label": "Show Reactions"
       },
       "add_reaction": {
-        "accessibility_label": "Añadir botón de reacción"
+        "accessibility_label": "Add Reaction Button"
       },
       "reply": {
-        "accessibility_label": "Botón Responder"
+        "accessibility_label": "Reply Button"
       },
       "etc": {
-        "dialog_title": "Mensaje",
-        "accessibility_label": "Botón etc"
+        "dialog_title": "Message",
+        "accessibility_label": "Etc Button"
       },
       "copy_blob_id": {
-        "accessibility_label": "Copiar ID de Blob"
+        "accessibility_label": "Copy Blob ID"
       },
-      "copy_msg_id": "Copiar enlace-cifrado",
-      "view_raw": "Ver mensaje en crudo",
+      "copy_msg_id": "Copy cypherlink",
+      "view_raw": "View raw message",
       "read_more": {
-        "label": "Leer más",
-        "accessibility_label": "Leer más contenido en este hilo"
+        "label": "Read more",
+        "accessibility_label": "Read more content in this thread"
       }
     },
     "toast": {
-      "copied_to_clipboard": "Copiado al portapapeles"
+      "copied_to_clipboard": "Copied to clipboard"
     },
     "reactions": {
       "categories": {
-        "smileys_and_emotion": "Emoticonos y emociones",
-        "people_and_body": "Gente y cuerpo",
-        "animals_and_nature": "Animales y naturaleza",
-        "food_and_drink": "Comida y bebida",
-        "activities": "Actividades",
-        "travel_and_places": "Viajar y lugares",
-        "objects": "Objetos",
-        "symbols": "Símbolos"
+        "smileys_and_emotion": "Smileys and emotion",
+        "people_and_body": "People and body",
+        "animals_and_nature": "Animals and nature",
+        "food_and_drink": "Food and drink",
+        "activities": "Activities",
+        "travel_and_places": "Travel and places",
+        "objects": "Objects",
+        "symbols": "Symbols"
       },
       "show_more": {
-        "accessibility_label": "Mostrar más opciones de reacción"
+        "accessibility_label": "Show More Reaction Options"
       }
     },
     "image": {
       "without_caption": {
-        "accessibility_label": "Imagen sin subtítulo"
+        "accessibility_label": "Picture without caption"
       }
     },
     "audio": {
       "play": {
-        "accessibility_label": "Reproducir audio"
+        "accessibility_label": "Play audio"
       },
       "pause": {
-        "accessibility_label": "Pausar audio"
+        "accessibility_label": "Pause audio"
       },
       "duration": {
-        "accessibility_label": "Duración del audio"
+        "accessibility_label": "Audio duration"
       },
       "elapsed": {
-        "accessibility_label": "Tiempo actual del audio"
+        "accessibility_label": "Audio current time"
       },
       "slider": {
         "accessibility_label": "Change audio time"
       }
     },
     "content_warning": {
-      "title": "Advertencia de contenido",
+      "title": "Content Warning",
       "call_to_action": {
-        "hide": "Ocultar",
-        "show": "Ver"
+        "hide": "Hide",
+        "show": "View"
       }
     },
     "fork_note": {
-      "1_normal": "Bifurcado de ",
+      "1_normal": "Forked from ",
       "2_bold": "{{cypherlink}}",
       "3_normal": ""
     },
@@ -990,24 +987,24 @@
       "new_picture": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " tiene una nueva imagen de perfil: "
+        "3_normal": " has a new profile picture: "
       },
       "new_name_and_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " está usando el nombre \"",
+        "3_normal": " is using the name \"",
         "4_bold": "{{name}}",
-        "5_normal": "\" y la descripción: "
+        "5_normal": "\" and the description: "
       },
       "new_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " tiene una nueva biografía: "
+        "3_normal": " has a new biography: "
       },
       "new_name": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " está usando el nombre \"",
+        "3_normal": " is using the name \"",
         "4_bold": "{{name}}",
         "5_normal": "\""
       }
@@ -1016,28 +1013,28 @@
       "follow_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " sigue a ",
+        "3_normal": " followed ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "block_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " bloqueó a ",
+        "3_normal": " blocked ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "unfollow_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " dejó de seguir ",
+        "3_normal": " unfollowed ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "unblock_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " desbloqueó ",
+        "3_normal": " unblocked ",
         "4_bold": "{{target}}",
         "5_normal": ""
       }

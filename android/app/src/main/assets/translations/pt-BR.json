@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "Para conectar com amigos e sincronizar conteúdo, você pode: usar o mesmo ",
           "2_bold": "Wi-Fi",
-          "3_normal": " ou passar",
+          "3_normal": " ou passar ",
           "4_bold": "convites P2P",
           "5_normal": ". Para encontrar novas pessoas na Internet, procure um código de convite para um ",
           "6_bold": "servidor pub",
@@ -406,11 +406,11 @@
         "accessibility_label": "Botão de fechar"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "Botão de gravar áudio",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
-          "neutral": "Ask me later",
+          "title": "Permitir que o Manyverse grave áudio?",
+          "message": "O Manyverse precisa acessar o seu microfone para que você possa gravar mensagens de áudio",
+          "neutral": "Pergunte-me mais tarde",
           "positive": "OK",
           "negative": "Cancelar"
         }
@@ -448,27 +448,27 @@
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "Mensagem de áudio",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "Iniciar gravação"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "Parar gravação"
       },
       "discard_recording": {
         "label": "Descartar",
-        "accessibility_label": "Discard Recording Button"
+        "accessibility_label": "Botão de Descartar Gravação"
       },
       "submit_recording": {
         "label": "Pronto",
-        "accessibility_label": "Submit Recording Button"
+        "accessibility_label": "Botão de Submeter gravação"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
-        "question": "Discard draft?"
+        "title": "Mensagem de áudio",
+        "question": "Descartar rascunho?"
       }
     }
   },
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Configurações",
         "accessibility_label": "Ir para Configurações"
+      },
+      "preparing_database": {
+        "label": "Preparando banco de dados..."
+      },
+      "ready_estimate": {
+        "label": "Pronto:"
       }
     }
   },
@@ -618,7 +624,7 @@
         "accessibility_label": "Botão de Editar Perfil"
       },
       "open_biography": {
-        "label": "Read bio",
+        "label": "Ler a bio",
         "accessibility_label": "Mostrar Biografia"
       },
       "manage": {
@@ -898,15 +904,6 @@
         "title": "Desculpe",
         "description": "Este aplicativo não sabe como processar\ne exibir este tópico corretamente"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Sincronizando",
-      "gigabytes": "{{gb}} GB sincronizados até agora",
-      "megabytes": "{{mb}} MB sincronizados até agora",
-      "kilobytes": "{{kb}} KB sincronizados até agora",
-      "bytes": "{{b}} bytes sincronizados até agora"
     }
   },
   "message": {

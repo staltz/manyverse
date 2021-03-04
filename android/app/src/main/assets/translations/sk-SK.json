@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "Aby ste sa spojili s priateľmi a zosynchronizovali si obsah, môžete: sa napojiť na tú istú ",
           "2_bold": "Wi-Fi sieť",
-          "3_normal": " alebo si vymeniť",
+          "3_normal": " alebo si vymeniť ",
           "4_bold": "P2P pozvánky",
           "5_normal": ". Aby ste našli nových ľudí na internete, použite pozývací kód k ",
           "6_bold": "pub serveru",
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Nastavenia",
         "accessibility_label": "Prejsť Do Nastavení"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Sorry",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Syncing",
-      "gigabytes": "{{gb}} GB synced so far",
-      "megabytes": "{{mb}} MB synced so far",
-      "kilobytes": "{{kb}} KB synced so far",
-      "bytes": "{{b}} bytes synced so far"
     }
   },
   "message": {

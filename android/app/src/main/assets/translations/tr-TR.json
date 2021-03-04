@@ -89,11 +89,11 @@
     "off_the_grid": {
       "title": "Şebekeden bağımsız",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse internet bağlantısını kullanabilir, ancak internet ",
+        "2_bold": "üzerinden",
+        "3_normal": " değil. Her şey burada, cihazınızda gerçekleşir. Bu, çevrimdışıyken bile normal şekilde kullanabileceğiniz anlamına gelir! İçeriğiniz ",
+        "4_bold": "önce cihazınızda depolanır",
+        "5_normal": "ve bağlantı kurduğunuzda arkadaşlarınızla senkronize edebilirsiniz."
       }
     },
     "connections": {
@@ -108,7 +108,7 @@
           "6_bold": "pub server",
           "7_normal": " or a ",
           "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "9_normal": "veya kendi sunucunuzu başlatın!"
         },
         "default": {
           "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
@@ -121,16 +121,16 @@
           "8_bold": "pub server",
           "9_normal": " or a ",
           "10_bold": "room server",
-          "11_normal": ", or start your own server!"
+          "11_normal": "veya kendi sunucunuzu başlatın!"
         }
       }
     },
     "moderation": {
       "title": "Shared moderation",
       "description": {
-        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "1_normal": "Sosyal ağınız cihazınızda barındırıldığından, sizin adınıza başka hiç kimse hesaplarınızı yasaklayamaz veya kaldıramaz. Cihazınızda olmasını istemediğiniz ",
+        "2_bold": "engelleyerek",
+        "3_normal": " alanınızı yalnızca siz denetleyebilirsiniz. Ardından, arkadaşlarınız aynı hesapları engellemeyi seçebilir. İşte ölçülülük doğal olarak bu şekilde yayılabilir!"
       }
     },
     "permanence": {
@@ -142,11 +142,11 @@
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "Yapım aşamasında!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
-        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+        "1_normal": "Manyverse ",
+        "2_bold": "beta kalitesinde bir yazılımdır",
+        "3_normal": ". Henüz her şeyi çözemedik ve bazı parçaların onarılması gerekiyor. Senkronizasyon sırasında uygulama birkaç dakika donmuş gibi görünebilir. Sabırlı olun! Karşılaştığınız diğer hataları bize bildirin, yeterli zaman ve bağışla, bunu harika bir uygulama haline getirebiliriz."
       }
     },
     "setup_account": {
@@ -378,45 +378,45 @@
     },
     "share_code": {
       "p2p": {
-        "title": "Manyverse Invite Code",
-        "message": "Connect with me on Manyverse by pasting this invite code there:",
-        "dialog_note": "Give this invite code to one friend"
+        "title": "Manyverse Davet Kodu",
+        "message": "Bu davet kodunu buraya yapıştırarak Manyverse'te benimle bağlantı kurun:",
+        "dialog_note": "Bu davet kodunu bir arkadaşınıza verin"
       },
       "room": {
-        "title": "Invite code to an SSB Room",
-        "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
-        "dialog_note": "Give this invite code to a friend"
+        "title": "SSB Odası Davet Kodu",
+        "message": "Bu davet kodunu Manyverse'e yapıştırarak {{name}} SSB Odasında bana katılın:",
+        "dialog_note": "Bu davet kodunu bir arkadaşınızla paylaşın"
       }
     }
   },
   "compose": {
     "call_to_action": {
       "publish_new_thread": {
-        "label": "Publish",
-        "accessibility_label": "Publish Message Button"
+        "label": "Yayınla",
+        "accessibility_label": "Mesaj Yayınla Düğmesi"
       },
       "reply_to_thread": {
-        "label": "Reply",
-        "accessibility_label": "Publish Reply Button"
+        "label": "Cevapla",
+        "accessibility_label": "Yanıtı Yayınla Düğmesi"
       },
       "preview": {
-        "accessibility_label": "Preview Button"
+        "accessibility_label": "Önizleme Düğmesi"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Kapat Düğmesi"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "Ses Kaydet Düğmesi",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
-          "neutral": "Ask me later",
+          "title": "Manyverse'in ses kaydetmesine izin verilsin mi?",
+          "message": "Sesli mesajlar oluşturabilmeniz için Manyverse'in mikrofonunuza erişmesi gerekiyor",
+          "neutral": "Daha sonra sor",
           "positive": "Tamam",
           "negative": "İptal"
         }
       },
       "open_camera": {
-        "accessibility_label": "Open Camera Button"
+        "accessibility_label": "Kamera Düğmesini Aç Düğmesi"
       },
       "add_picture": {
         "accessibility_label": "Fotoğraf ekle butonu"
@@ -448,27 +448,27 @@
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "Sesli mesaj",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "Kayda başla"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "Kaydı bitir"
       },
       "discard_recording": {
-        "label": "Discard",
-        "accessibility_label": "Discard Recording Button"
+        "label": "Vazgeç",
+        "accessibility_label": "Kayıt Silme Düğmesi"
       },
       "submit_recording": {
         "label": "Tamam",
-        "accessibility_label": "Submit Recording Button"
+        "accessibility_label": "Kayıt Gönder Düğmesi"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
-        "question": "Discard draft?"
+        "title": "Sesli mesaj",
+        "question": "Taslak silinsin mi?"
       }
     }
   },
@@ -491,7 +491,7 @@
       "call_to_action": {
         "acknowledge": {
           "label": "Anladım",
-          "accessibility_label": "Acknowledge"
+          "accessibility_label": "Kabul Et"
         }
       }
     },
@@ -513,10 +513,10 @@
   },
   "biography": {
     "picture": {
-      "accessibility_label": "Biographic Picture"
+      "accessibility_label": "Biyografi Görseli"
     },
     "description": {
-      "accessibility_label": "Biographic Description"
+      "accessibility_label": "Biyografi Açıklaması"
     }
   },
   "conversation": {
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Ayarlar",
         "accessibility_label": "Ayarlara git"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -586,7 +592,7 @@
     }
   },
   "invite_paste": {
-    "placeholder": "Paste an invite code",
+    "placeholder": "Davet kodunu buraya girin",
     "call_to_action": {
       "accept": {
         "accessibility_label": "Davet kodunu kabul et"
@@ -607,7 +613,7 @@
   "profile": {
     "call_to_action": {
       "copy_cypherlink": "Cypherlinki kopyala",
-      "private_chat": "Open private conversation",
+      "private_chat": "Özel görüşmeyi aç",
       "block": "Engelle",
       "block_secretly": "Gizlice engelle",
       "unblock": "Engeli kaldır",
@@ -618,7 +624,7 @@
         "accessibility_label": "Profili düzenle butonu"
       },
       "open_biography": {
-        "label": "Read bio",
+        "label": "Biyografiyi oku",
         "accessibility_label": "Biyografiyi göster"
       },
       "manage": {
@@ -652,72 +658,72 @@
         "description": "Write a diary which you can\nshare with friends later"
       },
       "no_messages": {
-        "title": "No messages",
+        "title": "Mesaj yok",
         "description": "You don't yet have any data\nfrom this account"
       }
     },
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Herkese açık bir mesaj yazın"
     }
   },
   "profile_edit": {
-    "title": "Edit profile",
+    "title": "Profili düzenle",
     "call_to_action": {
-      "discard": "Discard",
+      "discard": "Vazgeç",
       "save": {
-        "label": "Save",
-        "accessibility_label": "Save Profile"
+        "label": "Kaydet",
+        "accessibility_label": "Profili Kaydet"
       },
       "edit_picture": {
-        "accessbility_label": "Edit Profile Picture"
+        "accessbility_label": "Profil Fotoğrafını Düzenle"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Edit profile",
-        "question": "Discard changes?"
+        "title": "Profili düzenle",
+        "question": "Değişikliklerden vazgeçilsin mi?"
       }
     },
     "fields": {
       "name": {
-        "label": "Name",
-        "accessibility_label": "Name Text Input"
+        "label": "İsim",
+        "accessibility_label": "İsim Metin Girişi"
       },
       "description": {
-        "label": "Bio",
-        "accessibility_label": "Biography Text Input"
+        "label": "Biyo",
+        "accessibility_label": "Biyografi Metin Girişi"
       }
     }
   },
   "raw_db": {
-    "title": "Raw database",
+    "title": "Ham veritabanı",
     "item": {
       "type": {
-        "any": "type: {{type}}",
-        "encrypted": "encrypted"
+        "any": "tür: {{type}}",
+        "encrypted": "şifreli"
       }
     }
   },
   "raw_msg": {
-    "title": "Raw message"
+    "title": "Ham mesaj"
   },
   "recipients_input": {
-    "title": "New message",
+    "title": "Yeni mesaj",
     "call_to_action": {
       "proceed": {
-        "label": "Next",
-        "accessibility_label": "Next Button"
+        "label": "Sonraki",
+        "accessibility_label": "Sonraki Düğmesi"
       }
     },
     "fields": {
       "mention_input": {
-        "placeholder": "Search for people to add",
-        "accessibility_label": "Mention Account Text Input"
+        "placeholder": "Eklemek için kişi arayın",
+        "accessibility_label": "Bahsedilen Hesap Metin Girişi"
       }
     },
     "empty": {
       "none_to_choose": {
-        "title": "No one",
+        "title": "Hiç kimse",
         "description": "Topluluğunuzda bu\nada sahip kimse yok"
       }
     },
@@ -766,7 +772,7 @@
           "title": "Hatalı",
           "description": {
             "try_again": "Boşluk ile ayrılmış 24 kelimeden oluşan kurtarma ifadenizi ekleyerek tekrar deneyin.",
-            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
+            "overwrite_risk": "Uygulamada zaten açık bir hesap var, üzerine yazamayız. Geçersiz kılmak istediğinizden eminseniz, hesabınızı temiz bir şekilde kurtarmak için Manyverse'i kaldırın ve yeniden yükleyin.",
             "too_short": "Bazı kelimeler eksik. Kurtarma ifadeniz 24 kelime uzunluğunda olmalıdır.",
             "too_long": "Çok fazla kelime var. Kurtarma ifadeniz tam olarak 24 kelime uzunluğunda olmalıdır.",
             "wrong_length": "Kurtarma ifadeniz tam olarak 24 kelime uzunluğunda olmalıdır.",
@@ -779,8 +785,8 @@
   "secret_output": {
     "title": "Kurtarma ifadesi",
     "header": {
-      "1_normal": "Carefully write down the following recovery phrase on a ",
-      "2_bold": "piece of paper",
+      "1_normal": "Aşağıdaki kurtarma ifadesini dikkatlice yazın ",
+      "2_bold": "bir kağıt parçasına",
       "3_normal": ""
     },
     "footer": {
@@ -859,18 +865,18 @@
     "dialogs": {
       "restart_required": {
         "title": "Yeniden başlatılması gerekiyor",
-        "description": "This setting will only enter into effect when you kill the app and restart Manyverse."
+        "description": "Bu ayar, yalnızca uygulamayı kapattığınızda ve Manyverse'i yeniden başlattığınızda geçerli olacak."
       }
     }
   },
   "thread": {
-    "title": "Thread",
+    "title": "Konu",
     "call_to_action": {
       "expand_reply": {
         "accessibility_label": "Yanıt butonunu genişlet"
       },
       "publish_reply": {
-        "accessibility_label": "Reply Publish Button"
+        "accessibility_label": "Yanıtla Yayınla Düğmesi"
       }
     },
     "dialogs": {
@@ -881,32 +887,23 @@
     "fields": {
       "reply": {
         "placeholder": "Yorum",
-        "accessibility_label": "Reply Text Input"
+        "accessibility_label": "Cevap Yazısı Girişi"
       }
     },
-    "loading_replies": "Loading replies...",
+    "loading_replies": "Yanıtlar yükleniyor...",
     "empty": {
       "missing": {
-        "title": "Missing data",
+        "title": "Kayıp veri",
         "description": "You don't yet have data\nfor the message known by the ID\n"
       },
       "blocked": {
-        "title": "Blocked thread",
+        "title": "Engellenen ileti dizisi",
         "description": "You have chosen to block\nthe author of this thread"
       },
       "incompatible": {
         "title": "Üzgünüm",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Syncing",
-      "gigabytes": "{{gb}} GB synced so far",
-      "megabytes": "{{mb}} MB synced so far",
-      "kilobytes": "{{kb}} KB synced so far",
-      "bytes": "{{b}} bytes synced so far"
     }
   },
   "message": {
@@ -918,24 +915,24 @@
         "accessibility_label": "Emoji ekle butonu"
       },
       "reply": {
-        "accessibility_label": "Reply Button"
+        "accessibility_label": "Yanıtla Düğmesi"
       },
       "etc": {
-        "dialog_title": "Message",
+        "dialog_title": "Mesaj",
         "accessibility_label": "Etc Button"
       },
       "copy_blob_id": {
         "accessibility_label": "Copy Blob ID"
       },
-      "copy_msg_id": "Copy cypherlink",
-      "view_raw": "View raw message",
+      "copy_msg_id": "Cypherlinki kopyala",
+      "view_raw": "Ham mesajı görüntüle",
       "read_more": {
-        "label": "Read more",
-        "accessibility_label": "Read more content in this thread"
+        "label": "Daha fazla oku",
+        "accessibility_label": "Bu konudaki daha fazla içeriği okuyun"
       }
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Panoya kopyalandı"
     },
     "reactions": {
       "categories": {
@@ -959,13 +956,13 @@
     },
     "audio": {
       "play": {
-        "accessibility_label": "Play audio"
+        "accessibility_label": "Sesi çal"
       },
       "pause": {
-        "accessibility_label": "Pause audio"
+        "accessibility_label": "Sesi duraklat"
       },
       "duration": {
-        "accessibility_label": "Audio duration"
+        "accessibility_label": "Ses süresi"
       },
       "elapsed": {
         "accessibility_label": "Audio current time"
@@ -1023,21 +1020,21 @@
       "block_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " blocked ",
+        "3_normal": " engellendi ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "unfollow_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " unfollowed ",
+        "3_normal": " takip bırakıldı ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "unblock_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " unblocked ",
+        "3_normal": " engellenmemiş ",
         "4_bold": "{{target}}",
         "5_normal": ""
       }

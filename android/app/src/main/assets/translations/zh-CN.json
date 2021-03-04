@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "为了与朋友链接并同步内容，你可以：加入相同 ",
           "2_bold": "无线局域网",
-          "3_normal": " 或者交换",
+          "3_normal": " 或者交换 ",
           "4_bold": "点对点邀请",
           "5_normal": "。要想在互联网上发现新用户，请寻找邀请码到一 ",
           "6_bold": "pub（酒馆）服务器",
@@ -561,6 +561,12 @@
       "settings": {
         "label": "设置",
         "accessibility_label": "Go To Settings"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Sorry",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Syncing",
-      "gigabytes": "{{gb}} GB synced so far",
-      "megabytes": "{{mb}} MB synced so far",
-      "kilobytes": "{{kb}} KB synced so far",
-      "bytes": "{{b}} bytes synced so far"
     }
   },
   "message": {

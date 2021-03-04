@@ -1,11 +1,11 @@
 {
   "call_to_action": {
     "ok": "OK",
-    "add": "Add",
+    "add": "Hozzáadás",
     "done": "Kész",
     "cancel": "Mégsem",
     "continue": "Folytatás",
-    "delete": "Delete",
+    "delete": "Törlés",
     "save": "Mentés",
     "yes": "Igen",
     "no": "Nem",
@@ -26,57 +26,57 @@
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 éve",
+          "other": "{{count}} éve"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1 hónapja",
+          "other": "{{count}} hónapja"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "1 hete",
+          "other": "{{count}} hete"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 napja",
+          "other": "{{count}} napja"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 órája",
+          "other": "{{count}} órája"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "1 perce",
+          "other": "{{count}} perce"
         },
-        "now": "Just now"
+        "now": "Épp most"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "1 év múlva",
+          "other": "{{count}} év múlva"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1 hónap múlva",
+          "other": "{{count}} hónap múlva"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "1 hét múlva",
+          "other": "{{count}} hét múlva"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "1 nap múlva",
+          "other": "{{count}} nap múlva"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "1 óra múlva",
+          "other": "{{count}} óra múlva"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "1 perc múlva",
+          "other": "{{count}} perc múlva"
         },
-        "now": "Very soon"
+        "now": "Hamarosan"
       }
     }
   },
@@ -84,16 +84,16 @@
     "learn_more": "Tudj meg többet",
     "overview": {
       "title": "Üdv a Manyverse-ben!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "description": "A közösségi háló lehet egyszerű, pártatlan, nem kereskedelmi jellegű, és épülhet a barátok közötti bizalomra. Ezt képviseli a Manyverse, és reméljük, hogy a Te is digitális otthod is lehet. Mindezt az új SSB protokoll teszi lehetővé."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "A hálózaton kívül",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "A Manyverse használhatja az Internetet, de valójában nem ",
+        "2_bold": "az Internetnen",
+        "3_normal": "létezik. Minden a készülékeden történik, így akár offline is használhatod. Az adataid",
+        "4_bold": "először az készülékeden kerülnek eltárolásra",
+        "5_normal": ", majd szinkronizálhatod őket a barátaiddal amint kapcsolatba léptek egymással."
       }
     },
     "connections": {
@@ -102,43 +102,43 @@
         "ios": {
           "1_normal": "Ha a barátaiddal szeretnél kapcsolódni és tartalmat megosztani: csatlakozzatok ugyanarra a ",
           "2_bold": "Wi-Fi hálózatra",
-          "3_normal": ", vagy vagy használjatok ",
+          "3_normal": ", vagy használjatok ",
           "4_bold": "P2P meghívókat",
           "5_normal": ". Ha új embereket szeretnél találni az Interneten, keress meghívó-kódokat ",
-          "6_bold": "pub kiszolgálókhoz",
+          "6_bold": "pub szerverekhez",
           "7_normal": " vagy ",
-          "8_bold": "szoba kiszolgálókhoz",
-          "9_normal": ", vagy hozz létre saját kiszolgálót!"
+          "8_bold": "szoba-szerverekhez",
+          "9_normal": ", vagy hozz létre saját szervert!"
         },
         "default": {
           "1_normal": "Ha a barátaiddal szeretnél kapcsolódni és tartalmat megosztani: csatlakozzatok ugyanarra a ",
           "2_bold": "Wi-Fi hálózatra",
           "3_normal": ", használjátok a ",
           "4_bold": "Bluetooth szinkronizálást",
-          "5_normal": ", vagy használjatok ",
+          "5_normal": ", vagy ",
           "6_bold": "P2P meghívókat",
           "7_normal": ". Ha új embereket szeretnél találni az Interneten, keress meghívó kódokat ",
-          "8_bold": "pub kiszolgálókhoz",
+          "8_bold": "pub szerverekhez",
           "9_normal": " vagy ",
-          "10_bold": "szoba kiszolgálókhoz",
-          "11_normal": ", vagy hozz létre saját kiszolgálót!"
+          "10_bold": "szoba szerverekhez",
+          "11_normal": ", vagy hozz létre saját szervert!"
         }
       }
     },
     "moderation": {
-      "title": "Shared moderation",
+      "title": "Közös moderáció",
       "description": {
-        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "1_normal": "Mivel az eszközöd tárolja a közösségi hálót, így senki más nem tilthatja le vagy törölheti a fiókodat, te szabályozod a a felület tartalmát ",
+        "2_bold": "fiókok elrejtésével",
+        "3_normal": " amelyet nem kívánsz az készülékeden látni. Ezek után a barátaid is elrejthetik ugyanezeket a fiókokat. Így terjedhet a természetes moderáció!"
       }
     },
     "permanence": {
       "title": "Permanence",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
-        "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
+        "1_normal": "Miután a tartalmad szinkronizálásra kerül az ismerőseiddel, onnantól a saját eszközükön tárolják annak egy példányát. Mivel ezek után offline állapotba kerülhetnek, ",
+        "2_bold": "ezen tartalmakat nem lehet globálisan törölni minden eszközről!",
+        "3_normal": " Ezért döntöttünk úgy, hogy a tartalmakat állandóvá tesszük, így a közösségek is inkább odafigyelnek arra, miket tesznek közzé."
       }
     },
     "in_construction": {
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Beállítások",
         "accessibility_label": "Go To Settings"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Sorry",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Syncing",
-      "gigabytes": "Eddig {{gb}} GB szinkronizálva",
-      "megabytes": "Eddig {{mb}} MB szinkronizálva",
-      "kilobytes": "Eddig {{kb}} szinkronizálva",
-      "bytes": "Eddig {{b}} byte szinkronizálva"
     }
   },
   "message": {

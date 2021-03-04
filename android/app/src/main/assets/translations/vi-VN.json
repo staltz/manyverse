@@ -1,22 +1,22 @@
 {
   "call_to_action": {
     "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "add": "Thêm",
+    "done": "Xong",
+    "cancel": "Huỷ",
+    "continue": "Tiếp tục",
+    "delete": "Xoá",
+    "save": "Lưu",
+    "yes": "Có",
+    "no": "Không",
     "open_menu": {
       "accessibility_label": "Menu Button"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "Nút Quay lại"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Nút Đóng"
     },
     "close_dialog": {
       "accessibility_label": "Close Dialog Button"
@@ -26,78 +26,78 @@
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 năm trước",
+          "other": "{{count}} năm trước"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1 tháng trước",
+          "other": "{{count}} tháng trước"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "1 tuần trước",
+          "other": "{{count}} tuần trước"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 ngày trước",
+          "other": "{{count}} ngày trước"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 giờ trước",
+          "other": "{{count}} giờ trước"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "1 phút trước",
+          "other": "{{count}} phút trước"
         },
-        "now": "Just now"
+        "now": "Vừa xong"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "1 năm kể từ bây giờ",
+          "other": "{{count}} năm kể từ bây giờ"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1 tháng kể từ bây giờ",
+          "other": "{{count}} tháng kể từ bây giờ"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "1 tuần kể từ bây giờ",
+          "other": "{{count}} tuần kể từ bây giờ"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "1 ngày kể từ bây giờ",
+          "other": "{{count}} ngày kể từ bây giờ"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "1 giờ kể từ bây giờ",
+          "other": "{{count}} giờ kể từ bây giờ"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "1 phút kể từ bây giờ",
+          "other": "{{count}} phút kể từ bây giờ"
         },
         "now": "Very soon"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Tìm hiểu thêm",
     "overview": {
-      "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "title": "Chào mừng đến với Manyverse!",
+      "description": "Mạng xã hội có thể đơn giản, trung lập, không thương mại, và được xây dựng dựa trên sự tin tưởng giữa bạn bè. Đây là quan điểm của Manyverse, và chúng tôi mong bạn cũng có thể làm được điều đó. Điều này có thể thực hiện được là nhờ giao thức mới SSB."
     },
     "off_the_grid": {
       "title": "Off the grid",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse có thể sử dụng kết nối Internet, nhưng nó không phải ",
+        "2_bold": "trên",
+        "3_normal": "Manyverse có thể sử dụng kết nối Internet, nhưng nó không phải trên Internet. Mọi thứ xảy ra ngay trên thiết bị của bạn. Điều này nghĩa là bạn có thể sử dụng nó bình thường ngay cả khi ngoại tuyến!",
+        "4_bold": "Thông tin của bạn được lưu trữ trên máy bạn",
+        "5_normal": ", và bạn có thể đồng bộ hoá với bạn bè một khi bạn đã kết nối với họ."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Nhiều cách để kết nối",
       "description": {
         "ios": {
           "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Settings",
         "accessibility_label": "Go To Settings"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Sorry",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Syncing",
-      "gigabytes": "{{gb}} GB synced so far",
-      "megabytes": "{{mb}} MB synced so far",
-      "kilobytes": "{{kb}} KB synced so far",
-      "bytes": "{{b}} bytes synced so far"
     }
   },
   "message": {

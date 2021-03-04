@@ -102,7 +102,7 @@
         "ios": {
           "1_normal": "Per connectar amb les teves amistats i sincronitzar continguts pots: connectar-te al mateix ",
           "2_bold": "Wi-Fi",
-          "3_normal": " o intercanviar",
+          "3_normal": " o intercanviar ",
           "4_bold": "invitacions P2P",
           "5_normal": ". Per a trobar noves persones a Internet, busca codis d'invitació en ",
           "6_bold": "servidors públics",
@@ -561,6 +561,12 @@
       "settings": {
         "label": "Settings",
         "accessibility_label": "Go To Settings"
+      },
+      "preparing_database": {
+        "label": "Preparing database..."
+      },
+      "ready_estimate": {
+        "label": "Ready:"
       }
     }
   },
@@ -898,15 +904,6 @@
         "title": "Sorry",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
-    }
-  },
-  "notifications": {
-    "syncing": {
-      "title": "Syncing",
-      "gigabytes": "{{gb}} GB synced so far",
-      "megabytes": "{{mb}} MB synced so far",
-      "kilobytes": "{{kb}} KB synced so far",
-      "bytes": "{{b}} bytes synced so far"
     }
   },
   "message": {
