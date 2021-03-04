@@ -8,6 +8,7 @@ const exec = util.promisify(require('child_process').exec);
 
 const loading = ora('...').start();
 const verbose = !!process.argv.includes('--verbose');
+const rustEnabled = !process.argv.includes('--no-rust');
 const targetPlatform = process.argv.includes('--ios')
   ? 'ios'
   : process.argv.includes('--desktop')
@@ -34,7 +35,9 @@ async function runAndReport(label, task) {
       : duration < 60000
       ? (duration * 0.001).toFixed(1) + ' seconds'
       : ((duration * 0.001) / 60).toFixed(1) + ' minutes';
-  loading.succeed(`${label} (${durationLabel})`);
+  loading.succeed(
+    `${label}${duration >= 1000 ? ' (' + durationLabel + ')' : ''}`,
+  );
   if (verbose) {
     console.log(stdout);
   }
@@ -55,6 +58,25 @@ async function runAndReport(label, task) {
     );
   }
 
+  if (!rustEnabled) {
+    await runAndReport(
+      'Disable Rust dependencies entirely',
+      exec(`sed --in-place=.bu '/ssb-.*-neon/d' package.json`, {
+        cwd: './src/backend',
+      })
+        .then(() =>
+          exec(`sed --in-place=.bu '/ssb-.*-neon/d' noderify-mobile.sh`, {
+            cwd: './tools/backend',
+          }),
+        )
+        .then(() =>
+          exec(`sed --in-place=.bu '/ssb-.*-neon/d' noderify-desktop.sh`, {
+            cwd: './tools/backend',
+          }),
+        ),
+    );
+  }
+
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Install backend node modules',
@@ -72,34 +94,36 @@ async function runAndReport(label, task) {
     );
   }
 
-  if (targetPlatform === 'android') {
-    await runAndReport(
-      'Patch ssb-neon packages to configure linking with nodejs-mobile',
-      exec('./tools/backend/patch-android-ssb-neon-modules.sh'),
-    );
-  } else if (targetPlatform === 'ios') {
-    await runAndReport(
-      'Patch ssb-neon packages to add a postinstall script specific to iOS',
-      exec('./tools/backend/patch-ios-ssb-neon-modules.js'),
-    );
-  }
+  if (rustEnabled) {
+    if (targetPlatform === 'android') {
+      await runAndReport(
+        'Patch ssb-neon packages to configure linking with nodejs-mobile',
+        exec('./tools/backend/patch-android-ssb-neon-modules.sh'),
+      );
+    } else if (targetPlatform === 'ios') {
+      await runAndReport(
+        'Patch ssb-neon packages to add a postinstall script specific to iOS',
+        exec('./tools/backend/patch-ios-ssb-neon-modules.js'),
+      );
+    }
 
-  if (targetPlatform === 'desktop') {
-    await runAndReport(
-      'Update package-lock.json in ./src/backend',
-      exec(
-        'cp ./desktop/nodejs-project/package-lock.json ' +
-          './src/backend/package-lock.json',
-      ),
-    );
-  } else {
-    await runAndReport(
-      'Update package-lock.json in ./src/backend',
-      exec(
-        'cp ./nodejs-assets/nodejs-project/package-lock.json ' +
-          './src/backend/package-lock.json',
-      ),
-    );
+    if (targetPlatform === 'desktop') {
+      await runAndReport(
+        'Update package-lock.json in ./src/backend',
+        exec(
+          'cp ./desktop/nodejs-project/package-lock.json ' +
+            './src/backend/package-lock.json',
+        ),
+      );
+    } else {
+      await runAndReport(
+        'Update package-lock.json in ./src/backend',
+        exec(
+          'cp ./nodejs-assets/nodejs-project/package-lock.json ' +
+            './src/backend/package-lock.json',
+        ),
+      );
+    }
   }
 
   if (targetPlatform === 'android' || targetPlatform === 'ios') {
@@ -150,6 +174,25 @@ async function runAndReport(label, task) {
           'rm -rf ./nodejs-assets/nodejs-project/patches &&' +
           'rm ./nodejs-assets/nodejs-project/package-lock.json',
       ),
+    );
+  }
+
+  if (!rustEnabled) {
+    await runAndReport(
+      'Restore Rust dependencies after building without Rust',
+      exec(`mv package.json.bu package.json`, {
+        cwd: './src/backend',
+      })
+        .then(() =>
+          exec(`mv noderify-mobile.sh.bu noderify-mobile.sh`, {
+            cwd: './tools/backend',
+          }),
+        )
+        .then(() =>
+          exec(`mv noderify-desktop.sh.bu noderify-desktop.sh`, {
+            cwd: './tools/backend',
+          }),
+        ),
     );
   }
 })();
