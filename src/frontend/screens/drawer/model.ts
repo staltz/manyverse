@@ -16,6 +16,7 @@ export type State = {
   combinedProgress: number;
   checkpointCombinedProgress: number;
   checkpoint: number;
+  recentEstimates: Array<number>;
   estimateProgressDone: number;
   canPublishSSB: boolean;
   selfAvatarUrl?: string;
@@ -45,6 +46,7 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
             combinedProgress: 0,
             checkpointCombinedProgress: 0,
             checkpoint: Date.now(),
+            recentEstimates: [],
             estimateProgressDone: 0,
             canPublishSSB: true,
           };
@@ -73,6 +75,7 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
               indexingProgress: 0,
               combinedProgress: 0,
               checkpointCombinedProgress: 0,
+              recentEstimates: [],
               estimateProgressDone: 0,
               checkpoint: Date.now(),
               canPublishSSB: true,
@@ -91,6 +94,7 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
     const now = Date.now();
     if (state.combinedProgress <= 0 || state.combinedProgress >= 1) {
       state.estimateProgressDone = 0;
+      state.recentEstimates = [];
       state.checkpoint = now;
     } else if (state.checkpoint + CHECKPOINT_INTERVAL < now) {
       const rateOfProgress =
@@ -98,7 +102,12 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
         (now - state.checkpoint);
       const remaining = 1 - state.combinedProgress;
       if (state.combinedProgress > state.checkpointCombinedProgress) {
-        state.estimateProgressDone = remaining / rateOfProgress;
+        // Calculate a moving average of the last 6 estimates
+        state.recentEstimates.push(remaining / rateOfProgress);
+        if (state.recentEstimates.length > 3) state.recentEstimates.shift();
+        state.estimateProgressDone =
+          state.recentEstimates.reduce((acc, x) => acc + x, 0) /
+          state.recentEstimates.length;
       }
       state.checkpointCombinedProgress = state.combinedProgress;
       state.checkpoint = now;
