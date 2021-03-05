@@ -33,6 +33,9 @@ const config = makeConfig('ssb', {
   path: process.env.SSB_DIR,
   keys,
   db2: {
+    maxCpu: 91, // %
+    maxCpuMaxPause: 80, // ms
+    maxCpuWait: 80, // ms
     automigrate: true,
     dangerouslyKillFlumeWhenMigrated:
       process.env.MANYVERSE_PLATFORM === 'mobile',
