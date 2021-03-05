@@ -34,8 +34,8 @@ const config = makeConfig('ssb', {
   keys,
   db2: {
     maxCpu: 91, // %
-    maxCpuMaxPause: 80, // ms
     maxCpuWait: 80, // ms
+    maxCpuMaxPause: 120, // ms
     automigrate: true,
     dangerouslyKillFlumeWhenMigrated:
       process.env.MANYVERSE_PLATFORM === 'mobile',
