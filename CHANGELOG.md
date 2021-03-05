@@ -7,6 +7,13 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2103.5-beta
+
+* Bug fix: improve text contrast for code blocks ([see details](https://gitlab.com/staltz/manyverse/commit/33dc0e2c034aabbef0f124e041057c5afda90be4))
+* Bug fix: reset database migration to correct it ([see details](https://gitlab.com/staltz/manyverse/commit/0b952b909507a0ea59e56e487b90e94180344635))
+* Hack-fix race condition when publishing (#1256) ([see details](https://gitlab.com/staltz/manyverse/commit/9dfb2374a5a9c82054e388285b12ec417c73a7fd)), closes [#1256](https://gitlab.com/staltz/manyverse/issues/1256)
+* Replace the database, from ssb-db to ssb-db2 ([see details](https://gitlab.com/staltz/manyverse/commit/52c668e90588d4ab50a2e3da06cb41b7e1289e2e))
+
 ## 0.2101.5-beta
 
 * Bug fix: Compose preview should not reset post ([see details](https://gitlab.com/staltz/manyverse/commit/d00a86171110a072f6d88641b479124c113ac2ee))
