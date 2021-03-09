@@ -23,6 +23,7 @@
 - [Feature roadmap](https://gitlab.com/staltz/manyverse/wikis/roadmap)
 - [Financial plan](https://gitlab.com/staltz/manyverse/wikis/Financial-Plan)
 - [Contributor docs](./CONTRIBUTING.md)
+- [UX Research](https://gitlab.com/staltz/manyverse/wikis/UX-project:-%22Welcome-to-the-Manyverse%22)
 
 ### License
 
