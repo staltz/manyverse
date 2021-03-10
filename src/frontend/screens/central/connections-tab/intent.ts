@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,7 +14,7 @@ import {PermissionsAndroid} from 'react-native';
 import {NavSource} from 'cycle-native-navigation';
 import {StagedPeerKV, PeerKV} from '../../../ssb/types';
 import {t} from '../../../drivers/localization';
-const roomUtils = require('ssb-room/utils');
+const roomUtils = require('ssb-room-client/utils');
 import {State} from './model';
 import {MenuChoice} from './view/SlideInMenu';
 

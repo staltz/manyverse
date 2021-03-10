@@ -88,7 +88,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-lan'))
   .use(bluetoothTransport(keys, process.env.APP_DATA_DIR))
   .use(require('ssb-conn')) // needs: db, friends, lan, bluetooth
-  .use(require('ssb-room/tunnel/client')) // needs: conn
+  .use(require('ssb-room-client')) // needs: conn
   .use(require('ssb-dht-invite')) // needs: db, friends, conn
   .use(require('ssb-invite-client')) // needs: db, conn
   // Queries

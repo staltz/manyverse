@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,7 +13,7 @@ import {KeyboardSource} from 'cycle-native-keyboard';
 import {NavSource} from 'cycle-native-navigation';
 import {State} from './model';
 import {LifecycleEvent} from '../../drivers/lifecycle';
-const roomUtils = require('ssb-room/utils');
+const roomUtils = require('ssb-room-client/utils');
 
 export default function intent(
   reactSource: ReactSource,

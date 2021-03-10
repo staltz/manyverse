@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,7 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import {Req} from '../../drivers/ssb';
-const roomUtils = require('ssb-room/utils');
+const roomUtils = require('ssb-room-client/utils');
 
 export type Actions = {
   dhtDone$: Stream<string>;
