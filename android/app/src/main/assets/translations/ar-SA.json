@@ -406,11 +406,11 @@
         "accessibility_label": "زر إغلاق"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "زر تسجيل الصوت",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
-          "neutral": "Ask me later",
+          "title": "هل تسمح لمنيفيرس بتسحيل الصوت؟",
+          "message": "يحتاج منيفيرس الى الوصول للميكروفون لتسجيل الرسائل الصوتية",
+          "neutral": "اسألني لاحقاً",
           "positive": "موافق",
           "negative": "ألغ"
         }
@@ -448,17 +448,17 @@
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "رسالة صوتية",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "ابدأ التسجيل"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "أوقف التسجيل"
       },
       "discard_recording": {
         "label": "ألغِ",
-        "accessibility_label": "Discard Recording Button"
+        "accessibility_label": "تجاهل زر التسجيل"
       },
       "submit_recording": {
         "label": "تم",
@@ -467,8 +467,8 @@
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
-        "question": "Discard draft?"
+        "title": "رسالة صوتية",
+        "question": "أتريد تجاهل المسودة؟"
       }
     }
   },
@@ -563,10 +563,10 @@
         "accessibility_label": "انتقل إلى الإعدادات"
       },
       "preparing_database": {
-        "label": "Preparing database..."
+        "label": "يعِد قاعدة البيانات..."
       },
       "ready_estimate": {
-        "label": "Ready:"
+        "label": "جاهز:"
       }
     }
   },
