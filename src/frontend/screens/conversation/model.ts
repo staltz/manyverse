@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -84,21 +84,17 @@ export default function model(
   const rootMsgId$ = xs
     .merge(
       // Load an existing private thread
-      props$
-        .take(1)
-        .map((props) => props.rootMsgId)
-        .filter((rootMsgId) => !!rootMsgId),
+      props$.map((props) => props.rootMsgId).filter((rootMsgId) => !!rootMsgId),
 
       // Wait for self to publish a new private thread root
       props$
-        .map((props) => props.recps)
-        .filter((recps) => !!recps)
+        .map((props) => props.rootMsgId)
+        .filter((rootMsgId) => !rootMsgId)
         .take(1)
-        .map(() => ssbSource.selfPrivateRoots$)
-        .flatten()
-        .map((msg) => msg.key)
-        .take(1),
+        .map(() => ssbSource.selfPrivateRootIdsLive$)
+        .flatten(),
     )
+    .take(1)
     .compose(dropCompletion)
     .remember() as Stream<MsgId>;
 

@@ -67,8 +67,8 @@ export default function model(ssbSource: SSBSource, navSource: NavSource) {
       const conversationDisappears$ = navSource
         .globalDidDisappear(Screens.Conversation)
         .filter((disappear) => disappear.componentId === appear.componentId);
-      return ssbSource.selfPrivateRoots$
-        .map((msg) => [msg.key, appear.componentId])
+      return ssbSource.selfPrivateRootIdsLive$
+        .map((msgKey) => [msgKey, appear.componentId])
         .endWhen(conversationDisappears$)
         .take(1);
     })

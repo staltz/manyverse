@@ -163,6 +163,7 @@ export default {
     rawLogReversed: 'source',
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
+    selfPrivateRootIdsLive: 'source',
   },
   publishUtilsBack: {
     publish: 'async',

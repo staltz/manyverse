@@ -226,19 +226,6 @@ const threadsUtils = {
         );
       },
 
-      selfPrivateRoots() {
-        return pull(
-          ssb.threads.private({
-            threadMaxSize: 1,
-            allowlist: privateAllowlist,
-            old: false,
-            live: true,
-          }),
-          pull.map((thread: ThreadData) => thread?.messages?.[0]),
-          pull.filter((msg: Msg) => msg?.value?.author === ssb.id),
-        );
-      },
-
       selfReplies(opts: any) {
         return pull(
           ssb.dbUtils.selfPublicReplies(opts),

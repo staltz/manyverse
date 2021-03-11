@@ -4,6 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import {Msg} from 'ssb-typescript';
 const pull = require('pull-stream');
 
 export = {
@@ -13,10 +14,16 @@ export = {
     rawLogReversed: 'source',
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
+    selfPrivateRootIdsLive: 'source',
   },
   permissions: {
     master: {
-      allow: ['rawLogReversed', 'selfPublicRoots', 'selfPublicReplies'],
+      allow: [
+        'rawLogReversed',
+        'selfPublicRoots',
+        'selfPublicReplies',
+        'selfPrivateRootIdsLive',
+      ],
     },
   },
   init: function init(ssb: any) {
@@ -28,6 +35,7 @@ export = {
       author,
       isRoot,
       isPublic,
+      isPrivate,
       descending,
       votesFor,
       toPullStream,
@@ -83,6 +91,22 @@ export = {
           ),
           opts.live ? liveOperator({old: opts.old}) : null,
           toPullStream(),
+        );
+      },
+
+      selfPrivateRootIdsLive() {
+        return pull(
+          ssb.db.query(
+            and(
+              author(ssb.id, {dedicated: true}),
+              type('post'),
+              isPrivate(),
+              isRoot(),
+            ),
+            liveOperator({old: false}),
+            toPullStream(),
+          ),
+          pull.map((msg: Msg) => msg.key),
         );
       },
     };
