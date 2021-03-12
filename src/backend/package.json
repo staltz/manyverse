@@ -35,7 +35,7 @@
     "ssb-bluetooth": "1.1.14",
     "ssb-caps": "1.1.0",
     "ssb-config": "3.4.5",
-    "ssb-conn": "2.0.0",
+    "ssb-conn": "2.0.2",
     "ssb-db2": "1.18.2",
     "ssb-deweird": "1.0.0",
     "ssb-dht-invite": "1.12.0",
