@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -86,16 +86,14 @@ export default function navigation(
     .map((state) => {
       const messages = state.thread.messages;
       const lastMsgInThread = messages[messages.length - 1];
-      const authors = (() => {
-        const set = new Set<FeedId>();
-        for (const msg of state.thread.messages) {
-          const author = msg.value.author;
-          if (author !== state.selfFeedId && !set.has(author)) {
-            set.add(author);
-          }
+      const set = new Set<FeedId>();
+      for (const msg of state.thread.messages) {
+        const author = msg.value.author;
+        if (author !== state.selfFeedId && !set.has(author)) {
+          set.add(author);
         }
-        return [...set.values()];
-      })();
+      }
+      const authors = [...set.values()];
 
       return {
         type: 'push',

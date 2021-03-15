@@ -165,15 +165,18 @@ type State = {
 };
 
 export default class Feed extends PureComponent<Props, State> {
-  private addedThreadsStream: any | null;
   private yOffset: number;
+  private addedThreadsStream?: {push: (x: any) => {}; end: () => {}};
   private subscription?: Subscription;
+  private drainSink?: {abort: () => {}};
+  private latestPublicationTimestamp: number;
 
   constructor(props: Props) {
     super(props);
-    this.state = {showPlaceholder: false, initialLoading: true};
-    this.addedThreadsStream = Pushable();
     this.yOffset = 0;
+    this.latestPublicationTimestamp = 0;
+    this.addedThreadsStream = Pushable();
+    this.state = {showPlaceholder: false, initialLoading: true};
   }
 
   private _onScroll = (ev: {nativeEvent: NativeScrollEvent}) => {
@@ -189,10 +192,20 @@ export default class Feed extends PureComponent<Props, State> {
 
   public componentDidMount() {
     this.addedThreadsStream ??= Pushable();
-    const {publication$} = this.props;
+    const {publication$, getPublicationsReadable} = this.props;
     if (publication$) {
       const listener = {next: this.onPublication.bind(this)};
       this.subscription = publication$.subscribe(listener as Listener<any>);
+    }
+    if (getPublicationsReadable) {
+      pull(
+        getPublicationsReadable({live: true, old: false}),
+        (this.drainSink = pull.drain((thread: ThreadSummaryWithExtras) => {
+          this.setState({showPlaceholder: false});
+          this.addedThreadsStream?.push(thread);
+          this.latestPublicationTimestamp = Date.now();
+        })),
+      );
     }
   }
 
@@ -203,27 +216,19 @@ export default class Feed extends PureComponent<Props, State> {
     }
     if (this.addedThreadsStream) {
       this.addedThreadsStream.end();
-      this.addedThreadsStream = null;
+      this.addedThreadsStream = void 0;
+    }
+    if (this.drainSink) {
+      this.drainSink.abort();
+      this.drainSink = void 0;
     }
   }
 
   private onPublication() {
-    const {getPublicationsReadable} = this.props;
-    if (!getPublicationsReadable) return;
-    const readable = getPublicationsReadable({live: true, old: false});
-    if (!readable) return;
-    const addedThreadsStream = this.addedThreadsStream;
-    const that = this;
-
-    that.setState({showPlaceholder: true});
-    pull(
-      readable,
-      pull.take(1),
-      pull.drain((thread: ThreadSummaryWithExtras) => {
-        that.setState({showPlaceholder: false});
-        addedThreadsStream.push(thread);
-      }),
-    );
+    // Prevent possible race condition in case ssb-db2 publication is very fast
+    if (Date.now() > this.latestPublicationTimestamp + 200) {
+      this.setState({showPlaceholder: true});
+    }
   }
 
   public renderHeader() {

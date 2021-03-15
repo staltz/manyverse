@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -77,6 +77,7 @@ export default class FullThread extends Component<Props, State> {
 
   private subscription?: Subscription;
   private repliesSeen: Set<MsgId> = new Set();
+  private latestPublicationTimestamp: number = 0;
 
   public componentDidMount() {
     const {publication$} = this.props;
@@ -112,6 +113,7 @@ export default class FullThread extends Component<Props, State> {
     const nextMessages = this.props.thread.messages;
     if (nextMessages.length > prevMessages.length) {
       this.setState({showPlaceholder: false});
+      this.latestPublicationTimestamp = Date.now();
     }
   }
 
@@ -123,7 +125,10 @@ export default class FullThread extends Component<Props, State> {
   }
 
   private onPublication() {
-    this.setState({showPlaceholder: true});
+    // Prevent possible race condition in case ssb-db2 publication is very fast
+    if (Date.now() > this.latestPublicationTimestamp + 200) {
+      this.setState({showPlaceholder: true});
+    }
   }
 
   private renderMessage = ({item, index}: any) => {
