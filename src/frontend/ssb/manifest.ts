@@ -97,6 +97,7 @@ export default {
     stream: 'source',
   },
   suggest: {
+    start: 'sync',
     profile: 'async',
   },
   query: {

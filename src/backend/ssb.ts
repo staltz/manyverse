@@ -52,6 +52,9 @@ const config = makeConfig('ssb', {
   friends: {
     hops: settingsUtils.readSync().hops ?? 2,
   },
+  suggest: {
+    autostart: false,
+  },
   connections: {
     incoming: {
       net: [{scope: 'private', transform: 'shs', port: 26831}],
@@ -94,7 +97,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   // Queries
   .use(require('ssb-about')) // needs: db, db2
   .use(require('ssb-db2/about-self')) // needs: db2
-  .use(require('ssb-suggest')) // needs: db2, about, friends
+  .use(require('ssb-suggest-lite')) // needs: db2, about, friends
   .use(require('ssb-threads')) // needs: db, db2, friends
   .use(require('ssb-db2/full-mentions')) // needs: db2
   // Blobs
