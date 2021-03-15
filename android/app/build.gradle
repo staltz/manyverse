@@ -81,8 +81,8 @@ project.ext.vectoricons = [
     iconFontNames: [ 'MaterialIcons.ttf', 'MaterialCommunityIcons.ttf' ]
 ]
 project.ext.react = [
-    enableHermes: false,  // clean and rebuild if changing
-    hermesCommand: "../../node_modules/hermes-engine/%OS-BIN%/hermes",
+    enableHermes: true,  // clean and rebuild if changing
+    hermesCommand: "../../node_modules/hermes-engine/%OS-BIN%/hermesc",
     inputExcludes: [
         "android/**",
         "benchmark/**",
