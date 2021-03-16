@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -74,11 +74,19 @@ export default function view(state$: Stream<State>) {
             }),
             state.mentionSuggestions.length
               ? null
-              : h(EmptySection, {
+              : state.mentionQuery.length
+              ? h(EmptySection, {
                   style: styles.empty,
                   title: t('recipients_input.empty.none_to_choose.title'),
                   description: t(
                     'recipients_input.empty.none_to_choose.description',
+                  ),
+                })
+              : h(EmptySection, {
+                  style: styles.empty,
+                  title: t('recipients_input.empty.instructions.title'),
+                  description: t(
+                    'recipients_input.empty.instructions.description',
                   ),
                 }),
           ],

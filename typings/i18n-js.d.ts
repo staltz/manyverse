@@ -319,6 +319,8 @@ declare module 'i18n-js' {
     | 'recipients_input.call_to_action.proceed.accessibility_label'
     | 'recipients_input.fields.mention_input.placeholder'
     | 'recipients_input.fields.mention_input.accessibility_label'
+    | 'recipients_input.empty.instructions.title'
+    | 'recipients_input.empty.instructions.description'
     | 'recipients_input.empty.none_to_choose.title'
     | 'recipients_input.empty.none_to_choose.description'
     | 'recipients_input.toasts.limit_reached'
