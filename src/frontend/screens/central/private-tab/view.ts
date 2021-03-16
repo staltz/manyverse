@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 import {propifyMethods} from 'react-propify-methods';
 import PullFlatList from 'pull-flat-list';
-import {MsgId} from 'ssb-typescript';
+import {FeedId, MsgId} from 'ssb-typescript';
 import {PrivateThreadAndExtras} from '../../../ssb/types';
 import {GetReadable} from '../../../drivers/ssb';
 import {t} from '../../../drivers/localization';
@@ -129,6 +129,7 @@ class ConversationItem extends PureComponent<CIProps> {
 }
 
 type CLProps = {
+  selfFeedId: FeedId;
   getScrollStream: GetReadable<PrivateThreadAndExtras> | null;
   unreadSet: Set<MsgId>;
   forceRefresh$: Stream<boolean>;
@@ -139,6 +140,8 @@ type CLState = {
   initialLoading: boolean;
 };
 
+type Unarray<T> = T extends Array<infer U> ? U : T;
+
 class ConversationsList extends PureComponent<CLProps, CLState> {
   constructor(props: CLProps) {
     super(props);
@@ -147,6 +150,10 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
 
   private _onFeedInitialPullDone = () => {
     this.setState({initialLoading: false});
+  };
+
+  private isNotMe = (recp: Unarray<PrivateThreadAndExtras['recps']>) => {
+    return recp.id !== this.props.selfFeedId;
   };
 
   public render() {
@@ -184,7 +191,7 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
         const thread = item as PrivateThreadAndExtras;
         const rootId = thread.messages[0].key;
         return h(ConversationItem, {
-          recps: thread.recps,
+          recps: thread.recps.filter(this.isNotMe),
           isUnread: unreadSet.has(rootId),
           onPress: () => onPressConversation?.(rootId),
         });
@@ -211,6 +218,7 @@ export default function view(
   const vdom$ = viewState$.map((state) => {
     return h(ConversationsList, {
       sel: 'conversationList',
+      selfFeedId: state.selfFeedId,
       unreadSet: state.updates,
       forceRefresh$,
       scrollToTop$,
