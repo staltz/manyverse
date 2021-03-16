@@ -51,6 +51,13 @@ function main(sources: any) {
     );
 
     pull(
+      ssb.threadsUtils.selfPublicRoots({live: true, old: false}),
+      pull.drain((thread: any) => {
+        console.log(thread);
+      }),
+    );
+
+    pull(
       ssb.threadsUtils.privateFeed({}),
       pull.take(3),
       pull.drain((thread: any) => {
