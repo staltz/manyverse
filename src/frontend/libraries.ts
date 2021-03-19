@@ -273,7 +273,7 @@ export default [
   {
     name: 'electron',
     type: 'library',
-    version: '10.1.3',
+    version: '10.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/electron/electron#readme',
   },

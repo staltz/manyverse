@@ -7,6 +7,17 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2103.19-beta
+
+* (Android) Improve app startup time by 1 second ([see details](https://gitlab.com/staltz/manyverse/commit/dd91ccc3ae3b96429d85421a6fce4d2b93b79b81))
+* Bug fix: newly published message should show immediately ([see details](https://gitlab.com/staltz/manyverse/commit/77ee59359c16729d71ef9d6eaeb5bb3413716d52))
+* Bug fix: newly published thread should show immediately ([see details](https://gitlab.com/staltz/manyverse/commit/1363b6f8e4eea19ce6222a0958082c3f2c97acd4))
+* Bug fix: pub options should show on the Connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/789c9175de70dfe02833475236a83f71f312b907))
+* Bug fix: starting new private chats should be possible ([see details](https://gitlab.com/staltz/manyverse/commit/97951878d478a0e19b1b04d049d2bd62e8b577e4))
+* Improve instructions when starting a private chat ([see details](https://gitlab.com/staltz/manyverse/commit/5d7570f4b3e591ab293d16c8333d7f4419e0b6b7))
+* Improve performance of mentioning other accounts ([see details](https://gitlab.com/staltz/manyverse/commit/578438394f7c070815489e72c90db4d1684a2f5a))
+* Improve private chat list with less visual clutter ([see details](https://gitlab.com/staltz/manyverse/commit/c4f26fcf74361fb7dd401c1a62e8252727f0ccb7))
+
 ## 0.2103.5-beta
 
 * Bug fix: improve text contrast for code blocks ([see details](https://gitlab.com/staltz/manyverse/commit/33dc0e2c034aabbef0f124e041057c5afda90be4))
