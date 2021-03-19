@@ -61,7 +61,7 @@ export class SSBSource {
   public publicLiveUpdates$: Stream<null>;
   public privateFeed$: Stream<GetReadable<PrivateThreadAndExtras>>;
   public privateLiveUpdates$: Stream<MsgId>;
-  public selfPublicRoots$: Stream<GetReadable<ThreadSummaryWithExtras>>;
+  public selfPublicRoots$: Stream<ThreadSummaryWithExtras>;
   public selfPrivateRootIdsLive$: Stream<MsgId>;
   public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
   public publishHook$: Stream<Msg>;
@@ -98,8 +98,8 @@ export class SSBSource {
       ssb.threadsUtils.privateUpdates(),
     );
 
-    this.selfPublicRoots$ = this.ssb$.map((ssb) => (opts?: any) =>
-      ssb.threadsUtils.selfPublicRoots(opts),
+    this.selfPublicRoots$ = this.fromPullStream<ThreadSummaryWithExtras>(
+      (ssb) => ssb.threadsUtils.selfPublicRoots({live: true, old: false}),
     );
 
     this.selfPrivateRootIdsLive$ = this.fromPullStream<MsgId>((ssb) =>

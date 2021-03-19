@@ -63,7 +63,6 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         lastSessionTimestamp: parent.lastSessionTimestamp,
         selfAvatarUrl,
         getPublicFeedReadable: null,
-        getSelfRootsReadable: null,
         numOfUpdates: parent.numOfPublicUpdates,
         hasComposeDraft: false,
         canPublishSSB,

@@ -17,7 +17,6 @@ export type State = {
   lastSessionTimestamp: number;
   selfAvatarUrl?: string;
   getPublicFeedReadable: GetReadable<ThreadSummaryWithExtras> | null;
-  getSelfRootsReadable: GetReadable<ThreadSummaryWithExtras> | null;
   numOfUpdates: number;
   hasComposeDraft: boolean;
   isVisible: boolean;
@@ -81,16 +80,8 @@ export default function model(
         },
     );
 
-  const setSelfRootsReducer$ = ssbSource.selfPublicRoots$.map(
-    (getReadable) =>
-      function setSelfRootsReducer(prev: State): State {
-        return {...prev, getSelfRootsReadable: getReadable};
-      },
-  );
-
   return xs.merge(
     setPublicFeedReducer$,
-    setSelfRootsReducer$,
     incUpdatesReducer$,
     loadLastSessionTimestampReducer$,
     getComposeDraftReducer$,

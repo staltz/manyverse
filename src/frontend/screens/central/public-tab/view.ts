@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -27,7 +27,6 @@ export default function view(
       dropRepeatsByKeys([
         'selfFeedId',
         'lastSessionTimestamp',
-        'getSelfRootsReadable',
         'getPublicFeedReadable',
         'scrollHeaderBy',
       ]),
@@ -40,10 +39,10 @@ export default function view(
         progressViewOffset: Dimensions.toolbarHeight,
         yOffsetAnimVal: state.scrollHeaderBy,
         getReadable: state.getPublicFeedReadable,
-        getPublicationsReadable: state.getSelfRootsReadable,
-        publication$: ssbSource.publishHook$
+        prePublication$: ssbSource.publishHook$
           .filter(isPublic)
           .filter(isRootPostMsg),
+        postPublication$: ssbSource.selfPublicRoots$,
         scrollToTop$,
         selfFeedId: state.selfFeedId,
         lastSessionTimestamp: state.lastSessionTimestamp,

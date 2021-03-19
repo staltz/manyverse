@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
-import {Stream, Subscription, Listener} from 'xstream';
+import {Stream, Subscription} from 'xstream';
 import {propifyMethods} from 'react-propify-methods';
 import PullFlatList from 'pull-flat-list';
 import {t} from '../drivers/localization';
@@ -35,7 +35,6 @@ import ThreadCard from './ThreadCard';
 import PlaceholderThreadCard from './PlaceholderThreadCard';
 import FollowCard from './FollowCard';
 
-const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 const PullFlatList2 = propifyMethods(
   PullFlatList,
@@ -138,8 +137,8 @@ class InitialLoading extends PureComponent<any> {
 
 type Props = {
   getReadable: GetReadable<ThreadSummaryWithExtras> | null;
-  getPublicationsReadable?: GetReadable<ThreadSummaryWithExtras> | null;
-  publication$?: Stream<any> | null;
+  prePublication$: Stream<any> | null;
+  postPublication$: Stream<ThreadSummaryWithExtras> | null;
   scrollToTop$?: Stream<any> | null;
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
@@ -167,8 +166,8 @@ type State = {
 export default class Feed extends PureComponent<Props, State> {
   private yOffset: number;
   private addedThreadsStream?: {push: (x: any) => {}; end: () => {}};
-  private subscription?: Subscription;
-  private drainSink?: {abort: () => {}};
+  private preSubscription?: Subscription;
+  private postSubscription?: Subscription;
   private latestPublicationTimestamp: number;
 
   constructor(props: Props) {
@@ -192,43 +191,37 @@ export default class Feed extends PureComponent<Props, State> {
 
   public componentDidMount() {
     this.addedThreadsStream ??= Pushable();
-    const {publication$, getPublicationsReadable} = this.props;
-    if (publication$) {
-      const listener = {next: this.onPublication.bind(this)};
-      this.subscription = publication$.subscribe(listener as Listener<any>);
-    }
-    if (getPublicationsReadable) {
-      pull(
-        getPublicationsReadable({live: true, old: false}),
-        (this.drainSink = pull.drain((thread: ThreadSummaryWithExtras) => {
+
+    const {prePublication$, postPublication$} = this.props;
+    if (prePublication$ && postPublication$) {
+      this.preSubscription = prePublication$.subscribe({
+        next: () => {
+          // Prevent possible race condition in case ssb-db2 publish is fast
+          if (Date.now() > this.latestPublicationTimestamp + 200) {
+            this.setState({showPlaceholder: true});
+          }
+        },
+      });
+
+      this.postSubscription = postPublication$.subscribe({
+        next: (thread) => {
           this.setState({showPlaceholder: false});
           this.addedThreadsStream?.push(thread);
           this.latestPublicationTimestamp = Date.now();
-        })),
-      );
+        },
+      });
     }
   }
 
   public componentWillUnmount() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = void 0;
-    }
-    if (this.addedThreadsStream) {
-      this.addedThreadsStream.end();
-      this.addedThreadsStream = void 0;
-    }
-    if (this.drainSink) {
-      this.drainSink.abort();
-      this.drainSink = void 0;
-    }
-  }
+    this.preSubscription?.unsubscribe();
+    this.preSubscription = void 0;
 
-  private onPublication() {
-    // Prevent possible race condition in case ssb-db2 publication is very fast
-    if (Date.now() > this.latestPublicationTimestamp + 200) {
-      this.setState({showPlaceholder: true});
-    }
+    this.postSubscription?.unsubscribe();
+    this.postSubscription = void 0;
+
+    this.addedThreadsStream?.end();
+    this.addedThreadsStream = void 0;
   }
 
   public renderHeader() {

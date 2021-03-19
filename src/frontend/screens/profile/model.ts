@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -21,7 +21,6 @@ export type State = {
   about: AboutAndExtras;
   // FIXME: use `ThreadSummaryWithExtras` but somehow support reply summaries
   getFeedReadable: GetReadable<any> | null;
-  getSelfRootsReadable: GetReadable<any> | null;
   blockingSecretly: boolean;
 };
 
@@ -44,7 +43,6 @@ export default function model(
           displayFeedId: props.feedId,
           lastSessionTimestamp: Infinity,
           getFeedReadable: null,
-          getSelfRootsReadable: null,
           about: {
             name: props.feedId,
             description: '',
@@ -106,20 +104,12 @@ export default function model(
       },
   );
 
-  const updateSelfRootsReducer$ = ssbSource.selfPublicRoots$.map(
-    (getReadable) =>
-      function updateSelfRootsReducer(prev: State): State {
-        return {...prev, getSelfRootsReadable: getReadable};
-      },
-  );
-
   return concat(
     propsReducer$,
     xs.merge(
       loadLastSessionTimestampReducer$,
       updateAboutReducer$,
       updateFeedStreamReducer$,
-      updateSelfRootsReducer$,
       updateBlockingSecretlyReducer$,
     ),
   );
