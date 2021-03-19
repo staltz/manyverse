@@ -722,6 +722,10 @@
       }
     },
     "empty": {
+      "instructions": {
+        "title": "Choose members",
+        "description": "Type in the names\nof people to join the new chat"
+      },
       "none_to_choose": {
         "title": "Nadie",
         "description": "No hay nadie en tu comunidad con ese nombre"
