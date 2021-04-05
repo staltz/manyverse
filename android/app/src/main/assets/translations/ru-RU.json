@@ -169,11 +169,13 @@
     "tab_headers": {
       "public": "Публичная доска",
       "private": "Личные сообщения",
+      "activity": "Activity",
       "connections": "Соединения"
     },
     "tab_footers": {
       "public": "Публичный",
       "private": "Частный",
+      "activity": "Activity",
       "connections": "Соединения"
     },
     "loading": "Загрузка...",
@@ -184,6 +186,9 @@
       },
       "private": {
         "accessibility_label": "Кнопка \"Частная вкладка\""
+      },
+      "activity": {
+        "accessibility_label": "Activity Tab Button"
       },
       "connections": {
         "accessibility_label": "Кнопка \"Вкладка подключений\""
@@ -222,6 +227,26 @@
       "open_account": {
         "accessibility_label": "Открыть учетную запись"
       }
+    }
+  },
+  "activity": {
+    "mention": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " mentioned you"
+      }
+    },
+    "follow": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " followed you"
+      }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {

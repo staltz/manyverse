@@ -169,11 +169,13 @@
     "tab_headers": {
       "public": "Genel pano",
       "private": "Özel mesajlar",
+      "activity": "Activity",
       "connections": "Bağlantılar"
     },
     "tab_footers": {
       "public": "Genel",
       "private": "Özel",
+      "activity": "Activity",
       "connections": "Bağlantılar"
     },
     "loading": "Yükleniyor...",
@@ -184,6 +186,9 @@
       },
       "private": {
         "accessibility_label": "Özel sekme butonu"
+      },
+      "activity": {
+        "accessibility_label": "Activity Tab Button"
       },
       "connections": {
         "accessibility_label": "Bağlantılar sekmesi butonu"
@@ -222,6 +227,26 @@
       "open_account": {
         "accessibility_label": "Hesaba git"
       }
+    }
+  },
+  "activity": {
+    "mention": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " mentioned you"
+      }
+    },
+    "follow": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " followed you"
+      }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {

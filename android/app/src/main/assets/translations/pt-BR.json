@@ -168,12 +168,14 @@
     "app_name": "Manyverse",
     "tab_headers": {
       "public": "Fórum público",
-      "private": "Mensagens privadas",
+      "private": "Chats privados",
+      "activity": "Atividade",
       "connections": "Conexões"
     },
     "tab_footers": {
       "public": "Público",
       "private": "Privado",
+      "activity": "Atividade",
       "connections": "Conexões"
     },
     "loading": "Carregando...",
@@ -184,6 +186,9 @@
       },
       "private": {
         "accessibility_label": "Botão da Aba Privada"
+      },
+      "activity": {
+        "accessibility_label": "Botão da Aba de Atividade"
       },
       "connections": {
         "accessibility_label": "Botão da Aba de Conexões"
@@ -222,6 +227,26 @@
       "open_account": {
         "accessibility_label": "Ir para a conta"
       }
+    }
+  },
+  "activity": {
+    "mention": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " mencionou você"
+      }
+    },
+    "follow": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " seguiu você"
+      }
+    },
+    "empty": {
+      "title": "Nenhuma atividade",
+      "description": "Quando as pessoas mencionam\nou seguem você, elas aparecem aqui"
     }
   },
   "connections": {
@@ -723,8 +748,8 @@
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "Escolha os membros",
+        "description": "Digite os nomes\ndas pessoas para o novo chat"
       },
       "none_to_choose": {
         "title": "Ninguém",

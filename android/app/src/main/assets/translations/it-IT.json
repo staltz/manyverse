@@ -169,11 +169,13 @@
     "tab_headers": {
       "public": "Board pubblica",
       "private": "Messaggi privati",
+      "activity": "Activity",
       "connections": "Connessioni"
     },
     "tab_footers": {
       "public": "Pubblico",
       "private": "Privato",
+      "activity": "Activity",
       "connections": "Connessioni"
     },
     "loading": "Caricamento...",
@@ -184,6 +186,9 @@
       },
       "private": {
         "accessibility_label": "Tasto Tab Privato"
+      },
+      "activity": {
+        "accessibility_label": "Activity Tab Button"
       },
       "connections": {
         "accessibility_label": "Tasto Tab Connessioni"
@@ -222,6 +227,26 @@
       "open_account": {
         "accessibility_label": "Vai All'Account"
       }
+    }
+  },
+  "activity": {
+    "mention": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " mentioned you"
+      }
+    },
+    "follow": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " followed you"
+      }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {

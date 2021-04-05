@@ -169,11 +169,13 @@
     "tab_headers": {
       "public": "Publiek bord",
       "private": "Privé berichten",
+      "activity": "Activity",
       "connections": "Verbindingen"
     },
     "tab_footers": {
       "public": "Publiek",
       "private": "Privé",
+      "activity": "Activity",
       "connections": "Verbindingen"
     },
     "loading": "Laden...",
@@ -184,6 +186,9 @@
       },
       "private": {
         "accessibility_label": "Privé tabknop"
+      },
+      "activity": {
+        "accessibility_label": "Activity Tab Button"
       },
       "connections": {
         "accessibility_label": "Verbindingen Tabknop"
@@ -222,6 +227,26 @@
       "open_account": {
         "accessibility_label": "Ga naar Account"
       }
+    }
+  },
+  "activity": {
+    "mention": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " mentioned you"
+      }
+    },
+    "follow": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " followed you"
+      }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {

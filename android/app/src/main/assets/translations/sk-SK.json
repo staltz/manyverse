@@ -167,13 +167,15 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public board",
+      "public": "Public posts",
       "private": "Súkromné správy",
+      "activity": "Activity",
       "connections": "Spojenia"
     },
     "tab_footers": {
       "public": "Verejné",
       "private": "Súkromné",
+      "activity": "Activity",
       "connections": "Spojenia"
     },
     "loading": "Načítanie...",
@@ -184,6 +186,9 @@
       },
       "private": {
         "accessibility_label": "Tlačidlo Sekcie Súkromné"
+      },
+      "activity": {
+        "accessibility_label": "Activity Tab Button"
       },
       "connections": {
         "accessibility_label": "Tlačidlo Sekcie Spojenia"
@@ -222,6 +227,26 @@
       "open_account": {
         "accessibility_label": "Prejsť do Účtu"
       }
+    }
+  },
+  "activity": {
+    "mention": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " mentioned you"
+      }
+    },
+    "follow": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " followed you"
+      }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {

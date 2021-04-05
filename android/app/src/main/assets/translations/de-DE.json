@@ -169,11 +169,13 @@
     "tab_headers": {
       "public": "Öffentlicher Bereich",
       "private": "Private Nachrichten",
+      "activity": "Activity",
       "connections": "Verbindungen"
     },
     "tab_footers": {
       "public": "Öffentlich",
       "private": "Privat",
+      "activity": "Activity",
       "connections": "Verbindungen"
     },
     "loading": "Lädt...",
@@ -184,6 +186,9 @@
       },
       "private": {
         "accessibility_label": "Private Timeline Taste"
+      },
+      "activity": {
+        "accessibility_label": "Activity Tab Button"
       },
       "connections": {
         "accessibility_label": "Verbindungen Tab Schaltfläche"
@@ -222,6 +227,26 @@
       "open_account": {
         "accessibility_label": "Gehe zum Konto"
       }
+    }
+  },
+  "activity": {
+    "mention": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " mentioned you"
+      }
+    },
+    "follow": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " followed you"
+      }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {

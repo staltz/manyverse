@@ -169,11 +169,13 @@
     "tab_headers": {
       "public": "Affichage public",
       "private": "Messages privés",
+      "activity": "Activity",
       "connections": "Connexions"
     },
     "tab_footers": {
       "public": "Public",
       "private": "Privé",
+      "activity": "Activity",
       "connections": "Connexions"
     },
     "loading": "Chargement en cours...",
@@ -184,6 +186,9 @@
       },
       "private": {
         "accessibility_label": "Bouton Onglet Privé"
+      },
+      "activity": {
+        "accessibility_label": "Activity Tab Button"
       },
       "connections": {
         "accessibility_label": "Bouton Onglet Connexions"
@@ -222,6 +227,26 @@
       "open_account": {
         "accessibility_label": "Aller au Compte"
       }
+    }
+  },
+  "activity": {
+    "mention": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " mentioned you"
+      }
+    },
+    "follow": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " followed you"
+      }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {

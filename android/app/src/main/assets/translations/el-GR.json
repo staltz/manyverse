@@ -169,11 +169,13 @@
     "tab_headers": {
       "public": "Δημόσιος πίνακας",
       "private": "Προσωπικά Μηνύματα",
+      "activity": "Activity",
       "connections": "Συνδέσεις"
     },
     "tab_footers": {
       "public": "Δημόσιες",
       "private": "Ιδιωτικές",
+      "activity": "Activity",
       "connections": "Connections"
     },
     "loading": "Φόρτωση...",
@@ -184,6 +186,9 @@
       },
       "private": {
         "accessibility_label": "Κουμπί Ιδιωτική Καρτέλα"
+      },
+      "activity": {
+        "accessibility_label": "Activity Tab Button"
       },
       "connections": {
         "accessibility_label": "Κουμπί Συνδέσεις"
@@ -222,6 +227,26 @@
       "open_account": {
         "accessibility_label": "Μετάβαση στο λογαριασμό"
       }
+    }
+  },
+  "activity": {
+    "mention": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " mentioned you"
+      }
+    },
+    "follow": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " followed you"
+      }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {

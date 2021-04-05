@@ -167,13 +167,15 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public board",
+      "public": "Public posts",
       "private": "Тільки між нами",
+      "activity": "Activity",
       "connections": "Мої контакти"
     },
     "tab_footers": {
       "public": "Публічне",
       "private": "Private",
+      "activity": "Activity",
       "connections": "Connections"
     },
     "loading": "Завантаження...",
@@ -184,6 +186,9 @@
       },
       "private": {
         "accessibility_label": "Private Tab Button"
+      },
+      "activity": {
+        "accessibility_label": "Activity Tab Button"
       },
       "connections": {
         "accessibility_label": "Вкладка \"Підключення\""
@@ -222,6 +227,26 @@
       "open_account": {
         "accessibility_label": "Перейти до облікового запису"
       }
+    }
+  },
+  "activity": {
+    "mention": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " mentioned you"
+      }
+    },
+    "follow": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " followed you"
+      }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {
