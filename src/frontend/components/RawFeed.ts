@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,6 +14,8 @@ import {MsgAndExtras} from '../ssb/types';
 import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
 import {Msg} from 'ssb-typescript';
 import {displayName} from '../ssb/utils/from-ssb';
+import AnimatedLoading from './AnimatedLoading';
+import {t} from '../drivers/localization';
 
 export const styles = StyleSheet.create({
   container: {
@@ -33,26 +35,45 @@ class RawFeedItemSeparator extends PureComponent {
   }
 }
 
-type Props = {
+interface Props {
   getReadable: GetReadable<MsgAndExtras> | null;
   onPressMsg?: (ev: {msg: Msg}) => void;
   style?: any;
-};
+}
 
-export default class Feed extends PureComponent<Props, {}> {
+interface State {
+  initialLoading: boolean;
+}
+
+export default class Feed extends PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {initialLoading: true};
+  }
+
+  private _onFeedInitialPullDone = () => {
+    this.setState({initialLoading: false});
+  };
+
   public render() {
     const {style, getReadable, onPressMsg} = this.props;
+    const {initialLoading} = this.state;
 
     return h<PullFlatListProps<MsgAndExtras>>(PullFlatList, {
       getScrollStream: getReadable,
       keyExtractor: (msg: MsgAndExtras, idx: number) => msg.key ?? String(idx),
       style: [styles.container, style],
-      initialNumToRender: 7,
+      initialNumToRender: 14,
       pullAmount: 2,
       numColumns: 1,
       refreshable: true,
+      onEndReachedThreshold: 3,
       refreshColors: [Palette.brandWeak],
       ItemSeparatorComponent: RawFeedItemSeparator,
+      onInitialPullDone: this._onFeedInitialPullDone,
+      ListFooterComponent: initialLoading
+        ? h(AnimatedLoading, {text: t('central.loading')})
+        : null,
       renderItem: ({item}) =>
         h(ShortRawMessage, {
           msg: item,
