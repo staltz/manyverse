@@ -4,8 +4,8 @@
 const wd = require('wd');
 const RECOVERY = require('./utils/recovery');
 
-module.exports = function(driver, t) {
-  t.test('Drawer has some menu items', async function(t) {
+module.exports = function (driver, t) {
+  t.test('Drawer has some menu items', async function (t) {
     await driver.sleep(2000);
     // Open drawer
     const pressMenu = new wd.TouchAction(driver);
@@ -45,7 +45,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test("Drawer shows user's id", async function(t) {
+  t.test("Drawer shows user's id", async function (t) {
     const partOfId = RECOVERY.id.substr(0, 10);
 
     t.ok(
@@ -59,7 +59,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Drawer can be hidden by sliding', async function(t) {
+  t.test('Drawer can be hidden by sliding', async function (t) {
     await driver.sleep(2000);
     // Open drawer
     const pressMenu = new wd.TouchAction(driver);
@@ -82,7 +82,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Central screen and the Public tab',
@@ -91,7 +91,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Drawer has a link to the Settings screen', async function(t) {
+  t.test('Drawer has a link to the Settings screen', async function (t) {
     await driver.sleep(2000);
     // Open drawer
     const pressMenu = new wd.TouchAction(driver);

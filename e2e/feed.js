@@ -31,11 +31,11 @@ async function scrollUpUntil(driver, conditionFn) {
   }
 }
 
-module.exports = function(driver, t) {
-  t.test('Central screen shows messages with Etc button', async function(t) {
+module.exports = function (driver, t) {
+  t.test('Central screen shows messages with Etc button', async function (t) {
     t.ok(
       await driver.elementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
       ),
       'I see the Public header in the Central screen',
     );
@@ -70,7 +70,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Central screen shows many in scrolling feed', async function(t) {
+  t.test('Central screen shows many in scrolling feed', async function (t) {
     const fab1 = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Floating Action Button")',
       6000,
@@ -143,14 +143,14 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.skip('(TODO) Feed displays follows and blocks', async function(t) {
+  t.skip('(TODO) Feed displays follows and blocks', async function (t) {
     t.end();
   });
 
-  t.test('A message in the feed can be liked', async function(t) {
+  t.test('A message in the feed can be liked', async function (t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Public header in the Central screen',
@@ -238,7 +238,7 @@ module.exports = function(driver, t) {
 
   t.test(
     'I can see that someone has reacted to a message in the Reactions screen',
-    async function(t) {
+    async function (t) {
       let reactions;
       try {
         reactions = await driver.waitForElementByAndroidUIAutomator(

@@ -1,11 +1,11 @@
 /* Any copyright is dedicated to the Public Domain.
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
-module.exports = function(driver, t) {
-  t.test('Central screen is displayed with three tabs', async function(t) {
+module.exports = function (driver, t) {
+  t.test('Central screen is displayed with three tabs', async function (t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Public header in the Central screen',
@@ -35,7 +35,7 @@ module.exports = function(driver, t) {
     t.pass('I tap it');
     t.ok(
       await driver.elementByAndroidUIAutomator(
-        'new UiSelector().text("Private messages")',
+        'new UiSelector().text("Private chats")',
       ),
       'I see the Private header in the Central screen',
     );
@@ -45,6 +45,27 @@ module.exports = function(driver, t) {
         8000,
       ),
       'I see the Private tab body with no messages',
+    );
+
+    // Activity tab
+    const activityTabButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Activity Tab Button")',
+    );
+    t.ok(activityTabButton, 'I see the Activity Tab button');
+    await activityTabButton.click();
+    t.pass('I tap it');
+    t.ok(
+      await driver.elementByAndroidUIAutomator(
+        'new UiSelector().text("Activity")',
+      ),
+      'I see the Activity header in the Central screen',
+    );
+    t.ok(
+      await driver.waitForElementByAndroidUIAutomator(
+        'new UiSelector().textContains("No activity")',
+        8000,
+      ),
+      'I see the Activity tab body with no events',
     );
 
     // Connections tab
@@ -109,7 +130,7 @@ module.exports = function(driver, t) {
     t.pass('I tap it');
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         8000,
       ),
       'I see the Public header in the Central screen',

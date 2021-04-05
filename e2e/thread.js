@@ -1,13 +1,13 @@
 /* Any copyright is dedicated to the Public Domain.
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
-module.exports = function(driver, t) {
+module.exports = function (driver, t) {
   t.test(
     'Thread screen can be accessed from reply button in feed',
-    async function(t) {
+    async function (t) {
       t.ok(
         await driver.waitForElementByAndroidUIAutomator(
-          'new UiSelector().text("Public board")',
+          'new UiSelector().text("Public posts")',
           6000,
         ),
         'I see the Public header in the Central screen',
@@ -67,7 +67,7 @@ module.exports = function(driver, t) {
     },
   );
 
-  t.test('Thread screen shows messages with Etc button', async function(t) {
+  t.test('Thread screen shows messages with Etc button', async function (t) {
     const chevron = await driver.waitForElementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Etc Button")',
       6000,
@@ -98,7 +98,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Thread screen allows adding a reply', async function(t) {
+  t.test('Thread screen allows adding a reply', async function (t) {
     const replyTextInput = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Reply Text Input")',
       6000,
@@ -131,23 +131,23 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.skip('(TODO) Thread screen opens for a msg cypherlink', async function(t) {
+  t.skip('(TODO) Thread screen opens for a msg cypherlink', async function (t) {
     t.end();
   });
 
-  t.skip('(TODO) Thread screen alerts missing msg cypherlink', async function(
+  t.skip('(TODO) Thread screen alerts missing msg cypherlink', async function (
     t,
   ) {
     t.end();
   });
 
-  t.skip('(TODO) Thread screen alerts blocked msg cypherlink', async function(
+  t.skip('(TODO) Thread screen alerts blocked msg cypherlink', async function (
     t,
   ) {
     t.end();
   });
 
-  t.test('Thread screen allows going back to feed', async function(t) {
+  t.test('Thread screen allows going back to feed', async function (t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().descriptionContains("Reply Text Input")',
@@ -169,7 +169,9 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Thread screen allows opening full-screen Compose', async function(t) {
+  t.test('Thread screen allows opening full-screen Compose', async function (
+    t,
+  ) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().textContains("Do you like dogs")',
@@ -248,7 +250,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Thread screen allows saving draft reply on exit', async function(t) {
+  t.test('Thread screen allows saving draft reply on exit', async function (t) {
     await driver.back();
     t.pass('I press the (hardware) back button');
 
@@ -269,7 +271,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Central screen',
@@ -333,7 +335,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Compose screen allows deleting draft when exiting', async function(
+  t.test('Compose screen allows deleting draft when exiting', async function (
     t,
   ) {
     const replyTextInput = await driver.waitForElementByAndroidUIAutomator(
@@ -370,7 +372,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Central screen',
@@ -430,7 +432,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Central screen',

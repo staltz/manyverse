@@ -1,11 +1,13 @@
 /* Any copyright is dedicated to the Public Domain.
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
-module.exports = function(driver, t) {
-  t.test('Compose screen allows posting new public message', async function(t) {
+module.exports = function (driver, t) {
+  t.test('Compose screen allows posting new public message', async function (
+    t,
+  ) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Public header in the Central screen',
@@ -61,7 +63,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Compose screen supports adding a content warning', async t => {
+  t.test('Compose screen supports adding a content warning', async (t) => {
     const fab = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Floating Action Button")',
       6000,
@@ -243,18 +245,19 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.skip('(TODO) Compose screen allows previewing the markdown', async function(
-    t,
-  ) {
-    t.end();
-  });
+  t.skip(
+    '(TODO) Compose screen allows previewing the markdown',
+    async function (t) {
+      t.end();
+    },
+  );
 
-  t.test('Compose screen does not close when keyboard closes', async function(
+  t.test('Compose screen does not close when keyboard closes', async function (
     t,
   ) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Public header in the Central screen',
@@ -288,7 +291,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Compose screen allows saving draft when exiting', async function(t) {
+  t.test('Compose screen allows saving draft when exiting', async function (t) {
     const composeTextInput = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Compose Text Input")',
       6000,
@@ -324,7 +327,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Central screen',
@@ -365,12 +368,12 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Compose screen allows deleting draft when exiting', async function(
+  t.test('Compose screen allows deleting draft when exiting', async function (
     t,
   ) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Central screen',
@@ -419,7 +422,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Central screen',
@@ -452,7 +455,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Central screen',

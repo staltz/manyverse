@@ -32,8 +32,8 @@ async function scrollUpUntil(driver, conditionFn) {
   }
 }
 
-module.exports = function(driver, t) {
-  t.test('Settings screen shows toggle for follows', async function(t) {
+module.exports = function (driver, t) {
+  t.test('Settings screen shows toggle for follows', async function (t) {
     await driver.sleep(3000);
 
     t.ok(
@@ -46,7 +46,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Settings screen shows toggle for detailed logs', async function(t) {
+  t.test('Settings screen shows toggle for detailed logs', async function (t) {
     await scrollDownUntil(driver, async () => {
       try {
         return !!(await driver.waitForElementByAndroidUIAutomator(
@@ -85,7 +85,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Settings screen can show the About modal', async function(t) {
+  t.test('Settings screen can show the About modal', async function (t) {
     await scrollDownUntil(driver, async () => {
       try {
         return !!(await driver.waitForElementByAndroidUIAutomator(
@@ -123,7 +123,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Settings screen shows a Backup option', async function(t) {
+  t.test('Settings screen shows a Backup option', async function (t) {
     await scrollUpUntil(driver, async () => {
       try {
         return !!(await driver.waitForElementByAndroidUIAutomator(
@@ -254,7 +254,7 @@ module.exports = function(driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Central screen and the Public tab',
