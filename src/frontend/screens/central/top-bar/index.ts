@@ -19,7 +19,7 @@ import {Typography} from '../../../global-styles/typography';
 import {t} from '../../../drivers/localization';
 
 export type State = {
-  currentTab: 'public' | 'private' | 'connections';
+  currentTab: 'public' | 'private' | 'activity' | 'connections';
   scrollHeaderBy: Animated.Value;
   migrationProgress: number;
   indexingProgress: number;
@@ -92,6 +92,9 @@ function tabTitle(tab: State['currentTab']) {
   }
   if (tab === 'private') {
     return t('central.tab_headers.private');
+  }
+  if (tab === 'activity') {
+    return t('central.tab_headers.activity');
   }
   if (tab === 'connections') {
     return t('central.tab_headers.connections');

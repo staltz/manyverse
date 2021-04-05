@@ -218,6 +218,16 @@ const threadsUtils = {
         });
       },
 
+      mentionsFeed() {
+        return pull(
+          ssb.deweird.source(['dbUtils', 'mentionsMe'], {
+            old: true,
+            live: false,
+          }),
+          pull.asyncMap(mutateMsgWithLiveExtras(ssb, false)),
+        );
+      },
+
       selfPublicRoots(opts: any) {
         return pull(
           ssb.dbUtils.selfPublicRoots(opts),

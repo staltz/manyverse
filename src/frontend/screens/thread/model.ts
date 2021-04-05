@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -32,6 +32,7 @@ export type State = {
   replyEditable: boolean;
   getSelfRepliesReadable: GetReadable<MsgAndExtras> | null;
   focusTimestamp: number;
+  initialScrollTo: MsgId | undefined;
   keyboardVisible: boolean;
 };
 
@@ -87,6 +88,7 @@ export default function model(
           replyTextOverrideTimestamp: 0,
           replyEditable: true,
           getSelfRepliesReadable: null,
+          initialScrollTo: props.scrollTo,
           focusTimestamp: props.replyToMsgId ? Date.now() : 0,
           keyboardVisible: props.replyToMsgId ? true : false,
         };

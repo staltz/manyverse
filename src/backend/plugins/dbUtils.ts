@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Msg} from 'ssb-typescript';
+import {ContactContent, Msg} from 'ssb-typescript';
 const pull = require('pull-stream');
 
 export = {
@@ -12,6 +12,7 @@ export = {
   version: '1.0.0',
   manifest: {
     rawLogReversed: 'source',
+    mentionsMe: 'source',
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
@@ -20,6 +21,7 @@ export = {
     master: {
       allow: [
         'rawLogReversed',
+        'mentionsMe',
         'selfPublicRoots',
         'selfPublicReplies',
         'selfPrivateRootIdsLive',
@@ -28,18 +30,24 @@ export = {
   },
   init: function init(ssb: any) {
     const {
+      or,
       and,
       not,
       type,
       live: liveOperator,
       author,
+      contact,
+      votesFor,
+      fullMentions: mentions,
       isRoot,
       isPublic,
       isPrivate,
       descending,
-      votesFor,
+      paginate,
       toPullStream,
     } = ssb.db.operators;
+
+    const PAGESIZE = 50;
 
     // Wait until migration progress is somewhere in the middle
     pull(
@@ -65,7 +73,44 @@ export = {
 
     return {
       rawLogReversed() {
-        return ssb.db.query(descending(), toPullStream());
+        return pull(
+          ssb.db.query(descending(), paginate(PAGESIZE), toPullStream()),
+          pull.map(pull.values),
+          pull.flatten(),
+        );
+      },
+
+      mentionsMe(opts: {live?: boolean; old?: boolean}) {
+        return pull(
+          ssb.db.query(
+            and(
+              isPublic(),
+              or(and(type('post'), mentions(ssb.id)), contact(ssb.id)),
+            ),
+            descending(),
+            opts.live ? liveOperator({old: opts.old}) : null,
+            paginate(PAGESIZE),
+            toPullStream(),
+          ),
+          opts.live ? null : pull.map(pull.values),
+          opts.live ? null : pull.flatten(),
+          pull.filter((msg: Msg) => {
+            // Allow all posts
+            if (msg.value.content!.type === 'post') {
+              return true;
+            }
+            // Only allow "followed" msgs
+            if (msg.value.content!.type === 'contact') {
+              const content = (msg as Msg<ContactContent>).value.content;
+              const blocking = (content as any).flagged || content.blocking;
+              const following = content.following;
+              return blocking === undefined && following === true;
+            }
+            // Disallow unexpected cases
+            return false;
+          }),
+          pull.map((msg: Msg) => (opts.live ? msg.key : msg)),
+        );
       },
 
       selfPublicRoots(opts: {live?: boolean; old?: boolean}) {

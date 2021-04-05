@@ -11,6 +11,7 @@ import {FeedId, MsgId} from 'ssb-typescript';
 import {State as TopBarState} from './top-bar';
 import {State as PublicTabState} from './public-tab/model';
 import {State as PrivateTabState} from './private-tab/model';
+import {State as ActivityTabState} from './activity-tab/model';
 import {State as ConnectionsTabState} from './connections-tab/model';
 import {SSBSource} from '../../drivers/ssb';
 
@@ -18,13 +19,15 @@ export type State = {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
   selfAvatarUrl?: string;
-  currentTab: 'public' | 'private' | 'connections';
+  currentTab: 'public' | 'private' | 'activity' | 'connections';
   scrollHeaderBy: Animated.Value;
   publicTab?: PublicTabState;
   privateTab?: PrivateTabState;
+  activityTab?: ActivityTabState;
   connectionsTab?: ConnectionsTabState;
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;
+  numOfActivityUpdates: number;
   migrationProgress: number;
   indexingProgress: number;
   canPublishSSB: boolean;
@@ -109,6 +112,33 @@ export const privateTabLens: Lens<State, PrivateTabState> = {
   },
 };
 
+export const activityTabLens: Lens<State, ActivityTabState> = {
+  get: (parent: State): ActivityTabState => {
+    const isVisible = parent.currentTab === 'activity';
+    const {selfFeedId, selfAvatarUrl} = parent;
+    if (parent.activityTab) {
+      return {...parent.activityTab, isVisible, selfFeedId, selfAvatarUrl};
+    } else {
+      return {
+        isVisible,
+        selfFeedId,
+        selfAvatarUrl,
+        lastSessionTimestamp: parent.lastSessionTimestamp,
+        numOfUpdates: parent.numOfActivityUpdates,
+        getActivityFeedReadable: null,
+      };
+    }
+  },
+
+  set: (parent: State, child: ActivityTabState): State => {
+    return {
+      ...parent,
+      numOfActivityUpdates: child.numOfUpdates,
+      activityTab: child,
+    };
+  },
+};
+
 export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
   get: (parent: State): ConnectionsTabState => {
     const isVisible = parent.currentTab === 'connections';
@@ -163,6 +193,7 @@ export default function model(
         currentTab: 'public',
         numOfPublicUpdates: 0,
         numOfPrivateUpdates: 0,
+        numOfActivityUpdates: 0,
         migrationProgress: 0,
         indexingProgress: 0,
         scrollHeaderBy: new Animated.Value(0),

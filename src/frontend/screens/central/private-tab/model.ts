@@ -31,7 +31,7 @@ export default function model(ssbSource: SSBSource, navSource: NavSource) {
    * Wait for some time, to give priority to other queries at startup-time
    * such as those for the public-tab, which must appear before.
    */
-  const initialWait$ = xs.periodic(4000).take(1);
+  const initialWait$ = xs.periodic(5000).take(1);
 
   const setPrivateFeedReducer$ = initialWait$
     .map(() => ssbSource.privateFeed$)

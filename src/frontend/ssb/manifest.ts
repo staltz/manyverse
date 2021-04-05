@@ -162,6 +162,7 @@ export default {
   },
   dbUtils: {
     rawLogReversed: 'source',
+    mentionsMe: 'source',
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',

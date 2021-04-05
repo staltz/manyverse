@@ -45,6 +45,7 @@ export type Props = {
   onReplySeen?: (msgId: MsgId) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
+  onViewableItemsChanged?: (info: ViewabilityInfo) => void;
 };
 
 export const styles = StyleSheet.create({
@@ -194,6 +195,8 @@ export default class FullThread extends Component<Props, State> {
   };
 
   private onViewableItemsChanged = (info: ViewabilityInfo) => {
+    this.props.onViewableItemsChanged?.(info);
+
     const {onReplySeen} = this.props;
     if (!onReplySeen) return;
     for (const token of info.changed) {

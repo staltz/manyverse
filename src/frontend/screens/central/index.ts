@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -24,6 +24,7 @@ import {GlobalEvent} from '../../drivers/eventbus';
 import {DialogSource} from '../../drivers/dialogs';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {privateTab, Sinks as PrivateTabSinks} from './private-tab/index';
+import {activityTab, Sinks as ActivityTabSinks} from './activity-tab/index';
 import {
   connectionsTab,
   Sinks as ConnectionsTabSinks,
@@ -34,6 +35,7 @@ import model, {
   State,
   publicTabLens,
   privateTabLens,
+  activityTabLens,
   connectionsTabLens,
   topBarLens,
 } from './model';
@@ -116,6 +118,14 @@ export function central(sources: Sources): Sinks {
     scrollToTop: actions.scrollToPrivateTop$,
   }) as PrivateTabSinks;
 
+  const activityTabSinks = isolate(activityTab, {
+    state: activityTabLens,
+    '*': 'activityTab',
+  })({
+    ...sources,
+    scrollToTop: actions.scrollToActivityTop$,
+  }) as ActivityTabSinks;
+
   const connectionsTabSinks = isolate(connectionsTab, {
     state: connectionsTabLens,
     '*': 'connectionsTab',
@@ -139,6 +149,7 @@ export function central(sources: Sources): Sinks {
     xs.merge(
       publicTabSinks.navigation,
       privateTabSinks.navigation,
+      activityTabSinks.navigation,
       connectionsTabSinks.navigation,
     ),
   );
@@ -149,6 +160,7 @@ export function central(sources: Sources): Sinks {
     centralReducer$,
     publicTabSinks.state,
     privateTabSinks.state,
+    activityTabSinks.state,
     connectionsTabSinks.state,
   ) as Stream<Reducer<State>>;
 
@@ -158,6 +170,7 @@ export function central(sources: Sources): Sinks {
     topBarSinks.screen,
     publicTabSinks.screen,
     privateTabSinks.screen,
+    activityTabSinks.screen,
     connectionsTabSinks.screen,
   );
 

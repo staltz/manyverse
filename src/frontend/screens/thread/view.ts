@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -107,10 +107,35 @@ function ReplyInput(state: State, nativePropsAndFocus$: Stream<any>) {
 type Actions = {
   willReply$: Stream<any>;
   focusTextInput$: Stream<undefined>;
+  threadViewabilityChanged$: Stream<any>;
 };
 
+function initialScrollToReply$(state$: Stream<State>, actions: Actions) {
+  return actions.threadViewabilityChanged$
+    .take(1)
+    .map(() =>
+      state$
+        .filter((state) => {
+          const {initialScrollTo, thread} = state;
+          const {messages} = thread;
+          return (
+            !!initialScrollTo &&
+            thread.full &&
+            messages.length > 0 &&
+            messages[messages.length - 1].key === initialScrollTo
+          );
+        })
+        .take(1)
+        .mapTo({animated: true}),
+    )
+    .flatten();
+}
+
 export default function view(state$: Stream<State>, actions: Actions) {
-  const scrollToEnd$ = actions.willReply$.mapTo({animated: false});
+  const scrollToEnd$ = xs.merge(
+    initialScrollToReply$(state$, actions),
+    actions.willReply$.mapTo({animated: false}),
+  );
 
   const setMarkdownInputNativeProps$ = xs.merge(
     actions.focusTextInput$.mapTo({focus: true}),

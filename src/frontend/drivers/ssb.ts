@@ -61,6 +61,8 @@ export class SSBSource {
   public publicLiveUpdates$: Stream<null>;
   public privateFeed$: Stream<GetReadable<PrivateThreadAndExtras>>;
   public privateLiveUpdates$: Stream<MsgId>;
+  public mentionsFeed$: Stream<GetReadable<MsgAndExtras>>;
+  public mentionsFeedLive$: Stream<MsgId>;
   public selfPublicRoots$: Stream<ThreadSummaryWithExtras>;
   public selfPrivateRootIdsLive$: Stream<MsgId>;
   public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
@@ -96,6 +98,14 @@ export class SSBSource {
 
     this.privateLiveUpdates$ = this.fromPullStream<MsgId>((ssb) =>
       ssb.threadsUtils.privateUpdates(),
+    );
+
+    this.mentionsFeed$ = this.ssb$.map((ssb) => () =>
+      ssb.threadsUtils.mentionsFeed(),
+    );
+
+    this.mentionsFeedLive$ = this.fromPullStream<MsgId>((ssb) =>
+      ssb.dbUtils.mentionsMe({live: true, old: false}),
     );
 
     this.selfPublicRoots$ = this.fromPullStream<ThreadSummaryWithExtras>(

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -39,10 +39,18 @@ class CurrentTabPage extends PureComponent<{
   fab: FabProps;
   publicTab: ReactElement<any>;
   privateTab: ReactElement<any>;
+  activityTab: ReactElement<any>;
   connectionsTab: ReactElement<any>;
 }> {
   public render() {
-    const {currentTab, fab, publicTab, privateTab, connectionsTab} = this.props;
+    const {
+      currentTab,
+      fab,
+      publicTab,
+      privateTab,
+      activityTab,
+      connectionsTab,
+    } = this.props;
     const shown = styles.pageShown;
     const hidden = styles.pageHidden;
 
@@ -54,6 +62,9 @@ class CurrentTabPage extends PureComponent<{
       h(View, {style: [currentTab === 'private' ? shown : hidden]}, [
         privateTab,
         h(FloatingAction, fab),
+      ]),
+      h(View, {style: [currentTab === 'activity' ? shown : hidden]}, [
+        activityTab,
       ]),
       h(View, {style: [currentTab === 'connections' ? shown : hidden]}, [
         connectionsTab,
@@ -181,6 +192,59 @@ class PrivateTabIcon extends Component<{
   }
 }
 
+class ActivityTabIcon extends Component<{
+  isSelected: boolean;
+  numOfUpdates: number;
+}> {
+  public shouldComponentUpdate(nextProps: ActivityTabIcon['props']) {
+    const prevProps = this.props;
+    if (nextProps.isSelected !== prevProps.isSelected) return true;
+    // numOfActivityUpdates has one threshold: >=1
+    const nextNum = nextProps.numOfUpdates;
+    const prevNum = prevProps.numOfUpdates;
+    if (prevNum === nextNum) return false;
+    if (prevNum < 1 && nextNum >= 1) return true;
+    if (prevNum >= 1 && nextNum < 1) return true;
+    return false;
+  }
+
+  public render() {
+    const {isSelected, numOfUpdates} = this.props;
+    return h(
+      Touchable,
+      {
+        ...touchableProps,
+        sel: 'activity-tab-button',
+        style: styles.tabButton, // iOS needs this
+        accessible: true,
+        accessibilityRole: 'tab',
+        accessibilityLabel: t('central.tabs.activity.accessibility_label'),
+      },
+      [
+        h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
+          h(View, [
+            h(Icon, {
+              name: numOfUpdates >= 1 ? 'bell-ring-outline' : 'bell-outline',
+              ...(isSelected ? iconProps.tabSelected : iconProps.tab),
+            }),
+          ]),
+
+          h(
+            Text,
+            {
+              style: isSelected
+                ? styles.tabButtonTextSelected
+                : styles.tabButtonText,
+              numberOfLines: 1,
+            },
+            t('central.tab_footers.activity'),
+          ),
+        ]),
+      ],
+    );
+  }
+}
+
 class ConnectionsTabIcon extends Component<{
   isSelected: boolean;
   details: State['connectionsTab'];
@@ -291,6 +355,9 @@ class TabsBar extends Component<State> {
     if (nextProps.numOfPrivateUpdates !== prevProps.numOfPrivateUpdates) {
       return true;
     }
+    if (nextProps.numOfActivityUpdates !== prevProps.numOfActivityUpdates) {
+      return true;
+    }
     if (nextProps.connectionsTab !== prevProps.connectionsTab) {
       return true;
     }
@@ -308,6 +375,10 @@ class TabsBar extends Component<State> {
         isSelected: currentTab === 'private',
         numOfUpdates: this.props.numOfPrivateUpdates,
       }),
+      h(ActivityTabIcon, {
+        isSelected: currentTab === 'activity',
+        numOfUpdates: this.props.numOfActivityUpdates,
+      }),
       h(ConnectionsTabIcon, {
         isSelected: currentTab === 'connections',
         details: this.props.connectionsTab,
@@ -322,6 +393,7 @@ export default function view(
   topBar$: Stream<ReactElement<any>>,
   publicTab$: Stream<ReactElement<any>>,
   privateTab$: Stream<ReactElement<any>>,
+  activityTab$: Stream<ReactElement<any>>,
   connectionsTab$: Stream<ReactElement<any>>,
 ) {
   return xs
@@ -331,22 +403,33 @@ export default function view(
       topBar$,
       publicTab$.startWith(h(View)),
       privateTab$.startWith(h(View)),
+      activityTab$.startWith(h(View)),
       connectionsTab$.startWith(h(View)),
     )
-    .map(([state, fabProps, topBar, publicTab, privateTab, connectionsTab]) =>
-      h(MenuProvider, {customStyles: {backdrop: styles.menuBackdrop}}, [
-        h(View, {style: styles.root}, [
-          // h(RNBridgeDebug),
-          topBar,
-          h(CurrentTabPage, {
-            currentTab: state.currentTab,
-            fab: fabProps,
-            publicTab,
-            privateTab,
-            connectionsTab,
-          }),
-          h(TabsBar, state),
+    .map(
+      ([
+        state,
+        fabProps,
+        topBar,
+        publicTab,
+        privateTab,
+        activityTab,
+        connectionsTab,
+      ]) =>
+        h(MenuProvider, {customStyles: {backdrop: styles.menuBackdrop}}, [
+          h(View, {style: styles.root}, [
+            // h(RNBridgeDebug),
+            topBar,
+            h(CurrentTabPage, {
+              currentTab: state.currentTab,
+              fab: fabProps,
+              publicTab,
+              privateTab,
+              activityTab,
+              connectionsTab,
+            }),
+            h(TabsBar, state),
+          ]),
         ]),
-      ]),
     );
 }

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -30,6 +30,11 @@ export default function intent(
       .mapTo('private' as TabID),
 
     reactSource
+      .select('activity-tab-button')
+      .events('press')
+      .mapTo('activity' as TabID),
+
+    reactSource
       .select('connections-tab-button')
       .events('press')
       .mapTo('connections' as TabID),
@@ -48,6 +53,13 @@ export default function intent(
     .filter(
       ([nextTab, state]) =>
         state.currentTab === 'private' && nextTab === 'private',
+    )
+    .mapTo(null);
+
+  const scrollToActivityTop$ = changeTabWithState$
+    .filter(
+      ([nextTab, state]) =>
+        state.currentTab === 'activity' && nextTab === 'activity',
     )
     .mapTo(null);
 
@@ -78,6 +90,7 @@ export default function intent(
     changeTab$,
     scrollToPublicTop$,
     scrollToPrivateTop$,
+    scrollToActivityTop$,
     closeDrawer$,
     backToPublicTab$,
     exitApp$,

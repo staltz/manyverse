@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -107,6 +107,10 @@ export default function intent(
         .compose(sample(state$))
         .map((state) => state.rootMsgId),
     ) as Stream<MsgId>,
+
+    threadViewabilityChanged$: reactSource
+      .select('thread')
+      .events('viewableItemsChanged') as Stream<any>,
 
     replySeen$: reactSource.select('thread').events('replySeen') as Stream<
       MsgId
