@@ -7,6 +7,11 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2104.5-beta
+
+* Feature: activity tab shows mentions and follows ([see details](https://gitlab.com/staltz/manyverse/commit/87fdf39ba42e69d218e01ccd4cff508e83483680))
+* Improve performance on the Raw DB screen ([see details](https://gitlab.com/staltz/manyverse/commit/cbde85fd6e251133348f47f7a9f4932bb23a19f7))
+
 ## 0.2103.19-beta
 
 * (Android) Improve app startup time by 1 second ([see details](https://gitlab.com/staltz/manyverse/commit/dd91ccc3ae3b96429d85421a6fce4d2b93b79b81))

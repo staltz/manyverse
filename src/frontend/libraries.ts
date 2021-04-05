@@ -94,6 +94,14 @@ export default [
     type: 'image',
   },
   {
+    name: 'noun-sun.png',
+    author: "'Made by Made' from the Noun Project",
+    license: 'Creative Commons BY 3.0',
+    homepage:
+      'https://thenounproject.com/made.somewhere/collection/science/?i=996929',
+    type: 'image',
+  },
+  {
     name: '@cycle/isolate',
     type: 'library',
     version: '5.2.0',
