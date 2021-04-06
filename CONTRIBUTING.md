@@ -271,6 +271,18 @@ A problem occurred configuring project ':app'.
 
 ```
 
+#### Error: Command failed: npm install --no-optional on `npm run build-backend-android`
+
+Newly installed systems might lack some essential development tools, but this error, in particular, is not very clear on what is happening. To further debug this error go to the `nodejs-assets/nodejs-mobile` directory and run `npm install` inside that directory.
+
+If you get the following output, you need to [install additional development tools](https://github.com/paixaop/node-sodium/issues/136#issuecomment-442906136) on your system:
+
+```bash
+> node-gyp-build "node preinstall.js" "node postinstall.js"
+
+libtool is required, but wasn't found on this system
+```
+
 ## Issue labels
 
 For every issue, pick a **type**, a **scope**, and a **priority**:
