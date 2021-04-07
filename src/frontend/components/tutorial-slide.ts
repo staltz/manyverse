@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -42,9 +42,10 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginVertical: Dimensions.verticalSpaceSmall,
     color: Palette.textForBackgroundBrand,
-    fontSize: Typography.fontSizeNormal,
-    lineHeight: Typography.lineHeightNormal,
+    fontSize: Typography.fontSizeBig,
+    lineHeight: Typography.lineHeightBig,
     fontFamily: Typography.fontFamilyReadableText,
+    marginHorizontal: Dimensions.horizontalSpaceBig,
     textAlign: 'center',
   },
 
