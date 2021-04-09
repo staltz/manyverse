@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -110,7 +110,7 @@ class PopItem<T> extends PureComponent<PopItemProps<T>, PopItemState> {
     this.setState({height: 0});
   }
 
-  public componentWillMount() {
+  public UNSAFE_componentWillMount() {
     this._val = new Animated.Value(0);
   }
 
@@ -130,7 +130,7 @@ class PopItem<T> extends PureComponent<PopItemProps<T>, PopItemState> {
     }
   }
 
-  public componentWillUnmount() {
+  public UNSAFE_componentWillUnmount() {
     this._val.removeAllListeners();
   }
 

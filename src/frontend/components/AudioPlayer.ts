@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -143,7 +143,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
     });
   }
 
-  public componentWillUnmount() {
+  public UNSAFE_componentWillUnmount() {
     if (this.player) {
       this.player.destroy();
       this.player = null;

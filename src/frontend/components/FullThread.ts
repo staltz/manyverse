@@ -118,7 +118,7 @@ export default class FullThread extends Component<Props, State> {
     }
   }
 
-  public componentWillUnmount() {
+  public UNSAFE_componentWillUnmount() {
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = void 0;

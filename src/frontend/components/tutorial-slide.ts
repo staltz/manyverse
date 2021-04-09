@@ -93,7 +93,7 @@ class InternalSlide extends PureComponent<SlideProps> {
   private animVal3: Animated.Value;
   private animVal4: Animated.Value;
 
-  public componentWillMount() {
+  public UNSAFE_componentWillMount() {
     this.animVal1 = new Animated.Value(0);
     this.animVal2 = new Animated.Value(0);
     this.animVal3 = new Animated.Value(0);
