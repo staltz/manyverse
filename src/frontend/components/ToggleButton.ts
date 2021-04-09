@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -92,12 +92,12 @@ export default class ToggleButton extends PureComponent<Props, State> {
     }
   }
 
-  public componentWillReceiveProps(nextProps: Props) {
+  static getDerivedStateFromProps(nextProps: Props) {
     if (nextProps.toggled) {
-      this.setState(() => ({toggled: 'yes'}));
-    } else {
-      this.setState(() => ({toggled: 'no'}));
+      return {toggled: 'yes'};
     }
+
+    return null;
   }
 
   private _onPress() {
@@ -108,6 +108,12 @@ export default class ToggleButton extends PureComponent<Props, State> {
       setTimeout(() => {
         onPress(toggled === 'no' ? true : false);
       });
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.toggled !== this.props.toggled) {
+      this.setState({toggled: this.props.toggled ? 'yes' : 'no'});
     }
   }
 
