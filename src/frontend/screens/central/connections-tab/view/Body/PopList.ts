@@ -36,7 +36,7 @@ if (
 }
 
 class PopItem<T> extends PureComponent<PopItemProps<T>, PopItemState> {
-  private _val: Animated.Value;
+  private _animVal: Animated.Value;
   private _enterAnim: Animated.CompositeAnimation | null;
   private _exitAnim: Animated.CompositeAnimation | null;
   private _shouldEnter: boolean;
@@ -44,6 +44,7 @@ class PopItem<T> extends PureComponent<PopItemProps<T>, PopItemState> {
 
   constructor(props: PopItemProps<T>) {
     super(props);
+    this._animVal = new Animated.Value(0);
     this._shouldEnter = false;
     this._shouldExit = false;
     this.state = {height: 0};
@@ -55,12 +56,12 @@ class PopItem<T> extends PureComponent<PopItemProps<T>, PopItemState> {
       return;
     }
 
-    this._val.setValue(0);
-    this._enterAnim = Animated.timing(this._val, {
+    this._enterAnim = Animated.timing(this._animVal, {
       toValue: 1,
       duration: this.props.animationDuration,
       useNativeDriver: true,
     });
+
     this._enterAnim.start(() => {
       this._enterAnim = null;
       if (this._shouldExit) {
@@ -85,11 +86,12 @@ class PopItem<T> extends PureComponent<PopItemProps<T>, PopItemState> {
       return;
     }
 
-    this._exitAnim = Animated.timing(this._val, {
+    this._exitAnim = Animated.timing(this._animVal, {
       toValue: 0,
       duration: this.props.animationDuration,
       useNativeDriver: true,
     });
+
     this._exitAnim.start(() => {
       this._exitAnim = null;
       if (this._shouldEnter) {
@@ -110,10 +112,6 @@ class PopItem<T> extends PureComponent<PopItemProps<T>, PopItemState> {
     this.setState({height: 0});
   }
 
-  public UNSAFE_componentWillMount() {
-    this._val = new Animated.Value(0);
-  }
-
   public componentDidMount() {
     this._enter();
   }
@@ -131,14 +129,14 @@ class PopItem<T> extends PureComponent<PopItemProps<T>, PopItemState> {
   }
 
   public UNSAFE_componentWillUnmount() {
-    this._val.removeAllListeners();
+    this._animVal.removeAllListeners();
   }
 
   public render() {
     return $(
       Animated.View,
       {style: {height: this.state.height}},
-      this.props.renderItem(this.props.item, this._val),
+      this.props.renderItem(this.props.item, this._animVal),
     );
   }
 }
