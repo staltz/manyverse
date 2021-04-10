@@ -36,7 +36,7 @@ export default class FlagSecure extends Component {
     }
   }
 
-  public UNSAFE_componentWillMount() {
+  public componentDidMount() {
     FlagSecure.activate();
   }
 
