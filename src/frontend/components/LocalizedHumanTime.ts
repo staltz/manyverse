@@ -97,7 +97,7 @@ export default class LocalizedHumanTime extends Component<Props, State> {
     );
   }
 
-  public UNSAFE_componentWillUnmount() {
+  public componentWillUnmount() {
     clearInterval(this._timer);
   }
 

@@ -143,7 +143,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
     });
   }
 
-  public UNSAFE_componentWillUnmount() {
+  public componentWillUnmount() {
     if (this.player) {
       this.player.destroy();
       this.player = null;

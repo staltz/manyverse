@@ -213,7 +213,7 @@ export default class Feed extends PureComponent<Props, State> {
     }
   }
 
-  public UNSAFE_componentWillUnmount() {
+  public componentWillUnmount() {
     this.preSubscription?.unsubscribe();
     this.preSubscription = void 0;
 

@@ -34,7 +34,7 @@ export default class SettableTextInput extends PureComponent<Props> {
     }
   }
 
-  public UNSAFE_componentWillUnmount() {
+  public componentWillUnmount() {
     this.subscription?.unsubscribe();
   }
 
