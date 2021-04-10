@@ -88,16 +88,17 @@ type SlideProps = {
 };
 
 class InternalSlide extends PureComponent<SlideProps> {
-  private animVal1: Animated.Value;
-  private animVal2: Animated.Value;
-  private animVal3: Animated.Value;
-  private animVal4: Animated.Value;
+  private _animVal1: Animated.Value;
+  private _animVal2: Animated.Value;
+  private _animVal3: Animated.Value;
+  private _animVal4: Animated.Value;
 
-  public UNSAFE_componentWillMount() {
-    this.animVal1 = new Animated.Value(0);
-    this.animVal2 = new Animated.Value(0);
-    this.animVal3 = new Animated.Value(0);
-    this.animVal4 = new Animated.Value(0);
+  constructor(props: SlideProps) {
+    super(props);
+    this._animVal1 = new Animated.Value(0);
+    this._animVal2 = new Animated.Value(0);
+    this._animVal3 = new Animated.Value(0);
+    this._animVal4 = new Animated.Value(0);
   }
 
   public componentDidMount() {
@@ -122,12 +123,12 @@ class InternalSlide extends PureComponent<SlideProps> {
       this.props.show === true &&
       prevProps.show === true
     ) {
-      this.animVal1.setValue(1);
+      this._animVal1.setValue(1);
     }
   }
 
-  private _startIt(animVal: Animated.Value, delay: number) {
-    animVal.setValue(0);
+  private _startIt(_animVal: Animated.Value, delay: number) {
+    _animVal.setValue(0);
     const opts: Parameters<typeof Animated.timing>[1] = {
       toValue: 1,
       duration: 750,
@@ -135,21 +136,21 @@ class InternalSlide extends PureComponent<SlideProps> {
       useNativeDriver: true,
     };
     if (delay > 0) opts.delay = delay;
-    Animated.timing(animVal, opts).start();
+    Animated.timing(_animVal, opts).start();
   }
 
   private _enter() {
-    this._startIt(this.animVal1, 0);
-    this._startIt(this.animVal2, 70);
-    this._startIt(this.animVal3, 140);
-    this._startIt(this.animVal4, 400);
+    this._startIt(this._animVal1, 0);
+    this._startIt(this._animVal2, 70);
+    this._startIt(this._animVal3, 140);
+    this._startIt(this._animVal4, 400);
   }
 
   private _exit() {
-    this.animVal1.setValue(0);
-    this.animVal2.setValue(0);
-    this.animVal3.setValue(0);
-    this.animVal4.setValue(0);
+    this._animVal1.setValue(0);
+    this._animVal2.setValue(0);
+    this._animVal3.setValue(0);
+    this._animVal4.setValue(0);
   }
 
   public render() {
@@ -164,34 +165,34 @@ class InternalSlide extends PureComponent<SlideProps> {
     const INTERPOLATION = {inputRange: [0, 1], outputRange: [20, 0]};
 
     const imageAnimStyle = {
-      opacity: this.animVal1,
+      opacity: this._animVal1,
       transform: [
         {
-          translateX: this.animVal1.interpolate(INTERPOLATION),
+          translateX: this._animVal1.interpolate(INTERPOLATION),
         },
       ],
     };
 
     const titleAnimStyle = {
-      opacity: this.animVal2,
+      opacity: this._animVal2,
       transform: [
         {
-          translateX: this.animVal2.interpolate(INTERPOLATION),
+          translateX: this._animVal2.interpolate(INTERPOLATION),
         },
       ],
     };
 
     const descAnimStyle = {
-      opacity: this.animVal3,
+      opacity: this._animVal3,
       transform: [
         {
-          translateX: this.animVal3.interpolate(INTERPOLATION),
+          translateX: this._animVal3.interpolate(INTERPOLATION),
         },
       ],
     };
 
     const bottomAnimStyle = {
-      opacity: this.animVal4,
+      opacity: this._animVal4,
     };
 
     const bottom = renderBottom();
