@@ -128,7 +128,7 @@ class PopItem<T> extends PureComponent<PopItemProps<T>, PopItemState> {
     }
   }
 
-  public UNSAFE_componentWillUnmount() {
+  public componentWillUnmount() {
     this._animVal.removeAllListeners();
   }
 
