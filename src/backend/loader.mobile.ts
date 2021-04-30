@@ -10,7 +10,7 @@ import path = require('path');
 // import * as PH from 'perf_hooks';
 const rnBridge = require('rn-bridge');
 
-process.env = process.env ?? {};
+process.env ??= {};
 
 // Set default directories
 const appDataDir = (process.env.APP_DATA_DIR = rnBridge.app.datadir());
@@ -27,30 +27,20 @@ if (fs.existsSync(path.join(process.env.SSB_DIR, 'DETAILED_LOGS'))) {
 }
 
 // Report JS backend crashes to Java, and in turn, to ACRA
-process.on('unhandledRejection', (reason, _promise) => {
-  rnBridge.channel.post('exception', reason);
+process.on('unhandledRejection', (reason) => {
   console.error(reason);
+  rnBridge.channel.post('exception', reason);
   setTimeout(() => {
     process.exit(1);
   });
 });
-process.on('uncaughtException', (err) => {
+process.on('uncaughtExceptionMonitor' as any, (err: Error | string) => {
+  console.error(err);
   if (typeof err === 'string') {
     rnBridge.channel.post('exception', err);
   } else {
     rnBridge.channel.post('exception', err.message + '\n' + err.stack);
   }
-  console.error(err);
-  setTimeout(() => {
-    process.exit(1);
-  });
 });
-const _removeAllListeners = process.removeAllListeners;
-process.removeAllListeners = function removeAllListeners(eventName: string) {
-  if (eventName !== 'uncaughtException') {
-    return _removeAllListeners.call(this, eventName);
-  }
-  return process;
-};
 
 require('./index');
