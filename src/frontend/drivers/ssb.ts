@@ -31,6 +31,7 @@ import {
 import makeClient, {SSBClient} from '../ssb/client';
 import {imageToImageUrl} from '../ssb/utils/from-ssb';
 const colorHash = new (require('color-hash'))();
+const Ref = require('ssb-ref');
 
 export type MentionSuggestion = {
   id: FeedId;
@@ -390,6 +391,21 @@ export type ConnForgetReq = {
   address: string;
 };
 
+export type RoomConsumeInviteUri = {
+  type: 'roomClient.consumeInviteUri';
+  uri: string;
+};
+
+export type RoomSignInUri = {
+  type: 'roomSignIn';
+  uri: string;
+};
+
+export type RoomConsumeAliasUri = {
+  type: 'roomClient.consumeAliasUri';
+  uri: string;
+};
+
 export type SettingsHopsReq = {
   type: 'settings.hops';
   hops: number;
@@ -426,6 +442,9 @@ export type Req =
   | ConnDisconnectReq
   | ConnDisconnectForgetReq
   | ConnForgetReq
+  | RoomConsumeInviteUri
+  | RoomSignInUri
+  | RoomConsumeAliasUri
   | SettingsHopsReq
   | SettingsBlobsPurgeReq
   | SettingsShowFollowsReq
@@ -440,24 +459,24 @@ async function consumeSink(
   source: SSBSource,
   ssbP: Promise<SSBClient>,
 ) {
-  sink
-    .filter((r) => r.type === 'identity.create' || r.type === 'identity.use')
-    .take(1)
-    .addListener({
-      next(r) {
-        if (r.type === 'identity.create') {
-          nodejs.channel.post('identity', 'CREATE');
-        }
-        if (r.type === 'identity.use') {
-          nodejs.channel.post('identity', 'USE');
-        }
-      },
-    });
-
-  const ssb = await ssbP;
+  let identityAvailable = false;
 
   sink.addListener({
     next: async (req) => {
+      if (req.type === 'identity.create' && !identityAvailable) {
+        nodejs.channel.post('identity', 'CREATE');
+        identityAvailable = true;
+        return;
+      }
+
+      if (req.type === 'identity.use' && !identityAvailable) {
+        nodejs.channel.post('identity', 'USE');
+        identityAvailable = true;
+        return;
+      }
+
+      const ssb = await ssbP;
+
       if (req.type === 'publish') {
         ssb.publishUtils.publish(req.content);
         return;
@@ -618,6 +637,58 @@ async function consumeSink(
         ssb.dhtInvite.remove(req.invite, (err: any) => {
           if (err) return console.error(err.message || err);
         });
+        return;
+      }
+
+      if (req.type === 'roomClient.consumeInviteUri') {
+        const res = await runAsync(ssb.roomClient.claimInviteUri)(req.uri);
+        const [e1, msaddr] = res;
+        if (e1) {
+          source.acceptInviteResponse$._n(`connecting to ${msaddr} failed`);
+          return;
+        }
+
+        source.acceptInviteResponse$._n(true);
+
+        const key = Ref.getKeyFromAddress(msaddr);
+        const [e2] = await runAsync(ssb.conn.remember)(msaddr, {
+          key,
+          // FIXME: these should be put in ssb-room-client when
+          // the room answers `room.metadata` or `tunnel.isRoom`:
+          // type: 'room',
+          // supportsHttpAuth: true,
+          // supportsAliases: true,
+        });
+        if (e2) {
+          console.error(e2.message || e2);
+          console.error(`conn.remembering ${msaddr} failed`);
+          return;
+        }
+
+        return;
+      }
+
+      if (req.type === 'roomClient.consumeAliasUri') {
+        ssb.roomClient.consumeAliasUri(req.uri, (err: any, _rpc: any) => {
+          if (err) {
+            console.error('error to consume alias');
+            console.error(err);
+          }
+          // TODO: show something on the UI?
+        });
+        return;
+      }
+
+      if (req.type === 'roomSignIn') {
+        ssb.httpAuthClient.consumeSignInSsbUri(
+          req.uri,
+          (err: any, _res: boolean) => {
+            if (err) {
+              console.error('error to sign-in');
+              console.error(err);
+            }
+          },
+        );
         return;
       }
 

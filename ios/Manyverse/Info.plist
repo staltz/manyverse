@@ -20,6 +20,19 @@
 	<string>0.2104.5</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>se.manyver</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ssb</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>0.2104.5</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -32,19 +45,19 @@
 		<dict>
 			<key>localhost</key>
 			<dict>
-				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera access is needed to allow the user to take a picture to add to their posts</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Photo Library access is needed to allow the user to pick pictures to add to their posts</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone access is needed only when the user creates audio messages to add to their posts</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library access is needed to allow the user to pick pictures to add to their posts</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>

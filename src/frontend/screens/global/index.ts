@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,12 +9,14 @@ import {Command} from 'cycle-native-navigation';
 import {Reducer, StateSource} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {GlobalEvent} from '../../drivers/eventbus';
-import {SSBSource} from '../../drivers/ssb';
+import {Req, SSBSource} from '../../drivers/ssb';
 import {Command as LocalizationCmd} from '../../drivers/localization';
 import {FSSource} from '../../drivers/fs';
+import {DialogSource} from '../../drivers/dialogs';
 import model, {State} from './model';
 import intent from './intent';
 import navigation from './navigation';
+import ssb from './ssb';
 import localization from './localization';
 
 export type Sources = {
@@ -22,12 +24,15 @@ export type Sources = {
   ssb: SSBSource;
   fs: FSSource;
   globalEventBus: Stream<GlobalEvent>;
+  linking: Stream<string>;
   asyncstorage: AsyncStorageSource;
+  dialog: DialogSource;
 };
 
 export type Sinks = {
   state: Stream<Reducer<State>>;
   navigation: Stream<Command>;
+  ssb: Stream<Req>;
   localization: Stream<LocalizationCmd>;
 };
 
@@ -36,10 +41,12 @@ export function global(sources: Sources): Sinks {
   const cmd$ = navigation(actions, sources.state.stream);
   const reducer$ = model(sources.ssb, sources.asyncstorage);
   const updateLocalization$ = localization(sources.fs);
+  const req$ = ssb(updateLocalization$, sources.linking, sources.dialog);
 
   return {
     navigation: cmd$,
     state: reducer$,
     localization: updateLocalization$,
+    ssb: req$,
   };
 }

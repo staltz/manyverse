@@ -120,6 +120,8 @@ declare module 'i18n-js' {
     | 'connections.empty.no_peers.description'
     | 'connections.toasts.invite_accepted'
     | 'connections.toasts.invite_rejected'
+    | 'connections.dialogs.sign_in_with_ssb.server_initiated.title'
+    | 'connections.dialogs.sign_in_with_ssb.server_initiated.description'
     | 'connections.peers.types.bluetooth'
     | 'connections.peers.types.lan'
     | 'connections.peers.types.dht.connected'
