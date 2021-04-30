@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,7 +7,7 @@
 import {Msg, FeedId} from 'ssb-typescript';
 const pull = require('pull-stream');
 const ref = require('ssb-ref');
-const {and, votesFor, live, toPullStream} = require('ssb-db2/operators');
+const {where, votesFor, live, toPullStream} = require('ssb-db2/operators');
 import {Readable} from './helpers/types';
 
 const THUMBS_UP_UNICODE = '\ud83d\udc4d';
@@ -70,7 +70,11 @@ export = {
         if (!ref.isLink(msgId))
           throw new Error('A message id must be specified');
         return pull(
-          ssb.db.query(and(votesFor(msgId)), live({old: true}), toPullStream()),
+          ssb.db.query(
+            where(votesFor(msgId)),
+            live({old: true}),
+            toPullStream(),
+          ),
           collectUniqueAuthors(),
         );
       },

@@ -30,6 +30,7 @@ export = {
   },
   init: function init(ssb: any) {
     const {
+      where,
       or,
       and,
       not,
@@ -58,13 +59,16 @@ export = {
         // Query some indexes to eagerly build them during migration
         // (1) non-dedicated author index needed for all profile screens
         pull(
-          ssb.db.query(and(author(ssb.id, {dedicated: false})), toPullStream()),
+          ssb.db.query(
+            where(author(ssb.id, {dedicated: false})),
+            toPullStream(),
+          ),
           pull.take(1),
           pull.drain(),
         );
         // (2) votes prefix index needed as soon as threads load
         pull(
-          ssb.db.query(and(votesFor('whatever')), toPullStream()),
+          ssb.db.query(where(votesFor('whatever')), toPullStream()),
           pull.take(1),
           pull.drain(),
         );
@@ -83,9 +87,11 @@ export = {
       mentionsMe(opts: {live?: boolean; old?: boolean}) {
         return pull(
           ssb.db.query(
-            and(
-              isPublic(),
-              or(and(type('post'), mentions(ssb.id)), contact(ssb.id)),
+            where(
+              and(
+                isPublic(),
+                or(and(type('post'), mentions(ssb.id)), contact(ssb.id)),
+              ),
             ),
             descending(),
             opts.live ? liveOperator({old: opts.old}) : null,
@@ -115,11 +121,13 @@ export = {
 
       selfPublicRoots(opts: {live?: boolean; old?: boolean}) {
         return ssb.db.query(
-          and(
-            author(ssb.id, {dedicated: true}),
-            type('post'),
-            isPublic(),
-            isRoot(),
+          where(
+            and(
+              author(ssb.id, {dedicated: true}),
+              type('post'),
+              isPublic(),
+              isRoot(),
+            ),
           ),
           opts.live ? liveOperator({old: opts.old}) : null,
           toPullStream(),
@@ -128,11 +136,13 @@ export = {
 
       selfPublicReplies(opts: {live?: boolean; old?: boolean}) {
         return ssb.db.query(
-          and(
-            author(ssb.id, {dedicated: true}),
-            type('post'),
-            isPublic(),
-            not(isRoot()),
+          where(
+            and(
+              author(ssb.id, {dedicated: true}),
+              type('post'),
+              isPublic(),
+              not(isRoot()),
+            ),
           ),
           opts.live ? liveOperator({old: opts.old}) : null,
           toPullStream(),
@@ -142,11 +152,13 @@ export = {
       selfPrivateRootIdsLive() {
         return pull(
           ssb.db.query(
-            and(
-              author(ssb.id, {dedicated: true}),
-              type('post'),
-              isPrivate(),
-              isRoot(),
+            where(
+              and(
+                author(ssb.id, {dedicated: true}),
+                type('post'),
+                isPrivate(),
+                isRoot(),
+              ),
             ),
             liveOperator({old: false}),
             toPullStream(),

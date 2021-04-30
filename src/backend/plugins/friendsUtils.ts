@@ -8,6 +8,7 @@ import {FeedId, Msg} from 'ssb-typescript';
 const pull = require('pull-stream');
 const cat = require('pull-cat');
 const {
+  where,
   and,
   author,
   contact,
@@ -34,14 +35,14 @@ export = {
           cat([
             pull(
               ssb.db.query(
-                and(author(ssb.id, {dedicated: true}), contact(dest)),
+                where(and(author(ssb.id, {dedicated: true}), contact(dest))),
                 descending(),
                 toPullStream(),
               ),
               pull.take(1),
             ),
             ssb.db.query(
-              and(author(ssb.id, {dedicated: true}), contact(dest)),
+              where(and(author(ssb.id, {dedicated: true}), contact(dest))),
               live(),
               toPullStream(),
             ),
