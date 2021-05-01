@@ -93,6 +93,7 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-conn')) // needs: db, friends, lan, bluetooth
   .use(require('ssb-room-client')) // needs: conn
   .use(require('ssb-http-auth-client')) // needs: conn
+  .use(require('ssb-http-invite-client'))
   .use(require('ssb-dht-invite')) // needs: db, friends, conn
   .use(require('ssb-invite-client')) // needs: db, conn
   // Queries

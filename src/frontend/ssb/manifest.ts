@@ -143,7 +143,6 @@ export default {
     ping: 'duplex',
   },
   roomClient: {
-    claimInviteUri: 'async',
     consumeAliasUri: 'async',
     registerAlias: 'async',
     revokeAlias: 'async',
@@ -152,6 +151,9 @@ export default {
     produceSignInWebUrl: 'async',
     consumeSignInSsbUri: 'async',
     invalidateAllSessions: 'async',
+  },
+  httpInviteClient: {
+    claim: 'async',
   },
   tunnel: {
     announce: 'sync',

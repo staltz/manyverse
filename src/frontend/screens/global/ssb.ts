@@ -19,7 +19,7 @@ export default function ssb(
 ) {
   const consumeInviteUri$ = linkingSource
     .filter((uri) => parse(uri, true).query.action === 'claim-http-invite')
-    .map((uri) => ({type: 'roomClient.consumeInviteUri', uri} as Req));
+    .map((uri) => ({type: 'httpInviteClient.claim', uri} as Req));
 
   const startHttpAuthUri$ = linkingSource
     .filter((uri) => parse(uri, true).query.action === 'start-http-auth')
@@ -46,7 +46,7 @@ export default function ssb(
           },
         )
         .filter((res) => res.action === 'actionPositive')
-        .mapTo({type: 'roomSignIn', uri} as Req);
+        .mapTo({type: 'httpAuthClient.signIn', uri} as Req);
     })
     .flatten();
 

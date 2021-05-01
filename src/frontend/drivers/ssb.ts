@@ -392,12 +392,12 @@ export type ConnForgetReq = {
 };
 
 export type RoomConsumeInviteUri = {
-  type: 'roomClient.consumeInviteUri';
+  type: 'httpInviteClient.claim';
   uri: string;
 };
 
 export type RoomSignInUri = {
-  type: 'roomSignIn';
+  type: 'httpAuthClient.signIn';
   uri: string;
 };
 
@@ -640,8 +640,8 @@ async function consumeSink(
         return;
       }
 
-      if (req.type === 'roomClient.consumeInviteUri') {
-        const res = await runAsync(ssb.roomClient.claimInviteUri)(req.uri);
+      if (req.type === 'httpInviteClient.claim') {
+        const res = await runAsync(ssb.httpInviteClient.claim)(req.uri);
         const [e1, msaddr] = res;
         if (e1) {
           source.acceptInviteResponse$._n(`connecting to ${msaddr} failed`);
@@ -679,7 +679,7 @@ async function consumeSink(
         return;
       }
 
-      if (req.type === 'roomSignIn') {
+      if (req.type === 'httpAuthClient.signIn') {
         ssb.httpAuthClient.consumeSignInSsbUri(
           req.uri,
           (err: any, _res: boolean) => {
