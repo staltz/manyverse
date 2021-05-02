@@ -20,10 +20,16 @@ if (!process.env.APP_DATA_DIR || !process.env.SSB_DIR) {
 
 if (!fs.existsSync(process.env.SSB_DIR)) mkdirp.sync(process.env.SSB_DIR);
 
+// One-time fixes for special issues
 const ISSUE_1223 = path.join(process.env.SSB_DIR, 'issue1223');
 if (!fs.existsSync(ISSUE_1223)) {
   rimraf.sync(path.join(process.env.SSB_DIR, 'db2'));
   fs.closeSync(fs.openSync(ISSUE_1223, 'w'));
+}
+const ISSUE_1328 = path.join(process.env.SSB_DIR, 'issue1328');
+if (!fs.existsSync(ISSUE_1328) && process.platform === 'android') {
+  rimraf.sync(path.join(process.env.SSB_DIR, 'db2', 'indexes') + '/*.*');
+  fs.closeSync(fs.openSync(ISSUE_1328, 'w'));
 }
 
 const keysPath = path.join(process.env.SSB_DIR, 'secret');
