@@ -273,6 +273,14 @@
       "invite_accepted": "Приглашение принято",
       "invite_rejected": "Приглашение отклонено. Вы уверены, что оно было правильным?"
     },
+    "dialogs": {
+      "sign_in_with_ssb": {
+        "server_initiated": {
+          "title": "Allow sign-in?",
+          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+        }
+      }
+    },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
@@ -648,19 +656,30 @@
         "label": "Редактировать профиль",
         "accessibility_label": "Кнопка \"Редактировать профиль\""
       },
-      "open_biography": {
-        "label": "Читать биографию",
-        "accessibility_label": "Показать биографию"
-      },
       "manage": {
         "accessibility_label": "Управление контактами"
       }
     },
-    "dialog_etc": {
-      "title": "Учетная запись"
+    "dialog_ssb_id": {
+      "title": "SSB ID"
+    },
+    "dialog_manage_contact": {
+      "title": "Contact"
     },
     "toast": {
       "copied_to_clipboard": "Скопировано в буфер обмена"
+    },
+    "details": {
+      "id": {
+        "accessibility_label": "SSB Identifier"
+      },
+      "biography": {
+        "accessibility_label": "Read Biography"
+      },
+      "counters": {
+        "following": "Подписка",
+        "followers": "Followers"
+      }
     },
     "info": {
       "follows_you": "Подписаны на вас",
@@ -700,7 +719,7 @@
         "accessibility_label": "Сохранить профиль"
       },
       "edit_picture": {
-        "accessbility_label": "изменить изображение профиля"
+        "accessibility_label": "изменить изображение профиля"
       }
     },
     "dialogs": {

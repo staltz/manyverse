@@ -273,6 +273,14 @@
       "invite_accepted": "Αποδοχή πρόσκλησης",
       "invite_rejected": "Απόρριψη πρόσκλησης. Είστε σίγουροι οτι ήταν σωστή;"
     },
+    "dialogs": {
+      "sign_in_with_ssb": {
+        "server_initiated": {
+          "title": "Allow sign-in?",
+          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+        }
+      }
+    },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
@@ -648,19 +656,30 @@
         "label": "Επεξεργασία προφίλ",
         "accessibility_label": "Κουμπί επεξεργασίας προφίλ"
       },
-      "open_biography": {
-        "label": "Read bio",
-        "accessibility_label": "Εμφάνιση Βιογραφίας"
-      },
       "manage": {
         "accessibility_label": "Διαχείριση επαφής"
       }
     },
-    "dialog_etc": {
-      "title": "Λογαριασμός"
+    "dialog_ssb_id": {
+      "title": "SSB ID"
+    },
+    "dialog_manage_contact": {
+      "title": "Contact"
     },
     "toast": {
       "copied_to_clipboard": "Αντιγράφηκε στο πρόχειρο"
+    },
+    "details": {
+      "id": {
+        "accessibility_label": "SSB Identifier"
+      },
+      "biography": {
+        "accessibility_label": "Read Biography"
+      },
+      "counters": {
+        "following": "Ακολουθείτε",
+        "followers": "Followers"
+      }
     },
     "info": {
       "follows_you": "Σας ακολουθεί",
@@ -700,7 +719,7 @@
         "accessibility_label": "Αποθήκευση προφίλ"
       },
       "edit_picture": {
-        "accessbility_label": "Επεξεργασία εικόνας προφίλ"
+        "accessibility_label": "Επεξεργασία εικόνας προφίλ"
       }
     },
     "dialogs": {

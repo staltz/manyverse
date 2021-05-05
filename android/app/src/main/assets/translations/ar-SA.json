@@ -273,6 +273,14 @@
       "invite_accepted": "قُبلت الدعوة",
       "invite_rejected": "رُفضت الدعوة. هل انت متأكد من صحتها؟"
     },
+    "dialogs": {
+      "sign_in_with_ssb": {
+        "server_initiated": {
+          "title": "Allow sign-in?",
+          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+        }
+      }
+    },
     "peers": {
       "types": {
         "bluetooth": "بلوتوث",
@@ -648,19 +656,30 @@
         "label": "حرر الملف الشخصي",
         "accessibility_label": "زر تحرير الملف الشخصي"
       },
-      "open_biography": {
-        "label": "اقرأ السيرة",
-        "accessibility_label": "اعرض السيرة"
-      },
       "manage": {
         "accessibility_label": "أدر المراسلين"
       }
     },
-    "dialog_etc": {
-      "title": "الحساب"
+    "dialog_ssb_id": {
+      "title": "SSB ID"
+    },
+    "dialog_manage_contact": {
+      "title": "Contact"
     },
     "toast": {
       "copied_to_clipboard": "نُسخ في الحافظة"
+    },
+    "details": {
+      "id": {
+        "accessibility_label": "SSB Identifier"
+      },
+      "biography": {
+        "accessibility_label": "Read Biography"
+      },
+      "counters": {
+        "following": "متابع",
+        "followers": "Followers"
+      }
     },
     "info": {
       "follows_you": "يتابعك",
@@ -700,7 +719,7 @@
         "accessibility_label": "احفظ الملف الشخصي"
       },
       "edit_picture": {
-        "accessbility_label": "حرر صورة الملف الشخصي"
+        "accessibility_label": "حرر صورة الملف الشخصي"
       }
     },
     "dialogs": {

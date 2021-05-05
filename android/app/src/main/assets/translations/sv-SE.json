@@ -273,6 +273,14 @@
       "invite_accepted": "Inbjudan godkändes",
       "invite_rejected": "Inbjudan avvisades. Blev det rätt?"
     },
+    "dialogs": {
+      "sign_in_with_ssb": {
+        "server_initiated": {
+          "title": "Allow sign-in?",
+          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+        }
+      }
+    },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
@@ -648,19 +656,30 @@
         "label": "Redigera profil",
         "accessibility_label": "Redigera profil-knapp"
       },
-      "open_biography": {
-        "label": "Läs bio",
-        "accessibility_label": "Visa biografi"
-      },
       "manage": {
         "accessibility_label": "Hantera kontakt"
       }
     },
-    "dialog_etc": {
-      "title": "Konto"
+    "dialog_ssb_id": {
+      "title": "SSB ID"
+    },
+    "dialog_manage_contact": {
+      "title": "Contact"
     },
     "toast": {
       "copied_to_clipboard": "Kopierad till urklipp"
+    },
+    "details": {
+      "id": {
+        "accessibility_label": "SSB Identifier"
+      },
+      "biography": {
+        "accessibility_label": "Read Biography"
+      },
+      "counters": {
+        "following": "Följer",
+        "followers": "Followers"
+      }
     },
     "info": {
       "follows_you": "Följer dig",
@@ -700,7 +719,7 @@
         "accessibility_label": "Spara profil"
       },
       "edit_picture": {
-        "accessbility_label": "Knapp för att redigera profilbild"
+        "accessibility_label": "Knapp för att redigera profilbild"
       }
     },
     "dialogs": {

@@ -273,6 +273,14 @@
       "invite_accepted": "Invitación aceptada",
       "invite_rejected": "Invitación rechazada. ¿Estás seguro de que es correcto?"
     },
+    "dialogs": {
+      "sign_in_with_ssb": {
+        "server_initiated": {
+          "title": "Allow sign-in?",
+          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+        }
+      }
+    },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
@@ -648,19 +656,30 @@
         "label": "Editar perfil",
         "accessibility_label": "Botón Editar Perfil"
       },
-      "open_biography": {
-        "label": "Leer biografía",
-        "accessibility_label": "Mostrar Biografía"
-      },
       "manage": {
         "accessibility_label": "Administrar Contacto"
       }
     },
-    "dialog_etc": {
-      "title": "Cuenta"
+    "dialog_ssb_id": {
+      "title": "SSB ID"
+    },
+    "dialog_manage_contact": {
+      "title": "Contact"
     },
     "toast": {
       "copied_to_clipboard": "Copiado al portapapeles"
+    },
+    "details": {
+      "id": {
+        "accessibility_label": "SSB Identifier"
+      },
+      "biography": {
+        "accessibility_label": "Read Biography"
+      },
+      "counters": {
+        "following": "Siguiendo",
+        "followers": "Followers"
+      }
     },
     "info": {
       "follows_you": "Te sigue",
@@ -700,7 +719,7 @@
         "accessibility_label": "Guardar Perfil"
       },
       "edit_picture": {
-        "accessbility_label": "Editar Imagen del Perfil"
+        "accessibility_label": "Editar Imagen del Perfil"
       }
     },
     "dialogs": {

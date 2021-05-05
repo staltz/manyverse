@@ -273,6 +273,14 @@
       "invite_accepted": "Запрошення прийнято",
       "invite_rejected": "Запрошення відхилено. Ви впевнені, що воно вірне?"
     },
+    "dialogs": {
+      "sign_in_with_ssb": {
+        "server_initiated": {
+          "title": "Allow sign-in?",
+          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+        }
+      }
+    },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
@@ -648,19 +656,30 @@
         "label": "Edit profile",
         "accessibility_label": "Edit Profile Button"
       },
-      "open_biography": {
-        "label": "Read bio",
-        "accessibility_label": "Show Biography"
-      },
       "manage": {
         "accessibility_label": "Manage Contact"
       }
     },
-    "dialog_etc": {
-      "title": "Account"
+    "dialog_ssb_id": {
+      "title": "SSB ID"
+    },
+    "dialog_manage_contact": {
+      "title": "Contact"
     },
     "toast": {
       "copied_to_clipboard": "Copied to clipboard"
+    },
+    "details": {
+      "id": {
+        "accessibility_label": "SSB Identifier"
+      },
+      "biography": {
+        "accessibility_label": "Read Biography"
+      },
+      "counters": {
+        "following": "Following",
+        "followers": "Followers"
+      }
     },
     "info": {
       "follows_you": "Follows you",
@@ -700,7 +719,7 @@
         "accessibility_label": "Save Profile"
       },
       "edit_picture": {
-        "accessbility_label": "Edit Profile Picture"
+        "accessibility_label": "Edit Profile Picture"
       }
     },
     "dialogs": {

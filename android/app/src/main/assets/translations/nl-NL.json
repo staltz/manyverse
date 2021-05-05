@@ -273,6 +273,14 @@
       "invite_accepted": "Uitnodiging geaccepteerd",
       "invite_rejected": "Uitnodiging afgewezen. Weet je zeker dat het juist is?"
     },
+    "dialogs": {
+      "sign_in_with_ssb": {
+        "server_initiated": {
+          "title": "Allow sign-in?",
+          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+        }
+      }
+    },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
@@ -648,19 +656,30 @@
         "label": "Profiel bewerken",
         "accessibility_label": "Profielafbeelding bewerken"
       },
-      "open_biography": {
-        "label": "Read bio",
-        "accessibility_label": "Toon Biografie"
-      },
       "manage": {
         "accessibility_label": "Contactpersoon beheren"
       }
     },
-    "dialog_etc": {
-      "title": "Rekening"
+    "dialog_ssb_id": {
+      "title": "SSB ID"
+    },
+    "dialog_manage_contact": {
+      "title": "Contact"
     },
     "toast": {
       "copied_to_clipboard": "Gekopieerd naar klembord"
+    },
+    "details": {
+      "id": {
+        "accessibility_label": "SSB Identifier"
+      },
+      "biography": {
+        "accessibility_label": "Read Biography"
+      },
+      "counters": {
+        "following": "Volgt",
+        "followers": "Followers"
+      }
     },
     "info": {
       "follows_you": "Volgt jou",
@@ -700,7 +719,7 @@
         "accessibility_label": "Profiel opslaan"
       },
       "edit_picture": {
-        "accessbility_label": "Profielafbeelding bewerken"
+        "accessibility_label": "Profielafbeelding bewerken"
       }
     },
     "dialogs": {

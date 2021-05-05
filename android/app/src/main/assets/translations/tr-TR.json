@@ -273,6 +273,14 @@
       "invite_accepted": "Davet kabul edildi",
       "invite_rejected": "Davet reddedildi. Doğru olduğundan emin misin?"
     },
+    "dialogs": {
+      "sign_in_with_ssb": {
+        "server_initiated": {
+          "title": "Allow sign-in?",
+          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+        }
+      }
+    },
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
@@ -648,19 +656,30 @@
         "label": "Profili düzenle",
         "accessibility_label": "Profili düzenle butonu"
       },
-      "open_biography": {
-        "label": "Biyografiyi oku",
-        "accessibility_label": "Biyografiyi göster"
-      },
       "manage": {
         "accessibility_label": "Kişiyi yönet"
       }
     },
-    "dialog_etc": {
-      "title": "Hesap"
+    "dialog_ssb_id": {
+      "title": "SSB ID"
+    },
+    "dialog_manage_contact": {
+      "title": "Contact"
     },
     "toast": {
       "copied_to_clipboard": "Panoya kopyalandı"
+    },
+    "details": {
+      "id": {
+        "accessibility_label": "SSB Identifier"
+      },
+      "biography": {
+        "accessibility_label": "Read Biography"
+      },
+      "counters": {
+        "following": "Takip ediliyor",
+        "followers": "Followers"
+      }
     },
     "info": {
       "follows_you": "Seni takip ediyor",
@@ -700,7 +719,7 @@
         "accessibility_label": "Profili Kaydet"
       },
       "edit_picture": {
-        "accessbility_label": "Profil Fotoğrafını Düzenle"
+        "accessibility_label": "Profil Fotoğrafını Düzenle"
       }
     },
     "dialogs": {
