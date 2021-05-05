@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -26,7 +26,7 @@ export const Dimensions = {
    */
   verticalSpaceIOSTitle: 16,
 
-  avatarSizeBig: 80,
+  avatarSizeBig: 92,
   avatarSizeNormal: 45,
   avatarSizeSmall: 32,
   avatarBorderRadius: 3,

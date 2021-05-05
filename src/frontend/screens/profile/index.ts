@@ -1,20 +1,22 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import dropRepeats from 'xstream/extra/dropRepeats';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import {Toast} from '../../drivers/toast';
-import {Command, NavSource} from 'cycle-native-navigation';
 import messageEtc from '../../components/messageEtc';
 import manageContact from './manage-contact';
+import copyCypherlink from './copy-cypherlink';
 import intent from './intent';
 import model, {State} from './model';
 import view from './view';
@@ -45,44 +47,62 @@ export type Sinks = {
 };
 
 export function profile(sources: Sources): Sinks {
-  const actions = intent(
-    sources.screen,
-    sources.navigation,
-    sources.state.stream,
-  );
+  const state$ = sources.state.stream;
+
+  const actions = intent(sources.screen, sources.navigation, state$);
+
   const messageEtcSinks = messageEtc({
     appear$: actions.openMessageEtc$,
     dialog: sources.dialog,
   });
+
+  const feedId$ = state$
+    .map((state) => state.displayFeedId)
+    .compose(dropRepeats());
+
   const manageContactSinks = manageContact({
-    feedId$: sources.state.stream.map((state) => state.displayFeedId),
+    feedId$,
     manageContact$: actions.manageContact$,
     dialog: sources.dialog,
   });
+
+  const copyCypherlinkSinks = copyCypherlink({
+    feedId$,
+    appear$: actions.goToFeedId$,
+    dialog: sources.dialog,
+  });
+
   const actionsPlus = {
     ...actions,
     ...manageContactSinks,
+    ...copyCypherlinkSinks,
     goToRawMsg$: messageEtcSinks.goToRawMsg$,
   };
+
   const reducer$ = model(
     actionsPlus,
     sources.asyncstorage,
     sources.props,
     sources.ssb,
   );
-  const vdom$ = view(sources.state.stream, sources.ssb);
-  const newContent$ = ssb(actionsPlus, sources.state.stream);
+
+  const vdom$ = view(state$, sources.ssb);
+
+  const newContent$ = ssb(actionsPlus, state$);
+
   const command$ = navigation(
     actionsPlus,
     sources.ssb,
     sources.navigation,
-    sources.state.stream,
+    state$,
   );
+
   const clipboard$ = xs.merge(
     messageEtcSinks.clipboard,
-    manageContactSinks.clipboard,
+    copyCypherlinkSinks.clipboard,
   );
-  const toast$ = xs.merge(messageEtcSinks.toast, manageContactSinks.toast);
+
+  const toast$ = xs.merge(messageEtcSinks.toast, copyCypherlinkSinks.toast);
 
   return {
     screen: vdom$,

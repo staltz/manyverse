@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -16,12 +16,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {FeedId} from 'ssb-typescript';
+import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
 import {displayName} from '../ssb/utils/from-ssb';
 import {t} from '../drivers/localization';
+import {GetReadable} from '../drivers/ssb';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
 import Avatar from './Avatar';
+import AnimatedLoading from './AnimatedLoading';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -29,6 +32,11 @@ const Touchable = Platform.select<any>({
 });
 
 export const styles = StyleSheet.create({
+  flatList: {
+    alignSelf: 'stretch',
+    flex: 1,
+  },
+
   row: {
     flex: 1,
     backgroundColor: Palette.backgroundText,
@@ -120,31 +128,78 @@ class Account extends PureComponent<AccountProps> {
   }
 }
 
-export type Props = {
-  accounts: Array<{
-    name?: string;
-    imageUrl?: string;
-    id: string;
-    reaction?: string;
-  }>;
-  onPressAccount?: (ev: {id: FeedId; name: string}) => void;
-};
+interface AboutWithReaction {
+  name?: string;
+  imageUrl?: string;
+  id: string;
+  reaction?: string;
+}
 
-export default class AccountsList extends PureComponent<Props> {
+export interface Props {
+  accounts: Array<AboutWithReaction> | GetReadable<AboutWithReaction>;
+  onPressAccount?: (ev: {id: FeedId; name: string}) => void;
+}
+
+interface State {
+  loading: boolean;
+}
+
+export default class AccountsList extends PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {loading: true};
+  }
+
+  private _onPullingComplete = () => {
+    this.setState({loading: false});
+  };
+
   public render() {
-    const {onPressAccount} = this.props;
-    return h(
-      React.Fragment,
-      this.props.accounts.map(({id, name, imageUrl, reaction}) =>
-        h<AccountProps>(Account, {
-          key: id,
-          id,
-          name,
-          imageUrl,
-          reaction,
-          onPress: () => onPressAccount?.({id, name: displayName(name, id)}),
-        }),
-      ),
-    );
+    const {onPressAccount, accounts} = this.props;
+    const {loading} = this.state;
+
+    if (Array.isArray(accounts)) {
+      return h(
+        React.Fragment,
+        accounts.map(({id, name, imageUrl, reaction}) =>
+          h<AccountProps>(Account, {
+            key: id,
+            id,
+            name,
+            imageUrl,
+            reaction,
+            onPress: () => onPressAccount?.({id, name: displayName(name, id)}),
+          }),
+        ),
+      );
+    } else {
+      return h<PullFlatListProps<AboutWithReaction>>(PullFlatList, {
+        getScrollStream: accounts,
+        keyExtractor: (about: AboutWithReaction, idx: number) =>
+          about.id ?? String(idx),
+        style: styles.flatList,
+        initialNumToRender: 14,
+        pullAmount: 1,
+        numColumns: 1,
+        refreshable: true,
+        onEndReachedThreshold: 5,
+        refreshColors: [Palette.brandWeak],
+        onPullingComplete: this._onPullingComplete,
+        ListFooterComponent: loading
+          ? h(AnimatedLoading, {text: t('central.loading')})
+          : null,
+        renderItem: ({item}) => {
+          const {id, name, imageUrl, reaction} = item;
+          return h<AccountProps>(Account, {
+            key: item.id,
+            id,
+            name,
+            imageUrl,
+            reaction,
+            onPress: () => onPressAccount?.({id, name: displayName(name, id)}),
+          });
+        },
+      });
+    }
   }
 }

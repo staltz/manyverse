@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,18 +8,19 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactElement} from 'react';
 import {ReactSource, h} from '@cycle/react';
-import {StyleSheet, View, ScrollView, RefreshControl} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Command, PopCommand, NavSource} from 'cycle-native-navigation';
 import {Reducer, StateSource} from '@cycle/state';
 import {MsgId, About, FeedId} from 'ssb-typescript';
 import {Screens} from '../enums';
-import {SSBSource} from '../../drivers/ssb';
+import {GetReadable, SSBSource} from '../../drivers/ssb';
 import {navOptions as profileScreenNavOptions} from '../profile';
 import {Props as ProfileProps} from '../profile/props';
-import AccountsList, {Props as ListProps} from '../../components/AccountsList';
+import AccountsList from '../../components/AccountsList';
 import TopBar from '../../components/TopBar';
 import {Palette} from '../../global-styles/palette';
 export {navOptions} from './layout';
+const pull = require('pull-stream');
 
 export type Props = {
   title: string;
@@ -45,7 +46,7 @@ export type Sinks = {
 
 export type State = {
   title: string;
-  abouts: Array<About>;
+  abouts: GetReadable<About & {id: FeedId}> | null;
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
 };
@@ -114,17 +115,7 @@ export function accounts(sources: Sources): Sinks {
 
     return h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: state.title}),
-      h(
-        ScrollView,
-        {
-          style: styles.container,
-          refreshControl: h(RefreshControl, {
-            refreshing: state.abouts.length === 0,
-            colors: [Palette.brandMain],
-          }),
-        },
-        [h(AccountsList, {sel: 'accounts', accounts: abouts} as ListProps)],
-      ),
+      abouts ? h(AccountsList, {sel: 'accounts', accounts: abouts}) : null,
     ]);
   });
 
@@ -136,7 +127,7 @@ export function accounts(sources: Sources): Sinks {
         if (prev) {
           return {...prev, selfFeedId, selfAvatarUrl, title};
         } else {
-          return {abouts: [], selfFeedId, selfAvatarUrl, title};
+          return {abouts: null, selfFeedId, selfAvatarUrl, title};
         }
       },
   );
@@ -144,28 +135,33 @@ export function accounts(sources: Sources): Sinks {
   const aboutsReducer$ = sources.props
     .filter((props) => !!props.accounts)
     .map((props) => {
+      const accnts = props.accounts!;
       const hasReactions =
-        props.accounts &&
-        props.accounts.length >= 1 &&
-        Array.isArray(props.accounts[0]);
+        accnts && accnts.length >= 1 && Array.isArray(accnts[0]);
 
       const reactions = new Map(
-        hasReactions ? (props.accounts as Array<[FeedId, string]>) : undefined,
+        hasReactions ? (accnts as Array<[FeedId, string]>) : undefined,
       );
 
       const ids = hasReactions
-        ? (props.accounts! as Array<[FeedId, string]>).map((x) => x[0])
-        : (props.accounts! as Array<FeedId>);
+        ? (accnts as Array<[FeedId, string]>).map((x) => x[0])
+        : (accnts as Array<FeedId>);
 
-      return sources.ssb.liteAbout$(ids).map(
-        (rawAbouts) =>
-          function propsReducer(prev: State): State {
-            const abouts = hasReactions
-              ? rawAbouts.map((about) => ({
-                  ...about,
-                  reaction: reactions.get(about.id),
-                }))
-              : rawAbouts;
+      return sources.ssb.liteAboutReadable$(ids).map(
+        (getReadable) =>
+          function aboutsReducer(prev: State): State {
+            if (!getReadable) return prev;
+
+            const abouts = (hasReactions
+              ? () =>
+                  pull(
+                    getReadable(),
+                    pull.map((about: About) => ({
+                      ...about,
+                      reaction: reactions.get(about.id!),
+                    })),
+                  )
+              : getReadable) as State['abouts'];
             return {...prev, abouts};
           },
       );

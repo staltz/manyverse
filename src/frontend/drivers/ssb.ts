@@ -12,6 +12,7 @@ import {
   MsgId,
   AboutContent,
   BlobId,
+  About,
 } from 'ssb-typescript';
 const nodejs = require('nodejs-mobile-react-native');
 import {Platform} from 'react-native';
@@ -31,6 +32,7 @@ import {
 import makeClient, {SSBClient} from '../ssb/client';
 import {imageToImageUrl} from '../ssb/utils/from-ssb';
 const colorHash = new (require('color-hash'))();
+const pull = require('pull-stream');
 const Ref = require('ssb-ref');
 
 export type MentionSuggestion = {
@@ -189,17 +191,53 @@ export class SSBSource {
     );
   }
 
-  public liteAbout$(ids: Array<FeedId>): Stream<Array<AboutAndExtras>> {
+  public liteAboutReadable$(
+    ids: Array<FeedId>,
+  ): Stream<GetReadable<About> | null> {
+    return this.ssb$.map((ssb) => () => {
+      if (!ids || !ids.length) {
+        return null;
+      }
+
+      return pull(
+        pull.values(ids),
+        pull.asyncMap((id: FeedId, cb: Callback<About>) => {
+          ssb.cachedAboutSelf.get(id, (err: any, output: any) => {
+            if (err) {
+              cb(err);
+              return;
+            }
+            const name = output.name;
+            const imageUrl = imageToImageUrl(output.image);
+            cb(null, {name, imageUrl, id});
+          });
+        }),
+      );
+    });
+  }
+
+  public profileEdges$(
+    start: FeedId,
+    reverse: boolean,
+    positive: boolean,
+  ): Stream<Array<FeedId>> {
     return this.ssb$
       .map(async (ssb) => {
-        const abouts: Array<AboutAndExtras> = [];
-        for (const id of ids) {
-          const [, output] = await runAsync<any>(ssb.cachedAboutSelf.get)(id);
-          const name = output.name;
-          const imageUrl = imageToImageUrl(output.image);
-          abouts.push({name, imageUrl, id});
+        const [err, out] = await runAsync<any>(ssb.friends.hops)({
+          start,
+          reverse,
+          max: 1,
+        });
+
+        if (err) {
+          console.error(err);
+          return [];
         }
-        return abouts;
+
+        const hops: Record<FeedId, number> = out;
+        return Object.keys(hops).filter((feedId) =>
+          positive ? hops[feedId] > 0 : hops[feedId] < 0,
+        );
       })
       .map((promise) => xs.fromPromise(promise))
       .flatten();

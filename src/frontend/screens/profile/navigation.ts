@@ -7,7 +7,7 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
-import {MsgId, FeedId, Msg} from 'ssb-typescript';
+import {FeedId, Msg} from 'ssb-typescript';
 import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
 import {SSBSource, GetReadable} from '../../drivers/ssb';
 import {Reactions, MsgAndExtras, PrivateThreadAndExtras} from '../../ssb/types';
@@ -34,7 +34,6 @@ export type Actions = {
   goToBio$: Stream<any>;
   goToAccounts$: Stream<{
     title: string;
-    msgKey: MsgId;
     accounts: Array<FeedId> | Reactions;
   }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
@@ -160,7 +159,6 @@ export default function navigation(
             name: Screens.Accounts,
             passProps: {
               title: ev.title,
-              msgKey: ev.msgKey,
               accounts: ev.accounts,
               selfFeedId: state.selfFeedId,
               selfAvatarUrl: state.selfAvatarUrl,

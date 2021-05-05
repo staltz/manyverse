@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -45,14 +45,31 @@ export default function intent(
       null
     >,
 
-    goToAccounts$: (reactSource
-      .select('feed')
-      .events('pressReactions') as Stream<PressReactionsEvent>).map(
-      ({msgKey, reactions}) => ({
+    goToAccounts$: xs.merge(
+      (reactSource.select('feed').events('pressReactions') as Stream<
+        PressReactionsEvent
+      >).map(({reactions}) => ({
         title: t('accounts.reactions.title'),
-        msgKey,
         accounts: reactions,
-      }),
+      })),
+
+      reactSource
+        .select('following')
+        .events('press')
+        .compose(sample(state$))
+        .map((state) => ({
+          title: t('profile.details.counters.following'),
+          accounts: state.following ?? [],
+        })),
+
+      reactSource
+        .select('followers')
+        .events('press')
+        .compose(sample(state$))
+        .map((state) => ({
+          title: t('profile.details.counters.followers'),
+          accounts: state.followers ?? [],
+        })),
     ),
 
     goToProfile$: reactSource.select('feed').events('pressAuthor') as Stream<
@@ -69,6 +86,8 @@ export default function intent(
       .select('manage')
       .events('press')
       .compose(sample(state$)),
+
+    goToFeedId$: reactSource.select('feedId').events('press') as Stream<any>,
 
     goToThread$: reactSource.select('feed').events('pressExpand') as Stream<
       MsgAndExtras

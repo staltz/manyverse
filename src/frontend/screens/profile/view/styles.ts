@@ -1,26 +1,24 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {StyleSheet} from 'react-native';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
+import {Palette} from '../../../global-styles/palette';
+import {Dimensions} from '../../../global-styles/dimens';
+import {Typography} from '../../../global-styles/typography';
 
 export const AVATAR_SIZE = Dimensions.avatarSizeBig;
 const AVATAR_SIZE_HALF = AVATAR_SIZE * 0.5;
 
-export const AVATAR_SIZE_TOOLBAR = Dimensions.avatarSizeSmall;
+export const AVATAR_SIZE_TOOLBAR = Dimensions.avatarSizeNormal;
 
 export const COVER_HEIGHT = AVATAR_SIZE_HALF;
 
-export const BIO_MARKDOWN_MAX_HEIGHT = 54;
-
 const SCROLL_BOUNCE_REGION = 250;
 
-export const NAME_MARGIN_TOOLBAR = Typography.fontSizeLarge * 0.5 - 2;
+export const NAME_MARGIN_TOOLBAR = Typography.fontSizeLarge * 0.3 - 2;
 
 export const styles = StyleSheet.create({
   container: {
@@ -64,7 +62,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     color: Palette.textForBackgroundBrand,
     top:
-      Dimensions.toolbarHeight + COVER_HEIGHT - Typography.fontSizeLarge * 1.75,
+      Dimensions.toolbarHeight + COVER_HEIGHT - Typography.fontSizeLarge * 2.55,
     left:
       Dimensions.horizontalSpaceBig +
       AVATAR_SIZE +
@@ -77,7 +75,26 @@ export const styles = StyleSheet.create({
     zIndex: 20,
   },
 
+  feedId: {
+    position: 'absolute',
+    color: Palette.textWeakForBackgroundBrand,
+    top:
+      Dimensions.toolbarHeight + COVER_HEIGHT - Typography.fontSizeLarge * 1.1,
+    left:
+      Dimensions.horizontalSpaceBig +
+      AVATAR_SIZE +
+      Dimensions.horizontalSpaceBig,
+    right: Dimensions.horizontalSpaceBig + Dimensions.iconSizeNormal,
+    fontSize: Typography.fontSizeTiny,
+    lineHeight: Typography.lineHeightTiny,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
+    zIndex: 20,
+  },
+
   header: {
+    flex: 1,
+    flexDirection: 'column',
     marginTop: Dimensions.toolbarHeight,
     backgroundColor: Palette.backgroundText,
   },
@@ -103,6 +120,7 @@ export const styles = StyleSheet.create({
     borderRadius: 3,
     paddingHorizontal: Dimensions.horizontalSpaceSmall,
     paddingVertical: Dimensions.verticalSpaceTiny,
+    marginTop: Dimensions.verticalSpaceSmall,
   },
 
   followsYouText: {
@@ -123,22 +141,54 @@ export const styles = StyleSheet.create({
     marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
-  descriptionArea: {
+  detailsArea: {
     justifyContent: 'flex-start',
-    flexDirection: 'row',
+    flexDirection: 'column',
+    marginTop: Dimensions.verticalSpaceNormal,
     paddingLeft: Dimensions.horizontalSpaceBig,
     paddingRight: Dimensions.horizontalSpaceBig,
     backgroundColor: Palette.backgroundText,
-    maxHeight: BIO_MARKDOWN_MAX_HEIGHT + 1,
   },
 
-  readBio: {
-    backgroundColor: Palette.backgroundText,
-    minWidth: 50,
-    position: 'absolute',
-    bottom: 0,
-    right: Dimensions.horizontalSpaceBig,
-    zIndex: 20,
+  counterSection: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    minHeight: 20,
+    flexShrink: 0,
+    marginVertical: Dimensions.verticalSpaceNormal,
+  },
+
+  counterContent: {
+    marginLeft: Dimensions.horizontalSpaceSmall,
+    flex: 1,
+    color: Palette.text,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
+    marginRight: Dimensions.horizontalSpaceSmall,
+  },
+
+  counterContentTitle: {
+    marginRight: Dimensions.horizontalSpaceLarge,
+    color: Palette.textWeak,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'normal',
+  },
+
+  biographyContainer: {
+    marginVertical: Dimensions.verticalSpaceNormal,
+  },
+
+  biographyContent: {
+    flex: 1,
+    color: Palette.text,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
   },
 
   headerMarginBottom: {
@@ -154,5 +204,9 @@ export const styles = StyleSheet.create({
 
   emptySection: {
     marginTop: Dimensions.verticalSpaceBig * 2,
+  },
+
+  emptySectionSpacer: {
+    flex: 1,
   },
 });

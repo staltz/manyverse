@@ -19,6 +19,8 @@ export type State = {
   selfAvatarUrl?: string;
   displayFeedId: FeedId;
   about: AboutAndExtras;
+  following: Array<FeedId> | null;
+  followers: Array<FeedId> | null;
   // FIXME: use `ThreadSummaryWithExtras` but somehow support reply summaries
   getFeedReadable: GetReadable<any> | null;
   blockingSecretly: boolean;
@@ -48,6 +50,8 @@ export default function model(
             description: '',
             id: props.feedId,
           },
+          following: null,
+          followers: null,
           blockingSecretly: false,
         };
       },
@@ -97,6 +101,28 @@ export default function model(
         },
     );
 
+  const updateFollowingReducer$ = props$
+    .map((props) => ssbSource.profileEdges$(props.feedId, false, true))
+    .take(1)
+    .flatten()
+    .map(
+      (following) =>
+        function updateFollowingReducer(prev: State): State {
+          return {...prev, following};
+        },
+    );
+
+  const updateFollowersReducer$ = props$
+    .map((props) => ssbSource.profileEdges$(props.feedId, true, true))
+    .take(1)
+    .flatten()
+    .map(
+      (followers) =>
+        function updateFollowersReducer(prev: State): State {
+          return {...prev, followers};
+        },
+    );
+
   const updateFeedStreamReducer$ = getFeedReadable$.map(
     (getFeedReadable) =>
       function updateFeedStreamReducer(prev: State): State {
@@ -109,6 +135,8 @@ export default function model(
     xs.merge(
       loadLastSessionTimestampReducer$,
       updateAboutReducer$,
+      updateFollowingReducer$,
+      updateFollowersReducer$,
       updateFeedStreamReducer$,
       updateBlockingSecretlyReducer$,
     ),

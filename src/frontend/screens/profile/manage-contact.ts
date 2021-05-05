@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,14 +7,12 @@
 import {Stream} from 'xstream';
 import {Platform} from 'react-native';
 import {FeedId} from 'ssb-typescript';
-import {Duration, Toast} from '../../drivers/toast';
 import {t} from '../../drivers/localization';
 import {DialogSource, PickerItem} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 
 export type ManageChoiceId =
-  | 'copy-id'
   | 'private-chat'
   | 'block'
   | 'block-secretly'
@@ -28,8 +26,6 @@ export type Sources = {
 };
 
 export type Sinks = {
-  clipboard: Stream<string>;
-  toast: Stream<Toast>;
   goToPrivateChat$: Stream<string>;
   blockContact$: Stream<null>;
   blockSecretlyContact$: Stream<null>;
@@ -62,11 +58,6 @@ export default function manageContact$(sources: Sources): Sinks {
       const isSelfProfile = state.displayFeedId === state.selfFeedId;
       const relationship = calculateRelationship(state);
       const items: Array<Omit<PickerItem, 'id'> & {id: ManageChoiceId}> = [];
-
-      items.push({
-        id: 'copy-id',
-        label: t('profile.call_to_action.copy_cypherlink'),
-      });
 
       if (!isSelfProfile) {
         items.push({
@@ -104,7 +95,9 @@ export default function manageContact$(sources: Sources): Sinks {
 
       return sources.dialog
         .showPicker(
-          Platform.OS === 'ios' ? t('profile.dialog_etc.title') : undefined,
+          Platform.OS === 'ios'
+            ? t('profile.dialog_manage_contact.title')
+            : undefined,
           undefined,
           {
             items,
@@ -119,11 +112,6 @@ export default function manageContact$(sources: Sources): Sinks {
         .filter((res) => res.action === 'actionSelect')
         .map((res: any) => ({id: res.selectedItem.id as ManageChoiceId}));
     })
-    .flatten();
-
-  const copyCypherlink$ = manageContactChoice$
-    .filter((choice) => choice.id === 'copy-id')
-    .map(() => sources.feedId$.take(1))
     .flatten();
 
   const privateChat$ = manageContactChoice$
@@ -147,15 +135,7 @@ export default function manageContact$(sources: Sources): Sinks {
     .filter((choice) => choice.id === 'unblock-secretly')
     .mapTo(null);
 
-  const toast$ = copyCypherlink$.mapTo({
-    type: 'show',
-    message: t('profile.toast.copied_to_clipboard'),
-    duration: Duration.SHORT,
-  } as Toast);
-
   return {
-    clipboard: copyCypherlink$,
-    toast: toast$,
     goToPrivateChat$: privateChat$,
     blockContact$,
     blockSecretlyContact$,
