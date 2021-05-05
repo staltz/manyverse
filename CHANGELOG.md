@@ -7,6 +7,13 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2105.5-beta
+
+* Bug fix: reset indexes that were fractured ([see details](https://gitlab.com/staltz/manyverse/commit/82a65c58fc078622a4b024add405b620c7895a3c))
+* Feature: profile screen shows follower count ([see details](https://gitlab.com/staltz/manyverse/commit/3fc39193d1a6336d214ebe0e80027d2e90e76a67))
+* Feature: support some SSB URIs ([see details](https://gitlab.com/staltz/manyverse/commit/85c334302f2e0832c3c2b1d2af0ec8d02877f2b2))
+* Improve the looks of the Welcome screen ([see details](https://gitlab.com/staltz/manyverse/commit/49be0d619d858ed5562019db3da80e0e8e62af5f))
+
 ## 0.2104.5-beta
 
 * Feature: activity tab shows mentions and follows ([see details](https://gitlab.com/staltz/manyverse/commit/87fdf39ba42e69d218e01ccd4cff508e83483680))

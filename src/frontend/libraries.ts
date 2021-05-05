@@ -253,7 +253,7 @@ export default [
   {
     name: 'cycle-native-linking',
     type: 'library',
-    version: '1.1.0',
+    version: '2.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/cycle-native-linking#readme',
   },
@@ -428,7 +428,7 @@ export default [
   {
     name: 'pull-flat-list',
     type: 'library',
-    version: '2.14.0',
+    version: '2.15.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/pull-flat-list',
   },
@@ -734,7 +734,7 @@ export default [
   {
     name: 'secret-stack',
     type: 'library',
-    version: '6.3.2',
+    version: '6.4.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/secret-stack',
   },
@@ -746,13 +746,6 @@ export default [
     homepage: 'https://github.com/staltz/sodium-chloride-native-nodejs-mobile',
   },
   {
-    name: 'ssb-about',
-    type: 'library',
-    version: '2.0.1',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/ssbc/ssb-about',
-  },
-  {
     name: 'ssb-blobs',
     type: 'library',
     version: '1.2.2',
@@ -762,7 +755,7 @@ export default [
   {
     name: 'ssb-blobs-purge',
     type: 'library',
-    version: '1.0.1',
+    version: '2.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-blobs-purge',
   },
@@ -790,7 +783,7 @@ export default [
   {
     name: 'ssb-conn',
     type: 'library',
-    version: '2.0.2',
+    version: '3.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn',
   },
@@ -804,7 +797,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '1.18.5',
+    version: '2.1.2',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -825,16 +818,30 @@ export default [
   {
     name: 'ssb-ebt',
     type: 'library',
-    version: '6.0.0-rc1',
+    version: '6.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-ebt',
   },
   {
     name: 'ssb-friends',
     type: 'library',
-    version: '4.4.4',
+    version: '4.4.5',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-friends',
+  },
+  {
+    name: 'ssb-http-auth-client',
+    type: 'library',
+    version: '0.6.0',
+    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
+    homepage: 'https://github.com/ssb-ngi-pointer/ssb-http-auth-client',
+  },
+  {
+    name: 'ssb-http-invite-client',
+    type: 'library',
+    version: '0.1.0',
+    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
+    homepage: 'https://github.com/ssb-ngi-pointer/ssb-http-invite-client',
   },
   {
     name: 'ssb-invite-client',
@@ -846,14 +853,14 @@ export default [
   {
     name: 'ssb-keys',
     type: 'library',
-    version: '8.0.0',
+    version: '8.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-keys',
   },
   {
     name: 'ssb-keys-mnemonic',
     type: 'library',
-    version: '1.0.0',
+    version: '1.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-keys-mnemonic',
   },
@@ -867,7 +874,7 @@ export default [
   {
     name: 'ssb-keys-neon',
     type: 'library',
-    version: '8.0.0-8',
+    version: '8.1.0-1',
     license: 'GNU Affero General Public License v3.0 (AGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-keys-neon#readme',
   },
@@ -902,21 +909,21 @@ export default [
   {
     name: 'ssb-replicate',
     type: 'library',
-    version: '1.3.2',
+    version: '1.3.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/dominictarr/ssb-replicate',
   },
   {
     name: 'ssb-room-client',
     type: 'library',
-    version: '0.2.0',
+    version: '0.14.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-room-client',
   },
   {
     name: 'ssb-serve-blobs',
     type: 'library',
-    version: '2.5.0',
+    version: '2.6.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-serve-blobs',
   },
@@ -930,7 +937,7 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '7.0.0',
+    version: '8.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
@@ -947,6 +954,20 @@ export default [
     version: '3.3.6-1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/multiserver',
+  },
+  {
+    name: 'strip-markdown-oneline',
+    type: 'library',
+    version: '1.0.2',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/staltz/strip-markdown-oneline#readme',
+  },
+  {
+    name: 'url-parse',
+    type: 'library',
+    version: '1.5.1',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/unshiftio/url-parse#readme',
   },
   {
     name: 'utf-8-validate',
