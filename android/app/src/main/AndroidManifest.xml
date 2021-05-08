@@ -44,6 +44,9 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="ssb" android:host="feed" />
+                <data android:scheme="ssb" android:host="message" />
+                <data android:scheme="ssb" android:host="address" />
                 <data android:scheme="ssb" android:host="experimental" />
             </intent-filter>
         </activity>

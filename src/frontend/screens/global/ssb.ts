@@ -9,22 +9,28 @@ import {DialogSource} from '../../drivers/dialogs';
 import {t} from '../../drivers/localization';
 import {Req} from '../../drivers/ssb';
 import {Palette} from '../../global-styles/palette';
-const parse = require('url-parse');
+const urlParse = require('url-parse');
 const Ref = require('ssb-ref');
+
+interface Actions {
+  handleUriClaimInvite$: Stream<string>;
+  handleUriStartHttpAuth$: Stream<string>;
+  handleUriConsumeAlias$: Stream<string>;
+  connectToPeer$: Stream<string>;
+}
 
 export default function ssb(
   initialWait$: Stream<any>,
-  linkingSource: Stream<string>,
+  actions: Actions,
   dialogSource: DialogSource,
 ) {
-  const consumeInviteUri$ = linkingSource
-    .filter((uri) => parse(uri, true).query.action === 'claim-http-invite')
-    .map((uri) => ({type: 'httpInviteClient.claim', uri} as Req));
+  const consumeInviteUri$ = actions.handleUriClaimInvite$.map(
+    (uri) => ({type: 'httpInviteClient.claim', uri} as Req),
+  );
 
-  const startHttpAuthUri$ = linkingSource
-    .filter((uri) => parse(uri, true).query.action === 'start-http-auth')
+  const startHttpAuthUri$ = actions.handleUriStartHttpAuth$
     .map((uri) => {
-      const query = parse(uri, true).query;
+      const query = urlParse(uri, true).query;
       const msaddr = query.multiserverAddress;
       const room = msaddr ? Ref.toAddress(msaddr).host : '';
       const roomid = query.sid && Ref.isFeed(query.sid) ? query.sid : false;
@@ -50,12 +56,23 @@ export default function ssb(
     })
     .flatten();
 
-  const consumeAliasUri$ = linkingSource
-    .filter((uri) => parse(uri, true).query.action === 'consume-alias')
-    .map((uri) => ({type: 'roomClient.consumeAliasUri', uri} as Req));
+  const consumeAliasUri$ = actions.handleUriConsumeAlias$.map(
+    (uri) => ({type: 'roomClient.consumeAliasUri', uri} as Req),
+  );
+
+  const connectReq$ = actions.connectToPeer$.map(
+    (address) => ({type: 'conn.connect', address} as Req),
+  );
 
   return initialWait$
     .take(1)
-    .map(() => xs.merge(consumeInviteUri$, startHttpAuthUri$, consumeAliasUri$))
+    .map(() =>
+      xs.merge(
+        consumeInviteUri$,
+        startHttpAuthUri$,
+        consumeAliasUri$,
+        connectReq$,
+      ),
+    )
     .flatten();
 }
