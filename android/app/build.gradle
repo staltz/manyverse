@@ -194,6 +194,11 @@ android {
                 storePassword MYAPP_RELEASE_STORE_PASSWORD
                 keyAlias MYAPP_RELEASE_KEY_ALIAS
                 keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            } else if (System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD") != null) {
+                storeFile file(System.getenv("HOME") + "/keystores/my_keystore.jks")
+                storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+                keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
             } else {
                 throw new Exception('Refusing to make release build with wrong keystore')
             }
