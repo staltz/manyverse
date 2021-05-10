@@ -28,7 +28,7 @@ if (!fs.existsSync(ISSUE_1223)) {
   fs.closeSync(fs.openSync(ISSUE_1223, 'w'));
 }
 const ISSUE_1328 = path.join(process.env.SSB_DIR, 'issue1328');
-if (!fs.existsSync(ISSUE_1328) && process.platform === 'android') {
+if (!fs.existsSync(ISSUE_1328)) {
   rimraf.sync(path.join(process.env.SSB_DIR, 'db2', 'indexes') + '/*.*');
   fs.closeSync(fs.openSync(ISSUE_1328, 'w'));
 }
