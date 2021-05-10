@@ -7,6 +7,13 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2105.10-beta
+
+* (iOS) Bug fix: indexing no longer happens many times ([see details](https://gitlab.com/staltz/manyverse/commit/c34981e5064e11dc3d896314e6812fd75aee756b))
+* Bug fix: replication via Wi-Fi should work now ([see details](https://gitlab.com/staltz/manyverse/commit/52504b2ed5bd0f5d04c8fd28f201f753fabea376))
+* Feature: support SSB URIs for messages and feeds ([see details](https://gitlab.com/staltz/manyverse/commit/d3f4b657abc993856438fb270d56ad152fc581e9))
+* Update backers in the Thanks screen ([see details](https://gitlab.com/staltz/manyverse/commit/979a94c4fecf423ee9fe25e752bd0c1dadfdbd3f))
+
 ## 0.2105.5-beta
 
 * Bug fix: reset indexes that were fractured ([see details](https://gitlab.com/staltz/manyverse/commit/82a65c58fc078622a4b024add405b620c7895a3c))

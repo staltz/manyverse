@@ -816,11 +816,11 @@ export default [
     homepage: 'https://gitlab.com/staltz/ssb-dht-invite#readme',
   },
   {
-    name: 'ssb-ebt',
+    name: 'ssb-ebt-fork-staltz',
     type: 'library',
-    version: '6.0.0',
+    version: '5.6.7-1',
     license: 'MIT License (MIT)',
-    homepage: 'https://github.com/ssbc/ssb-ebt',
+    homepage: 'https://github.com/staltz/ssb-ebt-fork-staltz',
   },
   {
     name: 'ssb-friends',
