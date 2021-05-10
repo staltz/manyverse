@@ -6,13 +6,14 @@
 
 import fs = require('fs');
 const path = require('path');
-const ssbKeys = require('ssb-keys');
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
+const caps = require('ssb-caps');
+const ssbKeys = require('ssb-keys');
 const makeConfig = require('ssb-config/inject');
-import bluetoothTransport = require('./plugins/bluetooth');
-import settingsUtils = require('./plugins/settingsUtils');
 const SecretStack = require('secret-stack');
+import settingsUtils = require('./plugins/settingsUtils');
+import bluetoothTransport = require('./plugins/bluetooth');
 
 if (!process.env.APP_DATA_DIR || !process.env.SSB_DIR) {
   throw new Error('misconfigured default paths for the backend');
@@ -79,7 +80,7 @@ const config = makeConfig('ssb', {
   },
 });
 
-SecretStack({appKey: require('ssb-caps').shs})
+SecretStack({caps})
   // Core
   .use(require('ssb-master'))
   .use(require('ssb-db2'))
