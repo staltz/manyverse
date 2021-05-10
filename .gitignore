@@ -68,7 +68,9 @@ buck-out/
 # Generated Code
 #
 /lib/
-/nodejs-assets
+/nodejs-assets/BUILD_NATIVE_MODULES.txt
+/nodejs-assets/nodejs-project/*.js
+/nodejs-assets/nodejs-project/*.json
 /desktop/nodejs-project
 /desktop/dist
 /android/app/src/main/res/raw/rnnodebundle
