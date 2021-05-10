@@ -22,6 +22,9 @@ function onFailure() {
   exit 1
 }
 
+pushd android/app/build/outputs/apk/indie/release
+cp app-indie-release.apk app-indie-release-e2e.apk
+popd
 adb uninstall io.appium.settings || true
 adb uninstall io.appium.uiautomator2.server || true
 adb uninstall io.appium.uiautomator2.server.test || true

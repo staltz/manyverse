@@ -10,7 +10,7 @@ const exec = util.promisify(require('child_process').exec);
 const localServerConfig = {host: 'localhost', port: 4995};
 
 const str =
-  '../android/app/build/outputs/apk/indie/release/app-indie-release.apk';
+  '../android/app/build/outputs/apk/indie/release/app-indie-release-e2e.apk';
 const localCapabilities = {
   browserName: 'Android - local server',
   platformName: 'Android',
