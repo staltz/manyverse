@@ -187,8 +187,8 @@ export const styles = StyleSheet.create({
   biographyContent: {
     flex: 1,
     color: Palette.text,
-    fontSize: Typography.fontSizeSmall,
-    lineHeight: Typography.lineHeightSmall,
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
   },
 
   headerMarginBottom: {
