@@ -542,7 +542,7 @@ async function consumeSink(
         if (err2) return console.error(err2.message || err2);
 
         const [err3] = await runAsync(ssb.suggest.start)();
-        if (err3) return console.error(err3.message || err2);
+        if (err3) return console.error(err3.message || err3);
 
         // TODO: make a settings plugin in the backend, when it inits it
         // should call ssb.blobsPurge.start if we loaded the amount from fs
