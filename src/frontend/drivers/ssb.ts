@@ -544,7 +544,7 @@ async function consumeSink(
         const [err3] = await runAsync(ssb.suggest.start)();
         if (err3) return console.error(err3.message || err2);
 
-        // FIXME: make a settings plugin in the backend, when it inits it
+        // TODO: make a settings plugin in the backend, when it inits it
         // should call ssb.blobsPurge.start if we loaded the amount from fs
 
         return;
@@ -691,7 +691,7 @@ async function consumeSink(
         const key = Ref.getKeyFromAddress(msaddr);
         const [e2] = await runAsync(ssb.conn.remember)(msaddr, {
           key,
-          // FIXME: these should be put in ssb-room-client when
+          // TODO: these should be put in ssb-room-client when
           // the room answers `room.metadata` or `tunnel.isRoom`:
           // type: 'room',
           // supportsHttpAuth: true,

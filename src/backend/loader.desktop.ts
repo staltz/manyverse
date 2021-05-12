@@ -16,7 +16,7 @@ process.env.SSB_DIR = path.resolve(os.homedir(), '.ssb');
 
 // Set global variables
 process.env.MANYVERSE_PLATFORM = 'desktop';
-// FIXME: re-enable this for production
+// TODO: re-enable this for production
 // if (fs.existsSync(path.join(process.env.SSB_DIR, 'DETAILED_LOGS'))) {
 // process.env.DEBUG = '*';
 process.env.DEBUG = 'ssb:*,jitdb,jitdb:*';

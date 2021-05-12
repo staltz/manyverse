@@ -21,7 +21,7 @@ export type State = {
   about: AboutAndExtras;
   following: Array<FeedId> | null;
   followers: Array<FeedId> | null;
-  // FIXME: use `ThreadSummaryWithExtras` but somehow support reply summaries
+  // TODO: use `ThreadSummaryWithExtras` but somehow support reply summaries
   getFeedReadable: GetReadable<any> | null;
   blockingSecretly: boolean;
 };

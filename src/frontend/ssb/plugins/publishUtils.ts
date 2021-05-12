@@ -33,7 +33,7 @@ const publishUtilsPlugin = {
           },
         });
 
-        // FIXME: temporary hack until we fix issue #1256 properly
+        // TODO: temporary hack until we fix issue #1256 properly
         setTimeout(() => {
           ssb.publishUtilsBack.publish(content, cb || noop);
         }, 60);
