@@ -37,7 +37,7 @@ export type Sinks = {
 };
 
 export function global(sources: Sources): Sinks {
-  const actions = intent(sources.globalEventBus, sources.linking);
+  const actions = intent(sources.globalEventBus, sources.linking, sources.ssb);
   const cmd$ = navigation(actions, sources.state.stream);
   const reducer$ = model(sources.ssb, sources.asyncstorage);
   const updateLocalization$ = localization(sources.fs);

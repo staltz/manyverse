@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,7 +9,7 @@ import {
   Linking,
   StyleSheet,
   Text,
-  TextProperties,
+  TextProps,
   View,
   ViewProps,
 } from 'react-native';
@@ -19,6 +19,13 @@ import {Typography} from '../global-styles/typography';
 import {GlobalEventBus} from '../drivers/eventbus';
 import ZoomableImage from './ZoomableImage';
 import AudioPlayer from './AudioPlayer';
+import {
+  isFeedSSBURI,
+  isMessageSSBURI,
+  isSSBURI,
+  toFeedSigil,
+  toMessageSigil,
+} from 'ssb-uri2';
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
 const linkifyRegex = require('remark-linkify-regex');
@@ -27,7 +34,9 @@ const ReactMarkdown = require('react-markdown');
 const Ref = require('ssb-ref');
 const remark = require('remark');
 
-const textProps: TextProperties = {
+const ELLIPSIS = '\u2026';
+
+const textProps: TextProps = {
   selectable: true,
   textBreakStrategy: 'simple',
 };
@@ -195,36 +204,53 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
 
     link: (props: {children: any; href: string}) => {
       if (!props.href) return renderers.text(props);
-      const isFeedCypherlink = Ref.isFeedId(props.href);
-      const isMsgCypherlink = Ref.isMsgId(props.href);
-      const isCypherlink = isFeedCypherlink || isMsgCypherlink;
-      const isChildCypherlink =
-        props.children.length === 1 &&
-        (Ref.isFeedId(props.children[0]) || Ref.isMsgId(props.children[0]));
+
+      const feedId = Ref.isFeedId(props.href)
+        ? props.href
+        : isFeedSSBURI(props.href)
+        ? toFeedSigil(props.href)
+        : null;
+      const msgId = Ref.isMsgId(props.href)
+        ? props.href
+        : isMessageSSBURI(props.href)
+        ? toMessageSigil(props.href)
+        : null;
+      const isCypherlink = !!feedId || !!msgId;
+      let child: string | null = null;
+      if (isCypherlink) {
+        child =
+          typeof props.children?.[0] === 'string'
+            ? props.children[0]
+            : typeof props.children?.[0]?.props?.children === 'string'
+            ? props.children[0].props.children
+            : null;
+      }
+      if (child) {
+        if (Ref.isFeedId(child) || Ref.isMsgId(child)) {
+          child = child.slice(0, 10) + ELLIPSIS;
+        } else if (isFeedSSBURI(child)) {
+          child = child.slice(0, 26) + ELLIPSIS;
+        } else if (isMessageSSBURI(child)) {
+          child = child.slice(0, 28) + ELLIPSIS;
+        }
+      }
+
       return $(
         Text,
         {
           ...textProps,
           style: isCypherlink ? styles.cypherlink : styles.link,
           onPress: () => {
-            if (isFeedCypherlink) {
-              GlobalEventBus.dispatch({
-                type: 'triggerFeedCypherlink',
-                feedId: props.href,
-              });
-            } else if (isMsgCypherlink) {
-              GlobalEventBus.dispatch({
-                type: 'triggerMsgCypherlink',
-                msgId: props.href,
-              });
+            if (feedId) {
+              GlobalEventBus.dispatch({type: 'triggerFeedCypherlink', feedId});
+            } else if (msgId) {
+              GlobalEventBus.dispatch({type: 'triggerMsgCypherlink', msgId});
             } else {
               Linking.openURL(props.href);
             }
           },
         },
-        isChildCypherlink
-          ? [props.children[0].slice(0, 10) + '\u2026']
-          : props.children,
+        child ?? props.children,
       );
     },
 
@@ -303,6 +329,10 @@ export default class Markdown extends PureComponent<Props> {
         .processSync(this.props.text).contents,
       astPlugins: [normalizeForReactNative()],
       allowedTypes: Object.keys(renderers),
+      transformLinkUri: (uri: string) => {
+        if (isSSBURI(uri)) return uri; // don't interfere with SSB URIs
+        return ReactMarkdown.uriTransformer(uri); // interfere with all others
+      },
       renderers,
     });
   }

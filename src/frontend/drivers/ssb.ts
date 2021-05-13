@@ -74,6 +74,7 @@ export class SSBSource {
   public indexingProgress$: Stream<number>;
   public acceptInviteResponse$: Stream<true | string>;
   public acceptDhtInviteResponse$: Stream<true | string>;
+  public connStarted$: Stream<void>;
   public peers$: Stream<Array<PeerKV>>;
   public stagedPeers$: Stream<Array<StagedPeerKV>>;
   public bluetoothScanState$: Stream<any>;
@@ -137,6 +138,7 @@ export class SSBSource {
 
     this.acceptInviteResponse$ = xs.create<true | string>();
     this.acceptDhtInviteResponse$ = xs.create<true | string>();
+    this.connStarted$ = xs.create<void>();
 
     this.peers$ = this.fromPullStream<Array<PeerKV>>((ssb) =>
       ssb.connUtils.peers(),
@@ -543,6 +545,8 @@ async function consumeSink(
 
         const [err3] = await runAsync(ssb.suggest.start)();
         if (err3) return console.error(err3.message || err3);
+
+        source.connStarted$._n(void 0);
 
         // TODO: make a settings plugin in the backend, when it inits it
         // should call ssb.blobsPurge.start if we loaded the amount from fs
