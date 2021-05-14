@@ -11,9 +11,10 @@ import {
   View,
   Text,
   ScrollView,
-  TouchableNativeFeedback,
   Platform,
+  TouchableNativeFeedback,
   TouchableOpacity,
+  TouchableHighlight,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as Progress from 'react-native-progress';
@@ -30,19 +31,6 @@ const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
   default: TouchableOpacity,
 });
-
-function renderName(name?: string) {
-  const namelessStyle = !name ? styles.noAuthorName : null;
-  return h(
-    Text,
-    {
-      style: [styles.authorName, namelessStyle],
-      numberOfLines: 1,
-      ellipsizeMode: 'middle',
-    },
-    name ?? t('drawer.profile_no_name'),
-  );
-}
 
 type MenuItemProps = {
   icon: string;
@@ -126,20 +114,41 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
     )
     .map((state) =>
       h(View, {style: styles.container}, [
-        h(View, {style: styles.header}, [
-          h(Avatar, {
-            style: styles.authorImage,
-            size: Dimensions.avatarSizeNormal,
-            backgroundColor: Palette.brandStrong,
-            url: state.selfAvatarUrl,
-          }),
-          renderName(state.name),
-          h(
-            Text,
-            {style: styles.authorId, numberOfLines: 1, ellipsizeMode: 'middle'},
-            state.selfFeedId,
-          ),
-        ]),
+        h(
+          TouchableHighlight,
+          {sel: 'header', underlayColor: Palette.brandMain, activeOpacity: 0.5},
+          [
+            h(View, {style: styles.header}, [
+              h(Avatar, {
+                style: styles.authorImage,
+                size: Dimensions.avatarSizeNormal,
+                backgroundColor: Palette.brandStrong,
+                url: state.selfAvatarUrl,
+              }),
+
+              h(
+                Text,
+                {
+                  style: styles.authorName,
+                  numberOfLines: 1,
+                  ellipsizeMode: 'middle',
+                },
+                state.name ?? '',
+              ),
+
+              h(
+                Text,
+                {
+                  style: styles.authorId,
+                  numberOfLines: 1,
+                  ellipsizeMode: 'middle',
+                },
+                state.selfFeedId,
+              ),
+            ]),
+          ],
+        ),
+
         h(ScrollView, {style: null}, [
           state.canPublishSSB
             ? h(MenuItem, {

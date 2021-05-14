@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
       default: Dimensions.verticalSpaceBig,
     }),
     paddingLeft: Dimensions.horizontalSpaceBig,
-    paddingBottom: Dimensions.verticalSpaceNormal,
+    paddingBottom: Dimensions.verticalSpaceTiny,
     paddingRight: Dimensions.horizontalSpaceNormal,
   },
 
@@ -40,26 +40,20 @@ export const styles = StyleSheet.create({
     marginBottom: Dimensions.verticalSpaceNormal,
   },
 
-  noAuthorName: {
-    fontSize: Typography.fontSizeNormal,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textForBackgroundBrand,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
-  },
-
   authorName: {
     fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textForBackgroundBrand,
     fontWeight: 'bold',
   },
 
   authorId: {
-    fontSize: Typography.fontSizeSmall,
+    color: Palette.textWeakForBackgroundBrand,
+    fontSize: Typography.fontSizeTiny,
+    lineHeight: Typography.lineHeightTiny,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.brandWeakest,
-    fontWeight: 'normal',
+    fontWeight: 'bold',
   },
 
   menuItemContainer: {
