@@ -35,7 +35,7 @@ const colorHash = new (require('color-hash'))();
 const pull = require('pull-stream');
 const Ref = require('ssb-ref');
 
-export type MentionSuggestion = {
+export interface MentionSuggestion {
   id: FeedId;
   name: string;
   image: any;
@@ -355,113 +355,113 @@ export class SSBSource {
   }
 }
 
-export type CreateIdentityReq = {
+export interface CreateIdentityReq {
   type: 'identity.create';
 };
 
-export type UseIdentityReq = {
+export interface UseIdentityReq {
   type: 'identity.use';
 };
 
-export type PublishReq = {
+export interface PublishReq {
   type: 'publish';
   content: NonNullable<Content>;
 };
 
-export type PublishAboutReq = {
+export interface PublishAboutReq {
   type: 'publishAbout';
   content: AboutContent;
 };
 
-export type AcceptInviteReq = {
+export interface AcceptInviteReq {
   type: 'invite.accept';
   invite: string;
 };
 
-export type AcceptDhtInviteReq = {
+export interface AcceptDhtInviteReq {
   type: 'dhtInvite.accept';
   invite: string;
 };
 
-export type RemoveDhtInviteReq = {
+export interface RemoveDhtInviteReq {
   type: 'dhtInvite.remove';
   invite: string;
 };
 
-export type SearchBluetoothReq = {
+export interface SearchBluetoothReq {
   type: 'bluetooth.search';
   interval: number;
 };
 
-export type ConnStartReq = {
+export interface ConnStartReq {
   type: 'conn.start';
 };
 
-export type ConnConnectReq = {
+export interface ConnConnectReq {
   type: 'conn.connect';
   address: string;
   hubData?: any;
 };
 
-export type ConnRememberConnectReq = {
+export interface ConnRememberConnectReq {
   type: 'conn.rememberConnect';
   address: string;
   data?: any;
 };
 
-export type ConnFollowConnectReq = {
+export interface ConnFollowConnectReq {
   type: 'conn.followConnect';
   address: string;
   key?: string;
   hubData?: any;
 };
 
-export type ConnDisconnectReq = {
+export interface ConnDisconnectReq {
   type: 'conn.disconnect';
   address: string;
 };
 
-export type ConnDisconnectForgetReq = {
+export interface ConnDisconnectForgetReq {
   type: 'conn.disconnectForget';
   address: string;
 };
 
-export type ConnForgetReq = {
+export interface ConnForgetReq {
   type: 'conn.forget';
   address: string;
 };
 
-export type RoomConsumeInviteUri = {
+export interface RoomConsumeInviteUri {
   type: 'httpInviteClient.claim';
   uri: string;
 };
 
-export type RoomSignInUri = {
+export interface RoomSignInUri {
   type: 'httpAuthClient.signIn';
   uri: string;
 };
 
-export type RoomConsumeAliasUri = {
+export interface RoomConsumeAliasUri {
   type: 'roomClient.consumeAliasUri';
   uri: string;
 };
 
-export type SettingsHopsReq = {
+export interface SettingsHopsReq {
   type: 'settings.hops';
   hops: number;
 };
 
-export type SettingsBlobsPurgeReq = {
+export interface SettingsBlobsPurgeReq {
   type: 'settings.blobsPurge';
   storageLimit: number;
 };
 
-export type SettingsShowFollowsReq = {
+export interface SettingsShowFollowsReq {
   type: 'settings.showFollows';
   showFollows: boolean;
 };
 
-export type SettingsDetailedLogsReq = {
+export interface SettingsDetailedLogsReq {
   type: 'settings.detailedLogs';
   detailedLogs: boolean;
 };
