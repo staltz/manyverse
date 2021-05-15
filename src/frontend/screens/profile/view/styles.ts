@@ -114,20 +114,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  followsYou: {
-    alignSelf: 'flex-start',
-    backgroundColor: Palette.voidWeak,
-    borderRadius: 3,
-    paddingHorizontal: Dimensions.horizontalSpaceSmall,
-    paddingVertical: Dimensions.verticalSpaceTiny,
-    marginTop: Dimensions.verticalSpaceSmall,
-  },
-
   followsYouText: {
+    marginLeft: Dimensions.horizontalSpaceSmall,
+    color: Palette.textWeak,
     fontSize: Typography.fontSizeSmall,
     lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textWeak,
+    fontWeight: 'normal',
   },
 
   cta: {
@@ -150,14 +143,14 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundText,
   },
 
-  counterSection: {
+  detailsRow: {
     display: 'flex',
     flexDirection: 'row',
     alignSelf: 'stretch',
     alignItems: 'center',
     minHeight: 20,
     flexShrink: 0,
-    marginVertical: Dimensions.verticalSpaceNormal,
+    marginTop: Dimensions.verticalSpaceNormal,
   },
 
   counterContent: {
@@ -193,7 +186,7 @@ export const styles = StyleSheet.create({
 
   headerMarginBottom: {
     backgroundColor: Palette.backgroundText,
-    paddingBottom: Dimensions.verticalSpaceNormal,
+    paddingBottom: Dimensions.verticalSpaceLarge,
   },
 
   feed: {

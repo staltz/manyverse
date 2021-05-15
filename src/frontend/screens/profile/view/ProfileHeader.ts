@@ -81,7 +81,7 @@ function FollowSection({
 }) {
   if (!following && !followers) return null;
 
-  return h(View, {style: styles.counterSection}, [
+  return h(View, {style: styles.detailsRow}, [
     h(Icon, {
       size: Dimensions.iconSizeSmall,
       color: Palette.textPositive,
@@ -105,6 +105,17 @@ function FollowSection({
   ]);
 }
 
+function FollowsYou() {
+  return h(View, {style: styles.detailsRow}, [
+    h(Icon, {
+      size: Dimensions.iconSizeSmall,
+      color: Palette.textPositive,
+      name: 'check-bold',
+    }),
+    h(Text, {style: styles.followsYouText}, t('profile.info.follows_you')),
+  ]);
+}
+
 export default class ProfileHeader extends PureComponent<{
   about: State['about'];
   following: State['following'];
@@ -113,31 +124,13 @@ export default class ProfileHeader extends PureComponent<{
 }> {
   public render() {
     const {about, following, followers, isSelfProfile} = this.props;
-    const followsYouTristate = about.followsYou;
+    const followsYou = about.followsYou === true;
     const isBlocked = about.following === false;
 
     return h(View, {style: styles.header}, [
       h(View, {style: styles.cover}),
 
       h(View, {style: styles.sub}, [
-        followsYouTristate === true
-          ? h(View, {style: styles.followsYou}, [
-              h(
-                Text,
-                {style: styles.followsYouText},
-                t('profile.info.follows_you'),
-              ),
-            ])
-          : followsYouTristate === false
-          ? h(View, {style: styles.followsYou}, [
-              h(
-                Text,
-                {style: styles.followsYouText},
-                t('profile.info.blocks_you'),
-              ),
-            ])
-          : null,
-
         h(View, {style: styles.cta}, [
           isSelfProfile
             ? h(Button, {
@@ -165,6 +158,7 @@ export default class ProfileHeader extends PureComponent<{
       h(View, {style: styles.detailsArea}, [
         h(Biography, {about}),
         h(FollowSection, {following, followers}),
+        followsYou ? h(FollowsYou) : null,
       ]),
 
       h(View, {style: styles.headerMarginBottom}),
