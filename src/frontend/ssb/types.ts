@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,16 +10,16 @@ import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
 
 export type Reactions = Array<[FeedId, string]> | null;
 
-export type PressAddReactionEvent = {
+export interface PressAddReactionEvent {
   msgKey: MsgId;
   value: 0 | 1;
   reaction: string | null;
-};
+}
 
-export type PressReactionsEvent = {
+export interface PressReactionsEvent {
   msgKey: MsgId;
   reactions: Reactions;
-};
+}
 
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
@@ -36,45 +36,45 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
   };
 };
 
-export type ThreadSummary<C = Content> = {
+export interface ThreadSummary<C = Content> {
   root: Msg<C>;
   replyCount: number;
-};
+}
 
-export type ThreadSummaryWithExtras = {
+export interface ThreadSummaryWithExtras {
   root: MsgAndExtras;
   replyCount: number;
   timestamp: number;
-};
+}
 
-export type ThreadAndExtras = {
+export interface ThreadAndExtras {
   messages: Array<MsgAndExtras>;
   full: boolean;
   errorReason?: 'blocked' | 'missing' | 'unknown';
-};
+}
 
-export type PrivateThreadAndExtras = ThreadAndExtras & {
+export interface PrivateThreadAndExtras extends ThreadAndExtras {
   recps: Array<{
     id: string;
     name?: string;
     imageUrl: string | null | undefined;
   }>;
-};
+}
 
 export type AnyThread = ThreadAndExtras | PrivateThreadAndExtras;
 
-export type AboutAndExtras = About & {
+export interface AboutAndExtras extends About {
   id: FeedId;
   followsYou?: boolean;
-};
+}
 
 export type PeerKV = ConnQueryPeer;
 
-export type StagedPeerMetadata = {
+export interface StagedPeerMetadata {
   key: string;
   type: 'lan' | 'dht' | 'internet' | 'bt';
   role?: 'client' | 'server';
   note?: string;
-};
+}
 
 export type StagedPeerKV = [string, StagedPeerMetadata];
