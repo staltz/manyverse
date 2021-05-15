@@ -21,6 +21,7 @@ export type State = {
   about: AboutAndExtras;
   following: Array<FeedId> | null;
   followers: Array<FeedId> | null;
+  connection: 'connected' | 'connecting' | 'disconnecting' | undefined;
   // TODO: use `ThreadSummaryWithExtras` but somehow support reply summaries
   getFeedReadable: GetReadable<any> | null;
   blockingSecretly: boolean;
@@ -52,6 +53,7 @@ export default function model(
           },
           following: null,
           followers: null,
+          connection: void 0,
           blockingSecretly: false,
         };
       },
@@ -65,6 +67,17 @@ export default function model(
     (about) =>
       function updateAboutReducer(prev: State): State {
         return {...prev, about};
+      },
+  );
+
+  const updateConnectionReducer$ = ssbSource.peers$.map(
+    (peers) =>
+      function updateConnectionReducer(prev: State): State {
+        const peer = peers.find((p) => p[1].key === prev.about.id);
+        if (!peer) return prev;
+        const connection = peer[1].state;
+        if (connection === prev.connection) return prev;
+        return {...prev, connection};
       },
   );
 
@@ -135,6 +148,7 @@ export default function model(
     xs.merge(
       loadLastSessionTimestampReducer$,
       updateAboutReducer$,
+      updateConnectionReducer$,
       updateFollowingReducer$,
       updateFollowersReducer$,
       updateFeedStreamReducer$,

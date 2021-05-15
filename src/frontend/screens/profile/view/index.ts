@@ -36,6 +36,7 @@ import {
 import ProfileHeader from './ProfileHeader';
 import ProfileID from './ProfileID';
 import ProfileName from './ProfileName';
+import ConnectionDot from './ConnectionDot';
 
 function calcNameTransY(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
@@ -69,6 +70,36 @@ function calcAvatarTransY(scrollY: Animated.Value): Animated.Animated {
 }
 
 function calcAvatarScale(scrollY: Animated.Value): Animated.Animated {
+  return scrollY.interpolate({
+    inputRange: [0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
+    outputRange: [1, AVATAR_SIZE_TOOLBAR / AVATAR_SIZE],
+    extrapolate: 'clamp',
+  });
+}
+
+function calcConnDotTransX(scrollY: Animated.Value): Animated.Animated {
+  return scrollY.interpolate({
+    inputRange: [0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
+    outputRange: [0, Dimensions.iconSizeNormal * 0.33],
+    extrapolate: 'clamp',
+  });
+}
+
+function calcConnDotTransY(scrollY: Animated.Value): Animated.Animated {
+  const margin =
+    (Dimensions.toolbarHeight -
+      getStatusBarHeight(true) -
+      AVATAR_SIZE_TOOLBAR) *
+    0.5;
+  return scrollY.interpolate({
+    inputRange: [-10, 0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
+    outputRange: [10, 0, -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.91 - margin],
+    extrapolateLeft: 'extend',
+    extrapolateRight: 'clamp',
+  });
+}
+
+function calcConnDotScale(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
     inputRange: [0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
     outputRange: [1, AVATAR_SIZE_TOOLBAR / AVATAR_SIZE],
@@ -146,6 +177,9 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   const avatarTransX = calcAvatarTransX(scrollHeaderBy);
   const avatarTransY = calcAvatarTransY(scrollHeaderBy);
   const nameTransY = calcNameTransY(scrollHeaderBy);
+  const connDotTransX = calcConnDotTransX(scrollHeaderBy);
+  const connDotTransY = calcConnDotTransY(scrollHeaderBy);
+  const connDotScale = calcConnDotScale(scrollHeaderBy);
 
   return state$
     .compose(
@@ -156,6 +190,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         'about',
         'following',
         'followers',
+        'connection',
         'getFeedReadable',
       ]),
     )
@@ -176,6 +211,15 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         h(ProfileName, {state, translateY: nameTransY}),
 
         h(ProfileID, {state, translateY: nameTransY}),
+
+        state.connection
+          ? h(ConnectionDot, {
+              state,
+              translateX: connDotTransX,
+              translateY: connDotTransY,
+              scale: connDotScale,
+            })
+          : null,
 
         ...(isBlocked
           ? [
