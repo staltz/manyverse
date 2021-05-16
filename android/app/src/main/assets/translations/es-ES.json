@@ -577,7 +577,6 @@
     "description": "El desarrollo de esta app fue soportado por subvenciones de {{sponsor1}} y {{sponsor2}}, y donaciones por parte de:\n\n**{{topBackers}}** y [una centena más de donantes]({{donateLink}}). ¡Gracias!"
   },
   "drawer": {
-    "profile_no_name": "Sin nombre",
     "menu": {
       "my_profile": {
         "label": "Mi Perfil",

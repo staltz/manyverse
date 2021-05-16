@@ -577,7 +577,6 @@
     "description": "Разработка этого приложения поддерживалась грантами от {{sponsor1}} и {{sponsor2}}, и пожертвования от:\n\n**{{topBackers}}**, и [сто backers]({{donateLink}}). Спасибо!"
   },
   "drawer": {
-    "profile_no_name": "Без названия",
     "menu": {
       "my_profile": {
         "label": "Мой профиль",

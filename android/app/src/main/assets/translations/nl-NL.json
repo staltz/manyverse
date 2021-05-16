@@ -577,7 +577,6 @@
     "description": "Ontwikkeling van deze app werd ondersteund door subsidies van {{sponsor1}} en {{sponsor2}}, en donaties van:\n\n**{{topBackers}}** en [nog honderd extra backers]({{donateLink}}). Dankjewel!"
   },
   "drawer": {
-    "profile_no_name": "Geen naam",
     "menu": {
       "my_profile": {
         "label": "Mijn profiel",
