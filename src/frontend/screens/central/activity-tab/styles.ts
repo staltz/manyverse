@@ -11,7 +11,7 @@ import {Palette} from '../../../global-styles/palette';
 
 export const styles = StyleSheet.create({
   emptySection: {
-    marginTop: Dimens.verticalSpaceBig * 2,
+    marginTop: Dimens.verticalSpaceLarger,
   },
 
   activityList: {

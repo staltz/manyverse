@@ -196,7 +196,7 @@ export const styles = StyleSheet.create({
   },
 
   emptySection: {
-    marginTop: Dimensions.verticalSpaceBig * 2,
+    marginTop: Dimensions.verticalSpaceLarger,
   },
 
   emptySectionSpacer: {

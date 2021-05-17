@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
+    backgroundColor: Palette.backgroundText,
     flexDirection: 'column',
   },
 

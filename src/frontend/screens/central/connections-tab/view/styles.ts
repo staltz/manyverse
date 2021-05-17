@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -49,14 +49,14 @@ export const styles = StyleSheet.create({
     zIndex: -1,
     top:
       Dimens.toolbarHeight /* approximately the modesContainer height */ +
-      Dimens.verticalSpaceBig * 2,
+      Dimens.verticalSpaceLarger,
     left: 0,
     right: 0,
     bottom: 0,
   },
 
   emptySection: {
-    marginTop: Dimens.verticalSpaceBig * 2,
+    marginTop: Dimens.verticalSpaceLarger,
   },
 
   menuOptionContent: {
