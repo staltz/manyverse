@@ -118,7 +118,7 @@
     "remark-gemoji-to-emoji": "1.1.0",
     "remark-images-to-ssb-serve-blobs": "2.1.0-1",
     "remark-linkify-regex": "1.0.0",
-    "remark-ssb-mentions": "~2.0.0",
+    "remark-ssb-mentions": "~2.1.0",
     "ssb-conn-query": "~1.0.0",
     "ssb-deweird": "1.0.0",
     "ssb-ref": "2.14.2",
