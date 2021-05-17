@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -19,13 +19,11 @@ import navigation from './navigation';
 import model, {State} from './model';
 import ssb from './ssb';
 import dialogs from './dialogs';
+import {Props} from './props';
+export {Props} from './props';
 export {State} from './model';
 
-export type Props = {
-  about: About & {id: FeedId};
-};
-
-export type Sources = {
+export interface Sources {
   props: Stream<Props>;
   screen: ReactSource;
   navigation: NavSource;
@@ -33,9 +31,9 @@ export type Sources = {
   state: StateSource<State>;
   ssb: SSBSource;
   dialog: DialogSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;

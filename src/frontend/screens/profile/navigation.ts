@@ -20,12 +20,12 @@ import {navOptions as threadScreenNavOpts} from '../thread/layout';
 import {Props as ThreadProps} from '../thread/props';
 import {navOptions as accountsScreenNavOptions} from '../accounts/layout';
 import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
+import {Props as AccountProps} from '../accounts';
+import {Props as ConversationProps} from '../conversation/props';
+import {navOptions as conversationNavOpts} from '../conversation/layout';
 import {navOptions as profileScreenNavOpts} from './layout';
 import {Props} from './props';
-import {Props as AccountProps} from '../accounts';
-import {Props as ConversationProps} from '../conversation';
 import {State} from './model';
-import {navOptions as conversationNavOpts} from '../conversation';
 
 export type Actions = {
   goBack$: Stream<any>;
