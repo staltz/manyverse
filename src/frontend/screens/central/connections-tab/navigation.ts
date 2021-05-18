@@ -14,8 +14,8 @@ import {navOptions as profileScreenNavOptions} from '../../profile';
 import {Props as ProfileProps} from '../../profile/props';
 import {navOptions as pasteInviteScreenNavOptions} from '../../invite-paste';
 import {navOptions as createInviteScreenNavOptions} from '../../invite-create';
-import {navOptions as manageAliasScreenNavOpts} from '../../manage-alias/layout';
-import {Props as ManageAliasesProps} from '../../manage-alias/props';
+import {navOptions as manageAliasScreenNavOpts} from '../../alias-manage/layout';
+import {Props as ManageAliasesProps} from '../../alias-manage/props';
 import {State} from './model';
 
 export type Actions = {
@@ -83,7 +83,7 @@ export default function navigation(
           type: 'push',
           layout: {
             component: {
-              name: Screens.ManageAlias,
+              name: Screens.AliasManage,
               options: manageAliasScreenNavOpts,
               passProps: {
                 feedId: state.selfFeedId,

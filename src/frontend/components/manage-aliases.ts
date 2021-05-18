@@ -31,8 +31,8 @@ import {Palette} from '../global-styles/palette';
 import {Alias, PeerKV} from '../ssb/types';
 import {canonicalizeAliasURL} from '../ssb/utils/alias';
 import {Screens} from '../screens/enums';
-import {navOptions as registerAliasNavOpts} from '../screens/register-alias/layout';
-import {Props as RegisterAliasProps} from '../screens/register-alias/props';
+import {navOptions as registerAliasNavOpts} from '../screens/alias-register/layout';
+import {Props as RegisterAliasProps} from '../screens/alias-register/props';
 import Button from './Button';
 
 interface State {
@@ -239,7 +239,7 @@ export default function manageAliases(sources: Sources): Sinks {
           type: 'push',
           layout: {
             component: {
-              name: Screens.RegisterAlias,
+              name: Screens.AliasRegister,
               passProps: {
                 servers: state.aliasServers!,
               } as RegisterAliasProps,

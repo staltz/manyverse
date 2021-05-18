@@ -43,8 +43,8 @@ import {libraries} from './screens/libraries';
 import {pasteInvite} from './screens/invite-paste';
 import {profile} from './screens/profile';
 import {editProfile} from './screens/profile-edit';
-import {registerAlias} from './screens/register-alias';
-import {manageAliases} from './screens/manage-alias';
+import {registerAlias} from './screens/alias-register';
+import {manageAliases} from './screens/alias-manage';
 import {createInvite} from './screens/invite-create';
 import {biography} from './screens/biography';
 import {accounts} from './screens/accounts';
@@ -106,8 +106,8 @@ export const screens: ScreensMapping = {
   [Screens.InviteCreate]: withState(createInvite),
   [Screens.Profile]: withState(profile),
   [Screens.ProfileEdit]: withState(editProfile),
-  [Screens.ManageAlias]: withState(manageAliases),
-  [Screens.RegisterAlias]: withState(registerAlias),
+  [Screens.AliasManage]: withState(manageAliases),
+  [Screens.AliasRegister]: withState(registerAlias),
   [Screens.Biography]: withState(biography),
   [Screens.Accounts]: withState(accounts),
   [Screens.Backup]: withState(backup),
