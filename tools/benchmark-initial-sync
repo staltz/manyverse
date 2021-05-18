@@ -28,6 +28,9 @@ function onFailure() {
   exit 1
 }
 
+pushd android/app/build/outputs/apk/indie/release
+cp app-indie-release.apk app-indie-release-e2e.apk
+popd
 cd benchmark/sync-server && npm install > /dev/null 2>&1 && cd ../..
 adb uninstall io.appium.settings > /dev/null 2>&1 || true
 adb uninstall io.appium.uiautomator2.server > /dev/null 2>&1 || true

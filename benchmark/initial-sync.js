@@ -194,7 +194,7 @@ module.exports = function (driver, t) {
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public board")',
+        'new UiSelector().text("Public posts")',
         6000,
       ),
       'I see the Public header in the Central screen',
@@ -222,16 +222,23 @@ module.exports = function (driver, t) {
     await stagedPeer.click();
     t.pass('I tap it');
 
-    const connectAndFollow = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().textContains("Connect and follow")',
+    const openProfile = await driver.waitForElementByAndroidUIAutomator(
+      'new UiSelector().textContains("Open profile")',
       6000,
     );
-    t.ok(
-      connectAndFollow,
-      'I see a slide-in menu with "Connect and follow" option',
-    );
-    await connectAndFollow.click();
+    t.ok(openProfile, 'I see a slide-in menu with "Open profile" option');
+    await openProfile.click();
     t.pass('I tap it');
+
+    const followButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().textContains("Follow")',
+    );
+    t.ok(followButton, 'I see the Follow Button');
+    await followButton.click();
+    t.pass('I tap it');
+
+    await driver.back();
+    t.pass('I press the (hardware) back button');
 
     const before = Date.now();
 

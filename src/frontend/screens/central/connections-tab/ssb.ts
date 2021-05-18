@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,7 +12,6 @@ export type Actions = {
   removeDhtInvite$: Stream<string>;
   bluetoothSearch$: Stream<any>;
   connectPeer$: Stream<StagedPeerKV>;
-  followConnectPeer$: Stream<StagedPeerKV>;
   disconnectPeer$: Stream<string>;
   disconnectForgetPeer$: Stream<string>;
   forgetPeer$: Stream<string>;
@@ -29,15 +28,6 @@ export default function ssb(actions: Actions) {
         ({
           type: 'conn.connect',
           address: peer[0],
-          hubData: {type: peer[1].type},
-        } as Req),
-    ),
-    actions.followConnectPeer$.map(
-      (peer) =>
-        ({
-          type: 'conn.followConnect',
-          address: peer[0],
-          key: peer[1].key,
           hubData: {type: peer[1].type},
         } as Req),
     ),

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -25,7 +25,6 @@ import {styles} from './styles';
 export type MenuChoice =
   | 'open-profile'
   | 'connect'
-  | 'follow-connect'
   | 'disconnect'
   | 'disconnect-forget'
   | 'forget'
@@ -212,16 +211,6 @@ function createStagingMenuOptions() {
         text: t('connections.menu.connect.label'),
         accessibilityLabel: t(
           'connections.menu.connect.accessibility_label.staged_peer',
-        ),
-      }),
-    }),
-    h(MenuOption, {
-      value: menuChoice('follow-connect'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'account-plus',
-        text: t('connections.menu.follow_connect.label'),
-        accessibilityLabel: t(
-          'connections.menu.follow_connect.accessibility_label',
         ),
       }),
     }),

@@ -43,7 +43,6 @@ export type Actions = {
   openRoom$: Stream<PeerKV>;
   openDHTStagedPeer$: Stream<StagedPeerKV>;
   connectPeer$: Stream<any>;
-  followConnectPeer$: Stream<any>;
   disconnectPeer$: Stream<any>;
   disconnectForgetPeer$: Stream<any>;
   forgetPeer$: Stream<any>;
@@ -255,7 +254,6 @@ export default function model(
       actions.closeItemMenu$,
       actions.goToPeerProfile$,
       actions.connectPeer$,
-      actions.followConnectPeer$,
       actions.disconnectPeer$,
       actions.disconnectForgetPeer$,
       actions.forgetPeer$,

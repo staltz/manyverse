@@ -491,13 +491,6 @@ export interface ConnRememberConnectReq {
   data?: any;
 }
 
-export interface ConnFollowConnectReq {
-  type: 'conn.followConnect';
-  address: string;
-  key?: string;
-  hubData?: any;
-}
-
 export interface ConnDisconnectReq {
   type: 'conn.disconnect';
   address: string;
@@ -560,7 +553,6 @@ export type Req =
   | ConnStartReq
   | ConnConnectReq
   | ConnRememberConnectReq
-  | ConnFollowConnectReq
   | ConnDisconnectReq
   | ConnDisconnectForgetReq
   | ConnForgetReq
@@ -680,35 +672,6 @@ async function consumeSink(
         }
 
         if (isRoomInvite) source.acceptInviteResponse$._n(true);
-        return;
-      }
-
-      if (req.type === 'conn.followConnect') {
-        const addr = req.address;
-        const data = req.hubData || {};
-
-        // connect
-        const [e1, result] = await runAsync(ssb.connUtils.persistentConnect)(
-          addr,
-          data,
-        );
-        if (e1) return console.error(e1.message || e1);
-        if (!result) return console.error(`connecting to ${addr} failed`);
-        // TODO show this error as a Toast
-
-        // check if following
-        const friendId = req.key || '@' + addr.split('shs:')[1] + '.ed25519';
-        const opts = {source: ssb.id, dest: friendId};
-        const [e2, alreadyFollow] = await runAsync<boolean>(
-          ssb.friends.isFollowing,
-        )(opts);
-        if (e2) return console.error(e2.message || e2);
-        if (alreadyFollow) return;
-
-        // follow
-        const content = {type: 'contact', contact: friendId, following: true};
-        const [e3] = await runAsync(ssb.publishUtils.publish)(content);
-        if (e3) return console.error(e3.message || e3);
         return;
       }
 

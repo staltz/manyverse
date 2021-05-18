@@ -87,11 +87,6 @@ export default function intent(
       .compose(sample(state$))
       .map((state) => state.itemMenu.target) as Stream<StagedPeerKV>,
 
-    followConnectPeer$: menuChoice$
-      .filter((val) => val === 'follow-connect')
-      .compose(sample(state$))
-      .map((state) => state.itemMenu.target) as Stream<StagedPeerKV>,
-
     disconnectPeer$: menuChoice$
       .filter((val) => val === 'disconnect')
       .compose(sample(state$))
