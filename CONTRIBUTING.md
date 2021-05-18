@@ -16,6 +16,15 @@ In the explanations below, we will constantly refer to "development" and "target
 - If your target OS is **Android**, only **Linux and macOS** computers are supported
   - _No Windows support_ so far, unfortunately; but you can always choose to install Linux for free if you have a Windows computer
 
+### Development Container
+
+This project comes with a devcontiner configuration for Visual Studio Code / Code OSS. When opening the project as a *Dev Container* in Visual Studio Code / Code OSS you will
+be able to use all the required tools for the **Android** target environment without installing them on the host system. However, on some systems it is not possible to access USB devices from
+the container, in this case you have to access the device for access over the net.
+
+From a device from which you can connect your device, run: `adb tcpip 5555`
+From the docker container run: `adb connect <your-phone's-ip>:5555`
+
 ### macOS specifics
 
 If you are developing on a macOS computer, then you might need `realpath`, install it through coreutils and some additional `node-sodium` compilation dependencies:
