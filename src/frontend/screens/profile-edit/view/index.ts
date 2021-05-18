@@ -4,8 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {h} from '@cycle/react';
+import {ReactElement} from 'react';
 import {
   View,
   Text,
@@ -22,10 +23,12 @@ import Avatar from '../../../components/Avatar';
 import TopBar from '../../../components/TopBar';
 import {State} from '../model';
 import {styles, avatarSize} from './styles';
-import Aliases from './Aliases';
 
-export default function view(state$: Stream<State>) {
-  return state$.map((state) => {
+export default function view(
+  state$: Stream<State>,
+  manageAliases$: Stream<ReactElement>,
+) {
+  return xs.combine(state$, manageAliases$).map(([state, manageAliases]) => {
     return h(View, {style: styles.container}, [
       h(TopBar, {sel: 'topbar', title: t('profile_edit.title')}),
 
@@ -135,7 +138,7 @@ export default function view(state$: Stream<State>) {
               {style: styles.label},
               t('profile_edit.fields.aliases.label'),
             ),
-            h(Aliases, {sel: 'aliases', aliases: state.aliases}),
+            manageAliases,
           ],
         ),
       ]),

@@ -28,6 +28,7 @@ export type MenuChoice =
   | 'disconnect'
   | 'disconnect-forget'
   | 'forget'
+  | 'manage-aliases'
   | 'room-share-invite'
   | 'invite-info'
   | 'invite-note'
@@ -157,8 +158,8 @@ function createStagedRoomMenuOptions() {
   ];
 }
 
-function createRoomMenuOptions() {
-  return [
+function createRoomMenuOptions(targetPeer: any) {
+  const options = [
     h(MenuOption, {
       value: menuChoice('room-share-invite'),
       ['children' as any]: h(MenuOptionContent, {
@@ -190,6 +191,24 @@ function createRoomMenuOptions() {
       }),
     }),
   ];
+
+  const data = targetPeer?.[1];
+  if (data?.membership && data?.name && data?.supportsAliases) {
+    options.push(
+      h(MenuOption, {
+        value: menuChoice('manage-aliases'),
+        ['children' as any]: h(MenuOptionContent, {
+          icon: 'link-variant',
+          text: t('connections.menu.manage_aliases.label'),
+          accessibilityLabel: t(
+            'connections.menu.manage_aliases.accessibility_label',
+          ),
+        }),
+      }),
+    );
+  }
+
+  return options;
 }
 
 function createStagingMenuOptions() {
@@ -262,7 +281,6 @@ function createInviteMenuOptions() {
   ];
 }
 
-let roomMenuOptions: Array<React.ReactElement<any>> | undefined;
 let stagingMenuOptions: Array<React.ReactElement<any>> | undefined;
 let stagedRoomMenuOptions: Array<React.ReactElement<any>> | undefined;
 let inviteMenuOptions: Array<React.ReactElement<any>> | undefined;
@@ -298,9 +316,6 @@ export default class SlideInMenu extends React.Component<
     if (!inviteMenuOptions) {
       inviteMenuOptions = createInviteMenuOptions();
     }
-    if (!roomMenuOptions) {
-      roomMenuOptions = createRoomMenuOptions();
-    }
     if (!stagingMenuOptions) {
       stagingMenuOptions = createStagingMenuOptions();
     }
@@ -322,7 +337,7 @@ export default class SlideInMenu extends React.Component<
           type === 'conn'
             ? createConnMenuOptions(target)
             : type === 'room'
-            ? roomMenuOptions
+            ? createRoomMenuOptions(target)
             : type === 'staging'
             ? stagingMenuOptions
             : type === 'staged-room'

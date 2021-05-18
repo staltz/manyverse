@@ -82,6 +82,8 @@ export default function intent(
           (state.itemMenu.target as PeerKV | StagedPeerKV)[1].key as FeedId,
       ),
 
+    goToManageAliases$: menuChoice$.filter((val) => val === 'manage-aliases'),
+
     connectPeer$: menuChoice$
       .filter((val) => val === 'connect')
       .compose(sample(state$))

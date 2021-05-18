@@ -12,8 +12,6 @@ import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import {DialogSource} from '../../drivers/dialogs';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
-import {Alias} from '../../ssb/types';
-import {canonicalizeAliasURL} from '../../ssb/utils/alias';
 
 export default function intent(
   reactSource: ReactSource,
@@ -41,30 +39,6 @@ export default function intent(
     )
     .flatten()
     .filter((res) => res.action === 'actionPositive');
-
-  const registerAlias$ = reactSource.select('aliases').events('register');
-
-  const removeAlias$ = reactSource
-    .select('aliases')
-    .events('remove')
-    .map((a: Alias) =>
-      dialogSource
-        .alert(
-          '',
-          t('profile_edit.dialogs.remove_alias.description', {
-            alias: canonicalizeAliasURL(a.aliasURL),
-          }),
-          {
-            positiveText: t('call_to_action.remove'),
-            positiveColor: Palette.textNegative,
-            negativeText: t('call_to_action.cancel'),
-            negativeColor: Palette.colors.comet8,
-          },
-        )
-        .filter((res) => res.action === 'actionPositive')
-        .mapTo(a),
-    )
-    .flatten();
 
   const changeName$ = reactSource.select('name').events('changeText');
 
@@ -99,7 +73,5 @@ export default function intent(
     changeAvatar$,
     save$,
     discardChanges$,
-    registerAlias$,
-    removeAlias$,
   };
 }

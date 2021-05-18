@@ -1,10 +1,11 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
@@ -13,12 +14,15 @@ import {navOptions as profileScreenNavOptions} from '../../profile';
 import {Props as ProfileProps} from '../../profile/props';
 import {navOptions as pasteInviteScreenNavOptions} from '../../invite-paste';
 import {navOptions as createInviteScreenNavOptions} from '../../invite-create';
+import {navOptions as manageAliasScreenNavOpts} from '../../manage-alias/layout';
+import {Props as ManageAliasesProps} from '../../manage-alias/props';
 import {State} from './model';
 
 export type Actions = {
   goToPeerProfile$: Stream<FeedId>;
   goToPasteInvite$: Stream<any>;
   goToCreateInvite$: Stream<any>;
+  goToManageAliases$: Stream<any>;
 };
 
 export default function navigation(
@@ -71,5 +75,28 @@ export default function navigation(
       } as Command),
   );
 
-  return xs.merge(toProfile$, toPasteInvite$, toCreateInvite$);
+  const toManageAliases$ = actions.goToManageAliases$
+    .compose(sample(state$))
+    .map(
+      (state) =>
+        ({
+          type: 'push',
+          layout: {
+            component: {
+              name: Screens.ManageAlias,
+              options: manageAliasScreenNavOpts,
+              passProps: {
+                feedId: state.selfFeedId,
+              } as ManageAliasesProps,
+            },
+          },
+        } as Command),
+    );
+
+  return xs.merge(
+    toProfile$,
+    toPasteInvite$,
+    toCreateInvite$,
+    toManageAliases$,
+  );
 }

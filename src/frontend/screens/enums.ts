@@ -20,6 +20,7 @@ export enum Screens {
   InviteCreate = 'Manyverse.Invite.Create',
   Profile = 'Manyverse.Profile',
   ProfileEdit = 'Manyverse.Profile.Edit',
+  ManageAlias = 'Manyverse.ManageAlias',
   RegisterAlias = 'Manyverse.RegisterAlias',
   Biography = 'Manyverse.Biography',
   Accounts = 'Manyverse.Accounts',

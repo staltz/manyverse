@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
@@ -12,8 +12,8 @@ import {KeyboardSource} from 'cycle-native-keyboard';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
-import {Toast, Duration as ToastDuration} from '../../drivers/toast';
-import {t} from '../../drivers/localization';
+import {Toast} from '../../drivers/toast';
+import manageAliases from '../../components/manage-aliases';
 import intent from './intent';
 import view from './view';
 import navigation from './navigation';
@@ -55,41 +55,27 @@ export const navOptions = {
 };
 
 export function editProfile(sources: Sources): Sinks {
+  const manageAliasesSinks = manageAliases({
+    ...sources,
+    props: sources.props.map((p) => ({feedId: p.about.id})),
+  });
+
   const state$ = sources.state.stream;
   const actions = intent(sources.screen, sources.navigation, sources.dialog);
-  const vdom$ = view(state$);
-  const command$ = navigation(actions, state$);
-  const reducer$ = model(sources.props, actions, sources.ssb);
+  const vdom$ = view(state$, manageAliasesSinks.screen);
+  const command$ = xs.merge(navigation(actions), manageAliasesSinks.navigation);
+  const reducer$ = xs.merge(
+    model(sources.props, actions),
+    manageAliasesSinks.state as Stream<Reducer<State>>,
+  );
   const req$ = ssb(state$, actions);
   const dismiss$ = actions.save$.mapTo('dismiss' as 'dismiss');
-
-  const successfullyRemovedAlias$ = actions.removeAlias$
-    .map(({room, alias}) => sources.ssb.revokeAlias$(room, alias))
-    .flatten()
-    .map(
-      () =>
-        ({
-          type: 'show' as const,
-          flavor: 'success',
-          message: t('profile_edit.toasts.alias_removed_success'),
-          duration: ToastDuration.SHORT,
-        } as Toast),
-    );
-
-  const revokeAliasResponse$ = successfullyRemovedAlias$.replaceError(() =>
-    successfullyRemovedAlias$.startWith({
-      type: 'show' as const,
-      flavor: 'failure',
-      message: t('profile_edit.toasts.alias_removed_failure'),
-      duration: ToastDuration.SHORT,
-    } as Toast),
-  );
 
   return {
     screen: vdom$,
     navigation: command$,
     state: reducer$,
-    toast: revokeAliasResponse$,
+    toast: manageAliasesSinks.toast,
     keyboard: dismiss$,
     ssb: req$,
   };

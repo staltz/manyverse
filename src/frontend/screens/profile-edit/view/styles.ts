@@ -91,39 +91,4 @@ export const styles = StyleSheet.create({
   saveText: {
     textTransform: 'uppercase',
   },
-
-  aliasesContainer: {
-    flex: 1,
-    alignSelf: 'stretch',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    marginBottom: Dimensions.verticalSpaceBig,
-  },
-
-  registerNewAlias: {
-    backgroundColor: Palette.backgroundCTA,
-    alignSelf: 'flex-start',
-    marginVertical: Dimensions.verticalSpaceNormal,
-  },
-
-  aliasRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  aliasLink: {
-    flex: 1,
-    fontSize: Typography.fontSizeNormal,
-    lineHeight: Typography.lineHeightNormal,
-    marginLeft: Dimensions.horizontalSpaceSmall,
-    textDecorationLine: 'underline',
-    color: Palette.text,
-  },
-
-  aliasRemove: {
-    paddingStart: Dimensions.horizontalSpaceNormal,
-    paddingEnd: Dimensions.horizontalSpaceSmall,
-    paddingVertical: Dimensions.verticalSpaceSmall,
-    alignSelf: 'stretch',
-  },
 });

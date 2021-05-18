@@ -8,29 +8,27 @@ import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
 import {About, FeedId} from 'ssb-typescript';
 import {Image} from 'react-native-image-crop-picker';
-import {SSBSource} from '../../drivers/ssb';
 import {Alias, PeerKV} from '../../ssb/types';
 import {Props} from './props';
 
-export type State = {
+export interface State {
   about: About & {id: FeedId};
   aliases: Array<Alias>;
   newName?: string;
   newAvatar?: string;
   newDescription?: string;
   aliasServers?: Array<PeerKV>;
-};
+}
 
-export type Actions = {
+export interface Actions {
   changeName$: Stream<string>;
   changeAvatar$: Stream<Image>;
   changeDescription$: Stream<string>;
-};
+}
 
 export default function model(
   props$: Stream<Props>,
   actions: Actions,
-  ssbSource: SSBSource,
 ): Stream<Reducer<State>> {
   const propsReducer$ = props$.map(
     (props) =>
@@ -41,23 +39,6 @@ export default function model(
         };
       },
   );
-
-  const loadAliasServersReducer$ = ssbSource.aliasRegistrationRooms$().map(
-    (aliasServers) =>
-      function loadAliasServersReducer(prev: State): State {
-        return {...prev, aliasServers};
-      },
-  );
-
-  const updateAliasesReducer$ = props$
-    .map((props) => ssbSource.getAliasesLive$(props.about.id))
-    .flatten()
-    .map(
-      (aliases) =>
-        function updateAliasesReducer(prev: State): State {
-          return {...prev, aliases};
-        },
-    );
 
   const changeNameReducer$ = actions.changeName$.map(
     (newName) =>
@@ -82,8 +63,6 @@ export default function model(
 
   return xs.merge(
     propsReducer$,
-    loadAliasServersReducer$,
-    updateAliasesReducer$,
     changeNameReducer$,
     changeAvatarReducer$,
     changeDescriptionReducer$,
