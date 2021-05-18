@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,13 +6,13 @@
 
 import {Stream} from 'xstream';
 import sample from 'xstream-sample';
-import {State} from './model';
 import {toAboutContent} from '../../ssb/utils/to-ssb';
 import {Req, PublishAboutReq} from '../../drivers/ssb';
+import {State} from './model';
 
-export type SSBActions = {
+export interface SSBActions {
   save$: Stream<null>;
-};
+}
 
 /**
  * Define streams of new content to be flushed onto SSB.

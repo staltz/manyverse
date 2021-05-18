@@ -14,6 +14,7 @@ export const Dimensions = {
   horizontalSpaceSmall: 7,
   horizontalSpaceTiny: 4,
 
+  verticalSpaceHuge: 64,
   verticalSpaceLarger: 28,
   verticalSpaceLarge: 20,
   verticalSpaceBig: 14,
@@ -33,6 +34,7 @@ export const Dimensions = {
 
   dotSize: 9,
 
+  iconSizeHuge: 60,
   iconSizeLarge: 36,
   iconSizeBig: 30,
   iconSizeNormal: 24,

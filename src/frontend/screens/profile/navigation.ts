@@ -15,6 +15,7 @@ import {Screens} from '../enums';
 import {navOptions as composeScreenNavOpts} from '../compose';
 import {Props as ComposeProps} from '../compose/props';
 import {navOptions as editProfileScreenNavOpts} from '../profile-edit';
+import {Props as ProfileEditProps} from '../profile-edit/props';
 import {navOptions as bioScreenNavOpts} from '../biography';
 import {navOptions as threadScreenNavOpts} from '../thread/layout';
 import {Props as ThreadProps} from '../thread/props';
@@ -143,7 +144,8 @@ export default function navigation(
             name: Screens.ProfileEdit,
             passProps: {
               about: state.about,
-            },
+              aliases: state.aliases,
+            } as ProfileEditProps,
             options: editProfileScreenNavOpts,
           },
         },

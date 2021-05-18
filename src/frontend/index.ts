@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -43,6 +43,7 @@ import {libraries} from './screens/libraries';
 import {pasteInvite} from './screens/invite-paste';
 import {profile} from './screens/profile';
 import {editProfile} from './screens/profile-edit';
+import {registerAlias} from './screens/register-alias';
 import {createInvite} from './screens/invite-create';
 import {biography} from './screens/biography';
 import {accounts} from './screens/accounts';
@@ -104,6 +105,7 @@ export const screens: ScreensMapping = {
   [Screens.InviteCreate]: withState(createInvite),
   [Screens.Profile]: withState(profile),
   [Screens.ProfileEdit]: withState(editProfile),
+  [Screens.RegisterAlias]: withState(registerAlias),
   [Screens.Biography]: withState(biography),
   [Screens.Accounts]: withState(accounts),
   [Screens.Backup]: withState(backup),

@@ -13,6 +13,7 @@ import {
   AboutContent,
   BlobId,
   About,
+  AliasContent,
 } from 'ssb-typescript';
 const nodejs = require('nodejs-mobile-react-native');
 import {Platform} from 'react-native';
@@ -28,6 +29,7 @@ import {
   PeerKV,
   StagedPeerKV,
   ThreadSummaryWithExtras,
+  Alias,
 } from '../ssb/types';
 import makeClient, {SSBClient} from '../ssb/client';
 import {imageToImageUrl} from '../ssb/utils/from-ssb';
@@ -40,7 +42,7 @@ export interface MentionSuggestion {
   name: string;
   image: any;
   following: boolean;
-};
+}
 
 export type RestoreIdentityResponse =
   | 'OVERWRITE_RISK'
@@ -144,7 +146,7 @@ export class SSBSource {
 
     this.peers$ = this.fromPullStream<Array<PeerKV>>((ssb) =>
       ssb.connUtils.peers(),
-    );
+    ).remember();
 
     this.stagedPeers$ = this.fromPullStream<Array<StagedPeerKV>>((ssb) =>
       ssb.connUtils.stagedPeers(),
@@ -305,6 +307,72 @@ export class SSBSource {
     );
   }
 
+  public aliasRegistrationRooms$(): Stream<Array<PeerKV>> {
+    return this.fromCallback<Array<PeerKV>>((ssb, cb) =>
+      ssb.conn.dbPeers(cb),
+    ).map((peers) =>
+      peers
+        .filter(
+          ([_addr, data]) =>
+            data.type === 'room' &&
+            data.name &&
+            data.supportsAliases &&
+            data.membership,
+        )
+        .map((peer) => {
+          const [addr, data] = peer;
+          if (data.key) {
+            return peer;
+          } else {
+            return [addr, {...data, key: Ref.getKeyFromAddress(addr)}];
+          }
+        }),
+    );
+  }
+
+  public registerAlias$(roomId: FeedId, alias: string): Stream<string> {
+    return this.fromCallback<string>((ssb, cb) =>
+      ssb.roomClient.registerAlias(roomId, alias, (err: any, res: string) => {
+        if (err) {
+          cb(err);
+          return;
+        }
+
+        const content: AliasContent = {
+          type: 'room/alias',
+          action: 'registered',
+          alias,
+          room: roomId,
+        };
+        if (res && typeof res === 'string') {
+          content.aliasURL = res;
+        }
+        ssb.publishUtils.publish(content);
+        cb(null, res);
+      }),
+    );
+  }
+
+  public revokeAlias$(roomId: FeedId, alias: string): Stream<true> {
+    return this.fromCallback<true>((ssb, cb) =>
+      ssb.roomClient.revokeAlias(roomId, alias, (err: any, res: true) => {
+        if (err) {
+          cb(err);
+          return;
+        }
+
+        const content: AliasContent = {
+          type: 'room/alias',
+          action: 'revoked',
+          alias,
+          room: roomId,
+        };
+        ssb.publishUtils.publish(content);
+        cb(null, res);
+      }),
+    );
+  }
+
   public addBlobFromPath$(path: string): Stream<BlobId> {
     return this.fromCallback<BlobId>((ssb, cb) =>
       ssb.blobsUtils.addFromPath(path, cb),
@@ -379,7 +447,7 @@ export interface UseIdentityReq {
 
 export interface PublishReq {
   type: 'publish';
-  content: NonNullable<Content>;
+  content: NonNullable<Content | AliasContent>;
 }
 
 export interface PublishAboutReq {

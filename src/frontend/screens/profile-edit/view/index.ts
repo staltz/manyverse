@@ -15,18 +15,17 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import Button from '../../components/Button';
-import Avatar from '../../components/Avatar';
-import TopBar from '../../components/TopBar';
-import {State} from './model';
+import {t} from '../../../drivers/localization';
+import {Palette} from '../../../global-styles/palette';
+import Button from '../../../components/Button';
+import Avatar from '../../../components/Avatar';
+import TopBar from '../../../components/TopBar';
+import {State} from '../model';
 import {styles, avatarSize} from './styles';
+import Aliases from './Aliases';
 
 export default function view(state$: Stream<State>) {
   return state$.map((state) => {
-    const defaultName: string = state.about.name ?? '';
-
     return h(View, {style: styles.container}, [
       h(TopBar, {sel: 'topbar', title: t('profile_edit.title')}),
 
@@ -102,7 +101,7 @@ export default function view(state$: Stream<State>) {
               sel: 'name',
               multiline: false,
               autoFocus: true,
-              defaultValue: defaultName,
+              defaultValue: state.about.name ?? '',
               underlineColorAndroid: Palette.brandMain,
               accessible: true,
               accessibilityLabel: t(
@@ -130,6 +129,13 @@ export default function view(state$: Stream<State>) {
               ),
               style: styles.textInput,
             }),
+
+            h(
+              Text,
+              {style: styles.label},
+              t('profile_edit.fields.aliases.label'),
+            ),
+            h(Aliases, {sel: 'aliases', aliases: state.aliases}),
           ],
         ),
       ]),
