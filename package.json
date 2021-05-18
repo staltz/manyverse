@@ -125,7 +125,7 @@
     "ssb-room-client": "~0.2.0",
     "ssb-serve-blobs": "2.6.0",
     "ssb-threads": "7.0.0",
-    "ssb-typescript": "2.2.0",
+    "ssb-typescript": "2.5.0",
     "ssb-uri2": "^1.0.2",
     "strip-markdown-oneline": "1.0.2",
     "url-parse": "1.5.1",

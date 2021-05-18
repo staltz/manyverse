@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Msg, Content, FeedId, About, MsgId} from 'ssb-typescript';
+import {Msg, Content, FeedId, About, MsgId, AliasContent} from 'ssb-typescript';
 import {Stream} from 'xstream';
 import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
 
@@ -78,3 +78,5 @@ export interface StagedPeerMetadata {
 }
 
 export type StagedPeerKV = [string, StagedPeerMetadata];
+
+export type Alias = Required<Omit<AliasContent, 'type' | 'action'>>;

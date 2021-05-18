@@ -184,6 +184,15 @@ export const styles = StyleSheet.create({
     lineHeight: Typography.lineHeightNormal,
   },
 
+  aliasLink: {
+    flex: 1,
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
+    marginLeft: Dimensions.horizontalSpaceSmall,
+    textDecorationLine: 'underline',
+    color: Palette.text,
+  },
+
   headerMarginBottom: {
     backgroundColor: Palette.backgroundText,
     paddingBottom: Dimensions.verticalSpaceLarge,

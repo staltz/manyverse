@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {h} from '@cycle/react';
-import {PureComponent} from 'react';
+import {PureComponent, Fragment} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const stripMarkdownOneline = require('strip-markdown-oneline');
@@ -14,6 +14,8 @@ import Button from '../../../components/Button';
 import ToggleButton from '../../../components/ToggleButton';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Palette} from '../../../global-styles/palette';
+import {Alias} from '../../../ssb/types';
+import {canonicalizeAliasURL} from '../../../ssb/utils/alias';
 import {State} from '../model';
 import {styles} from './styles';
 
@@ -116,14 +118,50 @@ function FollowsYou() {
   ]);
 }
 
+function AliasesSection({
+  aliases,
+  onPressAlias,
+  isSelfProfile,
+}: {
+  aliases: State['aliases'];
+  onPressAlias?: (a: Alias) => void;
+  isSelfProfile: boolean;
+}) {
+  if (aliases.length === 0) return null;
+
+  return h(Fragment, [
+    ...aliases.map((a) =>
+      h(View, {key: a.aliasURL, style: styles.detailsRow}, [
+        h(Icon, {
+          size: Dimensions.iconSizeSmall,
+          color: Palette.textBrand,
+          name: 'link-variant',
+        }),
+        h(
+          Text,
+          {
+            selectable: isSelfProfile,
+            style: styles.aliasLink,
+            onPress: () => {
+              if (!isSelfProfile) onPressAlias?.(a);
+            },
+          },
+          canonicalizeAliasURL(a.aliasURL),
+        ),
+      ]),
+    ),
+  ]);
+}
+
 export default class ProfileHeader extends PureComponent<{
   about: State['about'];
+  aliases: State['aliases'];
   following: State['following'];
   followers: State['followers'];
   isSelfProfile: boolean;
 }> {
   public render() {
-    const {about, following, followers, isSelfProfile} = this.props;
+    const {about, following, followers, isSelfProfile, aliases} = this.props;
     const followsYou = about.followsYou === true;
     const isBlocked = about.following === false;
 
@@ -159,6 +197,7 @@ export default class ProfileHeader extends PureComponent<{
         h(Biography, {about}),
         h(FollowSection, {following, followers}),
         followsYou ? h(FollowsYou) : null,
+        h(AliasesSection, {sel: 'aliases', aliases, isSelfProfile}),
       ]),
 
       h(View, {style: styles.headerMarginBottom}),

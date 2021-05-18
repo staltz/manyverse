@@ -9,7 +9,7 @@ import concat from 'xstream/extra/concat';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
-import {AboutAndExtras} from '../../ssb/types';
+import {AboutAndExtras, Alias} from '../../ssb/types';
 import {SSBSource, GetReadable} from '../../drivers/ssb';
 import {Props} from './props';
 
@@ -19,6 +19,7 @@ export type State = {
   selfAvatarUrl?: string;
   displayFeedId: FeedId;
   about: AboutAndExtras;
+  aliases: Array<Alias>;
   following: Array<FeedId> | null;
   followers: Array<FeedId> | null;
   connection: 'connected' | 'connecting' | 'disconnecting' | undefined;
@@ -51,6 +52,7 @@ export default function model(
             description: '',
             id: props.feedId,
           },
+          aliases: [],
           following: null,
           followers: null,
           connection: void 0,
@@ -136,6 +138,17 @@ export default function model(
         },
     );
 
+  const updateAliasesReducer$ = props$
+    .map((props) => ssbSource.getAliasesLive$(props.feedId))
+    .flatten()
+    .map(
+      (aliases) =>
+        function updateAliasesReducer(prev: State): State {
+          console.log(aliases);
+          return {...prev, aliases};
+        },
+    );
+
   const updateFeedStreamReducer$ = getFeedReadable$.map(
     (getFeedReadable) =>
       function updateFeedStreamReducer(prev: State): State {
@@ -151,6 +164,7 @@ export default function model(
       updateConnectionReducer$,
       updateFollowingReducer$,
       updateFollowersReducer$,
+      updateAliasesReducer$,
       updateFeedStreamReducer$,
       updateBlockingSecretlyReducer$,
     ),

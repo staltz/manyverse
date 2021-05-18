@@ -190,6 +190,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         'about',
         'following',
         'followers',
+        'aliases',
         'connection',
         'getFeedReadable',
       ]),
@@ -227,6 +228,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                 about: state.about,
                 following: state.following,
                 followers: state.followers,
+                aliases: state.aliases,
                 isSelfProfile,
               }),
               h(EmptySection, {
@@ -255,6 +257,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                   about: state.about,
                   following: state.following,
                   followers: state.followers,
+                  aliases: state.aliases,
                   isSelfProfile,
                 }),
                 style: styles.feed,

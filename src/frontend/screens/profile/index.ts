@@ -13,7 +13,8 @@ import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
-import {Toast} from '../../drivers/toast';
+import {Toast, Duration as ToastDuration} from '../../drivers/toast';
+import {t} from '../../drivers/localization';
 import messageEtc from '../../components/messageEtc';
 import manageContact from './manage-contact';
 import copyCypherlink from './copy-cypherlink';
@@ -102,7 +103,45 @@ export function profile(sources: Sources): Sinks {
     copyCypherlinkSinks.clipboard,
   );
 
-  const toast$ = xs.merge(messageEtcSinks.toast, copyCypherlinkSinks.toast);
+  const consumeAliasRequest$ = actions.consumeAlias$.map(
+    ({alias}) =>
+      ({
+        type: 'show' as const,
+        message: t('connections.toasts.connecting_to_alias', {alias}),
+        duration: ToastDuration.SHORT,
+      } as Toast),
+  );
+
+  const consumeAliasResponse$ = actions.consumeAlias$
+    .map(({alias}) =>
+      sources.ssb
+        .consumeAlias$(alias)
+        .map(
+          () =>
+            ({
+              type: 'show' as const,
+              flavor: 'success',
+              message: t('connections.toasts.connected_to_alias', {alias}),
+              duration: ToastDuration.SHORT,
+            } as Toast),
+        )
+        .replaceError(() =>
+          xs.of({
+            type: 'show' as const,
+            flavor: 'failure',
+            message: t('connections.toasts.not_connected_to_alias', {alias}),
+            duration: ToastDuration.SHORT,
+          } as Toast),
+        ),
+    )
+    .flatten();
+
+  const toast$ = xs.merge(
+    messageEtcSinks.toast,
+    copyCypherlinkSinks.toast,
+    consumeAliasRequest$,
+    consumeAliasResponse$,
+  );
 
   return {
     screen: vdom$,

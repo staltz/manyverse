@@ -74,6 +74,7 @@ export class SSBSource {
   public indexingProgress$: Stream<number>;
   public acceptInviteResponse$: Stream<true | string>;
   public acceptDhtInviteResponse$: Stream<true | string>;
+  public consumeAliasResponse$: Stream<FeedId | false>;
   public connStarted$: Stream<void>;
   public peers$: Stream<Array<PeerKV>>;
   public stagedPeers$: Stream<Array<StagedPeerKV>>;
@@ -139,6 +140,7 @@ export class SSBSource {
     this.acceptInviteResponse$ = xs.create<true | string>();
     this.acceptDhtInviteResponse$ = xs.create<true | string>();
     this.connStarted$ = xs.create<void>();
+    this.consumeAliasResponse$ = xs.create<FeedId>();
 
     this.peers$ = this.fromPullStream<Array<PeerKV>>((ssb) =>
       ssb.connUtils.peers(),
@@ -289,6 +291,18 @@ export class SSBSource {
         );
       })
       .flatten();
+  }
+
+  public consumeAlias$(uri: string): Stream<FeedId> {
+    return this.fromCallback<any>((ssb, cb) =>
+      ssb.roomClient.consumeAliasUri(uri, cb),
+    ).map((rpc) => rpc.id);
+  }
+
+  public getAliasesLive$(id: FeedId): Stream<Array<Alias>> {
+    return this.fromPullStream<Array<Alias>>((ssb) =>
+      ssb.aliasUtils.stream(id),
+    );
   }
 
   public addBlobFromPath$(path: string): Stream<BlobId> {
@@ -711,12 +725,14 @@ async function consumeSink(
       }
 
       if (req.type === 'roomClient.consumeAliasUri') {
-        ssb.roomClient.consumeAliasUri(req.uri, (err: any, _rpc: any) => {
+        ssb.roomClient.consumeAliasUri(req.uri, (err: any, rpc: any) => {
           if (err) {
             console.error('error to consume alias');
             console.error(err);
+            source.consumeAliasResponse$._n(false);
+          } else {
+            source.consumeAliasResponse$._n(rpc.id);
           }
-          // TODO: show something on the UI?
         });
         return;
       }

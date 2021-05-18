@@ -271,7 +271,10 @@
     },
     "toasts": {
       "invite_accepted": "Invite accepted",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?"
+      "invite_rejected": "Invite rejected. Are you sure it was correct?",
+      "connecting_to_alias": "Connecting to {{alias}}",
+      "connected_to_alias": "Connected to {{alias}}",
+      "not_connected_to_alias": "{{alias}} is offline right now"
     },
     "dialogs": {
       "sign_in_with_ssb": {

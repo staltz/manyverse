@@ -116,6 +116,7 @@ SecretStack({caps})
   .use(require('./plugins/blobsUtils')) // needs: blobs
   .use(require('./plugins/connUtilsBack')) // needs: conn
   .use(require('./plugins/aboutSelf')) // needs: db2
+  .use(require('./plugins/aliasUtils')) // needs: db2
   .use(require('./plugins/publishUtilsBack')) // needs: db, blobs, blobsUtils
   .use(require('./plugins/friendsUtils')) // needs: db2
   .use(require('./plugins/keysUtils'))

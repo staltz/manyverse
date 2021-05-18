@@ -14,6 +14,7 @@ import {
   PressReactionsEvent,
   PressAddReactionEvent,
   MsgAndExtras,
+  Alias,
 } from '../../ssb/types';
 import {State} from './model';
 
@@ -88,6 +89,10 @@ export default function intent(
       .compose(sample(state$)),
 
     goToFeedId$: reactSource.select('feedId').events('press') as Stream<any>,
+
+    consumeAlias$: reactSource.select('aliases').events('pressAlias') as Stream<
+      Alias
+    >,
 
     goToThread$: reactSource.select('feed').events('pressExpand') as Stream<
       MsgAndExtras

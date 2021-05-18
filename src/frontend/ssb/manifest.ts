@@ -168,6 +168,10 @@ export default {
   blobsUtils: {
     addFromPath: 'async',
   },
+  aliasUtils: {
+    get: 'async',
+    stream: 'source',
+  },
   connUtilsBack: {
     persistentConnect: 'async',
     persistentDisconnect: 'async',

@@ -13,11 +13,13 @@ import {Req, SSBSource} from '../../drivers/ssb';
 import {Command as LocalizationCmd} from '../../drivers/localization';
 import {FSSource} from '../../drivers/fs';
 import {DialogSource} from '../../drivers/dialogs';
+import {Toast} from '../../drivers/toast';
 import model, {State} from './model';
 import intent from './intent';
 import navigation from './navigation';
 import ssb from './ssb';
 import localization from './localization';
+import toast from './toast';
 
 export type Sources = {
   state: StateSource<State>;
@@ -34,6 +36,7 @@ export type Sinks = {
   navigation: Stream<Command>;
   ssb: Stream<Req>;
   localization: Stream<LocalizationCmd>;
+  toast: Stream<Toast>;
 };
 
 export function global(sources: Sources): Sinks {
@@ -42,11 +45,13 @@ export function global(sources: Sources): Sinks {
   const reducer$ = model(sources.ssb, sources.asyncstorage);
   const updateLocalization$ = localization(sources.fs);
   const req$ = ssb(updateLocalization$, actions, sources.dialog);
+  const toast$ = toast(actions, sources.ssb);
 
   return {
     navigation: cmd$,
     state: reducer$,
     localization: updateLocalization$,
     ssb: req$,
+    toast: toast$,
   };
 }
