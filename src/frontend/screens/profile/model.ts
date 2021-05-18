@@ -144,7 +144,6 @@ export default function model(
     .map(
       (aliases) =>
         function updateAliasesReducer(prev: State): State {
-          console.log(aliases);
           return {...prev, aliases};
         },
     );
