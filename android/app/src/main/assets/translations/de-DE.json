@@ -6,6 +6,7 @@
     "cancel": "Abbrechen",
     "continue": "Weiter",
     "delete": "Löschen",
+    "remove": "Remove",
     "save": "Speichern",
     "yes": "Ja",
     "no": "Nein",
@@ -271,7 +272,10 @@
     },
     "toasts": {
       "invite_accepted": "Einladung angenommen",
-      "invite_rejected": "Einladung abgelehnt. Bist Du sicher, dass sie korrekt war?"
+      "invite_rejected": "Einladung abgelehnt. Bist Du sicher, dass sie korrekt war?",
+      "connecting_to_alias": "Connecting to {{alias}}",
+      "connected_to_alias": "Connected to {{alias}}",
+      "not_connected_to_alias": "{{alias}} is offline right now"
     },
     "dialogs": {
       "sign_in_with_ssb": {
@@ -719,13 +723,24 @@
       },
       "edit_picture": {
         "accessibility_label": "Edit Profile Picture"
+      },
+      "register_new_alias": {
+        "label": "Register new alias",
+        "accessibility_label": "Register New Room Server Alias"
       }
     },
     "dialogs": {
       "discard": {
         "title": "Profil bearbeiten",
         "question": "Änderungen verwerfen?"
+      },
+      "remove_alias": {
+        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
       }
+    },
+    "toasts": {
+      "alias_removed_success": "Alias removed",
+      "alias_removed_failure": "Failed to remove alias"
     },
     "fields": {
       "name": {
@@ -735,6 +750,49 @@
       "description": {
         "label": "Biographie",
         "accessibility_label": "Biographie Texteingabefeld"
+      },
+      "aliases": {
+        "label": "Aliases"
+      }
+    }
+  },
+  "register_alias": {
+    "title": "Register alias",
+    "empty": {
+      "no_servers": {
+        "title": "No servers",
+        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+      }
+    },
+    "header": {
+      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+    },
+    "dialogs": {
+      "input_alias": {
+        "description": "Submit your desired new alias to {{host}} as a single word in lowercase.\n\nFor example, if you want the alias \"myname.{{host}}\", write \"myname\" below."
+      }
+    },
+    "submitting": {
+      "title": "Submitting..."
+    },
+    "failure": {
+      "title": "It didn't work",
+      "alias_taken": "The alias you submitted is already taken by some user.",
+      "call_to_action": {
+        "try_again": {
+          "label": "Try again",
+          "accessibility_label": "Try Again Button"
+        }
+      }
+    },
+    "success": {
+      "title": "Great!",
+      "description": "The alias {{alias}} is now yours.",
+      "call_to_action": {
+        "go_back": {
+          "label": "Go back",
+          "accessibility_label": "Go Back Button"
+        }
       }
     }
   },
