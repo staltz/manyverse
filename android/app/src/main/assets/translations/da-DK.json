@@ -386,6 +386,10 @@
           "room": "Fjern dette rum fra databasen"
         }
       },
+      "manage_aliases": {
+        "label": "My aliases",
+        "accessibility_label": "Manage my aliases in Room servers"
+      },
       "room_share_invite": {
         "label": "Del invitation",
         "accessibility_label": "Del en invitation til dette rum"
@@ -755,6 +759,9 @@
         "label": "Aliases"
       }
     }
+  },
+  "manage_aliases": {
+    "title": "Manage aliases"
   },
   "register_alias": {
     "title": "Register alias",

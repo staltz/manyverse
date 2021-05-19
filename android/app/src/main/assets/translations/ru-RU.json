@@ -386,6 +386,10 @@
           "room": "Удалить эту комнату из базы данных"
         }
       },
+      "manage_aliases": {
+        "label": "My aliases",
+        "accessibility_label": "Manage my aliases in Room servers"
+      },
       "room_share_invite": {
         "label": "Поделиться пригласительным кодом",
         "accessibility_label": "Поделиться пригласительным кодом для этой комнаты"
@@ -755,6 +759,9 @@
         "label": "Aliases"
       }
     }
+  },
+  "manage_aliases": {
+    "title": "Manage aliases"
   },
   "register_alias": {
     "title": "Register alias",

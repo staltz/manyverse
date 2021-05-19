@@ -386,6 +386,10 @@
           "room": "أزِل هذه الغرفة من قاعدة البيانات"
         }
       },
+      "manage_aliases": {
+        "label": "My aliases",
+        "accessibility_label": "Manage my aliases in Room servers"
+      },
       "room_share_invite": {
         "label": "شارك رمز الدعوة",
         "accessibility_label": "شارك رمز الدعوة لهذه الغرفة"
@@ -755,6 +759,9 @@
         "label": "Aliases"
       }
     }
+  },
+  "manage_aliases": {
+    "title": "Manage aliases"
   },
   "register_alias": {
     "title": "Register alias",

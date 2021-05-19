@@ -386,6 +386,10 @@
           "room": "Verwijder deze ruimte uit onze database"
         }
       },
+      "manage_aliases": {
+        "label": "My aliases",
+        "accessibility_label": "Manage my aliases in Room servers"
+      },
       "room_share_invite": {
         "label": "Deel uitnodigingscode",
         "accessibility_label": "Deel de uitnodigingscode voor deze ruimte"
@@ -755,6 +759,9 @@
         "label": "Aliases"
       }
     }
+  },
+  "manage_aliases": {
+    "title": "Manage aliases"
   },
   "register_alias": {
     "title": "Register alias",

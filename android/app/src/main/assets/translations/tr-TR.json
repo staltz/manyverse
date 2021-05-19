@@ -386,6 +386,10 @@
           "room": "Bu odayı veritabanından kaldır"
         }
       },
+      "manage_aliases": {
+        "label": "My aliases",
+        "accessibility_label": "Manage my aliases in Room servers"
+      },
       "room_share_invite": {
         "label": "Davet kodunu paylaş",
         "accessibility_label": "Bu odanın davet kodunu paylaş"
@@ -755,6 +759,9 @@
         "label": "Aliases"
       }
     }
+  },
+  "manage_aliases": {
+    "title": "Manage aliases"
   },
   "register_alias": {
     "title": "Register alias",

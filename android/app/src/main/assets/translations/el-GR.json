@@ -386,6 +386,10 @@
           "room": "Αφαίρεση του δωματίου από την βάση δεδομένων"
         }
       },
+      "manage_aliases": {
+        "label": "My aliases",
+        "accessibility_label": "Manage my aliases in Room servers"
+      },
       "room_share_invite": {
         "label": "Κοινή χρήση κωδικού πρόσκλησης",
         "accessibility_label": "Μοιραστείτε τον κωδικό πρόσκλησης για αυτό το δωμάτιο"
@@ -755,6 +759,9 @@
         "label": "Aliases"
       }
     }
+  },
+  "manage_aliases": {
+    "title": "Manage aliases"
   },
   "register_alias": {
     "title": "Register alias",
