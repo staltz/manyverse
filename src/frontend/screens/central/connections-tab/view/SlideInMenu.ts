@@ -29,6 +29,7 @@ export type MenuChoice =
   | 'disconnect-forget'
   | 'forget'
   | 'manage-aliases'
+  | 'room-sign-in'
   | 'room-share-invite'
   | 'invite-info'
   | 'invite-note'
@@ -159,17 +160,40 @@ function createStagedRoomMenuOptions() {
 }
 
 function createRoomMenuOptions(targetPeer: any) {
-  const options = [
-    h(MenuOption, {
-      value: menuChoice('room-share-invite'),
-      ['children' as any]: h(MenuOptionContent, {
-        icon: 'content-copy',
-        text: t('connections.menu.room_share_invite.label'),
-        accessibilityLabel: t(
-          'connections.menu.room_share_invite.accessibility_label',
-        ),
+  const options: Array<React.ReactElement> = [];
+  const data = targetPeer?.[1];
+
+  if (data?.openInvites) {
+    options.push(
+      h(MenuOption, {
+        value: menuChoice('room-share-invite'),
+        ['children' as any]: h(MenuOptionContent, {
+          icon: 'content-copy',
+          text: t('connections.menu.room_share_invite.label'),
+          accessibilityLabel: t(
+            'connections.menu.room_share_invite.accessibility_label',
+          ),
+        }),
       }),
-    }),
+    );
+  }
+
+  if (data?.supportsHttpAuth) {
+    options.push(
+      h(MenuOption, {
+        value: menuChoice('room-sign-in'),
+        ['children' as any]: h(MenuOptionContent, {
+          icon: 'login',
+          text: t('connections.menu.room_sign_in.label'),
+          accessibilityLabel: t(
+            'connections.menu.room_sign_in.accessibility_label',
+          ),
+        }),
+      }),
+    );
+  }
+
+  options.push(
     h(MenuOption, {
       value: menuChoice('disconnect'),
       ['children' as any]: h(MenuOptionContent, {
@@ -180,6 +204,8 @@ function createRoomMenuOptions(targetPeer: any) {
         ),
       }),
     }),
+  );
+  options.push(
     h(MenuOption, {
       value: menuChoice('disconnect-forget'),
       ['children' as any]: h(MenuOptionContent, {
@@ -190,9 +216,8 @@ function createRoomMenuOptions(targetPeer: any) {
         ),
       }),
     }),
-  ];
+  );
 
-  const data = targetPeer?.[1];
   if (data?.membership && data?.name && data?.supportsAliases) {
     options.push(
       h(MenuOption, {

@@ -62,6 +62,7 @@ export type Sinks = {
   state: Stream<Reducer<any>>;
   ssb: Stream<Req>;
   clipboard: Stream<string>;
+  linking: Stream<string>;
   toast: Stream<Toast>;
   share: Stream<SharedContent>;
   exit: Stream<any>;
@@ -190,6 +191,7 @@ export function central(sources: Sources): Sinks {
     asyncstorage: storageCommand$,
     alert: connectionsTabSinks.alert,
     ssb: ssb$,
+    linking: connectionsTabSinks.linking,
     clipboard: publicTabSinks.clipboard,
     toast: toast$,
     share: connectionsTabSinks.share,

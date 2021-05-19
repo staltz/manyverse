@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -31,6 +31,7 @@ import ssb from './ssb';
 import asyncStorage from './asyncstorage';
 import dialog from './dialog';
 import navigation from './navigation';
+const Ref = require('ssb-ref');
 
 export type Sources = {
   screen: ReactSource;
@@ -52,6 +53,7 @@ export type Sinks = {
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
   fab: Stream<FabProps>;
+  linking: Stream<string>;
   share: Stream<SharedContent>;
   toast: Stream<Toast>;
   exit: Stream<any>;
@@ -115,6 +117,15 @@ export function connectionsTab(sources: Sources): Sinks {
     },
   );
 
+  const signInToRoom$ = actions.signInRoom$
+    .map(([addr, data]) => {
+      const roomId: string | undefined =
+        data.key ?? Ref.getKeyFromAddress(addr);
+      if (!roomId) return xs.never<string>();
+      return sources.ssb.produceSignInWebUrl$(roomId);
+    })
+    .flatten();
+
   return {
     alert: alert$,
     navigation: command$,
@@ -123,6 +134,7 @@ export function connectionsTab(sources: Sources): Sinks {
     state: reducer$,
     fab: fabProps$,
     ssb: ssb$,
+    linking: signInToRoom$,
     share: share$,
     toast: inviteToast$,
     exit: actionsPlus.goBack$,

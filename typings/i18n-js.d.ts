@@ -179,6 +179,8 @@ declare module 'i18n-js' {
     | 'connections.menu.forget.accessibility_label.room'
     | 'connections.menu.manage_aliases.label'
     | 'connections.menu.manage_aliases.accessibility_label'
+    | 'connections.menu.room_sign_in.label'
+    | 'connections.menu.room_sign_in.accessibility_label'
     | 'connections.menu.room_share_invite.label'
     | 'connections.menu.room_share_invite.accessibility_label'
     | 'connections.menu.invite_info.label'

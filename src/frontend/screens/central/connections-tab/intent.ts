@@ -104,6 +104,11 @@ export default function intent(
       .compose(sample(state$))
       .map((state) => (state.itemMenu.target as PeerKV)[0]),
 
+    signInRoom$: menuChoice$
+      .filter((val) => val === 'room-sign-in')
+      .compose(sample(state$))
+      .map((state) => state.itemMenu.target) as Stream<PeerKV>,
+
     shareRoomInvite$: menuChoice$
       .filter((val) => val === 'room-share-invite')
       .compose(sample(state$))

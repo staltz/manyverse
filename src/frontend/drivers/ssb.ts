@@ -421,6 +421,12 @@ export class SSBSource {
       .flatten();
   }
 
+  public produceSignInWebUrl$(serverId: FeedId): Stream<string> {
+    return this.fromCallback<string>((ssb, cb) =>
+      ssb.httpAuthClient.produceSignInWebUrl(serverId, cb),
+    );
+  }
+
   public getMnemonic$(): Stream<string> {
     return this.fromCallback<string>((ssb, cb) =>
       ssb.keysUtils.getMnemonic(cb),
