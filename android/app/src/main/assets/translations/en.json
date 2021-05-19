@@ -387,7 +387,7 @@
         }
       },
       "manage_aliases": {
-        "label": "My aliases",
+        "label": "Manage my aliases",
         "accessibility_label": "Manage my aliases in Room servers"
       },
       "room_share_invite": {
