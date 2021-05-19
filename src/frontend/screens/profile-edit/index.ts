@@ -5,9 +5,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {StateSource, Reducer} from '@cycle/state';
-import {ReactSource} from '@cycle/react';
+import delay from 'xstream/extra/delay';
 import {ReactElement} from 'react';
+import {ReactSource} from '@cycle/react';
+import {StateSource, Reducer} from '@cycle/state';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource, Req} from '../../drivers/ssb';
@@ -61,7 +62,12 @@ export function editProfile(sources: Sources): Sinks {
   });
 
   const state$ = sources.state.stream;
-  const actions = intent(sources.screen, sources.navigation, sources.dialog);
+  const actions = intent(
+    sources.screen,
+    sources.navigation,
+    sources.dialog,
+    state$,
+  );
   const vdom$ = view(state$, manageAliasesSinks.screen);
   const command$ = xs.merge(navigation(actions), manageAliasesSinks.navigation);
   const reducer$ = xs.merge(
@@ -69,11 +75,12 @@ export function editProfile(sources: Sources): Sinks {
     manageAliasesSinks.state as Stream<Reducer<State>>,
   );
   const req$ = ssb(state$, actions);
-  const dismiss$ = actions.save$.mapTo('dismiss' as 'dismiss');
+  const dismiss$ = command$.mapTo('dismiss' as 'dismiss');
+  const commandAfterDismissKeyboard$ = command$.compose(delay(16));
 
   return {
     screen: vdom$,
-    navigation: command$,
+    navigation: commandAfterDismissKeyboard$,
     state: reducer$,
     toast: manageAliasesSinks.toast,
     keyboard: dismiss$,

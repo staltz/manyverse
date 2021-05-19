@@ -4,19 +4,22 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs from 'xstream';
+import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import between from 'xstream-between';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
-import {DialogSource} from '../../drivers/dialogs';
+import {AlertAction, DialogSource} from '../../drivers/dialogs';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
+import {State} from './model';
 
 export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
   dialogSource: DialogSource,
+  state$: Stream<State>,
 ) {
   const back$ = xs.merge(
     navSource.backPress(),
@@ -25,18 +28,28 @@ export default function intent(
 
   const discardChanges$ = back$
     .compose(between(navSource.didAppear(), navSource.didDisappear()))
-    .map(() =>
-      dialogSource.alert(
-        t('profile_edit.dialogs.discard.title'),
-        t('profile_edit.dialogs.discard.question'),
-        {
-          positiveText: t('profile_edit.call_to_action.discard'),
-          positiveColor: Palette.textNegative,
-          negativeText: t('call_to_action.cancel'),
-          negativeColor: Palette.colors.comet8,
-        },
-      ),
-    )
+    .compose(sample(state$))
+    .map((state) => {
+      const {newName, newAvatar, newDescription, about} = state;
+      const somethingChanged =
+        (!!newName && newName !== about.name) ||
+        !!newAvatar ||
+        (!!newDescription && newDescription !== about.description);
+      if (somethingChanged) {
+        return dialogSource.alert(
+          t('profile_edit.dialogs.discard.title'),
+          t('profile_edit.dialogs.discard.question'),
+          {
+            positiveText: t('profile_edit.call_to_action.discard'),
+            positiveColor: Palette.textNegative,
+            negativeText: t('call_to_action.cancel'),
+            negativeColor: Palette.colors.comet8,
+          },
+        );
+      } else {
+        return xs.of({action: 'actionPositive'} as AlertAction);
+      }
+    })
     .flatten()
     .filter((res) => res.action === 'actionPositive');
 

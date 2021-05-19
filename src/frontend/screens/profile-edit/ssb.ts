@@ -27,7 +27,8 @@ export default function ssb(
       (state) =>
         (!!state.newName && state.newName !== state.about.name) ||
         !!state.newAvatar ||
-        (!!state.newDescription && state.newDescription !== state.about.name),
+        (!!state.newDescription &&
+          state.newDescription !== state.about.description),
     )
     .map(
       (state) =>
