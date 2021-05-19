@@ -387,8 +387,12 @@
         }
       },
       "manage_aliases": {
-        "label": "My aliases",
+        "label": "Manage my aliases",
         "accessibility_label": "Manage my aliases in Room servers"
+      },
+      "room_sign_in": {
+        "label": "Sign into website",
+        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
       },
       "room_share_invite": {
         "label": "Einladungscode teilen",
