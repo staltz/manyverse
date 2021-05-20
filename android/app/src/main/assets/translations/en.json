@@ -606,6 +606,10 @@
         "label": "Email bug report",
         "accessibility_label": "Send Bug Report as Email"
       },
+      "translate": {
+        "label": "Help us translate",
+        "accessibility_label": "Open translation website"
+      },
       "settings": {
         "label": "Settings",
         "accessibility_label": "Go To Settings"

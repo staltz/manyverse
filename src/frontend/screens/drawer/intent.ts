@@ -18,6 +18,8 @@ export default function intent(source: ReactSource) {
 
     emailBugReport$: source.select('bug-report').events('press').mapTo(null),
 
+    openTranslate$: source.select('translate').events('press').mapTo(null),
+
     goToSettings$: source.select('settings').events('press').mapTo(null),
 
     showRawDatabase$: source.select('raw-db').events('press').mapTo(null),
