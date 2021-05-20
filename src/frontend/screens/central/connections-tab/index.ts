@@ -31,7 +31,6 @@ import ssb from './ssb';
 import asyncStorage from './asyncstorage';
 import dialog from './dialog';
 import navigation from './navigation';
-const Ref = require('ssb-ref');
 
 export type Sources = {
   screen: ReactSource;
@@ -117,13 +116,8 @@ export function connectionsTab(sources: Sources): Sinks {
     },
   );
 
-  const signInToRoom$ = actions.signInRoom$
-    .map(([addr, data]) => {
-      const roomId: string | undefined =
-        data.key ?? Ref.getKeyFromAddress(addr);
-      if (!roomId) return xs.never<string>();
-      return sources.ssb.produceSignInWebUrl$(roomId);
-    })
+  const signInToRoom$ = dialogActions.confirmedSignInRoom$
+    .map((roomId) => sources.ssb.produceSignInWebUrl$(roomId))
     .flatten();
 
   return {

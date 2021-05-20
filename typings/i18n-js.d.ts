@@ -124,6 +124,8 @@ declare module 'i18n-js' {
     | 'connections.toasts.connecting_to_alias'
     | 'connections.toasts.connected_to_alias'
     | 'connections.toasts.not_connected_to_alias'
+    | 'connections.dialogs.sign_in_with_ssb.client_initiated.title'
+    | 'connections.dialogs.sign_in_with_ssb.client_initiated.description'
     | 'connections.dialogs.sign_in_with_ssb.server_initiated.title'
     | 'connections.dialogs.sign_in_with_ssb.server_initiated.description'
     | 'connections.peers.types.bluetooth'
