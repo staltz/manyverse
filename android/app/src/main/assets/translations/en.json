@@ -281,7 +281,7 @@
       "sign_in_with_ssb": {
         "client_initiated": {
           "title": "Allow sign-in?",
-          "description": "{{room}} has a website where you can manage invites and members. Do you want to open the website and sign in?\n\nIts ID is {{roomid}}"
+          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
         },
         "server_initiated": {
           "title": "Allow sign-in?",

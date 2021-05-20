@@ -53,7 +53,7 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
           ),
           {
             contentColor: Palette.colors.comet6,
-            positiveColor: Palette.colors.comet8,
+            positiveColor: Palette.colors.indigo7,
             positiveText: t('call_to_action.yes'),
             negativeColor: Palette.colors.comet8,
             negativeText: t('call_to_action.no'),
