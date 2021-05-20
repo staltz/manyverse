@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -40,7 +40,7 @@ type RoomData = {
 };
 
 type StagedRoomEndpointData = {
-  type: 'room-endpoint';
+  type: 'room-attendant' | 'room-endpoint'; // "endpoint" is legacy terminology
   key: string;
   room: string;
   note?: never;
@@ -82,13 +82,16 @@ function isRoomEndpoint(
 ): string | false {
   const [addr, data] = kv;
 
-  // type == 'room-endpoint'
+  // type == 'room-attendant'
   const _data = data as StagedRoomEndpointData;
+  if (data.type === 'room-attendant' && _data.room && roomGroups[_data.room]) {
+    return _data.room;
+  }
   if (data.type === 'room-endpoint' && _data.room && roomGroups[_data.room]) {
     return _data.room;
   }
 
-  // inferredType == 'tunnel', lets check if it's a room-endpoint
+  // inferredType == 'tunnel', lets check if it's a room-attendant
   if ((kv as PeerKV)[1].inferredType === 'tunnel') {
     if (!data.key) return false;
     if (!addr.includes(':' + data.key)) return false;

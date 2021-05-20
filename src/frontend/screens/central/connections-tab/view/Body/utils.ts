@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -16,7 +16,7 @@ type Type =
   | 'dht'
   | 'pub'
   | 'room'
-  | 'room-endpoint'
+  | 'room-attendant'
   | '?';
 
 function detectType(data: KV[1]): Type {
@@ -26,7 +26,8 @@ function detectType(data: KV[1]): Type {
   if (data.type === 'dht') return 'dht';
   if (data.type === 'pub') return 'pub';
   if (data.type === 'room') return 'room';
-  if (data.type === 'room-endpoint') return 'room-endpoint';
+  if (data.type === 'room-endpoint') return 'room-attendant'; // legacy
+  if (data.type === 'room-attendant') return 'room-attendant';
   const hubData = data as PeerKV[1];
   if (hubData.source === 'local') return 'lan';
   if (hubData.source === 'pub') return 'pub';
@@ -34,7 +35,7 @@ function detectType(data: KV[1]): Type {
   if (hubData.source === 'dht') return 'dht';
   if (hubData.inferredType === 'bt') return 'bt';
   if (hubData.inferredType === 'lan') return 'lan';
-  if (hubData.inferredType === 'tunnel') return 'room-endpoint';
+  if (hubData.inferredType === 'tunnel') return 'room-attendant';
   if (hubData.inferredType === 'dht') return 'dht';
   if (hubData.inferredType === 'internet') return 'internet';
   return '?';
@@ -50,7 +51,7 @@ export function peerModeIcon(peer: KV[1]): string {
       return 'wifi';
 
     case 'dht':
-    case 'room-endpoint':
+    case 'room-attendant':
       return 'account-network';
 
     case 'pub':
@@ -75,7 +76,7 @@ export function peerModeDescription(data: KV[1]): string {
     case 'dht':
       return t('connections.peers.types.dht.connected');
 
-    case 'room-endpoint':
+    case 'room-attendant':
       return t('connections.peers.types.room.endpoint');
 
     case 'room':
@@ -109,7 +110,7 @@ export function peerModeStagedDescription(peer: KV[1]): string {
         return t('connections.peers.types.dht.staging.host');
       else return t('connections.peers.types.dht.staging.unknown');
 
-    case 'room-endpoint':
+    case 'room-attendant':
       return t('connections.peers.types.room.endpoint');
 
     case 'room':
@@ -132,7 +133,7 @@ export function peerModeName(addr: KV[0], data: KV[1]): string {
     type === 'bt' ||
     type === 'lan' ||
     type === 'dht' ||
-    type === 'room-endpoint'
+    type === 'room-attendant'
       ? data.note || data.key
       : addr;
   return (data as any).name ?? secondary;
