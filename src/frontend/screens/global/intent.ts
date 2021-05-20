@@ -6,11 +6,6 @@
 
 import xs, {Stream} from 'xstream';
 import {
-  GlobalEvent,
-  TriggerFeedCypherlink,
-  TriggerMsgCypherlink,
-} from '../../drivers/eventbus';
-import {
   isFeedSSBURI,
   isMessageSSBURI,
   isAddressSSBURI,
@@ -19,12 +14,22 @@ import {
   toMultiserverAddress,
   toMessageSigil,
 } from 'ssb-uri2';
+import {
+  GlobalEvent,
+  TriggerFeedCypherlink,
+  TriggerMsgCypherlink,
+} from '../../drivers/eventbus';
 import {SSBSource} from '../../drivers/ssb';
+import {DialogSource} from '../../drivers/dialogs';
+import {t} from '../../drivers/localization';
+import {Palette} from '../../global-styles/palette';
 const Ref = require('ssb-ref');
+const urlParse = require('url-parse');
 
 export default function intent(
   globalEventBus: Stream<GlobalEvent>,
   linkingSource: Stream<string>,
+  dialogSource: DialogSource,
   ssbSource: SSBSource,
 ) {
   const canNowHandleLinks$ = ssbSource.connStarted$;
@@ -55,6 +60,35 @@ export default function intent(
   const connectToPeer$ = handleUriAddress$.map(toMultiserverAddress) as Stream<
     string
   >;
+
+  // Server-initiated SSB HTTP Auth
+  const confirmedSignInRoom$ = handleUriStartHttpAuth$
+    .map((uri) => {
+      const query = urlParse(uri, true).query;
+      const msaddr = query.multiserverAddress;
+      const room = msaddr ? Ref.toAddress(msaddr).host : '';
+      const roomid = query.sid && Ref.isFeed(query.sid) ? query.sid : false;
+      if (!roomid) return xs.never();
+
+      return dialogSource
+        .alert(
+          t('connections.dialogs.sign_in_with_ssb.server_initiated.title'),
+          t(
+            'connections.dialogs.sign_in_with_ssb.server_initiated.description',
+            {room, roomid},
+          ),
+          {
+            contentColor: Palette.colors.comet6,
+            positiveColor: Palette.colors.comet8,
+            positiveText: t('call_to_action.yes'),
+            negativeColor: Palette.colors.comet8,
+            negativeText: t('call_to_action.no'),
+          },
+        )
+        .filter((res) => res.action === 'actionPositive')
+        .mapTo(uri);
+    })
+    .flatten();
 
   const goToProfile$ = xs.merge(
     globalEventBus
@@ -89,6 +123,7 @@ export default function intent(
     handleUriConsumeAlias$,
     handleUriStartHttpAuth$,
     connectToPeer$,
+    confirmedSignInRoom$,
     goToProfile$,
     goToThread$,
   };
