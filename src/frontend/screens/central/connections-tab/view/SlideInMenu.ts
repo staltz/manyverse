@@ -193,6 +193,21 @@ function createRoomMenuOptions(targetPeer: any) {
     );
   }
 
+  if (data?.membership && data?.name && data?.supportsAliases) {
+    options.push(
+      h(MenuOption, {
+        value: menuChoice('manage-aliases'),
+        ['children' as any]: h(MenuOptionContent, {
+          icon: 'link-variant',
+          text: t('connections.menu.manage_aliases.label'),
+          accessibilityLabel: t(
+            'connections.menu.manage_aliases.accessibility_label',
+          ),
+        }),
+      }),
+    );
+  }
+
   options.push(
     h(MenuOption, {
       value: menuChoice('disconnect'),
@@ -217,21 +232,6 @@ function createRoomMenuOptions(targetPeer: any) {
       }),
     }),
   );
-
-  if (data?.membership && data?.name && data?.supportsAliases) {
-    options.push(
-      h(MenuOption, {
-        value: menuChoice('manage-aliases'),
-        ['children' as any]: h(MenuOptionContent, {
-          icon: 'link-variant',
-          text: t('connections.menu.manage_aliases.label'),
-          accessibilityLabel: t(
-            'connections.menu.manage_aliases.accessibility_label',
-          ),
-        }),
-      }),
-    );
-  }
 
   return options;
 }
