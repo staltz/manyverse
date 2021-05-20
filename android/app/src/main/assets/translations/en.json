@@ -279,6 +279,10 @@
     },
     "dialogs": {
       "sign_in_with_ssb": {
+        "client_initiated": {
+          "title": "Allow sign-in?",
+          "description": "{{room}} has a website where you can manage invites and members. Do you want to open the website and sign in?\n\nIts ID is {{roomid}}"
+        },
         "server_initiated": {
           "title": "Allow sign-in?",
           "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
