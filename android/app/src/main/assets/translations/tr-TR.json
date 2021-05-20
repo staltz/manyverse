@@ -279,6 +279,10 @@
     },
     "dialogs": {
       "sign_in_with_ssb": {
+        "client_initiated": {
+          "title": "Allow sign-in?",
+          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+        },
         "server_initiated": {
           "title": "Allow sign-in?",
           "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
@@ -601,6 +605,10 @@
       "email_bug_report": {
         "label": "E-Posta ile hata bildirimi",
         "accessibility_label": "Hata raporunu E-Posta olarak gönder"
+      },
+      "translate": {
+        "label": "Help us translate",
+        "accessibility_label": "Open translation website"
       },
       "settings": {
         "label": "Ayarlar",
