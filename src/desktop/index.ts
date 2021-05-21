@@ -38,8 +38,10 @@ const engine = setupReusable({
       globalDidDisappear: () => xs.never() as any,
     } as any),
   globalEventBus: makeEventBusDriver(),
+  linking: () => xs.never() as any,
   dialog: (x: any) => ({
     alert: () => xs.never() as any,
+    prompt: () => xs.never() as any,
     showPicker: () => xs.never() as any,
   }),
   localization: makeLocalizationDriver(),
