@@ -4,8 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-// import ssbClient from 'react-native-ssb-client';
-import ssbClient from 'electron-ssb-client';
+import ssbClient from './channel';
 import manifest from './manifest';
 import hooksPlugin from './plugins/hooks';
 import connUtilsPlugin from './plugins/connUtils';

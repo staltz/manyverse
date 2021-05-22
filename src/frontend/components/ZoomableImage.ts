@@ -29,8 +29,8 @@ const ToastIOS =
     : undefined;
 const ImageView =
   Platform.OS !== 'web'
-    ? () => require('react-native-image-viewing')
-    : () => undefined;
+    ? require('react-native-image-viewing').default
+    : undefined;
 
 const $ = createElement;
 
