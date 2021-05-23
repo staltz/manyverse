@@ -16,7 +16,7 @@ import {makeFSDriver} from '../frontend/drivers/fs';
 import {makeEventBusDriver} from '../frontend/drivers/eventbus';
 import {makeLocalizationDriver} from '../frontend/drivers/localization';
 import {global} from '../frontend/screens/global';
-import {thread} from '../frontend/screens/thread';
+import {welcome} from '../frontend/screens/welcome';
 const iconFont = require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf');
 
 const iconFontStyles = `@font-face {
@@ -27,16 +27,19 @@ const style = document.createElement('style');
 style.appendChild(document.createTextNode(iconFontStyles));
 document.head.appendChild(style);
 
+const appKey = 'manyverse';
+
 const engine = setupReusable({
   asyncstorage: asyncStorageDriver,
   ssb: ssbDriver,
-  screen: makeReactNativeDriver('manyverse'),
+  screen: makeReactNativeDriver(appKey),
   fs: makeFSDriver(),
   navigation: (x: any) =>
     ({
       backPress: () => xs.never() as any,
       globalDidDisappear: () => xs.never() as any,
     } as any),
+  orientation: () => xs.never(),
   globalEventBus: makeEventBusDriver(),
   linking: () => xs.never() as any,
   dialog: (x: any) => ({
@@ -52,17 +55,10 @@ const engine = setupReusable({
 
 engine.run(withState(global)(engine.sources));
 engine.run(
-  withState(thread)({
+  withState(welcome)({
     ...engine.sources,
-    props: xs
-      .of({
-        selfFeedId: '@Vz6v3xKpzViiTM/GAe+hKkACZSqrErQQZgv4iqQxEn8=.ed25519',
-        lastSessionTimestamp: 0,
-        rootMsgId: '%vdPBFaZbVnlWHxGdN0giPaHTh4BQgTmj8lb039N510g=.sha256',
-      })
-      .remember(),
   } as any),
 );
-AppRegistry.runApplication('manyverse', {
+AppRegistry.runApplication(appKey, {
   rootTag: document.getElementById('app'),
 });

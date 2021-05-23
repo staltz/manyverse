@@ -18,6 +18,15 @@ const compileNodeModules = [
   'static-container',
 ].map((moduleName) => path.resolve(__dirname, `../node_modules/${moduleName}`));
 
+const ignoreNodeModules = [
+  'react-native-image-viewing',
+  'react-native-fs',
+  'react-native-swiper',
+  'react-native-progress',
+];
+
+const ignoreRegex = new RegExp(`^(${ignoreNodeModules.join('|')})$`);
+
 const babelLoaderConfiguration = {
   test: /\.js$|tsx?$/,
   // Add every directory that needs to be compiled by Babel during the build.
@@ -86,6 +95,6 @@ module.exports = {
     }),
     // for packages that break stuff even when you import them behind
     // a platform check
-    new webpack.IgnorePlugin(/^(react-native-image-viewing|react-native-fs)$/),
+    new webpack.IgnorePlugin(ignoreRegex),
   ],
 };

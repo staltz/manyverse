@@ -9,6 +9,7 @@ import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import path = require('path');
+import os = require('os');
 import {FSSource} from '../../drivers/fs';
 
 export default function intent(
@@ -16,7 +17,8 @@ export default function intent(
   fsSource: FSSource,
   storageSource: AsyncStorageSource,
 ) {
-  const appPath = FSSource.DocumentDirectoryPath;
+  const appPath =
+    Platform.OS === 'web' ? os.homedir() : FSSource.DocumentDirectoryPath;
   const oldLogPath = path.join(appPath, '.ssb', 'flume', 'log.offset');
   const newLogPath = path.join(appPath, '.ssb', 'db2', 'log.bipf');
 

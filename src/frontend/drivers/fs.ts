@@ -6,8 +6,7 @@
 
 import {Platform} from 'react-native';
 import xs, {Stream} from 'xstream';
-const FS =
-  Platform.OS === 'web' ? require('fs').promises : require('react-native-fs');
+const FS = Platform.OS === 'web' ? require('fs') : require('react-native-fs');
 
 type UnwrapPromise<T> = T extends Promise<infer A> ? A : never;
 type In<T extends (...args: any) => any> = Parameters<T>;
@@ -23,17 +22,27 @@ export class FSSource {
   public static readonly CachesDirectoryPath = FS.CachesDirectoryPath;
 
   public exists(...args: In<typeof FS.exists>): Out<typeof FS.exists> {
-    return xs.fromPromise(FS.exists(...args));
+    if (Platform.OS === 'web') {
+      return xs.of(FS.existsSync(...args));
+    } else {
+      return xs.fromPromise(FS.exists(...args));
+    }
   }
 
   public stat(...args: In<typeof FS.stat>): Out<typeof FS.stat> {
-    return xs.fromPromise(FS.stat(...args));
+    if (Platform.OS === 'web') {
+      return xs.fromPromise(FS.promises.stat(...args));
+    } else {
+      return xs.fromPromise(FS.stat(...args));
+    }
   }
 
   public readDir(...args: In<typeof FS.readDir>): Out<typeof FS.readDir> {
-    return xs.fromPromise(
-      Platform.OS === 'web' ? FS.readdir(...args) : FS.readDir(...args),
-    );
+    if (Platform.OS === 'web') {
+      return xs.fromPromise(FS.promises.readdir(...args));
+    } else {
+      return xs.fromPromise(FS.readDir(...args));
+    }
   }
 
   public readDirAssets(
@@ -43,7 +52,11 @@ export class FSSource {
   }
 
   public readFile(...args: In<typeof FS.readFile>): Out<typeof FS.readFile> {
-    return xs.fromPromise(FS.readFile(...args));
+    if (Platform.OS === 'web') {
+      return xs.fromPromise(FS.promises.readFile(...args));
+    } else {
+      return xs.fromPromise(FS.readFile(...args));
+    }
   }
 
   public readFileAssets(
@@ -53,7 +66,11 @@ export class FSSource {
   }
 
   public unlink(...args: In<typeof FS.unlink>): Out<typeof FS.unlink> {
-    return xs.fromPromise(FS.unlink(...args));
+    if (Platform.OS === 'web') {
+      return xs.fromPromise(FS.promises.unlink(...args));
+    } else {
+      return xs.fromPromise(FS.unlink(...args));
+    }
   }
 
   public moveFile(...args: In<typeof FS.moveFile>): Out<typeof FS.moveFile> {

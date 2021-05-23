@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -69,7 +69,11 @@ type Actions = {
 function overviewSlide(state: State) {
   return tutorialSlide({
     show: state.index >= 0,
-    image: require('../../../../images/noun-butterfly.png'),
+    image:
+      // TODO: generalize this img import into a utility
+      Platform.OS === 'web'
+        ? 'dist/' + require('../../../../images/noun-butterfly.png').default
+        : require('../../../../images/noun-butterfly.png'),
     portraitMode: state.isPortraitMode,
     title: t('welcome.overview.title', {
       // Only this screen needs a defaultValue because it's the
@@ -322,7 +326,16 @@ export default function view(state$: Stream<State>, actions: Actions) {
   return state$.map((state) =>
     h(View, {style: styles.screen}, [
       !state.readyToStart
-        ? h(Image, {source: {uri: 'logo_outline'}, style: styles.logo})
+        ? h(Image, {
+            source: {
+              uri:
+                Platform.OS === 'web'
+                  ? 'dist/' +
+                    require('../../../../images/logo_outline.png').default
+                  : 'logo_outline',
+            },
+            style: styles.logo,
+          })
         : tutorialPresentation('swiper', {scrollBy$: actions.scrollBy$}, [
             overviewSlide(state),
             offTheGridSlide(state),

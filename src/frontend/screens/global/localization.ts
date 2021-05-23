@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import * as path from 'path';
+import * as Path from 'path';
 import xs, {Stream} from 'xstream';
 import {Platform} from 'react-native';
 import * as RNLocalize from 'react-native-localize';
@@ -13,7 +13,7 @@ import {Command as LocalizationCmd} from '../../drivers/localization';
 
 export default function localization(fsSource: FSSource) {
   const translationsDir$: Stream<
-    {isFile: Function; name: string; path: string}[]
+    {isFile: CallableFunction; name: string; path: string}[]
   > =
     Platform.OS === 'android'
       ? (fsSource.readDirAssets('translations') as any)
@@ -26,7 +26,7 @@ export default function localization(fsSource: FSSource) {
       .filter((dirent) => dirent.isFile() && dirent.name.endsWith('.json'))
       .map((file) => ({
         ...file,
-        path: path.resolve(process.cwd(), './translations/', file.name),
+        path: Path.resolve(process.cwd(), './translations/', file.name),
       }))
       .reduce((all, {name, path}) => {
         const languageTag = name.replace('.json', '');
