@@ -17,7 +17,6 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import * as Progress from 'react-native-progress';
 import {h} from '@cycle/react';
 import {t} from '../../drivers/localization';
 import {Dimensions} from '../../global-styles/dimens';
@@ -26,6 +25,8 @@ import Avatar from '../../components/Avatar';
 import {State} from './model';
 import {styles} from './styles';
 import LocalizedHumanTime from '../../components/LocalizedHumanTime';
+const ProgressBar =
+  Platform.OS === 'web' ? View : require('react-native-progress').Bar;
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -80,7 +81,7 @@ class Syncing extends PureComponent<{
 
     return h(View, {style: styles.syncingContainer}, [
       h(Text, {style: styles.syncingText}, `${label} (${progressPretty})`),
-      h(Progress.Bar as any, {
+      h(ProgressBar as any, {
         animated: false,
         progress: Math.max(0.01, progress), // at least 1%
         color: Palette.brandMain,

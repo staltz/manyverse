@@ -121,15 +121,12 @@ class Activity extends PureComponent<ActivityProps> {
       msg.value.author,
     );
 
-    const touchableProps: any = Platform.select({
-      android: {
-        onPress,
-        background: TouchableNativeFeedback.SelectableBackground(),
-      },
-      default: {
-        onPress,
-      },
-    });
+    const touchableProps: any = {
+      onPress,
+    };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+    }
 
     return h(View, [
       h(Touchable, touchableProps, [

@@ -64,15 +64,10 @@ class ConversationItem extends PureComponent<CIProps> {
     const {recps, isUnread, onPress} = this.props;
     const amount = recps.length;
 
-    const touchableProps: any = Platform.select({
-      android: {
-        onPress,
-        background: TouchableNativeFeedback.SelectableBackground(),
-      },
-      default: {
-        onPress,
-      },
-    });
+    const touchableProps: any = {onPress};
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+    }
 
     const D_ANG = (2 * Math.PI) / amount;
 

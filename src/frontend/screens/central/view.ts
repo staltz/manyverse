@@ -27,12 +27,10 @@ const Touchable = Platform.select<any>({
   default: TouchableOpacity,
 });
 
-const touchableProps = Platform.select<any>({
-  android: {
-    background: TouchableNativeFeedback.SelectableBackground(),
-  },
-  default: {},
-});
+const touchableProps: any = {};
+if (Platform.OS === 'android') {
+  touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+}
 
 class CurrentTabPage extends PureComponent<{
   currentTab: State['currentTab'];

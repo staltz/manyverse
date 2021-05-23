@@ -6,14 +6,14 @@
 
 import xs, {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 import {Palette} from '../global-styles/palette';
 import {propifyMethods} from 'react-propify-methods';
 import {ReactElement} from 'react';
-const Swiper = propifyMethods<any, any, any>(
-  require('react-native-swiper'),
-  'scrollBy',
-);
+const Swiper =
+  Platform.OS === 'web'
+    ? View
+    : propifyMethods<any, any, any>(require('react-native-swiper'), 'scrollBy');
 
 const styles = StyleSheet.create({
   container: {

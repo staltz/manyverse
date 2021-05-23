@@ -5,12 +5,20 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent} from 'react';
-import {TouchableHighlight, StyleSheet, Animated, Easing} from 'react-native';
+import {
+  TouchableHighlight,
+  StyleSheet,
+  Animated,
+  Easing,
+  View,
+  Platform,
+} from 'react-native';
 import {h} from '@cycle/react';
-import * as Progress from 'react-native-progress';
 import {t} from '../drivers/localization';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
+const ProgressCircle =
+  Platform.OS === 'web' ? View : require('react-native-progress').Circle;
 
 const size = 36;
 const space = Dimensions.horizontalSpaceNormal * 0.5;
@@ -87,7 +95,7 @@ export default class HeaderMenuProgress extends PureComponent<Props> {
           Animated.View,
           {style: {transform: [{rotateZ: this.rotateZ ?? '0deg'}]}},
           [
-            h(Progress.Circle as any, {
+            h(ProgressCircle, {
               animated: true,
               progress: Math.min(Math.max(0.03, progress), 0.97),
               size: iconSize ?? defaultIconSize,
