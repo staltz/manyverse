@@ -48,7 +48,7 @@ const babelLoaderConfiguration = {
 };
 
 module.exports = {
-  entry: './lib/desktop/index.js',
+  entry: './index.web.js',
   target: 'electron-renderer',
   output: {
     filename: 'main.js',

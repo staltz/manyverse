@@ -10,19 +10,19 @@ import {withState} from '@cycle/state';
 import {makeReactNativeDriver} from '@cycle/react-native';
 import {AppRegistry} from 'react-native';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
-import {ssbDriver} from '../frontend/drivers/ssb';
-// import {dialogDriver} from '../frontend/drivers/dialogs';
-import {makeFSDriver} from '../frontend/drivers/fs';
-import {makeEventBusDriver} from '../frontend/drivers/eventbus';
-import {makeLocalizationDriver} from '../frontend/drivers/localization';
-import {global} from '../frontend/screens/global';
-import {welcome} from '../frontend/screens/welcome';
+import {ssbDriver} from './lib/frontend/drivers/ssb';
+// import {dialogDriver} from './lib/frontend/drivers/dialogs';
+import {makeFSDriver} from './lib/frontend/drivers/fs';
+import {makeEventBusDriver} from './lib/frontend/drivers/eventbus';
+import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
+import {global} from './lib/frontend/screens/global';
+import {welcome} from './lib/frontend/screens/welcome';
 const iconFont = require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf');
 
 const iconFontStyles = `@font-face {
-  src: url(dist/${iconFont});
-  font-family: MaterialCommunityIcons;
-}`;
+   src: url(dist/${iconFont});
+   font-family: MaterialCommunityIcons;
+ }`;
 const style = document.createElement('style');
 style.appendChild(document.createTextNode(iconFontStyles));
 document.head.appendChild(style);
@@ -34,22 +34,21 @@ const engine = setupReusable({
   ssb: ssbDriver,
   screen: makeReactNativeDriver(appKey),
   fs: makeFSDriver(),
-  navigation: (x: any) =>
-    ({
-      backPress: () => xs.never() as any,
-      globalDidDisappear: () => xs.never() as any,
-    } as any),
+  navigation: (x) => ({
+    backPress: () => xs.never(),
+    globalDidDisappear: () => xs.never(),
+  }),
   orientation: () => xs.never(),
   globalEventBus: makeEventBusDriver(),
-  linking: () => xs.never() as any,
-  dialog: (x: any) => ({
-    alert: () => xs.never() as any,
-    prompt: () => xs.never() as any,
-    showPicker: () => xs.never() as any,
+  linking: () => xs.never(),
+  dialog: (x) => ({
+    alert: () => xs.never(),
+    prompt: () => xs.never(),
+    showPicker: () => xs.never(),
   }),
   localization: makeLocalizationDriver(),
-  keyboard: (x: any) => ({
-    events: () => xs.never() as any,
+  keyboard: (x) => ({
+    events: () => xs.never(),
   }),
 });
 
@@ -57,7 +56,7 @@ engine.run(withState(global)(engine.sources));
 engine.run(
   withState(welcome)({
     ...engine.sources,
-  } as any),
+  }),
 );
 AppRegistry.runApplication(appKey, {
   rootTag: document.getElementById('app'),
