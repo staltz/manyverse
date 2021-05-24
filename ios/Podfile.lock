@@ -192,7 +192,7 @@ PODS:
   - React-jsinspector (0.63.3)
   - react-native-orientation-locker (1.1.7):
     - React
-  - react-native-slider (2.0.8):
+  - react-native-slider (3.0.3):
     - React
   - react-native-splash-screen (3.2.0):
     - React
@@ -452,7 +452,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: b56c03e61c0dd5f5801255f2160a815f4a53d451
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
   react-native-orientation-locker: ec7d590e2a52ae4abda5b5b79ce71e50ffcd52a5
-  react-native-slider: b2f361499888302147205f17f6fffa921a7bda70
+  react-native-slider: b733e17fdd31186707146debf1f04b5d94aa1a93
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-viewpager: 0070878575304aef182e5ff9fcc019335aa278a6
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
