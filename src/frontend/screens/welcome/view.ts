@@ -6,6 +6,7 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {StyleSheet, Text, View, Image, Platform} from 'react-native';
@@ -28,6 +29,12 @@ export const styles = StyleSheet.create({
   logo: {
     width: 48,
     height: 48,
+    ...Platform.select({
+      android: {
+        position: 'relative',
+        bottom: getStatusBarHeight(false) * 0.5,
+      },
+    }),
   },
 
   bold: {

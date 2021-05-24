@@ -1,4 +1,4 @@
-<!-- Copyright (C) 2018-2019 The Manyverse Authors.
+<!-- Copyright (C) 2018-2021 The Manyverse Authors.
    -
    - This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,6 +13,11 @@
         <item name="android:textColor">@color/text_normal</item>
         <item name="android:windowBackground">@color/background_brand</item>
         <item name="colorAccent">@color/background_brand</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="BootTheme" parent="AppTheme">
+        <item name="android:background">@drawable/bootsplash</item>
     </style>
 
 </resources>

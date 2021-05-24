@@ -268,7 +268,6 @@ dependencies {
     implementation project(':react-native-flag-secure-android')
     implementation project(':react-native-orientation-locker')
     implementation project(':react-native-fs')
-    implementation project(':react-native-splash-screen')
     implementation project(':@react-native-community_viewpager')
     implementation project(':@react-native-community_slider')
     implementation project(':@react-native-community_audio-toolkit')
