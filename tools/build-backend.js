@@ -85,6 +85,16 @@ async function runAndReport(label, task) {
         maxBuffer: 1000 * 1000 * 10, // 10 MiB
       }),
     );
+  } else if (targetPlatform === 'ios') {
+    await runAndReport(
+      'Install backend node modules',
+      exec('npm install --no-optional', {
+        cwd: './nodejs-assets/nodejs-project',
+        env: {
+          PLATFORM_NAME: 'iphoneos',
+        },
+      }),
+    );
   } else {
     await runAndReport(
       'Install backend node modules',
