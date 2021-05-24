@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
-import RNBootSplash from 'react-native-bootsplash';
+import SplashScreen from 'react-native-splash-screen';
 
 export type SplashCommand = 'hide';
 
@@ -13,7 +13,7 @@ export function makeSplashScreenDriver() {
   return function splashScreenDriver(sink: Stream<SplashCommand>): void {
     sink.addListener({
       next() {
-        RNBootSplash.hide({fade: true});
+        SplashScreen.hide();
       },
     });
   };

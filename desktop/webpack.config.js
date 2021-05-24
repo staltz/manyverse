@@ -5,7 +5,7 @@ const {presets} = require(`../babel.config.js`);
 // https://arry.medium.com/how-to-add-react-native-web-to-an-existing-react-native-project-eb98c952c12f
 const compileNodeModules = [
   '@react-native-community/slider',
-  '@react-native-community/audio-toolkit',
+  '@staltz/react-native-audio-toolkit',
   'react-native-localize',
   'react-native-root-siblings',
   'react-native-tiny-toast',

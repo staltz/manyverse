@@ -1,6 +1,6 @@
 rootProject.name = 'Manyverse'
-include ':@react-native-community_audio-toolkit'
-project(':@react-native-community_audio-toolkit').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/audio-toolkit/android')
+include ':@staltz_react-native-audio-toolkit'
+project(':@staltz_react-native-audio-toolkit').projectDir = new File(rootProject.projectDir, '../node_modules/@staltz/react-native-audio-toolkit/android')
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':@react-native-community_async-storage'
 project(':@react-native-community_async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/async-storage/android')

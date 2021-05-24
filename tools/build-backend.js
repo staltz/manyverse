@@ -92,6 +92,7 @@ async function runAndReport(label, task) {
         cwd: './nodejs-assets/nodejs-project',
         env: {
           PLATFORM_NAME: 'iphoneos',
+          ...process.env,
         },
       }),
     );

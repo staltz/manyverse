@@ -23,7 +23,7 @@ import {
   Player,
   MediaStates,
   PlayerError,
-} from '@react-native-community/audio-toolkit';
+} from '@staltz/react-native-audio-toolkit';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '../drivers/localization';
 import {Palette} from '../global-styles/palette';

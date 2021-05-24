@@ -270,7 +270,7 @@ dependencies {
     implementation project(':react-native-fs')
     implementation project(':@react-native-community_viewpager')
     implementation project(':@react-native-community_slider')
-    implementation project(':@react-native-community_audio-toolkit')
+    implementation project(':@staltz_react-native-audio-toolkit')
     implementation project(':react-native-system-setting')
     implementation project(':react-native-localize')
     implementation fileTree(dir: "libs", include: ["*.jar"])

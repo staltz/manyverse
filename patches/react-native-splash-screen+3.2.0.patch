@@ -1,0 +1,11 @@
+diff --git a/node_modules/react-native-splash-screen/react-native-splash-screen.podspec b/node_modules/react-native-splash-screen/react-native-splash-screen.podspec
+index 6c03a7a..1b57e60 100644
+--- a/node_modules/react-native-splash-screen/react-native-splash-screen.podspec
++++ b/node_modules/react-native-splash-screen/react-native-splash-screen.podspec
+@@ -12,5 +12,5 @@ Pod::Spec.new do |s|
+   s.platform     = :ios, "7.0"
+   s.source       = { :git => "https://github.com/crazycodeboy/react-native-splash-screen", :tag => "v#{s.version}" }
+   s.source_files  = "ios/*.{h,m}"
+-  s.dependency "React"
++  s.dependency "React-Core"
+ end

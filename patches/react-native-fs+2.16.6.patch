@@ -1,0 +1,12 @@
+diff --git a/node_modules/react-native-fs/RNFS.podspec b/node_modules/react-native-fs/RNFS.podspec
+index 272e07e..a3e1176 100644
+--- a/node_modules/react-native-fs/RNFS.podspec
++++ b/node_modules/react-native-fs/RNFS.podspec
+@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
+   s.source_files    = '*.{h,m}'
+   s.preserve_paths  = "**/*.js"
+ 
+-  s.dependency 'React'
++  s.dependency 'React-Core'
+ end
+\ No newline at end of file
