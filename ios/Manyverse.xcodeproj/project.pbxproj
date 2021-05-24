@@ -22,7 +22,6 @@
 		DFFA4253A34EAA25B3F359F2 /* Pods_Manyverse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9972E806A6E6F6AA3D9900FC /* Pods_Manyverse.framework */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
-		F62944BD265BDEDD0043BB6B /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F62944BC265BDEDD0043BB6B /* BootSplash.storyboard */; };
 		F6915CCA23BA629F00F7090A /* BuildConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F6915CC823BA629F00F7090A /* BuildConfig.m */; };
 		F6C413A5239680DD005F377A /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6C413A123967C9F005F377A /* MaterialIcons.ttf */; };
 		F6C413A6239680E1005F377A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6C413A223967CB0005F377A /* MaterialCommunityIcons.ttf */; };
@@ -83,7 +82,6 @@
 		EA6B488562DC3CFE2F62A466 /* Pods-Manyverse-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manyverse-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Manyverse-tvOS/Pods-Manyverse-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F62944BC265BDEDD0043BB6B /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = Manyverse/BootSplash.storyboard; sourceTree = "<group>"; };
 		F6915CC823BA629F00F7090A /* BuildConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuildConfig.m; path = Manyverse/BuildConfig.m; sourceTree = "<group>"; };
 		F6915CC923BA629F00F7090A /* BuildConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuildConfig.h; path = Manyverse/BuildConfig.h; sourceTree = "<group>"; };
 		F6C413A123967C9F005F377A /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				F62944BC265BDEDD0043BB6B /* BootSplash.storyboard */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -414,7 +411,6 @@
 				F6C413A6239680E1005F377A /* MaterialCommunityIcons.ttf in Resources */,
 				F6C413A5239680DD005F377A /* MaterialIcons.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				F62944BD265BDEDD0043BB6B /* BootSplash.storyboard in Resources */,
 				F6D4D02B24604770001D319D /* translations in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
