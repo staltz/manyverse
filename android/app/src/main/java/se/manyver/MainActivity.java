@@ -30,7 +30,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.util.ReactFindViewUtil;
 import com.reactnativenavigation.NavigationActivity;
-import com.zoontek.rnbootsplash.RNBootSplash;
+import org.devio.rn.splashscreen.SplashScreen;
 
 import org.acra.ACRA;
 
@@ -38,14 +38,33 @@ public class MainActivity extends NavigationActivity {
 
     private RNNodeJsMobileModule nodejsModule;
 
+    public void setSplashLayout() {
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setBackgroundColor(Color.parseColor("#3b5bdb"));
+        LinearLayout.LayoutParams lp =
+            new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        linearLayout.setLayoutParams(lp);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setGravity(Gravity.CENTER);
+
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.logo_outline);
+        imageView.setLayoutParams(
+            new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+        linearLayout.addView(imageView);
+
+        setContentView(linearLayout);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        SplashScreen.show(this, R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        final Window win = getWindow();
-        getWindow().getDecorView().setSystemUiVisibility(
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        RNBootSplash.init(R.drawable.bootsplash, MainActivity.this);
+        setSplashLayout();
         try {
             this.maybeStartNodejs();
         } catch (Exception e) {
