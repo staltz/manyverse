@@ -271,8 +271,6 @@ PODS:
     - React-Core
     - React-RCTImage
     - React-RCTText
-  - RNBootSplash (3.2.3):
-    - React-Core
   - RNCAsyncStorage (1.12.1):
     - React-Core
   - RNFS (2.16.6):
@@ -331,7 +329,6 @@ DEPENDENCIES:
   - "ReactNativeART (from `../node_modules/@react-native-community/art`)"
   - "ReactNativeAudioToolkit (from `../node_modules/@staltz/react-native-audio-toolkit`)"
   - ReactNativeNavigation (from `../node_modules/react-native-navigation`)
-  - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNHasInternet (from `../node_modules/react-native-has-internet`)
@@ -417,8 +414,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@staltz/react-native-audio-toolkit"
   ReactNativeNavigation:
     :path: "../node_modules/react-native-navigation"
-  RNBootSplash:
-    :path: "../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
   RNFS:
@@ -473,7 +468,6 @@ SPEC CHECKSUMS:
   ReactNativeART: 7ff01f7b22ae9fb2f14f61ee76b4e229e189374b
   ReactNativeAudioToolkit: de8c41a2e6c9bc081a6d4652fe876b3d6733f0d2
   ReactNativeNavigation: 2f6571c37eaeb7d472fe8a3779d49d7aae32e75a
-  RNBootSplash: 9ee9547d214e05b0434df7698fe3e98b6456f399
   RNCAsyncStorage: cb9a623793918c6699586281f0b51cbc38f046f9
   RNFS: 7161a36db9bbdaab96d91fff660820f94e29ca58
   RNHasInternet: 16acb32cf35af8bcf2130bf3be9703abf93783ea
