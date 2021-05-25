@@ -18,16 +18,20 @@ export default function localization(fsSource: FSSource) {
     Platform.OS === 'android'
       ? (fsSource.readDirAssets('translations') as any)
       : Platform.OS === 'ios'
-      ? fsSource.readDir(FSSource.MainBundlePath + '/translations')
+      ? fsSource.readDir(Path.join(FSSource.MainBundlePath, 'translations'))
       : fsSource.readDir('./translations', {withFileTypes: true});
 
   const translationPaths$ = translationsDir$.map((translationsDir) =>
     translationsDir
       .filter((dirent) => dirent.isFile() && dirent.name.endsWith('.json'))
-      .map((file) => ({
-        ...file,
-        path: Path.resolve(process.cwd(), './translations/', file.name),
-      }))
+      .map((file) =>
+        Platform.OS === 'web'
+          ? {
+              ...file,
+              path: Path.resolve(process.cwd(), 'translations', file.name),
+            }
+          : file,
+      )
       .reduce((all, {name, path}) => {
         const languageTag = name.replace('.json', '');
         return {...all, [languageTag]: path};

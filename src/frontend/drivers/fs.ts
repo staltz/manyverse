@@ -7,6 +7,7 @@
 import {Platform} from 'react-native';
 import xs, {Stream} from 'xstream';
 const FS = Platform.OS === 'web' ? require('fs') : require('react-native-fs');
+// TODO: bring back typescript types for FS
 
 type UnwrapPromise<T> = T extends Promise<infer A> ? A : never;
 type In<T extends (...args: any) => any> = Parameters<T>;
