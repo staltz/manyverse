@@ -12,7 +12,7 @@ import {propifyMethods} from 'react-propify-methods';
 import {ReactElement} from 'react';
 const Swiper =
   Platform.OS === 'web'
-    ? View
+    ? propifyMethods<any, any, any>(require('./Swiper').default, 'scrollBy')
     : propifyMethods<any, any, any>(require('react-native-swiper'), 'scrollBy');
 
 const styles = StyleSheet.create({

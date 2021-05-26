@@ -12,6 +12,7 @@ import {
   TextProps,
   Animated,
   Easing,
+  Platform,
 } from 'react-native';
 import {h} from '@cycle/react';
 import {Dimensions} from '../global-styles/dimens';
@@ -47,6 +48,11 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     marginHorizontal: Dimensions.horizontalSpaceBig,
     textAlign: 'center',
+    ...Platform.select({
+      web: {
+        maxWidth: '66ex',
+      },
+    }),
   },
 
   image: {
@@ -60,6 +66,17 @@ export const styles = StyleSheet.create({
   },
 
   slide: {
+    flex: 1,
+    flexDirection: 'column',
+    ...Platform.select({
+      web: {
+        paddingHorizontal: Dimensions.horizontalSpaceLarge,
+        height: '100%',
+      },
+    }),
+  },
+
+  internalSlide: {
     flex: 1,
     flexDirection: 'column',
   },
@@ -197,7 +214,7 @@ class InternalSlide extends PureComponent<SlideProps> {
 
     const bottom = renderBottom();
 
-    return h(View, {style: [styles.slide]}, [
+    return h(View, {style: [styles.internalSlide]}, [
       h(View, {style: styles.slideTop}, [
         portraitMode === true || typeof portraitMode === 'undefined'
           ? h(Animated.Image, {

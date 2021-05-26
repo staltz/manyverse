@@ -5,7 +5,7 @@ const path = require('path');
 const OriginalResolver = require('metro-resolver');
 const blacklist = require('metro-config/src/defaults/blacklist');
 
-const ignoreOnMobile = ['fs'];
+const ignoreOnMobile = ['fs', 'nuka-carousel'];
 
 module.exports = {
   transformer: {

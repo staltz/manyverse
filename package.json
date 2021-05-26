@@ -75,6 +75,7 @@
     "lodash.memoize": "~4.1.2",
     "mdast-normalize-react-native": "3.2.x",
     "nodejs-mobile-react-native": "0.6.2",
+    "nuka-carousel": "~4.7.8",
     "path": "~0.12.7",
     "promisify-tuple": "1.0.1",
     "pull-backoff": "1.0.0",
