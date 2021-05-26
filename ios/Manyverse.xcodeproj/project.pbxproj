@@ -736,7 +736,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
-					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -748,7 +747,7 @@
 					"$(SRCROOT)/../node_modules/react-native-navigation/lib/ios/**",
 				);
 				INFOPLIST_FILE = ManyverseTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -777,7 +776,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
-					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -785,7 +783,7 @@
 					"$(SRCROOT)/../node_modules/react-native-navigation/lib/ios/**",
 				);
 				INFOPLIST_FILE = ManyverseTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -900,7 +898,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
-					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -942,7 +939,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
-					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -982,7 +978,6 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1024,7 +1019,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
