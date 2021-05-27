@@ -103,6 +103,7 @@ function tabTitle(tab: State['currentTab']) {
 }
 
 function calcTranslateY(scrollY: Animated.Value) {
+  if (Platform.OS === 'web') return new Animated.Value(0);
   const minScroll = -getStatusBarHeight(true);
   const clampedScrollY = scrollY.interpolate({
     inputRange: [minScroll, minScroll + 1],
@@ -118,6 +119,7 @@ function calcTranslateY(scrollY: Animated.Value) {
 }
 
 function calcOpacity(scrollY: Animated.AnimatedMultiplication) {
+  if (Platform.OS === 'web') return new Animated.Value(1);
   if (Platform.OS === 'android') return new Animated.Value(1);
 
   return scrollY.interpolate({

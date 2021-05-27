@@ -64,9 +64,16 @@ export const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: Palette.textLine,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'stretch',
     flex: 3,
+    ...Platform.select({
+      web: {
+        justifyContent: 'flex-start',
+      },
+      default: {
+        justifyContent: 'space-between',
+      },
+    }),
   },
 
   quickEmojiPickerModal: {
@@ -171,9 +178,14 @@ export const styles = StyleSheet.create({
     lineHeight: Typography.lineHeightSmall,
   },
 
-  prominentButtonContainer: {
-    flex: 1,
-  },
+  prominentButtonContainer: Platform.select({
+    web: {
+      width: '80px',
+    },
+    default: {
+      flex: 1,
+    },
+  }),
 
   prominentButton: {
     flex: 1,

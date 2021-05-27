@@ -16,7 +16,7 @@ import {makeFSDriver} from './lib/frontend/drivers/fs';
 import {makeEventBusDriver} from './lib/frontend/drivers/eventbus';
 import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
 import {global} from './lib/frontend/screens/global';
-import {welcome} from './lib/frontend/screens/welcome';
+import {central} from './lib/frontend/screens/central';
 const iconFont = require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf');
 
 const iconFontStyles = `@font-face {
@@ -37,7 +37,14 @@ const engine = setupReusable({
   navigation: (x) => ({
     backPress: () => xs.never(),
     globalDidDisappear: () => xs.never(),
+    globalDidAppear: () => xs.never(),
   }),
+  network: () => ({
+    bluetoothIsEnabled: () => xs.of(false),
+    wifiIsEnabled: () => xs.of(true),
+    hasInternetConnection: () => xs.of(true),
+  }),
+  appstate: () => xs.of('active'),
   orientation: () => xs.never(),
   globalEventBus: makeEventBusDriver(),
   linking: () => xs.never(),
@@ -54,7 +61,7 @@ const engine = setupReusable({
 
 engine.run(withState(global)(engine.sources));
 engine.run(
-  withState(welcome)({
+  withState(central)({
     ...engine.sources,
   }),
 );
