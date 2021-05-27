@@ -47,6 +47,7 @@ export type Actions = {
   disconnectForgetPeer$: Stream<any>;
   forgetPeer$: Stream<any>;
   goToManageAliases$: Stream<any>;
+  signInRoom$: Stream<any>;
   shareRoomInvite$: Stream<any>;
   closeItemMenu$: Stream<any>;
   goToPeerProfile$: Stream<any>;
@@ -260,6 +261,7 @@ export default function model(
       actions.forgetPeer$,
       actions.goToManageAliases$,
       actions.shareRoomInvite$,
+      actions.signInRoom$,
       actions.infoClientDhtInvite$,
       actions.infoServerDhtInvite$,
       actions.noteDhtInvite$,
