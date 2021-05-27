@@ -31,12 +31,12 @@ import {
 } from '../../ssb/types';
 
 const THUMBS_UP_UNICODE = '\ud83d\udc4d';
+const VICTORY_HAND_UNICODE = String.fromCodePoint(parseInt('270C', 16));
 const HEART_UNICODE = '\u2764\ufe0f';
-const SMILING_FACE_UNICODE = '\ud83d\ude0a';
-const CRYING_FACE_UNICODE = '\ud83d\ude22';
-const SMILING_GRINNING_UNICODE = '\ud83d\ude04';
-const THINKING_FACE_UNICODE = '\ud83e\udd14';
-const SURPRISED_UNICODE = '\ud83d\ude2e';
+const SEE_NO_EVIL_MONKEY_UNICODE = String.fromCodePoint(parseInt('1F648', 16));
+const STAR_STRUCK_UNICODE = String.fromCodePoint(parseInt('1F929', 16));
+const GRINNING_WITH_SMILE_UNICODE = String.fromCodePoint(parseInt('1F604', 16));
+const CRYING_FACE_UNICODE = String.fromCodePoint(parseInt('1F622', 16));
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -513,14 +513,14 @@ export default class MessageFooter extends Component<Props, State> {
           h(View, {style: styles.quickEmojiPickerContainer}, [
             h(View, {style: styles.quickEmojiPickerRow}, [
               this.renderQuickEmojiChoice(THUMBS_UP_UNICODE),
+              this.renderQuickEmojiChoice(VICTORY_HAND_UNICODE),
               this.renderQuickEmojiChoice(HEART_UNICODE),
-              this.renderQuickEmojiChoice(SMILING_FACE_UNICODE),
-              this.renderQuickEmojiChoice(CRYING_FACE_UNICODE),
+              this.renderQuickEmojiChoice(SEE_NO_EVIL_MONKEY_UNICODE),
             ]),
             h(View, {style: styles.quickEmojiPickerRow}, [
-              this.renderQuickEmojiChoice(SMILING_GRINNING_UNICODE),
-              this.renderQuickEmojiChoice(THINKING_FACE_UNICODE),
-              this.renderQuickEmojiChoice(SURPRISED_UNICODE),
+              this.renderQuickEmojiChoice(STAR_STRUCK_UNICODE),
+              this.renderQuickEmojiChoice(GRINNING_WITH_SMILE_UNICODE),
+              this.renderQuickEmojiChoice(CRYING_FACE_UNICODE),
               this.renderShowAllEmojisChoice(),
             ]),
           ]),
