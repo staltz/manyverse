@@ -6,7 +6,7 @@
 
 import os = require('os');
 import path = require('path');
-const {BrowserWindow, app, WebContents} = require('electron');
+const {BrowserWindow, app, shell} = require('electron');
 
 process.env = process.env ?? {};
 
@@ -24,7 +24,7 @@ process.env.DEBUG = 'ssb:*,jitdb,jitdb:*';
 
 let win: typeof BrowserWindow | null;
 
-let resolveWebContents: ((wc: typeof WebContents) => void) | undefined;
+let resolveWebContents: ((wc: any) => void) | undefined;
 // This will be used by multiserver to communicate with the frontend
 (process as any).webContentsP = new Promise((resolve) => {
   resolveWebContents = resolve;
@@ -43,6 +43,14 @@ function createWindow() {
 
   if (resolveWebContents) resolveWebContents(win.webContents);
   win.webContents.openDevTools();
+
+  // Handle external (web) links
+  win.webContents.on('will-navigate', (ev: any, url: string) => {
+    if (url !== ev.sender.getURL()) {
+      ev.preventDefault();
+      shell.openExternal(url);
+    }
+  });
 
   win.on('closed', () => {
     win = null;
