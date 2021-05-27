@@ -36,11 +36,11 @@ brew install coreutils libtool autoconf automake
 
 ### Node.js
 
-Use node (preferably exactly) `10.13.0` and npm `6.x`. To manage node versions easily, we recommend [nvm](https://github.com/nvm-sh/nvm) and use its deep integration feature to install and load the required node version automatically.
+Use node (preferably exactly) **`12.19.0`** and npm `6.x`. To manage node versions easily, we recommend [nvm](https://github.com/nvm-sh/nvm) and use its deep integration feature to install and load the required node version automatically.
 
 ### Rust
 
-Install Rust and Cargo preferably through [Rustup](https://rustup.rs/). Then, use Rustup to install cross-compilation support for various ARM architectures, like this:
+Install Rust (preferably exactly) **`1.46.0`** and Cargo through [Rustup](https://rustup.rs/). Then, use Rustup to install cross-compilation support for various ARM architectures, like this:
 
 #### Android
 
@@ -104,7 +104,7 @@ This app only supports Android 5.0 and above.
 
 ### iOS SDK
 
-If your target OS is iOS, you need to install Xcode (preferably version 11 or higher, we are not sure if the app can build on lower versions of Xcode). You can find Xcode from the macOS App Store. The iOS SDK must be version 11 or higher.
+If your target OS is iOS, you need to install Xcode (version 12.4 or higher). You can find Xcode from the macOS App Store. The iOS SDK must be version 11 or higher.
 
 See also [nodejs-mobile docs](https://code.janeasystems.com/nodejs-mobile/getting-started-ios#development-prerequisites) for additional details.
 
