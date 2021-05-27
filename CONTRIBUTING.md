@@ -34,6 +34,8 @@ brew update
 brew install coreutils libtool autoconf automake
 ```
 
+⚠️ **macOS Big Sur is not supported!** Manyverse only builds on macOS Catalina or older versions. This is because Apple made significant changes to how linking dynamic libraries work, and most non-Apple tooling (which we depend on) hasn't updated yet. For more information, read [issue 1371](https://gitlab.com/staltz/manyverse/-/issues/1371). You may have luck if you compile the backend without Rust, using `npm run build-backend-ios -- --no-rust` (read more about that some sections below).
+
 ### Node.js
 
 Use node (preferably exactly) **`12.19.0`** and npm `6.x`. To manage node versions easily, we recommend [nvm](https://github.com/nvm-sh/nvm) and use its deep integration feature to install and load the required node version automatically.
@@ -218,7 +220,7 @@ react-native run-ios --device
 
 During step 4, another terminal may spawn with the React Native Metro bundler. The app should be installed automatically, if you have a device connected by USB.
 
-In step 3, if you want to see more logs, then run `npm run build-backend-ios -- --verbose`.
+In step 3, if you want to see more logs, then run `npm run build-backend-ios -- --verbose`. If you want to disable Rust libraries, run `npm run build-backend-ios -- --no-rust`.
 
 ### Continuous compilation
 
