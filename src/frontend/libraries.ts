@@ -150,27 +150,26 @@ export default [
     homepage: 'https://github.com/react-native-community/react-native-art',
   },
   {
-    name: '@react-native-community/audio-toolkit',
-    type: 'library',
-    version: '2.0.3',
-    license: 'MIT License (MIT)',
-    homepage:
-      'https://github.com/react-native-community/react-native-audio-toolkit#readme',
-  },
-  {
     name: '@react-native-community/slider',
     type: 'library',
-    version: '2.0.8',
+    version: '4.0.0-rc.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/react-native-community/react-native-slider',
   },
   {
     name: '@react-native-community/viewpager',
     type: 'library',
-    version: '3.1.0',
+    version: '5.0.11',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/callstack/react-native-viewpager#readme',
+  },
+  {
+    name: '@staltz/react-native-audio-toolkit',
+    type: 'library',
+    version: '2.0.3-1',
     license: 'MIT License (MIT)',
     homepage:
-      'https://github.com/react-native-community/react-native-viewpager#readme',
+      'https://github.com/react-native-community/react-native-audio-toolkit#readme',
   },
   {
     name: 'bindings-noderify-nodejs-mobile',
@@ -232,7 +231,7 @@ export default [
   {
     name: 'cycle-native-asyncstorage',
     type: 'library',
-    version: '3.0.0',
+    version: '3.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/cycle-native-asyncstorage#readme',
   },
@@ -281,7 +280,7 @@ export default [
   {
     name: 'electron',
     type: 'library',
-    version: '10.2.0',
+    version: '10.3.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/electron/electron#readme',
   },
@@ -556,7 +555,7 @@ export default [
   {
     name: 'react-native-has-internet',
     type: 'library',
-    version: '4.2.0',
+    version: '4.2.1',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/react-native-has-internet',
   },
@@ -578,21 +577,21 @@ export default [
   {
     name: 'react-native-localize',
     type: 'library',
-    version: '1.4.1',
+    version: '1.4.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/react-native-community/react-native-localize',
   },
   {
     name: 'react-native-navigation',
     type: 'library',
-    version: '6.12.0',
+    version: '7.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/wix/react-native-navigation',
   },
   {
     name: 'react-native-orientation-locker',
     type: 'library',
-    version: '1.1.7',
+    version: '1.3.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/wonday/react-native-orientation-locker',
   },
@@ -628,7 +627,7 @@ export default [
   {
     name: 'react-native-ssb-shims',
     type: 'library',
-    version: '5.0.0',
+    version: '5.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/react-native-ssb-shims',
   },
@@ -663,7 +662,7 @@ export default [
   {
     name: 'react-native-vector-icons',
     type: 'library',
-    version: '6.6.0',
+    version: '8.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/oblador/react-native-vector-icons',
   },
@@ -720,7 +719,7 @@ export default [
   {
     name: 'remark-ssb-mentions',
     type: 'library',
-    version: '2.0.0',
+    version: '2.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/ssb-mentions',
   },
@@ -741,7 +740,7 @@ export default [
   {
     name: 'sodium-chloride-native-nodejs-mobile',
     type: 'library',
-    version: '1.2.0',
+    version: '1.5.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/sodium-chloride-native-nodejs-mobile',
   },
@@ -783,7 +782,7 @@ export default [
   {
     name: 'ssb-conn',
     type: 'library',
-    version: '3.2.0',
+    version: '4.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn',
   },
@@ -916,7 +915,7 @@ export default [
   {
     name: 'ssb-room-client',
     type: 'library',
-    version: '0.14.0',
+    version: '0.21.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-room-client',
   },
@@ -944,9 +943,16 @@ export default [
   {
     name: 'ssb-typescript',
     type: 'library',
-    version: '2.2.0',
+    version: '2.5.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-typescript#readme',
+  },
+  {
+    name: 'ssb-uri2',
+    type: 'library',
+    version: '1.0.2',
+    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
+    homepage: 'https://github.com/staltz/ssb-uri2#readme',
   },
   {
     name: 'staltz-multiserver',

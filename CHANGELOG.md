@@ -7,6 +7,24 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2105.28-beta
+
+* Bug fix: all SSB URIs should now work correctly ([see details](https://gitlab.com/staltz/manyverse/commit/92ede77e1cd381b6bd52a1d4a883b3d5abde6e20))
+* Bug fix: Edit Profile no longer shows unnecessary popup ([see details](https://gitlab.com/staltz/manyverse/commit/ac18093e6791d43713bdf88cc72ae1faa487daa8))
+* Bug fix: publish of hashtags supports hyphens ([see details](https://gitlab.com/staltz/manyverse/commit/2ef2627654aba70ebbb547200b8f6937a3db3720))
+* Feature: register alias from the connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/9be1c77c065748a2f5987d92cb7e2c62f1657314))
+* Feature: register aliases in the Edit Profile screen ([see details](https://gitlab.com/staltz/manyverse/commit/bf003e68d0d5b0d3d843d5253ccc61fd9edc3fb8))
+* Feature: show aliases on Profile screens ([see details](https://gitlab.com/staltz/manyverse/commit/ba3b32862ba1a94c004541f98eb9ad0a24416a67))
+* Feature: show connection dot on the Profile screen ([see details](https://gitlab.com/staltz/manyverse/commit/bffeb994f31bb11cbe81288edc49ed86f57a2695))
+* Feature: sign into room website from Connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/81775e48b76ea2425c5f6fe3be1a01b01431ed9b))
+* Improve font size of the bio text on profiles ([see details](https://gitlab.com/staltz/manyverse/commit/40c778c81750043ed8c1bfc56fdefd14ee58892c))
+* Improve signing into room website with a confirm dialog ([see details](https://gitlab.com/staltz/manyverse/commit/5c2471046183008d7568de919543212c526ba7a1))
+* Improve style of "Follows You" on the Profile screen ([see details](https://gitlab.com/staltz/manyverse/commit/52551552ed87dfaf66c8a9ac0cf046a5874be664))
+* Improve style of your profile in the drawer menu ([see details](https://gitlab.com/staltz/manyverse/commit/e0a280eeef78d35af6f5c7e0993a539911678416))
+* New default emojis in the reactions popup ([see details](https://gitlab.com/staltz/manyverse/commit/96508b188d3cfa186d7af6cfc43b6913cc6f8aa6))
+* Remove "connect and follow" menu option ([see details](https://gitlab.com/staltz/manyverse/commit/da40746ca9ca0e3302348f40d70fe6840470e1a2))
+* Show translation link on the drawer menu ([see details](https://gitlab.com/staltz/manyverse/commit/7cc2ed106bf1191949f6464a4a1ce46c943aded9))
+
 ## 0.2105.11-beta
 
 * (iOS) Bug fix: indexing no longer happens many times ([see details](https://gitlab.com/staltz/manyverse/commit/f033099efd07ccd26ca58979bcddc4048ffa3d56))
