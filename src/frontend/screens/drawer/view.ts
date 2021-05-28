@@ -185,7 +185,7 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
           }),
           h(MenuItem, {
             sel: 'settings',
-            icon: 'settings',
+            icon: 'cog',
             text: t('drawer.menu.settings.label'),
             accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
           }),
