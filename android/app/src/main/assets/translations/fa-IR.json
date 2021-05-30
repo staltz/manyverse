@@ -27,20 +27,20 @@
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "۱ سالِ پیش",
+          "other": "{{count}} سالِ پیش"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "۱ ماهِ پیش",
+          "other": "{{count}} ماهِ پیش"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "۱ هَفتِہ‌یِ پیش",
+          "other": "{{count}} هَفتِہ‌یِ پیش"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "۱ روزِ پیش",
+          "other": "{{count}} روزِ پیش"
         },
         "hours": {
           "one": "1 hour ago",
@@ -50,7 +50,7 @@
           "one": "1 minute ago",
           "other": "{{count}} minutes ago"
         },
-        "now": "Just now"
+        "now": "هَم‌اَکنون"
       },
       "future": {
         "years": {
@@ -102,25 +102,25 @@
       "description": {
         "ios": {
           "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
+          "2_bold": "وای‌فای",
           "3_normal": " or exchange ",
           "4_bold": "P2P invites",
           "5_normal": ". To find new people on the internet, look for an invite code to a ",
           "6_bold": "pub server",
-          "7_normal": " or a ",
+          "7_normal": " یا یِک ",
           "8_bold": "room server",
           "9_normal": ", or start your own server!"
         },
         "default": {
           "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
+          "2_bold": "وای‌فای",
           "3_normal": ", use ",
           "4_bold": "Bluetooth sync",
           "5_normal": ", or exchange ",
           "6_bold": "P2P invites",
           "7_normal": ". To find new people on the internet, look for an invite code to a ",
           "8_bold": "pub server",
-          "9_normal": " or a ",
+          "9_normal": " یا یِک ",
           "10_bold": "room server",
           "11_normal": ", or start your own server!"
         }
@@ -291,8 +291,8 @@
     },
     "peers": {
       "types": {
-        "bluetooth": "Bluetooth",
-        "lan": "Wi-Fi",
+        "bluetooth": "بلوتوس",
+        "lan": "وای‌فای",
         "dht": {
           "connected": "Internet P2P",
           "staging": {
@@ -320,7 +320,7 @@
         "enabled": "(ENABLED)"
       },
       "bluetooth": {
-        "title": "Bluetooth",
+        "title": "بلوتوس",
         "accessibility_label": "Bluetooth Mode",
         "disabled": "(Turn on Bluetooth to use this)",
         "description": "Discover users nearby and connect with them using Bluetooth.",
@@ -330,7 +330,7 @@
         }
       },
       "wifi": {
-        "title": "Wi-Fi",
+        "title": "وای‌فای",
         "accessibility_label": "Wi-Fi Mode",
         "disabled": "(Turn on Wi-Fi to use this)",
         "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
@@ -403,7 +403,7 @@
         "accessibility_label": "Share the invite code for this room"
       },
       "invite_info": {
-        "label": "About",
+        "label": "دَربارِه",
         "accessibility_label": "About this Invite Code"
       },
       "invite_note": {
@@ -411,7 +411,7 @@
         "accessibility_label": "Add Reminder Note To Self"
       },
       "invite_share": {
-        "label": "Share",
+        "label": "هَمرِسانی",
         "accessibility_label": "Share Invite Code"
       },
       "invite_delete": {
@@ -527,7 +527,7 @@
       "title": "Your account has\ntwo parts to keep safe"
     },
     "data": {
-      "title": "Data",
+      "title": "دادِگان",
       "description": {
         "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
         "2_bold": "crowd backup",
@@ -583,13 +583,13 @@
   "dialog_about": {
     "title": "About Manyverse",
     "version": "Version {{version}}",
-    "copyright": "Copyright (C)",
+    "copyright": "کُپےرایت (C)",
     "authors": "The Manyverse Authors",
     "repository": "Open source repository",
     "licensed": "Licensed {{license1}} and {{license2}}"
   },
   "dialog_thanks": {
-    "title": "Thank you!",
+    "title": "سِپاسگُزاریم!",
     "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
   },
   "drawer": {
@@ -611,7 +611,7 @@
         "accessibility_label": "Open translation website"
       },
       "settings": {
-        "label": "Settings",
+        "label": "ساماندَهی",
         "accessibility_label": "Go To Settings"
       },
       "preparing_database": {
@@ -672,8 +672,8 @@
       "unblock_secretly": "Unblock secretly",
       "follow": "Follow",
       "edit_profile": {
-        "label": "Edit profile",
-        "accessibility_label": "Edit Profile Button"
+        "label": "ویرایِشِ نَمایِہ",
+        "accessibility_label": "دُکمِہ‌یِ ویرایِشِ نَمایِہ"
       },
       "manage": {
         "accessibility_label": "Manage Contact"
@@ -709,7 +709,7 @@
       "accessibility_label": "Profile Picture"
     },
     "name": {
-      "accessibility_label": "Profile Name"
+      "accessibility_label": "نامِ نَمایِہ"
     },
     "empty": {
       "blocked": {
@@ -730,7 +730,7 @@
     }
   },
   "profile_edit": {
-    "title": "Edit profile",
+    "title": "ویرایِشِ نَمایِہ",
     "call_to_action": {
       "discard": "Discard",
       "save": {
@@ -747,7 +747,7 @@
     },
     "dialogs": {
       "discard": {
-        "title": "Edit profile",
+        "title": "ویرایِشِ نَمایِہ",
         "question": "Discard changes?"
       },
       "remove_alias": {
@@ -760,7 +760,7 @@
     },
     "fields": {
       "name": {
-        "label": "Name",
+        "label": "نام",
         "accessibility_label": "Name Text Input"
       },
       "description": {
@@ -931,7 +931,7 @@
     "loading": "Loading..."
   },
   "settings": {
-    "title": "Settings",
+    "title": "ساماندَهی",
     "preferences": {
       "title": "Preferences",
       "show_follows": {
@@ -974,7 +974,7 @@
     "more_information": {
       "title": "More information",
       "thanks": {
-        "title": "Thanks",
+        "title": "سِپاس",
         "accessibility_label": "Show Thanks"
       },
       "third_party_libs": {
