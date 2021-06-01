@@ -15,6 +15,8 @@ install:
     # apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
     # apt-get install --yes --no-install-recommends ninja-build linux-libc-dev
 
+    update-java-alternatives --list
+
     export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_212)
     
     echo "java is at $JAVA_HOME"
