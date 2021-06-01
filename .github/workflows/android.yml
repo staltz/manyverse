@@ -63,7 +63,7 @@ jobs:
           BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD }}
         run: |
           ls -la $HOME/keystores/my_keystore.jks
-          npm run build-backend-android -- --verbose
+          (while true; do df -h; sleep 15; done) & npm run build-backend-android -- --verbose
 
       - name: Build APK
         env:
