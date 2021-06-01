@@ -17,10 +17,8 @@ install:
 
     update-java-alternatives --list
 
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_212)
-    
-    echo "java is at $JAVA_HOME"
-    
+    update-java-alternatives --set java-1.8.0-openjdk-amd64
+        
     export ANDROID_HOME="$HOME/android-home"
 
     install -d $ANDROID_HOME
