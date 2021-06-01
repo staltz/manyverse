@@ -17,7 +17,7 @@ install:
 
     update-java-alternatives --list
 
-    update-java-alternatives --set java-1.8.0-openjdk-amd64
+    sudo update-java-alternatives --set java-1.8.0-openjdk-amd64
         
     export ANDROID_HOME="$HOME/android-home"
 
