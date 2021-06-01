@@ -16,7 +16,9 @@ install:
     # apt-get install --yes --no-install-recommends ninja-build linux-libc-dev
 
     export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_212)
+    
     echo "java is at $JAVA_HOME"
+    
     export ANDROID_HOME="$HOME/android-home"
 
     install -d $ANDROID_HOME
@@ -24,17 +26,27 @@ install:
     wget --output-document=$ANDROID_HOME/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-6514223_latest.zip
 
     pushd $ANDROID_HOME
+    
     unzip -d cmdline-tools cmdline-tools.zip
+    
     popd
+    
     export PATH=$PATH:${ANDROID_HOME}/cmdline-tools/tools/bin/
 
     sdkmanager --version
+    
     yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses || true
+    
     sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-28"
+    
     sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools"
+    
     sdkmanager --sdk_root=${ANDROID_HOME} "tools"
+    
     sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;29.02"
+    
     sdkmanager --sdk_root=${ANDROID_HOME} "cmake;3.6.4111459"
+    
     sdkmanager --sdk_root=${ANDROID_HOME} "ndk;21.3.6528147"
 
     chmod +x ./android/gradlew
