@@ -37,17 +37,17 @@ install:
     
     yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses || true
     
-    sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-28"
+    sdkmanager --verbose --sdk_root=${ANDROID_HOME} "platforms;android-28"
     
-    sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools"
+    sdkmanager --verbose --sdk_root=${ANDROID_HOME} "platform-tools"
     
-    sdkmanager --sdk_root=${ANDROID_HOME} "tools"
+    sdkmanager --verbose --sdk_root=${ANDROID_HOME} "tools"
     
-    sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;29.02"
+    sdkmanager --verbose --sdk_root=${ANDROID_HOME} "build-tools;29.02"
     
-    sdkmanager --sdk_root=${ANDROID_HOME} "cmake;3.6.4111459"
+    sdkmanager --verbose --sdk_root=${ANDROID_HOME} "cmake;3.6.4111459"
     
-    sdkmanager --sdk_root=${ANDROID_HOME} "ndk;21.3.6528147"
+    sdkmanager --verbose --sdk_root=${ANDROID_HOME} "ndk;21.3.6528147"
 
     chmod +x ./android/gradlew
 
@@ -61,4 +61,6 @@ build_script:
 - sh: rustup target add aarch64-linux-android
 - sh: rustup target add arm-linux-androideabi
 - sh: rustup target add armv7-linux-androideabi
-
+- sh: npm install --global react-native-cli
+- sh: npm install
+- sh: npm run build-backend-android -- --verbose
