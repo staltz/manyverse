@@ -1,0 +1,104 @@
+# Read more about this script on this blog post https://about.gitlab.com/2018/10/24/setting-up-gitlab-ci-for-android-projects/, by Jason Lenny
+# If you are interested in using Android with FastLane for publishing take a look at the Android-Fastlane template.
+
+image: openjdk:8-jdk
+
+variables:
+
+  # ANDROID_COMPILE_SDK is the version of Android you're compiling with.
+  # It should match compileSdkVersion.
+  ANDROID_COMPILE_SDK: "28"
+
+  # ANDROID_BUILD_TOOLS is the version of the Android build tools you are using.
+  # It should match buildToolsVersion.
+  ANDROID_BUILD_TOOLS: "29.0.2"
+
+  # It's what version of the command line tools we're going to download from the official site.
+  # Official Site-> https://developer.android.com/studio/index.html
+  # There, look down below at the cli tools only, sdk tools package is of format:
+  #        commandlinetools-os_type-ANDROID_SDK_TOOLS_latest.zip
+  # when the script was last modified for latest compileSdkVersion, it was which is written down below
+  ANDROID_SDK_TOOLS: "6514223"
+
+# Packages installation before running script
+before_script:
+  - apt-get --quiet update --yes
+  - apt-get --quiet install --yes curl gcc g++ make git
+  - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
+  - apt-get install --yes --no-install-recommends lib32stdc++-6-dev libc6-dev-i386 ninja-build linux-libc-dev linux-libc-dev:i386
+
+  # Setup path as android_home for moving/exporting the downloaded sdk into it
+  - export ANDROID_HOME="${PWD}/android-home"
+  # Create a new directory at specified location
+  - install -d $ANDROID_HOME
+  # Here we are installing androidSDK tools from official source,
+  # (the key thing here is the url from where you are downloading these sdk tool for command line, so please do note this url pattern there and here as well)
+  # after that unzipping those tools and
+  # then running a series of SDK manager commands to install necessary android SDK packages that'll allow the app to build
+  - wget --output-document=$ANDROID_HOME/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
+  # move to the archive at ANDROID_HOME
+  - pushd $ANDROID_HOME
+  - unzip -d cmdline-tools cmdline-tools.zip
+  - popd
+  - export PATH=$PATH:${ANDROID_HOME}/cmdline-tools/tools/bin/
+
+  # Nothing fancy here, just checking sdkManager version
+  - sdkmanager --version
+
+  # use yes to accept all licenses
+  - yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses || true
+  - sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-${ANDROID_COMPILE_SDK}"
+  - sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools"
+  - sdkmanager --sdk_root=${ANDROID_HOME} "tools"
+  - sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;${ANDROID_BUILD_TOOLS}"
+  # Extras needed for Manyverse:
+  - sdkmanager --sdk_root=${ANDROID_HOME} "cmake;3.6.4111459"
+  - sdkmanager --sdk_root=${ANDROID_HOME} "ndk;21.3.6528147"
+
+  # Not necessary, but just for surity
+  - chmod +x ./android/gradlew
+
+  # Setup Node.js
+  - curl -fsSL https://deb.nodesource.com/setup_12.x | bash -
+  - apt-get install -y nodejs
+
+  # Setup Watchman
+  - apt-get --quiet install --yes autoconf automake build-essential
+  - apt-get --quiet install --yes python-dev libtool pkg-config libssl-dev
+  - git clone https://github.com/facebook/watchman.git
+  - cd watchman
+  - git checkout v4.9.0
+  - ./autogen.sh
+  - ./configure
+  - make
+  - make install
+  - cd ..
+  - watchman --version
+  - echo 999999 | tee -a /proc/sys/fs/inotify/max_user_watches
+  - echo 999999 | tee -a /proc/sys/fs/inotify/max_queued_events
+  - echo 999999 | tee -a /proc/sys/fs/inotify/max_user_instances
+  - watchman shutdown-server
+
+  # Setup Rust
+  - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  - rustup install 1.46.0
+  - rustup target add aarch64-linux-android
+  - rustup target add arm-linux-androideabi
+  - rustup target add armv7-linux-androideabi
+
+  # Install React Native basics
+  - npm install --global react-native-cli
+  - npm install
+
+# Make Project
+assembleRelease:
+  interruptible: true
+  stage: build
+  script:
+    - npm run build-backend-android -- --verbose
+    - cd android
+    - ./gradlew assembleIndieRelease
+    - cd ..
+  artifacts:
+    paths:
+      - android/app/build/outputs/apk/indie/release
