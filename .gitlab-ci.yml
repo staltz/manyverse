@@ -25,7 +25,7 @@ before_script:
   - apt-get --quiet update --yes
   - apt-get --quiet install --yes curl gcc g++ make git
   - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
-  - apt-get install --yes --no-install-recommends lib32stdc++-6-dev libc6-dev-i386 ninja-build linux-libc-dev linux-libc-dev:i386
+  - apt-get install --yes --no-install-recommends ninja-build linux-libc-dev
 
   # Setup path as android_home for moving/exporting the downloaded sdk into it
   - export ANDROID_HOME="${PWD}/android-home"
