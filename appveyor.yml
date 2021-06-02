@@ -64,6 +64,7 @@ build_script:
 - sh: npm install --global react-native-cli
 - sh: npm install
 # - sh: npm run build-backend-android -- --verbose
+- sh: npm run lib
 - sh: ./tools/backend/move-to-nodejs-assets.sh
 - sh: cd nodejs-assets/nodejs-project && DONT_COMPILE=1 npm install --no-optional && cd ../..
 - sh: ./tools/backend/patch-android-ssb-neon-modules.sh
