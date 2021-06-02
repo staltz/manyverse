@@ -63,4 +63,15 @@ build_script:
 - sh: rustup target add armv7-linux-androideabi
 - sh: npm install --global react-native-cli
 - sh: npm install
-- sh: npm run build-backend-android -- --verbose
+# - sh: npm run build-backend-android -- --verbose
+- sh: ./tools/backend/move-to-nodejs-assets.sh
+- sh: cd nodejs-assets/nodejs-project && DONT_COMPILE=1 npm install --no-optional && cd ../..
+- sh: ./tools/backend/patch-android-ssb-neon-modules.sh
+- sh: ./tools/backend/pre-remove-unused-files.sh
+- sh: ./tools/backend/build-native-modules.sh
+- sh: ./tools/backend/post-remove-unused-files.sh
+- sh: ./tools/backend/noderify-mobile.sh
+- sh: ./tools/backend/move-shared-libs-android.sh
+- sh: rm -rf ./nodejs-assets/nodejs-project/node_modules
+- sh: rm -rf ./nodejs-assets/nodejs-project/patches
+- sh: rm ./nodejs-assets/nodejs-project/package-lock.json
