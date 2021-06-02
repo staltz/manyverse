@@ -18,7 +18,7 @@ install:
     update-java-alternatives --list
 
     sudo update-java-alternatives --set java-1.8.0-openjdk-amd64
-        
+
     export ANDROID_HOME="$HOME/android-home"
 
     install -d $ANDROID_HOME
@@ -26,27 +26,27 @@ install:
     wget --output-document=$ANDROID_HOME/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-6514223_latest.zip
 
     pushd $ANDROID_HOME
-    
+
     unzip -d cmdline-tools cmdline-tools.zip
-    
+
     popd
-    
+
     export PATH=$PATH:${ANDROID_HOME}/cmdline-tools/tools/bin/
 
     sdkmanager --version
-    
+
     yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses || true
-    
+
     sdkmanager --verbose --sdk_root=${ANDROID_HOME} "platforms;android-28"
-    
+
     sdkmanager --verbose --sdk_root=${ANDROID_HOME} "platform-tools"
-    
+
     sdkmanager --verbose --sdk_root=${ANDROID_HOME} "tools"
-    
+
     sdkmanager --verbose --sdk_root=${ANDROID_HOME} "build-tools;29.02"
-    
+
     sdkmanager --verbose --sdk_root=${ANDROID_HOME} "cmake;3.6.4111459"
-    
+
     sdkmanager --verbose --sdk_root=${ANDROID_HOME} "ndk;21.3.6528147"
 
     chmod +x ./android/gradlew
