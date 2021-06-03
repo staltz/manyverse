@@ -5,18 +5,20 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs from 'xstream';
-import {setupReusable} from '@cycle/run';
 import {withState} from '@cycle/state';
-import {makeReactNativeDriver} from '@cycle/react-native';
-import {AppRegistry} from 'react-native';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
+import {run, GlobalScreen} from 'cycle-native-navigation-web';
 import {ssbDriver} from './lib/frontend/drivers/ssb';
-// import {dialogDriver} from './lib/frontend/drivers/dialogs';
 import {makeFSDriver} from './lib/frontend/drivers/fs';
 import {makeEventBusDriver} from './lib/frontend/drivers/eventbus';
 import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
-import {global} from './lib/frontend/screens/global';
 import {central} from './lib/frontend/screens/central';
+import {global} from './lib/frontend/screens/global';
+import {welcome} from './lib/frontend/screens/welcome';
+import {secretOutput} from './lib/frontend/screens/secret-output';
+import {secretInput} from './lib/frontend/screens/secret-input';
+import {Screens} from './lib/frontend/screens/enums';
+import {welcomeLayout} from './lib/frontend/screens/layouts';
 const iconFont = require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf');
 
 const iconFontStyles = `@font-face {
@@ -27,18 +29,11 @@ const style = document.createElement('style');
 style.appendChild(document.createTextNode(iconFontStyles));
 document.head.appendChild(style);
 
-const appKey = 'manyverse';
-
-const engine = setupReusable({
+localStorage.clear();
+const drivers = {
   asyncstorage: asyncStorageDriver,
   ssb: ssbDriver,
-  screen: makeReactNativeDriver(appKey),
   fs: makeFSDriver(),
-  navigation: (x) => ({
-    backPress: () => xs.never(),
-    globalDidDisappear: () => xs.never(),
-    globalDidAppear: () => xs.never(),
-  }),
   network: () => ({
     bluetoothIsEnabled: () => xs.of(false),
     wifiIsEnabled: () => xs.of(true),
@@ -57,14 +52,35 @@ const engine = setupReusable({
   keyboard: (x) => ({
     events: () => xs.never(),
   }),
-});
+};
 
-engine.run(withState(global)(engine.sources));
-engine.run(
-  withState(central)({
-    ...engine.sources,
-  }),
-);
-AppRegistry.runApplication(appKey, {
-  rootTag: document.getElementById('app'),
-});
+const screens = {
+  [GlobalScreen]: withState(global),
+  [Screens.Welcome]: withState(welcome),
+  [Screens.Central]: withState(central),
+  // [Screens.Drawer]: withState(drawer),
+  // [Screens.DialogAbout]: dialogAbout,
+  // [Screens.DialogThanks]: dialogThanks,
+  // [Screens.Compose]: withState(compose),
+  // [Screens.ComposeAudio]: withState(composeAudio),
+  // [Screens.Thread]: withState(thread),
+  // [Screens.Conversation]: withState(conversation),
+  // [Screens.RecipientsInput]: withState(recipientsInput),
+  // [Screens.Libraries]: libraries,
+  // [Screens.InvitePaste]: withState(pasteInvite),
+  // [Screens.InviteCreate]: withState(createInvite),
+  // [Screens.Profile]: withState(profile),
+  // [Screens.ProfileEdit]: withState(editProfile),
+  // [Screens.AliasManage]: withState(manageAliases),
+  // [Screens.AliasRegister]: withState(registerAlias),
+  // [Screens.Biography]: withState(biography),
+  // [Screens.Accounts]: withState(accounts),
+  // [Screens.Backup]: withState(backup),
+  [Screens.SecretOutput]: withState(secretOutput),
+  [Screens.SecretInput]: withState(secretInput),
+  // [Screens.RawDatabase]: rawDatabase,
+  // [Screens.RawMessage]: rawMessage,
+  // [Screens.Settings]: withState(settings),
+};
+
+run(screens, drivers, welcomeLayout);
