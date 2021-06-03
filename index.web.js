@@ -29,7 +29,6 @@ const style = document.createElement('style');
 style.appendChild(document.createTextNode(iconFontStyles));
 document.head.appendChild(style);
 
-localStorage.clear();
 const drivers = {
   asyncstorage: asyncStorageDriver,
   ssb: ssbDriver,
