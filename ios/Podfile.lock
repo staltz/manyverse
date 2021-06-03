@@ -21,7 +21,6 @@ PODS:
   - glog (0.3.5)
   - nodejs-mobile-react-native (0.6.2):
     - React-Core
-  - QBImagePickerController (3.4.0)
   - RCTRequired (0.63.3)
   - RCTSystemSetting (1.7.5):
     - React-Core
@@ -277,18 +276,22 @@ PODS:
     - React-Core
   - RNHasInternet (4.2.1):
     - React-Core
-  - RNImageCropPicker (0.26.1):
-    - QBImagePickerController
+  - RNImageCropPicker (0.36.2):
     - React-Core
     - React-RCTImage
-    - RSKImageCropper
+    - RNImageCropPicker/QBImagePickerController (= 0.36.2)
+    - TOCropViewController
+  - RNImageCropPicker/QBImagePickerController (0.36.2):
+    - React-Core
+    - React-RCTImage
+    - TOCropViewController
   - RNLocalize (1.4.2):
     - React-Core
   - RNOS (2.2.1):
     - React-Core
   - RNVectorIcons (8.1.0):
     - React-Core
-  - RSKImageCropper (3.0.2)
+  - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -298,7 +301,6 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - nodejs-mobile-react-native (from `../node_modules/nodejs-mobile-react-native`)
-  - QBImagePickerController (from `../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePickerController.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTSystemSetting (from `../node_modules/react-native-system-setting`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -341,7 +343,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - boost-for-react-native
-    - RSKImageCropper
+    - TOCropViewController
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -356,8 +358,6 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   nodejs-mobile-react-native:
     :path: "../node_modules/nodejs-mobile-react-native"
-  QBImagePickerController:
-    :path: "../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePickerController.podspec"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTSystemSetting:
@@ -438,8 +438,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 7da9338acfb98d4ef9e5536805a0704572d33c2f
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
-  nodejs-mobile-react-native: 3dd355cbb45e36c6dfc702dfd500be60b2e01d2a
-  QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
+  nodejs-mobile-react-native: 60ace1da736d8cfa85731493052ff20ac34f68bd
   RCTRequired: 48884c74035a0b5b76dbb7a998bd93bcfc5f2047
   RCTSystemSetting: 16e300bf829262602427c57386f0b37e0f654a8c
   RCTTypeSafety: edf4b618033c2f1c5b7bc3d90d8e085ed95ba2ab
@@ -471,13 +470,13 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: cb9a623793918c6699586281f0b51cbc38f046f9
   RNFS: 7161a36db9bbdaab96d91fff660820f94e29ca58
   RNHasInternet: 16acb32cf35af8bcf2130bf3be9703abf93783ea
-  RNImageCropPicker: e1d8c3381e5b05a1bdcd13ea57a4f1c020a09cef
+  RNImageCropPicker: 35a3ceb837446fa11547704709bb22b5fac6d584
   RNLocalize: 4071198b59b461f3b74eebc5fee8c50f13e39e79
   RNOS: 84f208c2e6b9c6da848ff0ef1a1163d1067bf4f6
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
-  RSKImageCropper: 1ac71e9a82e3f41eea3eedfff8eacb0d3821c9ec
+  TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
 
-PODFILE CHECKSUM: 494b8650417b6f99f90ff1121423ef19c64f26f8
+PODFILE CHECKSUM: b6d26753b63afbd8fc9f19c4a9a04152ba88e718
 
 COCOAPODS: 1.10.0

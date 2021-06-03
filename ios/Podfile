@@ -11,7 +11,6 @@ target 'Manyverse' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
   pod 'RNOS', :podspec => '../node_modules/react-native-os-staltz/RNOS.podspec'
-  pod 'QBImagePickerController', :path => '../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePickerController.podspec'
 
   target 'ManyverseTests' do
     inherit! :complete
