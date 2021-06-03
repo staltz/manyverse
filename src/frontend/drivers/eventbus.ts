@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,31 +7,36 @@
 import xs, {Stream} from 'xstream';
 import {FeedId, MsgId} from 'ssb-typescript';
 
-export type TriggerFeedCypherlink = {
+export interface LocalizationLoaded {
+  type: 'localizationLoaded';
+}
+
+export interface TriggerFeedCypherlink {
   type: 'triggerFeedCypherlink';
   feedId: FeedId;
-};
+}
 
-export type TriggerMsgCypherlink = {
+export interface TriggerMsgCypherlink {
   type: 'triggerMsgCypherlink';
   msgId: MsgId;
-};
+}
 
-export type HardwareBackOnCentralScreen = {
+export interface HardwareBackOnCentralScreen {
   type: 'hardwareBackOnCentralScreen';
-};
+}
 
-export type DrawerToggleOnCentralScreen = {
+export interface DrawerToggleOnCentralScreen {
   type: 'drawerToggleOnCentralScreen';
   open: boolean;
-};
+}
 
-export type AudioBlobComposed = {
+export interface AudioBlobComposed {
   type: 'audioBlobComposed';
   blobId: string;
-};
+}
 
 export type GlobalEvent =
+  | LocalizationLoaded
   | TriggerFeedCypherlink
   | TriggerMsgCypherlink
   | HardwareBackOnCentralScreen

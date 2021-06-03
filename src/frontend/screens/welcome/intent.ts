@@ -4,15 +4,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import path = require('path');
 import os = require('os');
 import {FSSource} from '../../drivers/fs';
+import {GlobalEvent} from '../../drivers/eventbus';
 
 export default function intent(
+  globalEventBus: Stream<GlobalEvent>,
   screenSource: ReactSource,
   fsSource: FSSource,
   storageSource: AsyncStorageSource,
@@ -40,7 +42,11 @@ export default function intent(
     })
     .flatten();
 
-  const latestVisit$ = storageSource.getItem('latestVisit');
+  const hasBeenVisited$ = storageSource.getItem('latestVisit').map((x) => !!x);
+
+  const localizationLoaded$ = globalEventBus
+    .filter((ev) => ev.type === 'localizationLoaded')
+    .mapTo(true);
 
   return {
     createAccount$: screenSource.select('create-account').events('press'),
@@ -48,8 +54,11 @@ export default function intent(
     restoreAccount$: screenSource.select('restore-account').events('press'),
 
     skipOrNot$: xs
-      .combine(accountExists$, latestVisit$)
-      .map(([accountExists, latestVisit]) => accountExists || !!latestVisit),
+      .combine(localizationLoaded$, accountExists$, hasBeenVisited$)
+      .map(
+        ([localizationLoaded, accountExists, hasBeenVisited]) =>
+          localizationLoaded && (accountExists || hasBeenVisited),
+      ),
 
     scrollBy$: xs
       .merge(

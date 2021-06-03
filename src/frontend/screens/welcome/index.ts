@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -15,6 +15,7 @@ import {OrientationEvent} from '../../drivers/orientation';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {SplashCommand} from '../../drivers/splashscreen';
 import {FSSource} from '../../drivers/fs';
+import {GlobalEvent} from '../../drivers/eventbus';
 import navigation from './navigation';
 import view from './view';
 import intent from './intent';
@@ -25,6 +26,7 @@ export type Sources = {
   orientation: Stream<OrientationEvent>;
   asyncstorage: AsyncStorageSource;
   navigation: NavSource;
+  globalEventBus: Stream<GlobalEvent>;
   fs: FSSource;
   state: StateSource<State>;
   ssb: SSBSource;
@@ -50,7 +52,12 @@ export const navOptions = {
 };
 
 export function welcome(sources: Sources): Sinks {
-  const actions = intent(sources.screen, sources.fs, sources.asyncstorage);
+  const actions = intent(
+    sources.globalEventBus,
+    sources.screen,
+    sources.fs,
+    sources.asyncstorage,
+  );
   const skip$ = actions.skipOrNot$.filter((skip) => skip === true);
   const ssb$ = xs.merge(
     actions.createAccount$.mapTo({type: 'identity.create'} as Req),

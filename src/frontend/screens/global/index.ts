@@ -37,6 +37,7 @@ export type Sinks = {
   ssb: Stream<Req>;
   localization: Stream<LocalizationCmd>;
   toast: Stream<Toast>;
+  globalEventBus: Stream<GlobalEvent>;
 };
 
 export function global(sources: Sources): Sinks {
@@ -51,6 +52,9 @@ export function global(sources: Sources): Sinks {
   const updateLocalization$ = localization(sources.fs);
   const req$ = ssb(updateLocalization$, actions);
   const toast$ = toast(actions, sources.ssb);
+  const event$ = updateLocalization$.mapTo({
+    type: 'localizationLoaded',
+  } as GlobalEvent);
 
   return {
     navigation: cmd$,
@@ -58,5 +62,6 @@ export function global(sources: Sources): Sinks {
     localization: updateLocalization$,
     ssb: req$,
     toast: toast$,
+    globalEventBus: event$,
   };
 }
