@@ -6,7 +6,6 @@
 
 import fs = require('fs');
 import path = require('path');
-const rnBridge = require('rn-bridge');
 const Mnemonic = require('ssb-keys-mnemonic');
 const mkdirp = require('mkdirp');
 
@@ -22,8 +21,7 @@ function fileSize(filename: string) {
 
 module.exports = function restore(words: string) {
   // Check if there is another mature account
-  const appDataDir = rnBridge.app.datadir();
-  const ssbPath = path.join(appDataDir, '.ssb');
+  const ssbPath = path.join(process.env.APP_DATA_DIR!, '.ssb');
   if (!fs.existsSync(ssbPath)) mkdirp.sync(ssbPath);
   const oldLogPath = path.join(ssbPath, 'flume', 'log.offset');
   const oldLogSize = fileSize(oldLogPath);
