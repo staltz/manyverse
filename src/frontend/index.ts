@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {withState} from '@cycle/state';
-import {GlobalScreen, MoreScreenSinks} from 'cycle-native-navigation';
+import {MoreScreenSinks} from 'cycle-native-navigation';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {alertDriver} from 'cycle-native-alert';
 import {makeClipboardDriver} from 'cycle-native-clipboard';
@@ -26,6 +26,7 @@ import {makeExitDriver} from './drivers/exit';
 import {makeRecorderDriver} from './drivers/recorder';
 import {makeOrientationDriver} from './drivers/orientation';
 import {makeSplashScreenDriver} from './drivers/splashscreen';
+import {GlobalScreen} from './symbols';
 
 import {Screens} from './screens/enums';
 import {global} from './screens/global';
