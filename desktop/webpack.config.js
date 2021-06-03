@@ -19,10 +19,14 @@ const compileNodeModules = [
 ].map((moduleName) => path.resolve(__dirname, `../node_modules/${moduleName}`));
 
 const ignoreNodeModules = [
-  'react-native-image-viewing',
+  'react-native-dialogs',
   'react-native-fs',
-  'react-native-swiper',
+  'react-native-image-viewing',
+  'react-native-navigation',
+  'react-native-orientation-locker',
   'react-native-progress',
+  'react-native-swiper',
+  'react-native-system-setting',
 ];
 
 const ignoreRegex = new RegExp(`^(${ignoreNodeModules.join('|')})$`);
