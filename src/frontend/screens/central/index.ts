@@ -11,7 +11,6 @@ import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
 import {Command as AlertCommand} from 'cycle-native-alert';
 import {SharedContent} from 'cycle-native-share';
-import {Platform} from 'react-native';
 import {
   AsyncStorageSource,
   Command as StorageCommand,
@@ -178,13 +177,7 @@ export function central(sources: Sources): Sinks {
 
   const toast$ = xs.merge(publicTabSinks.toast, connectionsTabSinks.toast);
 
-  const ssb$ =
-    // TODO: remove this when we support Welcome screen on desktop
-    Platform.OS === 'web'
-      ? xs
-          .merge(publicTabSinks.ssb, connectionsTabSinks.ssb)
-          .startWith({type: 'identity.use'})
-      : xs.merge(publicTabSinks.ssb, connectionsTabSinks.ssb);
+  const ssb$ = xs.merge(publicTabSinks.ssb, connectionsTabSinks.ssb);
 
   const storageCommand$ = xs.merge(
     connectionsTabSinks.asyncstorage,

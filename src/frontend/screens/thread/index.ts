@@ -26,7 +26,6 @@ import navigation from './navigation';
 import asyncStorage from './asyncstorage';
 export {navOptions} from './layout';
 import {Props as P} from './props';
-import {Platform} from 'react-native';
 
 export type Props = P;
 
@@ -76,11 +75,7 @@ export function thread(sources: Sources): Sinks {
   const storageCommand$ = asyncStorage(actionsPlus, sources.state.stream);
   const command$ = navigation(actionsPlus, sources.state.stream);
   const vdom$ = view(sources.state.stream, actionsPlus);
-  const newContent$ =
-    // TODO: remove this when we support Welcome screen on desktop
-    Platform.OS === 'web'
-      ? ssb(actionsPlus).startWith({type: 'identity.use'})
-      : ssb(actionsPlus);
+  const newContent$ = ssb(actionsPlus);
   const dismiss$ = actions.publishMsg$.mapTo('dismiss' as 'dismiss');
 
   return {
