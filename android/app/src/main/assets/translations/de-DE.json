@@ -6,7 +6,7 @@
     "cancel": "Abbrechen",
     "continue": "Weiter",
     "delete": "Löschen",
-    "remove": "Remove",
+    "remove": "Entfernen",
     "save": "Speichern",
     "yes": "Ja",
     "no": "Nein",
@@ -39,7 +39,7 @@
           "other": "Vor {{count}} Wochen"
         },
         "days": {
-          "one": "Vor 1 Jahr",
+          "one": "vor 1 Tag",
           "other": "Vor {{count}} Tagen"
         },
         "hours": {
@@ -170,13 +170,13 @@
     "tab_headers": {
       "public": "Öffentlicher Bereich",
       "private": "Private Nachrichten",
-      "activity": "Activity",
+      "activity": "Aktivität",
       "connections": "Verbindungen"
     },
     "tab_footers": {
       "public": "Öffentlich",
       "private": "Privat",
-      "activity": "Activity",
+      "activity": "Aktivität",
       "connections": "Verbindungen"
     },
     "loading": "Lädt...",
@@ -189,7 +189,7 @@
         "accessibility_label": "Private Timeline Taste"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "Aktivitäten Tab Button"
       },
       "connections": {
         "accessibility_label": "Verbindungen Tab Schaltfläche"
@@ -235,19 +235,19 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " hat dich erwähnt"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " folgt Dir"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "Keine Aktivitäten",
+      "description": "Wenn dir Leute folgen oder dich erwähnen, werden sie hier angezeigt"
     }
   },
   "connections": {
@@ -273,19 +273,19 @@
     "toasts": {
       "invite_accepted": "Einladung angenommen",
       "invite_rejected": "Einladung abgelehnt. Bist Du sicher, dass sie korrekt war?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "connecting_to_alias": "Verbindung zu {{alias}}",
+      "connected_to_alias": "Mit {{alias}} verbunden",
+      "not_connected_to_alias": "{{alias}} ist gerade offline"
     },
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "Anmeldung zulassen?",
+          "description": "Öffne die Webseite von {{room}} um Einladungslinks zu erstellen und Mitglieder zu verwalten. Möchten Sie sich mit Manyverse anmelden?\n\nDie Raum-ID lautet {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "title": "Anmeldung zulassen?",
+          "description": "Ein Web-Browser bittet um Erlaubnis, Sie zu identifizieren. Möchten Sie sich beim Server {{room}} anmelden?\n\nSeine ID ist {{roomid}}"
         }
       }
     },
@@ -391,12 +391,12 @@
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "label": "Meine Aliase verwalten",
+        "accessibility_label": "Meine Aliase in Raum-Servern verwalten"
       },
       "room_sign_in": {
-        "label": "Sign into website",
-        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
+        "label": "Bei Webseite anmelden",
+        "accessibility_label": "Öffne die Website dieses Raumes und melde dich in seinem Dashboard an, Button"
       },
       "room_share_invite": {
         "label": "Einladungscode teilen",
@@ -607,18 +607,18 @@
         "accessibility_label": "Fehlerbericht als E-Mail versenden"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "Hilf uns bei der Übersetzung",
+        "accessibility_label": "Übersetzungswebsite öffnen"
       },
       "settings": {
         "label": "Einstellungen",
         "accessibility_label": "Gehe zu Einstellungen"
       },
       "preparing_database": {
-        "label": "Preparing database..."
+        "label": "Datenbank wird vorbereitet..."
       },
       "ready_estimate": {
-        "label": "Ready:"
+        "label": "Bereit:"
       }
     }
   },
@@ -683,7 +683,7 @@
       "title": "SSB ID"
     },
     "dialog_manage_contact": {
-      "title": "Contact"
+      "title": "Kontakt"
     },
     "toast": {
       "copied_to_clipboard": "In Zwischenablage kopiert"
@@ -693,11 +693,11 @@
         "accessibility_label": "SSB Identifier"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "Biographie lesen"
       },
       "counters": {
         "following": "Folgt",
-        "followers": "Followers"
+        "followers": "Follower"
       }
     },
     "info": {
@@ -738,11 +738,11 @@
         "accessibility_label": "Profil speichern"
       },
       "edit_picture": {
-        "accessibility_label": "Edit Profile Picture"
+        "accessibility_label": "Profilbild bearbeiten"
       },
       "register_new_alias": {
-        "label": "Register new alias",
-        "accessibility_label": "Register New Room Server Alias"
+        "label": "Neuen Alias registrieren",
+        "accessibility_label": "Neuen Raum-Server Alias registrieren"
       }
     },
     "dialogs": {
@@ -751,12 +751,12 @@
         "question": "Änderungen verwerfen?"
       },
       "remove_alias": {
-        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
+        "description": "Diese Aktion wird den Alias \"{{alias}}\" vom Raum-Server entfernen.\n\nMit diesem Alias können Sie nicht mehr erreicht werden."
       }
     },
     "toasts": {
-      "alias_removed_success": "Alias removed",
-      "alias_removed_failure": "Failed to remove alias"
+      "alias_removed_success": "Alias entfernt",
+      "alias_removed_failure": "Fehler beim Entfernen des Alias"
     },
     "fields": {
       "name": {
@@ -768,23 +768,23 @@
         "accessibility_label": "Biographie Texteingabefeld"
       },
       "aliases": {
-        "label": "Aliases"
+        "label": "Aliase"
       }
     }
   },
   "manage_aliases": {
-    "title": "Manage aliases"
+    "title": "Meine Aliase verwalten"
   },
   "register_alias": {
-    "title": "Register alias",
+    "title": "Neuen Alias registrieren",
     "empty": {
       "no_servers": {
-        "title": "No servers",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "title": "Keine Server",
+        "description": "Um einen Alias zu registrieren, müssen Sie Mitglied eines SSB-Raum-Servers sein. Finden Sie einen im Internet mit dem Hashtag #ssbroom und stellen Sie sicher, dass er Aliase unterstützt."
       }
     },
     "header": {
-      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+      "description": "Wählen Sie einen Raum-Server aus, auf dem Sie einen neuen Alias-Link für sich selbst registrieren möchten.\n\nAliase sind Web-Adressen, die Leute verwenden können, um sich mit Ihnen zu verbinden."
     },
     "dialogs": {
       "input_alias": {
