@@ -1,0 +1,12 @@
+diff --git a/node_modules/ssb-validate2-rsjs-node/Cargo.toml b/node_modules/ssb-validate2-rsjs-node/Cargo.toml
+index 25a0b0d..c9296dd 100644
+--- a/node_modules/ssb-validate2-rsjs-node/Cargo.toml
++++ b/node_modules/ssb-validate2-rsjs-node/Cargo.toml
+@@ -4,6 +4,7 @@ version = "1.0.0"
+ authors = ["Andrew Reid <glyph@mycelial.technology>"]
+ edition = "2018"
+ license = "LGPL-3.0"
++links = "node"
+ 
+ [lib]
+ crate-type = ["cdylib"]
