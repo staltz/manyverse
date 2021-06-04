@@ -138,7 +138,7 @@ export default [
   {
     name: '@cycle/state',
     type: 'library',
-    version: '1.4.0',
+    version: '1.5.0',
     license: 'MIT License (MIT)',
     homepage: 'https://cycle.js.org',
   },
@@ -259,9 +259,16 @@ export default [
   {
     name: 'cycle-native-navigation',
     type: 'library',
-    version: '7.8.0',
+    version: '8.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation',
+  },
+  {
+    name: 'cycle-native-navigation-web',
+    type: 'library',
+    version: '0.2.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/staltz/cycle-native-navigation-web',
   },
   {
     name: 'cycle-native-share',
@@ -374,6 +381,13 @@ export default [
     version: '1.4.4-3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/non-private-ip',
+  },
+  {
+    name: 'nuka-carousel',
+    type: 'library',
+    version: '4.7.8',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/FormidableLabs/nuka-carousel',
   },
   {
     name: 'path',
@@ -562,7 +576,7 @@ export default [
   {
     name: 'react-native-image-crop-picker',
     type: 'library',
-    version: '0.26.1',
+    version: '0.36.2',
     license: 'MIT License (MIT)',
     homepage:
       'https://github.com/ivpusic/react-native-image-crop-picker#readme',

@@ -7,6 +7,12 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2106.4-beta
+
+* (Android) Bug fix: picture upload works on Android 10+ ([see details](https://gitlab.com/staltz/manyverse/commit/d74fdb6edc3a7a76e854f17328a390f292dc8232))
+* (Android) Show default emojis that exist on all Androids ([see details](https://gitlab.com/staltz/manyverse/commit/d7365f4cbbc199ee38003e2f0cad78baf9f2a035))
+* Improve German translation ([see details](https://gitlab.com/staltz/manyverse/commit/b000cb5b728d96c07ad80232675526142d5c20ef))
+
 ## 0.2105.28-beta
 
 * Bug fix: all SSB URIs should now work correctly ([see details](https://gitlab.com/staltz/manyverse/commit/92ede77e1cd381b6bd52a1d4a883b3d5abde6e20))
