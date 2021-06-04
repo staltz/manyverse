@@ -10,7 +10,6 @@ module.exports = function (driver, t) {
     // Open drawer
     const pressMenu = new wd.TouchAction(driver);
     pressMenu.press({x: 80, y: 150});
-    pressMenu.wait(20);
     pressMenu.release();
     await driver.performTouchAction(pressMenu);
     t.pass('I press the Menu (top left corner)');
@@ -96,7 +95,6 @@ module.exports = function (driver, t) {
     // Open drawer
     const pressMenu = new wd.TouchAction(driver);
     pressMenu.press({x: 80, y: 150});
-    pressMenu.wait(20);
     pressMenu.release();
     await driver.performTouchAction(pressMenu);
     t.pass('I open the drawer');
