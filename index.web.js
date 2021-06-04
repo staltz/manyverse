@@ -15,6 +15,8 @@ import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
 import {central} from './lib/frontend/screens/central';
 import {global} from './lib/frontend/screens/global';
 import {welcome} from './lib/frontend/screens/welcome';
+import {thread} from './lib/frontend/screens/thread';
+import {accounts} from './lib/frontend/screens/accounts';
 import {secretOutput} from './lib/frontend/screens/secret-output';
 import {secretInput} from './lib/frontend/screens/secret-input';
 import {Screens} from './lib/frontend/screens/enums';
@@ -62,7 +64,7 @@ const screens = {
   // [Screens.DialogThanks]: dialogThanks,
   // [Screens.Compose]: withState(compose),
   // [Screens.ComposeAudio]: withState(composeAudio),
-  // [Screens.Thread]: withState(thread),
+  [Screens.Thread]: withState(thread),
   // [Screens.Conversation]: withState(conversation),
   // [Screens.RecipientsInput]: withState(recipientsInput),
   // [Screens.Libraries]: libraries,
@@ -73,7 +75,7 @@ const screens = {
   // [Screens.AliasManage]: withState(manageAliases),
   // [Screens.AliasRegister]: withState(registerAlias),
   // [Screens.Biography]: withState(biography),
-  // [Screens.Accounts]: withState(accounts),
+  [Screens.Accounts]: withState(accounts),
   // [Screens.Backup]: withState(backup),
   [Screens.SecretOutput]: withState(secretOutput),
   [Screens.SecretInput]: withState(secretInput),
