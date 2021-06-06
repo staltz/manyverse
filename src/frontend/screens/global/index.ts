@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Command} from 'cycle-native-navigation';
 import {Reducer, StateSource} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
@@ -52,9 +52,15 @@ export function global(sources: Sources): Sinks {
   const updateLocalization$ = localization(sources.fs);
   const req$ = ssb(updateLocalization$, actions);
   const toast$ = toast(actions, sources.ssb);
-  const event$ = updateLocalization$.mapTo({
-    type: 'localizationLoaded',
-  } as GlobalEvent);
+  const event$ = updateLocalization$
+    // Hack to solve race conditions elsewhere (e.g. Welcome screen).
+    // TODO: ideally there should be no synchronous race conditions between
+    // the different sources/sinks managed by cycle-native-navigation
+    .map(() => xs.periodic(300).take(3))
+    .flatten()
+    .mapTo({
+      type: 'localizationLoaded',
+    } as GlobalEvent);
 
   return {
     navigation: cmd$,

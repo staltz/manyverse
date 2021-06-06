@@ -46,6 +46,7 @@ export default function intent(
 
   const localizationLoaded$ = globalEventBus
     .filter((ev) => ev.type === 'localizationLoaded')
+    .take(1)
     .mapTo(true);
 
   return {
