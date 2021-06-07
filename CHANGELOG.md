@@ -7,6 +7,10 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2106.7-beta
+
+* Bug fix: sometimes the splashscreen got stuck ([see details](https://gitlab.com/staltz/manyverse/commit/e4129aa4db820d5d4af1ae01bd68382e720879ca))
+
 ## 0.2106.4-beta
 
 * (Android) Bug fix: picture upload works on Android 10+ ([see details](https://gitlab.com/staltz/manyverse/commit/d74fdb6edc3a7a76e854f17328a390f292dc8232))
