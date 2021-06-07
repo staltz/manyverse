@@ -6,7 +6,7 @@
     "cancel": "Cancelar",
     "continue": "Continuar",
     "delete": "Apagar",
-    "remove": "Remove",
+    "remove": "Excluir",
     "save": "Salvar",
     "yes": "Sim",
     "no": "Não",
@@ -273,19 +273,19 @@
     "toasts": {
       "invite_accepted": "Convite aceito",
       "invite_rejected": "Convite rejeitado. Tem certeza que está correto?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "connecting_to_alias": "Conectando a {{alias}}",
+      "connected_to_alias": "Conectado a {{alias}}",
+      "not_connected_to_alias": "{{alias}} está offline agora"
     },
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "Permitir login?",
+          "description": "Abra o site do {{room}} para criar links de convite e gerenciar membros. Você quer usar o Manyverse para entrar?\n\nO ID da room é {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "title": "Permitir login?",
+          "description": "Um navegador da web está solicitando permissão para identificá-lo. Você quer entrar no servidor {{room}}?\n\nO ID do room é {{roomid}}"
         }
       }
     },
@@ -391,12 +391,12 @@
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "label": "Gerenciar apelidos",
+        "accessibility_label": "Gerenciar meus atalhos em servidores room"
       },
       "room_sign_in": {
-        "label": "Sign into website",
-        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
+        "label": "Logar no site",
+        "accessibility_label": "Botão de abrir o site deste room e ver o painel"
       },
       "room_share_invite": {
         "label": "Compartilhar código de convite",
@@ -607,8 +607,8 @@
         "accessibility_label": "Enviar relatório de bug por e-mail"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "Ajude-nos a traduzir",
+        "accessibility_label": "Abrir site de tradução"
       },
       "settings": {
         "label": "Configurações",
@@ -683,21 +683,21 @@
       "title": "SSB ID"
     },
     "dialog_manage_contact": {
-      "title": "Contact"
+      "title": "Contato"
     },
     "toast": {
       "copied_to_clipboard": "Copiado para o clipboard"
     },
     "details": {
       "id": {
-        "accessibility_label": "SSB Identifier"
+        "accessibility_label": "Identificador SSB"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "Mostrar Biografia"
       },
       "counters": {
         "following": "Seguindo",
-        "followers": "Followers"
+        "followers": "Seguidores"
       }
     },
     "info": {
@@ -741,8 +741,8 @@
         "accessibility_label": "Editar Foto do Perfil"
       },
       "register_new_alias": {
-        "label": "Register new alias",
-        "accessibility_label": "Register New Room Server Alias"
+        "label": "Registrar novo atalho",
+        "accessibility_label": "Registrar Novo Atalho no Servidor Room"
       }
     },
     "dialogs": {
@@ -751,12 +751,12 @@
         "question": "Descartar as alterações?"
       },
       "remove_alias": {
-        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
+        "description": "Esta ação irá remover o atalho \"{{alias}}\" no servidor room.\n\nAs pessoas não poderão mais entrar em contato com você usando este atalhos."
       }
     },
     "toasts": {
-      "alias_removed_success": "Alias removed",
-      "alias_removed_failure": "Failed to remove alias"
+      "alias_removed_success": "Atalho removido",
+      "alias_removed_failure": "Falha ao remover atalho"
     },
     "fields": {
       "name": {
@@ -768,49 +768,49 @@
         "accessibility_label": "Entrada de Texto da Biografia"
       },
       "aliases": {
-        "label": "Aliases"
+        "label": "Atalhos"
       }
     }
   },
   "manage_aliases": {
-    "title": "Manage aliases"
+    "title": "Gerenciar atalhos"
   },
   "register_alias": {
-    "title": "Register alias",
+    "title": "Registrar atalho",
     "empty": {
       "no_servers": {
-        "title": "No servers",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "title": "Nenhum servidor",
+        "description": "Para registrar um atalho, você precisa ser membro de um servidor room no SSB. Encontre um na internet com a hashtag #ssbroom e certifique-se de que ele oferece suporte a atalhos."
       }
     },
     "header": {
-      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+      "description": "Escolha um servidor room onde você gostaria de ter um atalho para si mesmo.\n\nAtalhos são endereços web que as pessoas podem usar para se conectar a você."
     },
     "dialogs": {
       "input_alias": {
-        "description": "Submit your desired new alias to {{host}} as a single word in lowercase.\n\nFor example, if you want the alias \"myname.{{host}}\", write \"myname\" below."
+        "description": "Submeta o seu novo atalho para {{host}} como uma única palavra em minúsculas.\n\nPor exemplo, se você quiser o apelido \"meunome.{{host}}\", escreva \"meunome\" abaixo."
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "Enviando..."
     },
     "failure": {
-      "title": "It didn't work",
-      "alias_taken": "The alias you submitted is already taken by some user.",
+      "title": "Não funcionou",
+      "alias_taken": "O atalho que você enviou já está sendo usado por algum usuário.",
       "call_to_action": {
         "try_again": {
-          "label": "Try again",
-          "accessibility_label": "Try Again Button"
+          "label": "Tente novamente",
+          "accessibility_label": "Botão de Tentar novamente"
         }
       }
     },
     "success": {
-      "title": "Great!",
-      "description": "The alias {{alias}} is now yours.",
+      "title": "Ótimo!",
+      "description": "O atalho {{alias}} agora é seu.",
       "call_to_action": {
         "go_back": {
-          "label": "Go back",
-          "accessibility_label": "Go Back Button"
+          "label": "Voltar atrás",
+          "accessibility_label": "Botão Voltar"
         }
       }
     }
