@@ -182,7 +182,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
               FooterComponent: ({imageIndex}: {imageIndex: any}) =>
                 this.renderFooter(images[imageIndex]),
             })
-          : $(View),
+          : $(View, {key: 'full'}),
         $(
           Touchable,
           {onPress: this.onOpen, key: 't'},
