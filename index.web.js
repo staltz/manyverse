@@ -15,6 +15,7 @@ import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
 import {central} from './lib/frontend/screens/central';
 import {global} from './lib/frontend/screens/global';
 import {welcome} from './lib/frontend/screens/welcome';
+import {profile} from './lib/frontend/screens/profile';
 import {thread} from './lib/frontend/screens/thread';
 import {accounts} from './lib/frontend/screens/accounts';
 import {secretOutput} from './lib/frontend/screens/secret-output';
@@ -70,7 +71,7 @@ const screens = {
   // [Screens.Libraries]: libraries,
   // [Screens.InvitePaste]: withState(pasteInvite),
   // [Screens.InviteCreate]: withState(createInvite),
-  // [Screens.Profile]: withState(profile),
+  [Screens.Profile]: withState(profile),
   // [Screens.ProfileEdit]: withState(editProfile),
   // [Screens.AliasManage]: withState(manageAliases),
   // [Screens.AliasRegister]: withState(registerAlias),
