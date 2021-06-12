@@ -2,6 +2,7 @@
 /data/blobs
 /data/blobs_push
 /data/flume/*
+/data/ebt
 !/data/flume/log.offset
 !/data/report.md
 !/data/secret

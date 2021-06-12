@@ -59,6 +59,9 @@ const config = makeConfig('ssb', {
   friends: {
     hops: settingsUtils.readSync().hops ?? 2,
   },
+  replicate: {
+    legacy: false,
+  },
   suggest: {
     autostart: false,
   },
@@ -92,7 +95,7 @@ SecretStack({caps})
   // Replication
   .use(require('ssb-replicate')) // needs: db2/compat/log- & history-stream
   .use(require('ssb-friends')) // needs: db, replicate
-  .use(require('ssb-ebt-fork-staltz')) // needs: db2/compat, replicate, friends
+  .use(require('ssb-ebt')) // needs: db2/compat, replicate, friends
   // Connections
   .use(require('./plugins/multiserver-addons'))
   .use(require('ssb-lan'))

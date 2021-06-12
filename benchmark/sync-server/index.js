@@ -22,6 +22,9 @@ const config = makeConfig('ssb', {
   friends: {
     hops: 2,
   },
+  replicate: {
+    legacy: false,
+  },
   connections: {
     incoming: {
       net: [{scope: 'private', transform: 'shs', port: 26831}],
@@ -38,7 +41,9 @@ SecretStack({appKey: require('ssb-caps').shs})
   .use(require('ssb-master'))
   .use(require('ssb-logging'))
   .use(require('ssb-db'))
+  .use(require('ssb-friends'))
   .use(require('ssb-replicate'))
+  .use(require('ssb-ebt'))
   .use(require('ssb-blobs'))
   .use(require('ssb-lan'))
   .use(require('ssb-conn'))
