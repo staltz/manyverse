@@ -37,8 +37,9 @@ const keysPath = path.join(process.env.SSB_DIR, 'secret');
 const keys = ssbKeys.loadOrCreateSync(keysPath);
 
 const config = makeConfig('ssb', {
-  path: process.env.SSB_DIR,
+  caps,
   keys,
+  path: process.env.SSB_DIR,
   db2: {
     maxCpu: 91, // %
     maxCpuWait: 80, // ms
@@ -83,7 +84,7 @@ const config = makeConfig('ssb', {
   },
 });
 
-SecretStack({caps})
+SecretStack()
   // Core
   .use(require('ssb-master'))
   .use(require('ssb-db2'))
