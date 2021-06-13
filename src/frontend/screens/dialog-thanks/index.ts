@@ -12,14 +12,7 @@ import {StyleSheet} from 'react-native';
 import {Options} from 'react-native-navigation';
 import {t} from '../../drivers/localization';
 import MarkdownDialog from '../../components/dialogs/MarkdownDialog';
-
-const top5backers = [
-  'C Moid',
-  'Dace',
-  'Andrew Lewman',
-  'DC Posch',
-  'Irakli Gozalishvili',
-];
+import topBackers from './backers';
 
 export type Sources = {
   screen: ReactSource;
@@ -51,7 +44,7 @@ export function dialogThanks(sources: Sources): Sinks {
       content: t('dialog_thanks.description', {
         sponsor1: '[NGI0 PET](https://nlnet.nl/project/Manyverse)',
         sponsor2: '[Handshake / ACCESS](https://opencollective.com/access)',
-        topBackers: top5backers.join(', '),
+        topBackers: topBackers.join(', '),
         donateLink: 'https://manyver.se/donate',
       }),
     }),
