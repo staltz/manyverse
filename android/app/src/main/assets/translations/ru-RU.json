@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Заголовок",
         "description": "Добавьте описание этого изображения, особенно для людей с нарушениями зрения."
-      },
-      "save_prompt": {
-        "title": "Сохранить черновик?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Кнопка \"Опубликовать ответ\""
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Сохранить черновик ответа?"
       }
     },
     "fields": {

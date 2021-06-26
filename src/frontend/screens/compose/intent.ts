@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,11 +17,9 @@ import {
 import {NavSource} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
-import {DialogSource} from '../../drivers/dialogs';
-import {Palette} from '../../global-styles/palette';
 import {t} from '../../drivers/localization';
 import {GlobalEvent, AudioBlobComposed} from '../../drivers/eventbus';
-import {State, isPost, isTextEmpty, hasText, isReply} from './model';
+import {State, isPost, hasText, isReply} from './model';
 
 export default function intent(
   reactSource: ReactSource,
@@ -31,32 +29,10 @@ export default function intent(
   topBarPreviewToggle$: Stream<any>,
   topBarDone$: Stream<any>,
   state$: Stream<State>,
-  dialogSource: DialogSource,
 ) {
   const back$ = xs
     .merge(navSource.backPress(), topBarBack$)
     .compose(between(navSource.didAppear(), navSource.didDisappear()));
-
-  const backPostWithoutDialog$ = back$
-    .compose(sample(state$))
-    .filter(isPost)
-    .filter(isTextEmpty);
-
-  const backPostWithDialog$ = back$
-    .compose(sample(state$))
-    .filter(isPost)
-    .filter(hasText)
-    .map(() =>
-      dialogSource.alert('', t('compose.dialogs.save_prompt.title'), {
-        positiveText: t('call_to_action.save'),
-        positiveColor: Palette.colors.comet8,
-        negativeText: t('call_to_action.delete'),
-        negativeColor: Palette.textNegative,
-      }),
-    )
-    .flatten();
-
-  const backReply$ = back$.compose(sample(state$)).filter(isReply);
 
   const publishPost$ = topBarDone$
     .compose(sample(state$))
@@ -193,24 +169,6 @@ export default function intent(
       .filter((ev): ev is AudioBlobComposed => ev.type === 'audioBlobComposed')
       .map((event) => event.blobId),
 
-    exitPost$: backPostWithoutDialog$,
-
-    exitReply$: backReply$,
-
-    exitSavingPostDraft$: backPostWithDialog$.filter(
-      (res) => res.action === 'actionPositive',
-    ),
-
-    exitDeletingPostDraft$: backPostWithDialog$.filter(
-      (res) => res.action === 'actionNegative',
-    ),
-
-    exitOfAnyKind$: xs.merge(
-      publishPost$,
-      publishReply$,
-      backPostWithoutDialog$,
-      backReply$,
-      backPostWithDialog$,
-    ),
+    exit$: xs.merge(publishPost$, publishReply$, back$),
   };
 }

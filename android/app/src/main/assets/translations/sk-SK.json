@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Caption",
         "description": "Add some description of this picture, particularly for the visually impaired."
-      },
-      "save_prompt": {
-        "title": "Uložiť koncept?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Reply Publish Button"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Save reply draft?"
       }
     },
     "fields": {

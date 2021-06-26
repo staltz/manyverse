@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Legenda",
         "description": "Adicione uma descrição desta imagem, em especial para os deficientes visuais."
-      },
-      "save_prompt": {
-        "title": "Salvar rascunho?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Botão de Publicar Resposta"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Salvar rascunho do comentário?"
       }
     },
     "fields": {

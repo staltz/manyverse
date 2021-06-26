@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Başlık",
         "description": "Bu fotoğrafın, özellikle görme engelliler için bir açıklamasını ekleyin."
-      },
-      "save_prompt": {
-        "title": "Taslağı kaydet?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Yanıtla Yayınla Düğmesi"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Yanıt taslağı kaydedilsin mi?"
       }
     },
     "fields": {

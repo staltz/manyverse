@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Überschrift",
         "description": "Füge eine Beschreibung dieses Bildes hinzu, insbesondere für Sehbehinderte."
-      },
-      "save_prompt": {
-        "title": "Entwurf speichern?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Antwort veröffentlichen Schaltfläche"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Antwortentwurf speichern?"
       }
     },
     "fields": {

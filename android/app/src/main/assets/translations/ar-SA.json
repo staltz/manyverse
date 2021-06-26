@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "تعليق",
         "description": "أعط وصفا للصورة، من أجل ضعاف البصر."
-      },
-      "save_prompt": {
-        "title": "حفظ المسودة؟"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "زر نشر الرد"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "حفظ الرد كمسودة؟"
       }
     },
     "fields": {

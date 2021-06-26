@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Onderschrift",
         "description": "Voeg een beschrijving van deze afbeelding toe, vooral voor slechtzienden."
-      },
-      "save_prompt": {
-        "title": "Concept opslaan?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Reactie publiceren knop"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Antwoordconcept opslaan?"
       }
     },
     "fields": {

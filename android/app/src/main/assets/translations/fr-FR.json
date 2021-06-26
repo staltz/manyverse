@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Légende",
         "description": "Ajoutez une description de cette photo, en particulier pour les malvoyants."
-      },
-      "save_prompt": {
-        "title": "Enregistrer le brouillon ?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Bouton \"Publier\" Réponse"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Enregistrer votre réponse comme brouillon ?"
       }
     },
     "fields": {

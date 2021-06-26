@@ -59,7 +59,6 @@ export function thread(sources: Sources): Sinks {
     sources.navigation,
     sources.ssb,
     sources.state.stream,
-    sources.dialog,
   );
   const messageEtcSinks = messageEtc({
     appear$: actions.openMessageEtc$,

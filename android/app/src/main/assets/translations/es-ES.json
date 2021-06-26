@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Subtítulo",
         "description": "Añade alguna descripción sobre esta imagen, en particular para las personas con limitaciones visuales."
-      },
-      "save_prompt": {
-        "title": "¿Guardar borrador?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Botón Publicar Respuesta"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "¿Salvar borrador de la respuesta?"
       }
     },
     "fields": {

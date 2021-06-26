@@ -36,7 +36,7 @@ export type Actions = {
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToRawMsg$: Stream<Msg>;
   goToCompose$: Stream<any>;
-  exitOfAnyKind$: Stream<any>;
+  exit$: Stream<any>;
 };
 
 export default function navigation(
@@ -150,7 +150,7 @@ export default function navigation(
       } as Command),
   );
 
-  const pop$ = actions.exitOfAnyKind$.mapTo({
+  const pop$ = actions.exit$.mapTo({
     type: 'pop',
   } as PopCommand);
 

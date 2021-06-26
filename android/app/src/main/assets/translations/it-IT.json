@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Didascalia",
         "description": "Aggiungi una descrizione per questa immagine, in particolare per i non vedenti."
-      },
-      "save_prompt": {
-        "title": "Salva bozza?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Reply Publish Button"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Save reply draft?"
       }
     },
     "fields": {

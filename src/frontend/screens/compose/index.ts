@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -83,12 +83,11 @@ export function compose(sources: Sources): Sinks {
     topBarSinks.previewToggle,
     topBarSinks.done,
     sources.state.stream,
-    sources.dialog,
   );
   const dialogActions = dialog(actions, sources.dialog);
   const actionsPlus = {...actions, ...dialogActions};
   const dismissKeyboard$ = xs
-    .merge(actionsPlus.exitOfAnyKind$, actionsPlus.goToComposeAudio$)
+    .merge(actionsPlus.exit$, actionsPlus.goToComposeAudio$)
     .mapTo('dismiss' as 'dismiss');
   const vdom$ = view(sources.state.stream, topBarSinks.screen);
   const command$ = navigation(actionsPlus);

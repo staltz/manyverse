@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Bildtext",
         "description": "Lägg en beskrivning till bilden, särskilt för synskadade."
-      },
-      "save_prompt": {
-        "title": "Spara utkast?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Knapp för att publicera svar"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Spara svar som utkast?"
       }
     },
     "fields": {

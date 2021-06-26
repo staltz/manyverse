@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Λεζάντα",
         "description": "Προσθέστε την περιγραφή αυτής της εικόνας, ειδικά για άτομα με προβλήματα όρασης.."
-      },
-      "save_prompt": {
-        "title": "Αποθηκεύσετε το προσχέδιο;"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Κουμπί απάντησης δημοσίευσης"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Αποθήκευση προχείρου απάντησης;"
       }
     },
     "fields": {

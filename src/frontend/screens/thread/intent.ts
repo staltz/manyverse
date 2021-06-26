@@ -11,10 +11,8 @@ import {KeyboardSource} from 'cycle-native-keyboard';
 import {NavSource} from 'cycle-native-navigation';
 import {isReplyPostMsg} from 'ssb-typescript/utils';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
-import {DialogSource} from '../../drivers/dialogs';
 import {SSBSource} from '../../drivers/ssb';
 import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
 import {
   PressAddReactionEvent,
   PressReactionsEvent,
@@ -24,14 +22,6 @@ import {Screens} from '../enums';
 import {State} from './model';
 import {Props} from './props';
 
-function isTextEmpty(state: State): boolean {
-  return !state.replyText;
-}
-
-function hasText(state: State): boolean {
-  return !!state.replyText && state.replyText.length > 0;
-}
-
 export default function intent(
   props$: Stream<Props>,
   reactSource: ReactSource,
@@ -39,28 +29,7 @@ export default function intent(
   navSource: NavSource,
   ssbSource: SSBSource,
   state$: Stream<State>,
-  dialogSource: DialogSource,
 ) {
-  const back$ = xs.merge(
-    navSource.backPress(),
-    reactSource.select('topbar').events('pressBack'),
-  );
-
-  const backWithoutDialog$ = back$.compose(sample(state$)).filter(isTextEmpty);
-
-  const backWithDialog$ = back$
-    .compose(sample(state$))
-    .filter(hasText)
-    .map(() =>
-      dialogSource.alert('', t('thread.dialogs.save_draft_prompt.title'), {
-        positiveText: t('call_to_action.save'),
-        positiveColor: Palette.colors.comet8,
-        negativeText: t('call_to_action.delete'),
-        negativeColor: Palette.textNegative,
-      }),
-    )
-    .flatten();
-
   return {
     publishMsg$: reactSource
       .select('reply-send')
@@ -132,16 +101,9 @@ export default function intent(
       authorFeedId: FeedId;
     }>,
 
-    exit$: backWithoutDialog$,
-
-    exitSavingDraft$: backWithDialog$.filter(
-      (res) => res.action === 'actionPositive',
+    exit$: xs.merge(
+      navSource.backPress(),
+      reactSource.select('topbar').events('pressBack'),
     ),
-
-    exitDeletingDraft$: backWithDialog$.filter(
-      (res) => res.action === 'actionNegative',
-    ),
-
-    exitOfAnyKind$: xs.merge(backWithoutDialog$, backWithDialog$),
   };
 }

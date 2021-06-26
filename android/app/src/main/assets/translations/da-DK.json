@@ -479,9 +479,6 @@
       "image_caption": {
         "title": "Beskrivelse",
         "description": "Tilføj en beskrivelse af dette billede, til brug for især synshæmmede."
-      },
-      "save_prompt": {
-        "title": "Gem kladde?"
       }
     },
     "content_warning_initials": {
@@ -1001,11 +998,6 @@
       },
       "publish_reply": {
         "accessibility_label": "Reply Publish Button"
-      }
-    },
-    "dialogs": {
-      "save_draft_prompt": {
-        "title": "Save reply draft?"
       }
     },
     "fields": {

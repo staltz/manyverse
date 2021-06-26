@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,11 +12,11 @@ import {navOptions as composeAudioNavOpts} from '../compose-audio';
 
 export type Actions = {
   goToComposeAudio$: Stream<any>;
-  exitOfAnyKind$: Stream<any>;
+  exit$: Stream<any>;
 };
 
 export default function navigation(actions: Actions): Stream<Command> {
-  const goBack$ = actions.exitOfAnyKind$
+  const goBack$ = actions.exit$
     .compose(delay(100))
     .map(() => ({type: 'pop'} as Command));
 
