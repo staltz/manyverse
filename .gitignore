@@ -70,11 +70,8 @@ buck-out/
 #
 /lib/
 /nodejs-assets/BUILD_NATIVE_MODULES.txt
-/nodejs-assets/nodejs-project/*.js
-/nodejs-assets/nodejs-project/*.json
-/nodejs-assets/nodejs-project/patches/*
-/nodejs-assets/nodejs-project/plugins/*.js
-/nodejs-assets/nodejs-project/plugins/helpers/*.js*
+/nodejs-assets/nodejs-project/**/*
+!/nodejs-assets/nodejs-project/README.md
 /desktop/nodejs-project
 /desktop/dist
 /android/app/src/main/res/raw/rnnodebundle
