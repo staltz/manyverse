@@ -52,7 +52,7 @@ const config = makeConfig('ssb', {
     sympathy: 2,
   },
   blobsPurge: {
-    cpuMax: 90,
+    cpuMax: 90, // %
   },
   conn: {
     autostart: false,
@@ -101,12 +101,12 @@ SecretStack()
   .use(require('./plugins/multiserver-addons'))
   .use(require('ssb-lan'))
   .use(bluetoothTransport(keys, process.env.APP_DATA_DIR))
-  .use(require('ssb-conn')) // needs: db, friends, lan, bluetooth
+  .use(require('ssb-conn')) // needs: db2, friends, lan, bluetooth
   .use(require('ssb-room-client')) // needs: conn
   .use(require('ssb-http-auth-client')) // needs: conn
   .use(require('ssb-http-invite-client'))
-  .use(require('ssb-dht-invite')) // needs: db, friends, conn
-  .use(require('ssb-invite-client')) // needs: db, conn
+  .use(require('ssb-dht-invite')) // needs: db2, friends, conn
+  .use(require('ssb-invite-client')) // needs: db2, conn
   // Queries
   .use(require('ssb-db2/about-self')) // needs: db2
   .use(require('ssb-suggest-lite')) // needs: db2, about-self, friends
