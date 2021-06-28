@@ -8,7 +8,7 @@
     "lib": "tsc",
     "lib-watch": "tsc --watch",
     "clean-bundler": "watchman watch-del-all && rm -rf $TMPDIR/react-*",
-    "clean-android": "adb uninstall se.manyver && cd android && ./gradlew clean",
+    "clean-android": "cd android && ./gradlew clean",
     "clean-ios": "cd ios && xcodebuild -workspace Manyverse.xcworkspace -scheme Manyverse clean && cd ..",
     "full-clean": "npm run clean-android && npm run clean-bundler && rm -rf node_modules && rm -rf lib",
     "propagate-replacements": "propagate-replacement-fields --field=react-native",
