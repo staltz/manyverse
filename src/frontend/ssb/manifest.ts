@@ -35,10 +35,6 @@ export default {
     enable: 'async',
     disable: 'async',
   },
-  replicate: {
-    changes: 'source',
-    upto: 'source',
-  },
   invite: {
     create: 'async',
     accept: 'async',
