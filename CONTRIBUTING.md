@@ -448,10 +448,6 @@ It will output the directory of the JDK, which will look something like this:
 
     /Library/Java/JavaVirtualMachines/jdkX.X.X_XXX.jdk/Contents/Home
 
-Navigate to that directory by using the command `$ cd /your/jdk/path` and use the keytool command with sudo permission as shown below.
-
-    $ sudo keytool -genkey -v -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
-
 _Note: Remember to keep the keystore file private. In case you've lost upload key or it's been compromised you should [follow these instructions](https://support.google.com/googleplay/android-developer/answer/7384423#reset)._
 
 ### Setting up Gradle variables
