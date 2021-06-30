@@ -72,20 +72,10 @@ class MenuOptionContent extends React.PureComponent<MenuOptionContentProps> {
   }
 }
 
-/**
- * This does nothing in runtime, but exists just to make sure that TypeScript
- * will check for the specific values of `MenuChoice` as opposed to allowing any
- * string.
- * TODO remove this once TypeScript gets smarter
- */
-function menuChoice(m: MenuChoice): MenuChoice {
-  return m;
-}
-
 function createConnMenuOptions(targetPeer: any) {
   const options = [
     h(MenuOption, {
-      value: menuChoice('open-profile'),
+      value: 'open-profile' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'account-circle',
         text: t('connections.menu.open_profile.label'),
@@ -95,7 +85,7 @@ function createConnMenuOptions(targetPeer: any) {
       }),
     }),
     h(MenuOption, {
-      value: menuChoice('disconnect'),
+      value: 'disconnect' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'pipe-disconnected',
         text: t('connections.menu.disconnect.label'),
@@ -109,7 +99,7 @@ function createConnMenuOptions(targetPeer: any) {
   if (targetPeer?.[1]?.isInDB) {
     options.push(
       h(MenuOption, {
-        value: menuChoice('disconnect-forget'),
+        value: 'disconnect-forget' as const,
         ['children' as any]: h(MenuOptionContent, {
           icon: 'delete',
           text: t('connections.menu.disconnect_forget.label'),
@@ -127,7 +117,7 @@ function createConnMenuOptions(targetPeer: any) {
 function createStagedRoomMenuOptions() {
   return [
     h(MenuOption, {
-      value: menuChoice('room-share-invite'),
+      value: 'room-share-invite' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'content-copy',
         text: t('connections.menu.room_share_invite.label'),
@@ -137,7 +127,7 @@ function createStagedRoomMenuOptions() {
       }),
     }),
     h(MenuOption, {
-      value: menuChoice('connect'),
+      value: 'connect' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'pipe',
         text: t('connections.menu.connect.label'),
@@ -147,7 +137,7 @@ function createStagedRoomMenuOptions() {
       }),
     }),
     h(MenuOption, {
-      value: menuChoice('forget'),
+      value: 'forget' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'delete',
         text: t('connections.menu.forget.label'),
@@ -166,7 +156,7 @@ function createRoomMenuOptions(targetPeer: any) {
   if (data?.openInvites) {
     options.push(
       h(MenuOption, {
-        value: menuChoice('room-share-invite'),
+        value: 'room-share-invite' as const,
         ['children' as any]: h(MenuOptionContent, {
           icon: 'content-copy',
           text: t('connections.menu.room_share_invite.label'),
@@ -181,7 +171,7 @@ function createRoomMenuOptions(targetPeer: any) {
   if (data?.supportsHttpAuth) {
     options.push(
       h(MenuOption, {
-        value: menuChoice('room-sign-in'),
+        value: 'room-sign-in' as const,
         ['children' as any]: h(MenuOptionContent, {
           icon: 'login',
           text: t('connections.menu.room_sign_in.label'),
@@ -196,7 +186,7 @@ function createRoomMenuOptions(targetPeer: any) {
   if (data?.membership && data?.name && data?.supportsAliases) {
     options.push(
       h(MenuOption, {
-        value: menuChoice('manage-aliases'),
+        value: 'manage-aliases' as const,
         ['children' as any]: h(MenuOptionContent, {
           icon: 'link-variant',
           text: t('connections.menu.manage_aliases.label'),
@@ -210,7 +200,7 @@ function createRoomMenuOptions(targetPeer: any) {
 
   options.push(
     h(MenuOption, {
-      value: menuChoice('disconnect'),
+      value: 'disconnect' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'pipe-disconnected',
         text: t('connections.menu.disconnect.label'),
@@ -222,7 +212,7 @@ function createRoomMenuOptions(targetPeer: any) {
   );
   options.push(
     h(MenuOption, {
-      value: menuChoice('disconnect-forget'),
+      value: 'disconnect-forget' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'delete',
         text: t('connections.menu.disconnect_forget.label'),
@@ -239,7 +229,7 @@ function createRoomMenuOptions(targetPeer: any) {
 function createStagingMenuOptions() {
   return [
     h(MenuOption, {
-      value: menuChoice('open-profile'),
+      value: 'open-profile' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'account-circle',
         text: t('connections.menu.open_profile.label'),
@@ -249,7 +239,7 @@ function createStagingMenuOptions() {
       }),
     }),
     h(MenuOption, {
-      value: menuChoice('connect'),
+      value: 'connect' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'pipe',
         text: t('connections.menu.connect.label'),
@@ -264,7 +254,7 @@ function createStagingMenuOptions() {
 function createInviteMenuOptions() {
   return [
     h(MenuOption, {
-      value: menuChoice('invite-info'),
+      value: 'invite-info' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'information',
         text: t('connections.menu.invite_info.label'),
@@ -274,7 +264,7 @@ function createInviteMenuOptions() {
       }),
     }),
     h(MenuOption, {
-      value: menuChoice('invite-note'),
+      value: 'invite-note' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'pencil',
         text: t('connections.menu.invite_note.label'),
@@ -284,7 +274,7 @@ function createInviteMenuOptions() {
       }),
     }),
     h(MenuOption, {
-      value: menuChoice('invite-share'),
+      value: 'invite-share' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'share',
         text: t('connections.menu.invite_share.label'),
@@ -294,7 +284,7 @@ function createInviteMenuOptions() {
       }),
     }),
     h(MenuOption, {
-      value: menuChoice('invite-delete'),
+      value: 'invite-delete' as const,
       ['children' as any]: h(MenuOptionContent, {
         icon: 'delete',
         text: t('connections.menu.invite_delete.label'),
