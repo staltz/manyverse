@@ -37,7 +37,7 @@
     "ssb-conn": "5.1.0",
     "ssb-db2": "2.1.4",
     "ssb-deweird": "1.0.0",
-    "ssb-ebt": "7.0.1",
+    "ssb-ebt": "7.0.2",
     "ssb-friends": "5.0.0",
     "ssb-http-auth-client": "0.6.0",
     "ssb-http-invite-client": "0.1.0",
