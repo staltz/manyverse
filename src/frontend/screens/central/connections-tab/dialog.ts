@@ -12,29 +12,10 @@ import {PeerKV} from '../../../ssb/types';
 const Ref = require('ssb-ref');
 
 export type Actions = {
-  noteDhtInvite$: Stream<any>;
   signInRoom$: Stream<PeerKV>;
 };
 
 export default function dialog(actions: Actions, dialogSource: DialogSource) {
-  const addNoteFromDialog$ = actions.noteDhtInvite$
-    .map(() =>
-      dialogSource.prompt(
-        t('connections.notes.add.title'),
-        t('connections.notes.add.description'),
-        {
-          contentColor: Palette.colors.comet6,
-          positiveColor: Palette.colors.comet8,
-          positiveText: t('call_to_action.add'),
-          negativeColor: Palette.colors.comet8,
-          negativeText: t('call_to_action.cancel'),
-        },
-      ),
-    )
-    .flatten()
-    .filter((res) => res.action === 'actionPositive')
-    .map((res) => (res as any).text as string);
-
   // Client-initiated SSB HTTP Auth
   const confirmedSignInRoom$ = actions.signInRoom$
     .map(([addr, data]) => {
@@ -65,7 +46,6 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
     .flatten();
 
   return {
-    addNoteFromDialog$,
     confirmedSignInRoom$,
   };
 }

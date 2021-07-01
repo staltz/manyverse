@@ -22,7 +22,6 @@ cd ./nodejs-assets/nodejs-project;
 #      remove unused packages such as sodium-browserify etc
 #   leveldown: newer versions of leveldown are intentionally ignoring
 #      nodejs-mobile support, so we run an older version
-#   utp-native: we want to compile for nodejs-mobile instead of using prebuilds
 #   node-extend: can't remember why we need to replace it, build seemed to fail
 #   ssb-keys: we use ssb-keys-neon for better performance in Rust
 #   ssb-keys-mnemonic: we use ssb-keys-mnemonic-neon for better performance
@@ -41,7 +40,6 @@ $(npm bin)/noderify \
   --replace.leveldown=leveldown-nodejs-mobile \
   --replace.ssb-keys=ssb-keys-neon \
   --replace.ssb-keys-mnemonic=ssb-keys-mnemonic-neon \
-  --replace.utp-native=utp-native-nodejs-mobile \
   --replace.node-extend=xtend \
   --replace.non-private-ip=non-private-ip-android \
   --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \

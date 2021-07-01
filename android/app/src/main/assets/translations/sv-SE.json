@@ -101,28 +101,24 @@
       "title": "Anslutning kan göras på olika sätt",
       "description": {
         "ios": {
-          "1_normal": "För att ansluta till dina vänners enheter och synkronisera innehåll så kan du antingen: vara uppkopplad på samma ",
+          "1_normal": "För att ansluta till dina vänners enheter och synkronisera innehåll så kan du antingen vara uppkopplad på samma ",
           "2_bold": "trådlösa Wi-Fi-nätverk",
-          "3_normal": " eller utbyta ",
-          "4_bold": "P2P-inbjudningar",
+          "3_normal": ". För att hitta nya vänner på internet, håll utkik efter en inbjudningskod till en ",
+          "4_bold": "pub-server",
+          "5_normal": " eller en ",
+          "6_bold": "rum-server",
+          "7_normal": ", eller starta din egen server!"
+        },
+        "default": {
+          "1_normal": "För att ansluta till dina vänners enheter och synkronisera innehåll, kan du antingen: vara uppkopplad på samma ",
+          "2_bold": "trådlösa Wi-Fi-nätverk",
+          "3_normal": ", eller använda ",
+          "4_bold": "Bluetooth-synkronisering",
           "5_normal": ". För att hitta nya vänner på internet, håll utkik efter en inbjudningskod till en ",
           "6_bold": "pub-server",
           "7_normal": " eller en ",
           "8_bold": "rum-server",
           "9_normal": ", eller starta din egen server!"
-        },
-        "default": {
-          "1_normal": "För att ansluta till dina vänners enheter och synkronisera innehåll, kan du antingen: vara uppkopplad på samma ",
-          "2_bold": "trådlösa Wi-Fi-nätverk",
-          "3_normal": ", använda ",
-          "4_bold": "Bluetooth-synkronisering",
-          "5_normal": ", eller utbyta ",
-          "6_bold": "P2P-inbjudningar",
-          "7_normal": ". För att hitta nya vänner på internet, håll utkik efter en inbjudningskod till en ",
-          "8_bold": "pub-server",
-          "9_normal": " eller en ",
-          "10_bold": "rum-server",
-          "11_normal": ", eller starta din egen server!"
         }
       }
     },
@@ -294,12 +290,7 @@
         "bluetooth": "Bluetooth",
         "lan": "trådlöst Wi-Fi-nätverk",
         "dht": {
-          "connected": "Internet-P2P",
-          "staging": {
-            "host": "Internet-P2P: väntar på uppkopplad vän...",
-            "client": "Internet-P2P: letar efter uppkopplad vän...",
-            "unknown": "Internet-P2P: letar..."
-          }
+          "connected": "Internet-P2P"
         },
         "room": {
           "server": "Rum-server",
@@ -334,15 +325,6 @@
         "accessibility_label": "trådlöst nätverksläge",
         "disabled": "(Slå på Wi-Fi för att använda detta)",
         "description": "Anslut till vänner vars enheter befinner sig på samma lokala nätverk (LAN), för mobila enheter samma trådlösa nätverk (WLAN, eller Wifi)."
-      },
-      "p2p": {
-        "title": "Internet-P2P",
-        "accessibility_label": "Internet P2P-läge",
-        "disabled": "(Anslut till Internet för att använda detta)",
-        "description": "Anslut direk till vänner som är uppkopplade på Internet, genom en peer-to-peer (P2P)-teknik som kallas \"Distribuerad Hash-Tabell\" (DHT).",
-        "connecting": "Ansluter via Internet-P2P...",
-        "searching_friend": "Söker och försöker ansluta till den Internetuppkopplade vän som skapade denna inbjudningskod.",
-        "waiting_friend": "Väntar på att en Internetansluten vän ska använda denna inbjudningskod och försöka ansluta till oss."
       },
       "servers": {
         "title": "Internet-servrar",
@@ -426,11 +408,6 @@
       }
     },
     "share_code": {
-      "p2p": {
-        "title": "Inbjudningskod till Manyverse",
-        "message": "Häng med mig på Manyverse genom att klistra in följande inbjudningskod där:",
-        "dialog_note": "Ge den här inbjudningskoden till en vän"
-      },
       "room": {
         "title": "Inbjudningskod till ett SSB-rum",
         "message": "Häng med mig i SSB-rummet {{name}} genom att klistra in följande inbjudningskod i Manyverse:",
@@ -619,27 +596,6 @@
       }
     }
   },
-  "invite_create": {
-    "loading": "laddar...",
-    "call_to_action": {
-      "share": {
-        "accessibility_label": "Dela inbjudningskod"
-      }
-    },
-    "invite_code": {
-      "accessibility_label": "Inbjudningskod"
-    },
-    "share_info": {
-      "1_normal": "Ge den här inbjudningskoden till ",
-      "2_bold": "en",
-      "3_normal": " vän"
-    },
-    "sync_info": {
-      "1_normal": "Synkroniserar när ",
-      "2_bold": "båda",
-      "3_normal": " är anslutna till Internet"
-    }
-  },
   "invite_paste": {
     "placeholder": "Klistra in en inbjudningskod",
     "call_to_action": {
@@ -649,6 +605,10 @@
     },
     "text_field": {
       "accessibility_label": "Fält för inmatning av inbjudningskod"
+    },
+    "alert_unsupported_dht": {
+      "title": "Unsupported type",
+      "description": "P2P Invites are no longer supported in Manyverse."
     }
   },
   "libraries": {

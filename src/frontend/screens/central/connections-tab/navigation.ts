@@ -13,7 +13,6 @@ import {Screens} from '../../enums';
 import {navOptions as profileScreenNavOptions} from '../../profile';
 import {Props as ProfileProps} from '../../profile/props';
 import {navOptions as pasteInviteScreenNavOptions} from '../../invite-paste';
-import {navOptions as createInviteScreenNavOptions} from '../../invite-create';
 import {navOptions as manageAliasScreenNavOpts} from '../../alias-manage/layout';
 import {Props as ManageAliasesProps} from '../../alias-manage/props';
 import {State} from './model';
@@ -21,7 +20,6 @@ import {State} from './model';
 export type Actions = {
   goToPeerProfile$: Stream<FeedId>;
   goToPasteInvite$: Stream<any>;
-  goToCreateInvite$: Stream<any>;
   goToManageAliases$: Stream<any>;
 };
 
@@ -62,19 +60,6 @@ export default function navigation(
       } as Command),
   );
 
-  const toCreateInvite$ = actions.goToCreateInvite$.map(
-    () =>
-      ({
-        type: 'push',
-        layout: {
-          component: {
-            name: Screens.InviteCreate,
-            options: createInviteScreenNavOptions,
-          },
-        },
-      } as Command),
-  );
-
   const toManageAliases$ = actions.goToManageAliases$
     .compose(sample(state$))
     .map(
@@ -93,10 +78,5 @@ export default function navigation(
         } as Command),
     );
 
-  return xs.merge(
-    toProfile$,
-    toPasteInvite$,
-    toCreateInvite$,
-    toManageAliases$,
-  );
+  return xs.merge(toProfile$, toPasteInvite$, toManageAliases$);
 }

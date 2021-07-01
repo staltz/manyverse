@@ -101,28 +101,24 @@
       "title": "Viele Verbindungsmöglichkeiten",
       "description": {
         "ios": {
-          "1_normal": "Um sich mit Freunden zu verbinden und Inhalte zu synchronisieren, können Sie entweder: dem gleichen ",
+          "1_normal": "Um sich mit Freunden zu verbinden und Inhalte zu synchronisieren, können Sie entweder dem gleichen ",
           "2_bold": "WLAN",
-          "3_normal": " oder austauschen ",
-          "4_bold": "P2P Einladungen",
-          "5_normal": ". Um neue Leute im Internet zu finden schaue nach einem Einladungscode zu einem ",
-          "6_bold": "Pub-Server",
-          "7_normal": " oder einem ",
-          "8_bold": "Raumserver",
-          "9_normal": " oder erstelle Deinen eigenen Server!"
+          "3_normal": ". Um neue Leute im Internet zu finden schaue nach einem Einladungscode zu einem ",
+          "4_bold": "Pub-Server",
+          "5_normal": " oder einem ",
+          "6_bold": "Raumserver",
+          "7_normal": " oder erstelle Deinen eigenen Server!"
         },
         "default": {
           "1_normal": "Um sich mit Freunden zu verbinden und Inhalte zu synchronisieren, können Sie entweder: dem gleichen ",
           "2_bold": "WLAN beitreten",
-          "3_normal": ", ",
+          "3_normal": ", oder ",
           "4_bold": "via Bluetooth synchronisieren",
-          "5_normal": ", oder ",
-          "6_bold": "P2P Einladungen austauschen",
-          "7_normal": ". Um neue Leute im Internet zu finden, schaue nach einem Einladungscode zu einem ",
-          "8_bold": "Pub-Server",
-          "9_normal": " oder einem ",
-          "10_bold": "Raum-Server",
-          "11_normal": ", oder erstelle einen eigenen Server!"
+          "5_normal": ". Um neue Leute im Internet zu finden, schaue nach einem Einladungscode zu einem ",
+          "6_bold": "Pub-Server",
+          "7_normal": " oder einem ",
+          "8_bold": "Raum-Server",
+          "9_normal": ", oder erstelle einen eigenen Server!"
         }
       }
     },
@@ -294,12 +290,7 @@
         "bluetooth": "Bluetooth",
         "lan": "WLAN",
         "dht": {
-          "connected": "Internet P2P",
-          "staging": {
-            "host": "Internet P2P: Warte auf Online-Freund...",
-            "client": "Internet P2P: Suche nach Online-Freund...",
-            "unknown": "Internet P2P: Suche..."
-          }
+          "connected": "Internet P2P"
         },
         "room": {
           "server": "Raumserver",
@@ -334,15 +325,6 @@
         "accessibility_label": "WLAN-Modus",
         "disabled": "(WLAN einschalten, um dies zu verwenden)",
         "description": "Verbinden Sie sich mit Freunden im gleichen Local Area Network, anders gesagt, mit Freunden im gleichen WLAN."
-      },
-      "p2p": {
-        "title": "Internet P2P",
-        "accessibility_label": "Internet P2P Modus",
-        "disabled": "(Baue eine Internetverbindung auf um dies zu benutzen)",
-        "description": "Verbinde Dich direkt mit Freunden, die momentan online sind über eine Peer-to-Peer Technologie namens \"Distributed Hash Table\" (DHT).",
-        "connecting": "Verbinde über Internet P2P...",
-        "searching_friend": "Suche nach Onlinefreund, der diesen Einladungscode ausgestellt hat, um eine Datenverbindung zwischen Euch herzustellen.",
-        "waiting_friend": "Momentan wartend auf einen Onlinefreund, dass dieser seinen Einladungscode einlöst und eine Datenverbindung herstellt."
       },
       "servers": {
         "title": "Internet-Server",
@@ -426,11 +408,6 @@
       }
     },
     "share_code": {
-      "p2p": {
-        "title": "Manyverse Einladungscode",
-        "message": "Verbinde Dich mit mir auf Manyverse, indem Du diesen Einladungscode dort einfügst:",
-        "dialog_note": "Gib diesen Einladungscode einem Freund"
-      },
       "room": {
         "title": "Einladungscode für einen SSB Raum",
         "message": "Schließe dich mir im SSB-Raum {{name}} an, indem du diesen Einladungscode in Manyverse einfügst:",
@@ -619,27 +596,6 @@
       }
     }
   },
-  "invite_create": {
-    "loading": "lade...",
-    "call_to_action": {
-      "share": {
-        "accessibility_label": "Einladungscode teilen"
-      }
-    },
-    "invite_code": {
-      "accessibility_label": "Einladungscode"
-    },
-    "share_info": {
-      "1_normal": "Gib diesen Einladungscode an ",
-      "2_bold": "einen",
-      "3_normal": " Freund"
-    },
-    "sync_info": {
-      "1_normal": "Ihr werdet synchronisieren, wenn ",
-      "2_bold": "Ihr beide",
-      "3_normal": " online seid"
-    }
-  },
   "invite_paste": {
     "placeholder": "Einladungscode einfügen",
     "call_to_action": {
@@ -649,6 +605,10 @@
     },
     "text_field": {
       "accessibility_label": "Einladungscode Eingabefeld"
+    },
+    "alert_unsupported_dht": {
+      "title": "Unsupported type",
+      "description": "P2P Invites are no longer supported in Manyverse."
     }
   },
   "libraries": {

@@ -101,28 +101,24 @@
       "title": "Bağlanmanın birçok yolu",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
+          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
           "2_bold": "Wi-Fi",
-          "3_normal": " or exchange ",
-          "4_bold": "P2P invites",
+          "3_normal": ". To find new people on the internet, look for an invite code to a ",
+          "4_bold": "pub server",
+          "5_normal": " or a ",
+          "6_bold": "room server",
+          "7_normal": ", or start your own server!"
+        },
+        "default": {
+          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
+          "2_bold": "Wi-Fi",
+          "3_normal": ", or use ",
+          "4_bold": "Bluetooth sync",
           "5_normal": ". To find new people on the internet, look for an invite code to a ",
           "6_bold": "pub server",
           "7_normal": " or a ",
           "8_bold": "room server",
-          "9_normal": "veya kendi sunucunuzu başlatın!"
-        },
-        "default": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ", or exchange ",
-          "6_bold": "P2P invites",
-          "7_normal": ". To find new people on the internet, look for an invite code to a ",
-          "8_bold": "pub server",
-          "9_normal": " or a ",
-          "10_bold": "room server",
-          "11_normal": "veya kendi sunucunuzu başlatın!"
+          "9_normal": ", or start your own server!"
         }
       }
     },
@@ -294,12 +290,7 @@
         "bluetooth": "Bluetooth",
         "lan": "Wi-Fi",
         "dht": {
-          "connected": "İnternet P2P",
-          "staging": {
-            "host": "İnternet P2P: çevrimiçi arkadaş bekleniyor...",
-            "client": "İnternet P2P: çevrimiçi arkadaş aranıyor...",
-            "unknown": "İnternet P2P: aranıyor..."
-          }
+          "connected": "İnternet P2P"
         },
         "room": {
           "server": "Oda sunucusu",
@@ -334,15 +325,6 @@
         "accessibility_label": "Wi-Fi modu",
         "disabled": "(Bunu kullanmak için Wi-Fi açın)",
         "description": "Aynı ağdaki arkadaşlarınızla, diğer bir deyişle aynı Wi-Fi kullanan arkadaşlarınızla bağlantı kurun."
-      },
-      "p2p": {
-        "title": "İnternet P2P",
-        "accessibility_label": "İnternet P2P modu",
-        "disabled": "(Bunu kullanmak için çevrimiçi olun)",
-        "description": "\"Distributed Hash Table\" adlı eşler arası teknolojiyi kullanarak çevrimiçi doğrudan arkadaşlarınıza bağlanın.",
-        "connecting": "İnternet üzerinden P2P olarak bağlanıyor...",
-        "searching_friend": "Şu anda bu davet kodunu oluşturan çevrimiçi arkadaşınızı aramak, onlarla veri bağlantısı kurmak için.",
-        "waiting_friend": "Şu anda çevrimiçi arkadaşınızın bu davet kodunu talep etmesi ve veri bağlantısı kurması bekleniyor."
       },
       "servers": {
         "title": "İnternet sunucuları",
@@ -426,11 +408,6 @@
       }
     },
     "share_code": {
-      "p2p": {
-        "title": "Manyverse Davet Kodu",
-        "message": "Bu davet kodunu buraya yapıştırarak Manyverse'te benimle bağlantı kurun:",
-        "dialog_note": "Bu davet kodunu bir arkadaşınıza verin"
-      },
       "room": {
         "title": "SSB Odası Davet Kodu",
         "message": "Bu davet kodunu Manyverse'e yapıştırarak {{name}} SSB Odasında bana katılın:",
@@ -619,27 +596,6 @@
       }
     }
   },
-  "invite_create": {
-    "loading": "yükleniyor...",
-    "call_to_action": {
-      "share": {
-        "accessibility_label": "Davet kodunu paylaş"
-      }
-    },
-    "invite_code": {
-      "accessibility_label": "Davet kodu"
-    },
-    "share_info": {
-      "1_normal": "Give this invite code to ",
-      "2_bold": "one",
-      "3_normal": " friend"
-    },
-    "sync_info": {
-      "1_normal": "You will sync when you are ",
-      "2_bold": "both",
-      "3_normal": " online"
-    }
-  },
   "invite_paste": {
     "placeholder": "Davet kodunu buraya girin",
     "call_to_action": {
@@ -649,6 +605,10 @@
     },
     "text_field": {
       "accessibility_label": "Davet kodu metin girişi"
+    },
+    "alert_unsupported_dht": {
+      "title": "Unsupported type",
+      "description": "P2P Invites are no longer supported in Manyverse."
     }
   },
   "libraries": {

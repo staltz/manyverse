@@ -9,7 +9,6 @@ import {Req} from '../../drivers/ssb';
 const roomUtils = require('ssb-room-client/utils');
 
 export type Actions = {
-  dhtDone$: Stream<string>;
   roomDone$: Stream<string>;
   normalDone$: Stream<string>;
 };
@@ -32,13 +31,5 @@ export default function ssb(actions: Actions) {
       } as Req),
   );
 
-  const acceptDhtInvite$ = actions.dhtDone$.map(
-    (inviteCode) =>
-      ({
-        type: 'dhtInvite.accept',
-        invite: inviteCode,
-      } as Req),
-  );
-
-  return xs.merge(acceptInvite$, acceptRoomInvite$, acceptDhtInvite$);
+  return xs.merge(acceptInvite$, acceptRoomInvite$);
 }

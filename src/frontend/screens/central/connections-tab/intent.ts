@@ -48,8 +48,6 @@ export default function intent(
 
     showLANHelp$: reactSource.select('lan-mode').events('press'),
 
-    showDHTHelp$: reactSource.select('dht-mode').events('press'),
-
     showPubHelp$: reactSource.select('pub-mode').events('press'),
 
     //#endregion
@@ -64,15 +62,7 @@ export default function intent(
       .select('list-of-peers')
       .events('pressRoom') as Stream<PeerKV>,
 
-    openStagedPeer$: reactSource
-      .select('list-of-peers')
-      .events('pressStaged')
-      .filter((peer: StagedPeerKV) => peer[1].type !== 'dht'),
-
-    openDHTStagedPeer$: reactSource
-      .select('list-of-peers')
-      .events('pressStaged')
-      .filter((peer: StagedPeerKV) => peer[1].type === 'dht'),
+    openStagedPeer$: reactSource.select('list-of-peers').events('pressStaged'),
 
     goToPeerProfile$: menuChoice$
       .filter((val) => val === 'open-profile')
@@ -120,35 +110,6 @@ export default function intent(
         };
       }),
 
-    infoClientDhtInvite$: menuChoice$
-      .filter((val) => val === 'invite-info')
-      .compose(sample(state$))
-      .filter((state) => state.itemMenu.target![1].role !== 'server')
-      .mapTo(null),
-
-    infoServerDhtInvite$: menuChoice$
-      .filter((val) => val === 'invite-info')
-      .compose(sample(state$))
-      .filter((state) => state.itemMenu.target![1].role === 'server')
-      .mapTo(null),
-
-    noteDhtInvite$: menuChoice$
-      .filter((val) => val === 'invite-note')
-      .mapTo(null),
-
-    shareDhtInvite$: menuChoice$
-      .filter((val) => val === 'invite-share')
-      .compose(sample(state$))
-      .map(
-        (state) =>
-          'dht:' + state.itemMenu.target![1].key + ':' + state.selfFeedId,
-      ),
-
-    removeDhtInvite$: menuChoice$
-      .filter((val) => val === 'invite-delete')
-      .compose(sample(state$))
-      .map((state) => state.itemMenu.target![1].key!),
-
     closeItemMenu$: xs
       .merge(
         back$.compose(sample(state$)).filter((state) => state.itemMenu.opened),
@@ -166,8 +127,6 @@ export default function intent(
     //#region FAB actions
 
     goToPasteInvite$: fabPress$.filter((action) => action === 'invite-paste'),
-
-    goToCreateInvite$: fabPress$.filter((action) => action === 'invite-create'),
 
     bluetoothSearch$: fabPress$
       .filter((action) => action === 'bluetooth-search')

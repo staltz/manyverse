@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,10 +12,7 @@ import {State} from './model';
 export type Actions = {
   showBluetoothHelp$: Stream<any>;
   showLANHelp$: Stream<any>;
-  showDHTHelp$: Stream<any>;
   showPubHelp$: Stream<any>;
-  infoClientDhtInvite$: Stream<any>;
-  infoServerDhtInvite$: Stream<any>;
 };
 
 export default function alert(
@@ -45,16 +42,6 @@ export default function alert(
             t('connections.modes.wifi.description'),
           buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
         }),
-        actions.showDHTHelp$.mapTo({
-          title: t('connections.modes.p2p.title'),
-          message:
-            (state.internetEnabled
-              ? t('connections.modes.generic.enabled')
-              : t('connections.modes.p2p.disabled')) +
-            '\n\n' +
-            t('connections.modes.p2p.description'),
-          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
-        }),
         actions.showPubHelp$.mapTo({
           title: t('connections.modes.servers.title'),
           message:
@@ -63,16 +50,6 @@ export default function alert(
               : t('connections.modes.servers.disabled')) +
             '\n\n' +
             t('connections.modes.servers.description'),
-          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
-        }),
-        actions.infoClientDhtInvite$.mapTo({
-          title: t('connections.modes.p2p.connecting'),
-          message: t('connections.modes.p2p.searching_friend'),
-          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
-        }),
-        actions.infoServerDhtInvite$.mapTo({
-          title: t('connections.modes.p2p.connecting'),
-          message: t('connections.modes.p2p.waiting_friend'),
           buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
         }),
       ),

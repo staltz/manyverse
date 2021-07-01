@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -20,20 +20,12 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
 
     const actions: Array<IActionProps> = [];
     if (state.internetEnabled) {
-      actions.push(
-        {
-          color: Palette.backgroundCTA,
-          name: 'invite-create',
-          icon: require('../../../../../images/share.png'),
-          text: t('connections.floating_action_button.create_invite'),
-        },
-        {
-          color: Palette.backgroundCTA,
-          name: 'invite-paste',
-          icon: require('../../../../../images/package-down.png'),
-          text: t('connections.floating_action_button.paste_invite'),
-        },
-      );
+      actions.push({
+        color: Palette.backgroundCTA,
+        name: 'invite-paste',
+        icon: require('../../../../../images/package-down.png'),
+        text: t('connections.floating_action_button.paste_invite'),
+      });
     }
 
     if (state.bluetoothEnabled) {

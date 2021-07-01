@@ -3,8 +3,8 @@
 
 const RECOVERY = require('./utils/recovery');
 
-module.exports = function(driver, t) {
-  t.test('Welcome screen displays the initial tutorial', async function(t) {
+module.exports = function (driver, t) {
+  t.test('Welcome screen displays the initial tutorial', async function (t) {
     await driver.sleep(3000);
 
     const title = 'Welcome to Manyverse!';
@@ -33,8 +33,8 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Welcome screen displays the off grid tutorial', async function(t) {
-    const title = 'Off-the-grid';
+  t.test('Welcome screen displays the off grid tutorial', async function (t) {
+    const title = 'Off the grid';
     const desc = 'Manyverse can use internet connectivity';
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
@@ -60,9 +60,9 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Welcome screen displays the multimodal tutorial', async function(t) {
+  t.test('Welcome screen displays the multimodal tutorial', async function (t) {
     const title = 'Many ways to connect';
-    const desc = 'To connect with friends and synchronize content';
+    const desc = 'To connect with friends nearby and synchronize content';
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().text("' + title + '")',
@@ -87,7 +87,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Welcome screen displays the moderation tutorial', async function(t) {
+  t.test('Welcome screen displays the moderation tutorial', async function (t) {
     const title = 'Shared moderation';
     const desc = 'Because your device holds your social network';
     t.ok(
@@ -114,7 +114,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Welcome screen displays the permanence tutorial', async function(t) {
+  t.test('Welcome screen displays the permanence tutorial', async function (t) {
     const title = 'Permanence';
     const desc = 'Once your content is synchronized with friends';
     t.ok(
@@ -143,7 +143,7 @@ module.exports = function(driver, t) {
 
   t.test(
     'Welcome screen displays the work-in-progress tutorial',
-    async function(t) {
+    async function (t) {
       const title = 'In construction!';
       const desc = 'Manyverse is beta-quality software';
       t.ok(
@@ -171,7 +171,7 @@ module.exports = function(driver, t) {
     },
   );
 
-  t.test('Welcome screen displays the account prompt', async function(t) {
+  t.test('Welcome screen displays the account prompt', async function (t) {
     const title = 'Is this your first time?';
     const desc = 'Do you want to create a new account';
     t.ok(
@@ -206,7 +206,7 @@ module.exports = function(driver, t) {
     t.end();
   });
 
-  t.test('Secret input screen asks for recovery phrase', async function(t) {
+  t.test('Secret input screen asks for recovery phrase', async function (t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().textContains("CAREFULLY INPUT YOUR RECOVERY PHRASE")',

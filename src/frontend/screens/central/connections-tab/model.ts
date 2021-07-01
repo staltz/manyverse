@@ -7,13 +7,11 @@
 import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
-import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Platform} from 'react-native';
 import {SSBSource} from '../../../drivers/ssb';
 import {State as AppState} from '../../../drivers/appstate';
 import {PeerKV, StagedPeerKV} from '../../../ssb/types';
 import {NetworkSource} from '../../../drivers/network';
-import {noteStorageKeyFor} from './asyncstorage';
 
 export type State = {
   selfFeedId: FeedId;
@@ -41,7 +39,6 @@ export type Actions = {
   openPeerInConnection$: Stream<PeerKV>;
   openStagedPeer$: Stream<StagedPeerKV>;
   openRoom$: Stream<PeerKV>;
-  openDHTStagedPeer$: Stream<StagedPeerKV>;
   connectPeer$: Stream<any>;
   disconnectPeer$: Stream<any>;
   disconnectForgetPeer$: Stream<any>;
@@ -51,12 +48,6 @@ export type Actions = {
   shareRoomInvite$: Stream<any>;
   closeItemMenu$: Stream<any>;
   goToPeerProfile$: Stream<any>;
-  infoClientDhtInvite$: Stream<any>;
-  infoServerDhtInvite$: Stream<any>;
-  noteDhtInvite$: Stream<any>;
-  shareDhtInvite$: Stream<any>;
-  removeDhtInvite$: Stream<any>;
-  addNoteFromDialog$: Stream<string>;
 };
 
 /**
@@ -80,7 +71,6 @@ function onlyWhileAppIsInForeground<T>(
 
 export default function model(
   actions: Actions,
-  asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
   networkSource: NetworkSource,
   appstate$: Stream<AppState>,
@@ -162,36 +152,12 @@ export default function model(
   const setStagedPeersReducer$ = onlyWhileAppIsInForeground(
     appstate$,
     () => ssbSource.stagedPeers$,
-  )
-    .map((stagedPeers) => {
-      const dhtInvites = stagedPeers
-        .filter(([_address, data]) => data.type === 'dht')
-        .map(noteStorageKeyFor);
-
-      if (dhtInvites.length === 0) {
-        const notes: Array<[string, string]> = [];
-        return xs.of([stagedPeers, notes]);
-      } else {
-        return asyncStorageSource
-          .multiGet(dhtInvites)
-          .map((keyValuePairs) => [stagedPeers, keyValuePairs]);
-      }
-    })
-    .flatten()
-    .map(
-      ([rawStagedPeers, notes]: [StagedPeerKV[], [string, string][]]) =>
-        function setPeersReducer(prev: State): State {
-          const stagedPeers: Array<StagedPeerKV> = rawStagedPeers.map(
-            (peer) => {
-              const key = peer[1].key;
-              const noteKV = notes.find(([k, v]) => k.endsWith(key) && !!v);
-              if (!noteKV) return peer;
-              return [peer[0], {...peer[1], note: noteKV[1]}] as StagedPeerKV;
-            },
-          );
-          return {...prev, stagedPeers, timestampStagedPeers: Date.now()};
-        },
-    );
+  ).map(
+    (stagedPeers) =>
+      function setPeersReducer(prev: State): State {
+        return {...prev, stagedPeers, timestampStagedPeers: Date.now()};
+      },
+  );
 
   const openConnMenuReducer$ = actions.openPeerInConnection$.map(
     (peer) =>
@@ -236,21 +202,6 @@ export default function model(
       },
   );
 
-  const openInviteMenuReducer$ = actions.openDHTStagedPeer$.map(
-    (peer) =>
-      function openInviteMenuReducer(prev: State): State {
-        return {
-          ...prev,
-          itemMenu: {
-            opened: true,
-            type: 'invite',
-            target: peer,
-          },
-          latestInviteMenuTarget: peer,
-        };
-      },
-  );
-
   const closeMenuReducer$ = xs
     .merge(
       actions.closeItemMenu$,
@@ -262,11 +213,6 @@ export default function model(
       actions.goToManageAliases$,
       actions.shareRoomInvite$,
       actions.signInRoom$,
-      actions.infoClientDhtInvite$,
-      actions.infoServerDhtInvite$,
-      actions.noteDhtInvite$,
-      actions.shareDhtInvite$,
-      actions.removeDhtInvite$,
     )
     .mapTo(function closeMenuReducer(prev: State): State {
       return {
@@ -274,20 +220,6 @@ export default function model(
         itemMenu: {...prev.itemMenu, opened: false},
       };
     });
-
-  const addNoteFromDialogReducer$ = actions.addNoteFromDialog$.map(
-    (note) =>
-      function addNoteFromDialogReducer(prev: State): State {
-        if (!prev.latestInviteMenuTarget) return prev;
-        const stagedPeers: Array<StagedPeerKV> = prev.stagedPeers.map((kv) => {
-          const [addr, peer] = kv;
-          return peer.key === prev.latestInviteMenuTarget![1].key
-            ? ([addr, {...peer, note}] as StagedPeerKV)
-            : kv;
-        });
-        return {...prev, stagedPeers, timestampStagedPeers: Date.now()};
-      },
-  );
 
   return xs.merge(
     initReducer$,
@@ -300,8 +232,6 @@ export default function model(
     openConnMenuReducer$,
     openStagingMenuReducer$,
     openRoomMenuReducer$,
-    openInviteMenuReducer$,
     closeMenuReducer$,
-    addNoteFromDialogReducer$,
   );
 }

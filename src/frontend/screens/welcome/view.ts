@@ -165,8 +165,6 @@ function connectionsSlide(state: State) {
           t('welcome.connections.description.ios.5_normal'),
           bold(t('welcome.connections.description.ios.6_bold')),
           t('welcome.connections.description.ios.7_normal'),
-          bold(t('welcome.connections.description.ios.8_bold')),
-          t('welcome.connections.description.ios.9_normal'),
           ' ',
           h(
             Text,
@@ -184,8 +182,6 @@ function connectionsSlide(state: State) {
           t('welcome.connections.description.default.7_normal'),
           bold(t('welcome.connections.description.default.8_bold')),
           t('welcome.connections.description.default.9_normal'),
-          bold(t('welcome.connections.description.default.10_bold')),
-          t('welcome.connections.description.default.11_normal'),
           ' ',
           h(
             Text,

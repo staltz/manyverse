@@ -179,10 +179,7 @@ export function central(sources: Sources): Sinks {
 
   const ssb$ = xs.merge(publicTabSinks.ssb, connectionsTabSinks.ssb);
 
-  const storageCommand$ = xs.merge(
-    connectionsTabSinks.asyncstorage,
-    publicTabSinks.asyncstorage,
-  );
+  const storageCommand$ = publicTabSinks.asyncstorage;
 
   return {
     screen: vdom$,

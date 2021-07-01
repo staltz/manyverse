@@ -110,14 +110,6 @@ export default {
     thread: 'source',
     threadUpdates: 'source',
   },
-  dhtInvite: {
-    start: 'async',
-    create: 'async',
-    use: 'async',
-    accept: 'async',
-    remove: 'async',
-    hostingInvites: 'source',
-  },
   bluetooth: {
     nearbyScuttlebuttDevices: 'source',
     bluetoothScanState: 'source',

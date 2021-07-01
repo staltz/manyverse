@@ -9,7 +9,6 @@ import {Req} from '../../../drivers/ssb';
 import {StagedPeerKV} from '../../../ssb/types';
 
 export type Actions = {
-  removeDhtInvite$: Stream<string>;
   bluetoothSearch$: Stream<any>;
   connectPeer$: Stream<StagedPeerKV>;
   disconnectPeer$: Stream<string>;
@@ -20,9 +19,6 @@ export type Actions = {
 
 export default function ssb(actions: Actions) {
   return xs.merge(
-    actions.removeDhtInvite$.map(
-      (invite) => ({type: 'dhtInvite.remove', invite} as Req),
-    ),
     actions.connectPeer$.map(
       (peer) =>
         ({

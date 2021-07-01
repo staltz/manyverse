@@ -93,40 +93,6 @@ export function peerModeDescription(data: KV[1]): string {
   }
 }
 
-// TODO remove this when we rewrite ssb-dht-invite to make use of CONN
-export function peerModeStagedDescription(peer: KV[1]): string {
-  const type = detectType(peer);
-  switch (type) {
-    case 'bt':
-      return t('connections.peers.types.bluetooth');
-
-    case 'lan':
-      return t('connections.peers.types.lan');
-
-    case 'dht':
-      if (peer.role === 'client')
-        return t('connections.peers.types.dht.staging.client');
-      else if (peer.role === 'server')
-        return t('connections.peers.types.dht.staging.host');
-      else return t('connections.peers.types.dht.staging.unknown');
-
-    case 'room-attendant':
-      return t('connections.peers.types.room.endpoint');
-
-    case 'room':
-      return t('connections.peers.types.room.server');
-
-    case 'pub':
-      return t('connections.peers.types.pub');
-
-    case 'internet':
-      return t('connections.peers.types.server');
-
-    default:
-      return t('connections.peers.types.unknown');
-  }
-}
-
 export function peerModeName(addr: KV[0], data: KV[1]): string {
   const type = detectType(data);
   const secondary =
@@ -134,7 +100,7 @@ export function peerModeName(addr: KV[0], data: KV[1]): string {
     type === 'lan' ||
     type === 'dht' ||
     type === 'room-attendant'
-      ? data.note || data.key
+      ? data.key
       : addr;
   return (data as any).name ?? secondary;
 }

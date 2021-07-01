@@ -250,24 +250,9 @@ module.exports = function (driver, t) {
     t.end();
   });
 
-  t.test('Thread screen allows saving draft reply on exit', async function (t) {
+  t.test('Thread screen auto-saves draft reply', async function (t) {
     await driver.back();
     t.pass('I press the (hardware) back button');
-
-    t.ok(
-      await driver.elementByAndroidUIAutomator(
-        'new UiSelector().textContains("Save reply draft")',
-      ),
-      'I see a dialog prompt asking to save the draft',
-    );
-
-    const saveButton = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().textMatches("(Save|SAVE)")',
-      6000,
-    );
-    t.ok(saveButton, 'I see the Save button');
-    await saveButton.click();
-    t.pass('I tap it');
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
@@ -331,104 +316,6 @@ module.exports = function (driver, t) {
       ),
       'I see the reply message in the thread',
     );
-
-    t.end();
-  });
-
-  t.test('Compose screen allows deleting draft when exiting', async function (
-    t,
-  ) {
-    const replyTextInput = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Reply Text Input")',
-      6000,
-    );
-    t.ok(replyTextInput, 'I see the Reply Text Input (on the Thread Screen)');
-    await replyTextInput.click();
-    await replyTextInput.keys('I actually hate');
-    t.pass('I type a partial reply');
-
-    const backButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Back Button")',
-      6000,
-    );
-    t.ok(backButton, 'I see the back button');
-    await backButton.click();
-    t.pass('I tap it');
-
-    t.ok(
-      await driver.elementByAndroidUIAutomator(
-        'new UiSelector().textContains("Save reply draft")',
-      ),
-      'I see a dialog prompt asking to save the draft',
-    );
-
-    const deleteButton = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().textMatches("(Delete|DELETE)")',
-      6000,
-    );
-    t.ok(deleteButton, 'I see the Delete button');
-    await deleteButton.click();
-    t.pass('I tap it');
-
-    t.ok(
-      await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("Public posts")',
-        6000,
-      ),
-      'I see the Central screen',
-    );
-
-    t.ok(
-      await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("Do you like dogs")',
-        6000,
-      ),
-      'I see the thread in the feed',
-    );
-
-    let replyButton;
-    try {
-      replyButton = await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("Do you like dogs")' +
-          '.fromParent(new UiSelector().descriptionContains("Reply Button"))',
-        3000,
-      );
-    } catch (err) {
-      replyButton = await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().descriptionContains("Reply Button")',
-        6000,
-      );
-    }
-    t.ok(replyButton, 'I see the reply button on that thread');
-    await replyButton.click();
-    t.pass('I tap it');
-
-    const replyTextInput2 = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Reply Text Input")',
-      6000,
-    );
-    t.ok(replyTextInput2, 'I see the Reply Text Input (on the Thread Screen)');
-    replyTextInput2.click();
-    const f2 = await replyTextInput2.text();
-    t.equal(f2, 'Comment', 'Its text content is the placeholder (hence empty)');
-
-    try {
-      await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("I actually hate")',
-        1000,
-      );
-      t.fail('Should not have seen the deleted draft reply');
-    } catch (err) {
-      t.pass('I dont see the deleted draft reply in the thread');
-    }
-
-    const backButton2 = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Back Button")',
-      6000,
-    );
-    t.ok(backButton2, 'I see the back button');
-    await backButton2.click();
-    t.pass('I tap it');
 
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(

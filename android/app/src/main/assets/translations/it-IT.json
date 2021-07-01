@@ -101,28 +101,24 @@
       "title": "Tanti modi per connettersi",
       "description": {
         "ios": {
+          "1_normal": "Per connetterti con gli amici e sincronizzare i contenuti, potete unirvi allo stesso ",
+          "2_bold": "Wi-Fi",
+          "3_normal": ". Per trovare nuove persone su internet, cerca un codice di invito su un ",
+          "4_bold": "pub server",
+          "5_normal": " o su un ",
+          "6_bold": "room server",
+          "7_normal": ", o avvia il tuo server!"
+        },
+        "default": {
           "1_normal": "Per connetterti con gli amici e sincronizzare i contenuti, potete: unirvi allo stesso ",
           "2_bold": "Wi-Fi",
-          "3_normal": " o scambiare ",
-          "4_bold": "Inviti P2P",
+          "3_normal": ", o usare ",
+          "4_bold": "la sincronizzazione Bluetooth",
           "5_normal": ". Per trovare nuove persone su internet, cerca un codice di invito su un ",
           "6_bold": "pub server",
           "7_normal": " o su un ",
           "8_bold": "room server",
           "9_normal": ", o avvia il tuo server!"
-        },
-        "default": {
-          "1_normal": "Per connetterti con gli amici e sincronizzare i contenuti, potete: unirvi allo stesso ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", usare ",
-          "4_bold": "la sincronizzazione Bluetooth",
-          "5_normal": ", o scambiare ",
-          "6_bold": "inviti P2P",
-          "7_normal": ". Per trovare nuove persone su internet, cerca un codice di invito su un ",
-          "8_bold": "pub server",
-          "9_normal": " o su un ",
-          "10_bold": "room server",
-          "11_normal": ", o avvia il tuo server!"
         }
       }
     },
@@ -294,12 +290,7 @@
         "bluetooth": "Bluetooth",
         "lan": "Wi-Fi",
         "dht": {
-          "connected": "Internet P2P",
-          "staging": {
-            "host": "Internet P2P: in attesa di un amico online...",
-            "client": "Internet P2P: alla ricerca di un amico online...",
-            "unknown": "Internet P2P: cercando..."
-          }
+          "connected": "Internet P2P"
         },
         "room": {
           "server": "Room server",
@@ -334,15 +325,6 @@
         "accessibility_label": "Modalità Wi-Fi",
         "disabled": "(Attiva il Wi-Fi per usarlo)",
         "description": "Connettiti con gli amici nella stessa rete locale, in altre parole, con lo stesso Wi-Fi."
-      },
-      "p2p": {
-        "title": "Internet P2P",
-        "accessibility_label": "Modalità Internet P2P",
-        "disabled": "(Connettiti a internet per usarlo)",
-        "description": "Connettiti direttamente agli amici attualmente online, utilizzando una tecnologia peer-to-peer chiamata \"Distributed Hash Table\".",
-        "connecting": "Connettendo via internet P2P...",
-        "searching_friend": "Alla ricerca dell'amico online che ha generato questo codice di invito per stabilire una connessione dati con lui.",
-        "waiting_friend": "In attesa che un amico online richieda questo codice di invito per stabilire una connessione dati."
       },
       "servers": {
         "title": "Server di Internet",
@@ -426,11 +408,6 @@
       }
     },
     "share_code": {
-      "p2p": {
-        "title": "Codice d'invito di Manyverse",
-        "message": "Connettiti con me su Manyverse incollando questo codice d'invito:",
-        "dialog_note": "Dai questo codice d'invito ad un amico"
-      },
       "room": {
         "title": "Codice d'invito d'una stanza SSB",
         "message": "Unisciti a me nella stanza SSB {{name}} incollando questo codice d'invito in Manyverse:",
@@ -619,27 +596,6 @@
       }
     }
   },
-  "invite_create": {
-    "loading": "caricamento...",
-    "call_to_action": {
-      "share": {
-        "accessibility_label": "Condividi il codice d'invito"
-      }
-    },
-    "invite_code": {
-      "accessibility_label": "Codice d'invito"
-    },
-    "share_info": {
-      "1_normal": "Give this invite code to ",
-      "2_bold": "one",
-      "3_normal": " friend"
-    },
-    "sync_info": {
-      "1_normal": "You will sync when you are ",
-      "2_bold": "entrambi",
-      "3_normal": " in linea"
-    }
-  },
   "invite_paste": {
     "placeholder": "Incolla un codice d'invito",
     "call_to_action": {
@@ -649,6 +605,10 @@
     },
     "text_field": {
       "accessibility_label": "Invite Code Text Input"
+    },
+    "alert_unsupported_dht": {
+      "title": "Unsupported type",
+      "description": "P2P Invites are no longer supported in Manyverse."
     }
   },
   "libraries": {

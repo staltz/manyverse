@@ -4,17 +4,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command as AlertCommand} from 'cycle-native-alert';
 import {ReactSource} from '@cycle/react';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SharedContent} from 'cycle-native-share';
-import {
-  Command as StorageCommand,
-  AsyncStorageSource,
-} from 'cycle-native-asyncstorage';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {State as AppState} from '../../../drivers/appstate';
 import {NetworkSource} from '../../../drivers/network';
@@ -28,14 +24,12 @@ import model, {State} from './model';
 import floatingAction from './fab';
 import alert from './alert';
 import ssb from './ssb';
-import asyncStorage from './asyncstorage';
 import dialog from './dialog';
 import navigation from './navigation';
 
 export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
-  asyncstorage: AsyncStorageSource;
   appstate: Stream<AppState>;
   state: StateSource<State>;
   network: NetworkSource;
@@ -47,7 +41,6 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  asyncstorage: Stream<StorageCommand>;
   alert: Stream<AlertCommand>;
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
@@ -68,10 +61,8 @@ export function connectionsTab(sources: Sources): Sinks {
   const dialogActions = dialog(actions, sources.dialog);
   const actionsPlus = {...actions, ...dialogActions};
   const command$ = navigation(actionsPlus, sources.state.stream);
-  const storageCommand$ = asyncStorage(sources.state.stream);
   const reducer$ = model(
     actionsPlus,
-    sources.asyncstorage,
     sources.ssb,
     sources.network,
     sources.appstate,
@@ -81,21 +72,12 @@ export function connectionsTab(sources: Sources): Sinks {
   const alert$ = alert(actionsPlus, sources.state.stream);
   const vdom$ = view(sources.state.stream);
 
-  const share$ = xs.merge(
-    actionsPlus.shareDhtInvite$.map((inviteCode) => ({
-      title: t('connections.share_code.p2p.title'),
-      message: t('connections.share_code.p2p.message') + '\n\n' + inviteCode,
-      dialogTitle: t('connections.share_code.p2p.dialog_note'),
-    })),
-    actionsPlus.shareRoomInvite$.map(({invite, room}) => ({
-      title: t('connections.share_code.room.title'),
-      message:
-        t('connections.share_code.room.message', {name: room}) +
-        '\n\n' +
-        invite,
-      dialogTitle: t('connections.share_code.room.dialog_note'),
-    })),
-  );
+  const share$ = actionsPlus.shareRoomInvite$.map(({invite, room}) => ({
+    title: t('connections.share_code.room.title'),
+    message:
+      t('connections.share_code.room.message', {name: room}) + '\n\n' + invite,
+    dialogTitle: t('connections.share_code.room.dialog_note'),
+  }));
 
   const inviteToast$: Stream<Toast> = sources.ssb.acceptInviteResponse$.map(
     (res) => {
@@ -123,7 +105,6 @@ export function connectionsTab(sources: Sources): Sinks {
   return {
     alert: alert$,
     navigation: command$,
-    asyncstorage: storageCommand$,
     screen: vdom$,
     state: reducer$,
     fab: fabProps$,

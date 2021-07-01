@@ -85,44 +85,40 @@
     "learn_more": "Learn more",
     "overview": {
       "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial and built on trust between friends. This is what Manyverse stands for and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
     },
     "off_the_grid": {
-      "title": "Off-the-grid",
+      "title": "Off the grid",
       "description": {
         "1_normal": "Manyverse can use internet connectivity, but it's not ",
         "2_bold": "on",
         "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is initially stored just on your device",
-        "5_normal": " and you can synchronize it with friends once you connect with them."
+        "4_bold": "content is stored first on your device",
+        "5_normal": ", and you can synchronize it with friends once you connect with them."
       }
     },
     "connections": {
       "title": "Many ways to connect",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
+          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
           "2_bold": "Wi-Fi",
-          "3_normal": " or exchange ",
-          "4_bold": "P2P invites",
+          "3_normal": ". To find new people on the internet, look for an invite code to a ",
+          "4_bold": "pub server",
+          "5_normal": " or a ",
+          "6_bold": "room server",
+          "7_normal": ", or start your own server!"
+        },
+        "default": {
+          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
+          "2_bold": "Wi-Fi",
+          "3_normal": ", or use ",
+          "4_bold": "Bluetooth sync",
           "5_normal": ". To find new people on the internet, look for an invite code to a ",
           "6_bold": "pub server",
           "7_normal": " or a ",
           "8_bold": "room server",
           "9_normal": ", or start your own server!"
-        },
-        "default": {
-          "1_normal": "To connect with friends and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": " or exchange ",
-          "6_bold": "P2P invites",
-          "7_normal": ". To find new people on the internet, look for an invite code to a ",
-          "8_bold": "pub server",
-          "9_normal": " or a ",
-          "10_bold": "room server",
-          "11_normal": " or start your own server!"
         }
       }
     },
@@ -131,13 +127,13 @@
       "description": {
         "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
         "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. That way moderation can spread naturally!"
+        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
       }
     },
     "permanence": {
       "title": "Permanence",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they'll hold a copy of it on their devices. Because they could go offline after that, it is ",
+        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "not possible to delete",
         "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
       }
@@ -263,7 +259,7 @@
       },
       "connecting": {
         "title": "Connecting",
-        "description": "Please wait while the app is\nattempting to connect to your peers"
+        "description": "Wait while the app is\nattempting to connect to your peers"
       },
       "no_peers": {
         "title": "No connections",
@@ -294,12 +290,7 @@
         "bluetooth": "Bluetooth",
         "lan": "Wi-Fi",
         "dht": {
-          "connected": "Internet P2P",
-          "staging": {
-            "host": "Internet P2P: waiting for online friend...",
-            "client": "Internet P2P: looking for online friend...",
-            "unknown": "Internet P2P: searching..."
-          }
+          "connected": "Internet P2P"
         },
         "room": {
           "server": "Room server",
@@ -326,7 +317,7 @@
         "description": "Discover users nearby and connect with them using Bluetooth.",
         "permission_request": {
           "title": "Allow locating via Bluetooth?",
-          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and which peers are around you."
+          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
         }
       },
       "wifi": {
@@ -334,15 +325,6 @@
         "accessibility_label": "Wi-Fi Mode",
         "disabled": "(Turn on Wi-Fi to use this)",
         "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
-      },
-      "p2p": {
-        "title": "Internet P2P",
-        "accessibility_label": "Internet P2P Mode",
-        "disabled": "(Go online to use this)",
-        "description": "Connect directly to friends currently online, using a peer-to-peer technology called \"Distributed Hash Table\".",
-        "connecting": "Connecting via internet P2P...",
-        "searching_friend": "Currently searching for online friend who generated this invite code, to establish a data connection with them.",
-        "waiting_friend": "Currently waiting for online friend to claim this invite code and establish a data connection."
       },
       "servers": {
         "title": "Internet servers",
@@ -380,14 +362,14 @@
       "disconnect_forget": {
         "label": "Disconnect and forget",
         "accessibility_label": {
-          "peer": "Disconnect from this peer and remove it from my database",
-          "room": "Disconnect from this room and remove it from my database"
+          "peer": "Disconnect from this peer and remove it from our database",
+          "room": "Disconnect from this room and remove it from our database"
         }
       },
       "forget": {
         "label": "Forget",
         "accessibility_label": {
-          "room": "Remove this room from my database"
+          "room": "Remove this room from our database"
         }
       },
       "manage_aliases": {
@@ -426,11 +408,6 @@
       }
     },
     "share_code": {
-      "p2p": {
-        "title": "Manyverse Invite Code",
-        "message": "Connect with me on Manyverse by pasting this invite code there:",
-        "dialog_note": "Give this invite code to one friend"
-      },
       "room": {
         "title": "Invite code to an SSB Room",
         "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
@@ -619,27 +596,6 @@
       }
     }
   },
-  "invite_create": {
-    "loading": "loading...",
-    "call_to_action": {
-      "share": {
-        "accessibility_label": "Share Invite Code"
-      }
-    },
-    "invite_code": {
-      "accessibility_label": "Invite Code"
-    },
-    "share_info": {
-      "1_normal": "Give this invite code to ",
-      "2_bold": "one",
-      "3_normal": " friend"
-    },
-    "sync_info": {
-      "1_normal": "You will sync when you are ",
-      "2_bold": "both",
-      "3_normal": " online"
-    }
-  },
   "invite_paste": {
     "placeholder": "Paste an invite code",
     "call_to_action": {
@@ -649,6 +605,10 @@
     },
     "text_field": {
       "accessibility_label": "Invite Code Text Input"
+    },
+    "alert_unsupported_dht": {
+      "title": "Unsupported type",
+      "description": "P2P Invites are no longer supported in Manyverse."
     }
   },
   "libraries": {
@@ -893,7 +853,7 @@
           "title": "Incorrect",
           "description": {
             "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
-            "overwrite_risk": "There is already an account in the app. It cannot be overwritten. If you are sure you want to get rid of it, uninstall and re-install Manyverse to recover your account from a clean state.",
+            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
             "too_short": "There are some words missing. Your recovery phrase should be 24 words long.",
             "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
             "wrong_length": "Your recovery phrase should be exactly 24 words long.",

@@ -75,7 +75,6 @@ export class SSBSource {
   public migrationProgress$: Stream<number>;
   public indexingProgress$: Stream<number>;
   public acceptInviteResponse$: Stream<true | string>;
-  public acceptDhtInviteResponse$: Stream<true | string>;
   public consumeAliasResponse$: Stream<FeedId | false>;
   public connStarted$: Stream<void>;
   public peers$: Stream<Array<PeerKV>>;
@@ -140,7 +139,6 @@ export class SSBSource {
     );
 
     this.acceptInviteResponse$ = xs.create<true | string>();
-    this.acceptDhtInviteResponse$ = xs.create<true | string>();
     this.connStarted$ = xs.create<void>();
     this.consumeAliasResponse$ = xs.create<FeedId>();
 
@@ -398,10 +396,6 @@ export class SSBSource {
     );
   }
 
-  public createDhtInvite$(): Stream<string> {
-    return this.fromCallback<string>((ssb, cb) => ssb.dhtInvite.create(cb));
-  }
-
   public getMentionSuggestions(text: string | null, authors: Array<FeedId>) {
     const opts: Record<string, any> = {limit: 10};
     if (!!text) opts.text = text;
@@ -463,16 +457,6 @@ export interface PublishAboutReq {
 
 export interface AcceptInviteReq {
   type: 'invite.accept';
-  invite: string;
-}
-
-export interface AcceptDhtInviteReq {
-  type: 'dhtInvite.accept';
-  invite: string;
-}
-
-export interface RemoveDhtInviteReq {
-  type: 'dhtInvite.remove';
   invite: string;
 }
 
@@ -553,8 +537,6 @@ export type Req =
   | PublishReq
   | PublishAboutReq
   | AcceptInviteReq
-  | AcceptDhtInviteReq
-  | RemoveDhtInviteReq
   | SearchBluetoothReq
   | ConnStartReq
   | ConnConnectReq
@@ -619,9 +601,6 @@ async function consumeSink(
       if (req.type === 'conn.start') {
         const [err1] = await runAsync(ssb.conn.start)();
         if (err1) return console.error(err1.message || err1);
-
-        const [err2] = await runAsync(ssb.dhtInvite.start)();
-        if (err2) return console.error(err2.message || err2);
 
         const [err3] = await runAsync(ssb.suggest.start)();
         if (err3) return console.error(err3.message || err3);
@@ -716,20 +695,6 @@ async function consumeSink(
             if (err) return console.error(err.message || err);
           });
         }
-        return;
-      }
-
-      if (req.type === 'dhtInvite.accept') {
-        ssb.dhtInvite.accept(req.invite, (err: any) => {
-          source.acceptDhtInviteResponse$._n(err ? err.message || err : true);
-        });
-        return;
-      }
-
-      if (req.type === 'dhtInvite.remove') {
-        ssb.dhtInvite.remove(req.invite, (err: any) => {
-          if (err) return console.error(err.message || err);
-        });
         return;
       }
 

@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {PeerKV, StagedPeerKV} from '../types';
+import {PeerKV} from '../types';
 import {Callback} from 'pull-stream';
 import run = require('promisify-tuple');
 import {imageToImageUrl} from '../utils/from-ssb';
@@ -14,9 +14,6 @@ const pull = require('pull-stream');
 const cat = require('pull-cat');
 const backoff = require('pull-backoff');
 const switchMap = require('pull-switch-map');
-const combineLatest = require('pull-combine-latest');
-
-type HostingDhtInvite = {seed: string; claimer: string; online: boolean};
 
 type SSB = ClientAPI<
   typeof manifest & {
@@ -111,35 +108,11 @@ const connUtils = {
       },
 
       stagedPeers() {
-        const connStagedPeers = pull(
+        return pull(
           ssb.conn.stagedPeers(),
           pull.map(removeOlderDuplicates),
           pull.asyncMap(augmentPeersWithExtras(ssb)),
         );
-
-        //#region DHT-related hacks (TODO ideally this should go through CONN)
-        const hostingDHT = pull(
-          cat([pull.values([[]]), ssb.dhtInvite.hostingInvites()]),
-          pull.map((invites: Array<HostingDhtInvite>) =>
-            invites
-              .filter((invite) => !invite.online)
-              .map(
-                ({seed}) =>
-                  [
-                    `dht:${seed}:${ssb.id}`,
-                    {key: seed, type: 'dht', role: 'server'},
-                  ] as StagedPeerKV,
-              ),
-          ),
-        );
-
-        const stagedTotal = pull(
-          combineLatest(connStagedPeers, hostingDHT),
-          pull.map(([as, bs]: any) => [...as, ...bs]),
-        );
-        //#endregion
-
-        return stagedTotal;
       },
     };
   },

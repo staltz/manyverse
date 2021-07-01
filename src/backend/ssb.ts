@@ -66,14 +66,12 @@ const config = makeConfig('ssb', {
   connections: {
     incoming: {
       net: [{scope: 'private', transform: 'shs', port: 26831}],
-      dht: [{scope: 'public', transform: 'shs', port: 26832}],
       channel: [{scope: 'device', transform: 'noauth'}],
       bluetooth: [{scope: 'public', transform: 'shs'}],
       tunnel: [{scope: 'public', transform: 'shs'}],
     },
     outgoing: {
       net: [{transform: 'shs'}],
-      dht: [{transform: 'shs'}],
       ws: [{transform: 'shs'}],
       bluetooth: [{scope: 'public', transform: 'shs'}],
       tunnel: [{transform: 'shs'}],
@@ -102,7 +100,6 @@ SecretStack()
   .use(require('ssb-room-client')) // needs: conn
   .use(require('ssb-http-auth-client')) // needs: conn
   .use(require('ssb-http-invite-client'))
-  .use(require('ssb-dht-invite')) // needs: db2, friends, conn
   .use(require('ssb-invite-client')) // needs: db2, conn
   // Queries
   .use(require('ssb-db2/about-self')) // needs: db2

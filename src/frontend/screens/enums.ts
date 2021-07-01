@@ -17,7 +17,6 @@ export enum Screens {
   RecipientsInput = 'Manyverse.RecipientsInput',
   Libraries = 'Manyverse.Libraries',
   InvitePaste = 'Manyverse.Invite.Paste',
-  InviteCreate = 'Manyverse.Invite.Create',
   Profile = 'Manyverse.Profile',
   ProfileEdit = 'Manyverse.Profile.Edit',
   AliasManage = 'Manyverse.Alias.Manage',

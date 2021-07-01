@@ -101,28 +101,24 @@
       "title": "Veel manieren om verbinding te maken",
       "description": {
         "ios": {
+          "1_normal": "Om te verbinden met vrienden en inhoud te synchroniseren, kunt u neem deel aan dezelfde ",
+          "2_bold": "Wi-Fi",
+          "3_normal": ". Om nieuwe mensen op het internet te vinden, zoek je naar een uitnodigingscode voor een ",
+          "4_bold": "pubserver",
+          "5_normal": " of een ",
+          "6_bold": "roomserver",
+          "7_normal": ", of start je eigen server!"
+        },
+        "default": {
           "1_normal": "Om te verbinden met vrienden en inhoud te synchroniseren, kunt u: neem deel aan dezelfde ",
           "2_bold": "Wi-Fi",
-          "3_normal": " of wissel uit ",
-          "4_bold": "P2P-uitnodigingen",
+          "3_normal": ", of gebruik ",
+          "4_bold": "Bluetooth sync",
           "5_normal": ". Om nieuwe mensen op het internet te vinden, zoek je naar een uitnodigingscode voor een ",
           "6_bold": "pubserver",
           "7_normal": " of een ",
           "8_bold": "roomserver",
           "9_normal": ", of start je eigen server!"
-        },
-        "default": {
-          "1_normal": "Om te verbinden met vrienden en inhoud te synchroniseren, kunt u: neem deel aan dezelfde ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", gebruik ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ", of wissel uit ",
-          "6_bold": "P2P-uitnodigingen",
-          "7_normal": ". Om nieuwe mensen op het internet te vinden, zoek je naar een uitnodigingscode voor een ",
-          "8_bold": "pubserver",
-          "9_normal": " of een ",
-          "10_bold": "roomserver",
-          "11_normal": ", of start je eigen server!"
         }
       }
     },
@@ -294,12 +290,7 @@
         "bluetooth": "Bluetooth",
         "lan": "Wi-Fi",
         "dht": {
-          "connected": "Internet P2P",
-          "staging": {
-            "host": "Internet P2P: wachten op een online vriend...",
-            "client": "Internet P2P: Zoeken naar een online vriend...",
-            "unknown": "Internet P2P: zoeken..."
-          }
+          "connected": "Internet P2P"
         },
         "room": {
           "server": "Kamer server",
@@ -334,15 +325,6 @@
         "accessibility_label": "Wi-Fi modus",
         "disabled": "(Schakel Wi-Fi in om dit te gebruiken)",
         "description": "Verbind met vrienden in hetzelfde lokale netwerk, met andere woorden, vrienden met dezelfde Wi-Fi."
-      },
-      "p2p": {
-        "title": "Internet P2P",
-        "accessibility_label": "Internet P2P-modus",
-        "disabled": "(Ga online om dit te gebruiken)",
-        "description": "Verbind direct met vrienden die nu online zijn, met behulp van peer-to-peer technologie genaamd \"Distributed Hash Table\".",
-        "connecting": "Verbinden met internet P2P...",
-        "searching_friend": "Nu aan het zoeken naar een online vriend die deze uitnodigingscode heeft gegenereerd, om een gegevensverbinding met hen op te zetten.",
-        "waiting_friend": "Momenteel aan het wachten op een online vriend om deze uitnodigingscode te claimen en een gegevensverbinding op te zetten."
       },
       "servers": {
         "title": "Internetservers",
@@ -426,11 +408,6 @@
       }
     },
     "share_code": {
-      "p2p": {
-        "title": "Manyverse Invite Code",
-        "message": "Maak verbinding met mij op Manyverse door deze uitnodigingscode daar te plakken:",
-        "dialog_note": "Geef deze uitnodigingscode aan één vriend"
-      },
       "room": {
         "title": "Uitnodigingscode voor een SSB-kamer",
         "message": "Sluit je aan bij de SSB room {{name}} door deze uitnodigingscode te plakken in Manyverse:",
@@ -619,27 +596,6 @@
       }
     }
   },
-  "invite_create": {
-    "loading": "laden...",
-    "call_to_action": {
-      "share": {
-        "accessibility_label": "Deel uitnodigingscode"
-      }
-    },
-    "invite_code": {
-      "accessibility_label": "Uitnodigingscode"
-    },
-    "share_info": {
-      "1_normal": "Geef deze uitnodigingscode aan ",
-      "2_bold": "één",
-      "3_normal": " vriend"
-    },
-    "sync_info": {
-      "1_normal": "Je synchroniseert wanneer je ",
-      "2_bold": "beide",
-      "3_normal": " online"
-    }
-  },
   "invite_paste": {
     "placeholder": "Plak een uitnodigingscode",
     "call_to_action": {
@@ -649,6 +605,10 @@
     },
     "text_field": {
       "accessibility_label": "Uitnodigingscode tekstinvoer"
+    },
+    "alert_unsupported_dht": {
+      "title": "Unsupported type",
+      "description": "P2P Invites are no longer supported in Manyverse."
     }
   },
   "libraries": {

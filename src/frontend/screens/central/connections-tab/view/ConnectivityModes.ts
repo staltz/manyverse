@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -136,14 +136,6 @@ export default class ConnectivityModes extends Component<
         active: lanEnabled,
         icon: 'wifi',
         accessibilityLabel: t('connections.modes.wifi.accessibility_label'),
-        lastScanned: 0,
-      }),
-
-      h(ConnectivityMode, {
-        sel: 'dht-mode',
-        active: internetEnabled,
-        icon: 'account-network',
-        accessibilityLabel: t('connections.modes.p2p.accessibility_label'),
         lastScanned: 0,
       }),
 

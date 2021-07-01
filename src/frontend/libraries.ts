@@ -822,13 +822,6 @@ export default [
     homepage: 'https://github.com/staltz/ssb-deweird',
   },
   {
-    name: 'ssb-dht-invite',
-    type: 'library',
-    version: '1.12.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://gitlab.com/staltz/ssb-dht-invite#readme',
-  },
-  {
     name: 'ssb-ebt-fork-staltz',
     type: 'library',
     version: '5.6.7-1',
@@ -995,13 +988,6 @@ export default [
     version: '5.0.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/websockets/utf-8-validate',
-  },
-  {
-    name: 'utp-native-nodejs-mobile',
-    type: 'library',
-    version: '2.1.3-1',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/staltz/utp-native-nodejs-mobile#readme',
   },
   {
     name: 'xstream',
