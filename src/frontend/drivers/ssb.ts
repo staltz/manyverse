@@ -30,6 +30,7 @@ import {
   StagedPeerKV,
   ThreadSummaryWithExtras,
   Alias,
+  FirewallAttempt,
 } from '../ssb/types';
 import makeClient, {SSBClient} from '../ssb/client';
 import {imageToImageUrl} from '../ssb/utils/from-ssb';
@@ -68,6 +69,8 @@ export class SSBSource {
   public privateLiveUpdates$: Stream<MsgId>;
   public mentionsFeed$: Stream<GetReadable<MsgAndExtras>>;
   public mentionsFeedLive$: Stream<MsgId>;
+  public firewallAttempt$: Stream<GetReadable<FirewallAttempt>>;
+  public firewallAttemptLive$: Stream<FirewallAttempt>;
   public selfPublicRoots$: Stream<ThreadSummaryWithExtras>;
   public selfPrivateRootIdsLive$: Stream<MsgId>;
   public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
@@ -112,6 +115,14 @@ export class SSBSource {
 
     this.mentionsFeedLive$ = this.fromPullStream<MsgId>((ssb) =>
       ssb.dbUtils.mentionsMe({live: true, old: false}),
+    );
+
+    this.firewallAttempt$ = this.ssb$.map((ssb) => () =>
+      ssb.connFirewall.attempts({old: true, live: false}),
+    );
+
+    this.firewallAttemptLive$ = this.fromPullStream<FirewallAttempt>((ssb) =>
+      ssb.connFirewall.attempts({old: false, live: true}),
     );
 
     this.selfPublicRoots$ = this.fromPullStream<ThreadSummaryWithExtras>(

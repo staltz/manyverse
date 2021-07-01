@@ -80,3 +80,8 @@ export interface StagedPeerMetadata {
 export type StagedPeerKV = [string, StagedPeerMetadata];
 
 export type Alias = Required<Omit<AliasContent, 'type' | 'action'>>;
+
+export interface FirewallAttempt {
+  id: FeedId;
+  ts: number;
+}

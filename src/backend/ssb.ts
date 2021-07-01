@@ -56,6 +56,10 @@ const config = makeConfig('ssb', {
   },
   conn: {
     autostart: false,
+    firewall: {
+      rejectBlocked: true,
+      rejectUnknown: true,
+    },
   },
   friends: {
     hops: settingsUtils.readSync().hops ?? 2,
@@ -97,6 +101,7 @@ SecretStack()
   .use(require('ssb-lan'))
   .use(bluetoothTransport(keys, process.env.APP_DATA_DIR))
   .use(require('ssb-conn')) // needs: db2, friends, lan, bluetooth
+  .use(require('ssb-conn-firewall')) // needs: friends
   .use(require('ssb-room-client')) // needs: conn
   .use(require('ssb-http-auth-client')) // needs: conn
   .use(require('ssb-http-invite-client'))
@@ -115,6 +120,7 @@ SecretStack()
   .use(require('./plugins/connUtilsBack')) // needs: conn
   .use(require('./plugins/aboutSelf')) // needs: db2
   .use(require('./plugins/aliasUtils')) // needs: db2
+  .use(require('./plugins/resyncUtils')) // needs: db2, connFirewall
   .use(require('./plugins/publishUtilsBack')) // needs: db, blobs, blobsUtils
   .use(require('./plugins/friendsUtils')) // needs: db2
   .use(require('./plugins/keysUtils'))

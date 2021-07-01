@@ -17,6 +17,7 @@ export type State = {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
   selfAvatarUrl?: string;
+  reason?: 'connection-attempt';
   displayFeedId: FeedId;
   about: AboutAndExtras;
   aliases: Array<Alias>;
@@ -45,6 +46,7 @@ export default function model(
           selfFeedId: props.selfFeedId,
           selfAvatarUrl: props.selfAvatarUrl,
           displayFeedId: props.feedId,
+          reason: props.reason,
           lastSessionTimestamp: Infinity,
           getFeedReadable: null,
           about: {

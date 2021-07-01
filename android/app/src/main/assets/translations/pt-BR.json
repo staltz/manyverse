@@ -244,6 +244,13 @@
     "empty": {
       "title": "Nenhuma atividade",
       "description": "Quando as pessoas mencionam\nou seguem você, elas aparecem aqui"
+    },
+    "connection_attempt": {
+      "label": {
+        "1_normal": "",
+        "2_bold": "{{author}}",
+        "3_normal": " wants to connect"
+      }
     }
   },
   "connections": {
@@ -684,6 +691,10 @@
     },
     "floating_action_button": {
       "compose": "Escrever uma mensagem pública"
+    },
+    "dialog_friend_request": {
+      "title": "Friend request",
+      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     }
   },
   "profile_edit": {

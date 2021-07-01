@@ -20,7 +20,7 @@ import {
 import {propifyMethods} from 'react-propify-methods';
 import PullFlatList from 'pull-flat-list';
 import {Content, FeedId, Msg} from 'ssb-typescript';
-import {MsgAndExtras} from '../../../ssb/types';
+import {MsgAndExtras, FirewallAttempt} from '../../../ssb/types';
 import {GetReadable} from '../../../drivers/ssb';
 import {t} from '../../../drivers/localization';
 import EmptySection from '../../../components/EmptySection';
@@ -31,7 +31,7 @@ import {displayName} from '../../../ssb/utils/from-ssb';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../global-styles/palette';
 import LocalizedHumanTime from '../../../components/LocalizedHumanTime';
-import {State} from './model';
+import {ActivityItem, isMsg, State} from './model';
 import {styles} from './styles';
 
 const PullFlatList2 = propifyMethods(
@@ -47,7 +47,7 @@ const Touchable = Platform.select<any>({
 
 const Y_OFFSET_IS_AT_TOP = 10;
 
-interface ActivityProps {
+interface MsgActivityProps {
   msg: MsgAndExtras;
   onPress?: () => void;
 }
@@ -56,7 +56,7 @@ type MsgType =
   | Msg<NonNullable<Content>>['value']['content']['type']
   | undefined;
 
-class Activity extends PureComponent<ActivityProps> {
+class MsgActivity extends PureComponent<MsgActivityProps> {
   private renderActivityText(author: string, type: MsgType) {
     return h(
       Text,
@@ -152,13 +152,86 @@ class Activity extends PureComponent<ActivityProps> {
   }
 }
 
+interface AttemptActivityProps {
+  attempt: FirewallAttempt;
+  onPress?: () => void;
+}
+
+class ConnectionAttemptActivity extends PureComponent<AttemptActivityProps> {
+  public render() {
+    const {attempt, onPress} = this.props;
+    const author = attempt.id;
+    const timestamp = attempt.ts;
+
+    const touchableProps: any = {
+      onPress,
+    };
+    if (Platform.OS === 'android') {
+      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+    }
+
+    return h(View, [
+      h(Touchable, touchableProps, [
+        h(View, {style: styles.activityRow, pointerEvents: 'box-only'}, [
+          h(Avatar, {
+            url: null,
+            size: Dimensions.avatarSizeNormal,
+            style: styles.avatar,
+          }),
+
+          h(View, {style: styles.activityBody}, [
+            h(
+              Text,
+              {
+                key: 'a',
+                numberOfLines: 1,
+                ellipsizeMode: 'middle',
+                style: styles.activityText,
+              },
+              [
+                h(
+                  Text,
+                  {key: 'a1'},
+                  t('activity.connection_attempt.label.1_normal'),
+                ),
+                h(
+                  Text,
+                  {key: 'a2', style: styles.account},
+                  t('activity.connection_attempt.label.2_bold', {author}),
+                ),
+                h(
+                  Text,
+                  {key: 'a3'},
+                  t('activity.connection_attempt.label.3_normal'),
+                ),
+              ],
+            ),
+
+            h(View, {key: 'b', style: styles.activityMetatext}, [
+              h(Icon, {
+                key: 'icon',
+                size: Dimensions.iconSizeSmall,
+                color: Palette.textPositive,
+                name: 'plus-network',
+              }),
+              h(Text, {key: 't', style: styles.timestamp}, [
+                h(LocalizedHumanTime, {time: timestamp}),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ]);
+  }
+}
+
 interface MLProps {
-  getScrollStream: GetReadable<MsgAndExtras> | null;
-  // forceRefresh$: Stream<boolean>;
+  getScrollStream: GetReadable<ActivityItem> | null;
   scrollToTop$: Stream<any>;
   onRefresh?: () => void;
   onPressMention?: (ev: Msg) => void;
   onPressFollow?: (ev: FeedId) => void;
+  onPressConnectionAttempt?: (ev: FeedId) => void;
 }
 interface MLState {
   initialLoading: boolean;
@@ -187,6 +260,7 @@ class ActivityList extends PureComponent<MLProps, MLState> {
     const {
       onPressMention,
       onPressFollow,
+      onPressConnectionAttempt,
       getScrollStream,
       onRefresh,
       scrollToTop$,
@@ -220,17 +294,31 @@ class ActivityList extends PureComponent<MLProps, MLState> {
         title: t('activity.empty.title'),
         description: t('activity.empty.description'),
       }),
-      keyExtractor: (msg: MsgAndExtras, i: number) => msg.key ?? String(i),
+      keyExtractor: (item: ActivityItem, i: number) =>
+        String(
+          (item as Partial<MsgAndExtras>).key ??
+            (item as Partial<FirewallAttempt>).ts ??
+            i,
+        ),
       renderItem: ({item}: any) => {
-        const msg = item as MsgAndExtras;
-        return h(Activity, {
-          msg,
-          onPress: () => {
-            const type = msg.value.content?.type;
-            if (type === 'post') onPressMention?.(msg);
-            else if (type === 'contact') onPressFollow?.(msg.value.author);
-          },
-        });
+        const x = item as ActivityItem;
+        if (isMsg(x)) {
+          const msg = x;
+          return h(MsgActivity, {
+            msg,
+            onPress: () => {
+              const type = msg.value.content?.type;
+              if (type === 'post') onPressMention?.(msg);
+              else if (type === 'contact') onPressFollow?.(msg.value.author);
+            },
+          });
+        } else {
+          const attempt = x;
+          return h(ConnectionAttemptActivity, {
+            attempt,
+            onPress: () => onPressConnectionAttempt?.(attempt.id),
+          });
+        }
       },
     });
   }

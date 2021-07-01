@@ -130,6 +130,9 @@ export default {
     stop: 'sync',
     ping: 'duplex',
   },
+  connFirewall: {
+    attempts: 'source',
+  },
   roomClient: {
     consumeAliasUri: 'async',
     registerAlias: 'async',

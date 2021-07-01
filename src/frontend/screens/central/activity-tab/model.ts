@@ -7,19 +7,32 @@
 import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {GetReadable, SSBSource} from '../../../drivers/ssb';
-import {MsgAndExtras} from '../../../ssb/types';
+import {FirewallAttempt, MsgAndExtras} from '../../../ssb/types';
+const interleave = require('pull-sorted-interleave');
+
+export type ActivityItem = MsgAndExtras | FirewallAttempt;
 
 export type State = {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
   lastSessionTimestamp: number;
-  getActivityFeedReadable: GetReadable<MsgAndExtras> | null;
+  getActivityFeedReadable: GetReadable<ActivityItem> | null;
   isVisible: boolean;
   numOfUpdates: number;
 };
 
 interface Actions {
   refreshFeed$: Stream<any>;
+}
+
+export function isMsg(item: ActivityItem): item is MsgAndExtras {
+  return !!(item as MsgAndExtras).key;
+}
+
+function sortByDescendingTimestamp(a: ActivityItem, b: ActivityItem) {
+  const tsA = isMsg(a) ? a.timestamp : a.ts;
+  const tsB = isMsg(b) ? b.timestamp : b.ts;
+  return tsB - tsA;
 }
 
 export default function model(ssbSource: SSBSource, actions: Actions) {
@@ -30,17 +43,24 @@ export default function model(ssbSource: SSBSource, actions: Actions) {
   const initialWait$ = xs.periodic(5000).take(1);
 
   const setActivityFeedReducer$ = initialWait$
-    .map(() => ssbSource.mentionsFeed$)
+    .map(() => xs.combine(ssbSource.mentionsFeed$, ssbSource.firewallAttempt$))
     .flatten()
     .map(
-      (getReadable) =>
+      ([getMentionsSource, getAttemptsSource]) =>
         function setActivityFeedReducer(prev: State): State {
-          return {...prev, getActivityFeedReadable: getReadable};
+          const getActivityFeedReadable = () =>
+            interleave(
+              [getMentionsSource(), getAttemptsSource()],
+              sortByDescendingTimestamp,
+            );
+          return {...prev, getActivityFeedReadable};
         },
     );
 
   const incUpdatesReducer$ = initialWait$
-    .map(() => ssbSource.mentionsFeedLive$)
+    .map(() =>
+      xs.merge(ssbSource.mentionsFeedLive$, ssbSource.firewallAttemptLive$),
+    )
     .flatten()
     .mapTo(function incUpdatesReducer(prev: State): State {
       return {...prev, numOfUpdates: prev.numOfUpdates + 1};

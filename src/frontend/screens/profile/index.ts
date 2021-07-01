@@ -11,6 +11,7 @@ import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Command, NavSource} from 'cycle-native-navigation';
+import {Command as AlertCommand} from 'cycle-native-alert';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import {Toast, Duration as ToastDuration} from '../../drivers/toast';
@@ -23,6 +24,7 @@ import model, {State} from './model';
 import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
+import alert from './alert';
 export {navOptions} from './layout';
 import {Props as P} from './props';
 
@@ -44,6 +46,7 @@ export type Sinks = {
   state: Stream<Reducer<State>>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
+  alert: Stream<AlertCommand>;
   ssb: Stream<Req>;
 };
 
@@ -103,6 +106,8 @@ export function profile(sources: Sources): Sinks {
     copyCypherlinkSinks.clipboard,
   );
 
+  const alert$ = alert(state$);
+
   const consumeAliasRequest$ = actions.consumeAlias$.map(
     ({alias}) =>
       ({
@@ -147,6 +152,7 @@ export function profile(sources: Sources): Sinks {
     screen: vdom$,
     navigation: command$,
     state: reducer$,
+    alert: alert$,
     clipboard: clipboard$,
     toast: toast$,
     ssb: newContent$,

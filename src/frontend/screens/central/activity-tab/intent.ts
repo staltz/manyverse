@@ -21,9 +21,14 @@ export default function intent(reactSource: ReactSource) {
     .select('activityList')
     .events('pressFollow') as Stream<FeedId>;
 
+  const inspectConnectionAttempt$ = reactSource
+    .select('activityList')
+    .events('pressConnectionAttempt') as Stream<FeedId>;
+
   return {
     refreshFeed$,
     goToThread$,
     goToProfile$,
+    inspectConnectionAttempt$,
   };
 }

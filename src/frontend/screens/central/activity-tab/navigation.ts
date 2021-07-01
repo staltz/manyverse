@@ -21,6 +21,7 @@ import {Screens} from '../../enums';
 interface Actions {
   goToProfile$: Stream<FeedId>;
   goToThread$: Stream<Msg>;
+  inspectConnectionAttempt$: Stream<FeedId>;
 }
 
 export default function navigation(
@@ -71,5 +72,26 @@ export default function navigation(
       } as Command),
   );
 
-  return xs.merge(toThread$, toProfile$);
+  const toProfileAsConnectionAttempt$ = actions.inspectConnectionAttempt$
+    .compose(sampleCombine(state$))
+    .map(
+      ([feedId, state]) =>
+        ({
+          type: 'push',
+          layout: {
+            component: {
+              name: Screens.Profile,
+              passProps: {
+                selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
+                reason: 'connection-attempt',
+                feedId,
+              } as ProfileProps,
+              options: profileScreenNavOpts,
+            },
+          },
+        } as Command),
+    );
+
+  return xs.merge(toThread$, toProfile$, toProfileAsConnectionAttempt$);
 }
