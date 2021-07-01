@@ -38,7 +38,7 @@ module.exports = function (driver, t) {
     await continueButton.click();
     t.pass('I tap it');
 
-    var title = 'Off-the-grid';
+    var title = 'Off the grid';
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().text("' + title + '")',
@@ -200,45 +200,6 @@ module.exports = function (driver, t) {
       'I see the Public header in the Central screen',
     );
     await driver.sleep(3000);
-
-    const connectionsTabButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().descriptionContains("Connections Tab Button")',
-    );
-    t.ok(connectionsTabButton, 'I see the Connections Tab button');
-    await connectionsTabButton.click();
-    t.pass('I tap it');
-    t.ok(
-      await driver.elementByAndroidUIAutomator(
-        'new UiSelector().text("Connections")',
-      ),
-      'I see the Connections header in the Central screen',
-    );
-
-    const stagedPeer = await driver.elementByAndroidUIAutomator(
-      // FIXME: use an accessibility description instead
-      'new UiSelector().textContains("Wi-Fi")',
-    );
-    t.ok(stagedPeer, 'I see the LAN peer staged');
-    await stagedPeer.click();
-    t.pass('I tap it');
-
-    const openProfile = await driver.waitForElementByAndroidUIAutomator(
-      'new UiSelector().textContains("Open profile")',
-      6000,
-    );
-    t.ok(openProfile, 'I see a slide-in menu with "Open profile" option');
-    await openProfile.click();
-    t.pass('I tap it');
-
-    const followButton = await driver.elementByAndroidUIAutomator(
-      'new UiSelector().textContains("Follow")',
-    );
-    t.ok(followButton, 'I see the Follow Button');
-    await followButton.click();
-    t.pass('I tap it');
-
-    await driver.back();
-    t.pass('I press the (hardware) back button');
 
     const before = Date.now();
 

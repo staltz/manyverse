@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "secret-stack": "6.3.1",
-    "ssb-config": "3.4.5",
-    "ssb-caps": "1.1.0",
-    "ssb-replicate": "1.3.2",
-    "ssb-friends": "4.4.7",
-    "ssb-master": "1.0.3",
-    "ssb-db": "19.3.1",
-    "ssb-ebt": "6.0.0",
-    "ssb-logging": "1.0.0",
+    "secret-stack": "6.4.0",
     "ssb-blobs": "1.2.3",
-    "ssb-lan": "0.2.0",
-    "ssb-conn": "0.19.1"
+    "ssb-caps": "1.1.0",
+    "ssb-config": "3.4.5",
+    "ssb-conn": "5.1.0",
+    "ssb-db": "19.3.1",
+    "ssb-ebt": "7.0.2",
+    "ssb-friends": "5.0.0",
+    "ssb-lan": "1.0.0",
+    "ssb-logging": "1.0.0",
+    "ssb-master": "1.0.3",
+    "ssb-replication-scheduler": "1.0.0"
   }
 }
