@@ -11,7 +11,8 @@ export function displayName(name: string | undefined, id: FeedId): string {
   return name ?? shortFeedId(id);
 }
 
-function shortFeedId(feedId: FeedId): string {
+function shortFeedId(feedId: FeedId | undefined): string {
+  if (!feedId) return '?';
   return feedId.slice(0, 11) + '\u2026';
 }
 
