@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -196,11 +196,18 @@ export class DialogSource {
 export function dialogDriver(command$: Stream<Command>): DialogSource {
   command$.subscribe({
     next: (cmd) => {
-      if (cmd.type === 'dismiss') {
+      if (cmd.type === 'dismiss' && Platform.OS === 'android') {
         DialogAndroid.dismiss();
       }
+
       if (cmd.type === 'alert') {
-        DialogAndroid.alert(cmd.title, cmd.content, cmd.options);
+        if (Platform.OS === 'android') {
+          DialogAndroid.alert(cmd.title, cmd.content, cmd.options);
+        } else {
+          Alert.alert(cmd.title ?? '', cmd.content, [
+            {text: cmd.options?.positiveText ?? 'OK', onPress: () => {}},
+          ]);
+        }
       }
     },
   });
