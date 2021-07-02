@@ -58,18 +58,20 @@ export default function intent(
         .select('following')
         .events('press')
         .compose(sample(state$))
+        .filter((state) => !!state.following && state.following!.length > 0)
         .map((state) => ({
           title: t('profile.details.counters.following'),
-          accounts: state.following ?? [],
+          accounts: state.following!,
         })),
 
       reactSource
         .select('followers')
         .events('press')
         .compose(sample(state$))
+        .filter((state) => !!state.followers && state.followers!.length > 0)
         .map((state) => ({
           title: t('profile.details.counters.followers'),
-          accounts: state.followers ?? [],
+          accounts: state.followers!,
         })),
     ),
 
