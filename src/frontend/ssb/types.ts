@@ -72,7 +72,7 @@ export type PeerKV = ConnQueryPeer;
 
 export interface StagedPeerMetadata {
   key: string;
-  type: 'lan' | 'dht' | 'internet' | 'bt';
+  type: 'lan' | 'dht' | 'internet' | 'bt' | 'room-attendant' | 'room-endpoint';
   role?: 'client' | 'server';
   note?: string;
 }

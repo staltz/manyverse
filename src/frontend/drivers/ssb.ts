@@ -159,7 +159,7 @@ export class SSBSource {
 
     this.stagedPeers$ = this.fromPullStream<Array<StagedPeerKV>>((ssb) =>
       ssb.connUtils.stagedPeers(),
-    );
+    ).remember();
 
     this.bluetoothScanState$ =
       Platform.OS === 'ios' // TODO: remove this, because the backend checks too

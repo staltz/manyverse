@@ -159,6 +159,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         stagedPeers: [],
         timestampPeersAndRooms: 0,
         timestampStagedPeers: 0,
+        timestampPeerStates: 0,
         itemMenu: {opened: false, type: 'conn'},
         latestInviteMenuTarget: void 0,
       };

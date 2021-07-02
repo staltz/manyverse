@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,7 +11,6 @@ import {
   StyleSheet,
   ViewStyle,
   TouchableOpacity,
-  Animated,
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -35,17 +34,11 @@ const dotStyle: ViewStyle = {
 
 export const styles = StyleSheet.create({
   itemContainer: {
-    flex: 1,
     alignSelf: 'stretch',
     backgroundColor: Palette.backgroundText,
   },
 
   item: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
     flexDirection: 'row',
@@ -118,23 +111,29 @@ type RoomData = {
 
 type RoomKV = [string, RoomData];
 
-export type Props = {
+export default class RoomItem extends PureComponent<{
   room: RoomKV;
-  animVal: Animated.Value;
   onPressRoom?: (peer: RoomKV) => void;
-};
+}> {
+  public shouldComponentUpdate(nextProps: RoomItem['props']) {
+    const prevProps = this.props;
+    const [nextAddr, nextData] = nextProps.room;
+    const [prevAddr, prevData] = prevProps.room;
+    if (nextProps.onPressRoom !== prevProps.onPressRoom) return true;
+    if (nextAddr !== prevAddr) return true;
+    if (nextData.state !== prevData.state) return true;
+    if (nextData.onlineCount !== prevData.onlineCount) return true;
+    if (nextData.key !== prevData.key) return true;
+    if (nextData.type !== prevData.type) return true;
+    if (nextData.state !== prevData.state) return true;
+    if (nextData.name !== prevData.name) return true;
+    if (nextData.type !== prevData.type) return true;
+    return false;
+  }
 
-export default class RoomItem extends PureComponent<Props> {
   public render() {
-    const {animVal, room} = this.props;
+    const {room} = this.props;
     const [addr, data] = room;
-
-    const animatedOpacity = {
-      opacity: animVal.interpolate({
-        inputRange: [0, 0.75, 1],
-        outputRange: [0, 0, 1],
-      }),
-    };
 
     return h(
       TouchableOpacity,
@@ -149,49 +148,45 @@ export default class RoomItem extends PureComponent<Props> {
         activeOpacity: 0.5,
       },
       [
-        h(
-          Animated.View,
-          {style: [styles.item, animatedOpacity], pointerEvents: 'box-only'},
-          [
-            h(View, {style: styles.details}, [
-              h(View, {style: styles.row}, [
-                h(View, {
-                  style:
-                    data.state === 'connected'
-                      ? styles.connectedDot
-                      : data.state === 'disconnecting'
-                      ? styles.disconnectingDot
-                      : styles.connectingDot,
-                }),
-                h(Icon, {
-                  size: Dimensions.iconSizeSmall,
-                  color: Palette.textWeak,
-                  name: peerModeIcon(data as any),
-                }),
-                h(
-                  Text,
-                  {
-                    numberOfLines: 1,
-                    ellipsizeMode: 'tail',
-                    style: styles.name,
-                  },
-                  peerModeName(addr, data),
-                ),
-                typeof data.onlineCount === 'number'
-                  ? h(
-                      Text,
-                      {style: styles.onlineCount},
-                      data.onlineCount <= 1
-                        ? t('connections.peers.types.room.alone_online')
-                        : t('connections.peers.types.room.others_online', {
-                            count: data.onlineCount - 1,
-                          }),
-                    )
-                  : null,
-              ]),
+        h(View, {style: styles.item, pointerEvents: 'box-only'}, [
+          h(View, {style: styles.details}, [
+            h(View, {style: styles.row}, [
+              h(View, {
+                style:
+                  data.state === 'connected'
+                    ? styles.connectedDot
+                    : data.state === 'disconnecting'
+                    ? styles.disconnectingDot
+                    : styles.connectingDot,
+              }),
+              h(Icon, {
+                size: Dimensions.iconSizeSmall,
+                color: Palette.textWeak,
+                name: peerModeIcon(data as any),
+              }),
+              h(
+                Text,
+                {
+                  numberOfLines: 1,
+                  ellipsizeMode: 'tail',
+                  style: styles.name,
+                },
+                peerModeName(addr, data),
+              ),
+              typeof data.onlineCount === 'number'
+                ? h(
+                    Text,
+                    {style: styles.onlineCount},
+                    data.onlineCount <= 1
+                      ? t('connections.peers.types.room.alone_online')
+                      : t('connections.peers.types.room.others_online', {
+                          count: data.onlineCount - 1,
+                        }),
+                  )
+                : null,
             ]),
-          ],
-        ),
+          ]),
+        ]),
       ],
     );
   }

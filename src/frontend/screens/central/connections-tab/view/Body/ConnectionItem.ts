@@ -1,17 +1,16 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {PureComponent} from 'react';
+import {Component} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ViewStyle,
-  Animated,
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -35,17 +34,11 @@ const dotStyle: ViewStyle = {
 
 export const styles = StyleSheet.create({
   itemContainer: {
-    flex: 1,
     alignSelf: 'stretch',
     backgroundColor: Palette.backgroundText,
   },
 
   item: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
     flexDirection: 'row',
@@ -100,21 +93,29 @@ export const styles = StyleSheet.create({
   },
 });
 
-export default class ConnectionsItem extends PureComponent<{
+export default class ConnectionsItem extends Component<{
   peer: PeerKV;
-  animVal: Animated.Value;
   onPressPeer?: (peer: PeerKV) => void;
 }> {
-  public render() {
-    const {animVal, peer} = this.props;
-    const [addr, data] = peer;
+  public shouldComponentUpdate(nextProps: ConnectionsItem['props']) {
+    const prevProps = this.props;
+    const [nextAddr, nextData] = nextProps.peer;
+    const [prevAddr, prevData] = prevProps.peer;
+    if (nextProps.onPressPeer !== prevProps.onPressPeer) return true;
+    if (nextAddr !== prevAddr) return true;
+    if (nextData.imageUrl !== prevData.imageUrl) return true;
+    if (nextData.state !== prevData.state) return true;
+    if (nextData.key !== prevData.key) return true;
+    if (nextData.name !== prevData.name) return true;
+    if (nextData.type !== prevData.type) return true;
+    if (nextData.inferredType !== prevData.inferredType) return true;
+    if (nextData.source !== prevData.source) return true;
+    return false;
+  }
 
-    const animatedOpacity = {
-      opacity: animVal.interpolate({
-        inputRange: [0, 0.75, 1],
-        outputRange: [0, 0, 1],
-      }),
-    };
+  public render() {
+    const {peer} = this.props;
+    const [addr, data] = peer;
 
     return h(
       TouchableOpacity,
@@ -129,40 +130,36 @@ export default class ConnectionsItem extends PureComponent<{
         activeOpacity: 0.5,
       },
       [
-        h(
-          Animated.View,
-          {style: [styles.item, animatedOpacity], pointerEvents: 'box-only'},
-          [
-            h(Avatar, {
-              size: Dimensions.avatarSizeNormal,
-              url: data['imageUrl' as any],
-              style: styles.avatar,
-            }),
-            h(View, {
-              style:
-                data.state === 'connected'
-                  ? styles.connectedDot
-                  : data.state === 'disconnecting'
-                  ? styles.disconnectingDot
-                  : styles.connectingDot,
-            }),
-            h(View, {style: styles.details}, [
-              h(
-                Text,
-                {numberOfLines: 1, ellipsizeMode: 'middle', style: styles.name},
-                peerModeName(addr, data),
-              ),
-              h(View, {style: styles.mode}, [
-                h(Icon, {
-                  size: Dimensions.iconSizeSmall,
-                  color: Palette.textWeak,
-                  name: peerModeIcon(data),
-                }),
-                h(Text, {style: styles.modeText}, peerModeDescription(data)),
-              ]),
+        h(View, {style: styles.item, pointerEvents: 'box-only'}, [
+          h(Avatar, {
+            size: Dimensions.avatarSizeNormal,
+            url: data['imageUrl' as any],
+            style: styles.avatar,
+          }),
+          h(View, {
+            style:
+              data.state === 'connected'
+                ? styles.connectedDot
+                : data.state === 'disconnecting'
+                ? styles.disconnectingDot
+                : styles.connectingDot,
+          }),
+          h(View, {style: styles.details}, [
+            h(
+              Text,
+              {numberOfLines: 1, ellipsizeMode: 'middle', style: styles.name},
+              peerModeName(addr, data),
+            ),
+            h(View, {style: styles.mode}, [
+              h(Icon, {
+                size: Dimensions.iconSizeSmall,
+                color: Palette.textWeak,
+                name: peerModeIcon(data),
+              }),
+              h(Text, {style: styles.modeText}, peerModeDescription(data)),
             ]),
-          ],
-        ),
+          ]),
+        ]),
       ],
     );
   }

@@ -4,8 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {PureComponent} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native';
+import {Component} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../../../global-styles/palette';
@@ -16,17 +16,11 @@ import {peerModeName, peerModeIcon, peerModeDescription} from './utils';
 
 export const styles = StyleSheet.create({
   itemContainer: {
-    flex: 1,
     alignSelf: 'stretch',
     backgroundColor: Palette.backgroundTextWeak,
   },
 
   item: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
     flexDirection: 'row',
@@ -69,23 +63,24 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export default class StagedItem extends Component<{
   peer: StagedPeerKV;
-  animVal: Animated.Value;
   onPressStaged?: (peer: StagedPeerKV) => void;
-};
+}> {
+  public shouldComponentUpdate(nextProps: StagedItem['props']) {
+    const prevProps = this.props;
+    const [nextAddr, nextData] = nextProps.peer;
+    const [prevAddr, prevData] = prevProps.peer;
+    if (nextProps.onPressStaged !== prevProps.onPressStaged) return true;
+    if (nextAddr !== prevAddr) return true;
+    if (nextData.key !== prevData.key) return true;
+    if (nextData.type !== prevData.type) return true;
+    return false;
+  }
 
-export default class StagedItem extends PureComponent<Props> {
   public render() {
-    const {animVal, peer} = this.props;
+    const {peer} = this.props;
     const [addr, data] = peer;
-
-    const animatedOpacity = {
-      opacity: animVal.interpolate({
-        inputRange: [0, 0.75, 1],
-        outputRange: [0, 0, 1],
-      }),
-    };
 
     return h(
       TouchableOpacity,
@@ -100,34 +95,30 @@ export default class StagedItem extends PureComponent<Props> {
         activeOpacity: 0.5,
       },
       [
-        h(
-          Animated.View,
-          {style: [styles.item, animatedOpacity], pointerEvents: 'box-only'},
-          [
-            h(View, {style: styles.avatar}, [
-              h(Icon, {
-                size: Dimensions.iconSizeNormal,
-                color: Palette.isDarkTheme
-                  ? Palette.voidStronger
-                  : Palette.voidStrong,
-                name: peerModeIcon(data),
-              }),
-            ]),
+        h(View, {style: styles.item, pointerEvents: 'box-only'}, [
+          h(View, {style: styles.avatar}, [
+            h(Icon, {
+              size: Dimensions.iconSizeNormal,
+              color: Palette.isDarkTheme
+                ? Palette.voidStronger
+                : Palette.voidStrong,
+              name: peerModeIcon(data),
+            }),
+          ]),
 
-            h(View, {style: styles.details}, [
-              h(
-                Text,
-                {
-                  numberOfLines: 1,
-                  ellipsizeMode: 'middle',
-                  style: styles.name,
-                },
-                peerModeName(addr, data),
-              ),
-              h(Text, {style: styles.modeText}, peerModeDescription(data)),
-            ]),
-          ],
-        ),
+          h(View, {style: styles.details}, [
+            h(
+              Text,
+              {
+                numberOfLines: 1,
+                ellipsizeMode: 'middle',
+                style: styles.name,
+              },
+              peerModeName(addr, data),
+            ),
+            h(Text, {style: styles.modeText}, peerModeDescription(data)),
+          ]),
+        ]),
       ],
     );
   }

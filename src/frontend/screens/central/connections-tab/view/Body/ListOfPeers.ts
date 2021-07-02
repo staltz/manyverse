@@ -5,24 +5,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Component} from 'react';
-import {
-  View,
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-  Animated,
-  Platform,
-} from 'react-native';
+import {View, StyleSheet, StyleProp, ViewStyle} from 'react-native';
 import {h} from '@cycle/react';
 import {Dimensions} from '../../../../../global-styles/dimens';
 import {StagedPeerKV, PeerKV} from '../../../../../ssb/types';
-import PopList, {Props as PopListProps} from './PopList';
-import StagedItem, {Props as StagedItemProps} from './StagedItem';
-import RoomItem, {Props as RoomItemProps} from './RoomItem';
+import StagedItem from './StagedItem';
+import RoomItem from './RoomItem';
 import ConnectionItem from './ConnectionItem';
-
-const SHORT_ITEM_HEIGHT = Platform.OS === 'android' ? 48 : 50;
-const ITEM_HEIGHT = 70;
 
 export const styles = StyleSheet.create({
   container: {
@@ -31,20 +20,21 @@ export const styles = StyleSheet.create({
   },
 });
 
-type RoomData = {
+interface RoomData {
   key: PeerKV[1]['key'];
   state: PeerKV[1]['state'];
   type: 'room';
+  pool: 'hub';
   name?: string;
   onlineCount?: number;
-};
+}
 
-type StagedRoomEndpointData = {
+interface StagedRoomEndpointData {
   type: 'room-attendant' | 'room-endpoint'; // "endpoint" is legacy terminology
   key: string;
   room: string;
   note?: never;
-};
+}
 
 type RoomKV = [string, RoomData];
 
@@ -52,7 +42,7 @@ type StagedKV = [string, StagedRoomEndpointData | StagedPeerKV[1]];
 
 type MixedPeerKV = PeerKV | RoomKV | StagedKV;
 
-export type Props = {
+export interface Props {
   style?: StyleProp<ViewStyle>;
   peers: Array<PeerKV>;
   rooms: Array<PeerKV | RoomKV>;
@@ -60,13 +50,13 @@ export type Props = {
   onPressPeer?: (peer: PeerKV) => void;
   onPressRoom?: (peer: [string, RoomData]) => void;
   onPressStaged?: (peer: StagedKV) => void;
-};
+}
 
-type State = {
+interface State {
   peers: Array<PeerKV>;
   staged: Array<StagedKV>;
   mixedByRoom: Array<[string, Array<MixedPeerKV>]>;
-};
+}
 
 function isRoomKV(kv: MixedPeerKV): kv is RoomKV {
   return kv[1].type === 'room';
@@ -110,14 +100,48 @@ function isRoomEndpoint(
   return false;
 }
 
-export default class StagedConnectionsList extends Component<Props, State> {
+function compareBy<T>(getKey: (t: T) => string) {
+  return (a: T, b: T) => {
+    const ak = getKey(a);
+    const bk = getKey(b);
+    if (ak < bk) return -1;
+    if (ak > bk) return 1;
+    return 0;
+  };
+}
+
+function getHubSortKey([addr, data]: PeerKV) {
+  if (data.hubBirth) return `${data.hubBirth}`;
+  else return addr;
+}
+
+/**
+ * Sort peers lexicographically by the extracted key:
+ * - First, the room server
+ * - Second, room peers in connection
+ * - Third, staged room peers
+ */
+function getRoomSortKey(entry: MixedPeerKV) {
+  const [addr] = entry;
+  if (isRoomKV(entry)) {
+    return `a${addr}`;
+  } else if (isInConnection(entry)) {
+    return `b${addr}`;
+  } else {
+    return `c${addr}`;
+  }
+}
+
+export default class ListOfPeers extends Component<Props, State> {
   public state: State = {
     peers: [],
     staged: [],
     mixedByRoom: [],
   };
 
-  public static getDerivedStateFromProps(props: Props): State {
+  public static getDerivedStateFromProps(
+    props: ListOfPeers['props'],
+  ): ListOfPeers['state'] {
     const peers: Array<PeerKV> = [];
     const staged: Array<StagedKV> = [];
     const roomGroups: Record<string, Array<MixedPeerKV>> = {};
@@ -145,112 +169,108 @@ export default class StagedConnectionsList extends Component<Props, State> {
       }
     }
 
-    // Convert Record to Array and sort by roomKey
-    const mixedByRoom = Object.entries(roomGroups).sort((a, b) => {
-      if (a[0] < b[0]) return -1;
-      if (a[0] > b[0]) return 1;
-      return 0;
-    });
+    // Convert Record to Array
+    const mixedByRoom = Object.entries(roomGroups)
+      // Sort groups by roomKey
+      .sort(compareBy(([roomKey]) => roomKey))
+      // Update the "true" onlineCount for the room
+      .map((mixed) => {
+        const [roomKey, entries] = mixed;
+        const roomIndex = entries.findIndex((peer) => peer[1].key === roomKey);
+        if (roomIndex < 0) return mixed;
+        // entries.length has the room plus all attendants EXCEPT us, we want to
+        // exclude the room (-1) but add ourselves (+1), so the calculation is
+        // `entries.length - 1 + 1`, hence just `entries.length`
+        (entries[roomIndex] as RoomKV)[1].onlineCount = entries.length;
+        return mixed;
+      });
 
     return {peers, staged, mixedByRoom};
   }
 
-  public shouldComponentUpdate(nextProps: Props) {
+  public shouldComponentUpdate(nextProps: ListOfPeers['props']) {
     const prevProps = this.props;
+    if (nextProps.onPressPeer !== prevProps.onPressPeer) return true;
+    if (nextProps.onPressRoom !== prevProps.onPressRoom) return true;
+    if (nextProps.onPressStaged !== prevProps.onPressStaged) return true;
     if (nextProps.peers !== prevProps.peers) return true;
     if (nextProps.rooms !== prevProps.rooms) return true;
     if (nextProps.stagedPeers !== prevProps.stagedPeers) return true;
     return false;
   }
 
-  private getItemHeight = (entry: MixedPeerKV) => {
-    return isRoomKV(entry) ? SHORT_ITEM_HEIGHT : ITEM_HEIGHT;
-  };
+  // private getItemHeight = (entry: MixedPeerKV) => {
+  //   return isRoomKV(entry) ? SHORT_ITEM_HEIGHT : ITEM_HEIGHT;
+  // };
 
-  /**
-   * Sort peers lexicographically by the extracted key:
-   * - First, the room server
-   * - Second, room peers in connection
-   * - Third, staged room peers
-   */
-  private roomsKeyExtractor = (entry: MixedPeerKV) => {
-    const [addr] = entry;
-    if (isRoomKV(entry)) {
-      return `A-${addr}`;
-    } else if (isInConnection(entry)) {
-      return `B-${addr}`;
-    } else {
-      return `C-${addr}`;
-    }
-  };
-
-  private renderPeer = (peer: PeerKV, animVal: Animated.Value) => {
+  private renderPeer = (peer: PeerKV) => {
     return h(ConnectionItem, {
+      key: peer[0],
       peer,
-      animVal,
       onPressPeer: this.props.onPressPeer,
     });
   };
 
-  private renderStagedPeer = (peer: StagedKV, animVal: Animated.Value) => {
+  private renderStagedPeer = (peer: StagedKV) => {
     return h(StagedItem, {
+      key: peer[0],
       peer,
-      animVal,
       onPressStaged: this.props.onPressStaged,
-    } as StagedItemProps);
+    });
   };
 
-  private renderRoom = (room: RoomKV, animVal: Animated.Value) => {
+  private renderRoom = (room: RoomKV) => {
     return h(RoomItem, {
+      key: room[0],
       room,
-      animVal,
       onPressRoom: this.props.onPressRoom,
-    } as RoomItemProps);
+    });
   };
 
-  private renderItem = (entry: MixedPeerKV, animVal: Animated.Value) => {
+  private renderItem = (entry: MixedPeerKV) => {
     if (isRoomKV(entry)) {
-      return this.renderRoom(entry, animVal);
+      return this.renderRoom(entry);
     } else if (isInConnection(entry)) {
-      return this.renderPeer(entry, animVal);
+      return this.renderPeer(entry);
     } else {
-      return this.renderStagedPeer(entry, animVal);
+      return this.renderStagedPeer(entry);
     }
   };
 
   public render() {
     return h(View, {style: this.props.style}, [
       // Hub peers first
-      h<PopListProps<PeerKV>>(PopList, {
-        key: 'inconnection',
-        style: styles.container,
-        data: this.state.peers,
-        keyExtractor: ([addr, data]) => data.hubBirth ?? addr,
-        renderItem: this.renderPeer,
-        itemHeight: ITEM_HEIGHT,
-      }),
+      this.state.peers.length > 0
+        ? h(
+            View,
+            {key: 'inconnection', style: styles.container},
+            this.state.peers
+              .sort(compareBy(getHubSortKey))
+              .map((peer) => this.renderPeer(peer)),
+          )
+        : null,
 
       // Rooms
       ...this.state.mixedByRoom.map(([roomKey, peers]) =>
-        h<PopListProps<MixedPeerKV>>(PopList, {
-          key: roomKey,
-          style: styles.container,
-          data: peers,
-          keyExtractor: this.roomsKeyExtractor,
-          renderItem: this.renderItem,
-          getItemHeight: this.getItemHeight,
-        }),
+        h(
+          View,
+          {key: roomKey, style: styles.container},
+          peers
+            .sort(compareBy(getRoomSortKey))
+            .map((peer) => this.renderItem(peer)),
+        ),
       ),
 
       // Staging peers last
-      h<PopListProps<StagedKV>>(PopList, {
-        key: 'staged',
-        style: styles.container,
-        data: this.state.staged,
-        keyExtractor: ([addr]) => addr,
-        renderItem: this.renderStagedPeer,
-        itemHeight: ITEM_HEIGHT,
-      }),
+      this.state.staged.length > 0
+        ? h(
+            View,
+            {key: 'staged', style: styles.container},
+            this.state.staged
+              .sort(compareBy((p) => p[0]))
+              .map((peer) => this.renderStagedPeer(peer)),
+          )
+        : null,
     ]);
   }
 }

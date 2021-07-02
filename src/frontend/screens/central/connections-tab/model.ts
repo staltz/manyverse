@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
 import {Platform} from 'react-native';
@@ -24,6 +25,7 @@ export type State = {
   stagedPeers: Array<StagedPeerKV>;
   timestampPeersAndRooms: number;
   timestampStagedPeers: number;
+  timestampPeerStates: number;
   isVisible: boolean;
   bluetoothLastScanned: number;
   itemMenu: {
@@ -69,6 +71,12 @@ function onlyWhileAppIsInForeground<T>(
     .flatten();
 }
 
+function sampledEvery<T>(period: number): (ins: Stream<T>) => Stream<T> {
+  return function sampledEveryOperator(ins: Stream<T>) {
+    return xs.periodic(period).startWith(0).compose(sample(ins));
+  };
+}
+
 export default function model(
   actions: Actions,
   ssbSource: SSBSource,
@@ -89,6 +97,7 @@ export default function model(
       stagedPeers: [],
       timestampPeersAndRooms: 0,
       timestampStagedPeers: 0,
+      timestampPeerStates: 0,
       itemMenu: {opened: false, type: 'conn'},
     };
   });
@@ -133,9 +142,62 @@ export default function model(
       },
   );
 
-  const setPeersReducer$ = onlyWhileAppIsInForeground(
+  const updateConnectionStateReducer$ = onlyWhileAppIsInForeground(
     appstate$,
     () => ssbSource.peers$,
+  ).map(
+    (allNewPeers) =>
+      function updateConnectionStateReducer(prev: State): State {
+        let updatedPeers = false;
+        let updatedRooms = false;
+        for (const peer of prev.peers) {
+          const newPeer = allNewPeers.find((p) => p[0] === peer[0]);
+          if (!newPeer) {
+            peer[1].state = 'disconnecting';
+            updatedPeers = true;
+          } else if (newPeer[1].state !== peer[1].state) {
+            peer[1].state = newPeer[1].state;
+            updatedPeers = true;
+          }
+        }
+        for (const room of prev.rooms) {
+          const newRoom = allNewPeers.find((p) => p[0] === room[0]);
+          if (!newRoom) {
+            room[1].state = 'disconnecting';
+            updatedRooms = true;
+          } else if (newRoom[1].state !== room[1].state) {
+            room[1].state = newRoom[1].state;
+            updatedRooms = true;
+          }
+        }
+
+        if (!updatedPeers && !updatedRooms) {
+          return prev;
+        } else if (updatedPeers && !updatedRooms) {
+          return {
+            ...prev,
+            peers: [...prev.peers],
+            timestampPeerStates: Date.now(),
+          };
+        } else if (!updatedPeers && updatedRooms) {
+          return {
+            ...prev,
+            rooms: [...prev.rooms],
+            timestampPeerStates: Date.now(),
+          };
+        } else {
+          return {
+            ...prev,
+            peers: [...prev.peers],
+            rooms: [...prev.rooms],
+            timestampPeerStates: Date.now(),
+          };
+        }
+      },
+  );
+
+  const setPeersReducer$ = onlyWhileAppIsInForeground(appstate$, () =>
+    ssbSource.peers$.compose(sampledEvery(2500)),
   ).map(
     (allPeers) =>
       function setPeersReducer(prev: State): State {
@@ -149,9 +211,8 @@ export default function model(
       },
   );
 
-  const setStagedPeersReducer$ = onlyWhileAppIsInForeground(
-    appstate$,
-    () => ssbSource.stagedPeers$,
+  const setStagedPeersReducer$ = onlyWhileAppIsInForeground(appstate$, () =>
+    ssbSource.stagedPeers$.compose(sampledEvery(2500)),
   ).map(
     (stagedPeers) =>
       function setPeersReducer(prev: State): State {
@@ -226,8 +287,9 @@ export default function model(
     updateBluetoothEnabled$,
     updateLanEnabled$,
     updateInternetEnabled$,
-    setPeersReducer$,
     updateBluetoothLastScanned$,
+    updateConnectionStateReducer$,
+    setPeersReducer$,
     setStagedPeersReducer$,
     openConnMenuReducer$,
     openStagingMenuReducer$,
