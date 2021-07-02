@@ -14,7 +14,7 @@ export type Command =
 
 export type ButtonStyleIOS = 'default' | 'cancel' | 'destructive';
 
-export type OptionsCommon = {
+export interface OptionsCommon {
   cancelable?: boolean;
   forceStacking?: boolean;
 
@@ -37,15 +37,15 @@ export type OptionsCommon = {
   positiveColor?: string;
   positiveStyleIOS?: ButtonStyleIOS;
   positiveText?: string; // default "OK"
-};
+}
 
-export type PickerItem = {
+export interface PickerItem {
   label?: string;
   id?: any;
   iosStyle?: AlertButton['style'];
-};
+}
 
-export type OptionsPicker = OptionsCommon & {
+export interface OptionsPicker extends OptionsCommon {
   items: Array<PickerItem>;
   idKey?: string;
   labelKey?: string;
@@ -54,19 +54,19 @@ export type OptionsPicker = OptionsCommon & {
   selectedIds?: any[];
   type?: 'listCheckbox' | 'listPlain' | 'listRadio';
   widgetColor?: string;
-};
+}
 
-export type OptionsPrompt = OptionsCommon & {
+export interface OptionsPrompt extends OptionsCommon {
   widgetColor?: string;
-};
+}
 
-export type AlertAction = {
+export interface AlertAction {
   action:
     | 'actionDismiss'
     | 'actionNegative'
     | 'actionNeutral'
     | 'actionPositive';
-};
+}
 
 export type PickerAction =
   | {action: 'actionNegative' | 'actionNeutral' | 'actionDismiss'}
