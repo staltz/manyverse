@@ -106,7 +106,7 @@
           "3_normal": ". Para encontrar novas pessoas na Internet, procure um código de convite para um ",
           "4_bold": "servidor pub",
           "5_normal": " ou um ",
-          "6_bold": "servidor room",
+          "6_bold": "servidor 'sala'",
           "7_normal": ", ou crie o seu próprio servidor!"
         },
         "default": {
@@ -117,7 +117,7 @@
           "5_normal": ". Para encontrar novas pessoas na Internet, procure um código de convite para um ",
           "6_bold": "servidor pub",
           "7_normal": " ou um ",
-          "8_bold": "servidor room",
+          "8_bold": "servidor 'sala'",
           "9_normal": ", ou crie o seu próprio servidor!"
         }
       }
@@ -241,16 +241,16 @@
         "3_normal": " seguiu você"
       }
     },
-    "empty": {
-      "title": "Nenhuma atividade",
-      "description": "Quando as pessoas mencionam\nou seguem você, elas aparecem aqui"
-    },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
         "3_normal": " wants to connect"
       }
+    },
+    "empty": {
+      "title": "Nenhuma atividade",
+      "description": "Quando as pessoas mencionam\nou seguem você, elas aparecem aqui"
     }
   },
   "connections": {
@@ -610,12 +610,12 @@
         "accessibility_label": "Aceitar Código de Convite"
       }
     },
-    "text_field": {
-      "accessibility_label": "Entrada de Texto do Código de Convite"
-    },
     "alert_unsupported_dht": {
       "title": "Unsupported type",
       "description": "P2P Invites are no longer supported in Manyverse."
+    },
+    "text_field": {
+      "accessibility_label": "Entrada de Texto do Código de Convite"
     }
   },
   "libraries": {
@@ -648,6 +648,10 @@
     },
     "dialog_manage_contact": {
       "title": "Contato"
+    },
+    "dialog_friend_request": {
+      "title": "Friend request",
+      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
     "toast": {
       "copied_to_clipboard": "Copiado para o clipboard"
@@ -691,10 +695,6 @@
     },
     "floating_action_button": {
       "compose": "Escrever uma mensagem pública"
-    },
-    "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     }
   },
   "profile_edit": {

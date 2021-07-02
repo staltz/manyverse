@@ -110,11 +110,11 @@
           "7_normal": ", ή ξεκινήστε τον δικό σας διακομιστή!"
         },
         "default": {
-          "1_normal": "Για να συνδεθείτε με φίλους και να συγχρονίσετε περιεχόμενο, μπορείτε είτε: να συμμετάσχετε στο ίδιο",
+          "1_normal": "Για να συνδεθείτε με φίλους και να συγχρονίσετε περιεχόμενο, μπορείτε είτε: να συμμετάσχετε στο ίδιο ",
           "2_bold": "Wi-Fi",
           "3_normal": ", ή να συγχρονιστείτε με ",
           "4_bold": "Bluetooth",
-          "5_normal": ". Για να βρείτε νέα άτομα στο internet, αναζητήστε προσκλήσεις σε έναν ",
+          "5_normal": ". Για να βρείτε νέα άτομα στο Διαδίκτυο, αναζητήστε έναν κωδικό πρόσκλησης σε ένα ",
           "6_bold": "pub διακομιστή",
           "7_normal": " ή σε έναν ",
           "8_bold": "room διακομιστή",
@@ -241,16 +241,16 @@
         "3_normal": " followed you"
       }
     },
-    "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
-    },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
         "3_normal": " wants to connect"
       }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {
@@ -610,12 +610,12 @@
         "accessibility_label": "Αποδοχή κωδικού πρόσκλησης"
       }
     },
-    "text_field": {
-      "accessibility_label": "Εισαγωγή κειμένου κώδικα πρόσκλησης"
-    },
     "alert_unsupported_dht": {
       "title": "Unsupported type",
       "description": "P2P Invites are no longer supported in Manyverse."
+    },
+    "text_field": {
+      "accessibility_label": "Εισαγωγή κειμένου κώδικα πρόσκλησης"
     }
   },
   "libraries": {
@@ -648,6 +648,10 @@
     },
     "dialog_manage_contact": {
       "title": "Contact"
+    },
+    "dialog_friend_request": {
+      "title": "Friend request",
+      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
     "toast": {
       "copied_to_clipboard": "Αντιγράφηκε στο πρόχειρο"
@@ -691,10 +695,6 @@
     },
     "floating_action_button": {
       "compose": "Γράψτε ένα δημόσιο μήνυμα"
-    },
-    "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     }
   },
   "profile_edit": {

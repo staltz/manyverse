@@ -85,16 +85,16 @@
     "learn_more": "Learn more",
     "overview": {
       "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "description": "Social networking can be simple, neutral, non-commercial and built on trust between friends. This is what Manyverse stands for and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Off-the-grid",
       "description": {
         "1_normal": "Manyverse can use internet connectivity, but it's not ",
         "2_bold": "on",
         "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "4_bold": "content is initially stored just on your device",
+        "5_normal": " and you can synchronize it with friends once you connect with them."
       }
     },
     "connections": {
@@ -127,13 +127,13 @@
       "description": {
         "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
         "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. That way moderation can spread naturally!"
       }
     },
     "permanence": {
       "title": "Permanence",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
+        "1_normal": "Once your content is synchronized with friends, they'll hold a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "not possible to delete",
         "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
       }
@@ -241,16 +241,16 @@
         "3_normal": " followed you"
       }
     },
-    "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
-    },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
         "3_normal": " wants to connect"
       }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {
@@ -266,7 +266,7 @@
       },
       "connecting": {
         "title": "Connecting",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "description": "Please wait while the app is\nattempting to connect to your peers"
       },
       "no_peers": {
         "title": "No connections",
@@ -324,7 +324,7 @@
         "description": "Discover users nearby and connect with them using Bluetooth.",
         "permission_request": {
           "title": "Allow locating via Bluetooth?",
-          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
+          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and which peers are around you."
         }
       },
       "wifi": {
@@ -369,14 +369,14 @@
       "disconnect_forget": {
         "label": "Disconnect and forget",
         "accessibility_label": {
-          "peer": "Disconnect from this peer and remove it from our database",
-          "room": "Disconnect from this room and remove it from our database"
+          "peer": "Disconnect from this peer and remove it from my database",
+          "room": "Disconnect from this room and remove it from my database"
         }
       },
       "forget": {
         "label": "Forget",
         "accessibility_label": {
-          "room": "Remove this room from our database"
+          "room": "Remove this room from my database"
         }
       },
       "manage_aliases": {
@@ -610,12 +610,12 @@
         "accessibility_label": "Accept Invite Code"
       }
     },
-    "text_field": {
-      "accessibility_label": "Invite Code Text Input"
-    },
     "alert_unsupported_dht": {
       "title": "Unsupported type",
       "description": "P2P Invites are no longer supported in Manyverse."
+    },
+    "text_field": {
+      "accessibility_label": "Invite Code Text Input"
     }
   },
   "libraries": {
@@ -648,6 +648,10 @@
     },
     "dialog_manage_contact": {
       "title": "Contact"
+    },
+    "dialog_friend_request": {
+      "title": "Friend request",
+      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
     "toast": {
       "copied_to_clipboard": "Copied to clipboard"
@@ -691,10 +695,6 @@
     },
     "floating_action_button": {
       "compose": "Write a public message"
-    },
-    "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     }
   },
   "profile_edit": {
@@ -864,7 +864,7 @@
           "title": "Incorrect",
           "description": {
             "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
-            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
+            "overwrite_risk": "There is already an account in the app. It cannot be overwritten. If you are sure you want to get rid of it, uninstall and re-install Manyverse to recover your account from a clean state.",
             "too_short": "There are some words missing. Your recovery phrase should be 24 words long.",
             "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
             "wrong_length": "Your recovery phrase should be exactly 24 words long.",

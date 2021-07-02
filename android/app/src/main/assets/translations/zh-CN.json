@@ -102,23 +102,23 @@
       "description": {
         "ios": {
           "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". To find new people on the internet, look for an invite code to a ",
-          "4_bold": "pub server",
-          "5_normal": " or a ",
-          "6_bold": "room server",
-          "7_normal": ", or start your own server!"
+          "2_bold": "无线局域网",
+          "3_normal": "。要想在互联网上发现新用户，请寻找邀请码到一 ",
+          "4_bold": "pub（酒馆）服务器",
+          "5_normal": " 或者一个 ",
+          "6_bold": "房间服务器",
+          "7_normal": "，或者开启你自己的服务器！"
         },
         "default": {
           "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
+          "2_bold": "无线局域网",
           "3_normal": ", or use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "4_bold": "蓝牙同步",
+          "5_normal": "。要想在互联网上发现新用户，请寻找邀请码到一 ",
+          "6_bold": "pub（酒馆）服务器",
+          "7_normal": " 或者一个 ",
+          "8_bold": "房间服务器",
+          "9_normal": "，或者开启你自己的服务器！"
         }
       }
     },
@@ -241,16 +241,16 @@
         "3_normal": " followed you"
       }
     },
-    "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
-    },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
         "3_normal": " wants to connect"
       }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {
@@ -610,12 +610,12 @@
         "accessibility_label": "Accept Invite Code"
       }
     },
-    "text_field": {
-      "accessibility_label": "Invite Code Text Input"
-    },
     "alert_unsupported_dht": {
       "title": "Unsupported type",
       "description": "P2P Invites are no longer supported in Manyverse."
+    },
+    "text_field": {
+      "accessibility_label": "Invite Code Text Input"
     }
   },
   "libraries": {
@@ -648,6 +648,10 @@
     },
     "dialog_manage_contact": {
       "title": "Contact"
+    },
+    "dialog_friend_request": {
+      "title": "Friend request",
+      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
     "toast": {
       "copied_to_clipboard": "Copied to clipboard"
@@ -691,10 +695,6 @@
     },
     "floating_action_button": {
       "compose": "Write a public message"
-    },
-    "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     }
   },
   "profile_edit": {

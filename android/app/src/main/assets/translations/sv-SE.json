@@ -241,16 +241,16 @@
         "3_normal": " followed you"
       }
     },
-    "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
-    },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
         "3_normal": " wants to connect"
       }
+    },
+    "empty": {
+      "title": "No activity",
+      "description": "When people mention or follow you,\nthey show up here"
     }
   },
   "connections": {
@@ -610,12 +610,12 @@
         "accessibility_label": "Acceptera inbjudningskod"
       }
     },
-    "text_field": {
-      "accessibility_label": "Fält för inmatning av inbjudningskod"
-    },
     "alert_unsupported_dht": {
       "title": "Unsupported type",
       "description": "P2P Invites are no longer supported in Manyverse."
+    },
+    "text_field": {
+      "accessibility_label": "Fält för inmatning av inbjudningskod"
     }
   },
   "libraries": {
@@ -648,6 +648,10 @@
     },
     "dialog_manage_contact": {
       "title": "Contact"
+    },
+    "dialog_friend_request": {
+      "title": "Friend request",
+      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
     "toast": {
       "copied_to_clipboard": "Kopierad till urklipp"
@@ -691,10 +695,6 @@
     },
     "floating_action_button": {
       "compose": "Skriv ett publikt meddelande"
-    },
-    "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     }
   },
   "profile_edit": {
