@@ -438,7 +438,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 7da9338acfb98d4ef9e5536805a0704572d33c2f
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
-  nodejs-mobile-react-native: 60ace1da736d8cfa85731493052ff20ac34f68bd
+  nodejs-mobile-react-native: 3dd355cbb45e36c6dfc702dfd500be60b2e01d2a
   RCTRequired: 48884c74035a0b5b76dbb7a998bd93bcfc5f2047
   RCTSystemSetting: 16e300bf829262602427c57386f0b37e0f654a8c
   RCTTypeSafety: edf4b618033c2f1c5b7bc3d90d8e085ed95ba2ab
