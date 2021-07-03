@@ -30,8 +30,14 @@ export = {
   },
   init: function init(ssb: any) {
     function get(feedId: FeedId, cb: Callback<Output>) {
+      // TODO: this is a workaround for https://github.com/ssb-ngi-pointer/ssb-db2/issues/235
+      // When that issue is resolved, we should remove this boolean
+      let done = false;
       ssb.db.onDrain('aboutSelf', () => {
-        cb(null, ssb.db.getIndex('aboutSelf').getProfile(feedId));
+        if (!done) {
+          done = true;
+          cb(null, ssb.db.getIndex('aboutSelf').getProfile(feedId));
+        }
       });
     }
 
