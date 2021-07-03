@@ -21,6 +21,7 @@
     "build-android-assets": "npm run lib && npm run propagate-replacements && npm run build-backend-android",
     "check-android-sig": "jarsigner -verify -verbose:summary -certs android/app/build/outputs/apk/indie/release/app-indie-release.apk | grep -q Uusimaa",
     "install-android-indie": "adb install -r android/app/build/outputs/apk/indie/release/app-indie-release.apk",
+    "archive-apk": "cp android/app/build/outputs/apk/indie/release/app-indie-release.apk ../apk-archive/manyverse-$(cat package.json | jq -r .version).apk",
     "desktop-frontend-watch": "webpack --watch --mode development --config desktop/webpack.config.js",
     "desktop-dev": "npm run build-backend-desktop && concurrently \"npm:lib-watch\" \"npm:desktop-frontend-watch\"",
     "android-dev": "npm run build-android-assets && react-native run-android --variant=indieDebug",
@@ -48,7 +49,7 @@
     "update-version": "./tools/update-version.js",
     "update-version-ios": "./tools/update-version-ios.js",
     "commit-release": "./tools/commit-release",
-    "release-android": "npm run update-version && npm run build-android-release && npm run check-android-sig && npm run test-e2e-android && npm run changelog && npm run commit-release",
+    "release-android": "npm run update-version && npm run build-android-release && npm run check-android-sig && npm run test-e2e-android && npm run archive-apk && npm run changelog && npm run commit-release",
     "release-ios": "npm run update-version-ios && npm run archive-ios-release && git commit -am\"dx: update ios version\""
   },
   "dependencies": {
