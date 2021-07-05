@@ -17,6 +17,7 @@ import {compose} from './lib/frontend/screens/compose';
 import {global} from './lib/frontend/screens/global';
 import {welcome} from './lib/frontend/screens/welcome';
 import {profile} from './lib/frontend/screens/profile';
+import {biography} from './lib/frontend/screens/biography';
 import {thread} from './lib/frontend/screens/thread';
 import {accounts} from './lib/frontend/screens/accounts';
 import {secretOutput} from './lib/frontend/screens/secret-output';
@@ -76,7 +77,7 @@ const screens = {
   // [Screens.ProfileEdit]: withState(editProfile),
   // [Screens.AliasManage]: withState(manageAliases),
   // [Screens.AliasRegister]: withState(registerAlias),
-  // [Screens.Biography]: withState(biography),
+  [Screens.Biography]: withState(biography),
   [Screens.Accounts]: withState(accounts),
   // [Screens.Backup]: withState(backup),
   [Screens.SecretOutput]: withState(secretOutput),
