@@ -7,6 +7,20 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2107.5-beta
+
+* (iOS) Bug fix: height of the header on new iPhones ([see details](https://gitlab.com/staltz/manyverse/commit/53801b18b15fbc19945f5efa3f61525148499cf3))
+* Bug fix: connections tab should not be chaotic ([see details](https://gitlab.com/staltz/manyverse/commit/db3f5c227e0dc40b3841413b5616511b3d3490df))
+* Bug fix: disallow taps on follower count when zero ([see details](https://gitlab.com/staltz/manyverse/commit/2cf25df2d726b6c2259c93c4733c97400726e756))
+* Bug fix: disconnect and forget should not reconnect ([see details](https://gitlab.com/staltz/manyverse/commit/63bc7b78df2967169fed154c6994b0dd7915a954))
+* Bug fix: should not crash when fetching profile name ([see details](https://gitlab.com/staltz/manyverse/commit/69c2ff3794ea33afe2037cbf2a10976e983c6687))
+* Bug fix: should not crash when rare user has no ID ([see details](https://gitlab.com/staltz/manyverse/commit/7ff17dd888cf9f7ae738731e5d515d7c03a06c74))
+* Drop support for P2P invites ([see details](https://gitlab.com/staltz/manyverse/commit/c1e282d6baa07849f0dbc3ee2953038a85965c50))
+* Feature: auto-save draft posts and replies ([see details](https://gitlab.com/staltz/manyverse/commit/0cca8b5c8c9541dad743460150b1b4f88721f887))
+* Feature: Friend requests in the Activity tab ([see details](https://gitlab.com/staltz/manyverse/commit/1b0137daad84541698cf7d3b27db15c17b870d25))
+* Improve Portuguese (Brazilian) translation ([see details](https://gitlab.com/staltz/manyverse/commit/377386dce58c6ebe9d596ba38d0af6d266fc7332))
+* Improve replication performance ([see details](https://gitlab.com/staltz/manyverse/commit/ed1c18dc4281437bacaa94c914eefc13336dd09a))
+
 ## 0.2106.7-beta
 
 * Bug fix: sometimes the splashscreen got stuck ([see details](https://gitlab.com/staltz/manyverse/commit/e4129aa4db820d5d4af1ae01bd68382e720879ca))

@@ -266,7 +266,7 @@ export default [
   {
     name: 'cycle-native-navigation-web',
     type: 'library',
-    version: '0.2.0',
+    version: '0.3.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation-web',
   },
@@ -425,13 +425,6 @@ export default [
     homepage: 'https://github.com/pull-stream/pull-cat',
   },
   {
-    name: 'pull-combine-latest',
-    type: 'library',
-    version: '1.1.2',
-    license: 'ISC License (ISC)',
-    homepage: 'https://github.com/nichoth/pull-combine-latest#readme',
-  },
-  {
     name: 'pull-file',
     type: 'library',
     version: '1.1.0',
@@ -458,6 +451,13 @@ export default [
     version: '2.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/dominictarr/pull-pushable',
+  },
+  {
+    name: 'pull-sorted-interleave',
+    type: 'library',
+    version: '1.0.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/staltz/pull-sorted-interleave',
   },
   {
     name: 'pull-stream',
@@ -648,7 +648,7 @@ export default [
   {
     name: 'react-native-status-bar-height',
     type: 'library',
-    version: '2.5.0',
+    version: '2.6.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ovr/react-native-status-bar-height#readme',
   },
@@ -768,7 +768,7 @@ export default [
   {
     name: 'ssb-blobs-purge',
     type: 'library',
-    version: '2.0.1',
+    version: '2.0.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-blobs-purge',
   },
@@ -796,9 +796,16 @@ export default [
   {
     name: 'ssb-conn',
     type: 'library',
-    version: '4.0.1',
+    version: '5.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn',
+  },
+  {
+    name: 'ssb-conn-firewall',
+    type: 'library',
+    version: '0.5.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/staltz/ssb-conn-firewall',
   },
   {
     name: 'ssb-conn-query',
@@ -810,7 +817,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '2.1.2',
+    version: '2.1.4',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -822,16 +829,16 @@ export default [
     homepage: 'https://github.com/staltz/ssb-deweird',
   },
   {
-    name: 'ssb-ebt-fork-staltz',
+    name: 'ssb-ebt',
     type: 'library',
-    version: '5.6.7-1',
+    version: '7.0.2',
     license: 'MIT License (MIT)',
-    homepage: 'https://github.com/staltz/ssb-ebt-fork-staltz',
+    homepage: 'https://github.com/ssbc/ssb-ebt',
   },
   {
     name: 'ssb-friends',
     type: 'library',
-    version: '4.4.5',
+    version: '5.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-friends',
   },
@@ -852,7 +859,7 @@ export default [
   {
     name: 'ssb-invite-client',
     type: 'library',
-    version: '1.2.0',
+    version: '1.2.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-invite-client',
   },
@@ -913,16 +920,16 @@ export default [
     homepage: 'https://github.com/ssbc/ssb-ref',
   },
   {
-    name: 'ssb-replicate',
+    name: 'ssb-replication-scheduler',
     type: 'library',
-    version: '1.3.3',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/dominictarr/ssb-replicate',
+    version: '1.0.0',
+    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
+    homepage: 'https://github.com/ssb-ngi-pointer/ssb-replication-scheduler',
   },
   {
     name: 'ssb-room-client',
     type: 'library',
-    version: '0.21.0',
+    version: '0.22.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-room-client',
   },
