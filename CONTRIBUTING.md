@@ -15,6 +15,7 @@ In the explanations below, we will constantly refer to "development" and "target
 - If your target OS is **iOS**, only **macOS** computers are supported
 - If your target OS is **Android**, only **Linux and macOS** computers are supported
   - _No Windows support_ so far, unfortunately; but you can always choose to install Linux for free if you have a Windows computer
+- If your target is **desktop**, **Linux and macOS** computers are supported
 
 ### Development Container
 
@@ -154,6 +155,10 @@ You need to also install the Cocoapods:
 cd ios && pod install
 ```
 
+### When targeting desktop
+
+There is nothing else you need to install at this point.
+
 ## Build and run in development
 
 ### When targeting Android
@@ -221,6 +226,46 @@ react-native run-ios --device
 During step 4, another terminal may spawn with the React Native Metro bundler. The app should be installed automatically, if you have a device connected by USB.
 
 In step 3, if you want to see more logs, then run `npm run build-backend-ios -- --verbose`. If you want to disable Rust libraries, run `npm run build-backend-ios -- --no-rust`.
+
+### When targeting desktop
+
+You can run `npm run build-desktop` which will run all the necessary scripts in order. Or you can run each step manually:
+
+`1`: Compile TypeScript files
+
+```
+npm run lib
+```
+`2`: Build the "backend" Node.js project (which runs ssb-server):
+
+```
+npm run build-backend-desktop
+```
+
+`3`: Build the Electron frontend:
+
+```
+npm run build-frontend-desktop
+```
+
+##### Starting the app
+
+If everything went well you can try `npm run desktop`. It will use [prebuilt Electron binary][npm-electron].
+
+If your system is not [officially supported][electron-supported-platforms] you can install Electron using your distribution's preferred method (make sure to get a version that is compatible with app's dependency) and launch it yourself:
+
+```
+$ cd desktop/nodejs-project/
+$ npm ls electron
+backend@0.0.0 ~/manyverse/desktop/nodejs-project
+└── electron@10.3.1
+$ electron --version
+v10.4.7
+$ electron .
+```
+
+[electron-supported-platforms]: https://www.electronjs.org/docs/tutorial/support#supported-platforms
+[npm-electron]: https://www.npmjs.com/package/electron
 
 ### Continuous compilation
 
