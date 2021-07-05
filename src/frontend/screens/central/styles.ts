@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,7 +9,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-const {isIPhoneX} = require('react-native-status-bar-height');
+const {isIPhoneWithMonobrow} = require('react-native-status-bar-height');
 
 const page: ViewStyle = {
   position: 'absolute',
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     height:
       Dimensions.toolbarHeight -
       getStatusBarHeight(true) +
-      (isIPhoneX() ? 10 : 0),
+      (isIPhoneWithMonobrow() ? 15 : 0),
     borderTopColor: Palette.textLine,
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: Palette.backgroundText,
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: isIPhoneX() ? -5 : 0,
+    marginTop: isIPhoneWithMonobrow() ? -5 : 0,
   },
 
   tabButtonText: {
