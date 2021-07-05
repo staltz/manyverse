@@ -12,7 +12,7 @@
     "clean-ios": "cd ios && xcodebuild -workspace Manyverse.xcworkspace -scheme Manyverse clean && cd ..",
     "full-clean": "npm run clean-android && npm run clean-bundler && rm -rf node_modules && rm -rf lib",
     "propagate-replacements": "propagate-replacement-fields --field=react-native",
-    "build-backend-desktop": "./tools/build-backend.js --desktop",
+    "build-backend-desktop": "DONT_COMPILE=true ./tools/build-backend.js --desktop",
     "build-backend-android": "./tools/build-backend.js --android",
     "build-backend-ios": "./tools/build-backend.js --ios",
     "build-frontend-desktop": "npm run lib && webpack --mode production --config desktop/webpack.config.js",
