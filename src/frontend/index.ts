@@ -25,6 +25,7 @@ import {makeActivityLifecycleDriver} from './drivers/lifecycle';
 import {makeExitDriver} from './drivers/exit';
 import {makeRecorderDriver} from './drivers/recorder';
 import {makeOrientationDriver} from './drivers/orientation';
+import {makeWindowSizeDriver} from './drivers/window-size';
 import {makeSplashScreenDriver} from './drivers/splashscreen';
 import {GlobalScreen} from './symbols';
 
@@ -74,6 +75,7 @@ export const drivers = {
   toast: makeToastDriver(),
   recorder: makeRecorderDriver(),
   orientation: makeOrientationDriver(),
+  windowSize: makeWindowSizeDriver(),
   splashscreen: makeSplashScreenDriver(),
   exit: makeExitDriver(),
 };
