@@ -6,7 +6,7 @@
     "cancel": "Mégsem",
     "continue": "Folytatás",
     "delete": "Törlés",
-    "remove": "Remove",
+    "remove": "Eltávolít",
     "save": "Mentés",
     "yes": "Igen",
     "no": "Nem",
@@ -20,7 +20,7 @@
       "accessibility_label": "Bezárás gomb"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "Párbeszéd gomb bezárása"
     }
   },
   "date": {
@@ -131,7 +131,7 @@
       }
     },
     "permanence": {
-      "title": "Permanence",
+      "title": "Állandó",
       "description": {
         "1_normal": "Miután a tartalmad szinkronizálásra kerül az ismerőseiddel, onnantól a saját eszközükön tárolják annak egy példányát. Mivel ezek után offline állapotba kerülhetnek, ",
         "2_bold": "ezen tartalmakat nem lehet globálisan törölni minden eszközről!",
@@ -141,14 +141,14 @@
     "in_construction": {
       "title": "Építés alatt!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
-        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+        "1_normal": "Manyverse egy ",
+        "2_bold": "béta állapotban lévő szoftver",
+        "3_normal": "Még fejlesztjük ezt az alkalmazást, tehát még sok dolgot kell megjavítanunk. Egyidejűsítés során úgy tűnhet hogy le van fagyva. Kérünk légy türelemmel. Ha másféle hibákkal találkozol, kérlek jelentsd nekünk. Elegendő idő és adomány múlván, egy kitűnő alkalmazás lesz belőle."
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
-      "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
+      "title": "Először jársz itt?",
+      "description": "Új fiókot szeretne létrehozni, vagy be óhajt jelentkezni a 24 szóval a régi fiókjába?",
       "call_to_action": {
         "create": {
           "label": "Fiók létrehozása",
@@ -164,15 +164,15 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public posts",
+      "public": "Nyilvános bejegyzések",
       "private": "Privát üzenetek",
-      "activity": "Activity",
-      "connections": "Connections"
+      "activity": "Tevékenység",
+      "connections": "Kapcsolatok"
     },
     "tab_footers": {
-      "public": "Public",
-      "private": "Private",
-      "activity": "Activity",
+      "public": "Nyilvános",
+      "private": "Személyes",
+      "activity": "Tevékenység",
       "connections": "Connections"
     },
     "loading": "Betöltés...",
