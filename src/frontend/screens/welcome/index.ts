@@ -24,6 +24,7 @@ import model, {State} from './model';
 export type Sources = {
   screen: ReactSource;
   orientation: Stream<OrientationEvent>;
+  windowSize: Stream<{height: number; width: number}>;
   asyncstorage: AsyncStorageSource;
   navigation: NavSource;
   globalEventBus: Stream<GlobalEvent>;
@@ -65,7 +66,7 @@ export function welcome(sources: Sources): Sinks {
   );
   const command$ = navigation(actions);
   const vdom$ = view(sources.state.stream, actions);
-  const reducer$ = model(actions, sources.orientation);
+  const reducer$ = model(actions, sources.orientation, sources.windowSize);
 
   const hideSplash$ = vdom$.take(1).mapTo('hide' as const);
 

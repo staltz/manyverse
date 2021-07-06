@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -29,6 +29,7 @@ export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
   orientation: Stream<OrientationEvent>;
+  windowSize: Stream<{height: number; width: number}>;
   state: StateSource<State>;
 };
 
@@ -211,15 +212,17 @@ export function backup(sources: Sources): Sinks {
     return {index: 0, isPortraitMode: true};
   });
 
-  const updateOrientationReducer$ = sources.orientation.map(
-    (ori) =>
-      function updateOrientationReducer(prev: State): State {
-        return {
-          ...prev,
-          isPortraitMode: ori === 'PORTRAIT' || ori === 'PORTRAIT-UPSIDEDOWN',
-        };
-      },
-  );
+  const updatePortraitModeReducer$ = xs
+    .combine(sources.orientation, sources.windowSize)
+    .map(
+      ([ori, win]) =>
+        function updatePortraitModeReducer(prev: State): State {
+          const isPortrait =
+            ori === 'PORTRAIT' || ori === 'PORTRAIT-UPSIDEDOWN';
+          const isUltrawide = win.width / win.height > 2;
+          return {...prev, isPortraitMode: isPortrait || !isUltrawide};
+        },
+    );
 
   const updateIndexReducer$ = sources.screen
     .select('swiper')
@@ -234,7 +237,7 @@ export function backup(sources: Sources): Sinks {
 
   const reducer$ = xs.merge(
     initReducer$,
-    updateOrientationReducer$,
+    updatePortraitModeReducer$,
     updateIndexReducer$,
   );
 
