@@ -4,8 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {Stream} from 'xstream';
-import {View, Image, Dimensions, ScrollView} from 'react-native';
+import xs, {Stream} from 'xstream';
+import {View, Image, ScrollView} from 'react-native';
 import {h} from '@cycle/react';
 import {t} from '../../drivers/localization';
 import Markdown from '../../components/Markdown';
@@ -13,11 +13,12 @@ import TopBar from '../../components/TopBar';
 import {State} from './index';
 import {styles} from './styles';
 
-export default function view(state$: Stream<State>) {
-  return state$.map((state) => {
-    const windowDimensions = Dimensions.get('window');
-    const windowWidth = windowDimensions.width;
-    const windowHeight = windowDimensions.height;
+export default function view(
+  state$: Stream<State>,
+  windowSize$: Stream<{height: number; width: number}>,
+) {
+  return xs.combine(state$, windowSize$).map(([state, windowSize]) => {
+    const {width: windowWidth, height: windowHeight} = windowSize;
 
     return h(View, {style: styles.container}, [
       h(TopBar, {sel: 'topbar', title: state.about.name ?? ''}),
