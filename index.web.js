@@ -45,7 +45,10 @@ const drivers = {
     hasInternetConnection: () => xs.of(true),
   }),
   appstate: () => xs.of('active'),
-  orientation: () => xs.never(),
+  orientation: () =>
+    makeWindowSizeDriver()(xs.never).map(({width, height}) =>
+      height >= width ? 'PORTRAIT' : 'LANDSCAPE-RIGHT',
+    ),
   windowSize: makeWindowSizeDriver(),
   globalEventBus: makeEventBusDriver(),
   linking: () => xs.never(),
