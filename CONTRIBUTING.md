@@ -269,7 +269,7 @@ $ electron .
 
 ### Continuous compilation
 
-To watch source code files and continuously compile them, use three terminals:
+To watch source code files and continuously compile them for mobile, use three terminals:
 
 - One terminal continuously running `$(npm bin)/tsc --watch` to compile the TypeScript code
 - One terminal continuously running `npm run clean-bundler && npm start -- --reset-cache` for the Metro bundler
@@ -280,6 +280,8 @@ For Android, to "refresh" the app after editing frontend TypeScript code, run th
 ```
 adb shell input text "RR" && sleep 5 && adb shell am force-stop se.manyver && adb shell monkey -p se.manyver 1
 ```
+
+To continuously build the frontend for desktop, run `npm run desktop-dev`. To load the new build you need to close electron and launch it again with `npm run desktop`.
 
 There is no support for continuously compiling the backend Node.js project.
 

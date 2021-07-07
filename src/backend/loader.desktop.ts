@@ -4,15 +4,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import os = require('os');
-import path = require('path');
+//import os = require('os');
+//import path = require('path');
 const {BrowserWindow, app, shell} = require('electron');
 
 process.env = process.env ?? {};
 
 // Set default directories
 process.env.APP_DATA_DIR = process.cwd();
-process.env.SSB_DIR = path.resolve(os.homedir(), '.ssb');
+// TODO: go back to .ssb by default when we have better backwards compat
+// between db1 and db2
+process.env.SSB_DIR = process.env.SSB_DIR ?? '/tmp/ssb-temp'; //path.resolve(os.homedir(), '.ssb');
 
 // Set global variables
 process.env.MANYVERSE_PLATFORM = 'desktop';
