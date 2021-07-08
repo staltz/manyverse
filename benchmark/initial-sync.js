@@ -38,7 +38,7 @@ module.exports = function (driver, t) {
     await continueButton.click();
     t.pass('I tap it');
 
-    var title = 'Off the grid';
+    var title = 'Off-the-grid';
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().text("' + title + '")',

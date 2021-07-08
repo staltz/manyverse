@@ -36,7 +36,7 @@
     "ssb-config": "3.4.5",
     "ssb-conn": "5.1.0",
     "ssb-conn-firewall": "1.0.0",
-    "ssb-db2": "2.1.4",
+    "ssb-db2": "ssb-ngi-pointer/ssb-db2#validate2",
     "ssb-deweird": "1.0.0",
     "ssb-ebt": "7.0.3",
     "ssb-friends": "5.1.0",
@@ -58,7 +58,6 @@
     "ssb-suggest-lite": "1.0.3",
     "ssb-threads": "8.0.0",
     "ssb-typescript": "2.5.0",
-    "ssb-validate2-rsjs": "0.4.0",
     "staltz-multiserver": "3.3.6-1",
     "utf-8-validate": "5.0.3"
   },
