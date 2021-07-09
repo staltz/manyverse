@@ -7,10 +7,15 @@
 import xs, {Stream, Listener} from 'xstream';
 import {Dimensions, ScaledSize} from 'react-native';
 
+export interface WindowSize {
+  width: number;
+  height: number;
+}
+
 export function makeWindowSizeDriver() {
-  const response$ = xs.createWithMemory<ScaledSize>({
-    start(listener: Listener<ScaledSize>) {
-      this.handler = (sizes: {window: ScaledSize}) =>
+  const response$ = xs.createWithMemory<WindowSize>({
+    start(listener: Listener<WindowSize>) {
+      this.handler = (sizes: {window: WindowSize}) =>
         listener.next(sizes.window);
       Dimensions.addEventListener('change', this.handler);
       listener.next(Dimensions.get('window'));
@@ -20,7 +25,7 @@ export function makeWindowSizeDriver() {
     },
   });
 
-  return function windowSizeDriver(_sink$: Stream<never>): Stream<ScaledSize> {
+  return function windowSizeDriver(_sink$: Stream<never>): Stream<WindowSize> {
     return response$;
   };
 }

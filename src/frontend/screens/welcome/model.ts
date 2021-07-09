@@ -6,6 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import {OrientationEvent} from '../../drivers/orientation';
+import {WindowSize} from '../../drivers/window-size';
 
 export type State = {
   index: number;
@@ -21,7 +22,7 @@ type Actions = {
 export default function model(
   actions: Actions,
   orientation$: Stream<OrientationEvent>,
-  windowSize$: Stream<{height: number; width: number}>,
+  windowSize$: Stream<WindowSize>,
 ) {
   const initReducer$ = xs.of(function initReducer(): State {
     return {index: 0, isPortraitMode: true, readyToStart: false};

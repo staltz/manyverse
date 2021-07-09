@@ -12,6 +12,7 @@ import {ReactSource, h} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {OrientationEvent} from '../../drivers/orientation';
 import {t} from '../../drivers/localization';
+import {WindowSize} from '../../drivers/window-size';
 import {Palette} from '../../global-styles/palette';
 import tutorialPresentation from '../../components/tutorial-presentation';
 import tutorialSlide from '../../components/tutorial-slide';
@@ -29,7 +30,7 @@ export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
   orientation: Stream<OrientationEvent>;
-  windowSize: Stream<{height: number; width: number}>;
+  windowSize: Stream<WindowSize>;
   state: StateSource<State>;
 };
 

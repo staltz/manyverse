@@ -10,6 +10,7 @@ import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {AboutAndExtras} from '../../ssb/types';
+import {WindowSize} from '../../drivers/window-size';
 import view from './view';
 
 export type Props = {about: AboutAndExtras};
@@ -19,7 +20,7 @@ export type Sources = {
   screen: ReactSource;
   navigation: NavSource;
   state: StateSource<State>;
-  windowSize: Stream<{height: number; width: number}>;
+  windowSize: Stream<WindowSize>;
 };
 
 export type Sinks = {

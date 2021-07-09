@@ -8,6 +8,7 @@ import xs, {Stream} from 'xstream';
 import {View, Image, ScrollView} from 'react-native';
 import {h} from '@cycle/react';
 import {t} from '../../drivers/localization';
+import {WindowSize} from '../../drivers/window-size';
 import Markdown from '../../components/Markdown';
 import TopBar from '../../components/TopBar';
 import {State} from './index';
@@ -15,7 +16,7 @@ import {styles} from './styles';
 
 export default function view(
   state$: Stream<State>,
-  windowSize$: Stream<{height: number; width: number}>,
+  windowSize$: Stream<WindowSize>,
 ) {
   return xs.combine(state$, windowSize$).map(([state, windowSize]) => {
     const {width: windowWidth, height: windowHeight} = windowSize;

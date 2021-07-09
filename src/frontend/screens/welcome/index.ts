@@ -16,6 +16,7 @@ import {SSBSource, Req} from '../../drivers/ssb';
 import {SplashCommand} from '../../drivers/splashscreen';
 import {FSSource} from '../../drivers/fs';
 import {GlobalEvent} from '../../drivers/eventbus';
+import {WindowSize} from '../../drivers/window-size';
 import navigation from './navigation';
 import view from './view';
 import intent from './intent';
@@ -24,7 +25,7 @@ import model, {State} from './model';
 export type Sources = {
   screen: ReactSource;
   orientation: Stream<OrientationEvent>;
-  windowSize: Stream<{height: number; width: number}>;
+  windowSize: Stream<WindowSize>;
   asyncstorage: AsyncStorageSource;
   navigation: NavSource;
   globalEventBus: Stream<GlobalEvent>;
