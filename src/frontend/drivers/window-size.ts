@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream, Listener} from 'xstream';
-import {Dimensions, ScaledSize} from 'react-native';
+import {Dimensions} from 'react-native';
 
 export interface WindowSize {
   width: number;
