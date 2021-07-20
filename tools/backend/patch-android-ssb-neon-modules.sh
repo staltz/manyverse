@@ -17,7 +17,7 @@ function onFailure() {
 declare -a modules=(
   "ssb-keys-neon/native"
   "ssb-keys-mnemonic-neon/native"
-  "ssb-db2/node_modules/ssb-validate2-rsjs-node"
+  "ssb-validate2-rsjs-node"
 )
 
 # "rustTriple;ndkArch"
