@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -21,20 +21,20 @@ import {Props as P} from './props';
 
 export type Props = P;
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   props: Stream<Props>;
   navigation: NavSource;
   state: StateSource<State>;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   toast: Stream<Toast>;
-};
+}
 
 export const navOptions = {
   topBar: {

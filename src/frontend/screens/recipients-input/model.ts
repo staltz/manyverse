@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,18 +11,18 @@ import {PrivateThreadAndExtras} from '../../ssb/types';
 import {MentionSuggestion, SSBSource} from '../../drivers/ssb';
 import {Props} from '.';
 
-export type State = {
+export interface State {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
   mentionQuery: string;
   mentionSuggestions: Array<MentionSuggestion>;
   recipients: PrivateThreadAndExtras['recps'];
-};
+}
 
-type Actions = {
+interface Actions {
   updateQuery$: Stream<string>;
   updateRecipients$: Stream<PrivateThreadAndExtras['recps']>;
-};
+}
 
 export default function model(
   props$: Stream<Props>,
