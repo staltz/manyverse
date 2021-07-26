@@ -90,11 +90,9 @@ export function central(sources: Sources): Sinks {
     state: topBarLens,
   })(sources);
 
-  const actions = intent(
-    sources.screen,
-    sources.globalEventBus,
-    sources.state.stream,
-  );
+  const state$ = sources.state.stream;
+
+  const actions = intent(sources.screen, sources.globalEventBus, state$);
 
   const fabPress$: Stream<string> = sources.screen
     .select('fab')
@@ -131,7 +129,7 @@ export function central(sources: Sources): Sinks {
     '*': 'connectionsTab',
   })({...sources, fab: fabPress$}) as ConnectionsTabSinks;
 
-  const fabProps$ = sources.state.stream
+  const fabProps$ = state$
     .map((state) =>
       state.currentTab === 'public'
         ? publicTabSinks.fab
@@ -165,7 +163,7 @@ export function central(sources: Sources): Sinks {
   ) as Stream<Reducer<State>>;
 
   const vdom$ = view(
-    sources.state.stream,
+    state$,
     fabProps$,
     topBarSinks.screen,
     publicTabSinks.screen,
