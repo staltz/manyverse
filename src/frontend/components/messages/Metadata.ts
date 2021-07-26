@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,13 +9,14 @@ import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
+import {Dimensions} from '../../global-styles/dimens';
 
 export const styles = StyleSheet.create({
   metadataBox: {
     flex: 1,
     backgroundColor: Palette.backgroundTextHacker,
     padding: 5,
-    borderRadius: 2,
+    borderRadius: Dimensions.borderRadiusSmall,
   },
 
   metadataText: {

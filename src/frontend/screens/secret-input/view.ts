@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceBig,
     paddingVertical: 3,
     paddingHorizontal: 4,
-    borderRadius: 2,
+    borderRadius: Dimensions.borderRadiusSmall,
     textAlign: 'left',
     textAlignVertical: 'top',
     fontSize: Typography.fontSizeBig,

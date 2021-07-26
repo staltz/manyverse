@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
 
   buttonInReply: {
     alignSelf: 'flex-end',
-    borderRadius: 3,
+    borderRadius: Dimensions.borderRadiusNormal,
     paddingHorizontal: Dimensions.horizontalSpaceSmall,
     paddingVertical: Dimensions.verticalSpaceTiny,
     marginBottom: Dimensions.verticalSpaceNormal,
@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
 
   lastButtonInReply: {
     alignSelf: 'flex-end',
-    borderRadius: 3,
+    borderRadius: Dimensions.borderRadiusNormal,
     paddingLeft: Dimensions.horizontalSpaceSmall,
     paddingRight: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceTiny,

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   containerOpened: {
     paddingVertical: Dimensions.verticalSpaceTiny,
     paddingHorizontal: Dimensions.horizontalSpaceSmall,
-    borderRadius: 3,
+    borderRadius: Dimensions.borderRadiusNormal,
     flexDirection: 'row',
   },
 
@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     marginVertical: Dimensions.verticalSpaceNormal,
     paddingVertical: Dimensions.verticalSpaceBig,
     paddingHorizontal: Dimensions.horizontalSpaceNormal,
-    borderRadius: 10,
+    borderRadius: Dimensions.borderRadiusBig,
     flexDirection: 'column',
   },
 

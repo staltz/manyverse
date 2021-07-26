@@ -97,7 +97,7 @@ export const styles = StyleSheet.create({
 
   quickEmojiPickerContainer: {
     backgroundColor: Palette.backgroundText,
-    borderRadius: 10,
+    borderRadius: Dimensions.borderRadiusBig,
     marginHorizontal: Dimensions.horizontalSpaceNormal,
     marginVertical: Dimensions.verticalSpaceNormal,
     paddingHorizontal: Dimensions.horizontalSpaceNormal,

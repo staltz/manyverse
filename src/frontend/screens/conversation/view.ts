@@ -100,7 +100,7 @@ export const styles = StyleSheet.create({
   bubbleLeft: {
     backgroundColor: Palette.backgroundText,
     borderColor: Palette.voidStrong,
-    borderRadius: 10,
+    borderRadius: Dimensions.borderRadiusBig,
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Dimensions.verticalSpaceTiny,
     paddingTop: Dimensions.verticalSpaceTiny,
@@ -114,7 +114,7 @@ export const styles = StyleSheet.create({
     borderColor: Palette.isDarkTheme
       ? Palette.brandStronger
       : Palette.brandWeaker,
-    borderRadius: 10,
+    borderRadius: Dimensions.borderRadiusBig,
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Dimensions.verticalSpaceTiny,
     paddingTop: Dimensions.verticalSpaceTiny,

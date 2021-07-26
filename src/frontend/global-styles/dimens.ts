@@ -32,6 +32,10 @@ export const Dimensions = {
   avatarSizeSmall: 32,
   avatarBorderRadius: 3,
 
+  borderRadiusBig: 10,
+  borderRadiusNormal: 3,
+  borderRadiusSmall: 2,
+
   dotSize: 9,
 
   iconSizeHuge: 60,

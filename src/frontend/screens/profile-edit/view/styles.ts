@@ -68,7 +68,7 @@ export const styles = StyleSheet.create({
       default: {
         borderColor: Palette.textVeryWeak,
         borderWidth: 1,
-        borderRadius: 3,
+        borderRadius: Dimensions.borderRadiusNormal,
         paddingHorizontal: Dimensions.horizontalSpaceSmall,
         paddingVertical: Dimensions.verticalSpaceSmall,
       },
