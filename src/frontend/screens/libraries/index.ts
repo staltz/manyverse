@@ -189,7 +189,7 @@ type DepMetadata =
       homepage: string;
     };
 
-export default class DepList extends PureComponent<{
+class DepList extends PureComponent<{
   libraries: Array<DepMetadata>;
   onPressLibrary?: (link: string) => void;
 }> {
