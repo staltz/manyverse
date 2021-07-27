@@ -90,6 +90,21 @@ module.exports = {
           '../node_modules/react-native-vector-icons',
         ),
       },
+      {
+        test: /\.woff(2)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'dist/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   plugins: [

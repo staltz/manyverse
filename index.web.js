@@ -4,6 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import '@fontsource/roboto';
 import xs from 'xstream';
 import {withState} from '@cycle/state';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
@@ -11,6 +12,7 @@ import {run, GlobalScreen} from 'cycle-native-navigation-web';
 import {ssbDriver} from './lib/frontend/drivers/ssb';
 import {makeFSDriver} from './lib/frontend/drivers/fs';
 import {makeEventBusDriver} from './lib/frontend/drivers/eventbus';
+import {dialogDriver} from './lib/frontend/drivers/dialogs';
 import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
 import {makeWindowSizeDriver} from './lib/frontend/drivers/window-size';
 import {central} from './lib/frontend/screens/central';
@@ -31,8 +33,10 @@ const iconFontStyles = `@font-face {
    src: url(dist/${iconFont});
    font-family: MaterialCommunityIcons;
  }`;
+
 const style = document.createElement('style');
 style.appendChild(document.createTextNode(iconFontStyles));
+
 document.head.appendChild(style);
 
 const drivers = {
@@ -52,11 +56,7 @@ const drivers = {
   windowSize: makeWindowSizeDriver(),
   globalEventBus: makeEventBusDriver(),
   linking: () => xs.never(),
-  dialog: (x) => ({
-    alert: () => xs.never(),
-    prompt: () => xs.never(),
-    showPicker: () => xs.never(),
-  }),
+  dialog: dialogDriver,
   localization: makeLocalizationDriver(),
   keyboard: (x) => ({
     events: () => xs.never(),
