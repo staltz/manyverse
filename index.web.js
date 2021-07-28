@@ -7,19 +7,23 @@
 import '@fontsource/roboto';
 import xs from 'xstream';
 import {withState} from '@cycle/state';
-import {asyncStorageDriver} from 'cycle-native-asyncstorage';
 import {run, GlobalScreen} from 'cycle-native-navigation-web';
+
+import {asyncStorageDriver} from 'cycle-native-asyncstorage';
 import {ssbDriver} from './lib/frontend/drivers/ssb';
 import {linkingDriver} from 'cycle-native-linking';
 import {makeFSDriver} from './lib/frontend/drivers/fs';
 import {makeEventBusDriver} from './lib/frontend/drivers/eventbus';
 import {dialogDriver} from './lib/frontend/drivers/dialogs';
+import {makeActivityLifecycleDriver} from './lib/frontend/drivers/lifecycle';
 import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
 import {makeWindowSizeDriver} from './lib/frontend/drivers/window-size';
+
 import {central} from './lib/frontend/screens/central';
 import {compose} from './lib/frontend/screens/compose';
 import {global} from './lib/frontend/screens/global';
 import {welcome} from './lib/frontend/screens/welcome';
+import {pasteInvite} from './lib/frontend/screens/invite-paste';
 import {profile} from './lib/frontend/screens/profile';
 import {biography} from './lib/frontend/screens/biography';
 import {thread} from './lib/frontend/screens/thread';
@@ -28,6 +32,7 @@ import {secretOutput} from './lib/frontend/screens/secret-output';
 import {secretInput} from './lib/frontend/screens/secret-input';
 import {Screens} from './lib/frontend/screens/enums';
 import {welcomeLayout} from './lib/frontend/screens/layouts';
+
 const iconFont = require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf');
 
 const iconFontStyles = `@font-face {
@@ -44,6 +49,7 @@ const drivers = {
   asyncstorage: asyncStorageDriver,
   ssb: ssbDriver,
   fs: makeFSDriver(),
+  lifecycle: makeActivityLifecycleDriver(),
   network: () => ({
     bluetoothIsEnabled: () => xs.of(false),
     wifiIsEnabled: () => xs.of(true),
@@ -77,7 +83,7 @@ const screens = {
   // [Screens.Conversation]: withState(conversation),
   // [Screens.RecipientsInput]: withState(recipientsInput),
   // [Screens.Libraries]: libraries,
-  // [Screens.InvitePaste]: withState(pasteInvite),
+  [Screens.InvitePaste]: withState(pasteInvite),
   // [Screens.InviteCreate]: withState(createInvite),
   [Screens.Profile]: withState(profile),
   // [Screens.ProfileEdit]: withState(editProfile),

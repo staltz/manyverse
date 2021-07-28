@@ -71,7 +71,7 @@ export function pasteInvite(sources: Sources): Sinks {
   const reducer$ = model(actions);
   const newContent$ = ssb(actions);
   const dismiss$ = xs
-    .merge(actions.roomDone$, actions.normalDone$, actions.back$)
+    .merge(actions.done$, actions.back$)
     .mapTo('dismiss' as 'dismiss');
 
   const alert$ = actions.dhtDone$.map(

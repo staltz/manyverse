@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,15 +6,21 @@
 
 import xs, {Stream} from 'xstream';
 import {Command} from 'cycle-native-navigation';
+import {Platform} from 'react-native';
 
 export type Actions = {
   quitFromKeyboard$: Stream<any>;
+  done$: Stream<any>;
   back$: Stream<any>;
 };
 
 export default function navigation(actions: Actions): Stream<Command> {
   const goBack$ = xs
-    .merge(actions.back$, actions.quitFromKeyboard$)
+    .merge(
+      Platform.OS === 'web' ? actions.done$ : xs.never(),
+      actions.back$,
+      actions.quitFromKeyboard$,
+    )
     .map(() => ({type: 'pop'} as Command));
 
   return goBack$;

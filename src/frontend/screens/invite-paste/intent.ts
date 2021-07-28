@@ -40,6 +40,8 @@ export default function intent(
       reactSource.select('topbar').events('pressBack'),
     ),
 
+    done$,
+
     dhtDone$: done$.filter((text) => text.startsWith('dht:')),
 
     roomDone$: done$.filter(
