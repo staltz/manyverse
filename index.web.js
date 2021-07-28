@@ -10,6 +10,7 @@ import {withState} from '@cycle/state';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
 import {run, GlobalScreen} from 'cycle-native-navigation-web';
 import {ssbDriver} from './lib/frontend/drivers/ssb';
+import {linkingDriver} from 'cycle-native-linking';
 import {makeFSDriver} from './lib/frontend/drivers/fs';
 import {makeEventBusDriver} from './lib/frontend/drivers/eventbus';
 import {dialogDriver} from './lib/frontend/drivers/dialogs';
@@ -55,7 +56,7 @@ const drivers = {
     ),
   windowSize: makeWindowSizeDriver(),
   globalEventBus: makeEventBusDriver(),
-  linking: () => xs.never(),
+  linking: linkingDriver,
   dialog: dialogDriver,
   localization: makeLocalizationDriver(),
   keyboard: (x) => ({
