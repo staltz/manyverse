@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,7 +9,7 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
 import {Reducer, StateSource} from '@cycle/state';
-import {Command as AlertCommand} from 'cycle-native-alert';
+import {Command as AlertCommand} from '../../drivers/dialogs';
 import {SSBSource, Req} from '../../drivers/ssb';
 import model, {State} from './model';
 import view from './view';
@@ -32,7 +32,7 @@ export type Sinks = {
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
   linking: Stream<string>;
-  alert: Stream<AlertCommand>;
+  dialog: Stream<AlertCommand>;
 };
 
 export const navOptions = {
@@ -62,6 +62,6 @@ export function settings(sources: Sources): Sinks {
     navigation: command$,
     ssb: req$,
     linking: links$,
-    alert: alert$,
+    dialog: alert$,
   };
 }

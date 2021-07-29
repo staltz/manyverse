@@ -67,7 +67,6 @@
     "@staltz/react-native-audio-toolkit": "2.0.3-1",
     "buffer": "5.6.0",
     "color-hash": "1.0.3",
-    "cycle-native-alert": "1.1.0",
     "cycle-native-android-local-notification": "1.1.0",
     "cycle-native-asyncstorage": "3.1.0",
     "cycle-native-clipboard": "1.0.0",

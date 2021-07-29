@@ -5,22 +5,20 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
-import {Command as AlertCommand} from 'cycle-native-alert';
+import {Command as AlertCommand} from '../../drivers/dialogs';
 import {t} from '../../drivers/localization';
 import {State} from './model';
 
-export default function alert(state$: Stream<State>) {
+export default function alert(state$: Stream<State>): Stream<AlertCommand> {
   const informConnectionAttempt$ = state$
     .filter((state) => state.reason === 'connection-attempt')
     .take(1)
-    .map(
-      () =>
-        ({
-          title: t('profile.dialog_friend_request.title'),
-          message: t('profile.dialog_friend_request.description'),
-          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
-        } as AlertCommand),
-    );
+    .map(() => ({
+      type: 'alert' as const,
+      title: t('profile.dialog_friend_request.title'),
+      content: t('profile.dialog_friend_request.description'),
+      options: {positiveText: t('call_to_action.ok')},
+    }));
 
   return informConnectionAttempt$;
 }

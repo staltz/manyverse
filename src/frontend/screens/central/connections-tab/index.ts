@@ -7,7 +7,6 @@
 import {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
-import {Command as AlertCommand} from 'cycle-native-alert';
 import {ReactSource} from '@cycle/react';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SharedContent} from 'cycle-native-share';
@@ -15,7 +14,7 @@ import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {State as AppState} from '../../../drivers/appstate';
 import {NetworkSource} from '../../../drivers/network';
 import {SSBSource, Req} from '../../../drivers/ssb';
-import {DialogSource} from '../../../drivers/dialogs';
+import {Command as AlertCommand, DialogSource} from '../../../drivers/dialogs';
 import {Toast, Duration as ToastDuration} from '../../../drivers/toast';
 import {t} from '../../../drivers/localization';
 import view from './view';
@@ -41,7 +40,7 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  alert: Stream<AlertCommand>;
+  dialog: Stream<AlertCommand>;
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
   fab: Stream<FabProps>;
@@ -103,7 +102,7 @@ export function connectionsTab(sources: Sources): Sinks {
     .flatten();
 
   return {
-    alert: alert$,
+    dialog: alert$,
     navigation: command$,
     screen: vdom$,
     state: reducer$,

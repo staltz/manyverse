@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {Command as AlertCommand} from 'cycle-native-alert';
+import {Command as AlertCommand} from '../../../drivers/dialogs';
 import {t} from '../../../drivers/localization';
 import {State} from './model';
 
@@ -23,34 +23,37 @@ export default function alert(
     .map((state) =>
       xs.merge(
         actions.showBluetoothHelp$.mapTo({
+          type: 'alert' as const,
           title: t('connections.modes.bluetooth.title'),
-          message:
+          content:
             (state.bluetoothEnabled
               ? t('connections.modes.generic.enabled')
               : t('connections.modes.bluetooth.disabled')) +
             '\n\n' +
             t('connections.modes.bluetooth.description'),
-          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
+          options: {positiveText: t('call_to_action.ok')},
         }),
         actions.showLANHelp$.mapTo({
+          type: 'alert' as const,
           title: t('connections.modes.wifi.title'),
-          message:
+          content:
             (state.lanEnabled
               ? t('connections.modes.generic.enabled')
               : t('connections.modes.wifi.disabled')) +
             '\n\n' +
             t('connections.modes.wifi.description'),
-          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
+          options: {positiveText: t('call_to_action.ok')},
         }),
         actions.showPubHelp$.mapTo({
+          type: 'alert' as const,
           title: t('connections.modes.servers.title'),
-          message:
+          content:
             (state.internetEnabled
               ? t('connections.modes.generic.enabled')
               : t('connections.modes.servers.disabled')) +
             '\n\n' +
             t('connections.modes.servers.description'),
-          buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
+          options: {positiveText: t('call_to_action.ok')},
         }),
       ),
     )

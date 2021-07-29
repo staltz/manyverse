@@ -9,7 +9,6 @@ import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
-import {Command as AlertCommand} from 'cycle-native-alert';
 import {SharedContent} from 'cycle-native-share';
 import {
   AsyncStorageSource,
@@ -21,7 +20,7 @@ import {State as AppState} from '../../drivers/appstate';
 import {NetworkSource} from '../../drivers/network';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {GlobalEvent} from '../../drivers/eventbus';
-import {DialogSource} from '../../drivers/dialogs';
+import {Command as AlertCommand, DialogSource} from '../../drivers/dialogs';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {privateTab, Sinks as PrivateTabSinks} from './private-tab/index';
 import {activityTab, Sinks as ActivityTabSinks} from './activity-tab/index';
@@ -58,7 +57,7 @@ export type Sinks = {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   asyncstorage: Stream<StorageCommand>;
-  alert: Stream<AlertCommand>;
+  dialog: Stream<AlertCommand>;
   state: Stream<Reducer<any>>;
   ssb: Stream<Req>;
   clipboard: Stream<string>;
@@ -186,7 +185,7 @@ export function central(sources: Sources): Sinks {
     state: reducer$,
     navigation: command$,
     asyncstorage: storageCommand$,
-    alert: connectionsTabSinks.alert,
+    dialog: connectionsTabSinks.dialog,
     ssb: ssb$,
     linking: connectionsTabSinks.linking,
     clipboard: publicTabSinks.clipboard,

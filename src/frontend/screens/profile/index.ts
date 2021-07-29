@@ -11,9 +11,8 @@ import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {Command as AlertCommand} from 'cycle-native-alert';
 import {SSBSource, Req} from '../../drivers/ssb';
-import {DialogSource} from '../../drivers/dialogs';
+import {Command as AlertCommand, DialogSource} from '../../drivers/dialogs';
 import {Toast, Duration as ToastDuration} from '../../drivers/toast';
 import {t} from '../../drivers/localization';
 import messageEtc from '../../components/messageEtc';
@@ -46,7 +45,7 @@ export type Sinks = {
   state: Stream<Reducer<State>>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
-  alert: Stream<AlertCommand>;
+  dialog: Stream<AlertCommand>;
   ssb: Stream<Req>;
 };
 
@@ -152,7 +151,7 @@ export function profile(sources: Sources): Sinks {
     screen: vdom$,
     navigation: command$,
     state: reducer$,
-    alert: alert$,
+    dialog: alert$,
     clipboard: clipboard$,
     toast: toast$,
     ssb: newContent$,

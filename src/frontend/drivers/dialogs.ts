@@ -53,9 +53,7 @@ export function dialogDriver(command$: Stream<Command>): DialogSource {
     next: (cmd) => {
       if (cmd.type === 'dismiss') {
         Implementation.dismiss();
-      }
-
-      if (cmd.type === 'alert') {
+      } else if (cmd.type === 'alert') {
         Implementation.alert(cmd.title, cmd.content, cmd.options);
       }
     },

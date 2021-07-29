@@ -7,7 +7,6 @@
 import {withState} from '@cycle/state';
 import {MoreScreenSinks} from 'cycle-native-navigation';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
-import {alertDriver} from 'cycle-native-alert';
 import {makeClipboardDriver} from 'cycle-native-clipboard';
 import {linkingDriver} from 'cycle-native-linking';
 import {makeLocalizationDriver} from './drivers/localization';
@@ -58,7 +57,6 @@ import {settings} from './screens/settings';
 
 export const drivers = {
   appstate: makeAppStateDriver(),
-  alert: alertDriver,
   asyncstorage: asyncStorageDriver,
   keyboard: makeKeyboardDriver(),
   clipboard: makeClipboardDriver(),

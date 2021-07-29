@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Implementation} from './dialogs-types';
-const DialogAndroid = require('react-native-dialogs');
+import DialogAndroid from 'react-native-dialogs';
 
 const impl: Implementation = {
   alert(title, content, options) {

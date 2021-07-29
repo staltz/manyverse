@@ -10,7 +10,7 @@ import {KeyboardSource} from 'cycle-native-keyboard';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {Command as AlertCommand} from 'cycle-native-alert';
+import {Command as AlertCommand} from '../../drivers/dialogs';
 import {SSBSource, Req as SSBReq} from '../../drivers/ssb';
 import {LifecycleEvent} from '../../drivers/lifecycle';
 import {t} from '../../drivers/localization';
@@ -34,7 +34,7 @@ export type Sinks = {
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   keyboard: Stream<'dismiss'>;
-  alert: Stream<AlertCommand>;
+  dialog: Stream<AlertCommand>;
   ssb: Stream<SSBReq>;
 };
 
@@ -74,21 +74,19 @@ export function pasteInvite(sources: Sources): Sinks {
     .merge(actions.done$, actions.back$)
     .mapTo('dismiss' as 'dismiss');
 
-  const alert$ = actions.dhtDone$.map(
-    () =>
-      ({
-        title: t('invite_paste.alert_unsupported_dht.title'),
-        message: t('invite_paste.alert_unsupported_dht.description'),
-        buttons: [{text: t('call_to_action.ok'), id: 'okay'}],
-      } as AlertCommand),
-  );
+  const alert$ = actions.dhtDone$.map(() => ({
+    type: 'alert' as const,
+    title: t('invite_paste.alert_unsupported_dht.title'),
+    content: t('invite_paste.alert_unsupported_dht.description'),
+    options: {positiveText: t('call_to_action.ok')},
+  }));
 
   return {
     keyboard: dismiss$,
     screen: vdom$,
     navigation: command$,
     state: reducer$,
-    alert: alert$,
+    dialog: alert$,
     ssb: newContent$,
   };
 }
