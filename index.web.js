@@ -12,6 +12,7 @@ import {run, GlobalScreen} from 'cycle-native-navigation-web';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
 import {ssbDriver} from './lib/frontend/drivers/ssb';
 import {linkingDriver} from 'cycle-native-linking';
+import {makeClipboardDriver} from 'cycle-native-clipboard';
 import {makeFSDriver} from './lib/frontend/drivers/fs';
 import {makeEventBusDriver} from './lib/frontend/drivers/eventbus';
 import {dialogDriver} from './lib/frontend/drivers/dialogs';
@@ -47,6 +48,7 @@ document.head.appendChild(style);
 
 const drivers = {
   asyncstorage: asyncStorageDriver,
+  clipboard: makeClipboardDriver(),
   ssb: ssbDriver,
   fs: makeFSDriver(),
   lifecycle: makeActivityLifecycleDriver(),
