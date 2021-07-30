@@ -325,13 +325,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
     h(View, {style: styles.screen}, [
       !state.readyToStart
         ? h(Image, {
-            source: {
-              uri:
-                Platform.OS === 'web'
-                  ? 'dist/' +
-                    require('../../../../images/logo_outline.png').default
-                  : 'logo_outline',
-            },
+            source: getImg(require('../../../../images/logo_outline.png')),
             style: styles.logo,
           })
         : tutorialPresentation('swiper', {scrollBy$: actions.scrollBy$}, [

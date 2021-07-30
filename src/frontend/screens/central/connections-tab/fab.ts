@@ -13,6 +13,7 @@ import {
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {t} from '../../../drivers/localization';
+import {getImg} from '../../../global-styles/utils';
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
   return state$.map((state) => {
@@ -23,7 +24,7 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
       actions.push({
         color: Palette.backgroundCTA,
         name: 'invite-paste',
-        icon: require('../../../../../images/package-down.png'),
+        icon: getImg(require('../../../../../images/package-down.png')),
         text: t('connections.floating_action_button.paste_invite'),
       });
     }
@@ -32,7 +33,7 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
       actions.push({
         color: Palette.backgroundCTA,
         name: 'bluetooth-search',
-        icon: require('../../../../../images/bluetooth.png'),
+        icon: getImg(require('../../../../../images/bluetooth.png')),
         text: t('connections.floating_action_button.bluetooth_seek'),
       });
     }
@@ -49,7 +50,7 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
         vertical: Dimensions.verticalSpaceLarge,
         horizontal: Dimensions.horizontalSpaceBig,
       } as any,
-      floatingIcon: require('../../../../../images/plus-network.png'),
+      floatingIcon: getImg(require('../../../../../images/plus-network.png')),
     } as Props;
   });
 }

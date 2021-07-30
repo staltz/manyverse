@@ -10,6 +10,7 @@ import {IFloatingActionProps as Props} from 'react-native-floating-action';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {t} from '../../../drivers/localization';
+import {getImg} from '../../../global-styles/utils';
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
   return state$.map(
@@ -24,7 +25,7 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
           {
             color: Palette.backgroundCTA,
             name: 'compose',
-            icon: require('../../../../../images/pencil.png'),
+            icon: getImg(require('../../../../../images/pencil.png')),
             text: t('public.floating_action_button.compose'),
           },
         ],
