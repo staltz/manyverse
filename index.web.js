@@ -27,6 +27,7 @@ import {welcome} from './lib/frontend/screens/welcome';
 import {pasteInvite} from './lib/frontend/screens/invite-paste';
 import {profile} from './lib/frontend/screens/profile';
 import {biography} from './lib/frontend/screens/biography';
+import {search} from './lib/frontend/screens/search';
 import {thread} from './lib/frontend/screens/thread';
 import {accounts} from './lib/frontend/screens/accounts';
 import {secretOutput} from './lib/frontend/screens/secret-output';
@@ -81,6 +82,7 @@ const screens = {
   // [Screens.DialogThanks]: dialogThanks,
   [Screens.Compose]: withState(compose),
   // [Screens.ComposeAudio]: withState(composeAudio),
+  [Screens.Search]: withState(search),
   [Screens.Thread]: withState(thread),
   // [Screens.Conversation]: withState(conversation),
   // [Screens.RecipientsInput]: withState(recipientsInput),

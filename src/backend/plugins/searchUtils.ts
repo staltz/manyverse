@@ -1,0 +1,68 @@
+/* Copyright (C) 2021 The Manyverse Authors.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+import {Msg, PostContent} from 'ssb-typescript';
+import {Callback} from './helpers/types';
+const pull = require('pull-stream');
+const {
+  where,
+  and,
+  type,
+  isPublic,
+  descending,
+  paginate,
+  toPullStream,
+} = require('ssb-db2/operators');
+
+export = {
+  name: 'searchUtils',
+  version: '1.0.0',
+  manifest: {
+    query: 'source',
+  },
+  permissions: {
+    master: {
+      allow: ['query'],
+    },
+  },
+  init: function init(ssb: any) {
+    const containsWords = ssb.search2.operator;
+
+    return {
+      query(text: string) {
+        return pull(
+          ssb.db.query(
+            where(and(type('post'), isPublic(), containsWords(text))),
+            descending(),
+            paginate(50),
+            toPullStream(),
+          ),
+          pull.map(pull.values),
+          pull.flatten(),
+          pull.filter((msg: Msg<PostContent>) =>
+            // We want to make sure that *exact* input is matched, *not* as a
+            // word prefix, so we use a word boundary, except not literally `\b`
+            // because it often doensn't work with Unicode (especially in
+            // nodejs-mobile!), so we do this instead:
+            new RegExp(text + '($|[ ,.;:!?\\-])', 'i').test(
+              msg.value.content.text,
+            ),
+          ),
+          pull.asyncMap((msg: Msg, cb: Callback<Msg | null>) => {
+            ssb.friends.isBlocking(
+              {source: ssb.id, dest: msg.value.author},
+              (err: any, blocking: boolean) => {
+                if (err || blocking) cb(null, null);
+                else cb(null, msg);
+              },
+            );
+          }),
+          pull.filter(),
+        );
+      },
+    };
+  },
+};

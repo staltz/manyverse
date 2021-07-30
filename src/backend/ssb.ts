@@ -111,6 +111,7 @@ SecretStack()
   .use(require('ssb-suggest-lite')) // needs: db2, about-self, friends
   .use(require('ssb-threads')) // needs: db, db2, friends
   .use(require('ssb-db2/full-mentions')) // needs: db2
+  .use(require('ssb-search2')) // needs: db2
   // Blobs
   .use(require('ssb-blobs'))
   .use(require('ssb-serve-blobs')) // needs: blobs
@@ -123,6 +124,7 @@ SecretStack()
   .use(require('./plugins/resyncUtils')) // needs: db2, connFirewall
   .use(require('./plugins/publishUtilsBack')) // needs: db, blobs, blobsUtils
   .use(require('./plugins/friendsUtils')) // needs: db2
+  .use(require('./plugins/searchUtils')) // needs: db2
   .use(require('./plugins/keysUtils'))
   .use(settingsUtils) // needs: blobs-purge
   .use(require('./plugins/syncing')) // needs: db2

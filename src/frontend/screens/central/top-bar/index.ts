@@ -13,9 +13,10 @@ import {StyleSheet, Platform, Animated} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
+import {Typography} from '../../../global-styles/typography';
 import HeaderMenuButton from '../../../components/HeaderMenuButton';
 import HeaderMenuProgress from '../../../components/HeaderMenuProgress';
-import {Typography} from '../../../global-styles/typography';
+import HeaderButton from '../../../components/HeaderButton';
 import {t} from '../../../drivers/localization';
 
 export type State = {
@@ -33,6 +34,7 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   menuPress: Stream<any>;
+  publicSearch: Stream<any>;
 };
 
 export const styles = StyleSheet.create({
@@ -50,6 +52,21 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingHorizontal: Dimensions.horizontalSpaceBig,
+  },
+
+  publicRightSide: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+
+  publicRightSideShown: {
+    display: 'flex',
+  },
+
+  publicRightSideHidden: {
+    display: 'none',
   },
 
   title: {
@@ -79,6 +96,8 @@ function intent(reactSource: ReactSource) {
       reactSource.select('menuButton').events('press'),
       reactSource.select('menuProgress').events('press'),
     ),
+
+    publicSearch$: reactSource.select('search').events('press'),
   };
 }
 
@@ -172,6 +191,26 @@ function view(state$: Stream<State>) {
           {style: [styles.title, {opacity}]},
           tabTitle(state.currentTab),
         ),
+        h(
+          Animated.View,
+          {
+            style: [
+              styles.publicRightSide,
+              state.currentTab === 'public'
+                ? styles.publicRightSideShown
+                : styles.publicRightSideHidden,
+              {opacity},
+            ],
+          },
+          [
+            h(HeaderButton, {
+              sel: 'search',
+              icon: 'magnify',
+              side: 'right',
+              accessibilityLabel: t('public.search.accessibility_label'),
+            }),
+          ],
+        ),
       ],
     );
   });
@@ -184,5 +223,6 @@ export function topBar(sources: Sources): Sinks {
   return {
     screen: vdom$,
     menuPress: actions.menu$,
+    publicSearch: actions.publicSearch$,
   };
 }

@@ -199,6 +199,9 @@
     "empty": {
       "title": "No messages",
       "description": "Write a diary to be\nshared with friends later"
+    },
+    "search": {
+      "accessibility_label": "Search Button"
     }
   },
   "private": {
@@ -821,6 +824,25 @@
     },
     "toasts": {
       "limit_reached": "Cannot choose more than {{limit}} recipients"
+    }
+  },
+  "search": {
+    "query_input": {
+      "placeholder": "Search public posts",
+      "accessibility_label": "Search Query Text Input"
+    },
+    "clear_query": {
+      "accessibility_label": "Reset the Search Query Text Input"
+    },
+    "empty": {
+      "initial": {
+        "title": "Search something",
+        "description": "Wait while the app is\nattempting to connect to your peers"
+      },
+      "zero_results": {
+        "title": "Zero results",
+        "description": "Nothing found for \"{{query}}\""
+      }
     }
   },
   "secret_input": {

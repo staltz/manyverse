@@ -37,6 +37,7 @@ import {dialogAbout} from './screens/dialog-about';
 import {dialogThanks} from './screens/dialog-thanks';
 import {compose} from './screens/compose';
 import {composeAudio} from './screens/compose-audio';
+import {search} from './screens/search';
 import {thread} from './screens/thread';
 import {conversation} from './screens/conversation';
 import {recipientsInput} from './screens/recipients-input';
@@ -98,6 +99,7 @@ export const screens: ScreensMapping = {
   [Screens.DialogThanks]: dialogThanks,
   [Screens.Compose]: withState(compose),
   [Screens.ComposeAudio]: withState(composeAudio),
+  [Screens.Search]: withState(search),
   [Screens.Thread]: withState(thread),
   [Screens.Conversation]: withState(conversation),
   [Screens.RecipientsInput]: withState(recipientsInput),

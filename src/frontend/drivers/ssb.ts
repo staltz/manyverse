@@ -14,6 +14,7 @@ import {
   BlobId,
   About,
   AliasContent,
+  PostContent,
 } from 'ssb-typescript';
 import backend from './ssb-backend';
 import {Platform} from 'react-native';
@@ -424,6 +425,14 @@ export class SSBSource {
         ),
       )
       .flatten();
+  }
+
+  public searchPublicPosts$(
+    text: string,
+  ): Stream<GetReadable<MsgAndExtras<PostContent>>> {
+    return this.ssb$.map((ssb) => () =>
+      ssb.threadsUtils.searchPublicPosts(text),
+    );
   }
 
   public produceSignInWebUrl$(serverId: FeedId): Stream<string> {

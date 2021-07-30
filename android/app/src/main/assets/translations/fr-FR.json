@@ -199,6 +199,9 @@
     "empty": {
       "title": "Aucun message",
       "description": "Écrivez une note qui sera \npartagé avec vos amis plus tard"
+    },
+    "search": {
+      "accessibility_label": "Search Button"
     }
   },
   "private": {
@@ -1124,6 +1127,25 @@
         "3_normal": " débloqué ",
         "4_bold": "{{target}}",
         "5_normal": ""
+      }
+    }
+  },
+  "search": {
+    "query_input": {
+      "placeholder": "Search public posts",
+      "accessibility_label": "Search Query Text Input"
+    },
+    "clear_query": {
+      "accessibility_label": "Reset the Search Query Text Input"
+    },
+    "empty": {
+      "initial": {
+        "title": "Search something",
+        "description": "Wait while the app is\nattempting to connect to your peers"
+      },
+      "zero_results": {
+        "title": "Zero results",
+        "description": "Nothing found for \"{{query}}\""
       }
     }
   }

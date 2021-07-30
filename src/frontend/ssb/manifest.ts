@@ -185,6 +185,9 @@ export default {
   keysUtils: {
     getMnemonic: 'sync',
   },
+  searchUtils: {
+    query: 'source',
+  },
   settingsUtils: {
     read: 'sync',
     updateHops: 'sync',

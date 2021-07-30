@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
    <color name="background_brand">#4263eb</color>
+   <color name="brand_weaker">#91a7ff</color>
    <color name="background_brand_strong">#364fc7</color>
    <color name="text_normal">#212529</color>
 </resources>

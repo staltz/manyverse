@@ -13,6 +13,10 @@
         <item name="android:textColor">@color/text_normal</item>
         <item name="android:windowBackground">@color/background_brand</item>
         <item name="colorAccent">@color/background_brand</item>
+
+        <!-- A hack due to https://github.com/facebook/react-native/issues/30283
+        pending on fix https://github.com/facebook/react-native/pull/31007 -->
+        <item name="colorControlActivated">@color/brand_weaker</item>
     </style>
 
 </resources>

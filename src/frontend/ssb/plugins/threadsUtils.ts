@@ -228,6 +228,13 @@ const threadsUtils = {
         );
       },
 
+      searchPublicPosts(text: string) {
+        return pull(
+          ssb.deweird.source(['searchUtils', 'query'], text),
+          pull.asyncMap(mutateMsgWithLiveExtras(ssb, false)),
+        );
+      },
+
       selfPublicRoots(opts: any) {
         return pull(
           ssb.dbUtils.selfPublicRoots(opts),

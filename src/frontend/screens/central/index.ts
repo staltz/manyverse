@@ -140,9 +140,11 @@ export function central(sources: Sources): Sinks {
     .flatten();
 
   const command$ = navigation(
+    state$,
     {
       openDrawer$: topBarSinks.menuPress,
       closeDrawer$: actions.closeDrawer$,
+      goToSearch$: topBarSinks.publicSearch,
     },
     xs.merge(
       publicTabSinks.navigation,
