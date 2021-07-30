@@ -284,6 +284,7 @@ class ActivityList extends PureComponent<MLProps, MLState> {
       forceRefresh$: (scrollToTop$ ?? xs.never())
         .filter(() => this.yOffset <= Y_OFFSET_IS_AT_TOP)
         .mapTo(void 0),
+      refreshColors: [Palette.brandWeak],
       onInitialPullDone: this._onFeedInitialPullDone,
       ListFooterComponent: initialLoading
         ? h(AnimatedLoading, {text: t('central.loading')})
