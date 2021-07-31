@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -29,15 +29,27 @@ export const hopsOptions = [
   'unlimited' as const,
 ];
 
+export const fontSizeOptions = [
+  '14' as const,
+  '16' as const,
+  '18' as const,
+  '20' as const,
+  '22' as const,
+  '24' as const,
+];
+
 export type BlobsStorageOption = UnwrapArray<typeof blobsStorageOptions>;
 export type HopsOption = UnwrapArray<typeof hopsOptions>;
+export type FontSizeOption = UnwrapArray<typeof fontSizeOptions>;
 
 const DEFAULT_HOPS: HopsOption = '2';
 const DEFAULT_BLOBS_STORAGE: BlobsStorageOption = 'unlimited';
+const DEFAULT_FONT_SIZE: FontSizeOption = '16';
 
 export type State = {
   initialHops: number;
   initialBlobsStorage: number;
+  initialFontSize: number;
   showFollows: boolean;
   enableDetailedLogs: boolean;
 };
@@ -71,6 +83,17 @@ function blobsStorageToOpt(blobsStorage?: number): BlobsStorageOption {
   return DEFAULT_BLOBS_STORAGE;
 }
 
+function fontSizeToOpt(fontSize?: number): FontSizeOption {
+  if (typeof fontSize !== 'number') return DEFAULT_FONT_SIZE;
+  if (fontSize === 1) return '14';
+  if (fontSize === 2) return '16';
+  if (fontSize === 3) return '18';
+  if (fontSize === 4) return '20';
+  if (fontSize === 5) return '22';
+  if (fontSize === 6) return '24';
+  return DEFAULT_FONT_SIZE;
+}
+
 export default function model(actions: Actions, ssbSource: SSBSource) {
   const initReducer$ = xs.of(function initReducer(prev?: State): State {
     if (prev) return prev;
@@ -80,6 +103,7 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
       enableDetailedLogs: false,
       initialHops: hopsOptions.indexOf(DEFAULT_HOPS),
       initialBlobsStorage: blobsStorageOptions.indexOf(DEFAULT_BLOBS_STORAGE),
+      initialFontSize: fontSizeOptions.indexOf(DEFAULT_FONT_SIZE),
     };
   });
 
@@ -94,6 +118,9 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
             blobsStorageToOpt(settings.blobsStorageLimit),
           ),
           enableDetailedLogs: settings.detailedLogs ?? prev.enableDetailedLogs,
+          initialFontSize: fontSizeOptions.indexOf(
+            fontSizeToOpt(settings.fontSize),
+          ),
         };
       },
   );

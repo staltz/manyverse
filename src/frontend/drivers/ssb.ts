@@ -441,6 +441,7 @@ export class SSBSource {
   public readSettings(): Stream<{
     hops?: number;
     blobsStorageLimit?: number;
+    fontSize?: number;
     detailedLogs?: boolean;
     showFollows?: boolean;
   }> {
