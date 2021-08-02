@@ -63,6 +63,7 @@ const config = makeConfig('ssb', {
   },
   friends: {
     hops: settingsUtils.readSync().hops ?? 2,
+    hookAuth: false, // because we use ssb-conn-firewall
   },
   suggest: {
     autostart: false,
