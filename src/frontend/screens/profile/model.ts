@@ -5,11 +5,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import delay from 'xstream/extra/delay';
 import concat from 'xstream/extra/concat';
+import sample from 'xstream-sample';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
-import {AboutAndExtras, Alias} from '../../ssb/types';
+import {AboutAndExtras, Alias, SSBFriendsQueryDetails} from '../../ssb/types';
 import {SSBSource, GetReadable} from '../../drivers/ssb';
 import {Props} from './props';
 
@@ -23,15 +25,26 @@ export type State = {
   aliases: Array<Alias>;
   following: Array<FeedId> | null;
   followers: Array<FeedId> | null;
+  followsYou: SSBFriendsQueryDetails | null;
+  youFollow: SSBFriendsQueryDetails | null;
+  youBlock: SSBFriendsQueryDetails | null;
   connection: 'connected' | 'connecting' | 'disconnecting' | undefined;
   // TODO: use `ThreadSummaryWithExtras` but somehow support reply summaries
   getFeedReadable: GetReadable<any> | null;
-  blockingSecretly: boolean;
 };
 
-type Actions = {
+interface Actions {
   refreshFeed$: Stream<any>;
-};
+  follow$: Stream<boolean>;
+  blockContact$: Stream<null>;
+  blockSecretlyContact$: Stream<null>;
+  unblockContact$: Stream<null>;
+  unblockSecretlyContact$: Stream<null>;
+}
+
+function dropCompletion<T>(stream: Stream<T>): Stream<T> {
+  return xs.merge(stream, xs.never());
+}
 
 export default function model(
   actions: Actions,
@@ -57,8 +70,10 @@ export default function model(
           aliases: [],
           following: null,
           followers: null,
+          followsYou: null,
+          youFollow: null,
+          youBlock: null,
           connection: void 0,
-          blockingSecretly: false,
         };
       },
   );
@@ -73,6 +88,56 @@ export default function model(
         return {...prev, about};
       },
   );
+
+  const feedPair$ = props$
+    .filter((props) => props.feedId !== props.selfFeedId)
+    .map(({feedId, selfFeedId}) => ({feedId, selfFeedId}))
+    .take(1)
+    .compose(dropCompletion)
+    .remember();
+
+  const refreshRelationship$ = xs
+    .merge(
+      actions.follow$,
+      actions.blockContact$,
+      actions.blockSecretlyContact$,
+      actions.unblockContact$,
+      actions.unblockSecretlyContact$,
+    )
+    .compose(delay(500))
+    .compose(sample(feedPair$));
+
+  const updateFollowsYouReducer$ = feedPair$
+    .map((pair) => ssbSource.isFollowing$(pair.feedId, pair.selfFeedId))
+    .flatten()
+    .map(
+      (followsYou) =>
+        function updateFollowsYouReducer(prev: State): State {
+          return {...prev, followsYou};
+        },
+    );
+
+  const updateYouFollowReducer$ = xs
+    .merge(feedPair$, refreshRelationship$)
+    .map((pair) => ssbSource.isFollowing$(pair.selfFeedId, pair.feedId))
+    .flatten()
+    .map(
+      (youFollow) =>
+        function updateRelationshipReducer(prev: State): State {
+          return {...prev, youFollow};
+        },
+    );
+
+  const updateYouBlockReducer$ = xs
+    .merge(feedPair$, refreshRelationship$)
+    .map((pair) => ssbSource.isBlocking$(pair.selfFeedId, pair.feedId))
+    .flatten()
+    .map(
+      (youBlock) =>
+        function updateRelationshipReducer(prev: State): State {
+          return {...prev, youBlock};
+        },
+    );
 
   const updateConnectionReducer$ = ssbSource.peers$.map(
     (peers) =>
@@ -105,18 +170,6 @@ export default function model(
       ),
     )
     .flatten();
-
-  const updateBlockingSecretlyReducer$ = props$
-    .filter((props) => props.feedId !== props.selfFeedId)
-    .map((props) => ssbSource.isPrivatelyBlocking$(props.feedId))
-    .take(1)
-    .flatten()
-    .map(
-      (blockingSecretly) =>
-        function updateSecretlyBlockingReducer(prev: State): State {
-          return {...prev, blockingSecretly};
-        },
-    );
 
   const updateFollowingReducer$ = props$
     .map((props) => ssbSource.profileEdges$(props.feedId, false, true))
@@ -162,12 +215,14 @@ export default function model(
     xs.merge(
       loadLastSessionTimestampReducer$,
       updateAboutReducer$,
+      updateFollowsYouReducer$,
+      updateYouFollowReducer$,
+      updateYouBlockReducer$,
       updateConnectionReducer$,
       updateFollowingReducer$,
       updateFollowersReducer$,
       updateAliasesReducer$,
       updateFeedStreamReducer$,
-      updateBlockingSecretlyReducer$,
     ),
   );
 }

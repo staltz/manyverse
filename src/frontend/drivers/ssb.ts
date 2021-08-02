@@ -32,6 +32,7 @@ import {
   ThreadSummaryWithExtras,
   Alias,
   FirewallAttempt,
+  SSBFriendsQueryDetails,
 } from '../ssb/types';
 import makeClient, {SSBClient} from '../ssb/client';
 import {imageToImageUrl} from '../ssb/utils/from-ssb';
@@ -269,40 +270,38 @@ export class SSBSource {
   }
 
   public profileAboutLive$(id: FeedId): Stream<AboutAndExtras> {
-    return this.ssb$
-      .map((ssb) => {
-        const selfId = ssb.id;
-        const color = colorHash.hex(id);
-        const aboutBasics$ = xsFromPullStream(ssb.aboutSelf.stream(id))
-          .map(
-            (profile: {
-              name?: string;
-              image?: string;
-              description?: string;
-            }) => {
-              if (profile.image) profile.image = imageToImageUrl(profile.image);
-              return profile;
-            },
-          )
-          .startWith({});
-        const following$ =
-          selfId === id ? xs.of(null) : ssb.contacts.tristate(selfId, id);
-        const followsYou$ =
-          selfId === id ? xs.of(null) : ssb.contacts.tristate(id, selfId);
-        return xs.combine(aboutBasics$, following$, followsYou$).map(
-          ([aboutBasics, following, followsYou]) =>
-            ({
-              id,
-              name: aboutBasics.name,
-              color,
-              imageUrl: aboutBasics.image,
-              description: aboutBasics.description,
-              following,
-              followsYou,
-            } as AboutAndExtras),
-        );
-      })
-      .flatten();
+    return this.fromPullStream<{
+      name?: string;
+      image?: string;
+      description?: string;
+    }>((ssb) => ssb.aboutSelf.stream(id)).map(
+      (profile) =>
+        ({
+          id,
+          name: profile.name,
+          color: colorHash.hex(id),
+          imageUrl: imageToImageUrl(profile.image),
+          description: profile.description,
+        } as AboutAndExtras),
+    );
+  }
+
+  public isFollowing$(
+    source: FeedId,
+    dest: FeedId,
+  ): Stream<SSBFriendsQueryDetails> {
+    return this.fromCallback<SSBFriendsQueryDetails>((ssb, cb) =>
+      ssb.friends.isFollowing({source, dest, details: true}, cb),
+    );
+  }
+
+  public isBlocking$(
+    source: FeedId,
+    dest: FeedId,
+  ): Stream<SSBFriendsQueryDetails> {
+    return this.fromCallback<SSBFriendsQueryDetails>((ssb, cb) =>
+      ssb.friends.isBlocking({source, dest, details: true}, cb),
+    );
   }
 
   public consumeAlias$(uri: string): Stream<FeedId> {
@@ -400,12 +399,6 @@ export class SSBSource {
         backend.removeListener('identity', this.fn);
       },
     });
-  }
-
-  public isPrivatelyBlocking$(dest: FeedId): Stream<boolean> {
-    return this.fromPullStream<boolean>((ssb) =>
-      ssb.friendsUtils.isPrivatelyBlockingStream(dest),
-    );
   }
 
   public getMentionSuggestions(text: string | null, authors: Array<FeedId>) {

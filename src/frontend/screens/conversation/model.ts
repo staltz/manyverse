@@ -35,7 +35,7 @@ const unknownErrorThread: PrivateThreadAndExtras = {
   recps: [],
 };
 
-function dropCompletion(stream: Stream<any>): Stream<any> {
+function dropCompletion<T>(stream: Stream<T>): Stream<T> {
   return xs.merge(stream, xs.never());
 }
 

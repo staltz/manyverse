@@ -190,6 +190,9 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         'about',
         'following',
         'followers',
+        'followsYou',
+        'youFollow',
+        'youBlock',
         'aliases',
         'connection',
         'getFeedReadable',
@@ -197,7 +200,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
     )
     .map((state) => {
       const isSelfProfile = state.displayFeedId === state.selfFeedId;
-      const isBlocked = state.about.following === false;
+      const isBlocked = state.youBlock?.response ?? false;
 
       return h(View, {style: styles.container}, [
         h(ProfileTopBar, {isSelfProfile}),
@@ -224,13 +227,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
 
         ...(isBlocked
           ? [
-              h(ProfileHeader, {
-                about: state.about,
-                following: state.following,
-                followers: state.followers,
-                aliases: state.aliases,
-                isSelfProfile,
-              }),
+              h(ProfileHeader, {state}),
               h(EmptySection, {
                 style: styles.emptySection,
                 title: t('profile.empty.blocked.title'),
@@ -253,13 +250,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                 selfFeedId: state.selfFeedId,
                 lastSessionTimestamp: state.lastSessionTimestamp,
                 yOffsetAnimVal: scrollHeaderBy,
-                HeaderComponent: h(ProfileHeader, {
-                  about: state.about,
-                  following: state.following,
-                  followers: state.followers,
-                  aliases: state.aliases,
-                  isSelfProfile,
-                }),
+                HeaderComponent: h(ProfileHeader, {state}),
                 style: styles.feed,
                 EmptyComponent: isSelfProfile
                   ? h(EmptySection, {

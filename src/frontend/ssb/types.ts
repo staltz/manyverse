@@ -63,9 +63,13 @@ export interface PrivateThreadAndExtras extends ThreadAndExtras {
 
 export type AnyThread = ThreadAndExtras | PrivateThreadAndExtras;
 
-export interface AboutAndExtras extends About {
+export interface AboutAndExtras extends Omit<About, 'following'> {
   id: FeedId;
-  followsYou?: boolean;
+}
+
+export interface SSBFriendsQueryDetails {
+  response: boolean;
+  private: boolean;
 }
 
 export type PeerKV = ConnQueryPeer;

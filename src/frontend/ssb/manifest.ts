@@ -179,9 +179,6 @@ export default {
     publish: 'async',
     publishAbout: 'async',
   },
-  friendsUtils: {
-    isPrivatelyBlockingStream: 'source',
-  },
   keysUtils: {
     getMnemonic: 'sync',
   },

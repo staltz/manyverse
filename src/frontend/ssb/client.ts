@@ -9,7 +9,6 @@ import manifest from './manifest';
 import hooksPlugin from './plugins/hooks';
 import connUtilsPlugin from './plugins/connUtils';
 import publishUtilsPlugin from './plugins/publishUtils';
-import contactsPlugin from './plugins/contacts';
 import threadsUtilsPlugin from './plugins/threadsUtils';
 import cachedAboutSelf from './plugins/cachedAboutSelf';
 
@@ -19,7 +18,6 @@ function makeClient() {
     .use(cachedAboutSelf())
     .use(hooksPlugin())
     .use(publishUtilsPlugin())
-    .use(contactsPlugin())
     .use(connUtilsPlugin())
     .use(threadsUtilsPlugin())
     .callPromise();

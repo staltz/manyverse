@@ -124,7 +124,6 @@ SecretStack()
   .use(require('./plugins/aliasUtils')) // needs: db2
   .use(require('./plugins/resyncUtils')) // needs: db2, connFirewall
   .use(require('./plugins/publishUtilsBack')) // needs: db, blobs, blobsUtils
-  .use(require('./plugins/friendsUtils')) // needs: db2
   .use(require('./plugins/searchUtils')) // needs: db2
   .use(require('./plugins/keysUtils'))
   .use(settingsUtils) // needs: blobs-purge

@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {h} from '@cycle/react';
-import {PureComponent, Fragment} from 'react';
+import {Fragment, Component} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const stripMarkdownOneline = require('strip-markdown-oneline');
@@ -153,17 +153,29 @@ function AliasesSection({
   ]);
 }
 
-export default class ProfileHeader extends PureComponent<{
-  about: State['about'];
-  aliases: State['aliases'];
-  following: State['following'];
-  followers: State['followers'];
-  isSelfProfile: boolean;
-}> {
+export default class ProfileHeader extends Component<{state: State}> {
+  public shouldComponentUpdate(nextProps: ProfileHeader['props']) {
+    const prev = this.props.state;
+    const next = nextProps.state;
+    if (next.about.name !== prev.about.name) return true;
+    if (next.about.imageUrl !== prev.about.imageUrl) return true;
+    if (next.about.description !== prev.about.description) return true;
+    if (next.aliases.length !== prev.aliases.length) return true;
+    if (next.following?.length !== prev.following?.length) return true;
+    if (next.followers?.length !== prev.followers?.length) return true;
+    if (next.youBlock?.response !== prev.youBlock?.response) return true;
+    if (next.youFollow?.response !== prev.youFollow?.response) return true;
+    if (next.followsYou?.response !== prev.followsYou?.response) return true;
+    return false;
+  }
+
   public render() {
-    const {about, following, followers, isSelfProfile, aliases} = this.props;
-    const followsYou = about.followsYou === true;
-    const isBlocked = about.following === false;
+    const state = this.props.state;
+    const {about, following, followers, aliases} = state;
+    const isSelfProfile = state.displayFeedId === state.selfFeedId;
+    const followsYou = state.followsYou?.response ?? false;
+    const youFollow = state.youFollow?.response ?? false;
+    const youBlock = state.youBlock?.response ?? false;
 
     return h(View, {style: styles.header}, [
       h(View, {style: styles.cover}),
@@ -179,16 +191,15 @@ export default class ProfileHeader extends PureComponent<{
                   'profile.call_to_action.edit_profile.accessibility_label',
                 ),
               })
-            : isBlocked
+            : youBlock
             ? null
             : h(ToggleButton, {
                 sel: 'follow',
                 style: styles.follow,
-                text:
-                  about.following === true
-                    ? t('profile.info.following')
-                    : t('profile.call_to_action.follow'),
-                toggled: about.following === true,
+                text: youFollow
+                  ? t('profile.info.following')
+                  : t('profile.call_to_action.follow'),
+                toggled: youFollow,
               }),
         ]),
       ]),

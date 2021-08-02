@@ -33,23 +33,24 @@ export type Sinks = {
   unblockSecretlyContact$: Stream<null>;
 };
 
-function calculateRelationship(state: State) {
-  type Relationship =
-    | 'following'
-    | 'neutral'
-    | 'blocking-secretly'
-    | 'blocking-publicly';
+type Relationship =
+  | 'following'
+  | 'neutral'
+  | 'blocking-secretly'
+  | 'blocking-publicly';
 
-  const tristate = state.about.following;
-  const relationship: Relationship =
-    tristate === null || typeof tristate === 'undefined'
-      ? 'neutral'
-      : tristate === true
-      ? 'following'
-      : state.blockingSecretly
-      ? 'blocking-secretly'
-      : 'blocking-publicly';
-  return relationship;
+function calculateRelationship(state: State): Relationship {
+  if (state.youFollow?.response) {
+    return 'following';
+  } else if (state.youBlock?.response) {
+    if (state.youBlock.private) {
+      return 'blocking-secretly';
+    } else {
+      return 'blocking-publicly';
+    }
+  } else {
+    return 'neutral';
+  }
 }
 
 export default function manageContact$(sources: Sources): Sinks {
