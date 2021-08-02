@@ -826,6 +826,25 @@
       "limit_reached": "Vous ne pouvez pas choisir plus de {{limit}} destinataires"
     }
   },
+  "search": {
+    "query_input": {
+      "placeholder": "Search public posts",
+      "accessibility_label": "Search Query Text Input"
+    },
+    "clear_query": {
+      "accessibility_label": "Reset the Search Query Text Input"
+    },
+    "empty": {
+      "initial": {
+        "title": "Search something",
+        "description": "Attendez pendant que l'application\ntente de se connecter à vos pairs"
+      },
+      "zero_results": {
+        "title": "Zero results",
+        "description": "Nothing found for \"{{query}}\""
+      }
+    }
+  },
   "secret_input": {
     "practice": {
       "title": "S'entraîner",
@@ -1127,25 +1146,6 @@
         "3_normal": " débloqué ",
         "4_bold": "{{target}}",
         "5_normal": ""
-      }
-    }
-  },
-  "search": {
-    "query_input": {
-      "placeholder": "Search public posts",
-      "accessibility_label": "Search Query Text Input"
-    },
-    "clear_query": {
-      "accessibility_label": "Reset the Search Query Text Input"
-    },
-    "empty": {
-      "initial": {
-        "title": "Search something",
-        "description": "Wait while the app is\nattempting to connect to your peers"
-      },
-      "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
       }
     }
   }

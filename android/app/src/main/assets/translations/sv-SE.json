@@ -826,6 +826,25 @@
       "limit_reached": "Fler än {{limit}} mottagare kan inte väljas"
     }
   },
+  "search": {
+    "query_input": {
+      "placeholder": "Search public posts",
+      "accessibility_label": "Search Query Text Input"
+    },
+    "clear_query": {
+      "accessibility_label": "Reset the Search Query Text Input"
+    },
+    "empty": {
+      "initial": {
+        "title": "Search something",
+        "description": "Vänta medan appen\nförsöker ansluta till dina kontakter"
+      },
+      "zero_results": {
+        "title": "Zero results",
+        "description": "Nothing found for \"{{query}}\""
+      }
+    }
+  },
   "secret_input": {
     "practice": {
       "title": "Öva",
@@ -1127,25 +1146,6 @@
         "3_normal": " slutade blockera ",
         "4_bold": "{{target}}",
         "5_normal": ""
-      }
-    }
-  },
-  "search": {
-    "query_input": {
-      "placeholder": "Search public posts",
-      "accessibility_label": "Search Query Text Input"
-    },
-    "clear_query": {
-      "accessibility_label": "Reset the Search Query Text Input"
-    },
-    "empty": {
-      "initial": {
-        "title": "Search something",
-        "description": "Wait while the app is\nattempting to connect to your peers"
-      },
-      "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
       }
     }
   }

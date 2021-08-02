@@ -201,7 +201,7 @@
       "description": "Escreva um diário para ser\ncompartilhado depois com amigos"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Botão de Busca"
     }
   },
   "private": {
@@ -248,7 +248,7 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " quer conectar"
       }
     },
     "empty": {
@@ -614,8 +614,8 @@
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "Tipo incompatível",
+      "description": "Convites P2P não são mais suportados no Manyverse."
     },
     "text_field": {
       "accessibility_label": "Entrada de Texto do Código de Convite"
@@ -653,8 +653,8 @@
       "title": "Contato"
     },
     "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "title": "Solicitação de amizade",
+      "description": "Esta conta está tentando se conectar com você, mas o Manyverse a impediu porque está fora da sua comunidade.\n\nSe você reconhece este ID, você pode pressionar \"Seguir\" para permitir que eles se conectem com você."
     },
     "toast": {
       "copied_to_clipboard": "Copiado para o clipboard"
@@ -824,6 +824,25 @@
     },
     "toasts": {
       "limit_reached": "Não dá para escolher mais do que {{limit}} destinatários"
+    }
+  },
+  "search": {
+    "query_input": {
+      "placeholder": "Pesquise",
+      "accessibility_label": "Entrada de Texto para Pesquisar"
+    },
+    "clear_query": {
+      "accessibility_label": "Resetar a entrada de texto de pesquisa"
+    },
+    "empty": {
+      "initial": {
+        "title": "Pesquisar alguma coisa",
+        "description": "Aguarde enquanto o aplicativo\nestá tentando umas conexões"
+      },
+      "zero_results": {
+        "title": "Nenhum resultado",
+        "description": "Nada foi encontrado com \"{{query}}\""
+      }
     }
   },
   "secret_input": {
@@ -1127,25 +1146,6 @@
         "3_normal": " desbloqueou ",
         "4_bold": "{{target}}",
         "5_normal": ""
-      }
-    }
-  },
-  "search": {
-    "query_input": {
-      "placeholder": "Search public posts",
-      "accessibility_label": "Search Query Text Input"
-    },
-    "clear_query": {
-      "accessibility_label": "Reset the Search Query Text Input"
-    },
-    "empty": {
-      "initial": {
-        "title": "Search something",
-        "description": "Wait while the app is\nattempting to connect to your peers"
-      },
-      "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
       }
     }
   }

@@ -826,6 +826,25 @@
       "limit_reached": "Kann nicht mehr als {{limit}} Empfänger auswählen"
     }
   },
+  "search": {
+    "query_input": {
+      "placeholder": "Search public posts",
+      "accessibility_label": "Search Query Text Input"
+    },
+    "clear_query": {
+      "accessibility_label": "Reset the Search Query Text Input"
+    },
+    "empty": {
+      "initial": {
+        "title": "Search something",
+        "description": "Warte während die App\nversucht, eine Verbindung zu Deinen Partnern herzustellen"
+      },
+      "zero_results": {
+        "title": "Zero results",
+        "description": "Nothing found for \"{{query}}\""
+      }
+    }
+  },
   "secret_input": {
     "practice": {
       "title": "Üben",
@@ -1127,25 +1146,6 @@
         "3_normal": " entsperrt ",
         "4_bold": "{{target}}",
         "5_normal": ""
-      }
-    }
-  },
-  "search": {
-    "query_input": {
-      "placeholder": "Search public posts",
-      "accessibility_label": "Search Query Text Input"
-    },
-    "clear_query": {
-      "accessibility_label": "Reset the Search Query Text Input"
-    },
-    "empty": {
-      "initial": {
-        "title": "Search something",
-        "description": "Wait while the app is\nattempting to connect to your peers"
-      },
-      "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
       }
     }
   }
