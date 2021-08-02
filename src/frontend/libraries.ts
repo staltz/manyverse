@@ -143,6 +143,21 @@ export default [
     homepage: 'https://cycle.js.org',
   },
   {
+    name: '@fontsource/roboto',
+    type: 'library',
+    version: '4.5.0',
+    license: 'MIT License (MIT)',
+    homepage:
+      'https://github.com/fontsource/fontsource/tree/master/packages/roboto#readme',
+  },
+  {
+    name: '@material-ui/core',
+    type: 'library',
+    version: '4.12.2',
+    license: 'MIT License (MIT)',
+    homepage: 'https://material-ui.com/',
+  },
+  {
     name: '@react-native-community/art',
     type: 'library',
     version: '1.2.0',
@@ -214,13 +229,6 @@ export default [
     homepage: 'https://github.com/zenozeng/color-hash#readme',
   },
   {
-    name: 'cycle-native-alert',
-    type: 'library',
-    version: '1.1.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://gitlab.com/staltz/cycle-native-alert#readme',
-  },
-  {
     name: 'cycle-native-android-local-notification',
     type: 'library',
     version: '1.1.0',
@@ -266,7 +274,7 @@ export default [
   {
     name: 'cycle-native-navigation-web',
     type: 'library',
-    version: '0.3.0',
+    version: '0.4.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation-web',
   },
@@ -434,7 +442,7 @@ export default [
   {
     name: 'pull-flat-list',
     type: 'library',
-    version: '2.15.0',
+    version: '2.17.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/pull-flat-list',
   },
@@ -803,7 +811,7 @@ export default [
   {
     name: 'ssb-conn-firewall',
     type: 'library',
-    version: '0.5.0',
+    version: '1.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn-firewall',
   },
@@ -831,28 +839,28 @@ export default [
   {
     name: 'ssb-ebt',
     type: 'library',
-    version: '7.0.2',
+    version: '7.0.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-ebt',
   },
   {
     name: 'ssb-friends',
     type: 'library',
-    version: '5.0.0',
+    version: '5.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-friends',
   },
   {
     name: 'ssb-http-auth-client',
     type: 'library',
-    version: '0.6.0',
+    version: '1.0.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-http-auth-client',
   },
   {
     name: 'ssb-http-invite-client',
     type: 'library',
-    version: '0.1.0',
+    version: '1.0.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-http-invite-client',
   },
@@ -929,9 +937,16 @@ export default [
   {
     name: 'ssb-room-client',
     type: 'library',
-    version: '0.22.0',
+    version: '1.0.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-room-client',
+  },
+  {
+    name: 'ssb-search2',
+    type: 'library',
+    version: '0.11.0',
+    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
+    homepage: 'https://github.com/staltz/ssb-search2#readme',
   },
   {
     name: 'ssb-serve-blobs',

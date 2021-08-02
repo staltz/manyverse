@@ -7,6 +7,16 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2108.2-beta
+
+* Bug fix: portrait on Biography screen can resize ([see details](https://gitlab.com/staltz/manyverse/commit/4426ad60898813ee5cced50b333e936180d850c9))
+* Bug fix: show images in landscape Welcome and Backup ([see details](https://gitlab.com/staltz/manyverse/commit/cccc342315bfbb08752e1f4b67e739f2023f0f61))
+* Feature: full-text search screen ([see details](https://gitlab.com/staltz/manyverse/commit/22d381c9ac31c5b1e134db466b952f71d8ee296e))
+* Fix minor styling issues in ActivityTab ([see details](https://gitlab.com/staltz/manyverse/commit/07a81fdd4a5db719066e83585990a8eaf5a81fef))
+* Improve Biography screen's portrait size ([see details](https://gitlab.com/staltz/manyverse/commit/5da9924a156cf715d1f52ff477f16b80cabf94f0))
+* Improve firewall rules for stranger connections ([see details](https://gitlab.com/staltz/manyverse/commit/8c003044cf71ddb27b48b2d234c97cd99c43ff80))
+* Improve Hungarian translation ([see details](https://gitlab.com/staltz/manyverse/commit/9f077228c5cfd63c3d83aed6daac884b7c80b46a))
+
 ## 0.2107.5-beta
 
 * (iOS) Bug fix: height of the header on new iPhones ([see details](https://gitlab.com/staltz/manyverse/commit/53801b18b15fbc19945f5efa3f61525148499cf3))

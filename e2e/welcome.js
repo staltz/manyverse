@@ -34,7 +34,7 @@ module.exports = function (driver, t) {
   });
 
   t.test('Welcome screen displays the off grid tutorial', async function (t) {
-    const title = 'Off the grid';
+    const title = 'Off-the-grid';
     const desc = 'Manyverse can use internet connectivity';
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(

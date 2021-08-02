@@ -145,8 +145,8 @@ android {
     flavorDimensions "store"
 
     defaultConfig {
-        versionCode 104
-        versionName "0.2107.5-beta"
+        versionCode 105
+        versionName "0.2108.2-beta"
         applicationId "se.manyver"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
