@@ -333,7 +333,7 @@
       "wifi": {
         "title": "Wi-Fi",
         "accessibility_label": "Modo Wi-Fi",
-        "disabled": "(Activa el Bluetooth para usar ésto)",
+        "disabled": "(Activa el Wi-Fi para usar ésto)",
         "description": "Conecta con amistades en la misma red, es decir, amigos que estén usando el mismo Wi-Fi."
       },
       "servers": {
