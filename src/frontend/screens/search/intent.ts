@@ -8,9 +8,15 @@ import xs, {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
-import {MsgAndExtras} from '../../ssb/types';
-import {PostContent} from 'ssb-typescript';
+import {FeedId, MsgId, PostContent} from 'ssb-typescript';
+import {
+  isFeedSSBURI,
+  isMessageSSBURI,
+  toFeedSigil,
+  toMessageSigil,
+} from 'ssb-uri2';
 const Ref = require('ssb-ref');
+import {MsgAndExtras} from '../../ssb/types';
 
 export default function intent(navSource: NavSource, reactSource: ReactSource) {
   const goBack$ = xs.merge(
@@ -28,9 +34,31 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
 
   const clearQuery$ = reactSource.select('clear').events('press');
 
-  const shortcutToThread$ = updateQueryNow$.filter(Ref.isMsgId);
+  const shortcutToThread$ = xs.merge(
+    updateQueryNow$.filter(Ref.isMsgId),
 
-  const shortcutToAccount$ = updateQueryNow$.filter(Ref.isFeedId);
+    updateQueryNow$
+      .map((str) => {
+        if (!isMessageSSBURI(str)) return null;
+        const msgId = toMessageSigil(str);
+        if (!Ref.isMsgId(msgId)) return null;
+        return msgId;
+      })
+      .filter((x) => !!x) as Stream<MsgId>,
+  );
+
+  const shortcutToAccount$ = xs.merge(
+    updateQueryNow$.filter(Ref.isFeedId),
+
+    updateQueryNow$
+      .map((str) => {
+        if (!isFeedSSBURI(str)) return null;
+        const feedId = toFeedSigil(str);
+        if (!Ref.isFeedId(feedId)) return null;
+        return feedId;
+      })
+      .filter((x) => !!x) as Stream<FeedId>,
+  );
 
   const goToThread$ = xs.merge(
     reactSource.select('results').events('pressResult') as Stream<

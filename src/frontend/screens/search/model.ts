@@ -7,6 +7,7 @@
 import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {FeedId, PostContent} from 'ssb-typescript';
+import {isFeedSSBURI, isMessageSSBURI} from 'ssb-uri2';
 import {GetReadable, SSBSource} from '../../drivers/ssb';
 import {MsgAndExtras} from '../../ssb/types';
 import {Props} from './props';
@@ -66,7 +67,12 @@ export default function model(
   const updateQueryReducer$ = actions.updateQueryDebounced$.map(
     (query) =>
       function updateQueryReducer(prev: State): State {
-        if (Ref.isMsgId(query) || Ref.isFeedId(query)) {
+        if (
+          Ref.isMsgId(query) ||
+          Ref.isFeedId(query) ||
+          isMessageSSBURI(query) ||
+          isFeedSSBURI(query)
+        ) {
           // In case of a shortcut to Thread or Account, clear the input field
           return {
             ...prev,
