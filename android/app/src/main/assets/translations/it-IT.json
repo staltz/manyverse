@@ -500,7 +500,7 @@
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
+        "title": "Messaggio audio",
         "question": "Scartare la bozza?"
       }
     }
@@ -583,7 +583,7 @@
         "accessibility_label": "My Profile Menu Item"
       },
       "raw_database": {
-        "label": "Raw database",
+        "label": "Database grezzo",
         "accessibility_label": "Show Raw Database"
       },
       "email_bug_report": {
@@ -809,7 +809,7 @@
     "fields": {
       "mention_input": {
         "placeholder": "Search for people to add",
-        "accessibility_label": "Mention Account Text Input"
+        "accessibility_label": "Inserimento di testo del conto di menzione"
       }
     },
     "empty": {
@@ -851,7 +851,7 @@
       "header": "Repeat it to confirm it is correct:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "Ripristina account"
     },
     "header": "Carefully input your recovery phrase",
     "call_to_action": {
@@ -918,10 +918,10 @@
         "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
-    "loading": "Loading..."
+    "loading": "Caricamento..."
   },
   "settings": {
-    "title": "Settings",
+    "title": "Impostazioni",
     "preferences": {
       "title": "Preferences",
       "show_follows": {
@@ -953,7 +953,7 @@
     "troubleshooting": {
       "title": "Troubleshooting",
       "bug_report": {
-        "title": "Email bug report",
+        "title": "Segnala bug per email",
         "accessibility_label": "Send Bug Report as Email"
       },
       "detailed_logs": {
@@ -972,7 +972,7 @@
         "accessibility_label": "View third party libraries"
       },
       "about": {
-        "title": "About",
+        "title": "Informazioni",
         "accessibility_label": "About This App"
       }
     },

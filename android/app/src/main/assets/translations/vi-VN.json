@@ -407,7 +407,7 @@
         "accessibility_label": "Share Invite Code"
       },
       "invite_delete": {
-        "label": "Delete",
+        "label": "Xoá",
         "accessibility_label": "Delete Invite Code"
       }
     },
@@ -439,7 +439,7 @@
         "accessibility_label": "Preview Button"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Nút Đóng"
       },
       "record_audio": {
         "accessibility_label": "Record Audio Button",
@@ -448,7 +448,7 @@
           "message": "Manyverse needs access to your microphone so you can compose audio messages",
           "neutral": "Ask me later",
           "positive": "OK",
-          "negative": "Cancel"
+          "negative": "Huỷ"
         }
       },
       "open_camera": {
@@ -494,7 +494,7 @@
         "accessibility_label": "Discard Recording Button"
       },
       "submit_recording": {
-        "label": "Done",
+        "label": "Xong",
         "accessibility_label": "Submit Recording Button"
       }
     },
@@ -705,7 +705,7 @@
     "call_to_action": {
       "discard": "Discard",
       "save": {
-        "label": "Save",
+        "label": "Lưu",
         "accessibility_label": "Save Profile"
       },
       "edit_picture": {

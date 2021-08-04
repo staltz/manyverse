@@ -175,7 +175,7 @@
       "activity": "Activity",
       "connections": "Connections"
     },
-    "loading": "Loading...",
+    "loading": "Henter indhold…",
     "building_indexes": "Building database indexes...\nThis may take up to several minutes",
     "tabs": {
       "public": {
@@ -583,7 +583,7 @@
         "accessibility_label": "My Profile Menu Item"
       },
       "raw_database": {
-        "label": "Raw database",
+        "label": "Rå database",
         "accessibility_label": "Show Raw Database"
       },
       "email_bug_report": {
@@ -595,7 +595,7 @@
         "accessibility_label": "Open translation website"
       },
       "settings": {
-        "label": "Settings",
+        "label": "Indstillinger",
         "accessibility_label": "Go To Settings"
       },
       "preparing_database": {
@@ -972,7 +972,7 @@
         "accessibility_label": "View third party libraries"
       },
       "about": {
-        "title": "About",
+        "title": "Om",
         "accessibility_label": "About This App"
       }
     },

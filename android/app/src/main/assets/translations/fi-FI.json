@@ -407,7 +407,7 @@
         "accessibility_label": "Share Invite Code"
       },
       "invite_delete": {
-        "label": "Delete",
+        "label": "Poista",
         "accessibility_label": "Delete Invite Code"
       }
     },
@@ -439,7 +439,7 @@
         "accessibility_label": "Preview Button"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Sulje"
       },
       "record_audio": {
         "accessibility_label": "Record Audio Button",
@@ -705,7 +705,7 @@
     "call_to_action": {
       "discard": "Discard",
       "save": {
-        "label": "Save",
+        "label": "Tallenna",
         "accessibility_label": "Save Profile"
       },
       "edit_picture": {

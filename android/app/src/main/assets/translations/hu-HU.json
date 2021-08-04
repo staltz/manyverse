@@ -173,7 +173,7 @@
       "public": "Nyilvános",
       "private": "Személyes",
       "activity": "Tevékenység",
-      "connections": "Connections"
+      "connections": "Kapcsolatok"
     },
     "loading": "Betöltés...",
     "building_indexes": "Building database indexes...\nThis may take up to several minutes",
@@ -298,7 +298,7 @@
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
-        "lan": "Wi-Fi",
+        "lan": "Wi-Fi hálózatra",
         "dht": {
           "connected": "Internet P2P"
         },
@@ -331,7 +331,7 @@
         }
       },
       "wifi": {
-        "title": "Wi-Fi",
+        "title": "Wi-Fi hálózatra",
         "accessibility_label": "Wi-Fi Mode",
         "disabled": "(Turn on Wi-Fi to use this)",
         "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
@@ -407,7 +407,7 @@
         "accessibility_label": "Share Invite Code"
       },
       "invite_delete": {
-        "label": "Delete",
+        "label": "Törlés",
         "accessibility_label": "Delete Invite Code"
       }
     },
@@ -439,7 +439,7 @@
         "accessibility_label": "Preview Button"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Bezárás gomb"
       },
       "record_audio": {
         "accessibility_label": "Record Audio Button",
@@ -657,7 +657,7 @@
       "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Vágólapra másolva"
     },
     "details": {
       "id": {
@@ -705,7 +705,7 @@
     "call_to_action": {
       "discard": "Discard",
       "save": {
-        "label": "Save",
+        "label": "Mentés",
         "accessibility_label": "Save Profile"
       },
       "edit_picture": {
@@ -851,7 +851,7 @@
       "header": "Repeat it to confirm it is correct:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "Fiók visszaállítása"
     },
     "header": "Carefully input your recovery phrase",
     "call_to_action": {
@@ -1113,7 +1113,7 @@
       "new_name": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " új neve \"",
         "4_bold": "{{name}}",
         "5_normal": "\""
       }

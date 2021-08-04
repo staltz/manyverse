@@ -339,7 +339,7 @@
       "servers": {
         "title": "Internet servers",
         "accessibility_label": "Internet Servers Mode",
-        "disabled": "(Go online to use this)",
+        "disabled": "(Buďte online, aby ste ho mohli použiť)",
         "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
       }
     },
@@ -476,7 +476,7 @@
       "accessibility_label": "Mention Account Text Input"
     },
     "text_field": {
-      "placeholder": "Write a public message",
+      "placeholder": "Napísať verejnú správu",
       "accessibility_label": "Compose Text Input"
     }
   },
@@ -639,7 +639,7 @@
       "unblock_secretly": "Unblock secretly",
       "follow": "Follow",
       "edit_profile": {
-        "label": "Edit profile",
+        "label": "Upraviť profil",
         "accessibility_label": "Edit Profile Button"
       },
       "manage": {
@@ -657,7 +657,7 @@
       "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Skopírované"
     },
     "details": {
       "id": {
@@ -697,7 +697,7 @@
       }
     },
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Napísať verejnú správu"
     }
   },
   "profile_edit": {
@@ -851,7 +851,7 @@
       "header": "Repeat it to confirm it is correct:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "Obnoviť účet"
     },
     "header": "Carefully input your recovery phrase",
     "call_to_action": {
@@ -953,8 +953,8 @@
     "troubleshooting": {
       "title": "Troubleshooting",
       "bug_report": {
-        "title": "Email bug report",
-        "accessibility_label": "Send Bug Report as Email"
+        "title": "Poslať e-mailom chybové hlásenie",
+        "accessibility_label": "Poslať Chybové Hlásenie E-Mailom"
       },
       "detailed_logs": {
         "title": "Enable detailed logs",
@@ -1101,7 +1101,7 @@
       "new_name_and_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " používa meno \"",
         "4_bold": "{{name}}",
         "5_normal": "\" and the description: "
       },

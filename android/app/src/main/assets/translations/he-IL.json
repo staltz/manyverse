@@ -173,7 +173,7 @@
       "public": "Public",
       "private": "Private",
       "activity": "Activity",
-      "connections": "Connections"
+      "connections": "חיבורים"
     },
     "loading": "Loading...",
     "building_indexes": "Building database indexes...\nThis may take up to several minutes",
@@ -339,7 +339,7 @@
       "servers": {
         "title": "Internet servers",
         "accessibility_label": "Internet Servers Mode",
-        "disabled": "(Go online to use this)",
+        "disabled": "(התחבר כדי להשתמש)",
         "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
       }
     },
@@ -439,7 +439,7 @@
         "accessibility_label": "Preview Button"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "כפתור סגירה"
       },
       "record_audio": {
         "accessibility_label": "Record Audio Button",
@@ -851,7 +851,7 @@
       "header": "Repeat it to confirm it is correct:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "שחזר חשבון"
     },
     "header": "Carefully input your recovery phrase",
     "call_to_action": {

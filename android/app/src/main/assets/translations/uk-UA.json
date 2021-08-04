@@ -173,7 +173,7 @@
       "public": "Публічне",
       "private": "Private",
       "activity": "Activity",
-      "connections": "Connections"
+      "connections": "Мої контакти"
     },
     "loading": "Завантаження...",
     "building_indexes": "Building database indexes...\nThis may take up to several minutes",
@@ -399,7 +399,7 @@
         "accessibility_label": "About this Invite Code"
       },
       "invite_note": {
-        "label": "Add note",
+        "label": "Додати нотатку",
         "accessibility_label": "Add Reminder Note To Self"
       },
       "invite_share": {
@@ -439,7 +439,7 @@
         "accessibility_label": "Preview Button"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Кнопка Закрити"
       },
       "record_audio": {
         "accessibility_label": "Record Audio Button",
@@ -476,7 +476,7 @@
       "accessibility_label": "Mention Account Text Input"
     },
     "text_field": {
-      "placeholder": "Write a public message",
+      "placeholder": "Написати публічного листа",
       "accessibility_label": "Compose Text Input"
     }
   },
@@ -688,16 +688,16 @@
         "description": "You have chosen to stop\ninteracting with this account"
       },
       "no_self_messages": {
-        "title": "No messages",
+        "title": "Листів не має",
         "description": "Write a diary which you can\nshare with friends later"
       },
       "no_messages": {
-        "title": "No messages",
+        "title": "Листів не має",
         "description": "You don't yet have any data\nfrom this account"
       }
     },
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Написати публічного листа"
     }
   },
   "profile_edit": {
@@ -705,7 +705,7 @@
     "call_to_action": {
       "discard": "Discard",
       "save": {
-        "label": "Save",
+        "label": "Зберегти",
         "accessibility_label": "Save Profile"
       },
       "edit_picture": {
@@ -918,7 +918,7 @@
         "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
-    "loading": "Loading..."
+    "loading": "Завантаження..."
   },
   "settings": {
     "title": "Settings",

@@ -298,7 +298,7 @@
     "peers": {
       "types": {
         "bluetooth": "Bluetooth",
-        "lan": "Wi-Fi",
+        "lan": "无线局域网",
         "dht": {
           "connected": "Internet P2P"
         },
@@ -331,7 +331,7 @@
         }
       },
       "wifi": {
-        "title": "Wi-Fi",
+        "title": "无线局域网",
         "accessibility_label": "Wi-Fi Mode",
         "disabled": "(Turn on Wi-Fi to use this)",
         "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
@@ -407,7 +407,7 @@
         "accessibility_label": "Share Invite Code"
       },
       "invite_delete": {
-        "label": "Delete",
+        "label": "删除",
         "accessibility_label": "Delete Invite Code"
       }
     },
@@ -439,7 +439,7 @@
         "accessibility_label": "Preview Button"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "关闭按钮"
       },
       "record_audio": {
         "accessibility_label": "Record Audio Button",
@@ -506,7 +506,7 @@
     }
   },
   "backup": {
-    "title": "Backup",
+    "title": "备份",
     "introduction": {
       "title": "Your account has\ntwo parts to keep safe"
     },
@@ -705,7 +705,7 @@
     "call_to_action": {
       "discard": "Discard",
       "save": {
-        "label": "Save",
+        "label": "保存",
         "accessibility_label": "Save Profile"
       },
       "edit_picture": {
@@ -851,7 +851,7 @@
       "header": "Repeat it to confirm it is correct:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "恢复帐户"
     },
     "header": "Carefully input your recovery phrase",
     "call_to_action": {
@@ -921,7 +921,7 @@
     "loading": "Loading..."
   },
   "settings": {
-    "title": "Settings",
+    "title": "设置",
     "preferences": {
       "title": "Preferences",
       "show_follows": {

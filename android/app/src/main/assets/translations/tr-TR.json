@@ -473,7 +473,7 @@
       "accessibility_label": "İçerik uyarı butonu"
     },
     "mention_field": {
-      "accessibility_label": "Mention Account Text Input"
+      "accessibility_label": "Bahsedilen Hesap Metin Girişi"
     },
     "text_field": {
       "placeholder": "Herkese açık bir mesaj yazın",

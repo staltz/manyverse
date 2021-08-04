@@ -407,7 +407,7 @@
         "accessibility_label": "Share Invite Code"
       },
       "invite_delete": {
-        "label": "Delete",
+        "label": "Eliminar",
         "accessibility_label": "Delete Invite Code"
       }
     },
@@ -439,7 +439,7 @@
         "accessibility_label": "Preview Button"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Botón Cerrar"
       },
       "record_audio": {
         "accessibility_label": "Record Audio Button",
@@ -447,8 +447,8 @@
           "title": "Allow Manyverse to record audio?",
           "message": "Manyverse needs access to your microphone so you can compose audio messages",
           "neutral": "Ask me later",
-          "positive": "OK",
-          "negative": "Cancel"
+          "positive": "Aceptar",
+          "negative": "Cancelar"
         }
       },
       "open_camera": {
@@ -476,7 +476,7 @@
       "accessibility_label": "Mention Account Text Input"
     },
     "text_field": {
-      "placeholder": "Write a public message",
+      "placeholder": "Escribir un mensaje público",
       "accessibility_label": "Compose Text Input"
     }
   },
@@ -494,7 +494,7 @@
         "accessibility_label": "Discard Recording Button"
       },
       "submit_recording": {
-        "label": "Done",
+        "label": "Listo",
         "accessibility_label": "Submit Recording Button"
       }
     },
@@ -688,16 +688,16 @@
         "description": "You have chosen to stop\ninteracting with this account"
       },
       "no_self_messages": {
-        "title": "No messages",
+        "title": "No hay mensajes",
         "description": "Write a diary which you can\nshare with friends later"
       },
       "no_messages": {
-        "title": "No messages",
+        "title": "No hay mensajes",
         "description": "You don't yet have any data\nfrom this account"
       }
     },
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Escribir un mensaje público"
     }
   },
   "profile_edit": {
@@ -705,7 +705,7 @@
     "call_to_action": {
       "discard": "Discard",
       "save": {
-        "label": "Save",
+        "label": "Guardar",
         "accessibility_label": "Save Profile"
       },
       "edit_picture": {
@@ -851,7 +851,7 @@
       "header": "Repeat it to confirm it is correct:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "Recuperar una cuenta"
     },
     "header": "Carefully input your recovery phrase",
     "call_to_action": {
@@ -918,7 +918,7 @@
         "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
-    "loading": "Loading..."
+    "loading": "Cargando..."
   },
   "settings": {
     "title": "Settings",
