@@ -245,67 +245,28 @@ class ActivityTabIcon extends Component<{
 
 class ConnectionsTabIcon extends Component<{
   isSelected: boolean;
-  details: State['connectionsTab'];
+  offline: boolean;
+  numStaged: number;
+  numConnected: number;
 }> {
-  private static countConnected(d: ConnectionsTabIcon['props']['details']) {
-    return (d?.peers ?? []).filter((p) => p[1].state === 'connected').length;
-  }
-
-  private static countStaged(d: ConnectionsTabIcon['props']['details']) {
-    return (d?.stagedPeers ?? []).length;
-  }
-
   public shouldComponentUpdate(nextProps: ConnectionsTabIcon['props']) {
     const prevProps = this.props;
-    // Compare isSelected:
     if (nextProps.isSelected !== prevProps.isSelected) return true;
-
-    // Don't look into `details` object if the object has not changed:
-    const nextDetails = nextProps.details;
-    const prevDetails = prevProps.details;
-    if (nextDetails === prevDetails) return false;
-
-    // Compare fooEnabled fields:
-    const nextEnabled =
-      nextDetails?.bluetoothEnabled ||
-      nextDetails?.internetEnabled ||
-      nextDetails?.lanEnabled;
-    const prevEnabled =
-      prevDetails?.bluetoothEnabled ||
-      prevDetails?.internetEnabled ||
-      prevDetails?.lanEnabled;
-    if (nextEnabled !== prevEnabled) return true;
-
-    // Compare peers.length (has one threshold, >=1):
-    const prevNumConnected = ConnectionsTabIcon.countConnected(prevDetails);
-    const nextNumConnected = ConnectionsTabIcon.countConnected(nextDetails);
-    if (prevNumConnected === nextNumConnected) return false;
-    if (prevNumConnected < 1 && nextNumConnected >= 1) return true;
-    if (prevNumConnected >= 1 && nextNumConnected < 1) return true;
-
-    // Compare stagedPeers.length (has one threshold, >=1):
-    const prevNumStaged = ConnectionsTabIcon.countStaged(prevDetails);
-    const nextNumStaged = ConnectionsTabIcon.countStaged(nextDetails);
-    if (prevNumStaged === nextNumStaged) return false;
-    if (prevNumStaged < 1 && nextNumStaged >= 1) return true;
-    if (prevNumStaged >= 1 && nextNumStaged < 1) return true;
-
+    if (nextProps.offline !== prevProps.offline) return true;
+    if (nextProps.numStaged !== prevProps.numStaged) return true;
+    if (prevProps.numConnected < 1 && nextProps.numConnected >= 1) return true;
+    if (prevProps.numConnected >= 1 && nextProps.numConnected < 1) return true;
+    if (prevProps.numStaged < 1 && nextProps.numStaged >= 1) return true;
+    if (prevProps.numStaged >= 1 && nextProps.numStaged < 1) return true;
     return false;
   }
 
   private getIconName() {
-    const {details} = this.props;
-    if (ConnectionsTabIcon.countConnected(details) > 0) {
-      return 'check-network-outline';
-    }
-    if (ConnectionsTabIcon.countStaged(details) > 0) {
-      return 'help-network-outline';
-    }
-    const d = details;
-    if (d?.bluetoothEnabled || d?.internetEnabled || d?.lanEnabled) {
-      return 'network-outline';
-    }
-    return 'network-off-outline';
+    const {numConnected, numStaged, offline} = this.props;
+    if (numConnected > 0) return 'check-network-outline';
+    if (numStaged > 0) return 'help-network-outline';
+    if (offline) return 'network-off-outline';
+    return 'network-outline';
   }
 
   public render() {
@@ -363,7 +324,17 @@ class TabsBar extends Component<State> {
   }
 
   public render() {
-    const {currentTab} = this.props;
+    const {currentTab, connectionsTab: connTab} = this.props;
+
+    const online =
+      connTab?.bluetoothEnabled ||
+      connTab?.lanEnabled ||
+      connTab?.internetEnabled;
+    const numConnected = (connTab?.peers ?? []).filter(
+      (p) => p[1].state === 'connected',
+    ).length;
+    const numStaged = (connTab?.stagedPeers ?? []).length;
+
     return h(View, {style: styles.tabBar}, [
       h(PublicTabIcon, {
         isSelected: currentTab === 'public',
@@ -379,7 +350,9 @@ class TabsBar extends Component<State> {
       }),
       h(ConnectionsTabIcon, {
         isSelected: currentTab === 'connections',
-        details: this.props.connectionsTab,
+        offline: !online,
+        numConnected,
+        numStaged,
       }),
     ]);
   }
