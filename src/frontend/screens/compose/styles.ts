@@ -90,6 +90,11 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     textAlignVertical: 'top',
     color: Palette.text,
+    ...Platform.select({
+      web: {
+        outlineStyle: 'none',
+      },
+    }),
   },
 
   composePreview: {

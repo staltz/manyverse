@@ -60,6 +60,7 @@ export const styles = StyleSheet.create({
         paddingTop: 0,
       },
       web: {
+        outlineStyle: 'none',
         fontFamily: Typography.fontFamilyReadableText,
       },
     }),
