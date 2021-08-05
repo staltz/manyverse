@@ -8,7 +8,6 @@ import {StyleSheet, ViewStyle} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
 const {isIPhoneWithMonobrow} = require('react-native-status-bar-height');
 
 const page: ViewStyle = {
@@ -50,67 +49,8 @@ export const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
 
-  tabButton: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: isIPhoneWithMonobrow() ? -5 : 0,
-  },
-
-  tabButtonText: {
-    fontSize: Typography.fontSizeSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textWeak,
-  },
-
-  tabButtonTextSelected: {
-    fontSize: Typography.fontSizeSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textBrand,
-    fontWeight: 'bold',
-  },
-
   menuBackdrop: {
     backgroundColor: Palette.transparencyDarkStrong,
     opacity: 1,
   },
-
-  updatesCoverAll: {
-    height: 11,
-    position: 'absolute',
-    top: 8.5,
-    left: 5,
-    right: 5,
-    backgroundColor: Palette.backgroundText,
-  },
-
-  updatesCoverSome: {
-    height: 11,
-    position: 'absolute',
-    top: 8.5,
-    left: 5,
-    right: 11,
-    backgroundColor: Palette.backgroundText,
-  },
-
-  updatesCoverNone: {
-    display: 'none',
-  },
 });
-
-export const iconProps = {
-  headerIcon: {
-    size: Dimensions.iconSizeNormal,
-    color: Palette.textForBackgroundBrand,
-  },
-
-  tab: {
-    size: Dimensions.iconSizeNormal,
-    color: Palette.textVeryWeak,
-  },
-
-  tabSelected: {
-    size: Dimensions.iconSizeNormal,
-    color: Palette.textBrand,
-  },
-};
