@@ -201,7 +201,7 @@
       "description": "Schreibe ein Journal um es\nspäter mit Freund:innen zu teilen"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Suchbutton"
     }
   },
   "private": {
@@ -248,7 +248,7 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " möchte sich verbinden"
       }
     },
     "empty": {
@@ -614,8 +614,8 @@
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "Typ nicht unterstützt",
+      "description": "P2P-Einladungen werden in Manyverse nicht länger unterstützt."
     },
     "text_field": {
       "accessibility_label": "Einladungscode Eingabefeld"
@@ -653,8 +653,8 @@
       "title": "Kontakt"
     },
     "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "title": "Freundschaftsanfrage",
+      "description": "Dieses Konto versucht sich mit Ihnen zu verbinden, aber Manyverse hat es verhindert, weil es sich außerhalb Ihrer Gemeinschaft befindet.\n\nWenn du diese ID erkennst, kannst du \"Folgen\" drücken, um eine Verbindung mit dir herzustellen."
     },
     "toast": {
       "copied_to_clipboard": "In Zwischenablage kopiert"
@@ -759,29 +759,29 @@
     },
     "dialogs": {
       "input_alias": {
-        "description": "Submit your desired new alias to {{host}} as a single word in lowercase.\n\nFor example, if you want the alias \"myname.{{host}}\", write \"myname\" below."
+        "description": "Sende deinen gewünschten neuen Alias in Kleinbuchstaben an {{host}} als ein einziges Wort.\n\nZum Beispiel, wenn du den Alias \"meinname\" willst.{{host}}\", gib \"meinname\" unten ein."
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "Wird gesendet..."
     },
     "failure": {
-      "title": "It didn't work",
-      "alias_taken": "The alias you submitted is already taken by some user.",
+      "title": "Es hat nicht funktioniert",
+      "alias_taken": "Der eingegebene Alias wird bereits von einem Benutzer verwendet.",
       "call_to_action": {
         "try_again": {
-          "label": "Try again",
-          "accessibility_label": "Try Again Button"
+          "label": "Erneut versuchen",
+          "accessibility_label": "Erneut versuchen Button"
         }
       }
     },
     "success": {
-      "title": "Great!",
-      "description": "The alias {{alias}} is now yours.",
+      "title": "Super!",
+      "description": "Der Alias {{alias}} ist nun deiner.",
       "call_to_action": {
         "go_back": {
-          "label": "Go back",
-          "accessibility_label": "Go Back Button"
+          "label": "Zurück",
+          "accessibility_label": "Zurück-Button"
         }
       }
     }
@@ -814,8 +814,8 @@
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "Mitglieder auswählen",
+        "description": "Gib die Namen\nder Personen ein, um dem neuen Chat beizutreten"
       },
       "none_to_choose": {
         "title": "Niemand",
@@ -828,20 +828,20 @@
   },
   "search": {
     "query_input": {
-      "placeholder": "Search public posts",
-      "accessibility_label": "Search Query Text Input"
+      "placeholder": "Öffentliche Beiträge durchsuchen",
+      "accessibility_label": "Eingabe des Suchtexts"
     },
     "clear_query": {
-      "accessibility_label": "Reset the Search Query Text Input"
+      "accessibility_label": "Suchtext zurücksetzen"
     },
     "empty": {
       "initial": {
-        "title": "Search something",
+        "title": "Etwas suchen",
         "description": "Warte während die App\nversucht, eine Verbindung zu Deinen Partnern herzustellen"
       },
       "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
+        "title": "Keine Ergebnisse",
+        "description": "Nichts gefunden für \"{{query}}\""
       }
     }
   },

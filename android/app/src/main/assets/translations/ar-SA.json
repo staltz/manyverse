@@ -6,7 +6,7 @@
     "cancel": "ألغ",
     "continue": "تابع",
     "delete": "احذف",
-    "remove": "Remove",
+    "remove": "أزل",
     "save": "احفظ",
     "yes": "نعم",
     "no": "لا",
@@ -101,7 +101,7 @@
       "title": "عدة طرق للاقتران",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
+          "1_normal": "لمزامنة المحتوى والتواصل مع أصدقائك يمكنك: الاتصال بنفس ",
           "2_bold": "شبكة الواي-فاي",
           "3_normal": ". للبحث عن أشخاص على الإنترنت، ابحث عن رمز الدعوة في ",
           "4_bold": "خادم pub",
@@ -110,9 +110,9 @@
           "7_normal": "، أو استضف خادما بنفسك!"
         },
         "default": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
+          "1_normal": "لمزامنة المحتوى والتواصل مع أصدقائك يمكنك: الانضمام إلى نفس ",
           "2_bold": "واي-فاي",
-          "3_normal": ", or use ",
+          "3_normal": "، أو استخدم ",
           "4_bold": "المزامنة ببلوتوث",
           "5_normal": ". للبحث عن أشخاص على الإنترنت، ابحث عن رمز الدعوة في ",
           "6_bold": "خادم pub",
@@ -166,13 +166,13 @@
     "tab_headers": {
       "public": "اللوح العام",
       "private": "الرسائل الخاصة",
-      "activity": "Activity",
+      "activity": "النشاط",
       "connections": "الاقترانات"
     },
     "tab_footers": {
       "public": "عام",
       "private": "خاص",
-      "activity": "Activity",
+      "activity": "النشاط",
       "connections": "الاقترانات"
     },
     "loading": "يحمل...",
@@ -185,7 +185,7 @@
         "accessibility_label": "زر التبويب الخاص"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "زر تبويب النشاط"
       },
       "connections": {
         "accessibility_label": "زر تبويب الاقترانات"
@@ -201,7 +201,7 @@
       "description": "اكتب يومياتك\nلتشاركها مع أصدقائك لاحقاً"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "زر البحث"
     }
   },
   "private": {
@@ -234,25 +234,25 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " ذكرك"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " تابعك"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " يريد ان يقترن بك"
       }
     },
     "empty": {
-      "title": "No activity",
+      "title": "لا يوجد نشاط",
       "description": "When people mention or follow you,\nthey show up here"
     }
   },
@@ -279,9 +279,9 @@
     "toasts": {
       "invite_accepted": "قُبلت الدعوة",
       "invite_rejected": "رُفضت الدعوة. هل انت متأكد من صحتها؟",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "connecting_to_alias": "يقترن بـ {{alias}}",
+      "connected_to_alias": "اقترن بـ {{alias}}",
+      "not_connected_to_alias": "{{alias}} غير متصل"
     },
     "dialogs": {
       "sign_in_with_ssb": {
@@ -591,8 +591,8 @@
         "accessibility_label": "أرسل تقريرا عن علة بالبريد الالكتروني"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "ساعدنا على الترجمة",
+        "accessibility_label": "فتح موقع الترجمة"
       },
       "settings": {
         "label": "الإعدادات",
@@ -614,7 +614,7 @@
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
+      "title": "نوع غير مدعوم",
       "description": "P2P Invites are no longer supported in Manyverse."
     },
     "text_field": {
@@ -647,7 +647,7 @@
       }
     },
     "dialog_ssb_id": {
-      "title": "SSB ID"
+      "title": "معرف SSB"
     },
     "dialog_manage_contact": {
       "title": "Contact"

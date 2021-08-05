@@ -6,7 +6,7 @@
     "cancel": "Annulla",
     "continue": "Continua",
     "delete": "Elimina",
-    "remove": "Remove",
+    "remove": "Rimuovi",
     "save": "Salva",
     "yes": "Sì",
     "no": "No",
@@ -166,13 +166,13 @@
     "tab_headers": {
       "public": "Board pubblica",
       "private": "Messaggi privati",
-      "activity": "Activity",
+      "activity": "Attività",
       "connections": "Connessioni"
     },
     "tab_footers": {
       "public": "Pubblico",
       "private": "Privato",
-      "activity": "Activity",
+      "activity": "Attività",
       "connections": "Connessioni"
     },
     "loading": "Caricamento...",
@@ -185,7 +185,7 @@
         "accessibility_label": "Tasto Tab Privato"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "Tasto Scheda Attività"
       },
       "connections": {
         "accessibility_label": "Tasto Tab Connessioni"
@@ -201,7 +201,7 @@
       "description": "Scrivi un diario che sarà\ncondiviso con gli amici più tardi"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Pulsante Ricerca"
     }
   },
   "private": {
@@ -234,26 +234,26 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " ti ha menzionato"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " ti segue"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " vuole connettersi"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "Nessuna attività",
+      "description": "Quando le persone ti parlano o ti seguono,\nappaiono qui"
     }
   },
   "connections": {
@@ -279,19 +279,19 @@
     "toasts": {
       "invite_accepted": "Invito accettato",
       "invite_rejected": "Invito rifiutato. Sei sicuro che sia corretto?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "connecting_to_alias": "Connessione a {{alias}}",
+      "connected_to_alias": "Connesso a {{alias}}",
+      "not_connected_to_alias": "{{alias}} è offline ora"
     },
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "Consentire l'accesso?",
+          "description": "Aprire il sito web di {{room}} per creare inviti e gestire gli utenti. Vuoi utilizzare Manyverse per accedere?\n\nL'ID della stanza è {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "title": "Consentire l'accesso?",
+          "description": "Un browser web sta richiedendo l'autorizzazione per identificarti. Vuoi accedere al server {{room}}?\n\nIl suo ID è {{roomid}}"
         }
       }
     },
@@ -383,12 +383,12 @@
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "label": "Gestisci i miei alias",
+        "accessibility_label": "Gestisci i miei alias nei server di stanza"
       },
       "room_sign_in": {
-        "label": "Sign into website",
-        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
+        "label": "Accedi al sito web",
+        "accessibility_label": "Apri il sito web di questa stanza e accedi alla sua dashboard, Pulsante"
       },
       "room_share_invite": {
         "label": "Condividi il codice d'invito",
@@ -442,10 +442,10 @@
         "accessibility_label": "Pulsante di chiusura"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "Pulsante Audio Record",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
+          "title": "Consenti a Manyverse di registrare l'audio?",
+          "message": "Manyverse ha bisogno di accedere al tuo microfono per comporre messaggi audio",
           "neutral": "Chiedimi più tardi",
           "positive": "OK",
           "negative": "Annulla"
@@ -491,11 +491,11 @@
       },
       "discard_recording": {
         "label": "Scarta",
-        "accessibility_label": "Discard Recording Button"
+        "accessibility_label": "Abbandona Pulsante Registrazione"
       },
       "submit_recording": {
         "label": "Fatto",
-        "accessibility_label": "Submit Recording Button"
+        "accessibility_label": "Invia Pulsante Registrazione"
       }
     },
     "dialogs": {
@@ -566,43 +566,43 @@
   },
   "dialog_about": {
     "title": "Informazioni su Manyverse",
-    "version": "Version {{version}}",
+    "version": "Versione {{version}}",
     "copyright": "Copyright (C)",
     "authors": "Gli autori di manyverse",
-    "repository": "Open source repository",
-    "licensed": "Licensed {{license1}} and {{license2}}"
+    "repository": "Repository open source",
+    "licensed": "Licenza {{license1}} e {{license2}}"
   },
   "dialog_thanks": {
     "title": "Grazie!",
-    "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
+    "description": "Lo sviluppo di questa app è stato supportato da sovvenzioni provenienti da {{sponsor1}} e {{sponsor2}}, e donazioni da:\n\n**{{topBackers}}**, e [un centinaio di altri sostenitori]({{donateLink}}). Grazie!"
   },
   "drawer": {
     "menu": {
       "my_profile": {
         "label": "Il mio profilo",
-        "accessibility_label": "My Profile Menu Item"
+        "accessibility_label": "Elemento Menu Profilo"
       },
       "raw_database": {
         "label": "Database grezzo",
-        "accessibility_label": "Show Raw Database"
+        "accessibility_label": "Mostra Database Raw"
       },
       "email_bug_report": {
         "label": "Segnala bug per email",
-        "accessibility_label": "Send Bug Report as Email"
+        "accessibility_label": "Invia Report Bug Email"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "Aiutaci a tradurre",
+        "accessibility_label": "Apri il sito web di traduzione"
       },
       "settings": {
         "label": "Impostazioni",
         "accessibility_label": "Vai alle Impostazioni"
       },
       "preparing_database": {
-        "label": "Preparing database..."
+        "label": "Preparazione database..."
       },
       "ready_estimate": {
-        "label": "Ready:"
+        "label": "Pronto:"
       }
     }
   },
@@ -614,46 +614,46 @@
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "Formato non supportato",
+      "description": "Gli Inviti P2P non sono più supportati in Manyverse."
     },
     "text_field": {
       "accessibility_label": "Invite Code Text Input"
     }
   },
   "libraries": {
-    "title": "Third party libraries",
-    "description": "Manyverse makes use of the following open source libraries and components. We want to thank the authors of these libraries and link to their websites for proper attribution.",
+    "title": "Librerie di terze parti",
+    "description": "Manyverse usa le seguenti librerie e componenti open source. Ringraziamo gli autori di queste librerie e forniamo i loro link web per la corretta attribuzione.",
     "image": {
-      "name": "Image {{name}}",
-      "attribution": " is created by {{author}}, licensed {{license}}"
+      "name": "Immagine {{name}}",
+      "attribution": " è stato creato da {{author}}, concesso in licenza {{license}}"
     }
   },
   "profile": {
     "call_to_action": {
-      "copy_cypherlink": "Copy cypherlink",
-      "private_chat": "Open private conversation",
+      "copy_cypherlink": "Copia cypherlink",
+      "private_chat": "Apri conversazione privata",
       "block": "Blocca",
-      "block_secretly": "Block secretly",
+      "block_secretly": "Blocca in segreto",
       "unblock": "Sblocca",
-      "unblock_secretly": "Unblock secretly",
+      "unblock_secretly": "Sblocca in segreto",
       "follow": "Segui",
       "edit_profile": {
         "label": "Modifica profilo",
-        "accessibility_label": "Edit Profile Button"
+        "accessibility_label": "Edita Tasto Profilo"
       },
       "manage": {
-        "accessibility_label": "Manage Contact"
+        "accessibility_label": "Gestisci Contatto"
       }
     },
     "dialog_ssb_id": {
       "title": "SSB ID"
     },
     "dialog_manage_contact": {
-      "title": "Contact"
+      "title": "Contatto"
     },
     "dialog_friend_request": {
-      "title": "Friend request",
+      "title": "Richiesta d'amicizia",
       "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
     "toast": {
