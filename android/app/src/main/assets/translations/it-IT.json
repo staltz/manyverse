@@ -618,7 +618,7 @@
       "description": "Gli Inviti P2P non sono più supportati in Manyverse."
     },
     "text_field": {
-      "accessibility_label": "Invite Code Text Input"
+      "accessibility_label": "Codice Invito Campo di Testo"
     }
   },
   "libraries": {
@@ -654,17 +654,17 @@
     },
     "dialog_friend_request": {
       "title": "Richiesta d'amicizia",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "description": "Questo account sta cercando di connettersi con te, ma Manyverse lo ha impedito perché è al di fuori dalla tua comunità.\n\nSe riconosci questo ID, puoi premere \"Segui\" per permettergli di connettersi con te."
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Copiato negli appunti"
     },
     "details": {
       "id": {
-        "accessibility_label": "SSB Identifier"
+        "accessibility_label": "Identificatore SSB"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "Leggi Biografia"
       },
       "counters": {
         "following": "Stai seguendo",
