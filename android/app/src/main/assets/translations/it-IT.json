@@ -673,11 +673,11 @@
     },
     "info": {
       "follows_you": "Ti segue",
-      "blocks_you": "Blocks you",
+      "blocks_you": "Ti blocca",
       "following": "Stai seguendo"
     },
     "picture": {
-      "accessibility_label": "Profile Picture"
+      "accessibility_label": "Immagine Profilo"
     },
     "name": {
       "accessibility_label": "Nome Profilo"
@@ -712,8 +712,8 @@
         "accessibility_label": "Modifica Foto Profilo"
       },
       "register_new_alias": {
-        "label": "Register new alias",
-        "accessibility_label": "Register New Room Server Alias"
+        "label": "Registra nuovo alias",
+        "accessibility_label": "Registra Nuovo Alias per Server di Stanza"
       }
     },
     "dialogs": {
@@ -722,12 +722,12 @@
         "question": "Annullare le modifiche?"
       },
       "remove_alias": {
-        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
+        "description": "Questa azione rimuoverà l'alias \"{{alias}}\" dal server di stanza.\n\nLe persone non saranno più in grado di raggiungerti usando questo alias."
       }
     },
     "toasts": {
-      "alias_removed_success": "Alias removed",
-      "alias_removed_failure": "Failed to remove alias"
+      "alias_removed_success": "Alias rimosso",
+      "alias_removed_failure": "Impossibile rimuovere l'alias"
     },
     "fields": {
       "name": {
@@ -736,22 +736,22 @@
       },
       "description": {
         "label": "Bio",
-        "accessibility_label": "Biography Text Input"
+        "accessibility_label": "Campo di Testo per Biografia"
       },
       "aliases": {
-        "label": "Aliases"
+        "label": "Alias"
       }
     }
   },
   "manage_aliases": {
-    "title": "Manage aliases"
+    "title": "Gestisci i miei alias"
   },
   "register_alias": {
-    "title": "Register alias",
+    "title": "Registra nuovo alias",
     "empty": {
       "no_servers": {
-        "title": "No servers",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "title": "Nessun server",
+        "description": "Per registrare un' alias, è necessario essere membri in servers di stanza SSB. Puoi trovarli su internet usando l'hashtag #ssbroom e assicurandoti che supporti gli alias."
       }
     },
     "header": {
@@ -763,25 +763,25 @@
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "Inviando..."
     },
     "failure": {
-      "title": "It didn't work",
+      "title": "Non ha funzionato",
       "alias_taken": "The alias you submitted is already taken by some user.",
       "call_to_action": {
         "try_again": {
-          "label": "Try again",
-          "accessibility_label": "Try Again Button"
+          "label": "Riprova",
+          "accessibility_label": "Tasto Riprova"
         }
       }
     },
     "success": {
-      "title": "Great!",
-      "description": "The alias {{alias}} is now yours.",
+      "title": "Ottimo!",
+      "description": "L'alias {{alias}} ti è stato assegnato.",
       "call_to_action": {
         "go_back": {
-          "label": "Go back",
-          "accessibility_label": "Go Back Button"
+          "label": "Torna indietro",
+          "accessibility_label": "Tasto Indietro"
         }
       }
     }
@@ -790,7 +790,7 @@
     "title": "Database grezzo",
     "item": {
       "type": {
-        "any": "type: {{type}}",
+        "any": "tipo: {{type}}",
         "encrypted": "criptato"
       }
     }
@@ -808,18 +808,18 @@
     },
     "fields": {
       "mention_input": {
-        "placeholder": "Search for people to add",
+        "placeholder": "Ricerca persone da aggiungere",
         "accessibility_label": "Inserimento di testo del conto di menzione"
       }
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
+        "title": "Scegli membri",
         "description": "Type in the names\nof people to join the new chat"
       },
       "none_to_choose": {
-        "title": "No one",
-        "description": "There is nobody in your\ncommunity with that name"
+        "title": "Nessuno",
+        "description": "Non c'è nessuno nella tua comunità\ncon quel nome"
       }
     },
     "toasts": {
@@ -828,27 +828,27 @@
   },
   "search": {
     "query_input": {
-      "placeholder": "Search public posts",
-      "accessibility_label": "Search Query Text Input"
+      "placeholder": "Ricerca post pubblici",
+      "accessibility_label": "Campo di Test per Ricerca"
     },
     "clear_query": {
       "accessibility_label": "Reset the Search Query Text Input"
     },
     "empty": {
       "initial": {
-        "title": "Search something",
+        "title": "Ricerca qualcosa",
         "description": "Attendi mentre l'app\ntenta di connettersi ai tuoi peer"
       },
       "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
+        "title": "Nessun risultato",
+        "description": "Nessun risultato per \"{{query}}\""
       }
     }
   },
   "secret_input": {
     "practice": {
       "title": "Practice",
-      "header": "Repeat it to confirm it is correct:"
+      "header": "Ripetilo per confermare che è corretto:"
     },
     "restore": {
       "title": "Ripristina account"
@@ -856,14 +856,14 @@
     "header": "Carefully input your recovery phrase",
     "call_to_action": {
       "confirm": {
-        "label": "Confirm",
-        "accessibility_label": "Confirm Recovery Phrase Button"
+        "label": "Conferma",
+        "accessibility_label": "Tasto Conferma Frase di Recupero"
       }
     },
     "fields": {
       "words_input": {
         "placeholder": "24-word (or 48-word) recovery phrase",
-        "accessibility_label": "Recovery Phrase Text Input"
+        "accessibility_label": "Campo di Testo per Frase di Recupero"
       }
     },
     "dialogs": {
@@ -941,44 +941,44 @@
       "backup": {
         "title": "Backup",
         "subtitle": "View your 24-word recovery phrase",
-        "accessibility_label": "Back Up My Account"
+        "accessibility_label": "Salva il Mio Account"
       },
       "blobs_storage": {
-        "title": "Blobs storage limit",
+        "title": "Limite salvataggio",
         "subtitle": "Automatically delete old images and blobs until they occupy at most this amount of storage on your device",
-        "unlimited": "Unlimited",
-        "accessibility_label": "Storage limit slider"
+        "unlimited": "Illimitato",
+        "accessibility_label": "Cursore Limite di Salvataggio"
       }
     },
     "troubleshooting": {
-      "title": "Troubleshooting",
+      "title": "Risoluzione Problemi",
       "bug_report": {
         "title": "Segnala bug per email",
         "accessibility_label": "Send Bug Report as Email"
       },
       "detailed_logs": {
-        "title": "Enable detailed logs",
+        "title": "Abilita log dettagliati",
         "accessibility_label": "Toggle detailed developer logs"
       }
     },
     "more_information": {
-      "title": "More information",
+      "title": "Ulteriori informazioni",
       "thanks": {
-        "title": "Thanks",
-        "accessibility_label": "Show Thanks"
+        "title": "Grazie",
+        "accessibility_label": "Mostra Ringraziamenti"
       },
       "third_party_libs": {
-        "title": "Third party libraries",
+        "title": "Librerie di terze parti",
         "accessibility_label": "View third party libraries"
       },
       "about": {
         "title": "Informazioni",
-        "accessibility_label": "About This App"
+        "accessibility_label": "Informazioni Su Questa Applicazione"
       }
     },
     "dialogs": {
       "restart_required": {
-        "title": "Restart required",
+        "title": "Riavvio necessario",
         "description": "This setting will only enter into effect when you kill the app and restart Manyverse."
       }
     }
@@ -995,22 +995,22 @@
     },
     "fields": {
       "reply": {
-        "placeholder": "Comment",
-        "accessibility_label": "Reply Text Input"
+        "placeholder": "Commento",
+        "accessibility_label": "Campo di Testo Risposta"
       }
     },
-    "loading_replies": "Loading replies...",
+    "loading_replies": "Caricamento risposte...",
     "empty": {
       "missing": {
-        "title": "Missing data",
+        "title": "Dati non disponibili",
         "description": "You don't yet have data\nfor the message known by the ID\n"
       },
       "blocked": {
-        "title": "Blocked thread",
+        "title": "Thread bloccato",
         "description": "You have chosen to block\nthe author of this thread"
       },
       "incompatible": {
-        "title": "Sorry",
+        "title": "Spiacente",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
     }
@@ -1018,22 +1018,22 @@
   "message": {
     "call_to_action": {
       "show_reactions": {
-        "accessibility_label": "Show Reactions"
+        "accessibility_label": "Mostra Reazioni"
       },
       "add_reaction": {
-        "accessibility_label": "Add Reaction Button"
+        "accessibility_label": "Aggiungi Pulsante Risposta"
       },
       "reply": {
-        "accessibility_label": "Reply Button"
+        "accessibility_label": "Pulsante Risposta"
       },
       "etc": {
-        "dialog_title": "Message",
-        "accessibility_label": "Etc Button"
+        "dialog_title": "Messaggio",
+        "accessibility_label": "Tasto Indietro"
       },
       "copy_blob_id": {
-        "accessibility_label": "Copy Blob ID"
+        "accessibility_label": "Copia Blob ID"
       },
-      "copy_msg_id": "Copy cypherlink",
+      "copy_msg_id": "Copia cypherlink",
       "view_raw": "View raw message",
       "read_more": {
         "label": "Read more",
@@ -1049,10 +1049,10 @@
         "people_and_body": "People and body",
         "animals_and_nature": "Animals and nature",
         "food_and_drink": "Food and drink",
-        "activities": "Activities",
-        "travel_and_places": "Travel and places",
-        "objects": "Objects",
-        "symbols": "Symbols"
+        "activities": "Attività",
+        "travel_and_places": "Viaggi e posti",
+        "objects": "Oggetti",
+        "symbols": "Simboli"
       },
       "show_more": {
         "accessibility_label": "Show More Reaction Options"
@@ -1060,7 +1060,7 @@
     },
     "image": {
       "without_caption": {
-        "accessibility_label": "Picture without caption"
+        "accessibility_label": "Immagine senza didascalia"
       }
     },
     "audio": {
@@ -1143,7 +1143,7 @@
       "unblock_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " unblocked ",
+        "3_normal": " sblocca ",
         "4_bold": "{{target}}",
         "5_normal": ""
       }
