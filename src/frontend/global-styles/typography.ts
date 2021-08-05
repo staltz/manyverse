@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -46,6 +46,7 @@ export const Typography = {
   fontFamilyReadableText: Platform.select({
     android: 'sans-serif-light',
     ios: 'Helvetica Neue',
+    web: 'Roboto, NotoColorEmoji',
     default: 'sans-serif',
   }),
 

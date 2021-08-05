@@ -7,6 +7,7 @@
 import {createElement as $, PureComponent} from 'react';
 import {
   Linking,
+  Platform,
   StyleSheet,
   Text,
   TextProps,
@@ -42,7 +43,9 @@ const textProps: TextProps = {
 };
 
 const styles = StyleSheet.create({
-  text: {},
+  text: {
+    fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
+  },
 
   heading1: {
     fontWeight: '700',

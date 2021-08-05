@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         outlineStyle: 'none',
+        fontFamily: Typography.fontFamilyReadableText,
       },
     }),
   },
@@ -106,6 +107,7 @@ export const styles = StyleSheet.create({
   resultContent: {
     color: Palette.text,
     fontSize: Typography.fontSizeNormal,
+    fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
     lineHeight: Typography.lineHeightNormal,
     marginTop: Dimensions.verticalSpaceSmall,
   },

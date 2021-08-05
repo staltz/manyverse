@@ -119,6 +119,7 @@ export const styles = StyleSheet.create({
   quickEmojiChoice: {
     flex: 1,
     fontSize: 30,
+    fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
     padding: 15,
   },
 
@@ -146,6 +147,10 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     color: Palette.textWeak,
+  },
+
+  fullEmojiPickerEmoji: {
+    fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
   },
 
   reactions: {
@@ -177,6 +182,7 @@ export const styles = StyleSheet.create({
   myReaction: {
     color: Palette.text,
     fontSize: Typography.fontSizeBig,
+    fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
     lineHeight: Typography.lineHeightSmall,
   },
 
@@ -579,6 +585,7 @@ export default class MessageFooter extends Component<Props, State> {
           containerStyle: styles.fullEmojiPickerContainer,
           scrollStyle: styles.fullEmojiPickerScroll,
           headerStyle: styles.fullEmojiPickerHeader,
+          emojiStyle: styles.fullEmojiPickerEmoji,
         }),
       ],
     );

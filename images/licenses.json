@@ -82,5 +82,11 @@
     "author": "'Made by Made' from the Noun Project",
     "license": "Creative Commons BY 3.0",
     "homepage": "https://thenounproject.com/made.somewhere/collection/science/?i=996929"
+  },
+  {
+    "name": "NotoColorEmoji.ttf",
+    "author": "Google Inc. and Arjen Nienhuis <a.g.nienhuis@gmail.com>",
+    "license": "SIL Open Font License, version 1.1",
+    "homepage": "https://github.com/googlefonts/noto-emoji"
   }
 ]

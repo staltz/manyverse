@@ -85,6 +85,7 @@ export const styles = StyleSheet.create({
     }),
     alignSelf: 'stretch',
     fontSize: Typography.fontSizeBig,
+    fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
     lineHeight: Typography.lineHeightBig,
     textAlign: 'left',
     textAlignVertical: 'top',

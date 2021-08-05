@@ -55,7 +55,14 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
     color: Palette.text,
-    ...Platform.select({ios: {paddingTop: 0}}),
+    ...Platform.select({
+      ios: {
+        paddingTop: 0,
+      },
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
     maxHeight: Platform.select({android: 84, default: 75}), // approx. 3.5 lines of text
   },
 

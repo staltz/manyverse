@@ -36,14 +36,20 @@ import {Screens} from './lib/frontend/screens/enums';
 import {welcomeLayout} from './lib/frontend/screens/layouts';
 
 const iconFont = require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf');
+const emojiFont = require('./images/NotoColorEmoji.ttf');
 
-const iconFontStyles = `@font-face {
+const fontStyles = `@font-face {
    src: url(dist/${iconFont});
    font-family: MaterialCommunityIcons;
- }`;
+ }
+
+ @font-face {
+  src: url(dist/${emojiFont}) format('truetype');
+  font-family: 'NotoColorEmoji';
+}`;
 
 const style = document.createElement('style');
-style.appendChild(document.createTextNode(iconFontStyles));
+style.appendChild(document.createTextNode(fontStyles));
 
 document.head.appendChild(style);
 

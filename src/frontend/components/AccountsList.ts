@@ -68,6 +68,7 @@ export const styles = StyleSheet.create({
 
   reaction: {
     fontSize: Typography.fontSizeLarge,
+    fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
     lineHeight: Typography.lineHeightLarge,
   },
 });

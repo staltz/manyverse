@@ -85,10 +85,10 @@ module.exports = {
             },
           },
         ],
-        include: path.resolve(
-          __dirname,
-          '../node_modules/react-native-vector-icons',
-        ),
+        include: [
+          path.resolve(__dirname, '../node_modules/react-native-vector-icons'),
+          path.resolve(__dirname, '../images/'),
+        ],
       },
       {
         test: /\.woff(2)?$/,
@@ -96,7 +96,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              outputPath: 'dist/',
+              publicPath: 'dist/',
             },
           },
         ],

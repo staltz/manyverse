@@ -39,6 +39,9 @@ export default class SettableTextInput extends PureComponent<Props> {
   }
 
   public render() {
-    return $(TextInput, {...this.props, ref: this.ref});
+    return $(TextInput, {
+      ...this.props,
+      ref: this.ref,
+    });
   }
 }
