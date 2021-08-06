@@ -153,6 +153,14 @@ export const styles = StyleSheet.create({
     fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
   },
 
+  reactionsTouchable: {
+    ...Platform.select({
+      web: {
+        width: '100%',
+      },
+    }),
+  },
+
   reactions: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -231,6 +239,7 @@ class Reactions extends PureComponent<{
         Touchable,
         {
           ...touchableProps,
+          style: styles.reactionsTouchable,
           onPress,
           accessible: true,
           accessibilityRole: 'button',
