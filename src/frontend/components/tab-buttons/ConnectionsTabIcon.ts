@@ -6,28 +6,9 @@
 
 import {h} from '@cycle/react';
 import {Component} from 'react';
-import {
-  Platform,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  View,
-  Text,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {StyleProp, ViewStyle} from 'react-native';
 import {t} from '../../drivers/localization';
-import {styles, iconProps} from './styles';
-
-const Touchable = Platform.select<any>({
-  android: TouchableNativeFeedback,
-  default: TouchableOpacity,
-});
-
-const touchableProps: any = {};
-if (Platform.OS === 'android') {
-  touchableProps.background = TouchableNativeFeedback.SelectableBackground();
-}
+import TabIcon from './TabIcon';
 
 export default class ConnectionsTabIcon extends Component<{
   isSelected: boolean;
@@ -58,35 +39,14 @@ export default class ConnectionsTabIcon extends Component<{
 
   public render() {
     const {isSelected, style} = this.props;
-    return h(
-      Touchable,
-      {
-        ...touchableProps,
-        sel: 'connections-tab-button',
-        style: [styles.tabButton, style], // iOS needs this
-        accessible: true,
-        accessibilityRole: 'tab',
-        accessibilityLabel: t('central.tabs.connections.accessibility_label'),
-      },
-      [
-        h(View, {style: [styles.tabButton, style], pointerEvents: 'box-only'}, [
-          h(Icon, {
-            name: this.getIconName(),
-            ...(isSelected ? iconProps.tabSelected : iconProps.tab),
-          }),
 
-          h(
-            Text,
-            {
-              style: isSelected
-                ? styles.tabButtonTextSelected
-                : styles.tabButtonText,
-              numberOfLines: 1,
-            },
-            t('central.tab_footers.connections'),
-          ),
-        ]),
-      ],
-    );
+    return h(TabIcon, {
+      style,
+      isSelected,
+      sel: 'connections-tab-button',
+      iconName: this.getIconName(),
+      label: t('central.tab_footers.connections'),
+      accessibilityLabel: t('central.tabs.connections.accessibility_label'),
+    });
   }
 }

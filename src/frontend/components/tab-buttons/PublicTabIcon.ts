@@ -6,28 +6,40 @@
 
 import {h} from '@cycle/react';
 import {Component} from 'react';
-import {
-  Platform,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  View,
-  Text,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Platform, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import {t} from '../../drivers/localization';
-import {styles, iconProps} from './styles';
+import {Palette} from '../../global-styles/palette';
+import TabIcon from './TabIcon';
 
-const Touchable = Platform.select<any>({
-  android: TouchableNativeFeedback,
-  default: TouchableOpacity,
+const styles = StyleSheet.create({
+  updatesCoverAll: {
+    height: 11,
+    position: 'absolute',
+    top: 8.5,
+    left: 5,
+    right: 5,
+    backgroundColor: Platform.select({
+      default: Palette.backgroundText,
+      web: Palette.voidMain,
+    }),
+  },
+
+  updatesCoverSome: {
+    height: 11,
+    position: 'absolute',
+    top: 8.5,
+    left: 5,
+    right: 11,
+    backgroundColor: Platform.select({
+      default: Palette.backgroundText,
+      web: Palette.voidMain,
+    }),
+  },
+
+  updatesCoverNone: {
+    display: 'none',
+  },
 });
-
-const touchableProps: any = {};
-if (Platform.OS === 'android') {
-  touchableProps.background = TouchableNativeFeedback.SelectableBackground();
-}
 
 export default class PublicTabIcon extends Component<{
   isSelected: boolean;
@@ -51,45 +63,22 @@ export default class PublicTabIcon extends Component<{
   public render() {
     const {isSelected, numOfUpdates, style} = this.props;
 
-    return h(
-      Touchable,
-      {
-        ...touchableProps,
-        sel: 'public-tab-button',
-        style: [styles.tabButton, style], // iOS needs this
-        accessible: true,
-        accessibilityRole: 'tab',
-        accessibilityLabel: t('central.tabs.public.accessibility_label'),
-      },
-      [
-        h(View, {style: [styles.tabButton, style], pointerEvents: 'box-only'}, [
-          h(View, [
-            h(Icon, {
-              name: 'bulletin-board',
-              ...(isSelected ? iconProps.tabSelected : iconProps.tab),
-            }),
-            h(View, {
-              style:
-                numOfUpdates >= 10
-                  ? styles.updatesCoverNone
-                  : numOfUpdates >= 1
-                  ? styles.updatesCoverSome
-                  : styles.updatesCoverAll,
-            }),
-          ]),
-
-          h(
-            Text,
-            {
-              style: isSelected
-                ? styles.tabButtonTextSelected
-                : styles.tabButtonText,
-              numberOfLines: 1,
-            },
-            t('central.tab_footers.public'),
-          ),
-        ]),
-      ],
-    );
+    return h(TabIcon, {
+      style,
+      isSelected,
+      sel: 'public-tab-button',
+      iconName: 'bulletin-board',
+      label: t('central.tab_footers.public'),
+      accessibilityLabel: t('central.tabs.public.accessibility_label'),
+      renderIconExtras: () =>
+        h(View, {
+          style:
+            numOfUpdates >= 10
+              ? styles.updatesCoverNone
+              : numOfUpdates >= 1
+              ? styles.updatesCoverSome
+              : styles.updatesCoverAll,
+        }),
+    });
   }
 }

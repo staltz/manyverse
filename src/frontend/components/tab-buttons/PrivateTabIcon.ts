@@ -6,28 +6,9 @@
 
 import {h} from '@cycle/react';
 import {Component} from 'react';
-import {
-  Platform,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  View,
-  Text,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {StyleProp, ViewStyle} from 'react-native';
 import {t} from '../../drivers/localization';
-import {styles, iconProps} from './styles';
-
-const Touchable = Platform.select<any>({
-  android: TouchableNativeFeedback,
-  default: TouchableOpacity,
-});
-
-const touchableProps: any = {};
-if (Platform.OS === 'android') {
-  touchableProps.background = TouchableNativeFeedback.SelectableBackground();
-}
+import TabIcon from './TabIcon';
 
 export default class PrivateTabIcon extends Component<{
   isSelected: boolean;
@@ -48,38 +29,14 @@ export default class PrivateTabIcon extends Component<{
 
   public render() {
     const {isSelected, numOfUpdates, style} = this.props;
-    return h(
-      Touchable,
-      {
-        ...touchableProps,
-        sel: 'private-tab-button',
-        style: [styles.tabButton, style], // iOS needs this
-        accessible: true,
-        accessibilityRole: 'tab',
-        accessibilityLabel: t('central.tabs.private.accessibility_label'),
-      },
-      [
-        h(View, {style: [styles.tabButton, style], pointerEvents: 'box-only'}, [
-          h(View, [
-            h(Icon, {
-              name:
-                numOfUpdates >= 1 ? 'message-text-outline' : 'message-outline',
-              ...(isSelected ? iconProps.tabSelected : iconProps.tab),
-            }),
-          ]),
 
-          h(
-            Text,
-            {
-              style: isSelected
-                ? styles.tabButtonTextSelected
-                : styles.tabButtonText,
-              numberOfLines: 1,
-            },
-            t('central.tab_footers.private'),
-          ),
-        ]),
-      ],
-    );
+    return h(TabIcon, {
+      style,
+      isSelected,
+      sel: 'private-tab-button',
+      iconName: numOfUpdates >= 1 ? 'message-text-outline' : 'message-outline',
+      label: t('central.tab_footers.private'),
+      accessibilityLabel: t('central.tabs.private.accessibility_label'),
+    });
   }
 }
