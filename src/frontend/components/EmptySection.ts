@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,6 +13,7 @@ import {
   ImageSourcePropType,
   StyleProp,
   ViewStyle,
+  Platform,
 } from 'react-native';
 import {h} from '@cycle/react';
 import {Palette} from '../global-styles/palette';
@@ -21,10 +22,18 @@ import {Typography} from '../global-styles/typography';
 
 export const styles = StyleSheet.create({
   container: {
-    marginHorizontal: Dimensions.horizontalSpaceBig * 2,
     alignSelf: 'stretch',
     flexDirection: 'column',
     alignItems: 'center',
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        paddingHorizontal: Dimensions.horizontalSpaceBig * 2,
+      },
+      default: {
+        marginHorizontal: Dimensions.horizontalSpaceBig * 2,
+      },
+    }),
   },
 
   image: {
@@ -62,18 +71,14 @@ export default class EmptySection extends PureComponent<Props> {
   public render() {
     const {image, title, description, style} = this.props;
 
-    return h(
-      View,
-      {style: [styles.container, style ?? null]},
-      [
-        image ? h(Image, {style: styles.image, source: image}) : null,
-        h(Text, {style: styles.title, selectable: true}, title),
-        h(
-          Text,
-          {style: styles.description, selectable: true},
-          description as Array<ReactElement<Text>>,
-        ),
-      ] as Array<ReactElement<any>>,
-    );
+    return h(View, {style: [styles.container, style ?? null]}, [
+      image ? h(Image, {style: styles.image, source: image}) : null,
+      h(Text, {style: styles.title, selectable: true}, title),
+      h(
+        Text,
+        {style: styles.description, selectable: true},
+        description as Array<ReactElement<Text>>,
+      ),
+    ] as Array<ReactElement<any>>);
   }
 }

@@ -11,6 +11,7 @@ import {
   StyleSheet,
   ViewStyle,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -36,6 +37,11 @@ export const styles = StyleSheet.create({
   itemContainer: {
     alignSelf: 'stretch',
     backgroundColor: Palette.backgroundText,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   item: {

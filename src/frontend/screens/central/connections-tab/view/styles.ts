@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {Dimensions as Dimens} from '../../../../global-styles/dimens';
 import {Palette} from '../../../../global-styles/palette';
 import {Typography} from '../../../../global-styles/typography';
@@ -30,6 +30,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
+    ...Platform.select({
+      web: {
+        maxWidth: Dimens.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   modeLoading: {
