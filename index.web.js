@@ -25,6 +25,7 @@ import {central} from './lib/frontend/screens/central';
 import {compose} from './lib/frontend/screens/compose';
 import {global} from './lib/frontend/screens/global';
 import {welcome} from './lib/frontend/screens/welcome';
+import {conversation} from './lib/frontend/screens/conversation';
 import {recipientsInput} from './lib/frontend/screens/recipients-input';
 import {pasteInvite} from './lib/frontend/screens/invite-paste';
 import {profile} from './lib/frontend/screens/profile';
@@ -94,7 +95,7 @@ const screens = {
   // [Screens.ComposeAudio]: withState(composeAudio),
   [Screens.Search]: withState(search),
   [Screens.Thread]: withState(thread),
-  // [Screens.Conversation]: withState(conversation),
+  [Screens.Conversation]: withState(conversation),
   [Screens.RecipientsInput]: withState(recipientsInput),
   // [Screens.Libraries]: libraries,
   [Screens.InvitePaste]: withState(pasteInvite),
