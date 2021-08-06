@@ -8,6 +8,7 @@ import {h} from '@cycle/react';
 import {PureComponent, ReactElement} from 'react';
 import {
   Platform,
+  Pressable,
   TouchableNativeFeedback,
   TouchableOpacity,
   View,
@@ -29,6 +30,17 @@ const styles = StyleSheet.create({
     justifyContent: Platform.select({default: 'center', web: 'flex-start'}),
     alignItems: 'center',
     marginTop: Platform.select({ios: isIPhoneWithMonobrow() ? -5 : 0}),
+    ...Platform.select({
+      web: {
+        paddingHorizontal: Dimensions.horizontalSpaceNormal,
+        paddingVertical: Dimensions.verticalSpaceSmall,
+      },
+    }),
+  },
+
+  tabHoveredOnDesktop: {
+    backgroundColor: Palette.backgroundText,
+    borderRadius: Dimensions.borderRadiusFull,
   },
 
   tabButtonText: {
@@ -80,18 +92,47 @@ export default class TabIcon extends PureComponent<{
   label: string;
   style?: StyleProp<ViewStyle>;
   onPress?: () => {};
-  renderIconExtras?: () => ReactElement<any>;
+  renderIconExtras?: (visualState?: any) => ReactElement<any>;
 }> {
-  public render() {
-    const {
-      isSelected,
-      accessibilityLabel,
-      style,
-      iconName,
-      renderIconExtras,
-      label,
+  private renderInternals(visualState?: any) {
+    const {isSelected, iconName, renderIconExtras, label} = this.props;
+
+    const textStyle = isSelected
+      ? styles.tabButtonTextSelected
+      : styles.tabButtonText;
+
+    return [
+      h(View, [
+        h(Icon, {
+          name: iconName,
+          ...(isSelected ? iconProps.tabSelected : iconProps.tab),
+        }),
+        renderIconExtras?.(visualState),
+      ]),
+      h(Text, {style: textStyle, numberOfLines: 1}, label),
+    ];
+  }
+
+  private renderDesktop() {
+    const {onPress, style, accessibilityLabel} = this.props;
+
+    return h(Pressable, {
       onPress,
-    } = this.props;
+      children: (visualState: any) => [
+        h(View, {style: styles.tabButton}, this.renderInternals(visualState)),
+      ],
+      style: ({hovered}: any) => [
+        hovered ? styles.tabHoveredOnDesktop : null,
+        style,
+      ],
+      accessible: true,
+      accessibilityRole: 'menuitem',
+      accessibilityLabel,
+    });
+  }
+
+  private renderMobile() {
+    const {onPress, style, accessibilityLabel} = this.props;
 
     return h(
       Touchable,
@@ -104,27 +145,20 @@ export default class TabIcon extends PureComponent<{
         accessibilityLabel,
       },
       [
-        h(View, {style: [styles.tabButton, style], pointerEvents: 'box-only'}, [
-          h(View, [
-            h(Icon, {
-              name: iconName,
-              ...(isSelected ? iconProps.tabSelected : iconProps.tab),
-            }),
-            renderIconExtras?.(),
-          ]),
-
-          h(
-            Text,
-            {
-              style: isSelected
-                ? styles.tabButtonTextSelected
-                : styles.tabButtonText,
-              numberOfLines: 1,
-            },
-            label,
-          ),
-        ]),
+        h(
+          View,
+          {style: [styles.tabButton, style], pointerEvents: 'box-only'},
+          this.renderInternals(),
+        ),
       ],
     );
+  }
+
+  public render() {
+    if (Platform.OS === 'web') {
+      return this.renderDesktop();
+    } else {
+      return this.renderMobile();
+    }
   }
 }

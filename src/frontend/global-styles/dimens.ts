@@ -36,6 +36,7 @@ export const Dimensions = {
   avatarSizeSmall: 32,
   avatarBorderRadius: 3,
 
+  borderRadiusFull: 200,
   borderRadiusBig: 10,
   borderRadiusNormal: 3,
   borderRadiusSmall: 2,

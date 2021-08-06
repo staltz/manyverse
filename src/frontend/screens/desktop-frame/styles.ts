@@ -26,12 +26,12 @@ export const styles = StyleSheet.create({
     flex: Dimensions.desktopSideWidth.flex,
     alignSelf: 'center',
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
     paddingTop: Dimensions.verticalSpaceLarge,
   },
 
   leftMenuTabButton: {
-    marginBottom: Dimensions.verticalSpaceNormal,
+    marginBottom: Dimensions.verticalSpaceTiny,
   },
 
   centerAndRight: {

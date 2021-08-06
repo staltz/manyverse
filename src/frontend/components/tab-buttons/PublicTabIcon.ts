@@ -39,6 +39,10 @@ const styles = StyleSheet.create({
   updatesCoverNone: {
     display: 'none',
   },
+
+  hoveredOnDesktop: {
+    backgroundColor: Palette.backgroundText,
+  },
 });
 
 export default class PublicTabIcon extends Component<{
@@ -70,14 +74,19 @@ export default class PublicTabIcon extends Component<{
       iconName: 'bulletin-board',
       label: t('central.tab_footers.public'),
       accessibilityLabel: t('central.tabs.public.accessibility_label'),
-      renderIconExtras: () =>
+      renderIconExtras: (visualState?: any) =>
         h(View, {
-          style:
+          style: [
             numOfUpdates >= 10
               ? styles.updatesCoverNone
               : numOfUpdates >= 1
               ? styles.updatesCoverSome
               : styles.updatesCoverAll,
+
+            Platform.OS === 'web' && visualState?.hovered
+              ? styles.hoveredOnDesktop
+              : null,
+          ],
         }),
     });
   }
