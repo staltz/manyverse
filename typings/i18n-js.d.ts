@@ -263,6 +263,8 @@ declare module 'i18n-js' {
     | 'drawer.menu.email_bug_report.accessibility_label'
     | 'drawer.menu.translate.label'
     | 'drawer.menu.translate.accessibility_label'
+    | 'drawer.menu.more.label'
+    | 'drawer.menu.more.accessibility_label'
     | 'drawer.menu.settings.label'
     | 'drawer.menu.settings.accessibility_label'
     | 'drawer.menu.preparing_database.label'

@@ -64,18 +64,10 @@ export default function view(
             h(View, {style: styles.spacer}),
 
             h(TabIcon, {
-              sel: 'raw-db',
-              iconName: 'database',
-              label: t('drawer.menu.raw_database.label'),
-              accessibilityLabel: t(
-                'drawer.menu.raw_database.accessibility_label',
-              ),
-            }),
-            h(TabIcon, {
-              sel: 'settings',
-              iconName: 'cog',
-              label: t('drawer.menu.settings.label'),
-              accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
+              sel: 'more',
+              iconName: 'dots-horizontal',
+              label: t('drawer.menu.more.label'),
+              accessibilityLabel: t('drawer.menu.more.accessibility_label'),
             }),
             h(TabIcon, {
               style: styles.myProfileButton,

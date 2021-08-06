@@ -603,6 +603,10 @@
       },
       "ready_estimate": {
         "label": "جاهز:"
+      },
+      "more": {
+        "label": "More",
+        "accessibility_label": "Show more Menu items"
       }
     }
   },

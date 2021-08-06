@@ -204,7 +204,7 @@ class Dialogs extends Component<unknown, State> implements Implementation {
         return $(Dialog, {open: true, onClose: () => this.dismiss()}, [
           $(
             List,
-            {key: 'list'},
+            {key: 'list', style: {minWidth: '40vw'}},
             (state.options?.items ?? []).map((item: any) =>
               $(
                 ListItem,

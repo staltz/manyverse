@@ -11,6 +11,7 @@ import {ReactSource} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
 import {GlobalEvent} from '../../drivers/eventbus';
 import {SSBSource} from '../../drivers/ssb';
+import {DialogSource} from '../../drivers/dialogs';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
@@ -21,6 +22,7 @@ export interface Sources {
   children: Stream<Array<ReactElement>>;
   globalEventBus: Stream<GlobalEvent>;
   ssb: SSBSource;
+  dialog: DialogSource;
   state: StateSource<State>;
 }
 
@@ -34,7 +36,7 @@ export interface Sinks {
 export function desktopFrame(sources: Sources): Sinks {
   const state$ = sources.state.stream;
 
-  const actions = intent(sources.screen, state$);
+  const actions = intent(sources.screen, sources.dialog, state$);
 
   const event$ = xs.merge(
     actions.changeTab$.map(
@@ -56,6 +58,9 @@ export function desktopFrame(sources: Sources): Sinks {
   const vdom$ = view(state$, sources.children, localizationLoaded$);
 
   const command$ = xs.never(); // TODO
+
+  // TODO remove this when the "more" actions trigger side effects of their own
+  actions.openMoreMenuOptions$.subscribe({next: () => {}});
 
   return {
     screen: vdom$,
