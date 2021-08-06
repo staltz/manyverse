@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -29,7 +29,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+
+  innerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     paddingHorizontal: Dimensions.horizontalSpaceBig,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   title: {
@@ -73,18 +85,24 @@ export default class TopBar extends PureComponent<Props> {
 
   public render() {
     const {title, onPressBack, style} = this.props;
-    return $(View, {style: [styles.container, style]}, [
-      $(HeaderButton, {
-        key: 'back',
-        onPress: onPressBack,
-        icon: Platform.select({ios: 'chevron-left', default: 'arrow-left'}),
-        ...Platform.select({ios: {iconSize: Dimensions.iconSizeLarge}}),
-        accessibilityLabel: t('call_to_action.go_back.accessibility_label'),
-      }),
-      title ? $(Text, {key: 'title', style: styles.title}, title) : null,
-      this.props.children
-        ? $(View, {key: 'right', style: styles.rightSide}, this.props.children)
-        : null,
+    return $(View, {key: 'outer', style: [styles.container, style]}, [
+      $(View, {key: 'inner', style: styles.innerContainer}, [
+        $(HeaderButton, {
+          key: 'back',
+          onPress: onPressBack,
+          icon: Platform.select({ios: 'chevron-left', default: 'arrow-left'}),
+          ...Platform.select({ios: {iconSize: Dimensions.iconSizeLarge}}),
+          accessibilityLabel: t('call_to_action.go_back.accessibility_label'),
+        }),
+        title ? $(Text, {key: 'title', style: styles.title}, title) : null,
+        this.props.children
+          ? $(
+              View,
+              {key: 'right', style: styles.rightSide},
+              this.props.children,
+            )
+          : null,
+      ]),
     ]);
   }
 }
