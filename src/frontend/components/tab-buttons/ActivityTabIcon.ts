@@ -12,6 +12,8 @@ import {
   TouchableOpacity,
   View,
   Text,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '../../drivers/localization';
@@ -30,6 +32,7 @@ if (Platform.OS === 'android') {
 export default class ActivityTabIcon extends Component<{
   isSelected: boolean;
   numOfUpdates: number;
+  style?: StyleProp<ViewStyle>;
 }> {
   public shouldComponentUpdate(nextProps: ActivityTabIcon['props']) {
     const prevProps = this.props;
@@ -44,19 +47,19 @@ export default class ActivityTabIcon extends Component<{
   }
 
   public render() {
-    const {isSelected, numOfUpdates} = this.props;
+    const {isSelected, numOfUpdates, style} = this.props;
     return h(
       Touchable,
       {
         ...touchableProps,
         sel: 'activity-tab-button',
-        style: styles.tabButton, // iOS needs this
+        style: [styles.tabButton, style], // iOS needs this
         accessible: true,
         accessibilityRole: 'tab',
         accessibilityLabel: t('central.tabs.activity.accessibility_label'),
       },
       [
-        h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
+        h(View, {style: [styles.tabButton, style], pointerEvents: 'box-only'}, [
           h(View, [
             h(Icon, {
               name: numOfUpdates >= 1 ? 'bell-ring-outline' : 'bell-outline',

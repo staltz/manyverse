@@ -12,6 +12,8 @@ import {
   TouchableOpacity,
   View,
   Text,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '../../drivers/localization';
@@ -30,6 +32,7 @@ if (Platform.OS === 'android') {
 export default class PrivateTabIcon extends Component<{
   isSelected: boolean;
   numOfUpdates: number;
+  style?: StyleProp<ViewStyle>;
 }> {
   public shouldComponentUpdate(nextProps: PrivateTabIcon['props']) {
     const prevProps = this.props;
@@ -44,19 +47,19 @@ export default class PrivateTabIcon extends Component<{
   }
 
   public render() {
-    const {isSelected, numOfUpdates} = this.props;
+    const {isSelected, numOfUpdates, style} = this.props;
     return h(
       Touchable,
       {
         ...touchableProps,
         sel: 'private-tab-button',
-        style: styles.tabButton, // iOS needs this
+        style: [styles.tabButton, style], // iOS needs this
         accessible: true,
         accessibilityRole: 'tab',
         accessibilityLabel: t('central.tabs.private.accessibility_label'),
       },
       [
-        h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
+        h(View, {style: [styles.tabButton, style], pointerEvents: 'box-only'}, [
           h(View, [
             h(Icon, {
               name:

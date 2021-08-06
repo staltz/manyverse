@@ -6,7 +6,7 @@
 
 import xs, {Stream} from 'xstream';
 import {ReactElement, Fragment, PureComponent, Component} from 'react';
-import {View} from 'react-native';
+import {Platform, View} from 'react-native';
 import {h} from '@cycle/react';
 import {FloatingAction} from 'react-native-floating-action';
 import {MenuProvider} from 'react-native-popup-menu';
@@ -38,28 +38,33 @@ class CurrentTabPage extends PureComponent<{
     const shown = styles.pageShown;
     const hidden = styles.pageHidden;
 
+    const fabSection =
+      Platform.OS === 'web'
+        ? h(View, {style: styles.desktopFabContainer}, [h(FloatingAction, fab)])
+        : h(FloatingAction, fab);
+
     return h(Fragment, [
       h(View, {style: [currentTab === 'public' ? shown : hidden]}, [
         publicTab,
-        h(FloatingAction, fab),
+        fabSection,
       ]),
       h(View, {style: [currentTab === 'private' ? shown : hidden]}, [
         privateTab,
-        h(FloatingAction, fab),
+        fabSection,
       ]),
       h(View, {style: [currentTab === 'activity' ? shown : hidden]}, [
         activityTab,
       ]),
       h(View, {style: [currentTab === 'connections' ? shown : hidden]}, [
         connectionsTab,
-        h(FloatingAction, fab),
+        fabSection,
       ]),
     ]);
   }
 }
 
-class TabsBar extends Component<State> {
-  public shouldComponentUpdate(nextProps: TabsBar['props']) {
+class MobileTabsBar extends Component<State> {
+  public shouldComponentUpdate(nextProps: MobileTabsBar['props']) {
     const prevProps = this.props;
     if (nextProps.currentTab !== prevProps.currentTab) return true;
     if (nextProps.numOfPublicUpdates !== prevProps.numOfPublicUpdates) {
@@ -153,7 +158,7 @@ export default function view(
               activityTab,
               connectionsTab,
             }),
-            h(TabsBar, state),
+            Platform.OS === 'web' ? null : h(MobileTabsBar, state),
           ]),
         ]),
     );

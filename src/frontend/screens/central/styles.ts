@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {StyleSheet, ViewStyle} from 'react-native';
+import {Platform, StyleSheet, ViewStyle} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -14,7 +14,10 @@ const page: ViewStyle = {
   position: 'absolute',
   top: 0,
   left: 0,
-  bottom: Dimensions.toolbarHeight - getStatusBarHeight(true),
+  bottom: Platform.select({
+    web: 0,
+    default: Dimensions.toolbarHeight - getStatusBarHeight(true),
+  }),
   right: 0,
   backgroundColor: Palette.voidMain,
   justifyContent: 'center',
@@ -47,6 +50,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',
+  },
+
+  desktopFabContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: Dimensions.desktopSideWidth.vw,
   },
 
   menuBackdrop: {

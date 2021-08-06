@@ -7,6 +7,10 @@
 import {Platform} from 'react-native';
 import {isIPhoneWithMonobrow} from 'react-native-status-bar-height';
 
+const desktopSideWidthFlex = 1;
+const desktopMiddleWidthFlex = 3;
+const desktopWidthFlexTotal = desktopMiddleWidthFlex + 2 * desktopSideWidthFlex;
+
 export const Dimensions = {
   horizontalSpaceLarge: 26,
   horizontalSpaceBig: 16,
@@ -47,4 +51,16 @@ export const Dimensions = {
     ios: isIPhoneWithMonobrow() ? 100 : 76,
     default: 56,
   }),
+
+  desktopSideWidth: {
+    flex: desktopSideWidthFlex,
+    vw: `${Math.round((100 * desktopSideWidthFlex) / desktopWidthFlexTotal)}vw`,
+  },
+
+  desktopMiddleWidth: {
+    flex: desktopMiddleWidthFlex,
+    vw: `${Math.round(
+      (100 * desktopMiddleWidthFlex) / desktopWidthFlexTotal,
+    )}vw`,
+  },
 };

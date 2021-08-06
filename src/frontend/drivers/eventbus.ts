@@ -35,13 +35,25 @@ export interface AudioBlobComposed {
   blobId: string;
 }
 
+export interface ChangeCentralTab {
+  type: 'changeCentralTab';
+  tab: 'public' | 'private' | 'activity' | 'connections';
+}
+
+export interface ScrollToTopCentral {
+  type: 'scrollToTopCentral';
+  tab: 'public' | 'private' | 'activity' | 'connections';
+}
+
 export type GlobalEvent =
   | LocalizationLoaded
   | TriggerFeedCypherlink
   | TriggerMsgCypherlink
   | HardwareBackOnCentralScreen
   | DrawerToggleOnCentralScreen
-  | AudioBlobComposed;
+  | AudioBlobComposed
+  | ChangeCentralTab
+  | ScrollToTopCentral;
 
 export class EventBus {
   public _stream?: Stream<GlobalEvent>;

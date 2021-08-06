@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -12,19 +12,23 @@ const {isIPhoneWithMonobrow} = require('react-native-status-bar-height');
 
 export const styles = StyleSheet.create({
   tabButton: {
-    flex: 1,
-    justifyContent: 'center',
+    flex: Platform.select({default: 1, web: undefined}),
+    flexDirection: Platform.select({default: 'column', web: 'row'}),
+    justifyContent: Platform.select({default: 'center', web: 'flex-start'}),
     alignItems: 'center',
-    marginTop: isIPhoneWithMonobrow() ? -5 : 0,
+    marginTop: Platform.select({ios: isIPhoneWithMonobrow() ? -5 : 0}),
   },
 
   tabButtonText: {
+    marginLeft: Platform.select({web: Dimensions.horizontalSpaceSmall}),
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
+    fontWeight: Platform.select({web: 'bold'}),
   },
 
   tabButtonTextSelected: {
+    marginLeft: Platform.select({web: Dimensions.horizontalSpaceSmall}),
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textBrand,
@@ -37,7 +41,10 @@ export const styles = StyleSheet.create({
     top: 8.5,
     left: 5,
     right: 5,
-    backgroundColor: Palette.backgroundText,
+    backgroundColor: Platform.select({
+      default: Palette.backgroundText,
+      web: Palette.voidMain,
+    }),
   },
 
   updatesCoverSome: {
@@ -46,7 +53,10 @@ export const styles = StyleSheet.create({
     top: 8.5,
     left: 5,
     right: 11,
-    backgroundColor: Palette.backgroundText,
+    backgroundColor: Platform.select({
+      default: Palette.backgroundText,
+      web: Palette.voidMain,
+    }),
   },
 
   updatesCoverNone: {
@@ -55,14 +65,12 @@ export const styles = StyleSheet.create({
 });
 
 export const iconProps = {
-  headerIcon: {
-    size: Dimensions.iconSizeNormal,
-    color: Palette.textForBackgroundBrand,
-  },
-
   tab: {
     size: Dimensions.iconSizeNormal,
-    color: Palette.textVeryWeak,
+    color: Platform.select({
+      default: Palette.textVeryWeak,
+      web: Palette.textWeak,
+    }),
   },
 
   tabSelected: {

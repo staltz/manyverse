@@ -7,7 +7,7 @@
 import '@fontsource/roboto';
 import xs from 'xstream';
 import {withState} from '@cycle/state';
-import {run, GlobalScreen} from 'cycle-native-navigation-web';
+import {run, GlobalScreen, Frame} from 'cycle-native-navigation-web';
 
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
 import {ssbDriver} from './lib/frontend/drivers/ssb';
@@ -20,6 +20,7 @@ import {makeActivityLifecycleDriver} from './lib/frontend/drivers/lifecycle';
 import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
 import {makeWindowSizeDriver} from './lib/frontend/drivers/window-size';
 
+import {desktopFrame} from './lib/frontend/screens/desktop-frame';
 import {central} from './lib/frontend/screens/central';
 import {compose} from './lib/frontend/screens/compose';
 import {global} from './lib/frontend/screens/global';
@@ -82,6 +83,7 @@ const drivers = {
 };
 
 const screens = {
+  [Frame]: withState(desktopFrame),
   [GlobalScreen]: withState(global),
   [Screens.Welcome]: withState(welcome),
   [Screens.Central]: withState(central),

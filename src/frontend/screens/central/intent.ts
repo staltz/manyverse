@@ -8,7 +8,12 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactSource} from '@cycle/react';
 import {State} from './model';
-import {GlobalEvent, DrawerToggleOnCentralScreen} from '../../drivers/eventbus';
+import {
+  GlobalEvent,
+  DrawerToggleOnCentralScreen,
+  ChangeCentralTab,
+  ScrollToTopCentral,
+} from '../../drivers/eventbus';
 import sample from 'xstream-sample';
 
 type TabID = State['currentTab'];
@@ -19,6 +24,10 @@ export default function intent(
   state$: Stream<State>,
 ) {
   const changeTab$ = xs.merge(
+    globalEventBus
+      .filter((event) => event.type === 'changeCentralTab')
+      .map((event) => (event as ChangeCentralTab).tab),
+
     reactSource
       .select('public-tab-button')
       .events('press')
@@ -40,28 +49,44 @@ export default function intent(
       .mapTo('connections' as TabID),
   );
 
+  const globalScrollToTop$ = globalEventBus
+    .filter((event) => event.type === 'scrollToTopCentral')
+    .map((event) => (event as ScrollToTopCentral).tab);
+
   const changeTabWithState$ = changeTab$.compose(sampleCombine(state$));
 
-  const scrollToPublicTop$ = changeTabWithState$
-    .filter(
-      ([nextTab, state]) =>
-        state.currentTab === 'public' && nextTab === 'public',
-    )
-    .mapTo(null);
+  const scrollToPublicTop$ = xs.merge(
+    changeTabWithState$
+      .filter(
+        ([nextTab, state]) =>
+          state.currentTab === 'public' && nextTab === 'public',
+      )
+      .mapTo(null),
 
-  const scrollToPrivateTop$ = changeTabWithState$
-    .filter(
-      ([nextTab, state]) =>
-        state.currentTab === 'private' && nextTab === 'private',
-    )
-    .mapTo(null);
+    globalScrollToTop$.filter((tab) => tab === 'public').mapTo(null),
+  );
 
-  const scrollToActivityTop$ = changeTabWithState$
-    .filter(
-      ([nextTab, state]) =>
-        state.currentTab === 'activity' && nextTab === 'activity',
-    )
-    .mapTo(null);
+  const scrollToPrivateTop$ = xs.merge(
+    changeTabWithState$
+      .filter(
+        ([nextTab, state]) =>
+          state.currentTab === 'private' && nextTab === 'private',
+      )
+      .mapTo(null),
+
+    globalScrollToTop$.filter((tab) => tab === 'private').mapTo(null),
+  );
+
+  const scrollToActivityTop$ = xs.merge(
+    changeTabWithState$
+      .filter(
+        ([nextTab, state]) =>
+          state.currentTab === 'activity' && nextTab === 'activity',
+      )
+      .mapTo(null),
+
+    globalScrollToTop$.filter((tab) => tab === 'private').mapTo(null),
+  );
 
   const hardwareBackWithState$ = globalEventBus
     .filter((event) => event.type === 'hardwareBackOnCentralScreen')

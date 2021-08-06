@@ -9,7 +9,7 @@ import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
 import {StateSource} from '@cycle/state';
 import {ReactElement} from 'react';
-import {StyleSheet, Platform, Animated} from 'react-native';
+import {StyleSheet, Platform, Animated, View} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
@@ -51,7 +51,19 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+
+  innerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     paddingHorizontal: Dimensions.horizontalSpaceBig,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   publicRightSide: {
@@ -81,6 +93,9 @@ export const styles = StyleSheet.create({
         left: 40,
         right: 40,
         textAlign: 'center',
+        marginLeft: 0,
+      },
+      web: {
         marginLeft: 0,
       },
       default: {
@@ -178,39 +193,43 @@ function view(state$: Stream<State>) {
       Animated.View,
       {style: [styles.container, {transform: [{translateY}]}]},
       [
-        h(Animated.View, {style: {opacity}}, [
-          progress > 0 && progress < 1
-            ? h(HeaderMenuProgress, {
-                sel: 'menuProgress',
-                progress,
-              })
-            : HeaderMenuButton('menuButton'),
-        ]),
-        h(
-          Animated.Text,
-          {style: [styles.title, {opacity}]},
-          tabTitle(state.currentTab),
-        ),
-        h(
-          Animated.View,
-          {
-            style: [
-              styles.publicRightSide,
-              state.currentTab === 'public'
-                ? styles.publicRightSideShown
-                : styles.publicRightSideHidden,
-              {opacity},
+        h(View, {style: styles.innerContainer}, [
+          Platform.OS === 'web'
+            ? null
+            : h(Animated.View, {style: {opacity}}, [
+                progress > 0 && progress < 1
+                  ? h(HeaderMenuProgress, {
+                      sel: 'menuProgress',
+                      progress,
+                    })
+                  : HeaderMenuButton('menuButton'),
+              ]),
+          h(
+            Animated.Text,
+            {style: [styles.title, {opacity}]},
+            tabTitle(state.currentTab),
+          ),
+          h(
+            Animated.View,
+            {
+              style: [
+                styles.publicRightSide,
+                state.currentTab === 'public'
+                  ? styles.publicRightSideShown
+                  : styles.publicRightSideHidden,
+                {opacity},
+              ],
+            },
+            [
+              h(HeaderButton, {
+                sel: 'search',
+                icon: 'magnify',
+                side: 'right',
+                accessibilityLabel: t('public.search.accessibility_label'),
+              }),
             ],
-          },
-          [
-            h(HeaderButton, {
-              sel: 'search',
-              icon: 'magnify',
-              side: 'right',
-              accessibilityLabel: t('public.search.accessibility_label'),
-            }),
-          ],
-        ),
+          ),
+        ]),
       ],
     );
   });

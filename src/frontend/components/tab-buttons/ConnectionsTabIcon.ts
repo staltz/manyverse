@@ -12,6 +12,8 @@ import {
   TouchableOpacity,
   View,
   Text,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '../../drivers/localization';
@@ -32,6 +34,7 @@ export default class ConnectionsTabIcon extends Component<{
   offline: boolean;
   numStaged: number;
   numConnected: number;
+  style?: StyleProp<ViewStyle>;
 }> {
   public shouldComponentUpdate(nextProps: ConnectionsTabIcon['props']) {
     const prevProps = this.props;
@@ -54,19 +57,19 @@ export default class ConnectionsTabIcon extends Component<{
   }
 
   public render() {
-    const {isSelected} = this.props;
+    const {isSelected, style} = this.props;
     return h(
       Touchable,
       {
         ...touchableProps,
         sel: 'connections-tab-button',
-        style: styles.tabButton, // iOS needs this
+        style: [styles.tabButton, style], // iOS needs this
         accessible: true,
         accessibilityRole: 'tab',
         accessibilityLabel: t('central.tabs.connections.accessibility_label'),
       },
       [
-        h(View, {style: styles.tabButton, pointerEvents: 'box-only'}, [
+        h(View, {style: [styles.tabButton, style], pointerEvents: 'box-only'}, [
           h(Icon, {
             name: this.getIconName(),
             ...(isSelected ? iconProps.tabSelected : iconProps.tab),
