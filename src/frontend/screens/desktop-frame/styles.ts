@@ -27,11 +27,29 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'column',
     alignItems: 'stretch',
-    paddingTop: Dimensions.verticalSpaceLarge,
+    paddingVertical: Dimensions.verticalSpaceLarge,
   },
 
   leftMenuTabButton: {
     marginBottom: Dimensions.verticalSpaceTiny,
+  },
+
+  spacer: {
+    flex: 1,
+  },
+
+  myProfileButton: {
+    marginTop: Dimensions.verticalSpaceTiny,
+    // Width can grow depending on profile name, so we cap it:
+    maxWidth: `calc(${Dimensions.desktopSideWidth.vw} - ${
+      2 * Dimensions.horizontalSpaceBig
+    }px)`,
+  },
+
+  avatar: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
 
   centerAndRight: {

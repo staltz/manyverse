@@ -86,13 +86,13 @@ if (Platform.OS === 'android') {
 }
 
 export default class TabIcon extends PureComponent<{
-  isSelected: boolean;
+  isSelected?: boolean;
   accessibilityLabel: string;
   iconName: string;
   label: string;
   style?: StyleProp<ViewStyle>;
   onPress?: () => {};
-  renderIconExtras?: (visualState?: any) => ReactElement<any>;
+  renderIconExtras?: (visualState?: any) => ReactElement<any> | null;
 }> {
   private renderInternals(visualState?: any) {
     const {isSelected, iconName, renderIconExtras, label} = this.props;

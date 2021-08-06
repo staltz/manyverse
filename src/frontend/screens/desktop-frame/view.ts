@@ -9,10 +9,14 @@ import {h} from '@cycle/react';
 import {PureComponent, ReactElement} from 'react';
 import {View} from 'react-native';
 import {styles} from './styles';
+import {t} from '../../drivers/localization';
 import PublicTabIcon from '../../components/tab-buttons/PublicTabIcon';
 import PrivateTabIcon from '../../components/tab-buttons/PrivateTabIcon';
 import ActivityTabIcon from '../../components/tab-buttons/ActivityTabIcon';
 import ConnectionsTabIcon from '../../components/tab-buttons/ConnectionsTabIcon';
+import TabIcon from '../../components/tab-buttons/TabIcon';
+import Avatar from '../../components/Avatar';
+import {Dimensions} from '../../global-styles/dimens';
 import {State} from './model';
 
 class TopBarStub extends PureComponent {
@@ -55,6 +59,40 @@ export default function view(
               offline: false,
               numConnected: 0,
               numStaged: 0,
+            }),
+
+            h(View, {style: styles.spacer}),
+
+            h(TabIcon, {
+              sel: 'raw-db',
+              iconName: 'database',
+              label: t('drawer.menu.raw_database.label'),
+              accessibilityLabel: t(
+                'drawer.menu.raw_database.accessibility_label',
+              ),
+            }),
+            h(TabIcon, {
+              sel: 'settings',
+              iconName: 'cog',
+              label: t('drawer.menu.settings.label'),
+              accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
+            }),
+            h(TabIcon, {
+              style: styles.myProfileButton,
+              sel: 'self-profile',
+              iconName: 'account-circle',
+              label: state.name ?? t('drawer.menu.my_profile.label'),
+              accessibilityLabel: t(
+                'drawer.menu.my_profile.accessibility_label',
+              ),
+              renderIconExtras: () =>
+                state.selfAvatarUrl
+                  ? h(Avatar, {
+                      style: styles.avatar,
+                      size: Dimensions.iconSizeNormal,
+                      url: state.selfAvatarUrl,
+                    })
+                  : null,
             }),
           ]),
         ]),

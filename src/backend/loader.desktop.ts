@@ -41,7 +41,7 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
-  win.setMinimumSize(640, 240);
+  win.setMinimumSize(640, 380);
 
   win.loadFile('../index.html');
 
