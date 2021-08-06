@@ -35,6 +35,11 @@ export const styles = StyleSheet.create({
     borderTopColor: Palette.textLine,
     flexDirection: 'row',
     alignItems: 'center',
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   replyAvatar: {
