@@ -253,7 +253,7 @@
     },
     "empty": {
       "title": "لا يوجد نشاط",
-      "description": "When people mention or follow you,\nthey show up here"
+      "description": "يُعرض هنا من قام بذكرك أو متابعتك"
     }
   },
   "connections": {
@@ -286,11 +286,11 @@
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "أتسمح بالولوج؟",
+          "description": "بفتح موقع {{room}} ستتمكن من انشاء روابط دعوة وإدارة الأعضاء. أتريد استخدام مانِفيرس للولوج؟\n\nمعرف الغرفة هو {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
+          "title": "أتسمح بالولوج؟",
           "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
         }
       }
@@ -383,12 +383,12 @@
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
+        "label": "إدارة ألقابي",
         "accessibility_label": "Manage my aliases in Room servers"
       },
       "room_sign_in": {
-        "label": "Sign into website",
-        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
+        "label": "لِج الى موقع",
+        "accessibility_label": "زر الولوج الى لوحة تحكم الغرفة"
       },
       "room_share_invite": {
         "label": "شارك رمز الدعوة",
@@ -653,7 +653,7 @@
       "title": "Contact"
     },
     "dialog_friend_request": {
-      "title": "Friend request",
+      "title": "طلب صداقة",
       "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
     "toast": {
@@ -661,14 +661,14 @@
     },
     "details": {
       "id": {
-        "accessibility_label": "SSB Identifier"
+        "accessibility_label": "معرف SSB"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "اقرأ السيرة"
       },
       "counters": {
         "following": "متابع",
-        "followers": "Followers"
+        "followers": "المتابِعون"
       }
     },
     "info": {
@@ -712,8 +712,8 @@
         "accessibility_label": "حرر صورة الملف الشخصي"
       },
       "register_new_alias": {
-        "label": "Register new alias",
-        "accessibility_label": "Register New Room Server Alias"
+        "label": "سجّل لقبًا جديدًا",
+        "accessibility_label": "سجّل لقبًا جديدًا لهذه الغرفة"
       }
     },
     "dialogs": {
@@ -726,8 +726,8 @@
       }
     },
     "toasts": {
-      "alias_removed_success": "Alias removed",
-      "alias_removed_failure": "Failed to remove alias"
+      "alias_removed_success": "أُزيل اللقب",
+      "alias_removed_failure": "فشلت إزالت اللقب"
     },
     "fields": {
       "name": {
@@ -739,19 +739,19 @@
         "accessibility_label": "دَخل السيرة"
       },
       "aliases": {
-        "label": "Aliases"
+        "label": "الألقاب"
       }
     }
   },
   "manage_aliases": {
-    "title": "Manage aliases"
+    "title": "إدارة الألقاب"
   },
   "register_alias": {
-    "title": "Register alias",
+    "title": "تسجيل لقب",
     "empty": {
       "no_servers": {
-        "title": "No servers",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "title": "لا خوادم",
+        "description": "لتسجيل لقب، يجب أن تكون عضوا في غرفة SSB. ابحث عن واحدة في وسائل التواصل باستخدام هاشتاج #ssbroom وتأكد من أنه دعمها للالقاب."
       }
     },
     "header": {
@@ -763,25 +763,25 @@
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "يرسل..."
     },
     "failure": {
-      "title": "It didn't work",
-      "alias_taken": "The alias you submitted is already taken by some user.",
+      "title": "لم تنجح",
+      "alias_taken": "اللقب الذي طلبته محجوز.",
       "call_to_action": {
         "try_again": {
-          "label": "Try again",
-          "accessibility_label": "Try Again Button"
+          "label": "حاول مجددا",
+          "accessibility_label": "زر إعادة المحاولة"
         }
       }
     },
     "success": {
-      "title": "Great!",
-      "description": "The alias {{alias}} is now yours.",
+      "title": "ممتاز!",
+      "description": "اصبح لقب {{alias}} لك.",
       "call_to_action": {
         "go_back": {
-          "label": "Go back",
-          "accessibility_label": "Go Back Button"
+          "label": "عُد",
+          "accessibility_label": "زر العودة"
         }
       }
     }
@@ -814,8 +814,8 @@
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "اختر الأعضاء",
+        "description": "لضم أشخاص للمحادثة أكتب أسماءهم"
       },
       "none_to_choose": {
         "title": "لا أحد",
@@ -828,20 +828,20 @@
   },
   "search": {
     "query_input": {
-      "placeholder": "Search public posts",
-      "accessibility_label": "Search Query Text Input"
+      "placeholder": "ابحث في المشاركات العامومية",
+      "accessibility_label": "مُدخل نص البحث"
     },
     "clear_query": {
-      "accessibility_label": "Reset the Search Query Text Input"
+      "accessibility_label": "صفِّر مدخل نص البحث"
     },
     "empty": {
       "initial": {
-        "title": "Search something",
+        "title": "اِبحث",
         "description": "انتظر بينما يحاول\nالتطبيق الاقتران بنظرائك"
       },
       "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
+        "title": "لا نتائج",
+        "description": "لم يُعثر على نتائج لـ \"{{query}}\""
       }
     }
   },
