@@ -1,11 +1,11 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 import {h} from '@cycle/react';
 import {Dimensions} from '../global-styles/dimens';
 import MessageContainer from './messages/MessageContainer';
@@ -17,6 +17,11 @@ export const styles = StyleSheet.create({
   container: {
     flex: 0,
     height: ThreadCard.HEIGHT,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   body: {
