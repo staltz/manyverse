@@ -594,6 +594,10 @@
         "label": "Aiutaci a tradurre",
         "accessibility_label": "Apri il sito web di traduzione"
       },
+      "more": {
+        "label": "More",
+        "accessibility_label": "Show more Menu items"
+      },
       "settings": {
         "label": "Impostazioni",
         "accessibility_label": "Vai alle Impostazioni"
@@ -603,10 +607,6 @@
       },
       "ready_estimate": {
         "label": "Pronto:"
-      },
-      "more": {
-        "label": "More",
-        "accessibility_label": "Show more Menu items"
       }
     }
   },

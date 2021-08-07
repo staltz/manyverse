@@ -333,7 +333,7 @@
       "wifi": {
         "title": "Wi-Fi",
         "accessibility_label": "Modo Wi-Fi",
-        "disabled": "(Activa el Wi-Fi para usar ésto)",
+        "disabled": "(Activa el Bluetooth para usar ésto)",
         "description": "Conecta con amistades en la misma red, es decir, amigos que estén usando el mismo Wi-Fi."
       },
       "servers": {
@@ -594,6 +594,10 @@
         "label": "Help us translate",
         "accessibility_label": "Open translation website"
       },
+      "more": {
+        "label": "More",
+        "accessibility_label": "Show more Menu items"
+      },
       "settings": {
         "label": "Ajustes",
         "accessibility_label": "Ir a Ajustes"
@@ -603,10 +607,6 @@
       },
       "ready_estimate": {
         "label": "Ready:"
-      },
-      "more": {
-        "label": "More",
-        "accessibility_label": "Show more Menu items"
       }
     }
   },

@@ -594,6 +594,10 @@
         "label": "ساعدنا على الترجمة",
         "accessibility_label": "فتح موقع الترجمة"
       },
+      "more": {
+        "label": "More",
+        "accessibility_label": "Show more Menu items"
+      },
       "settings": {
         "label": "الإعدادات",
         "accessibility_label": "انتقل إلى الإعدادات"
@@ -603,10 +607,6 @@
       },
       "ready_estimate": {
         "label": "جاهز:"
-      },
-      "more": {
-        "label": "More",
-        "accessibility_label": "Show more Menu items"
       }
     }
   },
