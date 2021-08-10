@@ -102,14 +102,15 @@ export default class TabIcon extends PureComponent<{
       : styles.tabButtonText;
 
     return [
-      h(View, [
+      h(View, {key: 'a'}, [
         h(Icon, {
+          key: 'x',
           name: iconName,
           ...(isSelected ? iconProps.tabSelected : iconProps.tab),
         }),
         renderIconExtras?.(visualState),
       ]),
-      h(Text, {style: textStyle, numberOfLines: 1}, label),
+      h(Text, {key: 'b', style: textStyle, numberOfLines: 1}, label),
     ];
   }
 
@@ -119,7 +120,11 @@ export default class TabIcon extends PureComponent<{
     return h(Pressable, {
       onPress,
       children: (visualState: any) => [
-        h(View, {style: styles.tabButton}, this.renderInternals(visualState)),
+        h(
+          View,
+          {key: 'r', style: styles.tabButton},
+          this.renderInternals(visualState),
+        ),
       ],
       style: ({hovered}: any) => [
         hovered ? styles.tabHoveredOnDesktop : null,
