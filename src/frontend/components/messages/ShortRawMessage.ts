@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -37,6 +37,11 @@ export const styles = StyleSheet.create({
     paddingVertical: Dimensions.verticalSpaceBig,
     marginBottom: 1,
     flexDirection: 'row',
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   avatar: {
@@ -79,7 +84,7 @@ export type Props = {
   onPress?: (ev: {msg: Msg}) => void;
 };
 
-export default class RawMessage extends Component<Props> {
+export default class ShortRawMessage extends Component<Props> {
   private _onPress() {
     const {onPress, msg} = this.props;
     if (onPress) {

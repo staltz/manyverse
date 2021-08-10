@@ -35,6 +35,7 @@ import {thread} from './lib/frontend/screens/thread';
 import {accounts} from './lib/frontend/screens/accounts';
 import {secretOutput} from './lib/frontend/screens/secret-output';
 import {secretInput} from './lib/frontend/screens/secret-input';
+import {rawDatabase} from './lib/frontend/screens/raw-db';
 import {rawMessage} from './lib/frontend/screens/raw-msg';
 import {Screens} from './lib/frontend/screens/enums';
 import {welcomeLayout} from './lib/frontend/screens/layouts';
@@ -109,7 +110,7 @@ const screens = {
   // [Screens.Backup]: withState(backup),
   [Screens.SecretOutput]: withState(secretOutput),
   [Screens.SecretInput]: withState(secretInput),
-  // [Screens.RawDatabase]: rawDatabase,
+  [Screens.RawDatabase]: rawDatabase,
   [Screens.RawMessage]: rawMessage,
   // [Screens.Settings]: withState(settings),
 };
