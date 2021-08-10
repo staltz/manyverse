@@ -15,6 +15,7 @@ import {DialogSource} from '../../drivers/dialogs';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
+import navigation from './navigation';
 
 export interface Sources {
   screen: ReactSource;
@@ -57,10 +58,7 @@ export function desktopFrame(sources: Sources): Sinks {
 
   const vdom$ = view(state$, sources.children, localizationLoaded$);
 
-  const command$ = xs.never(); // TODO
-
-  // TODO remove this when the "more" actions trigger side effects of their own
-  actions.openMoreMenuOptions$.subscribe({next: () => {}});
+  const command$ = navigation(actions, state$);
 
   return {
     screen: vdom$,

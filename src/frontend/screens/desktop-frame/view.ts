@@ -70,6 +70,12 @@ export default function view(
               accessibilityLabel: t('drawer.menu.more.accessibility_label'),
             }),
             h(TabIcon, {
+              sel: 'settings',
+              iconName: 'cog',
+              label: t('drawer.menu.settings.label'),
+              accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
+            }),
+            h(TabIcon, {
               style: styles.myProfileButton,
               sel: 'self-profile',
               iconName: 'account-circle',

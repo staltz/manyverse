@@ -47,6 +47,16 @@ export default function intent(
     .filter(([nextTab, state]) => nextTab === state.currentTab)
     .map(([nextTab]) => nextTab);
 
+  const goToSelfProfile$ = reactSource
+    .select('self-profile')
+    .events('press')
+    .mapTo(null);
+
+  const goToSettings$ = reactSource
+    .select('settings')
+    .events('press')
+    .mapTo(null);
+
   const openMoreMenuOptions$ = reactSource
     .select('more')
     .events('press')
@@ -65,10 +75,6 @@ export default function intent(
             id: 'translate',
             label: t('drawer.menu.translate.label'),
           },
-          {
-            id: 'settings',
-            label: t('drawer.menu.settings.label'),
-          },
         ],
         type: 'listPlain',
         contentColor: Palette.colors.comet8,
@@ -77,11 +83,21 @@ export default function intent(
         negativeText: '',
         neutralText: '',
       }),
+    )
+    .flatten()
+    .filter((res) => res.action === 'actionSelect')
+    .map(
+      (res: any) =>
+        res.selectedItem.id as 'raw-db' | 'bug-report' | 'translate',
     );
+
+  const showRawDatabase$ = openMoreMenuOptions$.filter((id) => id === 'raw-db');
 
   return {
     changeTab$,
     scrollToTop$,
-    openMoreMenuOptions$,
+    goToSelfProfile$,
+    goToSettings$,
+    showRawDatabase$,
   };
 }
