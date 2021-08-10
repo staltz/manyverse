@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,12 +8,13 @@ import xs, {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
-import {ScrollView, View, Text, StyleSheet} from 'react-native';
+import {ScrollView, View, Text, StyleSheet, Platform} from 'react-native';
 import {SSBSource} from '../../drivers/ssb';
 import {t} from '../../drivers/localization';
 import {MsgAndExtras} from '../../ssb/types';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
+import {Dimensions} from '../../global-styles/dimens';
 import TopBar from '../../components/TopBar';
 
 export type Props = {
@@ -39,7 +40,7 @@ export const navOptions = {
   },
   sideMenu: {
     left: {
-      enabled: false,
+      enabled: Platform.OS === 'web',
     },
   },
 };
@@ -54,15 +55,21 @@ export const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: Palette.backgroundHackerVoid,
-    padding: 5,
   },
 
   content: {
+    backgroundColor: Palette.backgroundHackerVoid,
+    paddingHorizontal: Dimensions.horizontalSpaceTiny,
+    paddingVertical: Dimensions.verticalSpaceTiny,
     fontSize: Typography.fontSizeSmall,
     lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyMonospace,
     color: Palette.textHacker,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 });
 
