@@ -81,14 +81,14 @@ export type Props = {
   msg: Msg;
   name?: string;
   imageUrl: string | null;
-  onPress?: (ev: {msg: Msg}) => void;
+  onPress?: (msg: Msg) => void;
 };
 
 export default class ShortRawMessage extends Component<Props> {
   private _onPress() {
     const {onPress, msg} = this.props;
     if (onPress) {
-      onPress({msg});
+      onPress(msg);
     }
   }
 

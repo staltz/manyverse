@@ -43,7 +43,7 @@ class RawFeedItemSeparator extends PureComponent {
 
 interface Props {
   getReadable: GetReadable<MsgAndExtras> | null;
-  onPressMsg?: (ev: {msg: Msg}) => void;
+  onPressMsg?: (msg: Msg) => void;
   style?: any;
 }
 
