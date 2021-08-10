@@ -17,21 +17,21 @@ import {Typography} from '../../global-styles/typography';
 import {Dimensions} from '../../global-styles/dimens';
 import TopBar from '../../components/TopBar';
 
-export type Props = {
+export interface Props {
   msg: MsgAndExtras;
-};
+}
 
-export type Sources = {
+export interface Sources {
   props: Stream<Props>;
   screen: ReactSource;
   navigation: NavSource;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-};
+}
 
 export const navOptions = {
   topBar: {
