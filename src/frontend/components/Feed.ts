@@ -13,6 +13,7 @@ import {
   Animated,
   Easing,
   ViewStyle,
+  Platform,
 } from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
@@ -71,6 +72,11 @@ export const styles = StyleSheet.create({
     color: Palette.textVeryWeak,
     fontWeight: 'bold',
     textAlign: 'center',
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 });
 
