@@ -4,18 +4,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import {h} from '@cycle/react';
 import {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {h} from '@cycle/react';
-import ShortRawMessage from './messages/ShortRawMessage';
-import {Palette} from '../global-styles/palette';
+import {Msg} from 'ssb-typescript';
+import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
+import {t} from '../drivers/localization';
 import {GetReadable} from '../drivers/ssb';
 import {MsgAndExtras} from '../ssb/types';
-import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
-import {Msg} from 'ssb-typescript';
 import {displayName} from '../ssb/utils/from-ssb';
+import {Palette} from '../global-styles/palette';
+import ShortRawMessage from './messages/ShortRawMessage';
 import AnimatedLoading from './AnimatedLoading';
-import {t} from '../drivers/localization';
 
 export const styles = StyleSheet.create({
   container: {
@@ -45,7 +45,7 @@ interface State {
   initialLoading: boolean;
 }
 
-export default class Feed extends PureComponent<Props, State> {
+export default class RawFeed extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {initialLoading: true};
