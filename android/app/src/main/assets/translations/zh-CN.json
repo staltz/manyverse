@@ -6,7 +6,7 @@
     "cancel": "取消",
     "continue": "继续",
     "delete": "删除",
-    "remove": "Remove",
+    "remove": "删除",
     "save": "保存",
     "yes": "是",
     "no": "不",
@@ -101,7 +101,7 @@
       "title": "多种连接方式",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
+          "1_normal": "要与附近的朋友连接并同步内容，您可以连接到相同的",
           "2_bold": "无线局域网",
           "3_normal": "。要想在互联网上发现新用户，请寻找邀请码到一 ",
           "4_bold": "pub（酒馆）服务器",
@@ -110,9 +110,9 @@
           "7_normal": "，或者开启你自己的服务器！"
         },
         "default": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
+          "1_normal": "要与附近的朋友连接并同步内容，您可以加入相同的",
           "2_bold": "无线局域网",
-          "3_normal": ", or use ",
+          "3_normal": "，或使用",
           "4_bold": "蓝牙同步",
           "5_normal": "。要想在互联网上发现新用户，请寻找邀请码到一 ",
           "6_bold": "pub（酒馆）服务器",
@@ -147,16 +147,16 @@
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
-      "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
+      "title": "您是第一次使用吗？",
+      "description": "您想要创建一个新帐户，还是要用24个单词的恢复短语恢复旧帐户？",
       "call_to_action": {
         "create": {
           "label": "创建帐户",
-          "accessibility_label": "Create Account Button"
+          "accessibility_label": "创建帐户按钮"
         },
         "restore": {
           "label": "恢复帐户",
-          "accessibility_label": "Restore Account Button"
+          "accessibility_label": "恢复帐户按钮"
         }
       }
     }
@@ -164,68 +164,68 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public posts",
-      "private": "Private chats",
-      "activity": "Activity",
-      "connections": "Connections"
+      "public": "公共帖子",
+      "private": "私信聊天",
+      "activity": "动态",
+      "connections": "网络连接"
     },
     "tab_footers": {
-      "public": "Public",
-      "private": "Private",
-      "activity": "Activity",
-      "connections": "Connections"
+      "public": "公共的",
+      "private": "私密的",
+      "activity": "动态",
+      "connections": "网络连接"
     },
-    "loading": "Loading...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "loading": "加载中……",
+    "building_indexes": "正在构建数据库索引……\n可能需要几分钟的时间",
     "tabs": {
       "public": {
-        "accessibility_label": "Public Tab Button"
+        "accessibility_label": "公共标签页按钮"
       },
       "private": {
-        "accessibility_label": "Private Tab Button"
+        "accessibility_label": "私密标签页按钮"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "动态标签页按钮"
       },
       "connections": {
-        "accessibility_label": "Connections Tab Button"
+        "accessibility_label": "网络连接标签页按钮"
       }
     }
   },
   "public": {
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "撰写一条公开消息"
     },
     "empty": {
-      "title": "No messages",
-      "description": "Write a diary to be\nshared with friends later"
+      "title": "无消息",
+      "description": "写一篇日记\n以便稍后与朋友分享"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "搜索按钮"
     }
   },
   "private": {
     "floating_action_button": {
-      "compose": "Start a private conversation"
+      "compose": "开始私信对话"
     },
     "empty": {
-      "title": "No conversations",
-      "description": "Start a private conversation\nwith any of your friends"
+      "title": "无对话",
+      "description": "与任何朋友开始私信对话"
     },
     "conversation": {
-      "accessibility_label": "Go To Conversation"
+      "accessibility_label": "转到对话"
     }
   },
   "accounts": {
     "reactions": {
-      "title": "Reactions"
+      "title": "回应"
     },
     "recipients": {
-      "title": "Recipients"
+      "title": "收件人"
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "转到帐户"
       }
     }
   },
@@ -234,46 +234,46 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": "提到了您"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": "关注了您"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": "希望连接"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "无动态",
+      "description": "当人们提及或关注您时，\n他们会出现在这里"
     }
   },
   "connections": {
     "floating_action_button": {
-      "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
-      "bluetooth_seek": "Bluetooth seek"
+      "create_invite": "创建邀请",
+      "paste_invite": "粘贴邀请",
+      "bluetooth_seek": "蓝牙搜索"
     },
     "empty": {
       "offline": {
-        "title": "Offline",
-        "description": "Turn on some connection mode\nor enjoy reading some existing content"
+        "title": "离线",
+        "description": "开启一些网络连接模式\n或阅读现有内容"
       },
       "connecting": {
-        "title": "Connecting",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "正在连接",
+        "description": "请等待\n应用程序正尝试连接您的节点"
       },
       "no_peers": {
-        "title": "No connections",
-        "description": "Try syncing with people nearby\nor use a server invite code"
+        "title": "无网络连接",
+        "description": "尝试与附近的人同步\n或使用服务器邀请代码"
       }
     },
     "toasts": {
@@ -384,93 +384,93 @@
       },
       "manage_aliases": {
         "label": "Manage my aliases",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "accessibility_label": "管理我在房间服务器中的别名"
       },
       "room_sign_in": {
-        "label": "Sign into website",
-        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
+        "label": "登陆网站",
+        "accessibility_label": "打开此房间的网站并登录到其仪表盘，按钮"
       },
       "room_share_invite": {
-        "label": "Share invite code",
-        "accessibility_label": "Share the invite code for this room"
+        "label": "分享邀请代码",
+        "accessibility_label": "分享此房间的邀请代码"
       },
       "invite_info": {
-        "label": "About",
-        "accessibility_label": "About this Invite Code"
+        "label": "关于",
+        "accessibility_label": "关于此邀请代码"
       },
       "invite_note": {
-        "label": "Add note",
-        "accessibility_label": "Add Reminder Note To Self"
+        "label": "添加备注",
+        "accessibility_label": "向自己添加提醒事项"
       },
       "invite_share": {
-        "label": "Share",
-        "accessibility_label": "Share Invite Code"
+        "label": "分享",
+        "accessibility_label": "分享邀请代码"
       },
       "invite_delete": {
         "label": "删除",
-        "accessibility_label": "Delete Invite Code"
+        "accessibility_label": "删除邀请代码"
       }
     },
     "notes": {
       "add": {
-        "title": "Add note",
-        "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
+        "title": "添加备注",
+        "description": "填写关于此邀请代码的私人注释（仅供您自己使用）。例如：“这是给Alice的”"
       }
     },
     "share_code": {
       "room": {
-        "title": "Invite code to an SSB Room",
-        "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
-        "dialog_note": "Give this invite code to a friend"
+        "title": "SSB房间的邀请代码",
+        "message": "加入SSB房间“{{name}}”，请粘贴此邀请代码到Manyverse：",
+        "dialog_note": "将此邀请代码交给朋友"
       }
     }
   },
   "compose": {
     "call_to_action": {
       "publish_new_thread": {
-        "label": "Publish",
-        "accessibility_label": "Publish Message Button"
+        "label": "发布",
+        "accessibility_label": "发布消息按钮"
       },
       "reply_to_thread": {
-        "label": "Reply",
-        "accessibility_label": "Publish Reply Button"
+        "label": "回复",
+        "accessibility_label": "发布回复按钮"
       },
       "preview": {
-        "accessibility_label": "Preview Button"
+        "accessibility_label": "预览按钮"
       },
       "close": {
         "accessibility_label": "关闭按钮"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "录制音频按钮",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
-          "neutral": "Ask me later",
+          "title": "是否允许Manyverse录制音频？",
+          "message": "Manyverse需要访问您的麦克风，使您可以编写音频消息",
+          "neutral": "稍后再询问我",
           "positive": "好的",
           "negative": "取消"
         }
       },
       "open_camera": {
-        "accessibility_label": "Open Camera Button"
+        "accessibility_label": "打开相机按钮"
       },
       "add_picture": {
-        "accessibility_label": "Add Picture Button"
+        "accessibility_label": "添加图片按钮"
       }
     },
     "dialogs": {
       "content_warning": {
-        "title": "Content warning",
-        "description": "If your post contains sensitive topics, please add a short note to alert people of them."
+        "title": "内容警告",
+        "description": "如果您的帖子包含敏感内容，请添加一个简短的注释，提醒人们注意。"
       },
       "image_caption": {
-        "title": "Caption",
-        "description": "Add some description of this picture, particularly for the visually impaired."
+        "title": "标题",
+        "description": "添加此图片的描述，这特别有助于视力障碍者。"
       }
     },
     "content_warning_initials": {
-      "label": "CW",
-      "accessibility_label": "Content Warning Button"
+      "label": "内容警告",
+      "accessibility_label": "内容警告按钮"
     },
     "mention_field": {
       "accessibility_label": "Mention Account Text Input"
