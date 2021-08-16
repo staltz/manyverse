@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -18,6 +18,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     height: MessageHeader.HEIGHT,
     flex: 0,
+    flexBasis: 'auto',
+    flexGrow: 0,
+    flexShrink: 0,
     marginBottom: 0,
   },
 

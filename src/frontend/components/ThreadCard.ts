@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,7 +7,7 @@
 import xs, {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import {PureComponent} from 'react';
-import {StyleSheet, View, ViewProps} from 'react-native';
+import {Platform, StyleSheet, View, ViewProps} from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, Msg, PostContent} from 'ssb-typescript';
 import {withXstreamProps} from 'react-xstream-hoc';
@@ -28,7 +28,7 @@ import ContentWarning from './messages/ContentWarning';
 import Markdown from './Markdown';
 import Button from './Button';
 
-export type Props = {
+export interface Props {
   thread: ThreadSummaryWithExtras;
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
@@ -38,12 +38,12 @@ export type Props = {
   onPressEtc?: (msg: Msg) => void;
   onPressExpand?: (msg: MsgAndExtras) => void;
   onPressExpandCW?: (msg: MsgAndExtras) => void;
-};
+}
 
 /**
  * in pixels
  */
-const CARD_HEIGHT = 350;
+const CARD_HEIGHT = Platform.OS === 'web' ? 400 : 350;
 
 const POST_HEIGHT =
   CARD_HEIGHT -
@@ -87,9 +87,9 @@ export const styles = StyleSheet.create({
 
 const MessageFooter$ = withXstreamProps(MessageFooter, 'reactions');
 
-type State = {
+interface State {
   showReadMore: boolean;
-};
+}
 
 export default class ThreadCard extends PureComponent<Props, State> {
   constructor(props: Props) {

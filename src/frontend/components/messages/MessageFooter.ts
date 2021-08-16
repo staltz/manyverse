@@ -65,17 +65,10 @@ export const styles = StyleSheet.create({
   buttonsContainer: {
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: Palette.textLine,
+    flex: 3,
     flexDirection: 'row',
     alignItems: 'stretch',
-    flex: 3,
-    ...Platform.select({
-      web: {
-        justifyContent: 'flex-start',
-      },
-      default: {
-        justifyContent: 'space-between',
-      },
-    }),
+    justifyContent: 'space-between',
   },
 
   quickEmojiPickerModal: {
