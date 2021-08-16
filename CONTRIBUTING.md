@@ -31,7 +31,7 @@ From the docker container run: `adb connect <your-phone's-ip>:5555`
 If you are developing on a Linux computer, then you might need to have GCC and `g++` installed on your operating system. On Ubuntu, you can install it with
 
 ```
-sudo apt install build-essential
+sudo apt install build-essential libtool
 ```
 
 ### macOS specifics
