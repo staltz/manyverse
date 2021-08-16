@@ -48,6 +48,11 @@ export const navOptions = {
     visible: false,
     height: 0,
   },
+  sideMenu: {
+    left: {
+      enabled: false,
+    },
+  },
   layout: {
     backgroundColor: Palette.brandMain,
   },

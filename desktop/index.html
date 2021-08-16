@@ -9,10 +9,15 @@
         flex-direction: column !important;
         justify-content: center !important;
       }
+      /* Handles styles before React app is mounted, i.e. "splashscreen" */
+      body {
+        background-color: #4263eb;
+        overflow: hidden;
+      }
     </style>
   </head>
   <body>
-    <div style="height:100vh;display:flex;overflow:hidden" id="app"></div>
+    <div style="height: 100vh; display: flex; overflow: hidden" id="app"></div>
     <div id="dialogs"></div>
     <script src="./dist/main.js"></script>
   </body>
