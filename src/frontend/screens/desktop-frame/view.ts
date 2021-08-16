@@ -17,6 +17,7 @@ import ConnectionsTabIcon from '../../components/tab-buttons/ConnectionsTabIcon'
 import TabIcon from '../../components/tab-buttons/TabIcon';
 import Avatar from '../../components/Avatar';
 import {Dimensions} from '../../global-styles/dimens';
+import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 
 class TopBarStub extends PureComponent {
@@ -88,6 +89,7 @@ export default function view(
                   ? h(Avatar, {
                       style: styles.avatar,
                       size: Dimensions.iconSizeNormal,
+                      backgroundColor: Palette.textWeak,
                       url: state.selfAvatarUrl,
                     })
                   : null,
