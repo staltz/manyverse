@@ -103,6 +103,12 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Dimensions.horizontalSpaceNormal,
     paddingVertical: Dimensions.verticalSpaceNormal,
     flexDirection: 'column',
+    ...Platform.select({
+      web: {
+        width: '50vw',
+        marginHorizontal: '25vw',
+      },
+    }),
   },
 
   quickEmojiPickerRow: {
