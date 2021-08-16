@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import dropRepeats from 'xstream/extra/dropRepeats';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
@@ -64,6 +65,7 @@ export type Sinks = {
   linking: Stream<string>;
   toast: Stream<Toast>;
   share: Stream<SharedContent>;
+  globalEventBus: Stream<GlobalEvent>;
   exit: Stream<any>;
 };
 
@@ -180,6 +182,56 @@ export function central(sources: Sources): Sinks {
 
   const storageCommand$ = publicTabSinks.asyncstorage;
 
+  const globalEvent$ = xs.merge(
+    state$
+      .map((state) => state.numOfPublicUpdates)
+      .compose(dropRepeats())
+      .map(
+        (counter) =>
+          ({
+            type: 'centralScreenUpdate',
+            subtype: 'publicUpdates',
+            counter,
+          } as GlobalEvent),
+      ),
+
+    state$
+      .map((state) => state.numOfPrivateUpdates)
+      .compose(dropRepeats())
+      .map(
+        (counter) =>
+          ({
+            type: 'centralScreenUpdate',
+            subtype: 'privateUpdates',
+            counter,
+          } as GlobalEvent),
+      ),
+
+    state$
+      .map((state) => state.numOfActivityUpdates)
+      .compose(dropRepeats())
+      .map(
+        (counter) =>
+          ({
+            type: 'centralScreenUpdate',
+            subtype: 'activityUpdates',
+            counter,
+          } as GlobalEvent),
+      ),
+
+    state$
+      .map((state) => state.connectionsTab)
+      .compose(dropRepeats())
+      .map(
+        (substate) =>
+          ({
+            type: 'centralScreenUpdate',
+            subtype: 'connections',
+            substate,
+          } as GlobalEvent),
+      ),
+  );
+
   return {
     screen: vdom$,
     state: reducer$,
@@ -191,6 +243,7 @@ export function central(sources: Sources): Sinks {
     clipboard: publicTabSinks.clipboard,
     toast: toast$,
     share: connectionsTabSinks.share,
+    globalEventBus: globalEvent$,
     exit: actions.exitApp$,
   };
 }

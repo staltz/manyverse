@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {PureComponent, ReactElement} from 'react';
 import {View} from 'react-native';
@@ -31,10 +32,32 @@ export default function view(
   children$: Stream<Array<ReactElement>>,
   localizationLoaded$: Stream<boolean>,
 ) {
+  const viewState$ = state$.compose(
+    dropRepeatsByKeys([
+      'currentTab',
+      'numOfPublicUpdates',
+      'numOfPrivateUpdates',
+      'numOfActivityUpdates',
+      'connections',
+      'name',
+      'selfAvatarUrl',
+    ]),
+  );
+
   return xs
-    .combine(state$, children$, localizationLoaded$.take(1))
-    .map(([state, children]) =>
-      h(View, {style: styles.screen}, [
+    .combine(viewState$, children$, localizationLoaded$.take(1))
+    .map(([state, children]) => {
+      const connTab = state.connections;
+      const online =
+        connTab?.bluetoothEnabled ||
+        connTab?.lanEnabled ||
+        connTab?.internetEnabled;
+      const numConnected = (connTab?.peers ?? []).filter(
+        (p) => p[1].state === 'connected',
+      ).length;
+      const numStaged = (connTab?.stagedPeers ?? []).length;
+
+      return h(View, {style: styles.screen}, [
         h(View, {style: styles.left}, [
           h(TopBarStub),
 
@@ -42,24 +65,24 @@ export default function view(
             h(PublicTabIcon, {
               style: styles.leftMenuTabButton,
               isSelected: state.currentTab === 'public',
-              numOfUpdates: 0,
+              numOfUpdates: state.numOfPublicUpdates,
             }),
             h(PrivateTabIcon, {
               style: styles.leftMenuTabButton,
               isSelected: state.currentTab === 'private',
-              numOfUpdates: 0,
+              numOfUpdates: state.numOfPrivateUpdates,
             }),
             h(ActivityTabIcon, {
               style: styles.leftMenuTabButton,
               isSelected: state.currentTab === 'activity',
-              numOfUpdates: 0,
+              numOfUpdates: state.numOfActivityUpdates,
             }),
             h(ConnectionsTabIcon, {
               style: styles.leftMenuTabButton,
               isSelected: state.currentTab === 'connections',
-              offline: false,
-              numConnected: 0,
-              numStaged: 0,
+              offline: !online,
+              numConnected,
+              numStaged,
             }),
 
             h(View, {style: styles.spacer}),
@@ -98,6 +121,6 @@ export default function view(
         ]),
 
         h(View, {style: styles.centerAndRight}, [...children]),
-      ]),
-    );
+      ]);
+    });
 }

@@ -11,8 +11,9 @@ import {State} from './model';
 import {
   GlobalEvent,
   DrawerToggleOnCentralScreen,
-  ChangeCentralTab,
-  ScrollToTopCentral,
+  CentralChangeTab,
+  CentralScrollToTop,
+  CentralScreenUpdate,
 } from '../../drivers/eventbus';
 import sample from 'xstream-sample';
 
@@ -23,10 +24,14 @@ export default function intent(
   globalEventBus: Stream<GlobalEvent>,
   state$: Stream<State>,
 ) {
+  const centralScreenUpdate$ = globalEventBus.filter(
+    (event) => event.type === 'centralScreenUpdate',
+  ) as Stream<CentralScreenUpdate>;
+
   const changeTab$ = xs.merge(
-    globalEventBus
-      .filter((event) => event.type === 'changeCentralTab')
-      .map((event) => (event as ChangeCentralTab).tab),
+    centralScreenUpdate$
+      .filter((event) => event.subtype === 'changeTab')
+      .map((event) => (event as CentralChangeTab).tab),
 
     reactSource
       .select('public-tab-button')
@@ -49,9 +54,9 @@ export default function intent(
       .mapTo('connections' as TabID),
   );
 
-  const globalScrollToTop$ = globalEventBus
-    .filter((event) => event.type === 'scrollToTopCentral')
-    .map((event) => (event as ScrollToTopCentral).tab);
+  const globalScrollToTop$ = centralScreenUpdate$
+    .filter((event) => event.subtype === 'scrollToTop')
+    .map((event) => (event as CentralScrollToTop).tab);
 
   const changeTabWithState$ = changeTab$.compose(sampleCombine(state$));
 

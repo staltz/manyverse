@@ -41,11 +41,21 @@ export function desktopFrame(sources: Sources): Sinks {
 
   const event$ = xs.merge(
     actions.changeTab$.map(
-      (tab) => ({type: 'changeCentralTab', tab} as GlobalEvent),
+      (tab) =>
+        ({
+          type: 'centralScreenUpdate',
+          subtype: 'changeTab',
+          tab,
+        } as GlobalEvent),
     ),
 
     actions.scrollToTop$.map(
-      (tab) => ({type: 'scrollToTopCentral', tab} as GlobalEvent),
+      (tab) =>
+        ({
+          type: 'centralScreenUpdate',
+          subtype: 'scrollToTop',
+          tab,
+        } as GlobalEvent),
     ),
   );
 
@@ -54,7 +64,7 @@ export function desktopFrame(sources: Sources): Sinks {
     .take(1)
     .mapTo(true);
 
-  const reducer$ = model(actions, sources.ssb);
+  const reducer$ = model(actions, sources.globalEventBus, sources.ssb);
 
   const vdom$ = view(state$, sources.children, localizationLoaded$);
 

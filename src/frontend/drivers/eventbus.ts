@@ -35,15 +35,46 @@ export interface AudioBlobComposed {
   blobId: string;
 }
 
-export interface ChangeCentralTab {
-  type: 'changeCentralTab';
+export interface CentralChangeTab {
+  subtype: 'changeTab';
   tab: 'public' | 'private' | 'activity' | 'connections';
 }
 
-export interface ScrollToTopCentral {
-  type: 'scrollToTopCentral';
+export interface CentralScrollToTop {
+  subtype: 'scrollToTop';
   tab: 'public' | 'private' | 'activity' | 'connections';
 }
+
+export interface CentralUpdatePublic {
+  subtype: 'publicUpdates';
+  counter: number;
+}
+
+export interface CentralUpdatePrivate {
+  subtype: 'privateUpdates';
+  counter: number;
+}
+
+export interface CentralUpdateActivity {
+  subtype: 'activityUpdates';
+  counter: number;
+}
+
+export interface CentralUpdateConnections {
+  subtype: 'connections';
+  substate: any;
+}
+
+export type CentralScreenUpdate = {
+  type: 'centralScreenUpdate';
+} & (
+  | CentralChangeTab
+  | CentralScrollToTop
+  | CentralUpdatePublic
+  | CentralUpdatePrivate
+  | CentralUpdateActivity
+  | CentralUpdateConnections
+);
 
 export type GlobalEvent =
   | LocalizationLoaded
@@ -52,8 +83,7 @@ export type GlobalEvent =
   | HardwareBackOnCentralScreen
   | DrawerToggleOnCentralScreen
   | AudioBlobComposed
-  | ChangeCentralTab
-  | ScrollToTopCentral;
+  | CentralScreenUpdate;
 
 export class EventBus {
   public _stream?: Stream<GlobalEvent>;
