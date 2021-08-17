@@ -5,6 +5,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import '@fontsource/roboto';
+import iconFont from 'react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf';
+import emojiFont from './images/NotoColorEmoji.ttf';
 import xs from 'xstream';
 import {withState} from '@cycle/state';
 import {run, GlobalScreen, Frame} from 'cycle-native-navigation-web';
@@ -40,9 +42,7 @@ import {rawMessage} from './lib/frontend/screens/raw-msg';
 import {Screens} from './lib/frontend/screens/enums';
 import {welcomeLayout} from './lib/frontend/screens/layouts';
 
-const iconFont = require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf');
-const emojiFont = require('./images/NotoColorEmoji.ttf');
-
+// Set up fonts
 const fontStyles = `@font-face {
    src: url(dist/${iconFont});
    font-family: MaterialCommunityIcons;
@@ -52,67 +52,71 @@ const fontStyles = `@font-face {
   src: url(dist/${emojiFont}) format('truetype');
   font-family: 'NotoColorEmoji';
 }`;
-
 const style = document.createElement('style');
 style.appendChild(document.createTextNode(fontStyles));
-
 document.head.appendChild(style);
 
-const drivers = {
-  asyncstorage: asyncStorageDriver,
-  clipboard: makeClipboardDriver(),
-  ssb: ssbDriver,
-  fs: makeFSDriver(),
-  lifecycle: makeActivityLifecycleDriver(),
-  network: () => ({
-    bluetoothIsEnabled: () => xs.of(false),
-    wifiIsEnabled: () => xs.of(true),
-    hasInternetConnection: () => xs.of(true),
-  }),
-  appstate: () => xs.of('active'),
-  orientation: () =>
-    makeWindowSizeDriver()(xs.never).map(({width, height}) =>
-      height >= width ? 'PORTRAIT' : 'LANDSCAPE-RIGHT',
-    ),
-  windowSize: makeWindowSizeDriver(),
-  globalEventBus: makeEventBusDriver(),
-  linking: linkingDriver,
-  dialog: dialogDriver,
-  localization: makeLocalizationDriver(),
-  keyboard: (x) => ({
-    events: () => xs.never(),
-  }),
-};
+// Wait for fonts to load
+document.fonts.ready.then(startCycleApp);
 
-const screens = {
-  [Frame]: withState(desktopFrame),
-  [GlobalScreen]: withState(global),
-  [Screens.Welcome]: withState(welcome),
-  [Screens.Central]: withState(central),
-  // [Screens.Drawer]: withState(drawer),
-  // [Screens.DialogAbout]: dialogAbout,
-  // [Screens.DialogThanks]: dialogThanks,
-  [Screens.Compose]: withState(compose),
-  // [Screens.ComposeAudio]: withState(composeAudio),
-  [Screens.Search]: withState(search),
-  [Screens.Thread]: withState(thread),
-  [Screens.Conversation]: withState(conversation),
-  [Screens.RecipientsInput]: withState(recipientsInput),
-  // [Screens.Libraries]: libraries,
-  [Screens.InvitePaste]: withState(pasteInvite),
-  // [Screens.InviteCreate]: withState(createInvite),
-  [Screens.Profile]: withState(profile),
-  // [Screens.ProfileEdit]: withState(editProfile),
-  // [Screens.AliasManage]: withState(manageAliases),
-  // [Screens.AliasRegister]: withState(registerAlias),
-  [Screens.Biography]: withState(biography),
-  [Screens.Accounts]: withState(accounts),
-  // [Screens.Backup]: withState(backup),
-  [Screens.SecretOutput]: withState(secretOutput),
-  [Screens.SecretInput]: withState(secretInput),
-  [Screens.RawDatabase]: rawDatabase,
-  [Screens.RawMessage]: rawMessage,
-  // [Screens.Settings]: withState(settings),
-};
+// Start Cycle.js app
+function startCycleApp() {
+  const drivers = {
+    asyncstorage: asyncStorageDriver,
+    clipboard: makeClipboardDriver(),
+    ssb: ssbDriver,
+    fs: makeFSDriver(),
+    lifecycle: makeActivityLifecycleDriver(),
+    network: () => ({
+      bluetoothIsEnabled: () => xs.of(false),
+      wifiIsEnabled: () => xs.of(true),
+      hasInternetConnection: () => xs.of(true),
+    }),
+    appstate: () => xs.of('active'),
+    orientation: () =>
+      makeWindowSizeDriver()(xs.never).map(({width, height}) =>
+        height >= width ? 'PORTRAIT' : 'LANDSCAPE-RIGHT',
+      ),
+    windowSize: makeWindowSizeDriver(),
+    globalEventBus: makeEventBusDriver(),
+    linking: linkingDriver,
+    dialog: dialogDriver,
+    localization: makeLocalizationDriver(),
+    keyboard: (x) => ({
+      events: () => xs.never(),
+    }),
+  };
 
-run(screens, drivers, welcomeLayout);
+  const screens = {
+    [Frame]: withState(desktopFrame),
+    [GlobalScreen]: withState(global),
+    [Screens.Welcome]: withState(welcome),
+    [Screens.Central]: withState(central),
+    // [Screens.Drawer]: withState(drawer),
+    // [Screens.DialogAbout]: dialogAbout,
+    // [Screens.DialogThanks]: dialogThanks,
+    [Screens.Compose]: withState(compose),
+    // [Screens.ComposeAudio]: withState(composeAudio),
+    [Screens.Search]: withState(search),
+    [Screens.Thread]: withState(thread),
+    [Screens.Conversation]: withState(conversation),
+    [Screens.RecipientsInput]: withState(recipientsInput),
+    // [Screens.Libraries]: libraries,
+    [Screens.InvitePaste]: withState(pasteInvite),
+    // [Screens.InviteCreate]: withState(createInvite),
+    [Screens.Profile]: withState(profile),
+    // [Screens.ProfileEdit]: withState(editProfile),
+    // [Screens.AliasManage]: withState(manageAliases),
+    // [Screens.AliasRegister]: withState(registerAlias),
+    [Screens.Biography]: withState(biography),
+    [Screens.Accounts]: withState(accounts),
+    // [Screens.Backup]: withState(backup),
+    [Screens.SecretOutput]: withState(secretOutput),
+    [Screens.SecretInput]: withState(secretInput),
+    [Screens.RawDatabase]: rawDatabase,
+    [Screens.RawMessage]: rawMessage,
+    // [Screens.Settings]: withState(settings),
+  };
+
+  run(screens, drivers, welcomeLayout);
+}

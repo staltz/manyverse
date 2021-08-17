@@ -32,21 +32,37 @@ export default function view(
   children$: Stream<Array<ReactElement>>,
   localizationLoaded$: Stream<boolean>,
 ) {
-  const viewState$ = state$.compose(
-    dropRepeatsByKeys([
-      'currentTab',
-      'numOfPublicUpdates',
-      'numOfPrivateUpdates',
-      'numOfActivityUpdates',
-      'connections',
-      'name',
-      'selfAvatarUrl',
-    ]),
-  );
+  const initialViewState: State = {
+    currentTab: 'public',
+    numOfPublicUpdates: 0,
+    numOfPrivateUpdates: 0,
+    numOfActivityUpdates: 0,
+    selfFeedId: '',
+  };
+
+  const viewState$ = state$
+    .compose(
+      dropRepeatsByKeys([
+        'currentTab',
+        'numOfPublicUpdates',
+        'numOfPrivateUpdates',
+        'numOfActivityUpdates',
+        'connections',
+        'name',
+        'selfAvatarUrl',
+      ]),
+    )
+    .startWith(initialViewState);
 
   return xs
-    .combine(viewState$, children$, localizationLoaded$.take(1))
-    .map(([state, children]) => {
+    .combine(viewState$, children$, localizationLoaded$)
+    .map(([state, children, localizationLoaded]) => {
+      if (!localizationLoaded) {
+        return h(View, {style: styles.screen}, [
+          h(View, {style: styles.left}, [h(TopBarStub)]),
+        ]);
+      }
+
       const connTab = state.connections;
       const online =
         connTab?.bluetoothEnabled ||

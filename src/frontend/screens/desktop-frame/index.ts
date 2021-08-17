@@ -62,7 +62,8 @@ export function desktopFrame(sources: Sources): Sinks {
   const localizationLoaded$ = sources.globalEventBus
     .filter((ev) => ev.type === 'localizationLoaded')
     .take(1)
-    .mapTo(true);
+    .mapTo(true)
+    .startWith(false);
 
   const reducer$ = model(actions, sources.globalEventBus, sources.ssb);
 

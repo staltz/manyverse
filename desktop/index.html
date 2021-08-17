@@ -11,13 +11,44 @@
       }
       /* Handles styles before React app is mounted, i.e. "splashscreen" */
       body {
-        background-color: #4263eb;
+        background-color: #4263eb; /* voidMain */
         overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+      /* The app container */
+      #app {
+        height: 100vh;
+        display: flex;
+        overflow: hidden;
+      }
+
+      /* Necessary elements to force loading of fonts ASAP */
+      .font-checker-roboto {
+        font-family: Roboto;
+        opacity: 0;
+        position: absolute;
+      }
+      .font-checker-icons {
+        font-family: MaterialCommunityIcons;
+        opacity: 0;
+        position: absolute;
+      }
+
+      /* This element will be replaced with the mounted React app */
+      .splashlogo {
+        width: 48px;
+        height: 48px;
+        margin: calc(50vh - 48px * 0.5) calc(50vw - 48px * 0.5);
       }
     </style>
   </head>
   <body>
-    <div style="height: 100vh; display: flex; overflow: hidden" id="app"></div>
+    <div id="app">
+      <div class="font-checker-roboto">x</div>
+      <div class="font-checker-icons">x</div>
+      <img class="splashlogo" src="./logo_outline.png">
+    </div>
     <div id="dialogs"></div>
     <script src="./dist/main.js"></script>
   </body>
