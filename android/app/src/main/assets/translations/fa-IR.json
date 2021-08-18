@@ -570,7 +570,7 @@
     "copyright": "کُپےرایت (C)",
     "authors": "The Manyverse Authors",
     "repository": "Open source repository",
-    "licensed": "Licensed {{license1}} and {{license2}}"
+    "licensed": "Licensed {{license}}"
   },
   "dialog_thanks": {
     "title": "سِپاسگُزاریم!",

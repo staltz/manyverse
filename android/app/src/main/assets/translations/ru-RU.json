@@ -570,7 +570,7 @@
     "copyright": "Авторские права (C)",
     "authors": "Авторы Manyverse",
     "repository": "Репозиторий с открытым исходным кодом",
-    "licensed": "Лицензировано {{license1}} и {{license2}}"
+    "licensed": "Лицензировано {{license}}"
   },
   "dialog_thanks": {
     "title": "Спасибо Вам!",

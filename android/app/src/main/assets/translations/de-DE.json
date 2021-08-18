@@ -570,7 +570,7 @@
     "copyright": "Copyright (C)",
     "authors": "Die Manyverse Autoren",
     "repository": "Quellcodearchiv öffnen",
-    "licensed": "Lizenziert gemäß {{license1}} und {{license2}}"
+    "licensed": "Lizenziert gemäß {{license}}"
   },
   "dialog_thanks": {
     "title": "Vielen Dank!",

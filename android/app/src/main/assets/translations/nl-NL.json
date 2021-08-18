@@ -570,7 +570,7 @@
     "copyright": "Auteursrecht (C)",
     "authors": "De Manyverse auteurs",
     "repository": "Open source repository",
-    "licensed": "Licentie {{license1}} en {{license2}}"
+    "licensed": "Licentie {{license}}"
   },
   "dialog_thanks": {
     "title": "Dank je wel!",

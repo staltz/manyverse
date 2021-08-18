@@ -102,6 +102,13 @@ export default [
     type: 'image',
   },
   {
+    name: 'NotoColorEmoji.ttf',
+    author: 'Google Inc. and Arjen Nienhuis <a.g.nienhuis@gmail.com>',
+    license: 'SIL Open Font License, version 1.1',
+    homepage: 'https://github.com/googlefonts/noto-emoji',
+    type: 'image',
+  },
+  {
     name: '@cycle/isolate',
     type: 'library',
     version: '5.2.0',
@@ -274,7 +281,7 @@ export default [
   {
     name: 'cycle-native-navigation-web',
     type: 'library',
-    version: '0.4.1',
+    version: '0.8.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation-web',
   },
@@ -540,7 +547,7 @@ export default [
   {
     name: 'react-native-emoji-picker-staltz',
     type: 'library',
-    version: '0.2.2',
+    version: '1.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/react-native-emoji-picker',
   },
@@ -825,7 +832,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '2.1.4',
+    version: '2.2.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -839,7 +846,7 @@ export default [
   {
     name: 'ssb-ebt',
     type: 'library',
-    version: '7.0.3',
+    version: '7.0.4',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-ebt',
   },
@@ -874,7 +881,7 @@ export default [
   {
     name: 'ssb-keys',
     type: 'library',
-    version: '8.1.0',
+    version: '8.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-keys',
   },
@@ -888,15 +895,15 @@ export default [
   {
     name: 'ssb-keys-mnemonic-neon',
     type: 'library',
-    version: '1.0.0-2',
-    license: 'GNU Affero General Public License v3.0 (AGPL-3.0)',
+    version: '1.0.0-3',
+    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-keys-mnemonic-neon#readme',
   },
   {
     name: 'ssb-keys-neon',
     type: 'library',
-    version: '8.1.0-1',
-    license: 'GNU Affero General Public License v3.0 (AGPL-3.0)',
+    version: '8.2.0-1',
+    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-keys-neon#readme',
   },
   {

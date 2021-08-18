@@ -570,7 +570,7 @@
     "copyright": "حقوق التأليف والنشر (C)",
     "authors": "مؤلفو مانيفرس",
     "repository": "مستودع الكود المصدري",
-    "licensed": "مرخص تحت بنود {{license1}} و {{license2}}"
+    "licensed": "مرخص تحت بنود {{license}}"
   },
   "dialog_thanks": {
     "title": "شكرا لك!",

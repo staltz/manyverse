@@ -51,7 +51,7 @@ export function dialogAbout(sources: Sources): Sinks {
         `[${t('dialog_about.authors')}](${authorsLink})\n` +
         '\n' +
         `[${t('dialog_about.repository')}](${repoLink})\n` +
-        t('dialog_about.licensed', {license1: 'MPL 2.0', license2: 'AGPL 3.0'}),
+        t('dialog_about.licensed', {license: 'MPL 2.0'}),
     }),
   );
 

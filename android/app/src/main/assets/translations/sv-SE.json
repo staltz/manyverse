@@ -570,7 +570,7 @@
     "copyright": "Copyright (C)",
     "authors": "Manyverse författare",
     "repository": "Öppna källkodsrepositoriet",
-    "licensed": "Licensierad med {{license1}} och {{license2}}"
+    "licensed": "Licensierad med {{license}}"
   },
   "dialog_thanks": {
     "title": "Tack så mycket!",

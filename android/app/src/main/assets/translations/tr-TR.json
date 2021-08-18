@@ -570,7 +570,7 @@
     "copyright": "Telif Hakkı (C)",
     "authors": "Manyverse yapımcıları",
     "repository": "Açık kaynak depo",
-    "licensed": "{{license1}} ve {{license2}} lisanslı"
+    "licensed": "{{license}} lisanslı"
   },
   "dialog_thanks": {
     "title": "Teşekkürler!",

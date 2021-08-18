@@ -570,7 +570,7 @@
     "copyright": "Copyright (C)",
     "authors": "Οι συντάκτες του Manyverse",
     "repository": "Αποθετήριο ανοιχτού κώδικα",
-    "licensed": "Άδεια {{license1}} και {{license2}}"
+    "licensed": "Άδεια {{license}}"
   },
   "dialog_thanks": {
     "title": "Ευχαριστούμε!",
