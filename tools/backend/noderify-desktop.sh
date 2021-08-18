@@ -32,6 +32,7 @@ $(npm bin)/noderify \
   --replace.ssb-keys-mnemonic=ssb-keys-mnemonic-neon \
   --replace.non-private-ip=non-private-ip-android \
   --replace.multiserver/plugins/net=staltz-multiserver/plugins/net \
+  --replace.ssb-validate2-rsjs-node=ssb-validate2 \
   --filter=electron \
   --filter=rn-bridge \
   --filter=multiserver-rn-channel \
