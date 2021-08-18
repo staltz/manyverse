@@ -7,7 +7,7 @@
 import {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {ComponentClass} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Platform} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
@@ -16,12 +16,14 @@ import {
   Day as DayWithWrongTypes,
   Composer as ComposerWithWrongTypes,
   InputToolbar as InputToolbarWithWrongTypes,
+  Message as MessageWithWrongTypes,
   IMessage as GiftedMsg,
   GiftedChatProps,
   BubbleProps,
   DayProps,
   ComposerProps,
   InputToolbarProps,
+  MessageProps,
   Send,
 } from 'react-native-gifted-chat';
 import {PostContent} from 'ssb-typescript';
@@ -51,6 +53,9 @@ const InputToolbar = (InputToolbarWithWrongTypes as any) as ComponentClass<
 const Composer = (ComposerWithWrongTypes as any) as ComponentClass<
   ComposerProps
 >;
+const Message = (MessageWithWrongTypes as any) as ComponentClass<
+  MessageProps<any>
+>;
 
 export const styles = StyleSheet.create({
   container: {
@@ -62,6 +67,11 @@ export const styles = StyleSheet.create({
 
   bubbleText: {
     marginHorizontal: Dimensions.horizontalSpaceNormal,
+    ...Platform.select({
+      web: {
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   send: {
@@ -79,7 +89,24 @@ export const styles = StyleSheet.create({
     minWidth: 120,
   },
 
-  time: {
+  dayContainer: {
+    marginTop: Dimensions.verticalSpaceBig,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
+  },
+
+  dayText: {
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.textVeryWeak,
+    fontWeight: 'bold',
+  },
+
+  timeText: {
     marginHorizontal: Dimensions.horizontalSpaceNormal,
     fontSize: Typography.fontSizeSmall,
     lineHeight: Typography.lineHeightSmall,
@@ -99,9 +126,8 @@ export const styles = StyleSheet.create({
 
   bubbleLeft: {
     backgroundColor: Palette.backgroundText,
-    borderColor: Palette.voidStrong,
     borderRadius: Dimensions.borderRadiusBig,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: 0,
     paddingHorizontal: Dimensions.verticalSpaceTiny,
     paddingTop: Dimensions.verticalSpaceTiny,
     paddingBottom: Dimensions.verticalSpaceNormal,
@@ -111,14 +137,19 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.isDarkTheme
       ? Palette.brandStrong
       : Palette.brandWeakest,
-    borderColor: Palette.isDarkTheme
-      ? Palette.brandStronger
-      : Palette.brandWeaker,
     borderRadius: Dimensions.borderRadiusBig,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: 0,
     paddingHorizontal: Dimensions.verticalSpaceTiny,
     paddingTop: Dimensions.verticalSpaceTiny,
     paddingBottom: Dimensions.verticalSpaceNormal,
+  },
+
+  messageLeftOrRight: {
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   inputToolbarContainer: {
@@ -126,6 +157,11 @@ export const styles = StyleSheet.create({
     // TODO: enable this but also avoid the borderTop on the Send component
     borderTopWidth: 0, // StyleSheet.hairlineWidth,
     borderTopColor: Palette.textLine,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 });
 
@@ -142,6 +178,16 @@ function toGiftedMessage(msg: MsgAndExtras<PostContent>): GiftedMsg {
   };
 }
 
+function renderMessage(props: MessageProps<any>) {
+  return h(Message, {
+    ...props,
+    containerStyle: {
+      left: styles.messageLeftOrRight,
+      right: styles.messageLeftOrRight,
+    },
+  });
+}
+
 function renderBubble(props: any) {
   const {previousMessage, currentMessage} = props;
   const marginTop =
@@ -152,14 +198,8 @@ function renderBubble(props: any) {
   return h(Bubble, {
     ...props,
     wrapperStyle: {
-      left: {
-        ...styles.bubbleLeft,
-        marginTop,
-      },
-      right: {
-        ...styles.bubbleRight,
-        marginTop,
-      },
+      left: [styles.bubbleLeft, {marginTop}],
+      right: [styles.bubbleRight, {marginTop}],
     },
   });
 }
@@ -227,19 +267,17 @@ function renderAvatar(props: any) {
 }
 
 function renderTime(props: any) {
-  return h(Text, {style: styles.time}, [
+  return h(Text, {style: styles.timeText}, [
     h(LocalizedHumanTime, {time: props.currentMessage.createdAt as number}),
   ]);
 }
 
 function renderDay(props: any) {
-  const {previousMessage, currentMessage} = props;
-  const marginBottom =
-    previousMessage?.user?._id === currentMessage.user._id
-      ? 0
-      : -Dimensions.verticalSpaceBig;
-
-  return h(Day, {textStyle: {...styles.time, marginBottom}, ...props});
+  return h(Day, {
+    ...props,
+    containerStyle: [styles.dayContainer],
+    textStyle: [styles.dayText],
+  });
 }
 
 export default function view(state$: Stream<State>) {
@@ -285,6 +323,7 @@ export default function view(state$: Stream<State>) {
           user: {_id: state.selfFeedId},
           inverted: false,
           messages: sysMessages.concat(realMessages),
+          renderMessage,
           renderFooter,
           renderBubble,
           renderAvatar,

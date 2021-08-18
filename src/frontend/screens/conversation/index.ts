@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -19,6 +19,7 @@ import ssb from './ssb';
 import navigation from './navigation';
 import intent from './intent';
 import {Props as P} from './props';
+export {navOptions} from './layout';
 
 export type Props = P;
 
@@ -49,18 +50,6 @@ export const styles = StyleSheet.create({
     marginHorizontal: Dimensions.horizontalSpaceNormal,
   },
 });
-
-export const navOptions = {
-  topBar: {
-    visible: false,
-    height: 0,
-  },
-  sideMenu: {
-    left: {
-      enabled: false,
-    },
-  },
-};
 
 export function conversation(sources: Sources): Sinks {
   const state$ = sources.state.stream;
