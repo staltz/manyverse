@@ -24,7 +24,7 @@ export default function ProfileName({
   return h(
     Animated.Text,
     {
-      style: [styles.name, , animStyle],
+      style: [styles.name, animStyle],
       numberOfLines: 1,
       ellipsizeMode: 'middle',
       accessible: true,
