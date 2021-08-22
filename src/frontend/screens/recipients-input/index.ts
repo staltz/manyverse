@@ -9,6 +9,7 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
+import {Platform} from 'react-native';
 import {SSBSource} from '../../drivers/ssb';
 import {Toast, Duration} from '../../drivers/toast';
 import {t} from '../../drivers/localization';
@@ -43,7 +44,7 @@ export const navOptions = {
   },
   sideMenu: {
     left: {
-      enabled: false,
+      enabled: Platform.OS === 'web',
     },
   },
 };
