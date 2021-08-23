@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
@@ -14,11 +14,16 @@ const AVATAR_SIZE_HALF = AVATAR_SIZE * 0.5;
 
 export const AVATAR_SIZE_TOOLBAR = Dimensions.avatarSizeNormal;
 
-export const COVER_HEIGHT = AVATAR_SIZE_HALF;
+export const COVER_HEIGHT = AVATAR_SIZE_HALF + Dimensions.verticalSpaceLarge;
+
+const CTA_BUTTON_WIDTH = 150;
 
 const SCROLL_BOUNCE_REGION = 250;
 
-export const NAME_MARGIN_TOOLBAR = Typography.fontSizeLarge * 0.3 - 2;
+export const NAME_MARGIN_TOOLBAR = Platform.select({
+  default: Typography.fontSizeLarge * 0.3 - 2,
+  web: Typography.fontSizeLarge * 0.3 - 5,
+});
 
 export const styles = StyleSheet.create({
   container: {
@@ -33,6 +38,12 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 11,
+    overflow: 'hidden',
+  },
+
+  topBarSpacer: {
+    width: 2,
+    height: Dimensions.toolbarHeight,
   },
 
   cover: {
@@ -40,7 +51,7 @@ export const styles = StyleSheet.create({
     top: -SCROLL_BOUNCE_REGION,
     left: 0,
     right: 0,
-    backgroundColor: Palette.brandMain,
+    backgroundColor: Palette.backgroundText,
     height: SCROLL_BOUNCE_REGION + COVER_HEIGHT,
     zIndex: 10,
   },
@@ -60,36 +71,100 @@ export const styles = StyleSheet.create({
 
   name: {
     position: 'absolute',
-    color: Palette.textForBackgroundBrand,
+    color: Palette.text,
     top:
       Dimensions.toolbarHeight + COVER_HEIGHT - Typography.fontSizeLarge * 2.55,
     left:
       Dimensions.horizontalSpaceBig +
       AVATAR_SIZE +
       Dimensions.horizontalSpaceBig,
-    right: Dimensions.horizontalSpaceBig + Dimensions.iconSizeNormal,
     fontSize: Typography.fontSizeLarge,
     lineHeight: Typography.lineHeightLarge,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
+    zIndex: 10,
+    ...Platform.select({
+      web: {
+        right: `calc(${Dimensions.desktopSideWidth.vw} + ${CTA_BUTTON_WIDTH}px)`,
+      },
+      default: {
+        right: 0 + Dimensions.horizontalSpaceBig,
+      },
+    }),
+  },
+
+  nameInTopBar: {
     zIndex: 20,
+    color: Palette.textForBackgroundBrand,
+    left:
+      Dimensions.horizontalSpaceBig +
+      AVATAR_SIZE_TOOLBAR +
+      Dimensions.horizontalSpaceBig +
+      1,
+    right: Dimensions.horizontalSpaceBig + Dimensions.iconSizeNormal,
+    ...Platform.select({
+      web: {
+        top:
+          Dimensions.toolbarHeight +
+          COVER_HEIGHT -
+          Typography.fontSizeLarge * 2.55,
+      },
+      default: {
+        top:
+          Dimensions.toolbarHeight +
+          COVER_HEIGHT -
+          Typography.fontSizeLarge * 2.55,
+      },
+    }),
   },
 
   feedId: {
     position: 'absolute',
-    color: Palette.textWeakForBackgroundBrand,
+    color: Palette.textWeak,
     top:
       Dimensions.toolbarHeight + COVER_HEIGHT - Typography.fontSizeLarge * 1.1,
     left:
       Dimensions.horizontalSpaceBig +
       AVATAR_SIZE +
       Dimensions.horizontalSpaceBig,
-    right: Dimensions.horizontalSpaceBig + Dimensions.iconSizeNormal,
     fontSize: Typography.fontSizeTiny,
     lineHeight: Typography.lineHeightTiny,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
+    zIndex: 10,
+    ...Platform.select({
+      web: {
+        right: `calc(${Dimensions.desktopSideWidth.vw} + ${CTA_BUTTON_WIDTH}px)`,
+      },
+      default: {
+        right: 0 + Dimensions.horizontalSpaceBig,
+      },
+    }),
+  },
+
+  feedIdInTopBar: {
     zIndex: 20,
+    color: Palette.textWeakForBackgroundBrand,
+    left:
+      Dimensions.horizontalSpaceBig +
+      AVATAR_SIZE_TOOLBAR +
+      Dimensions.horizontalSpaceBig +
+      1,
+    right: Dimensions.horizontalSpaceBig + Dimensions.iconSizeNormal,
+    ...Platform.select({
+      web: {
+        top:
+          Dimensions.toolbarHeight +
+          COVER_HEIGHT -
+          Typography.fontSizeLarge * 1.1,
+      },
+      default: {
+        top:
+          Dimensions.toolbarHeight +
+          COVER_HEIGHT -
+          Typography.fontSizeLarge * 1.1,
+      },
+    }),
   },
 
   header: {
@@ -97,10 +172,14 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     marginTop: Dimensions.toolbarHeight,
     backgroundColor: Palette.backgroundText,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   sub: {
-    marginTop: COVER_HEIGHT + Dimensions.verticalSpaceSmall,
     marginLeft:
       Dimensions.horizontalSpaceBig + // left margin to the avatar
       AVATAR_SIZE + // avatar
@@ -110,17 +189,17 @@ export const styles = StyleSheet.create({
     marginRight: Dimensions.horizontalSpaceBig,
     zIndex: 30,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  followsYouText: {
-    marginLeft: Dimensions.horizontalSpaceSmall,
-    color: Palette.textWeak,
-    fontSize: Typography.fontSizeSmall,
-    lineHeight: Typography.lineHeightSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    fontWeight: 'normal',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
+    ...Platform.select({
+      web: {
+        marginTop: Dimensions.verticalSpaceLarge,
+        marginBottom: AVATAR_SIZE_HALF,
+      },
+      default: {
+        marginTop: COVER_HEIGHT + Dimensions.verticalSpaceNormal,
+      },
+    }),
   },
 
   cta: {
@@ -191,6 +270,15 @@ export const styles = StyleSheet.create({
     marginLeft: Dimensions.horizontalSpaceSmall,
     textDecorationLine: 'underline',
     color: Palette.text,
+  },
+
+  followsYouText: {
+    marginLeft: Dimensions.horizontalSpaceSmall,
+    color: Palette.textWeak,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'normal',
   },
 
   headerMarginBottom: {

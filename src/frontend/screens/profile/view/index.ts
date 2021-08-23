@@ -107,8 +107,25 @@ function calcConnDotScale(scrollY: Animated.Value): Animated.Animated {
   });
 }
 
-function ProfileTopBar({isSelfProfile}: {isSelfProfile: boolean}) {
+function ProfileTopBar({
+  state,
+  isSelfProfile,
+  nameTransY,
+}: {
+  state: State;
+  isSelfProfile: boolean;
+  nameTransY: Animated.AnimatedInterpolation;
+}) {
   return h(TopBar, {sel: 'topbar', style: styles.topBar}, [
+    // This spacer exists to stretch the innerContainer of the topBar because we
+    // want its dimensions to be always the same since the innerContainer will
+    // have children (such as ProfileName) that are `absolute`ly positioned.
+    h(View, {style: styles.topBarSpacer}),
+
+    h(ProfileName, {state, translateY: nameTransY, inTopBar: true}),
+
+    h(ProfileID, {state, translateY: nameTransY, inTopBar: true}),
+
     isSelfProfile
       ? null
       : h(
@@ -203,7 +220,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
       const isBlocked = state.youBlock?.response ?? false;
 
       return h(View, {style: styles.container}, [
-        h(ProfileTopBar, {isSelfProfile}),
+        h(ProfileTopBar, {state, isSelfProfile, nameTransY}),
 
         h(ProfileAvatar, {
           state,
@@ -212,9 +229,9 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
           scale: avatarScale,
         }),
 
-        h(ProfileName, {state, translateY: nameTransY}),
+        h(ProfileName, {state, translateY: nameTransY, inTopBar: false}),
 
-        h(ProfileID, {state, translateY: nameTransY}),
+        h(ProfileID, {state, translateY: nameTransY, inTopBar: false}),
 
         state.connection
           ? h(ConnectionDot, {

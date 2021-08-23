@@ -13,9 +13,11 @@ import {styles} from './styles';
 export default function ProfileName({
   state,
   translateY,
+  inTopBar,
 }: {
   state: State;
   translateY: Animated.AnimatedInterpolation;
+  inTopBar: boolean;
 }) {
   const animStyle = {transform: [{translateY}]};
 
@@ -24,7 +26,7 @@ export default function ProfileName({
   return h(
     Animated.Text,
     {
-      style: [styles.name, animStyle],
+      style: [styles.name, inTopBar ? styles.nameInTopBar : null, animStyle],
       numberOfLines: 1,
       ellipsizeMode: 'middle',
       accessible: true,

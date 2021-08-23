@@ -15,7 +15,10 @@ const DOT_SIZE = AVATAR_SIZE * 0.1739;
 
 const dotStyle: ViewStyle = {
   position: 'absolute',
-  top: Dimensions.toolbarHeight + AVATAR_SIZE * 0.75,
+  top:
+    Dimensions.toolbarHeight +
+    Dimensions.verticalSpaceLarge +
+    AVATAR_SIZE * 0.75,
   left: Dimensions.horizontalSpaceBig + AVATAR_SIZE * 0.78,
   width: DOT_SIZE,
   height: DOT_SIZE,

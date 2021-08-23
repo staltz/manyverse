@@ -13,16 +13,22 @@ import {styles} from './styles';
 export default function ProfileID({
   state,
   translateY,
+  inTopBar,
 }: {
   state: State;
   translateY: Animated.AnimatedInterpolation;
+  inTopBar: boolean;
 }) {
   const animStyle = {transform: [{translateY}]};
 
   return h(
     Animated.Text,
     {
-      style: [styles.feedId, animStyle],
+      style: [
+        styles.feedId,
+        inTopBar ? styles.feedIdInTopBar : null,
+        animStyle,
+      ],
       numberOfLines: 1,
       ellipsizeMode: 'tail',
       sel: 'feedId',
