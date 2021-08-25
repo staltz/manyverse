@@ -121,6 +121,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
   };
 
   public componentDidMount() {
+    if (Platform.OS === 'web') return;
     this.player = new Player(this.props.src, {
       autoDestroy: false,
     }).prepare((err: PlayerError | null): void => {
