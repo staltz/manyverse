@@ -73,6 +73,11 @@ export const styles = StyleSheet.create({
     marginBottom: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   avatar: {
@@ -130,6 +135,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     height: 120,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   placeholderAvatar: {
