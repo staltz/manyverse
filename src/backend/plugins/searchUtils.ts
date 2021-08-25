@@ -13,7 +13,7 @@ const {
   type,
   isPublic,
   descending,
-  paginate,
+  batch,
   toPullStream,
 } = require('ssb-db2/operators');
 
@@ -37,11 +37,9 @@ export = {
           ssb.db.query(
             where(and(type('post'), isPublic(), containsWords(text))),
             descending(),
-            paginate(50),
+            batch(20),
             toPullStream(),
           ),
-          pull.map(pull.values),
-          pull.flatten(),
           pull.filter((msg: Msg<PostContent>) =>
             // We want to make sure that *exact* input is matched, *not* as a
             // word prefix, so we use a word boundary, except not literally `\b`
