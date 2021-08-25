@@ -10,4 +10,5 @@ export interface Props {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
   selfAvatarUrl?: string;
+  query?: string;
 }

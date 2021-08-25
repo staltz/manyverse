@@ -8,7 +8,7 @@ import xs, {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
-import {FeedId, MsgId, PostContent} from 'ssb-typescript';
+import {FeedId, Msg, MsgId, PostContent} from 'ssb-typescript';
 import {
   isFeedSSBURI,
   isMessageSSBURI,
@@ -16,7 +16,14 @@ import {
   toMessageSigil,
 } from 'ssb-uri2';
 const Ref = require('ssb-ref');
-import {MsgAndExtras} from '../../ssb/types';
+import {
+  MsgAndExtras,
+  PressAddReactionEvent,
+  PressReactionsEvent,
+} from '../../ssb/types';
+import {t} from '../../drivers/localization';
+
+type ProfileNavEvent = {authorFeedId: FeedId};
 
 export default function intent(navSource: NavSource, reactSource: ReactSource) {
   const goBack$ = xs.merge(
@@ -47,7 +54,7 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
       .filter((x) => !!x) as Stream<MsgId>,
   );
 
-  const shortcutToAccount$ = xs.merge(
+  const shortcutToProfile$ = xs.merge(
     updateQueryNow$.filter(Ref.isFeedId),
 
     updateQueryNow$
@@ -65,10 +72,41 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
       MsgAndExtras<PostContent>
     >,
 
+    reactSource.select('feed').events('pressExpand') as Stream<
+      MsgAndExtras<PostContent>
+    >,
+
     shortcutToThread$,
   );
 
-  const goToAccount$ = shortcutToAccount$;
+  const goToProfile$ = xs.merge(
+    (reactSource.select('feed').events('pressAuthor') as Stream<
+      ProfileNavEvent
+    >).map((ev) => ev.authorFeedId),
+
+    shortcutToProfile$,
+  );
+
+  const goToAccounts$ = (reactSource
+    .select('feed')
+    .events('pressReactions') as Stream<PressReactionsEvent>).map(
+    ({reactions}) => ({
+      title: t('accounts.reactions.title'),
+      accounts: reactions,
+    }),
+  );
+
+  const openMessageEtc$ = reactSource
+    .select('feed')
+    .events('pressEtc') as Stream<Msg>;
+
+  const goToThreadExpandCW$ = reactSource
+    .select('feed')
+    .events('pressExpandCW') as Stream<MsgAndExtras>;
+
+  const addReactionMsg$ = reactSource
+    .select('feed')
+    .events('pressAddReaction') as Stream<PressAddReactionEvent>;
 
   return {
     goBack$,
@@ -76,6 +114,10 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     updateQueryDebounced$,
     clearQuery$,
     goToThread$,
-    goToAccount$,
+    goToProfile$,
+    goToAccounts$,
+    openMessageEtc$,
+    goToThreadExpandCW$,
+    addReactionMsg$,
   };
 }

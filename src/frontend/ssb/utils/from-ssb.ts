@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {FeedId} from 'ssb-typescript';
+import {FeedId, Msg, PostContent} from 'ssb-typescript';
 const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
 
 export function displayName(name: string | undefined, id: FeedId): string {
@@ -19,6 +19,14 @@ function shortFeedId(feedId: FeedId | undefined): string {
 export function imageToImageUrl(image: string | undefined) {
   if (!image) return undefined;
   else return blobIdToUrl(image) as string;
+}
+
+export function getPostText(msg: Msg<PostContent>): string {
+  let text = msg.value.content?.text ?? '';
+  if (msg.value.content.channel) {
+    text = `#${msg.value.content.channel}` + '\n\n' + text;
+  }
+  return text;
 }
 
 const THUMBS_UP_UNICODE = '\ud83d\udc4d';

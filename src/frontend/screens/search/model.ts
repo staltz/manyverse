@@ -9,7 +9,7 @@ import dropRepeats from 'xstream/extra/dropRepeats';
 import {FeedId, PostContent} from 'ssb-typescript';
 import {isFeedSSBURI, isMessageSSBURI} from 'ssb-uri2';
 import {GetReadable, SSBSource} from '../../drivers/ssb';
-import {MsgAndExtras} from '../../ssb/types';
+import {MsgAndExtras, ThreadSummaryWithExtras} from '../../ssb/types';
 import {Props} from './props';
 const Ref = require('ssb-ref');
 
@@ -22,6 +22,7 @@ export interface State {
   queryOverrideFlag: number;
   queryInProgress: boolean;
   getResultsReadable: GetReadable<MsgAndExtras<PostContent>> | null;
+  getFeedReadable: GetReadable<ThreadSummaryWithExtras> | null;
 }
 
 export interface Actions {
@@ -43,11 +44,12 @@ export default function model(
           selfFeedId: props.selfFeedId,
           selfAvatarUrl: props.selfAvatarUrl,
           lastSessionTimestamp: props.lastSessionTimestamp,
-          query: '',
-          queryOverride: '',
+          query: props.query ?? '',
+          queryOverride: props.query ?? '',
           queryOverrideFlag: 0,
-          queryInProgress: false,
+          queryInProgress: !!props.query,
           getResultsReadable: null,
+          getFeedReadable: null,
         };
       },
   );
@@ -55,8 +57,9 @@ export default function model(
   const updateQueryInProgressReducer$ = actions.updateQueryNow$.map(
     (query) =>
       function updateQueryInProgressReducer(prev: State): State {
-        const queryInProgress = query.length > 0;
-        if (queryInProgress) {
+        if (query.length > 0 && !query.startsWith('#')) {
+          return {...prev, queryInProgress: true};
+        } else if (query.length > 1 && query.startsWith('#')) {
           return {...prev, queryInProgress: true};
         } else {
           return {...prev, queryInProgress: false, getResultsReadable: null};
@@ -81,6 +84,7 @@ export default function model(
             queryOverrideFlag: 1 - prev.queryOverrideFlag,
             queryInProgress: false,
             getResultsReadable: null,
+            getFeedReadable: null,
           };
         } else {
           return {...prev, query};
@@ -97,6 +101,7 @@ export default function model(
         queryOverrideFlag: 1 - prev.queryOverrideFlag,
         queryInProgress: false,
         getResultsReadable: null,
+        getFeedReadable: null,
       };
     },
   );
@@ -104,13 +109,24 @@ export default function model(
   const query$ = state$.map((state) => state.query).compose(dropRepeats());
 
   const updateResultsReducer$ = query$
-    .filter((query) => query.length > 0)
+    .filter((query) => query.length > 0 && !query.startsWith('#'))
     .map((query) => ssbSource.searchPublicPosts$(query))
     .flatten()
     .map(
       (getResultsReadable) =>
         function updateResultsReducer(prev: State): State {
-          return {...prev, getResultsReadable};
+          return {...prev, getResultsReadable, getFeedReadable: null};
+        },
+    );
+
+  const updateFeedReducer$ = query$
+    .filter((query) => query.startsWith('#') && query.length > 1)
+    .map((query) => ssbSource.searchPublishHashtagSummaries$(query))
+    .flatten()
+    .map(
+      (getFeedReadable) =>
+        function updateResultsReducer(prev: State): State {
+          return {...prev, getResultsReadable: null, getFeedReadable};
         },
     );
 
@@ -120,5 +136,6 @@ export default function model(
     updateQueryReducer$,
     clearQueryReducer$,
     updateResultsReducer$,
+    updateFeedReducer$,
   );
 }

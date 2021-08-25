@@ -10,10 +10,13 @@ import {ReactSource} from '@cycle/react';
 import {Platform} from 'react-native';
 import {Reducer, StateSource} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {SSBSource} from '../../drivers/ssb';
+import {Req, SSBSource} from '../../drivers/ssb';
+import {DialogSource} from '../../drivers/dialogs';
+import messageEtc from '../../components/messageEtc';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';
+import ssb from './ssb';
 import navigation from './navigation';
 import {Props as P} from './props';
 
@@ -25,6 +28,7 @@ export interface Sources {
   navigation: NavSource;
   ssb: SSBSource;
   state: StateSource<State>;
+  dialog: DialogSource;
 }
 
 export interface Sinks {
@@ -32,6 +36,7 @@ export interface Sinks {
   navigation: Stream<Command>;
   keyboard: Stream<'dismiss'>;
   state: Stream<Reducer<State>>;
+  ssb: Stream<Req>;
 }
 
 export const navOptions = {
@@ -48,18 +53,33 @@ export const navOptions = {
 
 export function search(sources: Sources): Sinks {
   const state$ = sources.state.stream;
+
   const actions = intent(sources.navigation, sources.screen);
+
+  const messageEtcSinks = messageEtc({
+    appear$: actions.openMessageEtc$,
+    dialog: sources.dialog,
+  });
+
+  const actionsPlus = {
+    ...actions,
+    goToRawMsg$: messageEtcSinks.goToRawMsg$,
+  };
+
   const reducer$ = model(sources.props, state$, sources.ssb, actions);
   const vdom$ = view(state$);
-  const command$ = navigation(actions, state$);
+  const command$ = navigation(actionsPlus, state$);
   const dismissKeyboard$ = xs
     .merge(actions.goBack$, actions.goToThread$)
     .mapTo('dismiss' as const);
+
+  const newContent$ = ssb(actionsPlus);
 
   return {
     screen: vdom$,
     keyboard: dismissKeyboard$,
     navigation: command$,
     state: reducer$,
+    ssb: newContent$,
   };
 }

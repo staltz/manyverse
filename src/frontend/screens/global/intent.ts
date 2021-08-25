@@ -17,6 +17,7 @@ import {
 import {
   GlobalEvent,
   TriggerFeedCypherlink,
+  TriggerHashtagLink,
   TriggerMsgCypherlink,
 } from '../../drivers/eventbus';
 import {SSBSource} from '../../drivers/ssb';
@@ -118,6 +119,10 @@ export default function intent(
       .filter((x) => !!x) as Stream<{rootMsgId: string}>,
   );
 
+  const goToSearch$ = (globalEventBus.filter(
+    (ev) => ev.type === 'triggerHashtagLink',
+  ) as Stream<TriggerHashtagLink>).map((ev) => ({query: ev.hashtag}));
+
   return {
     handleUriClaimInvite$,
     handleUriConsumeAlias$,
@@ -126,5 +131,6 @@ export default function intent(
     confirmedSignInRoom$,
     goToProfile$,
     goToThread$,
+    goToSearch$,
   };
 }

@@ -55,6 +55,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 
+  feed: {
+    bottom: 0,
+    backgroundColor: Palette.voidMain,
+    alignSelf: 'stretch',
+  },
+
   emptySection: {
     marginTop: Dimensions.verticalSpaceLarger,
   },

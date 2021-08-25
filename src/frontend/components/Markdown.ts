@@ -218,7 +218,8 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
         : isMessageSSBURI(props.href)
         ? toMessageSigil(props.href)
         : null;
-      const isCypherlink = !!feedId || !!msgId;
+      const hashtag = props.href.startsWith('#') ? props.href : null;
+      const isCypherlink = !!feedId || !!msgId || !!hashtag;
       let child: string | null = null;
       if (isCypherlink) {
         child =
@@ -248,6 +249,8 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
               GlobalEventBus.dispatch({type: 'triggerFeedCypherlink', feedId});
             } else if (msgId) {
               GlobalEventBus.dispatch({type: 'triggerMsgCypherlink', msgId});
+            } else if (hashtag) {
+              GlobalEventBus.dispatch({type: 'triggerHashtagLink', hashtag});
             } else {
               Linking.openURL(props.href);
             }
@@ -321,6 +324,7 @@ export default class Markdown extends PureComponent<Props> {
   public render() {
     const linkifySsbFeeds = linkifyRegex(Ref.feedIdRegex);
     const linkifySsbMsgs = linkifyRegex(Ref.msgIdRegex);
+    const linkifyHashtags = linkifyRegex(/#[\w-]+/g);
     const renderers = makeRenderers(this.props.onLayout);
 
     return $<any>(ReactMarkdown, {
@@ -328,6 +332,7 @@ export default class Markdown extends PureComponent<Props> {
         .use(gemojiToEmoji)
         .use(linkifySsbFeeds)
         .use(linkifySsbMsgs)
+        .use(linkifyHashtags)
         .use(imagesToSsbServeBlobs)
         .processSync(this.props.text).contents,
       astPlugins: [normalizeForReactNative()],

@@ -428,6 +428,12 @@ export class SSBSource {
     );
   }
 
+  public searchPublishHashtagSummaries$(
+    text: string,
+  ): Stream<GetReadable<ThreadSummaryWithExtras>> {
+    return this.ssb$.map((ssb) => () => ssb.threadsUtils.hashtagFeed(text));
+  }
+
   public produceSignInWebUrl$(serverId: FeedId): Stream<string> {
     return this.fromCallback<string>((ssb, cb) =>
       ssb.httpAuthClient.produceSignInWebUrl(serverId, cb),

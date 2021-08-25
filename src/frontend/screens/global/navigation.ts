@@ -11,6 +11,8 @@ import {FeedId, MsgId} from 'ssb-typescript';
 import {Screens} from '../enums';
 import {navOptions as profileScreenNavOpts} from '../profile';
 import {Props as ProfileProps} from '../profile/props';
+import {navOptions as searchNavOpts} from '../search/index';
+import {Props as SearchProps} from '../search/props';
 import {
   navOptions as threadScreenNavOpts,
   Props as ThreadProps,
@@ -21,6 +23,7 @@ const urlParse = require('url-parse');
 interface Actions {
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId}>;
+  goToSearch$: Stream<{query: string} | null>;
   handleUriConsumeAlias$: Stream<string>;
 }
 
@@ -77,5 +80,24 @@ export default function navigation(
         } as Command),
     );
 
-  return xs.merge(toProfile$, toThread$);
+  const toSearch$ = actions.goToSearch$.compose(sampleCombine(state$)).map(
+    ([ev, state]) =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Search,
+            options: searchNavOpts,
+            passProps: {
+              selfFeedId: state.selfFeedId,
+              selfAvatarUrl: state.selfAvatarUrl,
+              lastSessionTimestamp: state.lastSessionTimestamp,
+              query: ev?.query ?? '',
+            } as SearchProps,
+          },
+        },
+      } as Command),
+  );
+
+  return xs.merge(toProfile$, toThread$, toSearch$);
 }

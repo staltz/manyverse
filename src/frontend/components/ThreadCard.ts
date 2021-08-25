@@ -18,6 +18,7 @@ import {
   Reactions,
   MsgAndExtras,
 } from '../ssb/types';
+import {getPostText} from '../ssb/utils/from-ssb';
 import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
@@ -163,7 +164,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
         : h(View, {key: 'p', style: styles.post}, [
             h(Markdown, {
               key: 'md',
-              text: (root as Msg<PostContent>).value.content?.text ?? '',
+              text: getPostText(root as Msg<PostContent>),
               onLayout: this.onMarkdownMeasured,
             }),
             this.state.showReadMore

@@ -103,6 +103,7 @@ export default {
     public: 'source',
     publicSummary: 'source',
     publicUpdates: 'source',
+    hashtagSummary: 'source',
     private: 'source',
     privateUpdates: 'source',
     profile: 'source',

@@ -200,6 +200,16 @@ const threadsUtils = {
         return ssb.threads.publicUpdates({allowlist: publicAllowlist});
       },
 
+      hashtagFeed(hashtag: string) {
+        return pull(
+          ssb.deweird.source(['threads', 'hashtagSummary'], {
+            allowlist: ALLOW_POSTS,
+            hashtag,
+          }),
+          pull.asyncMap(mutateThreadSummaryWithLiveExtras(ssb)),
+        );
+      },
+
       privateFeed(opts: any) {
         return pull(
           ssb.deweird.source(['threads', 'private'], {

@@ -28,11 +28,12 @@ import Avatar from '../../components/Avatar';
 import EmptySection from '../../components/EmptySection';
 import SettableTextInput from '../../components/SettableTextInput';
 import LocalizedHumanTime from '../../components/LocalizedHumanTime';
+import HeaderButton from '../../components/HeaderButton';
+import Feed from '../../components/Feed';
 import {MsgAndExtras} from '../../ssb/types';
 import {displayName} from '../../ssb/utils/from-ssb';
 import {State} from './model';
 import {styles} from './styles';
-import HeaderButton from '../../components/HeaderButton';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -193,13 +194,21 @@ export default function view(state$: Stream<State>) {
 
   return state$
     .compose(
-      dropRepeatsByKeys(['queryInProgress', 'query', 'getResultsReadable']),
+      dropRepeatsByKeys([
+        'queryInProgress',
+        'query',
+        'getResultsReadable',
+        'getFeedReadable',
+      ]),
     )
     .map((state) => {
+      const isHashtag =
+        state.query.startsWith('#') || state.queryOverride.startsWith('#');
+
       return h(View, {style: styles.screen}, [
         h(TopBar, {sel: 'topbar'}, [
           h(SettableTextInput, {
-            style: styles.queryInput,
+            style: [styles.queryInput, isHashtag ? styles.bold : null],
             sel: 'queryInput',
             nativeID: 'FocusViewOnResume',
             nativePropsAndFocus$: setInputNativeProps$,
@@ -224,7 +233,28 @@ export default function view(state$: Stream<State>) {
         ]),
 
         h(View, {style: styles.bodySection}, [
-          state.queryInProgress && state.getResultsReadable
+          state.queryInProgress && state.getFeedReadable
+            ? h(Feed, {
+                sel: 'feed',
+                getReadable: state.getFeedReadable,
+                prePublication$: null,
+                postPublication$: null,
+                selfFeedId: state.selfFeedId,
+                lastSessionTimestamp: state.lastSessionTimestamp,
+                style: styles.feed,
+                EmptyComponent:
+                  state.query.length > 0
+                    ? h(EmptySection, {
+                        style: styles.emptySection,
+                        title: t('search.empty.zero_results.title'),
+                        description: t(
+                          'search.empty.zero_results.description',
+                          {query: state.query},
+                        ),
+                      })
+                    : (null as any),
+              })
+            : state.queryInProgress && state.getResultsReadable
             ? h(Results, {
                 sel: 'results',
                 query: state.query,

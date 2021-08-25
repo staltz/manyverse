@@ -21,6 +21,11 @@ export interface TriggerMsgCypherlink {
   msgId: MsgId;
 }
 
+export interface TriggerHashtagLink {
+  type: 'triggerHashtagLink';
+  hashtag: string;
+}
+
 export interface HardwareBackOnCentralScreen {
   type: 'hardwareBackOnCentralScreen';
 }
@@ -80,6 +85,7 @@ export type GlobalEvent =
   | LocalizationLoaded
   | TriggerFeedCypherlink
   | TriggerMsgCypherlink
+  | TriggerHashtagLink
   | HardwareBackOnCentralScreen
   | DrawerToggleOnCentralScreen
   | AudioBlobComposed
