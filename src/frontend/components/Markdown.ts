@@ -289,6 +289,7 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
         title: props.title ?? props.alt,
       });
     },
+
     list: (props: {children: any; depth: number; ordered: boolean}) =>
       $(
         View,

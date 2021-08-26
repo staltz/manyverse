@@ -164,8 +164,17 @@ export default class ZoomableImage extends PureComponent<Props, State> {
 
   public render() {
     const d = Dimensions.get('window');
-    const width = d.width - Dimens.horizontalSpaceBig * 2;
-    const height = width * 0.7;
+    const width = Platform.select<any>({
+      web: `calc(${Dimens.desktopMiddleWidth.vw} - ${
+        2 * Dimens.horizontalSpaceBig
+      }px)`,
+      default: d.width - Dimens.horizontalSpaceBig * 2,
+    });
+    const height = Platform.select<any>({
+      web: `calc(0.7 * ${Dimens.desktopMiddleWidth.vw})`,
+      default: width * 0.7,
+    });
+    console.log(width, height);
     const uri = this.props.src;
     const {loaded, fullscreen} = this.state;
     const images = [{uri}];
@@ -182,7 +191,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
               FooterComponent: ({imageIndex}: {imageIndex: any}) =>
                 this.renderFooter(images[imageIndex]),
             })
-          : $(View, {key: 'full'}),
+          : null,
         $(
           Touchable,
           {onPress: this.onOpen, key: 't'},
