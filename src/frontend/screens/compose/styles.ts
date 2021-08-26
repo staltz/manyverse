@@ -43,6 +43,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: Palette.backgroundText,
     paddingLeft: Dimensions.horizontalSpaceBig,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   leftSide: {

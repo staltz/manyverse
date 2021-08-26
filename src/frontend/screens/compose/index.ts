@@ -7,6 +7,7 @@
 import xs, {Stream} from 'xstream';
 import isolate from '@cycle/isolate';
 import {ReactElement} from 'react';
+import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
@@ -56,7 +57,7 @@ export const navOptions = {
   },
   sideMenu: {
     left: {
-      enabled: false,
+      enabled: Platform.OS === 'web',
     },
   },
   animations: {
