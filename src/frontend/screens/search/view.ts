@@ -188,7 +188,7 @@ export default function view(state$: Stream<State>) {
       dropRepeats((s1, s2) => s1.queryOverrideFlag === s2.queryOverrideFlag),
     )
     .map((state) => ({
-      focus: true,
+      focus: state.queryOverride.length === 0,
       text: state.queryOverride,
     }));
 
@@ -214,7 +214,7 @@ export default function view(state$: Stream<State>) {
             nativePropsAndFocus$: setInputNativeProps$,
             accessible: true,
             accessibilityLabel: t('search.query_input.accessibility_label'),
-            autoFocus: true,
+            autoFocus: state.queryOverride.length === 0,
             multiline: false,
             returnKeyType: 'search',
             placeholder: t('search.query_input.placeholder'),
