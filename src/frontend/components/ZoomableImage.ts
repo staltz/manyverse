@@ -174,7 +174,6 @@ export default class ZoomableImage extends PureComponent<Props, State> {
       web: `calc(0.7 * ${Dimens.desktopMiddleWidth.vw})`,
       default: width * 0.7,
     });
-    console.log(width, height);
     const uri = this.props.src;
     const {loaded, fullscreen} = this.state;
     const images = [{uri}];
