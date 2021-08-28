@@ -34,7 +34,8 @@ export default function localization(fsSource: FSSource) {
       )
       .reduce((all, {name, path}) => {
         const languageTag = name.replace('.json', '');
-        return {...all, [languageTag]: path};
+        const commonLanguageTag = languageTag.split('-')[0];
+        return {[commonLanguageTag]: path, ...all, [languageTag]: path};
       }, {} as Record<string, string>),
   );
 
