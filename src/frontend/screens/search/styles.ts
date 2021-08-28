@@ -121,6 +121,11 @@ export const styles = StyleSheet.create({
     fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
     lineHeight: Typography.lineHeightNormal,
     marginTop: Dimensions.verticalSpaceSmall,
+    ...Platform.select({
+      web: {
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   bold: {
