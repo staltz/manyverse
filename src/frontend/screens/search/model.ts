@@ -109,7 +109,7 @@ export default function model(
   const query$ = state$.map((state) => state.query).compose(dropRepeats());
 
   const updateResultsReducer$ = query$
-    .filter((query) => query.length > 0 && !query.startsWith('#'))
+    .filter((query) => !query.startsWith('#') && query.length > 1)
     .map((query) => ssbSource.searchPublicPosts$(query))
     .flatten()
     .map(
