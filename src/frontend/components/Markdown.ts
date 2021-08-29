@@ -281,7 +281,18 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
     image: (props: {src: string; title?: string; alt?: string}) => {
       // Audio and video are recognized as images but their caption start with `audio:` or `video:`
       if (props.alt?.startsWith('audio:')) {
-        return $(AudioPlayer, {src: props.src});
+        if (Platform.OS === 'web') {
+          return $('audio', {
+            src: props.src,
+            controls: true,
+            style: {
+              width: '100%',
+              margin: `${Dimensions.verticalSpaceSmall}px 0`,
+            },
+          });
+        } else {
+          return $(AudioPlayer, {src: props.src});
+        }
       }
 
       return $(ZoomableImage, {
