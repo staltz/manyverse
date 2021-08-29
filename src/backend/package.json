@@ -35,7 +35,7 @@
     "ssb-caps": "1.1.0",
     "ssb-config": "3.4.5",
     "ssb-conn": "5.1.0",
-    "ssb-conn-firewall": "1.0.0",
+    "ssb-conn-firewall": "1.1.2",
     "ssb-db2": "2.3.0",
     "ssb-deweird": "1.0.0",
     "ssb-ebt": "7.0.4",
