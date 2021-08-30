@@ -86,7 +86,7 @@
     "path": "~0.12.7",
     "promisify-tuple": "1.0.1",
     "pull-backoff": "1.0.0",
-    "pull-flat-list": "^2.17.0",
+    "pull-flat-list": "^2.18.0",
     "pull-pushable": "2.2.0",
     "pull-sorted-interleave": "^1.0.0",
     "pull-stream": "3.6.14",
