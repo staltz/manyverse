@@ -44,7 +44,12 @@ const textProps: TextProps = {
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   heading1: {
@@ -53,6 +58,12 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSizeLarger,
     lineHeight: Typography.lineHeightLarger,
     marginVertical: Dimensions.verticalSpaceSmall,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   heading2: {
@@ -61,6 +72,12 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSizeLarge,
     lineHeight: Typography.lineHeightLarge,
     marginVertical: Dimensions.verticalSpaceSmall,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   heading3: {
@@ -69,6 +86,12 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSizeBig,
     lineHeight: Typography.lineHeightBig,
     marginVertical: Dimensions.verticalSpaceSmall,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   heading4: {
@@ -77,6 +100,12 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
     marginVertical: Dimensions.verticalSpaceSmall,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   heading5: {
@@ -85,6 +114,12 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSizeSmall,
     lineHeight: Typography.lineHeightSmall,
     marginVertical: Dimensions.verticalSpaceSmall,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   heading6: {
@@ -93,6 +128,12 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSizeTiny,
     lineHeight: Typography.lineHeightTiny,
     marginVertical: Dimensions.verticalSpaceSmall,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   paragraph: {
@@ -101,6 +142,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     marginVertical: Dimensions.verticalSpaceSmall,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   paragraphText: {
@@ -109,6 +156,12 @@ const styles = StyleSheet.create({
     color: Palette.text,
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   strong: {
@@ -136,6 +189,12 @@ const styles = StyleSheet.create({
     color: Palette.text,
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   orderedBullet: {
@@ -146,12 +205,24 @@ const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundTextWeak,
     fontFamily: Typography.fontFamilyMonospace,
     color: Palette.textWeak,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-all',
+      },
+    }),
   },
 
   codeBlock: {
     backgroundColor: Palette.backgroundTextWeak,
     marginVertical: Dimensions.verticalSpaceSmall,
     padding: Dimensions.verticalSpaceSmall,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-all',
+      },
+    }),
   },
 
   codeText: {
@@ -160,6 +231,12 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSizeSmall,
     lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyMonospace,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-all',
+      },
+    }),
   },
 
   blockquote: {
@@ -169,6 +246,12 @@ const styles = StyleSheet.create({
     marginVertical: Dimensions.verticalSpaceSmall,
     paddingLeft: Dimensions.horizontalSpaceSmall,
     paddingRight: 1,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+        wordBreak: 'break-word',
+      },
+    }),
   },
 
   horizontalLine: {
