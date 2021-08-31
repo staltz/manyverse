@@ -108,18 +108,22 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    ...Platform.select({
-      ios: {
-        height: 60,
-      },
-    }),
+  },
+
+  quickEmojiChoiceTouchable: {
+    height: 60,
+    width: 60,
+    flex: 0,
+    flexBasis: 'auto',
+    flexGrow: 0,
+    flexShrink: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   quickEmojiChoice: {
-    flex: 1,
     fontSize: 30,
     fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
-    padding: 15,
   },
 
   fullEmojiPickerModal: {
@@ -491,23 +495,38 @@ export default class MessageFooter extends Component<Props, State> {
   }
 
   private renderQuickEmojiChoice(emoji: string) {
+    const child = h(Text, {style: styles.quickEmojiChoice}, emoji);
+
     return h(
       Touchable,
       {
         ...touchableProps,
         onPress: () => this.onSelectEmojiReaction(emoji),
+        style: Platform.OS === 'web' ? styles.quickEmojiChoiceTouchable : null,
         accessible: true,
         accessibilityRole: 'button',
       },
-      [h(Text, {style: styles.quickEmojiChoice}, emoji)],
+      [
+        Platform.OS === 'web'
+          ? child
+          : h(View, {style: styles.quickEmojiChoiceTouchable}, [child]),
+      ],
     );
   }
 
   private renderShowAllEmojisChoice() {
+    const child = h(Icon, {
+      style: styles.quickEmojiChoice,
+      key: 'showall',
+      color: Palette.textWeak,
+      name: 'dots-horizontal',
+    });
+
     return h(
       Touchable,
       {
         ...touchableProps,
+        style: Platform.OS === 'web' ? styles.quickEmojiChoiceTouchable : null,
         onPress: this.openFullEmojiPicker,
         accessible: true,
         accessibilityRole: 'button',
@@ -516,12 +535,9 @@ export default class MessageFooter extends Component<Props, State> {
         ),
       },
       [
-        h(Icon, {
-          style: styles.quickEmojiChoice,
-          key: 'showall',
-          color: Palette.textWeak,
-          name: 'dots-horizontal',
-        }),
+        Platform.OS === 'web'
+          ? child
+          : h(View, {style: styles.quickEmojiChoiceTouchable}, [child]),
       ],
     );
   }
