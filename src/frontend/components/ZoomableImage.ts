@@ -186,6 +186,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
               images,
               imageIndex: 0,
               visible: fullscreen,
+              swipeToCloseEnabled: false,
               onRequestClose: this.onClose,
               FooterComponent: ({imageIndex}: {imageIndex: any}) =>
                 this.renderFooter(images[imageIndex]),
