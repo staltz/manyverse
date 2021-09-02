@@ -15,7 +15,14 @@ export const styles = StyleSheet.create({
   },
 
   activityList: {
-    marginTop: Dimens.toolbarHeight, // for the topBar
+    // for the topBar
+    marginTop: Platform.select({
+      default: Dimens.toolbarHeight,
+
+      // dirty hack because `styles.feed` is used twice in react-native-web
+      web: Dimens.toolbarHeight * 0.5,
+    }),
+
     alignSelf: 'stretch',
     flex: 1,
   },

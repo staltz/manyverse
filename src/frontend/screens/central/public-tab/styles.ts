@@ -19,7 +19,13 @@ export const styles = StyleSheet.create({
   },
 
   feed: {
-    paddingTop: Dimens.toolbarHeight - getStatusBarHeight(true), // for the topBar
+    // for the topBar
+    paddingTop: Platform.select({
+      default: Dimens.toolbarHeight - getStatusBarHeight(true),
+
+      // dirty hack because `styles.feed` is used twice in react-native-web
+      web: Dimens.toolbarHeight * 0.5,
+    }),
   },
 
   feedInner: {

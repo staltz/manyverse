@@ -176,24 +176,19 @@ export default class ThreadCard extends PureComponent<Props, State> {
     });
 
     if (this.state.showReadMore) {
-      return h(
-        Touchable,
-        {
-          onPress: this.onPressReadMore,
-          pointerEvents: 'box-only',
-          ...Platform.select({
-            android: {
-              background: TouchableNativeFeedback.SelectableBackground(),
-            },
-          }),
-        },
-        [
-          h(View, {key: 'p', style: styles.post}, [
-            markdownChild,
-            this.renderReadMore(),
-          ]),
-        ],
-      );
+      const touchableProps: any = {
+        onPress: this.onPressReadMore,
+        pointerEvents: 'box-only',
+      };
+      if (Platform.OS === 'android') {
+        touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+      }
+      return h(Touchable, touchableProps, [
+        h(View, {key: 'p', style: styles.post}, [
+          markdownChild,
+          this.renderReadMore(),
+        ]),
+      ]);
     } else {
       return h(View, {key: 'p', style: styles.post}, [markdownChild]);
     }
