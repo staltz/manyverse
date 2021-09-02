@@ -20,7 +20,7 @@ ADD https://dl.google.com/android/repository/commandlinetools-linux-7302050_late
 RUN chown -R node /home/node/Android/
 
 RUN su node -c "cd /home/node/Android && unzip commandlinetools-linux.zip && cd cmdline-tools/bin && \
-        yes | ./sdkmanager --sdk_root='/home/node/Android/' 'build-tools;28.0.3' 'cmake;3.6.4111459' 'ndk;20.1.5948944' 'platforms;android-29' 'tools' 'platform-tools'"
+        yes | ./sdkmanager --sdk_root='/home/node/Android/' 'build-tools;28.0.3' 'cmake;3.6.4111459' 'ndk;21.4.7075529' 'platforms;android-29' 'tools' 'platform-tools'"
 
 
 RUN npm install --global react-native-cli
@@ -34,7 +34,7 @@ RUN su node -c "mkdir /home/node/.gradle && echo -e \"MYAPP_RELEASE_STORE_FILE=d
 
 ENV PATH="/home/node/.cargo/bin:/home/node/Android/tools:/home/node/Android/tools/bin:/home/node/Android/platform-tools:${PATH}"
 ENV ANDROID_SDK_ROOT="/home/node/Android/"
-ENV ANDROID_NDK_HOME="${ANDROID_SDK_ROOT}ndk/20.1.5948944"
+ENV ANDROID_NDK_HOME="${ANDROID_SDK_ROOT}ndk/21.4.7075529"
 RUN su node -c "echo \"\nndk.dir=$ANDROID_NDK_HOME\" >> /home/node/.gradle/gradle.properties"
 
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

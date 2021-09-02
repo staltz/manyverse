@@ -98,13 +98,13 @@ If your target OS is Android, make sure you have the Android SDK CLI installed l
 Then use `sdkmanager` to install these components:
 
 ```
-sdkmanager 'build-tools;28.0.3' 'cmake;3.6.4111459' 'ndk;20.1.5948944' 'platforms;android-29' 'tools'
+sdkmanager 'build-tools;28.0.3' 'cmake;3.6.4111459' 'ndk;21.4.7075529' 'platforms;android-29' 'tools'
 ```
 
 You should also create the file `local.properties` in the `android` folder of this project, and set the contents of the file to this (note that you copy-pasting is not going to work!):
 
 ```
-ndk.dir=/path/to/your/android/sdk/ndk/20.1.5948944
+ndk.dir=/path/to/your/android/sdk/ndk/21.4.7075529
 ```
 
 Add your debug keystore information to the `~/.gradle/gradle.properties` file.
