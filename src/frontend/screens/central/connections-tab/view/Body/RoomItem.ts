@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import {PureComponent} from 'react';
+import {Component} from 'react';
 import {
   View,
   Text,
@@ -117,7 +117,7 @@ type RoomData = {
 
 type RoomKV = [string, RoomData];
 
-export default class RoomItem extends PureComponent<{
+export default class RoomItem extends Component<{
   room: RoomKV;
   onPressRoom?: (peer: RoomKV) => void;
 }> {
