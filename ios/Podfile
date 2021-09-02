@@ -4,7 +4,12 @@ require_relative '../node_modules/react-native/scripts/react_native_pods'
 
 target 'Manyverse' do
   config = use_native_modules!
-  use_react_native!(:path => config["reactNativePath"])
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :hermes_enabled => true
+  )
 
   # FIXME: Can we delete this? See https://github.com/wix/react-native-navigation/blob/master/CHANGELOG.md#remove-rnn-pod-from-podspec
   # pod 'ReactNativeNavigation', :podspec => '../node_modules/react-native-navigation/ReactNativeNavigation.podspec'
@@ -22,17 +27,10 @@ target 'Manyverse' do
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
-  # you should disable these next few lines.
-  # use_flipper!
-  # post_install do |installer|
-  #   flipper_post_install(installer)
-  # end
-end
+  # you should disable the next lines.
+  # use_flipper!()
 
-target 'Manyverse-tvOS' do
-  # Pods for Manyverse-tvOS
-  target 'Manyverse-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
+  post_install do |installer|
+    react_native_post_install(installer)
   end
 end

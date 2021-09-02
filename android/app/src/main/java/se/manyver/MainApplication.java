@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,7 +23,6 @@ import com.reactnativenavigation.react.ReactGateway;
 import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgeConfiguration;
 import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
-import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
 import org.acra.*;
 import org.acra.annotation.*;
@@ -110,7 +109,6 @@ public class MainApplication extends NavigationApplication {
         packages.add(new BluetoothSocketBridgePackage(bluetoothConfig));
         packages.add(new RNNodeJsMobilePackage());
         packages.add(new RNOSModule());
-        packages.add(new RNCViewPagerPackage());
         packages.add(new ReactSliderPackage());
         return packages;
       }

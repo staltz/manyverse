@@ -3,34 +3,36 @@
 
 const path = require('path');
 const OriginalResolver = require('metro-resolver');
-const blacklist = require('metro-config/src/defaults/blacklist');
+const blocklist = require('metro-config/src/defaults/exclusionList');
 
-const ignoreOnMobile = ['fs', 'nuka-carousel'];
+const IGNORE_ON_MOBILE = ['fs', 'nuka-carousel'];
 
 module.exports = {
   transformer: {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
-        inlineRequires: false,
+        inlineRequires: false, // true ?????????????
       },
     }),
   },
 
   resolver: {
     platforms: ['android', 'ios', 'web'],
-    blacklistRE: blacklist([
+    blacklistRE: blocklist([
       /\/android\/.*/,
       /\/desktop\/.*/,
       /\/benchmark\/.*/,
       /\/e2e\/.*/,
       /\/ios\/.*/,
+      /\/lib\/backend\/.*/,
       /\/nodejs-assets\/.*/,
       /\/patches\/.*/,
+      /\/src\/backend\/.*/,
       /\/tools\/.*/,
       // Not used in runtime (is either dev dependency or surely not used)
       /\/node_modules\/appium\/.*/,
-      // Used only by Electron for desktop
+      // Handled by Webpack (for Desktop), so Metro (for Mobile) can ignore:
       /\/node_modules\/@cycle\/react-dom\/.*/,
       /\/node_modules\/electron\/.*/,
       /\/node_modules\/electron\.*\/.*/,
@@ -40,7 +42,7 @@ module.exports = {
     ]),
     resolveRequest: (context, realModuleName, platform, moduleName) => {
       const platformIsMobile = platform !== 'web';
-      if (platformIsMobile && ignoreOnMobile.includes(moduleName)) {
+      if (platformIsMobile && IGNORE_ON_MOBILE.includes(moduleName)) {
         return {
           filePath: path.resolve(__dirname + '/noop.js'),
           type: 'sourceFile',
