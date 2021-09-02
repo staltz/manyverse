@@ -1038,11 +1038,7 @@
         "accessibility_label": "Copy Blob ID"
       },
       "copy_msg_id": "Copy cypherlink",
-      "view_raw": "Ukázať surovú správu",
-      "read_more": {
-        "label": "Čítať viac",
-        "accessibility_label": "Read more content in this thread"
-      }
+      "view_raw": "Ukázať surovú správu"
     },
     "toast": {
       "copied_to_clipboard": "Skopírované"

@@ -1038,11 +1038,7 @@
         "accessibility_label": "Αντιγραφή Blob ID"
       },
       "copy_msg_id": "Αντιγραφή cypherlink",
-      "view_raw": "Προβολή ανεπεξέργαστου μηνύματος",
-      "read_more": {
-        "label": "Διαβάστε περισσότερα",
-        "accessibility_label": "Διαβάστε περισσότερο περιεχόμενο σε αυτό το νήμα"
-      }
+      "view_raw": "Προβολή ανεπεξέργαστου μηνύματος"
     },
     "toast": {
       "copied_to_clipboard": "Αντιγράφηκε στο πρόχειρο"

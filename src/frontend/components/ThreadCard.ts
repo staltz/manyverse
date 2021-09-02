@@ -7,8 +7,16 @@
 import xs, {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import {PureComponent} from 'react';
-import {Platform, StyleSheet, View, ViewProps} from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  View,
+  ViewProps,
+} from 'react-native';
 import {h} from '@cycle/react';
+import Svg, {Rect, Defs, LinearGradient, Stop} from 'react-native-svg';
 import {FeedId, Msg, PostContent} from 'ssb-typescript';
 import {withXstreamProps} from 'react-xstream-hoc';
 import {
@@ -19,7 +27,6 @@ import {
   MsgAndExtras,
 } from '../ssb/types';
 import {getPostText} from '../ssb/utils/from-ssb';
-import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import MessageContainer from './messages/MessageContainer';
@@ -27,7 +34,11 @@ import MessageFooter from './messages/MessageFooter';
 import MessageHeader from './messages/MessageHeader';
 import ContentWarning from './messages/ContentWarning';
 import Markdown from './Markdown';
-import Button from './Button';
+
+const Touchable = Platform.select<any>({
+  android: TouchableNativeFeedback,
+  default: TouchableOpacity,
+});
 
 export interface Props {
   thread: ThreadSummaryWithExtras;
@@ -67,16 +78,13 @@ export const styles = StyleSheet.create({
 
   readMoreContainer: {
     position: 'absolute',
-    bottom: Dimensions.verticalSpaceSmall,
+    top: 0,
+    bottom: 0,
     right: 0,
     left: 0,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',
-  },
-
-  readMore: {
-    backgroundColor: Palette.backgroundText,
   },
 
   footer: {
@@ -90,6 +98,7 @@ const MessageFooter$ = withXstreamProps(MessageFooter, 'reactions');
 
 interface State {
   showReadMore: boolean;
+  markdownWidth: number;
 }
 
 export default class ThreadCard extends PureComponent<Props, State> {
@@ -99,6 +108,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
 
   public state = {
     showReadMore: false,
+    markdownWidth: 1,
   };
 
   /**
@@ -108,7 +118,10 @@ export default class ThreadCard extends PureComponent<Props, State> {
 
   private onMarkdownMeasured: ViewProps['onLayout'] = (ev) => {
     if (ev.nativeEvent.layout.height > POST_HEIGHT) {
-      this.setState({showReadMore: true});
+      this.setState({
+        showReadMore: true,
+        markdownWidth: ev.nativeEvent.layout.width,
+      });
     }
   };
 
@@ -123,6 +136,68 @@ export default class ThreadCard extends PureComponent<Props, State> {
   private onExpandCW = () => {
     this.props.onPressExpandCW?.(this.props.thread.root);
   };
+
+  public renderReadMore() {
+    const width = this.state.markdownWidth;
+    const height = POST_HEIGHT * 0.5;
+    return h(View, {style: styles.readMoreContainer}, [
+      h(Svg, {width, height}, [
+        h(Defs, [
+          h(LinearGradient, {id: 'grad', x1: '0', y1: '0', x2: '0', y2: '1'}, [
+            h(Stop, {
+              offset: '0',
+              stopColor: Palette.backgroundText,
+              stopOpacity: '0',
+            }),
+            h(Stop, {
+              offset: '1',
+              stopColor: Palette.backgroundText,
+              stopOpacity: '1',
+            }),
+          ]),
+        ]),
+        h(Rect, {
+          x: '0',
+          y: '0',
+          width,
+          height,
+          fill: 'url(#grad)',
+          strokeWidth: '0',
+        }),
+      ]),
+    ]);
+  }
+
+  public renderPost(root: Msg<PostContent>) {
+    const markdownChild = h(Markdown, {
+      key: 'md',
+      text: getPostText(root),
+      onLayout: this.onMarkdownMeasured,
+    });
+
+    if (this.state.showReadMore) {
+      return h(
+        Touchable,
+        {
+          onPress: this.onPressReadMore,
+          pointerEvents: 'box-only',
+          ...Platform.select({
+            android: {
+              background: TouchableNativeFeedback.SelectableBackground(),
+            },
+          }),
+        },
+        [
+          h(View, {key: 'p', style: styles.post}, [
+            markdownChild,
+            this.renderReadMore(),
+          ]),
+        ],
+      );
+    } else {
+      return h(View, {key: 'p', style: styles.post}, [markdownChild]);
+    }
+  }
 
   public render() {
     const {
@@ -161,28 +236,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
             opened: false,
             onPressToggle: this.onExpandCW,
           })
-        : h(View, {key: 'p', style: styles.post}, [
-            h(Markdown, {
-              key: 'md',
-              text: getPostText(root as Msg<PostContent>),
-              onLayout: this.onMarkdownMeasured,
-            }),
-            this.state.showReadMore
-              ? h(View, {key: 'rm', style: styles.readMoreContainer}, [
-                  h(Button, {
-                    text: t('message.call_to_action.read_more.label'),
-                    onPress: this.onPressReadMore,
-                    strong: false,
-                    small: true,
-                    style: styles.readMore,
-                    accessible: true,
-                    accessibilityLabel: t(
-                      'message.call_to_action.read_more.accessibility_label',
-                    ),
-                  }),
-                ])
-              : null,
-          ]),
+        : this.renderPost(root as Msg<PostContent>),
       h(MessageFooter$, {
         key: 'mf',
         style: styles.footer,

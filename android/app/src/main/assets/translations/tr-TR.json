@@ -1038,11 +1038,7 @@
         "accessibility_label": "Copy Blob ID"
       },
       "copy_msg_id": "Cypherlinki kopyala",
-      "view_raw": "Ham mesajı görüntüle",
-      "read_more": {
-        "label": "Daha fazla oku",
-        "accessibility_label": "Bu konudaki daha fazla içeriği okuyun"
-      }
+      "view_raw": "Ham mesajı görüntüle"
     },
     "toast": {
       "copied_to_clipboard": "Panoya kopyalandı"

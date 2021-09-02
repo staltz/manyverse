@@ -1038,11 +1038,7 @@
         "accessibility_label": "Copiar ID da Blob"
       },
       "copy_msg_id": "Copiar cypherlink",
-      "view_raw": "Ver mensagem crua",
-      "read_more": {
-        "label": "Leia mais",
-        "accessibility_label": "Leia mais conteúdo neste tópico"
-      }
+      "view_raw": "Ver mensagem crua"
     },
     "toast": {
       "copied_to_clipboard": "Copiado para a área de transferência"

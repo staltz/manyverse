@@ -1038,11 +1038,7 @@
         "accessibility_label": "Copiar ID de Blob"
       },
       "copy_msg_id": "Copiar enlace-cifrado",
-      "view_raw": "Ver mensaje en crudo",
-      "read_more": {
-        "label": "Leer más",
-        "accessibility_label": "Leer más contenido en este hilo"
-      }
+      "view_raw": "Ver mensaje en crudo"
     },
     "toast": {
       "copied_to_clipboard": "Copiado al portapapeles"

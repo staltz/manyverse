@@ -1038,11 +1038,7 @@
         "accessibility_label": "Copy Blob ID"
       },
       "copy_msg_id": "Copy cypherlink",
-      "view_raw": "View raw message",
-      "read_more": {
-        "label": "Tudj meg többet",
-        "accessibility_label": "Read more content in this thread"
-      }
+      "view_raw": "View raw message"
     },
     "toast": {
       "copied_to_clipboard": "Vágólapra másolva"

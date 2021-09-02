@@ -1038,11 +1038,7 @@
         "accessibility_label": "Copier l'ID du Blob"
       },
       "copy_msg_id": "Copier le lien de chiffrement",
-      "view_raw": "Afficher le message brut",
-      "read_more": {
-        "label": "En savoir plus",
-        "accessibility_label": "Lire plus de contenu dans ce flux"
-      }
+      "view_raw": "Afficher le message brut"
     },
     "toast": {
       "copied_to_clipboard": "Copié dans le presse-papier"

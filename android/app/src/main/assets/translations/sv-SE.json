@@ -1038,11 +1038,7 @@
         "accessibility_label": "Kopiera Blob-ID"
       },
       "copy_msg_id": "Kopiera cypher-länk",
-      "view_raw": "Visa rå-meddelande",
-      "read_more": {
-        "label": "Läs mer",
-        "accessibility_label": "Läs mer i denna tråd"
-      }
+      "view_raw": "Visa rå-meddelande"
     },
     "toast": {
       "copied_to_clipboard": "Kopierad till urklipp"

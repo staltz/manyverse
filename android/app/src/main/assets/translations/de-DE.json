@@ -1038,11 +1038,7 @@
         "accessibility_label": "Blob ID kopieren"
       },
       "copy_msg_id": "Cypherlink kopieren",
-      "view_raw": "Rohnachricht anzeigen",
-      "read_more": {
-        "label": "Mehr lesen",
-        "accessibility_label": "Mehr in diesem Thema lesen"
-      }
+      "view_raw": "Rohnachricht anzeigen"
     },
     "toast": {
       "copied_to_clipboard": "In Zwischenablage kopiert"

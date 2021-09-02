@@ -1038,11 +1038,7 @@
         "accessibility_label": "انسخ معرف الكائن الثنائي"
       },
       "copy_msg_id": "انسخ الرابط التخيلي",
-      "view_raw": "اعرض خام الرسالة",
-      "read_more": {
-        "label": "اقرأ المزيد",
-        "accessibility_label": "اقرأ محتوا أكثر من هذا الموضوع"
-      }
+      "view_raw": "اعرض خام الرسالة"
     },
     "toast": {
       "copied_to_clipboard": "نُسخ في الحافظة"

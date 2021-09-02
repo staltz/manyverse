@@ -1038,11 +1038,7 @@
         "accessibility_label": "Kopieer Blob ID"
       },
       "copy_msg_id": "Kopieer cypherlink",
-      "view_raw": "Ruw bericht weergeven",
-      "read_more": {
-        "label": "Lees meer",
-        "accessibility_label": "Lees meer in deze conversatie"
-      }
+      "view_raw": "Ruw bericht weergeven"
     },
     "toast": {
       "copied_to_clipboard": "Gekopieerd naar klembord"
