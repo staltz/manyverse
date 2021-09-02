@@ -51,7 +51,7 @@ Use node (preferably exactly) **`12.19.0`** and npm `6.x`. To manage node versio
 
 ### Rust
 
-Install Rust (preferably exactly) **`1.46.0`** and Cargo through [Rustup](https://rustup.rs/). Then, use Rustup to install cross-compilation support for various ARM architectures, like this:
+Install Rust (preferably exactly) **`1.54.0`** and Cargo through [Rustup](https://rustup.rs/). Then, use Rustup to install cross-compilation support for various ARM architectures, like this:
 
 #### Android
 
