@@ -14,7 +14,7 @@
     "propagate-replacements": "propagate-replacement-fields --field=react-native",
     "build-backend-desktop": "DONT_COMPILE=true ./tools/build-backend.js --desktop",
     "build-backend-android": "./tools/build-backend.js --android",
-    "build-backend-ios": "./tools/build-backend.js --ios",
+    "build-backend-ios": "./tools/build-backend.js --ios --no-rust",
     "build-frontend-desktop": "npm run lib && webpack --mode production --config desktop/webpack.config.js",
     "build-desktop": "npm run build-backend-desktop && npm run build-frontend-desktop",
     "build-ios-assets": "npm run lib && npm run propagate-replacements && npm run build-backend-ios",

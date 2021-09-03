@@ -58,22 +58,12 @@ async function runAndReport(label, task) {
     );
   }
 
-  if (!rustEnabled) {
+  if (!rustEnabled && targetPlatform !== 'ios') {
     await runAndReport(
-      'Disable Rust dependencies entirely',
+      'Remove Neon (Rust) dependencies from package.json',
       exec(`sed --in-place=.bu '/ssb-.*-neon/d' package.json`, {
         cwd: './src/backend',
-      })
-        .then(() =>
-          exec(`sed --in-place=.bu '/ssb-.*-neon/d' noderify-mobile.sh`, {
-            cwd: './tools/backend',
-          }),
-        )
-        .then(() =>
-          exec(`sed --in-place=.bu '/ssb-.*-neon/d' noderify-desktop.sh`, {
-            cwd: './tools/backend',
-          }),
-        ),
+      }),
     );
   }
 
@@ -101,6 +91,20 @@ async function runAndReport(label, task) {
       'Install backend node modules',
       exec('npm install --no-optional', {
         cwd: './nodejs-assets/nodejs-project',
+      }),
+    );
+  }
+
+  if (!rustEnabled && targetPlatform === 'ios') {
+    const rustNodeModules = [
+      'ssb-keys-neon',
+      'ssb-keys-mnemonic-neon',
+      'ssb-validate2-rsjs-node',
+    ];
+    await runAndReport(
+      'Remove Rust node modules',
+      exec('rm -rf ' + rustNodeModules.join(' '), {
+        cwd: './nodejs-assets/nodejs-project/node_modules',
       }),
     );
   }
@@ -161,15 +165,29 @@ async function runAndReport(label, task) {
   }
 
   if (targetPlatform === 'desktop') {
-    await runAndReport(
-      'Bundle and minify backend JS into one file',
-      exec('./tools/backend/noderify-desktop.sh'),
-    );
+    if (rustEnabled) {
+      await runAndReport(
+        'Bundle and minify backend JS into one file',
+        exec('./tools/backend/noderify-desktop.sh'),
+      );
+    } else {
+      await runAndReport(
+        'Bundle and minify backend JS into one file',
+        exec('./tools/backend/noderify-desktop-no-rust.sh'),
+      );
+    }
   } else {
-    await runAndReport(
-      'Bundle and minify backend JS into one file',
-      exec('./tools/backend/noderify-mobile.sh'),
-    );
+    if (rustEnabled) {
+      await runAndReport(
+        'Bundle and minify backend JS into one file',
+        exec('./tools/backend/noderify-mobile.sh'),
+      );
+    } else {
+      await runAndReport(
+        'Bundle and minify backend JS into one file',
+        exec('./tools/backend/noderify-mobile-no-rust.sh'),
+      );
+    }
   }
 
   if (targetPlatform === 'android') {
@@ -188,22 +206,12 @@ async function runAndReport(label, task) {
     );
   }
 
-  if (!rustEnabled) {
+  if (!rustEnabled && targetPlatform !== 'ios') {
     await runAndReport(
-      'Restore Rust dependencies after building without Rust',
+      'Restore Neon (Rust) dependencies in package.json',
       exec(`mv package.json.bu package.json`, {
         cwd: './src/backend',
-      })
-        .then(() =>
-          exec(`mv noderify-mobile.sh.bu noderify-mobile.sh`, {
-            cwd: './tools/backend',
-          }),
-        )
-        .then(() =>
-          exec(`mv noderify-desktop.sh.bu noderify-desktop.sh`, {
-            cwd: './tools/backend',
-          }),
-        ),
+      }),
     );
   }
 })();
