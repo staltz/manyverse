@@ -322,25 +322,51 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
         }
       }
 
-      return $(
-        Text,
-        {
-          ...textProps,
-          style: isCypherlink ? styles.cypherlink : styles.link,
-          onPress: () => {
-            if (feedId) {
-              GlobalEventBus.dispatch({type: 'triggerFeedCypherlink', feedId});
-            } else if (msgId) {
-              GlobalEventBus.dispatch({type: 'triggerMsgCypherlink', msgId});
-            } else if (hashtag) {
-              GlobalEventBus.dispatch({type: 'triggerHashtagLink', hashtag});
-            } else {
-              Linking.openURL(props.href);
-            }
+      if (isCypherlink) {
+        return $(
+          Text,
+          {
+            ...textProps,
+            style: styles.cypherlink,
+            onPress: () => {
+              if (feedId) {
+                GlobalEventBus.dispatch({
+                  type: 'triggerFeedCypherlink',
+                  feedId,
+                });
+              } else if (msgId) {
+                GlobalEventBus.dispatch({type: 'triggerMsgCypherlink', msgId});
+              } else if (hashtag) {
+                GlobalEventBus.dispatch({type: 'triggerHashtagLink', hashtag});
+              } else {
+                throw new Error('unreachable');
+              }
+            },
           },
-        },
-        child ?? props.children,
-      );
+          child ?? props.children,
+        );
+      } else if (Platform.OS === 'web') {
+        return $(
+          'a',
+          {
+            style: {textDecoration: 'underline', color: Palette.text},
+            href: props.href,
+          },
+          child ?? props.children,
+        );
+      } else {
+        return $(
+          Text,
+          {
+            ...textProps,
+            style: styles.link,
+            onPress: () => {
+              Linking.openURL(props.href);
+            },
+          },
+          child ?? props.children,
+        );
+      }
     },
 
     inlineCode: (props: {children: any}) =>
