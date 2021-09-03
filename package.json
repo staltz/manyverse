@@ -135,7 +135,7 @@
     "ssb-typescript": "2.5.0",
     "ssb-uri2": "^1.0.2",
     "strip-markdown-oneline": "1.0.3",
-    "url-parse": "1.5.1",
+    "url-parse": "1.5.2",
     "xstream": "11.13",
     "xstream-between": "1.0",
     "xstream-drop-repeats-by-keys": "1.1",
