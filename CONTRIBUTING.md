@@ -547,6 +547,16 @@ Then make an iOS release:
 - `npm run release-ios` to compile the iOS IPA
 - `git push origin master` to update the repository
 - Once done, it should open an _Organizer_ window where you must upload the new version to App Store
+- If you want to upload to Apple, do this:
+  - In the _Organizer_, press "Distribute App"
+  - "App Store Connect"
+  - "**Upload**"
+  - Proceed as usual
+- If you want to test it on BrowserStack Live, do this:
+  - In the _Organizer_, press "Distribute App"
+  - "App Store Connect"
+  - "**Export**"
+  - Proceed as usual, and at the very end, press "Export" and choose a folder
 
 ### Publish
 
