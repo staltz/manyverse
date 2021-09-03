@@ -89,7 +89,8 @@ export const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         position: 'absolute',
-        top: getStatusBarHeight() + Dimensions.verticalSpaceIOSTitle,
+        top: Dimensions.verticalSpaceTiny,
+        bottom: 0,
         left: 40,
         right: 40,
         textAlign: 'center',
@@ -118,11 +119,7 @@ function intent(reactSource: ReactSource) {
 
 function tabTitle(tab: State['currentTab']) {
   if (tab === 'public') {
-    if (Platform.OS === 'ios') {
-      return t('central.app_name');
-    } else {
-      return t('central.tab_headers.public');
-    }
+    return t('central.tab_headers.public');
   }
   if (tab === 'private') {
     return t('central.tab_headers.private');
@@ -138,6 +135,7 @@ function tabTitle(tab: State['currentTab']) {
 
 function calcTranslateY(scrollY: Animated.Value) {
   if (Platform.OS === 'web') return new Animated.Value(0);
+  if (Platform.OS === 'ios') return new Animated.Value(0);
   const minScroll = -getStatusBarHeight(true);
   const clampedScrollY = scrollY.interpolate({
     inputRange: [minScroll, minScroll + 1],
@@ -152,7 +150,12 @@ function calcTranslateY(scrollY: Animated.Value) {
   return Animated.multiply(translateY, -1);
 }
 
+/**
+ * TODO: Disabled for all platforms. This originally was meant for iOS only,
+ * but we have issue #811. We should fix #811 and *then* re-enable this.
+ */
 function calcOpacity(scrollY: Animated.AnimatedMultiplication) {
+  if (Platform.OS === 'ios') return new Animated.Value(1);
   if (Platform.OS === 'web') return new Animated.Value(1);
   if (Platform.OS === 'android') return new Animated.Value(1);
 

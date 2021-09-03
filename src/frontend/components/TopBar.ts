@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         position: 'absolute',
-        top: getStatusBarHeight() + Dimensions.verticalSpaceIOSTitle,
+        top: Dimensions.verticalSpaceTiny,
+        bottom: 0,
         left: 40,
         right: 40,
         textAlign: 'center',
