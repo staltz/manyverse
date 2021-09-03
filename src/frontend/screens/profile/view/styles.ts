@@ -115,6 +115,12 @@ export const styles = StyleSheet.create({
           COVER_HEIGHT -
           Typography.fontSizeLarge * 2.55,
       },
+      ios: {
+        top:
+          Dimensions.toolbarHeight +
+          COVER_HEIGHT -
+          Typography.fontSizeLarge * 3.05,
+      },
     }),
   },
 
@@ -163,6 +169,12 @@ export const styles = StyleSheet.create({
           Dimensions.toolbarHeight +
           COVER_HEIGHT -
           Typography.fontSizeLarge * 1.1,
+      },
+      ios: {
+        top:
+          Dimensions.toolbarHeight +
+          COVER_HEIGHT -
+          Typography.fontSizeLarge * 1.6,
       },
     }),
   },
