@@ -202,13 +202,10 @@ export default function view(state$: Stream<State>) {
       ]),
     )
     .map((state) => {
-      const isHashtag =
-        state.query.startsWith('#') || state.queryOverride.startsWith('#');
-
       return h(View, {style: styles.screen}, [
         h(TopBar, {sel: 'topbar'}, [
           h(SettableTextInput, {
-            style: [styles.queryInput, isHashtag ? styles.bold : null],
+            style: styles.queryInput,
             sel: 'queryInput',
             nativeID: 'FocusViewOnResume',
             nativePropsAndFocus$: setInputNativeProps$,
