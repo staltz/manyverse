@@ -16,6 +16,7 @@ import {State} from './model';
 interface Actions {
   goToSelfProfile$: Stream<any>;
   showRawDatabase$: Stream<any>;
+  changeTab$: Stream<any>;
 }
 
 export default function navigation(
@@ -55,5 +56,9 @@ export default function navigation(
       } as PushCommand),
   );
 
-  return xs.merge(toSelfProfile$, toRawDatabase$);
+  const popToRoot$ = actions.changeTab$.map(
+    () => ({type: 'popToRoot'} as Command),
+  );
+
+  return xs.merge(toSelfProfile$, toRawDatabase$, popToRoot$);
 }
