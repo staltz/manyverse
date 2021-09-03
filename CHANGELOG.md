@@ -7,7 +7,27 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
-## 0.2108.2-beta
+## 0.2109.3-beta
+
+* (Android) Disable support for Android 5.1 and lower ([see details](https://gitlab.com/staltz/manyverse/commit/f8ed62add5f1cad3480f20870be03e822a565238))
+* (Android) Support animated GIFs ([see details](https://gitlab.com/staltz/manyverse/commit/7db4a74c3b76fbd7ae9d7f0921ab25f7236446cd))
+* (iOS) Bug fix: top bar should not glitch when scrolling ([see details](https://gitlab.com/staltz/manyverse/commit/b9f53be1643014cca91c277abe4f3c020763127a)), closes [#811](https://gitlab.com/staltz/manyverse/issues/811)
+* Bug fix: format of data on RawMessage screen ([see details](https://gitlab.com/staltz/manyverse/commit/3704a55a40eb3252e32ad6d7097a2fc2177ddeb7))
+* Bug fix: search field should not stall ([see details](https://gitlab.com/staltz/manyverse/commit/8cdc79e57c120afc2b24d3d5c639950982d9bf08))
+* Feature: hashtags ([see details](https://gitlab.com/staltz/manyverse/commit/c66932e0cffcdfdb407de3c9159098be9e45f9fe))
+* Feature: support SSB URIs in the search box ([see details](https://gitlab.com/staltz/manyverse/commit/47698be213ae0b96b3ace3433e40def1c5bc3e31))
+* Improve header style on the Profile screen ([see details](https://gitlab.com/staltz/manyverse/commit/c4fe2c76f3e4e0bce86d48a6a8c0d63ef0c388af))
+* Improve how often friend requests appear ([see details](https://gitlab.com/staltz/manyverse/commit/6ae735c5c5d5f96c7db3894b74e0a699bc08034e))
+* Improve performance of database indexing ([see details](https://gitlab.com/staltz/manyverse/commit/9bad9e1bc45c2d2a6b4d9536f74f5cf7a258b91e))
+* Improve style of the 8-emoji reaction menu ([see details](https://gitlab.com/staltz/manyverse/commit/39904914e09d5badbc00a975043f21c006f6121f))
+* Improve the style of message placeholders ([see details](https://gitlab.com/staltz/manyverse/commit/0a4747330676c69ef40a4e61b9159075a0e4bd07))
+* Improve usability of pinch-to-zoom on images ([see details](https://gitlab.com/staltz/manyverse/commit/268bd102adc451858b720b136335bf886cd2e783))
+* Improved translations to Arabic, German, Italian ([see details](https://gitlab.com/staltz/manyverse/commit/dbd746b3afc77cc5d15e518c7fa9e5bcd482bef5))
+* New gradient style to replace "Read more" button ([see details](https://gitlab.com/staltz/manyverse/commit/6ee2a0f3c355e2bd4343495a8c7c1b7476d7194a))
+* New translations for Chinese Simplified ([see details](https://gitlab.com/staltz/manyverse/commit/187f9e85c8cc02f974d02bca4911b3e970756a35))
+* Support language dialects fallback ([see details](https://gitlab.com/staltz/manyverse/commit/63e9e13797edfd97bd241f1b8311db2ffd758004))
+
+## 0.2109.3-beta
 
 * Bug fix: portrait on Biography screen can resize ([see details](https://gitlab.com/staltz/manyverse/commit/4426ad60898813ee5cced50b333e936180d850c9))
 * Bug fix: show images in landscape Welcome and Backup ([see details](https://gitlab.com/staltz/manyverse/commit/cccc342315bfbb08752e1f4b67e739f2023f0f61))
