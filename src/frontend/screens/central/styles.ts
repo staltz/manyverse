@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     height:
       Dimensions.toolbarHeight -
       getStatusBarHeight(true) +
-      (isIPhoneWithMonobrow() ? 15 : 8),
+      (isIPhoneWithMonobrow() ? 15 : Platform.OS === 'ios' ? 8 : 0),
     borderTopColor: Palette.textLine,
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: Palette.backgroundText,
