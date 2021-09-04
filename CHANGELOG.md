@@ -7,6 +7,11 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2109.4-beta
+
+* (Android) Bug fix: should not crash on Android 6.0.1 ([see details](https://gitlab.com/staltz/manyverse/commit/2c74116ad7428f7d2261c5a3f650711c679fe3d3))
+* Improve Hungarian translation ([see details](https://gitlab.com/staltz/manyverse/commit/5d665ba3a615a8a5a0afdd440d71aa5eda9a25c1))
+
 ## 0.2109.3-beta
 
 * (Android) Disable support for Android 5.1 and lower ([see details](https://gitlab.com/staltz/manyverse/commit/f8ed62add5f1cad3480f20870be03e822a565238))
