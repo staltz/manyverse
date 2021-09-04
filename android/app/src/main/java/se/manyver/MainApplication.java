@@ -38,6 +38,11 @@ import java.util.UUID;
 @AcraDialog(resText = R.string.acra_dialog_text, resCommentPrompt = R.string.acra_dialog_comment)
 public class MainApplication extends NavigationApplication {
 
+  // Android 6.0.1 (23) really needs this:
+  static {
+    System.loadLibrary("sodium");
+  }
+
   @Override
   protected void attachBaseContext(Context base) {
     super.attachBaseContext(base);
