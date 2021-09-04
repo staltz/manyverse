@@ -176,56 +176,56 @@
       "connections": "Kapcsolatok"
     },
     "loading": "Betöltés...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "building_indexes": "Adatbázis indexek építése...\nEz több percig is tarthat",
     "tabs": {
       "public": {
-        "accessibility_label": "Public Tab Button"
+        "accessibility_label": "Nyilvános lap gomb"
       },
       "private": {
-        "accessibility_label": "Private Tab Button"
+        "accessibility_label": "Privát lap gomb"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "Aktivitás lap gomb"
       },
       "connections": {
-        "accessibility_label": "Connections Tab Button"
+        "accessibility_label": "Csatlakozások lap gomb"
       }
     }
   },
   "public": {
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Írj egy nyilvános üzenetet"
     },
     "empty": {
-      "title": "No messages",
-      "description": "Write a diary to be\nshared with friends later"
+      "title": "Nincsenek üzenetek",
+      "description": "Írj egy naplót, hogy\nkésőbb megoszthasd barátaiddal"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Keresés gomb"
     }
   },
   "private": {
     "floating_action_button": {
-      "compose": "Start a private conversation"
+      "compose": "Indíts egy privát beszélgetést"
     },
     "empty": {
-      "title": "No conversations",
-      "description": "Start a private conversation\nwith any of your friends"
+      "title": "Nincsenek beszélgetések",
+      "description": "Kezdj egy privát beszélgetést\nakármelyik barátoddal"
     },
     "conversation": {
-      "accessibility_label": "Go To Conversation"
+      "accessibility_label": "Menjen a beszélgetéshez"
     }
   },
   "accounts": {
     "reactions": {
-      "title": "Reactions"
+      "title": "Reakciók"
     },
     "recipients": {
-      "title": "Recipients"
+      "title": "Címzettek"
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "Menjen a fiókra"
       }
     }
   },
@@ -234,64 +234,64 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " megemlített téged"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " követ téged"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " csatlakozni akar"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "Nincs aktivitás",
+      "description": "Amikor megemlítenek vagy követnek téged,\nitt fog megjelenni"
     }
   },
   "connections": {
     "floating_action_button": {
-      "create_invite": "Create invite",
+      "create_invite": "Meghívás létrehozása",
       "paste_invite": "Meghívó beillesztése",
-      "bluetooth_seek": "Bluetooth seek"
+      "bluetooth_seek": "Bluetooth keresés"
     },
     "empty": {
       "offline": {
         "title": "Offline",
-        "description": "Turn on some connection mode\nor enjoy reading some existing content"
+        "description": "Kapcsolj be néhány csatlakozási módot\nvagy élvezz néhány létező tartalom olvasását"
       },
       "connecting": {
         "title": "Csatlakozás",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "description": "Várjon míg az alkalmazás\nmegpróbál csatlakozni a társaidhoz"
       },
       "no_peers": {
-        "title": "No connections",
-        "description": "Try syncing with people nearby\nor use a server invite code"
+        "title": "Nincsenek csatlakozások",
+        "description": "Próbálj szinkronizálni emberekkel a közeledben\nvagy használj egy szerver meghívó kódot"
       }
     },
     "toasts": {
       "invite_accepted": "Meghívó elfogadva",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "invite_rejected": "Meghívó elutasítva. Biztos vagy benne, hogy helyes?",
+      "connecting_to_alias": "Csatlakozás hozzá: {{alias}}",
+      "connected_to_alias": "Csatlakozva ide: {{alias}}",
+      "not_connected_to_alias": "{{alias}} éppen offline"
     },
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "Engedélyezed a bejelentkezést?",
+          "description": "Látogasd meg {{room}} oldalát, hogy meghívókat hozz létre, vagy kezeld a tagokat. Megakarod nyitni Manyverset a bejelentkezéshez?\n\nA szoba ID-je: {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "title": "Engedélyezed a bejelentkezést?",
+          "description": "Egy böngésző jogosultságot kérelmez tőled, hogy azonosítson téged. Be akarsz jelentkezni {{room}} szerverre?\n\nAz ID-je: {{roomid}}"
         }
       }
     },
@@ -303,15 +303,15 @@
           "connected": "Internet P2P"
         },
         "room": {
-          "server": "Room server",
-          "endpoint": "Room peer",
-          "alone_online": "(only you online)",
+          "server": "Szoba szerver",
+          "endpoint": "Szoba tag",
+          "alone_online": "(csak te vagy online)",
           "others_online": {
             "one": "({{count}} online)",
             "other": "({{count}} online)"
           }
         },
-        "pub": "Pub server",
+        "pub": "Pub szerver",
         "server": "Kiszolgáló",
         "unknown": "Ismeretlen"
       }
@@ -324,20 +324,20 @@
         "title": "Bluetooth",
         "accessibility_label": "Bluetooth mód",
         "disabled": "(Kapcsold be a Bluetooth-t a használatához)",
-        "description": "Discover users nearby and connect with them using Bluetooth.",
+        "description": "Fedezz fel felhasználókat közeledben és csatlakozz hozzájuk Bluetooth-tal.",
         "permission_request": {
-          "title": "Allow locating via Bluetooth?",
-          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
+          "title": "Engedélyezi a helymeghatározást Bluetooth-tal?",
+          "message": "Manyversenek szüksége van Bluetoothra, hogy felfedezze hol van (nem-pontos helymeghatározás) és milyen tagok vannak a környékeden."
         }
       },
       "wifi": {
         "title": "Wi-Fi hálózatra",
-        "accessibility_label": "Wi-Fi Mode",
-        "disabled": "(Turn on Wi-Fi to use this)",
-        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
+        "accessibility_label": "Wi-Fi mód",
+        "disabled": "(Kapcsold be a wifit a használatához)",
+        "description": "Csatlakozz barátokkal ugyanazon a LAN-on, más szavakkal barátokkal ugyanazon a wifin."
       },
       "servers": {
-        "title": "Internet servers",
+        "title": "Internet szerverekkel",
         "accessibility_label": "Internet Servers Mode",
         "disabled": "(Go online to use this)",
         "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
@@ -473,52 +473,52 @@
       "accessibility_label": "Content Warning Button"
     },
     "mention_field": {
-      "accessibility_label": "Mention Account Text Input"
+      "accessibility_label": "Fiók megemlítés szöveges bevitel"
     },
     "text_field": {
-      "placeholder": "Write a public message",
-      "accessibility_label": "Compose Text Input"
+      "placeholder": "Írj egy nyilvános üzenetet",
+      "accessibility_label": "Üzenetírás szöveges bevitel"
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "Hangklip üzenet",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "Felvétel indítása"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "Felvétel leállítása"
       },
       "discard_recording": {
-        "label": "Discard",
-        "accessibility_label": "Discard Recording Button"
+        "label": "Eldobás",
+        "accessibility_label": "Felvétel eldobása gomb"
       },
       "submit_recording": {
         "label": "Kész",
-        "accessibility_label": "Submit Recording Button"
+        "accessibility_label": "Felvétel elküldése gomb"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
-        "question": "Discard draft?"
+        "title": "Hangklip üzenet",
+        "question": "Vázlat eldobása?"
       }
     }
   },
   "backup": {
     "title": "Biztonsági mentés",
     "introduction": {
-      "title": "Your account has\ntwo parts to keep safe"
+      "title": "A fiókodnak\nkét része van amit biztonságban kell tartani"
     },
     "data": {
-      "title": "Data",
+      "title": "Adat",
       "description": {
-        "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
-        "2_bold": "crowd backup",
-        "3_normal": ". You only need to ",
-        "4_bold": "synchronize with reliable friends",
-        "5_normal": " or other devices you own. There is ",
-        "6_bold": "nothing else to do",
+        "1_normal": "Ez a fiókod posztjai, üzenetei, képei, lájkolásai és hasonló aktivitások. A biztonságában tartásához ",
+        "2_bold": "tömeges biztonsági másolat",
+        "3_normal": "ot használunk. Neked csak ",
+        "4_bold": "szinkronizálni kell megbízható barátokkal",
+        "5_normal": " vagy egyéb eszközeiddel. ",
+        "6_bold": "Nincsen más teendőd",
         "7_normal": ", just use Manyverse often and your friends are backing you up!"
       },
       "call_to_action": {
