@@ -519,56 +519,56 @@
         "4_bold": "szinkronizálni kell megbízható barátokkal",
         "5_normal": " vagy egyéb eszközeiddel. ",
         "6_bold": "Nincsen más teendőd",
-        "7_normal": ", just use Manyverse often and your friends are backing you up!"
+        "7_normal": ", csak használd Manyverset gyakran és barátaid biztonságban tartják az adataidat!"
       },
       "call_to_action": {
         "acknowledge": {
-          "label": "I understand",
-          "accessibility_label": "Acknowledge"
+          "label": "Megértettem",
+          "accessibility_label": "Elfogadás"
         }
       }
     },
     "identity": {
-      "title": "Identity",
+      "title": "Személyazonosság",
       "description": {
-        "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
-        "2_bold": "recovery phrase",
-        "3_normal": ". This is a sequence of 24 words that unlocks your account. ",
-        "4_bold": "Keep it confidential",
-        "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
-        "6_bold": "Take responsibility",
-        "7_normal": " over it, since you and only you can recover your account!"
+        "1_normal": "A fiókod \"ujjlenyomata\" feláll több nagyon egyedi ",
+        "2_bold": "visszaállítási mondatból",
+        "3_normal": ". Ez a 24 szóból álló sorozat feloldja a fiókodat. ",
+        "4_bold": "Tartsa bizalmasan",
+        "5_normal": ", ugyanis ha más hozzájut, akkor el tudják venni a fiókod irányítását. ",
+        "6_bold": "Legyen felelősségteljes",
+        "7_normal": " ugyanis csak és csak Ön tudja visszaállítani a fiókját!"
       },
       "call_to_action": {
-        "show_recovery_phrase": "Show Recovery Phrase"
+        "show_recovery_phrase": "Mutassa a Visszaállító mondatot"
       }
     }
   },
   "biography": {
     "picture": {
-      "accessibility_label": "Biographic Picture"
+      "accessibility_label": "Életrajzi kép"
     },
     "description": {
-      "accessibility_label": "Biographic Description"
+      "accessibility_label": "Életrajzi leírás"
     }
   },
   "conversation": {
-    "title": "Conversation",
-    "placeholder": "Type a message...",
+    "title": "Beszélgetés",
+    "placeholder": "Írj egy üzenetet...",
     "call_to_action": {
       "show_recipients": {
-        "accessibility_label": "Show Recipients"
+        "accessibility_label": "Mutassa a címzetteket"
       }
     },
     "notifications": {
-      "new_conversation": "This is a new private conversation"
+      "new_conversation": "Ez egy új privát beszélgetés"
     }
   },
   "dialog_about": {
     "title": "A Manyverse-ről",
-    "version": "Version {{version}}",
-    "copyright": "Copyright (C)",
-    "authors": "The Manyverse Authors",
+    "version": "Verzió {{version}}",
+    "copyright": "Szerzői jog (C)",
+    "authors": "A Manyverse szerzői",
     "repository": "Open source repository",
     "licensed": "Licensed {{license}}"
   },
