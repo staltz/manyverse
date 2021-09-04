@@ -71,17 +71,17 @@ const styles = StyleSheet.create({
   },
 });
 
-type State = {
+interface State {
   loaded: boolean;
   fullscreen: boolean;
   fullwidth: number;
   fullheight: number;
-};
+}
 
-type Props = {
+interface Props {
   src: string;
   title?: string;
-};
+}
 
 export default class ZoomableImage extends PureComponent<Props, State> {
   public state = {
@@ -91,20 +91,34 @@ export default class ZoomableImage extends PureComponent<Props, State> {
     fullheight: 200,
   };
 
-  private onOpen = () => this.setState({fullscreen: true});
-  private onClose = () => this.setState({fullscreen: false});
-  private onLoad = () => this.setState({loaded: true});
+  private mounted = false;
+  private onOpen = () => {
+    if (this.mounted) this.setState({fullscreen: true});
+  };
+  private onClose = () => {
+    if (this.mounted) this.setState({fullscreen: false});
+  };
+  private onLoad = () => {
+    if (this.mounted) this.setState({loaded: true});
+  };
 
   public componentDidMount() {
+    this.mounted = true;
     const win = Dimensions.get('window');
     Image.getSize(
       this.props.src,
       (imgWidth: number, imgHeight: number) => {
-        const ratio = imgHeight / imgWidth;
-        this.setState({fullwidth: win.width, fullheight: win.width * ratio});
+        if (this.mounted) {
+          const ratio = imgHeight / imgWidth;
+          this.setState({fullwidth: win.width, fullheight: win.width * ratio});
+        }
       },
       () => {},
     );
+  }
+
+  public componentWillUnmount() {
+    this.mounted = false;
   }
 
   public renderFooter(img: {uri: string}) {
