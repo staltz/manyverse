@@ -1,124 +1,124 @@
 {
   "call_to_action": {
     "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "remove": "Remove",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "add": "加",
+    "done": "完成",
+    "cancel": "取消",
+    "continue": "繼續",
+    "delete": "刪除",
+    "remove": "移除",
+    "save": "儲存",
+    "yes": "是",
+    "no": "否",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "選單按鈕"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "倒退按鈕"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "關閉按鈕"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "對話的關閉按鈕"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "一年前",
+          "other": "{{count}} 年前"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "一個月前",
+          "other": "{{count}} 個月前"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "一年前星期前",
+          "other": "{{count}} 個星期前"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "一天前",
+          "other": "{{count}} 天前"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "一個小時前",
+          "other": "{{count}} 個小時前"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "一分鐘前",
+          "other": "{{count}} 分鐘前"
         },
-        "now": "Just now"
+        "now": "現在"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "一年後",
+          "other": "{{count}} 年後"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "一個月後",
+          "other": "{{count}} 個月後"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "一個星期後",
+          "other": "{{count}} 個星期後"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "一天後",
+          "other": "{{count}} 天後"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "一個小時後",
+          "other": "{{count}} 個小時後"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "一分鐘後",
+          "other": "{{count}} 分鐘後"
         },
-        "now": "Very soon"
+        "now": "不久後"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "學習更多",
     "overview": {
-      "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "title": "歡迎加入 Manyverse！",
+      "description": "社交網絡理應簡單、中立、不傾向於商業化而且建立在與朋友間的信任上。此為 Manyverse 的立場，我們希望你能把這裡當做是你在數位世界的家。而 SSB 協定的萌生使這些想法得以實現。"
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "離線",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "雖然說 Manyverse 會透過網際網路進行連結，但它不會 ",
+        "2_bold": "留",
+        "3_normal": " 在網際網路上。所有活動都是在終端設備上發生的。也就是說在設備離線的狀態下亦是可使用的。 ",
+        "4_bold": "你所持有的內容都是首先保存在你的設備上",
+        "5_normal": "，並且，在與朋友連接上時，能將彼此互相同步。"
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "多重的連結方式",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
+          "1_normal": "要與附近的朋友們同步，得先連至相同的 ",
           "2_bold": "Wi-Fi",
-          "3_normal": ". To find new people on the internet, look for an invite code to a ",
-          "4_bold": "pub server",
-          "5_normal": " or a ",
-          "6_bold": "room server",
-          "7_normal": ", or start your own server!"
+          "3_normal": "。要在網際網路上尋找新朋友，就先找邀請碼，得以進入 ",
+          "4_bold": "公眾伺服器",
+          "5_normal": " 或是 ",
+          "6_bold": "聊天室伺服器",
+          "7_normal": "或者是自行開設伺服器！"
         },
         "default": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
+          "1_normal": "要與附近的朋友們連結與同步，要不得先連至相同的 ",
           "2_bold": "Wi-Fi",
-          "3_normal": ", or use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "3_normal": "，要不就是使用 ",
+          "4_bold": "藍牙同步",
+          "5_normal": "。要在網際網路上尋找新朋友，就先找邀請碼，得以進入 ",
+          "6_bold": "公眾伺服器",
+          "7_normal": " 或是 ",
+          "8_bold": "聊天室伺服器",
+          "9_normal": "或者是自行開設伺服器！"
         }
       }
     },
@@ -147,16 +147,16 @@
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
-      "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
+      "title": "是首次使用嗎？",
+      "description": "請問你是要建立新帳號，或是以二十四字救援用詞將舊帳號復活呢？",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "建立帳號",
+          "accessibility_label": "建立帳號鈕"
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "將舊帳號復活",
+          "accessibility_label": "帳號復活鈕"
         }
       }
     }
@@ -164,19 +164,19 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public posts",
-      "private": "Private chats",
-      "activity": "Activity",
-      "connections": "Connections"
+      "public": "公開的貼文",
+      "private": "私密聊天",
+      "activity": "活動",
+      "connections": "連結"
     },
     "tab_footers": {
-      "public": "Public",
-      "private": "Private",
-      "activity": "Activity",
-      "connections": "Connections"
+      "public": "公開的",
+      "private": "祕密的",
+      "activity": "活動",
+      "connections": "連結"
     },
-    "loading": "Loading...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "loading": "載入中",
+    "building_indexes": "資料索引建立中… 可能會花上好幾分鐘",
     "tabs": {
       "public": {
         "accessibility_label": "Public Tab Button"
@@ -194,10 +194,10 @@
   },
   "public": {
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "撰寫公開訊息"
     },
     "empty": {
-      "title": "No messages",
+      "title": "無訊息",
       "description": "Write a diary to be\nshared with friends later"
     },
     "search": {
@@ -209,23 +209,23 @@
       "compose": "Start a private conversation"
     },
     "empty": {
-      "title": "No conversations",
+      "title": "無對話",
       "description": "Start a private conversation\nwith any of your friends"
     },
     "conversation": {
-      "accessibility_label": "Go To Conversation"
+      "accessibility_label": "前往對話"
     }
   },
   "accounts": {
     "reactions": {
-      "title": "Reactions"
+      "title": "反應"
     },
     "recipients": {
-      "title": "Recipients"
+      "title": "收訊者"
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "前往帳號"
       }
     }
   },
@@ -234,86 +234,86 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " 提到你了"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " 跟隨你了"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " 想連結"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "無活動",
+      "description": "倘若有人提到你或跟隨了你，會顯示在這裡。"
     }
   },
   "connections": {
     "floating_action_button": {
-      "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
-      "bluetooth_seek": "Bluetooth seek"
+      "create_invite": "建立邀請碼",
+      "paste_invite": "貼邀請碼",
+      "bluetooth_seek": "藍牙同步"
     },
     "empty": {
       "offline": {
-        "title": "Offline",
-        "description": "Turn on some connection mode\nor enjoy reading some existing content"
+        "title": "離線",
+        "description": "若既有的內容無法盡興的話，就將一些連接模式打開吧。"
       },
       "connecting": {
-        "title": "Connecting",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "連結中",
+        "description": "正在試著與同伴相連，請稍待"
       },
       "no_peers": {
-        "title": "No connections",
+        "title": "無連結",
         "description": "Try syncing with people nearby\nor use a server invite code"
       }
     },
     "toasts": {
       "invite_accepted": "Invite accepted",
       "invite_rejected": "Invite rejected. Are you sure it was correct?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "connecting_to_alias": "正在連結至 {{alias}}",
+      "connected_to_alias": "連結至 {{alias}} 了",
+      "not_connected_to_alias": "{{alias}} 現在為離線的"
     },
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "允許登入嗎？",
+          "description": "拜訪 {{room}} 的網站，便可建立邀請連結以及進行成員管理。你要使用 Manyverse 來登入嗎？\n\n聊天室的代號為 {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
+          "title": "允許登入嗎？",
           "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
         }
       }
     },
     "peers": {
       "types": {
-        "bluetooth": "Bluetooth",
+        "bluetooth": "藍牙",
         "lan": "Wi-Fi",
         "dht": {
           "connected": "Internet P2P"
         },
         "room": {
-          "server": "Room server",
+          "server": "房間伺服器",
           "endpoint": "Room peer",
-          "alone_online": "(only you online)",
+          "alone_online": "(只有你在線上)",
           "others_online": {
-            "one": "({{count}} online)",
-            "other": "({{count}} online)"
+            "one": "({{count}} 人在線上)",
+            "other": "({{count}} 人在線上)"
           }
         },
-        "pub": "Pub server",
+        "pub": "公眾伺服器",
         "server": "Server",
-        "unknown": "Unknown"
+        "unknown": "不明"
       }
     },
     "modes": {
@@ -321,8 +321,8 @@
         "enabled": "(ENABLED)"
       },
       "bluetooth": {
-        "title": "Bluetooth",
-        "accessibility_label": "Bluetooth Mode",
+        "title": "藍牙",
+        "accessibility_label": "藍牙模式",
         "disabled": "(Turn on Bluetooth to use this)",
         "description": "Discover users nearby and connect with them using Bluetooth.",
         "permission_request": {
@@ -332,12 +332,12 @@
       },
       "wifi": {
         "title": "Wi-Fi",
-        "accessibility_label": "Wi-Fi Mode",
+        "accessibility_label": "Wi-Fi 模式",
         "disabled": "(Turn on Wi-Fi to use this)",
         "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
       },
       "servers": {
-        "title": "Internet servers",
+        "title": "網際網路伺服器",
         "accessibility_label": "Internet Servers Mode",
         "disabled": "(Go online to use this)",
         "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
@@ -352,7 +352,7 @@
         }
       },
       "connect": {
-        "label": "Connect",
+        "label": "連結",
         "accessibility_label": {
           "staged_peer": "Connect to this suggested peer",
           "staged_room": "Connect to this suggested room"
@@ -383,32 +383,32 @@
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "label": "管理我的別名",
+        "accessibility_label": "管理我在聊天室伺服器中的別名"
       },
       "room_sign_in": {
-        "label": "Sign into website",
+        "label": "登入至網站",
         "accessibility_label": "Open this room's website and sign into its dashboard, Button"
       },
       "room_share_invite": {
-        "label": "Share invite code",
+        "label": "分享邀請碼",
         "accessibility_label": "Share the invite code for this room"
       },
       "invite_info": {
-        "label": "About",
-        "accessibility_label": "About this Invite Code"
+        "label": "關於",
+        "accessibility_label": "關於此邀請碼"
       },
       "invite_note": {
         "label": "Add note",
         "accessibility_label": "Add Reminder Note To Self"
       },
       "invite_share": {
-        "label": "Share",
-        "accessibility_label": "Share Invite Code"
+        "label": "分享",
+        "accessibility_label": "分享邀請碼"
       },
       "invite_delete": {
-        "label": "Delete",
-        "accessibility_label": "Delete Invite Code"
+        "label": "刪除",
+        "accessibility_label": "將邀請碼刪除"
       }
     },
     "notes": {
@@ -432,7 +432,7 @@
         "accessibility_label": "Publish Message Button"
       },
       "reply_to_thread": {
-        "label": "Reply",
+        "label": "回覆",
         "accessibility_label": "Publish Reply Button"
       },
       "preview": {
@@ -448,7 +448,7 @@
           "message": "Manyverse needs access to your microphone so you can compose audio messages",
           "neutral": "Ask me later",
           "positive": "OK",
-          "negative": "Cancel"
+          "negative": "取消"
         }
       },
       "open_camera": {
@@ -573,7 +573,7 @@
     "licensed": "Licensed {{license}}"
   },
   "dialog_thanks": {
-    "title": "Thank you!",
+    "title": "謝謝！",
     "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
   },
   "drawer": {
@@ -591,7 +591,7 @@
         "accessibility_label": "Send Bug Report as Email"
       },
       "translate": {
-        "label": "Help us translate",
+        "label": "協助我們翻譯",
         "accessibility_label": "Open translation website"
       },
       "more": {
@@ -599,7 +599,7 @@
         "accessibility_label": "Show more Menu items"
       },
       "settings": {
-        "label": "Settings",
+        "label": "設定",
         "accessibility_label": "Go To Settings"
       },
       "preparing_database": {
@@ -950,7 +950,7 @@
       "blobs_storage": {
         "title": "Blobs storage limit",
         "subtitle": "Automatically delete old images and blobs until they occupy at most this amount of storage on your device",
-        "unlimited": "Unlimited",
+        "unlimited": "無限制",
         "accessibility_label": "Storage limit slider"
       }
     },
