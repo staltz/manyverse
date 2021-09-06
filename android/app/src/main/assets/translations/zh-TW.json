@@ -166,13 +166,13 @@
     "tab_headers": {
       "public": "公開的貼文",
       "private": "私密聊天",
-      "activity": "活動",
+      "activity": "動態",
       "connections": "連結"
     },
     "tab_footers": {
       "public": "公開的",
       "private": "祕密的",
-      "activity": "活動",
+      "activity": "動態",
       "connections": "連結"
     },
     "loading": "載入中",
@@ -201,16 +201,16 @@
       "description": "Write a diary to be\nshared with friends later"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "搜尋鈕"
     }
   },
   "private": {
     "floating_action_button": {
-      "compose": "Start a private conversation"
+      "compose": "開始一段私密的對話"
     },
     "empty": {
       "title": "無對話",
-      "description": "Start a private conversation\nwith any of your friends"
+      "description": "與朋友開始一段\n私密的對話"
     },
     "conversation": {
       "accessibility_label": "前往對話"
@@ -252,7 +252,7 @@
       }
     },
     "empty": {
-      "title": "無活動",
+      "title": "無動態",
       "description": "倘若有人提到你或跟隨了你，會顯示在這裡。"
     }
   },
@@ -312,13 +312,13 @@
           }
         },
         "pub": "公眾伺服器",
-        "server": "Server",
+        "server": "伺服器",
         "unknown": "不明"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(ENABLED)"
+        "enabled": "(已啟用)"
       },
       "bluetooth": {
         "title": "藍牙",
