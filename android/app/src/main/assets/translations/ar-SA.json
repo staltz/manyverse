@@ -291,7 +291,7 @@
         },
         "server_initiated": {
           "title": "أتسمح بالولوج؟",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "description": "متصفح ويب يطلب الإذن للتعرف عليك. هل تريد تسجيل الدخول إلى الخادم {{room}}؟\n\nمعرفته {{roomid}}"
         }
       }
     },
@@ -384,7 +384,7 @@
       },
       "manage_aliases": {
         "label": "إدارة ألقابي",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "accessibility_label": "إدارة الأسماء المستعارة الخاصة بي في خوادم الغرفة"
       },
       "room_sign_in": {
         "label": "لِج الى موقع",
@@ -495,7 +495,7 @@
       },
       "submit_recording": {
         "label": "تم",
-        "accessibility_label": "Submit Recording Button"
+        "accessibility_label": "إرسال زر التسجيل"
       }
     },
     "dialogs": {
@@ -595,8 +595,8 @@
         "accessibility_label": "فتح موقع الترجمة"
       },
       "more": {
-        "label": "More",
-        "accessibility_label": "Show more Menu items"
+        "label": "المزيد",
+        "accessibility_label": "إظهار المزيد من عناصر القائمة"
       },
       "settings": {
         "label": "الإعدادات",
@@ -619,7 +619,7 @@
     },
     "alert_unsupported_dht": {
       "title": "نوع غير مدعوم",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "description": "لم تعد دعوات P2P مدعومة في العديد من الجهات."
     },
     "text_field": {
       "accessibility_label": "دَخل نص رمز الدعوة"
@@ -654,7 +654,7 @@
       "title": "معرف SSB"
     },
     "dialog_manage_contact": {
-      "title": "Contact"
+      "title": "جهة"
     },
     "dialog_friend_request": {
       "title": "طلب صداقة",
