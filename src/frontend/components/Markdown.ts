@@ -207,7 +207,6 @@ const styles = StyleSheet.create({
     color: Palette.textWeak,
     ...Platform.select({
       web: {
-        fontFamily: Typography.fontFamilyReadableText,
         wordBreak: 'break-all',
       },
     }),
@@ -233,7 +232,6 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyMonospace,
     ...Platform.select({
       web: {
-        fontFamily: Typography.fontFamilyReadableText,
         wordBreak: 'break-all',
       },
     }),

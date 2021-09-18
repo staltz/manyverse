@@ -52,6 +52,7 @@ export const Typography = {
 
   fontFamilyMonospace: Platform.select({
     ios: 'Courier New',
+    web: 'monospace, NotoColorEmoji',
     default: 'monospace',
   }),
 };
