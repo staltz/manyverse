@@ -97,6 +97,7 @@ export const styles = StyleSheet.create({
     color: Palette.text,
     ...Platform.select({
       web: {
+        paddingTop: Dimensions.verticalSpaceNormal,
         outlineStyle: 'none',
       },
     }),
