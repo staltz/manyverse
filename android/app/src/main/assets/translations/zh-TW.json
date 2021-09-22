@@ -141,9 +141,9 @@
     "in_construction": {
       "title": "In construction!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
-        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+        "1_normal": "Manyverse 為 ",
+        "2_bold": "beta 品質的軟體",
+        "3_normal": "。仍有不少概念尚待釐清，不少部分尚需修繕。在進行同步時，app 可能會凍住好幾分鐘。在你碰到瑕疵時，請給與一些耐心。加以贊助​、經以時日，我們可以將此 app 做得很好的。"
       }
     },
     "setup_account": {
@@ -323,7 +323,7 @@
       "bluetooth": {
         "title": "藍牙",
         "accessibility_label": "藍牙模式",
-        "disabled": "(Turn on Bluetooth to use this)",
+        "disabled": "(開啟藍牙後才能使用)",
         "description": "Discover users nearby and connect with them using Bluetooth.",
         "permission_request": {
           "title": "Allow locating via Bluetooth?",
@@ -359,7 +359,7 @@
         }
       },
       "follow_connect": {
-        "label": "Connect and follow",
+        "label": "連結，然後跟隨",
         "accessibility_label": "Connect to this suggested peer then follow them"
       },
       "disconnect": {
