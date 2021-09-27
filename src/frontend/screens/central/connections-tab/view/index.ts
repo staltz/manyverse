@@ -12,7 +12,6 @@ import {styles} from './styles';
 import {State} from '../model';
 import ConnectivityModes from './ConnectivityModes';
 import Body from './Body';
-import SlideInMenu from './SlideInMenu';
 
 export default function view(state$: Stream<State>) {
   return state$
@@ -26,7 +25,6 @@ export default function view(state$: Stream<State>) {
         'timestampPeersAndRooms',
         'timestampStagedPeers',
         'timestampPeerStates',
-        'itemMenu',
       ]),
     )
     .map((state) => {
@@ -36,7 +34,7 @@ export default function view(state$: Stream<State>) {
           style: styles.container,
           contentContainerStyle: styles.containerInner,
         },
-        [h(ConnectivityModes, state), h(Body, state), h(SlideInMenu, state)],
+        [h(ConnectivityModes, state), h(Body, state)],
       );
     });
 }

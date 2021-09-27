@@ -25,6 +25,7 @@ import alert from './alert';
 import ssb from './ssb';
 import dialog from './dialog';
 import navigation from './navigation';
+import connDialogs from './connDialogs';
 
 export type Sources = {
   screen: ReactSource;
@@ -51,11 +52,13 @@ export type Sinks = {
 };
 
 export function connectionsTab(sources: Sources): Sinks {
+  const connDialogActions = connDialogs(sources.dialog, sources.state.stream);
   const actions = intent(
     sources.screen,
     sources.navigation,
     sources.state.stream,
     sources.fab,
+    connDialogActions.connDialog$,
   );
   const dialogActions = dialog(actions, sources.dialog);
   const actionsPlus = {...actions, ...dialogActions};

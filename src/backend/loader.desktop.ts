@@ -46,7 +46,7 @@ function createWindow() {
   win.loadFile('../index.html');
 
   if (resolveWebContents) resolveWebContents(win.webContents);
-  win.webContents.openDevTools({mode: 'detach', activate: false});
+  win.webContents.openDevTools({activate: false});
 
   // Handle external (web) links
   win.webContents.on('will-navigate', (ev: any, url: string) => {

@@ -16,19 +16,16 @@ import {StagedPeerKV, PeerKV} from '../../../ssb/types';
 import {t} from '../../../drivers/localization';
 const roomUtils = require('ssb-room-client/utils');
 import {State} from './model';
-import {MenuChoice} from './view/SlideInMenu';
+import {MenuChoice} from './connDialogs';
 
 export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
   state$: Stream<State>,
   fabPress$: Stream<string>,
+  menuChoice$: Stream<MenuChoice>,
 ) {
   const back$ = navSource.backPress();
-
-  const menuChoice$ = reactSource
-    .select('slide-in-menu')
-    .events('select') as Stream<MenuChoice>;
 
   return {
     //#region Header actions
