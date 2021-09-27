@@ -344,6 +344,7 @@
       }
     },
     "menu": {
+      "dialog_title": "Connection",
       "open_profile": {
         "label": "Open profiel",
         "accessibility_label": {

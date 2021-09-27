@@ -344,6 +344,7 @@
       }
     },
     "menu": {
+      "dialog_title": "Connection",
       "open_profile": {
         "label": "프로필 열기",
         "accessibility_label": {
