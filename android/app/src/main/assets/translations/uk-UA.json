@@ -1,12 +1,12 @@
 {
   "call_to_action": {
-    "ok": "Ок",
-    "add": "Добавити",
+    "ok": "Гаразд",
+    "add": "Додати",
     "done": "Готово",
     "cancel": "Скасувати",
     "continue": "Продовжити",
     "delete": "Видалити",
-    "remove": "Remove",
+    "remove": "Вилучити",
     "save": "Зберегти",
     "yes": "Так",
     "no": "Ні",
@@ -20,7 +20,7 @@
       "accessibility_label": "Кнопка Закрити"
     },
     "close_dialog": {
-      "accessibility_label": "Кнопка закриття діалогу"
+      "accessibility_label": "Кнопка закриття вікна"
     }
   },
   "date": {
@@ -88,75 +88,75 @@
       "description": "Соціальна мережа може бути простою, нейтральною, побудованою не задля грошей, а для довіри. Manyverse існує саме для цього. Маємо надію, що ви зможете знайти тут свій цифровий затишок. Це можливо дякуючи новітньому протоколу SSB."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Поза мережею",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "вкл",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse може використовувати Інтернет, але вона не ",
+        "2_bold": "в",
+        "3_normal": " Інтернеті. Все що там відбувається знаходиться на Вашому телефоні. Це означає, що Ви можете нею користуватися, навіть коли поза мережею! Ваш ",
+        "4_bold": "вміст у першу чергу зберігається на Вашому пристрої",
+        "5_normal": "і Ви можете синхронізувати його з друзями, коли зʼєднаєтеся з ними."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Декілька способів звʼязку",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
+          "1_normal": "Щоб звʼязатися з друзями поблизу і синхронізувати вміст Ви можете підключитися в межах одного ",
           "2_bold": "Wi-Fi",
-          "3_normal": ". To find new people on the internet, look for an invite code to a ",
-          "4_bold": "pub server",
-          "5_normal": " or a ",
-          "6_bold": "room server",
-          "7_normal": ", or start your own server!"
+          "3_normal": ". Щоб знайти нових людей в Інтернеті, перегляньте код запрошення до ",
+          "4_bold": "публічного сервера",
+          "5_normal": " або ",
+          "6_bold": "сервера кімнати",
+          "7_normal": ", або створіть власний сервер!"
         },
         "default": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
+          "1_normal": "Щоб зʼєднатися з друзями поблизу і синхронізувати вміст, Ви можете: долучитися до одного ",
           "2_bold": "Wi-Fi",
-          "3_normal": ", or use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "3_normal": ", або використовувати ",
+          "4_bold": "синхронізацію Bluetooth",
+          "5_normal": ". Щоб знайти нових людей в Інтернеті, перегляньте код запрошення до ",
+          "6_bold": "публічного сервера",
+          "7_normal": " або ",
+          "8_bold": "сервера кімнати",
+          "9_normal": ", або створіть власний сервер!"
         }
       }
     },
     "moderation": {
-      "title": "Shared moderation",
+      "title": "Спільне модерування",
       "description": {
-        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "1_normal": "Оскільки Ваш пристрій знаходиться у Вашій соціальній мережі, ніхто інший не зможе блокувати або вилучати обліківки від Вашого імені. Лише Ви можете модерувати свій простір ",
+        "2_bold": "блокуючи обліківки",
+        "3_normal": ", які не бажаєте мати на своєму пристрої.Потім, Ваші друзі зможуть обрати блокування тих самих обліківок. Таким чином модерування зможе поширюватися природно!"
       }
     },
     "permanence": {
-      "title": "Permanence",
+      "title": "Постійність",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
-        "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
+        "1_normal": "Оскільки Ваш вміст синхронізовано з друзями, вони зберігатимуть його копію на своїх пристроях. Потім вони можуть вийти з мережі і буде ",
+        "2_bold": "не можливо видалити",
+        "3_normal": " Ваш вміст глобально зі всіх пристроїв! Тому ми вирішили зробити вміст сталим. Це зробить спільноти шанобливими і уважними до того, що публікується."
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "У розбудові!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
-        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+        "1_normal": "Manyverse — це ",
+        "2_bold": "ПЗ beta-якості",
+        "3_normal": ". Ми ще не все узгодили і деякі частини потребують виправлення. Під час синхронізації застосунок може застигати на кілька хвилин. Будьте терплячими! Повідомляйте нас про будь-які інші вади, на які Ви натрапили, і маючи достатньо часу і пожертв, ми зробимо з цього чудовий застосунок."
       }
     },
     "setup_account": {
       "title": "Це твій перший раз?",
-      "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
+      "description": "Бажаєте створити нову обліківку чи відновити свою стару обліківку за допомогою фрази відновлення з 24 слів?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "Створити обліківку",
+          "accessibility_label": "Кнопка створення обліківки"
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "Відновити обліківку",
+          "accessibility_label": "Кнопка відновлення обліківки"
         }
       }
     }
@@ -164,28 +164,28 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public posts",
+      "public": "Публічні дописи",
       "private": "Тільки між нами",
-      "activity": "Activity",
+      "activity": "Активність",
       "connections": "Мої контакти"
     },
     "tab_footers": {
       "public": "Публічне",
-      "private": "Private",
-      "activity": "Activity",
+      "private": "Приватно",
+      "activity": "Активність",
       "connections": "Мої контакти"
     },
     "loading": "Завантаження...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "building_indexes": "Побудова індексів бази даних...\nЦе може зайняти кілька хвилин",
     "tabs": {
       "public": {
-        "accessibility_label": "Public Tab Button"
+        "accessibility_label": "Кнопка публічної вкладки"
       },
       "private": {
-        "accessibility_label": "Private Tab Button"
+        "accessibility_label": "Кнопка приватної вкладки"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "Кнопка вкладки активності"
       },
       "connections": {
         "accessibility_label": "Вкладка \"Підключення\""
@@ -201,7 +201,7 @@
       "description": "Ведіть щоденик, яким ви поділитеся с друзями пізніше"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Кнопка пошуку"
     }
   },
   "private": {
@@ -234,26 +234,26 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " згадує Вас"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " стежить за Вами"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " бажає приєднатися"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "Без активності",
+      "description": "Коли люди згадують або стежать за Вами,\nце відображається тут"
     }
   },
   "connections": {
@@ -281,7 +281,7 @@
       "invite_rejected": "Запрошення відхилено. Ви впевнені, що воно вірне?",
       "connecting_to_alias": "Connecting to {{alias}}",
       "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "not_connected_to_alias": "{{alias}} зараз поза мережею"
     },
     "dialogs": {
       "sign_in_with_ssb": {
@@ -305,25 +305,25 @@
         "room": {
           "server": "Сервер кімнати",
           "endpoint": "Room peer",
-          "alone_online": "(only you online)",
+          "alone_online": "(у мережі лише Ви)",
           "others_online": {
-            "one": "({{count}} online)",
-            "other": "({{count}} online)"
+            "one": "({{count}} у мережі)",
+            "other": "({{count}} у мережі)"
           }
         },
         "pub": "Pub server",
-        "server": "Server",
+        "server": "Сервер",
         "unknown": "Unknown"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(ENABLED)"
+        "enabled": "(ДОЗВОЛЕНО)"
       },
       "bluetooth": {
         "title": "Bluetooth",
-        "accessibility_label": "Bluetooth Mode",
-        "disabled": "(Turn on Bluetooth to use this)",
+        "accessibility_label": "Режим Bluetooth",
+        "disabled": "(Увімкніть Bluetooth, щоб користуватися цим)",
         "description": "Discover users nearby and connect with them using Bluetooth.",
         "permission_request": {
           "title": "Allow locating via Bluetooth?",
@@ -332,21 +332,21 @@
       },
       "wifi": {
         "title": "Wi-Fi",
-        "accessibility_label": "Wi-Fi Mode",
-        "disabled": "(Turn on Wi-Fi to use this)",
+        "accessibility_label": "Режим Wi-Fi",
+        "disabled": "(Увімкніть Wi-Fi, щоб користуватися цим)",
         "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
       },
       "servers": {
-        "title": "Internet servers",
-        "accessibility_label": "Internet Servers Mode",
-        "disabled": "(Go online to use this)",
+        "title": "Інтернет-сервери",
+        "accessibility_label": "Режим інтернет-серверів",
+        "disabled": "(Увійдіть у мережу, щоб користуватися цим)",
         "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
       }
     },
     "menu": {
       "dialog_title": "Connection",
       "open_profile": {
-        "label": "Open profile",
+        "label": "Відкрити профіль",
         "accessibility_label": {
           "connected": "Open profile screen for this connected peer",
           "staged": "Open profile screen for this suggested connection"
@@ -378,9 +378,9 @@
         }
       },
       "forget": {
-        "label": "Forget",
+        "label": "Забути",
         "accessibility_label": {
-          "room": "Remove this room from our database"
+          "room": "Вилучити цю кімнату з нашої бази даних"
         }
       },
       "manage_aliases": {
@@ -392,20 +392,20 @@
         "accessibility_label": "Open this room's website and sign into its dashboard, Button"
       },
       "room_share_invite": {
-        "label": "Share invite code",
+        "label": "Поширити код запрошення",
         "accessibility_label": "Share the invite code for this room"
       },
       "invite_info": {
         "label": "About",
-        "accessibility_label": "About this Invite Code"
+        "accessibility_label": "Про цей код запрошення"
       },
       "invite_note": {
         "label": "Додати нотатку",
         "accessibility_label": "Add Reminder Note To Self"
       },
       "invite_share": {
-        "label": "Share",
-        "accessibility_label": "Share Invite Code"
+        "label": "Поширити",
+        "accessibility_label": "Поширити код запрошення"
       },
       "invite_delete": {
         "label": "Видалити",
@@ -415,63 +415,63 @@
     "notes": {
       "add": {
         "title": "Додати нотатку",
-        "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
+        "description": "Напишіть особисту замітку (для себе) про цей код запрошення. Наприклад: «Це для Аліси»"
       }
     },
     "share_code": {
       "room": {
         "title": "Invite code to an SSB Room",
         "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
-        "dialog_note": "Give this invite code to a friend"
+        "dialog_note": "Дати цей код запрошення другові"
       }
     }
   },
   "compose": {
     "call_to_action": {
       "publish_new_thread": {
-        "label": "Publish",
-        "accessibility_label": "Publish Message Button"
+        "label": "Опублікувати",
+        "accessibility_label": "Кнопка опублікування повідомлення"
       },
       "reply_to_thread": {
-        "label": "Reply",
-        "accessibility_label": "Publish Reply Button"
+        "label": "Відповісти",
+        "accessibility_label": "Кнопка публікування відповіді"
       },
       "preview": {
-        "accessibility_label": "Preview Button"
+        "accessibility_label": "Кнопка перегляду"
       },
       "close": {
         "accessibility_label": "Кнопка Закрити"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "Кнопка запису звуку",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
-          "neutral": "Ask me later",
+          "title": "Дозволити Manyverse записувати звук?",
+          "message": "Manyverse потребує доступу до Вашого мікрофона, щоб Ви могли записувати звукові повідомлення",
+          "neutral": "Запитати пізніше",
           "positive": "Ок",
           "negative": "Скасувати"
         }
       },
       "open_camera": {
-        "accessibility_label": "Open Camera Button"
+        "accessibility_label": "Кнопка відкривання камери"
       },
       "add_picture": {
-        "accessibility_label": "Add Picture Button"
+        "accessibility_label": "Кнопка додавання зображення"
       }
     },
     "dialogs": {
       "content_warning": {
-        "title": "Content warning",
-        "description": "If your post contains sensitive topics, please add a short note to alert people of them."
+        "title": "Попередження про вміст",
+        "description": "Якщо Ваш допис зачіпає чутливу тематику, додайте коротку нотатку, щоб повідомити про це людям."
       },
       "image_caption": {
         "title": "Caption",
-        "description": "Add some description of this picture, particularly for the visually impaired."
+        "description": "Додайте якийсь опис для цього зображення, особливо для людей із вадами зору."
       }
     },
     "content_warning_initials": {
       "label": "CW",
-      "accessibility_label": "Content Warning Button"
+      "accessibility_label": "Кнопка попередження вмісту"
     },
     "mention_field": {
       "accessibility_label": "Mention Account Text Input"
@@ -482,27 +482,27 @@
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "Звукове повідомлення",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "Почати запис"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "Зупинити запис"
       },
       "discard_recording": {
-        "label": "Discard",
-        "accessibility_label": "Discard Recording Button"
+        "label": "Відкинути",
+        "accessibility_label": "Кнопка скасування запису"
       },
       "submit_recording": {
         "label": "Готово",
-        "accessibility_label": "Submit Recording Button"
+        "accessibility_label": "Кнопка надсилання запису"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
-        "question": "Discard draft?"
+        "title": "Звукове повідомлення",
+        "question": "Відкинути чернетку?"
       }
     }
   },
@@ -512,9 +512,9 @@
       "title": "Your account has\ntwo parts to keep safe"
     },
     "data": {
-      "title": "Data",
+      "title": "Дані",
       "description": {
-        "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
+        "1_normal": "Це дописи Вашої обліківки, повідомлення, зображення, вподобання і повʼязана активність. Щоб уберегти їх від раптової втрати, ми використовуємо ",
         "2_bold": "crowd backup",
         "3_normal": ". You only need to ",
         "4_bold": "synchronize with reliable friends",
@@ -524,7 +524,7 @@
       },
       "call_to_action": {
         "acknowledge": {
-          "label": "I understand",
+          "label": "Зрозуміло",
           "accessibility_label": "Acknowledge"
         }
       }
@@ -533,78 +533,78 @@
       "title": "Identity",
       "description": {
         "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
-        "2_bold": "recovery phrase",
-        "3_normal": ". This is a sequence of 24 words that unlocks your account. ",
-        "4_bold": "Keep it confidential",
-        "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
+        "2_bold": "фраза відновлення",
+        "3_normal": ". Це послідовність 24 слів, що розблокує Вашу обліківку. ",
+        "4_bold": "Зберігайте конфіденційно",
+        "5_normal": ", бо якщо хтось отримає доступ до неї, він зможе взяти контроль над Вашою обліківкою. ",
         "6_bold": "Take responsibility",
         "7_normal": " over it, since you and only you can recover your account!"
       },
       "call_to_action": {
-        "show_recovery_phrase": "Show Recovery Phrase"
+        "show_recovery_phrase": "Показати фразу відновлення"
       }
     }
   },
   "biography": {
     "picture": {
-      "accessibility_label": "Biographic Picture"
+      "accessibility_label": "Біографічне зображення"
     },
     "description": {
-      "accessibility_label": "Biographic Description"
+      "accessibility_label": "Біографічний опис"
     }
   },
   "conversation": {
-    "title": "Conversation",
-    "placeholder": "Type a message...",
+    "title": "Розмова",
+    "placeholder": "Уведіть повідомлення...",
     "call_to_action": {
       "show_recipients": {
-        "accessibility_label": "Show Recipients"
+        "accessibility_label": "Показати отримувачів"
       }
     },
     "notifications": {
-      "new_conversation": "This is a new private conversation"
+      "new_conversation": "Це нова приватна розмова"
     }
   },
   "dialog_about": {
-    "title": "About Manyverse",
-    "version": "Version {{version}}",
-    "copyright": "Copyright (C)",
-    "authors": "The Manyverse Authors",
-    "repository": "Open source repository",
-    "licensed": "Licensed {{license}}"
+    "title": "Про Manyverse",
+    "version": "Версія {{version}}",
+    "copyright": "Авторські права (С)",
+    "authors": "Автори Manyverse",
+    "repository": "Репозиторій із відкритим кодом",
+    "licensed": "Під ліцензією {{license}}"
   },
   "dialog_thanks": {
-    "title": "Thank you!",
+    "title": "Дякуємо!",
     "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
   },
   "drawer": {
     "menu": {
       "my_profile": {
-        "label": "My profile",
+        "label": "Мій профіль",
         "accessibility_label": "My Profile Menu Item"
       },
       "raw_database": {
-        "label": "Raw database",
-        "accessibility_label": "Show Raw Database"
+        "label": "База необроблених даних",
+        "accessibility_label": "Показати базу необроблених даних"
       },
       "email_bug_report": {
         "label": "Email bug report",
         "accessibility_label": "Send Bug Report as Email"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "Допоможіть перекласти",
+        "accessibility_label": "Відкрити вебсайт перекладу"
       },
       "more": {
-        "label": "More",
+        "label": "Більше",
         "accessibility_label": "Show more Menu items"
       },
       "settings": {
-        "label": "Settings",
-        "accessibility_label": "Go To Settings"
+        "label": "Налаштування",
+        "accessibility_label": "Перейти до налаштувань"
       },
       "preparing_database": {
-        "label": "Preparing database..."
+        "label": "Підготовка бази даних..."
       },
       "ready_estimate": {
         "label": "Ready:"
@@ -612,22 +612,22 @@
     }
   },
   "invite_paste": {
-    "placeholder": "Paste an invite code",
+    "placeholder": "Вставте код запрошення",
     "call_to_action": {
       "accept": {
-        "accessibility_label": "Accept Invite Code"
+        "accessibility_label": "Прийняти код запрошення"
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "Непідтримуваний тип",
+      "description": "Запрошення P2P більше не підтримуються в Manyverse."
     },
     "text_field": {
       "accessibility_label": "Invite Code Text Input"
     }
   },
   "libraries": {
-    "title": "Third party libraries",
+    "title": "Сторонні бібліотеки",
     "description": "Manyverse makes use of the following open source libraries and components. We want to thank the authors of these libraries and link to their websites for proper attribution.",
     "image": {
       "name": "Image {{name}}",
@@ -637,15 +637,15 @@
   "profile": {
     "call_to_action": {
       "copy_cypherlink": "Copy cypherlink",
-      "private_chat": "Open private conversation",
-      "block": "Block",
-      "block_secretly": "Block secretly",
-      "unblock": "Unblock",
-      "unblock_secretly": "Unblock secretly",
-      "follow": "Follow",
+      "private_chat": "Відкрити приватну розмову",
+      "block": "Блокувати",
+      "block_secretly": "Блокувати таємно",
+      "unblock": "Розблокувати",
+      "unblock_secretly": "Розблокувати таємно",
+      "follow": "Стежити",
       "edit_profile": {
-        "label": "Edit profile",
-        "accessibility_label": "Edit Profile Button"
+        "label": "Змінити профіль",
+        "accessibility_label": "Кнопка зміни профілю"
       },
       "manage": {
         "accessibility_label": "Manage Contact"
@@ -658,18 +658,18 @@
       "title": "Contact"
     },
     "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "title": "Запит дружити",
+      "description": "Цей обліковий запис пробує звʼязатися з Вами, але Manyverse відхилив його, тому що він знаходиться поза Вашою спільнотою.\n\nЯкщо Ви впізнали цей ID, можете натиснути «Стежити», щоб дозволити йому звʼязатися з Вами."
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Скопійовано до буфера обміну"
     },
     "details": {
       "id": {
-        "accessibility_label": "SSB Identifier"
+        "accessibility_label": "Ідентифікатор SSB"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "Читати біографію"
       },
       "counters": {
         "following": "Following",
@@ -682,14 +682,14 @@
       "following": "Following"
     },
     "picture": {
-      "accessibility_label": "Profile Picture"
+      "accessibility_label": "Зображення профілю"
     },
     "name": {
-      "accessibility_label": "Profile Name"
+      "accessibility_label": "Назва профілю"
     },
     "empty": {
       "blocked": {
-        "title": "Blocked",
+        "title": "Заблоковано",
         "description": "You have chosen to stop\ninteracting with this account"
       },
       "no_self_messages": {
@@ -706,15 +706,15 @@
     }
   },
   "profile_edit": {
-    "title": "Edit profile",
+    "title": "Змінити профіль",
     "call_to_action": {
-      "discard": "Discard",
+      "discard": "Відкинути",
       "save": {
         "label": "Зберегти",
-        "accessibility_label": "Save Profile"
+        "accessibility_label": "Зберегти профіль"
       },
       "edit_picture": {
-        "accessibility_label": "Edit Profile Picture"
+        "accessibility_label": "Змінити зображення профілю"
       },
       "register_new_alias": {
         "label": "Register new alias",
@@ -723,28 +723,28 @@
     },
     "dialogs": {
       "discard": {
-        "title": "Edit profile",
-        "question": "Discard changes?"
+        "title": "Змінити профіль",
+        "question": "Відкинути зміни?"
       },
       "remove_alias": {
         "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
       }
     },
     "toasts": {
-      "alias_removed_success": "Alias removed",
-      "alias_removed_failure": "Failed to remove alias"
+      "alias_removed_success": "Псевдонім вилучено",
+      "alias_removed_failure": "Не вдалося вилучити псевдонім"
     },
     "fields": {
       "name": {
-        "label": "Name",
+        "label": "Назва",
         "accessibility_label": "Name Text Input"
       },
       "description": {
-        "label": "Bio",
+        "label": "Біографія",
         "accessibility_label": "Biography Text Input"
       },
       "aliases": {
-        "label": "Aliases"
+        "label": "Псевдоніми"
       }
     }
   },
@@ -755,7 +755,7 @@
     "title": "Register alias",
     "empty": {
       "no_servers": {
-        "title": "No servers",
+        "title": "Сервери відсутні",
         "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
       }
     },
@@ -768,35 +768,35 @@
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "Надсилання..."
     },
     "failure": {
       "title": "It didn't work",
-      "alias_taken": "The alias you submitted is already taken by some user.",
+      "alias_taken": "Надісланий Вами псевдонім уже належить якомусь користувачеві.",
       "call_to_action": {
         "try_again": {
-          "label": "Try again",
-          "accessibility_label": "Try Again Button"
+          "label": "Спробувати ще раз",
+          "accessibility_label": "Кнопка Спробувати ще раз"
         }
       }
     },
     "success": {
-      "title": "Great!",
-      "description": "The alias {{alias}} is now yours.",
+      "title": "Чудово!",
+      "description": "Псевдонім {{alias}} тепер Ваш.",
       "call_to_action": {
         "go_back": {
-          "label": "Go back",
-          "accessibility_label": "Go Back Button"
+          "label": "Назад",
+          "accessibility_label": "Кнопка назад"
         }
       }
     }
   },
   "raw_db": {
-    "title": "Raw database",
+    "title": "База необроблених даних",
     "item": {
       "type": {
-        "any": "type: {{type}}",
-        "encrypted": "encrypted"
+        "any": "тип: {{type}}",
+        "encrypted": "зашифровано"
       }
     }
   },
@@ -804,36 +804,36 @@
     "title": "Raw message"
   },
   "recipients_input": {
-    "title": "New message",
+    "title": "Нове повідомлення",
     "call_to_action": {
       "proceed": {
-        "label": "Next",
-        "accessibility_label": "Next Button"
+        "label": "Далі",
+        "accessibility_label": "Кнопка Далі"
       }
     },
     "fields": {
       "mention_input": {
-        "placeholder": "Search for people to add",
+        "placeholder": "Пошук людей, щоб додати",
         "accessibility_label": "Mention Account Text Input"
       }
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "Оберіть учасників",
+        "description": "Уведіть імена людей,\nщоб долучитися до нової бесіди"
       },
       "none_to_choose": {
-        "title": "No one",
+        "title": "Нема нікого",
         "description": "There is nobody in your\ncommunity with that name"
       }
     },
     "toasts": {
-      "limit_reached": "Cannot choose more than {{limit}} recipients"
+      "limit_reached": "Не можна обрати більше ніж {{limit}} отримувачів"
     }
   },
   "search": {
     "query_input": {
-      "placeholder": "Search public posts",
+      "placeholder": "Пошук публічних дописів",
       "accessibility_label": "Search Query Text Input"
     },
     "clear_query": {
@@ -845,8 +845,8 @@
         "description": "Зачекайте доки застосунок приєднається до ваших пірів"
       },
       "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
+        "title": "Без результатів",
+        "description": "Нічого не знайдено для \"{{query}}\""
       }
     }
   },
@@ -856,35 +856,35 @@
       "header": "Repeat it to confirm it is correct:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "Відновити обліківку"
     },
-    "header": "Carefully input your recovery phrase",
+    "header": "Обережно введіть свою фразу відновлення",
     "call_to_action": {
       "confirm": {
-        "label": "Confirm",
-        "accessibility_label": "Confirm Recovery Phrase Button"
+        "label": "Підтвердити",
+        "accessibility_label": "Кнопка підтвердження фрази відновлення"
       }
     },
     "fields": {
       "words_input": {
-        "placeholder": "24-word (or 48-word) recovery phrase",
+        "placeholder": "фраза відновлення з 24 слів (або 48 слів)",
         "accessibility_label": "Recovery Phrase Text Input"
       }
     },
     "dialogs": {
       "practice": {
         "correct": {
-          "title": "Correct!",
+          "title": "Правильно!",
           "description": "Your account's identity is now secure because you know the recovery phrase."
         },
         "incorrect": {
-          "title": "Incorrect",
-          "description": "Try again: write down your recovery phrase consisting of 24 words separated by whitespace."
+          "title": "Неправильно",
+          "description": "Спробуйте ще раз: напишіть нижче свою фразу відновлення, що містить 24 слова розділених пропусками."
         }
       },
       "restore": {
         "correct": {
-          "title": "Welcome back!",
+          "title": "З поверненням!",
           "description": "Your account's identity is now restored.\n\nNow, to restore your data, connect with friends that have interacted with you before, to redownload your data from them."
         },
         "incorrect": {
@@ -920,43 +920,43 @@
     },
     "call_to_action": {
       "confirm": {
-        "accessibility_label": "Confirm Recovery Phrase Button"
+        "accessibility_label": "Кнопка підтвердження фрази відновлення"
       }
     },
     "loading": "Завантаження..."
   },
   "settings": {
-    "title": "Settings",
+    "title": "Налаштування",
     "preferences": {
-      "title": "Preferences",
+      "title": "Властивості",
       "show_follows": {
-        "title": "Show follow events",
+        "title": "Показати відстежувані події",
         "subtitle": "Show follow or block or unfollow cases on the public board",
         "accessibility_label": "Toggle follow events on the public board"
       },
       "hops": {
         "title": "Replication hops",
         "subtitle": "How far out in the social graph should Manyverse download data; 1 is friends-only, 2 is friends-of-friends, etc. Caution: the higher this is, the more data is downloaded!",
-        "unlimited": "Unlimited",
+        "unlimited": "Необмежено",
         "accessibility_label": "Replication hops slider"
       }
     },
     "data_and_storage": {
-      "title": "Data & Storage",
+      "title": "Дані та сховище",
       "backup": {
-        "title": "Backup",
-        "subtitle": "View your 24-word recovery phrase",
+        "title": "Резервне копіювання",
+        "subtitle": "Переглянути свою фразу відновлення з 24 слів",
         "accessibility_label": "Back Up My Account"
       },
       "blobs_storage": {
         "title": "Blobs storage limit",
         "subtitle": "Automatically delete old images and blobs until they occupy at most this amount of storage on your device",
-        "unlimited": "Unlimited",
+        "unlimited": "Необмежено",
         "accessibility_label": "Storage limit slider"
       }
     },
     "troubleshooting": {
-      "title": "Troubleshooting",
+      "title": "Усунення несправностей",
       "bug_report": {
         "title": "Email bug report",
         "accessibility_label": "Send Bug Report as Email"
@@ -967,24 +967,24 @@
       }
     },
     "more_information": {
-      "title": "More information",
+      "title": "Більше інформації",
       "thanks": {
-        "title": "Thanks",
-        "accessibility_label": "Show Thanks"
+        "title": "Подяки",
+        "accessibility_label": "Показати подяки"
       },
       "third_party_libs": {
-        "title": "Third party libraries",
-        "accessibility_label": "View third party libraries"
+        "title": "Сторонні бібліотеки",
+        "accessibility_label": "Переглянути сторонні бібліотеки"
       },
       "about": {
-        "title": "About",
-        "accessibility_label": "About This App"
+        "title": "Про застосунок",
+        "accessibility_label": "Про цей застосунок"
       }
     },
     "dialogs": {
       "restart_required": {
         "title": "Restart required",
-        "description": "This setting will only enter into effect when you kill the app and restart Manyverse."
+        "description": "Це налаштування увійде в дію, коли Ви вбʼєте застосунок і перезапустите Manyverse."
       }
     }
   },
@@ -992,19 +992,19 @@
     "title": "Thread",
     "call_to_action": {
       "expand_reply": {
-        "accessibility_label": "Expand Reply Button"
+        "accessibility_label": "Кнопка розгортання відповіді"
       },
       "publish_reply": {
-        "accessibility_label": "Reply Publish Button"
+        "accessibility_label": "Кнопка публікування відповіді"
       }
     },
     "fields": {
       "reply": {
-        "placeholder": "Comment",
+        "placeholder": "Коментар",
         "accessibility_label": "Reply Text Input"
       }
     },
-    "loading_replies": "Loading replies...",
+    "loading_replies": "Завантаження відповідей...",
     "empty": {
       "missing": {
         "title": "Missing data",
@@ -1015,7 +1015,7 @@
         "description": "You have chosen to block\nthe author of this thread"
       },
       "incompatible": {
-        "title": "Sorry",
+        "title": "Вибачте",
         "description": "This app doesn't know how to process\nand display this thread correctly"
       }
     }
@@ -1029,10 +1029,10 @@
         "accessibility_label": "Add Reaction Button"
       },
       "reply": {
-        "accessibility_label": "Reply Button"
+        "accessibility_label": "Кнопка відповіді"
       },
       "etc": {
-        "dialog_title": "Message",
+        "dialog_title": "Повідомлення",
         "accessibility_label": "Etc Button"
       },
       "copy_blob_id": {
@@ -1048,12 +1048,12 @@
       "categories": {
         "smileys_and_emotion": "Smileys and emotion",
         "people_and_body": "People and body",
-        "animals_and_nature": "Animals and nature",
-        "food_and_drink": "Food and drink",
+        "animals_and_nature": "Тварини і природа",
+        "food_and_drink": "Їжа і напої",
         "activities": "Activities",
         "travel_and_places": "Travel and places",
-        "objects": "Objects",
-        "symbols": "Symbols"
+        "objects": "Обʼєкти",
+        "symbols": "Символи"
       },
       "show_more": {
         "accessibility_label": "Show More Reaction Options"
@@ -1072,7 +1072,7 @@
         "accessibility_label": "Pause audio"
       },
       "duration": {
-        "accessibility_label": "Audio duration"
+        "accessibility_label": "Тривалість звуку"
       },
       "elapsed": {
         "accessibility_label": "Audio current time"
@@ -1082,10 +1082,10 @@
       }
     },
     "content_warning": {
-      "title": "Content Warning",
+      "title": "Попередження вмісту",
       "call_to_action": {
-        "hide": "Hide",
-        "show": "View"
+        "hide": "Сховати",
+        "show": "Переглянути"
       }
     },
     "fork_note": {
@@ -1097,24 +1097,24 @@
       "new_picture": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new profile picture: "
+        "3_normal": " має нове зображення профілю: "
       },
       "new_name_and_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " використовує імʼя \"",
         "4_bold": "{{name}}",
-        "5_normal": "\" and the description: "
+        "5_normal": "\" і опис: "
       },
       "new_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new biography: "
+        "3_normal": " має нову біографію: "
       },
       "new_name": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " використовує імʼя \"",
         "4_bold": "{{name}}",
         "5_normal": "\""
       }
