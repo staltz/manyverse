@@ -1,18 +1,20 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import {Reducer} from '@cycle/state';
-import {Response as RecorderResponse} from '../../drivers/recorder';
 import {Platform} from 'react-native';
+import {SSBSource} from '../../drivers/ssb';
 
 export type State = {
   filename: string;
   status: 'idle' | 'recording' | 'finalizing' | 'recorded';
   path: string | null;
+  blobId: string | null;
   startedRecordingAt: number;
   duration: number;
   loudness: number;
@@ -22,37 +24,57 @@ type Actions = {
   responseStartRecording$: Stream<any>;
   requestStopRecording$: Stream<any>;
   responseStopRecording$: Stream<any>;
+  responsePreparedRecording$: Stream<{path: string}>;
   discardRecording$: Stream<any>;
   meterEvent$: Stream<number>;
 };
 
 export default function model(
   actions: Actions,
-  recorderEvent$: Stream<RecorderResponse>,
+  ssbSource: SSBSource,
+  state$: Stream<State>,
 ): Stream<Reducer<State>> {
-  const initOrResetReducer$ = actions.discardRecording$.startWith(null).map(
-    () =>
-      function initOrResetReducer(_prev?: State): State {
-        const ext = Platform.OS === 'ios' ? 'mp4' : 'mp3';
-        return {
-          filename: `${Date.now()}.${ext}`,
-          status: 'idle',
-          path: null,
-          startedRecordingAt: 0,
-          duration: 0,
-          loudness: 0,
-        };
-      },
-  );
+  const initReducer$ = xs.of(function initOrResetReducer(_prev?: State): State {
+    const ext = Platform.OS === 'ios' ? 'mp4' : 'mp3';
+    return {
+      filename: `${Date.now()}.${ext}`,
+      status: 'idle',
+      path: null,
+      blobId: null,
+      startedRecordingAt: 0,
+      duration: 0,
+      loudness: 0,
+    };
+  });
 
-  const updatePathReducer$ = recorderEvent$
-    .filter((ev) => ev.type === 'prepared')
+  const resetReducer$ = actions.discardRecording$
+    .compose(sample(state$))
+    .map((state) =>
+      state.blobId ? ssbSource.deleteBlob$(state.blobId) : xs.of(null),
+    )
+    .flatten()
     .map(
-      (ev) =>
-        function updatePathReducer(prev: State): State {
-          return {...prev, path: (ev as any).path};
+      () =>
+        function initOrResetReducer(_prev?: State): State {
+          const ext = Platform.OS === 'ios' ? 'mp4' : 'mp3';
+          return {
+            filename: `${Date.now()}.${ext}`,
+            status: 'idle',
+            path: null,
+            blobId: null,
+            startedRecordingAt: 0,
+            duration: 0,
+            loudness: 0,
+          };
         },
     );
+
+  const updatePathReducer$ = actions.responsePreparedRecording$.map(
+    (ev) =>
+      function updatePathReducer(prev: State): State {
+        return {...prev, path: (ev as any).path};
+      },
+  );
 
   const startReducer$ = actions.responseStartRecording$.map(
     () =>
@@ -88,15 +110,20 @@ export default function model(
       },
   );
 
-  const stopReducer$ = actions.responseStopRecording$.map(
-    () =>
-      function stopReducer(prev: State): State {
-        return {...prev, status: 'recorded'};
-      },
-  );
+  const stopReducer$ = actions.responseStopRecording$
+    .compose(sample(state$))
+    .map((state) => ssbSource.addBlobFromPath$(state.path!))
+    .flatten()
+    .map(
+      (blobId) =>
+        function stopReducer(prev: State): State {
+          return {...prev, status: 'recorded', blobId};
+        },
+    );
 
   return xs.merge(
-    initOrResetReducer$,
+    initReducer$,
+    resetReducer$,
     updatePathReducer$,
     startReducer$,
     updateLoudnessReducer$,

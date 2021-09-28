@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,6 +7,7 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import dropRepeats from 'xstream/extra/dropRepeats';
+import pairwise from 'xstream/extra/pairwise';
 import {Command as RecorderCommand} from '../../drivers/recorder';
 import {State} from './model';
 
@@ -37,8 +38,14 @@ export default function recorder(actions: Actions, state$: Stream<State>) {
     .compose(sample(filename$))
     .map((filename) => ({type: 'record', filename} as RecorderCommand));
 
-  const stopAndDestroy$ = xs
-    .merge(actions.requestStopRecording$, actions.discardRecording$)
+  const destroyPrevious$ = filename$
+    .compose(pairwise)
+    .map(
+      ([prevFilename, _nextFilename]) =>
+        ({type: 'destroy', filename: prevFilename} as RecorderCommand),
+    );
+
+  const stopAndDestroy$ = actions.requestStopRecording$
     .compose(sample(state$))
     .map((state) =>
       state.status === 'recording'
@@ -46,9 +53,9 @@ export default function recorder(actions: Actions, state$: Stream<State>) {
             {type: 'stop', filename: state.filename} as RecorderCommand,
             {type: 'destroy', filename: state.filename} as RecorderCommand,
           )
-        : xs.of({type: 'destroy', filename: state.filename} as RecorderCommand),
+        : xs.never(),
     )
     .flatten();
 
-  return xs.merge(prepare$, record$, stopAndDestroy$);
+  return xs.merge(prepare$, record$, stopAndDestroy$, destroyPrevious$);
 }

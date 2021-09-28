@@ -388,6 +388,10 @@ export class SSBSource {
     );
   }
 
+  public deleteBlob$(blobId: BlobId): Stream<null> {
+    return this.fromCallback<null>((ssb, cb) => ssb.blobs.rm(blobId, cb));
+  }
+
   public restoreIdentity$(inputWords: string): Stream<RestoreIdentityResponse> {
     return xs.create<RestoreIdentityResponse>({
       start(listener: Listener<RestoreIdentityResponse>) {

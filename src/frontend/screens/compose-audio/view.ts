@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,6 +14,7 @@ import TopBar from '../../components/TopBar';
 import Button from '../../components/Button';
 import {State} from './model';
 import {styles} from './styles';
+const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
 
 export default function view(state$: Stream<State>) {
   return state$.map((state) => {
@@ -23,7 +24,7 @@ export default function view(state$: Stream<State>) {
       h(View, {style: styles.container}, [
         state.status === 'recorded'
           ? h(AudioPlayer, {
-              src: state.path!,
+              src: blobIdToUrl(state.blobId),
               style: styles.audioPlayer,
             })
           : h(AudioRecorder, {
