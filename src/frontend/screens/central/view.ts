@@ -9,7 +9,6 @@ import {ReactElement, Fragment, PureComponent, Component} from 'react';
 import {Platform, View} from 'react-native';
 import {h} from '@cycle/react';
 import {FloatingAction} from 'react-native-floating-action';
-import {MenuProvider} from 'react-native-popup-menu';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import PublicTabIcon from '../../components/tab-buttons/PublicTabIcon';
 import PrivateTabIcon from '../../components/tab-buttons/PrivateTabIcon';
@@ -146,20 +145,18 @@ export default function view(
         activityTab,
         connectionsTab,
       ]) =>
-        h(MenuProvider, {customStyles: {backdrop: styles.menuBackdrop}}, [
-          h(View, {style: styles.root}, [
-            // h(RNBridgeDebug),
-            topBar,
-            h(CurrentTabPage, {
-              currentTab: state.currentTab,
-              fab: fabProps,
-              publicTab,
-              privateTab,
-              activityTab,
-              connectionsTab,
-            }),
-            Platform.OS === 'web' ? null : h(MobileTabsBar, state),
-          ]),
+        h(View, {style: styles.root}, [
+          // h(RNBridgeDebug),
+          topBar,
+          h(CurrentTabPage, {
+            currentTab: state.currentTab,
+            fab: fabProps,
+            publicTab,
+            privateTab,
+            activityTab,
+            connectionsTab,
+          }),
+          Platform.OS === 'web' ? null : h(MobileTabsBar, state),
         ]),
     );
 }

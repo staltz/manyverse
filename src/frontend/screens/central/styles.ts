@@ -57,9 +57,4 @@ export const styles = StyleSheet.create({
     bottom: 0,
     right: Dimensions.desktopSideWidth.vw,
   },
-
-  menuBackdrop: {
-    backgroundColor: Palette.transparencyDarkStrong,
-    opacity: 1,
-  },
 });
