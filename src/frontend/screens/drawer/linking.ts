@@ -5,28 +5,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
-import {NativeModules, Platform} from 'react-native';
+import MAIL_TO_BUG_REPORT from '../../components/mail-to-bug-report';
 
-const version = 'v' + NativeModules.BuildConfig.VERSION_NAME;
-const platform = Platform.select({
-  ios: 'iOS',
-  android: 'Android',
-  default: '',
-});
-
-type Actions = {
+interface Actions {
   emailBugReport$: Stream<any>;
   openTranslate$: Stream<any>;
-};
+}
 
 export default function linking(actions: Actions) {
   return xs.merge(
-    actions.emailBugReport$.mapTo(
-      'mailto:' +
-        'incoming+staltz-manyverse-6814019-issue-@incoming.gitlab.com' +
-        `?subject=Bug report for ${platform} ${version}` +
-        '&body=Explain what happened and what you expected...',
-    ),
+    actions.emailBugReport$.mapTo(MAIL_TO_BUG_REPORT),
 
     actions.openTranslate$.mapTo('https://www.manyver.se/translations/'),
   );

@@ -16,6 +16,7 @@ import model, {State} from './model';
 import view from './view';
 import intent from './intent';
 import navigation from './navigation';
+import linking from '../drawer/linking';
 
 export interface Sources {
   screen: ReactSource;
@@ -32,6 +33,7 @@ export interface Sinks {
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   globalEventBus: Stream<GlobalEvent>;
+  linking: Stream<string>;
 }
 
 export function desktopFrame(sources: Sources): Sinks {
@@ -71,10 +73,13 @@ export function desktopFrame(sources: Sources): Sinks {
 
   const command$ = navigation(actions, state$);
 
+  const linking$ = linking(actions);
+
   return {
     screen: vdom$,
     state: reducer$,
     navigation: command$,
     globalEventBus: event$,
+    linking: linking$,
   };
 }

@@ -93,11 +93,21 @@ export default function intent(
 
   const showRawDatabase$ = openMoreMenuOptions$.filter((id) => id === 'raw-db');
 
+  const emailBugReport$ = openMoreMenuOptions$.filter(
+    (id) => id === 'bug-report',
+  );
+
+  const openTranslate$ = openMoreMenuOptions$.filter(
+    (id) => id === 'translate',
+  );
+
   return {
     changeTab$,
     scrollToTop$,
     goToSelfProfile$,
     goToSettings$,
     showRawDatabase$,
+    emailBugReport$,
+    openTranslate$,
   };
 }

@@ -56,6 +56,12 @@ function createWindow() {
     }
   });
 
+  win.webContents.on('new-window', (ev: any, url: string) => {
+    ev.preventDefault();
+    // open the url in the default system browser
+    shell.openExternal(url);
+  });
+
   win.on('closed', () => {
     win = null;
   });

@@ -5,27 +5,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {Stream} from 'xstream';
-import {NativeModules, Platform} from 'react-native';
-const packageJson =
-  Platform.OS === 'web' ? require('../../../../package.json') : {version: ''};
+import MAIL_TO_BUG_REPORT from '../../components/mail-to-bug-report';
 
-const version =
-  'v' + (NativeModules.BuildConfig?.VERSION_NAME ?? packageJson.version);
-const platform = Platform.select({
-  ios: 'iOS',
-  android: 'Android',
-  default: '',
-});
-
-type Actions = {
+interface Actions {
   emailBugReport$: Stream<any>;
-};
+}
 
 export default function linking(actions: Actions) {
-  return actions.emailBugReport$.mapTo(
-    'mailto:' +
-      'incoming+staltz-manyverse-6814019-issue-@incoming.gitlab.com' +
-      `?subject=Bug report for ${platform} ${version}` +
-      '&body=Explain what happened and what you expected...',
-  );
+  return actions.emailBugReport$.mapTo(MAIL_TO_BUG_REPORT);
 }
