@@ -58,15 +58,6 @@ async function runAndReport(label, task) {
     );
   }
 
-  if (!rustEnabled && targetPlatform !== 'ios') {
-    await runAndReport(
-      'Remove Neon (Rust) dependencies from package.json',
-      exec(`sed --in-place=.bu '/ssb-.*-neon/d' package.json`, {
-        cwd: './src/backend',
-      }),
-    );
-  }
-
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Install backend node modules',
@@ -95,7 +86,19 @@ async function runAndReport(label, task) {
     );
   }
 
-  if (!rustEnabled && targetPlatform === 'ios') {
+  if (rustEnabled) {
+    if (targetPlatform === 'android') {
+      await runAndReport(
+        'Patch ssb-neon packages to configure linking with nodejs-mobile',
+        exec('./tools/backend/patch-android-ssb-neon-modules.sh'),
+      );
+    } else if (targetPlatform === 'ios') {
+      await runAndReport(
+        'Patch ssb-neon packages to add a postinstall script specific to iOS',
+        exec('./tools/backend/patch-ios-ssb-neon-modules.js'),
+      );
+    }
+  } else {
     const rustNodeModules = [
       'ssb-keys-neon',
       'ssb-keys-mnemonic-neon',
@@ -109,36 +112,22 @@ async function runAndReport(label, task) {
     );
   }
 
-  if (rustEnabled) {
-    if (targetPlatform === 'android') {
-      await runAndReport(
-        'Patch ssb-neon packages to configure linking with nodejs-mobile',
-        exec('./tools/backend/patch-android-ssb-neon-modules.sh'),
-      );
-    } else if (targetPlatform === 'ios') {
-      await runAndReport(
-        'Patch ssb-neon packages to add a postinstall script specific to iOS',
-        exec('./tools/backend/patch-ios-ssb-neon-modules.js'),
-      );
-    }
-
-    if (targetPlatform === 'desktop') {
-      await runAndReport(
-        'Update package-lock.json in ./src/backend',
-        exec(
-          'cp ./desktop/nodejs-project/package-lock.json ' +
-            './src/backend/package-lock.json',
-        ),
-      );
-    } else {
-      await runAndReport(
-        'Update package-lock.json in ./src/backend',
-        exec(
-          'cp ./nodejs-assets/nodejs-project/package-lock.json ' +
-            './src/backend/package-lock.json',
-        ),
-      );
-    }
+  if (targetPlatform === 'desktop') {
+    await runAndReport(
+      'Update package-lock.json in ./src/backend',
+      exec(
+        'cp ./desktop/nodejs-project/package-lock.json ' +
+          './src/backend/package-lock.json',
+      ),
+    );
+  } else {
+    await runAndReport(
+      'Update package-lock.json in ./src/backend',
+      exec(
+        'cp ./nodejs-assets/nodejs-project/package-lock.json ' +
+          './src/backend/package-lock.json',
+      ),
+    );
   }
 
   if (targetPlatform === 'android' || targetPlatform === 'ios') {
@@ -203,15 +192,6 @@ async function runAndReport(label, task) {
           'rm -rf ./nodejs-assets/nodejs-project/patches &&' +
           'rm ./nodejs-assets/nodejs-project/package-lock.json',
       ),
-    );
-  }
-
-  if (!rustEnabled && targetPlatform !== 'ios') {
-    await runAndReport(
-      'Restore Neon (Rust) dependencies in package.json',
-      exec(`mv package.json.bu package.json`, {
-        cwd: './src/backend',
-      }),
     );
   }
 })();

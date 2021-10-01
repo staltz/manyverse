@@ -43,7 +43,10 @@ brew update
 brew install coreutils libtool autoconf automake
 ```
 
-⚠️ **macOS Big Sur is not supported!** Manyverse only builds on macOS Catalina or older versions. This is because Apple made significant changes to how linking dynamic libraries work, and most non-Apple tooling (which we depend on) hasn't updated yet. For more information, read [issue 1371](https://gitlab.com/staltz/manyverse/-/issues/1371). You may have luck if you compile the backend without Rust, using `npm run build-backend-ios -- --no-rust` (read more about that some sections below).
+<!-- ⚠
+The paragraph below is commented out because we use --no-rust for all iOS compilations, on any version of macOS. So technically macOS Big Sur should be supported now.
+
+️ **macOS Big Sur is not supported!** Manyverse only builds on macOS Catalina or older versions. This is because Apple made significant changes to how linking dynamic libraries work, and most non-Apple tooling (which we depend on) hasn't updated yet. For more information, read [issue 1371](https://gitlab.com/staltz/manyverse/-/issues/1371). You may have luck if you compile the backend without Rust, using `npm run build-backend-ios -- --no-rust` (read more about that some sections below). -->
 
 ### Node.js
 
@@ -233,7 +236,7 @@ react-native run-ios --device
 
 During step 4, another terminal may spawn with the React Native Metro bundler. The app should be installed automatically, if you have a device connected by USB.
 
-In step 3, if you want to see more logs, then run `npm run build-backend-ios -- --verbose`. If you want to disable Rust libraries, run `npm run build-backend-ios -- --no-rust`.
+In step 3, if you want to see more logs, then run `npm run build-backend-ios -- --verbose`.
 
 ### When targeting desktop
 
@@ -458,7 +461,7 @@ Most app development happens in `src/frontend` and thus follows the [Cycle.js](h
 
 There is lots to be explained about the backend part of this project, so consider this subsection docs a work in progress.
 
-### How to add a new ssb-neon package
+### How to add a new Rust-in-Node.js native module
 
 - Add it in `src/backend/package.json`
 - Create a patch for this package using `patch-package`
