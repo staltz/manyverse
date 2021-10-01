@@ -17,6 +17,8 @@ pushd ./nodejs-assets/nodejs-project/node_modules
 
 # Remove leveldown because it's replaced by leveldown-nodejs-mobile
 rm -rf leveldown
+rm -rf ssb-db2/node_modules/leveldown
+rm -rf ssb-friends/node_modules/leveldown
 
 # Remove directories that have these names
 find . \
