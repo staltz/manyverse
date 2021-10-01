@@ -1,16 +1,19 @@
-/* Copyright (C) 2018-2019 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import {Platform} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {navOptions as dialogAboutNavOptions} from '../dialog-about';
-import {navOptions as dialogThanksNavOptions} from '../dialog-thanks';
 import {navOptions as librariesNavOptions} from '../libraries';
 import {navOptions as backupScreenNavOptions} from '../backup';
 import {Screens} from '../enums';
+const dialogAboutNavOptions =
+  Platform.OS === 'web' ? {} : require('../dialog-about').navOptions;
+const dialogThanksNavOptions =
+  Platform.OS === 'web' ? {} : require('../dialog-thanks').navOptions;
 
 export type Actions = {
   goBack$: Stream<any>;
@@ -54,25 +57,31 @@ export default function navigationCommands(
       } as Command),
   );
 
-  const toAbout$ = actions.goToAbout$.mapTo({
-    type: 'showModal',
-    layout: {
-      component: {
-        name: Screens.DialogAbout,
-        options: dialogAboutNavOptions,
-      },
-    },
-  } as Command);
+  const toAbout$ =
+    Platform.OS === 'web'
+      ? xs.never()
+      : actions.goToAbout$.mapTo({
+          type: 'showModal',
+          layout: {
+            component: {
+              name: Screens.DialogAbout,
+              options: dialogAboutNavOptions,
+            },
+          },
+        } as Command);
 
-  const toThanks$ = actions.goToThanks$.mapTo({
-    type: 'showModal',
-    layout: {
-      component: {
-        name: Screens.DialogThanks,
-        options: dialogThanksNavOptions,
-      },
-    },
-  } as Command);
+  const toThanks$ =
+    Platform.OS === 'web'
+      ? xs.never()
+      : actions.goToThanks$.mapTo({
+          type: 'showModal',
+          layout: {
+            component: {
+              name: Screens.DialogThanks,
+              options: dialogThanksNavOptions,
+            },
+          },
+        } as Command);
 
   return xs.merge(back$, toBackup$, toLibraries$, toAbout$, toThanks$);
 }

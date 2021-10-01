@@ -10,12 +10,14 @@ import {Command, PushCommand} from 'cycle-native-navigation';
 import {navOptions as profileScreenNavOptions} from '../profile';
 import {Props as ProfileProps} from '../profile/props';
 import {navOptions as rawDatabaseScreenNavOptions} from '../raw-db';
+import {navOptions as settingsScreenNavOptions} from '../settings';
 import {Screens} from '../enums';
 import {State} from './model';
 
 interface Actions {
   goToSelfProfile$: Stream<any>;
   showRawDatabase$: Stream<any>;
+  goToSettings$: Stream<any>;
   changeTab$: Stream<any>;
 }
 
@@ -56,9 +58,23 @@ export default function navigation(
       } as PushCommand),
   );
 
+  const toSettings$ = actions.goToSettings$.map(
+    () =>
+      ({
+        type: 'push',
+        id: 'mainstack',
+        layout: {
+          component: {
+            name: Screens.Settings,
+            options: settingsScreenNavOptions,
+          },
+        },
+      } as PushCommand),
+  );
+
   const popToRoot$ = actions.changeTab$.map(
     () => ({type: 'popToRoot'} as Command),
   );
 
-  return xs.merge(toSelfProfile$, toRawDatabase$, popToRoot$);
+  return xs.merge(toSelfProfile$, toRawDatabase$, toSettings$, popToRoot$);
 }

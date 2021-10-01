@@ -25,6 +25,7 @@ import {makeWindowSizeDriver} from './lib/frontend/drivers/window-size';
 import {desktopFrame} from './lib/frontend/screens/desktop-frame';
 import {central} from './lib/frontend/screens/central';
 import {compose} from './lib/frontend/screens/compose';
+//import {dialogAbout} from './lib/frontend/screens/dialog-about';
 import {global} from './lib/frontend/screens/global';
 import {welcome} from './lib/frontend/screens/welcome';
 import {conversation} from './lib/frontend/screens/conversation';
@@ -37,6 +38,7 @@ import {thread} from './lib/frontend/screens/thread';
 import {accounts} from './lib/frontend/screens/accounts';
 import {secretOutput} from './lib/frontend/screens/secret-output';
 import {secretInput} from './lib/frontend/screens/secret-input';
+import {settings} from './lib/frontend/screens/settings';
 import {rawDatabase} from './lib/frontend/screens/raw-db';
 import {rawMessage} from './lib/frontend/screens/raw-msg';
 import {Screens} from './lib/frontend/screens/enums';
@@ -115,7 +117,7 @@ function startCycleApp() {
     [Screens.SecretInput]: withState(secretInput),
     [Screens.RawDatabase]: rawDatabase,
     [Screens.RawMessage]: rawMessage,
-    // [Screens.Settings]: withState(settings),
+    [Screens.Settings]: withState(settings),
   };
 
   run(screens, drivers, welcomeLayout);
