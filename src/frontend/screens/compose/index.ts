@@ -81,7 +81,6 @@ export function compose(sources: Sources): Sinks {
     sources.navigation,
     sources.globalEventBus,
     topBarSinks.back,
-    topBarSinks.previewToggle,
     topBarSinks.done,
     sources.state.stream,
   );

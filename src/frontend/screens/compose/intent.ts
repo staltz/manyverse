@@ -26,21 +26,32 @@ export default function intent(
   navSource: NavSource,
   globalEvent$: Stream<GlobalEvent>,
   topBarBack$: Stream<any>,
-  topBarPreviewToggle$: Stream<any>,
   topBarDone$: Stream<any>,
   state$: Stream<State>,
 ) {
+  const topBarDoneWithState$ = topBarDone$.compose(sample(state$));
+
   const back$ = xs
     .merge(navSource.backPress(), topBarBack$)
-    .compose(between(navSource.didAppear(), navSource.didDisappear()));
-
-  const publishPost$ = topBarDone$
     .compose(sample(state$))
+    .filter((state) => !state.previewing);
+
+  const disablePreview$ = xs
+    .merge(navSource.backPress(), topBarBack$)
+    .compose(sample(state$))
+    .filter((state) => state.previewing);
+
+  const enablePreview$ = topBarDoneWithState$.filter(
+    (state) => !state.previewing,
+  );
+
+  const publishPost$ = topBarDoneWithState$
+    .filter((state) => state.previewing)
     .filter(isPost)
     .filter(hasText);
 
-  const publishReply$ = topBarDone$
-    .compose(sample(state$))
+  const publishReply$ = topBarDoneWithState$
+    .filter((state) => state.previewing)
     .filter(isReply)
     .filter(hasText);
 
@@ -57,7 +68,9 @@ export default function intent(
 
     publishReply$,
 
-    togglePreview$: topBarPreviewToggle$,
+    disablePreview$,
+
+    enablePreview$,
 
     updatePostText$: reactSource
       .select('composeInput')
@@ -92,6 +105,10 @@ export default function intent(
     openContentWarning$: reactSource
       .select('content-warning')
       .events('press') as Stream<null>,
+
+    toggleContentWarningPreview$: reactSource
+      .select('content-warning-preview')
+      .events('pressToggle') as Stream<null>,
 
     goToComposeAudio$: reactSource
       .select('record-audio')

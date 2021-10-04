@@ -40,9 +40,8 @@ export const styles = StyleSheet.create({
   bodyContainer: {
     flex: 1,
     alignSelf: 'stretch',
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: Palette.backgroundText,
-    paddingLeft: Dimensions.horizontalSpaceBig,
     ...Platform.select({
       web: {
         maxWidth: Dimensions.desktopMiddleWidth.vw,
@@ -50,12 +49,55 @@ export const styles = StyleSheet.create({
     }),
   },
 
-  leftSide: {
-    flexDirection: 'column',
+  headerContainer: {
+    flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    alignSelf: 'stretch',
     marginTop: Dimensions.verticalSpaceBig,
-    marginBottom: Dimensions.verticalSpaceNormal,
+    marginBottom: 0,
+    flex: 0,
+    minHeight: avatarSize,
+    height: avatarSize,
+  },
+
+  authorAvatar: {
+    marginRight: Dimensions.horizontalSpaceSmall,
+  },
+
+  authorName: {
+    flex: 1,
+    fontSize: Typography.fontSizeNormal,
+    fontWeight: 'bold',
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.text,
+  },
+
+  timestamp: {
+    marginTop: 1,
+    marginLeft: Dimensions.horizontalSpaceTiny,
+    fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.textWeak,
+  },
+
+  footerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    paddingHorizontal: Dimensions.horizontalSpaceBig,
+    marginTop: 0,
+    marginBottom: 0,
+    flex: 0,
+    minHeight: Dimensions.iconSizeNormal + Dimensions.verticalSpaceSmall * 2,
+    height: Dimensions.iconSizeNormal + Dimensions.verticalSpaceSmall * 2,
+  },
+
+  footerButtonContainer: {
+    paddingHorizontal: Dimensions.horizontalSpaceSmall,
+    paddingVertical: Dimensions.verticalSpaceSmall,
+    marginRight: Dimensions.horizontalSpaceNormal,
   },
 
   contentWarningOff: {
@@ -68,51 +110,39 @@ export const styles = StyleSheet.create({
     color: Palette.textBrand,
   },
 
-  sideButtonContainer: {
-    paddingHorizontal: Dimensions.horizontalSpaceSmall,
-    paddingVertical: Dimensions.verticalSpaceSmall,
-    marginBottom: Dimensions.verticalSpaceNormal,
-  },
-
-  leftSpacer: {
-    flex: 1,
-  },
-
   composeInput: {
     flex: 1,
+    paddingTop: 0,
     paddingBottom: Dimensions.verticalSpaceSmall,
-    paddingLeft: Dimensions.horizontalSpaceSmall,
-    paddingRight: 1,
-    marginRight: Dimensions.horizontalSpaceBig,
-    marginTop: Platform.select({
-      ios: Dimensions.verticalSpaceLarge,
-      default: Dimensions.verticalSpaceBig,
-    }),
+    paddingHorizontal: 0,
+    marginTop: Dimensions.verticalSpaceBig + Dimensions.verticalSpaceTiny,
     alignSelf: 'stretch',
-    fontSize: Typography.fontSizeBig,
+    fontSize: Typography.fontSizeNormal,
     fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
-    lineHeight: Typography.lineHeightBig,
+    lineHeight: Typography.lineHeightNormal,
     textAlign: 'left',
     textAlignVertical: 'top',
     color: Palette.text,
     ...Platform.select({
       web: {
-        paddingTop: Dimensions.verticalSpaceNormal,
         outlineStyle: 'none',
       },
     }),
   },
 
-  composePreview: {
+  scroll: {
     flex: 1,
-    paddingLeft: Dimensions.horizontalSpaceSmall,
-    paddingRight: Dimensions.horizontalSpaceBig,
     alignSelf: 'stretch',
+    paddingHorizontal: Dimensions.horizontalSpaceBig,
   },
 
-  previewContentContainer: {
-    paddingTop: Dimensions.verticalSpaceBig,
+  scrollContent: {
     paddingBottom: Dimensions.verticalSpaceBig,
+  },
+
+  preview: {
+    flex: 1,
+    marginTop: Dimensions.verticalSpaceNormal,
   },
 
   mentionsOverlay: {

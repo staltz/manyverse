@@ -39,6 +39,7 @@ export const styles = StyleSheet.create({
   containerClosed: {
     flex: 1,
     height: 200,
+    maxHeight: 200,
     marginVertical: Dimensions.verticalSpaceNormal,
     paddingVertical: Dimensions.verticalSpaceBig,
     paddingHorizontal: Dimensions.horizontalSpaceNormal,
@@ -107,12 +108,12 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   description: string;
   opened: boolean;
-  onPressToggle: () => void;
+  onPressToggle?: () => void;
   style?: StyleProp<ViewStyle>;
-};
+}
 
 export default class ContentWarning extends PureComponent<Props> {
   public render() {

@@ -108,6 +108,7 @@ export default function navigation(
               branch: lastMsgInThread.key,
               authors,
               selfAvatarUrl: state.selfAvatarUrl,
+              selfFeedId: state.selfFeedId,
             } as ComposeProps,
           },
         },

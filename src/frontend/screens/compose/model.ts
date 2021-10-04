@@ -1,10 +1,11 @@
-/* Copyright (C) 2018-2020 The Manyverse Authors.
+/* Copyright (C) 2018-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import xs, {Stream} from 'xstream';
+import concat from 'xstream/extra/concat';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import debounce from 'xstream/extra/debounce';
 import {Reducer, Lens} from '@cycle/state';
@@ -15,9 +16,12 @@ import {SSBSource, MentionSuggestion} from '../../drivers/ssb';
 import {State as TopBarState} from './top-bar';
 import {Props} from './index';
 
-type Selection = {start: number; end: number};
+interface Selection {
+  start: number;
+  end: number;
+}
 
-export type State = {
+export interface State {
   postText: string;
   postTextOverride: string;
   postTextSelection: Selection;
@@ -25,13 +29,16 @@ export type State = {
   mentionSuggestions: Array<MentionSuggestion>;
   mentionChoiceTimestamp: number;
   contentWarning: string;
+  contentWarningPreviewOpened: boolean;
+  selfFeedId: FeedId;
   selfAvatarUrl?: string;
+  selfName: string | undefined;
   previewing: boolean;
   root: MsgId | undefined;
   fork: MsgId | undefined;
   branch: MsgId | undefined;
   authors: Array<FeedId>;
-};
+}
 
 export const topBarLens: Lens<State, TopBarState> = {
   get: (parent: State): TopBarState => {
@@ -85,17 +92,19 @@ function appendToPostText(postText: string, other: string) {
   return postText + separator + other + '\n\n';
 }
 
-export type Actions = {
+export interface Actions {
   updatePostText$: Stream<string>;
   updateSelection$: Stream<Selection>;
   updateMentionQuery$: Stream<string>;
   chooseMention$: Stream<{name: string; id: FeedId}>;
   cancelMention$: Stream<any>;
   updateContentWarning$: Stream<string>;
-  togglePreview$: Stream<any>;
+  toggleContentWarningPreview$: Stream<any>;
+  disablePreview$: Stream<any>;
+  enablePreview$: Stream<any>;
   addAudio$: Stream<string>;
   addPictureWithCaption$: Stream<{caption: string; image: Image}>;
-};
+}
 
 export default function model(
   props$: Stream<Props>,
@@ -121,11 +130,29 @@ export default function model(
           branch: props.branch,
           authors: props.authors ?? [],
           contentWarning: '',
+          contentWarningPreviewOpened: true,
           selfAvatarUrl: props.selfAvatarUrl,
+          selfFeedId: props.selfFeedId,
+          selfName: undefined,
           previewing: false,
         };
       },
   );
+
+  const selfNameReducer$ = props$
+    .take(1)
+    .map((props) => ssbSource.profileAboutLive$(props.selfFeedId))
+    .flatten()
+    .map(
+      (about) =>
+        function aboutReducer(prev: State): State {
+          if (!!about.name && about.name !== about.id) {
+            return {...prev, selfName: about.name};
+          } else {
+            return prev;
+          }
+        },
+    );
 
   const updateSelectionReducer$ = actions.updateSelection$.map(
     (postTextSelection) =>
@@ -305,24 +332,32 @@ export default function model(
   const updateContentWarningReducer$ = actions.updateContentWarning$.map(
     (contentWarning) =>
       function updateContentWarningReducer(prev: State): State {
-        return {...prev, contentWarning};
+        return {
+          ...prev,
+          contentWarning,
+          contentWarningPreviewOpened: contentWarning.length === 0,
+        };
       },
   );
 
-  const togglePreviewReducer$ = actions.togglePreview$.mapTo(
-    function togglePreviewReducer(prev: State): State {
-      if (prev.previewing) {
-        return {
-          ...prev,
-          previewing: false,
-          postTextOverride: prev.postText,
-        };
-      } else {
-        return {
-          ...prev,
-          previewing: true,
-        };
-      }
+  const enablePreviewReducer$ = actions.enablePreview$.mapTo(
+    function enablePreviewReducer(prev: State): State {
+      return {...prev, previewing: true};
+    },
+  );
+
+  const disablePreviewReducer$ = actions.disablePreview$.mapTo(
+    function disablePreviewReducer(prev: State): State {
+      return {...prev, previewing: false, postTextOverride: prev.postText};
+    },
+  );
+
+  const toggleContentWarningPreviewReducer$ = actions.toggleContentWarningPreview$.mapTo(
+    function toggleContentWarningPreviewReducer(prev: State): State {
+      return {
+        ...prev,
+        contentWarningPreviewOpened: !prev.contentWarningPreviewOpened,
+      };
     },
   );
 
@@ -344,19 +379,24 @@ export default function model(
         },
     );
 
-  return xs.merge(
+  return concat(
     propsReducer$,
-    updateSelectionReducer$,
-    updatePostTextReducer$,
-    updateMentionQueryReducer$,
-    updateMentionSuggestionsReducer1$,
-    updateMentionSuggestionsReducer2$,
-    chooseMentionReducer$,
-    cancelMentionReducer$,
-    addPictureReducer$,
-    addAudioReducer$,
-    updateContentWarningReducer$,
-    togglePreviewReducer$,
-    getComposeDraftReducer$,
+    xs.merge(
+      selfNameReducer$,
+      updateSelectionReducer$,
+      updatePostTextReducer$,
+      updateMentionQueryReducer$,
+      updateMentionSuggestionsReducer1$,
+      updateMentionSuggestionsReducer2$,
+      chooseMentionReducer$,
+      cancelMentionReducer$,
+      addPictureReducer$,
+      addAudioReducer$,
+      updateContentWarningReducer$,
+      enablePreviewReducer$,
+      disablePreviewReducer$,
+      toggleContentWarningPreviewReducer$,
+      getComposeDraftReducer$,
+    ),
   );
 }

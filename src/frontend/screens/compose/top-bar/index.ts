@@ -31,7 +31,6 @@ export type Sources = {
 export type Sinks = {
   screen: Stream<ReactElement<any>>;
   back: Stream<any>;
-  previewToggle: Stream<any>;
   done: Stream<any>;
 };
 
@@ -65,6 +64,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 
+  previewButton: {
+    minWidth: 80,
+  },
+
   publishButton: {
     minWidth: 80,
   },
@@ -89,10 +92,7 @@ export const styles = StyleSheet.create({
 function intent(reactSource: ReactSource) {
   return {
     back$: reactSource.select('composeCloseButton').events('press'),
-
-    previewToggle$: reactSource.select('composePreviewButton').events('press'),
-
-    done$: reactSource.select('composePublishButton').events('press'),
+    done$: reactSource.select('composeDoneButton').events('press'),
   };
 }
 
@@ -102,34 +102,39 @@ function view(state$: Stream<State>) {
       h(View, {style: styles.innerContainer}, [
         h(HeaderButton, {
           sel: 'composeCloseButton',
-          icon: state.isReply ? 'arrow-collapse' : 'close',
+          icon: state.previewing
+            ? 'pencil'
+            : state.isReply
+            ? 'arrow-collapse'
+            : Platform.OS === 'ios'
+            ? 'chevron-left'
+            : 'arrow-left',
+          ...Platform.select({ios: {iconSize: Dimensions.iconSizeLarge}}),
           accessibilityLabel: t(
             'compose.call_to_action.close.accessibility_label',
           ),
         }),
         h(View, {style: styles.buttonsRight}, [
-          state.enabled
-            ? h(HeaderButton, {
-                sel: 'composePreviewButton',
-                side: 'neutral',
-                icon: state.previewing ? 'pencil' : 'eye',
-                accessibilityLabel: t(
-                  'compose.call_to_action.preview.accessibility_label',
-                ),
-              })
-            : null,
           h(Button, {
-            sel: 'composePublishButton',
+            sel: 'composeDoneButton',
             style: [
               state.enabled ? styles.buttonEnabled : styles.buttonDisabled,
-              state.isReply ? styles.replyButton : styles.publishButton,
+              !state.previewing
+                ? styles.previewButton
+                : state.isReply
+                ? styles.replyButton
+                : styles.publishButton,
             ],
-            text: state.isReply
+            text: !state.previewing
+              ? t('compose.call_to_action.preview.label')
+              : state.isReply
               ? t('compose.call_to_action.reply_to_thread.label')
               : t('compose.call_to_action.publish_new_thread.label'),
             strong: state.enabled,
             accessible: true,
-            accessibilityLabel: state.isReply
+            accessibilityLabel: !state.previewing
+              ? t('compose.call_to_action.preview.accessibility_label')
+              : state.isReply
               ? t('compose.call_to_action.reply_to_thread.accessibility_label')
               : t(
                   'compose.call_to_action.publish_new_thread.accessibility_label',
@@ -148,7 +153,6 @@ export function topBar(sources: Sources): Sinks {
   return {
     screen: vdom$,
     back: actions.back$,
-    previewToggle: actions.previewToggle$,
     done: actions.done$,
   };
 }

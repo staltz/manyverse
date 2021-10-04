@@ -112,6 +112,7 @@ export default function navigation(
             name: Screens.Compose,
             passProps: {
               selfAvatarUrl: state.selfAvatarUrl,
+              selfFeedId: state.selfFeedId,
             } as ComposeProps,
             options: composeScreenNavOpts,
           },

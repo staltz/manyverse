@@ -193,6 +193,7 @@ declare module 'i18n-js' {
     | 'compose.call_to_action.publish_new_thread.accessibility_label'
     | 'compose.call_to_action.reply_to_thread.label'
     | 'compose.call_to_action.reply_to_thread.accessibility_label'
+    | 'compose.call_to_action.preview.label'
     | 'compose.call_to_action.preview.accessibility_label'
     | 'compose.call_to_action.close.accessibility_label'
     | 'compose.call_to_action.record_audio.accessibility_label'
