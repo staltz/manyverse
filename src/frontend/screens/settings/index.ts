@@ -8,6 +8,7 @@ import {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
+import {Platform} from 'react-native';
 import {Reducer, StateSource} from '@cycle/state';
 import {Command as AlertCommand} from '../../drivers/dialogs';
 import {SSBSource, Req} from '../../drivers/ssb';
@@ -42,7 +43,7 @@ export const navOptions = {
   },
   sideMenu: {
     left: {
-      enabled: false,
+      enabled: Platform.OS === 'web',
     },
   },
 };

@@ -49,13 +49,13 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   title: string;
   subtitle?: string;
   value: boolean;
   accessibilityLabel: string;
   onValueChange?: (value: boolean) => void;
-};
+}
 
 export default class ToggleSetting extends PureComponent<Props> {
   public render() {
@@ -91,11 +91,24 @@ export default class ToggleSetting extends PureComponent<Props> {
         ]),
         h(Switch, {
           ...Platform.select({
+            android: {
+              thumbColor: Palette.voidWeak,
+              trackColor: {
+                false: Palette.voidMain,
+                true: Palette.brandWeaker,
+              },
+            },
             ios: {
               trackColor: {
                 false: Palette.brandMain,
                 true: Palette.brandMain,
               },
+            },
+            web: {
+              ['trackColor' as any]: Palette.voidMain,
+              thumbColor: Palette.voidWeak,
+              activeTrackColor: Palette.brandWeakest,
+              activeThumbColor: Palette.brandMain,
             },
           }),
           value,

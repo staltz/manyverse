@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 The Manyverse Authors.
+/* Copyright (C) 2020-2021 The Manyverse Authors.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -41,14 +41,14 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   title: string;
   subtitle?: string;
   accessibilityLabel: string;
   options: Array<string>;
   initial: number;
   onChange?: (val: number) => void;
-};
+}
 
 type State = {
   current?: number;
@@ -84,6 +84,8 @@ export default class SliderSetting extends PureComponent<Props, State> {
           step: 1,
           value: initial,
           minimumTrackTintColor: Palette.brandMain,
+          thumbTintColor: Palette.brandMain,
+          maximumTrackTintColor: Palette.voidMain,
           onValueChange: this.onSlide,
           onSlidingComplete: this.onSlidingComplete,
         }),
