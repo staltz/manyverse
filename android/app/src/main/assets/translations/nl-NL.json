@@ -437,6 +437,7 @@
         "accessibility_label": "Publiceer reactieknop"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Voorbeeld knop"
       },
       "close": {

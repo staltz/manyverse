@@ -437,6 +437,7 @@
         "accessibility_label": "Pulsante di risposta messaggio"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Pulsante d'anteprima"
       },
       "close": {

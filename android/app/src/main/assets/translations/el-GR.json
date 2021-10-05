@@ -437,6 +437,7 @@
         "accessibility_label": "Κουμπί δημοσίευσης απνάντησης"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Κουμπί προεπισκόπησης"
       },
       "close": {

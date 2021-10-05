@@ -437,6 +437,7 @@
         "accessibility_label": "Yanıtı Yayınla Düğmesi"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Önizleme Düğmesi"
       },
       "close": {

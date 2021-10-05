@@ -437,6 +437,7 @@
         "accessibility_label": "Кнопка публікування відповіді"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Кнопка перегляду"
       },
       "close": {

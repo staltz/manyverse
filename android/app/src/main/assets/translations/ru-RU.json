@@ -437,6 +437,7 @@
         "accessibility_label": "Кнопка \"Опубликовать ответ\""
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Кнопка предварительного просмотра"
       },
       "close": {

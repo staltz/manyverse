@@ -437,6 +437,7 @@
         "accessibility_label": "답장"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "미리보기"
       },
       "close": {

@@ -437,6 +437,7 @@
         "accessibility_label": "Botão de Publicar Resposta"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Botão de Pré-visualização"
       },
       "close": {

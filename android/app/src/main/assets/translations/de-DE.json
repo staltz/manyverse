@@ -437,6 +437,7 @@
         "accessibility_label": "Antwort-Taste"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Vorschau Schaltfläche"
       },
       "close": {

@@ -437,6 +437,7 @@
         "accessibility_label": "发布回复按钮"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "预览按钮"
       },
       "close": {

@@ -437,6 +437,7 @@
         "accessibility_label": "Bouton de réponse au message"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Bouton d'aperçu"
       },
       "close": {

@@ -437,6 +437,7 @@
         "accessibility_label": "Publicera svarsknapp"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Förhandsgranska-knapp"
       },
       "close": {

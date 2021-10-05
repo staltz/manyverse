@@ -166,13 +166,13 @@
     "tab_headers": {
       "public": "Foro público",
       "private": "Mensajes privados",
-      "activity": "Activity",
+      "activity": "Actividad",
       "connections": "Conexiones"
     },
     "tab_footers": {
       "public": "Público",
       "private": "Privado",
-      "activity": "Activity",
+      "activity": "Actividad",
       "connections": "Conexiones"
     },
     "loading": "Cargando...",
@@ -185,7 +185,7 @@
         "accessibility_label": "Pestaña de mensajes privados"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "Botón de Pestaña Actividad"
       },
       "connections": {
         "accessibility_label": "Pestaña de conexiones"
@@ -201,7 +201,7 @@
       "description": "Escribe un diario para ser\ncompartido con tus amigos más tarde"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Botón de Búsqueda"
     }
   },
   "private": {
@@ -234,26 +234,26 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " te mencionó"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " te siguió"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " quiere conectarse"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "Sin actividad",
+      "description": "Cuando la gente mencione o te siga,\nse mostrará aquí"
     }
   },
   "connections": {
@@ -279,9 +279,9 @@
     "toasts": {
       "invite_accepted": "Invitación aceptada",
       "invite_rejected": "Invitación rechazada. ¿Estás seguro de que es correcto?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "connecting_to_alias": "Conectando a {{alias}}",
+      "connected_to_alias": "Conectado a {{alias}}",
+      "not_connected_to_alias": "{{alias}} está desconectado ahora mismo"
     },
     "dialogs": {
       "sign_in_with_ssb": {
@@ -437,6 +437,7 @@
         "accessibility_label": "Botón Publicar Respuesta"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Botón Previsualizar"
       },
       "close": {

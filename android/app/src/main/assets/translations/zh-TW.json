@@ -437,6 +437,7 @@
         "accessibility_label": "Publish Reply Button"
       },
       "preview": {
+        "label": "Preview",
         "accessibility_label": "Preview Button"
       },
       "close": {
