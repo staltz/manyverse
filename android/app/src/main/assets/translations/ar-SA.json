@@ -344,7 +344,7 @@
       }
     },
     "menu": {
-      "dialog_title": "Connection",
+      "dialog_title": "الاقتران",
       "open_profile": {
         "label": "افتح الملف الشخصي",
         "accessibility_label": {
@@ -437,7 +437,7 @@
         "accessibility_label": "زر نشر رد"
       },
       "preview": {
-        "label": "Preview",
+        "label": "معاينة",
         "accessibility_label": "زر معاينة"
       },
       "close": {
@@ -660,7 +660,7 @@
     },
     "dialog_friend_request": {
       "title": "طلب صداقة",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "description": "هذا الحساب يحاول الاقتران بك، لكن مانيفرس منعه لأنه خارج مجتمعك.\n\nإذا تعرّفت على هذا المعرف، اضغط على \"تابع\" للسماح لهم بالاقتران بك."
     },
     "toast": {
       "copied_to_clipboard": "نُسخ في الحافظة"
@@ -728,7 +728,7 @@
         "question": "تجاهل التغييرات؟"
       },
       "remove_alias": {
-        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
+        "description": "سيؤدي هذا الإجراء إلى إزالة الاسم لقب \"{{alias}}\" من خادم الغرفة.\n\nلن يتمكن الناس من الوصول إليك باستخدام هذا اللقب."
       }
     },
     "toasts": {
@@ -761,11 +761,11 @@
       }
     },
     "header": {
-      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+      "description": "اختر خادم غرفة أين ترغب في تسجيل رابط لقب جديد لنفسك.\n\n الألقاب عبارة عن عناوين ويب يمكن للناس استخدامها للوصول إليك."
     },
     "dialogs": {
       "input_alias": {
-        "description": "Submit your desired new alias to {{host}} as a single word in lowercase.\n\nFor example, if you want the alias \"myname.{{host}}\", write \"myname\" below."
+        "description": "أرسل الاسم اللقب الجديد إلى {{host}} ككلمة واحدة بحروف صغيرة.\n\nعلى سبيل المثال، إذا كنت تريد لقب \"my name.{{host}}\", اكتب \"myname\" أدناه."
       }
     },
     "submitting": {
