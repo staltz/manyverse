@@ -726,7 +726,7 @@ export default [
   {
     name: 'remark-images-to-ssb-serve-blobs',
     type: 'library',
-    version: '2.1.0-1',
+    version: '2.1.0-2',
     license: 'MIT License (MIT)',
     homepage:
       'https://gitlab.com/staltz/remark-images-to-ssb-serve-blobs#readme',
@@ -825,7 +825,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '2.3.0',
+    version: '2.3.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -944,14 +944,14 @@ export default [
   {
     name: 'ssb-search2',
     type: 'library',
-    version: '0.12.0',
+    version: '1.0.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-search2#readme',
   },
   {
     name: 'ssb-serve-blobs',
     type: 'library',
-    version: '2.6.0',
+    version: '3.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-serve-blobs',
   },

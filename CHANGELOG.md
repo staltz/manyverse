@@ -7,6 +7,21 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2110.5-beta
+
+* (Android) Reduce APK size and support Android 5.0 ([see details](https://gitlab.com/staltz/manyverse/commit/e57baf0d71790a8b671b445330c59bbcd313f642)), closes [#1400](https://gitlab.com/staltz/manyverse/issues/1400) [#1499](https://gitlab.com/staltz/manyverse/issues/1499) [#1400](https://gitlab.com/staltz/manyverse/issues/1400) [#1499](https://gitlab.com/staltz/manyverse/issues/1499) [#1400](https://gitlab.com/staltz/manyverse/issues/1400)
+* (Android) Reduce APK size by 8MB ([see details](https://gitlab.com/staltz/manyverse/commit/86fac65f4211a8aa72ed282aceabf9d57b175003))
+* (iOS) Bug fix: record and play audio messages ([see details](https://gitlab.com/staltz/manyverse/commit/328516a155cb0e2da044413076d36d68d7dc7217))
+* Bug fix: crash related to database RangeError ([see details](https://gitlab.com/staltz/manyverse/commit/d79d83fcc7937f55ac3f8c3142b2e06789970b80))
+* Improve Arabic translation ([see details](https://gitlab.com/staltz/manyverse/commit/7cadff770957cb3263076b6f35c85f97aed2f96a))
+* Improve Chinese Traditional translation ([see details](https://gitlab.com/staltz/manyverse/commit/33021786e575c66ed67318ba7957c723f520b6c8))
+* Improve German translation ([see details](https://gitlab.com/staltz/manyverse/commit/a84f4f61d61d477420fe9e95c53359656ab5a5d1))
+* Improve Ukrainian translation ([see details](https://gitlab.com/staltz/manyverse/commit/4e28b55ec66ff0e28552e3261116615226d7981a))
+* New layout for the Compose message screen ([see details](https://gitlab.com/staltz/manyverse/commit/a035d1d03483f3228c8ab8bc467c53803509333e))
+* New UI for picking mentions in the Compose screen ([see details](https://gitlab.com/staltz/manyverse/commit/c882244425bdd3ea3ef1313ab4e0087d9d5e6ea0))
+* Replace the Connections slide-in menu with a dialog ([see details](https://gitlab.com/staltz/manyverse/commit/4e235c501b27bebab50859fa5de31b958bae82eb))
+* Translate to Korean ([see details](https://gitlab.com/staltz/manyverse/commit/884af56ec9aa4cfb6087ad21f907fc44a20eacf2))
+
 ## 0.2109.4-beta
 
 * (Android) Bug fix: should not crash on Android 6.0.1 ([see details](https://gitlab.com/staltz/manyverse/commit/2c74116ad7428f7d2261c5a3f650711c679fe3d3))
