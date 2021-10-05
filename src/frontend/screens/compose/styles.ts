@@ -176,6 +176,5 @@ export const styles = StyleSheet.create({
 
   menuOptionTouchable: {
     margin: 0,
-    activeOpacity: 0.4,
   },
 });
