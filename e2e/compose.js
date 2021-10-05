@@ -44,6 +44,14 @@ module.exports = function (driver, t) {
     );
     t.ok(addPictureButton, 'I see the Add Picture Button');
 
+    const composePreviewButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Preview Button")',
+      6000,
+    );
+    t.ok(composePreviewButton, 'I see the Preview Message Button');
+    await composePreviewButton.click();
+    t.pass('I tap it');
+
     const composePublishButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Publish Message Button")',
       6000,
