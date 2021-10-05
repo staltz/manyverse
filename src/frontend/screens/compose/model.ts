@@ -9,6 +9,7 @@ import concat from 'xstream/extra/concat';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import debounce from 'xstream/extra/debounce';
 import {Reducer, Lens} from '@cycle/state';
+import {Platform} from 'react-native';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Image} from 'react-native-image-crop-picker';
 import {MsgId, FeedId} from 'ssb-typescript';
@@ -26,7 +27,7 @@ export interface State {
   postTextOverride: string;
   postTextSelection: Selection;
   mentionQuery: string;
-  mentionSuggestions: Array<MentionSuggestion>;
+  mentionSuggestions: Array<MentionSuggestion & {imageUrl?: string}>;
   mentionChoiceTimestamp: number;
   contentWarning: string;
   contentWarningPreviewOpened: boolean;
@@ -39,6 +40,8 @@ export interface State {
   branch: MsgId | undefined;
   authors: Array<FeedId>;
 }
+
+const MAX_SUGGESTIONS = Platform.OS === 'web' ? 6 : 4;
 
 export const topBarLens: Lens<State, TopBarState> = {
   get: (parent: State): TopBarState => {
@@ -95,8 +98,7 @@ function appendToPostText(postText: string, other: string) {
 export interface Actions {
   updatePostText$: Stream<string>;
   updateSelection$: Stream<Selection>;
-  updateMentionQuery$: Stream<string>;
-  chooseMention$: Stream<{name: string; id: FeedId}>;
+  chooseMention$: Stream<FeedId>;
   cancelMention$: Stream<any>;
   updateContentWarning$: Stream<string>;
   toggleContentWarningPreview$: Stream<any>;
@@ -154,18 +156,6 @@ export default function model(
         },
     );
 
-  const updateSelectionReducer$ = actions.updateSelection$.map(
-    (postTextSelection) =>
-      function updateCursorPositionReducer(prev: State): State {
-        // If the mention TextInput is open, dont update the postText selection
-        if (prev.mentionQuery) {
-          return prev;
-        } else {
-          return {...prev, postTextSelection};
-        }
-      },
-  );
-
   const updatePostTextReducer$ = actions.updatePostText$.map(
     (postText) =>
       function updatePostTextReducer(prev: State): State {
@@ -173,9 +163,11 @@ export default function model(
       },
   );
 
-  const updateMentionSuggestionsReducer1$ = actions.updateSelection$
+  const selectionAndState$ = actions.updateSelection$
     .compose(sampleCombine(state$))
-    .compose(debounce(100))
+    .compose(debounce(100));
+
+  const openMentionSuggestionsReducer$ = selectionAndState$
     .map(([selection, state]) => {
       const mentionQuery = parseMention(state.postText, selection);
       if (!mentionQuery) return xs.never();
@@ -190,65 +182,52 @@ export default function model(
     .flatten()
     .map(
       ([mentionSuggestions, prevSelection]) =>
-        function updateMentionSuggestionsReducer1(prev: State): State {
+        function openMentionSuggestionsReducer(prev: State): State {
           let mentionQuery = parseMention(prev.postText, prevSelection);
           const cursor = prevSelection.start;
           if (mentionSuggestions.length && mentionQuery) {
             mentionQuery = '@' + mentionQuery;
-            const mentionPosition = cursor - mentionQuery.length;
-            const preMention = prev.postText.substr(0, mentionPosition);
-            const postMention = prev.postText.substr(cursor);
-            const postText = preMention + postMention;
             const postTextSelection = {
               start: cursor - mentionQuery.length,
               end: cursor - mentionQuery.length,
             };
             return {
               ...prev,
-              postText,
               postTextSelection,
               mentionQuery,
-              mentionSuggestions,
+              mentionSuggestions: mentionSuggestions.slice(0, MAX_SUGGESTIONS),
             };
           } else {
-            return {...prev, mentionSuggestions};
+            return {
+              ...prev,
+              mentionSuggestions: mentionSuggestions.slice(0, MAX_SUGGESTIONS),
+            };
           }
         },
     );
 
-  const updateMentionQueryReducer$ = actions.updateMentionQuery$.map(
-    (mentionQuery) =>
-      function updateMentionQueryReducer(prev: State): State {
-        if (mentionQuery.length) {
-          return {...prev, mentionQuery};
+  const ignoreMentionSuggestionsReducer$ = selectionAndState$.map(
+    ([selection, state]) =>
+      function ignoreMentionSuggestionsReducer(prev: State): State {
+        const mentionQuery = parseMention(state.postText, selection);
+        if (!mentionQuery && prev.mentionSuggestions.length > 0) {
+          return {...prev, mentionSuggestions: []};
         } else {
-          return {...prev, mentionQuery, mentionSuggestions: []};
+          return prev;
         }
       },
   );
 
-  const updateMentionSuggestionsReducer2$ = actions.updateMentionQuery$
-    .map((query) => query.replace(/^@+/g, ''))
-    .compose(sampleCombine(state$))
-    .map(([mentionQuery, state]) =>
-      !mentionQuery
-        ? xs.never()
-        : ssbSource.getMentionSuggestions(mentionQuery, state.authors),
-    )
-    .flatten()
-    .map(
-      (mentionSuggestions) =>
-        function updateMentionSuggestionsReducer2(prev: State): State {
-          return {...prev, mentionSuggestions};
-        },
-    );
-
   const chooseMentionReducer$ = actions.chooseMention$.map(
-    (chosen) =>
+    (chosenId) =>
       function chooseMentionReducer(prev: State): State {
         const cursor = prev.postTextSelection.start;
         const preMention = prev.postText.substr(0, cursor);
-        const postMention = prev.postText.substr(cursor);
+        const postMention = prev.postText
+          .substr(cursor)
+          .replace(prev.mentionQuery, '');
+        const chosen = prev.mentionSuggestions.find((x) => x.id === chosenId);
+        if (!chosen) return prev;
         const mention = `[@${chosen.name}](${chosen.id}) `;
         const postText = preMention + mention + postMention;
         const postTextSelection = {
@@ -281,6 +260,7 @@ export default function model(
       return {
         ...prev,
         postText,
+        postTextOverride: postText,
         postTextSelection,
         mentionQuery: '',
         mentionSuggestions: [],
@@ -348,7 +328,15 @@ export default function model(
 
   const disablePreviewReducer$ = actions.disablePreview$.mapTo(
     function disablePreviewReducer(prev: State): State {
-      return {...prev, previewing: false, postTextOverride: prev.postText};
+      return {
+        ...prev,
+        previewing: false,
+        postTextOverride: prev.postText,
+        postTextSelection: {
+          start: prev.postText.length,
+          end: prev.postText.length,
+        },
+      };
     },
   );
 
@@ -374,6 +362,10 @@ export default function model(
               ...prev,
               postText: composeDraft!,
               postTextOverride: composeDraft!,
+              postTextSelection: {
+                start: composeDraft!.length,
+                end: composeDraft!.length,
+              },
             };
           }
         },
@@ -383,11 +375,9 @@ export default function model(
     propsReducer$,
     xs.merge(
       selfNameReducer$,
-      updateSelectionReducer$,
       updatePostTextReducer$,
-      updateMentionQueryReducer$,
-      updateMentionSuggestionsReducer1$,
-      updateMentionSuggestionsReducer2$,
+      openMentionSuggestionsReducer$,
+      ignoreMentionSuggestionsReducer$,
       chooseMentionReducer$,
       cancelMentionReducer$,
       addPictureReducer$,

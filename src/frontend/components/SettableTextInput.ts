@@ -5,12 +5,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import {PureComponent, createElement as $, createRef, RefObject} from 'react';
-import {TextInput, TextInputProps} from 'react-native';
+import {Platform, TextInput, TextInputProps} from 'react-native';
 import {Stream, Subscription} from 'xstream';
 
 export interface Payload {
   text?: string;
-  selection?: any;
+  selection?: {start: number; end: number};
   focus?: boolean;
 }
 
@@ -29,6 +29,11 @@ export default class SettableTextInput extends PureComponent<Props> {
           if (payload.focus) this.ref.current?.focus();
           delete payload.focus;
           this.ref.current?.setNativeProps(payload);
+          if (Platform.OS === 'web' && payload.selection) {
+            // Use DOM properties because for some reason `setNativeProps` fails
+            (this.ref.current! as any).selectionStart = payload.selection.start;
+            (this.ref.current! as any).selectionEnd = payload.selection.end;
+          }
         },
       });
     }

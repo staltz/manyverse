@@ -76,10 +76,6 @@ export default function intent(
       .select('composeInput')
       .events('changeText') as Stream<string>,
 
-    updateMentionQuery$: reactSource
-      .select('mentionInput')
-      .events('changeText') as Stream<string>,
-
     // Android and iOS behave slightly different
     updateSelection$: Platform.select({
       // TextInput Selection events that happen after focus and before blur
@@ -97,10 +93,10 @@ export default function intent(
     }),
 
     chooseMention$: reactSource
-      .select('suggestions')
-      .events('pressAccount') as Stream<{id: FeedId; name: string}>,
+      .select('mentions-menu')
+      .events('select') as Stream<FeedId>,
 
-    cancelMention$: reactSource.select('mentions-cancel').events('press'),
+    cancelMention$: reactSource.select('mentions-menu').events('backdropPress'),
 
     openContentWarning$: reactSource
       .select('content-warning')

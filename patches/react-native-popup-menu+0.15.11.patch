@@ -1,0 +1,42 @@
+diff --git a/node_modules/react-native-popup-menu/build/rnpm.js b/node_modules/react-native-popup-menu/build/rnpm.js
+index 141afa2..f971971 100644
+--- a/node_modules/react-native-popup-menu/build/rnpm.js
++++ b/node_modules/react-native-popup-menu/build/rnpm.js
+@@ -2460,7 +2460,7 @@
+       value: function _onSelect() {
+         var value = this.props.value;
+ 
+-        var onSelect = this.props.onSelect || this._getMenusOnSelect();
++        var onSelect = this.props.onSelect || this._getMenusOnSelect() || (() => {});
+ 
+         var shouldClose = onSelect(value) !== false;
+         debug('select option', value, shouldClose);
+@@ -2474,6 +2474,7 @@
+       value: function _getMenusOnSelect() {
+         var menu = this.props.ctx.menuActions._getOpenedMenu();
+ 
++        if (!menu) return;
+         return menu.instance.props.onSelect;
+       }
+     }, {
+diff --git a/node_modules/react-native-popup-menu/src/MenuOption.js b/node_modules/react-native-popup-menu/src/MenuOption.js
+index bc944ef..190af33 100644
+--- a/node_modules/react-native-popup-menu/src/MenuOption.js
++++ b/node_modules/react-native-popup-menu/src/MenuOption.js
+@@ -10,7 +10,7 @@ export class MenuOption extends Component {
+ 
+   _onSelect() {
+     const { value } = this.props;
+-    const onSelect = this.props.onSelect || this._getMenusOnSelect()
++    const onSelect = this.props.onSelect || this._getMenusOnSelect() || (() => {});
+     const shouldClose = onSelect(value) !== false;
+     debug('select option', value, shouldClose);
+     if (shouldClose) {
+@@ -20,6 +20,7 @@ export class MenuOption extends Component {
+ 
+   _getMenusOnSelect() {
+     const menu = this.props.ctx.menuActions._getOpenedMenu();
++    if (!menu) return;
+     return menu.instance.props.onSelect;
+   }
+ 

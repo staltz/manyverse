@@ -6,19 +6,24 @@
 
 import xs, {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
-import pairwise from 'xstream/extra/pairwise';
 import {h} from '@cycle/react';
 import {PureComponent, ReactElement} from 'react';
 import {
   View,
   Text,
   ScrollView,
-  TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import {propifyMethods} from 'react-propify-methods';
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  renderers,
+  MenuProvider,
+} from 'react-native-popup-menu';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {displayName} from '../../ssb/utils/from-ssb';
 import {t} from '../../drivers/localization';
@@ -26,13 +31,12 @@ import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import Markdown from '../../components/Markdown';
 import Avatar from '../../components/Avatar';
-import AccountsList from '../../components/AccountsList';
 import SettableTextInput from '../../components/SettableTextInput';
 import LocalizedHumanTime from '../../components/LocalizedHumanTime';
 import ContentWarning from '../../components/messages/ContentWarning';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
-const FocusableTextInput = propifyMethods(TextInput, 'focus' as any);
+import AccountSmall from '../../components/AccountSmall';
 
 type MiniState = Pick<State, 'postText'> &
   Pick<State, 'postTextOverride'> &
@@ -40,7 +44,6 @@ type MiniState = Pick<State, 'postText'> &
   Pick<State, 'selfAvatarUrl'> &
   Pick<State, 'selfFeedId'> &
   Pick<State, 'selfName'> &
-  Pick<State, 'mentionQuery'> &
   Pick<State, 'mentionSuggestions'> &
   Pick<State, 'mentionChoiceTimestamp'> &
   Pick<State, 'contentWarning'> &
@@ -212,59 +215,32 @@ class MarkdownInput extends PureComponent<
   }
 }
 
-function MentionSuggestions(state: MiniState, focus$: Stream<undefined>) {
-  return h(View, {style: styles.mentionsOverlay}, [
-    h(View, {style: styles.mentionsInputContainer}, [
-      h(Icon, {
-        size: Dimensions.iconSizeNormal,
-        style: styles.mentionsIcon,
-        color: Palette.textVeryWeak,
-        name: 'account-search',
-      }),
-      h(FocusableTextInput, {
-        style: styles.mentionsInput,
-        sel: 'mentionInput',
-        defaultValue: state.mentionQuery,
-        focus$,
-        accessible: true,
-        accessibilityRole: 'search',
-        accessibilityLabel: t('compose.mention_field.accessibility_label'),
-        multiline: false,
-        returnKeyType: 'done',
-        selectionColor: Palette.backgroundTextSelection,
-        underlineColorAndroid: Palette.textLine,
-      }),
+function MentionSuggestions(state: MiniState) {
+  return h(
+    Menu,
+    {
+      sel: 'mentions-menu',
+      renderer: renderers.SlideInMenu,
+      opened: !state.previewing && state.mentionSuggestions.length > 0,
+    },
+    [
+      h(MenuTrigger, {disabled: true}),
       h(
-        TouchableOpacity,
-        {
-          sel: 'mentions-cancel',
-          style: styles.mentionsCancelButton,
-          activeOpacity: 0.2,
-          accessible: true,
-          accessibilityRole: 'button',
-          accessibilityLabel: t('call_to_action.cancel'),
-        },
-        [
-          h(
-            Text,
-            {style: styles.mentionsCancelText},
-            t('call_to_action.cancel'),
-          ),
-        ],
+        MenuOptions,
+        {customStyles: {optionsContainer: styles.menuOptions}},
+        state.mentionSuggestions.map(({id, name, imageUrl}) =>
+          h(MenuOption, {
+            value: id,
+            customStyles: {
+              optionWrapper: styles.menuOptionWrapper,
+              optionTouchable: styles.menuOptionTouchable,
+            },
+            ['children' as any]: h(AccountSmall, {id, name, imageUrl}),
+          }),
+        ),
       ),
-    ]),
-
-    h(
-      ScrollView,
-      {style: styles.mentionsList, keyboardShouldPersistTaps: 'always'},
-      [
-        h(AccountsList, {
-          sel: 'suggestions',
-          accounts: state.mentionSuggestions as any,
-        }),
-      ],
-    ),
-  ]);
+    ],
+  );
 }
 
 function Header(state: MiniState) {
@@ -306,7 +282,6 @@ export default function view(
         'selfName',
         'contentWarning',
         'contentWarningPreviewOpened',
-        'mentionQuery',
         'mentionSuggestions',
         'mentionChoiceTimestamp',
       ]),
@@ -318,20 +293,11 @@ export default function view(
       previewing: false,
       contentWarning: '',
       contentWarningPreviewOpened: false,
-      mentionQuery: '',
       selfFeedId: '',
       selfName: undefined,
       mentionSuggestions: [],
       mentionChoiceTimestamp: 0,
     });
-
-  const mentionQueryPairwise$ = miniState$
-    .map((s) => s.mentionQuery)
-    .compose(pairwise);
-
-  const focusMentionQuery$ = mentionQueryPairwise$
-    .filter(([prev, curr]) => !prev && !!curr)
-    .mapTo(void 0);
 
   const setMarkdownInputNativeProps$ = state$
     .compose(dropRepeatsByKeys(['postTextOverride']))
@@ -352,31 +318,34 @@ export default function view(
           ...Platform.select({ios: {behavior: 'padding' as const}}),
         },
         [
-          h(
-            ScrollView,
-            {style: styles.scroll, contentContainerStyle: styles.scrollContent},
-            [
-              Header(state),
-              state.previewing
-                ? MarkdownPreview(state)
-                : h(MarkdownInput, {
-                    nativeProps$: setMarkdownInputNativeProps$,
-                  }),
-            ],
-          ),
+          h(MenuProvider, {customStyles: {backdrop: styles.menuBackdrop}}, [
+            h(
+              ScrollView,
+              {
+                style: styles.scroll,
+                contentContainerStyle: styles.scrollContent,
+              },
+              [
+                Header(state),
+                state.previewing
+                  ? MarkdownPreview(state)
+                  : h(MarkdownInput, {
+                      nativeProps$: setMarkdownInputNativeProps$,
+                    }),
+              ],
+            ),
 
-          state.mentionSuggestions.length || state.mentionQuery
-            ? MentionSuggestions(state, focusMentionQuery$)
-            : null,
+            MentionSuggestions(state),
 
-          state.previewing
-            ? null
-            : h(View, {style: styles.footerContainer}, [
-                RecordAudioButton(),
-                OpenCameraButton(),
-                AddPictureButton(),
-                ContentWarningButton(state),
-              ]),
+            state.previewing
+              ? null
+              : h(View, {style: styles.footerContainer}, [
+                  RecordAudioButton(),
+                  OpenCameraButton(),
+                  AddPictureButton(),
+                  ContentWarningButton(state),
+                ]),
+          ]),
         ],
       ),
     ]),

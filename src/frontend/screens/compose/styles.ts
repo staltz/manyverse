@@ -145,77 +145,37 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceNormal,
   },
 
-  mentionsOverlay: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: Palette.backgroundText,
+  menuBackdrop: {
+    display: 'none',
   },
 
-  mentionsInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    backgroundColor: Palette.backgroundText,
-    paddingLeft:
-      Dimensions.horizontalSpaceBig +
-      (Dimensions.avatarSizeNormal - Dimensions.iconSizeNormal) * 0.5,
-    elevation: 3,
+  menuOptions: {
     ...Platform.select({
-      ios: {
-        zIndex: 10,
-        paddingBottom: Dimensions.verticalSpaceSmall,
+      web: {
+        boxShadow: `0 0 5px 0 ${Palette.transparencyDarkStrong}`,
+      },
+      android: {
+        elevation: 2,
         shadowColor: '#000000',
-        shadowOffset: {width: 0, height: 2},
+        shadowOffset: {width: 0, height: -1},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      },
+      ios: {
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: -1},
         shadowOpacity: 0.2,
         shadowRadius: 3,
       },
     }),
   },
 
-  mentionsInput: {
-    flex: 1,
-    alignSelf: 'stretch',
-    paddingBottom: Dimensions.verticalSpaceSmall,
-    paddingLeft: 3,
-    marginLeft:
-      (Dimensions.avatarSizeNormal - Dimensions.iconSizeNormal) * 0.5 +
-      Dimensions.horizontalSpaceTiny,
-    marginTop: Platform.select({
-      ios: 25.5,
-      default: Dimensions.verticalSpaceBig,
-    }),
-    fontSize: Typography.fontSizeBig,
-    lineHeight: Typography.lineHeightBig,
-    textAlign: 'left',
-    textAlignVertical: 'top',
-    color: Palette.text,
+  menuOptionWrapper: {
+    padding: 0,
   },
 
-  mentionsIcon: {
-    marginBottom: Platform.select({
-      ios: Dimensions.verticalSpaceTiny,
-      default: Dimensions.verticalSpaceSmall,
-    }),
-  },
-
-  mentionsCancelButton: {
-    borderRadius: Dimensions.borderRadiusNormal,
-    paddingHorizontal: Dimensions.horizontalSpaceSmall,
-    paddingVertical: Dimensions.verticalSpaceTiny,
-    marginRight: Dimensions.horizontalSpaceBig,
-    marginBottom: Dimensions.verticalSpaceSmall,
-  },
-
-  mentionsCancelText: {
-    color: Palette.textBrand,
-    fontSize: Typography.fontSizeBig,
-    lineHeight: Typography.lineHeightBig,
-  },
-
-  mentionsList: {
-    flex: 1,
-    alignSelf: 'stretch',
+  menuOptionTouchable: {
+    margin: 0,
+    activeOpacity: 0.4,
   },
 });
