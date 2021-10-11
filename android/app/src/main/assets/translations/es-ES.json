@@ -286,12 +286,12 @@
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "¿Permitir iniciar sesión?",
+          "description": "Abre el sitio web de {{room}} para crear enlaces de invitación y administrar miembros. ¿Quieres usar Manyverse para iniciar sesión?\n\nEl ID de habitación es {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "title": "¿Permitir iniciar sesión?",
+          "description": "Un navegador web está solicitando permiso para identificarte. ¿Quieres iniciar sesión en el servidor {{room}}?\n\nEl ID de la habitación es {{roomid}}"
         }
       }
     },
@@ -344,7 +344,7 @@
       }
     },
     "menu": {
-      "dialog_title": "Connection",
+      "dialog_title": "Conexión",
       "open_profile": {
         "label": "Abrir perfil",
         "accessibility_label": {
@@ -384,12 +384,12 @@
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "label": "Administrar mis alias",
+        "accessibility_label": "Administrar mis alias en los servidores de Habitación"
       },
       "room_sign_in": {
-        "label": "Sign into website",
-        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
+        "label": "Iniciar sesión",
+        "accessibility_label": "Abre el sitio web de esta sala e inicia sesión en su tablero, Botón"
       },
       "room_share_invite": {
         "label": "Compartir código de invitación",
@@ -437,7 +437,7 @@
         "accessibility_label": "Botón Publicar Respuesta"
       },
       "preview": {
-        "label": "Preview",
+        "label": "Previsualizar",
         "accessibility_label": "Botón Previsualizar"
       },
       "close": {
@@ -593,22 +593,22 @@
         "accessibility_label": "Enviar Informe de Fallos por Email"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "Ayúdanos a traducir",
+        "accessibility_label": "Abrir el sitio web de traducciones"
       },
       "more": {
-        "label": "More",
-        "accessibility_label": "Show more Menu items"
+        "label": "Más",
+        "accessibility_label": "Mostrar más elementos del Menú"
       },
       "settings": {
         "label": "Ajustes",
         "accessibility_label": "Ir a Ajustes"
       },
       "preparing_database": {
-        "label": "Preparing database..."
+        "label": "Preparando base de datos..."
       },
       "ready_estimate": {
-        "label": "Ready:"
+        "label": "Listo:"
       }
     }
   },
@@ -620,8 +620,8 @@
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "Tipo no soportado",
+      "description": "Las invitaciones P2P ya no están disponibles en Manyverse."
     },
     "text_field": {
       "accessibility_label": "Entrada del Texto del Código de Invitación"
@@ -653,28 +653,28 @@
       }
     },
     "dialog_ssb_id": {
-      "title": "SSB ID"
+      "title": "ID SSB"
     },
     "dialog_manage_contact": {
-      "title": "Contact"
+      "title": "Contacto"
     },
     "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "title": "Solicitud de amistad",
+      "description": "Esta cuenta intenta conectarse contigo, pero Manyverse lo previno porque se encuentra fuera de tu comunidad.\n\nSi reconoces este ID, presiona \"Seguir\" para permitirle conectarse contigo."
     },
     "toast": {
       "copied_to_clipboard": "Copiado al portapapeles"
     },
     "details": {
       "id": {
-        "accessibility_label": "SSB Identifier"
+        "accessibility_label": "Identificador SSB"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "Leer biografía"
       },
       "counters": {
         "following": "Siguiendo",
-        "followers": "Followers"
+        "followers": "Seguidores"
       }
     },
     "info": {
@@ -718,8 +718,8 @@
         "accessibility_label": "Editar Imagen del Perfil"
       },
       "register_new_alias": {
-        "label": "Register new alias",
-        "accessibility_label": "Register New Room Server Alias"
+        "label": "Registrar nuevo alias",
+        "accessibility_label": "Registrar Nuevo Alias de Servidor de Sala"
       }
     },
     "dialogs": {
@@ -728,12 +728,12 @@
         "question": "¿Descartar cambios?"
       },
       "remove_alias": {
-        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
+        "description": "Esta acción eliminará el alias \"{{alias}}\" del servidor de la sala.\n\nLas personas ya no podrán contactarte mediante este alias."
       }
     },
     "toasts": {
-      "alias_removed_success": "Alias removed",
-      "alias_removed_failure": "Failed to remove alias"
+      "alias_removed_success": "Alias eliminado",
+      "alias_removed_failure": "Falló eliminar el alias"
     },
     "fields": {
       "name": {
@@ -745,19 +745,19 @@
         "accessibility_label": "Entrada de Texto de la Biografía"
       },
       "aliases": {
-        "label": "Aliases"
+        "label": "Alias"
       }
     }
   },
   "manage_aliases": {
-    "title": "Manage aliases"
+    "title": "Administrar alias"
   },
   "register_alias": {
-    "title": "Register alias",
+    "title": "Registrar alias",
     "empty": {
       "no_servers": {
-        "title": "No servers",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "title": "No hay servidores",
+        "description": "Para registrar un alias, necesitas ser miembro de algún servidor de sala SSB. Encuentra alguno en internet con el hashtag #ssbroom y asegúrate que soporta alias."
       }
     },
     "header": {
