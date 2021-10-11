@@ -154,6 +154,12 @@ Git clone this repository to your computer, and then `cd` into the folder and ru
 npm install
 ```
 
+Then, create the `translations` folder as a symlink:
+
+```
+ln -s android/app/src/main/assets/translations translations
+```
+
 ### When targeting Android
 
 There is nothing else you need to install at this point.
