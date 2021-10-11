@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+//
+// SPDX-License-Identifier: Unlicense
+
 const path = require('path');
 const webpack = require('webpack');
 const {presets} = require(`../babel.config.js`);

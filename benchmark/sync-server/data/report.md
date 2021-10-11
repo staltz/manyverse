@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2021 The Manyverse Authors
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Stats for this fixture
 
 The main feed is @j08KenkIsVgjG3PCH5aPzH9+mcZg68bfVdG29jZ5WxQ=.ed25519 (hop 0).

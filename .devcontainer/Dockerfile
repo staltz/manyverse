@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021 The Manyverse Authors
+#
+# SPDX-License-Identifier: Unlicense
+
 # [Choice] Node.js version: 16, 14, 12
 ARG VARIANT="12-buster"
 FROM node:${VARIANT}

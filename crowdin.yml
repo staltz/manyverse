@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021 The Manyverse Authors
+#
+# SPDX-License-Identifier: Unlicense
+
 commit_message: 'dx: new translations for %language%'
 append_commit_message: false
 files:

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-/* Any copyright is dedicated to the Public Domain.
- * http://creativecommons.org/publicdomain/zero/1.0/ */
+// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+//
+// SPDX-License-Identifier: CC0-1.0
 
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);

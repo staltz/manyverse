@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2021 The Manyverse Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
 # Contributor docs
 
 Thank you for your interest in contributing code to Manyverse! Follow this guide **rigorously**, as it contains a lot of important details. The compilation of the app may not work with other settings.

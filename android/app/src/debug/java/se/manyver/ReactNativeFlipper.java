@@ -1,9 +1,7 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
- */
+// SPDX-FileCopyrightText: 2021 Facebook, Inc. and its affiliates
+//
+// SPDX-License-Identifier: MIT
+
 package se.manyver;
 
 import android.content.Context;

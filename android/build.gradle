@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+//
+// SPDX-License-Identifier: Unlicense
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {

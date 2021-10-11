@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2021 The Manyverse Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
 # Manyverse
 
 **A social network off the grid** (Android)
@@ -105,7 +111,7 @@ Become a sponsor and get your logo on our README on GitLab with a link to your s
 
 ### Thanks
 
-![Browserstack](./browserstack.png)
+![Browserstack](https://www.browserstack.com/images/layout/browserstack-logo-600x315.png)
 
 [Browserstack](https://www.browserstack.com/) provides us access to their great mobile app testing tools such as App Live and App Automate. These services are vital for testing Manyverse on dozens of different devices and OS versions.
 

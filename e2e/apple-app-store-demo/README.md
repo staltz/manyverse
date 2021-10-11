@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2021 The Manyverse Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
 This folder contains data for an SSB demo that should be loaded somewhere on the internet so that Apple reviewers can test the app and its new versions.
 
 In the demo scuttleverse, there are accounts that follow each other, Jane and Sarah. Jane's recovery words are available in the file `jane-recovery-words.txt`.
