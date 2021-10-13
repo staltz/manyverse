@@ -1,0 +1,241 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Manyverse
+Upstream-Contact: Andre Staltz <contact@staltz.com>
+Source: https://gitlab.com/staltz/manyverse
+
+Files: .gitlab/issue_templates/*.md
+Copyright: 2021 The Manyverse Authors
+License: CC0-1.0
+
+Files: .vscode/*
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: android/app/src/main/assets/translations/*
+Copyright: 2021 The Manyverse Authors
+License: CC-BY-4.0
+
+Files: android/app/src/main/res/drawable-*/ic_arrow_left_white_*.png
+Copyright: 2021 Google, Inc
+License: Apache-2.0
+
+Files: android/app/src/main/res/drawable-*/logo_outline.png
+Copyright: 2019 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: android/app/src/main/res/mipmap-*/ic_launcher.png
+Copyright: 2019 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: android/app/src/main/res/mipmap-*/outline.png
+Copyright: 2019 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: e2e/apple-app-store-demo/blobs/sha256/*/*
+Copyright: 2020 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: images/bluetooth*.png
+Copyright: 2021 Google, Inc
+License: Apache-2.0
+
+Files: images/empty-avatar.png
+Copyright: 2021 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: images/icon-arrow-left*.png
+Copyright: 2021 Google, Inc
+License: Apache-2.0
+
+Files: images/icon-menu*.png
+Copyright: 2021 Google, Inc
+License: Apache-2.0
+
+Files: images/image-area.png
+Copyright: 2021 Austin Andrews
+License: Apache-2.0
+
+Files: images/licenses.json
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: images/logo_outline*.png
+Copyright: 2020 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: images/message-plus*.png
+Copyright: 2021 Simran
+License: Apache-2.0
+
+Files: images/NotoColorEmoji.ttf
+Copyright: 2020 Google Inc. and Arjen Nienhuis <a.g.nienhuis@gmail.com>
+License: OFL-1.1
+
+Files: images/noun-books*.png
+Copyright: 2021 'Made by Made, AU' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-butterfly*.png
+Copyright: 2021 'Made by Made, AU' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-camping*.png
+Copyright: 2021 'Made by Made, AU' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-crops*.png
+Copyright: 2021 'Made by Made' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-farm*.png
+Copyright: 2021 'Made by Made, AU' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-fingerprint*.png
+Copyright: 2021 'icon 54' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-fish*.png
+Copyright: 2021 'Made by Made, AU' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-flower*.png
+Copyright: 2021 'Made by Made, AU' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-glassware*.png
+Copyright: 2021 'Made by Made, AU' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-lantern*.png
+Copyright: 2021 'Made by Made' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-plant*.png
+Copyright: 2021 'Made by Made' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-roots*.png
+Copyright: 2021 'IYIKON, PK' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-sun*.png
+Copyright: 2021 'Made by Made' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/noun-wheelbarrow*.png
+Copyright: 2021 'Made by Made, AU' from the Noun Project
+License: CC-BY-3.0
+
+Files: images/package-down*.png
+Copyright: 2021 Google, Inc
+License: Apache-2.0
+
+Files: images/pencil*.png
+Copyright: 2021 Google, Inc
+License: Apache-2.0
+
+Files: images/plus-network*.png
+Copyright: 2021 Austin Andrews
+License: Apache-2.0
+
+Files: images/share*.png
+Copyright: 2021 Google, Inc
+License: Apache-2.0
+
+Files: ios/Manyverse/Base.lproj/LaunchScreen.xib
+Copyright: 2021 The Manyverse Authors
+License: MPL-2.0
+
+Files: ios/Manyverse/Images.xcassets/AppIcon.appiconset/applogo*.png
+Copyright: 2021 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: ios/Manyverse/Images.xcassets/AppIcon.appiconset/Contents.json
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: ios/Manyverse/Images.xcassets/logo_outline.imageset/logo_outline*.png
+Copyright: 2021 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: ios/Manyverse/Images.xcassets/logo_outline.imageset/Contents.json
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: ios/Manyverse/Images.xcassets/Contents.json
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: ios/Manyverse/Info.plist
+Copyright: 2021 The Manyverse Authors
+License: MPL-2.0
+
+Files: ios/Manyverse.xcodeproj/project.pbxproj
+Copyright: 2021 The Manyverse Authors
+License: MPL-2.0
+
+Files: ios/Manyverse.xcodeproj/xcshareddata/xcschemes/Manyverse.xcscheme
+Copyright: 2021 The Manyverse Authors
+License: MPL-2.0
+
+Files: ios/Manyverse.xcworkspace/contents.xcworkspacedata
+Copyright: 2021 The Manyverse Authors
+License: MPL-2.0
+
+Files: ios/Manyverse.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+Copyright: 2021 The Manyverse Authors
+License: MPL-2.0
+
+Files: ios/ManyverseTests/Info.plist
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: ios/ManyverseTests/ManyverseTests.m
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: ios/Podfile.lock
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: patches/*
+Copyright: 2021 The Manyverse Authors
+License: MPL-2.0
+
+Files: .buckconfig
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: .watchmanconfig
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: app.json
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: CHANGELOG.md
+Copyright: 2021 The Manyverse Authors
+License: CC-BY-4.0
+
+Files: package.json
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: package-lock.json
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: screenshot-*.png
+Copyright: 2021 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: tsconfig.json
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
+Files: tslint.json
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
