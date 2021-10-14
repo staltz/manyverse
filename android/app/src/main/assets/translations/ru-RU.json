@@ -660,7 +660,7 @@
     },
     "dialog_friend_request": {
       "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "description": "Эта учетная запись пытается связаться с вами, но Manyverse запретил ей это, потому что она находится за пределами вашего сообщества.\n\nЕсли вы узнаёте этот ID, вы можете нажать \"Подписаться\", чтобы позволить ему связаться с вами."
     },
     "toast": {
       "copied_to_clipboard": "Скопировано в буфер обмена"
