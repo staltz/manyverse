@@ -166,13 +166,13 @@
     "tab_headers": {
       "public": "Публичная доска",
       "private": "Личные сообщения",
-      "activity": "Activity",
+      "activity": "Действия",
       "connections": "Соединения"
     },
     "tab_footers": {
       "public": "Публичный",
       "private": "Частный",
-      "activity": "Activity",
+      "activity": "Действия",
       "connections": "Соединения"
     },
     "loading": "Загрузка...",
@@ -185,7 +185,7 @@
         "accessibility_label": "Кнопка \"Частная вкладка\""
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "Кнопка Действия"
       },
       "connections": {
         "accessibility_label": "Кнопка \"Вкладка подключений\""
@@ -252,7 +252,7 @@
       }
     },
     "empty": {
-      "title": "No activity",
+      "title": "Нет действий",
       "description": "Когда другие пользователи упоминают вас или подписываются на вас,\nэто отображается здесь"
     }
   },
@@ -287,11 +287,11 @@
       "sign_in_with_ssb": {
         "client_initiated": {
           "title": "Разрешить авторизацию?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "description": "Откройте сайт {{room}} для создания ссылок-приглашений и управления участниками. Вы хотите использовать Manyverse для входа в комнату?\n\nID комнаты: {{roomid}}"
         },
         "server_initiated": {
           "title": "Разрешить авторизацию?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "description": "Веб-браузер запрашивает разрешение на аутентификацию. Вы хотите войти на сервер {{room}}?\n\nЕго ID {{roomid}}"
         }
       }
     },
@@ -385,11 +385,11 @@
       },
       "manage_aliases": {
         "label": "Управление псевдонимами",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "accessibility_label": "Управление псевдонимами на серверах комнат"
       },
       "room_sign_in": {
         "label": "Войти на сайт",
-        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
+        "accessibility_label": "Открыть веб-сайт этой комнаты и войти в панель управления"
       },
       "room_share_invite": {
         "label": "Поделиться пригласительным кодом",
@@ -659,7 +659,7 @@
       "title": "Контакт"
     },
     "dialog_friend_request": {
-      "title": "Friend request",
+      "title": "Предложение дружить",
       "description": "Эта учетная запись пытается связаться с вами, но Manyverse запретил ей это, потому что она находится за пределами вашего сообщества.\n\nЕсли вы узнаёте этот ID, вы можете нажать \"Подписаться\", чтобы позволить ему связаться с вами."
     },
     "toast": {
@@ -667,10 +667,10 @@
     },
     "details": {
       "id": {
-        "accessibility_label": "SSB Identifier"
+        "accessibility_label": "SSB идентификатор"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "Показать биографию"
       },
       "counters": {
         "following": "Подписка",
@@ -719,7 +719,7 @@
       },
       "register_new_alias": {
         "label": "Создать новый псевдоним",
-        "accessibility_label": "Register New Room Server Alias"
+        "accessibility_label": "Зарегистрировать новый псевдоним комнаты"
       }
     },
     "dialogs": {
@@ -728,7 +728,7 @@
         "question": "Отклонить изменения?"
       },
       "remove_alias": {
-        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
+        "description": "Это действие удалит псевдоним \"{{alias}}\" с сервера комнат.\n\nДругие пользователи больше не смогут связаться с вами с помощью этого псевдонима."
       }
     },
     "toasts": {
@@ -756,28 +756,28 @@
     "title": "Создать новый псевдоним",
     "empty": {
       "no_servers": {
-        "title": "No servers",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "title": "Нет серверов",
+        "description": "Чтобы зарегистрировать псевдоним, вы должны быть участником какого-либо сервера комнат. Найдите сервер комнат в интернете с помощью хэштега #ssbroom и убедитесь, что он поддерживает псевдонимы."
       }
     },
     "header": {
-      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+      "description": "Выберите сервер комнат, где вы хотели бы зарегистрировать новый псевдоним.\n\nПсевдонимы - это веб-адреса, которые люди могут использовать для связи с вами."
     },
     "dialogs": {
       "input_alias": {
-        "description": "Submit your desired new alias to {{host}} as a single word in lowercase.\n\nFor example, if you want the alias \"myname.{{host}}\", write \"myname\" below."
+        "description": "Отправить ваш желаемый новый псевдоним на {{host}} в виде одного слова в нижнем регистре.\n\nНапример, если вы хотите псевдоним \"myname.{{host}}\", напишите \"myname\" ниже."
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "Отправка..."
     },
     "failure": {
-      "title": "It didn't work",
-      "alias_taken": "The alias you submitted is already taken by some user.",
+      "title": "Не удалось",
+      "alias_taken": "Псевдоним уже используется другим пользователем.",
       "call_to_action": {
         "try_again": {
-          "label": "Try again",
-          "accessibility_label": "Try Again Button"
+          "label": "Попробовать еще раз",
+          "accessibility_label": "Кнопка Повторить попытку"
         }
       }
     },
@@ -820,8 +820,8 @@
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "Выберите участников",
+        "description": "Введите имена\nпользователей, чтобы они присоединились к новому чату"
       },
       "none_to_choose": {
         "title": "Никого",
@@ -835,19 +835,19 @@
   "search": {
     "query_input": {
       "placeholder": "Поиск среди публичных записей",
-      "accessibility_label": "Search Query Text Input"
+      "accessibility_label": "Ввод текста поискового запроса"
     },
     "clear_query": {
-      "accessibility_label": "Reset the Search Query Text Input"
+      "accessibility_label": "Сброс текста поискового запроса"
     },
     "empty": {
       "initial": {
-        "title": "Search something",
+        "title": "Поискать что-нибудь",
         "description": "Подождите, пока приложение\nпытается подключиться к вашим пирам"
       },
       "zero_results": {
         "title": "Нет результатов",
-        "description": "Nothing found for \"{{query}}\""
+        "description": "По запросу \"{{query}}\" ничего не найдено"
       }
     }
   },
