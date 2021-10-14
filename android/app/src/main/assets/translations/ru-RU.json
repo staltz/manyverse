@@ -6,7 +6,7 @@
     "cancel": "Отменить",
     "continue": "Продолжить",
     "delete": "Удалить",
-    "remove": "Remove",
+    "remove": "Удалить",
     "save": "Сохранить",
     "yes": "Да",
     "no": "Нет",
@@ -201,7 +201,7 @@
       "description": "Напишите дневник\n, чтобы поделися с друзьями позже"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Кнопка поиска"
     }
   },
   "private": {
@@ -234,26 +234,26 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " упомянул вас"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " подписался на вас"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " хочет подключиться"
       }
     },
     "empty": {
       "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "description": "Когда другие пользователи упоминают вас или подписываются на вас,\nэто отображается здесь"
     }
   },
   "connections": {
@@ -279,18 +279,18 @@
     "toasts": {
       "invite_accepted": "Приглашение принято",
       "invite_rejected": "Приглашение отклонено. Вы уверены, что оно было правильным?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "connecting_to_alias": "Идёт соединение с {{alias}}",
+      "connected_to_alias": "Соединение с {{alias}} установлено",
+      "not_connected_to_alias": "{{alias}} сейчас не в сети"
     },
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
+          "title": "Разрешить авторизацию?",
           "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
+          "title": "Разрешить авторизацию?",
           "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
         }
       }
@@ -344,7 +344,7 @@
       }
     },
     "menu": {
-      "dialog_title": "Connection",
+      "dialog_title": "Соединения",
       "open_profile": {
         "label": "Открыть профиль",
         "accessibility_label": {
@@ -384,11 +384,11 @@
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
+        "label": "Управление псевдонимами",
         "accessibility_label": "Manage my aliases in Room servers"
       },
       "room_sign_in": {
-        "label": "Sign into website",
+        "label": "Войти на сайт",
         "accessibility_label": "Open this room's website and sign into its dashboard, Button"
       },
       "room_share_invite": {
@@ -437,7 +437,7 @@
         "accessibility_label": "Кнопка \"Опубликовать ответ\""
       },
       "preview": {
-        "label": "Preview",
+        "label": "Предпросмотр",
         "accessibility_label": "Кнопка предварительного просмотра"
       },
       "close": {
@@ -593,22 +593,22 @@
         "accessibility_label": "Отправить отчёт об ошибке как e-mail"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "Помогите нам перевести",
+        "accessibility_label": "Открыть сайт перевода"
       },
       "more": {
-        "label": "More",
-        "accessibility_label": "Show more Menu items"
+        "label": "Ещё",
+        "accessibility_label": "Показать больше пунктов меню"
       },
       "settings": {
         "label": "Настройки",
         "accessibility_label": "Перейти к настройкам"
       },
       "preparing_database": {
-        "label": "Preparing database..."
+        "label": "Подготовка базы данных..."
       },
       "ready_estimate": {
-        "label": "Ready:"
+        "label": "Готово:"
       }
     }
   },
@@ -620,8 +620,8 @@
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "Неподдерживаемый тип",
+      "description": "Manyverse больше не поддерживает P2P приглашения."
     },
     "text_field": {
       "accessibility_label": "Ввод текста кода приглашения"
@@ -656,7 +656,7 @@
       "title": "SSB ID"
     },
     "dialog_manage_contact": {
-      "title": "Contact"
+      "title": "Контакт"
     },
     "dialog_friend_request": {
       "title": "Friend request",
@@ -674,7 +674,7 @@
       },
       "counters": {
         "following": "Подписка",
-        "followers": "Followers"
+        "followers": "Подписчики"
       }
     },
     "info": {
@@ -718,7 +718,7 @@
         "accessibility_label": "изменить изображение профиля"
       },
       "register_new_alias": {
-        "label": "Register new alias",
+        "label": "Создать новый псевдоним",
         "accessibility_label": "Register New Room Server Alias"
       }
     },
@@ -732,8 +732,8 @@
       }
     },
     "toasts": {
-      "alias_removed_success": "Alias removed",
-      "alias_removed_failure": "Failed to remove alias"
+      "alias_removed_success": "Псевдоним удален",
+      "alias_removed_failure": "Не удалось удалить псевдоним"
     },
     "fields": {
       "name": {
@@ -745,15 +745,15 @@
         "accessibility_label": "Поле для ввода биографии"
       },
       "aliases": {
-        "label": "Aliases"
+        "label": "Псевдонимы"
       }
     }
   },
   "manage_aliases": {
-    "title": "Manage aliases"
+    "title": "Управление псевдонимами"
   },
   "register_alias": {
-    "title": "Register alias",
+    "title": "Создать новый псевдоним",
     "empty": {
       "no_servers": {
         "title": "No servers",
@@ -782,12 +782,12 @@
       }
     },
     "success": {
-      "title": "Great!",
-      "description": "The alias {{alias}} is now yours.",
+      "title": "Отлично!",
+      "description": "Псевдоним {{alias}} теперь ваш.",
       "call_to_action": {
         "go_back": {
-          "label": "Go back",
-          "accessibility_label": "Go Back Button"
+          "label": "Назад",
+          "accessibility_label": "Кнопка Назад"
         }
       }
     }
@@ -834,7 +834,7 @@
   },
   "search": {
     "query_input": {
-      "placeholder": "Search public posts",
+      "placeholder": "Поиск среди публичных записей",
       "accessibility_label": "Search Query Text Input"
     },
     "clear_query": {
@@ -846,7 +846,7 @@
         "description": "Подождите, пока приложение\nпытается подключиться к вашим пирам"
       },
       "zero_results": {
-        "title": "Zero results",
+        "title": "Нет результатов",
         "description": "Nothing found for \"{{query}}\""
       }
     }
