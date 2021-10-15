@@ -1,9 +1,3 @@
-<!--
-SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
-
-SPDX-License-Identifier: MPL-2.0
--->
-
 <resources>
     <string name="app_name">Manyverse</string>
     <string name="ssb_uri_handler">Manyverse (SSB)</string>
