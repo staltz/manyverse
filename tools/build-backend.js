@@ -106,12 +106,21 @@ async function runAndReport(label, task) {
       'ssb-keys-mnemonic-neon',
       'ssb-validate2-rsjs-node',
     ];
-    await runAndReport(
-      'Remove Rust node modules',
-      exec('rm -rf ' + rustNodeModules.join(' '), {
-        cwd: './nodejs-assets/nodejs-project/node_modules',
-      }),
-    );
+    if (targetPlatform === 'desktop') {
+      await runAndReport(
+        'Remove Rust node modules',
+        exec('rm -rf ' + rustNodeModules.join(' '), {
+          cwd: './desktop/nodejs-project/node_modules',
+        }),
+      );
+    } else {
+      await runAndReport(
+        'Remove Rust node modules',
+        exec('rm -rf ' + rustNodeModules.join(' '), {
+          cwd: './nodejs-assets/nodejs-project/node_modules',
+        }),
+      );
+    }
   }
 
   if (targetPlatform === 'desktop') {
