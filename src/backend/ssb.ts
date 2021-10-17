@@ -30,8 +30,14 @@ if (!fs.existsSync(ISSUE_1328)) {
   rimraf.sync(path.join(process.env.SSB_DIR, 'db2', 'indexes') + '/*.*');
   fs.closeSync(fs.openSync(ISSUE_1328, 'w'));
 }
-
 const keysPath = path.join(process.env.SSB_DIR, 'secret');
+if (fs.existsSync(keysPath) && fs.lstatSync(keysPath).isDirectory()) {
+  const keysPathWrong = path.join(keysPath, 'secret');
+  const keysPathTmp = path.join(process.env.SSB_DIR, 'tmpsecret');
+  fs.renameSync(keysPathWrong, keysPathTmp);
+  rimraf.sync(keysPath);
+  fs.renameSync(keysPathTmp, keysPath);
+}
 const keys = ssbKeys.loadOrCreateSync(keysPath);
 
 const config = makeConfig('ssb', {
