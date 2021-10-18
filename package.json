@@ -35,7 +35,7 @@
     "start": "npm run lib && npm run propagate-replacements && react-native start",
     "psdr": "./tools/print-service-desk-report.js",
     "report-libraries": "./tools/report-libraries.js",
-    "update-top-backers": "./tools/update-top-backers.js",
+    "update-top-backers": "./tools/update-top-backers.js && pretty-quick --pattern \"**/backers.ts\"",
     "test-e2e-android": "./tools/test-e2e-android",
     "apply-prettier": "pretty-quick --staged --pattern \"**/*.*(ts|tsx|js|jsx)\"",
     "validate-license-year": "./tools/validate-license-year.sh",
