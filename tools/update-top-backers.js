@@ -10,8 +10,14 @@ const fetch = require('node-fetch');
 
 const OC_URL = 'https://opencollective.com/manyverse/members.json';
 const AMOUNT = 5;
-const HEADER = `/* Any copyright is dedicated to the Public Domain.
- * http://creativecommons.org/publicdomain/zero/1.0/ */`;
+const HEADER =
+  '// ' +
+  'SP' +
+  'DX-FileCopyrightText: 2021 The Manyverse Authors\n' +
+  '//\n' +
+  '// ' +
+  'SP' +
+  'DX-License-Identifier: CC0-1.0';
 const OUTPUT_FILE = path.join(
   __dirname,
   '..',

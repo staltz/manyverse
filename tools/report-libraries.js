@@ -26,8 +26,14 @@ const outputFile = path.join(
 );
 const backendNodeModules = path.join(backendFolder, 'node_modules');
 
-const header = `/* Any copyright is dedicated to the Public Domain.
- * http://creativecommons.org/publicdomain/zero/1.0/ */`;
+const header =
+  '// ' +
+  'SP' +
+  'DX-FileCopyrightText: 2021 The Manyverse Authors\n' +
+  '//\n' +
+  '// ' +
+  'SP' +
+  'DX-License-Identifier: CC0-1.0';
 
 async function runAndReport(label, task) {
   const now = Date.now();
