@@ -7,6 +7,13 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2110.18-beta
+
+* Bug fix: a crash related to issue #1518 ([see details](https://gitlab.com/staltz/manyverse/commit/a9ef8a8fe2ec4cc0da7d314f8cd6772f86d80bfa)), closes [#1518](https://gitlab.com/staltz/manyverse/issues/1518)
+* Bug fix: preferred servers  sometimes not loading ([see details](https://gitlab.com/staltz/manyverse/commit/22edf6f133a8ee6e082690edbc6954d58cc38d00))
+* Bug fix: signing-in to room should remember it ([see details](https://gitlab.com/staltz/manyverse/commit/bb100e03b579a3fc5535d80ba7941e85c7895086))
+* Improve Spanish translation ([see details](https://gitlab.com/staltz/manyverse/commit/ae5df63374930b8d2f85304ca592a6f4c278188f))
+
 ## 0.2110.5-beta
 
 * (Android) Reduce APK size and support Android 5.0 ([see details](https://gitlab.com/staltz/manyverse/commit/e57baf0d71790a8b671b445330c59bbcd313f642)), closes [#1400](https://gitlab.com/staltz/manyverse/issues/1400) [#1499](https://gitlab.com/staltz/manyverse/issues/1499) [#1400](https://gitlab.com/staltz/manyverse/issues/1400) [#1499](https://gitlab.com/staltz/manyverse/issues/1499) [#1400](https://gitlab.com/staltz/manyverse/issues/1400)

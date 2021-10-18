@@ -1,8 +1,6 @@
 // SPDX-FileCopyrightText: 2021 The Manyverse Authors
-// SPDX-License-Identifier: MPL-2.0
-
-/* Any copyright is dedicated to the Public Domain.
- * http://creativecommons.org/publicdomain/zero/1.0/ */
+//
+// SPDX-License-Identifier: CC0-1.0
 
 export default [
   {
@@ -685,6 +683,13 @@ export default [
     homepage: 'https://github.com/shx996/react-native-tiny-toast#readme',
   },
   {
+    name: 'react-native-url-polyfill',
+    type: 'library',
+    version: '1.3.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/charpeni/react-native-url-polyfill',
+  },
+  {
     name: 'react-native-vector-icons',
     type: 'library',
     version: '8.1.0',
@@ -800,14 +805,14 @@ export default [
   {
     name: 'ssb-config',
     type: 'library',
-    version: '3.4.5',
+    version: '3.4.6',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-config',
   },
   {
     name: 'ssb-conn',
     type: 'library',
-    version: '5.1.0',
+    version: '5.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn',
   },
