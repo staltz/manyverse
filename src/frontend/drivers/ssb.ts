@@ -16,6 +16,7 @@ import {
 } from 'ssb-typescript';
 import backend from './ssb-backend';
 import {Platform} from 'react-native';
+import {URL as URLPolyfill} from 'react-native-url-polyfill';
 import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
 import xsFromPullStream from 'xstream-from-pull-stream';
@@ -761,16 +762,38 @@ async function consumeSink(
       }
 
       if (req.type === 'httpAuthClient.signIn') {
-        ssb.httpAuthClient.consumeSignInSsbUri(
+        // sign-in
+        const [e1] = await runAsync(ssb.httpAuthClient.consumeSignInSsbUri)(
           req.uri,
-          (err: any, _res: boolean) => {
-            if (err) {
-              console.error('error to sign-in');
-              console.error(err);
-            }
-          },
         );
-        return;
+        if (e1) {
+          console.error('error to sign-in');
+          console.error(e1.message || e1);
+          return;
+        }
+
+        const u = new URLPolyfill(req.uri);
+        const addr: string = u.searchParams.get('multiserverAddress')!;
+
+        // remember
+        const data = {type: 'room'};
+        const [e2] = await runAsync(ssb.conn.remember)(addr, data);
+        if (e2) {
+          console.error(`conn.remembering ${addr} failed`);
+          console.error(e2.message || e2);
+          return;
+        }
+
+        // connect
+        const [e3] = await runAsync(ssb.connUtils.persistentConnect)(
+          addr,
+          data,
+        );
+        if (e3) {
+          console.error(`connecting to ${addr} failed`);
+          console.error(e3.message || e3);
+          return;
+        }
       }
 
       if (req.type === 'settings.hops') {
