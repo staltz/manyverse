@@ -31,7 +31,7 @@ export type Props = {
   thread: ThreadAndExtras;
   subthreads: Record<MsgId, ThreadAndExtras>;
   lastSessionTimestamp: number;
-  publication$?: Stream<any> | null;
+  willPublish$?: Stream<any> | null;
   scrollToEnd$?: Stream<ScrollToEndArg>;
   selfFeedId: FeedId;
   loadingReplies: boolean;
@@ -79,10 +79,10 @@ export default class FullThread extends Component<Props, State> {
   private latestPublicationTimestamp: number = 0;
 
   public componentDidMount() {
-    const {publication$} = this.props;
-    if (publication$) {
-      const listener = {next: this.onPublication.bind(this)};
-      this.subscription = publication$.subscribe(listener as Listener<any>);
+    const {willPublish$} = this.props;
+    if (willPublish$) {
+      const listener = {next: this.onWillPublish.bind(this)};
+      this.subscription = willPublish$.subscribe(listener as Listener<any>);
     }
   }
 
@@ -96,7 +96,7 @@ export default class FullThread extends Component<Props, State> {
     if (nextProps.onPressAddReaction !== prevProps.onPressAddReaction)
       return true;
     if (nextProps.expandRootCW !== prevProps.expandRootCW) return true;
-    if (nextProps.publication$ !== prevProps.publication$) return true;
+    if (nextProps.willPublish$ !== prevProps.willPublish$) return true;
     if (nextProps.scrollToEnd$ !== prevProps.scrollToEnd$) return true;
     if (nextProps.thread.full !== prevProps.thread.full) return true;
     if (nextProps.subthreads !== prevProps.subthreads) return true;
@@ -123,7 +123,7 @@ export default class FullThread extends Component<Props, State> {
     }
   }
 
-  private onPublication() {
+  private onWillPublish() {
     // Prevent possible race condition in case ssb-db2 publication is very fast
     if (Date.now() > this.latestPublicationTimestamp + 200) {
       this.setState({showPlaceholder: true});

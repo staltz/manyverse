@@ -239,7 +239,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
               expandRootCW: state.expandRootCW,
               loadingReplies: state.loadingReplies,
               scrollToEnd$,
-              publication$: actions.willReply$,
+              willPublish$: actions.willReply$,
             }),
             ReplyInput(state, setMarkdownInputNativeProps$),
           ],
