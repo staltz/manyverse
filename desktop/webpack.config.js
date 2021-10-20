@@ -31,6 +31,7 @@ const ignoreNodeModules = [
   'react-native-progress',
   'react-native-swiper',
   'react-native-system-setting',
+  'react-native-url-polyfill',
 ];
 
 const ignoreRegex = new RegExp(`^(${ignoreNodeModules.join('|')})$`);
