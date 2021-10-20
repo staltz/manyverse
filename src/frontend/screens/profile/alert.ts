@@ -5,6 +5,7 @@
 import {Stream} from 'xstream';
 import {Command as AlertCommand} from '../../drivers/dialogs';
 import {t} from '../../drivers/localization';
+import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 
 export default function alert(state$: Stream<State>): Stream<AlertCommand> {
@@ -15,7 +16,11 @@ export default function alert(state$: Stream<State>): Stream<AlertCommand> {
       type: 'alert' as const,
       title: t('profile.dialog_friend_request.title'),
       content: t('profile.dialog_friend_request.description'),
-      options: {positiveText: t('call_to_action.ok')},
+      options: {
+        ...Palette.dialogColors,
+        positiveColor: Palette.textDialogStrong,
+        positiveText: t('call_to_action.ok'),
+      },
     }));
 
   return informConnectionAttempt$;

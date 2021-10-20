@@ -77,10 +77,8 @@ export default function intent(
             {room, roomid},
           ),
           {
-            contentColor: Palette.colors.comet6,
-            positiveColor: Palette.colors.indigo7,
+            ...Palette.dialogColors,
             positiveText: t('call_to_action.yes'),
-            negativeColor: Palette.colors.comet8,
             negativeText: t('call_to_action.no'),
           },
         )

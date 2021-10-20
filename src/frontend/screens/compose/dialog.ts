@@ -21,10 +21,8 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
           t('compose.dialogs.content_warning.title'),
           t('compose.dialogs.content_warning.description'),
           {
-            contentColor: Palette.colors.comet6,
-            positiveColor: Palette.colors.comet8,
+            ...Palette.dialogColors,
             positiveText: t('call_to_action.done'),
-            negativeColor: Palette.colors.comet8,
             negativeText: t('call_to_action.cancel'),
           },
         ),
@@ -40,8 +38,8 @@ export default function dialog(actions: Actions, dialogSource: DialogSource) {
             t('compose.dialogs.image_caption.title'),
             t('compose.dialogs.image_caption.description'),
             {
-              contentColor: Palette.colors.comet6,
-              positiveColor: Palette.colors.comet8,
+              ...Palette.dialogColors,
+              positiveColor: Palette.textDialogStrong,
               positiveText: t('call_to_action.done'),
             },
           )

@@ -53,10 +53,8 @@ export function registerAlias(sources: Sources): Sinks {
             host: event.host,
           }),
           {
-            contentColor: Palette.colors.comet6,
-            positiveColor: Palette.colors.comet8,
+            ...Palette.dialogColors,
             positiveText: t('call_to_action.done'),
-            negativeColor: Palette.colors.comet8,
             negativeText: t('call_to_action.cancel'),
           },
         )

@@ -64,12 +64,13 @@ export default function intent(
         t('compose_audio.dialogs.discard.title'),
         t('compose_audio.dialogs.discard.question'),
         {
+          ...Palette.dialogColors,
           positiveText: t(
             'compose_audio.call_to_action.discard_recording.label',
           ),
           positiveColor: Palette.textNegative,
           negativeText: t('call_to_action.cancel'),
-          negativeColor: Palette.colors.comet8,
+          negativeColor: Palette.textDialogStrong,
         },
       ),
     )

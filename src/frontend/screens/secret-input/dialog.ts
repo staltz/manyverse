@@ -7,6 +7,7 @@ import sample from 'xstream-sample';
 import {SSBSource, RestoreIdentityResponse} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import {t} from '../../drivers/localization';
+import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 
 type Actions = {
@@ -86,6 +87,11 @@ export default function dialog(
           passed
             ? t('secret_input.dialogs.practice.correct.description')
             : t('secret_input.dialogs.practice.incorrect.description'),
+          {
+            ...Palette.dialogColors,
+            positiveColor: Palette.textDialogStrong,
+            positiveText: t('call_to_action.ok'),
+          },
         )
         .mapTo(passed),
     )
@@ -104,6 +110,11 @@ export default function dialog(
             ? t('secret_input.dialogs.restore.correct.title')
             : t('secret_input.dialogs.restore.incorrect.title'),
           renderContent(response),
+          {
+            ...Palette.dialogColors,
+            positiveColor: Palette.textDialogStrong,
+            positiveText: t('call_to_action.ok'),
+          },
         )
         .mapTo(passed);
     })

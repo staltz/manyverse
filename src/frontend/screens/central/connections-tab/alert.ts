@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import {Command as AlertCommand} from '../../../drivers/dialogs';
 import {t} from '../../../drivers/localization';
+import {Palette} from '../../../global-styles/palette';
 import {State} from './model';
 
 export type Actions = {
@@ -29,7 +30,11 @@ export default function alert(
               : t('connections.modes.bluetooth.disabled')) +
             '\n\n' +
             t('connections.modes.bluetooth.description'),
-          options: {positiveText: t('call_to_action.ok')},
+          options: {
+            ...Palette.dialogColors,
+            positiveColor: Palette.textDialogStrong,
+            positiveText: t('call_to_action.ok'),
+          },
         }),
         actions.showLANHelp$.mapTo({
           type: 'alert' as const,
@@ -40,7 +45,11 @@ export default function alert(
               : t('connections.modes.wifi.disabled')) +
             '\n\n' +
             t('connections.modes.wifi.description'),
-          options: {positiveText: t('call_to_action.ok')},
+          options: {
+            ...Palette.dialogColors,
+            positiveColor: Palette.textDialogStrong,
+            positiveText: t('call_to_action.ok'),
+          },
         }),
         actions.showPubHelp$.mapTo({
           type: 'alert' as const,
@@ -51,7 +60,11 @@ export default function alert(
               : t('connections.modes.servers.disabled')) +
             '\n\n' +
             t('connections.modes.servers.description'),
-          options: {positiveText: t('call_to_action.ok')},
+          options: {
+            ...Palette.dialogColors,
+            positiveColor: Palette.textDialogStrong,
+            positiveText: t('call_to_action.ok'),
+          },
         }),
       ),
     )

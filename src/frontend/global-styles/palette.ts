@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Appearance} from 'react-native';
+import {OptionsCommon} from '../drivers/dialogs-types';
 
 const isDarkTheme = Appearance.getColorScheme() === 'dark';
 
@@ -211,6 +212,8 @@ const textLine = isDarkTheme ? comet8 : comet2;
 const textBrand = isDarkTheme ? indigo4 : indigo7;
 const textPositive = isDarkTheme ? teal4 : teal7;
 const textNegative = red6;
+const textDialog = isDarkTheme ? comet4 : comet6;
+const textDialogStrong = isDarkTheme ? comet2 : comet8;
 const textHacker = teal2;
 const textForBackgroundBrand = white;
 const textWeakForBackgroundBrand = indigo2;
@@ -261,9 +264,24 @@ export const Palette = {
   textBrand,
   textPositive,
   textNegative,
+  textDialog,
+  textDialogStrong,
   textHacker,
   textForBackgroundBrand,
   textWeakForBackgroundBrand,
+
+  dialogColors: {
+    backgroundColor: backgroundText,
+    titleColor: text,
+    contentColor: textDialog,
+    positiveColor: textBrand,
+    negativeColor: textDialogStrong,
+  } as OptionsCommon,
+
+  listDialogColors: {
+    backgroundColor: backgroundText,
+    contentColor: textDialogStrong,
+  } as OptionsCommon,
 
   colorHash,
 

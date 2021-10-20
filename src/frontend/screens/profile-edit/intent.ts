@@ -38,10 +38,11 @@ export default function intent(
           t('profile_edit.dialogs.discard.title'),
           t('profile_edit.dialogs.discard.question'),
           {
+            ...Palette.dialogColors,
             positiveText: t('profile_edit.call_to_action.discard'),
             positiveColor: Palette.textNegative,
             negativeText: t('call_to_action.cancel'),
-            negativeColor: Palette.colors.comet8,
+            negativeColor: Palette.textDialogStrong,
           },
         );
       } else {

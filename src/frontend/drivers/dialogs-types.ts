@@ -13,6 +13,7 @@ export interface OptionsCommon {
   title?: string;
   titleColor?: string;
 
+  backgroundColor?: string;
   content?: string;
   contentColor?: string;
   contentIsHtml?: boolean;

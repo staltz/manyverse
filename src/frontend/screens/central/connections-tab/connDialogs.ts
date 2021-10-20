@@ -189,7 +189,7 @@ export default function connDialogs(
           {
             items: items ?? [],
             type: 'listPlain',
-            contentColor: Palette.colors.comet8,
+            ...Palette.listDialogColors,
             cancelable: true,
             positiveText: '',
             negativeText: '',

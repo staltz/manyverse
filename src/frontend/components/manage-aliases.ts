@@ -162,10 +162,11 @@ function intent(screenSource: ReactSource, dialogSource: DialogSource) {
             alias: canonicalizeAliasURL(a.aliasURL),
           }),
           {
+            ...Palette.dialogColors,
             positiveText: t('call_to_action.remove'),
             positiveColor: Palette.textNegative,
             negativeText: t('call_to_action.cancel'),
-            negativeColor: Palette.colors.comet8,
+            negativeColor: Palette.textDialogStrong,
           },
         )
         .filter((res) => res.action === 'actionPositive')

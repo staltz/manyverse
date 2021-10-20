@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import {Command as AlertCommand} from '../../drivers/dialogs';
 import {t} from '../../drivers/localization';
+import {Palette} from '../../global-styles/palette';
 
 export type Actions = {
   toggleDetailedLogs$: Stream<any>;
@@ -16,6 +17,10 @@ export default function alert(actions: Actions): Stream<AlertCommand> {
     type: 'alert',
     title: t('settings.dialogs.restart_required.title'),
     content: t('settings.dialogs.restart_required.description'),
-    options: {positiveText: t('call_to_action.ok')},
+    options: {
+      ...Palette.dialogColors,
+      positiveColor: Palette.textDialogStrong,
+      positiveText: t('call_to_action.ok'),
+    },
   });
 }

@@ -40,7 +40,7 @@ export default function manageContact$(sources: Sources): Sinks {
           {
             items,
             type: 'listPlain',
-            contentColor: Palette.colors.comet8,
+            ...Palette.listDialogColors,
             cancelable: true,
             positiveText: '',
             negativeText: '',

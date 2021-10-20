@@ -38,7 +38,7 @@ export default function messageEtc(sources: Sources): Sinks {
               {label: t('message.call_to_action.view_raw'), id: 'raw-msg'},
             ],
             type: 'listPlain',
-            contentColor: Palette.colors.comet8,
+            ...Palette.listDialogColors,
             cancelable: true,
             positiveText: '',
             negativeText: '',
