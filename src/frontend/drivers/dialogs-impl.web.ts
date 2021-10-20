@@ -134,75 +134,108 @@ class Dialogs extends Component<unknown, State> implements Implementation {
           Dialog,
           {key: 'dialog', open: true, onClose: () => this.dismiss()},
           [
-            $('form', {key: 'form'}, [
-              $(DialogTitle, {key: 'title'}, state.title),
-              $(DialogContent, {key: 'content'}, [
+            $(
+              'form',
+              {
+                key: 'form',
+                style: {
+                  backgroundColor:
+                    state.options?.backgroundColor ??
+                    Palette.dialogColors.backgroundColor,
+                },
+              },
+              [
                 $(
-                  DialogContentText,
+                  DialogTitle,
                   {
-                    key: 'text',
+                    key: 'title',
                     style: {
-                      wordBreak: 'break-word',
+                      color:
+                        state.options?.titleColor ??
+                        Palette.dialogColors.titleColor,
                     },
                   },
-                  state.content,
+                  state.title,
                 ),
-                state.show === 'prompt' &&
-                  $(TextField, {
-                    key: 'input',
-                    autoFocus: true,
-                    margin: 'dense',
-                    fullWidth: true,
-                    onChange: (evt) =>
-                      this.setState({textInput: evt.target.value}),
-                  }),
-              ]),
+                $(DialogContent, {key: 'content'}, [
+                  $(
+                    DialogContentText,
+                    {
+                      key: 'text',
+                      style: {
+                        wordBreak: 'break-word',
+                        color:
+                          state.options?.contentColor ??
+                          Palette.dialogColors.contentColor,
+                      },
+                    },
+                    state.content,
+                  ),
+                  state.show === 'prompt' &&
+                    $(TextField, {
+                      key: 'input',
+                      autoFocus: true,
+                      margin: 'dense',
+                      fullWidth: true,
+                      onChange: (evt) =>
+                        this.setState({textInput: evt.target.value}),
+                    }),
+                ]),
 
-              $(DialogActions, {key: 'actions'}, [
-                state.options?.negativeText
-                  ? $(
-                      Button,
-                      {
-                        key: 'negative',
-                        type: 'button',
-                        onClick: () => this.onPressNegative(),
-                        style: {
-                          color:
-                            state.options?.negativeColor ??
-                            Palette.colors.comet8,
+                $(DialogActions, {key: 'actions'}, [
+                  state.options?.negativeText
+                    ? $(
+                        Button,
+                        {
+                          key: 'negative',
+                          type: 'button',
+                          onClick: () => this.onPressNegative(),
+                          style: {
+                            color:
+                              state.options?.negativeColor ??
+                              Palette.dialogColors.negativeColor,
+                          },
                         },
-                      },
-                      state.options.negativeText,
-                    )
-                  : null,
-                state.options?.positiveText
-                  ? $(
-                      Button,
-                      {
-                        key: 'positive',
-                        type: 'submit',
-                        onClick: (evt) => {
-                          evt.preventDefault();
-                          this.onPressPositive();
+                        state.options.negativeText,
+                      )
+                    : null,
+                  state.options?.positiveText
+                    ? $(
+                        Button,
+                        {
+                          key: 'positive',
+                          type: 'submit',
+                          onClick: (evt) => {
+                            evt.preventDefault();
+                            this.onPressPositive();
+                          },
+                          style: {
+                            color:
+                              state.options?.positiveColor ??
+                              Palette.dialogColors.positiveColor,
+                          },
                         },
-                        style: {
-                          color:
-                            state.options?.positiveColor ??
-                            Palette.colors.comet8,
-                        },
-                      },
-                      state.options.positiveText,
-                    )
-                  : null,
-              ]),
-            ]),
+                        state.options.positiveText,
+                      )
+                    : null,
+                ]),
+              ],
+            ),
           ],
         );
       } else if (state.show === 'picker') {
         return $(Dialog, {open: true, onClose: () => this.dismiss()}, [
           $(
             List,
-            {key: 'list', style: {minWidth: '40vw'}},
+            {
+              key: 'list',
+              style: {
+                minWidth: '40vw',
+                backgroundColor:
+                  state.options?.backgroundColor ??
+                  Palette.dialogColors.backgroundColor,
+              },
+            },
             (state.options?.items ?? []).map((item: any) =>
               $(
                 ListItem,
@@ -211,7 +244,13 @@ class Dialogs extends Component<unknown, State> implements Implementation {
                   button: true,
                   onClick: () => this.onPressSelect(item.id),
                 },
-                $(ListItemText, {key: 'text', primary: item.label}),
+                $(ListItemText, {
+                  key: 'text',
+                  primary: item.label,
+                  style: {
+                    color: state.options?.contentColor ?? Palette.text,
+                  },
+                }),
               ),
             ),
           ),
