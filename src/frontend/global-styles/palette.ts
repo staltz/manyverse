@@ -168,55 +168,102 @@ function colorHash(str: string) {
   return HASHABLES[Math.abs(hash) % HASHABLES.length];
 }
 
+const brandWeakest = indigo1;
+const brandWeaker = indigo3;
+const brandWeak = indigo5;
+const brandMain = indigo7;
+const brandStrong = indigo9;
+const brandStronger = indigo11;
+
+const voidWeak = isDarkTheme ? comet7 : comet0;
+const voidMain = isDarkTheme ? comet10 : comet1;
+const voidStrong = isDarkTheme ? comet9 : comet2;
+const voidStronger = isDarkTheme ? comet8 : comet3;
+
+const backgroundTextWeak = isDarkTheme ? comet8 : comet0;
+const backgroundTextWeakStrong = isDarkTheme ? comet9 : comet3;
+const backgroundText = isDarkTheme ? comet9 : white;
+const backgroundTextSelection = indigo3;
+const backgroundTextBrand = isDarkTheme ? indigo12 : indigo0;
+const backgroundTextHacker = comet10;
+
+const backgroundPeerConnected = teal5;
+const backgroundPeerConnecting = yellow5;
+const backgroundPeerDisconnecting = red5;
+
+const backgroundCTA = teal5;
+const backgroundRecord = red5;
+const backgroundWarningAction = yellow5;
+const backgroundHackerVoid = comet10;
+
+const foregroundNeutral = isDarkTheme ? comet7 : comet4;
+
+const transparencyDarkWeak = '#00000020';
+const transparencyDarkIOSModal = '#00000014';
+const transparencyDark = '#00000033';
+const transparencyDarkStrong = '#00000066';
+
+const textVeryWeak = isDarkTheme ? comet5 : comet4;
+const textWeak = isDarkTheme ? comet4 : comet6;
+const text = isDarkTheme ? white : comet10;
+const textCTA = teal4;
+const textLine = isDarkTheme ? comet8 : comet2;
+const textBrand = isDarkTheme ? indigo4 : indigo7;
+const textPositive = isDarkTheme ? teal4 : teal7;
+const textNegative = red6;
+const textHacker = teal2;
+const textForBackgroundBrand = white;
+const textWeakForBackgroundBrand = indigo2;
+
 export const Palette = {
   isDarkTheme,
 
-  brandWeakest: indigo1,
-  brandWeaker: indigo3,
-  brandWeak: indigo5,
-  brandMain: indigo7,
-  brandStrong: indigo9,
-  brandStronger: indigo11,
+  brandWeakest,
+  brandWeaker,
+  brandWeak,
+  brandMain,
+  brandStrong,
+  brandStronger,
 
-  voidWeak: isDarkTheme ? comet7 : comet0,
-  voidMain: isDarkTheme ? comet10 : comet1,
-  voidStrong: isDarkTheme ? comet9 : comet2,
-  voidStronger: isDarkTheme ? comet8 : comet3,
+  voidWeak,
+  voidMain,
+  voidStrong,
+  voidStronger,
 
-  backgroundTextWeak: isDarkTheme ? comet8 : comet0,
-  backgroundTextWeakStrong: isDarkTheme ? comet9 : comet3,
-  backgroundText: isDarkTheme ? comet9 : white,
-  backgroundTextSelection: indigo3,
-  backgroundTextBrand: isDarkTheme ? indigo12 : indigo0,
-  backgroundTextHacker: comet10,
+  backgroundTextWeak,
+  backgroundTextWeakStrong,
+  backgroundText,
+  backgroundTextSelection,
+  backgroundTextBrand,
+  backgroundTextHacker,
 
-  backgroundPeerConnected: teal5,
-  backgroundPeerConnecting: yellow5,
-  backgroundPeerDisconnecting: red5,
+  backgroundPeerConnected,
+  backgroundPeerConnecting,
+  backgroundPeerDisconnecting,
 
-  backgroundCTA: teal5,
-  backgroundRecord: red5,
-  backgroundWarningAction: yellow5,
-  backgroundHackerVoid: comet10,
+  backgroundCTA,
+  backgroundRecord,
+  backgroundWarningAction,
+  backgroundHackerVoid,
 
-  foregroundNeutral: isDarkTheme ? comet7 : comet4,
+  foregroundNeutral,
 
-  transparencyDarkWeak: '#00000020',
-  transparencyDarkIOSModal: '#00000014',
-  transparencyDark: '#00000033',
-  transparencyDarkStrong: '#00000066',
+  transparencyDarkWeak,
+  transparencyDarkIOSModal,
+  transparencyDark,
+  transparencyDarkStrong,
 
-  textVeryWeak: isDarkTheme ? comet5 : comet4,
-  textWeak: isDarkTheme ? comet4 : comet6,
-  text: isDarkTheme ? white : comet10,
-  textCTA: teal4,
-  textLine: isDarkTheme ? comet8 : comet2,
-  textBrand: isDarkTheme ? indigo4 : indigo7,
-  textPositive: isDarkTheme ? teal4 : teal7,
-  textNegative: red6,
-  textHacker: teal2,
-  textForBackgroundBrand: white,
-  textWeakForBackgroundBrand: indigo2,
+  textVeryWeak,
+  textWeak,
+  text,
+  textCTA,
+  textLine,
+  textBrand,
+  textPositive,
+  textNegative,
+  textHacker,
+  textForBackgroundBrand,
+  textWeakForBackgroundBrand,
 
   colorHash,
 
