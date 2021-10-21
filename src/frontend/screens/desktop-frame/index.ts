@@ -10,11 +10,11 @@ import {Reducer, StateSource} from '@cycle/state';
 import {GlobalEvent} from '../../drivers/eventbus';
 import {SSBSource} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
+import MAIL_TO_BUG_REPORT from '../../components/mail-to-bug-report';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
 import navigation from './navigation';
-import linking from '../drawer/linking';
 
 export interface Sources {
   screen: ReactSource;
@@ -71,7 +71,10 @@ export function desktopFrame(sources: Sources): Sinks {
 
   const command$ = navigation(actions, state$);
 
-  const linking$ = linking(actions);
+  const linking$ = xs.merge(
+    actions.emailBugReport$.mapTo(MAIL_TO_BUG_REPORT),
+    actions.openTranslate$.mapTo('https://www.manyver.se/translations/'),
+  );
 
   return {
     screen: vdom$,
