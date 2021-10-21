@@ -107,7 +107,12 @@ function view(state$: Stream<State>) {
             : Platform.OS === 'ios'
             ? 'chevron-left'
             : 'arrow-left',
-          ...Platform.select({ios: {iconSize: Dimensions.iconSizeLarge}}),
+          ...Platform.select({
+            ios:
+              !state.previewing && !state.isReply
+                ? {iconSize: Dimensions.iconSizeLarge}
+                : undefined,
+          }),
           accessibilityLabel: t(
             'compose.call_to_action.close.accessibility_label',
           ),
