@@ -75,15 +75,30 @@ export const styles = StyleSheet.create({
   },
 
   buttonEnabled: {
+    marginLeft: Dimensions.horizontalSpaceNormal,
+    backgroundColor: 'transparent',
+    borderColor: Palette.textForBackgroundBrand,
+    borderWidth: 1,
+  },
+
+  buttonEnabledStrong: {
     backgroundColor: Palette.backgroundCTA,
-    minWidth: 80,
     marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
   buttonDisabled: {
-    backgroundColor: Palette.brandWeak,
-    minWidth: 80,
+    backgroundColor: 'transparent',
+    borderColor: Palette.textWeakForBackgroundBrand,
+    borderWidth: 1,
     marginLeft: Dimensions.horizontalSpaceNormal,
+  },
+
+  buttonTextEnabled: {
+    color: Palette.textForBackgroundBrand,
+  },
+
+  buttonTextDisabled: {
+    color: Palette.textWeakForBackgroundBrand,
   },
 });
 
@@ -99,6 +114,7 @@ function view(state$: Stream<State>) {
     h(View, {style: styles.container}, [
       h(View, {style: styles.innerContainer}, [
         h(HeaderButton, {
+          key: 'b',
           sel: 'composeCloseButton',
           icon: state.previewing
             ? 'pencil'
@@ -117,23 +133,36 @@ function view(state$: Stream<State>) {
             'compose.call_to_action.close.accessibility_label',
           ),
         }),
-        h(View, {style: styles.buttonsRight}, [
+
+        h(View, {key: 'v', style: styles.buttonsRight}, [
           h(Button, {
             sel: 'composeDoneButton',
+            strong: state.enabled,
             style: [
-              state.enabled ? styles.buttonEnabled : styles.buttonDisabled,
+              // Colors:
+              state.enabled && !state.previewing
+                ? styles.buttonEnabled
+                : state.enabled && state.previewing
+                ? styles.buttonEnabledStrong
+                : styles.buttonDisabled,
+
+              // Width:
               !state.previewing
                 ? styles.previewButton
                 : state.isReply
                 ? styles.replyButton
                 : styles.publishButton,
             ],
+            textStyle: state.enabled
+              ? styles.buttonTextEnabled
+              : styles.buttonTextDisabled,
+
             text: !state.previewing
               ? t('compose.call_to_action.preview.label')
               : state.isReply
               ? t('compose.call_to_action.reply_to_thread.label')
               : t('compose.call_to_action.publish_new_thread.label'),
-            strong: state.enabled,
+
             accessible: true,
             accessibilityLabel: !state.previewing
               ? t('compose.call_to_action.preview.accessibility_label')

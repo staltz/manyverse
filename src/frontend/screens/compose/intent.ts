@@ -40,7 +40,7 @@ export default function intent(
     .filter((state) => state.previewing);
 
   const enablePreview$ = topBarDoneWithState$.filter(
-    (state) => !state.previewing,
+    (state) => !state.previewing && state.postText.length > 0,
   );
 
   const publishPost$ = topBarDoneWithState$
