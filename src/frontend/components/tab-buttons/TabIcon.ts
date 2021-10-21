@@ -108,7 +108,11 @@ export default class TabIcon extends PureComponent<{
         }),
         renderIconExtras?.(visualState),
       ]),
-      h(Text, {key: 'b', style: textStyle, numberOfLines: 1}, label),
+      h(
+        Text,
+        {key: 'b', style: textStyle, numberOfLines: 1, selectable: false},
+        label,
+      ),
     ];
   }
 
