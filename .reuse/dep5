@@ -227,6 +227,10 @@ Files: patches/*
 Copyright: 2021 The Manyverse Authors
 License: MPL-2.0
 
+Files: src/backend/package*.json
+Copyright: 2021 The Manyverse Authors
+License: Unlicense
+
 Files: .buckconfig
 Copyright: 2021 The Manyverse Authors
 License: Unlicense
