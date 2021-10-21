@@ -151,7 +151,11 @@ export const styles = StyleSheet.create({
   },
 
   fullEmojiPickerEmoji: {
-    fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   reactionsTouchable: {
@@ -422,15 +426,11 @@ export default class MessageFooter extends Component<Props, State> {
     }
   };
 
-  private closeQuickEmojiPicker = () => {
-    this.setState({showQuickEmojis: false});
-  };
-
   private openFullEmojiPicker = () => {
     this.setState({showQuickEmojis: false, showFullEmojis: true});
   };
 
-  private closeFullEmojiPicker = () => {
+  private closeEmojisModal = () => {
     this.setState({showQuickEmojis: false, showFullEmojis: false});
   };
 
@@ -541,76 +541,50 @@ export default class MessageFooter extends Component<Props, State> {
   }
 
   private renderQuickEmojiPickerModal() {
-    return h(
-      Modal,
-      {
-        animationType: 'none',
-        transparent: true,
-        hardwareAccelerated: true,
-        visible: this.state.showQuickEmojis,
-        onRequestClose: this.closeQuickEmojiPicker,
-      },
-      [
-        h(View, {style: styles.quickEmojiPickerModal}, [
-          h(View, {style: styles.quickEmojiPickerContainer}, [
-            h(View, {style: styles.quickEmojiPickerRow}, [
-              this.renderQuickEmojiChoice(THUMBS_UP_UNICODE),
-              this.renderQuickEmojiChoice(VICTORY_HAND_UNICODE),
-              this.renderQuickEmojiChoice(HEART_UNICODE),
-              this.renderQuickEmojiChoice(SEE_NO_EVIL_MONKEY_UNICODE),
-            ]),
-            h(View, {style: styles.quickEmojiPickerRow}, [
-              this.renderQuickEmojiChoice(SMILING_WITH_HEART_EYES_UNICODE),
-              this.renderQuickEmojiChoice(GRINNING_WITH_SMILE_UNICODE),
-              this.renderQuickEmojiChoice(CRYING_FACE_UNICODE),
-              this.renderShowAllEmojisChoice(),
-            ]),
-          ]),
-          h(TouchableWithoutFeedback, {onPress: this.closeQuickEmojiPicker}, [
-            h(View, {style: styles.quickEmojiPickerBackground}),
-          ]),
+    return h(View, {style: styles.quickEmojiPickerModal}, [
+      h(View, {style: styles.quickEmojiPickerContainer}, [
+        h(View, {style: styles.quickEmojiPickerRow}, [
+          this.renderQuickEmojiChoice(THUMBS_UP_UNICODE),
+          this.renderQuickEmojiChoice(VICTORY_HAND_UNICODE),
+          this.renderQuickEmojiChoice(HEART_UNICODE),
+          this.renderQuickEmojiChoice(SEE_NO_EVIL_MONKEY_UNICODE),
         ]),
-      ],
-    );
+        h(View, {style: styles.quickEmojiPickerRow}, [
+          this.renderQuickEmojiChoice(SMILING_WITH_HEART_EYES_UNICODE),
+          this.renderQuickEmojiChoice(GRINNING_WITH_SMILE_UNICODE),
+          this.renderQuickEmojiChoice(CRYING_FACE_UNICODE),
+          this.renderShowAllEmojisChoice(),
+        ]),
+      ]),
+      h(TouchableWithoutFeedback, {onPress: this.closeEmojisModal}, [
+        h(View, {style: styles.quickEmojiPickerBackground}),
+      ]),
+    ]);
   }
 
   private renderFullEmojiPickerModal() {
-    if (!this.state.showQuickEmojis && !this.state.showFullEmojis) return null;
-
-    return h(
-      Modal,
-      {
-        animationType: 'none',
-        transparent: true,
-        hardwareAccelerated: true,
-        visible: this.state.showFullEmojis,
-        onRequestClose: this.closeFullEmojiPicker,
-      },
-      [
-        h(EmojiPicker, {
-          onEmojiSelected: this.onSelectEmojiReaction,
-          onPressOutside: this.closeFullEmojiPicker,
-          rows: 6,
-          hideClearButton: true,
-          localizedCategories: [
-            t('message.reactions.categories.smileys_and_emotion'),
-            t('message.reactions.categories.people_and_body'),
-            t('message.reactions.categories.animals_and_nature'),
-            t('message.reactions.categories.food_and_drink'),
-            t('message.reactions.categories.activities'),
-            t('message.reactions.categories.travel_and_places'),
-            t('message.reactions.categories.objects'),
-            t('message.reactions.categories.symbols'),
-          ],
-          modalStyle: styles.fullEmojiPickerModal,
-          backgroundStyle: styles.fullEmojiPickerBackground,
-          containerStyle: styles.fullEmojiPickerContainer,
-          scrollStyle: styles.fullEmojiPickerScroll,
-          headerStyle: styles.fullEmojiPickerHeader,
-          emojiStyle: styles.fullEmojiPickerEmoji,
-        }),
+    return h(EmojiPicker, {
+      onEmojiSelected: this.onSelectEmojiReaction,
+      onPressOutside: this.closeEmojisModal,
+      rows: 6,
+      hideClearButton: true,
+      localizedCategories: [
+        t('message.reactions.categories.smileys_and_emotion'),
+        t('message.reactions.categories.people_and_body'),
+        t('message.reactions.categories.animals_and_nature'),
+        t('message.reactions.categories.food_and_drink'),
+        t('message.reactions.categories.activities'),
+        t('message.reactions.categories.travel_and_places'),
+        t('message.reactions.categories.objects'),
+        t('message.reactions.categories.symbols'),
       ],
-    );
+      modalStyle: styles.fullEmojiPickerModal,
+      backgroundStyle: styles.fullEmojiPickerBackground,
+      containerStyle: styles.fullEmojiPickerContainer,
+      scrollStyle: styles.fullEmojiPickerScroll,
+      headerStyle: styles.fullEmojiPickerHeader,
+      emojiStyle: styles.fullEmojiPickerEmoji,
+    });
   }
 
   public render() {
@@ -621,8 +595,21 @@ export default class MessageFooter extends Component<Props, State> {
     this.myReaction = this.findMyLatestReaction();
 
     return h(View, {style: [styles.container, props.style]}, [
-      this.renderQuickEmojiPickerModal(),
-      this.renderFullEmojiPickerModal(),
+      h(
+        Modal,
+        {
+          animationType: 'none',
+          transparent: true,
+          hardwareAccelerated: true,
+          visible: this.state.showQuickEmojis || this.state.showFullEmojis,
+          onRequestClose: this.closeEmojisModal,
+        },
+        [
+          this.state.showQuickEmojis
+            ? this.renderQuickEmojiPickerModal()
+            : this.renderFullEmojiPickerModal(),
+        ],
+      ),
 
       h(View, {key: 'summary', style: styles.reactionsContainer}, [
         h(Reactions, {reactions, onPress: this.onPressReactionsHandler}),
