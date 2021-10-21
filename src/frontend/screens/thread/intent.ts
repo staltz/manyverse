@@ -33,7 +33,10 @@ export default function intent(
       .select('reply-send')
       .events('press')
       .compose(sample(state$))
-      .filter((state) => !!state.replyText),
+      .filter(
+        ({replyText}) =>
+          typeof replyText === 'string' && replyText.trim().length > 0,
+      ),
 
     willReply$: ssbSource.publishHook$.filter(isReplyPostMsg),
 

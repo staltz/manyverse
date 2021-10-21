@@ -5,7 +5,6 @@
 import xs, {Stream} from 'xstream';
 import concat from 'xstream/extra/concat';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
-import xsFromPullStream from 'xstream-from-pull-stream';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId, MsgId} from 'ssb-typescript';
@@ -223,20 +222,13 @@ export default function model(
         },
     );
 
-  const addSelfRepliesReducer$ = actions.willReply$
-    .map(() =>
-      ssbSource.selfReplies$
-        .map((getReadable) =>
-          xsFromPullStream<MsgAndExtras>(
-            getReadable({live: true, old: false}),
-          ).take(1),
-        )
-        .flatten(),
-    )
-    .flatten()
-    .map(
-      (newMsg) =>
-        function addSelfRepliesReducer(prev: State): State {
+  const addSelfRepliesReducer$ = ssbSource.selfRepliesLive$.map(
+    (newMsg) =>
+      function addSelfRepliesReducer(prev: State): State {
+        if (
+          newMsg.value.author === prev.selfFeedId &&
+          newMsg.value.content.root === prev.rootMsgId
+        ) {
           return {
             ...prev,
             thread: {
@@ -244,8 +236,11 @@ export default function model(
               full: true,
             },
           };
-        },
-    );
+        } else {
+          return prev;
+        }
+      },
+  );
 
   return concat(
     propsReducer$,

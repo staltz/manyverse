@@ -75,7 +75,7 @@ export class SSBSource {
   public firewallAttemptLive$: Stream<FirewallAttempt>;
   public selfPublicRoots$: Stream<ThreadSummaryWithExtras>;
   public selfPrivateRootIdsLive$: Stream<MsgId>;
-  public selfReplies$: Stream<GetReadable<MsgAndExtras>>;
+  public selfRepliesLive$: Stream<MsgAndExtras<PostContent>>;
   public publishHook$: Stream<Msg>;
   public migrationProgress$: Stream<number>;
   public indexingProgress$: Stream<number>;
@@ -135,8 +135,8 @@ export class SSBSource {
       ssb.dbUtils.selfPrivateRootIdsLive(),
     );
 
-    this.selfReplies$ = this.ssb$.map((ssb) => (opts?: any) =>
-      ssb.threadsUtils.selfReplies(opts),
+    this.selfRepliesLive$ = this.fromPullStream<MsgAndExtras<PostContent>>(
+      (ssb) => ssb.threadsUtils.selfReplies({live: true, old: false}),
     );
 
     this.publishHook$ = this.ssb$

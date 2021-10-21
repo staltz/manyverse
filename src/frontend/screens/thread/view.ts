@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import delay from 'xstream/extra/delay';
+import pairwise from 'xstream/extra/pairwise';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {
@@ -130,9 +132,21 @@ function initialScrollToReply$(state$: Stream<State>, actions: Actions) {
 }
 
 export default function view(state$: Stream<State>, actions: Actions) {
+  const didReply$ = state$
+    .compose(pairwise)
+    .filter(([prevState, nextState]) => {
+      const prevMsgs = prevState.thread.messages;
+      const nextMsgs = nextState.thread.messages;
+      return (
+        nextMsgs.length === prevMsgs.length + 1 &&
+        nextMsgs[nextMsgs.length - 1].value.author === nextState.selfFeedId
+      );
+    });
+
   const scrollToEnd$ = xs.merge(
     initialScrollToReply$(state$, actions),
-    actions.willReply$.mapTo({animated: false}),
+    actions.willReply$.mapTo({animated: true}).compose(delay(50)),
+    didReply$.mapTo({animated: true}),
   );
 
   const setMarkdownInputNativeProps$ = xs.merge(
