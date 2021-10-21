@@ -63,7 +63,7 @@
   },
   "optionalDependenciesCOMMENT": "These are desktop-only modules",
   "optionalDependencies": {
-    "electron": "10.3.1",
+    "electron": "11.5.0",
     "multiserver-electron-ipc": "1.2.0"
   },
   "devDependencies": {
