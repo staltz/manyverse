@@ -15,22 +15,22 @@ import {Dimensions} from '../../../global-styles/dimens';
 import Button from '../../../components/Button';
 import HeaderButton from '../../../components/HeaderButton';
 
-export type State = {
+export interface State {
   enabled: boolean;
   previewing: boolean;
   isReply: boolean;
-};
+}
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   state: StateSource<State>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   back: Stream<any>;
   done: Stream<any>;
-};
+}
 
 export const styles = StyleSheet.create({
   container: {
