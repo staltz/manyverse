@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Command, NavSource} from 'cycle-native-navigation';
+import {Command, NavSource, StackElement} from 'cycle-native-navigation';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
@@ -19,6 +19,7 @@ import navigation from './navigation';
 export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
+  navigationStack: StateSource<Array<StackElement>>;
   children: Stream<Array<ReactElement>>;
   globalEventBus: Stream<GlobalEvent>;
   ssb: SSBSource;
@@ -69,7 +70,7 @@ export function desktopFrame(sources: Sources): Sinks {
 
   const vdom$ = view(state$, sources.children, localizationLoaded$);
 
-  const command$ = navigation(actions, state$);
+  const command$ = navigation(actions, state$, sources.navigationStack.stream);
 
   const linking$ = xs.merge(
     actions.emailBugReport$.mapTo(MAIL_TO_BUG_REPORT),
