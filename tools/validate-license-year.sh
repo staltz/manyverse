@@ -13,7 +13,7 @@ if (fs.existsSync(filename)) {\
   const lines = fs.readFileSync(filename, {encoding: 'utf-8'});\
   const firstLine = lines.split('\n')[0];\
   let needsUpdating = false;\
-  if (firstLine.includes('Copyright (C)')) {\
+  if (firstLine.includes('SPDX-FileCopyrightText')) {\
     if (!firstLine.includes(thisYear)) {\
       console.log(filename + ' needs to update the license year');\
       needsUpdating = true;\
