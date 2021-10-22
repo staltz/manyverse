@@ -18,6 +18,7 @@ if (!process.env.APP_DATA_DIR || !process.env.SSB_DIR) {
 }
 
 if (!fs.existsSync(process.env.SSB_DIR)) mkdirp.sync(process.env.SSB_DIR);
+const KEYS_PATH = path.join(process.env.SSB_DIR, 'secret');
 
 // One-time fixes for special issues
 const ISSUE_1223 = path.join(process.env.SSB_DIR, 'issue1223');
@@ -30,15 +31,21 @@ if (!fs.existsSync(ISSUE_1328)) {
   rimraf.sync(path.join(process.env.SSB_DIR, 'db2', 'indexes') + '/*.*');
   fs.closeSync(fs.openSync(ISSUE_1328, 'w'));
 }
-const keysPath = path.join(process.env.SSB_DIR, 'secret');
-if (fs.existsSync(keysPath) && fs.lstatSync(keysPath).isDirectory()) {
-  const keysPathWrong = path.join(keysPath, 'secret');
+const ISSUE_1486 = path.join(process.env.SSB_DIR, 'issue1486');
+if (!fs.existsSync(ISSUE_1486)) {
+  rimraf.sync(path.join(process.env.SSB_DIR, 'db2', 'indexes') + '/!(*.*)');
+  fs.closeSync(fs.openSync(ISSUE_1486, 'w'));
+}
+// Fix issue 1518:
+if (fs.existsSync(KEYS_PATH) && fs.lstatSync(KEYS_PATH).isDirectory()) {
+  const keysPathWrong = path.join(KEYS_PATH, 'secret');
   const keysPathTmp = path.join(process.env.SSB_DIR, 'tmpsecret');
   fs.renameSync(keysPathWrong, keysPathTmp);
-  rimraf.sync(keysPath);
-  fs.renameSync(keysPathTmp, keysPath);
+  rimraf.sync(KEYS_PATH);
+  fs.renameSync(keysPathTmp, KEYS_PATH);
 }
-const keys = ssbKeys.loadOrCreateSync(keysPath);
+
+const keys = ssbKeys.loadOrCreateSync(KEYS_PATH);
 
 const config = makeConfig('ssb', {
   caps,

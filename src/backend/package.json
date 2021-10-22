@@ -36,7 +36,7 @@
     "ssb-config": "3.4.6",
     "ssb-conn": "5.2.0",
     "ssb-conn-firewall": "1.1.2",
-    "ssb-db2": "2.3.1",
+    "ssb-db2": "2.3.2",
     "ssb-deweird": "1.0.0",
     "ssb-ebt": "7.0.4",
     "ssb-friends": "5.1.0",
