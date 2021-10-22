@@ -261,14 +261,14 @@ export default [
   {
     name: 'cycle-native-navigation',
     type: 'library',
-    version: '8.0.0',
+    version: '8.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation',
   },
   {
     name: 'cycle-native-navigation-web',
     type: 'library',
-    version: '0.8.0',
+    version: '0.9.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation-web',
   },
@@ -833,7 +833,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '2.3.1',
+    version: '2.3.2',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },

@@ -7,6 +7,15 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2110.22-beta
+
+* Bug fix: [ios] fix pencil icon size on Compose screen ([see details](https://gitlab.com/staltz/manyverse/commit/923877ed8ebe5c80dbe7c6813bf806259450684c))
+* Bug fix: [ios] full emoji picker should appear ([see details](https://gitlab.com/staltz/manyverse/commit/804ff0156e4a5d836a7a3490fb0db009592508c3))
+* Bug fix: corrupted indexes causing incorrect content ([see details](https://gitlab.com/staltz/manyverse/commit/ebe4bf32675759aba0687e264b3f557e15444c04))
+* Bug fix: published replies should appear ASAP ([see details](https://gitlab.com/staltz/manyverse/commit/aec61765a7bc3ba9956b7ff6c7ca6c381ea3bfa3))
+* Bug fix: support dialogs and popups in dark mode ([see details](https://gitlab.com/staltz/manyverse/commit/32bd2b1bc57ee984ec423fa6a4e6edbfa9ce3399))
+* Improve preview/publish button on Compose screen ([see details](https://gitlab.com/staltz/manyverse/commit/863390efc3834c9bcfc734c947697e527929095a))
+
 ## 0.2110.18-beta
 
 * Bug fix: a crash related to issue #1518 ([see details](https://gitlab.com/staltz/manyverse/commit/a9ef8a8fe2ec4cc0da7d314f8cd6772f86d80bfa)), closes [#1518](https://gitlab.com/staltz/manyverse/issues/1518)
