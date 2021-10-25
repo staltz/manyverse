@@ -72,6 +72,14 @@ export const styles = StyleSheet.create({
         paddingHorizontal: Dimensions.horizontalSpaceSmall,
         paddingVertical: Dimensions.verticalSpaceSmall,
       },
+      web: {
+        outlineStyle: 'none',
+        borderColor: Palette.textVeryWeak,
+        borderWidth: 1,
+        borderRadius: Dimensions.borderRadiusNormal,
+        paddingHorizontal: Dimensions.horizontalSpaceSmall,
+        paddingVertical: Dimensions.verticalSpaceSmall,
+      },
     }),
   },
 
