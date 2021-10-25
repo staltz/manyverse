@@ -42,6 +42,14 @@ export const styles = StyleSheet.create({
     }),
   },
 
+  touchable: {
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
+  },
+
   avatar: {
     marginRight: Dimensions.horizontalSpaceSmall,
   },
@@ -103,6 +111,7 @@ export default class ShortRawMessage extends Component<Props> {
     const {msg, name, imageUrl} = this.props;
     const touchableProps: any = {
       onPress: () => this._onPress(),
+      style: styles.touchable,
     };
     if (Platform.OS === 'android') {
       touchableProps.background = TouchableNativeFeedback.SelectableBackground();
