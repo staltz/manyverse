@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   scrollBy$?: Stream<[/* offset */ number, /* animated */ boolean]>;
-};
+}
 
 export default function tutorialPresentation(
   sel: string | symbol,

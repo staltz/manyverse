@@ -18,15 +18,6 @@ import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    backgroundColor: Palette.brandMain,
-    paddingHorizontal: Dimensions.horizontalSpaceBig,
-  },
-
   title: {
     fontWeight: 'bold',
     marginVertical: Dimensions.verticalSpaceNormal,
@@ -70,6 +61,8 @@ export const styles = StyleSheet.create({
       web: {
         paddingHorizontal: Dimensions.horizontalSpaceLarge,
         height: '100%',
+        minWidth: '50vw',
+        minHeight: '50vh',
       },
     }),
   },
@@ -77,6 +70,12 @@ export const styles = StyleSheet.create({
   internalSlide: {
     flex: 1,
     flexDirection: 'column',
+    ...Platform.select({
+      web: {
+        minWidth: '50vw',
+        minHeight: '50vh',
+      },
+    }),
   },
 
   slideTop: {
@@ -93,14 +92,14 @@ export const styles = StyleSheet.create({
   },
 });
 
-type SlideProps = {
+interface SlideProps {
   image: ImageSourcePropType;
   title: string;
   renderDescription: () => Array<string | ReactElement<TextProps>>;
   renderBottom: () => ReactElement<any> | Array<ReactElement<any>>;
   show: boolean;
   portraitMode?: boolean;
-};
+}
 
 class InternalSlide extends PureComponent<SlideProps> {
   private _animVal1: Animated.Value;

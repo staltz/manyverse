@@ -4,7 +4,7 @@
 
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
@@ -12,6 +12,7 @@ import {OrientationEvent} from '../../drivers/orientation';
 import {t} from '../../drivers/localization';
 import {WindowSize} from '../../drivers/window-size';
 import {Palette} from '../../global-styles/palette';
+import {getImg} from '../../global-styles/utils';
 import tutorialPresentation from '../../components/tutorial-presentation';
 import tutorialSlide from '../../components/tutorial-slide';
 import Button from '../../components/Button';
@@ -19,30 +20,32 @@ import TopBar from '../../components/TopBar';
 import {navOptions as outputSecretScreenNavOptions} from '../secret-output';
 import {Screens} from '../enums';
 
-export type State = {
+export interface State {
   index: number;
   isPortraitMode: boolean;
-};
+}
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   orientation: Stream<OrientationEvent>;
   windowSize: Stream<WindowSize>;
   state: StateSource<State>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
-};
+}
 
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Palette.brandMain,
     flexDirection: 'column',
   },
 
@@ -52,7 +55,12 @@ export const styles = StyleSheet.create({
 
   button: {
     borderColor: Palette.colors.white,
-    marginBottom: 62,
+    ...Platform.select({
+      web: {},
+      default: {
+        marginBottom: 62,
+      },
+    }),
   },
 
   buttonText: {
@@ -61,7 +69,12 @@ export const styles = StyleSheet.create({
 
   ctaButton: {
     backgroundColor: Palette.backgroundCTA,
-    marginBottom: 62,
+    ...Platform.select({
+      web: {},
+      default: {
+        marginBottom: 62,
+      },
+    }),
   },
 });
 
@@ -92,9 +105,9 @@ export const navOptions = {
   },
 };
 
-export type Actions = {
+export interface Actions {
   goBack$: Stream<any>;
-};
+}
 
 export function backup(sources: Sources): Sinks {
   const goBack$ = xs
@@ -124,86 +137,95 @@ export function backup(sources: Sources): Sinks {
     )
     .mapTo([/* offset */ +1, /* animated */ true] as [number, boolean]);
 
-  const vdom$ = sources.state.stream.map((state) =>
-    h(View, {style: styles.screen}, [
-      h(TopBar, {sel: 'topbar', title: t('backup.title')}),
+  /**
+   * Necessary to fix quirks with nuka-carousel on desktop.
+   */
+  const forceRerender$ = sources.navigation
+    .globalDidDisappear(Screens.SecretOutput)
+    .startWith(null as any) as Stream<unknown>;
 
-      tutorialPresentation('swiper', {scrollBy$}, [
-        tutorialSlide({
-          show: state.index >= 0,
-          portraitMode: state.isPortraitMode,
-          image: require('../../../../images/noun-glassware.png'),
-          title: t('backup.introduction.title'),
-          renderDescription: () => [],
-          renderBottom: () =>
-            h(Button, {
-              sel: 'confirm-start',
-              style: styles.button,
-              textStyle: styles.buttonText,
-              text: t('call_to_action.continue'),
-              strong: false,
-              accessible: true,
-              accessibilityLabel: t('call_to_action.continue'),
-            }),
-        }),
+  const vdom$ = xs
+    .combine(sources.state.stream, forceRerender$)
+    .map(([state]) =>
+      h(View, {style: styles.screen}, [
+        h(TopBar, {sel: 'topbar', title: t('backup.title')}),
 
-        tutorialSlide({
-          show: state.index >= 1,
-          portraitMode: state.isPortraitMode,
-          image: require('../../../../images/noun-books.png'),
-          title: 'Data',
-          renderDescription: () => [
-            t('backup.data.description.1_normal'),
-            bold(t('backup.data.description.2_bold')),
-            t('backup.data.description.3_normal'),
-            bold(t('backup.data.description.4_bold')),
-            t('backup.data.description.5_normal'),
-            bold(t('backup.data.description.6_bold')),
-            t('backup.data.description.7_normal'),
-          ],
-          renderBottom: () =>
-            h(Button, {
-              sel: 'confirm-data',
-              style: styles.button,
-              textStyle: styles.buttonText,
-              text: t('backup.data.call_to_action.acknowledge.label'),
-              strong: false,
-              accessible: true,
-              accessibilityLabel: t(
-                'backup.data.call_to_action.acknowledge.accessibility_label',
-              ),
-            }),
-        }),
+        tutorialPresentation('swiper', {scrollBy$}, [
+          tutorialSlide({
+            show: state.index >= 0,
+            portraitMode: state.isPortraitMode,
+            image: getImg(require('../../../../images/noun-glassware.png')),
+            title: t('backup.introduction.title'),
+            renderDescription: () => [],
+            renderBottom: () =>
+              h(Button, {
+                sel: 'confirm-start',
+                style: styles.button,
+                textStyle: styles.buttonText,
+                text: t('call_to_action.continue'),
+                strong: false,
+                accessible: true,
+                accessibilityLabel: t('call_to_action.continue'),
+              }),
+          }),
 
-        tutorialSlide({
-          show: state.index >= 2,
-          portraitMode: state.isPortraitMode,
-          image: require('../../../../images/noun-fingerprint.png'),
-          title: t('backup.identity.title'),
-          renderDescription: () => [
-            t('backup.identity.description.1_normal'),
-            bold(t('backup.identity.description.2_bold')),
-            t('backup.identity.description.3_normal'),
-            bold(t('backup.identity.description.4_bold')),
-            t('backup.identity.description.5_normal'),
-            bold(t('backup.identity.description.6_bold')),
-            t('backup.identity.description.7_normal'),
-          ],
-          renderBottom: () =>
-            h(Button, {
-              sel: 'show-recovery-phrase',
-              style: styles.ctaButton,
-              text: t('backup.identity.call_to_action.show_recovery_phrase'),
-              strong: true,
-              accessible: true,
-              accessibilityLabel: t(
-                'backup.identity.call_to_action.show_recovery_phrase',
-              ),
-            }),
-        }),
+          tutorialSlide({
+            show: state.index >= 1,
+            portraitMode: state.isPortraitMode,
+            image: getImg(require('../../../../images/noun-books.png')),
+            title: 'Data',
+            renderDescription: () => [
+              t('backup.data.description.1_normal'),
+              bold(t('backup.data.description.2_bold')),
+              t('backup.data.description.3_normal'),
+              bold(t('backup.data.description.4_bold')),
+              t('backup.data.description.5_normal'),
+              bold(t('backup.data.description.6_bold')),
+              t('backup.data.description.7_normal'),
+            ],
+            renderBottom: () =>
+              h(Button, {
+                sel: 'confirm-data',
+                style: styles.button,
+                textStyle: styles.buttonText,
+                text: t('backup.data.call_to_action.acknowledge.label'),
+                strong: false,
+                accessible: true,
+                accessibilityLabel: t(
+                  'backup.data.call_to_action.acknowledge.accessibility_label',
+                ),
+              }),
+          }),
+
+          tutorialSlide({
+            show: state.index >= 2,
+            portraitMode: state.isPortraitMode,
+            image: getImg(require('../../../../images/noun-fingerprint.png')),
+            title: t('backup.identity.title'),
+            renderDescription: () => [
+              t('backup.identity.description.1_normal'),
+              bold(t('backup.identity.description.2_bold')),
+              t('backup.identity.description.3_normal'),
+              bold(t('backup.identity.description.4_bold')),
+              t('backup.identity.description.5_normal'),
+              bold(t('backup.identity.description.6_bold')),
+              t('backup.identity.description.7_normal'),
+            ],
+            renderBottom: () =>
+              h(Button, {
+                sel: 'show-recovery-phrase',
+                style: styles.ctaButton,
+                text: t('backup.identity.call_to_action.show_recovery_phrase'),
+                strong: true,
+                accessible: true,
+                accessibilityLabel: t(
+                  'backup.identity.call_to_action.show_recovery_phrase',
+                ),
+              }),
+          }),
+        ]),
       ]),
-    ]),
-  );
+    );
 
   const command$ = xs.merge(goBack$, goToExportSecret$);
 
