@@ -23,7 +23,6 @@ import {makeWindowSizeDriver} from './lib/frontend/drivers/window-size';
 import {desktopFrame} from './lib/frontend/screens/desktop-frame';
 import {central} from './lib/frontend/screens/central';
 import {compose} from './lib/frontend/screens/compose';
-//import {dialogAbout} from './lib/frontend/screens/dialog-about';
 import {global} from './lib/frontend/screens/global';
 import {welcome} from './lib/frontend/screens/welcome';
 import {conversation} from './lib/frontend/screens/conversation';
@@ -31,6 +30,7 @@ import {recipientsInput} from './lib/frontend/screens/recipients-input';
 import {pasteInvite} from './lib/frontend/screens/invite-paste';
 import {profile} from './lib/frontend/screens/profile';
 import {biography} from './lib/frontend/screens/biography';
+import {libraries} from './lib/frontend/screens/libraries';
 import {search} from './lib/frontend/screens/search';
 import {thread} from './lib/frontend/screens/thread';
 import {accounts} from './lib/frontend/screens/accounts';
@@ -101,9 +101,8 @@ function startCycleApp() {
     [Screens.Thread]: withState(thread),
     [Screens.Conversation]: withState(conversation),
     [Screens.RecipientsInput]: withState(recipientsInput),
-    // [Screens.Libraries]: libraries,
+    [Screens.Libraries]: libraries,
     [Screens.InvitePaste]: withState(pasteInvite),
-    // [Screens.InviteCreate]: withState(createInvite),
     [Screens.Profile]: withState(profile),
     // [Screens.ProfileEdit]: withState(editProfile),
     // [Screens.AliasManage]: withState(manageAliases),

@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.backgroundText,
+    backgroundColor: Palette.voidMain,
     flexDirection: 'column',
   },
 
@@ -49,20 +49,40 @@ export const styles = StyleSheet.create({
   },
 
   header: {
+    backgroundColor: Palette.backgroundText,
     paddingVertical: Dimensions.verticalSpaceBig,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
     color: Palette.textWeak,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   itemContainer: {
+    backgroundColor: Palette.backgroundText,
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
     paddingVertical: Dimensions.verticalSpaceNormal,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     minHeight: 60,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
+  },
+
+  itemTouchable: {
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   itemTitleSubtitleColumn: {
@@ -98,7 +118,7 @@ export const navOptions = {
   },
   sideMenu: {
     left: {
-      enabled: false,
+      enabled: Platform.OS === 'web',
     },
   },
 };
@@ -120,7 +140,11 @@ class Dep extends PureComponent<{
   public render() {
     const {name, author, version, type, license, onPress} = this.props;
 
-    const touchableProps: any = {onPress, pointerEvents: 'box-only'};
+    const touchableProps: any = {
+      onPress,
+      pointerEvents: 'box-only',
+      style: styles.itemTouchable,
+    };
     if (Platform.OS === 'android') {
       touchableProps.background = TouchableNativeFeedback.SelectableBackground();
     }
