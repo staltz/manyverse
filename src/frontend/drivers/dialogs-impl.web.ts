@@ -17,9 +17,11 @@ import {
 } from '@material-ui/core';
 const ReactDOM = require('react-dom');
 import {Palette} from '../global-styles/palette';
+import Markdown from '../components/Markdown';
 import {
   AlertAction,
   Implementation,
+  OptionsAlert,
   OptionsCommon,
   OptionsPicker,
   OptionsPrompt,
@@ -46,7 +48,7 @@ interface PromptState extends BasicState {
 
 interface AlertState extends BasicState {
   show: 'alert';
-  options?: OptionsCommon;
+  options?: OptionsAlert;
 }
 
 interface PickerState extends BasicState {
@@ -158,19 +160,21 @@ class Dialogs extends Component<unknown, State> implements Implementation {
                   state.title,
                 ),
                 $(DialogContent, {key: 'content'}, [
-                  $(
-                    DialogContentText,
-                    {
-                      key: 'text',
-                      style: {
-                        wordBreak: 'break-word',
-                        color:
-                          state.options?.contentColor ??
-                          Palette.dialogColors.contentColor,
-                      },
-                    },
-                    state.content,
-                  ),
+                  state.show === 'alert' && state.options?.markdownOnDesktop
+                    ? $(Markdown, {key: 'md', text: state.content!})
+                    : $(
+                        DialogContentText,
+                        {
+                          key: 'text',
+                          style: {
+                            wordBreak: 'break-word',
+                            color:
+                              state.options?.contentColor ??
+                              Palette.dialogColors.contentColor,
+                          },
+                        },
+                        state.content,
+                      ),
                   state.show === 'prompt' &&
                     $(TextField, {
                       key: 'input',

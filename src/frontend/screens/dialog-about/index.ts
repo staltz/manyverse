@@ -6,12 +6,11 @@ import xs, {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
-import {StyleSheet, NativeModules} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Options} from 'react-native-navigation';
 import {t} from '../../drivers/localization';
 import MarkdownDialog from '../../components/dialogs/MarkdownDialog';
-
-const version = NativeModules.BuildConfig.VERSION_NAME;
+import getContent from './content';
 
 export type Sources = {
   screen: ReactSource;
@@ -32,24 +31,11 @@ export const styles = StyleSheet.create({
 });
 
 export function dialogAbout(sources: Sources): Sinks {
-  const repoLink = 'https://gitlab.com/staltz/manyverse';
-  const authorsLink =
-    'https://gitlab.com/staltz/manyverse/-/raw/master/AUTHORS';
-
   const vdom$ = xs.of(
     h(MarkdownDialog, {
       sel: 'dialog',
       title: t('dialog_about.title'),
-      content:
-        '[manyver.se](https://manyver.se)\n' +
-        t('dialog_about.version', {version}) +
-        '\n\n' +
-        t('dialog_about.copyright') +
-        ' 2018-2021 ' +
-        `[${t('dialog_about.authors')}](${authorsLink})\n` +
-        '\n' +
-        `[${t('dialog_about.repository')}](${repoLink})\n` +
-        t('dialog_about.licensed', {license: 'MPL 2.0'}),
+      content: getContent(),
     }),
   );
 

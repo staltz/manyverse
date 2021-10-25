@@ -10,7 +10,7 @@ import {StyleSheet} from 'react-native';
 import {Options} from 'react-native-navigation';
 import {t} from '../../drivers/localization';
 import MarkdownDialog from '../../components/dialogs/MarkdownDialog';
-import topBackers from './backers';
+import getContent from './content';
 
 export type Sources = {
   screen: ReactSource;
@@ -39,12 +39,7 @@ export function dialogThanks(sources: Sources): Sinks {
     h(MarkdownDialog, {
       sel: 'dialog',
       title: t('dialog_thanks.title'),
-      content: t('dialog_thanks.description', {
-        sponsor1: '[NGI0 PET](https://nlnet.nl/project/Manyverse)',
-        sponsor2: '[Handshake / ACCESS](https://opencollective.com/access)',
-        topBackers: topBackers.join(', '),
-        donateLink: 'https://manyver.se/donate',
-      }),
+      content: getContent(),
     }),
   );
 

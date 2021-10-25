@@ -38,6 +38,10 @@ export interface PickerItem {
   iosStyle?: AlertButton['style'];
 }
 
+export interface OptionsAlert extends OptionsCommon {
+  markdownOnDesktop?: boolean;
+}
+
 export interface OptionsPicker extends OptionsCommon {
   items: Array<PickerItem>;
   idKey?: string;
@@ -76,7 +80,7 @@ export interface Implementation {
   alert(
     title?: string,
     content?: string,
-    options?: OptionsCommon,
+    options?: OptionsAlert,
   ): Promise<AlertAction>;
 
   showPicker(

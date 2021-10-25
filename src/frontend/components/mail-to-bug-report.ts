@@ -2,12 +2,9 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {NativeModules, Platform} from 'react-native';
-const packageJson =
-  Platform.OS === 'web' ? require('../../../package.json') : {version: ''};
+import {Platform} from 'react-native';
+import versionName from '../versionName';
 
-const version =
-  'v' + (NativeModules.BuildConfig?.VERSION_NAME ?? packageJson.version);
 const platform = Platform.select({
   ios: 'iOS',
   android: 'Android',
@@ -17,7 +14,7 @@ const platform = Platform.select({
 const MAIL_TO_BUG_REPORT =
   'mailto:' +
   'incoming+staltz-manyverse-6814019-issue-@incoming.gitlab.com' +
-  `?subject=Bug report for ${platform} ${version}` +
+  `?subject=Bug report for ${platform} v${versionName}` +
   '&body=Explain what happened and what you expected...';
 
 export default MAIL_TO_BUG_REPORT;

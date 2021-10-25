@@ -13,13 +13,13 @@ const dialogAboutNavOptions =
 const dialogThanksNavOptions =
   Platform.OS === 'web' ? {} : require('../dialog-thanks').navOptions;
 
-export type Actions = {
+export interface Actions {
   goBack$: Stream<any>;
   goToBackup$: Stream<any>;
   goToLibraries$: Stream<any>;
   goToAbout$: Stream<any>;
   goToThanks$: Stream<any>;
-};
+}
 
 export default function navigationCommands(
   actions: Actions,

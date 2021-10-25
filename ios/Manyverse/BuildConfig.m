@@ -8,6 +8,7 @@
 
 RCT_EXPORT_MODULE()
 
+// TODO: delete this .h and .m from XCode
 -(NSDictionary *)constantsToExport {
   NSString *shortVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
     return @{

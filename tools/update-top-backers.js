@@ -8,12 +8,15 @@ const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
 
+const thisYear = new Date().getFullYear();
 const OC_URL = 'https://opencollective.com/manyverse/members.json';
 const AMOUNT = 5;
 const HEADER =
   '// ' +
   'SP' +
-  'DX-FileCopyrightText: 2021 The Manyverse Authors\n' +
+  'DX-FileCopyrightText: ' +
+  thisYear +
+  ' The Manyverse Authors\n' +
   '//\n' +
   '// ' +
   'SP' +

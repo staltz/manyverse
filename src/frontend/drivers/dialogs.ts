@@ -6,7 +6,7 @@ import xs, {Stream} from 'xstream';
 import Implementation from './dialogs-impl';
 import {
   AlertAction,
-  OptionsCommon,
+  OptionsAlert,
   OptionsPicker,
   OptionsPrompt,
   PickerAction,
@@ -16,7 +16,7 @@ export * from './dialogs-types';
 
 export type Command =
   | {type: 'dismiss'}
-  | {type: 'alert'; title?: string; content?: string; options?: OptionsCommon};
+  | {type: 'alert'; title?: string; content?: string; options?: OptionsAlert};
 
 export class DialogSource {
   constructor() {}
@@ -24,7 +24,7 @@ export class DialogSource {
   public alert(
     title?: string,
     content?: string,
-    options?: OptionsCommon,
+    options?: OptionsAlert,
   ): Stream<AlertAction> {
     return xs.fromPromise(Implementation.alert(title, content, options));
   }

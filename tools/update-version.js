@@ -10,6 +10,25 @@ const leftPad = require('left-pad');
 const path = require('path');
 const fs = require('fs');
 
+const thisYear = new Date().getFullYear();
+const HEADER =
+  '// ' +
+  'SP' +
+  'DX-FileCopyrightText: ' +
+  thisYear +
+  ' The Manyverse Authors\n' +
+  '//\n' +
+  '// ' +
+  'SP' +
+  'DX-License-Identifier: CC0-1.0';
+const VERSION_NAME_FILE = path.join(
+  __dirname,
+  '..',
+  'src',
+  'frontend',
+  'versionName.ts',
+);
+
 const currentVersion = JSON.parse(fs.readFileSync('./package.json')).version;
 
 const rl = readline.createInterface({
@@ -40,7 +59,7 @@ if (nextVersion === currentVersion) {
   process.exit(1);
 }
 
-rl.question('Next version will be `' + nextVersion + '`, okay? y/n ', yn => {
+rl.question('Next version will be `' + nextVersion + '`, okay? y/n ', (yn) => {
   if (yn !== 'y' && yn !== 'Y') {
     console.log('Release cancelled.\n');
     process.exit(1);
@@ -54,10 +73,15 @@ rl.question('Next version will be `' + nextVersion + '`, okay? y/n ', yn => {
   fs.writeFileSync('./package.json', JSON.stringify(pkgJSON, null, 2));
   fs.writeFileSync('./package-lock.json', JSON.stringify(pkgLockJSON, null, 2));
 
+  fs.writeFileSync(
+    VERSION_NAME_FILE,
+    HEADER + '\n\n' + `export default '${nextVersion}';` + '\n',
+  );
+
   ReactNativeVersion.version(
     {neverAmend: true, target: ['android']},
     path.resolve(__dirname, '../'),
-  ).catch(err => {
+  ).catch((err) => {
     console.error(err);
     process.exit(1);
   });
