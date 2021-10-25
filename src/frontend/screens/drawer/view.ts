@@ -15,28 +15,27 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Bar as ProgressBar} from 'react-native-progress';
 import {h} from '@cycle/react';
 import {t} from '../../drivers/localization';
+import LocalizedHumanTime from '../../components/LocalizedHumanTime';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import Avatar from '../../components/Avatar';
 import {State} from './model';
 import {styles} from './styles';
-import LocalizedHumanTime from '../../components/LocalizedHumanTime';
-const ProgressBar =
-  Platform.OS === 'web' ? View : require('react-native-progress').Bar;
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
   default: TouchableOpacity,
 });
 
-type MenuItemProps = {
+interface MenuItemProps {
   icon: string;
   text: string;
   onPress?: () => void;
   accessibilityLabel: string;
-};
+}
 
 class MenuItem extends PureComponent<MenuItemProps> {
   public render() {

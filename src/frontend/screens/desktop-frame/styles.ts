@@ -5,6 +5,7 @@
 import {StyleSheet} from 'react-native';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
+import {Typography} from '../../global-styles/typography';
 
 export const styles = StyleSheet.create({
   screen: {
@@ -12,6 +13,31 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'row',
     backgroundColor: Palette.voidMain,
+  },
+
+  progressBasic: {
+    position: 'absolute',
+    zIndex: 1000,
+    top: 0,
+    height: '5px',
+    backgroundColor: Palette.textForBackgroundBrand,
+    transition: 'width 0.25s',
+  },
+
+  progressUndone: {
+    left: 0,
+  },
+
+  progressDone: {
+    right: 0,
+  },
+
+  progressLabel: {
+    marginLeft: Dimensions.horizontalSpaceNormal,
+    color: Palette.textForBackgroundBrand,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
+    fontFamily: Typography.fontFamilyReadableText,
   },
 
   left: {
@@ -54,8 +80,34 @@ export const styles = StyleSheet.create({
     flex: Dimensions.desktopMiddleWidth.flex + Dimensions.desktopSideWidth.flex,
   },
 
-  topBarStub: {
+  topBarLeftSection: {
     height: Dimensions.toolbarHeight,
+    minHeight: Dimensions.toolbarHeight,
     backgroundColor: Palette.brandMain,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+
+  topBarRightSection: {
+    position: 'absolute',
+    zIndex: 1000,
+    top: 0,
+    right: 0,
+    width: Dimensions.desktopSideWidth.vw,
+    height: Dimensions.toolbarHeight,
+    minHeight: Dimensions.toolbarHeight,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+
+  syncingEstimateText: {
+    color: Palette.textForBackgroundBrand,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    marginRight: Dimensions.horizontalSpaceNormal,
+    textAlign: 'right',
   },
 });

@@ -6,28 +6,16 @@ import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
 import {SSBSource} from '../../drivers/ssb';
+import progressCalculation, {
+  State as ProgressState,
+  INITIAL_STATE as INITIAL_PROGRESS_STATE,
+} from '../../components/progressCalculation';
 
-export type State = {
+export interface State extends ProgressState {
   selfFeedId: FeedId;
-  migrationProgress: number;
-  indexingProgress: number;
-  combinedProgress: number;
-  checkpointCombinedProgress: number;
-  checkpoint: number;
-  recentEstimates: Array<number>;
-  estimateProgressDone: number;
   canPublishSSB: boolean;
   selfAvatarUrl?: string;
   name?: string;
-};
-
-const CHECKPOINT_INTERVAL = 10e3; // ms
-
-export function calcProgress(p1: number, p2: number) {
-  if (p1 > 0 && p2 > 0) return (p1 + p2) * 0.5;
-  else if (p1 > 0) return p1;
-  else if (p2 > 0) return p2;
-  else return 1;
 }
 
 export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
@@ -39,14 +27,8 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
         if (!prev) {
           return {
             selfFeedId,
-            migrationProgress: 0,
-            indexingProgress: 0,
-            combinedProgress: 0,
-            checkpointCombinedProgress: 0,
-            checkpoint: Date.now(),
-            recentEstimates: [],
-            estimateProgressDone: 0,
             canPublishSSB: true,
+            ...INITIAL_PROGRESS_STATE,
           };
         } else {
           return {...prev, selfFeedId};
@@ -69,14 +51,8 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
               selfFeedId: about.id,
               selfAvatarUrl: about.imageUrl,
               name,
-              migrationProgress: 0,
-              indexingProgress: 0,
-              combinedProgress: 0,
-              checkpointCombinedProgress: 0,
-              recentEstimates: [],
-              estimateProgressDone: 0,
-              checkpoint: Date.now(),
               canPublishSSB: true,
+              ...INITIAL_PROGRESS_STATE,
             };
           } else {
             return {
@@ -88,68 +64,9 @@ export default function model(ssbSource: SSBSource): Stream<Reducer<State>> {
         },
     );
 
-  function updateEstimateProgressDone_mutating(state: State) {
-    const now = Date.now();
-    if (state.combinedProgress <= 0 || state.combinedProgress >= 1) {
-      state.estimateProgressDone = 0;
-      state.recentEstimates = [];
-      state.checkpoint = now;
-    } else if (state.checkpoint + CHECKPOINT_INTERVAL < now) {
-      const rateOfProgress =
-        (state.combinedProgress - state.checkpointCombinedProgress) /
-        (now - state.checkpoint);
-      const remaining = 1 - state.combinedProgress;
-      if (state.combinedProgress > state.checkpointCombinedProgress) {
-        // Calculate a moving average of the last 6 estimates
-        state.recentEstimates.push(remaining / rateOfProgress);
-        if (state.recentEstimates.length > 3) state.recentEstimates.shift();
-        state.estimateProgressDone =
-          state.recentEstimates.reduce((acc, x) => acc + x, 0) /
-          state.recentEstimates.length;
-      }
-      state.checkpointCombinedProgress = state.combinedProgress;
-      state.checkpoint = now;
-    }
-  }
+  const progressReducer$ = progressCalculation(ssbSource) as Stream<
+    Reducer<State>
+  >;
 
-  const migrationProgressReducer$ = ssbSource.migrationProgress$.map(
-    (migrationProgress) =>
-      function migrationProgressReducer(prev: State): State {
-        const canPublishSSB = migrationProgress >= 1;
-        const state: State = {
-          ...prev,
-          migrationProgress,
-          combinedProgress: calcProgress(
-            prev.indexingProgress,
-            migrationProgress,
-          ),
-          canPublishSSB,
-        };
-        updateEstimateProgressDone_mutating(state);
-        return state;
-      },
-  );
-
-  const indexingProgressReducer$ = ssbSource.indexingProgress$.map(
-    (indexingProgress) =>
-      function indexingProgressReducer(prev: State): State {
-        const state: State = {
-          ...prev,
-          indexingProgress,
-          combinedProgress: calcProgress(
-            indexingProgress,
-            prev.migrationProgress,
-          ),
-        };
-        updateEstimateProgressDone_mutating(state);
-        return state;
-      },
-  );
-
-  return xs.merge(
-    selfFeedIdReducer$,
-    aboutReducer$,
-    migrationProgressReducer$,
-    indexingProgressReducer$,
-  );
+  return xs.merge(selfFeedIdReducer$, aboutReducer$, progressReducer$);
 }

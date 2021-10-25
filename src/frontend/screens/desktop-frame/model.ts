@@ -4,6 +4,7 @@
 
 import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
+import {Reducer} from '@cycle/state';
 import {SSBSource} from '../../drivers/ssb';
 import {
   CentralUpdateActivity,
@@ -13,8 +14,12 @@ import {
   GlobalEvent,
 } from '../../drivers/eventbus';
 import {PeerKV, StagedPeerKV} from '../../ssb/types';
+import progressCalculation, {
+  State as ProgressState,
+  INITIAL_STATE as INITIAL_PROGRESS_STATE,
+} from '../../components/progressCalculation';
 
-export interface State {
+export interface State extends ProgressState {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
   name?: string;
@@ -70,6 +75,7 @@ export default function model(
             numOfPublicUpdates: 0,
             numOfPrivateUpdates: 0,
             numOfActivityUpdates: 0,
+            ...INITIAL_PROGRESS_STATE,
           };
         } else {
           return {...prev, selfFeedId};
@@ -95,6 +101,7 @@ export default function model(
               numOfPublicUpdates: 0,
               numOfPrivateUpdates: 0,
               numOfActivityUpdates: 0,
+              ...INITIAL_PROGRESS_STATE,
             };
           } else {
             return {
@@ -166,6 +173,10 @@ export default function model(
       },
   );
 
+  const progressReducer$ = progressCalculation(ssbSource) as Stream<
+    Reducer<State>
+  >;
+
   return xs.merge(
     selfFeedIdReducer$,
     aboutReducer$,
@@ -174,5 +185,6 @@ export default function model(
     updatePrivateCounterReducer$,
     updateActivityCounterReducer$,
     updateConnectionsReducer$,
+    progressReducer$,
   );
 }

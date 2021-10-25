@@ -5,8 +5,8 @@
 import xs, {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
-import {PureComponent, ReactElement} from 'react';
-import {View} from 'react-native';
+import {PureComponent, ReactElement, createElement as $} from 'react';
+import {View, Text} from 'react-native';
 import {styles} from './styles';
 import {t} from '../../drivers/localization';
 import PublicTabIcon from '../../components/tab-buttons/PublicTabIcon';
@@ -15,30 +15,61 @@ import ActivityTabIcon from '../../components/tab-buttons/ActivityTabIcon';
 import ConnectionsTabIcon from '../../components/tab-buttons/ConnectionsTabIcon';
 import TabIcon from '../../components/tab-buttons/TabIcon';
 import Avatar from '../../components/Avatar';
+import LocalizedHumanTime from '../../components/LocalizedHumanTime';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 
-class TopBarStub extends PureComponent {
+class TopBarLeftSection extends PureComponent {
   public render() {
-    return h(View, {style: styles.topBarStub});
+    return $(View, {style: styles.topBarLeftSection}, this.props.children);
   }
 }
+
+class TopBarRightSection extends PureComponent {
+  public render() {
+    return $(View, {style: styles.topBarRightSection}, this.props.children);
+  }
+}
+
+class ProgressBar extends PureComponent<{progress: number}> {
+  public render() {
+    const width =
+      this.props.progress >= 1
+        ? '0%'
+        : `${(this.props.progress * 100).toFixed(3)}%`;
+    const doneStyle =
+      this.props.progress >= 1 ? styles.progressDone : styles.progressUndone;
+    return $(View, {style: [styles.progressBasic, doneStyle, {width}]});
+  }
+}
+
+type ViewState = Pick<State, 'currentTab'> &
+  Pick<State, 'numOfPublicUpdates'> &
+  Pick<State, 'numOfPrivateUpdates'> &
+  Pick<State, 'numOfActivityUpdates'> &
+  Pick<State, 'connections'> &
+  Pick<State, 'name'> &
+  Pick<State, 'selfAvatarUrl'> &
+  Pick<State, 'combinedProgress'> &
+  Pick<State, 'estimateProgressDone'>;
 
 export default function view(
   state$: Stream<State>,
   children$: Stream<Array<ReactElement>>,
   localizationLoaded$: Stream<boolean>,
 ) {
-  const initialViewState: State = {
+  const initialViewState: ViewState = {
     currentTab: 'public',
     numOfPublicUpdates: 0,
     numOfPrivateUpdates: 0,
     numOfActivityUpdates: 0,
-    selfFeedId: '',
+    selfAvatarUrl: '',
+    combinedProgress: 0,
+    estimateProgressDone: 0,
   };
 
-  const viewState$ = state$
+  const viewState$ = (state$ as Stream<ViewState>)
     .compose(
       dropRepeatsByKeys([
         'currentTab',
@@ -48,6 +79,8 @@ export default function view(
         'connections',
         'name',
         'selfAvatarUrl',
+        'combinedProgress',
+        'estimateProgressDone',
       ]),
     )
     .startWith(initialViewState);
@@ -57,7 +90,7 @@ export default function view(
     .map(([state, children, localizationLoaded]) => {
       if (!localizationLoaded) {
         return h(View, {style: styles.screen}, [
-          h(View, {style: styles.left}, [h(TopBarStub)]),
+          h(View, {style: styles.left}, [h(TopBarLeftSection)]),
         ]);
       }
 
@@ -70,10 +103,33 @@ export default function view(
         (p) => p[1].state === 'connected',
       ).length;
       const numStaged = (connTab?.stagedPeers ?? []).length;
+      const {combinedProgress, estimateProgressDone} = state;
 
       return h(View, {style: styles.screen}, [
+        h(ProgressBar, {progress: combinedProgress}),
+
+        h(TopBarRightSection, [
+          estimateProgressDone > 60e3
+            ? h(Text, {style: styles.syncingEstimateText}, [
+                t('drawer.menu.ready_estimate.label'),
+                ' ',
+                h(LocalizedHumanTime, {
+                  time: Date.now() + estimateProgressDone,
+                }),
+              ])
+            : null,
+        ]),
+
         h(View, {style: styles.left}, [
-          h(TopBarStub),
+          h(TopBarLeftSection, [
+            state.combinedProgress > 0 && state.combinedProgress < 1
+              ? h(
+                  Text,
+                  {style: styles.progressLabel},
+                  t('drawer.menu.preparing_database.label'),
+                )
+              : null,
+          ]),
 
           h(View, {style: styles.leftMenu}, [
             h(PublicTabIcon, {
