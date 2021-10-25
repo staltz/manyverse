@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 0,
     height: ThreadCard.HEIGHT,
+    minHeight: ThreadCard.HEIGHT,
     ...Platform.select({
       web: {
         maxWidth: Dimensions.desktopMiddleWidth.vw,

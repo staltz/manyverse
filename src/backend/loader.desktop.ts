@@ -37,6 +37,9 @@ function createWindow() {
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
+
+      // TODO should be true, but supporting muxrpc would be much much harder
+      contextIsolation: false,
     },
   });
   win.setMinimumSize(640, 380);

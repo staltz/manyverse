@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     height: MessageHeader.HEIGHT,
+    minHeight: MessageHeader.HEIGHT,
     flex: 0,
     flexBasis: 'auto',
     flexGrow: 0,
@@ -39,6 +40,7 @@ export const styles = StyleSheet.create({
   authorName: {
     width: 110,
     height: 16,
+    minHeight: 16,
     marginTop: 2,
     backgroundColor: Palette.isDarkTheme
       ? Palette.voidStronger
@@ -48,6 +50,7 @@ export const styles = StyleSheet.create({
   timestamp: {
     width: 100,
     height: 16,
+    minHeight: 16,
     marginTop: 2,
     backgroundColor: Palette.isDarkTheme
       ? Palette.voidStronger

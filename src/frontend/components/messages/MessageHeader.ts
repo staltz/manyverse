@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
     marginBottom: 0,
     flex: 0,
     height: HEIGHT,
+    minHeight: HEIGHT,
   },
 
   authorAvatar: {

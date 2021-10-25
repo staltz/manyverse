@@ -53,6 +53,7 @@ export const styles = StyleSheet.create({
   itemSeparator: {
     backgroundColor: Palette.voidMain,
     height: SEPARATOR_HEIGHT,
+    minHeight: SEPARATOR_HEIGHT,
   },
 
   footer: {

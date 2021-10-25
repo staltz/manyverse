@@ -17,7 +17,9 @@ export const styles = StyleSheet.create({
   },
 
   body: {
+    minWidth: 250,
     width: 250,
+    minHeight: 16,
     height: 16,
     marginTop: Dimensions.verticalSpaceNormal + 2,
     marginBottom: 10,

@@ -41,6 +41,7 @@ export const styles = StyleSheet.create({
   footer: {
     flex: 0,
     height: MessageFooter.HEIGHT,
+    minHeight: MessageFooter.HEIGHT,
     marginBottom: -Dimensions.verticalSpaceBig,
   },
 });

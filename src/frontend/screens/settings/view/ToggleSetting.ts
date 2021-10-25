@@ -25,6 +25,8 @@ const Touchable = Platform.select<any>({
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     paddingVertical: Dimensions.verticalSpaceNormal,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     minHeight: 60,

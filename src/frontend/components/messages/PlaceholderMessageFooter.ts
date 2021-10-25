@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     height: MessageFooter.HEIGHT,
+    minHeight: MessageFooter.HEIGHT,
     marginBottom: -Dimensions.verticalSpaceBig,
   },
 

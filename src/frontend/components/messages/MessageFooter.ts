@@ -109,7 +109,9 @@ export const styles = StyleSheet.create({
   },
 
   quickEmojiChoiceTouchable: {
+    minWidth: 60,
     height: 60,
+    minHeight: 60,
     width: 60,
     flex: 0,
     flexBasis: 'auto',
