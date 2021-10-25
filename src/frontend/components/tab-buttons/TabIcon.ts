@@ -56,6 +56,14 @@ const styles = StyleSheet.create({
     color: Palette.textBrand,
     fontWeight: 'bold',
   },
+
+  icon: {
+    ...Platform.select({
+      web: {
+        userSelect: 'none',
+      },
+    }),
+  } as any,
 });
 
 const iconProps = {
@@ -105,6 +113,7 @@ export default class TabIcon extends PureComponent<{
           key: 'x',
           name: iconName,
           ...(isSelected ? iconProps.tabSelected : iconProps.tab),
+          style: styles.icon,
         }),
         renderIconExtras?.(visualState),
       ]),
