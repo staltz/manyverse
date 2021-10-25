@@ -104,6 +104,8 @@ export default function view(
       ).length;
       const numStaged = (connTab?.stagedPeers ?? []).length;
       const {combinedProgress, estimateProgressDone} = state;
+      const progressLabelOpacity =
+        state.combinedProgress > 0 && state.combinedProgress < 1 ? 1 : 0;
 
       return h(View, {style: styles.screen}, [
         h(ProgressBar, {progress: combinedProgress}),
@@ -122,13 +124,11 @@ export default function view(
 
         h(View, {style: styles.left}, [
           h(TopBarLeftSection, [
-            state.combinedProgress > 0 && state.combinedProgress < 1
-              ? h(
-                  Text,
-                  {style: styles.progressLabel},
-                  t('drawer.menu.preparing_database.label'),
-                )
-              : null,
+            h(
+              Text,
+              {style: [styles.progressLabel, {opacity: progressLabelOpacity}]},
+              t('drawer.menu.preparing_database.label'),
+            ),
           ]),
 
           h(View, {style: styles.leftMenu}, [
