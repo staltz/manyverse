@@ -30,6 +30,7 @@ import {recipientsInput} from './lib/frontend/screens/recipients-input';
 import {pasteInvite} from './lib/frontend/screens/invite-paste';
 import {profile} from './lib/frontend/screens/profile';
 import {biography} from './lib/frontend/screens/biography';
+import {editProfile} from './lib/frontend/screens/profile-edit';
 import {libraries} from './lib/frontend/screens/libraries';
 import {search} from './lib/frontend/screens/search';
 import {thread} from './lib/frontend/screens/thread';
@@ -105,10 +106,8 @@ function startCycleApp() {
     [Screens.Libraries]: libraries,
     [Screens.InvitePaste]: withState(pasteInvite),
     [Screens.Profile]: withState(profile),
-    // [Screens.ProfileEdit]: withState(editProfile),
-    // [Screens.AliasManage]: withState(manageAliases),
-    // [Screens.AliasRegister]: withState(registerAlias),
     [Screens.Biography]: withState(biography),
+    [Screens.ProfileEdit]: withState(editProfile),
     [Screens.Accounts]: withState(accounts),
     [Screens.Backup]: withState(backup),
     [Screens.SecretOutput]: withState(secretOutput),

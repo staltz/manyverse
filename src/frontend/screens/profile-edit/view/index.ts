@@ -27,43 +27,19 @@ export default function view(
   manageAliases$: Stream<ReactElement>,
 ) {
   return xs.combine(state$, manageAliases$).map(([state, manageAliases]) => {
-    return h(View, {style: styles.container}, [
+    return h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('profile_edit.title')}),
 
       h(ScrollView, {style: styles.container}, [
-        h(View, {style: styles.cover}),
-
         h(
-          TouchableWithoutFeedback,
+          KeyboardAvoidingView,
           {
-            sel: 'avatar',
-            accessible: true,
-            accessibilityRole: 'button',
-            accessibilityLabel: t(
-              'profile_edit.call_to_action.edit_picture.accessibility_label',
-            ),
+            style: styles.fields,
+            enabled: true,
+            ...Platform.select({ios: {behavior: 'padding' as const}}),
           },
           [
-            h(
-              View,
-              {style: styles.avatarTouchable, pointerEvents: 'box-only'},
-              [
-                h(Avatar, {
-                  size: avatarSize,
-                  url: state.newAvatar
-                    ? `file://${state.newAvatar}`
-                    : state.about.imageUrl,
-                  style: styles.avatar,
-                  overlayIcon: 'camera',
-                }),
-              ],
-            ),
-          ],
-        ),
-
-        Platform.OS === 'ios'
-          ? null
-          : h(Button, {
+            h(Button, {
               sel: 'save',
               style: styles.save,
               textStyle: styles.saveText,
@@ -75,27 +51,33 @@ export default function view(
               ),
             }),
 
-        h(
-          KeyboardAvoidingView,
-          {
-            style: styles.fields,
-            enabled: true,
-            ...Platform.select({ios: {behavior: 'padding' as const}}),
-          },
-          [
-            Platform.OS === 'ios'
-              ? h(Button, {
-                  sel: 'save',
-                  style: styles.save,
-                  textStyle: styles.saveText,
-                  strong: true,
-                  text: t('profile_edit.call_to_action.save.label'),
-                  accessible: true,
-                  accessibilityLabel: t(
-                    'profile_edit.call_to_action.save.accessibility_label',
-                  ),
-                })
-              : null,
+            h(
+              TouchableWithoutFeedback,
+              {
+                sel: 'avatar',
+                accessible: true,
+                accessibilityRole: 'button',
+                accessibilityLabel: t(
+                  'profile_edit.call_to_action.edit_picture.accessibility_label',
+                ),
+              },
+              [
+                h(
+                  View,
+                  {style: styles.avatarTouchable, pointerEvents: 'box-only'},
+                  [
+                    h(Avatar, {
+                      size: avatarSize,
+                      url: state.newAvatar
+                        ? `file://${state.newAvatar}`
+                        : state.about.imageUrl,
+                      style: styles.avatar,
+                      overlayIcon: 'camera',
+                    }),
+                  ],
+                ),
+              ],
+            ),
 
             h(Text, {style: styles.label}, t('profile_edit.fields.name.label')),
             h(TextInput, {
@@ -120,7 +102,11 @@ export default function view(
               sel: 'description',
               multiline: true,
               autoFocus: false,
-              // numberOfLines: 1,
+              ...Platform.select({
+                web: {
+                  numberOfLines: 4,
+                },
+              }),
               scrollEnabled: false,
               defaultValue: state.about.description ?? '',
               underlineColorAndroid: Palette.brandMain,

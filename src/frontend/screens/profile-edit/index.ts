@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import delay from 'xstream/extra/delay';
 import {ReactElement} from 'react';
+import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {KeyboardSource} from 'cycle-native-keyboard';
@@ -48,7 +49,7 @@ export const navOptions = {
   },
   sideMenu: {
     left: {
-      enabled: false,
+      enabled: Platform.OS === 'web',
     },
   },
 };

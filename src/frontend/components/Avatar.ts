@@ -37,7 +37,7 @@ export default class Avatar extends PureComponent<Props> {
         size: Dimensions.iconSizeNormal,
         color: Palette.textForBackgroundBrand,
         name: overlayIcon,
-        style: {top, left},
+        style: {top, left, position: 'absolute'},
       }),
     ]);
   }

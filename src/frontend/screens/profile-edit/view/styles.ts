@@ -8,39 +8,41 @@ import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
 
 export const avatarSize = Dimensions.avatarSizeBig;
-const avatarSizeHalf = avatarSize * 0.5;
 
 export const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignSelf: 'stretch',
+    flexDirection: 'column',
+    backgroundColor: Palette.voidMain,
+  },
+
   container: {
     flex: 1,
     alignSelf: 'stretch',
     flexDirection: 'column',
     backgroundColor: Palette.backgroundText,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
-  cover: {
-    backgroundColor: Palette.brandMain,
-    height: avatarSizeHalf,
-    zIndex: 10,
+  avatarTouchable: {
+    marginBottom: Dimensions.verticalSpaceBig,
+    width: avatarSize,
+    height: avatarSize,
+    zIndex: 19,
   },
 
   fields: {
-    top: -avatarSize,
-    marginBottom: -avatarSize,
+    marginTop: Dimensions.verticalSpaceLarge,
     zIndex: 10,
-    paddingTop: avatarSizeHalf + Dimensions.verticalSpaceNormal,
     paddingBottom: Dimensions.verticalSpaceNormal,
     paddingLeft: Dimensions.horizontalSpaceBig,
     paddingRight: Dimensions.horizontalSpaceBig,
     backgroundColor: Palette.backgroundText,
-  },
-
-  avatarTouchable: {
-    top: -avatarSizeHalf,
-    left: Dimensions.horizontalSpaceBig,
-    width: avatarSize,
-    height: avatarSize,
-    zIndex: 19,
   },
 
   avatar: {
@@ -75,14 +77,8 @@ export const styles = StyleSheet.create({
 
   save: {
     position: 'absolute',
-    top: Platform.select({
-      ios: -44,
-      default: avatarSizeHalf + Dimensions.verticalSpaceSmall,
-    }),
-    right: Platform.select({
-      ios: 0,
-      default: Dimensions.horizontalSpaceBig,
-    }),
+    top: 0,
+    right: 0,
     zIndex: 30,
   },
 
