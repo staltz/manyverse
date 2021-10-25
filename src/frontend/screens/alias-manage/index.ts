@@ -4,7 +4,7 @@
 
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {Platform, ScrollView, StyleSheet, View} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.backgroundText,
+    backgroundColor: Palette.voidMain,
     flexDirection: 'column',
   },
 
@@ -55,6 +55,11 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundText,
     paddingVertical: Dimensions.verticalSpaceNormal,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 });
 

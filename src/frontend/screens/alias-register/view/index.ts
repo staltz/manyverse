@@ -4,7 +4,7 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import TopBar from '../../../components/TopBar';
 import EmptySection from '../../../components/EmptySection';
 import {Palette} from '../../../global-styles/palette';
@@ -21,8 +21,20 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Palette.backgroundText,
+    backgroundColor: Palette.voidMain,
     flexDirection: 'column',
+  },
+
+  container: {
+    flex: 1,
+    alignSelf: 'stretch',
+    flexDirection: 'column',
+    backgroundColor: Palette.backgroundText,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   empty: {
@@ -59,7 +71,7 @@ export function view(state$: Stream<State>) {
 
     return h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('register_alias.title')}),
-      ...moreChildren,
+      h(View, {style: styles.container}, [...moreChildren]),
     ]);
   });
 }
