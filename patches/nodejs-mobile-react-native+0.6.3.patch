@@ -38,30 +38,6 @@ index e882a0c..824097a 100644
        new Thread(new Runnable() {
          @Override
          public void run() {
-diff --git a/node_modules/nodejs-mobile-react-native/index.js b/node_modules/nodejs-mobile-react-native/index.js
-index ef45a64..92a53ae 100644
---- a/node_modules/nodejs-mobile-react-native/index.js
-+++ b/node_modules/nodejs-mobile-react-native/index.js
-@@ -1,6 +1,6 @@
- 
- import { NativeModules, NativeAppEventEmitter } from 'react-native';
--var EventEmitter = require('react-native/Libraries/vendor/emitter/EventEmitter');
-+var EventEmitter = require('react-native/Libraries/vendor/emitter/EventEmitter').default;
- 
- const EVENT_CHANNEL = '_EVENTS_';
- 
-diff --git a/node_modules/nodejs-mobile-react-native/nodejs-mobile-react-native.podspec b/node_modules/nodejs-mobile-react-native/nodejs-mobile-react-native.podspec
-index c39149b..404dc28 100644
---- a/node_modules/nodejs-mobile-react-native/nodejs-mobile-react-native.podspec
-+++ b/node_modules/nodejs-mobile-react-native/nodejs-mobile-react-native.podspec
-@@ -20,5 +20,5 @@ Pod::Spec.new do |s|
-   s.user_target_xcconfig = { 'ENABLE_BITCODE' => 'NO' }
-   s.ios.vendored_frameworks = 'ios/NodeMobile.framework'
-   s.static_framework = true
--  s.dependency 'React'
-+  s.dependency 'React-Core'
- end
-\ No newline at end of file
 diff --git a/node_modules/nodejs-mobile-react-native/scripts/ios-build-native-modules.sh b/node_modules/nodejs-mobile-react-native/scripts/ios-build-native-modules.sh
 index ccd99aa..ca73382 100644
 --- a/node_modules/nodejs-mobile-react-native/scripts/ios-build-native-modules.sh
