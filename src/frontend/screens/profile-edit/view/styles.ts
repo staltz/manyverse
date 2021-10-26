@@ -86,7 +86,7 @@ export const styles = StyleSheet.create({
   save: {
     position: 'absolute',
     top: 0,
-    right: 0,
+    right: Dimensions.horizontalSpaceBig,
     zIndex: 30,
   },
 
