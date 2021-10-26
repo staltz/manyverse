@@ -18,6 +18,8 @@ intoStream('--------------BEGIN SCUTTLEBUTT POST--------------\n')
           '- (Android) [Play Store](https://play.google.com/store/apps/details?id=se.manyver) (available within 12h)\n' +
           '- (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617) (available within 24h)\n' +
           '- (Android) [F-Droid](https://f-droid.org/packages/se.manyver/) (available within 72h or more)\n' +
+          '\n' +
+          '#manyverse\n' +
           '----------------END SCUTTLEBUTT POST---------------\n',
       ),
     ),
