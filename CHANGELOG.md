@@ -7,6 +7,11 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2110.26-beta
+
+* (Android) Bug fix: startup crash on Android 11 ([see details](https://gitlab.com/staltz/manyverse/commit/d0f707f0ede59e9ca77663573f32dbed12f79a85)), closes [#1411](https://gitlab.com/staltz/manyverse/issues/1411)
+* Improve Turkish translation ([see details](https://gitlab.com/staltz/manyverse/commit/fa0b3f1a26198f5fd456f1c32eb642292edbb1a0))
+
 ## 0.2110.22-beta
 
 * Bug fix: [ios] fix pencil icon size on Compose screen ([see details](https://gitlab.com/staltz/manyverse/commit/923877ed8ebe5c80dbe7c6813bf806259450684c))

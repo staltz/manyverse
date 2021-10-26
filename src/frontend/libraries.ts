@@ -289,7 +289,7 @@ export default [
   {
     name: 'electron',
     type: 'library',
-    version: '10.3.1',
+    version: '15.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/electron/electron#readme',
   },
@@ -373,7 +373,7 @@ export default [
   {
     name: 'nodejs-mobile-react-native',
     type: 'library',
-    version: '0.6.2',
+    version: '0.6.3',
     license: 'MIT License (MIT)',
     homepage: 'https://code.janeasystems.com/nodejs-mobile',
   },
@@ -387,7 +387,7 @@ export default [
   {
     name: 'nuka-carousel',
     type: 'library',
-    version: '4.7.9',
+    version: '4.8.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/FormidableLabs/nuka-carousel',
   },
