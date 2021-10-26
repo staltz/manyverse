@@ -5,11 +5,13 @@
 # SPDX-License-Identifier: CC0-1.0
 
 function cleanUp {
-  if ps -p $(cat appium-server.pid)> /dev/null; then
-    kill -KILL $(cat appium-server.pid)
+  if [ -f "appium-server.pid" ]; then
+    if ps -p $(cat appium-server.pid)> /dev/null; then
+      kill -KILL $(cat appium-server.pid)
+    fi
+    rm appium-server.pid
+    rm appium.log
   fi
-  rm appium-server.pid
-  rm appium.log
 }
 
 set -eEu -o pipefail
@@ -23,12 +25,19 @@ function onFailure() {
   exit 1
 }
 
-pushd android/app/build/outputs/apk/indie/release
-cp app-indie-release.apk app-indie-release-e2e.apk
-popd
-adb uninstall io.appium.settings || true
-adb uninstall io.appium.uiautomator2.server || true
-adb uninstall io.appium.uiautomator2.server.test || true
-$(npm bin)/appium --port 4995 > appium.log & echo $! > appium-server.pid
-sleep 5
-$(npm bin)/tape e2e/index.js | tap-spec
+echo "Are you sure you want to RE-INSTALL MANYVERSE on the device"
+echo $(adb devices -l | head -n 2 | tail -n 1)
+echo "(Y) to confirm"
+read ANSWER
+
+if [ $ANSWER == "Y" ]; then
+  pushd android/app/build/outputs/apk/indie/release
+  cp app-indie-release.apk app-indie-release-e2e.apk
+  popd
+  adb uninstall io.appium.settings || true
+  adb uninstall io.appium.uiautomator2.server || true
+  adb uninstall io.appium.uiautomator2.server.test || true
+  $(npm bin)/appium --port 4995 > appium.log & echo $! > appium-server.pid
+  sleep 5
+  $(npm bin)/tape e2e/index.js | tap-spec
+fi
