@@ -110,10 +110,10 @@
           "7_normal": "veya kendi sunucunuzu başlatın!"
         },
         "default": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
+          "1_normal": "Yakınlardaki arkadaşlarınızla bağlantı kurmak ve içerik senkronize etmek için, aynı... bağlanabilirsiniz ",
           "2_bold": "Wi-Fi",
-          "3_normal": ", or use ",
-          "4_bold": "Bluetooth sync",
+          "3_normal": ", ya da ",
+          "4_bold": "Bluetooth senkronizasyonunu kullanabilirsiniz",
           "5_normal": ". To find new people on the internet, look for an invite code to a ",
           "6_bold": "pub server",
           "7_normal": " or a ",

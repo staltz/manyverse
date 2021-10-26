@@ -85,7 +85,7 @@
     "learn_more": "Дізнатися більше",
     "overview": {
       "title": "Ласкаво просимо до Manyverse!",
-      "description": "Соціальна мережа може бути простою, нейтральною, побудованою не задля грошей, а для довіри. Manyverse існує саме для цього. Маємо надію, що ви зможете знайти тут свій цифровий затишок. Це можливо дякуючи новітньому протоколу SSB."
+      "description": "Соціальна мережа може бути простою, нейтральною, побудованою не задля грошей, а для довіри. Manyverse існує саме для цього. Маємо надію, що Ви зможете знайти тут свій цифровий затишок. Це можливо дякуючи новітньому протоколу SSB."
     },
     "off_the_grid": {
       "title": "Поза мережею",
@@ -167,13 +167,13 @@
       "public": "Публічні дописи",
       "private": "Тільки між нами",
       "activity": "Активність",
-      "connections": "Мої контакти"
+      "connections": "Зʼєднання"
     },
     "tab_footers": {
-      "public": "Публічне",
+      "public": "Публічно",
       "private": "Приватно",
       "activity": "Активність",
-      "connections": "Мої контакти"
+      "connections": "Зʼєднання"
     },
     "loading": "Завантаження...",
     "building_indexes": "Побудова індексів бази даних...\nЦе може зайняти кілька хвилин",
@@ -197,8 +197,8 @@
       "compose": "Написати публічного листа"
     },
     "empty": {
-      "title": "Листів не має",
-      "description": "Ведіть щоденик, яким ви поділитеся с друзями пізніше"
+      "title": "Листів немає",
+      "description": "Ведіть щоденик, щоб поділитися пізніше з друзями"
     },
     "search": {
       "accessibility_label": "Кнопка пошуку"
@@ -209,8 +209,8 @@
       "compose": "Почати приватну бесіду"
     },
     "empty": {
-      "title": "Немає бесід",
-      "description": "Розпочніть приватну бесіду з будь-яким з ваших друзів"
+      "title": "Бесід немає",
+      "description": "Розпочніть приватну бесіду з будь-ким із Ваших друзів"
     },
     "conversation": {
       "accessibility_label": "Перейти до бесіди"
@@ -252,8 +252,8 @@
       }
     },
     "empty": {
-      "title": "Без активності",
-      "description": "Коли люди згадують або стежать за Вами,\nце відображається тут"
+      "title": "Активності немає",
+      "description": "Коли люди стежать або згадують Вас\nце відображається тут"
     }
   },
   "connections": {
@@ -269,10 +269,10 @@
       },
       "connecting": {
         "title": "Підключення",
-        "description": "Зачекайте доки застосунок приєднається до ваших пірів"
+        "description": "Зачекайте доки застосунок приєднається до Ваших вузлів"
       },
       "no_peers": {
-        "title": "Нема зв'язку",
+        "title": "Нема звʼязку",
         "description": "Спробуйте синхронізуватись з людьми поряд, або використайте код запрошення на сервер"
       }
     },
@@ -311,7 +311,7 @@
             "other": "({{count}} у мережі)"
           }
         },
-        "pub": "Pub server",
+        "pub": "Пуб. сервер",
         "server": "Сервер",
         "unknown": "Unknown"
       }
@@ -323,8 +323,8 @@
       "bluetooth": {
         "title": "Bluetooth",
         "accessibility_label": "Режим Bluetooth",
-        "disabled": "(Увімкніть Bluetooth, щоб користуватися цим)",
-        "description": "Discover users nearby and connect with them using Bluetooth.",
+        "disabled": "(Увімкніть Bluetooth для користування)",
+        "description": "Знаходьте користувачів поблизу і звʼяжіться з ними через Bluetooth.",
         "permission_request": {
           "title": "Allow locating via Bluetooth?",
           "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
@@ -333,14 +333,14 @@
       "wifi": {
         "title": "Wi-Fi",
         "accessibility_label": "Режим Wi-Fi",
-        "disabled": "(Увімкніть Wi-Fi, щоб користуватися цим)",
-        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
+        "disabled": "(Увімкніть Wi-Fi для користування)",
+        "description": "Звʼязок із друзями в одній локальній мережі, іншими словами, друзі, що користуються одним Wi-Fi."
       },
       "servers": {
         "title": "Інтернет-сервери",
-        "accessibility_label": "Режим інтернет-серверів",
+        "accessibility_label": "Режим Інтернет-серверів",
         "disabled": "(Увійдіть у мережу, щоб користуватися цим)",
-        "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
+        "description": "Звʼязок із так званим 'Пуб. сервером', який належить якомусь другові і містить останні дані з різних обліківок."
       }
     },
     "menu": {
@@ -437,7 +437,7 @@
         "accessibility_label": "Кнопка публікування відповіді"
       },
       "preview": {
-        "label": "Preview",
+        "label": "Перегляд",
         "accessibility_label": "Кнопка перегляду"
       },
       "close": {
@@ -466,8 +466,8 @@
         "description": "Якщо Ваш допис зачіпає чутливу тематику, додайте коротку нотатку, щоб повідомити про це людям."
       },
       "image_caption": {
-        "title": "Caption",
-        "description": "Додайте якийсь опис для цього зображення, особливо для людей із вадами зору."
+        "title": "Опис",
+        "description": "Додайте якийсь опис цьому зображенню, зокрема для людей із вадами зору."
       }
     },
     "content_warning_initials": {
@@ -508,7 +508,7 @@
     }
   },
   "backup": {
-    "title": "Backup",
+    "title": "Резервна копія",
     "introduction": {
       "title": "Your account has\ntwo parts to keep safe"
     },
@@ -663,7 +663,7 @@
       "description": "Цей обліковий запис пробує звʼязатися з Вами, але Manyverse відхилив його, тому що він знаходиться поза Вашою спільнотою.\n\nЯкщо Ви впізнали цей ID, можете натиснути «Стежити», щоб дозволити йому звʼязатися з Вами."
     },
     "toast": {
-      "copied_to_clipboard": "Скопійовано до буфера обміну"
+      "copied_to_clipboard": "Скопійовано в буфер обміну"
     },
     "details": {
       "id": {
@@ -718,7 +718,7 @@
         "accessibility_label": "Змінити зображення профілю"
       },
       "register_new_alias": {
-        "label": "Register new alias",
+        "label": "Зареєструвати нове псевдо",
         "accessibility_label": "Register New Room Server Alias"
       }
     },
@@ -737,7 +737,7 @@
     },
     "fields": {
       "name": {
-        "label": "Назва",
+        "label": "Імʼя",
         "accessibility_label": "Name Text Input"
       },
       "description": {
@@ -753,11 +753,11 @@
     "title": "Manage aliases"
   },
   "register_alias": {
-    "title": "Register alias",
+    "title": "Зареєструвати псевдо",
     "empty": {
       "no_servers": {
         "title": "Сервери відсутні",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "description": "Щоб зареєструвати псевдо Вам потрібно бути учасником якогось сервера кімнати SSB. Знайдіть один в Інтернеті за гештеґом #ssbroom і переконайтеся, що він підтримує псевдоніми."
       }
     },
     "header": {
@@ -783,7 +783,7 @@
     },
     "success": {
       "title": "Чудово!",
-      "description": "Псевдонім {{alias}} тепер Ваш.",
+      "description": "Псевдо {{alias}} тепер Ваш.",
       "call_to_action": {
         "go_back": {
           "label": "Назад",
@@ -802,7 +802,7 @@
     }
   },
   "raw_msg": {
-    "title": "Сире повідомлення"
+    "title": "Сирці повідомлення"
   },
   "recipients_input": {
     "title": "Нове повідомлення",
@@ -843,7 +843,7 @@
     "empty": {
       "initial": {
         "title": "Search something",
-        "description": "Зачекайте доки застосунок приєднається до ваших пірів"
+        "description": "Зачекайте доки застосунок приєднається до Ваших вузлів"
       },
       "zero_results": {
         "title": "Без результатів",
@@ -886,7 +886,7 @@
       "restore": {
         "correct": {
           "title": "З поверненням!",
-          "description": "Your account's identity is now restored.\n\nNow, to restore your data, connect with friends that have interacted with you before, to redownload your data from them."
+          "description": "Вашу особисту обліківку відновлено.\n\nТепер відновіть свої дані, звʼяжіться з друзями, з якими Ви взаємодіяли раніше, щоб повторно завантажити від них свої дані."
         },
         "incorrect": {
           "title": "Incorrect",
@@ -1040,10 +1040,10 @@
         "accessibility_label": "Copy Blob ID"
       },
       "copy_msg_id": "Копіювати шифр-посилання",
-      "view_raw": "Переглянути сире повідомлення"
+      "view_raw": "Переглянути сирці повідомлення"
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Скопійовано в буфер обміну"
     },
     "reactions": {
       "categories": {
@@ -1062,7 +1062,7 @@
     },
     "image": {
       "without_caption": {
-        "accessibility_label": "Picture without caption"
+        "accessibility_label": "Зображення без опису"
       }
     },
     "audio": {
