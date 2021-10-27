@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Alert, AlertButton} from 'react-native';
-import {Implementation} from './dialogs-types';
+import {Implementation} from './types';
 
 const impl: Implementation = {
   alert(title, content, options) {

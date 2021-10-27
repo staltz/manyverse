@@ -16,8 +16,8 @@ import {
   TextField,
 } from '@material-ui/core';
 const ReactDOM = require('react-dom');
-import {Palette} from '../global-styles/palette';
-import Markdown from '../components/Markdown';
+import {Palette} from '../../global-styles/palette';
+import Markdown from '../../components/Markdown';
 import {
   AlertAction,
   Implementation,
@@ -27,7 +27,7 @@ import {
   OptionsPrompt,
   PickerAction,
   PromptAction,
-} from './dialogs-types';
+} from './types';
 
 interface BasicState {
   title?: string;

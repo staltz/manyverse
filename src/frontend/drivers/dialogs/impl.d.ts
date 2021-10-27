@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import android from './dialogs-impl.android';
-import ios from './dialogs-impl.ios';
-import web from './dialogs-impl.web';
+import android from './impl.android';
+import ios from './impl.ios';
+import web from './impl.web';
 declare var _test: typeof android;
 declare var _test: typeof ios;
 declare var _test: typeof web;

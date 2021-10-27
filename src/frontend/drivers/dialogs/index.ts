@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import Implementation from './dialogs-impl';
+import Implementation from './impl';
 import {
   AlertAction,
   OptionsAlert,
@@ -11,8 +11,8 @@ import {
   OptionsPrompt,
   PickerAction,
   PromptAction,
-} from './dialogs-types';
-export * from './dialogs-types';
+} from './types';
+export * from './types';
 
 export type Command =
   | {type: 'dismiss'}

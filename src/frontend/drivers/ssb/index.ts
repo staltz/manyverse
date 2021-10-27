@@ -14,7 +14,7 @@ import {
   AliasContent,
   PostContent,
 } from 'ssb-typescript';
-import backend from './ssb-backend';
+import backend from './backend';
 import {Platform} from 'react-native';
 import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
@@ -31,9 +31,9 @@ import {
   Alias,
   FirewallAttempt,
   SSBFriendsQueryDetails,
-} from '../ssb/types';
-import makeClient, {SSBClient} from '../ssb/client';
-import {imageToImageUrl} from '../ssb/utils/from-ssb';
+} from '../../ssb/types';
+import makeClient, {SSBClient} from '../../ssb/client';
+import {imageToImageUrl} from '../../ssb/utils/from-ssb';
 const URLPolyfill =
   Platform.OS !== 'web' ? require('react-native-url-polyfill').URL : URL;
 const colorHash = new (require('color-hash'))();

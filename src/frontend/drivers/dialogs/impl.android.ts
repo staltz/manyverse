@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Implementation} from './dialogs-types';
+import {Implementation} from './types';
 import DialogAndroid from 'react-native-dialogs';
 
 const impl: Implementation = {
