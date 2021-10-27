@@ -19,6 +19,7 @@ import {dialogDriver} from './lib/frontend/drivers/dialogs';
 import {makeActivityLifecycleDriver} from './lib/frontend/drivers/lifecycle';
 import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
 import {makeWindowSizeDriver} from './lib/frontend/drivers/window-size';
+import {makeToastDriver} from './lib/frontend/drivers/toast';
 
 import {desktopFrame} from './lib/frontend/screens/desktop-frame';
 import {central} from './lib/frontend/screens/central';
@@ -89,6 +90,7 @@ function startCycleApp() {
     keyboard: (x) => ({
       events: () => xs.never(),
     }),
+    toast: makeToastDriver(),
   };
 
   const screens = {
