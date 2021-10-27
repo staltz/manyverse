@@ -37,6 +37,7 @@ export const styles = StyleSheet.create({
   containerClosed: {
     flex: 1,
     height: 200,
+    minHeight: 200,
     maxHeight: 200,
     marginVertical: Dimensions.verticalSpaceNormal,
     paddingVertical: Dimensions.verticalSpaceBig,
