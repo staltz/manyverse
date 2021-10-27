@@ -16,17 +16,21 @@ SPDX-License-Identifier: MPL-2.0
         flex-direction: column !important;
         justify-content: center !important;
       }
+      /* These styles make the body full-height */
+      html, body {
+        height: 100%;
+      }
       /* Handles styles before React app is mounted, i.e. "splashscreen" */
       body {
-        background-color: #4263eb; /* voidMain */
+        background-color: #4263eb; /* brandMain */
         overflow: hidden;
         margin: 0;
         padding: 0;
       }
       /* The app container */
       #app {
-        height: 100vh;
         display: flex;
+        height: 100%;
         overflow: hidden;
       }
 
