@@ -61,7 +61,7 @@ export default function model(
           lastSessionTimestamp: Infinity,
           getFeedReadable: null,
           about: {
-            name: props.feedId,
+            name: '',
             description: '',
             id: props.feedId,
           },

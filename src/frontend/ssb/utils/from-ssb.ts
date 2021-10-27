@@ -6,7 +6,8 @@ import {FeedId, Msg, PostContent} from 'ssb-typescript';
 const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
 
 export function displayName(name: string | undefined, id: FeedId): string {
-  return name ?? shortFeedId(id);
+  if (!name) return shortFeedId(id);
+  else return name;
 }
 
 function shortFeedId(feedId: FeedId | undefined): string {

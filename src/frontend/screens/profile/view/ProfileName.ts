@@ -7,6 +7,7 @@ import {Animated} from 'react-native';
 import {t} from '../../../drivers/localization';
 import {State} from '../model';
 import {styles} from './styles';
+import {displayName} from '../../../ssb/utils/from-ssb';
 
 export default function ProfileName({
   state,
@@ -19,8 +20,6 @@ export default function ProfileName({
 }) {
   const animStyle = {transform: [{translateY}]};
 
-  if (!state.about.name) return null;
-
   return h(
     Animated.Text,
     {
@@ -31,6 +30,6 @@ export default function ProfileName({
       accessibilityRole: 'text',
       accessibilityLabel: t('profile.name.accessibility_label'),
     },
-    state.about.name,
+    displayName(state.about.name, state.about.id),
   );
 }
