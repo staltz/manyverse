@@ -12,6 +12,9 @@ import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {t} from '../../../drivers/localization';
 import {getImg} from '../../../global-styles/utils';
+import {Platform} from 'react-native';
+
+const ACTION_MARGIN_DESKTOP = 45; // px
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
   return state$.map((state) => {
@@ -22,6 +25,7 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
       actions.push({
         color: Palette.backgroundCTA,
         name: 'invite-paste',
+        margin: Platform.OS === 'web' ? ACTION_MARGIN_DESKTOP : undefined,
         icon: getImg(require('../../../../../images/package-down.png')),
         text: t('connections.floating_action_button.paste_invite'),
       });
@@ -31,6 +35,7 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
       actions.push({
         color: Palette.backgroundCTA,
         name: 'bluetooth-search',
+        margin: Platform.OS === 'web' ? ACTION_MARGIN_DESKTOP : undefined,
         icon: getImg(require('../../../../../images/bluetooth.png')),
         text: t('connections.floating_action_button.bluetooth_seek'),
       });

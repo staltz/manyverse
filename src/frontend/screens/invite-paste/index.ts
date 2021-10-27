@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {KeyboardSource} from 'cycle-native-keyboard';
+import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
@@ -18,23 +19,23 @@ import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   keyboard: KeyboardSource;
   lifecycle: Stream<LifecycleEvent>;
   state: StateSource<State>;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   keyboard: Stream<'dismiss'>;
   dialog: Stream<AlertCommand>;
   ssb: Stream<SSBReq>;
-};
+}
 
 export const navOptions = {
   topBar: {
@@ -43,7 +44,7 @@ export const navOptions = {
   },
   sideMenu: {
     left: {
-      enabled: false,
+      enabled: Platform.OS === 'web',
     },
   },
   animations: {

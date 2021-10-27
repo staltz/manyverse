@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
@@ -31,6 +31,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: Palette.backgroundText,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   contentInput: {
@@ -47,6 +52,12 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 4,
     paddingVertical: 3,
     borderRadius: Dimensions.borderRadiusSmall,
+    ...Platform.select({
+      web: {
+        outlineStyle: 'none',
+        maxHeight: '12em',
+      },
+    }),
   },
 
   acceptButtonEnabled: {
