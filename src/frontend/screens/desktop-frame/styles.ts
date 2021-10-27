@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeSmall,
     lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyReadableText,
-    transition: 'opacity 1.75s ease 0.75s',
+    transition: 'opacity 1.5s ease 1.5s',
   },
 
   left: {
