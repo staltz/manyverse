@@ -22,6 +22,50 @@ import TopBar from '../../../components/TopBar';
 import {State} from '../model';
 import {styles, avatarSize} from './styles';
 
+function EditAvatarButton(state: State) {
+  const button = h(
+    TouchableWithoutFeedback,
+    {
+      sel: 'avatar',
+      accessible: true,
+      accessibilityRole: 'button',
+      accessibilityLabel: t(
+        'profile_edit.call_to_action.edit_picture.accessibility_label',
+      ),
+    },
+    [
+      h(View, {style: styles.avatarTouchable, pointerEvents: 'box-only'}, [
+        h(Avatar, {
+          size: avatarSize,
+          url: state.newAvatar
+            ? `file://${state.newAvatar}`
+            : state.about.imageUrl,
+          style: styles.avatar,
+          overlayIcon: 'camera',
+        }),
+      ]),
+    ],
+  );
+
+  if (Platform.OS === 'web') {
+    return h(View, {style: {width: avatarSize}}, [
+      h('label', {style: {width: avatarSize}, htmlFor: 'avatar_desktop'}, [
+        button,
+      ]),
+      h('input', {
+        sel: 'avatar-desktop',
+        id: 'avatar_desktop',
+        type: 'file',
+        accept: 'image/png, image/jpeg',
+        style: {display: 'none'},
+        multiple: false,
+      }),
+    ]);
+  } else {
+    return button;
+  }
+}
+
 export default function view(
   state$: Stream<State>,
   manageAliases$: Stream<ReactElement>,
@@ -51,33 +95,7 @@ export default function view(
               ),
             }),
 
-            h(
-              TouchableWithoutFeedback,
-              {
-                sel: 'avatar',
-                accessible: true,
-                accessibilityRole: 'button',
-                accessibilityLabel: t(
-                  'profile_edit.call_to_action.edit_picture.accessibility_label',
-                ),
-              },
-              [
-                h(
-                  View,
-                  {style: styles.avatarTouchable, pointerEvents: 'box-only'},
-                  [
-                    h(Avatar, {
-                      size: avatarSize,
-                      url: state.newAvatar
-                        ? `file://${state.newAvatar}`
-                        : state.about.imageUrl,
-                      style: styles.avatar,
-                      overlayIcon: 'camera',
-                    }),
-                  ],
-                ),
-              ],
-            ),
+            EditAvatarButton(state),
 
             h(Text, {style: styles.label}, t('profile_edit.fields.name.label')),
             h(TextInput, {

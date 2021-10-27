@@ -36,6 +36,11 @@ export const styles = StyleSheet.create({
     zIndex: 19,
   },
 
+  avatarDesktopArea: {
+    width: avatarSize,
+    height: avatarSize,
+  },
+
   fields: {
     marginTop: Dimensions.verticalSpaceLarge,
     zIndex: 10,

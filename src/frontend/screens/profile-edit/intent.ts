@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import between from 'xstream-between';
+import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
@@ -58,24 +59,30 @@ export default function intent(
     .select('description')
     .events('changeText');
 
-  const changeAvatar$ = reactSource
-    .select('avatar')
-    .events('press')
-    .map(() =>
-      xs
-        .fromPromise(
-          ImagePicker.openPicker({
-            width: 240,
-            height: 240,
-            cropping: true,
-            multiple: false,
-            cropperCircleOverlay: true,
-            mediaType: 'photo',
-          }) as Promise<Image>,
-        )
-        .replaceError(() => xs.never()),
-    )
-    .flatten();
+  const changeAvatar$ =
+    Platform.OS === 'web'
+      ? reactSource
+          .select('avatar-desktop')
+          .events('change')
+          .map((ev) => ev.target.files[0])
+      : reactSource
+          .select('avatar')
+          .events('press')
+          .map(() =>
+            xs
+              .fromPromise(
+                ImagePicker.openPicker({
+                  width: 240,
+                  height: 240,
+                  cropping: true,
+                  multiple: false,
+                  cropperCircleOverlay: true,
+                  mediaType: 'photo',
+                }) as Promise<Image>,
+              )
+              .replaceError(() => xs.never()),
+          )
+          .flatten();
 
   const save$ = reactSource.select('save').events('press');
 

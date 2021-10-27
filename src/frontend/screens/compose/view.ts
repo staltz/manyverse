@@ -119,7 +119,7 @@ function OpenCameraButton() {
 }
 
 function AddPictureButton() {
-  return h(
+  const button = h(
     TouchableOpacity,
     {
       sel: 'add-picture',
@@ -139,6 +139,22 @@ function AddPictureButton() {
       }),
     ],
   );
+
+  if (Platform.OS === 'web') {
+    return h(View, [
+      h('label', {htmlFor: 'add_picture_desktop'}, [button]),
+      h('input', {
+        sel: 'add-picture-desktop',
+        id: 'add_picture_desktop',
+        type: 'file',
+        accept: 'image/png, image/jpeg',
+        style: {display: 'none'},
+        multiple: false,
+      }),
+    ]);
+  } else {
+    return button;
+  }
 }
 
 function MarkdownPreview(state: MiniState) {
@@ -339,7 +355,7 @@ export default function view(
               ? null
               : h(View, {style: styles.footerContainer}, [
                   RecordAudioButton(),
-                  OpenCameraButton(),
+                  Platform.OS === 'web' ? null : OpenCameraButton(),
                   AddPictureButton(),
                   ContentWarningButton(state),
                 ]),

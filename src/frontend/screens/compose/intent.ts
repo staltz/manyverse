@@ -136,45 +136,51 @@ export default function intent(
       .flatten()
       .filter((ev) => ev === 'granted') as Stream<'granted'>,
 
-    addPicture$: xs.merge(
-      reactSource
-        .select('open-camera')
-        .events('press')
-        .map(() =>
-          xs
-            .fromPromise(
-              ImagePicker.openCamera({
-                cropping: false,
-                multiple: false,
-                compressImageMaxWidth: 1080,
-                compressImageMaxHeight: 1920,
-                compressImageQuality: 0.88,
-                mediaType: 'photo',
-              }) as Promise<Image>,
-            )
-            .replaceError(() => xs.never()),
-        )
-        .flatten(),
+    addPicture$:
+      Platform.OS === 'web'
+        ? reactSource
+            .select('add-picture-desktop')
+            .events('change')
+            .map((ev) => ev.target.files[0])
+        : xs.merge(
+            reactSource
+              .select('add-picture')
+              .events('press')
+              .map(() =>
+                xs
+                  .fromPromise(
+                    ImagePicker.openPicker({
+                      cropping: false,
+                      multiple: false,
+                      compressImageMaxWidth: 1080,
+                      compressImageMaxHeight: 1920,
+                      compressImageQuality: 0.88,
+                      mediaType: 'photo',
+                    }) as Promise<Image>,
+                  )
+                  .replaceError(() => xs.never()),
+              )
+              .flatten(),
 
-      reactSource
-        .select('add-picture')
-        .events('press')
-        .map(() =>
-          xs
-            .fromPromise(
-              ImagePicker.openPicker({
-                cropping: false,
-                multiple: false,
-                compressImageMaxWidth: 1080,
-                compressImageMaxHeight: 1920,
-                compressImageQuality: 0.88,
-                mediaType: 'photo',
-              }) as Promise<Image>,
-            )
-            .replaceError(() => xs.never()),
-        )
-        .flatten(),
-    ),
+            reactSource
+              .select('open-camera')
+              .events('press')
+              .map(() =>
+                xs
+                  .fromPromise(
+                    ImagePicker.openCamera({
+                      cropping: false,
+                      multiple: false,
+                      compressImageMaxWidth: 1080,
+                      compressImageMaxHeight: 1920,
+                      compressImageQuality: 0.88,
+                      mediaType: 'photo',
+                    }) as Promise<Image>,
+                  )
+                  .replaceError(() => xs.never()),
+              )
+              .flatten(),
+          ),
 
     addAudio$: globalEvent$
       .filter((ev): ev is AudioBlobComposed => ev.type === 'audioBlobComposed')
