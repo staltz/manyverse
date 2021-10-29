@@ -56,6 +56,11 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
     minWidth: 120,
+    ...Platform.select({
+      web: {
+        wordBreak: 'break-all',
+      },
+    }),
   },
 
   boldText: {
@@ -94,6 +99,7 @@ export default class AccountSmall extends PureComponent<AccountProps> {
         numberOfLines: 1,
         ellipsizeMode: 'tail',
         style: styles.authorName,
+        android_hyphenationFrequency: 'high',
       },
       [h(Text, {style: styles.boldText}, renderedName), '  ' + id],
     );
