@@ -344,7 +344,7 @@
       }
     },
     "menu": {
-      "dialog_title": "Connection",
+      "dialog_title": "Conexões",
       "open_profile": {
         "label": "Abrir perfil",
         "accessibility_label": {
@@ -437,7 +437,7 @@
         "accessibility_label": "Botão de Publicar Resposta"
       },
       "preview": {
-        "label": "Preview",
+        "label": "Revisar",
         "accessibility_label": "Botão de Pré-visualização"
       },
       "close": {
@@ -597,8 +597,8 @@
         "accessibility_label": "Abrir site de tradução"
       },
       "more": {
-        "label": "More",
-        "accessibility_label": "Show more Menu items"
+        "label": "Mais",
+        "accessibility_label": "Mostrar mais itens de Menu"
       },
       "settings": {
         "label": "Configurações",
