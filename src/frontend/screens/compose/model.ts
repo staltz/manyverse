@@ -74,7 +74,11 @@ export function hasText(state: State): boolean {
 
 function parseMention(postText: string, selection: Selection): string | null {
   if (selection.start !== selection.end) return null;
-  const results = /(^| )@(\w+)$/gm.exec(postText.substr(0, selection.start));
+  const cursor = selection.start;
+  const cursorTilNextSpace = postText.slice(cursor).search(/\s/);
+  const endOfWord =
+    cursorTilNextSpace >= 0 ? cursor + cursorTilNextSpace : postText.length;
+  const results = /(^| )@(\S+)$/gm.exec(postText.substr(0, endOfWord));
   return results?.[2] ?? null;
 }
 
