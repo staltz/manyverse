@@ -72,14 +72,27 @@ export function hasText(state: State): boolean {
   return state.postText.length > 0;
 }
 
-function parseMention(postText: string, selection: Selection): string | null {
+function detectMention(postText: string, selection: Selection): number | null {
   if (selection.start !== selection.end) return null;
   const cursor = selection.start;
   const cursorTilNextSpace = postText.slice(cursor).search(/\s/);
   const endOfWord =
     cursorTilNextSpace >= 0 ? cursor + cursorTilNextSpace : postText.length;
-  const results = /(^| )@(\S+)$/gm.exec(postText.substr(0, endOfWord));
+  return endOfWord;
+}
+
+function parseMention(postText: string, selection: Selection): string | null {
+  const endOfWord = detectMention(postText, selection);
+  if (endOfWord === null) return null;
+  const results = /(^|\s)@(\S+)$/gm.exec(postText.substr(0, endOfWord));
   return results?.[2] ?? null;
+}
+
+function parseEmptyMention(postText: string, selection: Selection): boolean {
+  const endOfWord = detectMention(postText, selection);
+  if (endOfWord === null) return false;
+  const results = /(^|\s)(@)$/gm.exec(postText.substr(0, endOfWord));
+  return (results?.[2] ?? '') === '@';
 }
 
 function appendToPostText(postText: string, other: string) {
@@ -172,14 +185,16 @@ export default function model(
   const openMentionSuggestionsReducer$ = selectionAndState$
     .map(([selection, state]) => {
       const mentionQuery = parseMention(state.postText, selection);
-      if (!mentionQuery) return xs.never();
-
-      return ssbSource
-        .getMentionSuggestions(mentionQuery, state.authors)
-        .map(
-          (suggestions) =>
-            [suggestions, selection] as [Array<MentionSuggestion>, Selection],
-        );
+      if (mentionQuery || parseEmptyMention(state.postText, selection)) {
+        return ssbSource
+          .getMentionSuggestions(mentionQuery, state.authors)
+          .map(
+            (suggestions) =>
+              [suggestions, selection] as [Array<MentionSuggestion>, Selection],
+          );
+      } else {
+        return xs.never();
+      }
     })
     .flatten()
     .map(
