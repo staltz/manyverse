@@ -27,7 +27,12 @@ export default class SettableTextInput extends PureComponent<Props> {
           if (payload.focus) this.ref.current?.focus();
           delete payload.focus;
           this.ref.current?.setNativeProps(payload);
-          if (Platform.OS === 'web' && payload.selection) {
+          if (Platform.OS === 'ios') {
+            // iOS needs this hack. Maybe React Native has a race condition?
+            setTimeout(() => {
+              this.ref.current?.setNativeProps(payload);
+            }, 16);
+          } else if (Platform.OS === 'web' && payload.selection) {
             // Use DOM properties because for some reason `setNativeProps` fails
             (this.ref.current! as any).selectionStart = payload.selection.start;
             (this.ref.current! as any).selectionEnd = payload.selection.end;
