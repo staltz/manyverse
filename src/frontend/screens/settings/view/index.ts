@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,7 +7,12 @@ import {h} from '@cycle/react';
 import {ScrollView, View, Text, Platform, NativeModules} from 'react-native';
 import TopBar from '../../../components/TopBar';
 import {t} from '../../../drivers/localization';
-import {State, blobsStorageOptions, hopsOptions} from '../model';
+import {
+  State,
+  blobsStorageOptions,
+  hopsOptions,
+  fontSizeOptions,
+} from '../model';
 import ToggleSetting from './ToggleSetting';
 import LinkSetting from './LinkSetting';
 import SliderSetting from './SliderSetting';
@@ -38,6 +43,8 @@ export default function view(state$: Stream<State>) {
     }
   });
 
+  const localizedFontSizeOptions = fontSizeOptions.map((opt) => opt as string);
+
   return state$.map((state) =>
     h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('settings.title')}),
@@ -60,6 +67,7 @@ export default function view(state$: Stream<State>) {
           }),
 
           h(View, {style: styles.spacer}),
+
           h(SliderSetting, {
             sel: 'hops',
             key: `hops${state.initialHops}`, // to force a re-render
@@ -69,6 +77,20 @@ export default function view(state$: Stream<State>) {
             subtitle: t('settings.preferences.hops.subtitle'),
             accessibilityLabel: t(
               'settings.preferences.hops.accessibility_label',
+            ),
+          }),
+
+          h(View, {style: styles.spacer}),
+
+          h(SliderSetting, {
+            sel: 'font-size',
+            key: `font${state.initialFontSize}`, // to force a re-render
+            options: localizedFontSizeOptions,
+            initial: state.initialFontSize,
+            title: t('settings.preferences.font_size.title'),
+            subtitle: t('settings.preferences.font_size.subtitle'),
+            accessibilityLabel: t(
+              'settings.preferences.font_size.accessibility_label',
             ),
           }),
         ]),

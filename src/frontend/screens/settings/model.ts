@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -27,15 +27,26 @@ export const hopsOptions = [
   'unlimited' as const,
 ];
 
+export const fontSizeOptions = [
+  'extra small' as const,
+  'small' as const,
+  'medium' as const,
+  'large' as const,
+  'extra large' as const,
+];
+
 export type BlobsStorageOption = UnwrapArray<typeof blobsStorageOptions>;
 export type HopsOption = UnwrapArray<typeof hopsOptions>;
+export type FontSizeOption = UnwrapArray<typeof fontSizeOptions>;
 
-const DEFAULT_HOPS: HopsOption = '2';
 const DEFAULT_BLOBS_STORAGE: BlobsStorageOption = 'unlimited';
+const DEFAULT_HOPS: HopsOption = '2';
+const DEFAULT_FONT_SIZE: FontSizeOption = 'medium';
 
 export type State = {
-  initialHops: number;
   initialBlobsStorage: number;
+  initialHops: number;
+  initialFontSize: number;
   showFollows: boolean;
   enableDetailedLogs: boolean;
 };
@@ -44,16 +55,6 @@ type Actions = {
   toggleFollowEvents$: Stream<boolean>;
   toggleDetailedLogs$: Stream<boolean>;
 };
-
-function hopsToOpt(hops?: number): HopsOption {
-  if (typeof hops !== 'number') return DEFAULT_HOPS;
-  if (hops >= 999) return 'unlimited';
-  if (hops === 1) return '1';
-  if (hops === 2) return '2';
-  if (hops === 3) return '3';
-  if (hops === 4) return '4';
-  return DEFAULT_HOPS;
-}
 
 function blobsStorageToOpt(blobsStorage?: number): BlobsStorageOption {
   if (typeof blobsStorage !== 'number') return DEFAULT_BLOBS_STORAGE;
@@ -69,6 +70,25 @@ function blobsStorageToOpt(blobsStorage?: number): BlobsStorageOption {
   return DEFAULT_BLOBS_STORAGE;
 }
 
+function hopsToOpt(hops?: number): HopsOption {
+  if (typeof hops !== 'number') return DEFAULT_HOPS;
+  if (hops >= 999) return 'unlimited';
+  if (hops === 1) return '1';
+  if (hops === 2) return '2';
+  if (hops === 3) return '3';
+  if (hops === 4) return '4';
+  return DEFAULT_HOPS;
+}
+
+function fontSizeToOpt(fontSize?: number): FontSizeOption {
+  if (typeof fontSize !== 'number') return DEFAULT_FONT_SIZE;
+  if (fontSize === 12) return 'extra small';
+  if (fontSize === 14) return 'small';
+  if (fontSize === 18) return 'large';
+  if (fontSize === 20) return 'extra large';
+  return DEFAULT_FONT_SIZE;
+}
+
 export default function model(actions: Actions, ssbSource: SSBSource) {
   const initReducer$ = xs.of(function initReducer(prev?: State): State {
     if (prev) return prev;
@@ -76,8 +96,9 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
     return {
       showFollows: true,
       enableDetailedLogs: false,
-      initialHops: hopsOptions.indexOf(DEFAULT_HOPS),
       initialBlobsStorage: blobsStorageOptions.indexOf(DEFAULT_BLOBS_STORAGE),
+      initialHops: hopsOptions.indexOf(DEFAULT_HOPS),
+      initialFontSize: fontSizeOptions.indexOf(DEFAULT_FONT_SIZE),
     };
   });
 
@@ -87,9 +108,12 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
         return {
           ...prev,
           showFollows: settings.showFollows ?? prev.showFollows,
-          initialHops: hopsOptions.indexOf(hopsToOpt(settings.hops)),
           initialBlobsStorage: blobsStorageOptions.indexOf(
             blobsStorageToOpt(settings.blobsStorageLimit),
+          ),
+          initialHops: hopsOptions.indexOf(hopsToOpt(settings.hops)),
+          initialFontSize: fontSizeOptions.indexOf(
+            fontSizeToOpt(settings.fontSize),
           ),
           enableDetailedLogs: settings.detailedLogs ?? prev.enableDetailedLogs,
         };
