@@ -140,15 +140,20 @@ export default class ListOfPeers extends Component<Props, State> {
   public static getDerivedStateFromProps(
     props: ListOfPeers['props'],
   ): ListOfPeers['state'] {
+    const addrSet: Set<string> = new Set();
     const peers: Array<PeerKV> = [];
     const staged: Array<StagedKV> = [];
     const roomGroups: Record<string, Array<MixedPeerKV>> = {};
 
     for (const peer of props.rooms as Array<RoomKV>) {
+      if (addrSet.has(peer[0])) continue;
+      else addrSet.add(peer[0]);
       roomGroups[peer[1].key!] = [peer];
     }
 
     for (const peer of props.peers as Array<PeerKV>) {
+      if (addrSet.has(peer[0])) continue;
+      else addrSet.add(peer[0]);
       const room = isRoomEndpoint(peer, roomGroups);
       if (room) {
         if (peer[1].pool !== 'hub') peer[1].pool = 'hub';
@@ -159,6 +164,8 @@ export default class ListOfPeers extends Component<Props, State> {
     }
 
     for (const peer of props.stagedPeers) {
+      if (addrSet.has(peer[0])) continue;
+      else addrSet.add(peer[0]);
       const room = isRoomEndpoint(peer, roomGroups);
       if (room) {
         roomGroups[room].push(peer);
