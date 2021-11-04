@@ -8,6 +8,7 @@ import {PureComponent} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
+import {getImg} from '../global-styles/utils';
 
 export type Props = {
   size: number;
@@ -56,7 +57,9 @@ export default class Avatar extends PureComponent<Props> {
     return h(View, {style: [baseStyle, style]}, [
       h(Image, {
         style: {borderRadius, width: size, height: size},
-        source: url ? {uri: url} : require('../../../images/empty-avatar.png'),
+        source: url
+          ? {uri: url}
+          : getImg(require('../../../images/empty-avatar.png')),
       }),
       overlayIcon
         ? this.renderOverlayIcon(size, borderRadius, overlayIcon)
