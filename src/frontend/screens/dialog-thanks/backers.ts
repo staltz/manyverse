@@ -6,6 +6,6 @@ export default [
   'Dace',
   'C Moid',
   'Andrew Lewman',
-  'DC Posch',
   'Irakli Gozalishvili',
+  'DC Posch',
 ];

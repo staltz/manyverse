@@ -699,7 +699,7 @@ export default [
   {
     name: 'react-native-web',
     type: 'library',
-    version: '0.17.1',
+    version: '0.17.5',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/necolas/react-native-web#readme',
   },
@@ -784,7 +784,7 @@ export default [
   {
     name: 'ssb-blobs-purge',
     type: 'library',
-    version: '2.0.2',
+    version: '2.0.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-blobs-purge',
   },
@@ -812,14 +812,14 @@ export default [
   {
     name: 'ssb-conn',
     type: 'library',
-    version: '5.2.0',
+    version: '6.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn',
   },
   {
     name: 'ssb-conn-firewall',
     type: 'library',
-    version: '1.1.2',
+    version: '1.1.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn-firewall',
   },
@@ -847,7 +847,7 @@ export default [
   {
     name: 'ssb-ebt',
     type: 'library',
-    version: '7.0.4',
+    version: '8.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-ebt',
   },
@@ -910,7 +910,7 @@ export default [
   {
     name: 'ssb-lan',
     type: 'library',
-    version: '1.0.0',
+    version: '1.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-lan',
   },
@@ -945,7 +945,7 @@ export default [
   {
     name: 'ssb-room-client',
     type: 'library',
-    version: '1.0.0',
+    version: '2.0.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-room-client',
   },
@@ -966,7 +966,7 @@ export default [
   {
     name: 'ssb-suggest-lite',
     type: 'library',
-    version: '1.0.3',
+    version: '1.1.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-suggest-lite#readme',
   },

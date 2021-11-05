@@ -7,6 +7,20 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2111.5-beta
+
+* (Android) Improve app icon supporting circle shape ([see details](https://gitlab.com/staltz/manyverse/commit/dba293bc1a1ba07b0984051325628461bca7e958))
+* (iOS) Bug fix: quirks when picking a mention suggestion ([see details](https://gitlab.com/staltz/manyverse/commit/f0d506136fa3d948abec45b46beac22dc15ca10f))
+* Allow mentioning participants in a thread ([see details](https://gitlab.com/staltz/manyverse/commit/fa24b264dafcdf58d2b81c9f31e7e98d66903d52))
+* Bug fix: connections tab should not show duplicates ([see details](https://gitlab.com/staltz/manyverse/commit/ae2505fe0c959d9d220a9a4d27a41738c1ef2f19))
+* Bug fix: dont prefill name with ID in EditProfile ([see details](https://gitlab.com/staltz/manyverse/commit/072e2d1e8d0923e34c3ea4e461bab403cc581598))
+* Bug fix: various problem with replication ([see details](https://gitlab.com/staltz/manyverse/commit/7ce697738a6678a3e1766917405432e3eb3b8ca5))
+* Improve mention suggestions to include symbols ([see details](https://gitlab.com/staltz/manyverse/commit/3bd91210a99851b416c557d57ef17035514b6bab))
+* Improve Russian translation ([see details](https://gitlab.com/staltz/manyverse/commit/8a4f299870e9306d818dd5fb88350d2d4bce6dc6))
+* Improve style of mention suggestion items ([see details](https://gitlab.com/staltz/manyverse/commit/b8153ecd8ac44a3172052da83b1dbfb3f53052f8))
+* Improve the connections scheduler ([see details](https://gitlab.com/staltz/manyverse/commit/8875021703f3b3fabe89b5af3895be0245691169))
+* Improve the relevance of mention suggestions ([see details](https://gitlab.com/staltz/manyverse/commit/9c5704fdb2fa9ff73830b3a80ce9794cf21b54b4))
+
 ## 0.2110.26-beta
 
 * (Android) Bug fix: startup crash on Android 11 ([see details](https://gitlab.com/staltz/manyverse/commit/d0f707f0ede59e9ca77663573f32dbed12f79a85)), closes [#1411](https://gitlab.com/staltz/manyverse/issues/1411)
