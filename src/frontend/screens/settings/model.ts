@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -31,7 +31,7 @@ export type BlobsStorageOption = UnwrapArray<typeof blobsStorageOptions>;
 export type HopsOption = UnwrapArray<typeof hopsOptions>;
 
 const DEFAULT_HOPS: HopsOption = '2';
-const DEFAULT_BLOBS_STORAGE: BlobsStorageOption = 'unlimited';
+const DEFAULT_BLOBS_STORAGE: BlobsStorageOption = '500MB';
 
 export type State = {
   initialHops: number;

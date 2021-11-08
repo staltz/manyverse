@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -117,11 +117,12 @@ export = {
     // we have a "global component" in cycle-native-navigation
     const current = readSync();
     let initialTimeout: ReturnType<typeof setTimeout>;
-    if (current.blobsStorageLimit && current.blobsStorageLimit >= 0) {
-      const storageLimit = current.blobsStorageLimit;
+    const storageLimit = current.blobsStorageLimit ?? 500e6;
+    if (storageLimit >= 0) {
       initialTimeout = setTimeout(() => {
         ssb.blobsPurge.start({storageLimit});
       }, 30e3);
+      initialTimeout?.unref?.();
     }
 
     return {
