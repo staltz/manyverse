@@ -241,7 +241,7 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " te siguió"
+        "3_normal": " te ha seguido"
       }
     },
     "connection_attempt": {
@@ -253,7 +253,7 @@
     },
     "empty": {
       "title": "Sin actividad",
-      "description": "Cuando la gente mencione o te siga,\nse mostrará aquí"
+      "description": "Cuando la gente te mencione o te siga,\nse mostrará aquí"
     }
   },
   "connections": {
@@ -279,8 +279,8 @@
     "toasts": {
       "invite_accepted": "Invitación aceptada",
       "invite_rejected": "Invitación rechazada. ¿Estás seguro de que es correcto?",
-      "connecting_to_alias": "Conectando a {{alias}}",
-      "connected_to_alias": "Conectado a {{alias}}",
+      "connecting_to_alias": "Conectando con {{alias}}",
+      "connected_to_alias": "Conectado con {{alias}}",
       "not_connected_to_alias": "{{alias}} está desconectado ahora mismo"
     },
     "dialogs": {
@@ -660,7 +660,7 @@
     },
     "dialog_friend_request": {
       "title": "Solicitud de amistad",
-      "description": "Esta cuenta intenta conectarse contigo, pero Manyverse lo previno porque se encuentra fuera de tu comunidad.\n\nSi reconoces este ID, presiona \"Seguir\" para permitirle conectarse contigo."
+      "description": "Esta cuenta intenta conectarse contigo, pero Manyverse lo ha evitado porque se encuentra fuera de tu comunidad.\n\nSi reconoces este ID, presiona \"Seguir\" para permitirle conectarse contigo."
     },
     "toast": {
       "copied_to_clipboard": "Copiado al portapapeles"
@@ -757,37 +757,37 @@
     "empty": {
       "no_servers": {
         "title": "No hay servidores",
-        "description": "Para registrar un alias, necesitas ser miembro de algún servidor de sala SSB. Encuentra alguno en internet con el hashtag #ssbroom y asegúrate que soporta alias."
+        "description": "Para registrar un alias, necesitas ser miembro de algún servidor de habitaciones SSB. Encuentra alguno en internet con el hashtag #ssbroom y asegúrate que soporta alias."
       }
     },
     "header": {
-      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+      "description": "Elige un servidor de habitaciones donde quieras registrar un nuevo enlace alias para ti.\n\nLos alias son direcciones web que la gente puede utilizar para conectarse contigo."
     },
     "dialogs": {
       "input_alias": {
-        "description": "Submit your desired new alias to {{host}} as a single word in lowercase.\n\nFor example, if you want the alias \"myname.{{host}}\", write \"myname\" below."
+        "description": "Envía tu nuevo alias a {{host}} como una sola palabra en minúsculas.\n\nPor ejemplo, si quieres el alias \"minombre.{{host}}\", escribe \"minombre\" a continuación."
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "Enviando..."
     },
     "failure": {
-      "title": "It didn't work",
-      "alias_taken": "The alias you submitted is already taken by some user.",
+      "title": "No ha funcionado",
+      "alias_taken": "El alias que has enviado ya está reservado por otro usuario.",
       "call_to_action": {
         "try_again": {
-          "label": "Try again",
-          "accessibility_label": "Try Again Button"
+          "label": "Inténtalo de nuevo",
+          "accessibility_label": "Botón de volver a intentar"
         }
       }
     },
     "success": {
-      "title": "Great!",
-      "description": "The alias {{alias}} is now yours.",
+      "title": "¡Genial!",
+      "description": "El alias {{alias}} es ahora tuyo.",
       "call_to_action": {
         "go_back": {
-          "label": "Go back",
-          "accessibility_label": "Go Back Button"
+          "label": "Atrás",
+          "accessibility_label": "Botón atrás"
         }
       }
     }
@@ -820,8 +820,8 @@
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "Elige miembros",
+        "description": "Escribe los nombres\nde las personas que quieras añadir al nuevo chat"
       },
       "none_to_choose": {
         "title": "Nadie",
@@ -834,20 +834,20 @@
   },
   "search": {
     "query_input": {
-      "placeholder": "Search public posts",
-      "accessibility_label": "Search Query Text Input"
+      "placeholder": "Buscar publicaciones públicas",
+      "accessibility_label": "Entrada de texto de consultas de búsqueda"
     },
     "clear_query": {
-      "accessibility_label": "Reset the Search Query Text Input"
+      "accessibility_label": "Restableces la entrada de texto de consultas de búsqueda"
     },
     "empty": {
       "initial": {
-        "title": "Search something",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "Buscar algo",
+        "description": "Espera mientras la aplicación intenta conectarse con tus pares"
       },
       "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
+        "title": "Sin resultados",
+        "description": "No se ha encontrado nada para \"{{query}}\""
       }
     }
   },
@@ -1079,7 +1079,7 @@
         "accessibility_label": "Tiempo actual del audio"
       },
       "slider": {
-        "accessibility_label": "Change audio time"
+        "accessibility_label": "Cambiar tiempo de audio"
       }
     },
     "content_warning": {

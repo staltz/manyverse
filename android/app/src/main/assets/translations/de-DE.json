@@ -437,7 +437,7 @@
         "accessibility_label": "Antwort-Taste"
       },
       "preview": {
-        "label": "Preview",
+        "label": "Vorschau",
         "accessibility_label": "Vorschau Schaltfläche"
       },
       "close": {
@@ -765,14 +765,14 @@
     },
     "dialogs": {
       "input_alias": {
-        "description": "Sende deinen gewünschten neuen Alias in Kleinbuchstaben an {{host}} als ein einziges Wort.\n\nZum Beispiel, wenn du den Alias \"meinname\" willst.{{host}}\", gib \"meinname\" unten ein."
+        "description": "Sende deinen gewünschten neuen Alias in Kleinbuchstaben als ein einziges Wort ein {{host}}. \n\nWenn du z. B. den Alias \"meinname.{{host}}\" willst, gib \"meinname\" ein."
       }
     },
     "submitting": {
       "title": "Wird gesendet..."
     },
     "failure": {
-      "title": "Etwas hat leider nicht funktioniert",
+      "title": "Das hat nicht funktioniert",
       "alias_taken": "Der eingegebene Alias wird bereits von einem anderen Benutzer verwendet.",
       "call_to_action": {
         "try_again": {
