@@ -7,6 +7,13 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2111.11-beta
+
+* Bug fix: dont automatically connect to strangers ([see details](https://gitlab.com/staltz/manyverse/commit/7ea67f4d3b605c31a035c47eb8373c5b6ed5a337))
+* Bug fix: fix replication getting stuck between friends ([see details](https://gitlab.com/staltz/manyverse/commit/41bb9ea24ad5884b61ecd1bf01f869235d621ca1))
+* Change default blobs limit to 500MB ([see details](https://gitlab.com/staltz/manyverse/commit/61fbfa0a4ddd2ffd9d1161be93a3cccc80b25464))
+* Improve German and Spanish translations ([see details](https://gitlab.com/staltz/manyverse/commit/2c8d97f0a7606c121060c97c2cd0ce20b5fd96ce))
+
 ## 0.2111.5-beta
 
 * (Android) Improve app icon supporting circle shape ([see details](https://gitlab.com/staltz/manyverse/commit/dba293bc1a1ba07b0984051325628461bca7e958))
@@ -82,7 +89,7 @@
 * New translations for Chinese Simplified ([see details](https://gitlab.com/staltz/manyverse/commit/187f9e85c8cc02f974d02bca4911b3e970756a35))
 * Support language dialects fallback ([see details](https://gitlab.com/staltz/manyverse/commit/63e9e13797edfd97bd241f1b8311db2ffd758004))
 
-## 0.2109.3-beta
+## 0.2108.2-beta
 
 * Bug fix: portrait on Biography screen can resize ([see details](https://gitlab.com/staltz/manyverse/commit/4426ad60898813ee5cced50b333e936180d850c9))
 * Bug fix: show images in landscape Welcome and Backup ([see details](https://gitlab.com/staltz/manyverse/commit/cccc342315bfbb08752e1f4b67e739f2023f0f61))

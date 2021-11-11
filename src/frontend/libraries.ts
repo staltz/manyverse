@@ -812,7 +812,7 @@ export default [
   {
     name: 'ssb-conn',
     type: 'library',
-    version: '6.0.0',
+    version: '6.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn',
   },
@@ -833,7 +833,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '2.3.2',
+    version: '2.3.3',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
