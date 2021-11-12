@@ -28,6 +28,7 @@ const ignoreNodeModules = [
   'react-native-fs',
   'react-native-image-viewing',
   'react-native-navigation',
+  'react-native-image-crop-picker',
   'react-native-orientation-locker',
   'react-native-swiper',
   'react-native-system-setting',

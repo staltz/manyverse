@@ -8,11 +8,13 @@ import between from 'xstream-between';
 import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
-import ImagePicker, {Image} from 'react-native-image-crop-picker';
+import {Image} from 'react-native-image-crop-picker';
 import {AlertAction, DialogSource} from '../../drivers/dialogs';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
+const ImagePicker =
+  Platform.OS !== 'web' ? require('react-native-image-crop-picker') : null;
 
 export default function intent(
   reactSource: ReactSource,
