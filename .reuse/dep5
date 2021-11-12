@@ -23,8 +23,20 @@ Files: android/app/src/main/res/drawable-*/logo_outline.png
 Copyright: 2019 The Manyverse Authors
 License: CC-BY-SA-4.0
 
-Files: android/app/src/main/res/mipmap-*/ic_launcher.png
-Copyright: 2019 The Manyverse Authors
+Files: android/app/src/main/ic_launcher-playstore.png
+Copyright: 2021 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: android/app/src/main/res/mipmap-*/ic_launcher*.*
+Copyright: 2019-2021 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml
+Copyright: 2021 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: android/app/src/main/res/values/ic_launcher_background.xml
+Copyright: 2021 The Manyverse Authors
 License: CC-BY-SA-4.0
 
 Files: android/app/src/main/res/mipmap-*/outline.png
