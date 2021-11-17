@@ -96,7 +96,7 @@
     "react-native": "0.64.2",
     "react-native-bluetooth-socket-bridge": "^1.2.0",
     "react-native-dialogs": "1.1.1",
-    "react-native-emoji-picker-staltz": "1.0.0",
+    "react-native-emoji-modal": "^0.2.2",
     "react-native-flag-secure-android": "1.0.2",
     "react-native-floating-action": "1.22.0",
     "react-native-fs": "~2.18.0",

@@ -461,6 +461,7 @@ declare module 'i18n-js' {
     | 'message.reactions.categories.travel_and_places'
     | 'message.reactions.categories.objects'
     | 'message.reactions.categories.symbols'
+    | 'message.reactions.categories.flags'
     | 'message.reactions.show_more.accessibility_label'
     | 'message.image.without_caption.accessibility_label'
     | 'message.audio.play.accessibility_label'

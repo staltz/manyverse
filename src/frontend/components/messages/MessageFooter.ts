@@ -15,7 +15,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {h} from '@cycle/react';
-import EmojiPicker from 'react-native-emoji-picker-staltz';
+import EmojiModal from 'react-native-emoji-modal';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Msg, FeedId} from 'ssb-typescript';
 import {t} from '../../drivers/localization';
@@ -77,7 +77,9 @@ export const styles = StyleSheet.create({
   },
 
   quickEmojiPickerBackground: {
-    backgroundColor: Palette.transparencyDark,
+    backgroundColor: Palette.isDarkTheme
+      ? Palette.transparencyDarkStrong
+      : Palette.transparencyDark,
     position: 'absolute',
     top: 0,
     bottom: 0,
@@ -126,33 +128,40 @@ export const styles = StyleSheet.create({
     fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
   },
 
-  fullEmojiPickerModal: {
-    flex: 1,
+  fullEmojiModalBackground: {
+    backgroundColor: Palette.isDarkTheme
+      ? Palette.transparencyDarkStrong
+      : Palette.transparencyDark,
   },
 
-  fullEmojiPickerBackground: {
-    backgroundColor: Palette.transparencyDark,
-  },
-
-  fullEmojiPickerContainer: {
+  fullEmojiModalContainer: {
     backgroundColor: Palette.backgroundText,
-    padding: 0,
   },
 
-  fullEmojiPickerScroll: {
+  fullEmojiModalScroll: {
     paddingTop: Dimensions.verticalSpaceTiny,
     paddingHorizontal: Dimensions.horizontalSpaceNormal,
     paddingBottom: Dimensions.verticalSpaceNormal,
   },
 
-  fullEmojiPickerHeader: {
+  fullEmojiModalHeader: {
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     color: Palette.textWeak,
   },
 
-  fullEmojiPickerEmoji: {
+  fullEmojiModalSearch: {
+    backgroundColor: Palette.backgroundTextWeak,
+    color: Palette.textWeak,
+    ...Platform.select({
+      web: {
+        outlineStyle: 'none',
+      },
+    }),
+  },
+
+  fullEmojiModalEmoji: {
     ...Platform.select({
       web: {
         fontFamily: Typography.fontFamilyReadableText,
@@ -380,7 +389,7 @@ class EtcButton extends PureComponent<{onPress: () => void}> {
   }
 }
 
-export type Props = {
+export interface Props {
   msg: Msg;
   selfFeedId: FeedId;
   reactions: ReactionsType;
@@ -390,11 +399,12 @@ export type Props = {
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: () => void;
   onPressEtc?: (msg: Msg) => void;
-};
-export type State = {
+}
+
+interface State {
   showQuickEmojis: boolean;
   showFullEmojis: boolean;
-};
+}
 
 export default class MessageFooter extends Component<Props, State> {
   public state = {
@@ -428,7 +438,7 @@ export default class MessageFooter extends Component<Props, State> {
     }
   };
 
-  private openFullEmojiPicker = () => {
+  private openFullEmojiModal = () => {
     this.setState({showQuickEmojis: false, showFullEmojis: true});
   };
 
@@ -527,7 +537,7 @@ export default class MessageFooter extends Component<Props, State> {
       {
         ...touchableProps,
         style: Platform.OS === 'web' ? styles.quickEmojiChoiceTouchable : null,
-        onPress: this.openFullEmojiPicker,
+        onPress: this.openFullEmojiModal,
         accessible: true,
         accessibilityRole: 'button',
         accessibilityLabel: t(
@@ -564,12 +574,11 @@ export default class MessageFooter extends Component<Props, State> {
     ]);
   }
 
-  private renderFullEmojiPickerModal() {
-    return h(EmojiPicker, {
+  private renderFullEmojiModal() {
+    return h(EmojiModal, {
       onEmojiSelected: this.onSelectEmojiReaction,
       onPressOutside: this.closeEmojisModal,
-      rows: 6,
-      hideClearButton: true,
+      columns: 7,
       localizedCategories: [
         t('message.reactions.categories.smileys_and_emotion'),
         t('message.reactions.categories.people_and_body'),
@@ -579,13 +588,18 @@ export default class MessageFooter extends Component<Props, State> {
         t('message.reactions.categories.travel_and_places'),
         t('message.reactions.categories.objects'),
         t('message.reactions.categories.symbols'),
+        t('message.reactions.categories.flags'),
       ],
-      modalStyle: styles.fullEmojiPickerModal,
-      backgroundStyle: styles.fullEmojiPickerBackground,
-      containerStyle: styles.fullEmojiPickerContainer,
-      scrollStyle: styles.fullEmojiPickerScroll,
-      headerStyle: styles.fullEmojiPickerHeader,
-      emojiStyle: styles.fullEmojiPickerEmoji,
+      backgroundStyle: styles.fullEmojiModalBackground,
+      containerStyle: styles.fullEmojiModalContainer,
+      scrollStyle: styles.fullEmojiModalScroll,
+      headerStyle: styles.fullEmojiModalHeader,
+      emojiStyle: styles.fullEmojiModalEmoji,
+      searchStyle: styles.fullEmojiModalSearch,
+      shortcutColor: Palette.isDarkTheme
+        ? Palette.textWeak
+        : Palette.textVeryWeak,
+      activeShortcutColor: Palette.textBrand,
     });
   }
 
@@ -609,7 +623,7 @@ export default class MessageFooter extends Component<Props, State> {
         [
           this.state.showQuickEmojis
             ? this.renderQuickEmojiPickerModal()
-            : this.renderFullEmojiPickerModal(),
+            : this.renderFullEmojiModal(),
         ],
       ),
 
