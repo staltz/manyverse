@@ -6,7 +6,7 @@
     "cancel": "Annuler",
     "continue": "Suivant",
     "delete": "Supprimer",
-    "remove": "Remove",
+    "remove": "Supprimer",
     "save": "Sauvegarder",
     "yes": "Oui",
     "no": "Non",
@@ -166,13 +166,13 @@
     "tab_headers": {
       "public": "Affichage public",
       "private": "Messages privés",
-      "activity": "Activity",
+      "activity": "Activités",
       "connections": "Connexions"
     },
     "tab_footers": {
       "public": "Public",
       "private": "Privé",
-      "activity": "Activity",
+      "activity": "Activités",
       "connections": "Connexions"
     },
     "loading": "Chargement en cours...",
@@ -185,7 +185,7 @@
         "accessibility_label": "Bouton Onglet Privé"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "Bouton de l'onglet Activités"
       },
       "connections": {
         "accessibility_label": "Bouton Onglet Connexions"
@@ -201,7 +201,7 @@
       "description": "Écrivez une note qui sera \npartagé avec vos amis plus tard"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Bouton de recherche"
     }
   },
   "private": {
@@ -234,26 +234,26 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " vous a mentionné"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " vous suit"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " veut se connecter"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "Aucune activité",
+      "description": "Quand les gens vous mentionnent ou vous suivent,\nils apparaissent ici"
     }
   },
   "connections": {
@@ -279,19 +279,19 @@
     "toasts": {
       "invite_accepted": "Invitation acceptée",
       "invite_rejected": "Invitation rejetée. Êtes-vous sûr qu'elle était correcte ?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "connecting_to_alias": "Se connecter à {{alias}}",
+      "connected_to_alias": "Connecté à {{alias}}",
+      "not_connected_to_alias": "{{alias}} est actuellement hors ligne"
     },
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "Autoriser la connexion ?",
+          "description": "Ouvrez le site internet de {{room}} pour créer des liens d'invitation et gérer les membres. Voulez-vous utiliser Manyverse pour vous connecter ?\n\nL'ID de la pièce est {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "title": "Autoriser la connexion ?",
+          "description": "Un navigateur web demande l'autorisation de vous identifier. Voulez-vous vous connecter au serveur {{room}} ?\n\nSon ID est {{roomid}}"
         }
       }
     },
@@ -344,7 +344,7 @@
       }
     },
     "menu": {
-      "dialog_title": "Connection",
+      "dialog_title": "Connexion",
       "open_profile": {
         "label": "Ouvrir le profil",
         "accessibility_label": {
@@ -384,12 +384,12 @@
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "label": "Gérer mes alias",
+        "accessibility_label": "Gérer mes alias sur les serveurs"
       },
       "room_sign_in": {
-        "label": "Sign into website",
-        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
+        "label": "Se connecter au site web",
+        "accessibility_label": "Ouvrez le site web de cette salle et connectez-vous à son tableau de bord, Bouton"
       },
       "room_share_invite": {
         "label": "Partager le code d'invitation",
@@ -437,18 +437,18 @@
         "accessibility_label": "Bouton de réponse au message"
       },
       "preview": {
-        "label": "Preview",
+        "label": "Aperçu",
         "accessibility_label": "Bouton d'aperçu"
       },
       "close": {
         "accessibility_label": "Bouton Fermer"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "Bouton d'enregistrement audio",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
-          "neutral": "Ask me later",
+          "title": "Autoriser Manyverse à enregistrer de l'audio ?",
+          "message": "Manyverse a besoin d'accéder à votre microphone pour pouvoir composer des messages audio",
+          "neutral": "Me demander plus tard",
           "positive": "OK",
           "negative": "Annuler"
         }
@@ -483,27 +483,27 @@
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "Message audio",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "Démarrer l'enregistrement"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "Arrêter l'enregistrement"
       },
       "discard_recording": {
         "label": "Ignorer",
-        "accessibility_label": "Discard Recording Button"
+        "accessibility_label": "Ignorer le bouton d'enregistrement"
       },
       "submit_recording": {
         "label": "Terminé",
-        "accessibility_label": "Submit Recording Button"
+        "accessibility_label": "Soumettre le bouton d'enregistrement"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
-        "question": "Discard draft?"
+        "title": "Message audio",
+        "question": "Abandonner le brouillon ?"
       }
     }
   },
@@ -556,7 +556,7 @@
   },
   "conversation": {
     "title": "Conversation",
-    "placeholder": "Type a message...",
+    "placeholder": "Écrivez un message...",
     "call_to_action": {
       "show_recipients": {
         "accessibility_label": "Voir les destinataires"
@@ -593,22 +593,22 @@
         "accessibility_label": "Envoyer un rapport de bogue par e-mail"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "Aidez-nous à traduire",
+        "accessibility_label": "Ouvrir le site web de traduction"
       },
       "more": {
-        "label": "More",
-        "accessibility_label": "Show more Menu items"
+        "label": "En savoir plus",
+        "accessibility_label": "Afficher plus d'éléments de menu"
       },
       "settings": {
         "label": "Paramètres",
         "accessibility_label": "Aller aux paramètres"
       },
       "preparing_database": {
-        "label": "Preparing database..."
+        "label": "Préparation de la base de données..."
       },
       "ready_estimate": {
-        "label": "Ready:"
+        "label": "Prêt :"
       }
     }
   },
@@ -620,8 +620,8 @@
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "Type non supporté",
+      "description": "Les invitations P2P ne sont plus supportées dans Manyverse."
     },
     "text_field": {
       "accessibility_label": "Saisie du texte du code d'invitation"
@@ -638,7 +638,7 @@
   "profile": {
     "call_to_action": {
       "copy_cypherlink": "Copier le lien de chiffrement",
-      "private_chat": "Open private conversation",
+      "private_chat": "Ouvrir une conversation privée",
       "block": "Bloquer",
       "block_secretly": "Bloquer en secret",
       "unblock": "Débloquer",
@@ -653,28 +653,28 @@
       }
     },
     "dialog_ssb_id": {
-      "title": "SSB ID"
+      "title": "Identifiant SSB"
     },
     "dialog_manage_contact": {
       "title": "Contact"
     },
     "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "title": "Demande d'ami",
+      "description": "Ce compte essaie de se connecter avec vous, mais Manyverse l'a empêché parce qu'il est en dehors de votre communauté.\n\nSi vous reconnaissez cet identifiant, vous pouvez appuyer sur « Suivre » pour lui permettre de se connecter avec vous."
     },
     "toast": {
       "copied_to_clipboard": "Copié dans le presse-papier"
     },
     "details": {
       "id": {
-        "accessibility_label": "SSB Identifier"
+        "accessibility_label": "Identifiant SSB"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "Lire la biographie"
       },
       "counters": {
         "following": "Abonné",
-        "followers": "Followers"
+        "followers": "Abonnés"
       }
     },
     "info": {
@@ -718,8 +718,8 @@
         "accessibility_label": "Modifier la photo de profil"
       },
       "register_new_alias": {
-        "label": "Register new alias",
-        "accessibility_label": "Register New Room Server Alias"
+        "label": "Enregistrer un nouvel alias",
+        "accessibility_label": "Enregistrer un nouvel alias de serveur"
       }
     },
     "dialogs": {
@@ -728,12 +728,12 @@
         "question": "Abandonner les modifications ?"
       },
       "remove_alias": {
-        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
+        "description": "Cette action supprimera l'alias \"{{alias}}\" du serveur.\n\nLes gens ne pourront plus vous joindre en utilisant cet alias."
       }
     },
     "toasts": {
-      "alias_removed_success": "Alias removed",
-      "alias_removed_failure": "Failed to remove alias"
+      "alias_removed_success": "Alias supprimé",
+      "alias_removed_failure": "Impossible de supprimer l'alias"
     },
     "fields": {
       "name": {
@@ -745,49 +745,49 @@
         "accessibility_label": "Saisie du texte de la biographie"
       },
       "aliases": {
-        "label": "Aliases"
+        "label": "Les alias"
       }
     }
   },
   "manage_aliases": {
-    "title": "Manage aliases"
+    "title": "Gérer des alias"
   },
   "register_alias": {
-    "title": "Register alias",
+    "title": "Enregistrer un alias",
     "empty": {
       "no_servers": {
-        "title": "No servers",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "title": "Pas de serveurs",
+        "description": "Pour enregistrer un alias, vous devez être membre d'un serveur SSB. Trouvez-en un sur Internet avec le hashtag #ssbroom et assurez-vous qu'il supporte les alias."
       }
     },
     "header": {
-      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+      "description": "Choisissez un serveur où vous souhaitez enregistrer un nouvel alias pour vous-même.\n\nLes alias sont des adresses wev que les gens peuvent utiliser pour se connecter avec vous."
     },
     "dialogs": {
       "input_alias": {
-        "description": "Submit your desired new alias to {{host}} as a single word in lowercase.\n\nFor example, if you want the alias \"myname.{{host}}\", write \"myname\" below."
+        "description": "Soumettez le nouvel alias à {{host}} comme un seul mot en minuscule.\n\nPar exemple, si vous voulez l'alias \"myname.{{host}}\", écrivez \"myname\" ci-dessous."
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "Envoi en cours..."
     },
     "failure": {
-      "title": "It didn't work",
-      "alias_taken": "The alias you submitted is already taken by some user.",
+      "title": "Cela n'a pas fonctionné",
+      "alias_taken": "L'alias que vous avez soumis est déjà pris par un utilisateur.",
       "call_to_action": {
         "try_again": {
-          "label": "Try again",
-          "accessibility_label": "Try Again Button"
+          "label": "Réessayez",
+          "accessibility_label": "Réessayez le bouton"
         }
       }
     },
     "success": {
-      "title": "Great!",
-      "description": "The alias {{alias}} is now yours.",
+      "title": "Super !",
+      "description": "L'alias {{alias}} est maintenant à vous.",
       "call_to_action": {
         "go_back": {
-          "label": "Go back",
-          "accessibility_label": "Go Back Button"
+          "label": "Revenir en arrière",
+          "accessibility_label": "Bouton de retour"
         }
       }
     }
@@ -820,8 +820,8 @@
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "Choisir des membres",
+        "description": "Tapez les noms\ndes personnes pour rejoindre la nouvelle conversation"
       },
       "none_to_choose": {
         "title": "Personne",
@@ -834,20 +834,20 @@
   },
   "search": {
     "query_input": {
-      "placeholder": "Search public posts",
-      "accessibility_label": "Search Query Text Input"
+      "placeholder": "Rechercher dans les messages publics",
+      "accessibility_label": "Texte de requête de recherche"
     },
     "clear_query": {
-      "accessibility_label": "Reset the Search Query Text Input"
+      "accessibility_label": "Réinitialiser la saisie du texte de la requête de recherche"
     },
     "empty": {
       "initial": {
-        "title": "Search something",
+        "title": "Chercher quelque chose",
         "description": "Attendez pendant que l'application\ntente de se connecter à vos pairs"
       },
       "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
+        "title": "Aucun résultat",
+        "description": "Aucun résultat pour \"{{query}}\""
       }
     }
   },
@@ -1067,19 +1067,19 @@
     },
     "audio": {
       "play": {
-        "accessibility_label": "Play audio"
+        "accessibility_label": "Jouer l'audio"
       },
       "pause": {
-        "accessibility_label": "Pause audio"
+        "accessibility_label": "Mettre en pause l'audio"
       },
       "duration": {
-        "accessibility_label": "Audio duration"
+        "accessibility_label": "Durée de l'audio"
       },
       "elapsed": {
-        "accessibility_label": "Audio current time"
+        "accessibility_label": "Heure actuelle de l'audio"
       },
       "slider": {
-        "accessibility_label": "Change audio time"
+        "accessibility_label": "Changer l'heure de l'audio"
       }
     },
     "content_warning": {
