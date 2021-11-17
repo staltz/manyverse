@@ -1054,7 +1054,8 @@
         "activities": "Δραστηριότητες",
         "travel_and_places": "Ταξίδια και μέρη",
         "objects": "Αντικείμενα",
-        "symbols": "Σύμβολα"
+        "symbols": "Σύμβολα",
+        "flags": "Flags"
       },
       "show_more": {
         "accessibility_label": "Εμφάνιση περισσότερων επιλογών αντίδρασης"

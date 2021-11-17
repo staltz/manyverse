@@ -1054,7 +1054,8 @@
         "activities": "활동",
         "travel_and_places": "여행 및 지역",
         "objects": "사물",
-        "symbols": "심볼"
+        "symbols": "심볼",
+        "flags": "Flags"
       },
       "show_more": {
         "accessibility_label": "반응 추가 옵션"

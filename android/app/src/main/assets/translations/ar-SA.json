@@ -1054,7 +1054,8 @@
         "activities": "الأنشطة",
         "travel_and_places": "السفر والمواقع",
         "objects": "الأشياء",
-        "symbols": "الرموز"
+        "symbols": "الرموز",
+        "flags": "Flags"
       },
       "show_more": {
         "accessibility_label": "اعرض مزيدا من خيارات التفاعل"

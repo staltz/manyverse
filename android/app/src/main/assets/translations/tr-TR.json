@@ -1054,7 +1054,8 @@
         "activities": "Aktiviteler",
         "travel_and_places": "Seyahat ve yerler",
         "objects": "Objeler",
-        "symbols": "Semboller"
+        "symbols": "Semboller",
+        "flags": "Flags"
       },
       "show_more": {
         "accessibility_label": "Daha fazla emoji seçeneği göster"

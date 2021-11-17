@@ -1054,7 +1054,8 @@
         "activities": "Активність",
         "travel_and_places": "Подорожі і місця",
         "objects": "Обʼєкти",
-        "symbols": "Знаки"
+        "symbols": "Знаки",
+        "flags": "Flags"
       },
       "show_more": {
         "accessibility_label": "Show More Reaction Options"

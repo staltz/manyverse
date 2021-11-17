@@ -1054,7 +1054,8 @@
         "activities": "Activiteiten",
         "travel_and_places": "Reizen en plaatsen",
         "objects": "Objecten",
-        "symbols": "Symbolen"
+        "symbols": "Symbolen",
+        "flags": "Flags"
       },
       "show_more": {
         "accessibility_label": "Laat meer reactie opties zien"

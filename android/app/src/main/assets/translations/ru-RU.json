@@ -1054,7 +1054,8 @@
         "activities": "Активность",
         "travel_and_places": "Путешествия и места",
         "objects": "Объекты",
-        "symbols": "Символы"
+        "symbols": "Символы",
+        "flags": "Flags"
       },
       "show_more": {
         "accessibility_label": "Показать больше вариантов реакции"

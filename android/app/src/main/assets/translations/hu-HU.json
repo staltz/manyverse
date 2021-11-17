@@ -1054,7 +1054,8 @@
         "activities": "Activities",
         "travel_and_places": "Utazás és helyek",
         "objects": "Tárgyak",
-        "symbols": "Szimbólumok"
+        "symbols": "Szimbólumok",
+        "flags": "Flags"
       },
       "show_more": {
         "accessibility_label": "Show More Reaction Options"

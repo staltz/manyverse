@@ -1054,7 +1054,8 @@
         "activities": "Aktivity",
         "travel_and_places": "Travel and places",
         "objects": "Objekty",
-        "symbols": "Symboly"
+        "symbols": "Symboly",
+        "flags": "Flags"
       },
       "show_more": {
         "accessibility_label": "Show More Reaction Options"
