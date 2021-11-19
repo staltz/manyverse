@@ -148,18 +148,11 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         isVisible,
         selfFeedId,
         selfAvatarUrl,
-        bluetoothEnabled: false,
-        lanEnabled: false,
-        internetEnabled: false,
-        bluetoothLastScanned: 0,
         peers: [],
         rooms: [],
         stagedPeers: [],
         timestampPeersAndRooms: 0,
         timestampStagedPeers: 0,
-        timestampPeerStates: 0,
-        itemMenu: {opened: false, type: 'conn'},
-        latestInviteMenuTarget: void 0,
       };
     }
   },

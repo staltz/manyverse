@@ -13,9 +13,9 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {t} from '../../../../drivers/localization';
-import {Palette} from '../../../../global-styles/palette';
-import {Dimensions} from '../../../../global-styles/dimens';
+import {t} from '../../../drivers/localization';
+import {Palette} from '../../../global-styles/palette';
+import {Dimensions} from '../../../global-styles/dimens';
 import {State} from '../model';
 import {styles} from './styles';
 

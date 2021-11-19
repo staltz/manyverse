@@ -82,10 +82,7 @@ class MobileTabsBar extends Component<State> {
   public render() {
     const {currentTab, connectionsTab: connTab} = this.props;
 
-    const online =
-      connTab?.bluetoothEnabled ||
-      connTab?.lanEnabled ||
-      connTab?.internetEnabled;
+    const online = true;
     const numConnected = (connTab?.peers ?? []).filter(
       (p) => p[1].state === 'connected',
     ).length;

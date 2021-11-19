@@ -5,9 +5,9 @@
 import {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {Platform} from 'react-native';
-import {DialogSource, PickerItem} from '../../../drivers/dialogs';
-import {t} from '../../../drivers/localization';
-import {Palette} from '../../../global-styles/palette';
+import {DialogSource, PickerItem} from '../../drivers/dialogs';
+import {t} from '../../drivers/localization';
+import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 
 export type MenuChoice =
@@ -144,7 +144,6 @@ export default function connDialogs(
   state$: Stream<State>,
 ) {
   const connDialog$ = state$
-    .filter((state) => state.isVisible)
     .map((x) => {
       // These options could have been created at module `require` time,
       // but that would be a problem to fetch the localization strings t()

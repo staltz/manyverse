@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {PeerKV, StagedPeerKV} from '../../../../../ssb/types';
-import {t} from '../../../../../drivers/localization';
+import {PeerKV, StagedPeerKV} from '../../../../ssb/types';
+import {t} from '../../../../drivers/localization';
 
 type KV = PeerKV | StagedPeerKV;
 

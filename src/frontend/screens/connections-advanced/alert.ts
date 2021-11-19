@@ -3,9 +3,9 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Command as AlertCommand} from '../../../drivers/dialogs';
-import {t} from '../../../drivers/localization';
-import {Palette} from '../../../global-styles/palette';
+import {Command as AlertCommand} from '../../drivers/dialogs';
+import {t} from '../../drivers/localization';
+import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 
 export type Actions = {

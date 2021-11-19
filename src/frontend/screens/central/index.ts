@@ -8,7 +8,6 @@ import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
-import {SharedContent} from 'cycle-native-share';
 import {
   AsyncStorageSource,
   Command as StorageCommand,
@@ -19,7 +18,7 @@ import {State as AppState} from '../../drivers/appstate';
 import {NetworkSource} from '../../drivers/network';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {GlobalEvent} from '../../drivers/eventbus';
-import {Command as AlertCommand, DialogSource} from '../../drivers/dialogs';
+import {DialogSource} from '../../drivers/dialogs';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {privateTab, Sinks as PrivateTabSinks} from './private-tab/index';
 import {activityTab, Sinks as ActivityTabSinks} from './activity-tab/index';
@@ -40,7 +39,7 @@ import model, {
 import view from './view';
 import navigation from './navigation';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   globalEventBus: Stream<GlobalEvent>;
@@ -50,22 +49,19 @@ export type Sources = {
   state: StateSource<State>;
   dialog: DialogSource;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   asyncstorage: Stream<StorageCommand>;
-  dialog: Stream<AlertCommand>;
   state: Stream<Reducer<any>>;
   ssb: Stream<Req>;
   clipboard: Stream<string>;
-  linking: Stream<string>;
   toast: Stream<Toast>;
-  share: Stream<SharedContent>;
   globalEventBus: Stream<GlobalEvent>;
   exit: Stream<any>;
-};
+}
 
 export const navOptions = {
   topBar: {
@@ -174,9 +170,9 @@ export function central(sources: Sources): Sinks {
     connectionsTabSinks.screen,
   );
 
-  const toast$ = xs.merge(publicTabSinks.toast, connectionsTabSinks.toast);
+  const toast$ = xs.merge(publicTabSinks.toast);
 
-  const ssb$ = xs.merge(publicTabSinks.ssb, connectionsTabSinks.ssb);
+  const ssb$ = xs.merge(publicTabSinks.ssb);
 
   const storageCommand$ = publicTabSinks.asyncstorage;
 
@@ -235,12 +231,9 @@ export function central(sources: Sources): Sinks {
     state: reducer$,
     navigation: command$,
     asyncstorage: storageCommand$,
-    dialog: connectionsTabSinks.dialog,
     ssb: ssb$,
-    linking: connectionsTabSinks.linking,
     clipboard: publicTabSinks.clipboard,
     toast: toast$,
-    share: connectionsTabSinks.share,
     globalEventBus: globalEvent$,
     exit: actions.exitApp$,
   };

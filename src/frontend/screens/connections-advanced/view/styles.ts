@@ -3,34 +3,40 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet} from 'react-native';
-import {Dimensions as Dimens} from '../../../../global-styles/dimens';
-import {Palette} from '../../../../global-styles/palette';
-import {Typography} from '../../../../global-styles/typography';
+import {Dimensions} from '../../../global-styles/dimens';
+import {Palette} from '../../../global-styles/palette';
+import {Typography} from '../../../global-styles/typography';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: Palette.voidMain,
-    marginTop: Dimens.toolbarHeight, // for the topBar
-    alignSelf: 'stretch',
     flex: 1,
+    alignSelf: 'stretch',
+    backgroundColor: Palette.voidMain,
+    flexDirection: 'column',
   },
 
   containerInner: {
-    paddingBottom: Dimens.verticalSpaceNormal,
+    paddingBottom: Dimensions.verticalSpaceNormal,
     minHeight: 400,
+  },
+
+  desktopFabContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: Dimensions.desktopSideWidth.vw,
   },
 
   modesContainer: {
     alignSelf: 'stretch',
     backgroundColor: Palette.backgroundText,
-    paddingVertical: Dimens.verticalSpaceBig,
-    paddingHorizontal: Dimens.horizontalSpaceBig,
+    paddingVertical: Dimensions.verticalSpaceBig,
+    paddingHorizontal: Dimensions.horizontalSpaceBig,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
     ...Platform.select({
       web: {
-        maxWidth: Dimens.desktopMiddleWidth.vw,
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
       },
     }),
   },
@@ -51,27 +57,27 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: -1,
     top:
-      Dimens.toolbarHeight /* approximately the modesContainer height */ +
-      Dimens.verticalSpaceLarger,
+      Dimensions.toolbarHeight /* approximately the modesContainer height */ +
+      Dimensions.verticalSpaceLarger,
     left: 0,
     right: 0,
     bottom: 0,
   },
 
   emptySection: {
-    marginTop: Dimens.verticalSpaceLarger,
+    marginTop: Dimensions.verticalSpaceLarger,
   },
 
   menuOptionContent: {
-    paddingHorizontal: Dimens.horizontalSpaceBig,
-    paddingVertical: Dimens.verticalSpaceBig,
+    paddingHorizontal: Dimensions.horizontalSpaceBig,
+    paddingVertical: Dimensions.verticalSpaceBig,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
 
   menuOptionContentText: {
-    marginLeft: Dimens.horizontalSpaceBig,
+    marginLeft: Dimensions.horizontalSpaceBig,
     color: Palette.colors.comet6,
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,

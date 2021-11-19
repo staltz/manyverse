@@ -35,6 +35,7 @@ import {dialogAbout} from './screens/dialog-about';
 import {dialogThanks} from './screens/dialog-thanks';
 import {compose} from './screens/compose';
 import {composeAudio} from './screens/compose-audio';
+import {connections} from './screens/connections-advanced';
 import {search} from './screens/search';
 import {thread} from './screens/thread';
 import {conversation} from './screens/conversation';
@@ -77,10 +78,9 @@ export const drivers = {
   exit: makeExitDriver(),
 };
 
-type AcceptableSinks = MoreScreenSinks &
-  {
-    [k in keyof typeof drivers]?: Parameters<typeof drivers[k]>[0];
-  };
+type AcceptableSinks = MoreScreenSinks & {
+  [k in keyof typeof drivers]?: Parameters<typeof drivers[k]>[0];
+};
 
 type ScreensMapping = {
   [GlobalScreen]?: (so: any) => AcceptableSinks;
@@ -97,6 +97,7 @@ export const screens: ScreensMapping = {
   [Screens.DialogThanks]: dialogThanks,
   [Screens.Compose]: withState(compose),
   [Screens.ComposeAudio]: withState(composeAudio),
+  [Screens.ConnectionsAdvanced]: withState(connections),
   [Screens.Search]: withState(search),
   [Screens.Thread]: withState(thread),
   [Screens.Conversation]: withState(conversation),

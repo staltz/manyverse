@@ -13,11 +13,11 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Palette} from '../../../../../global-styles/palette';
-import {Dimensions} from '../../../../../global-styles/dimens';
-import {Typography} from '../../../../../global-styles/typography';
-import Avatar from '../../../../../components/Avatar';
-import {PeerKV} from '../../../../../ssb/types';
+import {Palette} from '../../../../global-styles/palette';
+import {Dimensions} from '../../../../global-styles/dimens';
+import {Typography} from '../../../../global-styles/typography';
+import Avatar from '../../../../components/Avatar';
+import {PeerKV} from '../../../../ssb/types';
 import {peerModeName, peerModeIcon, peerModeDescription} from './utils';
 
 const dotStyle: ViewStyle = {

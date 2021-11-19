@@ -3,17 +3,17 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Req} from '../../../drivers/ssb';
-import {StagedPeerKV} from '../../../ssb/types';
+import {Req} from '../../drivers/ssb';
+import {StagedPeerKV} from '../../ssb/types';
 
-export type Actions = {
+export interface Actions {
   bluetoothSearch$: Stream<any>;
   connectPeer$: Stream<StagedPeerKV>;
   disconnectPeer$: Stream<string>;
   disconnectForgetPeer$: Stream<string>;
   forgetPeer$: Stream<string>;
   pingConnectivityModes$: Stream<any>;
-};
+}
 
 export default function ssb(actions: Actions) {
   return xs.merge(

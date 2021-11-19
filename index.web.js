@@ -31,6 +31,7 @@ import {recipientsInput} from './lib/frontend/screens/recipients-input';
 import {pasteInvite} from './lib/frontend/screens/invite-paste';
 import {profile} from './lib/frontend/screens/profile';
 import {biography} from './lib/frontend/screens/biography';
+import {connections} from './lib/frontend/screens/connections-advanced';
 import {editProfile} from './lib/frontend/screens/profile-edit';
 import {manageAliases} from './lib/frontend/screens/alias-manage';
 import {registerAlias} from './lib/frontend/screens/alias-register';
@@ -100,6 +101,7 @@ function startCycleApp() {
     [Screens.Central]: withState(central),
     [Screens.Compose]: withState(compose),
     // [Screens.ComposeAudio]: withState(composeAudio),
+    [Screens.ConnectionsAdvanced]: withState(connections),
     [Screens.Search]: withState(search),
     [Screens.Thread]: withState(thread),
     [Screens.Conversation]: withState(conversation),

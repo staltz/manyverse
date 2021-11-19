@@ -3,10 +3,10 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {DialogSource} from '../../../drivers/dialogs';
-import {t} from '../../../drivers/localization';
-import {Palette} from '../../../global-styles/palette';
-import {PeerKV} from '../../../ssb/types';
+import {DialogSource} from '../../drivers/dialogs';
+import {t} from '../../drivers/localization';
+import {Palette} from '../../global-styles/palette';
+import {PeerKV} from '../../ssb/types';
 const Ref = require('ssb-ref');
 
 export type Actions = {
