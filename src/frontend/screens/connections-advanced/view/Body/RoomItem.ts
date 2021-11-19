@@ -46,8 +46,9 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     paddingVertical: Dimensions.verticalSpaceBig,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 1,
+    flex: 1,
   },
 
   connectedDot: {
@@ -63,18 +64,6 @@ export const styles = StyleSheet.create({
   disconnectingDot: {
     ...dotStyle,
     backgroundColor: Palette.backgroundPeerDisconnecting,
-  },
-
-  details: {
-    flexDirection: 'column',
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'space-around',
-  },
-
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
 
   name: {
@@ -153,43 +142,39 @@ export default class RoomItem extends Component<{
       },
       [
         h(View, {style: styles.item, pointerEvents: 'box-only'}, [
-          h(View, {style: styles.details}, [
-            h(View, {style: styles.row}, [
-              h(View, {
-                style:
-                  data.state === 'connected'
-                    ? styles.connectedDot
-                    : data.state === 'disconnecting'
-                    ? styles.disconnectingDot
-                    : styles.connectingDot,
-              }),
-              h(Icon, {
-                size: Dimensions.iconSizeSmall,
-                color: Palette.textWeak,
-                name: peerModeIcon(data as any),
-              }),
-              h(
+          h(View, {
+            style:
+              data.state === 'connected'
+                ? styles.connectedDot
+                : data.state === 'disconnecting'
+                ? styles.disconnectingDot
+                : styles.connectingDot,
+          }),
+          h(Icon, {
+            size: Dimensions.iconSizeSmall,
+            color: Palette.textWeak,
+            name: peerModeIcon(data as any),
+          }),
+          h(
+            Text,
+            {
+              numberOfLines: 1,
+              ellipsizeMode: 'tail',
+              style: styles.name,
+            },
+            peerModeName(addr, data),
+          ),
+          typeof data.onlineCount === 'number'
+            ? h(
                 Text,
-                {
-                  numberOfLines: 1,
-                  ellipsizeMode: 'tail',
-                  style: styles.name,
-                },
-                peerModeName(addr, data),
-              ),
-              typeof data.onlineCount === 'number'
-                ? h(
-                    Text,
-                    {style: styles.onlineCount},
-                    data.onlineCount <= 1
-                      ? t('connections.peers.types.room.alone_online')
-                      : t('connections.peers.types.room.others_online', {
-                          count: data.onlineCount - 1,
-                        }),
-                  )
-                : null,
-            ]),
-          ]),
+                {style: styles.onlineCount},
+                data.onlineCount <= 1
+                  ? t('connections.peers.types.room.alone_online')
+                  : t('connections.peers.types.room.others_online', {
+                      count: data.onlineCount - 1,
+                    }),
+              )
+            : null,
         ]),
       ],
     );
