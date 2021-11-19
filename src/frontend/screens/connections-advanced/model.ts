@@ -86,7 +86,6 @@ export default function model(
   const propsReducer$ = props$.take(1).map(
     (props) =>
       function propsReducer(_prev?: State): State {
-        console.log('propsReducer', props);
         return {
           selfFeedId: props.selfFeedId,
           selfAvatarUrl: props.selfAvatarUrl,
