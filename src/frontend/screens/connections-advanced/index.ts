@@ -44,7 +44,6 @@ export interface Sinks {
   linking: Stream<string>;
   share: Stream<SharedContent>;
   toast: Stream<Toast>;
-  exit: Stream<any>;
 }
 
 export function connections(sources: Sources): Sinks {
@@ -108,6 +107,5 @@ export function connections(sources: Sources): Sinks {
     linking: signInToRoom$,
     share: share$,
     toast: inviteToast$,
-    exit: actionsPlus.goBack$,
   };
 }
