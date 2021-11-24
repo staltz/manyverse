@@ -12,7 +12,6 @@ export interface Actions {
   disconnectPeer$: Stream<string>;
   disconnectForgetPeer$: Stream<string>;
   forgetPeer$: Stream<string>;
-  pingConnectivityModes$: Stream<any>;
 }
 
 export default function ssb(actions: Actions) {

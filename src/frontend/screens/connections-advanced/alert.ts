@@ -8,11 +8,11 @@ import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {State} from './model';
 
-export type Actions = {
+export interface Actions {
   showBluetoothHelp$: Stream<any>;
   showLANHelp$: Stream<any>;
   showPubHelp$: Stream<any>;
-};
+}
 
 export default function alert(
   actions: Actions,
