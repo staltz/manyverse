@@ -9,9 +9,9 @@ import {Palette} from '../../global-styles/palette';
 import {PeerKV} from '../../ssb/types';
 const Ref = require('ssb-ref');
 
-export type Actions = {
+export interface Actions {
   signInRoom$: Stream<PeerKV>;
-};
+}
 
 export default function dialog(actions: Actions, dialogSource: DialogSource) {
   // Client-initiated SSB HTTP Auth
