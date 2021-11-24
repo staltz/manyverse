@@ -8,6 +8,7 @@ interface Channel {
 }
 let channel: Channel;
 
+// Setup Channel
 if (process.env.MANYVERSE_PLATFORM === 'mobile') {
   const rnBridge = require('rn-bridge');
   channel = {
@@ -40,6 +41,11 @@ if (process.env.MANYVERSE_PLATFORM === 'mobile') {
       }
     },
   };
+}
+
+// Install Desktop backend plugins
+if (process.env.MANYVERSE_PLATFORM === 'desktop') {
+  require('./plugins/electron/wifi-is-enabled');
 }
 
 // Setup initial communication with the frontend, to create or restore identity

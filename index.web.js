@@ -14,6 +14,7 @@ import {ssbDriver} from './lib/frontend/drivers/ssb';
 import {linkingDriver} from 'cycle-native-linking';
 import {makeClipboardDriver} from 'cycle-native-clipboard';
 import {makeFSDriver} from './lib/frontend/drivers/fs';
+import {makeNetworkDriver} from './lib/frontend/drivers/network';
 import {makeEventBusDriver} from './lib/frontend/drivers/eventbus';
 import {dialogDriver} from './lib/frontend/drivers/dialogs';
 import {makeActivityLifecycleDriver} from './lib/frontend/drivers/lifecycle';
@@ -73,11 +74,7 @@ function startCycleApp() {
     ssb: ssbDriver,
     fs: makeFSDriver(),
     lifecycle: makeActivityLifecycleDriver(),
-    network: () => ({
-      bluetoothIsEnabled: () => xs.of(false),
-      wifiIsEnabled: () => xs.of(true),
-      hasInternetConnection: () => xs.of(true),
-    }),
+    network: makeNetworkDriver(),
     appstate: () => xs.of('active'),
     orientation: () =>
       makeWindowSizeDriver()(xs.never).map(({width, height}) =>
