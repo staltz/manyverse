@@ -71,11 +71,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   title?: string;
   onPressBack?: () => void;
   style?: StyleProp<ViewStyle>;
-};
+}
 
 export default class TopBar extends PureComponent<Props> {
   constructor(props: Props) {
