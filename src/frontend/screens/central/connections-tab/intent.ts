@@ -8,12 +8,12 @@ import {NavSource} from 'cycle-native-navigation';
 export default function intent(reactSource: ReactSource, navSource: NavSource) {
   const goBack$ = navSource.backPress();
 
-  const goToConnectionsAdvanced$ = reactSource
-    .select('connections-advanced')
+  const goToConnectionsPanel$ = reactSource
+    .select('connections-panel')
     .events('press');
 
   return {
-    goToConnectionsAdvanced$,
+    goToConnectionsPanel$,
     goBack$,
   };
 }

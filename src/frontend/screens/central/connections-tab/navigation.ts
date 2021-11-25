@@ -6,19 +6,19 @@ import {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '../../enums';
-import {navOptions as connectionsScreenNavOpts} from '../../connections-advanced/layout';
-import {Props as ConnAdvancedProps} from '../../connections-advanced/props';
+import {navOptions as connectionsScreenNavOpts} from '../../connections-panel/layout';
+import {Props as ConnPanelProps} from '../../connections-panel/props';
 import {State} from './model';
 
 export interface Actions {
-  goToConnectionsAdvanced$: Stream<any>;
+  goToConnectionsPanel$: Stream<any>;
 }
 
 export default function navigation(
   actions: Actions,
   state$: Stream<State>,
 ): Stream<Command> {
-  const toConnectionsAdvanced$ = actions.goToConnectionsAdvanced$
+  const toConnectionsPanel$ = actions.goToConnectionsPanel$
     .compose(sample(state$))
     .map(
       (state) =>
@@ -26,19 +26,19 @@ export default function navigation(
           type: 'push',
           layout: {
             component: {
-              name: Screens.ConnectionsAdvanced,
+              name: Screens.ConnectionsPanel,
               passProps: {
                 selfFeedId: state.selfFeedId,
                 selfAvatarUrl: state.selfAvatarUrl,
                 peers: state.peers,
                 rooms: state.rooms,
                 stagedPeers: state.stagedPeers,
-              } as ConnAdvancedProps,
+              } as ConnPanelProps,
               options: connectionsScreenNavOpts,
             },
           },
         } as Command),
     );
 
-  return toConnectionsAdvanced$;
+  return toConnectionsPanel$;
 }

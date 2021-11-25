@@ -46,7 +46,7 @@ export interface Sinks {
   toast: Stream<Toast>;
 }
 
-export function connections(sources: Sources): Sinks {
+export function connectionsPanel(sources: Sources): Sinks {
   const connDialogActions = connDialogs(sources.dialog, sources.state.stream);
   const actions = intent(
     sources.screen,

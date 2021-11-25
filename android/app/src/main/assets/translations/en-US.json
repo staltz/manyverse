@@ -167,7 +167,7 @@
       "public": "Public posts",
       "private": "Private chats",
       "activity": "Activity",
-      "connections": "Connections"
+      "connections": "Connected peers"
     },
     "tab_footers": {
       "public": "Public",
@@ -257,6 +257,7 @@
     }
   },
   "connections": {
+    "title": "Connections Panel",
     "floating_action_button": {
       "create_invite": "Create invite",
       "paste_invite": "Paste invite",

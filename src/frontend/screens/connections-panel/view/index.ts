@@ -74,7 +74,7 @@ export default function view(state$: Stream<State>) {
     )
     .map((state) => {
       return h(View, {style: styles.container}, [
-        h(TopBar, {sel: 'topbar', title: t('central.tab_headers.connections')}),
+        h(TopBar, {sel: 'topbar', title: t('connections.title')}),
         h(
           ScrollView,
           {
