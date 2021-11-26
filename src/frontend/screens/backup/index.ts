@@ -173,7 +173,7 @@ export function backup(sources: Sources): Sinks {
             show: state.index >= 1,
             portraitMode: state.isPortraitMode,
             image: getImg(require('../../../../images/noun-books.png')),
-            title: 'Data',
+            title: t('backup.data.title'),
             renderDescription: () => [
               t('backup.data.description.1_normal'),
               bold(t('backup.data.description.2_bold')),
