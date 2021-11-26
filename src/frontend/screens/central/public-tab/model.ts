@@ -10,7 +10,7 @@ import {SSBSource, GetReadable} from '../../../drivers/ssb';
 import {ThreadSummaryWithExtras} from '../../../ssb/types';
 import {Animated} from 'react-native';
 
-export type State = {
+export interface State {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
   selfAvatarUrl?: string;
@@ -20,12 +20,12 @@ export type State = {
   isVisible: boolean;
   canPublishSSB: boolean;
   scrollHeaderBy: Animated.Value;
-};
+}
 
-export type Actions = {
+export interface Actions {
   refreshFeed$: Stream<any>;
   refreshComposeDraft$: Stream<any>;
-};
+}
 
 export default function model(
   actions: Actions,
