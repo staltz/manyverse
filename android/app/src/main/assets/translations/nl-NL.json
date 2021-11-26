@@ -167,7 +167,7 @@
       "public": "Publiek bord",
       "private": "Privé berichten",
       "activity": "Activity",
-      "connections": "Verbindingen"
+      "connections": "Connected peers"
     },
     "tab_footers": {
       "public": "Publiek",
@@ -257,11 +257,13 @@
     }
   },
   "connections": {
+    "title": "Connections Panel",
     "floating_action_button": {
       "create_invite": "Maak een uitnodiging",
       "paste_invite": "Plak uitnodiging",
       "bluetooth_seek": "Bluetooth zoeken"
     },
+    "open_connections_panel": "Open Connections Panel",
     "empty": {
       "offline": {
         "title": "Offline",
@@ -274,6 +276,34 @@
       "no_peers": {
         "title": "Geen verbindingen",
         "description": "Probeer te synchroniseren met mensen in de buurt van\nof gebruik een server uitnodigingscode"
+      }
+    },
+    "scenarios": {
+      "offline": "Offline",
+      "not_connected": "Not connected",
+      "few_connections": "Too few connections",
+      "many_connections": "Well connected"
+    },
+    "scenario_descriptions": {
+      "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
+      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
+      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
+      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
+      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
+      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
+      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+    },
+    "recommendations": {
+      "consume_invite": "How to get an invite",
+      "follow_staged_manually": "Follow someone new",
+      "host_ssb_room": "How to host a room server",
+      "others": "Other choices"
+    },
+    "recommendation_descriptions": {
+      "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
+      "follow_staged_manually": {
+        "part1": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",
+        "part2": "On the next screen, you will see unknown peers displayed like this. Press one of them and choose \"Open Profile\", then \"Follow\"."
       }
     },
     "toasts": {
