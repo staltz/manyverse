@@ -51,6 +51,7 @@ import {accounts} from './screens/accounts';
 import {rawDatabase} from './screens/raw-db';
 import {rawMessage} from './screens/raw-msg';
 import {backup} from './screens/backup';
+import {instructions} from './screens/instructions';
 import {secretOutput} from './screens/secret-output';
 import {secretInput} from './screens/secret-input';
 import {settings} from './screens/settings';
@@ -111,6 +112,7 @@ export const screens: ScreensMapping = {
   [Screens.Biography]: withState(biography),
   [Screens.Accounts]: withState(accounts),
   [Screens.Backup]: withState(backup),
+  [Screens.Instructions]: withState(instructions),
   [Screens.SecretOutput]: withState(secretOutput),
   [Screens.SecretInput]: withState(secretInput),
   [Screens.RawDatabase]: rawDatabase,

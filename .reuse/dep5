@@ -75,6 +75,10 @@ Files: images/bluetooth*.png
 Copyright: 2021 Google, Inc
 License: Apache-2.0
 
+Files: images/screenshot-staged-peers*.png
+Copyright: 2021 The Manyverse Authors
+License: CC-BY-SA-4.0
+
 Files: images/empty-avatar.png
 Copyright: 2021 The Manyverse Authors
 License: CC-BY-SA-4.0

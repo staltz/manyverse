@@ -41,6 +41,7 @@ import {search} from './lib/frontend/screens/search';
 import {thread} from './lib/frontend/screens/thread';
 import {accounts} from './lib/frontend/screens/accounts';
 import {backup} from './lib/frontend/screens/backup';
+import {instructions} from './lib/frontend/screens/instructions';
 import {secretOutput} from './lib/frontend/screens/secret-output';
 import {secretInput} from './lib/frontend/screens/secret-input';
 import {settings} from './lib/frontend/screens/settings';
@@ -112,6 +113,7 @@ function startCycleApp() {
     [Screens.AliasRegister]: withState(registerAlias),
     [Screens.Accounts]: withState(accounts),
     [Screens.Backup]: withState(backup),
+    [Screens.Instructions]: withState(instructions),
     [Screens.SecretOutput]: withState(secretOutput),
     [Screens.SecretInput]: withState(secretInput),
     [Screens.RawDatabase]: rawDatabase,

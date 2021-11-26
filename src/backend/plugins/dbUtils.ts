@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {ContactContent, Msg} from 'ssb-typescript';
+import {Callback} from './helpers/types';
 const pull = require('pull-stream');
 
 export = {
@@ -11,6 +12,7 @@ export = {
   manifest: {
     rawLogReversed: 'source',
     mentionsMe: 'source',
+    postsCount: 'async',
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
@@ -20,6 +22,7 @@ export = {
       allow: [
         'rawLogReversed',
         'mentionsMe',
+        'postsCount',
         'selfPublicRoots',
         'selfPublicReplies',
         'selfPrivateRootIdsLive',
@@ -43,7 +46,9 @@ export = {
       isPrivate,
       descending,
       paginate,
+      count,
       toPullStream,
+      toCallback,
     } = ssb.db.operators;
 
     const PAGESIZE = 50;
@@ -114,6 +119,14 @@ export = {
             return false;
           }),
           pull.map((msg: Msg) => (opts.live ? msg.key : msg)),
+        );
+      },
+
+      postsCount(cb: Callback<number>) {
+        ssb.db.query(
+          where(and(isPublic(), type('post'))),
+          count(),
+          toCallback(cb),
         );
       },
 

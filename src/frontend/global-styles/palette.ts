@@ -212,6 +212,7 @@ const textLine = isDarkTheme ? comet8 : comet2;
 const textBrand = isDarkTheme ? indigo4 : indigo7;
 const textPositive = isDarkTheme ? teal4 : teal7;
 const textNegative = red6;
+const textWarning = yellow8;
 const textDialog = isDarkTheme ? comet4 : comet6;
 const textDialogStrong = isDarkTheme ? comet2 : comet8;
 const textHacker = teal2;
@@ -264,6 +265,7 @@ export const Palette = {
   textBrand,
   textPositive,
   textNegative,
+  textWarning,
   textDialog,
   textDialogStrong,
   textHacker,

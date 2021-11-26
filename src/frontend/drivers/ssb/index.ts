@@ -91,36 +91,36 @@ export class SSBSource {
 
     this.selfFeedId$ = this.ssb$.map((ssb) => ssb.id).remember();
 
-    this.publicRawFeed$ = this.ssb$.map((ssb) => () =>
-      ssb.threadsUtils.publicRawFeed(),
+    this.publicRawFeed$ = this.ssb$.map(
+      (ssb) => () => ssb.threadsUtils.publicRawFeed(),
     );
 
-    this.publicFeed$ = this.ssb$.map((ssb) => (opts?: any) =>
-      ssb.threadsUtils.publicFeed(opts),
+    this.publicFeed$ = this.ssb$.map(
+      (ssb) => (opts?: any) => ssb.threadsUtils.publicFeed(opts),
     );
 
     this.publicLiveUpdates$ = this.fromPullStream((ssb) =>
       ssb.threadsUtils.publicUpdates(),
     ).mapTo(null);
 
-    this.privateFeed$ = this.ssb$.map((ssb) => (opts?: any) =>
-      ssb.threadsUtils.privateFeed(opts),
+    this.privateFeed$ = this.ssb$.map(
+      (ssb) => (opts?: any) => ssb.threadsUtils.privateFeed(opts),
     );
 
     this.privateLiveUpdates$ = this.fromPullStream<MsgId>((ssb) =>
       ssb.threadsUtils.privateUpdates(),
     );
 
-    this.mentionsFeed$ = this.ssb$.map((ssb) => () =>
-      ssb.threadsUtils.mentionsFeed(),
+    this.mentionsFeed$ = this.ssb$.map(
+      (ssb) => () => ssb.threadsUtils.mentionsFeed(),
     );
 
     this.mentionsFeedLive$ = this.fromPullStream<MsgId>((ssb) =>
       ssb.dbUtils.mentionsMe({live: true, old: false}),
     );
 
-    this.firewallAttempt$ = this.ssb$.map((ssb) => () =>
-      ssb.connFirewall.attempts({old: true, live: false}),
+    this.firewallAttempt$ = this.ssb$.map(
+      (ssb) => () => ssb.connFirewall.attempts({old: true, live: false}),
     );
 
     this.firewallAttemptLive$ = this.fromPullStream<FirewallAttempt>((ssb) =>
@@ -203,9 +203,13 @@ export class SSBSource {
   public profileFeed$(
     id: FeedId,
   ): Stream<GetReadable<ThreadSummaryWithExtras>> {
-    return this.ssb$.map((ssb) => (opts?: any) =>
-      ssb.threadsUtils.profileFeed(id, opts),
+    return this.ssb$.map(
+      (ssb) => (opts?: any) => ssb.threadsUtils.profileFeed(id, opts),
     );
+  }
+
+  public postsCount$() {
+    return this.fromCallback<number>((ssb, cb) => ssb.dbUtils.postsCount(cb));
   }
 
   public liteAboutReadable$(
@@ -427,8 +431,8 @@ export class SSBSource {
   public searchPublicPosts$(
     text: string,
   ): Stream<GetReadable<MsgAndExtras<PostContent>>> {
-    return this.ssb$.map((ssb) => () =>
-      ssb.threadsUtils.searchPublicPosts(text),
+    return this.ssb$.map(
+      (ssb) => () => ssb.threadsUtils.searchPublicPosts(text),
     );
   }
 

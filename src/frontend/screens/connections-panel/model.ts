@@ -216,9 +216,19 @@ export default function model(
   const setStagedPeersReducer$ = onlyWhileAppIsInForeground(appstate$, () =>
     ssbSource.stagedPeers$.compose(sampledEvery(2500)),
   ).map(
-    (stagedPeers) =>
+    (allStagedPeers) =>
       function setPeersReducer(prev: State): State {
-        return {...prev, stagedPeers, timestampStagedPeers: Date.now()};
+        const stagedPeers =
+          !prev.internetEnabled && prev.lanEnabled
+            ? allStagedPeers.filter(
+                (p) => p[1].type === 'lan' || p[1].type === 'bt',
+              )
+            : allStagedPeers;
+        return {
+          ...prev,
+          stagedPeers,
+          timestampStagedPeers: Date.now(),
+        };
       },
   );
 

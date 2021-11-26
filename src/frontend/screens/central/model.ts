@@ -23,6 +23,7 @@ export type State = {
   privateTab?: PrivateTabState;
   activityTab?: ActivityTabState;
   connectionsTab?: ConnectionsTabState;
+  initializedSSB: boolean;
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;
   numOfActivityUpdates: number;
@@ -65,6 +66,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         selfAvatarUrl,
         getPublicFeedReadable: null,
         numOfUpdates: parent.numOfPublicUpdates,
+        initializedSSB: parent.initializedSSB,
         hasComposeDraft: false,
         canPublishSSB,
         scrollHeaderBy: parent.scrollHeaderBy,
@@ -75,6 +77,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
   set: (parent: State, child: PublicTabState): State => {
     return {
       ...parent,
+      initializedSSB: child.initializedSSB,
       numOfPublicUpdates: child.numOfUpdates,
       lastSessionTimestamp: child.lastSessionTimestamp,
       publicTab: child,
@@ -148,9 +151,17 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         isVisible,
         selfFeedId,
         selfAvatarUrl,
+        internetEnabled: false,
+        lanEnabled: false,
+        initializedSSB: parent.initializedSSB,
+        postsCount: 0,
         peers: [],
         rooms: [],
         stagedPeers: [],
+        status: 'bad',
+        scenario: 'knows-no-one',
+        bestRecommendation: null,
+        otherRecommendations: '',
         timestampPeersAndRooms: 0,
         timestampStagedPeers: 0,
       };
@@ -186,6 +197,7 @@ export default function model(
         numOfPublicUpdates: 0,
         numOfPrivateUpdates: 0,
         numOfActivityUpdates: 0,
+        initializedSSB: false,
         migrationProgress: 0,
         indexingProgress: 0,
         scrollHeaderBy: new Animated.Value(0),

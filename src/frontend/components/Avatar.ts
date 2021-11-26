@@ -3,20 +3,44 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {h} from '@cycle/react';
-import {View, Image, StyleProp, ViewStyle} from 'react-native';
+import {View, Image, StyleProp, ViewStyle, StyleSheet} from 'react-native';
 import {PureComponent} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
 import {Dimensions} from '../global-styles/dimens';
 import {getImg} from '../global-styles/utils';
 
-export type Props = {
+const dotStyle: ViewStyle = {
+  position: 'absolute',
+  borderColor: Palette.backgroundText,
+  borderWidth: 1,
+};
+
+export const styles = StyleSheet.create({
+  connectedDot: {
+    ...dotStyle,
+    backgroundColor: Palette.backgroundPeerConnected,
+  },
+
+  connectingDot: {
+    ...dotStyle,
+    backgroundColor: Palette.backgroundPeerConnecting,
+  },
+
+  disconnectingDot: {
+    ...dotStyle,
+    backgroundColor: Palette.backgroundPeerDisconnecting,
+  },
+});
+
+export interface Props {
   size: number;
   url: string | null | undefined;
   backgroundColor?: string;
   overlayIcon?: string;
+  dot?: 'connected' | 'connecting' | 'disconnecting';
   style?: StyleProp<ViewStyle>;
-};
+}
 
 export default class Avatar extends PureComponent<Props> {
   private renderOverlayIcon(
@@ -43,8 +67,28 @@ export default class Avatar extends PureComponent<Props> {
     ]);
   }
 
+  private renderDot(dot: NonNullable<Props['dot']>, size: number) {
+    const s = {
+      width: 0.25 * size,
+      height: 0.25 * size,
+      bottom: 0.1 * size,
+      right: -0.025 * size,
+      borderRadius: 0.125 * size,
+    };
+    return h(View, {
+      style: [
+        s,
+        dot === 'connected'
+          ? styles.connectedDot
+          : dot === 'disconnecting'
+          ? styles.disconnectingDot
+          : styles.connectingDot,
+      ],
+    });
+  }
+
   public render() {
-    const {style, size, backgroundColor, url, overlayIcon} = this.props;
+    const {style, size, backgroundColor, url, overlayIcon, dot} = this.props;
     const borderRadius = size >> 1; // tslint:disable-line:no-bitwise
     const baseStyle = {
       height: size,
@@ -64,6 +108,7 @@ export default class Avatar extends PureComponent<Props> {
       overlayIcon
         ? this.renderOverlayIcon(size, borderRadius, overlayIcon)
         : null,
+      dot ? this.renderDot(dot, size) : null,
     ]);
   }
 }

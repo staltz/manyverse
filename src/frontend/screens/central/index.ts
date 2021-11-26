@@ -19,6 +19,7 @@ import {NetworkSource} from '../../drivers/network';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {GlobalEvent} from '../../drivers/eventbus';
 import {DialogSource} from '../../drivers/dialogs';
+import {WindowSize} from '../../drivers/window-size';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {privateTab, Sinks as PrivateTabSinks} from './private-tab/index';
 import {activityTab, Sinks as ActivityTabSinks} from './activity-tab/index';
@@ -49,6 +50,7 @@ export interface Sources {
   state: StateSource<State>;
   dialog: DialogSource;
   ssb: SSBSource;
+  windowSize: Stream<WindowSize>;
 }
 
 export interface Sinks {
@@ -57,6 +59,7 @@ export interface Sinks {
   asyncstorage: Stream<StorageCommand>;
   state: Stream<Reducer<any>>;
   ssb: Stream<Req>;
+  linking: Stream<string>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
   globalEventBus: Stream<GlobalEvent>;
@@ -234,6 +237,7 @@ export function central(sources: Sources): Sinks {
     ssb: ssb$,
     clipboard: publicTabSinks.clipboard,
     toast: toast$,
+    linking: connectionsTabSinks.linking,
     globalEventBus: globalEvent$,
     exit: actions.exitApp$,
   };

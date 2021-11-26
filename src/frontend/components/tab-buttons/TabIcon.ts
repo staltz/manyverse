@@ -97,11 +97,13 @@ export default class TabIcon extends PureComponent<{
   iconName: string;
   label: string;
   style?: StyleProp<ViewStyle>;
+  iconColorOverride?: string;
   onPress?: () => {};
   renderIconExtras?: (visualState?: any) => ReactElement<any> | null;
 }> {
   private renderInternals(visualState?: any) {
-    const {isSelected, iconName, renderIconExtras, label} = this.props;
+    const {isSelected, iconName, renderIconExtras, label, iconColorOverride} =
+      this.props;
 
     const textStyle = isSelected
       ? styles.tabButtonTextSelected
@@ -113,6 +115,7 @@ export default class TabIcon extends PureComponent<{
           key: 'x',
           name: iconName,
           ...(isSelected ? iconProps.tabSelected : iconProps.tab),
+          ...(iconColorOverride ? {color: iconColorOverride} : null),
           style: styles.icon,
         }),
         renderIconExtras?.(visualState),

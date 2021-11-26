@@ -76,17 +76,16 @@ class MobileTabsBar extends Component<State> {
     if (nextProps.connectionsTab !== prevProps.connectionsTab) {
       return true;
     }
+    if (nextProps.initializedSSB !== prevProps.initializedSSB) {
+      return true;
+    }
     return false;
   }
 
   public render() {
-    const {currentTab, connectionsTab: connTab} = this.props;
+    const {currentTab, connectionsTab, initializedSSB} = this.props;
 
-    const online = true;
-    const numConnected = (connTab?.peers ?? []).filter(
-      (p) => p[1].state === 'connected',
-    ).length;
-    const numStaged = (connTab?.stagedPeers ?? []).length;
+    const status = connectionsTab?.status ?? 'bad';
 
     return h(View, {style: styles.tabBar}, [
       h(PublicTabIcon, {
@@ -103,9 +102,8 @@ class MobileTabsBar extends Component<State> {
       }),
       h(ConnectionsTabIcon, {
         isSelected: currentTab === 'connections',
-        offline: !online,
-        numConnected,
-        numStaged,
+        status,
+        allowWarningColors: initializedSSB,
       }),
     ]);
   }

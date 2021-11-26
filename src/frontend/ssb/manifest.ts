@@ -170,6 +170,7 @@ export default {
   dbUtils: {
     rawLogReversed: 'source',
     mentionsMe: 'source',
+    postsCount: 'async',
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',

@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
 
 export interface Props {
   scrollBy$?: Stream<[/* offset */ number, /* animated */ boolean]>;
+  showDots?: boolean;
 }
 
 export default function tutorialPresentation(
@@ -32,6 +33,7 @@ export default function tutorialPresentation(
   props: Props | null,
   children: Array<ReactElement | null>,
 ) {
+  const showDots = props?.showDots ?? true;
   return h(View, {style: styles.container}, [
     h(
       Swiper,
@@ -41,7 +43,8 @@ export default function tutorialPresentation(
         horizontal: true,
         loop: false,
         scrollBy$: props?.scrollBy$ ?? xs.never(),
-        activeDotColor: Palette.colors.white,
+        dotColor: showDots ? Palette.transparencyDark : Palette.brandMain,
+        activeDotColor: showDots ? Palette.colors.white : Palette.brandMain,
         automaticallyAdjustContentInsets: true,
       },
       children.filter((x) => !!x),

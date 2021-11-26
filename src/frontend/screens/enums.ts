@@ -24,6 +24,7 @@ export enum Screens {
   Biography = 'Manyverse.Biography',
   Accounts = 'Manyverse.Accounts',
   Backup = 'Manyverse.Backup',
+  Instructions = 'Manyverse.Instructions',
   SecretOutput = 'Manyverse.SecretOutput',
   SecretInput = 'Manyverse.SecretInput',
   RawDatabase = 'Manyverse.RawDatabase',

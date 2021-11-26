@@ -25,11 +25,11 @@ export interface State extends ProgressState {
   name?: string;
   currentTab: 'public' | 'private' | 'activity' | 'connections';
   connections?: {
-    lanEnabled: boolean;
-    bluetoothEnabled: boolean;
-    internetEnabled: boolean;
+    status: 'offline' | 'bad' | 'fair' | 'good';
     peers: Array<PeerKV>;
+    rooms: Array<PeerKV>;
     stagedPeers: Array<StagedPeerKV>;
+    initializedSSB: boolean;
   };
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;

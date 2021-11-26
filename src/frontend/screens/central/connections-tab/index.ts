@@ -11,6 +11,8 @@ import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {State as AppState} from '../../../drivers/appstate';
 import {NetworkSource} from '../../../drivers/network';
 import {SSBSource} from '../../../drivers/ssb';
+import {DialogSource} from '../../../drivers/dialogs';
+import {WindowSize} from '../../../drivers/window-size';
 import intent from './intent';
 import {State} from './model';
 import view from './view';
@@ -24,6 +26,8 @@ export interface Sources {
   state: StateSource<State>;
   appstate: Stream<AppState>;
   network: NetworkSource;
+  dialog: DialogSource;
+  windowSize: Stream<WindowSize>;
   fab: Stream<string>;
   ssb: SSBSource;
 }
@@ -32,21 +36,38 @@ export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   fab: Stream<FabProps>;
+  linking: Stream<string>;
   state: Stream<Reducer<State>>;
 }
 
 export function connectionsTab(sources: Sources): Sinks {
-  const actions = intent(sources.screen, sources.navigation);
-  const command$ = navigation(actions, sources.state.stream);
-  const reducer$ = model(sources.ssb, sources.appstate);
-  const vdom$ = view(sources.state.stream);
+  const state$ = sources.state.stream;
+  const actions = intent(
+    sources.screen,
+    sources.dialog,
+    sources.navigation,
+    state$,
+  );
+  const command$ = navigation(actions, state$);
+  const reducer$ = model(
+    sources.ssb,
+    sources.network,
+    sources.appstate,
+    sources.windowSize,
+  );
+  const vdom$ = view(state$);
 
-  const fab$ = floatingAction(sources.state.stream);
+  const fab$ = floatingAction(state$);
+
+  const link$ = actions.goToHostSsbRoomDialog$.mapTo(
+    'https://www.manyver.se/faq/admin-room',
+  );
 
   return {
     navigation: command$,
     screen: vdom$,
     fab: fab$,
+    linking: link$,
     state: reducer$,
   };
 }

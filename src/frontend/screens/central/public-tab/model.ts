@@ -15,6 +15,7 @@ export interface State {
   lastSessionTimestamp: number;
   selfAvatarUrl?: string;
   getPublicFeedReadable: GetReadable<ThreadSummaryWithExtras> | null;
+  initializedSSB: boolean;
   numOfUpdates: number;
   hasComposeDraft: boolean;
   isVisible: boolean;
@@ -25,6 +26,7 @@ export interface State {
 export interface Actions {
   refreshFeed$: Stream<any>;
   refreshComposeDraft$: Stream<any>;
+  initializationDone$: Stream<any>;
 }
 
 export default function model(
@@ -42,6 +44,12 @@ export default function model(
   const incUpdatesReducer$ = ssbSource.publicLiveUpdates$.mapTo(
     function incUpdatesReducer(prev: State): State {
       return {...prev, numOfUpdates: prev.numOfUpdates + 1};
+    },
+  );
+
+  const initializationDoneReducer$ = actions.initializationDone$.mapTo(
+    function initializationDoneReducer(prev: State): State {
+      return {...prev, initializedSSB: true};
     },
   );
 
@@ -81,6 +89,7 @@ export default function model(
   return xs.merge(
     setPublicFeedReducer$,
     incUpdatesReducer$,
+    initializationDoneReducer$,
     loadLastSessionTimestampReducer$,
     getComposeDraftReducer$,
     resetUpdatesReducer$,

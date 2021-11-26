@@ -11,6 +11,7 @@ import {
   Animated,
   Easing,
   Platform,
+  ImageStyle,
 } from 'react-native';
 import {h} from '@cycle/react';
 import {Dimensions} from '../global-styles/dimens';
@@ -93,7 +94,8 @@ export const styles = StyleSheet.create({
 });
 
 interface SlideProps {
-  image: ImageSourcePropType;
+  image?: ImageSourcePropType;
+  imageStyle?: ImageStyle;
   title: string;
   renderDescription: () => Array<string | ReactElement<TextProps>>;
   renderBottom: () => ReactElement<any> | Array<ReactElement<any>>;
@@ -170,6 +172,7 @@ class InternalSlide extends PureComponent<SlideProps> {
   public render() {
     const {
       image,
+      imageStyle,
       title,
       renderDescription,
       renderBottom,
@@ -215,8 +218,9 @@ class InternalSlide extends PureComponent<SlideProps> {
       h(View, {style: styles.slideTop}, [
         portraitMode === true || typeof portraitMode === 'undefined'
           ? h(Animated.Image, {
-              style: [styles.image, imageAnimStyle],
-              source: image,
+              style: [styles.image, imageStyle, imageAnimStyle],
+              resizeMode: 'stretch',
+              source: image!,
             })
           : null,
         h(Animated.Text, {style: [styles.title, titleAnimStyle]}, title),

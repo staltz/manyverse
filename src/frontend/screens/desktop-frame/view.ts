@@ -94,15 +94,8 @@ export default function view(
         ]);
       }
 
-      const connTab = state.connections;
-      const online =
-        connTab?.bluetoothEnabled ||
-        connTab?.lanEnabled ||
-        connTab?.internetEnabled;
-      const numConnected = (connTab?.peers ?? []).filter(
-        (p) => p[1].state === 'connected',
-      ).length;
-      const numStaged = (connTab?.stagedPeers ?? []).length;
+      const status = state.connections?.status ?? 'bad';
+      const initializedSSB = state.connections?.initializedSSB ?? false;
       const {combinedProgress, estimateProgressDone} = state;
       const progressLabelOpacity =
         state.combinedProgress > 0 && state.combinedProgress < 1 ? 1 : 0;
@@ -150,9 +143,8 @@ export default function view(
             h(ConnectionsTabIcon, {
               style: styles.leftMenuTabButton,
               isSelected: state.currentTab === 'connections',
-              offline: !online,
-              numConnected,
-              numStaged,
+              status,
+              allowWarningColors: initializedSSB,
             }),
 
             h(View, {style: styles.spacer}),
