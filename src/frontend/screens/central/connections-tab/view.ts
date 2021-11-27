@@ -237,6 +237,14 @@ class Scenario extends PureComponent<Pick<State, 'status' | 'scenario'>> {
     this.sequenceAnim.start();
   }
 
+  public shouldComponentUpdate(nextProps: Scenario['props']) {
+    const prevProps = this.props;
+    return (
+      prevProps.status !== nextProps.status ||
+      prevProps.scenario !== nextProps.scenario
+    );
+  }
+
   componentDidUpdate() {
     this.triggerAppearAnim();
   }
@@ -346,6 +354,14 @@ class Recommendations extends PureComponent<
     });
   }
 
+  public shouldComponentUpdate(nextProps: Recommendations['props']) {
+    const prevProps = this.props;
+    return (
+      nextProps.bestRecommendation !== prevProps.bestRecommendation ||
+      nextProps.otherRecommendations !== prevProps.otherRecommendations
+    );
+  }
+
   componentDidUpdate() {
     this.triggerAppearAnim();
   }
@@ -413,6 +429,7 @@ export default function view(state$: Stream<State>) {
         'scenario',
         'bestRecommendation',
         'otherRecommendations',
+        'timestampPeersAndRooms',
       ]),
     )
     .map((state) => {

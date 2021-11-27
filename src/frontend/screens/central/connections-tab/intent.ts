@@ -85,7 +85,23 @@ export default function intent(
     bestPressed$,
     pickRecommendation$,
     'host-ssb-room',
-  );
+  )
+    .map(() => {
+      const link = 'https://www.manyver.se/faq/admin-room';
+      return dialogSource
+        .alert(
+          t('call_to_action.external_link_confirmation.title'),
+          t('call_to_action.external_link_confirmation.description', {link}),
+          {
+            ...Palette.dialogColors,
+            positiveText: t('call_to_action.yes'),
+            negativeText: t('call_to_action.no'),
+          },
+        )
+        .filter((res) => res.action === 'actionPositive')
+        .mapTo(link);
+    })
+    .flatten();
 
   return {
     goToConnectionsPanel$,

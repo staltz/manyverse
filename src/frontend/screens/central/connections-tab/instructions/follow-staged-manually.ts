@@ -25,11 +25,20 @@ export function makeInstructionsProps(state: State): InstructionsProps {
     }
   }
 
+  const connectedNum = state.peers.filter(
+    (p) => p[1].state === 'connected',
+  ).length;
+
   return {
     title: t('connections.recommendations.follow_staged_manually'),
-    content1: t(
-      'connections.recommendation_descriptions.follow_staged_manually.part1',
-    ),
+    content1:
+      connectedNum === 0
+        ? t(
+            'connections.recommendation_descriptions.follow_staged_manually.part1.not_connected',
+          )
+        : t(
+            'connections.recommendation_descriptions.follow_staged_manually.part1.connected',
+          ),
     content2: t(
       'connections.recommendation_descriptions.follow_staged_manually.part2',
     ),

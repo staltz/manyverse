@@ -59,9 +59,7 @@ export function connectionsTab(sources: Sources): Sinks {
 
   const fab$ = floatingAction(state$);
 
-  const link$ = actions.goToHostSsbRoomDialog$.mapTo(
-    'https://www.manyver.se/faq/admin-room',
-  );
+  const link$ = actions.goToHostSsbRoomDialog$;
 
   return {
     navigation: command$,
