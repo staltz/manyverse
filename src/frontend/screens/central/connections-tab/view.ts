@@ -16,7 +16,7 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import {PureComponent} from 'react';
+import {Component} from 'react';
 import {Recommendation, State} from './model';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '../../../drivers/localization';
@@ -213,7 +213,7 @@ function Summary({connectedPeers}: {connectedPeers: Array<PeerKV>}) {
   );
 }
 
-class Scenario extends PureComponent<Pick<State, 'status' | 'scenario'>> {
+class Scenario extends Component<Pick<State, 'status' | 'scenario'>> {
   private appearAnim = new Animated.Value(1);
   private sequenceAnim?: Animated.CompositeAnimation;
 
@@ -323,7 +323,7 @@ class Scenario extends PureComponent<Pick<State, 'status' | 'scenario'>> {
   }
 }
 
-class Recommendations extends PureComponent<
+class Recommendations extends Component<
   Pick<State, 'bestRecommendation' | 'otherRecommendations'> & {
     onPressBest?: (rec: Recommendation) => void;
     onPressOthers?: () => void;
