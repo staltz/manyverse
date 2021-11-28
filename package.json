@@ -101,7 +101,7 @@
     "react-native-floating-action": "1.22.0",
     "react-native-fs": "~2.18.0",
     "react-native-gifted-chat": "~0.16.3",
-    "react-native-has-internet": "4.2.1",
+    "react-native-has-internet": "5.0.0-rc2",
     "react-native-image-crop-picker": "^0.36.3",
     "react-native-image-viewing": "0.2.1",
     "react-native-localize": "2.1.3",
