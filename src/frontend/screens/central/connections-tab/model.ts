@@ -88,9 +88,9 @@ function reevaluateStatus(prev: State): State {
   const stagedLanNum = prev.stagedPeers.filter(
     (p) => p[1].type === 'lan',
   ).length;
-  const {internetEnabled, lanEnabled, postsCount} = prev;
+  const {internetEnabled, postsCount} = prev;
 
-  if (!internetEnabled && stagedNum === 0 && stagedLanNum === 0) {
+  if (!internetEnabled && connectedNum === 0 && stagedNum === 0) {
     if (postsCount > 2) {
       return {
         ...prev,
@@ -110,7 +110,7 @@ function reevaluateStatus(prev: State): State {
     }
   }
 
-  if (!internetEnabled && lanEnabled && stagedLanNum > 0) {
+  if (!internetEnabled && connectedNum === 0 && stagedLanNum > 0) {
     return {
       ...prev,
       scenario: 'nearby-strangers-available',
@@ -130,7 +130,7 @@ function reevaluateStatus(prev: State): State {
     };
   }
 
-  if (roomsNum > 0 && connectedNum === 0) {
+  if (connectedNum === 0 && roomsNum > 0) {
     return {
       ...prev,
       scenario: 'empty-rooms',
