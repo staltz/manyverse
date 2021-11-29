@@ -12,7 +12,7 @@ import {ThreadAndExtras, MsgAndExtras} from '../../ssb/types';
 import {SSBSource, GetReadable} from '../../drivers/ssb';
 import {Props} from './props';
 
-export type State = {
+export interface State {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
   rootMsgId: MsgId;
@@ -22,6 +22,7 @@ export type State = {
   thread: ThreadAndExtras;
   subthreads: Record<MsgId, ThreadAndExtras>;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   expandRootCW: boolean;
   replyText: string;
   replyTextOverride: string;
@@ -31,7 +32,7 @@ export type State = {
   focusTimestamp: number;
   initialScrollTo: MsgId | undefined;
   keyboardVisible: boolean;
-};
+}
 
 export type Actions = {
   publishMsg$: Stream<any>;
@@ -79,6 +80,7 @@ export default function model(
           thread: emptyThread,
           subthreads: {},
           lastSessionTimestamp: props.lastSessionTimestamp,
+          preferredReactions: [],
           expandRootCW: props.expandRootCW ?? false,
           replyText: '',
           replyTextOverride: '',
@@ -148,6 +150,13 @@ export default function model(
         ),
     )
     .compose(flattenConcurrently);
+
+  const updatePreferredReactionsReducer$ = ssbSource.preferredReactions$.map(
+    (preferredReactions) =>
+      function updatePreferredReactionsReducer(prev: State): State {
+        return {...prev, preferredReactions};
+      },
+  );
 
   const keyboardAppearedReducer$ = actions.keyboardAppeared$.mapTo(
     function keyboardAppearedReducer(prev: State): State {
@@ -248,6 +257,7 @@ export default function model(
       setRootMsgReducer$,
       setThreadReducer$,
       setSubthreadReducer$,
+      updatePreferredReactionsReducer$,
       keyboardAppearedReducer$,
       keyboardDisappearedReducer$,
       updateReplyTextReducer$,

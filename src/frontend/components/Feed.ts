@@ -140,13 +140,14 @@ class InitialLoading extends PureComponent<any> {
   }
 }
 
-type Props = {
+interface Props {
   getReadable: GetReadable<ThreadSummaryWithExtras> | null;
   prePublication$: Stream<any> | null;
   postPublication$: Stream<ThreadSummaryWithExtras> | null;
   scrollToTop$?: Stream<any> | null;
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   EmptyComponent?: ReactElement<any>;
   HeaderComponent?: ReactElement<any>;
   style?: ViewStyle;
@@ -161,7 +162,7 @@ type Props = {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
   yOffsetAnimVal?: Animated.Value;
-};
+}
 
 type State = {
   showPlaceholder: boolean;
@@ -262,6 +263,7 @@ export default class Feed extends PureComponent<Props, State> {
       contentContainerStyle,
       progressViewOffset,
       yOffsetAnimVal,
+      preferredReactions,
       scrollToTop$,
       getReadable,
       lastSessionTimestamp,
@@ -315,6 +317,7 @@ export default class Feed extends PureComponent<Props, State> {
             h(FollowCard, {
               thread,
               lastSessionTimestamp,
+              preferredReactions,
               selfFeedId,
               onPressReactions,
               onPressAddReaction,
@@ -329,6 +332,7 @@ export default class Feed extends PureComponent<Props, State> {
             h(ThreadCard, {
               thread,
               lastSessionTimestamp,
+              preferredReactions,
               selfFeedId,
               onPressReactions,
               onPressAddReaction,

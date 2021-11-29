@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -31,12 +31,13 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   msg: Msg<Contact>;
   name?: string;
   contactName?: string;
   imageUrl: string | null;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   reactions: Reactions;
   replyCount: number;
   selfFeedId: FeedId;
@@ -45,7 +46,7 @@ export type Props = {
   onPressReply?: () => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
-};
+}
 
 export default class ContactMessage extends Component<Props, {}> {
   constructor(props: Props) {

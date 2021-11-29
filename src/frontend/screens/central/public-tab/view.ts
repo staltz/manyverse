@@ -25,6 +25,7 @@ export default function view(
       dropRepeatsByKeys([
         'selfFeedId',
         'lastSessionTimestamp',
+        'preferredReactions',
         'getPublicFeedReadable',
         'scrollHeaderBy',
       ]),
@@ -44,6 +45,7 @@ export default function view(
         scrollToTop$,
         selfFeedId: state.selfFeedId,
         lastSessionTimestamp: state.lastSessionTimestamp,
+        preferredReactions: state.preferredReactions,
         EmptyComponent: h(EmptySection, {
           style: styles.emptySection,
           image: require('../../../../../images/noun-plant.png'),

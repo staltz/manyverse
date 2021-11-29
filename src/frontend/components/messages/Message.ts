@@ -25,6 +25,7 @@ export interface Props {
   msg: MsgAndExtras;
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   expandCW?: boolean;
   replyCount?: number;
   onPressReactions?: (ev: PressReactionsEvent) => void;

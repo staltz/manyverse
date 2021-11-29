@@ -324,6 +324,7 @@ export interface Props {
   msg: Msg;
   selfFeedId: FeedId;
   reactions: ReactionsType;
+  preferredReactions: Array<string>;
   replyCount: number;
   style?: ViewStyle;
   onPressReactions?: (ev: PressReactionsEvent) => void;
@@ -440,6 +441,7 @@ export default class MessageFooter extends Component<Props, State> {
       onPressEmoji: this.onSelectEmojiReaction,
       onPressOthers: this.openFullEmojiModal,
       onPressOutside: this.closeEmojisModal,
+      preferredEmojis: this.props.preferredReactions,
     });
   }
 

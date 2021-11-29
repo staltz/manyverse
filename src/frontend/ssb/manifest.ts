@@ -171,6 +171,7 @@ export default {
     rawLogReversed: 'source',
     mentionsMe: 'source',
     postsCount: 'async',
+    preferredReactions: 'source',
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',

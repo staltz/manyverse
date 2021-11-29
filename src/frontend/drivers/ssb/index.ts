@@ -34,6 +34,7 @@ import {
 } from '../../ssb/types';
 import makeClient, {SSBClient} from '../../ssb/client';
 import {imageToImageUrl} from '../../ssb/utils/from-ssb';
+import dropRepeats from 'xstream/extra/dropRepeats';
 const URLPolyfill =
   Platform.OS !== 'web' ? require('react-native-url-polyfill').URL : URL;
 const colorHash = new (require('color-hash'))();
@@ -69,6 +70,7 @@ export class SSBSource {
   public publicLiveUpdates$: Stream<null>;
   public privateFeed$: Stream<GetReadable<PrivateThreadAndExtras>>;
   public privateLiveUpdates$: Stream<MsgId>;
+  public preferredReactions$: Stream<Array<string>>;
   public mentionsFeed$: Stream<GetReadable<MsgAndExtras>>;
   public mentionsFeedLive$: Stream<MsgId>;
   public firewallAttempt$: Stream<GetReadable<FirewallAttempt>>;
@@ -110,6 +112,14 @@ export class SSBSource {
     this.privateLiveUpdates$ = this.fromPullStream<MsgId>((ssb) =>
       ssb.threadsUtils.privateUpdates(),
     );
+
+    this.preferredReactions$ = this.fromPullStream<Array<string>>((ssb) =>
+      ssb.dbUtils.preferredReactions(),
+    )
+      .compose(
+        dropRepeats((before, after) => before.join('#') === after.join('#')),
+      )
+      .remember();
 
     this.mentionsFeed$ = this.ssb$.map(
       (ssb) => () => ssb.threadsUtils.mentionsFeed(),

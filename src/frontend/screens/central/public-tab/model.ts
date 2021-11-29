@@ -13,6 +13,7 @@ import {Animated} from 'react-native';
 export interface State {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   selfAvatarUrl?: string;
   getPublicFeedReadable: GetReadable<ThreadSummaryWithExtras> | null;
   initializedSSB: boolean;
@@ -38,6 +39,13 @@ export default function model(
     (getReadable) =>
       function setPublicFeedReducer(prev: State): State {
         return {...prev, getPublicFeedReadable: getReadable};
+      },
+  );
+
+  const updatePreferredReactionsReducer$ = ssbSource.preferredReactions$.map(
+    (preferredReactions) =>
+      function updatePreferredReactionsReducer(prev: State): State {
+        return {...prev, preferredReactions};
       },
   );
 
@@ -89,6 +97,7 @@ export default function model(
   return xs.merge(
     setPublicFeedReducer$,
     incUpdatesReducer$,
+    updatePreferredReactionsReducer$,
     initializationDoneReducer$,
     loadLastSessionTimestampReducer$,
     getComposeDraftReducer$,

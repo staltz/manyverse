@@ -63,6 +63,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         isVisible,
         selfFeedId,
         lastSessionTimestamp: parent.lastSessionTimestamp,
+        preferredReactions: [],
         selfAvatarUrl,
         getPublicFeedReadable: null,
         numOfUpdates: parent.numOfPublicUpdates,

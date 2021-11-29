@@ -42,6 +42,7 @@ export interface Props {
   thread: ThreadSummaryWithExtras;
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
@@ -180,7 +181,8 @@ export default class ThreadCard extends PureComponent<Props, State> {
         pointerEvents: 'box-only',
       };
       if (Platform.OS === 'android') {
-        touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+        touchableProps.background =
+          TouchableNativeFeedback.SelectableBackground();
       }
       return h(Touchable, touchableProps, [
         h(View, {key: 'p', style: styles.post}, [
@@ -198,6 +200,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
       thread,
       selfFeedId,
       lastSessionTimestamp,
+      preferredReactions,
       onPressAddReaction,
       onPressReactions,
       onPressAuthor,
@@ -237,6 +240,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
         msg: root,
         selfFeedId,
         reactions,
+        preferredReactions,
         replyCount: thread.replyCount,
         onPressReactions,
         onPressAddReaction,

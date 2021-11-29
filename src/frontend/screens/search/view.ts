@@ -96,7 +96,8 @@ class Result extends PureComponent<{
 
     const touchableProps: any = {onPress};
     if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+      touchableProps.background =
+        TouchableNativeFeedback.SelectableBackground();
     }
 
     const [content, queryMatchIdx] = getContentAndQueryMatchIdx(msg, query);
@@ -195,6 +196,7 @@ export default function view(state$: Stream<State>) {
       dropRepeatsByKeys([
         'queryInProgress',
         'query',
+        'preferredReactions',
         'getResultsReadable',
         'getFeedReadable',
       ]),
@@ -236,6 +238,7 @@ export default function view(state$: Stream<State>) {
                 postPublication$: null,
                 selfFeedId: state.selfFeedId,
                 lastSessionTimestamp: state.lastSessionTimestamp,
+                preferredReactions: state.preferredReactions,
                 style: styles.feed,
                 EmptyComponent:
                   state.query.length > 0

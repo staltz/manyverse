@@ -114,6 +114,7 @@ export interface Props {
   onPressEmoji: (emoji: string) => void;
   onPressOthers: () => void;
   onPressOutside: () => void;
+  preferredEmojis: Array<string>;
 }
 
 export class QuickEmojiModal extends PureComponent<Props> {
@@ -166,17 +167,20 @@ export class QuickEmojiModal extends PureComponent<Props> {
     );
   }
 
-  private onPressOthers() {
+  private onPressOthers = () => {
     this.props.onPressOthers();
-  }
+  };
 
-  private onPressOutside() {
+  private onPressOutside = () => {
     this.props.onPressOutside();
-  }
+  };
 
   public render() {
-    const FIRST_ROW = DEFAULT_EMOJIS.slice(0, 4);
-    const SECOND_ROW = DEFAULT_EMOJIS.slice(4, 7);
+    const preferredEmojis = this.props.preferredEmojis;
+    const others = DEFAULT_EMOJIS.filter((e) => !preferredEmojis.includes(e));
+    const emojis = [...preferredEmojis, ...others];
+    const FIRST_ROW = emojis.slice(0, 4);
+    const SECOND_ROW = emojis.slice(4, 7);
 
     return h(View, {style: styles.modal}, [
       h(View, {style: styles.container}, [

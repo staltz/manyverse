@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -22,16 +22,17 @@ import MessageFooter from './messages/MessageFooter';
 import MessageHeader from './messages/MessageHeader';
 import ContactBody from './messages/ContactBody';
 
-export type Props = {
+export interface Props {
   thread: ThreadSummaryWithExtras;
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
   onPressExpand?: (msg: MsgAndExtras) => void;
-};
+}
 
 export const styles = StyleSheet.create({
   container: {
@@ -58,6 +59,7 @@ export default class FollowCard extends PureComponent<Props> {
       thread,
       selfFeedId,
       lastSessionTimestamp,
+      preferredReactions,
       onPressAddReaction,
       onPressReactions,
       onPressAuthor,
@@ -91,6 +93,7 @@ export default class FollowCard extends PureComponent<Props> {
         msg: root,
         selfFeedId,
         reactions,
+        preferredReactions,
         replyCount: thread.replyCount,
         onPressReactions,
         onPressAddReaction,

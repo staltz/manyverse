@@ -2,9 +2,26 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {ContactContent, Msg} from 'ssb-typescript';
+import {ContactContent, Msg, VoteContent} from 'ssb-typescript';
 import {Callback} from './helpers/types';
 const pull = require('pull-stream');
+const pullAsync = require('pull-async');
+const cat = require('pull-cat');
+
+const THUMBS_UP_UNICODE = '\ud83d\udc4d';
+const DIG_UNICODE = '\u270c\ufe0f';
+const HEART_UNICODE = '\u2764\ufe0f';
+
+function voteExpressionToReaction(expression: string) {
+  const lowCase = expression.toLowerCase();
+  if (lowCase === 'like') return THUMBS_UP_UNICODE;
+  if (lowCase === 'yup') return THUMBS_UP_UNICODE;
+  if (lowCase === 'heart') return HEART_UNICODE;
+  if (lowCase === 'dig') return DIG_UNICODE;
+  if (expression.codePointAt(0) === 0x270c) return DIG_UNICODE;
+  if (expression) return expression;
+  return THUMBS_UP_UNICODE;
+}
 
 export = {
   name: 'dbUtils',
@@ -13,6 +30,7 @@ export = {
     rawLogReversed: 'source',
     mentionsMe: 'source',
     postsCount: 'async',
+    preferredReactions: 'source',
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
@@ -23,6 +41,7 @@ export = {
         'rawLogReversed',
         'mentionsMe',
         'postsCount',
+        'preferredReactions',
         'selfPublicRoots',
         'selfPublicReplies',
         'selfPrivateRootIdsLive',
@@ -52,6 +71,22 @@ export = {
     } = ssb.db.operators;
 
     const BATCH_SIZE = 75;
+
+    const reactionsCount = {
+      _map: new Map<string, number>(),
+      update(msg: Msg<VoteContent>) {
+        const {expression, value} = msg.value.content.vote;
+        if (value <= 0 || !expression) return;
+        const reaction = voteExpressionToReaction(expression);
+        const previous = this._map.get(reaction) ?? 0;
+        this._map.set(reaction, previous + 1);
+      },
+      toArray() {
+        return [...this._map.entries()]
+          .sort((a, b) => b[1] - a[1]) // sort by descending count
+          .map((x) => x[0]); // pick the emoji string
+      },
+    };
 
     // Wait until migration progress is somewhere in the middle
     pull(
@@ -122,6 +157,35 @@ export = {
           count(),
           toCallback(cb),
         );
+      },
+
+      preferredReactions() {
+        return cat([
+          // First deliver latest preferred reactions
+          pullAsync((cb: Callback<Array<string>>) => {
+            ssb.db.query(
+              where(and(type('vote'), author(ssb.id, {dedicated: true}))),
+              toCallback((err: any, msgs: Array<Msg<VoteContent>>) => {
+                if (err) return cb(err);
+                for (const msg of msgs) reactionsCount.update(msg);
+                cb(null, reactionsCount.toArray());
+              }),
+            );
+          }),
+
+          // Then update preferred reactions when the user creates a vote
+          pull(
+            ssb.db.query(
+              where(and(type('vote'), author(ssb.id, {dedicated: true}))),
+              liveOperator({old: false}),
+              toPullStream(),
+            ),
+            pull.map((msg: Msg<VoteContent>) => {
+              reactionsCount.update(msg);
+              return reactionsCount.toArray();
+            }),
+          ),
+        ]);
       },
 
       selfPublicRoots(opts: {live?: boolean; old?: boolean}) {

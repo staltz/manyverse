@@ -33,11 +33,12 @@ const DIG_UNICODE = '\u270c\ufe0f';
 const HEART_UNICODE = '\u2764\ufe0f';
 
 export function voteExpressionToReaction(expression: string) {
-  if (expression === 'Like') return THUMBS_UP_UNICODE;
-  if (expression === 'like') return THUMBS_UP_UNICODE;
-  if (expression === 'Yup') return THUMBS_UP_UNICODE;
-  if (expression === 'heart') return HEART_UNICODE;
-  if (expression === 'dig') return DIG_UNICODE;
-
-  return expression ?? THUMBS_UP_UNICODE;
+  const lowCase = expression.toLowerCase();
+  if (lowCase === 'like') return THUMBS_UP_UNICODE;
+  if (lowCase === 'yup') return THUMBS_UP_UNICODE;
+  if (lowCase === 'heart') return HEART_UNICODE;
+  if (lowCase === 'dig') return DIG_UNICODE;
+  if (expression.codePointAt(0) === 0x270c) return DIG_UNICODE;
+  if (expression) return expression;
+  return THUMBS_UP_UNICODE;
 }

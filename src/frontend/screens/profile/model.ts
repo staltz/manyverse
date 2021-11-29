@@ -16,6 +16,7 @@ import {Props} from './props';
 export type State = {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   selfAvatarUrl?: string;
   reason?: 'connection-attempt';
   displayFeedId: FeedId;
@@ -59,6 +60,7 @@ export default function model(
           displayFeedId: props.feedId,
           reason: props.reason,
           lastSessionTimestamp: Infinity,
+          preferredReactions: [],
           getFeedReadable: null,
           about: {
             name: '',
@@ -136,6 +138,13 @@ export default function model(
           return {...prev, youBlock};
         },
     );
+
+  const updatePreferredReactionsReducer$ = ssbSource.preferredReactions$.map(
+    (preferredReactions) =>
+      function updatePreferredReactionsReducer(prev: State): State {
+        return {...prev, preferredReactions};
+      },
+  );
 
   const updateConnectionReducer$ = ssbSource.peers$.map(
     (peers) =>
@@ -216,6 +225,7 @@ export default function model(
       updateFollowsYouReducer$,
       updateYouFollowReducer$,
       updateYouBlockReducer$,
+      updatePreferredReactionsReducer$,
       updateConnectionReducer$,
       updateFollowingReducer$,
       updateFollowersReducer$,

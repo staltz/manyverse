@@ -27,10 +27,11 @@ type ViewabilityInfo = Parameters<
 >[0];
 type ScrollToEndArg = Parameters<FlatList<any>['scrollToEnd']>[0];
 
-export type Props = {
+export interface Props {
   thread: ThreadAndExtras;
   subthreads: Record<MsgId, ThreadAndExtras>;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   willPublish$?: Stream<any> | null;
   scrollToEnd$?: Stream<ScrollToEndArg>;
   selfFeedId: FeedId;
@@ -44,7 +45,7 @@ export type Props = {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
   onViewableItemsChanged?: (info: ViewabilityInfo) => void;
-};
+}
 
 export const styles = StyleSheet.create({
   separator: {
@@ -142,6 +143,7 @@ export default class FullThread extends Component<Props, State> {
       thread,
       subthreads,
       lastSessionTimestamp,
+      preferredReactions,
     } = this.props;
     const msg = item as MsgAndExtras;
     const root = thread.messages[0];
@@ -167,6 +169,7 @@ export default class FullThread extends Component<Props, State> {
       expandCW: index === 0 && this.props.expandRootCW === true,
       selfFeedId,
       lastSessionTimestamp,
+      preferredReactions,
       onPressReply,
       replyCount,
       onPressReactions,

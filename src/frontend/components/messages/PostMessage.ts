@@ -26,6 +26,7 @@ export interface Props {
   name?: string;
   imageUrl: string | null;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   reactions: Reactions;
   replyCount: number;
   selfFeedId: FeedId;

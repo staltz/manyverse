@@ -15,6 +15,7 @@ export interface State {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
   lastSessionTimestamp: number;
+  preferredReactions: Array<string>;
   query: string;
   queryOverride: string;
   queryOverrideFlag: number;
@@ -42,6 +43,7 @@ export default function model(
           selfFeedId: props.selfFeedId,
           selfAvatarUrl: props.selfAvatarUrl,
           lastSessionTimestamp: props.lastSessionTimestamp,
+          preferredReactions: [],
           query: props.query ?? '',
           queryOverride: props.query ?? '',
           queryOverrideFlag: 0,
@@ -49,6 +51,13 @@ export default function model(
           getResultsReadable: null,
           getFeedReadable: null,
         };
+      },
+  );
+
+  const updatePreferredReactionsReducer$ = ssbSource.preferredReactions$.map(
+    (preferredReactions) =>
+      function updatePreferredReactionsReducer(prev: State): State {
+        return {...prev, preferredReactions};
       },
   );
 
@@ -130,6 +139,7 @@ export default function model(
 
   return xs.merge(
     propsReducer$,
+    updatePreferredReactionsReducer$,
     updateQueryInProgressReducer$,
     updateQueryReducer$,
     clearQueryReducer$,
