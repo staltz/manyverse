@@ -45,13 +45,13 @@ export = {
       isPublic,
       isPrivate,
       descending,
-      paginate,
+      batch,
       count,
       toPullStream,
       toCallback,
     } = ssb.db.operators;
 
-    const PAGESIZE = 50;
+    const BATCH_SIZE = 75;
 
     // Wait until migration progress is somewhere in the middle
     pull(
@@ -80,11 +80,7 @@ export = {
 
     return {
       rawLogReversed() {
-        return pull(
-          ssb.db.query(descending(), paginate(PAGESIZE), toPullStream()),
-          pull.map(pull.values),
-          pull.flatten(),
-        );
+        return ssb.db.query(descending(), batch(BATCH_SIZE), toPullStream());
       },
 
       mentionsMe(opts: {live?: boolean; old?: boolean}) {
@@ -98,11 +94,9 @@ export = {
             ),
             descending(),
             opts.live ? liveOperator({old: opts.old}) : null,
-            paginate(PAGESIZE),
+            batch(BATCH_SIZE),
             toPullStream(),
           ),
-          opts.live ? null : pull.map(pull.values),
-          opts.live ? null : pull.flatten(),
           pull.filter((msg: Msg) => {
             // Allow all posts
             if (msg.value.content!.type === 'post') {
