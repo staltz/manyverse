@@ -300,6 +300,7 @@
     "recommendations": {
       "consume_invite": "How to get an invite",
       "follow_staged_manually": "Follow someone new",
+      "paste_invite": "Paste invite code",
       "host_ssb_room": "How to host a room server",
       "others": "Other choices"
     },

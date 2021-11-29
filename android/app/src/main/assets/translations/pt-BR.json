@@ -23,8 +23,8 @@
       "accessibility_label": "Botão de Fechar Diálogo"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "Abrir link?",
+      "description": "Você quer abrir {{link}} no seu navegador?"
     }
   },
   "date": {
@@ -171,7 +171,7 @@
       "public": "Fórum público",
       "private": "Chats privados",
       "activity": "Atividade",
-      "connections": "Connected peers"
+      "connections": "Conexões"
     },
     "tab_footers": {
       "public": "Público",
@@ -289,17 +289,18 @@
       "many_connections": "Well connected"
     },
     "scenario_descriptions": {
-      "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
+      "offline_with_content": "Você não pode se conectar com os outros neste momento, mas você pode desfrutar de conteúdo que você já sincronizou.",
+      "offline_without_content": "Você não pode se conectar com os outros neste momento. Tente obter conexão com a internet ou ligue o Wi-Fi para descobrir pessoas usando Manyverse por perto.",
+      "knows_no_one": "Seu Manyverse está isolado no momento. Você precisa ser convidado por outros colegas para participar de um servidor \"room\", ou você pode hospedar um room por conta própria.",
+      "nearby_strangers_available": "Você ainda não está conectado a ninguém, mas tem pessoas disponíveis nesta rede Wi-Fi. Tente conectar com eles manualmente, se eles também estão dispostos a conectar com você.",
       "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
-      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
-      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+      "connected_poorly": "Você está conectado a uma pessoa, isso é bom. Mas, para melhorar a propagação de dados, você pode se conectar com mais pessoas. Tente esperar um pouco mais, ou procure um convite a outros servidores.",
+      "connected_well": "Você está conectado com vários outros. Está tudo certo! Eles estão servindo os seus dados e você está servindo os deles."
     },
     "recommendations": {
       "consume_invite": "How to get an invite",
       "follow_staged_manually": "Follow someone new",
+      "paste_invite": "Paste invite code",
       "host_ssb_room": "How to host a room server",
       "others": "Other choices"
     },
