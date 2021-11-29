@@ -21,7 +21,7 @@ import ContentWarning from './ContentWarning';
 
 type CWPost = Post & {contentWarning?: string};
 
-export type Props = {
+export interface Props {
   msg: Msg<Post>;
   name?: string;
   imageUrl: string | null;
@@ -35,7 +35,7 @@ export type Props = {
   onPressReply?: () => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
-};
+}
 
 export const styles = StyleSheet.create({
   post: {

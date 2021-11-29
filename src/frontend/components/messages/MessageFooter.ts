@@ -11,7 +11,6 @@ import {
   Modal,
   StyleSheet,
   Platform,
-  TouchableWithoutFeedback,
   ViewStyle,
 } from 'react-native';
 import {h} from '@cycle/react';
@@ -27,16 +26,7 @@ import {
   PressReactionsEvent,
   PressAddReactionEvent,
 } from '../../ssb/types';
-
-const THUMBS_UP_UNICODE = '\ud83d\udc4d';
-const VICTORY_HAND_UNICODE = String.fromCodePoint(parseInt('270C', 16));
-const HEART_UNICODE = '\u2764\ufe0f';
-const SEE_NO_EVIL_MONKEY_UNICODE = String.fromCodePoint(parseInt('1F648', 16));
-const SMILING_WITH_HEART_EYES_UNICODE = String.fromCodePoint(
-  parseInt('1F60D', 16),
-);
-const GRINNING_WITH_SMILE_UNICODE = String.fromCodePoint(parseInt('1F604', 16));
-const CRYING_FACE_UNICODE = String.fromCodePoint(parseInt('1F622', 16));
+import {QuickEmojiModal} from '../QuickEmojiModal';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -67,65 +57,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between',
-  },
-
-  quickEmojiPickerModal: {
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    flex: 1,
-  },
-
-  quickEmojiPickerBackground: {
-    backgroundColor: Palette.isDarkTheme
-      ? Palette.transparencyDarkStrong
-      : Palette.transparencyDark,
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    zIndex: -1,
-  },
-
-  quickEmojiPickerContainer: {
-    backgroundColor: Palette.backgroundText,
-    borderRadius: Dimensions.borderRadiusBig,
-    marginHorizontal: Dimensions.horizontalSpaceNormal,
-    marginVertical: Dimensions.verticalSpaceNormal,
-    paddingHorizontal: Dimensions.horizontalSpaceNormal,
-    paddingVertical: Dimensions.verticalSpaceNormal,
-    flexDirection: 'column',
-    ...Platform.select({
-      web: {
-        width: '50vw',
-        marginHorizontal: '25vw',
-      },
-    }),
-  },
-
-  quickEmojiPickerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  quickEmojiChoiceTouchable: {
-    minWidth: 60,
-    height: 60,
-    minHeight: 60,
-    width: 60,
-    flex: 0,
-    flexBasis: 'auto',
-    flexGrow: 0,
-    flexShrink: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  quickEmojiChoice: {
-    fontSize: 30,
-    fontFamily: Platform.select({web: Typography.fontFamilyReadableText}),
   },
 
   fullEmojiModalBackground: {
@@ -504,74 +435,12 @@ export default class MessageFooter extends Component<Props, State> {
     return false;
   }
 
-  private renderQuickEmojiChoice(emoji: string) {
-    const child = h(Text, {style: styles.quickEmojiChoice}, emoji);
-
-    return h(
-      Touchable,
-      {
-        ...touchableProps,
-        onPress: () => this.onSelectEmojiReaction(emoji),
-        style: Platform.OS === 'web' ? styles.quickEmojiChoiceTouchable : null,
-        accessible: true,
-        accessibilityRole: 'button',
-      },
-      [
-        Platform.OS === 'web'
-          ? child
-          : h(View, {style: styles.quickEmojiChoiceTouchable}, [child]),
-      ],
-    );
-  }
-
-  private renderShowAllEmojisChoice() {
-    const child = h(Icon, {
-      style: styles.quickEmojiChoice,
-      key: 'showall',
-      color: Palette.textWeak,
-      name: 'dots-horizontal',
-    });
-
-    return h(
-      Touchable,
-      {
-        ...touchableProps,
-        style: Platform.OS === 'web' ? styles.quickEmojiChoiceTouchable : null,
-        onPress: this.openFullEmojiModal,
-        accessible: true,
-        accessibilityRole: 'button',
-        accessibilityLabel: t(
-          'message.reactions.show_more.accessibility_label',
-        ),
-      },
-      [
-        Platform.OS === 'web'
-          ? child
-          : h(View, {style: styles.quickEmojiChoiceTouchable}, [child]),
-      ],
-    );
-  }
-
   private renderQuickEmojiPickerModal() {
-    return h(View, {style: styles.quickEmojiPickerModal}, [
-      h(View, {style: styles.quickEmojiPickerContainer}, [
-        h(View, {style: styles.quickEmojiPickerRow}, [
-          this.renderQuickEmojiChoice(THUMBS_UP_UNICODE),
-          this.renderQuickEmojiChoice(VICTORY_HAND_UNICODE),
-          this.renderQuickEmojiChoice(HEART_UNICODE),
-          this.renderQuickEmojiChoice(SEE_NO_EVIL_MONKEY_UNICODE),
-        ]),
-        h(View, {style: styles.quickEmojiPickerRow}, [
-          this.renderQuickEmojiChoice(SMILING_WITH_HEART_EYES_UNICODE),
-          this.renderQuickEmojiChoice(GRINNING_WITH_SMILE_UNICODE),
-          this.renderQuickEmojiChoice(CRYING_FACE_UNICODE),
-          this.renderShowAllEmojisChoice(),
-        ]),
-      ]),
-      h(TouchableWithoutFeedback, {onPress: this.closeEmojisModal}, [
-        h(View, {style: styles.quickEmojiPickerBackground}),
-      ]),
-    ]);
+    return h(QuickEmojiModal, {
+      onPressEmoji: this.onSelectEmojiReaction,
+      onPressOthers: this.openFullEmojiModal,
+      onPressOutside: this.closeEmojisModal,
+    });
   }
 
   private renderFullEmojiModal() {

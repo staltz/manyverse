@@ -6,6 +6,7 @@ import xs, {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
+import {withXstreamProps} from 'react-xstream-hoc';
 import {Msg, FeedId} from 'ssb-typescript';
 import {isPostMsg, isContactMsg, isAboutMsg} from 'ssb-typescript/utils';
 import {
@@ -19,13 +20,8 @@ import PostMessage from './PostMessage';
 import AboutMessage from './AboutMessage';
 import ContactMessage from './ContactMessage';
 import KeylessMessage from './KeylessMessage';
-import {withXstreamProps} from 'react-xstream-hoc';
 
-export type State = {
-  hasError: boolean;
-};
-
-export type Props = {
+export interface Props {
   msg: MsgAndExtras;
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
@@ -36,7 +32,11 @@ export type Props = {
   onPressReply?: () => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
-};
+}
+
+interface State {
+  hasError: boolean;
+}
 
 const RawMessage$ = withXstreamProps(RawMessage, 'reactions');
 const PostMessage$ = withXstreamProps(PostMessage, 'reactions');
