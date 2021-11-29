@@ -261,13 +261,13 @@
     }
   },
   "connections": {
-    "title": "Connections Panel",
+    "title": "Painel de conexões",
     "floating_action_button": {
       "create_invite": "Criar convite",
       "paste_invite": "Colar convite",
       "bluetooth_seek": "Procurar via Bluetooth"
     },
-    "open_connections_panel": "Open Connections Panel",
+    "open_connections_panel": "Abrir Painel de Conexões",
     "empty": {
       "offline": {
         "title": "Offline",
@@ -284,34 +284,34 @@
     },
     "scenarios": {
       "offline": "Offline",
-      "not_connected": "Not connected",
-      "few_connections": "Too few connections",
-      "many_connections": "Well connected"
+      "not_connected": "Não conectado",
+      "few_connections": "Poucas conexões",
+      "many_connections": "Bem conectado"
     },
     "scenario_descriptions": {
       "offline_with_content": "Você não pode se conectar com os outros neste momento, mas você pode desfrutar de conteúdo que você já sincronizou.",
       "offline_without_content": "Você não pode se conectar com os outros neste momento. Tente obter conexão com a internet ou ligue o Wi-Fi para descobrir pessoas usando Manyverse por perto.",
       "knows_no_one": "Seu Manyverse está isolado no momento. Você precisa ser convidado por outros colegas para participar de um servidor \"room\", ou você pode hospedar um room por conta própria.",
       "nearby_strangers_available": "Você ainda não está conectado a ninguém, mas tem pessoas disponíveis nesta rede Wi-Fi. Tente conectar com eles manualmente, se eles também estão dispostos a conectar com você.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
+      "empty_rooms": "Você é membro de alguns rooms, mas não tem ninguém que você conheça online no momento. Tente se conectar manualmente a um estranho na sala, ou procure um convite a outros servidores.",
       "connected_poorly": "Você está conectado a uma pessoa, isso é bom. Mas, para melhorar a propagação de dados, você pode se conectar com mais pessoas. Tente esperar um pouco mais, ou procure um convite a outros servidores.",
       "connected_well": "Você está conectado com vários outros. Está tudo certo! Eles estão servindo os seus dados e você está servindo os deles."
     },
     "recommendations": {
-      "consume_invite": "How to get an invite",
-      "follow_staged_manually": "Follow someone new",
-      "paste_invite": "Paste invite code",
-      "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "consume_invite": "Como conseguir um convite",
+      "follow_staged_manually": "Siga alguém novo",
+      "paste_invite": "Colar código de convite",
+      "host_ssb_room": "Como hospedar um room",
+      "others": "Outras opções"
     },
     "recommendation_descriptions": {
-      "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
+      "consume_invite": "Essa rede social baseia-se em convites, para mantê-la amigável e segura contra spam. Se você ainda não recebeu um convite de um amigo, você pode pesquisar na web por algum servidor que dê convites para qualquer um.\n\nProcure as palavras-chave \"SSB room server\" ou \"SSB pub\". A hashtag #ssbroom também pode ser útil.",
       "follow_staged_manually": {
         "part1": {
-          "not_connected": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",
-          "connected": "If you want to get more content beyond what you already have, you can follow more people. There are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them."
+          "not_connected": "Seus amigos não estão online agora, mas se você quiser baixar mais conteúdo, existem alguns desconhecidos atualmente no mesmo room(s) onde você está. Você pode tentar se tornar amigo deles.",
+          "connected": "Se você quiser baixar mais conteúdo além do que você já tem, tente seguir mais pessoas. Existem alguns desconhecidos atualmente no mesmo room(s) que você. Você pode tentar se tornar amigo deles."
         },
-        "part2": "On the next screen, you will see unknown peers displayed like this. Press one of them and choose \"Open Profile\", then \"Follow\"."
+        "part2": "Na próxima tela, você verá pessoas desconhecidas aparecendo desta forma. Pressione um deles e escolha \"Abrir Perfil\", depois \"Seguir\"."
       }
     },
     "toasts": {
@@ -1093,7 +1093,7 @@
         "travel_and_places": "Viagens e lugares",
         "objects": "Objetos",
         "symbols": "Símbolos",
-        "flags": "Flags"
+        "flags": "Bandeiras"
       },
       "show_more": {
         "accessibility_label": "Mostrar Mais Opções de Reação"
