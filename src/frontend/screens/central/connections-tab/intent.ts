@@ -57,7 +57,11 @@ export default function intent(
                 ? t('connections.recommendations.follow_staged_manually')
                 : recommendation === 'host-ssb-room'
                 ? t('connections.recommendations.host_ssb_room')
-                : t('connections.recommendations.consume_invite'),
+                : recommendation === 'consume-invite'
+                ? t('connections.recommendations.consume_invite')
+                : recommendation === 'paste-invite'
+                ? t('connections.recommendations.paste_invite')
+                : '?',
           })),
         type: 'listPlain',
         ...Palette.listDialogColors,
@@ -79,6 +83,12 @@ export default function intent(
     bestPressed$,
     pickRecommendation$,
     'consume-invite',
+  );
+
+  const goToPasteInvite$ = recommendationSelected$(
+    bestPressed$,
+    pickRecommendation$,
+    'paste-invite',
   );
 
   const goToHostSsbRoomDialog$ = recommendationSelected$(
@@ -107,6 +117,7 @@ export default function intent(
     goToConnectionsPanel$,
     goBack$,
     goToConsumeInviteDialog$,
+    goToPasteInvite$,
     goToFollowStagedManuallyDialog$,
     goToHostSsbRoomDialog$,
   };

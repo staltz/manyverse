@@ -140,6 +140,7 @@ declare module 'i18n-js' {
     | 'connections.scenario_descriptions.connected_well'
     | 'connections.recommendations.consume_invite'
     | 'connections.recommendations.follow_staged_manually'
+    | 'connections.recommendations.paste_invite'
     | 'connections.recommendations.host_ssb_room'
     | 'connections.recommendations.others'
     | 'connections.recommendation_descriptions.consume_invite'

@@ -47,14 +47,6 @@ export const navOptions = {
       enabled: Platform.OS === 'web',
     },
   },
-  animations: {
-    push: {
-      enabled: false,
-    },
-    pop: {
-      enabled: false,
-    },
-  },
 };
 
 export function pasteInvite(sources: Sources): Sinks {

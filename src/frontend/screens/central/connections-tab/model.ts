@@ -15,6 +15,7 @@ import {PeerKV, StagedPeerKV} from '../../../ssb/types';
 export type Recommendation =
   | 'follow-staged-manually'
   | 'consume-invite'
+  | 'paste-invite'
   | 'host-ssb-room';
 // | 'qr-code-wifi-direct' TODO: issue #1591
 // | 'send-tokenized-alias-invite' TODO: issue #1594
@@ -46,7 +47,8 @@ export interface State {
     | ''
     | `${Recommendation}`
     | `${Recommendation}#${Recommendation}`
-    | `${Recommendation}#${Recommendation}#${Recommendation}`;
+    | `${Recommendation}#${Recommendation}#${Recommendation}`
+    | `${Recommendation}#${Recommendation}#${Recommendation}#${Recommendation}`;
   peers: Array<PeerKV>;
   rooms: Array<PeerKV>;
   stagedPeers: Array<StagedPeerKV>;
@@ -126,7 +128,7 @@ function reevaluateStatus(prev: State): State {
       scenario: 'knows-no-one',
       status: 'bad',
       bestRecommendation: 'consume-invite',
-      otherRecommendations: 'host-ssb-room',
+      otherRecommendations: 'paste-invite#host-ssb-room',
     };
   }
 
@@ -136,7 +138,7 @@ function reevaluateStatus(prev: State): State {
       scenario: 'empty-rooms',
       status: 'bad',
       bestRecommendation: 'follow-staged-manually',
-      otherRecommendations: 'consume-invite#host-ssb-room',
+      otherRecommendations: 'consume-invite#paste-invite#host-ssb-room',
     };
   }
 
@@ -146,7 +148,7 @@ function reevaluateStatus(prev: State): State {
       scenario: 'connected-poorly',
       status: 'fair',
       bestRecommendation: 'consume-invite',
-      otherRecommendations: 'host-ssb-room',
+      otherRecommendations: 'paste-invite#host-ssb-room',
     };
   }
 
@@ -157,7 +159,7 @@ function reevaluateStatus(prev: State): State {
       status: 'good',
       bestRecommendation: null,
       otherRecommendations:
-        'follow-staged-manually#consume-invite#host-ssb-room',
+        'follow-staged-manually#consume-invite#paste-invite#host-ssb-room',
     };
   }
 
@@ -167,7 +169,7 @@ function reevaluateStatus(prev: State): State {
       scenario: 'connected-well',
       status: 'good',
       bestRecommendation: null,
-      otherRecommendations: 'consume-invite#host-ssb-room',
+      otherRecommendations: 'consume-invite#paste-invite#host-ssb-room',
     };
   }
 

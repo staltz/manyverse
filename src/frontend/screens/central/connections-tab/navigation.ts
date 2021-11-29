@@ -9,6 +9,7 @@ import {Screens} from '../../enums';
 import {t} from '../../../drivers/localization';
 import {navOptions as connectionsScreenNavOpts} from '../../connections-panel/layout';
 import {Props as ConnPanelProps} from '../../connections-panel/props';
+import {navOptions as invitePasteNavOpts} from '../../invite-paste';
 import {navOptions as instructionsNavOpts} from '../../instructions/layout';
 import {makeInstructionsProps as makeFollowStagedManuallyInstructionsProps} from './instructions/follow-staged-manually';
 import {Props as InstructionsProps} from '../../instructions/props';
@@ -17,6 +18,7 @@ import {State} from './model';
 export interface Actions {
   goToConnectionsPanel$: Stream<any>;
   goToConsumeInviteDialog$: Stream<any>;
+  goToPasteInvite$: Stream<any>;
   goToFollowStagedManuallyDialog$: Stream<any>;
   goToHostSsbRoomDialog$: Stream<any>;
 }
@@ -46,6 +48,19 @@ export default function navigation(
           },
         } as Command),
     );
+
+  const toPasteInvite$ = actions.goToPasteInvite$.map(
+    () =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.InvitePaste,
+            options: invitePasteNavOpts,
+          },
+        },
+      } as Command),
+  );
 
   const toConsumeInviteInstructions$ = actions.goToConsumeInviteDialog$.map(
     () =>
@@ -104,6 +119,7 @@ export default function navigation(
 
   return xs.merge(
     toConnectionsPanel$,
+    toPasteInvite$,
     toConsumeInviteInstructions$,
     toFollowStagedManuallyInstructions$,
   );

@@ -388,6 +388,8 @@ class Recommendations extends Component<
         ? t('connections.recommendations.follow_staged_manually')
         : bestRecommendation === 'host-ssb-room'
         ? t('connections.recommendations.host_ssb_room')
+        : bestRecommendation === 'paste-invite'
+        ? t('connections.recommendations.paste_invite')
         : '?';
 
     return h(
