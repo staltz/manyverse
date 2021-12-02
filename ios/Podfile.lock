@@ -10,7 +10,7 @@ PODS:
     - React-jsi (= 0.64.2)
     - ReactCommon/turbomodule/core (= 0.64.2)
   - glog (0.3.5)
-  - nodejs-mobile-react-native (0.6.2):
+  - nodejs-mobile-react-native (0.6.3):
     - React-Core
   - RCT-Folly (2020.01.13.00):
     - boost-for-react-native
@@ -292,14 +292,14 @@ PODS:
     - React-Core
   - RNFS (2.18.0):
     - React-Core
-  - RNHasInternet (4.2.1):
+  - RNHasInternet (5.0.0):
     - React-Core
-  - RNImageCropPicker (0.36.2):
+  - RNImageCropPicker (0.36.4):
     - React-Core
     - React-RCTImage
-    - RNImageCropPicker/QBImagePickerController (= 0.36.2)
+    - RNImageCropPicker/QBImagePickerController (= 0.36.4)
     - TOCropViewController
-  - RNImageCropPicker/QBImagePickerController (0.36.2):
+  - RNImageCropPicker/QBImagePickerController (0.36.4):
     - React-Core
     - React-RCTImage
     - TOCropViewController
@@ -309,7 +309,7 @@ PODS:
     - React-Core
   - RNSVG (12.1.1):
     - React-Core
-  - RNVectorIcons (8.1.0):
+  - RNVectorIcons (9.0.0):
     - React-Core
   - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
@@ -460,7 +460,7 @@ SPEC CHECKSUMS:
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
   FBReactNativeSpec: 67cb0f3e81186443f457d3d85ab2404a24f336d3
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
-  nodejs-mobile-react-native: 3dd355cbb45e36c6dfc702dfd500be60b2e01d2a
+  nodejs-mobile-react-native: 4850ad02fbda8352f3bbb3ca640322e545a1cad5
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: 6d3e854f0e7260a648badd0d44fc364bc9da9728
   RCTSystemSetting: 63751d4cfdd80ec249e3733ee9ab6b0513b196c1
@@ -492,15 +492,15 @@ SPEC CHECKSUMS:
   ReactNativeNavigation: 0388b6fe0b9ef2c952bfa54092f26255e6c3a80a
   RNCAsyncStorage: cb9a623793918c6699586281f0b51cbc38f046f9
   RNFS: 7bdbd2472eac73a7f266b43da1d1bd68b3ed7bf5
-  RNHasInternet: 16acb32cf35af8bcf2130bf3be9703abf93783ea
-  RNImageCropPicker: 35a3ceb837446fa11547704709bb22b5fac6d584
+  RNHasInternet: 7885a06452fa44da7659ed2f234285be1c99ace0
+  RNImageCropPicker: 73891a709e6fd8a47d32104d942757971f220aee
   RNLocalize: 8123b2682605362e332debe817115ce0888e2244
   RNOS: 84f208c2e6b9c6da848ff0ef1a1163d1067bf4f6
   RNSVG: 0ff39850623301a540e69b0ccd9aabb2061812e3
-  RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
+  RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
 
-PODFILE CHECKSUM: f9026679e1aa939e293de06a18b9fff66b104636
+PODFILE CHECKSUM: af114c491e120ba8eec0d4d565a3866e89b991ae
 
 COCOAPODS: 1.11.0
