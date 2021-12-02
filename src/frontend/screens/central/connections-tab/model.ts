@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import sample from 'xstream-sample';
 import concat from 'xstream/extra/concat';
 import {FeedId} from 'ssb-typescript';
 import {State as AppState} from '../../../drivers/appstate';
@@ -75,12 +74,6 @@ function onlyWhileAppIsInForeground<T>(
     .flatten();
 }
 
-function sampledEvery<T>(period: number): (ins: Stream<T>) => Stream<T> {
-  return function sampledEveryOperator(ins: Stream<T>) {
-    return xs.periodic(period).startWith(0).compose(sample(ins));
-  };
-}
-
 function reevaluateStatus(prev: State): State {
   const roomsNum = prev.rooms.filter((p) => p[1].state === 'connected').length;
   const connectedNum = prev.peers.filter(
@@ -112,13 +105,15 @@ function reevaluateStatus(prev: State): State {
     }
   }
 
-  if (!internetEnabled && connectedNum === 0 && stagedLanNum > 0) {
+  if (connectedNum === 0 && stagedLanNum > 0) {
     return {
       ...prev,
       scenario: 'nearby-strangers-available',
       status: 'bad',
       bestRecommendation: 'follow-staged-manually',
-      otherRecommendations: '',
+      otherRecommendations: internetEnabled
+        ? 'consume-invite#paste-invite#host-ssb-room'
+        : '',
     };
   }
 
@@ -222,8 +217,9 @@ export default function model(
       },
   );
 
-  const setPeersReducer$ = onlyWhileAppIsInForeground(appstate$, () =>
-    ssbSource.peers$.compose(sampledEvery(200)),
+  const setPeersReducer$ = onlyWhileAppIsInForeground(
+    appstate$,
+    () => ssbSource.peers$,
   ).map(
     (allPeers) =>
       function setPeersReducer(prev: State): State {
@@ -237,11 +233,12 @@ export default function model(
       },
   );
 
-  const setStagedPeersReducer$ = onlyWhileAppIsInForeground(appstate$, () =>
-    ssbSource.stagedPeers$.compose(sampledEvery(200)),
+  const setStagedPeersReducer$ = onlyWhileAppIsInForeground(
+    appstate$,
+    () => ssbSource.stagedPeers$,
   ).map(
     (allStagedPeers) =>
-      function setPeersReducer(prev: State): State {
+      function setStagedPeersReducer(prev: State): State {
         const stagedPeers =
           !prev.internetEnabled && prev.lanEnabled
             ? allStagedPeers.filter(
