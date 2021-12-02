@@ -47,29 +47,33 @@ export default function intent(
     .events('pressOthers')
     .compose(sample(state$))
     .map((state) =>
-      dialogSource.showPicker(undefined, undefined, {
-        items: state.otherRecommendations
-          .split('#')
-          .map((recommendation: Recommendation) => ({
-            id: recommendation,
-            label:
-              recommendation === 'follow-staged-manually'
-                ? t('connections.recommendations.follow_staged_manually')
-                : recommendation === 'host-ssb-room'
-                ? t('connections.recommendations.host_ssb_room')
-                : recommendation === 'consume-invite'
-                ? t('connections.recommendations.consume_invite')
-                : recommendation === 'paste-invite'
-                ? t('connections.recommendations.paste_invite')
-                : '?',
-          })),
-        type: 'listPlain',
-        ...Palette.listDialogColors,
-        cancelable: true,
-        positiveText: '',
-        negativeText: '',
-        neutralText: '',
-      }),
+      dialogSource.showPicker(
+        t('connections.recommendations.others'),
+        undefined,
+        {
+          items: state.otherRecommendations
+            .split('#')
+            .map((recommendation: Recommendation) => ({
+              id: recommendation,
+              label:
+                recommendation === 'follow-staged-manually'
+                  ? t('connections.recommendations.follow_staged_manually')
+                  : recommendation === 'host-ssb-room'
+                  ? t('connections.recommendations.host_ssb_room')
+                  : recommendation === 'consume-invite'
+                  ? t('connections.recommendations.consume_invite')
+                  : recommendation === 'paste-invite'
+                  ? t('connections.recommendations.paste_invite')
+                  : '?',
+            })),
+          type: 'listPlain',
+          ...Palette.listDialogColors,
+          cancelable: true,
+          positiveText: '',
+          negativeText: '',
+          neutralText: '',
+        },
+      ),
     )
     .flatten();
 

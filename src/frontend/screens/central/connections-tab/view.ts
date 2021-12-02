@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         maxWidth: Dimensions.desktopMiddleWidth.vw,
       },
+      ios: {
+        alignSelf: 'stretch',
+      },
     }),
   },
 
