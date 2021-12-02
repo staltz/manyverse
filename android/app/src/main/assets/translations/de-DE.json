@@ -23,8 +23,8 @@
       "accessibility_label": "Dialog-Schließen-Taste"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "Link öffnen?",
+      "description": "Möchtest du {{link}} in deinem Browser öffnen?"
     }
   },
   "date": {
@@ -284,9 +284,9 @@
     },
     "scenarios": {
       "offline": "Offline",
-      "not_connected": "Not connected",
-      "few_connections": "Too few connections",
-      "many_connections": "Well connected"
+      "not_connected": "Nicht verbunden",
+      "few_connections": "Zu wenig Verbindungen",
+      "many_connections": "Gut verbunden"
     },
     "scenario_descriptions": {
       "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
@@ -298,7 +298,7 @@
       "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
     },
     "recommendations": {
-      "consume_invite": "How to get an invite",
+      "consume_invite": "Wie erhalte ich eine Einladung",
       "follow_staged_manually": "Follow someone new",
       "paste_invite": "Paste invite code",
       "host_ssb_room": "How to host a room server",
