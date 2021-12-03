@@ -28,8 +28,8 @@ You can think of this app as a diary app, you can write posts but when published
 
 4. Press Confirm
 5. On the main screen, go to the "Connections" tab on the right side
-6. Press the green button to add a server connection
-7. Choose "Paste invite"
+6. Press "Other choices"
+7. Choose "Paste invite code"
 8. Type in the following invite code
 
 `% SSB ROOM INVITE CODE %`
