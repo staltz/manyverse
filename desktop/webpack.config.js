@@ -19,6 +19,7 @@ const compileNodeModules = [
   'react-native-typing-animation',
   'react-native-progress',
   'react-native-parsed-text',
+  'react-native-system-setting',
   'react-native-lightbox',
   'static-container',
 ].map((moduleName) => path.resolve(__dirname, `../node_modules/${moduleName}`));
@@ -31,7 +32,6 @@ const ignoreNodeModules = [
   'react-native-image-crop-picker',
   'react-native-orientation-locker',
   'react-native-swiper',
-  'react-native-system-setting',
   'react-native-url-polyfill',
 ];
 
