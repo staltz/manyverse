@@ -317,7 +317,7 @@ export default [
   {
     name: 'i18n-js',
     type: 'library',
-    version: '3.7.1',
+    version: '3.8.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/fnando/i18n-js',
   },
@@ -387,7 +387,7 @@ export default [
   {
     name: 'nuka-carousel',
     type: 'library',
-    version: '4.8.1',
+    version: '4.8.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/FormidableLabs/nuka-carousel',
   },
@@ -532,11 +532,10 @@ export default [
     homepage: 'https://github.com/aakashns/react-native-dialogs#readme',
   },
   {
-    name: 'react-native-emoji-picker-staltz',
+    name: 'react-native-emoji-modal',
     type: 'library',
-    version: '1.0.0',
+    version: '0.2.2',
     license: 'MIT License (MIT)',
-    homepage: 'https://github.com/staltz/react-native-emoji-picker',
   },
   {
     name: 'react-native-flag-secure-android',
@@ -549,7 +548,7 @@ export default [
   {
     name: 'react-native-floating-action',
     type: 'library',
-    version: '1.21.0',
+    version: '1.22.0',
     license: 'MIT License (MIT)',
     homepage:
       'https://github.com/santomegonzalo/react-native-floating-action#readme',
@@ -571,14 +570,14 @@ export default [
   {
     name: 'react-native-has-internet',
     type: 'library',
-    version: '4.2.1',
+    version: '5.0.0-rc2',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/react-native-has-internet',
   },
   {
     name: 'react-native-image-crop-picker',
     type: 'library',
-    version: '0.36.2',
+    version: '0.36.4',
     license: 'MIT License (MIT)',
     homepage:
       'https://github.com/ivpusic/react-native-image-crop-picker#readme',
@@ -586,7 +585,7 @@ export default [
   {
     name: 'react-native-image-viewing',
     type: 'library',
-    version: '0.2.0',
+    version: '0.2.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/jobtoday/react-native-image-viewing#readme',
   },
@@ -692,7 +691,7 @@ export default [
   {
     name: 'react-native-vector-icons',
     type: 'library',
-    version: '8.1.0',
+    version: '9.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/oblador/react-native-vector-icons',
   },
@@ -910,7 +909,7 @@ export default [
   {
     name: 'ssb-lan',
     type: 'library',
-    version: '1.1.0',
+    version: '1.1.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-lan',
   },
@@ -1022,7 +1021,7 @@ export default [
   {
     name: 'xstream',
     type: 'library',
-    version: '11.13.0',
+    version: '11.14.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/xstream#readme',
   },

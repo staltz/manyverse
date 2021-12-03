@@ -7,6 +7,19 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2112.3-beta
+
+* (Android) Improve how internet presence is detected ([see details](https://gitlab.com/staltz/manyverse/commit/160e995748d81f255dee17d129d817b5dd76c93b))
+* (iOS) Improve how internet presence is detected ([see details](https://gitlab.com/staltz/manyverse/commit/1e18f0c0668163e19cadca57866102066116dadd))
+* Bug fix: friends on the same Wi-Fi should show up ([see details](https://gitlab.com/staltz/manyverse/commit/741b77c1b87b2e54872856ad52be29bb8ee67c2a))
+* Bug fix: text in posts should be selectable ([see details](https://gitlab.com/staltz/manyverse/commit/be31121b82d25e5e74bfb7b6d416c3924707d04f))
+* Bug fix: translate Backup screen "Data" title ([see details](https://gitlab.com/staltz/manyverse/commit/a658a3986982cfde3188797f7333ecba882651d3))
+* Feature: emoji-react with your favorite emojis ([see details](https://gitlab.com/staltz/manyverse/commit/fd4b83004b552da2f9d46840dca2aabf50df71ab))
+* Feature: new Connections tab recommends you what to do ([see details](https://gitlab.com/staltz/manyverse/commit/2651ce58ab2e3913adf43ca51cb14528ce7cb7e4))
+* Feature: new emoji picker for reactions ([see details](https://gitlab.com/staltz/manyverse/commit/11fe1c943cff3a2b1702fea2a5acdd46e74bcfb4))
+* Improve French translation ([see details](https://gitlab.com/staltz/manyverse/commit/d6a5eac0e4d076de39329592424101c9c9bbaffc))
+* Move out connections tab to its own screen ([see details](https://gitlab.com/staltz/manyverse/commit/33d2516a35328406f5247f3256abb23947f79e56))
+
 ## 0.2111.11-beta
 
 * Bug fix: dont automatically connect to strangers ([see details](https://gitlab.com/staltz/manyverse/commit/7ea67f4d3b605c31a035c47eb8373c5b6ed5a337))

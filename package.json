@@ -1,6 +1,6 @@
 {
   "name": "manyverse",
-  "version": "0.2111.11-beta",
+  "version": "0.2112.3-beta",
   "private": true,
   "main": "desktop/nodejs-project/loader.js",
   "scripts": {
