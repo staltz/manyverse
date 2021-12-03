@@ -226,6 +226,7 @@ export default class FullThread extends Component<Props, State> {
       keyExtractor: (msg: MsgAndExtras) => msg.key,
       contentContainerStyle: styles.contentContainer,
       scrollToEnd$,
+      removeClippedSubviews: false,
       onViewableItemsChanged: this.onViewableItemsChanged,
       viewabilityConfig: FullThread.viewabilityConfig,
       ItemSeparatorComponent: Separator,

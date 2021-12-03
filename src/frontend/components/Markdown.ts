@@ -268,8 +268,12 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
         $(Text, {...textProps, style: styles.paragraphText}, props.children),
       ),
 
-    text: (props: {children: any}) =>
-      $(Text, {...textProps, style: styles.text}, props.children),
+    text: (props: {children: any; nodeKey?: string}) =>
+      $(
+        Text,
+        {...textProps, key: props.nodeKey, style: styles.text},
+        props.children,
+      ),
 
     heading: (props: {children: any; level: 1 | 2 | 3 | 4 | 5 | 6}) =>
       $(
@@ -432,10 +436,15 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
   return renderers;
 }
 
-export type Props = {
+export interface Props {
   text: string;
   onLayout?: ViewProps['onLayout'];
-};
+}
+
+function transformLinkUri(uri: string) {
+  if (isSSBURI(uri)) return uri; // don't interfere with SSB URIs
+  return ReactMarkdown.uriTransformer(uri); // interfere with all others
+}
 
 export default class Markdown extends PureComponent<Props> {
   public render() {
@@ -454,10 +463,7 @@ export default class Markdown extends PureComponent<Props> {
         .processSync(this.props.text).contents,
       astPlugins: [normalizeForReactNative()],
       allowedTypes: Object.keys(renderers),
-      transformLinkUri: (uri: string) => {
-        if (isSSBURI(uri)) return uri; // don't interfere with SSB URIs
-        return ReactMarkdown.uriTransformer(uri); // interfere with all others
-      },
+      transformLinkUri,
       renderers,
     });
   }
