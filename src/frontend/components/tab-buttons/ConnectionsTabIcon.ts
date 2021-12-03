@@ -9,10 +9,28 @@ import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import TabIcon from './TabIcon';
 
+type Status = 'good' | 'fair' | 'bad' | 'offline';
+
+function getColorForStatus(status: Status) {
+  switch (status) {
+    case 'good':
+    case 'offline':
+      return undefined;
+    case 'fair':
+      return Palette.textWarning;
+    case 'bad':
+      return Palette.textNegative;
+  }
+}
+
+function isNegativeStatus(status: Status) {
+  return status === 'bad' || status === 'fair';
+}
+
 export default class ConnectionsTabIcon extends Component<
   {
     isSelected: boolean;
-    status: 'good' | 'fair' | 'bad' | 'offline';
+    status: Status;
     allowWarningColors: boolean;
     style?: StyleProp<ViewStyle>;
   },
@@ -22,8 +40,7 @@ export default class ConnectionsTabIcon extends Component<
 
   static TIMER_PERIOD = 10e3;
 
-  private badTimer: NodeJS.Timeout | null = null;
-  private fairTimer: NodeJS.Timeout | null = null;
+  private colorTimer: NodeJS.Timeout | null = null;
 
   public shouldComponentUpdate(
     nextProps: ConnectionsTabIcon['props'],
@@ -40,53 +57,36 @@ export default class ConnectionsTabIcon extends Component<
   }
 
   public componentDidMount() {
-    if (this.props.allowWarningColors) {
-      this.badTimer = setTimeout(() => {
-        if (this.props.status === 'bad') {
-          this.setState({colorOverride: Palette.textNegative});
-        } else {
-          this.badTimer = null;
-        }
-      }, ConnectionsTabIcon.TIMER_PERIOD);
-    }
+    const {allowWarningColors, status} = this.props;
 
-    if (this.props.allowWarningColors) {
-      this.fairTimer = setTimeout(() => {
-        if (this.props.status === 'fair') {
-          this.setState({colorOverride: Palette.textWarning});
-        } else {
-          this.fairTimer = null;
-        }
+    if (allowWarningColors && isNegativeStatus(status)) {
+      this.colorTimer = setTimeout(() => {
+        const colorOverride = getColorForStatus(status);
+        this.setState({colorOverride});
       }, ConnectionsTabIcon.TIMER_PERIOD);
     }
   }
 
   public componentDidUpdate() {
-    const {status, allowWarningColors} = this.props;
-    if (status === 'bad' && allowWarningColors) {
-      if (this.fairTimer) clearTimeout(this.fairTimer);
-      this.fairTimer = null;
-      if (!this.badTimer) {
+    const {allowWarningColors, status} = this.props;
+
+    if (allowWarningColors) {
+      if (isNegativeStatus(status)) {
+        if (!this.colorTimer) {
+          this.setState({colorOverride: undefined});
+          this.colorTimer = setTimeout(() => {
+            const colorOverride = getColorForStatus(this.props.status);
+            this.setState({colorOverride});
+          }, ConnectionsTabIcon.TIMER_PERIOD);
+        } else if (this.state.colorOverride) {
+          const colorOverride = getColorForStatus(this.props.status);
+          this.setState({colorOverride});
+        }
+      } else {
+        if (this.colorTimer) clearTimeout(this.colorTimer);
+        this.colorTimer = null;
         this.setState({colorOverride: undefined});
-        this.badTimer = setTimeout(() => {
-          this.setState({colorOverride: Palette.textNegative});
-        }, ConnectionsTabIcon.TIMER_PERIOD);
       }
-    } else if (status === 'fair' && allowWarningColors) {
-      if (this.badTimer) clearTimeout(this.badTimer);
-      this.badTimer = null;
-      if (!this.fairTimer) {
-        this.setState({colorOverride: undefined});
-        this.fairTimer = setTimeout(() => {
-          this.setState({colorOverride: Palette.textWarning});
-        }, ConnectionsTabIcon.TIMER_PERIOD);
-      }
-    } else {
-      if (this.fairTimer) clearTimeout(this.fairTimer);
-      this.fairTimer = null;
-      if (this.badTimer) clearTimeout(this.badTimer);
-      this.badTimer = null;
-      this.setState({colorOverride: undefined});
     }
   }
 
