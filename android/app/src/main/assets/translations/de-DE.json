@@ -171,7 +171,7 @@
       "public": "Öffentliche Beiträge",
       "private": "Private Nachrichten",
       "activity": "Aktivität",
-      "connections": "Connected peers"
+      "connections": "Verbundene Benutzer"
     },
     "tab_footers": {
       "public": "Öffentlich",
@@ -261,13 +261,13 @@
     }
   },
   "connections": {
-    "title": "Connections Panel",
+    "title": "Verbindungs-Panel",
     "floating_action_button": {
       "create_invite": "Einladung erstellen",
       "paste_invite": "Einladung einfügen",
       "bluetooth_seek": "Bluetooth-Suche"
     },
-    "open_connections_panel": "Open Connections Panel",
+    "open_connections_panel": "Verbindungs-Panel öffnen",
     "empty": {
       "offline": {
         "title": "Offline",
@@ -289,29 +289,29 @@
       "many_connections": "Gut verbunden"
     },
     "scenario_descriptions": {
-      "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
-      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
-      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+      "offline_with_content": "Im Moment kannst du keine Verbindung zu anderen Benutzern herstellen, du hast aber schone einige Inhalte, welche du genießen kannst.",
+      "offline_without_content": "Du kannst im Moment keine Verbindung zu anderen Benutzern herstellen. Versuche, eine Internetverbindung herzustellen oder schalte dein WLAN ein, um Benutzer in der Nähe zu finden.",
+      "knows_no_one": "Dein Manyverse ist im Moment noch isoliert. Du musst von anderen Benutzern eingeladen werden, um Raumservern beizutreten oder du kannst selbst einen Raumserver betreiben.",
+      "nearby_strangers_available": "Du bist noch mit niemandem verbunden, aber es gibt einige Benutzer im selben WLAN. Versuche dich manuell mit ihnen zu verbinden, wenn du glaubst, dass sie sich auch mit dir verbinden möchten.",
+      "empty_rooms": "Du bist Mitglied in einigen Räumen, aber niemand, den du kennst, ist online. Versuche dich manuell mit einem Fremden im Raum zu verbinden, oder hol dir einen Einladungscode für andere Server.",
+      "connected_poorly": "Du bist mit einem Benutzer verbunden, das ist gut. Aber um die Verbreitung der Daten zu verbessern, solltest du dich mit mehreren Benutzern verbinden. Versuche, etwas länger zu warten, oder hol dir einen Einladungscode für andere Server.",
+      "connected_well": "Du bist mit vielen Benutzern verbunden. Alles ist gut! Sie verbreiten deine Daten, und du verbreitest die ihren."
     },
     "recommendations": {
       "consume_invite": "Wie erhalte ich eine Einladung",
-      "follow_staged_manually": "Follow someone new",
-      "paste_invite": "Paste invite code",
-      "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "follow_staged_manually": "Folge jemandem neuen",
+      "paste_invite": "Einladungscode einfügen",
+      "host_ssb_room": "Wie man einen Raum-Server hostet",
+      "others": "Weitere Optionen"
     },
     "recommendation_descriptions": {
-      "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
+      "consume_invite": "Dieses soziale Netzwerk basiert auf Einladungen, um es freundlich und sicher vor Spam zu halten. Wenn du noch keine Einladung von einem Freund erhalten hast, kannst du im Internet nach einem Server suchen, der Einladungen an jeden vergibt.\n\nSuche nach den Stichworten \"SSB room server\" oder \"SSB pub server\". Der Hashtag #ssbroom kann ebenfalls hilfreich sein.",
       "follow_staged_manually": {
         "part1": {
-          "not_connected": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",
-          "connected": "If you want to get more content beyond what you already have, you can follow more people. There are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them."
+          "not_connected": "Deine Freunde sind im Moment nicht online. Wenn du mehr Inhalte erhalten möchtest, gibt es einige unbekannte Benutzer, welche gerade im selben Raum/in denselben Räumen wie du online sind. Du kannst versuchen, dich mit ihnen anzufreunden.",
+          "connected": "Wenn du mehr Inhalte erhalten möchtest, als du bereits hast, kannst du weiteren Personen folgen. Es gibt einige unbekannte Benutzer, die derzeit im selben Raum/in denselben Räumen wie du online sind. Du kannst versuchen, dich mit ihnen anzufreunden."
         },
-        "part2": "On the next screen, you will see unknown peers displayed like this. Press one of them and choose \"Open Profile\", then \"Follow\"."
+        "part2": "Auf dem nächsten Bildschirm werden dir unbekannte Benutzer wie folgt angezeigt. Drücke auf einen von ihnen und wähle \"Profil öffnen\", dann \"Folgen\"."
       }
     },
     "toasts": {
@@ -1093,7 +1093,7 @@
         "travel_and_places": "Reisen und Orte",
         "objects": "Objekte",
         "symbols": "Symbole",
-        "flags": "Flags"
+        "flags": "Flaggen"
       },
       "show_more": {
         "accessibility_label": "Weitere Reaktionsoptionen anzeigen"
