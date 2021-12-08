@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -11,6 +11,7 @@ import {
   StyleSheet,
   Animated,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../global-styles/palette';
@@ -95,15 +96,25 @@ const styles = StyleSheet.create({
     height: DIAMETER,
     marginBottom: 40,
   },
+
+  icon: {
+    ...Platform.select({
+      web: {
+        zIndex: 100,
+      },
+    }),
+  },
 });
 
-export type Props = {
+const ANIM_DURATION = Platform.OS === 'web' ? 40 : 140;
+
+export interface Props {
   status: 'idle' | 'active' | 'loading';
   recording: number;
   loudness: number;
   onPressStart?: () => void;
   onPressStop?: () => void;
-};
+}
 
 export default class AudioPlayer extends PureComponent<Props> {
   private teaseAnim = new Animated.Value(0);
@@ -112,11 +123,11 @@ export default class AudioPlayer extends PureComponent<Props> {
     const prevLoudness = prevProps.loudness;
     const nextLoudness = this.props.loudness;
     const diff = Math.abs(nextLoudness - prevLoudness);
-    if (typeof nextLoudness === 'number' && diff >= 0.05) {
+    if (typeof nextLoudness === 'number' && diff >= 0.01) {
       this.teaseAnim.stopAnimation();
       Animated.timing(this.teaseAnim, {
-        toValue: 1 + nextLoudness * 0.6,
-        duration: 140,
+        toValue: 1 + nextLoudness,
+        duration: ANIM_DURATION,
         useNativeDriver: true,
       }).start();
     }
@@ -145,6 +156,7 @@ export default class AudioPlayer extends PureComponent<Props> {
             key: 'abc',
             size: Dimensions.iconSizeLarge,
             color: Palette.textForBackgroundBrand,
+            style: styles.icon,
             name: 'microphone',
           }),
         ],
@@ -185,6 +197,7 @@ export default class AudioPlayer extends PureComponent<Props> {
             key: 'abc',
             size: Dimensions.iconSizeLarge,
             color: Palette.backgroundRecord,
+            style: styles.icon,
             name: 'stop',
           }),
         ],

@@ -4,7 +4,8 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {View} from 'react-native';
+import {createElement as $} from 'react';
+import {Platform, View} from 'react-native';
 import {t} from '../../drivers/localization';
 import AudioPlayer from '../../components/AudioPlayer';
 import AudioRecorder from '../../components/AudioRecorder';
@@ -16,15 +17,21 @@ const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
 
 export default function view(state$: Stream<State>) {
   return state$.map((state) => {
-    return h(View, {style: styles.container}, [
+    return h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('compose_audio.title')}),
 
       h(View, {style: styles.container}, [
         state.status === 'recorded'
-          ? h(AudioPlayer, {
-              src: blobIdToUrl(state.blobId),
-              style: styles.audioPlayer,
-            })
+          ? Platform.OS === 'web'
+            ? $('audio', {
+                src: blobIdToUrl(state.blobId),
+                controls: true,
+                style: {width: '80%'},
+              })
+            : h(AudioPlayer, {
+                src: blobIdToUrl(state.blobId),
+                style: styles.audioPlayer,
+              })
           : h(AudioRecorder, {
               sel: 'audio-recorder',
               status:

@@ -36,6 +36,7 @@ export interface DrawerToggleOnCentralScreen {
 export interface AudioBlobComposed {
   type: 'audioBlobComposed';
   blobId: string;
+  ext: string;
 }
 
 export interface CentralChangeTab {

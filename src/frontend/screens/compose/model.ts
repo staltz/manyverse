@@ -119,7 +119,7 @@ export interface Actions {
   toggleContentWarningPreview$: Stream<any>;
   disablePreview$: Stream<any>;
   enablePreview$: Stream<any>;
-  addAudio$: Stream<string>;
+  addAudio$: Stream<{blobId: string; ext: string}>;
   addPictureWithCaption$: Stream<{caption: string; image: Image}>;
 }
 
@@ -309,9 +309,10 @@ export default function model(
     .flatten();
 
   const addAudioReducer$ = actions.addAudio$.map(
-    (blobId) =>
+    (audio) =>
       function addAudioReducer(prev: State): State {
-        const audioMarkdown = `![audio:recording.mp3](${blobId})`;
+        const {ext, blobId} = audio;
+        const audioMarkdown = `![audio:recording.${ext}](${blobId})`;
         const postText = appendToPostText(prev.postText, audioMarkdown);
         const postTextSelection = {
           start: postText.length,
@@ -357,14 +358,15 @@ export default function model(
     },
   );
 
-  const toggleContentWarningPreviewReducer$ = actions.toggleContentWarningPreview$.mapTo(
-    function toggleContentWarningPreviewReducer(prev: State): State {
-      return {
-        ...prev,
-        contentWarningPreviewOpened: !prev.contentWarningPreviewOpened,
-      };
-    },
-  );
+  const toggleContentWarningPreviewReducer$ =
+    actions.toggleContentWarningPreview$.mapTo(
+      function toggleContentWarningPreviewReducer(prev: State): State {
+        return {
+          ...prev,
+          contentWarningPreviewOpened: !prev.contentWarningPreviewOpened,
+        };
+      },
+    );
 
   const getComposeDraftReducer$ = asyncStorageSource
     .getItem('composeDraft')

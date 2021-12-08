@@ -184,9 +184,9 @@ export default function intent(
               .flatten(),
           ),
 
-    addAudio$: globalEvent$
-      .filter((ev): ev is AudioBlobComposed => ev.type === 'audioBlobComposed')
-      .map((event) => event.blobId),
+    addAudio$: globalEvent$.filter(
+      (ev): ev is AudioBlobComposed => ev.type === 'audioBlobComposed',
+    ),
 
     exit$: xs.merge(publishPost$, publishReply$, back$),
   };

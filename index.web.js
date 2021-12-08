@@ -16,6 +16,7 @@ import {makeClipboardDriver} from 'cycle-native-clipboard';
 import {makeFSDriver} from './lib/frontend/drivers/fs';
 import {makeNetworkDriver} from './lib/frontend/drivers/network';
 import {makeEventBusDriver} from './lib/frontend/drivers/eventbus';
+import {makeRecorderDriver} from './lib/frontend/drivers/recorder';
 import {dialogDriver} from './lib/frontend/drivers/dialogs';
 import {makeActivityLifecycleDriver} from './lib/frontend/drivers/lifecycle';
 import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
@@ -25,6 +26,7 @@ import {makeToastDriver} from './lib/frontend/drivers/toast';
 import {desktopFrame} from './lib/frontend/screens/desktop-frame';
 import {central} from './lib/frontend/screens/central';
 import {compose} from './lib/frontend/screens/compose';
+import {composeAudio} from './lib/frontend/screens/compose-audio';
 import {global} from './lib/frontend/screens/global';
 import {welcome} from './lib/frontend/screens/welcome';
 import {conversation} from './lib/frontend/screens/conversation';
@@ -76,6 +78,7 @@ function startCycleApp() {
     fs: makeFSDriver(),
     lifecycle: makeActivityLifecycleDriver(),
     network: makeNetworkDriver(),
+    recorder: makeRecorderDriver(),
     appstate: () => xs.of('active'),
     orientation: () =>
       makeWindowSizeDriver()(xs.never).map(({width, height}) =>
@@ -98,7 +101,7 @@ function startCycleApp() {
     [Screens.Welcome]: withState(welcome),
     [Screens.Central]: withState(central),
     [Screens.Compose]: withState(compose),
-    // [Screens.ComposeAudio]: withState(composeAudio),
+    [Screens.ComposeAudio]: withState(composeAudio),
     [Screens.ConnectionsPanel]: withState(connectionsPanel),
     [Screens.Search]: withState(search),
     [Screens.Thread]: withState(thread),

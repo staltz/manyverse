@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {ReactElement} from 'react';
+import {Platform} from 'react-native';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
@@ -23,7 +24,7 @@ import view from './view';
 import intent from './intent';
 import recorder from './recorder';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   keyboard: KeyboardSource;
@@ -33,9 +34,9 @@ export type Sources = {
   fs: FSSource;
   dialog: DialogSource;
   recorder: Stream<RecorderResponse>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
@@ -43,7 +44,7 @@ export type Sinks = {
   fs: Stream<any>;
   globalEventBus: Stream<GlobalEvent>;
   recorder: Stream<RecorderCommand>;
-};
+}
 
 export const navOptions = {
   topBar: {
@@ -52,15 +53,7 @@ export const navOptions = {
   },
   sideMenu: {
     left: {
-      enabled: false,
-    },
-  },
-  animations: {
-    push: {
-      enabled: false,
-    },
-    pop: {
-      enabled: false,
+      enabled: Platform.OS === 'web',
     },
   },
 };
@@ -77,6 +70,10 @@ export function composeAudio(sources: Sources): Sinks {
   );
 
   function unlinkAndMoveToCache(state: State) {
+    if (Platform.OS === 'web') {
+      return sources.fs.unlink(state.path!).mapTo(null);
+    }
+
     return sources.fs
       .unlink(state.path!)
       .map(() =>
@@ -122,7 +119,11 @@ export function composeAudio(sources: Sources): Sinks {
     .filter((state) => !!state.blobId)
     .map(
       (state) =>
-        ({type: 'audioBlobComposed', blobId: state.blobId!} as GlobalEvent),
+        ({
+          type: 'audioBlobComposed',
+          blobId: state.blobId!,
+          ext: state.filename.split('.')[1],
+        } as GlobalEvent),
     );
 
   const reducer$ = model(actions, sources.ssb, state$);

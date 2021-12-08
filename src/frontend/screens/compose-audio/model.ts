@@ -8,7 +8,7 @@ import {Reducer} from '@cycle/state';
 import {Platform} from 'react-native';
 import {SSBSource} from '../../drivers/ssb';
 
-export type State = {
+export interface State {
   filename: string;
   status: 'idle' | 'recording' | 'finalizing' | 'recorded';
   path: string | null;
@@ -16,16 +16,16 @@ export type State = {
   startedRecordingAt: number;
   duration: number;
   loudness: number;
-};
+}
 
-type Actions = {
+interface Actions {
   responseStartRecording$: Stream<any>;
   requestStopRecording$: Stream<any>;
   responseStopRecording$: Stream<any>;
   responsePreparedRecording$: Stream<{path: string}>;
   discardRecording$: Stream<any>;
   meterEvent$: Stream<number>;
-};
+}
 
 export default function model(
   actions: Actions,
@@ -33,7 +33,7 @@ export default function model(
   state$: Stream<State>,
 ): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initOrResetReducer(_prev?: State): State {
-    const ext = Platform.OS === 'ios' ? 'mp4' : 'mp3';
+    const ext = Platform.select({ios: 'mp4', web: 'webm', default: 'mp3'});
     return {
       filename: `${Date.now()}.${ext}`,
       status: 'idle',
@@ -54,7 +54,11 @@ export default function model(
     .map(
       () =>
         function initOrResetReducer(_prev?: State): State {
-          const ext = Platform.OS === 'ios' ? 'mp4' : 'mp3';
+          const ext = Platform.select({
+            ios: 'mp4',
+            web: 'webm',
+            default: 'mp3',
+          });
           return {
             filename: `${Date.now()}.${ext}`,
             status: 'idle',

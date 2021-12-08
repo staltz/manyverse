@@ -9,28 +9,29 @@ import pairwise from 'xstream/extra/pairwise';
 import {Command as RecorderCommand} from '../../drivers/recorder';
 import {State} from './model';
 
-type Actions = {
+interface Actions {
   requestStartRecording$: Stream<any>;
   requestStopRecording$: Stream<any>;
   discardRecording$: Stream<any>;
-};
+}
 
 export default function recorder(actions: Actions, state$: Stream<State>) {
   const filename$ = state$.map((s) => s.filename).compose(dropRepeats());
 
-  const prepare$ = filename$.map(
-    (filename) =>
-      ({
-        type: 'prepare',
-        filename,
-        opts: {
-          channels: 1,
-          format: 'mp4',
-          encoder: 'mp4',
-          meteringInterval: 150,
-        },
-      } as RecorderCommand),
-  );
+  const prepare$ = filename$.map((filename) => {
+    const format = filename.endsWith('.webm') ? 'webm' : 'mp4';
+    const encoder = format;
+    return {
+      type: 'prepare',
+      filename,
+      opts: {
+        channels: 1,
+        format,
+        encoder,
+        meteringInterval: 150,
+      },
+    } as RecorderCommand;
+  });
 
   const record$ = actions.requestStartRecording$
     .compose(sample(filename$))

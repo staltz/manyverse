@@ -4,45 +4,13 @@
 
 import xs, {Stream} from 'xstream';
 import {Recorder} from '@staltz/react-native-audio-toolkit';
-
-export type Command =
-  | {
-      type: 'prepare';
-      filename: string;
-      opts?: {
-        format?: 'mp4' | 'aac' | 'ogg' | 'webm' | 'amr';
-        encoder?: 'mp4' | 'aac' | 'ogg' | 'webm' | 'amr';
-        channels?: number;
-        sampleRate?: number;
-        bitrate?: number;
-        meteringInterval?: number;
-      };
-    }
-  | {
-      type: 'record';
-      filename: string;
-    }
-  | {
-      type: 'stop';
-      filename: string;
-    }
-  | {
-      type: 'destroy';
-      filename: string;
-    };
-
-export type Response =
-  | {type: 'prepared'; filename: string; path: string}
-  | {type: 'recording'; filename: string}
-  | {type: 'recorded'; filename: string}
-  | {type: 'destroyed'; filename: string}
-  | {type: 'meter'; value: number; rawValue: number};
+import {Command, Response} from './types';
 
 export function makeRecorderDriver() {
   const recs = new Map<string, Recorder>();
   const res$ = xs.create<Response>();
 
-  return function lifecycleDriver(sink$: Stream<Command>): Stream<Response> {
+  return function recorderDriver(sink$: Stream<Command>): Stream<Response> {
     sink$.addListener({
       next: (cmd) => {
         if (cmd.type === 'prepare') {
@@ -56,6 +24,8 @@ export function makeRecorderDriver() {
             else res$._n({type: 'prepared', filename: cmd.filename, path});
           });
           (rec as any).on('meter', (data: any) => {
+            console.log('value', data.value);
+            console.log('rawValue', data.rawValue);
             res$._n({
               type: 'meter',
               value: data.value,
