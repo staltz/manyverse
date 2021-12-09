@@ -10,6 +10,7 @@ const {presets} = require(`../babel.config.js`);
 const compileNodeModules = [
   '@react-native-community/slider',
   '@staltz/react-native-audio-toolkit',
+  '@staltz/react-native-image-viewing',
   'react-native-localize',
   'react-native-root-siblings',
   'react-native-tiny-toast',
@@ -27,7 +28,6 @@ const compileNodeModules = [
 const ignoreNodeModules = [
   'react-native-dialogs',
   'react-native-fs',
-  'react-native-image-viewing',
   'react-native-navigation',
   'react-native-image-crop-picker',
   'react-native-orientation-locker',

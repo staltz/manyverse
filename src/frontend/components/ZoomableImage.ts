@@ -15,24 +15,26 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
+import ImageView from '@staltz/react-native-image-viewing';
 import {t} from '../drivers/localization';
 import {Dimensions as Dimens} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
+import {getImg} from '../global-styles/utils';
 import HeaderButton from './HeaderButton';
 const urlToBlobId = require('ssb-serve-blobs/url-to-id');
 const ToastIOS =
   Platform.OS === 'ios'
     ? require('react-native-tiny-toast').default
     : undefined;
-const ImageView =
-  Platform.OS !== 'web'
-    ? require('react-native-image-viewing').default
+const ToastWeb =
+  Platform.OS === 'web'
+    ? require('../drivers/toast/impl.web').default
     : undefined;
 
 const $ = createElement;
 
-const pictureIcon = require('../../../images/image-area.png');
+const pictureIcon = getImg(require('../../../images/image-area.png'));
 
 const styles = StyleSheet.create({
   imageBlobIdContainer: {
@@ -146,7 +148,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
               duration: ToastAndroid.SHORT,
             });
           } else {
-            window.alert(toastMsg);
+            ToastWeb.show({message: toastMsg, duration: ToastWeb.SHORT});
           }
           this.onClose();
         },
@@ -161,7 +163,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
               duration: ToastAndroid.SHORT,
             });
           } else {
-            window.alert(toastMsg);
+            ToastWeb.show({message: toastMsg, duration: ToastWeb.SHORT});
           }
           this.onClose();
         },
@@ -192,18 +194,16 @@ export default class ZoomableImage extends PureComponent<Props, State> {
 
     if (loaded) {
       return $(View, {key: uri}, [
-        Platform.OS !== 'web'
-          ? $(ImageView, {
-              key: 'full',
-              images,
-              imageIndex: 0,
-              visible: fullscreen,
-              swipeToCloseEnabled: false,
-              onRequestClose: this.onClose,
-              FooterComponent: ({imageIndex}: {imageIndex: any}) =>
-                this.renderFooter(images[imageIndex]),
-            })
-          : null,
+        $(ImageView, {
+          key: 'full',
+          images,
+          imageIndex: 0,
+          visible: fullscreen,
+          swipeToCloseEnabled: false,
+          onRequestClose: this.onClose,
+          FooterComponent: ({imageIndex}: {imageIndex: any}) =>
+            this.renderFooter(images[imageIndex]),
+        }),
         $(
           Touchable,
           {onPress: this.onOpen, key: 't'},

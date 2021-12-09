@@ -79,4 +79,8 @@ toastDriver.Gravity = {
   BOTTOM: 'bottom',
 };
 
+toastDriver.show = (t: Toast) => {
+  toastsRef.current!.show(t.flavor ?? null, t.message, t.duration);
+};
+
 export default toastDriver;
