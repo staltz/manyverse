@@ -15,6 +15,8 @@ import {
   Composer as ComposerWithWrongTypes,
   InputToolbar as InputToolbarWithWrongTypes,
   Message as MessageWithWrongTypes,
+  SystemMessage as SystemMessageWithWrongTypes,
+  SystemMessageProps,
   IMessage as GiftedMsg,
   GiftedChatProps,
   BubbleProps,
@@ -38,21 +40,21 @@ import LocalizedHumanTime from '../../components/LocalizedHumanTime';
 import {State} from './model';
 import {displayName} from '../../ssb/utils/from-ssb';
 
-const GiftedChat = (GiftedChatWithWrongTypes as any) as ComponentClass<
+const GiftedChat = GiftedChatWithWrongTypes as any as ComponentClass<
   GiftedChatProps<GiftedMsg>
 >;
-const Bubble = (BubbleWithWrongTypes as any) as ComponentClass<
+const Bubble = BubbleWithWrongTypes as any as ComponentClass<
   BubbleProps<GiftedMsg>
 >;
-const Day = (DayWithWrongTypes as any) as ComponentClass<DayProps<GiftedMsg>>;
-const InputToolbar = (InputToolbarWithWrongTypes as any) as ComponentClass<
-  InputToolbarProps
->;
-const Composer = (ComposerWithWrongTypes as any) as ComponentClass<
-  ComposerProps
->;
-const Message = (MessageWithWrongTypes as any) as ComponentClass<
+const Day = DayWithWrongTypes as any as ComponentClass<DayProps<GiftedMsg>>;
+const InputToolbar =
+  InputToolbarWithWrongTypes as any as ComponentClass<InputToolbarProps>;
+const Composer = ComposerWithWrongTypes as any as ComponentClass<ComposerProps>;
+const Message = MessageWithWrongTypes as any as ComponentClass<
   MessageProps<any>
+>;
+const SystemMessage = SystemMessageWithWrongTypes as any as ComponentClass<
+  SystemMessageProps<any>
 >;
 
 export const styles = StyleSheet.create({
@@ -140,6 +142,14 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Dimensions.verticalSpaceTiny,
     paddingTop: Dimensions.verticalSpaceTiny,
     paddingBottom: Dimensions.verticalSpaceNormal,
+  },
+
+  sysMessageContainer: {
+    ...Platform.select({
+      web: {
+        maxWidth: Dimensions.desktopMiddleWidth.vw,
+      },
+    }),
   },
 
   messageLeftOrRight: {
@@ -273,8 +283,15 @@ function renderTime(props: any) {
 function renderDay(props: any) {
   return h(Day, {
     ...props,
-    containerStyle: [styles.dayContainer],
-    textStyle: [styles.dayText],
+    containerStyle: styles.dayContainer,
+    textStyle: styles.dayText,
+  });
+}
+
+function renderSystemMessage(props: any) {
+  return h(SystemMessage, {
+    ...props,
+    containerStyle: styles.sysMessageContainer,
   });
 }
 
@@ -301,9 +318,8 @@ export default function view(state$: Stream<State>) {
             } as any,
           ]
         : [];
-      const realMessages: Array<GiftedMsg> = state.thread.messages.map(
-        toGiftedMessage,
-      );
+      const realMessages: Array<GiftedMsg> =
+        state.thread.messages.map(toGiftedMessage);
 
       return h(View, {style: styles.container}, [
         h(TopBar, {sel: 'topbar', title: t('conversation.title')}, [
@@ -328,6 +344,7 @@ export default function view(state$: Stream<State>) {
           renderSend,
           renderTime,
           renderDay,
+          renderSystemMessage,
           renderInputToolbar,
           renderMessageText: (item: {currentMessage: GiftedMsg}) =>
             h(View, {style: styles.bubbleText}, [
