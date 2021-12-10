@@ -52,6 +52,11 @@ SPDX-License-Identifier: MPL-2.0
         height: 48px;
         margin: calc(50vh - 48px * 0.5) calc(50vw - 48px * 0.5);
       }
+
+      /* Styles that cannot be applied in react-native-web */
+      *[data-markdown-text="1"]::selection {
+        background-color: #91a7ff; /* backgroundTextSelection */
+      }
     </style>
   </head>
   <body>

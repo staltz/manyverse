@@ -38,6 +38,11 @@ const ELLIPSIS = '\u2026';
 const textProps: TextProps = {
   selectable: true,
   textBreakStrategy: 'simple',
+  ...Platform.select({
+    web: {
+      dataSet: {markdownText: 1},
+    },
+  }),
 };
 
 const styles = StyleSheet.create({
