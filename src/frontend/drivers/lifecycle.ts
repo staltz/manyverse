@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2019 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -10,14 +10,14 @@ export type LifecycleEvent = 'paused' | 'resumed';
 export function makeActivityLifecycleDriver() {
   const response$ = xs.create<LifecycleEvent>({
     start: function start(listener: Listener<string>) {
-      this.fn = (type: string) => {
-        listener.next(type);
-      };
-      DeviceEventEmitter.addListener('activityLifecycle', this.fn);
+      this.sub = DeviceEventEmitter.addListener(
+        'activityLifecycle',
+        (type: string) => listener.next(type),
+      );
     },
 
     stop() {
-      DeviceEventEmitter.removeListener('activityLifecycle', this.fn);
+      this.sub?.remove();
     },
   });
 
