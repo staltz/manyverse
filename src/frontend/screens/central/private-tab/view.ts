@@ -64,7 +64,8 @@ class ConversationItem extends PureComponent<CIProps> {
 
     const touchableProps: any = {onPress};
     if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+      touchableProps.background =
+        TouchableNativeFeedback.SelectableBackground();
     }
 
     const D_ANG = (2 * Math.PI) / amount;
@@ -143,6 +144,17 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
 
   private _onFeedInitialPullDone = () => {
     this.setState({initialLoading: false});
+
+    // Hack because FlatList on react-native-web is broken
+    // https://github.com/necolas/react-native-web/issues/1608
+    // Here we fiddle with the app's height to force FlatList to understand
+    // that it should load more items
+    if (Platform.OS === 'web') {
+      window.document.body.style.height = '99.99%';
+      setTimeout(() => {
+        window.document.body.style.height = '100%';
+      });
+    }
   };
 
   private isNotMe = (recp: Unarray<PrivateThreadAndExtras['recps']>) => {
