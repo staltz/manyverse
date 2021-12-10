@@ -1,11 +1,10 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream, Listener} from 'xstream';
-import Orientation, {OrientationType} from 'react-native-orientation-locker';
-
-export type OrientationEvent = OrientationType;
+import Orientation from 'react-native-orientation-locker';
+import {OrientationEvent} from './types';
 
 export function makeOrientationDriver() {
   const response$ = xs

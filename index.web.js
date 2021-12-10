@@ -17,6 +17,7 @@ import {makeFSDriver} from './lib/frontend/drivers/fs';
 import {makeNetworkDriver} from './lib/frontend/drivers/network';
 import {makeEventBusDriver} from './lib/frontend/drivers/eventbus';
 import {makeRecorderDriver} from './lib/frontend/drivers/recorder';
+import {makeOrientationDriver} from './lib/frontend/drivers/orientation';
 import {dialogDriver} from './lib/frontend/drivers/dialogs';
 import {makeActivityLifecycleDriver} from './lib/frontend/drivers/lifecycle';
 import {makeLocalizationDriver} from './lib/frontend/drivers/localization';
@@ -80,10 +81,7 @@ function startCycleApp() {
     network: makeNetworkDriver(),
     recorder: makeRecorderDriver(),
     appstate: () => xs.of('active'),
-    orientation: () =>
-      makeWindowSizeDriver()(xs.never).map(({width, height}) =>
-        height >= width ? 'PORTRAIT' : 'LANDSCAPE-RIGHT',
-      ),
+    orientation: makeOrientationDriver(),
     windowSize: makeWindowSizeDriver(),
     globalEventBus: makeEventBusDriver(),
     linking: linkingDriver,
