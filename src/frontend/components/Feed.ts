@@ -9,7 +9,6 @@ import {
   StyleSheet,
   NativeScrollEvent,
   Animated,
-  Easing,
   ViewStyle,
   Platform,
 } from 'react-native';
@@ -22,7 +21,6 @@ import {t} from '../drivers/localization';
 import {Dimensions} from '../global-styles/dimens';
 import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
-import {getBreathingComposition} from '../global-styles/animations';
 import {GetReadable} from '../drivers/ssb';
 import {
   ThreadSummaryWithExtras,
@@ -33,6 +31,7 @@ import {
 import ThreadCard from './ThreadCard';
 import PlaceholderThreadCard from './PlaceholderThreadCard';
 import FollowCard from './FollowCard';
+import AnimatedLoading from './AnimatedLoading';
 
 const Pushable = require('pull-pushable');
 const PullFlatList2 = propifyMethods(
@@ -83,63 +82,6 @@ function Separator() {
   return h(View, {style: styles.itemSeparator});
 }
 
-class InitialLoading extends PureComponent<any> {
-  private loadingAnim = new Animated.Value(0);
-  private indexesAnim = new Animated.Value(0);
-
-  public componentDidMount() {
-    // Breathing animation
-    getBreathingComposition(this.loadingAnim).start();
-
-    // Wait for 10 seconds before starting animation
-    Animated.sequence([
-      Animated.delay(10000),
-      // Take 4 seconds to slowly appear
-      Animated.timing(this.indexesAnim, {
-        toValue: 1,
-        duration: 4000,
-        useNativeDriver: true,
-      }),
-      // Breathing animation
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(this.indexesAnim, {
-            toValue: 0.6,
-            duration: 2100,
-            easing: Easing.out(Easing.quad),
-            useNativeDriver: true,
-          }),
-          Animated.timing(this.indexesAnim, {
-            toValue: 1,
-            easing: Easing.linear,
-            duration: 2400,
-            useNativeDriver: true,
-          }),
-        ]),
-      ),
-    ]).start();
-  }
-
-  public render() {
-    return h(View, [
-      h(PlaceholderThreadCard),
-      h(
-        Animated.Text,
-        {style: [styles.initialLoading, {opacity: this.loadingAnim}]},
-        t('central.loading'),
-      ),
-      h(
-        Animated.Text,
-        {
-          selectable: true,
-          style: [styles.initialLoading, {opacity: this.indexesAnim}],
-        },
-        t('central.building_indexes'),
-      ),
-    ]);
-  }
-}
-
 interface Props {
   getReadable: GetReadable<ThreadSummaryWithExtras> | null;
   prePublication$: Stream<any> | null;
@@ -164,10 +106,10 @@ interface Props {
   yOffsetAnimVal?: Animated.Value;
 }
 
-type State = {
+interface State {
   showPlaceholder: boolean;
   initialLoading: boolean;
-};
+}
 
 export default class Feed extends PureComponent<Props, State> {
   private yOffset: number;
@@ -250,6 +192,22 @@ export default class Feed extends PureComponent<Props, State> {
     }
   }
 
+  private renderFooter = () => {
+    if (this.state.initialLoading) {
+      return h(View, [
+        h(PlaceholderThreadCard),
+        h(AnimatedLoading, {text: t('central.loading')}),
+        h(AnimatedLoading, {
+          text: t('central.building_indexes'),
+          delay: 11e3,
+          selectable: true,
+        }),
+      ]);
+    } else {
+      return h(PlaceholderThreadCard);
+    }
+  };
+
   public render() {
     const {
       onRefresh,
@@ -270,7 +228,6 @@ export default class Feed extends PureComponent<Props, State> {
       selfFeedId,
       EmptyComponent,
     } = this.props;
-    const {initialLoading} = this.state;
 
     return h(PullFlatList2, {
       getScrollStream: getReadable,
@@ -306,9 +263,7 @@ export default class Feed extends PureComponent<Props, State> {
       keyExtractor: (thread: ThreadSummaryWithExtras, index: number) =>
         thread.root.key ?? String(index),
       ListHeaderComponent: this.renderHeader(),
-      ListFooterComponent: initialLoading
-        ? InitialLoading
-        : PlaceholderThreadCard,
+      ListFooterComponent: this.renderFooter(),
       ListEmptyComponent: EmptyComponent,
       renderItem: ({item}: any) => {
         const thread = item as ThreadSummaryWithExtras;
