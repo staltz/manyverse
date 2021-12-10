@@ -22,15 +22,12 @@ import {Palette} from '../global-styles/palette';
 import {Typography} from '../global-styles/typography';
 import {getImg} from '../global-styles/utils';
 import HeaderButton from './HeaderButton';
-const urlToBlobId = require('ssb-serve-blobs/url-to-id');
+import ToastWeb from '../drivers/toast/ToastWeb';
 const ToastIOS =
   Platform.OS === 'ios'
     ? require('react-native-tiny-toast').default
     : undefined;
-const ToastWeb =
-  Platform.OS === 'web'
-    ? require('../drivers/toast/impl.web').default
-    : undefined;
+const urlToBlobId = require('ssb-serve-blobs/url-to-id');
 
 const $ = createElement;
 
@@ -148,7 +145,10 @@ export default class ZoomableImage extends PureComponent<Props, State> {
               duration: ToastAndroid.SHORT,
             });
           } else {
-            ToastWeb.show({message: toastMsg, duration: ToastWeb.SHORT});
+            ToastWeb.show({
+              message: toastMsg,
+              duration: ToastWeb.DURATION_SHORT,
+            });
           }
           this.onClose();
         },
@@ -163,7 +163,10 @@ export default class ZoomableImage extends PureComponent<Props, State> {
               duration: ToastAndroid.SHORT,
             });
           } else {
-            ToastWeb.show({message: toastMsg, duration: ToastWeb.SHORT});
+            ToastWeb.show({
+              message: toastMsg,
+              duration: ToastWeb.DURATION_SHORT,
+            });
           }
           this.onClose();
         },
