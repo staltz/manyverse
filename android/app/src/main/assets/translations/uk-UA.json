@@ -23,8 +23,8 @@
       "accessibility_label": "Кнопка закриття вікна"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "Відкрити ланку?",
+      "description": "Бажаєте відкрити {{link}} у своєму оглядачі?"
     }
   },
   "date": {
@@ -98,14 +98,14 @@
         "2_bold": "в",
         "3_normal": " Інтернеті. Все що там відбувається знаходиться на Вашому телефоні. Це означає, що Ви можете нею користуватися, навіть коли поза мережею! Ваш ",
         "4_bold": "вміст у першу чергу зберігається на Вашому пристрої",
-        "5_normal": "і Ви можете синхронізувати його з друзями, коли зʼєднаєтеся з ними."
+        "5_normal": " і Ви можете синхронувати його з друзями, коли зʼєднаєтеся з ними."
       }
     },
     "connections": {
       "title": "Декілька способів звʼязку",
       "description": {
         "ios": {
-          "1_normal": "Щоб звʼязатися з друзями поблизу і синхронізувати вміст Ви можете підключитися в межах одного ",
+          "1_normal": "Щоб звʼязатися з друзями поблизу і синхронувати вміст Ви можете підключитися в межах одного ",
           "2_bold": "Wi-Fi",
           "3_normal": ". Щоб знайти нових людей в Інтернеті, перегляньте код запрошення до ",
           "4_bold": "публічного сервера",
@@ -114,7 +114,7 @@
           "7_normal": ", або створіть власний сервер!"
         },
         "default": {
-          "1_normal": "Щоб зʼєднатися з друзями поблизу і синхронізувати вміст, Ви можете: долучитися до одного ",
+          "1_normal": "Щоб зʼєднатися з друзями поблизу і синхронувати вміст, Ви можете: долучитися до одного ",
           "2_bold": "Wi-Fi",
           "3_normal": ", або використовувати ",
           "4_bold": "синхронізацію Bluetooth",
@@ -171,7 +171,7 @@
       "public": "Публічні дописи",
       "private": "Тільки між нами",
       "activity": "Активність",
-      "connections": "Connected peers"
+      "connections": "Підʼєднані вузли"
     },
     "tab_footers": {
       "public": "Публічно",
@@ -261,13 +261,13 @@
     }
   },
   "connections": {
-    "title": "Connections Panel",
+    "title": "Панель зʼєднань",
     "floating_action_button": {
       "create_invite": "Створити запрошення",
       "paste_invite": "Вставити запрошення",
       "bluetooth_seek": "Пошук по Bluetooth"
     },
-    "open_connections_panel": "Open Connections Panel",
+    "open_connections_panel": "Відкрити панель зʼєднань",
     "empty": {
       "offline": {
         "title": "Офлайн",
@@ -284,12 +284,12 @@
     },
     "scenarios": {
       "offline": "Офлайн",
-      "not_connected": "Not connected",
-      "few_connections": "Too few connections",
+      "not_connected": "Не підʼєднано",
+      "few_connections": "Замало зʼєднань",
       "many_connections": "Well connected"
     },
     "scenario_descriptions": {
-      "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
+      "offline_with_content": "Ви не можете підʼєднатися до вузлів зараз, але можете насолоджуватися вмістом, який Ви вже маєте.",
       "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
       "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
       "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
