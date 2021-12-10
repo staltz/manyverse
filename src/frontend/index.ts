@@ -4,6 +4,7 @@
 
 import {withState} from '@cycle/state';
 import {MoreScreenSinks} from 'cycle-native-navigation';
+import {Frame} from 'cycle-native-navigation-web';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {makeClipboardDriver} from 'cycle-native-clipboard';
 import {linkingDriver} from 'cycle-native-linking';
@@ -28,6 +29,7 @@ import {GlobalScreen} from './symbols';
 
 import {Screens} from './screens/enums';
 import {global} from './screens/global';
+import {desktopFrame} from './screens/desktop-frame';
 import {welcome} from './screens/welcome';
 import {central} from './screens/central';
 import {drawer} from './screens/drawer';
@@ -85,12 +87,14 @@ type AcceptableSinks = MoreScreenSinks & {
 
 type ScreensMapping = {
   [GlobalScreen]?: (so: any) => AcceptableSinks;
+  [Frame]?: (so: any) => AcceptableSinks;
 } & {
   [k in Screens]?: (so: any) => AcceptableSinks;
 };
 
 export const screens: ScreensMapping = {
   [GlobalScreen]: withState(global),
+  [Frame]: withState(desktopFrame),
   [Screens.Welcome]: withState(welcome),
   [Screens.Central]: withState(central),
   [Screens.Drawer]: withState(drawer),
