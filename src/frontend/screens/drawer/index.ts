@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -15,20 +15,20 @@ import {ReactElement} from 'react';
 import linking from './linking';
 import {GlobalEvent} from '../../drivers/eventbus';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   state: StateSource<State>;
   navigation: NavSource;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<NavCmd>;
   linking: Stream<string>;
   state: Stream<Reducer<State>>;
   globalEventBus: Stream<GlobalEvent>;
-};
+}
 
 export function drawer(sources: Sources): Sinks {
   const globalEvents$ = xs.merge<GlobalEvent>(
