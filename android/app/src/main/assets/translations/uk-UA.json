@@ -1,6 +1,6 @@
 {
   "call_to_action": {
-    "ok": "Гаразд",
+    "ok": "Добре",
     "add": "Додати",
     "done": "Готово",
     "cancel": "Скасувати",
@@ -88,15 +88,15 @@
   "welcome": {
     "learn_more": "Дізнатися більше",
     "overview": {
-      "title": "Ласкаво просимо до Manyverse!",
-      "description": "Соціальна мережа може бути простою, нейтральною, побудованою не задля грошей, а для довіри. Manyverse існує саме для цього. Маємо надію, що Ви зможете знайти тут свій цифровий затишок. Це можливо дякуючи новітньому протоколу SSB."
+      "title": "Вітаємо у Manyverse!",
+      "description": "Соціальна мережа може бути простою, нейтральною, побудованою не задля грошей, а для довіри. Manyverse існує саме для цього. Маємо надію, що Ви зможете знайти тут свій цифровий затишок. Це можливо завдяки новітньому протоколу SSB."
     },
     "off_the_grid": {
       "title": "Поза мережею",
       "description": {
-        "1_normal": "Manyverse може використовувати Інтернет, але вона не ",
+        "1_normal": "Manyverse може використовувати Інтернет, але вона не є ",
         "2_bold": "в",
-        "3_normal": " Інтернеті. Все що там відбувається знаходиться на Вашому телефоні. Це означає, що Ви можете нею користуватися, навіть коли поза мережею! Ваш ",
+        "3_normal": " Інтернеті. Все що там відбувається знаходиться на Вашому телефоні. Це означає, що Ви можете нею користуватися, навіть поза мережею! Ваш ",
         "4_bold": "вміст у першу чергу зберігається на Вашому пристрої",
         "5_normal": " і Ви можете синхронувати його з друзями, коли зʼєднаєтеся з ними."
       }
@@ -117,7 +117,7 @@
           "1_normal": "Щоб зʼєднатися з друзями поблизу і синхронувати вміст, Ви можете: долучитися до одного ",
           "2_bold": "Wi-Fi",
           "3_normal": ", або використовувати ",
-          "4_bold": "синхронізацію Bluetooth",
+          "4_bold": "синхронування Bluetooth",
           "5_normal": ". Щоб знайти нових людей в Інтернеті, перегляньте код запрошення до ",
           "6_bold": "публічного сервера",
           "7_normal": " або ",
@@ -131,15 +131,15 @@
       "description": {
         "1_normal": "Оскільки Ваш пристрій знаходиться у Вашій соціальній мережі, ніхто інший не зможе блокувати або вилучати обліківки від Вашого імені. Лише Ви можете модерувати свій простір ",
         "2_bold": "блокуючи обліківки",
-        "3_normal": ", які не бажаєте мати на своєму пристрої.Потім, Ваші друзі зможуть обрати блокування тих самих обліківок. Таким чином модерування зможе поширюватися природно!"
+        "3_normal": ", які не бажаєте мати на своєму пристрої. Потім, Ваші друзі зможуть заблокувати ті самі обліківки. Таким чином модерування зможе поширюватися природно!"
       }
     },
     "permanence": {
       "title": "Постійність",
       "description": {
-        "1_normal": "Оскільки Ваш вміст синхронізовано з друзями, вони зберігатимуть його копію на своїх пристроях. Потім вони можуть вийти з мережі і буде ",
-        "2_bold": "не можливо видалити",
-        "3_normal": " Ваш вміст глобально зі всіх пристроїв! Тому ми вирішили зробити вміст сталим. Це зробить спільноти шанобливими і уважними до того, що публікується."
+        "1_normal": "Оскільки Ваш вміст синхроновано з друзями, вони зберігатимуть його копію на своїх пристроях. Потім вони вийдуть із мережі і ",
+        "2_bold": "буде не можливо видалити",
+        "3_normal": " його глобально зі всіх пристроїв! Тому ми вирішили зробити вміст сталим. Це зробить спільноти шанобливими й уважними до того, що публікується."
       }
     },
     "in_construction": {
@@ -147,12 +147,12 @@
       "description": {
         "1_normal": "Manyverse — це ",
         "2_bold": "ПЗ beta-якості",
-        "3_normal": ". Ми ще не все узгодили і деякі частини потребують виправлення. Під час синхронізації застосунок може застигати на кілька хвилин. Будьте терплячими! Повідомляйте нас про будь-які інші вади, на які Ви натрапили, і маючи достатньо часу і пожертв, ми зробимо з цього чудовий застосунок."
+        "3_normal": ". Ми ще не все узгодили і деякі частини потребують виправлення. Під час синхронування застосунок може застигати на кілька хвилин. Будьте терплячими! Повідомляйте нас про будь-які інші вади, на які Ви натрапили, і маючи достатньо часу і пожертв, ми зробимо чудовий застосунок."
       }
     },
     "setup_account": {
       "title": "Це твій перший раз?",
-      "description": "Бажаєте створити нову обліківку чи відновити свою стару обліківку за допомогою фрази відновлення з 24 слів?",
+      "description": "Бажаєте створити нову обліківку чи відновити стару за допомогою фрази відновлення з 24 слів?",
       "call_to_action": {
         "create": {
           "label": "Створити обліківку",
@@ -169,7 +169,7 @@
     "app_name": "Manyverse",
     "tab_headers": {
       "public": "Публічні дописи",
-      "private": "Тільки між нами",
+      "private": "Лише між нами",
       "activity": "Активність",
       "connections": "Підʼєднані вузли"
     },
@@ -202,7 +202,7 @@
     },
     "empty": {
       "title": "Листів немає",
-      "description": "Ведіть щоденик, щоб поділитися пізніше з друзями"
+      "description": "Ведіть щоденик, щоб поділитися ним пізніше з друзями"
     },
     "search": {
       "accessibility_label": "Кнопка пошуку"
@@ -214,7 +214,7 @@
     },
     "empty": {
       "title": "Бесід немає",
-      "description": "Розпочніть приватну бесіду з будь-ким із Ваших друзів"
+      "description": "Розпочніть приватну бесіду з кимось із Ваших друзів"
     },
     "conversation": {
       "accessibility_label": "Перейти до бесіди"
@@ -286,23 +286,23 @@
       "offline": "Офлайн",
       "not_connected": "Не підʼєднано",
       "few_connections": "Замало зʼєднань",
-      "many_connections": "Well connected"
+      "many_connections": "Добре зʼєднано"
     },
     "scenario_descriptions": {
       "offline_with_content": "Ви не можете підʼєднатися до вузлів зараз, але можете насолоджуватися вмістом, який Ви вже маєте.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
+      "offline_without_content": "Ви не можете підʼєднатися до вузлів зараз. Спробуйте зробити кращий звʼязок з Інтернетом або ввімкнути Wi-Fi, щоб знайти вузли поблизу.",
+      "knows_no_one": "Ваша Manyverse в даний час є ізольованою. Потрібно, щоб інші вузли запросили Вас долучитися до сервера кімнати або Ви можете створити свій сервер кімнати.",
       "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
       "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
       "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
       "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
     },
     "recommendations": {
-      "consume_invite": "How to get an invite",
-      "follow_staged_manually": "Follow someone new",
-      "paste_invite": "Paste invite code",
+      "consume_invite": "Як отримати запрошення",
+      "follow_staged_manually": "Стежити за кимось новим",
+      "paste_invite": "Вставити код запрошення",
       "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "others": "Інші способи"
     },
     "recommendation_descriptions": {
       "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
@@ -985,7 +985,7 @@
       "backup": {
         "title": "Резервне копіювання",
         "subtitle": "Переглянути свою фразу відновлення з 24 слів",
-        "accessibility_label": "Back Up My Account"
+        "accessibility_label": "Створити резервну копію моєї обліківки"
       },
       "blobs_storage": {
         "title": "Blobs storage limit",
