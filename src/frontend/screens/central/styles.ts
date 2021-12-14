@@ -22,6 +22,9 @@ const page: ViewStyle = {
   alignItems: 'center',
 };
 
+const FLARE_WIDTH = 5;
+const PROGRESS_BAR_HEIGHT = 3;
+
 export const styles = StyleSheet.create({
   root: {
     flex: 1,
@@ -48,6 +51,26 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',
+  },
+
+  progressBar: {
+    position: 'absolute',
+    zIndex: 1000,
+    left: 0,
+    right: 0,
+    top: -PROGRESS_BAR_HEIGHT,
+    height: PROGRESS_BAR_HEIGHT,
+    backgroundColor: Palette.brandMain,
+  },
+
+  progressFlare: {
+    position: 'absolute',
+    zIndex: 1001,
+    left: -FLARE_WIDTH - 1,
+    top: -PROGRESS_BAR_HEIGHT,
+    height: PROGRESS_BAR_HEIGHT,
+    width: FLARE_WIDTH,
+    backgroundColor: Palette.brandWeaker,
   },
 
   desktopFabContainer: {
