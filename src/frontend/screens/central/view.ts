@@ -108,6 +108,11 @@ class MobileProgressBar extends Component<{progress: number}> {
     ).start();
   }
 
+  private stopFlare() {
+    this.flareAnimating = false;
+    this.flareAnim.setValue(0);
+  }
+
   public shouldComponentUpdate(nextProps: MobileProgressBar['props']) {
     const prevProgress = this.props.progress;
     const nextProgress = nextProps.progress;
@@ -121,6 +126,7 @@ class MobileProgressBar extends Component<{progress: number}> {
         useNativeDriver: true,
         isInteraction: false,
       }).start();
+      if (!this.flareAnimating) this.startFlare();
     }
     // finishing:
     else if (prevProgress < 1 && nextProgress >= 1) {
@@ -131,6 +137,7 @@ class MobileProgressBar extends Component<{progress: number}> {
         useNativeDriver: true,
         isInteraction: false,
       }).start();
+      if (this.flareAnimating) this.stopFlare();
     }
     // in between:
     else if (nextProgress < 1 && prevProgress !== nextProgress) {
