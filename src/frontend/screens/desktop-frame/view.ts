@@ -40,7 +40,11 @@ class ProgressBar extends PureComponent<{progress: number}> {
         : `${(this.props.progress * 100).toFixed(3)}%`;
     const doneStyle =
       this.props.progress >= 1 ? styles.progressDone : styles.progressUndone;
-    return $(View, {style: [styles.progressBasic, doneStyle, {width}]});
+    return $(
+      View,
+      {key: 'p1', style: [styles.progressBasic, doneStyle, {width}]},
+      [$(View, {key: 'p2', style: styles.progressFlare})],
+    );
   }
 }
 

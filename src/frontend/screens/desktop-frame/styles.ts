@@ -22,6 +22,27 @@ export const styles = StyleSheet.create({
     height: '5px',
     backgroundColor: Palette.textForBackgroundBrand,
     transition: 'width 0.25s',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+
+  progressFlare: {
+    marginRight: '0%',
+    backgroundColor: Palette.brandWeakest,
+    height: '100%',
+    width: '8px',
+
+    animationDuration: '1400ms',
+    animationDirection: 'normal',
+    animationTimingFunction: 'ease-in-out',
+    animationKeyframes: [
+      {
+        '0%': {marginRight: '100%'},
+        '100%': {marginRight: '0%'},
+      },
+    ],
+    animationIterationCount: 'infinite',
   },
 
   progressUndone: {
