@@ -45,6 +45,10 @@ export const styles = StyleSheet.create({
     animationIterationCount: 'infinite',
   },
 
+  progressFlareDone: {
+    opacity: 0,
+  },
+
   progressUndone: {
     left: 0,
   },

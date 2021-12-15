@@ -34,16 +34,23 @@ class TopBarRightSection extends PureComponent {
 
 class ProgressBar extends PureComponent<{progress: number}> {
   public render() {
-    const width =
-      this.props.progress >= 1
-        ? '0%'
-        : `${(this.props.progress * 100).toFixed(3)}%`;
+    const progress = this.props.progress;
+    const width = progress >= 1 ? '0%' : `${(progress * 100).toFixed(3)}%`;
     const doneStyle =
-      this.props.progress >= 1 ? styles.progressDone : styles.progressUndone;
+      progress >= 1 ? styles.progressDone : styles.progressUndone;
+
     return $(
       View,
       {key: 'p1', style: [styles.progressBasic, doneStyle, {width}]},
-      [$(View, {key: 'p2', style: styles.progressFlare})],
+      [
+        $(View, {
+          key: 'p2',
+          style: [
+            styles.progressFlare,
+            progress >= 1 ? styles.progressFlareDone : null,
+          ],
+        }),
+      ],
     );
   }
 }
