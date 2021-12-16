@@ -5,6 +5,9 @@
 import {t} from '../../drivers/localization';
 import version from '../../versionName';
 
+const firstCopyrightYear = 2018;
+const lastCopyrightYear =
+  2000 + parseInt(version.split('.')[1].substr(0, 2), 10);
 const repoLink = 'https://gitlab.com/staltz/manyverse';
 const authorsLink = 'https://gitlab.com/staltz/manyverse/-/raw/master/AUTHORS';
 
@@ -17,7 +20,7 @@ export default function getContent() {
     t('dialog_about.version', {version}) +
     '\n\n' +
     t('dialog_about.copyright') +
-    ' 2018-2021 ' +
+    ` ${firstCopyrightYear}-${lastCopyrightYear} ` +
     `[${t('dialog_about.authors')}](${authorsLink})\n` +
     '\n' +
     `[${t('dialog_about.repository')}](${repoLink})\n` +
