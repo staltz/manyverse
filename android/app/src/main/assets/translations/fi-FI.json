@@ -89,10 +89,10 @@
     "learn_more": "Lisätietoja",
     "overview": {
       "title": "Tervetuloa Manyverseen!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "description": "Sosiaalinen verkostoituminen voi olla yksinkertaista, neutraalia ja ei-kaupallista ja rakentua ystävien väliselle luottamukselle. Tämä on mitä Manyverse edustaa, ja toivomme, että myös sinä voit tehdä siitä digitaalisen kotisi. Kaikki tämä on mahdollista uuden SSB-protokollan avulla."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Pois verkosta",
       "description": {
         "1_normal": "Manyverse voi käyttää internet yhteyttä, mutta se ei ole ",
         "2_bold": "päällä",
@@ -252,84 +252,84 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " haluaa muodostaa yhteyden"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "Ei toimintaa",
+      "description": "Kun ihmiset mainitsevat tai seuraavat sinua,\nhe ilmestyvät tänne"
     }
   },
   "connections": {
-    "title": "Connections Panel",
+    "title": "Yhteyspaneeli",
     "floating_action_button": {
-      "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
-      "bluetooth_seek": "Bluetooth seek"
+      "create_invite": "Luo kutsu",
+      "paste_invite": "Liitä kutsu",
+      "bluetooth_seek": "Bluetoothin haku"
     },
-    "open_connections_panel": "Open Connections Panel",
+    "open_connections_panel": "Avaa Yhteyspaneeli",
     "empty": {
       "offline": {
-        "title": "Offline",
-        "description": "Turn on some connection mode\nor enjoy reading some existing content"
+        "title": "Poissa",
+        "description": "Ota jokin yhteystila käyttöön\ntai nauti jonkin olemassa olevan sisällön lukemisesta"
       },
       "connecting": {
-        "title": "Connecting",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "Yhdistetään",
+        "description": "Odota, kun sovellus yrittää\nmuodostaa yhteyden vertaisiisi"
       },
       "no_peers": {
-        "title": "No connections",
-        "description": "Try syncing with people nearby\nor use a server invite code"
+        "title": "Yhteyksiä ei ole",
+        "description": "Yritä synkronoida lähellä olevien ihmisten kanssa\ntai käytä palvelinkutsukoodia"
       }
     },
     "scenarios": {
-      "offline": "Offline",
-      "not_connected": "Not connected",
-      "few_connections": "Too few connections",
-      "many_connections": "Well connected"
+      "offline": "Poissa",
+      "not_connected": "Ei ole yhdistetty",
+      "few_connections": "Yhteyksiä on liian vähän",
+      "many_connections": "Hyvin yhdistetty"
     },
     "scenario_descriptions": {
-      "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
-      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
-      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+      "offline_with_content": "Et voi muodostaa yhteyttä käyttäjiin tällä hetkellä, mutta voit nauttia sisällöstä, joka sinulla jo on.",
+      "offline_without_content": "Et voi muodostaa yhteyttä käyttäjiin tällä hetkellä. Yritä saada internetyhteys tai otta Wi-Fi-yhteys käyttöön löytääksesi lähipiiriin kuuluvia käyttäjiä.",
+      "knows_no_one": "Manyverse on tällä hetkellä eristetty. Muiden käyttäjien on kutsuttava sinut liittymään huonepalvelimiin, tai voit isännöidä huonepalvelinta itse.",
+      "nearby_strangers_available": "Et ole vielä yhteydessä kenenkään kanssa, mutta samalla Wi-Fi:llä on joitain käyttäjiä. Yritä muodostaa yhteys niihin manuaalisesti, jos arvelet heidän olevan halukkaita ottamaan yhteyttä sinuun myös.",
+      "empty_rooms": "Olet jäsenenä joissakin huoneissa, mutta kukaan tuntemistasi ei ole tällä hetkellä paikalla. Yritä yhdistää jonkin huoneessa olevan tuntemattoman kanssa, tai hanki kutsukoodi toisiin palvelimiin.",
+      "connected_poorly": "Olet yhdistynyt yhden vertaisen kanssa joka on hyvä. Mutta, parantaaksesi tiedon levittämistä sinun tulisi yhdistää useampiin vertaisiin. Kokeile odottaa hieman pidempään tai hanki kutsukoodi muihin palvelimiin.",
+      "connected_well": "Olet yhteydessä useisiin käyttäjiin. Kaikki on hyvin! Ne levittävät tietojasi ja sinä levität heidän tietoja."
     },
     "recommendations": {
-      "consume_invite": "How to get an invite",
-      "follow_staged_manually": "Follow someone new",
-      "paste_invite": "Paste invite code",
-      "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "consume_invite": "Kuinka saada kutsu",
+      "follow_staged_manually": "Seuraa jotain uutta",
+      "paste_invite": "Liitä kutsukoodi",
+      "host_ssb_room": "Kuinka isännöidä huonepalvelinta",
+      "others": "Muita valintoja"
     },
     "recommendation_descriptions": {
-      "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
+      "consume_invite": "Tämä sosiaalinen verkosto perustuu kutsuihin pitääkseen se ystävällisenä ja turvassa roskapostilta. Jos et ole vielä saanut kutsua ystävältä, voit etsiä netistä palvelinta joka antaa kutsuja kaikille.\n\nEtsi avainsanoja \"SSB room server\" tai \"SSB pub server\". Hashtagista #ssbroom voi myös olla apua.",
       "follow_staged_manually": {
         "part1": {
-          "not_connected": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",
-          "connected": "If you want to get more content beyond what you already have, you can follow more people. There are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them."
+          "not_connected": "Ystäväsi eivät ole verkossa juuri nyt, mutta jos haluat saada enemmän sisältöä, verkossa on olemassa joitakin tuntemattomia vertaisia tällä hetkellä samassa huoneessa (huoneissa) kuin sinä. Voit yrittää tulla ystäviksi heidän kanssaan.",
+          "connected": "Jos haluat saada enemmän sisältöä enemmän kuin mitä sinulla jo on, voit seurata enemmän ihmisiä. Verkossa on joitakin tuntemattomia vertaisia samassa huoneessa (huoneissa) kuin sinä. Voit yrittää tulla ystäväksi heidän kanssaan."
         },
-        "part2": "On the next screen, you will see unknown peers displayed like this. Press one of them and choose \"Open Profile\", then \"Follow\"."
+        "part2": "Seuraavalla näytöllä tuntemattomat käyttäjät näytetään näin. Paina yhtä heistä ja valitse \"Avaa profiili\", sitten \"Seuraa\"."
       }
     },
     "toasts": {
-      "invite_accepted": "Invite accepted",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "invite_accepted": "Kutsu on hyväksytty",
+      "invite_rejected": "Kutsu on hylätty. Oletko varma, että se oli oikein?",
+      "connecting_to_alias": "Yhdistetään kohteeseen {{alias}}",
+      "connected_to_alias": "Yhdistetty kohteeseen {{alias}}",
+      "not_connected_to_alias": "{{alias}} on nyt juuri nyt poissa"
     },
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "Salli kirjautuminen?",
+          "description": "Avaa {{room}}-sivusto luodaksesi kutsulinkkejä ja hallitaksesi jäseniä. Haluatko käyttää Manyverseä kirjautumiseen?\n\nHuoneen tunnus on {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "title": "Salli kirjautuminen?",
+          "description": "Verkkoselain pyytää lupaa tunnistaa sinut. Haluatko kirjautua palvelimelle {{room}}?\n\nSen tunnus on {{roomid}}"
         }
       }
     },
@@ -929,8 +929,8 @@
         "incorrect": {
           "title": "Virheellinen",
           "description": {
-            "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
-            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
+            "try_again": "Yritä uudelleen kirjoittamalla tähän välilyönneillä erotettuna 24 sanasta muodostuva palautuslause.",
+            "overwrite_risk": "Sovelluksessa on jo tili ja emme voi korvata sitä. Jos olet varma, että haluat ohittaa tämän, poista ja asenna Manyverse takaisin saadaksesi palautettua tilisi puhtaalta tilalta.",
             "too_short": "There are some words missing. Your recovery phrase should be 24 words long.",
             "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
             "wrong_length": "Your recovery phrase should be exactly 24 words long.",
@@ -1039,39 +1039,39 @@
     },
     "fields": {
       "reply": {
-        "placeholder": "Comment",
+        "placeholder": "Kommentti",
         "accessibility_label": "Reply Text Input"
       }
     },
-    "loading_replies": "Loading replies...",
+    "loading_replies": "Ladataan vastauksia...",
     "empty": {
       "missing": {
-        "title": "Missing data",
-        "description": "You don't yet have data\nfor the message known by the ID\n"
+        "title": "Puuttuvat tiedot",
+        "description": "Sinulla ei ole vielä tietoja\nID:n tuntemaan viestiin\n"
       },
       "blocked": {
-        "title": "Blocked thread",
-        "description": "You have chosen to block\nthe author of this thread"
+        "title": "Estetty ketju",
+        "description": "Olet päättänyt estää\ntämän ketjun kirjoittajan"
       },
       "incompatible": {
-        "title": "Sorry",
-        "description": "This app doesn't know how to process\nand display this thread correctly"
+        "title": "Pahoittelemme",
+        "description": "Tämä sovellus ei tiedä miten\ntämä ketju prosessoidaan ja näytetään oikein"
       }
     }
   },
   "message": {
     "call_to_action": {
       "show_reactions": {
-        "accessibility_label": "Show Reactions"
+        "accessibility_label": "Näytä reaktiot"
       },
       "add_reaction": {
         "accessibility_label": "Add Reaction Button"
       },
       "reply": {
-        "accessibility_label": "Reply Button"
+        "accessibility_label": "Vastaa painike"
       },
       "etc": {
-        "dialog_title": "Message",
+        "dialog_title": "Viesti",
         "accessibility_label": "Etc Button"
       },
       "copy_blob_id": {
@@ -1086,50 +1086,50 @@
     "reactions": {
       "categories": {
         "smileys_and_emotion": "Smileys and emotion",
-        "people_and_body": "People and body",
-        "animals_and_nature": "Animals and nature",
-        "food_and_drink": "Food and drink",
-        "activities": "Activities",
-        "travel_and_places": "Travel and places",
-        "objects": "Objects",
-        "symbols": "Symbols",
-        "flags": "Flags"
+        "people_and_body": "Ihmiset ja keho",
+        "animals_and_nature": "Eläimet ja luonto",
+        "food_and_drink": "Ruoka ja juoma",
+        "activities": "Toiminnot",
+        "travel_and_places": "Matkailu ja paikat",
+        "objects": "Esineet",
+        "symbols": "Merkit",
+        "flags": "Liput"
       },
       "show_more": {
-        "accessibility_label": "Show More Reaction Options"
+        "accessibility_label": "Näytä Lisää reaktioasetuksia"
       }
     },
     "image": {
       "without_caption": {
-        "accessibility_label": "Picture without caption"
+        "accessibility_label": "Kuva ilman kuvatekstiä"
       }
     },
     "audio": {
       "play": {
-        "accessibility_label": "Play audio"
+        "accessibility_label": "Toista ääni"
       },
       "pause": {
-        "accessibility_label": "Pause audio"
+        "accessibility_label": "Tauota ääni"
       },
       "duration": {
-        "accessibility_label": "Audio duration"
+        "accessibility_label": "Äänitteen kesto"
       },
       "elapsed": {
-        "accessibility_label": "Audio current time"
+        "accessibility_label": "Äänitteen tämän hetkinen aika"
       },
       "slider": {
-        "accessibility_label": "Change audio time"
+        "accessibility_label": "Muuta äänitteen aikaa"
       }
     },
     "content_warning": {
-      "title": "Content Warning",
+      "title": "Sisältövaroitus",
       "call_to_action": {
-        "hide": "Hide",
-        "show": "View"
+        "hide": "Piilota",
+        "show": "Näytä"
       }
     },
     "fork_note": {
-      "1_normal": "Forked from ",
+      "1_normal": "Haarautettu alkaen ",
       "2_bold": "{{cypherlink}}",
       "3_normal": ""
     },
@@ -1137,19 +1137,19 @@
       "new_picture": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new profile picture: "
+        "3_normal": " on uusi profiilikuva: "
       },
       "new_name_and_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " käyttää nimeä \"",
         "4_bold": "{{name}}",
-        "5_normal": "\" and the description: "
+        "5_normal": "\" ja kuvaus: "
       },
       "new_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new biography: "
+        "3_normal": " on uusi elämäkerta: "
       },
       "new_name": {
         "1_normal": "",
