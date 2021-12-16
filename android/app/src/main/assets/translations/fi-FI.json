@@ -412,33 +412,33 @@
         "label": "Katkaise yhteys ja unohda",
         "accessibility_label": {
           "peer": "Katkaise yhteys tähän käyttäjään ja poista se tietokannastamme",
-          "room": "Disconnect from this room and remove it from our database"
+          "room": "Katkaise yhteys tähän huoneeseen ja poista se tietokannastamme"
         }
       },
       "forget": {
-        "label": "Forget",
+        "label": "Unohda",
         "accessibility_label": {
-          "room": "Remove this room from our database"
+          "room": "Poista tämä huone tietokannastamme"
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "label": "Hallitse aliaksiani",
+        "accessibility_label": "Hallitse minun aliaksiani huonepalvelimissa"
       },
       "room_sign_in": {
-        "label": "Sign into website",
-        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
+        "label": "Kirjaudu verkkosivulle",
+        "accessibility_label": "Avaa tämän huoneen verkkosivu ja kirjaudu sen kojelautaan, painike"
       },
       "room_share_invite": {
-        "label": "Share invite code",
-        "accessibility_label": "Share the invite code for this room"
+        "label": "Jaa kutsukoodi",
+        "accessibility_label": "Jaa kutsukoodi tähän huoneeseen"
       },
       "invite_info": {
-        "label": "About",
-        "accessibility_label": "About this Invite Code"
+        "label": "Tietoja",
+        "accessibility_label": "Tietoja tästä kutsukoodista"
       },
       "invite_note": {
-        "label": "Add note",
+        "label": "Lisää merkintä",
         "accessibility_label": "Add Reminder Note To Self"
       },
       "invite_share": {
@@ -559,123 +559,123 @@
         "4_bold": "synchronize with reliable friends",
         "5_normal": " or other devices you own. There is ",
         "6_bold": "nothing else to do",
-        "7_normal": ", just use Manyverse often and your friends are backing you up!"
+        "7_normal": ", käytä Manyverseä usein ja ystäväsi tukevat sinua!"
       },
       "call_to_action": {
         "acknowledge": {
-          "label": "I understand",
-          "accessibility_label": "Acknowledge"
+          "label": "Minä ymmärrän",
+          "accessibility_label": "Kuittaus"
         }
       }
     },
     "identity": {
-      "title": "Identity",
+      "title": "Henkilöllisyys",
       "description": {
-        "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
-        "2_bold": "recovery phrase",
-        "3_normal": ". This is a sequence of 24 words that unlocks your account. ",
-        "4_bold": "Keep it confidential",
-        "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
-        "6_bold": "Take responsibility",
-        "7_normal": " over it, since you and only you can recover your account!"
+        "1_normal": "Tilisi \"sormenjälki\" koostuu erittäin ainutlaatuisesta ",
+        "2_bold": "palautuslause",
+        "3_normal": ". Tämä 24 sanan ketju avaa tilisi. ",
+        "4_bold": "Pidä se salassa",
+        "5_normal": ", koska jos jollakulla muulla on pääsy siihen hän voi ottaa tilisi hallintaansa. ",
+        "6_bold": "Ota vastuu",
+        "7_normal": " siitä, koska ainoastaan sinä voit palauttaa tilisi!"
       },
       "call_to_action": {
-        "show_recovery_phrase": "Show Recovery Phrase"
+        "show_recovery_phrase": "Näytä palautuslause"
       }
     }
   },
   "biography": {
     "picture": {
-      "accessibility_label": "Biographic Picture"
+      "accessibility_label": "Elämäkerrallinen kuva"
     },
     "description": {
-      "accessibility_label": "Biographic Description"
+      "accessibility_label": "Elämäkerrallinen kuvaus"
     }
   },
   "conversation": {
-    "title": "Conversation",
-    "placeholder": "Type a message...",
+    "title": "Keskustelu",
+    "placeholder": "Kirjoita viesti...",
     "call_to_action": {
       "show_recipients": {
-        "accessibility_label": "Show Recipients"
+        "accessibility_label": "Näytä vastaanottajat"
       }
     },
     "notifications": {
-      "new_conversation": "This is a new private conversation"
+      "new_conversation": "Tämä on uusi yksityinen keskustelu"
     }
   },
   "dialog_about": {
-    "title": "About Manyverse",
-    "version": "Version {{version}}",
-    "copyright": "Copyright (C)",
-    "authors": "The Manyverse Authors",
-    "repository": "Open source repository",
-    "licensed": "Licensed {{license}}"
+    "title": "Tietoja Manyversestä",
+    "version": "Versio {{version}}",
+    "copyright": "Tekijänoikeus (C)",
+    "authors": "Manyverse tekijät",
+    "repository": "Avoimen lähdekoodin tietovarasto",
+    "licensed": "Lisensoitu {{license}}"
   },
   "dialog_thanks": {
-    "title": "Thank you!",
-    "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
+    "title": "Kiitos!",
+    "description": "Tämän sovelluksen kehittämistä tukivat avustukset {{sponsor1}} ja {{sponsor2}}, ja lahjoitukset:\n\n**{{topBackers}}**, ja [sata muuta tukijaa]({{donateLink}}). Kiitos!"
   },
   "drawer": {
     "menu": {
       "my_profile": {
-        "label": "My profile",
+        "label": "Oma profiili",
         "accessibility_label": "My Profile Menu Item"
       },
       "raw_database": {
-        "label": "Raw database",
-        "accessibility_label": "Show Raw Database"
+        "label": "Raaka tietokanta",
+        "accessibility_label": "Näytä raakatietokanta"
       },
       "email_bug_report": {
-        "label": "Email bug report",
-        "accessibility_label": "Send Bug Report as Email"
+        "label": "Lähetä virheraportti sähköpostilla",
+        "accessibility_label": "Lähetä virheraportti sähköpostilla"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "Auta meitä kääntämään",
+        "accessibility_label": "Avaa käännössivusto"
       },
       "more": {
-        "label": "More",
-        "accessibility_label": "Show more Menu items"
+        "label": "Lisää",
+        "accessibility_label": "Näytä lisää valikon kohteita"
       },
       "settings": {
-        "label": "Settings",
-        "accessibility_label": "Go To Settings"
+        "label": "Asetukset",
+        "accessibility_label": "Siirry asetuksiin"
       },
       "preparing_database": {
-        "label": "Preparing database..."
+        "label": "Valmistellaan tietokantaa..."
       },
       "ready_estimate": {
-        "label": "Ready:"
+        "label": "Valmis:"
       }
     }
   },
   "invite_paste": {
-    "placeholder": "Paste an invite code",
+    "placeholder": "Liitä kutsukoodi",
     "call_to_action": {
       "accept": {
-        "accessibility_label": "Accept Invite Code"
+        "accessibility_label": "Hyväksy kutsukoodi"
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "Tyyppiä ei tueta",
+      "description": "P2P kutsuja ei enää tueta Manyversessä."
     },
     "text_field": {
-      "accessibility_label": "Invite Code Text Input"
+      "accessibility_label": "Kutsukoodin tekstisyöttö"
     }
   },
   "libraries": {
-    "title": "Third party libraries",
-    "description": "Manyverse makes use of the following open source libraries and components. We want to thank the authors of these libraries and link to their websites for proper attribution.",
+    "title": "Kolmansien osapuolten kirjastot",
+    "description": "Manyverse käyttää seuraavia avoimen lähdekoodin kirjastoja ja komponentteja. Haluamme kiittää näiden kirjastojen laatijoita ja linkkiä niiden verkkosivuille asianmukaisen arvostuksen kohdentamiseksi.",
     "image": {
-      "name": "Image {{name}}",
-      "attribution": " is created by {{author}}, licensed {{license}}"
+      "name": "Kuva {{name}}",
+      "attribution": " on {{author}} tekemä, lisensoitu {{license}}"
     }
   },
   "profile": {
     "call_to_action": {
-      "copy_cypherlink": "Copy cypherlink",
+      "copy_cypherlink": "Kopioi syferlinkki",
       "private_chat": "Open private conversation",
       "block": "Block",
       "block_secretly": "Block secretly",
@@ -795,64 +795,64 @@
     "empty": {
       "no_servers": {
         "title": "No servers",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "description": "Jotta voit rekisteröidä aliaksen sinun täytyy olla jäsenenä jossakin SSB huonepalvelimella. Etsi yksi internetistä hashtagilla #ssbroom ja varmista, että se tukee aliaksia."
       }
     },
     "header": {
-      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+      "description": "Valitse huone palvelin, jossa haluat rekisteröidä uuden alias linkin itsellesi.\n\nAliakset ovat web-osoitteita, joita ihmiset voivat käyttää yhdistääkseen sinun kanssasi."
     },
     "dialogs": {
       "input_alias": {
-        "description": "Submit your desired new alias to {{host}} as a single word in lowercase.\n\nFor example, if you want the alias \"myname.{{host}}\", write \"myname\" below."
+        "description": "Lähetä haluamasi uusi alias käyttäjälle {{host}} yksittäisenä sanana pienillä kirjaimilla.\n\nEsimerkiksi, jos haluat \" nimeni.{{host}}\", kirjoita \"nimeni\" alla."
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "Lähetetään..."
     },
     "failure": {
-      "title": "It didn't work",
-      "alias_taken": "The alias you submitted is already taken by some user.",
+      "title": "Se ei toiminut",
+      "alias_taken": "Jokin käyttäjä on jo ottanut lähettämäsi aliaksen.",
       "call_to_action": {
         "try_again": {
-          "label": "Try again",
-          "accessibility_label": "Try Again Button"
+          "label": "Yritä uudelleen",
+          "accessibility_label": "Yritä uudelleen painike"
         }
       }
     },
     "success": {
-      "title": "Great!",
-      "description": "The alias {{alias}} is now yours.",
+      "title": "Hienoa!",
+      "description": "Alias {{alias}} on nyt sinun.",
       "call_to_action": {
         "go_back": {
-          "label": "Go back",
-          "accessibility_label": "Go Back Button"
+          "label": "Mene takaisin",
+          "accessibility_label": "Mene takaisin -painike"
         }
       }
     }
   },
   "raw_db": {
-    "title": "Raw database",
+    "title": "Raaka tietokanta",
     "item": {
       "type": {
-        "any": "type: {{type}}",
-        "encrypted": "encrypted"
+        "any": "tyyppi: {{type}}",
+        "encrypted": "salattu"
       }
     }
   },
   "raw_msg": {
-    "title": "Raw message"
+    "title": "Raakaviesti"
   },
   "recipients_input": {
-    "title": "New message",
+    "title": "Uusi viesti",
     "call_to_action": {
       "proceed": {
-        "label": "Next",
-        "accessibility_label": "Next Button"
+        "label": "Seuraava",
+        "accessibility_label": "Seuraava -painike"
       }
     },
     "fields": {
       "mention_input": {
-        "placeholder": "Search for people to add",
+        "placeholder": "Etsi ihmisiä lisätäksesi",
         "accessibility_label": "Mention Account Text Input"
       }
     },
