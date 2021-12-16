@@ -6,7 +6,7 @@
     "cancel": "Peruuta",
     "continue": "Jatka",
     "delete": "Poista",
-    "remove": "Remove",
+    "remove": "Poista",
     "save": "Tallenna",
     "yes": "Kyllä",
     "no": "Ei",
@@ -23,8 +23,8 @@
       "accessibility_label": "Sulje valintaikkuna"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "Avaa linkki?",
+      "description": "Haluatko avata {{link}} selaimessa?"
     }
   },
   "date": {
@@ -94,73 +94,73 @@
     "off_the_grid": {
       "title": "Off the grid",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse voi käyttää internet yhteyttä, mutta se ei ole ",
+        "2_bold": "päällä",
+        "3_normal": " internettiä. Kaikki tapahtuu sinun laitteellasi. Tämä tarkoittaa sitä, että voit käyttää sitä myös silloin, kun et ole verkossa! Sinun ",
+        "4_bold": "sisältö tallennetaan ensin sinun laitteellesi",
+        "5_normal": ", ja sinä voi synkronoida sen ystäviesi kanssa kun olet yhdistänyt heihin."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Monta tapaa yhdistää",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
+          "1_normal": "Yhdistääksesi lähellä oleviin ystäviisi ja päivittääksesi sisällön, voit yhdistää samaan ",
           "2_bold": "Wi-Fi",
-          "3_normal": ". To find new people on the internet, look for an invite code to a ",
+          "3_normal": ". Löytääksesi uusia ihmisiä internetistä, etsi kutsukoodi osoitteeseen ",
           "4_bold": "pub server",
-          "5_normal": " or a ",
-          "6_bold": "room server",
-          "7_normal": ", or start your own server!"
+          "5_normal": " tai ",
+          "6_bold": "huonepalvelin",
+          "7_normal": ", tai aloita oma palvelin!"
         },
         "default": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
+          "1_normal": "Yhdistääksesi lähellä oleviin ystäviisi ja päivittääksesi sisällön, voit joko: yhdistää samaan ",
           "2_bold": "Wi-Fi",
-          "3_normal": ", or use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
+          "3_normal": ", tai käyttää ",
+          "4_bold": "Bluetooth synkronointia",
+          "5_normal": ". Löytääksesi uusia ihmisiä internetistä, etsi kutsukoodi ",
           "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "7_normal": " tai ",
+          "8_bold": "huonepalvelin",
+          "9_normal": ", tai aloita oma palvelin!"
         }
       }
     },
     "moderation": {
-      "title": "Shared moderation",
+      "title": "Jaettu moderointi",
       "description": {
-        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "1_normal": "Koska laitteesi pitää sisällään sosiaalisen verkoston kukaan muu ei voi estää tai poistaa tilejä sinun puolestasi. Vain sinä voit hallita omaa tilaasi, ",
+        "2_bold": "estä tilejä",
+        "3_normal": " joita et halua olevan laitteellasi. Silloin ystäväsi voivat halutessaan estää samat tilit. Tällä tavalla tilan hallinta leviää luonnollisesti!"
       }
     },
     "permanence": {
-      "title": "Permanence",
+      "title": "Pysyvyys",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
-        "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
+        "1_normal": "Kun sisältö on päivitetty ystäviesi kanssa heillä on siitä kopio laitteellaan. Koska he voivat mennä pois verkosta, on ",
+        "2_bold": "ei ole mahdollista poistaa",
+        "3_normal": " sisältöäsi kaikilta laitteilta! Tästä syystä olemme päättäneet tehdä sisällöstä pysyvää. Se myös saa yhteisön kunnioittamaan ja harkitsemaan sitä mitä julkaistaan."
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "Työn alla!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
-        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+        "1_normal": "Manyverse on ",
+        "2_bold": "beta-tason ohjelma",
+        "3_normal": ". Emme ole vielä selvittäneet kaikkea ja jotkin osat tarvitsevat korjausta. Synkronoinnin aikana sovellus voi näkyä jäätyneenä useita minuutteja. Ole kärsivällinen! Ilmoittakaa meille myös muista vioista joihin olet törmännyt jolloin riittävällä ajalla ja lahjoituksilla voimme tehdä tästä hienon sovelluksen."
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
-      "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
+      "title": "Onko tämä sinun ensimmäinen käyttökertasi?",
+      "description": "Haluatko luoda uuden tilin vai haluatko palauttaa vanhan tilisi 24 -sanan palautuslauseesta?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "Luo tili",
+          "accessibility_label": "Luo tili -painike"
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "Palauta tili",
+          "accessibility_label": "Palauta tili -painike"
         }
       }
     }
@@ -168,68 +168,68 @@
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public posts",
-      "private": "Private chats",
-      "activity": "Activity",
-      "connections": "Connected peers"
+      "public": "Julkiset julkaisut",
+      "private": "Yksityiset keskustelut",
+      "activity": "Toiminta",
+      "connections": "Yhdistetyt käyttäjät"
     },
     "tab_footers": {
-      "public": "Public",
-      "private": "Private",
-      "activity": "Activity",
-      "connections": "Connections"
+      "public": "Julkinen",
+      "private": "Yksityinen",
+      "activity": "Toiminta",
+      "connections": "Yhteydet"
     },
-    "loading": "Loading...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "loading": "Ladataan...",
+    "building_indexes": "Rakennetaan tietokantaindeksit...\nTämä saattaa kestää useita minuutteja",
     "tabs": {
       "public": {
-        "accessibility_label": "Public Tab Button"
+        "accessibility_label": "Julkinen välilehti -painike"
       },
       "private": {
-        "accessibility_label": "Private Tab Button"
+        "accessibility_label": "Yksityinen välilehti -painike"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "Toiminta välilehti -painike"
       },
       "connections": {
-        "accessibility_label": "Connections Tab Button"
+        "accessibility_label": "Yhteydet välilehti -painike"
       }
     }
   },
   "public": {
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Kirjoita julkinen viesti"
     },
     "empty": {
-      "title": "No messages",
-      "description": "Write a diary to be\nshared with friends later"
+      "title": "Ei viestejä",
+      "description": "Kirjoita päiväkirja, joka jaetaan\nmyöhemmin ystävien kanssa"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Etsi painike"
     }
   },
   "private": {
     "floating_action_button": {
-      "compose": "Start a private conversation"
+      "compose": "Aloita yksityinen keskustelu"
     },
     "empty": {
-      "title": "No conversations",
-      "description": "Start a private conversation\nwith any of your friends"
+      "title": "Keskusteluja ei ole",
+      "description": "Aloita yksityinen keskustelu\nminkä tahansa ystäväsi kanssa"
     },
     "conversation": {
-      "accessibility_label": "Go To Conversation"
+      "accessibility_label": "Mene keskusteluun"
     }
   },
   "accounts": {
     "reactions": {
-      "title": "Reactions"
+      "title": "Reaktiot"
     },
     "recipients": {
-      "title": "Recipients"
+      "title": "Vastaanottajat"
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "Siirry tiliin"
       }
     }
   },
@@ -238,14 +238,14 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " mainitsi sinut"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " seurasi sinua"
       }
     },
     "connection_attempt": {
@@ -341,17 +341,17 @@
           "connected": "Internet P2P"
         },
         "room": {
-          "server": "Room server",
-          "endpoint": "Room peer",
-          "alone_online": "(only you online)",
+          "server": "Huonepalvelin",
+          "endpoint": "Huoneen toinen osapuoli",
+          "alone_online": "(vain sinä olet verkossa)",
           "others_online": {
-            "one": "({{count}} online)",
-            "other": "({{count}} online)"
+            "one": "({{count}} verkossa)",
+            "other": "({{count}} verkossa)"
           }
         },
         "pub": "Pub server",
         "server": "Server",
-        "unknown": "Unknown"
+        "unknown": "Tuntematon"
       }
     },
     "modes": {
@@ -360,58 +360,58 @@
       },
       "bluetooth": {
         "title": "Bluetooth",
-        "accessibility_label": "Bluetooth Mode",
-        "disabled": "(Turn on Bluetooth to use this)",
-        "description": "Discover users nearby and connect with them using Bluetooth.",
+        "accessibility_label": "Bluetooth tila",
+        "disabled": "(Kytke Bluetooth päälle käyttääksesi tätä)",
+        "description": "Löydä lähellä olevat käyttäjät ja ota yhteys heihin Bluetoothin avulla.",
         "permission_request": {
-          "title": "Allow locating via Bluetooth?",
-          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
+          "title": "Sallitaanko paikantaminen Bluetoothin kautta?",
+          "message": "Manyversen täytyy käyttää Bluetoothia paikantaaksesi sinut (\"karkea sijainti\") ja keitä on ympärilläsi."
         }
       },
       "wifi": {
         "title": "Wi-Fi",
-        "accessibility_label": "Wi-Fi Mode",
-        "disabled": "(Turn on Wi-Fi to use this)",
-        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
+        "accessibility_label": "Wi-Fi-tila",
+        "disabled": "(Kytke Wi-Fi päälle käyttääksesi tätä)",
+        "description": "Yhdistä samassa lähiverkossa olevien ystäviesi kanssa, eli ystävien jotka käyttävät kanssasi samaa Wi-Fi: ä."
       },
       "servers": {
-        "title": "Internet servers",
-        "accessibility_label": "Internet Servers Mode",
-        "disabled": "(Go online to use this)",
-        "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
+        "title": "Internet palvelimet",
+        "accessibility_label": "Internet palvelinten tila",
+        "disabled": "(Yhdistä verkkoon käyttääksesi tätä)",
+        "description": "Yhdistä jonkun ystäväsi omistamaan ns. julkiseen palvelimeen, joka sisältää viimeisimmät tiedot useilta tileiltä."
       }
     },
     "menu": {
-      "dialog_title": "Connection",
+      "dialog_title": "Yhteys",
       "open_profile": {
-        "label": "Open profile",
+        "label": "Avaa profiili",
         "accessibility_label": {
-          "connected": "Open profile screen for this connected peer",
-          "staged": "Open profile screen for this suggested connection"
+          "connected": "Avaa profiilinäyttö tälle yhdistetylle käyttäjälle",
+          "staged": "Avaa profiilinäyttö tälle ehdotetulle yhteydelle"
         }
       },
       "connect": {
-        "label": "Connect",
+        "label": "Yhdistä",
         "accessibility_label": {
-          "staged_peer": "Connect to this suggested peer",
-          "staged_room": "Connect to this suggested room"
+          "staged_peer": "Yhdistä tähän ehdotettuun käyttäjään",
+          "staged_room": "Yhdistä tähän ehdotettuun huoneeseen"
         }
       },
       "follow_connect": {
-        "label": "Connect and follow",
-        "accessibility_label": "Connect to this suggested peer then follow them"
+        "label": "Yhdistä ja seuraa",
+        "accessibility_label": "Yhdistä tähän ehdotettuun käyttäjään ja seuraa häntä"
       },
       "disconnect": {
-        "label": "Disconnect",
+        "label": "Katkaise yhteys",
         "accessibility_label": {
-          "peer": "Disconnect from this peer",
-          "room": "Disconnect from this room"
+          "peer": "Katkaise yhteys tähän käyttäjään",
+          "room": "Katkaise yhteys tähän huoneeseen"
         }
       },
       "disconnect_forget": {
-        "label": "Disconnect and forget",
+        "label": "Katkaise yhteys ja unohda",
         "accessibility_label": {
-          "peer": "Disconnect from this peer and remove it from our database",
+          "peer": "Katkaise yhteys tähän käyttäjään ja poista se tietokannastamme",
           "room": "Disconnect from this room and remove it from our database"
         }
       },
