@@ -867,12 +867,12 @@
       }
     },
     "toasts": {
-      "limit_reached": "Cannot choose more than {{limit}} recipients"
+      "limit_reached": "Ei voi valita enempää kuin {{limit}} vastaanottajaa"
     }
   },
   "search": {
     "query_input": {
-      "placeholder": "Search public posts",
+      "placeholder": "Etsi julkisia viestejä",
       "accessibility_label": "Search Query Text Input"
     },
     "clear_query": {
@@ -880,54 +880,54 @@
     },
     "empty": {
       "initial": {
-        "title": "Search something",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "Etsi jotakin",
+        "description": "Odota, kun sovellus yrittää\nmuodostaa yhteyden vertaisiisi"
       },
       "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
+        "title": "Mitään ei löytynyt",
+        "description": "Mitään ei löytynyt haulle \"{{query}}\""
       }
     }
   },
   "secret_input": {
     "practice": {
-      "title": "Practice",
-      "header": "Repeat it to confirm it is correct:"
+      "title": "Harjoittele",
+      "header": "Toista se vahvistaaksesi oikeellisuus:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "Palauta tili"
     },
-    "header": "Carefully input your recovery phrase",
+    "header": "Syötä palautuslause huolellisesti",
     "call_to_action": {
       "confirm": {
-        "label": "Confirm",
+        "label": "Vahvista",
         "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
     "fields": {
       "words_input": {
-        "placeholder": "24-word (or 48-word) recovery phrase",
-        "accessibility_label": "Recovery Phrase Text Input"
+        "placeholder": "24-sanan (tai 48-sanan) palautuslause",
+        "accessibility_label": "Palautuslauseen tekstin syöttö"
       }
     },
     "dialogs": {
       "practice": {
         "correct": {
-          "title": "Correct!",
-          "description": "Your account's identity is now secure because you know the recovery phrase."
+          "title": "Oikein!",
+          "description": "Tilisi henkilöllisyys on nyt turvallinen, koska tiedät palautuslauseen."
         },
         "incorrect": {
-          "title": "Incorrect",
-          "description": "Try again: write down your recovery phrase consisting of 24 words separated by whitespace."
+          "title": "Väärin",
+          "description": "Yritä uudelleen: kirjoita tähän välilyönneillä erotettuna 24 sanasta muodostuva palautuslause."
         }
       },
       "restore": {
         "correct": {
-          "title": "Welcome back!",
-          "description": "Your account's identity is now restored.\n\nNow, to restore your data, connect with friends that have interacted with you before, to redownload your data from them."
+          "title": "Tervetuloa takaisin!",
+          "description": "Tilisi henkilöllisyys on nyt palautettu.\n\nNyt, palauttaaksesi tietosi, ota yhteyttä ystäviin, jotka ovat aiemmin olleet vuorovaikutuksessa kanssasi, ja lataa tietosi takaisin heiltä."
         },
         "incorrect": {
-          "title": "Incorrect",
+          "title": "Virheellinen",
           "description": {
             "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
             "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
