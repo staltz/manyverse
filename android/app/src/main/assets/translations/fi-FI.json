@@ -853,17 +853,17 @@
     "fields": {
       "mention_input": {
         "placeholder": "Etsi ihmisiä lisätäksesi",
-        "accessibility_label": "Mention Account Text Input"
+        "accessibility_label": "Mainintatilin tekstinsyöttö"
       }
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "Valitse jäsenet",
+        "description": "Kirjoita uuteen keskusteluun\nliittyvien henkilöiden nimet"
       },
       "none_to_choose": {
-        "title": "No one",
-        "description": "There is nobody in your\ncommunity with that name"
+        "title": "Ei ketään",
+        "description": "Yhteisössäsi ei ole ketään\njolla on tuo nimi"
       }
     },
     "toasts": {
