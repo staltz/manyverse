@@ -64,7 +64,7 @@ async function runAndReport(label, task) {
     await runAndReport(
       'Install backend node modules',
       exec('npm install', {
-        cwd: './desktop/nodejs-project',
+        cwd: './desktop',
         maxBuffer: 1000 * 1000 * 10, // 10 MiB
       }),
     );
@@ -110,7 +110,7 @@ async function runAndReport(label, task) {
       await runAndReport(
         'Remove Rust node modules',
         exec('rm -rf ' + rustNodeModules.join(' '), {
-          cwd: './desktop/nodejs-project/node_modules',
+          cwd: './desktop/node_modules',
         }),
       );
     } else {
@@ -127,8 +127,7 @@ async function runAndReport(label, task) {
     await runAndReport(
       'Update package-lock.json in ./src/backend',
       exec(
-        'cp ./desktop/nodejs-project/package-lock.json ' +
-          './src/backend/package-lock.json',
+        'cp ./desktop/package-lock.json ' + './src/backend/package-lock.json',
       ),
     );
   } else {
@@ -145,6 +144,13 @@ async function runAndReport(label, task) {
     await runAndReport(
       'Pre-remove files not necessary for Android nor iOS',
       exec('./tools/backend/pre-remove-unused-files.sh'),
+    );
+  }
+
+  if (targetPlatform === 'desktop') {
+    await runAndReport(
+      'Pre-remove files not necessary for Electron',
+      exec('./tools/backend/pre-remove-unused-files-desktop.sh'),
     );
   }
 

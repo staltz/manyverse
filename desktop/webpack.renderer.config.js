@@ -61,14 +61,17 @@ module.exports = {
   entry: './index.web.js',
   target: 'electron-renderer',
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'renderer-dist'),
   },
   resolve: {
     alias: {
       'react-native$': 'react-native-web',
     },
     extensions: ['.web.js', '.js'],
+  },
+  node: {
+    __dirname: false,
   },
   module: {
     rules: [
@@ -78,6 +81,17 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
+            options: {
+              name(resourcePath, resourceQuery) {
+                // Keep logo_outline.png so we can use it in the splashscreen
+                // on the HTML before any JS is running
+                if (resourcePath.endsWith('logo_outline.png')) {
+                  return 'logo_outline.png';
+                } else {
+                  return '[contenthash].[ext]';
+                }
+              },
+            },
           },
         ],
       },
@@ -102,7 +116,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              publicPath: 'dist/',
+              publicPath: 'renderer-dist/',
             },
           },
         ],

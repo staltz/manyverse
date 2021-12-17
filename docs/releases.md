@@ -81,6 +81,12 @@ Then make an iOS release:
   - "**Export**"
   - Proceed as usual, and at the very end, press "Export" and choose a folder
 
+## Desktop
+
+Then make an Electron release:
+
+- `npm run release-desktop`
+
 ## Publish
 
 - Deploy as an APK on the website

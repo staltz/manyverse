@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g>
+            <rect fill="#4263EB" x="16" y="16" width="480" height="480" rx="240"></rect>
+            <g transform="translate(104, 131)">
+                <circle fill="#FFFFFF" cx="267.5" cy="225.5" r="36"></circle>
+                <circle fill="#FFFFFF" cx="36.5" cy="225.5" r="36"></circle>
+                <path d="M36.5,225.5 L36.5,16.2165166 L36.5,16.2165166 C36.5,7.3799606 43.663444,0.216516598 52.5,0.216516598 C59.4057466,0.216516598 65.5322522,4.64717176 67.6950544,11.2054965 L136.804946,220.769325 L136.804946,220.769325 C139.572456,229.161322 148.619023,233.720869 157.01102,230.953359 C161.828028,229.364808 165.606503,225.586333 167.195054,220.769325 L236.304946,11.2054965 L236.304946,11.2054965 C239.072456,2.81349969 248.119023,-1.74604776 256.51102,1.02146222 C263.069345,3.18426442 267.5,9.31076995 267.5,16.2165166 L267.5,225.5" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

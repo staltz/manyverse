@@ -76,10 +76,16 @@ buck-out/
 /nodejs-assets/BUILD_NATIVE_MODULES.txt
 /nodejs-assets/nodejs-project/**/*
 !/nodejs-assets/nodejs-project/README.md
-/desktop/nodejs-project
-/desktop/dist
 /android/app/src/main/res/raw/rnnodebundle
 *.jsbundle
+
+# Electron project artefacts
+/desktop/renderer-dist
+/desktop/translations
+/desktop/package*.json
+/desktop/index.js
+/desktop/loader.js
+/desktop/built
 
 # CocoaPods
 /ios/Pods/

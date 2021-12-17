@@ -3,7 +3,8 @@
 // SPDX-License-Identifier: MPL-2.0
 
 // import os = require('os');
-// import path = require('path');
+import path = require('path');
+import url = require('url');
 const {BrowserWindow, app, shell} = require('electron');
 
 process.env = process.env ?? {};
@@ -35,6 +36,7 @@ function createWindow() {
     width: 800,
     height: 600,
     autoHideMenuBar: true,
+    backgroundColor: '#4263eb', // brandMain
     webPreferences: {
       nodeIntegration: true,
 
@@ -44,7 +46,9 @@ function createWindow() {
   });
   win.setMinimumSize(640, 380);
 
-  win.loadFile('../index.html');
+  win.loadURL(
+    url.pathToFileURL(path.join(app.getAppPath(), 'index.html')).toString(),
+  );
 
   if (resolveWebContents) resolveWebContents(win.webContents);
   win.webContents.openDevTools({activate: false});

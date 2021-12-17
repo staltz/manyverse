@@ -14,7 +14,7 @@ function onFailure() {
   exit 1
 }
 
-cd ./desktop/nodejs-project;
+cd ./desktop;
 
 # Why some packages are filter'd or replaced:
 #   node-extend: can't remember why we need to replace it, build seemed to fail

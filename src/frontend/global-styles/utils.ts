@@ -6,7 +6,7 @@ import {Platform} from 'react-native';
 
 export function getImg(required: any) {
   if (Platform.OS === 'web') {
-    return 'dist/' + required.default;
+    return 'renderer-dist/' + required.default;
   } else {
     return required;
   }

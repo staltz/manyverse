@@ -14,14 +14,12 @@ function onFailure() {
   exit 1
 }
 
-mkdir -p ./desktop;
-rm -rf ./desktop/nodejs-project;
-cp -r ./lib/backend ./desktop;
-mv ./desktop/backend ./desktop/nodejs-project;
-cp -r ./translations/ ./desktop/nodejs-project/translations/;
-cp ./src/backend/package.json ./desktop/nodejs-project;
-cp ./src/backend/package-lock.json ./desktop/nodejs-project;
-cd ./desktop/nodejs-project;
+rm -rf ./desktop/translations;
+cp -r ./lib/backend/* ./desktop/;
+cp -r ./translations/ ./desktop/translations/;
+cp ./src/backend/package.json ./desktop;
+cp ./src/backend/package-lock.json ./desktop;
+cd ./desktop;
 mv ./loader.desktop.js ./loader.js;
 rm ./*.js.map;
 rm ./plugins/*.js.map;

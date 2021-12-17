@@ -11,12 +11,12 @@ import {welcomeLayout} from './lib/frontend/screens/layouts';
 
 // Set up fonts
 const fontStyles = `@font-face {
-   src: url(dist/${iconFont});
+   src: url(renderer-dist/${iconFont});
    font-family: MaterialCommunityIcons;
  }
 
  @font-face {
-  src: url(dist/${emojiFont}) format('truetype');
+  src: url(renderer-dist/${emojiFont}) format('truetype');
   font-family: 'NotoColorEmoji';
 }`;
 const style = document.createElement('style');
