@@ -19,12 +19,11 @@ function fileSize(filename: string) {
 
 module.exports = function restore(words: string) {
   // Check if there is another mature account
-  const ssbPath = path.join(process.env.APP_DATA_DIR!, '.ssb');
-  if (!fs.existsSync(ssbPath)) mkdirp.sync(ssbPath);
-  const oldLogPath = path.join(ssbPath, 'flume', 'log.offset');
+  if (!fs.existsSync(process.env.SSB_DIR!)) mkdirp.sync(process.env.SSB_DIR);
+  const oldLogPath = path.join(process.env.SSB_DIR!, 'flume', 'log.offset');
   const oldLogSize = fileSize(oldLogPath);
   if (oldLogSize >= 10) return 'OVERWRITE_RISK';
-  const newLogPath = path.join(ssbPath, 'db2', 'log.bipf');
+  const newLogPath = path.join(process.env.SSB_DIR!, 'db2', 'log.bipf');
   const newLogSize = fileSize(newLogPath);
   if (newLogSize >= 10) return 'OVERWRITE_RISK';
 
@@ -51,7 +50,7 @@ module.exports = function restore(words: string) {
 
   // Overwrite `secret` with the newly restored keys
   const json = JSON.stringify(keys, null, 2);
-  const secretPath = path.join(ssbPath, 'secret');
+  const secretPath = path.join(process.env.SSB_DIR!, 'secret');
   try {
     if (fileSize(secretPath) >= 10) {
       fs.unlinkSync(secretPath);
