@@ -40,14 +40,14 @@ module.exports = {
   directories: {
     app: __dirname,
     buildResources: path.join(__dirname, 'build-resources'),
-    output: path.join(__dirname, 'built'),
+    output: path.join(__dirname, 'outputs'),
   },
   files: [
     'node_modules/**/build/Release/*.node', // Node native modules
     'node_modules/**/build/Release/*.so*', // Node native modules
-    'node_modules/node-gyp-build/index.js', // needed for sodium-chloride
-    'node_modules/sodium-native/index.js', // needed for sodium-chloride
     'node_modules/sodium-chloride/index.js', // it bypasses noderify require()
+    'node_modules/sodium-native/index.js', // needed for sodium-chloride
+    'node_modules/node-gyp-build/index.js', // needed for sodium-chloride
     'renderer-dist',
     'translations',
     'index.html',

@@ -85,7 +85,7 @@ buck-out/
 /desktop/package*.json
 /desktop/index.js
 /desktop/loader.js
-/desktop/built
+/desktop/outputs
 
 # CocoaPods
 /ios/Pods/
