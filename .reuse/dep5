@@ -67,7 +67,11 @@ Files: android/app/src/debug/AndroidManifest.xml
 Copyright: 2021 The Manyverse Authors
 License: MPL-2.0
 
-Files: desktop/build-resources/icon.*
+Files: desktop/build-resources/icon*
+Copyright: 2019 The Manyverse Authors
+License: CC-BY-SA-4.0
+
+Files: desktop/build-resources/linux-app-icon/*.png
 Copyright: 2019 The Manyverse Authors
 License: CC-BY-SA-4.0
 

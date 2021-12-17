@@ -69,6 +69,7 @@ module.exports = {
 
   // Target-specific configurations --------------------------------------------
   linux: {
+    icon: path.join(__dirname, 'build-resources', 'linux-app-icon'),
     target: [
       {
         target: 'deb',
