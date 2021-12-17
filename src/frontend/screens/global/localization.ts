@@ -17,7 +17,9 @@ export default function localization(fsSource: FSSource) {
       ? (fsSource.readDirAssets('translations') as any)
       : Platform.OS === 'ios'
       ? fsSource.readDir(Path.join(FSSource.MainBundlePath, 'translations'))
-      : fsSource.readDir('./translations', {withFileTypes: true});
+      : fsSource.readDir(Path.join(FSSource.ElectronAppPath, 'translations'), {
+          withFileTypes: true,
+        });
 
   const translationPaths$ = translationsDir$.map((translationsDir) =>
     translationsDir
@@ -26,7 +28,11 @@ export default function localization(fsSource: FSSource) {
         Platform.OS === 'web'
           ? {
               ...file,
-              path: Path.resolve(process.cwd(), 'translations', file.name),
+              path: Path.resolve(
+                FSSource.ElectronAppPath,
+                'translations',
+                file.name,
+              ),
             }
           : file,
       )

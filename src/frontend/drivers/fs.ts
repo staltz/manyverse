@@ -19,6 +19,10 @@ export class FSSource {
   public static readonly DocumentDirectoryPath = FS.DocumentDirectoryPath;
   public static readonly MainBundlePath = FS.MainBundlePath;
   public static readonly CachesDirectoryPath = FS.CachesDirectoryPath;
+  public static readonly ElectronAppPath =
+    Platform.OS === 'web'
+      ? process.argv.find((arg) => arg.startsWith('--app-path='))!.split('=')[1]
+      : '/';
 
   public exists(...args: In<typeof FS.exists>): Out<typeof FS.exists> {
     if (Platform.OS === 'web') {
