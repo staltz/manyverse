@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2019 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -34,8 +34,11 @@ const dummyBluetoothPlugin = {
 };
 
 export = function createBluetoothPlugin(keys: any, appDataDir: string) {
-  // Disable Bluetooth on iOS, for now
-  if ((process.platform as string) === 'ios') {
+  // Disable Bluetooth on iOS and Desktop, for now
+  if (
+    (process.platform as string) === 'ios' ||
+    process.env.MANYVERSE_PLATFORM === 'desktop'
+  ) {
     return dummyBluetoothPlugin;
   }
 
