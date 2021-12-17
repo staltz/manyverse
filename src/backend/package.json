@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "license-ls": "~1.4.1",
-    "noderify": "4.3.0",
+    "noderify": "5.1.0",
     "patch-package": "6.2.2",
     "terser": "4.3.8"
   }
