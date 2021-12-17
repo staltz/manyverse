@@ -72,7 +72,19 @@ function createWindow() {
   });
 }
 
-app.on('ready', createWindow);
+if ((process as any).defaultApp) {
+  if (process.argv.length >= 2) {
+    app.setAsDefaultProtocolClient('ssb', process.execPath, [
+      path.resolve(process.argv[1]),
+    ]);
+  }
+} else {
+  app.setAsDefaultProtocolClient('ssb');
+}
+
+app.whenReady().then(() => {
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform === 'darwin') return;

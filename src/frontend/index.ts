@@ -7,7 +7,7 @@ import {MoreScreenSinks} from 'cycle-native-navigation';
 import {Frame} from 'cycle-native-navigation-web';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
 import {makeClipboardDriver} from 'cycle-native-clipboard';
-import {linkingDriver} from 'cycle-native-linking';
+import {linkingDriver} from './drivers/linking';
 import {makeLocalizationDriver} from './drivers/localization';
 import {makeToastDriver} from './drivers/toast';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';

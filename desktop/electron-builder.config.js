@@ -76,7 +76,6 @@ module.exports = {
         arch: ['x64'],
       },
     ],
-    mimeTypes: ['x-scheme-handler/ssb'],
     category: 'Network',
   },
 

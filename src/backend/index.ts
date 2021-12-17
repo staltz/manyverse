@@ -2,6 +2,12 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
+// Install Desktop backend plugins
+if (process.env.MANYVERSE_PLATFORM === 'desktop') {
+  require('./plugins/electron/wifi-is-enabled');
+  require('./plugins/electron/incoming-urls');
+}
+
 interface Channel {
   addListener(type: string, fn: (msg: string) => void): void;
   post(type: string, msg: string): void;
@@ -41,11 +47,6 @@ if (process.env.MANYVERSE_PLATFORM === 'mobile') {
       }
     },
   };
-}
-
-// Install Desktop backend plugins
-if (process.env.MANYVERSE_PLATFORM === 'desktop') {
-  require('./plugins/electron/wifi-is-enabled');
 }
 
 // Setup initial communication with the frontend, to create or restore identity
