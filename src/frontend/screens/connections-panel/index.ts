@@ -2,17 +2,18 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactSource} from '@cycle/react';
+import {Platform} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SharedContent} from 'cycle-native-share';
 import {State as AppState} from '../../drivers/appstate';
 import {NetworkSource} from '../../drivers/network';
 import {SSBSource, Req} from '../../drivers/ssb';
 import {Command as AlertCommand, DialogSource} from '../../drivers/dialogs';
-import {Toast, Duration as ToastDuration} from '../../drivers/toast';
+import {Toast, Duration as ToastDuration, Duration} from '../../drivers/toast';
 import {t} from '../../drivers/localization';
 import {Props} from './props';
 import view from './view';
@@ -36,6 +37,7 @@ export interface Sources {
 }
 
 export interface Sinks {
+  clipboard: Stream<string>;
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   dialog: Stream<AlertCommand>;
@@ -75,6 +77,20 @@ export function connectionsPanel(sources: Sources): Sinks {
     dialogTitle: t('connections.share_code.room.dialog_note'),
   }));
 
+  const clipboard$ =
+    Platform.OS === 'web'
+      ? share$.map((shareObj) => shareObj.message)
+      : xs.never();
+
+  const shareToast$ =
+    Platform.OS === 'web'
+      ? share$.mapTo({
+          type: 'show',
+          message: t('message.toast.copied_to_clipboard'),
+          duration: Duration.SHORT,
+        } as Toast)
+      : xs.never();
+
   const inviteToast$: Stream<Toast> = sources.ssb.acceptInviteResponse$.map(
     (res) => {
       if (res === true)
@@ -99,13 +115,14 @@ export function connectionsPanel(sources: Sources): Sinks {
     .flatten();
 
   return {
+    clipboard: clipboard$,
     dialog: alert$,
     navigation: command$,
     screen: vdom$,
     state: reducer$,
     ssb: ssb$,
     linking: signInToRoom$,
-    share: share$,
-    toast: inviteToast$,
+    share: Platform.OS === 'web' ? xs.never() : share$,
+    toast: xs.merge(shareToast$, inviteToast$),
   };
 }
