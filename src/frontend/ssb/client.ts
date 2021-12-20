@@ -5,7 +5,6 @@
 import ssbClient from './channel';
 import manifest from './manifest';
 import hooksPlugin from './plugins/hooks';
-import connUtilsPlugin from './plugins/connUtils';
 import publishUtilsPlugin from './plugins/publishUtils';
 import threadsUtilsPlugin from './plugins/threadsUtils';
 import cachedAboutSelf from './plugins/cachedAboutSelf';
@@ -16,7 +15,6 @@ function makeClient() {
     .use(cachedAboutSelf())
     .use(hooksPlugin())
     .use(publishUtilsPlugin())
-    .use(connUtilsPlugin())
     .use(threadsUtilsPlugin())
     .callPromise();
 }

@@ -162,10 +162,11 @@ export default {
     get: 'async',
     stream: 'source',
   },
-  connUtilsBack: {
+  connUtils: {
     persistentConnect: 'async',
     persistentDisconnect: 'async',
-    isInDB: 'async',
+    peers: 'source',
+    stagedPeers: 'source',
   },
   dbUtils: {
     rawLogReversed: 'source',

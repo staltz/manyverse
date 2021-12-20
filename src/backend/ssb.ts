@@ -129,9 +129,9 @@ SecretStack()
   .use(require('ssb-serve-blobs')) // needs: blobs
   .use(require('ssb-blobs-purge')) // needs: blobs, db2/full-mentions
   // Customizations
-  .use(require('./plugins/blobsUtils')) // needs: blobs
-  .use(require('./plugins/connUtilsBack')) // needs: conn
   .use(require('./plugins/aboutSelf')) // needs: db2
+  .use(require('./plugins/blobsUtils')) // needs: blobs
+  .use(require('./plugins/connUtils')) // needs: conn, aboutSelf
   .use(require('./plugins/aliasUtils')) // needs: db2
   .use(require('./plugins/resyncUtils')) // needs: db2, connFirewall
   .use(require('./plugins/publishUtilsBack')) // needs: db, blobs, blobsUtils
