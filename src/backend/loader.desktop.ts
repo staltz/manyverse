@@ -82,20 +82,37 @@ if ((process as any).defaultApp) {
   app.setAsDefaultProtocolClient('ssb');
 }
 
-app.whenReady().then(() => {
-  createWindow();
-});
+const hasLock = app.requestSingleInstanceLock();
 
-app.on('window-all-closed', () => {
-  if (process.platform === 'darwin') return;
-
+if (!hasLock) {
   app.quit();
-});
+} else {
+  app.on(
+    'second-instance',
+    (ev: any, argv: Array<string>, cwd: any, extraData: any) => {
+      if (win) {
+        if (win.isMinimized()) win.restore();
+        win.focus();
+        if (argv && argv[1]) win.webContents.send('incoming-url', argv[1]);
+      }
+    },
+  );
 
-app.on('activate', () => {
-  if (win === null) {
+  app.whenReady().then(() => {
     createWindow();
-  }
-});
+  });
 
-require('./index');
+  app.on('window-all-closed', () => {
+    if (process.platform === 'darwin') return;
+
+    app.quit();
+  });
+
+  app.on('activate', () => {
+    if (win === null) {
+      createWindow();
+    }
+  });
+
+  require('./index');
+}
