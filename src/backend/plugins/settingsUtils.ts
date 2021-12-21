@@ -116,12 +116,12 @@ export = {
     // the settings could be put in React Native's async-storage, as long as
     // we have a "global component" in cycle-native-navigation
     const current = readSync();
-    let initialTimeout: ReturnType<typeof setTimeout>;
+    let initialTimeout: NodeJS.Timeout | undefined;
     const storageLimit = current.blobsStorageLimit ?? 500e6;
     if (storageLimit >= 0) {
       initialTimeout = setTimeout(() => {
         ssb.blobsPurge.start({storageLimit});
-      }, 30e3);
+      }, 30e3) as any as NodeJS.Timeout;
       initialTimeout?.unref?.();
     }
 
@@ -137,7 +137,10 @@ export = {
 
       updateBlobsPurge(storageLimit: number) {
         // TODO: like above, this could also be moved to the frontend
-        clearTimeout(initialTimeout);
+        if (initialTimeout) {
+          clearTimeout(initialTimeout);
+          initialTimeout = void 0;
+        }
         if (storageLimit >= 0) {
           ssb.blobsPurge.start({storageLimit});
           updateField('blobsStorageLimit', storageLimit);

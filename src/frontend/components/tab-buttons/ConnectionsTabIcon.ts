@@ -40,7 +40,7 @@ export default class ConnectionsTabIcon extends Component<
 
   static TIMER_PERIOD = 10e3;
 
-  private colorTimer: NodeJS.Timeout | null = null;
+  private colorTimer: number | null = null;
 
   public shouldComponentUpdate(
     nextProps: ConnectionsTabIcon['props'],

@@ -4,10 +4,14 @@
 
 const {ipcRenderer} = require('electron');
 
-const wrappers = new Map<CallableFunction, CallableFunction>();
+interface EvListener {
+  (...args: any[]): void;
+}
+
+const wrappers = new Map<EvListener, EvListener>();
 
 export default {
-  addListener(type: string, fn: CallableFunction) {
+  addListener(type: string, fn: EvListener) {
     const wrapper = (first: any, second: any) => {
       const msg = second ?? first;
       fn(msg);
@@ -16,7 +20,7 @@ export default {
     ipcRenderer.addListener(type, wrapper);
   },
 
-  removeListener(type: string, fn: CallableFunction) {
+  removeListener(type: string, fn: EvListener) {
     const wrapper = wrappers.get(fn);
     if (wrapper) {
       ipcRenderer.removeListener(type, wrapper);

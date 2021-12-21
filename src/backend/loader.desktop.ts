@@ -5,7 +5,7 @@
 // import os = require('os');
 import path = require('path');
 import url = require('url');
-const {BrowserWindow, app, shell} = require('electron');
+import {BrowserWindow, app, shell} from 'electron';
 
 process.env = process.env ?? {};
 
@@ -23,7 +23,7 @@ process.env.MANYVERSE_PLATFORM = 'desktop';
 process.env.DEBUG = 'ssb:*,jitdb,jitdb:*';
 // }
 
-let win: typeof BrowserWindow | null;
+let win: BrowserWindow | null;
 
 let resolveWebContents: ((wc: any) => void) | undefined;
 // This will be used by multiserver to communicate with the frontend
@@ -33,6 +33,7 @@ let resolveWebContents: ((wc: any) => void) | undefined;
 
 function createWindow() {
   win = new BrowserWindow({
+    title: 'Manyverse',
     width: 800,
     height: 600,
     autoHideMenuBar: true,
@@ -51,7 +52,7 @@ function createWindow() {
   );
 
   if (resolveWebContents) resolveWebContents(win.webContents);
-  win.webContents.openDevTools({activate: false});
+  win.webContents.openDevTools({activate: false, mode: 'right'});
 
   // Handle external (web) links
   win.webContents.on('will-navigate', (ev: any, url: string) => {
@@ -71,6 +72,9 @@ function createWindow() {
     win = null;
   });
 }
+
+// Useful for cases like defininig the Electron "userData" directory
+app.setName('manyverse');
 
 if ((process as any).defaultApp) {
   if (process.argv.length >= 2) {

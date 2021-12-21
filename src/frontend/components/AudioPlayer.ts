@@ -103,7 +103,7 @@ export type State = {
   duration: number;
   editingSlider: boolean;
   fetchingFile: boolean;
-  timer?: NodeJS.Timeout;
+  timer?: number;
 };
 
 export default class AudioPlayer extends PureComponent<Props, State> {
