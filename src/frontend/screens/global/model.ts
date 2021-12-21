@@ -20,10 +20,10 @@ export default function model(
   const aboutReducer$ = ssbSource.selfFeedId$
     .take(1)
     .map((selfFeedId) =>
-      ssbSource.profileImage$(selfFeedId).map(
-        (selfAvatarUrl) =>
+      ssbSource.profileAbout$(selfFeedId).map(
+        (about) =>
           function aboutReducer(prev?: State): State {
-            return {...(prev ?? {}), selfFeedId, selfAvatarUrl};
+            return {...(prev ?? {}), selfFeedId, selfAvatarUrl: about.imageUrl};
           },
       ),
     )

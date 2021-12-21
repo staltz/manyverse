@@ -13,7 +13,7 @@ import {State as ActivityTabState} from './activity-tab/model';
 import {State as ConnectionsTabState} from './connections-tab/model';
 import {SSBSource} from '../../drivers/ssb';
 
-export type State = {
+export interface State {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
   selfAvatarUrl?: string;
@@ -31,7 +31,7 @@ export type State = {
   indexingProgress: number;
   canPublishSSB: boolean;
   isDrawerOpen: boolean;
-};
+}
 
 /**
  * Identity lens
@@ -217,12 +217,12 @@ export default function model(
 
   const aboutReducer$ = ssbSource.selfFeedId$
     .take(1)
-    .map((selfFeedId) => ssbSource.profileImage$(selfFeedId))
+    .map((selfFeedId) => ssbSource.profileAbout$(selfFeedId))
     .flatten()
     .map(
-      (selfAvatarUrl) =>
+      (about) =>
         function aboutReducer(prev: State): State {
-          return {...prev, selfAvatarUrl};
+          return {...prev, selfAvatarUrl: about.imageUrl};
         },
     );
 

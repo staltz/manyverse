@@ -54,6 +54,7 @@ export function connectionsTab(sources: Sources): Sinks {
     sources.network,
     sources.appstate,
     sources.windowSize,
+    state$,
   );
   const vdom$ = view(state$);
 

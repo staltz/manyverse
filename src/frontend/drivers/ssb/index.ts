@@ -274,13 +274,19 @@ export class SSBSource {
       .flatten();
   }
 
-  public profileImage$(id: FeedId): Stream<string | undefined> {
+  public profileAbout$(id: FeedId): Stream<AboutAndExtras> {
     return this.ssb$
       .map((ssb) =>
-        xsFromCallback<{image?: string}>(ssb.cachedAboutSelf.get)(id),
+        xsFromCallback<{image?: string; name?: string}>(
+          ssb.cachedAboutSelf.get,
+        )(id),
       )
       .flatten()
-      .map((output) => imageToImageUrl(output.image));
+      .map((output) => ({
+        id,
+        name: output.name,
+        imageUrl: imageToImageUrl(output.image),
+      }));
   }
 
   public profileAboutLive$(id: FeedId): Stream<AboutAndExtras> {

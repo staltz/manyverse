@@ -7,9 +7,6 @@ import {Peer as PeerKV} from 'ssb-conn-query/lib/types';
 import ConnDB = require('ssb-conn-db');
 import {FeedId} from 'ssb-typescript';
 const pull = require('pull-stream');
-const cat = require('pull-cat');
-const backoff = require('pull-backoff');
-const switchMap = require('pull-switch-map');
 const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
 
 interface AboutSelf {
@@ -17,7 +14,7 @@ interface AboutSelf {
     name?: string;
     image?: string;
     description?: string;
-  };
+  } | null;
 }
 
 function augmentPeerWithExtras(
@@ -115,13 +112,6 @@ export = {
       peers() {
         return pull(
           ssb.conn.peers(),
-          switchMap((peers: Array<PeerKV>) =>
-            pull(
-              // Emits: now, +4s, +8s, +16s, +32s, +64s, +120s, +120s, +120s
-              cat([pull.once(0), backoff(4e3, 2, 120e3)]),
-              pull.map(() => peers),
-            ),
-          ),
           pull.map(removeOlderDuplicates),
           pull.asyncMap(augmentPeersWithExtras(ssb)),
         );

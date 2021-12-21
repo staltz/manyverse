@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import concat from 'xstream/extra/concat';
 import {FeedId} from 'ssb-typescript';
 import {State as AppState} from '../../../drivers/appstate';
@@ -176,6 +177,7 @@ export default function model(
   networkSource: NetworkSource,
   appstate$: Stream<AppState>,
   windowSize$: Stream<WindowSize>,
+  state$: Stream<State>,
 ) {
   const pingConnectivityModes$ = concat(
     xs.of(0),
@@ -253,6 +255,36 @@ export default function model(
       },
   );
 
+  const updatePeersAbout$ = xs
+    .periodic(10e3)
+    .compose(sample(state$))
+    .map((state) => {
+      if (!state.isVisible) return xs.of(null);
+      if (state.peers.length === 0) return xs.of(null);
+      return xs.combine(
+        ...state.peers.map(([_addr, data]) =>
+          data.key ? ssbSource.profileAbout$(data.key) : xs.of(null),
+        ),
+      );
+    })
+    .flatten()
+    .filter((abouts) => !!abouts)
+    .map(
+      (x) =>
+        function updatePeersAbout(prev: State): State {
+          const abouts = x as NonNullable<typeof x>;
+          const peers: typeof prev.peers = prev.peers.map((peer, i) => {
+            if (abouts[i] && abouts[i]!.imageUrl) {
+              const [addr, data] = peer;
+              return [addr, {...data, ...abouts[i]}];
+            } else {
+              return peer;
+            }
+          });
+          return {...prev, peers, timestampPeersAndRooms: Date.now()};
+        },
+    );
+
   const reducer$ = xs.merge(
     updateLanEnabled$,
     updateInternetEnabled$,
@@ -260,10 +292,13 @@ export default function model(
     updatePostsCountReducer$,
     setPeersReducer$,
     setStagedPeersReducer$,
+    updatePeersAbout$,
   );
 
   // As a post-processing step, apply reevaluateStatus after all reducers
-  return reducer$.map(
-    (reducer) => (prev: State) => reevaluateStatus(reducer(prev)),
-  );
+  return reducer$.map((reducer) => (prev: State) => {
+    const next = reducer(prev);
+    if (next === prev) return next;
+    else return reevaluateStatus(next);
+  });
 }
