@@ -84,4 +84,24 @@ module.exports = {
     priority: 'optional',
     maintainer: "Andre 'Staltz' Medeiros <contact@staltz.com>",
   },
+
+  mac: {
+    icon: path.join(__dirname, 'build-resources', 'icon.icns'),
+    category: 'public.app-category.social-networking',
+    darkModeSupport: true,
+    target: [{target: 'dmg'}],
+  },
+
+  dmg: {
+    icon: path.join(__dirname, 'build-resources', 'icon.icns'),
+    iconSize: 128,
+    window: {
+      width: 540,
+      height: 380,
+    },
+    contents: [
+      {x: 122, y: 240, type: 'file'},
+      {x: 380, y: 380, type: 'link', path: '/Applications'},
+    ],
+  },
 };
