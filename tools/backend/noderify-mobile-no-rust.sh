@@ -52,6 +52,7 @@ $(npm bin)/noderify \
   index.js > _index.js;
 rm index.js; mv _index.js index.js;
 
+rm one-time-fixes.js;
 rm restore.js;
 rm ssb.js;
 rm -rf plugins;
