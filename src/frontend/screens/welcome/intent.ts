@@ -19,8 +19,8 @@ export default function intent(
 ) {
   const appPath =
     Platform.OS === 'web' ? os.homedir() : FSSource.DocumentDirectoryPath;
-  const oldLogPath = path.join(appPath, '.manyverse', 'flume', 'log.offset');
-  const newLogPath = path.join(appPath, '.manyverse', 'db2', 'log.bipf');
+  const oldLogPath = path.join(appPath, '.ssb', 'flume', 'log.offset');
+  const newLogPath = path.join(appPath, '.ssb', 'db2', 'log.bipf');
 
   const accountExists$ = xs
     .combine(fsSource.exists(oldLogPath), fsSource.exists(newLogPath))
