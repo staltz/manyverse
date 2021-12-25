@@ -103,15 +103,7 @@ if (!hasLock) {
   });
 
   app.on('window-all-closed', () => {
-    if (process.platform === 'darwin') return;
-
     app.quit();
-  });
-
-  app.on('activate', () => {
-    if (win === null) {
-      createWindow();
-    }
   });
 
   require('./index');
