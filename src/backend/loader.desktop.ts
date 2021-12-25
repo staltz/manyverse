@@ -5,23 +5,20 @@
 // import os = require('os');
 import path = require('path');
 import url = require('url');
+import fs = require('fs');
 import {BrowserWindow, app, shell} from 'electron';
 
 process.env = process.env ?? {};
 
 // Set default directories
 process.env.APP_DATA_DIR = app.getAppPath();
-// TODO: go back to .ssb by default when we have better backwards compat
-// between db1 and db2
 process.env.SSB_DIR = process.env.SSB_DIR ?? '/tmp/ssb-temp'; // path.resolve(os.homedir(), '.ssb');
 
 // Set global variables
 process.env.MANYVERSE_PLATFORM = 'desktop';
-// TODO: re-enable this for production
-// if (fs.existsSync(path.join(process.env.SSB_DIR, 'DETAILED_LOGS'))) {
-// process.env.DEBUG = '*';
-process.env.DEBUG = 'ssb:*,jitdb,jitdb:*';
-// }
+if (fs.existsSync(path.join(process.env.SSB_DIR, 'DETAILED_LOGS'))) {
+  process.env.DEBUG = '*';
+}
 
 let win: BrowserWindow | null;
 
@@ -40,8 +37,7 @@ function createWindow() {
     backgroundColor: '#4263eb', // brandMain
     webPreferences: {
       nodeIntegration: true,
-
-      // TODO should be true, but supporting muxrpc would be much much harder
+      // TODO should be true, but supporting muxrpc would be much much harder:
       contextIsolation: false,
     },
   });
