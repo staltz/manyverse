@@ -6,7 +6,7 @@
 import path = require('path');
 import url = require('url');
 import fs = require('fs');
-import {BrowserWindow, app, shell} from 'electron';
+import {BrowserWindow, app, ipcMain, shell} from 'electron';
 
 process.env = process.env ?? {};
 
@@ -103,7 +103,14 @@ if (!hasLock) {
   });
 
   app.on('window-all-closed', () => {
-    app.quit();
+    ipcMain.emit('pull-electron-ipc-close', null);
+    if ((process as any)._ssb) {
+      (process as any)._ssb.close(true, () => {
+        app.quit();
+      });
+    } else {
+      app.quit();
+    }
   });
 
   require('./index');

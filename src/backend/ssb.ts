@@ -71,7 +71,7 @@ oneTimeFixes().then(() => {
     },
   });
 
-  SecretStack()
+  (process as any)._ssb = SecretStack()
     // Core
     .use(require('ssb-master'))
     .use(require('ssb-db2'))
