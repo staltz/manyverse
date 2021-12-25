@@ -58,6 +58,7 @@ export const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         maxWidth: Dimensions.desktopMiddleWidth.vw,
+        fontFamily: Typography.fontFamilyReadableText,
       },
     }),
   },
@@ -96,18 +97,33 @@ export const styles = StyleSheet.create({
     lineHeight: Typography.lineHeightNormal,
     color: Palette.text,
     fontWeight: 'bold',
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   itemVersion: {
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
     color: Palette.text,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   itemLicense: {
     fontSize: Typography.fontSizeSmall,
     lineHeight: Typography.lineHeightSmall,
     color: Palette.textWeak,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 });
 
@@ -146,7 +162,8 @@ class Dep extends PureComponent<{
       style: styles.itemTouchable,
     };
     if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+      touchableProps.background =
+        TouchableNativeFeedback.SelectableBackground();
     }
 
     return h(Touchable, touchableProps, [

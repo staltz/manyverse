@@ -31,6 +31,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: Dimensions.verticalSpaceNormal,
     zIndex: 999,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   idleButtonTease: {

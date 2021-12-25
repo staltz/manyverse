@@ -38,11 +38,21 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: Typography.fontSizeNormal,
     color: Palette.text,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   subtitle: {
     fontSize: Typography.fontSizeSmall,
     color: Palette.textWeak,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 });
 

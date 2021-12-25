@@ -89,6 +89,11 @@ const styles = StyleSheet.create({
     marginLeft: Dimensions.horizontalSpaceSmall,
     textDecorationLine: 'underline',
     color: Palette.text,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   aliasRemove: {

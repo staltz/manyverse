@@ -111,6 +111,11 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
     color: Palette.text,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   avatar: {

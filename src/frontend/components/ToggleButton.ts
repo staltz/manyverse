@@ -61,11 +61,21 @@ export const styles = StyleSheet.create({
   text: {
     ...baseTextStyle,
     color: Palette.textBrand,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   textToggled: {
     ...baseTextStyle,
     color: Palette.textForBackgroundBrand,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 });
 
@@ -135,7 +145,8 @@ export default class ToggleButton extends PureComponent<Props, State> {
       onPress: () => this._onPress(),
     };
     if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+      touchableProps.background =
+        TouchableNativeFeedback.SelectableBackground();
     }
     const viewProps = {
       style: [containerStyle, style],

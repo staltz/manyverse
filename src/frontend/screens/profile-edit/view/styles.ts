@@ -61,6 +61,11 @@ export const styles = StyleSheet.create({
       android: 3,
       default: Dimensions.horizontalSpaceSmall,
     }),
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   textInput: {
@@ -84,6 +89,7 @@ export const styles = StyleSheet.create({
         borderRadius: Dimensions.borderRadiusNormal,
         paddingHorizontal: Dimensions.horizontalSpaceSmall,
         paddingVertical: Dimensions.verticalSpaceSmall,
+        fontFamily: Typography.fontFamilyReadableText,
       },
     }),
   },

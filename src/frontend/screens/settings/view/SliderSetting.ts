@@ -4,7 +4,7 @@
 
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import Slider from '@react-native-community/slider';
 import {Palette} from '../../../global-styles/palette';
 import {Typography} from '../../../global-styles/typography';
@@ -24,11 +24,21 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
     color: Palette.text,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   valueInTitle: {
     fontWeight: 'bold',
     marginLeft: Dimensions.horizontalSpaceNormal,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   subtitle: {
@@ -36,6 +46,11 @@ export const styles = StyleSheet.create({
     lineHeight: Typography.lineHeightSmall,
     color: Palette.textWeak,
     marginBottom: Dimensions.verticalSpaceNormal,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 });
 

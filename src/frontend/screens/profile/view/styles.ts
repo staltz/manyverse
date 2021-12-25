@@ -271,6 +271,11 @@ export const styles = StyleSheet.create({
     color: Palette.text,
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   aliasLink: {
@@ -280,6 +285,11 @@ export const styles = StyleSheet.create({
     marginLeft: Dimensions.horizontalSpaceSmall,
     textDecorationLine: 'underline',
     color: Palette.text,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   followsYouText: {

@@ -67,11 +67,21 @@ export const styles = StyleSheet.create({
   text: {
     ...baseTextStyle,
     color: Palette.textBrand,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   textStrong: {
     ...baseTextStyle,
     color: Palette.textForBackgroundBrand,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 });
 

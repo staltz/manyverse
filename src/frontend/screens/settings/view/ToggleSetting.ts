@@ -41,11 +41,21 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: Typography.fontSizeNormal,
     color: Palette.text,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   subtitle: {
     fontSize: Typography.fontSizeSmall,
     color: Palette.textWeak,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 });
 
@@ -59,13 +69,8 @@ export interface Props {
 
 export default class ToggleSetting extends PureComponent<Props> {
   public render() {
-    const {
-      title,
-      subtitle,
-      value,
-      onValueChange,
-      accessibilityLabel,
-    } = this.props;
+    const {title, subtitle, value, onValueChange, accessibilityLabel} =
+      this.props;
 
     const touchableProps: any = {
       onPress: () => {

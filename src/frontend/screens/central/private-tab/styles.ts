@@ -67,6 +67,11 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     textAlignVertical: 'center',
     minWidth: 120,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   conversationAuthorsUnread: {

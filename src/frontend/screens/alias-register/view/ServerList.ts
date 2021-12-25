@@ -4,7 +4,7 @@
 
 import {h} from '@cycle/react';
 import {PureComponent} from 'react';
-import {FlatList, Text, StyleSheet} from 'react-native';
+import {FlatList, Text, StyleSheet, Platform} from 'react-native';
 import {t} from '../../../drivers/localization';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Palette} from '../../../global-styles/palette';
@@ -19,6 +19,11 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
     color: Palette.textWeak,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 });
 

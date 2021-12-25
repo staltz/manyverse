@@ -1,10 +1,10 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {PureComponent, createElement as $} from 'react';
 import {MsgId} from 'ssb-typescript';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
@@ -30,6 +30,11 @@ export const styles = StyleSheet.create({
     overflow: 'visible',
     color: Palette.text,
     fontSize: Typography.fontSizeNormal,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 
   cypherlink: {
