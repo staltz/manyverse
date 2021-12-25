@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-const {app, ipcMain} = require('electron');
+import {app, ipcMain} from 'electron';
 
 ipcMain.handle('incoming-url-first', async (event: any) => {
   return process.argv[1] ?? null;

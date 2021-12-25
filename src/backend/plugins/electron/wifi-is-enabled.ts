@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-const {ipcMain} = require('electron');
+import {ipcMain} from 'electron';
 import os = require('os');
 const ip = require('ip');
 
