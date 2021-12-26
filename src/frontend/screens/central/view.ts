@@ -3,7 +3,13 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {ReactElement, Fragment, PureComponent, Component} from 'react';
+import {
+  ReactElement,
+  Fragment,
+  PureComponent,
+  Component,
+  createElement as $,
+} from 'react';
 import {Animated, Dimensions, Easing, Platform, View} from 'react-native';
 import {h} from '@cycle/react';
 import {FloatingAction} from 'react-native-floating-action';
@@ -14,6 +20,12 @@ import ActivityTabIcon from '../../components/tab-buttons/ActivityTabIcon';
 import ConnectionsTabIcon from '../../components/tab-buttons/ConnectionsTabIcon';
 import {styles} from './styles';
 import {State} from './model';
+
+class TopBarStub extends PureComponent {
+  public render() {
+    return $(View, {style: styles.topBarStub}, this.props.children);
+  }
+}
 
 class CurrentTabPage extends PureComponent<{
   currentTab: State['currentTab'];
@@ -289,5 +301,6 @@ export default function view(
           }),
           Platform.OS === 'web' ? null : h(MobileTabsBar, state),
         ]),
-    );
+    )
+    .startWith($(TopBarStub));
 }

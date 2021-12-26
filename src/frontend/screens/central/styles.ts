@@ -53,6 +53,15 @@ export const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
 
+  topBarStub: {
+    height: Dimensions.toolbarHeight,
+    minHeight: Dimensions.toolbarHeight,
+    backgroundColor: Palette.brandMain,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+
   progressBar: {
     position: 'absolute',
     zIndex: 1000,
