@@ -56,9 +56,9 @@ export default function intent(
 
   const handleUriAddress$ = link$.filter(isAddressSSBURI);
 
-  const connectToPeer$ = handleUriAddress$.map(toMultiserverAddress) as Stream<
-    string
-  >;
+  const connectToPeer$ = handleUriAddress$.map(
+    toMultiserverAddress,
+  ) as Stream<string>;
 
   // Server-initiated SSB HTTP Auth
   const confirmedSignInRoom$ = handleUriStartHttpAuth$
@@ -80,6 +80,7 @@ export default function intent(
             ...Palette.dialogColors,
             positiveText: t('call_to_action.yes'),
             negativeText: t('call_to_action.no'),
+            markdownOnDesktop: true,
           },
         )
         .filter((res) => res.action === 'actionPositive')
@@ -115,9 +116,11 @@ export default function intent(
       .filter((x) => !!x) as Stream<{rootMsgId: string}>,
   );
 
-  const goToSearch$ = (globalEventBus.filter(
-    (ev) => ev.type === 'triggerHashtagLink',
-  ) as Stream<TriggerHashtagLink>).map((ev) => ({query: ev.hashtag}));
+  const goToSearch$ = (
+    globalEventBus.filter(
+      (ev) => ev.type === 'triggerHashtagLink',
+    ) as Stream<TriggerHashtagLink>
+  ).map((ev) => ({query: ev.hashtag}));
 
   return {
     handleUriClaimInvite$,
