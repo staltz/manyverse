@@ -7,7 +7,6 @@ import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import path = require('path');
-import os = require('os');
 import {FSSource} from '../../drivers/fs';
 import {GlobalEvent} from '../../drivers/eventbus';
 
@@ -17,10 +16,13 @@ export default function intent(
   fsSource: FSSource,
   storageSource: AsyncStorageSource,
 ) {
-  const appPath =
-    Platform.OS === 'web' ? os.homedir() : FSSource.DocumentDirectoryPath;
-  const oldLogPath = path.join(appPath, '.ssb', 'flume', 'log.offset');
-  const newLogPath = path.join(appPath, '.ssb', 'db2', 'log.bipf');
+  const isWeb = Platform.OS === 'web';
+  const oldLogPath = isWeb
+    ? path.join(process.env.SSB_DIR!, 'flume', 'log.offset')
+    : path.join(FSSource.DocumentDirectoryPath, '.ssb', 'flume', 'log.offset');
+  const newLogPath = isWeb
+    ? path.join(process.env.SSB_DIR!, 'db2', 'log.bipf')
+    : path.join(FSSource.DocumentDirectoryPath, '.ssb', 'db2', 'log.bipf');
 
   const accountExists$ = xs
     .combine(fsSource.exists(oldLogPath), fsSource.exists(newLogPath))
