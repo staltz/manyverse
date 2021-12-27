@@ -11,7 +11,6 @@ import {linkingDriver} from './drivers/linking';
 import {makeLocalizationDriver} from './drivers/localization';
 import {makeToastDriver} from './drivers/toast';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
-import {notificationDriver} from 'cycle-native-android-local-notification';
 import {makeFSDriver} from './drivers/fs';
 import {ssbDriver} from './drivers/ssb';
 import {shareDriver} from 'cycle-native-share';
@@ -71,7 +70,6 @@ export const drivers = {
   share: shareDriver,
   lifecycle: makeActivityLifecycleDriver(),
   network: makeNetworkDriver(),
-  notification: notificationDriver,
   dialog: dialogDriver,
   toast: makeToastDriver(),
   recorder: makeRecorderDriver(),
