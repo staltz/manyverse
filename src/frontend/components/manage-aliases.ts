@@ -32,6 +32,7 @@ import {Screens} from '../screens/enums';
 import {navOptions as registerAliasNavOpts} from '../screens/alias-register/layout';
 import {Props as RegisterAliasProps} from '../screens/alias-register/props';
 import Button from './Button';
+import {readOnlyDisclaimer} from './read-only-disclaimer';
 
 interface State {
   aliases: Array<Alias>;
@@ -203,19 +204,16 @@ function model(props$: Stream<Props>, ssbSource: SSBSource) {
   return xs.merge(updateAliasesReducer$, loadAliasServersReducer$);
 }
 
-function toast(actions: {removeAlias$: Stream<Alias>}, ssbSource: SSBSource) {
-  const successfullyRemovedAlias$ = actions.removeAlias$
-    .map(({room, alias}) => ssbSource.revokeAlias$(room, alias))
-    .flatten()
-    .map(
-      () =>
-        ({
-          type: 'show' as const,
-          flavor: 'success',
-          message: t('profile_edit.toasts.alias_removed_success'),
-          duration: ToastDuration.SHORT,
-        } as Toast),
-    );
+function toast(revokeAliasRequest$: Stream<true>) {
+  const successfullyRemovedAlias$ = revokeAliasRequest$.map(
+    () =>
+      ({
+        type: 'show' as const,
+        flavor: 'success',
+        message: t('profile_edit.toasts.alias_removed_success'),
+        duration: ToastDuration.SHORT,
+      } as Toast),
+  );
 
   const revokeAliasResponse$ = successfullyRemovedAlias$.replaceError(() =>
     successfullyRemovedAlias$.startWith({
@@ -232,7 +230,20 @@ function toast(actions: {removeAlias$: Stream<Alias>}, ssbSource: SSBSource) {
 export default function manageAliases(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.dialog);
   const reducer$ = model(sources.props, sources.ssb);
-  const toast$ = toast(actions, sources.ssb);
+
+  const revokeAliasRequest$ = actions.removeAlias$
+    .map((x) => {
+      if (Platform.OS === 'web' && process.env.SSB_DB2_READ_ONLY) {
+        return readOnlyDisclaimer(sources.dialog);
+      } else {
+        return xs.of(x);
+      }
+    })
+    .flatten()
+    .map(({room, alias}) => sources.ssb.revokeAlias$(room, alias))
+    .flatten();
+
+  const toast$ = toast(revokeAliasRequest$);
 
   const goToRegisterAlias$ = actions.registerAlias$
     .compose(sample(sources.state.stream))

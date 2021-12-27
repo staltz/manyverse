@@ -9,6 +9,7 @@ import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource, Req} from '../../drivers/ssb';
+import {DialogSource} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import model, {State} from './model';
@@ -21,20 +22,21 @@ export {navOptions} from './layout';
 
 export type Props = P;
 
-export type Sources = {
+export interface Sources {
   props: Stream<Props>;
   screen: ReactSource;
   ssb: SSBSource;
   navigation: NavSource;
+  dialog: DialogSource;
   state: StateSource<State>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
-};
+}
 
 export const styles = StyleSheet.create({
   container: {
@@ -52,7 +54,7 @@ export const styles = StyleSheet.create({
 export function conversation(sources: Sources): Sinks {
   const state$ = sources.state.stream;
   const vdom$ = view(state$);
-  const actions = intent(sources.screen, sources.navigation);
+  const actions = intent(sources.screen, sources.navigation, sources.dialog);
   const cmd$ = navigation(actions, sources.props, state$);
   const reducer$ = model(sources.props, sources.ssb);
   const newContent$ = ssb(actions, state$);

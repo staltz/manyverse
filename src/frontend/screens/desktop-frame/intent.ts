@@ -55,6 +55,25 @@ export default function intent(
     .events('press')
     .mapTo(null);
 
+  const exitReadOnly$ = reactSource
+    .select('exit-read-only')
+    .events('press')
+    .map(() =>
+      dialogSource
+        .alert(
+          t('read_only_mode.dialogs.migrate.title'),
+          t('read_only_mode.dialogs.migrate.description'),
+          {
+            ...Palette.dialogColors,
+            negativeText: t('call_to_action.cancel'),
+            positiveText: t('call_to_action.yes'),
+            markdownOnDesktop: true,
+          },
+        )
+        .filter((res) => res.action === 'actionPositive'),
+    )
+    .flatten();
+
   const openMoreMenuOptions$ = reactSource
     .select('more')
     .events('press')
@@ -107,5 +126,6 @@ export default function intent(
     showRawDatabase$,
     emailBugReport$,
     openTranslate$,
+    exitReadOnly$,
   };
 }

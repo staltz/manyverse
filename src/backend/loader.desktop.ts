@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-// import os = require('os');
+import os = require('os');
 import path = require('path');
 import url = require('url');
 import fs = require('fs');
@@ -11,8 +11,22 @@ import {BrowserWindow, app, ipcMain, shell} from 'electron';
 process.env = process.env ?? {};
 
 // Set default directories
+app.setPath('userData', path.join(app.getPath('appData'), 'manyverse'));
 process.env.APP_DATA_DIR = app.getAppPath();
-process.env.SSB_DIR = process.env.SSB_DIR ?? '/tmp/ssb-temp'; // path.resolve(os.homedir(), '.ssb');
+process.env.SHARED_SSB_DIR = path.resolve(os.homedir(), '.ssb');
+process.env.MANYVERSE_SSB_DIR = path.resolve(app.getPath('userData'), 'ssb');
+
+if (!process.env.SSB_DIR) {
+  if (
+    fs.existsSync(process.env.SHARED_SSB_DIR) &&
+    !fs.existsSync(process.env.MANYVERSE_SSB_DIR)
+  ) {
+    process.env.SSB_DIR = process.env.SHARED_SSB_DIR;
+    process.env.SSB_DB2_READ_ONLY = 'true';
+  } else {
+    process.env.SSB_DIR = process.env.MANYVERSE_SSB_DIR;
+  }
+}
 
 // Set global variables
 process.env.MANYVERSE_PLATFORM = 'desktop';

@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
+import {Platform} from 'react-native';
 import {SSBSource} from '../../drivers/ssb';
 import {
   CentralUpdateActivity,
@@ -31,6 +32,7 @@ export interface State extends ProgressState {
     stagedPeers: Array<StagedPeerKV>;
     initializedSSB: boolean;
   };
+  readOnlyMode: boolean;
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;
   numOfActivityUpdates: number;
@@ -72,6 +74,8 @@ export default function model(
           return {
             selfFeedId,
             currentTab: 'public',
+            readOnlyMode:
+              Platform.OS === 'web' ? !!process.env.SSB_DB2_READ_ONLY : false,
             numOfPublicUpdates: 0,
             numOfPrivateUpdates: 0,
             numOfActivityUpdates: 0,
@@ -98,6 +102,8 @@ export default function model(
               selfFeedId: about.id,
               selfAvatarUrl: about.imageUrl,
               currentTab: 'public',
+              readOnlyMode:
+                Platform.OS === 'web' ? !!process.env.SSB_DB2_READ_ONLY : false,
               numOfPublicUpdates: 0,
               numOfPrivateUpdates: 0,
               numOfActivityUpdates: 0,

@@ -60,6 +60,15 @@ function dropCompletion<T>(stream: Stream<T>): Stream<T> {
   return xs.merge(stream, xs.never());
 }
 
+function checkReadOnlyProtection() {
+  if (Platform.OS === 'web' && process.env.SSB_DB2_READ_ONLY) {
+    alert('Read-only mode');
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export type GetReadable<T> = (opts?: any) => Readable<T>;
 
 export class SSBSource {
@@ -360,6 +369,7 @@ export class SSBSource {
   }
 
   public registerAlias$(roomId: FeedId, alias: string): Stream<string> {
+    if (checkReadOnlyProtection()) return xs.never();
     return this.fromCallback<string>((ssb, cb) =>
       ssb.roomClient.registerAlias(roomId, alias, (err: any, res: string) => {
         if (err) {
@@ -383,6 +393,7 @@ export class SSBSource {
   }
 
   public revokeAlias$(roomId: FeedId, alias: string): Stream<true> {
+    if (checkReadOnlyProtection()) return xs.never();
     return this.fromCallback<true>((ssb, cb) =>
       ssb.roomClient.revokeAlias(roomId, alias, (err: any, res: true) => {
         if (err) {
@@ -574,6 +585,10 @@ export interface SettingsDetailedLogsReq {
   detailedLogs: boolean;
 }
 
+export interface ExitReadOnlyModeReq {
+  type: 'dbUtils.exitReadOnlyMode';
+}
+
 export type Req =
   | CreateIdentityReq
   | UseIdentityReq
@@ -593,7 +608,8 @@ export type Req =
   | SettingsHopsReq
   | SettingsBlobsPurgeReq
   | SettingsShowFollowsReq
-  | SettingsDetailedLogsReq;
+  | SettingsDetailedLogsReq
+  | ExitReadOnlyModeReq;
 
 export function contentToPublishReq(content: NonNullable<Content>): PublishReq {
   return {type: 'publish', content};
@@ -623,11 +639,13 @@ async function consumeSink(
       const ssb = await ssbP;
 
       if (req.type === 'publish') {
+        if (checkReadOnlyProtection()) return;
         ssb.publishUtils.publish(req.content);
         return;
       }
 
       if (req.type === 'publishAbout') {
+        if (checkReadOnlyProtection()) return;
         ssb.publishUtils.publishAbout(req.content, () => {
           ssb.cachedAboutSelf.invalidate(ssb.id);
         });
@@ -635,6 +653,7 @@ async function consumeSink(
       }
 
       if (req.type === 'invite.accept') {
+        if (checkReadOnlyProtection()) return;
         ssb.invite.accept(req.invite, (err: any) => {
           source.acceptInviteResponse$._n(err ? err.message || err : true);
         });
@@ -841,6 +860,13 @@ async function consumeSink(
 
       if (req.type === 'settings.detailedLogs') {
         ssb.settingsUtils.updateDetailedLogs(req.detailedLogs, (err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
+      if (req.type === 'dbUtils.exitReadOnlyMode') {
+        ssb.dbUtils.exitReadOnlyMode((err: any) => {
           if (err) return console.error(err.message || err);
         });
         return;

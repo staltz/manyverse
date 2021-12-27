@@ -128,6 +128,36 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 
+  extraButton: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingHorizontal: Dimensions.horizontalSpaceNormal,
+    paddingVertical: Dimensions.verticalSpaceSmall,
+  },
+
+  extraButtonIdle: {
+    backgroundColor: Palette.backgroundCTA,
+    borderRadius: Dimensions.borderRadiusFull,
+  },
+
+  extraButtonHovered: {
+    backgroundColor: Palette.backgroundCTAWeak,
+    borderRadius: Dimensions.borderRadiusFull,
+  },
+
+  extraButtonIcon: {
+    userSelect: 'none',
+  } as any,
+
+  extraButtonText: {
+    marginLeft: Dimensions.horizontalSpaceSmall,
+    fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.textForBackgroundBrand,
+    fontWeight: 'bold',
+  },
+
   syncingEstimateText: {
     color: Palette.textForBackgroundBrand,
     fontSize: Typography.fontSizeSmall,

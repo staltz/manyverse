@@ -17,6 +17,8 @@ import {FeedId} from 'ssb-typescript';
 import {Image} from 'react-native-image-crop-picker';
 import {t} from '../../drivers/localization';
 import {GlobalEvent, AudioBlobComposed} from '../../drivers/eventbus';
+import {DialogSource} from '../../drivers/dialogs';
+import {readOnlyDisclaimer} from '../../components/read-only-disclaimer';
 import {State, isPost, hasText, isReply} from './model';
 const ImagePicker =
   Platform.OS !== 'web' ? require('react-native-image-crop-picker') : null;
@@ -25,6 +27,7 @@ export default function intent(
   reactSource: ReactSource,
   navSource: NavSource,
   globalEvent$: Stream<GlobalEvent>,
+  dialogSource: DialogSource,
   topBarBack$: Stream<any>,
   topBarDone$: Stream<any>,
   state$: Stream<State>,
@@ -45,15 +48,20 @@ export default function intent(
     (state) => !state.previewing && state.postText.length > 0,
   );
 
-  const publishPost$ = topBarDoneWithState$
+  const publish$ = topBarDoneWithState$
     .filter((state) => state.previewing)
-    .filter(isPost)
-    .filter(hasText);
+    .map((state) => {
+      if (Platform.OS === 'web' && process.env.SSB_DB2_READ_ONLY) {
+        return readOnlyDisclaimer(dialogSource);
+      } else {
+        return xs.of(state);
+      }
+    })
+    .flatten();
 
-  const publishReply$ = topBarDoneWithState$
-    .filter((state) => state.previewing)
-    .filter(isReply)
-    .filter(hasText);
+  const publishPost$ = publish$.filter(isPost).filter(hasText);
+
+  const publishReply$ = publish$.filter(isReply).filter(hasText);
 
   const selectionChange$ = reactSource
     .select('composeInput')

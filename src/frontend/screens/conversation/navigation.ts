@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -16,11 +16,11 @@ import {Screens} from '../enums';
 import {Props} from './props';
 import {State} from './model';
 
-type Actions = {
+interface Actions {
   goBack$: Stream<any>;
   goToProfile$: Stream<FeedId>;
   goToRecipients$: Stream<any>;
-};
+}
 
 export default function navigation(
   actions: Actions,

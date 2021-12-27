@@ -5,12 +5,15 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {ReactSource} from '@cycle/react';
+import {Platform} from 'react-native';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {NavSource} from 'cycle-native-navigation';
 import {isReplyPostMsg} from 'ssb-typescript/utils';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {t} from '../../drivers/localization';
+import {DialogSource} from '../../drivers/dialogs';
+import {readOnlyDisclaimer} from '../../components/read-only-disclaimer';
 import {
   PressAddReactionEvent,
   PressReactionsEvent,
@@ -26,6 +29,7 @@ export default function intent(
   keyboardSource: KeyboardSource,
   navSource: NavSource,
   ssbSource: SSBSource,
+  dialogSource: DialogSource,
   state$: Stream<State>,
 ) {
   return {
@@ -36,7 +40,15 @@ export default function intent(
       .filter(
         ({replyText}) =>
           typeof replyText === 'string' && replyText.trim().length > 0,
-      ),
+      )
+      .map((x) => {
+        if (Platform.OS === 'web' && process.env.SSB_DB2_READ_ONLY) {
+          return readOnlyDisclaimer(dialogSource);
+        } else {
+          return xs.of(x);
+        }
+      })
+      .flatten(),
 
     willReply$: ssbSource.publishHook$.filter(isReplyPostMsg),
 
@@ -44,15 +56,15 @@ export default function intent(
 
     keyboardDisappeared$: keyboardSource.events('keyboardDidHide').mapTo(null),
 
-    goToAccounts$: (reactSource
-      .select('thread')
-      .events('pressReactions') as Stream<PressReactionsEvent>).map(
-      ({msgKey, reactions}) => ({
-        title: t('accounts.reactions.title'),
-        msgKey,
-        accounts: reactions,
-      }),
-    ),
+    goToAccounts$: (
+      reactSource
+        .select('thread')
+        .events('pressReactions') as Stream<PressReactionsEvent>
+    ).map(({msgKey, reactions}) => ({
+      title: t('accounts.reactions.title'),
+      msgKey,
+      accounts: reactions,
+    })),
 
     goToAnotherThread$: reactSource
       .select('thread')
@@ -82,17 +94,17 @@ export default function intent(
       .select('thread')
       .events('viewableItemsChanged') as Stream<any>,
 
-    replySeen$: reactSource.select('thread').events('replySeen') as Stream<
-      MsgId
-    >,
+    replySeen$: reactSource
+      .select('thread')
+      .events('replySeen') as Stream<MsgId>,
 
     focusTextInput$: reactSource
       .select('thread')
       .events('pressReplyToRoot') as Stream<undefined>,
 
-    openMessageEtc$: reactSource.select('thread').events('pressEtc') as Stream<
-      Msg
-    >,
+    openMessageEtc$: reactSource
+      .select('thread')
+      .events('pressEtc') as Stream<Msg>,
 
     updateReplyText$: reactSource
       .select('reply-input')
