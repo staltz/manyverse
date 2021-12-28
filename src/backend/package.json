@@ -55,7 +55,7 @@
     "ssb-room-client": "2.0.0",
     "ssb-search2": "1.0.1",
     "ssb-serve-blobs": "3.0.0",
-    "ssb-suggest-lite": "1.1.1",
+    "ssb-suggest-lite": "1.1.2",
     "ssb-threads": "9.2.1",
     "ssb-typescript": "2.5.0",
     "staltz-multiserver": "3.3.6-1",
