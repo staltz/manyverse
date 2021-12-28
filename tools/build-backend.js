@@ -51,7 +51,7 @@ async function runAndReport(label, task) {
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Move backend project to ./desktop',
-      exec('./tools/backend/move-to-desktop.sh'),
+      exec('node tools/backend/move-to-desktop.js'),
     );
   } else {
     await runAndReport(
@@ -150,7 +150,7 @@ async function runAndReport(label, task) {
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Pre-remove files not necessary for Electron',
-      exec('./tools/backend/pre-remove-unused-files-desktop.sh'),
+      exec('node tools/backend/pre-remove-unused-files-desktop.js'),
     );
   }
 
@@ -174,12 +174,12 @@ async function runAndReport(label, task) {
     if (rustEnabled) {
       await runAndReport(
         'Bundle and minify backend JS into one file',
-        exec('./tools/backend/noderify-desktop.sh'),
+        exec('node tools/backend/noderify-desktop.js'),
       );
     } else {
       await runAndReport(
         'Bundle and minify backend JS into one file',
-        exec('./tools/backend/noderify-desktop-no-rust.sh'),
+        exec('node tools/backend/noderify-desktop.js --no-rust'),
       );
     }
   } else {

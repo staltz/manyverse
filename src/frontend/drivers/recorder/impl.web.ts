@@ -8,7 +8,6 @@ const fixWebmDuration = require('fix-webm-duration') as typeof FWMD;
 import {Command, Response} from './types';
 import FS = require('fs');
 import Path = require('path');
-import OS = require('os');
 
 interface MyAnalyser extends AnalyserNode {
   _kill(): void;
@@ -88,7 +87,7 @@ export function makeRecorderDriver() {
           setupMeterAnalyser(analyser, mediaStreamSource, (value, rawValue) => {
             res$._n({type: 'meter', value, rawValue});
           });
-          const path = Path.join(OS.tmpdir(), cmd.filename);
+          const path = Path.join(process.env.APP_TMP_DIR!, cmd.filename);
           recs.set(cmd.filename, {mediaRecorder, mediaStreamSource, analyser});
 
           let startTime = Date.now();

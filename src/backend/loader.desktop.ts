@@ -13,6 +13,7 @@ process.env = process.env ?? {};
 // Set default directories
 app.setPath('userData', path.join(app.getPath('appData'), 'manyverse'));
 process.env.APP_DATA_DIR = app.getAppPath();
+process.env.APP_TMP_DIR = app.getPath('temp');
 process.env.SHARED_SSB_DIR = path.resolve(os.homedir(), '.ssb');
 process.env.MANYVERSE_SSB_DIR = path.resolve(app.getPath('userData'), 'ssb');
 

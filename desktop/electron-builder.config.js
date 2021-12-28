@@ -71,10 +71,11 @@ module.exports = {
   linux: {
     icon: path.join(__dirname, 'build-resources', 'linux-app-icon'),
     target: [
-      {
-        target: 'deb',
-        arch: ['x64'],
-      },
+      {target: 'deb', arch: ['x64']},
+      {target: 'tar.gz', arch: ['x64']},
+      // TODO: Fix support for SSB URIs in Manyverse AppImage, see:
+      // https://github.com/electron-userland/electron-builder/issues/5024
+      // {target: 'AppImage', arch: ['x64']},
     ],
     category: 'Network',
   },
