@@ -21,6 +21,7 @@ import {PrivateThreadAndExtras} from '../../../ssb/types';
 import {GetReadable} from '../../../drivers/ssb';
 import {t} from '../../../drivers/localization';
 import {Dimensions} from '../../../global-styles/dimens';
+import {getImg} from '../../../global-styles/utils';
 import {displayName} from '../../../ssb/utils/from-ssb';
 import EmptySection from '../../../components/EmptySection';
 import AnimatedLoading from '../../../components/AnimatedLoading';
@@ -186,7 +187,7 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
         : null,
       ListEmptyComponent: h(EmptySection, {
         style: styles.emptySection,
-        image: require('../../../../../images/noun-plant.png'),
+        image: getImg(require('../../../../../images/noun-plant.png')),
         title: t('private.empty.title'),
         description: t('private.empty.description'),
       }),

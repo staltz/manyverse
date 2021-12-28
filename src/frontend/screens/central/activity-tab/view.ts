@@ -28,6 +28,7 @@ import {Dimensions} from '../../../global-styles/dimens';
 import {displayName} from '../../../ssb/utils/from-ssb';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '../../../global-styles/palette';
+import {getImg} from '../../../global-styles/utils';
 import LocalizedHumanTime from '../../../components/LocalizedHumanTime';
 import {ActivityItem, isMsg, State} from './model';
 import {styles} from './styles';
@@ -123,7 +124,8 @@ class MsgActivity extends PureComponent<MsgActivityProps> {
       onPress,
     };
     if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+      touchableProps.background =
+        TouchableNativeFeedback.SelectableBackground();
     }
 
     return h(View, [
@@ -165,7 +167,8 @@ class ConnectionAttemptActivity extends PureComponent<AttemptActivityProps> {
       onPress,
     };
     if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+      touchableProps.background =
+        TouchableNativeFeedback.SelectableBackground();
     }
 
     return h(View, [
@@ -289,7 +292,7 @@ class ActivityList extends PureComponent<MLProps, MLState> {
         : null,
       ListEmptyComponent: h(EmptySection, {
         style: styles.emptySection,
-        image: require('../../../../../images/noun-sun.png'),
+        image: getImg(require('../../../../../images/noun-sun.png')),
         title: t('activity.empty.title'),
         description: t('activity.empty.description'),
       }),

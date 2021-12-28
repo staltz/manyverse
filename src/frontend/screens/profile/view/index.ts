@@ -19,6 +19,7 @@ import {SSBSource} from '../../../drivers/ssb';
 import {t} from '../../../drivers/localization';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
+import {getImg} from '../../../global-styles/utils';
 import Feed from '../../../components/Feed';
 import EmptySection from '../../../components/EmptySection';
 import Avatar from '../../../components/Avatar';
@@ -272,7 +273,9 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                 EmptyComponent: isSelfProfile
                   ? h(EmptySection, {
                       style: styles.emptySection,
-                      image: require('../../../../../images/noun-plant.png'),
+                      image: getImg(
+                        require('../../../../../images/noun-plant.png'),
+                      ),
                       title: t('profile.empty.no_self_messages.title'),
                       description: t(
                         'profile.empty.no_self_messages.description',
@@ -295,7 +298,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                 {
                   color: Palette.backgroundCTA,
                   name: 'compose',
-                  icon: require('../../../../../images/pencil.png'),
+                  icon: getImg(require('../../../../../images/pencil.png')),
                   text: t('profile.floating_action_button.compose'),
                 },
               ],

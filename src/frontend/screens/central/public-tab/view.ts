@@ -11,6 +11,7 @@ import {SSBSource} from '../../../drivers/ssb';
 import {t} from '../../../drivers/localization';
 import EmptySection from '../../../components/EmptySection';
 import {Dimensions} from '../../../global-styles/dimens';
+import {getImg} from '../../../global-styles/utils';
 import {State} from './model';
 import {styles} from './styles';
 
@@ -48,7 +49,7 @@ export default function view(
         preferredReactions: state.preferredReactions,
         EmptyComponent: h(EmptySection, {
           style: styles.emptySection,
-          image: require('../../../../../images/noun-plant.png'),
+          image: getImg(require('../../../../../images/noun-plant.png')),
           title: t('public.empty.title'),
           description: t('public.empty.description'),
         }),
