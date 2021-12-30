@@ -1189,18 +1189,5 @@
         "5_normal": ""
       }
     }
-  },
-  "read_only_mode": {
-    "dialogs": {
-      "prevent_action": {
-        "title": "Schreibgeschützter Modus ",
-        "description": "Diese Aktion würde eine SSB-Nachricht veröffentlichen, was im schreibgeschützten Modus nicht erlaubt ist. Diese Masnahem schütz dein Konto  vor einem \"Feed Forking\". Um den schreibgeschützten Modus zu beenden, musst du dein SSB-Konto aus dem gemeinsamen Ordner '.ssb' zu Manyverse migrieren.\n\nFinde die Schaltfläche \"Migrieren\" auf dem Hauptbildschirm auf der Seite."
-      },
-      "migrate": {
-        "title": "Übertrage dein SSB-Konto zu Manyverse",
-        "description": "Du bist dabei, den schreibgeschützten Modus zu verlassen und Manyverse für die Veröffentlichung von SSB-Nachrichten zu nutzen. Dadurch werden deine SSB-Inhalte aus dem Home-Ordner '.ssb' in einen Ordner übertragen, auf den nur Manyverse zugreifen kann.\n\n**Dein Konto wird in anderen Anwendungen**, wie z.B. Patchwork, nicht mehr funktionieren, aber du kannst diese Anwendungen weiterhin mit einem neuen und leeren Konto verwenden.\n\nBist du sicher, dass du dein Konto dauerhaft von '.ssb' zu Manyverse übertragen möchtest? Der '.ssb'-Ordner wird danach gelöscht."
-      }
-    },
-    "migrate_button": "Migrieren"
   }
 }

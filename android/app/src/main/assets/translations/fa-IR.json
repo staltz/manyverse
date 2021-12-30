@@ -1189,18 +1189,5 @@
         "5_normal": ""
       }
     }
-  },
-  "read_only_mode": {
-    "dialogs": {
-      "prevent_action": {
-        "title": "Read-only mode",
-        "description": "This action would publish an SSB message, which is not allowed during read-only mode, to protect your account from \"feed forking\". To exit read-only mode, you have to migrate your SSB account from the shared '.ssb' folder to Manyverse.\n\nFind the \"Migrate\" button on the main screen, on the side."
-      },
-      "migrate": {
-        "title": "Transfer your SSB account to Manyverse",
-        "description": "You are about to exit read-only mode and take Manyverse into use for publishing SSB messages. This will transfer your SSB content from the home '.ssb' folder to a folder that only Manyverse can access.\n\n**Your account will not work in other apps anymore**, such as Patchwork, but you could still use those apps with a new and empty account.\n\nDo you confirm you want to permanently transfer your account from '.ssb' to Manyverse? The '.ssb' folder will be deleted."
-      }
-    },
-    "migrate_button": "Migrate"
   }
 }
