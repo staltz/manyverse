@@ -161,7 +161,17 @@
         "restore": {
           "label": "Restore account",
           "accessibility_label": "Restore Account Button"
+        },
+        "migrate": {
+          "label": "Migrate from ~/.ssb",
+          "accessibility_label": "Migrate account from the shared SSB directory"
         }
+      }
+    },
+    "dialogs": {
+      "migrate": {
+        "title": "Migrate your SSB account to Manyverse",
+        "description": "Manyverse detected an existing SSB account at the common `~/.ssb` directory. If you wish, you can migrate that account to a whole new directory that only Manyverse can access.\n\nOnce migration finishes, **you will NOT be able to use your account with other SSB apps such as Patchwork anymore**, and '.ssb' will be **deleted**, but you can still use those apps with new accounts.\n\nDo you confirm you want to migrate your account from '.ssb' to Manyverse? **This action cannot be undone.**"
       }
     }
   },
