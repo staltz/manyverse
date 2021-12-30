@@ -14,7 +14,6 @@ import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import {Toast} from '../../drivers/toast';
 import manageAliases from '../../components/manage-aliases';
-import {readOnlyDisclaimer} from '../../components/read-only-disclaimer';
 import intent from './intent';
 import view from './view';
 import navigation from './navigation';
@@ -74,22 +73,9 @@ export function editProfile(sources: Sources): Sinks {
     model(sources.props, actions),
     manageAliasesSinks.state as Stream<Reducer<State>>,
   );
+  const req$ = ssb(state$, actions);
   const dismiss$ = command$.mapTo('dismiss' as 'dismiss');
   const commandAfterDismissKeyboard$ = command$.compose(delay(16));
-
-  const req$ = ssb(state$, actions)
-    .map((req) => {
-      if (
-        req.type === 'publishAbout' &&
-        Platform.OS === 'web' &&
-        process.env.SSB_DB2_READ_ONLY
-      ) {
-        return readOnlyDisclaimer(sources.dialog);
-      } else {
-        return xs.of(req);
-      }
-    })
-    .flatten();
 
   return {
     screen: vdom$,

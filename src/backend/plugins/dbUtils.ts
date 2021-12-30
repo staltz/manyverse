@@ -2,12 +2,8 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import fs = require('fs');
-import path = require('path');
 import {ContactContent, Msg, VoteContent} from 'ssb-typescript';
 import {Callback} from './helpers/types';
-const mkdirp = require('mkdirp');
-const rimraf = require('rimraf');
 const pull = require('pull-stream');
 const pullAsync = require('pull-async');
 const cat = require('pull-cat');
@@ -38,7 +34,6 @@ export = {
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
-    exitReadOnlyMode: 'async',
   },
   permissions: {
     master: {
@@ -50,7 +45,6 @@ export = {
         'selfPublicRoots',
         'selfPublicReplies',
         'selfPrivateRootIdsLive',
-        'exitReadOnlyMode',
       ],
     },
   },
@@ -239,73 +233,6 @@ export = {
             toPullStream(),
           ),
           pull.map((msg: Msg) => msg.key),
-        );
-      },
-
-      exitReadOnlyMode(cb: Callback<void>) {
-        if (process.env.MANYVERSE_PLATFORM !== 'desktop') {
-          return cb(
-            new Error('Cannot run exitReadOnlyMode unless we are on desktop.'),
-          );
-        }
-
-        const SHARED_SSB_DIR = process.env.SHARED_SSB_DIR!;
-        const MANYVERSE_SSB_DIR = process.env.MANYVERSE_SSB_DIR!;
-        mkdirp.sync(MANYVERSE_SSB_DIR);
-
-        // Move blobs folder from ~/.ssb to manyverse folder
-        fs.rename(
-          path.join(SHARED_SSB_DIR, 'blobs'),
-          path.join(MANYVERSE_SSB_DIR, 'blobs'),
-          (err) => {
-            if (err) return cb(err);
-
-            // Move ssb-db2 folder from ~/.ssb to manyverse folder
-            fs.rename(
-              path.join(SHARED_SSB_DIR, 'db2'),
-              path.join(MANYVERSE_SSB_DIR, 'db2'),
-              (err) => {
-                if (err) return cb(err);
-
-                // Close sbot
-                ssb.close(true, () => {
-                  // Move all other files
-                  const files = [
-                    'blobs_push',
-                    'conn.json',
-                    'conn-attempts.json',
-                    'manyverse-settings.json',
-                    'issue1223',
-                    'issue1328',
-                    'issue1486',
-                    'issue1628',
-                    'secret',
-                  ];
-                  for (const file of files) {
-                    try {
-                      fs.renameSync(
-                        path.join(SHARED_SSB_DIR, file),
-                        path.join(MANYVERSE_SSB_DIR, file),
-                      );
-                    } catch (err) {
-                      if (err.code !== 'ENOENT') return cb(err);
-                    }
-                  }
-
-                  // Delete old shared folder
-                  rimraf.sync(SHARED_SSB_DIR);
-
-                  // Restart Electron app
-                  delete process.env.SSB_DIR;
-                  delete process.env.SSB_DB2_READ_ONLY;
-                  const {app} = require('electron');
-                  app.relaunch();
-                  app.quit();
-                  cb();
-                });
-              },
-            );
-          },
         );
       },
     };

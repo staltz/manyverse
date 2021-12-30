@@ -8,7 +8,7 @@ import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
 import {GlobalEvent} from '../../drivers/eventbus';
-import {Req as SSBReq, SSBSource} from '../../drivers/ssb';
+import {SSBSource} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import MAIL_TO_BUG_REPORT from '../../components/mail-to-bug-report';
 import model, {State} from './model';
@@ -33,7 +33,6 @@ export interface Sinks {
   state: Stream<Reducer<State>>;
   globalEventBus: Stream<GlobalEvent>;
   linking: Stream<string>;
-  ssb: Stream<SSBReq>;
 }
 
 export function desktopFrame(sources: Sources): Sinks {
@@ -78,16 +77,11 @@ export function desktopFrame(sources: Sources): Sinks {
     actions.openTranslate$.mapTo('https://www.manyver.se/translations/'),
   );
 
-  const req$ = actions.exitReadOnly$.mapTo({
-    type: 'dbUtils.exitReadOnlyMode',
-  } as SSBReq);
-
   return {
     screen: vdom$,
     state: reducer$,
     navigation: command$,
     globalEventBus: event$,
     linking: linking$,
-    ssb: req$,
   };
 }

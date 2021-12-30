@@ -2,11 +2,10 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
-import {Platform} from 'react-native';
 import {StateSource, Reducer} from '@cycle/state';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {
@@ -17,7 +16,6 @@ import {SSBSource, Req} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import {Toast} from '../../drivers/toast';
 import messageEtc from '../../components/messageEtc';
-import {readOnlyDisclaimer} from '../../components/read-only-disclaimer';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
@@ -58,7 +56,6 @@ export function thread(sources: Sources): Sinks {
     sources.keyboard,
     sources.navigation,
     sources.ssb,
-    sources.dialog,
     sources.state.stream,
   );
   const messageEtcSinks = messageEtc({
@@ -75,21 +72,8 @@ export function thread(sources: Sources): Sinks {
   const storageCommand$ = asyncStorage(actionsPlus, sources.state.stream);
   const command$ = navigation(actionsPlus, sources.state.stream);
   const vdom$ = view(sources.state.stream, actionsPlus);
+  const newContent$ = ssb(actionsPlus);
   const dismiss$ = actions.publishMsg$.mapTo('dismiss' as 'dismiss');
-
-  const newContent$ = ssb(actionsPlus)
-    .map((req) => {
-      if (
-        req.type === 'publish' &&
-        Platform.OS === 'web' &&
-        process.env.SSB_DB2_READ_ONLY
-      ) {
-        return readOnlyDisclaimer(sources.dialog);
-      } else {
-        return xs.of(req);
-      }
-    })
-    .flatten();
 
   return {
     screen: vdom$,

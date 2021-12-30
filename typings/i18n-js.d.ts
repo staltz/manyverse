@@ -534,12 +534,7 @@ declare module 'i18n-js' {
     | 'message.contact.unblock_event.2_bold'
     | 'message.contact.unblock_event.3_normal'
     | 'message.contact.unblock_event.4_bold'
-    | 'message.contact.unblock_event.5_normal'
-    | 'read_only_mode.dialogs.prevent_action.title'
-    | 'read_only_mode.dialogs.prevent_action.description'
-    | 'read_only_mode.dialogs.migrate.title'
-    | 'read_only_mode.dialogs.migrate.description'
-    | 'read_only_mode.migrate_button';
+    | 'message.contact.unblock_event.5_normal';
   function t(key: Key, config?: any): string;
   let fallbacks: boolean;
   let locale: string;

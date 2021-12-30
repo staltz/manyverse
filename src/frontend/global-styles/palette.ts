@@ -193,7 +193,6 @@ const backgroundPeerConnecting = yellow5;
 const backgroundPeerDisconnecting = red5;
 
 const backgroundCTA = teal5;
-const backgroundCTAWeak = teal6;
 const backgroundRecord = red5;
 const backgroundWarningAction = yellow5;
 const backgroundHackerVoid = comet10;
@@ -247,7 +246,6 @@ export const Palette = {
   backgroundPeerDisconnecting,
 
   backgroundCTA,
-  backgroundCTAWeak,
   backgroundRecord,
   backgroundWarningAction,
   backgroundHackerVoid,

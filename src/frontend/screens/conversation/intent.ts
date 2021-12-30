@@ -4,31 +4,16 @@
 
 import xs from 'xstream';
 import {ReactSource} from '@cycle/react';
-import {Platform} from 'react-native';
-import {NavSource} from 'cycle-native-navigation';
 import {User} from 'react-native-gifted-chat';
 import {FeedId} from 'ssb-typescript';
-import {DialogSource} from '../../drivers/dialogs';
-import {readOnlyDisclaimer} from '../../components/read-only-disclaimer';
+import {NavSource} from 'cycle-native-navigation';
 
-export default function intent(
-  reactSource: ReactSource,
-  navSource: NavSource,
-  dialogSource: DialogSource,
-) {
+export default function intent(reactSource: ReactSource, navSource: NavSource) {
   return {
     publishMsg$: reactSource
       .select('chat')
       .events('send')
-      .map((arr) => arr[0].text)
-      .map((text) => {
-        if (Platform.OS === 'web' && process.env.SSB_DB2_READ_ONLY) {
-          return readOnlyDisclaimer(dialogSource);
-        } else {
-          return xs.of(text);
-        }
-      })
-      .flatten(),
+      .map((arr) => arr[0].text),
 
     goBack$: xs.merge(
       navSource.backPress(),

@@ -6,7 +6,6 @@ import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
-import {Platform} from 'react-native';
 import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
 import {
@@ -21,7 +20,6 @@ import {SSBSource, Req} from '../../drivers/ssb';
 import {GlobalEvent} from '../../drivers/eventbus';
 import {DialogSource} from '../../drivers/dialogs';
 import {WindowSize} from '../../drivers/window-size';
-import {readOnlyDisclaimer} from '../../components/read-only-disclaimer';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {privateTab, Sinks as PrivateTabSinks} from './private-tab/index';
 import {activityTab, Sinks as ActivityTabSinks} from './activity-tab/index';
@@ -177,20 +175,7 @@ export function central(sources: Sources): Sinks {
 
   const toast$ = xs.merge(publicTabSinks.toast);
 
-  const ssb$ = xs
-    .merge(publicTabSinks.ssb)
-    .map((req) => {
-      if (
-        req.type === 'publish' &&
-        Platform.OS === 'web' &&
-        process.env.SSB_DB2_READ_ONLY
-      ) {
-        return readOnlyDisclaimer(sources.dialog);
-      } else {
-        return xs.of(req);
-      }
-    })
-    .flatten();
+  const ssb$ = xs.merge(publicTabSinks.ssb);
 
   const storageCommand$ = publicTabSinks.asyncstorage;
 

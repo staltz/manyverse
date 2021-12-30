@@ -11,7 +11,6 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {Req, SSBSource} from '../../drivers/ssb';
 import {DialogSource} from '../../drivers/dialogs';
 import messageEtc from '../../components/messageEtc';
-import {readOnlyDisclaimer} from '../../components/read-only-disclaimer';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';
@@ -72,19 +71,7 @@ export function search(sources: Sources): Sinks {
     .merge(actions.goBack$, actions.goToThread$)
     .mapTo('dismiss' as const);
 
-  const newContent$ = ssb(actionsPlus)
-    .map((req) => {
-      if (
-        req.type === 'publish' &&
-        Platform.OS === 'web' &&
-        process.env.SSB_DB2_READ_ONLY
-      ) {
-        return readOnlyDisclaimer(sources.dialog);
-      } else {
-        return xs.of(req);
-      }
-    })
-    .flatten();
+  const newContent$ = ssb(actionsPlus);
 
   return {
     screen: vdom$,

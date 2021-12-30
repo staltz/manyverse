@@ -6,8 +6,7 @@ import xs, {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {PureComponent, ReactElement, createElement as $} from 'react';
-import {View, Text, Pressable} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {View, Text} from 'react-native';
 import {styles} from './styles';
 import {t} from '../../drivers/localization';
 import PublicTabIcon from '../../components/tab-buttons/PublicTabIcon';
@@ -56,55 +55,12 @@ class ProgressBar extends PureComponent<{progress: number}> {
   }
 }
 
-class ExtraButton extends PureComponent<{
-  accessibilityLabel?: string;
-  iconName: string;
-  label: string;
-  onPress?: () => {};
-}> {
-  public render() {
-    const {onPress, iconName, label, accessibilityLabel} = this.props;
-
-    return h(Pressable, {
-      onPress,
-      children: () => [
-        h(View, {key: 'r', style: styles.extraButton}, [
-          h(Icon, {
-            key: 'x',
-            name: iconName,
-            size: Dimensions.iconSizeNormal,
-            color: Palette.textForBackgroundBrand,
-            style: styles.extraButtonIcon,
-          }),
-          h(
-            Text,
-            {
-              key: 'b',
-              style: styles.extraButtonText,
-              numberOfLines: 1,
-              selectable: false,
-            },
-            label,
-          ),
-        ]),
-      ],
-      style: ({hovered}: any) => [
-        hovered ? styles.extraButtonHovered : styles.extraButtonIdle,
-      ],
-      accessible: true,
-      accessibilityRole: 'menuitem',
-      accessibilityLabel,
-    });
-  }
-}
-
 type ViewState = Pick<State, 'currentTab'> &
   Pick<State, 'numOfPublicUpdates'> &
   Pick<State, 'numOfPrivateUpdates'> &
   Pick<State, 'numOfActivityUpdates'> &
   Pick<State, 'connections'> &
   Pick<State, 'name'> &
-  Pick<State, 'readOnlyMode'> &
   Pick<State, 'selfAvatarUrl'> &
   Pick<State, 'combinedProgress'> &
   Pick<State, 'estimateProgressDone'>;
@@ -120,7 +76,6 @@ export default function view(
     numOfPrivateUpdates: 0,
     numOfActivityUpdates: 0,
     selfAvatarUrl: '',
-    readOnlyMode: false,
     combinedProgress: 0,
     estimateProgressDone: 0,
   };
@@ -134,7 +89,6 @@ export default function view(
         'numOfActivityUpdates',
         'connections',
         'name',
-        'readOnlyMode',
         'selfAvatarUrl',
         'combinedProgress',
         'estimateProgressDone',
@@ -203,14 +157,6 @@ export default function view(
               status,
               allowWarningColors: initializedSSB,
             }),
-
-            state.readOnlyMode
-              ? h(ExtraButton, {
-                  sel: 'exit-read-only',
-                  label: t('read_only_mode.migrate_button'),
-                  iconName: 'transfer-right',
-                })
-              : null,
 
             h(View, {style: styles.spacer}),
 

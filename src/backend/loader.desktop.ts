@@ -16,18 +16,7 @@ process.env.APP_DATA_DIR = app.getAppPath();
 process.env.APP_TMP_DIR = app.getPath('temp');
 process.env.SHARED_SSB_DIR = path.resolve(os.homedir(), '.ssb');
 process.env.MANYVERSE_SSB_DIR = path.resolve(app.getPath('userData'), 'ssb');
-
-if (!process.env.SSB_DIR) {
-  if (
-    fs.existsSync(process.env.SHARED_SSB_DIR) &&
-    !fs.existsSync(process.env.MANYVERSE_SSB_DIR)
-  ) {
-    process.env.SSB_DIR = process.env.SHARED_SSB_DIR;
-    process.env.SSB_DB2_READ_ONLY = 'true';
-  } else {
-    process.env.SSB_DIR = process.env.MANYVERSE_SSB_DIR;
-  }
-}
+process.env.SSB_DIR = process.env.MANYVERSE_SSB_DIR;
 
 // Set global variables
 process.env.MANYVERSE_PLATFORM = 'desktop';

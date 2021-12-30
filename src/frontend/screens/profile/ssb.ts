@@ -10,14 +10,14 @@ import {Req, contentToPublishReq} from '../../drivers/ssb';
 import {toVoteContent, toContactContent} from '../../ssb/utils/to-ssb';
 import {PressAddReactionEvent} from '../../ssb/types';
 
-export interface SSBActions {
+export type SSBActions = {
   addReactionMsg$: Stream<PressAddReactionEvent>;
   follow$: Stream<boolean>;
   blockContact$: Stream<null>;
   blockSecretlyContact$: Stream<null>;
   unblockContact$: Stream<null>;
   unblockSecretlyContact$: Stream<null>;
-}
+};
 
 /**
  * Define streams of new content to be flushed onto SSB.

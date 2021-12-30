@@ -6,7 +6,6 @@ import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
-import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Command, NavSource} from 'cycle-native-navigation';
@@ -15,7 +14,6 @@ import {Command as AlertCommand, DialogSource} from '../../drivers/dialogs';
 import {Toast, Duration as ToastDuration} from '../../drivers/toast';
 import {t} from '../../drivers/localization';
 import messageEtc from '../../components/messageEtc';
-import {readOnlyDisclaimer} from '../../components/read-only-disclaimer';
 import manageContact from './manage-contact';
 import copyCypherlink from './copy-cypherlink';
 import intent from './intent';
@@ -91,19 +89,7 @@ export function profile(sources: Sources): Sinks {
 
   const vdom$ = view(state$, sources.ssb);
 
-  const newContent$ = ssb(actionsPlus, state$)
-    .map((req) => {
-      if (
-        req.type === 'publish' &&
-        Platform.OS === 'web' &&
-        process.env.SSB_DB2_READ_ONLY
-      ) {
-        return readOnlyDisclaimer(sources.dialog);
-      } else {
-        return xs.of(req);
-      }
-    })
-    .flatten();
+  const newContent$ = ssb(actionsPlus, state$);
 
   const command$ = navigation(
     actionsPlus,

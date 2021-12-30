@@ -9,11 +9,10 @@ import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {Command as AlertCommand, DialogSource} from '../../drivers/dialogs';
+import {Command as AlertCommand} from '../../drivers/dialogs';
 import {SSBSource, Req as SSBReq} from '../../drivers/ssb';
 import {LifecycleEvent} from '../../drivers/lifecycle';
 import {t} from '../../drivers/localization';
-import {readOnlyDisclaimer} from '../../components/read-only-disclaimer';
 import intent from './intent';
 import model, {State} from './model';
 import view from './view';
@@ -24,7 +23,6 @@ export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   keyboard: KeyboardSource;
-  dialog: DialogSource;
   lifecycle: Stream<LifecycleEvent>;
   state: StateSource<State>;
   ssb: SSBSource;
@@ -62,20 +60,7 @@ export function pasteInvite(sources: Sources): Sinks {
   const vdom$ = view(sources.state.stream);
   const command$ = navigation(actions);
   const reducer$ = model(actions);
-  const req$ = ssb(actions)
-    .map((req) => {
-      if (
-        req.type === 'invite.accept' &&
-        Platform.OS === 'web' &&
-        process.env.SSB_DB2_READ_ONLY
-      ) {
-        return readOnlyDisclaimer(sources.dialog);
-      } else {
-        return xs.of(req);
-      }
-    })
-    .flatten();
-
+  const newContent$ = ssb(actions);
   const dismiss$ = xs
     .merge(actions.done$, actions.back$)
     .mapTo('dismiss' as 'dismiss');
@@ -93,6 +78,6 @@ export function pasteInvite(sources: Sources): Sinks {
     navigation: command$,
     state: reducer$,
     dialog: alert$,
-    ssb: req$,
+    ssb: newContent$,
   };
 }

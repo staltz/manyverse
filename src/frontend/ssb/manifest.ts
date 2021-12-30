@@ -176,7 +176,6 @@ export default {
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
-    exitReadOnlyMode: 'async',
   },
   publishUtilsBack: {
     publish: 'async',
