@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2021 The Manyverse Authors
+#
+# SPDX-License-Identifier: Unlicense
+
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  license-check:
+    name: License check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: REUSE Compliance Check
+        uses: fsfe/reuse-action@v1
