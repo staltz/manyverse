@@ -60,7 +60,7 @@ async function exec(command, opts) {
   rimraf.sync('./desktop/index.js');
   await fs.move('./desktop/_index.js', './desktop/index.js');
   rimraf.sync('./desktop/one-time-fixes.js');
-  rimraf.sync('./desktop/restore.js');
+  rimraf.sync('./desktop/identity.js');
   rimraf.sync('./desktop/ssb.js');
   rimraf.sync('./desktop/plugins');
 })();

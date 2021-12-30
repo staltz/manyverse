@@ -2,6 +2,9 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
+import identity = require('./identity');
+const {restore, migrate} = identity;
+
 // Install Desktop backend plugins
 if (process.env.MANYVERSE_PLATFORM === 'desktop') {
   require('./plugins/electron/win-blur-focus');
@@ -53,15 +56,19 @@ if (process.env.MANYVERSE_PLATFORM === 'mobile') {
 // Setup initial communication with the frontend, to create or restore identity
 channel.addListener('identity', (request) => {
   const startSSB = () => require('./ssb');
-  let response;
+  let response: string;
   if (request === 'CREATE' || request === 'USE') {
     startSSB();
     response = 'IDENTITY_READY';
   } else if (request.startsWith('RESTORE:')) {
     const words = request.split('RESTORE: ')[1].trim();
-    const restore = require('./restore');
     response = restore(words);
     if (response === 'IDENTITY_READY') startSSB();
+  } else if (request === 'MIGRATE') {
+    migrate(startSSB);
+    response = 'IDENTITY_READY';
+  } else {
+    return;
   }
   channel.post('identity', response);
 });

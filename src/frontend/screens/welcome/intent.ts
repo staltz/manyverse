@@ -9,11 +9,15 @@ import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import path = require('path');
 import {FSSource} from '../../drivers/fs';
 import {GlobalEvent} from '../../drivers/eventbus';
+import {DialogSource} from '../../drivers/dialogs';
+import {Palette} from '../../global-styles/palette';
+import {t} from '../../drivers/localization';
 
 export default function intent(
   globalEventBus: Stream<GlobalEvent>,
   screenSource: ReactSource,
   fsSource: FSSource,
+  dialogSource: DialogSource,
   storageSource: AsyncStorageSource,
 ) {
   const isWeb = Platform.OS === 'web';
@@ -53,6 +57,25 @@ export default function intent(
     createAccount$: screenSource.select('create-account').events('press'),
 
     restoreAccount$: screenSource.select('restore-account').events('press'),
+
+    migrateAccount$: screenSource
+      .select('migrate-account')
+      .events('press')
+      .map(() =>
+        dialogSource
+          .alert(
+            t('welcome.dialogs.migrate.title'),
+            t('welcome.dialogs.migrate.description'),
+            {
+              ...Palette.dialogColors,
+              negativeText: t('call_to_action.cancel'),
+              positiveText: t('call_to_action.yes'),
+              markdownOnDesktop: true,
+            },
+          )
+          .filter((res) => res.action === 'actionPositive'),
+      )
+      .flatten(),
 
     skipOrNot$: xs
       .combine(localizationLoaded$, accountExists$, hasBeenVisited$)

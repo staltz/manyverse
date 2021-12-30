@@ -488,6 +488,10 @@ export interface UseIdentityReq {
   type: 'identity.use';
 }
 
+export interface MigrateIdentityReq {
+  type: 'identity.migrate';
+}
+
 export interface PublishReq {
   type: 'publish';
   content: NonNullable<Content | AliasContent>;
@@ -577,6 +581,7 @@ export interface SettingsDetailedLogsReq {
 export type Req =
   | CreateIdentityReq
   | UseIdentityReq
+  | MigrateIdentityReq
   | PublishReq
   | PublishAboutReq
   | AcceptInviteReq
@@ -616,6 +621,12 @@ async function consumeSink(
 
       if (req.type === 'identity.use' && !identityAvailable) {
         backend.post('identity', 'USE');
+        identityAvailable = true;
+        return;
+      }
+
+      if (req.type === 'identity.migrate' && !identityAvailable) {
+        backend.post('identity', 'MIGRATE');
         identityAvailable = true;
         return;
       }

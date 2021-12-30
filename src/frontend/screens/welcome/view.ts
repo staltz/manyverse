@@ -60,6 +60,11 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundCTA,
     marginBottom: Dimensions.verticalSpaceBig,
   },
+
+  migrateButton: {
+    borderColor: Palette.colors.white,
+    marginTop: Dimensions.verticalSpaceBig,
+  },
 });
 
 function bold(innerText: string) {
@@ -314,6 +319,19 @@ function setupAccountSlide(state: State) {
           'welcome.setup_account.call_to_action.restore.accessibility_label',
         ),
       }),
+      Platform.OS === 'web' && state.sharedSSBAccountExists
+        ? h(Button, {
+            sel: 'migrate-account',
+            style: styles.migrateButton,
+            textStyle: styles.buttonText,
+            text: t('welcome.setup_account.call_to_action.migrate.label'),
+            strong: false,
+            accessible: true,
+            accessibilityLabel: t(
+              'welcome.setup_account.call_to_action.migrate.accessibility_label',
+            ),
+          })
+        : (null as any),
     ],
   });
 }

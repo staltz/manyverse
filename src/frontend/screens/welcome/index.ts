@@ -19,8 +19,9 @@ import navigation from './navigation';
 import view from './view';
 import intent from './intent';
 import model, {State} from './model';
+import {DialogSource} from '../../drivers/dialogs';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   orientation: Stream<OrientationEvent>;
   windowSize: Stream<WindowSize>;
@@ -29,17 +30,18 @@ export type Sources = {
   globalEventBus: Stream<GlobalEvent>;
   fs: FSSource;
   state: StateSource<State>;
+  dialog: DialogSource;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   linking: Stream<string>;
   ssb: Stream<Req>;
   splashscreen: Stream<SplashCommand>;
-};
+}
 
 export const navOptions = {
   topBar: {
@@ -61,16 +63,23 @@ export function welcome(sources: Sources): Sinks {
     sources.globalEventBus,
     sources.screen,
     sources.fs,
+    sources.dialog,
     sources.asyncstorage,
   );
   const skip$ = actions.skipOrNot$.filter((skip) => skip === true);
   const ssb$ = xs.merge(
     actions.createAccount$.mapTo({type: 'identity.create'} as Req),
+    actions.migrateAccount$.mapTo({type: 'identity.migrate'} as Req),
     skip$.mapTo({type: 'identity.use'} as Req),
   );
   const command$ = navigation(actions);
   const vdom$ = view(sources.state.stream, actions);
-  const reducer$ = model(actions, sources.orientation, sources.windowSize);
+  const reducer$ = model(
+    actions,
+    sources.orientation,
+    sources.windowSize,
+    sources.fs,
+  );
 
   const hideSplash$ = vdom$.take(1).mapTo('hide' as const);
 
