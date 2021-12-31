@@ -86,7 +86,7 @@ export function migrate(cb: Callback<void>) {
     path.join(SHARED_SSB_DIR, 'blobs'),
     path.join(MANYVERSE_SSB_DIR, 'blobs'),
     (err) => {
-      if (err) throw err;
+      if (err && err.code !== 'ENOENT') throw err;
 
       // Move flume log from ~/.ssb to manyverse folder
       mkdirp.sync(path.join(MANYVERSE_SSB_DIR, 'flume'));
