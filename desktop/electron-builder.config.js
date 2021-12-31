@@ -44,7 +44,9 @@ module.exports = {
   },
   files: [
     'node_modules/**/build/Release/*.node', // Node native modules
-    'node_modules/**/build/Release/*.so*', // Node native modules
+    'node_modules/**/build/Release/*.so*', // Node native modules (Linux)
+    'node_modules/**/build/Release/*.dylib', // Node native modules (macOS)
+    'node_modules/**/build/Release/*.dll', // Node native modules (Windows)
     'node_modules/sodium-chloride/index.js', // it bypasses noderify require()
     'node_modules/sodium-native/index.js', // needed for sodium-chloride
     'node_modules/node-gyp-build/index.js', // needed for sodium-chloride
