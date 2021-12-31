@@ -40,8 +40,11 @@ const PullFlatList2 = propifyMethods(
   'forceRefresh',
 );
 
-const SEPARATOR_HEIGHT = Dimensions.verticalSpaceNormal;
 const Y_OFFSET_IS_AT_TOP = 10;
+const SEPARATOR_HEIGHT =
+  Platform.OS === 'web'
+    ? Dimensions.verticalSpaceLarge
+    : Dimensions.verticalSpaceNormal;
 
 export const styles = StyleSheet.create({
   container: {
