@@ -173,11 +173,16 @@ export const styles = StyleSheet.create({
   },
 });
 
-function toGiftedMessage(msg: MsgAndExtras<PostContent>): GiftedMsg {
+interface SSBGiftedMsg extends GiftedMsg {
+  mentions?: Array<any>;
+}
+
+function toGiftedMessage(msg: MsgAndExtras<PostContent>): SSBGiftedMsg {
   return {
     _id: msg.key,
     createdAt: msg.value.timestamp,
     text: msg.value.content.text,
+    mentions: msg.value.content.mentions,
     user: {
       _id: msg.value.author,
       name: msg.value._$manyverse$metadata.about.name,
@@ -318,7 +323,7 @@ export default function view(state$: Stream<State>) {
             } as any,
           ]
         : [];
-      const realMessages: Array<GiftedMsg> =
+      const realMessages: Array<SSBGiftedMsg> =
         state.thread.messages.map(toGiftedMessage);
 
       return h(View, {style: styles.container}, [
@@ -346,12 +351,15 @@ export default function view(state$: Stream<State>) {
           renderDay,
           renderSystemMessage,
           renderInputToolbar,
-          renderMessageText: (item: {currentMessage: GiftedMsg}) =>
+          renderMessageText: (item: {currentMessage: SSBGiftedMsg}) =>
             h(View, {style: styles.bubbleText}, [
               item.currentMessage.user._id !== state.selfFeedId
                 ? renderMessageAuthor(item.currentMessage.user)
                 : null,
-              h(Markdown, {text: item.currentMessage.text}),
+              h(Markdown, {
+                text: item.currentMessage.text,
+                mentions: item.currentMessage.mentions,
+              }),
             ]),
         }),
       ]);

@@ -262,7 +262,19 @@ const styles = StyleSheet.create({
   },
 });
 
-function makeRenderers(onLayout?: ViewProps['onLayout']) {
+function makeRenderers(
+  onLayout?: ViewProps['onLayout'],
+  mentions?: Array<any>,
+) {
+  function feedIdFromMention(linkName: string) {
+    if (!mentions) return;
+    for (const mention of mentions) {
+      if (mention && mention.name && linkName === '@' + mention.name) {
+        return mention.link;
+      }
+    }
+  }
+
   const renderers = {
     root: (props: {children: any}) => $(View, {onLayout}, props.children),
 
@@ -300,7 +312,7 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
         ? props.href
         : isFeedSSBURI(props.href)
         ? toFeedSigil(props.href)
-        : null;
+        : feedIdFromMention(props.href);
       const msgId = Ref.isMsgId(props.href)
         ? props.href
         : isMessageSSBURI(props.href)
@@ -444,6 +456,7 @@ function makeRenderers(onLayout?: ViewProps['onLayout']) {
 export interface Props {
   text: string;
   onLayout?: ViewProps['onLayout'];
+  mentions?: Array<any>;
 }
 
 function transformLinkUri(uri: string) {
@@ -453,10 +466,12 @@ function transformLinkUri(uri: string) {
 
 export default class Markdown extends PureComponent<Props> {
   public render() {
-    const linkifySsbFeeds = linkifyRegex(Ref.feedIdRegex);
+    const linkifySsbFeeds = linkifyRegex(
+      /@[A-Za-z0-9._\-+=\/]*[A-Za-z0-9_\-+=/]/g,
+    );
     const linkifySsbMsgs = linkifyRegex(Ref.msgIdRegex);
     const linkifyHashtags = linkifyRegex(/#[\w-]+/g);
-    const renderers = makeRenderers(this.props.onLayout);
+    const renderers = makeRenderers(this.props.onLayout, this.props.mentions);
 
     return $<any>(ReactMarkdown, {
       source: remark()

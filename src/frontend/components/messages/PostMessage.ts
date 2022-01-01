@@ -96,6 +96,7 @@ export default class PostMessage extends PureComponent<Props, State> {
             h(Markdown, {
               key: 'md',
               text: getPostText(msg),
+              mentions: msg.value.content.mentions,
             }),
           ])
         : null,
