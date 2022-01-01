@@ -8,6 +8,8 @@ import {h} from '@cycle/react';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
 import {Dimensions} from '../../global-styles/dimens';
+import {GlobalEventBus} from '../../drivers/eventbus';
+const Ref = require('ssb-ref');
 
 export const styles = StyleSheet.create({
   metadataBox: {
@@ -23,21 +25,57 @@ export const styles = StyleSheet.create({
     color: Palette.textHacker,
     fontFamily: Typography.fontFamilyMonospace,
   },
+
+  cypherlink: {
+    color: Palette.textBrand,
+    textDecorationLine: 'underline',
+  },
 });
+
+const refRegex = /([@%][A-Za-z0-9/+]{43}=\.[\w\d]+)/g;
+
+function linkify(msg: any) {
+  const json = JSON.stringify(
+    msg,
+    (key, value) => (key === '_$manyverse$metadata' ? undefined : value),
+    2,
+  );
+  let elements = [];
+  let parts = json.split(refRegex);
+  for (let i = 0; i < parts.length; i += 2) {
+    const id = parts[i + 1] || '';
+    elements.push(
+      parts[i],
+      h(
+        Text,
+        {
+          style: styles.cypherlink,
+          onPress: () => {
+            if (Ref.isFeedId(id)) {
+              GlobalEventBus.dispatch({
+                type: 'triggerFeedCypherlink',
+                feedId: id,
+              });
+            } else if (Ref.isMsgId(id)) {
+              GlobalEventBus.dispatch({
+                type: 'triggerMsgCypherlink',
+                msgId: id,
+              });
+            }
+          },
+        },
+        id,
+      ),
+    );
+  }
+  return elements;
+}
 
 export default class Metadata extends Component<{msg: any}> {
   public render() {
     const {msg} = this.props;
     return h(View, {style: styles.metadataBox}, [
-      h(
-        Text,
-        {style: styles.metadataText},
-        JSON.stringify(
-          msg,
-          (key, value) => (key === '_$manyverse$metadata' ? undefined : value),
-          2,
-        ),
-      ),
+      h(Text, {style: styles.metadataText}, linkify(msg)),
     ]);
   }
 }

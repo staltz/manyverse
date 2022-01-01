@@ -14,6 +14,7 @@ import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
 import {Dimensions} from '../../global-styles/dimens';
 import TopBar from '../../components/TopBar';
+import Metadata from '../../components/messages/Metadata';
 
 export interface Props {
   msg: MsgAndExtras;
@@ -76,16 +77,9 @@ export function rawMessage(sources: Sources): Sinks {
     h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('raw_msg.title')}),
       h(ScrollView, {style: styles.container}, [
-        h(
-          Text,
-          {style: styles.content, selectable: true},
-          JSON.stringify(
-            props.msg,
-            (key, value) =>
-              key === '_$manyverse$metadata' ? undefined : value,
-            2,
-          ),
-        ),
+        h(Text, {style: styles.content, selectable: true}, [
+          h(Metadata, props),
+        ]),
       ]),
     ]),
   );
