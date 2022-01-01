@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import {h} from '@cycle/react';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
@@ -24,10 +24,15 @@ export const styles = StyleSheet.create({
     lineHeight: Typography.lineHeightSmall,
     color: Palette.textHacker,
     fontFamily: Typography.fontFamilyMonospace,
+    ...Platform.select({
+      web: {
+        wordBreak: 'break-all',
+      },
+    }),
   },
 
   cypherlink: {
-    color: Palette.textBrand,
+    color: Palette.textHackerStrong,
     textDecorationLine: 'underline',
   },
 });

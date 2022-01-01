@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -216,6 +216,7 @@ const textWarning = yellow8;
 const textDialog = isDarkTheme ? comet4 : comet6;
 const textDialogStrong = isDarkTheme ? comet2 : comet8;
 const textHacker = teal2;
+const textHackerStrong = teal4;
 const textForBackgroundBrand = white;
 const textWeakForBackgroundBrand = indigo2;
 
@@ -269,6 +270,7 @@ export const Palette = {
   textDialog,
   textDialogStrong,
   textHacker,
+  textHackerStrong,
   textForBackgroundBrand,
   textWeakForBackgroundBrand,
 
