@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -18,15 +18,16 @@ export const styles = StyleSheet.create({
 
   feed: {
     // for the topBar
-    paddingTop: Platform.select({
-      default: Dimens.toolbarHeight - getStatusBarHeight(true),
-
-      // dirty hack because `styles.feed` is used twice in react-native-web
-      web: Dimens.toolbarHeight * 0.5,
-    }),
+    paddingTop: Dimens.toolbarHeight - getStatusBarHeight(true),
   },
 
   feedInner: {
     paddingBottom: Dimens.toolbarHeight + Dimens.verticalSpaceNormal,
+    ...Platform.select({
+      web: {
+        // Dirty hack to fix positioning of the scrollbar
+        marginTop: -Dimens.toolbarHeight,
+      },
+    }),
   },
 });
