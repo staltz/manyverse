@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -71,8 +71,6 @@ const styles = StyleSheet.create({
 interface State {
   loaded: boolean;
   fullscreen: boolean;
-  fullwidth: number;
-  fullheight: number;
 }
 
 interface Props {
@@ -84,8 +82,6 @@ export default class ZoomableImage extends PureComponent<Props, State> {
   public state = {
     loaded: false,
     fullscreen: false,
-    fullwidth: 300,
-    fullheight: 200,
   };
 
   private mounted = false;
@@ -101,17 +97,6 @@ export default class ZoomableImage extends PureComponent<Props, State> {
 
   public componentDidMount() {
     this.mounted = true;
-    const win = Dimensions.get('window');
-    Image.getSize(
-      this.props.src,
-      (imgWidth: number, imgHeight: number) => {
-        if (this.mounted) {
-          const ratio = imgHeight / imgWidth;
-          this.setState({fullwidth: win.width, fullheight: win.width * ratio});
-        }
-      },
-      () => {},
-    );
   }
 
   public componentWillUnmount() {
