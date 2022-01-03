@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -13,6 +13,7 @@ import {makeToastDriver} from './drivers/toast';
 import {asyncStorageDriver} from 'cycle-native-asyncstorage';
 import {makeFSDriver} from './drivers/fs';
 import {ssbDriver} from './drivers/ssb';
+import {makeMigratingDriver} from './drivers/migrating';
 import {shareDriver} from 'cycle-native-share';
 import {makeNetworkDriver} from './drivers/network';
 import {makeEventBusDriver} from './drivers/eventbus';
@@ -30,6 +31,7 @@ import {Screens} from './screens/enums';
 import {global} from './screens/global';
 import {desktopFrame} from './screens/desktop-frame';
 import {welcome} from './screens/welcome';
+import {migrating} from './screens/migrating';
 import {central} from './screens/central';
 import {drawer} from './screens/drawer';
 import {dialogAbout} from './screens/dialog-about';
@@ -67,6 +69,7 @@ export const drivers = {
   localization: makeLocalizationDriver(),
   globalEventBus: makeEventBusDriver(),
   ssb: ssbDriver,
+  migrating: makeMigratingDriver(),
   share: shareDriver,
   lifecycle: makeActivityLifecycleDriver(),
   network: makeNetworkDriver(),
@@ -94,6 +97,7 @@ export const screens: ScreensMapping = {
   [GlobalScreen]: withState(global),
   [Frame]: withState(desktopFrame),
   [Screens.Welcome]: withState(welcome),
+  [Screens.Migrating]: withState(migrating),
   [Screens.Central]: withState(central),
   [Screens.Drawer]: withState(drawer),
   [Screens.DialogAbout]: dialogAbout,

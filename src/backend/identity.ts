@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,6 +7,11 @@ import path = require('path');
 const Mnemonic = require('ssb-keys-mnemonic');
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
+const ssbKeys = require('ssb-keys');
+const SecretStack = require('secret-stack');
+const caps = require('ssb-caps');
+const pull = require('pull-stream');
+const fromEvent = require('pull-stream-util/from-event');
 import {Callback} from './plugins/helpers/types';
 
 function fileSize(filename: string) {
@@ -77,6 +82,7 @@ export function migrate(cb: Callback<void>) {
     throw new Error('identity.migrate() is missing env var MANYVERSE_SSB_DIR');
   }
 
+  const webContentsPromise = (process as any).webContentsP as Promise<any>;
   const SHARED_SSB_DIR = process.env.SHARED_SSB_DIR;
   const MANYVERSE_SSB_DIR = process.env.MANYVERSE_SSB_DIR;
   mkdirp.sync(MANYVERSE_SSB_DIR);
@@ -117,7 +123,34 @@ export function migrate(cb: Callback<void>) {
           // Delete old shared folder
           rimraf.sync(SHARED_SSB_DIR);
 
-          cb();
+          // Start sbot and run migration script
+          webContentsPromise.then((webContents) => {
+            const keys = ssbKeys.loadOrCreateSync(
+              path.join(MANYVERSE_SSB_DIR, 'secret'),
+            );
+            const sbot = SecretStack()
+              .use(require('ssb-db2/migrate'))
+              .call(null, {
+                caps,
+                keys,
+                path: MANYVERSE_SSB_DIR,
+                db2: {dangerouslyKillFlumeWhenMigrated: true},
+              });
+            sbot.db2migrate.start();
+            let drainer: any;
+
+            // When migration is done, call `cb`
+            pull(
+              fromEvent('ssb:db2:migrate:progress', sbot),
+              (drainer = pull.drain((x: number) => {
+                webContents.send('ssb-migrate-progress', x);
+                if (x >= 1) {
+                  drainer.abort();
+                  sbot.close(true, cb);
+                }
+              })),
+            );
+          });
         },
       );
     },

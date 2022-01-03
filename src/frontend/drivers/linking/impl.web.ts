@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -20,14 +20,14 @@ export function linkingDriver(url$: Stream<string>): Stream<string> {
     xs.fromPromise<string | null>(ipcRenderer.invoke('incoming-url-first')),
 
     xs.create({
-      start: (listener: Listener<string>) => {
+      start(listener: Listener<string>) {
         this.fn = (first: any, second: any) => {
           const url = second ?? first;
           listener.next(url);
         };
         ipcRenderer.addListener('incoming-url', this.fn);
       },
-      stop: () => {
+      stop() {
         ipcRenderer.removeListener('incoming-url', this.fn);
       },
     }),

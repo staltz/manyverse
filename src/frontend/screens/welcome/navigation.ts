@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,6 +7,7 @@ import {Command} from 'cycle-native-navigation';
 import {navOptions as secretInputNavOpts} from '../secret-input';
 import {Screens} from '../enums';
 import {navOptions as centralNavOpts} from '../central';
+import {navOptions as migratingNavOpts} from '../migrating/layout';
 
 export interface Actions {
   createAccount$: Stream<any>;
@@ -18,31 +19,39 @@ export interface Actions {
 export default function navigation(actions: Actions): Stream<Command> {
   const skipWelcome$ = actions.skipOrNot$.filter((skip) => skip === true);
 
-  const goToCentral$ = xs
-    .merge(actions.createAccount$, actions.migrateAccount$, skipWelcome$)
-    .mapTo({
-      type: 'setStackRoot',
-      layout: {
-        sideMenu: {
-          left: {
-            component: {name: Screens.Drawer},
-          },
-          center: {
-            stack: {
-              id: 'mainstack',
-              children: [
-                {
-                  component: {
-                    name: Screens.Central,
-                    options: centralNavOpts,
-                  },
+  const goToCentral$ = xs.merge(actions.createAccount$, skipWelcome$).mapTo({
+    type: 'setStackRoot',
+    layout: {
+      sideMenu: {
+        left: {
+          component: {name: Screens.Drawer},
+        },
+        center: {
+          stack: {
+            id: 'mainstack',
+            children: [
+              {
+                component: {
+                  name: Screens.Central,
+                  options: centralNavOpts,
                 },
-              ],
-            },
+              },
+            ],
           },
         },
       },
-    } as Command);
+    },
+  } as Command);
+
+  const goToMigrating$ = actions.migrateAccount$.mapTo({
+    type: 'push',
+    layout: {
+      component: {
+        name: Screens.Migrating,
+        options: migratingNavOpts,
+      },
+    },
+  } as Command);
 
   const goToSecretInput$ = actions.restoreAccount$.mapTo({
     type: 'push',
@@ -57,5 +66,5 @@ export default function navigation(actions: Actions): Stream<Command> {
     },
   } as Command);
 
-  return xs.merge(goToCentral$, goToSecretInput$);
+  return xs.merge(goToCentral$, goToMigrating$, goToSecretInput$);
 }
