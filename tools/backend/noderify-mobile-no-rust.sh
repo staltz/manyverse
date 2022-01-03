@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SPDX-FileCopyrightText: 2021 The Manyverse Authors
+# SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 #
 # SPDX-License-Identifier: CC0-1.0
 
@@ -53,7 +53,7 @@ $(npm bin)/noderify \
 rm index.js; mv _index.js index.js;
 
 rm one-time-fixes.js;
-rm restore.js;
+rm identity.js;
 rm ssb.js;
 rm -rf plugins;
 
