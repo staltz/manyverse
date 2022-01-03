@@ -93,6 +93,7 @@ module.exports = {
     category: 'public.app-category.social-networking',
     darkModeSupport: true,
     target: [{target: 'dmg'}],
+    identity: null,
   },
 
   dmg: {
