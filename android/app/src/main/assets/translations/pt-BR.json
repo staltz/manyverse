@@ -175,6 +175,9 @@
       }
     }
   },
+  "migrating": {
+    "label": "Migrando..."
+  },
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
