@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -22,8 +22,8 @@ const page: ViewStyle = {
   alignItems: 'center',
 };
 
-const FLARE_WIDTH = 5;
-const PROGRESS_BAR_HEIGHT = 3;
+const FLARE_WIDTH = 6;
+const PROGRESS_BAR_HEIGHT = 2;
 
 export const styles = StyleSheet.create({
   root: {

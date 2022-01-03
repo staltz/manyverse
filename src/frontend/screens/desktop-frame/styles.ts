@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1000,
     top: 0,
-    height: '5px',
+    height: '3px',
     backgroundColor: Palette.textForBackgroundBrand,
     transition: 'width 0.25s',
     display: 'flex',
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     marginRight: '0%',
     backgroundColor: Palette.brandWeakest,
     height: '100%',
-    width: '8px',
+    width: '9px',
 
     animationDuration: '1400ms',
     animationDirection: 'normal',
