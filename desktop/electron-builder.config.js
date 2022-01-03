@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -97,15 +97,7 @@ module.exports = {
 
   dmg: {
     icon: path.join(__dirname, 'build-resources', 'icon.icns'),
-    iconSize: 128,
-    window: {
-      width: 540,
-      height: 380,
-    },
-    contents: [
-      {x: 122, y: 240, type: 'file'},
-      {x: 380, y: 380, type: 'link', path: '/Applications'},
-    ],
+    background: path.join(__dirname, 'build-resources', 'dmg-background.png'),
   },
 
   nsis: {
