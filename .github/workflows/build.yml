@@ -28,6 +28,8 @@ jobs:
 
       - name: Build the Electron app for Linux
         run: npm run release-desktop-linux
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -62,6 +64,8 @@ jobs:
 
       - name: Build the Electron app for macOS
         run: npm run release-desktop-macos
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -93,6 +97,8 @@ jobs:
 
       - name: Build the Electronapp for Windows
         run: npm run release-desktop-win
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -119,3 +125,5 @@ jobs:
 
       - name: Publish
         run: npm run publish-desktop-release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
