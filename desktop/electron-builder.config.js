@@ -112,7 +112,6 @@ module.exports = {
   publish: {
     provider: 'github',
     protocol: 'https',
-    host: 'github.com',
     owner: 'staltz',
     repo: 'manyverse',
     releaseType: 'release',
