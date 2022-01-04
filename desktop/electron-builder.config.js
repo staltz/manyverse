@@ -111,7 +111,7 @@ module.exports = {
   // Publish options -----------------------------------------------------------
   publish: {
     provider: 'github',
-    protocol: 'https://',
+    protocol: 'https',
     host: 'github.com',
     owner: 'staltz',
     repo: 'manyverse',
