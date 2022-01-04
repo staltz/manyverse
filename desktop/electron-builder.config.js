@@ -107,4 +107,14 @@ module.exports = {
     perMachine: false,
     include: path.join(__dirname, 'scripts', 'installer.nsh'),
   },
+
+  // Publish options -----------------------------------------------------------
+  publish: {
+    provider: 'github',
+    protocol: 'https://',
+    host: 'github.com',
+    owner: 'staltz',
+    repo: 'manyverse',
+    releaseType: 'release',
+  },
 };
