@@ -34,7 +34,7 @@
     "prebuild-desktop-release-linux": "cd desktop && cross-env DEBUG=electron-builder electron-builder install-app-deps --platform=linux",
     "build-desktop-release-linux": "electron-builder build --config desktop/electron-builder.config.js --linux --publish $EB_PUBLISH",
     "prebuild-desktop-release-win": "cd desktop && cross-env DEBUG=electron-builder electron-builder install-app-deps --platform=win32",
-    "build-desktop-release-win": "electron-builder build --config desktop/electron-builder.config.js --win --publish $EB_PUBLISH",
+    "build-desktop-release-win": "electron-builder build --config desktop/electron-builder.config.js --win --publish ${env:EB_PUBLISH}",
     "prebuild-desktop-release-macos": "cd desktop && cross-env DEBUG=electron-builder electron-builder install-app-deps --platform=darwin",
     "build-desktop-release-macos": "electron-builder build --config desktop/electron-builder.config.js --macos --publish $EB_PUBLISH",
     "clean-desktop-prebuilds": "rimraf ./desktop/node_modules/**/{bufferutil,sodium-native,leveldown,utf-8-validate}/{build,prebuilds}",
