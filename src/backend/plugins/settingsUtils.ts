@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -9,11 +9,12 @@ const mkdirp = require('mkdirp');
 const FILENAME = 'manyverse-settings.json';
 const DETAILED_LOGS = 'DETAILED_LOGS';
 
-type SettingsFile = {
+interface SettingsFile {
   hops?: number;
   showFollows?: boolean;
   blobsStorageLimit?: number;
-};
+  allowCheckingNewVersion?: boolean;
+}
 
 function writeSync(data: SettingsFile): void {
   if (!process.env.SSB_DIR) {
@@ -90,6 +91,7 @@ export = {
     updateBlobsPurge: 'sync',
     updateShowFollows: 'sync',
     updateDetailedLogs: 'sync',
+    updateAllowCheckingNewVersion: 'sync',
   },
   permissions: {
     master: {
@@ -99,6 +101,7 @@ export = {
         'updateBlobsPurge',
         'updateShowFollows',
         'updateDetailedLogs',
+        'updateAllowCheckingNewVersion',
       ],
     },
   },
@@ -152,6 +155,10 @@ export = {
 
       updateDetailedLogs(detailedLogs: boolean) {
         writeDetailedLogs(detailedLogs);
+      },
+
+      updateAllowCheckingNewVersion(allowCheckingNewVersion: boolean) {
+        updateField('allowCheckingNewVersion', allowCheckingNewVersion);
       },
 
       read() {

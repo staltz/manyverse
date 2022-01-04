@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -27,6 +27,7 @@ export interface State {
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;
   numOfActivityUpdates: number;
+  hasNewVersion: boolean;
   migrationProgress: number;
   indexingProgress: number;
   canPublishSSB: boolean;
@@ -177,11 +178,12 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
   },
 };
 
-export type Actions = {
+export interface Actions {
   changeTab$: Stream<State['currentTab']>;
   backToPublicTab$: Stream<null>;
   drawerToggled$: Stream<boolean>;
-};
+  hasNewVersion$: Stream<any>;
+}
 
 export default function model(
   actions: Actions,
@@ -199,6 +201,7 @@ export default function model(
         numOfPrivateUpdates: 0,
         numOfActivityUpdates: 0,
         initializedSSB: false,
+        hasNewVersion: false,
         migrationProgress: 0,
         indexingProgress: 0,
         scrollHeaderBy: new Animated.Value(0),
@@ -262,6 +265,13 @@ export default function model(
       },
   );
 
+  const hasNewVersionReducer$ = actions.hasNewVersion$.map(
+    () =>
+      function hasNewVersionReducer(prev: State): State {
+        return {...prev, hasNewVersion: true};
+      },
+  );
+
   return xs.merge(
     initReducer$,
     setSelfFeedId$,
@@ -271,5 +281,6 @@ export default function model(
     changeTabReducer$,
     backToPublicTabReducer$,
     isDrawerOpenReducer$,
+    hasNewVersionReducer$,
   );
 }

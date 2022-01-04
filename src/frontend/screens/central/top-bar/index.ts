@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -16,23 +16,24 @@ import HeaderMenuButton from '../../../components/HeaderMenuButton';
 import HeaderButton from '../../../components/HeaderButton';
 import {t} from '../../../drivers/localization';
 
-export type State = {
+export interface State {
   currentTab: 'public' | 'private' | 'activity' | 'connections';
   scrollHeaderBy: Animated.Value;
+  hasNewVersion: boolean;
   migrationProgress: number;
   indexingProgress: number;
-};
+}
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   state: StateSource<State>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   menuPress: Stream<any>;
   publicSearch: Stream<any>;
-};
+}
 
 export const styles = StyleSheet.create({
   container: {
@@ -100,6 +101,16 @@ export const styles = StyleSheet.create({
         marginLeft: Dimensions.horizontalSpaceLarge,
       },
     }),
+  },
+
+  updateDot: {
+    position: 'absolute',
+    top: 4,
+    right: 0,
+    backgroundColor: Palette.backgroundCTA,
+    width: Dimensions.dotSize,
+    height: Dimensions.dotSize,
+    borderRadius: Dimensions.dotSize * 0.5,
   },
 });
 
@@ -189,6 +200,7 @@ function view(state$: Stream<State>) {
             ? null
             : h(Animated.View, {style: {opacity}}, [
                 HeaderMenuButton('menuButton'),
+                state.hasNewVersion ? h(View, {style: styles.updateDot}) : null,
               ]),
           h(
             Animated.Text,

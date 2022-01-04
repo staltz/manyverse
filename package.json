@@ -64,6 +64,7 @@
     "release-desktop-win": "npm run build-desktop && npm run clean-desktop-prebuilds && npm run build-desktop-release-win"
   },
   "dependencies": {
+    "@cycle/http": "^15.4.0",
     "@cycle/isolate": "5.2.0",
     "@cycle/react": "2.9.0",
     "@cycle/react-dom": "^2.4.0",

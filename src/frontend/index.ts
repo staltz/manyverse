@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {withState} from '@cycle/state';
+import {makeHTTPDriver} from '@cycle/http';
 import {MoreScreenSinks} from 'cycle-native-navigation';
 import {Frame} from 'cycle-native-navigation-web';
 import {makeKeyboardDriver} from 'cycle-native-keyboard';
@@ -71,6 +72,7 @@ export const drivers = {
   ssb: ssbDriver,
   migrating: makeMigratingDriver(),
   share: shareDriver,
+  http: makeHTTPDriver(),
   lifecycle: makeActivityLifecycleDriver(),
   network: makeNetworkDriver(),
   dialog: dialogDriver,

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -19,7 +19,7 @@ import ssb from './ssb';
 import localization from './localization';
 import toast from './toast';
 
-export type Sources = {
+export interface Sources {
   state: StateSource<State>;
   ssb: SSBSource;
   fs: FSSource;
@@ -27,38 +27,47 @@ export type Sources = {
   linking: Stream<string>;
   asyncstorage: AsyncStorageSource;
   dialog: DialogSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   state: Stream<Reducer<State>>;
   navigation: Stream<Command>;
   ssb: Stream<Req>;
   localization: Stream<LocalizationCmd>;
   toast: Stream<Toast>;
   globalEventBus: Stream<GlobalEvent>;
-};
+}
 
 export function global(sources: Sources): Sinks {
+  const state$ = sources.state.stream;
   const actions = intent(
     sources.globalEventBus,
     sources.linking,
     sources.dialog,
     sources.ssb,
+    state$,
   );
-  const cmd$ = navigation(actions, sources.state.stream);
+  const cmd$ = navigation(actions, state$);
   const reducer$ = model(sources.ssb, sources.asyncstorage);
   const updateLocalization$ = localization(sources.fs);
   const req$ = ssb(updateLocalization$, actions);
   const toast$ = toast(actions, sources.ssb);
-  const event$ = updateLocalization$
-    // Hack to solve race conditions elsewhere (e.g. Welcome screen).
-    // TODO: ideally there should be no synchronous race conditions between
-    // the different sources/sinks managed by cycle-native-navigation
+
+  /**
+   * Hack to solve race conditions elsewhere (e.g. Welcome screen).
+   * TODO: ideally there should be no synchronous race conditions between
+   * the different sources/sinks managed by cycle-native-navigation
+   */
+  const hackLocalizationLoaded$ = updateLocalization$
     .map(() => xs.periodic(300).take(3))
     .flatten()
-    .mapTo({
-      type: 'localizationLoaded',
-    } as GlobalEvent);
+    .mapTo({type: 'localizationLoaded'} as GlobalEvent);
+
+  const approveCheckingNewVersion$ = actions.approvedCheckingNewVersion$
+    .take(1)
+    .mapTo({type: 'approveCheckingNewVersion'} as GlobalEvent);
+
+  const event$ = xs.merge(hackLocalizationLoaded$, approveCheckingNewVersion$);
 
   return {
     navigation: cmd$,

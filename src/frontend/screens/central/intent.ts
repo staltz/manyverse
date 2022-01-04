@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -114,6 +114,10 @@ export default function intent(
     )
     .map((event) => event.open);
 
+  const hasNewVersion$ = globalEventBus.filter(
+    (ev) => ev.type === 'hasNewVersion',
+  );
+
   return {
     changeTab$,
     scrollToPublicTop$,
@@ -123,5 +127,6 @@ export default function intent(
     backToPublicTab$,
     exitApp$,
     drawerToggled$,
+    hasNewVersion$,
   };
 }

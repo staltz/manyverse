@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,7 +6,8 @@ import xs, {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {PureComponent, ReactElement, createElement as $} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './styles';
 import {t} from '../../drivers/localization';
 import PublicTabIcon from '../../components/tab-buttons/PublicTabIcon';
@@ -55,6 +56,48 @@ class ProgressBar extends PureComponent<{progress: number}> {
   }
 }
 
+class ExtraButton extends PureComponent<{
+  accessibilityLabel?: string;
+  iconName: string;
+  label: string;
+  onPress?: () => {};
+}> {
+  public render() {
+    const {onPress, iconName, label, accessibilityLabel} = this.props;
+
+    return h(Pressable, {
+      onPress,
+      children: () => [
+        h(View, {key: 'r', style: styles.extraButton}, [
+          h(Icon, {
+            key: 'x',
+            name: iconName,
+            size: Dimensions.iconSizeNormal,
+            color: Palette.textForBackgroundBrand,
+            style: styles.extraButtonIcon,
+          }),
+          h(
+            Text,
+            {
+              key: 'b',
+              style: styles.extraButtonText,
+              numberOfLines: 1,
+              selectable: false,
+            },
+            label,
+          ),
+        ]),
+      ],
+      style: ({hovered}: any) => [
+        hovered ? styles.extraButtonHovered : styles.extraButtonIdle,
+      ],
+      accessible: true,
+      accessibilityRole: 'menuitem',
+      accessibilityLabel,
+    });
+  }
+}
+
 type ViewState = Pick<State, 'currentTab'> &
   Pick<State, 'numOfPublicUpdates'> &
   Pick<State, 'numOfPrivateUpdates'> &
@@ -62,6 +105,7 @@ type ViewState = Pick<State, 'currentTab'> &
   Pick<State, 'connections'> &
   Pick<State, 'name'> &
   Pick<State, 'selfAvatarUrl'> &
+  Pick<State, 'hasNewVersion'> &
   Pick<State, 'combinedProgress'> &
   Pick<State, 'estimateProgressDone'>;
 
@@ -76,6 +120,7 @@ export default function view(
     numOfPrivateUpdates: 0,
     numOfActivityUpdates: 0,
     selfAvatarUrl: '',
+    hasNewVersion: false,
     combinedProgress: 0,
     estimateProgressDone: 0,
   };
@@ -90,6 +135,7 @@ export default function view(
         'connections',
         'name',
         'selfAvatarUrl',
+        'hasNewVersion',
         'combinedProgress',
         'estimateProgressDone',
       ]),
@@ -160,13 +206,26 @@ export default function view(
 
             h(View, {style: styles.spacer}),
 
+            state.hasNewVersion
+              ? h(ExtraButton, {
+                  sel: 'new-version',
+                  label: t('drawer.menu.update.label'),
+                  accessibilityLabel: t(
+                    'drawer.menu.update.accessibility_label',
+                  ),
+                  iconName: 'update',
+                })
+              : null,
+
             h(TabIcon, {
+              style: styles.leftMenuTabButton,
               sel: 'more',
               iconName: 'dots-horizontal',
               label: t('drawer.menu.more.label'),
               accessibilityLabel: t('drawer.menu.more.accessibility_label'),
             }),
             h(TabIcon, {
+              style: styles.leftMenuTabButton,
               sel: 'settings',
               iconName: 'cog',
               label: t('drawer.menu.settings.label'),

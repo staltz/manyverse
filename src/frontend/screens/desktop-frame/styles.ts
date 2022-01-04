@@ -102,6 +102,38 @@ export const styles = StyleSheet.create({
     left: 0,
   },
 
+  extraButton: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingHorizontal: Dimensions.horizontalSpaceNormal,
+    paddingVertical: Dimensions.verticalSpaceSmall,
+  },
+
+  extraButtonIdle: {
+    backgroundColor: Palette.backgroundCTA,
+    borderRadius: Dimensions.borderRadiusFull,
+    marginBottom: Dimensions.verticalSpaceTiny,
+  },
+
+  extraButtonHovered: {
+    backgroundColor: Palette.backgroundCTAWeak,
+    borderRadius: Dimensions.borderRadiusFull,
+    marginBottom: Dimensions.verticalSpaceTiny,
+  },
+
+  extraButtonIcon: {
+    userSelect: 'none',
+  } as any,
+
+  extraButtonText: {
+    marginLeft: Dimensions.horizontalSpaceSmall,
+    fontSize: Typography.fontSizeSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.textForBackgroundBrand,
+    fontWeight: 'bold',
+  },
+
   centerAndRight: {
     flex: Dimensions.desktopMiddleWidth.flex + Dimensions.desktopSideWidth.flex,
   },

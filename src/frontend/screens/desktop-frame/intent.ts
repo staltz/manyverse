@@ -1,10 +1,12 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {ReactSource} from '@cycle/react';
+import {HTTPSource} from '@cycle/http';
 import {t} from '../../drivers/localization';
 import {DialogSource} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
@@ -15,6 +17,7 @@ type TabID = State['currentTab'];
 export default function intent(
   reactSource: ReactSource,
   dialogSource: DialogSource,
+  httpSource: HTTPSource,
   state$: Stream<State>,
 ) {
   const changeTab$ = xs.merge(
@@ -99,6 +102,24 @@ export default function intent(
     (id) => id === 'translate',
   );
 
+  const checkNewVersion$ = state$
+    .compose(dropRepeatsByKeys(['allowCheckingNewVersion']))
+    .filter((s) => s.allowCheckingNewVersion === true)
+    .map(() => xs.periodic(1000 * 60 * 60 * 24).startWith(0))
+    .flatten();
+
+  const response$ = httpSource
+    .select('latestversion')
+    .flatten()
+    .map((res) => res.body);
+
+  const latestVersionResponse$ = response$.replaceError(() => response$);
+
+  const downloadNewVersion$ = reactSource
+    .select('new-version')
+    .events('press')
+    .mapTo(null);
+
   return {
     changeTab$,
     scrollToTop$,
@@ -107,5 +128,8 @@ export default function intent(
     showRawDatabase$,
     emailBugReport$,
     openTranslate$,
+    checkNewVersion$,
+    latestVersionResponse$,
+    downloadNewVersion$,
   };
 }

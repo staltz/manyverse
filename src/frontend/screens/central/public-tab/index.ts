@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -58,7 +58,7 @@ export function publicTab(sources: Sources): Sinks {
   const reducer$ = model(actionsPlus, sources.asyncstorage, sources.ssb);
   const fabProps$ = floatingAction(sources.state.stream);
   const newContent$ = ssb(actionsPlus);
-  const storageCommand$ = asyncStorage(actionsPlus);
+  const storageCommand$ = asyncStorage(actionsPlus, sources.asyncstorage);
 
   return {
     screen: vdom$,

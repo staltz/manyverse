@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -33,13 +33,14 @@ const Touchable = Platform.select<any>({
 interface MenuItemProps {
   icon: string;
   text: string;
+  callToAction?: boolean;
   onPress?: () => void;
   accessibilityLabel: string;
 }
 
 class MenuItem extends PureComponent<MenuItemProps> {
   public render() {
-    const {icon, text, accessibilityLabel} = this.props;
+    const {icon, text, callToAction, accessibilityLabel} = this.props;
     const touchableProps: any = {
       onPress: () => {
         this.props.onPress?.();
@@ -55,14 +56,28 @@ class MenuItem extends PureComponent<MenuItemProps> {
       );
     }
 
+    const containerStyle = [
+      styles.menuItemContainer,
+      callToAction ? styles.menuItemContainerCTA : null,
+    ];
+
+    const textStyle = [
+      styles.menuItemText,
+      callToAction ? styles.menuItemTextCTA : null,
+    ];
+
+    const iconColor = callToAction
+      ? Palette.textForBackgroundBrand
+      : Palette.textWeak;
+
     return h(Touchable, touchableProps, [
-      h(View, {style: styles.menuItemContainer, pointerEvents: 'box-only'}, [
+      h(View, {style: containerStyle, pointerEvents: 'box-only'}, [
         h(Icon, {
           size: Dimensions.iconSizeNormal,
-          color: Palette.textWeak,
+          color: iconColor,
           name: icon,
         }),
-        h(Text, {style: styles.menuItemText}, text),
+        h(Text, {style: textStyle}, text),
       ]),
     ]);
   }
@@ -107,6 +122,7 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
         'selfAvatarUrl',
         'name',
         'canPublishSSB',
+        'hasNewVersion',
         'combinedProgress',
         'estimateProgressDone',
       ]),
@@ -181,6 +197,15 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
             text: t('drawer.menu.translate.label'),
             accessibilityLabel: t('drawer.menu.translate.accessibility_label'),
           }),
+          state.hasNewVersion
+            ? h(MenuItem, {
+                sel: 'new-version',
+                icon: 'update',
+                callToAction: true,
+                text: t('drawer.menu.update.label'),
+                accessibilityLabel: t('drawer.menu.update.accessibility_label'),
+              })
+            : null,
           h(MenuItem, {
             sel: 'settings',
             icon: 'cog',

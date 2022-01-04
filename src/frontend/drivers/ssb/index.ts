@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -475,6 +475,7 @@ export class SSBSource {
     blobsStorageLimit?: number;
     detailedLogs?: boolean;
     showFollows?: boolean;
+    allowCheckingNewVersion?: boolean;
   }> {
     return this.fromCallback<any>((ssb, cb) => ssb.settingsUtils.read(cb));
   }
@@ -578,6 +579,11 @@ export interface SettingsDetailedLogsReq {
   detailedLogs: boolean;
 }
 
+export interface SettingsAllowCheckingNewVersionReq {
+  type: 'settings.allowCheckingNewVersion';
+  allowCheckingNewVersion: boolean;
+}
+
 export type Req =
   | CreateIdentityReq
   | UseIdentityReq
@@ -598,7 +604,8 @@ export type Req =
   | SettingsHopsReq
   | SettingsBlobsPurgeReq
   | SettingsShowFollowsReq
-  | SettingsDetailedLogsReq;
+  | SettingsDetailedLogsReq
+  | SettingsAllowCheckingNewVersionReq;
 
 export function contentToPublishReq(content: NonNullable<Content>): PublishReq {
   return {type: 'publish', content};
@@ -855,6 +862,15 @@ async function consumeSink(
           if (err) return console.error(err.message || err);
         });
         return;
+      }
+
+      if (req.type === 'settings.allowCheckingNewVersion') {
+        ssb.settingsUtils.updateAllowCheckingNewVersion(
+          req.allowCheckingNewVersion,
+          (err: any) => {
+            if (err) return console.error(err.message || err);
+          },
+        );
       }
     },
   });
