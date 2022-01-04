@@ -83,9 +83,7 @@ Then make an iOS release:
 
 ## Desktop
 
-Then make an Electron release:
-
-- `npm run release-desktop`
+These will be built automatically by GitHub Actions and published to [GitHub releases](https://github.com/staltz/manyverse/releases).
 
 ## Publish
 
