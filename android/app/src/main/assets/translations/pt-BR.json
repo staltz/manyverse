@@ -651,6 +651,10 @@
         "label": "Mais",
         "accessibility_label": "Mostrar mais itens de Menu"
       },
+      "update": {
+        "label": "Atualizar",
+        "accessibility_label": "Atualizar o aplicativo para a versão mais recente"
+      },
       "settings": {
         "label": "Configurações",
         "accessibility_label": "Ir para Configurações"
@@ -660,6 +664,12 @@
       },
       "ready_estimate": {
         "label": "Pronto:"
+      }
+    },
+    "dialogs": {
+      "update": {
+        "title": "Verificar novas versões?",
+        "description": "Você quer que o Manyverse verifique automaticamente se existem novas versões?\n\nEsta configuração é opcional e permitirá o Manyverse acessar o site manyver.se com certa frequência."
       }
     }
   },

@@ -651,6 +651,10 @@
         "label": "더 보기",
         "accessibility_label": "메뉴 아이템 더 보기"
       },
+      "update": {
+        "label": "Update",
+        "accessibility_label": "Update app to latest version"
+      },
       "settings": {
         "label": "설정",
         "accessibility_label": "설정으로 가기"
@@ -660,6 +664,12 @@
       },
       "ready_estimate": {
         "label": "준비:"
+      }
+    },
+    "dialogs": {
+      "update": {
+        "title": "Check for new versions?",
+        "description": "Would you like Manyverse to automatically check for new releases?\n\nThis setting is optional and will allow Manyverse to send requests to the manyver.se website periodically."
       }
     }
   },

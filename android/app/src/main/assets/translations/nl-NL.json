@@ -651,6 +651,10 @@
         "label": "More",
         "accessibility_label": "Show more Menu items"
       },
+      "update": {
+        "label": "Update",
+        "accessibility_label": "Update app to latest version"
+      },
       "settings": {
         "label": "Instellingen",
         "accessibility_label": "Ga naar instellingen"
@@ -660,6 +664,12 @@
       },
       "ready_estimate": {
         "label": "Ready:"
+      }
+    },
+    "dialogs": {
+      "update": {
+        "title": "Check for new versions?",
+        "description": "Would you like Manyverse to automatically check for new releases?\n\nThis setting is optional and will allow Manyverse to send requests to the manyver.se website periodically."
       }
     }
   },
