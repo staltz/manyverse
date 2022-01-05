@@ -98,11 +98,11 @@ These will be built automatically by GitHub Actions and published to [GitHub rel
   - Open the website and the new version should have been uploaded by now
   - Don't submit the new version yet, instead, do the below
   - Get the folder `e2e/apple-app-store-demo` and make it your `~/.ssb` (beware to backup any existing `~/.ssb` before)
-  - Open a desktop SSB client such as Patchwork to use that `~/.ssb`
+  - Open a Manyverse desktop to use that `~/.ssb`
   - Create a new [ssb-room](https://github.com/staltz/ssb-room) server
-  - Put the ssb-room invite code in Patchwork
-  - Keep this Patchwork open (and the computer in non-sleep mode) for ~24 hours
-  - Apple's reviewers should use the ssb-room invite and will connect to your Patchwork
+  - Put the ssb-room invite code in Manyverse desktop
+  - Keep this Manyverse desktop open (and the computer in non-sleep mode) for ~24 hours
+  - Apple's reviewers should use the ssb-room invite and will connect to your app
   - Now should be safe to press submit on the App Store dashboard
 - Publish Android on F-Droid: `git push origin --tags` (F-Droid server pulls our updates)
 - Announce on Scuttlebutt
