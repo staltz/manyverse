@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -110,6 +110,13 @@ export default [
     type: 'image',
   },
   {
+    name: '@cycle/http',
+    type: 'library',
+    version: '15.4.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://cycle.js.org',
+  },
+  {
     name: '@cycle/isolate',
     type: 'library',
     version: '5.2.0',
@@ -133,7 +140,7 @@ export default [
   {
     name: '@cycle/react-native',
     type: 'library',
-    version: '2.0.0',
+    version: '3.0.0',
     license: 'MIT License (MIT)',
   },
   {
@@ -181,6 +188,13 @@ export default [
       'https://github.com/react-native-community/react-native-audio-toolkit#readme',
   },
   {
+    name: '@staltz/react-native-image-viewing',
+    type: 'library',
+    version: '0.2.1-1',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/staltz/react-native-image-viewing#readme',
+  },
+  {
     name: 'bindings-noderify-nodejs-mobile',
     type: 'library',
     version: '10.3.0',
@@ -223,14 +237,6 @@ export default [
     homepage: 'https://github.com/zenozeng/color-hash#readme',
   },
   {
-    name: 'cycle-native-android-local-notification',
-    type: 'library',
-    version: '1.1.0',
-    license: 'MIT License (MIT)',
-    homepage:
-      'https://gitlab.com/staltz/cycle-native-android-local-notification#readme',
-  },
-  {
     name: 'cycle-native-asyncstorage',
     type: 'library',
     version: '3.1.0',
@@ -268,7 +274,7 @@ export default [
   {
     name: 'cycle-native-navigation-web',
     type: 'library',
-    version: '0.9.0',
+    version: '1.0.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation-web',
   },
@@ -306,6 +312,13 @@ export default [
     version: '0.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/substack/faucet',
+  },
+  {
+    name: 'fix-webm-duration',
+    type: 'library',
+    version: '1.0.4',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/yusitnikov/fix-webm-duration',
   },
   {
     name: 'hermes-engine',
@@ -359,7 +372,7 @@ export default [
   {
     name: 'multiserver-electron-ipc',
     type: 'library',
-    version: '1.2.0',
+    version: '1.3.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/multiserver-electron-ipc#readme',
   },
@@ -411,13 +424,6 @@ export default [
     version: '1.0.0',
     license: 'Apache License 2.0 (Apache-2.0)',
     homepage: 'https://github.com/ahdinosaur/pull-async#readme',
-  },
-  {
-    name: 'pull-backoff',
-    type: 'library',
-    version: '1.0.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://gitlab.com/staltz/pull-backoff#readme',
   },
   {
     name: 'pull-cat',
@@ -474,13 +480,6 @@ export default [
     version: '0.1.2',
     license: 'ISC License (ISC)',
     homepage: 'https://github.com/nichoth/pull-stream-util#readme',
-  },
-  {
-    name: 'pull-switch-map',
-    type: 'library',
-    version: '1.0.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://gitlab.com/staltz/pull-switch-map#readme',
   },
   {
     name: 'pull-thenable',
@@ -570,7 +569,7 @@ export default [
   {
     name: 'react-native-has-internet',
     type: 'library',
-    version: '5.0.0-rc2',
+    version: '5.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/react-native-has-internet',
   },
@@ -581,13 +580,6 @@ export default [
     license: 'MIT License (MIT)',
     homepage:
       'https://github.com/ivpusic/react-native-image-crop-picker#readme',
-  },
-  {
-    name: 'react-native-image-viewing',
-    type: 'library',
-    version: '0.2.1',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/jobtoday/react-native-image-viewing#readme',
   },
   {
     name: 'react-native-localize',
@@ -642,7 +634,7 @@ export default [
   {
     name: 'react-native-ssb-shims',
     type: 'library',
-    version: '5.1.0',
+    version: '5.1.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/react-native-ssb-shims',
   },
@@ -832,7 +824,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '2.3.3',
+    version: '2.8.5',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -846,7 +838,7 @@ export default [
   {
     name: 'ssb-ebt',
     type: 'library',
-    version: '8.0.1',
+    version: '8.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-ebt',
   },
@@ -965,14 +957,14 @@ export default [
   {
     name: 'ssb-suggest-lite',
     type: 'library',
-    version: '1.1.1',
+    version: '1.1.2',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-suggest-lite#readme',
   },
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '9.2.0',
+    version: '9.2.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },

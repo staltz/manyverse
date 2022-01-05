@@ -7,6 +7,19 @@
 - (Android) [APK file](https://manyver.se/apk)
 - (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
 
+## 0.2201.5-beta
+
+* (Desktop) Copy room invite to clipboard on share ([see details](https://gitlab.com/staltz/manyverse/commit/840fa34a1a39793ab8a6574c5e4f36d12bfe8d21))
+* Bug fix: database glitches ([see details](https://gitlab.com/staltz/manyverse/commit/679e8a148143459640868cf9fb433495e4ec0b17))
+* Feature: check for new version available ([see details](https://gitlab.com/staltz/manyverse/commit/244267342491ea9353016e5835ad785c209869b4))
+* Feature: linkify cypherlinks in raw messages ([see details](https://gitlab.com/staltz/manyverse/commit/11b066a1fef6fc3314da2d74479e4584481278fa))
+* Feature: new progress bar at the bottom ([see details](https://gitlab.com/staltz/manyverse/commit/b75de94bfba9c0519f98fb81b5ff4b4f8f435f2d))
+* Feature: render Patchfoo-style mentions ([see details](https://gitlab.com/staltz/manyverse/commit/7a35721cce2f8d83f9d63fc4b785b05288f330d5))
+* Improve Finnish translation ([see details](https://gitlab.com/staltz/manyverse/commit/c836bda8a086b3c5e5259dae2bb629b44f6fb7a8))
+* Improve German translation ([see details](https://gitlab.com/staltz/manyverse/commit/195746c74634da34df2a55d1d834ffeaf3e8cfe9))
+* Improve Ukrainian translation ([see details](https://gitlab.com/staltz/manyverse/commit/67cf7e278400302eb34210a08625589ea89c2f44))
+* Improve UI responsiveness after reopening app ([see details](https://gitlab.com/staltz/manyverse/commit/f6f66d5db88be18b969aac1c09740843800e2c9e))
+
 ## 0.2112.3-beta
 
 * (Android) Improve how internet presence is detected ([see details](https://gitlab.com/staltz/manyverse/commit/160e995748d81f255dee17d129d817b5dd76c93b))
