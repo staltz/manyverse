@@ -763,11 +763,9 @@ async function consumeSink(
         const res = await runAsync(ssb.httpInviteClient.claim)(req.uri);
         const [e1, msaddr] = res;
         if (e1) {
-          source.acceptInviteResponse$._n(`connecting to ${msaddr} failed`);
+          source.acceptInviteResponse$._n(`room rejected invite claim`);
           return;
         }
-
-        source.acceptInviteResponse$._n(true);
 
         const key = Ref.getKeyFromAddress(msaddr);
         const [e2] = await runAsync(ssb.conn.remember)(msaddr, {
@@ -784,6 +782,17 @@ async function consumeSink(
           return;
         }
 
+        const [e3] = await runAsync(ssb.connUtils.persistentConnect)(msaddr, {
+          key,
+        });
+        if (e3) {
+          console.error(e3.message || e2);
+          console.error(`connecting to ${msaddr} failed`);
+          source.acceptInviteResponse$._n(`connecting to ${msaddr} failed`);
+          return;
+        }
+
+        source.acceptInviteResponse$._n(true);
         return;
       }
 
