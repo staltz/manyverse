@@ -26,10 +26,11 @@ const outputFile = path.join(
 );
 const backendNodeModules = path.join(backendFolder, 'node_modules');
 
+const thisYear = new Date().getFullYear();
 const header =
   '// ' +
   'SP' +
-  'DX-FileCopyrightText: 2021 The Manyverse Authors\n' +
+  `DX-FileCopyrightText: ${thisYear} The Manyverse Authors\n` +
   '//\n' +
   '// ' +
   'SP' +
