@@ -145,9 +145,15 @@ export const activityTabLens: Lens<State, ActivityTabState> = {
 export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
   get: (parent: State): ConnectionsTabState => {
     const isVisible = parent.currentTab === 'connections';
-    const {selfFeedId, selfAvatarUrl} = parent;
+    const {selfFeedId, selfAvatarUrl, initializedSSB} = parent;
     if (parent.connectionsTab) {
-      return {...parent.connectionsTab, isVisible, selfFeedId, selfAvatarUrl};
+      return {
+        ...parent.connectionsTab,
+        isVisible,
+        selfFeedId,
+        selfAvatarUrl,
+        initializedSSB,
+      };
     } else {
       return {
         isVisible,
