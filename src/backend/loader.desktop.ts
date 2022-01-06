@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,6 +7,7 @@ import path = require('path');
 import url = require('url');
 import fs = require('fs');
 import {BrowserWindow, app, ipcMain, shell} from 'electron';
+const electronWindowState = require('electron-window-state');
 
 process.env = process.env ?? {};
 
@@ -33,10 +34,17 @@ let resolveWebContents: ((wc: any) => void) | undefined;
 });
 
 function createWindow() {
+  let windowState = electronWindowState({
+    defaultWidth: 1024,
+    defaultHeight: 720,
+  });
+
   win = new BrowserWindow({
     title: 'Manyverse',
-    width: 800,
-    height: 600,
+    x: windowState.x,
+    y: windowState.y,
+    width: windowState.width,
+    height: windowState.height,
     autoHideMenuBar: true,
     backgroundColor: '#4263eb', // brandMain
     webPreferences: {
@@ -46,6 +54,7 @@ function createWindow() {
     },
   });
   win.setMinimumSize(640, 380);
+  windowState.manage(win);
 
   win.loadURL(
     url.pathToFileURL(path.join(app.getAppPath(), 'index.html')).toString(),
