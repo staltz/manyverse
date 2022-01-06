@@ -1,30 +1,30 @@
 {
   "call_to_action": {
-    "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "remove": "Remove",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "ok": "تایید",
+    "add": "افزودن",
+    "done": "انجام شد",
+    "cancel": "انصراف",
+    "continue": "ادامه",
+    "delete": "حذف",
+    "remove": "پاک کردن",
+    "save": "ذخیره",
+    "yes": "بله",
+    "no": "خیر",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "دکمه منو"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "دکمه بازگشت"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "دکمه بستن"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "دکمه بستن پنجره"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "لینک باز شود؟",
+      "description": "آیا میخواهید لینک {{link}} در مرورگر باز شود؟"
     }
   },
   "date": {
@@ -47,62 +47,62 @@
           "other": "{{count}} روزِ پیش"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "۱ ساعت پیش",
+          "other": "{{count}} ساعت پیش"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "۱ دقیقه پیش",
+          "other": "{{count}} دقیقه پیش"
         },
         "now": "هَم‌اَکنون"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "۱ سال از الان",
+          "other": "{{count}} سال از الان"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "۱ ماه از الان",
+          "other": "{{count}} ماه از الان"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "۱ هفته از الان",
+          "other": "{{count}} هفته از الان"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "۱ روز از الان",
+          "other": "{{count}} روز از الان"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "۱ ساعت از الان",
+          "other": "{{count}} ساعت از الان"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "۱ دقیقه از الان",
+          "other": "{{count}} دقیقه از الان"
         },
-        "now": "Very soon"
+        "now": "به زودی"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "بیشتر بدانید",
     "overview": {
-      "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "title": "به منیورس خوش آمدید!",
+      "description": "شبکه های اجتماعی می تواند ساده، خنثی، غیرتجاری و بر اساس اعتماد بین دوستان باشد. این همان چیزی است که Manyverse مخفف آن است، و ما امیدواریم که شما نیز بتوانید آن را خانه دیجیتال خود کنید. همه اینها با پروتکل جدید SSB امکان پذیر شده است."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "خارج از شبکه",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse می تواند از اتصال به اینترنت استفاده کند، اما اینطور نیست ",
+        "2_bold": "بر",
+        "3_normal": " اینترنت. همه چیز در اینجا روی دستگاه شما اتفاق می افتد. این به این معنی است که شما می توانید به طور معمول از آن استفاده کنید حتی در حالت آفلاین! محتوای ",
+        "4_bold": "شما ابتدا در دستگاه شما ذخیره می شود",
+        "5_normal": "، و می توانید پس از برقراری ارتباط با دوستان، آن را با آنها همگام کنید."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "راه های زیادی برای اتصال",
       "description": {
         "ios": {
           "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
@@ -117,11 +117,11 @@
           "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
           "2_bold": "وای‌فای",
           "3_normal": ", or use ",
-          "4_bold": "Bluetooth sync",
+          "4_bold": "همگام سازی از طریق بلوتوث",
           "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
+          "6_bold": "سرورِ کافه",
           "7_normal": " یا یِک ",
-          "8_bold": "room server",
+          "8_bold": "سرورِ اتاق",
           "9_normal": ", or start your own server!"
         }
       }
@@ -176,73 +176,73 @@
     }
   },
   "migrating": {
-    "label": "Migrating..."
+    "label": "در حال مهاجرت ..."
   },
   "central": {
-    "app_name": "Manyverse",
+    "app_name": "منیورس",
     "tab_headers": {
-      "public": "Public posts",
-      "private": "Private chats",
-      "activity": "Activity",
-      "connections": "Connected peers"
+      "public": "پست های عمومی",
+      "private": "چت های خصوصی",
+      "activity": "فعالیت",
+      "connections": "همتایان متصل"
     },
     "tab_footers": {
-      "public": "Public",
-      "private": "Private",
-      "activity": "Activity",
-      "connections": "Connections"
+      "public": "عمومی",
+      "private": "خصوصی",
+      "activity": "فعالیت",
+      "connections": "اتصالات"
     },
-    "loading": "Loading...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "loading": "در حال بارگزاری ...",
+    "building_indexes": "در حال ایجاد ایندکس ها ...\nاین ممکن است تا چند دقیقه طول بکشد",
     "tabs": {
       "public": {
-        "accessibility_label": "Public Tab Button"
+        "accessibility_label": "دکمه سربرگ عمومی"
       },
       "private": {
-        "accessibility_label": "Private Tab Button"
+        "accessibility_label": "دکمه سربرگ خصوصی"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "دکمه سربرگ فعالیت"
       },
       "connections": {
-        "accessibility_label": "Connections Tab Button"
+        "accessibility_label": "دکمه سربرگ اتصالات"
       }
     }
   },
   "public": {
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "نوشتن یک پیام عمومی"
     },
     "empty": {
-      "title": "No messages",
-      "description": "Write a diary to be\nshared with friends later"
+      "title": "هیچ پیامی وجود ندارد",
+      "description": "خاطراتی بنویسید که بعداً با دوستان به اشتراک گذاشته شود"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "دکمه جستجو"
     }
   },
   "private": {
     "floating_action_button": {
-      "compose": "Start a private conversation"
+      "compose": "شروع یک مکالمه خصوصی"
     },
     "empty": {
-      "title": "No conversations",
-      "description": "Start a private conversation\nwith any of your friends"
+      "title": "هیچ مکالمه ای وجود ندارد",
+      "description": "یک مکالمه خصوصی با هر یک از دوستان خود آغاز کنید"
     },
     "conversation": {
-      "accessibility_label": "Go To Conversation"
+      "accessibility_label": "رفتن به مکالمه"
     }
   },
   "accounts": {
     "reactions": {
-      "title": "Reactions"
+      "title": "واکنش ها"
     },
     "recipients": {
-      "title": "Recipients"
+      "title": "گیرندگان"
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "برو به حساب"
       }
     }
   },
@@ -251,71 +251,71 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " شما را یاد کرد"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " شما را دنبال کرد"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " میخواهد به شما متصل شود"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "هیچ فعالیتی وجود ندارد",
+      "description": "وقتی شخصی شما را یاد یا دنبال میکند، آنها اینجا نمایش داده می شوند"
     }
   },
   "connections": {
-    "title": "Connections Panel",
+    "title": "پنل مکالمات",
     "floating_action_button": {
-      "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
-      "bluetooth_seek": "Bluetooth seek"
+      "create_invite": "ایجاد دعوت",
+      "paste_invite": "الصاق دعوت",
+      "bluetooth_seek": "جستجوی بلوتوث"
     },
-    "open_connections_panel": "Open Connections Panel",
+    "open_connections_panel": "باز کردن پنل مکالمات",
     "empty": {
       "offline": {
-        "title": "Offline",
-        "description": "Turn on some connection mode\nor enjoy reading some existing content"
+        "title": "آفلاین",
+        "description": "برخی از حالت های اتصال را روشن کنید\nیا از خواندن برخی از مطالب موجود لذت ببرید"
       },
       "connecting": {
-        "title": "Connecting",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "در حال اتصال",
+        "description": "در زمانی که برنامه در حال تلاش برای \nاتصال به همتایان شما است صبر کنید"
       },
       "no_peers": {
-        "title": "No connections",
-        "description": "Try syncing with people nearby\nor use a server invite code"
+        "title": "هیچ اتصالی وجود ندارد",
+        "description": "سعی کنید با افراد نزدیک همگام سازی کنید\nیا از کد دعوت سرور استفاده کنید"
       }
     },
     "scenarios": {
-      "offline": "Offline",
-      "not_connected": "Not connected",
-      "few_connections": "Too few connections",
-      "many_connections": "Well connected"
+      "offline": "آفلاین",
+      "not_connected": "بدون اتصال",
+      "few_connections": "اتصالات کم است",
+      "many_connections": "خوب متصل است"
     },
     "scenario_descriptions": {
-      "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
-      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
-      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+      "offline_with_content": "در حال حاضر نمی توانید به همتایان متصل شوید، اما می توانید از محتوایی که قبلاً دارید لذت ببرید.",
+      "offline_without_content": "در حال حاضر نمی توانید به همتایان متصل شوید. سعی کنید اتصال به اینترنت داشته باشید یا Wi-Fi را روشن کنید تا همتایان اطراف را پیدا کنید.",
+      "knows_no_one": "منیورس شما در حال حاضر ایزوله است. شما باید توسط سایر همتایان دعوت شوید تا به سرورهای اتاق بپیوندید، یا می توانید خودتان سرور اتاق را میزبانی کنید.",
+      "nearby_strangers_available": "شما هنوز به کسی متصل نیستید، اما برخی از همتایان در همان شبکه Wi-Fi حضور دارند. اگر فکر می کنید که آنها نیز مایل به اتصال به شما هستند، سعی کنید به صورت دستی به آنها متصل شوید.",
+      "empty_rooms": "شما عضو برخی از اتاق‌ها هستید، اما کسی نیست که در حال حاضر آنلاین باشید. سعی کنید به صورت دستی به یک غریبه در اتاق متصل شوید یا یک کد دعوت به سرورهای دیگر دریافت کنید.",
+      "connected_poorly": "شما به یک همتا متصل هستید، این خوب است. اما، برای بهبود انتشار داده ها، باید به همتایان بیشتری متصل شوید. کمی بیشتر صبر کنید یا کد دعوت به سرورهای دیگر را دریافت کنید.",
+      "connected_well": "شما به همتایان زیادی متصل هستید. همه چیز خوب است! آنها داده های شما را منتشر می کنند و شما داده های آنها را منتشر می کنید."
     },
     "recommendations": {
-      "consume_invite": "How to get an invite",
-      "follow_staged_manually": "Follow someone new",
-      "paste_invite": "Paste invite code",
-      "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "consume_invite": "چگونه دعوت شویم",
+      "follow_staged_manually": "دنبال کردن شخص جدید",
+      "paste_invite": "الصاق کد دعوت",
+      "host_ssb_room": "نحوه میزبانی سرور اتاق",
+      "others": "انتخاب های دیگر"
     },
     "recommendation_descriptions": {
       "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
@@ -341,7 +341,7 @@
           "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
+          "title": "ورود به سیستم مجاز است؟",
           "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
         }
       }
@@ -363,41 +363,41 @@
           }
         },
         "pub": "Pub server",
-        "server": "Server",
-        "unknown": "Unknown"
+        "server": "سرور",
+        "unknown": "ناشناخته"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(ENABLED)"
+        "enabled": "(فعال)"
       },
       "bluetooth": {
         "title": "بلوتوس",
-        "accessibility_label": "Bluetooth Mode",
-        "disabled": "(Turn on Bluetooth to use this)",
-        "description": "Discover users nearby and connect with them using Bluetooth.",
+        "accessibility_label": "حالت بلوتوث",
+        "disabled": "(برای استفاده از این بلوتوث را روشن کنید)",
+        "description": "کاربران اطراف را کشف کنید و با استفاده از بلوتوث با آنها ارتباط برقرار کنید.",
         "permission_request": {
-          "title": "Allow locating via Bluetooth?",
-          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
+          "title": "آیا مکان یابی از طریق بلوتوث مجاز است؟",
+          "message": "منیورس باید از بلوتوث استفاده کند تا مکان شما (\"موقعیت نسبی\") و همتایان اطراف شما را کشف کند."
         }
       },
       "wifi": {
         "title": "وای‌فای",
-        "accessibility_label": "Wi-Fi Mode",
-        "disabled": "(Turn on Wi-Fi to use this)",
-        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
+        "accessibility_label": "حالت Wi-Fi",
+        "disabled": "(برای استفاده از این Wi-Fi را روشن کنید)",
+        "description": "با دوستان خود در شبکه محلی مشترک ارتباط برقرار کنید، به عبارت دیگر، دوستانی که از همان Wi-Fi استفاده می کنند."
       },
       "servers": {
-        "title": "Internet servers",
-        "accessibility_label": "Internet Servers Mode",
-        "disabled": "(Go online to use this)",
-        "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
+        "title": "سرورهای اینترنتی",
+        "accessibility_label": "حالت سرورهای اینترنتی",
+        "disabled": "(برای استفاده از این آنلاین شوید)",
+        "description": "به یک به اصطلاح \"سرور Pub\" متعلق به یکی از دوستان وصل شوید که حاوی آخرین داده ها از چندین حساب است."
       }
     },
     "menu": {
-      "dialog_title": "Connection",
+      "dialog_title": "اتصال",
       "open_profile": {
-        "label": "Open profile",
+        "label": "باز کردن نمایه",
         "accessibility_label": {
           "connected": "Open profile screen for this connected peer",
           "staged": "Open profile screen for this suggested connection"
@@ -429,7 +429,7 @@
         }
       },
       "forget": {
-        "label": "Forget",
+        "label": "فراموش کردن",
         "accessibility_label": {
           "room": "Remove this room from our database"
         }
@@ -451,22 +451,22 @@
         "accessibility_label": "About this Invite Code"
       },
       "invite_note": {
-        "label": "Add note",
-        "accessibility_label": "Add Reminder Note To Self"
+        "label": "افزودن یادداشت",
+        "accessibility_label": "یادداشت یادآوری را به خود اضافه کنید"
       },
       "invite_share": {
         "label": "هَمرِسانی",
         "accessibility_label": "Share Invite Code"
       },
       "invite_delete": {
-        "label": "Delete",
-        "accessibility_label": "Delete Invite Code"
+        "label": "حذف",
+        "accessibility_label": "حذف کد دعوت"
       }
     },
     "notes": {
       "add": {
-        "title": "Add note",
-        "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
+        "title": "افزودن یادداشت",
+        "description": "یک یادداشت خصوصی (فقط برای خودتان) در مورد این کد دعوت بنویسید. به عنوان مثال: \"این برای آلیس است\""
       }
     },
     "share_code": {
@@ -480,8 +480,8 @@
   "compose": {
     "call_to_action": {
       "publish_new_thread": {
-        "label": "Publish",
-        "accessibility_label": "Publish Message Button"
+        "label": "انتشار",
+        "accessibility_label": "دکمه انتشار پیام"
       },
       "reply_to_thread": {
         "label": "Reply",
@@ -517,38 +517,38 @@
         "description": "If your post contains sensitive topics, please add a short note to alert people of them."
       },
       "image_caption": {
-        "title": "Caption",
-        "description": "Add some description of this picture, particularly for the visually impaired."
+        "title": "عنوان",
+        "description": "توضیحاتی در مورد این تصویر اضافه کنید، به خصوص برای افراد کم بینا."
       }
     },
     "content_warning_initials": {
-      "label": "CW",
-      "accessibility_label": "Content Warning Button"
+      "label": "هشدار محتوا",
+      "accessibility_label": "دکمه هشدار محتوا"
     },
     "mention_field": {
-      "accessibility_label": "Mention Account Text Input"
+      "accessibility_label": "ورودی متن یاد کردن حساب"
     },
     "text_field": {
-      "placeholder": "Write a public message",
-      "accessibility_label": "Compose Text Input"
+      "placeholder": "یک پیام عمومی بنویسید",
+      "accessibility_label": "ورودی متن نوشتن پیام"
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "پیام صوتی",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "شروع ضبط"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "توقف ضبط"
       },
       "discard_recording": {
-        "label": "Discard",
-        "accessibility_label": "Discard Recording Button"
+        "label": "دور انداختن",
+        "accessibility_label": "دکمه دور انداختن ضبط"
       },
       "submit_recording": {
-        "label": "Done",
-        "accessibility_label": "Submit Recording Button"
+        "label": "انجام شد",
+        "accessibility_label": "دکمه ارسال ضبط"
       }
     },
     "dialogs": {
@@ -576,20 +576,20 @@
       },
       "call_to_action": {
         "acknowledge": {
-          "label": "I understand",
-          "accessibility_label": "Acknowledge"
+          "label": "من میفهمم",
+          "accessibility_label": "تصدیق کردن"
         }
       }
     },
     "identity": {
-      "title": "Identity",
+      "title": "هویت",
       "description": {
         "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
         "2_bold": "recovery phrase",
         "3_normal": ". This is a sequence of 24 words that unlocks your account. ",
         "4_bold": "Keep it confidential",
         "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
-        "6_bold": "Take responsibility",
+        "6_bold": "مسئولیت را بر عهده گرفتن",
         "7_normal": " over it, since you and only you can recover your account!"
       },
       "call_to_action": {
@@ -632,7 +632,7 @@
   "drawer": {
     "menu": {
       "my_profile": {
-        "label": "My profile",
+        "label": "نمایه من",
         "accessibility_label": "My Profile Menu Item"
       },
       "raw_database": {
@@ -652,7 +652,7 @@
         "accessibility_label": "Show more Menu items"
       },
       "update": {
-        "label": "Update",
+        "label": "به روز رسانی",
         "accessibility_label": "Update app to latest version"
       },
       "settings": {
@@ -660,7 +660,7 @@
         "accessibility_label": "Go To Settings"
       },
       "preparing_database": {
-        "label": "Preparing database..."
+        "label": "آماده سازی پایگاه داده..."
       },
       "ready_estimate": {
         "label": "Ready:"
@@ -1135,20 +1135,20 @@
         "accessibility_label": "Pause audio"
       },
       "duration": {
-        "accessibility_label": "Audio duration"
+        "accessibility_label": "مدت زمان صدا"
       },
       "elapsed": {
-        "accessibility_label": "Audio current time"
+        "accessibility_label": "زمان جاری صدا"
       },
       "slider": {
-        "accessibility_label": "Change audio time"
+        "accessibility_label": "تغییر زمان صدا"
       }
     },
     "content_warning": {
-      "title": "Content Warning",
+      "title": "هشدار محتوا",
       "call_to_action": {
-        "hide": "Hide",
-        "show": "View"
+        "hide": "مخفی",
+        "show": "مشاهده"
       }
     },
     "fork_note": {
@@ -1172,12 +1172,12 @@
       "new_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new biography: "
+        "3_normal": " بیوگرافی جدید دارد: "
       },
       "new_name": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " در حال استفاده از نام \"",
         "4_bold": "{{name}}",
         "5_normal": "\""
       }
@@ -1186,21 +1186,21 @@
       "follow_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed ",
+        "3_normal": " فالو شد ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "block_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " blocked ",
+        "3_normal": " بلاک شد ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "unfollow_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " unfollowed ",
+        "3_normal": " آنفالو شد ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
