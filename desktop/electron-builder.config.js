@@ -7,24 +7,21 @@ const rimraf = require('rimraf');
 const topPackageJSON = require('../package.json');
 const backendPackageJSON = require('./package.json');
 
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
 const firstCopyrightYear = 2018;
 const lastCopyrightYear = new Date().getFullYear();
+const AUTHOR = 'The Manyverse Authors';
 
 module.exports = {
   // Metadata ------------------------------------------------------------------
   appId: 'se.manyver',
-  productName: capitalize(topPackageJSON.name),
-  copyright: `${firstCopyrightYear}-${lastCopyrightYear} The Manyverse Authors`,
+  productName: 'Manyverse',
+  copyright: `${firstCopyrightYear}-${lastCopyrightYear} ${AUTHOR}`,
   buildVersion: topPackageJSON.version,
   extraMetadata: {
-    name: topPackageJSON.name,
+    name: 'manyverse',
     version: topPackageJSON.version,
     description: 'A social network off the grid',
-    author: 'The Manyverse Authors',
+    author: AUTHOR,
     homepage: 'https://manyver.se',
     license: 'MPL-2.0',
     repository: 'https://gitlab.com/staltz/manyverse/',
@@ -69,7 +66,7 @@ module.exports = {
     rimraf.sync(node_modules + '/**/**/utf-8-validate/prebuilds');
   },
 
-  // Target-specific configurations --------------------------------------------
+  // Linux-specific configurations ---------------------------------------------
   linux: {
     icon: path.join(__dirname, 'build-resources', 'linux-app-icon'),
     target: [
@@ -88,6 +85,7 @@ module.exports = {
     maintainer: "Andre 'Staltz' Medeiros <contact@staltz.com>",
   },
 
+  // Mac-specific configurations -----------------------------------------------
   mac: {
     icon: path.join(__dirname, 'build-resources', 'icon.icns'),
     category: 'public.app-category.social-networking',
