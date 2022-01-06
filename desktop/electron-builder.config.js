@@ -99,6 +99,11 @@ module.exports = {
     background: path.join(__dirname, 'build-resources', 'dmg-background.png'),
   },
 
+  // Windows-specific configurations -------------------------------------------
+  win: {
+    publisherName: AUTHOR,
+  },
+
   nsis: {
     artifactName: '${name}-${version}-windows-${arch}-nsis-installer.${ext}',
     oneClick: false,
