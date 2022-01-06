@@ -48,15 +48,19 @@ export default function intent(
     room1Done$: done$.filter(
       (text) =>
         !text.startsWith('dht:') &&
+        !text.startsWith('https://') &&
         !isHttpInvite(text) &&
         roomUtils.isInvite(text),
     ),
 
-    room2Done$: done$.filter(isHttpInvite),
+    room2Done$: done$.filter(
+      (text) => isHttpInvite(text) || text.startsWith('https://'),
+    ),
 
     normalDone$: done$.filter(
       (text) =>
         !text.startsWith('dht:') &&
+        !text.startsWith('https://') &&
         !isHttpInvite(text) &&
         !roomUtils.isInvite(text),
     ),
