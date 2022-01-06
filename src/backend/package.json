@@ -57,7 +57,7 @@
     "ssb-search2": "1.0.1",
     "ssb-serve-blobs": "3.0.0",
     "ssb-suggest-lite": "1.1.2",
-    "ssb-threads": "9.2.1",
+    "ssb-threads": "9.3.0",
     "ssb-typescript": "2.5.0",
     "staltz-multiserver": "3.3.6-1",
     "utf-8-validate": "5.0.3"
