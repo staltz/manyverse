@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -9,9 +9,12 @@ import sample from 'xstream-sample';
 import {ReactSource} from '@cycle/react';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {NavSource} from 'cycle-native-navigation';
-import {State} from './model';
+import {isExperimentalSSBURIWithAction} from 'ssb-uri2';
 import {LifecycleEvent} from '../../drivers/lifecycle';
+import {State} from './model';
 const roomUtils = require('ssb-room-client/utils');
+
+const isHttpInvite = isExperimentalSSBURIWithAction('claim-http-invite');
 
 export default function intent(
   reactSource: ReactSource,
@@ -42,12 +45,20 @@ export default function intent(
 
     dhtDone$: done$.filter((text) => text.startsWith('dht:')),
 
-    roomDone$: done$.filter(
-      (text) => !text.startsWith('dht:') && roomUtils.isInvite(text),
+    room1Done$: done$.filter(
+      (text) =>
+        !text.startsWith('dht:') &&
+        !isHttpInvite(text) &&
+        roomUtils.isInvite(text),
     ),
 
+    room2Done$: done$.filter(isHttpInvite),
+
     normalDone$: done$.filter(
-      (text) => !text.startsWith('dht:') && !roomUtils.isInvite(text),
+      (text) =>
+        !text.startsWith('dht:') &&
+        !isHttpInvite(text) &&
+        !roomUtils.isInvite(text),
     ),
 
     updateContent$: reactSource
