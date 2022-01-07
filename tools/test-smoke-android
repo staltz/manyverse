@@ -34,4 +34,4 @@ popd
 
 $(npm bin)/appium --port 4995 > appium.log & echo $! > appium-server.pid
 sleep 5
-BROWSERSTACK_APP_URL=$appurl $(npm bin)/tape test/smoke/index.js | $(npm bin)/tap-spec
+BROWSERSTACK_APP_URL=$appurl $(npm bin)/tape test/smoke/android/index.js | $(npm bin)/tap-spec
