@@ -67,6 +67,7 @@ Then make an iOS release:
 
 - Use a computer that can build iOS apps
 - `git pull origin master` to update the repository
+- `npm install` and `cd ios && pod install` may be needed, sometimes
 - `npm run release-ios` to compile the iOS IPA
 - `git push origin master` to update the repository
 - Once done, it should open an _Organizer_ window where you must upload the new version to App Store
