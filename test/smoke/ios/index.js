@@ -10,15 +10,15 @@ const capabilities = {
   'browserstack.user': process.env.MANYVERSE_BROWSERSTACK_USER,
   'browserstack.key': process.env.MANYVERSE_BROWSERSTACK_KEY,
   'browserstack.debug': true,
-  build: `Android ${pkgJSON.version}`,
+  build: `iOS ${pkgJSON.version}`,
   name: 'Smoke test',
-  device: 'Google Pixel 3',
+  device: 'iPhone 11 Pro',
   app: JSON.parse(process.env.BROWSERSTACK_APP_URL).app_url,
 };
 
 let driver;
 
-test('Setup and open Android app', async function (t) {
+test('Setup and open iOS app', async function (t) {
   driver = wd.promiseChainRemote('http://hub-cloud.browserstack.com/wd/hub');
   driver
     .init(capabilities)
