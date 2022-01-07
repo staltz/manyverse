@@ -48,6 +48,7 @@ module.exports = {
     'node_modules/sodium-native/index.js', // needed for sodium-chloride
     'node_modules/node-gyp-build/index.js', // needed for sodium-chloride
     'node_modules/electron-window-state', // needed by loader.js
+    'node_modules/jsonfile', // needed by loader.js
     'renderer-dist',
     'translations',
     'index.html',
