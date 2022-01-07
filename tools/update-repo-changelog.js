@@ -12,12 +12,7 @@ const generateChangelog = require('./generate-changelog');
 intoStream(
   '# Changelog\n' +
     '\n' +
-    '**Update from one of these sources:**\n' +
-    '\n' +
-    '- (Android) [Play Store](https://play.google.com/store/apps/details?id=se.manyver)\n' +
-    '- (Android) [F-Droid](https://f-droid.org/packages/se.manyver/)\n' +
-    '- (Android) [APK file](https://manyver.se/apk)\n' +
-    '- (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)\n' +
+    '**Update from [manyver.se/download](https://manyver.se/download):**\n' +
     '\n',
 )
   .pipe(addStream(generateChangelog(0)))
