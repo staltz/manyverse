@@ -13,12 +13,7 @@ intoStream('--------------BEGIN SCUTTLEBUTT POST--------------\n')
   .pipe(
     addStream(
       intoStream(
-        '**Update from one of these sources:**\n\n' +
-          '- (Android) [APK file](https://manyver.se/apk) (available now)\n' +
-          '- (Android) [Play Store](https://play.google.com/store/apps/details?id=se.manyver) (available within 12h)\n' +
-          '- (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617) (available within 24h)\n' +
-          '- (Android) [F-Droid](https://f-droid.org/packages/se.manyver/) (available within 72h or more)\n' +
-          '\n' +
+        '**Update from: [manyver.se/download](https://manyver.se/download)**\n\n' +
           '#manyverse\n' +
           '----------------END SCUTTLEBUTT POST---------------\n',
       ),

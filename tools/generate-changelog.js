@@ -21,6 +21,8 @@ const mainTemplate = `{{> header}}
 `;
 const headerPartial = `## {{version}}
 `;
+const headerNamePartial = `## Manyverse {{version}}
+`;
 const emojiCommitPartial = `{{emoji}}  {{platform}}{{subject}}
 `;
 const simpleCommitPartial = `* {{subject}}
@@ -161,6 +163,8 @@ module.exports = function generateChangelog(releaseCount, platform) {
     headerPartial:
       platform === 'ios' || platform === 'and' || platform === 'des'
         ? ''
+        : platform === 'emoji'
+        ? headerNamePartial
         : headerPartial,
     commitPartial:
       platform === 'ios' || platform === 'and' || platform === 'des'
