@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,10 +7,10 @@ import {toPostContent, toReplyPostContent} from '../../ssb/utils/to-ssb';
 import {Req, contentToPublishReq} from '../../drivers/ssb';
 import {State} from './model';
 
-export type Actions = {
+export interface Actions {
   publishPost$: Stream<State>;
   publishReply$: Stream<State>;
-};
+}
 
 export default function ssb(actions: Actions): Stream<Req> {
   const publishPostContent$ = actions.publishPost$

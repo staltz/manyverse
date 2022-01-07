@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,10 +8,10 @@ import sample from 'xstream-sample';
 import {Command} from 'cycle-native-asyncstorage';
 import {State, isReply} from './model';
 
-export type Actions = {
+export interface Actions {
   publishPost$: Stream<any>;
   publishReply$: Stream<any>;
-};
+}
 
 export default function asyncStorage(actions: Actions, state$: Stream<State>) {
   const deleteReplyWhenPublished$ = actions.publishReply$
