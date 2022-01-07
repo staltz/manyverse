@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,10 +8,10 @@ import {DialogSource} from '../../drivers/dialogs';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 
-export type Actions = {
+export interface Actions {
   openContentWarning$: Stream<any>;
-  addPicture$: Stream<Image>;
-};
+  addPicture$: Stream<Image | File>;
+}
 
 export default function dialog(actions: Actions, dialogSource: DialogSource) {
   return {

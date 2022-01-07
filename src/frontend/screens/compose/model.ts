@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -12,6 +12,7 @@ import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Image} from 'react-native-image-crop-picker';
 import {MsgId, FeedId} from 'ssb-typescript';
 import {SSBSource, MentionSuggestion} from '../../drivers/ssb';
+import {AudioBlobComposed} from '../../drivers/eventbus';
 import {State as TopBarState} from './top-bar';
 import {Props} from './index';
 
@@ -119,8 +120,9 @@ export interface Actions {
   toggleContentWarningPreview$: Stream<any>;
   disablePreview$: Stream<any>;
   enablePreview$: Stream<any>;
-  addAudio$: Stream<{blobId: string; ext: string}>;
-  addPictureWithCaption$: Stream<{caption: string; image: Image}>;
+  addAudio$: Stream<AudioBlobComposed>;
+  attachAudio$: Stream<File>;
+  addPictureWithCaption$: Stream<{caption: string; image: Image | File}>;
 }
 
 export default function model(
@@ -327,6 +329,28 @@ export default function model(
       },
   );
 
+  const attachAudioReducer$ = actions.attachAudio$
+    .map((file) =>
+      ssbSource.addBlobFromPath$(file.path.replace('file://', '')).map(
+        (blobId) =>
+          function attachAudioReducer(prev: State): State {
+            const audioMarkdown = `![audio:${file.name}](${blobId})`;
+            const postText = appendToPostText(prev.postText, audioMarkdown);
+            const postTextSelection = {
+              start: postText.length,
+              end: postText.length,
+            };
+            return {
+              ...prev,
+              postText,
+              postTextOverride: postText,
+              postTextSelection,
+            };
+          },
+      ),
+    )
+    .flatten();
+
   const updateContentWarningReducer$ = actions.updateContentWarning$.map(
     (contentWarning) =>
       function updateContentWarningReducer(prev: State): State {
@@ -401,6 +425,7 @@ export default function model(
       cancelMentionReducer$,
       addPictureReducer$,
       addAudioReducer$,
+      attachAudioReducer$,
       updateContentWarningReducer$,
       enablePreviewReducer$,
       disablePreviewReducer$,
