@@ -148,7 +148,7 @@
     "ssb-typescript": "2.5.0",
     "ssb-uri2": "^1.5.2",
     "strip-markdown-oneline": "1.0.3",
-    "unicode-word-regex": "~1.0.1",
+    "unicode-word-regex": "~1.1.0",
     "url-parse": "1.5.3",
     "xstream": "11.14",
     "xstream-between": "1.0",
