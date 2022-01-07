@@ -307,6 +307,13 @@ export default [
     homepage: 'https://github.com/staltz/electron-ssb-client',
   },
   {
+    name: 'electron-window-state',
+    type: 'library',
+    version: '5.0.3',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/mawie81/electron-window-state#readme',
+  },
+  {
     name: 'faucet',
     type: 'library',
     version: '0.0.1',
@@ -733,14 +740,14 @@ export default [
   {
     name: 'remark-linkify-regex',
     type: 'library',
-    version: '1.0.0',
+    version: '1.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/remark-linkify-regex#readme',
   },
   {
     name: 'remark-ssb-mentions',
     type: 'library',
-    version: '2.1.0',
+    version: '2.2.1',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/ssb-mentions',
   },
@@ -943,7 +950,7 @@ export default [
   {
     name: 'ssb-search2',
     type: 'library',
-    version: '1.0.1',
+    version: '1.0.3',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-search2#readme',
   },
@@ -964,7 +971,7 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '9.2.1',
+    version: '9.3.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
@@ -995,6 +1002,13 @@ export default [
     version: '1.0.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/strip-markdown-oneline#readme',
+  },
+  {
+    name: 'unicode-word-regex',
+    type: 'library',
+    version: '1.0.1',
+    license: 'The Unlicense (Unlicense)',
+    homepage: 'https://github.com/staltz/unicode-word-regex#readme',
   },
   {
     name: 'url-parse',

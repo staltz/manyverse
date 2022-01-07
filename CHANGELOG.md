@@ -1,11 +1,19 @@
 # Changelog
 
-**Update from one of these sources:**
+**Update from [manyver.se/download](https://manyver.se/download):**
 
-- (Android) [Play Store](https://play.google.com/store/apps/details?id=se.manyver)
-- (Android) [F-Droid](https://f-droid.org/packages/se.manyver/)
-- (Android) [APK file](https://manyver.se/apk)
-- (iOS) [App Store](https://apps.apple.com/app/manyverse/id1492321617)
+## 0.2201.7-beta
+
+* (Desktop) Bug fix: correct app metadata on Windows ([see details](https://gitlab.com/staltz/manyverse/commit/3554dc075a84eceb604cbe5f3c6ecdb7ba03a076))
+* (Desktop) Bug fix: remember window size on restarts ([see details](https://gitlab.com/staltz/manyverse/commit/3a9a8bfb894e7ae96127e01e972b24a0c57852bf))
+* (Desktop) Feature: attach audio files ([see details](https://gitlab.com/staltz/manyverse/commit/e4a9188032eab959383f822bf4264cf8bb30080c))
+* Bug fix: crash when migrating a specific .ssb database ([see details](https://gitlab.com/staltz/manyverse/commit/842dfab2b4aea99dd19c190031f21e6b6293fed5))
+* Bug fix: hashtags support unicode characters ([see details](https://gitlab.com/staltz/manyverse/commit/e5e7267cdbcbf7ca85f367ec175db0886ece7c09))
+* Bug fix: room 2.0 invites also connect to room ([see details](https://gitlab.com/staltz/manyverse/commit/3b4fcc291833fcdf14c780b164987fad3cf44365))
+* Bug fix: treat hashtags as case-insensitive ([see details](https://gitlab.com/staltz/manyverse/commit/a80dcec413b5fdf8c92174145fdfa5e4ba9a2d48))
+* Feature: support pasting HTTP invite URLs ([see details](https://gitlab.com/staltz/manyverse/commit/9a02aec755bd3f241149dbeace92d619613af7fc))
+* Feature: support pasting HTTP SSB URI invites ([see details](https://gitlab.com/staltz/manyverse/commit/dd1a04f1eaac20895c860d1442dc05adaa15b1c3))
+* Improve Persian translation ([see details](https://gitlab.com/staltz/manyverse/commit/1e9e56fb7268c8c2f60eb633dd4e4b642c26d3e1))
 
 ## 0.2201.5-beta
 
@@ -17,8 +25,8 @@
 * Feature: render Patchfoo-style mentions ([see details](https://gitlab.com/staltz/manyverse/commit/7a35721cce2f8d83f9d63fc4b785b05288f330d5))
 * Improve Finnish translation ([see details](https://gitlab.com/staltz/manyverse/commit/c836bda8a086b3c5e5259dae2bb629b44f6fb7a8))
 * Improve German translation ([see details](https://gitlab.com/staltz/manyverse/commit/195746c74634da34df2a55d1d834ffeaf3e8cfe9))
-* Improve Ukrainian translation ([see details](https://gitlab.com/staltz/manyverse/commit/67cf7e278400302eb34210a08625589ea89c2f44))
 * Improve UI responsiveness after reopening app ([see details](https://gitlab.com/staltz/manyverse/commit/f6f66d5db88be18b969aac1c09740843800e2c9e))
+* Improve Ukrainian translation ([see details](https://gitlab.com/staltz/manyverse/commit/67cf7e278400302eb34210a08625589ea89c2f44))
 
 ## 0.2112.3-beta
 
