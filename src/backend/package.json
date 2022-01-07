@@ -54,7 +54,7 @@
     "ssb-ref": "2.13.9",
     "ssb-replication-scheduler": "1.0.0",
     "ssb-room-client": "2.0.0",
-    "ssb-search2": "1.0.1",
+    "ssb-search2": "1.0.3",
     "ssb-serve-blobs": "3.0.0",
     "ssb-suggest-lite": "1.1.2",
     "ssb-threads": "9.3.0",

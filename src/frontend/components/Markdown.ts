@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -32,6 +32,7 @@ const normalizeForReactNative = require('mdast-normalize-react-native');
 const ReactMarkdown = require('react-markdown');
 const Ref = require('ssb-ref');
 const remark = require('remark');
+const getUnicodeWordRegex = require('unicode-word-regex');
 
 const ELLIPSIS = '\u2026';
 
@@ -470,7 +471,9 @@ export default class Markdown extends PureComponent<Props> {
       /@[A-Za-z0-9._\-+=\/]*[A-Za-z0-9_\-+=/]/g,
     );
     const linkifySsbMsgs = linkifyRegex(Ref.msgIdRegex);
-    const linkifyHashtags = linkifyRegex(/#[\w-]+/g);
+    const linkifyHashtags = linkifyRegex(
+      new RegExp('#(' + getUnicodeWordRegex().source + '|-)+', 'gu'),
+    );
     const renderers = makeRenderers(this.props.onLayout, this.props.mentions);
 
     return $<any>(ReactMarkdown, {
