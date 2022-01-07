@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -97,7 +97,7 @@ module.exports = function generateChangelog(releaseCount, platform) {
   const gitRawCommitsOpts = {from: firstReleaseCommit};
 
   const parserOpts = {
-    headerPattern: /^(\w*): (\[ios\]|\[and\])? ?(.*)$/,
+    headerPattern: /^(\w*): (\[ios\]|\[and\]|\[des\])? ?(.*)$/,
     headerCorrespondence: [`type`, `platform`, `subject`],
   };
 
@@ -119,10 +119,24 @@ module.exports = function generateChangelog(releaseCount, platform) {
         else commit.emoji = '🔷';
       }
 
-      if (platform === 'ios' && commit.platform === '[and]') return false;
-      else if (platform === 'and' && commit.platform === '[ios]') return false;
-      else if (commit.platform === '[and]') commit.platform = '(Android) ';
+      if (
+        platform === 'ios' &&
+        (commit.platform === '[and]' || commit.platform === '[des]')
+      ) {
+        return false;
+      } else if (
+        platform === 'and' &&
+        (commit.platform === '[ios]' || commit.platform === '[des]')
+      ) {
+        return false;
+      } else if (
+        platform === 'des' &&
+        (commit.platform === '[and]' || commit.platform === '[ios]')
+      ) {
+        return false;
+      } else if (commit.platform === '[and]') commit.platform = '(Android) ';
       else if (commit.platform === '[ios]') commit.platform = '(iOS) ';
+      else if (commit.platform === '[des]') commit.platform = '(Desktop) ';
       else commit.platform = '';
 
       if (releaseCount > 0 && context.releases >= releaseCount + 1) {
@@ -145,9 +159,11 @@ module.exports = function generateChangelog(releaseCount, platform) {
     },
     mainTemplate,
     headerPartial:
-      platform === 'ios' || platform === 'and' ? '' : headerPartial,
+      platform === 'ios' || platform === 'and' || platform === 'des'
+        ? ''
+        : headerPartial,
     commitPartial:
-      platform === 'ios' || platform === 'and'
+      platform === 'ios' || platform === 'and' || platform === 'des'
         ? simpleCommitPartial
         : platform === 'emoji'
         ? emojiCommitPartial
