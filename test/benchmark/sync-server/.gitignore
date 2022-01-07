@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+#
+# SPDX-License-Identifier: CC0-1.0
+
+node_modules/**/*
+/data/conn.json
+/data/blobs
+/data/blobs_push
+/data/flume/*
+/data/ebt
+!/data/flume/log.offset
+!/data/flume/log.offset.license
+!/data/report.md
+!/data/secret
+!/data/secret-b
+!/data/secret-c

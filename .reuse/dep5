@@ -83,7 +83,7 @@ Files: desktop/build-resources/linux-app-icon/*.png
 Copyright: 2019 The Manyverse Authors
 License: CC-BY-SA-4.0
 
-Files: e2e/apple-app-store-demo/blobs/sha256/*/*
+Files: test/apple-app-store-demo/blobs/sha256/*/*
 Copyright: 2020 The Manyverse Authors
 License: CC-BY-SA-4.0
 

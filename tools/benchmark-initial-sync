@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SPDX-FileCopyrightText: 2021 The Manyverse Authors
+# SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 #
 # SPDX-License-Identifier: CC0-1.0
 
@@ -32,11 +32,11 @@ function onFailure() {
 pushd android/app/build/outputs/apk/indie/release
 cp app-indie-release.apk app-indie-release-e2e.apk
 popd
-cd benchmark/sync-server && npm install > /dev/null 2>&1 && cd ../..
+cd test/benchmark/sync-server && npm install > /dev/null 2>&1 && cd ../..
 adb uninstall io.appium.settings > /dev/null 2>&1 || true
 adb uninstall io.appium.uiautomator2.server > /dev/null 2>&1 || true
 adb uninstall io.appium.uiautomator2.server.test > /dev/null 2>&1 || true
-node benchmark/sync-server 1> syncserver.log 2> syncserver.log & echo $! > syncserver.pid
+node test/benchmark/sync-server 1> syncserver.log 2> syncserver.log & echo $! > syncserver.pid
 $(npm bin)/appium --port 4995 > appium.log & echo $! > appium-server.pid
 sleep 5
-$(npm bin)/tape benchmark/index.js | $(npm bin)/faucet
+$(npm bin)/tape test/benchmark/index.js | $(npm bin)/faucet

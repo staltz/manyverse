@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SPDX-FileCopyrightText: 2021 The Manyverse Authors
+# SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 #
 # SPDX-License-Identifier: CC0-1.0
 
@@ -39,5 +39,5 @@ if [ $ANSWER == "Y" ]; then
   adb uninstall io.appium.uiautomator2.server.test || true
   $(npm bin)/appium --port 4995 > appium.log & echo $! > appium-server.pid
   sleep 5
-  $(npm bin)/tape e2e/index.js | tap-spec
+  $(npm bin)/tape test/e2e/index.js | tap-spec
 fi
