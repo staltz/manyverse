@@ -171,7 +171,9 @@ There is nothing else you need to install at this point.
 
 ### When targeting iOS
 
-You need to also install the Cocoapods:
+If you need to install Cocoapods you can get it from your ruby's `gem` with either `gem install cocoapods` or `sudo gem install cocoapods` depending on if your ruby requires sudo to install gems globally.
+
+Then you need to also install the Cocoapods themselves.
 
 ```
 cd ios && pod install
@@ -272,18 +274,18 @@ npm run build-frontend-desktop
 
 ##### Starting the app
 
-If everything went well you can try `npm run desktop`. It will use [prebuilt Electron binary][npm-electron].
+If everything went well you can try `npm run desktop`. It will use [prebuilt Electron binary][npm-electron]. It's worth noting this will share a database with any official builds of ManyVerse you may have on your system.
 
 If your system is not [officially supported][electron-supported-platforms] you can install Electron using your distribution's preferred method (make sure to get a version that is compatible with app's dependency) and launch it yourself:
 
 ```
-$ cd desktop/nodejs-project/
+$ cd desktop
 $ npm ls electron
-backend@0.0.0 ~/manyverse/desktop/nodejs-project
-└── electron@10.3.1
-$ electron --version
-v10.4.7
-$ electron .
+backend@0.0.0 ~/manyverse/desktop
+└── electron@15.2.0
+$ npx electron --version
+v15.2.0
+$ npx electron .
 ```
 
 [electron-supported-platforms]: https://www.electronjs.org/docs/tutorial/support#supported-platforms
