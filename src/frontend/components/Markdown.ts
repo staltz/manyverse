@@ -472,7 +472,7 @@ export default class Markdown extends PureComponent<Props> {
     );
     const linkifySsbMsgs = linkifyRegex(Ref.msgIdRegex);
     const linkifyHashtags = linkifyRegex(
-      new RegExp('#(' + getUnicodeWordRegex().source + '|-)+', 'gu'),
+      new RegExp('#(' + getUnicodeWordRegex().source + '|\\d|-)+', 'gu'),
     );
     const renderers = makeRenderers(this.props.onLayout, this.props.mentions);
 
