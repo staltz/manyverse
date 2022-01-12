@@ -109,7 +109,6 @@ export function migrating(sources: Sources): Sinks {
   const updateProgressReducer$ = sources.migrating.map(
     (progress) =>
       function updateProgressReducer(prev: State): State {
-        console.log(typeof progress, progress);
         return {progress};
       },
   );

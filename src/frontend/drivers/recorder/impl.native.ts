@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -24,8 +24,6 @@ export function makeRecorderDriver() {
             else res$._n({type: 'prepared', filename: cmd.filename, path});
           });
           (rec as any).on('meter', (data: any) => {
-            console.log('value', data.value);
-            console.log('rawValue', data.rawValue);
             res$._n({
               type: 'meter',
               value: data.value,
