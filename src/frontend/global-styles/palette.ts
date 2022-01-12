@@ -196,7 +196,6 @@ const backgroundCTA = teal5;
 const backgroundCTAWeak = teal6;
 const backgroundRecord = red5;
 const backgroundWarningAction = yellow5;
-const backgroundHackerVoid = comet10;
 
 const foregroundNeutral = isDarkTheme ? comet7 : comet4;
 
@@ -251,7 +250,6 @@ export const Palette = {
   backgroundCTAWeak,
   backgroundRecord,
   backgroundWarningAction,
-  backgroundHackerVoid,
 
   foregroundNeutral,
 
