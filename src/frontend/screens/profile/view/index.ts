@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -270,6 +270,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                 yOffsetAnimVal: scrollHeaderBy,
                 HeaderComponent: h(ProfileHeader, {state}),
                 style: styles.feed,
+                contentContainerStyle: styles.feedInner,
                 EmptyComponent: isSelfProfile
                   ? h(EmptySection, {
                       style: styles.emptySection,
