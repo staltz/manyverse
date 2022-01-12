@@ -1,0 +1,10 @@
+diff --git a/node_modules/chloride/bindings.js b/node_modules/chloride/bindings.js
+index 81a1e68..1aded49 100644
+--- a/node_modules/chloride/bindings.js
++++ b/node_modules/chloride/bindings.js
+@@ -1,4 +1,2 @@
+-var _require = require //fool browserify
+-module.exports =
+-  _require('sodium-chloride')(_require('sodium-native'))
++module.exports = require('sodium-chloride')(require('sodium-native'))
+ 
