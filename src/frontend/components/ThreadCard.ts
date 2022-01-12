@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -138,30 +138,37 @@ export default class ThreadCard extends PureComponent<Props, State> {
   };
 
   public renderReadMore() {
+    // This randomID is necessary on the DOM (Electron) because of
+    // https://stackoverflow.com/questions/16123721/how-to-use-local-defs-in-svg
+    const randomID = Math.floor(Math.random() * 1000000);
     const width = this.state.markdownWidth;
     const height = POST_HEIGHT * 0.5;
     return h(View, {style: styles.readMoreContainer}, [
       h(Svg, {width, height}, [
         h(Defs, [
-          h(LinearGradient, {id: 'grad', x1: '0', y1: '0', x2: '0', y2: '1'}, [
-            h(Stop, {
-              offset: '0',
-              stopColor: Palette.backgroundText,
-              stopOpacity: '0',
-            }),
-            h(Stop, {
-              offset: '1',
-              stopColor: Palette.backgroundText,
-              stopOpacity: '1',
-            }),
-          ]),
+          h(
+            LinearGradient,
+            {id: `grad${randomID}`, x1: '0', y1: '0', x2: '0', y2: '1'},
+            [
+              h(Stop, {
+                offset: '0',
+                stopColor: Palette.backgroundText,
+                stopOpacity: '0',
+              }),
+              h(Stop, {
+                offset: '1',
+                stopColor: Palette.backgroundText,
+                stopOpacity: '1',
+              }),
+            ],
+          ),
         ]),
         h(Rect, {
           x: '0',
           y: '0',
           width,
           height,
-          fill: 'url(#grad)',
+          fill: `url(#grad${randomID})`,
           strokeWidth: '0',
         }),
       ]),
