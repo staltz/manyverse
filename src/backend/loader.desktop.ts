@@ -16,8 +16,8 @@ app.setPath('userData', path.join(app.getPath('appData'), 'manyverse'));
 process.env.APP_DATA_DIR = app.getAppPath();
 process.env.APP_TMP_DIR = app.getPath('temp');
 process.env.SHARED_SSB_DIR = path.resolve(os.homedir(), '.ssb');
-process.env.MANYVERSE_SSB_DIR = path.resolve(app.getPath('userData'), 'ssb');
-process.env.SSB_DIR = process.env.MANYVERSE_SSB_DIR;
+process.env.SSB_DIR =
+  process.env.SSB_DIR ?? path.resolve(app.getPath('userData'), 'ssb');
 
 // Set global variables
 process.env.MANYVERSE_PLATFORM = 'desktop';
@@ -109,7 +109,8 @@ if (!hasLock) {
       if (win) {
         if (win.isMinimized()) win.restore();
         win.focus();
-        if (argv && argv[1]) win.webContents.send('incoming-url', argv[1]);
+        if (argv.length > 1)
+          win.webContents.send('incoming-url', argv[argv.length - 1]);
       }
     },
   );

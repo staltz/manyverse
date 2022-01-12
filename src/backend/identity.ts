@@ -78,27 +78,27 @@ export function migrate(cb: Callback<void>) {
   if (!process.env.SHARED_SSB_DIR) {
     throw new Error('identity.migrate() is missing env var SHARED_SSB_DIR');
   }
-  if (!process.env.MANYVERSE_SSB_DIR) {
-    throw new Error('identity.migrate() is missing env var MANYVERSE_SSB_DIR');
+  if (!process.env.SSB_DIR) {
+    throw new Error('identity.migrate() is missing env var SSB_DIR');
   }
 
   const webContentsPromise = (process as any).webContentsP as Promise<any>;
   const SHARED_SSB_DIR = process.env.SHARED_SSB_DIR;
-  const MANYVERSE_SSB_DIR = process.env.MANYVERSE_SSB_DIR;
-  mkdirp.sync(MANYVERSE_SSB_DIR);
+  const SSB_DIR = process.env.SSB_DIR;
+  mkdirp.sync(SSB_DIR);
 
   // Move blobs folder from ~/.ssb to manyverse folder
   fs.rename(
     path.join(SHARED_SSB_DIR, 'blobs'),
-    path.join(MANYVERSE_SSB_DIR, 'blobs'),
+    path.join(SSB_DIR, 'blobs'),
     (err) => {
       if (err && err.code !== 'ENOENT') throw err;
 
       // Move flume log from ~/.ssb to manyverse folder
-      mkdirp.sync(path.join(MANYVERSE_SSB_DIR, 'flume'));
+      mkdirp.sync(path.join(SSB_DIR, 'flume'));
       fs.rename(
         path.join(SHARED_SSB_DIR, 'flume', 'log.offset'),
-        path.join(MANYVERSE_SSB_DIR, 'flume', 'log.offset'),
+        path.join(SSB_DIR, 'flume', 'log.offset'),
         (err) => {
           if (err) throw err;
 
@@ -113,7 +113,7 @@ export function migrate(cb: Callback<void>) {
             try {
               fs.renameSync(
                 path.join(SHARED_SSB_DIR, file),
-                path.join(MANYVERSE_SSB_DIR, file),
+                path.join(SSB_DIR, file),
               );
             } catch (err) {
               if (err.code !== 'ENOENT') throw err;
@@ -125,15 +125,13 @@ export function migrate(cb: Callback<void>) {
 
           // Start sbot and run migration script
           webContentsPromise.then((webContents) => {
-            const keys = ssbKeys.loadOrCreateSync(
-              path.join(MANYVERSE_SSB_DIR, 'secret'),
-            );
+            const keys = ssbKeys.loadOrCreateSync(path.join(SSB_DIR, 'secret'));
             const sbot = SecretStack()
               .use(require('ssb-db2/migrate'))
               .call(null, {
                 caps,
                 keys,
-                path: MANYVERSE_SSB_DIR,
+                path: SSB_DIR,
                 db2: {dangerouslyKillFlumeWhenMigrated: true},
               });
             sbot.db2migrate.start();
