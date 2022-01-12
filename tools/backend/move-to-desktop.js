@@ -15,6 +15,7 @@ const rimraf = require('rimraf');
     './desktop/translations',
   );
   await fs.copy('./src/backend/package.json', './desktop/package.json');
+  await fs.copy('./src/backend/patches', './desktop/patches');
   await fs.copy(
     './src/backend/package-lock.json',
     './desktop/package-lock.json',

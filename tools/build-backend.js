@@ -211,4 +211,11 @@ async function runAndReport(label, task) {
       ),
     );
   }
+
+  if (targetPlatform === 'desktop') {
+    await runAndReport(
+      'Remove patches from the desktop folder',
+      exec('rm -rf ./desktop/patches &&' + 'rm ./desktop/package-lock.json'),
+    );
+  }
 })();
