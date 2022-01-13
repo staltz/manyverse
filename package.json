@@ -66,11 +66,11 @@
     "release-desktop-win": "npm run build-desktop && npm run clean-desktop-prebuilds && npm run build-desktop-release-win"
   },
   "dependencies": {
-    "@cycle/http": "^15.4.0",
+    "@cycle/http": "15.4.0",
     "@cycle/isolate": "5.2.0",
-    "@cycle/react": "2.9.0",
-    "@cycle/react-dom": "^2.4.0",
-    "@cycle/react-native": "^3.0.0",
+    "@cycle/react": "2.10.0",
+    "@cycle/react-dom": "2.4.0",
+    "@cycle/react-native": "3.0.0",
     "@cycle/run": "5.5.0",
     "@cycle/state": "1.5.0",
     "@fontsource/roboto": "4.5.0",
