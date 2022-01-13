@@ -154,7 +154,7 @@
     "xstream-between": "1.0",
     "xstream-drop-repeats-by-keys": "1.1",
     "xstream-from-callback": "1.1",
-    "xstream-from-pull-stream": "1.2",
+    "xstream-from-pull-stream": "1.3",
     "xstream-sample": "1.0"
   },
   "devDependencies": {
