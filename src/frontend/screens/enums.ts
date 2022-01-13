@@ -11,6 +11,7 @@ export enum Screens {
   DialogThanks = 'Manyverse.Dialog.Thanks',
   Compose = 'Manyverse.Compose',
   ComposeAudio = 'Manyverse.Compose.Audio',
+  MemeSearch = 'Manyverse.Meme.Search',
   ConnectionsPanel = 'Manyverse.ConnectionsPanel',
   Search = 'Manyverse.Search',
   Thread = 'Manyverse.Thread',

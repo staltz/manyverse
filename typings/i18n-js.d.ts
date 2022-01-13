@@ -237,6 +237,7 @@ declare module 'i18n-js' {
     | 'compose.call_to_action.record_audio.permission_request.negative'
     | 'compose.call_to_action.open_camera.accessibility_label'
     | 'compose.call_to_action.add_picture.accessibility_label'
+    | 'compose.call_to_action.add_meme.accessibility_label'
     | 'compose.dialogs.content_warning.title'
     | 'compose.dialogs.content_warning.description'
     | 'compose.dialogs.image_caption.title'

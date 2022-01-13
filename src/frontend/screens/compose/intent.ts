@@ -188,6 +188,8 @@ export default function intent(
       .flatten()
       .filter((ev) => ev === 'granted') as Stream<'granted'>,
 
+    goToMemeSearch$: reactSource.select('add-meme').events('press'),
+
     addPicture$,
 
     addAudio$: globalEvent$.filter(

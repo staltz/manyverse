@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -155,6 +155,31 @@ function AddPictureButton() {
   } else {
     return button;
   }
+}
+
+function AddMemeButton() {
+  const button = h(
+    TouchableOpacity,
+    {
+      sel: 'add-meme',
+      style: styles.footerButtonContainer,
+      activeOpacity: 0.4,
+      accessible: true,
+      accessibilityRole: 'button',
+      accessibilityLabel: t(
+        'compose.call_to_action.add_meme.accessibility_label',
+      ),
+    },
+    [
+      h(Icon, {
+        size: Dimensions.iconSizeNormal,
+        color: Palette.textVeryWeak,
+        name: 'image-search',
+      }),
+    ],
+  );
+
+  return button;
 }
 
 function MarkdownPreview(state: MiniState) {
@@ -357,6 +382,7 @@ export default function view(
                   RecordAudioButton(),
                   Platform.OS === 'web' ? null : OpenCameraButton(),
                   AddPictureButton(),
+                  AddMemeButton(),
                   ContentWarningButton(state),
                 ]),
           ]),

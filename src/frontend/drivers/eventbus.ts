@@ -39,6 +39,12 @@ export interface AudioBlobComposed {
   ext: string;
 }
 
+export interface MemePicked {
+  type: 'memePicked';
+  blobId: string;
+  //alt
+}
+
 export interface ApproveCheckingNewVersion {
   type: 'approveCheckingNewVersion';
 }
@@ -96,6 +102,7 @@ export type GlobalEvent =
   | HardwareBackOnCentralScreen
   | DrawerToggleOnCentralScreen
   | AudioBlobComposed
+  | MemePicked
   | CentralScreenUpdate
   | ApproveCheckingNewVersion
   | HasNewVersion;
