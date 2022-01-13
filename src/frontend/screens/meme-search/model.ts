@@ -22,5 +22,15 @@ export default function model(
   ssbSource: SSBSource,
   state$: Stream<State>,
 ): Stream<Reducer<State>> {
-  return xs.merge();
+  const initReducer$ = xs.of(function initOrResetReducer(_prev?: State): State {
+    return {
+      status: 'idle',
+      path: null,
+      blobId: null,
+      startedRecordingAt: 0,
+      duration: 0,
+      loudness: 0,
+    };
+  });
+  return xs.merge(initReducer$);
 }

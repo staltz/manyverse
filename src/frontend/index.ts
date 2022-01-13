@@ -39,6 +39,7 @@ import {dialogAbout} from './screens/dialog-about';
 import {dialogThanks} from './screens/dialog-thanks';
 import {compose} from './screens/compose';
 import {composeAudio} from './screens/compose-audio';
+import {memeSearch} from './screens/meme-search';
 import {connectionsPanel} from './screens/connections-panel';
 import {search} from './screens/search';
 import {thread} from './screens/thread';
@@ -106,6 +107,7 @@ export const screens: ScreensMapping = {
   [Screens.DialogThanks]: dialogThanks,
   [Screens.Compose]: withState(compose),
   [Screens.ComposeAudio]: withState(composeAudio),
+  [Screens.MemeSearch]: withState(memeSearch),
   [Screens.ConnectionsPanel]: withState(connectionsPanel),
   [Screens.Search]: withState(search),
   [Screens.Thread]: withState(thread),
