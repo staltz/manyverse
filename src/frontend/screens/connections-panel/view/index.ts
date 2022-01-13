@@ -1,8 +1,9 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
+import debounce from 'xstream/extra/debounce';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {Platform, ScrollView, View} from 'react-native';
@@ -61,6 +62,7 @@ function getFABProps(state: State) {
 
 export default function view(state$: Stream<State>) {
   return state$
+    .compose(debounce(16)) // avoid quick re-renders
     .compose(
       dropRepeatsByKeys([
         'bluetoothEnabled',

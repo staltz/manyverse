@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -215,7 +215,7 @@ export default function view(
 
   // The first state passes regardless if the screen is visible (the purpose is
   // to populate the ConversationList with data ASAP), but the subsequent state
-  // emissions are guarded by the visibility check.
+  // emissions are guarded by the tab visibility check.
   const viewState$ = concat(
     state$.filter((state) => !!state.getPrivateFeedReadable).take(1),
     state$.filter((state) => state.isVisible),
