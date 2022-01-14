@@ -2,6 +2,10 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2201.14-beta.b
+
+* Bug fix: detection of new version, -indie and desktop ([see details](https://gitlab.com/staltz/manyverse/commit/e5d58a9ada84e9d4f9c30bec6edded9c7b852a81))
+
 ## 0.2201.14-beta
 
 * (Android) Bug fix: raw message screen should show data ([see details](https://gitlab.com/staltz/manyverse/commit/9842d1ac97b57b2802b91435681c8968ecc3aa8d))
