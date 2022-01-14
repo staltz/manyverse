@@ -126,7 +126,7 @@ export default [
   {
     name: '@cycle/react',
     type: 'library',
-    version: '2.9.0',
+    version: '2.10.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/cyclejs/react',
   },
@@ -146,14 +146,14 @@ export default [
   {
     name: '@cycle/run',
     type: 'library',
-    version: '5.5.0',
+    version: '5.7.0',
     license: 'MIT License (MIT)',
     homepage: 'https://cycle.js.org',
   },
   {
     name: '@cycle/state',
     type: 'library',
-    version: '1.5.0',
+    version: '1.6.0',
     license: 'MIT License (MIT)',
     homepage: 'https://cycle.js.org',
   },
@@ -225,7 +225,7 @@ export default [
   {
     name: 'chloride',
     type: 'library',
-    version: '2.4.0',
+    version: '2.4.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/dominictarr/chloride#readme',
   },
@@ -302,7 +302,7 @@ export default [
   {
     name: 'electron-ssb-client',
     type: 'library',
-    version: '1.2.0',
+    version: '2.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/electron-ssb-client',
   },
@@ -379,7 +379,7 @@ export default [
   {
     name: 'multiserver-electron-ipc',
     type: 'library',
-    version: '1.3.0',
+    version: '2.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/multiserver-electron-ipc#readme',
   },
@@ -487,13 +487,6 @@ export default [
     version: '0.1.2',
     license: 'ISC License (ISC)',
     homepage: 'https://github.com/nichoth/pull-stream-util#readme',
-  },
-  {
-    name: 'pull-thenable',
-    type: 'library',
-    version: '1.0.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/staltz/pull-thenable',
   },
   {
     name: 'react',
@@ -747,7 +740,7 @@ export default [
   {
     name: 'remark-ssb-mentions',
     type: 'library',
-    version: '2.2.1',
+    version: '2.3.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/ssb-mentions',
   },
@@ -1006,7 +999,7 @@ export default [
   {
     name: 'unicode-word-regex',
     type: 'library',
-    version: '1.0.1',
+    version: '1.1.0',
     license: 'The Unlicense (Unlicense)',
     homepage: 'https://github.com/staltz/unicode-word-regex#readme',
   },
@@ -1055,7 +1048,7 @@ export default [
   {
     name: 'xstream-from-pull-stream',
     type: 'library',
-    version: '1.2.0',
+    version: '1.3.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/xstream-from-pull-stream',
   },

@@ -2,6 +2,16 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2201.14-beta
+
+* (Android) Bug fix: raw message screen should show data ([see details](https://gitlab.com/staltz/manyverse/commit/9842d1ac97b57b2802b91435681c8968ecc3aa8d))
+* (Desktop) Bug fix: floating button's position on Profile screen ([see details](https://gitlab.com/staltz/manyverse/commit/3c0f43c084e3851e0042b0d56ca7813a6f5a863f))
+* (Desktop) Bug fix: position of Profile feed scroll bar ([see details](https://gitlab.com/staltz/manyverse/commit/fcec77812901fdf955917842ffd491e8679ff61d))
+* (Desktop) Bug fix: show white gradient on too-long threads ([see details](https://gitlab.com/staltz/manyverse/commit/e57dcd5544726e6b5b18347062ae9275bd4413ff))
+* Bug fix: improve performance on some screens ([see details](https://gitlab.com/staltz/manyverse/commit/a793b7b95e7c739acbe50048589d51f7893a3354))
+* Bug fix: memory leak related to stream conversion ([see details](https://gitlab.com/staltz/manyverse/commit/9aa0ba93f0f661195848ea53696469aeea2ad0f1))
+* Bug fix: support hashtags with numbers, e.g. p2p ([see details](https://gitlab.com/staltz/manyverse/commit/881123b1b4e5e5b770e4a7fdc7029e375b308f25))
+
 ## 0.2201.7-beta
 
 * (Desktop) Bug fix: correct app metadata on Windows ([see details](https://gitlab.com/staltz/manyverse/commit/3554dc075a84eceb604cbe5f3c6ecdb7ba03a076))
