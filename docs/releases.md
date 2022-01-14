@@ -91,7 +91,6 @@ These will be built automatically by GitHub Actions and published to [GitHub rel
 - Deploy as an APK on the website
   - Go to `android/app/build/outputs/apk/indie/release` and copy the `app-indie-release.apk` file
   - Put the file in the manyverse-website repo at `./static/app-indie-release.apk`
-  - Update the versionName at `./static/latestversion.json`
   - Deploy the website
 - Publish Android to Google Play
   - Take the APK file from `android/app/build/outputs/apk/googlePlay/release`, upload and publish it on Google Play developer website
