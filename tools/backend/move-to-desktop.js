@@ -16,6 +16,7 @@ const rimraf = require('rimraf');
   );
   await fs.copy('./src/backend/package.json', './desktop/package.json');
   await fs.copy('./src/backend/patches', './desktop/patches');
+  rimraf.sync('./desktop/patches/ssb-validate2-rsjs-node*');
   await fs.copy(
     './src/backend/package-lock.json',
     './desktop/package-lock.json',
