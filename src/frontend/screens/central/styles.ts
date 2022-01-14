@@ -85,6 +85,6 @@ export const styles = StyleSheet.create({
   desktopFabContainer: {
     position: 'absolute',
     bottom: 0,
-    right: Dimensions.desktopSideWidth.vw,
+    right: 0,
   },
 });
