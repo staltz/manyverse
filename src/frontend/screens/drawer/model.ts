@@ -103,11 +103,12 @@ export default function model(
     .map((latestVersion) => {
       const [majorPrev, minorPrev, restPrev] = currentVersion.split('.');
       const [majorNext, minorNext, restNext] = latestVersion.split('.');
-      const patchPrev = restPrev.split('-')[0];
-      const patchNext = restNext.split('-')[0];
-      if (majorNext > majorPrev) return true;
-      if (minorNext > minorPrev) return true;
-      if (patchNext > patchPrev) return true;
+      const [patchPrev, tagPrev] = restPrev.split('-beta');
+      const [patchNext, tagNext] = restNext.split('-beta');
+      if (parseInt(majorNext, 10) > parseInt(majorPrev, 10)) return true;
+      if (parseInt(minorNext, 10) > parseInt(minorPrev, 10)) return true;
+      if (parseInt(patchNext, 10) > parseInt(patchPrev, 10)) return true;
+      if (tagNext > tagPrev) return true;
       return false;
     })
     .map(
