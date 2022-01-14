@@ -164,102 +164,159 @@ export default function view(
       const progressLabelOpacity =
         state.combinedProgress > 0 && state.combinedProgress < 1 ? 1 : 0;
 
-      return h(View, {style: styles.screen}, [
-        h(ProgressBar, {progress: combinedProgress}),
+      return h(
+        View,
+        {
+          //style: styles.screen
+          style: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            //margin: 'auto',
+            width: '100%',
+            height: '100%',
+            backgroundColor: Palette.voidMain,
+          },
+        },
+        [
+          h(ProgressBar, {progress: combinedProgress}),
 
-        h(TopBarRightSection, [
-          estimateProgressDone > 60e3
-            ? h(Text, {style: styles.syncingEstimateText}, [
-                t('drawer.menu.ready_estimate.label'),
-                ' ',
-                h(LocalizedHumanTime, {
-                  time: Date.now() + estimateProgressDone,
-                }),
-              ])
-            : null,
-        ]),
-
-        h(View, {style: styles.left}, [
-          h(TopBarLeftSection, [
-            h(
-              Text,
-              {style: [styles.progressLabel, {opacity: progressLabelOpacity}]},
-              t('drawer.menu.preparing_database.label'),
-            ),
+          h(TopBarRightSection, [
+            estimateProgressDone > 60e3
+              ? h(Text, {style: styles.syncingEstimateText}, [
+                  t('drawer.menu.ready_estimate.label'),
+                  ' ',
+                  h(LocalizedHumanTime, {
+                    time: Date.now() + estimateProgressDone,
+                  }),
+                ])
+              : null,
           ]),
 
-          h(View, {style: styles.leftMenu}, [
-            h(PublicTabIcon, {
-              style: styles.leftMenuTabButton,
-              isSelected: state.currentTab === 'public',
-              numOfUpdates: state.numOfPublicUpdates,
-            }),
-            h(PrivateTabIcon, {
-              style: styles.leftMenuTabButton,
-              isSelected: state.currentTab === 'private',
-              numOfUpdates: state.numOfPrivateUpdates,
-            }),
-            h(ActivityTabIcon, {
-              style: styles.leftMenuTabButton,
-              isSelected: state.currentTab === 'activity',
-              numOfUpdates: state.numOfActivityUpdates,
-            }),
-            h(ConnectionsTabIcon, {
-              style: styles.leftMenuTabButton,
-              isSelected: state.currentTab === 'connections',
-              status,
-              allowWarningColors: initializedSSB,
-            }),
+          h(
+            View,
+            {
+              //style: styles.left
+              style: {
+                flexGrow: 0,
+                flexShrink: 0,
+                flexBasis: '12rem',
+              },
+            },
+            [
+              h(TopBarLeftSection, [
+                h(
+                  Text,
+                  {
+                    style: [
+                      styles.progressLabel,
+                      {opacity: progressLabelOpacity},
+                    ],
+                  },
+                  t('drawer.menu.preparing_database.label'),
+                ),
+              ]),
 
-            h(View, {style: styles.spacer}),
+              h(View, {style: styles.leftMenu}, [
+                h(PublicTabIcon, {
+                  style: styles.leftMenuTabButton,
+                  isSelected: state.currentTab === 'public',
+                  numOfUpdates: state.numOfPublicUpdates,
+                }),
+                h(PrivateTabIcon, {
+                  style: styles.leftMenuTabButton,
+                  isSelected: state.currentTab === 'private',
+                  numOfUpdates: state.numOfPrivateUpdates,
+                }),
+                h(ActivityTabIcon, {
+                  style: styles.leftMenuTabButton,
+                  isSelected: state.currentTab === 'activity',
+                  numOfUpdates: state.numOfActivityUpdates,
+                }),
+                h(ConnectionsTabIcon, {
+                  style: styles.leftMenuTabButton,
+                  isSelected: state.currentTab === 'connections',
+                  status,
+                  allowWarningColors: initializedSSB,
+                }),
 
-            state.hasNewVersion
-              ? h(ExtraButton, {
-                  sel: 'new-version',
-                  label: t('drawer.menu.update.label'),
-                  accessibilityLabel: t(
-                    'drawer.menu.update.accessibility_label',
-                  ),
-                  iconName: 'update',
-                })
-              : null,
+                h(View, {style: styles.spacer}),
 
-            h(TabIcon, {
-              style: styles.leftMenuTabButton,
-              sel: 'more',
-              iconName: 'dots-horizontal',
-              label: t('drawer.menu.more.label'),
-              accessibilityLabel: t('drawer.menu.more.accessibility_label'),
-            }),
-            h(TabIcon, {
-              style: styles.leftMenuTabButton,
-              sel: 'settings',
-              iconName: 'cog',
-              label: t('drawer.menu.settings.label'),
-              accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
-            }),
-            h(TabIcon, {
-              style: styles.myProfileButton,
-              sel: 'self-profile',
-              iconName: 'account-circle',
-              label: state.name ?? t('drawer.menu.my_profile.label'),
-              accessibilityLabel: t(
-                'drawer.menu.my_profile.accessibility_label',
-              ),
-              renderIconExtras: () =>
-                state.selfAvatarUrl
-                  ? h(Avatar, {
-                      style: styles.avatar,
-                      size: Dimensions.iconSizeNormal,
-                      backgroundColor: Palette.textWeak,
-                      url: state.selfAvatarUrl,
+                state.hasNewVersion
+                  ? h(ExtraButton, {
+                      sel: 'new-version',
+                      label: t('drawer.menu.update.label'),
+                      accessibilityLabel: t(
+                        'drawer.menu.update.accessibility_label',
+                      ),
+                      iconName: 'update',
                     })
                   : null,
-            }),
-          ]),
-        ]),
 
-        h(View, {style: styles.centerAndRight}, [...children]),
-      ]);
+                h(TabIcon, {
+                  style: styles.leftMenuTabButton,
+                  sel: 'more',
+                  iconName: 'dots-horizontal',
+                  label: t('drawer.menu.more.label'),
+                  accessibilityLabel: t('drawer.menu.more.accessibility_label'),
+                }),
+                h(TabIcon, {
+                  style: styles.leftMenuTabButton,
+                  sel: 'settings',
+                  iconName: 'cog',
+                  label: t('drawer.menu.settings.label'),
+                  accessibilityLabel: t(
+                    'drawer.menu.settings.accessibility_label',
+                  ),
+                }),
+                h(TabIcon, {
+                  style: styles.myProfileButton,
+                  sel: 'self-profile',
+                  iconName: 'account-circle',
+                  label: state.name ?? t('drawer.menu.my_profile.label'),
+                  accessibilityLabel: t(
+                    'drawer.menu.my_profile.accessibility_label',
+                  ),
+                  renderIconExtras: () =>
+                    state.selfAvatarUrl
+                      ? h(Avatar, {
+                          style: styles.avatar,
+                          size: Dimensions.iconSizeNormal,
+                          backgroundColor: Palette.textWeak,
+                          url: state.selfAvatarUrl,
+                        })
+                      : null,
+                }),
+              ]),
+            ],
+          ),
+
+          h(
+            View,
+            {
+              //style: styles.centerAndRight
+              style: {
+                flexGrow: 0,
+                flexShrink: 1,
+                flexBasis: '36rem',
+              },
+            },
+            [...children],
+          ),
+
+          h(
+            View,
+            {
+              // blank right sidebar for padding
+              style: {
+                flexGrow: 0,
+                flexShrink: 0,
+                flexBasis: '12rem',
+              },
+            },
+            [],
+          ),
+        ],
+      );
     });
 }
