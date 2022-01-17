@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -49,26 +49,26 @@ function getPrivateMessageWithRecipient(
   return new Promise((resolve) => {
     const privateFeedReadable = getReadable();
 
-    privateFeedReadable(null, function read(
-      end: any,
-      item: PrivateThreadAndExtras,
-    ) {
-      if (end) {
-        return resolve(undefined);
-      }
+    privateFeedReadable(
+      null,
+      function read(end: any, item: PrivateThreadAndExtras) {
+        if (end) {
+          return resolve(undefined);
+        }
 
-      // Conversation just between user and the open profile
-      if (
-        item &&
-        item.recps &&
-        item.recps.length === 2 &&
-        item.recps.some((recp) => recp.id === recpId)
-      ) {
-        return resolve(item.messages[0].key);
-      }
+        // Conversation just between user and the open profile
+        if (
+          item &&
+          item.recps &&
+          item.recps.length === 2 &&
+          item.recps.some((recp) => recp.id === recpId)
+        ) {
+          return resolve(item.messages[0].key);
+        }
 
-      return privateFeedReadable(null, read);
-    });
+        return privateFeedReadable(null, read);
+      },
+    );
   });
 }
 
@@ -274,9 +274,7 @@ export default function navigation(
       } as Command;
     });
 
-  const pop$ = xs.merge(navSource.backPress(), actions.goBack$).mapTo({
-    type: 'pop',
-  } as PopCommand);
+  const pop$ = actions.goBack$.mapTo({type: 'pop'} as PopCommand);
 
   return xs.merge(
     toCompose$,

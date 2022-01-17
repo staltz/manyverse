@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,6 +8,7 @@ import emojiFont from './images/NotoColorEmoji.ttf';
 import {run} from 'cycle-native-navigation-web';
 import {screens, drivers} from './lib/frontend/index';
 import {welcomeLayout} from './lib/frontend/screens/layouts';
+const {ipcRenderer} = require('electron');
 
 // Set up fonts
 const fontStyles = `@font-face {
@@ -25,5 +26,8 @@ document.head.appendChild(style);
 
 // Wait for fonts to load before starting Cycle.js app
 document.fonts.ready.then(() => {
+  ipcRenderer.addListener('mouse-back-press', () => {
+    window.dispatchEvent(new Event('cyclenativenavigationweb-back'));
+  });
   run(screens, drivers, welcomeLayout);
 });
