@@ -14,9 +14,9 @@
     "clean-lib": "rm -rf lib",
     "full-clean": "npm run clean-android && npm run clean-bundler && rm -rf node_modules && rm -rf lib",
     "propagate-replacements": "propagate-replacement-fields --field=react-native",
-    "build-backend-desktop": "cross-env DONT_COMPILE=true node tools/build-backend.js --desktop --no-rust",
-    "build-backend-android": "./tools/build-backend.js --android --no-rust",
-    "build-backend-ios": "./tools/build-backend.js --ios --no-rust",
+    "build-backend-desktop": "cross-env DONT_COMPILE=true node tools/build-backend.js --desktop",
+    "build-backend-android": "./tools/build-backend.js --android",
+    "build-backend-ios": "./tools/build-backend.js --ios",
     "build-frontend-desktop": "npm run lib && webpack --mode production --config desktop/webpack.renderer.config.js",
     "build-desktop": "npm run build-backend-desktop && npm run build-frontend-desktop",
     "build-ios-assets": "npm run lib && npm run propagate-replacements && npm run build-backend-ios",
@@ -204,7 +204,7 @@
   "optionalDependencies": {
     "appium": "1.14.0",
     "faucet": "0.0.1",
-    "ssb-keys-mnemonic-neon": "1.0.0-2",
+    "ssb-keys-mnemonic": "1.0.1",
     "tap-spec": "5.0.0",
     "tape": "~4.9.1",
     "wd": "1.11.3"

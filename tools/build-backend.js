@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -10,7 +10,6 @@ const exec = util.promisify(require('child_process').exec);
 
 const loading = ora('...').start();
 const verbose = !!process.argv.includes('--verbose');
-const rustEnabled = !process.argv.includes('--no-rust');
 const targetPlatform = process.argv.includes('--ios')
   ? 'ios'
   : process.argv.includes('--desktop')
@@ -88,40 +87,18 @@ async function runAndReport(label, task) {
     );
   }
 
-  if (rustEnabled) {
-    if (targetPlatform === 'android') {
-      await runAndReport(
-        'Patch ssb-neon packages to configure linking with nodejs-mobile',
-        exec('./tools/backend/patch-android-ssb-neon-modules.sh'),
-      );
-    } else if (targetPlatform === 'ios') {
-      await runAndReport(
-        'Patch ssb-neon packages to add a postinstall script specific to iOS',
-        exec('./tools/backend/patch-ios-ssb-neon-modules.js'),
-      );
-    }
-  } else {
-    const rustNodeModules = [
-      'ssb-keys-neon',
-      'ssb-keys-mnemonic-neon',
-      'ssb-validate2-rsjs-node',
-    ];
-    if (targetPlatform === 'desktop') {
-      await runAndReport(
-        'Remove Rust node modules',
-        exec('rm -rf ' + rustNodeModules.join(' '), {
-          cwd: './desktop/node_modules',
-        }),
-      );
-    } else {
-      await runAndReport(
-        'Remove Rust node modules',
-        exec('rm -rf ' + rustNodeModules.join(' '), {
-          cwd: './nodejs-assets/nodejs-project/node_modules',
-        }),
-      );
-    }
-  }
+  const rustNodeModules = ['ssb-validate2-rsjs-node'];
+  await runAndReport(
+    'Remove Rust node modules',
+    exec('rm -rf ' + rustNodeModules.join(' '), {
+      cwd:
+        './' +
+        (targetPlatform === 'desktop'
+          ? 'desktop'
+          : 'nodejs-assets/nodejs-project') +
+        '/node_modules',
+    }),
+  );
 
   if (targetPlatform === 'desktop') {
     await runAndReport(
@@ -171,29 +148,15 @@ async function runAndReport(label, task) {
   }
 
   if (targetPlatform === 'desktop') {
-    if (rustEnabled) {
-      await runAndReport(
-        'Bundle and minify backend JS into one file',
-        exec('node tools/backend/noderify-desktop.js'),
-      );
-    } else {
-      await runAndReport(
-        'Bundle and minify backend JS into one file',
-        exec('node tools/backend/noderify-desktop.js --no-rust'),
-      );
-    }
+    await runAndReport(
+      'Bundle and minify backend JS into one file',
+      exec('node tools/backend/noderify.js'),
+    );
   } else {
-    if (rustEnabled) {
-      await runAndReport(
-        'Bundle and minify backend JS into one file',
-        exec('./tools/backend/noderify-mobile.sh'),
-      );
-    } else {
-      await runAndReport(
-        'Bundle and minify backend JS into one file',
-        exec('./tools/backend/noderify-mobile-no-rust.sh'),
-      );
-    }
+    await runAndReport(
+      'Bundle and minify backend JS into one file',
+      exec('./tools/backend/noderify.js --mobile'),
+    );
   }
 
   if (targetPlatform === 'android') {
