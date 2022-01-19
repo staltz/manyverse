@@ -106,7 +106,6 @@ module.exports = {
   // Windows-specific configurations -------------------------------------------
   win: {
     publisherName: AUTHOR,
-    certificateSubjectName: AUTHOR,
   },
 
   nsis: {
