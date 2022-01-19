@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2021 The Manyverse Authors
+SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 
 SPDX-License-Identifier: CC-BY-4.0
 -->
@@ -84,14 +84,19 @@ Then make an iOS release:
 
 ## Desktop
 
-These will be built automatically by GitHub Actions and published to [GitHub releases](https://github.com/staltz/manyverse/releases).
+These will be built automatically by GitHub Actions and published to [GitHub releases](https://github.com/staltz/manyverse/releases), you just need to make sure you run:
+
+```
+git push origin --tags
+```
 
 ## Publish
 
-- Deploy as an APK on the website
+- Deploy desktop and indie APK on the website
   - Go to `android/app/build/outputs/apk/indie/release` and copy the `app-indie-release.apk` file
   - Put the file in the manyverse-website repo at `./static/app-indie-release.apk`
-  - Deploy the website
+  - `npm run build` in the website repo
+  - `npm run deploy` in the website repo
 - Publish Android to Google Play
   - Take the APK file from `android/app/build/outputs/apk/googlePlay/release`, upload and publish it on Google Play developer website
 - Publish iOS to the App Store
