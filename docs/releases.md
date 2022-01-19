@@ -61,6 +61,14 @@ First make an Android release, then an iOS release.
 - `npm run install-android-indie` to install the new APK on a device and make sure it works
 - `git push origin master` to update the repository
 
+## Desktop
+
+These will be built automatically by GitHub Actions and published to [GitHub releases](https://github.com/staltz/manyverse/releases), you just need to make sure you run:
+
+```
+git push origin --tags
+```
+
 ## iOS
 
 Then make an iOS release:
@@ -82,19 +90,10 @@ Then make an iOS release:
   - "**Export**"
   - Proceed as usual, and at the very end, press "Export" and choose a folder
 
-## Desktop
-
-These will be built automatically by GitHub Actions and published to [GitHub releases](https://github.com/staltz/manyverse/releases), you just need to make sure you run:
-
-```
-git push origin --tags
-```
-
 ## Publish
 
 - Deploy desktop and indie APK on the website
-  - Go to `android/app/build/outputs/apk/indie/release` and copy the `app-indie-release.apk` file
-  - Put the file in the manyverse-website repo at `./static/app-indie-release.apk`
+  - `npm run update-apk` in the website repo
   - `npm run build` in the website repo
   - `npm run deploy` in the website repo
 - Publish Android to Google Play
