@@ -2,6 +2,12 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2201.19-beta
+
+* (Desktop) Bug fix: scroll bar in dialogs on wide screens ([see details](https://gitlab.com/staltz/manyverse/commit/0127bba46692ce15928ab9ea21789fc9d6f6a87b))
+* (Desktop) Feature: support back button on some mouses ([see details](https://gitlab.com/staltz/manyverse/commit/243a8e83ec810ee4c2a84a03979042fd40a7bcc7))
+* Bug fix: database glitches when a opening thread ([see details](https://gitlab.com/staltz/manyverse/commit/0aff692d45b2198e1a6276d92009af206e90f3f1)), closes [#1707](https://gitlab.com/staltz/manyverse/issues/1707)
+
 ## 0.2201.14-beta.b
 
 * Bug fix: detection of new version, -indie and desktop ([see details](https://gitlab.com/staltz/manyverse/commit/e5d58a9ada84e9d4f9c30bec6edded9c7b852a81))

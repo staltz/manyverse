@@ -274,7 +274,7 @@ export default [
   {
     name: 'cycle-native-navigation-web',
     type: 'library',
-    version: '1.0.2',
+    version: '1.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation-web',
   },
@@ -883,20 +883,6 @@ export default [
     version: '1.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-keys-mnemonic',
-  },
-  {
-    name: 'ssb-keys-mnemonic-neon',
-    type: 'library',
-    version: '1.0.0-3',
-    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
-    homepage: 'https://github.com/staltz/ssb-keys-mnemonic-neon#readme',
-  },
-  {
-    name: 'ssb-keys-neon',
-    type: 'library',
-    version: '8.2.0-1',
-    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
-    homepage: 'https://github.com/staltz/ssb-keys-neon#readme',
   },
   {
     name: 'ssb-lan',
