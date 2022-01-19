@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -105,6 +105,12 @@ async function oneTimeFixes() {
     rimraf.sync(defaults.indexesPath(SSB_DIR));
     fs.closeSync(fs.openSync(ISSUE_1628, 'w'));
     await deleteDuplicateRecordsOnLog();
+  }
+
+  const ISSUE_1707 = path.join(SSB_DIR, 'issue1707');
+  if (!fs.existsSync(ISSUE_1707)) {
+    rimraf.sync(defaults.indexesPath(SSB_DIR));
+    fs.closeSync(fs.openSync(ISSUE_1707, 'w'));
   }
 }
 
