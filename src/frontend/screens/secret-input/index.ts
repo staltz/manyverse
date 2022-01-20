@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2019 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -56,7 +56,7 @@ function intent(navSource: NavSource, screenSource: ReactSource) {
 
     updateWords$: screenSource
       .select('inputField')
-      .events('changeText') as Stream<string>,
+      .events<string>('changeText'),
 
     confirm$: screenSource.select('confirm').events('press'),
   };

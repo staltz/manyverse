@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import {ReactSource} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
@@ -24,36 +24,33 @@ export default function intent(
 ) {
   const feedRefreshed$ = reactSource
     .select('publicFeed')
-    .events('refresh') as Stream<any>;
+    .events<any>('refresh');
 
   return {
     goToCompose$: fabPress$.filter((action) => action === 'compose'),
 
-    goToAccounts$: (
-      reactSource
-        .select('publicFeed')
-        .events('pressReactions') as Stream<PressReactionsEvent>
-    ).map(({msgKey, reactions}) => ({
-      title: t('accounts.reactions.title'),
-      msgKey,
-      accounts: reactions,
-    })),
+    goToAccounts$: reactSource
+      .select('publicFeed')
+      .events<PressReactionsEvent>('pressReactions')
+      .map(({msgKey, reactions}) => ({
+        title: t('accounts.reactions.title'),
+        msgKey,
+        accounts: reactions,
+      })),
 
     addReactionMsg$: reactSource
       .select('publicFeed')
-      .events('pressAddReaction') as Stream<PressAddReactionEvent>,
+      .events<PressAddReactionEvent>('pressAddReaction'),
 
-    goToProfile$: xs.merge(
-      reactSource.select('publicFeed').events('pressAuthor'),
-    ) as Stream<ProfileNavEvent>,
-
-    openMessageEtc$: reactSource
+    goToProfile$: reactSource
       .select('publicFeed')
-      .events('pressEtc') as Stream<Msg>,
+      .events<ProfileNavEvent>('pressAuthor'),
+
+    openMessageEtc$: reactSource.select('publicFeed').events<Msg>('pressEtc'),
 
     initializationDone$: reactSource
       .select('publicFeed')
-      .events('initialPullDone') as Stream<void>,
+      .events<void>('initialPullDone'),
 
     refreshFeed$: feedRefreshed$,
 
@@ -65,10 +62,10 @@ export default function intent(
 
     goToThread$: reactSource
       .select('publicFeed')
-      .events('pressExpand') as Stream<MsgAndExtras>,
+      .events<MsgAndExtras>('pressExpand'),
 
     goToThreadExpandCW$: reactSource
       .select('publicFeed')
-      .events('pressExpandCW') as Stream<MsgAndExtras>,
+      .events<MsgAndExtras>('pressExpandCW'),
   };
 }

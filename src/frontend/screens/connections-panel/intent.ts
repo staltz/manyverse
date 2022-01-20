@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -49,11 +49,9 @@ export default function intent(
 
     openPeerInConnection$: reactSource
       .select('list-of-peers')
-      .events('pressPeer') as Stream<PeerKV>,
+      .events<PeerKV>('pressPeer'),
 
-    openRoom$: reactSource
-      .select('list-of-peers')
-      .events('pressRoom') as Stream<PeerKV>,
+    openRoom$: reactSource.select('list-of-peers').events<PeerKV>('pressRoom'),
 
     openStagedPeer$: reactSource.select('list-of-peers').events('pressStaged'),
 

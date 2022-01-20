@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -44,22 +44,18 @@ export default function intent(
 
     keyboardDisappeared$: keyboardSource.events('keyboardDidHide').mapTo(null),
 
-    goToAccounts$: (
-      reactSource
-        .select('thread')
-        .events('pressReactions') as Stream<PressReactionsEvent>
-    ).map(({msgKey, reactions}) => ({
-      title: t('accounts.reactions.title'),
-      msgKey,
-      accounts: reactions,
-    })),
+    goToAccounts$: reactSource
+      .select('thread')
+      .events<PressReactionsEvent>('pressReactions')
+      .map(({msgKey, reactions}) => ({
+        title: t('accounts.reactions.title'),
+        msgKey,
+        accounts: reactions,
+      })),
 
     goToAnotherThread$: reactSource
       .select('thread')
-      .events('pressReplyToReply') as Stream<{
-      rootMsgId: MsgId;
-      msg: MsgAndExtras;
-    }>,
+      .events<{rootMsgId: MsgId; msg: MsgAndExtras}>('pressReplyToReply'),
 
     goToCompose$: reactSource
       .select('reply-expand')
@@ -68,7 +64,7 @@ export default function intent(
 
     addReactionMsg$: reactSource
       .select('thread')
-      .events('pressAddReaction') as Stream<PressAddReactionEvent>,
+      .events<PressAddReactionEvent>('pressAddReaction'),
 
     loadReplyDraft$: xs.merge(
       props$.map((props) => props.rootMsgId ?? props.rootMsg.key),
@@ -80,27 +76,23 @@ export default function intent(
 
     threadViewabilityChanged$: reactSource
       .select('thread')
-      .events('viewableItemsChanged') as Stream<any>,
+      .events<any>('viewableItemsChanged'),
 
-    replySeen$: reactSource
-      .select('thread')
-      .events('replySeen') as Stream<MsgId>,
+    replySeen$: reactSource.select('thread').events<MsgId>('replySeen'),
 
     focusTextInput$: reactSource
       .select('thread')
-      .events('pressReplyToRoot') as Stream<undefined>,
+      .events<undefined>('pressReplyToRoot'),
 
-    openMessageEtc$: reactSource
-      .select('thread')
-      .events('pressEtc') as Stream<Msg>,
+    openMessageEtc$: reactSource.select('thread').events<Msg>('pressEtc'),
 
     updateReplyText$: reactSource
       .select('reply-input')
-      .events('changeText') as Stream<string>,
+      .events<string>('changeText'),
 
-    goToProfile$: reactSource.select('thread').events('pressAuthor') as Stream<{
-      authorFeedId: FeedId;
-    }>,
+    goToProfile$: reactSource
+      .select('thread')
+      .events<{authorFeedId: FeedId}>('pressAuthor'),
 
     exit$: xs.merge(
       navSource.backPress(),

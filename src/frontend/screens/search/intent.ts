@@ -31,7 +31,7 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
 
   const queryInputChangeText$ = reactSource
     .select('queryInput')
-    .events('changeText') as Stream<string>;
+    .events<string>('changeText');
 
   const updateQueryNow$ = queryInputChangeText$;
 
@@ -66,47 +66,41 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
   );
 
   const goToThread$ = xs.merge(
-    reactSource.select('results').events('pressResult') as Stream<
-      MsgAndExtras<PostContent>
-    >,
+    reactSource
+      .select('results')
+      .events<MsgAndExtras<PostContent>>('pressResult'),
 
-    reactSource.select('feed').events('pressExpand') as Stream<
-      MsgAndExtras<PostContent>
-    >,
+    reactSource.select('feed').events<MsgAndExtras<PostContent>>('pressExpand'),
 
     shortcutToThread$,
   );
 
   const goToProfile$ = xs.merge(
-    (
-      reactSource
-        .select('feed')
-        .events('pressAuthor') as Stream<ProfileNavEvent>
-    ).map((ev) => ev.authorFeedId),
+    reactSource
+      .select('feed')
+      .events<ProfileNavEvent>('pressAuthor')
+      .map((ev) => ev.authorFeedId),
 
     shortcutToProfile$,
   );
 
-  const goToAccounts$ = (
-    reactSource
-      .select('feed')
-      .events('pressReactions') as Stream<PressReactionsEvent>
-  ).map(({reactions}) => ({
-    title: t('accounts.reactions.title'),
-    accounts: reactions,
-  }));
-
-  const openMessageEtc$ = reactSource
+  const goToAccounts$ = reactSource
     .select('feed')
-    .events('pressEtc') as Stream<Msg>;
+    .events<PressReactionsEvent>('pressReactions')
+    .map(({reactions}) => ({
+      title: t('accounts.reactions.title'),
+      accounts: reactions,
+    }));
+
+  const openMessageEtc$ = reactSource.select('feed').events<Msg>('pressEtc');
 
   const goToThreadExpandCW$ = reactSource
     .select('feed')
-    .events('pressExpandCW') as Stream<MsgAndExtras>;
+    .events<MsgAndExtras>('pressExpandCW');
 
   const addReactionMsg$ = reactSource
     .select('feed')
-    .events('pressAddReaction') as Stream<PressAddReactionEvent>;
+    .events<PressAddReactionEvent>('pressAddReaction');
 
   return {
     goBack$,
