@@ -5,14 +5,16 @@
 import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
 import {SSBSource} from '../../drivers/ssb';
+import {GetReadable} from '../../drivers/ssb';
+const pull = require('pull-stream');
+
+export type Meme = {
+  name: string;
+};
 
 export interface State {
-  status: 'idle' | 'recording' | 'finalizing' | 'recorded';
-  path: string | null;
-  blobId: string | null;
-  startedRecordingAt: number;
-  duration: number;
-  loudness: number;
+  meme$: GetReadable<Meme>;
+  query: string;
 }
 
 interface Actions {}
@@ -24,13 +26,22 @@ export default function model(
 ): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initOrResetReducer(_prev?: State): State {
     return {
-      status: 'idle',
-      path: null,
-      blobId: null,
-      startedRecordingAt: 0,
-      duration: 0,
-      loudness: 0,
+      meme$: pull.empty(),
+      query: '',
     };
   });
-  return xs.merge(initReducer$);
+
+  const memesReducer$ = state$.map(
+    ({query}) =>
+      function aboutsReducer(prev: State): State {
+        const meme$ = pull.values([
+          {name: 'asdf'},
+          {name: 'hjkl'},
+          {name: query},
+        ]) as State['meme$'];
+        return {...prev, meme$};
+      },
+  );
+
+  return xs.merge(initReducer$, memesReducer$);
 }
