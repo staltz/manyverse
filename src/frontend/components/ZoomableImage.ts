@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {createElement, PureComponent} from 'react';
+import {createElement, createRef, PureComponent, RefObject} from 'react';
 import {
   View,
   Text,
@@ -86,14 +86,22 @@ export default class ZoomableImage extends PureComponent<Props, State> {
 
   private mounted = false;
   private onOpen = () => {
-    if (this.mounted) this.setState({fullscreen: true});
+    if (!this.mounted) return;
+    this.setState({fullscreen: true});
   };
   private onClose = () => {
-    if (this.mounted) this.setState({fullscreen: false});
+    if (!this.mounted) return;
+    this.setState({fullscreen: false});
   };
   private onLoad = () => {
-    if (this.mounted) this.setState({loaded: true});
+    if (!this.mounted) return;
+
+    this.setState({loaded: true});
+    if (Platform.OS === 'web' && this.imageRef?.current && this.props.title) {
+      this.imageRef.current.setNativeProps({title: this.props.title});
+    }
   };
+  private imageRef: RefObject<Image> = createRef();
 
   public componentDidMount() {
     this.mounted = true;
@@ -197,6 +205,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
           {onPress: this.onOpen, key: 't'},
           $(Image, {
             key: 'preview',
+            ref: this.imageRef,
             source: {uri},
             accessible: true,
             accessibilityRole: 'image',

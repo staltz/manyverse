@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Animated,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
@@ -219,6 +220,35 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
       const isSelfProfile = state.displayFeedId === state.selfFeedId;
       const isBlocked = state.youBlock?.response ?? false;
 
+      const fab = h(FloatingAction, {
+        sel: 'fab',
+        color: Palette.backgroundCTA,
+        visible: isSelfProfile,
+        actions: [
+          {
+            color: Palette.backgroundCTA,
+            name: 'compose',
+            icon: getImg(require('../../../../../images/pencil.png')),
+            text: t('profile.floating_action_button.compose'),
+          },
+        ],
+        overrideWithAction: true,
+        iconHeight: 24,
+        iconWidth: 24,
+        distanceToEdge:
+          Platform.OS === 'web'
+            ? ({
+                vertical: Dimensions.verticalSpaceLarge,
+                horizontal: Dimensions.horizontalSpaceBig,
+              } as any)
+            : 30,
+      });
+
+      const fabSection =
+        Platform.OS === 'web'
+          ? h(View, {style: styles.desktopFabContainer}, [fab])
+          : fab;
+
       return h(View, {style: styles.container}, [
         h(ProfileTopBar, {state, isSelfProfile, nameTransY}),
 
@@ -290,24 +320,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
               }),
             ]),
 
-        isSelfProfile
-          ? h(FloatingAction, {
-              sel: 'fab',
-              color: Palette.backgroundCTA,
-              visible: isSelfProfile,
-              actions: [
-                {
-                  color: Palette.backgroundCTA,
-                  name: 'compose',
-                  icon: getImg(require('../../../../../images/pencil.png')),
-                  text: t('profile.floating_action_button.compose'),
-                },
-              ],
-              overrideWithAction: true,
-              iconHeight: 24,
-              iconWidth: 24,
-            })
-          : null,
+        isSelfProfile ? fabSection : null,
       ]);
     });
 }

@@ -16,6 +16,11 @@ const rimraf = require('rimraf');
   );
   await fs.copy('./src/backend/package.json', './desktop/package.json');
   await fs.copy('./src/backend/patches', './desktop/patches');
+
+  // This is not needed and it was failing our builds, see:
+  // https://github.com/staltz/manyverse/actions/runs/1697461629
+  rimraf.sync('./desktop/patches/ssb-validate2-rsjs-node*');
+
   await fs.copy(
     './src/backend/package-lock.json',
     './desktop/package-lock.json',

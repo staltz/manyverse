@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -31,9 +31,7 @@ fs.writeFileSync(filename, newContents);
 
 // Report important info on the console
 console.log(
-  `App: ${json.PACKAGE_NAME} ${json.APP_VERSION_NAME} (${
-    json.APP_VERSION_CODE
-  })`,
+  `App: ${json.PACKAGE_NAME} ${json.APP_VERSION_NAME} (${json.APP_VERSION_CODE})`,
 );
 console.log(
   `Device: ${json.BUILD.MANUFACTURER} ${

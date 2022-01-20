@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -85,7 +85,8 @@ export default class AccountSmall extends PureComponent<AccountProps> {
       onPress,
     };
     if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+      touchableProps.background =
+        TouchableNativeFeedback.SelectableBackground();
     }
 
     let renderedName = name ? displayName(name, id) : '';

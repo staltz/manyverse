@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -228,37 +228,45 @@ class Dialogs extends Component<unknown, State> implements Implementation {
           ],
         );
       } else if (state.show === 'picker') {
-        return $(Dialog, {open: true, onClose: () => this.dismiss()}, [
-          $(
-            List,
-            {
-              key: 'list',
-              style: {
-                minWidth: '40vw',
-                backgroundColor:
-                  state.options?.backgroundColor ??
-                  Palette.dialogColors.backgroundColor,
-              },
-            },
-            (state.options?.items ?? []).map((item: any) =>
-              $(
-                ListItem,
-                {
-                  key: item.id,
-                  button: true,
-                  onClick: () => this.onPressSelect(item.id),
+        return $(
+          Dialog,
+          {
+            open: true,
+            onClose: () => this.dismiss(),
+            fullWidth: true,
+            maxWidth: 'xs',
+          },
+          [
+            $(
+              List,
+              {
+                key: 'list',
+                style: {
+                  backgroundColor:
+                    state.options?.backgroundColor ??
+                    Palette.dialogColors.backgroundColor,
                 },
-                $(ListItemText, {
-                  key: 'text',
-                  primary: item.label,
-                  style: {
-                    color: state.options?.contentColor ?? Palette.text,
+              },
+              (state.options?.items ?? []).map((item: any) =>
+                $(
+                  ListItem,
+                  {
+                    key: item.id,
+                    button: true,
+                    onClick: () => this.onPressSelect(item.id),
                   },
-                }),
+                  $(ListItemText, {
+                    key: 'text',
+                    primary: item.label,
+                    style: {
+                      color: state.options?.contentColor ?? Palette.text,
+                    },
+                  }),
+                ),
               ),
             ),
-          ),
-        ]);
+          ],
+        );
       }
     }
   }

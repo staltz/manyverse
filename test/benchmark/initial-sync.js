@@ -4,7 +4,7 @@
 
 const fs = require('fs');
 const wd = require('wd');
-const mnemonic = require('ssb-keys-mnemonic-neon');
+const mnemonic = require('ssb-keys-mnemonic');
 
 async function scrollUpUntil(driver, conditionFn) {
   for (let _ of Array(10e3)) {

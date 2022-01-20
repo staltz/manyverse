@@ -74,6 +74,13 @@ function createWindow() {
     }
   });
 
+  win.on('app-command', (e, cmd) => {
+    // Navigate the window back when the user hits their mouse back button
+    if (cmd === 'browser-backward' && win) {
+      win.webContents.send('mouse-back-press', null);
+    }
+  });
+
   win.webContents.on('new-window', (ev: any, url: string) => {
     ev.preventDefault();
     // open the url in the default system browser

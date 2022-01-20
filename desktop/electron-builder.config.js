@@ -10,15 +10,17 @@ const backendPackageJSON = require('./package.json');
 const firstCopyrightYear = 2018;
 const lastCopyrightYear = new Date().getFullYear();
 const AUTHOR = 'The Manyverse Authors';
+const NAME_HUMAN = 'Manyverse';
+const NAME_COMPUTER = 'manyverse';
 
 module.exports = {
   // Metadata ------------------------------------------------------------------
   appId: 'se.manyver',
-  productName: 'Manyverse',
+  productName: NAME_HUMAN,
   copyright: `${firstCopyrightYear}-${lastCopyrightYear} ${AUTHOR}`,
   buildVersion: topPackageJSON.version,
   extraMetadata: {
-    name: 'manyverse',
+    name: NAME_COMPUTER,
     version: topPackageJSON.version,
     description: 'A social network off the grid',
     author: AUTHOR,
@@ -75,6 +77,9 @@ module.exports = {
       // https://github.com/electron-userland/electron-builder/issues/5024
       // {target: 'AppImage', arch: ['x64']},
     ],
+    desktop: {
+      StartupWMClass: NAME_COMPUTER,
+    },
     category: 'Network',
   },
 

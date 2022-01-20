@@ -227,6 +227,10 @@ Files: ios/Manyverse/Info.plist
 Copyright: 2021 The Manyverse Authors
 License: MPL-2.0
 
+Files: ios/ipaExport.plist
+Copyright: 2022 The Manyverse Authors
+License: MPL-2.0
+
 Files: ios/Manyverse.xcodeproj/project.pbxproj
 Copyright: 2021 The Manyverse Authors
 License: MPL-2.0

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -7,7 +7,7 @@
 
 const path = require('path');
 const OriginalResolver = require('metro-resolver');
-const blocklist = require('metro-config/src/defaults/exclusionList');
+const exclusionList = require('metro-config/src/defaults/exclusionList');
 
 const IGNORE_ON_MOBILE = ['fs', 'nuka-carousel'];
 
@@ -23,7 +23,7 @@ module.exports = {
 
   resolver: {
     platforms: ['android', 'ios', 'web'],
-    blacklistRE: blocklist([
+    blacklistRE: exclusionList([
       /\/android\/.*/,
       /\/desktop\/.*/,
       /\/benchmark\/.*/,

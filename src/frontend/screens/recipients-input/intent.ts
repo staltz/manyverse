@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -17,20 +17,20 @@ export default function intent(
   return {
     updateQuery$: reactSource
       .select('mentionInput')
-      .events('changeText') as Stream<string>,
+      .events<string>('changeText'),
 
     updateRecipients$: reactSource
       .select('recipients')
-      .events('updated') as Stream<PrivateThreadAndExtras['recps']>,
+      .events<PrivateThreadAndExtras['recps']>('updated'),
 
     maxReached$: reactSource
       .select('recipients')
-      .events('maxReached') as Stream<undefined>,
+      .events<undefined>('maxReached'),
 
     goBack$: xs.merge(
       navSource.backPress(),
-      reactSource.select('topbar').events('pressBack'),
-    ) as Stream<null>,
+      reactSource.select('topbar').events<null>('pressBack'),
+    ),
 
     goToNewConversation$: reactSource
       .select('recipientsInputNextButton')

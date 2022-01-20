@@ -67,7 +67,7 @@ export default function intent(
 
     updateContent$: reactSource
       .select('contentInput')
-      .events('changeText') as Stream<string>,
+      .events<string>('changeText'),
 
     quitFromKeyboard$: keyboardSource
       .events('keyboardDidHide')

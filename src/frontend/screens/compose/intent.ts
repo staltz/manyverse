@@ -57,9 +57,9 @@ export default function intent(
 
   const selectionChange$ = reactSource
     .select('composeInput')
-    .events('selectionChange') as Stream<
-    NativeSyntheticEvent<TextInputSelectionChangeEventData>
-  >;
+    .events<NativeSyntheticEvent<TextInputSelectionChangeEventData>>(
+      'selectionChange',
+    );
   const focusInput$ = reactSource.select('composeInput').events('focus');
   const blurInput$ = reactSource.select('composeInput').events('blur');
 
@@ -124,7 +124,7 @@ export default function intent(
 
     updatePostText$: reactSource
       .select('composeInput')
-      .events('changeText') as Stream<string>,
+      .events<string>('changeText'),
 
     // Android and iOS behave slightly different
     updateSelection$: Platform.select({
@@ -144,17 +144,17 @@ export default function intent(
 
     chooseMention$: reactSource
       .select('mentions-menu')
-      .events('select') as Stream<FeedId>,
+      .events<FeedId>('select'),
 
     cancelMention$: reactSource.select('mentions-menu').events('backdropPress'),
 
     openContentWarning$: reactSource
       .select('content-warning')
-      .events('press') as Stream<null>,
+      .events<null>('press'),
 
     toggleContentWarningPreview$: reactSource
       .select('content-warning-preview')
-      .events('pressToggle') as Stream<null>,
+      .events<null>('pressToggle'),
 
     goToComposeAudio$: reactSource
       .select('record-audio')

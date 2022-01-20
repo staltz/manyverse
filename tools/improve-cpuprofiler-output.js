@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -55,7 +55,7 @@ function loadBundleLines(filename, cb) {
   });
 
   const lines = [];
-  rl.on('line', function(line) {
+  rl.on('line', function (line) {
     lines.push(line);
   });
 

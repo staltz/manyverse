@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -32,25 +32,24 @@ export default function intent(
     goToCompose$: reactSource.select('fab').events('pressItem'),
 
     goToBio$: xs.merge(
-      reactSource.select('bio').events('press'),
+      reactSource.select('bio').events<null>('press'),
       reactSource
         .select('avatar')
-        .events('press')
+        .events<null>('press')
         .compose(sample(state$))
         .filter((state) => !!state.about.imageUrl),
-    ) as Stream<null>,
+    ),
 
-    goToEdit$: reactSource.select('editProfile').events('press') as Stream<
-      null
-    >,
+    goToEdit$: reactSource.select('editProfile').events<null>('press'),
 
     goToAccounts$: xs.merge(
-      (reactSource.select('feed').events('pressReactions') as Stream<
-        PressReactionsEvent
-      >).map(({reactions}) => ({
-        title: t('accounts.reactions.title'),
-        accounts: reactions,
-      })),
+      reactSource
+        .select('feed')
+        .events<PressReactionsEvent>('pressReactions')
+        .map(({reactions}) => ({
+          title: t('accounts.reactions.title'),
+          accounts: reactions,
+        })),
 
       reactSource
         .select('following')
@@ -73,39 +72,33 @@ export default function intent(
         })),
     ),
 
-    goToProfile$: reactSource.select('feed').events('pressAuthor') as Stream<
-      ProfileNavEvent
-    >,
+    goToProfile$: reactSource
+      .select('feed')
+      .events<ProfileNavEvent>('pressAuthor'),
 
-    openMessageEtc$: reactSource.select('feed').events('pressEtc') as Stream<
-      Msg
-    >,
+    openMessageEtc$: reactSource.select('feed').events<Msg>('pressEtc'),
 
-    refreshFeed$: reactSource.select('feed').events('refresh') as Stream<any>,
+    refreshFeed$: reactSource.select('feed').events<any>('refresh'),
 
     manageContact$: reactSource
       .select('manage')
       .events('press')
       .compose(sample(state$)),
 
-    goToFeedId$: reactSource.select('feedId').events('press') as Stream<any>,
+    goToFeedId$: reactSource.select('feedId').events<any>('press'),
 
-    consumeAlias$: reactSource.select('aliases').events('pressAlias') as Stream<
-      Alias
-    >,
+    consumeAlias$: reactSource.select('aliases').events<Alias>('pressAlias'),
 
-    goToThread$: reactSource.select('feed').events('pressExpand') as Stream<
-      MsgAndExtras
-    >,
+    goToThread$: reactSource.select('feed').events<MsgAndExtras>('pressExpand'),
 
     goToThreadExpandCW$: reactSource
       .select('feed')
-      .events('pressExpandCW') as Stream<MsgAndExtras>,
+      .events<MsgAndExtras>('pressExpandCW'),
 
     addReactionMsg$: reactSource
       .select('feed')
-      .events('pressAddReaction') as Stream<PressAddReactionEvent>,
+      .events<PressAddReactionEvent>('pressAddReaction'),
 
-    follow$: reactSource.select('follow').events('press') as Stream<boolean>,
+    follow$: reactSource.select('follow').events<boolean>('press'),
   };
 }

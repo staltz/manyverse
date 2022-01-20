@@ -33,13 +33,20 @@ module.exports = function (driver, t) {
   });
 
   t.test('Welcome screen displays the off grid tutorial', async function (t) {
-    const title = 'Off-the-grid';
+    const title = 'Off the grid';
+    const titleAlt = 'Off-the-grid';
     const desc = 'Manyverse can use internet connectivity';
     t.ok(
-      await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().text("' + title + '")',
-        6000,
-      ),
+      await Promise.race([
+        driver.waitForElementByAndroidUIAutomator(
+          'new UiSelector().text("' + title + '")',
+          6000,
+        ),
+        driver.waitForElementByAndroidUIAutomator(
+          'new UiSelector().text("' + titleAlt + '")',
+          6000,
+        ),
+      ]),
       'I see the second title in the Welcome screen',
     );
     t.ok(
