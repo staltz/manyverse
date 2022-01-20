@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -40,17 +40,16 @@ export default function intent(
         .filter((state) => !!state.about.imageUrl),
     ) as Stream<null>,
 
-    goToEdit$: reactSource.select('editProfile').events('press') as Stream<
-      null
-    >,
+    goToEdit$: reactSource.select('editProfile').events<null>('press'),
 
     goToAccounts$: xs.merge(
-      (reactSource.select('feed').events('pressReactions') as Stream<
-        PressReactionsEvent
-      >).map(({reactions}) => ({
-        title: t('accounts.reactions.title'),
-        accounts: reactions,
-      })),
+      reactSource
+        .select('feed')
+        .events<PressReactionsEvent>('pressReactions')
+        .map(({reactions}) => ({
+          title: t('accounts.reactions.title'),
+          accounts: reactions,
+        })),
 
       reactSource
         .select('following')
@@ -73,13 +72,13 @@ export default function intent(
         })),
     ),
 
-    goToProfile$: reactSource.select('feed').events('pressAuthor') as Stream<
-      ProfileNavEvent
-    >,
+    goToProfile$: reactSource
+      .select('feed')
+      .events('pressAuthor') as Stream<ProfileNavEvent>,
 
-    openMessageEtc$: reactSource.select('feed').events('pressEtc') as Stream<
-      Msg
-    >,
+    openMessageEtc$: reactSource
+      .select('feed')
+      .events('pressEtc') as Stream<Msg>,
 
     refreshFeed$: reactSource.select('feed').events('refresh') as Stream<any>,
 
@@ -90,13 +89,13 @@ export default function intent(
 
     goToFeedId$: reactSource.select('feedId').events('press') as Stream<any>,
 
-    consumeAlias$: reactSource.select('aliases').events('pressAlias') as Stream<
-      Alias
-    >,
+    consumeAlias$: reactSource
+      .select('aliases')
+      .events('pressAlias') as Stream<Alias>,
 
-    goToThread$: reactSource.select('feed').events('pressExpand') as Stream<
-      MsgAndExtras
-    >,
+    goToThread$: reactSource
+      .select('feed')
+      .events('pressExpand') as Stream<MsgAndExtras>,
 
     goToThreadExpandCW$: reactSource
       .select('feed')

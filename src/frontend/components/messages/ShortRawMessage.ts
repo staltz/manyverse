@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -114,7 +114,8 @@ export default class ShortRawMessage extends Component<Props> {
       style: styles.touchable,
     };
     if (Platform.OS === 'android') {
-      touchableProps.background = TouchableNativeFeedback.SelectableBackground();
+      touchableProps.background =
+        TouchableNativeFeedback.SelectableBackground();
     }
 
     const authorNameText = h(

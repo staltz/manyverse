@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -150,16 +150,18 @@ export function accounts(sources: Sources): Sinks {
           function aboutsReducer(prev: State): State {
             if (!getReadable) return prev;
 
-            const abouts = (hasReactions
-              ? () =>
-                  pull(
-                    getReadable(),
-                    pull.map((about: About) => ({
-                      ...about,
-                      reaction: reactions.get(about.id!),
-                    })),
-                  )
-              : getReadable) as State['abouts'];
+            const abouts = (
+              hasReactions
+                ? () =>
+                    pull(
+                      getReadable(),
+                      pull.map((about: About) => ({
+                        ...about,
+                        reaction: reactions.get(about.id!),
+                      })),
+                    )
+                : getReadable
+            ) as State['abouts'];
             return {...prev, abouts};
           },
       );

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -25,7 +25,7 @@ ReactNativeVersion.version(
   path.resolve(__dirname, '../'),
 )
   .then(done)
-  .catch(err => {
+  .catch((err) => {
     done();
     console.error(err);
     process.exit(1);

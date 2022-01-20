@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -29,15 +29,15 @@ export default function intent(
   return {
     goToCompose$: fabPress$.filter((action) => action === 'compose'),
 
-    goToAccounts$: (reactSource
-      .select('publicFeed')
-      .events('pressReactions') as Stream<PressReactionsEvent>).map(
-      ({msgKey, reactions}) => ({
-        title: t('accounts.reactions.title'),
-        msgKey,
-        accounts: reactions,
-      }),
-    ),
+    goToAccounts$: (
+      reactSource
+        .select('publicFeed')
+        .events('pressReactions') as Stream<PressReactionsEvent>
+    ).map(({msgKey, reactions}) => ({
+      title: t('accounts.reactions.title'),
+      msgKey,
+      accounts: reactions,
+    })),
 
     addReactionMsg$: reactSource
       .select('publicFeed')
