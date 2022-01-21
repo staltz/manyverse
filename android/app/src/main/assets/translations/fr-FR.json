@@ -23,8 +23,8 @@
       "accessibility_label": "Bouton de fermeture de la fenêtre"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "Ouvrir le lien ?",
+      "description": "Souhaitez-vous ouvrir {{link}} dans votre navigateur ?"
     }
   },
   "date": {
@@ -163,7 +163,7 @@
           "accessibility_label": "Bouton de restauration du compte"
         },
         "migrate": {
-          "label": "Migrate from ~/.ssb",
+          "label": "Migration depuis ~/.ssb",
           "accessibility_label": "Migrate account from the shared SSB directory"
         }
       }
@@ -297,13 +297,13 @@
     },
     "scenarios": {
       "offline": "Hors-ligne",
-      "not_connected": "Not connected",
+      "not_connected": "Non connecté",
       "few_connections": "Too few connections",
       "many_connections": "Well connected"
     },
     "scenario_descriptions": {
-      "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
+      "offline_with_content": "Vous ne pouvez pas vous connecter aux pairs pour le moment, mais vous pouvez profiter de certains contenus que vous possédez déjà.",
+      "offline_without_content": "Vous ne pouvez pas vous connecter à des pairs pour le moment. Essayez de vous connecter à Internet ou d’activer le Wi-Fi pour découvrir des pairs à proximité.",
       "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
       "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
       "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
@@ -313,9 +313,9 @@
     "recommendations": {
       "consume_invite": "How to get an invite",
       "follow_staged_manually": "Follow someone new",
-      "paste_invite": "Paste invite code",
-      "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "paste_invite": "Collez le code d’invitation",
+      "host_ssb_room": "Comment héberger un serveur de salons",
+      "others": "Autres choix"
     },
     "recommendation_descriptions": {
       "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
@@ -653,7 +653,7 @@
       },
       "update": {
         "label": "Update",
-        "accessibility_label": "Update app to latest version"
+        "accessibility_label": "Mettre à jour l’application vers la dernière version"
       },
       "settings": {
         "label": "Paramètres",
@@ -668,7 +668,7 @@
     },
     "dialogs": {
       "update": {
-        "title": "Check for new versions?",
+        "title": "Vérifier les nouvelles versions ?",
         "description": "Would you like Manyverse to automatically check for new releases?\n\nThis setting is optional and will allow Manyverse to send requests to the manyver.se website periodically."
       }
     }
@@ -1116,7 +1116,7 @@
         "travel_and_places": "Voyage et endroits",
         "objects": "Objets",
         "symbols": "Symboles",
-        "flags": "Flags"
+        "flags": "Drapeaux"
       },
       "show_more": {
         "accessibility_label": "Montrer plus d'options réaction"
