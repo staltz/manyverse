@@ -15,7 +15,9 @@ import {
   ListItemText,
   TextField,
 } from '@material-ui/core';
+import {createTheme, ThemeProvider} from '@material-ui/core/styles';
 const ReactDOM = require('react-dom');
+import {Appearance} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import Markdown from '../../components/Markdown';
 import {
@@ -57,6 +59,12 @@ interface PickerState extends BasicState {
 }
 
 type State = NoneState | AlertState | PickerState | PromptState;
+
+const theme = createTheme({
+  palette: {
+    type: Appearance.getColorScheme() ?? 'light',
+  },
+});
 
 class Dialogs extends Component<unknown, State> implements Implementation {
   state: State = {
@@ -131,143 +139,144 @@ class Dialogs extends Component<unknown, State> implements Implementation {
     if (state.show === 'none') {
       return null;
     } else {
-      if (state.show === 'alert' || state.show === 'prompt') {
-        return $(
-          Dialog,
-          {key: 'dialog', open: true, onClose: () => this.dismiss()},
-          [
+      return $(ThemeProvider, {theme} as any, [
+        state.show === 'alert' || state.show === 'prompt'
+          ? $(
+              Dialog,
+              {key: 'dialog', open: true, onClose: () => this.dismiss()},
+              [
+                $(
+                  'form',
+                  {
+                    key: 'form',
+                    style: {
+                      backgroundColor:
+                        state.options?.backgroundColor ??
+                        Palette.dialogColors.backgroundColor,
+                    },
+                  },
+                  [
+                    $(
+                      DialogTitle,
+                      {
+                        key: 'title',
+                        style: {
+                          color:
+                            state.options?.titleColor ??
+                            Palette.dialogColors.titleColor,
+                        },
+                      },
+                      state.title,
+                    ),
+                    $(DialogContent, {key: 'content'}, [
+                      state.show === 'alert' && state.options?.markdownOnDesktop
+                        ? $(Markdown, {key: 'md', text: state.content!})
+                        : $(
+                            DialogContentText,
+                            {
+                              key: 'text',
+                              style: {
+                                wordBreak: 'break-word',
+                                color:
+                                  state.options?.contentColor ??
+                                  Palette.dialogColors.contentColor,
+                              },
+                            },
+                            state.content,
+                          ),
+                      state.show === 'prompt' &&
+                        $(TextField, {
+                          key: 'input',
+                          autoFocus: true,
+                          margin: 'dense',
+                          fullWidth: true,
+                          onChange: (evt) =>
+                            this.setState({textInput: evt.target.value}),
+                        }),
+                    ]),
+
+                    $(DialogActions, {key: 'actions'}, [
+                      state.options?.negativeText
+                        ? $(
+                            Button,
+                            {
+                              key: 'negative',
+                              type: 'button',
+                              onClick: () => this.onPressNegative(),
+                              style: {
+                                color:
+                                  state.options?.negativeColor ??
+                                  Palette.dialogColors.negativeColor,
+                              },
+                            },
+                            state.options.negativeText,
+                          )
+                        : null,
+                      state.options?.positiveText
+                        ? $(
+                            Button,
+                            {
+                              key: 'positive',
+                              type: 'submit',
+                              onClick: (evt) => {
+                                evt.preventDefault();
+                                this.onPressPositive();
+                              },
+                              style: {
+                                color:
+                                  state.options?.positiveColor ??
+                                  Palette.dialogColors.positiveColor,
+                              },
+                            },
+                            state.options.positiveText,
+                          )
+                        : null,
+                    ]),
+                  ],
+                ),
+              ],
+            )
+          : // else if 'picker'
             $(
-              'form',
+              Dialog,
               {
-                key: 'form',
-                style: {
-                  backgroundColor:
-                    state.options?.backgroundColor ??
-                    Palette.dialogColors.backgroundColor,
-                },
+                open: true,
+                onClose: () => this.dismiss(),
+                fullWidth: true,
+                maxWidth: 'xs',
               },
               [
                 $(
-                  DialogTitle,
+                  List,
                   {
-                    key: 'title',
+                    key: 'list',
                     style: {
-                      color:
-                        state.options?.titleColor ??
-                        Palette.dialogColors.titleColor,
+                      backgroundColor:
+                        state.options?.backgroundColor ??
+                        Palette.dialogColors.backgroundColor,
                     },
                   },
-                  state.title,
+                  (state.options?.items ?? []).map((item: any) =>
+                    $(
+                      ListItem,
+                      {
+                        key: item.id,
+                        button: true,
+                        onClick: () => this.onPressSelect(item.id),
+                      },
+                      $(ListItemText, {
+                        key: 'text',
+                        primary: item.label,
+                        style: {
+                          color: state.options?.contentColor ?? Palette.text,
+                        },
+                      }),
+                    ),
+                  ),
                 ),
-                $(DialogContent, {key: 'content'}, [
-                  state.show === 'alert' && state.options?.markdownOnDesktop
-                    ? $(Markdown, {key: 'md', text: state.content!})
-                    : $(
-                        DialogContentText,
-                        {
-                          key: 'text',
-                          style: {
-                            wordBreak: 'break-word',
-                            color:
-                              state.options?.contentColor ??
-                              Palette.dialogColors.contentColor,
-                          },
-                        },
-                        state.content,
-                      ),
-                  state.show === 'prompt' &&
-                    $(TextField, {
-                      key: 'input',
-                      autoFocus: true,
-                      margin: 'dense',
-                      fullWidth: true,
-                      onChange: (evt) =>
-                        this.setState({textInput: evt.target.value}),
-                    }),
-                ]),
-
-                $(DialogActions, {key: 'actions'}, [
-                  state.options?.negativeText
-                    ? $(
-                        Button,
-                        {
-                          key: 'negative',
-                          type: 'button',
-                          onClick: () => this.onPressNegative(),
-                          style: {
-                            color:
-                              state.options?.negativeColor ??
-                              Palette.dialogColors.negativeColor,
-                          },
-                        },
-                        state.options.negativeText,
-                      )
-                    : null,
-                  state.options?.positiveText
-                    ? $(
-                        Button,
-                        {
-                          key: 'positive',
-                          type: 'submit',
-                          onClick: (evt) => {
-                            evt.preventDefault();
-                            this.onPressPositive();
-                          },
-                          style: {
-                            color:
-                              state.options?.positiveColor ??
-                              Palette.dialogColors.positiveColor,
-                          },
-                        },
-                        state.options.positiveText,
-                      )
-                    : null,
-                ]),
               ],
             ),
-          ],
-        );
-      } else if (state.show === 'picker') {
-        return $(
-          Dialog,
-          {
-            open: true,
-            onClose: () => this.dismiss(),
-            fullWidth: true,
-            maxWidth: 'xs',
-          },
-          [
-            $(
-              List,
-              {
-                key: 'list',
-                style: {
-                  backgroundColor:
-                    state.options?.backgroundColor ??
-                    Palette.dialogColors.backgroundColor,
-                },
-              },
-              (state.options?.items ?? []).map((item: any) =>
-                $(
-                  ListItem,
-                  {
-                    key: item.id,
-                    button: true,
-                    onClick: () => this.onPressSelect(item.id),
-                  },
-                  $(ListItemText, {
-                    key: 'text',
-                    primary: item.label,
-                    style: {
-                      color: state.options?.contentColor ?? Palette.text,
-                    },
-                  }),
-                ),
-              ),
-            ),
-          ],
-        );
-      }
+      ]);
     }
   }
 }
