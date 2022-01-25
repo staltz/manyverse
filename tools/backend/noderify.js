@@ -28,12 +28,6 @@ async function exec(command, opts) {
     [
       'node node_modules/noderify/index.js',
 
-      // Use a "better" fork of this package:
-      '--replace.non-private-ip=non-private-ip-android',
-
-      // Fix a corner case bug with error recovery:
-      '--replace.multiserver/plugins/net=staltz-multiserver/plugins/net',
-
       // This module doesn't yet work with Electron, and we don't want Rust:
       '--replace.ssb-validate2-rsjs-node=ssb-validate2',
 

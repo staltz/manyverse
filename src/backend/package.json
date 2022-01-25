@@ -22,7 +22,6 @@
     "mkdirp": "~1.0.4",
     "multiserver-electron-ipc": "2.0.0",
     "multiserver-rn-channel": "1.3.0",
-    "non-private-ip-android": "1.4.4-3",
     "pull-async": "1.0.0",
     "pull-cat": "1.1.11",
     "pull-file": "1.1.0",
@@ -59,7 +58,6 @@
     "ssb-suggest-lite": "1.1.2",
     "ssb-threads": "9.3.0",
     "ssb-typescript": "2.5.0",
-    "staltz-multiserver": "3.3.6-1",
     "utf-8-validate": "5.0.3"
   },
   "optionalDependenciesCOMMENT": "These are desktop-only modules",
