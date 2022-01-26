@@ -267,13 +267,19 @@ function makeRenderers(
   onLayout?: ViewProps['onLayout'],
   mentions?: Array<any>,
 ) {
-  function feedIdFromMention(linkName: string) {
-    if (!mentions) return;
+  function feedIdFromMention(linkName: string): string | null {
+    if (!mentions) return null;
     for (const mention of mentions) {
-      if (mention && mention.name && linkName === '@' + mention.name) {
+      if (
+        mention &&
+        mention.name &&
+        mention.link &&
+        linkName === '@' + mention.name
+      ) {
         return mention.link;
       }
     }
+    return null;
   }
 
   const renderers = {
@@ -307,27 +313,33 @@ function makeRenderers(
       $(Text, {...textProps, style: styles.strong}, props.children),
 
     link: (props: {children: any; href: string}) => {
-      if (!props.href) return renderers.text(props);
+      const {children, href} = props;
+      if (!href) return renderers.text(props);
 
-      const feedId = Ref.isFeedId(props.href)
-        ? props.href
-        : isFeedSSBURI(props.href)
-        ? toFeedSigil(props.href)
-        : feedIdFromMention(props.href);
-      const msgId = Ref.isMsgId(props.href)
-        ? props.href
-        : isMessageSSBURI(props.href)
-        ? toMessageSigil(props.href)
+      const feedId = Ref.isFeedId(href)
+        ? href
+        : isFeedSSBURI(href)
+        ? toFeedSigil(href)
+        : feedIdFromMention(href);
+      const msgId = Ref.isMsgId(href)
+        ? href
+        : isMessageSSBURI(href)
+        ? toMessageSigil(href)
         : null;
-      const hashtag = props.href.startsWith('#') ? props.href : null;
+      const hashtag = href.startsWith('#') ? href : null;
       const isCypherlink = !!feedId || !!msgId || !!hashtag;
+
+      if (!isCypherlink && !href.startsWith('http')) {
+        return renderers.text(props);
+      }
+
       let child: string | null = null;
       if (isCypherlink) {
         child =
-          typeof props.children?.[0] === 'string'
-            ? props.children[0]
-            : typeof props.children?.[0]?.props?.children === 'string'
-            ? props.children[0].props.children
+          typeof children?.[0] === 'string'
+            ? children[0]
+            : typeof children?.[0]?.props?.children === 'string'
+            ? children[0].props.children
             : null;
       }
       if (child) {
@@ -361,7 +373,7 @@ function makeRenderers(
               }
             },
           },
-          child ?? props.children,
+          child ?? children,
         );
       } else if (Platform.OS === 'web') {
         return $(
@@ -370,7 +382,7 @@ function makeRenderers(
             style: {textDecoration: 'underline', color: Palette.text},
             href: props.href,
           },
-          child ?? props.children,
+          child ?? children,
         );
       } else {
         return $(
