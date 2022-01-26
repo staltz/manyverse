@@ -12,6 +12,7 @@ import {
   Animated,
   Platform,
 } from 'react-native';
+const pull = require('pull-stream');
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
@@ -272,53 +273,45 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
             })
           : null,
 
-        ...(isBlocked
-          ? [
-              h(ProfileHeader, {state}),
-              h(EmptySection, {
+        h(Feed, {
+          sel: 'feed',
+          getReadable: isBlocked ? () => pull.empty() : state.getFeedReadable,
+          prePublication$: isBlocked
+            ? null
+            : isSelfProfile
+            ? ssbSource.publishHook$.filter(isPublic).filter(isRootPostMsg)
+            : null,
+          postPublication$: isBlocked
+            ? null
+            : isSelfProfile
+            ? ssbSource.selfPublicRoots$
+            : null,
+          selfFeedId: state.selfFeedId,
+          lastSessionTimestamp: state.lastSessionTimestamp,
+          preferredReactions: state.preferredReactions,
+          yOffsetAnimVal: scrollHeaderBy,
+          HeaderComponent: h(ProfileHeader, {state}),
+          style: styles.feed,
+          contentContainerStyle: styles.feedInner,
+          EmptyComponent: isBlocked
+            ? h(EmptySection, {
                 style: styles.emptySection,
                 title: t('profile.empty.blocked.title'),
                 description: t('profile.empty.blocked.description'),
+              })
+            : isSelfProfile
+            ? h(EmptySection, {
+                style: styles.emptySection,
+                image: getImg(require('../../../../../images/noun-plant.png')),
+                title: t('profile.empty.no_self_messages.title'),
+                description: t('profile.empty.no_self_messages.description'),
+              })
+            : h(EmptySection, {
+                style: styles.emptySection,
+                title: t('profile.empty.no_messages.title'),
+                description: t('profile.empty.no_messages.description'),
               }),
-              h(View, {style: styles.emptySectionSpacer}),
-            ]
-          : [
-              h(Feed, {
-                sel: 'feed',
-                getReadable: state.getFeedReadable,
-                prePublication$: isSelfProfile
-                  ? ssbSource.publishHook$
-                      .filter(isPublic)
-                      .filter(isRootPostMsg)
-                  : null,
-                postPublication$: isSelfProfile
-                  ? ssbSource.selfPublicRoots$
-                  : null,
-                selfFeedId: state.selfFeedId,
-                lastSessionTimestamp: state.lastSessionTimestamp,
-                preferredReactions: state.preferredReactions,
-                yOffsetAnimVal: scrollHeaderBy,
-                HeaderComponent: h(ProfileHeader, {state}),
-                style: styles.feed,
-                contentContainerStyle: styles.feedInner,
-                EmptyComponent: isSelfProfile
-                  ? h(EmptySection, {
-                      style: styles.emptySection,
-                      image: getImg(
-                        require('../../../../../images/noun-plant.png'),
-                      ),
-                      title: t('profile.empty.no_self_messages.title'),
-                      description: t(
-                        'profile.empty.no_self_messages.description',
-                      ),
-                    })
-                  : h(EmptySection, {
-                      style: styles.emptySection,
-                      title: t('profile.empty.no_messages.title'),
-                      description: t('profile.empty.no_messages.description'),
-                    }),
-              }),
-            ]),
+        }),
 
         isSelfProfile ? fabSection : null,
       ]);
