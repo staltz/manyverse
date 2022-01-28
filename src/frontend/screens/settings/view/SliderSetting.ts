@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -65,10 +65,11 @@ export interface Props {
 
 type State = {
   current?: number;
+  width: string;
 };
 
 export default class SliderSetting extends PureComponent<Props, State> {
-  public state: State = {};
+  public state: State = {width: '99.99%'};
 
   private onSlide = (current: number) => {
     this.setState({current});
@@ -76,6 +77,10 @@ export default class SliderSetting extends PureComponent<Props, State> {
 
   private onSlidingComplete = () => {
     this.props.onChange?.(this.state.current ?? 0);
+  };
+
+  componentDidMount = () => {
+    this.state.width = '100%';
   };
 
   public render() {
@@ -101,6 +106,9 @@ export default class SliderSetting extends PureComponent<Props, State> {
           maximumTrackTintColor: Palette.voidMain,
           onValueChange: this.onSlide,
           onSlidingComplete: this.onSlidingComplete,
+          style: {
+            width: this.state.width,
+          },
         }),
       ],
     );
