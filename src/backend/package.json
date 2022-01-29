@@ -14,7 +14,6 @@
   "dependencies": {
     "bindings-noderify-nodejs-mobile": "10.3.0",
     "bufferutil": "4.0.1",
-    "cached-path-relative": ">=1.1.0",
     "chloride": "2.4.1",
     "electron-window-state": "5.0.3",
     "ip": "1.1.5",
@@ -66,6 +65,7 @@
   },
   "devDependencies": {
     "license-ls": "~1.4.1",
+    "cached-path-relative": ">=1.1.0",
     "noderify": "5.1.0",
     "patch-package": "6.2.2",
     "terser": "4.3.8"
