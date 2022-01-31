@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -17,11 +17,17 @@ export function makeInstructionsProps(state: State): InstructionsProps {
   if (state.windowSize) {
     const portraitMode = state.windowSize.width < state.windowSize.height;
     if (portraitMode) {
-      width = Math.min(state.windowSize.width * 0.8, width);
-      height = Math.min((state.windowSize.width * 0.8) / ASPECT_RATIO, height);
+      const dynamicWidth = state.windowSize.width * 0.8;
+      width = Math.min(dynamicWidth, width);
+      if (width === dynamicWidth) {
+        height = (state.windowSize.width * 0.8) / ASPECT_RATIO;
+      }
     } else {
-      width = Math.min(state.windowSize.width * 0.5, width);
-      height = Math.min((state.windowSize.width * 0.5) / ASPECT_RATIO, width);
+      const dynamicWidth = state.windowSize.width * 0.5;
+      width = Math.min(dynamicWidth, width);
+      if (width === dynamicWidth) {
+        height = (state.windowSize.width * 0.5) / ASPECT_RATIO;
+      }
     }
   }
 
