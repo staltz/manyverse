@@ -6,18 +6,13 @@ import {StyleSheet, Platform} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import {globalStyles} from '../../global-styles/styles';
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  screen: globalStyles.screen,
 
   mentionsOverlay: {
-    flex: 1,
-    alignSelf: 'stretch',
+    ...globalStyles.containerWithDesktopSideBar,
     ...Platform.select({
       web: {
         position: 'relative',
@@ -44,7 +39,7 @@ export const styles = StyleSheet.create({
         shadowRadius: 3,
       },
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        maxWidth: Dimensions.desktopMiddleWidth.px,
         zIndex: 100,
       },
     }),

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -21,14 +21,14 @@ export default function view(
     let width: any;
     let height: any;
     if (Platform.OS === 'web') {
-      width = Dimensions.desktopMiddleWidth.vw;
-      height = Dimensions.desktopMiddleWidth.vw;
+      width = Dimensions.desktopMiddleWidth.px;
+      height = Dimensions.desktopMiddleWidth.px;
     } else {
       width = windowSize.width;
       height = Math.min(windowSize.width, windowSize.height * 0.8);
     }
 
-    return h(View, {style: styles.container}, [
+    return h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: state.about.name ?? ''}),
 
       h(ScrollView, {style: styles.container}, [

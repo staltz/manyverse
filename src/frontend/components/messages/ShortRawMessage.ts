@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        maxWidth: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
   touchable: {
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        maxWidth: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -83,12 +83,12 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   msg: Msg;
   name?: string;
   imageUrl: string | null;
   onPress?: (msg: Msg) => void;
-};
+}
 
 export default class ShortRawMessage extends Component<Props> {
   private _onPress() {

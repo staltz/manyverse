@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,6 +6,7 @@ import {Platform, StyleSheet} from 'react-native';
 import {Dimensions as Dimens} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
 import {Palette} from '../../../global-styles/palette';
+import {globalStyles} from '../../../global-styles/styles';
 
 export const styles = StyleSheet.create({
   emptySection: {
@@ -13,6 +14,7 @@ export const styles = StyleSheet.create({
   },
 
   activityList: {
+    ...globalStyles.containerWithDesktopSideBar,
     // for the topBar
     marginTop: Platform.select({
       default: Dimens.toolbarHeight,
@@ -20,9 +22,6 @@ export const styles = StyleSheet.create({
       // dirty hack because `styles.feed` is used twice in react-native-web
       web: Dimens.toolbarHeight * 0.5,
     }),
-
-    alignSelf: 'stretch',
-    flex: 1,
   },
 
   activityListInner: {
@@ -39,7 +38,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     ...Platform.select({
       web: {
-        maxWidth: Dimens.desktopMiddleWidth.vw,
+        width: Dimens.desktopMiddleWidth.px,
       },
     }),
   },

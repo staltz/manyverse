@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,15 +6,20 @@ import {StyleSheet, Platform} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import {globalStyles} from '../../global-styles/styles';
 
 export const avatarSize = Dimensions.avatarSizeSmall;
 
 export const styles = StyleSheet.create({
+  screen: globalStyles.screen,
+
   container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
+    ...globalStyles.containerWithDesktopSideBar,
+    ...Platform.select({
+      web: {
+        position: 'relative',
+      },
+    }),
   },
 
   loading: {
@@ -22,8 +27,18 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceBig,
   },
 
-  scrollView: {
-    flex: 1,
+  fullThread: {
+    ...Platform.select({
+      web: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 10,
+        paddingBottom: 52,
+      },
+    }),
   },
 
   replyRow: {
@@ -35,7 +50,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
+        position: 'absolute',
+        left: 0,
+        bottom: 0,
+        zIndex: 100,
       },
     }),
   },

@@ -33,6 +33,11 @@ export const styles = StyleSheet.create({
   flatList: {
     alignSelf: 'stretch',
     flex: 1,
+    ...Platform.select({
+      web: {
+        maxWidth: `calc(100vw - ${Dimensions.desktopSideWidth.px})`,
+      },
+    }),
   },
 
   row: {
@@ -45,7 +50,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },

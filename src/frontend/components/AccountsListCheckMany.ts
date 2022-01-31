@@ -36,7 +36,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
+        maxWidth: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },

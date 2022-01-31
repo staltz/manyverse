@@ -10,8 +10,8 @@ import {ScrollView, View, StyleSheet, Platform} from 'react-native';
 import {SSBSource} from '../../drivers/ssb';
 import {t} from '../../drivers/localization';
 import {MsgAndExtras} from '../../ssb/types';
-import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
+import {globalStyles} from '../../global-styles/styles';
 import TopBar from '../../components/TopBar';
 import Metadata from '../../components/messages/Metadata';
 
@@ -44,16 +44,9 @@ export const navOptions = {
 };
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  screen: globalStyles.screen,
 
-  container: {
-    flex: 1,
-  },
+  container: globalStyles.containerWithDesktopSideBar,
 
   content: {
     paddingHorizontal: Dimensions.horizontalSpaceTiny,
@@ -61,7 +54,7 @@ export const styles = StyleSheet.create({
     borderRadius: 0,
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },

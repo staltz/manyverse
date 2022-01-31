@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -52,6 +52,13 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 
+  itemContainer: Platform.select({
+    web: {
+      maxWidth: `calc(100vw - ${Dimensions.desktopMiddleWidth.px})`,
+    },
+    default: {},
+  }),
+
   itemSeparator: {
     backgroundColor: Palette.voidMain,
     height: SEPARATOR_HEIGHT,
@@ -75,7 +82,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -271,7 +278,7 @@ export default class Feed extends PureComponent<Props, State> {
       renderItem: ({item}: any) => {
         const thread = item as ThreadSummaryWithExtras;
         if (thread?.root?.value?.content?.type === 'contact') {
-          return h(View, [
+          return h(View, {style: styles.itemContainer}, [
             h(FollowCard, {
               thread,
               lastSessionTimestamp,
@@ -286,7 +293,7 @@ export default class Feed extends PureComponent<Props, State> {
             h(Separator),
           ]);
         } else {
-          return h(View, [
+          return h(View, {style: styles.itemContainer}, [
             h(ThreadCard, {
               thread,
               lastSessionTimestamp,

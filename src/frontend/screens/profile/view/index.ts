@@ -250,7 +250,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
           ? h(View, {style: styles.desktopFabContainer}, [fab])
           : fab;
 
-      return h(View, {style: styles.container}, [
+      return h(View, {style: styles.screen}, [
         h(ProfileTopBar, {state, isSelfProfile, nameTransY}),
 
         h(ProfileAvatar, {

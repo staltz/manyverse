@@ -6,6 +6,7 @@ import {Platform, StyleSheet} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
+import {globalStyles} from '../../../global-styles/styles';
 
 export const AVATAR_SIZE = Dimensions.avatarSizeBig;
 const AVATAR_SIZE_HALF = AVATAR_SIZE * 0.5;
@@ -24,11 +25,7 @@ export const NAME_MARGIN_TOOLBAR = Platform.select({
 });
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-  },
+  screen: globalStyles.screen,
 
   topBar: {
     position: 'absolute',
@@ -83,7 +80,7 @@ export const styles = StyleSheet.create({
     zIndex: 10,
     ...Platform.select({
       web: {
-        right: `calc(${Dimensions.desktopSideWidth.vw} + ${CTA_BUTTON_WIDTH}px)`,
+        right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5 + ${CTA_BUTTON_WIDTH}px)`,
       },
       default: {
         right: 0 + Dimensions.horizontalSpaceBig,
@@ -138,7 +135,7 @@ export const styles = StyleSheet.create({
     zIndex: 10,
     ...Platform.select({
       web: {
-        right: `calc(${Dimensions.desktopSideWidth.vw} + ${CTA_BUTTON_WIDTH}px)`,
+        right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5 + ${CTA_BUTTON_WIDTH}px)`,
       },
       default: {
         right: 0 + Dimensions.horizontalSpaceBig,
@@ -185,7 +182,7 @@ export const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         marginTop: 0,
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -315,6 +312,7 @@ export const styles = StyleSheet.create({
       web: {
         // for the topBar
         paddingTop: Dimensions.toolbarHeight,
+        maxWidth: `calc(100vw - ${Dimensions.desktopSideWidth.px})`,
       },
     }),
   },
@@ -332,7 +330,7 @@ export const styles = StyleSheet.create({
   desktopFabContainer: {
     position: 'absolute',
     bottom: 0,
-    right: Dimensions.desktopSideWidth.vw,
+    right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5)`,
   },
 
   emptySection: {

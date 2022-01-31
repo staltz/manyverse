@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -13,6 +13,7 @@ import {t} from '../../drivers/localization';
 import {WindowSize} from '../../drivers/window-size';
 import {Palette} from '../../global-styles/palette';
 import {getImg} from '../../global-styles/utils';
+import {globalStyles} from '../../global-styles/styles';
 import tutorialPresentation from '../../components/tutorial-presentation';
 import tutorialSlide from '../../components/tutorial-slide';
 import Button from '../../components/Button';
@@ -41,12 +42,14 @@ export interface Sinks {
 
 export const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-    alignSelf: 'stretch',
+    ...globalStyles.screen,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Palette.brandMain,
-    flexDirection: 'column',
+  },
+
+  topBar: {
+    alignSelf: 'center',
   },
 
   bold: {
@@ -148,7 +151,11 @@ export function backup(sources: Sources): Sinks {
     .combine(sources.state.stream, forceRerender$)
     .map(([state]) =>
       h(View, {style: styles.screen}, [
-        h(TopBar, {sel: 'topbar', title: t('backup.title')}),
+        h(TopBar, {
+          sel: 'topbar',
+          style: styles.topBar,
+          title: t('backup.title'),
+        }),
 
         tutorialPresentation('swiper', {scrollBy$}, [
           tutorialSlide({

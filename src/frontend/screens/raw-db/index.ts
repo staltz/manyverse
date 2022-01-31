@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -13,7 +13,7 @@ import {Msg} from 'ssb-typescript';
 import {ReactElement} from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
 import {ReactSource, h} from '@cycle/react';
-import {Palette} from '../../global-styles/palette';
+import {globalStyles} from '../../global-styles/styles';
 import {SSBSource} from '../../drivers/ssb';
 import {t} from '../../drivers/localization';
 import RawFeed from '../../components/RawFeed';
@@ -21,16 +21,16 @@ import TopBar from '../../components/TopBar';
 import {navOptions as rawMessageScreenNavOptions} from '../raw-msg';
 import {Screens} from '../enums';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-};
+}
 
 export const navOptions = {
   topBar: {
@@ -45,17 +45,13 @@ export const navOptions = {
 };
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  screen: globalStyles.screen,
 });
-export type Actions = {
+
+export interface Actions {
   goBack$: Stream<any>;
   goToRawMsg$: Stream<Msg>;
-};
+}
 
 function navigation(actions: Actions) {
   const pop$ = actions.goBack$.mapTo({

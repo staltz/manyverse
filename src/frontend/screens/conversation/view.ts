@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -39,6 +39,7 @@ import HeaderButton from '../../components/HeaderButton';
 import LocalizedHumanTime from '../../components/LocalizedHumanTime';
 import {State} from './model';
 import {displayName} from '../../ssb/utils/from-ssb';
+import {globalStyles} from '../../global-styles/styles';
 
 const GiftedChat = GiftedChatWithWrongTypes as any as ComponentClass<
   GiftedChatProps<GiftedMsg>
@@ -58,12 +59,7 @@ const SystemMessage = SystemMessageWithWrongTypes as any as ComponentClass<
 >;
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  container: globalStyles.containerWithDesktopSideBar,
 
   bubbleText: {
     marginHorizontal: Dimensions.horizontalSpaceNormal,
@@ -93,7 +89,8 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceBig,
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
+        maxWidth: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -147,7 +144,7 @@ export const styles = StyleSheet.create({
   sysMessageContainer: {
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -155,7 +152,7 @@ export const styles = StyleSheet.create({
   messageLeftOrRight: {
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -167,7 +164,7 @@ export const styles = StyleSheet.create({
     borderTopColor: Palette.textLine,
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },

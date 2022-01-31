@@ -1,40 +1,29 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {Platform, StyleSheet, View} from 'react-native';
+import {ReactElement} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {t} from '../../../drivers/localization';
 import TopBar from '../../../components/TopBar';
 import EmptySection from '../../../components/EmptySection';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
+import {globalStyles} from '../../../global-styles/styles';
 import {State} from '../model';
 import ServerList from './ServerList';
 import Submitting from './Submitting';
 import Success from './Success';
 import Failure from './Failure';
-import {ReactElement} from 'react';
-import {t} from '../../../drivers/localization';
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  screen: globalStyles.screen,
 
   container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    flexDirection: 'column',
+    ...globalStyles.container,
     backgroundColor: Palette.backgroundText,
-    ...Platform.select({
-      web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
-      },
-    }),
   },
 
   empty: {

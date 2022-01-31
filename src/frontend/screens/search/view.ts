@@ -229,7 +229,7 @@ export default function view(state$: Stream<State>) {
             : null,
         ]),
 
-        h(View, {style: styles.bodySection}, [
+        h(View, {style: styles.container}, [
           state.queryInProgress && state.getFeedReadable
             ? h(Feed, {
                 sel: 'feed',

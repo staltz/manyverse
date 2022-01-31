@@ -1,10 +1,16 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream, Subscription, Listener} from 'xstream';
 import {Component, PureComponent} from 'react';
-import {StyleSheet, FlatList, View, ViewabilityConfig} from 'react-native';
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  ViewabilityConfig,
+  ViewStyle,
+} from 'react-native';
 import {h} from '@cycle/react';
 import {propifyMethods} from 'react-propify-methods';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
@@ -35,6 +41,7 @@ export interface Props {
   willPublish$?: Stream<any> | null;
   scrollToEnd$?: Stream<ScrollToEndArg>;
   selfFeedId: FeedId;
+  style?: ViewStyle;
   loadingReplies: boolean;
   expandRootCW?: boolean;
   onPressReactions?: (ev: PressReactionsEvent) => void;
@@ -58,9 +65,9 @@ export const styles = StyleSheet.create({
   },
 });
 
-type State = {
+interface State {
   showPlaceholder: boolean;
-};
+}
 
 class Separator extends PureComponent {
   public render() {
@@ -97,6 +104,7 @@ export default class FullThread extends Component<Props, State> {
     if (nextProps.onPressAddReaction !== prevProps.onPressAddReaction)
       return true;
     if (nextProps.expandRootCW !== prevProps.expandRootCW) return true;
+    if (nextProps.style !== prevProps.style) return true;
     if (nextProps.willPublish$ !== prevProps.willPublish$) return true;
     if (nextProps.scrollToEnd$ !== prevProps.scrollToEnd$) return true;
     if (nextProps.thread.full !== prevProps.thread.full) return true;
@@ -218,10 +226,11 @@ export default class FullThread extends Component<Props, State> {
   };
 
   public render() {
-    const {thread, scrollToEnd$} = this.props;
+    const {thread, scrollToEnd$, style} = this.props;
 
     return h(FlatList$, {
       data: thread.messages ?? [],
+      style,
       renderItem: this.renderMessage,
       keyExtractor: (msg: MsgAndExtras) => msg.key,
       contentContainerStyle: styles.contentContainer,

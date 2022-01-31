@@ -67,17 +67,20 @@ export const styles = StyleSheet.create({
   },
 
   left: {
+    minWidth: Dimensions.desktopSideWidth.px,
     flex: 1,
     flexDirection: 'column',
     alignItems: 'stretch',
   },
 
   leftMenu: {
-    flex: Dimensions.desktopSideWidth.flex,
-    alignSelf: 'center',
+    flex: 1,
+    alignSelf: 'flex-end',
     flexDirection: 'column',
     alignItems: 'stretch',
+    minWidth: Dimensions.desktopSideWidth.px,
     paddingVertical: Dimensions.verticalSpaceLarge,
+    paddingHorizontal: Dimensions.horizontalSpaceNormal,
   },
 
   leftMenuTabButton: {
@@ -91,8 +94,8 @@ export const styles = StyleSheet.create({
   myProfileButton: {
     marginTop: Dimensions.verticalSpaceTiny,
     // Width can grow depending on profile name, so we cap it:
-    maxWidth: `calc(${Dimensions.desktopSideWidth.vw} - ${
-      2 * Dimensions.horizontalSpaceBig
+    maxWidth: `calc(${Dimensions.desktopSideWidth.px} - ${
+      2 * Dimensions.horizontalSpaceNormal
     }px)`,
   },
 
@@ -135,7 +138,7 @@ export const styles = StyleSheet.create({
   },
 
   centerAndRight: {
-    flex: Dimensions.desktopMiddleWidth.flex + Dimensions.desktopSideWidth.flex,
+    width: `calc(50vw + ${Dimensions.desktopMiddleWidth.px} * 0.5)`,
   },
 
   topBarLeftSection: {
@@ -152,9 +155,11 @@ export const styles = StyleSheet.create({
     zIndex: 1000,
     top: 0,
     right: 0,
-    width: Dimensions.desktopSideWidth.vw,
+    width: `calc(100vw - ${Dimensions.desktopMiddleWidth.px} - ${Dimensions.desktopSideWidth.px})`,
     height: Dimensions.toolbarHeight,
     minHeight: Dimensions.toolbarHeight,
+    maxHeight: Dimensions.toolbarHeight,
+    overflow: 'hidden',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',

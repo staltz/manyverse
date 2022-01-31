@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -16,7 +16,7 @@ export default function view(state$: Stream<State>) {
   return state$.map((state) => {
     const acceptEnabled = state.content.length > 0;
 
-    return h(View, {style: styles.container}, [
+    return h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar'}, [
         h(Button, {
           sel: 'inviteAcceptButton',

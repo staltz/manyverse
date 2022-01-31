@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -22,31 +22,24 @@ import TopBar from '../../components/TopBar';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import {globalStyles} from '../../global-styles/styles';
 import librariesData from '../../libraries';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   linking: Stream<string>;
   navigation: Stream<Command>;
-};
+}
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  screen: globalStyles.screen,
 
-  container: {
-    alignSelf: 'stretch',
-    flex: 1,
-  },
+  container: globalStyles.containerWithDesktopSideBar,
 
   header: {
     backgroundColor: Palette.backgroundText,
@@ -57,7 +50,7 @@ export const styles = StyleSheet.create({
     color: Palette.textWeak,
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
         fontFamily: Typography.fontFamilyReadableText,
       },
     }),
@@ -73,7 +66,7 @@ export const styles = StyleSheet.create({
     minHeight: 60,
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -81,7 +74,7 @@ export const styles = StyleSheet.create({
   itemTouchable: {
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },

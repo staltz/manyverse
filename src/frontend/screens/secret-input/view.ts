@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -17,26 +17,40 @@ import {t} from '../../drivers/localization';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
+import {globalStyles} from '../../global-styles/styles';
 import Button from '../../components/Button';
 import FlagSecure from '../../components/FlagSecure';
 import TopBar from '../../components/TopBar';
 import {State} from './model';
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  screen: globalStyles.screen,
 
   container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    flexDirection: 'column',
+    ...globalStyles.container,
     justifyContent: 'flex-start',
     backgroundColor: Palette.backgroundText,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
+    ...Platform.select({
+      web: {
+        alignSelf: 'center',
+      },
+    }),
+  },
+
+  topBar: {
+    alignSelf: 'center',
+    zIndex: 100,
+  },
+
+  topBarBackground: {
+    zIndex: 10,
+    position: 'absolute',
+    height: Dimensions.toolbarHeight,
+    backgroundColor: Palette.brandMain,
+    top: 0,
+    left: 0,
+    right: 0,
   },
 
   inputField: {
@@ -54,6 +68,11 @@ export const styles = StyleSheet.create({
     fontWeight: Platform.select({ios: '500', default: 'normal'}),
     color: Palette.textWeak,
     backgroundColor: Palette.backgroundTextWeak,
+    ...Platform.select({
+      web: {
+        outlineStyle: 'none',
+      },
+    }),
   },
 
   bold: {
@@ -82,8 +101,10 @@ export const styles = StyleSheet.create({
 export default function view(state$: Stream<State>) {
   return state$.map((state) =>
     h(View, {style: styles.screen}, [
+      Platform.OS === 'web' ? h(View, {style: styles.topBarBackground}) : null,
       h(TopBar, {
         sel: 'topbar',
+        style: styles.topBar,
         title: state.practiceMode
           ? t('secret_input.practice.title')
           : t('secret_input.restore.title'),

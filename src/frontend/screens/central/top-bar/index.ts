@@ -59,7 +59,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
+        maxWidth: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },

@@ -16,7 +16,7 @@ import {navOptions as profileScreenNavOptions} from '../profile';
 import {Props as ProfileProps} from '../profile/props';
 import AccountsList from '../../components/AccountsList';
 import TopBar from '../../components/TopBar';
-import {Palette} from '../../global-styles/palette';
+import {globalStyles} from '../../global-styles/styles';
 export {navOptions} from './layout';
 const pull = require('pull-stream');
 
@@ -50,17 +50,7 @@ export interface State {
 }
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
-
-  container: {
-    alignSelf: 'stretch',
-    flex: 1,
-  },
+  screen: globalStyles.screen,
 });
 
 export interface Actions {

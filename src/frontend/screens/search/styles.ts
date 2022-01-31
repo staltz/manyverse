@@ -5,20 +5,13 @@
 import {Platform, StyleSheet} from 'react-native';
 import {Dimensions} from '../../global-styles/dimens';
 import {Palette} from '../../global-styles/palette';
+import {globalStyles} from '../../global-styles/styles';
 import {Typography} from '../../global-styles/typography';
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  screen: globalStyles.screen,
 
-  container: {
-    alignSelf: 'stretch',
-    flex: 1,
-  },
+  container: globalStyles.containerWithDesktopSideBar,
 
   header: {
     paddingVertical: Dimensions.verticalSpaceBig,
@@ -46,13 +39,6 @@ export const styles = StyleSheet.create({
     }),
   },
 
-  bodySection: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
-
   feed: {
     bottom: 0,
     backgroundColor: Palette.voidMain,
@@ -73,7 +59,7 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -81,7 +67,7 @@ export const styles = StyleSheet.create({
   resultTouchable: {
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -148,7 +134,7 @@ export const styles = StyleSheet.create({
     height: 120,
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },

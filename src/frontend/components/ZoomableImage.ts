@@ -31,6 +31,7 @@ const urlToBlobId = require('ssb-serve-blobs/url-to-id');
 
 const $ = createElement;
 
+const ASPECT_RATIO = 768 / 1024;
 const pictureIcon = getImg(require('../../../images/image-area.png'));
 
 const styles = StyleSheet.create({
@@ -175,14 +176,16 @@ export default class ZoomableImage extends PureComponent<Props, State> {
   public render() {
     const d = Dimensions.get('window');
     const width = Platform.select<any>({
-      web: `calc(${Dimens.desktopMiddleWidth.vw} - ${
+      web: `calc(${Dimens.desktopMiddleWidth.px} - ${
         2 * Dimens.horizontalSpaceBig
       }px)`,
       default: d.width - Dimens.horizontalSpaceBig * 2,
     });
     const height = Platform.select<any>({
-      web: `calc(0.7 * ${Dimens.desktopMiddleWidth.vw})`,
-      default: width * 0.7,
+      web: `calc(${ASPECT_RATIO} * (${Dimens.desktopMiddleWidth.px} - ${
+        2 * Dimens.horizontalSpaceBig
+      }px))`,
+      default: ASPECT_RATIO * width,
     });
     const uri = this.props.src;
     const {loaded, fullscreen} = this.state;

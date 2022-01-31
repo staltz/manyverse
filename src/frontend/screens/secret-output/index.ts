@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -19,39 +19,53 @@ import Button from '../../components/Button';
 import TopBar from '../../components/TopBar';
 import {navOptions as inputSecretScreenNavOptions} from '../secret-input';
 import {Screens} from '../enums';
+import {globalStyles} from '../../global-styles/styles';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   state: StateSource<State>;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
-};
+}
 
-export type State = {
+export interface State {
   words: string;
-};
+}
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  screen: globalStyles.screen,
 
   container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    flexDirection: 'column',
+    ...globalStyles.container,
     justifyContent: 'flex-start',
     backgroundColor: Palette.backgroundText,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
+    ...Platform.select({
+      web: {
+        alignSelf: 'center',
+      },
+    }),
+  },
+
+  topBar: {
+    alignSelf: 'center',
+    zIndex: 100,
+  },
+
+  topBarBackground: {
+    zIndex: 10,
+    position: 'absolute',
+    height: Dimensions.toolbarHeight,
+    backgroundColor: Palette.brandMain,
+    top: 0,
+    left: 0,
+    right: 0,
   },
 
   topDescription: {
@@ -114,10 +128,10 @@ export const navOptions = {
   },
 };
 
-export type Actions = {
+export interface Actions {
   goBack$: Stream<any>;
   confirm$: Stream<any>;
-};
+}
 
 function navigation(actions: Actions, state$: Stream<State>) {
   const goBack$ = actions.goBack$.mapTo({type: 'pop'} as Command);
@@ -159,7 +173,12 @@ function bold(innerText: string) {
 function view(state$: Stream<State>) {
   return state$.map((state) =>
     h(View, {style: styles.screen}, [
-      h(TopBar, {sel: 'topbar', title: t('secret_output.title')}),
+      Platform.OS === 'web' ? h(View, {style: styles.topBarBackground}) : null,
+      h(TopBar, {
+        sel: 'topbar',
+        style: styles.topBar,
+        title: t('secret_output.title'),
+      }),
 
       h(View, {style: styles.container}, [
         h(FlagSecure, [

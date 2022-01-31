@@ -54,7 +54,8 @@ export interface Props {
 /**
  * in pixels
  */
-const CARD_HEIGHT = Platform.OS === 'web' ? 400 : 350;
+const CARD_HEIGHT =
+  Platform.OS === 'web' ? Dimensions.desktopMiddleWidth.number : 350;
 
 const POST_HEIGHT =
   CARD_HEIGHT -

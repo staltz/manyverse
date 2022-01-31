@@ -6,6 +6,7 @@ import {Platform, StyleSheet, ViewStyle} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
+import {globalStyles} from '../../global-styles/styles';
 const {isIPhoneWithMonobrow} = require('react-native-status-bar-height');
 
 const page: ViewStyle = {
@@ -26,10 +27,7 @@ const FLARE_WIDTH = 6;
 const PROGRESS_BAR_HEIGHT = 2;
 
 export const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: Palette.voidMain,
-  },
+  screen: globalStyles.screen,
 
   pageHidden: {...page, zIndex: 10},
 
@@ -85,6 +83,6 @@ export const styles = StyleSheet.create({
   desktopFabContainer: {
     position: 'absolute',
     bottom: 0,
-    right: Dimensions.desktopSideWidth.vw,
+    right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5)`,
   },
 });

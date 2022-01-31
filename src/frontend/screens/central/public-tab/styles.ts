@@ -11,7 +11,8 @@ export const styles = StyleSheet.create({
     marginTop: Dimens.verticalSpaceLarger,
     ...Platform.select({
       web: {
-        maxWidth: Dimens.desktopMiddleWidth.vw,
+        width: Dimens.desktopMiddleWidth.px,
+        maxWidth: Dimens.desktopMiddleWidth.px,
       },
     }),
   },
@@ -19,6 +20,11 @@ export const styles = StyleSheet.create({
   feed: {
     // for the topBar
     paddingTop: Dimens.toolbarHeight - getStatusBarHeight(true),
+    ...Platform.select({
+      web: {
+        maxWidth: `calc(100vw - ${Dimens.desktopSideWidth.px})`,
+      },
+    }),
   },
 
   feedInner: {

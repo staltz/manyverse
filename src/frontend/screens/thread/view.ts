@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -198,7 +198,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
       const topBar = h(TopBar, {sel: 'topbar', title: t('thread.title')});
 
       if (!state.loading && state.thread.errorReason === 'missing') {
-        return h(View, {style: styles.container}, [
+        return h(View, {style: styles.screen}, [
           topBar,
           h(EmptySection, {
             style: styles.emptySection,
@@ -215,7 +215,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
         ]);
       }
       if (!state.loading && state.thread.errorReason === 'blocked') {
-        return h(View, {style: styles.container}, [
+        return h(View, {style: styles.screen}, [
           topBar,
           h(EmptySection, {
             style: styles.emptySection,
@@ -225,7 +225,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
         ]);
       }
       if (!state.loading && state.thread.errorReason === 'unknown') {
-        return h(View, {style: styles.container}, [
+        return h(View, {style: styles.screen}, [
           topBar,
           h(EmptySection, {
             style: styles.emptySection,
@@ -235,7 +235,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
         ]);
       }
 
-      return h(View, {style: styles.container}, [
+      return h(View, {style: styles.screen}, [
         topBar,
         h(
           KeyboardAvoidingView,
@@ -247,6 +247,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
           [
             h(FullThread, {
               sel: 'thread',
+              style: styles.fullThread,
               thread: state.thread,
               subthreads: state.subthreads,
               lastSessionTimestamp: state.lastSessionTimestamp,

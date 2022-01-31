@@ -1,21 +1,19 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet} from 'react-native';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Palette} from '../../../global-styles/palette';
+import {globalStyles} from '../../../global-styles/styles';
 import {Typography} from '../../../global-styles/typography';
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  screen: globalStyles.screen,
 
-  containerInner: {
+  scrollContainer: globalStyles.containerWithDesktopSideBar,
+
+  scrollContainerInner: {
     paddingBottom: Dimensions.verticalSpaceNormal,
     minHeight: 400,
   },
@@ -23,7 +21,7 @@ export const styles = StyleSheet.create({
   desktopFabContainer: {
     position: 'absolute',
     bottom: 0,
-    right: Dimensions.desktopSideWidth.vw,
+    right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5)`,
   },
 
   modesContainer: {
@@ -36,7 +34,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },

@@ -1,33 +1,24 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet} from 'react-native';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
+import {globalStyles} from '../../global-styles/styles';
 
 export const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    flexDirection: 'column',
+    ...globalStyles.screen,
     justifyContent: 'center',
-    backgroundColor: Palette.voidMain,
+    alignItems: 'center',
   },
 
   container: {
-    flex: 1,
-    alignSelf: 'stretch',
+    ...globalStyles.container,
     alignItems: 'center',
-    flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: Palette.backgroundText,
-    ...Platform.select({
-      web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
-      },
-    }),
   },
 
   audioPlayer: {
@@ -43,7 +34,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundText,
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },

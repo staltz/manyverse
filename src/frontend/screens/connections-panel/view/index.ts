@@ -75,13 +75,13 @@ export default function view(state$: Stream<State>) {
       ]),
     )
     .map((state) => {
-      return h(View, {style: styles.container}, [
+      return h(View, {style: styles.screen}, [
         h(TopBar, {sel: 'topbar', title: t('connections.title')}),
         h(
           ScrollView,
           {
-            style: styles.container,
-            contentContainerStyle: styles.containerInner,
+            style: styles.scrollContainer,
+            contentContainerStyle: styles.scrollContainerInner,
           },
           [h(ConnectivityModes, state), h(Body, state)],
         ),

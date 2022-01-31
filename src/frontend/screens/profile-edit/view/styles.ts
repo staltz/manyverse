@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,28 +6,14 @@ import {StyleSheet, Platform} from 'react-native';
 import {Palette} from '../../../global-styles/palette';
 import {Dimensions} from '../../../global-styles/dimens';
 import {Typography} from '../../../global-styles/typography';
+import {globalStyles} from '../../../global-styles/styles';
 
 export const avatarSize = Dimensions.avatarSizeBig;
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    flexDirection: 'column',
-    backgroundColor: Palette.voidMain,
-  },
+  screen: globalStyles.screen,
 
-  container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    flexDirection: 'column',
-    backgroundColor: Palette.backgroundText,
-    ...Platform.select({
-      web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
-      },
-    }),
-  },
+  container: globalStyles.containerWithDesktopSideBar,
 
   avatarTouchable: {
     marginBottom: Dimensions.verticalSpaceBig,
@@ -42,12 +28,16 @@ export const styles = StyleSheet.create({
   },
 
   fields: {
-    marginTop: Dimensions.verticalSpaceLarge,
     zIndex: 10,
+    paddingTop: Dimensions.verticalSpaceLarge,
     paddingBottom: Dimensions.verticalSpaceNormal,
-    paddingLeft: Dimensions.horizontalSpaceBig,
-    paddingRight: Dimensions.horizontalSpaceBig,
+    paddingHorizontal: Dimensions.horizontalSpaceBig,
     backgroundColor: Palette.backgroundText,
+    ...Platform.select({
+      web: {
+        width: Dimensions.desktopMiddleWidth.px,
+      },
+    }),
   },
 
   avatar: {

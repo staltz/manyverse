@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -15,6 +15,7 @@ import {Toast} from '../../drivers/toast';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
+import {globalStyles} from '../../global-styles/styles';
 import manage from '../../components/manage-aliases';
 import TopBar from '../../components/TopBar';
 import {Props} from './props';
@@ -41,14 +42,11 @@ export interface Sinks {
 }
 
 export const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: Palette.voidMain,
-    flexDirection: 'column',
-  },
+  screen: globalStyles.screen,
 
-  container: {
+  container: globalStyles.containerWithDesktopSideBar,
+
+  innerContainer: {
     flex: 1,
     alignSelf: 'stretch',
     flexDirection: 'column',
@@ -57,7 +55,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     ...Platform.select({
       web: {
-        maxWidth: Dimensions.desktopMiddleWidth.vw,
+        width: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
@@ -83,7 +81,9 @@ export function manageAliases(sources: Sources): Sinks {
   const vdom$ = manageSinks.screen.map((innerVDOM) =>
     h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('manage_aliases.title')}),
-      h(ScrollView, {style: styles.container}, [innerVDOM]),
+      h(ScrollView, {style: styles.container}, [
+        h(View, {style: styles.innerContainer}, [innerVDOM]),
+      ]),
     ]),
   );
 
