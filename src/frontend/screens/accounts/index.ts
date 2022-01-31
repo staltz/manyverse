@@ -20,34 +20,34 @@ import {Palette} from '../../global-styles/palette';
 export {navOptions} from './layout';
 const pull = require('pull-stream');
 
-export type Props = {
+export interface Props {
   title: string;
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
   msgKey: MsgId;
   accounts: Array<FeedId | [string, string]> | null;
-};
+}
 
-export type Sources = {
+export interface Sources {
   props: Stream<Props>;
   screen: ReactSource;
   navigation: NavSource;
   state: StateSource<State>;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
-};
+}
 
-export type State = {
+export interface State {
   title: string;
   abouts: GetReadable<About & {id: FeedId}> | null;
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
-};
+}
 
 export const styles = StyleSheet.create({
   screen: {
@@ -63,10 +63,10 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Actions = {
+export interface Actions {
   goBack$: Stream<any>;
   goToProfile$: Stream<{id: FeedId}>;
-};
+}
 
 function navigation(actions: Actions, state$: Stream<State>) {
   const pop$ = actions.goBack$.mapTo({
