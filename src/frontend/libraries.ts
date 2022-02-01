@@ -230,13 +230,6 @@ export default [
     homepage: 'https://github.com/dominictarr/chloride#readme',
   },
   {
-    name: 'color-hash',
-    type: 'library',
-    version: '1.0.3',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/zenozeng/color-hash#readme',
-  },
-  {
     name: 'cycle-native-asyncstorage',
     type: 'library',
     version: '3.1.0',

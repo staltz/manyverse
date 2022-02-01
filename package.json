@@ -80,7 +80,6 @@
     "@staltz/react-native-audio-toolkit": "2.0.3-1",
     "@staltz/react-native-image-viewing": "0.2.1-1",
     "buffer": "5.6.0",
-    "color-hash": "1.0.3",
     "cycle-native-asyncstorage": "3.1.0",
     "cycle-native-clipboard": "1.0.0",
     "cycle-native-keyboard": "1.2.0",

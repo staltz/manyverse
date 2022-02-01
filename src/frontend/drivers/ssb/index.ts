@@ -37,7 +37,6 @@ import {imageToImageUrl} from '../../ssb/utils/from-ssb';
 import dropRepeats from 'xstream/extra/dropRepeats';
 const URLPolyfill =
   Platform.OS !== 'web' ? require('react-native-url-polyfill').URL : URL;
-const colorHash = new (require('color-hash'))();
 const pull = require('pull-stream');
 const Ref = require('ssb-ref');
 
@@ -299,7 +298,6 @@ export class SSBSource {
         ({
           id,
           name: profile.name,
-          color: colorHash.hex(id),
           imageUrl: imageToImageUrl(profile.image),
           description: profile.description,
         } as AboutAndExtras),
