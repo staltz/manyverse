@@ -1,17 +1,22 @@
 #!/usr/bin/env node
 
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
-const path = require('path');
-const fs = require('fs');
-const ora = require('ora');
-const sortBy = require('lodash.sortby');
-const sortedUniqBy = require('lodash.sorteduniqby');
+import fs from 'fs';
+import util from 'util';
+import childProcess from 'child_process';
+import path from 'path';
+import ora from 'ora';
+import sortBy from 'lodash.sortby';
+import sortedUniqBy from 'lodash.sorteduniqby';
+import {fileURLToPath} from 'url';
+import {dirname} from 'path';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const exec = util.promisify(childProcess.exec);
 const loading = ora('...').start();
 const verbose = !!process.argv.includes('--verbose');
 const topLevelFolder = path.join(__dirname, '..');
@@ -109,13 +114,22 @@ async function runAndReport(label, task) {
   );
 
   await runAndReport('Produce file src/frontend/libraries.ts', async () => {
-    const images = require('../images/licenses.json').map((x) => ({
+    const licenses = await fs.promises.readFile(
+      path.resolve(__dirname, '..', 'images', 'licenses.json'),
+    );
+    const images = JSON.parse(licenses).map((x) => ({
       ...x,
       type: 'image',
     }));
 
-    const backendLibraries = require('../lls-backend.json');
-    const frontendLibraries = require('../lls-frontend.json').filter(
+    const llsBackend = await fs.promises.readFile(
+      path.resolve(__dirname, '..', 'lls-backend.json'),
+    );
+    const llsFrontend = await fs.promises.readFile(
+      path.resolve(__dirname, '..', 'lls-frontend.json'),
+    );
+    const backendLibraries = JSON.parse(llsBackend);
+    const frontendLibraries = JSON.parse(llsFrontend).filter(
       // optionalDependencies, don't report
       (x) => !['appium', 'tap-spec', 'tape', 'wd'].includes(x.name),
     );

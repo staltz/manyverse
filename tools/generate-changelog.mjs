@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-const conventionalChangelog = require('conventional-changelog');
+import conventionalChangelog from 'conventional-changelog';
 
 const firstReleaseCommit = 'e78c434e0e79201def84bc3d940ba7b953ddaf96';
 const mainTemplate = `{{> header}}
@@ -84,7 +84,7 @@ const detailedCommitPartial = `* {{platform}}{{subject}}
 
 `;
 
-module.exports = function generateChangelog(releaseCount, platform) {
+export default function generateChangelog(releaseCount, platform) {
   const options = {
     releaseCount,
   };

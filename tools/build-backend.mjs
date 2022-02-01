@@ -4,10 +4,11 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-const util = require('util');
-const ora = require('ora');
-const exec = util.promisify(require('child_process').exec);
+import util from 'util';
+import ora from 'ora';
+import childProcess from 'child_process';
 
+const exec = util.promisify(childProcess.exec);
 const loading = ora('...').start();
 const verbose = !!process.argv.includes('--verbose');
 const targetPlatform = process.argv.includes('--ios')

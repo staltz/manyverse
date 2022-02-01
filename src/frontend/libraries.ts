@@ -160,7 +160,7 @@ export default [
   {
     name: '@fontsource/roboto',
     type: 'library',
-    version: '4.5.0',
+    version: '4.5.2',
     license: 'MIT License (MIT)',
     homepage:
       'https://github.com/fontsource/fontsource/tree/master/packages/roboto#readme',
@@ -175,9 +175,9 @@ export default [
   {
     name: '@react-native-community/slider',
     type: 'library',
-    version: '4.1.6',
+    version: '4.2.0',
     license: 'MIT License (MIT)',
-    homepage: 'https://github.com/react-native-community/react-native-slider',
+    homepage: 'https://github.com/callstack/react-native-slider#readme',
   },
   {
     name: '@staltz/react-native-audio-toolkit',
@@ -214,13 +214,6 @@ export default [
     version: '4.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/websockets/bufferutil',
-  },
-  {
-    name: 'cached-path-relative',
-    type: 'library',
-    version: '1.0.2',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/ashaffer/cached-path-relative#readme',
   },
   {
     name: 'chloride',
@@ -386,21 +379,14 @@ export default [
   {
     name: 'nodejs-mobile-react-native',
     type: 'library',
-    version: '0.6.3',
+    version: '0.6.4',
     license: 'MIT License (MIT)',
     homepage: 'https://code.janeasystems.com/nodejs-mobile',
   },
   {
-    name: 'non-private-ip-android',
-    type: 'library',
-    version: '1.4.4-3',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/staltz/non-private-ip',
-  },
-  {
     name: 'nuka-carousel',
     type: 'library',
-    version: '4.8.2',
+    version: '4.8.4',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/FormidableLabs/nuka-carousel',
   },
@@ -817,7 +803,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '2.8.5',
+    version: '2.8.9',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -880,7 +866,7 @@ export default [
   {
     name: 'ssb-lan',
     type: 'library',
-    version: '1.1.1',
+    version: '1.2.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-lan',
   },
@@ -915,7 +901,7 @@ export default [
   {
     name: 'ssb-room-client',
     type: 'library',
-    version: '2.0.0',
+    version: '2.0.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-room-client',
   },
@@ -929,7 +915,7 @@ export default [
   {
     name: 'ssb-serve-blobs',
     type: 'library',
-    version: '3.0.0',
+    version: '3.1.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-serve-blobs',
   },
@@ -957,16 +943,9 @@ export default [
   {
     name: 'ssb-uri2',
     type: 'library',
-    version: '1.5.2',
+    version: '1.6.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-uri2#readme',
-  },
-  {
-    name: 'staltz-multiserver',
-    type: 'library',
-    version: '3.3.6-1',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/staltz/multiserver',
   },
   {
     name: 'strip-markdown-oneline',

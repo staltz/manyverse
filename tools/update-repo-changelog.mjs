@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
-const addStream = require('add-stream');
-const intoStream = require('into-stream');
-const fs = require('fs');
-const generateChangelog = require('./generate-changelog');
+import addStream from 'add-stream';
+import intoStream from 'into-stream';
+import fs from 'fs';
+import generateChangelog from './generate-changelog.mjs';
 
 intoStream(
   '# Changelog\n' +
