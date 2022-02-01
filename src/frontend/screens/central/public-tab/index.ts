@@ -24,7 +24,7 @@ import floatingAction from './fab';
 import asyncStorage from './asyncstorage';
 import navigation from './navigation';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   asyncstorage: AsyncStorageSource;
@@ -33,9 +33,9 @@ export type Sources = {
   scrollToTop: Stream<any>;
   dialog: DialogSource;
   fab: Stream<string>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
@@ -44,7 +44,7 @@ export type Sinks = {
   clipboard: Stream<string>;
   toast: Stream<Toast>;
   fab: Stream<FabProps>;
-};
+}
 
 export function publicTab(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.navigation, sources.fab);
