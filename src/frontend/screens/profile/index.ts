@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -27,7 +27,7 @@ import {Props as P} from './props';
 
 export type Props = P;
 
-export type Sources = {
+export interface Sources {
   props: Stream<Props>;
   screen: ReactSource;
   navigation: NavSource;
@@ -35,9 +35,9 @@ export type Sources = {
   asyncstorage: AsyncStorageSource;
   ssb: SSBSource;
   dialog: DialogSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
@@ -45,7 +45,7 @@ export type Sinks = {
   toast: Stream<Toast>;
   dialog: Stream<AlertCommand>;
   ssb: Stream<Req>;
-};
+}
 
 export function profile(sources: Sources): Sinks {
   const state$ = sources.state.stream;
