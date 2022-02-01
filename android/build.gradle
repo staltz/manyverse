@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: Unlicense
 
@@ -6,24 +6,23 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "29.0.3"
+        buildToolsVersion = "30.0.2"
         minSdkVersion = 21
         targetSdkVersion = 26
         targetSdkVersionForGooglePlay = 30
         compileSdkVersion = 30
         ndkVersion = "21.4.7075529"
-        kotlinVersion = "1.3.72"
+        kotlinVersion = "1.5.31"
         RNNKotlinVersion = kotlinVersion
         RNNKotlinStdlib = "kotlin-stdlib-jdk8"
     }
     repositories {
         google()
-        jcenter()
         mavenLocal()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.4'
+        classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -33,8 +32,13 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenCentral()
-        mavenLocal()
+        mavenCentral {
+            // We don't want to fetch react-native from Maven Central as there are
+            // older versions over there.
+            content {
+                excludeGroup "com.facebook.react"
+            }
+        }
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")
@@ -50,7 +54,6 @@ allprojects {
             url "https://www.jitpack.io"
         }
         google()
-        jcenter()
     }
 }
 

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: Unlicense
 
@@ -6,8 +6,8 @@ rootProject.name = 'Manyverse'
 include ':@staltz_react-native-audio-toolkit'
 project(':@staltz_react-native-audio-toolkit').projectDir = new File(rootProject.projectDir, '../node_modules/@staltz/react-native-audio-toolkit/android')
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
-include ':@react-native-community_async-storage'
-project(':@react-native-community_async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/async-storage/android')
+include ':@react-native-async-storage'
+project(':@react-native-async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-async-storage/async-storage/android')
 include ':react-native-bluetooth-socket-bridge'
 project(':react-native-bluetooth-socket-bridge').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-bluetooth-socket-bridge/android')
 include ':react-native-image-crop-picker'

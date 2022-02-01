@@ -23,7 +23,7 @@ module.exports = {
 
   resolver: {
     platforms: ['android', 'ios', 'web'],
-    blacklistRE: exclusionList([
+    blockList: exclusionList([
       /\/android\/.*/,
       /\/desktop\/.*/,
       /\/benchmark\/.*/,

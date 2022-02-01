@@ -19,6 +19,10 @@ Files: android/app/src/main/res/drawable-*/ic_arrow_left_white_*.png
 Copyright: 2021 Google, Inc
 License: Apache-2.0
 
+Files: android/app/src/main/res/drawable/rn_edit_text_material.xml
+Copyright: 2014 The Android Open Source Project
+License: Apache-2.0
+
 Files: android/app/src/main/res/drawable-*/logo_outline.png
 Copyright: 2019 The Manyverse Authors
 License: CC-BY-SA-4.0
@@ -286,6 +290,18 @@ License: Unlicense
 Files: CHANGELOG.md
 Copyright: 2021 The Manyverse Authors
 License: CC-BY-4.0
+
+Files: Gemfile*
+Copyright: 2022 The Manyverse Authors
+License: Unlicense
+
+Files: .bundle/config
+Copyright: 2022 The Manyverse Authors
+License: Unlicense
+
+Files: .ruby-version
+Copyright: 2022 The Manyverse Authors
+License: Unlicense
 
 Files: package.json
 Copyright: 2021 The Manyverse Authors

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021 The Manyverse Authors
+# SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 #
 # SPDX-License-Identifier: Unlicense
 
@@ -18,7 +18,7 @@ target 'Manyverse' do
   # FIXME: Can we delete this? See https://github.com/wix/react-native-navigation/blob/master/CHANGELOG.md#remove-rnn-pod-from-podspec
   # pod 'ReactNativeNavigation', :podspec => '../node_modules/react-native-navigation/ReactNativeNavigation.podspec'
 
-  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
   pod 'RNOS', :podspec => '../node_modules/react-native-os-staltz/RNOS.podspec'
 
   target 'ManyverseTests' do
@@ -36,6 +36,7 @@ target 'Manyverse' do
 
   post_install do |installer|
     react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
 
     # Hack copied from https://github.com/facebook/react-native/issues/31034#issuecomment-812564390
     installer.pods_project.targets.each do |target|
