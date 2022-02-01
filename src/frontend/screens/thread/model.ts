@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -34,7 +34,7 @@ export interface State {
   keyboardVisible: boolean;
 }
 
-export type Actions = {
+export interface Actions {
   publishMsg$: Stream<any>;
   willReply$: Stream<any>;
   loadReplyDraft$: Stream<MsgId>;
@@ -42,7 +42,7 @@ export type Actions = {
   keyboardAppeared$: Stream<any>;
   keyboardDisappeared$: Stream<any>;
   updateReplyText$: Stream<string>;
-};
+}
 
 const emptyThread: ThreadAndExtras = {full: true, messages: []};
 const missingThread: ThreadAndExtras = {

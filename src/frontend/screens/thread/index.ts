@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -27,7 +27,7 @@ import {Props as P} from './props';
 
 export type Props = P;
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   asyncstorage: AsyncStorageSource;
@@ -36,9 +36,9 @@ export type Sources = {
   dialog: DialogSource;
   state: StateSource<State>;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   asyncstorage: Stream<StorageCommand>;
@@ -47,7 +47,7 @@ export type Sinks = {
   clipboard: Stream<string>;
   toast: Stream<Toast>;
   ssb: Stream<Req>;
-};
+}
 
 export function thread(sources: Sources): Sinks {
   const actions = intent(
