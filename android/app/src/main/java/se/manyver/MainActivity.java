@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -60,7 +60,7 @@ public class MainActivity extends NavigationActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        SplashScreen.show(this, R.style.AppTheme);
+        SplashScreen.show(this, R.style.AppTheme, false);
         super.onCreate(savedInstanceState);
         setSplashLayout();
         try {

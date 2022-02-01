@@ -245,10 +245,11 @@ export function backup(sources: Sources): Sinks {
     .map(
       ([ori, win]) =>
         function updatePortraitModeReducer(prev: State): State {
-          const isPortrait =
-            ori === 'PORTRAIT' || ori === 'PORTRAIT-UPSIDEDOWN';
-          const isUltrawide = win.width / win.height > 2;
-          return {...prev, isPortraitMode: isPortrait || !isUltrawide};
+          const isPortraitMode =
+            Platform.OS === 'web'
+              ? win.height >= 540
+              : ori === 'PORTRAIT' || ori === 'PORTRAIT-UPSIDEDOWN';
+          return {...prev, isPortraitMode: isPortraitMode};
         },
     );
 

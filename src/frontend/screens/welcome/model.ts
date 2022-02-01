@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -70,9 +70,11 @@ export default function model(
   const updatePortraitModeReducer$ = xs.combine(orientation$, windowSize$).map(
     ([ori, win]) =>
       function updatePortraitModeReducer(prev: State): State {
-        const isPortrait = ori === 'PORTRAIT' || ori === 'PORTRAIT-UPSIDEDOWN';
-        const isUltrawide = win.width / win.height > 2;
-        return {...prev, isPortraitMode: isPortrait || !isUltrawide};
+        const isPortraitMode =
+          Platform.OS === 'web'
+            ? win.height >= 540
+            : ori === 'PORTRAIT' || ori === 'PORTRAIT-UPSIDEDOWN';
+        return {...prev, isPortraitMode};
       },
   );
 
