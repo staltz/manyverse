@@ -45,18 +45,11 @@ export const styles = StyleSheet.create({
     marginRight: Dimensions.horizontalSpaceSmall,
   },
 
-  authorColumn: {
-    flexDirection: 'column',
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'space-around',
-  },
-
   authorName: {
+    flex: 1,
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
-    minWidth: 120,
     ...Platform.select({
       web: {
         wordBreak: 'break-all',
@@ -68,6 +61,7 @@ export const styles = StyleSheet.create({
     maxWidth: 100,
     color: Palette.text,
     fontWeight: 'bold',
+    fontFamily: Typography.fontFamilyReadableText,
   },
 });
 
@@ -95,17 +89,6 @@ export default class AccountSmall extends PureComponent<AccountProps> {
       renderedName = renderedName.substr(0, 20) + '...';
     }
 
-    const authorNameText = h(
-      Text,
-      {
-        numberOfLines: 1,
-        ellipsizeMode: 'tail',
-        style: styles.authorName,
-        android_hyphenationFrequency: 'high',
-      },
-      [h(Text, {style: styles.boldText}, renderedName), '  ' + id],
-    );
-
     const contentChildren = h(
       View,
       {style: styles.row, pointerEvents: 'box-only'},
@@ -115,7 +98,16 @@ export default class AccountSmall extends PureComponent<AccountProps> {
           size: Dimensions.avatarSizeSmall,
           style: styles.avatar,
         }),
-        h(View, {style: styles.authorColumn}, [authorNameText]),
+        h(
+          Text,
+          {
+            numberOfLines: 1,
+            ellipsizeMode: 'tail',
+            style: styles.authorName,
+            android_hyphenationFrequency: 'high',
+          },
+          [h(Text, {style: styles.boldText}, renderedName), '  ' + id],
+        ),
       ],
     );
 
