@@ -1,13 +1,13 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import {Reducer} from '@cycle/state';
+import {FeedId, MsgId} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
 import {PrivateThreadAndExtras} from '../../ssb/types';
 import {Props} from '.';
-import {Reducer} from '@cycle/state';
-import {FeedId, MsgId} from 'ssb-typescript';
 
 const emptyThread: PrivateThreadAndExtras = {
   full: true,
@@ -37,14 +37,14 @@ function dropCompletion<T>(stream: Stream<T>): Stream<T> {
   return xs.merge(stream, xs.never());
 }
 
-export type State = {
+export interface State {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
   rootMsgId: MsgId | null;
   thread: PrivateThreadAndExtras;
   emptyThreadSysMessage: boolean;
   avatarUrl?: string;
-};
+}
 
 export default function model(
   props$: Stream<Props>,
