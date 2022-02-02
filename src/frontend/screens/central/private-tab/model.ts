@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs from 'xstream';
-import {FeedId, MsgId} from 'ssb-typescript';
+import {FeedId, MsgId, PostContent} from 'ssb-typescript';
 import {GetReadable, SSBSource} from '../../../drivers/ssb';
 import {PrivateThreadAndExtras} from '../../../ssb/types';
 import {NavSource} from 'cycle-native-navigation';
@@ -17,7 +17,9 @@ import {
 export type State = {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
-  getPrivateFeedReadable: GetReadable<PrivateThreadAndExtras> | null;
+  getPrivateFeedReadable: GetReadable<
+    PrivateThreadAndExtras<PostContent>
+  > | null;
   isVisible: boolean;
   updates: Set<MsgId>;
   updatesFlag: boolean;

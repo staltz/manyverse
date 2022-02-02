@@ -65,8 +65,15 @@ export const styles = StyleSheet.create({
     marginRight: Dimens.horizontalSpaceSmall,
   },
 
-  conversationAuthors: {
+  conversationAuthorsCol: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    alignSelf: 'stretch',
+  },
+
+  conversationAuthors: {
     fontSize: Typography.fontSizeNormal,
     color: Palette.text,
     textAlign: 'left',
@@ -80,7 +87,6 @@ export const styles = StyleSheet.create({
   },
 
   conversationAuthorsUnread: {
-    flex: 1,
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
@@ -88,5 +94,32 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     textAlignVertical: 'center',
     minWidth: 120,
+  },
+
+  recentText: {
+    fontSize: Typography.fontSizeNormal,
+    color: Palette.textWeak,
+    textAlign: 'left',
+    textAlignVertical: 'center',
+    alignSelf: 'stretch',
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
+  },
+
+  recentTextUnread: {
+    fontSize: Typography.fontSizeNormal,
+    color: Palette.textWeak,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    textAlignVertical: 'center',
+    alignSelf: 'stretch',
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
   },
 });

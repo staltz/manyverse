@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,7 +6,7 @@ const pull = require('pull-stream');
 const Ref = require('ssb-ref');
 import xs, {Stream} from 'xstream';
 import {Thread as ThreadData} from 'ssb-threads/types';
-import {Msg, Content, FeedId} from 'ssb-typescript';
+import {Msg, Content, FeedId, PostContent} from 'ssb-typescript';
 import {isMsg, isContactMsg} from 'ssb-typescript/utils';
 import run = require('promisify-tuple');
 import {
@@ -108,12 +108,15 @@ function mutateThreadSummaryWithLiveExtras(ssb: SSB) {
 }
 
 function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
-  return async (thread: ThreadData, cb: Callback<PrivateThreadAndExtras>) => {
+  return async (
+    thread: ThreadData,
+    cb: Callback<PrivateThreadAndExtras<PostContent>>,
+  ) => {
     for (const msg of thread.messages) {
       await run(mutateMsgWithLiveExtras(ssb, false))(msg);
     }
     const root: Msg<Content> | undefined = thread.messages[0];
-    const pvthread: PrivateThreadAndExtras = thread as any;
+    const pvthread: PrivateThreadAndExtras<PostContent> = thread as any;
     if (root && root?.value?.content?.recps) {
       pvthread.recps = [];
       for (const recp of root?.value?.content?.recps) {
@@ -129,7 +132,7 @@ function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
         pvthread.recps.push({id, name, imageUrl});
       }
     }
-    cb(null, pvthread as PrivateThreadAndExtras);
+    cb(null, pvthread as PrivateThreadAndExtras<PostContent>);
   };
 }
 

@@ -16,7 +16,8 @@ import {
 } from 'react-native';
 import {propifyMethods} from 'react-propify-methods';
 import PullFlatList from 'pull-flat-list';
-import {FeedId, MsgId} from 'ssb-typescript';
+import {FeedId, MsgId, PostContent} from 'ssb-typescript';
+const stripMarkdownOneline = require('strip-markdown-oneline');
 import {PrivateThreadAndExtras} from '../../../ssb/types';
 import {GetReadable} from '../../../drivers/ssb';
 import {t} from '../../../drivers/localization';
@@ -25,9 +26,12 @@ import {getImg} from '../../../global-styles/utils';
 import {displayName} from '../../../ssb/utils/from-ssb';
 import EmptySection from '../../../components/EmptySection';
 import AnimatedLoading from '../../../components/AnimatedLoading';
+import TimeAgo from '../../../components/TimeAgo';
 import Avatar from '../../../components/Avatar';
 import {State} from './model';
 import {styles} from './styles';
+
+type Thread = PrivateThreadAndExtras<PostContent>;
 
 const PullFlatList2 = propifyMethods(
   PullFlatList,
@@ -40,15 +44,17 @@ const Touchable = Platform.select<any>({
   default: TouchableOpacity,
 });
 
-type CIProps = {
+interface CIProps {
   recps: Array<{
     name?: string;
     imageUrl?: string | null;
     id: string;
   }>;
   isUnread: boolean;
+  recentText: string;
+  timestamp: number;
   onPress?: () => void;
-};
+}
 
 const GROUP_SIZE = Dimensions.avatarSizeNormal;
 const CX = GROUP_SIZE * 0.5; // x coord of center of the group
@@ -60,7 +66,7 @@ const DIST = (GROUP_SIZE - SIZE) * 0.5; // distance from (CX,CY)
 
 class ConversationItem extends PureComponent<CIProps> {
   public render() {
-    const {recps, isUnread, onPress} = this.props;
+    const {recps, isUnread, timestamp, recentText, onPress} = this.props;
     const amount = recps.length;
 
     const touchableProps: any = {onPress};
@@ -71,51 +77,68 @@ class ConversationItem extends PureComponent<CIProps> {
 
     const D_ANG = (2 * Math.PI) / amount;
 
+    const avatarBundleElem =
+      amount === 1
+        ? h(View, {key: 'a', style: styles.singleAvatar}, [
+            h(Avatar, {url: recps[0].imageUrl, size: GROUP_SIZE}),
+          ])
+        : h(
+            View,
+            {key: 'b', style: styles.avatarGroup},
+            recps
+              .slice()
+              .reverse()
+              .map(({imageUrl}, i) =>
+                h(Avatar, {
+                  url: imageUrl,
+                  size: SIZE,
+                  style: [
+                    styles.avatar,
+                    {
+                      left: CX - HALFSIZE + DIST * Math.cos(ANG - D_ANG * i),
+                      top: CY - HALFSIZE + DIST * Math.sin(ANG - D_ANG * i),
+                    },
+                  ],
+                }),
+              ),
+          );
+
+    const authorsElem = h(
+      Text,
+      {
+        key: 'd',
+        numberOfLines: 1,
+        ellipsizeMode: 'tail',
+        style: isUnread
+          ? styles.conversationAuthorsUnread
+          : styles.conversationAuthors,
+      },
+      recps.map((x) => displayName(x.name, x.id)).join(', '),
+    );
+
+    const recentTextElem = h(
+      Text,
+      {
+        key: 'r',
+        numberOfLines: 1,
+        ellipsizeMode: 'tail',
+        style: isUnread ? styles.recentTextUnread : styles.recentText,
+      },
+      recentText,
+    );
+
     return h(
       View,
       {accessibilityLabel: t('private.conversation.accessibility_label')},
       [
         h(Touchable, touchableProps, [
           h(View, {style: styles.conversationRow, pointerEvents: 'box-only'}, [
-            amount === 1
-              ? h(View, {key: 'a', style: styles.singleAvatar}, [
-                  h(Avatar, {url: recps[0].imageUrl, size: GROUP_SIZE}),
-                ])
-              : h(
-                  View,
-                  {key: 'b', style: styles.avatarGroup},
-                  recps
-                    .slice()
-                    .reverse()
-                    .map(({imageUrl}, i) =>
-                      h(Avatar, {
-                        url: imageUrl,
-                        size: SIZE,
-                        style: [
-                          styles.avatar,
-                          {
-                            left:
-                              CX - HALFSIZE + DIST * Math.cos(ANG - D_ANG * i),
-                            top:
-                              CY - HALFSIZE + DIST * Math.sin(ANG - D_ANG * i),
-                          },
-                        ],
-                      }),
-                    ),
-                ),
-            isUnread ? h(View, {key: 'c', style: styles.unreadDot}) : null,
-            h(
-              Text,
-              {
-                key: 'd',
-                numberOfLines: 3,
-                ellipsizeMode: 'tail',
-                style: isUnread
-                  ? styles.conversationAuthorsUnread
-                  : styles.conversationAuthors,
-              },
-              recps.map((x) => displayName(x.name, x.id)).join(', '),
-            ),
+            avatarBundleElem,
+            h(View, {style: styles.conversationAuthorsCol}, [
+              authorsElem,
+              recentTextElem,
+            ]),
+            h(TimeAgo, {timestamp, unread: isUnread}),
           ]),
         ]),
       ],
@@ -125,7 +148,7 @@ class ConversationItem extends PureComponent<CIProps> {
 
 interface CLProps {
   selfFeedId: FeedId;
-  getScrollStream: GetReadable<PrivateThreadAndExtras> | null;
+  getScrollStream: GetReadable<Thread> | null;
   unreadSet: Set<MsgId>;
   forceRefresh$: Stream<boolean>;
   scrollToTop$: Stream<any>;
@@ -162,7 +185,38 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
     }
   };
 
-  private isNotMe = (recp: Unarray<PrivateThreadAndExtras['recps']>) => {
+  private calculateThreadTimestamp(thread: Thread): number {
+    // We go through only the last 5 messages in the thread because one of them
+    // is highly likely to be the most recent one, and we need to be mindful of
+    // wasting performance on iterating over very long threads.
+    const msgs = thread.messages;
+    let max = 0;
+    for (let i = 1; i <= 5 && msgs.length - i >= 0; i++) {
+      const msg = msgs[msgs.length - i];
+      const minMsgTimestamp = Math.min(msg.timestamp, msg.value.timestamp);
+      if (minMsgTimestamp > max) max = minMsgTimestamp;
+    }
+    return max;
+  }
+
+  private determineThreadOnPress(thread: Thread): () => void {
+    const rootId = thread.messages[0].key;
+    if (this.registryOfOnPress.has(rootId)) {
+      return this.registryOfOnPress.get(rootId)!;
+    } else {
+      const onPress = () => this.props.onPressConversation?.(rootId);
+      this.registryOfOnPress.set(rootId, onPress);
+      return onPress;
+    }
+  }
+
+  private determineRecentText(thread: Thread): string {
+    const msgs = thread.messages;
+    const latestMsg = msgs[msgs.length - 1];
+    return stripMarkdownOneline(latestMsg.value.content?.text ?? '');
+  }
+
+  private isNotMe = (recp: Unarray<Thread['recps']>) => {
     return recp.id !== this.props.selfFeedId;
   };
 
@@ -190,18 +244,19 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
         title: t('private.empty.title'),
         description: t('private.empty.description'),
       }),
-      keyExtractor: (thread: PrivateThreadAndExtras, index: number) =>
+      keyExtractor: (thread: Thread, index: number) =>
         thread.messages[0].key ?? String(index),
       renderItem: ({item}: any) => {
-        const thread = item as PrivateThreadAndExtras;
+        const thread = item as Thread;
         const rootId = thread.messages[0].key;
-        const onPress = this.registryOfOnPress.has(rootId)
-          ? this.registryOfOnPress.get(rootId)!
-          : () => this.props.onPressConversation?.(rootId);
-        this.registryOfOnPress.set(rootId, onPress);
+        const timestamp = this.calculateThreadTimestamp(thread);
+        const onPress = this.determineThreadOnPress(thread);
+        const recentText = this.determineRecentText(thread);
         return h(ConversationItem, {
           recps: thread.recps.filter(this.isNotMe),
           isUnread: unreadSet.has(rootId),
+          recentText,
+          timestamp,
           onPress,
         });
       },

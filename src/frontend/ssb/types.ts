@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -39,19 +39,20 @@ export interface ThreadSummary<C = Content> {
   replyCount: number;
 }
 
-export interface ThreadSummaryWithExtras {
-  root: MsgAndExtras;
+export interface ThreadSummaryWithExtras<C = Content> {
+  root: MsgAndExtras<C>;
   replyCount: number;
   timestamp: number;
 }
 
-export interface ThreadAndExtras {
-  messages: Array<MsgAndExtras>;
+export interface ThreadAndExtras<C = Content> {
+  messages: Array<MsgAndExtras<C>>;
   full: boolean;
   errorReason?: 'blocked' | 'missing' | 'unknown';
 }
 
-export interface PrivateThreadAndExtras extends ThreadAndExtras {
+export interface PrivateThreadAndExtras<C = Content>
+  extends ThreadAndExtras<C> {
   recps: Array<{
     id: string;
     name?: string;

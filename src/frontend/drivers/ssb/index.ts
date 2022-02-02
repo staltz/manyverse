@@ -67,7 +67,7 @@ export class SSBSource {
   public publicRawFeed$: Stream<GetReadable<MsgAndExtras>>;
   public publicFeed$: Stream<GetReadable<ThreadSummaryWithExtras>>;
   public publicLiveUpdates$: Stream<null>;
-  public privateFeed$: Stream<GetReadable<PrivateThreadAndExtras>>;
+  public privateFeed$: Stream<GetReadable<PrivateThreadAndExtras<PostContent>>>;
   public privateLiveUpdates$: Stream<MsgId>;
   public preferredReactions$: Stream<Array<string>>;
   public mentionsFeed$: Stream<GetReadable<MsgAndExtras>>;

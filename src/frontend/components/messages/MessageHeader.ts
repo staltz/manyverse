@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -16,8 +16,8 @@ import {displayName} from '../../ssb/utils/from-ssb';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
-import LocalizedHumanTime from '../LocalizedHumanTime';
 import Avatar from '../Avatar';
+import TimeAgo from '../TimeAgo';
 
 /**
  * In pixels.
@@ -68,14 +68,14 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   msg: Msg;
   style?: ViewStyle;
   name?: string;
   imageUrl: string | null;
   unread?: boolean;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
-};
+}
 
 export default class MessageHeader extends Component<Props> {
   constructor(props: Props) {
@@ -134,11 +134,7 @@ export default class MessageHeader extends Component<Props> {
           ),
         ],
       ),
-      h(
-        Text,
-        {key: 't', style: unread ? styles.timestampUnread : styles.timestamp},
-        [h(LocalizedHumanTime, {time: msg.value.timestamp})],
-      ),
+      h(TimeAgo, {timestamp: msg.value.timestamp, unread: unread ?? false}),
     ]);
   }
 }
