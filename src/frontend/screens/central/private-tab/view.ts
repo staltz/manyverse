@@ -123,24 +123,28 @@ class ConversationItem extends PureComponent<CIProps> {
   }
 }
 
-type CLProps = {
+interface CLProps {
   selfFeedId: FeedId;
   getScrollStream: GetReadable<PrivateThreadAndExtras> | null;
   unreadSet: Set<MsgId>;
   forceRefresh$: Stream<boolean>;
   scrollToTop$: Stream<any>;
   onPressConversation?: (ev: MsgId) => void;
-};
-type CLState = {
+}
+
+interface CLState {
   initialLoading: boolean;
-};
+}
 
 type Unarray<T> = T extends Array<infer U> ? U : T;
 
 class ConversationsList extends PureComponent<CLProps, CLState> {
+  private registryOfOnPress: Map<string, () => void>;
+
   constructor(props: CLProps) {
     super(props);
     this.state = {initialLoading: true};
+    this.registryOfOnPress = new Map();
   }
 
   private _onFeedInitialPullDone = () => {
@@ -163,13 +167,8 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
   };
 
   public render() {
-    const {
-      onPressConversation,
-      getScrollStream,
-      forceRefresh$,
-      scrollToTop$,
-      unreadSet,
-    } = this.props;
+    const {getScrollStream, forceRefresh$, scrollToTop$, unreadSet} =
+      this.props;
     const {initialLoading} = this.state;
 
     return h(PullFlatList2, {
@@ -196,10 +195,14 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
       renderItem: ({item}: any) => {
         const thread = item as PrivateThreadAndExtras;
         const rootId = thread.messages[0].key;
+        const onPress = this.registryOfOnPress.has(rootId)
+          ? this.registryOfOnPress.get(rootId)!
+          : () => this.props.onPressConversation?.(rootId);
+        this.registryOfOnPress.set(rootId, onPress);
         return h(ConversationItem, {
           recps: thread.recps.filter(this.isNotMe),
           isUnread: unreadSet.has(rootId),
-          onPress: () => onPressConversation?.(rootId),
+          onPress,
         });
       },
     });
