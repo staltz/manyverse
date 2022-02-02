@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
   rightSide: {marginRight: -space},
 });
 
-export type Props = {
+export interface Props {
   onPress?: () => void;
   onLongPress?: () => void;
   color?: string;
@@ -35,7 +35,7 @@ export type Props = {
   iconSize?: number;
   accessibilityLabel: string;
   side?: 'left' | 'right' | 'neutral';
-};
+}
 
 export default class HeaderButton extends PureComponent<Props> {
   public render() {

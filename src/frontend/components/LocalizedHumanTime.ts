@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -42,14 +42,14 @@ function human(seconds: number | Date): [number, Measure, boolean] {
   return [0, 'now', false];
 }
 
-export type Props = {
+export interface Props {
   time: number;
   period?: number;
-};
+}
 
-export type State = {
+export interface State {
   formattedTime: string;
-};
+}
 
 export default class LocalizedHumanTime extends Component<Props, State> {
   constructor(props: Props) {

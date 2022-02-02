@@ -81,13 +81,13 @@ export const styles = StyleSheet.create({
   },
 });
 
-type AccountProps = {
+interface AccountProps {
   id: string;
   name?: string;
   imageUrl?: string;
   reaction?: string;
   onPress?: () => void;
-};
+}
 
 class Account extends PureComponent<AccountProps> {
   public render() {

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -91,12 +91,12 @@ function convertMillisecondsToSeconds(milliseconds: number): number {
   return Math.floor(milliseconds / 1000);
 }
 
-export type Props = {
+export interface Props {
   src: string;
   style?: StyleProp<ViewStyle>;
-};
+}
 
-export type State = {
+export interface State {
   playState: PlayState;
   elapsed: number;
   elapsedSlider: number;
@@ -104,7 +104,7 @@ export type State = {
   editingSlider: boolean;
   fetchingFile: boolean;
   timer?: number;
-};
+}
 
 export default class AudioPlayer extends PureComponent<Props, State> {
   private player: Player | null = null;

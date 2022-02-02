@@ -58,12 +58,12 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   image?: ImageSourcePropType;
   title: string;
   description: string | Array<string | ReactElement<Text>>;
   style?: StyleProp<ViewStyle>;
-};
+}
 
 export default class EmptySection extends PureComponent<Props> {
   public render() {

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -85,7 +85,7 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   text: string;
   onPress?: () => void;
   strong?: boolean;
@@ -94,7 +94,7 @@ export type Props = {
   textStyle?: StyleProp<TextStyle>;
   accessible?: boolean;
   accessibilityLabel?: string;
-};
+}
 
 export default class Button extends Component<Props, {}> {
   constructor(props: Props) {

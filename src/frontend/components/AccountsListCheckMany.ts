@@ -69,13 +69,13 @@ export const styles = StyleSheet.create({
   },
 });
 
-type AccountProps = {
+interface AccountProps {
   name: string;
   imageUrl?: string;
   id: string;
   isChecked: boolean;
   onPress?: () => void;
-};
+}
 
 class Account extends PureComponent<AccountProps> {
   public render() {
