@@ -4,9 +4,12 @@
 
 import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
-import {FeedId, MsgId} from 'ssb-typescript';
+import {Platform} from 'react-native';
+import {IMessage as GiftedMsg} from 'react-native-gifted-chat';
+import {FeedId, MsgId, PostContent} from 'ssb-typescript';
 import {SSBSource} from '../../drivers/ssb';
-import {PrivateThreadAndExtras} from '../../ssb/types';
+import {MsgAndExtras, PrivateThreadAndExtras} from '../../ssb/types';
+import {t} from '../../drivers/localization';
 import {Props} from '.';
 
 const emptyThread: PrivateThreadAndExtras = {
@@ -33,8 +36,31 @@ const unknownErrorThread: PrivateThreadAndExtras = {
   recps: [],
 };
 
+const MAX_GIFTED_MESSAGES_TO_LOAD = Platform.select({
+  web: 20,
+  default: 8,
+});
+
 function dropCompletion<T>(stream: Stream<T>): Stream<T> {
   return xs.merge(stream, xs.never());
+}
+
+export interface SSBGiftedMsg extends GiftedMsg {
+  mentions?: Array<any>;
+}
+
+function toGiftedMessage(msg: MsgAndExtras<PostContent>): SSBGiftedMsg {
+  return {
+    _id: msg.key,
+    createdAt: msg.value.timestamp,
+    text: msg.value.content.text,
+    mentions: msg.value.content.mentions,
+    user: {
+      _id: msg.value.author,
+      name: msg.value._$manyverse$metadata.about.name,
+      avatar: msg.value._$manyverse$metadata.about.imageUrl ?? void 0,
+    },
+  };
 }
 
 export interface State {
@@ -42,14 +68,21 @@ export interface State {
   selfAvatarUrl?: string;
   rootMsgId: MsgId | null;
   thread: PrivateThreadAndExtras;
-  emptyThreadSysMessage: boolean;
+  giftedMessages: Array<GiftedMsg>;
   avatarUrl?: string;
+}
+
+interface Actions {
+  showMoreGiftedMessages$: Stream<any>;
 }
 
 export default function model(
   props$: Stream<Props>,
   ssbSource: SSBSource,
+  actions: Actions,
 ): Stream<Reducer<State>> {
+  const screenOpenedAt = Date.now();
+
   const propsReducer$ = props$.take(1).map(
     (props) =>
       function propsReducer(_prev?: State): State {
@@ -58,20 +91,27 @@ export default function model(
             selfFeedId: props.selfFeedId,
             selfAvatarUrl: props.selfAvatarUrl,
             rootMsgId: props.rootMsgId ?? null,
-            emptyThreadSysMessage: false,
             thread: emptyThread,
+            giftedMessages: [],
           };
         } else if (props.recps) {
           return {
             selfFeedId: props.selfFeedId,
             selfAvatarUrl: props.selfAvatarUrl,
             rootMsgId: null,
-            emptyThreadSysMessage: true,
             thread: {
               full: true,
               messages: [],
               recps: props.recps,
             },
+            giftedMessages: [
+              {
+                _id: 1,
+                text: t('conversation.notifications.new_conversation'),
+                createdAt: screenOpenedAt,
+                system: true,
+              } as any,
+            ],
           };
         } else {
           throw new Error('Conversation got invalid props: ' + props);
@@ -108,24 +148,42 @@ export default function model(
     .map(
       (thread: PrivateThreadAndExtras) =>
         function setThreadReducer(prev: State): State {
+          const rootMsgId = thread.messages[0].key;
+          const giftedMessages = thread.messages
+            .slice(-MAX_GIFTED_MESSAGES_TO_LOAD)
+            .map(toGiftedMessage)
+            .reverse();
           if (!prev.rootMsgId) {
-            return {...prev, thread, rootMsgId: thread.messages[0].key};
+            return {...prev, thread, rootMsgId, giftedMessages};
           } else {
-            return {...prev, thread};
+            return {...prev, thread, giftedMessages};
           }
         },
     );
+
+  const showMoreGiftedMessagesReducer$ = actions.showMoreGiftedMessages$.mapTo(
+    function showMoreGiftedMessagesReducer(prev: State): State {
+      const PREV_SIZE = prev.giftedMessages.length;
+      const more = prev.thread.messages
+        .slice(-PREV_SIZE - MAX_GIFTED_MESSAGES_TO_LOAD, -PREV_SIZE)
+        .map(toGiftedMessage)
+        .reverse();
+      return {...prev, giftedMessages: [...prev.giftedMessages, ...more]};
+    },
+  );
 
   const updateWithLiveRepliesReducer$ = rootMsgId$
     .map((rootMsgId) => ssbSource.threadUpdates$(rootMsgId, true))
     .flatten()
     .map(
-      (newMsg) =>
+      (newMsg: MsgAndExtras<PostContent>) =>
         function updateWithLiveRepliesReducer(prev: State): State {
+          const newGiftedMsg = toGiftedMessage(newMsg);
           return {
             ...prev,
+            giftedMessages: [newGiftedMsg, ...prev.giftedMessages],
             thread: {
-              messages: prev.thread.messages.concat([newMsg]),
+              messages: [...prev.thread.messages, newMsg],
               recps: prev.thread.recps,
               full: true,
             },
@@ -136,6 +194,7 @@ export default function model(
   return xs.merge(
     propsReducer$,
     loadExistingThreadReducer$,
+    showMoreGiftedMessagesReducer$,
     updateWithLiveRepliesReducer$,
   );
 }

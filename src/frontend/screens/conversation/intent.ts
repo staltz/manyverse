@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -26,5 +26,7 @@ export default function intent(reactSource: ReactSource, navSource: NavSource) {
       .map((user: User) => user._id as FeedId),
 
     goToRecipients$: reactSource.select('showRecipients').events('press'),
+
+    showMoreGiftedMessages$: reactSource.select('chat').events('loadEarlier'),
   };
 }

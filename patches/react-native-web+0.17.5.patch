@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js b/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
+index 05a53ed..15fe8c0 100644
+--- a/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
++++ b/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
+@@ -650,6 +650,8 @@ var VirtualizedList = /*#__PURE__*/function (_React$PureComponent) {
+             // we will trust the initialScrollIndex suggestion.
+             if (!_this.props.initialScrollIndex || _this._scrollMetrics.offset) {
+               newState = computeWindowedRenderLimits(_this.props, state, _this._getFrameMetricsApprox, _this._scrollMetrics);
++              // See https://github.com/necolas/react-native-web/issues/1579
++              newState.first = 0;
+             }
+           }
+         } else {

@@ -16,6 +16,7 @@ import {
   InputToolbar as InputToolbarWithWrongTypes,
   Message as MessageWithWrongTypes,
   SystemMessage as SystemMessageWithWrongTypes,
+  LoadEarlier as LoadEarlierWithWrongTypes,
   SystemMessageProps,
   IMessage as GiftedMsg,
   GiftedChatProps,
@@ -23,23 +24,22 @@ import {
   DayProps,
   ComposerProps,
   InputToolbarProps,
+  LoadEarlierProps,
   MessageProps,
   Send,
 } from 'react-native-gifted-chat';
-import {PostContent} from 'ssb-typescript';
-import {MsgAndExtras} from '../../ssb/types';
 import {t} from '../../drivers/localization';
 import {Palette} from '../../global-styles/palette';
 import {Dimensions} from '../../global-styles/dimens';
 import {Typography} from '../../global-styles/typography';
+import {globalStyles} from '../../global-styles/styles';
 import Markdown from '../../components/Markdown';
 import Avatar from '../../components/Avatar';
 import TopBar from '../../components/TopBar';
 import HeaderButton from '../../components/HeaderButton';
 import LocalizedHumanTime from '../../components/LocalizedHumanTime';
-import {State} from './model';
 import {displayName} from '../../ssb/utils/from-ssb';
-import {globalStyles} from '../../global-styles/styles';
+import {SSBGiftedMsg, State} from './model';
 
 const GiftedChat = GiftedChatWithWrongTypes as any as ComponentClass<
   GiftedChatProps<GiftedMsg>
@@ -57,6 +57,8 @@ const Message = MessageWithWrongTypes as any as ComponentClass<
 const SystemMessage = SystemMessageWithWrongTypes as any as ComponentClass<
   SystemMessageProps<any>
 >;
+const LoadEarlier =
+  LoadEarlierWithWrongTypes as any as ComponentClass<LoadEarlierProps>;
 
 export const styles = StyleSheet.create({
   container: globalStyles.containerWithDesktopSideBar,
@@ -163,6 +165,40 @@ export const styles = StyleSheet.create({
     }),
   },
 
+  loadEarlierContainer: {
+    marginTop: Dimensions.verticalSpaceLarge,
+    marginBottom: Dimensions.verticalSpaceNormal,
+    ...Platform.select({
+      web: {
+        width: Dimensions.desktopMiddleWidth.px,
+      },
+    }),
+  },
+
+  /**
+   * Similar to src/frontend/components/Button.ts
+   */
+  loadEarlierButton: {
+    borderRadius: 3,
+    paddingHorizontal: Dimensions.horizontalSpaceNormal,
+    paddingVertical: Dimensions.verticalSpaceSmall,
+    backgroundColor: 'transparent',
+    borderColor: Palette.isDarkTheme ? Palette.textBrand : Palette.brandMain,
+    borderWidth: 1,
+    height: undefined,
+  },
+
+  loadEarlierText: {
+    fontSize: Typography.fontSizeNormal,
+    textAlign: 'center',
+    color: Palette.textBrand,
+    ...Platform.select({
+      web: {
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
+  },
+
   inputToolbarContainer: {
     backgroundColor: Palette.backgroundText,
     // TODO: enable this but also avoid the borderTop on the Send component
@@ -175,24 +211,6 @@ export const styles = StyleSheet.create({
     }),
   },
 });
-
-interface SSBGiftedMsg extends GiftedMsg {
-  mentions?: Array<any>;
-}
-
-function toGiftedMessage(msg: MsgAndExtras<PostContent>): SSBGiftedMsg {
-  return {
-    _id: msg.key,
-    createdAt: msg.value.timestamp,
-    text: msg.value.content.text,
-    mentions: msg.value.content.mentions,
-    user: {
-      _id: msg.value.author,
-      name: msg.value._$manyverse$metadata.about.name,
-      avatar: msg.value._$manyverse$metadata.about.imageUrl ?? void 0,
-    },
-  };
-}
 
 function renderMessage(props: MessageProps<any>) {
   return h(Message, {
@@ -282,6 +300,15 @@ function renderAvatar(props: any) {
   );
 }
 
+function renderLoadEarlier(props: any) {
+  return h(LoadEarlier, {
+    ...props,
+    containerStyle: styles.loadEarlierContainer,
+    wrapperStyle: styles.loadEarlierButton,
+    textStyle: styles.loadEarlierText,
+  });
+}
+
 function renderTime(props: any) {
   return h(Text, {style: styles.timeText}, [
     h(LocalizedHumanTime, {time: props.currentMessage.createdAt as number}),
@@ -304,32 +331,17 @@ function renderSystemMessage(props: any) {
 }
 
 export default function view(state$: Stream<State>) {
-  const appStartTime = Date.now();
   return state$
     .compose(
       dropRepeatsByKeys([
         'avatarUrl',
         'rootMsgId',
         'selfFeedId',
-        (s) => s.thread.messages.length,
-        (s) => s.thread.full,
+        (s) => s.giftedMessages.length,
       ]),
     )
-    .map((state) => {
-      const sysMessages: Array<GiftedMsg> = state.emptyThreadSysMessage
-        ? [
-            {
-              _id: 1,
-              text: t('conversation.notifications.new_conversation'),
-              createdAt: appStartTime,
-              system: true,
-            } as any,
-          ]
-        : [];
-      const realMessages: Array<SSBGiftedMsg> =
-        state.thread.messages.map(toGiftedMessage);
-
-      return h(View, {style: styles.container}, [
+    .map(({selfFeedId, giftedMessages, thread}) =>
+      h(View, {style: styles.container}, [
         h(TopBar, {sel: 'topbar', title: t('conversation.title')}, [
           h(HeaderButton, {
             sel: 'showRecipients',
@@ -340,15 +352,22 @@ export default function view(state$: Stream<State>) {
             side: 'right',
           }),
         ]),
+
         h(GiftedChat, {
           sel: 'chat',
-          user: {_id: state.selfFeedId},
-          inverted: false,
-          messages: sysMessages.concat(realMessages),
+          user: {_id: selfFeedId},
+          inverted: true,
+          messages: giftedMessages,
+          loadEarlier: giftedMessages.length < thread.messages.length,
+          infiniteScroll: true,
+          listViewProps: {
+            onEndReachedThreshold: 3,
+          },
           renderMessage,
           renderFooter,
           renderBubble,
           renderAvatar,
+          renderLoadEarlier,
           renderSend,
           renderTime,
           renderDay,
@@ -356,7 +375,7 @@ export default function view(state$: Stream<State>) {
           renderInputToolbar,
           renderMessageText: (item: {currentMessage: SSBGiftedMsg}) =>
             h(View, {style: styles.bubbleText}, [
-              item.currentMessage.user._id !== state.selfFeedId
+              item.currentMessage.user._id !== selfFeedId
                 ? renderMessageAuthor(item.currentMessage.user)
                 : null,
               h(Markdown, {
@@ -365,6 +384,6 @@ export default function view(state$: Stream<State>) {
               }),
             ]),
         }),
-      ]);
-    });
+      ]),
+    );
 }

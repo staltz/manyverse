@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -21,20 +21,20 @@ export {navOptions} from './layout';
 
 export type Props = P;
 
-export type Sources = {
+export interface Sources {
   props: Stream<Props>;
   screen: ReactSource;
   ssb: SSBSource;
   navigation: NavSource;
   state: StateSource<State>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
-};
+}
 
 export const styles = StyleSheet.create({
   container: {
@@ -54,7 +54,7 @@ export function conversation(sources: Sources): Sinks {
   const vdom$ = view(state$);
   const actions = intent(sources.screen, sources.navigation);
   const cmd$ = navigation(actions, sources.props, state$);
-  const reducer$ = model(sources.props, sources.ssb);
+  const reducer$ = model(sources.props, sources.ssb, actions);
   const newContent$ = ssb(actions, state$);
 
   return {

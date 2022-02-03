@@ -1,0 +1,67 @@
+diff --git a/node_modules/react-native-gifted-chat/lib/GiftedChat.js b/node_modules/react-native-gifted-chat/lib/GiftedChat.js
+index 73ba4ee..23a3601 100644
+--- a/node_modules/react-native-gifted-chat/lib/GiftedChat.js
++++ b/node_modules/react-native-gifted-chat/lib/GiftedChat.js
+@@ -197,15 +197,48 @@ class GiftedChat extends React.Component {
+             getLocale: this.getLocale,
+         };
+     }
++    invertedWheelEvent = (e) => {
++        this._messageContainerRef.current.getScrollableNode().scrollTop -= e.deltaY;
++        e.preventDefault();
++    }
++    // See https://github.com/necolas/react-native-web/issues/995#issuecomment-630012292
++    setupWebWheelHack() {
++        const currentRef = this._messageContainerRef.current;
++        if (!currentRef) {
++            setTimeout(() => this.setupWebWheelHack(), 50);
++            return
++        }
++        currentRef
++            .getScrollableNode()
++            .addEventListener("wheel", this.invertedWheelEvent);
++
++        // enable hardware acceleration
++        // makes scrolling fast in safari and firefox
++        // https://stackoverflow.com/a/24157294
++        currentRef.setNativeProps({
++            style: {
++                transform: "translate3d(0,0,0) scaleY(-1)"
++            }
++        });
++    }
++    teardownWebWheelHack() {
++        const currentRef = this._messageContainerRef.current;
++        if (!currentRef) return
++        currentRef
++            .getScrollableNode()
++            .removeEventListener("wheel", this.invertedWheelEvent);
++    }
+     componentDidMount() {
+         const { messages, text } = this.props;
+         this.setIsMounted(true);
+         this.initLocale();
+         this.setMessages(messages || []);
+         this.setTextFromProp(text);
++        if (Platform.OS === 'web') this.setupWebWheelHack();
+     }
+     componentWillUnmount() {
+         this.setIsMounted(false);
++        if (Platform.OS === 'web') this.teardownWebWheelHack();
+     }
+     componentDidUpdate(prevProps = {}) {
+         const { messages, text, inverted } = this.props;
+diff --git a/node_modules/react-native-gifted-chat/lib/MessageContainer.js b/node_modules/react-native-gifted-chat/lib/MessageContainer.js
+index 193772a..6727e92 100644
+--- a/node_modules/react-native-gifted-chat/lib/MessageContainer.js
++++ b/node_modules/react-native-gifted-chat/lib/MessageContainer.js
+@@ -176,8 +176,7 @@ export default class MessageContainer extends React.PureComponent {
+                 distanceFromEnd <= 100 &&
+                 loadEarlier &&
+                 onLoadEarlier &&
+-                !isLoadingEarlier &&
+-                Platform.OS !== 'web') {
++                !isLoadingEarlier) {
+                 onLoadEarlier();
+             }
+         };
