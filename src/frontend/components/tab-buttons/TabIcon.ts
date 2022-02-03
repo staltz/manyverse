@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -47,6 +47,11 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
     fontWeight: Platform.select({web: 'bold'}),
+    ...Platform.select({
+      web: {
+        overflow: 'visible',
+      },
+    }),
   },
 
   tabButtonTextSelected: {
@@ -55,6 +60,11 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textBrand,
     fontWeight: 'bold',
+    ...Platform.select({
+      web: {
+        overflow: 'visible',
+      },
+    }),
   },
 
   icon: {
