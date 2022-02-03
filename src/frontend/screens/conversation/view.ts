@@ -73,6 +73,12 @@ export const styles = StyleSheet.create({
   send: {
     marginHorizontal: Dimensions.horizontalSpaceNormal,
     marginVertical: Dimensions.verticalSpaceNormal,
+    ...Platform.select({
+      web: {
+        width: Dimensions.iconSizeNormal,
+        height: Dimensions.iconSizeNormal,
+      },
+    }),
   },
 
   username: {
@@ -228,7 +234,7 @@ function renderFooter() {
 }
 
 function renderSend(props: any) {
-  return h(Send as any, {...props, style: null}, [
+  return h(Send as any, {...props, containerStyle: null}, [
     h(View, {style: styles.send}, [
       h(Icon, {
         size: Dimensions.iconSizeNormal,
