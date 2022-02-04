@@ -159,6 +159,7 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/runtime": "^7.16.3",
+    "@react-native-community/cli": "~6.4.0",
     "@types/electron": "1.6.10",
     "@types/node": "~12.20.10",
     "@types/react": "^17.0.19",
