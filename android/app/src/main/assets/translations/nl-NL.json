@@ -613,10 +613,10 @@
         "accessibility_label": "Toon Ontvangers"
       }
     },
+    "load_more": "Load more",
     "notifications": {
       "new_conversation": "Dit is een nieuw privégesprek"
-    },
-    "load_more": "Load more"
+    }
   },
   "dialog_about": {
     "title": "Over Manyverse",

@@ -613,10 +613,10 @@
         "accessibility_label": "Empfänger anzeigen"
       }
     },
+    "load_more": "Load more",
     "notifications": {
       "new_conversation": "Dies ist eine neue private Unterhaltung"
-    },
-    "load_more": "Load more"
+    }
   },
   "dialog_about": {
     "title": "Über Manyverse",

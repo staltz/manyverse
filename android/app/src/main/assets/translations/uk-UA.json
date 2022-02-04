@@ -613,10 +613,10 @@
         "accessibility_label": "Показати отримувачів"
       }
     },
+    "load_more": "Load more",
     "notifications": {
       "new_conversation": "Це нова приватна розмова"
-    },
-    "load_more": "Load more"
+    }
   },
   "dialog_about": {
     "title": "Про Manyverse",

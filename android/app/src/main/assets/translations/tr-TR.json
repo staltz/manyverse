@@ -613,10 +613,10 @@
         "accessibility_label": "Alıcıları göster"
       }
     },
+    "load_more": "Load more",
     "notifications": {
       "new_conversation": "Bu yeni bir özel görüşme"
-    },
-    "load_more": "Load more"
+    }
   },
   "dialog_about": {
     "title": "Manyverse hakkında",

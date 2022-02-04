@@ -613,10 +613,10 @@
         "accessibility_label": "Visa mottagare"
       }
     },
+    "load_more": "Load more",
     "notifications": {
       "new_conversation": "Detta är en ny privat konversation"
-    },
-    "load_more": "Load more"
+    }
   },
   "dialog_about": {
     "title": "Om Manyverse",

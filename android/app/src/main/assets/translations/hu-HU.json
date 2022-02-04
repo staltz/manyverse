@@ -613,10 +613,10 @@
         "accessibility_label": "Mutassa a címzetteket"
       }
     },
+    "load_more": "Load more",
     "notifications": {
       "new_conversation": "Ez egy új privát beszélgetés"
-    },
-    "load_more": "Load more"
+    }
   },
   "dialog_about": {
     "title": "A Manyverse-ről",

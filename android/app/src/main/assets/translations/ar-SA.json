@@ -613,10 +613,10 @@
         "accessibility_label": "إعرض المستلمين"
       }
     },
+    "load_more": "Load more",
     "notifications": {
       "new_conversation": "هذه محادثة خاصة جديدة"
-    },
-    "load_more": "Load more"
+    }
   },
   "dialog_about": {
     "title": "حول منيفرس",
