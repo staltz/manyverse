@@ -225,7 +225,7 @@ export default [
   {
     name: 'cycle-native-asyncstorage',
     type: 'library',
-    version: '3.1.0',
+    version: '3.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/cycle-native-asyncstorage#readme',
   },
@@ -316,7 +316,7 @@ export default [
   {
     name: 'hermes-engine',
     type: 'library',
-    version: '0.7.2',
+    version: '0.9.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/facebook/hermes#readme',
   },
@@ -379,7 +379,7 @@ export default [
   {
     name: 'nodejs-mobile-react-native',
     type: 'library',
-    version: '0.6.4',
+    version: '0.7.0',
     license: 'MIT License (MIT)',
     homepage: 'https://code.janeasystems.com/nodejs-mobile',
   },
@@ -491,7 +491,7 @@ export default [
   {
     name: 'react-native',
     type: 'library',
-    version: '0.64.2',
+    version: '0.66.4',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/facebook/react-native#readme',
   },
@@ -555,7 +555,7 @@ export default [
   {
     name: 'react-native-image-crop-picker',
     type: 'library',
-    version: '0.36.4',
+    version: '0.37.2',
     license: 'MIT License (MIT)',
     homepage:
       'https://github.com/ivpusic/react-native-image-crop-picker#readme',
@@ -563,28 +563,28 @@ export default [
   {
     name: 'react-native-localize',
     type: 'library',
-    version: '2.1.3',
+    version: '2.1.9',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/zoontek/react-native-localize',
   },
   {
     name: 'react-native-navigation',
     type: 'library',
-    version: '7.19.0',
+    version: '7.25.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/wix/react-native-navigation',
   },
   {
     name: 'react-native-orientation-locker',
     type: 'library',
-    version: '1.3.1',
+    version: '1.4.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/wonday/react-native-orientation-locker',
   },
   {
     name: 'react-native-popup-menu',
     type: 'library',
-    version: '0.15.11',
+    version: '0.15.12',
     license: 'ISC License (ISC)',
     homepage: 'https://github.com/instea/react-native-popup-menu',
   },
@@ -598,7 +598,7 @@ export default [
   {
     name: 'react-native-splash-screen',
     type: 'library',
-    version: '3.2.0',
+    version: '3.3.0',
     license: 'MIT License (MIT)',
     homepage:
       'https://github.com/crazycodeboy/react-native-splash-screen#readme',
@@ -613,7 +613,7 @@ export default [
   {
     name: 'react-native-ssb-shims',
     type: 'library',
-    version: '5.1.2',
+    version: '5.1.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/react-native-ssb-shims',
   },
@@ -648,7 +648,7 @@ export default [
   {
     name: 'react-native-tiny-toast',
     type: 'library',
-    version: '1.0.4',
+    version: '1.0.7',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/shx996/react-native-tiny-toast#readme',
   },
@@ -887,7 +887,7 @@ export default [
   {
     name: 'ssb-ref',
     type: 'library',
-    version: '2.13.9',
+    version: '2.16.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-ref',
   },
@@ -943,7 +943,7 @@ export default [
   {
     name: 'ssb-uri2',
     type: 'library',
-    version: '1.6.0',
+    version: '1.6.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-uri2#readme',
   },
@@ -964,7 +964,7 @@ export default [
   {
     name: 'url-parse',
     type: 'library',
-    version: '1.5.3',
+    version: '1.5.4',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/unshiftio/url-parse#readme',
   },

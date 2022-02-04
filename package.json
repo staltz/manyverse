@@ -1,6 +1,6 @@
 {
   "name": "manyverse",
-  "version": "0.2201.19-beta",
+  "version": "0.2202.4-beta",
   "private": true,
   "main": "desktop/nodejs-project/loader.js",
   "license": "MPL-2.0",

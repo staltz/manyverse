@@ -2,6 +2,23 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2202.4-beta
+
+* (Desktop) Bug fix: sliders in settings looking broken ([see details](https://gitlab.com/staltz/manyverse/commit/bab9e3ba6bf146fa8c602d40913815c3863ea003))
+* (Desktop) Bug fix: text style in prompts in dark mode ([see details](https://gitlab.com/staltz/manyverse/commit/22666617bd6aecb75b942e477379766b5a8ba456))
+* (Desktop) Bug fix: Windows LAN discovery ([see details](https://gitlab.com/staltz/manyverse/commit/31281dccd95b43a507cbb8225545814a3554bf06))
+* (Desktop) Feature: tooltip when hovering pictures ([see details](https://gitlab.com/staltz/manyverse/commit/c325d44bb1d00163f828b134009714c91fe1cc06))
+* (Desktop) Fix left-menu text getting clipped ([see details](https://gitlab.com/staltz/manyverse/commit/30f496350af8601afc0b810aa5e035d40cad639a))
+* (Desktop) Improve layout of the middle column ([see details](https://gitlab.com/staltz/manyverse/commit/7048660a4004f4cbc30ead0053502e6dddf4fea8))
+* (Desktop) Improve scroll bar on RecipientsInput ([see details](https://gitlab.com/staltz/manyverse/commit/573139d4df39bc1fe18031e2435464b7972ef409))
+* (Desktop) Improve styling on the Instructions screen ([see details](https://gitlab.com/staltz/manyverse/commit/c4a73bc45d308eb2803f38fcaa4878c1412ee04f))
+* Bug fix: allow seeing images in private chats ([see details](https://gitlab.com/staltz/manyverse/commit/49b9f06fb736559c9de35561a3eb84bd2de87d88))
+* Bug fix: only allow SSB and HTTP links, not other types ([see details](https://gitlab.com/staltz/manyverse/commit/332deeec5dca6166dcb39207e7581190ed1d5367))
+* Bug fix: private chat glitches while scrolling ([see details](https://gitlab.com/staltz/manyverse/commit/538d33f554a7a34c26714935954515eddeba1bc0))
+* Bug fix: wrong layout when you block a Profile ([see details](https://gitlab.com/staltz/manyverse/commit/af9702825fdb9f89a3ea70686759f3fe8ae1d0bd))
+* Improve French translation ([see details](https://gitlab.com/staltz/manyverse/commit/545299c910181cadd0722e974c6e5c2cfa165d82))
+* Improve style of summaries in the Private tab ([see details](https://gitlab.com/staltz/manyverse/commit/16d40028b53aa62332eb533a5f55d041466acc5a))
+
 ## 0.2201.19-beta
 
 * (Desktop) Bug fix: scroll bar in dialogs on wide screens ([see details](https://gitlab.com/staltz/manyverse/commit/0127bba46692ce15928ab9ea21789fc9d6f6a87b))
