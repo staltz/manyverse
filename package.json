@@ -30,7 +30,7 @@
     "android-dev": "npm run build-android-assets && react-native run-android --variant=indieDebug",
     "ios-dev": "npm run build-ios-assets && react-native run-ios --device",
     "prebuild-android-release": "npm run clean-bundler && npm run clean-android",
-    "build-android-release": "npm run report-libraries && npm run update-top-backers && npm run build-android-assets && cd android && ./gradlew assembleRelease && cd ..",
+    "build-android-release": "npm run report-libraries && npm run update-top-backers && npm run build-android-assets && cd android && ./gradlew assembleIndieRelease --rerun-tasks && ./gradlew assembleGooglePlayRelease --rerun-tasks && cd ..",
     "prearchive-ios-release": "npm run clean-bundler && npm run clean-ios",
     "archive-ios-release": "npm run build-ios-assets && cd ios && xcodebuild -workspace Manyverse.xcworkspace -scheme Manyverse archive && cd ..",
     "archive-ipa": "mkdir -p ../ipa-archive && cd ios && xcodebuild -workspace Manyverse.xcworkspace -scheme Manyverse -archivePath ../../ipa-archive/Manyverse.xcarchive archive && xcodebuild -exportArchive -archivePath ../../ipa-archive/Manyverse.xcarchive -exportPath ../../ipa-archive -exportOptionsPlist ipaExport.plist && cd ..",
