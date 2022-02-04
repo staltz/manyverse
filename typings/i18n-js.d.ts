@@ -281,6 +281,7 @@ declare module 'i18n-js' {
     | 'conversation.title'
     | 'conversation.placeholder'
     | 'conversation.call_to_action.show_recipients.accessibility_label'
+    | 'conversation.load_more'
     | 'conversation.notifications.new_conversation'
     | 'dialog_about.title'
     | 'dialog_about.version'

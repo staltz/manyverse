@@ -615,7 +615,8 @@
     },
     "notifications": {
       "new_conversation": "Tämä on uusi yksityinen keskustelu"
-    }
+    },
+    "load_more": "Load more"
   },
   "dialog_about": {
     "title": "Tietoja Manyversestä",

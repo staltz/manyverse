@@ -615,7 +615,8 @@
     },
     "notifications": {
       "new_conversation": "Dies ist eine neue private Unterhaltung"
-    }
+    },
+    "load_more": "Load more"
   },
   "dialog_about": {
     "title": "Über Manyverse",

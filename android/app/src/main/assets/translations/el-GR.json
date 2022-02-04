@@ -615,7 +615,8 @@
     },
     "notifications": {
       "new_conversation": "Αυτή είναι μια νέα ιδιωτική συνομιλία"
-    }
+    },
+    "load_more": "Load more"
   },
   "dialog_about": {
     "title": "Σχετικά με το Manyverse",

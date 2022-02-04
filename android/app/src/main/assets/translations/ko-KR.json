@@ -615,7 +615,8 @@
     },
     "notifications": {
       "new_conversation": "새로운 비공개 대화 입니다"
-    }
+    },
+    "load_more": "Load more"
   },
   "dialog_about": {
     "title": "Manyverse에 대하여",

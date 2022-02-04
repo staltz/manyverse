@@ -615,7 +615,8 @@
     },
     "notifications": {
       "new_conversation": "Detta är en ny privat konversation"
-    }
+    },
+    "load_more": "Load more"
   },
   "dialog_about": {
     "title": "Om Manyverse",

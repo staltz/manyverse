@@ -306,6 +306,7 @@ function renderLoadEarlier(props: any) {
     containerStyle: styles.loadEarlierContainer,
     wrapperStyle: styles.loadEarlierButton,
     textStyle: styles.loadEarlierText,
+    label: t('conversation.load_more'),
   });
 }
 
