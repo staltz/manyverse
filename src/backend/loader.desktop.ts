@@ -53,7 +53,7 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-  win.setMinimumSize(700, 380);
+  win.setMinimumSize(790, 380);
   windowState.manage(win);
 
   win.loadURL(
