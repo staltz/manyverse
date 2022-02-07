@@ -56,8 +56,8 @@ export const Dimensions = {
   },
 
   desktopMiddleWidth: {
-    number: 500,
-    px: '520px',
+    number: 610,
+    px: '610px',
     vw: `${Math.round(
       (100 * desktopMiddleWidthFlex) / desktopWidthFlexTotal,
     )}vw`,
