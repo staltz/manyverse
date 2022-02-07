@@ -2,6 +2,11 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2202.7-beta
+
+* (Desktop) Bug fix: unclickable region on the top bar ([see details](https://gitlab.com/staltz/manyverse/commit/d290fa8294a053d3fda135ecf8b2062195e420c2))
+* (Desktop) Improve layout with 610px wide column ([see details](https://gitlab.com/staltz/manyverse/commit/1feeda9a91e668d395ac34cc35ef6d9d27f609ad))
+
 ## 0.2202.4-beta
 
 * (Desktop) Bug fix: sliders in settings looking broken ([see details](https://gitlab.com/staltz/manyverse/commit/bab9e3ba6bf146fa8c602d40913815c3863ea003))
