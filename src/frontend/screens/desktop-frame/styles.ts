@@ -155,7 +155,7 @@ export const styles = StyleSheet.create({
     zIndex: 1000,
     top: 0,
     right: 0,
-    width: `calc(100vw - ${Dimensions.desktopMiddleWidth.px} - ${Dimensions.desktopSideWidth.px})`,
+    width: `calc(min(100vw - ${Dimensions.desktopMiddleWidth.px} - ${Dimensions.desktopSideWidth.px}, (100vw - ${Dimensions.desktopMiddleWidth.px}) * 0.5))`,
     height: Dimensions.toolbarHeight,
     minHeight: Dimensions.toolbarHeight,
     maxHeight: Dimensions.toolbarHeight,
