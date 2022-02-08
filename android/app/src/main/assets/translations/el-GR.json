@@ -699,6 +699,7 @@
   },
   "profile": {
     "call_to_action": {
+      "copy_uri": "Copy SSB URI",
       "copy_cypherlink": "Αντιγραφή cypherlink",
       "private_chat": "Άνοιγμα ιδιωτικής συνομιλίας",
       "block": "Αποκλεισμός",
@@ -1101,6 +1102,7 @@
       "copy_blob_id": {
         "accessibility_label": "Αντιγραφή Blob ID"
       },
+      "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Αντιγραφή cypherlink",
       "view_raw": "Προβολή ανεπεξέργαστου μηνύματος"
     },

@@ -699,6 +699,7 @@
   },
   "profile": {
     "call_to_action": {
+      "copy_uri": "Copy SSB URI",
       "copy_cypherlink": "Kopioi syferlinkki",
       "private_chat": "Aloita yksityinen keskustelu",
       "block": "Estä",
@@ -1101,6 +1102,7 @@
       "copy_blob_id": {
         "accessibility_label": "Kopioi Blob Tunnus"
       },
+      "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Kopioi syferlinkki",
       "view_raw": "Näytä raakaviesti"
     },

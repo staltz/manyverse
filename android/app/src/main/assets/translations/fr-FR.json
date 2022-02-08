@@ -699,6 +699,7 @@
   },
   "profile": {
     "call_to_action": {
+      "copy_uri": "Copy SSB URI",
       "copy_cypherlink": "Copier le lien de chiffrement",
       "private_chat": "Ouvrir une conversation privée",
       "block": "Bloquer",
@@ -1101,6 +1102,7 @@
       "copy_blob_id": {
         "accessibility_label": "Copier l'ID du Blob"
       },
+      "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Copier le lien de chiffrement",
       "view_raw": "Afficher le message brut"
     },

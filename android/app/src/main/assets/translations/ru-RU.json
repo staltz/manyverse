@@ -699,6 +699,7 @@
   },
   "profile": {
     "call_to_action": {
+      "copy_uri": "Copy SSB URI",
       "copy_cypherlink": "Копировать шифро-ссылку",
       "private_chat": "Открыть приватный чат",
       "block": "Блокировка",
@@ -1101,6 +1102,7 @@
       "copy_blob_id": {
         "accessibility_label": "Копировать идентификатор данных"
       },
+      "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Копировать шифро-ссылку",
       "view_raw": "Просмотр исходных сообщений"
     },

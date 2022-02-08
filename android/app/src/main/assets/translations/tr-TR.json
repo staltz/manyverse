@@ -699,6 +699,7 @@
   },
   "profile": {
     "call_to_action": {
+      "copy_uri": "Copy SSB URI",
       "copy_cypherlink": "Cypherlinki kopyala",
       "private_chat": "Özel görüşmeyi aç",
       "block": "Engelle",
@@ -1101,6 +1102,7 @@
       "copy_blob_id": {
         "accessibility_label": "Copy Blob ID"
       },
+      "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Cypherlinki kopyala",
       "view_raw": "Ham mesajı görüntüle"
     },

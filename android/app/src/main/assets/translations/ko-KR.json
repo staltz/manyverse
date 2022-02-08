@@ -699,6 +699,7 @@
   },
   "profile": {
     "call_to_action": {
+      "copy_uri": "Copy SSB URI",
       "copy_cypherlink": "Cypherlink 복사",
       "private_chat": "비공개 대화 열기",
       "block": "차단",
@@ -1101,6 +1102,7 @@
       "copy_blob_id": {
         "accessibility_label": "Blob ID 복사"
       },
+      "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Cypherlink 복사",
       "view_raw": "원본 보기"
     },

@@ -699,6 +699,7 @@
   },
   "profile": {
     "call_to_action": {
+      "copy_uri": "Copy SSB URI",
       "copy_cypherlink": "Kopiera cypher-länk",
       "private_chat": "Inled en privat konversation",
       "block": "Blockera",
@@ -1101,6 +1102,7 @@
       "copy_blob_id": {
         "accessibility_label": "Kopiera Blob-ID"
       },
+      "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Kopiera cypher-länk",
       "view_raw": "Visa rå-meddelande"
     },

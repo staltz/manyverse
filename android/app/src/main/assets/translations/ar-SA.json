@@ -699,6 +699,7 @@
   },
   "profile": {
     "call_to_action": {
+      "copy_uri": "Copy SSB URI",
       "copy_cypherlink": "انسخ الرابط التخيلي",
       "private_chat": "افتح محادثة خاصة",
       "block": "اُحظر",
@@ -1101,6 +1102,7 @@
       "copy_blob_id": {
         "accessibility_label": "انسخ معرف الكائن الثنائي"
       },
+      "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "انسخ الرابط التخيلي",
       "view_raw": "اعرض خام الرسالة"
     },
