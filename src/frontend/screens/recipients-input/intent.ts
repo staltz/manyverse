@@ -35,7 +35,6 @@ export default function intent(
     goToNewConversation$: reactSource
       .select('recipientsInputNextButton')
       .events('press')
-      .compose(sample(state$))
-      .filter((state) => state.recipients.length > 0),
+      .compose(sample(state$)),
   };
 }

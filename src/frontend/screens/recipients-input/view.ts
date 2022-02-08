@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -18,18 +18,14 @@ import {State} from './model';
 import {styles} from './styles';
 
 export default function view(state$: Stream<State>) {
-  return state$.map((state) => {
-    const nextButtonEnabled = state.recipients.length > 0;
-
-    return h(View, {style: styles.screen}, [
+  return state$.map((state) =>
+    h(View, {style: styles.screen}, [
       h(TopBar, {sel: 'topbar', title: t('recipients_input.title')}, [
         h(Button, {
           sel: 'recipientsInputNextButton',
-          style: nextButtonEnabled
-            ? styles.nextButtonEnabled
-            : styles.nextButtonDisabled,
+          style: styles.nextButtonEnabled,
           text: t('recipients_input.call_to_action.proceed.label'),
-          strong: nextButtonEnabled,
+          strong: true,
           accessible: true,
           accessibilityLabel: t(
             'recipients_input.call_to_action.proceed.accessibility_label',
@@ -90,6 +86,6 @@ export default function view(state$: Stream<State>) {
           ],
         ),
       ]),
-    ]);
-  });
+    ]),
+  );
 }

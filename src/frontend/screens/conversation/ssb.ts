@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2019-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -23,9 +23,6 @@ function createReplyContent(text: string, state: State): PostContent {
 }
 
 function createRootContent(text: string, state: State): PostContent {
-  if (state.thread.recps.length === 0) {
-    throw new Error('Cannot publish new conversation without recipients');
-  }
   if (state.thread.recps.length > MAX_PRIVATE_MESSAGE_RECIPIENTS) {
     throw new Error(
       'Cannot publish conversation with more than ' +
