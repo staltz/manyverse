@@ -38,6 +38,13 @@ const getUnicodeWordRegex = require('unicode-word-regex');
 
 const ELLIPSIS = '\u2026';
 
+/**
+ * Match URIs *except* SSB URIs and File URIs
+ */
+function getMiscURIRegex() {
+  return /\b((?=\w+:)(?!(ssb:|file:)))\w+:(\/\/)?[^ \n]+/g;
+}
+
 const textProps: TextProps = {
   selectable: true,
   textBreakStrategy: 'simple',
@@ -329,14 +336,16 @@ function makeRenderers(
         ? toMessageSigil(href)
         : null;
       const hashtag = href.startsWith('#') ? href : null;
-      const isCypherlink = !!feedId || !!msgId || !!hashtag;
+      const isSSBLink = !!feedId || !!msgId || !!hashtag;
+      const isHTTPLink = href.startsWith('http:') || href.startsWith('https:');
+      const isMiscLink = getMiscURIRegex().test(href);
 
-      if (!isCypherlink && !href.startsWith('http')) {
+      if (!isSSBLink && !isHTTPLink && !isMiscLink) {
         return renderers.text(props);
       }
 
       let child: string | null = null;
-      if (isCypherlink) {
+      if (isSSBLink) {
         child =
           typeof children?.[0] === 'string'
             ? children[0]
@@ -354,7 +363,7 @@ function makeRenderers(
         }
       }
 
-      if (isCypherlink) {
+      if (isSSBLink) {
         return $(
           Text,
           {
@@ -378,11 +387,15 @@ function makeRenderers(
           child ?? children,
         );
       } else if (Platform.OS === 'web') {
+        const properHref =
+          props.href === 'javascript:void(0)'
+            ? (child ?? children[0]).props.value
+            : props.href;
         return $(
           'a',
           {
             style: {textDecoration: 'underline', color: Palette.text},
-            href: props.href,
+            href: properHref,
           },
           child ?? children,
         );
@@ -485,6 +498,7 @@ export default class Markdown extends PureComponent<Props> {
     const linkifySsbSigilMsgs = linkifyRegex(Ref.msgIdRegex);
     const linkifySsbUriFeeds = linkifyRegex(getFeedSSBURIRegex());
     const linkifySsbUriMsgs = linkifyRegex(getMessageSSBURIRegex());
+    const linkifyMiscUris = linkifyRegex(getMiscURIRegex());
     const linkifyHashtags = linkifyRegex(
       new RegExp('#(' + getUnicodeWordRegex().source + '|\\d|-)+', 'gu'),
     );
@@ -497,6 +511,7 @@ export default class Markdown extends PureComponent<Props> {
         .use(linkifySsbUriMsgs)
         .use(linkifySsbSigilFeeds)
         .use(linkifySsbSigilMsgs)
+        .use(linkifyMiscUris)
         .use(linkifyHashtags)
         .use(imagesToSsbServeBlobs)
         .processSync(this.props.text).contents,
