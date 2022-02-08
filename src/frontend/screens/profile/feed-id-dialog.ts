@@ -1,16 +1,17 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Platform} from 'react-native';
 import {FeedId} from 'ssb-typescript';
+import {fromFeedSigil} from 'ssb-uri2';
 import {Duration, Toast} from '../../drivers/toast';
 import {t} from '../../drivers/localization';
 import {DialogSource} from '../../drivers/dialogs';
 import {Palette} from '../../global-styles/palette';
 
-export type DialogChoiceId = 'copy-id';
+export type DialogChoiceId = 'copy-uri' | 'copy-id';
 
 export type Sources = {
   feedId$: Stream<FeedId>;
@@ -23,10 +24,14 @@ export type Sinks = {
   toast: Stream<Toast>;
 };
 
-export default function manageContact$(sources: Sources): Sinks {
+export default function feedIdDialog(sources: Sources): Sinks {
   const dialogChoice$ = sources.appear$
     .map(() => {
       const items = [
+        {
+          id: 'copy-uri',
+          label: t('profile.call_to_action.copy_uri'),
+        },
         {
           id: 'copy-id',
           label: t('profile.call_to_action.copy_cypherlink'),
@@ -52,18 +57,27 @@ export default function manageContact$(sources: Sources): Sinks {
     })
     .flatten();
 
+  const copyUri$ = dialogChoice$
+    .filter((choice) => choice.id === 'copy-uri')
+    .map(() => sources.feedId$.take(1))
+    .flatten()
+    .map((feedId) => fromFeedSigil(feedId));
+
   const copyCypherlink$ = dialogChoice$
+    .filter((choice) => choice.id === 'copy-id')
     .map(() => sources.feedId$.take(1))
     .flatten();
 
-  const toast$ = copyCypherlink$.mapTo({
+  const copyToClipboard$ = xs.merge(copyCypherlink$, copyUri$);
+
+  const toast$ = copyToClipboard$.mapTo({
     type: 'show',
     message: t('profile.toast.copied_to_clipboard'),
     duration: Duration.SHORT,
   } as Toast);
 
   return {
-    clipboard: copyCypherlink$,
+    clipboard: copyToClipboard$,
     toast: toast$,
   };
 }

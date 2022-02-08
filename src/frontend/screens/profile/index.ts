@@ -15,7 +15,7 @@ import {Toast, Duration as ToastDuration} from '../../drivers/toast';
 import {t} from '../../drivers/localization';
 import messageEtc from '../../components/messageEtc';
 import manageContact from './manage-contact';
-import copyCypherlink from './copy-cypherlink';
+import feedIdDialog from './feed-id-dialog';
 import intent from './intent';
 import model, {State} from './model';
 import view from './view';
@@ -67,7 +67,7 @@ export function profile(sources: Sources): Sinks {
     dialog: sources.dialog,
   });
 
-  const copyCypherlinkSinks = copyCypherlink({
+  const feedIdDialogSinks = feedIdDialog({
     feedId$,
     appear$: actions.goToFeedId$,
     dialog: sources.dialog,
@@ -76,7 +76,7 @@ export function profile(sources: Sources): Sinks {
   const actionsPlus = {
     ...actions,
     ...manageContactSinks,
-    ...copyCypherlinkSinks,
+    ...feedIdDialogSinks,
     goToRawMsg$: messageEtcSinks.goToRawMsg$,
   };
 
@@ -100,7 +100,7 @@ export function profile(sources: Sources): Sinks {
 
   const clipboard$ = xs.merge(
     messageEtcSinks.clipboard,
-    copyCypherlinkSinks.clipboard,
+    feedIdDialogSinks.clipboard,
   );
 
   const alert$ = alert(state$);
@@ -140,7 +140,7 @@ export function profile(sources: Sources): Sinks {
 
   const toast$ = xs.merge(
     messageEtcSinks.toast,
-    copyCypherlinkSinks.toast,
+    feedIdDialogSinks.toast,
     consumeAliasRequest$,
     consumeAliasResponse$,
   );

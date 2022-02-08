@@ -11,6 +11,14 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
+import {
+  getFeedSSBURIRegex,
+  getMessageSSBURIRegex,
+  isMessageSSBURI,
+  toMessageSigil,
+  isFeedSSBURI,
+  toFeedSigil,
+} from 'ssb-uri2';
 import {Palette} from '../../global-styles/palette';
 import {Typography} from '../../global-styles/typography';
 import {Dimensions} from '../../global-styles/dimens';
@@ -46,7 +54,59 @@ export const styles = StyleSheet.create({
   },
 });
 
-const refRegex = /([@%][A-Za-z0-9/+]{43}=\.[\w\d]+)/g;
+function removeExtremes(regex: RegExp): string {
+  return regex.source.replace(/^\^/, '').replace(/\$$/, '');
+}
+
+function combineRegexes(regexes: Array<RegExp>): RegExp {
+  return new RegExp('(' + regexes.map(removeExtremes).join('|') + ')', 'g');
+}
+
+function renderNonLink(nonLink: string, i: number) {
+  return $(
+    Text,
+    {key: `${i}`, selectable: true, textBreakStrategy: 'simple'},
+    nonLink,
+  );
+}
+
+function renderLink(link: string, i: number) {
+  return $(
+    Text,
+    {
+      key: `${i}`,
+      style: styles.cypherlink,
+      selectable: true,
+      textBreakStrategy: 'simple',
+      onPress: () => {
+        if (Ref.isFeedId(link)) {
+          GlobalEventBus.dispatch({
+            type: 'triggerFeedCypherlink',
+            feedId: link,
+          });
+        } else if (Ref.isMsgId(link)) {
+          GlobalEventBus.dispatch({
+            type: 'triggerMsgCypherlink',
+            msgId: link,
+          });
+        } else if (isFeedSSBURI(link)) {
+          const feedId = toFeedSigil(link)!;
+          GlobalEventBus.dispatch({
+            type: 'triggerFeedCypherlink',
+            feedId,
+          });
+        } else if (isMessageSSBURI(link)) {
+          const msgId = toMessageSigil(link)!;
+          GlobalEventBus.dispatch({
+            type: 'triggerMsgCypherlink',
+            msgId,
+          });
+        }
+      },
+    },
+    link,
+  );
+}
 
 function linkify(msg: any) {
   const json = JSON.stringify(
@@ -55,44 +115,27 @@ function linkify(msg: any) {
     2,
   );
   const elements = [] as Array<string | ReactElement>;
-  const parts = json.split(refRegex);
-  for (let i = 0; i < parts.length; i += 2) {
-    const nonRef = parts[i];
-    const ref = parts[i + 1] as string | undefined;
-    elements.push(
-      $(
-        Text,
-        {key: `${i}`, selectable: true, textBreakStrategy: 'simple'},
-        nonRef,
-      ),
-    );
-    if (ref) {
-      elements.push(
-        $(
-          Text,
-          {
-            key: `${i + 1}`,
-            style: styles.cypherlink,
-            selectable: true,
-            textBreakStrategy: 'simple',
-            onPress: () => {
-              if (Ref.isFeedId(ref)) {
-                GlobalEventBus.dispatch({
-                  type: 'triggerFeedCypherlink',
-                  feedId: ref,
-                });
-              } else if (Ref.isMsgId(ref)) {
-                GlobalEventBus.dispatch({
-                  type: 'triggerMsgCypherlink',
-                  msgId: ref,
-                });
-              }
-            },
-          },
-          ref,
-        ),
-      );
-    }
+  const regex = combineRegexes([
+    Ref.feedIdRegex,
+    Ref.msgIdRegex,
+    getFeedSSBURIRegex(),
+    getMessageSSBURIRegex(),
+  ]);
+
+  let start = 0;
+  let idx = 0;
+  let result: RegExpExecArray | null;
+  while ((result = regex.exec(json)) !== null) {
+    const positionOfLink = result.index;
+    const link = result[1];
+    const nonLink = json.slice(start, positionOfLink);
+    elements.push(renderNonLink(nonLink, idx++));
+    elements.push(renderLink(link, idx++));
+    start = positionOfLink + link.length;
+  }
+  if (start < json.length) {
+    const nonLink = json.slice(start);
+    elements.push(renderNonLink(nonLink, idx++));
   }
   return elements;
 }

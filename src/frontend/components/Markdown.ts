@@ -24,6 +24,8 @@ import {
   isSSBURI,
   toFeedSigil,
   toMessageSigil,
+  getFeedSSBURIRegex,
+  getMessageSSBURIRegex,
 } from 'ssb-uri2';
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
@@ -479,10 +481,10 @@ function transformLinkUri(uri: string) {
 
 export default class Markdown extends PureComponent<Props> {
   public render() {
-    const linkifySsbFeeds = linkifyRegex(
-      /@[A-Za-z0-9._\-+=\/]*[A-Za-z0-9_\-+=/]/g,
-    );
-    const linkifySsbMsgs = linkifyRegex(Ref.msgIdRegex);
+    const linkifySsbSigilFeeds = linkifyRegex(Ref.feedIdRegex);
+    const linkifySsbSigilMsgs = linkifyRegex(Ref.msgIdRegex);
+    const linkifySsbUriFeeds = linkifyRegex(getFeedSSBURIRegex());
+    const linkifySsbUriMsgs = linkifyRegex(getMessageSSBURIRegex());
     const linkifyHashtags = linkifyRegex(
       new RegExp('#(' + getUnicodeWordRegex().source + '|\\d|-)+', 'gu'),
     );
@@ -491,8 +493,10 @@ export default class Markdown extends PureComponent<Props> {
     return $<any>(ReactMarkdown, {
       source: remark()
         .use(gemojiToEmoji)
-        .use(linkifySsbFeeds)
-        .use(linkifySsbMsgs)
+        .use(linkifySsbUriFeeds)
+        .use(linkifySsbUriMsgs)
+        .use(linkifySsbSigilFeeds)
+        .use(linkifySsbSigilMsgs)
         .use(linkifyHashtags)
         .use(imagesToSsbServeBlobs)
         .processSync(this.props.text).contents,

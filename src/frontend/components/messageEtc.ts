@@ -1,27 +1,28 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Msg} from 'ssb-typescript';
 import {Platform} from 'react-native';
 import {t} from '../drivers/localization';
 import {DialogSource} from '../drivers/dialogs';
 import {Toast, Duration} from '../drivers/toast';
 import {Palette} from '../global-styles/palette';
+import {fromMessageSigil} from 'ssb-uri2';
 
-export type EtcChoiceId = 'copy-id' | 'raw-msg';
+export type EtcChoiceId = 'copy-uri' | 'copy-id' | 'raw-msg';
 
-export type Sources = {
+export interface Sources {
   appear$: Stream<Msg>;
   dialog: DialogSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   clipboard: Stream<string>;
   toast: Stream<Toast>;
   goToRawMsg$: Stream<Msg>;
-};
+}
 
 export default function messageEtc(sources: Sources): Sinks {
   const messageEtcChoice$ = sources.appear$
@@ -34,6 +35,7 @@ export default function messageEtc(sources: Sources): Sinks {
           undefined,
           {
             items: [
+              {label: t('message.call_to_action.copy_msg_uri'), id: 'copy-uri'},
               {label: t('message.call_to_action.copy_msg_id'), id: 'copy-id'},
               {label: t('message.call_to_action.view_raw'), id: 'raw-msg'},
             ],
@@ -58,14 +60,20 @@ export default function messageEtc(sources: Sources): Sinks {
     .filter((choice) => choice.id === 'copy-id')
     .map((choice) => choice.msg.key);
 
-  const toast$ = copyCypherlink$.mapTo({
+  const copySSBURI$ = messageEtcChoice$
+    .filter((choice) => choice.id === 'copy-uri')
+    .map((choice) => fromMessageSigil(choice.msg.key));
+
+  const copyToClipboard$ = xs.merge(copyCypherlink$, copySSBURI$);
+
+  const toast$ = copyToClipboard$.mapTo({
     type: 'show',
     message: t('message.toast.copied_to_clipboard'),
     duration: Duration.SHORT,
   } as Toast);
 
   return {
-    clipboard: copyCypherlink$,
+    clipboard: copyToClipboard$,
     toast: toast$,
     goToRawMsg$,
   };
