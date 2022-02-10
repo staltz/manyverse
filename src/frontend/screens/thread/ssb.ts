@@ -1,17 +1,17 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {toVoteContent, toReplyPostContent} from '../../ssb/utils/to-ssb';
+import {toVoteContent, toReplyPostContent} from '~frontend/ssb/utils/to-ssb';
+import {Req, contentToPublishReq} from '~frontend/drivers/ssb';
+import {PressAddReactionEvent} from '~frontend/ssb/types';
 import {State} from './model';
-import {Req, contentToPublishReq} from '../../drivers/ssb';
-import {PressAddReactionEvent} from '../../ssb/types';
 
-export type SSBActions = {
+export interface SSBActions {
   addReactionMsg$: Stream<PressAddReactionEvent>;
   publishMsg$: Stream<State>;
-};
+}
 
 /**
  * Define streams of new content to be flushed onto SSB.

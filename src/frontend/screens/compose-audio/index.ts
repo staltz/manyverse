@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -14,11 +14,11 @@ import Path = require('path');
 import {
   Response as RecorderResponse,
   Command as RecorderCommand,
-} from '../../drivers/recorder';
-import {GlobalEvent} from '../../drivers/eventbus';
-import {SSBSource} from '../../drivers/ssb';
-import {FSSource} from '../../drivers/fs';
-import {DialogSource} from '../../drivers/dialogs';
+} from '~frontend/drivers/recorder';
+import {GlobalEvent} from '~frontend/drivers/eventbus';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {FSSource} from '~frontend/drivers/fs';
+import {DialogSource} from '~frontend/drivers/dialogs';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';

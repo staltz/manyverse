@@ -12,7 +12,12 @@
     "experimentalDecorators": true,
     "noUnusedLocals": true,
     "allowJs": true,
+    "paths": {
+      "~frontend/*": ["./src/frontend/*"],
+      "~images/*": ["./images/*"],
+    },
     "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
     "target": "es2017",
     "outDir": "./lib",
     "lib": ["dom", "es5", "scripthost", "es2015", "es2016", "es2017"]

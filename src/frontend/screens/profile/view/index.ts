@@ -17,15 +17,15 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FloatingAction} from 'react-native-floating-action';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
-import {SSBSource} from '../../../drivers/ssb';
-import {t} from '../../../drivers/localization';
-import {Palette} from '../../../global-styles/palette';
-import {Dimensions} from '../../../global-styles/dimens';
-import {getImg} from '../../../global-styles/utils';
-import Feed from '../../../components/Feed';
-import EmptySection from '../../../components/EmptySection';
-import Avatar from '../../../components/Avatar';
-import TopBar from '../../../components/TopBar';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {getImg} from '~frontend/global-styles/utils';
+import Feed from '~frontend/components/Feed';
+import EmptySection from '~frontend/components/EmptySection';
+import Avatar from '~frontend/components/Avatar';
+import TopBar from '~frontend/components/TopBar';
 import {State} from '../model';
 import {
   styles,
@@ -229,7 +229,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
           {
             color: Palette.backgroundCTA,
             name: 'compose',
-            icon: getImg(require('../../../../../images/pencil.png')),
+            icon: getImg(require('~images/pencil.png')),
             text: t('profile.floating_action_button.compose'),
           },
         ],
@@ -302,7 +302,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
             : isSelfProfile
             ? h(EmptySection, {
                 style: styles.emptySection,
-                image: getImg(require('../../../../../images/noun-plant.png')),
+                image: getImg(require('~images/noun-plant.png')),
                 title: t('profile.empty.no_self_messages.title'),
                 description: t('profile.empty.no_self_messages.description'),
               })

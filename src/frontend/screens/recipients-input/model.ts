@@ -1,12 +1,12 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {FeedId} from 'ssb-typescript';
-import {PrivateThreadAndExtras} from '../../ssb/types';
-import {MentionSuggestion, SSBSource} from '../../drivers/ssb';
+import {PrivateThreadAndExtras} from '~frontend/ssb/types';
+import {MentionSuggestion, SSBSource} from '~frontend/drivers/ssb';
 import {Props} from '.';
 
 export interface State {

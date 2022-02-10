@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -14,11 +14,11 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import {t} from '../../../drivers/localization';
-import {Palette} from '../../../global-styles/palette';
-import Button from '../../../components/Button';
-import Avatar from '../../../components/Avatar';
-import TopBar from '../../../components/TopBar';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import Button from '~frontend/components/Button';
+import Avatar from '~frontend/components/Avatar';
+import TopBar from '~frontend/components/TopBar';
 import {State} from '../model';
 import {styles, avatarSize} from './styles';
 

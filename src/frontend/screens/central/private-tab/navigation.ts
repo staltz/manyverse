@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,11 +7,11 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 import sample from 'xstream-sample';
 import {MsgId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
-import {Screens} from '../../enums';
-import {navOptions as conversationNavOpts} from '../../conversation';
-import {Props as ConversationProps} from '../../conversation/props';
-import {navOptions as recipientsInputNavOpts} from '../../recipients-input';
-import {Props as RecipientsInputProps} from '../../recipients-input/props';
+import {Screens} from '~frontend/screens/enums';
+import {navOptions as conversationNavOpts} from '~frontend/screens/conversation';
+import {Props as ConversationProps} from '~frontend/screens/conversation/props';
+import {navOptions as recipientsInputNavOpts} from '~frontend/screens/recipients-input';
+import {Props as RecipientsInputProps} from '~frontend/screens/recipients-input/props';
 import {State} from './model';
 
 export type Actions = {

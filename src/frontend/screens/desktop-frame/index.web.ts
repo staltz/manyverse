@@ -8,14 +8,14 @@ import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {HTTPSource, RequestInput as HTTPReq} from '@cycle/http';
 import {Reducer, StateSource} from '@cycle/state';
-import {GlobalEvent} from '../../drivers/eventbus';
-import {SSBSource} from '../../drivers/ssb';
-import {DialogSource} from '../../drivers/dialogs';
+import {GlobalEvent} from '~frontend/drivers/eventbus';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import linking from '~frontend/screens/drawer/linking';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
 import navigation from './navigation';
-import linking from '../drawer/linking';
 
 export interface Sources {
   screen: ReactSource;

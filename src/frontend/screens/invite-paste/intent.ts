@@ -9,10 +9,10 @@ import sample from 'xstream-sample';
 import {ReactSource} from '@cycle/react';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {NavSource} from 'cycle-native-navigation';
-import {isExperimentalSSBURIWithAction} from 'ssb-uri2';
-import {LifecycleEvent} from '../../drivers/lifecycle';
-import {State} from './model';
 const roomUtils = require('ssb-room-client/utils');
+import {isExperimentalSSBURIWithAction} from 'ssb-uri2';
+import {LifecycleEvent} from '~frontend/drivers/lifecycle';
+import {State} from './model';
 
 const isHttpInvite = isExperimentalSSBURIWithAction('claim-http-invite');
 

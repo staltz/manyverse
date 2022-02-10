@@ -6,9 +6,9 @@ import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 import Slider from '@react-native-community/slider';
-import {Palette} from '../../../global-styles/palette';
-import {Typography} from '../../../global-styles/typography';
-import {Dimensions} from '../../../global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
+import {Dimensions} from '~frontend/global-styles/dimens';
 
 export const styles = StyleSheet.create({
   container: {

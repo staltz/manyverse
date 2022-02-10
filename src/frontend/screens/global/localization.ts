@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,8 +6,8 @@ import * as Path from 'path';
 import xs, {Stream} from 'xstream';
 import {Platform} from 'react-native';
 import * as RNLocalize from 'react-native-localize';
-import {FSSource} from '../../drivers/fs';
-import {Command as LocalizationCmd} from '../../drivers/localization';
+import {FSSource} from '~frontend/drivers/fs';
+import {Command as LocalizationCmd} from '~frontend/drivers/localization';
 
 export default function localization(fsSource: FSSource) {
   const translationsDir$: Stream<

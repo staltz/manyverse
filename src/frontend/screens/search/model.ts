@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,10 +6,10 @@ import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {FeedId, PostContent} from 'ssb-typescript';
 import {isFeedSSBURI, isMessageSSBURI} from 'ssb-uri2';
-import {GetReadable, SSBSource} from '../../drivers/ssb';
-import {MsgAndExtras, ThreadSummaryWithExtras} from '../../ssb/types';
-import {Props} from './props';
 const Ref = require('ssb-ref');
+import {GetReadable, SSBSource} from '~frontend/drivers/ssb';
+import {MsgAndExtras, ThreadSummaryWithExtras} from '~frontend/ssb/types';
+import {Props} from './props';
 
 export interface State {
   selfFeedId: FeedId;

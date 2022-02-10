@@ -12,16 +12,16 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import {globalStyles} from '../../global-styles/styles';
-import tutorialPresentation from '../../components/tutorial-presentation';
-import tutorialSlide from '../../components/tutorial-slide';
-import Button from '../../components/Button';
-import TopBar from '../../components/TopBar';
+import {Command, NavSource} from 'cycle-native-navigation';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {globalStyles} from '~frontend/global-styles/styles';
+import tutorialPresentation from '~frontend/components/tutorial-presentation';
+import tutorialSlide from '~frontend/components/tutorial-slide';
+import Button from '~frontend/components/Button';
+import TopBar from '~frontend/components/TopBar';
 import {Props} from './props';
 
 export interface Sources {

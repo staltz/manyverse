@@ -1,11 +1,11 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
-import {Req, contentToPublishReq} from '../../drivers/ssb';
-import {toVoteContent} from '../../ssb/utils/to-ssb';
-import {PressAddReactionEvent} from '../../ssb/types';
+import {Req, contentToPublishReq} from '~frontend/drivers/ssb';
+import {toVoteContent} from '~frontend/ssb/utils/to-ssb';
+import {PressAddReactionEvent} from '~frontend/ssb/types';
 
 export interface SSBActions {
   addReactionMsg$: Stream<PressAddReactionEvent>;

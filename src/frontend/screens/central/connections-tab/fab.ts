@@ -1,13 +1,13 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import {State} from './model';
 import {IFloatingActionProps as Props} from 'react-native-floating-action';
-import {Palette} from '../../../global-styles/palette';
-import {Dimensions} from '../../../global-styles/dimens';
-import {getImg} from '../../../global-styles/utils';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {getImg} from '~frontend/global-styles/utils';
 
 export default function floatingAction(state$: Stream<State>): Stream<Props> {
   return xs.of({
@@ -22,6 +22,6 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
       vertical: Dimensions.verticalSpaceLarge,
       horizontal: Dimensions.horizontalSpaceBig,
     } as any,
-    floatingIcon: getImg(require('../../../../../images/plus-network.png')),
+    floatingIcon: getImg(require('~images/plus-network.png')),
   });
 }

@@ -5,8 +5,8 @@
 import xs, {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {ReactSource} from '@cycle/react';
-import {State} from './model';
 import {HTTPSource} from '@cycle/http';
+import {State} from './model';
 
 export default function intent(
   reactSource: ReactSource,

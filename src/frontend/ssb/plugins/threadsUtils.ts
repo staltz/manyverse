@@ -2,13 +2,16 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
+import xs, {Stream} from 'xstream';
 const pull = require('pull-stream');
 const Ref = require('ssb-ref');
-import xs, {Stream} from 'xstream';
 import {Thread as ThreadData} from 'ssb-threads/types';
 import {Msg, Content, FeedId, PostContent} from 'ssb-typescript';
 import {isMsg, isContactMsg} from 'ssb-typescript/utils';
 import run = require('promisify-tuple');
+import {Callback} from 'pull-stream';
+import xsFromPullStream from 'xstream-from-pull-stream';
+import {ClientAPI, AnyFunction} from 'react-native-ssb-client';
 import {
   AnyThread,
   MsgAndExtras,
@@ -19,9 +22,6 @@ import {
   Reactions,
 } from '../types';
 import {imageToImageUrl, voteExpressionToReaction} from '../utils/from-ssb';
-import {Callback} from 'pull-stream';
-import xsFromPullStream from 'xstream-from-pull-stream';
-import {ClientAPI, AnyFunction} from 'react-native-ssb-client';
 import manifest from '../manifest';
 
 type SSB = ClientAPI<

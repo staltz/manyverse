@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,8 +8,8 @@ import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
 import {StyleSheet} from 'react-native';
 import {Options} from 'react-native-navigation';
-import {t} from '../../drivers/localization';
-import MarkdownDialog from '../../components/dialogs/MarkdownDialog';
+import {t} from '~frontend/drivers/localization';
+import MarkdownDialog from '~frontend/components/dialogs/MarkdownDialog';
 import getContent from './content';
 
 export type Sources = {

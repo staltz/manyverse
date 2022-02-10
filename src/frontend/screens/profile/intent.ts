@@ -7,13 +7,13 @@ import sample from 'xstream-sample';
 import {FeedId, Msg} from 'ssb-typescript';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
-import {t} from '../../drivers/localization';
+import {t} from '~frontend/drivers/localization';
 import {
   PressReactionsEvent,
   PressAddReactionEvent,
   MsgAndExtras,
   Alias,
-} from '../../ssb/types';
+} from '~frontend/ssb/types';
 import {State} from './model';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};

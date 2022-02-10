@@ -3,9 +3,9 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {StyleSheet} from 'react-native';
-import {Dimensions} from '../../global-styles/dimens';
-import {Palette} from '../../global-styles/palette';
-import {Typography} from '../../global-styles/typography';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
 
 export const styles = StyleSheet.create({
   screen: {

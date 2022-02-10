@@ -8,10 +8,10 @@ import {StyleSheet, View, Text} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
 import navigation from './navigation';
 
 export interface Sources {

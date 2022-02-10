@@ -6,12 +6,12 @@ import xs, {Stream} from 'xstream';
 import {Reducer, Lens} from '@cycle/state';
 import {Animated} from 'react-native';
 import {FeedId, MsgId} from 'ssb-typescript';
+import {SSBSource} from '~frontend/drivers/ssb';
 import {State as TopBarState} from './top-bar';
 import {State as PublicTabState} from './public-tab/model';
 import {State as PrivateTabState} from './private-tab/model';
 import {State as ActivityTabState} from './activity-tab/model';
 import {State as ConnectionsTabState} from './connections-tab/model';
-import {SSBSource} from '../../drivers/ssb';
 
 export interface State {
   selfFeedId: FeedId;

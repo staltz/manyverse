@@ -1,12 +1,12 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {ScrollView, View, Text, Platform, NativeModules} from 'react-native';
-import TopBar from '../../../components/TopBar';
-import {t} from '../../../drivers/localization';
+import TopBar from '~frontend/components/TopBar';
+import {t} from '~frontend/drivers/localization';
 import {State, blobsStorageOptions, hopsOptions} from '../model';
 import ToggleSetting from './ToggleSetting';
 import LinkSetting from './LinkSetting';

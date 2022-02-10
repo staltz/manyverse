@@ -1,13 +1,13 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Animated} from 'react-native';
 import {Component, ReactElement, Fragment} from 'react';
 import {h} from '@cycle/react';
-import EmptySection from '../../../../components/EmptySection';
-import {t} from '../../../../drivers/localization';
-import {getImg} from '../../../../global-styles/utils';
+import EmptySection from '~frontend/components/EmptySection';
+import {t} from '~frontend/drivers/localization';
+import {getImg} from '~frontend/global-styles/utils';
 import {State} from '../../model';
 import {styles} from '../styles';
 import ListOfPeers from './ListOfPeers';
@@ -100,7 +100,7 @@ export default class Body extends Component<
       this.latestEmptySection = h(EmptySection, {
         key: 'es',
         style: styles.emptySection,
-        image: getImg(require('../../../../../../images/noun-lantern.png')),
+        image: getImg(require('~images/noun-lantern.png')),
         title: t('connections.empty.offline.title'),
         description: t('connections.empty.offline.description'),
       });
@@ -111,7 +111,7 @@ export default class Body extends Component<
         this.latestEmptySection = h(EmptySection, {
           key: 'es',
           style: styles.emptySection,
-          image: getImg(require('../../../../../../images/noun-crops.png')),
+          image: getImg(require('~images/noun-crops.png')),
           title: t('connections.empty.connecting.title'),
           description: t('connections.empty.connecting.description'),
         });
@@ -119,7 +119,7 @@ export default class Body extends Component<
         this.latestEmptySection = h(EmptySection, {
           key: 'es',
           style: styles.emptySection,
-          image: getImg(require('../../../../../../images/noun-crops.png')),
+          image: getImg(require('~images/noun-crops.png')),
           title: t('connections.empty.no_peers.title'),
           description: t('connections.empty.no_peers.description'),
         });

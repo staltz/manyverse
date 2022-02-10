@@ -31,9 +31,9 @@ import {
   Alias,
   FirewallAttempt,
   SSBFriendsQueryDetails,
-} from '../../ssb/types';
-import makeClient, {SSBClient} from '../../ssb/client';
-import {imageToImageUrl} from '../../ssb/utils/from-ssb';
+} from '~frontend/ssb/types';
+import makeClient, {SSBClient} from '~frontend/ssb/client';
+import {imageToImageUrl} from '~frontend/ssb/utils/from-ssb';
 import dropRepeats from 'xstream/extra/dropRepeats';
 const URLPolyfill =
   Platform.OS !== 'web' ? require('react-native-url-polyfill').URL : URL;

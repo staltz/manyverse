@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform} from 'react-native';
-import versionName from '../versionName';
+import versionName from '~frontend/versionName';
 
 const platform = Platform.select({
   ios: 'iOS',

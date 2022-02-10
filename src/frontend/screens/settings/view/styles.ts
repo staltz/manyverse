@@ -3,10 +3,10 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet} from 'react-native';
-import {Dimensions} from '../../../global-styles/dimens';
-import {Palette} from '../../../global-styles/palette';
-import {globalStyles} from '../../../global-styles/styles';
-import {Typography} from '../../../global-styles/typography';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {globalStyles} from '~frontend/global-styles/styles';
+import {Typography} from '~frontend/global-styles/typography';
 
 export const styles = StyleSheet.create({
   screen: globalStyles.screen,

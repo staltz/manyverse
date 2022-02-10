@@ -7,13 +7,13 @@ import debounce from 'xstream/extra/debounce';
 import {ReactSource} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
 import {NavSource} from 'cycle-native-navigation';
-import {Screens} from '../../enums';
+import {Screens} from '~frontend/screens/enums';
 import {
   PressAddReactionEvent,
   PressReactionsEvent,
   MsgAndExtras,
-} from '../../../ssb/types';
-import {t} from '../../../drivers/localization';
+} from '~frontend/ssb/types';
+import {t} from '~frontend/drivers/localization';
 
 export type ProfileNavEvent = {authorFeedId: FeedId};
 

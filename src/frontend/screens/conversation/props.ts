@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {MsgId, FeedId} from 'ssb-typescript';
-import {PrivateThreadAndExtras} from '../../ssb/types';
+import {PrivateThreadAndExtras} from '~frontend/ssb/types';
 
 export type Props = {
   selfFeedId: FeedId;

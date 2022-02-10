@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {PeerKV, StagedPeerKV} from '../../../../ssb/types';
-import {t} from '../../../../drivers/localization';
+import {PeerKV, StagedPeerKV} from '~frontend/ssb/types';
+import {t} from '~frontend/drivers/localization';
 
 type KV = PeerKV | StagedPeerKV;
 

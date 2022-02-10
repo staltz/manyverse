@@ -6,10 +6,10 @@ import {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Palette} from '../../../../global-styles/palette';
-import {Dimensions} from '../../../../global-styles/dimens';
-import {Typography} from '../../../../global-styles/typography';
-import {StagedPeerKV} from '../../../../ssb/types';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {StagedPeerKV} from '~frontend/ssb/types';
 import {peerModeName, peerModeIcon, peerModeDescription} from './utils';
 
 export const styles = StyleSheet.create({

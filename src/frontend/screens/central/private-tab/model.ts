@@ -4,15 +4,15 @@
 
 import xs from 'xstream';
 import {FeedId, MsgId, PostContent} from 'ssb-typescript';
-import {GetReadable, SSBSource} from '../../../drivers/ssb';
-import {PrivateThreadAndExtras} from '../../../ssb/types';
 import {NavSource} from 'cycle-native-navigation';
-import {Screens} from '../../enums';
+import {GetReadable, SSBSource} from '~frontend/drivers/ssb';
+import {PrivateThreadAndExtras} from '~frontend/ssb/types';
+import {Screens} from '~frontend/screens/enums';
 import {
   Props as ConversationProps,
   isExistingConversationProps,
   isNewConversationProps,
-} from '../../conversation/props';
+} from '~frontend/screens/conversation/props';
 
 export type State = {
   selfFeedId: FeedId;

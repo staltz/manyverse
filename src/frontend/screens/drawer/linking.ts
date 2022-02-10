@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import MAIL_TO_BUG_REPORT from '../../components/mail-to-bug-report';
+import MAIL_TO_BUG_REPORT from '~frontend/components/mail-to-bug-report';
 
 interface Actions {
   emailBugReport$: Stream<any>;

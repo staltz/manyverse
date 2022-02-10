@@ -6,9 +6,9 @@ import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
 import {Platform} from 'react-native';
 import path = require('path');
-import {FSSource} from '../../drivers/fs';
-import {OrientationEvent} from '../../drivers/orientation';
-import {WindowSize} from '../../drivers/window-size';
+import {FSSource} from '~frontend/drivers/fs';
+import {OrientationEvent} from '~frontend/drivers/orientation';
+import {WindowSize} from '~frontend/drivers/window-size';
 
 export interface State {
   index: number;

@@ -1,11 +1,11 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import concat from 'xstream/extra/concat';
-import {SSBSource} from '../../drivers/ssb';
-import {PeerKV} from '../../ssb/types';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {PeerKV} from '~frontend/ssb/types';
 import {Props} from './props';
 
 interface Actions {

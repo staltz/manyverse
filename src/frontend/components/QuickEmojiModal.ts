@@ -14,10 +14,10 @@ import {
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {Palette} from '../global-styles/palette';
-import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
-import {t} from '../drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {t} from '~frontend/drivers/localization';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,

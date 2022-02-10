@@ -18,16 +18,16 @@ import {propifyMethods} from 'react-propify-methods';
 import PullFlatList from 'pull-flat-list';
 import {FeedId, MsgId, PostContent} from 'ssb-typescript';
 const stripMarkdownOneline = require('strip-markdown-oneline');
-import {PrivateThreadAndExtras} from '../../../ssb/types';
-import {GetReadable} from '../../../drivers/ssb';
-import {t} from '../../../drivers/localization';
-import {Dimensions} from '../../../global-styles/dimens';
-import {getImg} from '../../../global-styles/utils';
-import {displayName} from '../../../ssb/utils/from-ssb';
-import EmptySection from '../../../components/EmptySection';
-import AnimatedLoading from '../../../components/AnimatedLoading';
-import TimeAgo from '../../../components/TimeAgo';
-import Avatar from '../../../components/Avatar';
+import {PrivateThreadAndExtras} from '~frontend/ssb/types';
+import {GetReadable} from '~frontend/drivers/ssb';
+import {t} from '~frontend/drivers/localization';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {getImg} from '~frontend/global-styles/utils';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
+import EmptySection from '~frontend/components/EmptySection';
+import AnimatedLoading from '~frontend/components/AnimatedLoading';
+import TimeAgo from '~frontend/components/TimeAgo';
+import Avatar from '~frontend/components/Avatar';
 import {State} from './model';
 import {styles} from './styles';
 
@@ -240,7 +240,7 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
         : null,
       ListEmptyComponent: h(EmptySection, {
         style: styles.emptySection,
-        image: getImg(require('../../../../../images/noun-plant.png')),
+        image: getImg(require('~images/noun-plant.png')),
         title: t('private.empty.title'),
         description: t('private.empty.description'),
       }),

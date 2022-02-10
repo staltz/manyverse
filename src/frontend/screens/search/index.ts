@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,9 +8,9 @@ import {ReactSource} from '@cycle/react';
 import {Platform} from 'react-native';
 import {Reducer, StateSource} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {Req, SSBSource} from '../../drivers/ssb';
-import {DialogSource} from '../../drivers/dialogs';
-import messageEtc from '../../components/messageEtc';
+import {Req, SSBSource} from '~frontend/drivers/ssb';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import messageEtc from '~frontend/components/messageEtc';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';

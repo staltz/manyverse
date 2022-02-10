@@ -1,13 +1,13 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
-import {t} from '../../drivers/localization';
-import {DialogSource} from '../../drivers/dialogs';
-import {Palette} from '../../global-styles/palette';
+import {t} from '~frontend/drivers/localization';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Palette} from '~frontend/global-styles/palette';
 
 export function intent(
   navSource: NavSource,

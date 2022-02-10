@@ -5,20 +5,20 @@
 import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
-import {SSBSource} from '../../drivers/ssb';
+import {SSBSource} from '~frontend/drivers/ssb';
 import {
   CentralUpdateActivity,
   CentralUpdateConnections,
   CentralUpdatePrivate,
   CentralUpdatePublic,
   GlobalEvent,
-} from '../../drivers/eventbus';
-import {PeerKV, StagedPeerKV} from '../../ssb/types';
+} from '~frontend/drivers/eventbus';
+import {PeerKV, StagedPeerKV} from '~frontend/ssb/types';
 import progressCalculation, {
   State as ProgressState,
   INITIAL_STATE as INITIAL_PROGRESS_STATE,
-} from '../../components/progressCalculation';
-import currentVersion from '../../versionName';
+} from '~frontend/components/progressCalculation';
+import currentVersion from '~frontend/versionName';
 
 export interface State extends ProgressState {
   selfFeedId: FeedId;

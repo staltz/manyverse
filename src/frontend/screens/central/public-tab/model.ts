@@ -1,14 +1,14 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
+import {Animated} from 'react-native';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
-import {SSBSource, GetReadable} from '../../../drivers/ssb';
-import {ThreadSummaryWithExtras} from '../../../ssb/types';
-import {Animated} from 'react-native';
+import {SSBSource, GetReadable} from '~frontend/drivers/ssb';
+import {ThreadSummaryWithExtras} from '~frontend/ssb/types';
 
 export interface State {
   selfFeedId: FeedId;

@@ -14,19 +14,19 @@ import {
   toMultiserverAddress,
   toMessageSigil,
 } from 'ssb-uri2';
+const Ref = require('ssb-ref');
+const urlParse = require('url-parse');
 import {
   GlobalEvent,
   TriggerFeedCypherlink,
   TriggerHashtagLink,
   TriggerMsgCypherlink,
-} from '../../drivers/eventbus';
-import {SSBSource} from '../../drivers/ssb';
-import {AlertAction, DialogSource} from '../../drivers/dialogs';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
+} from '~frontend/drivers/eventbus';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {AlertAction, DialogSource} from '~frontend/drivers/dialogs';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
 import {State} from './model';
-const Ref = require('ssb-ref');
-const urlParse = require('url-parse');
 
 export default function intent(
   globalEventBus: Stream<GlobalEvent>,

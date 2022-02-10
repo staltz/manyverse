@@ -12,12 +12,6 @@ import {
   View,
   ViewProps,
 } from 'react-native';
-import {Palette} from '../global-styles/palette';
-import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
-import {GlobalEventBus} from '../drivers/eventbus';
-import ZoomableImage from './ZoomableImage';
-import AudioPlayer from './AudioPlayer';
 import {
   isFeedSSBURI,
   isMessageSSBURI,
@@ -27,14 +21,20 @@ import {
   getFeedSSBURIRegex,
   getMessageSSBURIRegex,
 } from 'ssb-uri2';
+const Ref = require('ssb-ref');
+const remark = require('remark');
 const gemojiToEmoji = require('remark-gemoji-to-emoji');
 const imagesToSsbServeBlobs = require('remark-images-to-ssb-serve-blobs');
 const linkifyRegex = require('remark-linkify-regex');
 const normalizeForReactNative = require('mdast-normalize-react-native');
 const ReactMarkdown = require('react-markdown');
-const Ref = require('ssb-ref');
-const remark = require('remark');
 const getUnicodeWordRegex = require('unicode-word-regex');
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {GlobalEventBus} from '~frontend/drivers/eventbus';
+import ZoomableImage from './ZoomableImage';
+import AudioPlayer from './AudioPlayer';
 
 const ELLIPSIS = '\u2026';
 

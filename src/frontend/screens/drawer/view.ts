@@ -17,11 +17,11 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Bar as ProgressBar} from 'react-native-progress';
 import {h} from '@cycle/react';
-import {t} from '../../drivers/localization';
-import LocalizedHumanTime from '../../components/LocalizedHumanTime';
-import {Dimensions} from '../../global-styles/dimens';
-import {Palette} from '../../global-styles/palette';
-import Avatar from '../../components/Avatar';
+import {t} from '~frontend/drivers/localization';
+import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import Avatar from '~frontend/components/Avatar';
 import {State} from './model';
 import {styles} from './styles';
 

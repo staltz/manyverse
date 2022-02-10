@@ -5,8 +5,8 @@
 import xs, {Stream} from 'xstream';
 import {Command} from 'cycle-native-navigation';
 import delay from 'xstream/extra/delay';
-import {Screens} from '../enums';
-import {navOptions as composeAudioNavOpts} from '../compose-audio';
+import {Screens} from '~frontend/screens/enums';
+import {navOptions as composeAudioNavOpts} from '~frontend/screens/compose-audio';
 
 export interface Actions {
   goToComposeAudio$: Stream<any>;

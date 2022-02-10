@@ -4,11 +4,11 @@
 
 import {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
-import {toReplyPostContent, toPostContent} from '../../ssb/utils/to-ssb';
-import {State} from './model';
-import {Req, contentToPublishReq} from '../../drivers/ssb';
 import {PostContent} from 'ssb-typescript';
-import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '../../ssb/utils/constants';
+import {toReplyPostContent, toPostContent} from '~frontend/ssb/utils/to-ssb';
+import {Req, contentToPublishReq} from '~frontend/drivers/ssb';
+import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '~frontend/ssb/utils/constants';
+import {State} from './model';
 
 export type SSBActions = {
   publishMsg$: Stream<string>;

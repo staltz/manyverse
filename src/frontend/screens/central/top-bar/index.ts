@@ -9,12 +9,12 @@ import {StateSource} from '@cycle/state';
 import {ReactElement} from 'react';
 import {StyleSheet, Platform, Animated, View} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {Palette} from '../../../global-styles/palette';
-import {Dimensions} from '../../../global-styles/dimens';
-import {Typography} from '../../../global-styles/typography';
-import HeaderMenuButton from '../../../components/HeaderMenuButton';
-import HeaderButton from '../../../components/HeaderButton';
-import {t} from '../../../drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import HeaderMenuButton from '~frontend/components/HeaderMenuButton';
+import HeaderButton from '~frontend/components/HeaderButton';
+import {t} from '~frontend/drivers/localization';
 
 export interface State {
   currentTab: 'public' | 'private' | 'activity' | 'connections';

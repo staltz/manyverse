@@ -5,11 +5,11 @@
 import xs, {Stream} from 'xstream';
 import {Msg} from 'ssb-typescript';
 import {Platform} from 'react-native';
-import {t} from '../drivers/localization';
-import {DialogSource} from '../drivers/dialogs';
-import {Toast, Duration} from '../drivers/toast';
-import {Palette} from '../global-styles/palette';
 import {fromMessageSigil} from 'ssb-uri2';
+import {t} from '~frontend/drivers/localization';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Toast, Duration} from '~frontend/drivers/toast';
+import {Palette} from '~frontend/global-styles/palette';
 
 export type EtcChoiceId = 'copy-uri' | 'copy-id' | 'raw-msg';
 

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,12 +6,12 @@ import {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
-import Feed from '../../../components/Feed';
-import {SSBSource} from '../../../drivers/ssb';
-import {t} from '../../../drivers/localization';
-import EmptySection from '../../../components/EmptySection';
-import {Dimensions} from '../../../global-styles/dimens';
-import {getImg} from '../../../global-styles/utils';
+import Feed from '~frontend/components/Feed';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {t} from '~frontend/drivers/localization';
+import EmptySection from '~frontend/components/EmptySection';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {getImg} from '~frontend/global-styles/utils';
 import {State} from './model';
 import {styles} from './styles';
 
@@ -49,7 +49,7 @@ export default function view(
         preferredReactions: state.preferredReactions,
         EmptyComponent: h(EmptySection, {
           style: styles.emptySection,
-          image: getImg(require('../../../../../images/noun-plant.png')),
+          image: getImg(require('~images/noun-plant.png')),
           title: t('public.empty.title'),
           description: t('public.empty.description'),
         }),

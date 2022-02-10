@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -12,9 +12,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import {h} from '@cycle/react';
-import {Palette} from '../../global-styles/palette';
-import {Typography} from '../../global-styles/typography';
-import {Dimensions} from '../../global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
+import {Dimensions} from '~frontend/global-styles/dimens';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,

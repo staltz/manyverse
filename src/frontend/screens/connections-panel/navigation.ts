@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,12 +7,12 @@ import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
-import {Screens} from '../enums';
-import {navOptions as profileScreenNavOptions} from '../profile';
-import {Props as ProfileProps} from '../profile/props';
-import {navOptions as pasteInviteScreenNavOptions} from '../invite-paste';
-import {navOptions as manageAliasScreenNavOpts} from '../alias-manage/layout';
-import {Props as ManageAliasesProps} from '../alias-manage/props';
+import {Screens} from '~frontend/screens/enums';
+import {navOptions as profileScreenNavOptions} from '~frontend/screens/profile';
+import {Props as ProfileProps} from '~frontend/screens/profile/props';
+import {navOptions as pasteInviteScreenNavOptions} from '~frontend/screens/invite-paste';
+import {navOptions as manageAliasScreenNavOpts} from '~frontend/screens/alias-manage/layout';
+import {Props as ManageAliasesProps} from '~frontend/screens/alias-manage/props';
 import {State} from './model';
 
 export interface Actions {

@@ -14,13 +14,13 @@ import {
 } from 'react-native';
 import {Msg, PostContent} from 'ssb-typescript';
 import {isPrivate} from 'ssb-typescript/utils';
-import {t} from '../../drivers/localization';
-import {displayName} from '../../ssb/utils/from-ssb';
-import {Dimensions} from '../../global-styles/dimens';
-import {Palette} from '../../global-styles/palette';
-import {Typography} from '../../global-styles/typography';
-import LocalizedHumanTime from '../LocalizedHumanTime';
-import Avatar from '../Avatar';
+import {t} from '~frontend/drivers/localization';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
+import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import Avatar from '~frontend/components/Avatar';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,

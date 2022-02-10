@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Appearance} from 'react-native';
-import {OptionsCommon} from '../drivers/dialogs/types';
+import {OptionsCommon} from '~frontend/drivers/dialogs/types';
 
 const isDarkTheme = Appearance.getColorScheme() === 'dark';
 

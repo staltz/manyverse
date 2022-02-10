@@ -28,17 +28,17 @@ import {
   MessageProps,
   Send,
 } from 'react-native-gifted-chat';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
-import {globalStyles} from '../../global-styles/styles';
-import Markdown from '../../components/Markdown';
-import Avatar from '../../components/Avatar';
-import TopBar from '../../components/TopBar';
-import HeaderButton from '../../components/HeaderButton';
-import LocalizedHumanTime from '../../components/LocalizedHumanTime';
-import {displayName} from '../../ssb/utils/from-ssb';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {globalStyles} from '~frontend/global-styles/styles';
+import Markdown from '~frontend/components/Markdown';
+import Avatar from '~frontend/components/Avatar';
+import TopBar from '~frontend/components/TopBar';
+import HeaderButton from '~frontend/components/HeaderButton';
+import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {SSBGiftedMsg, State} from './model';
 
 const GiftedChat = GiftedChatWithWrongTypes as any as ComponentClass<

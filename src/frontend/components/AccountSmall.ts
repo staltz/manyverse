@@ -12,11 +12,11 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import {displayName} from '../ssb/utils/from-ssb';
-import {t} from '../drivers/localization';
-import {Dimensions} from '../global-styles/dimens';
-import {Palette} from '../global-styles/palette';
-import {Typography} from '../global-styles/typography';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
+import {t} from '~frontend/drivers/localization';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
 import Avatar from './Avatar';
 
 const Touchable = Platform.select<any>({

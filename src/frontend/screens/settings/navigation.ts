@@ -1,17 +1,21 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import {Platform} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {navOptions as librariesNavOptions} from '../libraries';
-import {navOptions as backupScreenNavOptions} from '../backup';
-import {Screens} from '../enums';
+import {navOptions as librariesNavOptions} from '~frontend/screens/libraries';
+import {navOptions as backupScreenNavOptions} from '~frontend/screens/backup';
+import {Screens} from '~frontend/screens/enums';
 const dialogAboutNavOptions =
-  Platform.OS === 'web' ? {} : require('../dialog-about').navOptions;
+  Platform.OS === 'web'
+    ? {}
+    : require('~frontend/screens/dialog-about').navOptions;
 const dialogThanksNavOptions =
-  Platform.OS === 'web' ? {} : require('../dialog-thanks').navOptions;
+  Platform.OS === 'web'
+    ? {}
+    : require('~frontend/screens/dialog-thanks').navOptions;
 
 export interface Actions {
   goBack$: Stream<any>;

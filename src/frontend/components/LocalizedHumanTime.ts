@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Component} from 'react';
-import {t} from '../drivers/localization';
+import {t} from '~frontend/drivers/localization';
 
 type Measure = 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'now';
 

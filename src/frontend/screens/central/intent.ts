@@ -3,17 +3,17 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactSource} from '@cycle/react';
-import {State} from './model';
 import {
   GlobalEvent,
   DrawerToggleOnCentralScreen,
   CentralChangeTab,
   CentralScrollToTop,
   CentralScreenUpdate,
-} from '../../drivers/eventbus';
-import sample from 'xstream-sample';
+} from '~frontend/drivers/eventbus';
+import {State} from './model';
 
 type TabID = State['currentTab'];
 

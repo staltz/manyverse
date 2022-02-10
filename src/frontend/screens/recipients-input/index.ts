@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,10 +8,10 @@ import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Platform} from 'react-native';
-import {SSBSource} from '../../drivers/ssb';
-import {Toast, Duration} from '../../drivers/toast';
-import {t} from '../../drivers/localization';
-import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '../../ssb/utils/constants';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {Toast, Duration} from '~frontend/drivers/toast';
+import {t} from '~frontend/drivers/localization';
+import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '~frontend/ssb/utils/constants';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';

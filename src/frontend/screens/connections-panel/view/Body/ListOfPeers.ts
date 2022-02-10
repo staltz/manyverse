@@ -1,12 +1,12 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Component} from 'react';
 import {View, StyleSheet, StyleProp, ViewStyle} from 'react-native';
 import {h} from '@cycle/react';
-import {Dimensions} from '../../../../global-styles/dimens';
-import {StagedPeerKV, PeerKV} from '../../../../ssb/types';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {StagedPeerKV, PeerKV} from '~frontend/ssb/types';
 import StagedItem from './StagedItem';
 import RoomItem from './RoomItem';
 import ConnectionItem from './ConnectionItem';

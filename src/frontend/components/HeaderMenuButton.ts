@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {h} from '@cycle/react';
-import {t} from '../drivers/localization';
+import {t} from '~frontend/drivers/localization';
 import HeaderButton from './HeaderButton';
 
 export default function HeaderMenuButton(sel: string) {

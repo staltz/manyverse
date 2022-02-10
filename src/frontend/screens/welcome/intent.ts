@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,11 +7,11 @@ import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import path = require('path');
-import {FSSource} from '../../drivers/fs';
-import {GlobalEvent} from '../../drivers/eventbus';
-import {DialogSource} from '../../drivers/dialogs';
-import {Palette} from '../../global-styles/palette';
-import {t} from '../../drivers/localization';
+import {FSSource} from '~frontend/drivers/fs';
+import {GlobalEvent} from '~frontend/drivers/eventbus';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Palette} from '~frontend/global-styles/palette';
+import {t} from '~frontend/drivers/localization';
 
 export default function intent(
   globalEventBus: Stream<GlobalEvent>,

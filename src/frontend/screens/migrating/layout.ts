@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Palette} from '../../global-styles/palette';
+import {Palette} from '~frontend/global-styles/palette';
 
 export const navOptions = {
   layout: {

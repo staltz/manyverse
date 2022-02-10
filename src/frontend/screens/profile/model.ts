@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -9,8 +9,12 @@ import sample from 'xstream-sample';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
-import {AboutAndExtras, Alias, SSBFriendsQueryDetails} from '../../ssb/types';
-import {SSBSource, GetReadable} from '../../drivers/ssb';
+import {
+  AboutAndExtras,
+  Alias,
+  SSBFriendsQueryDetails,
+} from '~frontend/ssb/types';
+import {SSBSource, GetReadable} from '~frontend/drivers/ssb';
 import {Props} from './props';
 
 export type State = {

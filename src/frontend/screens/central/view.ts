@@ -14,10 +14,10 @@ import {Animated, Dimensions, Easing, Platform, View} from 'react-native';
 import {h} from '@cycle/react';
 import {FloatingAction} from 'react-native-floating-action';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
-import PublicTabIcon from '../../components/tab-buttons/PublicTabIcon';
-import PrivateTabIcon from '../../components/tab-buttons/PrivateTabIcon';
-import ActivityTabIcon from '../../components/tab-buttons/ActivityTabIcon';
-import ConnectionsTabIcon from '../../components/tab-buttons/ConnectionsTabIcon';
+import PublicTabIcon from '~frontend/components/tab-buttons/PublicTabIcon';
+import PrivateTabIcon from '~frontend/components/tab-buttons/PrivateTabIcon';
+import ActivityTabIcon from '~frontend/components/tab-buttons/ActivityTabIcon';
+import ConnectionsTabIcon from '~frontend/components/tab-buttons/ConnectionsTabIcon';
 import {styles} from './styles';
 import {State} from './model';
 

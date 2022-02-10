@@ -1,11 +1,11 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs from 'xstream';
 import {ReactSource} from '@cycle/react';
-import {blobsStorageOptions, hopsOptions} from './model';
 import {NavSource} from 'cycle-native-navigation';
+import {blobsStorageOptions, hopsOptions} from './model';
 
 export default function intent(
   screenSource: ReactSource,

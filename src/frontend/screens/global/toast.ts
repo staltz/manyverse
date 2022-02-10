@@ -1,12 +1,12 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
-import {Toast, Duration as ToastDuration} from '../../drivers/toast';
-import {t} from '../../drivers/localization';
-import {SSBSource} from '../../drivers/ssb';
 const urlParse = require('url-parse');
+import {Toast, Duration as ToastDuration} from '~frontend/drivers/toast';
+import {t} from '~frontend/drivers/localization';
+import {SSBSource} from '~frontend/drivers/ssb';
 
 interface Actions {
   handleUriConsumeAlias$: Stream<string>;

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -14,7 +14,7 @@ import {
   MsgAndExtras,
   PressReactionsEvent,
   PressAddReactionEvent,
-} from '../../ssb/types';
+} from '~frontend/ssb/types';
 import RawMessage from './RawMessage';
 import PostMessage from './PostMessage';
 import AboutMessage from './AboutMessage';

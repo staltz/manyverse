@@ -23,18 +23,18 @@ import {
   MenuProvider,
 } from 'react-native-popup-menu';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {displayName} from '../../ssb/utils/from-ssb';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import Markdown from '../../components/Markdown';
-import Avatar from '../../components/Avatar';
-import SettableTextInput from '../../components/SettableTextInput';
-import LocalizedHumanTime from '../../components/LocalizedHumanTime';
-import ContentWarning from '../../components/messages/ContentWarning';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import Markdown from '~frontend/components/Markdown';
+import Avatar from '~frontend/components/Avatar';
+import SettableTextInput from '~frontend/components/SettableTextInput';
+import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import ContentWarning from '~frontend/components/messages/ContentWarning';
+import AccountSmall from '~frontend/components/AccountSmall';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
-import AccountSmall from '../../components/AccountSmall';
 
 type MiniState = Pick<State, 'postText'> &
   Pick<State, 'postTextOverride'> &

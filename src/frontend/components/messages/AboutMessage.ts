@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,13 +6,13 @@ import {Component} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import {Msg, AboutContent as About} from 'ssb-typescript';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
-import {displayName} from '../../ssb/utils/from-ssb';
-import LocalizedHumanTime from '../LocalizedHumanTime';
-import Markdown from '../Markdown';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
+import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import Markdown from '~frontend/components/Markdown';
 import MessageContainer from './MessageContainer';
 
 export const styles = StyleSheet.create({

@@ -1,13 +1,13 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
-import {SSBSource, RestoreIdentityResponse} from '../../drivers/ssb';
-import {DialogSource} from '../../drivers/dialogs';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
+import {SSBSource, RestoreIdentityResponse} from '~frontend/drivers/ssb';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
 import {State} from './model';
 
 type Actions = {

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -19,18 +19,18 @@ import {
 import {ReactElement} from 'react';
 import {FeedId} from 'ssb-typescript';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {t} from '../drivers/localization';
-import {SSBSource} from '../drivers/ssb';
-import {DialogSource} from '../drivers/dialogs';
-import {Toast, Duration as ToastDuration} from '../drivers/toast';
-import {Typography} from '../global-styles/typography';
-import {Dimensions} from '../global-styles/dimens';
-import {Palette} from '../global-styles/palette';
-import {Alias, PeerKV} from '../ssb/types';
-import {canonicalizeAliasURL} from '../ssb/utils/alias';
-import {Screens} from '../screens/enums';
-import {navOptions as registerAliasNavOpts} from '../screens/alias-register/layout';
-import {Props as RegisterAliasProps} from '../screens/alias-register/props';
+import {t} from '~frontend/drivers/localization';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Toast, Duration as ToastDuration} from '~frontend/drivers/toast';
+import {Typography} from '~frontend/global-styles/typography';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Alias, PeerKV} from '~frontend/ssb/types';
+import {canonicalizeAliasURL} from '~frontend/ssb/utils/alias';
+import {Screens} from '~frontend/screens/enums';
+import {navOptions as registerAliasNavOpts} from '~frontend/screens/alias-register/layout';
+import {Props as RegisterAliasProps} from '~frontend/screens/alias-register/props';
 import Button from './Button';
 
 interface State {

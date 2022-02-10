@@ -13,14 +13,14 @@ import {
   KeyboardTypeOptions,
 } from 'react-native';
 import {h} from '@cycle/react';
-import {t} from '../../drivers/localization';
-import {Dimensions} from '../../global-styles/dimens';
-import {Palette} from '../../global-styles/palette';
-import {Typography} from '../../global-styles/typography';
-import {globalStyles} from '../../global-styles/styles';
-import Button from '../../components/Button';
-import FlagSecure from '../../components/FlagSecure';
-import TopBar from '../../components/TopBar';
+import {t} from '~frontend/drivers/localization';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
+import {globalStyles} from '~frontend/global-styles/styles';
+import Button from '~frontend/components/Button';
+import FlagSecure from '~frontend/components/FlagSecure';
+import TopBar from '~frontend/components/TopBar';
 import {State} from './model';
 
 export const styles = StyleSheet.create({

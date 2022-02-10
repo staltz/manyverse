@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Req} from '../../drivers/ssb';
 const roomUtils = require('ssb-room-client/utils');
+import {Req} from '~frontend/drivers/ssb';
 
 export interface Actions {
   room1Done$: Stream<string>;

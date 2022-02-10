@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,8 +7,8 @@ import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {AboutAndExtras} from '../../ssb/types';
-import {WindowSize} from '../../drivers/window-size';
+import {AboutAndExtras} from '~frontend/ssb/types';
+import {WindowSize} from '~frontend/drivers/window-size';
 import view from './view';
 
 export type Props = {about: AboutAndExtras};

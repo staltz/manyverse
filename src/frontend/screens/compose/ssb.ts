@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {toPostContent, toReplyPostContent} from '../../ssb/utils/to-ssb';
-import {Req, contentToPublishReq} from '../../drivers/ssb';
+import {toPostContent, toReplyPostContent} from '~frontend/ssb/utils/to-ssb';
+import {Req, contentToPublishReq} from '~frontend/drivers/ssb';
 import {State} from './model';
 
 export interface Actions {

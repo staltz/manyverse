@@ -4,7 +4,7 @@
 
 import {Platform, StyleSheet} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {Dimensions as Dimens} from '../../../global-styles/dimens';
+import {Dimensions as Dimens} from '~frontend/global-styles/dimens';
 
 export const styles = StyleSheet.create({
   emptySection: {

@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Req} from '../../drivers/ssb';
+import {Req} from '~frontend/drivers/ssb';
 
 interface Actions {
   handleUriClaimInvite$: Stream<string>;

@@ -6,7 +6,7 @@ import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
-import {PrivateThreadAndExtras} from '../../ssb/types';
+import {PrivateThreadAndExtras} from '~frontend/ssb/types';
 import {State} from './model';
 
 export default function intent(

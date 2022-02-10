@@ -4,8 +4,8 @@
 
 import {Stream} from 'xstream';
 import {Command} from 'cycle-native-navigation';
-import {Screens} from '../enums';
-import {navOptions as centralNavOpts} from '../central';
+import {Screens} from '~frontend/screens/enums';
+import {navOptions as centralNavOpts} from '~frontend/screens/central';
 
 export interface Actions {
   continue$: Stream<any>;

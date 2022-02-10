@@ -4,10 +4,10 @@
 
 import xs, {Stream} from 'xstream';
 import {Command} from 'cycle-native-navigation';
-import {navOptions as secretInputNavOpts} from '../secret-input';
-import {Screens} from '../enums';
-import {navOptions as centralNavOpts} from '../central';
-import {navOptions as migratingNavOpts} from '../migrating/layout';
+import {navOptions as secretInputNavOpts} from '~frontend/screens/secret-input';
+import {Screens} from '~frontend/screens/enums';
+import {navOptions as centralNavOpts} from '~frontend/screens/central';
+import {navOptions as migratingNavOpts} from '~frontend/screens/migrating/layout';
 
 export interface Actions {
   createAccount$: Stream<any>;

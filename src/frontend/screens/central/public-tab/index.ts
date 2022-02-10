@@ -12,10 +12,10 @@ import {
   AsyncStorageSource,
 } from 'cycle-native-asyncstorage';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
-import {SSBSource, Req} from '../../../drivers/ssb';
-import {DialogSource} from '../../../drivers/dialogs';
-import {Toast} from '../../../drivers/toast';
-import messageEtc from '../../../components/messageEtc';
+import {SSBSource, Req} from '~frontend/drivers/ssb';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Toast} from '~frontend/drivers/toast';
+import messageEtc from '~frontend/components/messageEtc';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';

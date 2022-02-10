@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,18 +8,18 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
-import {Palette} from '../../global-styles/palette';
-import {OrientationEvent} from '../../drivers/orientation';
-import {SSBSource, Req} from '../../drivers/ssb';
-import {SplashCommand} from '../../drivers/splashscreen';
-import {FSSource} from '../../drivers/fs';
-import {GlobalEvent} from '../../drivers/eventbus';
-import {WindowSize} from '../../drivers/window-size';
+import {Palette} from '~frontend/global-styles/palette';
+import {OrientationEvent} from '~frontend/drivers/orientation';
+import {SSBSource, Req} from '~frontend/drivers/ssb';
+import {SplashCommand} from '~frontend/drivers/splashscreen';
+import {FSSource} from '~frontend/drivers/fs';
+import {GlobalEvent} from '~frontend/drivers/eventbus';
+import {WindowSize} from '~frontend/drivers/window-size';
+import {DialogSource} from '~frontend/drivers/dialogs';
 import navigation from './navigation';
 import view from './view';
 import intent from './intent';
 import model, {State} from './model';
-import {DialogSource} from '../../drivers/dialogs';
 
 export interface Sources {
   screen: ReactSource;

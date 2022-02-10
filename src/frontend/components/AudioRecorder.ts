@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -14,11 +14,11 @@ import {
   Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Palette} from '../global-styles/palette';
-import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {t} from '~frontend/drivers/localization';
 import {getAudioTimeString} from './utils/audio';
-import {t} from '../drivers/localization';
 
 const DIAMETER = 80;
 const RADIUS = DIAMETER * 0.5;

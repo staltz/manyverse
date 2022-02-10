@@ -17,13 +17,13 @@ import {
 } from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {t} from '../../drivers/localization';
-import TopBar from '../../components/TopBar';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
-import {globalStyles} from '../../global-styles/styles';
-import librariesData from '../../libraries';
+import {t} from '~frontend/drivers/localization';
+import TopBar from '~frontend/components/TopBar';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {globalStyles} from '~frontend/global-styles/styles';
+import librariesData from '~frontend/libraries';
 
 export interface Sources {
   screen: ReactSource;

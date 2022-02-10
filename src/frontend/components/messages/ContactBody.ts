@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,11 +7,11 @@ import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import {ContactContent as Contact, FeedId, Msg} from 'ssb-typescript';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
-import {displayName} from '../../ssb/utils/from-ssb';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
 import Metadata from './Metadata';
 
 export const styles = StyleSheet.create({

@@ -6,8 +6,8 @@ import {PureComponent} from 'react';
 import {TouchableHighlight, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Palette} from '../global-styles/palette';
-import {Dimensions} from '../global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
 
 const size = 36;
 const space = Dimensions.horizontalSpaceNormal * 0.5;

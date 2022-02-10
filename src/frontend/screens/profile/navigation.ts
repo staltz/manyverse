@@ -7,21 +7,25 @@ import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {FeedId, Msg} from 'ssb-typescript';
 import {Command, NavSource, PopCommand} from 'cycle-native-navigation';
-import {SSBSource, GetReadable} from '../../drivers/ssb';
-import {Reactions, MsgAndExtras, PrivateThreadAndExtras} from '../../ssb/types';
-import {Screens} from '../enums';
-import {navOptions as composeScreenNavOpts} from '../compose';
-import {Props as ComposeProps} from '../compose/props';
-import {navOptions as editProfileScreenNavOpts} from '../profile-edit';
-import {Props as ProfileEditProps} from '../profile-edit/props';
-import {navOptions as bioScreenNavOpts} from '../biography';
-import {navOptions as threadScreenNavOpts} from '../thread/layout';
-import {Props as ThreadProps} from '../thread/props';
-import {navOptions as accountsScreenNavOptions} from '../accounts/layout';
-import {navOptions as rawMsgScreenNavOpts} from '../raw-msg';
-import {Props as AccountProps} from '../accounts';
-import {Props as ConversationProps} from '../conversation/props';
-import {navOptions as conversationNavOpts} from '../conversation/layout';
+import {SSBSource, GetReadable} from '~frontend/drivers/ssb';
+import {
+  Reactions,
+  MsgAndExtras,
+  PrivateThreadAndExtras,
+} from '~frontend/ssb/types';
+import {Screens} from '~frontend/screens/enums';
+import {navOptions as composeScreenNavOpts} from '~frontend/screens/compose';
+import {Props as ComposeProps} from '~frontend/screens/compose/props';
+import {navOptions as editProfileScreenNavOpts} from '~frontend/screens/profile-edit';
+import {Props as ProfileEditProps} from '~frontend/screens/profile-edit/props';
+import {navOptions as bioScreenNavOpts} from '~frontend/screens/biography';
+import {navOptions as threadScreenNavOpts} from '~frontend/screens/thread/layout';
+import {Props as ThreadProps} from '~frontend/screens/thread/props';
+import {navOptions as accountsScreenNavOptions} from '~frontend/screens/accounts/layout';
+import {navOptions as rawMsgScreenNavOpts} from '~frontend/screens/raw-msg';
+import {Props as AccountProps} from '~frontend/screens/accounts';
+import {Props as ConversationProps} from '~frontend/screens/conversation/props';
+import {navOptions as conversationNavOpts} from '~frontend/screens/conversation/layout';
 import {navOptions as profileScreenNavOpts} from './layout';
 import {Props} from './props';
 import {State} from './model';

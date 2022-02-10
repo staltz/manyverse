@@ -8,8 +8,8 @@ import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId, MsgId} from 'ssb-typescript';
-import {ThreadAndExtras, MsgAndExtras} from '../../ssb/types';
-import {SSBSource, GetReadable} from '../../drivers/ssb';
+import {ThreadAndExtras, MsgAndExtras} from '~frontend/ssb/types';
+import {SSBSource, GetReadable} from '~frontend/drivers/ssb';
 import {Props} from './props';
 
 export interface State {

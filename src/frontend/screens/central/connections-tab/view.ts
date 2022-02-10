@@ -20,13 +20,13 @@ import {
 import {Component} from 'react';
 import {Recommendation, State} from './model';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {t} from '../../../drivers/localization';
-import {Palette} from '../../../global-styles/palette';
-import {Dimensions} from '../../../global-styles/dimens';
-import {Typography} from '../../../global-styles/typography';
-import Avatar from '../../../components/Avatar';
-import Button from '../../../components/Button';
-import {PeerKV} from '../../../ssb/types';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import Avatar from '~frontend/components/Avatar';
+import Button from '~frontend/components/Button';
+import {PeerKV} from '~frontend/ssb/types';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,

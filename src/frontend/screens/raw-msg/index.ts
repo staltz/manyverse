@@ -7,13 +7,13 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {ReactElement} from 'react';
 import {ScrollView, View, StyleSheet, Platform} from 'react-native';
-import {SSBSource} from '../../drivers/ssb';
-import {t} from '../../drivers/localization';
-import {MsgAndExtras} from '../../ssb/types';
-import {Dimensions} from '../../global-styles/dimens';
-import {globalStyles} from '../../global-styles/styles';
-import TopBar from '../../components/TopBar';
-import Metadata from '../../components/messages/Metadata';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {t} from '~frontend/drivers/localization';
+import {MsgAndExtras} from '~frontend/ssb/types';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {globalStyles} from '~frontend/global-styles/styles';
+import TopBar from '~frontend/components/TopBar';
+import Metadata from '~frontend/components/messages/Metadata';
 
 export interface Props {
   msg: MsgAndExtras;

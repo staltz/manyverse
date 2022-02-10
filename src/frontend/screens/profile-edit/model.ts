@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,7 +6,7 @@ import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
 import {About, FeedId} from 'ssb-typescript';
 import {Image} from 'react-native-image-crop-picker';
-import {Alias, PeerKV} from '../../ssb/types';
+import {Alias, PeerKV} from '~frontend/ssb/types';
 import {Props} from './props';
 
 export interface State {

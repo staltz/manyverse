@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -10,11 +10,11 @@ import {Command} from 'cycle-native-navigation';
 import {
   navOptions as threadScreenNavOpts,
   Props as ThreadProps,
-} from '../../thread';
-import {navOptions as profileScreenNavOpts} from '../../profile';
-import {Props as ProfileProps} from '../../profile/props';
+} from '~frontend/screens/thread';
+import {navOptions as profileScreenNavOpts} from '~frontend/screens/profile';
+import {Props as ProfileProps} from '~frontend/screens/profile/props';
+import {Screens} from '~frontend/screens/enums';
 import {State} from './model';
-import {Screens} from '../../enums';
 
 interface Actions {
   goToProfile$: Stream<FeedId>;

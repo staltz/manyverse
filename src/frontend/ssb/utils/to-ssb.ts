@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -11,8 +11,8 @@ import {
   AboutContent,
   MsgId,
 } from 'ssb-typescript';
-import {PressAddReactionEvent} from '../types';
 const Mentions = require('remark-ssb-mentions');
+import {PressAddReactionEvent} from '../types';
 
 export function toVoteContent(
   ev: PressAddReactionEvent,

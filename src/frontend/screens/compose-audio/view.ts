@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,11 +6,11 @@ import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {createElement as $} from 'react';
 import {Platform, View} from 'react-native';
-import {t} from '../../drivers/localization';
-import AudioPlayer from '../../components/AudioPlayer';
-import AudioRecorder from '../../components/AudioRecorder';
-import TopBar from '../../components/TopBar';
-import Button from '../../components/Button';
+import {t} from '~frontend/drivers/localization';
+import AudioPlayer from '~frontend/components/AudioPlayer';
+import AudioRecorder from '~frontend/components/AudioRecorder';
+import TopBar from '~frontend/components/TopBar';
+import Button from '~frontend/components/Button';
 import {State} from './model';
 import {styles} from './styles';
 const blobIdToUrl = require('ssb-serve-blobs/id-to-url');

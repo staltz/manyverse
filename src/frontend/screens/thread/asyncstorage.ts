@@ -1,12 +1,12 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
+import dropRepeats from 'xstream/extra/dropRepeats';
 import {Command} from 'cycle-native-asyncstorage';
 import {State} from './model';
-import dropRepeats from 'xstream/extra/dropRepeats';
 
 export type Actions = {
   publishMsg$: Stream<any>;

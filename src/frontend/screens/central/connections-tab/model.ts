@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,11 +6,11 @@ import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import concat from 'xstream/extra/concat';
 import {FeedId} from 'ssb-typescript';
-import {State as AppState} from '../../../drivers/appstate';
-import {NetworkSource} from '../../../drivers/network';
-import {SSBSource} from '../../../drivers/ssb';
-import {WindowSize} from '../../../drivers/window-size';
-import {PeerKV, StagedPeerKV} from '../../../ssb/types';
+import {State as AppState} from '~frontend/drivers/appstate';
+import {NetworkSource} from '~frontend/drivers/network';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {WindowSize} from '~frontend/drivers/window-size';
+import {PeerKV, StagedPeerKV} from '~frontend/ssb/types';
 
 export type Recommendation =
   | 'follow-staged-manually'

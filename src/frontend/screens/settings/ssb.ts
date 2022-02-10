@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Req} from '../../drivers/ssb';
+import {Req} from '~frontend/drivers/ssb';
 
 type Actions = {
   toggleFollowEvents$: Stream<boolean>;

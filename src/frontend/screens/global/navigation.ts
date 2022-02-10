@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,17 +6,17 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {Command} from 'cycle-native-navigation';
 import {FeedId, MsgId} from 'ssb-typescript';
-import {Screens} from '../enums';
-import {navOptions as profileScreenNavOpts} from '../profile';
-import {Props as ProfileProps} from '../profile/props';
-import {navOptions as searchNavOpts} from '../search/index';
-import {Props as SearchProps} from '../search/props';
+const urlParse = require('url-parse');
+import {Screens} from '~frontend/screens/enums';
+import {navOptions as profileScreenNavOpts} from '~frontend/screens/profile';
+import {Props as ProfileProps} from '~frontend/screens/profile/props';
+import {navOptions as searchNavOpts} from '~frontend/screens/search/index';
+import {Props as SearchProps} from '~frontend/screens/search/props';
 import {
   navOptions as threadScreenNavOpts,
   Props as ThreadProps,
-} from '../thread';
+} from '~frontend/screens/thread';
 import {State} from './model';
-const urlParse = require('url-parse');
 
 interface Actions {
   goToProfile$: Stream<{authorFeedId: FeedId}>;

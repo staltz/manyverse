@@ -14,10 +14,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Dimensions} from '../../../global-styles/dimens';
-import {Palette} from '../../../global-styles/palette';
-import {Typography} from '../../../global-styles/typography';
-import {PeerKV} from '../../../ssb/types';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
+import {PeerKV} from '~frontend/ssb/types';
 
 const dotStyle: ViewStyle = {
   width: 11,

@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId, Msg} from 'ssb-typescript';
-import {displayName} from '../../ssb/utils/from-ssb';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
-import Avatar from '../Avatar';
-import TimeAgo from '../TimeAgo';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import Avatar from '~frontend/components/Avatar';
+import TimeAgo from '~frontend/components/TimeAgo';
 
 /**
  * In pixels.

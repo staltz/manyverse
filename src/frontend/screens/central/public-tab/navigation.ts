@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,19 +7,19 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 import sample from 'xstream-sample';
 import {FeedId, MsgId, Msg} from 'ssb-typescript';
 import {Command} from 'cycle-native-navigation';
-import {Screens} from '../../enums';
-import {Reactions, MsgAndExtras} from '../../../ssb/types';
-import {navOptions as composeScreenNavOptions} from '../../compose';
-import {Props as ComposeProps} from '../../compose/props';
-import {Props as AccountsProps} from '../../accounts';
-import {navOptions as accountsScreenNavOpts} from '../../accounts/layout';
-import {navOptions as profileScreenNavOpts} from '../../profile';
-import {Props as ProfileProps} from '../../profile/props';
+import {Reactions, MsgAndExtras} from '~frontend/ssb/types';
+import {Screens} from '~frontend/screens/enums';
+import {navOptions as composeScreenNavOptions} from '~frontend/screens/compose';
+import {Props as ComposeProps} from '~frontend/screens/compose/props';
+import {Props as AccountsProps} from '~frontend/screens/accounts';
+import {navOptions as accountsScreenNavOpts} from '~frontend/screens/accounts/layout';
+import {navOptions as profileScreenNavOpts} from '~frontend/screens/profile';
+import {Props as ProfileProps} from '~frontend/screens/profile/props';
 import {
   navOptions as threadScreenNavOpts,
   Props as ThreadProps,
-} from '../../thread';
-import {navOptions as rawMsgScreenNavOpts} from '../../raw-msg';
+} from '~frontend/screens/thread';
+import {navOptions as rawMsgScreenNavOpts} from '~frontend/screens/raw-msg';
 import {State} from './model';
 
 export type Actions = {

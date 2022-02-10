@@ -15,12 +15,12 @@ import {
 } from 'react-native';
 import {FeedId} from 'ssb-typescript';
 import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
-import {displayName} from '../ssb/utils/from-ssb';
-import {t} from '../drivers/localization';
-import {GetReadable} from '../drivers/ssb';
-import {Dimensions} from '../global-styles/dimens';
-import {Palette} from '../global-styles/palette';
-import {Typography} from '../global-styles/typography';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
+import {t} from '~frontend/drivers/localization';
+import {GetReadable} from '~frontend/drivers/ssb';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
 import Avatar from './Avatar';
 import AnimatedLoading from './AnimatedLoading';
 

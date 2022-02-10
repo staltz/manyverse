@@ -12,10 +12,10 @@ import {
   AsyncStorageSource,
   Command as StorageCommand,
 } from 'cycle-native-asyncstorage';
-import {SSBSource, Req} from '../../drivers/ssb';
-import {DialogSource} from '../../drivers/dialogs';
-import {Toast} from '../../drivers/toast';
-import messageEtc from '../../components/messageEtc';
+import {SSBSource, Req} from '~frontend/drivers/ssb';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Toast} from '~frontend/drivers/toast';
+import messageEtc from '~frontend/components/messageEtc';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';

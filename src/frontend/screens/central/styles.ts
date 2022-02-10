@@ -4,9 +4,9 @@
 
 import {Platform, StyleSheet, ViewStyle} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {globalStyles} from '../../global-styles/styles';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {globalStyles} from '~frontend/global-styles/styles';
 const {isIPhoneWithMonobrow} = require('react-native-status-bar-height');
 
 const page: ViewStyle = {

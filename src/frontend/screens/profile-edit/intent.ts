@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -9,12 +9,12 @@ import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
 import {Image} from 'react-native-image-crop-picker';
-import {AlertAction, DialogSource} from '../../drivers/dialogs';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import {State} from './model';
 const ImagePicker =
   Platform.OS !== 'web' ? require('react-native-image-crop-picker') : null;
+import {AlertAction, DialogSource} from '~frontend/drivers/dialogs';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {State} from './model';
 
 export default function intent(
   reactSource: ReactSource,

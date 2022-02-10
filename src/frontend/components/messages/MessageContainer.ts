@@ -4,8 +4,8 @@
 
 import {PureComponent, createElement as $} from 'react';
 import {View, StyleSheet, ViewStyle, Platform} from 'react-native';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
 
 const card: ViewStyle = {
   flex: 1,

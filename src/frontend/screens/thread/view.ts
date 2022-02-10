@@ -16,17 +16,17 @@ import {
 } from 'react-native';
 import {ReactElement} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import FullThread from '../../components/FullThread';
-import Avatar from '../../components/Avatar';
-import EmptySection from '../../components/EmptySection';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import FullThread from '~frontend/components/FullThread';
+import Avatar from '~frontend/components/Avatar';
+import EmptySection from '~frontend/components/EmptySection';
 import {
   Payload as SettablePayload,
   default as SettableTextInput,
-} from '../../components/SettableTextInput';
-import TopBar from '../../components/TopBar';
+} from '~frontend/components/SettableTextInput';
+import TopBar from '~frontend/components/TopBar';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
 

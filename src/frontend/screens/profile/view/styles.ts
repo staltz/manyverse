@@ -3,10 +3,10 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet} from 'react-native';
-import {Palette} from '../../../global-styles/palette';
-import {Dimensions} from '../../../global-styles/dimens';
-import {Typography} from '../../../global-styles/typography';
-import {globalStyles} from '../../../global-styles/styles';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {globalStyles} from '~frontend/global-styles/styles';
 
 export const AVATAR_SIZE = Dimensions.avatarSizeBig;
 const AVATAR_SIZE_HALF = AVATAR_SIZE * 0.5;

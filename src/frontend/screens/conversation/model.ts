@@ -7,9 +7,9 @@ import {Reducer} from '@cycle/state';
 import {Platform} from 'react-native';
 import {IMessage as GiftedMsg} from 'react-native-gifted-chat';
 import {FeedId, MsgId, PostContent} from 'ssb-typescript';
-import {SSBSource} from '../../drivers/ssb';
-import {MsgAndExtras, PrivateThreadAndExtras} from '../../ssb/types';
-import {t} from '../../drivers/localization';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {MsgAndExtras, PrivateThreadAndExtras} from '~frontend/ssb/types';
+import {t} from '~frontend/drivers/localization';
 import {Props} from '.';
 
 const emptyThread: PrivateThreadAndExtras = {

@@ -1,15 +1,15 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {h} from '@cycle/react';
 import {PureComponent} from 'react';
 import {FlatList, Text, StyleSheet, Platform} from 'react-native';
-import {t} from '../../../drivers/localization';
-import {Dimensions} from '../../../global-styles/dimens';
-import {Palette} from '../../../global-styles/palette';
-import {Typography} from '../../../global-styles/typography';
-import {PeerKV} from '../../../ssb/types';
+import {t} from '~frontend/drivers/localization';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
+import {PeerKV} from '~frontend/ssb/types';
 import ServerItem from './ServerItem';
 
 const styles = StyleSheet.create({

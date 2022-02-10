@@ -1,15 +1,15 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {Command, PushCommand, StackElement} from 'cycle-native-navigation';
-import {navOptions as profileScreenNavOptions} from '../profile';
-import {Props as ProfileProps} from '../profile/props';
-import {navOptions as rawDatabaseScreenNavOptions} from '../raw-db';
-import {navOptions as settingsScreenNavOptions} from '../settings';
-import {Screens} from '../enums';
+import {navOptions as profileScreenNavOptions} from '~frontend/screens/profile';
+import {Props as ProfileProps} from '~frontend/screens/profile/props';
+import {navOptions as rawDatabaseScreenNavOptions} from '~frontend/screens/raw-db';
+import {navOptions as settingsScreenNavOptions} from '~frontend/screens/settings';
+import {Screens} from '~frontend/screens/enums';
 import {State} from './model';
 
 interface Actions {

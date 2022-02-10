@@ -8,16 +8,16 @@ import {Platform, ScrollView, StyleSheet, View} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
-import {Alias, PeerKV} from '../../ssb/types';
-import {SSBSource} from '../../drivers/ssb';
-import {DialogSource} from '../../drivers/dialogs';
-import {Toast} from '../../drivers/toast';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {globalStyles} from '../../global-styles/styles';
-import manage from '../../components/manage-aliases';
-import TopBar from '../../components/TopBar';
+import {Alias, PeerKV} from '~frontend/ssb/types';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Toast} from '~frontend/drivers/toast';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {globalStyles} from '~frontend/global-styles/styles';
+import manage from '~frontend/components/manage-aliases';
+import TopBar from '~frontend/components/TopBar';
 import {Props} from './props';
 
 interface State {

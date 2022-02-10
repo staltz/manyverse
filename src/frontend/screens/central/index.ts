@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -13,13 +13,13 @@ import {
   Command as StorageCommand,
 } from 'cycle-native-asyncstorage';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {Toast} from '../../drivers/toast';
-import {State as AppState} from '../../drivers/appstate';
-import {NetworkSource} from '../../drivers/network';
-import {SSBSource, Req} from '../../drivers/ssb';
-import {GlobalEvent} from '../../drivers/eventbus';
-import {DialogSource} from '../../drivers/dialogs';
-import {WindowSize} from '../../drivers/window-size';
+import {Toast} from '~frontend/drivers/toast';
+import {State as AppState} from '~frontend/drivers/appstate';
+import {NetworkSource} from '~frontend/drivers/network';
+import {SSBSource, Req} from '~frontend/drivers/ssb';
+import {GlobalEvent} from '~frontend/drivers/eventbus';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {WindowSize} from '~frontend/drivers/window-size';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {privateTab, Sinks as PrivateTabSinks} from './private-tab/index';
 import {activityTab, Sinks as ActivityTabSinks} from './activity-tab/index';

@@ -1,11 +1,11 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
 import sample from 'xstream-sample';
-import {toAboutContent} from '../../ssb/utils/to-ssb';
-import {Req, PublishAboutReq} from '../../drivers/ssb';
+import {toAboutContent} from '~frontend/ssb/utils/to-ssb';
+import {Req, PublishAboutReq} from '~frontend/drivers/ssb';
 import {State} from './model';
 
 export interface SSBActions {

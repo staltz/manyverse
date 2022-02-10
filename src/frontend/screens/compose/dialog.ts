@@ -4,9 +4,9 @@
 
 import {Stream} from 'xstream';
 import {Image} from 'react-native-image-crop-picker';
-import {DialogSource} from '../../drivers/dialogs';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
 
 export interface Actions {
   openContentWarning$: Stream<any>;

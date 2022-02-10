@@ -18,8 +18,8 @@ import {
 import {createTheme, ThemeProvider} from '@material-ui/core/styles';
 const ReactDOM = require('react-dom');
 import {Appearance} from 'react-native';
-import {Palette} from '../../global-styles/palette';
-import Markdown from '../../components/Markdown';
+import {Palette} from '~frontend/global-styles/palette';
+import Markdown from '~frontend/components/Markdown';
 import {
   AlertAction,
   Implementation,

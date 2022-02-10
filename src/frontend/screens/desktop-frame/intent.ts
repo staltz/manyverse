@@ -7,9 +7,9 @@ import sampleCombine from 'xstream/extra/sampleCombine';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {ReactSource} from '@cycle/react';
 import {HTTPSource} from '@cycle/http';
-import {t} from '../../drivers/localization';
-import {DialogSource} from '../../drivers/dialogs';
-import {Palette} from '../../global-styles/palette';
+import {t} from '~frontend/drivers/localization';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Palette} from '~frontend/global-styles/palette';
 import {State} from './model';
 
 type TabID = State['currentTab'];

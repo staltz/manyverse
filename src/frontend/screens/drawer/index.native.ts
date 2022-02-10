@@ -3,19 +3,19 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Command as NavCmd, NavSource} from 'cycle-native-navigation';
+import dropRepeats from 'xstream/extra/dropRepeats';
+import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {HTTPSource, RequestInput as HTTPReq} from '@cycle/http';
 import {StateSource, Reducer} from '@cycle/state';
-import {SSBSource} from '../../drivers/ssb';
+import {Command as NavCmd, NavSource} from 'cycle-native-navigation';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {GlobalEvent} from '~frontend/drivers/eventbus';
 import intent from './intent';
 import model, {State} from './model';
 import view from './view';
 import navigation from './navigation';
-import {ReactElement} from 'react';
 import linking from './linking';
-import {GlobalEvent} from '../../drivers/eventbus';
-import dropRepeats from 'xstream/extra/dropRepeats';
 
 export interface Sources {
   screen: ReactSource;

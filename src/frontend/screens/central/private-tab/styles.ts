@@ -3,9 +3,9 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet} from 'react-native';
-import {Dimensions as Dimens} from '../../../global-styles/dimens';
-import {Typography} from '../../../global-styles/typography';
-import {Palette} from '../../../global-styles/palette';
+import {Dimensions as Dimens} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {Palette} from '~frontend/global-styles/palette';
 
 export const styles = StyleSheet.create({
   emptySection: {

@@ -5,7 +5,7 @@
 import xs from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
-import {SSBSource} from '../../drivers/ssb';
+import {SSBSource} from '~frontend/drivers/ssb';
 
 export interface State {
   firstVisit?: number;

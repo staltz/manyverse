@@ -3,15 +3,15 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
-import {SSBSource} from '../../drivers/ssb';
-import {GlobalEvent} from '../../drivers/eventbus';
+import {FeedId} from 'ssb-typescript';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {GlobalEvent} from '~frontend/drivers/eventbus';
 import progressCalculation, {
   State as ProgressState,
   INITIAL_STATE as INITIAL_PROGRESS_STATE,
-} from '../../components/progressCalculation';
-import currentVersion from '../../versionName';
+} from '~frontend/components/progressCalculation';
+import currentVersion from '~frontend/versionName';
 
 export interface State extends ProgressState {
   selfFeedId: FeedId;

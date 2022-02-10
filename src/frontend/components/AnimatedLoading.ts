@@ -4,9 +4,9 @@
 
 import {PureComponent, createElement as $} from 'react';
 import {Animated, Easing, Platform, StyleSheet, Text, View} from 'react-native';
-import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
-import {Palette} from '../global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {Palette} from '~frontend/global-styles/palette';
 
 const LOW_OPACITY = 0.5;
 const HIGH_OPACITY = 1;

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,13 +6,13 @@ import {Component} from 'react';
 import {StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import {ContactContent as Contact, FeedId, Msg} from 'ssb-typescript';
-import {Dimensions} from '../../global-styles/dimens';
-import MessageContainer from './MessageContainer';
+import {Dimensions} from '~frontend/global-styles/dimens';
 import {
   Reactions,
   PressReactionsEvent,
   PressAddReactionEvent,
-} from '../../ssb/types';
+} from '~frontend/ssb/types';
+import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import ContactBody from './ContactBody';
 import MessageFooter from './MessageFooter';

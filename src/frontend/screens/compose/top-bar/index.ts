@@ -9,11 +9,11 @@ import {h} from '@cycle/react';
 import {StateSource} from '@cycle/state';
 import {View, StyleSheet, Platform} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {t} from '../../../drivers/localization';
-import {Palette} from '../../../global-styles/palette';
-import {Dimensions} from '../../../global-styles/dimens';
-import Button from '../../../components/Button';
-import HeaderButton from '../../../components/HeaderButton';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import Button from '~frontend/components/Button';
+import HeaderButton from '~frontend/components/HeaderButton';
 
 export interface State {
   enabled: boolean;

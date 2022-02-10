@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -10,10 +10,10 @@ import {
   Reactions,
   PressReactionsEvent,
   PressAddReactionEvent,
-} from '../../ssb/types';
-import {getPostText} from '../../ssb/utils/from-ssb';
-import {Dimensions} from '../../global-styles/dimens';
-import Markdown from '../Markdown';
+} from '~frontend/ssb/types';
+import {getPostText} from '~frontend/ssb/utils/from-ssb';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import Markdown from '~frontend/components/Markdown';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';

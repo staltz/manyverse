@@ -14,9 +14,9 @@ import {
   ViewStyle,
   StyleSheet,
 } from 'react-native';
-import {Dimensions} from '../global-styles/dimens';
-import {Typography} from '../global-styles/typography';
-import {Palette} from '../global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
+import {Palette} from '~frontend/global-styles/palette';
 import {h} from '@cycle/react';
 
 const Touchable = Platform.select<any>({

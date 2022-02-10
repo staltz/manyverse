@@ -11,8 +11,8 @@ import {Platform} from 'react-native';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Image} from 'react-native-image-crop-picker';
 import {MsgId, FeedId} from 'ssb-typescript';
-import {SSBSource, MentionSuggestion} from '../../drivers/ssb';
-import {AudioBlobComposed} from '../../drivers/eventbus';
+import {SSBSource, MentionSuggestion} from '~frontend/drivers/ssb';
+import {AudioBlobComposed} from '~frontend/drivers/eventbus';
 import {State as TopBarState} from './top-bar';
 import {Props} from './index';
 

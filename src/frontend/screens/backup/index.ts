@@ -8,18 +8,18 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource, h} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
-import {OrientationEvent} from '../../drivers/orientation';
-import {t} from '../../drivers/localization';
-import {WindowSize} from '../../drivers/window-size';
-import {Palette} from '../../global-styles/palette';
-import {getImg} from '../../global-styles/utils';
-import {globalStyles} from '../../global-styles/styles';
-import tutorialPresentation from '../../components/tutorial-presentation';
-import tutorialSlide from '../../components/tutorial-slide';
-import Button from '../../components/Button';
-import TopBar from '../../components/TopBar';
-import {navOptions as outputSecretScreenNavOptions} from '../secret-output';
-import {Screens} from '../enums';
+import {OrientationEvent} from '~frontend/drivers/orientation';
+import {t} from '~frontend/drivers/localization';
+import {WindowSize} from '~frontend/drivers/window-size';
+import {Palette} from '~frontend/global-styles/palette';
+import {getImg} from '~frontend/global-styles/utils';
+import {globalStyles} from '~frontend/global-styles/styles';
+import tutorialPresentation from '~frontend/components/tutorial-presentation';
+import tutorialSlide from '~frontend/components/tutorial-slide';
+import Button from '~frontend/components/Button';
+import TopBar from '~frontend/components/TopBar';
+import {navOptions as outputSecretScreenNavOptions} from '~frontend/screens/secret-output';
+import {Screens} from '~frontend/screens/enums';
 
 export interface State {
   index: number;
@@ -161,7 +161,7 @@ export function backup(sources: Sources): Sinks {
           tutorialSlide({
             show: state.index >= 0,
             portraitMode: state.isPortraitMode,
-            image: getImg(require('../../../../images/noun-glassware.png')),
+            image: getImg(require('~images/noun-glassware.png')),
             title: t('backup.introduction.title'),
             renderDescription: () => [],
             renderBottom: () =>
@@ -179,7 +179,7 @@ export function backup(sources: Sources): Sinks {
           tutorialSlide({
             show: state.index >= 1,
             portraitMode: state.isPortraitMode,
-            image: getImg(require('../../../../images/noun-books.png')),
+            image: getImg(require('~images/noun-books.png')),
             title: t('backup.data.title'),
             renderDescription: () => [
               t('backup.data.description.1_normal'),
@@ -207,7 +207,7 @@ export function backup(sources: Sources): Sinks {
           tutorialSlide({
             show: state.index >= 2,
             portraitMode: state.isPortraitMode,
-            image: getImg(require('../../../../images/noun-fingerprint.png')),
+            image: getImg(require('~images/noun-fingerprint.png')),
             title: t('backup.identity.title'),
             renderDescription: () => [
               t('backup.identity.description.1_normal'),

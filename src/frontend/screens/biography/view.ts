@@ -5,11 +5,11 @@
 import xs, {Stream} from 'xstream';
 import {View, Image, ScrollView, Platform} from 'react-native';
 import {h} from '@cycle/react';
-import {t} from '../../drivers/localization';
-import {Dimensions} from '../../global-styles/dimens';
-import {WindowSize} from '../../drivers/window-size';
-import Markdown from '../../components/Markdown';
-import TopBar from '../../components/TopBar';
+import {t} from '~frontend/drivers/localization';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {WindowSize} from '~frontend/drivers/window-size';
+import Markdown from '~frontend/components/Markdown';
+import TopBar from '~frontend/components/TopBar';
 import {State} from './index';
 import {styles} from './styles';
 

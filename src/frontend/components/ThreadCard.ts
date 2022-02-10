@@ -23,10 +23,10 @@ import {
   ThreadSummaryWithExtras,
   Reactions,
   MsgAndExtras,
-} from '../ssb/types';
-import {getPostText} from '../ssb/utils/from-ssb';
-import {Dimensions} from '../global-styles/dimens';
-import {Palette} from '../global-styles/palette';
+} from '~frontend/ssb/types';
+import {getPostText} from '~frontend/ssb/utils/from-ssb';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
 import MessageContainer from './messages/MessageContainer';
 import MessageFooter from './messages/MessageFooter';
 import MessageHeader from './messages/MessageHeader';

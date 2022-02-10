@@ -13,9 +13,9 @@ import {
   Command as StorageCommand,
   AsyncStorageSource,
 } from 'cycle-native-asyncstorage';
-import {SSBSource, Req} from '../../drivers/ssb';
-import {DialogSource} from '../../drivers/dialogs';
-import {GlobalEvent} from '../../drivers/eventbus';
+import {SSBSource, Req} from '~frontend/drivers/ssb';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {GlobalEvent} from '~frontend/drivers/eventbus';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
 import model, {State, topBarLens} from './model';

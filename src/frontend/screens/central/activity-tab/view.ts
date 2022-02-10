@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -17,19 +17,19 @@ import {
 } from 'react-native';
 import {propifyMethods} from 'react-propify-methods';
 import PullFlatList from 'pull-flat-list';
-import {Content, FeedId, Msg} from 'ssb-typescript';
-import {MsgAndExtras, FirewallAttempt} from '../../../ssb/types';
-import {GetReadable} from '../../../drivers/ssb';
-import {t} from '../../../drivers/localization';
-import EmptySection from '../../../components/EmptySection';
-import AnimatedLoading from '../../../components/AnimatedLoading';
-import Avatar from '../../../components/Avatar';
-import {Dimensions} from '../../../global-styles/dimens';
-import {displayName} from '../../../ssb/utils/from-ssb';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Palette} from '../../../global-styles/palette';
-import {getImg} from '../../../global-styles/utils';
-import LocalizedHumanTime from '../../../components/LocalizedHumanTime';
+import {Content, FeedId, Msg} from 'ssb-typescript';
+import {MsgAndExtras, FirewallAttempt} from '~frontend/ssb/types';
+import {GetReadable} from '~frontend/drivers/ssb';
+import {t} from '~frontend/drivers/localization';
+import EmptySection from '~frontend/components/EmptySection';
+import AnimatedLoading from '~frontend/components/AnimatedLoading';
+import Avatar from '~frontend/components/Avatar';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
+import {Palette} from '~frontend/global-styles/palette';
+import {getImg} from '~frontend/global-styles/utils';
+import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
 import {ActivityItem, isMsg, State} from './model';
 import {styles} from './styles';
 
@@ -292,7 +292,7 @@ class ActivityList extends PureComponent<MLProps, MLState> {
         : null,
       ListEmptyComponent: h(EmptySection, {
         style: styles.emptySection,
-        image: getImg(require('../../../../../images/noun-sun.png')),
+        image: getImg(require('~images/noun-sun.png')),
         title: t('activity.empty.title'),
         description: t('activity.empty.description'),
       }),

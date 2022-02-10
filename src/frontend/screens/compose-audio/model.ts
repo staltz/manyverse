@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,7 +6,7 @@ import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {Reducer} from '@cycle/state';
 import {Platform} from 'react-native';
-import {SSBSource} from '../../drivers/ssb';
+import {SSBSource} from '~frontend/drivers/ssb';
 
 export interface State {
   filename: string;

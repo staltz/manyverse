@@ -9,18 +9,18 @@ import {h} from '@cycle/react';
 import {PureComponent, ReactElement, createElement as $} from 'react';
 import {View, Text, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {styles} from './styles';
-import {t} from '../../drivers/localization';
-import PublicTabIcon from '../../components/tab-buttons/PublicTabIcon';
-import PrivateTabIcon from '../../components/tab-buttons/PrivateTabIcon';
-import ActivityTabIcon from '../../components/tab-buttons/ActivityTabIcon';
-import ConnectionsTabIcon from '../../components/tab-buttons/ConnectionsTabIcon';
-import TabIcon from '../../components/tab-buttons/TabIcon';
-import Avatar from '../../components/Avatar';
-import LocalizedHumanTime from '../../components/LocalizedHumanTime';
-import {Dimensions} from '../../global-styles/dimens';
-import {Palette} from '../../global-styles/palette';
+import {t} from '~frontend/drivers/localization';
+import PublicTabIcon from '~frontend/components/tab-buttons/PublicTabIcon';
+import PrivateTabIcon from '~frontend/components/tab-buttons/PrivateTabIcon';
+import ActivityTabIcon from '~frontend/components/tab-buttons/ActivityTabIcon';
+import ConnectionsTabIcon from '~frontend/components/tab-buttons/ConnectionsTabIcon';
+import TabIcon from '~frontend/components/tab-buttons/TabIcon';
+import Avatar from '~frontend/components/Avatar';
+import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
 import {State} from './model';
+import {styles} from './styles';
 
 class TopBarLeftSection extends PureComponent {
   public render() {

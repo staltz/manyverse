@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -13,9 +13,9 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {t} from '../../../drivers/localization';
-import {Palette} from '../../../global-styles/palette';
-import {Dimensions} from '../../../global-styles/dimens';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
 import {State} from '../model';
 import {styles} from './styles';
 

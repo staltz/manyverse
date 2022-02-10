@@ -2,10 +2,10 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {t} from '../../../../drivers/localization';
-import {Palette} from '../../../../global-styles/palette';
-import {getImg} from '../../../../global-styles/utils';
-import {Props as InstructionsProps} from '../../../instructions/props';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import {getImg} from '~frontend/global-styles/utils';
+import {Props as InstructionsProps} from '~frontend/screens/instructions/props';
 import {State} from '../model';
 
 export function makeInstructionsProps(state: State): InstructionsProps {
@@ -50,8 +50,8 @@ export function makeInstructionsProps(state: State): InstructionsProps {
     ),
     image2: getImg(
       Palette.isDarkTheme
-        ? require('../../../../../../images/screenshot-staged-peers-dark.png')
-        : require('../../../../../../images/screenshot-staged-peers.png'),
+        ? require('~images/screenshot-staged-peers-dark.png')
+        : require('~images/screenshot-staged-peers.png'),
     ),
     image2Style: {
       width,

@@ -19,11 +19,11 @@ import {
   isFeedSSBURI,
   toFeedSigil,
 } from 'ssb-uri2';
-import {Palette} from '../../global-styles/palette';
-import {Typography} from '../../global-styles/typography';
-import {Dimensions} from '../../global-styles/dimens';
-import {GlobalEventBus} from '../../drivers/eventbus';
 const Ref = require('ssb-ref');
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {GlobalEventBus} from '~frontend/drivers/eventbus';
 
 export const styles = StyleSheet.create({
   metadataBox: {

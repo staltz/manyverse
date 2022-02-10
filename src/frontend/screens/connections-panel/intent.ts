@@ -9,9 +9,9 @@ import {ReactSource} from '@cycle/react';
 import {FeedId} from 'ssb-typescript';
 import {PermissionsAndroid} from 'react-native';
 import {NavSource} from 'cycle-native-navigation';
-import {StagedPeerKV, PeerKV} from '../../ssb/types';
-import {t} from '../../drivers/localization';
 const roomUtils = require('ssb-room-client/utils');
+import {StagedPeerKV, PeerKV} from '~frontend/ssb/types';
+import {t} from '~frontend/drivers/localization';
 import {State} from './model';
 import {MenuChoice} from './connDialogs';
 

@@ -1,14 +1,14 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform} from 'react-native';
 import xs, {Stream} from 'xstream';
-import {Command as AlertCommand} from '../../drivers/dialogs';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import getAboutContent from '../dialog-about/content';
-import getThanksContent from '../dialog-thanks/content';
+import {Command as AlertCommand} from '~frontend/drivers/dialogs';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import getAboutContent from '~frontend/screens/dialog-about/content';
+import getThanksContent from '~frontend/screens/dialog-thanks/content';
 
 export interface Actions {
   toggleDetailedLogs$: Stream<any>;

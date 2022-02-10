@@ -9,17 +9,17 @@ import {ReactSource, h} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
 import {ReactElement} from 'react';
 import {StyleSheet, View, Text, Platform} from 'react-native';
-import {SSBSource} from '../../drivers/ssb';
-import {t} from '../../drivers/localization';
-import {Dimensions} from '../../global-styles/dimens';
-import {Palette} from '../../global-styles/palette';
-import {Typography} from '../../global-styles/typography';
-import FlagSecure from '../../components/FlagSecure';
-import Button from '../../components/Button';
-import TopBar from '../../components/TopBar';
-import {navOptions as inputSecretScreenNavOptions} from '../secret-input';
-import {Screens} from '../enums';
-import {globalStyles} from '../../global-styles/styles';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {t} from '~frontend/drivers/localization';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
+import FlagSecure from '~frontend/components/FlagSecure';
+import Button from '~frontend/components/Button';
+import TopBar from '~frontend/components/TopBar';
+import {globalStyles} from '~frontend/global-styles/styles';
+import {navOptions as inputSecretScreenNavOptions} from '~frontend/screens/secret-input';
+import {Screens} from '~frontend/screens/enums';
 
 export interface Sources {
   screen: ReactSource;

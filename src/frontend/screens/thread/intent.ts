@@ -9,14 +9,14 @@ import {KeyboardSource} from 'cycle-native-keyboard';
 import {NavSource} from 'cycle-native-navigation';
 import {isReplyPostMsg} from 'ssb-typescript/utils';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
-import {SSBSource} from '../../drivers/ssb';
-import {t} from '../../drivers/localization';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {t} from '~frontend/drivers/localization';
 import {
   PressAddReactionEvent,
   PressReactionsEvent,
   MsgAndExtras,
-} from '../../ssb/types';
-import {Screens} from '../enums';
+} from '~frontend/ssb/types';
+import {Screens} from '~frontend/screens/enums';
 import {State} from './model';
 import {Props} from './props';
 

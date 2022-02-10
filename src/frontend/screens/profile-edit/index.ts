@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -10,10 +10,10 @@ import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {SSBSource, Req} from '../../drivers/ssb';
-import {DialogSource} from '../../drivers/dialogs';
-import {Toast} from '../../drivers/toast';
-import manageAliases from '../../components/manage-aliases';
+import {SSBSource, Req} from '~frontend/drivers/ssb';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Toast} from '~frontend/drivers/toast';
+import manageAliases from '~frontend/components/manage-aliases';
 import intent from './intent';
 import view from './view';
 import navigation from './navigation';

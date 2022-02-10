@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,13 +7,13 @@ import {Fragment, Component} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const stripMarkdownOneline = require('strip-markdown-oneline');
-import {t} from '../../../drivers/localization';
-import Button from '../../../components/Button';
-import ToggleButton from '../../../components/ToggleButton';
-import {Dimensions} from '../../../global-styles/dimens';
-import {Palette} from '../../../global-styles/palette';
-import {Alias} from '../../../ssb/types';
-import {canonicalizeAliasURL} from '../../../ssb/utils/alias';
+import {t} from '~frontend/drivers/localization';
+import Button from '~frontend/components/Button';
+import ToggleButton from '~frontend/components/ToggleButton';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Alias} from '~frontend/ssb/types';
+import {canonicalizeAliasURL} from '~frontend/ssb/utils/alias';
 import {State} from '../model';
 import {styles} from './styles';
 

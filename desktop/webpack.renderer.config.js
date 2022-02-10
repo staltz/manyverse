@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: Unlicense
 
@@ -67,6 +67,8 @@ module.exports = {
   resolve: {
     alias: {
       'react-native$': 'react-native-web',
+      '~frontend': path.resolve(__dirname, '..', 'lib', 'frontend'),
+      '~images': path.resolve(__dirname, '..', 'images'),
     },
     extensions: ['.web.js', '.js'],
   },

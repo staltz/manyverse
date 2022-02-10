@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -15,8 +15,8 @@ import {
   ThreadSummaryWithExtras,
   Reactions,
   MsgAndExtras,
-} from '../ssb/types';
-import {Dimensions} from '../global-styles/dimens';
+} from '~frontend/ssb/types';
+import {Dimensions} from '~frontend/global-styles/dimens';
 import MessageContainer from './messages/MessageContainer';
 import MessageFooter from './messages/MessageFooter';
 import MessageHeader from './messages/MessageHeader';

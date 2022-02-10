@@ -17,23 +17,23 @@ import {FeedId, Msg} from 'ssb-typescript';
 import {Stream, Subscription} from 'xstream';
 import {propifyMethods} from 'react-propify-methods';
 import PullFlatList from 'pull-flat-list';
-import {t} from '../drivers/localization';
-import {Dimensions} from '../global-styles/dimens';
-import {Palette} from '../global-styles/palette';
-import {Typography} from '../global-styles/typography';
-import {GetReadable} from '../drivers/ssb';
+const Pushable = require('pull-pushable');
+import {t} from '~frontend/drivers/localization';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
+import {GetReadable} from '~frontend/drivers/ssb';
 import {
   ThreadSummaryWithExtras,
   PressReactionsEvent,
   PressAddReactionEvent,
   MsgAndExtras,
-} from '../ssb/types';
+} from '~frontend/ssb/types';
 import ThreadCard from './ThreadCard';
 import PlaceholderThreadCard from './PlaceholderThreadCard';
 import FollowCard from './FollowCard';
 import AnimatedLoading from './AnimatedLoading';
 
-const Pushable = require('pull-pushable');
 const PullFlatList2 = propifyMethods(
   PullFlatList,
   'scrollToOffset' as any,

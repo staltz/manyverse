@@ -1,11 +1,11 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {h} from '@cycle/react';
 import {Component} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
-import {t} from '../../drivers/localization';
+import {t} from '~frontend/drivers/localization';
 import TabIcon from './TabIcon';
 
 export default class PrivateTabIcon extends Component<{

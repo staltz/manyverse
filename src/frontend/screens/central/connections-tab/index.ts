@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,11 +8,11 @@ import {Reducer, StateSource} from '@cycle/state';
 import {ReactSource} from '@cycle/react';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
-import {State as AppState} from '../../../drivers/appstate';
-import {NetworkSource} from '../../../drivers/network';
-import {SSBSource} from '../../../drivers/ssb';
-import {DialogSource} from '../../../drivers/dialogs';
-import {WindowSize} from '../../../drivers/window-size';
+import {State as AppState} from '~frontend/drivers/appstate';
+import {NetworkSource} from '~frontend/drivers/network';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {WindowSize} from '~frontend/drivers/window-size';
 import intent from './intent';
 import {State} from './model';
 import view from './view';

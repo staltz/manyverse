@@ -4,9 +4,9 @@
 
 import {StyleSheet, Platform} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
-import {Typography} from '../../global-styles/typography';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Typography} from '~frontend/global-styles/typography';
 
 export const styles = StyleSheet.create({
   container: {

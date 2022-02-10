@@ -18,8 +18,8 @@ import {
   MsgAndExtras,
   PressAddReactionEvent,
   PressReactionsEvent,
-} from '../../ssb/types';
-import {t} from '../../drivers/localization';
+} from '~frontend/ssb/types';
+import {t} from '~frontend/drivers/localization';
 
 type ProfileNavEvent = {authorFeedId: FeedId};
 

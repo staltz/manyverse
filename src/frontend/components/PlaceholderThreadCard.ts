@@ -5,7 +5,7 @@
 import {PureComponent} from 'react';
 import {View, StyleSheet, Platform} from 'react-native';
 import {h} from '@cycle/react';
-import {Dimensions} from '../global-styles/dimens';
+import {Dimensions} from '~frontend/global-styles/dimens';
 import MessageContainer from './messages/MessageContainer';
 import PlaceholderHeader from './messages/PlaceholderMessageHeader';
 import PlaceholderFooter from './messages/PlaceholderMessageFooter';

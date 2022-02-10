@@ -7,12 +7,12 @@ import {PureComponent} from 'react';
 import {View, StyleSheet, Platform} from 'react-native';
 import {Msg} from 'ssb-typescript';
 import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
-import {t} from '../drivers/localization';
-import {GetReadable} from '../drivers/ssb';
-import {MsgAndExtras} from '../ssb/types';
-import {displayName} from '../ssb/utils/from-ssb';
-import {Palette} from '../global-styles/palette';
-import {Dimensions} from '../global-styles/dimens';
+import {t} from '~frontend/drivers/localization';
+import {GetReadable} from '~frontend/drivers/ssb';
+import {MsgAndExtras} from '~frontend/ssb/types';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
 import ShortRawMessage from './messages/ShortRawMessage';
 import AnimatedLoading from './AnimatedLoading';
 

@@ -5,10 +5,10 @@
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {View, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
-import {t} from '../../drivers/localization';
-import {Palette} from '../../global-styles/palette';
-import TopBar from '../../components/TopBar';
-import Button from '../../components/Button';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
+import TopBar from '~frontend/components/TopBar';
+import Button from '~frontend/components/Button';
 import {State} from './model';
 import {styles} from './styles';
 

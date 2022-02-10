@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -9,12 +9,16 @@ import {ReactSource} from '@cycle/react';
 import {Platform} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SharedContent} from 'cycle-native-share';
-import {State as AppState} from '../../drivers/appstate';
-import {NetworkSource} from '../../drivers/network';
-import {SSBSource, Req} from '../../drivers/ssb';
-import {Command as AlertCommand, DialogSource} from '../../drivers/dialogs';
-import {Toast, Duration as ToastDuration, Duration} from '../../drivers/toast';
-import {t} from '../../drivers/localization';
+import {State as AppState} from '~frontend/drivers/appstate';
+import {NetworkSource} from '~frontend/drivers/network';
+import {SSBSource, Req} from '~frontend/drivers/ssb';
+import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
+import {
+  Toast,
+  Duration as ToastDuration,
+  Duration,
+} from '~frontend/drivers/toast';
+import {t} from '~frontend/drivers/localization';
 import {Props} from './props';
 import view from './view';
 import intent from './intent';

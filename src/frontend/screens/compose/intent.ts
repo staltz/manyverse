@@ -15,8 +15,8 @@ import {
 import {NavSource} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
 import {Image} from 'react-native-image-crop-picker';
-import {t} from '../../drivers/localization';
-import {GlobalEvent, AudioBlobComposed} from '../../drivers/eventbus';
+import {t} from '~frontend/drivers/localization';
+import {GlobalEvent, AudioBlobComposed} from '~frontend/drivers/eventbus';
 import {State, isPost, hasText, isReply} from './model';
 const ImagePicker =
   Platform.OS !== 'web' ? require('react-native-image-crop-picker') : null;

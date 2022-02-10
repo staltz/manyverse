@@ -19,10 +19,10 @@ import {
   MsgAndExtras,
   PressReactionsEvent,
   PressAddReactionEvent,
-} from '../ssb/types';
-import {t} from '../drivers/localization';
-import {Dimensions} from '../global-styles/dimens';
-import {Palette} from '../global-styles/palette';
+} from '~frontend/ssb/types';
+import {t} from '~frontend/drivers/localization';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
 import Message from './messages/Message';
 import PlaceholderMessage from './messages/PlaceholderMessage';
 import AnimatedLoading from './AnimatedLoading';

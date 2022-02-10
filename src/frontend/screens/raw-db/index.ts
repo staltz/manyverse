@@ -13,13 +13,13 @@ import {Msg} from 'ssb-typescript';
 import {ReactElement} from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
 import {ReactSource, h} from '@cycle/react';
-import {globalStyles} from '../../global-styles/styles';
-import {SSBSource} from '../../drivers/ssb';
-import {t} from '../../drivers/localization';
-import RawFeed from '../../components/RawFeed';
-import TopBar from '../../components/TopBar';
-import {navOptions as rawMessageScreenNavOptions} from '../raw-msg';
-import {Screens} from '../enums';
+import {globalStyles} from '~frontend/global-styles/styles';
+import {SSBSource} from '~frontend/drivers/ssb';
+import {t} from '~frontend/drivers/localization';
+import RawFeed from '~frontend/components/RawFeed';
+import TopBar from '~frontend/components/TopBar';
+import {navOptions as rawMessageScreenNavOptions} from '~frontend/screens/raw-msg';
+import {Screens} from '~frontend/screens/enums';
 
 export interface Sources {
   screen: ReactSource;

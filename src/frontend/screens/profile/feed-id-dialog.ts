@@ -6,10 +6,10 @@ import xs, {Stream} from 'xstream';
 import {Platform} from 'react-native';
 import {FeedId} from 'ssb-typescript';
 import {fromFeedSigil} from 'ssb-uri2';
-import {Duration, Toast} from '../../drivers/toast';
-import {t} from '../../drivers/localization';
-import {DialogSource} from '../../drivers/dialogs';
-import {Palette} from '../../global-styles/palette';
+import {Duration, Toast} from '~frontend/drivers/toast';
+import {t} from '~frontend/drivers/localization';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Palette} from '~frontend/global-styles/palette';
 
 export type DialogChoiceId = 'copy-uri' | 'copy-id';
 

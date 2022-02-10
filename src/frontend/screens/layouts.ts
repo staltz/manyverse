@@ -1,13 +1,13 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Screens} from './enums';
+import {Options, Layout} from 'react-native-navigation';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
 import {navOptions as welcomeNavOpts} from './welcome/index';
 import {navOptions as centralNavOpts} from './central/index';
-import {Palette} from '../global-styles/palette';
-import {Typography} from '../global-styles/typography';
-import {Options, Layout} from 'react-native-navigation';
+import {Screens} from './enums';
 
 export const welcomeLayout: Layout = {
   stack: {

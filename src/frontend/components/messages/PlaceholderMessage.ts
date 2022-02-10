@@ -1,13 +1,13 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
+import {Palette} from '~frontend/global-styles/palette';
+import {Dimensions} from '~frontend/global-styles/dimens';
 import MessageContainer from './MessageContainer';
-import {Palette} from '../../global-styles/palette';
-import {Dimensions} from '../../global-styles/dimens';
 import PlaceholderHeader from './PlaceholderMessageHeader';
 import PlaceholderFooter from './PlaceholderMessageFooter';
 

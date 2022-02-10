@@ -1,11 +1,11 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
-import {GetReadable, SSBSource} from '../../../drivers/ssb';
-import {FirewallAttempt, MsgAndExtras} from '../../../ssb/types';
+import {GetReadable, SSBSource} from '~frontend/drivers/ssb';
+import {FirewallAttempt, MsgAndExtras} from '~frontend/ssb/types';
 const interleave = require('pull-sorted-interleave');
 
 export type ActivityItem = MsgAndExtras | FirewallAttempt;

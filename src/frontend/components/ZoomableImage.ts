@@ -16,13 +16,13 @@ import {
   Platform,
 } from 'react-native';
 import ImageView from '@staltz/react-native-image-viewing';
-import {t} from '../drivers/localization';
-import {Dimensions as Dimens} from '../global-styles/dimens';
-import {Palette} from '../global-styles/palette';
-import {Typography} from '../global-styles/typography';
-import {getImg} from '../global-styles/utils';
+import {t} from '~frontend/drivers/localization';
+import {Dimensions as Dimens} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {Typography} from '~frontend/global-styles/typography';
+import {getImg} from '~frontend/global-styles/utils';
 import HeaderButton from './HeaderButton';
-import ToastWeb from '../drivers/toast/ToastWeb';
+import ToastWeb from '~frontend/drivers/toast/ToastWeb';
 const ToastIOS =
   Platform.OS === 'ios'
     ? require('react-native-tiny-toast').default
@@ -32,7 +32,7 @@ const urlToBlobId = require('ssb-serve-blobs/url-to-id');
 const $ = createElement;
 
 const ASPECT_RATIO = 768 / 1024;
-const pictureIcon = getImg(require('../../../images/image-area.png'));
+const pictureIcon = getImg(require('~images/image-area.png'));
 
 const styles = StyleSheet.create({
   imageBlobIdContainer: {
