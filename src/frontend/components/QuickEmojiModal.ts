@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -29,6 +29,7 @@ if (Platform.OS === 'android') {
   touchableProps.background = TouchableNativeFeedback.SelectableBackground();
 }
 
+const WIDTH = Dimensions.desktopMiddleWidth.number * 0.65;
 const THUMBS_UP_UNICODE = '\ud83d\udc4d';
 const VICTORY_HAND_UNICODE = String.fromCodePoint(parseInt('270C', 16));
 const HEART_UNICODE = '\u2764\ufe0f';
@@ -79,8 +80,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     ...Platform.select({
       web: {
-        width: '50vw',
-        marginHorizontal: '25vw',
+        width: `${WIDTH}px`,
+        marginHorizontal: `calc((100vw - ${WIDTH}px) * 0.5)`,
       },
     }),
   },
