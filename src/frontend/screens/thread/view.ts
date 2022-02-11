@@ -190,6 +190,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
         'preferredReactions',
         (s) => s.thread.messages.length,
         (s) => s.thread.full,
+        (s) => s.thread.errorReason,
         'subthreads',
         'expandRootCW',
       ]),

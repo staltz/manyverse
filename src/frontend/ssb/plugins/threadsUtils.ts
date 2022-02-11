@@ -317,7 +317,7 @@ const threadsUtils = {
           pull.take(1),
           pull.drain(
             (thread: AnyThread) => cb(null, thread),
-            (err: any) => (err ? cb(err) : void 0),
+            (err: any) => (err ? cb(err) : cb(new Error('Not Found'))),
           ),
         );
       },
