@@ -56,12 +56,12 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   title: string;
   subtitle?: string;
   accessibilityLabel: string;
   onPress?: () => void;
-};
+}
 
 export default class LinkSetting extends PureComponent<Props> {
   public render() {

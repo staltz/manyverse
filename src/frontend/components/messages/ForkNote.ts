@@ -10,10 +10,10 @@ import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 
-export type Props = {
+export interface Props {
   rootId: MsgId;
   onPress?: (ev: {rootMsgId: MsgId}) => void;
-};
+}
 
 export const styles = StyleSheet.create({
   container: {

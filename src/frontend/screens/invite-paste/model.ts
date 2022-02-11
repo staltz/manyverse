@@ -1,17 +1,17 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
 
-export type State = {
+export interface State {
   content: string;
-};
+}
 
-export type Actions = {
+export interface Actions {
   updateContent$: Stream<string>;
-};
+}
 
 export default function model(actions: Actions): Stream<Reducer<State>> {
   const initReducer$ = xs.of(function initReducer(prev?: State): State {

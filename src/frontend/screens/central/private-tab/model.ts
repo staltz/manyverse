@@ -14,7 +14,7 @@ import {
   isNewConversationProps,
 } from '~frontend/screens/conversation/props';
 
-export type State = {
+export interface State {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
   getPrivateFeedReadable: GetReadable<
@@ -24,7 +24,7 @@ export type State = {
   updates: Set<MsgId>;
   updatesFlag: boolean;
   conversationsOpen: Map<string, string>;
-};
+}
 
 export default function model(ssbSource: SSBSource, navSource: NavSource) {
   /**

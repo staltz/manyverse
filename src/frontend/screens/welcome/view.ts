@@ -71,9 +71,9 @@ function bold(innerText: string) {
   return h(Text, {style: styles.bold}, innerText);
 }
 
-type Actions = {
+interface Actions {
   scrollBy$: Stream<[number, boolean]>;
-};
+}
 
 function overviewSlide(state: State) {
   return tutorialSlide({

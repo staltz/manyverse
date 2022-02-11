@@ -79,16 +79,16 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   toggled: boolean;
   text: string;
   onPress?: (toggle: boolean) => void;
   style?: StyleProp<ViewStyle>;
-};
+}
 
-export type State = {
+export interface State {
   toggled: 'no' | 'maybe' | 'yes';
-};
+}
 
 export default class ToggleButton extends PureComponent<Props, State> {
   constructor(props: Props) {

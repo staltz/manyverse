@@ -5,12 +5,12 @@
 import xs, {Stream} from 'xstream';
 import {Req} from '~frontend/drivers/ssb';
 
-type Actions = {
+interface Actions {
   toggleFollowEvents$: Stream<boolean>;
   updateHops$: Stream<number>;
   updateBlobsStorage$: Stream<number>;
   toggleDetailedLogs$: Stream<boolean>;
-};
+}
 
 export default function ssb(actions: Actions) {
   const req$ = xs.merge(

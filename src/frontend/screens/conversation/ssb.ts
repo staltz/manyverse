@@ -10,9 +10,9 @@ import {Req, contentToPublishReq} from '~frontend/drivers/ssb';
 import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '~frontend/ssb/utils/constants';
 import {State} from './model';
 
-export type SSBActions = {
+export interface SSBActions {
   publishMsg$: Stream<string>;
-};
+}
 
 function createReplyContent(text: string, state: State): PostContent {
   const messages = state.thread.messages;

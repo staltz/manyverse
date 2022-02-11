@@ -56,9 +56,7 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {};
-
-export default class Dialog extends PureComponent<Props> {
+export default class Dialog extends PureComponent<unknown> {
   public static navOptions: Options = Platform.select({
     ios: {
       layout: {

@@ -22,7 +22,7 @@ import {
 import {navOptions as rawMsgScreenNavOpts} from '~frontend/screens/raw-msg';
 import {State} from './model';
 
-export type Actions = {
+export interface Actions {
   goToCompose$: Stream<any>;
   goToAccounts$: Stream<{
     title: string;
@@ -33,7 +33,7 @@ export type Actions = {
   goToThread$: Stream<MsgAndExtras>;
   goToThreadExpandCW$: Stream<MsgAndExtras>;
   goToRawMsg$: Stream<Msg>;
-};
+}
 
 export default function navigation(
   actions: Actions,

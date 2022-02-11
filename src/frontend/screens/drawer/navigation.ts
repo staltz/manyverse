@@ -12,11 +12,11 @@ import {navOptions as settingsScreenNavOptions} from '~frontend/screens/settings
 import {Screens} from '~frontend/screens/enums';
 import {State} from './model';
 
-export type Actions = {
+export interface Actions {
   goToSelfProfile$: Stream<null>;
   goToSettings$: Stream<any>;
   showRawDatabase$: Stream<null>;
-};
+}
 
 export default function navigationCommands(
   actions: Actions,

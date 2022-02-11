@@ -56,9 +56,9 @@ export const styles = StyleSheet.create({
   },
 });
 
-type State = {
+interface State {
   cwOpened: boolean;
-};
+}
 
 export default class PostMessage extends PureComponent<Props, State> {
   constructor(props: Props) {

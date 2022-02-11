@@ -30,7 +30,7 @@ import {navOptions as profileScreenNavOpts} from './layout';
 import {Props} from './props';
 import {State} from './model';
 
-export type Actions = {
+export interface Actions {
   goBack$: Stream<any>;
   goToCompose$: Stream<null>;
   goToEdit$: Stream<null>;
@@ -44,7 +44,7 @@ export type Actions = {
   goToThreadExpandCW$: Stream<MsgAndExtras>;
   goToRawMsg$: Stream<Msg>;
   goToPrivateChat$: Stream<string>;
-};
+}
 
 function getPrivateMessageWithRecipient(
   getReadable: GetReadable<PrivateThreadAndExtras>,

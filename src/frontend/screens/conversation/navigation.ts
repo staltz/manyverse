@@ -16,11 +16,11 @@ import {Screens} from '~frontend/screens/enums';
 import {Props} from './props';
 import {State} from './model';
 
-type Actions = {
+interface Actions {
   goBack$: Stream<any>;
   goToProfile$: Stream<FeedId>;
   goToRecipients$: Stream<any>;
-};
+}
 
 export default function navigation(
   actions: Actions,

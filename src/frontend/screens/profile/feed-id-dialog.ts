@@ -13,16 +13,16 @@ import {Palette} from '~frontend/global-styles/palette';
 
 export type DialogChoiceId = 'copy-uri' | 'copy-id';
 
-export type Sources = {
+export interface Sources {
   feedId$: Stream<FeedId>;
   appear$: Stream<any>;
   dialog: DialogSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   clipboard: Stream<string>;
   toast: Stream<Toast>;
-};
+}
 
 export default function feedIdDialog(sources: Sources): Sinks {
   const dialogChoice$ = sources.appear$

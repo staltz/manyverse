@@ -63,10 +63,10 @@ export interface Props {
   onChange?: (val: number) => void;
 }
 
-type State = {
+interface State {
   current?: number;
   width: string;
-};
+}
 
 export default class SliderSetting extends PureComponent<Props, State> {
   public state: State = {width: '99.99%'};

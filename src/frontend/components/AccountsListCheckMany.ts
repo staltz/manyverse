@@ -143,16 +143,16 @@ class Account extends PureComponent<AccountProps> {
   }
 }
 
-export type Props = {
+export interface Props {
   accounts: Array<{name: string; imageUrl: string; id: string}>;
   onUpdated?: (ev: Props['accounts']) => void;
   onMaxReached?: () => void;
   maximumCheckable?: number;
-};
+}
 
-type State = {
+interface State {
   checked: Props['accounts'];
-};
+}
 
 export default class AccountsListCheckMany extends PureComponent<Props, State> {
   public state = {checked: []} as State;

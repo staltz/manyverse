@@ -10,9 +10,9 @@ import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {State} from './model';
 
-type Actions = {
+interface Actions {
   confirm$: Stream<any>;
-};
+}
 
 function renderContent(response: RestoreIdentityResponse): string {
   const CORRECT = t('secret_input.dialogs.restore.correct.description');

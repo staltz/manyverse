@@ -14,26 +14,26 @@ import view from './view';
 import model, {State} from './model';
 import dialog from './dialog';
 
-export type Props = {
+export interface Props {
   practiceMode?: boolean;
   backendWords?: string;
-};
+}
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   props: Stream<Props>;
   state: StateSource<State>;
   dialog: DialogSource;
   ssb: SSBSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   keyboard: Stream<'dismiss'>;
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
-};
+}
 
 export const navOptions = {
   topBar: {

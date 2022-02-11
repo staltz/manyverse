@@ -16,21 +16,21 @@ import intent from './intent';
 import navigation from './navigation';
 import floatingAction from './fab';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   state: StateSource<State>;
   navigation: NavSource;
   ssb: SSBSource;
   scrollToTop: Stream<any>;
   fab: Stream<string>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   state: Stream<Reducer<State>>;
   navigation: Stream<Command>;
   fab: Stream<FabProps>;
-};
+}
 
 export function privateTab(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.fab);

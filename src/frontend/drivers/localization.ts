@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,11 +7,11 @@ import * as RNLocalize from 'react-native-localize';
 const memoize = require('lodash.memoize');
 import i18n = require('i18n-js');
 
-type UpdateCommand = {
+interface UpdateCommand {
   defaultLocale: string;
   locale: string;
   translations: Record<string, any>;
-};
+}
 
 export type Command = UpdateCommand;
 

@@ -10,10 +10,10 @@ import {navOptions as conversationNavOpts} from '~frontend/screens/conversation'
 import {Props as ConversationProps} from '~frontend/screens/conversation/props';
 import {State} from './model';
 
-type Actions = {
+interface Actions {
   goBack$: Stream<any>;
   goToNewConversation$: Stream<any>;
-};
+}
 
 export default function navigation(actions: Actions, state$: Stream<State>) {
   const back$ = actions.goBack$.mapTo({type: 'pop'} as Command);

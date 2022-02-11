@@ -33,17 +33,17 @@ export type HopsOption = UnwrapArray<typeof hopsOptions>;
 const DEFAULT_HOPS: HopsOption = '2';
 const DEFAULT_BLOBS_STORAGE: BlobsStorageOption = '500MB';
 
-export type State = {
+export interface State {
   initialHops: number;
   initialBlobsStorage: number;
   showFollows: boolean;
   enableDetailedLogs: boolean;
-};
+}
 
-type Actions = {
+interface Actions {
   toggleFollowEvents$: Stream<boolean>;
   toggleDetailedLogs$: Stream<boolean>;
-};
+}
 
 function hopsToOpt(hops?: number): HopsOption {
   if (typeof hops !== 'number') return DEFAULT_HOPS;

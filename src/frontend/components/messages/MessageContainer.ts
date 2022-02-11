@@ -33,10 +33,10 @@ export const styles = StyleSheet.create({
   },
 });
 
-type Props = {
+interface Props {
   style?: any;
   unread?: boolean;
-};
+}
 
 export default class MessageContainer extends PureComponent<Props> {
   public render() {

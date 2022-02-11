@@ -67,12 +67,12 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   text: string;
   onPress?: () => void;
   accessible?: boolean;
   accessibilityLabel?: string;
-};
+}
 
 export default class DialogButton extends Component<Props> {
   constructor(props: Props) {

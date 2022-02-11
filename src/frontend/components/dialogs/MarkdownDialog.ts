@@ -52,11 +52,11 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   title?: string;
   content: string;
   onClose?: () => {};
-};
+}
 
 export default class TextDialog extends PureComponent<Props> {
   public static navOptions: Options = Dialog.navOptions;

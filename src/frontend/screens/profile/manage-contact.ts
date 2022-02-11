@@ -17,19 +17,19 @@ export type ManageChoiceId =
   | 'unblock'
   | 'unblock-secretly';
 
-export type Sources = {
+export interface Sources {
   feedId$: Stream<FeedId>;
   manageContact$: Stream<State>;
   dialog: DialogSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   goToPrivateChat$: Stream<string>;
   blockContact$: Stream<null>;
   blockSecretlyContact$: Stream<null>;
   unblockContact$: Stream<null>;
   unblockSecretlyContact$: Stream<null>;
-};
+}
 
 type Relationship =
   | 'following'

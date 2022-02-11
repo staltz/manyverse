@@ -7,10 +7,10 @@ import {toVoteContent} from '~frontend/ssb/utils/to-ssb';
 import {contentToPublishReq, Req} from '~frontend/drivers/ssb';
 import {PressAddReactionEvent} from '~frontend/ssb/types';
 
-export type Actions = {
+export interface Actions {
   addReactionMsg$: Stream<PressAddReactionEvent>;
   initializationDone$: Stream<any>;
-};
+}
 
 export default function ssb(actions: Actions): Stream<Req> {
   const addReaction$ = actions.addReactionMsg$

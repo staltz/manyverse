@@ -5,13 +5,13 @@
 import {MsgId, FeedId} from 'ssb-typescript';
 import {PrivateThreadAndExtras} from '~frontend/ssb/types';
 
-export type Props = {
+export interface Props {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
   rootMsgId?: MsgId;
   recps?: PrivateThreadAndExtras['recps'];
   goBackActionType?: string;
-};
+}
 
 function selfFeedIdExists(props: Partial<Record<keyof Props, any>>): boolean {
   return props.selfFeedId && typeof props.selfFeedId === 'string';

@@ -93,14 +93,14 @@ export const styles = StyleSheet.create({
   },
 });
 
-type RoomData = {
+interface RoomData {
   key: PeerKV[1]['key'];
   state: PeerKV[1]['state'];
   type: 'room';
   pool: 'hub';
   name?: string;
   onlineCount?: number;
-};
+}
 
 type RoomKV = [string, RoomData];
 

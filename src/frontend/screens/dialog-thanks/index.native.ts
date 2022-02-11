@@ -12,15 +12,15 @@ import {t} from '~frontend/drivers/localization';
 import MarkdownDialog from '~frontend/components/dialogs/MarkdownDialog';
 import getContent from './content';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-};
+}
 
 export const navOptions: Options = MarkdownDialog.navOptions;
 

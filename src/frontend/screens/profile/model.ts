@@ -17,7 +17,7 @@ import {
 import {SSBSource, GetReadable} from '~frontend/drivers/ssb';
 import {Props} from './props';
 
-export type State = {
+export interface State {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
   preferredReactions: Array<string>;
@@ -34,7 +34,7 @@ export type State = {
   connection: 'connected' | 'connecting' | 'disconnecting' | undefined;
   // TODO: use `ThreadSummaryWithExtras` but somehow support reply summaries
   getFeedReadable: GetReadable<any> | null;
-};
+}
 
 interface Actions {
   refreshFeed$: Stream<any>;

@@ -11,21 +11,23 @@ import {AboutAndExtras} from '~frontend/ssb/types';
 import {WindowSize} from '~frontend/drivers/window-size';
 import view from './view';
 
-export type Props = {about: AboutAndExtras};
+export interface Props {
+  about: AboutAndExtras;
+}
 
-export type Sources = {
+export interface Sources {
   props: Stream<Props>;
   screen: ReactSource;
   navigation: NavSource;
   state: StateSource<State>;
   windowSize: Stream<WindowSize>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
-};
+}
 
 export type State = Props;
 

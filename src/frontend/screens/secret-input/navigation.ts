@@ -9,9 +9,9 @@ import {Screens} from '~frontend/screens/enums';
 import {navOptions as centralNavOpts} from '~frontend/screens/central';
 import {State} from './model';
 
-type Actions = {
+interface Actions {
   goBack$: Stream<any>;
-};
+}
 
 export default function navigation(
   state$: Stream<State>,

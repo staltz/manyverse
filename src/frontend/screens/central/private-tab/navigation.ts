@@ -14,10 +14,10 @@ import {navOptions as recipientsInputNavOpts} from '~frontend/screens/recipients
 import {Props as RecipientsInputProps} from '~frontend/screens/recipients-input/props';
 import {State} from './model';
 
-export type Actions = {
+export interface Actions {
   goToConversation$: Stream<MsgId>;
   goToRecipientsInput$: Stream<any>;
-};
+}
 
 export default function navigation(
   actions: Actions,

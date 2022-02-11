@@ -14,19 +14,19 @@ import view from './view';
 import intent from './intent';
 import navigation from './navigation';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   state: StateSource<State>;
   navigation: NavSource;
   ssb: SSBSource;
   scrollToTop: Stream<any>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   state: Stream<Reducer<State>>;
   navigation: Stream<Command>;
-};
+}
 
 export function activityTab(sources: Sources): Sinks {
   const actions = intent(sources.screen);

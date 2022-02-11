@@ -1,19 +1,19 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import {Props} from './index';
 
-export type State = {
+export interface State {
   practiceMode: boolean;
   backendWords: string | null;
   inputWords: string;
-};
+}
 
-type Actions = {
+interface Actions {
   updateWords$: Stream<string>;
-};
+}
 
 export default function model(props$: Stream<Props>, actions: Actions) {
   const initReducer$ = xs.of(function initReducer(): State {

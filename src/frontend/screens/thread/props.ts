@@ -5,7 +5,7 @@
 import {FeedId, MsgId} from 'ssb-typescript';
 import {MsgAndExtras} from '~frontend/ssb/types';
 
-type Basics = {
+interface Basics {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
   selfAvatarUrl?: string;

@@ -45,12 +45,12 @@ export const styles = StyleSheet.create({
   },
 });
 
-export type Props = {
+export interface Props {
   msg: Msg<Contact>;
   name?: string;
   contactName?: string;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
-};
+}
 
 type ContactEvent = 'followed' | 'blocked' | 'unfollowed' | 'unblocked';
 

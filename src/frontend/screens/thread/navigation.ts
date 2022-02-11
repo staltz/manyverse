@@ -24,7 +24,7 @@ import {State} from './model';
 import {navOptions as threadScreenNavOpts} from './layout';
 import {Props} from './props';
 
-export type Actions = {
+export interface Actions {
   goToAccounts$: Stream<{
     title: string;
     msgKey: MsgId;
@@ -35,7 +35,7 @@ export type Actions = {
   goToRawMsg$: Stream<Msg>;
   goToCompose$: Stream<any>;
   exit$: Stream<any>;
-};
+}
 
 export default function navigation(
   actions: Actions,

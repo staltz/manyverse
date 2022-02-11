@@ -8,9 +8,9 @@ import dropRepeats from 'xstream/extra/dropRepeats';
 import {Command} from 'cycle-native-asyncstorage';
 import {State} from './model';
 
-export type Actions = {
+export interface Actions {
   publishMsg$: Stream<any>;
-};
+}
 
 export default function asyncStorage(actions: Actions, state$: Stream<State>) {
   const deleteWhenPublished$ = actions.publishMsg$.compose(sample(state$)).map(

@@ -10,11 +10,11 @@ import {navOptions as searchNavOpts} from '~frontend/screens/search/index';
 import {Props as SearchProps} from '~frontend/screens/search/props';
 import {State} from './model';
 
-export type Actions = {
+export interface Actions {
   openDrawer$: Stream<null>;
   closeDrawer$: Stream<null>;
   goToSearch$: Stream<null>;
-};
+}
 
 export default function navigationCommands(
   state$: Stream<State>,

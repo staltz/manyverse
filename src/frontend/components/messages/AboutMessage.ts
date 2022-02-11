@@ -210,12 +210,12 @@ function renderWithName(
   ]);
 }
 
-export type Props = {
+export interface Props {
   msg: Msg<About>;
   name?: string;
   imageUrl: string | null;
   lastSessionTimestamp: number;
-};
+}
 
 export default class AboutMessage extends Component<Props, {}> {
   constructor(props: Props) {

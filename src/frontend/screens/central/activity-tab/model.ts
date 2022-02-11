@@ -10,14 +10,14 @@ const interleave = require('pull-sorted-interleave');
 
 export type ActivityItem = MsgAndExtras | FirewallAttempt;
 
-export type State = {
+export interface State {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
   lastSessionTimestamp: number;
   getActivityFeedReadable: GetReadable<ActivityItem> | null;
   isVisible: boolean;
   numOfUpdates: number;
-};
+}
 
 interface Actions {
   refreshFeed$: Stream<any>;

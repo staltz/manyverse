@@ -18,21 +18,21 @@ import alert from './alert';
 import navigation from './navigation';
 import linking from './linking';
 
-export type Sources = {
+export interface Sources {
   screen: ReactSource;
   navigation: NavSource;
   ssb: SSBSource;
   state: StateSource<State>;
-};
+}
 
-export type Sinks = {
+export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
   linking: Stream<string>;
   dialog: Stream<AlertCommand>;
-};
+}
 
 export const navOptions = {
   topBar: {

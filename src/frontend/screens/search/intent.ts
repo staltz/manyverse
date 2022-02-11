@@ -21,7 +21,9 @@ import {
 } from '~frontend/ssb/types';
 import {t} from '~frontend/drivers/localization';
 
-type ProfileNavEvent = {authorFeedId: FeedId};
+interface ProfileNavEvent {
+  authorFeedId: FeedId;
+}
 
 export default function intent(navSource: NavSource, reactSource: ReactSource) {
   const goBack$ = xs.merge(
