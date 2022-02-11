@@ -305,8 +305,14 @@ const threadsUtils = {
       },
 
       thread(opts: {root: FeedId; private: boolean}, cb: Callback<AnyThread>) {
+        /**
+         * Necessary because the pull-stream "end" happens after "data",
+         * in the drain(), and we don't want to override data with "Not Found".
+         */
+        let answered = false;
+
         pull(
-          ssb.deweird.source(['threads', 'thread'], opts),
+          ssb.threads.thread(opts),
           pull.asyncMap((t: ThreadData, cb2: Callback<AnyThread>) => {
             if (opts.private) {
               mutatePrivateThreadWithLiveExtras(ssb)(t, cb2);
@@ -316,8 +322,17 @@ const threadsUtils = {
           }),
           pull.take(1),
           pull.drain(
-            (thread: AnyThread) => cb(null, thread),
-            (err: any) => (err ? cb(err) : cb(new Error('Not Found'))),
+            (thread: AnyThread) => {
+              if (answered) return;
+              answered = true;
+              cb(null, thread);
+            },
+            (err: any) => {
+              if (answered) return;
+              answered = true;
+              if (err) cb(err);
+              else cb(new Error('Not Found'));
+            },
           ),
         );
       },
