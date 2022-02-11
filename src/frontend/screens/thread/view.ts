@@ -104,11 +104,11 @@ function ReplyInput(state: State, nativePropsAndFocus$: Stream<any>) {
   ]);
 }
 
-type Actions = {
+interface Actions {
   willReply$: Stream<any>;
   focusTextInput$: Stream<undefined>;
   threadViewabilityChanged$: Stream<any>;
-};
+}
 
 function initialScrollToReply$(state$: Stream<State>, actions: Actions) {
   return actions.threadViewabilityChanged$
