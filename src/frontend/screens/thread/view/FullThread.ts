@@ -17,10 +17,10 @@ import {
 import {t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
-import Message from './messages/Message';
-import PlaceholderMessage from './messages/PlaceholderMessage';
-import AnimatedLoading from './AnimatedLoading';
-import InvertableFlatList from './InvertableFlatList';
+import Message from '~frontend/components/messages/Message';
+import PlaceholderMessage from '~frontend/components/messages/PlaceholderMessage';
+import AnimatedLoading from '~frontend/components/AnimatedLoading';
+import InvertableFlatList from '~frontend/components/InvertableFlatList';
 
 const InvertableFlatList$ = propifyMethods(
   InvertableFlatList as any as typeof FlatList,

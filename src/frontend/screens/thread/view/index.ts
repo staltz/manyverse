@@ -19,7 +19,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
-import FullThread from '~frontend/components/FullThread';
 import Avatar from '~frontend/components/Avatar';
 import EmptySection from '~frontend/components/EmptySection';
 import {
@@ -27,8 +26,9 @@ import {
   default as SettableTextInput,
 } from '~frontend/components/SettableTextInput';
 import TopBar from '~frontend/components/TopBar';
-import {State} from './model';
-import {styles, avatarSize} from './styles';
+import {State} from '../model';
+import {styles, avatarSize} from '../styles';
+import FullThread from './FullThread';
 
 function ExpandReplyButton(isLastButton: boolean) {
   return h(
