@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -74,6 +74,9 @@ export = {
 
     const reactionsCount = {
       _map: new Map<string, number>(),
+      isEmpty() {
+        return this._map.size === 0;
+      },
       update(msg: Msg<VoteContent>) {
         const {expression, value} = msg.value.content.vote;
         if (value <= 0 || !expression) return;
@@ -162,16 +165,18 @@ export = {
       preferredReactions() {
         return cat([
           // First deliver latest preferred reactions
-          pullAsync((cb: Callback<Array<string>>) => {
-            ssb.db.query(
-              where(and(type('vote'), author(ssb.id, {dedicated: true}))),
-              toCallback((err: any, msgs: Array<Msg<VoteContent>>) => {
-                if (err) return cb(err);
-                for (const msg of msgs) reactionsCount.update(msg);
-                cb(null, reactionsCount.toArray());
-              }),
-            );
-          }),
+          reactionsCount.isEmpty()
+            ? pullAsync((cb: Callback<Array<string>>) => {
+                ssb.db.query(
+                  where(and(type('vote'), author(ssb.id, {dedicated: true}))),
+                  toCallback((err: any, msgs: Array<Msg<VoteContent>>) => {
+                    if (err) return cb(err);
+                    for (const msg of msgs) reactionsCount.update(msg);
+                    cb(null, reactionsCount.toArray());
+                  }),
+                );
+              })
+            : pull.values([reactionsCount.toArray()]),
 
           // Then update preferred reactions when the user creates a vote
           pull(
