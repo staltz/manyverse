@@ -24,6 +24,7 @@ interface Actions {
   goBack$: Stream<any>;
   goToThread$: Stream<MsgId | Msg<PostContent>>;
   goToThreadExpandCW$: Stream<Msg>;
+  goToThreadReplies$: Stream<Msg>;
   goToProfile$: Stream<FeedId>;
   goToRawMsg$: Stream<Msg>;
   goToAccounts$: Stream<{
@@ -84,6 +85,28 @@ export default function navigation(
         } as Command;
       }
     });
+
+  const toThreadReplies$ = actions.goToThreadReplies$
+    .compose(sampleCombine(state$))
+    .map(
+      ([msg, state]) =>
+        ({
+          type: 'push',
+          layout: {
+            component: {
+              name: Screens.Thread,
+              passProps: {
+                selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
+                rootMsg: msg,
+                lastSessionTimestamp: state.lastSessionTimestamp,
+                scrollToBottom: true,
+              } as ThreadProps,
+              options: threadScreenNavOpts,
+            },
+          },
+        } as Command),
+    );
 
   const toThreadExpandCW$ = actions.goToThreadExpandCW$
     .compose(sampleCombine(state$))
@@ -161,6 +184,7 @@ export default function navigation(
   return xs.merge(
     back$,
     toThread$,
+    toThreadReplies$,
     toThreadExpandCW$,
     toProfile$,
     toRawMsg$,

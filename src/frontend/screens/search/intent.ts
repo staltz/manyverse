@@ -77,6 +77,10 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     shortcutToThread$,
   );
 
+  const goToThreadReplies$ = reactSource
+    .select('feed')
+    .events<MsgAndExtras>('pressExpandReplies');
+
   const goToProfile$ = xs.merge(
     reactSource
       .select('feed')
@@ -110,6 +114,7 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     updateQueryDebounced$,
     clearQuery$,
     goToThread$,
+    goToThreadReplies$,
     goToProfile$,
     goToAccounts$,
     openMessageEtc$,

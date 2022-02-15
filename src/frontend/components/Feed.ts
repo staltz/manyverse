@@ -110,6 +110,7 @@ interface Props {
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressExpand?: (msg: MsgAndExtras) => void;
+  onPressExpandReplies?: (msg: MsgAndExtras) => void;
   onPressExpandCW?: (msg: MsgAndExtras) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
@@ -226,6 +227,7 @@ export default class Feed extends PureComponent<Props, State> {
       onPressAuthor,
       onPressEtc,
       onPressExpand,
+      onPressExpandReplies,
       onPressExpandCW,
       style,
       contentContainerStyle,
@@ -304,6 +306,7 @@ export default class Feed extends PureComponent<Props, State> {
               onPressAuthor,
               onPressEtc,
               onPressExpand,
+              onPressExpandReplies,
               onPressExpandCW,
             }),
             h(Separator),

@@ -4,7 +4,7 @@
 
 import xs, {Stream} from 'xstream';
 import concat from 'xstream/extra/concat';
-import flattenConcurrently from 'xstream/extra/flattenConcurrently';
+import flattenConcurrentlyAtMost from 'xstream/extra/flattenConcurrentlyAtMost';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId, MsgId} from 'ssb-typescript';
@@ -22,7 +22,7 @@ export interface State {
   thread: ThreadAndExtras;
   subthreads: Record<MsgId, ThreadAndExtras>;
   lastSessionTimestamp: number;
-  preferredReactions: Array<string>;
+  preferredReactions: Array<string> | null;
   expandRootCW: boolean;
   replyText: string;
   replyTextOverride: string;
@@ -30,7 +30,9 @@ export interface State {
   replyEditable: boolean;
   getSelfRepliesReadable: GetReadable<MsgAndExtras> | null;
   focusTimestamp: number;
+  startAtBottom: boolean;
   initialScrollTo: MsgId | undefined;
+  initialScrollToBottom: boolean | undefined;
   keyboardVisible: boolean;
 }
 
@@ -38,7 +40,6 @@ export interface Actions {
   publishMsg$: Stream<any>;
   willReply$: Stream<any>;
   loadReplyDraft$: Stream<MsgId>;
-  replySeen$: Stream<MsgId>;
   keyboardAppeared$: Stream<any>;
   keyboardDisappeared$: Stream<any>;
   updateReplyText$: Stream<string>;
@@ -61,11 +62,41 @@ const unknownErrorThread: ThreadAndExtras = {
   errorReason: 'unknown',
 };
 
+function getScrollToIndex(
+  scrollTo: MsgId | undefined,
+  scrollToBottom: boolean | undefined,
+  thread: ThreadAndExtras,
+): number | undefined {
+  if (!scrollTo) return undefined;
+  if (scrollToBottom) return undefined;
+  const index = thread.messages.findIndex((msg) => msg.key === scrollTo);
+  if (index < 0) return undefined;
+  return index;
+}
+
+function getStartAtBottom(
+  loading: boolean,
+  thread: ThreadAndExtras,
+  scrollToBottom: boolean | undefined,
+  scrollTo: MsgId | undefined,
+): boolean {
+  const scrollToIndex = getScrollToIndex(scrollTo, scrollToBottom, thread);
+
+  const scrollToMention =
+    typeof scrollToIndex === 'number' &&
+    !loading &&
+    thread.full &&
+    scrollToIndex >= thread.messages.length - 2;
+
+  return scrollToBottom || scrollToMention;
+}
+
 export default function model(
   props$: Stream<Props>,
   actions: Actions,
   asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
+  state$: Stream<State>,
 ): Stream<Reducer<State>> {
   const propsReducer$ = props$.take(1).map(
     (props) =>
@@ -80,7 +111,7 @@ export default function model(
           thread: emptyThread,
           subthreads: {},
           lastSessionTimestamp: props.lastSessionTimestamp,
-          preferredReactions: [],
+          preferredReactions: null,
           expandRootCW: props.expandRootCW ?? false,
           replyText: '',
           replyTextOverride: '',
@@ -88,6 +119,13 @@ export default function model(
           replyEditable: true,
           getSelfRepliesReadable: null,
           initialScrollTo: props.scrollTo,
+          initialScrollToBottom: props.scrollToBottom,
+          startAtBottom: getStartAtBottom(
+            false,
+            emptyThread,
+            props.scrollToBottom,
+            props.scrollTo,
+          ),
           focusTimestamp: props.replyToMsgId ? Date.now() : 0,
           keyboardVisible: props.replyToMsgId ? true : false,
         };
@@ -106,7 +144,17 @@ export default function model(
           if (prev.thread.full && prev.thread.messages.length > 0) {
             return prev;
           } else {
-            return {...prev, thread: {full: false, messages: [rootMsg]}};
+            const thread = {full: false, messages: [rootMsg]};
+            return {
+              ...prev,
+              thread,
+              startAtBottom: getStartAtBottom(
+                prev.loading,
+                thread,
+                prev.startAtBottom,
+                prev.initialScrollTo,
+              ),
+            };
           }
         },
     );
@@ -126,30 +174,55 @@ export default function model(
     .map(
       (thread) =>
         function setThreadReducer(prev: State): State {
-          return {...prev, thread, loading: false, loadingReplies: false};
+          return {
+            ...prev,
+            thread,
+            loading: false,
+            loadingReplies: false,
+            startAtBottom: getStartAtBottom(
+              false,
+              thread,
+              prev.initialScrollToBottom,
+              prev.initialScrollTo,
+            ),
+          };
         },
     );
 
-  const setSubthreadReducer$ = actions.replySeen$
-    .map((msgId) =>
-      ssbSource
-        .thread$(msgId, false)
+  const loadSubthreadReducer$ = state$
+    .filter((state) => !state.loading && state.thread.full)
+    .take(1)
+    .map((state) => {
+      const repliesToLoad = state.thread.messages
+        .slice(1) // exclude the root because it's not a reply
+        .map((msg) => msg.key);
+      if (state.startAtBottom) repliesToLoad.reverse();
+      return xs.fromArray(repliesToLoad);
+    })
+    .flatten()
+    .map((replyMsgId) => {
+      return ssbSource
+        .thread$(replyMsgId, false)
         .replaceError((_err) => xs.of(emptyThread))
         .map(
           (subthread) =>
             function setSubthreadReducer(prev: State): State {
-              if (prev.subthreads[msgId]) {
+              if (prev.subthreads[replyMsgId]) {
                 return prev;
               } else {
                 return {
                   ...prev,
-                  subthreads: {...prev.subthreads, [msgId]: subthread},
+                  subthreads: {
+                    ...prev.subthreads,
+                    [replyMsgId]: subthread,
+                  },
                 };
               }
             },
-        ),
-    )
-    .compose(flattenConcurrently);
+        )
+        .take(1);
+    })
+    .compose(flattenConcurrentlyAtMost(3));
 
   const updatePreferredReactionsReducer$ = ssbSource.preferredReactions$.map(
     (preferredReactions) =>
@@ -251,12 +324,37 @@ export default function model(
       },
   );
 
+  const loadNewSubthreadReducer$ = ssbSource.selfRepliesLive$
+    .map((newMsg) =>
+      ssbSource
+        .thread$(newMsg.key, false)
+        .replaceError((_err) => xs.of(emptyThread))
+        .map(
+          (subthread) =>
+            function setSubthreadReducer(prev: State): State {
+              if (prev.subthreads[newMsg.key]) {
+                return prev;
+              } else {
+                return {
+                  ...prev,
+                  subthreads: {
+                    ...prev.subthreads,
+                    [newMsg.key]: subthread,
+                  },
+                };
+              }
+            },
+        )
+        .take(1),
+    )
+    .compose(flattenConcurrentlyAtMost(1));
+
   return concat(
     propsReducer$,
     xs.merge(
       setRootMsgReducer$,
       setThreadReducer$,
-      setSubthreadReducer$,
+      loadSubthreadReducer$,
       updatePreferredReactionsReducer$,
       keyboardAppearedReducer$,
       keyboardDisappearedReducer$,
@@ -265,6 +363,7 @@ export default function model(
       emptyReplyTextReducer$,
       loadReplyDraftReducer$,
       addSelfRepliesReducer$,
+      loadNewSubthreadReducer$,
     ),
   );
 }

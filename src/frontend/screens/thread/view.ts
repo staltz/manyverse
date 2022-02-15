@@ -107,28 +107,6 @@ function ReplyInput(state: State, nativePropsAndFocus$: Stream<any>) {
 interface Actions {
   willReply$: Stream<any>;
   focusTextInput$: Stream<undefined>;
-  threadViewabilityChanged$: Stream<any>;
-}
-
-function initialScrollToReply$(state$: Stream<State>, actions: Actions) {
-  return actions.threadViewabilityChanged$
-    .take(1)
-    .map(() =>
-      state$
-        .filter((state) => {
-          const {initialScrollTo, thread} = state;
-          const {messages} = thread;
-          return (
-            !!initialScrollTo &&
-            thread.full &&
-            messages.length > 0 &&
-            messages[messages.length - 1].key === initialScrollTo
-          );
-        })
-        .take(1)
-        .mapTo({animated: true}),
-    )
-    .flatten();
 }
 
 export default function view(state$: Stream<State>, actions: Actions) {
@@ -144,9 +122,8 @@ export default function view(state$: Stream<State>, actions: Actions) {
     });
 
   const scrollToEnd$ = xs.merge(
-    initialScrollToReply$(state$, actions),
-    actions.willReply$.mapTo({animated: true}).compose(delay(50)),
-    didReply$.mapTo({animated: true}),
+    actions.willReply$.mapTo({animated: true}).compose(delay(60)),
+    didReply$.mapTo({animated: true}).compose(delay(60)),
   );
 
   const setMarkdownInputNativeProps$ = xs.merge(
@@ -175,6 +152,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
   );
 
   return state$
+    .filter((state) => !!state.preferredReactions)
     .compose(
       dropRepeatsByKeys([
         'loading',
@@ -186,8 +164,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
         'rootMsgId',
         'selfFeedId',
         'selfAvatarUrl',
-        'lastSessionTimestamp',
-        'preferredReactions',
+        'startAtBottom',
         (s) => s.thread.messages.length,
         (s) => s.thread.full,
         (s) => s.thread.errorReason,
@@ -248,15 +225,15 @@ export default function view(state$: Stream<State>, actions: Actions) {
           [
             h(FullThread, {
               sel: 'thread',
-              style: styles.fullThread,
               thread: state.thread,
               subthreads: state.subthreads,
               lastSessionTimestamp: state.lastSessionTimestamp,
-              preferredReactions: state.preferredReactions,
+              preferredReactions: state.preferredReactions!,
               selfFeedId: state.selfFeedId,
               expandRootCW: state.expandRootCW,
               loadingReplies: state.loadingReplies,
               scrollToEnd$,
+              startAtBottom: state.startAtBottom,
               willPublish$: actions.willReply$,
             }),
             ReplyInput(state, setMarkdownInputNativeProps$),

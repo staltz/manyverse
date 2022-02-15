@@ -93,6 +93,10 @@ export default function intent(
 
     goToThread$: reactSource.select('feed').events<MsgAndExtras>('pressExpand'),
 
+    goToThreadReplies$: reactSource
+      .select('feed')
+      .events<MsgAndExtras>('pressExpandReplies'),
+
     goToThreadExpandCW$: reactSource
       .select('feed')
       .events<MsgAndExtras>('pressExpandCW'),

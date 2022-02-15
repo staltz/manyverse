@@ -66,6 +66,10 @@ export default function intent(
       .select('publicFeed')
       .events<MsgAndExtras>('pressExpand'),
 
+    goToThreadReplies$: reactSource
+      .select('publicFeed')
+      .events<MsgAndExtras>('pressExpandReplies'),
+
     goToThreadExpandCW$: reactSource
       .select('publicFeed')
       .events<MsgAndExtras>('pressExpandCW'),

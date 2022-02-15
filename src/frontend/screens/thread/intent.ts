@@ -74,12 +74,6 @@ export default function intent(
         .map((state) => state.rootMsgId),
     ) as Stream<MsgId>,
 
-    threadViewabilityChanged$: reactSource
-      .select('thread')
-      .events<any>('viewableItemsChanged'),
-
-    replySeen$: reactSource.select('thread').events<MsgId>('replySeen'),
-
     focusTextInput$: reactSource
       .select('thread')
       .events<undefined>('pressReplyToRoot'),

@@ -27,20 +27,6 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceBig,
   },
 
-  fullThread: {
-    ...Platform.select({
-      web: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 10,
-        paddingBottom: 52,
-      },
-    }),
-  },
-
   replyRow: {
     backgroundColor: Palette.backgroundText,
     paddingLeft: Dimensions.horizontalSpaceBig,

@@ -48,6 +48,7 @@ export interface Props {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
   onPressExpand?: (msg: MsgAndExtras) => void;
+  onPressExpandReplies?: (msg: MsgAndExtras) => void;
   onPressExpandCW?: (msg: MsgAndExtras) => void;
 }
 
@@ -98,7 +99,7 @@ export const styles = StyleSheet.create({
 const MessageFooter$ = withXstreamProps(MessageFooter, 'reactions');
 
 interface State {
-  showReadMore: boolean;
+  showFadingReadMore: boolean;
   markdownWidth: number;
 }
 
@@ -108,7 +109,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
   }
 
   public state = {
-    showReadMore: false,
+    showFadingReadMore: false,
     markdownWidth: 1,
   };
 
@@ -120,7 +121,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
   private onMarkdownMeasured: ViewProps['onLayout'] = (ev) => {
     if (ev.nativeEvent.layout.height > POST_HEIGHT) {
       this.setState({
-        showReadMore: true,
+        showFadingReadMore: true,
         markdownWidth: ev.nativeEvent.layout.width,
       });
     }
@@ -131,14 +132,14 @@ export default class ThreadCard extends PureComponent<Props, State> {
   };
 
   private onPressReplyHandler = () => {
-    this.props.onPressExpand?.(this.props.thread.root);
+    this.props.onPressExpandReplies?.(this.props.thread.root);
   };
 
   private onExpandCW = () => {
     this.props.onPressExpandCW?.(this.props.thread.root);
   };
 
-  public renderReadMore() {
+  public renderReadMore(fading: boolean) {
     // This randomID is necessary on the DOM (Electron) because of
     // https://stackoverflow.com/questions/16123721/how-to-use-local-defs-in-svg
     const randomID = Math.floor(Math.random() * 1000000);
@@ -146,30 +147,32 @@ export default class ThreadCard extends PureComponent<Props, State> {
     const height = POST_HEIGHT * 0.5;
     return h(View, {style: styles.readMoreContainer}, [
       h(Svg, {width, height}, [
-        h(Defs, [
-          h(
-            LinearGradient,
-            {id: `grad${randomID}`, x1: '0', y1: '0', x2: '0', y2: '1'},
-            [
-              h(Stop, {
-                offset: '0',
-                stopColor: Palette.backgroundText,
-                stopOpacity: '0',
-              }),
-              h(Stop, {
-                offset: '1',
-                stopColor: Palette.backgroundText,
-                stopOpacity: '1',
-              }),
-            ],
-          ),
-        ]),
+        fading
+          ? h(Defs, [
+              h(
+                LinearGradient,
+                {id: `grad${randomID}`, x1: '0', y1: '0', x2: '0', y2: '1'},
+                [
+                  h(Stop, {
+                    offset: '0',
+                    stopColor: Palette.backgroundText,
+                    stopOpacity: '0',
+                  }),
+                  h(Stop, {
+                    offset: '1',
+                    stopColor: Palette.backgroundText,
+                    stopOpacity: '1',
+                  }),
+                ],
+              ),
+            ])
+          : null,
         h(Rect, {
           x: '0',
           y: '0',
           width,
           height,
-          fill: `url(#grad${randomID})`,
+          fill: fading ? `url(#grad${randomID})` : 'rgba(0,0,0,0)',
           strokeWidth: '0',
         }),
       ]),
@@ -183,24 +186,20 @@ export default class ThreadCard extends PureComponent<Props, State> {
       onLayout: this.onMarkdownMeasured,
     });
 
-    if (this.state.showReadMore) {
-      const touchableProps: any = {
-        onPress: this.onPressReadMore,
-        pointerEvents: 'box-only',
-      };
-      if (Platform.OS === 'android') {
-        touchableProps.background =
-          TouchableNativeFeedback.SelectableBackground();
-      }
-      return h(Touchable, touchableProps, [
-        h(View, {key: 'p', style: styles.post}, [
-          markdownChild,
-          this.renderReadMore(),
-        ]),
-      ]);
-    } else {
-      return h(View, {key: 'p', style: styles.post}, [markdownChild]);
+    const touchableProps: any = {
+      onPress: this.onPressReadMore,
+      pointerEvents: 'box-only',
+    };
+    if (Platform.OS === 'android') {
+      touchableProps.background =
+        TouchableNativeFeedback.SelectableBackground();
     }
+    return h(Touchable, touchableProps, [
+      h(View, {key: 'p', style: styles.post}, [
+        markdownChild,
+        this.renderReadMore(this.state.showFadingReadMore),
+      ]),
+    ]);
   }
 
   public render() {

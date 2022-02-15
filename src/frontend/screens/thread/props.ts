@@ -11,9 +11,10 @@ interface Basics {
   selfAvatarUrl?: string;
   higherRootMsgId?: MsgId;
   replyToMsgId?: MsgId;
-  scrollTo?: MsgId;
   expandRootCW?: boolean;
-};
+  scrollTo?: MsgId;
+  scrollToBottom?: boolean;
+}
 
 export type Props =
   | (Basics & {rootMsgId: MsgId; rootMsg?: never})

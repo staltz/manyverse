@@ -41,6 +41,7 @@ export interface Actions {
   }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<MsgAndExtras>;
+  goToThreadReplies$: Stream<MsgAndExtras>;
   goToThreadExpandCW$: Stream<MsgAndExtras>;
   goToRawMsg$: Stream<Msg>;
   goToPrivateChat$: Stream<string>;
@@ -214,6 +215,28 @@ export default function navigation(
       } as Command),
   );
 
+  const toThreadReplies$ = actions.goToThreadReplies$
+    .compose(sampleCombine(state$))
+    .map(
+      ([msg, state]) =>
+        ({
+          type: 'push',
+          layout: {
+            component: {
+              name: Screens.Thread,
+              passProps: {
+                selfFeedId: state.selfFeedId,
+                selfAvatarUrl: state.selfAvatarUrl,
+                rootMsg: msg,
+                lastSessionTimestamp: state.lastSessionTimestamp,
+                scrollToBottom: true,
+              } as ThreadProps,
+              options: threadScreenNavOpts,
+            },
+          },
+        } as Command),
+    );
+
   const toThreadExpandCW$ = actions.goToThreadExpandCW$
     .compose(sampleCombine(state$))
     .map(
@@ -287,6 +310,7 @@ export default function navigation(
     toAccounts$,
     toOtherProfile$,
     toThread$,
+    toThreadReplies$,
     toThreadExpandCW$,
     toRawMsg$,
     goToPrivateChat$,

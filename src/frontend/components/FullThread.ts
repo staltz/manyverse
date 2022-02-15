@@ -2,15 +2,9 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Stream, Subscription, Listener} from 'xstream';
+import xs, {Stream, Subscription, Listener} from 'xstream';
 import {Component, PureComponent} from 'react';
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  ViewabilityConfig,
-  ViewStyle,
-} from 'react-native';
+import {StyleSheet, FlatList, View, Platform} from 'react-native';
 import {h} from '@cycle/react';
 import {propifyMethods} from 'react-propify-methods';
 import {FeedId, Msg, MsgId} from 'ssb-typescript';
@@ -26,11 +20,13 @@ import {Palette} from '~frontend/global-styles/palette';
 import Message from './messages/Message';
 import PlaceholderMessage from './messages/PlaceholderMessage';
 import AnimatedLoading from './AnimatedLoading';
+import InvertableFlatList from './InvertableFlatList';
 
-const FlatList$ = propifyMethods(FlatList, 'scrollToEnd' as any);
-type ViewabilityInfo = Parameters<
-  NonNullable<FlatList<MsgAndExtras>['props']['onViewableItemsChanged']>
->[0];
+const InvertableFlatList$ = propifyMethods(
+  InvertableFlatList as any as typeof FlatList,
+  'scrollToEnd' as any,
+  'scrollToOffset' as any,
+);
 type ScrollToEndArg = Parameters<FlatList<any>['scrollToEnd']>[0];
 
 export interface Props {
@@ -40,8 +36,8 @@ export interface Props {
   preferredReactions: Array<string>;
   willPublish$?: Stream<any> | null;
   scrollToEnd$?: Stream<ScrollToEndArg>;
+  startAtBottom?: boolean;
   selfFeedId: FeedId;
-  style?: ViewStyle;
   loadingReplies: boolean;
   expandRootCW?: boolean;
   onPressReactions?: (ev: PressReactionsEvent) => void;
@@ -51,7 +47,6 @@ export interface Props {
   onReplySeen?: (msgId: MsgId) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
-  onViewableItemsChanged?: (info: ViewabilityInfo) => void;
 }
 
 export const styles = StyleSheet.create({
@@ -60,8 +55,40 @@ export const styles = StyleSheet.create({
     height: Dimensions.verticalSpaceNormal,
   },
 
+  container: {
+    ...Platform.select({
+      web: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 10,
+        paddingBottom: 52,
+      },
+    }),
+  },
+
+  containerInverted: {
+    ...Platform.select({
+      web: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 10,
+        paddingTop: 52,
+      },
+    }),
+  },
+
   contentContainer: {
     paddingBottom: Dimensions.verticalSpaceNormal,
+  },
+
+  contentContainerInverted: {
+    paddingTop: Dimensions.verticalSpaceNormal,
   },
 });
 
@@ -80,11 +107,13 @@ export default class FullThread extends Component<Props, State> {
     super(props);
     this.renderMessage = this.renderMessage.bind(this);
     this.state = {showPlaceholder: false};
+    this.determineScrollStreams(props);
   }
 
   private subscription?: Subscription;
-  private repliesSeen: Set<MsgId> = new Set();
   private latestPublicationTimestamp: number = 0;
+  private scrollToEnd$: Stream<ScrollToEndArg>;
+  private scrollToOffset$: Stream<ScrollToEndArg & {offset: number}>;
 
   public componentDidMount() {
     const {willPublish$} = this.props;
@@ -94,25 +123,44 @@ export default class FullThread extends Component<Props, State> {
     }
   }
 
+  private determineScrollStreams(props: Props) {
+    this.scrollToEnd$ = (props.scrollToEnd$ ?? xs.never())
+      .map((params) => {
+        if (this.props.startAtBottom === true) return null;
+        else return params;
+      })
+      .filter((params) => params !== null) as typeof this.scrollToEnd$;
+
+    this.scrollToOffset$ = (props.scrollToEnd$ ?? xs.never())
+      .map((params) => {
+        if (this.props.startAtBottom === true) return {...params, offset: 0};
+        else return null;
+      })
+      .filter((params) => params !== null) as typeof this.scrollToOffset$;
+  }
+
   public shouldComponentUpdate(nextProps: Props, nextState: State) {
     const prevProps = this.props;
     if (nextProps.selfFeedId !== prevProps.selfFeedId) return true;
     if (nextProps.loadingReplies !== prevProps.loadingReplies) return true;
+    if (nextProps.startAtBottom !== prevProps.startAtBottom) return true;
+    if (nextProps.expandRootCW !== prevProps.expandRootCW) return true;
+    if (nextState.showPlaceholder !== this.state.showPlaceholder) return true;
+    if (nextProps.thread.full !== prevProps.thread.full) return true;
+    const prevMessages = prevProps.thread.messages;
+    const nextMessages = nextProps.thread.messages;
+    if (nextMessages.length !== prevMessages.length) return true;
     if (nextProps.onPressAuthor !== prevProps.onPressAuthor) return true;
     if (nextProps.onPressEtc !== prevProps.onPressEtc) return true;
     if (nextProps.onPressReactions !== prevProps.onPressReactions) return true;
     if (nextProps.onPressAddReaction !== prevProps.onPressAddReaction)
       return true;
-    if (nextProps.expandRootCW !== prevProps.expandRootCW) return true;
-    if (nextProps.style !== prevProps.style) return true;
     if (nextProps.willPublish$ !== prevProps.willPublish$) return true;
-    if (nextProps.scrollToEnd$ !== prevProps.scrollToEnd$) return true;
-    if (nextProps.thread.full !== prevProps.thread.full) return true;
+    if (nextProps.scrollToEnd$ !== prevProps.scrollToEnd$) {
+      this.determineScrollStreams(nextProps);
+      return true;
+    }
     if (nextProps.subthreads !== prevProps.subthreads) return true;
-    const prevMessages = prevProps.thread.messages;
-    const nextMessages = nextProps.thread.messages;
-    if (nextMessages.length !== prevMessages.length) return true;
-    if (nextState.showPlaceholder !== this.state.showPlaceholder) return true;
     return false;
   }
 
@@ -150,6 +198,7 @@ export default class FullThread extends Component<Props, State> {
       onPressReplyToReply,
       thread,
       subthreads,
+      startAtBottom,
       lastSessionTimestamp,
       preferredReactions,
     } = this.props;
@@ -158,7 +207,8 @@ export default class FullThread extends Component<Props, State> {
 
     let onPressReply: Message['props']['onPressReply'];
     let replyCount = 0;
-    if (index === 0) {
+    const rootIndex = startAtBottom ? thread.messages.length - 1 : 0;
+    if (index === rootIndex) {
       onPressReply = () => {
         onPressReplyToRoot?.();
       };
@@ -174,7 +224,7 @@ export default class FullThread extends Component<Props, State> {
     return h(Message, {
       msg,
       key: msg.key,
-      expandCW: index === 0 && this.props.expandRootCW === true,
+      expandCW: index === rootIndex && this.props.expandRootCW === true,
       selfFeedId,
       lastSessionTimestamp,
       preferredReactions,
@@ -203,41 +253,35 @@ export default class FullThread extends Component<Props, State> {
     }
   };
 
-  private onViewableItemsChanged = (info: ViewabilityInfo) => {
-    this.props.onViewableItemsChanged?.(info);
-
-    const {onReplySeen} = this.props;
-    if (!onReplySeen) return;
-    for (const token of info.changed) {
-      if (
-        token.isViewable && // User sees it
-        (token.index ?? 0) > 0 && // It's not the root
-        !this.repliesSeen.has(token.item.key) // User hasn't seen it before
-      ) {
-        this.repliesSeen.add(token.item.key);
-        onReplySeen(token.item.key);
-      }
-    }
-  };
-
-  private static viewabilityConfig: ViewabilityConfig = {
-    minimumViewTime: 200,
-    itemVisiblePercentThreshold: 10,
-  };
-
   public render() {
-    const {thread, scrollToEnd$, style} = this.props;
+    const {startAtBottom, thread, loadingReplies} = this.props;
+    const loadedEverything = !loadingReplies && thread.full;
+    const threadHasOnlyRoot = thread.messages.length === 1;
 
-    return h(FlatList$, {
-      data: thread.messages ?? [],
-      style,
+    const inverted =
+      startAtBottom === true && loadedEverything && !threadHasOnlyRoot;
+
+    const data =
+      startAtBottom === true
+        ? loadedEverything
+          ? threadHasOnlyRoot
+            ? thread.messages
+            : thread.messages.slice().reverse()
+          : []
+        : thread.messages;
+
+    return h(InvertableFlatList$, {
+      style: inverted ? styles.containerInverted : styles.container,
+      contentContainerStyle: inverted
+        ? styles.contentContainerInverted
+        : styles.contentContainer,
+      data,
+      inverted,
       renderItem: this.renderMessage,
       keyExtractor: (msg: MsgAndExtras) => msg.key,
-      contentContainerStyle: styles.contentContainer,
-      scrollToEnd$,
+      scrollToEnd$: this.scrollToEnd$,
+      scrollToOffset$: this.scrollToOffset$,
       removeClippedSubviews: false,
-      onViewableItemsChanged: this.onViewableItemsChanged,
-      viewabilityConfig: FullThread.viewabilityConfig,
       ItemSeparatorComponent: Separator,
       ListFooterComponent: this.renderFooter(),
     });

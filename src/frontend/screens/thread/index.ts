@@ -68,6 +68,7 @@ export function thread(sources: Sources): Sinks {
     actionsPlus,
     sources.asyncstorage,
     sources.ssb,
+    sources.state.stream,
   );
   const storageCommand$ = asyncStorage(actionsPlus, sources.state.stream);
   const command$ = navigation(actionsPlus, sources.state.stream);
