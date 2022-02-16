@@ -129,7 +129,10 @@ class ConversationItem extends PureComponent<CIProps> {
 
     return h(
       View,
-      {accessibilityLabel: t('private.conversation.accessibility_label')},
+      {
+        style: styles.conversationRowTouchable,
+        accessibilityLabel: t('private.conversation.accessibility_label'),
+      },
       [
         h(Touchable, touchableProps, [
           h(View, {style: styles.conversationRow, pointerEvents: 'box-only'}, [

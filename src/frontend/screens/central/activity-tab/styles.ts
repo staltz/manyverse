@@ -43,6 +43,14 @@ export const styles = StyleSheet.create({
     }),
   },
 
+  activityRowTouchable: {
+    ...Platform.select({
+      web: {
+        width: Dimens.desktopMiddleWidth.px,
+      },
+    }),
+  },
+
   activityBody: {
     flex: 1,
     flexDirection: 'column',

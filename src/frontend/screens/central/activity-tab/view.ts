@@ -128,7 +128,7 @@ class MsgActivity extends PureComponent<MsgActivityProps> {
         TouchableNativeFeedback.SelectableBackground();
     }
 
-    return h(View, [
+    return h(View, {style: styles.activityRowTouchable}, [
       h(Touchable, touchableProps, [
         h(View, {style: styles.activityRow, pointerEvents: 'box-only'}, [
           h(Avatar, {
@@ -171,7 +171,7 @@ class ConnectionAttemptActivity extends PureComponent<AttemptActivityProps> {
         TouchableNativeFeedback.SelectableBackground();
     }
 
-    return h(View, [
+    return h(View, {style: styles.activityRowTouchable}, [
       h(Touchable, touchableProps, [
         h(View, {style: styles.activityRow, pointerEvents: 'box-only'}, [
           h(Avatar, {

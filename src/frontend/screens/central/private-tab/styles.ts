@@ -42,6 +42,14 @@ export const styles = StyleSheet.create({
     }),
   },
 
+  conversationRowTouchable: {
+    ...Platform.select({
+      web: {
+        width: Dimens.desktopMiddleWidth.px,
+      },
+    }),
+  },
+
   singleAvatar: {
     marginRight: Dimens.horizontalSpaceSmall,
   },

@@ -40,6 +40,14 @@ export const styles = StyleSheet.create({
     }),
   },
 
+  touchableRow: {
+    ...Platform.select({
+      web: {
+        width: Dimensions.desktopMiddleWidth.px,
+      },
+    }),
+  },
+
   row: {
     flex: 1,
     backgroundColor: Palette.backgroundText,
@@ -114,6 +122,7 @@ class Account extends PureComponent<AccountProps> {
     return h(
       View,
       {
+        style: styles.touchableRow,
         accessible: true,
         accessibilityRole: 'button',
         accessibilityLabel: t(
