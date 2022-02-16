@@ -124,6 +124,8 @@ export default class ThreadCard extends PureComponent<Props, State> {
         showFadingReadMore: true,
         markdownWidth: ev.nativeEvent.layout.width,
       });
+    } else {
+      this.setState({markdownWidth: ev.nativeEvent.layout.width});
     }
   };
 
@@ -144,7 +146,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
     // https://stackoverflow.com/questions/16123721/how-to-use-local-defs-in-svg
     const randomID = Math.floor(Math.random() * 1000000);
     const width = this.state.markdownWidth;
-    const height = POST_HEIGHT * 0.5;
+    const height = POST_HEIGHT;
     return h(View, {style: styles.readMoreContainer}, [
       h(Svg, {width, height}, [
         fading
@@ -171,7 +173,15 @@ export default class ThreadCard extends PureComponent<Props, State> {
           x: '0',
           y: '0',
           width,
-          height,
+          height: height * 0.5,
+          fill: 'rgba(0,0,0,0)',
+          strokeWidth: '0',
+        }),
+        h(Rect, {
+          x: '0',
+          y: height * 0.5,
+          width,
+          height: height * 0.5,
           fill: fading ? `url(#grad${randomID})` : 'rgba(0,0,0,0)',
           strokeWidth: '0',
         }),
