@@ -20,10 +20,9 @@ import {Palette} from '~frontend/global-styles/palette';
 import Message from '~frontend/components/messages/Message';
 import PlaceholderMessage from '~frontend/components/messages/PlaceholderMessage';
 import AnimatedLoading from '~frontend/components/AnimatedLoading';
-import InvertableFlatList from '~frontend/components/InvertableFlatList';
 
-const InvertableFlatList$ = propifyMethods(
-  InvertableFlatList as any as typeof FlatList,
+const FlatList$ = propifyMethods(
+  FlatList as any as typeof FlatList,
   'scrollToEnd' as any,
   'scrollToOffset' as any,
 );
@@ -270,7 +269,7 @@ export default class FullThread extends Component<Props, State> {
           : []
         : thread.messages;
 
-    return h(InvertableFlatList$, {
+    return h(FlatList$, {
       style: inverted ? styles.containerInverted : styles.container,
       contentContainerStyle: inverted
         ? styles.contentContainerInverted
