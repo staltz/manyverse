@@ -71,6 +71,48 @@ export function restore(words: string) {
   return 'IDENTITY_READY';
 }
 
+export function restoreWithJSON(json: string) {
+  // Check if there is another mature account
+  if (!fs.existsSync(process.env.SSB_DIR!)) mkdirp.sync(process.env.SSB_DIR);
+  const oldLogPath = path.join(process.env.SSB_DIR!, 'flume', 'log.offset');
+  const oldLogSize = fileSize(oldLogPath);
+  if (oldLogSize >= 10) return 'OVERWRITE_RISK';
+  const newLogPath = path.join(process.env.SSB_DIR!, 'db2', 'log.bipf');
+  const newLogSize = fileSize(newLogPath);
+  if (newLogSize >= 10) return 'OVERWRITE_RISK';
+
+  // Validation of the JSON
+  let keys: any;
+  try {
+    keys = JSON.parse(json);
+  } catch (err) {
+    // FIXME: parse error
+    throw err;
+  }
+  if (!keys.curve) return 'INCORRECT'; // FIXME: ??
+  if (!keys.id) return 'INCORRECT'; // FIXME: ??
+  if (!keys.public) return 'INCORRECT'; // FIXME: ??
+  if (!keys.private) return 'INCORRECT'; // FIXME: ??
+  if (keys.public.length < 43) return 'INCORRECT'; // FIXME: ??
+  if (keys.private.length < 80) return 'INCORRECT'; // FIXME: ??
+  if (keys.id.length < 44) return 'INCORRECT'; // FIXME: ??
+
+  // Overwrite `secret` with the newly restored keys
+  const jsonIndented = JSON.stringify(keys, null, 2);
+  const secretPath = path.join(process.env.SSB_DIR!, 'secret');
+  try {
+    if (fileSize(secretPath) >= 10) {
+      fs.unlinkSync(secretPath);
+    }
+    const writeOpts = {mode: 0x100, flag: 'w'};
+    fs.writeFileSync(secretPath, jsonIndented, writeOpts);
+  } catch (err) {
+    throw err;
+  }
+
+  return 'IDENTITY_READY';
+}
+
 export function migrate(cb: Callback<void>) {
   if (process.env.MANYVERSE_PLATFORM !== 'desktop') {
     throw new Error('Cannot run identity.migrate() unless we are on desktop.');

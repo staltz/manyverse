@@ -38,13 +38,20 @@ export default function model(props$: Stream<Props>, actions: Actions) {
   const updateWordsReducer$ = actions.updateWords$.map(
     (text) =>
       function updateWordsReducer(prev: State): State {
-        return {
-          ...prev,
-          inputWords: text
-            .replace(/\d+/g, '') // no digits
-            .replace('_', '') // no underscore
-            .replace(/[^\w ]+/g, ''), // no misc symbols
-        };
+        if (text.trim().startsWith('{')) {
+          // Assume it's JSON
+          return {...prev, inputWords: text};
+        } else {
+          // Assume it's 24 words
+          return {
+            ...prev,
+            inputWords: text
+              .trim()
+              .replace(/\d+/g, '') // no digits
+              .replace('_', '') // no underscore
+              .replace(/[^\w ]+/g, ''), // no misc symbols
+          };
+        }
       },
   );
 
