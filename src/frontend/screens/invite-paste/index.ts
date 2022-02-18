@@ -65,7 +65,7 @@ export function pasteInvite(sources: Sources): Sinks {
     .merge(actions.done$, actions.back$)
     .mapTo('dismiss' as 'dismiss');
 
-  const alert$ = actions.dhtDone$.map(() => ({
+  const alert$ = actions.dhtInviteDone$.map(() => ({
     type: 'alert' as const,
     title: t('invite_paste.alert_unsupported_dht.title'),
     content: t('invite_paste.alert_unsupported_dht.description'),

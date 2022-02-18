@@ -7,13 +7,13 @@ const roomUtils = require('ssb-room-client/utils');
 import {Req} from '~frontend/drivers/ssb';
 
 export interface Actions {
-  room1Done$: Stream<string>;
-  room2Done$: Stream<string>;
-  normalDone$: Stream<string>;
+  room1InviteDone$: Stream<string>;
+  room2InviteDone$: Stream<string>;
+  miscInviteDone$: Stream<string>;
 }
 
 export default function ssb(actions: Actions) {
-  const acceptInvite$ = actions.normalDone$.map(
+  const acceptInvite$ = actions.miscInviteDone$.map(
     (inviteCode) =>
       ({
         type: 'invite.accept',
@@ -21,7 +21,7 @@ export default function ssb(actions: Actions) {
       } as Req),
   );
 
-  const acceptRoomInvite$ = actions.room1Done$.map(
+  const acceptRoomInvite$ = actions.room1InviteDone$.map(
     (inviteCode) =>
       ({
         type: 'conn.rememberConnect',
@@ -30,7 +30,7 @@ export default function ssb(actions: Actions) {
       } as Req),
   );
 
-  const consumeInviteUri$ = actions.room2Done$.map(
+  const consumeInviteUri$ = actions.room2InviteDone$.map(
     (uri) => ({type: 'httpInviteClient.claim', uri} as Req),
   );
 

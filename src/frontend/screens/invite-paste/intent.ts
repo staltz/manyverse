@@ -14,7 +14,12 @@ import {isExperimentalSSBURIWithAction} from 'ssb-uri2';
 import {LifecycleEvent} from '~frontend/drivers/lifecycle';
 import {State} from './model';
 
-const isHttpInvite = isExperimentalSSBURIWithAction('claim-http-invite');
+const isDhtInvite = (text: string) => text.startsWith('dht:');
+const isHttpsInvite = (text: string) => text.startsWith('https://');
+const isUriInvite = isExperimentalSSBURIWithAction('claim-http-invite');
+const isRoom1InviteCode = (text: string) => roomUtils.isInvite(text);
+const isRoom2InviteCode = (text: string) =>
+  isHttpsInvite(text) || isUriInvite(text);
 
 export default function intent(
   reactSource: ReactSource,
@@ -43,26 +48,17 @@ export default function intent(
 
     done$,
 
-    dhtDone$: done$.filter((text) => text.startsWith('dht:')),
+    dhtInviteDone$: done$.filter(isDhtInvite),
 
-    room1Done$: done$.filter(
+    room1InviteDone$: done$.filter(isRoom1InviteCode),
+
+    room2InviteDone$: done$.filter(isRoom2InviteCode),
+
+    miscInviteDone$: done$.filter(
       (text) =>
-        !text.startsWith('dht:') &&
-        !text.startsWith('https://') &&
-        !isHttpInvite(text) &&
-        roomUtils.isInvite(text),
-    ),
-
-    room2Done$: done$.filter(
-      (text) => isHttpInvite(text) || text.startsWith('https://'),
-    ),
-
-    normalDone$: done$.filter(
-      (text) =>
-        !text.startsWith('dht:') &&
-        !text.startsWith('https://') &&
-        !isHttpInvite(text) &&
-        !roomUtils.isInvite(text),
+        !isDhtInvite(text) &&
+        !isRoom1InviteCode(text) &&
+        !isRoom2InviteCode(text),
     ),
 
     updateContent$: reactSource
