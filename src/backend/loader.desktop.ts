@@ -63,7 +63,7 @@ function createWindow() {
   if (resolveWebContents) resolveWebContents(win.webContents);
 
   if (process.env.MANYVERSE_DEVELOPMENT) {
-    win.webContents.openDevTools({activate: false, mode: 'detach'});
+    win.webContents.openDevTools({activate: false} as any);
   }
 
   // Handle external (web) links
