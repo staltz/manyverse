@@ -148,7 +148,7 @@
     "ssb-uri2": "1.7.0",
     "strip-markdown-oneline": "1.0.3",
     "unicode-word-regex": "1.1.0",
-    "url-parse": "1.5.4",
+    "url-parse": "1.5.6",
     "xstream": "11.14",
     "xstream-between": "1.0",
     "xstream-drop-repeats-by-keys": "1.1",
