@@ -618,21 +618,27 @@ async function consumeSink(
 
   sink.addListener({
     next: async (req) => {
-      if (req.type === 'identity.create' && !identityAvailable) {
-        backend.post('identity', 'CREATE');
-        identityAvailable = true;
+      if (req.type === 'identity.create') {
+        if (!identityAvailable) {
+          identityAvailable = true;
+          backend.post('identity', 'CREATE');
+        }
         return;
       }
 
-      if (req.type === 'identity.use' && !identityAvailable) {
-        backend.post('identity', 'USE');
-        identityAvailable = true;
+      if (req.type === 'identity.use') {
+        if (!identityAvailable) {
+          identityAvailable = true;
+          backend.post('identity', 'USE');
+        }
         return;
       }
 
-      if (req.type === 'identity.migrate' && !identityAvailable) {
-        backend.post('identity', 'MIGRATE');
-        identityAvailable = true;
+      if (req.type === 'identity.migrate') {
+        if (!identityAvailable) {
+          identityAvailable = true;
+          backend.post('identity', 'MIGRATE');
+        }
         return;
       }
 
@@ -840,6 +846,7 @@ async function consumeSink(
           console.error(e3.message || e3);
           return;
         }
+        return;
       }
 
       if (req.type === 'settings.hops') {
@@ -878,6 +885,7 @@ async function consumeSink(
             if (err) return console.error(err.message || err);
           },
         );
+        return;
       }
     },
   });
