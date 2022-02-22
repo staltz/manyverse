@@ -511,6 +511,14 @@ export interface SearchBluetoothReq {
   interval: number;
 }
 
+export interface ReplicationSchedulerStartReq {
+  type: 'replicationScheduler.start';
+}
+
+export interface SuggestStartReq {
+  type: 'suggest.start';
+}
+
 export interface ConnStartReq {
   type: 'conn.start';
 }
@@ -590,6 +598,8 @@ export type Req =
   | PublishAboutReq
   | AcceptInviteReq
   | SearchBluetoothReq
+  | ReplicationSchedulerStartReq
+  | SuggestStartReq
   | ConnStartReq
   | ConnConnectReq
   | ConnRememberConnectReq
@@ -663,18 +673,27 @@ async function consumeSink(
         return;
       }
 
+      if (req.type === 'replicationScheduler.start') {
+        ssb.replicationScheduler.start((err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
+      if (req.type === 'suggest.start') {
+        ssb.suggest.start((err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
       if (req.type === 'conn.start') {
-        const [err1] = await runAsync(ssb.conn.start)();
-        if (err1) return console.error(err1.message || err1);
-
-        const [err3] = await runAsync(ssb.suggest.start)();
-        if (err3) return console.error(err3.message || err3);
-
-        source.connStarted$._n(void 0);
-
+        ssb.conn.start((err: any) => {
+          if (err) return console.error(err.message || err);
+          source.connStarted$._n(void 0);
+        });
         // TODO: make a settings plugin in the backend, when it inits it
         // should call ssb.blobsPurge.start if we loaded the amount from fs
-
         return;
       }
 

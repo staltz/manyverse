@@ -17,9 +17,16 @@ export default function ssb(actions: Actions): Stream<Req> {
     .map(toVoteContent)
     .map(contentToPublishReq);
 
-  const startConn$ = actions.initializationDone$
+  const startupRequests$ = actions.initializationDone$
     .take(1)
-    .map(() => ({type: 'conn.start'} as Req));
+    .map(() =>
+      xs.of<Req>(
+        {type: 'conn.start'},
+        {type: 'replicationScheduler.start'},
+        {type: 'suggest.start'},
+      ),
+    )
+    .flatten();
 
-  return xs.merge(addReaction$, startConn$);
+  return xs.merge(addReaction$, startupRequests$);
 }

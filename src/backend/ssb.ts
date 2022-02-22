@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -50,6 +50,10 @@ oneTimeFixes().then(() => {
     friends: {
       hops: settingsUtils.readSync().hops ?? 2,
       hookAuth: false, // because we use ssb-conn-firewall
+    },
+    replicationScheduler: {
+      autostart: false,
+      partialReplication: null,
     },
     suggest: {
       autostart: false,
