@@ -63,7 +63,7 @@ export function pasteInvite(sources: Sources): Sinks {
   const newContent$ = ssb(actions);
   const dismiss$ = xs
     .merge(actions.done$, actions.back$)
-    .mapTo('dismiss' as 'dismiss');
+    .mapTo('dismiss' as const);
 
   const alert$ = actions.dhtInviteDone$.map(() => ({
     type: 'alert' as const,
