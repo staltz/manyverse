@@ -63,7 +63,6 @@ export const styles = StyleSheet.create({
         paddingHorizontal: Dimensions.horizontalSpaceLarge,
         height: '100%',
         width: Dimensions.desktopMiddleWidth.px,
-        // minWidth: '50vw',
         marginVertical: '0',
         marginHorizontal: 'auto',
         minHeight: '50vh',
@@ -76,8 +75,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     ...Platform.select({
       web: {
-        // width: Dimensions.desktopMiddleWidth.px,
-        // minWidth: '50vw',
         minHeight: '50vh',
       },
     }),
