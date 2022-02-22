@@ -62,6 +62,10 @@ export default {
     graph: 'async',
     graphStream: 'source',
   },
+  replicationScheduler: {
+    start: 'sync',
+    reconfigure: 'sync',
+  },
   blobs: {
     get: 'source',
     getSlice: 'source',
