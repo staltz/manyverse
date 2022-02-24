@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import dropRepeats from 'xstream/extra/dropRepeats';
 import debounce from 'xstream/extra/debounce';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {PureComponent, ReactElement, createElement as $} from 'react';
 import {View, Text, Pressable} from 'react-native';
@@ -129,23 +129,19 @@ export default function view(
   const viewState$ = (state$ as Stream<ViewState>)
     .compose(debounce(16)) // avoid quick re-renders
     .compose(
-      dropRepeats((s1, s2) => {
-        return (
-          s1.currentTab === s2.currentTab &&
-          s1.numOfPublicUpdates === s2.numOfPublicUpdates &&
-          s1.numOfPrivateUpdates === s2.numOfPrivateUpdates &&
-          s1.numOfActivityUpdates === s2.numOfActivityUpdates &&
-          (s1.connections === s2.connections ||
-            (s1.connections?.status === s2.connections?.status &&
-              s1.connections?.initializedSSB ===
-                s2.connections?.initializedSSB)) &&
-          s1.name === s2.name &&
-          s1.selfAvatarUrl === s2.selfAvatarUrl &&
-          s1.hasNewVersion === s2.hasNewVersion &&
-          s1.combinedProgress === s2.combinedProgress &&
-          s1.estimateProgressDone === s2.estimateProgressDone
-        );
-      }),
+      dropRepeatsByKeys([
+        'currentTab',
+        'numOfPublicUpdates',
+        'numOfPrivateUpdates',
+        'numOfActivityUpdates',
+        (s: ViewState) => s.connections?.status,
+        (s: ViewState) => s.connections?.initializedSSB,
+        'name',
+        'selfAvatarUrl',
+        'hasNewVersion',
+        'combinedProgress',
+        'estimateProgressDone',
+      ]),
     )
     .startWith(initialViewState);
 
