@@ -172,6 +172,10 @@
       "migrate": {
         "title": "Migrate your SSB account to Manyverse",
         "description": "Manyverse detected an existing SSB account at the common `~/.ssb` directory. If you wish, you can migrate that account to a whole new directory that only Manyverse can access.\n\nOnce migration finishes, **you will NOT be able to use your account with other SSB apps such as Patchwork anymore**, and '.ssb' will be **deleted**, but you can still use those apps with new accounts.\n\nDo you confirm you want to migrate your account from '.ssb' to Manyverse? **This action cannot be undone.**"
+      },
+      "link_failed": {
+        "title": "Account not ready",
+        "description": "You tried to open an SSB link, but your account is not ready yet. Please complete the setup process first, and then try the link again."
       }
     }
   },
@@ -947,10 +951,6 @@
         }
       },
       "restore": {
-        "correct": {
-          "title": "Καλώς ορίσατε πίσω!",
-          "description": "Η ταυτότητα του λογαριασμού σας έχει πλέον αποκατασταθεί.\n\nΤώρα, για να επαναφέρετε τα δεδομένα σας, συνδεθείτε με φίλους που έχουν επικοινωνήσει μαζί σας στο παρελθόν, για να κατεβάσετε ξανά τα δεδομένα σας από αυτούς."
-        },
         "incorrect": {
           "title": "Λανθασμένο",
           "description": {
@@ -1050,6 +1050,32 @@
         "title": "Απαιτείται επανεκκίνηση",
         "description": "Αυτή η ρύθμιση θα τεθεί σε ισχύ μόνο όταν τερματίσετε την εφαρμογή και επανεκκινήσετε το Manyverse."
       }
+    }
+  },
+  "resync": {
+    "introduction": {
+      "title": "Good!",
+      "description": {
+        "1_normal": "Your account's ",
+        "2_bold": "identity",
+        "3_normal": " is now restored.\n\nNow, to recover your ",
+        "4_bold": "data",
+        "5_normal": ", connect with friends that have interacted with you before, to redownload your data from them. There are two ways:"
+      }
+    },
+    "buttons": {
+      "connect_via_wifi": "Connect via Wi-Fi",
+      "paste_invite": "Paste invite code"
+    },
+    "instructions": {
+      "connect_via_wifi": {
+        "title": "Connect via Wi-Fi",
+        "description": "Just connect this device to the same local Wi-Fi as other devices are, keep Manyverse open on those devices, and your data will automatically sync to this device."
+      }
+    },
+    "progress": {
+      "title": "Redownloading data: {{megabytes}}",
+      "description": "Please wait while your data is being recovered from friends."
     }
   },
   "thread": {
