@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
-const urlParse = require('url-parse');
 import {Toast, Duration as ToastDuration} from '~frontend/drivers/toast';
 import {t} from '~frontend/drivers/localization';
 import {SSBSource} from '~frontend/drivers/ssb';
@@ -15,7 +14,7 @@ interface Actions {
 export default function toast(actions: Actions, ssbSource: SSBSource) {
   const consumeAliasResponseToast$ = actions.handleUriConsumeAlias$
     .map((uri) => {
-      const alias = urlParse(uri, true).query!.alias;
+      const alias = new URL(uri).searchParams.get('alias');
       return ssbSource.consumeAliasResponse$.map((feedId) => {
         if (feedId) {
           return {

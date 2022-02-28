@@ -962,13 +962,6 @@ export default [
     homepage: 'https://github.com/staltz/unicode-word-regex#readme',
   },
   {
-    name: 'url-parse',
-    type: 'library',
-    version: '1.5.4',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/unshiftio/url-parse#readme',
-  },
-  {
     name: 'utf-8-validate',
     type: 'library',
     version: '5.0.3',

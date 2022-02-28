@@ -6,7 +6,6 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {Command} from 'cycle-native-navigation';
 import {FeedId, MsgId} from 'ssb-typescript';
-const urlParse = require('url-parse');
 import {Screens} from '~frontend/screens/enums';
 import {navOptions as profileScreenNavOpts} from '~frontend/screens/profile';
 import {Props as ProfileProps} from '~frontend/screens/profile/props';
@@ -32,8 +31,8 @@ export default function navigation(
   const toProfile$ = xs
     .merge(
       actions.goToProfile$.map((ev) => ev.authorFeedId),
-      actions.handleUriConsumeAlias$.map(
-        (uri) => urlParse(uri, true).query!.userId,
+      actions.handleUriConsumeAlias$.map((uri) =>
+        new URL(uri).searchParams.get('userId'),
       ),
     )
     .compose(sampleCombine(state$))

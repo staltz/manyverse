@@ -16,7 +16,6 @@ import {
   toMessageSigil,
 } from 'ssb-uri2';
 const Ref = require('ssb-ref');
-const urlParse = require('url-parse');
 import {
   GlobalEvent,
   TriggerFeedCypherlink,
@@ -115,10 +114,11 @@ export default function intent(
   // Server-initiated SSB HTTP Auth
   const confirmedSignInRoom$ = handleUriStartHttpAuth$
     .map((uri) => {
-      const query = urlParse(uri, true).query;
-      const msaddr = query.multiserverAddress;
+      const u = new URL(uri);
+      const msaddr = u.searchParams.get('multiserverAddress');
       const room = msaddr ? Ref.toAddress(msaddr).host : '';
-      const roomid = query.sid && Ref.isFeed(query.sid) ? query.sid : false;
+      const sid = u.searchParams.get('sid');
+      const roomid = sid && Ref.isFeed(sid) ? sid : false;
       if (!roomid) return xs.never();
 
       return dialogSource
