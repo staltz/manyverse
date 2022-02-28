@@ -322,7 +322,7 @@
       "follow_staged_manually": {
         "part1": {
           "not_connected": "Tus amigos no están en línea en este momento, pero si quieres obtener más contenido, hay algunos compañeros desconocidos en línea en la misma sala(s) que tú. Puedes intentar hacerte amigo de ellos.",
-          "connected": "Si deseas obtener más contenido de lo que ya tienes, puedes seguir a más personas. Hay algunas personas desconocidos actualmente en línea en la misma sala (s) que tu. Puedes intentar hacerte amigo de ellos."
+          "connected": "Si deseas obtener más contenido del que ya tienes, puedes seguir a más gente. Hay algunas personas desconocidas online en la misma sala(s) que tú. Puedes intentar hacerte amigo de ellos."
         },
         "part2": "En la siguiente pantalla, verá compañeros desconocidos mostrados así. Presiona uno de ellos y elije \"Abrir perfil\", luego \"Seguir\"."
       }
@@ -613,7 +613,7 @@
         "accessibility_label": "Mostrar Destinatarios"
       }
     },
-    "load_more": "Load more",
+    "load_more": "Cargar más",
     "notifications": {
       "new_conversation": "Esta es una nueva conversación privada"
     }
@@ -653,8 +653,8 @@
         "accessibility_label": "Mostrar más elementos del Menú"
       },
       "update": {
-        "label": "Update",
-        "accessibility_label": "Update app to latest version"
+        "label": "Actualizar",
+        "accessibility_label": "Actualizar la app a la última versión"
       },
       "settings": {
         "label": "Ajustes",
@@ -669,8 +669,8 @@
     },
     "dialogs": {
       "update": {
-        "title": "Check for new versions?",
-        "description": "Would you like Manyverse to automatically check for new releases?\n\nThis setting is optional and will allow Manyverse to send requests to the manyver.se website periodically."
+        "title": "¿Comprobar actualizaciones?",
+        "description": "¿Te gustaría que Manyverse verifique sus actualizaciones automáticamente?\n\nEsta configuración es opcional y permitirá a Manyverse enviar solicitudes a la web manyverse.se de forma periódica."
       }
     }
   },
@@ -699,7 +699,7 @@
   },
   "profile": {
     "call_to_action": {
-      "copy_uri": "Copy SSB URI",
+      "copy_uri": "Copiar SSB URI",
       "copy_cypherlink": "Copia enlace-cifrado",
       "private_chat": "Abrir conversación privada",
       "block": "Bloquear",
@@ -1102,7 +1102,7 @@
       "copy_blob_id": {
         "accessibility_label": "Copiar ID de Blob"
       },
-      "copy_msg_uri": "Copy SSB URI",
+      "copy_msg_uri": "Copiar SSB URI",
       "copy_msg_id": "Copiar enlace-cifrado",
       "view_raw": "Ver mensaje en crudo"
     },
