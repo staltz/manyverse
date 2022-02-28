@@ -94,60 +94,60 @@
     "off_the_grid": {
       "title": "Fuera de la red",
       "description": {
-        "1_normal": "Manyverse puede usar una conección a internet, pero no está ",
+        "1_normal": "Puede que Manyverse use una conexión a internet, pero no está ",
         "2_bold": "en",
-        "3_normal": " la Internet. Todo pasa aquí mismo en tu dispositivo. Ésto significa que puedes usarlo normalmente aun cuando no estás en línea. Tu ",
+        "3_normal": " internet. Todo pasa aquí mismo, en tu dispositivo. Esto significa que puedes usarlo normalmente incluso si no estás en línea. Tu ",
         "4_bold": "contenido se almacena primero en tu dispositivo",
-        "5_normal": ", y puedes sincronizarlo con tus amigos una vez que te conectes con ellos."
+        "5_normal": ", y puedes sincronizarlo con tus amigos cuando conectes con ellos."
       }
     },
     "connections": {
       "title": "Muchas formas de conectarse",
       "description": {
         "ios": {
-          "1_normal": "Para conectarte con amigos y sincronizar contenido, puedes unirte al mismo ",
+          "1_normal": "Para conectarte con amigos y sincronizar contenido puedes: Unirte a la misma red ",
           "2_bold": "Wi-Fi",
-          "3_normal": ". Para encontrar gente nueva en Internet, busca un código de invitación a un ",
+          "3_normal": ". Para encontrar gente nueva en internet, busca un código de invitación a un ",
           "4_bold": "servidor pub",
-          "5_normal": " o un ",
+          "5_normal": " o a un ",
           "6_bold": "servidor room",
-          "7_normal": ", o crea tu propio servidor!"
+          "7_normal": " ¡O Crea el tuyo propio!"
         },
         "default": {
-          "1_normal": "Para conectarte con amigos y sincronizar contenido, puedes: unirte al mismo ",
+          "1_normal": "Para conectarte con amigos y sincronizar contenido puedes: Unirte a la misma red ",
           "2_bold": "Wi-Fi",
-          "3_normal": ", o usar ",
+          "3_normal": " o usar la ",
           "4_bold": "sincronización por Bluetooth",
-          "5_normal": ". Para encontrar gente nueva en Internet, busca un código de invitación a un ",
+          "5_normal": ". Para encontrar gente nueva en internet, busca un código de invitación a un ",
           "6_bold": "servidor pub",
-          "7_normal": " o un ",
+          "7_normal": " o a un ",
           "8_bold": "servidor room",
-          "9_normal": ", o crea tu propio servidor!"
+          "9_normal": " ¡O Crea el tuyo propio!"
         }
       }
     },
     "moderation": {
       "title": "Moderación compartida",
       "description": {
-        "1_normal": "Debido a que tu dispositivo mantiene tu red social, nadie más puede bloquear o eliminar cuentas en tu nombre. Sólo tú puedes moderar tu espacio, ",
+        "1_normal": "Debido a que tu dispositivo es el que mantiene tu red social, nadie más puede bloquear o elminar cuentas en tu nombre. Sólo tú puedes moderar tu espacio, ",
         "2_bold": "bloqueando cuentas",
-        "3_normal": " que no quieres tener en tu dispositivo. Entonces, tus amigos pueden elegir bloquear esas mismas cuentas. ¡Así es como la moderación puede propagarse naturalmente!"
+        "3_normal": " que no quieres tener en tu dispositivo. Luego, tus amigos pueden elegir bloquear esas mismas cuentas ¡Así es como la moderación puede propagarse de forma natural!"
       }
     },
     "permanence": {
       "title": "Permanencia",
       "description": {
-        "1_normal": "Una vez que tu contenido se sincroniza con amigos, ellos ahora poseen una copia del mismo en sus dispositivos. Ya que podrían desconectarse después de eso, éso es ",
-        "2_bold": "imposible de eliminar",
-        "3_normal": " tu contenido globalmente desde todos los dispositivos! Es por éso que hemos elegido hacer que el contenido sea permanente. Ésto también crea comunidades más respetuosas y consideradas respecto a lo que se publica."
+        "1_normal": "Una vez que tu contenido se ha sincronizado con amigos, ellos poseerán una copia del mismo en sus dispositivos. Ya que podrían desconectarse después de ello, es ",
+        "2_bold": "imposible eliminar",
+        "3_normal": " tu contenido globalmente de todos los dispositivos. Por eso hemos elegido hacer que el contenido sea permanente. Con ello conseguimos crear comunidades más respetuosas y consideradas con lo que se publica."
       }
     },
     "in_construction": {
       "title": "¡En construcción!",
       "description": {
-        "1_normal": "Manyverse es ",
-        "2_bold": "software de calidad \"beta\"",
-        "3_normal": ". Todavía no hemos resuelto todo y algunas partes requieren arreglos. Durante la sincronización, la aplicación puede aparentar estar congelada durante varios minutos. ¡Ten paciencia! Infórmanos de cualquier otro fallo que llegues a encontrar, y con suficiente tiempo y donativos, podremos hacer de esta una gran aplicación."
+        "1_normal": "Manyverse es un ",
+        "2_bold": "software \"beta\"",
+        "3_normal": ". Todavía no hemos resuelto todo y algunas partes requieren arreglos. Durante la sincronización, puede parecer que la app está congelada durante varios minutos ¡Ten paciencia! Infórmanos de cualquier otro fallo que puedas encontrar, y con el suficiente tiempo y donativos, podremos hacer de esta una gran aplicación."
       }
     },
     "setup_account": {
