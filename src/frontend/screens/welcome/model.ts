@@ -19,7 +19,7 @@ export interface State {
 
 interface Actions {
   pageChanged$: Stream<number>;
-  skipOrNot$: Stream<boolean>;
+  stayOnWelcome$: Stream<any>;
 }
 
 export default function model(
@@ -78,11 +78,11 @@ export default function model(
       },
   );
 
-  const setReadyReducer$ = actions.skipOrNot$
-    .filter((skip) => skip === false)
-    .mapTo(function setReadyReducer(prev: State): State {
+  const setReadyReducer$ = actions.stayOnWelcome$.mapTo(
+    function setReadyReducer(prev: State): State {
       return {...prev, readyToStart: true};
-    });
+    },
+  );
 
   const updateIndexReducer$ = actions.pageChanged$.map(
     (newIndex: number) =>

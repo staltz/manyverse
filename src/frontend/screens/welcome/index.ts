@@ -15,8 +15,9 @@ import {SplashCommand} from '~frontend/drivers/splashscreen';
 import {FSSource} from '~frontend/drivers/fs';
 import {GlobalEvent} from '~frontend/drivers/eventbus';
 import {WindowSize} from '~frontend/drivers/window-size';
-import {DialogSource} from '~frontend/drivers/dialogs';
+import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import navigation from './navigation';
+import alert from './alert';
 import view from './view';
 import intent from './intent';
 import model, {State} from './model';
@@ -29,6 +30,7 @@ export interface Sources {
   navigation: NavSource;
   globalEventBus: Stream<GlobalEvent>;
   fs: FSSource;
+  linking: Stream<string>;
   state: StateSource<State>;
   dialog: DialogSource;
   ssb: SSBSource;
@@ -40,6 +42,7 @@ export interface Sinks {
   state: Stream<Reducer<State>>;
   linking: Stream<string>;
   ssb: Stream<Req>;
+  dialog: Stream<AlertCommand>;
   splashscreen: Stream<SplashCommand>;
 }
 
@@ -59,27 +62,36 @@ export const navOptions = {
 };
 
 export function welcome(sources: Sources): Sinks {
+  const state$ = sources.state.stream;
+
   const actions = intent(
     sources.globalEventBus,
     sources.screen,
+    sources.linking,
     sources.fs,
     sources.dialog,
     sources.asyncstorage,
+    state$,
   );
-  const skip$ = actions.skipOrNot$.filter((skip) => skip === true);
-  const ssb$ = xs.merge(
-    actions.createAccount$.mapTo({type: 'identity.create'} as Req),
-    actions.migrateAccount$.mapTo({type: 'identity.migrate'} as Req),
-    skip$.mapTo({type: 'identity.use'} as Req),
-  );
-  const command$ = navigation(actions);
-  const vdom$ = view(sources.state.stream, actions);
+
   const reducer$ = model(
     actions,
     sources.orientation,
     sources.windowSize,
     sources.fs,
   );
+
+  const ssb$ = xs.merge(
+    actions.createAccount$.mapTo({type: 'identity.create'} as Req),
+    actions.migrateAccount$.mapTo({type: 'identity.migrate'} as Req),
+    actions.skipToCentral$.mapTo({type: 'identity.use'} as Req),
+  );
+
+  const command$ = navigation(actions, sources.navigation);
+
+  const vdom$ = view(state$, actions);
+
+  const alert$ = alert(actions);
 
   const hideSplash$ = vdom$.take(1).mapTo('hide' as const);
 
@@ -99,5 +111,6 @@ export function welcome(sources: Sources): Sinks {
     ssb: ssb$,
     linking: visitLinks$,
     splashscreen: hideSplash$,
+    dialog: alert$,
   };
 }

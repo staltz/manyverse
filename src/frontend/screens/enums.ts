@@ -28,6 +28,7 @@ export enum Screens {
   Instructions = 'Manyverse.Instructions',
   SecretOutput = 'Manyverse.SecretOutput',
   SecretInput = 'Manyverse.SecretInput',
+  Resync = 'Manyverse.Resync',
   RawDatabase = 'Manyverse.RawDatabase',
   RawMessage = 'Manyverse.RawMessage',
   Settings = 'Manyverse.Settings',

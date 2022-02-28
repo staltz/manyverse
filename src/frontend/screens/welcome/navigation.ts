@@ -3,45 +3,64 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Command} from 'cycle-native-navigation';
+import delay from 'xstream/extra/delay';
+import {Command, NavSource} from 'cycle-native-navigation';
 import {navOptions as secretInputNavOpts} from '~frontend/screens/secret-input';
 import {Screens} from '~frontend/screens/enums';
 import {navOptions as centralNavOpts} from '~frontend/screens/central';
 import {navOptions as migratingNavOpts} from '~frontend/screens/migrating/layout';
+import {navOptions as resyncNavOpts} from '~frontend/screens/resync';
 
 export interface Actions {
   createAccount$: Stream<any>;
   restoreAccount$: Stream<any>;
   migrateAccount$: Stream<any>;
-  skipOrNot$: Stream<boolean>;
+  skipToCentral$: Stream<any>;
+  skipToResync$: Stream<any>;
 }
 
-export default function navigation(actions: Actions): Stream<Command> {
-  const skipWelcome$ = actions.skipOrNot$.filter((skip) => skip === true);
-
-  const goToCentral$ = xs.merge(actions.createAccount$, skipWelcome$).mapTo({
-    type: 'setStackRoot',
-    layout: {
-      sideMenu: {
-        left: {
-          component: {name: Screens.Drawer},
-        },
-        center: {
-          stack: {
-            id: 'mainstack',
-            children: [
-              {
-                component: {
-                  name: Screens.Central,
-                  options: centralNavOpts,
+export default function navigation(
+  actions: Actions,
+  navSource: NavSource,
+): Stream<Command> {
+  const goToCentral$ = xs
+    .merge(actions.createAccount$, actions.skipToCentral$)
+    .mapTo({
+      type: 'setStackRoot',
+      layout: {
+        sideMenu: {
+          left: {
+            component: {name: Screens.Drawer},
+          },
+          center: {
+            stack: {
+              id: 'mainstack',
+              children: [
+                {
+                  component: {
+                    name: Screens.Central,
+                    options: centralNavOpts,
+                  },
                 },
-              },
-            ],
+              ],
+            },
           },
         },
       },
-    },
-  } as Command);
+    } as Command);
+
+  const goToResync$ = actions.skipToResync$
+    .compose(delay(100))
+    .endWhen(navSource.globalDidAppear(Screens.Resync))
+    .mapTo({
+      type: 'push',
+      layout: {
+        component: {
+          name: Screens.Resync,
+          options: resyncNavOpts,
+        },
+      },
+    } as Command);
 
   const goToMigrating$ = actions.migrateAccount$.mapTo({
     type: 'push',
@@ -66,5 +85,5 @@ export default function navigation(actions: Actions): Stream<Command> {
     },
   } as Command);
 
-  return xs.merge(goToCentral$, goToMigrating$, goToSecretInput$);
+  return xs.merge(goToCentral$, goToResync$, goToMigrating$, goToSecretInput$);
 }

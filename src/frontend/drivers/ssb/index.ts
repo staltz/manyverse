@@ -82,7 +82,6 @@ export class SSBSource {
   public indexingProgress$: Stream<number>;
   public acceptInviteResponse$: Stream<true | string>;
   public consumeAliasResponse$: Stream<FeedId | false>;
-  public connStarted$: Stream<void>;
   public peers$: Stream<Array<PeerKV>>;
   public stagedPeers$: Stream<Array<StagedPeerKV>>;
   public bluetoothScanState$: Stream<any>;
@@ -161,7 +160,6 @@ export class SSBSource {
     );
 
     this.acceptInviteResponse$ = xs.create<true | string>();
-    this.connStarted$ = xs.create<void>();
     this.consumeAliasResponse$ = xs.create<FeedId>();
 
     this.peers$ = this.fromPullStream<Array<PeerKV>>((ssb) =>
@@ -468,6 +466,10 @@ export class SSBSource {
     );
   }
 
+  public getLogSize$(): Stream<number> {
+    return this.fromPullStream<number>((ssb) => ssb.resyncUtils.progress());
+  }
+
   public readSettings(): Stream<{
     hops?: number;
     blobsStorageLimit?: number;
@@ -503,7 +505,12 @@ export interface PublishAboutReq {
 
 export interface AcceptInviteReq {
   type: 'invite.accept';
-  invite: string;
+  opts:
+    | string
+    | {
+        invite: string;
+        shouldPublish?: boolean;
+      };
 }
 
 export interface SearchBluetoothReq {
@@ -548,6 +555,20 @@ export interface ConnDisconnectForgetReq {
 export interface ConnForgetReq {
   type: 'conn.forget';
   address: string;
+}
+
+export interface ConnRebootReq {
+  type: 'connReboot';
+}
+
+export interface EbtRequestReq {
+  type: 'ebt.request';
+  id: FeedId;
+  requesting: boolean;
+}
+
+export interface EnableFirewallReq {
+  type: 'resyncUtils.enableFirewall';
 }
 
 export interface RoomConsumeInviteUri {
@@ -606,6 +627,9 @@ export type Req =
   | ConnDisconnectReq
   | ConnDisconnectForgetReq
   | ConnForgetReq
+  | ConnRebootReq
+  | EbtRequestReq
+  | EnableFirewallReq
   | RoomConsumeInviteUri
   | RoomSignInUri
   | RoomConsumeAliasUri
@@ -667,7 +691,7 @@ async function consumeSink(
       }
 
       if (req.type === 'invite.accept') {
-        ssb.invite.accept(req.invite, (err: any) => {
+        ssb.invite.accept(req.opts, (err: any) => {
           source.acceptInviteResponse$._n(err ? err.message || err : true);
         });
         return;
@@ -690,7 +714,6 @@ async function consumeSink(
       if (req.type === 'conn.start') {
         ssb.conn.start((err: any) => {
           if (err) return console.error(err.message || err);
-          source.connStarted$._n(void 0);
         });
         // TODO: make a settings plugin in the backend, when it inits it
         // should call ssb.blobsPurge.start if we loaded the amount from fs
@@ -770,6 +793,28 @@ async function consumeSink(
         if (e1) return console.error(e1.message || e1);
         const [e2] = await runAsync(ssb.conn.forget)(addr);
         if (e2) return console.error(e2.message || e2);
+        return;
+      }
+
+      if (req.type === 'connReboot') {
+        const [e1] = await runAsync(ssb.conn.stop)();
+        if (e1) return console.error(e1.message || e1);
+        const [e2] = await runAsync(ssb.conn.start)();
+        if (e2) return console.error(e2.message || e2);
+        return;
+      }
+
+      if (req.type === 'ebt.request') {
+        ssb.ebt.request(req.id, req.requesting, null, (err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
+      if (req.type === 'resyncUtils.enableFirewall') {
+        ssb.resyncUtils.enableFirewall((err: any) => {
+          if (err) return console.error(err.message || err);
+        });
         return;
       }
 

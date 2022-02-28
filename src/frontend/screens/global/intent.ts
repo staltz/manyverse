@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import delay from 'xstream/extra/delay';
 import {NativeModules, Platform} from 'react-native';
+import {NavSource} from 'cycle-native-navigation';
 import {
   isFeedSSBURI,
   isMessageSSBURI,
@@ -22,20 +23,26 @@ import {
   TriggerHashtagLink,
   TriggerMsgCypherlink,
 } from '~frontend/drivers/eventbus';
-import {SSBSource} from '~frontend/drivers/ssb';
 import {AlertAction, DialogSource} from '~frontend/drivers/dialogs';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
+import {Screens} from '~frontend/screens/enums';
 import {State} from './model';
 
 export default function intent(
   globalEventBus: Stream<GlobalEvent>,
+  navSource: NavSource,
   linkingSource: Stream<string>,
   dialogSource: DialogSource,
-  ssbSource: SSBSource,
   state$: Stream<State>,
 ) {
-  const canNowHandleLinks$ = ssbSource.connStarted$;
+  const hasSelfFeedId$ = state$.map((state) => !!state.selfFeedId);
+  const centralAppeared$ = navSource.globalDidAppear(Screens.Central).take(1);
+
+  const canNowHandleLinks$ = xs
+    .combine(hasSelfFeedId$, centralAppeared$)
+    .filter(([hasSelfFeedId]) => hasSelfFeedId)
+    .take(1);
 
   let responseCheckingNewVersion$: Stream<AlertAction>;
   if (

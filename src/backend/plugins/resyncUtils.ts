@@ -1,16 +1,20 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {FeedId, Msg} from 'ssb-typescript';
+import {FeedId} from 'ssb-typescript';
+import {Callback} from './helpers/types';
 
 export = {
   name: 'resyncUtils',
   version: '1.0.0',
-  manifest: {},
+  manifest: {
+    progress: 'source',
+    enableFirewall: 'sync',
+  },
   permissions: {
     master: {
-      allow: [],
+      allow: ['progress', 'enableFirewall'],
     },
   },
   init(ssb: any, config: any) {
@@ -22,17 +26,25 @@ export = {
 
       // Our feed is empty, so temporarily disable firewall for strangers
       ssb.connFirewall.reconfigure({rejectUnknown: false});
-
-      // Re-enable firewall when our first msg is detected
-      let unsubscribeDB = ssb.post((msg: Msg) => {
-        if (msg.value.author === ssb.id) {
-          ssb.connFirewall.reconfigure({
-            rejectUnknown: config.conn?.firewall?.rejectUnknown ?? true,
-          });
-          unsubscribeDB?.();
-          unsubscribeDB = null;
-        }
-      }, false);
     });
+
+    return {
+      progress() {
+        return function progressSource(errOrEnd: any, cb: Callback<number>) {
+          if (errOrEnd) return cb(errOrEnd);
+          const timeout = setTimeout(() => {
+            const stats = ssb.db.getStatus().value;
+            cb(null, stats.log);
+          }, 500) as any as NodeJS.Timeout;
+          timeout.unref();
+        };
+      },
+
+      enableFirewall() {
+        ssb.connFirewall.reconfigure({
+          rejectUnknown: config.conn?.firewall?.rejectUnknown ?? true,
+        });
+      },
+    };
   },
 };

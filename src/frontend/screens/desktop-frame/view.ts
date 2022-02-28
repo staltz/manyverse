@@ -107,6 +107,7 @@ type ViewState = Pick<State, 'currentTab'> &
   Pick<State, 'name'> &
   Pick<State, 'selfAvatarUrl'> &
   Pick<State, 'hasNewVersion'> &
+  Pick<State, 'showButtons'> &
   Pick<State, 'combinedProgress'> &
   Pick<State, 'estimateProgressDone'>;
 
@@ -122,6 +123,7 @@ export default function view(
     numOfActivityUpdates: 0,
     selfAvatarUrl: '',
     hasNewVersion: false,
+    showButtons: false,
     combinedProgress: 0,
     estimateProgressDone: 0,
   };
@@ -139,6 +141,7 @@ export default function view(
         'name',
         'selfAvatarUrl',
         'hasNewVersion',
+        'showButtons',
         'combinedProgress',
         'estimateProgressDone',
       ]),
@@ -184,77 +187,80 @@ export default function view(
             ),
           ]),
 
-          h(View, {style: styles.leftMenu}, [
-            h(PublicTabIcon, {
-              style: styles.leftMenuTabButton,
-              isSelected: state.currentTab === 'public',
-              numOfUpdates: state.numOfPublicUpdates,
-            }),
-            h(PrivateTabIcon, {
-              style: styles.leftMenuTabButton,
-              isSelected: state.currentTab === 'private',
-              numOfUpdates: state.numOfPrivateUpdates,
-            }),
-            h(ActivityTabIcon, {
-              style: styles.leftMenuTabButton,
-              isSelected: state.currentTab === 'activity',
-              numOfUpdates: state.numOfActivityUpdates,
-            }),
-            h(ConnectionsTabIcon, {
-              style: styles.leftMenuTabButton,
-              isSelected: state.currentTab === 'connections',
-              status,
-              allowWarningColors: initializedSSB,
-            }),
+          state.showButtons
+            ? h(View, {style: styles.leftMenu}, [
+                h(PublicTabIcon, {
+                  style: styles.leftMenuTabButton,
+                  isSelected: state.currentTab === 'public',
+                  numOfUpdates: state.numOfPublicUpdates,
+                }),
+                h(PrivateTabIcon, {
+                  style: styles.leftMenuTabButton,
+                  isSelected: state.currentTab === 'private',
+                  numOfUpdates: state.numOfPrivateUpdates,
+                }),
+                h(ActivityTabIcon, {
+                  style: styles.leftMenuTabButton,
+                  isSelected: state.currentTab === 'activity',
+                  numOfUpdates: state.numOfActivityUpdates,
+                }),
+                h(ConnectionsTabIcon, {
+                  style: styles.leftMenuTabButton,
+                  isSelected: state.currentTab === 'connections',
+                  status,
+                  allowWarningColors: initializedSSB,
+                }),
 
-            h(View, {style: styles.spacer}),
+                h(View, {style: styles.spacer}),
 
-            state.hasNewVersion
-              ? h(ExtraButton, {
-                  sel: 'new-version',
-                  label: t('drawer.menu.update.label'),
-                  accessibilityLabel: t(
-                    'drawer.menu.update.accessibility_label',
-                  ),
-                  iconName: 'update',
-                })
-              : null,
-
-            h(TabIcon, {
-              style: styles.leftMenuTabButton,
-              sel: 'more',
-              iconName: 'dots-horizontal',
-              label: t('drawer.menu.more.label'),
-              accessibilityLabel: t('drawer.menu.more.accessibility_label'),
-            }),
-            h(TabIcon, {
-              style: styles.leftMenuTabButton,
-              sel: 'settings',
-              iconName: 'cog',
-              label: t('drawer.menu.settings.label'),
-              accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
-            }),
-            h(TabIcon, {
-              style: styles.myProfileButton,
-              sel: 'self-profile',
-              iconName: 'account-circle',
-              label: state.name ?? t('drawer.menu.my_profile.label'),
-              accessibilityLabel: t(
-                'drawer.menu.my_profile.accessibility_label',
-              ),
-              renderIconExtras: () =>
-                state.selfAvatarUrl
-                  ? h(Avatar, {
-                      style: styles.avatar,
-                      size: Dimensions.iconSizeNormal,
-                      backgroundColor: Palette.textWeak,
-                      url: state.selfAvatarUrl,
+                state.hasNewVersion
+                  ? h(ExtraButton, {
+                      sel: 'new-version',
+                      label: t('drawer.menu.update.label'),
+                      accessibilityLabel: t(
+                        'drawer.menu.update.accessibility_label',
+                      ),
+                      iconName: 'update',
                     })
                   : null,
-            }),
-          ]),
-        ]),
 
+                h(TabIcon, {
+                  style: styles.leftMenuTabButton,
+                  sel: 'more',
+                  iconName: 'dots-horizontal',
+                  label: t('drawer.menu.more.label'),
+                  accessibilityLabel: t('drawer.menu.more.accessibility_label'),
+                }),
+                h(TabIcon, {
+                  style: styles.leftMenuTabButton,
+                  sel: 'settings',
+                  iconName: 'cog',
+                  label: t('drawer.menu.settings.label'),
+                  accessibilityLabel: t(
+                    'drawer.menu.settings.accessibility_label',
+                  ),
+                }),
+                h(TabIcon, {
+                  style: styles.myProfileButton,
+                  sel: 'self-profile',
+                  iconName: 'account-circle',
+                  label: state.name ?? t('drawer.menu.my_profile.label'),
+                  accessibilityLabel: t(
+                    'drawer.menu.my_profile.accessibility_label',
+                  ),
+                  renderIconExtras: () =>
+                    state.selfAvatarUrl
+                      ? h(Avatar, {
+                          style: styles.avatar,
+                          size: Dimensions.iconSizeNormal,
+                          backgroundColor: Palette.textWeak,
+                          url: state.selfAvatarUrl,
+                        })
+                      : null,
+                }),
+              ])
+            : null,
+        ]),
         h(View, {style: styles.centerAndRight}, [...children]),
       ]);
     });

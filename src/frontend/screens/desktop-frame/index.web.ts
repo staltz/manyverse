@@ -3,11 +3,11 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Command, NavSource, StackElement} from 'cycle-native-navigation';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
-import {HTTPSource, RequestInput as HTTPReq} from '@cycle/http';
 import {Reducer, StateSource} from '@cycle/state';
+import {HTTPSource, RequestInput as HTTPReq} from '@cycle/http';
+import {Command, NavSource, StackElement} from 'cycle-native-navigation';
 import {GlobalEvent} from '~frontend/drivers/eventbus';
 import {SSBSource} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
@@ -69,7 +69,12 @@ export function desktopFrame(sources: Sources): Sinks {
     .mapTo(true)
     .startWith(false);
 
-  const reducer$ = model(actions, sources.globalEventBus, sources.ssb);
+  const reducer$ = model(
+    actions,
+    sources.navigation,
+    sources.globalEventBus,
+    sources.ssb,
+  );
 
   const vdom$ = view(state$, sources.children, localizationLoaded$);
 

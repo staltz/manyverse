@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import delay from 'xstream/extra/delay';
 import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
@@ -12,13 +13,16 @@ import {GlobalEvent} from '~frontend/drivers/eventbus';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {Palette} from '~frontend/global-styles/palette';
 import {t} from '~frontend/drivers/localization';
+import {State} from './model';
 
 export default function intent(
   globalEventBus: Stream<GlobalEvent>,
   screenSource: ReactSource,
+  linkingSource: Stream<string>,
   fsSource: FSSource,
   dialogSource: DialogSource,
   storageSource: AsyncStorageSource,
+  state$: Stream<State>,
 ) {
   const isWeb = Platform.OS === 'web';
   const oldLogPath = isWeb
@@ -48,10 +52,21 @@ export default function intent(
 
   const hasBeenVisited$ = storageSource.getItem('latestVisit').map((x) => !!x);
 
+  const resyncingInProgress$ = storageSource
+    .getItem('resyncing')
+    .map((x) => !!x);
+
   const localizationLoaded$ = globalEventBus
     .filter((ev) => ev.type === 'localizationLoaded')
     .take(1)
     .mapTo(true);
+
+  const dataToChooseNextScreen$ = xs.combine(
+    localizationLoaded$,
+    accountExists$,
+    hasBeenVisited$,
+    resyncingInProgress$,
+  );
 
   return {
     createAccount$: screenSource.select('create-account').events('press'),
@@ -77,12 +92,39 @@ export default function intent(
       )
       .flatten(),
 
-    skipOrNot$: xs
-      .combine(localizationLoaded$, accountExists$, hasBeenVisited$)
+    openUriBeforeReady$: state$
+      .filter((state) => state.readyToStart)
+      .take(1)
+      .map(() =>
+        linkingSource
+          .filter((uri) => uri.startsWith('ssb:'))
+          .compose(delay(500)),
+      )
+      .flatten(),
+
+    stayOnWelcome$: dataToChooseNextScreen$
       .map(
-        ([localizationLoaded, accountExists, hasBeenVisited]) =>
-          localizationLoaded && (accountExists || hasBeenVisited),
-      ),
+        ([localizationLoaded, accountExists, hasBeenVisited, resyncing]) =>
+          localizationLoaded && !accountExists && !hasBeenVisited && !resyncing,
+      )
+      .filter((x) => x === true)
+      .mapTo(null),
+
+    skipToCentral$: dataToChooseNextScreen$
+      .map(
+        ([localizationLoaded, accountExists, hasBeenVisited, resyncing]) =>
+          localizationLoaded && (accountExists || hasBeenVisited) && !resyncing,
+      )
+      .filter((x) => x === true)
+      .mapTo(null),
+
+    skipToResync$: dataToChooseNextScreen$
+      .map(
+        ([localizationLoaded, accountExists, hasBeenVisited, resyncing]) =>
+          localizationLoaded && resyncing,
+      )
+      .filter((x) => x === true)
+      .mapTo(null),
 
     scrollBy$: xs
       .merge(

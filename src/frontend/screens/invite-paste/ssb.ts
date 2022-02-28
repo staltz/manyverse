@@ -17,7 +17,10 @@ export default function ssb(actions: Actions) {
     (inviteCode) =>
       ({
         type: 'invite.accept',
-        invite: inviteCode,
+        opts: {
+          invite: inviteCode,
+          shouldPublish: false,
+        },
       } as Req),
   );
 

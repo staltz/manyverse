@@ -6,7 +6,7 @@ import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '~frontend/screens/enums';
-import {navOptions as centralNavOpts} from '~frontend/screens/central';
+import {navOptions as resyncNavOpts} from '~frontend/screens/resync';
 import {State} from './model';
 
 interface Actions {
@@ -23,30 +23,17 @@ export default function navigation(
 
     confirmation$
       .filter((x) => x === true)
+      .take(1)
       .compose(sample(state$))
       .map((state) =>
         state.practiceMode
           ? ({type: 'popToRoot'} as Command)
           : ({
-              type: 'setStackRoot',
+              type: 'push',
               layout: {
-                sideMenu: {
-                  left: {
-                    component: {name: Screens.Drawer},
-                  },
-                  center: {
-                    stack: {
-                      id: 'mainstack',
-                      children: [
-                        {
-                          component: {
-                            name: Screens.Central,
-                            options: centralNavOpts,
-                          },
-                        },
-                      ],
-                    },
-                  },
+                component: {
+                  name: Screens.Resync,
+                  options: resyncNavOpts,
                 },
               },
             } as Command),

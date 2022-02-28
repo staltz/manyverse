@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
+import {NavSource} from 'cycle-native-navigation';
 import {SSBSource} from '~frontend/drivers/ssb';
 import {
   CentralUpdateActivity,
@@ -19,6 +20,7 @@ import progressCalculation, {
   INITIAL_STATE as INITIAL_PROGRESS_STATE,
 } from '~frontend/components/progressCalculation';
 import currentVersion from '~frontend/versionName';
+import {Screens} from '~frontend/screens/enums';
 
 export interface State extends ProgressState {
   selfFeedId: FeedId;
@@ -32,6 +34,7 @@ export interface State extends ProgressState {
     stagedPeers: Array<StagedPeerKV>;
     initializedSSB: boolean;
   };
+  showButtons: boolean;
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;
   numOfActivityUpdates: number;
@@ -46,6 +49,7 @@ interface Actions {
 
 export default function model(
   actions: Actions,
+  navSource: NavSource,
   globalEventBus: Stream<GlobalEvent>,
   ssbSource: SSBSource,
 ) {
@@ -81,6 +85,7 @@ export default function model(
             numOfActivityUpdates: 0,
             allowCheckingNewVersion: false,
             hasNewVersion: false,
+            showButtons: false,
             ...INITIAL_PROGRESS_STATE,
           };
         } else {
@@ -109,6 +114,7 @@ export default function model(
               numOfActivityUpdates: 0,
               allowCheckingNewVersion: false,
               hasNewVersion: false,
+              showButtons: false,
               ...INITIAL_PROGRESS_STATE,
             };
           } else {
@@ -118,6 +124,16 @@ export default function model(
               name,
             };
           }
+        },
+    );
+
+  const updateShowButtonsReducer$ = navSource
+    .globalDidAppear(Screens.Central)
+    .take(1)
+    .map(
+      () =>
+        function updateShowButtonsReducer(prev: State): State {
+          return {...prev, showButtons: true};
         },
     );
 
@@ -227,6 +243,7 @@ export default function model(
     selfFeedIdReducer$,
     aboutReducer$,
     changeTabReducer$,
+    updateShowButtonsReducer$,
     updatePublicCounterReducer$,
     updatePrivateCounterReducer$,
     updateActivityCounterReducer$,

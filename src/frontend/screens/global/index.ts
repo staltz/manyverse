@@ -3,15 +3,16 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Command} from 'cycle-native-navigation';
+import {Command, NavSource} from 'cycle-native-navigation';
 import {Reducer, StateSource} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {GlobalEvent} from '~frontend/drivers/eventbus';
 import {Req, SSBSource} from '~frontend/drivers/ssb';
 import {Command as LocalizationCmd} from '~frontend/drivers/localization';
-import {FSSource} from '~frontend/drivers/fs';
 import {DialogSource} from '~frontend/drivers/dialogs';
+import {FSSource} from '~frontend/drivers/fs';
 import {Toast} from '~frontend/drivers/toast';
+import {Screens} from '~frontend/screens/enums';
 import model, {State} from './model';
 import intent from './intent';
 import navigation from './navigation';
@@ -23,6 +24,7 @@ export interface Sources {
   state: StateSource<State>;
   ssb: SSBSource;
   fs: FSSource;
+  navigation: NavSource;
   globalEventBus: Stream<GlobalEvent>;
   linking: Stream<string>;
   asyncstorage: AsyncStorageSource;
@@ -42,9 +44,9 @@ export function global(sources: Sources): Sinks {
   const state$ = sources.state.stream;
   const actions = intent(
     sources.globalEventBus,
+    sources.navigation,
     sources.linking,
     sources.dialog,
-    sources.ssb,
     state$,
   );
   const cmd$ = navigation(actions, state$);
@@ -53,13 +55,10 @@ export function global(sources: Sources): Sinks {
   const req$ = ssb(updateLocalization$, actions);
   const toast$ = toast(actions, sources.ssb);
 
-  /**
-   * Hack to solve race conditions elsewhere (e.g. Welcome screen).
-   * TODO: ideally there should be no synchronous race conditions between
-   * the different sources/sinks managed by cycle-native-navigation
-   */
-  const hackLocalizationLoaded$ = updateLocalization$
-    .map(() => xs.periodic(300).take(3))
+  const localizationLoaded$ = sources.navigation
+    .globalDidAppear(Screens.Welcome)
+    .take(1)
+    .map(() => updateLocalization$.take(1))
     .flatten()
     .mapTo({type: 'localizationLoaded'} as GlobalEvent);
 
@@ -67,7 +66,7 @@ export function global(sources: Sources): Sinks {
     .take(1)
     .mapTo({type: 'approveCheckingNewVersion'} as GlobalEvent);
 
-  const event$ = xs.merge(hackLocalizationLoaded$, approveCheckingNewVersion$);
+  const event$ = xs.merge(localizationLoaded$, approveCheckingNewVersion$);
 
   return {
     navigation: cmd$,

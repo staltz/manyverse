@@ -58,6 +58,7 @@ import {backup} from './screens/backup';
 import {instructions} from './screens/instructions';
 import {secretOutput} from './screens/secret-output';
 import {secretInput} from './screens/secret-input';
+import {resync} from './screens/resync';
 import {settings} from './screens/settings';
 
 export const drivers = {
@@ -123,6 +124,7 @@ export const screens: ScreensMapping = {
   [Screens.Instructions]: withState(instructions),
   [Screens.SecretOutput]: withState(secretOutput),
   [Screens.SecretInput]: withState(secretInput),
+  [Screens.Resync]: withState(resync),
   [Screens.RawDatabase]: rawDatabase,
   [Screens.RawMessage]: rawMessage,
   [Screens.Settings]: withState(settings),

@@ -43,7 +43,7 @@
     "ssb-friends": "5.1.0",
     "ssb-http-auth-client": "1.0.0",
     "ssb-http-invite-client": "1.0.0",
-    "ssb-invite-client": "1.2.1",
+    "ssb-invite-client": "1.3.2",
     "ssb-keys-mnemonic": "~1.0.1",
     "ssb-keys": "8.2.0",
     "ssb-lan": "1.2.3",

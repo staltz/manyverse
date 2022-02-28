@@ -15,8 +15,6 @@ interface Actions {
 }
 
 function renderContent(response: RestoreIdentityResponse): string {
-  const CORRECT = t('secret_input.dialogs.restore.correct.description');
-
   const TRY_AGAIN = t(
     'secret_input.dialogs.restore.incorrect.description.try_again',
   );
@@ -45,19 +43,22 @@ function renderContent(response: RestoreIdentityResponse): string {
     '\n\n' +
     TRY_AGAIN;
 
-  return response === 'IDENTITY_READY'
-    ? CORRECT
-    : response === 'INCORRECT'
-    ? INCORRECT
-    : response === 'OVERWRITE_RISK'
-    ? OVERWRITE_RISK
-    : response === 'WRONG_LENGTH'
-    ? WRONG_LENGTH
-    : response === 'TOO_LONG'
-    ? TOO_LONG
-    : response === 'TOO_SHORT'
-    ? TOO_SHORT
-    : INCORRECT;
+  switch (response) {
+    case 'IDENTITY_READY':
+      throw new Error('Unreachable');
+    case 'INCORRECT':
+      return INCORRECT;
+    case 'OVERWRITE_RISK':
+      return OVERWRITE_RISK;
+    case 'WRONG_LENGTH':
+      return WRONG_LENGTH;
+    case 'TOO_LONG':
+      return TOO_LONG;
+    case 'TOO_SHORT':
+      return TOO_SHORT;
+    default:
+      return INCORRECT;
+  }
 }
 
 export default function dialog(
@@ -103,20 +104,21 @@ export default function dialog(
     .map((state) => ssbSource.restoreIdentity$(state.inputWords))
     .flatten()
     .map((response) => {
-      const passed = response === 'IDENTITY_READY';
-      return dialogSource
-        .alert(
-          passed
-            ? t('secret_input.dialogs.restore.correct.title')
-            : t('secret_input.dialogs.restore.incorrect.title'),
-          renderContent(response),
-          {
-            ...Palette.dialogColors,
-            positiveColor: Palette.textDialogStrong,
-            positiveText: t('call_to_action.ok'),
-          },
-        )
-        .mapTo(passed);
+      if (response === 'IDENTITY_READY') {
+        return xs.of(true);
+      } else {
+        return dialogSource
+          .alert(
+            t('secret_input.dialogs.restore.incorrect.title'),
+            renderContent(response),
+            {
+              ...Palette.dialogColors,
+              positiveColor: Palette.textDialogStrong,
+              positiveText: t('call_to_action.ok'),
+            },
+          )
+          .mapTo(false);
+      }
     })
     .flatten();
 
