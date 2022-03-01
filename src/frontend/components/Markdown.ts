@@ -363,54 +363,74 @@ function makeRenderers(
         }
       }
 
+      const onPressCypherlink = () => {
+        if (feedId) {
+          GlobalEventBus.dispatch({
+            type: 'triggerFeedCypherlink',
+            feedId,
+          });
+        } else if (msgId) {
+          GlobalEventBus.dispatch({
+            type: 'triggerMsgCypherlink',
+            msgId,
+          });
+        } else if (hashtag) {
+          GlobalEventBus.dispatch({
+            type: 'triggerHashtagLink',
+            hashtag,
+          });
+        } else {
+          throw new Error('unreachable');
+        }
+      };
+
       if (isSSBLink) {
-        return $(
-          Text,
-          {
-            ...textProps,
-            style: styles.cypherlink,
-            onPress: () => {
-              if (feedId) {
-                GlobalEventBus.dispatch({
-                  type: 'triggerFeedCypherlink',
-                  feedId,
-                });
-              } else if (msgId) {
-                GlobalEventBus.dispatch({type: 'triggerMsgCypherlink', msgId});
-              } else if (hashtag) {
-                GlobalEventBus.dispatch({type: 'triggerHashtagLink', hashtag});
-              } else {
-                throw new Error('unreachable');
-              }
+        if (Platform.OS === 'web') {
+          return $(
+            Text,
+            {
+              ...textProps,
+              style: styles.cypherlink,
+              ['href' as any]: 'javascript:void(0)',
+              onPress: onPressCypherlink,
             },
-          },
-          child ?? children,
-        );
-      } else if (Platform.OS === 'web') {
-        const properHref =
-          props.href === 'javascript:void(0)'
-            ? (child ?? children[0]).props.value
-            : props.href;
-        return $(
-          'a',
-          {
-            style: {textDecoration: 'underline', color: Palette.text},
-            href: properHref,
-          },
-          child ?? children,
-        );
+            child ?? children,
+          );
+        } else {
+          return $(
+            Text,
+            {
+              ...textProps,
+              style: styles.cypherlink,
+              onPress: onPressCypherlink,
+            },
+            child ?? children,
+          );
+        }
       } else {
-        return $(
-          Text,
-          {
-            ...textProps,
-            style: styles.link,
-            onPress: () => {
-              Linking.openURL(props.href);
+        if (Platform.OS === 'web') {
+          const properHref =
+            props.href === 'javascript:void(0)'
+              ? (child ?? children[0]).props.value
+              : props.href;
+          return $(
+            Text,
+            {...textProps, style: styles.link, ['href' as any]: properHref},
+            child ?? children,
+          );
+        } else {
+          return $(
+            Text,
+            {
+              ...textProps,
+              style: styles.link,
+              onPress: () => {
+                Linking.openURL(props.href);
+              },
             },
-          },
-          child ?? props.children,
-        );
+            child ?? props.children,
+          );
+        }
       }
     },
 
