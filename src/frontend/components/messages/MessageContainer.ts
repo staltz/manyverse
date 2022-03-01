@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {PureComponent, createElement as $} from 'react';
-import {View, StyleSheet, ViewStyle, Platform} from 'react-native';
+import {PureComponent, createElement as $, RefObject, createRef} from 'react';
+import {View, StyleSheet, ViewStyle, Platform, UIManager} from 'react-native';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 
@@ -17,6 +17,7 @@ const card: ViewStyle = {
   ...Platform.select({
     web: {
       width: Dimensions.desktopMiddleWidth.px,
+      outlineStyle: 'none',
     },
   }),
 };
@@ -36,14 +37,43 @@ export const styles = StyleSheet.create({
 interface Props {
   style?: any;
   unread?: boolean;
+
+  /**
+   * This hack is for issue #1784. We need to *focus* a child component in the
+   * FullThread's FlatList in order to allow it to receive `keydown` events in
+   * VirtualizedList (see our react-native-web patch file). We chose to focus
+   * this MessageContainer because we don't want any scroll to happen onFocus,
+   * and the first message's MessageContainer is positioned exactly at the
+   * default scroll position.
+   *
+   * I know, this is a very dirty hack, but it's the only way to do it. I would
+   * gladly accept a PR to make this cleaner.
+   */
+  webFocusHack?: boolean;
 }
 
 export default class MessageContainer extends PureComponent<Props> {
+  private ref: RefObject<View> = createRef();
+
+  private onLayout = () => {
+    if (Platform.OS === 'web') {
+      setTimeout(() => {
+        if (this.ref?.current) {
+          (UIManager as any).focus(this.ref.current);
+        }
+      }, 50);
+    }
+  };
+
   public render() {
-    const {style, children, unread} = this.props;
+    const {style, children, unread, webFocusHack} = this.props;
     return $(
       View,
-      {style: [unread ? styles.unreadCard : styles.readCard, style]},
+      {
+        ref: this.ref,
+        style: [unread ? styles.unreadCard : styles.readCard, style],
+        onLayout: webFocusHack ? this.onLayout : undefined,
+      },
       children,
     );
   }

@@ -28,6 +28,7 @@ export interface Props {
   preferredReactions: Array<string>;
   expandCW?: boolean;
   replyCount?: number;
+  webFocusHack?: boolean;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: () => void;

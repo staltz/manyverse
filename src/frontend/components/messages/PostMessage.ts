@@ -31,6 +31,7 @@ export interface Props {
   replyCount: number;
   selfFeedId: FeedId;
   expandCW?: boolean;
+  webFocusHack?: boolean;
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: () => void;
@@ -72,7 +73,7 @@ export default class PostMessage extends PureComponent<Props, State> {
 
   public render() {
     const props = this.props;
-    const {msg, lastSessionTimestamp} = props;
+    const {msg, lastSessionTimestamp, webFocusHack} = props;
     const cwMsg = msg as Msg<CWPost>;
     const hasCW =
       !!cwMsg.value.content.contentWarning &&
@@ -80,7 +81,7 @@ export default class PostMessage extends PureComponent<Props, State> {
     const opened = hasCW ? this.state.cwOpened : true;
     const unread = msg.timestamp > lastSessionTimestamp;
 
-    return h(MessageContainer, {}, [
+    return h(MessageContainer, {webFocusHack}, [
       h(MessageHeader, {...props, unread}),
       hasCW
         ? h(ContentWarning, {

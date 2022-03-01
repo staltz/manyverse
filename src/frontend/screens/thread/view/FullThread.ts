@@ -224,6 +224,7 @@ export default class FullThread extends Component<Props, State> {
       msg,
       key: msg.key,
       expandCW: index === rootIndex && this.props.expandRootCW === true,
+      webFocusHack: Platform.OS === 'web' && index === 0,
       selfFeedId,
       lastSessionTimestamp,
       preferredReactions,

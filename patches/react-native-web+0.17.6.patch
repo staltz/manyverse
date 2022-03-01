@@ -1,5 +1,5 @@
 diff --git a/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js b/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
-index b15746f..518b888 100644
+index b15746f..73fad96 100644
 --- a/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
 +++ b/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
 @@ -650,6 +650,8 @@ var VirtualizedList = /*#__PURE__*/function (_React$PureComponent) {
@@ -11,3 +11,71 @@ index b15746f..518b888 100644
              }
            }
          } else {
+@@ -868,7 +870,66 @@ var VirtualizedList = /*#__PURE__*/function (_React$PureComponent) {
+     var _this2 = this;
+ 
+     if (this._scrollRef && this._scrollRef.getScrollableNode) {
+-      this._scrollRef.getScrollableNode().addEventListener('wheel', this.invertedWheelEventHandler);
++      const node = this._scrollRef.getScrollableNode();
++      node.addEventListener('wheel', this.invertedWheelEventHandler);
++      let lastKeyDown = 0;
++      node.addEventListener('keydown', (ev) => {
++        const DELTA = 40;
++        const PAGE = node.clientHeight * 0.9;
++        const TOTAL = node.scrollHeight;
++        const behavior = (Date.now() - lastKeyDown) > 60 ? 'smooth' : 'instant';
++        lastKeyDown = Date.now();
++        if (ev.code === 'ArrowDown') {
++          node.scroll({
++            top: node.scrollTop + (this.props.inverted ? -DELTA : +DELTA),
++            left: 0,
++            behavior
++          });
++        } else if (ev.code === 'ArrowUp') {
++          node.scroll({
++            top: node.scrollTop + (this.props.inverted ? +DELTA : -DELTA),
++            left: 0,
++            behavior
++          });
++        } else if (ev.code === 'PageDown') {
++          node.scroll({
++            top: node.scrollTop + (this.props.inverted ? -PAGE : +PAGE),
++            left: 0,
++            behavior
++          });
++        } else if (ev.code === 'PageUp') {
++          node.scroll({
++            top: node.scrollTop + (this.props.inverted ? +PAGE : -PAGE),
++            left: 0,
++            behavior
++          });
++        } else if (ev.code === 'Space' && !ev.shiftKey) {
++          node.scroll({
++            top: node.scrollTop + (this.props.inverted ? -PAGE : +PAGE),
++            left: 0,
++            behavior
++          });
++        } else if (ev.code === 'Space' && ev.shiftKey) {
++          node.scroll({
++            top: node.scrollTop + (this.props.inverted ? +PAGE : -PAGE),
++            left: 0,
++            behavior
++          });
++        } else if (ev.code === 'End') {
++          node.scroll({
++            top: this.props.inverted ? 0 : TOTAL,
++            left: 0,
++            behavior: 'smooth'
++          });
++        } else if (ev.code === 'Home') {
++          node.scroll({
++            top: this.props.inverted ? TOTAL : 0,
++            left: 0,
++            behavior: 'smooth'
++          });
++        }
++        ev.preventDefault();
++      });
+     } else {
+       setTimeout(function () {
+         return _this2.setupWebWheelHandler();
