@@ -42,7 +42,7 @@ const ELLIPSIS = '\u2026';
  * Match URIs *except* SSB URIs and File URIs
  */
 function getMiscURIRegex() {
-  return /\b((?=\w+:)(?!(ssb:|file:)))\w+:(\/\/)?[^ \n]+/g;
+  return /\b((?=[a-z]+:)(?!(ssb:|file:)))[a-z]+:(\/\/)?[^ )\n]+/g;
 }
 
 const textProps: TextProps = {
