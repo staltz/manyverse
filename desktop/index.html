@@ -17,18 +17,19 @@ SPDX-License-Identifier: MPL-2.0
         justify-content: center !important;
       }
       /* These styles make the body full-height */
-      html, body {
+      html,
+      body {
         height: 100%;
       }
       /* Handles styles before React app is mounted, i.e. "splashscreen" */
       body {
-        background-color: #4263eb; /* brandMain */
+        background-color: var(--brand-main);
         overflow: hidden;
         margin: 0;
         padding: 0;
       }
       * {
-        outline-color: #38d9a9; /* textCTA */
+        outline-color: var(--text-cta);
       }
       /* The app container */
       #app {
@@ -51,14 +52,16 @@ SPDX-License-Identifier: MPL-2.0
 
       /* This element will be replaced with the mounted React app */
       .splashlogo {
-        width: 48px;
-        height: 48px;
-        margin: calc(50vh - 48px * 0.5) calc(50vw - 48px * 0.5);
+        --size-of-logo: 48px;
+        width: var(--size-of-logo);
+        height: var(--size-of-logo);
+        margin: calc(50vh - var(--size-of-logo) * 0.5)
+          calc(50vw - var(--size-of-logo) * 0.5);
       }
 
       /* Styles that cannot be applied in react-native-web */
-      *[data-markdown-text="1"]::selection {
-        background-color: #91a7ff; /* backgroundTextSelection */
+      *[data-markdown-text='1']::selection {
+        background-color: var(--background-text-selection);
       }
     </style>
   </head>

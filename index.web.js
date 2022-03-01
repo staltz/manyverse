@@ -2,6 +2,16 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
+import {Palette} from './lib/frontend/global-styles/palette';
+
+[
+  ['--brand-main', Palette.brandMain],
+  ['--background-text-selection', Palette.backgroundTextSelection],
+  ['--text-cta', Palette.textCTA],
+].forEach(([cssVarName, cssVarValue]) => {
+  document.body.style.setProperty(cssVarName, cssVarValue);
+});
+
 import '@fontsource/roboto';
 import iconFont from 'react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf';
 import emojiFont from './images/NotoColorEmoji.ttf';
