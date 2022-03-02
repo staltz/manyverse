@@ -28,7 +28,7 @@
     "pull-stream": "3.6.14",
     "pull-stream-util": "0.1.2",
     "rimraf": "~3.0.2",
-    "secret-stack": "6.4.0",
+    "secret-stack": "6.4.1",
     "sodium-chloride-native-nodejs-mobile": "1.5.0",
     "ssb-blobs-purge": "2.0.3",
     "ssb-blobs": "1.2.2",
