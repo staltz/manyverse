@@ -13,12 +13,14 @@ const capabilities = {
   build: `iOS ${pkgJSON.version}`,
   name: 'Smoke test',
   device: 'iPhone 11 Pro',
+  appWaitForLaunch: true,
   app: JSON.parse(process.env.BROWSERSTACK_APP_URL).app_url,
 };
 
 let driver;
 
-test('Setup and open iOS app', async function (t) {
+test('Setup and open iOS app', (t) => {
+  t.timeoutAfter(120e3);
   driver = wd.promiseChainRemote('http://hub-cloud.browserstack.com/wd/hub');
   driver
     .init(capabilities)

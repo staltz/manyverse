@@ -202,12 +202,12 @@
     "webpack-cli": "~3.3.12"
   },
   "optionalDependencies": {
-    "appium": "1.14.0",
+    "appium": "1.22.2",
     "faucet": "0.0.1",
     "ssb-keys-mnemonic": "1.0.1",
     "tap-spec": "5.0.0",
-    "tape": "~4.9.1",
-    "wd": "1.11.3"
+    "tape": "~5.5.2",
+    "wd": "1.14.0"
   },
   "react-native": {
     "os": "react-native-os-staltz"

@@ -13,12 +13,16 @@ const capabilities = {
   build: `Android ${pkgJSON.version}`,
   name: 'Smoke test',
   device: 'Google Pixel 3',
+  automationName: 'UiAutomator2',
+  fullReset: true,
+  appWaitForLaunch: true,
   app: JSON.parse(process.env.BROWSERSTACK_APP_URL).app_url,
 };
 
 let driver;
 
-test('Setup and open Android app', async function (t) {
+test('Setup and open Android app', (t) => {
+  t.timeoutAfter(120e3);
   driver = wd.promiseChainRemote('http://hub-cloud.browserstack.com/wd/hub');
   driver
     .init(capabilities)

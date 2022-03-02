@@ -197,6 +197,27 @@ module.exports = function (driver, t) {
       'I see the Create Account button',
     );
 
+    t.end();
+  });
+
+  t.test('Create a new account', async function (t) {
+    const createAccountButton = await driver.elementByAndroidUIAutomator(
+      'new UiSelector().descriptionContains("Create Account Button")',
+    );
+    t.ok(createAccountButton, 'I see the Create Account button');
+    await createAccountButton.click();
+    t.pass('I tap it');
+
+    t.end();
+  });
+
+  /**
+   * This is skipped because it's not possible to test the account recovery
+   * since the recovered feed is actually empty (it never published anything).
+   * Consider this "commented code", useful in the future in case we want to
+   * e2e test account recovery.
+   */
+  t.skip('Secret input screen asks for recovery phrase', async function (t) {
     const restoreAccountButton = await driver.elementByAndroidUIAutomator(
       'new UiSelector().descriptionContains("Restore Account Button")',
     );
@@ -204,10 +225,6 @@ module.exports = function (driver, t) {
     await restoreAccountButton.click();
     t.pass('I tap it');
 
-    t.end();
-  });
-
-  t.test('Secret input screen asks for recovery phrase', async function (t) {
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
         'new UiSelector().textContains("CAREFULLY INPUT YOUR RECOVERY PHRASE")',

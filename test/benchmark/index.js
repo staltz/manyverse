@@ -5,33 +5,39 @@
 const wd = require('wd');
 const path = require('path');
 const test = require('tape');
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
 
-const localServerConfig = {host: 'localhost', port: 4995};
+const localServerConfig = {
+  host: 'localhost',
+  port: 4995,
+};
 
-const str =
-  '../../android/app/build/outputs/apk/indie/release/app-indie-release-e2e.apk';
 const localCapabilities = {
-  browserName: 'Android - local server',
   platformName: 'Android',
   deviceName: 'Android device',
   autoGrantPermissions: true,
-  app: path.resolve(__dirname, str),
+  automationName: 'UiAutomator2',
+  fullReset: true,
+  appWaitForLaunch: true,
+  app: path.resolve(
+    __dirname,
+    '..',
+    '..',
+    'android',
+    'app',
+    'build',
+    'outputs',
+    'apk',
+    'indie',
+    'release',
+    'app-indie-release-e2e.apk',
+  ),
 };
 
-test('Setup and open Android app', async function (t) {
-  try {
-    await exec('adb uninstall se.manyver');
-  } catch (err) {}
-  t.pass('Uninstalled existing se.manyver');
-
-  var serverConfig = localServerConfig;
-  var capabilities = localCapabilities;
-
-  driver = wd.promiseChainRemote(serverConfig);
+test('Setup and open Android app', (t) => {
+  t.timeoutAfter(120e3);
+  driver = wd.promiseChainRemote(localServerConfig);
   driver
-    .init(capabilities)
+    .init(localCapabilities)
     .setImplicitWaitTimeout(1000)
     .then(() => {
       t.end();
