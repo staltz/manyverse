@@ -35,8 +35,6 @@ import {
 import makeClient, {SSBClient} from '~frontend/ssb/client';
 import {imageToImageUrl} from '~frontend/ssb/utils/from-ssb';
 import dropRepeats from 'xstream/extra/dropRepeats';
-const URLPolyfill =
-  Platform.OS !== 'web' ? require('react-native-url-polyfill').URL : URL;
 const pull = require('pull-stream');
 const Ref = require('ssb-ref');
 
@@ -888,7 +886,7 @@ async function consumeSink(
           return;
         }
 
-        const u = new URLPolyfill(req.uri);
+        const u = new URL(req.uri);
         const addr: string = u.searchParams.get('multiserverAddress')!;
 
         // remember
