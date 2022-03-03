@@ -253,7 +253,7 @@ export default [
   {
     name: 'cycle-native-navigation',
     type: 'library',
-    version: '8.1.0',
+    version: '8.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation',
   },
@@ -669,7 +669,7 @@ export default [
   {
     name: 'react-native-web',
     type: 'library',
-    version: '0.17.5',
+    version: '0.17.6',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/necolas/react-native-web#readme',
   },
@@ -712,14 +712,14 @@ export default [
   {
     name: 'remark-linkify-regex',
     type: 'library',
-    version: '1.1.0',
+    version: '1.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/remark-linkify-regex#readme',
   },
   {
     name: 'remark-ssb-mentions',
     type: 'library',
-    version: '2.3.0',
+    version: '2.4.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/ssb-mentions',
   },
@@ -733,9 +733,9 @@ export default [
   {
     name: 'secret-stack',
     type: 'library',
-    version: '6.4.0',
+    version: '6.4.1',
     license: 'MIT License (MIT)',
-    homepage: 'https://github.com/ssbc/secret-stack',
+    homepage: 'https://github.com/ssb-js/secret-stack',
   },
   {
     name: 'sodium-chloride-native-nodejs-mobile',
@@ -803,7 +803,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '2.8.9',
+    version: '2.8.11',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -817,7 +817,7 @@ export default [
   {
     name: 'ssb-ebt',
     type: 'library',
-    version: '8.1.0',
+    version: '8.1.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-ebt',
   },
@@ -831,21 +831,21 @@ export default [
   {
     name: 'ssb-http-auth-client',
     type: 'library',
-    version: '1.0.0',
+    version: '1.1.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-http-auth-client',
   },
   {
     name: 'ssb-http-invite-client',
     type: 'library',
-    version: '1.0.0',
+    version: '1.0.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-http-invite-client',
   },
   {
     name: 'ssb-invite-client',
     type: 'library',
-    version: '1.2.1',
+    version: '1.3.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-invite-client',
   },
@@ -866,7 +866,7 @@ export default [
   {
     name: 'ssb-lan',
     type: 'library',
-    version: '1.2.2',
+    version: '1.2.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-lan',
   },
@@ -894,14 +894,14 @@ export default [
   {
     name: 'ssb-replication-scheduler',
     type: 'library',
-    version: '1.0.0',
+    version: '2.0.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-replication-scheduler',
   },
   {
     name: 'ssb-room-client',
     type: 'library',
-    version: '2.0.1',
+    version: '2.0.2',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-room-client',
   },
@@ -915,14 +915,14 @@ export default [
   {
     name: 'ssb-serve-blobs',
     type: 'library',
-    version: '3.1.0',
+    version: '3.1.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-serve-blobs',
   },
   {
     name: 'ssb-suggest-lite',
     type: 'library',
-    version: '1.1.2',
+    version: '1.1.3',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-suggest-lite#readme',
   },
@@ -943,7 +943,7 @@ export default [
   {
     name: 'ssb-uri2',
     type: 'library',
-    version: '1.6.1',
+    version: '1.7.2',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-uri2#readme',
   },

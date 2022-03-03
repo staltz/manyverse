@@ -2,6 +2,25 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2203.3-beta
+
+* (Desktop) Bug fix: clickable regions in Reactions screen ([see details](https://gitlab.com/staltz/manyverse/commit/2d887da0612b8c02e053b375124896cf2044ef0b))
+* (Desktop) Bug fix: make markdown cypherlinks focusable ([see details](https://gitlab.com/staltz/manyverse/commit/0d95955d2aa766033fa9f69c4e4f67e90c785b09))
+* (Desktop) Improve layout of the quick emoji modal ([see details](https://gitlab.com/staltz/manyverse/commit/43b153018ad40d1b4b51f8cd0567cf70b354af68))
+* (Desktop) Improve style of focused UI elements ([see details](https://gitlab.com/staltz/manyverse/commit/851689647cb676cf2b97356b8a570a605c953d8f))
+* (iOS) Bug fix: crashing when returning from lock screen ([see details](https://gitlab.com/staltz/manyverse/commit/9dff2487193d15556d1634b75d234e60d1cfe577))
+* (iOS) Bug fix: Wi-Fi discovery of peers ([see details](https://gitlab.com/staltz/manyverse/commit/25f70d6efad265e41ef82de0b86e4cc7abc693fa))
+* Bug fix: dont crash after running for many hours ([see details](https://gitlab.com/staltz/manyverse/commit/80e939e4d789aa09fb83df89f59d2c187cc7d20a))
+* Bug fix: faded threads should not allow clickthrough links ([see details](https://gitlab.com/staltz/manyverse/commit/fb0e041a469c2c33de27880990c9fa4ae9a9b2d1))
+* Bug fix: false positive misc URI link ([see details](https://gitlab.com/staltz/manyverse/commit/88e2045a3d2a2afaf47c36a823f3369d07caff37))
+* Bug fix: when thread is missing, show explanation ([see details](https://gitlab.com/staltz/manyverse/commit/6f440ee2b56cb61de4d9130a9d3c9e613de1c133))
+* Feature: allow linking to misc URIs like dat:// ([see details](https://gitlab.com/staltz/manyverse/commit/610090c230f20f057cf7cb9b195bb82a6bd77e91))
+* Feature: allow starting a private chat with yourself ([see details](https://gitlab.com/staltz/manyverse/commit/405743c7da4389bb173b71f42456528fc3e06899))
+* Feature: copy SSB URI of messages and feeds ([see details](https://gitlab.com/staltz/manyverse/commit/b0a9daaa9ba1fdf51a28755498d7ab931a6aed5d))
+* Feature: reply counter opens thread at the bottom ([see details](https://gitlab.com/staltz/manyverse/commit/96d3a5ef0eb88b302fde4585d109418d66eca54b))
+* Feature: Resync screen guides you after recovery ([see details](https://gitlab.com/staltz/manyverse/commit/0e44bde0f7dd2e661916342b5d1523d6969021ea))
+* Improve Spanish translation ([see details](https://gitlab.com/staltz/manyverse/commit/27b9278e29a00dafcb0c3ceb24293c751ffd6d2d))
+
 ## 0.2202.7-beta
 
 * (Desktop) Bug fix: unclickable region on the top bar ([see details](https://gitlab.com/staltz/manyverse/commit/d290fa8294a053d3fda135ecf8b2062195e420c2))
