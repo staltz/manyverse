@@ -52,14 +52,24 @@ interface Props {
   webFocusHack?: boolean;
 }
 
-export default class MessageContainer extends PureComponent<Props> {
+interface State {
+  focused: boolean;
+}
+
+export default class MessageContainer extends PureComponent<Props, State> {
   private ref: RefObject<View> = createRef();
 
+  constructor(props: Props) {
+    super(props);
+    this.state = {focused: false};
+  }
+
   private onLayout = () => {
-    if (Platform.OS === 'web') {
+    if (Platform.OS === 'web' && !this.state.focused) {
       setTimeout(() => {
         if (this.ref?.current) {
           (UIManager as any).focus(this.ref.current);
+          this.setState({focused: true});
         }
       }, 50);
     }
