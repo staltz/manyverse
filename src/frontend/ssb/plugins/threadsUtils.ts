@@ -69,11 +69,16 @@ function mutateMsgWithLiveExtras(ssb: SSB, includeReactions: boolean = true) {
           )
       : xs.never();
 
+    const backlinks = xsFromPullStream(
+      ssb.backlinks.backlinkStream(msg.key),
+    ).startWith([]);
+
     // Create msg object
     const m = msg as MsgAndExtras;
     m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
       reactions,
       about: {name, imageUrl},
+      backlinks,
     };
 
     // Add name of the target contact, if any

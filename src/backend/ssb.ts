@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -116,5 +116,6 @@ oneTimeFixes().then(() => {
     .use(require('./plugins/syncing')) // needs: db2
     .use(require('./plugins/dbUtils')) // needs: db2, syncing
     .use(require('./plugins/votes')) // needs: db2
+    .use(require('./plugins/backlinks'))
     .call(null, config);
 });

@@ -7,7 +7,7 @@ import debounce from 'xstream/extra/debounce';
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {withXstreamProps} from 'react-xstream-hoc';
-import {Msg, FeedId} from 'ssb-typescript';
+import {Msg, FeedId, MsgId} from 'ssb-typescript';
 import {isPostMsg, isContactMsg, isAboutMsg} from 'ssb-typescript/utils';
 import {
   Reactions,
@@ -31,6 +31,7 @@ export interface Props {
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: () => void;
+  onPressReplyToReply?: (ev: {rootMsgId: MsgId; msg: MsgAndExtras}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
 }

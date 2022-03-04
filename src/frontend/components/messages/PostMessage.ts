@@ -5,11 +5,12 @@
 import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {StyleSheet, View} from 'react-native';
-import {PostContent as Post, FeedId, Msg} from 'ssb-typescript';
+import {PostContent as Post, FeedId, Msg, MsgId} from 'ssb-typescript';
 import {
   Reactions,
   PressReactionsEvent,
   PressAddReactionEvent,
+  MsgAndExtras,
 } from '~frontend/ssb/types';
 import {getPostText} from '~frontend/ssb/utils/from-ssb';
 import {Dimensions} from '~frontend/global-styles/dimens';
@@ -18,6 +19,7 @@ import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
 import MessageFooter from './MessageFooter';
 import ContentWarning from './ContentWarning';
+//import ForkNote from './ForkNote';
 
 type CWPost = Post & {contentWarning?: string};
 
@@ -34,6 +36,7 @@ export interface Props {
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: () => void;
+  onPressReplyToReply?: (ev: {rootMsgId: MsgId; msg: MsgAndExtras}) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
 }
@@ -72,13 +75,15 @@ export default class PostMessage extends PureComponent<Props, State> {
 
   public render() {
     const props = this.props;
-    const {msg, lastSessionTimestamp} = props;
+    const {msg, lastSessionTimestamp /*onPressReplyToReply*/} = props;
     const cwMsg = msg as Msg<CWPost>;
     const hasCW =
       !!cwMsg.value.content.contentWarning &&
       typeof cwMsg.value.content.contentWarning === 'string';
     const opened = hasCW ? this.state.cwOpened : true;
     const unread = msg.timestamp > lastSessionTimestamp;
+
+    console.log('msg', msg);
 
     return h(MessageContainer, {}, [
       h(MessageHeader, {...props, unread}),
@@ -101,6 +106,10 @@ export default class PostMessage extends PureComponent<Props, State> {
           ])
         : null,
       h(MessageFooter, {...props, style: styles.footer}),
+      //h(ForkNote, {
+      //  rootId: '%miNYHTmDRqU5pFK+LJ1kgZLyjEyuDJGG1mTr6RT13cM=.sha256',
+      //  onPress: ({rootMsgId}) => onPressReplyToReply?.({rootMsgId, msg}),
+      //}),
     ]);
   }
 }

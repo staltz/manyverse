@@ -228,6 +228,7 @@ export default class FullThread extends Component<Props, State> {
       lastSessionTimestamp,
       preferredReactions,
       onPressReply,
+      onPressReplyToReply,
       replyCount,
       onPressReactions,
       onPressAddReaction,

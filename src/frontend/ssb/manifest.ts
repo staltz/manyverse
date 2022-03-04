@@ -202,4 +202,7 @@ export default {
   votes: {
     voterStream: 'source',
   },
+  backlinks: {
+    backlinkStream: 'source',
+  },
 };
