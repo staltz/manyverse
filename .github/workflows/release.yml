@@ -38,6 +38,7 @@ jobs:
   build-macos:
     name: Build Manyverse macOS
     runs-on: macos-latest
+    needs: build-linux
     if: ${{ startsWith(github.event.head_commit.message, 'release:') }}
 
     steps:
@@ -67,6 +68,7 @@ jobs:
   build-win:
     name: Build Manyverse Windows
     runs-on: windows-latest
+    needs: build-macos
     if: ${{ startsWith(github.event.head_commit.message, 'release:') }}
 
     steps:
