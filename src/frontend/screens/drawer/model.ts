@@ -13,13 +13,13 @@ import progressCalculation, {
 } from '~frontend/components/progressCalculation';
 import currentVersion from '~frontend/versionName';
 
-type ParsedVersion = {
+interface ParsedVersion {
   major: number;
   minor: number;
   patch: number;
   tag?: string;
   isBeta: boolean;
-};
+}
 
 export interface State extends ProgressState {
   selfFeedId: FeedId;

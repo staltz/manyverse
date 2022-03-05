@@ -22,13 +22,13 @@ import progressCalculation, {
 import currentVersion from '~frontend/versionName';
 import {Screens} from '~frontend/screens/enums';
 
-type ParsedVersion = {
+interface ParsedVersion {
   major: number;
   minor: number;
   patch: number;
   tag?: string;
   isBeta: boolean;
-};
+}
 
 export interface State extends ProgressState {
   selfFeedId: FeedId;
