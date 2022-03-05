@@ -13,6 +13,14 @@ import progressCalculation, {
 } from '~frontend/components/progressCalculation';
 import currentVersion from '~frontend/versionName';
 
+type ParsedVersion = {
+  major: number;
+  minor: number;
+  patch: number;
+  tag?: string;
+  isBeta: boolean;
+};
+
 export interface State extends ProgressState {
   selfFeedId: FeedId;
   canPublishSSB: boolean;
@@ -101,15 +109,33 @@ export default function model(
 
   const hasNewVersionReducer$ = actions.latestVersionResponse$
     .map((latestVersion) => {
-      const [majorPrev, minorPrev, restPrev] = currentVersion.split('.');
-      const [majorNext, minorNext, restNext] = latestVersion.split('.');
-      const [patchPrev, tagPrev] = restPrev.split('-beta');
-      const [patchNext, tagNext] = restNext.split('-beta');
-      if (parseInt(majorNext, 10) > parseInt(majorPrev, 10)) return true;
-      if (parseInt(minorNext, 10) > parseInt(minorPrev, 10)) return true;
-      if (parseInt(patchNext, 10) > parseInt(patchPrev, 10)) return true;
-      if (tagNext > tagPrev) return true;
-      return false;
+      // `tagPrev` and `tagNext` can be undefined, which is not reflected in the inferred type here
+      const [majorPrev, minorPrev, patchAndChannelPrev, tagPrev] =
+        currentVersion.split('.');
+      const [majorNext, minorNext, patchAndChannelNext, tagNext] =
+        latestVersion.split('.');
+
+      const [patchPrev] = patchAndChannelPrev.split('-beta');
+      const [patchNext] = patchAndChannelNext.split('-beta');
+
+      return (
+        compareParsedVersions(
+          {
+            major: getInt(majorPrev),
+            minor: getInt(minorPrev),
+            patch: getInt(patchPrev),
+            tag: tagPrev,
+            isBeta: currentVersion.includes('beta'),
+          },
+          {
+            major: getInt(majorNext),
+            minor: getInt(minorNext),
+            patch: getInt(patchNext),
+            tag: tagNext,
+            isBeta: latestVersion.includes('beta'),
+          },
+        ) === 1
+      );
     })
     .map(
       (hasNewVersion) =>
@@ -130,4 +156,32 @@ export default function model(
     allowCheckingNewVersionReducer$,
     hasNewVersionReducer$,
   );
+}
+
+function getInt(s: string) {
+  return parseInt(s, 10);
+}
+
+function compareParsedVersions(prev: ParsedVersion, next: ParsedVersion) {
+  if (prev.major < next.major) return 1;
+  if (prev.major > next.major) return -1;
+  if (prev.minor < next.minor) return 1;
+  if (prev.minor > next.minor) return -1;
+  if (prev.patch < next.patch) return 1;
+  if (prev.patch > next.patch) return -1;
+
+  if (!!prev.tag && !!next.tag) {
+    if (next.tag > prev.tag) return 1;
+    if (next.tag < prev.tag) return -1;
+  }
+
+  if (next.tag && !prev.tag) return 1;
+  if (!next.tag && prev.tag) return -1;
+
+  // At this point we know that the version numbers and tag are exactly the same
+  if (prev.isBeta && next.isBeta) return -1;
+  if (!prev.isBeta && next.isBeta) return -1;
+  if (prev.isBeta && !next.isBeta) return 1;
+
+  return 0;
 }
