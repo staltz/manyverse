@@ -1,5 +1,5 @@
 diff --git a/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js b/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
-index b15746f..73fad96 100644
+index b15746f..99c6fb4 100644
 --- a/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
 +++ b/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
 @@ -650,6 +650,8 @@ var VirtualizedList = /*#__PURE__*/function (_React$PureComponent) {
@@ -11,7 +11,7 @@ index b15746f..73fad96 100644
              }
            }
          } else {
-@@ -868,7 +870,66 @@ var VirtualizedList = /*#__PURE__*/function (_React$PureComponent) {
+@@ -868,7 +870,67 @@ var VirtualizedList = /*#__PURE__*/function (_React$PureComponent) {
      var _this2 = this;
  
      if (this._scrollRef && this._scrollRef.getScrollableNode) {
@@ -20,6 +20,7 @@ index b15746f..73fad96 100644
 +      node.addEventListener('wheel', this.invertedWheelEventHandler);
 +      let lastKeyDown = 0;
 +      node.addEventListener('keydown', (ev) => {
++        if (ev.ctrlKey) return;
 +        const DELTA = 40;
 +        const PAGE = node.clientHeight * 0.9;
 +        const TOTAL = node.scrollHeight;
