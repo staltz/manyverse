@@ -461,13 +461,6 @@ export default [
     homepage: 'https://pull-stream.github.io',
   },
   {
-    name: 'pull-stream-util',
-    type: 'library',
-    version: '0.1.2',
-    license: 'ISC License (ISC)',
-    homepage: 'https://github.com/nichoth/pull-stream-util#readme',
-  },
-  {
     name: 'react',
     type: 'library',
     version: '17.0.2',

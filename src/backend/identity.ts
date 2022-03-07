@@ -11,7 +11,6 @@ const ssbKeys = require('ssb-keys');
 const SecretStack = require('secret-stack');
 const caps = require('ssb-caps');
 const pull = require('pull-stream');
-const fromEvent = require('pull-stream-util/from-event');
 import {Callback} from './plugins/helpers/types';
 
 function fileSize(filename: string) {
@@ -139,7 +138,7 @@ export function migrate(cb: Callback<void>) {
 
             // When migration is done, call `cb`
             pull(
-              fromEvent('ssb:db2:migrate:progress', sbot),
+              sbot.db2migrate.progress(),
               (drainer = pull.drain((x: number) => {
                 webContents.send('ssb-migrate-progress', x);
                 if (x >= 1) {

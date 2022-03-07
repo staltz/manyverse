@@ -93,7 +93,7 @@ export = {
 
     // Wait until migration progress is somewhere in the middle
     pull(
-      ssb.syncing.migrating(),
+      ssb.db2migrate.progress(),
       pull.filter((x: number) => x > 0.4 && x < 1),
       pull.take(1),
       pull.drain(() => {

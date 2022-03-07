@@ -117,7 +117,6 @@ oneTimeFixes().then(() => {
     .use(require('./plugins/searchUtils')) // needs: db2
     .use(require('./plugins/keysUtils'))
     .use(settingsUtils) // needs: blobs-purge
-    .use(require('./plugins/syncing')) // needs: db2
     .use(require('./plugins/dbUtils')) // needs: db2, syncing
     .use(require('./plugins/votes')) // needs: db2
     .call(null, config);

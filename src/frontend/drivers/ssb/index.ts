@@ -150,11 +150,11 @@ export class SSBSource {
       .flatten();
 
     this.migrationProgress$ = this.fromPullStream<number>((ssb) =>
-      ssb.syncing.migrating(),
+      ssb.db2migrate.progress(),
     );
 
     this.indexingProgress$ = this.fromPullStream<number>((ssb) =>
-      ssb.syncing.indexing(),
+      ssb.db.indexingProgress(),
     );
 
     this.acceptInviteResponse$ = xs.create<true | string>();
