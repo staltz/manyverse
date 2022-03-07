@@ -2,6 +2,12 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2203.7-beta
+
+* (Desktop) Bug fix: preserve scroll position when going back to thread ([see details](https://gitlab.com/staltz/manyverse/commit/9b5bb679042068f14c07a1b1417bf834804ef748))
+* (Desktop) Bug fix: support ctrl+c on posts ([see details](https://gitlab.com/staltz/manyverse/commit/a5be028a3d792e43fdd173cd1f21ab7e873431c2))
+* Bug fix: logic to show update banner ([see details](https://gitlab.com/staltz/manyverse/commit/0beb7a75b6c5ab421dab11b47737b16f30489dbd))
+
 ## 0.2203.3-beta
 
 * (Desktop) Bug fix: clickable regions in Reactions screen ([see details](https://gitlab.com/staltz/manyverse/commit/2d887da0612b8c02e053b375124896cf2044ef0b))
