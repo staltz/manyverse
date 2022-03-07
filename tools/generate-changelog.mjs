@@ -21,7 +21,7 @@ const mainTemplate = `{{> header}}
 `;
 const headerPartial = `## {{version}}
 `;
-const headerNamePartial = `## Manyverse {{version}}
+const headerNamePartial = `## #Manyverse {{version}}
 `;
 const emojiCommitPartial = `{{emoji}}  {{platform}}{{subject}}
 `;

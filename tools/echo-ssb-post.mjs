@@ -14,7 +14,6 @@ intoStream('--------------BEGIN SCUTTLEBUTT POST--------------\n')
     addStream(
       intoStream(
         '**Update from: [manyver.se/download](https://manyver.se/download)**\n\n' +
-          '#manyverse\n' +
           '----------------END SCUTTLEBUTT POST---------------\n',
       ),
     ),
