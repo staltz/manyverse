@@ -31,19 +31,38 @@ do
     -name "obj.target" \
     -print0 | xargs -0 rm -rf
   # Update dir.list file
+  if [ `uname` = "Linux" ]
+  then
   sed -i '/obj\.target/d' dir.list
   # Update file.list file
   sed -i '/obj\.target/d' file.list
+  fi
+
+  if [ `uname` = "Darwin" ]
+  then
+  sed -i '' '/obj\.target/d' dir.list
+  # Update file.list file
+  sed -i '' '/obj\.target/d' file.list
+  fi
 
   # Remove native/target (neon modules) directories
   find . \
     -type d \
     -name "target" \
     -print0 | xargs -0 rm -rf
-  # Update dir.list file
-  sed -i '/native\/target/d' dir.list
-  # Update file.list file
-  sed -i '/native\/target/d' file.list
 
+  # Update dir.list file
+  if [ `uname` = "Linux" ]
+    then
+    sed -i '/native\/target/d' dir.list
+    # Update file.list file
+    sed -i '/native\/target/d' file.list
+    fi
+  if [ `uname` = "Darwin" ]
+    then
+    sed -i '' '/native\/target/d' dir.list
+    # Update file.list file
+    sed -i '' '/native\/target/d' file.list
+  fi
   popd
 done
