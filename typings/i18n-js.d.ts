@@ -558,7 +558,15 @@ declare module 'i18n-js' {
     | 'message.contact.unblock_event.2_bold'
     | 'message.contact.unblock_event.3_normal'
     | 'message.contact.unblock_event.4_bold'
-    | 'message.contact.unblock_event.5_normal';
+    | 'message.contact.unblock_event.5_normal'
+    | 'context_menu.copy'
+    | 'context_menu.copy_link'
+    | 'context_menu.cut'
+    | 'context_menu.inspect'
+    | 'context_menu.look_up_selection'
+    | 'context_menu.paste'
+    | 'context_menu.save_image'
+    | 'context_menu.save_image_as';
   function t(key: Key, config?: any): string;
   let fallbacks: boolean;
   let locale: string;

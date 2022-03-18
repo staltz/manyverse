@@ -7,6 +7,8 @@ import * as RNLocalize from 'react-native-localize';
 const memoize = require('lodash.memoize');
 import i18n = require('i18n-js');
 
+import updateBackendLocale from './impl';
+
 interface UpdateCommand {
   defaultLocale: string;
   locale: string;
@@ -28,7 +30,18 @@ export function makeLocalizationDriver() {
         i18n.defaultLocale = cmd.defaultLocale;
         i18n.locale = cmd.locale;
         i18n.translations = cmd.translations;
+
         (t as any).cache.clear();
+
+        updateBackendLocale({
+          cut: t('context_menu.cut'),
+          copy: t('context_menu.copy'),
+          copyLink: t('context_menu.copy_link'),
+          inspect: t('context_menu.inspect'),
+          lookUpSelection: t('context_menu.look_up_selection'),
+          saveImage: t('context_menu.save_image'),
+          saveImageAs: t('context_menu.save_image_as'),
+        });
       },
     });
 

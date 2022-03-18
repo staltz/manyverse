@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -10,6 +10,7 @@ if (process.env.MANYVERSE_PLATFORM === 'desktop') {
   require('./plugins/electron/win-blur-focus');
   require('./plugins/electron/wifi-is-enabled');
   require('./plugins/electron/incoming-urls');
+  require('./plugins/electron/context-menu');
 }
 
 interface Channel {
