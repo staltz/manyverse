@@ -4,7 +4,7 @@
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
-import {View, TextInput, ScrollView} from 'react-native';
+import {View, TextInput, ScrollView, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
@@ -46,6 +46,7 @@ export default function view(state$: Stream<State>) {
             sel: 'mentionInput',
             value: state.mentionQuery,
             accessible: true,
+            autoFocus: true,
             accessibilityLabel: t(
               'recipients_input.fields.mention_input.accessibility_label',
             ),
@@ -55,6 +56,11 @@ export default function view(state$: Stream<State>) {
             placeholderTextColor: Palette.textVeryWeak,
             selectionColor: Palette.backgroundTextSelection,
             underlineColorAndroid: Palette.textLine,
+            ...Platform.select({
+              android: {
+                nativeID: 'FocusViewOnResume',
+              },
+            }),
           }),
         ]),
         h(
