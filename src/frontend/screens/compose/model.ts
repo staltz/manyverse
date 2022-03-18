@@ -180,6 +180,14 @@ export default function model(
       },
   );
 
+  // TODO: Can this use selectionAndState$ instead or be incorporated in a different reducer below?
+  const updatePostTextSelectionReducer$ = actions.updateSelection$.map(
+    (selection) =>
+      function updatePostTextSelectionReducer(prev: State): State {
+        return {...prev, postTextSelection: selection};
+      },
+  );
+
   const selectionAndState$ = actions.updateSelection$
     .compose(sampleCombine(state$))
     .compose(debounce(100));
@@ -241,18 +249,35 @@ export default function model(
     (chosenId) =>
       function chooseMentionReducer(prev: State): State {
         const cursor = prev.postTextSelection.start;
-        const preMention = prev.postText.substr(0, cursor);
-        const postMention = prev.postText
-          .substr(cursor)
+
+        // A valid `mentionQuery` under these circumstances
+        // can either be an empty string ("") or a string prefixed with @ ("@mention").
+        // The empty string case can occur when writing "@" in a post that's in reply to someone's post
+        const mentionIsInReplyPost = !prev.mentionQuery;
+
+        const beforeMentionText = prev.postText.substring(
+          0,
+          cursor - (mentionIsInReplyPost ? 1 : 0),
+        );
+
+        const afterMentionText = prev.postText
+          .substring(cursor)
           .replace(prev.mentionQuery, '');
+
         const chosen = prev.mentionSuggestions.find((x) => x.id === chosenId);
+
         if (!chosen) return prev;
-        const mention = `[@${chosen.name}](${chosen.id}) `;
-        const postText = preMention + mention + postMention;
+
+        const mentionTextToInsert = `[@${chosen.name}](${chosen.id}) `;
+
+        const postText =
+          beforeMentionText + mentionTextToInsert + afterMentionText;
+
         const postTextSelection = {
-          start: cursor + mention.length,
-          end: cursor + mention.length,
+          start: cursor + mentionTextToInsert.length,
+          end: cursor + mentionTextToInsert.length,
         };
+
         return {
           ...prev,
           postText,
@@ -419,6 +444,7 @@ export default function model(
     xs.merge(
       selfNameReducer$,
       updatePostTextReducer$,
+      updatePostTextSelectionReducer$,
       openMentionSuggestionsReducer$,
       ignoreMentionSuggestionsReducer$,
       chooseMentionReducer$,
