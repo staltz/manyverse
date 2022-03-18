@@ -19,6 +19,7 @@ import {
 import {Screens} from '~frontend/screens/enums';
 import {State} from './model';
 import {Props} from './props';
+import sampleCombine from 'xstream/extra/sampleCombine';
 
 export default function intent(
   props$: Stream<Props>,
@@ -38,7 +39,11 @@ export default function intent(
           typeof replyText === 'string' && replyText.trim().length > 0,
       ),
 
-    willReply$: ssbSource.publishHook$.filter(isReplyPostMsg),
+    willReply$: ssbSource.publishHook$
+      .filter(isReplyPostMsg)
+      .compose(sampleCombine(state$))
+      // Filtering replies that are not relative to the current root of the thread
+      .filter(([reply, state]) => state.rootMsgId === reply.value.content.root),
 
     keyboardAppeared$: keyboardSource.events('keyboardDidShow').mapTo(null),
 
