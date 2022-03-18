@@ -85,14 +85,14 @@ function detectMention(postText: string, selection: Selection): number | null {
 function parseMention(postText: string, selection: Selection): string | null {
   const endOfWord = detectMention(postText, selection);
   if (endOfWord === null) return null;
-  const results = /(^|\s)@(\S+)$/gm.exec(postText.substr(0, endOfWord));
+  const results = /(^|\s)@(\S+)$/gm.exec(postText.substring(0, endOfWord));
   return results?.[2] ?? null;
 }
 
 function parseEmptyMention(postText: string, selection: Selection): boolean {
   const endOfWord = detectMention(postText, selection);
   if (endOfWord === null) return false;
-  const results = /(^|\s)(@)$/gm.exec(postText.substr(0, endOfWord));
+  const results = /(^|\s)(@)$/gm.exec(postText.substring(0, endOfWord));
   return (results?.[2] ?? '') === '@';
 }
 
@@ -180,7 +180,6 @@ export default function model(
       },
   );
 
-  // TODO: Can this use selectionAndState$ instead or be incorporated in a different reducer below?
   const updatePostTextSelectionReducer$ = actions.updateSelection$.map(
     (selection) =>
       function updatePostTextSelectionReducer(prev: State): State {
@@ -225,8 +224,15 @@ export default function model(
               mentionSuggestions: mentionSuggestions.slice(0, MAX_SUGGESTIONS),
             };
           } else {
+            mentionQuery = '@';
+            const postTextSelection = {
+              start: cursor - mentionQuery.length,
+              end: cursor - mentionQuery.length,
+            };
             return {
               ...prev,
+              postTextSelection,
+              mentionQuery,
               mentionSuggestions: mentionSuggestions.slice(0, MAX_SUGGESTIONS),
             };
           }
@@ -248,34 +254,22 @@ export default function model(
   const chooseMentionReducer$ = actions.chooseMention$.map(
     (chosenId) =>
       function chooseMentionReducer(prev: State): State {
+        const chosen = prev.mentionSuggestions.find((x) => x.id === chosenId);
+        if (!chosen) return prev;
+
         const cursor = prev.postTextSelection.start;
-
-        // A valid `mentionQuery` under these circumstances
-        // can either be an empty string ("") or a string prefixed with @ ("@mention").
-        // The empty string case can occur when writing "@" in a post that's in reply to someone's post
-        const mentionIsInReplyPost = !prev.mentionQuery;
-
-        const beforeMentionText = prev.postText.substring(
-          0,
-          cursor - (mentionIsInReplyPost ? 1 : 0),
-        );
-
-        const afterMentionText = prev.postText
+        const beforeMention = prev.postText.substring(0, cursor);
+        const afterMention = prev.postText
           .substring(cursor)
           .replace(prev.mentionQuery, '');
 
-        const chosen = prev.mentionSuggestions.find((x) => x.id === chosenId);
+        const mention = `[@${chosen.name}](${chosen.id}) `;
 
-        if (!chosen) return prev;
-
-        const mentionTextToInsert = `[@${chosen.name}](${chosen.id}) `;
-
-        const postText =
-          beforeMentionText + mentionTextToInsert + afterMentionText;
+        const postText = beforeMention + mention + afterMention;
 
         const postTextSelection = {
-          start: cursor + mentionTextToInsert.length,
-          end: cursor + mentionTextToInsert.length,
+          start: cursor + mention.length,
+          end: cursor + mention.length,
         };
 
         return {
@@ -293,10 +287,10 @@ export default function model(
   const cancelMentionReducer$ = actions.cancelMention$.mapTo(
     function cancelMentionReducer(prev: State): State {
       const cursor = prev.postTextSelection.start;
-      const preMention = prev.postText.substr(0, cursor);
-      const postMention = prev.postText.substr(cursor);
+      const beforeMention = prev.postText.substring(0, cursor);
+      const afterMention = prev.postText.substring(cursor);
       const mention = prev.mentionQuery + ' ';
-      const postText = preMention + mention + postMention;
+      const postText = beforeMention + mention + afterMention;
       const postTextSelection = {
         start: cursor + mention.length,
         end: cursor + mention.length,
