@@ -4,6 +4,7 @@
 
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
+import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactSource} from '@cycle/react';
 import {KeyboardSource} from 'cycle-native-keyboard';
 import {NavSource} from 'cycle-native-navigation';
@@ -19,7 +20,6 @@ import {
 import {Screens} from '~frontend/screens/enums';
 import {State} from './model';
 import {Props} from './props';
-import sampleCombine from 'xstream/extra/sampleCombine';
 
 export default function intent(
   props$: Stream<Props>,
