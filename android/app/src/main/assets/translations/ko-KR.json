@@ -1241,5 +1241,15 @@
         "5_normal": ""
       }
     }
+  },
+  "context_menu": {
+    "copy": "Copy",
+    "copy_link": "Copy link",
+    "cut": "Cut",
+    "inspect": "Inspect element",
+    "look_up_selection": "Look up {selection}",
+    "paste": "Paste",
+    "save_image": "Save image",
+    "save_image_as": "Save image as..."
   }
 }

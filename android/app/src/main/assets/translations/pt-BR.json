@@ -174,8 +174,8 @@
         "description": "O Manyverse detectou uma conta SSB no diretório `~/.ssb`. Se você quiser, você pode migrar essa conta para um diretório totalmente novo que somente o Manyverse pode acessar.\n\nQuando a migração terminar, **você NÃO vai poder usar mais a sua conta com outros aplicativos SSB tipo o Patchwork** e o '.ssb' será **deletado**, mas você ainda poderá usar esses apps se criar uma conta nova.\n\nVocê confirma que deseja migrar sua conta do '.ssb' para o Manyverse? **Essa operação não pode ser revertida.**"
       },
       "link_failed": {
-        "title": "Account not ready",
-        "description": "You tried to open an SSB link, but your account is not ready yet. Please complete the setup process first, and then try the link again."
+        "title": "Conta não está pronta",
+        "description": "Você tentou abrir um link SSB, mas a sua conta ainda não está pronta. Por favor, complete o processo de preparar a sua conta, e depois tente o link novamente."
       }
     }
   },
@@ -703,7 +703,7 @@
   },
   "profile": {
     "call_to_action": {
-      "copy_uri": "Copy SSB URI",
+      "copy_uri": "Copiar como SSB URI",
       "copy_cypherlink": "Copiar cypherlink",
       "private_chat": "Abrir conversa privada",
       "block": "Bloquear",
@@ -1054,28 +1054,28 @@
   },
   "resync": {
     "introduction": {
-      "title": "Good!",
+      "title": "Ótimo!",
       "description": {
-        "1_normal": "Your account's ",
-        "2_bold": "identity",
-        "3_normal": " is now restored.\n\nNow, to recover your ",
-        "4_bold": "data",
-        "5_normal": ", connect with friends that have interacted with you before, to redownload your data from them. There are two ways:"
+        "1_normal": "A ",
+        "2_bold": "identidade",
+        "3_normal": " da sua conta foi restaurada.\n\nAgora, pra recuperar os seus ",
+        "4_bold": "dados",
+        "5_normal": ", conecte-se com amigos que interagiram com você, para baixar os seus dados deles. Existem duas maneiras:"
       }
     },
     "buttons": {
-      "connect_via_wifi": "Connect via Wi-Fi",
+      "connect_via_wifi": "Conecte-se via Wi-Fi",
       "paste_invite": "Colar código de convite"
     },
     "instructions": {
       "connect_via_wifi": {
-        "title": "Connect via Wi-Fi",
-        "description": "Just connect this device to the same local Wi-Fi as other devices are, keep Manyverse open on those devices, and your data will automatically sync to this device."
+        "title": "Conecte-se via Wi-Fi",
+        "description": "Simplesmente conecte o seu dispositivo à mesma rede Wi-Fi que outros dispositivos, mantenha o Manyverse aberto, e seus dados serão sincronizados automaticamente."
       }
     },
     "progress": {
-      "title": "Redownloading data: {{megabytes}}",
-      "description": "Please wait while your data is being recovered from friends."
+      "title": "Rebaixando dados: {{megabytes}}",
+      "description": "Por favor, aguarde enquanto seus dados estão sendo recuperados."
     }
   },
   "thread": {
@@ -1128,7 +1128,7 @@
       "copy_blob_id": {
         "accessibility_label": "Copiar ID da Blob"
       },
-      "copy_msg_uri": "Copy SSB URI",
+      "copy_msg_uri": "Copiar como SSB URI",
       "copy_msg_id": "Copiar cypherlink",
       "view_raw": "Ver mensagem crua"
     },
@@ -1241,5 +1241,15 @@
         "5_normal": ""
       }
     }
+  },
+  "context_menu": {
+    "copy": "Copiar",
+    "copy_link": "Copiar link",
+    "cut": "Cortar",
+    "inspect": "Inspecionar elemento",
+    "look_up_selection": "Buscar {selection}",
+    "paste": "Colar",
+    "save_image": "Salvar imagem",
+    "save_image_as": "Salvar imagem como..."
   }
 }
