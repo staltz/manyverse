@@ -2,6 +2,14 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2203.21-beta
+
+* (Desktop) Feature: add basic context menu ([see details](https://gitlab.com/staltz/manyverse/commit/aa67d6f4cc9944113f5ed2f562b1834368604b34))
+* Bug fix: placement of mentions input in some cases ([see details](https://gitlab.com/staltz/manyverse/commit/de676fdc48d785dadefb3707ddc402fd68d5ade7))
+* Bug fix: reply placeholder stuck on unrelated threads ([see details](https://gitlab.com/staltz/manyverse/commit/181205a36a6cd233a2eb4a74eab16ef031f98517))
+* Feature: autofocus text field when starting a private chat ([see details](https://gitlab.com/staltz/manyverse/commit/527c7e02c00e0e85d6131caf2b9c9ae6561a9f94))
+* Improve Brazilian Portuguese translation ([see details](https://gitlab.com/staltz/manyverse/commit/2df6e13d56efdc99993878730af6b3a24d408448))
+
 ## 0.2203.7-beta
 
 * (Desktop) Bug fix: preserve scroll position when going back to thread ([see details](https://gitlab.com/staltz/manyverse/commit/9b5bb679042068f14c07a1b1417bf834804ef748))
