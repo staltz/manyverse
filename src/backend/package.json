@@ -61,7 +61,7 @@
   },
   "optionalDependenciesCOMMENT": "These are desktop-only modules",
   "optionalDependencies": {
-    "electron": "15.2.0"
+    "electron": "15.3.5"
   },
   "devDependencies": {
     "license-ls": "~1.4.1",
