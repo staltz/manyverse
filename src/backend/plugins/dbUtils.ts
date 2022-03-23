@@ -23,6 +23,18 @@ function voteExpressionToReaction(expression: string) {
   return THUMBS_UP_UNICODE;
 }
 
+function isValidVoteMsg(msg: Msg<VoteContent>) {
+  if (!msg) return false;
+  if (!msg.value) return false;
+  if (!msg.value.content) return false;
+  if (!msg.value.content.vote) return false;
+  if (!msg.value.content.vote.expression) return false;
+  if (!msg.value.content.vote.value) return false;
+  if (typeof msg.value.content.vote.value !== 'number') return false;
+  if (isNaN(msg.value.content.vote.value)) return false;
+  if (msg.value.content.vote.value < 0) return false;
+}
+
 export = {
   name: 'dbUtils',
   version: '1.0.0',
@@ -78,8 +90,8 @@ export = {
         return this._map.size === 0;
       },
       update(msg: Msg<VoteContent>) {
-        const {expression, value} = msg.value.content.vote;
-        if (value <= 0 || !expression) return;
+        if (!isValidVoteMsg(msg)) return;
+        const {expression} = msg.value.content.vote;
         const reaction = voteExpressionToReaction(expression);
         const previous = this._map.get(reaction) ?? 0;
         this._map.set(reaction, previous + 1);
