@@ -124,6 +124,7 @@ declare module 'i18n-js' {
     | 'activity.empty.title'
     | 'activity.empty.description'
     | 'connections.title'
+    | 'connections.floating_action_button.add_connection'
     | 'connections.floating_action_button.create_invite'
     | 'connections.floating_action_button.paste_invite'
     | 'connections.floating_action_button.bluetooth_seek'
