@@ -13,13 +13,14 @@ import {
 import {Animated, Dimensions, Easing, Platform, View} from 'react-native';
 import {h} from '@cycle/react';
 import {FloatingAction} from 'react-native-floating-action';
-import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import PublicTabIcon from '~frontend/components/tab-buttons/PublicTabIcon';
 import PrivateTabIcon from '~frontend/components/tab-buttons/PrivateTabIcon';
 import ActivityTabIcon from '~frontend/components/tab-buttons/ActivityTabIcon';
 import ConnectionsTabIcon from '~frontend/components/tab-buttons/ConnectionsTabIcon';
+import {withTitle} from '~frontend/components/withTitle';
 import {styles} from './styles';
 import {State} from './model';
+import {FabProps} from './fab';
 
 class TopBarStub extends PureComponent {
   public render() {
@@ -49,7 +50,14 @@ class CurrentTabPage extends PureComponent<{
 
     const fabSection =
       Platform.OS === 'web'
-        ? h(View, {style: styles.desktopFabContainer}, [h(FloatingAction, fab)])
+        ? h(
+            withTitle(View),
+            {
+              style: styles.desktopFabContainer,
+              title: fab.title,
+            },
+            [h(FloatingAction, fab)],
+          )
         : h(FloatingAction, fab);
 
     return h(Fragment, [

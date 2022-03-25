@@ -14,7 +14,10 @@ import {
 } from 'react-native';
 const pull = require('pull-stream');
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {FloatingAction} from 'react-native-floating-action';
+import {
+  FloatingAction,
+  IFloatingActionProps,
+} from 'react-native-floating-action';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
 import {SSBSource} from '~frontend/drivers/ssb';
@@ -26,6 +29,7 @@ import Feed from '~frontend/components/Feed';
 import EmptySection from '~frontend/components/EmptySection';
 import Avatar from '~frontend/components/Avatar';
 import TopBar from '~frontend/components/TopBar';
+import {withTitle} from '~frontend/components/withTitle';
 import {State} from '../model';
 import {
   styles,
@@ -243,11 +247,18 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
                 horizontal: Dimensions.horizontalSpaceBig,
               } as any)
             : 30,
-      });
+      } as IFloatingActionProps);
 
       const fabSection =
         Platform.OS === 'web'
-          ? h(View, {style: styles.desktopFabContainer}, [fab])
+          ? h(
+              withTitle(View),
+              {
+                style: styles.desktopFabContainer,
+                title: t('profile.floating_action_button.compose'),
+              },
+              [fab],
+            )
           : fab;
 
       return h(View, {style: styles.screen}, [

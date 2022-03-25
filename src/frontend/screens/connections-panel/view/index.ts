@@ -17,10 +17,12 @@ import {State} from '../model';
 import {styles} from './styles';
 import ConnectivityModes from './ConnectivityModes';
 import Body from './Body';
+import {withTitle} from '~frontend/components/withTitle';
+import {FabProps} from '~frontend/screens/central/fab';
 
 const ACTION_MARGIN_DESKTOP = 45; // px
 
-function getFABProps(state: State) {
+function getFABProps(state: State): FabProps {
   const visible = state.bluetoothEnabled || state.internetEnabled;
 
   const actions: Array<IActionProps> = [];
@@ -49,13 +51,14 @@ function getFABProps(state: State) {
     color: Palette.backgroundCTA,
     visible,
     actions,
+    title: t('connections.floating_action_button.add_connection'),
     iconHeight: 24,
     iconWidth: 24,
     overlayColor: Palette.transparencyDark,
     distanceToEdge: {
       vertical: Dimensions.verticalSpaceLarge,
       horizontal: Dimensions.horizontalSpaceBig,
-    } as any,
+    },
     floatingIcon: getImg(require('~images/plus-network.png')),
   };
 }
@@ -75,6 +78,7 @@ export default function view(state$: Stream<State>) {
       ]),
     )
     .map((state) => {
+      const fabProps = getFABProps(state);
       return h(View, {style: styles.screen}, [
         h(TopBar, {sel: 'topbar', title: t('connections.title')}),
         h(
@@ -86,10 +90,12 @@ export default function view(state$: Stream<State>) {
           [h(ConnectivityModes, state), h(Body, state)],
         ),
         Platform.OS === 'web'
-          ? h(View, {style: styles.desktopFabContainer}, [
-              h(FloatingAction, getFABProps(state)),
-            ])
-          : h(FloatingAction, getFABProps(state)),
+          ? h(
+              withTitle(View),
+              {style: styles.desktopFabContainer, title: fabProps.title},
+              [h(FloatingAction, fabProps)],
+            )
+          : h(FloatingAction, fabProps),
       ]);
     });
 }

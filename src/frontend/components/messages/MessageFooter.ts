@@ -27,6 +27,7 @@ import {
   PressAddReactionEvent,
 } from '~frontend/ssb/types';
 import {QuickEmojiModal} from '~frontend/components/QuickEmojiModal';
+import {withTitle} from '../withTitle';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -183,7 +184,7 @@ class Reactions extends PureComponent<{
 
     if (count > 0) {
       return h(
-        Touchable,
+        withTitle(Touchable),
         {
           ...touchableProps,
           style: styles.reactionsTouchable,
@@ -210,7 +211,7 @@ class AddReactionButton extends PureComponent<{
     const {myReaction} = this.props;
 
     return h(
-      Touchable,
+      withTitle(Touchable),
       {
         ...touchableProps,
         style: styles.prominentButtonContainer,
@@ -249,7 +250,7 @@ class ReplyButton extends PureComponent<{
 
     if (enabled) {
       return h(
-        Touchable,
+        withTitle(Touchable),
         {
           ...touchableProps,
           style: styles.prominentButtonContainer,
@@ -298,7 +299,7 @@ class ReplyButton extends PureComponent<{
 class EtcButton extends PureComponent<{onPress: () => void}> {
   public render() {
     return h(
-      Touchable,
+      withTitle(Touchable),
       {
         ...touchableProps,
         style: styles.prominentButtonContainer,

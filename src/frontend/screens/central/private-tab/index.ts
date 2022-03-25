@@ -6,7 +6,6 @@ import {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
-import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {SSBSource} from '~frontend/drivers/ssb';
 import {State} from './model';
@@ -15,6 +14,7 @@ import view from './view';
 import intent from './intent';
 import navigation from './navigation';
 import floatingAction from './fab';
+import {FabProps} from '../fab';
 
 export interface Sources {
   screen: ReactSource;

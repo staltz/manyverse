@@ -4,12 +4,15 @@
 
 import xs, {Stream} from 'xstream';
 import {State} from './model';
-import {IFloatingActionProps as Props} from 'react-native-floating-action';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {getImg} from '~frontend/global-styles/utils';
+import {FabProps} from '../fab';
+import {t} from '~frontend/drivers/localization';
 
-export default function floatingAction(state$: Stream<State>): Stream<Props> {
+export default function floatingAction(
+  state$: Stream<State>,
+): Stream<FabProps> {
   return xs.of({
     sel: 'fab',
     color: Palette.backgroundCTA,
@@ -18,10 +21,11 @@ export default function floatingAction(state$: Stream<State>): Stream<Props> {
     iconHeight: 24,
     iconWidth: 24,
     overlayColor: Palette.transparencyDark,
+    title: t('connections.floating_action_button.add_connection'),
     distanceToEdge: {
       vertical: Dimensions.verticalSpaceLarge,
       horizontal: Dimensions.horizontalSpaceBig,
-    } as any,
+    },
     floatingIcon: getImg(require('~images/plus-network.png')),
   });
 }

@@ -11,7 +11,6 @@ import {
   Command as StorageCommand,
   AsyncStorageSource,
 } from 'cycle-native-asyncstorage';
-import {IFloatingActionProps as FabProps} from 'react-native-floating-action';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';
@@ -23,6 +22,7 @@ import ssb from './ssb';
 import floatingAction from './fab';
 import asyncStorage from './asyncstorage';
 import navigation from './navigation';
+import {FabProps} from '../fab';
 
 export interface Sources {
   screen: ReactSource;

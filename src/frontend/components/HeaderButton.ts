@@ -8,6 +8,7 @@ import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {withTitle} from './withTitle';
 
 const size = 36;
 const space = Dimensions.horizontalSpaceNormal * 0.5;
@@ -59,13 +60,14 @@ export default class HeaderButton extends PureComponent<Props> {
     const padding = (size - (iconSize ?? defaultIconSize)) * 0.5;
 
     return h(
-      TouchableHighlight,
+      withTitle(TouchableHighlight),
       {
         style: [styles.basics, sideStyle, {padding}],
         onPress,
         onLongPress,
         hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
         underlayColor: Palette.transparencyDarkWeak,
+        title: accessibilityLabel,
       },
       [
         h(Icon, {

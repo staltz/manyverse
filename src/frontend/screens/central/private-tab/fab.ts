@@ -4,35 +4,35 @@
 
 import {Stream} from 'xstream';
 import {State} from './model';
-import {IFloatingActionProps as Props} from 'react-native-floating-action';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {t} from '~frontend/drivers/localization';
 import {getImg} from '~frontend/global-styles/utils';
+import {FabProps} from '../fab';
 
-export default function floatingAction(state$: Stream<State>): Stream<Props> {
-  return state$.map(
-    (state) =>
-      ({
-        sel: 'fab',
+export default function floatingAction(
+  state$: Stream<State>,
+): Stream<FabProps> {
+  return state$.map((state) => ({
+    sel: 'fab',
+    color: Palette.backgroundCTA,
+    visible: !!state.getPrivateFeedReadable,
+    actions: [
+      {
         color: Palette.backgroundCTA,
-        visible: !!state.getPrivateFeedReadable,
-        actions: [
-          {
-            color: Palette.backgroundCTA,
-            name: 'recipients-input',
-            icon: getImg(require('~images/message-plus.png')),
-            text: t('private.floating_action_button.compose'),
-          },
-        ],
-        overrideWithAction: true,
-        iconHeight: 24,
-        iconWidth: 24,
-        overlayColor: Palette.transparencyDark,
-        distanceToEdge: {
-          vertical: Dimensions.verticalSpaceLarge,
-          horizontal: Dimensions.horizontalSpaceBig,
-        } as any,
-      } as Props),
-  );
+        name: 'recipients-input',
+        icon: getImg(require('~images/message-plus.png')),
+        text: t('private.floating_action_button.compose'),
+      },
+    ],
+    title: t('private.floating_action_button.compose'),
+    overrideWithAction: true,
+    iconHeight: 24,
+    iconWidth: 24,
+    overlayColor: Palette.transparencyDark,
+    distanceToEdge: {
+      vertical: Dimensions.verticalSpaceLarge,
+      horizontal: Dimensions.horizontalSpaceBig,
+    },
+  }));
 }
