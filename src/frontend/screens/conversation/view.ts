@@ -269,6 +269,17 @@ function renderComposer(props: any) {
     placeholder: t('conversation.placeholder'),
     placeholderTextColor: Palette.textVeryWeak,
     textInputStyle: styles.textInputStyle,
+    textInputProps:
+      Platform.OS === 'web'
+        ? {
+            blurOnSubmit: true,
+            onSubmitEditing: () => {
+              if (props.text && props.onSend) {
+                props.onSend({text: props.text}, true);
+              }
+            },
+          }
+        : undefined,
   });
 }
 
