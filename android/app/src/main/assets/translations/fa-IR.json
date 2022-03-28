@@ -280,6 +280,7 @@
   "connections": {
     "title": "پنل مکالمات",
     "floating_action_button": {
+      "add_connection": "Add a connection",
       "create_invite": "ایجاد دعوت",
       "paste_invite": "الصاق دعوت",
       "bluetooth_seek": "جستجوی بلوتوث"

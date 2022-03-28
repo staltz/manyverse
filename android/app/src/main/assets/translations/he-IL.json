@@ -280,6 +280,7 @@
   "connections": {
     "title": "Connections Panel",
     "floating_action_button": {
+      "add_connection": "Add a connection",
       "create_invite": "צור הזמנה",
       "paste_invite": "הדבק הזמנה",
       "bluetooth_seek": "חיפוש בלוטוס"

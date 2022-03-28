@@ -280,6 +280,7 @@
   "connections": {
     "title": "Connections Panel",
     "floating_action_button": {
+      "add_connection": "Add a connection",
       "create_invite": "建立邀請碼",
       "paste_invite": "貼邀請碼",
       "bluetooth_seek": "藍牙同步"

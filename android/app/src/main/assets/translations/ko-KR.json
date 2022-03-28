@@ -280,6 +280,7 @@
   "connections": {
     "title": "Connections Panel",
     "floating_action_button": {
+      "add_connection": "Add a connection",
       "create_invite": "초대 생성",
       "paste_invite": "초대 붙여넣기",
       "bluetooth_seek": "Bluetooth 찾기"

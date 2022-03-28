@@ -280,6 +280,7 @@
   "connections": {
     "title": "Painel de conexões",
     "floating_action_button": {
+      "add_connection": "Add a connection",
       "create_invite": "Criar convite",
       "paste_invite": "Colar convite",
       "bluetooth_seek": "Procurar via Bluetooth"

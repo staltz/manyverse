@@ -280,6 +280,7 @@
   "connections": {
     "title": "Панель зʼєднань",
     "floating_action_button": {
+      "add_connection": "Add a connection",
       "create_invite": "Створити запрошення",
       "paste_invite": "Вставити запрошення",
       "bluetooth_seek": "Пошук по Bluetooth"

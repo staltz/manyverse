@@ -280,6 +280,7 @@
   "connections": {
     "title": "Connections Panel",
     "floating_action_button": {
+      "add_connection": "Add a connection",
       "create_invite": "Créer une invitation",
       "paste_invite": "Coller une invitation",
       "bluetooth_seek": "Recherche Bluetooth"

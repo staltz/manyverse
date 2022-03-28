@@ -280,6 +280,7 @@
   "connections": {
     "title": "Yhteyspaneeli",
     "floating_action_button": {
+      "add_connection": "Add a connection",
       "create_invite": "Luo kutsu",
       "paste_invite": "Liitä kutsu",
       "bluetooth_seek": "Bluetoothin haku"
