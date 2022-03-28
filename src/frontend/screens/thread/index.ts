@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
@@ -74,7 +74,9 @@ export function thread(sources: Sources): Sinks {
   const command$ = navigation(actionsPlus, sources.state.stream);
   const vdom$ = view(sources.state.stream, actionsPlus);
   const newContent$ = ssb(actionsPlus);
-  const dismiss$ = actions.publishMsg$.mapTo('dismiss' as 'dismiss');
+  const dismiss$ = xs
+    .merge(actions.exit$, actions.publishMsg$)
+    .mapTo('dismiss' as 'dismiss');
 
   return {
     screen: vdom$,
