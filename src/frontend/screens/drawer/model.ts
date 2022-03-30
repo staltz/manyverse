@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import concat from 'xstream/extra/concat';
 import {Reducer} from '@cycle/state';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource} from '~frontend/drivers/ssb';
@@ -148,13 +149,15 @@ export default function model(
     Reducer<State>
   >;
 
-  return xs.merge(
+  return concat(
     selfFeedIdReducer$,
-    aboutReducer$,
-    progressReducer$,
-    readSettingsReducer$,
-    allowCheckingNewVersionReducer$,
-    hasNewVersionReducer$,
+    xs.merge(
+      aboutReducer$,
+      progressReducer$,
+      readSettingsReducer$,
+      allowCheckingNewVersionReducer$,
+      hasNewVersionReducer$,
+    ),
   );
 }
 

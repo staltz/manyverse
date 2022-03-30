@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import concat from 'xstream/extra/concat';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
 import {NavSource} from 'cycle-native-navigation';
@@ -50,6 +51,18 @@ export interface State extends ProgressState {
   hasNewVersion: boolean;
 }
 
+const INITIAL_STATE: State = {
+  selfFeedId: '',
+  currentTab: 'public',
+  numOfPublicUpdates: 0,
+  numOfPrivateUpdates: 0,
+  numOfActivityUpdates: 0,
+  allowCheckingNewVersion: false,
+  hasNewVersion: false,
+  showButtons: false,
+  ...INITIAL_PROGRESS_STATE,
+};
+
 interface Actions {
   changeTab$: Stream<State['currentTab']>;
   latestVersionResponse$: Stream<string>;
@@ -86,21 +99,28 @@ export default function model(
       function selfFeedIdReducer(prev: State): State {
         if (!prev) {
           return {
+            ...INITIAL_STATE,
             selfFeedId,
-            currentTab: 'public',
-            numOfPublicUpdates: 0,
-            numOfPrivateUpdates: 0,
-            numOfActivityUpdates: 0,
-            allowCheckingNewVersion: false,
-            hasNewVersion: false,
-            showButtons: false,
-            ...INITIAL_PROGRESS_STATE,
           };
         } else {
           return {...prev, selfFeedId};
         }
       },
   );
+
+  const updateShowButtonsReducer$ = navSource
+    .globalDidAppear(Screens.Central)
+    .take(1)
+    .map(
+      () =>
+        function updateShowButtonsReducer(prev?: State): State {
+          if (!prev) {
+            return {...INITIAL_STATE, showButtons: true};
+          } else {
+            return {...prev, showButtons: true};
+          }
+        },
+    );
 
   const aboutReducer$ = selfFeedId$
     .map((selfFeedId) => ssbSource.profileAboutLive$(selfFeedId))
@@ -112,36 +132,11 @@ export default function model(
           if (!!about.name && about.name !== about.id) {
             name = about.name;
           }
-          if (!prev) {
-            return {
-              selfFeedId: about.id,
-              selfAvatarUrl: about.imageUrl,
-              currentTab: 'public',
-              numOfPublicUpdates: 0,
-              numOfPrivateUpdates: 0,
-              numOfActivityUpdates: 0,
-              allowCheckingNewVersion: false,
-              hasNewVersion: false,
-              showButtons: false,
-              ...INITIAL_PROGRESS_STATE,
-            };
-          } else {
-            return {
-              ...prev,
-              selfAvatarUrl: about.imageUrl,
-              name,
-            };
-          }
-        },
-    );
-
-  const updateShowButtonsReducer$ = navSource
-    .globalDidAppear(Screens.Central)
-    .take(1)
-    .map(
-      () =>
-        function updateShowButtonsReducer(prev: State): State {
-          return {...prev, showButtons: true};
+          return {
+            ...prev,
+            selfAvatarUrl: about.imageUrl,
+            name,
+          };
         },
     );
 
@@ -265,19 +260,20 @@ export default function model(
     Reducer<State>
   >;
 
-  return xs.merge(
-    selfFeedIdReducer$,
-    aboutReducer$,
-    changeTabReducer$,
-    updateShowButtonsReducer$,
-    updatePublicCounterReducer$,
-    updatePrivateCounterReducer$,
-    updateActivityCounterReducer$,
-    updateConnectionsReducer$,
-    readSettingsReducer$,
-    allowCheckingNewVersionReducer$,
-    hasNewVersionReducer$,
-    progressReducer$,
+  return concat(
+    xs.merge(selfFeedIdReducer$, updateShowButtonsReducer$),
+    xs.merge(
+      aboutReducer$,
+      changeTabReducer$,
+      updatePublicCounterReducer$,
+      updatePrivateCounterReducer$,
+      updateActivityCounterReducer$,
+      updateConnectionsReducer$,
+      readSettingsReducer$,
+      allowCheckingNewVersionReducer$,
+      hasNewVersionReducer$,
+      progressReducer$,
+    ),
   );
 }
 

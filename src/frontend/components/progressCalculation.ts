@@ -9,8 +9,8 @@ export interface State {
   migrationProgress: number;
   indexingProgress: number;
   combinedProgress: number;
-  checkpointCombinedProgress: number;
   checkpoint: number;
+  checkpointCombinedProgress: number;
   recentEstimates: Array<number>;
   estimateProgressDone: number;
 }
@@ -22,22 +22,23 @@ function updateEstimateProgressDone_mutating(state: State) {
   if (state.combinedProgress <= 0 || state.combinedProgress >= 1) {
     state.estimateProgressDone = 0;
     state.recentEstimates = [];
+    state.checkpoint = 0;
+    state.checkpointCombinedProgress = 0;
+    return;
+  }
+
+  if (state.checkpoint === 0) {
     state.checkpoint = now;
-  } else if (state.checkpoint + CHECKPOINT_INTERVAL < now) {
+    state.checkpointCombinedProgress = state.combinedProgress;
+  }
+
+  if (state.checkpoint + CHECKPOINT_INTERVAL < now) {
     const rateOfProgress =
       (state.combinedProgress - state.checkpointCombinedProgress) /
       (now - state.checkpoint);
     const remaining = 1 - state.combinedProgress;
-    if (state.combinedProgress > state.checkpointCombinedProgress) {
-      // Calculate a moving average of the last 6 estimates
-      state.recentEstimates.push(remaining / rateOfProgress);
-      if (state.recentEstimates.length > 3) state.recentEstimates.shift();
-      state.estimateProgressDone =
-        state.recentEstimates.reduce((acc, x) => acc + x, 0) /
-        state.recentEstimates.length;
-    }
-    state.checkpointCombinedProgress = state.combinedProgress;
-    state.checkpoint = now;
+    state.estimateProgressDone = remaining / rateOfProgress;
+    state.estimateProgressDone *= 1.25; // be a little bit pessimistic
   }
 }
 
@@ -52,8 +53,8 @@ export const INITIAL_STATE: State = {
   migrationProgress: 0,
   indexingProgress: 0,
   combinedProgress: 0,
+  checkpoint: 0,
   checkpointCombinedProgress: 0,
-  checkpoint: Date.now(),
   recentEstimates: [],
   estimateProgressDone: 0,
 };
