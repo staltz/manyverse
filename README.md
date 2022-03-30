@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2021 The Manyverse Authors
+SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
 
 SPDX-License-Identifier: CC-BY-4.0
 -->
@@ -16,26 +16,19 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ### [Homepage](https://manyver.se)
 
-### Install the Android app
-- [From F-Droid](https://f-droid.org/app/se.manyver)
-- [From Google Play](https://play.google.com/store/apps/details?id=se.manyver)
-- [From Dat Installer](https://github.com/staltz/dat-installer/) (input `dat://manyverse-latest.hashbase.io`)
-- [As an APK from the web](https://manyverse-all.hashbase.io/) (`https://manyverse-all.hashbase.io`)
-
 ### [Code of conduct](./code-of-conduct.md)
 
 ### Documentation
-- [Privacy policy](https://gitlab.com/staltz/manyverse/wikis/Privacy-Policy)
-- [Feature roadmap](https://gitlab.com/staltz/manyverse/wikis/roadmap)
-- [Financial plan](https://gitlab.com/staltz/manyverse/wikis/Financial-Plan)
+
 - [Contributor docs](./CONTRIBUTING.md)
-- [UX Research](https://gitlab.com/staltz/manyverse/wikis/UX-project:-%22Welcome-to-the-Manyverse%22)
+- [Wiki](https://gitlab.com/staltz/manyverse/wikis)
+- [FAQ](https://manyver.se/faq)
 
 ### License
 
 See file AUTHORS for copyright holders.
 
-**MPL 2.0.** Most source code files for this project are licensed under the **Mozilla Public License 2.0** (see file `LICENSE`), while some scripts and test files are dedicated to the Public Domain (see file `CC0-1.0`).
+**MPL 2.0.** Most source code files for this project are licensed under the **Mozilla Public License 2.0** (see file `LICENSE`), while some scripts and test files are dedicated to the Public Domain (see file `CC0-1.0`). Each file specifies its own license.
 
 ### Backers
 
