@@ -82,7 +82,7 @@ export = {
       toCallback,
     } = ssb.db.operators;
 
-    const BATCH_SIZE = 75;
+    const BATCH_SIZE = 100; // about 50 KB per batch
 
     const reactionsCount = {
       _map: new Map<string, number>(),
