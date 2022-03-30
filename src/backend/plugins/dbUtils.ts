@@ -73,6 +73,8 @@ export = {
       votesFor,
       fullMentions: mentions,
       isRoot,
+      hasRoot,
+      hasFork,
       isPublic,
       isPrivate,
       descending,
@@ -103,30 +105,36 @@ export = {
       },
     };
 
-    // Wait until migration progress is somewhere in the middle
-    pull(
-      ssb.db2migrate.progress(),
-      pull.filter((x: number) => x > 0.4 && x < 1),
-      pull.take(1),
-      pull.drain(() => {
-        // Query some indexes to eagerly build them during migration
-        // (1) non-dedicated author index needed for all profile screens
-        pull(
-          ssb.db.query(
-            where(author(ssb.id, {dedicated: false})),
-            toPullStream(),
-          ),
-          pull.take(1),
-          pull.drain(),
-        );
-        // (2) votes prefix index needed as soon as threads load
-        pull(
-          ssb.db.query(where(votesFor('whatever')), toPullStream()),
-          pull.take(1),
-          pull.drain(),
-        );
-      }),
-    );
+    // Eagerly build some indexes to make the UI progress bar more stable.
+    // (Knowing up-front all the "work" that has to be done makes it easier to
+    // know how much work is left to do.) We always need these indexes anyway.
+    const eagerIndexes = [
+      // value_author.32prefix:
+      author(ssb.id, {dedicated: false}),
+      // value_author_@SELFSSBID.index:
+      author(ssb.id, {dedicated: true}),
+      // value_content_contact__map.32prefixmap
+      // value_content_type_contact.index:
+      contact(ssb.id),
+      // value_content_fork__map.32prefixmap
+      hasFork('whatever'),
+      // value_content_root_.index
+      isRoot(),
+      // value_content_root__map.32prefixmap
+      hasRoot('whatever'),
+      // value_content_type_post.index
+      type('post'),
+      // value_content_type_pub.index
+      type('pub'),
+      // value_content_type_roomx2Falias.index
+      type('room/alias'),
+      // value_content_type_vote.index:
+      // value_content_vote_link__map.32prefixmap:
+      votesFor('whatever'),
+    ];
+    for (const index of eagerIndexes) {
+      ssb.db.prepare(index, () => {});
+    }
 
     return {
       rawLogReversed() {
