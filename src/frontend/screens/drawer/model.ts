@@ -31,6 +31,14 @@ export interface State extends ProgressState {
   name?: string;
 }
 
+const INITIAL_STATE: State = {
+  selfFeedId: '',
+  canPublishSSB: true,
+  allowCheckingNewVersion: false,
+  hasNewVersion: false,
+  ...INITIAL_PROGRESS_STATE,
+};
+
 interface Actions {
   latestVersionResponse$: Stream<string>;
 }
@@ -46,13 +54,7 @@ export default function model(
     (selfFeedId: FeedId) =>
       function selfFeedIdReducer(prev: State): State {
         if (!prev) {
-          return {
-            selfFeedId,
-            canPublishSSB: true,
-            allowCheckingNewVersion: false,
-            hasNewVersion: false,
-            ...INITIAL_PROGRESS_STATE,
-          };
+          return {...INITIAL_STATE, selfFeedId};
         } else {
           return {...prev, selfFeedId};
         }
@@ -69,23 +71,11 @@ export default function model(
           if (!!about.name && about.name !== about.id) {
             name = about.name;
           }
-          if (!prev) {
-            return {
-              selfFeedId: about.id,
-              selfAvatarUrl: about.imageUrl,
-              name,
-              canPublishSSB: true,
-              allowCheckingNewVersion: false,
-              hasNewVersion: false,
-              ...INITIAL_PROGRESS_STATE,
-            };
-          } else {
-            return {
-              ...prev,
-              selfAvatarUrl: about.imageUrl,
-              name,
-            };
-          }
+          return {
+            ...prev,
+            selfAvatarUrl: about.imageUrl,
+            name,
+          };
         },
     );
 
