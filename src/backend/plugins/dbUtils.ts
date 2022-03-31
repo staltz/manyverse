@@ -131,6 +131,10 @@ export = {
       // value_content_type_vote.index:
       // value_content_vote_link__map.32prefixmap:
       votesFor('whatever'),
+      // meta_.index:
+      isPublic(),
+      // meta_private_true.index:
+      isPrivate(),
     ];
     for (const index of eagerIndexes) {
       ssb.db.prepare(index, () => {});
