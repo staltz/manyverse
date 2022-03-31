@@ -4,8 +4,7 @@
 
 import identity = require('./identity');
 const {restore, migrate} = identity;
-import ssb = require('./ssb');
-const {startSSB} = ssb;
+import startSSB = require('./ssb');
 
 // Install Desktop backend plugins
 if (process.env.MANYVERSE_PLATFORM === 'desktop') {
@@ -59,8 +58,11 @@ if (process.env.MANYVERSE_PLATFORM === 'mobile') {
 // Setup initial communication with the frontend, to create or restore identity
 channel.addListener('identity', (request) => {
   let response: string;
-  if (request === 'CREATE' || request === 'USE') {
-    startSSB(request === 'CREATE');
+  if (request === 'CREATE') {
+    startSSB(true);
+    response = 'IDENTITY_READY';
+  } else if (request === 'USE') {
+    startSSB(false);
     response = 'IDENTITY_READY';
   } else if (request.startsWith('RESTORE:')) {
     const words = request.split('RESTORE: ')[1].trim();
