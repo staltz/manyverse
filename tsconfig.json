@@ -20,6 +20,7 @@
     "module": "commonjs",
     "forceConsistentCasingInFileNames": true,
     "target": "es2017",
+    "incremental": true,
     "outDir": "./lib",
     "lib": ["dom", "es5", "scripthost", "es2015", "es2016", "es2017"]
   },
