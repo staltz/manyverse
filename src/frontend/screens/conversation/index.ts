@@ -8,6 +8,10 @@ import {StyleSheet} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
+import {
+  AsyncStorageSource,
+  Command as StorageCommand,
+} from 'cycle-native-asyncstorage';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
@@ -17,12 +21,14 @@ import ssb from './ssb';
 import navigation from './navigation';
 import intent from './intent';
 import {Props as P} from './props';
+import {asyncStorage} from './asyncStorage';
 export {navOptions} from './layout';
 
 export type Props = P;
 
 export interface Sources {
   props: Stream<Props>;
+  asyncstorage: AsyncStorageSource;
   screen: ReactSource;
   ssb: SSBSource;
   navigation: NavSource;
@@ -34,6 +40,7 @@ export interface Sinks {
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
+  asyncstorage: Stream<StorageCommand>;
 }
 
 export const styles = StyleSheet.create({
@@ -51,14 +58,32 @@ export const styles = StyleSheet.create({
 
 export function conversation(sources: Sources): Sinks {
   const state$ = sources.state.stream;
-  const vdom$ = view(state$);
+
+  const storageKey$ = state$
+    .filter(({rootMsgId}) => !!rootMsgId)
+    .map(({rootMsgId}) => `privateDraft:${rootMsgId}`)
+    .remember();
+
+  const loadedDraft$ = storageKey$
+    .map((key) => sources.asyncstorage.getItem(key))
+    .flatten()
+    .map((value) => value ?? '')
+    .remember();
+
+  const vdom$ = view(state$, loadedDraft$);
   const actions = intent(sources.screen, sources.navigation);
   const cmd$ = navigation(actions, sources.props, state$);
   const reducer$ = model(sources.props, sources.ssb, actions);
   const newContent$ = ssb(actions, state$);
+  const draftStorage$ = asyncStorage(
+    actions.composeTextChanged$,
+    actions.publishMsg$,
+    storageKey$,
+  );
 
   return {
     screen: vdom$,
+    asyncstorage: draftStorage$,
     navigation: cmd$,
     ssb: newContent$,
     state: reducer$,

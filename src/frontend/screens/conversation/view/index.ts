@@ -12,7 +12,6 @@ import {
   GiftedChat as GiftedChatWithWrongTypes,
   Bubble as BubbleWithWrongTypes,
   Day as DayWithWrongTypes,
-  Composer as ComposerWithWrongTypes,
   InputToolbar as InputToolbarWithWrongTypes,
   Message as MessageWithWrongTypes,
   SystemMessage as SystemMessageWithWrongTypes,
@@ -22,7 +21,6 @@ import {
   GiftedChatProps,
   BubbleProps,
   DayProps,
-  ComposerProps,
   InputToolbarProps,
   LoadEarlierProps,
   MessageProps,
@@ -39,7 +37,8 @@ import TopBar from '~frontend/components/TopBar';
 import HeaderButton from '~frontend/components/HeaderButton';
 import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
-import {SSBGiftedMsg, State} from './model';
+import {SSBGiftedMsg, State} from '../model';
+import {SettableComposer} from './SettableComposer';
 
 const GiftedChat = GiftedChatWithWrongTypes as any as ComponentClass<
   GiftedChatProps<GiftedMsg>
@@ -50,7 +49,6 @@ const Bubble = BubbleWithWrongTypes as any as ComponentClass<
 const Day = DayWithWrongTypes as any as ComponentClass<DayProps<GiftedMsg>>;
 const InputToolbar =
   InputToolbarWithWrongTypes as any as ComponentClass<InputToolbarProps>;
-const Composer = ComposerWithWrongTypes as any as ComponentClass<ComposerProps>;
 const Message = MessageWithWrongTypes as any as ComponentClass<
   MessageProps<any>
 >;
@@ -263,10 +261,13 @@ function renderSend(props: any) {
   ]);
 }
 
-function renderComposer(props: any) {
-  return h(Composer, {
+function renderComposer(props: any, nativeProps$: Stream<Object>) {
+  return h(SettableComposer, {
     ...props,
+    nativeProps$: nativeProps$.take(1),
+    sel: 'msg-composer',
     placeholder: t('conversation.placeholder'),
+    textInputAutoFocus: true,
     placeholderTextColor: Palette.textVeryWeak,
     textInputStyle: styles.textInputStyle,
     textInputProps:
@@ -283,11 +284,11 @@ function renderComposer(props: any) {
   });
 }
 
-function renderInputToolbar(props: any) {
+function renderInputToolbar(props: any, nativeProps$: Stream<Object>) {
   return h(InputToolbar, {
     ...props,
     containerStyle: styles.inputToolbarContainer,
-    renderComposer,
+    renderComposer: (props) => renderComposer(props, nativeProps$),
   });
 }
 
@@ -342,7 +343,10 @@ function renderSystemMessage(props: any) {
   });
 }
 
-export default function view(state$: Stream<State>) {
+export default function view(
+  state$: Stream<State>,
+  draftMessage$: Stream<string>,
+) {
   return state$
     .compose(
       dropRepeatsByKeys([
@@ -384,7 +388,11 @@ export default function view(state$: Stream<State>) {
           renderTime,
           renderDay,
           renderSystemMessage,
-          renderInputToolbar,
+          renderInputToolbar: (props) =>
+            renderInputToolbar(
+              props,
+              draftMessage$.map((value) => ({value})),
+            ),
           renderMessageText: (item: {currentMessage: SSBGiftedMsg}) =>
             h(View, {style: styles.bubbleText}, [
               item.currentMessage.user._id !== selfFeedId

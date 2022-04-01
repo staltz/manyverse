@@ -15,6 +15,10 @@ export default function intent(reactSource: ReactSource, navSource: NavSource) {
       .events('send')
       .map((arr) => arr[0].text),
 
+    composeTextChanged$: reactSource
+      .select('msg-composer')
+      .events('textChanged'),
+
     goBack$: xs.merge(
       navSource.backPress(),
       reactSource.select('topbar').events('pressBack'),
