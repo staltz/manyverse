@@ -188,12 +188,12 @@ android {
     }
 
     signingConfigs {
-        // debug {
-        //     storeFile file('debug.keystore')
-        //     storePassword 'android'
-        //     keyAlias 'androiddebugkey'
-        //     keyPassword 'android'
-        // }
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
         release {
             if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
                 storeFile file(MYAPP_RELEASE_STORE_FILE)
@@ -206,7 +206,11 @@ android {
                 keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
             } else {
-                throw new Exception('Refusing to make release build with wrong keystore')
+                // This generally shouldn't happen, but fall back to using the debug keystore
+                storeFile file('debug.keystore')
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
             }
         }
     }
@@ -223,6 +227,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            applicationIdSuffix ".debug"
             if (nativeArchitectures) {
                 ndk {
                     abiFilters nativeArchitectures.split(',')
@@ -240,7 +245,8 @@ android {
             } else if (System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD") != null) {
                 signingConfig signingConfigs.release
             } else {
-                throw new Exception('Refusing to make release build with wrong keystore')
+                // This generally shouldn't happen, but fall back to using the debug keystore
+                signingConfig signingConfigs.debug
             }
         }
     }

@@ -27,7 +27,7 @@
     "archive-apk": "cp android/app/build/outputs/apk/indie/release/app-indie-release.apk ../apk-archive/manyverse-$(cat package.json | jq -r .version).apk",
     "desktop-frontend-watch": "webpack --watch --mode development --config desktop/webpack.renderer.config.js",
     "desktop-dev": "npm run build-backend-desktop && concurrently \"npm:lib-watch\" \"npm:desktop-frontend-watch\"",
-    "android-dev": "npm run build-android-assets && react-native run-android --variant=indieDebug",
+    "android-dev": "npm run build-android-assets && react-native run-android --variant=indieDebug --appIdSuffix=debug",
     "ios-dev": "npm run build-ios-assets && react-native run-ios --device",
     "prebuild-android-release": "npm run clean-bundler && npm run clean-android",
     "build-android-release": "npm run report-libraries && npm run update-top-backers && npm run build-android-assets && cd android && ./gradlew assembleIndieRelease --rerun-tasks && ./gradlew assembleGooglePlayRelease --rerun-tasks && cd ..",
