@@ -163,7 +163,7 @@
           "accessibility_label": "Kontowiederherstellung Schaltfläche"
         },
         "migrate": {
-          "label": "Migrate from ~/.ssb",
+          "label": "Von ~/.ssb migrieren",
           "accessibility_label": "Migrate account from the shared SSB directory"
         }
       }

@@ -6,7 +6,7 @@
     "cancel": "Annuleer",
     "continue": "Doorgaan",
     "delete": "Verwijder",
-    "remove": "Remove",
+    "remove": "Verwijderen",
     "save": "Opslaan",
     "yes": "Ja",
     "no": "Nee",
@@ -23,7 +23,7 @@
       "accessibility_label": "Dialoogknop sluiten"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
+      "title": "Link openen?",
       "description": "Do you want to open {{link}} in your browser?"
     }
   },

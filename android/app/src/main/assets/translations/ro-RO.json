@@ -98,16 +98,16 @@
         "2_bold": "on",
         "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
         "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "5_normal": ", și o poți sincroniza cu prietenii odată ce te conectezi cu ei."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Multe moduri de a te conecta",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". To find new people on the internet, look for an invite code to a ",
+          "1_normal": "Pentru a te conecta cu prietenii din apropiere și pentru a sincroniza conținutul, te poți conecta la aceiași rețea ",
+          "2_bold": "WiFi",
+          "3_normal": ". Pentru a găsi persoane noi, căutați un cod de invitație la un server ",
           "4_bold": "pub server",
           "5_normal": " or a ",
           "6_bold": "room server",
