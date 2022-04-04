@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: 2022 The Manyverse Authors
+#
+# SPDX-License-Identifier: Unlicense
+
+license check:
+  image:
+    name: fsfe/reuse:latest
+    entrypoint: [""]
+  script:
+    - reuse lint
+
+typescript compiles:
+  image:
+    name: node:latest
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - npm install
+    - npm run lib
