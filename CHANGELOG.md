@@ -2,6 +2,22 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2204.5-beta
+
+* (Desktop) Bug fix: copying text on MacOS with Cmd+C ([see details](https://gitlab.com/staltz/manyverse/commit/c3cc3d62016da78dd1549cfd3976df589b848c52))
+* (Desktop) Feature: add hover text on icon buttons ([see details](https://gitlab.com/staltz/manyverse/commit/5897a29e18553d1b464679f15f78f481d1d90b83))
+* (Desktop) Feature: send private chat message with the Enter key ([see details](https://gitlab.com/staltz/manyverse/commit/d7beadefea1ea02893b3ec650c266ae754c02e2a))
+* Bug fix: database progress bar should not go back ([see details](https://gitlab.com/staltz/manyverse/commit/32a69216d25ff7681211b6d8df2e7d30bf2fb3a8))
+* Bug fix: dont crash when processing rare votes ([see details](https://gitlab.com/staltz/manyverse/commit/52a6b5f8f6b4401e2dd06704d9d9fe42e020267c)), closes [#1821](https://gitlab.com/staltz/manyverse/issues/1821)
+* Bug fix: hide keyboard when leaving Thread screen ([see details](https://gitlab.com/staltz/manyverse/commit/772ab73b7e5a5cd45a76eb374bb81e7e01d57d1e))
+* Bug fix: public tab "new" indicator incorrectly appearing ([see details](https://gitlab.com/staltz/manyverse/commit/17d45fa51e0ce3d094dd03490a2a073532b1f24e))
+* Feat: save private chat drafts ([see details](https://gitlab.com/staltz/manyverse/commit/9450f1cd6f24046e45778f9bac975f2701144cd1))
+* Improve Dutch, German, Romanian translations ([see details](https://gitlab.com/staltz/manyverse/commit/8b8bee81bf911fb9ce228ced9d2919f89fe8a1b8))
+* Improve initial sync a bit, for new accounts ([see details](https://gitlab.com/staltz/manyverse/commit/24fd26feae2f9a80247eec008053cc8a584ff807))
+* Improve Italian translation ([see details](https://gitlab.com/staltz/manyverse/commit/48804bbfce72c92d8b1291662efdfce0d0649497))
+* Improve time estimates in the progress bar ([see details](https://gitlab.com/staltz/manyverse/commit/f3909f1dcaa9c6cfc5746586d1f5d3db17076568))
+* Partial Urdu translation ([see details](https://gitlab.com/staltz/manyverse/commit/31a9e5dc07083643ab7ecb689e22b9140571eb2b))
+
 ## 0.2203.21-beta
 
 * (Desktop) Feature: add basic context menu ([see details](https://gitlab.com/staltz/manyverse/commit/aa67d6f4cc9944113f5ed2f562b1834368604b34))

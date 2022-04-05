@@ -281,7 +281,7 @@ export default [
   {
     name: 'electron',
     type: 'library',
-    version: '15.2.0',
+    version: '15.3.5',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/electron/electron#readme',
   },
@@ -803,7 +803,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '3.0.0',
+    version: '3.3.3',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -929,7 +929,7 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '9.3.1',
+    version: '9.4.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
