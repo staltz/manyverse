@@ -20,6 +20,8 @@ export default function intent(
       .select('detailed-logs')
       .events('valueChange'),
 
+    toggleAppearance$: screenSource.select('appearance').events('valueChange'),
+
     updateHops$: screenSource
       .select('hops')
       .events('change')

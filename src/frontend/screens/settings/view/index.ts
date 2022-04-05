@@ -104,6 +104,37 @@ export default function view(state$: Stream<State>) {
         ]),
 
         h(View, {style: styles.section}, [
+          h(Text, {style: styles.sectionTitle}, t('settings.appearance.title')),
+
+          h(ToggleSetting, {
+            sel: 'appearance',
+            title: t('settings.appearance.system.title'),
+            value: state.enableDetailedLogs,
+            accessibilityLabel: t(
+              'settings.appearance.system.accessibility_label',
+            ),
+          }),
+
+          h(ToggleSetting, {
+            sel: 'appearance',
+            title: t('settings.appearance.light.title'),
+            value: state.enableDetailedLogs,
+            accessibilityLabel: t(
+              'settings.appearance.light.accessibility_label',
+            ),
+          }),
+
+          h(ToggleSetting, {
+            sel: 'appearance',
+            title: t('settings.appearance.dark.title'),
+            value: state.enableDetailedLogs,
+            accessibilityLabel: t(
+              'settings.appearance.dark.accessibility_label',
+            ),
+          }),
+        ]),
+
+        h(View, {style: styles.section}, [
           h(
             Text,
             {style: styles.sectionTitle},

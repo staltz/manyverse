@@ -1006,6 +1006,21 @@
         "accessibility_label": "Replication hops slider"
       }
     },
+    "appearance": {
+      "title": "Appearance",
+      "system": {
+        "title": "System theme", 
+        "accessibility_label": "System theme selection toggle"
+      },
+      "light": {
+        "title": "Light theme", 
+        "accessibility_label": "Light theme selection toggle"
+      },
+      "dark": {
+        "title": "Dark theme", 
+        "accessibility_label": "Dark theme selection toggle"
+      }
+    },
     "data_and_storage": {
       "title": "Data & Storage",
       "backup": {
