@@ -2,6 +2,10 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2204.7-beta
+
+* Bug fix: crash when restoring account ([see details](https://gitlab.com/staltz/manyverse/commit/aca763c65d497f8aa5d8fb21591b00b543c84296))
+
 ## 0.2204.5-beta
 
 * (Desktop) Bug fix: copying text on MacOS with Cmd+C ([see details](https://gitlab.com/staltz/manyverse/commit/c3cc3d62016da78dd1549cfd3976df589b848c52))

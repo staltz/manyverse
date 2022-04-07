@@ -803,7 +803,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '3.3.3',
+    version: '3.4.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -824,7 +824,7 @@ export default [
   {
     name: 'ssb-friends',
     type: 'library',
-    version: '5.1.1',
+    version: '5.1.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-friends',
   },
@@ -908,7 +908,7 @@ export default [
   {
     name: 'ssb-search2',
     type: 'library',
-    version: '1.0.3',
+    version: '2.0.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-search2#readme',
   },
@@ -929,7 +929,7 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '9.4.1',
+    version: '10.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
