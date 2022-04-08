@@ -7,9 +7,20 @@ import dropRepeats from 'xstream/extra/dropRepeats';
 import {FeedId, PostContent} from 'ssb-typescript';
 import {isFeedSSBURI, isMessageSSBURI} from 'ssb-uri2';
 const Ref = require('ssb-ref');
-import {GetReadable, SSBSource} from '~frontend/drivers/ssb';
+import {GetReadable, MentionSuggestion, SSBSource} from '~frontend/drivers/ssb';
 import {MsgAndExtras, ThreadSummaryWithExtras} from '~frontend/ssb/types';
 import {Props} from './props';
+
+type SearchResults =
+  | {
+      type: 'HashtagResults';
+      getReadable: GetReadable<ThreadSummaryWithExtras>;
+    }
+  | {
+      type: 'TextResults';
+      getReadable: GetReadable<MsgAndExtras<PostContent>>;
+    }
+  | {type: 'AccountResults'; users: MentionSuggestion[]};
 
 export interface State {
   selfFeedId: FeedId;
@@ -20,14 +31,31 @@ export interface State {
   queryOverride: string;
   queryOverrideFlag: number;
   queryInProgress: boolean;
-  getResultsReadable: GetReadable<MsgAndExtras<PostContent>> | null;
-  getFeedReadable: GetReadable<ThreadSummaryWithExtras> | null;
+  searchResults: SearchResults | null;
 }
 
 export interface Actions {
   updateQueryNow$: Stream<string>;
   updateQueryDebounced$: Stream<string>;
   clearQuery$: Stream<any>;
+}
+
+function searchContent(
+  query: string,
+  ssbSource: SSBSource,
+): Stream<SearchResults> {
+  if (query.startsWith('@') && query.length > 2) {
+    return ssbSource
+      .getMentionSuggestions(query.slice(1), [])
+      .map((users) => ({type: 'AccountResults', users}));
+  } else if (query.startsWith('#') && query.length > 2) {
+    return ssbSource
+      .searchPublishHashtagSummaries$(query)
+      .map((getReadable) => ({type: 'HashtagResults', getReadable}));
+  }
+  return ssbSource
+    .searchPublicPosts$(query)
+    .map((getReadable) => ({type: 'TextResults', getReadable}));
 }
 
 export default function model(
@@ -48,8 +76,7 @@ export default function model(
           queryOverride: props.query ?? '',
           queryOverrideFlag: 0,
           queryInProgress: !!props.query,
-          getResultsReadable: null,
-          getFeedReadable: null,
+          searchResults: null,
         };
       },
   );
@@ -69,7 +96,7 @@ export default function model(
         } else if (query.length > 1 && query.startsWith('#')) {
           return {...prev, queryInProgress: true};
         } else {
-          return {...prev, queryInProgress: false, getResultsReadable: null};
+          return {...prev, queryInProgress: false, searchResults: null};
         }
       },
   );
@@ -90,8 +117,7 @@ export default function model(
             queryOverride: '',
             queryOverrideFlag: 1 - prev.queryOverrideFlag,
             queryInProgress: false,
-            getResultsReadable: null,
-            getFeedReadable: null,
+            searchResults: null,
           };
         } else {
           return {...prev, query};
@@ -107,33 +133,21 @@ export default function model(
         queryOverride: '',
         queryOverrideFlag: 1 - prev.queryOverrideFlag,
         queryInProgress: false,
-        getResultsReadable: null,
-        getFeedReadable: null,
+        searchResults: null,
       };
     },
   );
 
   const query$ = state$.map((state) => state.query).compose(dropRepeats());
 
-  const updateResultsReducer$ = query$
-    .filter((query) => !query.startsWith('#') && query.length > 1)
-    .map((query) => ssbSource.searchPublicPosts$(query))
+  const updateSearchResultsReducer$ = query$
+    .filter((query) => query.length > 1)
+    .map((query) => searchContent(query, ssbSource))
     .flatten()
     .map(
-      (getResultsReadable) =>
-        function updateResultsReducer(prev: State): State {
-          return {...prev, getResultsReadable, getFeedReadable: null};
-        },
-    );
-
-  const updateFeedReducer$ = query$
-    .filter((query) => query.startsWith('#') && query.length > 1)
-    .map((query) => ssbSource.searchPublishHashtagSummaries$(query))
-    .flatten()
-    .map(
-      (getFeedReadable) =>
-        function updateResultsReducer(prev: State): State {
-          return {...prev, getResultsReadable: null, getFeedReadable};
+      (searchResults) =>
+        function updateUsersReducer(prev: State): State {
+          return {...prev, searchResults};
         },
     );
 
@@ -143,7 +157,6 @@ export default function model(
     updateQueryInProgressReducer$,
     updateQueryReducer$,
     clearQueryReducer$,
-    updateResultsReducer$,
-    updateFeedReducer$,
+    updateSearchResultsReducer$,
   );
 }

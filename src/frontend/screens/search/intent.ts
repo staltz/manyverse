@@ -77,6 +77,11 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     shortcutToThread$,
   );
 
+  const clickOnProfile$ = reactSource
+    .select('accounts')
+    .events<{id: FeedId}>('pressAccount')
+    .map(({id}) => id);
+
   const goToThreadReplies$ = reactSource
     .select('feed')
     .events<MsgAndExtras>('pressExpandReplies');
@@ -86,7 +91,7 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
       .select('feed')
       .events<ProfileNavEvent>('pressAuthor')
       .map((ev) => ev.authorFeedId),
-
+    clickOnProfile$,
     shortcutToProfile$,
   );
 

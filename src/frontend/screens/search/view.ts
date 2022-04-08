@@ -32,6 +32,7 @@ import {MsgAndExtras} from '~frontend/ssb/types';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {State} from './model';
 import {styles} from './styles';
+import AccountsList from '~frontend/components/AccountsList';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -181,6 +182,50 @@ class Results extends PureComponent<{
   }
 }
 
+const SearchResults: React.FC<State> = (state) => {
+  const {queryInProgress, searchResults} = state;
+  if (!queryInProgress || !searchResults) {
+    return null;
+  }
+
+  switch (searchResults.type) {
+    case 'HashtagResults':
+      return h(Feed, {
+        sel: 'feed',
+        getReadable: searchResults.getReadable,
+        prePublication$: null,
+        postPublication$: null,
+        selfFeedId: state.selfFeedId,
+        lastSessionTimestamp: state.lastSessionTimestamp,
+        preferredReactions: state.preferredReactions,
+        style: styles.feed,
+        EmptyComponent:
+          state.query.length > 0
+            ? h(EmptySection, {
+                style: styles.emptySection,
+                title: t('search.empty.zero_results.title'),
+                description: t('search.empty.zero_results.description', {
+                  query: state.query,
+                }),
+              })
+            : (null as any),
+      });
+
+    case 'TextResults':
+      return h(Results, {
+        sel: 'results',
+        query: state.query,
+        getScrollStream: searchResults.getReadable,
+      });
+
+    case 'AccountResults':
+      return h(AccountsList, {sel: 'accounts', accounts: searchResults.users});
+
+    default:
+      return h(PlaceholderResult);
+  }
+};
+
 export default function view(state$: Stream<State>) {
   const setInputNativeProps$ = state$
     .compose(
@@ -197,8 +242,7 @@ export default function view(state$: Stream<State>) {
         'queryInProgress',
         'query',
         'preferredReactions',
-        'getResultsReadable',
-        'getFeedReadable',
+        'searchResults',
       ]),
     )
     .map((state) => {
@@ -229,39 +273,7 @@ export default function view(state$: Stream<State>) {
             : null,
         ]),
 
-        h(View, {style: styles.container}, [
-          state.queryInProgress && state.getFeedReadable
-            ? h(Feed, {
-                sel: 'feed',
-                getReadable: state.getFeedReadable,
-                prePublication$: null,
-                postPublication$: null,
-                selfFeedId: state.selfFeedId,
-                lastSessionTimestamp: state.lastSessionTimestamp,
-                preferredReactions: state.preferredReactions,
-                style: styles.feed,
-                EmptyComponent:
-                  state.query.length > 0
-                    ? h(EmptySection, {
-                        style: styles.emptySection,
-                        title: t('search.empty.zero_results.title'),
-                        description: t(
-                          'search.empty.zero_results.description',
-                          {query: state.query},
-                        ),
-                      })
-                    : (null as any),
-              })
-            : state.queryInProgress && state.getResultsReadable
-            ? h(Results, {
-                sel: 'results',
-                query: state.query,
-                getScrollStream: state.getResultsReadable,
-              })
-            : state.queryInProgress
-            ? h(PlaceholderResult)
-            : null,
-        ]),
+        h(View, {style: styles.container}, [h(SearchResults, state)]),
       ]);
     });
 }
