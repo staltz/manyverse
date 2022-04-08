@@ -92,16 +92,18 @@ export default class ContactBody extends Component<Props> {
     const msgFollowing = msg.value.content.following;
 
     // if both are undefined then the message is nonstandard
-    const nonstandard = msgBlocking === undefined && msgFollowing === undefined;
+    const nonstandard =
+      (msgBlocking === undefined && msgFollowing === undefined) ||
+      (msgBlocking === true && msgFollowing === true);
 
     // const author = displayName(this.props.name, msg.value.author);
     const target = displayName(contactName, msg.value.content.contact!);
 
     const contactEvent: ContactEvent =
-      msgBlocking === undefined
-        ? msgFollowing === true
-          ? 'followed'
-          : 'unfollowed'
+      msgFollowing === true
+        ? 'followed'
+        : msgBlocking === undefined && msgFollowing === false
+        ? 'unfollowed'
         : msgBlocking === true
         ? 'blocked'
         : 'unblocked';
