@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {ReactElement} from 'react';
 import {StyleSheet} from 'react-native';
 import {ReactSource} from '@cycle/react';
@@ -41,6 +41,7 @@ export interface Sinks {
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
   asyncstorage: Stream<StorageCommand>;
+  keyboard: Stream<'dismiss'>;
 }
 
 export const styles = StyleSheet.create({
@@ -80,11 +81,15 @@ export function conversation(sources: Sources): Sinks {
     actions.publishMsg$,
     storageKey$,
   );
+  const dismiss$ = xs
+    .merge(actions.goBack$, actions.goToProfile$, actions.goToRecipients$)
+    .mapTo('dismiss' as 'dismiss');
 
   return {
     screen: vdom$,
     asyncstorage: draftStorage$,
     navigation: cmd$,
+    keyboard: dismiss$,
     ssb: newContent$,
     state: reducer$,
   };

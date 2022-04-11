@@ -33,6 +33,7 @@ export interface Sinks {
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   toast: Stream<Toast>;
+  keyboard: Stream<'dismiss'>;
 }
 
 export const navOptions = {
@@ -60,11 +61,13 @@ export function recipientsInput(sources: Sources): Sinks {
     }),
     duration: Duration.LONG,
   } as Toast);
+  const dismiss$ = actions.goBack$.mapTo('dismiss' as 'dismiss');
 
   return {
     screen: vdom$,
     navigation: command$,
     toast: toast$,
     state: reducer$,
+    keyboard: dismiss$,
   };
 }
