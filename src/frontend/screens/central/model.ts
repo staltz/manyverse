@@ -129,6 +129,7 @@ export const activityTabLens: Lens<State, ActivityTabState> = {
         lastSessionTimestamp: parent.lastSessionTimestamp,
         numOfUpdates: parent.numOfActivityUpdates,
         getActivityFeedReadable: null,
+        getFirewallAttemptLiveReadable: null,
       };
     }
   },

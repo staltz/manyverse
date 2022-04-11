@@ -14,6 +14,7 @@ interface SettingsFile {
   showFollows?: boolean;
   blobsStorageLimit?: number;
   allowCheckingNewVersion?: boolean;
+  enableFirewall?: boolean;
 }
 
 function writeSync(data: SettingsFile): void {
@@ -90,6 +91,7 @@ export = {
     updateHops: 'sync',
     updateBlobsPurge: 'sync',
     updateShowFollows: 'sync',
+    updateEnableFirewall: 'sync',
     updateDetailedLogs: 'sync',
     updateAllowCheckingNewVersion: 'sync',
   },
@@ -115,6 +117,12 @@ export = {
       );
     }
 
+    if (!ssb.connFirewall) {
+      throw new Error(
+        '"settingsUtils" is missing required plugin "ssb-conn-firewall"',
+      );
+    }
+
     // TODO: this logic could be moved to the frontend, and the storage of
     // the settings could be put in React Native's async-storage, as long as
     // we have a "global component" in cycle-native-navigation
@@ -136,6 +144,13 @@ export = {
       updateShowFollows(showFollows: boolean) {
         // TODO: like above, this could also be moved to the frontend
         updateField('showFollows', showFollows);
+      },
+
+      updateEnableFirewall(enableFirewall: boolean) {
+        ssb.connFirewall.reconfigure({
+          rejectUnknown: enableFirewall,
+        });
+        updateField('enableFirewall', enableFirewall);
       },
 
       updateBlobsPurge(storageLimit: number) {

@@ -59,6 +59,16 @@ export default function view(state$: Stream<State>) {
             ),
           }),
 
+          h(ToggleSetting, {
+            sel: 'enable-firewall',
+            title: t('settings.preferences.enable_firewall.title'),
+            subtitle: t('settings.preferences.enable_firewall.subtitle'),
+            value: state.enableFirewall,
+            accessibilityLabel: t(
+              'settings.preferences.enable_firewall.accessibility_label',
+            ),
+          }),
+
           h(View, {style: styles.spacer}),
           h(SliderSetting, {
             sel: 'hops',

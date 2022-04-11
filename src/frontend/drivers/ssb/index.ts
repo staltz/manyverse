@@ -71,7 +71,6 @@ export class SSBSource {
   public mentionsFeed$: Stream<GetReadable<MsgAndExtras>>;
   public mentionsFeedLive$: Stream<MsgId>;
   public firewallAttempt$: Stream<GetReadable<FirewallAttempt>>;
-  public firewallAttemptLive$: Stream<FirewallAttempt>;
   public selfPublicRoots$: Stream<ThreadSummaryWithExtras>;
   public selfPrivateRootIdsLive$: Stream<MsgId>;
   public selfRepliesLive$: Stream<MsgAndExtras<PostContent>>;
@@ -127,10 +126,6 @@ export class SSBSource {
 
     this.firewallAttempt$ = this.ssb$.map(
       (ssb) => () => ssb.connFirewall.attempts({old: true, live: false}),
-    );
-
-    this.firewallAttemptLive$ = this.fromPullStream<FirewallAttempt>((ssb) =>
-      ssb.connFirewall.attempts({old: false, live: true}),
     );
 
     this.selfPublicRoots$ = this.fromPullStream<ThreadSummaryWithExtras>(
@@ -474,8 +469,15 @@ export class SSBSource {
     detailedLogs?: boolean;
     showFollows?: boolean;
     allowCheckingNewVersion?: boolean;
+    enableFirewall?: boolean;
   }> {
     return this.fromCallback<any>((ssb, cb) => ssb.settingsUtils.read(cb));
+  }
+
+  public getFirewallAttemptLive$(): Stream<GetReadable<FirewallAttempt>> {
+    return this.ssb$.map(
+      (ssb) => () => ssb.connFirewall.attempts({old: false, live: true}),
+    );
   }
 }
 
@@ -609,6 +611,11 @@ export interface SettingsAllowCheckingNewVersionReq {
   allowCheckingNewVersion: boolean;
 }
 
+export interface SettingsEnableFirewallReq {
+  type: 'settings.enableFirewall';
+  enableFirewall: boolean;
+}
+
 export type Req =
   | CreateIdentityReq
   | UseIdentityReq
@@ -635,7 +642,8 @@ export type Req =
   | SettingsBlobsPurgeReq
   | SettingsShowFollowsReq
   | SettingsDetailedLogsReq
-  | SettingsAllowCheckingNewVersionReq;
+  | SettingsAllowCheckingNewVersionReq
+  | SettingsEnableFirewallReq;
 
 export function contentToPublishReq(content: NonNullable<Content>): PublishReq {
   return {type: 'publish', content};
@@ -943,6 +951,16 @@ async function consumeSink(
       if (req.type === 'settings.allowCheckingNewVersion') {
         ssb.settingsUtils.updateAllowCheckingNewVersion(
           req.allowCheckingNewVersion,
+          (err: any) => {
+            if (err) return console.error(err.message || err);
+          },
+        );
+        return;
+      }
+
+      if (req.type === 'settings.enableFirewall') {
+        ssb.settingsUtils.updateEnableFirewall(
+          req.enableFirewall,
           (err: any) => {
             if (err) return console.error(err.message || err);
           },

@@ -38,11 +38,13 @@ export interface State {
   initialBlobsStorage: number;
   showFollows: boolean;
   enableDetailedLogs: boolean;
+  enableFirewall: boolean;
 }
 
 interface Actions {
   toggleFollowEvents$: Stream<boolean>;
   toggleDetailedLogs$: Stream<boolean>;
+  toggleEnableFirewall$: Stream<boolean>;
 }
 
 function hopsToOpt(hops?: number): HopsOption {
@@ -78,6 +80,7 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
       enableDetailedLogs: false,
       initialHops: hopsOptions.indexOf(DEFAULT_HOPS),
       initialBlobsStorage: blobsStorageOptions.indexOf(DEFAULT_BLOBS_STORAGE),
+      enableFirewall: true,
     };
   });
 
@@ -92,6 +95,7 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
             blobsStorageToOpt(settings.blobsStorageLimit),
           ),
           enableDetailedLogs: settings.detailedLogs ?? prev.enableDetailedLogs,
+          enableFirewall: settings.enableFirewall ?? prev.enableFirewall,
         };
       },
   );
@@ -110,10 +114,18 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
       },
   );
 
+  const toggleEnableFirewallReducer$ = actions.toggleEnableFirewall$.map(
+    (enableFirewall) =>
+      function toggleEnableFirewallReducer(prev: State): State {
+        return {...prev, enableFirewall};
+      },
+  );
+
   return xs.merge(
     initReducer$,
     readSettingsReducer$,
     toggleFollowEventsReducer$,
     toggleDetailedLogsReducer$,
+    toggleEnableFirewallReducer$,
   );
 }

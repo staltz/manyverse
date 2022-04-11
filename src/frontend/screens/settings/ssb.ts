@@ -10,6 +10,7 @@ interface Actions {
   updateHops$: Stream<number>;
   updateBlobsStorage$: Stream<number>;
   toggleDetailedLogs$: Stream<boolean>;
+  toggleEnableFirewall$: Stream<boolean>;
 }
 
 export default function ssb(actions: Actions) {
@@ -26,6 +27,10 @@ export default function ssb(actions: Actions) {
 
     actions.toggleDetailedLogs$.map(
       (detailedLogs) => ({type: 'settings.detailedLogs', detailedLogs} as Req),
+    ),
+    actions.toggleEnableFirewall$.map(
+      (enableFirewall) =>
+        ({type: 'settings.enableFirewall', enableFirewall} as Req),
     ),
   );
 

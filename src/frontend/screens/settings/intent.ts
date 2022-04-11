@@ -20,6 +20,10 @@ export default function intent(
       .select('detailed-logs')
       .events('valueChange'),
 
+    toggleEnableFirewall$: screenSource
+      .select('enable-firewall')
+      .events('valueChange'),
+
     updateHops$: screenSource
       .select('hops')
       .events('change')

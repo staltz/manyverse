@@ -15,6 +15,7 @@ export interface State {
   selfAvatarUrl?: string;
   lastSessionTimestamp: number;
   getActivityFeedReadable: GetReadable<ActivityItem> | null;
+  getFirewallAttemptLiveReadable: GetReadable<FirewallAttempt> | null;
   isVisible: boolean;
   numOfUpdates: number;
 }
@@ -55,10 +56,18 @@ export default function model(ssbSource: SSBSource, actions: Actions) {
         },
     );
 
+  const setFirewallAttemptLiveReducer$ = initialWait$
+    .map(() => ssbSource.getFirewallAttemptLive$())
+    .flatten()
+    .map(
+      (getFirewallAttemptLiveReadable) =>
+        function setFirewallAttemptLiveReducer(prev: State): State {
+          return {...prev, getFirewallAttemptLiveReadable};
+        },
+    );
+
   const incUpdatesReducer$ = initialWait$
-    .map(() =>
-      xs.merge(ssbSource.mentionsFeedLive$, ssbSource.firewallAttemptLive$),
-    )
+    .map(() => ssbSource.mentionsFeedLive$)
     .flatten()
     .mapTo(function incUpdatesReducer(prev: State): State {
       return {...prev, numOfUpdates: prev.numOfUpdates + 1};
@@ -72,6 +81,7 @@ export default function model(ssbSource: SSBSource, actions: Actions) {
 
   return xs.merge(
     setActivityFeedReducer$,
+    setFirewallAttemptLiveReducer$,
     incUpdatesReducer$,
     resetUpdatesReducer$,
   );

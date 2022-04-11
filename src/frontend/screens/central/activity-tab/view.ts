@@ -228,6 +228,7 @@ class ConnectionAttemptActivity extends PureComponent<AttemptActivityProps> {
 
 interface MLProps {
   getScrollStream: GetReadable<ActivityItem> | null;
+  getPrefixStream: GetReadable<FirewallAttempt> | null;
   scrollToTop$: Stream<any>;
   onRefresh?: () => void;
   onPressMention?: (ev: Msg) => void;
@@ -262,6 +263,7 @@ class ActivityList extends PureComponent<MLProps, MLState> {
       onPressMention,
       onPressFollow,
       onPressConnectionAttempt,
+      getPrefixStream,
       getScrollStream,
       onRefresh,
       scrollToTop$,
@@ -270,6 +272,7 @@ class ActivityList extends PureComponent<MLProps, MLState> {
 
     return h(PullFlatList2, {
       getScrollStream,
+      getPrefixStream,
       style: styles.activityList,
       contentContainerStyle: styles.activityListInner,
       initialNumToRender: 7,
@@ -331,15 +334,27 @@ export default function view(state$: Stream<State>, scrollToTop$: Stream<any>) {
   // to populate the mentions list with data ASAP), but the subsequent state
   // emissions are guarded by the visibility check.
   const viewState$ = concat(
-    state$.filter((state) => !!state.getActivityFeedReadable).take(1),
+    state$
+      .filter(
+        (state) =>
+          !!state.getActivityFeedReadable &&
+          !!state.getFirewallAttemptLiveReadable,
+      )
+      .take(1),
     state$.filter((state) => state.isVisible),
-  ).compose(dropRepeatsByKeys(['getActivityFeedReadable']));
+  ).compose(
+    dropRepeatsByKeys([
+      'getActivityFeedReadable',
+      'getFirewallAttemptLiveReadable',
+    ]),
+  );
 
   const vdom$ = viewState$.map((state) => {
     return h(ActivityList, {
       sel: 'activityList',
       scrollToTop$,
       getScrollStream: state.getActivityFeedReadable,
+      getPrefixStream: state.getFirewallAttemptLiveReadable,
     });
   });
 

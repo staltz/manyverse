@@ -99,7 +99,7 @@
     "nuka-carousel": "4.8.4",
     "path": "0.12.7",
     "promisify-tuple": "1.2.0",
-    "pull-flat-list": "2.18.0",
+    "pull-flat-list": "2.19.0",
     "pull-pushable": "2.2.0",
     "pull-sorted-interleave": "1.0.0",
     "pull-stream": "3.6.14",
