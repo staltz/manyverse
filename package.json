@@ -204,7 +204,6 @@
   },
   "optionalDependencies": {
     "appium": "1.22.3",
-    "faucet": "0.0.1",
     "ssb-keys-mnemonic": "1.0.1",
     "tap-spec": "5.0.0",
     "tape": "~5.5.2",
