@@ -1004,6 +1004,11 @@
         "subtitle": "Πόσο μακριά στο κοινωνικό γράφημα θέλετε το Manyverse να λαμβάνει δεδομένα; Το 1 είναι μόνο φίλοι, το 2 είναι φίλοι φίλων, κ.λπ. Προσοχή: όσο υψηλότερο είναι, τόσο περισσότερα δεδομένα λαμβάνονται!",
         "unlimited": "Απεριόριστα",
         "accessibility_label": "Ρυθμιστικό αλμάτων αναπαραγωγής"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

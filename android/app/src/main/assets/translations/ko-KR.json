@@ -1004,6 +1004,11 @@
         "subtitle": "얼마나 친구의 몇촌까지 Manyverse가 데이터를 다운로드할지 선택하세요; 1은 친구 전용, 2는 2촌까지입니다. 주의: 높을수록 더 많은 데이터가 다운로드됩니다!",
         "unlimited": "무제한",
         "accessibility_label": "촌수 슬라이더"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

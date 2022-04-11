@@ -1004,6 +1004,11 @@
         "subtitle": "Как далеко в социальных графах должны скачать данные Manyverse; 1 - только друзья, 2 - друзья друзей, и т.д. Внимание: чем больше это, тем больше данных загружается!",
         "unlimited": "Без ограничений",
         "accessibility_label": "Слайдер репликационного прыжка"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

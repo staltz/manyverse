@@ -1004,6 +1004,11 @@
         "subtitle": "Estensione della tua rete Manyverse; 1 solo i tuoi amici, 2 amici e amici dei tuoi amici, ecc. Attenzione: più alto è questo numero, più dati verranno scaricati e più memoria verrà utilizzata!",
         "unlimited": "Illimitato",
         "accessibility_label": "Cursore di Replicazione Hops"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

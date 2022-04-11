@@ -1004,6 +1004,11 @@
         "subtitle": "كم عدد الفروع التي يجب على منيفرس ان ينزل بياناتها; 1 الأصدقاء فقط، 2 أصدقاء الأصدقاء، إلخ. تحذير كلما ارتفع العدد زاد حجم البيانات المنزلة!",
         "unlimited": "غير محدود",
         "accessibility_label": "شريط تمرير عدد الفروع"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

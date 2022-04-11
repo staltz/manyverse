@@ -1004,6 +1004,11 @@
         "subtitle": "Wie weit in Dein soziales Netzwerk soll Manyverse Daten herunterladen; 1 bedeutet nur von Freund:innen; 2 bedeutet von Freund:innen von Freund:innen, etc. Achtung: Je höher, desto mehr Daten werden heruntergeladen!",
         "unlimited": "Unbegrenzt",
         "accessibility_label": "Replikationsweite einstellen"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

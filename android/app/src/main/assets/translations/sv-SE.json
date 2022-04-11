@@ -1004,6 +1004,11 @@
         "subtitle": "Hur många steg ut i den sociala grafen som Manyverse ska gå när data inhämtas; 1 steg betyder bara vänner, 2 är vänners vänner, etc. Varning: ju fler steg, desto mer data hämtas!",
         "unlimited": "Obegränsat",
         "accessibility_label": "Ställ in antal replikeringssteg"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

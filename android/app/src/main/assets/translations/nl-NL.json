@@ -1004,6 +1004,11 @@
         "subtitle": "Tot waar in de social graph moet Manyverse gegevens downloaden; 1 is alleen-vrienden, 2 is vrienden-van-vrienden etc. Let op: hoe hoger dit is, hoe meer gegevens worden gedownload!",
         "unlimited": "Ongelimiteerd",
         "accessibility_label": "Schuifbalk replicatiehops"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

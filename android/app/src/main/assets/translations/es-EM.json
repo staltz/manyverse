@@ -1004,6 +1004,11 @@
         "subtitle": "Desde que distancia en el grafo social debería descargar datos Maniverse; 1 es únicamente desde las amistades, 2 es desde amistades de las amistades, etc. ¡Precaución: cuanto más alto el valor, más datos se descargan!",
         "unlimited": "Ilimitado",
         "accessibility_label": "Deslizador de saltos de replicación"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

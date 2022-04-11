@@ -1004,6 +1004,11 @@
         "subtitle": "À quelle distance du graphique social Manyverse doit-il télécharger des données ; 1 est réservé aux amis, 2 aux amis d'amis, etc. Attention : plus la valeur est élevée, plus le nombre de données transférées est important !",
         "unlimited": "Illimité",
         "accessibility_label": "Curseur de sauts de réplication"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

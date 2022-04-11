@@ -1004,6 +1004,11 @@
         "subtitle": "Kuinka kaukaa sosiaalisessa graafissa Manyversen tulisi ladata tietoa; 1 on vain-ystävät, 2 on ystävien-ystävät jne. Mitä kauempaa sitä niin sitä enemmän tietoa ladataan!",
         "unlimited": "Rajoittamaton",
         "accessibility_label": "Kopiointihyppyjen liukusäädin"
+      },
+      "enable_firewall": {
+        "title": "Enable firewall",
+        "subtitle": "Prevent strangers from creating network connections with me",
+        "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {

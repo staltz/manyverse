@@ -280,7 +280,7 @@
   "connections": {
     "title": "Painel de conexões",
     "floating_action_button": {
-      "add_connection": "Add a connection",
+      "add_connection": "Adicionar uma conexão",
       "create_invite": "Criar convite",
       "paste_invite": "Colar convite",
       "bluetooth_seek": "Procurar via Bluetooth"
@@ -1004,6 +1004,11 @@
         "subtitle": "Quão longe na teia social deve o Manyverse baixar dados das pessoas; 1 baixa dados apenas dos seus amigos, 2 baixa dados de amigos dos seus amigos, etc. Cuidado: quanto maior isso for, mais dados serão baixados!",
         "unlimited": "Ilimitado",
         "accessibility_label": "Controle de escolher os saltos de replicação"
+      },
+      "enable_firewall": {
+        "title": "Habilitar firewall",
+        "subtitle": "Impedir que desconhecidos criem conexões comigo",
+        "accessibility_label": "Ativar/desativar firewall"
       }
     },
     "data_and_storage": {
