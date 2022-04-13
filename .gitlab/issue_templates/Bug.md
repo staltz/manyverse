@@ -13,6 +13,5 @@ Be kind and objective when writing in text. Thanks for informing us! :) -->
 **Technical details**
 
 - Manyverse app version:
-- Device/phone model:
-- Android OS version:
-- iOS version:
+- Device:
+- OS version:
