@@ -704,7 +704,7 @@
   },
   "profile": {
     "call_to_action": {
-      "copy_uri": "SSB URL kopieren",
+      "copy_uri": "SSB URI kopieren",
       "copy_cypherlink": "Cypherlink kopieren",
       "private_chat": "Private Unterhaltung öffnen",
       "block": "Blockieren",
@@ -1134,7 +1134,7 @@
       "copy_blob_id": {
         "accessibility_label": "Blob ID kopieren"
       },
-      "copy_msg_uri": "SSB URL kopieren",
+      "copy_msg_uri": "SSB URI kopieren",
       "copy_msg_id": "Cypherlink kopieren",
       "view_raw": "Rohnachricht anzeigen"
     },
