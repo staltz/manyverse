@@ -171,11 +171,11 @@
     "dialogs": {
       "migrate": {
         "title": "Übertrage dein SSB-Konto zu Manyverse",
-        "description": "Manyverse erkannte ein existierendes SSB-Konto im gemeinsamen `~/.ssb`-Verzeichnis. Wenn du möchtest, kannst du dieses Konto in ein komplett neues Verzeichnis migrieren, auf das nur Manyverse zugreifen kann.\n\nSobald die Migration abgeschlossen ist, **kannst du dein Konto NICHT mehr mit anderen SSB-Apps wie Patchwork verwenden**, und '.ssb' wird **gelöscht**, aber du kannst diese Apps mit neuen Konten verwenden.\n\nBestätigst du, dass du dein Konto von '.ssb' nach Manyverse migrieren möchtest? **Diese Aktion kann nicht rückgängig gemacht werden.*"
+        "description": "Manyverse hat ein existierendes SSB-Konto im gemeinsamen `~/.ssb`-Verzeichnis erkannt. Wenn du möchtest, kannst du dieses Konto in ein komplett neues Verzeichnis migrieren, auf das nur Manyverse zugreifen kann.\n\nSobald die Migration abgeschlossen ist, **kannst du dein Konto NICHT mehr mit anderen SSB-Apps wie Patchwork verwenden**, und '.ssb' wird **gelöscht**, aber du kannst diese Apps trotzdem noch mit neuen Konten verwenden.\n\nBitte bestätige, ob du dein Konto wirklich von '.ssb' nach Manyverse migrieren möchtest. **Diese Aktion kann nicht rückgängig gemacht werden.*"
       },
       "link_failed": {
         "title": "Konto nicht bereit",
-        "description": "Du hast versucht, einen SSB-Link zu öffnen, aber dein Konto ist noch nicht bereit. Bitte führen Sie zuerst das Setup durch und versuche es erneut."
+        "description": "Du hast versucht, einen SSB-Link zu öffnen, aber dein Konto ist noch nicht bereit. Bitte schließe zuerst die Einrichtung ab und versuche es danach erneut."
       }
     }
   },
@@ -188,7 +188,7 @@
       "public": "Öffentliche Beiträge",
       "private": "Private Nachrichten",
       "activity": "Aktivität",
-      "connections": "Verbundene Benutzer"
+      "connections": "Verbundene Nutzer"
     },
     "tab_footers": {
       "public": "Öffentlich",
@@ -222,7 +222,7 @@
       "description": "Schreibe ein Tagebuch um es\nspäter mit Freund*innen zu teilen"
     },
     "search": {
-      "accessibility_label": "Such-Schaltfläche"
+      "accessibility_label": "Suchen-Schaltfläche"
     }
   },
   "private": {
@@ -307,29 +307,29 @@
       "many_connections": "Gut verbunden"
     },
     "scenario_descriptions": {
-      "offline_with_content": "Im Moment kannst du keine Verbindung zu anderen Benutzern herstellen, du hast aber schone einige Inhalte, welche du genießen kannst.",
-      "offline_without_content": "Du kannst im Moment keine Verbindung zu anderen Benutzern herstellen. Versuche, eine Internetverbindung herzustellen oder schalte dein WLAN ein, um Benutzer in der Nähe zu finden.",
-      "knows_no_one": "Dein Manyverse ist im Moment noch isoliert. Du musst von anderen Benutzern eingeladen werden, um Raumservern beizutreten oder du kannst selbst einen Raumserver betreiben.",
-      "nearby_strangers_available": "Du bist noch mit niemandem verbunden, aber es gibt einige Benutzer im selben WLAN. Versuche dich manuell mit ihnen zu verbinden, wenn du glaubst, dass sie sich auch mit dir verbinden möchten.",
-      "empty_rooms": "Du bist Mitglied in einigen Räumen, aber niemand, den du kennst, ist online. Versuche dich manuell mit einem Fremden im Raum zu verbinden, oder hol dir einen Einladungscode für andere Server.",
-      "connected_poorly": "Du bist mit einem Benutzer verbunden, das ist gut. Aber um die Verbreitung der Daten zu verbessern, solltest du dich mit mehreren Benutzern verbinden. Versuche, etwas länger zu warten, oder hol dir einen Einladungscode für andere Server.",
-      "connected_well": "Du bist mit vielen Benutzern verbunden. Alles ist gut! Sie verbreiten deine Daten, und du verbreitest die ihren."
+      "offline_with_content": "Du kannst zurzeit keine Verbindung zu anderen Benutzern herstellen, aber erfreue dich in der Zwischenzeit schon mal an einigen anderen Inhalten!",
+      "offline_without_content": "Du kannst im Moment keine Verbindung zu anderen Benutzern herstellen. Versuche, eine Internetverbindung über WLAN oder dein Mobilfunknetz aufzubauen, um Nutzer in der Nähe zu finden.",
+      "knows_no_one": "Dein Manyverse ist im Moment noch isoliert. Du musst von anderen Benutzern eingeladen werden, um ihren Räumen beizutreten, oder du betreibst deinen eigenen Raum.",
+      "nearby_strangers_available": "Du bist noch mit niemandem verbunden, aber es gibt einige Benutzer im gleichen WLAN-Netzwerk. Versuche, dich manuell mit ihnen zu verbinden, wenn du glaubst, dass sie sich auch mit dir verbinden möchten.",
+      "empty_rooms": "Du bist Mitglied in einigen Räumen, aber niemand, den du kennst, ist aktuell online. Versuche, dich manuell mit einem Fremden im Raum zu verbinden, oder hol dir einen Einladungscode für andere Server.",
+      "connected_poorly": "Du bist aktuell mit einem Nutzer verbunden, das ist gut. Allerdings solltest du dich mit mehreren Benutzern verbinden, wenn du die Verbreitung deiner Inhalte verbessern willst. Warte etwas länger, um Verbindungen mit anderen aufzubauen, oder hol dir einen Einladungscode für weitere Server.",
+      "connected_well": "Du bist mit haufenweise anderer Nutzer verbunden. Super! Sie verbreiten deine Inhalte, und du verbreitest ihre!"
     },
     "recommendations": {
-      "consume_invite": "Wie erhalte ich eine Einladung",
-      "follow_staged_manually": "Folge jemandem neuen",
+      "consume_invite": "Wie erhalte ich eine Einladung?",
+      "follow_staged_manually": "Einem neuen Nutzer folgen",
       "paste_invite": "Einladungscode einfügen",
-      "host_ssb_room": "Wie man einen Raum-Server hostet",
+      "host_ssb_room": "Wie man einen Raumserver bereitstellt und verwaltet",
       "others": "Weitere Optionen"
     },
     "recommendation_descriptions": {
-      "consume_invite": "Dieses soziale Netzwerk basiert auf Einladungen, um es freundlich und sicher vor Spam zu halten. Wenn du noch keine Einladung von einem Freund erhalten hast, kannst du im Internet nach einem Server suchen, der Einladungen an jeden vergibt.\n\nSuche nach den Stichworten \"SSB room server\" oder \"SSB pub server\". Der Hashtag #ssbroom kann ebenfalls hilfreich sein.",
+      "consume_invite": "Dieses Netzwerk basiert auf Einladungen, um die Atmosphäre angenehm und frei von Spam zu halten. Wenn du noch keine Einladung von einem Freund erhalten hast, kannst du im Internet nach einem Server suchen, der Einladungen an jeden vergibt.\n\nSuche nach Ausdrücken wie \"SSB room server\" oder \"SSB pub server\". Der Hashtag #ssbroom kann ebenfalls hilfreich sein.",
       "follow_staged_manually": {
         "part1": {
-          "not_connected": "Deine Freunde sind im Moment nicht online. Wenn du mehr Inhalte erhalten möchtest, gibt es einige unbekannte Benutzer, welche gerade im selben Raum/in denselben Räumen wie du online sind. Du kannst versuchen, dich mit ihnen anzufreunden.",
-          "connected": "Wenn du mehr Inhalte erhalten möchtest, als du bereits hast, kannst du weiteren Personen folgen. Es gibt einige unbekannte Benutzer, die derzeit im selben Raum/in denselben Räumen wie du online sind. Du kannst versuchen, dich mit ihnen anzufreunden."
+          "not_connected": "Im Moment ist keiner deiner Freunde online. Wenn du mehr Inhalte sehen möchtest, gibt es einige unbekannte Benutzer, welche gerade in mindestens einem Raum, in denen du Mitglied bist, online sind. Du kannst versuchen, dich mit ihnen anzufreunden.",
+          "connected": "Wenn du mehr Inhalte erhalten möchtest, als du bereits hast, kannst du weiteren Personen folgen. Es gibt einige unbekannte Benutzer, die derzeit in mindestens einem Raum, in denen du Mitglied bist, online sind. Du kannst versuchen, dich mit ihnen anzufreunden."
         },
-        "part2": "Auf dem nächsten Bildschirm werden dir unbekannte Benutzer wie folgt angezeigt. Drücke auf einen von ihnen und wähle \"Profil öffnen\", dann \"Folgen\"."
+        "part2": "Im nächsten Fenster werden dir unbekannte Benutzer wie folgt angezeigt. Drücke auf einen von ihnen und wähle \"Profil öffnen\", dann \"Folgen\"."
       }
     },
     "toasts": {
@@ -618,7 +618,7 @@
         "accessibility_label": "Empfänger anzeigen"
       }
     },
-    "load_more": "Lade mehr",
+    "load_more": "Mehr laden",
     "notifications": {
       "new_conversation": "Dies ist eine neue private Unterhaltung"
     }
@@ -675,7 +675,7 @@
     "dialogs": {
       "update": {
         "title": "Auf neue Versionen prüfen?",
-        "description": "Möchtest du, dass Manyverse automatisch nach neuen Versionen sucht?\n\nDiese Einstellung ist optional und erlaubt Manyverse regelmässige Anfragen an die Webseite manyver.se zu senden."
+        "description": "Möchtest du, dass Manyverse automatisch nach Versionsupdates sucht?\n\nDiese Einstellung ist optional und erlaubt Manyverse, regelmäßig Anfragen an die Webseite manyver.se zu senden."
       }
     }
   },
@@ -704,7 +704,7 @@
   },
   "profile": {
     "call_to_action": {
-      "copy_uri": "SSB URI kopieren",
+      "copy_uri": "SSB URL kopieren",
       "copy_cypherlink": "Cypherlink kopieren",
       "private_chat": "Private Unterhaltung öffnen",
       "block": "Blockieren",
@@ -728,7 +728,7 @@
     },
     "dialog_friend_request": {
       "title": "Freundschaftsanfrage",
-      "description": "Dieses Konto versucht sich mit dir zu verbinden, aber Manyverse hat es verhindert, weil es sich außerhalb deiner Gemeinschaft befindet.\n\nWenn du diese ID erkennst, kannst du \"Folgen\" drücken, um eine Verbindung herzustellen."
+      "description": "Dieser Nutzer versucht, sich mit dir zu verbinden. Manyverse hat dies verhindert, da er sich außerhalb deiner Gemeinschaft befindet.\n\nWenn du diese ID erkennst, kannst du \"Folgen\" drücken, um trotzdem eine Verbindung herzustellen."
     },
     "toast": {
       "copied_to_clipboard": "In Zwischenablage kopiert"
@@ -833,7 +833,7 @@
     },
     "dialogs": {
       "input_alias": {
-        "description": "Gib deinen gewünschten neuen Alias in Kleinbuchstaben als ein einziges Wort ein {{host}}. \n\nWenn du z. B. den Alias \"meinname.{{host}}\" möchtest, gib \"meinname\" ein."
+        "description": "Gib deinen gewünschten neuen Alias in Kleinbuchstaben als zusammenhängendes Wort ein {{host}}. \n\nWenn du, z. B., den Alias \"meinname.{{host}}\" möchtest, gib \"meinname\" ein."
       }
     },
     "submitting": {
@@ -888,8 +888,8 @@
     },
     "empty": {
       "instructions": {
-        "title": "Empfänger*innen auswählen",
-        "description": "Gib die Namen der Personen ein,\num dem neuen Chat zu erstellen"
+        "title": "Empfänger auswählen",
+        "description": "Gib die Namen der Nutzer ein, die du zu\ndem neuen Chat hinzufügen möchtest"
       },
       "none_to_choose": {
         "title": "Niemand",
@@ -1006,9 +1006,9 @@
         "accessibility_label": "Replikationsweite einstellen"
       },
       "enable_firewall": {
-        "title": "Enable firewall",
-        "subtitle": "Prevent strangers from creating network connections with me",
-        "accessibility_label": "Toggle enable firewall"
+        "title": "Firewall aktivieren",
+        "subtitle": "Verhindern, dass Unbekannte sich über das Netzwerk mit mir verbinden können",
+        "accessibility_label": "Schaltfläche \"Firewall aktivieren\""
       }
     },
     "data_and_storage": {
@@ -1063,10 +1063,10 @@
       "title": "Gut!",
       "description": {
         "1_normal": "Deine Konto ",
-        "2_bold": "Identität",
+        "2_bold": "Die Identität deines Kontos",
         "3_normal": " ist jetzt wiederhergestellt.\n\nJetzt, um deine Daten wiederherzustellen ",
         "4_bold": "Daten",
-        "5_normal": ", verbinde dich mit Freunden, die vorher mit dir interagiert haben, um deine Daten von ihnen erneut herunterzuladen. Es gibt zwei Möglichkeiten:"
+        "5_normal": "wiederherzustellen, verbinde dich mit Nutzern, die vorher mit dir interagiert haben, um deine Daten von ihnen wiederzubeschaffen. Du hast hier zwei Möglichkeiten:"
       }
     },
     "buttons": {
@@ -1076,12 +1076,12 @@
     "instructions": {
       "connect_via_wifi": {
         "title": "Über WLAN verbinden",
-        "description": "Verbinde dieses Gerät einfach mit dem gleichen lokalen WLAN wie andere Geräte, halten Manyverse auf diesen Geräten offen und deine Daten werden automatisch mit diesem Gerät synchronisieren."
+        "description": "Verbinde dieses Gerät einfach mit dem gleichen lokalen WLAN-Netzwerk, mit dem auch andere Geräte verbunden sind – behalte Manyverse auf diesen Geräten geöffnet – und deine Daten werden automatisch mit diesem Gerät synchronisiert."
       }
     },
     "progress": {
-      "title": "Lade Daten erneut: {{megabytes}}",
-      "description": "Bitte warte, bis deine Daten von Freunden wiederhergestellt werden."
+      "title": "Daten erneut herunterladen: {{megabytes}}",
+      "description": "Bitte warte, während deine Daten von Freunden wiederhergestellt werden."
     }
   },
   "thread": {
@@ -1134,7 +1134,7 @@
       "copy_blob_id": {
         "accessibility_label": "Blob ID kopieren"
       },
-      "copy_msg_uri": "SSB URI kopieren",
+      "copy_msg_uri": "SSB URL kopieren",
       "copy_msg_id": "Cypherlink kopieren",
       "view_raw": "Rohnachricht anzeigen"
     },
