@@ -1,98 +1,98 @@
 {
   "call_to_action": {
     "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "delete": "Delete",
-    "remove": "Remove",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "add": "Dodaj",
+    "done": "Gotowe",
+    "cancel": "Anuluj",
+    "continue": "Dalej",
+    "delete": "Usuń",
+    "remove": "Usuń",
+    "save": "Zapisz",
+    "yes": "Tak",
+    "no": "Nie",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "Przycisk menu"
     },
     "go_back": {
-      "accessibility_label": "Back Button"
+      "accessibility_label": "Przycisk wstecz"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Przycisk Zamknij"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "Zamknij okno dialogowe"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "Otworzyć link?",
+      "description": "Czy chcesz otworzyć {{link}} w swojej przeglądarce?"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 rok temu",
+          "other": "{{count}} lata temu"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1 miesiąc temu",
+          "other": "{{count}} miesiące temu"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "1 tydzień temu",
+          "other": "{{count}} tygodnie temu"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 dzień temu",
+          "other": "{{count}} dni temu"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 godzinę temu",
+          "other": "{{count}} godzin temu"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "1 minutę temu",
+          "other": "{{count}} minut temu"
         },
-        "now": "Just now"
+        "now": "Przed chwilą"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "1 rok od teraz",
+          "other": "{{count}} lata od teraz"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1 miesiąc od teraz",
+          "other": "Za {{count}} miesięce"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "Za tydzień",
+          "other": "Za {{count}} tygodni(e)"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "Za 1 dzień",
+          "other": "Za {{count}} dni"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "Za godzinę",
+          "other": "Za {{count}} godzin(y)"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "Za minutę",
+          "other": "Za {{count}} minut"
         },
-        "now": "Very soon"
+        "now": "Wkrótce"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Zobacz więcej",
     "overview": {
-      "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "title": "Witaj w Manyverse!",
+      "description": "Sieci społecznościowe mogą być proste, neutralne, niekomercyjne oraz budowane na zaufaniu między przyjaciółmi. To właśnie oznacza Manyverse i mamy nadzieję, że Tobie również uda się sprawić, by był to Twój cyfrowy dom. Wszystko to możliwe dzięki nowemu protokołowi SSB."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Offline",
       "description": {
         "1_normal": "Manyverse can use internet connectivity, but it's not ",
         "2_bold": "on",
