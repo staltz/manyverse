@@ -307,13 +307,6 @@ export default [
     homepage: 'https://github.com/mawie81/electron-window-state#readme',
   },
   {
-    name: 'faucet',
-    type: 'library',
-    version: '0.0.1',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/substack/faucet',
-  },
-  {
     name: 'fix-webm-duration',
     type: 'library',
     version: '1.0.4',
@@ -435,7 +428,7 @@ export default [
   {
     name: 'pull-flat-list',
     type: 'library',
-    version: '2.18.0',
+    version: '2.19.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/pull-flat-list',
   },
@@ -803,7 +796,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '3.4.1',
+    version: '4.0.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -824,7 +817,7 @@ export default [
   {
     name: 'ssb-friends',
     type: 'library',
-    version: '5.1.2',
+    version: '5.1.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-friends',
   },
@@ -894,7 +887,7 @@ export default [
   {
     name: 'ssb-replication-scheduler',
     type: 'library',
-    version: '2.0.2',
+    version: '2.0.3',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-replication-scheduler',
   },
@@ -929,7 +922,7 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '10.0.0',
+    version: '10.0.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },

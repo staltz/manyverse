@@ -2,6 +2,18 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2204.15-beta
+
+* (Android) Bug fix: hide keyboard when leaving a private chat ([see details](https://gitlab.com/staltz/manyverse/commit/2fd911369d2132cca9407d26d1357729cc1bbdb5))
+* Bug fix: public tab "new" indicator incorrectly appearing ([see details](https://gitlab.com/staltz/manyverse/commit/179aa6ce1ea0ebe99aa48e6d36ffe07ac6414921))
+* Bug fix: should not crash when recovering identity ([see details](https://gitlab.com/staltz/manyverse/commit/6e41707fc4a8f7e71efdeb3a4bfdc131503ac248))
+* Bug fix: unblocked messages were actually follows ([see details](https://gitlab.com/staltz/manyverse/commit/464e5d301d21a459eaa9f04020574d034acf1db1))
+* Feature: option in Settings to toggle firewall ([see details](https://gitlab.com/staltz/manyverse/commit/d17480c9854576656b49e72eed24a97aaa3704ec))
+* Feature: support searching for accounts too ([see details](https://gitlab.com/staltz/manyverse/commit/494bba8967ab76a964d9c579f67750bc91c18b49))
+* Improve German translation ([see details](https://gitlab.com/staltz/manyverse/commit/e9a5202a5b62c2ce2813c66e6ae9e0fbc401fe27))
+* Improve German translation ([see details](https://gitlab.com/staltz/manyverse/commit/60c067a9705fb336533e37abc37bcf3cae3c2db1))
+* Improve Polish translation ([see details](https://gitlab.com/staltz/manyverse/commit/4ebfe4a096b5e5030df38d5781d0aad5367f3d1a))
+
 ## 0.2204.7-beta
 
 * Bug fix: crash when restoring account ([see details](https://gitlab.com/staltz/manyverse/commit/aca763c65d497f8aa5d8fb21591b00b543c84296))
