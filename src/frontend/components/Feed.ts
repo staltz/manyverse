@@ -219,6 +219,10 @@ export default class Feed extends PureComponent<Props, State> {
     }
   };
 
+  private getPrefixStream = () => {
+    return this.addedThreadsStream;
+  };
+
   public render() {
     const {
       onRefresh,
@@ -243,7 +247,7 @@ export default class Feed extends PureComponent<Props, State> {
 
     return h(PullFlatList2, {
       getScrollStream: getReadable,
-      getPrefixStream: () => this.addedThreadsStream,
+      getPrefixStream: this.getPrefixStream,
       style: [styles.container, style],
       contentContainerStyle,
       keyboardDismissMode: 'on-drag',
