@@ -132,7 +132,10 @@ async function oneTimeFixes() {
   }
 
   // https://github.com/ssb-ngi-pointer/ssb-db2/blob/master/CHANGELOG.md#400
-  if (!fs.existsSync(defaults.jitIndexesPath(SSB_DIR))) {
+  if (
+    fs.existsSync(defaults.indexesPath(SSB_DIR)) &&
+    !fs.existsSync(defaults.jitIndexesPath(SSB_DIR))
+  ) {
     mkdirp.sync(defaults.jitIndexesPath(SSB_DIR));
     moveJitIndexes();
   }
