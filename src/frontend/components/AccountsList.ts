@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {PureComponent} from 'react';
-import React = require('react');
 import {h} from '@cycle/react';
 import {
   Text,
@@ -12,6 +11,7 @@ import {
   StyleSheet,
   Platform,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {FeedId} from 'ssb-typescript';
 import PullFlatList, {PullFlatListProps} from 'pull-flat-list';
@@ -56,6 +56,7 @@ export const styles = StyleSheet.create({
     marginBottom: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    minHeight: Dimensions.verticalSpaceBig * 2 + Dimensions.avatarSizeNormal,
     ...Platform.select({
       web: {
         width: Dimensions.desktopMiddleWidth.px,
@@ -179,7 +180,8 @@ export default class AccountsList extends PureComponent<Props, State> {
 
     if (Array.isArray(accounts)) {
       return h(
-        React.Fragment,
+        ScrollView,
+        {style: styles.flatList},
         accounts.map(({id, name, imageUrl, reaction}) =>
           h<AccountProps>(Account, {
             key: id,
