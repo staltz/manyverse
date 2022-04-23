@@ -66,7 +66,7 @@ export default function intent(
   const addedDesktopFile$ = reactSource
     .select('add-picture-desktop')
     .events('change')
-    .map((ev) => ev.target.files[0] as File);
+    .map((ev) => ev.target.files[0] as File | undefined);
 
   const addedMobilePicture$ = xs.merge(
     reactSource
@@ -110,7 +110,9 @@ export default function intent(
 
   const addPicture$: Stream<File | Image> =
     Platform.OS === 'web'
-      ? addedDesktopFile$.filter((file) => file.type.startsWith('image/'))
+      ? (addedDesktopFile$.filter(
+          (file) => !!file && file.type.startsWith('image/'),
+        ) as Stream<File>)
       : addedMobilePicture$;
 
   return {
@@ -194,9 +196,9 @@ export default function intent(
       (ev): ev is AudioBlobComposed => ev.type === 'audioBlobComposed',
     ),
 
-    attachAudio$: addedDesktopFile$.filter((file) =>
-      file.type.startsWith('audio/'),
-    ),
+    attachAudio$: addedDesktopFile$.filter(
+      (file) => !!file && file.type.startsWith('audio/'),
+    ) as Stream<File>,
 
     exit$: xs.merge(publishPost$, publishReply$, back$),
   };
