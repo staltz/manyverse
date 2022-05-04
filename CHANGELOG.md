@@ -2,6 +2,15 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2205.4-beta
+
+* (Desktop) Bug fix: app not working after canceling image attachment ([see details](https://gitlab.com/staltz/manyverse/commit/5e0318655bd265840f3b254ecbb688b0f1913711))
+* Bug fix: SSB URI in a post becomes a mention ([see details](https://gitlab.com/staltz/manyverse/commit/65962582a21b970669565ce7a05cd6063efab1ca))
+* Improve content loading performance a bit ([see details](https://gitlab.com/staltz/manyverse/commit/ac9a5a6e7422842dc03dc084e054d1f091a117e4))
+* Improve Dutch translation ([see details](https://gitlab.com/staltz/manyverse/commit/10fc62018d76efdb2ce4dbf4a992223fd3183514))
+* Improve Russian translation ([see details](https://gitlab.com/staltz/manyverse/commit/79481088f1d615e0cb6d88eadecdf61e8484bd04))
+* Improve Spanish translation ([see details](https://gitlab.com/staltz/manyverse/commit/ae75f1747051b59e5985d7edf5483e589d3ffa14))
+
 ## 0.2204.15-beta
 
 * (Android) Bug fix: hide keyboard when leaving a private chat ([see details](https://gitlab.com/staltz/manyverse/commit/2fd911369d2132cca9407d26d1357729cc1bbdb5))

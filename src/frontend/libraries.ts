@@ -796,7 +796,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '4.0.1',
+    version: '4.0.4',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -817,7 +817,7 @@ export default [
   {
     name: 'ssb-friends',
     type: 'library',
-    version: '5.1.3',
+    version: '5.1.4',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-friends',
   },
