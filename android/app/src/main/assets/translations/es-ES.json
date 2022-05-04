@@ -175,7 +175,7 @@
       },
       "link_failed": {
         "title": "La cuenta no está lista",
-        "description": "You tried to open an SSB link, but your account is not ready yet. Please complete the setup process first, and then try the link again."
+        "description": "Intentaste abrir un enlace SSB, pero tu cuenta aún no está lista. Por favor, complete el proceso de configuración primero, y vuelva a intentar el enlace."
       }
     }
   },
@@ -1007,8 +1007,8 @@
       },
       "enable_firewall": {
         "title": "Habilitar cortafuegos",
-        "subtitle": "Prevent strangers from creating network connections with me",
-        "accessibility_label": "Toggle enable firewall"
+        "subtitle": "Evitar que los desconocidos creen conexiones de red conmigo",
+        "accessibility_label": "Activar cortafuegos"
       }
     },
     "data_and_storage": {
@@ -1060,28 +1060,28 @@
   },
   "resync": {
     "introduction": {
-      "title": "Good!",
+      "title": "¡Bien!",
       "description": {
-        "1_normal": "Your account's ",
-        "2_bold": "identity",
-        "3_normal": " is now restored.\n\nNow, to recover your ",
-        "4_bold": "data",
-        "5_normal": ", connect with friends that have interacted with you before, to redownload your data from them. There are two ways:"
+        "1_normal": "Tu cuenta ",
+        "2_bold": "identidad",
+        "3_normal": " ha sido restaurado.\n\nAhora, para recuperar su ",
+        "4_bold": "datos",
+        "5_normal": ", conecta con amigos que han interactuado contigo antes, para volver a descargar tus datos de ellos. Hay dos maneras:"
       }
     },
     "buttons": {
-      "connect_via_wifi": "Connect via Wi-Fi",
+      "connect_via_wifi": "Conectar a través de Wi-Fi",
       "paste_invite": "Pega el codigo de invitacion"
     },
     "instructions": {
       "connect_via_wifi": {
-        "title": "Connect via Wi-Fi",
-        "description": "Just connect this device to the same local Wi-Fi as other devices are, keep Manyverse open on those devices, and your data will automatically sync to this device."
+        "title": "Conectar a través de Wi-Fi",
+        "description": "Sólo conecta este dispositivo a la misma red Wi-Fi local que otros dispositivos mantenga a Manyverse abierto en esos dispositivos, y sus datos se sincronizarán automáticamente con este dispositivo."
       }
     },
     "progress": {
-      "title": "Redownloading data: {{megabytes}}",
-      "description": "Please wait while your data is being recovered from friends."
+      "title": "Redescargando datos: {{megabytes}}",
+      "description": "Por favor espere mientras sus datos se recuperan de amigos."
     }
   },
   "thread": {
@@ -1249,13 +1249,13 @@
     }
   },
   "context_menu": {
-    "copy": "Copy",
-    "copy_link": "Copy link",
-    "cut": "Cut",
-    "inspect": "Inspect element",
-    "look_up_selection": "Look up {selection}",
-    "paste": "Paste",
-    "save_image": "Save image",
-    "save_image_as": "Save image as..."
+    "copy": "Copiar",
+    "copy_link": "Copiar enlace",
+    "cut": "Cortar",
+    "inspect": "Inspeccionar elemento",
+    "look_up_selection": "Buscar {selection}",
+    "paste": "Pegar",
+    "save_image": "Guardar imagen",
+    "save_image_as": "Guardar imagen como..."
   }
 }
