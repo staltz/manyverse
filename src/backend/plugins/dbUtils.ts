@@ -33,6 +33,7 @@ function isValidVoteMsg(msg: Msg<VoteContent>) {
   if (typeof msg.value.content.vote.value !== 'number') return false;
   if (isNaN(msg.value.content.vote.value)) return false;
   if (msg.value.content.vote.value < 0) return false;
+  return true;
 }
 
 export = {
