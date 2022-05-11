@@ -92,7 +92,7 @@ export default function model(
           peers: props.peers,
           rooms: props.rooms,
           stagedPeers: props.stagedPeers,
-          bluetoothEnabled: true,
+          bluetoothEnabled: false,
           lanEnabled: true,
           internetEnabled: true,
           bluetoothLastScanned: 0,
