@@ -6,6 +6,7 @@ import {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import {ContactContent as Contact, FeedId, Msg} from 'ssb-typescript';
+const Ref = require('ssb-ref');
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
@@ -91,12 +92,15 @@ export default class ContactBody extends Component<Props> {
       (msg.value.content as any).flagged || msg.value.content.blocking;
     const msgFollowing = msg.value.content.following;
 
-    // if both are undefined then the message is nonstandard
-    const nonstandard =
+    // Validate the contact message and render metadata in case it's nonstandard
+    if (
       (msgBlocking === undefined && msgFollowing === undefined) ||
-      (msgBlocking === true && msgFollowing === true);
+      (msgBlocking === true && msgFollowing === true) ||
+      !Ref.isFeedId(msg.value.content.contact)
+    ) {
+      return h(View, {key: 'c', style: styles.contact}, [h(Metadata, {msg})]);
+    }
 
-    // const author = displayName(this.props.name, msg.value.author);
     const target = displayName(contactName, msg.value.content.contact!);
 
     const contactEvent: ContactEvent =
@@ -141,44 +145,42 @@ export default class ContactBody extends Component<Props> {
     );
 
     return h(View, {key: 'c', style: styles.contact}, [
-      nonstandard
-        ? h(Metadata, {msg})
-        : h(Text, {style: styles.message}, [
-            pickFrom(
-              contactEvent,
-              h(Icon, {
-                key: 'icon',
-                size: Dimensions.iconSizeSmall,
-                color: Palette.textPositive,
-                name: 'account-plus',
-              }),
-              h(Icon, {
-                key: 'icon',
-                size: Dimensions.iconSizeSmall,
-                color: Palette.textNegative,
-                name: 'account-remove',
-              }),
-              h(Icon, {
-                key: 'icon',
-                size: Dimensions.iconSizeSmall,
-                color: Palette.textVeryWeak,
-                name: 'account-minus',
-              }),
-              h(Icon, {
-                key: 'icon',
-                size: Dimensions.iconSizeSmall,
-                color: Palette.textVeryWeak,
-                name: 'account-minus',
-              }),
-            ),
-            h(Text, {key: 'a2', style: styles.action}, texts[2]),
-            h(
-              Text,
-              {key: 'a3', style: styles.account, onPress: this.onPressTarget},
-              texts[3],
-            ),
-            h(Text, {key: 'a4'}, texts[4]),
-          ]),
+      h(Text, {style: styles.message}, [
+        pickFrom(
+          contactEvent,
+          h(Icon, {
+            key: 'icon',
+            size: Dimensions.iconSizeSmall,
+            color: Palette.textPositive,
+            name: 'account-plus',
+          }),
+          h(Icon, {
+            key: 'icon',
+            size: Dimensions.iconSizeSmall,
+            color: Palette.textNegative,
+            name: 'account-remove',
+          }),
+          h(Icon, {
+            key: 'icon',
+            size: Dimensions.iconSizeSmall,
+            color: Palette.textVeryWeak,
+            name: 'account-minus',
+          }),
+          h(Icon, {
+            key: 'icon',
+            size: Dimensions.iconSizeSmall,
+            color: Palette.textVeryWeak,
+            name: 'account-minus',
+          }),
+        ),
+        h(Text, {key: 'a2', style: styles.action}, texts[2]),
+        h(
+          Text,
+          {key: 'a3', style: styles.account, onPress: this.onPressTarget},
+          texts[3],
+        ),
+        h(Text, {key: 'a4'}, texts[4]),
+      ]),
     ]);
   }
 }
