@@ -174,13 +174,13 @@
         "description": "Manyverse обнаружил существующий аккаунт SSB в общем каталоге `~/.ssb`. При желании, можете перенести эту учетную запись в совершенно новый каталог, доступ к которому есть только у Manyverse.\n\nПосле завершения переноса, **вы больше не сможете использовать ваш аакаунт с другими приложениями SSB, такими как Patchwork**, и '.ssb' будет **удалено**, но вы все еще сможете использовать эти приложения с новыми учетными записями.\n\nВы уверены, что хотите перенести ваш аккаунт с '.ssb' на Manyverse? **Это действие не может быть отменено.**"
       },
       "link_failed": {
-        "title": "Account not ready",
-        "description": "You tried to open an SSB link, but your account is not ready yet. Please complete the setup process first, and then try the link again."
+        "title": "Аккаунт не готов",
+        "description": "Вы пытаетесь открыть SSB ссылку, но ваш аккаунт еще не готов. С начало завершите процесс установки, затем повторите действие."
       }
     }
   },
   "migrating": {
-    "label": "Migrating..."
+    "label": "Перенос данных..."
   },
   "central": {
     "app_name": "Manyverse",
@@ -188,7 +188,7 @@
       "public": "Публичная лента",
       "private": "Личные сообщения",
       "activity": "Действия",
-      "connections": "Connected peers"
+      "connections": "Связанные пиры"
     },
     "tab_footers": {
       "public": "Публичный",
@@ -278,14 +278,14 @@
     }
   },
   "connections": {
-    "title": "Connections Panel",
+    "title": "Панель подключений",
     "floating_action_button": {
-      "add_connection": "Add a connection",
+      "add_connection": "Добавить соединение",
       "create_invite": "Создать приглашение",
       "paste_invite": "Вставьте приглашение",
       "bluetooth_seek": "Поиск по Bluetooth"
     },
-    "open_connections_panel": "Open Connections Panel",
+    "open_connections_panel": "Открыть панель подключений",
     "empty": {
       "offline": {
         "title": "Автономный",
@@ -302,13 +302,13 @@
     },
     "scenarios": {
       "offline": "Автономный",
-      "not_connected": "Not connected",
-      "few_connections": "Too few connections",
-      "many_connections": "Well connected"
+      "not_connected": "Нет соединения",
+      "few_connections": "Слишком мало соединений",
+      "many_connections": "Отличное соединение"
     },
     "scenario_descriptions": {
-      "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
+      "offline_with_content": "В данный момент вы не можете подключиться к пирам, но вы можете наслаждаться контентом, который у вас уже есть.",
+      "offline_without_content": "В данный момент вы не можете подключиться к пирам. Попробуйте подключиться к Интернету или включите Wi-Fi, чтобы найти пиров поблизости.",
       "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
       "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
       "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
