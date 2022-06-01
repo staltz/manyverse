@@ -30,6 +30,7 @@
     "rimraf": "~3.0.2",
     "secret-stack": "6.4.1",
     "sodium-chloride-native-nodejs-mobile": "1.5.0",
+    "ssb-about-self": "1.0.1",
     "ssb-blobs-purge": "2.0.3",
     "ssb-blobs": "1.2.2",
     "ssb-bluetooth": "1.1.14",
