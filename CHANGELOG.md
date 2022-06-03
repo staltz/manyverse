@@ -2,6 +2,15 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2206.3-beta
+
+* (iOS) Bug fix: crash on iPad when attaching images ([see details](https://gitlab.com/staltz/manyverse/commit/6fcb9c723b4f06329fa69eb4096feeb759b1c937))
+* (iOS) Bug fix: dont show Bluetooth sync choice ([see details](https://gitlab.com/staltz/manyverse/commit/aae67f982a06f4071c26e20df6648648b7ed8107))
+* Bug fix: crash on malformed contact msgs ([see details](https://gitlab.com/staltz/manyverse/commit/952cbc584dee0ce2b13359b7fb0a658bbffe0494))
+* Bug fix: emoji picker should show your favorites ([see details](https://gitlab.com/staltz/manyverse/commit/cd09182599ce54db354e08b47f4f9013396a1ea7))
+* Feature: attend Gatherings ([see details](https://gitlab.com/staltz/manyverse/commit/a96d29ca689ada88ca1f9a958fd4b4221bcf7bf6))
+* Improve Russian translation ([see details](https://gitlab.com/staltz/manyverse/commit/1b6aa14b97a8d3ce06fe7620e9f05e286c427318))
+
 ## 0.2205.4-beta
 
 * (Desktop) Bug fix: app not working after canceling image attachment ([see details](https://gitlab.com/staltz/manyverse/commit/5e0318655bd265840f3b254ecbb688b0f1913711))

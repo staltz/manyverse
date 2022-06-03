@@ -188,6 +188,13 @@ export default [
       'https://github.com/react-native-community/react-native-audio-toolkit#readme',
   },
   {
+    name: '@staltz/react-native-image-crop-picker',
+    type: 'library',
+    version: '0.37.5',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/staltz/react-native-image-crop-picker#readme',
+  },
+  {
     name: '@staltz/react-native-image-viewing',
     type: 'library',
     version: '0.2.1-1',
@@ -546,14 +553,6 @@ export default [
     homepage: 'https://gitlab.com/staltz/react-native-has-internet',
   },
   {
-    name: 'react-native-image-crop-picker',
-    type: 'library',
-    version: '0.37.2',
-    license: 'MIT License (MIT)',
-    homepage:
-      'https://github.com/ivpusic/react-native-image-crop-picker#readme',
-  },
-  {
     name: 'react-native-localize',
     type: 'library',
     version: '2.1.9',
@@ -712,7 +711,7 @@ export default [
   {
     name: 'remark-ssb-mentions',
     type: 'library',
-    version: '2.4.0',
+    version: '2.5.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/ssb-mentions',
   },
@@ -736,6 +735,13 @@ export default [
     version: '1.5.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/sodium-chloride-native-nodejs-mobile',
+  },
+  {
+    name: 'ssb-about-self',
+    type: 'library',
+    version: '1.0.1',
+    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
+    homepage: 'https://github.com/ssbc/ssb-about-self#readme',
   },
   {
     name: 'ssb-blobs',
@@ -817,7 +823,7 @@ export default [
   {
     name: 'ssb-friends',
     type: 'library',
-    version: '5.1.4',
+    version: '5.1.5',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-friends',
   },
@@ -901,7 +907,7 @@ export default [
   {
     name: 'ssb-search2',
     type: 'library',
-    version: '2.0.0',
+    version: '2.1.3',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/staltz/ssb-search2#readme',
   },
@@ -922,14 +928,14 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '10.0.2',
+    version: '10.0.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
   {
     name: 'ssb-typescript',
     type: 'library',
-    version: '2.5.0',
+    version: '2.8.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-typescript#readme',
   },
