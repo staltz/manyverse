@@ -10,8 +10,8 @@ include ':@react-native-async-storage'
 project(':@react-native-async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-async-storage/async-storage/android')
 include ':react-native-bluetooth-socket-bridge'
 project(':react-native-bluetooth-socket-bridge').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-bluetooth-socket-bridge/android')
-include ':react-native-image-crop-picker'
-project(':react-native-image-crop-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-crop-picker/android')
+include ':@staltz_react-native-image-crop-picker'
+project(':@staltz_react-native-image-crop-picker').projectDir = new File(rootProject.projectDir, '../node_modules/@staltz/react-native-image-crop-picker/android')
 include ':nodejs-mobile-react-native'
 project(':nodejs-mobile-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/nodejs-mobile-react-native/android')
 include ':react-native-dialogs'
