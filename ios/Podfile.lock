@@ -304,12 +304,12 @@ PODS:
     - React-Core
   - RNHasInternet (5.0.0):
     - React-Core
-  - RNImageCropPicker (0.37.2):
+  - RNImageCropPicker (0.37.5):
     - React-Core
     - React-RCTImage
-    - RNImageCropPicker/QBImagePickerController (= 0.37.2)
+    - RNImageCropPicker/QBImagePickerController (= 0.37.5)
     - TOCropViewController
-  - RNImageCropPicker/QBImagePickerController (0.37.2):
+  - RNImageCropPicker/QBImagePickerController (0.37.5):
     - React-Core
     - React-RCTImage
     - TOCropViewController
@@ -366,7 +366,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNHasInternet (from `../node_modules/react-native-has-internet`)
-  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - "RNImageCropPicker (from `../node_modules/@staltz/react-native-image-crop-picker`)"
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNOS (from `../node_modules/react-native-os-staltz/RNOS.podspec`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -459,7 +459,7 @@ EXTERNAL SOURCES:
   RNHasInternet:
     :path: "../node_modules/react-native-has-internet"
   RNImageCropPicker:
-    :path: "../node_modules/react-native-image-crop-picker"
+    :path: "../node_modules/@staltz/react-native-image-crop-picker"
   RNLocalize:
     :path: "../node_modules/react-native-localize"
   RNOS:
@@ -513,7 +513,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 105173940b40e85e274023966567ac11b7683cf8
   RNFS: 7bdbd2472eac73a7f266b43da1d1bd68b3ed7bf5
   RNHasInternet: 7885a06452fa44da7659ed2f234285be1c99ace0
-  RNImageCropPicker: 448d3c6e923fde3466b49caf3c2457c2a0ba02dd
+  RNImageCropPicker: 17c42e59ea761ccbe0f7ff592c8b6375dfe6809c
   RNLocalize: fe3b798712707aec81086ec241546bfb1cf3e489
   RNOS: 84f208c2e6b9c6da848ff0ef1a1163d1067bf4f6
   RNSVG: 0ff39850623301a540e69b0ccd9aabb2061812e3
