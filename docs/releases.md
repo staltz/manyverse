@@ -52,6 +52,15 @@ Run `cd android && ./gradlew assembleRelease` (just builds the APK).
 
 Follow this guideline strictly.
 
+## Smoke test
+
+Before making official releases, you should check if the code on `master` branch can appropriately build and run on all platforms, without crashing.
+
+- **Desktop:** go to [Manyverse's GitHub Actions](https://github.com/staltz/manyverse/actions/workflows/build.yml) and manually "run workflow" for "Preview desktop" and see if it builds
+- **Desktop:** download one of the artifacts produced by the build above, install and run
+- **Android:** build the APK from scratch and install on a device, or Browserstack
+- **iOS:** build the IPA from scratch and install on a device or Browserstack
+
 ## Android
 
 First make an Android release, then an iOS release.
