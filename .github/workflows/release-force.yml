@@ -1,0 +1,91 @@
+# SPDX-FileCopyrightText: 2022 The Manyverse Authors
+#
+# SPDX-License-Identifier: Unlicense
+
+name: Release desktop (forced)
+
+on: workflow_dispatch
+
+jobs:
+  build-linux:
+    name: Build Manyverse Linux
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Setup node-gyp
+        run: npm install -g node-gyp
+
+      - name: npm install
+        run: npm install
+
+      - name: Build the Electron app for Linux
+        run: npm run release-desktop-linux
+        env:
+          EB_PUBLISH: always
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  build-macos:
+    name: Build Manyverse macOS
+    runs-on: macos-latest
+    needs: build-linux
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Setup node-gyp
+        run: npm install -g node-gyp
+
+      - name: Setup build tools
+        run: brew install coreutils libtool autoconf automake
+
+      - name: npm install
+        run: npm install
+
+      - name: Build the Electron app for macOS
+        run: npm run release-desktop-macos
+        env:
+          EB_PUBLISH: always
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  build-win:
+    name: Build Manyverse Windows
+    runs-on: windows-latest
+    needs: build-macos
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Install node-gyp
+        run: ./tools/install-node-gyp.ps1
+
+      - name: Install Visual Studio Build Tools
+        run: ./tools/install-vs-build-tools.ps1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: npm install
+        run: npm install
+
+      - name: Build the Electronapp for Windows
+        run: npm run release-desktop-win
+        env:
+          EB_PUBLISH: always
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
