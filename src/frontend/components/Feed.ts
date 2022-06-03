@@ -33,6 +33,7 @@ import ThreadCard from './ThreadCard';
 import PlaceholderThreadCard from './PlaceholderThreadCard';
 import FollowCard from './FollowCard';
 import AnimatedLoading from './AnimatedLoading';
+import GatheringCard from './GatheringCard';
 
 const PullFlatList2 = propifyMethods(
   PullFlatList,
@@ -245,6 +246,16 @@ export default class Feed extends PureComponent<Props, State> {
       EmptyComponent,
     } = this.props;
 
+    const cardsCommonProps = {
+      lastSessionTimestamp,
+      preferredReactions,
+      selfFeedId,
+      onPressReactions,
+      onPressAddReaction,
+      onPressAuthor,
+      onPressEtc,
+      onPressExpand,
+    };
     return h(PullFlatList2, {
       getScrollStream: getReadable,
       getPrefixStream: this.getPrefixStream,
@@ -283,39 +294,32 @@ export default class Feed extends PureComponent<Props, State> {
       ListEmptyComponent: EmptyComponent,
       renderItem: ({item}: any) => {
         const thread = item as ThreadSummaryWithExtras;
-        if (thread?.root?.value?.content?.type === 'contact') {
-          return h(View, {style: styles.itemContainer}, [
-            h(FollowCard, {
-              thread,
-              lastSessionTimestamp,
-              preferredReactions,
-              selfFeedId,
-              onPressReactions,
-              onPressAddReaction,
-              onPressAuthor,
-              onPressEtc,
-              onPressExpand,
-            }),
-            h(Separator),
-          ]);
-        } else {
-          return h(View, {style: styles.itemContainer}, [
-            h(ThreadCard, {
-              thread,
-              lastSessionTimestamp,
-              preferredReactions,
-              selfFeedId,
-              onPressReactions,
-              onPressAddReaction,
-              onPressAuthor,
-              onPressEtc,
-              onPressExpand,
-              onPressExpandReplies,
-              onPressExpandCW,
-            }),
-            h(Separator),
-          ]);
-        }
+        const card = () => {
+          switch (thread?.root?.value?.content?.type) {
+            case 'contact':
+              return h(FollowCard, {
+                ...cardsCommonProps,
+                thread,
+              });
+
+            case 'gathering':
+              return h(GatheringCard, {
+                ...cardsCommonProps,
+                onPressExpandReplies,
+                thread,
+              });
+
+            default:
+              return h(ThreadCard, {
+                ...cardsCommonProps,
+                thread,
+                onPressExpandReplies,
+                onPressExpandCW,
+              });
+          }
+        };
+
+        return h(View, {style: styles.itemContainer}, [card(), h(Separator)]);
       },
     });
   }

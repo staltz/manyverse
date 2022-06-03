@@ -195,6 +195,10 @@ export default {
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
   },
+  gatheringsUtils: {
+    gatheringAttendees: 'source',
+    gatheringInfo: 'async',
+  },
   publishUtilsBack: {
     publish: 'async',
     publishAbout: 'async',

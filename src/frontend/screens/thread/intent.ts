@@ -15,6 +15,7 @@ import {t} from '~frontend/drivers/localization';
 import {
   PressAddReactionEvent,
   PressReactionsEvent,
+  PressGatheringAttendeesEvent,
   MsgAndExtras,
 } from '~frontend/ssb/types';
 import {Screens} from '~frontend/screens/enums';
@@ -39,6 +40,12 @@ export default function intent(
           typeof replyText === 'string' && replyText.trim().length > 0,
       ),
 
+    attendGathering$: reactSource.select('gathering').events<{
+      isAttending: boolean;
+      attendeeId: string;
+      gatheringId: string;
+    }>('pressAttendGathering'),
+
     willReply$: ssbSource.publishHook$
       .filter(isReplyPostMsg)
       .compose(sampleCombine(state$))
@@ -49,14 +56,25 @@ export default function intent(
 
     keyboardDisappeared$: keyboardSource.events('keyboardDidHide').mapTo(null),
 
-    goToAccounts$: reactSource
-      .select('thread')
-      .events<PressReactionsEvent>('pressReactions')
-      .map(({msgKey, reactions}) => ({
-        title: t('accounts.reactions.title'),
-        msgKey,
-        accounts: reactions,
-      })),
+    goToAccounts$: xs.merge(
+      reactSource
+        .select('thread')
+        .events<PressReactionsEvent>('pressReactions')
+        .map(({msgKey, reactions}) => ({
+          title: t('accounts.reactions.title'),
+          msgKey,
+          accounts: reactions,
+        })),
+
+      reactSource
+        .select('gathering')
+        .events<PressGatheringAttendeesEvent>('pressAttendeeList')
+        .map(({msgKey, attendees}) => ({
+          title: t('accounts.gathering_attendees.title'),
+          msgKey,
+          accounts: attendees.map(({feedId}) => feedId),
+        })),
+    ),
 
     goToAnotherThread$: reactSource
       .select('thread')

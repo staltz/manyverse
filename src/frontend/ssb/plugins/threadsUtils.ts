@@ -3,23 +3,33 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import xsFromCallback from 'xstream-from-callback';
+import xsFromPullStream from 'xstream-from-pull-stream';
 const pull = require('pull-stream');
 const Ref = require('ssb-ref');
 import {Thread as ThreadData} from 'ssb-threads/types';
-import {Msg, Content, FeedId, PostContent} from 'ssb-typescript';
-import {isMsg, isContactMsg} from 'ssb-typescript/utils';
+import {
+  Msg,
+  Content,
+  FeedId,
+  PostContent,
+  GatheringContent,
+} from 'ssb-typescript';
+import {isMsg, isContactMsg, isGatheringMsg} from 'ssb-typescript/utils';
 import run = require('promisify-tuple');
 import {Callback} from 'pull-stream';
-import xsFromPullStream from 'xstream-from-pull-stream';
 import {ClientAPI, AnyFunction} from 'react-native-ssb-client';
 import {
   AnyThread,
+  GatheringInfo,
   MsgAndExtras,
   ThreadAndExtras,
   ThreadSummary,
   ThreadSummaryWithExtras,
   PrivateThreadAndExtras,
   Reactions,
+  GatheringAttendees,
+  GatheringAttendee,
 } from '../types';
 import {imageToImageUrl, voteExpressionToReaction} from '../utils/from-ssb';
 import manifest from '../manifest';
@@ -45,9 +55,20 @@ function getRecipient(recp: string | Record<string, any>): string | undefined {
   }
 }
 
-function mutateMsgWithLiveExtras(ssb: SSB, includeReactions: boolean = true) {
+function mutateMsgWithLiveExtras(
+  ssb: SSB,
+  options: {
+    includeReactions?: boolean;
+    includeGatheringInfo?: boolean;
+  } = {
+    includeReactions: true,
+    includeGatheringInfo: true,
+  },
+) {
   return async (msg: Msg, cb: Callback<MsgAndExtras>) => {
-    if (!isMsg(msg) || !msg.value) return cb(null, msg as any);
+    if (!(isMsg(msg) || isGatheringMsg(msg)) || !msg.value) {
+      return cb(null, msg as any);
+    }
 
     // Fetch name and image
     const id = msg.value.author;
@@ -56,23 +77,26 @@ function mutateMsgWithLiveExtras(ssb: SSB, includeReactions: boolean = true) {
     const imageUrl = imageToImageUrl(output.image);
 
     // Get reactions stream
-    const reactions: Stream<Reactions> = includeReactions
-      ? xsFromPullStream(ssb.votes.voterStream(msg.key))
-          .startWith([])
-          .map((arr: Array<unknown>) =>
-            arr
-              .reverse() // recent ones first
-              .map(([feedId, expression]) => {
-                const reaction = voteExpressionToReaction(expression);
-                return [feedId, reaction];
-              }),
-          )
+    const reactions: Stream<Reactions> = options.includeReactions
+      ? createReaction$(ssb, msg)
       : xs.never();
+
+    const gatheringAttendees = isGatheringMsg(msg)
+      ? createGatheringAttendees$(ssb, msg)
+      : undefined;
+
+    // Get gathering info stream
+    const gatheringInfo: Stream<GatheringInfo> | undefined =
+      options.includeGatheringInfo && isGatheringMsg(msg)
+        ? createGatheringInfo$(ssb, msg)
+        : undefined;
 
     // Create msg object
     const m = msg as MsgAndExtras;
     m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
       reactions,
+      gatheringInfo,
+      gatheringAttendees,
       about: {name, imageUrl},
     };
 
@@ -113,7 +137,12 @@ function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
     cb: Callback<PrivateThreadAndExtras<PostContent>>,
   ) => {
     for (const msg of thread.messages) {
-      await run(mutateMsgWithLiveExtras(ssb, false))(msg);
+      await run(
+        mutateMsgWithLiveExtras(ssb, {
+          includeReactions: false,
+          includeGatheringInfo: false,
+        }),
+      )(msg);
     }
     const root: Msg<Content> | undefined = thread.messages[0];
     const pvthread: PrivateThreadAndExtras<PostContent> = thread as any;
@@ -136,8 +165,53 @@ function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
   };
 }
 
-const ALLOW_POSTS = ['post'];
-const ALLOW_POSTS_AND_CONTACTS = ['post', 'contact'];
+function createGatheringAttendees$(
+  ssb: SSB,
+  msg: Msg<GatheringContent>,
+): Stream<GatheringAttendees> {
+  return xsFromPullStream(ssb.gatheringsUtils.gatheringAttendees(msg.key))
+    .map((gatheringAttendees: Array<FeedId>) => {
+      const attendeesInfo$ = gatheringAttendees.map((feedId) =>
+        xsFromCallback(ssb.cachedAboutSelf.get)(feedId).map(
+          (response: any): GatheringAttendee => ({
+            feedId,
+            name: response.name,
+            avatarUrl: imageToImageUrl(response.image),
+          }),
+        ),
+      );
+
+      return xs.combine(...attendeesInfo$);
+    })
+    .flatten()
+    .remember();
+}
+
+function createGatheringInfo$(
+  ssb: SSB,
+  msg: Msg<GatheringContent>,
+): Stream<GatheringInfo> {
+  return xsFromCallback<GatheringInfo>(ssb.gatheringsUtils.gatheringInfo)(
+    msg.key,
+  ).remember();
+}
+
+function createReaction$(ssb: SSB, msg: Msg): Stream<NonNullable<Reactions>> {
+  return xsFromPullStream(ssb.votes.voterStream(msg.key))
+    .startWith([])
+    .map((arr: Array<unknown>) =>
+      arr
+        .reverse() // recent ones first
+        .map(([feedId, expression]) => {
+          const reaction = voteExpressionToReaction(expression);
+          return [feedId, reaction];
+        }),
+    );
+}
+
+const ALLOW_ALL = ['post', 'gathering', 'contact'];
+const ALLOW_ALL_EXCEPT_CONTACT = ['post', 'gathering'];
+const ALLOW_POSTS_ONLY = ['post'];
 
 const threadsUtils = {
   name: 'threadsUtils' as const,
@@ -152,26 +226,31 @@ const threadsUtils = {
       throw new Error('"threadsUtils" is missing required plugin "dbUtils"');
     }
 
-    const privateAllowlist = ALLOW_POSTS;
-    let publicAllowlist = ALLOW_POSTS_AND_CONTACTS;
+    const privateAllowlist = ALLOW_POSTS_ONLY;
+    let publicAllowlist = ALLOW_ALL;
 
     // TODO: this could be in a "global component" in cycle-native-navigation
     ssb.settingsUtils.read((err: any, settings?: {showFollows?: boolean}) => {
       if (err) console.error(err);
       else if (settings?.showFollows === false) {
-        publicAllowlist = ALLOW_POSTS;
+        publicAllowlist = ALLOW_ALL_EXCEPT_CONTACT;
       }
     });
 
     return {
       updateShowFollows(showFollows: boolean) {
-        publicAllowlist = showFollows ? ALLOW_POSTS_AND_CONTACTS : ALLOW_POSTS;
+        publicAllowlist = showFollows ? ALLOW_ALL : ALLOW_ALL_EXCEPT_CONTACT;
       },
 
       publicRawFeed() {
         return pull(
           ssb.deweird.source(['dbUtils', 'rawLogReversed']),
-          pull.asyncMap(mutateMsgWithLiveExtras(ssb, false)),
+          pull.asyncMap(
+            mutateMsgWithLiveExtras(ssb, {
+              includeReactions: false,
+              includeGatheringInfo: false,
+            }),
+          ),
         );
       },
 
@@ -204,7 +283,7 @@ const threadsUtils = {
       hashtagFeed(hashtag: string) {
         return pull(
           ssb.deweird.source(['threads', 'hashtagSummary'], {
-            allowlist: ALLOW_POSTS,
+            allowlist: ALLOW_ALL_EXCEPT_CONTACT,
             hashtag,
           }),
           pull.asyncMap(mutateThreadSummaryWithLiveExtras(ssb)),
@@ -235,14 +314,24 @@ const threadsUtils = {
             old: true,
             live: false,
           }),
-          pull.asyncMap(mutateMsgWithLiveExtras(ssb, false)),
+          pull.asyncMap(
+            mutateMsgWithLiveExtras(ssb, {
+              includeReactions: false,
+              includeGatheringInfo: false,
+            }),
+          ),
         );
       },
 
       searchPublicPosts(text: string) {
         return pull(
           ssb.deweird.source(['searchUtils', 'query'], text),
-          pull.asyncMap(mutateMsgWithLiveExtras(ssb, false)),
+          pull.asyncMap(
+            mutateMsgWithLiveExtras(ssb, {
+              includeReactions: false,
+              includeGatheringInfo: false,
+            }),
+          ),
         );
       },
 
@@ -289,18 +378,16 @@ const threadsUtils = {
         if (!msg.value._$manyverse$metadata) {
           return cb(new Error('missing live extras metadata'));
         }
-        msg.value._$manyverse$metadata.reactions = xsFromPullStream(
-          ssb.votes.voterStream(msg.key),
-        )
-          .startWith([])
-          .map((arr: Array<unknown>) =>
-            arr
-              .reverse() // recent ones first
-              .map(([feedId, expression]) => {
-                const reaction = voteExpressionToReaction(expression);
-                return [feedId, reaction];
-              }),
-          );
+
+        msg.value._$manyverse$metadata.reactions = createReaction$(ssb, msg);
+
+        msg.value._$manyverse$metadata.gatheringAttendees = isGatheringMsg(msg)
+          ? createGatheringAttendees$(ssb, msg)
+          : undefined;
+
+        msg.value._$manyverse$metadata.gatheringInfo = isGatheringMsg(msg)
+          ? createGatheringInfo$(ssb, msg)
+          : undefined;
         cb(null, msg);
       },
 

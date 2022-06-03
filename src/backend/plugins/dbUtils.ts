@@ -72,6 +72,7 @@ export = {
       author,
       contact,
       votesFor,
+      about,
       fullMentions: mentions,
       isRoot,
       hasRoot,
@@ -114,6 +115,9 @@ export = {
       author(ssb.id, {dedicated: false}),
       // value_author_@SELFSSBID.index:
       author(ssb.id, {dedicated: true}),
+      // value_content_about__map.32prefixmap:
+      // value_content_type_about.index:
+      about(ssb.id),
       // value_content_contact__map.32prefixmap
       // value_content_type_contact.index:
       contact(ssb.id),
@@ -123,6 +127,8 @@ export = {
       isRoot(),
       // value_content_root__map.32prefixmap
       hasRoot('whatever'),
+      // value_content_type_gathering.index:
+      type('gathering'),
       // value_content_type_post.index
       type('post'),
       // value_content_type_pub.index

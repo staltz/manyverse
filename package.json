@@ -145,7 +145,7 @@
     "ssb-room-client": "0.2.0",
     "ssb-serve-blobs": "3.1.1",
     "ssb-threads": "7.0.0",
-    "ssb-typescript": "2.6.0",
+    "ssb-typescript": "2.8.0",
     "ssb-uri2": "1.7.2",
     "strip-markdown-oneline": "1.0.3",
     "unicode-word-regex": "1.1.0",

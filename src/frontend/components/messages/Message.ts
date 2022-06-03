@@ -8,18 +8,26 @@ import {PureComponent} from 'react';
 import {h} from '@cycle/react';
 import {withXstreamProps} from 'react-xstream-hoc';
 import {Msg, FeedId} from 'ssb-typescript';
-import {isPostMsg, isContactMsg, isAboutMsg} from 'ssb-typescript/utils';
+import {
+  isPostMsg,
+  isContactMsg,
+  isAboutMsg,
+  isGatheringMsg,
+} from 'ssb-typescript/utils';
 import {
   Reactions,
   MsgAndExtras,
   PressReactionsEvent,
   PressAddReactionEvent,
+  GatheringInfo,
+  GatheringAttendees,
 } from '~frontend/ssb/types';
 import RawMessage from './RawMessage';
 import PostMessage from './PostMessage';
 import AboutMessage from './AboutMessage';
 import ContactMessage from './ContactMessage';
 import KeylessMessage from './KeylessMessage';
+import GatheringMessage from './GatheringMessage';
 
 export interface Props {
   msg: MsgAndExtras;
@@ -33,6 +41,11 @@ export interface Props {
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: () => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressAttendGathering?: (ev: {
+    isAttending: boolean;
+    attendeeId: string;
+    gatheringId: string;
+  }) => void;
   onPressEtc?: (msg: Msg) => void;
 }
 
@@ -43,6 +56,12 @@ interface State {
 const RawMessage$ = withXstreamProps(RawMessage, 'reactions');
 const PostMessage$ = withXstreamProps(PostMessage, 'reactions');
 const ContactMessage$ = withXstreamProps(ContactMessage, 'reactions');
+const GatheringMessage$ = withXstreamProps(
+  GatheringMessage,
+  'reactions',
+  'gatheringInfo',
+  'gatheringAttendees',
+);
 
 export default class Message extends PureComponent<Props, State> {
   constructor(props: Props) {
@@ -57,10 +76,13 @@ export default class Message extends PureComponent<Props, State> {
 
   public render() {
     const {msg, replyCount} = this.props;
+
     const metadata = msg.value._$manyverse$metadata;
+
     const reactions = (
       metadata.reactions ?? (xs.never() as Stream<Reactions>)
     ).compose(debounce(80)); // avoid DB reads flickering
+
     const props = {
       ...this.props,
       msg: msg as Msg<any>,
@@ -73,6 +95,20 @@ export default class Message extends PureComponent<Props, State> {
 
     if (this.state.hasError) return h(RawMessage$, props);
     if (!msg.key) return h(KeylessMessage, props);
+    if (isGatheringMsg(msg)) {
+      const gatheringInfo =
+        metadata.gatheringInfo ?? (xs.never() as Stream<GatheringInfo>);
+      const gatheringAttendees =
+        metadata.gatheringAttendees ??
+        (xs.never() as Stream<GatheringAttendees>);
+
+      return h(GatheringMessage$, {
+        ...props,
+        sel: 'gathering',
+        gatheringInfo,
+        gatheringAttendees,
+      });
+    }
     if (isPostMsg(msg)) return h(PostMessage$, props);
     if (isAboutMsg(msg)) return h(AboutMessage, props);
     if (isContactMsg(msg)) return h(ContactMessage$, props);

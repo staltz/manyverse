@@ -122,6 +122,7 @@ export = async function startSSB(isNewIdentity: boolean) {
     .use(require('./plugins/resyncUtils')) // needs: db2, connFirewall
     .use(require('./plugins/publishUtilsBack')) // needs: db, blobs, blobsUtils
     .use(require('./plugins/searchUtils')) // needs: db2
+    .use(require('./plugins/gatheringsUtils')) // needs: db2
     .use(require('./plugins/keysUtils'))
     .use(settingsUtils) // needs: blobs-purge, conn-firewall
     .use(require('./plugins/dbUtils')) // needs: db2, syncing

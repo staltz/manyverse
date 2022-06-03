@@ -115,7 +115,11 @@ Files: images/icon-menu*.png
 Copyright: 2021 Google, Inc
 License: Apache-2.0
 
-Files: images/image-area.png
+Files: images/calendar-256*.png
+Copyright: 2021 Austin Andrews
+License: Apache-2.0
+
+Files: images/image-area-256*.png
 Copyright: 2021 Austin Andrews
 License: Apache-2.0
 

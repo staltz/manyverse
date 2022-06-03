@@ -8,7 +8,11 @@ import flattenConcurrentlyAtMost from 'xstream/extra/flattenConcurrentlyAtMost';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId, MsgId} from 'ssb-typescript';
-import {ThreadAndExtras, MsgAndExtras} from '~frontend/ssb/types';
+import {
+  ThreadAndExtras,
+  MsgAndExtras,
+  GatheringInfo,
+} from '~frontend/ssb/types';
 import {SSBSource, GetReadable} from '~frontend/drivers/ssb';
 import {Props} from './props';
 
@@ -170,6 +174,19 @@ export default function model(
           else return xs.of(unknownErrorThread);
         }),
     )
+    .flatten()
+    .map((thread) => {
+      // Waiting for the gathering info to be resolved before returning the
+      // complete thread
+      const gatheringInfos: Array<Stream<GatheringInfo>> = thread.messages
+        .map((message) => message.value._$manyverse$metadata.gatheringInfo)
+        .filter(
+          (gatheringInfo): gatheringInfo is Stream<GatheringInfo> =>
+            !!gatheringInfo,
+        );
+
+      return xs.combine(...gatheringInfos).mapTo(thread);
+    })
     .flatten()
     .map(
       (thread) =>

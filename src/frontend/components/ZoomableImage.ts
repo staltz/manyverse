@@ -32,7 +32,11 @@ const urlToBlobId = require('ssb-serve-blobs/url-to-id');
 const $ = createElement;
 
 const ASPECT_RATIO = 768 / 1024;
-const pictureIcon = getImg(require('~images/image-area.png'));
+const pictureIcon = getImg(
+  Palette.isDarkTheme
+    ? require('~images/image-area-256-dark.png')
+    : require('~images/image-area-256.png'),
+);
 
 const styles = StyleSheet.create({
   imageBlobIdContainer: {
@@ -60,6 +64,11 @@ const styles = StyleSheet.create({
   imageLoaded: {
     marginVertical: Dimens.verticalSpaceSmall,
     resizeMode: 'cover',
+    ...Platform.select({
+      web: {
+        cursor: 'pointer',
+      },
+    }),
   },
 
   imagePlaceholder: {

@@ -46,6 +46,11 @@ export interface Props {
   onReplySeen?: (msgId: MsgId) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
+  onPressAttendGathering?: (ev: {
+    isAttending: boolean;
+    attendeeId: string;
+    gatheringId: string;
+  }) => void;
 }
 
 export const styles = StyleSheet.create({
@@ -152,6 +157,8 @@ export default class FullThread extends Component<Props, State> {
     if (nextProps.onPressAuthor !== prevProps.onPressAuthor) return true;
     if (nextProps.onPressEtc !== prevProps.onPressEtc) return true;
     if (nextProps.onPressReactions !== prevProps.onPressReactions) return true;
+    if (nextProps.onPressAttendGathering !== prevProps.onPressAttendGathering)
+      return true;
     if (nextProps.onPressAddReaction !== prevProps.onPressAddReaction)
       return true;
     if (nextProps.willPublish$ !== prevProps.willPublish$) return true;
@@ -192,6 +199,7 @@ export default class FullThread extends Component<Props, State> {
       onPressReactions,
       onPressAddReaction,
       onPressAuthor,
+      onPressAttendGathering,
       onPressEtc,
       onPressReplyToRoot,
       onPressReplyToReply,
@@ -233,6 +241,7 @@ export default class FullThread extends Component<Props, State> {
       onPressReactions,
       onPressAddReaction,
       onPressAuthor,
+      onPressAttendGathering,
       onPressEtc,
     });
   };

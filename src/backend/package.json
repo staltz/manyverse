@@ -53,11 +53,11 @@
     "ssb-ref": "2.16.0",
     "ssb-replication-scheduler": "2.0.3",
     "ssb-room-client": "2.0.2",
-    "ssb-search2": "2.0.0",
+    "ssb-search2": "2.1.3",
     "ssb-serve-blobs": "3.1.1",
     "ssb-suggest-lite": "1.1.3",
     "ssb-threads": "10.0.3",
-    "ssb-typescript": "2.5.0",
+    "ssb-typescript": "2.8.0",
     "utf-8-validate": "5.0.3"
   },
   "optionalDependenciesCOMMENT": "These are desktop-only modules",

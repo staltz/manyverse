@@ -5,16 +5,8 @@
 import xs, {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import {PureComponent} from 'react';
-import {
-  Platform,
-  StyleSheet,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  View,
-  ViewProps,
-} from 'react-native';
+import {Platform, StyleSheet, ViewProps} from 'react-native';
 import {h} from '@cycle/react';
-import Svg, {Rect, Defs, LinearGradient, Stop} from 'react-native-svg';
 import {FeedId, Msg, PostContent} from 'ssb-typescript';
 import {withXstreamProps} from 'react-xstream-hoc';
 import {
@@ -26,17 +18,12 @@ import {
 } from '~frontend/ssb/types';
 import {getPostText} from '~frontend/ssb/utils/from-ssb';
 import {Dimensions} from '~frontend/global-styles/dimens';
-import {Palette} from '~frontend/global-styles/palette';
 import MessageContainer from './messages/MessageContainer';
 import MessageFooter from './messages/MessageFooter';
 import MessageHeader from './messages/MessageHeader';
 import ContentWarning from './messages/ContentWarning';
 import Markdown from './Markdown';
-
-const Touchable = Platform.select<any>({
-  android: TouchableNativeFeedback,
-  default: TouchableOpacity,
-});
+import ReadMoreOverlay from './ReadMoreOverlay';
 
 export interface Props {
   thread: ThreadSummaryWithExtras;
@@ -69,25 +56,6 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
-  post: {
-    marginTop: Dimensions.verticalSpaceNormal,
-    overflow: 'hidden',
-    maxHeight: POST_HEIGHT,
-    flex: 1,
-  },
-
-  readMoreContainer: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-  },
-
   footer: {
     flex: 0,
     height: MessageFooter.HEIGHT,
@@ -141,54 +109,6 @@ export default class ThreadCard extends PureComponent<Props, State> {
     this.props.onPressExpandCW?.(this.props.thread.root);
   };
 
-  public renderReadMore(fading: boolean) {
-    // This randomID is necessary on the DOM (Electron) because of
-    // https://stackoverflow.com/questions/16123721/how-to-use-local-defs-in-svg
-    const randomID = Math.floor(Math.random() * 1000000);
-    const width = this.state.markdownWidth;
-    const height = POST_HEIGHT;
-    return h(View, {style: styles.readMoreContainer}, [
-      h(Svg, {width, height}, [
-        fading
-          ? h(Defs, [
-              h(
-                LinearGradient,
-                {id: `grad${randomID}`, x1: '0', y1: '0', x2: '0', y2: '1'},
-                [
-                  h(Stop, {
-                    offset: '0',
-                    stopColor: Palette.backgroundText,
-                    stopOpacity: '0',
-                  }),
-                  h(Stop, {
-                    offset: '1',
-                    stopColor: Palette.backgroundText,
-                    stopOpacity: '1',
-                  }),
-                ],
-              ),
-            ])
-          : null,
-        h(Rect, {
-          x: '0',
-          y: '0',
-          width,
-          height: height * 0.5,
-          fill: 'rgba(0,0,0,0)',
-          strokeWidth: '0',
-        }),
-        h(Rect, {
-          x: '0',
-          y: height * 0.5,
-          width,
-          height: height * 0.5,
-          fill: fading ? `url(#grad${randomID})` : 'rgba(0,0,0,0)',
-          strokeWidth: '0',
-        }),
-      ]),
-    ]);
-  }
-
   public renderPost(root: Msg<PostContent>) {
     const markdownChild = h(Markdown, {
       key: 'md',
@@ -196,20 +116,16 @@ export default class ThreadCard extends PureComponent<Props, State> {
       onLayout: this.onMarkdownMeasured,
     });
 
-    const touchableProps: any = {
-      onPress: this.onPressReadMore,
-      pointerEvents: 'box-only',
-    };
-    if (Platform.OS === 'android') {
-      touchableProps.background =
-        TouchableNativeFeedback.SelectableBackground();
-    }
-    return h(Touchable, touchableProps, [
-      h(View, {key: 'p', style: styles.post}, [
-        markdownChild,
-        this.renderReadMore(this.state.showFadingReadMore),
-      ]),
-    ]);
+    return h(
+      ReadMoreOverlay,
+      {
+        fading: this.state.showFadingReadMore,
+        maxHeight: POST_HEIGHT,
+        onPress: this.onPressReadMore,
+        width: this.state.markdownWidth,
+      },
+      [markdownChild],
+    );
   }
 
   public render() {

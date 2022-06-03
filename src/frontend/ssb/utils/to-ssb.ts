@@ -9,6 +9,7 @@ import {
   Privatable,
   FeedId,
   AboutContent,
+  AttendeeContent,
   MsgId,
 } from 'ssb-typescript';
 const Mentions = require('remark-ssb-mentions');
@@ -83,6 +84,21 @@ export function toContactContent(
     output.blocking = blocking;
   }
   return output;
+}
+
+export function toGatheringAttendContent(
+  gatheringId: string,
+  attendeeId: string,
+  isAttending: boolean,
+): Privatable<AttendeeContent> {
+  const attendee = isAttending
+    ? {link: attendeeId}
+    : {link: attendeeId, remove: true as const};
+  return {
+    type: 'about',
+    about: gatheringId,
+    attendee,
+  };
 }
 
 export function toAboutContent(

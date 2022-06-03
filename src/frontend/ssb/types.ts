@@ -2,9 +2,26 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Msg, Content, FeedId, About, MsgId, AliasContent} from 'ssb-typescript';
+import {
+  Msg,
+  Content,
+  FeedId,
+  About,
+  MsgId,
+  AliasContent,
+  GatheringUpdateContent,
+} from 'ssb-typescript';
 import {Stream} from 'xstream';
 import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
+
+export type GatheringInfo = Omit<GatheringUpdateContent, 'type'>;
+
+export type GatheringAttendee = {
+  feedId: string;
+  name?: string;
+  avatarUrl?: string;
+};
+export type GatheringAttendees = Array<GatheringAttendee>;
 
 export type Reactions = Array<[FeedId, string]> | null;
 
@@ -19,10 +36,17 @@ export interface PressReactionsEvent {
   reactions: Reactions;
 }
 
+export interface PressGatheringAttendeesEvent {
+  msgKey: MsgId;
+  attendees: GatheringAttendees;
+}
+
 export type MsgAndExtras<C = Content> = Msg<C> & {
   value: {
     _$manyverse$metadata: {
       reactions?: Stream<NonNullable<Reactions>>;
+      gatheringInfo?: Stream<NonNullable<GatheringInfo>>;
+      gatheringAttendees?: Stream<NonNullable<Array<GatheringAttendee>>>;
       about: {
         name?: string;
         imageUrl: string | null;
