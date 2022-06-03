@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
-import {Image} from 'react-native-image-crop-picker';
+import {Image} from '@staltz/react-native-image-crop-picker';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';

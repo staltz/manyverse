@@ -5,7 +5,7 @@
 import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
 import {About, FeedId} from 'ssb-typescript';
-import {Image} from 'react-native-image-crop-picker';
+import {Image} from '@staltz/react-native-image-crop-picker';
 import {Alias, PeerKV} from '~frontend/ssb/types';
 import {Props} from './props';
 

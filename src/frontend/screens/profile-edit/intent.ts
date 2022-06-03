@@ -8,9 +8,11 @@ import between from 'xstream-between';
 import {Platform} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
-import {Image} from 'react-native-image-crop-picker';
+import {Image} from '@staltz/react-native-image-crop-picker';
 const ImagePicker =
-  Platform.OS !== 'web' ? require('react-native-image-crop-picker') : null;
+  Platform.OS !== 'web'
+    ? require('@staltz/react-native-image-crop-picker')
+    : null;
 import {AlertAction, DialogSource} from '~frontend/drivers/dialogs';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';

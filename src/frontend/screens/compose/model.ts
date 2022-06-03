@@ -9,7 +9,7 @@ import debounce from 'xstream/extra/debounce';
 import {Reducer, Lens} from '@cycle/state';
 import {Platform} from 'react-native';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
-import {Image} from 'react-native-image-crop-picker';
+import {Image} from '@staltz/react-native-image-crop-picker';
 import {MsgId, FeedId} from 'ssb-typescript';
 import {SSBSource, MentionSuggestion} from '~frontend/drivers/ssb';
 import {AudioBlobComposed} from '~frontend/drivers/eventbus';
