@@ -241,6 +241,9 @@
     "reactions": {
       "title": "Reakcie"
     },
+    "gathering_attendees": {
+      "title": "Attendees"
+    },
     "recipients": {
       "title": "Príjemcovia"
     },
@@ -1137,6 +1140,15 @@
       "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Copy cypherlink",
       "view_raw": "Ukázať surovú správu"
+    },
+    "gatherings": {
+      "call_to_action": {
+        "attend": "Attend",
+        "attending": "Attending",
+        "showAllAttendees": {
+          "accessibility_label": "Show Attendees in a List"
+        }
+      }
     },
     "toast": {
       "copied_to_clipboard": "Skopírované"

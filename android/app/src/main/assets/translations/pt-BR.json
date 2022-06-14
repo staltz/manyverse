@@ -241,6 +241,9 @@
     "reactions": {
       "title": "Reações"
     },
+    "gathering_attendees": {
+      "title": "Attendees"
+    },
     "recipients": {
       "title": "Destinatários"
     },
@@ -1137,6 +1140,15 @@
       "copy_msg_uri": "Copiar como SSB URI",
       "copy_msg_id": "Copiar cypherlink",
       "view_raw": "Ver mensagem crua"
+    },
+    "gatherings": {
+      "call_to_action": {
+        "attend": "Attend",
+        "attending": "Attending",
+        "showAllAttendees": {
+          "accessibility_label": "Show Attendees in a List"
+        }
+      }
     },
     "toast": {
       "copied_to_clipboard": "Copiado para a área de transferência"

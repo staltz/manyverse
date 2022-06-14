@@ -241,6 +241,9 @@
     "reactions": {
       "title": "واکنش ها"
     },
+    "gathering_attendees": {
+      "title": "Attendees"
+    },
     "recipients": {
       "title": "گیرندگان"
     },
@@ -1137,6 +1140,15 @@
       "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Copy cypherlink",
       "view_raw": "View raw message"
+    },
+    "gatherings": {
+      "call_to_action": {
+        "attend": "Attend",
+        "attending": "Attending",
+        "showAllAttendees": {
+          "accessibility_label": "Show Attendees in a List"
+        }
+      }
     },
     "toast": {
       "copied_to_clipboard": "Copied to clipboard"

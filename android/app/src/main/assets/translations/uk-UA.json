@@ -94,9 +94,9 @@
     "off_the_grid": {
       "title": "Поза мережею",
       "description": {
-        "1_normal": "Manyverse може використовувати Інтернет, але вона не є ",
+        "1_normal": "Manyverse може використовувати Інтернет-підключення, але воно не є ",
         "2_bold": "в",
-        "3_normal": " Інтернеті. Все що там відбувається знаходиться на Вашому телефоні. Це означає, що Ви можете нею користуватися, навіть поза мережею! Ваш ",
+        "3_normal": " інтернеті. Все відбувається прямо тут, на Вашому телефоні. Це означає, що ви можете користуватися застосунком навіть поза мережею! Ваш ",
         "4_bold": "вміст у першу чергу зберігається на Вашому пристрої",
         "5_normal": " і Ви можете синхронувати його з друзями, коли зʼєднаєтеся з ними."
       }
@@ -163,24 +163,24 @@
           "accessibility_label": "Кнопка відновлення обліківки"
         },
         "migrate": {
-          "label": "Migrate from ~/.ssb",
-          "accessibility_label": "Migrate account from the shared SSB directory"
+          "label": "Перенести з ~/.sbb",
+          "accessibility_label": "Перенести обліковий запис зі спільного SSB каталогу"
         }
       }
     },
     "dialogs": {
       "migrate": {
-        "title": "Migrate your SSB account to Manyverse",
+        "title": "Перенести ваш обліковий запис SSB до Manyverse",
         "description": "Manyverse detected an existing SSB account at the common `~/.ssb` directory. If you wish, you can migrate that account to a whole new directory that only Manyverse can access.\n\nOnce migration finishes, **you will NOT be able to use your account with other SSB apps such as Patchwork anymore**, and '.ssb' will be **deleted**, but you can still use those apps with new accounts.\n\nDo you confirm you want to migrate your account from '.ssb' to Manyverse? **This action cannot be undone.**"
       },
       "link_failed": {
-        "title": "Account not ready",
+        "title": "Обліковий запис не готовий",
         "description": "You tried to open an SSB link, but your account is not ready yet. Please complete the setup process first, and then try the link again."
       }
     }
   },
   "migrating": {
-    "label": "Migrating..."
+    "label": "Перенесення..."
   },
   "central": {
     "app_name": "Manyverse",
@@ -241,6 +241,9 @@
     "reactions": {
       "title": "Реакції"
     },
+    "gathering_attendees": {
+      "title": "Attendees"
+    },
     "recipients": {
       "title": "Отримувачі"
     },
@@ -280,7 +283,7 @@
   "connections": {
     "title": "Панель зʼєднань",
     "floating_action_button": {
-      "add_connection": "Add a connection",
+      "add_connection": "Приєднати",
       "create_invite": "Створити запрошення",
       "paste_invite": "Вставити запрошення",
       "bluetooth_seek": "Пошук по Bluetooth"
@@ -310,8 +313,8 @@
       "offline_with_content": "Ви не можете підʼєднатися до вузлів зараз, але можете насолоджуватися вмістом, який Ви вже маєте.",
       "offline_without_content": "Ви не можете підʼєднатися до вузлів зараз. Спробуйте зробити кращий звʼязок з Інтернетом або ввімкнути Wi-Fi, щоб знайти вузли поблизу.",
       "knows_no_one": "Ваша Manyverse в даний час є ізольованою. Потрібно, щоб інші вузли запросили Вас долучитися до сервера кімнати або Ви можете створити свій сервер кімнати.",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
+      "nearby_strangers_available": "Ви ще не під'єднані ні до кого, але є в одній з вами мережі Wi-Fi є користувачі. Спробуйте підключитися до них вручну, якщо ви думаєте, що вони також готові підключитися до вас.",
+      "empty_rooms": "Ви є учасником кількох кімнат, але на цей час нікого з тих, кого ви знаєте, немає онлайн. Спробуйте підключитися вручну до незнайомця в кімнаті, або отримайте код запрошення на інші сервери.",
       "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
       "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
     },
@@ -342,11 +345,11 @@
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "Дозволити вхід?",
+          "description": "Відкрити вебсайт {{room}}, щоб створити запрошення та керувати учасниками. Чи бажаєте ви використати Manyverse для входу?\n\nID кімнати {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
+          "title": "Дозволити вхід?",
           "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
         }
       }
@@ -360,7 +363,7 @@
         },
         "room": {
           "server": "Сервер кімнати",
-          "endpoint": "Room peer",
+          "endpoint": "Учасник кімнати",
           "alone_online": "(у мережі лише Ви)",
           "others_online": {
             "one": "({{count}} у мережі)",
@@ -369,7 +372,7 @@
         },
         "pub": "Пуб. сервер",
         "server": "Сервер",
-        "unknown": "Unknown"
+        "unknown": "Невідомо"
       }
     },
     "modes": {
@@ -382,8 +385,8 @@
         "disabled": "(Увімкніть Bluetooth для користування)",
         "description": "Знаходьте користувачів поблизу і звʼяжіться з ними через Bluetooth.",
         "permission_request": {
-          "title": "Allow locating via Bluetooth?",
-          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
+          "title": "Дозволити пошук місцеперебування через Bluetooth?",
+          "message": "Для того, щоб визначити, де ви знаходитеся (приблизна локація) і хто з учасників є поблизу вас, Manyverse необхідно використати Bluetooth."
         }
       },
       "wifi": {
@@ -400,37 +403,37 @@
       }
     },
     "menu": {
-      "dialog_title": "Connection",
+      "dialog_title": "Зʼєднання",
       "open_profile": {
         "label": "Відкрити профіль",
         "accessibility_label": {
-          "connected": "Open profile screen for this connected peer",
+          "connected": "Відкрити вікно профілю цього під'єднаного учасника",
           "staged": "Open profile screen for this suggested connection"
         }
       },
       "connect": {
-        "label": "Connect",
+        "label": "Зʼєднання",
         "accessibility_label": {
-          "staged_peer": "Connect to this suggested peer",
-          "staged_room": "Connect to this suggested room"
+          "staged_peer": "З'єднатися з запропонованим учасником",
+          "staged_room": "З'єднатися з запропонованою кімнатою"
         }
       },
       "follow_connect": {
-        "label": "Connect and follow",
-        "accessibility_label": "Connect to this suggested peer then follow them"
+        "label": "Під'єднатися та відстежувати",
+        "accessibility_label": "З'єднатися з запропонованим учасником та відстежувати його"
       },
       "disconnect": {
-        "label": "Disconnect",
+        "label": "Від'єднатися",
         "accessibility_label": {
-          "peer": "Disconnect from this peer",
-          "room": "Disconnect from this room"
+          "peer": "Від'єднатися від цього учасника",
+          "room": "Від'єднатися від цієї кімнати"
         }
       },
       "disconnect_forget": {
-        "label": "Disconnect and forget",
+        "label": "Від'єднатися та забути",
         "accessibility_label": {
-          "peer": "Disconnect from this peer and remove it from our database",
-          "room": "Disconnect from this room and remove it from our database"
+          "peer": "Від'єднатися від цього учасника та видалити його з нашої бази даних",
+          "room": "Від'єднатися від цієї кімнати та видалити її з нашої бази даних"
         }
       },
       "forget": {
@@ -440,11 +443,11 @@
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
-        "accessibility_label": "Manage my aliases in Room servers"
+        "label": "Керувати моїми псевдонімами",
+        "accessibility_label": "Керувати моїми псевдонімами у серверах кімнат"
       },
       "room_sign_in": {
-        "label": "Sign into website",
+        "label": "Вхід у вебсайт",
         "accessibility_label": "Open this room's website and sign into its dashboard, Button"
       },
       "room_share_invite": {
@@ -452,7 +455,7 @@
         "accessibility_label": "Share the invite code for this room"
       },
       "invite_info": {
-        "label": "About",
+        "label": "Про застосунок",
         "accessibility_label": "Про цей код запрошення"
       },
       "invite_note": {
@@ -573,8 +576,8 @@
       "description": {
         "1_normal": "Це дописи Вашої обліківки, повідомлення, зображення, вподобання і повʼязана активність. Щоб уберегти їх від раптової втрати, ми використовуємо ",
         "2_bold": "crowd backup",
-        "3_normal": ". You only need to ",
-        "4_bold": "synchronize with reliable friends",
+        "3_normal": ". Вам лише потрібно ",
+        "4_bold": "синхронізувати з надійними друзями",
         "5_normal": " or other devices you own. There is ",
         "6_bold": "nothing else to do",
         "7_normal": ", just use Manyverse often and your friends are backing you up!"
@@ -759,7 +762,7 @@
     "empty": {
       "blocked": {
         "title": "Заблоковано",
-        "description": "You have chosen to stop\ninteracting with this account"
+        "description": "Ви обрали припинити\nвзаємодію з цим обліковим записом"
       },
       "no_self_messages": {
         "title": "Листів не має",
@@ -767,7 +770,7 @@
       },
       "no_messages": {
         "title": "Листів не має",
-        "description": "You don't yet have any data\nfrom this account"
+        "description": "Ви поки не маєте жодних даних\nвід цього облікового запису"
       }
     },
     "floating_action_button": {
@@ -787,7 +790,7 @@
       },
       "register_new_alias": {
         "label": "Зареєструвати нове псевдо",
-        "accessibility_label": "Register New Room Server Alias"
+        "accessibility_label": "Зареєструвати псевдонім нової кімнати сервера"
       }
     },
     "dialogs": {
@@ -796,7 +799,7 @@
         "question": "Відкинути зміни?"
       },
       "remove_alias": {
-        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
+        "description": "Ця дія видалить даний псевдонім \"{{alias}}\" з цієї кімнати сервера.\n\nЛюди більше не зможуть зв'язатися з вами за допомогою цього псевдоніму."
       }
     },
     "toasts": {
@@ -806,11 +809,11 @@
     "fields": {
       "name": {
         "label": "Імʼя",
-        "accessibility_label": "Name Text Input"
+        "accessibility_label": "Введіть текст імені"
       },
       "description": {
         "label": "Біографія",
-        "accessibility_label": "Biography Text Input"
+        "accessibility_label": "Введіть текст біографії"
       },
       "aliases": {
         "label": "Псевдоніми"
@@ -818,7 +821,7 @@
     }
   },
   "manage_aliases": {
-    "title": "Manage aliases"
+    "title": "Керувати псевдонімами"
   },
   "register_alias": {
     "title": "Зареєструвати псевдо",
@@ -829,18 +832,18 @@
       }
     },
     "header": {
-      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+      "description": "Виберіть кімнату сервера, де ви бажаєте зареєструвати новий псевдонім-покликання для себе.\n\nПсевдоніми це вебадреси, які люди можуть використати для того, щоб зв'язатися з вами."
     },
     "dialogs": {
       "input_alias": {
-        "description": "Submit your desired new alias to {{host}} as a single word in lowercase.\n\nFor example, if you want the alias \"myname.{{host}}\", write \"myname\" below."
+        "description": "Подати ваш бажаний псевдонім до {{host}} як одне слово малими літерами.\n\nНаприклад, якщо ви бажаєте цей псевдонім \"myname.{{host}}\", напишіть \"myname\" нижче."
       }
     },
     "submitting": {
       "title": "Надсилання..."
     },
     "failure": {
-      "title": "It didn't work",
+      "title": "Не спрацювало",
       "alias_taken": "Надісланий Вами псевдонім уже належить якомусь користувачеві.",
       "call_to_action": {
         "try_again": {
@@ -910,7 +913,7 @@
     },
     "empty": {
       "initial": {
-        "title": "Search something",
+        "title": "Шукати дещо",
         "description": "Зачекайте доки застосунок приєднається до Ваших вузлів"
       },
       "zero_results": {
@@ -921,8 +924,8 @@
   },
   "secret_input": {
     "practice": {
-      "title": "Practice",
-      "header": "Repeat it to confirm it is correct:"
+      "title": "Практика",
+      "header": "Повторіть, щоб підтвердити правильність:"
     },
     "restore": {
       "title": "Відновити обліківку"
@@ -937,14 +940,14 @@
     "fields": {
       "words_input": {
         "placeholder": "фраза відновлення з 24 слів (або 48 слів)",
-        "accessibility_label": "Recovery Phrase Text Input"
+        "accessibility_label": "Введіть текст фрази відновлення"
       }
     },
     "dialogs": {
       "practice": {
         "correct": {
           "title": "Правильно!",
-          "description": "Your account's identity is now secure because you know the recovery phrase."
+          "description": "Ідентичність вашого профілю тепер у безпеці, адже ви знаєте фразу відновлення."
         },
         "incorrect": {
           "title": "Неправильно",
@@ -953,23 +956,23 @@
       },
       "restore": {
         "incorrect": {
-          "title": "Incorrect",
+          "title": "Неправильно",
           "description": {
-            "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
-            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
+            "try_again": "Спробуйте ще раз: напишіть нижче свою фразу відновлення, що містить 24 розділених пробілами слова.",
+            "overwrite_risk": "Знайдено вже наявний обліковий запис у застосунку, ми не можемо його перезаписати. Якщо ви впевнені, що бажаєте його скасувати, будь ласка, видаліть та знову завантажте Manyverse для відновлення вашого облікового запису у початковому стані.",
             "too_short": "Пропущено кілька слів. Ваша фраза відновлення повинна складатися з 24 слів.",
-            "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
-            "wrong_length": "Your recovery phrase should be exactly 24 words long.",
-            "generic": "The recovery phrase you gave does not look like a valid identity generated by Manyverse."
+            "too_long": "Забагато слів. Ваша фраза відновлення повинна складатися саме з 24 слів.",
+            "wrong_length": "Ваша фраза відновлення мусить містити саме 24 слова.",
+            "generic": "Фраза відновлення, яку ви надали, не пов'язана з дійсним обліковим записом, згенерованим Manyverse."
           }
         }
       }
     }
   },
   "secret_output": {
-    "title": "Recovery Phrase",
+    "title": "Фраза відновлення",
     "header": {
-      "1_normal": "Carefully write down the following recovery phrase on a ",
+      "1_normal": "Обережно запишіть наступну фразу відновлення на ",
       "2_bold": "piece of paper",
       "3_normal": ""
     },
@@ -1060,11 +1063,11 @@
   },
   "resync": {
     "introduction": {
-      "title": "Good!",
+      "title": "Чудово!",
       "description": {
         "1_normal": "Your account's ",
         "2_bold": "identity",
-        "3_normal": " is now restored.\n\nNow, to recover your ",
+        "3_normal": " відновлено.\n\nТепер, щоб відновити ваш ",
         "4_bold": "data",
         "5_normal": ", connect with friends that have interacted with you before, to redownload your data from them. There are two ways:"
       }
@@ -1137,6 +1140,15 @@
       "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Копіювати шифр-посилання",
       "view_raw": "Переглянути сирці повідомлення"
+    },
+    "gatherings": {
+      "call_to_action": {
+        "attend": "Attend",
+        "attending": "Attending",
+        "showAllAttendees": {
+          "accessibility_label": "Show Attendees in a List"
+        }
+      }
     },
     "toast": {
       "copied_to_clipboard": "Скопійовано в буфер обміну"
@@ -1242,20 +1254,20 @@
       "unblock_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " unblocked ",
+        "3_normal": " розблоковано ",
         "4_bold": "{{target}}",
         "5_normal": ""
       }
     }
   },
   "context_menu": {
-    "copy": "Copy",
-    "copy_link": "Copy link",
-    "cut": "Cut",
+    "copy": "Копіювати",
+    "copy_link": "Копіювати покликання",
+    "cut": "Вирізати",
     "inspect": "Inspect element",
     "look_up_selection": "Look up {selection}",
-    "paste": "Paste",
-    "save_image": "Save image",
-    "save_image_as": "Save image as..."
+    "paste": "Вставити",
+    "save_image": "Зберегти зображення",
+    "save_image_as": "Зберегти зображення як..."
   }
 }

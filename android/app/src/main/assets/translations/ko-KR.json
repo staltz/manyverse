@@ -241,6 +241,9 @@
     "reactions": {
       "title": "반응"
     },
+    "gathering_attendees": {
+      "title": "Attendees"
+    },
     "recipients": {
       "title": "받는 사람"
     },
@@ -1137,6 +1140,15 @@
       "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Cypherlink 복사",
       "view_raw": "원본 보기"
+    },
+    "gatherings": {
+      "call_to_action": {
+        "attend": "Attend",
+        "attending": "Attending",
+        "showAllAttendees": {
+          "accessibility_label": "Show Attendees in a List"
+        }
+      }
     },
     "toast": {
       "copied_to_clipboard": "클립보드로 복사"

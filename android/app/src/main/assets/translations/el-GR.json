@@ -241,6 +241,9 @@
     "reactions": {
       "title": "Αντιδράσεις"
     },
+    "gathering_attendees": {
+      "title": "Attendees"
+    },
     "recipients": {
       "title": "Παραλήπτες"
     },
@@ -1137,6 +1140,15 @@
       "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Αντιγραφή cypherlink",
       "view_raw": "Προβολή ανεπεξέργαστου μηνύματος"
+    },
+    "gatherings": {
+      "call_to_action": {
+        "attend": "Attend",
+        "attending": "Attending",
+        "showAllAttendees": {
+          "accessibility_label": "Show Attendees in a List"
+        }
+      }
     },
     "toast": {
       "copied_to_clipboard": "Αντιγράφηκε στο πρόχειρο"
