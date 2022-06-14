@@ -242,7 +242,7 @@
       "title": "Reações"
     },
     "gathering_attendees": {
-      "title": "Attendees"
+      "title": "Participantes"
     },
     "recipients": {
       "title": "Destinatários"
@@ -1143,10 +1143,10 @@
     },
     "gatherings": {
       "call_to_action": {
-        "attend": "Attend",
-        "attending": "Attending",
+        "attend": "Participar",
+        "attending": "Participando",
         "showAllAttendees": {
-          "accessibility_label": "Show Attendees in a List"
+          "accessibility_label": "Mostrar participantes em uma lista"
         }
       }
     },
