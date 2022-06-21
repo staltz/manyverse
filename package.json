@@ -60,6 +60,7 @@
     "update-version": "./tools/update-version.js",
     "update-version-ios": "./tools/update-version-ios.js",
     "commit-release": "./tools/commit-release",
+    "upload-apk-gh": "cp android/app/build/outputs/apk/indie/release/app-indie-release.apk ./manyverse-$(jq -r .version package.json).apk && gh release upload v$(jq -r .version package.json) manyverse-$(jq -r .version package.json).apk && rm ./manyverse-$(jq -r .version package.json).apk",
     "release-android": "npm run update-version && npm run build-android-release && npm run check-android-sig && npm run test-smoke-android && npm run archive-apk && npm run changelog && npm run commit-release",
     "release-ios": "npm run update-version-ios && npm run archive-ios-release && git commit -am\"dx: update ios version\"",
     "release-desktop-linux": "npm run build-desktop && npm run clean-desktop-prebuilds && npm run build-desktop-release-linux",

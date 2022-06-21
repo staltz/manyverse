@@ -101,8 +101,9 @@ Then make an iOS release:
 
 ## Publish
 
-- Deploy desktop and indie APK on the website
-  - `npm run update-apk` in the website repo
+- Deploy to indie APK to GitHub releases
+  - `npm run upload-apk-gh` in the Manyverse repo (requires GitHub CLI `gh`)
+- Deploy indie releases on the website
   - `npm run build` in the website repo
   - `npm run deploy` in the website repo
 - Publish Android to Google Play
