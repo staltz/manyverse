@@ -93,7 +93,7 @@
     "electron-context-menu": "3.1.2",
     "electron-ssb-client": "2.0.0",
     "fix-webm-duration": "1.0.4",
-    "hermes-engine": "0.9.0",
+    "hermes-engine": "0.10.0",
     "i18n-js": "3.8.0",
     "lodash.memoize": "4.1.2",
     "mdast-normalize-react-native": "3.2.x",
