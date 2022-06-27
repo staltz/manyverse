@@ -2,6 +2,12 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2206.27-beta
+
+* Bug fix: crash upon startup, ssb-db2#358 ([see details](https://gitlab.com/staltz/manyverse/commit/b57174c14a9001388d59eb910a17975ffeac43fc))
+* Improve Brazilian Portuguese translation ([see details](https://gitlab.com/staltz/manyverse/commit/b26d3fe5aa9a1948d0a8dcc3d747d8ad262ee840))
+* Improve German and Ukrainian translations ([see details](https://gitlab.com/staltz/manyverse/commit/d8e9f5b3bd6ccea48648ffabb59f7ee7ba748f8a))
+
 ## 0.2206.3-beta
 
 * (iOS) Bug fix: crash on iPad when attaching images ([see details](https://gitlab.com/staltz/manyverse/commit/6fcb9c723b4f06329fa69eb4096feeb759b1c937))
