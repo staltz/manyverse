@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import delay from 'xstream/extra/delay';
 import {ReactElement, createElement as $} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
@@ -30,6 +31,11 @@ export interface Sinks {
 export interface State {
   progress: number;
 }
+
+/** In milliseconds */
+const TRANSITION_DURATION = 250;
+/** In milliseconds */
+const FLARE_ANIMATION_DURATION = 1400;
 
 export const styles = StyleSheet.create({
   screen: {
@@ -64,7 +70,7 @@ export const styles = StyleSheet.create({
     top: 0,
     height: '5px',
     backgroundColor: Palette.textForBackgroundBrand,
-    transition: 'width 0.25s',
+    transition: `width ${TRANSITION_DURATION}ms`,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -76,7 +82,7 @@ export const styles = StyleSheet.create({
     height: '100%',
     width: '8px',
 
-    animationDuration: '1400ms',
+    animationDuration: `${FLARE_ANIMATION_DURATION}ms`,
     animationDirection: 'normal',
     animationTimingFunction: 'ease-in-out',
     animationKeyframes: [
@@ -115,7 +121,10 @@ export function migrating(sources: Sources): Sinks {
 
   const reducer$ = xs.merge(initialReducer$, updateProgressReducer$);
 
-  const continue$ = sources.migrating.filter((x) => x >= 1).take(1);
+  const continue$ = sources.migrating
+    .filter((x) => x >= 1)
+    .take(1)
+    .compose(delay(TRANSITION_DURATION * 1.5));
 
   const navCommand$ = navigation({continue$});
 
