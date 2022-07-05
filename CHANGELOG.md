@@ -2,9 +2,17 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2207.5-beta
+
+* (Desktop) Bug fix: some quirks with the migration screen ([see details](https://gitlab.com/staltz/manyverse/commit/17fd58716466b7f0c28cb3d9b328020c69167e71))
+* Bug fix: hashtag links inside parentheses ([see details](https://gitlab.com/staltz/manyverse/commit/3a79d17326ebad005a831a541bf54f465602822e))
+* Feature: show introducer below acquaintance name ([see details](https://gitlab.com/staltz/manyverse/commit/785045b8704f3e1790ea56d6476cea12d0084b85))
+* Improve German translation ([see details](https://gitlab.com/staltz/manyverse/commit/9b5137d9cabdd4608868936996221a4bc2708c2f))
+* Improve indexing performance by 3x ([see details](https://gitlab.com/staltz/manyverse/commit/c019baa6c97c0e2287d65eb65ada43a685055035))
+
 ## 0.2206.27-beta
 
-* Bug fix: crash upon startup, ssb-db2#358 ([see details](https://gitlab.com/staltz/manyverse/commit/b57174c14a9001388d59eb910a17975ffeac43fc))
+* Bug fix: crash upon startup, ssb-db2#358 ([see details](https://gitlab.com/staltz/manyverse/commit/b57174c14a9001388d59eb910a17975ffeac43fc)), closes [ssb-db2#358](https://gitlab.com/ssb-db2/issues/358)
 * Improve Brazilian Portuguese translation ([see details](https://gitlab.com/staltz/manyverse/commit/b26d3fe5aa9a1948d0a8dcc3d747d8ad262ee840))
 * Improve German and Ukrainian translations ([see details](https://gitlab.com/staltz/manyverse/commit/d8e9f5b3bd6ccea48648ffabb59f7ee7ba748f8a))
 
