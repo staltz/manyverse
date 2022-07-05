@@ -11,7 +11,9 @@ import {
   ViewStyle,
 } from 'react-native';
 import {h} from '@cycle/react';
-import {FeedId, Msg} from 'ssb-typescript';
+import {FeedId} from 'ssb-typescript';
+import {t} from '~frontend/drivers/localization';
+import {MsgAndExtras} from '~frontend/ssb/types';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
@@ -43,11 +45,31 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 
+  authorNameSection: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+
   authorName: {
     fontSize: Typography.fontSizeNormal,
     fontWeight: 'bold',
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.text,
+  },
+
+  introducer: {
+    fontSize: Typography.fontSizeNormal,
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.textWeak,
+  },
+
+  introducerName: {
+    fontSize: Typography.fontSizeNormal,
+    fontWeight: 'bold',
+    fontFamily: Typography.fontFamilyReadableText,
+    color: Palette.textWeak,
   },
 
   timestamp: {
@@ -69,7 +91,7 @@ export const styles = StyleSheet.create({
 });
 
 export interface Props {
-  msg: Msg;
+  msg: MsgAndExtras;
   style?: ViewStyle;
   name?: string;
   imageUrl: string | null;
@@ -94,12 +116,60 @@ export default class MessageHeader extends Component<Props> {
     }
   };
 
+  private _onPressIntroducer = () => {
+    const onPressAuthor = this.props.onPressAuthor;
+    if (onPressAuthor) {
+      onPressAuthor({
+        authorFeedId: this.props.msg.value._$manyverse$metadata.introducer![0],
+      });
+    }
+  };
+
   public shouldComponentUpdate(nextProps: Props) {
     const prevProps = this.props;
     return (
       nextProps.msg.key !== prevProps.msg.key ||
       nextProps.name !== prevProps.name ||
       nextProps.imageUrl !== prevProps.imageUrl
+    );
+  }
+
+  private _renderAuthorName(name: string | undefined, id: FeedId) {
+    return h(
+      TouchableOpacity,
+      {
+        onPress: this._onPressAuthor,
+        activeOpacity: 0.4,
+        key: 'c',
+        style: styles.authorNameTouchable,
+      },
+      [
+        h(
+          Text,
+          {
+            numberOfLines: 1,
+            ellipsizeMode: 'middle',
+            style: styles.authorName,
+          },
+          displayName(name, id),
+        ),
+      ],
+    );
+  }
+
+  private _renderIntroducer(name: string | undefined, id: FeedId) {
+    return h(
+      Text,
+      {numberOfLines: 1, ellipsizeMode: 'head', style: styles.introducer},
+      [
+        t('message.introducer.1_normal'),
+        h(
+          Text,
+          {style: styles.introducerName, onPress: this._onPressIntroducer},
+          t('message.introducer.2_bold', {name: displayName(name, id)}),
+        ),
+        t('message.introducer.3_normal'),
+      ],
     );
   }
 
@@ -111,6 +181,13 @@ export default class MessageHeader extends Component<Props> {
       activeOpacity: 0.4,
     };
 
+    if (!msg.value._$manyverse$metadata.introducer) {
+      console.error('No introducer found for ' + msg.value.author);
+    }
+
+    const metadata = msg.value._$manyverse$metadata;
+    const [introId, introHop, introName] = metadata.introducer ?? ['', -1, ''];
+
     return h(View, {style: [styles.container, this.props.style]}, [
       h(TouchableOpacity, {...authorTouchableProps, key: 'a'}, [
         h(Avatar, {
@@ -119,21 +196,12 @@ export default class MessageHeader extends Component<Props> {
           style: styles.authorAvatar,
         }),
       ]),
-      h(
-        TouchableOpacity,
-        {...authorTouchableProps, key: 'b', style: styles.authorNameTouchable},
-        [
-          h(
-            Text,
-            {
-              numberOfLines: 1,
-              ellipsizeMode: 'middle',
-              style: styles.authorName,
-            },
-            displayName(name, msg.value.author),
-          ),
-        ],
-      ),
+      introHop > 1
+        ? h(View, {style: styles.authorNameSection, key: 'b'}, [
+            this._renderAuthorName(name, msg.value.author),
+            this._renderIntroducer(introName, introId),
+          ])
+        : this._renderAuthorName(name, msg.value.author),
       h(TimeAgo, {timestamp: msg.value.timestamp, unread: unread ?? false}),
     ]);
   }

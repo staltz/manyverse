@@ -11,6 +11,7 @@ import {
   Reactions,
   PressReactionsEvent,
   PressAddReactionEvent,
+  MsgAndExtras,
 } from '~frontend/ssb/types';
 import MessageContainer from './MessageContainer';
 import MessageHeader from './MessageHeader';
@@ -32,7 +33,7 @@ export const styles = StyleSheet.create({
 });
 
 export interface Props {
-  msg: Msg<Contact>;
+  msg: MsgAndExtras<Contact>;
   name?: string;
   contactName?: string;
   imageUrl: string | null;

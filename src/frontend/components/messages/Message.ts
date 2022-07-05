@@ -85,7 +85,7 @@ export default class Message extends PureComponent<Props, State> {
 
     const props = {
       ...this.props,
-      msg: msg as Msg<any>,
+      msg: msg as MsgAndExtras<any>,
       reactions,
       replyCount: replyCount ?? 0,
       name: metadata.about.name,

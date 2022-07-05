@@ -194,6 +194,7 @@ export default {
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
+    introducer: 'async',
   },
   gatheringsUtils: {
     gatheringAttendees: 'source',

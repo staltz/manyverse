@@ -12,6 +12,7 @@
     "debug-electron": "electron --inspect-brk=5858 ."
   },
   "dependencies": {
+    "@alloc/quick-lru": "5.2.0",
     "bindings-noderify-nodejs-mobile": "10.3.0",
     "bufferutil": "4.0.1",
     "chloride": "2.4.1",

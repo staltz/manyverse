@@ -10,6 +10,7 @@ import {
   Reactions,
   PressReactionsEvent,
   PressAddReactionEvent,
+  MsgAndExtras,
 } from '~frontend/ssb/types';
 import {getPostText} from '~frontend/ssb/utils/from-ssb';
 import {Dimensions} from '~frontend/global-styles/dimens';
@@ -22,7 +23,7 @@ import ContentWarning from './ContentWarning';
 type CWPost = Post & {contentWarning?: string};
 
 export interface Props {
-  msg: Msg<Post>;
+  msg: MsgAndExtras<Post>;
   name?: string;
   imageUrl: string | null;
   lastSessionTimestamp: number;
