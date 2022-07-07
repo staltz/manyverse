@@ -1203,6 +1203,11 @@
       "2_bold": "{{cypherlink}}",
       "3_normal": ""
     },
+    "introducer": {
+      "1_normal": "Seguido por ",
+      "2_bold": "{{name}}",
+      "3_normal": ""
+    },
     "about": {
       "new_picture": {
         "1_normal": "",
