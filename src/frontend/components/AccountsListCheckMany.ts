@@ -115,7 +115,7 @@ class Account extends PureComponent<AccountProps> {
                   ellipsizeMode: 'middle',
                   style: styles.authorName,
                 },
-                name ?? id,
+                name || id,
               ),
               !!name
                 ? h(

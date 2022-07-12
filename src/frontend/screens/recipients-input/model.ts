@@ -6,6 +6,7 @@ import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {FeedId} from 'ssb-typescript';
 import {PrivateThreadAndExtras} from '~frontend/ssb/types';
+import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '~frontend/ssb/utils/constants';
 import {MentionSuggestion, SSBSource} from '~frontend/drivers/ssb';
 import {Props} from '.';
 
@@ -19,12 +20,12 @@ export interface State {
 
 interface Actions {
   updateQuery$: Stream<string>;
+  addRecipient$: Stream<FeedId>;
   updateRecipients$: Stream<PrivateThreadAndExtras['recps']>;
 }
 
 export default function model(
   props$: Stream<Props>,
-  state$: Stream<State>,
   ssbSource: SSBSource,
   actions: Actions,
 ) {
@@ -48,11 +49,8 @@ export default function model(
       },
   );
 
-  const mentionQuery$ = state$
-    .map((state) => state.mentionQuery)
-    .compose(dropRepeats());
-
-  const updateMentionSuggestionsReducer$ = mentionQuery$
+  const updateMentionSuggestionsReducer$ = actions.updateQuery$
+    .compose(dropRepeats())
     .map((query) => ssbSource.getMentionSuggestions(query, []))
     .flatten()
     .map(
@@ -62,12 +60,34 @@ export default function model(
         },
     );
 
+  const addRecipientReducer$ = actions.addRecipient$.map(
+    (id) =>
+      function addRecipientReducer(prev: State): State {
+        if (prev.recipients.findIndex((recp) => recp.id === id) >= 0) {
+          return prev;
+        }
+        if (prev.recipients.length >= MAX_PRIVATE_MESSAGE_RECIPIENTS) {
+          return prev;
+        }
+        return {
+          ...prev,
+          mentionSuggestions: [{id, name: '', image: null, following: false}],
+          mentionQuery: id,
+        };
+      },
+  );
+
   const updateRecipientsReducer$ = actions.updateRecipients$.map(
     (recipients) =>
       function updateRecipientsReducer(prev: State): State {
         if (prev.recipients.length < recipients.length) {
           // Added a new recipient, so clear the text input field
-          return {...prev, recipients, mentionQuery: ''};
+          return {
+            ...prev,
+            recipients,
+            mentionQuery: '',
+            mentionSuggestions: [],
+          };
         } else {
           return {...prev, recipients};
         }
@@ -78,6 +98,7 @@ export default function model(
     propsReducer$,
     updateMentionQueryReducer$,
     updateMentionSuggestionsReducer$,
+    addRecipientReducer$,
     updateRecipientsReducer$,
   );
 }

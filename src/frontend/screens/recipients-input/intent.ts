@@ -4,6 +4,9 @@
 
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
+import {FeedId} from 'ssb-typescript';
+import {isFeedSSBURI, toFeedSigil} from 'ssb-uri2';
+const Ref = require('ssb-ref');
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
 import {PrivateThreadAndExtras} from '~frontend/ssb/types';
@@ -14,27 +17,44 @@ export default function intent(
   navSource: NavSource,
   state$: Stream<State>,
 ) {
+  const changeText$ = reactSource
+    .select('mentionInput')
+    .events<string>('changeText')
+    .debug('updateQuery$');
+
+  const addRecipient$ = xs.merge(
+    changeText$.filter(Ref.isFeedId),
+    changeText$.filter(isFeedSSBURI).map(toFeedSigil),
+  ) as Stream<FeedId>;
+
+  const updateQuery$ = changeText$.filter(
+    (str) => !Ref.isFeedId(str) && !isFeedSSBURI(str),
+  );
+
+  const updateRecipients$ = reactSource
+    .select('recipients')
+    .events<PrivateThreadAndExtras['recps']>('updated');
+
+  const maxReached$ = reactSource
+    .select('recipients')
+    .events<undefined>('maxReached');
+
+  const goBack$ = xs.merge(
+    navSource.backPress(),
+    reactSource.select('topbar').events<null>('pressBack'),
+  );
+
+  const goToNewConversation$ = reactSource
+    .select('recipientsInputNextButton')
+    .events('press')
+    .compose(sample(state$));
+
   return {
-    updateQuery$: reactSource
-      .select('mentionInput')
-      .events<string>('changeText'),
-
-    updateRecipients$: reactSource
-      .select('recipients')
-      .events<PrivateThreadAndExtras['recps']>('updated'),
-
-    maxReached$: reactSource
-      .select('recipients')
-      .events<undefined>('maxReached'),
-
-    goBack$: xs.merge(
-      navSource.backPress(),
-      reactSource.select('topbar').events<null>('pressBack'),
-    ),
-
-    goToNewConversation$: reactSource
-      .select('recipientsInputNextButton')
-      .events('press')
-      .compose(sample(state$)),
+    updateQuery$,
+    addRecipient$,
+    updateRecipients$,
+    maxReached$,
+    goBack$,
+    goToNewConversation$,
   };
 }
