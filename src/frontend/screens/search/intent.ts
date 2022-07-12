@@ -43,29 +43,13 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
 
   const shortcutToThread$ = xs.merge(
     updateQueryNow$.filter(Ref.isMsgId),
-
-    updateQueryNow$
-      .map((str) => {
-        if (!isMessageSSBURI(str)) return null;
-        const msgId = toMessageSigil(str);
-        if (!Ref.isMsgId(msgId)) return null;
-        return msgId;
-      })
-      .filter((x) => !!x) as Stream<MsgId>,
-  );
+    updateQueryNow$.filter(isMessageSSBURI).map(toMessageSigil),
+  ) as Stream<MsgId>;
 
   const shortcutToProfile$ = xs.merge(
     updateQueryNow$.filter(Ref.isFeedId),
-
-    updateQueryNow$
-      .map((str) => {
-        if (!isFeedSSBURI(str)) return null;
-        const feedId = toFeedSigil(str);
-        if (!Ref.isFeedId(feedId)) return null;
-        return feedId;
-      })
-      .filter((x) => !!x) as Stream<FeedId>,
-  );
+    updateQueryNow$.filter(isFeedSSBURI).map(toFeedSigil),
+  ) as Stream<FeedId>;
 
   const goToThread$ = xs.merge(
     reactSource
