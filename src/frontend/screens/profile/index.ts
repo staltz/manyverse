@@ -103,7 +103,7 @@ export function profile(sources: Sources): Sinks {
     feedIdDialogSinks.clipboard,
   );
 
-  const alert$ = alert(state$);
+  const alert$ = alert(state$, actionsPlus);
 
   const consumeAliasRequest$ = actions.consumeAlias$.map(
     ({alias}) =>

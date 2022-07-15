@@ -671,6 +671,10 @@
         "label": "Settings",
         "accessibility_label": "Go To Settings"
       },
+      "storage": {
+        "label": "Storage",
+        "accessibility_label": "Go To Storage"
+      },
       "preparing_database": {
         "label": "Preparing database..."
       },

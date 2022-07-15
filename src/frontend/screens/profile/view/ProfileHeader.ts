@@ -7,6 +7,7 @@ import {Fragment, Component} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const stripMarkdownOneline = require('strip-markdown-oneline');
+const byteSize = require('byte-size').default;
 import {t} from '~frontend/drivers/localization';
 import Button from '~frontend/components/Button';
 import ToggleButton from '~frontend/components/ToggleButton';
@@ -134,7 +135,22 @@ function FollowsYou() {
       color: Palette.textPositive,
       name: 'check-bold',
     }),
-    h(Text, {style: styles.followsYouText}, t('profile.info.follows_you')),
+    h(Text, {style: styles.secondaryLabel}, t('profile.info.follows_you')),
+  ]);
+}
+
+function StorageUsed({storageUsed}: {storageUsed: number}) {
+  return h(TouchableOpacity, {sel: 'storageUsed'}, [
+    h(View, {style: styles.detailsRow}, [
+      h(Icon, {
+        size: Dimensions.iconSizeSmall,
+        color: Palette.brandMain,
+        name: 'sd',
+      }),
+      h(Text, {style: styles.secondaryLabel}, [
+        `Occupies ` + byteSize(storageUsed).toString(), // FIXME: localize
+      ]),
+    ]),
   ]);
 }
 
@@ -188,12 +204,15 @@ export default class ProfileHeader extends Component<{state: State}> {
     if (next.youBlock?.response !== prev.youBlock?.response) return true;
     if (next.youFollow?.response !== prev.youFollow?.response) return true;
     if (next.followsYou?.response !== prev.followsYou?.response) return true;
+    if (next.storageUsed !== prev.storageUsed) return true;
     return false;
   }
 
   public render() {
     const state = this.props.state;
-    const {about, following, followers, friendsInCommon, aliases} = state;
+    const {about, following, followers, friendsInCommon, aliases, storageUsed} =
+      state;
+
     const isSelfProfile = state.displayFeedId === state.selfFeedId;
     const followsYou = state.followsYou?.response ?? false;
     const youFollow = state.youFollow?.response ?? false;
@@ -228,9 +247,10 @@ export default class ProfileHeader extends Component<{state: State}> {
 
       h(View, {style: styles.detailsArea}, [
         h(Biography, {about}),
-        followsYou ? h(FollowsYou) : null,
         h(FollowSection, {following, followers}),
+        followsYou ? h(FollowsYou) : null,
         !isSelfProfile ? h(FriendsInCommon, {friendsInCommon}) : null,
+        storageUsed ? h(StorageUsed, {storageUsed}) : null,
         h(AliasesSection, {sel: 'aliases', aliases, isSelfProfile}),
       ]),
 

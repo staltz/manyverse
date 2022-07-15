@@ -671,6 +671,10 @@
         "label": "Settings",
         "accessibility_label": "Go To Settings"
       },
+      "storage": {
+        "label": "Storage",
+        "accessibility_label": "Go To Storage"
+      },
       "preparing_database": {
         "label": "Preparing database..."
       },
@@ -1062,6 +1066,21 @@
       "restart_required": {
         "title": "Restart required",
         "description": "This setting will only enter into effect when you kill the app and restart Manyverse."
+      }
+    }
+  },
+  "storage": {
+    "title": "Storage",
+    "chart": {
+      "total": {
+        "1_normal": "Manyverse uses a total of ",
+        "3_normal": " on your device"
+      },
+      "legend": {
+        "trash": "Trash ({{megabytes}})",
+        "content": "Content ({{megabytes}})",
+        "indexes": "Indexes ({{megabytes}})",
+        "blobs": "Blobs ({{megabytes}})"
       }
     }
   },

@@ -58,6 +58,11 @@ export default function intent(
     .events('press')
     .mapTo(null);
 
+  const goToStorage$ = reactSource
+    .select('storage')
+    .events('press')
+    .mapTo(null);
+
   const openMoreMenuOptions$ = reactSource
     .select('more')
     .events('press')
@@ -125,6 +130,7 @@ export default function intent(
     scrollToTop$,
     goToSelfProfile$,
     goToSettings$,
+    goToStorage$,
     showRawDatabase$,
     emailBugReport$,
     openTranslate$,

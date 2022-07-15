@@ -58,6 +58,8 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
   };
 };
 
+export type ContactEvent = 'followed' | 'blocked' | 'unfollowed' | 'unblocked';
+
 export interface ThreadSummary<C = Content> {
   root: Msg<C>;
   replyCount: number;
@@ -111,4 +113,22 @@ export type Alias = Required<Omit<AliasContent, 'type' | 'action'>>;
 export interface FirewallAttempt {
   id: FeedId;
   ts: number;
+}
+
+export interface StorageStats {
+  blobs: number;
+  indexes: number;
+  jitIndexes: number;
+  log: number;
+  logUsedBytes: number;
+  logDeletedBytes: number;
+}
+
+export interface StorageUsedByFeed {
+  id: FeedId;
+  name?: string;
+  imageUrl?: string | null | undefined;
+  storageUsed: number;
+  youBlock: boolean;
+  youFollow: boolean;
 }

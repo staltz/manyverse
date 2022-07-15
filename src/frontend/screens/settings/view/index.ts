@@ -7,7 +7,7 @@ import {h} from '@cycle/react';
 import {ScrollView, View, Text, Platform, NativeModules} from 'react-native';
 import TopBar from '~frontend/components/TopBar';
 import {t} from '~frontend/drivers/localization';
-import {State, blobsStorageOptions, hopsOptions} from '../model';
+import {State, hopsOptions} from '../model';
 import ToggleSetting from './ToggleSetting';
 import LinkSetting from './LinkSetting';
 import SliderSetting from './SliderSetting';
@@ -22,14 +22,6 @@ const canShowThanks =
     : true;
 
 export default function view(state$: Stream<State>) {
-  const localizedBlobsStorageOptions = blobsStorageOptions.map((opt) => {
-    if (opt === 'unlimited') {
-      return t('settings.data_and_storage.blobs_storage.unlimited') as string;
-    } else {
-      return opt as string;
-    }
-  });
-
   const localizedHopsOptions = hopsOptions.map((opt) => {
     if (opt === 'unlimited') {
       return t('settings.preferences.hops.unlimited') as string;
@@ -59,6 +51,7 @@ export default function view(state$: Stream<State>) {
             ),
           }),
 
+          h(View, {style: styles.spacer}),
           h(ToggleSetting, {
             sel: 'enable-firewall',
             title: t('settings.preferences.enable_firewall.title'),
@@ -100,16 +93,10 @@ export default function view(state$: Stream<State>) {
           }),
 
           h(View, {style: styles.spacer}),
-          h(SliderSetting, {
-            sel: 'blobs-storage',
-            key: `blobs${state.initialBlobsStorage}`, // to force a re-render
-            options: localizedBlobsStorageOptions,
-            initial: state.initialBlobsStorage,
-            title: t('settings.data_and_storage.blobs_storage.title'),
-            subtitle: t('settings.data_and_storage.blobs_storage.subtitle'),
-            accessibilityLabel: t(
-              'settings.data_and_storage.blobs_storage.accessibility_label',
-            ),
+          h(LinkSetting, {
+            sel: 'storage',
+            title: 'Storage usage', // FIXME: localize
+            accessibilityLabel: 'Something', // FIXME: localize
           }),
         ]),
 

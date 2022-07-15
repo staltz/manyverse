@@ -7,7 +7,10 @@ import {Platform} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {navOptions as librariesNavOptions} from '~frontend/screens/libraries';
 import {navOptions as backupScreenNavOptions} from '~frontend/screens/backup';
+import {navOptions as storagesScreenNavOptions} from '~frontend/screens/storage';
 import {Screens} from '~frontend/screens/enums';
+import sample from 'xstream-sample';
+import {State} from './model';
 const dialogAboutNavOptions =
   Platform.OS === 'web'
     ? {}
@@ -20,6 +23,7 @@ const dialogThanksNavOptions =
 export interface Actions {
   goBack$: Stream<any>;
   goToBackup$: Stream<any>;
+  goToStorage$: Stream<any>;
   goToLibraries$: Stream<any>;
   goToAbout$: Stream<any>;
   goToThanks$: Stream<any>;
@@ -28,6 +32,7 @@ export interface Actions {
 export default function navigationCommands(
   actions: Actions,
   navSource: NavSource,
+  state$: Stream<State>,
 ): Stream<Command> {
   const back$ = xs.merge(navSource.backPress(), actions.goBack$).mapTo({
     type: 'pop',
@@ -41,6 +46,23 @@ export default function navigationCommands(
           component: {
             name: Screens.Backup,
             options: backupScreenNavOptions,
+          },
+        },
+      } as Command),
+  );
+
+  const toStorage$ = actions.goToStorage$.compose(sample(state$)).map(
+    (state) =>
+      ({
+        type: 'push',
+        id: 'mainstack',
+        layout: {
+          component: {
+            name: Screens.Storage,
+            passProps: {
+              selfFeedId: state.selfFeedId,
+            },
+            options: storagesScreenNavOptions,
           },
         },
       } as Command),
@@ -85,5 +107,12 @@ export default function navigationCommands(
           },
         } as Command);
 
-  return xs.merge(back$, toBackup$, toLibraries$, toAbout$, toThanks$);
+  return xs.merge(
+    back$,
+    toBackup$,
+    toStorage$,
+    toLibraries$,
+    toAbout$,
+    toThanks$,
+  );
 }

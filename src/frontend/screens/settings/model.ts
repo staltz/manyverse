@@ -3,21 +3,12 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import concat from 'xstream/extra/concat';
+import {FeedId} from 'ssb-typescript';
 import {SSBSource} from '~frontend/drivers/ssb';
+import {Props} from './props';
 
 type UnwrapArray<T> = T extends Array<infer X> ? X : never;
-
-export const blobsStorageOptions = [
-  '100MB' as const,
-  '250MB' as const,
-  '500MB' as const,
-  '1GB' as const,
-  '2GB' as const,
-  '5GB' as const,
-  '10GB' as const,
-  '30GB' as const,
-  'unlimited' as const,
-];
 
 export const hopsOptions = [
   '1' as const,
@@ -27,15 +18,13 @@ export const hopsOptions = [
   'unlimited' as const,
 ];
 
-export type BlobsStorageOption = UnwrapArray<typeof blobsStorageOptions>;
 export type HopsOption = UnwrapArray<typeof hopsOptions>;
 
 const DEFAULT_HOPS: HopsOption = '2';
-const DEFAULT_BLOBS_STORAGE: BlobsStorageOption = '500MB';
 
 export interface State {
+  selfFeedId: FeedId;
   initialHops: number;
-  initialBlobsStorage: number;
   showFollows: boolean;
   enableDetailedLogs: boolean;
   enableFirewall: boolean;
@@ -57,32 +46,23 @@ function hopsToOpt(hops?: number): HopsOption {
   return DEFAULT_HOPS;
 }
 
-function blobsStorageToOpt(blobsStorage?: number): BlobsStorageOption {
-  if (typeof blobsStorage !== 'number') return DEFAULT_BLOBS_STORAGE;
-  if (blobsStorage < 0) return 'unlimited';
-  if (blobsStorage === 100e6) return '100MB';
-  if (blobsStorage === 250e6) return '250MB';
-  if (blobsStorage === 500e6) return '500MB';
-  if (blobsStorage === 1e9) return '1GB';
-  if (blobsStorage === 2e9) return '2GB';
-  if (blobsStorage === 5e9) return '5GB';
-  if (blobsStorage === 10e9) return '10GB';
-  if (blobsStorage === 30e9) return '30GB';
-  return DEFAULT_BLOBS_STORAGE;
-}
-
-export default function model(actions: Actions, ssbSource: SSBSource) {
-  const initReducer$ = xs.of(function initReducer(prev?: State): State {
-    if (prev) return prev;
-
-    return {
-      showFollows: true,
-      enableDetailedLogs: false,
-      initialHops: hopsOptions.indexOf(DEFAULT_HOPS),
-      initialBlobsStorage: blobsStorageOptions.indexOf(DEFAULT_BLOBS_STORAGE),
-      enableFirewall: true,
-    };
-  });
+export default function model(
+  props$: Stream<Props>,
+  actions: Actions,
+  ssbSource: SSBSource,
+) {
+  const propsReducer$ = props$.take(1).map(
+    (props) =>
+      function propsReducer(): State {
+        return {
+          selfFeedId: props.selfFeedId,
+          showFollows: true,
+          enableDetailedLogs: false,
+          initialHops: hopsOptions.indexOf(DEFAULT_HOPS),
+          enableFirewall: true,
+        };
+      },
+  );
 
   const readSettingsReducer$ = ssbSource.readSettings().map(
     (settings) =>
@@ -91,9 +71,6 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
           ...prev,
           showFollows: settings.showFollows ?? prev.showFollows,
           initialHops: hopsOptions.indexOf(hopsToOpt(settings.hops)),
-          initialBlobsStorage: blobsStorageOptions.indexOf(
-            blobsStorageToOpt(settings.blobsStorageLimit),
-          ),
           enableDetailedLogs: settings.detailedLogs ?? prev.enableDetailedLogs,
           enableFirewall: settings.enableFirewall ?? prev.enableFirewall,
         };
@@ -121,11 +98,13 @@ export default function model(actions: Actions, ssbSource: SSBSource) {
       },
   );
 
-  return xs.merge(
-    initReducer$,
-    readSettingsReducer$,
-    toggleFollowEventsReducer$,
-    toggleDetailedLogsReducer$,
-    toggleEnableFirewallReducer$,
+  return concat(
+    propsReducer$,
+    xs.merge(
+      readSettingsReducer$,
+      toggleFollowEventsReducer$,
+      toggleDetailedLogsReducer$,
+      toggleEnableFirewallReducer$,
+    ),
   );
 }

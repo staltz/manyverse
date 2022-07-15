@@ -5,7 +5,7 @@
 import xs from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
-import {blobsStorageOptions, hopsOptions} from './model';
+import {hopsOptions} from './model';
 
 export default function intent(
   screenSource: ReactSource,
@@ -37,23 +37,6 @@ export default function intent(
         return 999 as number;
       }),
 
-    updateBlobsStorage$: screenSource
-      .select('blobs-storage')
-      .events('change')
-      .map((i) => {
-        const opt = blobsStorageOptions[i];
-        if (opt === '100MB') return 100e6;
-        if (opt === '250MB') return 250e6;
-        if (opt === '500MB') return 500e6;
-        if (opt === '1GB') return 1e9;
-        if (opt === '2GB') return 2e9;
-        if (opt === '5GB') return 5e9;
-        if (opt === '10GB') return 10e9;
-        if (opt === '30GB') return 30e9;
-        if (opt === 'unlimited') return -1;
-        return -1 as number;
-      }),
-
     emailBugReport$: screenSource.select('bug-report').events('press'),
 
     goBack$: xs.merge(
@@ -62,6 +45,8 @@ export default function intent(
     ),
 
     goToBackup$: screenSource.select('backup').events('press'),
+
+    goToStorage$: screenSource.select('storage').events('press'),
 
     goToLibraries$: screenSource.select('libraries').events('press'),
 

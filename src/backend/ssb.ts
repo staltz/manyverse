@@ -115,6 +115,8 @@ export = async function startSSB(isNewIdentity: boolean) {
     .use(require('ssb-blobs'))
     .use(require('ssb-serve-blobs')) // needs: blobs
     .use(require('ssb-blobs-purge')) // needs: blobs, db2/full-mentions
+    // Storage
+    .use(require('ssb-storage-used')) // needs: db2
     // Customizations
     .use(require('./plugins/blobsUtils')) // needs: blobs
     .use(require('./plugins/connUtils')) // needs: conn, aboutSelf

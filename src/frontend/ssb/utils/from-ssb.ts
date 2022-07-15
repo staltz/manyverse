@@ -1,9 +1,11 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {FeedId, Msg, PostContent} from 'ssb-typescript';
+import {ContactContent, FeedId, Msg, PostContent} from 'ssb-typescript';
+const Ref = require('ssb-ref');
 const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
+import {ContactEvent} from '../types';
 
 export function displayName(name: string | undefined, id: FeedId): string {
   if (!name) return shortFeedId(id);
@@ -41,4 +43,30 @@ export function voteExpressionToReaction(expression: string) {
   if (expression.codePointAt(0) === 0x270c) return DIG_UNICODE;
   if (expression) return expression;
   return THUMBS_UP_UNICODE;
+}
+
+export function inferContactEvent(
+  msg: Msg<ContactContent>,
+): ContactEvent | null {
+  // we're not sure what .flagged means
+  const msgBlocking =
+    (msg.value.content as any).flagged || msg.value.content.blocking;
+  const msgFollowing = msg.value.content.following;
+
+  // The contact msg is nonstandard or invalid
+  if (
+    (msgBlocking === undefined && msgFollowing === undefined) ||
+    (msgBlocking === true && msgFollowing === true) ||
+    !Ref.isFeedId(msg.value.content.contact)
+  ) {
+    return null;
+  }
+
+  return msgFollowing === true
+    ? 'followed'
+    : msgBlocking === undefined && msgFollowing === false
+    ? 'unfollowed'
+    : msgBlocking === true
+    ? 'blocked'
+    : 'unblocked';
 }

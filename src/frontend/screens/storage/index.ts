@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,32 +8,31 @@ import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
 import {Platform} from 'react-native';
 import {Reducer, StateSource} from '@cycle/state';
-import {Command as AlertCommand} from '~frontend/drivers/dialogs';
-import {SSBSource, Req} from '~frontend/drivers/ssb';
-import model, {State} from './model';
-import view from './view';
+import {DialogSource} from '~frontend/drivers/dialogs';
+import {Req, SSBSource} from '~frontend/drivers/ssb';
+
 import intent from './intent';
-import ssb from './ssb';
-import alert from './alert';
+import model, {State} from './model';
 import navigation from './navigation';
-import linking from './linking';
 import {Props} from './props';
+import view from './view';
+import ssb from './ssb';
+import manageContact$ from './manage-contact';
 
 export interface Sources {
   props: Stream<Props>;
   screen: ReactSource;
   navigation: NavSource;
   ssb: SSBSource;
+  dialog: DialogSource;
   state: StateSource<State>;
 }
 
 export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
-  state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
-  linking: Stream<string>;
-  dialog: Stream<AlertCommand>;
+  state: Stream<Reducer<State>>;
 }
 
 export const navOptions = {
@@ -48,22 +47,30 @@ export const navOptions = {
   },
 };
 
-export function settings(sources: Sources): Sinks {
+export function storage(sources: Sources): Sinks {
   const state$ = sources.state.stream;
-  const actions = intent(sources.screen, sources.navigation);
-  const reducer$ = model(sources.props, actions, sources.ssb);
-  const vdom$ = view(state$);
-  const req$ = ssb(actions);
-  const alert$ = alert(actions);
-  const command$ = navigation(actions, sources.navigation, state$);
-  const links$ = linking(actions);
+  const actions = intent(sources.screen, sources.navigation, state$);
+
+  const manageContactActions = manageContact$({
+    dialog: sources.dialog,
+    ssb: sources.ssb,
+    manageContact$: actions.manageAccount$,
+  });
+
+  const actionsPlus = {
+    ...actions,
+    ...manageContactActions,
+  };
+
+  const reducer$ = model(sources.props, sources.ssb);
+  const vdom$ = view(state$, sources.ssb);
+  const command$ = navigation(actionsPlus, sources.navigation, state$);
+  const req$ = ssb(actionsPlus, state$);
 
   return {
     screen: vdom$,
     state: reducer$,
     navigation: command$,
     ssb: req$,
-    linking: links$,
-    dialog: alert$,
   };
 }

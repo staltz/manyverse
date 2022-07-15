@@ -290,7 +290,7 @@ export const styles = StyleSheet.create({
     }),
   },
 
-  followsYouText: {
+  secondaryLabel: {
     marginLeft: Dimensions.horizontalSpaceSmall,
     color: Palette.textWeak,
     fontSize: Typography.fontSizeSmall,

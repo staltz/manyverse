@@ -16,6 +16,7 @@ interface Actions {
   goToSelfProfile$: Stream<any>;
   showRawDatabase$: Stream<any>;
   goToSettings$: Stream<any>;
+  goToStorage$: Stream<null>;
   changeTab$: Stream<any>;
 }
 
@@ -76,10 +77,10 @@ export default function navigation(
     );
 
   const toSettings$ = actions.goToSettings$
-    .compose(sample(navStack$))
-    .filter((stack) => stack[stack.length - 1].name !== Screens.Settings)
+    .compose(sample(stateAndStack$))
+    .filter(([, stack]) => stack[stack.length - 1].name !== Screens.Settings)
     .map(
-      () =>
+      ([state]) =>
         ({
           type: 'push',
           id: 'mainstack',
@@ -87,6 +88,9 @@ export default function navigation(
             component: {
               name: Screens.Settings,
               options: settingsScreenNavOptions,
+              passProps: {
+                selfFeedId: state.selfFeedId,
+              },
             },
           },
         } as PushCommand),

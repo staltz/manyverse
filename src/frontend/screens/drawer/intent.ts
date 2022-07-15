@@ -37,6 +37,8 @@ export default function intent(
 
     goToSettings$: reactSource.select('settings').events('press').mapTo(null),
 
+    goToStorage$: reactSource.select('storage').events('press').mapTo(null),
+
     showRawDatabase$: reactSource.select('raw-db').events('press').mapTo(null),
 
     checkNewVersion$: state$

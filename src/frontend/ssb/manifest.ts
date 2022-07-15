@@ -219,6 +219,11 @@ export default {
     updateAllowCheckingNewVersion: 'sync',
     updateEnableFirewall: 'sync',
   },
+  storageUsed: {
+    getBytesStored: 'async',
+    stats: 'async',
+    stream: 'source',
+  },
   resyncUtils: {
     progress: 'source',
     enableFirewall: 'sync',

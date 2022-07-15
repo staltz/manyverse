@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'stretch',
     paddingVertical: Dimensions.verticalSpaceNormal,
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     minHeight: 60,
@@ -33,7 +34,7 @@ export const styles = StyleSheet.create({
 
   valueInTitle: {
     fontWeight: 'bold',
-    marginLeft: Dimensions.horizontalSpaceNormal,
+    marginLeft: Dimensions.horizontalSpaceSmall,
     ...Platform.select({
       web: {
         fontFamily: Typography.fontFamilyReadableText,
@@ -106,9 +107,12 @@ export default class SliderSetting extends PureComponent<Props, State> {
           maximumTrackTintColor: Palette.voidMain,
           onValueChange: this.onSlide,
           onSlidingComplete: this.onSlidingComplete,
-          style: {
-            width: this.state.width,
-          },
+          style: Platform.select({
+            web: {
+              width: this.state.width,
+            },
+            default: null,
+          }),
         }),
       ],
     );

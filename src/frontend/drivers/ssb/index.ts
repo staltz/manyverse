@@ -18,6 +18,7 @@ import backend from './backend';
 import {Platform} from 'react-native';
 import xsFromCallback from 'xstream-from-callback';
 import runAsync = require('promisify-tuple');
+const multicb = require('multicb');
 import xsFromPullStream from 'xstream-from-pull-stream';
 import {Readable, Callback} from 'pull-stream';
 import {
@@ -31,6 +32,8 @@ import {
   Alias,
   FirewallAttempt,
   SSBFriendsQueryDetails,
+  StorageStats,
+  StorageUsedByFeed,
 } from '~frontend/ssb/types';
 import makeClient, {SSBClient} from '~frontend/ssb/client';
 import {imageToImageUrl} from '~frontend/ssb/utils/from-ssb';
@@ -485,6 +488,54 @@ export class SSBSource {
   public getFirewallAttemptLive$(): Stream<GetReadable<FirewallAttempt>> {
     return this.ssb$.map(
       (ssb) => () => ssb.connFirewall.attempts({old: false, live: true}),
+    );
+  }
+
+  public bytesUsedByFeed$(feed: FeedId): Stream<number> {
+    return this.fromCallback<number>((ssb, cb) =>
+      ssb.storageUsed.getBytesStored(feed, cb),
+    );
+  }
+
+  public storageStats$(): Stream<StorageStats> {
+    return this.fromCallback<StorageStats>((ssb, cb) =>
+      ssb.storageUsed.stats(cb),
+    );
+  }
+
+  public bytesUsedReadable$(): Stream<GetReadable<StorageUsedByFeed>> {
+    type Tuple = [FeedId, number];
+    type CB = Callback<StorageUsedByFeed>;
+    return this.ssb$.map(
+      (ssb) => () =>
+        pull(
+          ssb.deweird.source(['storageUsed', 'stream']),
+          pull.asyncMap(([id, storageUsed]: Tuple, cb: CB) => {
+            const source = ssb.id;
+            const done = multicb({pluck: 1, spread: true});
+            ssb.cachedAboutSelf.get(id, done());
+            ssb.friends.isFollowing({source, dest: id}, done());
+            ssb.friends.isBlocking({source, dest: id}, done());
+            done(
+              (err: any, about: any, youFollow: boolean, youBlock: boolean) => {
+                if (err) {
+                  cb(err);
+                  return;
+                }
+                const name = about.name;
+                const imageUrl = imageToImageUrl(about.image);
+                cb(null, {
+                  name,
+                  imageUrl,
+                  id,
+                  storageUsed,
+                  youFollow,
+                  youBlock,
+                });
+              },
+            );
+          }),
+        ),
     );
   }
 }

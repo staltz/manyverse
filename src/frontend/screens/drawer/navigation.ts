@@ -9,12 +9,14 @@ import {navOptions as profileScreenNavOptions} from '~frontend/screens/profile';
 import {Props as ProfileProps} from '~frontend/screens/profile/props';
 import {navOptions as rawDatabaseScreenNavOptions} from '~frontend/screens/raw-db';
 import {navOptions as settingsScreenNavOptions} from '~frontend/screens/settings';
+
 import {Screens} from '~frontend/screens/enums';
 import {State} from './model';
 
 export interface Actions {
   goToSelfProfile$: Stream<null>;
   goToSettings$: Stream<any>;
+  goToStorage$: Stream<null>;
   showRawDatabase$: Stream<null>;
 }
 
@@ -55,8 +57,8 @@ export default function navigationCommands(
       } as PushCommand),
   );
 
-  const toSettings$ = actions.goToSettings$.map(
-    () =>
+  const toSettings$ = actions.goToSettings$.compose(sample(state$)).map(
+    (state) =>
       ({
         type: 'push',
         id: 'mainstack',
@@ -64,6 +66,9 @@ export default function navigationCommands(
           component: {
             name: Screens.Settings,
             options: settingsScreenNavOptions,
+            passProps: {
+              selfFeedId: state.selfFeedId,
+            },
           },
         },
       } as PushCommand),

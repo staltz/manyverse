@@ -32,4 +32,5 @@ export enum Screens {
   RawDatabase = 'Manyverse.RawDatabase',
   RawMessage = 'Manyverse.RawMessage',
   Settings = 'Manyverse.Settings',
+  Storage = 'Manyverse.Storage',
 }

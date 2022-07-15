@@ -6,13 +6,13 @@ import {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
 import {ContactContent as Contact, FeedId, Msg} from 'ssb-typescript';
-const Ref = require('ssb-ref');
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
-import {displayName} from '~frontend/ssb/utils/from-ssb';
+import {displayName, inferContactEvent} from '~frontend/ssb/utils/from-ssb';
+import {ContactEvent} from '~frontend/ssb/types';
 import Metadata from './Metadata';
 
 export const styles = StyleSheet.create({
@@ -53,8 +53,6 @@ export interface Props {
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
 }
 
-type ContactEvent = 'followed' | 'blocked' | 'unfollowed' | 'unblocked';
-
 function pickFrom(
   x: ContactEvent,
   followed: any,
@@ -87,30 +85,12 @@ export default class ContactBody extends Component<Props> {
   public render() {
     const {msg, contactName} = this.props;
 
-    // we're not sure what .flagged means
-    const msgBlocking =
-      (msg.value.content as any).flagged || msg.value.content.blocking;
-    const msgFollowing = msg.value.content.following;
-
-    // Validate the contact message and render metadata in case it's nonstandard
-    if (
-      (msgBlocking === undefined && msgFollowing === undefined) ||
-      (msgBlocking === true && msgFollowing === true) ||
-      !Ref.isFeedId(msg.value.content.contact)
-    ) {
+    const contactEvent = inferContactEvent(msg);
+    if (!contactEvent) {
       return h(View, {key: 'c', style: styles.contact}, [h(Metadata, {msg})]);
     }
 
     const target = displayName(contactName, msg.value.content.contact!);
-
-    const contactEvent: ContactEvent =
-      msgFollowing === true
-        ? 'followed'
-        : msgBlocking === undefined && msgFollowing === false
-        ? 'unfollowed'
-        : msgBlocking === true
-        ? 'blocked'
-        : 'unblocked';
 
     const texts: [string, string, string, string, string] = pickFrom(
       contactEvent,
