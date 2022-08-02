@@ -247,8 +247,8 @@ export default class ProfileHeader extends Component<{state: State}> {
 
       h(View, {style: styles.detailsArea}, [
         h(Biography, {about}),
-        h(FollowSection, {following, followers}),
         followsYou ? h(FollowsYou) : null,
+        h(FollowSection, {following, followers}),
         !isSelfProfile ? h(FriendsInCommon, {friendsInCommon}) : null,
         storageUsed ? h(StorageUsed, {storageUsed}) : null,
         h(AliasesSection, {sel: 'aliases', aliases, isSelfProfile}),
