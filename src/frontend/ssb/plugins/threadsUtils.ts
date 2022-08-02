@@ -76,15 +76,6 @@ function mutateMsgWithLiveExtras(
     const name = output.name;
     const imageUrl = imageToImageUrl(output.image);
 
-    // Fetch introducer
-    const [, intro] = await run<any>(ssb.dbUtils.introducer)(id);
-    const [introId, introHop] = intro ?? [undefined, undefined];
-    let introName: string | undefined = undefined;
-    if (introId) {
-      const [, output] = await run<any>(ssb.cachedAboutSelf.get)(introId);
-      introName = output.name;
-    }
-
     // Get reactions stream
     const reactions: Stream<Reactions> = options.includeReactions
       ? createReaction$(ssb, msg)
@@ -104,7 +95,6 @@ function mutateMsgWithLiveExtras(
     const m = msg as MsgAndExtras;
     m.value._$manyverse$metadata = m.value._$manyverse$metadata || {
       reactions,
-      introducer: introId ? [introId, introHop, introName] : undefined,
       gatheringInfo,
       gatheringAttendees,
       about: {name, imageUrl},

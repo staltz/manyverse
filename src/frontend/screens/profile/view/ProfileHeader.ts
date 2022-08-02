@@ -105,6 +105,28 @@ function FollowSection({
   ]);
 }
 
+function FriendsInCommon({
+  friendsInCommon,
+}: {
+  friendsInCommon: State['friendsInCommon'];
+}) {
+  if (!friendsInCommon) return null;
+
+  return h(View, {style: styles.detailsRow}, [
+    h(Icon, {
+      size: Dimensions.iconSizeSmall,
+      color: Palette.textPositive,
+      name: 'account-multiple',
+    }),
+
+    h(Counter, {
+      selector: 'friendsInCommon',
+      content: `${friendsInCommon.length}`,
+      title: t('profile.details.counters.friends_in_common'),
+    }),
+  ]);
+}
+
 function FollowsYou() {
   return h(View, {style: styles.detailsRow}, [
     h(Icon, {
@@ -161,6 +183,8 @@ export default class ProfileHeader extends Component<{state: State}> {
     if (next.aliases.length !== prev.aliases.length) return true;
     if (next.following?.length !== prev.following?.length) return true;
     if (next.followers?.length !== prev.followers?.length) return true;
+    if (next.friendsInCommon?.length !== prev.friendsInCommon?.length)
+      return true;
     if (next.youBlock?.response !== prev.youBlock?.response) return true;
     if (next.youFollow?.response !== prev.youFollow?.response) return true;
     if (next.followsYou?.response !== prev.followsYou?.response) return true;
@@ -169,7 +193,7 @@ export default class ProfileHeader extends Component<{state: State}> {
 
   public render() {
     const state = this.props.state;
-    const {about, following, followers, aliases} = state;
+    const {about, following, followers, friendsInCommon, aliases} = state;
     const isSelfProfile = state.displayFeedId === state.selfFeedId;
     const followsYou = state.followsYou?.response ?? false;
     const youFollow = state.youFollow?.response ?? false;
@@ -204,8 +228,9 @@ export default class ProfileHeader extends Component<{state: State}> {
 
       h(View, {style: styles.detailsArea}, [
         h(Biography, {about}),
-        h(FollowSection, {following, followers}),
         followsYou ? h(FollowsYou) : null,
+        h(FollowSection, {following, followers}),
+        !isSelfProfile ? h(FriendsInCommon, {friendsInCommon}) : null,
         h(AliasesSection, {sel: 'aliases', aliases, isSelfProfile}),
       ]),
 

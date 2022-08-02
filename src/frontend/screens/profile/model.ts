@@ -28,6 +28,7 @@ export interface State {
   aliases: Array<Alias>;
   following: Array<FeedId> | null;
   followers: Array<FeedId> | null;
+  friendsInCommon: Array<FeedId> | null;
   followsYou: SSBFriendsQueryDetails | null;
   youFollow: SSBFriendsQueryDetails | null;
   youBlock: SSBFriendsQueryDetails | null;
@@ -74,6 +75,7 @@ export default function model(
           aliases: [],
           following: null,
           followers: null,
+          friendsInCommon: null,
           followsYou: null,
           youFollow: null,
           youBlock: null,
@@ -204,6 +206,17 @@ export default function model(
         },
     );
 
+  const updateFriendsInCommonReducer$ = props$
+    .map((props) => ssbSource.getFriendsInCommon$(props.feedId))
+    .take(1)
+    .flatten()
+    .map(
+      (friendsInCommon) =>
+        function updateIntersectionReducer(prev: State): State {
+          return {...prev, friendsInCommon};
+        },
+    );
+
   const updateAliasesReducer$ = props$
     .map((props) => ssbSource.getAliasesLive$(props.feedId))
     .flatten()
@@ -233,6 +246,7 @@ export default function model(
       updateConnectionReducer$,
       updateFollowingReducer$,
       updateFollowersReducer$,
+      updateFriendsInCommonReducer$,
       updateAliasesReducer$,
       updateFeedStreamReducer$,
     ),

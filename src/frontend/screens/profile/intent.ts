@@ -72,6 +72,19 @@ export default function intent(
           title: t('profile.details.counters.followers'),
           accounts: state.followers!,
         })),
+
+      reactSource
+        .select('friendsInCommon')
+        .events('press')
+        .compose(sample(state$))
+        .filter(
+          (state) =>
+            !!state.friendsInCommon && state.friendsInCommon!.length > 0,
+        )
+        .map((state) => ({
+          title: t('accounts.friends_in_common.title'),
+          accounts: state.friendsInCommon!,
+        })),
     ),
 
     goToProfile$: reactSource

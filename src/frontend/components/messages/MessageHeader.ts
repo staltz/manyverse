@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import {FeedId} from 'ssb-typescript';
-import {t} from '~frontend/drivers/localization';
 import {MsgAndExtras} from '~frontend/ssb/types';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {Palette} from '~frontend/global-styles/palette';
@@ -59,19 +58,6 @@ export const styles = StyleSheet.create({
     color: Palette.text,
   },
 
-  introducer: {
-    fontSize: Typography.fontSizeNormal,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textWeak,
-  },
-
-  introducerName: {
-    fontSize: Typography.fontSizeNormal,
-    fontWeight: 'bold',
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textWeak,
-  },
-
   timestamp: {
     marginTop: 1,
     marginLeft: Dimensions.horizontalSpaceTiny,
@@ -116,15 +102,6 @@ export default class MessageHeader extends Component<Props> {
     }
   };
 
-  private _onPressIntroducer = () => {
-    const onPressAuthor = this.props.onPressAuthor;
-    if (onPressAuthor) {
-      onPressAuthor({
-        authorFeedId: this.props.msg.value._$manyverse$metadata.introducer![0],
-      });
-    }
-  };
-
   public shouldComponentUpdate(nextProps: Props) {
     const prevProps = this.props;
     return (
@@ -157,22 +134,6 @@ export default class MessageHeader extends Component<Props> {
     );
   }
 
-  private _renderIntroducer(name: string | undefined, id: FeedId) {
-    return h(
-      Text,
-      {numberOfLines: 1, ellipsizeMode: 'head', style: styles.introducer},
-      [
-        t('message.introducer.1_normal'),
-        h(
-          Text,
-          {style: styles.introducerName, onPress: this._onPressIntroducer},
-          t('message.introducer.2_bold', {name: displayName(name, id)}),
-        ),
-        t('message.introducer.3_normal'),
-      ],
-    );
-  }
-
   public render() {
     const {msg, name, imageUrl} = this.props;
     const unread = this.props.unread;
@@ -180,13 +141,6 @@ export default class MessageHeader extends Component<Props> {
       onPress: this._onPressAuthor,
       activeOpacity: 0.4,
     };
-
-    if (!msg.value._$manyverse$metadata.introducer) {
-      console.error('No introducer found for ' + msg.value.author);
-    }
-
-    const metadata = msg.value._$manyverse$metadata;
-    const [introId, introHop, introName] = metadata.introducer ?? ['', -1, ''];
 
     return h(View, {style: [styles.container, this.props.style]}, [
       h(TouchableOpacity, {...authorTouchableProps, key: 'a'}, [
@@ -196,12 +150,7 @@ export default class MessageHeader extends Component<Props> {
           style: styles.authorAvatar,
         }),
       ]),
-      introHop > 1
-        ? h(View, {style: styles.authorNameSection, key: 'b'}, [
-            this._renderAuthorName(name, msg.value.author),
-            this._renderIntroducer(introName, introId),
-          ])
-        : this._renderAuthorName(name, msg.value.author),
+      this._renderAuthorName(name, msg.value.author),
       h(TimeAgo, {timestamp: msg.value.timestamp, unread: unread ?? false}),
     ]);
   }

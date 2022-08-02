@@ -4,7 +4,6 @@
 
 import {ContactContent, FeedId, Msg, VoteContent} from 'ssb-typescript';
 import {Callback} from './helpers/types';
-const QuickLRU = require('@alloc/quick-lru');
 const pull = require('pull-stream');
 const pullAsync = require('pull-async');
 const cat = require('pull-cat');
@@ -49,7 +48,7 @@ export = {
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
-    introducer: 'async',
+    friendsInCommon: 'async',
   },
   permissions: {
     master: {
@@ -62,7 +61,7 @@ export = {
         'selfPublicRoots',
         'selfPublicReplies',
         'selfPrivateRootIdsLive',
-        'introducer',
+        'friendsInCommon',
       ],
     },
   },
@@ -92,8 +91,6 @@ export = {
     } = ssb.db.operators;
 
     const BATCH_SIZE = 100; // about 50 KB per batch
-
-    const introducerCache = new QuickLRU({maxSize: 1000, maxAge: 30e3});
 
     const reactionsCount = {
       _map: new Map<string, number>(),
@@ -285,38 +282,25 @@ export = {
         );
       },
 
-      introducer(feedId: FeedId, cb: Callback<readonly [FeedId, number]>) {
-        if (feedId === ssb.id) return cb(null, [ssb.id, 0]);
-
-        if (introducerCache.has(feedId)) {
-          cb(null, introducerCache.get(feedId)!);
-          return;
-        }
+      friendsInCommon(feedId: FeedId, cb: Callback<Array<FeedId> | null>) {
+        if (feedId === ssb.id) return cb(null, []);
 
         ssb.friends.hops(
           {start: ssb.id, reverse: false},
           (err: any, myHops: any) => {
             if (err) return cb(err);
-            if (feedId in myHops && myHops[feedId] === 1) {
-              introducerCache.set(feedId, [feedId, 1]);
-              return cb(null, [feedId, 1]);
-            }
 
             ssb.friends.hops(
               {start: feedId, reverse: true, max: 1},
               (err: any, theirHops: any) => {
                 if (err) return cb(err);
-                const theirFollowers = Object.keys(theirHops).filter(
-                  (id) => theirHops[id] > 0,
-                );
-                const closest = Object.entries<number>(myHops)
-                  .filter(([, dist]) => dist > 0)
-                  .filter(([id]) => theirFollowers.includes(id))
-                  .map(([id, dist]) => [id, dist + 1] as const)
-                  .sort(([, dist1], [, dist2]) => dist1 - dist2)[0];
-                if (!closest) return cb(new Error('could not find introducer'));
-                introducerCache.set(feedId, closest);
-                return cb(null, closest);
+                const common = [];
+                for (const id in theirHops) {
+                  if (theirHops[id] === 1 && myHops[id] === 1) {
+                    common.push(id);
+                  }
+                }
+                return cb(null, common);
               },
             );
           },

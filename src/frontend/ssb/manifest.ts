@@ -194,7 +194,7 @@ export default {
     selfPublicRoots: 'source',
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
-    introducer: 'async',
+    friendsInCommon: 'async',
   },
   gatheringsUtils: {
     gatheringAttendees: 'source',

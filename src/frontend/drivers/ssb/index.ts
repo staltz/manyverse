@@ -264,6 +264,14 @@ export class SSBSource {
       .flatten();
   }
 
+  public getFriendsInCommon$(feedId: FeedId): Stream<Array<FeedId>> {
+    return this.ssb$
+      .map((ssb) =>
+        xsFromCallback<Array<FeedId>>(ssb.dbUtils.friendsInCommon)(feedId),
+      )
+      .flatten();
+  }
+
   public profileAbout$(id: FeedId): Stream<AboutAndExtras> {
     return this.ssb$
       .map((ssb) =>

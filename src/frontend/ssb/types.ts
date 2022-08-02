@@ -47,7 +47,6 @@ export type MsgAndExtras<C = Content> = Msg<C> & {
       reactions?: Stream<NonNullable<Reactions>>;
       gatheringInfo?: Stream<NonNullable<GatheringInfo>>;
       gatheringAttendees?: Stream<NonNullable<Array<GatheringAttendee>>>;
-      introducer?: [FeedId, number, string | undefined];
       about: {
         name?: string;
         imageUrl: string | null;
