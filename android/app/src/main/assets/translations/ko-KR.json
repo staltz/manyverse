@@ -247,6 +247,9 @@
     "recipients": {
       "title": "받는 사람"
     },
+    "friends_in_common": {
+      "title": "Friends in common"
+    },
     "call_to_action": {
       "open_account": {
         "accessibility_label": "계정으로 가기"
@@ -745,7 +748,8 @@
       },
       "counters": {
         "following": "팔로잉",
-        "followers": "팔로워"
+        "followers": "팔로워",
+        "friends_in_common": "Friends in common with you"
       }
     },
     "info": {

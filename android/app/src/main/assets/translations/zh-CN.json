@@ -242,10 +242,13 @@
       "title": "回应"
     },
     "gathering_attendees": {
-      "title": "Attendees"
+      "title": "参与者"
     },
     "recipients": {
       "title": "收件人"
+    },
+    "friends_in_common": {
+      "title": "Friends in common"
     },
     "call_to_action": {
       "open_account": {
@@ -306,12 +309,12 @@
     "scenarios": {
       "offline": "离线",
       "not_connected": "未连接",
-      "few_connections": "Too few connections",
-      "many_connections": "Well connected"
+      "few_connections": "连接数太少",
+      "many_connections": "正常链接"
     },
     "scenario_descriptions": {
-      "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
+      "offline_with_content": "你不只可以跟其他人建立链接，还能跟他们分享你拥有的内容。",
+      "offline_without_content": "您目前无法建立链接。请尝试打开网络链接或者开启Wi-Fi以发现附件的节点。",
       "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
       "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
       "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
@@ -362,9 +365,9 @@
           "connected": "Internet P2P"
         },
         "room": {
-          "server": "Room server",
+          "server": "房间服务器",
           "endpoint": "Room peer",
-          "alone_online": "(only you online)",
+          "alone_online": "(只有你在线)",
           "others_online": {
             "one": "({{count}} online)",
             "other": "({{count}} online)"
@@ -372,16 +375,16 @@
         },
         "pub": "Pub server",
         "server": "服务器",
-        "unknown": "Unknown"
+        "unknown": "未知的"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(ENABLED)"
+        "enabled": "(确认)"
       },
       "bluetooth": {
-        "title": "Bluetooth",
-        "accessibility_label": "Bluetooth Mode",
+        "title": "蓝牙",
+        "accessibility_label": "蓝牙模式",
         "disabled": "(Turn on Bluetooth to use this)",
         "description": "Discover users nearby and connect with them using Bluetooth.",
         "permission_request": {
@@ -391,14 +394,14 @@
       },
       "wifi": {
         "title": "无线局域网",
-        "accessibility_label": "Wi-Fi Mode",
-        "disabled": "(Turn on Wi-Fi to use this)",
+        "accessibility_label": "Wi-Fi模式",
+        "disabled": "(打开wifi，以使用此功能)",
         "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
       },
       "servers": {
-        "title": "Internet servers",
-        "accessibility_label": "Internet Servers Mode",
-        "disabled": "(Go online to use this)",
+        "title": "网络服务器",
+        "accessibility_label": "联网模式",
+        "disabled": "(联网以使用此功能)",
         "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
       }
     },
@@ -437,13 +440,13 @@
         }
       },
       "forget": {
-        "label": "Forget",
+        "label": "忘记了",
         "accessibility_label": {
-          "room": "Remove this room from our database"
+          "room": "从本地数据删除此房间"
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
+        "label": "修改昵称",
         "accessibility_label": "管理我在房间服务器中的别名"
       },
       "room_sign_in": {
@@ -496,7 +499,7 @@
         "accessibility_label": "发布回复按钮"
       },
       "preview": {
-        "label": "Preview",
+        "label": "预览",
         "accessibility_label": "预览按钮"
       },
       "close": {
@@ -635,7 +638,7 @@
     "licensed": "Licensed {{license}}"
   },
   "dialog_thanks": {
-    "title": "Thank you!",
+    "title": "谢谢！",
     "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
   },
   "drawer": {
@@ -745,7 +748,8 @@
       },
       "counters": {
         "following": "Following",
-        "followers": "Followers"
+        "followers": "Followers",
+        "friends_in_common": "Friends in common with you"
       }
     },
     "info": {
