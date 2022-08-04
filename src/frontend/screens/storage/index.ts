@@ -49,7 +49,12 @@ export const navOptions = {
 
 export function storage(sources: Sources): Sinks {
   const state$ = sources.state.stream;
-  const actions = intent(sources.screen, sources.navigation, state$);
+  const actions = intent(
+    sources.screen,
+    sources.navigation,
+    sources.dialog,
+    state$,
+  );
 
   const manageContactActions = manageContact$({
     dialog: sources.dialog,

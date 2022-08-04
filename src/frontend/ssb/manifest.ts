@@ -44,6 +44,8 @@ export default {
 
   db: {
     indexingProgress: 'source',
+    compactionProgress: 'source',
+    compact: 'async',
   },
   db2migrate: {
     start: 'sync',
@@ -97,6 +99,10 @@ export default {
     start: 'sync',
     stop: 'sync',
     changes: 'source',
+  },
+  friendsPurge: {
+    start: 'sync',
+    stop: 'sync',
   },
   private: {
     publish: 'async',
@@ -187,6 +193,7 @@ export default {
     stagedPeers: 'source',
   },
   dbUtils: {
+    warmUpJITDB: 'async',
     rawLogReversed: 'source',
     mentionsMe: 'source',
     postsCount: 'async',

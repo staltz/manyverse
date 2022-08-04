@@ -22,6 +22,7 @@ import {
   TriggerHashtagLink,
   TriggerMsgCypherlink,
 } from '~frontend/drivers/eventbus';
+import {SSBSource} from '~frontend/drivers/ssb';
 import {AlertAction, DialogSource} from '~frontend/drivers/dialogs';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
@@ -33,6 +34,7 @@ export default function intent(
   navSource: NavSource,
   linkingSource: Stream<string>,
   dialogSource: DialogSource,
+  ssbSource: SSBSource,
   state$: Stream<State>,
 ) {
   const hasSelfFeedId$ = state$.map((state) => !!state.selfFeedId);
@@ -174,6 +176,12 @@ export default function intent(
     ) as Stream<TriggerHashtagLink>
   ).map((ev) => ({query: ev.hashtag}));
 
+  const goToCompact$ = ssbSource.compactionProgress$
+    .filter((stats) => stats.done === false && stats.percent > 0)
+    .compose(delay(1000))
+    .take(1)
+    .endWhen(navSource.globalDidAppear(Screens.Compact));
+
   return {
     handleUriClaimInvite$,
     handleUriConsumeAlias$,
@@ -185,5 +193,6 @@ export default function intent(
     goToProfile$,
     goToThread$,
     goToSearch$,
+    goToCompact$,
   };
 }

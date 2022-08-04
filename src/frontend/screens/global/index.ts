@@ -47,6 +47,7 @@ export function global(sources: Sources): Sinks {
     sources.navigation,
     sources.linking,
     sources.dialog,
+    sources.ssb,
     state$,
   );
   const cmd$ = navigation(actions, state$);

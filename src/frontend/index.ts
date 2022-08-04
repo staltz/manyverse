@@ -61,6 +61,7 @@ import {secretInput} from './screens/secret-input';
 import {resync} from './screens/resync';
 import {settings} from './screens/settings';
 import {storage} from './screens/storage';
+import {compact} from './screens/compact';
 
 export const drivers = {
   appstate: makeAppStateDriver(),
@@ -130,4 +131,5 @@ export const screens: ScreensMapping = {
   [Screens.RawMessage]: rawMessage,
   [Screens.Settings]: withState(settings),
   [Screens.Storage]: withState(storage),
+  [Screens.Compact]: withState(compact),
 };

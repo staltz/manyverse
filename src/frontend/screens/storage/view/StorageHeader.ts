@@ -252,9 +252,10 @@ export default class ProfileHeader extends Component<
               Text,
               {style: styles.subtitle},
               // FIXME: localize
-              'The trash bin is made of blocked accounts. Compact your database to empty the trash bin. Note that compaction will rebuild database indexes and this can take several minutes.',
+              'The trash bin is made of blocked accounts. Compact your database to empty the trash bin.',
             ),
             h(Button, {
+              sel: 'compact',
               text: 'Compact', // FIXME: localize
               style: {
                 borderColor: Palette.textNegative,

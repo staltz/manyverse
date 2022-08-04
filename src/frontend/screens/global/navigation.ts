@@ -11,6 +11,8 @@ import {navOptions as profileScreenNavOpts} from '~frontend/screens/profile';
 import {Props as ProfileProps} from '~frontend/screens/profile/props';
 import {navOptions as searchNavOpts} from '~frontend/screens/search/index';
 import {Props as SearchProps} from '~frontend/screens/search/props';
+import {navOptions as compactScreenNavOpts} from '~frontend/screens/compact/layout';
+import {Props as CompactProps} from '~frontend/screens/compact/props';
 import {
   navOptions as threadScreenNavOpts,
   Props as ThreadProps,
@@ -21,6 +23,7 @@ interface Actions {
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<{rootMsgId: MsgId}>;
   goToSearch$: Stream<{query: string} | null>;
+  goToCompact$: Stream<any>;
   handleUriConsumeAlias$: Stream<string>;
 }
 
@@ -96,5 +99,21 @@ export default function navigation(
       } as Command),
   );
 
-  return xs.merge(toProfile$, toThread$, toSearch$);
+  const toCompact$ = actions.goToCompact$.map(
+    () =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Compact,
+            passProps: {
+              continuation: true,
+            } as CompactProps,
+            options: compactScreenNavOpts,
+          },
+        },
+      } as Command),
+  );
+
+  return xs.merge(toProfile$, toThread$, toSearch$, toCompact$);
 }

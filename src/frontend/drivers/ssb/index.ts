@@ -34,6 +34,7 @@ import {
   SSBFriendsQueryDetails,
   StorageStats,
   StorageUsedByFeed,
+  CompactionProgress,
 } from '~frontend/ssb/types';
 import makeClient, {SSBClient} from '~frontend/ssb/client';
 import {imageToImageUrl} from '~frontend/ssb/utils/from-ssb';
@@ -80,6 +81,7 @@ export class SSBSource {
   public publishHook$: Stream<Msg>;
   public migrationProgress$: Stream<number>;
   public indexingProgress$: Stream<number>;
+  public compactionProgress$: Stream<CompactionProgress>;
   public acceptInviteResponse$: Stream<true | string>;
   public consumeAliasResponse$: Stream<FeedId | false>;
   public peers$: Stream<Array<PeerKV>>;
@@ -153,6 +155,10 @@ export class SSBSource {
 
     this.indexingProgress$ = this.fromPullStream<number>((ssb) =>
       ssb.db.indexingProgress(),
+    );
+
+    this.compactionProgress$ = this.fromPullStream<CompactionProgress>((ssb) =>
+      ssb.db.compactionProgress(),
     );
 
     this.acceptInviteResponse$ = xs.create<true | string>();
@@ -585,6 +591,18 @@ export interface SuggestStartReq {
   type: 'suggest.start';
 }
 
+export interface FriendsPurgeStartReq {
+  type: 'friendsPurge.start';
+}
+
+export interface CompactReq {
+  type: 'db.compact';
+}
+
+export interface WarmUpJITDBReq {
+  type: 'dbUtils.warmUpJITDB';
+}
+
 export interface ConnStartReq {
   type: 'conn.start';
 }
@@ -685,6 +703,9 @@ export type Req =
   | SearchBluetoothReq
   | ReplicationSchedulerStartReq
   | SuggestStartReq
+  | FriendsPurgeStartReq
+  | CompactReq
+  | WarmUpJITDBReq
   | ConnStartReq
   | ConnConnectReq
   | ConnRememberConnectReq
@@ -774,6 +795,25 @@ async function consumeSink(
           if (err) return console.error(err.message || err);
         });
         return;
+      }
+
+      if (req.type === 'friendsPurge.start') {
+        ssb.friendsPurge.start((err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+        return;
+      }
+
+      if (req.type === 'db.compact') {
+        ssb.db.compact((err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+      }
+
+      if (req.type === 'dbUtils.warmUpJITDB') {
+        ssb.dbUtils.warmUpJITDB((err: any) => {
+          if (err) return console.error(err.message || err);
+        });
       }
 
       if (req.type === 'conn.start') {

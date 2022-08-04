@@ -3,15 +3,19 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import sampleCombine from 'xstream/extra/sampleCombine';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
+import {Palette} from '~frontend/global-styles/palette';
+import {t} from '~frontend/drivers/localization';
+import {DialogSource} from '~frontend/drivers/dialogs';
 import {blobsOptToStorage, blobsStorageOptions, State} from './model';
-import sampleCombine from 'xstream/extra/sampleCombine';
 
 export default function intent(
   screenSource: ReactSource,
   navSource: NavSource,
+  dialogSource: DialogSource,
   state$: Stream<State>,
 ) {
   return {
@@ -26,6 +30,26 @@ export default function intent(
       .map((i) => blobsOptToStorage(blobsStorageOptions[i])),
 
     goToProfile$: screenSource.select('list').events<FeedId>('pressAccount'),
+
+    goToCompact$: screenSource
+      .select('compact')
+      .events('press')
+      .map(() =>
+        dialogSource
+          .alert(
+            // FIXME: localize
+            'Compact database?',
+            'This action will remove the trash and rebuild database indexes. It can last from 5 minutes to 30 minutes, and you must keep the app open without browsing content, waiting for it to complete.\n\nAre you sure you want to continue?',
+            {
+              ...Palette.dialogColors,
+              negativeText: t('call_to_action.cancel'),
+              positiveText: t('call_to_action.yes'),
+              markdownOnDesktop: true,
+            },
+          )
+          .filter((res) => res.action === 'actionPositive'),
+      )
+      .flatten(),
 
     manageAccount$: screenSource
       .select('list')

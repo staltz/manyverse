@@ -6,15 +6,17 @@ import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
-import {State} from './model';
-
 import {Screens} from '~frontend/screens/enums';
 import {navOptions as profileScreenNavOpts} from '~frontend/screens/profile/layout';
-import {Props} from '~frontend/screens/profile/props';
+import {Props as ProfileProps} from '~frontend/screens/profile/props';
+import {navOptions as compactScreenNavOpts} from '~frontend/screens/compact/layout';
+import {Props as CompactProps} from '~frontend/screens/compact/props';
+import {State} from './model';
 
 export interface Actions {
   goBack$: Stream<any>;
   goToProfile$: Stream<FeedId>;
+  goToCompact$: Stream<any>;
 }
 
 export default function navigationCommands(
@@ -36,12 +38,28 @@ export default function navigationCommands(
             passProps: {
               selfFeedId: state.selfFeedId,
               feedId,
-            } as Props,
+            } as ProfileProps,
             options: profileScreenNavOpts,
           },
         },
       } as Command),
   );
 
-  return xs.merge(back$, toProfile$);
+  const toCompact$ = actions.goToCompact$.map(
+    () =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Compact,
+            passProps: {
+              continuation: false,
+            } as CompactProps,
+            options: compactScreenNavOpts,
+          },
+        },
+      } as Command),
+  );
+
+  return xs.merge(back$, toProfile$, toCompact$);
 }

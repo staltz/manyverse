@@ -418,13 +418,6 @@ class List extends PureComponent<ListProps, {initialLoading: boolean}> {
       ListFooterComponent: initialLoading
         ? h(AnimatedLoading, {text: t('central.loading')})
         : null,
-      // FIXME: empty state
-      // ListEmptyComponent: h(EmptySection, {
-      //   style: styles.emptySection,
-      //   image: getImg(require('~images/noun-plant.png')),
-      //   title: t('private.empty.title'),
-      //   description: t('private.empty.description'),
-      // }),
       keyExtractor: this.keyExtractor,
       renderItem: this.renderItem,
     });

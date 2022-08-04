@@ -24,6 +24,7 @@ export default function ssb(actions: Actions): Stream<Req> {
         {type: 'conn.start'},
         {type: 'replicationScheduler.start'},
         {type: 'suggest.start'},
+        {type: 'friendsPurge.start'},
       ),
     )
     .flatten();

@@ -1082,6 +1082,31 @@
         "indexes": "Indexes ({{megabytes}})",
         "blobs": "Blobs ({{megabytes}})"
       }
+    },
+    "trash": {
+      "title": "Trash",
+      "description": "The trash bin is made of blocked accounts. Compact your database to empty the trash bin.",
+      "compact": {
+        "label": "Compact",
+        "accessibility_label": "Compact your database"
+      }
+    },
+    "dialogs": {
+      "confirm_compact": {
+        "title": "Compact database?",
+        "description": "This action will remove the trash and rebuild database indexes. It typically lasts 2 minutes, and you must keep the app open without browsing content, waiting for it to complete.\n\nDo you want to continue?"
+      }
+    },
+    "accounts": {
+      "title": "Accounts",
+      "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
+      "this_is_you": "This is you",
+      "open_profile": {
+        "accessibility_label": "Open Profile"
+      },
+      "options_profile": {
+        "accessibility_label": "More options for this profile"
+      }
     }
   },
   "resync": {

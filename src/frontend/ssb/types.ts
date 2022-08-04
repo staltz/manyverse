@@ -132,3 +132,12 @@ export interface StorageUsedByFeed {
   youBlock: boolean;
   youFollow: boolean;
 }
+
+export interface CompactionProgress {
+  percent: number;
+  done: boolean;
+  sizeDiff?: number;
+  startOffset: number;
+  compactedOffset: number;
+  unshiftedOffset: number;
+}
