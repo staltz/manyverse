@@ -243,7 +243,9 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
       style: styles.touchableMain,
       accessible: true,
       accessibilityRole: 'button',
-      accessibilityLabel: 'something', // FIXME: localize
+      accessibilityLabel: t(
+        'storage.accounts.open_profile.accessibility_label',
+      ),
     };
     if (Platform.OS === 'android') {
       touchableMainProps.background =
@@ -255,7 +257,9 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
       style: styles.touchableMore,
       accessible: true,
       accessibilityRole: 'button',
-      accessibilityLabel: 'something', // FIXME: localize
+      accessibilityLabel: t(
+        'storage.accounts.options_profile.accessibility_label',
+      ),
     };
     if (Platform.OS === 'android') {
       touchableMoreProps.background =
@@ -281,8 +285,11 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
           color: Palette.textPositive,
           name: 'account-plus',
         }),
-        // FIXME: localize
-        h(Text, {numberOfLines: 1, style: styles.relationship}, 'Following'),
+        h(
+          Text,
+          {numberOfLines: 1, style: styles.relationship},
+          t('profile.info.following'),
+        ),
       ];
     } else if (youBlock) {
       moreDetails = [
@@ -292,13 +299,19 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
           color: Palette.textNegative,
           name: 'account-remove',
         }),
-        // FIXME: localize
-        h(Text, {numberOfLines: 1, style: styles.relationship}, 'Blocked'),
+        h(
+          Text,
+          {numberOfLines: 1, style: styles.relationship},
+          t('profile.info.blocking'),
+        ),
       ];
     } else if (id === selfFeedId) {
       moreDetails = [
-        // FIXME: localize
-        h(Text, {numberOfLines: 1, style: styles.thisIsYou}, 'This is you'),
+        h(
+          Text,
+          {numberOfLines: 1, style: styles.thisIsYou},
+          t('storage.accounts.this_is_you'),
+        ),
       ];
     }
 

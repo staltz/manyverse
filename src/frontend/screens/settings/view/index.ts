@@ -95,8 +95,10 @@ export default function view(state$: Stream<State>) {
           h(View, {style: styles.spacer}),
           h(LinkSetting, {
             sel: 'storage',
-            title: 'Storage usage', // FIXME: localize
-            accessibilityLabel: 'Something', // FIXME: localize
+            title: t('settings.data_and_storage.storage_usage.title'),
+            accessibilityLabel: t(
+              'settings.data_and_storage.storage_usage.accessibility_label',
+            ),
           }),
         ]),
 

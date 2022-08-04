@@ -37,9 +37,8 @@ export default function intent(
       .map(() =>
         dialogSource
           .alert(
-            // FIXME: localize
-            'Compact database?',
-            'This action will remove the trash and rebuild database indexes. It can last from 5 minutes to 30 minutes, and you must keep the app open without browsing content, waiting for it to complete.\n\nAre you sure you want to continue?',
+            t('storage.dialogs.confirm_compact.title'),
+            t('storage.dialogs.confirm_compact.description'),
             {
               ...Palette.dialogColors,
               negativeText: t('call_to_action.cancel'),

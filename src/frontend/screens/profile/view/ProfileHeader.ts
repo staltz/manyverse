@@ -147,9 +147,13 @@ function StorageUsed({storageUsed}: {storageUsed: number}) {
         color: Palette.brandMain,
         name: 'sd',
       }),
-      h(Text, {style: styles.secondaryLabel}, [
-        `Occupies ` + byteSize(storageUsed).toString(), // FIXME: localize
-      ]),
+      h(
+        Text,
+        {style: styles.secondaryLabel},
+        t('profile.details.counters.storage_used', {
+          megabytes: byteSize(storageUsed).toString(),
+        }),
+      ),
     ]),
   ]);
 }

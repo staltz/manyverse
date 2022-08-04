@@ -247,16 +247,15 @@ export default class ProfileHeader extends Component<
 
       trashBytes
         ? h(View, {style: styles.subheader}, [
-            h(Text, {style: styles.title}, 'Trash'), // FIXME: localize
-            h(
-              Text,
-              {style: styles.subtitle},
-              // FIXME: localize
-              'The trash bin is made of blocked accounts. Compact your database to empty the trash bin.',
-            ),
+            h(Text, {style: styles.title}, t('storage.trash.title')),
+            h(Text, {style: styles.subtitle}, t('storage.trash.description')),
             h(Button, {
               sel: 'compact',
-              text: 'Compact', // FIXME: localize
+              text: t('storage.trash.compact.label'),
+              accessible: true,
+              accessibilityLabel: t(
+                'storage.trash.compact.accessibility_label',
+              ),
               style: {
                 borderColor: Palette.textNegative,
                 marginRight: Dimensions.horizontalSpaceNormal,
@@ -281,12 +280,11 @@ export default class ProfileHeader extends Component<
       ]),
 
       h(View, {style: [styles.subheader, styles.accountsContainer]}, [
-        h(Text, {style: styles.title}, 'Accounts'), // FIXME: localize
+        h(Text, {style: styles.title}, t('storage.accounts.title')),
         h(
           Text,
           {style: [styles.subtitle, styles.accountsSubtitle]},
-          // FIXME: localize
-          "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
+          t('storage.accounts.description'),
         ),
       ]),
     ]);

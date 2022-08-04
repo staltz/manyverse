@@ -37,15 +37,15 @@ export default function alert(
     .compose(sample(state$))
     .map((state) => {
       const name = displayName(state.about.name, state.about.id);
-      const space = byteSize(state.storageUsed).toString();
+      const megabytes = byteSize(state.storageUsed).toString();
       const isSelf = state.about.id === state.selfFeedId;
+      const opts = {name, megabytes};
       return {
         type: 'alert' as const,
-        // FIXME: localize
-        title: 'Storage used',
+        title: t('profile.dialog_about_storage_used.title'),
         content: isSelf
-          ? `Your content and metadata is occupying ${space} of storage on your device at the moment.`
-          : `${name}'s content and metadata is occupying ${space} of storage on your device at the moment.`,
+          ? t('profile.dialog_about_storage_used.description.self', opts)
+          : t('profile.dialog_about_storage_used.description.others', opts),
         options: {
           ...Palette.dialogColors,
           positiveColor: Palette.textDialogStrong,

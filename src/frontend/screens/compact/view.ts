@@ -18,6 +18,7 @@ import {Circle, CirclePropTypes} from 'react-native-progress';
 import {State} from './model';
 import {Typography} from '~frontend/global-styles/typography';
 import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import {t} from '~frontend/drivers/localization';
 
 export const styles = StyleSheet.create({
   screen: {
@@ -62,12 +63,7 @@ export default function view(state$: Stream<State>) {
       const win = DimensAPI.get('window');
       const size = Math.min(win.width, win.height) * 0.5;
       return h(View, {style: styles.screen}, [
-        // FIXME: localize
-        h(
-          Text,
-          {style: styles.title},
-          'Compacting your\nManyverse database...',
-        ),
+        h(Text, {style: styles.title}, t('compact.title')),
         h(
           Circle as any,
           {
@@ -85,10 +81,11 @@ export default function view(state$: Stream<State>) {
         ),
         estimateDone > 0
           ? h(Text, {key: `${estimateDone}`, style: styles.description}, [
-              'Ready: ', // FIXME: localize
+              t('drawer.menu.ready_estimate.label'),
+              ' ',
               h(LocalizedHumanTime, {time: Date.now() + estimateDone}),
             ])
-          : null,
+          : h(Text, {key: 'empty', style: styles.description}, '   '),
       ]);
     });
 }
