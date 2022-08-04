@@ -289,7 +289,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         h(Feed, {
           sel: 'feed',
           getReadable:
-            isBlocked || !state.youBlock
+            (isBlocked || !state.youBlock) && !isSelfProfile
               ? () => pull.empty()
               : state.getFeedReadable,
           prePublication$: isBlocked
