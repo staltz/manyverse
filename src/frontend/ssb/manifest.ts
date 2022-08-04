@@ -46,6 +46,7 @@ export default {
     indexingProgress: 'source',
     compactionProgress: 'source',
     compact: 'async',
+    reset: 'async',
   },
   db2migrate: {
     start: 'sync',

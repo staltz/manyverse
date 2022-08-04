@@ -5,11 +5,15 @@
 import xs from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {NavSource} from 'cycle-native-navigation';
+import {DialogSource} from '~frontend/drivers/dialogs';
 import {hopsOptions} from './model';
+import {t} from '~frontend/drivers/localization';
+import {Palette} from '~frontend/global-styles/palette';
 
 export default function intent(
   screenSource: ReactSource,
   navSource: NavSource,
+  dialogSource: DialogSource,
 ) {
   return {
     toggleFollowEvents$: screenSource
@@ -38,6 +42,25 @@ export default function intent(
       }),
 
     emailBugReport$: screenSource.select('bug-report').events('press'),
+
+    forceReindex$: screenSource
+      .select('force-reindex')
+      .events('press')
+      .map(() =>
+        dialogSource
+          .alert(
+            t('settings.troubleshooting.force_reindex.confirm.title'),
+            t('settings.troubleshooting.force_reindex.confirm.description'),
+            {
+              ...Palette.dialogColors,
+              negativeText: t('call_to_action.cancel'),
+              positiveText: t('call_to_action.yes'),
+              markdownOnDesktop: true,
+            },
+          )
+          .filter((res) => res.action === 'actionPositive'),
+      )
+      .flatten(),
 
     goBack$: xs.merge(
       navSource.backPress(),

@@ -599,6 +599,10 @@ export interface CompactReq {
   type: 'db.compact';
 }
 
+export interface DbResetReq {
+  type: 'db.reset';
+}
+
 export interface WarmUpJITDBReq {
   type: 'dbUtils.warmUpJITDB';
 }
@@ -705,6 +709,7 @@ export type Req =
   | SuggestStartReq
   | FriendsPurgeStartReq
   | CompactReq
+  | DbResetReq
   | WarmUpJITDBReq
   | ConnStartReq
   | ConnConnectReq
@@ -806,6 +811,12 @@ async function consumeSink(
 
       if (req.type === 'db.compact') {
         ssb.db.compact((err: any) => {
+          if (err) return console.error(err.message || err);
+        });
+      }
+
+      if (req.type === 'db.reset') {
+        ssb.db.reset((err: any) => {
           if (err) return console.error(err.message || err);
         });
       }

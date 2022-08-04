@@ -126,6 +126,15 @@ export default function view(state$: Stream<State>) {
               'settings.troubleshooting.detailed_logs.accessibility_label',
             ),
           }),
+
+          h(View, {style: styles.spacer}),
+          h(LinkSetting, {
+            sel: 'force-reindex',
+            title: t('settings.troubleshooting.force_reindex.title'),
+            accessibilityLabel: t(
+              'settings.troubleshooting.force_reindex.accessibility_label',
+            ),
+          }),
         ]),
 
         h(View, {style: styles.section}, [

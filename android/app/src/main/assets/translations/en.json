@@ -1054,6 +1054,14 @@
       "detailed_logs": {
         "title": "Enable detailed logs",
         "accessibility_label": "Toggle detailed developer logs"
+      },
+      "force_reindex": {
+        "title": "Force reindex",
+        "accessibility_label": "Force indexes to rebuild",
+        "confirm": {
+          "title": "Rebuild indexes?",
+          "description": "This will reset database indexes and rebuild them, which is a last resort solution in case your database seems to behave oddly. Reindexing may take several minutes.\n\nAre you sure you want to do this?"
+        }
       }
     },
     "more_information": {

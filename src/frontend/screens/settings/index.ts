@@ -8,7 +8,7 @@ import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
 import {Platform} from 'react-native';
 import {Reducer, StateSource} from '@cycle/state';
-import {Command as AlertCommand} from '~frontend/drivers/dialogs';
+import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
 import model, {State} from './model';
 import view from './view';
@@ -21,6 +21,7 @@ import {Props} from './props';
 
 export interface Sources {
   props: Stream<Props>;
+  dialog: DialogSource;
   screen: ReactSource;
   navigation: NavSource;
   ssb: SSBSource;
@@ -50,7 +51,7 @@ export const navOptions = {
 
 export function settings(sources: Sources): Sinks {
   const state$ = sources.state.stream;
-  const actions = intent(sources.screen, sources.navigation);
+  const actions = intent(sources.screen, sources.navigation, sources.dialog);
   const reducer$ = model(sources.props, actions, sources.ssb);
   const vdom$ = view(state$);
   const req$ = ssb(actions);
