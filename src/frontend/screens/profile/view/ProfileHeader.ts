@@ -117,7 +117,7 @@ function FriendsInCommon({
     h(Icon, {
       size: Dimensions.iconSizeSmall,
       color: Palette.textPositive,
-      name: 'account-multiple',
+      name: 'account-heart',
     }),
 
     h(Counter, {
