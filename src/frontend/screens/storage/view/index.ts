@@ -95,6 +95,9 @@ const styles = StyleSheet.create({
   touchableMain: {
     ...Platform.select({
       web: styleMain,
+      ios: {
+        flex: 1,
+      },
       default: null,
     }),
   },
@@ -111,6 +114,10 @@ const styles = StyleSheet.create({
   touchableMore: {
     ...Platform.select({
       web: styleMore,
+      ios: {
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
       default: null,
     }),
   },
