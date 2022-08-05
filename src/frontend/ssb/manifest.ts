@@ -96,6 +96,9 @@ export default {
     changes: 'source',
     createWants: 'source',
   },
+  blobsBlurhash: {
+    generate: 'async',
+  },
   blobsPurge: {
     start: 'sync',
     stop: 'sync',
@@ -203,6 +206,7 @@ export default {
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
     friendsInCommon: 'async',
+    snapshotAbout: 'async',
   },
   gatheringsUtils: {
     gatheringAttendees: 'source',

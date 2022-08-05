@@ -10,6 +10,7 @@ import {
   MsgId,
   AliasContent,
   GatheringUpdateContent,
+  ContactContent,
 } from 'ssb-typescript';
 import {Stream} from 'xstream';
 import {Peer as ConnQueryPeer} from 'ssb-conn-query/lib/types';
@@ -39,6 +40,12 @@ export interface PressReactionsEvent {
 export interface PressGatheringAttendeesEvent {
   msgKey: MsgId;
   attendees: GatheringAttendees;
+}
+
+export interface PressBlockAccount {
+  feedId: FeedId;
+  name?: string;
+  image?: string;
 }
 
 export type MsgAndExtras<C = Content> = Msg<C> & {
@@ -90,6 +97,18 @@ export type AnyThread = ThreadAndExtras | PrivateThreadAndExtras;
 
 export interface AboutAndExtras extends Omit<About, 'following'> {
   id: FeedId;
+  image?: string;
+}
+
+export interface AboutSelf {
+  name?: string;
+  image?: string;
+  description?: string;
+}
+
+export interface SnapshotAbout {
+  name?: string;
+  blurhash?: string;
 }
 
 export interface SSBFriendsQueryDetails {
@@ -125,8 +144,9 @@ export interface StorageStats {
 }
 
 export interface StorageUsedByFeed {
-  id: FeedId;
+  feedId: FeedId;
   name?: string;
+  image?: string;
   imageUrl?: string | null | undefined;
   storageUsed: number;
   youBlock: boolean;
@@ -140,4 +160,11 @@ export interface CompactionProgress {
   startOffset: number;
   compactedOffset: number;
   unshiftedOffset: number;
+}
+
+export interface ContactContentAndExtras extends ContactContent {
+  about?: {
+    name?: string;
+    blurhash?: string;
+  };
 }

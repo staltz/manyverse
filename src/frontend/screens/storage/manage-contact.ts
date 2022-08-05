@@ -8,7 +8,7 @@ import {FeedId} from 'ssb-typescript';
 import {t} from '~frontend/drivers/localization';
 import {DialogSource, PickerItem} from '~frontend/drivers/dialogs';
 import {Palette} from '~frontend/global-styles/palette';
-import {SSBFriendsQueryDetails} from '~frontend/ssb/types';
+import {PressBlockAccount, SSBFriendsQueryDetails} from '~frontend/ssb/types';
 import {SSBSource} from '~frontend/drivers/ssb';
 
 export type ManageChoiceId =
@@ -18,22 +18,21 @@ export type ManageChoiceId =
   | 'unblock-secretly';
 
 export interface Sources {
-  manageContact$: Stream<{feedId: FeedId; selfFeedId: FeedId}>;
+  manageContact$: Stream<PressBlockAccount & {selfFeedId: FeedId}>;
   ssb: SSBSource;
   dialog: DialogSource;
 }
 
 export interface Sinks {
-  blockContact$: Stream<FeedId>;
-  blockSecretlyContact$: Stream<FeedId>;
+  blockContact$: Stream<PressBlockAccount>;
+  blockSecretlyContact$: Stream<PressBlockAccount>;
   unblockContact$: Stream<FeedId>;
   unblockSecretlyContact$: Stream<FeedId>;
 }
 
-export interface State {
+export interface State extends PressBlockAccount {
   youFollow: SSBFriendsQueryDetails | null;
   youBlock: SSBFriendsQueryDetails | null;
-  feedId: FeedId;
   selfFeedId: FeedId;
 }
 
@@ -59,18 +58,13 @@ function calculateRelationship(state: State): Relationship {
 
 export default function manageContact$(sources: Sources): Sinks {
   const manageContactChoice$ = sources.manageContact$
-    .map(({feedId, selfFeedId}) =>
+    .map((event) =>
       xs
         .combine(
-          sources.ssb.isFollowing$(selfFeedId, feedId),
-          sources.ssb.isBlocking$(selfFeedId, feedId),
+          sources.ssb.isFollowing$(event.selfFeedId, event.feedId),
+          sources.ssb.isBlocking$(event.selfFeedId, event.feedId),
         )
-        .map(([youFollow, youBlock]) => ({
-          youFollow,
-          youBlock,
-          feedId,
-          selfFeedId,
-        })),
+        .map(([youFollow, youBlock]) => ({...event, youFollow, youBlock})),
     )
     .flatten()
     .map((state) => {
@@ -123,19 +117,19 @@ export default function manageContact$(sources: Sources): Sinks {
         )
         .filter((res) => res.action === 'actionSelect')
         .map((res: any) => ({
+          ...state,
           id: res.selectedItem.id as ManageChoiceId,
-          feedId: state.feedId,
         }));
     })
     .flatten();
 
-  const blockContact$ = manageContactChoice$
-    .filter((choice) => choice.id === 'block')
-    .map((choice) => choice.feedId);
+  const blockContact$ = manageContactChoice$.filter(
+    (choice) => choice.id === 'block',
+  );
 
-  const blockSecretlyContact$ = manageContactChoice$
-    .filter((choice) => choice.id === 'block-secretly')
-    .map((choice) => choice.feedId);
+  const blockSecretlyContact$ = manageContactChoice$.filter(
+    (choice) => choice.id === 'block-secretly',
+  );
 
   const unblockContact$ = manageContactChoice$
     .filter((choice) => choice.id === 'unblock')

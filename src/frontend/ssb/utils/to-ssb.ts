@@ -5,7 +5,6 @@
 import {
   VoteContent,
   PostContent,
-  ContactContent,
   Privatable,
   FeedId,
   AboutContent,
@@ -13,7 +12,7 @@ import {
   MsgId,
 } from 'ssb-typescript';
 const Mentions = require('remark-ssb-mentions');
-import {PressAddReactionEvent} from '../types';
+import {PressAddReactionEvent, ContactContentAndExtras} from '../types';
 
 export function toVoteContent(
   ev: PressAddReactionEvent,
@@ -72,16 +71,31 @@ export function toReplyPostContent({
 
 export function toContactContent(
   contact: FeedId,
-  following: boolean | null,
-  blocking?: boolean | undefined,
-): Privatable<ContactContent> {
-  const output: ContactContent = {
+  {
+    following,
+    blocking,
+    name,
+    blurhash,
+  }: {
+    following: boolean | null;
+    blocking?: boolean;
+    name?: string;
+    blurhash?: string;
+  },
+): Privatable<ContactContentAndExtras> {
+  const output: ContactContentAndExtras = {
     type: 'contact',
     following: following as any,
     contact,
   };
+
   if (typeof blocking === 'boolean') {
     output.blocking = blocking;
+    if (name || blurhash) {
+      output.about = {};
+      if (name) output.about.name = name;
+      if (blurhash) output.about.blurhash = blurhash;
+    }
   }
   return output;
 }

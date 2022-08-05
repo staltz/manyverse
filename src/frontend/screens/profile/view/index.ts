@@ -13,6 +13,7 @@ import {
   Platform,
 } from 'react-native';
 const pull = require('pull-stream');
+import {isBlurhashValid} from 'blurhash';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   FloatingAction,
@@ -26,6 +27,7 @@ import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {getImg} from '~frontend/global-styles/utils';
 import Feed from '~frontend/components/Feed';
+import BlurhashAvatar from '~frontend/components/BlurhashAvatar';
 import EmptySection from '~frontend/components/EmptySection';
 import Avatar from '~frontend/components/Avatar';
 import TopBar from '~frontend/components/TopBar';
@@ -169,6 +171,19 @@ function ProfileAvatar({
     transform: [{translateX}, {translateY}, {scale}],
   };
 
+  if (
+    !state.about.imageUrl &&
+    state.snapshot.blurhash &&
+    isBlurhashValid(state.snapshot.blurhash).result
+  ) {
+    return h(Animated.View, {style: [styles.avatarTouchable, animStyle]}, [
+      h(BlurhashAvatar, {
+        blurhash: state.snapshot.blurhash,
+        size: AVATAR_SIZE,
+      }),
+    ]);
+  }
+
   return h(
     TouchableWithoutFeedback,
     {
@@ -211,6 +226,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         'lastSessionTimestamp',
         'preferredReactions',
         'about',
+        'snapshot',
         'following',
         'followers',
         'friendsInCommon',

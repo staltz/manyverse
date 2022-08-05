@@ -70,7 +70,7 @@ export function storage(sources: Sources): Sinks {
   const reducer$ = model(sources.props, sources.ssb);
   const vdom$ = view(state$, sources.ssb);
   const command$ = navigation(actionsPlus, sources.navigation, state$);
-  const req$ = ssb(actionsPlus, state$);
+  const req$ = ssb(actionsPlus, sources.ssb, state$);
 
   return {
     screen: vdom$,

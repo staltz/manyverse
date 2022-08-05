@@ -35,6 +35,8 @@ import {
   StorageStats,
   StorageUsedByFeed,
   CompactionProgress,
+  SnapshotAbout,
+  AboutSelf,
 } from '~frontend/ssb/types';
 import makeClient, {SSBClient} from '~frontend/ssb/client';
 import {imageToImageUrl} from '~frontend/ssb/utils/from-ssb';
@@ -291,31 +293,24 @@ export class SSBSource {
 
   public profileAbout$(id: FeedId): Stream<AboutAndExtras> {
     return this.ssb$
-      .map((ssb) =>
-        xsFromCallback<{image?: string; name?: string}>(
-          ssb.cachedAboutSelf.get,
-        )(id),
-      )
+      .map((ssb) => xsFromCallback<AboutSelf>(ssb.cachedAboutSelf.get)(id))
       .flatten()
-      .map((output) => ({
+      .map((profile) => ({
         id,
-        name: output.name,
-        imageUrl: imageToImageUrl(output.image),
+        ...profile,
+        imageUrl: imageToImageUrl(profile.image),
       }));
   }
 
   public profileAboutLive$(id: FeedId): Stream<AboutAndExtras> {
-    return this.fromPullStream<{
-      name?: string;
-      image?: string;
-      description?: string;
-    }>((ssb) => ssb.aboutSelf.stream(id)).map(
+    return this.fromPullStream<AboutSelf>((ssb) =>
+      ssb.aboutSelf.stream(id),
+    ).map(
       (profile) =>
         ({
           id,
-          name: profile.name,
+          ...profile,
           imageUrl: imageToImageUrl(profile.image),
-          description: profile.description,
         } as AboutAndExtras),
     );
   }
@@ -335,6 +330,12 @@ export class SSBSource {
   ): Stream<SSBFriendsQueryDetails> {
     return this.fromCallback<SSBFriendsQueryDetails>((ssb, cb) =>
       ssb.friends.isBlocking({source, dest, details: true}, cb),
+    );
+  }
+
+  public snapshotAbout$(id: FeedId): Stream<SnapshotAbout> {
+    return this.fromCallback<SnapshotAbout>((ssb, cb) =>
+      ssb.dbUtils.snapshotAbout(id, cb),
     );
   }
 
@@ -524,32 +525,40 @@ export class SSBSource {
       (ssb) => () =>
         pull(
           ssb.deweird.source(['storageUsed', 'stream']),
-          pull.asyncMap(([id, storageUsed]: Tuple, cb: CB) => {
-            const source = ssb.id;
-            const done = multicb({pluck: 1, spread: true});
-            ssb.cachedAboutSelf.get(id, done());
-            ssb.friends.isFollowing({source, dest: id}, done());
-            ssb.friends.isBlocking({source, dest: id}, done());
-            done(
-              (err: any, about: any, youFollow: boolean, youBlock: boolean) => {
-                if (err) {
-                  cb(err);
-                  return;
-                }
-                const name = about.name;
-                const imageUrl = imageToImageUrl(about.image);
-                cb(null, {
-                  name,
-                  imageUrl,
-                  id,
-                  storageUsed,
-                  youFollow,
-                  youBlock,
-                });
-              },
-            );
+          pull.asyncMap(([feedId, storageUsed]: Tuple, cb: CB) => {
+            const done = multicb({pluck: 1});
+            ssb.cachedAboutSelf.get(feedId, done());
+            ssb.dbUtils.snapshotAbout(feedId, done());
+            ssb.friends.isFollowing({source: ssb.id, dest: feedId}, done());
+            ssb.friends.isBlocking({source: ssb.id, dest: feedId}, done());
+            type Results = [AboutSelf, SnapshotAbout, boolean, boolean];
+            done((err: any, results: Results) => {
+              if (err) {
+                cb(err);
+                return;
+              }
+              const [about, snapshotAbout, youFollow, youBlock] = results;
+              const name = about.name ?? snapshotAbout.name;
+              const image = about.image;
+              const imageUrl = imageToImageUrl(image);
+              cb(null, {
+                feedId,
+                name,
+                image,
+                imageUrl,
+                storageUsed,
+                youFollow,
+                youBlock,
+              });
+            });
           }),
         ),
+    );
+  }
+
+  public generateBlurhash$(blobId: string): Stream<string | undefined> {
+    return this.fromCallback<string>((ssb, cb) =>
+      ssb.blobsBlurhash.generate(blobId, {width: 48}, cb),
     );
   }
 }

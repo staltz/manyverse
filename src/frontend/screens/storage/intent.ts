@@ -11,6 +11,7 @@ import {Palette} from '~frontend/global-styles/palette';
 import {t} from '~frontend/drivers/localization';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {blobsOptToStorage, blobsStorageOptions, State} from './model';
+import {PressBlockAccount} from '~frontend/ssb/types';
 
 export default function intent(
   screenSource: ReactSource,
@@ -52,8 +53,8 @@ export default function intent(
 
     manageAccount$: screenSource
       .select('list')
-      .events<FeedId>('pressAccountMore')
+      .events<PressBlockAccount>('pressAccountMore')
       .compose(sampleCombine(state$))
-      .map(([feedId, state]) => ({feedId, selfFeedId: state.selfFeedId})),
+      .map(([pressEvent, {selfFeedId}]) => ({...pressEvent, selfFeedId})),
   };
 }

@@ -32,6 +32,7 @@
     "sodium-chloride-native-nodejs-mobile": "1.5.0",
     "ssb-about-self": "1.0.1",
     "ssb-blobs": "1.2.2",
+    "ssb-blobs-blurhash": "0.0.3",
     "ssb-blobs-purge": "2.0.3",
     "ssb-bluetooth": "1.1.14",
     "ssb-caps": "1.1.0",

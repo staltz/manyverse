@@ -5,14 +5,14 @@
 import {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
-import {ContactContent as Contact, FeedId, Msg} from 'ssb-typescript';
+import {FeedId, Msg} from 'ssb-typescript';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import {displayName, inferContactEvent} from '~frontend/ssb/utils/from-ssb';
-import {ContactEvent} from '~frontend/ssb/types';
+import {ContactEvent, ContactContentAndExtras} from '~frontend/ssb/types';
 import Metadata from './Metadata';
 
 export const styles = StyleSheet.create({
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
 });
 
 export interface Props {
-  msg: Msg<Contact>;
+  msg: Msg<ContactContentAndExtras>;
   name?: string;
   contactName?: string;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
@@ -90,7 +90,10 @@ export default class ContactBody extends Component<Props> {
       return h(View, {key: 'c', style: styles.contact}, [h(Metadata, {msg})]);
     }
 
-    const target = displayName(contactName, msg.value.content.contact!);
+    const target = displayName(
+      contactName || msg.value.content.about?.name,
+      msg.value.content.contact!,
+    );
 
     const texts: [string, string, string, string, string] = pickFrom(
       contactEvent,

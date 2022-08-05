@@ -30,7 +30,7 @@ import {SSBSource} from '~frontend/drivers/ssb';
 import TopBar from '~frontend/components/TopBar';
 import {t} from '~frontend/drivers/localization';
 import AnimatedLoading from '~frontend/components/AnimatedLoading';
-import {StorageUsedByFeed} from '~frontend/ssb/types';
+import {PressBlockAccount, StorageUsedByFeed} from '~frontend/ssb/types';
 import Avatar from '~frontend/components/Avatar';
 import {blobsStorageOptions, State} from '../model';
 import StorageHeader from './StorageHeader';
@@ -188,7 +188,7 @@ interface ListItemProps extends StorageUsedByFeed {
   selfFeedId: FeedId;
   publishHook$: Stream<Msg>;
   onPress?: (ev: FeedId) => void;
-  onPressMore?: (ev: FeedId) => void;
+  onPressMore?: (ev: PressBlockAccount) => void;
 }
 
 class ListItem extends PureComponent<ListItemProps, ListItemState> {
@@ -202,7 +202,7 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
         next: (msg) => {
           if (
             isContactMsg(msg) &&
-            msg.value.content.contact === this.props.id
+            msg.value.content.contact === this.props.feedId
           ) {
             const contactEvent = inferContactEvent(msg);
             if (!contactEvent) return;
@@ -232,15 +232,15 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
   }
 
   private onPress = () => {
-    this.props.onPress?.(this.props.id);
+    this.props.onPress?.(this.props.feedId);
   };
 
   private onPressMore = () => {
-    this.props.onPressMore?.(this.props.id);
+    this.props.onPressMore?.(this.props);
   };
 
   public render() {
-    const {id, name, imageUrl, storageUsed, selfFeedId} = this.props;
+    const {feedId, name, imageUrl, storageUsed, selfFeedId} = this.props;
 
     const youFollow = this.state.youFollow ?? this.props.youFollow;
     const youBlock = this.state.youBlock ?? this.props.youBlock;
@@ -280,7 +280,7 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
         ellipsizeMode: 'middle',
         style: styles.authorName,
       },
-      displayName(name, id),
+      displayName(name, feedId),
     );
 
     let moreDetails: Array<ReactElement> = [];
@@ -312,7 +312,7 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
           t('profile.info.blocking'),
         ),
       ];
-    } else if (id === selfFeedId) {
+    } else if (feedId === selfFeedId) {
       moreDetails = [
         h(
           Text,
@@ -352,7 +352,7 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
         ]),
       ]),
 
-      id !== selfFeedId
+      feedId !== selfFeedId
         ? h(Touchable, touchableMoreProps, [
             h(View, {style: styles.rowMore, pointerEvents: 'box-only'}, [
               h(Icon, {
@@ -383,7 +383,7 @@ interface ListProps
   publishHook$: Stream<Msg>;
   localizedBlobsStorageOptions: Array<string>;
   onPressAccount?: (ev: FeedId) => void;
-  onPressAccountMore?: (ev: FeedId) => void;
+  onPressAccountMore?: (ev: PressBlockAccount) => void;
 }
 
 class List extends PureComponent<ListProps, {initialLoading: boolean}> {
@@ -411,7 +411,7 @@ class List extends PureComponent<ListProps, {initialLoading: boolean}> {
     this.setState({initialLoading: false});
   };
 
-  private keyExtractor = (item: StorageUsedByFeed) => item.id;
+  private keyExtractor = (item: StorageUsedByFeed) => item.feedId;
   private renderItem = ({item}: {item: StorageUsedByFeed}) =>
     h(ListItem, {
       ...item,

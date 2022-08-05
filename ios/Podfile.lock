@@ -214,6 +214,9 @@ PODS:
   - React-jsinspector (0.66.4)
   - React-logger (0.66.4):
     - glog
+  - react-native-blurhash (1.1.8):
+    - React-Core
+    - React-RCTImage
   - react-native-orientation-locker (1.4.0):
     - React-Core
   - react-native-slider (4.2.0):
@@ -346,6 +349,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-blurhash (from `../node_modules/react-native-blurhash`)
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -418,6 +422,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-blurhash:
+    :path: "../node_modules/react-native-blurhash"
   react-native-orientation-locker:
     :path: "../node_modules/react-native-orientation-locker"
   react-native-slider:
@@ -493,6 +499,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 94ce921e1d8ce7023366873ec371f3441383b396
   React-jsinspector: d0374f7509d407d2264168b6d0fad0b54e300b85
   React-logger: 933f80c97c633ee8965d609876848148e3fef438
+  react-native-blurhash: e881baa7802f369d84e45c5a66f77c1baba961bd
   react-native-orientation-locker: 2da91e5391971dace445495821c899c111dcad7a
   react-native-slider: bed9634065be39eee8d7a324cbc87eeab9de4591
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
@@ -521,6 +528,6 @@ SPEC CHECKSUMS:
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
 
-PODFILE CHECKSUM: b3fbeab563be94d478f759dd7703ba33fd6791c9
+PODFILE CHECKSUM: 69d5c1ac6f1d28cc1a3ff5e1ae8b27bad2e5d41a
 
 COCOAPODS: 1.11.0

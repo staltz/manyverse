@@ -49,6 +49,7 @@ export = {
     selfPublicReplies: 'source',
     selfPrivateRootIdsLive: 'source',
     friendsInCommon: 'async',
+    snapshotAbout: 'async',
   },
   permissions: {
     master: {
@@ -62,6 +63,7 @@ export = {
         'selfPublicReplies',
         'selfPrivateRootIdsLive',
         'friendsInCommon',
+        'snapshotAbout',
       ],
     },
   },
@@ -304,6 +306,36 @@ export = {
               },
             );
           },
+        );
+      },
+
+      snapshotAbout(feedId: FeedId, cb: Callback<any>) {
+        let returned = false;
+        pull(
+          ssb.db.query(
+            where(and(author(ssb.id), contact(feedId))),
+            descending(),
+            toPullStream(),
+          ),
+          pull.drain(
+            (msg: Msg<ContactContent & {about: unknown}>) => {
+              if (returned) return false;
+              if (msg.value.content.blocking && msg.value.content.about) {
+                returned = true;
+                cb(null, msg.value.content.about);
+                return false; // abort the drain
+              }
+            },
+            (err: any) => {
+              if (err && err !== true) {
+                console.error('error running ssb.dbUtils.snapshotAbout:', err);
+              }
+              if (!returned) {
+                returned = true;
+                cb(null, {});
+              }
+            },
+          ),
         );
       },
     };

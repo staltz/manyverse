@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: Unlicense
 
+ENV['SWIFT_VERSION'] = '5'
 platform :ios, '11.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 require_relative '../node_modules/react-native/scripts/react_native_pods'

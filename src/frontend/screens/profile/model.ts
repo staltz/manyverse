@@ -12,6 +12,7 @@ import {FeedId} from 'ssb-typescript';
 import {
   AboutAndExtras,
   Alias,
+  SnapshotAbout,
   SSBFriendsQueryDetails,
 } from '~frontend/ssb/types';
 import {SSBSource, GetReadable} from '~frontend/drivers/ssb';
@@ -25,6 +26,7 @@ export interface State {
   reason?: 'connection-attempt';
   displayFeedId: FeedId;
   about: AboutAndExtras;
+  snapshot: SnapshotAbout;
   aliases: Array<Alias>;
   following: Array<FeedId> | null;
   followers: Array<FeedId> | null;
@@ -73,6 +75,7 @@ export default function model(
             description: '',
             id: props.feedId,
           },
+          snapshot: {},
           aliases: [],
           following: null,
           followers: null,
@@ -136,14 +139,27 @@ export default function model(
         },
     );
 
-  const updateYouBlockReducer$ = xs
+  const youBlock$ = xs
     .merge(feedPair$, refreshRelationship$)
     .map((pair) => ssbSource.isBlocking$(pair.selfFeedId, pair.feedId))
+    .flatten();
+
+  const updateYouBlockReducer$ = youBlock$.map(
+    (youBlock) =>
+      function updateRelationshipReducer(prev: State): State {
+        return {...prev, youBlock};
+      },
+  );
+
+  const updateSnapshotReducer$ = youBlock$
+    .filter((youBlock) => youBlock.response === true)
+    .compose(sample(props$))
+    .map((props) => ssbSource.snapshotAbout$(props.feedId))
     .flatten()
     .map(
-      (youBlock) =>
-        function updateRelationshipReducer(prev: State): State {
-          return {...prev, youBlock};
+      (snapshot) =>
+        function updateSnapshotReducer(prev: State): State {
+          return {...prev, snapshot};
         },
     );
 
@@ -254,6 +270,7 @@ export default function model(
       updateFollowsYouReducer$,
       updateYouFollowReducer$,
       updateYouBlockReducer$,
+      updateSnapshotReducer$,
       updatePreferredReactionsReducer$,
       updateConnectionReducer$,
       updateFollowingReducer$,

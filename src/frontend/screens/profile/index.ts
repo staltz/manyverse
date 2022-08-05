@@ -89,7 +89,7 @@ export function profile(sources: Sources): Sinks {
 
   const vdom$ = view(state$, sources.ssb);
 
-  const newContent$ = ssb(actionsPlus, state$);
+  const newContent$ = ssb(actionsPlus, sources.ssb, state$);
 
   const command$ = navigation(
     actionsPlus,

@@ -30,6 +30,6 @@ export default function ProfileName({
       accessibilityRole: 'text',
       accessibilityLabel: t('profile.name.accessibility_label'),
     },
-    displayName(state.about.name, state.about.id),
+    displayName(state.about.name || state.snapshot.name, state.about.id),
   );
 }
