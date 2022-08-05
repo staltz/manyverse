@@ -736,6 +736,13 @@
       "title": "Friend request",
       "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
+    "dialog_about_storage_used": {
+      "title": "Storage used",
+      "description": {
+        "self": "Your content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by your blobs, such as images and audio messages.",
+        "others": "{{name}}'s content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by their blobs, such as images and audio messages."
+      }
+    },
     "toast": {
       "copied_to_clipboard": "Skopírované"
     },
@@ -749,13 +756,15 @@
       "counters": {
         "following": "Following",
         "followers": "Followers",
-        "friends_in_common": "Friends in common with you"
+        "friends_in_common": "Friends in common with you",
+        "storage_used": "Occupies {{megabytes}}"
       }
     },
     "info": {
       "follows_you": "Follows you",
       "blocks_you": "Blocks you",
-      "following": "Following"
+      "following": "Following",
+      "blocking": "Blocking"
     },
     "picture": {
       "accessibility_label": "Obrázok Profilu"
@@ -1030,6 +1039,10 @@
         "subtitle": "Automatically delete old images and blobs until they occupy at most this amount of storage on your device",
         "unlimited": "Neobmedzene",
         "accessibility_label": "Storage limit slider"
+      },
+      "storage_usage": {
+        "title": "Storage usage",
+        "accessibility_label": "Open screen about storage usage"
       }
     },
     "troubleshooting": {
@@ -1041,6 +1054,14 @@
       "detailed_logs": {
         "title": "Enable detailed logs",
         "accessibility_label": "Toggle detailed developer logs"
+      },
+      "force_reindex": {
+        "title": "Force reindex",
+        "accessibility_label": "Force indexes to rebuild",
+        "confirm": {
+          "title": "Rebuild indexes?",
+          "description": "This will reset database indexes and rebuild them, which is a last resort solution in case your database seems to behave oddly. Reindexing may take several minutes.\n\nAre you sure you want to do this?"
+        }
       }
     },
     "more_information": {
@@ -1064,6 +1085,49 @@
         "description": "This setting will only enter into effect when you kill the app and restart Manyverse."
       }
     }
+  },
+  "storage": {
+    "title": "Storage",
+    "chart": {
+      "total": {
+        "1_normal": "Manyverse uses a total of ",
+        "3_normal": " on your device"
+      },
+      "legend": {
+        "trash": "Trash ({{megabytes}})",
+        "content": "Content ({{megabytes}})",
+        "indexes": "Indexes ({{megabytes}})",
+        "blobs": "Blobs ({{megabytes}})"
+      }
+    },
+    "trash": {
+      "title": "Trash",
+      "description": "The trash bin is made of blocked accounts. Compact your database to empty the trash bin.",
+      "compact": {
+        "label": "Compact",
+        "accessibility_label": "Compact your database"
+      }
+    },
+    "dialogs": {
+      "confirm_compact": {
+        "title": "Compact database?",
+        "description": "This action will remove the trash and rebuild database indexes. It typically lasts 2 minutes, and you must keep the app open without browsing content, waiting for it to complete.\n\nDo you want to continue?"
+      }
+    },
+    "accounts": {
+      "title": "Accounts",
+      "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
+      "this_is_you": "This is you",
+      "open_profile": {
+        "accessibility_label": "Open Profile"
+      },
+      "options_profile": {
+        "accessibility_label": "More options for this profile"
+      }
+    }
+  },
+  "compact": {
+    "title": "Compacting your\nManyverse database..."
   },
   "resync": {
     "introduction": {

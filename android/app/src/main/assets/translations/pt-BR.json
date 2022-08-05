@@ -248,7 +248,7 @@
       "title": "Destinatários"
     },
     "friends_in_common": {
-      "title": "Friends in common"
+      "title": "Amigos em comum"
     },
     "call_to_action": {
       "open_account": {
@@ -736,6 +736,13 @@
       "title": "Solicitação de amizade",
       "description": "Esta conta está tentando se conectar com você, mas o Manyverse a impediu porque está fora da sua comunidade.\n\nSe você reconhece este ID, você pode pressionar \"Seguir\" para permitir que eles se conectem com você."
     },
+    "dialog_about_storage_used": {
+      "title": "Espaço usado",
+      "description": {
+        "self": "O seu conteúdo (e índices relacionados) no momento ocupa {{megabytes}} de espaço no seu dispositivo.\n\nEste número não inclui espaço ocupado por imagens e mensagens de áudio.",
+        "others": "O conteúdo do/da {{name}} (e índices relacionados) no momento ocupa {{megabytes}} de espaço no seu dispositivo.\n\nEste número não inclui espaço ocupado por imagens e mensagens de áudio."
+      }
+    },
     "toast": {
       "copied_to_clipboard": "Copiado para o clipboard"
     },
@@ -749,13 +756,15 @@
       "counters": {
         "following": "Seguindo",
         "followers": "Seguidores",
-        "friends_in_common": "Friends in common with you"
+        "friends_in_common": "Amigos em comum com você",
+        "storage_used": "Ocupa {{megabytes}}"
       }
     },
     "info": {
       "follows_you": "Segue você",
       "blocks_you": "Bloqueia você",
-      "following": "Seguindo"
+      "following": "Seguindo",
+      "blocking": "Bloqueando"
     },
     "picture": {
       "accessibility_label": "Foto do Perfil"
@@ -1030,6 +1039,10 @@
         "subtitle": "Apagar automaticamente imagens e blobs antigos até que ocupem, no máximo, essa quantidade de armazenamento no seu dispositivo",
         "unlimited": "Ilimitado",
         "accessibility_label": "Controle de limite de armazenamento"
+      },
+      "storage_usage": {
+        "title": "Espaço usado",
+        "accessibility_label": "Abrir tela sobre o uso do armazenamento"
       }
     },
     "troubleshooting": {
@@ -1041,6 +1054,14 @@
       "detailed_logs": {
         "title": "Habilitar registros detalhados",
         "accessibility_label": "Exibir/ocultar registros detalhados do desenvolvedor"
+      },
+      "force_reindex": {
+        "title": "Forçar reindexação",
+        "accessibility_label": "Forçar a reconstrução dos índices",
+        "confirm": {
+          "title": "Reconstruir índices?",
+          "description": "Essa operação vai reconstruir os índices do início, o que é uma última solução caso o seu banco de dados esteja comportando de forma estranha. Reindexação pode levar vários minutos.\n\nTem certeza que quer prosseguir?"
+        }
       }
     },
     "more_information": {
@@ -1064,6 +1085,49 @@
         "description": "Esta configuração só entrará em vigor quando você reiniciar o Manyverse."
       }
     }
+  },
+  "storage": {
+    "title": "Espaço",
+    "chart": {
+      "total": {
+        "1_normal": "Manyverse usa um total de ",
+        "3_normal": " no seu dispositivo"
+      },
+      "legend": {
+        "trash": "Lixeira ({{megabytes}})",
+        "content": "Conteúdo ({{megabytes}})",
+        "indexes": "Índices ({{megabytes}})",
+        "blobs": "Blobs ({{megabytes}})"
+      }
+    },
+    "trash": {
+      "title": "Lixeira",
+      "description": "A lixeira é feita de contas bloqueadas. Compacte seu banco de dados para esvaziar a lixeira.",
+      "compact": {
+        "label": "Compactar",
+        "accessibility_label": "Compactar seu banco de dados"
+      }
+    },
+    "dialogs": {
+      "confirm_compact": {
+        "title": "Compactar banco de dados?",
+        "description": "Esta ação irá remover o lixo e reconstruir os índices de banco de dados. Normalmente dura 2 minutos, e você deve manter o aplicativo aberto sem navegar conteúdo, aguardando a sua conclusão.\n\nVocê quer continuar?"
+      }
+    },
+    "accounts": {
+      "title": "Contas",
+      "description": "Cada conta que você vê no seu Manyverse ocupa um certo espaço no seu dispositivo. Para liberar espaço, você pode bloquear contas que você não quer ver mais.",
+      "this_is_you": "É você",
+      "open_profile": {
+        "accessibility_label": "Abrir perfil"
+      },
+      "options_profile": {
+        "accessibility_label": "Mais opções para este perfil"
+      }
+    }
+  },
+  "compact": {
+    "title": "Compactando seu\nbanco de dados..."
   },
   "resync": {
     "introduction": {
