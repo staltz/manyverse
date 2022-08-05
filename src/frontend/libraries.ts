@@ -110,13 +110,6 @@ export default [
     type: 'image',
   },
   {
-    name: '@alloc/quick-lru',
-    type: 'library',
-    version: '5.2.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/sindresorhus/quick-lru#readme',
-  },
-  {
     name: '@cycle/http',
     type: 'library',
     version: '15.4.0',
@@ -228,6 +221,13 @@ export default [
     version: '4.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/websockets/bufferutil',
+  },
+  {
+    name: 'byte-size',
+    type: 'library',
+    version: '8.1.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/75lb/byte-size#readme',
   },
   {
     name: 'chloride',
@@ -375,6 +375,13 @@ export default [
     version: '1.0.4',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/isaacs/node-mkdirp#readme',
+  },
+  {
+    name: 'multicb',
+    type: 'library',
+    version: '1.2.2',
+    license: 'unknown (?)',
+    homepage: 'https://github.com/pfrazee/multicb#readme',
   },
   {
     name: 'multiserver-electron-ipc',
@@ -795,7 +802,7 @@ export default [
   {
     name: 'ssb-conn-firewall',
     type: 'library',
-    version: '1.1.3',
+    version: '1.1.4',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn-firewall',
   },
@@ -809,7 +816,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '4.1.8',
+    version: '4.2.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -830,9 +837,16 @@ export default [
   {
     name: 'ssb-friends',
     type: 'library',
-    version: '5.1.5',
+    version: '5.1.6',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-friends',
+  },
+  {
+    name: 'ssb-friends-purge',
+    type: 'library',
+    version: '1.0.0',
+    license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
+    homepage: 'https://github.com/ssb-ngi-pointer/ssb-friends-purge#readme',
   },
   {
     name: 'ssb-http-auth-client',
@@ -924,6 +938,13 @@ export default [
     version: '3.1.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-serve-blobs',
+  },
+  {
+    name: 'ssb-storage-used',
+    type: 'library',
+    version: '3.0.1',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/achou11/ssb-storage-used#readme',
   },
   {
     name: 'ssb-suggest-lite',

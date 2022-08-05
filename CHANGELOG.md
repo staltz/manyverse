@@ -2,6 +2,16 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2208.5-beta
+
+* Feature: add private chat recipient by SSB ID ([see details](https://gitlab.com/staltz/manyverse/commit/dd59322360a087208a69510318bc9b7d12be8a0c))
+* Feature: compact database to save space ([see details](https://gitlab.com/staltz/manyverse/commit/4aa610c346fc5d935b66cbc72e4d0e56d0256979))
+* Feature: new setting to force reindexing ([see details](https://gitlab.com/staltz/manyverse/commit/36c8d72f8aa63655ff532dae9de7de2d0765e14b))
+* Feature: new Storage Usage screen ([see details](https://gitlab.com/staltz/manyverse/commit/eab6a3dfcbf422d22b90dd5bea6138a4e13a604b))
+* Feature: Profile screen shows megabytes occupied ([see details](https://gitlab.com/staltz/manyverse/commit/ee13023af67826a9ad5fa607e9246ec195877d8e))
+* Feature: show friends in common on the Profile ([see details](https://gitlab.com/staltz/manyverse/commit/eb135ba6400311be9f3465dfc48d8c4bc5c73c9f))
+* Improve German and Brazilian Portuguese translations ([see details](https://gitlab.com/staltz/manyverse/commit/0fdb0e38ede4246759b8b5bd1f7755be705ec5a1))
+
 ## 0.2207.5-beta
 
 * (Desktop) Bug fix: some quirks with the migration screen ([see details](https://gitlab.com/staltz/manyverse/commit/17fd58716466b7f0c28cb3d9b328020c69167e71))
