@@ -737,10 +737,10 @@
       "description": "Dieser Nutzer versucht, sich mit dir zu verbinden. Manyverse hat dies verhindert, da er sich außerhalb deiner Gemeinschaft befindet.\n\nWenn du diese ID erkennst, kannst du \"Folgen\" drücken, um trotzdem eine Verbindung herzustellen."
     },
     "dialog_about_storage_used": {
-      "title": "Storage used",
+      "title": "Verwendeter Speicher",
       "description": {
-        "self": "Your content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by your blobs, such as images and audio messages.",
-        "others": "{{name}}'s content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by their blobs, such as images and audio messages."
+        "self": "Deine Inhalte (und verwandte Indexe) belegen derzeit {{megabytes}} des Speichers auf deinem Gerät.\n\nDiese Nummer enthält keinen Speicher, der von deinen Blobs belegt ist, wie z. B. Bilder und Audio-Nachrichten.",
+        "others": "Der Inhalt von {{name}}(und die dazugehörigen Indexe) belegen derzeit {{megabytes}} des Speichers auf deinem Gerät.\n\nDiese Nummer enthält keinen Speicher, der von ihren Blobs belegt wird, wie z. B. Bilder und Audio-Nachrichten."
       }
     },
     "toast": {
@@ -757,14 +757,14 @@
         "following": "Folge ich",
         "followers": "Follower",
         "friends_in_common": "Gemeinsame Freunde mit dir",
-        "storage_used": "Occupies {{megabytes}}"
+        "storage_used": "Belegt {{megabytes}}"
       }
     },
     "info": {
       "follows_you": "Folgt Dir",
       "blocks_you": "Blockiert Dich",
       "following": "Folge ich",
-      "blocking": "Blocking"
+      "blocking": "Blockiert"
     },
     "picture": {
       "accessibility_label": "Profilbild"
@@ -1041,8 +1041,8 @@
         "accessibility_label": "Speicherlimit einstellen"
       },
       "storage_usage": {
-        "title": "Storage usage",
-        "accessibility_label": "Open screen about storage usage"
+        "title": "Verwendeter Speicher",
+        "accessibility_label": "Bildschirm zur Speichernutzung öffnen"
       }
     },
     "troubleshooting": {
@@ -1056,11 +1056,11 @@
         "accessibility_label": "Detaillierte Entwicklerprotokolle ein-/ausschalten"
       },
       "force_reindex": {
-        "title": "Force reindex",
-        "accessibility_label": "Force indexes to rebuild",
+        "title": "Erzwinge Neuindizierung",
+        "accessibility_label": "Erzwinge Indizes zum Neuaufbau",
         "confirm": {
-          "title": "Rebuild indexes?",
-          "description": "This will reset database indexes and rebuild them, which is a last resort solution in case your database seems to behave oddly. Reindexing may take several minutes.\n\nAre you sure you want to do this?"
+          "title": "Indizes neu erstellen?",
+          "description": "Dies wird Datenbank-Indizes zurücksetzen und neu aufbauen, was eine letzte Lösung für den Fall ist, dass sich deine Datenbank merkwürdig verhält. Das Reindexieren kann einige Minuten dauern.\n\nBist du sicher, dass du dies tun möchtest?"
         }
       }
     },
@@ -1087,47 +1087,47 @@
     }
   },
   "storage": {
-    "title": "Storage",
+    "title": "Speicherplatz",
     "chart": {
       "total": {
-        "1_normal": "Manyverse uses a total of ",
-        "3_normal": " on your device"
+        "1_normal": "Manyverse verwendet insgesamt ",
+        "3_normal": " auf deinem Gerät"
       },
       "legend": {
-        "trash": "Trash ({{megabytes}})",
-        "content": "Content ({{megabytes}})",
-        "indexes": "Indexes ({{megabytes}})",
+        "trash": "Papierkorb ({{megabytes}})",
+        "content": "Inhalt ({{megabytes}})",
+        "indexes": "Indizes ({{megabytes}})",
         "blobs": "Blobs ({{megabytes}})"
       }
     },
     "trash": {
-      "title": "Trash",
-      "description": "The trash bin is made of blocked accounts. Compact your database to empty the trash bin.",
+      "title": "Papierkorb",
+      "description": "Der Papierkorb besteht aus gesperrten Konten. Komprimiere deine Datenbank, um den Papierkorb zu leeren.",
       "compact": {
-        "label": "Compact",
-        "accessibility_label": "Compact your database"
+        "label": "Komprimieren",
+        "accessibility_label": "Komprimiere deine Datenbank"
       }
     },
     "dialogs": {
       "confirm_compact": {
-        "title": "Compact database?",
-        "description": "This action will remove the trash and rebuild database indexes. It typically lasts 2 minutes, and you must keep the app open without browsing content, waiting for it to complete.\n\nDo you want to continue?"
+        "title": "Datenbank komprimieren?",
+        "description": "Diese Aktion wird den Papierkorb leeren und Datenbankindizes neu erstellen. Es dauert in der Regel 2 Minuten, und du musst die App offen halten, ohne Inhalte zu durchsuchen, warte bis es fertig ist.\n\nMöchtest du fortfahren?"
       }
     },
     "accounts": {
-      "title": "Accounts",
-      "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
-      "this_is_you": "This is you",
+      "title": "Konten",
+      "description": "Jedes Konto, das du auf deinem Manyverse siehst, belegt eine gewisse Menge Speicherplatz auf deinem Gerät. Um Speicherplatz freizugeben, kannst du Konten blockieren, die du nicht mehr sehen möchtest.",
+      "this_is_you": "Das bist du",
       "open_profile": {
-        "accessibility_label": "Open Profile"
+        "accessibility_label": "Profil öffnen"
       },
       "options_profile": {
-        "accessibility_label": "More options for this profile"
+        "accessibility_label": "Weitere Optionen für dieses Profil"
       }
     }
   },
   "compact": {
-    "title": "Compacting your\nManyverse database..."
+    "title": "Komprimiere deine\nManyverse-Datenbank..."
   },
   "resync": {
     "introduction": {

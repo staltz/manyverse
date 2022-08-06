@@ -164,23 +164,23 @@
         },
         "migrate": {
           "label": "Migration depuis ~/.ssb",
-          "accessibility_label": "Migrate account from the shared SSB directory"
+          "accessibility_label": "Transférer le compte depuis le répertoire SSB partagé"
         }
       }
     },
     "dialogs": {
       "migrate": {
-        "title": "Migrate your SSB account to Manyverse",
-        "description": "Manyverse detected an existing SSB account at the common `~/.ssb` directory. If you wish, you can migrate that account to a whole new directory that only Manyverse can access.\n\nOnce migration finishes, **you will NOT be able to use your account with other SSB apps such as Patchwork anymore**, and '.ssb' will be **deleted**, but you can still use those apps with new accounts.\n\nDo you confirm you want to migrate your account from '.ssb' to Manyverse? **This action cannot be undone.**"
+        "title": "Transférer votre compte SSB vers Manyverse",
+        "description": "Manyverse a détecté un compte SSB existant dans le répertoire commun `~/.ssb`. Si vous le souhaitez, celui-ci peut être déplacé vers un nouveau répertoire dont seul Manyverse aura l’accès.\n\nUne fois terminé, ** vous NE POURREZ PLUS utiliser votre compte avec d’autres applications SSB telle que Patchwork**, et `.ssb` sera *supprimé*, mais vous pourrez toujours utiliser ces applications à l’aide de nouveaux comptes.\n\nConfirmez-vous vouloir transférer votre compte depuis `.ssb` vers Manyverse ? **Cette action est définitive.**"
       },
       "link_failed": {
-        "title": "Account not ready",
-        "description": "You tried to open an SSB link, but your account is not ready yet. Please complete the setup process first, and then try the link again."
+        "title": "Le compte n’est pas prêt",
+        "description": "Vous avez tenté voulu ouvrir un lien SSB, mais votre compte n’est pas encore prêt. Veuillez terminer le processus d’installation, puis réessayez."
       }
     }
   },
   "migrating": {
-    "label": "Migrating..."
+    "label": "Migration en cours…"
   },
   "central": {
     "app_name": "Manyverse",
@@ -188,7 +188,7 @@
       "public": "Affichage public",
       "private": "Messages privés",
       "activity": "Activités",
-      "connections": "Connected peers"
+      "connections": "Pairs connectés"
     },
     "tab_footers": {
       "public": "Public",
@@ -242,13 +242,13 @@
       "title": "Réponses"
     },
     "gathering_attendees": {
-      "title": "Attendees"
+      "title": "Personnes"
     },
     "recipients": {
       "title": "Destinataires"
     },
     "friends_in_common": {
-      "title": "Friends in common"
+      "title": "Ami(e)s en commun"
     },
     "call_to_action": {
       "open_account": {
@@ -284,14 +284,14 @@
     }
   },
   "connections": {
-    "title": "Connections Panel",
+    "title": "Tableau de connexions",
     "floating_action_button": {
-      "add_connection": "Add a connection",
+      "add_connection": "Ajouter une connexion",
       "create_invite": "Créer une invitation",
       "paste_invite": "Coller une invitation",
       "bluetooth_seek": "Recherche Bluetooth"
     },
-    "open_connections_panel": "Open Connections Panel",
+    "open_connections_panel": "Ouvrir le tableau de connexions",
     "empty": {
       "offline": {
         "title": "Hors-ligne",
@@ -309,33 +309,33 @@
     "scenarios": {
       "offline": "Hors-ligne",
       "not_connected": "Non connecté",
-      "few_connections": "Too few connections",
-      "many_connections": "Well connected"
+      "few_connections": "Pas assez de connexions",
+      "many_connections": "Connexion établie"
     },
     "scenario_descriptions": {
       "offline_with_content": "Vous ne pouvez pas vous connecter aux pairs pour le moment, mais vous pouvez profiter de certains contenus que vous possédez déjà.",
       "offline_without_content": "Vous ne pouvez pas vous connecter à des pairs pour le moment. Essayez de vous connecter à Internet ou d’activer le Wi-Fi pour découvrir des pairs à proximité.",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
-      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
-      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+      "knows_no_one": "Votre Manyverse est actuellement isolé. Vos pairs doivent vous inviter pour rejoindre des serveurs, vous pouvez également héberger vos propres serveurs.",
+      "nearby_strangers_available": "Des pairs sont sur le même réseau Wi-Fi. Essayez de vous connecter manuellement si vous pensez qu’ils souhaitent établir une connexion.",
+      "empty_rooms": "Vous être membre de plusieurs salons, mais aucun de vos proches ne sont en actuellement ligne. Essayez de vous connecter manuellement à une personne inconnue dans le salon, ou procurez-vous un code d’invitation vers d’autres serveurs.",
+      "connected_poorly": "Vous disposez d’une connexion à un autre pair. C’est bien, mais d’autres pairs pouraient améliorer le partage des données. Essayez d’attendre plus longtemps ou d’obtenir un code d’invitation vers d’autres serveurs.",
+      "connected_well": "Vous disposez de connexion à de nombreux pairs, fantastique ! Vous partagez leurs données et ils partagent les vôtres."
     },
     "recommendations": {
-      "consume_invite": "How to get an invite",
-      "follow_staged_manually": "Follow someone new",
+      "consume_invite": "Comment obtenir une invitation",
+      "follow_staged_manually": "Suivre une nouvelle personne",
       "paste_invite": "Collez le code d’invitation",
       "host_ssb_room": "Comment héberger un serveur de salons",
       "others": "Autres choix"
     },
     "recommendation_descriptions": {
-      "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
+      "consume_invite": "Ce réseau social est basé sur des invitations afin de le garder convivial et à l’abri du spam. Si vous n’avez pas encore reçu d’invitation vous pouvez explorer le web et trouver un serveur distribuant des invitations.\n\nCherchez les mots clés « Serveur SSB ». Le mot croisillon #ssbroom peut également aider.",
       "follow_staged_manually": {
         "part1": {
-          "not_connected": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",
-          "connected": "If you want to get more content beyond what you already have, you can follow more people. There are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them."
+          "not_connected": "Vos pairs ne sont pas en ligne pour l’instant, pour plus de contenu, pourquoi ne pas essayer de contacter les pairs inconnus présents dans différents salons ?",
+          "connected": "Pour plus de contenu, suivez plus de personnes. Des pairs inconnus sont dans les salons que vous fréquentez, pourquoi ne pas essayer de prendre contact ?"
         },
-        "part2": "On the next screen, you will see unknown peers displayed like this. Press one of them and choose \"Open Profile\", then \"Follow\"."
+        "part2": "Sur l'écran suivant, vous verrez des pairs inconnus s'afficher de la sorte. Sélectionnez l'un d'eux et choisissez « Ouvrir le profil », puis « Suivre »."
       }
     },
     "toasts": {
@@ -624,7 +624,7 @@
         "accessibility_label": "Voir les destinataires"
       }
     },
-    "load_more": "Load more",
+    "load_more": "Charger plus",
     "notifications": {
       "new_conversation": "Ceci est une nouvelle conversation privée"
     }
@@ -664,7 +664,7 @@
         "accessibility_label": "Afficher plus d'éléments de menu"
       },
       "update": {
-        "label": "Update",
+        "label": "Mise à jour",
         "accessibility_label": "Mettre à jour l’application vers la dernière version"
       },
       "settings": {
@@ -681,7 +681,7 @@
     "dialogs": {
       "update": {
         "title": "Vérifier les nouvelles versions ?",
-        "description": "Would you like Manyverse to automatically check for new releases?\n\nThis setting is optional and will allow Manyverse to send requests to the manyver.se website periodically."
+        "description": "Souhaitez-vous que Manyverse vérifie automatiquement les nouvelles versions ?\n\nCette option est facultative et permet à Manyverse d’envoyer des requêtes régulières au site manyver.se."
       }
     }
   },
@@ -710,7 +710,7 @@
   },
   "profile": {
     "call_to_action": {
-      "copy_uri": "Copy SSB URI",
+      "copy_uri": "Copier l’URI SSB",
       "copy_cypherlink": "Copier le lien de chiffrement",
       "private_chat": "Ouvrir une conversation privée",
       "block": "Bloquer",
@@ -737,10 +737,10 @@
       "description": "Ce compte essaie de se connecter avec vous, mais Manyverse l'a empêché parce qu'il est en dehors de votre communauté.\n\nSi vous reconnaissez cet identifiant, vous pouvez appuyer sur « Suivre » pour lui permettre de se connecter avec vous."
     },
     "dialog_about_storage_used": {
-      "title": "Storage used",
+      "title": "Espace de stockage utilisé",
       "description": {
-        "self": "Your content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by your blobs, such as images and audio messages.",
-        "others": "{{name}}'s content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by their blobs, such as images and audio messages."
+        "self": "Votre contenu (et les index associés) occupe {{megabytes}} de stockage sur votre appareil pour le moment.\n\nCe nombre n'inclut pas le stockage occupé par vos blobs, tels que les images et les messages audio.",
+        "others": "Le contenu de {{name}} (et les index associés) occupe {{megabytes}} d'espace de stockage sur votre appareil pour le moment.\n\nCe nombre n'inclut pas le stockage occupé par les blobs, tels que les images et les messages audio."
       }
     },
     "toast": {
@@ -756,15 +756,15 @@
       "counters": {
         "following": "Abonné",
         "followers": "Abonnés",
-        "friends_in_common": "Friends in common with you",
-        "storage_used": "Occupies {{megabytes}}"
+        "friends_in_common": "Contacts en commun",
+        "storage_used": "Occupe {{megabytes}}"
       }
     },
     "info": {
       "follows_you": "Vous suit",
       "blocks_you": "Vous bloque",
       "following": "Abonné",
-      "blocking": "Blocking"
+      "blocking": "Blocage en cours"
     },
     "picture": {
       "accessibility_label": "Photo de profil"
@@ -1022,9 +1022,9 @@
         "accessibility_label": "Curseur de sauts de réplication"
       },
       "enable_firewall": {
-        "title": "Enable firewall",
-        "subtitle": "Prevent strangers from creating network connections with me",
-        "accessibility_label": "Toggle enable firewall"
+        "title": "Activer le pare-feu",
+        "subtitle": "Empêcher les connexions avec des personnes inconnues",
+        "accessibility_label": "Activer le pare-feu"
       }
     },
     "data_and_storage": {
@@ -1041,8 +1041,8 @@
         "accessibility_label": "Curseur de limite de stockage"
       },
       "storage_usage": {
-        "title": "Storage usage",
-        "accessibility_label": "Open screen about storage usage"
+        "title": "Espace de stockage utilisé",
+        "accessibility_label": "Ouvrir l'écran sur l'utilisation du stockage"
       }
     },
     "troubleshooting": {
@@ -1056,11 +1056,11 @@
         "accessibility_label": "Activer/désactiver les journaux détaillés pour les développeurs"
       },
       "force_reindex": {
-        "title": "Force reindex",
-        "accessibility_label": "Force indexes to rebuild",
+        "title": "Forcer la réindexation",
+        "accessibility_label": "Forcer la reconstruction des index",
         "confirm": {
-          "title": "Rebuild indexes?",
-          "description": "This will reset database indexes and rebuild them, which is a last resort solution in case your database seems to behave oddly. Reindexing may take several minutes.\n\nAre you sure you want to do this?"
+          "title": "Reconstruire les index ?",
+          "description": "Cela réinitialisera les index de la base de données et les reconstruira, ce qui est une solution de dernier recours si votre base de données semble se comporter bizarrement. La réindexation peut prendre plusieurs minutes.\n\nConfirmez-vous cette action ?"
         }
       }
     },
@@ -1087,16 +1087,16 @@
     }
   },
   "storage": {
-    "title": "Storage",
+    "title": "Stockage",
     "chart": {
       "total": {
-        "1_normal": "Manyverse uses a total of ",
-        "3_normal": " on your device"
+        "1_normal": "Manyverse utilise un total de ",
+        "3_normal": " sur votre appareil"
       },
       "legend": {
-        "trash": "Trash ({{megabytes}})",
-        "content": "Content ({{megabytes}})",
-        "indexes": "Indexes ({{megabytes}})",
+        "trash": "Corbeille ({{megabytes}})",
+        "content": "Contenu ({{megabytes}})",
+        "indexes": "Index ({{megabytes}})",
         "blobs": "Blobs ({{megabytes}})"
       }
     },
