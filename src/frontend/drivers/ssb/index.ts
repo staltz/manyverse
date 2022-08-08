@@ -159,7 +159,15 @@ export class SSBSource {
 
     this.compactionProgress$ = this.fromPullStream<CompactionProgress>((ssb) =>
       ssb.db.compactionProgress(),
-    );
+    ).remember();
+
+    // This is necessary to listen to the pull-stream as soon as possible and
+    // remembering results, because even though xstream has the "remember"
+    // functionality, pull-stream does NOT have "remembering" in the backend,
+    // so we can't afford to miss events.
+    //
+    // The subscription here is harmless, we never need to unsubscribe from it.
+    this.compactionProgress$.subscribe({next: () => {}});
 
     this.acceptInviteResponse$ = xs.create<true | string>();
     this.consumeAliasResponse$ = xs.create<FeedId>();
