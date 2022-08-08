@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Platform} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {isIPhoneWithMonobrow} from 'react-native-status-bar-height';
 
 const desktopSideWidthFlex = 1;
@@ -10,9 +10,9 @@ const desktopMiddleWidthFlex = 3;
 const desktopWidthFlexTotal = desktopMiddleWidthFlex + 2 * desktopSideWidthFlex;
 
 export const Dimensions = {
-  horizontalSpaceLarge: 26,
+  horizontalSpaceLarge: 22 - StyleSheet.hairlineWidth,
   horizontalSpaceBig: 16,
-  horizontalSpaceNormal: 12,
+  horizontalSpaceNormal: 11,
   horizontalSpaceSmall: 7,
   horizontalSpaceTiny: 4,
 
