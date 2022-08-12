@@ -69,34 +69,36 @@ export function toReplyPostContent({
   return content;
 }
 
+type ContactOpts =
+  | {following: boolean; blocking?: never; name?: string; blurhash?: string}
+  | {following?: never; blocking: boolean; name?: string; blurhash?: string};
+
 export function toContactContent(
   contact: FeedId,
-  {
-    following,
-    blocking,
-    name,
-    blurhash,
-  }: {
-    following: boolean | null;
-    blocking?: boolean;
-    name?: string;
-    blurhash?: string;
-  },
+  {following, blocking, name, blurhash}: ContactOpts,
 ): Privatable<ContactContentAndExtras> {
   const output: ContactContentAndExtras = {
     type: 'contact',
-    following: following as any,
     contact,
   };
 
-  if (typeof blocking === 'boolean') {
+  if (typeof following === 'boolean' && typeof blocking === 'boolean') {
+    throw new Error('Cannot have both following and blocking');
+  }
+
+  if (typeof following === 'boolean') {
+    output.following = following;
+  } else if (typeof blocking === 'boolean') {
     output.blocking = blocking;
     if (name || blurhash) {
       output.about = {};
       if (name) output.about.name = name;
       if (blurhash) output.about.blurhash = blurhash;
     }
+  } else {
+    throw new Error('Invalid contact options');
   }
+
   return output;
 }
 

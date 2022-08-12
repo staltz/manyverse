@@ -50,7 +50,6 @@ export default function ssb(
     .flatten()
     .map(([{feedId, name}, blurhash]) =>
       toContactContent(feedId, {
-        following: null,
         blocking: true,
         name,
         blurhash,
@@ -63,7 +62,6 @@ export default function ssb(
     .compose(sampleCombine(state$))
     .map(([[{feedId, name}, blurhash], state]) => {
       const content = toContactContent(feedId, {
-        following: null,
         blocking: true,
         name,
         blurhash,
@@ -73,16 +71,13 @@ export default function ssb(
     });
 
   const unblockContactMsg$ = actions.unblockContact$.map((feedId) =>
-    toContactContent(feedId, {following: null, blocking: false}),
+    toContactContent(feedId, {blocking: false}),
   );
 
   const unblockSecretelyContactMsg$ = actions.unblockSecretlyContact$
     .compose(sampleCombine(state$))
     .map(([feedId, state]) => {
-      const content = toContactContent(feedId, {
-        following: null,
-        blocking: false,
-      });
+      const content = toContactContent(feedId, {blocking: false});
       content.recps = [state.selfFeedId];
       return content;
     });

@@ -48,16 +48,16 @@ export function voteExpressionToReaction(expression: string) {
 export function inferContactEvent(
   msg: Msg<ContactContent>,
 ): ContactEvent | null {
+  const content = msg.value.content;
   // we're not sure what .flagged means
-  const msgBlocking =
-    (msg.value.content as any).flagged || msg.value.content.blocking;
-  const msgFollowing = msg.value.content.following;
+  const msgBlocking = (content as any).flagged || content.blocking;
+  const msgFollowing = content.following;
 
   // The contact msg is nonstandard or invalid
   if (
     (msgBlocking === undefined && msgFollowing === undefined) ||
     (msgBlocking === true && msgFollowing === true) ||
-    !Ref.isFeedId(msg.value.content.contact)
+    !Ref.isFeedId(content.contact)
   ) {
     return null;
   }
