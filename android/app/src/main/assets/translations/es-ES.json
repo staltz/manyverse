@@ -248,7 +248,7 @@
       "title": "Destinatarios"
     },
     "friends_in_common": {
-      "title": "Friends in common"
+      "title": "Amigos en común"
     },
     "call_to_action": {
       "open_account": {
@@ -737,7 +737,7 @@
       "description": "Esta cuenta intenta conectarse contigo, pero Manyverse lo ha evitado porque se encuentra fuera de tu comunidad.\n\nSi reconoces este ID, presiona \"Seguir\" para permitirle conectarse contigo."
     },
     "dialog_about_storage_used": {
-      "title": "Storage used",
+      "title": "Almacenamiento utilizado",
       "description": {
         "self": "Your content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by your blobs, such as images and audio messages.",
         "others": "{{name}}'s content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by their blobs, such as images and audio messages."
@@ -756,15 +756,15 @@
       "counters": {
         "following": "Siguiendo",
         "followers": "Seguidores",
-        "friends_in_common": "Friends in common with you",
-        "storage_used": "Occupies {{megabytes}}"
+        "friends_in_common": "Amigos en común contigo",
+        "storage_used": "Ocupa {{megabytes}}"
       }
     },
     "info": {
       "follows_you": "Te sigue",
       "blocks_you": "Te tiene bloqueado",
       "following": "Siguiendo",
-      "blocking": "Blocking"
+      "blocking": "Bloqueado"
     },
     "picture": {
       "accessibility_label": "Imagen de Perfil"
@@ -1041,8 +1041,8 @@
         "accessibility_label": "Deslizador del limite de almacenamiento"
       },
       "storage_usage": {
-        "title": "Storage usage",
-        "accessibility_label": "Open screen about storage usage"
+        "title": "Almacenamiento utilizado",
+        "accessibility_label": "Abrir pantalla sobre el uso de almacenamiento"
       }
     },
     "troubleshooting": {
@@ -1056,11 +1056,11 @@
         "accessibility_label": "Alternar logs detallados para desarrolladores"
       },
       "force_reindex": {
-        "title": "Force reindex",
-        "accessibility_label": "Force indexes to rebuild",
+        "title": "Forzar reindexado",
+        "accessibility_label": "Forzar la reconstrucción de índices",
         "confirm": {
-          "title": "Rebuild indexes?",
-          "description": "This will reset database indexes and rebuild them, which is a last resort solution in case your database seems to behave oddly. Reindexing may take several minutes.\n\nAre you sure you want to do this?"
+          "title": "¿Reconstruir índices?",
+          "description": "Esto restablecerá los índices de base de datos y los reconstruirá, que es una solución de último recurso en caso de que tu base de datos parezca comportarse de forma extraña. La reindexación puede tardar varios minutos.\n\n¿Estás seguro de que quieres hacer esto?"
         }
       }
     },
@@ -1087,47 +1087,47 @@
     }
   },
   "storage": {
-    "title": "Storage",
+    "title": "Almacenamiento",
     "chart": {
       "total": {
-        "1_normal": "Manyverse uses a total of ",
-        "3_normal": " on your device"
+        "1_normal": "Manyverse utiliza un total de ",
+        "3_normal": " en tu dispositivo"
       },
       "legend": {
-        "trash": "Trash ({{megabytes}})",
-        "content": "Content ({{megabytes}})",
-        "indexes": "Indexes ({{megabytes}})",
+        "trash": "Papelera ({{megabytes}})",
+        "content": "Contenido ({{megabytes}})",
+        "indexes": "Índices ({{megabytes}})",
         "blobs": "Blobs ({{megabytes}})"
       }
     },
     "trash": {
-      "title": "Trash",
+      "title": "Papelera",
       "description": "The trash bin is made of blocked accounts. Compact your database to empty the trash bin.",
       "compact": {
-        "label": "Compact",
-        "accessibility_label": "Compact your database"
+        "label": "Compacto",
+        "accessibility_label": "Compactar tu base de datos"
       }
     },
     "dialogs": {
       "confirm_compact": {
-        "title": "Compact database?",
-        "description": "This action will remove the trash and rebuild database indexes. It typically lasts 2 minutes, and you must keep the app open without browsing content, waiting for it to complete.\n\nDo you want to continue?"
+        "title": "Compactar tu base de datos?",
+        "description": "Esta acción eliminará la papelera y reconstruirá los índices de base de datos. Normalmente dura 2 minutos, y debes mantener la aplicación abierta sin navegar por el contenido, esperando a que se complete.\n\n¿Quieres continuar?"
       }
     },
     "accounts": {
-      "title": "Accounts",
-      "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
-      "this_is_you": "This is you",
+      "title": "Cuentas",
+      "description": "Cada cuenta que ves en tu Manyverse ocupa una cierta cantidad de espacio en tu dispositivo. Para liberar espacio, puedes bloquear cuentas que ya no quieres ver.",
+      "this_is_you": "Este es usted",
       "open_profile": {
-        "accessibility_label": "Open Profile"
+        "accessibility_label": "Abrir perfil"
       },
       "options_profile": {
-        "accessibility_label": "More options for this profile"
+        "accessibility_label": "Más opciones de este perfil"
       }
     }
   },
   "compact": {
-    "title": "Compacting your\nManyverse database..."
+    "title": "Compactando tu base de datos \nde Manyverse..."
   },
   "resync": {
     "introduction": {

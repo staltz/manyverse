@@ -171,7 +171,7 @@
     "dialogs": {
       "migrate": {
         "title": "Uw SSB-account overzetten naar Manyverse",
-        "description": "Manyverse detected an existing SSB account at the common `~/.ssb` directory. If you wish, you can migrate that account to a whole new directory that only Manyverse can access.\n\nOnce migration finishes, **you will NOT be able to use your account with other SSB apps such as Patchwork anymore**, and '.ssb' will be **deleted**, but you can still use those apps with new accounts.\n\nDo you confirm you want to migrate your account from '.ssb' to Manyverse? **This action cannot be undone.**"
+        "description": "Manyverse heeft een bestaand SSB account gedetecteerd in de veelgebruikte `~/.ssb` map. Als u wilt, kunt u dit account overzetten naar een nieuwe directory waar alleen Manyverse toegang tot heeft.\n\nZodra de migratie is voltooid, **kunt u uw account NIET meer gebruiken met andere SSB apps, zoals bijvoorbeeld Patchwork ** en zal '.ssb worden **verwijderd**, maar je kunt deze apps wel gebruiken met nieuwe accounts.\n\nWilt u uw account overzetten van '.ssb' naar Manyverse? **Deze actie kan niet ongedaan worden gemaakt.**"
       },
       "link_failed": {
         "title": "Account niet gereed",
@@ -242,13 +242,13 @@
       "title": "Reacties"
     },
     "gathering_attendees": {
-      "title": "Attendees"
+      "title": "Deelnemers"
     },
     "recipients": {
       "title": "Ontvangers"
     },
     "friends_in_common": {
-      "title": "Friends in common"
+      "title": "Gemeenschappelijke vrienden"
     },
     "call_to_action": {
       "open_account": {
@@ -268,7 +268,7 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " heeft je gevolgd"
+        "3_normal": " volgt jou"
       }
     },
     "connection_attempt": {
@@ -280,18 +280,18 @@
     },
     "empty": {
       "title": "Geen activiteit",
-      "description": "Wanneer mensen jou noemen of volgen,\nverschijnen ze hier"
+      "description": "Als mensen jou noemen of volgen,\nverschijnen ze hier"
     }
   },
   "connections": {
-    "title": "Verbinding Paneel",
+    "title": "Verbindingspaneel",
     "floating_action_button": {
       "add_connection": "Een verbinding toevoegen",
       "create_invite": "Maak een uitnodiging",
       "paste_invite": "Plak uitnodiging",
       "bluetooth_seek": "Bluetooth zoeken"
     },
-    "open_connections_panel": "Open Verbinding Paneel",
+    "open_connections_panel": "Open Verbindingspaneel",
     "empty": {
       "offline": {
         "title": "Offline",
@@ -314,18 +314,18 @@
     },
     "scenario_descriptions": {
       "offline_with_content": "Je kunt op dit moment niet verbinden met verbindingen, maar je kunt genieten van de inhoud die je al hebt.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
-      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
-      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+      "offline_without_content": "U kunt op dit moment geen verbinding maken met uw collega’s. Probeer internetverbinding te krijgen of schakel Wifi in om collega's in de buurt te ontdekken.",
+      "knows_no_one": "Uw Manyverse is momenteel geïsoleerd. Je moet door andere collega's worden uitgenodigd om een kamerserver te betreden of je kunt zelf een kamerserver hosten.",
+      "nearby_strangers_available": "U bent nog niet verbonden met iemand, maar er zijn collega's op hetzelfde Wifi. Probeer om met hun handmatig te verbinden als u denkt dat ze ook met u willen verbinden.",
+      "empty_rooms": "U bent lid van een aantal kamers, maar er is op dit moment niemand online die u kent. Probeer handmatig verbinding te maken met een vreemde of probeer om een invite code te krijgen voor andere servers.",
+      "connected_poorly": "U bent verbonden met één peer, dat is goed. Maar om de verspreiding van gegevens te verbeteren, zul je met meer peers verbonden moeten maken. Probeer langer te wachten, of probeer een uitnodigingscode te krijgen voor andere servers.",
+      "connected_well": "U bent verbonden met meer dan genoeg peers. Alles is goed! Ze verspreiden jouw gegevens en jij verspreid hun gegevens."
     },
     "recommendations": {
       "consume_invite": "Hoe je een uitnodiging krijgt",
       "follow_staged_manually": "Volg iemand nieuw",
       "paste_invite": "Plak een uitnodigingscode",
-      "host_ssb_room": "How to host a room server",
+      "host_ssb_room": "Hoe u een kamerserver kan hosten",
       "others": "Overige keuzes"
     },
     "recommendation_descriptions": {
@@ -737,7 +737,7 @@
       "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
     },
     "dialog_about_storage_used": {
-      "title": "Storage used",
+      "title": "Opslaggebruik",
       "description": {
         "self": "Your content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by your blobs, such as images and audio messages.",
         "others": "{{name}}'s content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by their blobs, such as images and audio messages."
@@ -756,15 +756,15 @@
       "counters": {
         "following": "Volgt",
         "followers": "Volgers",
-        "friends_in_common": "Friends in common with you",
-        "storage_used": "Occupies {{megabytes}}"
+        "friends_in_common": "Gemeenschappelijke vrienden met jou",
+        "storage_used": "Gebruikt {{megabytes}}"
       }
     },
     "info": {
       "follows_you": "Volgt jou",
       "blocks_you": "Blokkeert jou",
       "following": "Volgt",
-      "blocking": "Blocking"
+      "blocking": "Blokkeren"
     },
     "picture": {
       "accessibility_label": "Profiel Afbeelding"
@@ -812,7 +812,7 @@
         "question": "Wijzigingen verwerpen?"
       },
       "remove_alias": {
-        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
+        "description": "Deze actie verwijdert de alias \"{{alias}}\" uit de kamerserver.\n\nMensen kunnen u niet meer bereiken met behulp van deze alias."
       }
     },
     "toasts": {
@@ -841,11 +841,11 @@
     "empty": {
       "no_servers": {
         "title": "Geen servers",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "description": "Om een alias te registreren, moet je lid zijn van een SSB-server. Vind er een op het internet met de hashtag #ssbroom en zorg ervoor dat het aliassen ondersteunt."
       }
     },
     "header": {
-      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+      "description": "Kies een kamerserver waar je een nieuwe aliaslink voor jezelf wilt registreren.\n\nAliassen zijn webadressen die mensen kunnen gebruiken om met u te verbinden."
     },
     "dialogs": {
       "input_alias": {
@@ -904,8 +904,8 @@
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "Kies leden",
+        "description": "Typ de namen\nvan mensen om deel te nemen aan de nieuwe chat"
       },
       "none_to_choose": {
         "title": "Niemand",
@@ -1041,8 +1041,8 @@
         "accessibility_label": "Opslaglimiet slider"
       },
       "storage_usage": {
-        "title": "Storage usage",
-        "accessibility_label": "Open screen about storage usage"
+        "title": "Opslaggebruik",
+        "accessibility_label": "Open scherm over opslaggebruik"
       }
     },
     "troubleshooting": {
@@ -1056,11 +1056,11 @@
         "accessibility_label": "Schakel gedetailleerde developer logboeken aan/uit"
       },
       "force_reindex": {
-        "title": "Force reindex",
-        "accessibility_label": "Force indexes to rebuild",
+        "title": "Herindexering forceren",
+        "accessibility_label": "Forceer indexen om te herbouwen",
         "confirm": {
-          "title": "Rebuild indexes?",
-          "description": "This will reset database indexes and rebuild them, which is a last resort solution in case your database seems to behave oddly. Reindexing may take several minutes.\n\nAre you sure you want to do this?"
+          "title": "Indexen herbouwen?",
+          "description": "Dit zal de index database resetten en herbouwen. Dit is bedoeld als een laatste redmiddel in het geval dat uw database zich vreemd gedraagt. Het herindexeren kan enkele minuten duren.\n\nWeet je zeker dat je dit wilt doen?"
         }
       }
     },
@@ -1087,47 +1087,47 @@
     }
   },
   "storage": {
-    "title": "Storage",
+    "title": "Opslag",
     "chart": {
       "total": {
-        "1_normal": "Manyverse uses a total of ",
-        "3_normal": " on your device"
+        "1_normal": "Manyverse gebruikt een totaal van ",
+        "3_normal": " op uw apparaat"
       },
       "legend": {
-        "trash": "Trash ({{megabytes}})",
+        "trash": "Verwijder ({{megabytes}})",
         "content": "Content ({{megabytes}})",
-        "indexes": "Indexes ({{megabytes}})",
+        "indexes": "Indexen ({{megabytes}})",
         "blobs": "Blobs ({{megabytes}})"
       }
     },
     "trash": {
-      "title": "Trash",
-      "description": "The trash bin is made of blocked accounts. Compact your database to empty the trash bin.",
+      "title": "Verwijder",
+      "description": "De prullenbak bestaat uit geblokkeerde accounts. Comprimeer uw database om de prullenbak te legen.",
       "compact": {
-        "label": "Compact",
-        "accessibility_label": "Compact your database"
+        "label": "Comprimeer",
+        "accessibility_label": "Comprimeer uw database"
       }
     },
     "dialogs": {
       "confirm_compact": {
-        "title": "Compact database?",
-        "description": "This action will remove the trash and rebuild database indexes. It typically lasts 2 minutes, and you must keep the app open without browsing content, waiting for it to complete.\n\nDo you want to continue?"
+        "title": "Database comprimeren?",
+        "description": "Deze actie zal uw prullenbak legen en uw database indexen herbouwen. Dit duurt normaliter 2 minuten en u moet de app open laten staan zonder door de inhoud te browsen, wacht tot het voltooid is.\n\nWil je verder gaan?"
       }
     },
     "accounts": {
       "title": "Accounts",
-      "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
-      "this_is_you": "This is you",
+      "description": "Elke account die u op uw Manyverse ziet, neemt een bepaalde hoeveelheid ruimte in beslag op uw apparaat. Om ruimte vrij te maken, kunt u accounts blokkeren die u niet meer wilt zien.",
+      "this_is_you": "Dit ben jij",
       "open_profile": {
-        "accessibility_label": "Open Profile"
+        "accessibility_label": "Open profiel"
       },
       "options_profile": {
-        "accessibility_label": "More options for this profile"
+        "accessibility_label": "Meer opties voor dit profiel"
       }
     }
   },
   "compact": {
-    "title": "Compacting your\nManyverse database..."
+    "title": "Comprimeer uw\nManyverse database..."
   },
   "resync": {
     "introduction": {
@@ -1135,9 +1135,9 @@
       "description": {
         "1_normal": "Uw account hun ",
         "2_bold": "identiteit",
-        "3_normal": " is now restored.\n\nNow, to recover your ",
+        "3_normal": " is nu hersteld\n\nNu herstellen we uw ",
         "4_bold": "gegevens",
-        "5_normal": ", connect with friends that have interacted with you before, to redownload your data from them. There are two ways:"
+        "5_normal": ", maak verbinding met vrienden met wie u eerder gecommuniceerd heeft. Er zijn twee manieren:"
       }
     },
     "buttons": {
@@ -1146,13 +1146,13 @@
     },
     "instructions": {
       "connect_via_wifi": {
-        "title": "Connect via Wi-Fi",
-        "description": "Just connect this device to the same local Wi-Fi as other devices are, keep Manyverse open on those devices, and your data will automatically sync to this device."
+        "title": "Verbinden via Wifi",
+        "description": "Verbind dit apparaat gewoon met dezelfde lokale Wifi als andere apparaten houd Manyverse open op deze apparaten. Je gegevens zullen automatisch synchroniseren naar dit apparaat."
       }
     },
     "progress": {
-      "title": "Redownloading data: {{megabytes}}",
-      "description": "Please wait while your data is being recovered from friends."
+      "title": "Data opnieuw downloaden: {{megabytes}}",
+      "description": "Een moment geduld, je gegevens worden hersteld van vrienden."
     }
   },
   "thread": {
@@ -1211,10 +1211,10 @@
     },
     "gatherings": {
       "call_to_action": {
-        "attend": "Attend",
-        "attending": "Attending",
+        "attend": "Deelnemen",
+        "attending": "Deelnemen",
         "showAllAttendees": {
-          "accessibility_label": "Show Attendees in a List"
+          "accessibility_label": "Deelnemers in een lijst weergeven"
         }
       }
     },
@@ -1231,7 +1231,7 @@
         "travel_and_places": "Reizen en plaatsen",
         "objects": "Objecten",
         "symbols": "Symbolen",
-        "flags": "Flags"
+        "flags": "Vlaggen"
       },
       "show_more": {
         "accessibility_label": "Laat meer reactie opties zien"
@@ -1272,7 +1272,7 @@
       "3_normal": ""
     },
     "introducer": {
-      "1_normal": "Followed by ",
+      "1_normal": "Gevolgd door ",
       "2_bold": "{{name}}",
       "3_normal": ""
     },
