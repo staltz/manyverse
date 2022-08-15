@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import delay from 'xstream/extra/delay';
 import concat from 'xstream/extra/concat';
 import sample from 'xstream-sample';
 import {Reducer} from '@cycle/state';
@@ -93,13 +92,6 @@ export default function model(
     .map((props) => ssbSource.profileAboutLive$(props.feedId))
     .flatten();
 
-  const updateAboutReducer$ = about$.map(
-    (about) =>
-      function updateAboutReducer(prev: State): State {
-        return {...prev, about};
-      },
-  );
-
   const feedPair$ = props$
     .filter((props) => props.feedId !== props.selfFeedId)
     .map(({feedId, selfFeedId}) => ({feedId, selfFeedId}))
@@ -115,21 +107,90 @@ export default function model(
       actions.unblockContact$,
       actions.unblockSecretlyContact$,
     )
-    .compose(delay(500))
+    .map(() =>
+      // --o--o----o----o---------o---------o
+      concat(
+        xs.periodic(500).take(2),
+        xs.periodic(1000).take(2),
+        xs.periodic(2500).take(2),
+      ),
+    )
+    .flatten()
     .compose(sample(feedPair$));
 
-  const updateFollowsYouReducer$ = feedPair$
+  const initialFollowsYou$ = feedPair$
     .map((pair) => ssbSource.isFollowing$(pair.feedId, pair.selfFeedId))
-    .flatten()
+    .flatten();
+  const initialYouFollow$ = feedPair$
+    .map((pair) => ssbSource.isFollowing$(pair.selfFeedId, pair.feedId))
+    .flatten();
+  const initialYouBlock$ = feedPair$
+    .map((pair) => ssbSource.isBlocking$(pair.selfFeedId, pair.feedId))
+    .flatten();
+  const initialSnapshot$ = props$
+    .map((props) => ssbSource.snapshotAbout$(props.feedId))
+    .flatten();
+  const initialFollowing$ = props$
+    .map((props) => ssbSource.profileEdges$(props.feedId, false, true))
+    .take(1)
+    .flatten();
+  const initialFollowers$ = props$
+    .map((props) => ssbSource.profileEdges$(props.feedId, true, true))
+    .take(1)
+    .flatten();
+  const initialFriendsInCommon$ = props$
+    .map((props) => ssbSource.getFriendsInCommon$(props.feedId))
+    .take(1)
+    .flatten();
+  const initialStorageUsed$ = props$
+    .map((props) => ssbSource.bytesUsedByFeed$(props.feedId))
+    .flatten();
+
+  const initialDetailsReducer$ = xs
+    .combine(
+      initialFollowsYou$,
+      initialYouFollow$,
+      initialYouBlock$,
+      initialSnapshot$,
+      initialFollowing$,
+      initialFollowers$,
+      initialFriendsInCommon$,
+      initialStorageUsed$,
+    )
     .map(
-      (followsYou) =>
-        function updateFollowsYouReducer(prev: State): State {
-          return {...prev, followsYou};
+      ([
+        followsYou,
+        youFollow,
+        youBlock,
+        snapshot,
+        following,
+        followers,
+        friendsInCommon,
+        storageUsed,
+      ]) =>
+        function initialDetailsReducer(prev: State): State {
+          return {
+            ...prev,
+            followsYou,
+            youFollow,
+            youBlock,
+            snapshot,
+            following,
+            followers,
+            friendsInCommon,
+            storageUsed,
+          };
         },
     );
 
-  const updateYouFollowReducer$ = xs
-    .merge(feedPair$, refreshRelationship$)
+  const updateAboutReducer$ = about$.map(
+    (about) =>
+      function updateAboutReducer(prev: State): State {
+        return {...prev, about};
+      },
+  );
+
+  const updateYouFollowReducer$ = refreshRelationship$
     .map((pair) => ssbSource.isFollowing$(pair.selfFeedId, pair.feedId))
     .flatten()
     .map(
@@ -139,8 +200,18 @@ export default function model(
         },
     );
 
-  const youBlock$ = xs
-    .merge(feedPair$, refreshRelationship$)
+  const updateFollowersReducer$ = refreshRelationship$
+    .map((pair) => ssbSource.profileEdges$(pair.feedId, true, true))
+    .take(1)
+    .flatten()
+    .map(
+      (followers) =>
+        function updateFollowersReducer(prev: State): State {
+          return {...prev, followers};
+        },
+    );
+
+  const youBlock$ = refreshRelationship$
     .map((pair) => ssbSource.isBlocking$(pair.selfFeedId, pair.feedId))
     .flatten();
 
@@ -202,39 +273,6 @@ export default function model(
     )
     .flatten();
 
-  const updateFollowingReducer$ = props$
-    .map((props) => ssbSource.profileEdges$(props.feedId, false, true))
-    .take(1)
-    .flatten()
-    .map(
-      (following) =>
-        function updateFollowingReducer(prev: State): State {
-          return {...prev, following};
-        },
-    );
-
-  const updateFollowersReducer$ = props$
-    .map((props) => ssbSource.profileEdges$(props.feedId, true, true))
-    .take(1)
-    .flatten()
-    .map(
-      (followers) =>
-        function updateFollowersReducer(prev: State): State {
-          return {...prev, followers};
-        },
-    );
-
-  const updateFriendsInCommonReducer$ = props$
-    .map((props) => ssbSource.getFriendsInCommon$(props.feedId))
-    .take(1)
-    .flatten()
-    .map(
-      (friendsInCommon) =>
-        function updateIntersectionReducer(prev: State): State {
-          return {...prev, friendsInCommon};
-        },
-    );
-
   const updateAliasesReducer$ = props$
     .map((props) => ssbSource.getAliasesLive$(props.feedId))
     .flatten()
@@ -252,33 +290,20 @@ export default function model(
       },
   );
 
-  const updateStorageUsedReducer$ = props$
-    .map((props) => ssbSource.bytesUsedByFeed$(props.feedId))
-    .flatten()
-    .map(
-      (bytes) =>
-        function updateStorageUsedReducer(prev: State): State {
-          return {...prev, storageUsed: bytes};
-        },
-    );
-
   return concat(
     propsReducer$,
     xs.merge(
+      initialDetailsReducer$,
       loadLastSessionTimestampReducer$,
       updateAboutReducer$,
-      updateFollowsYouReducer$,
       updateYouFollowReducer$,
+      updateFollowersReducer$,
       updateYouBlockReducer$,
       updateSnapshotReducer$,
       updatePreferredReactionsReducer$,
       updateConnectionReducer$,
-      updateFollowingReducer$,
-      updateFollowersReducer$,
-      updateFriendsInCommonReducer$,
       updateAliasesReducer$,
       updateFeedStreamReducer$,
-      updateStorageUsedReducer$,
     ),
   );
 }
