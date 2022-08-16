@@ -7,7 +7,7 @@ import debounce from 'xstream/extra/debounce';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {PureComponent, ReactElement, createElement as $} from 'react';
-import {View, Text, Pressable} from 'react-native';
+import {View, Text, Pressable, TextStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import PublicTabIcon from '~frontend/components/tab-buttons/PublicTabIcon';
@@ -20,7 +20,7 @@ import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {State} from './model';
-import {styles} from './styles';
+import {styles, PILL_LEFT_CLAMP_MIN, PILL_LEFT_CLAMP_MAX} from './styles';
 
 class TopBarLeftSection extends PureComponent {
   public render() {
@@ -54,6 +54,45 @@ class ProgressBar extends PureComponent<{progress: number}> {
         }),
       ],
     );
+  }
+}
+
+class ProgressPill extends PureComponent<{
+  progress: number;
+  onPress?: () => {};
+}> {
+  private started: number | null = null;
+
+  private onPress = () => {
+    if (this.props.progress < 1 && this.props.onPress) this.props.onPress();
+  };
+
+  public render() {
+    const progress = this.props.progress * 100;
+    if (progress < 100 && !this.started) this.started = Date.now();
+    if (progress >= 100 && this.started) this.started = null;
+    const opacity = progress < 100 && Date.now() - this.started! > 3000 ? 1 : 0;
+    const progressStr = `${Math.min(progress, 99.9).toFixed(1)}%`;
+    const progressPillWidth =
+      progress >= 10 ? styles.progressPillLarge : styles.progressPillSmall;
+    const left =
+      `clamp(${PILL_LEFT_CLAMP_MIN},` +
+      `${progress.toFixed(1)}vw,` +
+      `${PILL_LEFT_CLAMP_MAX})`;
+
+    return h(Pressable, {
+      onPress: this.onPress,
+      children: () => [$(Text, {style: styles.progressPillText}, progressStr)],
+      style: ({hovered}: any) => [
+        styles.progressPill,
+        progressPillWidth,
+        {left, opacity},
+        hovered ? styles.progressPillHovered : null,
+      ],
+      accessible: true,
+      accessibilityRole: 'button',
+      accessibilityLabel: t('central.progress_indicator.accessibility_label'),
+    });
   }
 }
 
@@ -165,6 +204,7 @@ export default function view(
 
       return h(View, {style: styles.screen}, [
         h(ProgressBar, {progress: combinedProgress}),
+        h(ProgressPill, {progress: combinedProgress}),
 
         h(TopBarRightSection, [
           estimateProgressDone > 60e3
@@ -182,7 +222,12 @@ export default function view(
           h(TopBarLeftSection, [
             h(
               Text,
-              {style: [styles.progressLabel, {opacity: progressLabelOpacity}]},
+              {
+                style: [
+                  styles.progressLabel as TextStyle,
+                  {opacity: progressLabelOpacity},
+                ],
+              },
               t('drawer.menu.preparing_database.label'),
             ),
           ]),

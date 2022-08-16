@@ -97,6 +97,7 @@ declare module 'i18n-js' {
     | 'central.tab_footers.connections'
     | 'central.loading'
     | 'central.building_indexes'
+    | 'central.progress_indicator.accessibility_label'
     | 'central.tabs.public.accessibility_label'
     | 'central.tabs.private.accessibility_label'
     | 'central.tabs.activity.accessibility_label'

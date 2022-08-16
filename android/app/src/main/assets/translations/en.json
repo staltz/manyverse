@@ -198,6 +198,9 @@
     },
     "loading": "Loading...",
     "building_indexes": "Building database indexes...\nThis may take up to several minutes",
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
+    },
     "tabs": {
       "public": {
         "accessibility_label": "Public Tab Button"

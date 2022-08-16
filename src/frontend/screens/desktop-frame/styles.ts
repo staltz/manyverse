@@ -2,10 +2,20 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
+
+const PROGRESS_BAR_HEIGHT = 3;
+const PILL_WIDTH_SMALL = 46;
+const PILL_WIDTH_LARGE = 56;
+export const PILL_LEFT_CLAMP_MIN = `${
+  PILL_WIDTH_SMALL * 0.5 + Dimensions.horizontalSpaceSmall
+}px`;
+export const PILL_LEFT_CLAMP_MAX = `100vw - ${
+  PILL_WIDTH_LARGE * 0.5 + Dimensions.horizontalSpaceSmall
+}px`;
 
 export const styles = StyleSheet.create({
   screen: {
@@ -19,20 +29,19 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1000,
     top: 0,
-    height: '3px',
+    height: `${PROGRESS_BAR_HEIGHT}px`,
     backgroundColor: Palette.textForBackgroundBrand,
     transition: 'width 0.25s',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-  },
+  } as React.CSSProperties & ViewStyle,
 
   progressFlare: {
     marginRight: '0%',
     backgroundColor: Palette.brandWeakest,
     height: '100%',
     width: '9px',
-
     animationDuration: '1400ms',
     animationDirection: 'normal',
     animationTimingFunction: 'ease-in-out',
@@ -43,7 +52,7 @@ export const styles = StyleSheet.create({
       },
     ],
     animationIterationCount: 'infinite',
-  },
+  } as React.CSSProperties & ViewStyle,
 
   progressFlareDone: {
     opacity: 0,
@@ -64,6 +73,36 @@ export const styles = StyleSheet.create({
     lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyReadableText,
     transition: 'opacity 1.5s ease 1.5s',
+  } as React.CSSProperties & TextStyle,
+
+  progressPill: {
+    position: 'absolute',
+    zIndex: 1000,
+    top: PROGRESS_BAR_HEIGHT + Dimensions.verticalSpaceTiny,
+    height: '22px',
+    transition: 'left 0.25s, opacity 0.75s',
+    transform: 'translateX(-50%)',
+    backgroundColor: Palette.backgroundText,
+    borderRadius: 80,
+    borderColor: Palette.textBrand,
+    borderWidth: 1,
+  } as React.CSSProperties & ViewStyle,
+
+  progressPillHovered: {
+    backgroundColor: Palette.backgroundTextWeak,
+  },
+
+  progressPillSmall: {
+    width: `${PILL_WIDTH_SMALL}px`,
+  },
+
+  progressPillLarge: {
+    width: `${PILL_WIDTH_LARGE}px`,
+  },
+
+  progressPillText: {
+    color: Palette.textBrand,
+    textAlign: 'center',
   },
 
   left: {

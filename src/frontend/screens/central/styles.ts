@@ -25,6 +25,12 @@ const page: ViewStyle = {
 
 const FLARE_WIDTH = 6;
 const PROGRESS_BAR_HEIGHT = 2;
+const PILL_HEIGHT = 24;
+export const PILL_WIDTH_SMALL = 46;
+export const PILL_WIDTH_LARGE = 56;
+export const PILL_MARGIN = Dimensions.horizontalSpaceTiny;
+export const FAB_VERTICAL_DISTANCE_TO_EDGE =
+  Dimensions.verticalSpaceTiny + PILL_HEIGHT + Dimensions.verticalSpaceNormal;
 
 export const styles = StyleSheet.create({
   screen: globalStyles.screen,
@@ -78,6 +84,46 @@ export const styles = StyleSheet.create({
     height: PROGRESS_BAR_HEIGHT,
     width: FLARE_WIDTH,
     backgroundColor: Palette.brandWeaker,
+  },
+
+  progressPillContainer: {
+    position: 'absolute',
+    zIndex: 1000,
+    left: 0,
+    top: -Dimensions.verticalSpaceTiny - PROGRESS_BAR_HEIGHT - PILL_HEIGHT,
+    height: PILL_HEIGHT,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+
+  progressPillTouchable: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+
+  progressPill: {
+    flex: 1,
+    backgroundColor: Palette.backgroundText,
+    borderRadius: 80,
+    borderColor: Palette.textBrand,
+    borderWidth: StyleSheet.hairlineWidth,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  progressPillSmall: {
+    width: PILL_WIDTH_SMALL,
+  },
+
+  progressPillLarge: {
+    width: PILL_WIDTH_LARGE,
+  },
+
+  progressPillText: {
+    color: Palette.textBrand,
+    textAlign: 'center',
   },
 
   desktopFabContainer: {

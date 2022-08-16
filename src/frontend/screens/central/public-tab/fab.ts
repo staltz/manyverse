@@ -9,6 +9,7 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {t} from '~frontend/drivers/localization';
 import {getImg} from '~frontend/global-styles/utils';
 import {FabProps} from '../fab';
+import {FAB_VERTICAL_DISTANCE_TO_EDGE} from '../styles';
 
 export default function floatingAction(
   state$: Stream<State>,
@@ -33,7 +34,7 @@ export default function floatingAction(
     iconWidth: 24,
     overlayColor: Palette.transparencyDark,
     distanceToEdge: {
-      vertical: Dimensions.verticalSpaceLarge,
+      vertical: FAB_VERTICAL_DISTANCE_TO_EDGE,
       horizontal: Dimensions.horizontalSpaceBig,
     },
   }));

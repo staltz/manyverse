@@ -58,7 +58,7 @@ export function connectionsTab(sources: Sources): Sinks {
   );
   const vdom$ = view(state$);
 
-  const fab$ = floatingAction(state$);
+  const fab$ = floatingAction();
 
   const link$ = actions.goToHostSsbRoomDialog$;
 
