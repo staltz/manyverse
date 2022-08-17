@@ -12,22 +12,21 @@ import {
   Dimensions as DimensAPI,
   Platform,
 } from 'react-native';
+import {Circle, CirclePropTypes} from 'react-native-progress';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
-import {Circle, CirclePropTypes} from 'react-native-progress';
-import {State} from './model';
 import {Typography} from '~frontend/global-styles/typography';
-import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import {globalStyles} from '~frontend/global-styles/styles';
 import {t} from '~frontend/drivers/localization';
+import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import {State} from './model';
 
 export const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-    alignSelf: 'stretch',
+    ...globalStyles.screen,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Palette.brandMain,
-    flexDirection: 'column',
   },
 
   title: {
