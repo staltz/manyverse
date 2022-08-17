@@ -92,9 +92,7 @@ export default function model(
     .map((props) => ssbSource.profileAboutLive$(props.feedId))
     .flatten();
 
-  const feedPair$ = props$
-    .filter((props) => props.feedId !== props.selfFeedId)
-    .map(({feedId, selfFeedId}) => ({feedId, selfFeedId}))
+  const feedPair$ = (props$ as Stream<Pick<Props, 'feedId' | 'selfFeedId'>>)
     .take(1)
     .compose(dropCompletion)
     .remember();
@@ -119,16 +117,28 @@ export default function model(
     .compose(sample(feedPair$));
 
   const initialFollowsYou$ = feedPair$
-    .map((pair) => ssbSource.isFollowing$(pair.feedId, pair.selfFeedId))
+    .map((pair) => {
+      if (pair.feedId === pair.selfFeedId) return xs.of(null);
+      else return ssbSource.isFollowing$(pair.feedId, pair.selfFeedId);
+    })
     .flatten();
   const initialYouFollow$ = feedPair$
-    .map((pair) => ssbSource.isFollowing$(pair.selfFeedId, pair.feedId))
+    .map((pair) => {
+      if (pair.feedId === pair.selfFeedId) return xs.of(null);
+      else return ssbSource.isFollowing$(pair.selfFeedId, pair.feedId);
+    })
     .flatten();
   const initialYouBlock$ = feedPair$
-    .map((pair) => ssbSource.isBlocking$(pair.selfFeedId, pair.feedId))
+    .map((pair) => {
+      if (pair.feedId === pair.selfFeedId) return xs.of(null);
+      else return ssbSource.isBlocking$(pair.selfFeedId, pair.feedId);
+    })
     .flatten();
   const initialSnapshot$ = props$
-    .map((props) => ssbSource.snapshotAbout$(props.feedId))
+    .map((props) => {
+      if (props.feedId === props.selfFeedId) return xs.of({});
+      else return ssbSource.snapshotAbout$(props.feedId);
+    })
     .flatten();
   const initialFollowing$ = props$
     .map((props) => ssbSource.profileEdges$(props.feedId, false, true))
@@ -139,7 +149,10 @@ export default function model(
     .take(1)
     .flatten();
   const initialFriendsInCommon$ = props$
-    .map((props) => ssbSource.getFriendsInCommon$(props.feedId))
+    .map((props) => {
+      if (props.feedId === props.selfFeedId) return xs.of([]);
+      else return ssbSource.getFriendsInCommon$(props.feedId);
+    })
     .take(1)
     .flatten();
   const initialStorageUsed$ = props$
