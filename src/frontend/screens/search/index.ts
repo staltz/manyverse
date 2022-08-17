@@ -10,6 +10,7 @@ import {Reducer, StateSource} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {Req, SSBSource} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
+import {Toast} from '~frontend/drivers/toast';
 import messageEtc from '~frontend/components/messageEtc';
 import intent from './intent';
 import view from './view';
@@ -35,6 +36,8 @@ export interface Sinks {
   keyboard: Stream<'dismiss'>;
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
+  clipboard: Stream<string>;
+  toast: Stream<Toast>;
 }
 
 export const navOptions = {
@@ -79,5 +82,7 @@ export function search(sources: Sources): Sinks {
     navigation: command$,
     state: reducer$,
     ssb: newContent$,
+    clipboard: messageEtcSinks.clipboard,
+    toast: messageEtcSinks.toast,
   };
 }
