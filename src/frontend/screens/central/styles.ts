@@ -9,13 +9,18 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {globalStyles} from '~frontend/global-styles/styles';
 const {isIPhoneWithMonobrow} = require('react-native-status-bar-height');
 
+const TAB_BAR_HEIGHT =
+  Dimensions.toolbarHeight -
+  getStatusBarHeight(true) +
+  (isIPhoneWithMonobrow() ? 28 : Platform.OS === 'ios' ? 12 : 0);
+
 const page: ViewStyle = {
   position: 'absolute',
   top: 0,
   left: 0,
   bottom: Platform.select({
     web: 0,
-    default: Dimensions.toolbarHeight - getStatusBarHeight(true),
+    default: TAB_BAR_HEIGHT,
   }),
   right: 0,
   backgroundColor: Palette.voidMain,
@@ -44,16 +49,13 @@ export const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    height:
-      Dimensions.toolbarHeight -
-      getStatusBarHeight(true) +
-      (isIPhoneWithMonobrow() ? 15 : Platform.OS === 'ios' ? 8 : 0),
+    height: TAB_BAR_HEIGHT,
     borderTopColor: Palette.textLine,
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: Palette.backgroundText,
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'stretch',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
 
   topBarStub: {

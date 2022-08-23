@@ -27,7 +27,9 @@ const styles = StyleSheet.create({
     flexDirection: Platform.select({default: 'column', web: 'row'}),
     justifyContent: Platform.select({default: 'center', web: 'flex-start'}),
     alignItems: 'center',
-    marginTop: Platform.select({ios: isIPhoneWithMonobrow() ? -5 : 0}),
+    marginTop: Platform.select({
+      ios: isIPhoneWithMonobrow() ? -10 : Platform.OS === 'ios' ? -5 : 0,
+    }),
     ...Platform.select({
       web: {
         paddingHorizontal: Dimensions.horizontalSpaceNormal,
