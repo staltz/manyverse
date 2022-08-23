@@ -48,6 +48,14 @@ export const styles = StyleSheet.create({
     }),
   },
 
+  replyRowOpened: {
+    ...Platform.select({
+      ios: {
+        paddingBottom: 0,
+      },
+    }),
+  },
+
   replyAvatar: {
     marginTop: Dimensions.verticalSpaceNormal,
     marginBottom: Dimensions.verticalSpaceNormal,

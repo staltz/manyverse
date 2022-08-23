@@ -77,31 +77,40 @@ function ReplySendButton() {
 }
 
 function ReplyInput(state: State, nativePropsAndFocus$: Stream<any>) {
-  return h(View, {style: styles.replyRow}, [
-    h(Avatar, {
-      size: avatarSize,
-      url: state.selfAvatarUrl,
-      style: styles.replyAvatar,
-    }),
-    h(View, {style: styles.replyInputContainer}, [
-      h(SettableTextInput, {
-        accessible: true,
-        accessibilityLabel: t('thread.fields.reply.accessibility_label'),
-        sel: 'reply-input',
-        multiline: true,
-        nativePropsAndFocus$,
-        returnKeyType: 'done',
-        editable: state.replyEditable,
-        placeholder: t('thread.fields.reply.placeholder'),
-        placeholderTextColor: Palette.textVeryWeak,
-        selectionColor: Palette.backgroundTextSelection,
-        underlineColorAndroid: Palette.textLine,
-        style: styles.replyInput,
+  return h(
+    View,
+    {
+      style: [
+        styles.replyRow,
+        state.keyboardVisible ? styles.replyRowOpened : null,
+      ],
+    },
+    [
+      h(Avatar, {
+        size: avatarSize,
+        url: state.selfAvatarUrl,
+        style: styles.replyAvatar,
       }),
-    ]),
-    ExpandReplyButton(state.replyText.length === 0),
-    state.replyText.length > 0 ? ReplySendButton() : null,
-  ]);
+      h(View, {style: styles.replyInputContainer}, [
+        h(SettableTextInput, {
+          accessible: true,
+          accessibilityLabel: t('thread.fields.reply.accessibility_label'),
+          sel: 'reply-input',
+          multiline: true,
+          nativePropsAndFocus$,
+          returnKeyType: 'done',
+          editable: state.replyEditable,
+          placeholder: t('thread.fields.reply.placeholder'),
+          placeholderTextColor: Palette.textVeryWeak,
+          selectionColor: Palette.backgroundTextSelection,
+          underlineColorAndroid: Palette.textLine,
+          style: styles.replyInput,
+        }),
+      ]),
+      ExpandReplyButton(state.replyText.length === 0),
+      state.replyText.length > 0 ? ReplySendButton() : null,
+    ],
+  );
 }
 
 interface Actions {
