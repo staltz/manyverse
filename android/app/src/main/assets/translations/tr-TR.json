@@ -197,7 +197,6 @@
       "connections": "Bağlantılar"
     },
     "loading": "Yükleniyor...",
-    "building_indexes": "Veritabanı dizinleri oluşturuluyor...\nBu birkaç dakika sürebilir",
     "tabs": {
       "public": {
         "accessibility_label": "Genel sekme butonu"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Bağlantılar sekmesi butonu"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Ayarlar",
         "accessibility_label": "Ayarlara git"
-      },
-      "preparing_database": {
-        "label": "Preparing database..."
       },
       "ready_estimate": {
         "label": "Ready:"

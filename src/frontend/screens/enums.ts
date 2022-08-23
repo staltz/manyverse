@@ -34,4 +34,5 @@ export enum Screens {
   Settings = 'Manyverse.Settings',
   Storage = 'Manyverse.Storage',
   Compact = 'Manyverse.Compact',
+  Indexing = 'Manyverse.Indexing',
 }

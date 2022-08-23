@@ -77,37 +77,52 @@ export default class AnimatedLoading extends PureComponent<{
 
   public componentDidMount() {
     if (Platform.OS !== 'web') {
+      this.loadingAnim ??= new Animated.Value(0);
       const {delay} = this.props;
       Animated.sequence([
         // Take `delay` milliseconds to slowly fade in
         delay ? Animated.delay(delay * 0.5) : Animated.delay(0),
         delay
           ? Animated.timing(this.loadingAnim, {
-              toValue: 1,
+              toValue: HIGH_OPACITY,
               duration: delay * 0.5,
               useNativeDriver: true,
             })
           : Animated.delay(0),
-
-        // Breathing animation
-        Animated.loop(
-          Animated.sequence([
-            Animated.timing(this.loadingAnim, {
-              toValue: LOW_OPACITY,
-              duration: IN_DURATION,
-              easing: Easing.out(Easing.quad),
-              useNativeDriver: true,
-            }),
-            Animated.timing(this.loadingAnim, {
-              toValue: HIGH_OPACITY,
-              easing: Easing.linear,
-              duration: OUT_DURATION,
-              useNativeDriver: true,
-            }),
-          ]),
-        ),
-      ]).start();
+      ]).start(({finished}) => {
+        if (finished) this.repeat();
+      });
     }
+  }
+
+  public componentWillUnmount() {
+    this.loadingAnim.stopAnimation();
+    this.loadingAnim = null as any;
+  }
+
+  public repeat() {
+    if (this.loadingAnim) {
+      this.loadingAnim.setValue(HIGH_OPACITY);
+    } else {
+      this.loadingAnim = new Animated.Value(HIGH_OPACITY);
+    }
+    // Breathing animation
+    Animated.sequence([
+      Animated.timing(this.loadingAnim, {
+        toValue: LOW_OPACITY,
+        duration: IN_DURATION,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: true,
+      }),
+      Animated.timing(this.loadingAnim, {
+        toValue: HIGH_OPACITY,
+        easing: Easing.linear,
+        duration: OUT_DURATION,
+        useNativeDriver: true,
+      }),
+    ]).start(({finished}) => {
+      if (finished) this.repeat();
+    });
   }
 
   public render() {

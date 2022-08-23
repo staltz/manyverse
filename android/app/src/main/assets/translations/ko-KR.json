@@ -197,7 +197,6 @@
       "connections": "연결"
     },
     "loading": "로드중...",
-    "building_indexes": "데이터베이스 인덱스를 생성중입니다...\n몇분 정도 걸립니다",
     "tabs": {
       "public": {
         "accessibility_label": "공개"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "연결"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "설정",
         "accessibility_label": "설정으로 가기"
-      },
-      "preparing_database": {
-        "label": "데이터베이스 준비중..."
       },
       "ready_estimate": {
         "label": "준비:"

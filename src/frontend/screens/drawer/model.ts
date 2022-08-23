@@ -8,10 +8,6 @@ import {Reducer} from '@cycle/state';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource} from '~frontend/drivers/ssb';
 import {GlobalEvent} from '~frontend/drivers/eventbus';
-import progressCalculation, {
-  State as ProgressState,
-  INITIAL_STATE as INITIAL_PROGRESS_STATE,
-} from '~frontend/components/progressCalculation';
 import currentVersion from '~frontend/versionName';
 
 interface ParsedVersion {
@@ -22,7 +18,7 @@ interface ParsedVersion {
   isBeta: boolean;
 }
 
-export interface State extends ProgressState {
+export interface State {
   selfFeedId: FeedId;
   canPublishSSB: boolean;
   allowCheckingNewVersion: boolean;
@@ -36,7 +32,6 @@ const INITIAL_STATE: State = {
   canPublishSSB: true,
   allowCheckingNewVersion: false,
   hasNewVersion: false,
-  ...INITIAL_PROGRESS_STATE,
 };
 
 interface Actions {
@@ -135,15 +130,10 @@ export default function model(
         },
     );
 
-  const progressReducer$ = progressCalculation(ssbSource) as Stream<
-    Reducer<State>
-  >;
-
   return concat(
     selfFeedIdReducer$,
     xs.merge(
       aboutReducer$,
-      progressReducer$,
       readSettingsReducer$,
       allowCheckingNewVersionReducer$,
       hasNewVersionReducer$,

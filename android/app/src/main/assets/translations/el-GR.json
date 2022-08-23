@@ -197,7 +197,6 @@
       "connections": "Συνδέσεις"
     },
     "loading": "Φόρτωση...",
-    "building_indexes": "Δημιουργία ευρετηρίων βάσης δεδομένων... \nΑυτό μπορεί να διαρκέσει αρκετά λεπτά",
     "tabs": {
       "public": {
         "accessibility_label": "Κουμπί Δημόσια Καρτέλα"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Κουμπί Συνδέσεις"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Ρυθμίσεις",
         "accessibility_label": "Μετάβαση στις Ρυθμίσεις"
-      },
-      "preparing_database": {
-        "label": "Preparing database..."
       },
       "ready_estimate": {
         "label": "Ready:"

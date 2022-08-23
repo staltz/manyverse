@@ -9,6 +9,8 @@ import {navOptions as profileScreenNavOptions} from '~frontend/screens/profile';
 import {Props as ProfileProps} from '~frontend/screens/profile/props';
 import {navOptions as rawDatabaseScreenNavOptions} from '~frontend/screens/raw-db';
 import {navOptions as settingsScreenNavOptions} from '~frontend/screens/settings';
+import {navOptions as indexingScreenNavOpts} from '~frontend/screens/indexing/layout';
+import {Props as IndexingProps} from '~frontend/screens/indexing/props';
 import {Screens} from '~frontend/screens/enums';
 import {State} from './model';
 
@@ -17,6 +19,7 @@ interface Actions {
   showRawDatabase$: Stream<any>;
   goToSettings$: Stream<any>;
   goToStorage$: Stream<null>;
+  goToIndexing$: Stream<IndexingProps>;
   changeTab$: Stream<any>;
 }
 
@@ -96,9 +99,30 @@ export default function navigation(
         } as PushCommand),
     );
 
+  const toIndexing$ = actions.goToIndexing$.map(
+    (props) =>
+      ({
+        type: 'push',
+        id: 'mainstack',
+        layout: {
+          component: {
+            name: Screens.Indexing,
+            options: indexingScreenNavOpts,
+            passProps: props,
+          },
+        },
+      } as PushCommand),
+  );
+
   const popToRoot$ = actions.changeTab$.map(
     () => ({type: 'popToRoot'} as Command),
   );
 
-  return xs.merge(toSelfProfile$, toRawDatabase$, toSettings$, popToRoot$);
+  return xs.merge(
+    toSelfProfile$,
+    toRawDatabase$,
+    toSettings$,
+    toIndexing$,
+    popToRoot$,
+  );
 }

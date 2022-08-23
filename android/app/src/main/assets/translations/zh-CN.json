@@ -197,7 +197,6 @@
       "connections": "网络连接"
     },
     "loading": "加载中……",
-    "building_indexes": "正在构建数据库索引……\n可能需要几分钟的时间",
     "tabs": {
       "public": {
         "accessibility_label": "公共标签页按钮"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "网络连接标签页按钮"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "设置",
         "accessibility_label": "Go To Settings"
-      },
-      "preparing_database": {
-        "label": "Preparing database..."
       },
       "ready_estimate": {
         "label": "Ready:"

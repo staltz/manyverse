@@ -7,13 +7,16 @@ import sample from 'xstream-sample';
 import {Command} from 'cycle-native-navigation';
 import {Screens} from '~frontend/screens/enums';
 import {navOptions as searchNavOpts} from '~frontend/screens/search/index';
+import {navOptions as indexingScreenNavOpts} from '~frontend/screens/indexing/layout';
 import {Props as SearchProps} from '~frontend/screens/search/props';
+import {Props as IndexingProps} from '~frontend/screens/indexing/props';
 import {State} from './model';
 
 export interface Actions {
   openDrawer$: Stream<null>;
   closeDrawer$: Stream<null>;
   goToSearch$: Stream<null>;
+  goToIndexing$: Stream<IndexingProps>;
 }
 
 export default function navigationCommands(
@@ -67,5 +70,20 @@ export default function navigationCommands(
       } as Command),
   );
 
-  return xs.merge(openDrawer$, closeDrawer$, toSearch$, other$);
+  const toIndexing$ = actions.goToIndexing$.map(
+    (props) =>
+      ({
+        type: 'push',
+        id: 'mainstack',
+        layout: {
+          component: {
+            name: Screens.Indexing,
+            options: indexingScreenNavOpts,
+            passProps: props,
+          },
+        },
+      } as Command),
+  );
+
+  return xs.merge(openDrawer$, closeDrawer$, toSearch$, toIndexing$, other$);
 }

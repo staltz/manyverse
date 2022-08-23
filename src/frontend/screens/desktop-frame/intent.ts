@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {ReactSource} from '@cycle/react';
@@ -10,6 +11,7 @@ import {HTTPSource} from '@cycle/http';
 import {t} from '~frontend/drivers/localization';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {Palette} from '~frontend/global-styles/palette';
+import {Props as IndexingProps} from '~frontend/screens/indexing/props';
 import {State} from './model';
 
 type TabID = State['currentTab'];
@@ -62,6 +64,11 @@ export default function intent(
     .select('storage')
     .events('press')
     .mapTo(null);
+
+  const goToIndexing$ = reactSource
+    .select('progressPill')
+    .events('press')
+    .compose(sample(state$)) as Stream<IndexingProps>;
 
   const openMoreMenuOptions$ = reactSource
     .select('more')
@@ -131,6 +138,7 @@ export default function intent(
     goToSelfProfile$,
     goToSettings$,
     goToStorage$,
+    goToIndexing$,
     showRawDatabase$,
     emailBugReport$,
     openTranslate$,

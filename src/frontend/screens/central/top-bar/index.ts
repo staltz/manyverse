@@ -20,8 +20,6 @@ export interface State {
   currentTab: 'public' | 'private' | 'activity' | 'connections';
   scrollHeaderBy: Animated.Value;
   hasNewVersion: boolean;
-  migrationProgress: number;
-  indexingProgress: number;
 }
 
 export interface Sources {

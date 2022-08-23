@@ -197,7 +197,6 @@
       "connections": "الاقترانات"
     },
     "loading": "يحمل...",
-    "building_indexes": "يبني فهارس قاعدة البيانات...\nقد يستغرق بضع دقائق",
     "tabs": {
       "public": {
         "accessibility_label": "زر التبويب العام"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "زر تبويب الاقترانات"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "الإعدادات",
         "accessibility_label": "انتقل إلى الإعدادات"
-      },
-      "preparing_database": {
-        "label": "يعِد قاعدة البيانات..."
       },
       "ready_estimate": {
         "label": "جاهز:"

@@ -197,7 +197,6 @@
       "connections": "Connessioni"
     },
     "loading": "Caricamento...",
-    "building_indexes": "Creazioni degli indici del database...\nPotrebbe richiedere alcuni minuti",
     "tabs": {
       "public": {
         "accessibility_label": "Tasto Tab Pubblico"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Tasto Tab Connessioni"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Impostazioni",
         "accessibility_label": "Vai alle Impostazioni"
-      },
-      "preparing_database": {
-        "label": "Preparazione database..."
       },
       "ready_estimate": {
         "label": "Pronto:"

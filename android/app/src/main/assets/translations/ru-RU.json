@@ -197,7 +197,6 @@
       "connections": "Соединения"
     },
     "loading": "Загрузка...",
-    "building_indexes": "Построение индексов базы данных...\nЭто может занять некоторое время",
     "tabs": {
       "public": {
         "accessibility_label": "Кнопка \"Публичная вкладка\""
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Кнопка \"Вкладка подключений\""
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Настройки",
         "accessibility_label": "Перейти к настройкам"
-      },
-      "preparing_database": {
-        "label": "Подготовка базы данных..."
       },
       "ready_estimate": {
         "label": "Готово:"

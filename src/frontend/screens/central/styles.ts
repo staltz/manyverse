@@ -23,8 +23,7 @@ const page: ViewStyle = {
   alignItems: 'center',
 };
 
-const FLARE_WIDTH = 6;
-const PROGRESS_BAR_HEIGHT = 2;
+export const PROGRESS_BAR_HEIGHT = 2;
 const PILL_HEIGHT = 24;
 export const PILL_WIDTH_SMALL = 46;
 export const PILL_WIDTH_LARGE = 56;
@@ -72,18 +71,6 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     top: -PROGRESS_BAR_HEIGHT,
-    height: PROGRESS_BAR_HEIGHT,
-    backgroundColor: Palette.brandMain,
-  },
-
-  progressFlare: {
-    position: 'absolute',
-    zIndex: 1001,
-    left: -FLARE_WIDTH - 1,
-    top: -PROGRESS_BAR_HEIGHT,
-    height: PROGRESS_BAR_HEIGHT,
-    width: FLARE_WIDTH,
-    backgroundColor: Palette.brandWeaker,
   },
 
   progressPillContainer: {

@@ -7,13 +7,17 @@ import {Reducer, Lens} from '@cycle/state';
 import {Animated} from 'react-native';
 import {FeedId, MsgId} from 'ssb-typescript';
 import {SSBSource} from '~frontend/drivers/ssb';
+import progressCalculation, {
+  State as ProgressState,
+  INITIAL_STATE as INITIAL_PROGRESS_STATE,
+} from '~frontend/components/progressCalculation';
 import {State as TopBarState} from './top-bar';
 import {State as PublicTabState} from './public-tab/model';
 import {State as PrivateTabState} from './private-tab/model';
 import {State as ActivityTabState} from './activity-tab/model';
 import {State as ConnectionsTabState} from './connections-tab/model';
 
-export interface State {
+export interface State extends ProgressState {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
   selfAvatarUrl?: string;
@@ -28,8 +32,6 @@ export interface State {
   numOfPrivateUpdates: number;
   numOfActivityUpdates: number;
   hasNewVersion: boolean;
-  migrationProgress: number;
-  indexingProgress: number;
   canPublishSSB: boolean;
   isDrawerOpen: boolean;
 }
@@ -201,6 +203,7 @@ export default function model(
       return prev;
     } else {
       return {
+        ...INITIAL_PROGRESS_STATE,
         selfFeedId: '',
         lastSessionTimestamp: Infinity,
         currentTab: 'public',
@@ -209,8 +212,6 @@ export default function model(
         numOfActivityUpdates: 0,
         initializedSSB: false,
         hasNewVersion: false,
-        migrationProgress: 0,
-        indexingProgress: 0,
         scrollHeaderBy: new Animated.Value(0),
         isDrawerOpen: false,
         canPublishSSB: true,
@@ -236,20 +237,9 @@ export default function model(
         },
     );
 
-  const migrationProgressReducer$ = ssbSource.migrationProgress$.map(
-    (migrationProgress) =>
-      function migrationProgressReducer(prev: State): State {
-        const canPublishSSB = migrationProgress >= 1;
-        return {...prev, migrationProgress, canPublishSSB};
-      },
-  );
-
-  const indexingProgressReducer$ = ssbSource.indexingProgress$.map(
-    (indexingProgress) =>
-      function indexingProgressReducer(prev: State): State {
-        return {...prev, indexingProgress};
-      },
-  );
+  const progressReducer$ = progressCalculation(ssbSource) as Stream<
+    Reducer<State>
+  >;
 
   const changeTabReducer$ = actions.changeTab$.map(
     (nextTab) =>
@@ -283,11 +273,10 @@ export default function model(
     initReducer$,
     setSelfFeedId$,
     aboutReducer$,
-    migrationProgressReducer$,
-    indexingProgressReducer$,
     changeTabReducer$,
     backToPublicTabReducer$,
     isDrawerOpenReducer$,
+    progressReducer$,
     hasNewVersionReducer$,
   );
 }

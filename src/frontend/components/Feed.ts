@@ -209,11 +209,6 @@ export default class Feed extends PureComponent<Props, State> {
       return h(View, [
         h(PlaceholderThreadCard),
         h(AnimatedLoading, {text: t('central.loading')}),
-        h(AnimatedLoading, {
-          text: t('central.building_indexes'),
-          delay: 11e3,
-          selectable: true,
-        }),
       ]);
     } else {
       return h(PlaceholderThreadCard);

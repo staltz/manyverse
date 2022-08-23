@@ -4,6 +4,7 @@
 
 import {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
+import {h} from '@cycle/react';
 import {PureComponent, ReactElement} from 'react';
 import {
   View,
@@ -15,10 +16,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Bar as ProgressBar} from 'react-native-progress';
-import {h} from '@cycle/react';
 import {t} from '~frontend/drivers/localization';
-import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import Avatar from '~frontend/components/Avatar';
@@ -83,37 +81,6 @@ class MenuItem extends PureComponent<MenuItemProps> {
   }
 }
 
-class Syncing extends PureComponent<{
-  label: string;
-  progress: number;
-  timeRemaining: number;
-}> {
-  public render() {
-    const {label, progress, timeRemaining} = this.props;
-    const progressPretty = `${(progress * 100).toFixed(1)}%`;
-
-    return h(View, {style: styles.syncingContainer}, [
-      h(Text, {style: styles.syncingText}, `${label} (${progressPretty})`),
-      h(ProgressBar as any, {
-        animated: false,
-        progress: Math.max(0.01, progress), // at least 1%
-        color: Palette.brandMain,
-        unfilledColor: Palette.transparencyDark,
-        borderWidth: 0,
-        width: 250,
-        height: 6,
-      }),
-      timeRemaining > 60e3
-        ? h(Text, {style: styles.syncingEstimateText}, [
-            t('drawer.menu.ready_estimate.label'),
-            ' ',
-            h(LocalizedHumanTime, {time: Date.now() + timeRemaining}),
-          ])
-        : null,
-    ]);
-  }
-}
-
 export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
   return state$
     .compose(
@@ -123,8 +90,6 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
         'name',
         'canPublishSSB',
         'hasNewVersion',
-        'combinedProgress',
-        'estimateProgressDone',
       ]),
     )
     .map((state) =>
@@ -212,13 +177,6 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
             text: t('drawer.menu.settings.label'),
             accessibilityLabel: t('drawer.menu.settings.accessibility_label'),
           }),
-          state.combinedProgress > 0 && state.combinedProgress < 1
-            ? h(Syncing, {
-                label: t('drawer.menu.preparing_database.label'),
-                progress: state.combinedProgress,
-                timeRemaining: state.estimateProgressDone,
-              })
-            : null,
         ]),
       ]),
     );

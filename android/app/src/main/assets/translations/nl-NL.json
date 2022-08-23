@@ -197,7 +197,6 @@
       "connections": "Verbindingen"
     },
     "loading": "Laden...",
-    "building_indexes": "Database-indexen worden gebouwd...\nDit kan enkele minuten duren",
     "tabs": {
       "public": {
         "accessibility_label": "Publieke Tabknop"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Verbindingen Tabknop"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Instellingen",
         "accessibility_label": "Ga naar instellingen"
-      },
-      "preparing_database": {
-        "label": "Database voorbereiden..."
       },
       "ready_estimate": {
         "label": "Gereed:"

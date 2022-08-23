@@ -5,6 +5,7 @@
     "done": "Done",
     "cancel": "Cancel",
     "continue": "Continue",
+    "read_more": "Read more",
     "delete": "Delete",
     "remove": "Remove",
     "save": "Save",
@@ -14,6 +15,7 @@
       "accessibility_label": "Menu Button"
     },
     "go_back": {
+      "label": "Go back",
       "accessibility_label": "Back Button"
     },
     "close": {
@@ -197,7 +199,6 @@
       "connections": "Connections"
     },
     "loading": "Loading...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
     "progress_indicator": {
       "accessibility_label": "Progress Indicator for Indexing the Database"
     },
@@ -674,9 +675,6 @@
         "label": "Settings",
         "accessibility_label": "Go To Settings"
       },
-      "preparing_database": {
-        "label": "Preparing database..."
-      },
       "ready_estimate": {
         "label": "Ready:"
       }
@@ -1131,6 +1129,13 @@
   },
   "compact": {
     "title": "Compacting your\nManyverse database..."
+  },
+  "indexing": {
+    "title": "Preparing database indexes... ({{progress}}%)",
+    "info": {
+      "title": "What is happening here?",
+      "description": "Your Manyverse installation has {{bytes}} of content that needs to be optimized before you can browse it. Database indexes help organize content into categories such as posts, reactions, follows, blocks, etc.\n\nThe app is busy building those indexes and making sense of them so that when you want to see how many followers an account has, the numbers have already been calculated, and when you want to see who reacted to a post, the list of reactions has already been collected, and so forth.\n\nTypically this doesn't take longer than 10 minutes. Hang in there!"
+    }
   },
   "resync": {
     "introduction": {

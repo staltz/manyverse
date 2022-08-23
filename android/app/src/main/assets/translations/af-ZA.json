@@ -197,7 +197,6 @@
       "connections": "Connections"
     },
     "loading": "Loading...",
-    "building_indexes": "Building database indexes...\nThis may take up to several minutes",
     "tabs": {
       "public": {
         "accessibility_label": "Public Tab Button"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Connections Tab Button"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Settings",
         "accessibility_label": "Go To Settings"
-      },
-      "preparing_database": {
-        "label": "Preparing database..."
       },
       "ready_estimate": {
         "label": "Ready:"

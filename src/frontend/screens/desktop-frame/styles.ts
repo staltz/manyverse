@@ -7,7 +7,7 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
 
-const PROGRESS_BAR_HEIGHT = 3;
+export const PROGRESS_BAR_HEIGHT = 3;
 const PILL_WIDTH_SMALL = 46;
 const PILL_WIDTH_LARGE = 56;
 export const PILL_LEFT_CLAMP_MIN = `${
@@ -25,46 +25,11 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.voidMain,
   },
 
-  progressBasic: {
+  progressBarContainer: {
     position: 'absolute',
     zIndex: 1000,
     top: 0,
-    height: `${PROGRESS_BAR_HEIGHT}px`,
-    backgroundColor: Palette.textForBackgroundBrand,
-    transition: 'width 0.25s',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
   } as React.CSSProperties & ViewStyle,
-
-  progressFlare: {
-    marginRight: '0%',
-    backgroundColor: Palette.brandWeakest,
-    height: '100%',
-    width: '9px',
-    animationDuration: '1400ms',
-    animationDirection: 'normal',
-    animationTimingFunction: 'ease-in-out',
-    animationKeyframes: [
-      {
-        '0%': {marginRight: '100%'},
-        '100%': {marginRight: '0%'},
-      },
-    ],
-    animationIterationCount: 'infinite',
-  } as React.CSSProperties & ViewStyle,
-
-  progressFlareDone: {
-    opacity: 0,
-  },
-
-  progressUndone: {
-    left: 0,
-  },
-
-  progressDone: {
-    right: 0,
-  },
 
   progressLabel: {
     marginLeft: Dimensions.horizontalSpaceNormal,
@@ -90,6 +55,7 @@ export const styles = StyleSheet.create({
 
   progressPillHovered: {
     backgroundColor: Palette.backgroundTextWeak,
+    opacity: 1,
   },
 
   progressPillSmall: {
@@ -187,29 +153,5 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-  },
-
-  topBarRightSection: {
-    position: 'absolute',
-    zIndex: 1000,
-    top: 0,
-    right: 0,
-    width: `calc(min(100vw - ${Dimensions.desktopMiddleWidth.px} - ${Dimensions.desktopSideWidth.px}, (100vw - ${Dimensions.desktopMiddleWidth.px}) * 0.5))`,
-    height: Dimensions.toolbarHeight,
-    minHeight: Dimensions.toolbarHeight,
-    maxHeight: Dimensions.toolbarHeight,
-    overflow: 'hidden',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-
-  syncingEstimateText: {
-    color: Palette.textForBackgroundBrand,
-    fontSize: Typography.fontSizeSmall,
-    lineHeight: Typography.lineHeightSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    marginRight: Dimensions.horizontalSpaceNormal,
-    textAlign: 'right',
   },
 });

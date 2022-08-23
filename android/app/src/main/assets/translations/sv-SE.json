@@ -197,7 +197,6 @@
       "connections": "Anslutningar"
     },
     "loading": "Laddar...",
-    "building_indexes": "Indexerar databasen...\nDetta kan ta flera minuter",
     "tabs": {
       "public": {
         "accessibility_label": "Publikt forum-flikknapp"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Flikknapp för anslutningar"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Inställningar",
         "accessibility_label": "Gå till inställningar"
-      },
-      "preparing_database": {
-        "label": "Preparing database..."
       },
       "ready_estimate": {
         "label": "Ready:"

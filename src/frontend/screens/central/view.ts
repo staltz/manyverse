@@ -13,7 +13,7 @@ import {
 import {
   Animated,
   Dimensions,
-  Easing,
+  Dimensions as DimensAPI,
   Platform,
   View,
   Text,
@@ -22,17 +22,19 @@ import {
 } from 'react-native';
 import {h} from '@cycle/react';
 import {FloatingAction} from 'react-native-floating-action';
+import {t} from '~frontend/drivers/localization';
 import PublicTabIcon from '~frontend/components/tab-buttons/PublicTabIcon';
 import PrivateTabIcon from '~frontend/components/tab-buttons/PrivateTabIcon';
 import ActivityTabIcon from '~frontend/components/tab-buttons/ActivityTabIcon';
 import ConnectionsTabIcon from '~frontend/components/tab-buttons/ConnectionsTabIcon';
 import {withTitle} from '~frontend/components/withTitle';
-import {t} from '~frontend/drivers/localization';
+import ProgressBar from '~frontend/components/ProgressBar';
 import {
   styles,
   PILL_WIDTH_SMALL,
   PILL_WIDTH_LARGE,
   PILL_MARGIN,
+  PROGRESS_BAR_HEIGHT,
 } from './styles';
 import {State} from './model';
 import {FabProps} from './fab';
@@ -91,122 +93,6 @@ class CurrentTabPage extends PureComponent<{
         connectionsTab,
         fabSection,
       ]),
-    ]);
-  }
-}
-
-class MobileProgressBar extends Component<{progress: number}> {
-  private progressAnim = new Animated.Value(0);
-  private flareAnim = new Animated.Value(0);
-  private flareAnimating = false;
-  private readonly width: number;
-  private transformToRight: Array<any>;
-  private transformFromRight: Array<any>;
-
-  constructor(props: MobileProgressBar['props']) {
-    super(props);
-
-    const W = (this.width = Dimensions.get('window').width);
-    const W2 = W * 0.5;
-    this.transformToRight = [
-      {translateX: -W2},
-      {scaleX: this.progressAnim},
-      {translateX: W2},
-    ];
-    this.transformFromRight = [
-      {translateX: W2},
-      {scaleX: this.progressAnim},
-      {translateX: -W2},
-    ];
-  }
-
-  componentWillUnmount() {
-    this.progressAnim.stopAnimation();
-    this.flareAnim.stopAnimation();
-    this.progressAnim = null as any;
-    this.flareAnim = null as any;
-    this.transformToRight = null as any;
-    this.transformFromRight = null as any;
-  }
-
-  private startFlare() {
-    this.flareAnimating = true;
-    this.flareAnim.setValue(0);
-    Animated.loop(
-      Animated.timing(this.flareAnim, {
-        toValue: this.width,
-        duration: 1400,
-        easing: Easing.inOut(Easing.quad),
-        useNativeDriver: true,
-        isInteraction: false,
-      }),
-    ).start();
-  }
-
-  private stopFlare() {
-    this.flareAnimating = false;
-    this.flareAnim.setValue(0);
-  }
-
-  public shouldComponentUpdate(nextProps: MobileProgressBar['props']) {
-    const prevProgress = this.props.progress;
-    const nextProgress = nextProps.progress;
-
-    // starting up:
-    if (prevProgress <= 0 && nextProgress > 0) {
-      this.progressAnim.setValue(0);
-      Animated.timing(this.progressAnim, {
-        toValue: nextProgress,
-        duration: 250,
-        useNativeDriver: true,
-        isInteraction: false,
-      }).start();
-      if (!this.flareAnimating) this.startFlare();
-    }
-    // finishing:
-    else if (prevProgress < 1 && nextProgress >= 1) {
-      this.progressAnim.setValue(1);
-      Animated.timing(this.progressAnim, {
-        toValue: 0,
-        duration: 250,
-        useNativeDriver: true,
-        isInteraction: false,
-      }).start();
-      if (this.flareAnimating) this.stopFlare();
-    }
-    // in between:
-    else if (nextProgress < 1 && prevProgress !== nextProgress) {
-      this.progressAnim.stopAnimation();
-      Animated.timing(this.progressAnim, {
-        toValue: nextProgress,
-        duration: 250,
-        useNativeDriver: true,
-        isInteraction: false,
-      }).start();
-      if (!this.flareAnimating) this.startFlare();
-    }
-
-    if (prevProgress < 1 && nextProgress >= 1) {
-      return true;
-    } else if (prevProgress >= 1 && nextProgress < 1) {
-      return true;
-    }
-    return false;
-  }
-
-  public render() {
-    const transform =
-      this.props.progress >= 1
-        ? this.transformFromRight
-        : this.transformToRight;
-
-    const translateX = Animated.multiply(this.flareAnim, this.progressAnim);
-
-    return h(Fragment, [
-      h(Animated.View, {style: [styles.progressBar, {transform}]}),
-      h(Animated.View, {
-        style: [styles.progressFlare, {transform: [{translateX}]}],
-      }),
     ]);
   }
 }
@@ -353,32 +239,15 @@ class MobileTabsBar extends Component<State> {
     if (nextProps.initializedSSB !== prevProps.initializedSSB) {
       return true;
     }
-    if (nextProps.indexingProgress !== prevProps.indexingProgress) {
-      return true;
-    }
-    if (nextProps.migrationProgress !== prevProps.migrationProgress) {
+    if (nextProps.combinedProgress !== prevProps.combinedProgress) {
       return true;
     }
     return false;
   }
 
   public render() {
-    const {
-      currentTab,
-      connectionsTab,
-      initializedSSB,
-      indexingProgress,
-      migrationProgress,
-    } = this.props;
-
-    const progress =
-      indexingProgress > 0 && migrationProgress > 0
-        ? (indexingProgress + migrationProgress) * 0.5
-        : indexingProgress > 0
-        ? indexingProgress
-        : migrationProgress > 0
-        ? migrationProgress
-        : 1;
+    const {currentTab, connectionsTab, initializedSSB, combinedProgress} =
+      this.props;
 
     const status = connectionsTab?.status ?? 'bad';
 
@@ -400,8 +269,15 @@ class MobileTabsBar extends Component<State> {
         status,
         allowWarningColors: initializedSSB,
       }),
-      h(MobileProgressBar, {progress}),
-      h(MobileProgressPill, {progress}),
+      h(ProgressBar, {
+        style: styles.progressBar,
+        progress: combinedProgress,
+        theme: 'brand',
+        disappearAt100: true,
+        width: DimensAPI.get('window').width,
+        height: PROGRESS_BAR_HEIGHT,
+      }),
+      h(MobileProgressPill, {progress: combinedProgress}),
     ]);
   }
 }

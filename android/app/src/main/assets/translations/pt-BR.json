@@ -197,7 +197,6 @@
       "connections": "Conexões"
     },
     "loading": "Carregando...",
-    "building_indexes": "Construindo índices do banco de dados...\nIsso pode levar vários minutos",
     "tabs": {
       "public": {
         "accessibility_label": "Botão da Aba Pública"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Botão da Aba de Conexões"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Configurações",
         "accessibility_label": "Ir para Configurações"
-      },
-      "preparing_database": {
-        "label": "Preparando banco de dados..."
       },
       "ready_estimate": {
         "label": "Pronto:"

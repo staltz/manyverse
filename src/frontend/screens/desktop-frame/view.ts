@@ -7,53 +7,29 @@ import debounce from 'xstream/extra/debounce';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {PureComponent, ReactElement, createElement as $} from 'react';
-import {View, Text, Pressable, TextStyle} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
 import PublicTabIcon from '~frontend/components/tab-buttons/PublicTabIcon';
 import PrivateTabIcon from '~frontend/components/tab-buttons/PrivateTabIcon';
 import ActivityTabIcon from '~frontend/components/tab-buttons/ActivityTabIcon';
 import ConnectionsTabIcon from '~frontend/components/tab-buttons/ConnectionsTabIcon';
 import TabIcon from '~frontend/components/tab-buttons/TabIcon';
 import Avatar from '~frontend/components/Avatar';
-import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
-import {Dimensions} from '~frontend/global-styles/dimens';
-import {Palette} from '~frontend/global-styles/palette';
+import ProgressBar from '~frontend/components/ProgressBar';
 import {State} from './model';
-import {styles, PILL_LEFT_CLAMP_MIN, PILL_LEFT_CLAMP_MAX} from './styles';
+import {
+  styles,
+  PILL_LEFT_CLAMP_MIN,
+  PILL_LEFT_CLAMP_MAX,
+  PROGRESS_BAR_HEIGHT,
+} from './styles';
 
 class TopBarLeftSection extends PureComponent {
   public render() {
     return $(View, {style: styles.topBarLeftSection}, this.props.children);
-  }
-}
-
-class TopBarRightSection extends PureComponent {
-  public render() {
-    return $(View, {style: styles.topBarRightSection}, this.props.children);
-  }
-}
-
-class ProgressBar extends PureComponent<{progress: number}> {
-  public render() {
-    const progress = this.props.progress;
-    const width = progress >= 1 ? '0%' : `${(progress * 100).toFixed(3)}%`;
-    const doneStyle =
-      progress >= 1 ? styles.progressDone : styles.progressUndone;
-
-    return $(
-      View,
-      {key: 'p1', style: [styles.progressBasic, doneStyle, {width}]},
-      [
-        $(View, {
-          key: 'p2',
-          style: [
-            styles.progressFlare,
-            progress >= 1 ? styles.progressFlareDone : null,
-          ],
-        }),
-      ],
-    );
   }
 }
 
@@ -82,13 +58,18 @@ class ProgressPill extends PureComponent<{
 
     return h(Pressable, {
       onPress: this.onPress,
-      children: () => [$(Text, {style: styles.progressPillText}, progressStr)],
-      style: ({hovered}: any) => [
-        styles.progressPill,
-        progressPillWidth,
-        {left, opacity},
-        hovered ? styles.progressPillHovered : null,
+      children: () => [
+        $(Text, {key: 'ppt', style: styles.progressPillText}, progressStr),
       ],
+      style: ({hovered}: any) => {
+        if (hovered) this.started = 1;
+        return [
+          styles.progressPill,
+          progressPillWidth,
+          {left, opacity},
+          hovered ? styles.progressPillHovered : null,
+        ];
+      },
       accessible: true,
       accessibilityRole: 'button',
       accessibilityLabel: t('central.progress_indicator.accessibility_label'),
@@ -182,7 +163,6 @@ export default function view(
         'hasNewVersion',
         'showButtons',
         'combinedProgress',
-        'estimateProgressDone',
       ]),
     )
     .startWith(initialViewState);
@@ -198,60 +178,44 @@ export default function view(
 
       const status = state.connections?.status ?? 'bad';
       const initializedSSB = state.connections?.initializedSSB ?? false;
-      const {combinedProgress, estimateProgressDone} = state;
-      const progressLabelOpacity =
-        state.combinedProgress > 0 && state.combinedProgress < 1 ? 1 : 0;
+      const {combinedProgress, currentTab} = state;
 
       return h(View, {style: styles.screen}, [
-        h(ProgressBar, {progress: combinedProgress}),
-        h(ProgressPill, {progress: combinedProgress}),
-
-        h(TopBarRightSection, [
-          estimateProgressDone > 60e3
-            ? h(Text, {style: styles.syncingEstimateText}, [
-                t('drawer.menu.ready_estimate.label'),
-                ' ',
-                h(LocalizedHumanTime, {
-                  time: Date.now() + estimateProgressDone,
-                }),
-              ])
-            : null,
-        ]),
+        h(ProgressBar, {
+          style: styles.progressBarContainer,
+          progress: combinedProgress,
+          theme: 'blank',
+          disappearAt100: true,
+          width: '100vw',
+          height: PROGRESS_BAR_HEIGHT,
+        }),
+        combinedProgress > 0 && combinedProgress < 1
+          ? h(ProgressPill, {sel: 'progressPill', progress: combinedProgress})
+          : null,
 
         h(View, {style: styles.left}, [
-          h(TopBarLeftSection, [
-            h(
-              Text,
-              {
-                style: [
-                  styles.progressLabel as TextStyle,
-                  {opacity: progressLabelOpacity},
-                ],
-              },
-              t('drawer.menu.preparing_database.label'),
-            ),
-          ]),
+          h(TopBarLeftSection),
 
           state.showButtons
             ? h(View, {style: styles.leftMenu}, [
                 h(PublicTabIcon, {
                   style: styles.leftMenuTabButton,
-                  isSelected: state.currentTab === 'public',
+                  isSelected: currentTab === 'public',
                   numOfUpdates: state.numOfPublicUpdates,
                 }),
                 h(PrivateTabIcon, {
                   style: styles.leftMenuTabButton,
-                  isSelected: state.currentTab === 'private',
+                  isSelected: currentTab === 'private',
                   numOfUpdates: state.numOfPrivateUpdates,
                 }),
                 h(ActivityTabIcon, {
                   style: styles.leftMenuTabButton,
-                  isSelected: state.currentTab === 'activity',
+                  isSelected: currentTab === 'activity',
                   numOfUpdates: state.numOfActivityUpdates,
                 }),
                 h(ConnectionsTabIcon, {
                   style: styles.leftMenuTabButton,
-                  isSelected: state.currentTab === 'connections',
+                  isSelected: currentTab === 'connections',
                   status,
                   allowWarningColors: initializedSSB,
                 }),

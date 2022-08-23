@@ -197,7 +197,6 @@
       "connections": "Spojenia"
     },
     "loading": "Načítanie...",
-    "building_indexes": "Budovanie databázy indexov...\nToto môže trvať aj niekoľko minút",
     "tabs": {
       "public": {
         "accessibility_label": "Tlačidlo Sekcie Verejné"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Tlačidlo Sekcie Spojenia"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Nastavenia",
         "accessibility_label": "Prejsť Do Nastavení"
-      },
-      "preparing_database": {
-        "label": "Preparing database..."
       },
       "ready_estimate": {
         "label": "Ready:"

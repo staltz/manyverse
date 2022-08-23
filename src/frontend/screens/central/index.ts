@@ -144,6 +144,7 @@ export function central(sources: Sources): Sinks {
       openDrawer$: topBarSinks.menuPress,
       closeDrawer$: actions.closeDrawer$,
       goToSearch$: topBarSinks.publicSearch,
+      goToIndexing$: actions.goToIndexing$,
     },
     xs.merge(
       publicTabSinks.navigation,

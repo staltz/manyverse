@@ -197,7 +197,6 @@
       "connections": "Yhteydet"
     },
     "loading": "Ladataan...",
-    "building_indexes": "Rakennetaan tietokantaindeksit...\nTämä saattaa kestää useita minuutteja",
     "tabs": {
       "public": {
         "accessibility_label": "Julkinen välilehti -painike"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Yhteydet välilehti -painike"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Asetukset",
         "accessibility_label": "Siirry asetuksiin"
-      },
-      "preparing_database": {
-        "label": "Valmistellaan tietokantaa..."
       },
       "ready_estimate": {
         "label": "Valmis:"

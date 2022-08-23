@@ -13,6 +13,7 @@ import {
   CentralScrollToTop,
   CentralScreenUpdate,
 } from '~frontend/drivers/eventbus';
+import {Props as IndexingProps} from '~frontend/screens/indexing/props';
 import {State} from './model';
 
 type TabID = State['currentTab'];
@@ -114,6 +115,11 @@ export default function intent(
     )
     .map((event) => event.open);
 
+  const goToIndexing$ = reactSource
+    .select('progressPill')
+    .events('press')
+    .compose(sample(state$)) as Stream<IndexingProps>;
+
   const hasNewVersion$ = globalEventBus.filter(
     (ev) => ev.type === 'hasNewVersion',
   );
@@ -127,6 +133,7 @@ export default function intent(
     backToPublicTab$,
     exitApp$,
     drawerToggled$,
+    goToIndexing$,
     hasNewVersion$,
   };
 }

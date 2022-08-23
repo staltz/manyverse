@@ -197,7 +197,6 @@
       "connections": "Verbindungen"
     },
     "loading": "Lädt...",
-    "building_indexes": "Datenbankindizes werden erstellt...\nDies kann einige Minuten dauern",
     "tabs": {
       "public": {
         "accessibility_label": "Öffentlich Beiträge Menü-Schaltfläche"
@@ -211,6 +210,9 @@
       "connections": {
         "accessibility_label": "Verbindungen Tab Menü-Schaltfläche"
       }
+    },
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -670,9 +672,6 @@
       "settings": {
         "label": "Einstellungen",
         "accessibility_label": "Gehe zu Einstellungen"
-      },
-      "preparing_database": {
-        "label": "Datenbank wird vorbereitet..."
       },
       "ready_estimate": {
         "label": "Bereit:"
