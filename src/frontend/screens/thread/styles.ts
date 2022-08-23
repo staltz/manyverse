@@ -42,6 +42,9 @@ export const styles = StyleSheet.create({
         bottom: 0,
         zIndex: 100,
       },
+      ios: {
+        paddingBottom: Dimensions.iosBottomSpacer,
+      },
     }),
   },
 

@@ -16,7 +16,6 @@ import {
   ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-const {isIPhoneWithMonobrow} = require('react-native-status-bar-height');
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
@@ -27,9 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: Platform.select({default: 'column', web: 'row'}),
     justifyContent: Platform.select({default: 'center', web: 'flex-start'}),
     alignItems: 'center',
-    marginTop: Platform.select({
-      ios: isIPhoneWithMonobrow() ? -10 : Platform.OS === 'ios' ? -5 : 0,
-    }),
+    marginTop: Dimensions.tabBarPaddingTop,
     ...Platform.select({
       web: {
         paddingHorizontal: Dimensions.horizontalSpaceNormal,

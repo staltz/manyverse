@@ -3,11 +3,27 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet} from 'react-native';
-import {isIPhoneWithMonobrow} from 'react-native-status-bar-height';
+import {
+  getStatusBarHeight,
+  isIPhoneWithMonobrow,
+} from 'react-native-status-bar-height';
 
 const desktopSideWidthFlex = 1;
 const desktopMiddleWidthFlex = 3;
 const desktopWidthFlexTotal = desktopMiddleWidthFlex + 2 * desktopSideWidthFlex;
+
+const toolbarHeight = Platform.select({
+  ios: isIPhoneWithMonobrow() ? 100 : 76,
+  default: 56,
+});
+
+const iosBottomSpacer = isIPhoneWithMonobrow()
+  ? 28
+  : Platform.OS === 'ios'
+  ? 12
+  : 0;
+
+const tabBarHeight = toolbarHeight - getStatusBarHeight(true) + iosBottomSpacer;
 
 export const Dimensions = {
   horizontalSpaceLarge: 22 - StyleSheet.hairlineWidth,
@@ -46,9 +62,12 @@ export const Dimensions = {
   iconSizeBig: 30,
   iconSizeNormal: 24,
   iconSizeSmall: 18,
-  toolbarHeight: Platform.select({
-    ios: isIPhoneWithMonobrow() ? 100 : 76,
-    default: 56,
+  toolbarHeight,
+  tabBarHeight,
+  iosBottomSpacer,
+  tabBarPaddingTop: Platform.select({
+    ios: -Math.round(iosBottomSpacer * 0.36),
+    default: 0,
   }),
 
   desktopSideWidth: {

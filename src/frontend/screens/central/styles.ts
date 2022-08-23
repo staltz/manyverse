@@ -3,16 +3,9 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet, ViewStyle} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {globalStyles} from '~frontend/global-styles/styles';
-const {isIPhoneWithMonobrow} = require('react-native-status-bar-height');
-
-const TAB_BAR_HEIGHT =
-  Dimensions.toolbarHeight -
-  getStatusBarHeight(true) +
-  (isIPhoneWithMonobrow() ? 28 : Platform.OS === 'ios' ? 12 : 0);
 
 const page: ViewStyle = {
   position: 'absolute',
@@ -20,7 +13,7 @@ const page: ViewStyle = {
   left: 0,
   bottom: Platform.select({
     web: 0,
-    default: TAB_BAR_HEIGHT,
+    default: Dimensions.tabBarHeight,
   }),
   right: 0,
   backgroundColor: Palette.voidMain,
@@ -49,7 +42,7 @@ export const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    height: TAB_BAR_HEIGHT,
+    height: Dimensions.tabBarHeight,
     borderTopColor: Palette.textLine,
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: Palette.backgroundText,
