@@ -3,7 +3,13 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {PureComponent} from 'react';
-import {TouchableHighlight, StyleSheet} from 'react-native';
+import {
+  TouchableHighlight,
+  StyleSheet,
+  ViewStyle,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '~frontend/global-styles/palette';
@@ -19,6 +25,7 @@ export const styles = StyleSheet.create({
     maxWidth: size,
     maxHeight: size,
     borderRadius: size * 0.5,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -26,6 +33,11 @@ export const styles = StyleSheet.create({
   leftSide: {marginLeft: -space},
 
   rightSide: {marginRight: -space},
+});
+
+const Touchable = Platform.select<any>({
+  ios: TouchableOpacity,
+  default: TouchableHighlight,
 });
 
 export interface Props {
@@ -36,9 +48,12 @@ export interface Props {
   iconSize?: number;
   accessibilityLabel: string;
   side?: 'left' | 'right' | 'neutral';
+  style?: ViewStyle;
 }
 
 export default class HeaderButton extends PureComponent<Props> {
+  static readonly size = size;
+
   public render() {
     const {
       onPress,
@@ -48,6 +63,7 @@ export default class HeaderButton extends PureComponent<Props> {
       iconSize,
       accessibilityLabel,
       side,
+      style,
     } = this.props;
     const sideStyle =
       side === 'left'
@@ -60,13 +76,14 @@ export default class HeaderButton extends PureComponent<Props> {
     const padding = (size - (iconSize ?? defaultIconSize)) * 0.5;
 
     return h(
-      withTitle(TouchableHighlight),
+      withTitle(Touchable),
       {
-        style: [styles.basics, sideStyle, {padding}],
+        style: [styles.basics, sideStyle, {padding}, style],
         onPress,
         onLongPress,
         hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
         underlayColor: Palette.transparencyDarkWeak,
+        activeOpacity: 0.4,
         title: accessibilityLabel,
       },
       [

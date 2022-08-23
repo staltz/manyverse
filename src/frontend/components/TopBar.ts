@@ -70,6 +70,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
+
+  backOnIOS: {
+    marginLeft: -HeaderButton.size * 0.5,
+    width: HeaderButton.size * 2,
+    maxWidth: HeaderButton.size * 2,
+    justifyContent: 'flex-start',
+  },
 });
 
 export interface Props {
@@ -91,7 +98,9 @@ export default class TopBar extends PureComponent<Props> {
           key: 'back',
           onPress: onPressBack,
           icon: Platform.select({ios: 'chevron-left', default: 'arrow-left'}),
-          ...Platform.select({ios: {iconSize: Dimensions.iconSizeLarge}}),
+          ...Platform.select({
+            ios: {iconSize: Dimensions.iconSizeLarge, style: styles.backOnIOS},
+          }),
           accessibilityLabel: t('call_to_action.go_back.accessibility_label'),
         }),
         title ? $(Text, {key: 'title', style: styles.title}, title) : null,
