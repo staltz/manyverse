@@ -64,20 +64,7 @@ const styleMore: ViewStyle = {
 const styles = StyleSheet.create({
   screen: globalStyles.screen,
 
-  header: {
-    backgroundColor: Palette.backgroundText,
-    paddingVertical: Dimensions.verticalSpaceBig,
-    paddingHorizontal: Dimensions.horizontalSpaceBig,
-    fontSize: Typography.fontSizeNormal,
-    lineHeight: Typography.lineHeightNormal,
-    color: Palette.textWeak,
-    ...Platform.select({
-      web: {
-        width: Dimensions.desktopMiddleWidth.px,
-        fontFamily: Typography.fontFamilyReadableText,
-      },
-    }),
-  },
+  scrollContainer: globalStyles.containerWithDesktopSideBar,
 
   row: {
     backgroundColor: Palette.backgroundText,
@@ -432,6 +419,7 @@ class List extends PureComponent<ListProps, {initialLoading: boolean}> {
       numColumns: 1,
       forceRefresh$,
       scrollToOffset$: scrollToTop$.mapTo({offset: 0, animated: true}),
+      style: styles.scrollContainer,
       onInitialPullDone: this._onInitialPullDone,
       onPullingComplete: this._onFinalPullDone,
       ListHeaderComponent: h(StorageHeader, this.props),
