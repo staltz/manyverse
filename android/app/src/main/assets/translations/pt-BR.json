@@ -5,6 +5,7 @@
     "done": "Pronto",
     "cancel": "Cancelar",
     "continue": "Continuar",
+    "read_more": "Leia mais",
     "delete": "Apagar",
     "remove": "Excluir",
     "save": "Salvar",
@@ -14,6 +15,7 @@
       "accessibility_label": "Botão de menu"
     },
     "go_back": {
+      "label": "Voltar atrás",
       "accessibility_label": "Botão de voltar"
     },
     "close": {
@@ -197,6 +199,9 @@
       "connections": "Conexões"
     },
     "loading": "Carregando...",
+    "progress_indicator": {
+      "accessibility_label": "Indicador de progresso para indexar o banco de dados"
+    },
     "tabs": {
       "public": {
         "accessibility_label": "Botão da Aba Pública"
@@ -210,9 +215,6 @@
       "connections": {
         "accessibility_label": "Botão da Aba de Conexões"
       }
-    },
-    "progress_indicator": {
-      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -1127,6 +1129,13 @@
   },
   "compact": {
     "title": "Compactando seu\nbanco de dados..."
+  },
+  "indexing": {
+    "title": "Preparando os índices... ({{progress}}%)",
+    "info": {
+      "title": "O que está acontecendo?",
+      "description": "Sua instalação do Manyverse tem {{bytes}} de conteúdo que precisam ser otimizados para que você possa explorar o conteúdo. Os índices no banco de dados organizam o conteúdo em categorias como postagens, reações, bloqueios, etc.\n\nO aplicativo está ocupado construindo esses índices, para que quando você quiser ver quantos seguidores uma conta tem, os números já foram calculados e quando você quiser ver quem reagiu a uma publicação, a lista de reações já está pronta, etc.\n\nNormalmente não leva mais do que 10 minutos. Aguenta aí!"
+    }
   },
   "resync": {
     "introduction": {

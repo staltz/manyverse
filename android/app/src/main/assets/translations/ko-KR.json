@@ -5,6 +5,7 @@
     "done": "완료",
     "cancel": "취소",
     "continue": "계속",
+    "read_more": "Read more",
     "delete": "삭제",
     "remove": "제거",
     "save": "저장",
@@ -14,6 +15,7 @@
       "accessibility_label": "메뉴"
     },
     "go_back": {
+      "label": "뒤로가기",
       "accessibility_label": "뒤로가기"
     },
     "close": {
@@ -197,6 +199,9 @@
       "connections": "연결"
     },
     "loading": "로드중...",
+    "progress_indicator": {
+      "accessibility_label": "Progress Indicator for Indexing the Database"
+    },
     "tabs": {
       "public": {
         "accessibility_label": "공개"
@@ -210,9 +215,6 @@
       "connections": {
         "accessibility_label": "연결"
       }
-    },
-    "progress_indicator": {
-      "accessibility_label": "Progress Indicator for Indexing the Database"
     }
   },
   "public": {
@@ -1127,6 +1129,13 @@
   },
   "compact": {
     "title": "Compacting your\nManyverse database..."
+  },
+  "indexing": {
+    "title": "Preparing database indexes... ({{progress}}%)",
+    "info": {
+      "title": "What is happening here?",
+      "description": "Your Manyverse installation has {{bytes}} of content that needs to be optimized before you can browse it. Database indexes help organize content into categories such as posts, reactions, follows, blocks, etc.\n\nThe app is busy building those indexes and making sense of them so that when you want to see how many followers an account has, the numbers have already been calculated, and when you want to see who reacted to a post, the list of reactions has already been collected, and so forth.\n\nTypically this doesn't take longer than 10 minutes. Hang in there!"
+    }
   },
   "resync": {
     "introduction": {
