@@ -45,10 +45,12 @@ import ProfileID from './ProfileID';
 import ProfileName from './ProfileName';
 import ConnectionDot from './ConnectionDot';
 
+const IOS = getStatusBarHeight(true);
+
 function calcNameTransY(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [-10, 0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
-    outputRange: [10, 0, -COVER_HEIGHT - NAME_MARGIN_TOOLBAR],
+    inputRange: [-10 - IOS, 0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
+    outputRange: [10 + IOS, 0 + IOS, -COVER_HEIGHT - NAME_MARGIN_TOOLBAR + IOS],
     extrapolateLeft: 'extend',
     extrapolateRight: 'clamp',
   });
@@ -56,7 +58,7 @@ function calcNameTransY(scrollY: Animated.Value): Animated.Animated {
 
 function calcAvatarTransX(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
+    inputRange: [0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
     outputRange: [0, Dimensions.iconSizeNormal],
     extrapolate: 'clamp',
   });
@@ -69,8 +71,12 @@ function calcAvatarTransY(scrollY: Animated.Value): Animated.Animated {
       AVATAR_SIZE_TOOLBAR) *
     0.5;
   return scrollY.interpolate({
-    inputRange: [-10, 0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
-    outputRange: [10, 0, -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.5 - margin],
+    inputRange: [-10 - IOS, 0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
+    outputRange: [
+      10 + IOS,
+      0 + IOS,
+      -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.5 - margin + IOS,
+    ],
     extrapolateLeft: 'extend',
     extrapolateRight: 'clamp',
   });
@@ -78,7 +84,7 @@ function calcAvatarTransY(scrollY: Animated.Value): Animated.Animated {
 
 function calcAvatarScale(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
+    inputRange: [0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
     outputRange: [1, AVATAR_SIZE_TOOLBAR / AVATAR_SIZE],
     extrapolate: 'clamp',
   });
@@ -86,7 +92,7 @@ function calcAvatarScale(scrollY: Animated.Value): Animated.Animated {
 
 function calcConnDotTransX(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
+    inputRange: [0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
     outputRange: [0, Dimensions.iconSizeNormal * 0.33],
     extrapolate: 'clamp',
   });
@@ -99,8 +105,12 @@ function calcConnDotTransY(scrollY: Animated.Value): Animated.Animated {
       AVATAR_SIZE_TOOLBAR) *
     0.5;
   return scrollY.interpolate({
-    inputRange: [-10, 0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
-    outputRange: [10, 0, -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.91 - margin],
+    inputRange: [-10 - IOS, 0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
+    outputRange: [
+      10 + IOS,
+      0 + IOS,
+      -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.91 - margin + IOS,
+    ],
     extrapolateLeft: 'extend',
     extrapolateRight: 'clamp',
   });
@@ -108,7 +118,7 @@ function calcConnDotTransY(scrollY: Animated.Value): Animated.Animated {
 
 function calcConnDotScale(scrollY: Animated.Value): Animated.Animated {
   return scrollY.interpolate({
-    inputRange: [0, COVER_HEIGHT + NAME_MARGIN_TOOLBAR],
+    inputRange: [0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
     outputRange: [1, AVATAR_SIZE_TOOLBAR / AVATAR_SIZE],
     extrapolate: 'clamp',
   });

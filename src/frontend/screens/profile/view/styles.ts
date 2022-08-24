@@ -3,10 +3,12 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet} from 'react-native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import {globalStyles} from '~frontend/global-styles/styles';
+import HeaderButton from '~frontend/components/HeaderButton';
 
 export const AVATAR_SIZE = Dimensions.avatarSizeBig;
 const AVATAR_SIZE_HALF = AVATAR_SIZE * 0.5;
@@ -38,7 +40,7 @@ export const styles = StyleSheet.create({
 
   topBarSpacer: {
     width: 2,
-    height: Dimensions.toolbarHeight,
+    height: Dimensions.toolbarHeight - getStatusBarHeight(true),
   },
 
   cover: {
@@ -53,7 +55,11 @@ export const styles = StyleSheet.create({
 
   avatarTouchable: {
     position: 'absolute',
-    top: Dimensions.toolbarHeight + COVER_HEIGHT - AVATAR_SIZE_HALF,
+    top:
+      Dimensions.toolbarHeight -
+      getStatusBarHeight(true) +
+      COVER_HEIGHT -
+      AVATAR_SIZE_HALF,
     left: Dimensions.horizontalSpaceBig,
     width: AVATAR_SIZE,
     height: AVATAR_SIZE,
@@ -68,11 +74,15 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     color: Palette.text,
     top:
-      Dimensions.toolbarHeight + COVER_HEIGHT - Typography.fontSizeLarge * 2.55,
+      Dimensions.toolbarHeight -
+      getStatusBarHeight(true) +
+      COVER_HEIGHT -
+      Typography.fontSizeLarge * 2.55,
     left:
       Dimensions.horizontalSpaceBig +
       AVATAR_SIZE +
       Dimensions.horizontalSpaceBig,
+    right: 0 + Dimensions.horizontalSpaceBig,
     fontSize: Typography.fontSizeLarge,
     lineHeight: Typography.lineHeightLarge,
     fontFamily: Typography.fontFamilyReadableText,
@@ -82,8 +92,12 @@ export const styles = StyleSheet.create({
       web: {
         right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5 + ${CTA_BUTTON_WIDTH}px)`,
       },
-      default: {
-        right: 0 + Dimensions.horizontalSpaceBig,
+      ios: {
+        top:
+          Dimensions.toolbarHeight -
+          getStatusBarHeight(true) +
+          Dimensions.verticalSpaceLarge -
+          Typography.fontSizeLarge * 0.3,
       },
     }),
   },
@@ -112,9 +126,14 @@ export const styles = StyleSheet.create({
       },
       ios: {
         top:
-          Dimensions.toolbarHeight +
-          COVER_HEIGHT -
-          Typography.fontSizeLarge * 3.05,
+          Dimensions.toolbarHeight -
+          getStatusBarHeight(true) +
+          Dimensions.verticalSpaceLarge -
+          Typography.fontSizeLarge * 2.5,
+        left:
+          -HeaderButton.size * 1.5 +
+          AVATAR_SIZE +
+          Dimensions.horizontalSpaceBig,
       },
     }),
   },
@@ -123,11 +142,15 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     color: Palette.textWeak,
     top:
-      Dimensions.toolbarHeight + COVER_HEIGHT - Typography.fontSizeLarge * 1.1,
+      Dimensions.toolbarHeight -
+      getStatusBarHeight(true) +
+      COVER_HEIGHT -
+      Typography.fontSizeLarge * 1.1,
     left:
       Dimensions.horizontalSpaceBig +
       AVATAR_SIZE +
       Dimensions.horizontalSpaceBig,
+    right: 0 + Dimensions.horizontalSpaceBig,
     fontSize: Typography.fontSizeTiny,
     lineHeight: Typography.lineHeightTiny,
     fontFamily: Typography.fontFamilyReadableText,
@@ -137,8 +160,13 @@ export const styles = StyleSheet.create({
       web: {
         right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5 + ${CTA_BUTTON_WIDTH}px)`,
       },
-      default: {
-        right: 0 + Dimensions.horizontalSpaceBig,
+      ios: {
+        top:
+          Dimensions.toolbarHeight -
+          getStatusBarHeight(true) +
+          Dimensions.verticalSpaceLarge -
+          Typography.fontSizeLarge * 0.3 +
+          Typography.fontSizeLarge * 1.5,
       },
     }),
   },
@@ -167,9 +195,15 @@ export const styles = StyleSheet.create({
       },
       ios: {
         top:
-          Dimensions.toolbarHeight +
-          COVER_HEIGHT -
-          Typography.fontSizeLarge * 1.6,
+          Dimensions.toolbarHeight -
+          getStatusBarHeight(true) +
+          Dimensions.verticalSpaceLarge -
+          Typography.fontSizeLarge * 2.5 +
+          Typography.fontSizeLarge * 1.5,
+        left:
+          -HeaderButton.size * 1.5 +
+          AVATAR_SIZE +
+          Dimensions.horizontalSpaceBig,
       },
     }),
   },
@@ -177,7 +211,7 @@ export const styles = StyleSheet.create({
   header: {
     flex: 1,
     flexDirection: 'column',
-    marginTop: Dimensions.toolbarHeight,
+    marginTop: Dimensions.toolbarHeight - getStatusBarHeight(true),
     backgroundColor: Palette.backgroundText,
     ...Platform.select({
       web: {
@@ -318,7 +352,10 @@ export const styles = StyleSheet.create({
   },
 
   feedInner: {
-    paddingBottom: Dimensions.toolbarHeight + Dimensions.verticalSpaceNormal,
+    paddingBottom:
+      Dimensions.toolbarHeight -
+      getStatusBarHeight(true) +
+      Dimensions.verticalSpaceNormal,
     ...Platform.select({
       web: {
         // Dirty hack to fix positioning of the scrollbar

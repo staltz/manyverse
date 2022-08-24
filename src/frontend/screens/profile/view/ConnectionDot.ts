@@ -4,6 +4,7 @@
 
 import {h} from '@cycle/react';
 import {Animated, ViewStyle, StyleSheet} from 'react-native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {State} from '../model';
@@ -14,7 +15,8 @@ const DOT_SIZE = AVATAR_SIZE * 0.1739;
 const dotStyle: ViewStyle = {
   position: 'absolute',
   top:
-    Dimensions.toolbarHeight +
+    Dimensions.toolbarHeight -
+    getStatusBarHeight(true) +
     Dimensions.verticalSpaceLarge +
     AVATAR_SIZE * 0.75,
   left: Dimensions.horizontalSpaceBig + AVATAR_SIZE * 0.78,
