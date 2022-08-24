@@ -21,7 +21,7 @@ import {
 } from 'react-native-floating-action';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
-import {SSBSource} from '~frontend/drivers/ssb';
+import {GetReadable, SSBSource} from '~frontend/drivers/ssb';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
@@ -218,6 +218,8 @@ function ProfileAvatar({
   );
 }
 
+const pullNever: GetReadable<any> = () => () => {};
+
 export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   const scrollHeaderBy = new Animated.Value(0);
   const avatarScale = calcAvatarScale(scrollHeaderBy);
@@ -289,6 +291,10 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
             )
           : fab;
 
+      let getReadable = pullNever;
+      if (isBlocked) getReadable = pull.empty;
+      else if (state.getFeedReadable) getReadable = state.getFeedReadable;
+
       return h(View, {style: styles.screen}, [
         h(ProfileTopBar, {state, isSelfProfile, nameTransY}),
 
@@ -314,10 +320,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
 
         h(Feed, {
           sel: 'feed',
-          getReadable:
-            (isBlocked || !state.youBlock) && !isSelfProfile
-              ? () => pull.empty()
-              : state.getFeedReadable,
+          getReadable,
           prePublication$: isBlocked
             ? null
             : isSelfProfile
