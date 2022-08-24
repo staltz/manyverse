@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundText,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'stretch',
   },
 
   topBarStub: {

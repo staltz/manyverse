@@ -98,13 +98,14 @@ class CurrentTabPage extends PureComponent<{
 }
 
 class MobileProgressPill extends Component<{progress: number}> {
+  private setupDone: boolean = false;
   private started: number = 0;
   private shown: boolean = false;
   private readonly SCREEN_WIDTH: number;
   private readonly LCLAMP: number;
   private readonly RCLAMP: number;
-  private translateXAnim = new Animated.Value(0);
-  private opacityAnim = new Animated.Value(0);
+  private translateXAnim: Animated.Value | null = null;
+  private opacityAnim: Animated.Value | null = null;
   private readonly touchableProps: TouchableOpacityProps & {sel: string} = {
     sel: 'progressPill',
     style: styles.progressPillTouchable,
@@ -120,13 +121,28 @@ class MobileProgressPill extends Component<{progress: number}> {
     const SW = (this.SCREEN_WIDTH = Dimensions.get('window').width);
     this.LCLAMP = PILL_WIDTH_SMALL * 0.5 + PILL_MARGIN;
     this.RCLAMP = SW - PILL_WIDTH_LARGE * 0.5 - PILL_MARGIN;
+    this.setup();
+  }
+
+  private setup() {
+    this.translateXAnim = new Animated.Value(0);
+    this.opacityAnim = new Animated.Value(0);
+    this.started = 0;
+    this.shown = false;
+
+    this.setupDone = true;
+  }
+
+  componentDidMount() {
+    if (!this.setupDone) this.setup();
   }
 
   componentWillUnmount() {
-    this.translateXAnim.stopAnimation();
-    this.translateXAnim = null as any;
-    this.opacityAnim.stopAnimation();
-    this.opacityAnim = null as any;
+    this.setupDone = false;
+    this.translateXAnim!.stopAnimation();
+    this.translateXAnim = null;
+    this.opacityAnim!.stopAnimation();
+    this.opacityAnim = null;
     this.started = 0;
     this.shown = false;
   }
@@ -138,11 +154,16 @@ class MobileProgressPill extends Component<{progress: number}> {
     if (nextProgress < 1 && !this.started) this.started = Date.now();
     if (nextProgress >= 1 && this.started) this.started = 0;
 
-    if (nextProgress < 1 && Date.now() - this.started! > 3000 && !this.shown) {
+    if (
+      nextProgress > 0 &&
+      nextProgress < 1 &&
+      Date.now() - this.started! > 3000 &&
+      !this.shown
+    ) {
       this.shown = true;
-      this.opacityAnim.stopAnimation();
-      this.opacityAnim.setValue(0);
-      Animated.timing(this.opacityAnim, {
+      this.opacityAnim!.stopAnimation();
+      this.opacityAnim!.setValue(0);
+      Animated.timing(this.opacityAnim!, {
         toValue: 1,
         duration: 750,
         useNativeDriver: true,
@@ -151,7 +172,7 @@ class MobileProgressPill extends Component<{progress: number}> {
     }
     if (nextProgress >= 1) {
       this.shown = false;
-      Animated.timing(this.opacityAnim, {
+      Animated.timing(this.opacityAnim!, {
         toValue: 0,
         duration: 500,
         useNativeDriver: true,
@@ -160,7 +181,11 @@ class MobileProgressPill extends Component<{progress: number}> {
     }
 
     let shouldUpdate = false;
-    if (prevProgress < 1 && nextProgress >= 1) {
+    if (prevProgress <= 0 && nextProgress > 0) {
+      shouldUpdate = true;
+    } else if (prevProgress > 0 && nextProgress <= 0) {
+      shouldUpdate = true;
+    } else if (prevProgress < 1 && nextProgress >= 1) {
       shouldUpdate = true;
     } else if (prevProgress >= 1 && nextProgress < 1) {
       shouldUpdate = true;
@@ -169,9 +194,9 @@ class MobileProgressPill extends Component<{progress: number}> {
     }
 
     if (shouldUpdate) {
-      this.translateXAnim.stopAnimation();
-      if (prevProgress <= 0) this.translateXAnim.setValue(0);
-      Animated.timing(this.translateXAnim, {
+      this.translateXAnim!.stopAnimation();
+      if (prevProgress <= 0) this.translateXAnim!.setValue(0);
+      Animated.timing(this.translateXAnim!, {
         toValue: nextProgress * this.SCREEN_WIDTH,
         duration: 250,
         useNativeDriver: true,
@@ -191,7 +216,7 @@ class MobileProgressPill extends Component<{progress: number}> {
     const transform = [
       {translateX: -width * 0.5},
       {
-        translateX: this.translateXAnim.interpolate({
+        translateX: this.translateXAnim!.interpolate({
           inputRange: [0, this.LCLAMP, this.RCLAMP, this.SCREEN_WIDTH],
           outputRange: [this.LCLAMP, this.LCLAMP, this.RCLAMP, this.RCLAMP],
         }),
@@ -212,7 +237,7 @@ class MobileProgressPill extends Component<{progress: number}> {
         style: [
           styles.progressPillContainer,
           progressPillStyle,
-          {transform, opacity: this.opacityAnim},
+          {transform, opacity: this.opacityAnim!},
         ],
       },
       this.shown ? h(TouchableOpacity, this.touchableProps, [inner]) : inner,

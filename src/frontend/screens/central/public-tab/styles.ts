@@ -4,35 +4,36 @@
 
 import {Platform, StyleSheet} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {Dimensions as Dimens} from '~frontend/global-styles/dimens';
+import ThreadCard from '~frontend/components/ThreadCard';
+import {Dimensions} from '~frontend/global-styles/dimens';
 
 export const styles = StyleSheet.create({
   emptySection: {
-    marginTop: Dimens.verticalSpaceLarger,
+    marginTop: Dimensions.verticalSpaceLarger,
     ...Platform.select({
       web: {
-        width: Dimens.desktopMiddleWidth.px,
-        maxWidth: Dimens.desktopMiddleWidth.px,
+        width: Dimensions.desktopMiddleWidth.px,
+        maxWidth: Dimensions.desktopMiddleWidth.px,
       },
     }),
   },
 
   feed: {
     // for the topBar
-    paddingTop: Dimens.toolbarHeight - getStatusBarHeight(true),
+    paddingTop: Dimensions.toolbarHeight - getStatusBarHeight(true),
     ...Platform.select({
       web: {
-        maxWidth: `calc(100vw - ${Dimens.desktopSideWidth.px})`,
+        maxWidth: `calc(100vw - ${Dimensions.desktopSideWidth.px})`,
       },
     }),
   },
 
   feedInner: {
-    paddingBottom: Dimens.toolbarHeight + Dimens.verticalSpaceNormal,
+    paddingBottom: Dimensions.tabBarHeight + ThreadCard.HEIGHT * 0.5,
     ...Platform.select({
       web: {
         // Dirty hack to fix positioning of the scrollbar
-        marginTop: -Dimens.toolbarHeight,
+        marginTop: -Dimensions.toolbarHeight,
       },
     }),
   },
