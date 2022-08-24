@@ -3,7 +3,10 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {
+  getStatusBarHeight,
+  isIPhoneWithMonobrow,
+} from 'react-native-status-bar-height';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
@@ -125,11 +128,20 @@ export const styles = StyleSheet.create({
           Typography.fontSizeLarge * 2.55,
       },
       ios: {
-        top:
-          Dimensions.toolbarHeight -
-          getStatusBarHeight(true) +
-          Dimensions.verticalSpaceLarge -
-          Typography.fontSizeLarge * 2.5,
+        ...(isIPhoneWithMonobrow()
+          ? {
+              top:
+                Dimensions.toolbarHeight -
+                getStatusBarHeight(true) +
+                Dimensions.verticalSpaceLarge -
+                Typography.fontSizeLarge * 2.5,
+            }
+          : {
+              top:
+                Dimensions.toolbarHeight +
+                Dimensions.verticalSpaceLarge -
+                Typography.fontSizeLarge * 2.32,
+            }),
         left:
           -HeaderButton.size * 1.5 +
           AVATAR_SIZE +
@@ -194,12 +206,22 @@ export const styles = StyleSheet.create({
           Typography.fontSizeLarge * 1.1,
       },
       ios: {
-        top:
-          Dimensions.toolbarHeight -
-          getStatusBarHeight(true) +
-          Dimensions.verticalSpaceLarge -
-          Typography.fontSizeLarge * 2.5 +
-          Typography.fontSizeLarge * 1.5,
+        ...(isIPhoneWithMonobrow()
+          ? {
+              top:
+                Dimensions.toolbarHeight -
+                getStatusBarHeight(true) +
+                Dimensions.verticalSpaceLarge -
+                Typography.fontSizeLarge * 2.5 +
+                Typography.fontSizeLarge * 1.5,
+            }
+          : {
+              top:
+                Dimensions.toolbarHeight +
+                Dimensions.verticalSpaceLarge -
+                Typography.fontSizeLarge * 2.32 +
+                Typography.fontSizeLarge * 1.5,
+            }),
         left:
           -HeaderButton.size * 1.5 +
           AVATAR_SIZE +
