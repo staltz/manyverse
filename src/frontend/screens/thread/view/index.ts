@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {IconNames} from '~frontend/global-styles/icons';
 import Avatar from '~frontend/components/Avatar';
 import EmptySection from '~frontend/components/EmptySection';
 import {
@@ -47,7 +48,7 @@ function ExpandReplyButton(isLastButton: boolean) {
       h(Icon, {
         size: Dimensions.iconSizeNormal,
         color: Palette.textVeryWeak,
-        name: 'arrow-expand',
+        name: IconNames.enterFullScreen,
       }),
     ],
   );
@@ -70,7 +71,7 @@ function ReplySendButton() {
       h(Icon, {
         size: Dimensions.iconSizeNormal,
         color: Palette.textCTA,
-        name: 'send',
+        name: IconNames.sendMessage,
       }),
     ],
   );

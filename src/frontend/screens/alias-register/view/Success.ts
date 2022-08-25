@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Button from '~frontend/components/Button';
 import {t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {IconNames} from '~frontend/global-styles/icons';
 import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
 import {canonicalizeAliasURL} from '~frontend/ssb/utils/alias';
@@ -42,7 +43,7 @@ export default function Success({aliasURL}: {aliasURL: string}) {
     h(Icon, {
       size: Dimensions.iconSizeHuge,
       color: Palette.textPositive,
-      name: 'check-bold',
+      name: IconNames.success,
     }),
     h(Text, {style: styles.text}, [
       t('register_alias.success.title') +

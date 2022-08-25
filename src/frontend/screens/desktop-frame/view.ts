@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
+import {IconNames} from '~frontend/global-styles/icons';
 import PublicTabIcon from '~frontend/components/tab-buttons/PublicTabIcon';
 import PrivateTabIcon from '~frontend/components/tab-buttons/PrivateTabIcon';
 import ActivityTabIcon from '~frontend/components/tab-buttons/ActivityTabIcon';
@@ -229,21 +230,21 @@ export default function view(
                       accessibilityLabel: t(
                         'drawer.menu.update.accessibility_label',
                       ),
-                      iconName: 'update',
+                      iconName: IconNames.versionUpdate,
                     })
                   : null,
 
                 h(TabIcon, {
                   style: styles.leftMenuTabButton,
                   sel: 'more',
-                  iconName: 'dots-horizontal',
+                  iconName: IconNames.etc,
                   label: t('drawer.menu.more.label'),
                   accessibilityLabel: t('drawer.menu.more.accessibility_label'),
                 }),
                 h(TabIcon, {
                   style: styles.leftMenuTabButton,
                   sel: 'settings',
-                  iconName: 'cog',
+                  iconName: IconNames.settings,
                   label: t('drawer.menu.settings.label'),
                   accessibilityLabel: t(
                     'drawer.menu.settings.accessibility_label',
@@ -252,7 +253,7 @@ export default function view(
                 h(TabIcon, {
                   style: styles.myProfileButton,
                   sel: 'self-profile',
-                  iconName: 'account-circle',
+                  iconName: IconNames.myProfile,
                   label: state.name ?? t('drawer.menu.my_profile.label'),
                   accessibilityLabel: t(
                     'drawer.menu.my_profile.accessibility_label',

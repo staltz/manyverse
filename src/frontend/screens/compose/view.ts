@@ -35,6 +35,7 @@ import ContentWarning from '~frontend/components/messages/ContentWarning';
 import AccountSmall from '~frontend/components/AccountSmall';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
+import {IconNames} from '~frontend/global-styles/icons';
 
 type MiniState = Pick<State, 'postText'> &
   Pick<State, 'postTextOverride'> &
@@ -89,7 +90,7 @@ function RecordAudioButton() {
       h(Icon, {
         size: Dimensions.iconSizeNormal,
         color: Palette.textVeryWeak,
-        name: 'microphone',
+        name: IconNames.audioRecord,
       }),
     ],
   );
@@ -112,7 +113,7 @@ function OpenCameraButton() {
       h(Icon, {
         size: Dimensions.iconSizeNormal,
         color: Palette.textVeryWeak,
-        name: 'camera',
+        name: IconNames.takePicture,
       }),
     ],
   );
@@ -135,7 +136,7 @@ function AddPictureButton() {
       h(Icon, {
         size: Dimensions.iconSizeNormal,
         color: Palette.textVeryWeak,
-        name: 'image',
+        name: IconNames.attachPicture,
       }),
     ],
   );

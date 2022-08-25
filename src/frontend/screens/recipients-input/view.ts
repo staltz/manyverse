@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
+import {IconNames} from '~frontend/global-styles/icons';
 import EmptySection from '~frontend/components/EmptySection';
 import AccountsListCheckMany from '~frontend/components/AccountsListCheckMany';
 import TopBar from '~frontend/components/TopBar';
@@ -39,7 +40,7 @@ export default function view(state$: Stream<State>) {
             size: Dimensions.iconSizeNormal,
             style: styles.mentionsIcon,
             color: Palette.textVeryWeak,
-            name: 'account-search',
+            name: IconNames.searchAccounts,
           }),
           h(TextInput, {
             style: styles.mentionsInput,

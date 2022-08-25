@@ -6,6 +6,7 @@ import {h} from '@cycle/react';
 import {Component} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
 import {t} from '~frontend/drivers/localization';
+import {IconNames} from '~frontend/global-styles/icons';
 import TabIcon from './TabIcon';
 
 export default class PrivateTabIcon extends Component<{
@@ -32,7 +33,8 @@ export default class PrivateTabIcon extends Component<{
       style,
       isSelected,
       sel: 'private-tab-button',
-      iconName: numOfUpdates >= 1 ? 'message-text-outline' : 'message-outline',
+      iconName:
+        numOfUpdates >= 1 ? IconNames.privateChatActive : IconNames.privateChat,
       label: t('central.tab_footers.private'),
       accessibilityLabel: t('central.tabs.private.accessibility_label'),
     });

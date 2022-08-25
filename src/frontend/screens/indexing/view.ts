@@ -21,6 +21,7 @@ import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import {globalStyles} from '~frontend/global-styles/styles';
+import {IconNames} from '~frontend/global-styles/icons';
 import {t} from '~frontend/drivers/localization';
 import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
 import Button from '~frontend/components/Button';
@@ -228,7 +229,7 @@ function StatusPage({
               t('call_to_action.read_more'),
             ),
             h(Icon, {
-              name: 'chevron-down',
+              name: IconNames.scrollToSeeMore,
               selectable: false,
               size: Dimensions.iconSizeHuge,
               color: Palette.textWeakForBackgroundBrand,

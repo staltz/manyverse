@@ -17,6 +17,7 @@ import {
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
+import {IconNames} from '~frontend/global-styles/icons';
 import {t} from '~frontend/drivers/localization';
 
 const Touchable = Platform.select<any>({
@@ -145,7 +146,7 @@ export class QuickEmojiModal extends PureComponent<Props> {
       style: styles.emojiChoice,
       key: 'showall',
       color: Palette.textWeak,
-      name: 'dots-horizontal',
+      name: IconNames.etc,
     });
 
     return h(

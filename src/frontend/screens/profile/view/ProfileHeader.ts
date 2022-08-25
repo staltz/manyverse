@@ -17,6 +17,7 @@ import {Alias} from '~frontend/ssb/types';
 import {canonicalizeAliasURL} from '~frontend/ssb/utils/alias';
 import {State} from '../model';
 import {styles} from './styles';
+import {IconNames} from '~frontend/global-styles/icons';
 
 function Biography({about}: {about: State['about']}) {
   if (!about.description) return null;
@@ -86,7 +87,7 @@ function FollowSection({
     h(Icon, {
       size: Dimensions.iconSizeSmall,
       color: Palette.textPositive,
-      name: 'account-plus',
+      name: IconNames.accountFollow,
     }),
 
     following
@@ -117,7 +118,7 @@ function FriendsInCommon({
     h(Icon, {
       size: Dimensions.iconSizeSmall,
       color: Palette.textPositive,
-      name: 'account-heart',
+      name: IconNames.friendsInCommon,
     }),
 
     h(Counter, {
@@ -133,7 +134,7 @@ function FollowsYou() {
     h(Icon, {
       size: Dimensions.iconSizeSmall,
       color: Palette.textPositive,
-      name: 'check-bold',
+      name: IconNames.success,
     }),
     h(Text, {style: styles.secondaryLabel}, t('profile.info.follows_you')),
   ]);
@@ -145,7 +146,7 @@ function StorageUsed({storageUsed}: {storageUsed: number}) {
       h(Icon, {
         size: Dimensions.iconSizeSmall,
         color: Palette.brandMain,
-        name: 'sd',
+        name: IconNames.storage,
       }),
       h(
         Text,
@@ -175,7 +176,7 @@ function AliasesSection({
         h(Icon, {
           size: Dimensions.iconSizeSmall,
           color: Palette.textBrand,
-          name: 'link-variant',
+          name: IconNames.roomAliasLink,
         }),
         h(
           Text,

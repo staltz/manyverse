@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Button from '~frontend/components/Button';
 import {t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {IconNames} from '~frontend/global-styles/icons';
 import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
 
@@ -49,7 +50,7 @@ export default function Failure({error}: {error: string}) {
     h(Icon, {
       size: Dimensions.iconSizeHuge,
       color: Palette.textNegative,
-      name: 'alert-circle-outline',
+      name: IconNames.error,
     }),
     h(Text, {style: styles.text}, [
       t('register_alias.failure.title') + '\n\n' + localizeError(error),

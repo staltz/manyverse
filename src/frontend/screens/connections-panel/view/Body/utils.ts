@@ -4,6 +4,7 @@
 
 import {PeerKV, StagedPeerKV} from '~frontend/ssb/types';
 import {t} from '~frontend/drivers/localization';
+import {IconNames} from '~frontend/global-styles/icons';
 
 type KV = PeerKV | StagedPeerKV;
 
@@ -43,22 +44,22 @@ export function peerModeIcon(peer: KV[1]): string {
   const type = detectType(peer);
   switch (type) {
     case 'bt':
-      return 'bluetooth';
+      return IconNames.peerBluetooth;
 
     case 'lan':
-      return 'wifi';
+      return IconNames.peerWifi;
 
     case 'dht':
     case 'room-attendant':
-      return 'account-network';
+      return IconNames.peerInternetDirect;
 
     case 'pub':
     case 'room':
     case 'internet':
-      return 'server-network';
+      return IconNames.peerInternetServer;
 
     default:
-      return 'help-network';
+      return IconNames.peerUnknown;
   }
 }
 

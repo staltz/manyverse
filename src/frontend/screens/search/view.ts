@@ -21,6 +21,7 @@ import {t} from '~frontend/drivers/localization';
 import {GetReadable} from '~frontend/drivers/ssb';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {IconNames} from '~frontend/global-styles/icons';
 import TopBar from '~frontend/components/TopBar';
 import Avatar from '~frontend/components/Avatar';
 import EmptySection from '~frontend/components/EmptySection';
@@ -266,7 +267,10 @@ export default function view(state$: Stream<State>) {
           state.queryInProgress
             ? h(HeaderButton, {
                 sel: 'clear',
-                icon: Platform.select({default: 'close', ios: 'close-circle'}),
+                icon: Platform.select({
+                  default: IconNames.clearTextInput,
+                  ios: IconNames.clearTextInputIOS,
+                }),
                 side: 'right',
                 accessibilityLabel: t('search.clear_query.accessibility_label'),
               })

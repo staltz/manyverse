@@ -18,6 +18,7 @@ import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
+import {IconNames} from '~frontend/global-styles/icons';
 import Button from '~frontend/components/Button';
 
 export const styles = StyleSheet.create({
@@ -135,7 +136,7 @@ export default class ContentWarning extends PureComponent<Props> {
             h(Icon, {
               size: opened ? Dimensions.iconSizeNormal : 144,
               color: Palette.textWeak,
-              name: 'alert',
+              name: IconNames.contentWarning,
             }),
           ],
         ),

@@ -27,6 +27,7 @@ import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
+import {IconNames} from '~frontend/global-styles/icons';
 import {getAudioTimeString} from './utils/audio';
 
 enum PlayState {
@@ -231,7 +232,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
               h(Icon, {
                 size: Dimensions.iconSizeBig,
                 color: Palette.textForBackgroundBrand,
-                name: 'pause',
+                name: IconNames.audioPause,
               }),
             ],
           )
@@ -246,7 +247,7 @@ export default class AudioPlayer extends PureComponent<Props, State> {
               h(Icon, {
                 size: Dimensions.iconSizeBig,
                 color: Palette.textForBackgroundBrand,
-                name: 'play',
+                name: IconNames.audioPlay,
               }),
             ],
           ),

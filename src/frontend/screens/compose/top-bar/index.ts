@@ -11,6 +11,7 @@ import {View, StyleSheet, Platform} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
+import {IconNames} from '~frontend/global-styles/icons';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import Button from '~frontend/components/Button';
 import HeaderButton from '~frontend/components/HeaderButton';
@@ -118,12 +119,12 @@ function view(state$: Stream<State>) {
           key: 'b',
           sel: 'composeCloseButton',
           icon: state.previewing
-            ? 'pencil'
+            ? IconNames.compose
             : state.isReply
-            ? 'arrow-collapse'
+            ? IconNames.exitFullScreen
             : Platform.OS === 'ios'
-            ? 'chevron-left'
-            : 'arrow-left',
+            ? IconNames.backButtonIOS
+            : IconNames.backButton,
           ...Platform.select({
             ios:
               !state.previewing && !state.isReply

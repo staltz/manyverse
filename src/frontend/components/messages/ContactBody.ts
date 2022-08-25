@@ -11,6 +11,7 @@ import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
+import {IconNames} from '~frontend/global-styles/icons';
 import {displayName, inferContactEvent} from '~frontend/ssb/utils/from-ssb';
 import {ContactEvent, ContactContentAndExtras} from '~frontend/ssb/types';
 import Metadata from './Metadata';
@@ -135,25 +136,25 @@ export default class ContactBody extends Component<Props> {
             key: 'icon',
             size: Dimensions.iconSizeSmall,
             color: Palette.textPositive,
-            name: 'account-plus',
+            name: IconNames.accountFollow,
           }),
           h(Icon, {
             key: 'icon',
             size: Dimensions.iconSizeSmall,
             color: Palette.textNegative,
-            name: 'account-remove',
+            name: IconNames.accountBlock,
           }),
           h(Icon, {
             key: 'icon',
             size: Dimensions.iconSizeSmall,
             color: Palette.textVeryWeak,
-            name: 'account-minus',
+            name: IconNames.accountUnfollow,
           }),
           h(Icon, {
             key: 'icon',
             size: Dimensions.iconSizeSmall,
             color: Palette.textVeryWeak,
-            name: 'account-minus',
+            name: IconNames.accountUnblock,
           }),
         ),
         h(Text, {key: 'a2', style: styles.action}, texts[2]),

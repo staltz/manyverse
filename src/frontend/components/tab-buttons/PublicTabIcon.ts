@@ -6,6 +6,7 @@ import {h} from '@cycle/react';
 import {Component} from 'react';
 import {Platform, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import {t} from '~frontend/drivers/localization';
+import {IconNames} from '~frontend/global-styles/icons';
 import {Palette} from '~frontend/global-styles/palette';
 import TabIcon from './TabIcon';
 
@@ -69,7 +70,7 @@ export default class PublicTabIcon extends Component<{
       style,
       isSelected,
       sel: 'public-tab-button',
-      iconName: 'bulletin-board',
+      iconName: IconNames.publicFeed,
       label: t('central.tab_footers.public'),
       accessibilityLabel: t('central.tabs.public.accessibility_label'),
       renderIconExtras: (visualState?: any) =>

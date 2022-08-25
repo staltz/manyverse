@@ -4,12 +4,13 @@
 
 import {h} from '@cycle/react';
 import {t} from '~frontend/drivers/localization';
+import {IconNames} from '~frontend/global-styles/icons';
 import HeaderButton from './HeaderButton';
 
 export default function HeaderMenuButton(sel: string) {
   return h(HeaderButton, {
     sel,
-    icon: 'menu',
+    icon: IconNames.hamburgerMenu,
     accessibilityLabel: t('call_to_action.open_menu.accessibility_label'),
   });
 }

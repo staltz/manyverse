@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
+import {IconNames} from '~frontend/global-styles/icons';
 import Button from '~frontend/components/Button';
 import Avatar from '~frontend/components/Avatar';
 import TopBar from '~frontend/components/TopBar';
@@ -41,7 +42,7 @@ function EditAvatarButton(state: State) {
             ? `file://${state.newAvatar}`
             : state.about.imageUrl,
           style: styles.avatar,
-          overlayIcon: 'camera',
+          overlayIcon: IconNames.takePicture,
         }),
       ]),
     ],

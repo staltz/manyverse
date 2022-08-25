@@ -29,6 +29,7 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {Palette} from '~frontend/global-styles/palette';
 import {getImg} from '~frontend/global-styles/utils';
+import {IconNames} from '~frontend/global-styles/icons';
 import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
 import {ActivityItem, isMsg, State} from './model';
 import {styles} from './styles';
@@ -96,7 +97,7 @@ class MsgActivity extends PureComponent<MsgActivityProps> {
         key: 'icon',
         size: Dimensions.iconSizeSmall,
         color: Palette.brandMain,
-        name: 'at',
+        name: IconNames.mention,
       });
     }
 
@@ -105,7 +106,7 @@ class MsgActivity extends PureComponent<MsgActivityProps> {
         key: 'icon',
         size: Dimensions.iconSizeSmall,
         color: Palette.textPositive,
-        name: 'account-plus',
+        name: IconNames.accountFollow,
       });
     }
 
@@ -213,7 +214,7 @@ class ConnectionAttemptActivity extends PureComponent<AttemptActivityProps> {
                 key: 'icon',
                 size: Dimensions.iconSizeSmall,
                 color: Palette.textPositive,
-                name: 'plus-network',
+                name: IconNames.connectionNew,
               }),
               h(Text, {key: 't', style: styles.timestamp}, [
                 h(LocalizedHumanTime, {time: timestamp}),

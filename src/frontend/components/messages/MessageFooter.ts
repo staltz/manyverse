@@ -21,6 +21,7 @@ import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
+import {IconNames} from '~frontend/global-styles/icons';
 import {
   Reactions as ReactionsType,
   PressReactionsEvent,
@@ -231,7 +232,7 @@ class AddReactionButton extends PureComponent<{
                 key: 'icon',
                 size: Dimensions.iconSizeSmall,
                 color: Palette.textWeak,
-                name: 'emoticon-happy-outline',
+                name: IconNames.addReaction,
               })
             : h(Text, {key: 'm', style: styles.myReaction}, myReaction),
         ]),
@@ -278,7 +279,7 @@ class ReplyButton extends PureComponent<{
               key: 'icon',
               size: Dimensions.iconSizeSmall,
               color: Palette.textWeak,
-              name: 'comment-outline',
+              name: IconNames.threadComment,
             }),
           ]),
         ],
@@ -289,7 +290,7 @@ class ReplyButton extends PureComponent<{
           key: 'icon',
           size: Dimensions.iconSizeSmall,
           color: Palette.textVeryWeak,
-          name: 'comment-outline',
+          name: IconNames.threadComment,
         }),
       ]);
     }
@@ -313,7 +314,7 @@ class EtcButton extends PureComponent<{onPress: () => void}> {
           h(Icon, {
             size: Dimensions.iconSizeNormal,
             color: Palette.textWeak,
-            name: 'dots-horizontal',
+            name: IconNames.etc,
           }),
         ]),
       ],

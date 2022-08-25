@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
+import {IconNames} from '~frontend/global-styles/icons';
 import {t} from '~frontend/drivers/localization';
 import {getAudioTimeString} from './utils/audio';
 
@@ -162,7 +163,7 @@ export default class AudioPlayer extends PureComponent<Props> {
             size: Dimensions.iconSizeLarge,
             color: Palette.textForBackgroundBrand,
             style: styles.icon,
-            name: 'microphone',
+            name: IconNames.audioRecord,
           }),
         ],
       ),
@@ -203,7 +204,7 @@ export default class AudioPlayer extends PureComponent<Props> {
             size: Dimensions.iconSizeLarge,
             color: Palette.backgroundRecord,
             style: styles.icon,
-            name: 'stop',
+            name: IconNames.audioStop,
           }),
         ],
       ),

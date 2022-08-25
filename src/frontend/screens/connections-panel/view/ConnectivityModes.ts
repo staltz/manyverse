@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {IconNames} from '~frontend/global-styles/icons';
 import {State} from '../model';
 import {styles} from './styles';
 
@@ -122,7 +123,7 @@ export default class ConnectivityModes extends Component<
         : h(ConnectivityMode, {
             sel: 'bluetooth-mode',
             active: bluetoothEnabled,
-            icon: 'bluetooth',
+            icon: IconNames.peerBluetooth,
             accessibilityLabel: t(
               'connections.modes.bluetooth.accessibility_label',
             ),
@@ -132,7 +133,7 @@ export default class ConnectivityModes extends Component<
       h(ConnectivityMode, {
         sel: 'lan-mode',
         active: lanEnabled,
-        icon: 'wifi',
+        icon: IconNames.peerWifi,
         accessibilityLabel: t('connections.modes.wifi.accessibility_label'),
         lastScanned: 0,
       }),
@@ -140,7 +141,7 @@ export default class ConnectivityModes extends Component<
       h(ConnectivityMode, {
         sel: 'pub-mode',
         active: internetEnabled,
-        icon: 'server-network',
+        icon: IconNames.peerInternetServer,
         accessibilityLabel: t('connections.modes.servers.accessibility_label'),
         lastScanned: 0,
       }),

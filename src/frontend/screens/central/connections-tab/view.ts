@@ -24,6 +24,7 @@ import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
+import {IconNames} from '~frontend/global-styles/icons';
 import Avatar from '~frontend/components/Avatar';
 import Button from '~frontend/components/Button';
 import {PeerKV} from '~frontend/ssb/types';
@@ -215,7 +216,7 @@ function Summary({connectedPeers}: {connectedPeers: Array<PeerKV>}) {
         h(Icon, {
           size: Dimensions.iconSizeNormal,
           color: Palette.textWeak,
-          name: 'dots-horizontal',
+          name: IconNames.etc,
         }),
       ]),
     ],
@@ -278,10 +279,10 @@ class Scenario extends Component<Pick<State, 'status' | 'scenario'>> {
                 : Palette.textWeak,
             name:
               status === 'bad' || status === 'fair'
-                ? 'alert-circle-outline'
+                ? IconNames.error
                 : status === 'good'
-                ? 'check-bold'
-                : 'weather-sunset',
+                ? IconNames.success
+                : IconNames.aloneOrOffline,
           }),
 
           h(

@@ -26,6 +26,7 @@ import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {getImg} from '~frontend/global-styles/utils';
+import {IconNames} from '~frontend/global-styles/icons';
 import Feed from '~frontend/components/Feed';
 import BlurhashAvatar from '~frontend/components/BlurhashAvatar';
 import EmptySection from '~frontend/components/EmptySection';
@@ -159,7 +160,7 @@ function ProfileTopBar({
             h(Icon, {
               size: Dimensions.iconSizeNormal,
               color: Palette.textForBackgroundBrand,
-              name: 'dots-vertical',
+              name: IconNames.etcDropdown,
             }),
           ],
         ),

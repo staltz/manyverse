@@ -6,6 +6,7 @@ import {h} from '@cycle/react';
 import {Component} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
 import {t} from '~frontend/drivers/localization';
+import {IconNames} from '~frontend/global-styles/icons';
 import TabIcon from './TabIcon';
 
 export default class ActivityTabIcon extends Component<{
@@ -32,7 +33,8 @@ export default class ActivityTabIcon extends Component<{
       style,
       isSelected,
       sel: 'activity-tab-button',
-      iconName: numOfUpdates >= 1 ? 'bell-ring-outline' : 'bell-outline',
+      iconName:
+        numOfUpdates >= 1 ? IconNames.activityActive : IconNames.activity,
       label: t('central.tab_footers.activity'),
       accessibilityLabel: t('central.tabs.activity.accessibility_label'),
     });

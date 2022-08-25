@@ -26,6 +26,7 @@ import {Toast, Duration as ToastDuration} from '~frontend/drivers/toast';
 import {Typography} from '~frontend/global-styles/typography';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
+import {IconNames} from '~frontend/global-styles/icons';
 import {Alias, PeerKV} from '~frontend/ssb/types';
 import {canonicalizeAliasURL} from '~frontend/ssb/utils/alias';
 import {Screens} from '~frontend/screens/enums';
@@ -131,7 +132,7 @@ function Aliases({
         h(Icon, {
           size: Dimensions.iconSizeSmall,
           color: Palette.textBrand,
-          name: 'link-variant',
+          name: IconNames.roomAliasLink,
         }),
 
         h(
@@ -145,7 +146,7 @@ function Aliases({
             size: Dimensions.iconSizeNormal,
             color: Palette.textVeryWeak,
             style: styles.aliasRemove,
-            name: 'delete',
+            name: IconNames.delete,
           }),
         ]),
       ]),

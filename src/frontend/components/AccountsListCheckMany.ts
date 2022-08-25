@@ -18,6 +18,7 @@ import {t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
+import {IconNames} from '~frontend/global-styles/icons';
 import Avatar from './Avatar';
 
 const Touchable = Platform.select<any>({
@@ -133,7 +134,7 @@ class Account extends PureComponent<AccountProps> {
               ? h(Icon, {
                   size: Dimensions.iconSizeNormal,
                   color: Palette.backgroundCTA,
-                  name: 'check-circle',
+                  name: IconNames.selected,
                 })
               : null,
           ]),

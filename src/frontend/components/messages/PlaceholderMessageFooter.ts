@@ -8,6 +8,7 @@ import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {IconNames} from '~frontend/global-styles/icons';
 import MessageFooter from './MessageFooter';
 
 export const styles = StyleSheet.create({
@@ -72,21 +73,21 @@ export default class PlaceholderFooter extends PureComponent<{}> {
           h(Icon, {
             size: Dimensions.iconSizeSmall,
             color: iconColor,
-            name: 'emoticon-happy-outline',
+            name: IconNames.addReaction,
           }),
         ]),
         h(View, {key: 'y', style: styles.buttonArea}, [
           h(Icon, {
             size: Dimensions.iconSizeSmall,
             color: iconColor,
-            name: 'comment-outline',
+            name: IconNames.threadComment,
           }),
         ]),
         h(View, {key: 'z', style: styles.buttonArea}, [
           h(Icon, {
             size: Dimensions.iconSizeNormal,
             color: iconColor,
-            name: 'dots-horizontal',
+            name: IconNames.etc,
           }),
         ]),
       ]),

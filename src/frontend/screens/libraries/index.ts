@@ -23,6 +23,7 @@ import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import {globalStyles} from '~frontend/global-styles/styles';
+import {IconNames} from '~frontend/global-styles/icons';
 import librariesData from '~frontend/libraries';
 
 export interface Sources {
@@ -190,7 +191,7 @@ class Dep extends PureComponent<{
         h(Icon, {
           size: Dimensions.iconSizeNormal,
           color: Palette.textVeryWeak,
-          name: 'open-in-new',
+          name: IconNames.openInNewWindow,
         }),
       ]),
     ]);

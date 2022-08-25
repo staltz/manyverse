@@ -31,6 +31,7 @@ import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import {globalStyles} from '~frontend/global-styles/styles';
+import {IconNames} from '~frontend/global-styles/icons';
 import Markdown from '~frontend/components/Markdown';
 import Avatar from '~frontend/components/Avatar';
 import TopBar from '~frontend/components/TopBar';
@@ -255,7 +256,7 @@ function renderSend(props: any) {
       h(Icon, {
         size: Dimensions.iconSizeNormal,
         color: Palette.textCTA,
-        name: 'send',
+        name: IconNames.sendMessage,
       }),
     ]),
   ]);
@@ -361,7 +362,7 @@ export default function view(
         h(TopBar, {sel: 'topbar', title: t('conversation.title')}, [
           h(HeaderButton, {
             sel: 'showRecipients',
-            icon: 'account-multiple',
+            icon: IconNames.listOfPeople,
             accessibilityLabel: t(
               'conversation.call_to_action.show_recipients.accessibility_label',
             ),

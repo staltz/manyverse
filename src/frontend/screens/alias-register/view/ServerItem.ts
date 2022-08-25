@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {IconNames} from '~frontend/global-styles/icons';
 import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
 import {PeerKV} from '~frontend/ssb/types';
@@ -103,7 +104,7 @@ export default class ServerItem extends PureComponent<{
         h(Icon, {
           size: Dimensions.iconSizeSmall,
           color: Palette.textWeak,
-          name: 'server-network',
+          name: IconNames.peerInternetServer,
         }),
         h(
           Text,

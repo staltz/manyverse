@@ -25,6 +25,7 @@ import {Palette} from '~frontend/global-styles/palette';
 import {globalStyles} from '~frontend/global-styles/styles';
 import {Typography} from '~frontend/global-styles/typography';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {IconNames} from '~frontend/global-styles/icons';
 import {displayName, inferContactEvent} from '~frontend/ssb/utils/from-ssb';
 import {SSBSource} from '~frontend/drivers/ssb';
 import TopBar from '~frontend/components/TopBar';
@@ -277,7 +278,7 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
           key: 'icon',
           size: Dimensions.iconSizeSmall,
           color: Palette.textPositive,
-          name: 'account-plus',
+          name: IconNames.accountFollow,
         }),
         h(
           Text,
@@ -291,7 +292,7 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
           key: 'icon',
           size: Dimensions.iconSizeSmall,
           color: Palette.textNegative,
-          name: 'account-remove',
+          name: IconNames.accountBlock,
         }),
         h(
           Text,
@@ -330,7 +331,7 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
                     key: 'dot',
                     size: Dimensions.iconSizeSmall,
                     color: Palette.textWeak,
-                    name: 'circle-small',
+                    name: IconNames.separatorDot,
                   })
                 : null,
               ...moreDetails,
@@ -345,7 +346,7 @@ class ListItem extends PureComponent<ListItemProps, ListItemState> {
               h(Icon, {
                 size: Dimensions.iconSizeNormal,
                 color: Palette.textWeak,
-                name: 'dots-horizontal',
+                name: IconNames.etc,
               }),
             ]),
           ])

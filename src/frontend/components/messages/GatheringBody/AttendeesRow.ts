@@ -13,12 +13,12 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import Avatar from '~frontend/components/Avatar';
 import ToggleButton from '~frontend/components/ToggleButton';
 import {withTitle} from '~frontend/components/withTitle';
 import {t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {IconNames} from '~frontend/global-styles/icons';
 import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
 import {GatheringAttendees} from '~frontend/ssb/types';
@@ -117,7 +117,7 @@ export default class AttendeesRow extends PureComponent<
               h(Icon, {
                 size: Dimensions.iconSizeNormal,
                 color: Palette.textWeak,
-                name: 'dots-horizontal',
+                name: IconNames.etc,
               }),
           ]),
         ],

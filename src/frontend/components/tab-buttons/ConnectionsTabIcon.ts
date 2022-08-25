@@ -6,6 +6,7 @@ import {h} from '@cycle/react';
 import {Component} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
 import {t} from '~frontend/drivers/localization';
+import {IconNames} from '~frontend/global-styles/icons';
 import {Palette} from '~frontend/global-styles/palette';
 import TabIcon from './TabIcon';
 
@@ -25,6 +26,10 @@ function getColorForStatus(status: Status) {
 
 function isNegativeStatus(status: Status) {
   return status === 'bad' || status === 'fair';
+}
+
+function capitalize(str: Status): Capitalize<Status> {
+  return (str.charAt(0).toUpperCase() + str.slice(1)) as any;
 }
 
 export default class ConnectionsTabIcon extends Component<
@@ -91,17 +96,10 @@ export default class ConnectionsTabIcon extends Component<
   }
 
   private getIconName() {
-    const {status} = this.props;
-    switch (status) {
-      case 'offline':
-        return 'circle-medium';
-      case 'bad':
-        return 'speedometer-slow';
-      case 'fair':
-        return 'speedometer-medium';
-      case 'good':
-        return 'speedometer';
-    }
+    const variable: keyof typeof IconNames = `connections${capitalize(
+      this.props.status,
+    )}`;
+    return IconNames[variable];
   }
 
   public render() {

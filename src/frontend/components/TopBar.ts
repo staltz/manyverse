@@ -16,6 +16,7 @@ import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
+import {IconNames} from '~frontend/global-styles/icons';
 import HeaderButton from './HeaderButton';
 
 const styles = StyleSheet.create({
@@ -97,9 +98,15 @@ export default class TopBar extends PureComponent<Props> {
         $(HeaderButton, {
           key: 'back',
           onPress: onPressBack,
-          icon: Platform.select({ios: 'chevron-left', default: 'arrow-left'}),
           ...Platform.select({
-            ios: {iconSize: Dimensions.iconSizeLarge, style: styles.backOnIOS},
+            ios: {
+              icon: IconNames.backButtonIOS,
+              iconSize: Dimensions.iconSizeLarge,
+              style: styles.backOnIOS,
+            },
+            default: {
+              icon: IconNames.backButton,
+            },
           }),
           accessibilityLabel: t('call_to_action.go_back.accessibility_label'),
         }),

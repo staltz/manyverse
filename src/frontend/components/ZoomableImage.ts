@@ -23,6 +23,7 @@ import {Typography} from '~frontend/global-styles/typography';
 import {getImg} from '~frontend/global-styles/utils';
 import HeaderButton from './HeaderButton';
 import ToastWeb from '~frontend/drivers/toast/ToastWeb';
+import {IconNames} from '~frontend/global-styles/icons';
 const ToastIOS =
   Platform.OS === 'ios'
     ? require('react-native-tiny-toast').default
@@ -173,7 +174,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
           }
           this.onClose();
         },
-        icon: 'content-copy',
+        icon: IconNames.copyToClipboard,
         accessibilityLabel: t(
           'message.call_to_action.copy_blob_id.accessibility_label',
         ),

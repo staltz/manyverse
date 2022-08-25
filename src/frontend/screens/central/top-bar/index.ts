@@ -12,6 +12,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
+import {IconNames} from '~frontend/global-styles/icons';
 import HeaderMenuButton from '~frontend/components/HeaderMenuButton';
 import HeaderButton from '~frontend/components/HeaderButton';
 import {t} from '~frontend/drivers/localization';
@@ -220,7 +221,7 @@ function view(state$: Stream<State>) {
             [
               h(HeaderButton, {
                 sel: 'search',
-                icon: 'magnify',
+                icon: IconNames.search,
                 side: 'right',
                 accessibilityLabel: t('public.search.accessibility_label'),
               }),
