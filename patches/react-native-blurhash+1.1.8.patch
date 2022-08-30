@@ -1,3 +1,14 @@
+diff --git a/node_modules/react-native-blurhash/android/build.gradle b/node_modules/react-native-blurhash/android/build.gradle
+index d1edda0..0c557ac 100644
+--- a/node_modules/react-native-blurhash/android/build.gradle
++++ b/node_modules/react-native-blurhash/android/build.gradle
+@@ -125,5 +125,5 @@ dependencies {
+     // noinspection GradleDynamicVersion
+     api 'com.facebook.react:react-native:+'
+     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
++    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+ }
 diff --git a/node_modules/react-native-blurhash/react-native-blurhash.podspec b/node_modules/react-native-blurhash/react-native-blurhash.podspec
 index ddee486..5b2bcbe 100644
 --- a/node_modules/react-native-blurhash/react-native-blurhash.podspec

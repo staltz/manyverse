@@ -30,9 +30,16 @@ export default class Body extends Component<
     | 'stagedPeers'
   >
 > {
-  private emptySectionOpacity = new Animated.Value(1);
+  private emptySectionOpacity: Animated.Value;
   private latestEmptySection: ReactElement<any> | null = null;
   private timestampLatestRender: number = 0;
+
+  constructor(props: Body['props']) {
+    super(props);
+    this.emptySectionOpacity = new Animated.Value(
+      this.shouldShowEmptySection(props) ? 1 : 0,
+    );
+  }
 
   public shouldComponentUpdate(nextProps: Body['props']) {
     const prevProps = this.props;
@@ -77,26 +84,28 @@ export default class Body extends Component<
     }
   }
 
-  private shouldShowEmptySection(props: Body['props']) {
-    const anyEnabled =
-      props.bluetoothEnabled || props.lanEnabled || props.internetEnabled;
-    const hasPeers =
-      props.peers.length || props.rooms.length || props.stagedPeers.length;
-    return !anyEnabled || !hasPeers;
+  private shouldShowEmptySection(props: Body['props'] = this.props) {
+    return !this.anyModeEnabled(props) && !this.hasPeers(props);
+  }
+
+  private anyModeEnabled(props: Body['props'] = this.props) {
+    const {bluetoothEnabled, lanEnabled, internetEnabled} = props;
+    return bluetoothEnabled || lanEnabled || internetEnabled;
+  }
+
+  private hasPeers(props: Body['props'] = this.props) {
+    const {peers, rooms, stagedPeers} = props;
+    return (
+      peers.length ||
+      rooms.length ||
+      stagedPeers.some(
+        ([addr, data]) => data.type === 'lan' || data.type === 'bt',
+      )
+    );
   }
 
   private renderEmptySection() {
-    const {
-      bluetoothEnabled,
-      bluetoothLastScanned,
-      lanEnabled,
-      internetEnabled,
-      peers,
-      rooms,
-      stagedPeers,
-    } = this.props;
-
-    if (!bluetoothEnabled && !lanEnabled && !internetEnabled) {
+    if (!this.anyModeEnabled()) {
       this.latestEmptySection = h(EmptySection, {
         key: 'es',
         style: styles.emptySection,
@@ -104,10 +113,8 @@ export default class Body extends Component<
         title: t('connections.empty.offline.title'),
         description: t('connections.empty.offline.description'),
       });
-    }
-
-    if (!peers.length && !rooms.length && !stagedPeers.length) {
-      if (recentlyScanned(bluetoothLastScanned)) {
+    } else if (!this.hasPeers()) {
+      if (recentlyScanned(this.props.bluetoothLastScanned)) {
         this.latestEmptySection = h(EmptySection, {
           key: 'es',
           style: styles.emptySection,
@@ -132,7 +139,8 @@ export default class Body extends Component<
   public render() {
     this.timestampLatestRender = Date.now();
     const {peers, rooms, stagedPeers} = this.props;
-    const showEmptySection = this.shouldShowEmptySection(this.props);
+    const showEmptySection = this.shouldShowEmptySection();
+    console.log('showEmptySection?', showEmptySection);
 
     return h(Fragment, [
       h(ListOfPeers, {
