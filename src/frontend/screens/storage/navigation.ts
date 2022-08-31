@@ -4,7 +4,7 @@
 
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
-import {Command, NavSource} from 'cycle-native-navigation';
+import {Command} from 'cycle-native-navigation';
 import {FeedId} from 'ssb-typescript';
 import {Screens} from '~frontend/screens/enums';
 import {navOptions as profileScreenNavOpts} from '~frontend/screens/profile/layout';
@@ -21,12 +21,9 @@ export interface Actions {
 
 export default function navigationCommands(
   actions: Actions,
-  navSource: NavSource,
   state$: Stream<State>,
 ): Stream<Command> {
-  const back$ = xs.merge(navSource.backPress(), actions.goBack$).mapTo({
-    type: 'pop',
-  } as Command);
+  const back$ = actions.goBack$.mapTo({type: 'pop'} as Command);
 
   const toProfile$ = actions.goToProfile$.compose(sampleCombine(state$)).map(
     ([feedId, state]) =>
