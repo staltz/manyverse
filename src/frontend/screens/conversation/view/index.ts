@@ -39,7 +39,7 @@ import HeaderButton from '~frontend/components/HeaderButton';
 import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {SSBGiftedMsg, State} from '../model';
-import {SettableComposer} from './SettableComposer';
+import SettableComposer from './SettableComposer';
 
 const GiftedChat = GiftedChatWithWrongTypes as any as ComponentClass<
   GiftedChatProps<GiftedMsg>
@@ -262,10 +262,10 @@ function renderSend(props: any) {
   ]);
 }
 
-function renderComposer(props: any, nativeProps$: Stream<Object>) {
+function renderComposer(props: any, nativeText$: Stream<string>) {
   return h(SettableComposer, {
     ...props,
-    nativeProps$: nativeProps$.take(1),
+    nativeText$,
     sel: 'msg-composer',
     placeholder: t('conversation.placeholder'),
     textInputAutoFocus: true,
@@ -285,11 +285,11 @@ function renderComposer(props: any, nativeProps$: Stream<Object>) {
   });
 }
 
-function renderInputToolbar(props: any, nativeProps$: Stream<Object>) {
+function renderInputToolbar(props: any, nativeText$: Stream<string>) {
   return h(InputToolbar, {
     ...props,
     containerStyle: styles.inputToolbarContainer,
-    renderComposer: (props) => renderComposer(props, nativeProps$),
+    renderComposer: (props) => renderComposer(props, nativeText$),
   });
 }
 
@@ -390,10 +390,7 @@ export default function view(
           renderDay,
           renderSystemMessage,
           renderInputToolbar: (props) =>
-            renderInputToolbar(
-              props,
-              draftMessage$.map((value) => ({value})),
-            ),
+            renderInputToolbar(props, draftMessage$),
           renderMessageText: (item: {currentMessage: SSBGiftedMsg}) =>
             h(View, {style: styles.bubbleText}, [
               item.currentMessage.user._id !== selfFeedId
