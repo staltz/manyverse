@@ -1,5 +1,5 @@
 diff --git a/node_modules/ssb-db2/db.js b/node_modules/ssb-db2/db.js
-index 1e4220e..25c3941 100644
+index 1e4220e..65c640b 100644
 --- a/node_modules/ssb-db2/db.js
 +++ b/node_modules/ssb-db2/db.js
 @@ -69,6 +69,7 @@ exports.manifest = {
@@ -30,7 +30,49 @@ index 1e4220e..25c3941 100644
                push.collect((err) => {
                  // prettier-ignore
                  if (err) return cb(clarify(err, 'deleteFeed() failed for feed ' + feedId))
-@@ -849,6 +852,18 @@ exports.init = function (sbot, config) {
+@@ -582,6 +585,7 @@ exports.init = function (sbot, config) {
+       debug('updateIndexes() called while another one is in progress')
+       return
+     }
++    const updatePrivateIndex = true
+     const start = Date.now()
+ 
+     const indexesArr = Object.values(indexes)
+@@ -593,7 +597,9 @@ exports.init = function (sbot, config) {
+     debug(`lowest offset for all indexes is ${lowestOffset}`)
+ 
+     indexingActive.set(indexingActive.value + 1)
+-    const sink = log.stream({ gt: lowestOffset }).pipe({
++    const sourceOld = log.stream({ gt: lowestOffset, updatePrivateIndex })
++    abortLogStreamForIndexes = sourceOld.abort.bind(sourceOld)
++    sourceOld.pipe({
+       paused: false,
+       write(record) {
+         const buf = record.value
+@@ -611,7 +617,9 @@ exports.init = function (sbot, config) {
+           indexingActive.set(indexingActive.value - 1)
+           debug('updateIndexes() live streaming')
+           const gt = indexes['base'].offset.value
+-          const sink = log.stream({ gt, live: true }).pipe({
++          const sourceLive = log.stream({ gt, live: true, updatePrivateIndex })
++          abortLogStreamForIndexes = sourceLive.abort.bind(sourceLive)
++          sourceLive.pipe({
+             paused: false,
+             write(record) {
+               const buf = record.value
+@@ -619,11 +627,9 @@ exports.init = function (sbot, config) {
+               for (const idx of indexesArr) idx.onRecord(record, true, pValue)
+             },
+           })
+-          abortLogStreamForIndexes = sink.source.abort.bind(sink.source)
+         })
+       },
+     })
+-    abortLogStreamForIndexes = sink.source.abort.bind(sink.source)
+   }
+ 
+   function onDrain(indexName, cb) {
+@@ -849,6 +855,19 @@ exports.init = function (sbot, config) {
      }
    })
  
@@ -38,6 +80,7 @@ index 1e4220e..25c3941 100644
 +    stopUpdatingIndexes()
 +    const done = multicb({ pluck: 1 })
 +    status.reset()
++    jitdb.reindex(0, done())
 +    resetAllIndexes(done())
 +    privateIndex.reset(done())
 +    done(() => {
@@ -49,7 +92,14 @@ index 1e4220e..25c3941 100644
    return (self = {
      // Public API:
      get,
-@@ -870,6 +885,7 @@ exports.init = function (sbot, config) {
+@@ -864,12 +883,14 @@ exports.init = function (sbot, config) {
+     addOOO,
+     addOOOBatch,
+     getStatus: () => status.obv,
++    getIndexingActive: () => indexingActive,
+     operators,
+     post,
+     compact,
      reindexEncrypted,
      indexingProgress: () => indexingProgress.listen(),
      compactionProgress: () => compactionProgress.listen(),
@@ -57,3 +107,36 @@ index 1e4220e..25c3941 100644
  
      // used for partial replication in browser, will be removed soon!
      setPost: post.set,
+diff --git a/node_modules/ssb-db2/log.js b/node_modules/ssb-db2/log.js
+index 08880d9..b402236 100644
+--- a/node_modules/ssb-db2/log.js
++++ b/node_modules/ssb-db2/log.js
+@@ -78,6 +78,7 @@ module.exports = function (dir, config, privateIndex) {
+   // and to decrypt the msg
+   const originalStream = log.stream
+   log.stream = function (opts) {
++    const updatePrivateIndex = !!opts.updatePrivateIndex
+     const shouldDecrypt = opts.decrypt === false ? false : true
+     const tooHot = config.db2.maxCpu ? TooHot(tooHotOpts(config)) : () => false
+     const s = originalStream(opts)
+@@ -89,14 +90,16 @@ module.exports = function (dir, config, privateIndex) {
+         if (hot && !s.sink.paused) {
+           s.sink.paused = true
+           hot.then(() => {
+-            if (shouldDecrypt) originalWrite(privateIndex.decrypt(record, true))
+-            else originalWrite(record)
++            if (updatePrivateIndex || shouldDecrypt) {
++              originalWrite(privateIndex.decrypt(record, updatePrivateIndex))
++            } else originalWrite(record)
+             s.sink.paused = false
+             s.resume()
+           })
+         } else {
+-          if (shouldDecrypt) originalWrite(privateIndex.decrypt(record, true))
+-          else originalWrite(record)
++          if (updatePrivateIndex || shouldDecrypt) {
++            originalWrite(privateIndex.decrypt(record, updatePrivateIndex))
++          } else originalWrite(record)
+         }
+       }
+       return originalPipe(o)
