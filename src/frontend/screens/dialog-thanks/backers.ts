@@ -2,10 +2,4 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-export default [
-  'Dace',
-  'C Moid',
-  'Andrew Lewman',
-  'DC Posch',
-  'Irakli Gozalishvili',
-];
+export default ['Dace', 'C Moid', 'Guest', 'Andrew Lewman', 'DC Posch'];

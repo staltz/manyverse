@@ -209,6 +209,13 @@ export default [
     homepage: 'https://github.com/staltz/bindings-noderify-nodejs-mobile',
   },
   {
+    name: 'blurhash',
+    type: 'library',
+    version: '1.1.5',
+    license: 'MIT License (MIT)',
+    homepage: 'http://blurhash.com',
+  },
+  {
     name: 'buffer',
     type: 'library',
     version: '5.6.0',
@@ -489,6 +496,13 @@ export default [
     homepage: 'https://reactjs.org/',
   },
   {
+    name: 'react-blurhash',
+    type: 'library',
+    version: '0.1.3',
+    license: 'MIT License (MIT)',
+    homepage: 'https://blurha.sh',
+  },
+  {
     name: 'react-dom',
     type: 'library',
     version: '17.0.2',
@@ -515,6 +529,13 @@ export default [
     version: '1.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/Happy0/react-native-bluetooth-socket-bridge/',
+  },
+  {
+    name: 'react-native-blurhash',
+    type: 'library',
+    version: '1.1.8',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/mrousavy/react-native-blurhash#readme',
   },
   {
     name: 'react-native-dialogs',
@@ -765,6 +786,13 @@ export default [
     homepage: 'https://github.com/ssbc/ssb-blobs',
   },
   {
+    name: 'ssb-blobs-blurhash',
+    type: 'library',
+    version: '0.0.3',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/achou11/ssb-blobs-blurhash#readme',
+  },
+  {
     name: 'ssb-blobs-purge',
     type: 'library',
     version: '2.0.3',
@@ -837,14 +865,14 @@ export default [
   {
     name: 'ssb-friends',
     type: 'library',
-    version: '5.1.6',
+    version: '5.1.7',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-friends',
   },
   {
     name: 'ssb-friends-purge',
     type: 'library',
-    version: '1.0.0',
+    version: '1.0.1',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-friends-purge#readme',
   },
@@ -914,7 +942,7 @@ export default [
   {
     name: 'ssb-replication-scheduler',
     type: 'library',
-    version: '2.0.3',
+    version: '2.0.5',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-replication-scheduler',
   },

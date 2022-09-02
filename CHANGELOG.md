@@ -2,6 +2,28 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2209.2-beta
+
+* (iOS) Bug fix: color of mentions menu separator ([see details](https://gitlab.com/staltz/manyverse/commit/b98f568df1fa4e988928b75b0374fd45c9efc823))
+* (iOS) Bug fix: private chat drafts should work ([see details](https://gitlab.com/staltz/manyverse/commit/84b2ef26df6cbf0b8bc7ba1621166d3106891293))
+* (iOS) Bug fix: profile header sizing and spacing ([see details](https://gitlab.com/staltz/manyverse/commit/cc6f433af20333439f9b38c3978f4bda86b194f0))
+* (iOS) Bug fix: spaces and sizes for the bottom tabs ([see details](https://gitlab.com/staltz/manyverse/commit/882feb98a5f232b2b7b3f3ed4b956f5a4c9f34b4))
+* (iOS) Bug fix: spacing in the reply box in a Thread ([see details](https://gitlab.com/staltz/manyverse/commit/92f9f9e34ad21c84635c2299bfc78aed7d1d76c9))
+* (iOS) Improve appearance of the back button ([see details](https://gitlab.com/staltz/manyverse/commit/e85b61cd41b06a3bb086b536df39db4692ae3103))
+* Bug fix: allow connecting to wi-fi peers without internet ([see details](https://gitlab.com/staltz/manyverse/commit/a6aae659186f83673e20fc858086285704c18d55))
+* Bug fix: blocked accounts re-fetched post-compaction ([see details](https://gitlab.com/staltz/manyverse/commit/bef36adfd3fa9b1ac3b3a35dde1e89bb1986f4c4))
+* Bug fix: compaction stuck on 0% on tiny databases ([see details](https://gitlab.com/staltz/manyverse/commit/3db099b8b6279147ad12a1cd265c0ee76524e605))
+* Bug fix: copy cypherlink from Search screen ([see details](https://gitlab.com/staltz/manyverse/commit/b0f5f4b17e85ac6d2777bd581dd084fbf97f5b59))
+* Bug fix: going back from the Storage screen ([see details](https://gitlab.com/staltz/manyverse/commit/d12bca225642c47493c6c99d87ec7e6eb57cc420))
+* Bug fix: scroll bars missing from Storage screen ([see details](https://gitlab.com/staltz/manyverse/commit/3901a7113b15d3960943b0aadfd0e4c3c071e45e))
+* Feature: new Indexing screen ([see details](https://gitlab.com/staltz/manyverse/commit/f90f3ce145fd99895af4790e624f2aac358b3584))
+* Feature: new progress bar Pill element ([see details](https://gitlab.com/staltz/manyverse/commit/c5e13e4a81da8c8565fefbda1009d247d5afaf06))
+* Feature: show name and blurred avatar of blocked accounts ([see details](https://gitlab.com/staltz/manyverse/commit/8ecf2dfb7667863323194291040123b6f8af6717))
+* Improve French and German translations ([see details](https://gitlab.com/staltz/manyverse/commit/7e6e4f701ec021e44fc19add05d7d90fcce3103c))
+* Improve margins and paddings all around ([see details](https://gitlab.com/staltz/manyverse/commit/cb73eb0e6fd80f4ab5282e7fcb607bf39df21774))
+* Improve Profile screen to load all details at once ([see details](https://gitlab.com/staltz/manyverse/commit/98cd8853a619eaa7f01c60b09d0e684c7075281a))
+* Improve Spanish and Dutch translations ([see details](https://gitlab.com/staltz/manyverse/commit/ef9a1d9236f57f8b175aa70f96133aec004b7a90))
+
 ## 0.2208.5-beta
 
 * Feature: add private chat recipient by SSB ID ([see details](https://gitlab.com/staltz/manyverse/commit/dd59322360a087208a69510318bc9b7d12be8a0c))
