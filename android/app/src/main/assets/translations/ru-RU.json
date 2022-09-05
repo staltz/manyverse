@@ -5,7 +5,7 @@
     "done": "Готово",
     "cancel": "Отменить",
     "continue": "Продолжить",
-    "read_more": "Read more",
+    "read_more": "Читать далее",
     "delete": "Удалить",
     "remove": "Удалить",
     "save": "Сохранить",
@@ -165,7 +165,7 @@
           "accessibility_label": "Кнопка \"Восстановить аккаунт\""
         },
         "migrate": {
-          "label": "Переместить из ~/.ssb",
+          "label": "Импорт ~/.ssb",
           "accessibility_label": "Перенести аккаунт из общего каталога SSB"
         }
       }
@@ -173,7 +173,7 @@
     "dialogs": {
       "migrate": {
         "title": "Перенести ваш SSB аккаунт в Manyverse",
-        "description": "Manyverse обнаружил существующий аккаунт SSB в общем каталоге `~/.ssb`. При желании, можете перенести эту учетную запись в совершенно новый каталог, доступ к которому есть только у Manyverse.\n\nПосле завершения переноса, **вы больше не сможете использовать ваш аакаунт с другими приложениями SSB, такими как Patchwork**, и '.ssb' будет **удалено**, но вы все еще сможете использовать эти приложения с новыми учетными записями.\n\nВы уверены, что хотите перенести ваш аккаунт с '.ssb' на Manyverse? **Это действие не может быть отменено.**"
+        "description": "Manyverse обнаружил существующий аккаунт SSB в общем каталоге `~/.ssb`. При желании, можете перенести эту учетную запись в совершенно новый каталог, доступ к которому есть только у Manyverse.\n\nПосле завершения переноса, **вы больше не сможете использовать ваш аккаунт с другими приложениями SSB, такими как Patchwork**, и '.ssb' будет **удалено**, но вы все еще сможете использовать эти приложения с новыми учетными записями.\n\nВы уверены, что хотите перенести ваш аккаунт с '.ssb' на Manyverse? **Это действие не может быть отменено.**"
       },
       "link_failed": {
         "title": "Аккаунт не готов",
@@ -190,7 +190,7 @@
       "public": "Публичная лента",
       "private": "Личные сообщения",
       "activity": "Действия",
-      "connections": "Связанные пиры"
+      "connections": "Подключенные пиры"
     },
     "tab_footers": {
       "public": "Публичный",
@@ -200,7 +200,7 @@
     },
     "loading": "Загрузка...",
     "progress_indicator": {
-      "accessibility_label": "Progress Indicator for Indexing the Database"
+      "accessibility_label": "Индикатор хода индексирования базы данных"
     },
     "tabs": {
       "public": {
@@ -210,7 +210,7 @@
         "accessibility_label": "Кнопка \"Частная вкладка\""
       },
       "activity": {
-        "accessibility_label": "Кнопка Действия"
+        "accessibility_label": "Кнопка \"Действия\""
       },
       "connections": {
         "accessibility_label": "Кнопка \"Вкладка подключений\""
@@ -246,13 +246,13 @@
       "title": "Реакции"
     },
     "gathering_attendees": {
-      "title": "Attendees"
+      "title": "Участники"
     },
     "recipients": {
       "title": "Получатели"
     },
     "friends_in_common": {
-      "title": "Friends in common"
+      "title": "Общие друзья"
     },
     "call_to_action": {
       "open_account": {
@@ -290,7 +290,7 @@
   "connections": {
     "title": "Панель подключений",
     "floating_action_button": {
-      "add_connection": "Добавить соединение",
+      "add_connection": "Добавить подключение",
       "create_invite": "Создать приглашение",
       "paste_invite": "Вставьте приглашение",
       "bluetooth_seek": "Поиск по Bluetooth"
@@ -313,33 +313,33 @@
     "scenarios": {
       "offline": "Автономный",
       "not_connected": "Нет соединения",
-      "few_connections": "Слишком мало соединений",
+      "few_connections": "Слишком мало подключений",
       "many_connections": "Отличное соединение"
     },
     "scenario_descriptions": {
       "offline_with_content": "В данный момент вы не можете подключиться к пирам, но вы можете наслаждаться контентом, который у вас уже есть.",
       "offline_without_content": "В данный момент вы не можете подключиться к пирам. Попробуйте подключиться к Интернету или включите Wi-Fi, чтобы найти пиров поблизости.",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
-      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
-      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+      "knows_no_one": "В настоящее время ваш Manyverse изолирован. Вы должны быть приглашены другими узлами, чтобы присоединиться к пирам комнаты, или вы можете разместить сервер самостоятельно.",
+      "nearby_strangers_available": "Вы пока не подключены ни к кому-либо, но есть несколько пиров на этой же Wi-Fi. Попробуйте подключиться к ним вручную, если вы думаете, что они готовы к вам подключаться.",
+      "empty_rooms": "Вы являетесь членом нескольких комнат, но никто из тех кого вы знаете нет онлайн. Попробуйте вручную подключиться к незнакомцу в комнате или получить код приглашения на другие серверы.",
+      "connected_poorly": "Вы подключены к одному узлу, это хорошо. Но, чтобы улучшить распространение данных, вы должны подключиться к большему числу соседей. Попробуйте подождать немного дольше или получить пригласительный код на других серверах.",
+      "connected_well": "Вы подключены к большому количеству соседей, все хорошо! Они распространяют ваши данные, и вы распространяете их."
     },
     "recommendations": {
-      "consume_invite": "How to get an invite",
-      "follow_staged_manually": "Follow someone new",
-      "paste_invite": "Paste invite code",
-      "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "consume_invite": "Как получить приглашение",
+      "follow_staged_manually": "Подпишитесь на кого нибудь нового",
+      "paste_invite": "Вставить код приглашения",
+      "host_ssb_room": "Как организовать сервер-комнату",
+      "others": "Другие варианты"
     },
     "recommendation_descriptions": {
-      "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
+      "consume_invite": "Эта социальная сеть основана на приглашениях, чтобы сохранить ее дружелюбной и безопасной от спама. Если вы еще не получили приглашение от друга, вы можете найти в Интернете несколько серверов, которые подают приглашения на любой вкус.\n\nПосмотрите на ключевые слова \"SSB room server\" или \"SSB pub server\". Также может быть полезным хэштег #ssbroom.",
       "follow_staged_manually": {
         "part1": {
-          "not_connected": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",
-          "connected": "If you want to get more content beyond what you already have, you can follow more people. There are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them."
+          "not_connected": "Ваши друзья не онлайн прямо сейчас, но если вы хотите получить больше контента, несколько неизвестных пиров в настоящее время онлайн в той же комнате (комнатах), что и вы. Вы можете попробовать добавить их в друзья.",
+          "connected": "Ваши друзья не онлайн прямо сейчас, но если вы хотите получить больше контента, несколько неизвестных пиров в настоящее время онлайн в той же комнате (комнатах), что и вы. Вы можете попробовать добавить их в друзья."
         },
-        "part2": "On the next screen, you will see unknown peers displayed like this. Press one of them and choose \"Open Profile\", then \"Follow\"."
+        "part2": "На следующем экране вы увидите неизвестных соседей, отображаемых как это. Нажмите на одну из них и выберите \"Открыть профиль\", затем \"Подписаться\"."
       }
     },
     "toasts": {
@@ -628,7 +628,7 @@
         "accessibility_label": "Показать получателей"
       }
     },
-    "load_more": "Load more",
+    "load_more": "Читать далее",
     "notifications": {
       "new_conversation": "Это новая личная беседа"
     }
@@ -668,8 +668,8 @@
         "accessibility_label": "Показать больше пунктов меню"
       },
       "update": {
-        "label": "Update",
-        "accessibility_label": "Update app to latest version"
+        "label": "Обновить",
+        "accessibility_label": "Обновить приложение до последней версии"
       },
       "settings": {
         "label": "Настройки",
@@ -681,8 +681,8 @@
     },
     "dialogs": {
       "update": {
-        "title": "Check for new versions?",
-        "description": "Would you like Manyverse to automatically check for new releases?\n\nThis setting is optional and will allow Manyverse to send requests to the manyver.se website periodically."
+        "title": "Проверить наличие новых версий?",
+        "description": "Вы хотите, чтобы Manyverse автоматически проверял наличие новых релизов?\n\nЭта настройка необязательна и позволит Manyverse периодически отправлять запросы на manyver.se."
       }
     }
   },
@@ -711,7 +711,7 @@
   },
   "profile": {
     "call_to_action": {
-      "copy_uri": "Copy SSB URI",
+      "copy_uri": "Скопировать SSB URL",
       "copy_cypherlink": "Копировать шифро-ссылку",
       "private_chat": "Открыть приватный чат",
       "block": "Блокировка",
@@ -738,10 +738,10 @@
       "description": "Эта учетная запись пытается связаться с вами, но Manyverse запретил ей это, потому что она находится за пределами вашего сообщества.\n\nЕсли вы узнаёте этот ID, вы можете нажать \"Подписаться\", чтобы позволить ему связаться с вами."
     },
     "dialog_about_storage_used": {
-      "title": "Storage used",
+      "title": "Использовано места",
       "description": {
-        "self": "Your content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by your blobs, such as images and audio messages.",
-        "others": "{{name}}'s content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by their blobs, such as images and audio messages."
+        "self": "В данный момент ваш контент (и связанные с ним индексы) занимает {{megabytes}} хранилища на вашем устройстве.\n\nЭто число не включает объем, занимаемый медиа, например, изображениями и звуковыми сообщениями.",
+        "others": "Контент (и связанные с ним индексы) пользователя {{name}} занимает {{megabytes}} хранилища на вашем устройстве.\n\nЭто число не включает объем, занимаемый медиа, например, изображениями и звуковыми сообщениями."
       }
     },
     "toast": {
@@ -757,15 +757,15 @@
       "counters": {
         "following": "Подписка(ок)",
         "followers": "Подписчики",
-        "friends_in_common": "Friends in common with you",
-        "storage_used": "Occupies {{megabytes}}"
+        "friends_in_common": "Общие друзья",
+        "storage_used": "Занимает {{megabytes}}"
       }
     },
     "info": {
       "follows_you": "Подписаны на вас",
       "blocks_you": "Блокируют вас",
       "following": "Подписка(ок)",
-      "blocking": "Blocking"
+      "blocking": "Блокировка"
     },
     "picture": {
       "accessibility_label": "Изображение профиля"
@@ -1023,9 +1023,9 @@
         "accessibility_label": "Слайдер репликационного прыжка"
       },
       "enable_firewall": {
-        "title": "Enable firewall",
-        "subtitle": "Prevent strangers from creating network connections with me",
-        "accessibility_label": "Toggle enable firewall"
+        "title": "Включить брандмауэр",
+        "subtitle": "Запретить незнакомцам создавать сетевые соединения со мной",
+        "accessibility_label": "Включить брандмауэр"
       }
     },
     "data_and_storage": {
@@ -1042,8 +1042,8 @@
         "accessibility_label": "Слайдер лимита хранения"
       },
       "storage_usage": {
-        "title": "Storage usage",
-        "accessibility_label": "Open screen about storage usage"
+        "title": "Использовано места",
+        "accessibility_label": "Открыть экран об использовании хранилища"
       }
     },
     "troubleshooting": {
@@ -1057,11 +1057,11 @@
         "accessibility_label": "Переключить подробные журналы разработчиков"
       },
       "force_reindex": {
-        "title": "Force reindex",
-        "accessibility_label": "Force indexes to rebuild",
+        "title": "Принудительная переиндексация",
+        "accessibility_label": "Принудительно перестроить индексы",
         "confirm": {
-          "title": "Rebuild indexes?",
-          "description": "This will reset database indexes and rebuild them, which is a last resort solution in case your database seems to behave oddly. Reindexing may take several minutes.\n\nAre you sure you want to do this?"
+          "title": "Перестроить индексы?",
+          "description": "Это сбросит индексы базы данных и перестроит их, что является крайним решением в том случае, если ваша база данных ведет себя странно. Переиндексация может занять несколько минут.\n\nВы уверены, что хотите это сделать?"
         }
       }
     },
@@ -1088,79 +1088,79 @@
     }
   },
   "storage": {
-    "title": "Storage",
+    "title": "Хранилище",
     "chart": {
       "total": {
-        "1_normal": "Manyverse uses a total of ",
-        "3_normal": " on your device"
+        "1_normal": "Manyverse использует в общей сложности ",
+        "3_normal": " на вашем устройстве"
       },
       "legend": {
-        "trash": "Trash ({{megabytes}})",
-        "content": "Content ({{megabytes}})",
-        "indexes": "Indexes ({{megabytes}})",
-        "blobs": "Blobs ({{megabytes}})"
+        "trash": "Корзина ({{megabytes}})",
+        "content": "Контент ({{megabytes}})",
+        "indexes": "Индексы ({{megabytes}})",
+        "blobs": "Медиа ({{megabytes}})"
       }
     },
     "trash": {
-      "title": "Trash",
-      "description": "The trash bin is made of blocked accounts. Compact your database to empty the trash bin.",
+      "title": "Корзина",
+      "description": "Корзина состоит из заблокированных учетных записей. Уплотните базу данных для очистки корзины.",
       "compact": {
-        "label": "Compact",
-        "accessibility_label": "Compact your database"
+        "label": "Уплотнить",
+        "accessibility_label": "Уплотнить вашу базу данных"
       }
     },
     "dialogs": {
       "confirm_compact": {
-        "title": "Compact database?",
-        "description": "This action will remove the trash and rebuild database indexes. It typically lasts 2 minutes, and you must keep the app open without browsing content, waiting for it to complete.\n\nDo you want to continue?"
+        "title": "Уплотнить вашу базу данных?",
+        "description": "Это действие удалит корзину и перестроить индексы базы данных. Обычно это длится 2 минуты, и вы должны держать приложение открытым, не просматривая содержимое, ожидая его завершения.\n\nВы хотите продолжить?"
       }
     },
     "accounts": {
-      "title": "Accounts",
-      "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
-      "this_is_you": "This is you",
+      "title": "Учетные записи",
+      "description": "Каждый аккаунт, который вы видите на вашем устройстве, занимает определенное количество места. Чтобы освободить место, вы можете блокировать аккаунты, которые вы не хотите больше видеть.",
+      "this_is_you": "Это вы",
       "open_profile": {
-        "accessibility_label": "Open Profile"
+        "accessibility_label": "Открыть профиль"
       },
       "options_profile": {
-        "accessibility_label": "More options for this profile"
+        "accessibility_label": "Дополнительные параметры для этого профиля"
       }
     }
   },
   "compact": {
-    "title": "Compacting your\nManyverse database..."
+    "title": "Уплотнение вашей\nбазы данных Manyver..."
   },
   "indexing": {
-    "title": "Preparing database indexes... ({{progress}}%)",
+    "title": "Подготовка индексов базы данных... ({{progress}}%)",
     "info": {
-      "title": "What is happening here?",
-      "description": "Your Manyverse installation has {{bytes}} of content that needs to be optimized before you can browse it. Database indexes help organize content into categories such as posts, reactions, follows, blocks, etc.\n\nThe app is busy building those indexes and making sense of them so that when you want to see how many followers an account has, the numbers have already been calculated, and when you want to see who reacted to a post, the list of reactions has already been collected, and so forth.\n\nTypically this doesn't take longer than 10 minutes. Hang in there!"
+      "title": "Что здесь происходит?",
+      "description": "Ваша установка Manyverse имеет {{bytes}} контента, который необходимо оптимизировать перед тем, как вы сможете просмотреть его. Индексы базы данных помогают упорядочить контент по категориям, таким как посты, реакции, подписки, блоки и т. д.\n\nПриложение строит эти индексы и понимает их так, чтобы вы могли видеть, сколько подписчиков имеет аккаунт, числа уже были рассчитаны, и когда вы хотите увидеть, кто отреагировал на сообщение, список реакций был уже собран и так далее.\n\nОбычно это не занимает больше 10 минут. Начнем!"
     }
   },
   "resync": {
     "introduction": {
-      "title": "Good!",
+      "title": "Хорошо!",
       "description": {
-        "1_normal": "Your account's ",
-        "2_bold": "identity",
-        "3_normal": " is now restored.\n\nNow, to recover your ",
-        "4_bold": "data",
-        "5_normal": ", connect with friends that have interacted with you before, to redownload your data from them. There are two ways:"
+        "1_normal": "Ваш аккаунт ",
+        "2_bold": "идентификатор",
+        "3_normal": " теперь восстановлено.\n\nТеперь для восстановления ",
+        "4_bold": "данные",
+        "5_normal": ", связывайтесь с друзьями, с которыми вы сотрудничали ранее, чтобы перезагрузить ваши данные с них. Существует два способа:"
       }
     },
     "buttons": {
-      "connect_via_wifi": "Connect via Wi-Fi",
-      "paste_invite": "Paste invite code"
+      "connect_via_wifi": "Подключиться по Wi-Fi",
+      "paste_invite": "Вставить код приглашения"
     },
     "instructions": {
       "connect_via_wifi": {
-        "title": "Connect via Wi-Fi",
-        "description": "Just connect this device to the same local Wi-Fi as other devices are, keep Manyverse open on those devices, and your data will automatically sync to this device."
+        "title": "Подключиться по Wi-Fi",
+        "description": "Просто подключите это устройство к той же локальной сети Wi-Fi, что и другие устройства, откройте Manyverse на этих устройствах и данные  будут синхронизированы автоматически с этим устройством."
       }
     },
     "progress": {
-      "title": "Redownloading data: {{megabytes}}",
-      "description": "Please wait while your data is being recovered from friends."
+      "title": "Повторная загрузка данных: {{megabytes}}",
+      "description": "Пожалуйста, подождите, пока ваши данные будут восстановлены от друзей."
     }
   },
   "thread": {
@@ -1213,16 +1213,16 @@
       "copy_blob_id": {
         "accessibility_label": "Копировать идентификатор данных"
       },
-      "copy_msg_uri": "Copy SSB URI",
+      "copy_msg_uri": "Скопировать SSB URL",
       "copy_msg_id": "Копировать шифро-ссылку",
       "view_raw": "Просмотр исходных сообщений"
     },
     "gatherings": {
       "call_to_action": {
-        "attend": "Attend",
-        "attending": "Attending",
+        "attend": "Участвовать",
+        "attending": "Участвует",
         "showAllAttendees": {
-          "accessibility_label": "Show Attendees in a List"
+          "accessibility_label": "Показать участников в списке"
         }
       }
     },
@@ -1239,7 +1239,7 @@
         "travel_and_places": "Путешествия и места",
         "objects": "Объекты",
         "symbols": "Символы",
-        "flags": "Flags"
+        "flags": "Флаги"
       },
       "show_more": {
         "accessibility_label": "Показать больше вариантов реакции"
@@ -1280,7 +1280,7 @@
       "3_normal": ""
     },
     "introducer": {
-      "1_normal": "Followed by ",
+      "1_normal": "Подписан ",
       "2_bold": "{{name}}",
       "3_normal": ""
     },
@@ -1342,13 +1342,13 @@
     }
   },
   "context_menu": {
-    "copy": "Copy",
-    "copy_link": "Copy link",
-    "cut": "Cut",
-    "inspect": "Inspect element",
-    "look_up_selection": "Look up {selection}",
-    "paste": "Paste",
-    "save_image": "Save image",
-    "save_image_as": "Save image as..."
+    "copy": "Копировать",
+    "copy_link": "Копировать ссылку",
+    "cut": "Вырезать",
+    "inspect": "Проверить элемент",
+    "look_up_selection": "Поиск в {selection}",
+    "paste": "Вставить",
+    "save_image": "Сохранить изображение",
+    "save_image_as": "Сохранить изображение..."
   }
 }

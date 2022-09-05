@@ -200,7 +200,7 @@
     },
     "loading": "Lädt...",
     "progress_indicator": {
-      "accessibility_label": "Progress Indicator for Indexing the Database"
+      "accessibility_label": "Fortschrittsanzeige für die Indizierung der Datenbank"
     },
     "tabs": {
       "public": {
@@ -1131,10 +1131,10 @@
     "title": "Komprimiere deine\nManyverse-Datenbank..."
   },
   "indexing": {
-    "title": "Preparing database indexes... ({{progress}}%)",
+    "title": "Bereite Datenbankindizes vor... ({{progress}}%)",
     "info": {
-      "title": "What is happening here?",
-      "description": "Your Manyverse installation has {{bytes}} of content that needs to be optimized before you can browse it. Database indexes help organize content into categories such as posts, reactions, follows, blocks, etc.\n\nThe app is busy building those indexes and making sense of them so that when you want to see how many followers an account has, the numbers have already been calculated, and when you want to see who reacted to a post, the list of reactions has already been collected, and so forth.\n\nTypically this doesn't take longer than 10 minutes. Hang in there!"
+      "title": "Was passiert hier?",
+      "description": "Deine Manyverse-Installation enthält {{bytes}} an Inhalten, welche optimiert werden müssen, bevor du sie durchsuchen kannst. Datenbank-Indizes helfen dabei, Inhalte in Kategorien wie Beiträge, Reaktionen, Folgen, Blöcke usw. zu organisieren.\n\nDie App ist damit beschäftigt, diese Indizes zu erstellen und ihnen einen Sinn zu geben, sodass, wenn Sie sehen wollen, wie viele Follower ein Konto hat, die Zahlen bereits berechnet wurden, und wenn Sie sehen wollen, wer auf einen Beitrag reagiert hat, die Liste der Reaktionen bereits gesammelt wurde, und so weiter.\n\nNormalerweise dauert das nicht länger als 10 Minuten!"
     }
   },
   "resync": {
