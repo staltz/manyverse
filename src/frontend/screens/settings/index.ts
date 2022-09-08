@@ -54,7 +54,7 @@ export function settings(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.navigation, sources.dialog);
   const reducer$ = model(sources.props, actions, sources.ssb);
   const vdom$ = view(state$);
-  const req$ = ssb(actions);
+  const req$ = ssb(actions, sources.ssb);
   const alert$ = alert(actions);
   const command$ = navigation(actions, sources.navigation, state$);
   const links$ = linking(actions);

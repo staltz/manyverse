@@ -561,6 +561,17 @@ export class SSBSource {
       ssb.blobsBlurhash.generate(blobId, {width: 48}, cb),
     );
   }
+
+  public forceReindex$(): Stream<unknown> {
+    return this.fromCallback<unknown>((ssb, cb) =>
+      ssb.db.reset((err: any) => {
+        if (err) return cb(err);
+        ssb.dbUtils.warmUpJITDB((err: any) => {
+          cb(err);
+        });
+      }),
+    );
+  }
 }
 
 export interface CreateIdentityReq {
@@ -614,10 +625,6 @@ export interface FriendsPurgeStartReq {
 
 export interface CompactReq {
   type: 'db.compact';
-}
-
-export interface DbResetReq {
-  type: 'db.reset';
 }
 
 export interface WarmUpJITDBReq {
@@ -726,7 +733,6 @@ export type Req =
   | SuggestStartReq
   | FriendsPurgeStartReq
   | CompactReq
-  | DbResetReq
   | WarmUpJITDBReq
   | ConnStartReq
   | ConnConnectReq
@@ -828,12 +834,6 @@ async function consumeSink(
 
       if (req.type === 'db.compact') {
         ssb.db.compact((err: any) => {
-          if (err) return console.error(err.message || err);
-        });
-      }
-
-      if (req.type === 'db.reset') {
-        ssb.db.reset((err: any) => {
           if (err) return console.error(err.message || err);
         });
       }

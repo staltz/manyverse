@@ -3,14 +3,16 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import sample from 'xstream-sample';
+import delay from 'xstream/extra/delay';
 import {Platform} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {navOptions as librariesNavOptions} from '~frontend/screens/libraries';
 import {navOptions as backupScreenNavOptions} from '~frontend/screens/backup';
 import {navOptions as storagesScreenNavOptions} from '~frontend/screens/storage';
 import {Screens} from '~frontend/screens/enums';
-import sample from 'xstream-sample';
 import {State} from './model';
+
 const dialogAboutNavOptions =
   Platform.OS === 'web'
     ? {}
@@ -21,6 +23,7 @@ const dialogThanksNavOptions =
     : require('~frontend/screens/dialog-thanks').navOptions;
 
 export interface Actions {
+  forceReindex$: Stream<any>;
   goBack$: Stream<any>;
   goToBackup$: Stream<any>;
   goToStorage$: Stream<any>;
@@ -107,6 +110,10 @@ export default function navigationCommands(
           },
         } as Command);
 
+  const toRoot$ = actions.forceReindex$
+    .compose(delay(800))
+    .mapTo({type: 'popToRoot'} as Command);
+
   return xs.merge(
     back$,
     toBackup$,
@@ -114,5 +121,6 @@ export default function navigationCommands(
     toLibraries$,
     toAbout$,
     toThanks$,
+    toRoot$,
   );
 }

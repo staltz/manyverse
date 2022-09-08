@@ -3,8 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import delay from 'xstream/extra/delay';
-import {Req} from '~frontend/drivers/ssb';
+import {Req, SSBSource} from '~frontend/drivers/ssb';
 
 interface Actions {
   toggleFollowEvents$: Stream<boolean>;
@@ -14,7 +13,7 @@ interface Actions {
   forceReindex$: Stream<any>;
 }
 
-export default function ssb(actions: Actions) {
+export default function ssb(actions: Actions, ssbSource: SSBSource) {
   const req$ = xs.merge(
     actions.toggleFollowEvents$.map(
       (showFollows) => ({type: 'settings.showFollows', showFollows} as Req),
@@ -30,10 +29,11 @@ export default function ssb(actions: Actions) {
         ({type: 'settings.enableFirewall', enableFirewall} as Req),
     ),
 
-    actions.forceReindex$.mapTo({type: 'db.reset'} as Req),
     actions.forceReindex$
-      .compose(delay(2000))
-      .mapTo({type: 'dbUtils.warmUpJITDB'} as Req),
+      .mapTo(ssbSource.forceReindex$())
+      .flatten()
+      .mapTo(null as any as Req)
+      .filter((x) => x !== null),
   );
 
   return req$;
