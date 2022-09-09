@@ -319,8 +319,8 @@ Files: package-lock.json
 Copyright: 2021 The Manyverse Authors
 License: Unlicense
 
-Files: screenshot-*.png
-Copyright: 2021 The Manyverse Authors
+Files: screenshot*.png
+Copyright: 2022 The Manyverse Authors
 License: CC-BY-SA-4.0
 
 Files: tsconfig.json
