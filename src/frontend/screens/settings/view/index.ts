@@ -117,15 +117,19 @@ export default function view(state$: Stream<State>) {
             ),
           }),
 
-          h(View, {style: styles.spacer}),
-          h(ToggleSetting, {
-            sel: 'detailed-logs',
-            title: t('settings.troubleshooting.detailed_logs.title'),
-            value: state.enableDetailedLogs,
-            accessibilityLabel: t(
-              'settings.troubleshooting.detailed_logs.accessibility_label',
-            ),
-          }),
+          ...(Platform.OS === 'ios'
+            ? []
+            : [
+                h(View, {style: styles.spacer}),
+                h(ToggleSetting, {
+                  sel: 'detailed-logs',
+                  title: t('settings.troubleshooting.detailed_logs.title'),
+                  value: state.enableDetailedLogs,
+                  accessibilityLabel: t(
+                    'settings.troubleshooting.detailed_logs.accessibility_label',
+                  ),
+                }),
+              ]),
 
           h(View, {style: styles.spacer}),
           h(LinkSetting, {
