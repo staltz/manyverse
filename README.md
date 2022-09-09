@@ -6,17 +6,18 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Manyverse
 
-**A social network off the grid** (Android)
+<div style="text-align:center">
 
-<div>
-<img src="./screenshot-feed.png" width="200">
-<img src="./screenshot-connections.png" width="200">
-<img src="./screenshot-thread.png" width="200">
-</div>
+### A social network off the grid
 
-### [Homepage](https://manyver.se)
+(On Android, iOS, Windows, macOS, Linux)
+
+<img src="./screenshot.png" width="640">
+
+### Read more on our [Homepage](https://manyver.se)
 
 ### [Code of conduct](./code-of-conduct.md)
+</div>
 
 ### Documentation
 
