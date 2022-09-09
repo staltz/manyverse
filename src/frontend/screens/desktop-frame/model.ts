@@ -92,38 +92,26 @@ export default function model(
     (ev) => ev.type === 'centralScreenUpdate' && ev.subtype === 'connections',
   ) as Stream<CentralUpdateConnections>;
 
-  const selfFeedId$ = ssbSource.selfFeedId$.take(1);
-
-  const selfFeedIdReducer$ = selfFeedId$.map(
-    (selfFeedId: FeedId) =>
-      function selfFeedIdReducer(prev: State): State {
-        if (!prev) {
-          return {
-            ...INITIAL_STATE,
-            selfFeedId,
-          };
-        } else {
-          return {...prev, selfFeedId};
-        }
-      },
+  const updateShowButtonsReducer$ = xs.of(
+    function updateShowButtonsReducer(): State {
+      return {...INITIAL_STATE, showButtons: true};
+    },
   );
 
-  const updateShowButtonsReducer$ = navSource
-    .globalDidAppear(Screens.Central)
-    .take(1)
-    .map(
-      () =>
-        function updateShowButtonsReducer(prev?: State): State {
-          if (!prev) {
-            return {...INITIAL_STATE, showButtons: true};
-          } else {
-            return {...prev, showButtons: true};
-          }
-        },
-    );
+  const selfFeedIdReducer$ = ssbSource.selfFeedId$
+    .map((selfFeedId) =>
+      selfFeedId
+        ? xs.of(function selfFeedIdReducer(prev: State): State {
+            return {...prev, selfFeedId};
+          })
+        : xs.empty(),
+    )
+    .flatten()
+    .take(1);
 
-  const aboutReducer$ = selfFeedId$
-    .map((selfFeedId) => ssbSource.profileAboutLive$(selfFeedId))
+  const aboutReducer$ = ssbSource.selfFeedId$
+    .filter((selfFeedId) => !!selfFeedId)
+    .map((selfFeedId) => ssbSource.profileAboutLive$(selfFeedId!))
     .flatten()
     .map(
       (about) =>
@@ -260,21 +248,27 @@ export default function model(
     Reducer<State>
   >;
 
-  return concat(
-    xs.merge(selfFeedIdReducer$, updateShowButtonsReducer$),
-    xs.merge(
-      aboutReducer$,
-      changeTabReducer$,
-      updatePublicCounterReducer$,
-      updatePrivateCounterReducer$,
-      updateActivityCounterReducer$,
-      updateConnectionsReducer$,
-      readSettingsReducer$,
-      allowCheckingNewVersionReducer$,
-      hasNewVersionReducer$,
-      progressReducer$,
-    ),
-  );
+  return navSource
+    .globalDidAppear(Screens.Central)
+    .map(() => {
+      return concat(
+        updateShowButtonsReducer$,
+        selfFeedIdReducer$,
+        xs.merge(
+          aboutReducer$,
+          changeTabReducer$,
+          updatePublicCounterReducer$,
+          updatePrivateCounterReducer$,
+          updateActivityCounterReducer$,
+          updateConnectionsReducer$,
+          readSettingsReducer$,
+          allowCheckingNewVersionReducer$,
+          hasNewVersionReducer$,
+          progressReducer$,
+        ),
+      );
+    })
+    .flatten();
 }
 
 function getInt(s: string) {

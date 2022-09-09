@@ -45,6 +45,7 @@ function renderContent(response: RestoreIdentityResponse): string {
 
   switch (response) {
     case 'IDENTITY_READY':
+    case 'IDENTITY_CLEARED':
       throw new Error('Unreachable');
     case 'INCORRECT':
       return INCORRECT;

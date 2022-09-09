@@ -62,6 +62,25 @@ export default function intent(
       )
       .flatten(),
 
+    deleteAccount$: screenSource
+      .select('delete-account')
+      .events('press')
+      .map(() =>
+        dialogSource
+          .alert(
+            t('settings.danger_zone.delete_account.confirm.title'),
+            t('settings.danger_zone.delete_account.confirm.description'),
+            {
+              ...Palette.dialogColors,
+              negativeText: t('call_to_action.cancel'),
+              positiveText: t('call_to_action.yes'),
+              markdownOnDesktop: true,
+            },
+          )
+          .filter((res) => res.action === 'actionPositive'),
+      )
+      .flatten(),
+
     goBack$: xs.merge(
       navSource.backPress(),
       screenSource.select('topbar').events('pressBack'),

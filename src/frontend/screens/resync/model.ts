@@ -29,24 +29,28 @@ export default function model(
   networkSource: NetworkSource,
   ssbSource: SSBSource,
 ) {
-  const initReducer$ = ssbSource.selfFeedId$.take(1).map(
-    (selfFeedId: FeedId) =>
-      function initReducer(prev: State): State {
-        return {
-          selfFeedId,
-          internetEnabled: false,
-          lanEnabled: false,
-          peers: [],
-          rooms: [],
-          stagedPeers: [],
-          connectedToSomeone: false,
-          timestampPeersAndRooms: Date.now(),
-          timestampStagedPeers: Date.now(),
-          logSize: 0,
-          progressToSkip: 0,
-        };
-      },
-  );
+  const initReducer$ = ssbSource.selfFeedId$
+    .map((selfFeedId) =>
+      selfFeedId
+        ? xs.of(function initReducer(prev: State): State {
+            return {
+              selfFeedId,
+              internetEnabled: false,
+              lanEnabled: false,
+              peers: [],
+              rooms: [],
+              stagedPeers: [],
+              connectedToSomeone: false,
+              timestampPeersAndRooms: Date.now(),
+              timestampStagedPeers: Date.now(),
+              logSize: 0,
+              progressToSkip: 0,
+            };
+          })
+        : xs.empty(),
+    )
+    .flatten()
+    .take(1);
 
   const pingConnectivityModes$ = concat(
     xs.of(0),

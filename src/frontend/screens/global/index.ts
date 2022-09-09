@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import xs, {Stream} from 'xstream';
+import {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {Reducer, StateSource} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
@@ -12,7 +12,6 @@ import {Command as LocalizationCmd} from '~frontend/drivers/localization';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {FSSource} from '~frontend/drivers/fs';
 import {Toast} from '~frontend/drivers/toast';
-import {Screens} from '~frontend/screens/enums';
 import model, {State} from './model';
 import intent from './intent';
 import navigation from './navigation';
@@ -56,18 +55,9 @@ export function global(sources: Sources): Sinks {
   const req$ = ssb(updateLocalization$, actions);
   const toast$ = toast(actions, sources.ssb);
 
-  const localizationLoaded$ = sources.navigation
-    .globalDidAppear(Screens.Welcome)
-    .take(1)
-    .map(() => updateLocalization$.take(1))
-    .flatten()
-    .mapTo({type: 'localizationLoaded'} as GlobalEvent);
-
-  const approveCheckingNewVersion$ = actions.approvedCheckingNewVersion$
+  const event$ = actions.approvedCheckingNewVersion$
     .take(1)
     .mapTo({type: 'approveCheckingNewVersion'} as GlobalEvent);
-
-  const event$ = xs.merge(localizationLoaded$, approveCheckingNewVersion$);
 
   return {
     navigation: cmd$,

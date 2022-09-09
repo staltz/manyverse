@@ -11,6 +11,7 @@ import {navOptions as librariesNavOptions} from '~frontend/screens/libraries';
 import {navOptions as backupScreenNavOptions} from '~frontend/screens/backup';
 import {navOptions as storagesScreenNavOptions} from '~frontend/screens/storage';
 import {Screens} from '~frontend/screens/enums';
+import {welcomeLayout} from '~frontend/screens/layouts';
 import {State} from './model';
 
 const dialogAboutNavOptions =
@@ -24,6 +25,7 @@ const dialogThanksNavOptions =
 
 export interface Actions {
   forceReindex$: Stream<any>;
+  deleteAccount$: Stream<any>;
   goBack$: Stream<any>;
   goToBackup$: Stream<any>;
   goToStorage$: Stream<any>;
@@ -114,6 +116,10 @@ export default function navigationCommands(
     .compose(delay(800))
     .mapTo({type: 'popToRoot'} as Command);
 
+  const toWelcome$ = actions.deleteAccount$
+    .compose(delay(800))
+    .mapTo({type: 'setStackRoot', layout: welcomeLayout} as Command);
+
   return xs.merge(
     back$,
     toBackup$,
@@ -122,5 +128,6 @@ export default function navigationCommands(
     toAbout$,
     toThanks$,
     toRoot$,
+    toWelcome$,
   );
 }

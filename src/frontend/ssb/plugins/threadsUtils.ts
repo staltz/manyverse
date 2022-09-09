@@ -172,13 +172,15 @@ function createGatheringAttendees$(
   return xsFromPullStream(ssb.gatheringsUtils.gatheringAttendees(msg.key))
     .map((gatheringAttendees: Array<FeedId>) => {
       const attendeesInfo$ = gatheringAttendees.map((feedId) =>
-        xsFromCallback(ssb.cachedAboutSelf.get)(feedId).map(
-          (response: any): GatheringAttendee => ({
-            feedId,
-            name: response.name,
-            avatarUrl: imageToImageUrl(response.image),
-          }),
-        ),
+        xsFromCallback(ssb.cachedAboutSelf.get)(feedId)
+          .replaceError((err) => (err === true ? xs.empty() : xs.throw(err)))
+          .map(
+            (response: any): GatheringAttendee => ({
+              feedId,
+              name: response.name,
+              avatarUrl: imageToImageUrl(response.image),
+            }),
+          ),
       );
 
       return xs.combine(...attendeesInfo$);
@@ -193,7 +195,9 @@ function createGatheringInfo$(
 ): Stream<GatheringInfo> {
   return xsFromCallback<GatheringInfo>(ssb.gatheringsUtils.gatheringInfo)(
     msg.key,
-  ).remember();
+  )
+    .replaceError((err) => (err === true ? xs.empty() : xs.throw(err)))
+    .remember();
 }
 
 function createReaction$(ssb: SSB, msg: Msg): Stream<NonNullable<Reactions>> {

@@ -9,7 +9,7 @@ import {h} from '@cycle/react';
 import {PureComponent, ReactElement, createElement as $} from 'react';
 import {View, Text, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {t} from '~frontend/drivers/localization';
+import {LocalizationSource, t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {IconNames} from '~frontend/global-styles/icons';
@@ -135,7 +135,7 @@ type ViewState = Pick<State, 'currentTab'> &
 export default function view(
   state$: Stream<State>,
   children$: Stream<Array<ReactElement>>,
-  localizationLoaded$: Stream<boolean>,
+  localizationSource: LocalizationSource,
 ) {
   const initialViewState: ViewState = {
     currentTab: 'public',
@@ -169,7 +169,7 @@ export default function view(
     .startWith(initialViewState);
 
   return xs
-    .combine(viewState$, children$, localizationLoaded$)
+    .combine(viewState$, children$, localizationSource.loaded$)
     .map(([state, children, localizationLoaded]) => {
       if (!localizationLoaded) {
         return h(View, {style: styles.screen}, [

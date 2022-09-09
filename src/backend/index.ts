@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import identity = require('./identity');
-const {restore, migrate} = identity;
+const {restore, migrate, clear} = identity;
 import startSSB = require('./ssb');
 
 // Install Desktop backend plugins
@@ -58,31 +58,35 @@ if (process.env.MANYVERSE_PLATFORM === 'mobile') {
 // Setup initial communication with the frontend, to create or restore identity
 let startedSSB = false;
 channel.addListener('identity', (request) => {
-  if (startedSSB) return;
-  let response: string;
-  if (request === 'CREATE') {
+  if (request === 'CREATE' && !startedSSB) {
     startedSSB = true;
     startSSB(true);
-    response = 'IDENTITY_READY';
-  } else if (request === 'USE') {
+    channel.post('identity', 'IDENTITY_READY');
+  } else if (request === 'USE' && !startedSSB) {
     startedSSB = true;
     startSSB(false);
-    response = 'IDENTITY_READY';
-  } else if (request.startsWith('RESTORE:')) {
+    channel.post('identity', 'IDENTITY_READY');
+  } else if (request.startsWith('RESTORE:') && !startedSSB) {
     const words = request.split('RESTORE: ')[1].trim();
-    response = restore(words);
+    const response = restore(words);
     if (response === 'IDENTITY_READY') {
       startedSSB = true;
       startSSB(false);
     }
-  } else if (request === 'MIGRATE') {
+    channel.post('identity', response);
+  } else if (request === 'MIGRATE' && !startedSSB) {
     migrate(() => {
       startedSSB = true;
       startSSB(false);
+      channel.post('identity', 'IDENTITY_READY');
     });
-    response = 'IDENTITY_READY';
-  } else {
-    return;
+  } else if (request === 'CLEAR' && startedSSB) {
+    startedSSB = false;
+    channel.post('identity', 'IDENTITY_CLEARED');
+    (process as any)._ssb.close(true, () => {
+      clear(() => {
+        (process as any)._ssb = null;
+      });
+    });
   }
-  channel.post('identity', response);
 });

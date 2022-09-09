@@ -140,7 +140,6 @@ export default class Body extends Component<
     this.timestampLatestRender = Date.now();
     const {peers, rooms, stagedPeers} = this.props;
     const showEmptySection = this.shouldShowEmptySection();
-    console.log('showEmptySection?', showEmptySection);
 
     return h(Fragment, [
       h(ListOfPeers, {

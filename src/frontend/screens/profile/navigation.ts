@@ -48,10 +48,13 @@ export interface Actions {
 }
 
 function getPrivateMessageWithRecipient(
-  getReadable: GetReadable<PrivateThreadAndExtras>,
+  getReadable: GetReadable<PrivateThreadAndExtras> | null,
   recpId: string,
 ): Promise<string | undefined> {
   return new Promise((resolve) => {
+    if (!getReadable) {
+      return resolve(undefined);
+    }
     const privateFeedReadable = getReadable();
 
     privateFeedReadable(

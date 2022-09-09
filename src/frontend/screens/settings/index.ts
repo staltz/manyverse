@@ -10,6 +10,7 @@ import {Platform} from 'react-native';
 import {Reducer, StateSource} from '@cycle/state';
 import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
+import {Command as StorageCommand} from 'cycle-native-asyncstorage';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
@@ -33,6 +34,7 @@ export interface Sinks {
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
+  asyncstorage: Stream<StorageCommand>;
   linking: Stream<string>;
   dialog: Stream<AlertCommand>;
 }
@@ -58,6 +60,9 @@ export function settings(sources: Sources): Sinks {
   const alert$ = alert(actions);
   const command$ = navigation(actions, sources.navigation, state$);
   const links$ = linking(actions);
+  const storageCmd$ = actions.deleteAccount$.mapTo({
+    type: 'clear',
+  } as StorageCommand);
 
   return {
     screen: vdom$,
@@ -65,6 +70,7 @@ export function settings(sources: Sources): Sinks {
     navigation: command$,
     ssb: req$,
     linking: links$,
+    asyncstorage: storageCmd$,
     dialog: alert$,
   };
 }

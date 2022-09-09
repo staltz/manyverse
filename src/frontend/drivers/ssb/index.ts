@@ -3,6 +3,16 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream, MemoryStream, Listener} from 'xstream';
+import dropRepeats from 'xstream/extra/dropRepeats';
+import sampleCombine from 'xstream/extra/sampleCombine';
+import xsFromCallback from 'xstream-from-callback';
+import xsFromPullStream from 'xstream-from-pull-stream';
+import {Platform} from 'react-native';
+import runAsync = require('promisify-tuple');
+import {Readable, Callback} from 'pull-stream';
+const multicb = require('multicb');
+const pull = require('pull-stream');
+const Ref = require('ssb-ref');
 import {
   Msg,
   Content,
@@ -14,13 +24,6 @@ import {
   AliasContent,
   PostContent,
 } from 'ssb-typescript';
-import backend from './backend';
-import {Platform} from 'react-native';
-import xsFromCallback from 'xstream-from-callback';
-import runAsync = require('promisify-tuple');
-const multicb = require('multicb');
-import xsFromPullStream from 'xstream-from-pull-stream';
-import {Readable, Callback} from 'pull-stream';
 import {
   MsgAndExtras,
   PrivateThreadAndExtras,
@@ -40,9 +43,7 @@ import {
 } from '~frontend/ssb/types';
 import makeClient, {SSBClient} from '~frontend/ssb/client';
 import {imageToImageUrl} from '~frontend/ssb/utils/from-ssb';
-import dropRepeats from 'xstream/extra/dropRepeats';
-const pull = require('pull-stream');
-const Ref = require('ssb-ref');
+import backend from './backend';
 
 export interface MentionSuggestion {
   id: FeedId;
@@ -57,26 +58,33 @@ export type RestoreIdentityResponse =
   | 'TOO_LONG'
   | 'WRONG_LENGTH'
   | 'INCORRECT'
-  | 'IDENTITY_READY';
+  | 'IDENTITY_READY'
+  | 'IDENTITY_CLEARED';
 
 function dropCompletion<T>(stream: Stream<T>): Stream<T> {
   return xs.merge(stream, xs.never());
 }
 
+function isReady(client: SSBClient | null): client is SSBClient {
+  return !!client && !client.closed;
+}
+
 export type GetReadable<T> = (opts?: any) => Readable<T>;
 
 export class SSBSource {
-  private ssb$: Stream<SSBClient>;
-  public selfFeedId$: MemoryStream<FeedId>;
-  public publicRawFeed$: Stream<GetReadable<MsgAndExtras>>;
-  public publicFeed$: Stream<GetReadable<ThreadSummaryWithExtras>>;
+  private ssb$: MemoryStream<SSBClient | null>;
+  public selfFeedId$: MemoryStream<FeedId | null>;
+  public publicRawFeed$: Stream<GetReadable<MsgAndExtras> | null>;
+  public publicFeed$: Stream<GetReadable<ThreadSummaryWithExtras> | null>;
   public publicLiveUpdates$: Stream<null>;
-  public privateFeed$: Stream<GetReadable<PrivateThreadAndExtras<PostContent>>>;
+  public privateFeed$: Stream<GetReadable<
+    PrivateThreadAndExtras<PostContent>
+  > | null>;
   public privateLiveUpdates$: Stream<MsgId>;
   public preferredReactions$: Stream<Array<string>>;
-  public mentionsFeed$: Stream<GetReadable<MsgAndExtras>>;
+  public mentionsFeed$: Stream<GetReadable<MsgAndExtras> | null>;
   public mentionsFeedLive$: Stream<MsgId>;
-  public firewallAttempt$: Stream<GetReadable<FirewallAttempt>>;
+  public firewallAttempt$: Stream<GetReadable<FirewallAttempt> | null>;
   public selfPublicRoots$: Stream<ThreadSummaryWithExtras>;
   public selfPrivateRootIdsLive$: Stream<MsgId>;
   public selfRepliesLive$: Stream<MsgAndExtras<PostContent>>;
@@ -90,77 +98,90 @@ export class SSBSource {
   public stagedPeers$: Stream<Array<StagedPeerKV>>;
   public bluetoothScanState$: Stream<any>;
 
-  constructor(ssbP: Promise<SSBClient>) {
-    this.ssb$ = xs.fromPromise(ssbP).compose(dropCompletion).remember();
+  constructor(ssb$: MemoryStream<SSBClient | null>) {
+    this.ssb$ = ssb$;
 
-    this.selfFeedId$ = this.ssb$.map((ssb) => ssb.id).remember();
+    this.selfFeedId$ = this.ssb$
+      .map((ssb) => (isReady(ssb) ? ssb.id : null))
+      .remember();
 
-    this.publicRawFeed$ = this.ssb$.map(
-      (ssb) => () => ssb.threadsUtils.publicRawFeed(),
+    this.publicRawFeed$ = this.ssb$.map((ssb) =>
+      isReady(ssb) ? () => ssb.threadsUtils.publicRawFeed() : null,
     );
 
-    this.publicFeed$ = this.ssb$.map(
-      (ssb) => (opts?: any) => ssb.threadsUtils.publicFeed(opts),
+    this.publicFeed$ = this.ssb$.map((ssb) =>
+      isReady(ssb) ? (opts?: any) => ssb.threadsUtils.publicFeed(opts) : null,
     );
 
     this.publicLiveUpdates$ = this.fromPullStream((ssb) =>
-      ssb.threadsUtils.publicUpdates(),
+      isReady(ssb) ? ssb.threadsUtils.publicUpdates() : pull.empty(),
     ).mapTo(null);
 
-    this.privateFeed$ = this.ssb$.map(
-      (ssb) => (opts?: any) => ssb.threadsUtils.privateFeed(opts),
+    this.privateFeed$ = this.ssb$.map((ssb) =>
+      isReady(ssb) ? (opts?: any) => ssb.threadsUtils.privateFeed(opts) : null,
     );
 
     this.privateLiveUpdates$ = this.fromPullStream<MsgId>((ssb) =>
-      ssb.threadsUtils.privateUpdates(),
+      isReady(ssb) ? ssb.threadsUtils.privateUpdates() : pull.empty(),
     );
 
     this.preferredReactions$ = this.fromPullStream<Array<string>>((ssb) =>
-      ssb.dbUtils.preferredReactions(),
+      isReady(ssb) ? ssb.dbUtils.preferredReactions() : pull.values([[]]),
     )
       .compose(
         dropRepeats((before, after) => before.join('#') === after.join('#')),
       )
       .remember();
 
-    this.mentionsFeed$ = this.ssb$.map(
-      (ssb) => () => ssb.threadsUtils.mentionsFeed(),
+    this.mentionsFeed$ = this.ssb$.map((ssb) =>
+      isReady(ssb) ? () => ssb.threadsUtils.mentionsFeed() : null,
     );
 
     this.mentionsFeedLive$ = this.fromPullStream<MsgId>((ssb) =>
-      ssb.dbUtils.mentionsMe({live: true, old: false}),
+      isReady(ssb)
+        ? ssb.dbUtils.mentionsMe({live: true, old: false})
+        : pull.empty(),
     );
 
-    this.firewallAttempt$ = this.ssb$.map(
-      (ssb) => () => ssb.connFirewall.attempts({old: true, live: false}),
+    this.firewallAttempt$ = this.ssb$.map((ssb) =>
+      isReady(ssb)
+        ? () => ssb.connFirewall.attempts({old: true, live: false})
+        : null,
     );
 
     this.selfPublicRoots$ = this.fromPullStream<ThreadSummaryWithExtras>(
-      (ssb) => ssb.threadsUtils.selfPublicRoots({live: true, old: false}),
+      (ssb) =>
+        isReady(ssb)
+          ? ssb.threadsUtils.selfPublicRoots({live: true, old: false})
+          : pull.empty(),
     );
 
     this.selfPrivateRootIdsLive$ = this.fromPullStream<MsgId>((ssb) =>
-      ssb.dbUtils.selfPrivateRootIdsLive(),
+      isReady(ssb) ? ssb.dbUtils.selfPrivateRootIdsLive() : pull.empty(),
     );
 
     this.selfRepliesLive$ = this.fromPullStream<MsgAndExtras<PostContent>>(
-      (ssb) => ssb.threadsUtils.selfReplies({live: true, old: false}),
+      (ssb) =>
+        isReady(ssb)
+          ? ssb.threadsUtils.selfReplies({live: true, old: false})
+          : pull.empty(),
     );
 
     this.publishHook$ = this.ssb$
-      .map((ssb) => ssb.hooks.publishStream())
+      .map((ssb) => (isReady(ssb) ? ssb.hooks.publishStream() : xs.never()))
       .flatten();
 
     this.migrationProgress$ = this.fromPullStream<number>((ssb) =>
-      ssb.db2migrate.progress(),
+      isReady(ssb) ? ssb.db2migrate.progress() : pull.empty(),
     );
 
     this.indexingProgress$ = this.fromPullStream<number>((ssb) =>
-      ssb.db.indexingProgress(),
+      isReady(ssb) ? ssb.db.indexingProgress() : pull.empty(),
     );
 
+    // FIXME: do we have a problem with the remember() here?
     this.compactionProgress$ = this.fromPullStream<CompactionProgress>((ssb) =>
-      ssb.db.compactionProgress(),
+      isReady(ssb) ? ssb.db.compactionProgress() : pull.empty(),
     ).remember();
 
     // This is necessary to listen to the pull-stream as soon as possible and
@@ -175,32 +196,56 @@ export class SSBSource {
     this.consumeAliasResponse$ = xs.create<FeedId>();
 
     this.peers$ = this.fromPullStream<Array<PeerKV>>((ssb) =>
-      ssb.connUtils.peers(),
+      isReady(ssb) ? ssb.connUtils.peers() : pull.values([[]]),
     ).remember();
 
     this.stagedPeers$ = this.fromPullStream<Array<StagedPeerKV>>((ssb) =>
-      ssb.connUtils.stagedPeers(),
+      isReady(ssb) ? ssb.connUtils.stagedPeers() : pull.values([[]]),
     ).remember();
 
     this.bluetoothScanState$ =
       Platform.OS === 'ios' // TODO: remove this, because the backend checks too
         ? xs.empty()
-        : this.fromPullStream((ssb) => ssb.bluetooth.bluetoothScanState());
+        : this.fromPullStream((ssb) =>
+            isReady(ssb) ? ssb.bluetooth.bluetoothScanState() : pull.empty(),
+          );
   }
 
-  private fromPullStream<T>(fn: (ssb: SSBClient) => Readable<T>): Stream<T> {
-    return this.ssb$.map(fn).map(xsFromPullStream).flatten() as Stream<T>;
+  private fromPullStream<T>(
+    fn: (ssb: SSBClient | null) => Readable<T>,
+  ): Stream<T> {
+    return (
+      this.ssb$
+        .map(fn)
+        .map(xsFromPullStream)
+        .flatten()
+        // `true` can be sent as an error from muxrpc once muxrpc is closed
+        .replaceError((err) =>
+          err === true ? xs.empty() : xs.throw(err),
+        ) as Stream<T>
+    );
   }
 
   private fromCallback<T>(
-    fn: (ssb: SSBClient, cb: Callback<T>) => void,
+    fn: (ssb: SSBClient | null, cb: Callback<T>) => void,
   ): Stream<T> {
-    return this.ssb$.map(xsFromCallback<T>(fn)).flatten();
+    return (
+      this.ssb$
+        .map(xsFromCallback<T>(fn))
+        .take(1)
+        .flatten()
+        // `true` can be sent as an error from muxrpc once muxrpc is closed
+        .replaceError((err) =>
+          err === true ? xs.empty() : xs.throw(err),
+        ) as Stream<T>
+    );
   }
 
   public thread$(rootMsgId: MsgId, privately: boolean): Stream<AnyThread> {
     return this.fromCallback<AnyThread>((ssb, cb) =>
-      ssb.threadsUtils.thread({root: rootMsgId, private: privately}, cb),
+      isReady(ssb)
+        ? ssb.threadsUtils.thread({root: rootMsgId, private: privately}, cb)
+        : cb(new Error('Not Found')),
     );
   }
 
@@ -209,32 +254,41 @@ export class SSBSource {
     privately: boolean,
   ): Stream<MsgAndExtras> {
     return this.fromPullStream<MsgAndExtras>((ssb) =>
-      ssb.threadsUtils.threadUpdates({root: rootMsgId, private: privately}),
+      isReady(ssb)
+        ? ssb.threadsUtils.threadUpdates({root: rootMsgId, private: privately})
+        : pull.empty(),
     );
   }
 
   public rehydrateMessage$(msg: MsgAndExtras): Stream<MsgAndExtras> {
     return this.fromCallback<MsgAndExtras>((ssb, cb) =>
-      ssb.threadsUtils.rehydrateLiveExtras(msg, cb),
+      isReady(ssb)
+        ? ssb.threadsUtils.rehydrateLiveExtras(msg, cb)
+        : cb(null, msg),
     );
   }
 
   public profileFeed$(
     id: FeedId,
-  ): Stream<GetReadable<ThreadSummaryWithExtras>> {
-    return this.ssb$.map(
-      (ssb) => (opts?: any) => ssb.threadsUtils.profileFeed(id, opts),
+  ): Stream<GetReadable<ThreadSummaryWithExtras> | null> {
+    return this.ssb$.map((ssb) =>
+      isReady(ssb)
+        ? (opts?: any) => ssb.threadsUtils.profileFeed(id, opts)
+        : null,
     );
   }
 
   public postsCount$() {
-    return this.fromCallback<number>((ssb, cb) => ssb.dbUtils.postsCount(cb));
+    return this.fromCallback<number>((ssb, cb) =>
+      isReady(ssb) ? ssb.dbUtils.postsCount(cb) : cb(null, 0),
+    );
   }
 
   public liteAboutReadable$(
     ids: Array<FeedId>,
   ): Stream<GetReadable<About> | null> {
     return this.ssb$.map((ssb) => () => {
+      if (!isReady(ssb)) return null;
       if (!ids || !ids.length) {
         return null;
       }
@@ -263,6 +317,8 @@ export class SSBSource {
   ): Stream<Array<FeedId>> {
     return this.ssb$
       .map(async (ssb) => {
+        if (!isReady(ssb)) return [];
+
         const [err, out] = await runAsync<any>(ssb.friends.hops)({
           start,
           reverse,
@@ -284,27 +340,24 @@ export class SSBSource {
   }
 
   public getFriendsInCommon$(feedId: FeedId): Stream<Array<FeedId>> {
-    return this.ssb$
-      .map((ssb) =>
-        xsFromCallback<Array<FeedId>>(ssb.dbUtils.friendsInCommon)(feedId),
-      )
-      .flatten();
+    return this.fromCallback<Array<FeedId>>((ssb, cb) =>
+      isReady(ssb) ? ssb.dbUtils.friendsInCommon(feedId, cb) : cb(null, []),
+    );
   }
 
   public profileAbout$(id: FeedId): Stream<AboutAndExtras> {
-    return this.ssb$
-      .map((ssb) => xsFromCallback<AboutSelf>(ssb.cachedAboutSelf.get)(id))
-      .flatten()
-      .map((profile) => ({
-        id,
-        ...profile,
-        imageUrl: imageToImageUrl(profile.image),
-      }));
+    return this.fromCallback<AboutSelf>((ssb, cb) =>
+      isReady(ssb) ? ssb.cachedAboutSelf.get(id, cb) : cb(null, {}),
+    ).map((profile) => ({
+      id,
+      ...profile,
+      imageUrl: imageToImageUrl(profile.image),
+    }));
   }
 
   public profileAboutLive$(id: FeedId): Stream<AboutAndExtras> {
     return this.fromPullStream<AboutSelf>((ssb) =>
-      ssb.aboutSelf.stream(id),
+      isReady(ssb) ? ssb.aboutSelf.stream(id) : pull.empty(),
     ).map(
       (profile) =>
         ({
@@ -320,7 +373,9 @@ export class SSBSource {
     dest: FeedId,
   ): Stream<SSBFriendsQueryDetails> {
     return this.fromCallback<SSBFriendsQueryDetails>((ssb, cb) =>
-      ssb.friends.isFollowing({source, dest, details: true}, cb),
+      isReady(ssb)
+        ? ssb.friends.isFollowing({source, dest, details: true}, cb)
+        : cb(new Error('ssb not ready')),
     );
   }
 
@@ -329,31 +384,37 @@ export class SSBSource {
     dest: FeedId,
   ): Stream<SSBFriendsQueryDetails> {
     return this.fromCallback<SSBFriendsQueryDetails>((ssb, cb) =>
-      ssb.friends.isBlocking({source, dest, details: true}, cb),
+      isReady(ssb)
+        ? ssb.friends.isBlocking({source, dest, details: true}, cb)
+        : cb(new Error('ssb not ready')),
     );
   }
 
   public snapshotAbout$(id: FeedId): Stream<SnapshotAbout> {
     return this.fromCallback<SnapshotAbout>((ssb, cb) =>
-      ssb.dbUtils.snapshotAbout(id, cb),
+      isReady(ssb)
+        ? ssb.dbUtils.snapshotAbout(id, cb)
+        : cb(new Error('ssb not ready')),
     );
   }
 
   public consumeAlias$(uri: string): Stream<FeedId> {
     return this.fromCallback<any>((ssb, cb) =>
-      ssb.roomClient.consumeAliasUri(uri, cb),
-    ).map((rpc) => rpc.id);
+      isReady(ssb) ? ssb.roomClient.consumeAliasUri(uri, cb) : cb(null, null),
+    )
+      .filter((x) => x !== null)
+      .map((rpc) => rpc.id);
   }
 
   public getAliasesLive$(id: FeedId): Stream<Array<Alias>> {
     return this.fromPullStream<Array<Alias>>((ssb) =>
-      ssb.aliasUtils.stream(id),
+      isReady(ssb) ? ssb.aliasUtils.stream(id) : pull.empty(),
     );
   }
 
   public aliasRegistrationRooms$(): Stream<Array<PeerKV>> {
     return this.fromCallback<Array<PeerKV>>((ssb, cb) =>
-      ssb.conn.dbPeers(cb),
+      isReady(ssb) ? ssb.conn.dbPeers(cb) : cb(null, []),
     ).map((peers) =>
       peers
         .filter(
@@ -375,56 +436,72 @@ export class SSBSource {
   }
 
   public registerAlias$(roomId: FeedId, alias: string): Stream<string> {
-    return this.fromCallback<string>((ssb, cb) =>
-      ssb.roomClient.registerAlias(roomId, alias, (err: any, res: string) => {
-        if (err) {
-          cb(err);
-          return;
-        }
+    return this.fromCallback<string>((ssb, cb) => {
+      if (!isReady(ssb)) return cb(new Error('ssb not ready'));
 
-        const content: AliasContent = {
-          type: 'room/alias',
-          action: 'registered',
-          alias,
-          room: roomId,
-        };
-        if (res && typeof res === 'string') {
-          content.aliasURL = res;
-        }
-        ssb.publishUtils.publish(content);
-        cb(null, res);
-      }),
-    );
+      return ssb.roomClient.registerAlias(
+        roomId,
+        alias,
+        (err: any, res: string) => {
+          if (err) {
+            cb(err);
+            return;
+          }
+
+          const content: AliasContent = {
+            type: 'room/alias',
+            action: 'registered',
+            alias,
+            room: roomId,
+          };
+          if (res && typeof res === 'string') {
+            content.aliasURL = res;
+          }
+          ssb.publishUtils.publish(content);
+          cb(null, res);
+        },
+      );
+    });
   }
 
   public revokeAlias$(roomId: FeedId, alias: string): Stream<true> {
-    return this.fromCallback<true>((ssb, cb) =>
-      ssb.roomClient.revokeAlias(roomId, alias, (err: any, res: true) => {
-        if (err) {
-          cb(err);
-          return;
-        }
+    return this.fromCallback<true>((ssb, cb) => {
+      if (!isReady(ssb)) return cb(new Error('ssb not ready'));
 
-        const content: AliasContent = {
-          type: 'room/alias',
-          action: 'revoked',
-          alias,
-          room: roomId,
-        };
-        ssb.publishUtils.publish(content);
-        cb(null, res);
-      }),
-    );
+      return ssb.roomClient.revokeAlias(
+        roomId,
+        alias,
+        (err: any, res: true) => {
+          if (err) {
+            cb(err);
+            return;
+          }
+
+          const content: AliasContent = {
+            type: 'room/alias',
+            action: 'revoked',
+            alias,
+            room: roomId,
+          };
+          ssb.publishUtils.publish(content);
+          cb(null, res);
+        },
+      );
+    });
   }
 
   public addBlobFromPath$(path: string): Stream<BlobId> {
     return this.fromCallback<BlobId>((ssb, cb) =>
-      ssb.blobsUtils.addFromPath(path, cb),
+      isReady(ssb)
+        ? ssb.blobsUtils.addFromPath(path, cb)
+        : cb(new Error('ssb not ready')),
     );
   }
 
   public deleteBlob$(blobId: BlobId): Stream<null> {
-    return this.fromCallback<null>((ssb, cb) => ssb.blobs.rm(blobId, cb));
+    return this.fromCallback<null>((ssb, cb) =>
+      isReady(ssb) ? ssb.blobs.rm(blobId, cb) : cb(new Error('ssb not ready')),
+    );
   }
 
   public restoreIdentity$(inputWords: string): Stream<RestoreIdentityResponse> {
@@ -445,48 +522,61 @@ export class SSBSource {
     if (!!text) opts.text = text;
     if (authors.length) opts.defaultIds = authors;
     return this.ssb$
-      .map((ssb) =>
-        xsFromCallback<Array<MentionSuggestion>>(ssb.suggest.profile)(opts).map(
-          (arr) =>
+      .map((ssb) => {
+        if (!isReady(ssb)) return xs.of([]);
+
+        return xsFromCallback<Array<MentionSuggestion>>(ssb.suggest.profile)(
+          opts,
+        )
+          .replaceError((err) => (err === true ? xs.empty() : xs.throw(err)))
+          .map((arr) =>
             arr
               .filter((suggestion) => suggestion.id !== ssb.id)
               .map((suggestion) => ({
                 ...suggestion,
                 imageUrl: imageToImageUrl(suggestion.image),
               })),
-        ),
-      )
+          );
+      })
       .flatten();
   }
 
   public searchPublicPosts$(
     text: string,
-  ): Stream<GetReadable<MsgAndExtras<PostContent>>> {
-    return this.ssb$.map(
-      (ssb) => () => ssb.threadsUtils.searchPublicPosts(text),
+  ): Stream<GetReadable<MsgAndExtras<PostContent>> | null> {
+    return this.ssb$.map((ssb) =>
+      isReady(ssb) ? () => ssb.threadsUtils.searchPublicPosts(text) : null,
     );
   }
 
   public searchPublishHashtagSummaries$(
     text: string,
-  ): Stream<GetReadable<ThreadSummaryWithExtras>> {
-    return this.ssb$.map((ssb) => () => ssb.threadsUtils.hashtagFeed(text));
+  ): Stream<GetReadable<ThreadSummaryWithExtras> | null> {
+    return this.ssb$.map((ssb) =>
+      isReady(ssb) ? () => ssb.threadsUtils.hashtagFeed(text) : null,
+    );
   }
 
   public produceSignInWebUrl$(serverId: FeedId): Stream<string> {
     return this.fromCallback<string>((ssb, cb) =>
-      ssb.httpAuthClient.produceSignInWebUrl(serverId, cb),
+      isReady(ssb)
+        ? ssb.httpAuthClient.produceSignInWebUrl(serverId, cb)
+        : cb(new Error('ssb not ready')),
     );
   }
 
   public getMnemonic$(): Stream<string> {
     return this.fromCallback<string>((ssb, cb) =>
-      ssb.keysUtils.getMnemonic(cb),
+      isReady(ssb)
+        ? ssb.keysUtils.getMnemonic(cb)
+        : cb(new Error('ssb not ready')),
     );
   }
 
   public getLogSize$(): Stream<number> {
-    return this.fromPullStream<number>((ssb) => ssb.resyncUtils.progress());
+    return this.fromPullStream<number>((ssb) =>
+      isReady(ssb) ? ssb.resyncUtils.progress() : pull.empty(),
+    );
   }
 
   public readSettings(): Stream<{
@@ -497,32 +587,40 @@ export class SSBSource {
     allowCheckingNewVersion?: boolean;
     enableFirewall?: boolean;
   }> {
-    return this.fromCallback<any>((ssb, cb) => ssb.settingsUtils.read(cb));
+    return this.fromCallback<any>((ssb, cb) =>
+      isReady(ssb) ? ssb.settingsUtils.read(cb) : cb(null, null),
+    ).filter((x) => x !== null);
   }
 
-  public getFirewallAttemptLive$(): Stream<GetReadable<FirewallAttempt>> {
-    return this.ssb$.map(
-      (ssb) => () => ssb.connFirewall.attempts({old: false, live: true}),
+  public getFirewallAttemptLive$(): Stream<GetReadable<FirewallAttempt> | null> {
+    return this.ssb$.map((ssb) =>
+      isReady(ssb)
+        ? () => ssb.connFirewall.attempts({old: false, live: true})
+        : null,
     );
   }
 
   public bytesUsedByFeed$(feed: FeedId): Stream<number> {
     return this.fromCallback<number>((ssb, cb) =>
-      ssb.storageUsed.getBytesStored(feed, cb),
+      isReady(ssb)
+        ? ssb.storageUsed.getBytesStored(feed, cb)
+        : cb(new Error('ssb not ready')),
     );
   }
 
   public storageStats$(): Stream<StorageStats> {
     return this.fromCallback<StorageStats>((ssb, cb) =>
-      ssb.storageUsed.stats(cb),
+      isReady(ssb) ? ssb.storageUsed.stats(cb) : cb(new Error('ssb not ready')),
     );
   }
 
-  public bytesUsedReadable$(): Stream<GetReadable<StorageUsedByFeed>> {
+  public bytesUsedReadable$(): Stream<GetReadable<StorageUsedByFeed> | null> {
     type Tuple = [FeedId, number];
     type CB = Callback<StorageUsedByFeed>;
-    return this.ssb$.map(
-      (ssb) => () =>
+    return this.ssb$.map((ssb) => {
+      if (!isReady(ssb)) return null;
+
+      return () =>
         pull(
           ssb.deweird.source(['storageUsed', 'stream']),
           pull.asyncMap(([feedId, storageUsed]: Tuple, cb: CB) => {
@@ -552,25 +650,29 @@ export class SSBSource {
               });
             });
           }),
-        ),
-    );
+        );
+    });
   }
 
   public generateBlurhash$(blobId: string): Stream<string | undefined> {
     return this.fromCallback<string>((ssb, cb) =>
-      ssb.blobsBlurhash.generate(blobId, {width: 48}, cb),
+      isReady(ssb)
+        ? ssb.blobsBlurhash.generate(blobId, {width: 48}, cb)
+        : cb(new Error('ssb not ready')),
     );
   }
 
   public forceReindex$(): Stream<unknown> {
-    return this.fromCallback<unknown>((ssb, cb) =>
+    return this.fromCallback<unknown>((ssb, cb) => {
+      if (!isReady(ssb)) return cb(new Error('ssb not ready'));
+
       ssb.db.reset((err: any) => {
         if (err) return cb(err);
         ssb.dbUtils.warmUpJITDB((err: any) => {
           cb(err);
         });
-      }),
-    );
+      });
+    });
   }
 }
 
@@ -584,6 +686,10 @@ export interface UseIdentityReq {
 
 export interface MigrateIdentityReq {
   type: 'identity.migrate';
+}
+
+export interface NukeReq {
+  type: 'nuke';
 }
 
 export interface PublishReq {
@@ -725,6 +831,7 @@ export type Req =
   | CreateIdentityReq
   | UseIdentityReq
   | MigrateIdentityReq
+  | NukeReq
   | PublishReq
   | PublishAboutReq
   | AcceptInviteReq
@@ -760,37 +867,43 @@ export function contentToPublishReq(content: NonNullable<Content>): PublishReq {
 async function consumeSink(
   sink: Stream<Req>,
   source: SSBSource,
-  ssbP: Promise<SSBClient>,
+  ssb$: Stream<SSBClient | null>,
 ) {
   let identityAvailable = false;
 
-  sink.addListener({
-    next: async (req) => {
-      if (req.type === 'identity.create') {
-        if (!identityAvailable) {
-          identityAvailable = true;
-          backend.post('identity', 'CREATE');
-        }
-        return;
-      }
+  const identityReq$ = sink.filter((r) => r.type.startsWith('identity.'));
+  const nonIdentityReq$ = sink.filter((r) => !r.type.startsWith('identity.'));
 
-      if (req.type === 'identity.use') {
-        if (!identityAvailable) {
-          identityAvailable = true;
-          backend.post('identity', 'USE');
-        }
-        return;
-      }
+  identityReq$.addListener({
+    next: (req) => {
+      switch (req.type) {
+        case 'identity.create':
+          if (!identityAvailable) {
+            identityAvailable = true;
+            backend.post('identity', 'CREATE');
+          }
+          return;
 
-      if (req.type === 'identity.migrate') {
-        if (!identityAvailable) {
-          identityAvailable = true;
-          backend.post('identity', 'MIGRATE');
-        }
-        return;
-      }
+        case 'identity.use':
+          if (!identityAvailable) {
+            identityAvailable = true;
+            backend.post('identity', 'USE');
+          }
+          return;
 
-      const ssb = await ssbP;
+        case 'identity.migrate':
+          if (!identityAvailable) {
+            identityAvailable = true;
+            backend.post('identity', 'MIGRATE');
+          }
+          return;
+      }
+    },
+  });
+
+  nonIdentityReq$.compose(sampleCombine(ssb$)).addListener({
+    next: async ([req, ssb]) => {
+      if (!isReady(ssb)) return;
 
       if (req.type === 'publish') {
         ssb.publishUtils.publish(req.content);
@@ -1094,21 +1207,42 @@ async function consumeSink(
         );
         return;
       }
+
+      if (req.type === 'nuke') {
+        (ssb as any).close(true, () => {
+          if (identityAvailable) {
+            backend.post('identity', 'CLEAR');
+            identityAvailable = false;
+          }
+          return;
+        });
+      }
     },
   });
 }
 
-function waitForIdentity() {
-  return new Promise<boolean>((resolve) => {
-    backend.addListener('identity', (msg: RestoreIdentityResponse) => {
-      if (msg === 'IDENTITY_READY') resolve(true);
-    });
-  });
-}
-
 export function ssbDriver(sink: Stream<Req>): SSBSource {
-  const ssbP = waitForIdentity().then(makeClient);
-  const source = new SSBSource(ssbP);
-  consumeSink(sink, source, ssbP);
+  const identityReady$ = xs.create<boolean>({
+    start(listener: Listener<boolean>) {
+      this.lowLevelListener = (msg: RestoreIdentityResponse) => {
+        if (msg === 'IDENTITY_READY') listener.next(true);
+        else if (msg === 'IDENTITY_CLEARED') listener.next(false);
+      };
+      backend.addListener('identity', this.lowLevelListener);
+    },
+    stop() {
+      backend.removeListener('identity', this.lowLevelListener);
+    },
+  });
+
+  const ssb$ = identityReady$
+    .map((ready) => (ready ? xs.fromPromise(makeClient()) : xs.of(null)))
+    .flatten()
+    .compose(dropRepeats())
+    .compose(dropCompletion)
+    .remember();
+
+  const source = new SSBSource(ssb$);
+  consumeSink(sink, source, ssb$);
   return source;
 }

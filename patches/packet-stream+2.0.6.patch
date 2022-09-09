@@ -1,0 +1,15 @@
+diff --git a/node_modules/packet-stream/index.js b/node_modules/packet-stream/index.js
+index 9d15863..c14b8ef 100644
+--- a/node_modules/packet-stream/index.js
++++ b/node_modules/packet-stream/index.js
+@@ -60,9 +60,7 @@ PacketStream.prototype.destroy = function (end) {
+   this.ended = end
+   this._closing = true
+ 
+-  let err = (end === true)
+-    ? new Error('unexpected end of parent stream')
+-    : end
++  let err = end
+ 
+   // force-close all requests and substreams
+   let numended = 0

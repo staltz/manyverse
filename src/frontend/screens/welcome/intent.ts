@@ -9,19 +9,18 @@ import {ReactSource} from '@cycle/react';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import path = require('path');
 import {FSSource} from '~frontend/drivers/fs';
-import {GlobalEvent} from '~frontend/drivers/eventbus';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {Palette} from '~frontend/global-styles/palette';
-import {t} from '~frontend/drivers/localization';
+import {LocalizationSource, t} from '~frontend/drivers/localization';
 import {State} from './model';
 
 export default function intent(
-  globalEventBus: Stream<GlobalEvent>,
   screenSource: ReactSource,
   linkingSource: Stream<string>,
   fsSource: FSSource,
   dialogSource: DialogSource,
   storageSource: AsyncStorageSource,
+  localizationSource: LocalizationSource,
   state$: Stream<State>,
 ) {
   const isWeb = Platform.OS === 'web';
@@ -56,10 +55,7 @@ export default function intent(
     .getItem('resyncing')
     .map((x) => !!x);
 
-  const localizationLoaded$ = globalEventBus
-    .filter((ev) => ev.type === 'localizationLoaded')
-    .take(1)
-    .mapTo(true);
+  const localizationLoaded$ = localizationSource.loaded$;
 
   const dataToChooseNextScreen$ = xs.combine(
     localizationLoaded$,

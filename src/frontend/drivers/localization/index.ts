@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import xs, {Stream, Listener} from 'xstream';
+import xs, {Stream, Listener, MemoryStream} from 'xstream';
 import * as RNLocalize from 'react-native-localize';
 const memoize = require('lodash.memoize');
 import i18n = require('i18n-js');
@@ -22,8 +22,21 @@ export const t: typeof i18n.t = memoize(
   (key: any, config: any) => (config ? key + JSON.stringify(config) : key),
 );
 
+export class LocalizationSource {
+  public readonly loaded$: MemoryStream<boolean>;
+  public readonly change$: Stream<void>;
+
+  constructor(loaded$: MemoryStream<boolean>, change$: Stream<void>) {
+    this.loaded$ = loaded$;
+    this.change$ = change$;
+  }
+}
+
 export function makeLocalizationDriver() {
-  return function localizationDriver(sink: Stream<Command>): Stream<void> {
+  return function localizationDriver(sink: Stream<Command>) {
+    const loaded$ = xs.createWithMemory<boolean>();
+    loaded$._n(false);
+
     sink.subscribe({
       next: (cmd) => {
         i18n.fallbacks = true;
@@ -42,10 +55,11 @@ export function makeLocalizationDriver() {
           saveImage: t('context_menu.save_image'),
           saveImageAs: t('context_menu.save_image_as'),
         });
+        loaded$._n(true);
       },
     });
 
-    return xs.create<void>({
+    const change$ = xs.create<void>({
       start(listener: Listener<void>) {
         this.fn = () => {
           listener.next();
@@ -56,5 +70,7 @@ export function makeLocalizationDriver() {
         RNLocalize.removeEventListener('change', this.fn);
       },
     });
+
+    return new LocalizationSource(loaded$, change$);
   };
 }

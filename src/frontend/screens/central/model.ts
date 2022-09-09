@@ -222,17 +222,20 @@ export default function model(
   const setSelfFeedId$ = ssbSource.selfFeedId$.map(
     (selfFeedId) =>
       function setSelfFeedId(prev: State): State {
+        if (!selfFeedId) return {...prev, selfFeedId: ''};
         return {...prev, selfFeedId};
       },
   );
 
   const aboutReducer$ = ssbSource.selfFeedId$
-    .take(1)
-    .map((selfFeedId) => ssbSource.profileAbout$(selfFeedId))
+    .map((selfFeedId) =>
+      selfFeedId ? ssbSource.profileAbout$(selfFeedId) : xs.of(null),
+    )
     .flatten()
     .map(
       (about) =>
         function aboutReducer(prev: State): State {
+          if (!about) return {...prev, selfAvatarUrl: ''};
           return {...prev, selfAvatarUrl: about.imageUrl};
         },
     );

@@ -32,6 +32,10 @@ export const styles = StyleSheet.create({
     color: Palette.textBrand,
   },
 
+  textDangerous: {
+    color: Palette.textNegative,
+  },
+
   spacer: {
     height: 1,
     backgroundColor: Palette.voidMain,

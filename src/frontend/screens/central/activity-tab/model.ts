@@ -47,12 +47,18 @@ export default function model(ssbSource: SSBSource, actions: Actions) {
     .map(
       ([getMentionsSource, getAttemptsSource]) =>
         function setActivityFeedReducer(prev: State): State {
-          const getActivityFeedReadable = () =>
-            interleave(
-              [getMentionsSource(), getAttemptsSource()],
-              sortByDescendingTimestamp,
-            );
-          return {...prev, getActivityFeedReadable};
+          if (!getMentionsSource || !getAttemptsSource) {
+            return {...prev, getActivityFeedReadable: null};
+          }
+
+          return {
+            ...prev,
+            getActivityFeedReadable: () =>
+              interleave(
+                [getMentionsSource(), getAttemptsSource()],
+                sortByDescendingTimestamp,
+              ),
+          };
         },
     );
 

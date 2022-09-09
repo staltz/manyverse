@@ -5,10 +5,6 @@
 import xs, {Stream} from 'xstream';
 import {FeedId, MsgId} from 'ssb-typescript';
 
-export interface LocalizationLoaded {
-  type: 'localizationLoaded';
-}
-
 export interface TriggerFeedCypherlink {
   type: 'triggerFeedCypherlink';
   feedId: FeedId;
@@ -89,7 +85,6 @@ export type CentralScreenUpdate = {
 );
 
 export type GlobalEvent =
-  | LocalizationLoaded
   | TriggerFeedCypherlink
   | TriggerMsgCypherlink
   | TriggerHashtagLink

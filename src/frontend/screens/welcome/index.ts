@@ -13,8 +13,8 @@ import {OrientationEvent} from '~frontend/drivers/orientation';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {SplashCommand} from '~frontend/drivers/splashscreen';
 import {FSSource} from '~frontend/drivers/fs';
-import {GlobalEvent} from '~frontend/drivers/eventbus';
 import {WindowSize} from '~frontend/drivers/window-size';
+import {LocalizationSource} from '~frontend/drivers/localization';
 import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import navigation from './navigation';
 import alert from './alert';
@@ -28,8 +28,8 @@ export interface Sources {
   windowSize: Stream<WindowSize>;
   asyncstorage: AsyncStorageSource;
   navigation: NavSource;
-  globalEventBus: Stream<GlobalEvent>;
   fs: FSSource;
+  localization: LocalizationSource;
   linking: Stream<string>;
   state: StateSource<State>;
   dialog: DialogSource;
@@ -65,12 +65,12 @@ export function welcome(sources: Sources): Sinks {
   const state$ = sources.state.stream;
 
   const actions = intent(
-    sources.globalEventBus,
     sources.screen,
     sources.linking,
     sources.fs,
     sources.dialog,
     sources.asyncstorage,
+    sources.localization,
     state$,
   );
 

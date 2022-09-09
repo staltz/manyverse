@@ -43,9 +43,11 @@ export default function model(
   ssbSource: SSBSource,
   globalEventBus: Stream<GlobalEvent>,
 ): Stream<Reducer<State>> {
-  const selfFeedId$ = ssbSource.selfFeedId$.take(1);
+  const selfFeedId$ = ssbSource.selfFeedId$.filter(
+    (selfFeedId) => !!selfFeedId,
+  ) as Stream<FeedId>;
 
-  const selfFeedIdReducer$ = selfFeedId$.map(
+  const selfFeedIdReducer$ = selfFeedId$.take(1).map(
     (selfFeedId: FeedId) =>
       function selfFeedIdReducer(prev: State): State {
         if (!prev) {

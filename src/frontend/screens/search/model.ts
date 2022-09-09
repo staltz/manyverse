@@ -14,11 +14,11 @@ import {Props} from './props';
 type SearchResults =
   | {
       type: 'HashtagResults';
-      getReadable: GetReadable<ThreadSummaryWithExtras>;
+      getReadable: GetReadable<ThreadSummaryWithExtras> | null;
     }
   | {
       type: 'TextResults';
-      getReadable: GetReadable<MsgAndExtras<PostContent>>;
+      getReadable: GetReadable<MsgAndExtras<PostContent>> | null;
     }
   | {type: 'AccountResults'; users: MentionSuggestion[]};
 

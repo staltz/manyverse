@@ -11,6 +11,7 @@ interface Actions {
   toggleDetailedLogs$: Stream<boolean>;
   toggleEnableFirewall$: Stream<boolean>;
   forceReindex$: Stream<any>;
+  deleteAccount$: Stream<any>;
 }
 
 export default function ssb(actions: Actions, ssbSource: SSBSource) {
@@ -33,6 +34,10 @@ export default function ssb(actions: Actions, ssbSource: SSBSource) {
       .mapTo(ssbSource.forceReindex$())
       .flatten()
       .mapTo(null as any as Req)
+      .filter((x) => x !== null),
+
+    actions.deleteAccount$
+      .mapTo({type: 'nuke'} as Req)
       .filter((x) => x !== null),
   );
 

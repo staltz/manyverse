@@ -27,19 +27,22 @@ export default function model(
   asyncStorageSource: AsyncStorageSource,
 ) {
   const aboutReducer$ = ssbSource.selfFeedId$
-    .take(1)
-    .map((selfFeedId) =>
-      ssbSource.profileAbout$(selfFeedId).map(
-        (about) =>
-          function aboutReducer(prev?: State): State {
-            const initial = prev ?? {allowCheckingNewVersion: undefined};
-            return {
-              ...initial,
-              selfFeedId,
-              selfAvatarUrl: about.imageUrl,
-            };
-          },
-      ),
+    .filter((selfFeedId) => !!selfFeedId)
+    .map((selfFeedId: string) =>
+      ssbSource
+        .profileAbout$(selfFeedId)
+        .take(1)
+        .map(
+          (about) =>
+            function aboutReducer(prev?: State): State {
+              const initial = prev ?? {allowCheckingNewVersion: undefined};
+              return {
+                ...initial,
+                selfFeedId,
+                selfAvatarUrl: about.imageUrl,
+              };
+            },
+        ),
     )
     .flatten();
 

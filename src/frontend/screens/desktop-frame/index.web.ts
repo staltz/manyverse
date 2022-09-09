@@ -12,6 +12,7 @@ import {GlobalEvent} from '~frontend/drivers/eventbus';
 import {SSBSource} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import linking from '~frontend/screens/drawer/linking';
+import {LocalizationSource} from '~frontend/drivers/localization';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
@@ -23,6 +24,7 @@ export interface Sources {
   http: HTTPSource;
   navigationStack: StateSource<Array<StackElement>>;
   children: Stream<Array<ReactElement>>;
+  localization: LocalizationSource;
   globalEventBus: Stream<GlobalEvent>;
   ssb: SSBSource;
   dialog: DialogSource;
@@ -63,12 +65,6 @@ export function desktopFrame(sources: Sources): Sinks {
     ),
   );
 
-  const localizationLoaded$ = sources.globalEventBus
-    .filter((ev) => ev.type === 'localizationLoaded')
-    .take(1)
-    .mapTo(true)
-    .startWith(false);
-
   const reducer$ = model(
     actions,
     sources.navigation,
@@ -76,7 +72,7 @@ export function desktopFrame(sources: Sources): Sinks {
     sources.ssb,
   );
 
-  const vdom$ = view(state$, sources.children, localizationLoaded$);
+  const vdom$ = view(state$, sources.children, sources.localization);
 
   const command$ = navigation(actions, state$, sources.navigationStack.stream);
 

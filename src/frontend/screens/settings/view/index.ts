@@ -175,6 +175,22 @@ export default function view(state$: Stream<State>) {
             ),
           }),
         ]),
+
+        h(View, {style: styles.section}, [
+          h(
+            Text,
+            {style: [styles.sectionTitle, styles.textDangerous]},
+            t('settings.danger_zone.title'),
+          ),
+
+          h(LinkSetting, {
+            sel: 'delete-account',
+            title: t('settings.danger_zone.delete_account.title'),
+            accessibilityLabel: t(
+              'settings.danger_zone.delete_account.accessibility_label',
+            ),
+          }),
+        ]),
       ]),
     ]),
   );

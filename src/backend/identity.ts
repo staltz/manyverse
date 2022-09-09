@@ -70,6 +70,14 @@ export function restore(words: string) {
   return 'IDENTITY_READY';
 }
 
+export function clear(cb: Callback<void>) {
+  if (!process.env.SSB_DIR) {
+    throw new Error('identity.destroy() is missing env var SSB_DIR');
+  }
+
+  rimraf(process.env.SSB_DIR, cb);
+}
+
 export function migrate(cb: Callback<void>) {
   if (process.env.MANYVERSE_PLATFORM !== 'desktop') {
     throw new Error('Cannot run identity.migrate() unless we are on desktop.');
