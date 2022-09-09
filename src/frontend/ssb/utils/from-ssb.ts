@@ -23,7 +23,10 @@ export function imageToImageUrl(image: string | undefined) {
 }
 
 export function getPostText(msg: Msg<PostContent>): string {
-  let text = msg.value.content?.text ?? '';
+  let text = '';
+  if (msg.value.content && typeof msg.value.content.text === 'string') {
+    text = msg.value.content.text;
+  }
   if (msg.value.content.channel) {
     text = `#${msg.value.content.channel}` + '\n\n' + text;
   }

@@ -507,7 +507,7 @@ function renderDescription(
     h(View, {key: 'p'}, [
       h(Markdown, {
         key: 'md',
-        text: description ?? '',
+        text: typeof description === 'string' ? description : '',
       }),
     ]),
   ]);

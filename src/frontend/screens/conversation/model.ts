@@ -50,17 +50,27 @@ export interface SSBGiftedMsg extends GiftedMsg {
 }
 
 function toGiftedMessage(msg: MsgAndExtras<PostContent>): SSBGiftedMsg {
-  return {
-    _id: msg.key,
-    createdAt: msg.value.timestamp,
-    text: msg.value.content.text,
-    mentions: msg.value.content.mentions,
-    user: {
-      _id: msg.value.author,
-      name: msg.value._$manyverse$metadata.about.name,
-      avatar: msg.value._$manyverse$metadata.about.imageUrl ?? void 0,
-    },
-  };
+  if (typeof msg.value.content.text === 'string') {
+    return {
+      _id: msg.key,
+      createdAt: msg.value.timestamp,
+      text: msg.value.content.text,
+      mentions: msg.value.content.mentions,
+      user: {
+        _id: msg.value.author,
+        name: msg.value._$manyverse$metadata.about.name,
+        avatar: msg.value._$manyverse$metadata.about.imageUrl ?? void 0,
+      },
+    };
+  } else {
+    const name = msg.value._$manyverse$metadata.about.name ?? msg.value.author;
+    return {
+      _id: msg.key,
+      createdAt: msg.value.timestamp,
+      system: true,
+      text: 'Invalid message from ' + name,
+    } as any;
+  }
 }
 
 export interface State {

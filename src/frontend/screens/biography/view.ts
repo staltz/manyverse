@@ -57,7 +57,14 @@ export default function view(
                 'biography.description.accessibility_label',
               ),
             },
-            [h(Markdown, {text: state.about.description ?? ''})],
+            [
+              h(Markdown, {
+                text:
+                  typeof state.about.description === 'string'
+                    ? state.about.description
+                    : '',
+              }),
+            ],
           ),
         ]),
       ]),
