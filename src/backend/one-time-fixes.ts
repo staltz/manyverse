@@ -131,6 +131,12 @@ async function oneTimeFixes() {
     fs.closeSync(fs.openSync(ISSUE_1707, 'w'));
   }
 
+  const ISSUE_2045 = path.join(SSB_DIR, 'issue2045');
+  if (!fs.existsSync(ISSUE_2045)) {
+    rimraf.sync(defaults.jitIndexesPath(SSB_DIR));
+    fs.closeSync(fs.openSync(ISSUE_2045, 'w'));
+  }
+
   // https://github.com/ssb-ngi-pointer/ssb-db2/blob/master/CHANGELOG.md#400
   if (
     fs.existsSync(defaults.indexesPath(SSB_DIR)) &&
