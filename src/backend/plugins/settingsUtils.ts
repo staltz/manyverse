@@ -104,6 +104,7 @@ export = {
         'updateShowFollows',
         'updateDetailedLogs',
         'updateAllowCheckingNewVersion',
+        'updateEnableFirewall',
       ],
     },
   },
