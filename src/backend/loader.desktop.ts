@@ -9,7 +9,7 @@ import fs = require('fs');
 import {BrowserWindow, app, ipcMain, shell} from 'electron';
 const electronWindowState = require('electron-window-state');
 
-process.env = process.env ?? {};
+process.env ??= {};
 
 // Set default directories
 app.setPath('userData', path.join(app.getPath('appData'), 'manyverse'));
