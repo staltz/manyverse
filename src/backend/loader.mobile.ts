@@ -19,7 +19,6 @@ process.cwd = () => nodejsProjectDir;
 
 // Set global variables
 process.env.MANYVERSE_PLATFORM = 'mobile';
-// process.env.CHLORIDE_JS = 'yes'; // uncomment to enable WASM libsodium
 if (fs.existsSync(path.join(process.env.SSB_DIR, 'DETAILED_LOGS'))) {
   process.env.DEBUG = '*';
 }
