@@ -1080,6 +1080,17 @@
         "accessibility_label": "حول هذا التطبيق"
       }
     },
+    "danger_zone": {
+      "title": "Danger Zone",
+      "delete_account": {
+        "title": "Delete account",
+        "accessibility_label": "Delete your account",
+        "confirm": {
+          "title": "Delete your account?",
+          "description": "Deleting this account will bring you back to the start screen, where you can restore your account or create a new one.\n\nAre you sure you want to do this?"
+        }
+      }
+    },
     "dialogs": {
       "restart_required": {
         "title": "مطلوب إعادة التشغيل",

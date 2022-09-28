@@ -1080,6 +1080,17 @@
         "accessibility_label": "Sobre este Aplicativo"
       }
     },
+    "danger_zone": {
+      "title": "Área do Perigo",
+      "delete_account": {
+        "title": "Apagar conta",
+        "accessibility_label": "Apagar a sua conta",
+        "confirm": {
+          "title": "Apagar a sua conta?",
+          "description": "Após apagar a sua conta você voltará para a tela inicial, onde você pode restaurar sua conta ou criar uma nova.\n\nTem certeza de que deseja fazer isso?"
+        }
+      }
+    },
     "dialogs": {
       "restart_required": {
         "title": "Reinicialização necessária",
