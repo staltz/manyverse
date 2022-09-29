@@ -320,26 +320,26 @@
       "offline_with_content": "你不只可以跟其他人建立链接，还能跟他们分享你拥有的内容。",
       "offline_without_content": "您目前无法建立链接。请尝试打开网络链接或者开启Wi-Fi以发现附件的节点。",
       "knows_no_one": "您的Manyverse正在隔离中。您可以请其他人邀请您加入房间，或者自行主持一个房间。",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
-      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
-      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+      "nearby_strangers_available": "您当前没有联系人在线，但在同一个Wi-Fi上发现了一些路人。 如果您相信他们不介意的话，请尝试主动联系他们。",
+      "empty_rooms": "您已经加入了一些房间，但是当前没有联系人在线。 您可以主动联系房间中的陌生人，或者获取邀请码以加入更多的房间。",
+      "connected_poorly": "您已经与一位路人建立了连接，很好。但是，为了数据的传播更加通畅，不妨建立更多的连接。请稍等片刻，或者获取其他服务器的邀请码。",
+      "connected_well": "您已建立了数量可观的连接。一切就绪！他们正在传播您的数据，而您也在参与其中。"
     },
     "recommendations": {
-      "consume_invite": "How to get an invite",
-      "follow_staged_manually": "Follow someone new",
-      "paste_invite": "Paste invite code",
-      "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "consume_invite": "如何获得邀请",
+      "follow_staged_manually": "关注一位新朋友",
+      "paste_invite": "粘贴邀请码",
+      "host_ssb_room": "如何主持一个房间",
+      "others": "其他选项"
     },
     "recommendation_descriptions": {
-      "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
+      "consume_invite": "这个社交网络是基于邀请的，这是为了保持它的纯净，以及避免欺诈。如果您还没有从朋友处得到邀请，可以在网上搜索一些开放邀请的服务器。\n\n可以试试关键词“SSB room server”或“SSB pub server”。超话#ssbroom也可能会有用。",
       "follow_staged_manually": {
         "part1": {
-          "not_connected": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",
-          "connected": "If you want to get more content beyond what you already have, you can follow more people. There are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them."
+          "not_connected": "您的好友目前不在线，如果需要更多内容， 您所在的一些房间里有一些路人在线。 可以试试加他们的好友。",
+          "connected": "如果您还不满足当前已有的内容，可以去关注更多用户。您所在的一些房间里有一些路人在线。 可以试试成为他们的好友。"
         },
-        "part2": "On the next screen, you will see unknown peers displayed like this. Press one of them and choose \"Open Profile\", then \"Follow\"."
+        "part2": "下一屏，您会看到更多这样的路人。点击任意一位，选择“打开个人资料”，然后“关注”。"
       }
     },
     "toasts": {
@@ -412,10 +412,10 @@
     "menu": {
       "dialog_title": "Connection",
       "open_profile": {
-        "label": "Open profile",
+        "label": "打开个人资料",
         "accessibility_label": {
-          "connected": "Open profile screen for this connected peer",
-          "staged": "Open profile screen for this suggested connection"
+          "connected": "打开这位已连接路人的个人资料页面",
+          "staged": "打开这个推荐连接的个人资料页面"
         }
       },
       "connect": {
@@ -648,8 +648,8 @@
   "drawer": {
     "menu": {
       "my_profile": {
-        "label": "My profile",
-        "accessibility_label": "My Profile Menu Item"
+        "label": "我的个人资料",
+        "accessibility_label": "我的个人资料菜单项"
       },
       "raw_database": {
         "label": "Raw database",
@@ -711,17 +711,17 @@
   },
   "profile": {
     "call_to_action": {
-      "copy_uri": "Copy SSB URI",
-      "copy_cypherlink": "Copy cypherlink",
-      "private_chat": "Open private conversation",
-      "block": "Block",
-      "block_secretly": "Block secretly",
-      "unblock": "Unblock",
-      "unblock_secretly": "Unblock secretly",
-      "follow": "Follow",
+      "copy_uri": "复制SSB URI",
+      "copy_cypherlink": "复制cypherlink",
+      "private_chat": "开始私密对话",
+      "block": "屏蔽",
+      "block_secretly": "悄悄屏蔽",
+      "unblock": "解除屏蔽",
+      "unblock_secretly": "悄悄解除屏蔽",
+      "follow": "关注",
       "edit_profile": {
-        "label": "Edit profile",
-        "accessibility_label": "Edit Profile Button"
+        "label": "编辑个人资料",
+        "accessibility_label": "编辑个人资料按钮"
       },
       "manage": {
         "accessibility_label": "Manage Contact"
@@ -768,10 +768,10 @@
       "blocking": "Blocking"
     },
     "picture": {
-      "accessibility_label": "Profile Picture"
+      "accessibility_label": "个人头像"
     },
     "name": {
-      "accessibility_label": "Profile Name"
+      "accessibility_label": "用户昵称"
     },
     "empty": {
       "blocked": {
@@ -792,15 +792,15 @@
     }
   },
   "profile_edit": {
-    "title": "Edit profile",
+    "title": "编辑个人资料",
     "call_to_action": {
       "discard": "Discard",
       "save": {
         "label": "保存",
-        "accessibility_label": "Save Profile"
+        "accessibility_label": "保存个人资料"
       },
       "edit_picture": {
-        "accessibility_label": "Edit Profile Picture"
+        "accessibility_label": "编辑个人头像"
       },
       "register_new_alias": {
         "label": "Register new alias",
@@ -809,7 +809,7 @@
     },
     "dialogs": {
       "discard": {
-        "title": "Edit profile",
+        "title": "编辑个人资料",
         "question": "Discard changes?"
       },
       "remove_alias": {
@@ -1131,10 +1131,10 @@
       "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
       "this_is_you": "This is you",
       "open_profile": {
-        "accessibility_label": "Open Profile"
+        "accessibility_label": "打开个人资料"
       },
       "options_profile": {
-        "accessibility_label": "More options for this profile"
+        "accessibility_label": "此个人资料的更多选项"
       }
     }
   },
@@ -1299,7 +1299,7 @@
       "new_picture": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new profile picture: "
+        "3_normal": "有新的个人头像："
       },
       "new_name_and_description": {
         "1_normal": "",
