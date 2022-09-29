@@ -5,7 +5,7 @@
     "done": "完成",
     "cancel": "取消",
     "continue": "继续",
-    "read_more": "Read more",
+    "read_more": "更多",
     "delete": "删除",
     "remove": "删除",
     "save": "保存",
@@ -15,7 +15,7 @@
       "accessibility_label": "菜单键"
     },
     "go_back": {
-      "label": "Go back",
+      "label": "返回",
       "accessibility_label": "返回按钮"
     },
     "close": {
@@ -200,7 +200,7 @@
     },
     "loading": "加载中……",
     "progress_indicator": {
-      "accessibility_label": "Progress Indicator for Indexing the Database"
+      "accessibility_label": "数据库索引进度条"
     },
     "tabs": {
       "public": {
@@ -252,7 +252,7 @@
       "title": "收件人"
     },
     "friends_in_common": {
-      "title": "Friends in common"
+      "title": "共同好友"
     },
     "call_to_action": {
       "open_account": {
@@ -319,7 +319,7 @@
     "scenario_descriptions": {
       "offline_with_content": "你不只可以跟其他人建立链接，还能跟他们分享你拥有的内容。",
       "offline_without_content": "您目前无法建立链接。请尝试打开网络链接或者开启Wi-Fi以发现附件的节点。",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
+      "knows_no_one": "您的Manyverse正在隔离中。您可以请其他人邀请您加入房间，或者自行主持一个房间。",
       "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
       "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
       "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
