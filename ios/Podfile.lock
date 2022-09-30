@@ -320,10 +320,16 @@ PODS:
     - React-Core
   - RNOS (2.2.1):
     - React-Core
+  - RNSentry (4.5.0):
+    - React-Core
+    - Sentry (= 7.25.1)
   - RNSVG (12.1.1):
     - React-Core
   - RNVectorIcons (9.0.0):
     - React-Core
+  - Sentry (7.25.1):
+    - Sentry/Core (= 7.25.1)
+  - Sentry/Core (7.25.1)
   - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
 
@@ -373,6 +379,7 @@ DEPENDENCIES:
   - "RNImageCropPicker (from `../node_modules/@staltz/react-native-image-crop-picker`)"
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNOS (from `../node_modules/react-native-os-staltz/RNOS.podspec`)
+  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -381,6 +388,7 @@ SPEC REPOS:
   trunk:
     - fmt
     - HMSegmentedControl
+    - Sentry
     - TOCropViewController
 
 EXTERNAL SOURCES:
@@ -470,6 +478,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-localize"
   RNOS:
     :podspec: "../node_modules/react-native-os-staltz/RNOS.podspec"
+  RNSentry:
+    :path: "../node_modules/@sentry/react-native"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
@@ -523,8 +533,10 @@ SPEC CHECKSUMS:
   RNImageCropPicker: 17c42e59ea761ccbe0f7ff592c8b6375dfe6809c
   RNLocalize: fe3b798712707aec81086ec241546bfb1cf3e489
   RNOS: 84f208c2e6b9c6da848ff0ef1a1163d1067bf4f6
+  RNSentry: a034d0e81e3d3c04b770dd2df953fe634d372d22
   RNSVG: 0ff39850623301a540e69b0ccd9aabb2061812e3
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
+  Sentry: dd29c18c32b0af9269949f079cf631d581ca76ca
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
 

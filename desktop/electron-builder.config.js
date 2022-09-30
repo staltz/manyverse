@@ -46,14 +46,28 @@ module.exports = {
     'node_modules/**/build/Release/*.so*', // Node native modules (Linux)
     'node_modules/**/build/Release/*.dylib', // Node native modules (macOS)
     'node_modules/**/build/Release/*.dll', // Node native modules (Windows)
+
     'node_modules/electron-window-state', // needed in loader.js
-    'node_modules/jsonfile', // needed in loader.js
+    'node_modules/jsonfile', // needed by electron-window-state
+
+    'node_modules/@sentry/electron', // needed in loader.js
+    'node_modules/tslib', // needed by @sentry/electron
+    'node_modules/@sentry/utils', // needed by @sentry/electron
+    'node_modules/@sentry/node', // needed by @sentry/electron
+    'node_modules/@sentry/hub', // needed by @sentry/electron
+    'node_modules/@sentry/core', // needed by @sentry/electron
+    'node_modules/deepmerge', // needed by @sentry/electron
+    'node_modules/lru_map', // needed by @sentry/node
+    'node_modules/cookie', // needed by @sentry/node
+
     'renderer-dist',
     'translations',
     'index.html',
     'index.js',
     'loader.js',
+    'versionName.js',
     'package.json',
+
     '!node_modules/electron',
     '!node_modules/*-nodejs-mobile',
   ],

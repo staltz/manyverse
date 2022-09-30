@@ -10,9 +10,12 @@ import {run} from 'cycle-native-navigation';
 import {screens, drivers} from './lib/frontend/index';
 import {welcomeLayout, defaultNavOptions} from './lib/frontend/screens/layouts';
 import nodejs from 'nodejs-mobile-react-native';
+import setupSentryMobile from './setup-sentry-mobile';
 // import './snoopy'; // Log and debug the React Native JS<-->Native Bridge
 
 setTimeout(() => {
   nodejs.start('loader.js');
 }, 1);
 run(screens, drivers, welcomeLayout, defaultNavOptions);
+
+setupSentryMobile();

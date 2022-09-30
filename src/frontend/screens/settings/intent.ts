@@ -28,6 +28,10 @@ export default function intent(
       .select('enable-firewall')
       .events('valueChange'),
 
+    toggleAllowCrashReports$: screenSource
+      .select('crash-reports')
+      .events('valueChange'),
+
     updateHops$: screenSource
       .select('hops')
       .events('change')

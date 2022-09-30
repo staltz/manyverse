@@ -58,6 +58,7 @@ async function exec(command, opts) {
       isMobile
         ? '--filter=multiserver-electron-ipc'
         : '--filter=multiserver-rn-channel',
+      isMobile ? '--filter=@sentry/electron/main' : '--filter=@sentry/node',
 
       // Not used on desktop, and on mobile should not be noderified:
       '--filter=rn-bridge',

@@ -117,6 +117,17 @@ export default function view(state$: Stream<State>) {
             ),
           }),
 
+          h(View, {style: styles.spacer}),
+          h(ToggleSetting, {
+            sel: 'crash-reports',
+            title: t('settings.troubleshooting.crash_reports.title'),
+            subtitle: t('settings.troubleshooting.crash_reports.subtitle'),
+            value: state.allowCrashReports,
+            accessibilityLabel: t(
+              'settings.troubleshooting.crash_reports.accessibility_label',
+            ),
+          }),
+
           ...(Platform.OS === 'ios'
             ? []
             : [

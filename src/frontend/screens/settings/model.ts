@@ -28,12 +28,14 @@ export interface State {
   showFollows: boolean;
   enableDetailedLogs: boolean;
   enableFirewall: boolean;
+  allowCrashReports: boolean;
 }
 
 interface Actions {
   toggleFollowEvents$: Stream<boolean>;
   toggleDetailedLogs$: Stream<boolean>;
   toggleEnableFirewall$: Stream<boolean>;
+  toggleAllowCrashReports$: Stream<boolean>;
 }
 
 function hopsToOpt(hops?: number): HopsOption {
@@ -60,6 +62,7 @@ export default function model(
           enableDetailedLogs: false,
           initialHops: hopsOptions.indexOf(DEFAULT_HOPS),
           enableFirewall: true,
+          allowCrashReports: false,
         };
       },
   );
@@ -73,6 +76,8 @@ export default function model(
           initialHops: hopsOptions.indexOf(hopsToOpt(settings.hops)),
           enableDetailedLogs: settings.detailedLogs ?? prev.enableDetailedLogs,
           enableFirewall: settings.enableFirewall ?? prev.enableFirewall,
+          allowCrashReports:
+            settings.allowCrashReports ?? prev.allowCrashReports,
         };
       },
   );
@@ -98,6 +103,13 @@ export default function model(
       },
   );
 
+  const toggleCrashReportsReducer$ = actions.toggleAllowCrashReports$.map(
+    (allowCrashReports) =>
+      function toggleCrashReportsReducer(prev: State): State {
+        return {...prev, allowCrashReports};
+      },
+  );
+
   return concat(
     propsReducer$,
     xs.merge(
@@ -105,6 +117,7 @@ export default function model(
       toggleFollowEventsReducer$,
       toggleDetailedLogsReducer$,
       toggleEnableFirewallReducer$,
+      toggleCrashReportsReducer$,
     ),
   );
 }

@@ -11,15 +11,20 @@ import getAboutContent from '~frontend/screens/dialog-about/content';
 import getThanksContent from '~frontend/screens/dialog-thanks/content';
 
 export interface Actions {
-  toggleDetailedLogs$: Stream<any>;
   updateHops$: Stream<any>;
+  toggleAllowCrashReports$: Stream<any>;
+  toggleDetailedLogs$: Stream<any>;
   goToAbout$: Stream<any>;
   goToThanks$: Stream<any>;
 }
 
 export default function alert(actions: Actions): Stream<AlertCommand> {
   const restartAlert$ = xs
-    .merge(actions.toggleDetailedLogs$, actions.updateHops$)
+    .merge(
+      actions.updateHops$,
+      actions.toggleAllowCrashReports$,
+      actions.toggleDetailedLogs$,
+    )
     .mapTo({
       type: 'alert',
       title: t('settings.dialogs.restart_required.title'),

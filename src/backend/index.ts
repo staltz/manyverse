@@ -2,9 +2,34 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
+import settingsUtils = require('./plugins/settingsUtils');
 import identity = require('./identity');
 const {restore, migrate, clear} = identity;
 import startSSB = require('./ssb');
+const versionName = require('./versionName');
+
+(process as any)._sentryEnabled =
+  settingsUtils.readSync().allowCrashReports === true;
+
+if (process.env.MANYVERSE_PLATFORM === 'mobile') {
+  // Sentry nodejs-mobile is loaded here, not in the loader, because
+  // loader.mobile.ts CANNOT import node_modules such as @sentry/node.
+  const Sentry: typeof import('@sentry/electron') = require('@sentry/node');
+  Sentry.init({
+    dsn: 'https://f0ac0805d95145e9aeb98ecd42d3ed4b@o1400646.ingest.sentry.io/6730238',
+    release: versionName,
+    beforeSend(event) {
+      if (!(process as any)._sentryEnabled) return null;
+      delete event.user;
+      delete event.breadcrumbs;
+      if (event.tags?.server_name) delete event.tags.server_name;
+      event.tags ??= {};
+      event.tags.side = 'backend';
+      event.tags.platform = 'mobile';
+      return event;
+    },
+  });
+}
 
 // Install Desktop backend plugins
 if (process.env.MANYVERSE_PLATFORM === 'desktop') {

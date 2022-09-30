@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -22,8 +22,6 @@ import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgeConfiguration;
 import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
-import org.acra.*;
-import org.acra.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -31,9 +29,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-@AcraCore(buildConfigClass = BuildConfig.class)
-@AcraMailSender(mailTo = "incoming+staltz-manyverse-6814019-issue-@incoming.gitlab.com")
-@AcraDialog(resText = R.string.acra_dialog_text, resCommentPrompt = R.string.acra_dialog_comment)
 public class MainApplication extends NavigationApplication {
 
   // Android 6.0.1 (23) really needs this:
@@ -44,7 +39,6 @@ public class MainApplication extends NavigationApplication {
   @Override
   protected void attachBaseContext(Context base) {
     super.attachBaseContext(base);
-    ACRA.init(this);
   }
 
   @Override

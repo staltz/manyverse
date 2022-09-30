@@ -230,6 +230,7 @@ export default {
     updateDetailedLogs: 'sync',
     updateAllowCheckingNewVersion: 'sync',
     updateEnableFirewall: 'sync',
+    updateAllowCrashReports: 'sync',
   },
   storageUsed: {
     getBytesStored: 'async',

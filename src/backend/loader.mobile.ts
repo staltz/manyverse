@@ -23,24 +23,4 @@ if (fs.existsSync(path.join(process.env.SSB_DIR, 'DETAILED_LOGS'))) {
   process.env.DEBUG = '*';
 }
 
-// Report JS backend crashes to Java, and in turn, to ACRA
-process.on('unhandledRejection', (reason) => {
-  console.error(reason);
-  rnBridge.channel.post('exception', reason);
-  setTimeout(() => {
-    process.exit(1);
-  });
-});
-process.on('uncaughtException', (err: Error | string) => {
-  console.error(err);
-  if (typeof err === 'string') {
-    rnBridge.channel.post('exception', err);
-  } else {
-    rnBridge.channel.post('exception', err.message + '\n' + err.stack);
-  }
-  setTimeout(() => {
-    process.exit(1);
-  });
-});
-
 require('./index');

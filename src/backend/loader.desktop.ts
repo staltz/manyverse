@@ -8,8 +8,33 @@ import url = require('url');
 import fs = require('fs');
 import {BrowserWindow, app, ipcMain, shell} from 'electron';
 const electronWindowState = require('electron-window-state');
+const Sentry = require('@sentry/electron/main');
+const versionName = require('./versionName');
+
+// Sentry is loaded here, not in index.ts, because we need to cover Electron
+// renderer and window initialization, which happens in this file.
+Sentry.init({
+  dsn: 'https://f0ac0805d95145e9aeb98ecd42d3ed4b@o1400646.ingest.sentry.io/6730238',
+  release: versionName,
+  beforeSend(event: any) {
+    if (!(process as any)._sentryEnabled) return null;
+    delete event.user;
+    delete event.breadcrumbs;
+    delete event.contexts.browser;
+    event.tags ??= {};
+    if (event.tags['event.process'] === 'renderer') {
+      event.tags.side = 'frontend';
+    } else {
+      event.tags.side = 'backend';
+    }
+    event.tags.platform = 'desktop';
+    return event;
+  },
+});
 
 process.env ??= {};
+
+app.setName('manyverse');
 
 // Set default directories
 app.setPath('userData', path.join(app.getPath('appData'), 'manyverse'));
@@ -91,9 +116,6 @@ function createWindow() {
     win = null;
   });
 }
-
-// Useful for cases like defininig the Electron "userData" directory
-app.setName('manyverse');
 
 if ((process as any).defaultApp) {
   if (process.argv.length >= 2) {

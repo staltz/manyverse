@@ -15,6 +15,7 @@ interface SettingsFile {
   blobsStorageLimit?: number;
   allowCheckingNewVersion?: boolean;
   enableFirewall?: boolean;
+  allowCrashReports?: boolean;
 }
 
 function writeSync(data: SettingsFile): void {
@@ -94,6 +95,7 @@ export = {
     updateEnableFirewall: 'sync',
     updateDetailedLogs: 'sync',
     updateAllowCheckingNewVersion: 'sync',
+    updateAllowCrashReports: 'sync',
   },
   permissions: {
     master: {
@@ -105,6 +107,7 @@ export = {
         'updateDetailedLogs',
         'updateAllowCheckingNewVersion',
         'updateEnableFirewall',
+        'updateAllowCrashReports',
       ],
     },
   },
@@ -152,6 +155,10 @@ export = {
           rejectUnknown: enableFirewall,
         });
         updateField('enableFirewall', enableFirewall);
+      },
+
+      updateAllowCrashReports(allowCrashReports: boolean) {
+        updateField('allowCrashReports', allowCrashReports);
       },
 
       updateBlobsPurge(storageLimit: number) {

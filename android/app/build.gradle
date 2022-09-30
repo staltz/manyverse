@@ -267,13 +267,8 @@ android {
     }
 }
 
-def acraVersion = '5.7.0'
-
 dependencies {
     //noinspection GradleDynamicVersion
-    implementation "ch.acra:acra-core:$acraVersion"
-    implementation "ch.acra:acra-mail:$acraVersion"
-    implementation "ch.acra:acra-dialog:$acraVersion"
     implementation project(':nodejs-mobile-react-native')
     implementation project(':@react-native-async-storage')
     implementation project(':react-native-bluetooth-socket-bridge')

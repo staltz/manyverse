@@ -18,7 +18,10 @@ import emojiFont from './images/NotoColorEmoji.ttf';
 import {run} from 'cycle-native-navigation-web';
 import {screens, drivers} from './lib/frontend/index';
 import {welcomeLayout} from './lib/frontend/screens/layouts';
+import * as Sentry from '@sentry/electron/renderer';
 const {ipcRenderer} = require('electron');
+
+Sentry.init({});
 
 // Set up fonts
 const fontStyles = `@font-face {

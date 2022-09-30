@@ -586,6 +586,7 @@ export class SSBSource {
     showFollows?: boolean;
     allowCheckingNewVersion?: boolean;
     enableFirewall?: boolean;
+    allowCrashReports?: boolean;
   }> {
     return this.fromCallback<any>((ssb, cb) =>
       isReady(ssb) ? ssb.settingsUtils.read(cb) : cb(null, null),
@@ -827,6 +828,11 @@ export interface SettingsEnableFirewallReq {
   enableFirewall: boolean;
 }
 
+export interface SettingsAllowCrashReportsReq {
+  type: 'settings.allowCrashReports';
+  allowCrashReports: boolean;
+}
+
 export type Req =
   | CreateIdentityReq
   | UseIdentityReq
@@ -858,7 +864,8 @@ export type Req =
   | SettingsShowFollowsReq
   | SettingsDetailedLogsReq
   | SettingsAllowCheckingNewVersionReq
-  | SettingsEnableFirewallReq;
+  | SettingsEnableFirewallReq
+  | SettingsAllowCrashReportsReq;
 
 export function contentToPublishReq(content: NonNullable<Content>): PublishReq {
   return {type: 'publish', content};
@@ -1201,6 +1208,16 @@ async function consumeSink(
       if (req.type === 'settings.enableFirewall') {
         ssb.settingsUtils.updateEnableFirewall(
           req.enableFirewall,
+          (err: any) => {
+            if (err) return console.error(err.message || err);
+          },
+        );
+        return;
+      }
+
+      if (req.type === 'settings.allowCrashReports') {
+        ssb.settingsUtils.updateAllowCrashReports(
+          req.allowCrashReports,
           (err: any) => {
             if (err) return console.error(err.message || err);
           },

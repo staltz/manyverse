@@ -21,11 +21,18 @@ const HEADER =
   '// ' +
   'SP' +
   'DX-License-Identifier: CC0-1.0';
-const VERSION_NAME_FILE = path.join(
+const FRONTEND_VERSION_NAME_FILE = path.join(
   __dirname,
   '..',
   'src',
   'frontend',
+  'versionName.ts',
+);
+const BACKEND_VERSION_NAME_FILE = path.join(
+  __dirname,
+  '..',
+  'src',
+  'backend',
   'versionName.ts',
 );
 
@@ -74,8 +81,12 @@ rl.question('Next version will be `' + nextVersion + '`, okay? y/n ', (yn) => {
   fs.writeFileSync('./package-lock.json', JSON.stringify(pkgLockJSON, null, 2));
 
   fs.writeFileSync(
-    VERSION_NAME_FILE,
+    FRONTEND_VERSION_NAME_FILE,
     HEADER + '\n\n' + `export default '${nextVersion}';` + '\n',
+  );
+  fs.writeFileSync(
+    BACKEND_VERSION_NAME_FILE,
+    HEADER + '\n\n' + `module.exports = '${nextVersion}';` + '\n',
   );
 
   ReactNativeVersion.version(

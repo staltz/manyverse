@@ -9,9 +9,13 @@ globalThis.URLSearchParams = URLSearchParams;
 import {run} from 'cycle-native-navigation';
 import {screens, drivers} from './lib/frontend/index';
 import {welcomeLayout, defaultNavOptions} from './lib/frontend/screens/layouts';
+import setupSentryMobile from './setup-sentry-mobile';
 // import MessageQueue from 'react-native/Libraries/BatchedBridge/MessageQueue';
 
+// Has to be done before setup Sentry, otherwise app gets stuck on splashscreen
 run(screens, drivers, welcomeLayout, defaultNavOptions);
+
+setupSentryMobile();
 
 // MessageQueue.spy((msg) => {
 //   if (msg.module === 'WebSocketModule') return;

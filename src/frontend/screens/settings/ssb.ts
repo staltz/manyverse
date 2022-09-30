@@ -11,6 +11,7 @@ interface Actions {
   toggleDetailedLogs$: Stream<boolean>;
   toggleEnableFirewall$: Stream<boolean>;
   forceReindex$: Stream<any>;
+  toggleAllowCrashReports$: Stream<boolean>;
   deleteAccount$: Stream<any>;
 }
 
@@ -28,6 +29,10 @@ export default function ssb(actions: Actions, ssbSource: SSBSource) {
     actions.toggleEnableFirewall$.map(
       (enableFirewall) =>
         ({type: 'settings.enableFirewall', enableFirewall} as Req),
+    ),
+    actions.toggleAllowCrashReports$.map(
+      (allowCrashReports) =>
+        ({type: 'settings.allowCrashReports', allowCrashReports} as Req),
     ),
 
     actions.forceReindex$

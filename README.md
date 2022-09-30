@@ -105,7 +105,6 @@ Become a sponsor and get your logo on our README on GitLab with a link to your s
 
 ### Thanks
 
-![Browserstack](https://www.browserstack.com/images/layout/browserstack-logo-600x315.png)
-
 [Browserstack](https://www.browserstack.com/) provides us access to their great mobile app testing tools such as App Live and App Automate. These services are vital for testing Manyverse on dozens of different devices and OS versions.
 
+[Sentry](https://sentry.io) provides us with a free organization account to receive (opt-in) crash reports from all platforms (Android, iOS, MacOS, Windows, Linux). This is vital to help us to quickly debug and fix crashes, improving user experience.
