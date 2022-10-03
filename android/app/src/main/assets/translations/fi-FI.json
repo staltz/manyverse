@@ -1065,7 +1065,7 @@
         }
       },
       "crash_reports": {
-        "title": "Allow crash reports",
+        "title": "Enable crash reports",
         "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
         "accessibility_label": "Toggle crash reports"
       }

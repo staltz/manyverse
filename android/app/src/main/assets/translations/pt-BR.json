@@ -1065,7 +1065,7 @@
         }
       },
       "crash_reports": {
-        "title": "Permitir relatar travamentos",
+        "title": "Habilitar relatórios de travamento",
         "subtitle": "Enviar aos desenvolvedors relatórios de erros (sem conter informações pessoais) sempre que o app travar, através do Sentry.io. Habilitando isso, você concorda com a política de privacidade do Sentry.io.",
         "accessibility_label": "Ativar/desativar relatório de erro"
       }
