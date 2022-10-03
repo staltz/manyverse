@@ -128,6 +128,9 @@ export default function view(state$: Stream<State>) {
             ),
           }),
 
+          /*
+          // Deprecated feature. We should delete this (and other related code)
+          // after January 2023 if we still haven't re-enabled it by then.
           ...(Platform.OS === 'ios'
             ? []
             : [
@@ -141,6 +144,7 @@ export default function view(state$: Stream<State>) {
                   ),
                 }),
               ]),
+          */
 
           h(View, {style: styles.spacer}),
           h(LinkSetting, {
