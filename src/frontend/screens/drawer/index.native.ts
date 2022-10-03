@@ -61,7 +61,7 @@ export function drawer(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.http, state$);
   const vdom$ = view(state$);
   const command$ = navigation(actions, state$);
-  const reducer$ = model(actions, sources.ssb, sources.globalEventBus);
+  const reducer$ = model(actions, sources.ssb, sources.globalEventBus, state$);
   const mailto$ = linking(actions);
 
   const httpReq$ = actions.checkNewVersion$.map(

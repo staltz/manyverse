@@ -73,6 +73,7 @@ export default function model(
   navSource: NavSource,
   globalEventBus: Stream<GlobalEvent>,
   ssbSource: SSBSource,
+  state$: Stream<State>,
 ) {
   const centralUpdatePublic$ = globalEventBus.filter(
     (ev) => ev.type === 'centralScreenUpdate' && ev.subtype === 'publicUpdates',
@@ -109,9 +110,10 @@ export default function model(
     .flatten()
     .take(1);
 
-  const aboutReducer$ = ssbSource.selfFeedId$
-    .filter((selfFeedId) => !!selfFeedId)
-    .map((selfFeedId) => ssbSource.profileAboutLive$(selfFeedId!))
+  const aboutReducer$ = state$
+    .filter((state) => !!state.selfFeedId)
+    .take(1)
+    .map((state) => ssbSource.profileAboutLive$(state.selfFeedId))
     .flatten()
     .map(
       (about) =>

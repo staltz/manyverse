@@ -42,24 +42,26 @@ export default function model(
   actions: Actions,
   ssbSource: SSBSource,
   globalEventBus: Stream<GlobalEvent>,
+  state$: Stream<State>,
 ): Stream<Reducer<State>> {
-  const selfFeedId$ = ssbSource.selfFeedId$.filter(
-    (selfFeedId) => !!selfFeedId,
-  ) as Stream<FeedId>;
+  const selfFeedIdReducer$ = ssbSource.selfFeedId$
+    .filter((selfFeedId) => !!selfFeedId)
+    .take(1)
+    .map(
+      (selfFeedId: FeedId) =>
+        function selfFeedIdReducer(prev: State): State {
+          if (!prev) {
+            return {...INITIAL_STATE, selfFeedId};
+          } else {
+            return {...prev, selfFeedId};
+          }
+        },
+    );
 
-  const selfFeedIdReducer$ = selfFeedId$.take(1).map(
-    (selfFeedId: FeedId) =>
-      function selfFeedIdReducer(prev: State): State {
-        if (!prev) {
-          return {...INITIAL_STATE, selfFeedId};
-        } else {
-          return {...prev, selfFeedId};
-        }
-      },
-  );
-
-  const aboutReducer$ = selfFeedId$
-    .map((selfFeedId) => ssbSource.profileAboutLive$(selfFeedId))
+  const aboutReducer$ = state$
+    .filter((state) => !!state.selfFeedId)
+    .take(1)
+    .map((state) => ssbSource.profileAboutLive$(state.selfFeedId))
     .flatten()
     .map(
       (about) =>

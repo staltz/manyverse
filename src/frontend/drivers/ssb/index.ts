@@ -358,14 +358,10 @@ export class SSBSource {
   public profileAboutLive$(id: FeedId): Stream<AboutAndExtras> {
     return this.fromPullStream<AboutSelf>((ssb) =>
       isReady(ssb) ? ssb.aboutSelf.stream(id) : pull.empty(),
-    ).map(
-      (profile) =>
-        ({
-          id,
-          ...profile,
-          imageUrl: imageToImageUrl(profile.image),
-        } as AboutAndExtras),
-    );
+    ).map((profile) => {
+      const imageUrl = imageToImageUrl(profile.image);
+      return {...profile, id, imageUrl} as AboutAndExtras;
+    });
   }
 
   public isFollowing$(

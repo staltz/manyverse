@@ -70,6 +70,7 @@ export function desktopFrame(sources: Sources): Sinks {
     sources.navigation,
     sources.globalEventBus,
     sources.ssb,
+    state$,
   );
 
   const vdom$ = view(state$, sources.children, sources.localization);
