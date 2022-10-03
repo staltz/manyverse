@@ -180,6 +180,28 @@ export default [
     homepage: 'https://github.com/callstack/react-native-slider#readme',
   },
   {
+    name: '@sentry/electron',
+    type: 'library',
+    version: '4.0.2',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/getsentry/sentry-electron#readme',
+  },
+  {
+    name: '@sentry/node',
+    type: 'library',
+    version: '7.14.0',
+    license: 'BSD 3-Clause "New" or "Revised" License (BSD-3-Clause)',
+    homepage:
+      'https://github.com/getsentry/sentry-javascript/tree/master/packages/node',
+  },
+  {
+    name: '@sentry/react-native',
+    type: 'library',
+    version: '4.5.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/getsentry/sentry-react-native',
+  },
+  {
     name: '@staltz/react-native-audio-toolkit',
     type: 'library',
     version: '2.0.3-1',
@@ -281,7 +303,7 @@ export default [
   {
     name: 'cycle-native-navigation-web',
     type: 'library',
-    version: '1.1.0',
+    version: '1.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation-web',
   },
@@ -393,16 +415,16 @@ export default [
   {
     name: 'multiserver-electron-ipc',
     type: 'library',
-    version: '2.0.0',
+    version: '2.0.2',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/multiserver-electron-ipc#readme',
   },
   {
     name: 'multiserver-rn-channel',
     type: 'library',
-    version: '1.3.0',
+    version: '1.3.1',
     license: 'MIT License (MIT)',
-    homepage: 'https://github.com/staltz/multiserver-rn-channel#readme',
+    homepage: 'https://gitlab.com/staltz/multiserver-rn-channel#readme',
   },
   {
     name: 'nodejs-mobile-react-native',
@@ -781,7 +803,7 @@ export default [
   {
     name: 'ssb-blobs',
     type: 'library',
-    version: '1.2.2',
+    version: '2.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-blobs',
   },
@@ -1047,7 +1069,7 @@ export default [
   {
     name: 'xstream-from-callback',
     type: 'library',
-    version: '1.1.0',
+    version: '1.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/xstream-from-callback',
   },

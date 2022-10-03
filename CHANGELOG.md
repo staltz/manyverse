@@ -2,6 +2,20 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2210.3-beta
+
+* (iOS) Bug fix: hide detailed logs option in settings ([see details](https://gitlab.com/staltz/manyverse/commit/06a231ce68b484f68ca6a53ab3e374a198fe5e9e))
+* Bug fix: broken database indexes ([see details](https://gitlab.com/staltz/manyverse/commit/29a6cb60f5ec623a1d2c655f8b4a0440bb5fbc73))
+* Bug fix: crash when reindexing with live ([see details](https://gitlab.com/staltz/manyverse/commit/04c4362819e7e56dbdd1e09850491fd00cf7d866))
+* Bug fix: crash when seeing invalid post without text ([see details](https://gitlab.com/staltz/manyverse/commit/bde4d81d066e1172aaa7e1bc3c33fc33998cf982))
+* Bug fix: on Force reindex, go to Central screen ([see details](https://gitlab.com/staltz/manyverse/commit/c1a8fe13a68bb8c3882dd8bce5e03293e9815685))
+* Deprecate "Enable detailed logs" setting ([see details](https://gitlab.com/staltz/manyverse/commit/f064707ac2ced95f591301654acf607819a1b53c))
+* Feature: delete account button in the Settings ([see details](https://gitlab.com/staltz/manyverse/commit/37e32acd11a10dc1f8163f5848f9a001f6537562))
+* Feature: setting to opt-in for crash reports ([see details](https://gitlab.com/staltz/manyverse/commit/b735a9bc1929fa726d421c264632b9e4dfc6eb96))
+* Improve Chinese (Simplified) translation ([see details](https://gitlab.com/staltz/manyverse/commit/24f23a5320973e9513a46f9cad39480e1ba280d4))
+* Improve German and Russian translations ([see details](https://gitlab.com/staltz/manyverse/commit/fadd36d3ff8c4b969e88076685b9b2b0d8e77650))
+* Improve Persian translation ([see details](https://gitlab.com/staltz/manyverse/commit/1aa04ce6c4b00e74a33fe2c76c1e4277fbfca9b5))
+
 ## 0.2209.2-beta
 
 * (iOS) Bug fix: color of mentions menu separator ([see details](https://gitlab.com/staltz/manyverse/commit/b98f568df1fa4e988928b75b0374fd45c9efc823))
