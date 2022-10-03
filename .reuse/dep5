@@ -11,6 +11,10 @@ Files: .vscode/*
 Copyright: 2021 The Manyverse Authors
 License: Unlicense
 
+Files: CONTRIBUTOR_CERTIFICATE_OF_ORIGIN
+Copyright: 2021 The Manyverse Authors
+License: CC0-1.0
+
 Files: android/app/debug.keystore
 Copyright: 2022 The Manyverse Authors
 License: CC0-1.0
