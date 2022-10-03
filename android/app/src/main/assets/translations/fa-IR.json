@@ -110,10 +110,10 @@
           "1_normal": "برای ارتباط با دوستان مجاور و سینک کردن مطالب، میتوانید متصل شوید به ",
           "2_bold": "وای‌فای",
           "3_normal": ". To find new people on the internet, look for an invite code to a ",
-          "4_bold": "pub server",
+          "4_bold": "سرور عمومی",
           "5_normal": " یا یِک ",
           "6_bold": "سرور اتاق",
-          "7_normal": ", or start your own server!"
+          "7_normal": "، یا سرور شخصی خودت رو راه بنداز!"
         },
         "default": {
           "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
@@ -147,8 +147,8 @@
     "in_construction": {
       "title": "در دست احداث!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
+        "1_normal": "منیورس ",
+        "2_bold": "نرم افزار نسخه آزمایشی",
         "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
       }
     },
@@ -1038,7 +1038,7 @@
       "blobs_storage": {
         "title": "Blobs storage limit",
         "subtitle": "Automatically delete old images and blobs until they occupy at most this amount of storage on your device",
-        "unlimited": "Unlimited",
+        "unlimited": "نا محدود",
         "accessibility_label": "Storage limit slider"
       },
       "storage_usage": {
@@ -1063,6 +1063,11 @@
           "title": "Rebuild indexes?",
           "description": "This will reset database indexes and rebuild them, which is a last resort solution in case your database seems to behave oddly. Reindexing may take several minutes.\n\nAre you sure you want to do this?"
         }
+      },
+      "crash_reports": {
+        "title": "Allow crash reports",
+        "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
+        "accessibility_label": "Toggle crash reports"
       }
     },
     "more_information": {
@@ -1113,10 +1118,10 @@
       }
     },
     "trash": {
-      "title": "Trash",
+      "title": "آشغال",
       "description": "The trash bin is made of blocked accounts. Compact your database to empty the trash bin.",
       "compact": {
-        "label": "Compact",
+        "label": "فشرده سازی",
         "accessibility_label": "Compact your database"
       }
     },
@@ -1127,7 +1132,7 @@
       }
     },
     "accounts": {
-      "title": "Accounts",
+      "title": "حساب ها",
       "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
       "this_is_you": "This is you",
       "open_profile": {
@@ -1153,19 +1158,19 @@
       "title": "Good!",
       "description": {
         "1_normal": "Your account's ",
-        "2_bold": "identity",
+        "2_bold": "هویت",
         "3_normal": " is now restored.\n\nNow, to recover your ",
-        "4_bold": "data",
+        "4_bold": "داده",
         "5_normal": ", connect with friends that have interacted with you before, to redownload your data from them. There are two ways:"
       }
     },
     "buttons": {
-      "connect_via_wifi": "Connect via Wi-Fi",
+      "connect_via_wifi": "اتصال از طریق Wi-Fi",
       "paste_invite": "الصاق کد دعوت"
     },
     "instructions": {
       "connect_via_wifi": {
-        "title": "Connect via Wi-Fi",
+        "title": "اتصال از طریق Wi-Fi",
         "description": "Just connect this device to the same local Wi-Fi as other devices are, keep Manyverse open on those devices, and your data will automatically sync to this device."
       }
     },
@@ -1218,7 +1223,7 @@
         "accessibility_label": "Reply Button"
       },
       "etc": {
-        "dialog_title": "Message",
+        "dialog_title": "پیام",
         "accessibility_label": "Etc Button"
       },
       "copy_blob_id": {
@@ -1226,7 +1231,7 @@
       },
       "copy_msg_uri": "Copy SSB URI",
       "copy_msg_id": "Copy cypherlink",
-      "view_raw": "View raw message"
+      "view_raw": "مشاهده پیام خام"
     },
     "gatherings": {
       "call_to_action": {
@@ -1246,11 +1251,11 @@
         "people_and_body": "People and body",
         "animals_and_nature": "Animals and nature",
         "food_and_drink": "Food and drink",
-        "activities": "Activities",
+        "activities": "فعالیت ها",
         "travel_and_places": "Travel and places",
         "objects": "Objects",
         "symbols": "Symbols",
-        "flags": "Flags"
+        "flags": "پرچم ها"
       },
       "show_more": {
         "accessibility_label": "Show More Reaction Options"
@@ -1258,15 +1263,15 @@
     },
     "image": {
       "without_caption": {
-        "accessibility_label": "Picture without caption"
+        "accessibility_label": "تصویر بدون عنوان"
       }
     },
     "audio": {
       "play": {
-        "accessibility_label": "Play audio"
+        "accessibility_label": "پخش صدا"
       },
       "pause": {
-        "accessibility_label": "Pause audio"
+        "accessibility_label": "مکث صدا"
       },
       "duration": {
         "accessibility_label": "مدت زمان صدا"
@@ -1353,13 +1358,13 @@
     }
   },
   "context_menu": {
-    "copy": "Copy",
-    "copy_link": "Copy link",
-    "cut": "Cut",
+    "copy": "رونوشت",
+    "copy_link": "رونوشت از پیوند",
+    "cut": "بریدن",
     "inspect": "Inspect element",
     "look_up_selection": "Look up {selection}",
-    "paste": "Paste",
-    "save_image": "Save image",
-    "save_image_as": "Save image as..."
+    "paste": "چسباندن",
+    "save_image": "ذخیره تصویر",
+    "save_image_as": "ذخیره تصویر در ..."
   }
 }

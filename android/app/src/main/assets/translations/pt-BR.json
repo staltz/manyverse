@@ -1063,6 +1063,11 @@
           "title": "Reconstruir índices?",
           "description": "Essa operação vai reconstruir os índices do início, o que é uma última solução caso o seu banco de dados esteja comportando de forma estranha. Reindexação pode levar vários minutos.\n\nTem certeza que quer prosseguir?"
         }
+      },
+      "crash_reports": {
+        "title": "Permitir relatar travamentos",
+        "subtitle": "Enviar aos desenvolvedors relatórios de erros (sem conter informações pessoais) sempre que o app travar, através do Sentry.io. Habilitando isso, você concorda com a política de privacidade do Sentry.io.",
+        "accessibility_label": "Ativar/desativar relatório de erro"
       }
     },
     "more_information": {

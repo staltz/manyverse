@@ -1063,6 +1063,11 @@
           "title": "Reconstruire les index ?",
           "description": "Cela réinitialisera les index de la base de données et les reconstruira, ce qui est une solution de dernier recours si votre base de données semble se comporter bizarrement. La réindexation peut prendre plusieurs minutes.\n\nConfirmez-vous cette action ?"
         }
+      },
+      "crash_reports": {
+        "title": "Allow crash reports",
+        "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
+        "accessibility_label": "Toggle crash reports"
       }
     },
     "more_information": {

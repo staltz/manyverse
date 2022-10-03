@@ -1063,6 +1063,11 @@
           "title": "¿Reconstruir índices?",
           "description": "Esto restablecerá los índices de base de datos y los reconstruirá, que es una solución de último recurso en caso de que tu base de datos parezca comportarse de forma extraña. La reindexación puede tardar varios minutos.\n\n¿Estás seguro de que quieres hacer esto?"
         }
+      },
+      "crash_reports": {
+        "title": "Allow crash reports",
+        "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
+        "accessibility_label": "Toggle crash reports"
       }
     },
     "more_information": {

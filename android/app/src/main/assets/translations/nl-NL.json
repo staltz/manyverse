@@ -1063,6 +1063,11 @@
           "title": "Indexen herbouwen?",
           "description": "Dit zal de index database resetten en herbouwen. Dit is bedoeld als een laatste redmiddel in het geval dat uw database zich vreemd gedraagt. Het herindexeren kan enkele minuten duren.\n\nWeet je zeker dat je dit wilt doen?"
         }
+      },
+      "crash_reports": {
+        "title": "Allow crash reports",
+        "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
+        "accessibility_label": "Toggle crash reports"
       }
     },
     "more_information": {

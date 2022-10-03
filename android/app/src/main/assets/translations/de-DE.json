@@ -1063,6 +1063,11 @@
           "title": "Indizes neu erstellen?",
           "description": "Dies wird Datenbank-Indizes zurücksetzen und neu aufbauen, was eine letzte Lösung für den Fall ist, dass sich deine Datenbank merkwürdig verhält. Das Reindexieren kann einige Minuten dauern.\n\nBist du sicher, dass du dies tun möchtest?"
         }
+      },
+      "crash_reports": {
+        "title": "Allow crash reports",
+        "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
+        "accessibility_label": "Toggle crash reports"
       }
     },
     "more_information": {

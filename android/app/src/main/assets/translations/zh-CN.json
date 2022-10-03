@@ -343,41 +343,41 @@
       }
     },
     "toasts": {
-      "invite_accepted": "Invite accepted",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "invite_accepted": "已接受邀请",
+      "invite_rejected": "邀请被拒绝。确认无误？",
+      "connecting_to_alias": "正在连接到 {{alias}}",
+      "connected_to_alias": "已连接到 {{alias}}",
+      "not_connected_to_alias": "{{alias}} 现在处于离线状态"
     },
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "允许登录吗？",
+          "description": "打开 {{room}} 的网站来创建邀请链接并管理成员。 您想要使用Manyverse登录吗？\n\n房间ID是 {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "title": "允许登录吗？",
+          "description": "网页浏览器正在请求权限来识别您。您想要登录到房间：{{room}} 吗？\n\n房间ID是 {{roomid}}"
         }
       }
     },
     "peers": {
       "types": {
-        "bluetooth": "Bluetooth",
+        "bluetooth": "蓝牙",
         "lan": "无线局域网",
         "dht": {
-          "connected": "Internet P2P"
+          "connected": "互联网P2P"
         },
         "room": {
           "server": "房间服务器",
           "endpoint": "Room peer",
           "alone_online": "(只有你在线)",
           "others_online": {
-            "one": "({{count}} online)",
-            "other": "({{count}} online)"
+            "one": "（{{count}}人在线）",
+            "other": "（{{count}}人在线）"
           }
         },
-        "pub": "Pub server",
+        "pub": "Pub（酒馆）服务器",
         "server": "服务器",
         "unknown": "未知的"
       }
@@ -389,7 +389,7 @@
       "bluetooth": {
         "title": "蓝牙",
         "accessibility_label": "蓝牙模式",
-        "disabled": "(Turn on Bluetooth to use this)",
+        "disabled": "（开启蓝牙以使用此功能）",
         "description": "Discover users nearby and connect with them using Bluetooth.",
         "permission_request": {
           "title": "Allow locating via Bluetooth?",
@@ -687,18 +687,18 @@
     }
   },
   "invite_paste": {
-    "placeholder": "Paste an invite code",
+    "placeholder": "粘贴邀请码",
     "call_to_action": {
       "accept": {
-        "accessibility_label": "Accept Invite Code"
+        "accessibility_label": "接受邀请码"
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "不支持的类型",
+      "description": "Manyverse已经不再支持P2P邀请。"
     },
     "text_field": {
-      "accessibility_label": "Invite Code Text Input"
+      "accessibility_label": "邀请码文本输入"
     }
   },
   "libraries": {
@@ -1063,6 +1063,11 @@
           "title": "Rebuild indexes?",
           "description": "This will reset database indexes and rebuild them, which is a last resort solution in case your database seems to behave oddly. Reindexing may take several minutes.\n\nAre you sure you want to do this?"
         }
+      },
+      "crash_reports": {
+        "title": "Allow crash reports",
+        "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
+        "accessibility_label": "Toggle crash reports"
       }
     },
     "more_information": {
@@ -1161,7 +1166,7 @@
     },
     "buttons": {
       "connect_via_wifi": "Connect via Wi-Fi",
-      "paste_invite": "Paste invite code"
+      "paste_invite": "粘贴邀请码"
     },
     "instructions": {
       "connect_via_wifi": {

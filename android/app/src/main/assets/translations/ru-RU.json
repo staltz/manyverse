@@ -1063,6 +1063,11 @@
           "title": "Перестроить индексы?",
           "description": "Это сбросит индексы базы данных и перестроит их, что является крайним решением в том случае, если ваша база данных ведет себя странно. Переиндексация может занять несколько минут.\n\nВы уверены, что хотите это сделать?"
         }
+      },
+      "crash_reports": {
+        "title": "Allow crash reports",
+        "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
+        "accessibility_label": "Toggle crash reports"
       }
     },
     "more_information": {
