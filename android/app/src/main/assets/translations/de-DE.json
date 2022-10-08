@@ -1065,9 +1065,9 @@
         }
       },
       "crash_reports": {
-        "title": "Enable crash reports",
-        "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
-        "accessibility_label": "Toggle crash reports"
+        "title": "Absturzberichte aktivieren",
+        "subtitle": "Opt-in zum Senden von Absturzberichten (ohne persönlich identifizierbare Informationen) an die Entwickler, via Sentry.io. Indem du dies aktivierst, stimmen Sie Sentry.ios Datenschutzrichtlinie zu.",
+        "accessibility_label": "Absturzberichte umschalten"
       }
     },
     "more_information": {
@@ -1086,13 +1086,13 @@
       }
     },
     "danger_zone": {
-      "title": "Danger Zone",
+      "title": "Gefahrenzone",
       "delete_account": {
-        "title": "Delete account",
-        "accessibility_label": "Delete your account",
+        "title": "Benutzerkonto löschen",
+        "accessibility_label": "Lösche dein Benutzerkonto",
         "confirm": {
-          "title": "Delete your account?",
-          "description": "Deleting this account will bring you back to the start screen, where you can restore your account or create a new one.\n\nAre you sure you want to do this?"
+          "title": "Benutzerkonto löschen?",
+          "description": "Das Löschen dieses Kontos bringt dich zurück zum Startbildschirm, wo du dein Benutzerkonto wiederherstellen oder ein neues erstellen können.\n\nBist du sicher, dass du dies tun möchtest?"
         }
       }
     },
