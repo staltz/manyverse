@@ -114,6 +114,7 @@ You should also create the file `local.properties` in the `android` folder of th
 ```
 ndk.dir=/path/to/your/android/sdk/ndk/21.4.7075529
 ```
+set the environment variable NDK_PLATFORM to "android-21" in the shell rc file. 
 
 Add your debug keystore information to the `~/.gradle/gradle.properties` file.
 
