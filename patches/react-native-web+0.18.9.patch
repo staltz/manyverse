@@ -1,25 +1,25 @@
 diff --git a/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js b/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
-index b15746f..171a212 100644
+index 801cc86..e6ed8c5 100644
 --- a/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
 +++ b/node_modules/react-native-web/dist/vendor/react-native/VirtualizedList/index.js
-@@ -650,6 +650,8 @@ var VirtualizedList = /*#__PURE__*/function (_React$PureComponent) {
+@@ -671,6 +671,8 @@ class VirtualizedList extends React.PureComponent {
              // we will trust the initialScrollIndex suggestion.
-             if (!_this.props.initialScrollIndex || _this._scrollMetrics.offset) {
-               newState = computeWindowedRenderLimits(_this.props, state, _this._getFrameMetricsApprox, _this._scrollMetrics);
+             if (!this.props.initialScrollIndex || this._scrollMetrics.offset) {
+               newState = computeWindowedRenderLimits(this.props.data, this.props.getItemCount, maxToRenderPerBatchOrDefault(this.props.maxToRenderPerBatch), windowSizeOrDefault(this.props.windowSize), state, this._getFrameMetricsApprox, this._scrollMetrics);
 +              // See https://github.com/necolas/react-native-web/issues/1579
 +              newState.first = 0;
              }
            }
          } else {
-@@ -868,7 +870,67 @@ var VirtualizedList = /*#__PURE__*/function (_React$PureComponent) {
-     var _this2 = this;
+@@ -882,7 +884,67 @@ class VirtualizedList extends React.PureComponent {
  
+   setupWebWheelHandler() {
      if (this._scrollRef && this._scrollRef.getScrollableNode) {
 -      this._scrollRef.getScrollableNode().addEventListener('wheel', this.invertedWheelEventHandler);
-+      const node = this._scrollRef.getScrollableNode();
++      const node = this._scrollRef.getScrollableNode()
 +      node.addEventListener('wheel', this.invertedWheelEventHandler);
 +      let lastKeyDown = 0;
-+      node.addEventListener('keydown', (ev) => {
++      node.addEventListener('keydown', ev => {
 +        if (ev.ctrlKey || ev.metaKey) return;
 +        const DELTA = 40;
 +        const PAGE = node.clientHeight * 0.9;
@@ -76,7 +76,7 @@ index b15746f..171a212 100644
 +          });
 +        }
 +        ev.preventDefault();
-+      });
++      })
      } else {
-       setTimeout(function () {
-         return _this2.setupWebWheelHandler();
+       setTimeout(() => this.setupWebWheelHandler(), 50);
+       return;
