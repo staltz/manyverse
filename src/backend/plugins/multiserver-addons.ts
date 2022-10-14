@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2020 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -29,13 +29,12 @@ export = function multiserverAddons(ssb: any, cfg: any) {
       });
     } catch (err) {}
   } else {
+    const {parentPort} = require('worker_threads');
     try {
-      const {ipcMain} = require('electron');
       const electronIpcPlugin = require('multiserver-electron-ipc');
-      const webContentsPromise = (process as any).webContentsP;
       ssb.multiserver.transport({
         name: 'channel',
-        create: () => electronIpcPlugin({ipcMain, webContentsPromise}),
+        create: () => electronIpcPlugin({parentPort}),
       });
     } catch (err) {
       console.error(err);

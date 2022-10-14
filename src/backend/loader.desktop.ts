@@ -11,8 +11,8 @@ const electronWindowState = require('electron-window-state');
 const Sentry = require('@sentry/electron/main');
 const versionName = require('./versionName');
 
-// Sentry is loaded here, not in index.ts, because we need to cover Electron
-// renderer and window initialization, which happens in this file.
+// Sentry is loaded here because we need to cover Electron renderer and window
+// initialization, which happens in this file.
 Sentry.init({
   dsn: 'https://f0ac0805d95145e9aeb98ecd42d3ed4b@o1400646.ingest.sentry.io/6730238',
   release: versionName,
