@@ -88,19 +88,6 @@ async function runAndReport(label, task) {
     );
   }
 
-  const rustNodeModules = ['ssb-validate2-rsjs-node'];
-  await runAndReport(
-    'Remove Rust node modules',
-    exec('rm -rf ' + rustNodeModules.join(' '), {
-      cwd:
-        './' +
-        (targetPlatform === 'desktop'
-          ? 'desktop'
-          : 'nodejs-assets/nodejs-project') +
-        '/node_modules',
-    }),
-  );
-
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Update package-lock.json in ./src/backend',

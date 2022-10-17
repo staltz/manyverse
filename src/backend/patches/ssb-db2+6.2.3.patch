@@ -1,0 +1,27 @@
+diff --git a/node_modules/ssb-db2/core.js b/node_modules/ssb-db2/core.js
+index 2bbe214..057789d 100644
+--- a/node_modules/ssb-db2/core.js
++++ b/node_modules/ssb-db2/core.js
+@@ -762,7 +762,9 @@ exports.init = function (sbot, config) {
+ 
+             push(
+               push.values(offsets),
+-              push.asyncMap(log.del),
++              push.asyncMap((offset, cb) => {
++                setTimeout(() => log.del(offset, cb))
++              }),
+               push.collect((err) => {
+                 // prettier-ignore
+                 if (err) return cb(clarify(err, 'deleteFeed() failed for feed ' + feedId))
+diff --git a/node_modules/ssb-db2/index.js b/node_modules/ssb-db2/index.js
+index 3205490..f7de23c 100644
+--- a/node_modules/ssb-db2/index.js
++++ b/node_modules/ssb-db2/index.js
+@@ -6,7 +6,6 @@ module.exports = [
+   require('./core'),
+   require('ssb-classic'),
+   require('ssb-box'),
+-  require('ssb-box2'),
+   require('./compat/publish'),
+   require('./compat/post'),
+   require('./migrate'),

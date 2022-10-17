@@ -28,9 +28,6 @@ async function exec(command, opts) {
     [
       'node node_modules/noderify/index.js',
 
-      // This module doesn't yet work with Electron, and we don't want Rust:
-      '--replace.ssb-validate2-rsjs-node=ssb-validate2',
-
       // Can't remember why we need to replace it, build seemed to fail:
       '--replace.node-extend=xtend',
 
