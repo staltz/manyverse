@@ -88,14 +88,15 @@ function prepareDesktopMainThread() {
   const {ipcMain} = require('electron');
 
   const webContentsPromise = (process as any).webContentsP as Promise<any>;
-  let webContents: {send: CallableFunction} | null = null;
+  type WebContents = import('electron').WebContents;
+  let webContents: WebContents | null = null;
   function sendToWebContents(channel: string, value: any) {
-    if (webContents) {
+    if (webContents && !webContents.isDestroyed()) {
       webContents.send(channel, value);
     } else {
       webContentsPromise.then((wc: NonNullable<typeof webContents>) => {
         webContents = wc;
-        webContents.send(channel, value);
+        sendToWebContents(channel, value);
       });
     }
   }
