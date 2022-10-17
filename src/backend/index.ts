@@ -32,6 +32,7 @@ function setupSentryNodejs(platform: 'mobile' | 'desktop') {
       if (!(process as any)._sentryEnabled) return null;
       delete event.user;
       delete event.breadcrumbs;
+      if (event.server_name) delete event.server_name;
       if (event.tags?.server_name) delete event.tags.server_name;
       event.tags ??= {};
       event.tags.side = 'backend';
