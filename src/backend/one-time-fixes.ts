@@ -145,6 +145,24 @@ async function oneTimeFixes() {
     mkdirp.sync(defaults.jitIndexesPath(SSB_DIR));
     moveJitIndexes();
   }
+
+  const ISSUE_2086 = path.join(SSB_DIR, 'issue2086');
+  if (!fs.existsSync(ISSUE_2086)) {
+    const idxs = defaults.indexesPath(SSB_DIR);
+    // rename canDecrypt.index to decrypted.index
+    const decryptedPathBad = path.join(idxs, 'canDecrypt.index');
+    const decryptedPathGood = path.join(idxs, 'decrypted.index');
+    if (fs.existsSync(decryptedPathBad)) {
+      fs.renameSync(decryptedPathBad, decryptedPathGood);
+    }
+    // rename encrypted.index to encrypted-box2.index
+    const encryptedBox2PathBad = path.join(idxs, 'encrypted.index');
+    const encryptedBox2PathGood = path.join(idxs, 'encrypted-box2.index');
+    if (fs.existsSync(encryptedBox2PathBad)) {
+      fs.renameSync(encryptedBox2PathBad, encryptedBox2PathGood);
+    }
+    fs.closeSync(fs.openSync(ISSUE_2086, 'w'));
+  }
 }
 
 export = oneTimeFixes;
