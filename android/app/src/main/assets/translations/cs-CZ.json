@@ -648,114 +648,114 @@
   "drawer": {
     "menu": {
       "my_profile": {
-        "label": "My profile",
-        "accessibility_label": "My Profile Menu Item"
+        "label": "Můj profil",
+        "accessibility_label": "Položka Menu Menu"
       },
       "raw_database": {
-        "label": "Raw database",
-        "accessibility_label": "Show Raw Database"
+        "label": "Neupravená databáze",
+        "accessibility_label": "Zobrazit neupravenou databázi"
       },
       "email_bug_report": {
-        "label": "Email bug report",
-        "accessibility_label": "Send Bug Report as Email"
+        "label": "Email zprávy o chybě",
+        "accessibility_label": "Odeslat hlášení o chybě jako e-mail"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "Pomozte nám s překladem",
+        "accessibility_label": "Otevřít stránku s překladem"
       },
       "more": {
-        "label": "More",
-        "accessibility_label": "Show more Menu items"
+        "label": "Více",
+        "accessibility_label": "Zobrazit více položek nabídky"
       },
       "update": {
-        "label": "Update",
-        "accessibility_label": "Update app to latest version"
+        "label": "Aktualizovat",
+        "accessibility_label": "Aktualizovat aplikaci na nejnovější verzi"
       },
       "settings": {
-        "label": "Settings",
-        "accessibility_label": "Go To Settings"
+        "label": "Nastavení",
+        "accessibility_label": "Přejít na nastavení"
       },
       "ready_estimate": {
-        "label": "Ready:"
+        "label": "Připraven:"
       }
     },
     "dialogs": {
       "update": {
-        "title": "Check for new versions?",
-        "description": "Would you like Manyverse to automatically check for new releases?\n\nThis setting is optional and will allow Manyverse to send requests to the manyver.se website periodically."
+        "title": "Zkontrolovat novou verzi?",
+        "description": "Přejete si, aby Manyverse automaticky kontroloval nové vydání?\n\nToto nastavení je volitelné a umožní Manyverse posílat žádosti na manyver.se webové stránky periodicky."
       }
     }
   },
   "invite_paste": {
-    "placeholder": "Paste an invite code",
+    "placeholder": "Vložit kód pozvánky",
     "call_to_action": {
       "accept": {
-        "accessibility_label": "Accept Invite Code"
+        "accessibility_label": "Přijmout kód pozvánky"
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "Nepodporovaný typ",
+      "description": "P2P Pozvánky již nejsou v Manyverse podporovány."
     },
     "text_field": {
-      "accessibility_label": "Invite Code Text Input"
+      "accessibility_label": "Textové pole Kódu pozvánky"
     }
   },
   "libraries": {
-    "title": "Third party libraries",
-    "description": "Manyverse makes use of the following open source libraries and components. We want to thank the authors of these libraries and link to their websites for proper attribution.",
+    "title": "Knihovny třetích stran",
+    "description": "Manyverse využívá následujících open source knihoven a komponentů. Chceme poděkovat autorům těchto knihoven a odkazovat na jejich webové stránky za jejich řádné zadání.",
     "image": {
-      "name": "Image {{name}}",
-      "attribution": " is created by {{author}}, licensed {{license}}"
+      "name": "Obrázek {{name}}",
+      "attribution": " bylo vytvořeno uživatelem {{author}}, licencováno {{license}}"
     }
   },
   "profile": {
     "call_to_action": {
-      "copy_uri": "Copy SSB URI",
-      "copy_cypherlink": "Copy cypherlink",
-      "private_chat": "Open private conversation",
-      "block": "Block",
-      "block_secretly": "Block secretly",
-      "unblock": "Unblock",
-      "unblock_secretly": "Unblock secretly",
-      "follow": "Follow",
+      "copy_uri": "Kopírovat SSB URI",
+      "copy_cypherlink": "Kopírovat cypherlink",
+      "private_chat": "Otevřít soukromou konverzaci",
+      "block": "Blokovat",
+      "block_secretly": "Zablokovat tajně",
+      "unblock": "Odblokovat",
+      "unblock_secretly": "Odblokovat tajně",
+      "follow": "Sledovat",
       "edit_profile": {
-        "label": "Edit profile",
-        "accessibility_label": "Edit Profile Button"
+        "label": "Upravit profil",
+        "accessibility_label": "Tlačítko Upravit profil"
       },
       "manage": {
-        "accessibility_label": "Manage Contact"
+        "accessibility_label": "Správa kontaktu"
       }
     },
     "dialog_ssb_id": {
       "title": "SSB ID"
     },
     "dialog_manage_contact": {
-      "title": "Contact"
+      "title": "Kontakt"
     },
     "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "title": "Žádost o přátelství",
+      "description": "Tento účet se pokouší spojit s vámi, ale Manyverse mu zabránil, protože jsou mimo vaši komunitu.\n\nPokud rozpoznáte toto ID, můžete stisknout tlačítko \"Sledovat\", aby se s vámi mohl spojit."
     },
     "dialog_about_storage_used": {
-      "title": "Storage used",
+      "title": "Využití úložiště",
       "description": {
-        "self": "Your content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by your blobs, such as images and audio messages.",
-        "others": "{{name}}'s content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by their blobs, such as images and audio messages."
+        "self": "Váš obsah (a související indexy) momentálně obsazuje {{megabytes}} úložiště ve vašem zařízení.\n\nToto číslo nezahrnuje úložiště obsazené vašimi bloby, jako jsou obrázky a zvukové zprávy.",
+        "others": "Obsah uživatele {{name}}(a související indexy) momentálně obsazuje {{megabytes}} úložiště ve vašem zařízení.\n\nToto číslo nezahrnuje úložiště obsazené jejich bloby, jako jsou obrázky a zvukové zprávy."
       }
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Zkopírovat do schránky"
     },
     "details": {
       "id": {
-        "accessibility_label": "SSB Identifier"
+        "accessibility_label": "SSB identifikátor"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "Číst biografii"
       },
       "counters": {
-        "following": "Following",
+        "following": "Sledovat",
         "followers": "Sledující",
         "friends_in_common": "Společní přátelé",
         "storage_used": "Obsazeno{{megabytes}}"
@@ -890,10 +890,10 @@
     "title": "Raw message"
   },
   "recipients_input": {
-    "title": "New message",
+    "title": "Nová zpráva",
     "call_to_action": {
       "proceed": {
-        "label": "Next",
+        "label": "Další",
         "accessibility_label": "Next Button"
       }
     },
@@ -1005,10 +1005,10 @@
         "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
-    "loading": "Loading..."
+    "loading": "Nahrávání..."
   },
   "settings": {
-    "title": "Settings",
+    "title": "Nastavení",
     "preferences": {
       "title": "Předvolby",
       "show_follows": {
@@ -1111,56 +1111,56 @@
         "3_normal": " na vašem zařízení"
       },
       "legend": {
-        "trash": "Trash ({{megabytes}})",
-        "content": "Content ({{megabytes}})",
-        "indexes": "Indexes ({{megabytes}})",
-        "blobs": "Blobs ({{megabytes}})"
+        "trash": "Koš ({{megabytes}})",
+        "content": "Obsah ({{megabytes}})",
+        "indexes": "Obsah ({{megabytes}})",
+        "blobs": "Bloby ({{megabytes}})"
       }
     },
     "trash": {
-      "title": "Trash",
-      "description": "The trash bin is made of blocked accounts. Compact your database to empty the trash bin.",
+      "title": "Koš",
+      "description": "Koš se skládá z blokovaných účtů. Komprimujte databázi pro vyprázdnění koše.",
       "compact": {
-        "label": "Compact",
-        "accessibility_label": "Compact your database"
+        "label": "Kompaktní",
+        "accessibility_label": "Komprimovat databázi"
       }
     },
     "dialogs": {
       "confirm_compact": {
-        "title": "Compact database?",
-        "description": "This action will remove the trash and rebuild database indexes. It typically lasts 2 minutes, and you must keep the app open without browsing content, waiting for it to complete.\n\nDo you want to continue?"
+        "title": "Komprimovat databázi?",
+        "description": "Tato akce odstraní koš a obnoví databázové indexy. Obvykle trvá 2 minuty a aplikace musí zůstat otevřená bez procházení obsahu. Počkejte na dokončení aplikace.\n\nPřejete si pokračovat?"
       }
     },
     "accounts": {
-      "title": "Accounts",
-      "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
-      "this_is_you": "This is you",
+      "title": "Účty",
+      "description": "Každý účet, který vidíte na vašem Manyverse, zaujímá určité množství místa na vašem zařízení. Chcete-li uvolnit prostor, můžete zablokovat účty, které již nechcete vidět.",
+      "this_is_you": "Tohle jste vy",
       "open_profile": {
-        "accessibility_label": "Open Profile"
+        "accessibility_label": "Otevřít profil"
       },
       "options_profile": {
-        "accessibility_label": "More options for this profile"
+        "accessibility_label": "Další možnosti pro tento profil"
       }
     }
   },
   "compact": {
-    "title": "Compacting your\nManyverse database..."
+    "title": "Komprimuji vaši\ndatabázi Manyvers..."
   },
   "indexing": {
-    "title": "Preparing database indexes... ({{progress}}%)",
+    "title": "Příprava indexů databáze... ({{progress}}%)",
     "info": {
-      "title": "What is happening here?",
+      "title": "Co se tady děje?",
       "description": "Your Manyverse installation has {{bytes}} of content that needs to be optimized before you can browse it. Database indexes help organize content into categories such as posts, reactions, follows, blocks, etc.\n\nThe app is busy building those indexes and making sense of them so that when you want to see how many followers an account has, the numbers have already been calculated, and when you want to see who reacted to a post, the list of reactions has already been collected, and so forth.\n\nTypically this doesn't take longer than 10 minutes. Hang in there!"
     }
   },
   "resync": {
     "introduction": {
-      "title": "Good!",
+      "title": "Dobrý!",
       "description": {
-        "1_normal": "Your account's ",
-        "2_bold": "identity",
+        "1_normal": "Vaše účty ",
+        "2_bold": "identita",
         "3_normal": " is now restored.\n\nNow, to recover your ",
-        "4_bold": "data",
+        "4_bold": "údaje",
         "5_normal": ", connect with friends that have interacted with you before, to redownload your data from them. There are two ways:"
       }
     },
