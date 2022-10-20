@@ -71,6 +71,7 @@ function createWindow() {
     width: windowState.width,
     height: windowState.height,
     autoHideMenuBar: true,
+    titleBarStyle: 'hiddenInset',
     backgroundColor: '#4263eb', // brandMain
     webPreferences: {
       nodeIntegration: true,

@@ -45,6 +45,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Palette.brandMain,
     flexDirection: 'column',
+    '-webkit-app-region': 'drag',
   },
 
   text: {

@@ -153,5 +153,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    '-webkit-app-region': 'drag',
   },
 });

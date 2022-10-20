@@ -37,6 +37,14 @@ SPDX-License-Identifier: MPL-2.0
         height: 100%;
         overflow: hidden;
       }
+      .draggable {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        -webkit-app-region: drag;
+      }
 
       /* Necessary elements to force loading of fonts ASAP */
       .font-checker-roboto {
@@ -67,6 +75,7 @@ SPDX-License-Identifier: MPL-2.0
   </head>
   <body>
     <div id="app">
+      <div class="draggable"></div>
       <div class="font-checker-roboto">x</div>
       <div class="font-checker-icons">x</div>
       <img class="splashlogo" src="./renderer-dist/logo_outline.png" />

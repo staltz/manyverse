@@ -25,6 +25,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Palette.brandMain,
     flexDirection: 'column',
+    ...Platform.select({
+      web: {
+        '-webkit-app-region': 'drag',
+      },
+    }),
   },
 
   bold: {

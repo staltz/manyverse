@@ -66,6 +66,11 @@ export const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
+    ...Platform.select({
+      web: {
+        '-webkit-app-region': 'drag',
+      },
+    }),
   },
 
   topDescription: {

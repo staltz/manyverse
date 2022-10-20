@@ -48,6 +48,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    ...Platform.select({
+      web: {
+        '-webkit-app-region': 'drag',
+      },
+    }),
   },
 
   innerContainer: {

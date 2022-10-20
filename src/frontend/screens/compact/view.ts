@@ -27,6 +27,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Palette.brandMain,
+    ...Platform.select({
+      web: {
+        '-webkit-app-region': 'drag',
+      },
+    }),
   },
 
   title: {
