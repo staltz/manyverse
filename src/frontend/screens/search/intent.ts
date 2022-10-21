@@ -89,6 +89,10 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
 
   const openMessageEtc$ = reactSource.select('feed').events<Msg>('pressEtc');
 
+  const openMessageShare$ = reactSource
+    .select('feed')
+    .events<Msg>('pressShare');
+
   const goToThreadExpandCW$ = reactSource
     .select('feed')
     .events<MsgAndExtras>('pressExpandCW');
@@ -107,6 +111,7 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     goToProfile$,
     goToAccounts$,
     openMessageEtc$,
+    openMessageShare$,
     goToThreadExpandCW$,
     addReactionMsg$,
   };

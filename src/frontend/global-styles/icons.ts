@@ -15,6 +15,7 @@ export const IconNames = {
   backButtonIOS: 'chevron-left',
   delete: 'delete',
   etc: 'dots-horizontal',
+  share: 'share-outline',
   etcDropdown: 'dots-vertical',
   enterFullScreen: 'arrow-expand',
   exitFullScreen: 'arrow-collapse',

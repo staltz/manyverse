@@ -15,6 +15,7 @@ import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';
 import messageEtc from '~frontend/components/messageEtc';
+import messageShare from '~frontend/components/messageShare';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';
@@ -52,6 +53,10 @@ export function publicTab(sources: Sources): Sinks {
     appear$: actions.openMessageEtc$,
     dialog: sources.dialog,
   });
+  const messageShareSinks = messageShare({
+    appear$: actions.openMessageShare$,
+    dialog: sources.dialog,
+  });
   const actionsPlus = {...actions, goToRawMsg$: messageEtcSinks.goToRawMsg$};
   const vdom$ = view(sources.state.stream, sources.ssb, sources.scrollToTop);
   const command$ = navigation(actionsPlus, sources.state.stream);
@@ -66,8 +71,8 @@ export function publicTab(sources: Sources): Sinks {
     state: reducer$,
     ssb: newContent$,
     asyncstorage: storageCommand$,
-    clipboard: messageEtcSinks.clipboard,
-    toast: messageEtcSinks.toast,
+    clipboard: messageShareSinks.clipboard,
+    toast: messageShareSinks.toast,
     fab: fabProps$,
   };
 }

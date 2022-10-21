@@ -543,6 +543,8 @@ declare module 'i18n-js' {
     | 'message.call_to_action.show_reactions.accessibility_label'
     | 'message.call_to_action.add_reaction.accessibility_label'
     | 'message.call_to_action.reply.accessibility_label'
+    | 'message.call_to_action.share.dialog_title'
+    | 'message.call_to_action.share.accessibility_label'
     | 'message.call_to_action.etc.dialog_title'
     | 'message.call_to_action.etc.accessibility_label'
     | 'message.call_to_action.copy_blob_id.accessibility_label'

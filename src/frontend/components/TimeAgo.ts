@@ -5,22 +5,17 @@
 import {PureComponent, createElement as $} from 'react';
 import {Text, StyleSheet} from 'react-native';
 import {Palette} from '~frontend/global-styles/palette';
-import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import LocalizedHumanTime from './LocalizedHumanTime';
 
 export const styles = StyleSheet.create({
   normal: {
-    marginTop: 1,
-    marginLeft: Dimensions.horizontalSpaceTiny,
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textWeak,
   },
 
   unread: {
-    marginTop: 1,
-    marginLeft: Dimensions.horizontalSpaceTiny,
     fontSize: Typography.fontSizeSmall,
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.textPositive,

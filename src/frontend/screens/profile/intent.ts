@@ -93,6 +93,8 @@ export default function intent(
 
     openMessageEtc$: reactSource.select('feed').events<Msg>('pressEtc'),
 
+    openMessageShare$: reactSource.select('feed').events<Msg>('pressShare'),
+
     refreshFeed$: reactSource.select('feed').events<any>('refresh'),
 
     aboutStorage$: reactSource.select('storageUsed').events<null>('press'),

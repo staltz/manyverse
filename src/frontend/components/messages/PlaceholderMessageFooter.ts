@@ -87,7 +87,7 @@ export default class PlaceholderFooter extends PureComponent<{}> {
           h(Icon, {
             size: Dimensions.iconSizeNormal,
             color: iconColor,
-            name: IconNames.etc,
+            name: IconNames.share,
           }),
         ]),
       ]),

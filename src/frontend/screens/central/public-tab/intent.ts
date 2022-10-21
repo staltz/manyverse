@@ -50,6 +50,10 @@ export default function intent(
 
     openMessageEtc$: reactSource.select('publicFeed').events<Msg>('pressEtc'),
 
+    openMessageShare$: reactSource
+      .select('publicFeed')
+      .events<Msg>('pressShare'),
+
     initializationDone$: reactSource
       .select('publicFeed')
       .events<void>('initialPullDone'),

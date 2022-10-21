@@ -115,6 +115,7 @@ interface Props {
   onPressExpandCW?: (msg: MsgAndExtras) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
+  onPressShare?: (msg: Msg) => void;
   yOffsetAnimVal?: Animated.Value;
 }
 
@@ -226,6 +227,7 @@ export default class Feed extends PureComponent<Props, State> {
       onPressAddReaction,
       onPressAuthor,
       onPressEtc,
+      onPressShare,
       onPressExpand,
       onPressExpandReplies,
       onPressExpandCW,
@@ -249,6 +251,7 @@ export default class Feed extends PureComponent<Props, State> {
       onPressAddReaction,
       onPressAuthor,
       onPressEtc,
+      onPressShare,
       onPressExpand,
     };
     return h(PullFlatList2, {

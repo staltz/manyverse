@@ -12,6 +12,7 @@ import {Req, SSBSource} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';
 import messageEtc from '~frontend/components/messageEtc';
+import messageShare from '~frontend/components/messageShare';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';
@@ -62,6 +63,11 @@ export function search(sources: Sources): Sinks {
     dialog: sources.dialog,
   });
 
+  const messageShareSinks = messageShare({
+    appear$: actions.openMessageShare$,
+    dialog: sources.dialog,
+  });
+
   const actionsPlus = {
     ...actions,
     goToRawMsg$: messageEtcSinks.goToRawMsg$,
@@ -82,7 +88,7 @@ export function search(sources: Sources): Sinks {
     navigation: command$,
     state: reducer$,
     ssb: newContent$,
-    clipboard: messageEtcSinks.clipboard,
-    toast: messageEtcSinks.toast,
+    clipboard: messageShareSinks.clipboard,
+    toast: messageShareSinks.toast,
   };
 }

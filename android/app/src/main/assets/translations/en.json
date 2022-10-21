@@ -1222,6 +1222,10 @@
       "reply": {
         "accessibility_label": "Reply Button"
       },
+      "share": {
+        "dialog_title": "Share",
+        "accessibility_label": "Share Button"
+      },
       "etc": {
         "dialog_title": "Message",
         "accessibility_label": "Etc Button"

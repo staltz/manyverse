@@ -34,6 +34,7 @@ export interface Props {
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
+  onPressShare?: (msg: Msg) => void;
   onPressExpand?: (msg: MsgAndExtras) => void;
   onPressExpandReplies?: (msg: MsgAndExtras) => void;
   onPressExpandCW?: (msg: MsgAndExtras) => void;
@@ -138,6 +139,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
       onPressReactions,
       onPressAuthor,
       onPressEtc,
+      onPressShare,
     } = this.props;
     const {root} = thread;
     const metadata = root.value._$manyverse$metadata;
@@ -158,6 +160,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
         name: metadata.about.name,
         imageUrl: metadata.about.imageUrl,
         onPressAuthor,
+        onPressEtc,
       }),
       hasCW
         ? h(ContentWarning, {
@@ -178,7 +181,7 @@ export default class ThreadCard extends PureComponent<Props, State> {
         onPressReactions,
         onPressAddReaction,
         onPressReply: this.onPressReplyHandler,
-        onPressEtc,
+        onPressShare,
       }),
     ]);
   }

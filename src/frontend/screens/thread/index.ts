@@ -16,6 +16,7 @@ import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';
 import messageEtc from '~frontend/components/messageEtc';
+import messageShare from '~frontend/components/messageShare';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
@@ -62,6 +63,10 @@ export function thread(sources: Sources): Sinks {
     appear$: actions.openMessageEtc$,
     dialog: sources.dialog,
   });
+  const messageShareSinks = messageShare({
+    appear$: actions.openMessageShare$,
+    dialog: sources.dialog,
+  });
   const actionsPlus = {...actions, goToRawMsg$: messageEtcSinks.goToRawMsg$};
   const reducer$ = model(
     sources.props,
@@ -84,8 +89,8 @@ export function thread(sources: Sources): Sinks {
     keyboard: dismiss$,
     state: reducer$,
     asyncstorage: storageCommand$,
-    clipboard: messageEtcSinks.clipboard,
-    toast: messageEtcSinks.toast,
+    clipboard: messageShareSinks.clipboard,
+    toast: messageShareSinks.toast,
     ssb: newContent$,
   };
 }

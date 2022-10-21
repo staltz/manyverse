@@ -47,6 +47,7 @@ export interface Props {
     gatheringId: string;
   }) => void;
   onPressEtc?: (msg: Msg) => void;
+  onPressShare?: (msg: Msg) => void;
 }
 
 interface State {

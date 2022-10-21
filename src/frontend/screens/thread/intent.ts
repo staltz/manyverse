@@ -103,6 +103,8 @@ export default function intent(
 
     openMessageEtc$: reactSource.select('thread').events<Msg>('pressEtc'),
 
+    openMessageShare$: reactSource.select('thread').events<Msg>('pressShare'),
+
     updateReplyText$: reactSource
       .select('reply-input')
       .events<string>('changeText'),

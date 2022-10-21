@@ -297,7 +297,7 @@ class ReplyButton extends PureComponent<{
   }
 }
 
-class EtcButton extends PureComponent<{onPress: () => void}> {
+class ShareButton extends PureComponent<{onPress: () => void}> {
   public render() {
     return h(
       withTitle(Touchable),
@@ -307,14 +307,16 @@ class EtcButton extends PureComponent<{onPress: () => void}> {
         onPress: this.props.onPress,
         accessible: true,
         accessibilityRole: 'button',
-        accessibilityLabel: t('message.call_to_action.etc.accessibility_label'),
+        accessibilityLabel: t(
+          'message.call_to_action.share.accessibility_label',
+        ),
       },
       [
         h(View, {style: styles.prominentButton, pointerEvents: 'box-only'}, [
           h(Icon, {
             size: Dimensions.iconSizeNormal,
             color: Palette.textWeak,
-            name: IconNames.etc,
+            name: IconNames.share,
           }),
         ]),
       ],
@@ -332,7 +334,7 @@ export interface Props {
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressReply?: () => void;
-  onPressEtc?: (msg: Msg) => void;
+  onPressShare?: (msg: Msg) => void;
 }
 
 interface State {
@@ -391,8 +393,8 @@ export default class MessageFooter extends Component<Props, State> {
     this.setState({showQuickEmojis: false, showFullEmojis: false});
   };
 
-  private onPressEtcHandler = () => {
-    this.props.onPressEtc?.(this.props.msg);
+  private onPressShareHandler = () => {
+    this.props.onPressShare?.(this.props.msg);
   };
 
   private findMyLatestReaction(): string | null {
@@ -518,7 +520,7 @@ export default class MessageFooter extends Component<Props, State> {
           onPress: props.onPressReply,
         }),
 
-        h(EtcButton, {key: 'etc', onPress: this.onPressEtcHandler}),
+        h(ShareButton, {key: 'share', onPress: this.onPressShareHandler}),
       ]),
     ]);
   }

@@ -14,6 +14,7 @@ import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import {Toast, Duration as ToastDuration} from '~frontend/drivers/toast';
 import {t} from '~frontend/drivers/localization';
 import messageEtc from '~frontend/components/messageEtc';
+import messageShare from '~frontend/components/messageShare';
 import manageContact from './manage-contact';
 import feedIdDialog from './feed-id-dialog';
 import intent from './intent';
@@ -54,6 +55,11 @@ export function profile(sources: Sources): Sinks {
 
   const messageEtcSinks = messageEtc({
     appear$: actions.openMessageEtc$,
+    dialog: sources.dialog,
+  });
+
+  const messageShareSinks = messageShare({
+    appear$: actions.openMessageShare$,
     dialog: sources.dialog,
   });
 
@@ -99,7 +105,7 @@ export function profile(sources: Sources): Sinks {
   );
 
   const clipboard$ = xs.merge(
-    messageEtcSinks.clipboard,
+    messageShareSinks.clipboard,
     feedIdDialogSinks.clipboard,
   );
 
@@ -139,7 +145,7 @@ export function profile(sources: Sources): Sinks {
     .flatten();
 
   const toast$ = xs.merge(
-    messageEtcSinks.toast,
+    messageShareSinks.toast,
     feedIdDialogSinks.toast,
     consumeAliasRequest$,
     consumeAliasResponse$,

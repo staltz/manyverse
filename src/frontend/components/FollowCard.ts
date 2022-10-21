@@ -31,6 +31,7 @@ export interface Props {
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
   onPressEtc?: (msg: Msg) => void;
+  onPressShare?: (msg: Msg) => void;
   onPressExpand?: (msg: MsgAndExtras) => void;
 }
 
@@ -64,6 +65,7 @@ export default class FollowCard extends PureComponent<Props> {
       onPressReactions,
       onPressAuthor,
       onPressEtc,
+      onPressShare,
     } = this.props;
     const {root} = thread;
     const metadata = root.value._$manyverse$metadata;
@@ -81,6 +83,7 @@ export default class FollowCard extends PureComponent<Props> {
         name: metadata.about.name,
         imageUrl: metadata.about.imageUrl,
         onPressAuthor,
+        onPressEtc,
       }),
       h(ContactBody, {
         msg: root as MsgAndExtras<ContactContent>,
@@ -98,7 +101,7 @@ export default class FollowCard extends PureComponent<Props> {
         onPressReactions,
         onPressAddReaction,
         onPressReply: this.onPressReplyHandler,
-        onPressEtc,
+        onPressShare,
       }),
     ]);
   }

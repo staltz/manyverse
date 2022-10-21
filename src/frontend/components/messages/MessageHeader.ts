@@ -11,7 +11,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {h} from '@cycle/react';
-import {FeedId} from 'ssb-typescript';
+import {FeedId, Msg} from 'ssb-typescript';
 import {MsgAndExtras} from '~frontend/ssb/types';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {Palette} from '~frontend/global-styles/palette';
@@ -19,6 +19,9 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import Avatar from '~frontend/components/Avatar';
 import TimeAgo from '~frontend/components/TimeAgo';
+import HeaderButton from '~frontend/components/HeaderButton';
+import {t} from '~frontend/drivers/localization';
+import {IconNames} from '~frontend/global-styles/icons';
 
 /**
  * In pixels.
@@ -57,23 +60,6 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     color: Palette.text,
   },
-
-  timestamp: {
-    marginTop: 1,
-    marginLeft: Dimensions.horizontalSpaceTiny,
-    fontSize: Typography.fontSizeSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textWeak,
-  },
-
-  timestampUnread: {
-    marginTop: 1,
-    marginLeft: Dimensions.horizontalSpaceTiny,
-    fontSize: Typography.fontSizeSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    fontWeight: 'bold',
-    color: Palette.textPositive,
-  },
 });
 
 export interface Props {
@@ -83,6 +69,7 @@ export interface Props {
   imageUrl: string | null;
   unread?: boolean;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressEtc?: (msg: Msg) => void;
 }
 
 export default class MessageHeader extends Component<Props> {
@@ -111,7 +98,12 @@ export default class MessageHeader extends Component<Props> {
     );
   }
 
-  private _renderAuthorName(name: string | undefined, id: FeedId) {
+  private _renderAuthorName(
+    name: string | undefined,
+    id: FeedId,
+    timestamp: number,
+    unread: boolean | undefined,
+  ) {
     return h(
       TouchableOpacity,
       {
@@ -121,18 +113,25 @@ export default class MessageHeader extends Component<Props> {
         style: styles.authorNameTouchable,
       },
       [
-        h(
-          Text,
-          {
-            numberOfLines: 1,
-            ellipsizeMode: 'middle',
-            style: styles.authorName,
-          },
-          displayName(name, id),
-        ),
+        h(View, {style: styles.authorNameSection}, [
+          h(
+            Text,
+            {
+              numberOfLines: 1,
+              ellipsizeMode: 'middle',
+              style: styles.authorName,
+            },
+            displayName(name, id),
+          ),
+          h(TimeAgo, {timestamp, unread: unread ?? false}),
+        ]),
       ],
     );
   }
+
+  private _onPressEtc = () => {
+    this.props.onPressEtc?.(this.props.msg);
+  };
 
   public render() {
     const {msg, name, imageUrl} = this.props;
@@ -150,8 +149,20 @@ export default class MessageHeader extends Component<Props> {
           style: styles.authorAvatar,
         }),
       ]),
-      this._renderAuthorName(name, msg.value.author),
-      h(TimeAgo, {timestamp: msg.value.timestamp, unread: unread ?? false}),
+      this._renderAuthorName(
+        name,
+        msg.value.author,
+        msg.value.timestamp,
+        unread,
+      ),
+      h(HeaderButton, {
+        key: 'etc',
+        onPress: this._onPressEtc,
+        icon: IconNames.etcDropdown,
+        accessibilityLabel: t('message.call_to_action.etc.accessibility_label'),
+        side: 'neutral',
+        color: Palette.textWeak,
+      }),
     ]);
   }
 }

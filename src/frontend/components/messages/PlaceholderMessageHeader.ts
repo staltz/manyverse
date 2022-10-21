@@ -5,8 +5,10 @@
 import {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {h} from '@cycle/react';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {IconNames} from '~frontend/global-styles/icons';
 import MessageHeader from './MessageHeader';
 
 export const styles = StyleSheet.create({
@@ -48,7 +50,7 @@ export const styles = StyleSheet.create({
   },
 
   timestamp: {
-    width: 100,
+    width: 90,
     height: 16,
     minHeight: 16,
     marginTop: 2,
@@ -56,16 +58,35 @@ export const styles = StyleSheet.create({
       ? Palette.voidStronger
       : Palette.voidWeak,
   },
+
+  buttonArea: {
+    maxWidth: 36,
+    maxHeight: 36,
+    borderRadius: 18,
+    marginRight: Dimensions.horizontalSpaceSmall,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
+
+const iconColor = Palette.isDarkTheme ? Palette.voidStrong : Palette.voidMain;
 
 export default class PlaceholderHeader extends PureComponent<{}> {
   public render() {
     return h(View, {style: styles.container}, [
       h(View, {key: 'a', style: styles.authorAvatar}),
       h(View, {key: 'b', style: styles.authorNameTouchable}, [
-        h(View, {style: styles.authorName}),
+        h(View, {key: 'b1', style: styles.authorName}),
+        h(View, {key: 'b2', style: styles.timestamp}),
       ]),
-      h(View, {key: 'c', style: styles.timestamp}),
+      h(View, {key: 'c', style: styles.buttonArea}, [
+        h(Icon, {
+          size: Dimensions.iconSizeNormal,
+          color: iconColor,
+          name: IconNames.etcDropdown,
+        }),
+      ]),
     ]);
   }
 }
