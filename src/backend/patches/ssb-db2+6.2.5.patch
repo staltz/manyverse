@@ -1,12 +1,11 @@
 diff --git a/node_modules/ssb-db2/core.js b/node_modules/ssb-db2/core.js
-index 2bbe214..057789d 100644
+index ab5f1b6..22f6064 100644
 --- a/node_modules/ssb-db2/core.js
 +++ b/node_modules/ssb-db2/core.js
-@@ -762,7 +762,9 @@ exports.init = function (sbot, config) {
- 
+@@ -764,6 +764,9 @@ exports.init = function (sbot, config) {
              push(
                push.values(offsets),
--              push.asyncMap(log.del),
+               push.asyncMap(log.del),
 +              push.asyncMap((offset, cb) => {
 +                setTimeout(() => log.del(offset, cb))
 +              }),
