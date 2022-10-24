@@ -289,32 +289,34 @@ export default class Feed extends PureComponent<Props, State> {
       ListEmptyComponent: EmptyComponent,
       renderItem: ({item}: any) => {
         const thread = item as ThreadSummaryWithExtras;
-        const card = () => {
-          switch (thread?.root?.value?.content?.type) {
-            case 'contact':
-              return h(FollowCard, {
-                ...cardsCommonProps,
-                thread,
-              });
+        let card: ReactElement<any> | null = null;
+        switch (thread?.root?.value?.content?.type) {
+          case 'contact':
+            card = h(FollowCard, {
+              ...cardsCommonProps,
+              thread,
+            });
+            break;
 
-            case 'gathering':
-              return h(GatheringCard, {
-                ...cardsCommonProps,
-                onPressExpandReplies,
-                thread,
-              });
+          case 'gathering':
+            card = h(GatheringCard, {
+              ...cardsCommonProps,
+              onPressExpandReplies,
+              thread,
+            });
+            break;
 
-            default:
-              return h(ThreadCard, {
-                ...cardsCommonProps,
-                thread,
-                onPressExpandReplies,
-                onPressExpandCW,
-              });
-          }
-        };
+          default:
+            card = h(ThreadCard, {
+              ...cardsCommonProps,
+              thread,
+              onPressExpandReplies,
+              onPressExpandCW,
+            });
+            break;
+        }
 
-        return h(View, {style: styles.itemContainer}, [card(), h(Separator)]);
+        return h(View, {style: styles.itemContainer}, [card, h(Separator)]);
       },
     });
   }
