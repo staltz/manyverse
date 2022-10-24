@@ -467,7 +467,7 @@
       },
       "invite_note": {
         "label": "Přidat poznámku",
-        "accessibility_label": "Add Reminder Note To Self"
+        "accessibility_label": "Přidat poznámku k připomenutí"
       },
       "invite_share": {
         "label": "Sdílet",
@@ -643,7 +643,7 @@
   },
   "dialog_thanks": {
     "title": "Děkujeme!",
-    "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
+    "description": "Vývoj této aplikace byl podporován granty od {{sponsor1}} a {{sponsor2}}, a dary od:\n\n**{{topBackers}}**, a [sto dalších]({{donateLink}}). Díky!"
   },
   "drawer": {
     "menu": {
@@ -827,7 +827,7 @@
       },
       "description": {
         "label": "Bio",
-        "accessibility_label": "Biography Text Input"
+        "accessibility_label": "Text pro biografii"
       },
       "aliases": {
         "label": "Přezdívky"
@@ -887,122 +887,122 @@
     }
   },
   "raw_msg": {
-    "title": "Raw message"
+    "title": "Neupravená zpráva"
   },
   "recipients_input": {
     "title": "Nová zpráva",
     "call_to_action": {
       "proceed": {
         "label": "Další",
-        "accessibility_label": "Next Button"
+        "accessibility_label": "Další tlačítko"
       }
     },
     "fields": {
       "mention_input": {
-        "placeholder": "Search for people to add",
-        "accessibility_label": "Mention Account Text Input"
+        "placeholder": "Hledat lidi pro přidání",
+        "accessibility_label": "Textový vstup do zmíněného účtu"
       }
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "Vybrat členy",
+        "description": "Zadejte jména\nlidí, kteří se chtějí připojit k novému chatu"
       },
       "none_to_choose": {
-        "title": "No one",
-        "description": "There is nobody in your\ncommunity with that name"
+        "title": "Nikdo",
+        "description": "Ve vaší\nkomunitě není nikdo s tímto jménem"
       }
     },
     "toasts": {
-      "limit_reached": "Cannot choose more than {{limit}} recipients"
+      "limit_reached": "Nelze vybrat více než {{limit}} příjemců"
     }
   },
   "search": {
     "query_input": {
-      "placeholder": "Search public posts",
-      "accessibility_label": "Search Query Text Input"
+      "placeholder": "Prohledat veřejné příspěvky",
+      "accessibility_label": "Vyhledávání textu dotazu"
     },
     "clear_query": {
-      "accessibility_label": "Reset the Search Query Text Input"
+      "accessibility_label": "Resetovat vstup textu dotazu"
     },
     "empty": {
       "initial": {
-        "title": "Search something",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "Hledat něco",
+        "description": "Počkejte, než se aplikace\n připojí k vašim klientům"
       },
       "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
+        "title": "Bez výsledků",
+        "description": "Nenalezeno nic pro \"{{query}}\""
       }
     }
   },
   "secret_input": {
     "practice": {
-      "title": "Practice",
-      "header": "Repeat it to confirm it is correct:"
+      "title": "Cvičení",
+      "header": "Opakujte pro potvrzení, že je zo správné:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "Obnovit účet"
     },
-    "header": "Carefully input your recovery phrase",
+    "header": "Pečlivě zadejte vaše obnovovací fráze",
     "call_to_action": {
       "confirm": {
-        "label": "Confirm",
-        "accessibility_label": "Confirm Recovery Phrase Button"
+        "label": "Potvrdit",
+        "accessibility_label": "Potvrdit fráze obnovení"
       }
     },
     "fields": {
       "words_input": {
-        "placeholder": "24-word (or 48-word) recovery phrase",
-        "accessibility_label": "Recovery Phrase Text Input"
+        "placeholder": "24-slovní (nebo 48slovní) fráze pro obnovení",
+        "accessibility_label": "Fráze textu pro obnovení"
       }
     },
     "dialogs": {
       "practice": {
         "correct": {
-          "title": "Correct!",
-          "description": "Your account's identity is now secure because you know the recovery phrase."
+          "title": "Správně!",
+          "description": "Identita vašeho účtu je nyní zabezpečená, protože znáte fráze k obnově."
         },
         "incorrect": {
-          "title": "Incorrect",
-          "description": "Try again: write down your recovery phrase consisting of 24 words separated by whitespace."
+          "title": "Špatně",
+          "description": "Zkuste to znovu: zapište svá obnovovací fráze, která se skládá z 24 slov oddělených mezerou."
         }
       },
       "restore": {
         "incorrect": {
-          "title": "Incorrect",
+          "title": "Špatně",
           "description": {
-            "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
-            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
-            "too_short": "There are some words missing. Your recovery phrase should be 24 words long.",
-            "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
-            "wrong_length": "Your recovery phrase should be exactly 24 words long.",
-            "generic": "The recovery phrase you gave does not look like a valid identity generated by Manyverse."
+            "try_again": "Zkuste to znovu vložením Vašich klíčových slov pro zotavení, které se skládá z 24 slov oddělených mezerou.",
+            "overwrite_risk": "Účet v aplikaci již existuje, nemůžeme jej přepsat. Pokud jste si jisti, že chcete přepsat, odinstalovat a znovu nainstalovat Manyverse, abyste obnovili svůj účet z čistého stavu.",
+            "too_short": "Chybí pár slov. Vaše obnovovací slova by měla být 24 slov.",
+            "too_long": "Příliš mnoho slov. Vaše obnovovací slova by měla být přesně 24 slov.",
+            "wrong_length": "Vaše obnovovací fráze by měla být přesně 24 slov.",
+            "generic": "Předaná fráze pro obnovení nevypadá jako platná identita generovaná Manyverse."
           }
         }
       }
     }
   },
   "secret_output": {
-    "title": "Recovery Phrase",
+    "title": "Fráze pro obnovení",
     "header": {
-      "1_normal": "Carefully write down the following recovery phrase on a ",
-      "2_bold": "piece of paper",
+      "1_normal": "Pečlivě zapište následující frázi na ",
+      "2_bold": "kus papíru",
       "3_normal": ""
     },
     "footer": {
-      "1_normal": "Keep it ",
-      "2_bold": "confidential",
-      "3_normal": ", and\ntake sole ",
-      "4_bold": "responsibility",
-      "5_normal": " over it"
+      "1_normal": "Zachovat ",
+      "2_bold": "důvěrné",
+      "3_normal": ", a\nvzít jazyk ",
+      "4_bold": "odpovědnost",
+      "5_normal": " přes to"
     },
     "words": {
-      "accessibility_label": "Secret Words"
+      "accessibility_label": "Tajná slova"
     },
     "call_to_action": {
       "confirm": {
-        "accessibility_label": "Confirm Recovery Phrase Button"
+        "accessibility_label": "Potvrdit fráze obnovení"
       }
     },
     "loading": "Nahrávání..."
@@ -1150,7 +1150,7 @@
     "title": "Příprava indexů databáze... ({{progress}}%)",
     "info": {
       "title": "Co se tady děje?",
-      "description": "Your Manyverse installation has {{bytes}} of content that needs to be optimized before you can browse it. Database indexes help organize content into categories such as posts, reactions, follows, blocks, etc.\n\nThe app is busy building those indexes and making sense of them so that when you want to see how many followers an account has, the numbers have already been calculated, and when you want to see who reacted to a post, the list of reactions has already been collected, and so forth.\n\nTypically this doesn't take longer than 10 minutes. Hang in there!"
+      "description": "Vaše instalace Manyverse obsahuje {{bytes}} obsahu, který je třeba optimalizovat, než jej budete moci procházet. Databázové indexy pomáhají uspořádat obsah do kategorií, jako jsou příspěvky, odpovědi, sledování, bloky atd.\n\nAplikace má plné ruce práce s vytvářením těchto indexů a jejich smysluplným uspořádáním, takže když se chcete podívat, kolik má účet sledujících, čísla již byla spočítána, a když se chcete podívat, kdo reagoval na příspěvek, seznam odpovědí již byl shromážděn atd.\n\nObvykle to netrvá déle než 10 minut. Vydržte!"
     }
   },
   "resync": {
@@ -1159,77 +1159,77 @@
       "description": {
         "1_normal": "Vaše účty ",
         "2_bold": "identita",
-        "3_normal": " is now restored.\n\nNow, to recover your ",
+        "3_normal": " je nyní obnoven.\n\nNyní k obnovení ",
         "4_bold": "údaje",
-        "5_normal": ", connect with friends that have interacted with you before, to redownload your data from them. There are two ways:"
+        "5_normal": ", spojte se s přáteli, kteří s vámi dříve komunikovali, a stáhněte si od nich znovu svá data. Existují dva způsoby:"
       }
     },
     "buttons": {
-      "connect_via_wifi": "Connect via Wi-Fi",
-      "paste_invite": "Paste invite code"
+      "connect_via_wifi": "Připojit přes Wi-Fi",
+      "paste_invite": "Vložit kód pozvánky"
     },
     "instructions": {
       "connect_via_wifi": {
-        "title": "Connect via Wi-Fi",
-        "description": "Just connect this device to the same local Wi-Fi as other devices are, keep Manyverse open on those devices, and your data will automatically sync to this device."
+        "title": "Připojit přes Wi-Fi",
+        "description": "Stačí připojit toto zařízení ke stejné místní Wi-Fi jako ostatní zařízení, ponechat Manyverse na těchto zařízeních otevřený a vaše data se automaticky synchronizují s tímto zařízením."
       }
     },
     "progress": {
-      "title": "Redownloading data: {{megabytes}}",
-      "description": "Please wait while your data is being recovered from friends."
+      "title": "Opětovné získávání dat: {{megabytes}}",
+      "description": "Počkejte prosím, než budou data od přátel obnovena."
     }
   },
   "thread": {
-    "title": "Thread",
+    "title": "Diskuse",
     "call_to_action": {
       "expand_reply": {
-        "accessibility_label": "Expand Reply Button"
+        "accessibility_label": "Rozbalit tlačítko odpovědi"
       },
       "publish_reply": {
-        "accessibility_label": "Reply Publish Button"
+        "accessibility_label": "Tlačítko Zveřejnit odpověď"
       }
     },
     "fields": {
       "reply": {
-        "placeholder": "Comment",
-        "accessibility_label": "Reply Text Input"
+        "placeholder": "Komentář",
+        "accessibility_label": "Vstup textu odpovědi"
       }
     },
-    "loading_replies": "Loading replies...",
+    "loading_replies": "Načítám odpovědi...",
     "empty": {
       "missing": {
-        "title": "Missing data",
-        "description": "You don't yet have data\nfor the message known by the ID\n"
+        "title": "Chybějící údaje",
+        "description": "Zatím nemáte data\nke zprávě známé ID\n"
       },
       "blocked": {
-        "title": "Blocked thread",
-        "description": "You have chosen to block\nthe author of this thread"
+        "title": "Blokovaná diskuse",
+        "description": "Rozhodli jste se zablokovat\nautora této diskuse"
       },
       "incompatible": {
-        "title": "Sorry",
-        "description": "This app doesn't know how to process\nand display this thread correctly"
+        "title": "Promiňte",
+        "description": "Tato aplikace neví, jak správně zpracovat\na zobrazit toto vlákno"
       }
     }
   },
   "message": {
     "call_to_action": {
       "show_reactions": {
-        "accessibility_label": "Show Reactions"
+        "accessibility_label": "Zobrazit odpovědi"
       },
       "add_reaction": {
-        "accessibility_label": "Add Reaction Button"
+        "accessibility_label": "Přidat odpověď Tlačítko"
       },
       "reply": {
-        "accessibility_label": "Reply Button"
+        "accessibility_label": "Tlačítko Odpovědět"
       },
       "etc": {
-        "dialog_title": "Message",
-        "accessibility_label": "Etc Button"
+        "dialog_title": "Zpráva",
+        "accessibility_label": "Tlačítko Etc"
       },
       "copy_blob_id": {
-        "accessibility_label": "Copy Blob ID"
+        "accessibility_label": "Kopírovat ID blob"
       },
-      "copy_msg_uri": "Copy SSB URI",
+      "copy_msg_uri": "Kopírovat SSB URI",
       "copy_msg_id": "Kopírovat cypherlink",
       "view_raw": "Zobrazit syrovou zprávu"
     },
@@ -1351,20 +1351,20 @@
       "unblock_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " unblocked ",
+        "3_normal": " odblokování ",
         "4_bold": "{{target}}",
         "5_normal": ""
       }
     }
   },
   "context_menu": {
-    "copy": "Copy",
-    "copy_link": "Copy link",
-    "cut": "Cut",
-    "inspect": "Inspect element",
-    "look_up_selection": "Look up {selection}",
-    "paste": "Paste",
-    "save_image": "Save image",
-    "save_image_as": "Save image as..."
+    "copy": "Kopie",
+    "copy_link": "Kopírovat odkaz",
+    "cut": "Vyjmout",
+    "inspect": "Zkontrolovat prvek",
+    "look_up_selection": "Podívejte se na {selection}",
+    "paste": "Vložit",
+    "save_image": "Uložit obrázek",
+    "save_image_as": "Uložit obrázek jako..."
   }
 }
