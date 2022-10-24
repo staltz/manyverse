@@ -5,7 +5,7 @@
     "done": "Готово",
     "cancel": "Скасувати",
     "continue": "Продовжити",
-    "read_more": "Read more",
+    "read_more": "Читати більше",
     "delete": "Видалити",
     "remove": "Вилучити",
     "save": "Зберегти",
@@ -177,7 +177,7 @@
       },
       "link_failed": {
         "title": "Обліковий запис не готовий",
-        "description": "You tried to open an SSB link, but your account is not ready yet. Please complete the setup process first, and then try the link again."
+        "description": "Ви спробували відкрити посилання SSB, але ваш обліковий запис ще не готовий. Будь ласка, спочатку завершіть процес установки, а потім спробуйте ще раз."
       }
     }
   },
@@ -246,7 +246,7 @@
       "title": "Реакції"
     },
     "gathering_attendees": {
-      "title": "Attendees"
+      "title": "Учасники"
     },
     "recipients": {
       "title": "Отримувачі"
@@ -339,14 +339,14 @@
           "not_connected": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",
           "connected": "If you want to get more content beyond what you already have, you can follow more people. There are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them."
         },
-        "part2": "On the next screen, you will see unknown peers displayed like this. Press one of them and choose \"Open Profile\", then \"Follow\"."
+        "part2": "На наступному екрані ви побачите незнайомців, схожих на цього. Натисніть на одного із них і виберіть «Відкрити профіль», потім натисніть «Стежити»."
       }
     },
     "toasts": {
       "invite_accepted": "Запрошення прийнято",
       "invite_rejected": "Запрошення відхилено. Ви впевнені, що воно вірне?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
+      "connecting_to_alias": "Підключення до {{alias}}",
+      "connected_to_alias": "Підключено до {{alias}}",
       "not_connected_to_alias": "{{alias}} зараз поза мережею"
     },
     "dialogs": {

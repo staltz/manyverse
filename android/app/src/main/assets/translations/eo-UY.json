@@ -1,119 +1,119 @@
 {
   "call_to_action": {
-    "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "read_more": "Read more",
-    "delete": "Delete",
-    "remove": "Remove",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "ok": "Konsentite",
+    "add": "Aldoni",
+    "done": "Farite",
+    "cancel": "Nuligi",
+    "continue": "Daŭrigi",
+    "read_more": "Legi pli",
+    "delete": "Forigi",
+    "remove": "Forigi",
+    "save": "Savi",
+    "yes": "Jes",
+    "no": "Ne",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "Menubutono"
     },
     "go_back": {
-      "label": "Go back",
-      "accessibility_label": "Back Button"
+      "label": "Reiri",
+      "accessibility_label": "Reen Butono"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Fermi Butonon"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "Fermu Dialoga Butono"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "Ĉu malfermi ligilon?",
+      "description": "Ĉu vi volas malfermi {{link}} en via retumilo?"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "Antaŭ 1 jaro",
+          "other": "Antaŭ {{count}} jaroj"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "Antaŭ 1 monato",
+          "other": "Antaŭ {{count}} monatoj"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "Antaŭ 1 semajno",
+          "other": "Antaŭ {{count}} semajnoj"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "Antaŭ 1 tago",
+          "other": "Antaŭ {{count}} tagoj"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "Antaŭ 1 horo",
+          "other": "Antaŭ {{count}} horoj"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "Antaŭ 1 minuto",
+          "other": "Antaŭ {{count}} minutoj"
         },
-        "now": "Just now"
+        "now": "Ĵus nun"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "1 jaron de nun",
+          "other": "{{count}} jarojn de nun"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1 monaton de nun",
+          "other": "{{count}} monatojn de nun"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "1 semajnon de nun",
+          "other": "{{count}} semajnojn de nun"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "1 tagon de nun",
+          "other": "{{count}} tagojn de nun"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "1 horon de nun",
+          "other": "{{count}} horojn de nun"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "1 minuton de nun",
+          "other": "{{count}} minutojn de nun"
         },
-        "now": "Very soon"
+        "now": "Tre baldaŭ"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Por lerni pli",
     "overview": {
-      "title": "Welcome to Manyverse!",
+      "title": "Bonvenon al Manyverse!",
       "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
     },
     "off_the_grid": {
       "title": "Off the grid",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse povas uzi interretan konekton, sed ĝi ne estas ",
+        "2_bold": "en",
+        "3_normal": " la interreto. Ĉio okazas ĝuste ĉi tie sur via aparato. Ĉi tio signifas, ke vi povas uzi ĝin kiel kutime eĉ kiam eksterrete! Via ",
+        "4_bold": "enhavo estas stokita unue en via aparato",
+        "5_normal": ", kaj vi povas sinkronigi ĝin kun amikoj post kiam vi konektos kun ili."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Multaj manieroj konekti",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
+          "1_normal": "Por konektiĝi kun proksimaj amikoj kaj sinkronigi enhavon, vi povas konektiĝi al la sama ",
           "2_bold": "Wi-Fi",
-          "3_normal": ". To find new people on the internet, look for an invite code to a ",
-          "4_bold": "pub server",
-          "5_normal": " or a ",
-          "6_bold": "room server",
-          "7_normal": ", or start your own server!"
+          "3_normal": ". Por trovi novajn homojn en la interreto, serĉu invitkodon al ",
+          "4_bold": "pubservilo",
+          "5_normal": " aŭ ",
+          "6_bold": "ĉambroservilo",
+          "7_normal": ", aŭ komencu vian propran servilon!"
         },
         "default": {
           "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
