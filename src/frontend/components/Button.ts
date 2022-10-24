@@ -103,8 +103,20 @@ export default class Button extends Component<Props, {}> {
 
   public shouldComponentUpdate(nextProps: Props) {
     const props = this.props;
-    return nextProps.text !== props.text || nextProps.strong !== props.strong;
+    if (nextProps.text !== props.text) return true;
+    if (nextProps.onPress !== props.onPress) return true;
+    if (nextProps.strong !== props.strong) return true;
+    if (nextProps.small !== props.small) return true;
+    if (nextProps.style !== props.style) return true;
+    if (nextProps.textStyle !== props.textStyle) return true;
+    if (nextProps.accessible !== props.accessible) return true;
+    if (nextProps.accessibilityLabel !== props.accessibilityLabel) return true;
+    return false;
   }
+
+  private _onPress = () => {
+    this.props.onPress?.();
+  };
 
   public render() {
     const {
@@ -118,11 +130,7 @@ export default class Button extends Component<Props, {}> {
     } = this.props;
 
     const touchableProps: any = {
-      onPress: () => {
-        if (this.props.onPress) {
-          this.props.onPress();
-        }
-      },
+      onPress: this._onPress,
       accessible,
       accessibilityRole: 'button',
       accessibilityLabel,

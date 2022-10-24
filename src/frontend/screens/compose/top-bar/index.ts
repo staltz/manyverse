@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
 import {h} from '@cycle/react';
@@ -117,72 +118,77 @@ function intent(reactSource: ReactSource) {
 }
 
 function view(state$: Stream<State>) {
-  return state$.map((state) =>
-    h(View, {style: styles.container}, [
-      h(View, {style: styles.innerContainer}, [
-        h(HeaderButton, {
-          key: 'b',
-          sel: 'composeCloseButton',
-          icon: state.previewing
-            ? IconNames.compose
-            : state.isReply
-            ? IconNames.exitFullScreen
-            : Platform.OS === 'ios'
-            ? IconNames.backButtonIOS
-            : IconNames.backButton,
-          ...Platform.select({
-            ios:
-              !state.previewing && !state.isReply
-                ? {iconSize: Dimensions.iconSizeLarge}
-                : undefined,
+  return state$
+    .compose(dropRepeatsByKeys(['enabled', 'isReply', 'previewing']))
+    .map((state) =>
+      h(View, {key: 'c', style: styles.container}, [
+        h(View, {key: 'ic', style: styles.innerContainer}, [
+          h(HeaderButton, {
+            key: 'b1',
+            sel: 'composeCloseButton',
+            icon: state.previewing
+              ? IconNames.compose
+              : state.isReply
+              ? IconNames.exitFullScreen
+              : Platform.OS === 'ios'
+              ? IconNames.backButtonIOS
+              : IconNames.backButton,
+            ...Platform.select({
+              ios:
+                !state.previewing && !state.isReply
+                  ? {iconSize: Dimensions.iconSizeLarge}
+                  : undefined,
+            }),
+            accessibilityLabel: t(
+              'compose.call_to_action.close.accessibility_label',
+            ),
           }),
-          accessibilityLabel: t(
-            'compose.call_to_action.close.accessibility_label',
-          ),
-        }),
 
-        h(View, {key: 'v', style: styles.buttonsRight}, [
-          h(Button, {
-            sel: 'composeDoneButton',
-            strong: state.enabled,
-            style: [
-              // Colors:
-              state.enabled && !state.previewing
-                ? styles.buttonEnabled
-                : state.enabled && state.previewing
-                ? styles.buttonEnabledStrong
-                : styles.buttonDisabled,
+          h(View, {key: 'v', style: styles.buttonsRight}, [
+            h(Button, {
+              key: 'b2',
+              sel: 'composeDoneButton',
+              strong: state.enabled,
+              style: [
+                // Colors:
+                state.enabled && !state.previewing
+                  ? styles.buttonEnabled
+                  : state.enabled && state.previewing
+                  ? styles.buttonEnabledStrong
+                  : styles.buttonDisabled,
 
-              // Width:
-              !state.previewing
-                ? styles.previewButton
+                // Width:
+                !state.previewing
+                  ? styles.previewButton
+                  : state.isReply
+                  ? styles.replyButton
+                  : styles.publishButton,
+              ],
+              textStyle: state.enabled
+                ? styles.buttonTextEnabled
+                : styles.buttonTextDisabled,
+
+              text: !state.previewing
+                ? t('compose.call_to_action.preview.label')
                 : state.isReply
-                ? styles.replyButton
-                : styles.publishButton,
-            ],
-            textStyle: state.enabled
-              ? styles.buttonTextEnabled
-              : styles.buttonTextDisabled,
+                ? t('compose.call_to_action.reply_to_thread.label')
+                : t('compose.call_to_action.publish_new_thread.label'),
 
-            text: !state.previewing
-              ? t('compose.call_to_action.preview.label')
-              : state.isReply
-              ? t('compose.call_to_action.reply_to_thread.label')
-              : t('compose.call_to_action.publish_new_thread.label'),
-
-            accessible: true,
-            accessibilityLabel: !state.previewing
-              ? t('compose.call_to_action.preview.accessibility_label')
-              : state.isReply
-              ? t('compose.call_to_action.reply_to_thread.accessibility_label')
-              : t(
-                  'compose.call_to_action.publish_new_thread.accessibility_label',
-                ),
-          }),
+              accessible: true,
+              accessibilityLabel: !state.previewing
+                ? t('compose.call_to_action.preview.accessibility_label')
+                : state.isReply
+                ? t(
+                    'compose.call_to_action.reply_to_thread.accessibility_label',
+                  )
+                : t(
+                    'compose.call_to_action.publish_new_thread.accessibility_label',
+                  ),
+            }),
+          ]),
         ]),
       ]),
-    ]),
-  );
+    );
 }
 
 export function topBar(sources: Sources): Sinks {

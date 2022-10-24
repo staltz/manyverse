@@ -38,8 +38,6 @@ import {styles, avatarSize} from './styles';
 import {IconNames} from '~frontend/global-styles/icons';
 
 type MiniState = Pick<State, 'postText'> &
-  Pick<State, 'postTextOverride'> &
-  Pick<State, 'postTextSelection'> &
   Pick<State, 'selfAvatarUrl'> &
   Pick<State, 'selfFeedId'> &
   Pick<State, 'selfName'> &
@@ -159,18 +157,18 @@ function AddPictureButton() {
 }
 
 function MarkdownPreview(state: MiniState) {
-  return h(View, {style: styles.preview}, [
+  return h(View, {key: 'mprev', style: styles.preview}, [
     state.contentWarning.length > 0
       ? h(ContentWarning, {
+          key: 'cw',
           sel: 'content-warning-preview',
           description: state.contentWarning,
           opened: state.contentWarningPreviewOpened,
-          key: 'cw',
         })
       : null,
 
     state.contentWarningPreviewOpened
-      ? h(Markdown, {text: state.postText})
+      ? h(Markdown, {key: 'md', text: state.postText})
       : null,
   ]);
 }
@@ -189,7 +187,6 @@ class MarkdownInput extends PureComponent<
   };
 
   private onLayout = (e: any) => {
-    this.setState({height: e.nativeEvent.target.scrollHeight});
     const height = e.nativeEvent.target.scrollHeight;
     if (height - this.state.height > 5) {
       this.setState({height});
@@ -234,23 +231,25 @@ function MentionSuggestions(state: MiniState) {
   return h(
     Menu,
     {
+      key: 'mentions-menu',
       sel: 'mentions-menu',
       renderer: renderers.SlideInMenu,
       opened: !state.previewing && state.mentionSuggestions.length > 0,
     },
     [
-      h(MenuTrigger, {disabled: true}),
+      h(MenuTrigger, {key: 'mt', disabled: true}),
       h(
         MenuOptions,
-        {customStyles: {optionsContainer: styles.menuOptions}},
+        {key: 'mo', customStyles: {optionsContainer: styles.menuOptions}},
         state.mentionSuggestions.map(({id, name, imageUrl}) =>
           h(MenuOption, {
+            key: id,
             value: id,
             customStyles: {
               optionWrapper: styles.menuOptionWrapper,
               optionTouchable: styles.menuOptionTouchable,
             },
-            ['children' as any]: h(AccountSmall, {id, name, imageUrl}),
+            ['children' as any]: h(AccountSmall, {key: id, id, name, imageUrl}),
           }),
         ),
       ),
@@ -259,8 +258,9 @@ function MentionSuggestions(state: MiniState) {
 }
 
 function Header(state: MiniState) {
-  return h(View, {style: styles.headerContainer}, [
+  return h(View, {key: 'h', style: styles.headerContainer}, [
     h(Avatar, {
+      key: 'a',
       size: avatarSize,
       url: state.selfAvatarUrl,
       style: styles.authorAvatar,
@@ -288,9 +288,6 @@ export default function view(
   const miniState$ = (state$ as Stream<MiniState>)
     .compose(
       dropRepeatsByKeys([
-        'postText',
-        'postTextOverride',
-        'postTextSelection',
         'previewing',
         'selfAvatarUrl',
         'selfFeedId',
@@ -303,8 +300,6 @@ export default function view(
     )
     .startWith({
       postText: '',
-      postTextOverride: '',
-      postTextSelection: {start: 0, end: 0},
       previewing: false,
       contentWarning: '',
       contentWarningPreviewOpened: false,
@@ -323,44 +318,51 @@ export default function view(
     }));
 
   return xs.combine(topBar$, miniState$).map(([topBar, state]) =>
-    h(View, {style: styles.screen}, [
+    h(View, {key: 'compose', style: styles.screen}, [
       topBar,
       h(
         KeyboardAvoidingView,
         {
+          key: 'kav',
           style: styles.container,
           enabled: true,
           ...Platform.select({ios: {behavior: 'padding' as const}}),
         },
         [
-          h(MenuProvider, {customStyles: {backdrop: styles.menuBackdrop}}, [
-            h(
-              ScrollView,
-              {
-                style: styles.scroll,
-                contentContainerStyle: styles.scrollContent,
-              },
-              [
-                Header(state),
-                state.previewing
-                  ? MarkdownPreview(state)
-                  : h(MarkdownInput, {
-                      nativeProps$: setMarkdownInputNativeProps$,
-                    }),
-              ],
-            ),
+          h(
+            MenuProvider,
+            {key: 'mp', customStyles: {backdrop: styles.menuBackdrop}},
+            [
+              h(
+                ScrollView,
+                {
+                  key: 'sv',
+                  style: styles.scroll,
+                  contentContainerStyle: styles.scrollContent,
+                },
+                [
+                  Header(state),
+                  state.previewing
+                    ? MarkdownPreview(state)
+                    : h(MarkdownInput, {
+                        key: 'mi',
+                        nativeProps$: setMarkdownInputNativeProps$,
+                      }),
+                ],
+              ),
 
-            MentionSuggestions(state),
+              MentionSuggestions(state),
 
-            state.previewing
-              ? null
-              : h(View, {style: styles.footerContainer}, [
-                  RecordAudioButton(),
-                  Platform.OS === 'web' ? null : OpenCameraButton(),
-                  AddPictureButton(),
-                  ContentWarningButton(state),
-                ]),
-          ]),
+              state.previewing
+                ? null
+                : h(View, {style: styles.footerContainer}, [
+                    RecordAudioButton(),
+                    Platform.OS === 'web' ? null : OpenCameraButton(),
+                    AddPictureButton(),
+                    ContentWarningButton(state),
+                  ]),
+            ],
+          ),
         ],
       ),
     ]),
