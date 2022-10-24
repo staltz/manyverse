@@ -179,7 +179,6 @@ export class SSBSource {
       isReady(ssb) ? ssb.db.indexingProgress() : pull.empty(),
     );
 
-    // FIXME: do we have a problem with the remember() here?
     this.compactionProgress$ = this.fromPullStream<CompactionProgress>((ssb) =>
       isReady(ssb) ? ssb.db.compactionProgress() : pull.empty(),
     ).remember();
@@ -214,31 +213,13 @@ export class SSBSource {
   private fromPullStream<T>(
     fn: (ssb: SSBClient | null) => Readable<T>,
   ): Stream<T> {
-    return (
-      this.ssb$
-        .map(fn)
-        .map(xsFromPullStream)
-        .flatten()
-        // `true` can be sent as an error from muxrpc once muxrpc is closed
-        .replaceError((err) =>
-          err === true ? xs.empty() : xs.throw(err),
-        ) as Stream<T>
-    );
+    return this.ssb$.map(fn).map(xsFromPullStream).flatten() as Stream<T>;
   }
 
   private fromCallback<T>(
     fn: (ssb: SSBClient | null, cb: Callback<T>) => void,
   ): Stream<T> {
-    return (
-      this.ssb$
-        .map(xsFromCallback<T>(fn))
-        .take(1)
-        .flatten()
-        // `true` can be sent as an error from muxrpc once muxrpc is closed
-        .replaceError((err) =>
-          err === true ? xs.empty() : xs.throw(err),
-        ) as Stream<T>
-    );
+    return this.ssb$.map(xsFromCallback<T>(fn)).take(1).flatten();
   }
 
   public thread$(rootMsgId: MsgId, privately: boolean): Stream<AnyThread> {
@@ -523,16 +504,14 @@ export class SSBSource {
 
         return xsFromCallback<Array<MentionSuggestion>>(ssb.suggest.profile)(
           opts,
-        )
-          .replaceError((err) => (err === true ? xs.empty() : xs.throw(err)))
-          .map((arr) =>
-            arr
-              .filter((suggestion) => suggestion.id !== ssb.id)
-              .map((suggestion) => ({
-                ...suggestion,
-                imageUrl: imageToImageUrl(suggestion.image),
-              })),
-          );
+        ).map((arr) =>
+          arr
+            .filter((suggestion) => suggestion.id !== ssb.id)
+            .map((suggestion) => ({
+              ...suggestion,
+              imageUrl: imageToImageUrl(suggestion.image),
+            })),
+        );
       })
       .flatten();
   }
