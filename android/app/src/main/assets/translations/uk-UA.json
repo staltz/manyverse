@@ -724,24 +724,24 @@
         "accessibility_label": "Кнопка зміни профілю"
       },
       "manage": {
-        "accessibility_label": "Manage Contact"
+        "accessibility_label": "Керувати контактом"
       }
     },
     "dialog_ssb_id": {
       "title": "SSB ID"
     },
     "dialog_manage_contact": {
-      "title": "Contact"
+      "title": "Контакт"
     },
     "dialog_friend_request": {
       "title": "Запит дружити",
       "description": "Цей обліковий запис пробує звʼязатися з Вами, але Manyverse відхилив його, тому що він знаходиться поза Вашою спільнотою.\n\nЯкщо Ви впізнали цей ID, можете натиснути «Стежити», щоб дозволити йому звʼязатися з Вами."
     },
     "dialog_about_storage_used": {
-      "title": "Storage used",
+      "title": "Використано місця на диску",
       "description": {
-        "self": "Your content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by your blobs, such as images and audio messages.",
-        "others": "{{name}}'s content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by their blobs, such as images and audio messages."
+        "self": "Зараз ваші дані (і їх індекси) на цьому пристрої займають {{megabytes}} дискового простору.\n\nЦей об’єм не включає медіафайли, наприклад, зображення або аудіоповідомлення.",
+        "others": "Дані (і їх індекси) користувача {{name}} займають на цьому пристрої {{megabytes}} дискового простору.\n\nЦей об’єм не включає медіафайли, наприклад, зображення або аудіоповідомлення."
       }
     },
     "toast": {

@@ -91,10 +91,10 @@
     "learn_more": "Por lerni pli",
     "overview": {
       "title": "Bonvenon al Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "description": "Socia reto povas esti simpla, neŭtrala, nekomerca kaj konstruita sur fido inter amikoj. Jen kion Manyverse signifas, kaj ni esperas, ke ankaŭ vi povas fari ĝin via cifereca hejmo. Ĉio ĉi estas ebligita per la nova SSB-protokolo."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Ekster la reto",
       "description": {
         "1_normal": "Manyverse povas uzi interretan konekton, sed ĝi ne estas ",
         "2_bold": "en",
@@ -116,81 +116,81 @@
           "7_normal": ", aŭ komencu vian propran servilon!"
         },
         "default": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
+          "1_normal": "Por konektiĝi kun proksimaj amikoj kaj sinkronigi enhavon, vi povas aŭ: aliĝi al la sama ",
           "2_bold": "Wi-Fi",
-          "3_normal": ", or use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "3_normal": " aŭ uzi ",
+          "4_bold": "Bluetooth-sinkronigon",
+          "5_normal": ". Por trovi novajn homojn en la interreto, serĉu invitkodon al ",
+          "6_bold": "pub-servilo",
+          "7_normal": " aŭ ",
+          "8_bold": "ĉambroservilo",
+          "9_normal": ", aŭ komencu vian propran servilon!"
         }
       }
     },
     "moderation": {
-      "title": "Shared moderation",
+      "title": "Komuna moderigo",
       "description": {
-        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "1_normal": "Ĉar via aparato tenas vian socian reton, neniu alia povas malpermesi aŭ forigi kontojn en via nomo. Nur vi povas moderigi vian spacon, ",
+        "2_bold": "blokante kontojn",
+        "3_normal": ", kiujn vi ne volas havi en via aparato. Tiam viaj amikoj povas elekti bloki tiujn samajn kontojn. Jen kiel moderigo povas disvastigi nature!"
       }
     },
     "permanence": {
-      "title": "Permanence",
+      "title": "Neŝanĝeblo",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they now hold a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
-        "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
+        "1_normal": "Post kiam via enhavo estas sinkronigita kun amikoj, ili nun tenas kopion de ĝi sur siaj aparatoj. Ĉar ili povus malkonekti post tio, ",
+        "2_bold": "ne eblas forigi",
+        "3_normal": " vian enhavon tutmonde de ĉiuj aparatoj! Jen kial ni elektis igi enhavon neŝanĝebla. Ĝi ankaŭ igas komunumojn pli respektemaj kaj konsiderindaj pri tio, kio estas afiŝita."
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "En konstruo!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
-        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+        "1_normal": "Manyverse estas ",
+        "2_bold": "beta-kvalita programaro",
+        "3_normal": ". Ni ankoraŭ ne eltrovis ĉion kaj iuj partoj bezonas ripari. Dum sinkronigado, la programo povas aperi frosta dum kelkaj minutoj. Havu paciencon! Informu nin pri iuj aliaj cimoj, kiujn vi trafis, kaj kun sufiĉe da tempo kaj donacoj, ni povas fari ĉi tiun bonegan aplikaĵon."
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
-      "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
+      "title": "Ĉu vi estas ĉi tie unuafoje?",
+      "description": "Ĉu vi volas krei novan konton, aŭ ĉu vi ŝatus restarigi vian malnovan konton el 24-vorta reakiro?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "Krei konton",
+          "accessibility_label": "Butono Krei Konton"
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "Restarigu konton",
+          "accessibility_label": "Butono Restarigu Konton"
         },
         "migrate": {
-          "label": "Migrate from ~/.ssb",
-          "accessibility_label": "Migrate account from the shared SSB directory"
+          "label": "Translokigo de ~/.ssb",
+          "accessibility_label": "Translokigu konton el la komuna SSB-dosierujo"
         }
       }
     },
     "dialogs": {
       "migrate": {
-        "title": "Migrate your SSB account to Manyverse",
-        "description": "Manyverse detected an existing SSB account at the common `~/.ssb` directory. If you wish, you can migrate that account to a whole new directory that only Manyverse can access.\n\nOnce migration finishes, **you will NOT be able to use your account with other SSB apps such as Patchwork anymore**, and '.ssb' will be **deleted**, but you can still use those apps with new accounts.\n\nDo you confirm you want to migrate your account from '.ssb' to Manyverse? **This action cannot be undone.**"
+        "title": "Translokigu vian SSB-konton al Manyverse",
+        "description": "Manyverse detektis ekzistantan SSB-konton ĉe la komuna dosierujo `~/.ssb`. Se vi deziras, vi povas translokigi tiun konton al tute nova dosierujo, kiun nur Manyverse povas aliri.\n\nPost kiam la migrado finiĝos, **vi NE plu povos uzi vian konton kun aliaj SSB-aplikoj kiel Patchwork**, kaj ''.ssb' estos **forigita**, sed vi ankoraŭ povas uzi tiujn apojn kun novaj kontoj.\n\nĈu vi konfirmas, ke vi volas migri vian konton de '.ssb' al Manyverse? **Ĉi tiu ago ne povas esti malfarebla.**"
       },
       "link_failed": {
-        "title": "Account not ready",
-        "description": "You tried to open an SSB link, but your account is not ready yet. Please complete the setup process first, and then try the link again."
+        "title": "Konto ne preta",
+        "description": "Vi provis malfermi SSB-ligilon, sed via konto ankoraŭ ne estas preta. Bonvolu plenumi la agordan procezon unue, kaj poste provu malfermi la ligilon denove."
       }
     }
   },
   "migrating": {
-    "label": "Migrating..."
+    "label": "Translokigo..."
   },
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public posts",
-      "private": "Private chats",
-      "activity": "Activity",
-      "connections": "Connected peers"
+      "public": "Publikaj afiŝoj",
+      "private": "Privataj babilejoj",
+      "activity": "Aktiveco",
+      "connections": "Konektitaj kunuloj"
     },
     "tab_footers": {
       "public": "Public",
