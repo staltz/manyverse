@@ -668,8 +668,8 @@
         "accessibility_label": "Показати більше пунктів меню"
       },
       "update": {
-        "label": "Update",
-        "accessibility_label": "Update app to latest version"
+        "label": "Оновити",
+        "accessibility_label": "Оновити додаток до останньої версії"
       },
       "settings": {
         "label": "Налаштування",
@@ -681,7 +681,7 @@
     },
     "dialogs": {
       "update": {
-        "title": "Check for new versions?",
+        "title": "Перевірити наявність нових версій?",
         "description": "Would you like Manyverse to automatically check for new releases?\n\nThis setting is optional and will allow Manyverse to send requests to the manyver.se website periodically."
       }
     }
@@ -763,7 +763,7 @@
     },
     "info": {
       "follows_you": "Follows you",
-      "blocks_you": "Blocks you",
+      "blocks_you": "Блокує вас",
       "following": "Following",
       "blocking": "Blocking"
     },
