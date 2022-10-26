@@ -28,12 +28,6 @@ import {
   PROGRESS_BAR_HEIGHT,
 } from './styles';
 
-class TopBarLeftSection extends PureComponent {
-  public render() {
-    return $(View, {style: styles.topBarLeftSection}, this.props.children);
-  }
-}
-
 class ProgressPill extends PureComponent<{
   progress: number;
   onPress?: () => {};
@@ -172,8 +166,10 @@ export default function view(
     .combine(viewState$, children$, localizationSource.loaded$)
     .map(([state, children, localizationLoaded]) => {
       if (!localizationLoaded) {
-        return h(View, {style: styles.screen}, [
-          h(View, {style: styles.left}, [h(TopBarLeftSection)]),
+        return h(View, {key: 'df', style: styles.screen}, [
+          h(View, {key: 'left', style: styles.left}, [
+            h(View, {key: 'tbls', style: styles.topBarLeftSection}),
+          ]),
         ]);
       }
 
@@ -181,7 +177,7 @@ export default function view(
       const initializedSSB = state.connections?.initializedSSB ?? false;
       const {combinedProgress, currentTab} = state;
 
-      return h(View, {style: styles.screen}, [
+      return h(View, {key: 'df', style: styles.screen}, [
         h(ProgressBar, {
           style: styles.progressBarContainer,
           progress: combinedProgress,
@@ -194,11 +190,11 @@ export default function view(
           ? h(ProgressPill, {sel: 'progressPill', progress: combinedProgress})
           : null,
 
-        h(View, {style: styles.left}, [
-          h(TopBarLeftSection),
+        h(View, {key: 'left', style: styles.left}, [
+          h(View, {key: 'tbls', style: styles.topBarLeftSection}),
 
           state.showButtons
-            ? h(View, {style: styles.leftMenu}, [
+            ? h(View, {key: 'leftMenu', style: styles.leftMenu}, [
                 h(PublicTabIcon, {
                   style: styles.leftMenuTabButton,
                   isSelected: currentTab === 'public',
@@ -221,7 +217,7 @@ export default function view(
                   allowWarningColors: initializedSSB,
                 }),
 
-                h(View, {style: styles.spacer}),
+                h(View, {key: 'spacer', style: styles.spacer}),
 
                 state.hasNewVersion
                   ? h(ExtraButton, {
@@ -271,7 +267,7 @@ export default function view(
               ])
             : null,
         ]),
-        h(View, {style: styles.centerAndRight}, [...children]),
+        h(View, {key: 'centerRight', style: styles.centerRight}, [...children]),
       ]);
     });
 }

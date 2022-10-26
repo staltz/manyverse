@@ -142,7 +142,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  centerAndRight: {
+  centerRight: {
     width: `calc(50vw + ${Dimensions.desktopMiddleWidth.px} * 0.5)`,
   },
 
