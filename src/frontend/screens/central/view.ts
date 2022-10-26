@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {
   ReactElement,
   Fragment,
@@ -239,49 +240,32 @@ class MobileProgressPill extends Component<{progress: number}> {
   }
 }
 
-class MobileTabsBar extends Component<State> {
-  public shouldComponentUpdate(nextProps: MobileTabsBar['props']) {
-    const prevProps = this.props;
-    if (nextProps.currentTab !== prevProps.currentTab) return true;
-    if (nextProps.numOfPublicUpdates !== prevProps.numOfPublicUpdates) {
-      return true;
-    }
-    if (nextProps.numOfPrivateUpdates !== prevProps.numOfPrivateUpdates) {
-      return true;
-    }
-    if (nextProps.numOfActivityUpdates !== prevProps.numOfActivityUpdates) {
-      return true;
-    }
-    if (nextProps.connectionsTab !== prevProps.connectionsTab) {
-      return true;
-    }
-    if (nextProps.initializedSSB !== prevProps.initializedSSB) {
-      return true;
-    }
-    if (nextProps.combinedProgress !== prevProps.combinedProgress) {
-      return true;
-    }
-    return false;
-  }
-
+class MobileTabsBar extends PureComponent<State> {
   public render() {
-    const {currentTab, connectionsTab, initializedSSB, combinedProgress} =
-      this.props;
+    const {
+      currentTab,
+      connectionsTab,
+      numOfPublicUpdates,
+      numOfPrivateUpdates,
+      numOfActivityUpdates,
+      initializedSSB,
+      combinedProgress,
+    } = this.props;
 
     const status = connectionsTab?.status ?? 'bad';
 
     return h(View, {style: styles.tabBar}, [
       h(PublicTabIcon, {
         isSelected: currentTab === 'public',
-        numOfUpdates: this.props.numOfPublicUpdates,
+        numOfUpdates: numOfPublicUpdates,
       }),
       h(PrivateTabIcon, {
         isSelected: currentTab === 'private',
-        numOfUpdates: this.props.numOfPrivateUpdates,
+        numOfUpdates: numOfPrivateUpdates,
       }),
       h(ActivityTabIcon, {
         isSelected: currentTab === 'activity',
-        numOfUpdates: this.props.numOfActivityUpdates,
+        numOfUpdates: numOfActivityUpdates,
       }),
       h(ConnectionsTabIcon, {
         isSelected: currentTab === 'connections',
@@ -310,9 +294,21 @@ export default function view(
   activityTab$: Stream<ReactElement<any>>,
   connectionsTab$: Stream<ReactElement<any>>,
 ) {
+  const viewState$ = state$.compose(
+    dropRepeatsByKeys([
+      'currentTab',
+      'numOfPublicUpdates',
+      'numOfPrivateUpdates',
+      'numOfActivityUpdates',
+      (state) => state.connectionsTab?.status ?? 'bad',
+      'initializedSSB',
+      'combinedProgress',
+    ]),
+  );
+
   return xs
     .combine(
-      state$,
+      viewState$,
       fabProps$,
       topBar$,
       publicTab$.startWith($(View)),
@@ -344,5 +340,5 @@ export default function view(
           Platform.OS === 'web' ? null : h(MobileTabsBar, state),
         ]),
     )
-    .startWith($(View, {key: 'tbs', style:styles.topBarStub}));
+    .startWith($(View, {key: 'tbs', style: styles.topBarStub}));
 }

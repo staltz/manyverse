@@ -136,7 +136,8 @@ export function central(sources: Sources): Sinks {
         ? privateTabSinks.fab
         : connectionsTabSinks.fab,
     )
-    .flatten();
+    .flatten()
+    .compose(dropRepeats());
 
   const command$ = navigation(
     state$,

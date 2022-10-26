@@ -6,6 +6,7 @@ import xs, {Stream} from 'xstream';
 import {Reducer, Lens} from '@cycle/state';
 import {Animated} from 'react-native';
 import {FeedId, MsgId} from 'ssb-typescript';
+import deepEquals = require('fast-deep-equal');
 import {SSBSource} from '~frontend/drivers/ssb';
 import progressCalculation, {
   State as ProgressState,
@@ -54,14 +55,26 @@ export const publicTabLens: Lens<State, PublicTabState> = {
     const isVisible = parent.currentTab === 'public';
     const {selfFeedId, selfAvatarUrl, canPublishSSB} = parent;
     if (parent.publicTab) {
-      return {
-        ...parent.publicTab,
-        isVisible,
-        selfFeedId,
-        selfAvatarUrl,
-        canPublishSSB,
-      };
+      const prev = parent.publicTab;
+      if (
+        prev.isVisible === isVisible &&
+        prev.selfFeedId === selfFeedId &&
+        prev.selfAvatarUrl === selfAvatarUrl &&
+        prev.canPublishSSB === canPublishSSB
+      ) {
+        // Optimization: nothing changed
+        return prev;
+      } else {
+        return {
+          ...parent.publicTab,
+          isVisible,
+          selfFeedId,
+          selfAvatarUrl,
+          canPublishSSB,
+        };
+      }
     } else {
+      // Initialize the public tab state
       return {
         isVisible,
         selfFeedId,
@@ -79,13 +92,23 @@ export const publicTabLens: Lens<State, PublicTabState> = {
   },
 
   set: (parent: State, child: PublicTabState): State => {
-    return {
-      ...parent,
-      initializedSSB: child.initializedSSB,
-      numOfPublicUpdates: child.numOfUpdates,
-      lastSessionTimestamp: child.lastSessionTimestamp,
-      publicTab: child,
-    };
+    if (
+      parent.initializedSSB === child.initializedSSB &&
+      parent.numOfPublicUpdates === child.numOfUpdates &&
+      parent.lastSessionTimestamp === child.lastSessionTimestamp &&
+      deepEquals(parent.publicTab, child)
+    ) {
+      // Optimization: nothing changed in the child, so don't update the parent
+      return parent;
+    } else {
+      return {
+        ...parent,
+        initializedSSB: child.initializedSSB,
+        numOfPublicUpdates: child.numOfUpdates,
+        lastSessionTimestamp: child.lastSessionTimestamp,
+        publicTab: child,
+      };
+    }
   },
 };
 
@@ -94,8 +117,24 @@ export const privateTabLens: Lens<State, PrivateTabState> = {
     const isVisible = parent.currentTab === 'private';
     const {selfFeedId, selfAvatarUrl} = parent;
     if (parent.privateTab) {
-      return {...parent.privateTab, isVisible, selfFeedId, selfAvatarUrl};
+      const prev = parent.privateTab;
+      if (
+        prev.isVisible === isVisible &&
+        prev.selfFeedId === selfFeedId &&
+        prev.selfAvatarUrl === selfAvatarUrl
+      ) {
+        // Optimization: nothing changed
+        return prev;
+      } else {
+        return {
+          ...parent.privateTab,
+          isVisible,
+          selfFeedId,
+          selfAvatarUrl,
+        };
+      }
     } else {
+      // Initialize the private tab state
       return {
         isVisible,
         selfFeedId,
@@ -109,11 +148,19 @@ export const privateTabLens: Lens<State, PrivateTabState> = {
   },
 
   set: (parent: State, child: PrivateTabState): State => {
-    return {
-      ...parent,
-      numOfPrivateUpdates: child.updates.size,
-      privateTab: child,
-    };
+    if (
+      parent.numOfPrivateUpdates === child.updates.size &&
+      deepEquals(parent.privateTab, child)
+    ) {
+      // Optimization: nothing changed in the child, so don't update the parent
+      return parent;
+    } else {
+      return {
+        ...parent,
+        numOfPrivateUpdates: child.updates.size,
+        privateTab: child,
+      };
+    }
   },
 };
 
@@ -122,8 +169,24 @@ export const activityTabLens: Lens<State, ActivityTabState> = {
     const isVisible = parent.currentTab === 'activity';
     const {selfFeedId, selfAvatarUrl} = parent;
     if (parent.activityTab) {
-      return {...parent.activityTab, isVisible, selfFeedId, selfAvatarUrl};
+      const prev = parent.activityTab;
+      if (
+        prev.isVisible === isVisible &&
+        prev.selfFeedId === selfFeedId &&
+        prev.selfAvatarUrl === selfAvatarUrl
+      ) {
+        // Optimization: nothing changed
+        return prev;
+      } else {
+        return {
+          ...parent.activityTab,
+          isVisible,
+          selfFeedId,
+          selfAvatarUrl,
+        };
+      }
     } else {
+      // Initialize the activity tab state
       return {
         isVisible,
         selfFeedId,
@@ -137,11 +200,19 @@ export const activityTabLens: Lens<State, ActivityTabState> = {
   },
 
   set: (parent: State, child: ActivityTabState): State => {
-    return {
-      ...parent,
-      numOfActivityUpdates: child.numOfUpdates,
-      activityTab: child,
-    };
+    if (
+      parent.numOfActivityUpdates === child.numOfUpdates &&
+      deepEquals(parent.activityTab, child)
+    ) {
+      // Optimization: nothing changed in the child, so don't update the parent
+      return parent;
+    } else {
+      return {
+        ...parent,
+        numOfActivityUpdates: child.numOfUpdates,
+        activityTab: child,
+      };
+    }
   },
 };
 
@@ -150,14 +221,26 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
     const isVisible = parent.currentTab === 'connections';
     const {selfFeedId, selfAvatarUrl, initializedSSB} = parent;
     if (parent.connectionsTab) {
-      return {
-        ...parent.connectionsTab,
-        isVisible,
-        selfFeedId,
-        selfAvatarUrl,
-        initializedSSB,
-      };
+      const prev = parent.connectionsTab;
+      if (
+        prev.isVisible === isVisible &&
+        prev.selfFeedId === selfFeedId &&
+        prev.selfAvatarUrl === selfAvatarUrl &&
+        prev.initializedSSB === initializedSSB
+      ) {
+        // Optimization: nothing changed
+        return prev;
+      } else {
+        return {
+          ...parent.connectionsTab,
+          isVisible,
+          selfFeedId,
+          selfAvatarUrl,
+          initializedSSB,
+        };
+      }
     } else {
+      // Initialize the connections tab state
       return {
         isVisible,
         selfFeedId,
@@ -180,10 +263,15 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
   },
 
   set: (parent: State, child: ConnectionsTabState): State => {
-    return {
-      ...parent,
-      connectionsTab: child,
-    };
+    if (deepEquals(parent.connectionsTab, child)) {
+      // Optimization: nothing changed in the child, so don't update the parent
+      return parent;
+    } else {
+      return {
+        ...parent,
+        connectionsTab: child,
+      };
+    }
   },
 };
 

@@ -6,6 +6,7 @@ import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import concat from 'xstream/extra/concat';
 import {FeedId} from 'ssb-typescript';
+import deepEquals = require('fast-deep-equal');
 import {State as AppState} from '~frontend/drivers/appstate';
 import {NetworkSource} from '~frontend/drivers/network';
 import {SSBSource} from '~frontend/drivers/ssb';
@@ -172,6 +173,10 @@ function reevaluateStatus(prev: State): State {
   return prev;
 }
 
+function pickId(peer: PeerKV): string {
+  return peer[0];
+}
+
 export default function model(
   ssbSource: SSBSource,
   networkSource: NetworkSource,
@@ -231,7 +236,15 @@ export default function model(
         const rooms = allPeers.filter(
           ([, data]) => (data.type as any) === 'room',
         );
-        return {...prev, peers, rooms, timestampPeersAndRooms: Date.now()};
+        if (
+          deepEquals(prev.peers.map(pickId), peers.map(pickId)) &&
+          deepEquals(prev.rooms.map(pickId), rooms.map(pickId))
+        ) {
+          // Optimization: nothing changed, so don't emit a new state object
+          return prev;
+        } else {
+          return {...prev, peers, rooms, timestampPeersAndRooms: Date.now()};
+        }
       },
   );
 
@@ -281,7 +294,12 @@ export default function model(
               return peer;
             }
           });
-          return {...prev, peers, timestampPeersAndRooms: Date.now()};
+          if (deepEquals(prev.peers.map(pickId), peers.map(pickId))) {
+            // Optimization: nothing changed, so don't emit a new state object
+            return prev;
+          } else {
+            return {...prev, peers, timestampPeersAndRooms: Date.now()};
+          }
         },
     );
 

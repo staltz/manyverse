@@ -452,8 +452,8 @@ export default function view(state$: Stream<State>) {
         (p) => p[1].state === 'connected',
       );
 
-      return h(View, {style: styles.container}, [
-        h(View, {style: styles.innerContainer}, [
+      return h(View, {key: 'conntab', style: styles.container}, [
+        h(View, {key: 'ic', style: styles.innerContainer}, [
           h(Summary, {connectedPeers}),
           h(Scenario, {status, scenario}),
           h(Recommendations, {

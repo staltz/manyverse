@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {ReactSource} from '@cycle/react';
 import {h} from '@cycle/react';
 import {StateSource} from '@cycle/state';
@@ -183,59 +184,65 @@ function view(state$: Stream<State>) {
   let hideYWhenScrolling: Animated.AnimatedMultiplication | null = null;
   let hideOpacityWhenScrolling: Animated.AnimatedMultiplication | null = null;
 
-  return state$.map((state) => {
-    // Avoid re-instantiating a new animated value on every stream emission
-    if (!hideYWhenScrolling) {
-      hideYWhenScrolling = calcTranslateY(state.scrollHeaderBy);
-    }
-    if (!hideOpacityWhenScrolling) {
-      hideOpacityWhenScrolling = calcOpacity(hideYWhenScrolling);
-    }
+  return state$
+    .compose(
+      dropRepeatsByKeys(['scrollHeaderBy', 'currentTab', 'hasNewVersion']),
+    )
+    .map((state) => {
+      // Avoid re-instantiating a new animated value on every stream emission
+      if (!hideYWhenScrolling) {
+        hideYWhenScrolling = calcTranslateY(state.scrollHeaderBy);
+      }
+      if (!hideOpacityWhenScrolling) {
+        hideOpacityWhenScrolling = calcOpacity(hideYWhenScrolling);
+      }
 
-    const translateY = state.currentTab === 'public' ? hideYWhenScrolling : 0;
-    const opacity =
-      state.currentTab === 'public' ? hideOpacityWhenScrolling : 1;
+      const translateY = state.currentTab === 'public' ? hideYWhenScrolling : 0;
+      const opacity =
+        state.currentTab === 'public' ? hideOpacityWhenScrolling : 1;
 
-    return h(
-      Animated.View,
-      {style: [styles.container, {transform: [{translateY}]}]},
-      [
-        h(View, {style: styles.innerContainer}, [
-          Platform.OS === 'web'
-            ? null
-            : h(Animated.View, {style: {opacity}}, [
-                HeaderMenuButton('menuButton'),
-                state.hasNewVersion ? h(View, {style: styles.updateDot}) : null,
-              ]),
-          h(
-            Animated.Text,
-            {style: [styles.title, {opacity}]},
-            tabTitle(state.currentTab),
-          ),
-          h(
-            Animated.View,
-            {
-              style: [
-                styles.publicRightSide,
-                state.currentTab === 'public'
-                  ? styles.publicRightSideShown
-                  : styles.publicRightSideHidden,
-                {opacity},
+      return h(
+        Animated.View,
+        {style: [styles.container, {transform: [{translateY}]}]},
+        [
+          h(View, {style: styles.innerContainer}, [
+            Platform.OS === 'web'
+              ? null
+              : h(Animated.View, {style: {opacity}}, [
+                  HeaderMenuButton('menuButton'),
+                  state.hasNewVersion
+                    ? h(View, {style: styles.updateDot})
+                    : null,
+                ]),
+            h(
+              Animated.Text,
+              {style: [styles.title, {opacity}]},
+              tabTitle(state.currentTab),
+            ),
+            h(
+              Animated.View,
+              {
+                style: [
+                  styles.publicRightSide,
+                  state.currentTab === 'public'
+                    ? styles.publicRightSideShown
+                    : styles.publicRightSideHidden,
+                  {opacity},
+                ],
+              },
+              [
+                h(HeaderButton, {
+                  sel: 'search',
+                  icon: IconNames.search,
+                  side: 'right',
+                  accessibilityLabel: t('public.search.accessibility_label'),
+                }),
               ],
-            },
-            [
-              h(HeaderButton, {
-                sel: 'search',
-                icon: IconNames.search,
-                side: 'right',
-                accessibilityLabel: t('public.search.accessibility_label'),
-              }),
-            ],
-          ),
-        ]),
-      ],
-    );
-  });
+            ),
+          ]),
+        ],
+      );
+    });
 }
 
 export function topBar(sources: Sources): Sinks {
