@@ -39,12 +39,6 @@ import {
 import {State} from './model';
 import {FabProps} from './fab';
 
-class TopBarStub extends PureComponent {
-  public render() {
-    return $(View, {style: styles.topBarStub}, this.props.children);
-  }
-}
-
 class CurrentTabPage extends PureComponent<{
   currentTab: State['currentTab'];
   fab: FabProps;
@@ -321,10 +315,10 @@ export default function view(
       state$,
       fabProps$,
       topBar$,
-      publicTab$.startWith(h(View)),
-      privateTab$.startWith(h(View)),
-      activityTab$.startWith(h(View)),
-      connectionsTab$.startWith(h(View)),
+      publicTab$.startWith($(View)),
+      privateTab$.startWith($(View)),
+      activityTab$.startWith($(View)),
+      connectionsTab$.startWith($(View)),
     )
     .map(
       ([
@@ -336,7 +330,7 @@ export default function view(
         activityTab,
         connectionsTab,
       ]) =>
-        h(View, {style: styles.screen}, [
+        h(View, {key: 'c', style: styles.screen}, [
           // h(RNBridgeDebug),
           topBar,
           h(CurrentTabPage, {
@@ -350,5 +344,5 @@ export default function view(
           Platform.OS === 'web' ? null : h(MobileTabsBar, state),
         ]),
     )
-    .startWith($(TopBarStub));
+    .startWith($(View, {key: 'tbs', style:styles.topBarStub}));
 }
