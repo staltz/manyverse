@@ -350,6 +350,13 @@ export default [
     homepage: 'https://github.com/mawie81/electron-window-state#readme',
   },
   {
+    name: 'fast-deep-equal',
+    type: 'library',
+    version: '3.1.3',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/epoberezkin/fast-deep-equal#readme',
+  },
+  {
     name: 'fix-webm-duration',
     type: 'library',
     version: '1.0.4',
@@ -415,7 +422,7 @@ export default [
   {
     name: 'multiserver-electron-ipc',
     type: 'library',
-    version: '2.0.2',
+    version: '3.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://gitlab.com/staltz/multiserver-electron-ipc#readme',
   },
@@ -718,7 +725,7 @@ export default [
   {
     name: 'react-native-web',
     type: 'library',
-    version: '0.17.6',
+    version: '0.18.9',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/necolas/react-native-web#readme',
   },
@@ -796,7 +803,7 @@ export default [
   {
     name: 'ssb-about-self',
     type: 'library',
-    version: '1.0.1',
+    version: '1.1.0',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssbc/ssb-about-self#readme',
   },
@@ -845,7 +852,7 @@ export default [
   {
     name: 'ssb-conn',
     type: 'library',
-    version: '6.0.1',
+    version: '6.0.4',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/ssb-conn',
   },
@@ -866,7 +873,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '4.2.1',
+    version: '6.2.5',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },
@@ -880,7 +887,7 @@ export default [
   {
     name: 'ssb-ebt',
     type: 'library',
-    version: '8.2.0',
+    version: '9.1.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-ebt',
   },
@@ -922,7 +929,7 @@ export default [
   {
     name: 'ssb-keys',
     type: 'library',
-    version: '8.2.1',
+    version: '8.5.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-keys',
   },
@@ -999,14 +1006,14 @@ export default [
   {
     name: 'ssb-suggest-lite',
     type: 'library',
-    version: '1.1.3',
+    version: '1.1.4',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-suggest-lite#readme',
   },
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '10.0.3',
+    version: '10.1.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
@@ -1069,7 +1076,7 @@ export default [
   {
     name: 'xstream-from-callback',
     type: 'library',
-    version: '1.2.0',
+    version: '2.0.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/xstream-from-callback',
   },

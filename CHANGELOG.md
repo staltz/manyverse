@@ -2,6 +2,23 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2210.27-beta
+
+* (Desktop) Improve UI responsiveness ([see details](https://gitlab.com/staltz/manyverse/commit/fbb633ab7f85f21bb9ea243a9ec1c3e9393bb638))
+* (Desktop) Inset the MacOS traffic light buttons ([see details](https://gitlab.com/staltz/manyverse/commit/f8b5965c0a91960a205d38c8321f3299ca15c2db))
+* Bug fix: crash upon malformed about messages ([see details](https://gitlab.com/staltz/manyverse/commit/3ee2c96d91c41d5e61a0fd6862994ed6bc05e344))
+* Bug fix: memory leak in the connections tab ([see details](https://gitlab.com/staltz/manyverse/commit/d70b6cd8ea0c7eeeb78d75eae01aef35c3b1d763))
+* Bug fix: memory leak when composing a message ([see details](https://gitlab.com/staltz/manyverse/commit/ff230ccf2f7e2fa50c9ead220b2a738c921a214f))
+* Bug fix: unable to block accounts ([see details](https://gitlab.com/staltz/manyverse/commit/9874e9ef0e26ddd18708d154143193d5df0f204f))
+* Improve app size by 1 MB less ([see details](https://gitlab.com/staltz/manyverse/commit/37bf58a4c2dc316cce422ef5d0a868e97faacdd5))
+* Improve crash reporting to have less metadata ([see details](https://gitlab.com/staltz/manyverse/commit/78ffe19738ba2d2c55b7013678634c0da5dae60a))
+* Improve Czech translation ([see details](https://gitlab.com/staltz/manyverse/commit/3a0597e23a20056cc03851ccfb3069036e80b855))
+* Improve Esperanto translation ([see details](https://gitlab.com/staltz/manyverse/commit/1b70c665f3578a03b3af6e21871cdd0d61654870))
+* Improve German translation ([see details](https://gitlab.com/staltz/manyverse/commit/2979b41a836b35b70cb67cdbe1b2e82e4a852982))
+* Improve memory usage slightly ([see details](https://gitlab.com/staltz/manyverse/commit/038668f73fd75771ad0613ae32ba8d3eb769eb20))
+* Improve Russian translation ([see details](https://gitlab.com/staltz/manyverse/commit/8980e59cff9a0bc887f0d4194c5725a3ae1f096b))
+* Improve Ukrainian translation ([see details](https://gitlab.com/staltz/manyverse/commit/7bb9b4cbe99519fc943bd465e798386c30060e51))
+
 ## 0.2210.3-beta
 
 * (iOS) Bug fix: hide detailed logs option in settings ([see details](https://gitlab.com/staltz/manyverse/commit/06a231ce68b484f68ca6a53ab3e374a198fe5e9e))
