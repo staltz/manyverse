@@ -31,7 +31,7 @@ module.exports = {
   protocols: [{name: 'ssb', schemes: ['ssb']}],
 
   // Electron-builder options --------------------------------------------------
-  asar: true,
+  asar: false,
   npmRebuild: true,
   electronVersion: backendPackageJSON.optionalDependencies.electron,
 
@@ -69,6 +69,7 @@ module.exports = {
     'package.json',
 
     '!node_modules/electron',
+    '!node_modules/**/.bin',
     '!node_modules/*-nodejs-mobile',
   ],
   beforeBuild: (conf) => {
