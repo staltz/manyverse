@@ -2,6 +2,10 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2210.27-beta.b
+
+* (Desktop) Disable asar to fix release builds ([see details](https://gitlab.com/staltz/manyverse/commit/e97999ccb908f21d2fb57b7802065d74090f651c))
+
 ## 0.2210.27-beta
 
 * (Desktop) Improve UI responsiveness ([see details](https://gitlab.com/staltz/manyverse/commit/fbb633ab7f85f21bb9ea243a9ec1c3e9393bb638))
