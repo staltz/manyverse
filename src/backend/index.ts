@@ -82,6 +82,36 @@ function prepareDesktopWorkerThread() {
     },
   };
 
+  // Uncomment this to profile the worker thread
+  /*
+  const fs = require('fs');
+  const path = require('path');
+  const inspector = require('inspector');
+  const session = new inspector.Session();
+  session.connect();
+  session.post('Profiler.enable', () => {
+    setTimeout(() => {
+      console.log('PROFILER STARTED');
+      session.post('Profiler.start', () => {
+        setTimeout(() => {
+          console.log('PROFILER STOPPED');
+          session.post('Profiler.stop', (err, res) => {
+            if (err) return console.error(err);
+            const data = res.profile || res.result;
+            const date = new Date();
+            const dir = path.resolve(process.env.SSB_DIR, '..');
+            const file = `${dir}/flamechart_${date.getTime()}.cpuprofile`;
+            fs.writeFile(file, JSON.stringify(data), (err2) => {
+              if (err) console.error(err);
+              else console.log('PROFILER SAVED');
+            });
+          });
+        }, 30e3);
+      });
+    }, 30e3);
+  });
+  */
+
   setupIdentityThenSSB();
 }
 
