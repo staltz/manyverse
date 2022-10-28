@@ -668,7 +668,7 @@
         "accessibility_label": "Show more Menu items"
       },
       "update": {
-        "label": "Update",
+        "label": "Ĝisdatigi",
         "accessibility_label": "Update app to latest version"
       },
       "settings": {
@@ -731,7 +731,7 @@
       "title": "SSB ID"
     },
     "dialog_manage_contact": {
-      "title": "Contact"
+      "title": "Kontakto"
     },
     "dialog_friend_request": {
       "title": "Friend request",
@@ -752,7 +752,7 @@
         "accessibility_label": "SSB Identifier"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "Legi Biografion"
       },
       "counters": {
         "following": "Following",
@@ -830,7 +830,7 @@
         "accessibility_label": "Biography Text Input"
       },
       "aliases": {
-        "label": "Aliases"
+        "label": "Kaŝnomoj"
       }
     }
   },
@@ -838,7 +838,7 @@
     "title": "Manage aliases"
   },
   "register_alias": {
-    "title": "Register alias",
+    "title": "Registri kaŝnomo",
     "empty": {
       "no_servers": {
         "title": "No servers",
@@ -1104,7 +1104,7 @@
     }
   },
   "storage": {
-    "title": "Storage",
+    "title": "Stokado",
     "chart": {
       "total": {
         "1_normal": "Manyverse uses a total of ",
@@ -1134,9 +1134,9 @@
     "accounts": {
       "title": "Accounts",
       "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
-      "this_is_you": "This is you",
+      "this_is_you": "Estas vi",
       "open_profile": {
-        "accessibility_label": "Open Profile"
+        "accessibility_label": "Malfermi profilon"
       },
       "options_profile": {
         "accessibility_label": "More options for this profile"
@@ -1165,12 +1165,12 @@
       }
     },
     "buttons": {
-      "connect_via_wifi": "Connect via Wi-Fi",
+      "connect_via_wifi": "Konekti per Wi-Fi",
       "paste_invite": "Paste invite code"
     },
     "instructions": {
       "connect_via_wifi": {
-        "title": "Connect via Wi-Fi",
+        "title": "Konekti per Wi-Fi",
         "description": "Just connect this device to the same local Wi-Fi as other devices are, keep Manyverse open on those devices, and your data will automatically sync to this device."
       }
     },

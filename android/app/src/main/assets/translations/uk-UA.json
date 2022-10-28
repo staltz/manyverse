@@ -676,7 +676,7 @@
         "accessibility_label": "Перейти до налаштувань"
       },
       "ready_estimate": {
-        "label": "Ready:"
+        "label": "Готовність:"
       }
     },
     "dialogs": {
@@ -705,13 +705,13 @@
     "title": "Сторонні бібліотеки",
     "description": "Manyverse makes use of the following open source libraries and components. We want to thank the authors of these libraries and link to their websites for proper attribution.",
     "image": {
-      "name": "Image {{name}}",
+      "name": "Зображення {{name}}",
       "attribution": " is created by {{author}}, licensed {{license}}"
     }
   },
   "profile": {
     "call_to_action": {
-      "copy_uri": "Copy SSB URI",
+      "copy_uri": "Копіювати SSB-посилання",
       "copy_cypherlink": "Копіювати шифр-посилання",
       "private_chat": "Відкрити приватну розмову",
       "block": "Блокувати",
@@ -838,7 +838,7 @@
     "title": "Керувати псевдонімами"
   },
   "register_alias": {
-    "title": "Зареєструвати псевдо",
+    "title": "Зареєструвати псевдонім",
     "empty": {
       "no_servers": {
         "title": "Сервери відсутні",
@@ -1114,7 +1114,7 @@
         "trash": "Trash ({{megabytes}})",
         "content": "Content ({{megabytes}})",
         "indexes": "Indexes ({{megabytes}})",
-        "blobs": "Blobs ({{megabytes}})"
+        "blobs": "Медіа ({{megabytes}})"
       }
     },
     "trash": {
@@ -1134,9 +1134,9 @@
     "accounts": {
       "title": "Accounts",
       "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
-      "this_is_you": "This is you",
+      "this_is_you": "Це ви",
       "open_profile": {
-        "accessibility_label": "Open Profile"
+        "accessibility_label": "Відкрити профіль"
       },
       "options_profile": {
         "accessibility_label": "More options for this profile"
@@ -1150,7 +1150,7 @@
     "title": "Preparing database indexes... ({{progress}}%)",
     "info": {
       "title": "What is happening here?",
-      "description": "Your Manyverse installation has {{bytes}} of content that needs to be optimized before you can browse it. Database indexes help organize content into categories such as posts, reactions, follows, blocks, etc.\n\nThe app is busy building those indexes and making sense of them so that when you want to see how many followers an account has, the numbers have already been calculated, and when you want to see who reacted to a post, the list of reactions has already been collected, and so forth.\n\nTypically this doesn't take longer than 10 minutes. Hang in there!"
+      "description": "У Manyverse є {{bytes}} даних, які необхідно оптимізувати перед подальшим використанням. Це допоможе впорядкувати інформацію за такими категоріями як пости, реакції, підписки, блокування тощо.\n\nІндексація інформації також потрібна для правильного розрахунку числа читачів у користувача або збору списку реакцій на те чи інше повідомлення.\n\nЗазвичай це займає не більше 10 хвилин. Дочекайтесь!"
     }
   },
   "resync": {
