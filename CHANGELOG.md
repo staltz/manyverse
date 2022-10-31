@@ -2,6 +2,11 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2210.31-beta
+
+* Bug fix: crash related to deleted/blocked accounts ([see details](https://gitlab.com/staltz/manyverse/commit/cf1b72a91ed799ff7eb5f8446cc04ad51fac80f6))
+* Improve Ukrainian and Russian translation ([see details](https://gitlab.com/staltz/manyverse/commit/a82acbc4ba6d35e512c79428f8eda6366503d9b4))
+
 ## 0.2210.27-beta.b
 
 * (Desktop) Disable asar to fix release builds ([see details](https://gitlab.com/staltz/manyverse/commit/e97999ccb908f21d2fb57b7802065d74090f651c))
