@@ -193,10 +193,10 @@
       "connections": "Подключения"
     },
     "tab_footers": {
-      "public": "Публичный",
-      "private": "Личный",
+      "public": "Публичное",
+      "private": "Личное",
       "activity": "Действия",
-      "connections": "Соединения"
+      "connections": "Подключения"
     },
     "loading": "Загрузка...",
     "progress_indicator": {
@@ -292,13 +292,13 @@
     "floating_action_button": {
       "add_connection": "Добавить подключение",
       "create_invite": "Создать приглашение",
-      "paste_invite": "Вставьте приглашение",
+      "paste_invite": "Вставить приглашение",
       "bluetooth_seek": "Поиск по Bluetooth"
     },
     "open_connections_panel": "Открыть панель подключений",
     "empty": {
       "offline": {
-        "title": "Автономный",
+        "title": "Автономно",
         "description": "Включите какой-либо режим подключения\nили наслаждайтесь чтением имеющегося содержимого"
       },
       "connecting": {
@@ -311,7 +311,7 @@
       }
     },
     "scenarios": {
-      "offline": "Автономный",
+      "offline": "Автономно",
       "not_connected": "Нет подключений",
       "few_connections": "Слишком мало подключений",
       "many_connections": "Стабильное подключение"

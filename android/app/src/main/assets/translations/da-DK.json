@@ -2,121 +2,121 @@
   "call_to_action": {
     "ok": "OK",
     "add": "Tilføj",
-    "done": "Done",
+    "done": "Udført",
     "cancel": "Afbryd",
     "continue": "Fortsæt",
-    "read_more": "Read more",
+    "read_more": "Læs mere",
     "delete": "Slet",
-    "remove": "Remove",
+    "remove": "Fjern",
     "save": "Gem",
     "yes": "Ja",
     "no": "Nej",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "Knappen Menu"
     },
     "go_back": {
-      "label": "Go back",
-      "accessibility_label": "Back Button"
+      "label": "Gå tilbage",
+      "accessibility_label": "Tilbageknap"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Luk"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "Luk dialog boks"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "Åbn link?",
+      "description": "Vil du åbne {{link}} i din browser?"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 år siden",
+          "other": "{{count}} år siden"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1 måned siden",
+          "other": "{{count}} måneder siden"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "1 uge siden",
+          "other": "{{count}} uger siden"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 dag siden",
+          "other": "{{count}} dage siden"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 time siden",
+          "other": "{{count}} timer siden"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "1 minut siden",
+          "other": "{{count}} minutter siden"
         },
-        "now": "Just now"
+        "now": "Lige nu"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "1 år fra nu",
+          "other": "{{count}} år fra nu"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1 måned fra nu",
+          "other": "{{count}} måneder fra nu"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "1 uge fra nu",
+          "other": "{{count}} uger fra nu"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "1 dag fra nu",
+          "other": "{{count}} dage fra nu"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "1 time fra nu",
+          "other": "{{count}} timer fra nu"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "1 minut fra nu",
+          "other": "{{count}} minutter fra nu"
         },
-        "now": "Very soon"
+        "now": "Meget snart"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Lær mere",
     "overview": {
       "title": "Velkommern til Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "description": "Social networking kan være enkel, neutral, ikke-kommerciel og bygget på tillid mellem venner. Dette er hvad Manyverse står for, og vi håber, at du også kan gøre det til dit digitale hjem. Alt dette er gjort muligt ved den nye SSB protokol."
     },
     "off_the_grid": {
       "title": "Offline",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse kan benytte internetforbindelse, men det er ikke ",
+        "2_bold": "på",
+        "3_normal": " internettet. Alt sker lige her på din enhed. Det betyder, at du kan bruge det normalt, selv når du er offline ",
+        "4_bold": "indhold gemmes først på din enhed",
+        "5_normal": ", og du kan synkronisere det med venner, når du opretter forbindelse til dem."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Mange måder at oprette forbindelse på",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
+          "1_normal": "Hvis du vil forbinde med venner i nærheden og synkronisere indholdet, kan du oprette forbindelse til samme ",
           "2_bold": "Wi-fi",
-          "3_normal": ". To find new people on the internet, look for an invite code to a ",
+          "3_normal": "For at finde nye mennesker på internettet, skal du søge efter en invitationskode til en ",
           "4_bold": "pubserver",
-          "5_normal": " or a ",
+          "5_normal": " eller en ",
           "6_bold": "room server",
-          "7_normal": ", or start your own server!"
+          "7_normal": ", eller starte din egen server!"
         },
         "default": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
+          "1_normal": "For at oprette forbindelse til venner i nærheden og synkronisere indhold, kan du enten: Deltage i samme ",
           "2_bold": "Wi-fi",
           "3_normal": ", or use ",
           "4_bold": "Bluetooth sync",
@@ -265,25 +265,25 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " har nævnt dig"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " følger dig"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " ønsker at forbinde"
       }
     },
     "empty": {
-      "title": "No activity",
+      "title": "Ingen aktivitet",
       "description": "When people mention or follow you,\nthey show up here"
     }
   },
