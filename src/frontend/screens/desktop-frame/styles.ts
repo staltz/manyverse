@@ -8,6 +8,7 @@ import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
 
 export const PROGRESS_BAR_HEIGHT = 3;
+export const PROGRESS_PILL_HEIGHT = 22;
 const PILL_WIDTH_SMALL = 46;
 const PILL_WIDTH_LARGE = 56;
 export const PILL_LEFT_CLAMP_MIN = `${
@@ -34,9 +35,9 @@ export const styles = StyleSheet.create({
   progressPill: {
     position: 'absolute',
     zIndex: 1000,
-    top: PROGRESS_BAR_HEIGHT + Dimensions.verticalSpaceTiny,
-    height: '22px',
-    transition: 'left 0.25s, opacity 0.75s',
+    cursor: 'pointer',
+    height: PROGRESS_PILL_HEIGHT + 'px',
+    transition: 'top 0.1s, left 0.25s, opacity 0.75s',
     transform: 'translateX(-50%)',
     backgroundColor: Palette.backgroundText,
     borderRadius: 80,

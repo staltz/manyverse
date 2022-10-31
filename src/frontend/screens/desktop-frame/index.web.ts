@@ -13,6 +13,7 @@ import {SSBSource} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import linking from '~frontend/screens/drawer/linking';
 import {LocalizationSource} from '~frontend/drivers/localization';
+import {WindowSize} from '~frontend/drivers/window-size';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
@@ -29,6 +30,7 @@ export interface Sources {
   ssb: SSBSource;
   dialog: DialogSource;
   state: StateSource<State>;
+  windowSize: Stream<WindowSize>;
 }
 
 export interface Sinks {
@@ -73,7 +75,12 @@ export function desktopFrame(sources: Sources): Sinks {
     state$,
   );
 
-  const vdom$ = view(state$, sources.children, sources.localization);
+  const vdom$ = view(
+    state$,
+    sources.children,
+    sources.localization,
+    sources.windowSize,
+  );
 
   const command$ = navigation(actions, state$, sources.navigationStack.stream);
 

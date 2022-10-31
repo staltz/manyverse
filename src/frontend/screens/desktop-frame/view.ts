@@ -4,12 +4,14 @@
 
 import xs, {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
+import dropRepeats from 'xstream/extra/dropRepeats';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {PureComponent, ReactElement, createElement as $} from 'react';
 import {View, Text, Pressable, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {LocalizationSource, t} from '~frontend/drivers/localization';
+import {WindowSize} from '~frontend/drivers/window-size';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {IconNames} from '~frontend/global-styles/icons';
@@ -27,6 +29,7 @@ import {
   PILL_LEFT_CLAMP_MIN,
   PILL_LEFT_CLAMP_MAX,
   PROGRESS_BAR_HEIGHT,
+  PROGRESS_PILL_HEIGHT,
 } from './styles';
 
 class ProgressPill extends PureComponent<{
@@ -38,6 +41,18 @@ class ProgressPill extends PureComponent<{
   private onPress = () => {
     if (this.props.progress < 1 && this.props.onPress) this.props.onPress();
   };
+
+  /**
+   * Temporary position for the pill when it could overlap with the traffic
+   * light buttons on macOS.
+   */
+  static TOP_MACOS_FIX =
+    Dimensions.toolbarHeight -
+    PROGRESS_BAR_HEIGHT -
+    Dimensions.verticalSpaceTiny -
+    PROGRESS_PILL_HEIGHT;
+
+  static TOP = PROGRESS_BAR_HEIGHT + Dimensions.verticalSpaceTiny;
 
   public render() {
     const progress = this.props.progress * 100;
@@ -51,6 +66,10 @@ class ProgressPill extends PureComponent<{
       `clamp(${PILL_LEFT_CLAMP_MIN},` +
       `${progress.toFixed(1)}vw,` +
       `${PILL_LEFT_CLAMP_MAX})`;
+    const top =
+      progress < 7.5 && process.env.OS === 'darwin'
+        ? ProgressPill.TOP_MACOS_FIX
+        : ProgressPill.TOP;
 
     return h(Pressable, {
       onPress: this.onPress,
@@ -62,7 +81,7 @@ class ProgressPill extends PureComponent<{
         return [
           styles.progressPill,
           progressPillWidth,
-          {left, opacity},
+          {top, left, opacity},
           hovered ? styles.progressPillHovered : null,
         ];
       },
@@ -131,6 +150,7 @@ export default function view(
   state$: Stream<State>,
   children$: Stream<Array<ReactElement>>,
   localizationSource: LocalizationSource,
+  windowSize$: Stream<WindowSize>,
 ) {
   const initialViewState: ViewState = {
     currentTab: 'public',
@@ -163,9 +183,25 @@ export default function view(
     )
     .startWith(initialViewState);
 
+  /**
+   * Window width on macOS such that it's too small and the traffic light
+   * would overlap with the app logo.
+   */
+  const TOO_NARROW = 1060;
+  const windowWidth$ = windowSize$
+    .map((ws) => ws.width)
+    .startWith(TOO_NARROW + 1)
+    .compose(
+      dropRepeats((w1, w2) => {
+        if (w1 < TOO_NARROW && w2 < TOO_NARROW) return true;
+        if (w1 >= TOO_NARROW && w2 >= TOO_NARROW) return true;
+        return false;
+      }),
+    );
+
   return xs
-    .combine(viewState$, children$, localizationSource.loaded$)
-    .map(([state, children, localizationLoaded]) => {
+    .combine(viewState$, children$, localizationSource.loaded$, windowWidth$)
+    .map(([state, children, localizationLoaded, windowWidth]) => {
       if (!localizationLoaded) {
         return h(View, {key: 'df', style: styles.screen}, [
           h(View, {key: 'left', style: styles.left}, [
@@ -193,12 +229,14 @@ export default function view(
 
         h(View, {key: 'left', style: styles.left}, [
           h(View, {key: 'tbls', style: styles.topBarLeftSection}, [
-            h(View, {key: 'alc', style: styles.appLogoContainer}, [
-              h(Image, {
-                style: styles.appLogo,
-                source: getImg(require('~images/app-logo.png')),
-              }),
-            ]),
+            process.env.OS === 'darwin' && windowWidth < TOO_NARROW
+              ? null
+              : h(View, {key: 'alc', style: styles.appLogoContainer}, [
+                  h(Image, {
+                    style: styles.appLogo,
+                    source: getImg(require('~images/app-logo.png')),
+                  }),
+                ]),
           ]),
 
           state.showButtons

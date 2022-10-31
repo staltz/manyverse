@@ -40,6 +40,7 @@ app.setName('manyverse');
 app.setPath('userData', path.join(app.getPath('appData'), 'manyverse'));
 process.env.APP_DATA_DIR = app.getAppPath();
 process.env.APP_TMP_DIR = app.getPath('temp');
+process.env.OS = os.platform();
 process.env.SHARED_SSB_DIR = path.resolve(os.homedir(), '.ssb');
 process.env.SSB_DIR =
   process.env.SSB_DIR ?? path.resolve(app.getPath('userData'), 'ssb');
@@ -72,6 +73,7 @@ function createWindow() {
     height: windowState.height,
     autoHideMenuBar: true,
     titleBarStyle: 'hiddenInset',
+    trafficLightPosition: {x: 7, y: 5},
     backgroundColor: '#4263eb', // brandMain
     webPreferences: {
       nodeIntegration: true,
