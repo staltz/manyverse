@@ -119,8 +119,12 @@ export default class TopBar extends PureComponent<Props> {
     super(props);
   }
 
+  private _onPressBack = () => {
+    this.props.onPressBack?.();
+  };
+
   public render() {
-    const {title, onPressBack, style} = this.props;
+    const {title, style} = this.props;
 
     const theme = this.props.theme ?? 'blank';
     const containerStyle =
@@ -134,7 +138,7 @@ export default class TopBar extends PureComponent<Props> {
       $(View, {key: 'inner', style: styles.innerContainer}, [
         $(HeaderButton, {
           key: 'back',
-          onPress: onPressBack,
+          onPress: this._onPressBack,
           color: headerButtonColor,
           ...Platform.select({
             ios: {
