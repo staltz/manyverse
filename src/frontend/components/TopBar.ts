@@ -10,6 +10,7 @@ import {
   Platform,
   StyleProp,
   ViewStyle,
+  TextStyle,
 } from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {t} from '~frontend/drivers/localization';
@@ -19,20 +20,52 @@ import {Typography} from '~frontend/global-styles/typography';
 import {IconNames} from '~frontend/global-styles/icons';
 import HeaderButton from './HeaderButton';
 
+const container: ViewStyle = {
+  height: Dimensions.toolbarHeight,
+  paddingTop: getStatusBarHeight(true),
+  alignSelf: 'stretch',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  ...Platform.select({
+    web: {
+      '-webkit-app-region': 'drag',
+    },
+  }),
+};
+
+const title: TextStyle = {
+  fontSize: Typography.fontSizeLarge,
+  fontFamily: Typography.fontFamilyReadableText,
+  fontWeight: 'bold',
+  ...Platform.select({
+    ios: {
+      position: 'absolute',
+      top: Dimensions.verticalSpaceTiny,
+      bottom: 0,
+      left: 40,
+      right: 40,
+      textAlign: 'center',
+      marginLeft: 0,
+    },
+    default: {
+      marginLeft: Dimensions.horizontalSpaceLarge,
+    },
+  }),
+};
+
 const styles = StyleSheet.create({
-  container: {
-    height: Dimensions.toolbarHeight,
-    paddingTop: getStatusBarHeight(true),
-    alignSelf: 'stretch',
+  containerBlank: {
+    ...container,
+    backgroundColor: Palette.backgroundText,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Palette.textLine,
+  },
+
+  containerBrand: {
+    ...container,
     backgroundColor: Palette.brandMain,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    ...Platform.select({
-      web: {
-        '-webkit-app-region': 'drag',
-      },
-    }),
+    borderBottomWidth: 0,
   },
 
   innerContainer: {
@@ -49,25 +82,14 @@ const styles = StyleSheet.create({
     }),
   },
 
-  title: {
+  titleBlank: {
+    ...title,
+    color: Palette.text,
+  },
+
+  titleBrand: {
+    ...title,
     color: Palette.textForBackgroundBrand,
-    fontSize: Typography.fontSizeLarge,
-    fontFamily: Typography.fontFamilyReadableText,
-    fontWeight: 'bold',
-    ...Platform.select({
-      ios: {
-        position: 'absolute',
-        top: Dimensions.verticalSpaceTiny,
-        bottom: 0,
-        left: 40,
-        right: 40,
-        textAlign: 'center',
-        marginLeft: 0,
-      },
-      default: {
-        marginLeft: Dimensions.horizontalSpaceLarge,
-      },
-    }),
   },
 
   rightSide: {
@@ -88,6 +110,7 @@ const styles = StyleSheet.create({
 export interface Props {
   title?: string;
   onPressBack?: () => void;
+  theme?: 'brand' | 'blank';
   style?: StyleProp<ViewStyle>;
 }
 
@@ -98,11 +121,21 @@ export default class TopBar extends PureComponent<Props> {
 
   public render() {
     const {title, onPressBack, style} = this.props;
-    return $(View, {key: 'outer', style: [styles.container, style]}, [
+
+    const theme = this.props.theme ?? 'blank';
+    const containerStyle =
+      theme === 'blank' ? styles.containerBlank : styles.containerBrand;
+    const titleStyle =
+      theme === 'blank' ? styles.titleBlank : styles.titleBrand;
+    const headerButtonColor =
+      theme === 'blank' ? undefined : Palette.textForBackgroundBrand;
+
+    return $(View, {key: 'outer', style: [containerStyle, style]}, [
       $(View, {key: 'inner', style: styles.innerContainer}, [
         $(HeaderButton, {
           key: 'back',
           onPress: onPressBack,
+          color: headerButtonColor,
           ...Platform.select({
             ios: {
               icon: IconNames.backButtonIOS,
@@ -115,7 +148,7 @@ export default class TopBar extends PureComponent<Props> {
           }),
           accessibilityLabel: t('call_to_action.go_back.accessibility_label'),
         }),
-        title ? $(Text, {key: 'title', style: styles.title}, title) : null,
+        title ? $(Text, {key: 'title', style: titleStyle}, title) : null,
         this.props.children
           ? $(
               View,

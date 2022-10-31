@@ -107,7 +107,7 @@ export const styles = StyleSheet.create({
 
   nameInTopBar: {
     zIndex: 20,
-    color: Palette.textForBackgroundBrand,
+    color: Palette.text,
     left:
       Dimensions.horizontalSpaceBig +
       AVATAR_SIZE_TOOLBAR +
@@ -185,7 +185,7 @@ export const styles = StyleSheet.create({
 
   feedIdInTopBar: {
     zIndex: 20,
-    color: Palette.textWeakForBackgroundBrand,
+    color: Palette.textWeak,
     left:
       Dimensions.horizontalSpaceBig +
       AVATAR_SIZE_TOOLBAR +

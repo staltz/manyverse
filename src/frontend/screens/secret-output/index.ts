@@ -62,10 +62,12 @@ export const styles = StyleSheet.create({
     zIndex: 10,
     position: 'absolute',
     height: Dimensions.toolbarHeight,
-    backgroundColor: Palette.brandMain,
+    backgroundColor: Palette.backgroundText,
     top: 0,
     left: 0,
     right: 0,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Palette.textLine,
     ...Platform.select({
       web: {
         '-webkit-app-region': 'drag',

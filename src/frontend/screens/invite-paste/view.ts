@@ -23,6 +23,9 @@ export default function view(state$: Stream<State>) {
           style: acceptEnabled
             ? styles.acceptButtonEnabled
             : styles.acceptButtonDisabled,
+          textStyle: acceptEnabled
+            ? styles.acceptButtonTextEnabled
+            : styles.acceptButtonTextDisabled,
           text: t('call_to_action.done'),
           strong: acceptEnabled,
           accessible: true,

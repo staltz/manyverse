@@ -89,7 +89,7 @@ export default class HeaderButton extends PureComponent<Props> {
       [
         h(Icon, {
           size: iconSize ?? defaultIconSize,
-          color: color ?? 'white',
+          color: color ?? Palette.textWeak,
           name: icon,
           accessible: true,
           accessibilityRole: 'button',

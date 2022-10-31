@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeBig,
     textAlign: 'left',
     textAlignVertical: 'center',
-    color: Palette.textForBackgroundBrand,
+    color: Palette.text,
     ...Platform.select({
       web: {
         outlineStyle: 'none',

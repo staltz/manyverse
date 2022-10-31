@@ -260,7 +260,7 @@ export default function view(state$: Stream<State>) {
             multiline: false,
             returnKeyType: 'search',
             placeholder: t('search.query_input.placeholder'),
-            placeholderTextColor: Palette.textWeakForBackgroundBrand,
+            placeholderTextColor: Palette.textWeak,
             selectionColor: Palette.backgroundTextSelection,
             underlineColorAndroid: 'transparent',
           }),

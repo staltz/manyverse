@@ -45,10 +45,12 @@ export const styles = StyleSheet.create({
     height: Dimensions.toolbarHeight,
     paddingTop: getStatusBarHeight(true),
     alignSelf: 'stretch',
-    backgroundColor: Palette.brandMain,
+    backgroundColor: Palette.backgroundText,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Palette.textLine,
     ...Platform.select({
       web: {
         '-webkit-app-region': 'drag',
@@ -86,7 +88,7 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    color: Palette.textForBackgroundBrand,
+    color: Palette.text,
     fontSize: Typography.fontSizeLarge,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',

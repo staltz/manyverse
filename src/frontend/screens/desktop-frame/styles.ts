@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
@@ -30,15 +30,6 @@ export const styles = StyleSheet.create({
     zIndex: 1000,
     top: 0,
   } as React.CSSProperties & ViewStyle,
-
-  progressLabel: {
-    marginLeft: Dimensions.horizontalSpaceNormal,
-    color: Palette.textForBackgroundBrand,
-    fontSize: Typography.fontSizeSmall,
-    lineHeight: Typography.lineHeightSmall,
-    fontFamily: Typography.fontFamilyReadableText,
-    transition: 'opacity 1.5s ease 1.5s',
-  } as React.CSSProperties & TextStyle,
 
   progressPill: {
     position: 'absolute',
@@ -149,10 +140,26 @@ export const styles = StyleSheet.create({
   topBarLeftSection: {
     height: Dimensions.toolbarHeight,
     minHeight: Dimensions.toolbarHeight,
-    backgroundColor: Palette.brandMain,
+    backgroundColor: Palette.backgroundText,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Palette.textLine,
+    '-webkit-app-region': 'drag',
+  },
+
+  appLogoContainer: {
+    minWidth: Dimensions.desktopSideWidth.px,
+    paddingHorizontal: Dimensions.horizontalSpaceNormal,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    '-webkit-app-region': 'drag',
+  },
+
+  appLogo: {
+    width: Dimensions.iconSizeNormal,
+    height: Dimensions.iconSizeNormal,
+    marginHorizontal: Dimensions.horizontalSpaceNormal,
   },
 });

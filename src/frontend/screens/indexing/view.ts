@@ -279,7 +279,11 @@ export default function view(state$: Stream<State>) {
       if (!topBar) {
         // Hack to avoid rerendering the top bar (which would cause glitches
         // when hovering on the Back Button)
-        topBar = h(TopBar, {sel: 'topbar', style: styles.topBar});
+        topBar = h(TopBar, {
+          sel: 'topbar',
+          style: styles.topBar,
+          theme: 'brand',
+        });
       }
 
       const snapToOffsets = Platform.select({

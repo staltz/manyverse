@@ -91,7 +91,7 @@ export function instructions(sources: Sources): Sinks {
 
   const vdom$ = state$.map((state) =>
     h(View, {style: styles.screen}, [
-      h(TopBar, {sel: 'topbar', style: styles.topBar}),
+      h(TopBar, {sel: 'topbar', style: styles.topBar, theme: 'brand'}),
 
       tutorialPresentation('swiper', {scrollBy$, showDots: !!state.content2}, [
         tutorialSlide({

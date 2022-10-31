@@ -39,10 +39,12 @@ export const styles = StyleSheet.create({
     height: Dimensions.toolbarHeight,
     paddingTop: getStatusBarHeight(true),
     alignSelf: 'stretch',
-    backgroundColor: Palette.brandMain,
+    backgroundColor: Palette.backgroundText,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Palette.textLine,
     ...Platform.select({
       web: {
         '-webkit-app-region': 'drag',
@@ -85,7 +87,7 @@ export const styles = StyleSheet.create({
   buttonEnabled: {
     marginLeft: Dimensions.horizontalSpaceNormal,
     backgroundColor: 'transparent',
-    borderColor: Palette.textForBackgroundBrand,
+    borderColor: Palette.textBrand,
     borderWidth: 1,
   },
 
@@ -96,17 +98,21 @@ export const styles = StyleSheet.create({
 
   buttonDisabled: {
     backgroundColor: 'transparent',
-    borderColor: Palette.textWeakForBackgroundBrand,
+    borderColor: Palette.textVeryWeak,
     borderWidth: 1,
     marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
   buttonTextEnabled: {
+    color: Palette.textBrand,
+  },
+
+  buttonTextEnabledStrong: {
     color: Palette.textForBackgroundBrand,
   },
 
   buttonTextDisabled: {
-    color: Palette.textWeakForBackgroundBrand,
+    color: Palette.textVeryWeak,
   },
 });
 
@@ -164,9 +170,12 @@ function view(state$: Stream<State>) {
                   ? styles.replyButton
                   : styles.publishButton,
               ],
-              textStyle: state.enabled
-                ? styles.buttonTextEnabled
-                : styles.buttonTextDisabled,
+              textStyle:
+                state.enabled && !state.previewing
+                  ? styles.buttonTextEnabled
+                  : state.enabled && state.previewing
+                  ? styles.buttonTextEnabledStrong
+                  : styles.buttonTextDisabled,
 
               text: !state.previewing
                 ? t('compose.call_to_action.preview.label')

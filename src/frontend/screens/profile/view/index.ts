@@ -159,7 +159,7 @@ function ProfileTopBar({
           [
             h(Icon, {
               size: Dimensions.iconSizeNormal,
-              color: Palette.textForBackgroundBrand,
+              color: Palette.textWeak,
               name: IconNames.etcDropdown,
             }),
           ],

@@ -155,6 +155,7 @@ export function backup(sources: Sources): Sinks {
           sel: 'topbar',
           style: styles.topBar,
           title: t('backup.title'),
+          theme: 'brand',
         }),
 
         tutorialPresentation('swiper', {scrollBy$}, [

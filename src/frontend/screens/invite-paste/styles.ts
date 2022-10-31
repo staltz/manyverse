@@ -58,12 +58,26 @@ export const styles = StyleSheet.create({
   },
 
   acceptButtonEnabled: {
-    backgroundColor: Palette.backgroundCTA,
+    marginLeft: Dimensions.horizontalSpaceNormal,
+    backgroundColor: 'transparent',
+    borderColor: Palette.textBrand,
+    borderWidth: 1,
     width: 80,
   },
 
   acceptButtonDisabled: {
-    backgroundColor: Palette.brandWeak,
+    backgroundColor: 'transparent',
+    borderColor: Palette.textVeryWeak,
+    borderWidth: 1,
+    marginLeft: Dimensions.horizontalSpaceNormal,
     width: 80,
+  },
+
+  acceptButtonTextEnabled: {
+    color: Palette.textBrand,
+  },
+
+  acceptButtonTextDisabled: {
+    color: Palette.textVeryWeak,
   },
 });
