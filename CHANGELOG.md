@@ -2,6 +2,11 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2211.1-beta
+
+* Bug fix: rebuild indexes to fix replication ([see details](https://gitlab.com/staltz/manyverse/commit/482541e373acefd1fd981ae099e3728b4645810b))
+* Improve Danish translation ([see details](https://gitlab.com/staltz/manyverse/commit/99eab3b7058a5c0ec9552201034df43378ee37af))
+
 ## 0.2210.31-beta
 
 * Bug fix: crash related to deleted/blocked accounts ([see details](https://gitlab.com/staltz/manyverse/commit/cf1b72a91ed799ff7eb5f8446cc04ad51fac80f6))
