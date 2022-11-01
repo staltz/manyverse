@@ -163,6 +163,13 @@ async function oneTimeFixes() {
     }
     fs.closeSync(fs.openSync(ISSUE_2086, 'w'));
   }
+
+  const ISSUE_2101 = path.join(SSB_DIR, 'issue2101');
+  if (!fs.existsSync(ISSUE_2101)) {
+    rimraf.sync(defaults.indexesPath(SSB_DIR));
+    rimraf.sync(defaults.jitIndexesPath(SSB_DIR));
+    fs.closeSync(fs.openSync(ISSUE_2101, 'w'));
+  }
 }
 
 export = oneTimeFixes;
