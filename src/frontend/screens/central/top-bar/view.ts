@@ -99,15 +99,6 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
     ...Platform.select({
-      ios: {
-        position: 'absolute',
-        top: Dimensions.verticalSpaceTiny,
-        bottom: 0,
-        left: 40,
-        right: 40,
-        textAlign: 'center',
-        marginLeft: 0,
-      },
       web: {
         marginLeft: 0,
       },
