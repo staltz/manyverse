@@ -2,6 +2,18 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2211.4-beta
+
+* (Android) Bug fix: fix input not clearing after sending private message ([see details](https://gitlab.com/staltz/manyverse/commit/b6077237cbeb4125f3d569c24ea4e4b210d11a07))
+* (Desktop) Bug fix: top-left corner quirks on macOS ([see details](https://gitlab.com/staltz/manyverse/commit/cdf530c4dcfe1a8a279f1a291d12a440cc93d3f6))
+* (iOS) Bug fix: margins on the Search screen input ([see details](https://gitlab.com/staltz/manyverse/commit/2faa13ec44b2c2b58aad8844a3a2bddc6e7d0f67))
+* Bug fix: back button on the compose audio screen ([see details](https://gitlab.com/staltz/manyverse/commit/92d8d4ba97b98284cc30a9e1697d43af39b966ea))
+* Feature: customize the public feed algorithm ([see details](https://gitlab.com/staltz/manyverse/commit/dd83d51259667f61d2e431c74e66048ca250651a))
+* Feature: new top bar color scheme ([see details](https://gitlab.com/staltz/manyverse/commit/585dd8fe7f650f8d7d3e28bde9e173d7e0215099))
+* Improve design of message cards ([see details](https://gitlab.com/staltz/manyverse/commit/a061bb43cb5bfe9146c1b862de6e611f6a5845d4))
+* Improve Russian translation ([see details](https://gitlab.com/staltz/manyverse/commit/f814dc644e4e027675b89a653926541e7e13c892))
+* Improve text on the Permanence onboarding screen ([see details](https://gitlab.com/staltz/manyverse/commit/b2e0ef66cd3ef2a85bfc48c280932e24581906ad))
+
 ## 0.2211.1-beta
 
 * Bug fix: rebuild indexes to fix replication ([see details](https://gitlab.com/staltz/manyverse/commit/482541e373acefd1fd981ae099e3728b4645810b))

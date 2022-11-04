@@ -485,7 +485,7 @@ export default [
   {
     name: 'pull-flat-list',
     type: 'library',
-    version: '2.19.0',
+    version: '2.20.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/pull-flat-list',
   },

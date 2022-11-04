@@ -2,4 +2,4 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-module.exports = '0.2211.1-beta';
+module.exports = '0.2211.4-beta';
