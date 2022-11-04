@@ -99,6 +99,10 @@ Files: test/apple-app-store-demo/blobs/sha256/*/*
 Copyright: 2020 The Manyverse Authors
 License: CC-BY-SA-4.0
 
+Files: images/app-logo-*.png
+Copyright: 2019 The Manyverse Authors
+License: CC-BY-SA-4.0
+
 Files: images/bluetooth*.png
 Copyright: 2021 Google, Inc
 License: Apache-2.0

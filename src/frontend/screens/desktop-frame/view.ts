@@ -234,7 +234,11 @@ export default function view(
               : h(View, {key: 'alc', style: styles.appLogoContainer}, [
                   h(Image, {
                     style: styles.appLogo,
-                    source: getImg(require('~images/app-logo.png')),
+                    source: getImg(
+                      window.devicePixelRatio > 1
+                        ? require('~images/app-logo-24@2x.png')
+                        : require('~images/app-logo-24.png'),
+                    ),
                   }),
                 ]),
           ]),
