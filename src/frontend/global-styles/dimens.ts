@@ -63,6 +63,7 @@ export const Dimensions = {
   iconSizeNormal: 24,
   iconSizeSmall: 18,
   toolbarHeight,
+  filtersRowHeight: 38, // Warning: this is an ESTIMATE, not a prescribed value
   tabBarHeight,
   iosBottomSpacer,
   tabBarPaddingTop: Platform.select({

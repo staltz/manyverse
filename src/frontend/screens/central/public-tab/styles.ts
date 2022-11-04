@@ -32,8 +32,12 @@ export const styles = StyleSheet.create({
     paddingBottom: Dimensions.tabBarHeight + ThreadCard.HEIGHT * 0.5,
     ...Platform.select({
       web: {
-        // Dirty hack to fix positioning of the scrollbar
-        marginTop: -Dimensions.toolbarHeight,
+        marginTop:
+          // The negative part is a hack to fix positioning of the scrollbar
+          -Dimensions.toolbarHeight + Dimensions.filtersRowHeight,
+      },
+      default: {
+        marginTop: Dimensions.filtersRowHeight,
       },
     }),
   },

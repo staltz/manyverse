@@ -12,7 +12,7 @@ import progressCalculation, {
   State as ProgressState,
   INITIAL_STATE as INITIAL_PROGRESS_STATE,
 } from '~frontend/components/progressCalculation';
-import {State as TopBarState} from './top-bar';
+import {State as TopBarState} from './top-bar/model';
 import {State as PublicTabState} from './public-tab/model';
 import {State as PrivateTabState} from './private-tab/model';
 import {State as ActivityTabState} from './activity-tab/model';
@@ -35,6 +35,7 @@ export interface State extends ProgressState {
   hasNewVersion: boolean;
   canPublishSSB: boolean;
   isDrawerOpen: boolean;
+  publicTabFollowingOnly: boolean | null;
 }
 
 /**
@@ -46,21 +47,26 @@ export const topBarLens: Lens<State, TopBarState> = {
   },
 
   set: (parent: State, child: TopBarState): State => {
-    return parent;
+    return {
+      ...parent,
+      publicTabFollowingOnly: child.publicTabFollowingOnly,
+    };
   },
 };
 
 export const publicTabLens: Lens<State, PublicTabState> = {
   get: (parent: State): PublicTabState => {
     const isVisible = parent.currentTab === 'public';
-    const {selfFeedId, selfAvatarUrl, canPublishSSB} = parent;
+    const {selfFeedId, selfAvatarUrl, canPublishSSB, publicTabFollowingOnly} =
+      parent;
     if (parent.publicTab) {
       const prev = parent.publicTab;
       if (
         prev.isVisible === isVisible &&
         prev.selfFeedId === selfFeedId &&
         prev.selfAvatarUrl === selfAvatarUrl &&
-        prev.canPublishSSB === canPublishSSB
+        prev.canPublishSSB === canPublishSSB &&
+        prev.followingOnly === publicTabFollowingOnly
       ) {
         // Optimization: nothing changed
         return prev;
@@ -71,6 +77,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
           selfFeedId,
           selfAvatarUrl,
           canPublishSSB,
+          followingOnly: publicTabFollowingOnly,
         };
       }
     } else {
@@ -87,6 +94,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         hasComposeDraft: false,
         canPublishSSB,
         scrollHeaderBy: parent.scrollHeaderBy,
+        followingOnly: publicTabFollowingOnly,
       };
     }
   },
@@ -96,6 +104,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
       parent.initializedSSB === child.initializedSSB &&
       parent.numOfPublicUpdates === child.numOfUpdates &&
       parent.lastSessionTimestamp === child.lastSessionTimestamp &&
+      parent.publicTabFollowingOnly === child.followingOnly &&
       deepEquals(parent.publicTab, child)
     ) {
       // Optimization: nothing changed in the child, so don't update the parent
@@ -106,6 +115,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         initializedSSB: child.initializedSSB,
         numOfPublicUpdates: child.numOfUpdates,
         lastSessionTimestamp: child.lastSessionTimestamp,
+        publicTabFollowingOnly: child.followingOnly,
         publicTab: child,
       };
     }
@@ -303,6 +313,7 @@ export default function model(
         scrollHeaderBy: new Animated.Value(0),
         isDrawerOpen: false,
         canPublishSSB: true,
+        publicTabFollowingOnly: null,
       };
     }
   });

@@ -7,7 +7,7 @@ import xsFromCallback from 'xstream-from-callback';
 import xsFromPullStream from 'xstream-from-pull-stream';
 const pull = require('pull-stream');
 const Ref = require('ssb-ref');
-import {Thread as ThreadData} from 'ssb-threads/types';
+import {Thread as ThreadData} from 'ssb-threads/lib/types';
 import {
   Msg,
   Content,
@@ -280,8 +280,11 @@ const threadsUtils = {
         );
       },
 
-      publicUpdates() {
-        return ssb.threads.publicUpdates({allowlist: publicAllowlist});
+      publicUpdates(followingOnly: boolean) {
+        return ssb.threads.publicUpdates({
+          allowlist: publicAllowlist,
+          following: followingOnly,
+        });
       },
 
       hashtagFeed(hashtag: string) {

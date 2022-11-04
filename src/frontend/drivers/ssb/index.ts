@@ -75,8 +75,6 @@ export class SSBSource {
   private ssb$: MemoryStream<SSBClient | null>;
   public selfFeedId$: MemoryStream<FeedId | null>;
   public publicRawFeed$: Stream<GetReadable<MsgAndExtras> | null>;
-  public publicFeed$: Stream<GetReadable<ThreadSummaryWithExtras> | null>;
-  public publicLiveUpdates$: Stream<null>;
   public privateFeed$: Stream<GetReadable<
     PrivateThreadAndExtras<PostContent>
   > | null>;
@@ -108,14 +106,6 @@ export class SSBSource {
     this.publicRawFeed$ = this.ssb$.map((ssb) =>
       isReady(ssb) ? () => ssb.threadsUtils.publicRawFeed() : null,
     );
-
-    this.publicFeed$ = this.ssb$.map((ssb) =>
-      isReady(ssb) ? (opts?: any) => ssb.threadsUtils.publicFeed(opts) : null,
-    );
-
-    this.publicLiveUpdates$ = this.fromPullStream((ssb) =>
-      isReady(ssb) ? ssb.threadsUtils.publicUpdates() : pull.empty(),
-    ).mapTo(null);
 
     this.privateFeed$ = this.ssb$.map((ssb) =>
       isReady(ssb) ? (opts?: any) => ssb.threadsUtils.privateFeed(opts) : null,
@@ -228,6 +218,28 @@ export class SSBSource {
         ? ssb.threadsUtils.thread({root: rootMsgId, private: privately}, cb)
         : cb(new Error('Not Found')),
     );
+  }
+
+  public publicFeed$(
+    onlyFollowing: boolean,
+  ): Stream<GetReadable<ThreadSummaryWithExtras> | null> {
+    return this.ssb$.map((ssb) =>
+      isReady(ssb)
+        ? (opts?: any) =>
+            ssb.threadsUtils.publicFeed({
+              ...opts,
+              following: onlyFollowing,
+            })
+        : null,
+    );
+  }
+
+  public publicLiveUpdates$(onlyFollowing: boolean): Stream<null> {
+    return this.fromPullStream((ssb) =>
+      isReady(ssb)
+        ? ssb.threadsUtils.publicUpdates(onlyFollowing)
+        : pull.empty(),
+    ).mapTo(null);
   }
 
   public threadUpdates$(

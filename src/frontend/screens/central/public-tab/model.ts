@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
+import dropRepeats from 'xstream/extra/dropRepeats';
 import {Reducer} from '@cycle/state';
 import {Animated} from 'react-native';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
@@ -22,6 +23,7 @@ export interface State {
   isVisible: boolean;
   canPublishSSB: boolean;
   scrollHeaderBy: Animated.Value;
+  followingOnly: boolean | null;
 }
 
 export interface Actions {
@@ -34,13 +36,23 @@ export default function model(
   actions: Actions,
   asyncStorageSource: AsyncStorageSource,
   ssbSource: SSBSource,
+  state$: Stream<State>,
 ): Stream<Reducer<State>> {
-  const setPublicFeedReducer$ = ssbSource.publicFeed$.map(
-    (getReadable) =>
-      function setPublicFeedReducer(prev: State): State {
-        return {...prev, getPublicFeedReadable: getReadable};
-      },
-  );
+  const followingOnlyChanged$ = state$
+    .compose(dropRepeats((x, y) => x.followingOnly === y.followingOnly))
+    .filter((state) => state.followingOnly !== null) as Stream<
+    State & {followingOnly: boolean}
+  >;
+
+  const setPublicFeedReducer$ = followingOnlyChanged$
+    .map((state) => ssbSource.publicFeed$(state.followingOnly))
+    .flatten()
+    .map(
+      (getReadable) =>
+        function setPublicFeedReducer(prev: State): State {
+          return {...prev, getPublicFeedReadable: getReadable};
+        },
+    );
 
   const updatePreferredReactionsReducer$ = ssbSource.preferredReactions$.map(
     (preferredReactions) =>
@@ -49,11 +61,12 @@ export default function model(
       },
   );
 
-  const incUpdatesReducer$ = ssbSource.publicLiveUpdates$.mapTo(
-    function incUpdatesReducer(prev: State): State {
+  const incUpdatesReducer$ = followingOnlyChanged$
+    .map((state) => ssbSource.publicLiveUpdates$(state.followingOnly))
+    .flatten()
+    .mapTo(function incUpdatesReducer(prev: State): State {
       return {...prev, numOfUpdates: prev.numOfUpdates + 1};
-    },
-  );
+    });
 
   const initializationDoneReducer$ = actions.initializationDone$.mapTo(
     function initializationDoneReducer(prev: State): State {
@@ -94,6 +107,19 @@ export default function model(
         },
     );
 
+  const initialFollowingOnlyReducer$ = asyncStorageSource
+    .getItem('followingOnly')
+    .map(
+      (resultStr) =>
+        function initialPublicTabFiltersReducer(prev: State): State {
+          const parsed = resultStr && JSON.parse(resultStr);
+          return {
+            ...prev,
+            followingOnly: parsed === null ? false : parsed,
+          };
+        },
+    );
+
   return xs.merge(
     setPublicFeedReducer$,
     incUpdatesReducer$,
@@ -102,5 +128,6 @@ export default function model(
     loadLastSessionTimestampReducer$,
     getComposeDraftReducer$,
     resetUpdatesReducer$,
+    initialFollowingOnlyReducer$,
   );
 }

@@ -215,6 +215,16 @@
       "connections": {
         "accessibility_label": "Connections Tab Button"
       }
+    },
+    "filters_row": {
+      "all": {
+        "label": "All",
+        "accessibility_label": "All Feeds Button"
+      },
+      "following": {
+        "label": "Following",
+        "accessibility_label": "Following Feeds Button"
+      }
     }
   },
   "public": {

@@ -84,11 +84,6 @@ export const navOptions = {
 };
 
 export function central(sources: Sources): Sinks {
-  const topBarSinks: TBSinks = isolate(topBar, {
-    '*': 'topBar',
-    state: topBarLens,
-  })(sources);
-
   const state$ = sources.state.stream;
 
   const actions = intent(sources.screen, sources.globalEventBus, state$);
@@ -97,13 +92,21 @@ export function central(sources: Sources): Sinks {
     .select('fab')
     .events('pressItem');
 
+  const topBarSinks = isolate(topBar, {
+    '*': 'topBar',
+    state: topBarLens,
+  })(sources) as TBSinks;
+
   const publicTabSinks = isolate(publicTab, {
     state: publicTabLens,
     '*': 'publicTab',
   })({
     ...sources,
     fab: fabPress$,
-    scrollToTop: actions.scrollToPublicTop$,
+    scrollToTop: xs.merge(
+      actions.scrollToPublicTop$,
+      topBarSinks.scrollToPublicTop$,
+    ),
   }) as PublicTabSinks;
 
   const privateTabSinks = isolate(privateTab, {
@@ -159,6 +162,7 @@ export function central(sources: Sources): Sinks {
 
   const reducer$ = xs.merge(
     centralReducer$,
+    topBarSinks.state,
     publicTabSinks.state,
     privateTabSinks.state,
     activityTabSinks.state,
@@ -177,9 +181,12 @@ export function central(sources: Sources): Sinks {
 
   const toast$ = xs.merge(publicTabSinks.toast);
 
-  const ssb$ = xs.merge(publicTabSinks.ssb);
+  const ssb$ = publicTabSinks.ssb;
 
-  const storageCommand$ = publicTabSinks.asyncstorage;
+  const storageCommand$ = xs.merge(
+    topBarSinks.asyncstorage,
+    publicTabSinks.asyncstorage,
+  );
 
   const globalEvent$ = xs.merge(
     state$

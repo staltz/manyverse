@@ -60,7 +60,12 @@ export function publicTab(sources: Sources): Sinks {
   const actionsPlus = {...actions, goToRawMsg$: messageEtcSinks.goToRawMsg$};
   const vdom$ = view(sources.state.stream, sources.ssb, sources.scrollToTop);
   const command$ = navigation(actionsPlus, sources.state.stream);
-  const reducer$ = model(actionsPlus, sources.asyncstorage, sources.ssb);
+  const reducer$ = model(
+    actionsPlus,
+    sources.asyncstorage,
+    sources.ssb,
+    sources.state.stream,
+  );
   const fabProps$ = floatingAction(sources.state.stream);
   const newContent$ = ssb(actionsPlus);
   const storageCommand$ = asyncStorage(actionsPlus, sources.asyncstorage);
