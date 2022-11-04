@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Neŝanĝeblo",
       "description": {
-        "1_normal": "Post kiam via enhavo estas sinkronigita kun amikoj, ili nun tenas kopion de ĝi sur siaj aparatoj. Ĉar ili povus malkonekti post tio, ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "ne eblas forigi",
-        "3_normal": " vian enhavon tutmonde de ĉiuj aparatoj! Jen kial ni elektis igi enhavon neŝanĝebla. Ĝi ankaŭ igas komunumojn pli respektemaj kaj konsiderindaj pri tio, kio estas afiŝita."
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {

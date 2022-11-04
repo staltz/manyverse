@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Kalıcılık",
       "description": {
-        "1_normal": "İçeriğiniz arkadaşlarınız ile eşleştiğinde artık onların cihazlarında da bir kopyası tutuluyor. Çünkü onlar bundan sonra çevrimdışı olabilirler, ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "silmek mümkün değil",
-        "3_normal": " your content globally from all devices! This is why we have chosen to make content permanent. It also makes communities more respectful and considerate of what is being posted."
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {

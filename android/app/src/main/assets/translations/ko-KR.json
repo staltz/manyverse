@@ -139,9 +139,9 @@
     "permanence": {
       "title": "성능",
       "description": {
-        "1_normal": "한번 친구들과 동기화 된 후에는 친구들은 컨텐츠를 자신의 디바이스에 온전한 복사본을 가지게 됩니다. 이후에 친구들이 오프라인이 될 수 있기 때문에, ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "당신의 게시물을",
-        "3_normal": " 모든 디바이스에서 삭제하는것은 불가능합니다! 이것이 우리가 모든 컨텐트가 영구적으로 저장되기로 선택한 이유입니다. 영구 저장 게시물은 커뮤니티에 좀 더 존중하고 서로를 배려할 수 있게 만듭니다."
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {

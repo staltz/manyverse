@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Pysyvyys",
       "description": {
-        "1_normal": "Kun sisältö on päivitetty ystäviesi kanssa heillä on siitä kopio laitteellaan. Koska he voivat mennä pois verkosta, on ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "ei ole mahdollista poistaa",
-        "3_normal": " sisältöäsi kaikilta laitteilta! Tästä syystä olemme päättäneet tehdä sisällöstä pysyvää. Se myös saa yhteisön kunnioittamaan ja harkitsemaan sitä mitä julkaistaan."
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {

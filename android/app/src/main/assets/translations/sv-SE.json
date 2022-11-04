@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Beständighet",
       "description": {
-        "1_normal": "Att det innehåll du skapar synkroniseras med dina vänners enheter betyder att en de har en kopia på det. Eftersom någon sedan kan koppla ner, och vara offline, innebär det att det ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "inte går att radera",
-        "3_normal": " innehåll globalt från alla enheter, när det en gång skapats och synkroniserats. Därför har vi valt att göra allt innehåll permanent. Det gör också communityn, nätgemenskapen, mer respektfull och hänsynstagande gällande vad som publiceras."
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {

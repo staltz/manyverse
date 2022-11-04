@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Μονιμότητα",
       "description": {
-        "1_normal": "Μόλις το περιεχόμενό σας συγχρονιστεί με τους φίλους σας, αυτοί διατηρούν πλέον ένα αντίγραφο στις συσκευές τους. Επειδή θα μπορούσαν να είναι εκτός σύνδεσης μετά από αυτό, είναι ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "άδύνατον να διαγράψετε",
-        "3_normal": " το περιεχόμενο σας, καθολικά, από όλες τις συσκευές! Γι'αυτό επιλέξαμε να κάνουμε το περιεχόμενο μόνιμο. Κάνει επίσης τις κοινότητες πιο σεβαστές και διακριτικές για αυτό που δημοσιεύεται."
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {

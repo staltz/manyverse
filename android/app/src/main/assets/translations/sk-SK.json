@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Konštantnosť",
       "description": {
-        "1_normal": "Akonáhle sa váš obsah zosynchronizuje s vašími#!! priateľmi, obdržia kópiu obsahu na svoje zariadenia. Pretože môžu ísť kedykoľvek offline, ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "nie je možné zmazať",
-        "3_normal": " váš obsah globálne zo všetkých zariadení! Takto sa obsah stáva trvalým a tým aj povzbudzuje komunity, aby boli úctivé a rozvážne o obsahe, ktoré zdieľajú."
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {

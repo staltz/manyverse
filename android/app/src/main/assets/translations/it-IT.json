@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Permanenza",
       "description": {
-        "1_normal": "Una volta sincronizzato il tuo contenuto con gli amici, questi hanno una copia nei loro dispositivi. Poiché successivamente possono andare offline, ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "non è possibile eliminare",
-        "3_normal": " il tuo contenuto globalmente da tutti i dispositivi! Ecco perché abbiamo scelto di rendere permanenti i contenuti. Inoltre questo rende le comunità più rispettose e premurose su ciò che viene pubblicato."
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {

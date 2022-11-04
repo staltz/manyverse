@@ -139,9 +139,9 @@
     "permanence": {
       "title": "永久性",
       "description": {
-        "1_normal": "一旦你的内容与好友同步，他们的设备上就会有一份拷贝。因为他们可以在这之后下线， ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "你不可能删除",
-        "3_normal": " 你的内容从所有的设备上！这也是为什么我们选择使内容永久化。这也使社区成员们更加慎重考虑他们要发出的内容。"
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {

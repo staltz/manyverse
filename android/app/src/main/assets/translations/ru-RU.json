@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Неудаляемость",
       "description": {
-        "1_normal": "После синхронизации с друзьями, вы на своих устройствах будете совместно хранить данные друг друга. А когда друзья перейдут из сети в автономный режим, то никто ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "не сможет удалить",
-        "3_normal": " ваши данные с их устройств! Поэтому мы решили сделать контент неудаляемым. Также это делает людей более уважительными и внимательными к тому, что они публикуют."
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {

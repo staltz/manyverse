@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Постійність",
       "description": {
-        "1_normal": "Оскільки Ваш вміст синхроновано з друзями, вони зберігатимуть його копію на своїх пристроях. Потім вони вийдуть із мережі і ",
+        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "буде не можливо видалити",
-        "3_normal": " його глобально зі всіх пристроїв! Тому ми вирішили зробити вміст сталим. Це зробить спільноти шанобливими й уважними до того, що публікується."
+        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
       }
     },
     "in_construction": {
