@@ -215,6 +215,16 @@
       "connections": {
         "accessibility_label": "Csatlakozások lap gomb"
       }
+    },
+    "filters_row": {
+      "all": {
+        "label": "All",
+        "accessibility_label": "All Feeds Button"
+      },
+      "following": {
+        "label": "Following",
+        "accessibility_label": "Following Feeds Button"
+      }
     }
   },
   "public": {
@@ -1221,6 +1231,10 @@
       },
       "reply": {
         "accessibility_label": "Reply Button"
+      },
+      "share": {
+        "dialog_title": "Share",
+        "accessibility_label": "Share Button"
       },
       "etc": {
         "dialog_title": "Message",

@@ -215,6 +215,16 @@
       "connections": {
         "accessibility_label": "Pestaña de conexiones"
       }
+    },
+    "filters_row": {
+      "all": {
+        "label": "All",
+        "accessibility_label": "All Feeds Button"
+      },
+      "following": {
+        "label": "Siguiendo",
+        "accessibility_label": "Following Feeds Button"
+      }
     }
   },
   "public": {
@@ -1221,6 +1231,10 @@
       },
       "reply": {
         "accessibility_label": "Botón Responder"
+      },
+      "share": {
+        "dialog_title": "Compartir",
+        "accessibility_label": "Share Button"
       },
       "etc": {
         "dialog_title": "Mensaje",

@@ -215,6 +215,16 @@
       "connections": {
         "accessibility_label": "Verbindungen Tab Menü-Schaltfläche"
       }
+    },
+    "filters_row": {
+      "all": {
+        "label": "All",
+        "accessibility_label": "All Feeds Button"
+      },
+      "following": {
+        "label": "Folge ich",
+        "accessibility_label": "Following Feeds Button"
+      }
     }
   },
   "public": {
@@ -905,7 +915,7 @@
     },
     "empty": {
       "instructions": {
-        "title": "Teilnehmende auswählen",
+        "title": "Empfänger auswählen",
         "description": "Gib die Namen der Personen ein, die du zu\ndem neuen Chat hinzufügen möchtest"
       },
       "none_to_choose": {
@@ -1221,6 +1231,10 @@
       },
       "reply": {
         "accessibility_label": "Antwort Schaltfläche"
+      },
+      "share": {
+        "dialog_title": "Share",
+        "accessibility_label": "Share Button"
       },
       "etc": {
         "dialog_title": "Nachricht",

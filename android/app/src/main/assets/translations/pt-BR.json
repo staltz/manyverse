@@ -15,7 +15,7 @@
       "accessibility_label": "Botão de menu"
     },
     "go_back": {
-      "label": "Voltar atrás",
+      "label": "Voltar",
       "accessibility_label": "Botão de voltar"
     },
     "close": {
@@ -214,6 +214,16 @@
       },
       "connections": {
         "accessibility_label": "Botão da Aba de Conexões"
+      }
+    },
+    "filters_row": {
+      "all": {
+        "label": "Tudo",
+        "accessibility_label": "Botão de mostrar todas as contas"
+      },
+      "following": {
+        "label": "Seguindo",
+        "accessibility_label": "Botão de mostrar contas que eu sigo"
       }
     }
   },
@@ -1221,6 +1231,10 @@
       },
       "reply": {
         "accessibility_label": "Botão de Resposta"
+      },
+      "share": {
+        "dialog_title": "Compartilhar",
+        "accessibility_label": "Botão Compartilhar"
       },
       "etc": {
         "dialog_title": "Mensagem",

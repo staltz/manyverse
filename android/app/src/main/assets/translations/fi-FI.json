@@ -215,6 +215,16 @@
       "connections": {
         "accessibility_label": "Yhteydet välilehti -painike"
       }
+    },
+    "filters_row": {
+      "all": {
+        "label": "All",
+        "accessibility_label": "All Feeds Button"
+      },
+      "following": {
+        "label": "Seurataan",
+        "accessibility_label": "Following Feeds Button"
+      }
     }
   },
   "public": {
@@ -1221,6 +1231,10 @@
       },
       "reply": {
         "accessibility_label": "Vastaa painike"
+      },
+      "share": {
+        "dialog_title": "Jaa",
+        "accessibility_label": "Share Button"
       },
       "etc": {
         "dialog_title": "Viesti",

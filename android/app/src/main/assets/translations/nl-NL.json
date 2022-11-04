@@ -215,6 +215,16 @@
       "connections": {
         "accessibility_label": "Verbindingen Tabknop"
       }
+    },
+    "filters_row": {
+      "all": {
+        "label": "All",
+        "accessibility_label": "All Feeds Button"
+      },
+      "following": {
+        "label": "Volgt",
+        "accessibility_label": "Following Feeds Button"
+      }
     }
   },
   "public": {
@@ -1221,6 +1231,10 @@
       },
       "reply": {
         "accessibility_label": "Antwoordknop"
+      },
+      "share": {
+        "dialog_title": "Deel",
+        "accessibility_label": "Share Button"
       },
       "etc": {
         "dialog_title": "Bericht",

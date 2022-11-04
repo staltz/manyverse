@@ -215,6 +215,16 @@
       "connections": {
         "accessibility_label": "Bağlantılar sekmesi butonu"
       }
+    },
+    "filters_row": {
+      "all": {
+        "label": "All",
+        "accessibility_label": "All Feeds Button"
+      },
+      "following": {
+        "label": "Takip ediliyor",
+        "accessibility_label": "Following Feeds Button"
+      }
     }
   },
   "public": {
@@ -1221,6 +1231,10 @@
       },
       "reply": {
         "accessibility_label": "Yanıtla Düğmesi"
+      },
+      "share": {
+        "dialog_title": "Paylaş",
+        "accessibility_label": "Share Button"
       },
       "etc": {
         "dialog_title": "Mesaj",
