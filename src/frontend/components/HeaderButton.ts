@@ -16,7 +16,7 @@ import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {withTitle} from './withTitle';
 
-const size = 36;
+const size = Dimensions.iconSizeLarge;
 const space = Dimensions.horizontalSpaceNormal * 0.5;
 const defaultIconSize = Dimensions.iconSizeNormal;
 
