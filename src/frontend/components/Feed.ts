@@ -220,6 +220,25 @@ export default class Feed extends PureComponent<Props, State> {
     return this.addedThreadsStream;
   };
 
+  private getOnScroll = () => {
+    const {yOffsetAnimVal} = this.props;
+    if (yOffsetAnimVal) {
+      const hacked = yOffsetAnimVal as Animated.Value & {_animEvent: any};
+      if (!hacked._animEvent) {
+        hacked._animEvent = Animated.event(
+          [{nativeEvent: {contentOffset: {y: hacked}}}],
+          {
+            useNativeDriver: true,
+            listener: this._onScroll,
+          },
+        );
+      }
+      return hacked._animEvent;
+    } else {
+      this._onScroll;
+    }
+  };
+
   public render() {
     const {
       onRefresh,
@@ -234,7 +253,6 @@ export default class Feed extends PureComponent<Props, State> {
       style,
       contentContainerStyle,
       progressViewOffset,
-      yOffsetAnimVal,
       preferredReactions,
       scrollToTop$,
       getReadable,
@@ -269,15 +287,7 @@ export default class Feed extends PureComponent<Props, State> {
       refreshable: true,
       onInitialPullDone: this._onFeedInitialPullDone,
       onRefresh,
-      onScroll: yOffsetAnimVal
-        ? Animated.event(
-            [{nativeEvent: {contentOffset: {y: yOffsetAnimVal}}}],
-            {
-              useNativeDriver: true,
-              listener: this._onScroll,
-            },
-          )
-        : this._onScroll,
+      onScroll: this.getOnScroll(),
       scrollToOffset$: (scrollToTop$ ?? xs.never())
         .filter(() => this.yOffset > Y_OFFSET_IS_AT_TOP)
         .mapTo({offset: 0, animated: true}),
