@@ -36,6 +36,9 @@ export const styles = StyleSheet.create({
         outlineStyle: 'none',
         fontFamily: Typography.fontFamilyReadableText,
       },
+      ios: {
+        marginLeft: -10, // shrugs
+      },
     }),
   },
 
