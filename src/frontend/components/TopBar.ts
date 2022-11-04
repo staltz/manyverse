@@ -60,6 +60,21 @@ const styles = StyleSheet.create({
     backgroundColor: Palette.backgroundText,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: Palette.textLine,
+    ...Platform.select({
+      android: {
+        elevation: 2,
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: -1},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      },
+      ios: {
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: -1},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      },
+    }),
   },
 
   containerBrand: {

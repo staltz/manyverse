@@ -8,17 +8,6 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import {globalStyles} from '~frontend/global-styles/styles';
 
-export const navigatorStyle = {
-  statusBarColor: Palette.brandStrong,
-  navBarBackgroundColor: Palette.brandMain,
-  navBarTextColor: Palette.textForBackgroundBrand,
-  navBarTextFontSize: Typography.fontSizeLarge,
-  navBarTextFontFamily: Typography.fontFamilyReadableText,
-  navBarButtonColor: Palette.textForBackgroundBrand,
-  topBarElevationShadowEnabled: false,
-  navBarTextFontBold: true,
-};
-
 export const avatarSize = Dimensions.avatarSizeNormal;
 
 const contentWarning: TextStyle = {
