@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Permanência",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "não é possível apagar",
-        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
+        "1_normal": "Uma vez que o seu conteúdo é sincronizado com amigos, eles terão uma cópia. Como eles podem ficar offline depois disso, é ",
+        "2_bold": "impossível apagar",
+        "3_normal": " o seu conteúdo no mundo todo! Embora isto promova mais moderação nas comunidades, isto também pode te colocar em risco, portanto, pense duas vezes antes de compartilhar."
       }
     },
     "in_construction": {
