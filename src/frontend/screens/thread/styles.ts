@@ -42,7 +42,18 @@ export const styles = StyleSheet.create({
         bottom: 0,
         zIndex: 100,
       },
+      android: {
+        elevation: 12,
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: -10},
+        shadowOpacity: 0.8,
+        shadowRadius: 3,
+      },
       ios: {
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: 10},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
         paddingBottom: Dimensions.iosBottomSpacer,
       },
     }),
