@@ -21,8 +21,13 @@ export const asyncStorage = (
     .compose(sample(storageKey$))
     .map((key) => ({type: 'removeItem', key}));
 
-  const saveDraft$: Stream<StorageCommand> = xs
-    .periodic(1000)
+  const resetSaveDraftTimer$: Stream<null> = deleteDraft$
+    .mapTo(null)
+    .startWith(null);
+
+  const saveDraft$: Stream<StorageCommand> = resetSaveDraftTimer$
+    .map(() => xs.periodic(1000))
+    .flatten()
     .compose(sample(compose$))
     .filter((message) => message.length > 1)
     .compose(dropRepeats())

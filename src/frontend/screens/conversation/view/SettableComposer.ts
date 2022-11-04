@@ -82,7 +82,7 @@ export default class SettableComposer extends PureComponent<Props> {
     if (this.props.nativeText$) {
       this.subscription = this.props.nativeText$.subscribe({
         next: (text) => {
-          if (Platform.OS === 'ios') {
+          if (Platform.OS === 'ios' || Platform.OS === 'android') {
             this.ref.current?.setNativeProps({text});
           } else {
             this.ref.current?.setNativeProps({value: text});
