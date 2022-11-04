@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   },
 
   header: {
-    backgroundColor: Palette.brandMain,
+    backgroundColor: Palette.backgroundText,
     minHeight: Platform.select({
       android: 109,
       default: 100,
@@ -30,8 +30,10 @@ export const styles = StyleSheet.create({
       default: Dimensions.verticalSpaceBig,
     }),
     paddingLeft: Dimensions.horizontalSpaceBig,
-    paddingBottom: Dimensions.verticalSpaceTiny,
+    paddingBottom: Dimensions.verticalSpaceNormal,
     paddingRight: Dimensions.horizontalSpaceNormal,
+    borderBottomWidth: 1,
+    borderBottomColor: Palette.textLine,
   },
 
   authorImage: {
@@ -42,12 +44,12 @@ export const styles = StyleSheet.create({
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
-    color: Palette.textForBackgroundBrand,
+    color: Palette.text,
     fontWeight: 'bold',
   },
 
   authorId: {
-    color: Palette.textWeakForBackgroundBrand,
+    color: Palette.textWeak,
     fontSize: Typography.fontSizeTiny,
     lineHeight: Typography.lineHeightTiny,
     fontFamily: Typography.fontFamilyReadableText,

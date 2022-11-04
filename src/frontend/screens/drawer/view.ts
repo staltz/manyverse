@@ -97,13 +97,16 @@ export default function view(state$: Stream<State>): Stream<ReactElement<any>> {
       h(View, {style: styles.container}, [
         h(
           TouchableHighlight,
-          {sel: 'header', underlayColor: Palette.brandMain, activeOpacity: 0.5},
+          {
+            sel: 'header',
+            underlayColor: Palette.backgroundTextWeakStrong,
+            activeOpacity: 0.5,
+          },
           [
             h(View, {style: styles.header}, [
               h(Avatar, {
                 style: styles.authorImage,
                 size: Dimensions.avatarSizeNormal,
-                backgroundColor: Palette.brandStrong,
                 url: state.selfAvatarUrl,
               }),
 
