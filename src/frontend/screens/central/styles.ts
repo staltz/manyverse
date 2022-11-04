@@ -43,12 +43,27 @@ export const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     height: Dimensions.tabBarHeight,
-    borderTopColor: Palette.textLine,
-    borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: Palette.backgroundText,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'stretch',
+    borderTopColor: Palette.textLine,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    ...Platform.select({
+      android: {
+        elevation: 12,
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: -10},
+        shadowOpacity: 0.8,
+        shadowRadius: 3,
+      },
+      ios: {
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: 10},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      },
+    }),
   },
 
   topBarStub: {

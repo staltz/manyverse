@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Palette.textLine,
     ...Platform.select({
       android: {
-        elevation: 2,
+        elevation: 3,
         shadowColor: '#000000',
         shadowOffset: {width: 0, height: -1},
         shadowOpacity: 0.2,

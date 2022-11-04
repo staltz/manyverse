@@ -49,6 +49,19 @@ export const styles = StyleSheet.create({
       web: {
         '-webkit-app-region': 'drag',
       },
+      android: {
+        elevation: 3,
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: -1},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      },
+      ios: {
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: -1},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      },
     }),
   },
 
