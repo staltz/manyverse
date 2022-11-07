@@ -96,7 +96,7 @@ class MsgActivity extends PureComponent<MsgActivityProps> {
       return h(Icon, {
         key: 'icon',
         size: Dimensions.iconSizeSmall,
-        color: Palette.brandMain,
+        color: Palette.textBrand,
         name: IconNames.mention,
       });
     }
