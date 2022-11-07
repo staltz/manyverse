@@ -5,7 +5,7 @@
     "done": "Voltooid",
     "cancel": "Annuleer",
     "continue": "Doorgaan",
-    "read_more": "Read more",
+    "read_more": "Meer lezen",
     "delete": "Verwijder",
     "remove": "Verwijderen",
     "save": "Opslaan",
@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Duurzaamheid",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
+        "1_normal": "Van zodra jouw inhoud gesynchronizeerd is met je vrienden, bezitten zij een kopie ervan op hun toestel. Dit is zodat ze nadien offline kunnen gaan ",
         "2_bold": "verwijderen niet mogelijk",
-        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
+        "3_normal": " al jouw inhoud van alle toestellen! Terwijl dit een positieve kant heeft omdat het gemeenschappen voorzichtiger en attenter maakt, houdt het ook een risico in, dus denk twee keer na voor je iets deelt."
       }
     },
     "in_construction": {
@@ -200,7 +200,7 @@
     },
     "loading": "Laden...",
     "progress_indicator": {
-      "accessibility_label": "Progress Indicator for Indexing the Database"
+      "accessibility_label": "Vooruitgang-indicatie voor het indexeren van de databank"
     },
     "tabs": {
       "public": {
@@ -218,12 +218,12 @@
     },
     "filters_row": {
       "all": {
-        "label": "All",
-        "accessibility_label": "All Feeds Button"
+        "label": "Alles",
+        "accessibility_label": "Alle Feeds Knop"
       },
       "following": {
         "label": "Volgt",
-        "accessibility_label": "Following Feeds Button"
+        "accessibility_label": "Volgend Feeds Knop"
       }
     }
   },
@@ -343,11 +343,11 @@
       "others": "Overige keuzes"
     },
     "recommendation_descriptions": {
-      "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
+      "consume_invite": "Dit sociaal netwerk is gebaseerd op uitnodigingen, om het vriendelijk en vrij van spam te houden. Als je nog geen uitnodiging van een vriend gekregen hebt, kan je op het internet zoeken naar een server die iedereen invites geeft.\n\nZoek op de trefwoorden \"SSB room server\" of \"SSB pub server\". De hashtag #ssbroom kan ook handig zijn.",
       "follow_staged_manually": {
         "part1": {
-          "not_connected": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",
-          "connected": "If you want to get more content beyond what you already have, you can follow more people. There are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them."
+          "not_connected": "Je vrienden zijn momenteel niet online, maar als je meer inhoud wilt, er zijn momenteel een aantal onbekenden online in dezelfde room(s) als jou. Je kan hen proberen te bevrienden.",
+          "connected": "Als je meer inhoud wilt dan je al hebt, dien je meer mensen te volgen. Er zijn momenteel een aantal mensen online in dezelfde room(s) als jou. Je kan hen proberen te bevrienden."
         },
         "part2": "Op het volgende scherm ziet u onbekende peers zoals deze. Druk op een van hen en kies \"Open profiel\", en dan \"Volgen\"."
       }
@@ -363,11 +363,11 @@
       "sign_in_with_ssb": {
         "client_initiated": {
           "title": "Inloggen toestaan?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "description": "Open de website van {{room}} om een uitnodigingen te maken en leden te beheren. Wil je Manyverse gebruiken om in te loggen?\n\nHet ID van de room is {{roomid}}."
         },
         "server_initiated": {
           "title": "Inloggen toestaan?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "description": "Een internet browser verzoekt toelating om je te identificeren. Wil je inlogging op de server {{room}}?\n\nHet ID van de server is {{roomid}}."
         }
       }
     },
@@ -465,7 +465,7 @@
       },
       "room_sign_in": {
         "label": "Log in op de website",
-        "accessibility_label": "Open this room's website and sign into its dashboard, Button"
+        "accessibility_label": "Open de website van deze room en log in op het dashboard, Knop"
       },
       "room_share_invite": {
         "label": "Deel uitnodigingscode",
@@ -692,7 +692,7 @@
     "dialogs": {
       "update": {
         "title": "Controleer op nieuwe versie?",
-        "description": "Would you like Manyverse to automatically check for new releases?\n\nThis setting is optional and will allow Manyverse to send requests to the manyver.se website periodically."
+        "description": "Wil je dat Manyverse automatisch ziet of er updates beschikbaar zijn?\n\nDeze instelling is optioneel en laat Manyverse toe om periodisch de manyver.se website te raadplegen."
       }
     }
   },
@@ -745,13 +745,13 @@
     },
     "dialog_friend_request": {
       "title": "Vriendschapsverzoek",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "description": "Deze account probeert een verbinding met je te maken, maar Manyverse heeft het geblokkeerd omdat ze buiten je gemeenschap zijn.\n\nAls je dit ID herkent, kan je de \"Volgen\" knop gebruiken om met hen te verbinden."
     },
     "dialog_about_storage_used": {
       "title": "Opslaggebruik",
       "description": {
-        "self": "Your content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by your blobs, such as images and audio messages.",
-        "others": "{{name}}'s content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by their blobs, such as images and audio messages."
+        "self": "Je inhoud (en relevante indexen) neemt momenteel {{megabytes}} aan geheugen in beslag op je toestel.\n\nBijlagen, zoals afbeeldingen en audio-berichten, zijn niet inbegrepen in dit getal.",
+        "others": "De inhoud van {{name}} (en relevante indexen) neemt momenteel {{megabytes}} aan geheugen in beslag op je toestel.\n\nBijlagen, zoals afbeeldingen en audio-berichten, zijn niet inbegrepen in dit getal."
       }
     },
     "toast": {
@@ -1075,9 +1075,9 @@
         }
       },
       "crash_reports": {
-        "title": "Enable crash reports",
-        "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
-        "accessibility_label": "Toggle crash reports"
+        "title": "Crash rapportering inschakelen",
+        "subtitle": "Verkies om crash rapporten (zonder persoonlijk identificeerbare informatie) naar de ontwikkelaars te sturen via Sentry.io. Door dit in te schakelen, ga je akkoord met de privacy-verklaring van Sentry.io.",
+        "accessibility_label": "Wijzig crash rapportering"
       }
     },
     "more_information": {
@@ -1096,13 +1096,13 @@
       }
     },
     "danger_zone": {
-      "title": "Danger Zone",
+      "title": "Gevarezone",
       "delete_account": {
-        "title": "Delete account",
-        "accessibility_label": "Delete your account",
+        "title": "Account verwijderen",
+        "accessibility_label": "Jou account verwijderen",
         "confirm": {
-          "title": "Delete your account?",
-          "description": "Deleting this account will bring you back to the start screen, where you can restore your account or create a new one.\n\nAre you sure you want to do this?"
+          "title": "Je account verwijderen?",
+          "description": "Deze account verwijderen zal je terug naar het startscherm brengen, waar je je account kan herstellen of een nieuwe aanmaken.\n\nBen je zeker dat je dit wil doen?"
         }
       }
     },
@@ -1157,10 +1157,10 @@
     "title": "Comprimeer uw\nManyverse database..."
   },
   "indexing": {
-    "title": "Preparing database indexes... ({{progress}}%)",
+    "title": "Databank indexen aan het voorbereiden... ({{progress}}%)",
     "info": {
-      "title": "What is happening here?",
-      "description": "Your Manyverse installation has {{bytes}} of content that needs to be optimized before you can browse it. Database indexes help organize content into categories such as posts, reactions, follows, blocks, etc.\n\nThe app is busy building those indexes and making sense of them so that when you want to see how many followers an account has, the numbers have already been calculated, and when you want to see who reacted to a post, the list of reactions has already been collected, and so forth.\n\nTypically this doesn't take longer than 10 minutes. Hang in there!"
+      "title": "Wat gebeurt er hier?",
+      "description": "Je Manyverse-installatie bevat {{bytes}} aan inhoud die geoptimalizeerd moet worden voor je het kan bekijken. Databank indexen helpen je inhoud te organizeren in categorieën zoals posts, reacties, volgingen en blokkeringen.\n\nDe app is bezig met deze indexen op te zetten zodat wanneer je wil zien hoeveel volgers een account heeft, de statistieken alvast berekend zijn; en wanneer je reacties op een bericht wil zien, deze reeds voorhanden zijn, enzovoort.\n\nDit duurt gewoonlijk niet langer dan 10 minuten. Hou nog even vol!"
     }
   },
   "resync": {
@@ -1234,7 +1234,7 @@
       },
       "share": {
         "dialog_title": "Deel",
-        "accessibility_label": "Share Button"
+        "accessibility_label": "Delen Knop"
       },
       "etc": {
         "dialog_title": "Bericht",

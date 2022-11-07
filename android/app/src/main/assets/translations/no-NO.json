@@ -1,272 +1,272 @@
 {
   "call_to_action": {
     "ok": "OK",
-    "add": "Add",
-    "done": "Done",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "read_more": "Read more",
-    "delete": "Delete",
-    "remove": "Remove",
-    "save": "Save",
-    "yes": "Yes",
-    "no": "No",
+    "add": "Legg til",
+    "done": "Ferdig",
+    "cancel": "Avbryt",
+    "continue": "Fortsett",
+    "read_more": "Les mer",
+    "delete": "Slett",
+    "remove": "Fjern",
+    "save": "Lagre",
+    "yes": "Ja",
+    "no": "Nei",
     "open_menu": {
-      "accessibility_label": "Menu Button"
+      "accessibility_label": "Menyknapp"
     },
     "go_back": {
-      "label": "Go back",
-      "accessibility_label": "Back Button"
+      "label": "Gå tilbake",
+      "accessibility_label": "Tilbakeknapp"
     },
     "close": {
-      "accessibility_label": "Close Button"
+      "accessibility_label": "Lukkeknapp"
     },
     "close_dialog": {
-      "accessibility_label": "Close Dialog Button"
+      "accessibility_label": "Lukk dialogboks-knapp"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "Åpne lenke?",
+      "description": "Vil du åpne {{link}} i nettleseren?"
     }
   },
   "date": {
     "relative": {
       "past": {
         "years": {
-          "one": "1 year ago",
-          "other": "{{count}} years ago"
+          "one": "1 år siden",
+          "other": "{{count}} år siden"
         },
         "months": {
-          "one": "1 month ago",
-          "other": "{{count}} months ago"
+          "one": "1 måned siden",
+          "other": "{{count}} måneder siden"
         },
         "weeks": {
-          "one": "1 week ago",
-          "other": "{{count}} weeks ago"
+          "one": "1 uke siden",
+          "other": "{{count}} uker siden"
         },
         "days": {
-          "one": "1 day ago",
-          "other": "{{count}} days ago"
+          "one": "1 dag siden",
+          "other": "{{count}} dager siden"
         },
         "hours": {
-          "one": "1 hour ago",
-          "other": "{{count}} hours ago"
+          "one": "1 time siden",
+          "other": "{{count}} timer siden"
         },
         "minutes": {
-          "one": "1 minute ago",
-          "other": "{{count}} minutes ago"
+          "one": "1 minutt siden",
+          "other": "{{count}} minutter siden"
         },
-        "now": "Just now"
+        "now": "Nå nettopp"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "Om 1 år",
+          "other": "Om {{count}} år"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "Om 1 måned",
+          "other": "Om {{count}} måneder"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "Om 1 uke",
+          "other": "Om {{count}} uker"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "Om 1 dag",
+          "other": "Om {{count}} dager"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "Om 1 time",
+          "other": "Om {{count}} timer"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "Om 1 minutt",
+          "other": "Om {{count}} minutter"
         },
-        "now": "Very soon"
+        "now": "Veldig snart"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "Les mer",
     "overview": {
-      "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "title": "Velkommen til Manyverse!",
+      "description": "Sosiale nettverk kan være enkle, nøytrale, ikke-kommersielle og bygd på tillit mellom venner. Det er dette Manyverse står for, og vi håper at her vil du finne ditt digitale hjem. Alt dette er mulig takket være den nye SSB-protokollen."
     },
     "off_the_grid": {
-      "title": "Off the grid",
+      "title": "Off-grid",
       "description": {
-        "1_normal": "Manyverse can use internet connectivity, but it's not ",
-        "2_bold": "on",
-        "3_normal": " the internet. Everything happens right here on your device. This means you can use it normally even when offline! Your ",
-        "4_bold": "content is stored first on your device",
-        "5_normal": ", and you can synchronize it with friends once you connect with them."
+        "1_normal": "Manyverse kan bruke internettforbindelsen din, men det er ikke ",
+        "2_bold": "på",
+        "3_normal": " internett. Alt skjer på din enhet. Det betyr at du kan bruke det selv om du er frakoblet! ",
+        "4_bold": "Innholdet ditt lagres først på din enhet",
+        "5_normal": ", og du kan synke med dine venner når dere senere får kontakt."
       }
     },
     "connections": {
-      "title": "Many ways to connect",
+      "title": "Mange måter å koble til",
       "description": {
         "ios": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". To find new people on the internet, look for an invite code to a ",
-          "4_bold": "pub server",
-          "5_normal": " or a ",
-          "6_bold": "room server",
-          "7_normal": ", or start your own server!"
+          "1_normal": "For å koble til venner i nærheten og synke innhold, kan du koble til det samme ",
+          "2_bold": "Wi-Fi-nettverket",
+          "3_normal": ". For å finne andre mennesker på internett, se etter en invitasjonskode til en ",
+          "4_bold": "pub-server",
+          "5_normal": " eller en ",
+          "6_bold": "rom-server",
+          "7_normal": ", eller start din egen server!"
         },
         "default": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", or use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
+          "1_normal": "For å koble til venner i nærheten og synke innhold, kan du enten: koble til samme ",
+          "2_bold": "Wi-Fi-nettverk",
+          "3_normal": ", eller bruke ",
+          "4_bold": "Bluetooth-synk",
+          "5_normal": ". For å finne andre mennesker på internett, se etter en invitasjonskode til en ",
+          "6_bold": "pub-server",
+          "7_normal": " eller en ",
+          "8_bold": "rom-server",
+          "9_normal": ", eller start din egen server!"
         }
       }
     },
     "moderation": {
-      "title": "Shared moderation",
+      "title": "Delt moderering",
       "description": {
-        "1_normal": "Because your device holds your social network, no one else can ban or remove accounts on your behalf. Only you can moderate your space, by ",
-        "2_bold": "blocking accounts",
-        "3_normal": " you don't wish to have on your device. Then, your friends can choose to block those same accounts. This is how moderation can spread naturally!"
+        "1_normal": "Fordi ditt sosiale nettverk er på din enhet, kan ingen andre blokkere eller fjerne kontoer for deg. Bare du kan moderere ditt eget nettverk, ved å ",
+        "2_bold": "blokkere kontoer",
+        "3_normal": " du ikke vil ha på din enhet. Dine venner kan velge å blokkere de samme kontoene. På denne måten kan moderering forplante seg naturlig!"
       }
     },
     "permanence": {
-      "title": "Permanence",
+      "title": "Varighet",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
-        "2_bold": "not possible to delete",
-        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
+        "1_normal": "Når du synker med venner, vil de få en kopi av innholdet ditt på sine enheter. Fordi de deretter kan bli frakoblet, er det ",
+        "2_bold": "ikke mulig å slette",
+        "3_normal": " innholdet ditt fra alle enheter! Selv om dette gjør det sosiale nettverket mer diskré og hensynsfullt, kan det også utgjøre en risiko for deg, så tenkt deg nøye om før du deler."
       }
     },
     "in_construction": {
-      "title": "In construction!",
+      "title": "Under utvikling!",
       "description": {
-        "1_normal": "Manyverse is ",
-        "2_bold": "beta-quality software",
-        "3_normal": ". We haven't figured everything out yet and some parts need fixing. While syncing, the app can appear frozen for several minutes. Have patience! Inform us of any other bugs you stumbled upon, and with enough time and donations, we can make this a great app."
+        "1_normal": "Manyverse er ",
+        "2_bold": "programvare i beta-kvalitet",
+        "3_normal": ". Alle utfordringer er ikke løst ennå, og det er fortsatt ting som må fikses. Når man synker kan appen fryse i flere minutter. Ha tålmodighet! Fortell oss gjerne om andre feil du måtte oppleve. Med nok tid og bidrag kan dette bli en virkelig god app."
       }
     },
     "setup_account": {
-      "title": "Is this your first time?",
-      "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
+      "title": "Er det første gang du er her?",
+      "description": "Vil du lage en ny konto, eller vil du gjenopprette en gammel konto med en gjenopprettelsesfrase på 24 ord?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "Ny konto",
+          "accessibility_label": "Ny konto-knapp"
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "Gjenopprett konto",
+          "accessibility_label": "Gjenopprett konto-knapp"
         },
         "migrate": {
-          "label": "Migrate from ~/.ssb",
-          "accessibility_label": "Migrate account from the shared SSB directory"
+          "label": "Overfør fra ~/.ssb",
+          "accessibility_label": "Overfør konto fra SSB-mappen"
         }
       }
     },
     "dialogs": {
       "migrate": {
-        "title": "Migrate your SSB account to Manyverse",
-        "description": "Manyverse detected an existing SSB account at the common `~/.ssb` directory. If you wish, you can migrate that account to a whole new directory that only Manyverse can access.\n\nOnce migration finishes, **you will NOT be able to use your account with other SSB apps such as Patchwork anymore**, and '.ssb' will be **deleted**, but you can still use those apps with new accounts.\n\nDo you confirm you want to migrate your account from '.ssb' to Manyverse? **This action cannot be undone.**"
+        "title": "Overfør din SSB-konto til Manyverse",
+        "description": "Manyverse fant en SSB-konto i `~/.ssb`-mappen. Hvis du vil, kan du overføre kontoen til en ny mappe som bare Manyverse har tilgang til.\n\nEtter overføringen **vil du IKKE lenger kunne bruke kontoen med andre SSB-apper, som Patchwork**, og '.ssb' vil bli **slettet**. Du kan fortsatt bruke andre SSB-apper med nye kontoer.\n\nEr du sikker på at du vil overføre kontoen fra '.ssb' til Manyverse? **Du kan ikke angre på dette valget.**"
       },
       "link_failed": {
-        "title": "Account not ready",
-        "description": "You tried to open an SSB link, but your account is not ready yet. Please complete the setup process first, and then try the link again."
+        "title": "Kontoen er ikke klar",
+        "description": "Du prøvde å åpne en SSB-lenke, men kontoen din er ikke klar ennå. Vennligst fullfør konfigurasjonen før du trykker på lenken."
       }
     }
   },
   "migrating": {
-    "label": "Migrating..."
+    "label": "Overfører..."
   },
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public posts",
-      "private": "Private chats",
-      "activity": "Activity",
-      "connections": "Connected peers"
+      "public": "Offentlige innlegg",
+      "private": "Private samtaler",
+      "activity": "Aktivitet",
+      "connections": "Tilkoblede"
     },
     "tab_footers": {
-      "public": "Public",
-      "private": "Private",
-      "activity": "Activity",
-      "connections": "Connections"
+      "public": "Offentlig",
+      "private": "Privat",
+      "activity": "Aktivitet",
+      "connections": "Tilkoblinger"
     },
-    "loading": "Loading...",
+    "loading": "Laster...",
     "progress_indicator": {
-      "accessibility_label": "Progress Indicator for Indexing the Database"
+      "accessibility_label": "Fremdriftsindikator for indeksering av databasen"
     },
     "tabs": {
       "public": {
-        "accessibility_label": "Public Tab Button"
+        "accessibility_label": "Offentlig-fane"
       },
       "private": {
-        "accessibility_label": "Private Tab Button"
+        "accessibility_label": "Privat-fane"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "Aktivitet-fane"
       },
       "connections": {
-        "accessibility_label": "Connections Tab Button"
+        "accessibility_label": "Tilkoblinger-fane"
       }
     },
     "filters_row": {
       "all": {
-        "label": "All",
-        "accessibility_label": "All Feeds Button"
+        "label": "Alle",
+        "accessibility_label": "Alle kanaler-knapp"
       },
       "following": {
-        "label": "Following",
-        "accessibility_label": "Following Feeds Button"
+        "label": "Følger",
+        "accessibility_label": "Fulgte kanaler-knapp"
       }
     }
   },
   "public": {
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Skriv en offentlig melding"
     },
     "empty": {
-      "title": "No messages",
-      "description": "Write a diary to be\nshared with friends later"
+      "title": "Ingen meldinger",
+      "description": "Skriv en dagbok for å\ndele med venner senere"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Søk-knapp"
     }
   },
   "private": {
     "floating_action_button": {
-      "compose": "Start a private conversation"
+      "compose": "Start en privat samtale"
     },
     "empty": {
-      "title": "No conversations",
-      "description": "Start a private conversation\nwith any of your friends"
+      "title": "Ingen samtaler",
+      "description": "Start en privat samtale\nmed en av dine venner"
     },
     "conversation": {
-      "accessibility_label": "Go To Conversation"
+      "accessibility_label": "Gå til samtale"
     }
   },
   "accounts": {
     "reactions": {
-      "title": "Reactions"
+      "title": "Reaksjoner"
     },
     "gathering_attendees": {
-      "title": "Attendees"
+      "title": "Deltakere"
     },
     "recipients": {
-      "title": "Recipients"
+      "title": "Mottakere"
     },
     "friends_in_common": {
-      "title": "Friends in common"
+      "title": "Felles venner"
     },
     "call_to_action": {
       "open_account": {
-        "accessibility_label": "Go To Account"
+        "accessibility_label": "Gå til konto"
       }
     }
   },
@@ -275,99 +275,99 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " mentioned you"
+        "3_normal": " nevnte deg"
       }
     },
     "follow": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed you"
+        "3_normal": " følger deg"
       }
     },
     "connection_attempt": {
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " wants to connect"
+        "3_normal": " vil koble til deg"
       }
     },
     "empty": {
-      "title": "No activity",
-      "description": "When people mention or follow you,\nthey show up here"
+      "title": "Ingen aktivitet",
+      "description": "Når andre nevner eller følger deg,\nvises de her"
     }
   },
   "connections": {
-    "title": "Connections Panel",
+    "title": "Tilkoblingspanel",
     "floating_action_button": {
-      "add_connection": "Add a connection",
-      "create_invite": "Create invite",
-      "paste_invite": "Paste invite",
-      "bluetooth_seek": "Bluetooth seek"
+      "add_connection": "Ny tilkobling",
+      "create_invite": "Ny invitasjon",
+      "paste_invite": "Lim inn invitasjon",
+      "bluetooth_seek": "Bluetooth-søk"
     },
-    "open_connections_panel": "Open Connections Panel",
+    "open_connections_panel": "Åpne tilkoblingspanel",
     "empty": {
       "offline": {
-        "title": "Offline",
-        "description": "Turn on some connection mode\nor enjoy reading some existing content"
+        "title": "Frakoblet",
+        "description": "Slå på en tilkoblingsmodus\neller se innholdet du har fra før"
       },
       "connecting": {
-        "title": "Connecting",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "Kobler til",
+        "description": "Vent mens appen\nprøver å koble til andre"
       },
       "no_peers": {
-        "title": "No connections",
-        "description": "Try syncing with people nearby\nor use a server invite code"
+        "title": "Ingen tilkoblinger",
+        "description": "Prøv å synke med andre i nærheten\neller bruk en servers invitasjonskode"
       }
     },
     "scenarios": {
-      "offline": "Offline",
-      "not_connected": "Not connected",
-      "few_connections": "Too few connections",
-      "many_connections": "Well connected"
+      "offline": "Frakoblet",
+      "not_connected": "Ikke tilkoblet",
+      "few_connections": "For få tilkoblinger",
+      "many_connections": "God forbindelse"
     },
     "scenario_descriptions": {
-      "offline_with_content": "You cannot connect to peers at the moment, but you can enjoy some content that you already have.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
-      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
-      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+      "offline_with_content": "Du kan ikke koble til andre for øyeblikket, men du kan se innhold som du har fra før.",
+      "offline_without_content": "Du kan ikke koble til andre for øyeblikket. Prøv å koble til internett eller skru på Wi-Fi for å oppdage andre i nærheten.",
+      "knows_no_one": "Din Manyverse er for øyeblikket isolert. For å bli med i en rom-server må du bli invitert av andre, alternativt kan du starte en rom-server selv.",
+      "nearby_strangers_available": "Du er ikke tilkoblet noen ennå, men det er andre på det samme Wi-Fi-nettverket som deg. Prøv å koble til de manuelt hvis du tror at de også vil koble til deg.",
+      "empty_rooms": "Du deltar i noen rom, men ingen av de du kjenner er tilkoblet for øyeblikket. Prøv å koble til en fremmed i rommet, eller skaff en invitasjonskode til andre servere.",
+      "connected_poorly": "Du er koblet til én annen, og det er bra. Men, for å forbedre flyten av data bør du koble til flere. Prøv å vente litt til, eller skaff en invitasjonskode til andre servere.",
+      "connected_well": "Du er koblet til mange andre. Alt er som det skal! De sprer din data og du sprer deres."
     },
     "recommendations": {
-      "consume_invite": "How to get an invite",
-      "follow_staged_manually": "Follow someone new",
-      "paste_invite": "Paste invite code",
-      "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "consume_invite": "Hvordan skaffe en invitasjon",
+      "follow_staged_manually": "Følg noen som er ny",
+      "paste_invite": "Lim inn invitasjonskode",
+      "host_ssb_room": "Hvordan drive en rom-server",
+      "others": "Andre valg"
     },
     "recommendation_descriptions": {
-      "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
+      "consume_invite": "Dette sosiale nettverket er basert på invitasjoner, for å holde det vennlig og fritt for spam. Hvis du ikke har mottatt en invitasjon fra noen du kjenner, kan du søke på nettet etter servere som deler ut invitasjoner.\n\nSe etter stikkord som \"SSB room server\" eller \"SSB pub server\". Emneknaggen #ssbroom kan også være nyttig.",
       "follow_staged_manually": {
         "part1": {
-          "not_connected": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",
-          "connected": "If you want to get more content beyond what you already have, you can follow more people. There are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them."
+          "not_connected": "Ingen av dine venner er tilkoblet. Hvis du vil se mer innhold, kan du prøve å bli kjent med noen nye i rommene du er med i.",
+          "connected": "Hvis du vil se mer innhold, kan du prøve å bli kjent med noen nye i rommene du er med i."
         },
-        "part2": "On the next screen, you will see unknown peers displayed like this. Press one of them and choose \"Open Profile\", then \"Follow\"."
+        "part2": "På neste skjerm vil du se en oversikt over fremmede. Trykk på en av de og velg \"Åpne profil\" og så \"Følg\"."
       }
     },
     "toasts": {
-      "invite_accepted": "Invite accepted",
-      "invite_rejected": "Invite rejected. Are you sure it was correct?",
-      "connecting_to_alias": "Connecting to {{alias}}",
-      "connected_to_alias": "Connected to {{alias}}",
-      "not_connected_to_alias": "{{alias}} is offline right now"
+      "invite_accepted": "Invitasjon godkjent",
+      "invite_rejected": "Invitasjonen ble avvist. Er du sikker på at den var rett?",
+      "connecting_to_alias": "Kobler til {{alias}}",
+      "connected_to_alias": "Koblet til {{alias}}",
+      "not_connected_to_alias": "{{alias}} er ikke tilkoblet"
     },
     "dialogs": {
       "sign_in_with_ssb": {
         "client_initiated": {
-          "title": "Allow sign-in?",
-          "description": "Open {{room}}'s website to create invite links and manage members. Do you want to use Manyverse to sign in?\n\nThe room's ID is {{roomid}}"
+          "title": "Tillat innlogging?",
+          "description": "Åpne {{room}} sin nettside for å lage invitasjonskoder og administrere deltakere. Vil du bruke Manyverse for å logge inn?\n\nRommets ID er {{roomid}}"
         },
         "server_initiated": {
-          "title": "Allow sign-in?",
-          "description": "A web browser is requesting permission to identify you. Do you want to sign in to the server {{room}}?\n\nIts ID is {{roomid}}"
+          "title": "Tillat innlogging?",
+          "description": "En nettleser ber om tillatelse til å identifisere deg. Vil du logge inn til serveren {{room}}?\n\nRommets ID er {{roomid}}"
         }
       }
     },
@@ -376,560 +376,560 @@
         "bluetooth": "Bluetooth",
         "lan": "Wi-Fi",
         "dht": {
-          "connected": "Internet P2P"
+          "connected": "P2P over internett"
         },
         "room": {
-          "server": "Room server",
-          "endpoint": "Room peer",
-          "alone_online": "(only you online)",
+          "server": "Rom-server",
+          "endpoint": "Rom-medlem",
+          "alone_online": "(bare du er tilkoblet)",
           "others_online": {
-            "one": "({{count}} online)",
-            "other": "({{count}} online)"
+            "one": "({{count}} tilkoblet)",
+            "other": "({{count}} tilkoblet)"
           }
         },
-        "pub": "Pub server",
+        "pub": "Pub-server",
         "server": "Server",
-        "unknown": "Unknown"
+        "unknown": "Ukjent"
       }
     },
     "modes": {
       "generic": {
-        "enabled": "(ENABLED)"
+        "enabled": "(AKTIVERT)"
       },
       "bluetooth": {
         "title": "Bluetooth",
-        "accessibility_label": "Bluetooth Mode",
-        "disabled": "(Turn on Bluetooth to use this)",
-        "description": "Discover users nearby and connect with them using Bluetooth.",
+        "accessibility_label": "Bluetooth-modus",
+        "disabled": "(Slå på Bluetooth for å bruke dette)",
+        "description": "Oppdag brukere i nærheten og koble til de med Bluetooth.",
         "permission_request": {
-          "title": "Allow locating via Bluetooth?",
-          "message": "Manyverse needs to use Bluetooth to discover where you are (\"coarse location\") and what peers are around you."
+          "title": "Tillat lokalisering via Bluetooth?",
+          "message": "Manyverse trenger Bluetooth for å kunne vite din omtrentlige posisjon (\"coarse location\") og hvem andre som er rundt deg."
         }
       },
       "wifi": {
         "title": "Wi-Fi",
-        "accessibility_label": "Wi-Fi Mode",
-        "disabled": "(Turn on Wi-Fi to use this)",
-        "description": "Connect with friends in the same Local Area Network, in other words, friends using the same Wi-Fi."
+        "accessibility_label": "Wi-Fi-modus",
+        "disabled": "(Slå på Wi-Fi for å bruke dette)",
+        "description": "Koble til venner på samme LAN. Med andre ord, venner som bruker samme Wi-Fi."
       },
       "servers": {
-        "title": "Internet servers",
-        "accessibility_label": "Internet Servers Mode",
-        "disabled": "(Go online to use this)",
-        "description": "Connect to a so-called 'Pub server' owned by some friend, containing the latest data from multiple accounts."
+        "title": "Internett-servere",
+        "accessibility_label": "Modus for internett-servere",
+        "disabled": "(Koble til for å bruke dette)",
+        "description": "Koble til en såkalt \"pub-server\" drevet av en venn, med siste innhold fra forskjellige kontoer."
       }
     },
     "menu": {
-      "dialog_title": "Connection",
+      "dialog_title": "Tilkobling",
       "open_profile": {
-        "label": "Open profile",
+        "label": "Åpne profil",
         "accessibility_label": {
           "connected": "Open profile screen for this connected peer",
           "staged": "Open profile screen for this suggested connection"
         }
       },
       "connect": {
-        "label": "Connect",
+        "label": "Koble til",
         "accessibility_label": {
           "staged_peer": "Connect to this suggested peer",
           "staged_room": "Connect to this suggested room"
         }
       },
       "follow_connect": {
-        "label": "Connect and follow",
+        "label": "Koble til og følg",
         "accessibility_label": "Connect to this suggested peer then follow them"
       },
       "disconnect": {
-        "label": "Disconnect",
+        "label": "Koble fra",
         "accessibility_label": {
           "peer": "Disconnect from this peer",
           "room": "Disconnect from this room"
         }
       },
       "disconnect_forget": {
-        "label": "Disconnect and forget",
+        "label": "Koble fra og glem",
         "accessibility_label": {
           "peer": "Disconnect from this peer and remove it from our database",
           "room": "Disconnect from this room and remove it from our database"
         }
       },
       "forget": {
-        "label": "Forget",
+        "label": "Glem",
         "accessibility_label": {
           "room": "Remove this room from our database"
         }
       },
       "manage_aliases": {
-        "label": "Manage my aliases",
+        "label": "Administrer mine aliaser",
         "accessibility_label": "Manage my aliases in Room servers"
       },
       "room_sign_in": {
-        "label": "Sign into website",
+        "label": "Logg inn på nettsted",
         "accessibility_label": "Open this room's website and sign into its dashboard, Button"
       },
       "room_share_invite": {
-        "label": "Share invite code",
-        "accessibility_label": "Share the invite code for this room"
+        "label": "Del invitasjonskode",
+        "accessibility_label": "Del invitasjonskoden for dette rommet"
       },
       "invite_info": {
-        "label": "About",
-        "accessibility_label": "About this Invite Code"
+        "label": "Om",
+        "accessibility_label": "Om denne invitasjonskoden"
       },
       "invite_note": {
-        "label": "Add note",
-        "accessibility_label": "Add Reminder Note To Self"
+        "label": "Legg til notat",
+        "accessibility_label": "Legg til notat for egen bruk"
       },
       "invite_share": {
-        "label": "Share",
-        "accessibility_label": "Share Invite Code"
+        "label": "Del",
+        "accessibility_label": "Del invitasjonskode"
       },
       "invite_delete": {
-        "label": "Delete",
-        "accessibility_label": "Delete Invite Code"
+        "label": "Slett",
+        "accessibility_label": "Slett invitasjonskode"
       }
     },
     "notes": {
       "add": {
-        "title": "Add note",
-        "description": "Write a private (just for yourself) note about this invite code. For example: \"This is for Alice\""
+        "title": "Legg til notat",
+        "description": "Skriv et privat notat (bare for deg) om denne invitasjonskoden. For eksempel: \"Dette er til Alice\""
       }
     },
     "share_code": {
       "room": {
-        "title": "Invite code to an SSB Room",
-        "message": "Join me in the SSB Room {{name}} by pasting this invite code in Manyverse:",
-        "dialog_note": "Give this invite code to a friend"
+        "title": "Invitasjonskode til et SSB-rom",
+        "message": "Bli med i SSB-rommet {{name}} ved å lime inn denne invitasjonskoden i Manyverse:",
+        "dialog_note": "Gi denne invitasjonskoden til en venn"
       }
     }
   },
   "compose": {
     "call_to_action": {
       "publish_new_thread": {
-        "label": "Publish",
+        "label": "Publiser",
         "accessibility_label": "Publish Message Button"
       },
       "reply_to_thread": {
-        "label": "Reply",
+        "label": "Svar",
         "accessibility_label": "Publish Reply Button"
       },
       "preview": {
-        "label": "Preview",
+        "label": "Forhåndsvisning",
         "accessibility_label": "Preview Button"
       },
       "close": {
-        "accessibility_label": "Close Button"
+        "accessibility_label": "Lukk-knapp"
       },
       "record_audio": {
-        "accessibility_label": "Record Audio Button",
+        "accessibility_label": "Ta opp lyd-knapp",
         "permission_request": {
-          "title": "Allow Manyverse to record audio?",
-          "message": "Manyverse needs access to your microphone so you can compose audio messages",
-          "neutral": "Ask me later",
+          "title": "Tillat Manyverse å spille inn lyd?",
+          "message": "Manyverse trenger tilgang til mikrofonen for å kunne spille inn lydmeldinger",
+          "neutral": "Spør meg senere",
           "positive": "OK",
-          "negative": "Cancel"
+          "negative": "Avbryt"
         }
       },
       "open_camera": {
-        "accessibility_label": "Open Camera Button"
+        "accessibility_label": "Åpne kamera-knapp"
       },
       "add_picture": {
-        "accessibility_label": "Add Picture Button"
+        "accessibility_label": "Legg til bilde-knapp"
       }
     },
     "dialogs": {
       "content_warning": {
-        "title": "Content warning",
-        "description": "If your post contains sensitive topics, please add a short note to alert people of them."
+        "title": "Innholdsvarsel",
+        "description": "Hvis innlegget ditt inneholder sensitive temaer, legg til en kort advarsel for andre."
       },
       "image_caption": {
-        "title": "Caption",
-        "description": "Add some description of this picture, particularly for the visually impaired."
+        "title": "Bildetekst",
+        "description": "Legg til en beskrivelse av dette bildet, spesielt med tanke på synshemmede."
       }
     },
     "content_warning_initials": {
-      "label": "CW",
-      "accessibility_label": "Content Warning Button"
+      "label": "Advarsel",
+      "accessibility_label": "Advarsel-knapp"
     },
     "mention_field": {
       "accessibility_label": "Mention Account Text Input"
     },
     "text_field": {
-      "placeholder": "Write a public message",
+      "placeholder": "Skriv en offentlig melding",
       "accessibility_label": "Compose Text Input"
     }
   },
   "compose_audio": {
-    "title": "Audio message",
+    "title": "Lyd-melding",
     "call_to_action": {
       "start_recording": {
-        "accessibility_label": "Start recording"
+        "accessibility_label": "Start opptak"
       },
       "stop_recording": {
-        "accessibility_label": "Stop recording"
+        "accessibility_label": "Stopp opptak"
       },
       "discard_recording": {
-        "label": "Discard",
-        "accessibility_label": "Discard Recording Button"
+        "label": "Forkast",
+        "accessibility_label": "Forkast opptak-knapp"
       },
       "submit_recording": {
-        "label": "Done",
-        "accessibility_label": "Submit Recording Button"
+        "label": "Ferdig",
+        "accessibility_label": "Opptak ferdig-knapp"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Audio message",
-        "question": "Discard draft?"
+        "title": "Lyd-melding",
+        "question": "Forkast utkast?"
       }
     }
   },
   "backup": {
-    "title": "Backup",
+    "title": "Sikkerhetskopi",
     "introduction": {
-      "title": "Your account has\ntwo parts to keep safe"
+      "title": "Kontoen din består av\nto deler som må lagres trygt"
     },
     "data": {
       "title": "Data",
       "description": {
-        "1_normal": "This is your account's posts, messages, pictures, likes and similar activity. To keep it safe against sudden loss, we use ",
-        "2_bold": "crowd backup",
-        "3_normal": ". You only need to ",
-        "4_bold": "synchronize with reliable friends",
-        "5_normal": " or other devices you own. There is ",
-        "6_bold": "nothing else to do",
-        "7_normal": ", just use Manyverse often and your friends are backing you up!"
+        "1_normal": "Dette er din kontos innlegg, meldinger, bilder, likt innhold og lignende. For å sikre det mot uventet tap, bruker vi ",
+        "2_bold": "distribuert sikkerhetskopiering",
+        "3_normal": ". Du trenger bare å ",
+        "4_bold": "synke med pålitelige venner",
+        "5_normal": " eller andre enheter du har. Det er ",
+        "6_bold": "alt du trenger å gjøre",
+        "7_normal": ". Bare bruk Manyverse ofte, så vil vennene dine sikkerhetskopiere din data for deg!"
       },
       "call_to_action": {
         "acknowledge": {
-          "label": "I understand",
-          "accessibility_label": "Acknowledge"
+          "label": "Jeg forstår",
+          "accessibility_label": "Godta"
         }
       }
     },
     "identity": {
-      "title": "Identity",
+      "title": "Identitet",
       "description": {
-        "1_normal": "Your account's \"fingerprint\" is made up of a highly unique ",
-        "2_bold": "recovery phrase",
-        "3_normal": ". This is a sequence of 24 words that unlocks your account. ",
-        "4_bold": "Keep it confidential",
-        "5_normal": ", because if anyone else has access to it, they can take control of your account. ",
-        "6_bold": "Take responsibility",
-        "7_normal": " over it, since you and only you can recover your account!"
+        "1_normal": "Din kontos \"fingeravtrykk\" består av en, matematisk sett, svært unik ",
+        "2_bold": "gjenopprettingsfrase",
+        "3_normal": ". Dette er en sekvens på 24 ord som låser opp kontoen din. ",
+        "4_bold": "Hold den hemmelig",
+        "5_normal": ", for hvis andre får tilgang til den kan de ta over kontoen din. ",
+        "6_bold": "Ta ansvar",
+        "7_normal": " , for bare du kan gjenopprette kontoen din!"
       },
       "call_to_action": {
-        "show_recovery_phrase": "Show Recovery Phrase"
+        "show_recovery_phrase": "Vis gjenopprettingsfrase"
       }
     }
   },
   "biography": {
     "picture": {
-      "accessibility_label": "Biographic Picture"
+      "accessibility_label": "Profilbilde"
     },
     "description": {
-      "accessibility_label": "Biographic Description"
+      "accessibility_label": "Biografisk beskrivelse"
     }
   },
   "conversation": {
-    "title": "Conversation",
-    "placeholder": "Type a message...",
+    "title": "Samtale",
+    "placeholder": "Skriv en melding...",
     "call_to_action": {
       "show_recipients": {
-        "accessibility_label": "Show Recipients"
+        "accessibility_label": "Vis mottakere"
       }
     },
-    "load_more": "Load more",
+    "load_more": "Last inn mer",
     "notifications": {
-      "new_conversation": "This is a new private conversation"
+      "new_conversation": "Dette er en ny privat samtale"
     }
   },
   "dialog_about": {
-    "title": "About Manyverse",
-    "version": "Version {{version}}",
+    "title": "Om Manyverse",
+    "version": "Versjon {{version}}",
     "copyright": "Copyright (C)",
-    "authors": "The Manyverse Authors",
-    "repository": "Open source repository",
-    "licensed": "Licensed {{license}}"
+    "authors": "Manyverse-utviklerne",
+    "repository": "Åpen kildekode-arkivet",
+    "licensed": "Med lisensen {{license}}"
   },
   "dialog_thanks": {
-    "title": "Thank you!",
-    "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
+    "title": "Tusen takk!",
+    "description": "Utvikling av denne appen ble støttet av tilskudd fra {{sponsor1}} og {{sponsor2}}, samt donasjoner fra:\n\n**{{topBackers}}**, og [hundrevis av andre]({{donateLink}}). Takk!"
   },
   "drawer": {
     "menu": {
       "my_profile": {
-        "label": "My profile",
+        "label": "Min profil",
         "accessibility_label": "My Profile Menu Item"
       },
       "raw_database": {
-        "label": "Raw database",
-        "accessibility_label": "Show Raw Database"
+        "label": "Rådatabase",
+        "accessibility_label": "Vis rådatabase"
       },
       "email_bug_report": {
-        "label": "Email bug report",
+        "label": "Rapporter feil via e-post",
         "accessibility_label": "Send Bug Report as Email"
       },
       "translate": {
-        "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "label": "Hjelp oss å oversette",
+        "accessibility_label": "Åpne nettsted for oversettelse"
       },
       "more": {
-        "label": "More",
+        "label": "Mer",
         "accessibility_label": "Show more Menu items"
       },
       "update": {
-        "label": "Update",
-        "accessibility_label": "Update app to latest version"
+        "label": "Oppdater",
+        "accessibility_label": "Oppdater appen til nyeste versjonen"
       },
       "settings": {
-        "label": "Settings",
-        "accessibility_label": "Go To Settings"
+        "label": "Innstillinger",
+        "accessibility_label": "Gå til innstillinger"
       },
       "ready_estimate": {
-        "label": "Ready:"
+        "label": "Fullført:"
       }
     },
     "dialogs": {
       "update": {
-        "title": "Check for new versions?",
-        "description": "Would you like Manyverse to automatically check for new releases?\n\nThis setting is optional and will allow Manyverse to send requests to the manyver.se website periodically."
+        "title": "Se etter nye versjoner?",
+        "description": "Vil du at Manyverse automatisk ser etter nye versjoner?\n\nDette er valgfritt, og tillater at Manyverse sender periodiske forespørsler til nettstedet manyver.se."
       }
     }
   },
   "invite_paste": {
-    "placeholder": "Paste an invite code",
+    "placeholder": "Lim inn invitasjonskode",
     "call_to_action": {
       "accept": {
-        "accessibility_label": "Accept Invite Code"
+        "accessibility_label": "Godta invitasjonskode"
       }
     },
     "alert_unsupported_dht": {
-      "title": "Unsupported type",
-      "description": "P2P Invites are no longer supported in Manyverse."
+      "title": "Ustøttet type",
+      "description": "P2P-invitasjoner støttes ikke lenger i Manyverse."
     },
     "text_field": {
       "accessibility_label": "Invite Code Text Input"
     }
   },
   "libraries": {
-    "title": "Third party libraries",
-    "description": "Manyverse makes use of the following open source libraries and components. We want to thank the authors of these libraries and link to their websites for proper attribution.",
+    "title": "Tredjeparts biblioteker",
+    "description": "Manyverse er basert på følgende åpen kildekode-biblioteker og -komponenter. Vi vil gjerne takke utviklerne bak disse bibliotekene og lenke til deres nettsteder.",
     "image": {
-      "name": "Image {{name}}",
-      "attribution": " is created by {{author}}, licensed {{license}}"
+      "name": "Bilde {{name}}",
+      "attribution": " er laget av {{author}}, med lisensen {{license}}"
     }
   },
   "profile": {
     "call_to_action": {
-      "copy_uri": "Copy SSB URI",
-      "copy_cypherlink": "Copy cypherlink",
-      "private_chat": "Open private conversation",
-      "block": "Block",
-      "block_secretly": "Block secretly",
-      "unblock": "Unblock",
-      "unblock_secretly": "Unblock secretly",
-      "follow": "Follow",
+      "copy_uri": "Kopier SSB-URI",
+      "copy_cypherlink": "Kopier krypteringslenke",
+      "private_chat": "Start en privat samtale",
+      "block": "Blokker",
+      "block_secretly": "Blokker i hemmelighet",
+      "unblock": "Avblokker",
+      "unblock_secretly": "Avblokker i hemmelighet",
+      "follow": "Følg",
       "edit_profile": {
-        "label": "Edit profile",
-        "accessibility_label": "Edit Profile Button"
+        "label": "Rediger profil",
+        "accessibility_label": "Rediger profil-knapp"
       },
       "manage": {
-        "accessibility_label": "Manage Contact"
+        "accessibility_label": "Administrer kontakt"
       }
     },
     "dialog_ssb_id": {
-      "title": "SSB ID"
+      "title": "SSB-ID"
     },
     "dialog_manage_contact": {
-      "title": "Contact"
+      "title": "Kontakt"
     },
     "dialog_friend_request": {
-      "title": "Friend request",
-      "description": "This account is trying to connect with you, but Manyverse prevented it because they are outside your community.\n\nIf you recognize this ID, you can press \"Follow\" to allow them to connect with you."
+      "title": "Venneforespørsel",
+      "description": "Denne kontoen prøver å koble til deg, men Manyverse tillater det ikke fordi de er utenfor din omgangskrets.\n\nHvis du gjenkjenner denne ID-en, kan du trykke \"Følg\" for å tillate den kobler til deg."
     },
     "dialog_about_storage_used": {
-      "title": "Storage used",
+      "title": "Brukt lagringsplass",
       "description": {
-        "self": "Your content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by your blobs, such as images and audio messages.",
-        "others": "{{name}}'s content (and related indexes) is occupying {{megabytes}} of storage on your device at the moment.\n\nThis number does not include storage occupied by their blobs, such as images and audio messages."
+        "self": "Ditt innhold (og relaterte indekser) bruker {{megabytes}} lagringsplass på din enhet.\n\nDette inkluderer ikke lagringsplass brukt av blobs, som bilder og lyd.",
+        "others": "{{name}} sitt innhold (og relaterte indekser) bruker {{megabytes}} lagringsplass på din enhet.\n\nDette inkluderer ikke lagringsplass brukt av blobs, som bilder og lyd."
       }
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Kopiert til utklippstavlen"
     },
     "details": {
       "id": {
-        "accessibility_label": "SSB Identifier"
+        "accessibility_label": "SSB-identitet"
       },
       "biography": {
-        "accessibility_label": "Read Biography"
+        "accessibility_label": "Les biografi"
       },
       "counters": {
-        "following": "Following",
-        "followers": "Followers",
-        "friends_in_common": "Friends in common with you",
-        "storage_used": "Occupies {{megabytes}}"
+        "following": "Følger",
+        "followers": "Følgere",
+        "friends_in_common": "Felles venner",
+        "storage_used": "Bruker {{megabytes}}"
       }
     },
     "info": {
-      "follows_you": "Follows you",
-      "blocks_you": "Blocks you",
-      "following": "Following",
-      "blocking": "Blocking"
+      "follows_you": "Følger deg",
+      "blocks_you": "Blokkerer deg",
+      "following": "Følger",
+      "blocking": "Blokkerer"
     },
     "picture": {
-      "accessibility_label": "Profile Picture"
+      "accessibility_label": "Profilbilde"
     },
     "name": {
-      "accessibility_label": "Profile Name"
+      "accessibility_label": "Navn på profil"
     },
     "empty": {
       "blocked": {
-        "title": "Blocked",
-        "description": "You have chosen to stop\ninteracting with this account"
+        "title": "Blokkert",
+        "description": "Du har valgt å ikke lenger\nsamhandle med denne kontoen"
       },
       "no_self_messages": {
-        "title": "No messages",
-        "description": "Write a diary which you can\nshare with friends later"
+        "title": "Ingen meldinger",
+        "description": "Skriv en dagbok for å\ndele med venner senere"
       },
       "no_messages": {
-        "title": "No messages",
-        "description": "You don't yet have any data\nfrom this account"
+        "title": "Ingen meldinger",
+        "description": "Du har ingen data\nfra denne kontoen enda"
       }
     },
     "floating_action_button": {
-      "compose": "Write a public message"
+      "compose": "Skriv en offentlig melding"
     }
   },
   "profile_edit": {
-    "title": "Edit profile",
+    "title": "Rediger profil",
     "call_to_action": {
-      "discard": "Discard",
+      "discard": "Forkast",
       "save": {
-        "label": "Save",
-        "accessibility_label": "Save Profile"
+        "label": "Lagre",
+        "accessibility_label": "Lagre profil"
       },
       "edit_picture": {
-        "accessibility_label": "Edit Profile Picture"
+        "accessibility_label": "Rediger profilbilde"
       },
       "register_new_alias": {
-        "label": "Register new alias",
-        "accessibility_label": "Register New Room Server Alias"
+        "label": "Registrer nytt alias",
+        "accessibility_label": "Registrer nytt rom-server alias"
       }
     },
     "dialogs": {
       "discard": {
-        "title": "Edit profile",
-        "question": "Discard changes?"
+        "title": "Rediger profil",
+        "question": "Forkast endringer?"
       },
       "remove_alias": {
-        "description": "This action will remove the alias \"{{alias}}\" from the room server.\n\nPeople won't be able to reach you any more using this alias."
+        "description": "Dette vil fjerne aliaset \"{{alias}}\" fra rom-serveren.\n\nAndre vil ikke kunne nå deg lenger med dette aliaset."
       }
     },
     "toasts": {
-      "alias_removed_success": "Alias removed",
-      "alias_removed_failure": "Failed to remove alias"
+      "alias_removed_success": "Alias fjernet",
+      "alias_removed_failure": "Kunne ikke fjerne alias"
     },
     "fields": {
       "name": {
-        "label": "Name",
+        "label": "Navn",
         "accessibility_label": "Name Text Input"
       },
       "description": {
-        "label": "Bio",
+        "label": "Biografi",
         "accessibility_label": "Biography Text Input"
       },
       "aliases": {
-        "label": "Aliases"
+        "label": "Aliaser"
       }
     }
   },
   "manage_aliases": {
-    "title": "Manage aliases"
+    "title": "Administrer aliaser"
   },
   "register_alias": {
-    "title": "Register alias",
+    "title": "Registrer alias",
     "empty": {
       "no_servers": {
-        "title": "No servers",
-        "description": "To register an alias, you need to be a member of some SSB room server. Find one on the internet with the hashtag #ssbroom and make sure it supports aliases."
+        "title": "Ingen servere",
+        "description": "For å registrere et alias må du være deltaker i en SSB-romserver. Finn en på internett med emneknaggen #ssbroom og sørg for at den støtter aliaser."
       }
     },
     "header": {
-      "description": "Choose a room server where you would like to register a new alias link for yourself.\n\nAliases are web addresses that people can use to connect with you."
+      "description": "Velg en rom-server hvor du vil registrere en ny aliaslenke for deg.\n\nAliaser er nettadresser som andre kan bruke for å koble til deg."
     },
     "dialogs": {
       "input_alias": {
-        "description": "Submit your desired new alias to {{host}} as a single word in lowercase.\n\nFor example, if you want the alias \"myname.{{host}}\", write \"myname\" below."
+        "description": "Send inn ønsket alias til {{host}} som ett enkelt ord med små bokstaver.\n\nFor eksempel, hvis du vil bruke aliaset \"mittnavn.{{host}}\", skriv \"mittnavn\" nedenfor."
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "Sender..."
     },
     "failure": {
-      "title": "It didn't work",
-      "alias_taken": "The alias you submitted is already taken by some user.",
+      "title": "Det gikk ikke",
+      "alias_taken": "Aliaset er allerede tatt av en annen.",
       "call_to_action": {
         "try_again": {
-          "label": "Try again",
-          "accessibility_label": "Try Again Button"
+          "label": "Prøv igjen",
+          "accessibility_label": "Prøv igjen-knapp"
         }
       }
     },
     "success": {
-      "title": "Great!",
-      "description": "The alias {{alias}} is now yours.",
+      "title": "Flott!",
+      "description": "Aliaset {{alias}} er nå ditt.",
       "call_to_action": {
         "go_back": {
-          "label": "Go back",
-          "accessibility_label": "Go Back Button"
+          "label": "Gå tilbake",
+          "accessibility_label": "Gå tilbake-knapp"
         }
       }
     }
   },
   "raw_db": {
-    "title": "Raw database",
+    "title": "Rådatabase",
     "item": {
       "type": {
         "any": "type: {{type}}",
-        "encrypted": "encrypted"
+        "encrypted": "kryptert"
       }
     }
   },
   "raw_msg": {
-    "title": "Raw message"
+    "title": "Meldingens rådata"
   },
   "recipients_input": {
-    "title": "New message",
+    "title": "Ny melding",
     "call_to_action": {
       "proceed": {
-        "label": "Next",
-        "accessibility_label": "Next Button"
+        "label": "Neste",
+        "accessibility_label": "Neste-knapp"
       }
     },
     "fields": {
       "mention_input": {
-        "placeholder": "Search for people to add",
+        "placeholder": "Søk etter personer å legge til",
         "accessibility_label": "Mention Account Text Input"
       }
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
-        "description": "Type in the names\nof people to join the new chat"
+        "title": "Velg deltakere",
+        "description": "Skriv inn navnene\npå de du vil legge til i den nye chatten"
       },
       "none_to_choose": {
-        "title": "No one",
-        "description": "There is nobody in your\ncommunity with that name"
+        "title": "Ingen",
+        "description": "Det er ingen i din\nomgangskrets med det navnet"
       }
     },
     "toasts": {
-      "limit_reached": "Cannot choose more than {{limit}} recipients"
+      "limit_reached": "Kan ikke velge mer enn {{limit}} mottakere"
     }
   },
   "search": {
     "query_input": {
-      "placeholder": "Search public posts",
+      "placeholder": "Søk i offentlige innlegg",
       "accessibility_label": "Search Query Text Input"
     },
     "clear_query": {
@@ -937,56 +937,56 @@
     },
     "empty": {
       "initial": {
-        "title": "Search something",
-        "description": "Wait while the app is\nattempting to connect to your peers"
+        "title": "Søk etter noe",
+        "description": "Vent mens appen\nprøver å koble til andre"
       },
       "zero_results": {
-        "title": "Zero results",
-        "description": "Nothing found for \"{{query}}\""
+        "title": "Ingen treff",
+        "description": "Ingen treff for \"{{query}}\""
       }
     }
   },
   "secret_input": {
     "practice": {
-      "title": "Practice",
-      "header": "Repeat it to confirm it is correct:"
+      "title": "Øv",
+      "header": "Gjenta for å bekrefte:"
     },
     "restore": {
-      "title": "Restore account"
+      "title": "Gjenopprett konto"
     },
-    "header": "Carefully input your recovery phrase",
+    "header": "Skriv inn din gjenopprettingsfrase nøye",
     "call_to_action": {
       "confirm": {
-        "label": "Confirm",
+        "label": "Bekreft",
         "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
     "fields": {
       "words_input": {
-        "placeholder": "24-word (or 48-word) recovery phrase",
+        "placeholder": "24-ords (eller 48-ords) gjenopprettingsfrase",
         "accessibility_label": "Recovery Phrase Text Input"
       }
     },
     "dialogs": {
       "practice": {
         "correct": {
-          "title": "Correct!",
-          "description": "Your account's identity is now secure because you know the recovery phrase."
+          "title": "Riktig!",
+          "description": "Din kontos identitet er nå sikret, ettersom du vet gjenopprettingsfrasen."
         },
         "incorrect": {
-          "title": "Incorrect",
-          "description": "Try again: write down your recovery phrase consisting of 24 words separated by whitespace."
+          "title": "Feil",
+          "description": "Prøv igjen: skriv ned din gjenopprettingsfrase som består av 24 ord adskilt med mellomrom."
         }
       },
       "restore": {
         "incorrect": {
-          "title": "Incorrect",
+          "title": "Feil",
           "description": {
-            "try_again": "Try again by inserting your recovery phrase consisting of 24 words separated by whitespace.",
-            "overwrite_risk": "There is already an account in the app, we cannot overwrite it. If you are sure you want to override, uninstall and re-install Manyverse to recover your account from a clean state.",
-            "too_short": "There are some words missing. Your recovery phrase should be 24 words long.",
-            "too_long": "There are too many words. Your recovery phrase should be exactly 24 words long.",
-            "wrong_length": "Your recovery phrase should be exactly 24 words long.",
+            "try_again": "Prøv igjen ved å skrive inn din gjenopprettingsfrase som består av 24 ord adskilt med mellomrom.",
+            "overwrite_risk": "Det finnes allerede en konto i appen, vi kan ikke overskrive den. Hvis du er sikker på at du vil overskrive kontoen, avinstaller Manyverse og installer det på nytt for å gjenopprette kontoen din med blanke ark.",
+            "too_short": "Noen ord mangler. Gjenopprettingsfrasen skal bestå av 24 ord.",
+            "too_long": "Det er for mange ord. Gjennopprettingsfrasen skal bestå av akkurat 24 ord.",
+            "wrong_length": "Gjennopprettingsfrasen skal bestå av akkurat 24 ord.",
             "generic": "The recovery phrase you gave does not look like a valid identity generated by Manyverse."
           }
         }
@@ -994,18 +994,18 @@
     }
   },
   "secret_output": {
-    "title": "Recovery Phrase",
+    "title": "Gjenopprettingsfrase",
     "header": {
-      "1_normal": "Carefully write down the following recovery phrase on a ",
-      "2_bold": "piece of paper",
+      "1_normal": "Skriv nøye ned følgende gjenopprettingsfrase på ",
+      "2_bold": "et ark",
       "3_normal": ""
     },
     "footer": {
-      "1_normal": "Keep it ",
-      "2_bold": "confidential",
-      "3_normal": ", and\ntake sole ",
-      "4_bold": "responsibility",
-      "5_normal": " over it"
+      "1_normal": "Hold det ",
+      "2_bold": "hemmelig",
+      "3_normal": ", og\nta ",
+      "4_bold": "godt vare på",
+      "5_normal": " det"
     },
     "words": {
       "accessibility_label": "Secret Words"
@@ -1015,182 +1015,182 @@
         "accessibility_label": "Confirm Recovery Phrase Button"
       }
     },
-    "loading": "Loading..."
+    "loading": "Laster inn..."
   },
   "settings": {
-    "title": "Settings",
+    "title": "Innstillinger",
     "preferences": {
-      "title": "Preferences",
+      "title": "Innstillinger",
       "show_follows": {
-        "title": "Show follow events",
-        "subtitle": "Show follow or block or unfollow cases on the public board",
+        "title": "Vis følg-hendelser",
+        "subtitle": "Vis følging, avfølging og blokkering blant offentlige innlegg",
         "accessibility_label": "Toggle follow events on the public board"
       },
       "hops": {
-        "title": "Replication hops",
-        "subtitle": "How far out in the social graph should Manyverse download data; 1 is friends-only, 2 is friends-of-friends, etc. Caution: the higher this is, the more data is downloaded!",
-        "unlimited": "Unlimited",
+        "title": "Replikeringssteg",
+        "subtitle": "Hvor langt ut i den sosiale grafen skal Manyverse laste ned data; 1 er dine venner, 2 er venners venner, osv. Advarsel: jo høyere dette tallet er, jo mer data vil bli lastet ned!",
+        "unlimited": "Ubegrenset",
         "accessibility_label": "Replication hops slider"
       },
       "enable_firewall": {
-        "title": "Enable firewall",
-        "subtitle": "Prevent strangers from creating network connections with me",
+        "title": "Aktiver brannmur",
+        "subtitle": "Forhindre at ukjente oppretter nettverksforbindelser med meg",
         "accessibility_label": "Toggle enable firewall"
       }
     },
     "data_and_storage": {
-      "title": "Data & Storage",
+      "title": "Data og lagring",
       "backup": {
-        "title": "Backup",
-        "subtitle": "View your 24-word recovery phrase",
-        "accessibility_label": "Back Up My Account"
+        "title": "Sikkerhetskopi",
+        "subtitle": "Vis din 24-ords gjenopprettingsfrase",
+        "accessibility_label": "Sikkerhetskopier kontoen min"
       },
       "blobs_storage": {
-        "title": "Blobs storage limit",
-        "subtitle": "Automatically delete old images and blobs until they occupy at most this amount of storage on your device",
-        "unlimited": "Unlimited",
+        "title": "Lagringsgrense for blobs",
+        "subtitle": "Automatisk slett gamle bilder og blobs inntil de ikke bruker mer enn denne mengden lagringsplass på enheten",
+        "unlimited": "Ubegrenset",
         "accessibility_label": "Storage limit slider"
       },
       "storage_usage": {
-        "title": "Storage usage",
-        "accessibility_label": "Open screen about storage usage"
+        "title": "Brukt lagringsplass",
+        "accessibility_label": "Åpne skjerm om lagringsbruk"
       }
     },
     "troubleshooting": {
-      "title": "Troubleshooting",
+      "title": "Feilsøking",
       "bug_report": {
-        "title": "Email bug report",
-        "accessibility_label": "Send Bug Report as Email"
+        "title": "Rapporter feil via e-post",
+        "accessibility_label": "Send feilrapport som e-post"
       },
       "detailed_logs": {
-        "title": "Enable detailed logs",
-        "accessibility_label": "Toggle detailed developer logs"
+        "title": "Aktiver detaljert loggføring",
+        "accessibility_label": "Slå av/på detaljerte utviklerlogger"
       },
       "force_reindex": {
-        "title": "Force reindex",
-        "accessibility_label": "Force indexes to rebuild",
+        "title": "Utfør reindeksering",
+        "accessibility_label": "Utfør gjennoppbygging av indekser",
         "confirm": {
-          "title": "Rebuild indexes?",
-          "description": "This will reset database indexes and rebuild them, which is a last resort solution in case your database seems to behave oddly. Reindexing may take several minutes.\n\nAre you sure you want to do this?"
+          "title": "Gjenoppbygge indeksene?",
+          "description": "Dette vil tilbakestille databaseindeksene og gjenoppbygge de, som er en siste utvei hvis databasen oppfører seg merkelig. Reindeksering kan ta flere minutter.\n\nEr du sikker på at du vil gjøre dette?"
         }
       },
       "crash_reports": {
-        "title": "Enable crash reports",
-        "subtitle": "Opt-in to send crash reports (without personally identifiable information) to the developers, via Sentry.io. By enabling this, you agree to Sentry.io's privacy policy.",
-        "accessibility_label": "Toggle crash reports"
+        "title": "Aktiver krasjrapporter",
+        "subtitle": "Velg å sende inn krasjrapporter (uten personlig identifiserbar informasjon) til utviklerne, via Sentry.io. Ved å velge dette, aksepterer du personvernerklæringen til Sentry.io.",
+        "accessibility_label": "Slå av/på krasjrapporter"
       }
     },
     "more_information": {
-      "title": "More information",
+      "title": "Mer informasjon",
       "thanks": {
-        "title": "Thanks",
-        "accessibility_label": "Show Thanks"
+        "title": "Takk",
+        "accessibility_label": "Vis takkeliste"
       },
       "third_party_libs": {
-        "title": "Third party libraries",
-        "accessibility_label": "View third party libraries"
+        "title": "Tredjeparts biblioteker",
+        "accessibility_label": "Vis tredjepartsbiblioteker"
       },
       "about": {
-        "title": "About",
-        "accessibility_label": "About This App"
+        "title": "Om",
+        "accessibility_label": "Om denne appen"
       }
     },
     "danger_zone": {
-      "title": "Danger Zone",
+      "title": "Faresone",
       "delete_account": {
-        "title": "Delete account",
-        "accessibility_label": "Delete your account",
+        "title": "Slett konto",
+        "accessibility_label": "Slett kontoen din",
         "confirm": {
-          "title": "Delete your account?",
-          "description": "Deleting this account will bring you back to the start screen, where you can restore your account or create a new one.\n\nAre you sure you want to do this?"
+          "title": "Slette kontoen din?",
+          "description": "Ved å slette denne kontoen går du tilbake til startskjermen, der du kan gjenopprette kontoen din eller lage en ny.\n\nEr du sikker på at du vil gjøre dette?"
         }
       }
     },
     "dialogs": {
       "restart_required": {
-        "title": "Restart required",
-        "description": "This setting will only enter into effect when you kill the app and restart Manyverse."
+        "title": "Omstart kreves",
+        "description": "Denne innstillingen vil kun tre i kraft etter at du har avsluttet appen og åpnet Manyverse på nytt."
       }
     }
   },
   "storage": {
-    "title": "Storage",
+    "title": "Lagring",
     "chart": {
       "total": {
-        "1_normal": "Manyverse uses a total of ",
-        "3_normal": " on your device"
+        "1_normal": "Manyverse bruker totalt ",
+        "3_normal": " på enheten din"
       },
       "legend": {
-        "trash": "Trash ({{megabytes}})",
-        "content": "Content ({{megabytes}})",
-        "indexes": "Indexes ({{megabytes}})",
-        "blobs": "Blobs ({{megabytes}})"
+        "trash": "Papirkurv ({{megabytes}})",
+        "content": "Innhold ({{megabytes}})",
+        "indexes": "Indekser ({{megabytes}})",
+        "blobs": "Blobber ({{megabytes}})"
       }
     },
     "trash": {
-      "title": "Trash",
-      "description": "The trash bin is made of blocked accounts. Compact your database to empty the trash bin.",
+      "title": "Papirkurv",
+      "description": "Papirkurven inneholder blokkerte kontoer. Kompaktér databasen for å tømme papirkurven.",
       "compact": {
-        "label": "Compact",
-        "accessibility_label": "Compact your database"
+        "label": "Kompaktér",
+        "accessibility_label": "Kompaktér databasen"
       }
     },
     "dialogs": {
       "confirm_compact": {
-        "title": "Compact database?",
-        "description": "This action will remove the trash and rebuild database indexes. It typically lasts 2 minutes, and you must keep the app open without browsing content, waiting for it to complete.\n\nDo you want to continue?"
+        "title": "Kompaktér databasen?",
+        "description": "Dette vil tømme papirkurven og gjenoppbygge databaseindeksene. Det tar vanligvis 2 minutter, og du må ikke gå ut av eller bruke appen mens det pågår. Vent til det er helt ferdig.\n\nVil du fortsette?"
       }
     },
     "accounts": {
-      "title": "Accounts",
-      "description": "Every account you see on your Manyverse occupies a certain amount of space on your device. To free up space, you can block accounts you don't want to see anymore.",
-      "this_is_you": "This is you",
+      "title": "Kontoer",
+      "description": "Hver konto du ser i din Manyverse bruker en viss mengde lagringsplass på enheten. For å frigjøre plass kan du blokkere kontoer du ikke lenger vil se.",
+      "this_is_you": "Dette er deg",
       "open_profile": {
-        "accessibility_label": "Open Profile"
+        "accessibility_label": "Åpne profil"
       },
       "options_profile": {
-        "accessibility_label": "More options for this profile"
+        "accessibility_label": "Flere valg for denne profilen"
       }
     }
   },
   "compact": {
-    "title": "Compacting your\nManyverse database..."
+    "title": "Kompakterer din\nManyverse-database..."
   },
   "indexing": {
-    "title": "Preparing database indexes... ({{progress}}%)",
+    "title": "Forbereder databaseindekser... ({{progress}}%)",
     "info": {
-      "title": "What is happening here?",
-      "description": "Your Manyverse installation has {{bytes}} of content that needs to be optimized before you can browse it. Database indexes help organize content into categories such as posts, reactions, follows, blocks, etc.\n\nThe app is busy building those indexes and making sense of them so that when you want to see how many followers an account has, the numbers have already been calculated, and when you want to see who reacted to a post, the list of reactions has already been collected, and so forth.\n\nTypically this doesn't take longer than 10 minutes. Hang in there!"
+      "title": "Hva skjer her?",
+      "description": "Din Manyverse-installasjon har {{bytes}} med innhold som må optimaliseres før du kan se gjennom det. Databaseindeksering bidrar til å organisere innhold i kategorier som innlegg, reaksjoner, blokker, osv.\n\nAppen må bruke litt tid på å bygge disse indeksene og tolke innholdet, sånn at hvis du ønsker å se hvor mange følgeren en konto har, vil tallet allerede ha blitt utregnet, og hvis du vil se hvem som reagerte på et innlegg, er listen over reaksjoner allerede klar, og så videre.\n\nVanligvis tar det ikke mer enn 10 minutter. Hold ut!"
     }
   },
   "resync": {
     "introduction": {
-      "title": "Good!",
+      "title": "Bra!",
       "description": {
-        "1_normal": "Your account's ",
-        "2_bold": "identity",
-        "3_normal": " is now restored.\n\nNow, to recover your ",
+        "1_normal": "Din kontos ",
+        "2_bold": "identitet",
+        "3_normal": " har blitt gjenopprettet.\n\nFor å gjenopprette din ",
         "4_bold": "data",
-        "5_normal": ", connect with friends that have interacted with you before, to redownload your data from them. There are two ways:"
+        "5_normal": ", koble til venner som du har samhandlet med før, for å laste ned dataene dine fra dem på nytt. Det er to måter å gjøre det på:"
       }
     },
     "buttons": {
-      "connect_via_wifi": "Connect via Wi-Fi",
-      "paste_invite": "Paste invite code"
+      "connect_via_wifi": "Koble til via Wi-Fi",
+      "paste_invite": "Lim inn invitasjonskode"
     },
     "instructions": {
       "connect_via_wifi": {
-        "title": "Connect via Wi-Fi",
-        "description": "Just connect this device to the same local Wi-Fi as other devices are, keep Manyverse open on those devices, and your data will automatically sync to this device."
+        "title": "Koble til via Wi-Fi",
+        "description": "Bare koble denne enheten til samme Wi-Fi-nettverk som andre enheter, ha Manyverse oppe på disse enhetene, og dataene dine vil bli automatisk synket til denne enheten."
       }
     },
     "progress": {
-      "title": "Redownloading data: {{megabytes}}",
-      "description": "Please wait while your data is being recovered from friends."
+      "title": "Laster ned data på nytt: {{megabytes}}",
+      "description": "Vennligst vent mens dataene dine blir gjenopprettet fra dine venner."
     }
   },
   "thread": {
-    "title": "Thread",
+    "title": "Tråd",
     "call_to_action": {
       "expand_reply": {
         "accessibility_label": "Expand Reply Button"
@@ -1201,116 +1201,116 @@
     },
     "fields": {
       "reply": {
-        "placeholder": "Comment",
+        "placeholder": "Kommenter",
         "accessibility_label": "Reply Text Input"
       }
     },
-    "loading_replies": "Loading replies...",
+    "loading_replies": "Laster inn svar...",
     "empty": {
       "missing": {
-        "title": "Missing data",
-        "description": "You don't yet have data\nfor the message known by the ID\n"
+        "title": "Manglende data",
+        "description": "Du har ennå ikke mottatt data\nfor meldingen med ID\n"
       },
       "blocked": {
-        "title": "Blocked thread",
-        "description": "You have chosen to block\nthe author of this thread"
+        "title": "Blokkert tråd",
+        "description": "Du har valgt å blokkere\nforfatteren av denne tråden"
       },
       "incompatible": {
-        "title": "Sorry",
-        "description": "This app doesn't know how to process\nand display this thread correctly"
+        "title": "Beklager",
+        "description": "Denne appen vet ikke hvordan den skal prosessere\nog vise denne tråden på en korrekt måte"
       }
     }
   },
   "message": {
     "call_to_action": {
       "show_reactions": {
-        "accessibility_label": "Show Reactions"
+        "accessibility_label": "Vis reaksjoner"
       },
       "add_reaction": {
-        "accessibility_label": "Add Reaction Button"
+        "accessibility_label": "Vis reaksjoner-knapp"
       },
       "reply": {
-        "accessibility_label": "Reply Button"
+        "accessibility_label": "Svar-knapp"
       },
       "share": {
-        "dialog_title": "Share",
-        "accessibility_label": "Share Button"
+        "dialog_title": "Del",
+        "accessibility_label": "Del-knapp"
       },
       "etc": {
-        "dialog_title": "Message",
-        "accessibility_label": "Etc Button"
+        "dialog_title": "Melding",
+        "accessibility_label": "Etc-knapp"
       },
       "copy_blob_id": {
-        "accessibility_label": "Copy Blob ID"
+        "accessibility_label": "Kopier blob-ID"
       },
-      "copy_msg_uri": "Copy SSB URI",
-      "copy_msg_id": "Copy cypherlink",
-      "view_raw": "View raw message"
+      "copy_msg_uri": "Kopier SSB-URI",
+      "copy_msg_id": "Kopier krypteringslenke",
+      "view_raw": "Vis meldingens rådata"
     },
     "gatherings": {
       "call_to_action": {
-        "attend": "Attend",
-        "attending": "Attending",
+        "attend": "Delta",
+        "attending": "Deltar",
         "showAllAttendees": {
-          "accessibility_label": "Show Attendees in a List"
+          "accessibility_label": "Vis deltakere i en liste"
         }
       }
     },
     "toast": {
-      "copied_to_clipboard": "Copied to clipboard"
+      "copied_to_clipboard": "Kopiert til utklippstavle"
     },
     "reactions": {
       "categories": {
-        "smileys_and_emotion": "Smileys and emotion",
-        "people_and_body": "People and body",
-        "animals_and_nature": "Animals and nature",
-        "food_and_drink": "Food and drink",
-        "activities": "Activities",
-        "travel_and_places": "Travel and places",
-        "objects": "Objects",
-        "symbols": "Symbols",
-        "flags": "Flags"
+        "smileys_and_emotion": "Smilefjes og følelser",
+        "people_and_body": "Mennesker og kropp",
+        "animals_and_nature": "Dyr og natur",
+        "food_and_drink": "Mat og drikke",
+        "activities": "Aktiviteter",
+        "travel_and_places": "Reise og steder",
+        "objects": "Objekter",
+        "symbols": "Symboler",
+        "flags": "Flagg"
       },
       "show_more": {
-        "accessibility_label": "Show More Reaction Options"
+        "accessibility_label": "Vis flere reaksjoner"
       }
     },
     "image": {
       "without_caption": {
-        "accessibility_label": "Picture without caption"
+        "accessibility_label": "Bilde uten bildetekst"
       }
     },
     "audio": {
       "play": {
-        "accessibility_label": "Play audio"
+        "accessibility_label": "Spill av"
       },
       "pause": {
-        "accessibility_label": "Pause audio"
+        "accessibility_label": "Pause"
       },
       "duration": {
-        "accessibility_label": "Audio duration"
+        "accessibility_label": "Lengde på lyd"
       },
       "elapsed": {
-        "accessibility_label": "Audio current time"
+        "accessibility_label": "Tid avspilt"
       },
       "slider": {
-        "accessibility_label": "Change audio time"
+        "accessibility_label": "Endre tidsmarkør"
       }
     },
     "content_warning": {
-      "title": "Content Warning",
+      "title": "Innholdsvarsel",
       "call_to_action": {
-        "hide": "Hide",
-        "show": "View"
+        "hide": "Skjul",
+        "show": "Vis"
       }
     },
     "fork_note": {
-      "1_normal": "Forked from ",
+      "1_normal": "Forgrenet fra ",
       "2_bold": "{{cypherlink}}",
       "3_normal": ""
     },
     "introducer": {
-      "1_normal": "Followed by ",
+      "1_normal": "Følges av ",
       "2_bold": "{{name}}",
       "3_normal": ""
     },
@@ -1318,24 +1318,24 @@
       "new_picture": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new profile picture: "
+        "3_normal": " har et nytt profilbilde: "
       },
       "new_name_and_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " bruker navnet \"",
         "4_bold": "{{name}}",
-        "5_normal": "\" and the description: "
+        "5_normal": "\" og beskrivelsen: "
       },
       "new_description": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " has a new biography: "
+        "3_normal": " har en ny biografi: "
       },
       "new_name": {
         "1_normal": "",
         "2_bold": "{{name}}",
-        "3_normal": " is using the name \"",
+        "3_normal": " bruker navnet \"",
         "4_bold": "{{name}}",
         "5_normal": "\""
       }
@@ -1344,41 +1344,41 @@
       "follow_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " followed ",
+        "3_normal": " følger ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "block_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " blocked ",
+        "3_normal": " blokkert ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "unfollow_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " unfollowed ",
+        "3_normal": " avfølget ",
         "4_bold": "{{target}}",
         "5_normal": ""
       },
       "unblock_event": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " unblocked ",
+        "3_normal": " avblokkert ",
         "4_bold": "{{target}}",
         "5_normal": ""
       }
     }
   },
   "context_menu": {
-    "copy": "Copy",
-    "copy_link": "Copy link",
-    "cut": "Cut",
-    "inspect": "Inspect element",
-    "look_up_selection": "Look up {selection}",
-    "paste": "Paste",
-    "save_image": "Save image",
-    "save_image_as": "Save image as..."
+    "copy": "Kopier",
+    "copy_link": "Kopier lenke",
+    "cut": "Klipp ut",
+    "inspect": "Inspiser element",
+    "look_up_selection": "Slå opp {selection}",
+    "paste": "Lim inn",
+    "save_image": "Lagre bilde",
+    "save_image_as": "Lagre bilde som..."
   }
 }

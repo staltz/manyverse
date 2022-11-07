@@ -329,7 +329,7 @@
     "scenario_descriptions": {
       "offline_with_content": "No puedes conectarte con compañeros en este momento, pero puedes disfrutar de algunos contenidos que ya tienes.",
       "offline_without_content": "No puedes conectarte con tus compañeros en este momento. Intenta obtener algo de conectividad a Internet o enciende Wi-Fi para descubrir compañeros cercanos.",
-      "knows_no_one": "Tu Manyverse está aislado en este momento. Necesitsa ser invitado por otros compañeros para unirte a los servidores de sala, o puedes alojar un servidor de sala tu mismo.",
+      "knows_no_one": "Tu Manyverse está aislado en este momento. Necesitas ser invitado por otros compañeros para unirte a los servidores de sala, o puedes alojar un servidor de sala tu mismo.",
       "nearby_strangers_available": "Aún no estás conectado a nadie, pero hay algunas personas en la misma red Wi-Fi. Intenta conectarte a ellos manualmente si crees que también están dispuestos a conectarse contigo.",
       "empty_rooms": "Tu eres miembro de algunas salas, pero no hay nadie que conozcas actualmente en línea. Intenta conectarte manualmente con un extraño en la sala u obten un código de invitación a otros servidores.",
       "connected_poorly": "Estás conectado con un compañero, eso es bueno. Pero, para mejorar la propagación de datos, debes conectarte a más personas. Intenta esperar un poco más u obtener un código de invitación a otros servidores.",
