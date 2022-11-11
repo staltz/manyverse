@@ -11,7 +11,7 @@ license check:
 
 typescript compiles:
   image:
-    name: node:12
+    name: node:14
   cache:
     paths:
       - node_modules/
