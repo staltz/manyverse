@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Permanenz",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
+        "1_normal": "Sobald deine Inhalte mit Freunden synchronisiert sind, besitzen diese eine Kopie davon auf ihren Geräten. Da du danach offline gehen könntest, ist es ",
         "2_bold": "Löschung deiner Inhalte von allen Geräten kann daher unmöglich sein",
-        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
+        "3_normal": " deine Inhalte weltweit von allen Geräten aus! Dies hat zwar den Vorteil, dass die Gemeinschaften vorsichtiger und rücksichtsvoller werden, aber es kann auch ein Risiko für dich darstellen, also denke zweimal nach, bevor du deine Inhalte teilst."
       }
     },
     "in_construction": {
@@ -218,12 +218,12 @@
     },
     "filters_row": {
       "all": {
-        "label": "All",
-        "accessibility_label": "All Feeds Button"
+        "label": "Alle",
+        "accessibility_label": "Alle Feeds Schaltfläche"
       },
       "following": {
         "label": "Folge ich",
-        "accessibility_label": "Following Feeds Button"
+        "accessibility_label": "Gefolgte Feeds Schaltfläche"
       }
     }
   },
@@ -915,7 +915,7 @@
     },
     "empty": {
       "instructions": {
-        "title": "Empfänger auswählen",
+        "title": "Mitglieder auswählen",
         "description": "Gib die Namen der Personen ein, die du zu\ndem neuen Chat hinzufügen möchtest"
       },
       "none_to_choose": {
@@ -1233,8 +1233,8 @@
         "accessibility_label": "Antwort Schaltfläche"
       },
       "share": {
-        "dialog_title": "Share",
-        "accessibility_label": "Share Button"
+        "dialog_title": "Teilen",
+        "accessibility_label": "Teilen Schaltfläche"
       },
       "etc": {
         "dialog_title": "Nachricht",

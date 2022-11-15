@@ -195,7 +195,7 @@
     "tab_footers": {
       "public": "Public",
       "private": "Private",
-      "activity": "Activity",
+      "activity": "Agoj",
       "connections": "Connections"
     },
     "loading": "Loading...",
@@ -210,7 +210,7 @@
         "accessibility_label": "Private Tab Button"
       },
       "activity": {
-        "accessibility_label": "Activity Tab Button"
+        "accessibility_label": "Agoj butono"
       },
       "connections": {
         "accessibility_label": "Connections Tab Button"
@@ -236,7 +236,7 @@
       "description": "Write a diary to be\nshared with friends later"
     },
     "search": {
-      "accessibility_label": "Search Button"
+      "accessibility_label": "Serĉa Butono"
     }
   },
   "private": {
@@ -256,13 +256,13 @@
       "title": "Reactions"
     },
     "gathering_attendees": {
-      "title": "Attendees"
+      "title": "Ĉeestantoj"
     },
     "recipients": {
       "title": "Recipients"
     },
     "friends_in_common": {
-      "title": "Friends in common"
+      "title": "Komunaj amikoj"
     },
     "call_to_action": {
       "open_account": {
@@ -298,14 +298,14 @@
     }
   },
   "connections": {
-    "title": "Connections Panel",
+    "title": "Konektoj-Panelon",
     "floating_action_button": {
-      "add_connection": "Add a connection",
+      "add_connection": "Aldonu konekton",
       "create_invite": "Create invite",
       "paste_invite": "Paste invite",
       "bluetooth_seek": "Bluetooth seek"
     },
-    "open_connections_panel": "Open Connections Panel",
+    "open_connections_panel": "Malfermu Konektoj-Panelon",
     "empty": {
       "offline": {
         "title": "Offline",
@@ -340,7 +340,7 @@
       "follow_staged_manually": "Follow someone new",
       "paste_invite": "Paste invite code",
       "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "others": "Aliaj elektoj"
     },
     "recommendation_descriptions": {
       "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
@@ -671,7 +671,7 @@
       },
       "translate": {
         "label": "Help us translate",
-        "accessibility_label": "Open translation website"
+        "accessibility_label": "Malfermu tradukan retejon"
       },
       "more": {
         "label": "More",
@@ -766,7 +766,7 @@
       },
       "counters": {
         "following": "Following",
-        "followers": "Followers",
+        "followers": "Sekvantoj",
         "friends_in_common": "Friends in common with you",
         "storage_used": "Occupies {{megabytes}}"
       }
@@ -813,7 +813,7 @@
         "accessibility_label": "Edit Profile Picture"
       },
       "register_new_alias": {
-        "label": "Register new alias",
+        "label": "Registri novan kaŝnomon",
         "accessibility_label": "Register New Room Server Alias"
       }
     },
@@ -845,7 +845,7 @@
     }
   },
   "manage_aliases": {
-    "title": "Manage aliases"
+    "title": "Administri kaŝnomojn"
   },
   "register_alias": {
     "title": "Registri kaŝnomo",
@@ -864,7 +864,7 @@
       }
     },
     "submitting": {
-      "title": "Submitting..."
+      "title": "Sendante..."
     },
     "failure": {
       "title": "It didn't work",
@@ -877,7 +877,7 @@
       }
     },
     "success": {
-      "title": "Great!",
+      "title": "Bonege!",
       "description": "The alias {{alias}} is now yours.",
       "call_to_action": {
         "go_back": {
@@ -915,7 +915,7 @@
     },
     "empty": {
       "instructions": {
-        "title": "Choose members",
+        "title": "Elektu membrojn",
         "description": "Type in the names\nof people to join the new chat"
       },
       "none_to_choose": {
