@@ -7,10 +7,8 @@ import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
 import {ReactSource} from '@cycle/react';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {
-  Command as StorageCommand,
-  AsyncStorageSource,
-} from 'cycle-native-asyncstorage';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';

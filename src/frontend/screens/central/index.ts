@@ -8,11 +8,9 @@ import {StateSource, Reducer} from '@cycle/state';
 import {ReactElement} from 'react';
 import isolate from '@cycle/isolate';
 import {ReactSource} from '@cycle/react';
-import {
-  AsyncStorageSource,
-  Command as StorageCommand,
-} from 'cycle-native-asyncstorage';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Command, NavSource} from 'cycle-native-navigation';
+import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
 import {Toast} from '~frontend/drivers/toast';
 import {State as AppState} from '~frontend/drivers/appstate';
 import {NetworkSource} from '~frontend/drivers/network';

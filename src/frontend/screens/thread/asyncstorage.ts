@@ -5,7 +5,7 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import dropRepeats from 'xstream/extra/dropRepeats';
-import {Command} from 'cycle-native-asyncstorage';
+import {removeItem, setItem} from '~frontend/drivers/asyncstorage';
 import {State} from './model';
 
 export interface Actions {
@@ -13,21 +13,14 @@ export interface Actions {
 }
 
 export default function asyncStorage(actions: Actions, state$: Stream<State>) {
-  const deleteWhenPublished$ = actions.publishMsg$.compose(sample(state$)).map(
-    (state) =>
-      ({
-        type: 'removeItem',
-        key: `replyDraft:${state.rootMsgId}`,
-      } as Command),
-  );
+  const deleteWhenPublished$ = actions.publishMsg$
+    .compose(sample(state$))
+    .map((state) => removeItem(`replyDraft:${state.rootMsgId}`));
 
   const deleteDraft$ = state$
     .compose(dropRepeats((s1, s2) => s1.replyText === s2.replyText))
     .filter((state) => state.replyText.length === 0)
-    .map(
-      (state) =>
-        ({type: 'removeItem', key: `replyDraft:${state.rootMsgId}`} as Command),
-    );
+    .map((state) => removeItem(`replyDraft:${state.rootMsgId}`));
 
   const saveDraft$ = xs
     .periodic(1000)
@@ -35,14 +28,7 @@ export default function asyncStorage(actions: Actions, state$: Stream<State>) {
     .compose(sample(state$))
     .compose(dropRepeats((s1, s2) => s1.replyText === s2.replyText))
     .filter((state) => state.replyText.length > 0)
-    .map(
-      (state) =>
-        ({
-          type: 'setItem',
-          key: `replyDraft:${state.rootMsgId}`,
-          value: state.replyText,
-        } as Command),
-    );
+    .map((state) => setItem(`replyDraft:${state.rootMsgId}`, state.replyText));
 
   return xs.merge(deleteWhenPublished$, deleteDraft$, saveDraft$);
 }

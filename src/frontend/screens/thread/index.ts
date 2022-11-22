@@ -8,10 +8,8 @@ import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
 import {StateSource, Reducer} from '@cycle/state';
 import {KeyboardSource} from 'cycle-native-keyboard';
-import {
-  AsyncStorageSource,
-  Command as StorageCommand,
-} from 'cycle-native-asyncstorage';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';

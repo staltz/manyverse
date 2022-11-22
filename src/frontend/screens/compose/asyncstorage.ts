@@ -5,8 +5,8 @@
 import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import sample from 'xstream-sample';
-import {Command} from 'cycle-native-asyncstorage';
 import {State, isReply} from './model';
+import {removeItem, setItem} from '~frontend/drivers/asyncstorage';
 
 export interface Actions {
   publishPost$: Stream<any>;
@@ -16,13 +16,10 @@ export interface Actions {
 export default function asyncStorage(actions: Actions, state$: Stream<State>) {
   const deleteReplyWhenPublished$ = actions.publishReply$
     .compose(sample(state$))
-    .map(
-      (state) =>
-        ({type: 'removeItem', key: `replyDraft:${state.root}`} as Command),
-    );
+    .map((state) => removeItem(`replyDraft:${state.root}`));
 
-  const deletePostWhenPublished$ = actions.publishPost$.map(
-    () => ({type: 'removeItem', key: 'composeDraft'} as Command),
+  const deletePostWhenPublished$ = actions.publishPost$.map(() =>
+    removeItem('composeDraft'),
   );
 
   const deleteDraft$ = state$
@@ -30,9 +27,9 @@ export default function asyncStorage(actions: Actions, state$: Stream<State>) {
     .filter((state) => state.postText.length === 0)
     .map((state) => {
       if (isReply(state)) {
-        return {type: 'removeItem', key: `replyDraft:${state.root}`} as Command;
+        return removeItem(`replyDraft:${state.root}`);
       } else {
-        return {type: 'removeItem', key: 'composeDraft'} as Command;
+        return removeItem('composeDraft');
       }
     });
 
@@ -44,30 +41,15 @@ export default function asyncStorage(actions: Actions, state$: Stream<State>) {
     .filter((state) => state.postText.length > 0)
     .map((state) => {
       if (isReply(state)) {
-        return {
-          type: 'setItem',
-          key: `replyDraft:${state.root}`,
-          value: state.postText,
-        } as Command;
+        return setItem(`replyDraft:${state.root}`, state.postText);
       } else {
-        return {
-          type: 'setItem',
-          key: 'composeDraft',
-          value: state.postText,
-        } as Command;
+        return setItem('composeDraft', state.postText);
       }
     });
 
   const lastSession$ = xs
     .merge(actions.publishPost$, actions.publishReply$)
-    .map(
-      () =>
-        ({
-          type: 'setItem',
-          key: 'lastSessionTimestamp',
-          value: `${Date.now() + 2e3}`,
-        } as Command),
-    );
+    .map(() => setItem('lastSessionTimestamp', `${Date.now() + 2e3}`));
 
   return xs.merge(
     deletePostWhenPublished$,

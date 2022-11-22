@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
+import {Stream} from 'xstream';
 import {withState} from '@cycle/state';
 import {makeHTTPDriver} from '@cycle/http';
 import {MoreScreenSinks} from 'cycle-native-navigation';
@@ -11,7 +12,11 @@ import {makeClipboardDriver} from 'cycle-native-clipboard';
 import {linkingDriver} from './drivers/linking';
 import {makeLocalizationDriver} from './drivers/localization';
 import {makeToastDriver} from './drivers/toast';
-import {asyncStorageDriver} from 'cycle-native-asyncstorage';
+import {
+  asyncStorageDriver,
+  AsyncStorageSource,
+} from 'cycle-native-asyncstorage';
+import {TypedCommand} from './drivers/asyncstorage';
 import {makeFSDriver} from './drivers/fs';
 import {ssbDriver} from './drivers/ssb';
 import {makeMigratingDriver} from './drivers/migrating';
@@ -66,7 +71,9 @@ import {indexing} from './screens/indexing';
 
 export const drivers = {
   appstate: makeAppStateDriver(),
-  asyncstorage: asyncStorageDriver,
+  asyncstorage: asyncStorageDriver as (
+    sink: Stream<TypedCommand>,
+  ) => AsyncStorageSource,
   keyboard: makeKeyboardDriver(),
   clipboard: makeClipboardDriver(),
   fs: makeFSDriver(),

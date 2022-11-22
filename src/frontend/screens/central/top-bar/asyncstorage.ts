@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
-import {Command} from 'cycle-native-asyncstorage';
+import {setItem} from '~frontend/drivers/asyncstorage';
 import {FeedFilter} from './model';
 
 interface Actions {
@@ -13,11 +13,7 @@ interface Actions {
 export default function asyncStorage(actions: Actions) {
   const publicFilters$ = actions.updatePublicTabFilters$.map((feedFilter) => {
     const followingOnly = feedFilter === 'following';
-    return {
-      type: 'setItem',
-      key: `followingOnly`,
-      value: JSON.stringify(followingOnly),
-    } as Command;
+    return setItem('followingOnly', JSON.stringify(followingOnly));
   });
 
   return publicFilters$;

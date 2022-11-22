@@ -7,7 +7,11 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
 import {ReactElement} from 'react';
-import {Command as StorageCommand} from 'cycle-native-asyncstorage';
+import {
+  removeItem,
+  setItem,
+  TypedCommand as StorageCommand,
+} from '~frontend/drivers/asyncstorage';
 import {Req, SSBSource} from '~frontend/drivers/ssb';
 import {NetworkSource} from '~frontend/drivers/network';
 import {Command as AlertCommand} from '~frontend/drivers/dialogs';
@@ -73,16 +77,8 @@ export function resync(sources: Sources): Sinks {
   const req$ = ssb(actions, state$);
 
   const storageCommand$ = xs.merge(
-    xs.of({
-      type: 'setItem',
-      key: 'resyncing',
-      value: `${Date.now()}`,
-    } as StorageCommand),
-
-    actions.willGoToCentral$.mapTo({
-      type: 'removeItem',
-      key: 'resyncing',
-    } as StorageCommand),
+    xs.of(setItem('resyncing', `${Date.now()}`)),
+    actions.willGoToCentral$.mapTo(removeItem('resyncing')),
   );
 
   return {

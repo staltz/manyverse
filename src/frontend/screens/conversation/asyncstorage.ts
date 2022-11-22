@@ -3,38 +3,36 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {Command as StorageCommand} from 'cycle-native-asyncstorage';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import sample from 'xstream-sample';
 import dropRepeats from 'xstream/extra/dropRepeats';
+import {removeItem, setItem} from '~frontend/drivers/asyncstorage';
 
-export const asyncStorage = (
+export function asyncStorage(
   compose$: Stream<string>,
   publish$: Stream<unknown>,
-  storageKey$: Stream<string>,
-): Stream<StorageCommand> => {
-  const deleteDraft$: Stream<StorageCommand> = xs
+  storageKey$: Stream<`privateDraft:${string}`>,
+) {
+  const deleteDraft$ = xs
     .merge(
       compose$.filter((message) => message.length === 0),
       publish$,
     )
     .compose(sample(storageKey$))
-    .map((key) => ({type: 'removeItem', key}));
+    .map((key) => removeItem(key));
 
   const resetSaveDraftTimer$: Stream<null> = deleteDraft$
     .mapTo(null)
     .startWith(null);
 
-  const saveDraft$: Stream<StorageCommand> = resetSaveDraftTimer$
+  const saveDraft$ = resetSaveDraftTimer$
     .map(() => xs.periodic(1000))
     .flatten()
     .compose(sample(compose$))
     .filter((message) => message.length > 1)
     .compose(dropRepeats())
     .compose(sampleCombine(storageKey$))
-    .map(([message, key]) => {
-      return {type: 'setItem', key, value: message};
-    });
+    .map(([message, key]) => setItem(key, message));
 
   return xs.merge(saveDraft$, deleteDraft$);
-};
+}

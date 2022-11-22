@@ -8,10 +8,8 @@ import {StyleSheet} from 'react-native';
 import {ReactSource} from '@cycle/react';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
-import {
-  AsyncStorageSource,
-  Command as StorageCommand,
-} from 'cycle-native-asyncstorage';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
@@ -21,7 +19,7 @@ import ssb from './ssb';
 import navigation from './navigation';
 import intent from './intent';
 import {Props as P} from './props';
-import {asyncStorage} from './asyncStorage';
+import {asyncStorage} from './asyncstorage';
 export {navOptions} from './layout';
 
 export type Props = P;
@@ -62,7 +60,7 @@ export function conversation(sources: Sources): Sinks {
 
   const storageKey$ = state$
     .filter(({rootMsgId}) => !!rootMsgId)
-    .map(({rootMsgId}) => `privateDraft:${rootMsgId}`)
+    .map(({rootMsgId}) => `privateDraft:${rootMsgId}` as const)
     .remember();
 
   const loadedDraft$ = storageKey$

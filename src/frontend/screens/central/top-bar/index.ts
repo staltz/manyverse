@@ -6,10 +6,8 @@ import {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
 import {ReactElement} from 'react';
-import {
-  AsyncStorageSource,
-  Command as StorageCommand,
-} from 'cycle-native-asyncstorage';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
 import view from './view';
 import model, {State} from './model';
 import intent from './intent';

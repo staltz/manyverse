@@ -3,7 +3,8 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import {AsyncStorageSource, Command} from 'cycle-native-asyncstorage';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
+import {setItem} from '~frontend/drivers/asyncstorage';
 
 interface Actions {
   updateSessionTimestamp$: Stream<any>;
@@ -16,28 +17,12 @@ export default function asyncStorage(
   const firstVisit$ = asyncStorageSource
     .getItem('firstVisit')
     .filter((resultStr: string | null) => !resultStr)
-    .map(
-      () =>
-        ({
-          type: 'setItem',
-          key: 'firstVisit',
-          value: `${Date.now()}`,
-        } as Command),
-    );
+    .map(() => setItem('firstVisit', `${Date.now()}`));
 
-  const latestVisit$ = xs.of({
-    type: 'setItem',
-    key: 'latestVisit',
-    value: `${Date.now()}`,
-  } as Command);
+  const latestVisit$ = xs.of(setItem('latestVisit', `${Date.now()}`));
 
-  const lastSession$ = actions.updateSessionTimestamp$.map(
-    () =>
-      ({
-        type: 'setItem',
-        key: 'lastSessionTimestamp',
-        value: `${Date.now()}`,
-      } as Command),
+  const lastSession$ = actions.updateSessionTimestamp$.map(() =>
+    setItem('lastSessionTimestamp', `${Date.now()}`),
   );
 
   return xs.merge(latestVisit$, lastSession$, firstVisit$);
