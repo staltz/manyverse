@@ -29,19 +29,17 @@ export default function setupSentryMobile() {
         dsn: 'https://f0ac0805d95145e9aeb98ecd42d3ed4b@o1400646.ingest.sentry.io/6730238',
         release: versionName,
         sendDefaultPii: false,
-        beforeSend(event) {
-          delete event.user;
-          delete event.breadcrumbs;
-          if (event.contexts?.device?.timezone) {
-            delete event.contexts.device.timezone;
-          }
-          if (event.contexts?.culture) {
-            delete event.contexts.culture;
-          }
-          event.tags = event.tags || {};
-          event.tags.side = 'frontend';
-          event.tags.platform = 'mobile';
-          return event;
+        beforeSend(ev) {
+          delete ev.user;
+          delete ev.breadcrumbs;
+          if (ev.contexts?.culture) delete ev.contexts.culture;
+          if (ev.contexts?.device?.timezone) delete ev.contexts.device.timezone;
+          if (ev.contexts?.device?.language) delete ev.contexts.device.language;
+          if (ev.contexts?.device?.locale) delete ev.contexts.device.locale;
+          ev.tags = ev.tags || {};
+          ev.tags.side = 'frontend';
+          ev.tags.platform = 'mobile';
+          return ev;
         },
         beforeBreadcrumb(breadcrumb) {
           return null;

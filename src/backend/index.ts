@@ -28,16 +28,19 @@ function setupSentryNodejs(platform: 'mobile' | 'desktop') {
   Sentry.init({
     dsn: 'https://f0ac0805d95145e9aeb98ecd42d3ed4b@o1400646.ingest.sentry.io/6730238',
     release: versionName,
-    beforeSend(event) {
+    beforeSend(ev) {
       if (!(process as any)._sentryEnabled) return null;
-      delete event.user;
-      delete event.breadcrumbs;
-      if (event.server_name) delete event.server_name;
-      if (event.tags?.server_name) delete event.tags.server_name;
-      event.tags ??= {};
-      event.tags.side = 'backend';
-      event.tags.platform = platform;
-      return event;
+      delete ev.user;
+      delete ev.breadcrumbs;
+      if (ev.server_name) delete ev.server_name;
+      if (ev.tags?.server_name) delete ev.tags.server_name;
+      if (ev.contexts?.device?.timezone) delete ev.contexts.device.timezone;
+      if (ev.contexts?.device?.language) delete ev.contexts.device.language;
+      if (ev.contexts?.device?.locale) delete ev.contexts.device.locale;
+      ev.tags ??= {};
+      ev.tags.side = 'backend';
+      ev.tags.platform = platform;
+      return ev;
     },
   });
 }

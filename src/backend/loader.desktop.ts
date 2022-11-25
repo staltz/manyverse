@@ -16,19 +16,20 @@ const versionName = require('./versionName');
 Sentry.init({
   dsn: 'https://f0ac0805d95145e9aeb98ecd42d3ed4b@o1400646.ingest.sentry.io/6730238',
   release: versionName,
-  beforeSend(event: any) {
+  beforeSend(ev: any) {
     if (!(process as any)._sentryEnabled) return null;
-    delete event.user;
-    delete event.breadcrumbs;
-    delete event.contexts.browser;
-    event.tags ??= {};
-    if (event.tags['event.process'] === 'renderer') {
-      event.tags.side = 'frontend';
-    } else {
-      event.tags.side = 'backend';
-    }
-    event.tags.platform = 'desktop';
-    return event;
+    delete ev.user;
+    delete ev.breadcrumbs;
+    delete ev.contexts.browser;
+    if (ev.contexts?.culture) delete ev.contexts.culture;
+    if (ev.contexts?.device?.timezone) delete ev.contexts.device.timezone;
+    if (ev.contexts?.device?.language) delete ev.contexts.device.language;
+    if (ev.contexts?.device?.locale) delete ev.contexts.device.locale;
+    ev.tags ??= {};
+    ev.tags.side =
+      ev.tags['event.process'] === 'renderer' ? 'frontend' : 'backend';
+    ev.tags.platform = 'desktop';
+    return ev;
   },
 });
 
