@@ -5,16 +5,8 @@
 import {Stream} from 'xstream';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
-import {
-  View,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Animated,
-  Platform,
-} from 'react-native';
+import {View, Animated, Platform} from 'react-native';
 const pull = require('pull-stream');
-import {isBlurhashValid} from 'blurhash';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   FloatingAction,
   IFloatingActionProps,
@@ -26,210 +18,48 @@ import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {getImg} from '~frontend/global-styles/utils';
-import {IconNames} from '~frontend/global-styles/icons';
 import Feed from '~frontend/components/Feed';
-import BlurhashAvatar from '~frontend/components/BlurhashAvatar';
 import EmptySection from '~frontend/components/EmptySection';
-import Avatar from '~frontend/components/Avatar';
-import TopBar from '~frontend/components/TopBar';
 import {withTitle} from '~frontend/components/withTitle';
 import {State} from '../model';
-import {
-  styles,
-  AVATAR_SIZE,
-  AVATAR_SIZE_TOOLBAR,
-  COVER_HEIGHT,
-  NAME_MARGIN_TOOLBAR,
-} from './styles';
+import {styles, AVATAR_SIZE} from './styles';
 import ProfileHeader from './ProfileHeader';
-import ProfileID from './ProfileID';
-import ProfileName from './ProfileName';
-import ConnectionDot from './ConnectionDot';
+import ProfileTopBar from './ProfileTopBar';
 
 const IOS = getStatusBarHeight(true);
 
-function calcNameTransY(scrollY: Animated.Value): Animated.Animated {
+function calcOpacity(scrollY: Animated.Value) {
+  const FIRST = 0 - IOS;
+  const SECOND = FIRST + Dimensions.verticalSpaceBig + AVATAR_SIZE;
+  const THIRD = SECOND + Dimensions.toolbarHeight;
   return scrollY.interpolate({
-    inputRange: [-10 - IOS, 0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
-    outputRange: [10 + IOS, 0 + IOS, -COVER_HEIGHT - NAME_MARGIN_TOOLBAR + IOS],
-    extrapolateLeft: 'extend',
-    extrapolateRight: 'clamp',
-  });
-}
-
-function calcAvatarTransX(scrollY: Animated.Value): Animated.Animated {
-  return scrollY.interpolate({
-    inputRange: [0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
-    outputRange: [0, Dimensions.iconSizeNormal],
+    inputRange: [FIRST, SECOND, THIRD],
+    outputRange: [0, 0, 1],
     extrapolate: 'clamp',
   });
 }
 
-function calcAvatarTransY(scrollY: Animated.Value): Animated.Animated {
-  const margin =
-    (Dimensions.toolbarHeight -
-      getStatusBarHeight(true) -
-      AVATAR_SIZE_TOOLBAR) *
-    0.5;
+/**
+ * The purpose of this animation is to make the top bar elements not be
+ * clickable when the elements are not visible.
+ */
+function calcTransY(scrollY: Animated.Value) {
+  const FIRST = 0 - IOS;
+  const SECOND = FIRST + Dimensions.verticalSpaceBig + AVATAR_SIZE;
+  const THIRD = SECOND + 1;
   return scrollY.interpolate({
-    inputRange: [-10 - IOS, 0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
-    outputRange: [
-      10 + IOS,
-      0 + IOS,
-      -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.5 - margin + IOS,
-    ],
-    extrapolateLeft: 'extend',
-    extrapolateRight: 'clamp',
-  });
-}
-
-function calcAvatarScale(scrollY: Animated.Value): Animated.Animated {
-  return scrollY.interpolate({
-    inputRange: [0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
-    outputRange: [1, AVATAR_SIZE_TOOLBAR / AVATAR_SIZE],
+    inputRange: [FIRST, SECOND, THIRD],
+    outputRange: [-400, 0, 0],
     extrapolate: 'clamp',
   });
-}
-
-function calcConnDotTransX(scrollY: Animated.Value): Animated.Animated {
-  return scrollY.interpolate({
-    inputRange: [0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
-    outputRange: [0, Dimensions.iconSizeNormal * 0.33],
-    extrapolate: 'clamp',
-  });
-}
-
-function calcConnDotTransY(scrollY: Animated.Value): Animated.Animated {
-  const margin =
-    (Dimensions.toolbarHeight -
-      getStatusBarHeight(true) -
-      AVATAR_SIZE_TOOLBAR) *
-    0.5;
-  return scrollY.interpolate({
-    inputRange: [-10 - IOS, 0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
-    outputRange: [
-      10 + IOS,
-      0 + IOS,
-      -COVER_HEIGHT - AVATAR_SIZE_TOOLBAR * 0.91 - margin + IOS,
-    ],
-    extrapolateLeft: 'extend',
-    extrapolateRight: 'clamp',
-  });
-}
-
-function calcConnDotScale(scrollY: Animated.Value): Animated.Animated {
-  return scrollY.interpolate({
-    inputRange: [0 - IOS, COVER_HEIGHT + NAME_MARGIN_TOOLBAR - IOS],
-    outputRange: [1, AVATAR_SIZE_TOOLBAR / AVATAR_SIZE],
-    extrapolate: 'clamp',
-  });
-}
-
-function ProfileTopBar({
-  state,
-  isSelfProfile,
-  nameTransY,
-}: {
-  state: State;
-  isSelfProfile: boolean;
-  nameTransY: Animated.AnimatedInterpolation;
-}) {
-  return h(TopBar, {sel: 'topbar', style: styles.topBar}, [
-    // This spacer exists to stretch the innerContainer of the topBar because we
-    // want its dimensions to be always the same since the innerContainer will
-    // have children (such as ProfileName) that are `absolute`ly positioned.
-    h(View, {style: styles.topBarSpacer}),
-
-    h(ProfileName, {state, translateY: nameTransY, inTopBar: true}),
-
-    h(ProfileID, {state, translateY: nameTransY, inTopBar: true}),
-
-    isSelfProfile
-      ? null
-      : h(
-          TouchableOpacity,
-          {
-            sel: 'manage',
-            accessible: true,
-            accessibilityRole: 'button',
-            accessibilityLabel: t(
-              'profile.call_to_action.manage.accessibility_label',
-            ),
-          },
-          [
-            h(Icon, {
-              size: Dimensions.iconSizeNormal,
-              color: Palette.textWeak,
-              name: IconNames.etcDropdown,
-            }),
-          ],
-        ),
-  ]);
-}
-
-function ProfileAvatar({
-  state,
-  translateX,
-  translateY,
-  scale,
-}: {
-  state: State;
-  translateX: Animated.AnimatedInterpolation;
-  translateY: Animated.AnimatedInterpolation;
-  scale: Animated.AnimatedInterpolation;
-}) {
-  const animStyle = {
-    transform: [{translateX}, {translateY}, {scale}],
-  };
-
-  if (
-    !state.about.imageUrl &&
-    state.snapshot.blurhash &&
-    isBlurhashValid(state.snapshot.blurhash).result
-  ) {
-    return h(Animated.View, {style: [styles.avatarTouchable, animStyle]}, [
-      h(BlurhashAvatar, {
-        blurhash: state.snapshot.blurhash,
-        size: AVATAR_SIZE,
-      }),
-    ]);
-  }
-
-  return h(
-    TouchableWithoutFeedback,
-    {
-      sel: 'avatar',
-      accessible: true,
-      accessibilityRole: 'image',
-      accessibilityLabel: t('profile.picture.accessibility_label'),
-    },
-    [
-      h(
-        Animated.View,
-        {style: [styles.avatarTouchable, animStyle], pointerEvents: 'box-only'},
-        [
-          h(Avatar, {
-            size: AVATAR_SIZE,
-            url: state.about.imageUrl,
-            style: styles.avatar,
-          }),
-        ],
-      ),
-    ],
-  );
 }
 
 const pullNever: GetReadable<any> = () => () => {};
 
 export default function view(state$: Stream<State>, ssbSource: SSBSource) {
   const scrollHeaderBy = new Animated.Value(0);
-  const avatarScale = calcAvatarScale(scrollHeaderBy);
-  const avatarTransX = calcAvatarTransX(scrollHeaderBy);
-  const avatarTransY = calcAvatarTransY(scrollHeaderBy);
-  const nameTransY = calcNameTransY(scrollHeaderBy);
-  const connDotTransX = calcConnDotTransX(scrollHeaderBy);
-  const connDotTransY = calcConnDotTransY(scrollHeaderBy);
-  const connDotScale = calcConnDotScale(scrollHeaderBy);
+  const topBarElementsOpacity = calcOpacity(scrollHeaderBy);
+  const topBarElementsTransY = calcTransY(scrollHeaderBy);
 
   return state$
     .compose(
@@ -297,27 +127,12 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
       else if (state.getFeedReadable) getReadable = state.getFeedReadable;
 
       return h(View, {style: styles.screen}, [
-        h(ProfileTopBar, {state, isSelfProfile, nameTransY}),
-
-        h(ProfileAvatar, {
+        h(ProfileTopBar, {
           state,
-          translateX: avatarTransX,
-          translateY: avatarTransY,
-          scale: avatarScale,
+          isSelfProfile,
+          opacity: topBarElementsOpacity,
+          transY: topBarElementsTransY,
         }),
-
-        h(ProfileName, {state, translateY: nameTransY, inTopBar: false}),
-
-        h(ProfileID, {state, translateY: nameTransY, inTopBar: false}),
-
-        state.connection
-          ? h(ConnectionDot, {
-              state,
-              translateX: connDotTransX,
-              translateY: connDotTransY,
-              scale: connDotScale,
-            })
-          : null,
 
         h(Feed, {
           sel: 'feed',

@@ -3,15 +3,11 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {Platform, StyleSheet} from 'react-native';
-import {
-  getStatusBarHeight,
-  isIPhoneWithMonobrow,
-} from 'react-native-status-bar-height';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import {globalStyles} from '~frontend/global-styles/styles';
-import HeaderButton from '~frontend/components/HeaderButton';
 
 export const AVATAR_SIZE = Dimensions.avatarSizeBig;
 const AVATAR_SIZE_HALF = AVATAR_SIZE * 0.5;
@@ -19,8 +15,6 @@ const AVATAR_SIZE_HALF = AVATAR_SIZE * 0.5;
 export const AVATAR_SIZE_TOOLBAR = Dimensions.avatarSizeNormal;
 
 export const COVER_HEIGHT = AVATAR_SIZE_HALF + Dimensions.verticalSpaceLarge;
-
-const CTA_BUTTON_WIDTH = 150;
 
 const SCROLL_BOUNCE_REGION = 250;
 
@@ -42,7 +36,7 @@ export const styles = StyleSheet.create({
   },
 
   topBarSpacer: {
-    width: 2,
+    width: Dimensions.horizontalSpaceBig,
     height: Dimensions.toolbarHeight - getStatusBarHeight(true),
   },
 
@@ -57,16 +51,27 @@ export const styles = StyleSheet.create({
   },
 
   avatarTouchable: {
-    position: 'absolute',
-    top:
-      Dimensions.toolbarHeight -
-      getStatusBarHeight(true) +
-      COVER_HEIGHT -
-      AVATAR_SIZE_HALF,
-    left: Dimensions.horizontalSpaceBig,
     width: AVATAR_SIZE,
     height: AVATAR_SIZE,
+    marginRight: Dimensions.horizontalSpaceBig,
     zIndex: 19,
+    ...Platform.select({
+      web: {
+        cursor: 'pointer',
+      },
+    }),
+  },
+
+  avatarTouchableInTopBar: {
+    width: AVATAR_SIZE_TOOLBAR,
+    height: AVATAR_SIZE_TOOLBAR,
+    marginRight: Dimensions.horizontalSpaceBig,
+    zIndex: 19,
+    ...Platform.select({
+      web: {
+        cursor: 'pointer',
+      },
+    }),
   },
 
   avatar: {
@@ -74,18 +79,7 @@ export const styles = StyleSheet.create({
   },
 
   name: {
-    position: 'absolute',
     color: Palette.text,
-    top:
-      Dimensions.toolbarHeight -
-      getStatusBarHeight(true) +
-      COVER_HEIGHT -
-      Typography.fontSizeLarge * 2.55,
-    left:
-      Dimensions.horizontalSpaceBig +
-      AVATAR_SIZE +
-      Dimensions.horizontalSpaceBig,
-    right: 0 + Dimensions.horizontalSpaceBig,
     fontSize: Typography.fontSizeLarge,
     lineHeight: Typography.lineHeightLarge,
     fontFamily: Typography.fontFamilyReadableText,
@@ -93,76 +87,13 @@ export const styles = StyleSheet.create({
     zIndex: 10,
     ...Platform.select({
       web: {
-        right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5 + ${CTA_BUTTON_WIDTH}px)`,
-      },
-      ios: {
-        top:
-          Dimensions.toolbarHeight -
-          getStatusBarHeight(true) +
-          Dimensions.verticalSpaceLarge -
-          Typography.fontSizeLarge * 0.3,
-      },
-    }),
-  },
-
-  nameInTopBar: {
-    zIndex: 20,
-    color: Palette.text,
-    left:
-      Dimensions.horizontalSpaceBig +
-      AVATAR_SIZE_TOOLBAR +
-      Dimensions.horizontalSpaceBig +
-      1,
-    right: Dimensions.horizontalSpaceBig + Dimensions.iconSizeNormal,
-    ...Platform.select({
-      web: {
-        top:
-          Dimensions.toolbarHeight +
-          COVER_HEIGHT -
-          Typography.fontSizeLarge * 2.55,
-      },
-      default: {
-        top:
-          Dimensions.toolbarHeight +
-          COVER_HEIGHT -
-          Typography.fontSizeLarge * 2.55,
-      },
-      ios: {
-        ...(isIPhoneWithMonobrow()
-          ? {
-              top:
-                Dimensions.toolbarHeight -
-                getStatusBarHeight(true) +
-                Dimensions.verticalSpaceLarge -
-                Typography.fontSizeLarge * 2.5,
-            }
-          : {
-              top:
-                Dimensions.toolbarHeight +
-                Dimensions.verticalSpaceLarge -
-                Typography.fontSizeLarge * 2.32,
-            }),
-        left:
-          -HeaderButton.size * 1.5 +
-          AVATAR_SIZE +
-          Dimensions.horizontalSpaceBig,
+        width: `calc(${Dimensions.desktopMiddleWidth.px} - 3 * ${Dimensions.horizontalSpaceBig}px - ${AVATAR_SIZE}px)`,
       },
     }),
   },
 
   feedId: {
-    position: 'absolute',
     color: Palette.textWeak,
-    top:
-      Dimensions.toolbarHeight -
-      getStatusBarHeight(true) +
-      COVER_HEIGHT -
-      Typography.fontSizeLarge * 1.1,
-    left:
-      Dimensions.horizontalSpaceBig +
-      AVATAR_SIZE +
-      Dimensions.horizontalSpaceBig,
-    right: 0 + Dimensions.horizontalSpaceBig,
     fontSize: Typography.fontSizeTiny,
     lineHeight: Typography.lineHeightTiny,
     fontFamily: Typography.fontFamilyReadableText,
@@ -170,62 +101,7 @@ export const styles = StyleSheet.create({
     zIndex: 10,
     ...Platform.select({
       web: {
-        right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5 + ${CTA_BUTTON_WIDTH}px)`,
-      },
-      ios: {
-        top:
-          Dimensions.toolbarHeight -
-          getStatusBarHeight(true) +
-          Dimensions.verticalSpaceLarge -
-          Typography.fontSizeLarge * 0.3 +
-          Typography.fontSizeLarge * 1.5,
-      },
-    }),
-  },
-
-  feedIdInTopBar: {
-    zIndex: 20,
-    color: Palette.textWeak,
-    left:
-      Dimensions.horizontalSpaceBig +
-      AVATAR_SIZE_TOOLBAR +
-      Dimensions.horizontalSpaceBig +
-      1,
-    right: Dimensions.horizontalSpaceBig + Dimensions.iconSizeNormal,
-    ...Platform.select({
-      web: {
-        top:
-          Dimensions.toolbarHeight +
-          COVER_HEIGHT -
-          Typography.fontSizeLarge * 1.1,
-      },
-      default: {
-        top:
-          Dimensions.toolbarHeight +
-          COVER_HEIGHT -
-          Typography.fontSizeLarge * 1.1,
-      },
-      ios: {
-        ...(isIPhoneWithMonobrow()
-          ? {
-              top:
-                Dimensions.toolbarHeight -
-                getStatusBarHeight(true) +
-                Dimensions.verticalSpaceLarge -
-                Typography.fontSizeLarge * 2.5 +
-                Typography.fontSizeLarge * 1.5,
-            }
-          : {
-              top:
-                Dimensions.toolbarHeight +
-                Dimensions.verticalSpaceLarge -
-                Typography.fontSizeLarge * 2.32 +
-                Typography.fontSizeLarge * 1.5,
-            }),
-        left:
-          -HeaderButton.size * 1.5 +
-          AVATAR_SIZE +
-          Dimensions.horizontalSpaceBig,
+        width: `calc(${Dimensions.desktopMiddleWidth.px} - 3 * ${Dimensions.horizontalSpaceBig}px - ${AVATAR_SIZE}px)`,
       },
     }),
   },
@@ -233,6 +109,8 @@ export const styles = StyleSheet.create({
   header: {
     flex: 1,
     flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
     marginTop: Dimensions.toolbarHeight - getStatusBarHeight(true),
     backgroundColor: Palette.backgroundText,
     ...Platform.select({
@@ -244,33 +122,26 @@ export const styles = StyleSheet.create({
   },
 
   sub: {
-    marginLeft:
-      Dimensions.horizontalSpaceBig + // left margin to the avatar
-      AVATAR_SIZE + // avatar
-      Dimensions.horizontalSpaceBig - // right margin to the avatar
-      Dimensions.horizontalSpaceSmall, // minus follows-you-text margin
-    minHeight: AVATAR_SIZE_HALF,
-    marginRight: Dimensions.horizontalSpaceBig,
-    zIndex: 30,
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    zIndex: 30,
+    marginHorizontal: Dimensions.horizontalSpaceBig,
+    marginTop: Dimensions.verticalSpaceBig,
+  },
+
+  nameContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    ...Platform.select({
-      web: {
-        marginTop: Dimensions.verticalSpaceLarge,
-        marginBottom: AVATAR_SIZE_HALF,
-      },
-      default: {
-        marginTop: COVER_HEIGHT + Dimensions.verticalSpaceNormal,
-      },
-    }),
   },
 
   cta: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    marginTop: Dimensions.verticalSpaceNormal,
+    alignSelf: 'flex-end',
+    marginRight: 1,
   },
 
   follow: {

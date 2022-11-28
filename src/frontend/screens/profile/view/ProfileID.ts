@@ -8,25 +8,34 @@ import {t} from '~frontend/drivers/localization';
 import {State} from '../model';
 import {styles} from './styles';
 
+interface PropsType1 {
+  state: State;
+  inTopBar: true;
+  opacity: Animated.AnimatedInterpolation;
+  transY: Animated.AnimatedInterpolation;
+}
+
+interface PropsType2 {
+  state: State;
+  inTopBar: false;
+  opacity?: undefined;
+  transY?: undefined;
+}
+
 export default function ProfileID({
   state,
-  translateY,
+  opacity,
+  transY,
   inTopBar,
-}: {
-  state: State;
-  translateY: Animated.AnimatedInterpolation;
-  inTopBar: boolean;
-}) {
-  const animStyle = {transform: [{translateY}]};
+}: PropsType1 | PropsType2) {
+  const animStyle = inTopBar
+    ? {opacity: opacity!, transform: [{translateY: transY!}]}
+    : null;
 
   return h(
     Animated.Text,
     {
-      style: [
-        styles.feedId,
-        inTopBar ? styles.feedIdInTopBar : null,
-        animStyle,
-      ],
+      style: [styles.feedId, animStyle],
       numberOfLines: 1,
       ellipsizeMode: 'tail',
       sel: 'feedId',

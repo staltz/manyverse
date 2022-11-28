@@ -9,21 +9,34 @@ import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {State} from '../model';
 import {styles} from './styles';
 
+interface PropsType1 {
+  state: State;
+  inTopBar: true;
+  opacity: Animated.AnimatedInterpolation;
+  transY: Animated.AnimatedInterpolation;
+}
+
+interface PropsType2 {
+  state: State;
+  inTopBar: false;
+  opacity?: undefined;
+  transY?: undefined;
+}
+
 export default function ProfileName({
   state,
-  translateY,
+  opacity,
+  transY,
   inTopBar,
-}: {
-  state: State;
-  translateY: Animated.AnimatedInterpolation;
-  inTopBar: boolean;
-}) {
-  const animStyle = {transform: [{translateY}]};
+}: PropsType1 | PropsType2) {
+  const animStyle = inTopBar
+    ? {opacity: opacity!, transform: [{translateY: transY!}]}
+    : null;
 
   return h(
     Animated.Text,
     {
-      style: [styles.name, inTopBar ? styles.nameInTopBar : null, animStyle],
+      style: [styles.name, animStyle],
       numberOfLines: 1,
       ellipsizeMode: 'middle',
       accessible: true,

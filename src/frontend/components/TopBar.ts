@@ -120,6 +120,13 @@ const styles = StyleSheet.create({
     maxWidth: HeaderButton.size * 2,
     justifyContent: 'flex-start',
   },
+
+  backOnIOSSmall: {
+    marginLeft: -HeaderButton.size * 0.5,
+    width: HeaderButton.size,
+    maxWidth: HeaderButton.size,
+    justifyContent: 'flex-start',
+  },
 });
 
 export interface Props {
@@ -127,6 +134,7 @@ export interface Props {
   onPressBack?: () => void;
   theme?: 'brand' | 'blank';
   style?: StyleProp<ViewStyle>;
+  smallerIOSBackButton?: boolean;
 }
 
 export default class TopBar extends PureComponent<Props> {
@@ -139,7 +147,7 @@ export default class TopBar extends PureComponent<Props> {
   };
 
   public render() {
-    const {title, style} = this.props;
+    const {title, style, smallerIOSBackButton} = this.props;
 
     const theme = this.props.theme ?? 'blank';
     const containerStyle =
@@ -159,7 +167,9 @@ export default class TopBar extends PureComponent<Props> {
             ios: {
               icon: IconNames.backButtonIOS,
               iconSize: Dimensions.iconSizeLarge,
-              style: styles.backOnIOS,
+              style: smallerIOSBackButton
+                ? styles.backOnIOSSmall
+                : styles.backOnIOS,
             },
             default: {
               icon: IconNames.backButton,

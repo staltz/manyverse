@@ -18,6 +18,10 @@ import {canonicalizeAliasURL} from '~frontend/ssb/utils/alias';
 import {State} from '../model';
 import {styles} from './styles';
 import {IconNames} from '~frontend/global-styles/icons';
+import ProfileAvatar from './ProfileAvatar';
+import ProfileName from './ProfileName';
+import ProfileID from './ProfileID';
+import ConnectionDot from './ConnectionDot';
 
 function Biography({about}: {about: State['about']}) {
   if (!about.description) return null;
@@ -222,31 +226,40 @@ export default class ProfileHeader extends Component<{state: State}> {
     const followsYou = state.followsYou?.response ?? false;
     const youFollow = state.youFollow?.response ?? false;
     const youBlock = state.youBlock?.response ?? false;
+    const commonProps = {state, inTopBar: false};
 
     return h(View, {style: styles.header}, [
       h(View, {style: styles.cover}),
 
       h(View, {style: styles.sub}, [
-        h(View, {style: styles.cta}, [
-          isSelfProfile
-            ? h(Button, {
-                sel: 'editProfile',
-                text: t('profile.call_to_action.edit_profile.label'),
-                accessible: true,
-                accessibilityLabel: t(
-                  'profile.call_to_action.edit_profile.accessibility_label',
-                ),
-              })
-            : youBlock
-            ? null
-            : h(ToggleButton, {
-                sel: 'follow',
-                style: styles.follow,
-                text: youFollow
-                  ? t('profile.info.following')
-                  : t('profile.call_to_action.follow'),
-                toggled: youFollow,
-              }),
+        h(ProfileAvatar, commonProps),
+        state.connection ? h(ConnectionDot, commonProps) : null,
+
+        h(View, {style: styles.nameContainer}, [
+          h(ProfileName, commonProps),
+          h(ProfileID, commonProps),
+
+          h(View, {style: styles.cta}, [
+            isSelfProfile
+              ? h(Button, {
+                  sel: 'editProfile',
+                  text: t('profile.call_to_action.edit_profile.label'),
+                  accessible: true,
+                  accessibilityLabel: t(
+                    'profile.call_to_action.edit_profile.accessibility_label',
+                  ),
+                })
+              : youBlock
+              ? null
+              : h(ToggleButton, {
+                  sel: 'follow',
+                  style: styles.follow,
+                  text: youFollow
+                    ? t('profile.info.following')
+                    : t('profile.call_to_action.follow'),
+                  toggled: youFollow,
+                }),
+          ]),
         ]),
       ]),
 
