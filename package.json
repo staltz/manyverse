@@ -109,7 +109,7 @@
     "promisify-tuple": "1.2.0",
     "pull-flat-list": "2.20.0",
     "pull-pushable": "2.2.0",
-    "pull-sorted-interleave": "1.0.0",
+    "pull-sorted-interleave": "1.0.1",
     "pull-stream": "3.6.14",
     "react": "17.0.2",
     "react-blurhash": "0.1.3",
