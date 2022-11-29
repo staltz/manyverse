@@ -1,18 +1,18 @@
 diff --git a/node_modules/ssb-db2/core.js b/node_modules/ssb-db2/core.js
-index ab5f1b6..967307e 100644
+index 67e1aa5..b487e83 100644
 --- a/node_modules/ssb-db2/core.js
 +++ b/node_modules/ssb-db2/core.js
-@@ -763,7 +763,9 @@ exports.init = function (sbot, config) {
- 
-             push(
-               push.values(offsets),
--              push.asyncMap(log.del),
-+              push.asyncMap((offset, cb) => {
-+                setTimeout(() => log.del(offset, cb))
-+              }),
-               push.collect((err) => {
-                 // prettier-ignore
-                 if (err) return cb(clarify(err, 'deleteFeed() failed for feed ' + feedId))
+@@ -765,7 +765,9 @@ exports.init = function (sbot, config) {
+             batch(1000),
+             toPullStream()
+           ),
+-          pull.asyncMap(log.del),
++          pull.asyncMap((offset, cb) => {
++            setTimeout(() => log.del(offset, cb), 1)
++          }),
+           pull.onEnd((err) => {
+             // prettier-ignore
+             if (err) return cb(clarify(err, 'deleteFeed() failed for feed ' + feedId))
 diff --git a/node_modules/ssb-db2/index.js b/node_modules/ssb-db2/index.js
 index 3205490..f7de23c 100644
 --- a/node_modules/ssb-db2/index.js
