@@ -210,13 +210,20 @@ export = {
           // First deliver latest preferred reactions
           reactionsCount.isEmpty()
             ? pullAsync((cb: Callback<Array<string>>) => {
-                ssb.db.query(
-                  where(and(type('vote'), author(ssb.id, {dedicated: true}))),
-                  toCallback((err: any, msgs: Array<Msg<VoteContent>>) => {
-                    if (err) return cb(err);
-                    for (const msg of msgs) reactionsCount.update(msg);
-                    cb(null, reactionsCount.toArray());
-                  }),
+                pull(
+                  ssb.db.query(
+                    where(and(type('vote'), author(ssb.id, {dedicated: true}))),
+                    toPullStream(),
+                  ),
+                  pull.drain(
+                    (msg: Msg<VoteContent>) => {
+                      reactionsCount.update(msg);
+                    },
+                    (err: any) => {
+                      if (err && err !== true) cb(err);
+                      else cb(null, reactionsCount.toArray());
+                    },
+                  ),
                 );
               })
             : pull.values([reactionsCount.toArray()]),

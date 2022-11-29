@@ -19,7 +19,6 @@ const {
   about,
   isPublic,
   toPullStream,
-  toCallback,
 } = require('ssb-db2/operators');
 
 type GatheringInfo = Omit<GatheringUpdateContent, 'type'>;
@@ -80,32 +79,22 @@ export = {
        * @param msgId Gathering event the abouts should refer too
        */
       gatheringInfo(msgId: string, cb: Callback<GatheringInfo>) {
-        return pull(
-          ssb.db.query(
-            where(and(about(msgId), isPublic())),
-            toCallback(
-              (
-                err: unknown,
-                abouts: Array<Msg<GatheringUpdateContent | AttendeeContent>>,
-              ) => {
-                if (err) {
-                  cb(err);
-                  return;
-                }
-                const reducedGatheringInfo = abouts
-                  .filter((about) => !isAttendeeMsg(about))
-                  .reduce<GatheringInfo>(
-                    (gatheringInfo, about) => {
-                      return {
-                        ...gatheringInfo,
-                        ...about.value.content,
-                      };
-                    },
-                    {about: msgId},
-                  );
-                cb(null, reducedGatheringInfo);
-              },
-            ),
+        const result = {about: msgId};
+
+        pull(
+          ssb.db.query(where(and(about(msgId), isPublic())), toPullStream()),
+          pull.filter(
+            (msg: Msg<GatheringUpdateContent | AttendeeContent>) =>
+              !isAttendeeMsg(msg),
+          ),
+          pull.drain(
+            (msg: Msg<GatheringUpdateContent>) => {
+              Object.assign(result, msg.value.content);
+            },
+            (err: unknown) => {
+              if (err && err !== true) return cb(err);
+              else cb(null, result);
+            },
           ),
         );
       },
