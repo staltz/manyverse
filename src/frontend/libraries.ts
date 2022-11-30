@@ -296,7 +296,7 @@ export default [
   {
     name: 'cycle-native-navigation',
     type: 'library',
-    version: '8.2.0',
+    version: '8.2.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation',
   },
@@ -506,7 +506,7 @@ export default [
   {
     name: 'pull-sorted-interleave',
     type: 'library',
-    version: '1.0.0',
+    version: '1.0.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/pull-sorted-interleave',
   },
@@ -548,7 +548,7 @@ export default [
   {
     name: 'react-native',
     type: 'library',
-    version: '0.66.4',
+    version: '0.66.5',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/facebook/react-native#readme',
   },
@@ -873,7 +873,7 @@ export default [
   {
     name: 'ssb-db2',
     type: 'library',
-    version: '6.2.5',
+    version: '6.2.9',
     license: 'GNU Lesser General Public License v3.0 only (LGPL-3.0)',
     homepage: 'https://github.com/ssb-ngi-pointer/ssb-db2',
   },

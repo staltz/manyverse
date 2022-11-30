@@ -2,6 +2,18 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2211.30-beta
+
+* (Android) Bug fix: app sometimes freezing ([see details](https://gitlab.com/staltz/manyverse/commit/9dbdebed80496e0554bddf1827e2cf99eb838a75))
+* Bug fix: color of @ symbol on Activity tab ([see details](https://gitlab.com/staltz/manyverse/commit/2485c73f6ef211268f4b55ee0eaac5d80d279669))
+* Bug fix: crash when refreshing the feed ([see details](https://gitlab.com/staltz/manyverse/commit/0535214b613950157d68edc0231f928dd0ff3124))
+* Bug fix: crashing due to out-of-memory ([see details](https://gitlab.com/staltz/manyverse/commit/4d095b753123f43dd748bde3c906dc38cf341e51))
+* Bug fix: new and less buggy Profile top bar ([see details](https://gitlab.com/staltz/manyverse/commit/318f5ec19ea3e1f71cb8842cb7a8735e3dfa2407))
+* Improve crash reports to have less metadata ([see details](https://gitlab.com/staltz/manyverse/commit/1fc2471bee96d25ff2d7e7de2d47e256139eea83))
+* Improve Esperanto and Russian translations ([see details](https://gitlab.com/staltz/manyverse/commit/28a79444857bc9d38046b3d5fd10f343c058c7a3))
+* Improve memory usage ([see details](https://gitlab.com/staltz/manyverse/commit/994d8acc5d946d1bbf866f498f8d959cf368daf4))
+* Improve Norwegian and Dutch translations ([see details](https://gitlab.com/staltz/manyverse/commit/b31fdfa62e2d12c95631562f7e4b98bec3b6d072))
+
 ## 0.2211.4-beta
 
 * (Android) Bug fix: fix input not clearing after sending private message ([see details](https://gitlab.com/staltz/manyverse/commit/b6077237cbeb4125f3d569c24ea4e4b210d11a07))
