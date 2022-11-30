@@ -9,7 +9,7 @@ on: workflow_dispatch
 jobs:
   build-linux:
     name: Build Manyverse Linux
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout the repo
@@ -34,7 +34,7 @@ jobs:
 
   build-macos:
     name: Build Manyverse macOS
-    runs-on: macos-latest
+    runs-on: macos-11
     needs: build-linux
 
     steps:
@@ -63,7 +63,7 @@ jobs:
 
   build-win:
     name: Build Manyverse Windows
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs: build-macos
 
     steps:
