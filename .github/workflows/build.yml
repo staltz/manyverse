@@ -9,7 +9,7 @@ on: workflow_dispatch
 jobs:
   build-linux:
     name: Build Manyverse Linux
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout the repo

@@ -11,7 +11,7 @@ on:
 jobs:
   build-linux:
     name: Build Manyverse Linux
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     if: ${{ startsWith(github.event.head_commit.message, 'release:') }}
 
     steps:
