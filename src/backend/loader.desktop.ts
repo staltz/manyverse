@@ -6,7 +6,7 @@ import os = require('os');
 import path = require('path');
 import url = require('url');
 import fs = require('fs');
-import {BrowserWindow, app, ipcMain, shell} from 'electron';
+import {BrowserWindow, app, shell} from 'electron';
 const electronWindowState = require('electron-window-state');
 const Sentry = require('@sentry/electron/main');
 const versionName = require('./versionName');
@@ -32,6 +32,8 @@ Sentry.init({
     return ev;
   },
 });
+
+(process as any)._sentry = Sentry;
 
 process.env ??= {};
 
@@ -148,20 +150,9 @@ if (!hasLock) {
     },
   );
 
-  app.whenReady().then(() => {
-    createWindow();
-  });
+  app.whenReady().then(createWindow);
 
-  app.on('window-all-closed', () => {
-    ipcMain.emit('pull-electron-ipc-close', null);
-    if ((process as any)._ssb) {
-      (process as any)._ssb.close(true, () => {
-        app.quit();
-      });
-    } else {
-      app.quit();
-    }
-  });
+  // The 'window-all-closed' event handler is in index.ts
 
   require('./index');
 }

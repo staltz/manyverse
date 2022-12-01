@@ -72,7 +72,7 @@
   "devDependencies": {
     "license-ls": "~1.4.1",
     "cached-path-relative": ">=1.1.0",
-    "noderify": "5.1.1",
+    "noderify": "5.1.2",
     "patch-package": "6.2.2",
     "terser": "4.8.1"
   }

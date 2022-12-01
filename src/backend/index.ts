@@ -43,6 +43,7 @@ function setupSentryNodejs(platform: 'mobile' | 'desktop') {
       return ev;
     },
   });
+  (process as any)._sentry = Sentry;
 }
 
 interface Frontend {
@@ -119,7 +120,7 @@ function prepareDesktopWorkerThread() {
 }
 
 function prepareDesktopMainThread() {
-  const {ipcMain} = require('electron');
+  const {app, ipcMain} = require('electron');
 
   const webContentsPromise = (process as any).webContentsP as Promise<any>;
   type WebContents = import('electron').WebContents;
@@ -149,6 +150,26 @@ function prepareDesktopMainThread() {
   worker.on('exit', (code) => {
     console.log('worker exited with code ' + code);
   });
+
+  app.on('window-all-closed', async () => {
+    worker.postMessage('pull-electron-ipc-close');
+    ipcMain.emit('pull-electron-ipc-close', null);
+
+    // We turn off crash reporting here because worker.terminate() will very
+    // likely produce termination errors. We are not interested in those.
+    await (process as any)._sentry?.close(2000);
+
+    // Ideally, we would not do worker.terminate() because it abruptly kills
+    // all code running. Ideally, we would send a message to the worker and ask
+    // it to do ssb.close(), wait for that to end, and then self-terminate the
+    // worker. However, there seems to be termination race conditions in Node.js
+    // or Electron such that the whole process hangs even if we don't call
+    // worker.terminate() nor call app.quit().
+    await worker.terminate();
+
+    app.quit();
+  });
+
   ipcMain.addListener('identity', (first: any, second: any) => {
     const msg = second ?? first;
     worker.postMessage({channel: 'identity', value: msg});
