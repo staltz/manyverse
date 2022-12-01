@@ -26,16 +26,16 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
+import {IconNames} from '~frontend/global-styles/icons';
 import {Dimensions} from '~frontend/global-styles/dimens';
-import Markdown from '~frontend/components/Markdown';
 import Avatar from '~frontend/components/Avatar';
-import SettableTextInput from '~frontend/components/SettableTextInput';
-import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
-import ContentWarning from '~frontend/components/messages/ContentWarning';
+import TimeAgo from '~frontend/components/TimeAgo';
+import Markdown from '~frontend/components/Markdown';
 import AccountSmall from '~frontend/components/AccountSmall';
+import SettableTextInput from '~frontend/components/SettableTextInput';
+import ContentWarning from '~frontend/components/messages/ContentWarning';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
-import {IconNames} from '~frontend/global-styles/icons';
 
 type MiniState = Pick<State, 'postText'> &
   Pick<State, 'selfAvatarUrl'> &
@@ -265,18 +265,18 @@ function Header(state: MiniState) {
       url: state.selfAvatarUrl,
       style: styles.authorAvatar,
     }),
-    h(
-      Text,
-      {
-        key: 'b',
-        numberOfLines: 1,
-        ellipsizeMode: 'middle',
-        style: styles.authorName,
-      },
-      displayName(state.selfName, state.selfFeedId),
-    ),
-    h(Text, {key: 'c', style: styles.timestamp}, [
-      h(LocalizedHumanTime, {time: Date.now() - 1}),
+    h(View, {key: 'b', style: styles.authorNameSection}, [
+      h(
+        Text,
+        {
+          key: 'name',
+          numberOfLines: 1,
+          ellipsizeMode: 'middle',
+          style: styles.authorName,
+        },
+        displayName(state.selfName, state.selfFeedId),
+      ),
+      h(TimeAgo, {timestamp: Date.now() - 1, unread: false}),
     ]),
   ]);
 }

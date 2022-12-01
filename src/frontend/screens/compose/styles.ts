@@ -42,6 +42,13 @@ export const styles = StyleSheet.create({
     marginRight: Dimensions.horizontalSpaceSmall,
   },
 
+  authorNameSection: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+
   authorName: {
     flex: 1,
     fontSize: Typography.fontSizeNormal,
