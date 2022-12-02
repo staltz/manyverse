@@ -20,6 +20,7 @@ export interface State {
   getPrivateFeedReadable: GetReadable<
     PrivateThreadAndExtras<PostContent>
   > | null;
+  postsCount: number;
   isVisible: boolean;
   updates: Set<MsgId>;
   updatesFlag: boolean;

@@ -16,6 +16,7 @@ export interface State {
   lastSessionTimestamp: number;
   getActivityFeedReadable: GetReadable<ActivityItem> | null;
   getFirewallAttemptLiveReadable: GetReadable<FirewallAttempt> | null;
+  postsCount: number;
   isVisible: boolean;
   numOfUpdates: number;
 }

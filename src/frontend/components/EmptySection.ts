@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {PureComponent, ReactElement} from 'react';
+import {PureComponent, ReactElement, createElement as $} from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,7 @@ import {
   StyleProp,
   ViewStyle,
   Platform,
+  Linking,
 } from 'react-native';
 import {h} from '@cycle/react';
 import {Palette} from '~frontend/global-styles/palette';
@@ -56,6 +57,16 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+
+  link: {
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
+    fontFamily: Typography.fontFamilyReadableText,
+    textDecorationLine: 'underline',
+    color: Palette.textBrand,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
 
 export interface Props {
@@ -63,9 +74,35 @@ export interface Props {
   title: string;
   description: string | Array<string | ReactElement<Text>>;
   style?: StyleProp<ViewStyle>;
+  linkLabel?: string;
+  link?: string;
 }
 
 export default class EmptySection extends PureComponent<Props> {
+  private renderLink() {
+    const {link, linkLabel} = this.props;
+    if (!link) return null;
+
+    if (Platform.OS === 'web') {
+      return $(
+        Text,
+        {style: styles.link, ['href' as any]: link},
+        linkLabel ?? link,
+      );
+    } else {
+      return $(
+        Text,
+        {
+          style: styles.link,
+          onPress() {
+            Linking.openURL(link);
+          },
+        },
+        linkLabel ?? link,
+      );
+    }
+  }
+
   public render() {
     const {image, title, description, style} = this.props;
 
@@ -77,6 +114,7 @@ export default class EmptySection extends PureComponent<Props> {
         {style: styles.description, selectable: true},
         description as Array<ReactElement<Text>>,
       ),
+      this.renderLink(),
     ] as Array<ReactElement<any>>);
   }
 }

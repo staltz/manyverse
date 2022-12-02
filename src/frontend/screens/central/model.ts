@@ -32,6 +32,7 @@ export interface State extends ProgressState {
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;
   numOfActivityUpdates: number;
+  postsCount: number;
   hasNewVersion: boolean;
   canPublishSSB: boolean;
   isDrawerOpen: boolean;
@@ -91,6 +92,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         getPublicFeedReadable: null,
         numOfUpdates: parent.numOfPublicUpdates,
         initializedSSB: parent.initializedSSB,
+        postsCount: parent.postsCount,
         hasComposeDraft: false,
         canPublishSSB,
         scrollHeaderBy: parent.scrollHeaderBy,
@@ -151,6 +153,7 @@ export const privateTabLens: Lens<State, PrivateTabState> = {
         selfAvatarUrl,
         getPrivateFeedReadable: null,
         updates: new Set<MsgId>(),
+        postsCount: parent.postsCount,
         updatesFlag: false,
         conversationsOpen: new Map(),
       };
@@ -203,6 +206,7 @@ export const activityTabLens: Lens<State, ActivityTabState> = {
         selfAvatarUrl,
         lastSessionTimestamp: parent.lastSessionTimestamp,
         numOfUpdates: parent.numOfActivityUpdates,
+        postsCount: parent.postsCount,
         getActivityFeedReadable: null,
         getFirewallAttemptLiveReadable: null,
       };
@@ -310,6 +314,7 @@ export default function model(
         numOfActivityUpdates: 0,
         initializedSSB: false,
         hasNewVersion: false,
+        postsCount: 0,
         scrollHeaderBy: new Animated.Value(0),
         isDrawerOpen: false,
         canPublishSSB: true,
@@ -338,6 +343,13 @@ export default function model(
           return {...prev, selfAvatarUrl: about.imageUrl};
         },
     );
+
+  const postsCountReducer$ = ssbSource.postsCount$().map(
+    (postsCount) =>
+      function postsCountReducer(prev: State): State {
+        return {...prev, postsCount};
+      },
+  );
 
   const progressReducer$ = progressCalculation(ssbSource) as Stream<
     Reducer<State>
@@ -375,6 +387,7 @@ export default function model(
     initReducer$,
     setSelfFeedId$,
     aboutReducer$,
+    postsCountReducer$,
     changeTabReducer$,
     backToPublicTabReducer$,
     isDrawerOpenReducer$,

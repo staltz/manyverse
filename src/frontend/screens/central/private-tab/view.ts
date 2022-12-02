@@ -153,6 +153,7 @@ interface CLProps {
   selfFeedId: FeedId;
   getScrollStream: GetReadable<Thread> | null;
   unreadSet: Set<MsgId>;
+  postsCount: number;
   forceRefresh$: Stream<boolean>;
   scrollToTop$: Stream<any>;
   onPressConversation?: (ev: MsgId) => void;
@@ -224,8 +225,13 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
   };
 
   public render() {
-    const {getScrollStream, forceRefresh$, scrollToTop$, unreadSet} =
-      this.props;
+    const {
+      getScrollStream,
+      forceRefresh$,
+      scrollToTop$,
+      unreadSet,
+      postsCount,
+    } = this.props;
     const {initialLoading} = this.state;
 
     return h(PullFlatList2, {
@@ -241,12 +247,24 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
       ListFooterComponent: initialLoading
         ? h(AnimatedLoading, {text: t('central.loading')})
         : null,
-      ListEmptyComponent: h(EmptySection, {
-        style: styles.emptySection,
-        image: getImg(require('~images/noun-plant.png')),
-        title: t('private.empty.title'),
-        description: t('private.empty.description'),
-      }),
+      ListEmptyComponent:
+        postsCount === 0
+          ? h(EmptySection, {
+              key: 'e1',
+              style: styles.emptySection,
+              image: getImg(require('~images/noun-bee.png')),
+              title: t('central.empty_onboarding.title'),
+              description: t('central.empty_onboarding.description'),
+              linkLabel: t('central.empty_onboarding.link_label'),
+              link: 'https://www.manyver.se/faq/connections',
+            })
+          : h(EmptySection, {
+              key: 'e2',
+              style: styles.emptySection,
+              image: getImg(require('~images/noun-plant.png')),
+              title: t('private.empty.title'),
+              description: t('private.empty.description'),
+            }),
       keyExtractor: (thread: Thread, index: number) =>
         thread.messages[0].key ?? String(index),
       renderItem: ({item}: any) => {
@@ -280,13 +298,16 @@ export default function view(
   const viewState$ = concat(
     state$.filter((state) => !!state.getPrivateFeedReadable).take(1),
     state$.filter((state) => state.isVisible),
-  ).compose(dropRepeatsByKeys(['updatesFlag', 'getPrivateFeedReadable']));
+  ).compose(
+    dropRepeatsByKeys(['updatesFlag', 'getPrivateFeedReadable', 'postsCount']),
+  );
 
   const vdom$ = viewState$.map((state) => {
     return h(ConversationsList, {
       sel: 'conversationList',
       selfFeedId: state.selfFeedId,
       unreadSet: state.updates,
+      postsCount: state.postsCount,
       forceRefresh$,
       scrollToTop$,
       getScrollStream: state.getPrivateFeedReadable,

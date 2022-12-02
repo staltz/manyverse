@@ -17,6 +17,7 @@ export interface State {
   preferredReactions: Array<string>;
   selfAvatarUrl?: string;
   getPublicFeedReadable: GetReadable<ThreadSummaryWithExtras> | null;
+  postsCount: number;
   initializedSSB: boolean;
   numOfUpdates: number;
   hasComposeDraft: boolean;

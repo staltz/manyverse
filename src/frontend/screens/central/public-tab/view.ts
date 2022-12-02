@@ -29,6 +29,7 @@ export default function view(
         'preferredReactions',
         'getPublicFeedReadable',
         'scrollHeaderBy',
+        'postsCount',
       ]),
     )
     .map((state) => {
@@ -47,12 +48,24 @@ export default function view(
         selfFeedId: state.selfFeedId,
         lastSessionTimestamp: state.lastSessionTimestamp,
         preferredReactions: state.preferredReactions,
-        EmptyComponent: h(EmptySection, {
-          style: styles.emptySection,
-          image: getImg(require('~images/noun-plant.png')),
-          title: t('public.empty.title'),
-          description: t('public.empty.description'),
-        }),
+        EmptyComponent:
+          state.postsCount === 0
+            ? h(EmptySection, {
+                key: 'e1',
+                style: styles.emptySection,
+                image: getImg(require('~images/noun-bee.png')),
+                title: t('central.empty_onboarding.title'),
+                description: t('central.empty_onboarding.description'),
+                linkLabel: t('central.empty_onboarding.link_label'),
+                link: 'https://www.manyver.se/faq/connections',
+              })
+            : h(EmptySection, {
+                key: 'e2',
+                style: styles.emptySection,
+                image: getImg(require('~images/noun-plant.png')),
+                title: t('public.empty.title'),
+                description: t('public.empty.description'),
+              }),
       });
     });
 

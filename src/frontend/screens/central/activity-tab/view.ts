@@ -231,6 +231,7 @@ interface MLProps {
   getScrollStream: GetReadable<ActivityItem> | null;
   getPrefixStream: GetReadable<FirewallAttempt> | null;
   scrollToTop$: Stream<any>;
+  postsCount: number;
   onRefresh?: () => void;
   onPressMention?: (ev: Msg) => void;
   onPressFollow?: (ev: FeedId) => void;
@@ -267,6 +268,7 @@ class ActivityList extends PureComponent<MLProps, MLState> {
       getPrefixStream,
       getScrollStream,
       onRefresh,
+      postsCount,
       scrollToTop$,
     } = this.props;
     const {initialLoading} = this.state;
@@ -294,12 +296,24 @@ class ActivityList extends PureComponent<MLProps, MLState> {
       ListFooterComponent: initialLoading
         ? h(AnimatedLoading, {text: t('central.loading')})
         : null,
-      ListEmptyComponent: h(EmptySection, {
-        style: styles.emptySection,
-        image: getImg(require('~images/noun-sun.png')),
-        title: t('activity.empty.title'),
-        description: t('activity.empty.description'),
-      }),
+      ListEmptyComponent:
+        postsCount === 0
+          ? h(EmptySection, {
+              key: 'e1',
+              style: styles.emptySection,
+              image: getImg(require('~images/noun-bee.png')),
+              title: t('central.empty_onboarding.title'),
+              description: t('central.empty_onboarding.description'),
+              linkLabel: t('central.empty_onboarding.link_label'),
+              link: 'https://www.manyver.se/faq/connections',
+            })
+          : h(EmptySection, {
+              key: 'e2',
+              style: styles.emptySection,
+              image: getImg(require('~images/noun-sun.png')),
+              title: t('activity.empty.title'),
+              description: t('activity.empty.description'),
+            }),
       keyExtractor: (item: ActivityItem, i: number) =>
         String(
           (item as Partial<MsgAndExtras>).key ??
@@ -347,6 +361,7 @@ export default function view(state$: Stream<State>, scrollToTop$: Stream<any>) {
     dropRepeatsByKeys([
       'getActivityFeedReadable',
       'getFirewallAttemptLiveReadable',
+      'postsCount',
     ]),
   );
 
@@ -354,6 +369,7 @@ export default function view(state$: Stream<State>, scrollToTop$: Stream<any>) {
     return h(ActivityList, {
       sel: 'activityList',
       scrollToTop$,
+      postsCount: state.postsCount,
       getScrollStream: state.getActivityFeedReadable,
       getPrefixStream: state.getFirewallAttemptLiveReadable,
     });
