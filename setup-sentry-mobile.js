@@ -49,8 +49,10 @@ export default function setupSentryMobile() {
       Sentry.setUser(null);
     },
     (err) => {
-      console.log('Error loading settings file for allowCrashReports:');
-      console.error(err);
+      if (err.code !== 'ENOENT') {
+        console.log('Error loading settings file for allowCrashReports:');
+        console.error(err);
+      }
     },
   );
 }
