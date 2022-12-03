@@ -202,6 +202,11 @@
     "progress_indicator": {
       "accessibility_label": "Indicador de progresso para indexar o banco de dados"
     },
+    "empty_onboarding": {
+      "title": "Cadê todo mundo?",
+      "description": "No Manyverse, você não procura as\npessoas. Alguém tem que te convidar.",
+      "link_label": "Leia mais"
+    },
     "tabs": {
       "public": {
         "accessibility_label": "Botão da Aba Pública"

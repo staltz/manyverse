@@ -139,9 +139,9 @@
     "permanence": {
       "title": "Permanenza",
       "description": {
-        "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
+        "1_normal": "Una volta sincronizzato il tuo contenuto con gli amici, questi hanno una copia nei loro dispositivi. Poiché successivamente possono andare offline, ",
         "2_bold": "non è possibile eliminare",
-        "3_normal": " your content globally from all devices! While this has a bright side of making communities more careful and considerate, it can also put you at risk, so think twice before sharing."
+        "3_normal": " il tuo contenuto globale da tutti i dispositivi! Mentre questo ha un lato luminoso di rendere le comunità più attente e considerate, può anche metterti a rischio, quindi pensi due volte prima di condividere."
       }
     },
     "in_construction": {
@@ -200,7 +200,12 @@
     },
     "loading": "Caricamento...",
     "progress_indicator": {
-      "accessibility_label": "Progress Indicator for Indexing the Database"
+      "accessibility_label": "Indicatore di avanzamento per l'indicizzazione del database"
+    },
+    "empty_onboarding": {
+      "title": "Where is everybody?",
+      "description": "On Manyverse, you can't search\nfor people. Someone has to invite you.",
+      "link_label": "Scopri di più"
     },
     "tabs": {
       "public": {
@@ -218,12 +223,12 @@
     },
     "filters_row": {
       "all": {
-        "label": "All",
-        "accessibility_label": "All Feeds Button"
+        "label": "Tutti",
+        "accessibility_label": "Pulsante Tutte Le Fonti"
       },
       "following": {
         "label": "Stai seguendo",
-        "accessibility_label": "Following Feeds Button"
+        "accessibility_label": "Pulsante Seguente Di Feeds"
       }
     }
   },
@@ -256,13 +261,13 @@
       "title": "Reazioni"
     },
     "gathering_attendees": {
-      "title": "Attendees"
+      "title": "Partecipanti"
     },
     "recipients": {
       "title": "Destinatari"
     },
     "friends_in_common": {
-      "title": "Friends in common"
+      "title": "Amici in comune"
     },
     "call_to_action": {
       "open_account": {
@@ -300,7 +305,7 @@
   "connections": {
     "title": "Pannello Connessioni",
     "floating_action_button": {
-      "add_connection": "Add a connection",
+      "add_connection": "Aggiungi una connessione",
       "create_invite": "Crea invito",
       "paste_invite": "Incolla invito",
       "bluetooth_seek": "Ricerca Bluetooth"
@@ -328,22 +333,22 @@
     },
     "scenario_descriptions": {
       "offline_with_content": "Al momento non puoi connetterti ai peers, ma puoi goderti alcuni contenuti che hai già.",
-      "offline_without_content": "You cannot connect to peers at the moment. Try to get some internet connectivity or turn on Wi-Fi to discover peers nearby.",
-      "knows_no_one": "Your Manyverse is at the moment isolated. You need to be invited by other peers to join room servers, or you can host a room server yourself.",
-      "nearby_strangers_available": "You are not yet connected to anyone, but there are some peers on the same Wi-Fi. Try to connect to them manually if you think they are willing to connect to you too.",
-      "empty_rooms": "You are a member of some rooms, but there is no one you know currently online. Try connecting manually to a stranger in the room, or get an invite code to other servers.",
-      "connected_poorly": "You are connected to one peer, that's good. But, to improve propagation of data, you should connect to more peers. Try waiting a bit longer, or getting an invite code to other servers.",
-      "connected_well": "You are connected to plenty of peers. All is good! They are propagating your data and you are propagating theirs."
+      "offline_without_content": "Al momento non puoi connetterti ai coetanei. Prova a ottenere una certa connettività internet o attiva il Wi-Fi per scoprire i coetanei nelle vicinanze.",
+      "knows_no_one": "Il tuo Manyverse è al momento isolato. È necessario essere invitati da altri peer per unirsi ai server della stanza, o è possibile ospitare un server della stanza da solo.",
+      "nearby_strangers_available": "Non sei ancora connesso a nessuno, ma ci sono alcuni coetanei sullo stesso Wi-Fi. Cercate di connettersi a loro manualmente se pensate che siano disposti a connettersi a voi troppo.",
+      "empty_rooms": "Sei un membro di alcune stanze, ma non c'è nessuno che conosci attualmente online. Prova a connetterti manualmente a uno sconosciuto nella stanza o ottieni un codice di invito ad altri server.",
+      "connected_poorly": "Sei connesso a un peer, è buono. Ma, per migliorare la propagazione dei dati, si dovrebbe connettersi a più coetanei. Prova ad aspettare un po 'di più, o ottenere un codice di invito ad altri server.",
+      "connected_well": "Sei connesso a molti coetanei. Tutto è buono! Stanno propagando i tuoi dati e stai propagando i loro."
     },
     "recommendations": {
-      "consume_invite": "How to get an invite",
-      "follow_staged_manually": "Follow someone new",
-      "paste_invite": "Paste invite code",
-      "host_ssb_room": "How to host a room server",
-      "others": "Other choices"
+      "consume_invite": "Come ottenere un invito",
+      "follow_staged_manually": "Seguire qualcuno nuovo",
+      "paste_invite": "Incolla un codice d'invito",
+      "host_ssb_room": "Come ospitare un server di stanza",
+      "others": "Altre scelte"
     },
     "recommendation_descriptions": {
-      "consume_invite": "This social network is based on invites, to keep it friendly and safe from spam. If you haven't yet received an invite from a friend, you can search the web for some server that gives invites to anyone.\n\nLook for the key words \"SSB room server\" or \"SSB pub server\". The hashtag #ssbroom may also be useful.",
+      "consume_invite": "Questo social network si basa su inviti, per mantenerlo amichevole e al sicuro dallo spam. Se non hai ancora ricevuto un invito da un amico, puoi cercare sul web alcuni server che danno inviti a chiunque.\n\nCerca le parole chiave \"SSB room server\" o \"SSB pub server\". Anche l'hashtag #ssbroom può essere utile.",
       "follow_staged_manually": {
         "part1": {
           "not_connected": "Your friends are not online right now, but if you want to get more content, there are some unknown peers currently online in the same room(s) as you are. You can try to become friends with them.",

@@ -5,7 +5,7 @@
     "done": "Kész",
     "cancel": "Mégsem",
     "continue": "Folytatás",
-    "read_more": "Read more",
+    "read_more": "Tovább",
     "delete": "Törlés",
     "remove": "Eltávolít",
     "save": "Mentés",
@@ -15,7 +15,7 @@
       "accessibility_label": "Menü gomb"
     },
     "go_back": {
-      "label": "Go back",
+      "label": "Vissza",
       "accessibility_label": "Vissza gomb"
     },
     "close": {
@@ -26,7 +26,7 @@
     },
     "external_link_confirmation": {
       "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "description": "Meg akarod nyitni {{link}} böngészőben?"
     }
   },
   "date": {
@@ -202,6 +202,11 @@
     "progress_indicator": {
       "accessibility_label": "Progress Indicator for Indexing the Database"
     },
+    "empty_onboarding": {
+      "title": "Where is everybody?",
+      "description": "On Manyverse, you can't search\nfor people. Someone has to invite you.",
+      "link_label": "Tudj meg többet"
+    },
     "tabs": {
       "public": {
         "accessibility_label": "Nyilvános lap gomb"
@@ -222,7 +227,7 @@
         "accessibility_label": "All Feeds Button"
       },
       "following": {
-        "label": "Following",
+        "label": "Követések",
         "accessibility_label": "Following Feeds Button"
       }
     }
@@ -765,8 +770,8 @@
         "accessibility_label": "Read Biography"
       },
       "counters": {
-        "following": "Following",
-        "followers": "Followers",
+        "following": "Követések",
+        "followers": "Követők",
         "friends_in_common": "Friends in common with you",
         "storage_used": "Occupies {{megabytes}}"
       }

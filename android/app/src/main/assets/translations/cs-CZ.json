@@ -41,11 +41,11 @@
           "other": "před {{count}} měsíci"
         },
         "weeks": {
-          "one": "před rokem",
+          "one": "před týdnem",
           "other": "před {{count}} týdny"
         },
         "days": {
-          "one": "před 1 dnem",
+          "one": "včera",
           "other": "před {{count}} dny"
         },
         "hours": {
@@ -61,7 +61,7 @@
       "future": {
         "years": {
           "one": "Od teď za rok",
-          "other": "od teď za {{count}} let"
+          "other": "od teď za {{count}} roky/let"
         },
         "months": {
           "one": "od teď za měsíc",
@@ -94,13 +94,13 @@
       "description": "Sociální sítě mohou být jednoduché, neutrální, nekomerční a mohou být založeny na důvěře mezi přáteli. To je Manyverse a my doufáme, že i vy můžete mít zde digitální domov. To vše je možné prostřednictvím nového protokolu SSB."
     },
     "off_the_grid": {
-      "title": "Bez sítě",
+      "title": "Mimo síť",
       "description": {
         "1_normal": "Manyverse může používat připojení k internetu, ale nemusí ",
-        "2_bold": "zapnuto",
-        "3_normal": " internet. Všechno se děje přímo na vašem zařízení. To znamená, že ho můžete používat normálně i v režimu offline! Váš ",
-        "4_bold": "obsah je uložen nejprve na vašem zařízení",
-        "5_normal": ", a můžete jej synchronizovat s přáteli poté, co s nimi budete spojeni."
+        "2_bold": "na",
+        "3_normal": " internetu. Všechno se děje přímo na vašem zařízení. To znamená, že jej můžete používat normálně i v režimu offline! Váš ",
+        "4_bold": "obsah je uložen nejprve ve vašem zařízení",
+        "5_normal": " a můžete jej synchronizovat s přáteli poté, co s nimi budete ve spojení."
       }
     },
     "connections": {
@@ -110,29 +110,29 @@
           "1_normal": "Chcete-li se spojit s přáteli v okolí a synchronizovat obsah, můžete se připojit ke stejné ",
           "2_bold": "Wi-Fi",
           "3_normal": ". Chcete-li najít nové lidi na internetu, vyhledejte kód pozvánky na ",
-          "4_bold": "public server",
+          "4_bold": "veřejný server",
           "5_normal": " nebo ",
-          "6_bold": "room server",
-          "7_normal": "nebo spusťte svůj vlastní server!"
+          "6_bold": "skupinový server",
+          "7_normal": " nebo spusťte svůj vlastní server!"
         },
         "default": {
           "1_normal": "Chcete-li se spojit s přáteli v okolí a synchronizovat obsah, můžete se připojit ke stejné ",
           "2_bold": "Wi-Fi",
           "3_normal": ", nebo použít ",
-          "4_bold": "Synchronizace přes Bluetooth",
+          "4_bold": "synchronizaci přes Bluetooth",
           "5_normal": ". Chcete-li najít nové lidi na internetu, vyhledejte kód pozvánky na ",
-          "6_bold": "nějakém veřejném serveru",
+          "6_bold": "veřejném serveru",
           "7_normal": " nebo ",
-          "8_bold": "místnost serveru",
+          "8_bold": "skupinovém serveru",
           "9_normal": ", nebo spusťte svůj vlastní server!"
         }
       }
     },
     "moderation": {
-      "title": "Sdílená moderování",
+      "title": "Sdílené moderování",
       "description": {
-        "1_normal": "Protože vaše zařízení vlastní vaši sociální síť, nikdo jiný nemůže zablokovat nebo odebrat účty vaším jménem. Pouze vy můžete spravovat svůj prostor, ",
-        "2_bold": "blokování účtů",
+        "1_normal": "Protože vaše zařízení vlastní vaši sociální síť, nikdo jiný nemůže zablokovat nebo odebrat účty vaším jménem. Pouze vy můžete spravovat svůj prostor ",
+        "2_bold": "blokováním účtů",
         "3_normal": " nechcete mít na svém zařízení. Pak si vaši přátelé mohou vybrat blokování stejných účtů. Takto se může moderace šířit přirozeně!"
       }
     },
@@ -189,18 +189,23 @@
     "tab_headers": {
       "public": "Veřejné příspěvky",
       "private": "Soukromé konverzace",
-      "activity": "Činnost",
-      "connections": "Připojení klienti"
+      "activity": "Aktivita",
+      "connections": "Připojené body"
     },
     "tab_footers": {
       "public": "Veřejné",
       "private": "Soukromé",
-      "activity": "Činnost",
+      "activity": "Aktivita",
       "connections": "Připojení"
     },
     "loading": "Nahrávání...",
     "progress_indicator": {
       "accessibility_label": "Ukazatel pokroku při indexování databáze"
+    },
+    "empty_onboarding": {
+      "title": "Where is everybody?",
+      "description": "On Manyverse, you can't search\nfor people. Someone has to invite you.",
+      "link_label": "Zjistit více"
     },
     "tabs": {
       "public": {
@@ -236,7 +241,7 @@
       "description": "Napište deník, který bude později sdílen s přáteli"
     },
     "search": {
-      "accessibility_label": "Tlačítko Hledat"
+      "accessibility_label": "Tlačítko vyhledávání"
     }
   },
   "private": {
@@ -262,7 +267,7 @@
       "title": "Příjemci"
     },
     "friends_in_common": {
-      "title": "Společné přátele"
+      "title": "Společní přátelé"
     },
     "call_to_action": {
       "open_account": {
@@ -289,7 +294,7 @@
       "label": {
         "1_normal": "",
         "2_bold": "{{author}}",
-        "3_normal": " chce se připojit"
+        "3_normal": " se chce připojit"
       }
     },
     "empty": {
@@ -379,8 +384,8 @@
           "connected": "Internetové P2P"
         },
         "room": {
-          "server": "Místnost serveru",
-          "endpoint": "Partner místnosti",
+          "server": "Skupinový server",
+          "endpoint": "Člen skupiny",
           "alone_online": "(pouze vy jste připojen)",
           "others_online": {
             "one": "({{count}} připojení)",
@@ -520,7 +525,7 @@
         "accessibility_label": "Tlačítko Zavřít"
       },
       "record_audio": {
-        "accessibility_label": "Nahrávat tlačítko zvuku",
+        "accessibility_label": "Tlačítko Nahrávání zvuku",
         "permission_request": {
           "title": "Povolit Manyverse nahrávat zvuk?",
           "message": "Manyverse potřebuje přístup k mikrofonu, abyste mohli vytvářet zvukové zprávy",
@@ -659,7 +664,7 @@
     "menu": {
       "my_profile": {
         "label": "Můj profil",
-        "accessibility_label": "Položka Menu Menu"
+        "accessibility_label": "Položka menu Můj profil"
       },
       "raw_database": {
         "label": "Neupravená databáze",
@@ -683,7 +688,7 @@
       },
       "settings": {
         "label": "Nastavení",
-        "accessibility_label": "Přejít na nastavení"
+        "accessibility_label": "Přejít do nastavení"
       },
       "ready_estimate": {
         "label": "Připraven:"
@@ -1234,7 +1239,7 @@
       },
       "share": {
         "dialog_title": "Sdílet",
-        "accessibility_label": "Share Button"
+        "accessibility_label": "Tlačítko sdílení"
       },
       "etc": {
         "dialog_title": "Zpráva",

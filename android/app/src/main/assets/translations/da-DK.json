@@ -202,6 +202,11 @@
     "progress_indicator": {
       "accessibility_label": "Progress Indicator for Indexing the Database"
     },
+    "empty_onboarding": {
+      "title": "Where is everybody?",
+      "description": "On Manyverse, you can't search\nfor people. Someone has to invite you.",
+      "link_label": "Lær mere"
+    },
     "tabs": {
       "public": {
         "accessibility_label": "Public Tab Button"

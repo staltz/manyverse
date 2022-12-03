@@ -202,6 +202,11 @@
     "progress_indicator": {
       "accessibility_label": "数据库索引进度条"
     },
+    "empty_onboarding": {
+      "title": "Where is everybody?",
+      "description": "On Manyverse, you can't search\nfor people. Someone has to invite you.",
+      "link_label": "了解更多"
+    },
     "tabs": {
       "public": {
         "accessibility_label": "公共标签页按钮"
