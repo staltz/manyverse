@@ -148,7 +148,8 @@ function prepareDesktopMainThread() {
     throw err;
   });
   worker.on('exit', (code) => {
-    console.log('worker exited with code ' + code);
+    if (code !== 0) console.warn('worker exited with code ' + code);
+    app.quit();
   });
 
   app.on('window-all-closed', async () => {
