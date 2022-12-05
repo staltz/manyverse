@@ -2,6 +2,13 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2212.5-beta
+
+* (Desktop) Bug fix: closed process should not hang ([see details](https://gitlab.com/staltz/manyverse/commit/3af0902efb08b765382389b2a2459f66ea1f31c7))
+* Bug fix: style of header on the Compose screen ([see details](https://gitlab.com/staltz/manyverse/commit/e87f30615d7663a4ff58c752cbb235cf69f07b47))
+* Improve empty state when onboarding ([see details](https://gitlab.com/staltz/manyverse/commit/17c6cf218607f1be4e33456e4626d518bcc0f850))
+* Subscribe to hashtags and filter public feed by them ([see details](https://gitlab.com/staltz/manyverse/commit/1d9cd29f5f5fe549d565d2f9c193f188f98b2891))
+
 ## 0.2211.30-beta
 
 * (Android) Bug fix: app sometimes freezing ([see details](https://gitlab.com/staltz/manyverse/commit/9dbdebed80496e0554bddf1827e2cf99eb838a75))

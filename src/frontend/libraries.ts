@@ -67,6 +67,13 @@ export default [
     type: 'image',
   },
   {
+    name: 'noun-bee.png',
+    author: "'Made by Made, AU' from the Noun Project",
+    license: 'Creative Commons BY 3.0',
+    homepage: 'https://thenounproject.com/icon/bee-1214218/',
+    type: 'image',
+  },
+  {
     name: 'noun-fish.png',
     author: "'Made by Made, AU' from the Noun Project",
     license: 'Creative Commons BY 3.0',
@@ -182,15 +189,15 @@ export default [
   {
     name: '@sentry/electron',
     type: 'library',
-    version: '4.0.2',
+    version: '4.1.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/getsentry/sentry-electron#readme',
   },
   {
     name: '@sentry/node',
     type: 'library',
-    version: '7.14.0',
-    license: 'BSD 3-Clause "New" or "Revised" License (BSD-3-Clause)',
+    version: '7.23.0',
+    license: 'MIT License (MIT)',
     homepage:
       'https://github.com/getsentry/sentry-javascript/tree/master/packages/node',
   },
@@ -324,7 +331,7 @@ export default [
   {
     name: 'electron',
     type: 'library',
-    version: '15.5.5',
+    version: '18.3.7',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/electron/electron#readme',
   },
@@ -1013,7 +1020,7 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '10.1.1',
+    version: '10.4.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
