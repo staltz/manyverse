@@ -229,6 +229,10 @@
       "following": {
         "label": "Following",
         "accessibility_label": "Following Feeds Button"
+      },
+      "hashtags": {
+        "label": "Hashtags",
+        "accessibility_label": "Following Hashtags Button"
       }
     }
   },
@@ -948,6 +952,19 @@
       "zero_results": {
         "title": "Zero results",
         "description": "Nothing found for \"{{query}}\""
+      }
+    },
+    "hashtags": {
+      "matches": {
+        "title": {"one": "1 match", "other": "{{count}} matches"}
+      },
+      "subscribe": {
+        "label": "Subscribe",
+        "accessibility_label": "Subscribe to this hashtag"
+      },
+      "unsubscribe": {
+        "label": "Unsubscribe",
+        "accessibility_label": "Unsubscribe from this hashtag"
       }
     }
   },

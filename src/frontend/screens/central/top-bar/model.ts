@@ -6,14 +6,13 @@ import xs, {Stream} from 'xstream';
 import {Animated} from 'react-native';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
-
-export type FeedFilter = 'all' | 'following';
+import {FeedFilter} from '../model';
 
 export interface State {
   currentTab: 'public' | 'private' | 'activity' | 'connections';
   scrollHeaderBy: Animated.Value;
   hasNewVersion: boolean;
-  publicTabFollowingOnly: boolean | null;
+  publicTabFeedType: FeedFilter | null;
 }
 
 export interface Actions {
@@ -26,37 +25,35 @@ export default function model(
   actions: Actions,
   asyncStorageSource: AsyncStorageSource,
 ): Stream<Reducer<State>> {
-  const initialPublicTabFiltersReducer$ = asyncStorageSource
-    .getItem('followingOnly')
+  const initialPublicTabFeedTypeReducer$ = asyncStorageSource
+    .getItem('publicFeedType')
     .map(
       (resultStr) =>
         function initialPublicTabFiltersReducer(prev: State): State {
-          const parsed = resultStr && JSON.parse(resultStr);
+          const publicFeedType = resultStr && JSON.parse(resultStr);
           return {
             ...prev,
-            publicTabFollowingOnly: parsed === null ? false : parsed,
+            publicTabFeedType: publicFeedType ?? 'all',
           };
         },
     );
 
-  const updatePublicTabFiltersReducer$ = actions.updatePublicTabFilters$.map(
+  const updatePublicTabTypeReducer$ = actions.updatePublicTabFilters$.map(
     (feedFilter) =>
       function updatePublicTabFiltersReducer(prev: State): State {
-        const publicTabFollowingOnly = feedFilter === 'following';
-
-        if (publicTabFollowingOnly === prev.publicTabFollowingOnly) {
+        if (prev.publicTabFeedType === feedFilter) {
           return prev;
         } else {
           return {
             ...prev,
-            publicTabFollowingOnly,
+            publicTabFeedType: feedFilter,
           };
         }
       },
   );
 
   return xs.merge(
-    initialPublicTabFiltersReducer$,
-    updatePublicTabFiltersReducer$,
+    initialPublicTabFeedTypeReducer$,
+    updatePublicTabTypeReducer$,
   );
 }

@@ -231,7 +231,7 @@ interface MLProps {
   getScrollStream: GetReadable<ActivityItem> | null;
   getPrefixStream: GetReadable<FirewallAttempt> | null;
   scrollToTop$: Stream<any>;
-  postsCount: number;
+  postsCount: number | null;
   onRefresh?: () => void;
   onPressMention?: (ev: Msg) => void;
   onPressFollow?: (ev: FeedId) => void;

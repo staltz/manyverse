@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {ContactContent, FeedId, Msg, VoteContent} from 'ssb-typescript';
+import {ChannelSubscribeContent} from '~frontend/ssb/types';
 import {Callback} from './helpers/types';
 const pull = require('pull-stream');
 const pullAsync = require('pull-async');
@@ -36,6 +37,16 @@ function isValidVoteMsg(msg: Msg<VoteContent>) {
   return true;
 }
 
+function isValidChannelSubscribeMsg(msg: Msg<ChannelSubscribeContent>) {
+  if (!msg) return false;
+  if (!msg.value) return false;
+  if (!msg.value.content) return false;
+  if (!msg.value.content.channel) return false;
+  if (typeof msg.value.content.channel !== 'string') return false;
+  if (typeof msg.value.content.subscribed !== 'boolean') return false;
+  return true;
+}
+
 export = {
   name: 'dbUtils',
   version: '1.0.0',
@@ -50,6 +61,7 @@ export = {
     selfPrivateRootIdsLive: 'source',
     friendsInCommon: 'async',
     snapshotAbout: 'async',
+    hashtagsSubscribed: 'source',
   },
   permissions: {
     master: {
@@ -64,6 +76,7 @@ export = {
         'selfPrivateRootIdsLive',
         'friendsInCommon',
         'snapshotAbout',
+        'hashtagsSubscribed',
       ],
     },
   },
@@ -93,6 +106,32 @@ export = {
     } = ssb.db.operators;
 
     const BATCH_SIZE = 100; // about 50 KB per batch
+
+    const subscribedHashtags = {
+      _set: new Set<string>(),
+      isEmpty() {
+        return this._set.size === 0;
+      },
+      update(msg: Msg<ChannelSubscribeContent>) {
+        if (!isValidChannelSubscribeMsg(msg)) return;
+        const {channel, subscribed} = msg.value.content;
+        const sanitizedChannel = channel.startsWith('#')
+          ? channel.slice(1)
+          : channel;
+
+        if (subscribed) {
+          this._set.add(sanitizedChannel);
+        } else {
+          this._set.delete(sanitizedChannel);
+        }
+      },
+      toArray(sort?: boolean) {
+        const result: string[] = Array.from(this._set);
+        return sort
+          ? result.sort((a: string, b: string) => a.localeCompare(b))
+          : result;
+      },
+    };
 
     const reactionsCount = {
       _map: new Map<string, number>(),
@@ -203,6 +242,46 @@ export = {
           count(),
           toCallback(cb),
         );
+      },
+
+      hashtagsSubscribed() {
+        return cat([
+          // First return all hashtags subscribed
+          subscribedHashtags.isEmpty()
+            ? pullAsync((cb: Callback<Array<string>>) => {
+                pull(
+                  ssb.db.query(
+                    where(
+                      and(type('channel'), author(ssb.id, {dedicated: true})),
+                    ),
+                    toPullStream(),
+                  ),
+                  pull.drain(
+                    (msg: Msg<ChannelSubscribeContent>) => {
+                      subscribedHashtags.update(msg);
+                    },
+                    (err: any) => {
+                      if (err) cb(err);
+                      else cb(null, subscribedHashtags.toArray());
+                    },
+                  ),
+                );
+              })
+            : pull.values([subscribedHashtags.toArray()]),
+
+          // Then update subscribed hashtags when the user (un)subscribes from a hashtag
+          pull(
+            ssb.db.query(
+              where(and(type('channel'), author(ssb.id, {dedicated: true}))),
+              liveOperator({old: false}),
+              toPullStream(),
+            ),
+            pull.map((msg: Msg<ChannelSubscribeContent>) => {
+              subscribedHashtags.update(msg);
+              return subscribedHashtags.toArray();
+            }),
+          ),
+        ]);
       },
 
       preferredReactions() {

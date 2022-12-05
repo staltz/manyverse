@@ -173,4 +173,26 @@ export const styles = StyleSheet.create({
       ? Palette.voidStronger
       : Palette.voidWeak,
   },
+
+  hashtagResultsHeaderContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: Dimensions.horizontalSpaceBig,
+    paddingVertical: Dimensions.verticalSpaceBig,
+    backgroundColor: Palette.backgroundText,
+    ...Platform.select({
+      web: {
+        width: Dimensions.desktopMiddleWidth.px,
+      },
+    }),
+  },
+
+  hashtagMatchesCountText: {
+    color: Palette.textWeak,
+    fontSize: Typography.fontSizeNormal,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
+  },
 });

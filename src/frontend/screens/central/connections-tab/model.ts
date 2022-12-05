@@ -37,7 +37,7 @@ export interface State {
     | 'empty-rooms'
     | 'connected-poorly'
     | 'connected-well';
-  postsCount: number;
+  postsCount: number | null;
   windowSize?: WindowSize;
   bestRecommendation: Recommendation | null;
   /**
@@ -88,7 +88,7 @@ function reevaluateStatus(prev: State): State {
   const {internetEnabled, postsCount} = prev;
 
   if (!internetEnabled && connectedNum === 0 && stagedNum === 0) {
-    if (postsCount > 2) {
+    if (postsCount && postsCount > 2) {
       return {
         ...prev,
         scenario: 'offline-with-content',
@@ -217,13 +217,6 @@ export default function model(
       },
   );
 
-  const updatePostsCountReducer$ = ssbSource.postsCount$().map(
-    (postsCount) =>
-      function updatePostsCountReducer(prev: State): State {
-        return {...prev, postsCount};
-      },
-  );
-
   const setPeersReducer$ = onlyWhileAppIsInForeground(
     appstate$,
     () => ssbSource.peers$,
@@ -307,7 +300,6 @@ export default function model(
     updateLanEnabled$,
     updateInternetEnabled$,
     updateWindowSizeReducer$,
-    updatePostsCountReducer$,
     setPeersReducer$,
     setStagedPeersReducer$,
     updatePeersAbout$,

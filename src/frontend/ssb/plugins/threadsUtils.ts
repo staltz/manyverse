@@ -287,14 +287,31 @@ const threadsUtils = {
         });
       },
 
-      hashtagFeed(hashtag: string) {
+      hashtagCount(hashtag: string, cb: Callback<number>) {
+        ssb.threads.hashtagCount(
+          {
+            allowlist: publicAllowlist,
+            hashtag,
+          },
+          cb,
+        );
+      },
+
+      hashtagFeed(hashtags: Array<string>) {
         return pull(
           ssb.deweird.source(['threads', 'hashtagSummary'], {
-            allowlist: ALLOW_ALL_EXCEPT_CONTACT,
-            hashtag,
+            allowlist: publicAllowlist,
+            hashtags,
           }),
           pull.asyncMap(mutateThreadSummaryWithLiveExtras(ssb)),
         );
+      },
+
+      hashtagUpdates(hashtags: Array<string>) {
+        return ssb.threads.hashtagUpdates({
+          allowlist: publicAllowlist,
+          hashtags,
+        });
       },
 
       privateFeed(opts: any) {

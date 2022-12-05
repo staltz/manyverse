@@ -4,8 +4,9 @@
 
 import xs, {Stream} from 'xstream';
 import {ReactSource} from '@cycle/react';
-import {FeedFilter, State} from './model';
 import sampleCombine from 'xstream/extra/sampleCombine';
+import {FeedFilter} from '../model';
+import {State} from './model';
 
 export default function intent(
   reactSource: ReactSource,
@@ -21,10 +22,7 @@ export default function intent(
 
   const scrollToPublicTop$ = xs.merge(
     updatePublicTabFiltersWithState$
-      .filter(
-        ([feedFilter, state]) =>
-          (feedFilter === 'following') === state.publicTabFollowingOnly,
-      )
+      .filter(([feedFilter, state]) => feedFilter === state.publicTabFeedType)
       .mapTo(null),
   );
 

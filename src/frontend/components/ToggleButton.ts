@@ -38,14 +38,17 @@ export const baseTextStyle: TextStyle = {
   lineHeight: Typography.lineHeightNormal,
   textAlign: 'center',
   fontWeight: 'bold',
+  ...Platform.select({
+    web: {
+      fontFamily: Typography.fontFamilyReadableText,
+    },
+  }),
 };
 
 export const styles = StyleSheet.create({
   container: {
     ...baseContainerStyle,
-    backgroundColor: 'transparent',
-    borderColor: Palette.brandMain,
-    borderWidth: 1,
+    backgroundColor: Palette.brandMain,
   },
 
   containerMaybe: {
@@ -55,31 +58,24 @@ export const styles = StyleSheet.create({
 
   containerToggled: {
     ...baseContainerStyle,
-    backgroundColor: Palette.brandMain,
+    backgroundColor: 'transparent',
+    borderColor: Palette.brandMain,
+    borderWidth: 1,
   },
 
   text: {
     ...baseTextStyle,
-    color: Palette.textBrand,
-    ...Platform.select({
-      web: {
-        fontFamily: Typography.fontFamilyReadableText,
-      },
-    }),
+    color: Palette.textForBackgroundBrand,
   },
 
   textToggled: {
     ...baseTextStyle,
-    color: Palette.textForBackgroundBrand,
-    ...Platform.select({
-      web: {
-        fontFamily: Typography.fontFamilyReadableText,
-      },
-    }),
+    color: Palette.textBrand,
   },
 });
 
 export interface Props {
+  accessibilityLabel?: string;
   toggled: boolean;
   text: string;
   onPress?: (toggle: boolean) => void;
@@ -100,15 +96,7 @@ export default class ToggleButton extends PureComponent<Props, State> {
     }
   }
 
-  static getDerivedStateFromProps(nextProps: Props) {
-    if (nextProps.toggled) {
-      return {toggled: 'yes'};
-    }
-
-    return null;
-  }
-
-  private _onPress() {
+  private _onPress = () => {
     const toggled = this.state.toggled;
     this.setState(() => ({toggled: 'maybe'}));
     const onPress = this.props.onPress;
@@ -117,7 +105,7 @@ export default class ToggleButton extends PureComponent<Props, State> {
         onPress(toggled === 'no' ? true : false);
       });
     }
-  }
+  };
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.toggled !== this.props.toggled) {
@@ -126,7 +114,7 @@ export default class ToggleButton extends PureComponent<Props, State> {
   }
 
   public render() {
-    const {text, style} = this.props;
+    const {accessibilityLabel, text, style} = this.props;
     const {toggled} = this.state;
 
     let containerStyle: ViewStyle = styles.container;
@@ -137,12 +125,13 @@ export default class ToggleButton extends PureComponent<Props, State> {
     }
 
     let textStyle = styles.text;
-    if (toggled === 'maybe' || toggled === 'yes') {
+    if (toggled === 'yes') {
       textStyle = styles.textToggled;
     }
 
     const touchableProps: any = {
-      onPress: () => this._onPress(),
+      accessibilityLabel,
+      onPress: this._onPress,
     };
     if (Platform.OS === 'android') {
       touchableProps.background =

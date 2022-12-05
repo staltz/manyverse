@@ -10,6 +10,7 @@ import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource, GetReadable} from '~frontend/drivers/ssb';
 import {ThreadSummaryWithExtras} from '~frontend/ssb/types';
+import {FeedFilter} from '../model';
 
 export interface State {
   selfFeedId: FeedId;
@@ -17,14 +18,15 @@ export interface State {
   preferredReactions: Array<string>;
   selfAvatarUrl?: string;
   getPublicFeedReadable: GetReadable<ThreadSummaryWithExtras> | null;
-  postsCount: number;
+  postsCount: number | null;
   initializedSSB: boolean;
   numOfUpdates: number;
   hasComposeDraft: boolean;
   isVisible: boolean;
   canPublishSSB: boolean;
   scrollHeaderBy: Animated.Value;
-  followingOnly: boolean | null;
+  feedType: FeedFilter | null;
+  subscribedHashtags: Array<string> | null;
 }
 
 export interface Actions {
@@ -39,19 +41,42 @@ export default function model(
   ssbSource: SSBSource,
   state$: Stream<State>,
 ): Stream<Reducer<State>> {
-  const followingOnlyChanged$ = state$
-    .compose(dropRepeats((x, y) => x.followingOnly === y.followingOnly))
-    .filter((state) => state.followingOnly !== null) as Stream<
-    State & {followingOnly: boolean}
+  const initialFeedTypeReducer$ = asyncStorageSource
+    .getItem('publicFeedType')
+    .map(
+      (resultStr) =>
+        function initialFeedTypeReducer(prev: State): State {
+          const publicFeedType = resultStr && JSON.parse(resultStr);
+          return {
+            ...prev,
+            feedType: publicFeedType ?? 'all',
+          };
+        },
+    );
+
+  const feedTypeChanged$ = state$
+    .compose(dropRepeats((x, y) => x.feedType === y.feedType))
+    .filter((state) => state.feedType !== null) as Stream<
+    State & {feedType: NonNullable<State['feedType']>}
   >;
 
-  const setPublicFeedReducer$ = followingOnlyChanged$
-    .map((state) => ssbSource.publicFeed$(state.followingOnly))
+  const setPublicFeedReducer$ = feedTypeChanged$
+    .map((state) =>
+      state.feedType === 'hashtags'
+        ? ssbSource.hashtagsSubscribed$
+            .map((hashtags) => ssbSource.hashtagsFeed$(hashtags))
+            .flatten()
+        : ssbSource.publicFeed$(state.feedType === 'following'),
+    )
     .flatten()
     .map(
       (getReadable) =>
         function setPublicFeedReducer(prev: State): State {
-          return {...prev, getPublicFeedReadable: getReadable};
+          return {
+            ...prev,
+            getPublicFeedReadable: getReadable,
+            numOfUpdates: 0,
+          };
         },
     );
 
@@ -62,8 +87,22 @@ export default function model(
       },
   );
 
-  const incUpdatesReducer$ = followingOnlyChanged$
-    .map((state) => ssbSource.publicLiveUpdates$(state.followingOnly))
+  const incUpdatesReducer$ = feedTypeChanged$
+    .map((state) => {
+      if (state.feedType === 'hashtags') {
+        return ssbSource.hashtagsSubscribed$
+          .filter((hashtags) => hashtags.length > 0)
+          .take(1)
+          .map((hashtags) => ssbSource.hashtagLiveUpdates$(hashtags))
+          .flatten();
+      } else if (state.feedType === 'following') {
+        return ssbSource.publicLiveUpdates$(true);
+      } else if (state.feedType === 'all') {
+        return ssbSource.publicLiveUpdates$(false);
+      } else {
+        throw new Error('Unreachable');
+      }
+    })
     .flatten()
     .mapTo(function incUpdatesReducer(prev: State): State {
       return {...prev, numOfUpdates: prev.numOfUpdates + 1};
@@ -108,19 +147,6 @@ export default function model(
         },
     );
 
-  const initialFollowingOnlyReducer$ = asyncStorageSource
-    .getItem('followingOnly')
-    .map(
-      (resultStr) =>
-        function initialPublicTabFiltersReducer(prev: State): State {
-          const parsed = resultStr && JSON.parse(resultStr);
-          return {
-            ...prev,
-            followingOnly: parsed === null ? false : parsed,
-          };
-        },
-    );
-
   return xs.merge(
     setPublicFeedReducer$,
     incUpdatesReducer$,
@@ -129,6 +155,6 @@ export default function model(
     loadLastSessionTimestampReducer$,
     getComposeDraftReducer$,
     resetUpdatesReducer$,
-    initialFollowingOnlyReducer$,
+    initialFeedTypeReducer$,
   );
 }

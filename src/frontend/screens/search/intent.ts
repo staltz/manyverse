@@ -101,6 +101,10 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     .select('feed')
     .events<PressAddReactionEvent>('pressAddReaction');
 
+  const toggleHashtagSubscribe$ = reactSource
+    .select('hashtagSubscribeButton')
+    .events<boolean>('press');
+
   return {
     goBack$,
     updateQueryNow$,
@@ -114,5 +118,6 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     openMessageShare$,
     goToThreadExpandCW$,
     addReactionMsg$,
+    toggleHashtagSubscribe$,
   };
 }

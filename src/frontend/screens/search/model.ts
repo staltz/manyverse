@@ -15,12 +15,16 @@ type SearchResults =
   | {
       type: 'HashtagResults';
       getReadable: GetReadable<ThreadSummaryWithExtras> | null;
+      hashtagCount: number;
     }
   | {
       type: 'TextResults';
       getReadable: GetReadable<MsgAndExtras<PostContent>> | null;
     }
-  | {type: 'AccountResults'; users: MentionSuggestion[]};
+  | {
+      type: 'AccountResults';
+      users: MentionSuggestion[];
+    };
 
 export interface State {
   selfFeedId: FeedId;
@@ -32,12 +36,14 @@ export interface State {
   queryOverrideFlag: number;
   queryInProgress: boolean;
   searchResults: SearchResults | null;
+  subscribedHashtags: Array<string> | null;
 }
 
 export interface Actions {
   updateQueryNow$: Stream<string>;
   updateQueryDebounced$: Stream<string>;
   clearQuery$: Stream<any>;
+  toggleHashtagSubscribe$: Stream<boolean>;
 }
 
 function searchContent(
@@ -49,9 +55,18 @@ function searchContent(
       .getMentionSuggestions(query.slice(1), [])
       .map((users) => ({type: 'AccountResults', users}));
   } else if (query.startsWith('#') && query.length > 2) {
-    return ssbSource
-      .searchPublishHashtagSummaries$(query)
-      .map((getReadable) => ({type: 'HashtagResults', getReadable}));
+    const publicHashtagSummaries$ =
+      ssbSource.searchPublishHashtagSummaries$(query);
+
+    const hashtagCount$ = ssbSource.hashtagCount$(query);
+
+    return xs
+      .combine(publicHashtagSummaries$, hashtagCount$)
+      .map(([getReadable, hashtagCount]) => ({
+        type: 'HashtagResults',
+        getReadable,
+        hashtagCount,
+      }));
   }
   return ssbSource
     .searchPublicPosts$(query)
@@ -77,6 +92,7 @@ export default function model(
           queryOverrideFlag: 0,
           queryInProgress: !!props.query,
           searchResults: null,
+          subscribedHashtags: null,
         };
       },
   );
@@ -151,6 +167,13 @@ export default function model(
         },
     );
 
+  const updateSubscribedHashtagsReducer$ = ssbSource.hashtagsSubscribed$.map(
+    (subscribedHashtags) =>
+      function updateSubscribedHashtagsReducer(prev: State): State {
+        return {...prev, subscribedHashtags};
+      },
+  );
+
   return xs.merge(
     propsReducer$,
     updatePreferredReactionsReducer$,
@@ -158,5 +181,6 @@ export default function model(
     updateQueryReducer$,
     clearQueryReducer$,
     updateSearchResultsReducer$,
+    updateSubscribedHashtagsReducer$,
   );
 }

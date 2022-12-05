@@ -153,7 +153,7 @@
     "ssb-ref": "2.16.0",
     "ssb-room-client": "0.2.0",
     "ssb-serve-blobs": "3.1.1",
-    "ssb-threads": "^10.1.0",
+    "ssb-threads": "10.4.0",
     "ssb-typescript": "2.8.0",
     "ssb-uri2": "1.7.2",
     "strip-markdown-oneline": "1.0.3",

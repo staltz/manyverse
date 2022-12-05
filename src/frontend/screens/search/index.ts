@@ -80,7 +80,7 @@ export function search(sources: Sources): Sinks {
     .merge(actions.goBack$, actions.goToThread$)
     .mapTo('dismiss' as const);
 
-  const newContent$ = ssb(actionsPlus);
+  const newContent$ = ssb(actionsPlus, state$);
 
   return {
     screen: vdom$,

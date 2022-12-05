@@ -40,6 +40,7 @@ import {
   CompactionProgress,
   SnapshotAbout,
   AboutSelf,
+  ChannelSubscribeContent,
 } from '~frontend/ssb/types';
 import makeClient, {SSBClient} from '~frontend/ssb/client';
 import {imageToImageUrl} from '~frontend/ssb/utils/from-ssb';
@@ -95,6 +96,7 @@ export class SSBSource {
   public peers$: Stream<Array<PeerKV>>;
   public stagedPeers$: Stream<Array<StagedPeerKV>>;
   public bluetoothScanState$: Stream<any>;
+  public hashtagsSubscribed$: Stream<Array<string>>;
 
   constructor(ssb$: MemoryStream<SSBClient | null>) {
     this.ssb$ = ssb$;
@@ -117,6 +119,14 @@ export class SSBSource {
 
     this.preferredReactions$ = this.fromPullStream<Array<string>>((ssb) =>
       isReady(ssb) ? ssb.dbUtils.preferredReactions() : pull.values([[]]),
+    )
+      .compose(
+        dropRepeats((before, after) => before.join('#') === after.join('#')),
+      )
+      .remember();
+
+    this.hashtagsSubscribed$ = this.fromPullStream<Array<string>>((ssb) =>
+      isReady(ssb) ? ssb.dbUtils.hashtagsSubscribed() : pull.values([]),
     )
       .compose(
         dropRepeats((before, after) => before.join('#') === after.join('#')),
@@ -234,11 +244,25 @@ export class SSBSource {
     );
   }
 
+  public hashtagsFeed$(
+    hashtags: Array<string>,
+  ): Stream<GetReadable<ThreadSummaryWithExtras> | null> {
+    return this.ssb$.map((ssb) =>
+      isReady(ssb) ? () => ssb.threadsUtils.hashtagFeed(hashtags) : null,
+    );
+  }
+
   public publicLiveUpdates$(onlyFollowing: boolean): Stream<null> {
     return this.fromPullStream((ssb) =>
       isReady(ssb)
         ? ssb.threadsUtils.publicUpdates(onlyFollowing)
         : pull.empty(),
+    ).mapTo(null);
+  }
+
+  public hashtagLiveUpdates$(hashtags: Array<string>): Stream<null> {
+    return this.fromPullStream((ssb) =>
+      isReady(ssb) ? ssb.threadsUtils.hashtagUpdates(hashtags) : pull.empty(),
     ).mapTo(null);
   }
 
@@ -274,6 +298,12 @@ export class SSBSource {
   public postsCount$() {
     return this.fromCallback<number>((ssb, cb) =>
       isReady(ssb) ? ssb.dbUtils.postsCount(cb) : cb(null, 0),
+    );
+  }
+
+  public hashtagCount$(hashtag: string) {
+    return this.fromCallback<number>((ssb, cb) =>
+      isReady(ssb) ? ssb.threadsUtils.hashtagCount(hashtag, cb) : cb(null, 0),
     );
   }
 
@@ -540,7 +570,7 @@ export class SSBSource {
     text: string,
   ): Stream<GetReadable<ThreadSummaryWithExtras> | null> {
     return this.ssb$.map((ssb) =>
-      isReady(ssb) ? () => ssb.threadsUtils.hashtagFeed(text) : null,
+      isReady(ssb) ? () => ssb.threadsUtils.hashtagFeed([text]) : null,
     );
   }
 
@@ -682,7 +712,7 @@ export interface NukeReq {
 
 export interface PublishReq {
   type: 'publish';
-  content: NonNullable<Content | AliasContent>;
+  content: NonNullable<Content | AliasContent | ChannelSubscribeContent>;
 }
 
 export interface PublishAboutReq {
@@ -854,7 +884,9 @@ export type Req =
   | SettingsEnableFirewallReq
   | SettingsAllowCrashReportsReq;
 
-export function contentToPublishReq(content: NonNullable<Content>): PublishReq {
+export function contentToPublishReq(
+  content: NonNullable<Content | ChannelSubscribeContent>,
+): PublishReq {
   return {type: 'publish', content};
 }
 

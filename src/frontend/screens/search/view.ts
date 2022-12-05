@@ -28,12 +28,13 @@ import EmptySection from '~frontend/components/EmptySection';
 import SettableTextInput from '~frontend/components/SettableTextInput';
 import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
 import HeaderButton from '~frontend/components/HeaderButton';
+import AccountsList from '~frontend/components/AccountsList';
+import ToggleButton from '~frontend/components/ToggleButton';
 import Feed from '~frontend/components/Feed';
 import {MsgAndExtras} from '~frontend/ssb/types';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {State} from './model';
 import {styles} from './styles';
-import AccountsList from '~frontend/components/AccountsList';
 
 const Touchable = Platform.select<any>({
   android: TouchableNativeFeedback,
@@ -183,6 +184,36 @@ class Results extends PureComponent<{
   }
 }
 
+class HashtagResultsHeader extends PureComponent<{
+  hashtagCount: number;
+  isSubscribed: boolean;
+}> {
+  public render() {
+    const {isSubscribed, hashtagCount} = this.props;
+    return h(View, {style: styles.hashtagResultsHeaderContainer}, [
+      h(View, [
+        h(Text, {style: styles.hashtagMatchesCountText}, [
+          t('search.hashtags.matches.title', {count: hashtagCount}),
+        ]),
+      ]),
+      h(ToggleButton, {
+        sel: 'hashtagSubscribeButton',
+        toggled: isSubscribed,
+        text: t(
+          isSubscribed
+            ? 'search.hashtags.unsubscribe.label'
+            : 'search.hashtags.subscribe.label',
+        ),
+        accessibilityLabel: t(
+          isSubscribed
+            ? 'search.hashtags.unsubscribe.accessibility_label'
+            : 'search.hashtags.subscribe.accessibility_label',
+        ),
+      }),
+    ]);
+  }
+}
+
 const SearchResults: React.FC<State> = (state) => {
   const {queryInProgress, searchResults} = state;
   if (!queryInProgress || !searchResults) {
@@ -200,6 +231,16 @@ const SearchResults: React.FC<State> = (state) => {
         lastSessionTimestamp: state.lastSessionTimestamp,
         preferredReactions: state.preferredReactions,
         style: styles.feed,
+        HeaderComponent:
+          state.query.length > 1 && !!state.subscribedHashtags
+            ? h(HashtagResultsHeader, {
+                hashtagCount: searchResults.hashtagCount,
+                // strings in state.subscribedHashtags do not start with '#'
+                isSubscribed: state.subscribedHashtags.includes(
+                  state.query.slice(1),
+                ),
+              })
+            : (null as any),
         EmptyComponent:
           state.query.length > 0
             ? h(EmptySection, {
@@ -244,10 +285,11 @@ export default function view(state$: Stream<State>) {
         'query',
         'preferredReactions',
         'searchResults',
+        'subscribedHashtags',
       ]),
     )
-    .map((state) => {
-      return h(View, {style: styles.screen}, [
+    .map((state) =>
+      h(View, {style: styles.screen}, [
         h(TopBar, {sel: 'topbar'}, [
           h(SettableTextInput, {
             style: styles.queryInput,
@@ -278,6 +320,6 @@ export default function view(state$: Stream<State>) {
         ]),
 
         h(View, {style: styles.container}, [h(SearchResults, state)]),
-      ]);
-    });
+      ]),
+    );
 }

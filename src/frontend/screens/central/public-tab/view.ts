@@ -30,9 +30,24 @@ export default function view(
         'getPublicFeedReadable',
         'scrollHeaderBy',
         'postsCount',
+        'feedType',
+        (state) => state.subscribedHashtags?.length ?? -1,
       ]),
     )
     .map((state) => {
+      if (
+        state.feedType === 'hashtags' &&
+        state.subscribedHashtags?.length === 0
+      ) {
+        return h(EmptySection, {
+          key: 'eh',
+          style: styles.emptySection,
+          image: getImg(require('~images/noun-plant.png')),
+          title: t('public.empty_hashtags.title'),
+          description: t('public.empty_hashtags.description'),
+        });
+      }
+
       return h(Feed, {
         sel: 'publicFeed',
         style: styles.feed,

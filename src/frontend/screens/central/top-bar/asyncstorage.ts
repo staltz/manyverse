@@ -4,7 +4,7 @@
 
 import {Stream} from 'xstream';
 import {setItem} from '~frontend/drivers/asyncstorage';
-import {FeedFilter} from './model';
+import {FeedFilter} from '../model';
 
 interface Actions {
   updatePublicTabFilters$: Stream<FeedFilter>;
@@ -12,8 +12,7 @@ interface Actions {
 
 export default function asyncStorage(actions: Actions) {
   const publicFilters$ = actions.updatePublicTabFilters$.map((feedFilter) => {
-    const followingOnly = feedFilter === 'following';
-    return setItem('followingOnly', JSON.stringify(followingOnly));
+    return setItem('publicFeedType', JSON.stringify(feedFilter));
   });
 
   return publicFilters$;

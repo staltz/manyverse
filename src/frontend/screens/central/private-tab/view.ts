@@ -153,7 +153,7 @@ interface CLProps {
   selfFeedId: FeedId;
   getScrollStream: GetReadable<Thread> | null;
   unreadSet: Set<MsgId>;
-  postsCount: number;
+  postsCount: number | null;
   forceRefresh$: Stream<boolean>;
   scrollToTop$: Stream<any>;
   onPressConversation?: (ev: MsgId) => void;

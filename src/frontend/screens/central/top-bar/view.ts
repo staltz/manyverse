@@ -24,8 +24,9 @@ import {Typography} from '~frontend/global-styles/typography';
 import {IconNames} from '~frontend/global-styles/icons';
 import HeaderButton from '~frontend/components/HeaderButton';
 import Pill from '~frontend/components/Pill';
-import {FeedFilter, State} from './model';
 import {getImg} from '~frontend/global-styles/utils';
+import {FeedFilter} from '../model';
+import {State} from './model';
 
 const Touchable = Platform.select<any>({
   ios: TouchableOpacity,
@@ -248,7 +249,7 @@ class AppLogoButton extends PureComponent<{onPress?: () => void}> {
 }
 
 class FiltersRow extends PureComponent<{
-  followingOnly: boolean;
+  activeFilter: FeedFilter;
   onFilterPress?: (feedFilter: FeedFilter) => void;
 }> {
   private _onPressAll = () => {
@@ -259,14 +260,18 @@ class FiltersRow extends PureComponent<{
     this.props.onFilterPress?.('following');
   };
 
+  private _onPressHashtags = () => {
+    this.props.onFilterPress?.('hashtags');
+  };
+
   public render() {
-    const {followingOnly} = this.props;
+    const {activeFilter} = this.props;
     return $(
       View,
       {style: styles.filtersRow},
       $(Pill, {
         onPress: this._onPressAll,
-        selected: !followingOnly,
+        selected: activeFilter === 'all',
         content: t('central.filters_row.all.label'),
         accessibilityLabel: t('central.filters_row.all.accessibility_label'),
         accessibilityRole: 'button',
@@ -274,10 +279,20 @@ class FiltersRow extends PureComponent<{
       $(View, {style: styles.filtersRowSpacer}),
       $(Pill, {
         onPress: this._onPressFollowing,
-        selected: followingOnly,
+        selected: activeFilter === 'following',
         content: t('central.filters_row.following.label'),
         accessibilityLabel: t(
           'central.filters_row.following.accessibility_label',
+        ),
+        accessibilityRole: 'button',
+      }),
+      $(View, {style: styles.filtersRowSpacer}),
+      $(Pill, {
+        onPress: this._onPressHashtags,
+        selected: activeFilter === 'hashtags',
+        content: t('central.filters_row.hashtags.label'),
+        accessibilityLabel: t(
+          'central.filters_row.hashtags.accessibility_label',
         ),
         accessibilityRole: 'button',
       }),
@@ -296,7 +311,7 @@ export default function view(state$: Stream<State>) {
         'scrollHeaderBy',
         'currentTab',
         'hasNewVersion',
-        'publicTabFollowingOnly',
+        'publicTabFeedType',
       ]),
     )
     .map((state) => {
@@ -347,7 +362,7 @@ export default function view(state$: Stream<State>) {
         [
           h(FiltersRow, {
             sel: 'filtersRow',
-            followingOnly: !!state.publicTabFollowingOnly,
+            activeFilter: state.publicTabFeedType ?? 'all',
           }),
         ],
       );

@@ -18,6 +18,8 @@ import {State as PrivateTabState} from './private-tab/model';
 import {State as ActivityTabState} from './activity-tab/model';
 import {State as ConnectionsTabState} from './connections-tab/model';
 
+export type FeedFilter = 'all' | 'following' | 'hashtags';
+
 export interface State extends ProgressState {
   selfFeedId: FeedId;
   lastSessionTimestamp: number;
@@ -32,11 +34,12 @@ export interface State extends ProgressState {
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;
   numOfActivityUpdates: number;
-  postsCount: number;
+  postsCount: number | null;
   hasNewVersion: boolean;
   canPublishSSB: boolean;
   isDrawerOpen: boolean;
-  publicTabFollowingOnly: boolean | null;
+  publicTabFeedType: FeedFilter | null;
+  subscribedHashtags: Array<string> | null;
 }
 
 /**
@@ -50,7 +53,7 @@ export const topBarLens: Lens<State, TopBarState> = {
   set: (parent: State, child: TopBarState): State => {
     return {
       ...parent,
-      publicTabFollowingOnly: child.publicTabFollowingOnly,
+      publicTabFeedType: child.publicTabFeedType,
     };
   },
 };
@@ -58,8 +61,14 @@ export const topBarLens: Lens<State, TopBarState> = {
 export const publicTabLens: Lens<State, PublicTabState> = {
   get: (parent: State): PublicTabState => {
     const isVisible = parent.currentTab === 'public';
-    const {selfFeedId, selfAvatarUrl, canPublishSSB, publicTabFollowingOnly} =
-      parent;
+    const {
+      selfFeedId,
+      selfAvatarUrl,
+      canPublishSSB,
+      publicTabFeedType,
+      subscribedHashtags,
+      postsCount,
+    } = parent;
     if (parent.publicTab) {
       const prev = parent.publicTab;
       if (
@@ -67,7 +76,8 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         prev.selfFeedId === selfFeedId &&
         prev.selfAvatarUrl === selfAvatarUrl &&
         prev.canPublishSSB === canPublishSSB &&
-        prev.followingOnly === publicTabFollowingOnly
+        prev.feedType === publicTabFeedType &&
+        prev.subscribedHashtags === subscribedHashtags
       ) {
         // Optimization: nothing changed
         return prev;
@@ -77,8 +87,10 @@ export const publicTabLens: Lens<State, PublicTabState> = {
           isVisible,
           selfFeedId,
           selfAvatarUrl,
+          postsCount,
           canPublishSSB,
-          followingOnly: publicTabFollowingOnly,
+          feedType: publicTabFeedType,
+          subscribedHashtags,
         };
       }
     } else {
@@ -92,11 +104,12 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         getPublicFeedReadable: null,
         numOfUpdates: parent.numOfPublicUpdates,
         initializedSSB: parent.initializedSSB,
-        postsCount: parent.postsCount,
+        postsCount,
         hasComposeDraft: false,
         canPublishSSB,
         scrollHeaderBy: parent.scrollHeaderBy,
-        followingOnly: publicTabFollowingOnly,
+        feedType: publicTabFeedType,
+        subscribedHashtags,
       };
     }
   },
@@ -106,7 +119,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
       parent.initializedSSB === child.initializedSSB &&
       parent.numOfPublicUpdates === child.numOfUpdates &&
       parent.lastSessionTimestamp === child.lastSessionTimestamp &&
-      parent.publicTabFollowingOnly === child.followingOnly &&
+      parent.publicTabFeedType === child.feedType &&
       deepEquals(parent.publicTab, child)
     ) {
       // Optimization: nothing changed in the child, so don't update the parent
@@ -117,7 +130,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
         initializedSSB: child.initializedSSB,
         numOfPublicUpdates: child.numOfUpdates,
         lastSessionTimestamp: child.lastSessionTimestamp,
-        publicTabFollowingOnly: child.followingOnly,
+        publicTabFeedType: child.feedType,
         publicTab: child,
       };
     }
@@ -127,7 +140,7 @@ export const publicTabLens: Lens<State, PublicTabState> = {
 export const privateTabLens: Lens<State, PrivateTabState> = {
   get: (parent: State): PrivateTabState => {
     const isVisible = parent.currentTab === 'private';
-    const {selfFeedId, selfAvatarUrl} = parent;
+    const {selfFeedId, selfAvatarUrl, postsCount} = parent;
     if (parent.privateTab) {
       const prev = parent.privateTab;
       if (
@@ -143,6 +156,7 @@ export const privateTabLens: Lens<State, PrivateTabState> = {
           isVisible,
           selfFeedId,
           selfAvatarUrl,
+          postsCount,
         };
       }
     } else {
@@ -153,7 +167,7 @@ export const privateTabLens: Lens<State, PrivateTabState> = {
         selfAvatarUrl,
         getPrivateFeedReadable: null,
         updates: new Set<MsgId>(),
-        postsCount: parent.postsCount,
+        postsCount,
         updatesFlag: false,
         conversationsOpen: new Map(),
       };
@@ -180,7 +194,7 @@ export const privateTabLens: Lens<State, PrivateTabState> = {
 export const activityTabLens: Lens<State, ActivityTabState> = {
   get: (parent: State): ActivityTabState => {
     const isVisible = parent.currentTab === 'activity';
-    const {selfFeedId, selfAvatarUrl} = parent;
+    const {selfFeedId, selfAvatarUrl, postsCount} = parent;
     if (parent.activityTab) {
       const prev = parent.activityTab;
       if (
@@ -196,6 +210,7 @@ export const activityTabLens: Lens<State, ActivityTabState> = {
           isVisible,
           selfFeedId,
           selfAvatarUrl,
+          postsCount,
         };
       }
     } else {
@@ -204,9 +219,9 @@ export const activityTabLens: Lens<State, ActivityTabState> = {
         isVisible,
         selfFeedId,
         selfAvatarUrl,
+        postsCount,
         lastSessionTimestamp: parent.lastSessionTimestamp,
         numOfUpdates: parent.numOfActivityUpdates,
-        postsCount: parent.postsCount,
         getActivityFeedReadable: null,
         getFirewallAttemptLiveReadable: null,
       };
@@ -233,7 +248,7 @@ export const activityTabLens: Lens<State, ActivityTabState> = {
 export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
   get: (parent: State): ConnectionsTabState => {
     const isVisible = parent.currentTab === 'connections';
-    const {selfFeedId, selfAvatarUrl, initializedSSB} = parent;
+    const {selfFeedId, selfAvatarUrl, initializedSSB, postsCount} = parent;
     if (parent.connectionsTab) {
       const prev = parent.connectionsTab;
       if (
@@ -251,6 +266,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
           selfFeedId,
           selfAvatarUrl,
           initializedSSB,
+          postsCount,
         };
       }
     } else {
@@ -262,7 +278,7 @@ export const connectionsTabLens: Lens<State, ConnectionsTabState> = {
         internetEnabled: false,
         lanEnabled: false,
         initializedSSB: parent.initializedSSB,
-        postsCount: 0,
+        postsCount,
         peers: [],
         rooms: [],
         stagedPeers: [],
@@ -314,11 +330,12 @@ export default function model(
         numOfActivityUpdates: 0,
         initializedSSB: false,
         hasNewVersion: false,
-        postsCount: 0,
+        postsCount: null,
         scrollHeaderBy: new Animated.Value(0),
         isDrawerOpen: false,
         canPublishSSB: true,
-        publicTabFollowingOnly: null,
+        publicTabFeedType: null,
+        subscribedHashtags: null,
       };
     }
   });
@@ -383,6 +400,13 @@ export default function model(
       },
   );
 
+  const updateSubscribedHashtagsReducer$ = ssbSource.hashtagsSubscribed$.map(
+    (subscribedHashtags) =>
+      function updateSubscribedHashtagsReducer(prev: State): State {
+        return {...prev, subscribedHashtags};
+      },
+  );
+
   return xs.merge(
     initReducer$,
     setSelfFeedId$,
@@ -393,5 +417,6 @@ export default function model(
     isDrawerOpenReducer$,
     progressReducer$,
     hasNewVersionReducer$,
+    updateSubscribedHashtagsReducer$,
   );
 }

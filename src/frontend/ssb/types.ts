@@ -168,3 +168,9 @@ export interface ContactContentAndExtras extends ContactContent {
     blurhash?: string;
   };
 }
+
+export interface ChannelSubscribeContent {
+  type: 'channel';
+  channel: string;
+  subscribed: boolean;
+}

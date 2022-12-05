@@ -128,7 +128,9 @@ export default {
     public: 'source',
     publicSummary: 'source',
     publicUpdates: 'source',
+    hashtagCount: 'async',
     hashtagSummary: 'source',
+    hashtagUpdates: 'source',
     private: 'source',
     privateUpdates: 'source',
     profile: 'source',
@@ -207,6 +209,7 @@ export default {
     selfPrivateRootIdsLive: 'source',
     friendsInCommon: 'async',
     snapshotAbout: 'async',
+    hashtagsSubscribed: 'source',
   },
   gatheringsUtils: {
     gatheringAttendees: 'source',

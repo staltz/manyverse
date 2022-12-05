@@ -61,7 +61,7 @@
     "ssb-serve-blobs": "3.1.1",
     "ssb-storage-used": "3.0.1",
     "ssb-suggest-lite": "1.1.4",
-    "ssb-threads": "10.1.1",
+    "ssb-threads": "10.4.0",
     "ssb-typescript": "2.8.0",
     "utf-8-validate": "5.0.3"
   },

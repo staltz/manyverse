@@ -12,7 +12,11 @@ import {
   MsgId,
 } from 'ssb-typescript';
 const Mentions = require('remark-ssb-mentions');
-import {PressAddReactionEvent, ContactContentAndExtras} from '../types';
+import {
+  PressAddReactionEvent,
+  ContactContentAndExtras,
+  ChannelSubscribeContent,
+} from '../types';
 
 export function toVoteContent(
   ev: PressAddReactionEvent,
@@ -131,4 +135,16 @@ export function toAboutContent(
   if (description) content.description = description;
   if (image) content.image = image;
   return content;
+}
+
+export function toChannelSubscribeContent(
+  channel: string,
+  subscribed: boolean,
+): ChannelSubscribeContent {
+  return {
+    type: 'channel',
+    // The 'channel' field cannot be prefixed with '#'
+    channel: channel.startsWith('#') ? channel.slice(1) : channel,
+    subscribed,
+  };
 }

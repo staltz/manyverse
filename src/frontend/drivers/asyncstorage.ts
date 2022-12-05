@@ -20,7 +20,7 @@ type SchemaKeys =
   | 'latestVisit'
   | 'lastSessionTimestamp'
   | 'resyncing'
-  | 'followingOnly';
+  | 'publicFeedType';
 
 interface TypedSetItemCommand extends SetItemCommand {
   key: SchemaKeys;
