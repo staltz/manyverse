@@ -224,9 +224,12 @@ export default class ProfileHeader extends Component<{state: State}> {
 
     const isSelfProfile = state.displayFeedId === state.selfFeedId;
     const followsYou = state.followsYou?.response ?? false;
-    const youFollow = state.youFollow?.response ?? false;
-    const youBlock = state.youBlock?.response ?? false;
+    const youFollow = state.youFollow?.response;
+    const youBlock = state.youBlock?.response;
     const commonProps = {state, inTopBar: false};
+
+    const showFollowToggleButton =
+      youFollow !== undefined && youBlock === false;
 
     return h(View, {style: styles.header}, [
       h(View, {style: styles.cover}),
@@ -249,16 +252,16 @@ export default class ProfileHeader extends Component<{state: State}> {
                     'profile.call_to_action.edit_profile.accessibility_label',
                   ),
                 })
-              : youBlock
-              ? null
-              : h(ToggleButton, {
+              : showFollowToggleButton
+              ? h(ToggleButton, {
                   sel: 'follow',
                   style: styles.follow,
                   text: youFollow
                     ? t('profile.info.following')
                     : t('profile.call_to_action.follow'),
                   toggled: youFollow,
-                }),
+                })
+              : null,
           ]),
         ]),
       ]),
