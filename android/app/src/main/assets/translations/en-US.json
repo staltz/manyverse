@@ -244,6 +244,10 @@
       "title": "No messages",
       "description": "Write a diary to be\nshared with friends later"
     },
+    "empty_hashtags": {
+      "title": "No subscribed hashtags",
+      "description": "Subscribe to hashtags\nin the search field to\nsee some threads here"
+    },
     "search": {
       "accessibility_label": "Search Button"
     }
@@ -956,7 +960,10 @@
     },
     "hashtags": {
       "matches": {
-        "title": {"one": "1 match", "other": "{{count}} matches"}
+        "title": {
+          "one": "1 match",
+          "other": "{{count}} matches"
+        }
       },
       "subscribe": {
         "label": "Subscribe",

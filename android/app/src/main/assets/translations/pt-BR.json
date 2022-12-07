@@ -229,6 +229,10 @@
       "following": {
         "label": "Seguindo",
         "accessibility_label": "Botão de mostrar contas que eu sigo"
+      },
+      "hashtags": {
+        "label": "Hashtags",
+        "accessibility_label": "Botão de mostar Hashtags que eu sigo"
       }
     }
   },
@@ -239,6 +243,10 @@
     "empty": {
       "title": "Nenhuma mensagem",
       "description": "Escreva um diário para ser\ncompartilhado depois com amigos"
+    },
+    "empty_hashtags": {
+      "title": "Nenhuma hashtag",
+      "description": "Assine a hashtags no\ncampo de pesquisa para\nver mais tópicos aqui"
     },
     "search": {
       "accessibility_label": "Botão de Busca"
@@ -948,6 +956,22 @@
       "zero_results": {
         "title": "Nenhum resultado",
         "description": "Nada foi encontrado com \"{{query}}\""
+      }
+    },
+    "hashtags": {
+      "matches": {
+        "title": {
+          "one": "1 resultado",
+          "other": "{{count}} resultados"
+        }
+      },
+      "subscribe": {
+        "label": "Assinar",
+        "accessibility_label": "Assinar a esta hashtag"
+      },
+      "unsubscribe": {
+        "label": "Cancelar assinatura",
+        "accessibility_label": "Cancelar a minha assinatura desta hashtag"
       }
     }
   },

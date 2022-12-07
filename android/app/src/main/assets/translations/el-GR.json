@@ -229,6 +229,10 @@
       "following": {
         "label": "Ακολουθείτε",
         "accessibility_label": "Following Feeds Button"
+      },
+      "hashtags": {
+        "label": "Hashtags",
+        "accessibility_label": "Following Hashtags Button"
       }
     }
   },
@@ -239,6 +243,10 @@
     "empty": {
       "title": "Δεν βρέθηκαν μηνύματα",
       "description": "Γράψτε ένα ημερολόγιο για να μοιραστείτε με τους φίλους σας αργότερα"
+    },
+    "empty_hashtags": {
+      "title": "No subscribed hashtags",
+      "description": "Subscribe to hashtags\nin the search field to\nsee some threads here"
     },
     "search": {
       "accessibility_label": "Search Button"
@@ -948,6 +956,22 @@
       "zero_results": {
         "title": "Zero results",
         "description": "Nothing found for \"{{query}}\""
+      }
+    },
+    "hashtags": {
+      "matches": {
+        "title": {
+          "one": "1 match",
+          "other": "{{count}} matches"
+        }
+      },
+      "subscribe": {
+        "label": "Subscribe",
+        "accessibility_label": "Subscribe to this hashtag"
+      },
+      "unsubscribe": {
+        "label": "Unsubscribe",
+        "accessibility_label": "Unsubscribe from this hashtag"
       }
     }
   },

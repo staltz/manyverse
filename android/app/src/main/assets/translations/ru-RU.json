@@ -229,6 +229,10 @@
       "following": {
         "label": "Ваши подписки",
         "accessibility_label": "Кнопка показа новостной ленты только от тех пользователей, на кого вы подписаны"
+      },
+      "hashtags": {
+        "label": "Hashtags",
+        "accessibility_label": "Following Hashtags Button"
       }
     }
   },
@@ -239,6 +243,10 @@
     "empty": {
       "title": "Нет записей",
       "description": "Напишите о чём-то,\nдля ваших подписчиков"
+    },
+    "empty_hashtags": {
+      "title": "No subscribed hashtags",
+      "description": "Subscribe to hashtags\nin the search field to\nsee some threads here"
     },
     "search": {
       "accessibility_label": "Кнопка поиска"
@@ -948,6 +956,22 @@
       "zero_results": {
         "title": "Нет результатов",
         "description": "По запросу \"{{query}}\" ничего не найдено"
+      }
+    },
+    "hashtags": {
+      "matches": {
+        "title": {
+          "one": "1 match",
+          "other": "{{count}} matches"
+        }
+      },
+      "subscribe": {
+        "label": "Subscribe",
+        "accessibility_label": "Subscribe to this hashtag"
+      },
+      "unsubscribe": {
+        "label": "Unsubscribe",
+        "accessibility_label": "Unsubscribe from this hashtag"
       }
     }
   },
