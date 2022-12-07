@@ -7,7 +7,7 @@ import debounce from 'xstream/extra/debounce';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {Platform, ScrollView, View} from 'react-native';
-import {FloatingAction, IActionProps} from 'react-native-floating-action';
+import {FloatingAction} from 'react-native-floating-action';
 import TopBar from '~frontend/components/TopBar';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
@@ -23,35 +23,21 @@ import {FabProps} from '~frontend/screens/central/fab';
 const ACTION_MARGIN_DESKTOP = 45; // px
 
 function getFABProps(state: State): FabProps {
-  const visible = state.bluetoothEnabled || state.internetEnabled;
-
-  const actions: Array<IActionProps> = [];
-  if (state.internetEnabled) {
-    actions.push({
-      color: Palette.backgroundCTA,
-      name: 'invite-paste',
-      margin: Platform.OS === 'web' ? ACTION_MARGIN_DESKTOP : undefined,
-      icon: getImg(require('~images/package-down.png')),
-      text: t('connections.floating_action_button.paste_invite'),
-    });
-  }
-
-  if (state.bluetoothEnabled) {
-    actions.push({
-      color: Palette.backgroundCTA,
-      name: 'bluetooth-search',
-      margin: Platform.OS === 'web' ? ACTION_MARGIN_DESKTOP : undefined,
-      icon: getImg(require('~images/bluetooth.png')),
-      text: t('connections.floating_action_button.bluetooth_seek'),
-    });
-  }
-
   return {
     sel: 'fab',
     color: Palette.backgroundCTA,
-    visible,
-    actions,
+    visible: state.internetEnabled,
+    actions: [
+      {
+        color: Palette.backgroundCTA,
+        name: 'invite-paste',
+        margin: Platform.OS === 'web' ? ACTION_MARGIN_DESKTOP : undefined,
+        icon: getImg(require('~images/package-down.png')),
+        text: t('connections.floating_action_button.paste_invite'),
+      },
+    ],
     title: t('connections.floating_action_button.add_connection'),
+    overrideWithAction: true,
     iconHeight: 24,
     iconWidth: 24,
     overlayColor: Palette.transparencyDark,
@@ -68,8 +54,6 @@ export default function view(state$: Stream<State>) {
     .compose(debounce(16)) // avoid quick re-renders
     .compose(
       dropRepeatsByKeys([
-        'bluetoothEnabled',
-        'bluetoothLastScanned',
         'lanEnabled',
         'internetEnabled',
         'timestampPeersAndRooms',

@@ -7,7 +7,6 @@ import {Req} from '~frontend/drivers/ssb';
 import {StagedPeerKV} from '~frontend/ssb/types';
 
 export interface Actions {
-  bluetoothSearch$: Stream<any>;
   connectPeer$: Stream<StagedPeerKV>;
   disconnectPeer$: Stream<string>;
   disconnectForgetPeer$: Stream<string>;
@@ -33,9 +32,5 @@ export default function ssb(actions: Actions) {
     actions.forgetPeer$.map(
       (address) => ({type: 'conn.forget', address} as Req),
     ),
-    actions.bluetoothSearch$.mapTo({
-      type: 'bluetooth.search',
-      interval: 20e3,
-    } as Req),
   );
 }

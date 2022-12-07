@@ -106,26 +106,13 @@
     "connections": {
       "title": "Mange måder at oprette forbindelse på",
       "description": {
-        "ios": {
-          "1_normal": "Hvis du vil forbinde med venner i nærheden og synkronisere indholdet, kan du oprette forbindelse til samme ",
-          "2_bold": "Wi-fi",
-          "3_normal": "For at finde nye mennesker på internettet, skal du søge efter en invitationskode til en ",
-          "4_bold": "pubserver",
-          "5_normal": " eller en ",
-          "6_bold": "room server",
-          "7_normal": ", eller starte din egen server!"
-        },
-        "default": {
-          "1_normal": "For at oprette forbindelse til venner i nærheden og synkronisere indhold, kan du enten: Deltage i samme ",
-          "2_bold": "Wi-fi",
-          "3_normal": ", or use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pubserver",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
-        }
+        "1_normal": "Hvis du vil forbinde med venner i nærheden og synkronisere indholdet, kan du oprette forbindelse til samme ",
+        "2_bold": "Wi-fi",
+        "3_normal": "For at finde nye mennesker på internettet, skal du søge efter en invitationskode til en ",
+        "4_bold": "pubserver",
+        "5_normal": " eller en ",
+        "6_bold": "room server",
+        "7_normal": ", eller starte din egen server!"
       }
     },
     "moderation": {

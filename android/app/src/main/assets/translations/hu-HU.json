@@ -106,26 +106,13 @@
     "connections": {
       "title": "Többféleképpen csatlakozhatsz",
       "description": {
-        "ios": {
-          "1_normal": "Ha a barátaiddal szeretnél kapcsolódni és tartalmat megosztani csatlakozzatok ugyanarra a ",
-          "2_bold": "Wi-Fi hálózatra",
-          "3_normal": ". Ha új embereket szeretnél találni az Interneten, keress meghívó-kódokat ",
-          "4_bold": "pub szerverekhez",
-          "5_normal": " vagy ",
-          "6_bold": "szoba-szerverekhez",
-          "7_normal": ", vagy hozz létre saját szervert!"
-        },
-        "default": {
-          "1_normal": "Ha a barátaiddal szeretnél kapcsolódni és tartalmat megosztani: csatlakozzatok ugyanarra a ",
-          "2_bold": "Wi-Fi hálózatra",
-          "3_normal": ", vagy használjátok a ",
-          "4_bold": "Bluetooth szinkronizálást",
-          "5_normal": ". Ha új embereket szeretnél találni az Interneten, keress meghívó-kódokat ",
-          "6_bold": "pub szerverekhez",
-          "7_normal": " vagy ",
-          "8_bold": "szoba-szerverekhez",
-          "9_normal": ", vagy hozz létre saját szervert!"
-        }
+        "1_normal": "Ha a barátaiddal szeretnél kapcsolódni és tartalmat megosztani csatlakozzatok ugyanarra a ",
+        "2_bold": "Wi-Fi hálózatra",
+        "3_normal": ". Ha új embereket szeretnél találni az Interneten, keress meghívó-kódokat ",
+        "4_bold": "pub szerverekhez",
+        "5_normal": " vagy ",
+        "6_bold": "szoba-szerverekhez",
+        "7_normal": ", vagy hozz létre saját szervert!"
       }
     },
     "moderation": {

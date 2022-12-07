@@ -106,26 +106,13 @@
     "connections": {
       "title": "Veel manieren om verbinding te maken",
       "description": {
-        "ios": {
-          "1_normal": "Om te verbinden met vrienden en inhoud te synchroniseren, kunt u neem deel aan dezelfde ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". Om nieuwe mensen op het internet te vinden, zoek je naar een uitnodigingscode voor een ",
-          "4_bold": "pubserver",
-          "5_normal": " of een ",
-          "6_bold": "roomserver",
-          "7_normal": ", of start je eigen server!"
-        },
-        "default": {
-          "1_normal": "Om te verbinden met vrienden en inhoud te synchroniseren, kunt u: neem deel aan dezelfde ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", of gebruik ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ". Om nieuwe mensen op het internet te vinden, zoek je naar een uitnodigingscode voor een ",
-          "6_bold": "pubserver",
-          "7_normal": " of een ",
-          "8_bold": "roomserver",
-          "9_normal": ", of start je eigen server!"
-        }
+        "1_normal": "Om te verbinden met vrienden en inhoud te synchroniseren, kunt u neem deel aan dezelfde ",
+        "2_bold": "Wi-Fi",
+        "3_normal": ". Om nieuwe mensen op het internet te vinden, zoek je naar een uitnodigingscode voor een ",
+        "4_bold": "pubserver",
+        "5_normal": " of een ",
+        "6_bold": "roomserver",
+        "7_normal": ", of start je eigen server!"
       }
     },
     "moderation": {

@@ -7,7 +7,6 @@ import dropRepeats from 'xstream/extra/dropRepeats';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import xsFromCallback from 'xstream-from-callback';
 import xsFromPullStream from 'xstream-from-pull-stream';
-import {Platform} from 'react-native';
 import runAsync = require('promisify-tuple');
 import {Readable, Callback} from 'pull-stream';
 const multicb = require('multicb');
@@ -95,7 +94,6 @@ export class SSBSource {
   public consumeAliasResponse$: Stream<FeedId | false>;
   public peers$: Stream<Array<PeerKV>>;
   public stagedPeers$: Stream<Array<StagedPeerKV>>;
-  public bluetoothScanState$: Stream<any>;
   public hashtagsSubscribed$: Stream<Array<string>>;
 
   constructor(ssb$: MemoryStream<SSBClient | null>) {
@@ -201,13 +199,6 @@ export class SSBSource {
     this.stagedPeers$ = this.fromPullStream<Array<StagedPeerKV>>((ssb) =>
       isReady(ssb) ? ssb.connUtils.stagedPeers() : pull.values([[]]),
     ).remember();
-
-    this.bluetoothScanState$ =
-      Platform.OS === 'ios' // TODO: remove this, because the backend checks too
-        ? xs.empty()
-        : this.fromPullStream((ssb) =>
-            isReady(ssb) ? ssb.bluetooth.bluetoothScanState() : pull.empty(),
-          );
   }
 
   private fromPullStream<T>(
@@ -730,11 +721,6 @@ export interface AcceptInviteReq {
       };
 }
 
-export interface SearchBluetoothReq {
-  type: 'bluetooth.search';
-  interval: number;
-}
-
 export interface ReplicationSchedulerStartReq {
   type: 'replicationScheduler.start';
 }
@@ -858,7 +844,6 @@ export type Req =
   | PublishReq
   | PublishAboutReq
   | AcceptInviteReq
-  | SearchBluetoothReq
   | ReplicationSchedulerStartReq
   | SuggestStartReq
   | FriendsPurgeStartReq
@@ -1087,15 +1072,6 @@ async function consumeSink(
         ssb.resyncUtils.enableFirewall((err: any) => {
           if (err) return console.error(err.message || err);
         });
-        return;
-      }
-
-      if (req.type === 'bluetooth.search') {
-        if (Platform.OS !== 'ios') {
-          ssb.bluetooth.makeDeviceDiscoverable(req.interval, (err: any) => {
-            if (err) return console.error(err.message || err);
-          });
-        }
         return;
       }
 

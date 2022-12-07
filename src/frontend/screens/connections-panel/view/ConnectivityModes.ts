@@ -9,7 +9,6 @@ import {
   Animated,
   Easing,
   ActivityIndicator,
-  Platform,
 } from 'react-native';
 import {h} from '@cycle/react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -90,46 +89,19 @@ function ConnectivityMode(props: {
 }
 
 export default class ConnectivityModes extends Component<
-  Pick<
-    State,
-    | 'bluetoothEnabled'
-    | 'bluetoothLastScanned'
-    | 'lanEnabled'
-    | 'internetEnabled'
-  >
+  Pick<State, 'lanEnabled' | 'internetEnabled'>
 > {
   public shouldComponentUpdate(nextProps: ConnectivityModes['props']) {
     const prevProps = this.props;
     if (nextProps.lanEnabled !== prevProps.lanEnabled) return true;
     if (nextProps.internetEnabled !== prevProps.internetEnabled) return true;
-    if (nextProps.bluetoothEnabled !== prevProps.bluetoothEnabled) return true;
-    if (nextProps.bluetoothLastScanned !== prevProps.bluetoothLastScanned) {
-      return true;
-    }
     return false;
   }
 
   public render() {
-    const {
-      bluetoothEnabled,
-      bluetoothLastScanned,
-      lanEnabled,
-      internetEnabled,
-    } = this.props;
+    const {lanEnabled, internetEnabled} = this.props;
 
     return h(View, {style: styles.modesContainer}, [
-      Platform.OS === 'ios'
-        ? null
-        : h(ConnectivityMode, {
-            sel: 'bluetooth-mode',
-            active: bluetoothEnabled,
-            icon: IconNames.peerBluetooth,
-            accessibilityLabel: t(
-              'connections.modes.bluetooth.accessibility_label',
-            ),
-            lastScanned: bluetoothLastScanned,
-          }),
-
       h(ConnectivityMode, {
         sel: 'lan-mode',
         active: lanEnabled,

@@ -138,12 +138,6 @@ export default {
     thread: 'source',
     threadUpdates: 'source',
   },
-  bluetooth: {
-    nearbyScuttlebuttDevices: 'source',
-    bluetoothScanState: 'source',
-    makeDeviceDiscoverable: 'async',
-    isEnabled: 'async',
-  },
   conn: {
     remember: 'sync',
     forget: 'sync',

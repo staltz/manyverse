@@ -106,26 +106,13 @@
     "connections": {
       "title": "Mange måter å koble til",
       "description": {
-        "ios": {
-          "1_normal": "For å koble til venner i nærheten og synke innhold, kan du koble til det samme ",
-          "2_bold": "Wi-Fi-nettverket",
-          "3_normal": ". For å finne andre mennesker på internett, se etter en invitasjonskode til en ",
-          "4_bold": "pub-server",
-          "5_normal": " eller en ",
-          "6_bold": "rom-server",
-          "7_normal": ", eller start din egen server!"
-        },
-        "default": {
-          "1_normal": "For å koble til venner i nærheten og synke innhold, kan du enten: koble til samme ",
-          "2_bold": "Wi-Fi-nettverk",
-          "3_normal": ", eller bruke ",
-          "4_bold": "Bluetooth-synk",
-          "5_normal": ". For å finne andre mennesker på internett, se etter en invitasjonskode til en ",
-          "6_bold": "pub-server",
-          "7_normal": " eller en ",
-          "8_bold": "rom-server",
-          "9_normal": ", eller start din egen server!"
-        }
+        "1_normal": "For å koble til venner i nærheten og synke innhold, kan du koble til det samme ",
+        "2_bold": "Wi-Fi-nettverket",
+        "3_normal": ". For å finne andre mennesker på internett, se etter en invitasjonskode til en ",
+        "4_bold": "pub-server",
+        "5_normal": " eller en ",
+        "6_bold": "rom-server",
+        "7_normal": ", eller start din egen server!"
       }
     },
     "moderation": {

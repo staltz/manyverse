@@ -163,41 +163,21 @@ function connectionsSlide(state: State) {
     image: getImg(require('~images/noun-fish.png')),
     portraitMode: state.isPortraitMode,
     title: t('welcome.connections.title'),
-    renderDescription: () =>
-      Platform.select({
-        ios: [
-          t('welcome.connections.description.ios.1_normal'),
-          bold(t('welcome.connections.description.ios.2_bold')),
-          t('welcome.connections.description.ios.3_normal'),
-          bold(t('welcome.connections.description.ios.4_bold')),
-          t('welcome.connections.description.ios.5_normal'),
-          bold(t('welcome.connections.description.ios.6_bold')),
-          t('welcome.connections.description.ios.7_normal'),
-          ' ',
-          h(
-            Text,
-            {sel: 'learn-more-connections', style: styles.link},
-            t('welcome.learn_more'),
-          ),
-        ],
-        default: [
-          t('welcome.connections.description.default.1_normal'),
-          bold(t('welcome.connections.description.default.2_bold')),
-          t('welcome.connections.description.default.3_normal'),
-          bold(t('welcome.connections.description.default.4_bold')),
-          t('welcome.connections.description.default.5_normal'),
-          bold(t('welcome.connections.description.default.6_bold')),
-          t('welcome.connections.description.default.7_normal'),
-          bold(t('welcome.connections.description.default.8_bold')),
-          t('welcome.connections.description.default.9_normal'),
-          ' ',
-          h(
-            Text,
-            {sel: 'learn-more-connections', style: styles.link},
-            t('welcome.learn_more'),
-          ),
-        ],
-      }),
+    renderDescription: () => [
+      t('welcome.connections.description.1_normal'),
+      bold(t('welcome.connections.description.2_bold')),
+      t('welcome.connections.description.3_normal'),
+      bold(t('welcome.connections.description.4_bold')),
+      t('welcome.connections.description.5_normal'),
+      bold(t('welcome.connections.description.6_bold')),
+      t('welcome.connections.description.7_normal'),
+      ' ',
+      h(
+        Text,
+        {sel: 'learn-more-connections', style: styles.link},
+        t('welcome.learn_more'),
+      ),
+    ],
     renderBottom: () =>
       h(Button, {
         sel: 'connections-continue',

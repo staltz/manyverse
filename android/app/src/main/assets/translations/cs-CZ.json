@@ -106,26 +106,13 @@
     "connections": {
       "title": "Mnoho způsobů připojení",
       "description": {
-        "ios": {
-          "1_normal": "Chcete-li se spojit s přáteli v okolí a synchronizovat obsah, můžete se připojit ke stejné ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". Chcete-li najít nové lidi na internetu, vyhledejte kód pozvánky na ",
-          "4_bold": "veřejný server",
-          "5_normal": " nebo ",
-          "6_bold": "skupinový server",
-          "7_normal": " nebo spusťte svůj vlastní server!"
-        },
-        "default": {
-          "1_normal": "Chcete-li se spojit s přáteli v okolí a synchronizovat obsah, můžete se připojit ke stejné ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", nebo použít ",
-          "4_bold": "synchronizaci přes Bluetooth",
-          "5_normal": ". Chcete-li najít nové lidi na internetu, vyhledejte kód pozvánky na ",
-          "6_bold": "veřejném serveru",
-          "7_normal": " nebo ",
-          "8_bold": "skupinovém serveru",
-          "9_normal": ", nebo spusťte svůj vlastní server!"
-        }
+        "1_normal": "Chcete-li se spojit s přáteli v okolí a synchronizovat obsah, můžete se připojit ke stejné ",
+        "2_bold": "Wi-Fi",
+        "3_normal": ". Chcete-li najít nové lidi na internetu, vyhledejte kód pozvánky na ",
+        "4_bold": "veřejný server",
+        "5_normal": " nebo ",
+        "6_bold": "skupinový server",
+        "7_normal": " nebo spusťte svůj vlastní server!"
       }
     },
     "moderation": {

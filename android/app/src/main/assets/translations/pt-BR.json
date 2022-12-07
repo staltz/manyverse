@@ -106,26 +106,13 @@
     "connections": {
       "title": "Muitas formas de conexão",
       "description": {
-        "ios": {
-          "1_normal": "Para conectar com amigos por perto e sincronizar conteúdo, você pode usar o mesmo ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". Para encontrar novas pessoas na Internet, procure um código de convite para um ",
-          "4_bold": "servidor pub",
-          "5_normal": " ou um ",
-          "6_bold": "servidor 'sala'",
-          "7_normal": ", ou crie o seu próprio servidor!"
-        },
-        "default": {
-          "1_normal": "Para conectar com amigos e sincronizar conteúdo, você pode: usar o mesmo ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", ou usar ",
-          "4_bold": "sincronização Bluetooth",
-          "5_normal": ". Para encontrar novas pessoas na Internet, procure um código de convite para um ",
-          "6_bold": "servidor pub",
-          "7_normal": " ou um ",
-          "8_bold": "servidor 'sala'",
-          "9_normal": ", ou crie o seu próprio servidor!"
-        }
+        "1_normal": "Para conectar com amigos por perto e sincronizar conteúdo, você pode usar o mesmo ",
+        "2_bold": "Wi-Fi",
+        "3_normal": ". Para encontrar novas pessoas na Internet, procure um código de convite para um ",
+        "4_bold": "servidor pub",
+        "5_normal": " ou um ",
+        "6_bold": "servidor 'sala'",
+        "7_normal": ", ou crie o seu próprio servidor!"
       }
     },
     "moderation": {

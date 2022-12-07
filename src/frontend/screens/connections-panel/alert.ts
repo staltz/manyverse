@@ -9,7 +9,6 @@ import {Palette} from '~frontend/global-styles/palette';
 import {State} from './model';
 
 export interface Actions {
-  showBluetoothHelp$: Stream<any>;
   showLANHelp$: Stream<any>;
   showPubHelp$: Stream<any>;
 }
@@ -21,21 +20,6 @@ export default function alert(
   return state$
     .map((state) =>
       xs.merge(
-        actions.showBluetoothHelp$.mapTo({
-          type: 'alert' as const,
-          title: t('connections.modes.bluetooth.title'),
-          content:
-            (state.bluetoothEnabled
-              ? t('connections.modes.generic.enabled')
-              : t('connections.modes.bluetooth.disabled')) +
-            '\n\n' +
-            t('connections.modes.bluetooth.description'),
-          options: {
-            ...Palette.dialogColors,
-            positiveColor: Palette.textDialogStrong,
-            positiveText: t('call_to_action.ok'),
-          },
-        }),
         actions.showLANHelp$.mapTo({
           type: 'alert' as const,
           title: t('connections.modes.wifi.title'),

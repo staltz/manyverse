@@ -7,11 +7,9 @@ import sample from 'xstream-sample';
 import concat from 'xstream/extra/concat';
 import {ReactSource} from '@cycle/react';
 import {FeedId} from 'ssb-typescript';
-import {PermissionsAndroid} from 'react-native';
 import {NavSource} from 'cycle-native-navigation';
 const roomUtils = require('ssb-room-client/utils');
 import {StagedPeerKV, PeerKV} from '~frontend/ssb/types';
-import {t} from '~frontend/drivers/localization';
 import {State} from './model';
 import {MenuChoice} from './connDialogs';
 
@@ -36,8 +34,6 @@ export default function intent(
       xs.periodic(2000).take(2),
       xs.periodic(6000),
     ),
-
-    showBluetoothHelp$: reactSource.select('bluetooth-mode').events('press'),
 
     showLANHelp$: reactSource.select('lan-mode').events('press'),
 
@@ -120,25 +116,6 @@ export default function intent(
     //#region FAB actions
 
     goToPasteInvite$: fabPress$.filter((action) => action === 'invite-paste'),
-
-    bluetoothSearch$: fabPress$
-      .filter((action) => action === 'bluetooth-search')
-      .map(() =>
-        xs.fromPromise(
-          PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-            {
-              title: t('connections.modes.bluetooth.permission_request.title'),
-              message: t(
-                'connections.modes.bluetooth.permission_request.message',
-              ),
-              buttonPositive: t('call_to_action.yes'),
-              buttonNegative: t('call_to_action.no'),
-            },
-          ),
-        ),
-      )
-      .flatten(),
 
     //#endregion
   };

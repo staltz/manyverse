@@ -106,26 +106,13 @@
     "connections": {
       "title": "Tanti modi per connettersi",
       "description": {
-        "ios": {
-          "1_normal": "Per connetterti con gli amici e sincronizzare i contenuti, potete unirvi allo stesso ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". Per trovare nuove persone su internet, cerca un codice di invito su un ",
-          "4_bold": "pub server",
-          "5_normal": " o su un ",
-          "6_bold": "room server",
-          "7_normal": ", o avvia il tuo server!"
-        },
-        "default": {
-          "1_normal": "Per connetterti con gli amici e sincronizzare i contenuti, potete: unirvi allo stesso ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", o usare ",
-          "4_bold": "la sincronizzazione Bluetooth",
-          "5_normal": ". Per trovare nuove persone su internet, cerca un codice di invito su un ",
-          "6_bold": "pub server",
-          "7_normal": " o su un ",
-          "8_bold": "room server",
-          "9_normal": ", o avvia il tuo server!"
-        }
+        "1_normal": "Per connetterti con gli amici e sincronizzare i contenuti, potete unirvi allo stesso ",
+        "2_bold": "Wi-Fi",
+        "3_normal": ". Per trovare nuove persone su internet, cerca un codice di invito su un ",
+        "4_bold": "pub server",
+        "5_normal": " o su un ",
+        "6_bold": "room server",
+        "7_normal": ", o avvia il tuo server!"
       }
     },
     "moderation": {

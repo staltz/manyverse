@@ -106,26 +106,13 @@
     "connections": {
       "title": "Plusieurs façons de se connecter",
       "description": {
-        "ios": {
-          "1_normal": "Pour vous connecter avec vos amis et synchroniser le contenu, vous pouvez soit rejoindre le même réseau local ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". Pour trouver de nouvelles personnes sur l'internet, cherchez un code d'invitation pour un ",
-          "4_bold": "serveur de type Pub (forum)",
-          "5_normal": " ou un ",
-          "6_bold": "serveur de type Room (salon)",
-          "7_normal": ", ou démarrez votre propre serveur !"
-        },
-        "default": {
-          "1_normal": "Pour vous connecter avec vos amis et synchroniser le contenu, vous pouvez soit : rejoindre le même réseau local ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", ou utiliser ",
-          "4_bold": "la synchronisation Bluetooth",
-          "5_normal": ". Pour trouver de nouvelles personnes sur l'internet, cherchez un code d'invitation pour un ",
-          "6_bold": "serveur de type Pub (forum)",
-          "7_normal": " ou un ",
-          "8_bold": "serveur de type Room (salon)",
-          "9_normal": ", ou démarrez votre propre serveur !"
-        }
+        "1_normal": "Pour vous connecter avec vos amis et synchroniser le contenu, vous pouvez soit rejoindre le même réseau local ",
+        "2_bold": "Wi-Fi",
+        "3_normal": ". Pour trouver de nouvelles personnes sur l'internet, cherchez un code d'invitation pour un ",
+        "4_bold": "serveur de type Pub (forum)",
+        "5_normal": " ou un ",
+        "6_bold": "serveur de type Room (salon)",
+        "7_normal": ", ou démarrez votre propre serveur !"
       }
     },
     "moderation": {

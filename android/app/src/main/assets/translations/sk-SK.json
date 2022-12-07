@@ -106,26 +106,13 @@
     "connections": {
       "title": "Veľa spôsobov, ako sa spojiť",
       "description": {
-        "ios": {
-          "1_normal": "Aby ste sa spojili s priateľmi a zosynchronizovali si obsah, môžete sa napojiť na tú istú ",
-          "2_bold": "Wi-Fi sieť",
-          "3_normal": ". Aby ste našli nových ľudí na internete, použite pozývací kód k ",
-          "4_bold": "pub serveru",
-          "5_normal": " alebo k ",
-          "6_bold": "serveru miestnosti",
-          "7_normal": ", alebo si založte váš vlastný server!"
-        },
-        "default": {
-          "1_normal": "Aby ste sa spojili s priateľmi a zosynchronizovali si obsah, môžete: sa napojiť na tú istú ",
-          "2_bold": "Wi-Fi sieť",
-          "3_normal": ", alebo použiť ",
-          "4_bold": "Bluetooth synchronizáciu",
-          "5_normal": ". Aby ste našli nových ľudí na internete, použite pozývací kód k ",
-          "6_bold": "pub serveru",
-          "7_normal": " alebo k ",
-          "8_bold": "serveru miestnosti",
-          "9_normal": ", alebo si založte váš vlastný server!"
-        }
+        "1_normal": "Aby ste sa spojili s priateľmi a zosynchronizovali si obsah, môžete sa napojiť na tú istú ",
+        "2_bold": "Wi-Fi sieť",
+        "3_normal": ". Aby ste našli nových ľudí na internete, použite pozývací kód k ",
+        "4_bold": "pub serveru",
+        "5_normal": " alebo k ",
+        "6_bold": "serveru miestnosti",
+        "7_normal": ", alebo si založte váš vlastný server!"
       }
     },
     "moderation": {

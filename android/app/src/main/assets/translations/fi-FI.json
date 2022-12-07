@@ -106,26 +106,13 @@
     "connections": {
       "title": "Monta tapaa yhdistää",
       "description": {
-        "ios": {
-          "1_normal": "Yhdistääksesi lähellä oleviin ystäviisi ja päivittääksesi sisällön, voit yhdistää samaan ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". Löytääksesi uusia ihmisiä internetistä, etsi kutsukoodi osoitteeseen ",
-          "4_bold": "pub -palvelin",
-          "5_normal": " tai ",
-          "6_bold": "huonepalvelin",
-          "7_normal": ", tai aloita oma palvelin!"
-        },
-        "default": {
-          "1_normal": "Yhdistääksesi lähellä oleviin ystäviisi ja päivittääksesi sisällön, voit joko: yhdistää samaan ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", tai käyttää ",
-          "4_bold": "Bluetooth synkronointia",
-          "5_normal": ". Löytääksesi uusia ihmisiä internetistä, etsi kutsukoodi ",
-          "6_bold": "pub -palvelin",
-          "7_normal": " tai ",
-          "8_bold": "huonepalvelin",
-          "9_normal": ", tai aloita oma palvelin!"
-        }
+        "1_normal": "Yhdistääksesi lähellä oleviin ystäviisi ja päivittääksesi sisällön, voit yhdistää samaan ",
+        "2_bold": "Wi-Fi",
+        "3_normal": ". Löytääksesi uusia ihmisiä internetistä, etsi kutsukoodi osoitteeseen ",
+        "4_bold": "pub -palvelin",
+        "5_normal": " tai ",
+        "6_bold": "huonepalvelin",
+        "7_normal": ", tai aloita oma palvelin!"
       }
     },
     "moderation": {

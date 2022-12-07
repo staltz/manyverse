@@ -106,26 +106,13 @@
     "connections": {
       "title": "Multaj manieroj konekti",
       "description": {
-        "ios": {
-          "1_normal": "Por konektiĝi kun proksimaj amikoj kaj sinkronigi enhavon, vi povas konektiĝi al la sama ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". Por trovi novajn homojn en la interreto, serĉu invitkodon al ",
-          "4_bold": "pubservilo",
-          "5_normal": " aŭ ",
-          "6_bold": "ĉambroservilo",
-          "7_normal": ", aŭ komencu vian propran servilon!"
-        },
-        "default": {
-          "1_normal": "Por konektiĝi kun proksimaj amikoj kaj sinkronigi enhavon, vi povas aŭ: aliĝi al la sama ",
-          "2_bold": "Wi-Fi",
-          "3_normal": " aŭ uzi ",
-          "4_bold": "Bluetooth-sinkronigon",
-          "5_normal": ". Por trovi novajn homojn en la interreto, serĉu invitkodon al ",
-          "6_bold": "pub-servilo",
-          "7_normal": " aŭ ",
-          "8_bold": "ĉambroservilo",
-          "9_normal": ", aŭ komencu vian propran servilon!"
-        }
+        "1_normal": "Por konektiĝi kun proksimaj amikoj kaj sinkronigi enhavon, vi povas konektiĝi al la sama ",
+        "2_bold": "Wi-Fi",
+        "3_normal": ". Por trovi novajn homojn en la interreto, serĉu invitkodon al ",
+        "4_bold": "pubservilo",
+        "5_normal": " aŭ ",
+        "6_bold": "ĉambroservilo",
+        "7_normal": ", aŭ komencu vian propran servilon!"
       }
     },
     "moderation": {

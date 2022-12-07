@@ -7,7 +7,6 @@ import sample from 'xstream-sample';
 import concat from 'xstream/extra/concat';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
-import {Platform} from 'react-native';
 import {SSBSource} from '~frontend/drivers/ssb';
 import {State as AppState} from '~frontend/drivers/appstate';
 import {PeerKV, StagedPeerKV} from '~frontend/ssb/types';
@@ -17,7 +16,6 @@ import {Props} from './props';
 export interface State {
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
-  bluetoothEnabled: boolean;
   lanEnabled: boolean;
   internetEnabled: boolean;
   peers: Array<PeerKV>;
@@ -26,7 +24,6 @@ export interface State {
   timestampPeersAndRooms: number;
   timestampStagedPeers: number;
   timestampPeerStates: number;
-  bluetoothLastScanned: number;
   itemMenu: {
     opened: boolean;
     type: 'conn' | 'invite' | 'staging' | 'room' | 'staged-room';
@@ -92,10 +89,8 @@ export default function model(
           peers: props.peers,
           rooms: props.rooms,
           stagedPeers: props.stagedPeers,
-          bluetoothEnabled: false,
           lanEnabled: true,
           internetEnabled: true,
-          bluetoothLastScanned: 0,
           timestampPeersAndRooms: 0,
           timestampStagedPeers: 0,
           timestampPeerStates: 0,
@@ -103,19 +98,6 @@ export default function model(
         };
       },
   );
-
-  const updateBluetoothEnabled$ =
-    Platform.OS === 'ios'
-      ? xs.empty()
-      : actions.pingConnectivityModes$
-          .map(() => networkSource.bluetoothIsEnabled())
-          .flatten()
-          .map(
-            (bluetoothEnabled) =>
-              function updateBluetoothEnabled(prev: State): State {
-                return {...prev, bluetoothEnabled};
-              },
-          );
 
   const updateLanEnabled$ = actions.pingConnectivityModes$
     .map(() => networkSource.wifiIsEnabled())
@@ -136,13 +118,6 @@ export default function model(
           return {...prev, internetEnabled};
         },
     );
-
-  const updateBluetoothLastScanned$ = ssbSource.bluetoothScanState$.map(
-    (_scanState: string) =>
-      function setBluetoothScanState(prev: State): State {
-        return {...prev, bluetoothLastScanned: Date.now()};
-      },
-  );
 
   const updateConnectionStateReducer$ = onlyWhileAppIsInForeground(
     appstate$,
@@ -297,10 +272,8 @@ export default function model(
   return concat(
     propsReducer$,
     xs.merge(
-      updateBluetoothEnabled$,
       updateLanEnabled$,
       updateInternetEnabled$,
-      updateBluetoothLastScanned$,
       updateConnectionStateReducer$,
       setPeersReducer$,
       setStagedPeersReducer$,

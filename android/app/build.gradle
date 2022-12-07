@@ -275,7 +275,6 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation project(':nodejs-mobile-react-native')
     implementation project(':@react-native-async-storage')
-    implementation project(':react-native-bluetooth-socket-bridge')
     implementation project(':react-native-dialogs')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-os-staltz')

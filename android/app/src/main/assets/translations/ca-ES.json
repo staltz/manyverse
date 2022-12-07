@@ -106,26 +106,13 @@
     "connections": {
       "title": "Moltes maneres de connectar",
       "description": {
-        "ios": {
-          "1_normal": "Per connectar amb les teves amistats i sincronitzar continguts pots connectar-te al mateix ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". Per a trobar noves persones a Internet, busca codis d'invitació en ",
-          "4_bold": "servidors públics",
-          "5_normal": " o en ",
-          "6_bold": "servidors d'habitacions",
-          "7_normal": ", o engega el teu propi servidor!"
-        },
-        "default": {
-          "1_normal": "Per connectar amb les teves amistats i sincronitzar continguts pots: connectar-te al mateix ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", o utilitza ",
-          "4_bold": "sincronització per Bluetooth",
-          "5_normal": ". Per a trobar noves persones a Internet, busca codis d'invitació en ",
-          "6_bold": "servidors públics",
-          "7_normal": " o en ",
-          "8_bold": "servidors d'habitacions",
-          "9_normal": ", o engega el teu propi servidor!"
-        }
+        "1_normal": "Per connectar amb les teves amistats i sincronitzar continguts pots connectar-te al mateix ",
+        "2_bold": "Wi-Fi",
+        "3_normal": ". Per a trobar noves persones a Internet, busca codis d'invitació en ",
+        "4_bold": "servidors públics",
+        "5_normal": " o en ",
+        "6_bold": "servidors d'habitacions",
+        "7_normal": ", o engega el teu propi servidor!"
       }
     },
     "moderation": {

@@ -18,8 +18,6 @@ import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
-import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgeConfiguration;
-import com.scuttlebutt.bluetoothbridge.BluetoothSocketBridgePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
 
@@ -96,14 +94,8 @@ public class MainApplication extends NavigationApplication {
         ArrayList<ReactPackage> packages = new PackageList(this).getPackages();
         String socketDir = MainApplication.this.getApplicationInfo().dataDir + "/files";
 
-        UUID uuid = UUID.fromString("b0b2e90d-0cda-4bb0-8e4b-fb165cd17d48");
-
-        BluetoothSocketBridgeConfiguration bluetoothConfig = new BluetoothSocketBridgeConfiguration(socketDir,
-          "manyverse_bt_incoming.sock", "manyverse_bt_outgoing.sock", "manyverse_bt_control.sock", "scuttlebutt", uuid);
-
         packages.add(new BuildConfigPackage());
         packages.add(new AsyncStoragePackage());
-        packages.add(new BluetoothSocketBridgePackage(bluetoothConfig));
         packages.add(new RNNodeJsMobilePackage());
         packages.add(new RNOSModule());
         packages.add(new ReactSliderPackage());

@@ -138,11 +138,6 @@ async function runAndReport(label, task) {
       sortBy(backendLibraries.concat(frontendLibraries), 'name'),
       (x) => x.name,
     ).map((x) => {
-      // Patch some packages that are missing the homepage
-      if (x.name === 'react-native-bluetooth-socket-bridge') {
-        x.homepage =
-          'https://github.com/Happy0/react-native-bluetooth-socket-bridge/';
-      }
       return {
         name: x.name,
         type: 'library',

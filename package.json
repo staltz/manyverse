@@ -116,7 +116,6 @@
     "react-dom": "17.0.2",
     "react-markdown": "4.0.2",
     "react-native": "0.66.5",
-    "react-native-bluetooth-socket-bridge": "1.2.0",
     "react-native-blurhash": "1.1.8",
     "react-native-dialogs": "1.1.1",
     "react-native-emoji-modal": "0.2.2",

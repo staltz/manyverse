@@ -12,15 +12,9 @@ import {State} from '../../model';
 import {styles} from '../styles';
 import ListOfPeers from './ListOfPeers';
 
-function recentlyScanned(timestamp: number) {
-  return timestamp > 0 && Date.now() - timestamp < 15e3;
-}
-
 export default class Body extends Component<
   Pick<
     State,
-    | 'bluetoothEnabled'
-    | 'bluetoothLastScanned'
     | 'lanEnabled'
     | 'internetEnabled'
     | 'timestampPeersAndRooms'
@@ -43,10 +37,6 @@ export default class Body extends Component<
 
   public shouldComponentUpdate(nextProps: Body['props']) {
     const prevProps = this.props;
-    if (nextProps.bluetoothEnabled !== prevProps.bluetoothEnabled) return true;
-    if (nextProps.bluetoothLastScanned !== prevProps.bluetoothLastScanned) {
-      return true;
-    }
     if (nextProps.lanEnabled !== prevProps.lanEnabled) return true;
     if (nextProps.internetEnabled !== prevProps.internetEnabled) return true;
     if (nextProps.timestampPeersAndRooms > this.timestampLatestRender) {
@@ -89,8 +79,8 @@ export default class Body extends Component<
   }
 
   private anyModeEnabled(props: Body['props'] = this.props) {
-    const {bluetoothEnabled, lanEnabled, internetEnabled} = props;
-    return bluetoothEnabled || lanEnabled || internetEnabled;
+    const {lanEnabled, internetEnabled} = props;
+    return lanEnabled || internetEnabled;
   }
 
   private hasPeers(props: Body['props'] = this.props) {
@@ -114,23 +104,13 @@ export default class Body extends Component<
         description: t('connections.empty.offline.description'),
       });
     } else if (!this.hasPeers()) {
-      if (recentlyScanned(this.props.bluetoothLastScanned)) {
-        this.latestEmptySection = h(EmptySection, {
-          key: 'es',
-          style: styles.emptySection,
-          image: getImg(require('~images/noun-crops.png')),
-          title: t('connections.empty.connecting.title'),
-          description: t('connections.empty.connecting.description'),
-        });
-      } else {
-        this.latestEmptySection = h(EmptySection, {
-          key: 'es',
-          style: styles.emptySection,
-          image: getImg(require('~images/noun-crops.png')),
-          title: t('connections.empty.no_peers.title'),
-          description: t('connections.empty.no_peers.description'),
-        });
-      }
+      this.latestEmptySection = h(EmptySection, {
+        key: 'es',
+        style: styles.emptySection,
+        image: getImg(require('~images/noun-crops.png')),
+        title: t('connections.empty.no_peers.title'),
+        description: t('connections.empty.no_peers.description'),
+      });
     }
 
     return this.latestEmptySection;

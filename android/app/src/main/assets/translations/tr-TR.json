@@ -106,26 +106,13 @@
     "connections": {
       "title": "Bağlanmanın birçok yolu",
       "description": {
-        "ios": {
-          "1_normal": "Yakınlardaki arkadaşlarınızla bağlanmak ve içerik senkronizasyonu için, aynı... bağlanabilirsiniz ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". İnternette yeni insanlar bulmak için, davetiye kodu bulun ",
-          "4_bold": "pub sunucusu",
-          "5_normal": " veya bir ",
-          "6_bold": "oda sunucusu",
-          "7_normal": "veya kendi sunucunuzu başlatın!"
-        },
-        "default": {
-          "1_normal": "Yakınlardaki arkadaşlarınızla bağlantı kurmak ve içerik senkronize etmek için, aynı... bağlanabilirsiniz ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", ya da ",
-          "4_bold": "Bluetooth senkronizasyonunu kullanabilirsiniz",
-          "5_normal": ". İnternette yeni insanlar bulmak için, davetiye kodu bulun ",
-          "6_bold": "açık sunucu",
-          "7_normal": " veya bir ",
-          "8_bold": "oda sunucusu",
-          "9_normal": "veya kendi sunucunuzu başlatın!"
-        }
+        "1_normal": "Yakınlardaki arkadaşlarınızla bağlanmak ve içerik senkronizasyonu için, aynı... bağlanabilirsiniz ",
+        "2_bold": "Wi-Fi",
+        "3_normal": ". İnternette yeni insanlar bulmak için, davetiye kodu bulun ",
+        "4_bold": "pub sunucusu",
+        "5_normal": " veya bir ",
+        "6_bold": "oda sunucusu",
+        "7_normal": "veya kendi sunucunuzu başlatın!"
       }
     },
     "moderation": {

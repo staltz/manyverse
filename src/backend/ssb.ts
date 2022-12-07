@@ -10,7 +10,6 @@ const ssbKeys = require('ssb-keys');
 const makeConfig = require('ssb-config/inject');
 const SecretStack = require('secret-stack');
 import settingsUtils = require('./plugins/settingsUtils');
-import bluetoothTransport = require('./plugins/bluetooth');
 import oneTimeFixes = require('./one-time-fixes');
 
 export = async function startSSB(isNewIdentity: boolean) {
@@ -70,13 +69,11 @@ export = async function startSSB(isNewIdentity: boolean) {
       incoming: {
         net: [{scope: 'private', transform: 'shs', port: 26831}],
         channel: [{scope: 'device', transform: 'noauth'}],
-        bluetooth: [{scope: 'public', transform: 'shs'}],
         tunnel: [{scope: 'public', transform: 'shs'}],
       },
       outgoing: {
         net: [{transform: 'shs'}],
         ws: [{transform: 'shs'}],
-        bluetooth: [{scope: 'public', transform: 'shs'}],
         tunnel: [{transform: 'shs'}],
       },
     },
@@ -98,8 +95,7 @@ export = async function startSSB(isNewIdentity: boolean) {
     // Connections
     .use(require('./plugins/multiserver-addons'))
     .use(require('ssb-lan'))
-    .use(bluetoothTransport(keys, process.env.APP_DATA_DIR!))
-    .use(require('ssb-conn')) // needs: db2, friends, lan, bluetooth
+    .use(require('ssb-conn')) // needs: db2, friends, lan
     .use(require('ssb-conn-firewall')) // needs: friends
     .use(require('ssb-room-client')) // needs: conn
     .use(require('ssb-http-auth-client')) // needs: conn

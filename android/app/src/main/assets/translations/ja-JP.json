@@ -106,26 +106,13 @@
     "connections": {
       "title": "Many ways to connect",
       "description": {
-        "ios": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ". To find new people on the internet, look for an invite code to a ",
-          "4_bold": "pub server",
-          "5_normal": " or a ",
-          "6_bold": "room server",
-          "7_normal": ", or start your own server!"
-        },
-        "default": {
-          "1_normal": "To connect with friends nearby and synchronize content, you can either: join the same ",
-          "2_bold": "Wi-Fi",
-          "3_normal": ", or use ",
-          "4_bold": "Bluetooth sync",
-          "5_normal": ". To find new people on the internet, look for an invite code to a ",
-          "6_bold": "pub server",
-          "7_normal": " or a ",
-          "8_bold": "room server",
-          "9_normal": ", or start your own server!"
-        }
+        "1_normal": "To connect with friends nearby and synchronize content, you can connect to the same ",
+        "2_bold": "Wi-Fi",
+        "3_normal": ". To find new people on the internet, look for an invite code to a ",
+        "4_bold": "pub server",
+        "5_normal": " or a ",
+        "6_bold": "room server",
+        "7_normal": ", or start your own server!"
       }
     },
     "moderation": {

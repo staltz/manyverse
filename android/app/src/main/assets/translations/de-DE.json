@@ -106,26 +106,13 @@
     "connections": {
       "title": "Viele Verbindungsmöglichkeiten",
       "description": {
-        "ios": {
-          "1_normal": "Um sich mit Freund*innen zu verbinden und Inhalte zu synchronisieren, kannst du im gleichen ",
-          "2_bold": "WLAN",
-          "3_normal": "sein. Um neue Leute im Internet zu finden, schaue nach einem Einladungscode zu einem ",
-          "4_bold": "Pub-Server",
-          "5_normal": " oder einem ",
-          "6_bold": "Raumserver",
-          "7_normal": " oder erstelle deinen eigenen Server!"
-        },
-        "default": {
-          "1_normal": "Um dich mit Freund*innen zu verbinden und Inhalte zu synchronisieren, kannst du entweder im gleichen ",
-          "2_bold": "WLAN beitreten",
-          "3_normal": " sein, oder ",
-          "4_bold": "via Bluetooth synchronisieren",
-          "5_normal": ". Um neue Leute im Internet zu finden, schaue nach einem Einladungscode zu einem ",
-          "6_bold": "Pub-Server",
-          "7_normal": " oder einem ",
-          "8_bold": "Raumserver",
-          "9_normal": " oder erstelle Deinen eigenen Server!"
-        }
+        "1_normal": "Um sich mit Freund*innen zu verbinden und Inhalte zu synchronisieren, kannst du im gleichen ",
+        "2_bold": "WLAN",
+        "3_normal": "sein. Um neue Leute im Internet zu finden, schaue nach einem Einladungscode zu einem ",
+        "4_bold": "Pub-Server",
+        "5_normal": " oder einem ",
+        "6_bold": "Raumserver",
+        "7_normal": " oder erstelle deinen eigenen Server!"
       }
     },
     "moderation": {
