@@ -2,6 +2,15 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2212.8-beta
+
+* (Android) Bug fix: crash when pressing back button twice ([see details](https://gitlab.com/staltz/manyverse/commit/a90949d08c76c64d5b31388f281b824f7d166174))
+* (Android) Bug fix: remove bluetooth features to fix crash ([see details](https://gitlab.com/staltz/manyverse/commit/f9e07128574ea2b328ec5ecf8b3ff231b477969e))
+* (Desktop) Improve images for HiDPI screens ([see details](https://gitlab.com/staltz/manyverse/commit/91b58257548e4727689e0a0df18c5987248be54e))
+* Avoid flashing of wrong follow button on profiles ([see details](https://gitlab.com/staltz/manyverse/commit/e5b3d040c3e28013b85398edfcee779fb0aa162f))
+* Bug fix: crash on search with parentheses ([see details](https://gitlab.com/staltz/manyverse/commit/278b05598d6ab1e97474c991c329dffcd2afc186))
+* Improve speed of hashtag search results ([see details](https://gitlab.com/staltz/manyverse/commit/ea79ba7ff17da1e097eca60c091a452954cfe2f9))
+
 ## 0.2212.5-beta
 
 * (Desktop) Bug fix: closed process should not hang ([see details](https://gitlab.com/staltz/manyverse/commit/3af0902efb08b765382389b2a2459f66ea1f31c7))

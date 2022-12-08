@@ -303,7 +303,7 @@ export default [
   {
     name: 'cycle-native-navigation',
     type: 'library',
-    version: '8.2.1',
+    version: '8.2.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/cycle-native-navigation',
   },
@@ -558,13 +558,6 @@ export default [
     version: '0.66.5',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/facebook/react-native#readme',
-  },
-  {
-    name: 'react-native-bluetooth-socket-bridge',
-    type: 'library',
-    version: '1.2.0',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/Happy0/react-native-bluetooth-socket-bridge/',
   },
   {
     name: 'react-native-blurhash',
@@ -836,13 +829,6 @@ export default [
     homepage: 'https://github.com/staltz/ssb-blobs-purge',
   },
   {
-    name: 'ssb-bluetooth',
-    type: 'library',
-    version: '1.1.14',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/happy0/ssb-bluetooth#readme',
-  },
-  {
     name: 'ssb-caps',
     type: 'library',
     version: '1.1.0',
@@ -960,13 +946,6 @@ export default [
     version: '1.0.3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-master#readme',
-  },
-  {
-    name: 'ssb-mobile-bluetooth-manager',
-    type: 'library',
-    version: '3.2.3',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/staltz/ssb-mobile-bluetooth-manager#readme',
   },
   {
     name: 'ssb-ref',
