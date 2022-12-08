@@ -7,7 +7,7 @@ import {State} from './model';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {t} from '~frontend/drivers/localization';
-import {getImg} from '~frontend/global-styles/utils';
+import {Images} from '~frontend/global-styles/images';
 import {FabProps} from '../fab';
 import {FAB_VERTICAL_DISTANCE_TO_EDGE} from '../styles';
 
@@ -24,7 +24,7 @@ export default function floatingAction(
       {
         color: Palette.backgroundCTA,
         name: 'compose',
-        icon: getImg(require('~images/pencil.png')),
+        icon: Images.pencil,
         text: t('public.floating_action_button.compose'),
       },
     ],

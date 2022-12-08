@@ -5,7 +5,7 @@
 import xs, {Stream} from 'xstream';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
-import {getImg} from '~frontend/global-styles/utils';
+import {Images} from '~frontend/global-styles/images';
 import {t} from '~frontend/drivers/localization';
 import {FabProps} from '../fab';
 import {FAB_VERTICAL_DISTANCE_TO_EDGE} from '../styles';
@@ -24,6 +24,6 @@ export default function floatingAction(): Stream<FabProps> {
       vertical: FAB_VERTICAL_DISTANCE_TO_EDGE,
       horizontal: Dimensions.horizontalSpaceBig,
     },
-    floatingIcon: getImg(require('~images/plus-network.png')),
+    floatingIcon: Images.plusNetwork,
   });
 }

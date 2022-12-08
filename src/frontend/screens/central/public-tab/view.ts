@@ -11,7 +11,7 @@ import {SSBSource} from '~frontend/drivers/ssb';
 import {t} from '~frontend/drivers/localization';
 import EmptySection from '~frontend/components/EmptySection';
 import {Dimensions} from '~frontend/global-styles/dimens';
-import {getImg} from '~frontend/global-styles/utils';
+import {Images} from '~frontend/global-styles/images';
 import {State} from './model';
 import {styles} from './styles';
 
@@ -42,7 +42,7 @@ export default function view(
         return h(EmptySection, {
           key: 'eh',
           style: styles.emptySection,
-          image: getImg(require('~images/noun-plant.png')),
+          image: Images.nounPlant,
           title: t('public.empty_hashtags.title'),
           description: t('public.empty_hashtags.description'),
         });
@@ -68,7 +68,7 @@ export default function view(
             ? h(EmptySection, {
                 key: 'e1',
                 style: styles.emptySection,
-                image: getImg(require('~images/noun-bee.png')),
+                image: Images.nounBee,
                 title: t('central.empty_onboarding.title'),
                 description: t('central.empty_onboarding.description'),
                 linkLabel: t('central.empty_onboarding.link_label'),
@@ -77,7 +77,7 @@ export default function view(
             : h(EmptySection, {
                 key: 'e2',
                 style: styles.emptySection,
-                image: getImg(require('~images/noun-plant.png')),
+                image: Images.nounPlant,
                 title: t('public.empty.title'),
                 description: t('public.empty.description'),
               }),

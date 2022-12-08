@@ -22,7 +22,7 @@ import {PrivateThreadAndExtras} from '~frontend/ssb/types';
 import {GetReadable} from '~frontend/drivers/ssb';
 import {t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
-import {getImg} from '~frontend/global-styles/utils';
+import {Images} from '~frontend/global-styles/images';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import EmptySection from '~frontend/components/EmptySection';
 import AnimatedLoading from '~frontend/components/AnimatedLoading';
@@ -252,7 +252,7 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
           ? h(EmptySection, {
               key: 'e1',
               style: styles.emptySection,
-              image: getImg(require('~images/noun-bee.png')),
+              image: Images.nounBee,
               title: t('central.empty_onboarding.title'),
               description: t('central.empty_onboarding.description'),
               linkLabel: t('central.empty_onboarding.link_label'),
@@ -261,7 +261,7 @@ class ConversationsList extends PureComponent<CLProps, CLState> {
           : h(EmptySection, {
               key: 'e2',
               style: styles.emptySection,
-              image: getImg(require('~images/noun-plant.png')),
+              image: Images.nounPlant,
               title: t('private.empty.title'),
               description: t('private.empty.description'),
             }),

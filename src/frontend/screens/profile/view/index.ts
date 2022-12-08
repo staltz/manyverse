@@ -17,7 +17,7 @@ import {GetReadable, SSBSource} from '~frontend/drivers/ssb';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
-import {getImg} from '~frontend/global-styles/utils';
+import {Images} from '~frontend/global-styles/images';
 import Feed from '~frontend/components/Feed';
 import EmptySection from '~frontend/components/EmptySection';
 import {withTitle} from '~frontend/components/withTitle';
@@ -94,7 +94,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
           {
             color: Palette.backgroundCTA,
             name: 'compose',
-            icon: getImg(require('~images/pencil.png')),
+            icon: Images.pencil,
             text: t('profile.floating_action_button.compose'),
           },
         ],
@@ -163,7 +163,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
             : isSelfProfile
             ? h(EmptySection, {
                 style: styles.emptySection,
-                image: getImg(require('~images/noun-plant.png')),
+                image: Images.nounPlant,
                 title: t('profile.empty.no_self_messages.title'),
                 description: t('profile.empty.no_self_messages.description'),
               })

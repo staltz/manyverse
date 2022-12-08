@@ -24,7 +24,7 @@ import {Typography} from '~frontend/global-styles/typography';
 import {IconNames} from '~frontend/global-styles/icons';
 import HeaderButton from '~frontend/components/HeaderButton';
 import Pill from '~frontend/components/Pill';
-import {getImg} from '~frontend/global-styles/utils';
+import {Images} from '~frontend/global-styles/images';
 import {FeedFilter} from '../model';
 import {State} from './model';
 
@@ -239,7 +239,7 @@ class AppLogoButton extends PureComponent<{onPress?: () => void}> {
 
       $(Image, {
         style: styles.appLogo,
-        source: getImg(require('~images/app-logo-30.png')),
+        source: Images.appLogo30,
         accessible: true,
         accessibilityRole: 'button',
         accessibilityLabel: t('call_to_action.open_menu.accessibility_label'),

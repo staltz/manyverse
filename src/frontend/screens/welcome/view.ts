@@ -7,7 +7,7 @@ import {h} from '@cycle/react';
 import {StyleSheet, Text, View, Image, Platform} from 'react-native';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
-import {getImg} from '~frontend/global-styles/utils';
+import {Images} from '~frontend/global-styles/images';
 import tutorialSlide from '~frontend/components/tutorial-slide';
 import tutorialPresentation from '~frontend/components/tutorial-presentation';
 import Button from '~frontend/components/Button';
@@ -83,7 +83,7 @@ interface Actions {
 function overviewSlide(state: State) {
   return tutorialSlide({
     show: state.index >= 0,
-    image: getImg(require('~images/noun-butterfly.png')),
+    image: Images.nounButterfly,
     portraitMode: state.isPortraitMode,
     title: t('welcome.overview.title', {
       // Only this screen needs a defaultValue because it's the
@@ -128,7 +128,7 @@ function overviewSlide(state: State) {
 function offTheGridSlide(state: State) {
   return tutorialSlide({
     show: state.index >= 1,
-    image: getImg(require('~images/noun-camping.png')),
+    image: Images.nounCamping,
     portraitMode: state.isPortraitMode,
     title: t('welcome.off_the_grid.title'),
     renderDescription: () => [
@@ -160,7 +160,7 @@ function offTheGridSlide(state: State) {
 function connectionsSlide(state: State) {
   return tutorialSlide({
     show: state.index >= 2,
-    image: getImg(require('~images/noun-fish.png')),
+    image: Images.nounFish,
     portraitMode: state.isPortraitMode,
     title: t('welcome.connections.title'),
     renderDescription: () => [
@@ -194,7 +194,7 @@ function connectionsSlide(state: State) {
 function moderationSlide(state: State) {
   return tutorialSlide({
     show: state.index >= 3,
-    image: getImg(require('~images/noun-farm.png')),
+    image: Images.nounFarm,
     portraitMode: state.isPortraitMode,
     title: t('welcome.moderation.title'),
     renderDescription: () => [
@@ -224,7 +224,7 @@ function moderationSlide(state: State) {
 function permanenceSlide(state: State) {
   return tutorialSlide({
     show: state.index >= 4,
-    image: getImg(require('~images/noun-roots.png')),
+    image: Images.nounRoots,
     portraitMode: state.isPortraitMode,
     title: t('welcome.permanence.title'),
     renderDescription: () => [
@@ -254,7 +254,7 @@ function permanenceSlide(state: State) {
 function inConstructionSlide(state: State) {
   return tutorialSlide({
     show: state.index >= 5,
-    image: getImg(require('~images/noun-wheelbarrow.png')),
+    image: Images.nounWheelbarrow,
     portraitMode: state.isPortraitMode,
     title: t('welcome.in_construction.title'),
     renderDescription: () => [
@@ -278,7 +278,7 @@ function inConstructionSlide(state: State) {
 function setupAccountSlide(state: State) {
   return tutorialSlide({
     show: state.index >= (Platform.OS === 'ios' ? 5 : 6),
-    image: getImg(require('~images/noun-flower.png')),
+    image: Images.nounFlower,
     portraitMode: state.isPortraitMode,
     title: t('welcome.setup_account.title'),
     renderDescription: () => [t('welcome.setup_account.description')],
@@ -326,7 +326,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
     h(View, {style: styles.screen}, [
       !state.readyToStart
         ? h(Image, {
-            source: getImg(require('~images/logo_outline.png')),
+            source: Images.logoOutline,
             style: styles.logo,
           })
         : tutorialPresentation('swiper', {scrollBy$: actions.scrollBy$}, [

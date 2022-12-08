@@ -12,8 +12,8 @@ import {OrientationEvent} from '~frontend/drivers/orientation';
 import {t} from '~frontend/drivers/localization';
 import {WindowSize} from '~frontend/drivers/window-size';
 import {Palette} from '~frontend/global-styles/palette';
-import {getImg} from '~frontend/global-styles/utils';
 import {globalStyles} from '~frontend/global-styles/styles';
+import {Images} from '~frontend/global-styles/images';
 import tutorialPresentation from '~frontend/components/tutorial-presentation';
 import tutorialSlide from '~frontend/components/tutorial-slide';
 import Button from '~frontend/components/Button';
@@ -162,7 +162,7 @@ export function backup(sources: Sources): Sinks {
           tutorialSlide({
             show: state.index >= 0,
             portraitMode: state.isPortraitMode,
-            image: getImg(require('~images/noun-glassware.png')),
+            image: Images.nounGlassware,
             title: t('backup.introduction.title'),
             renderDescription: () => [],
             renderBottom: () =>
@@ -180,7 +180,7 @@ export function backup(sources: Sources): Sinks {
           tutorialSlide({
             show: state.index >= 1,
             portraitMode: state.isPortraitMode,
-            image: getImg(require('~images/noun-books.png')),
+            image: Images.nounBooks,
             title: t('backup.data.title'),
             renderDescription: () => [
               t('backup.data.description.1_normal'),
@@ -208,7 +208,7 @@ export function backup(sources: Sources): Sinks {
           tutorialSlide({
             show: state.index >= 2,
             portraitMode: state.isPortraitMode,
-            image: getImg(require('~images/noun-fingerprint.png')),
+            image: Images.nounFingerprint,
             title: t('backup.identity.title'),
             renderDescription: () => [
               t('backup.identity.description.1_normal'),

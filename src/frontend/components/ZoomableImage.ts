@@ -20,10 +20,10 @@ import {t} from '~frontend/drivers/localization';
 import {Dimensions as Dimens} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
-import {getImg} from '~frontend/global-styles/utils';
 import HeaderButton from './HeaderButton';
 import ToastWeb from '~frontend/drivers/toast/ToastWeb';
 import {IconNames} from '~frontend/global-styles/icons';
+import {Images} from '~frontend/global-styles/images';
 const ToastIOS =
   Platform.OS === 'ios'
     ? require('react-native-tiny-toast').default
@@ -33,11 +33,9 @@ const urlToBlobId = require('ssb-serve-blobs/url-to-id');
 const $ = createElement;
 
 const ASPECT_RATIO = 768 / 1024;
-const pictureIcon = getImg(
-  Palette.isDarkTheme
-    ? require('~images/image-area-256-dark.png')
-    : require('~images/image-area-256.png'),
-);
+const pictureIcon = Palette.isDarkTheme
+  ? Images.imageArea256Dark
+  : Images.imageArea256;
 
 const styles = StyleSheet.create({
   imageBlobIdContainer: {

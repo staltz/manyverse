@@ -11,8 +11,8 @@ import {FloatingAction} from 'react-native-floating-action';
 import TopBar from '~frontend/components/TopBar';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
-import {getImg} from '~frontend/global-styles/utils';
 import {Dimensions} from '~frontend/global-styles/dimens';
+import {Images} from '~frontend/global-styles/images';
 import {State} from '../model';
 import {styles} from './styles';
 import ConnectivityModes from './ConnectivityModes';
@@ -32,7 +32,7 @@ function getFABProps(state: State): FabProps {
         color: Palette.backgroundCTA,
         name: 'invite-paste',
         margin: Platform.OS === 'web' ? ACTION_MARGIN_DESKTOP : undefined,
-        icon: getImg(require('~images/package-down.png')),
+        icon: Images.packageDown,
         text: t('connections.floating_action_button.paste_invite'),
       },
     ],
@@ -45,7 +45,7 @@ function getFABProps(state: State): FabProps {
       vertical: Dimensions.verticalSpaceLarge,
       horizontal: Dimensions.horizontalSpaceBig,
     },
-    floatingIcon: getImg(require('~images/plus-network.png')),
+    floatingIcon: Images.plusNetwork,
   };
 }
 

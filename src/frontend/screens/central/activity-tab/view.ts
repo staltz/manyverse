@@ -28,8 +28,8 @@ import Avatar from '~frontend/components/Avatar';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {Palette} from '~frontend/global-styles/palette';
-import {getImg} from '~frontend/global-styles/utils';
 import {IconNames} from '~frontend/global-styles/icons';
+import {Images} from '~frontend/global-styles/images';
 import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
 import {ActivityItem, isMsg, State} from './model';
 import {styles} from './styles';
@@ -301,7 +301,7 @@ class ActivityList extends PureComponent<MLProps, MLState> {
           ? h(EmptySection, {
               key: 'e1',
               style: styles.emptySection,
-              image: getImg(require('~images/noun-bee.png')),
+              image: Images.nounBee,
               title: t('central.empty_onboarding.title'),
               description: t('central.empty_onboarding.description'),
               linkLabel: t('central.empty_onboarding.link_label'),
@@ -310,7 +310,7 @@ class ActivityList extends PureComponent<MLProps, MLState> {
           : h(EmptySection, {
               key: 'e2',
               style: styles.emptySection,
-              image: getImg(require('~images/noun-sun.png')),
+              image: Images.nounSun,
               title: t('activity.empty.title'),
               description: t('activity.empty.description'),
             }),

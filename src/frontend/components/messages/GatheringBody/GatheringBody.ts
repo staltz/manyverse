@@ -21,17 +21,15 @@ import {t} from '~frontend/drivers/localization';
 import {Dimensions as Dimens} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {Typography} from '~frontend/global-styles/typography';
-import {getImg} from '~frontend/global-styles/utils';
 import i18n = require('i18n-js');
 import {GatheringAttendees, GatheringInfo} from '~frontend/ssb/types';
+import {Images} from '~frontend/global-styles/images';
 import AttendeesRow from './AttendeesRow';
 import {withTitle} from '../../withTitle';
 
-const pictureIcon = getImg(
-  Palette.isDarkTheme
-    ? require('~images/calendar-256-dark.png')
-    : require('~images/calendar-256.png'),
-);
+const pictureIcon = Palette.isDarkTheme
+  ? Images.calendar256Dark
+  : Images.calendar256;
 
 const ASPECT_RATIO = 768 / 1024;
 

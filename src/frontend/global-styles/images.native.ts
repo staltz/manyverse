@@ -1,0 +1,35 @@
+// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+//
+// SPDX-License-Identifier: MPL-2.0
+
+export const Images = {
+  emptyAvatar: require('~images/empty-avatar.png'),
+  imageArea256: require('~images/image-area-256.png'),
+  imageArea256Dark: require('~images/image-area-256-dark.png'),
+  calendar256: require('~images/calendar-256.png'),
+  calendar256Dark: require('~images/calendar-256-dark.png'),
+  nounGlassware: require('~images/noun-glassware.png'),
+  nounBooks: require('~images/noun-books.png'),
+  nounFingerprint: require('~images/noun-fingerprint.png'),
+  nounBee: require('~images/noun-bee.png'),
+  nounButterfly: require('~images/noun-butterfly.png'),
+  nounCamping: require('~images/noun-camping.png'),
+  nounFish: require('~images/noun-fish.png'),
+  nounFarm: require('~images/noun-farm.png'),
+  nounRoots: require('~images/noun-roots.png'),
+  nounFlower: require('~images/noun-flower.png'),
+  nounWheelbarrow: require('~images/noun-wheelbarrow.png'),
+  nounCrops: require('~images/noun-crops.png'),
+  nounSun: require('~images/noun-sun.png'),
+  nounPlant: require('~images/noun-plant.png'),
+  nounLantern: require('~images/noun-lantern.png'),
+  plusNetwork: require('~images/plus-network.png'),
+  screenshotStagedPeers: require('~images/screenshot-staged-peers.png'),
+  screenshotStagedPeersDark: require('~images/screenshot-staged-peers-dark.png'),
+  messagePlus: require('~images/message-plus.png'),
+  pencil: require('~images/pencil.png'),
+  appLogo24: require('~images/app-logo-24.png'),
+  appLogo30: require('~images/app-logo-30.png'),
+  packageDown: require('~images/package-down.png'),
+  logoOutline: require('~images/logo_outline.png'),
+};

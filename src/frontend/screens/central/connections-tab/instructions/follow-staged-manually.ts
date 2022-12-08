@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import {t} from '~frontend/drivers/localization';
+import {Images} from '~frontend/global-styles/images';
 import {Palette} from '~frontend/global-styles/palette';
-import {getImg} from '~frontend/global-styles/utils';
 import {Props as InstructionsProps} from '~frontend/screens/instructions/props';
 import {State} from '../model';
 
@@ -48,11 +48,9 @@ export function makeInstructionsProps(state: State): InstructionsProps {
     content2: t(
       'connections.recommendation_descriptions.follow_staged_manually.part2',
     ),
-    image2: getImg(
-      Palette.isDarkTheme
-        ? require('~images/screenshot-staged-peers-dark.png')
-        : require('~images/screenshot-staged-peers.png'),
-    ),
+    image2: Palette.isDarkTheme
+      ? Images.screenshotStagedPeersDark
+      : Images.screenshotStagedPeers,
     image2Style: {
       width,
       height,

@@ -15,7 +15,7 @@ import {WindowSize} from '~frontend/drivers/window-size';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {IconNames} from '~frontend/global-styles/icons';
-import {getImg} from '~frontend/global-styles/utils';
+import {Images} from '~frontend/global-styles/images';
 import PublicTabIcon from '~frontend/components/tab-buttons/PublicTabIcon';
 import PrivateTabIcon from '~frontend/components/tab-buttons/PrivateTabIcon';
 import ActivityTabIcon from '~frontend/components/tab-buttons/ActivityTabIcon';
@@ -234,11 +234,7 @@ export default function view(
               : h(View, {key: 'alc', style: styles.appLogoContainer}, [
                   h(Image, {
                     style: styles.appLogo,
-                    source: getImg(
-                      window.devicePixelRatio > 1
-                        ? require('~images/app-logo-24@2x.png')
-                        : require('~images/app-logo-24.png'),
-                    ),
+                    source: Images.appLogo24,
                   }),
                 ]),
           ]),
