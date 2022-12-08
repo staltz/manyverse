@@ -29,24 +29,31 @@ export = {
   init: function init(ssb: any) {
     const containsWords = ssb.search2.operator;
 
+    function clean(text: string) {
+      return text.replace(/[()\[\]]/g, '').trim();
+    }
+
     return {
       query(text: string) {
+        // We want to make sure that the *exact* input is matched, *not* as a
+        // word prefix, so we use a word boundary, except not literally `\b`
+        // because it often doensn't work with Unicode (especially in
+        // nodejs-mobile!), so we do this instead:
+        const regex = new RegExp(clean(text) + '($|[ ,.;:!?\\-])', 'i');
+
         return pull(
           ssb.db.query(
-            where(and(type('post'), isPublic(), containsWords(text))),
+            where(and(type('post'), isPublic(), containsWords(clean(text)))),
             descending(),
             batch(20),
             toPullStream(),
           ),
-          pull.filter((msg: Msg<PostContent>) =>
-            // We want to make sure that *exact* input is matched, *not* as a
-            // word prefix, so we use a word boundary, except not literally `\b`
-            // because it often doensn't work with Unicode (especially in
-            // nodejs-mobile!), so we do this instead:
-            new RegExp(text + '($|[ ,.;:!?\\-])', 'i').test(
-              msg.value.content.text,
-            ),
-          ),
+          pull.filter((msg: Msg<PostContent>) => {
+            if (!msg.value.content.text) return false;
+            if (typeof msg.value.content.text !== 'string') return false;
+            regex.lastIndex = 0;
+            return regex.test(msg.value.content.text);
+          }),
           pull.asyncMap((msg: Msg, cb: Callback<Msg | null>) => {
             ssb.friends.isBlocking(
               {source: ssb.id, dest: msg.value.author},

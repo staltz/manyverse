@@ -45,9 +45,13 @@ const ELLIPSIS = String.fromCodePoint(parseInt('2026', 16));
 const MIN_INDEX = 50;
 const MAX_LENGTH = 150;
 
+function cleanQuery(query: string) {
+  return query.replace(/[()\[\]]/g, '').trim();
+}
+
 function regExpWithBoundary(query: string) {
   // Word boundary `\b` often doensn't work with Unicode, so we do this:
-  return new RegExp(query + '($|[ ,.;:!?\\-])', 'i');
+  return new RegExp(cleanQuery(query) + '($|[ ,.;:!?\\-])', 'i');
 }
 
 /** Determine result content and queryMatchIdx
@@ -105,9 +109,10 @@ class Result extends PureComponent<{
 
     const [content, queryMatchIdx] = getContentAndQueryMatchIdx(msg, query);
     if (queryMatchIdx < 0) return null; // dont render potential bad `msg`
+    const len = cleanQuery(query).length;
     const preContent = content.slice(0, queryMatchIdx);
-    const match = content.slice(queryMatchIdx, queryMatchIdx + query.length);
-    const postContent = content.slice(queryMatchIdx + query.length);
+    const match = content.slice(queryMatchIdx, queryMatchIdx + len);
+    const postContent = content.slice(queryMatchIdx + len);
 
     return h(View, [
       h(Touchable, touchableProps, [
