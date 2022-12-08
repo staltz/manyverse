@@ -185,17 +185,19 @@ class Results extends PureComponent<{
 }
 
 class HashtagResultsHeader extends PureComponent<{
-  hashtagCount: number;
+  hashtagCount: number | null;
   isSubscribed: boolean;
 }> {
   public render() {
     const {isSubscribed, hashtagCount} = this.props;
     return h(View, {style: styles.hashtagResultsHeaderContainer}, [
-      h(View, [
-        h(Text, {style: styles.hashtagMatchesCountText}, [
-          t('search.hashtags.matches.title', {count: hashtagCount}),
-        ]),
-      ]),
+      hashtagCount !== null
+        ? h(View, {key: 'hmct'}, [
+            h(Text, {style: styles.hashtagMatchesCountText}, [
+              t('search.hashtags.matches.title', {count: hashtagCount}),
+            ]),
+          ])
+        : h(View, {key: 'hmcp', style: styles.hashtagMatchesCountPlaceholder}),
       h(ToggleButton, {
         sel: 'hashtagSubscribeButton',
         toggled: isSubscribed,

@@ -195,4 +195,13 @@ export const styles = StyleSheet.create({
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
   },
+
+  hashtagMatchesCountPlaceholder: {
+    width: 100,
+    height: 16,
+    minHeight: 16,
+    backgroundColor: Palette.isDarkTheme
+      ? Palette.voidStronger
+      : Palette.voidWeak,
+  },
 });

@@ -15,7 +15,7 @@ type SearchResults =
   | {
       type: 'HashtagResults';
       getReadable: GetReadable<ThreadSummaryWithExtras> | null;
-      hashtagCount: number;
+      hashtagCount: number | null;
     }
   | {
       type: 'TextResults';
@@ -58,7 +58,9 @@ function searchContent(
     const publicHashtagSummaries$ =
       ssbSource.searchPublishHashtagSummaries$(query);
 
-    const hashtagCount$ = ssbSource.hashtagCount$(query);
+    const hashtagCount$ = (
+      ssbSource.hashtagCount$(query) as Stream<number | null>
+    ).startWith(null);
 
     return xs
       .combine(publicHashtagSummaries$, hashtagCount$)
