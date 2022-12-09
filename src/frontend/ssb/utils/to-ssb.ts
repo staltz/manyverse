@@ -137,14 +137,20 @@ export function toAboutContent(
   return content;
 }
 
+// The 'channel' field cannot be prefixed with '#'
+function sanitize(hashtag: string) {
+  return hashtag.startsWith('#')
+    ? hashtag.slice(1).toLocaleLowerCase()
+    : hashtag.toLocaleLowerCase();
+}
+
 export function toChannelSubscribeContent(
   channel: string,
   subscribed: boolean,
 ): ChannelSubscribeContent {
   return {
     type: 'channel',
-    // The 'channel' field cannot be prefixed with '#'
-    channel: channel.startsWith('#') ? channel.slice(1) : channel,
+    channel: sanitize(channel),
     subscribed,
   };
 }
