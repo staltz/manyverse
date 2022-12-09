@@ -116,8 +116,8 @@ export = {
         if (!isValidChannelSubscribeMsg(msg)) return;
         const {channel, subscribed} = msg.value.content;
         const sanitizedChannel = channel.startsWith('#')
-          ? channel.slice(1)
-          : channel;
+          ? channel.slice(1).toLocaleLowerCase()
+          : channel.toLocaleLowerCase();
 
         if (subscribed) {
           this._set.add(sanitizedChannel);
