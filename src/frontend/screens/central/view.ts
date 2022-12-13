@@ -59,6 +59,10 @@ class CurrentTabPage extends PureComponent<{
     } = this.props;
     const shown = styles.pageShown;
     const hidden = styles.pageHidden;
+    const isPublic = currentTab === 'public';
+    const isPrivate = currentTab === 'private';
+    const isActivity = currentTab === 'activity';
+    const isConnections = currentTab === 'connections';
 
     const fabSection =
       Platform.OS === 'web'
@@ -73,20 +77,18 @@ class CurrentTabPage extends PureComponent<{
         : h(FloatingAction, fab);
 
     return h(Fragment, [
-      h(View, {style: [currentTab === 'public' ? shown : hidden]}, [
+      h(View, {style: [isPublic ? shown : hidden]}, [
         publicTab,
-        fabSection,
+        isPublic ? fabSection : null,
       ]),
-      h(View, {style: [currentTab === 'private' ? shown : hidden]}, [
+      h(View, {style: [isPrivate ? shown : hidden]}, [
         privateTab,
-        fabSection,
+        isPrivate ? fabSection : null,
       ]),
-      h(View, {style: [currentTab === 'activity' ? shown : hidden]}, [
-        activityTab,
-      ]),
-      h(View, {style: [currentTab === 'connections' ? shown : hidden]}, [
+      h(View, {style: [isActivity ? shown : hidden]}, [activityTab]),
+      h(View, {style: [isConnections ? shown : hidden]}, [
         connectionsTab,
-        fabSection,
+        isConnections ? fabSection : null,
       ]),
     ]);
   }

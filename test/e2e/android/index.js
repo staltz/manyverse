@@ -22,6 +22,7 @@ const localCapabilities = {
     __dirname,
     '..',
     '..',
+    '..',
     'android',
     'app',
     'build',
