@@ -22,7 +22,7 @@ typescript compiles:
 test e2e desktop:
   image:
     name: node:14
-  dependencies:
+  needs:
     - typescript compiles
   cache:
     paths:
