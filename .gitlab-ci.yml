@@ -11,7 +11,7 @@ license check:
 
 test e2e desktop:
   image:
-    name: openstax/playwright-chromium # node:14
+    name: playwright # node:14
   needs:
     - license check
   cache:
