@@ -36,5 +36,5 @@ if [ $ANSWER == "Y" ]; then
   popd
   $(npm bin)/appium --port 4995 > appium.log & echo $! > appium-server.pid
   sleep 5
-  $(npm bin)/tape test/e2e/index.js | tap-spec
+  $(npm bin)/tape test/e2e/android/index.js | tap-spec
 fi

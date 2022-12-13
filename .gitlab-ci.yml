@@ -18,3 +18,15 @@ typescript compiles:
   script:
     - npm install
     - npm run lib
+
+test e2e desktop:
+  image:
+    name: node:14
+  dependencies:
+    - typescript compiles
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - npm install
+    - npm run test-e2e-desktop

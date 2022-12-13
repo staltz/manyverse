@@ -40,13 +40,13 @@ process.env ??= {};
 app.setName('manyverse');
 
 // Set default directories
-app.setPath('userData', path.join(app.getPath('appData'), 'manyverse'));
+process.env.MV_USER_DATA ??= path.join(app.getPath('appData'), 'manyverse');
+app.setPath('userData', process.env.MV_USER_DATA);
 process.env.APP_DATA_DIR = app.getAppPath();
 process.env.APP_TMP_DIR = app.getPath('temp');
 process.env.OS = os.platform();
 process.env.SHARED_SSB_DIR = path.resolve(os.homedir(), '.ssb');
-process.env.SSB_DIR =
-  process.env.SSB_DIR ?? path.resolve(app.getPath('userData'), 'ssb');
+process.env.SSB_DIR ??= path.resolve(app.getPath('userData'), 'ssb');
 
 // Set global variables
 process.env.MANYVERSE_PLATFORM = 'desktop';
