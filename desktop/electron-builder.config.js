@@ -96,12 +96,24 @@ module.exports = {
       StartupWMClass: NAME_COMPUTER,
     },
     category: 'Network',
+    maintainer: "Andre 'Staltz' Medeiros <contact@staltz.com>",
   },
 
   deb: {
     packageCategory: 'net',
     priority: 'optional',
-    maintainer: "Andre 'Staltz' Medeiros <contact@staltz.com>",
+    depends: [
+      'libnotify4',
+      'libxtst6',
+      'libnss3',
+
+      // Disabled to support KDE:
+      // 'gconf2',
+      // 'gconf-service',
+
+      // Disabled to support Debian 10+:
+      // 'libappindicator1',
+    ],
   },
 
   // Mac-specific configurations -----------------------------------------------
