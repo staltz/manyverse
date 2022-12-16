@@ -21,8 +21,8 @@ jobs:
       - name: REUSE Compliance Check
         uses: fsfe/reuse-action@v1
 
-  typescript:
-    name: TypeScript compilation
+  test-e2e-desktop:
+    name: End-to-end tests on desktop
     runs-on: ubuntu-latest
     needs: license-check
     steps:
@@ -37,5 +37,4 @@ jobs:
       - name: npm install
         run: npm install
 
-      - name: TypeScript compilation
-        run: npm run lib
+      - run: npm run test-e2e-desktop
