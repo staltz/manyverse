@@ -106,6 +106,7 @@ module.exports = {
       'libnotify4',
       'libxtst6',
       'libnss3',
+      'libc6 >= 2.28',
 
       // Disabled to support KDE:
       // 'gconf2',
