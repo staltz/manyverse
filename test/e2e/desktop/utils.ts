@@ -26,7 +26,10 @@ export default function setup(subtest?: string) {
     const appInfo = parseElectronApp(latestBuild);
     console.log = originalConsoleLog;
     if (!appInfo.arch) appInfo.arch = 'x64';
-    if (!appInfo.executable.endsWith('/manyverse')) {
+    if (
+      appInfo.platform === 'linux' &&
+      !appInfo.executable.endsWith('/manyverse')
+    ) {
       appInfo.executable += '/manyverse';
     }
 

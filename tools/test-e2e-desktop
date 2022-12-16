@@ -6,7 +6,7 @@
 
 function cleanUp {
   if [ -f "appium-server.pid" ]; then
-    if ps -p $(cat appium-server.pid)> /dev/null; then
+    if ps -p $(cat appium-server.pid) >/dev/null; then
       kill -KILL $(cat appium-server.pid)
     fi
     rm appium-server.pid
@@ -25,14 +25,21 @@ function onFailure() {
   exit 1
 }
 
-FILE=desktop/outputs/linux-unpacked/manyverse
-if [[ -f "$FILE" ]]; then
-    echo "Desktop build already exists"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  RELEASE_DESKTOP_SUFFIX="macos"
+  EXECUTABLE_FILE=desktop/outputs/mac/Manyverse.app/Contents/MacOS/Manyverse
 else
-    echo "Desktop build does not exist, building now"
-    EB_PUBLISH=never npm run release-desktop-linux
+  RELEASE_DESKTOP_SUFFIX="linux"
+  EXECUTABLE_FILE=desktop/outputs/linux-unpacked/manyverse
 fi
 
-rm -rf /tmp/manyverse-e2e-test
+if [[ -f "$EXECUTABLE_FILE" ]]; then
+  echo "Desktop build already exists"
+else
+  echo "Desktop build does not exist, building now"
+  EB_PUBLISH=never npm run release-desktop-"$RELEASE_DESKTOP_SUFFIX"
+fi
+
+rm -rf "$TMPDIR/manyverse-e2e-test"
 
 $(npm bin)/playwright test
