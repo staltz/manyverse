@@ -60,6 +60,13 @@ export default class ReadMoreOverlay extends PureComponent<Props> {
       height: fadeStartY === undefined ? maxHeight * 0.5 : fadeStartY,
       fill: 'rgba(0,0,0,0)',
       strokeWidth: '0',
+      ['style' as any]: {
+        ...Platform.select({
+          web: {
+            ['outline-width' as any]: 0,
+          },
+        }),
+      },
     });
 
     const lowerPartition = h(Rect, {
@@ -70,6 +77,13 @@ export default class ReadMoreOverlay extends PureComponent<Props> {
         fadeStartY === undefined ? maxHeight * 0.5 : maxHeight - fadeStartY,
       fill: fading ? `url(#grad${randomID})` : 'rgba(0,0,0,0)',
       strokeWidth: '0',
+      ['style' as any]: {
+        ...Platform.select({
+          web: {
+            ['outline-width' as any]: 0,
+          },
+        }),
+      },
     });
 
     return h(View, {style: styles.readMoreContainer}, [
