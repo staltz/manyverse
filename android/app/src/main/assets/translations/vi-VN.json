@@ -220,6 +220,9 @@
       "hashtags": {
         "label": "Hashtags",
         "accessibility_label": "Following Hashtags Button"
+      },
+      "feed_settings": {
+        "accessibility_label": "Feed Settings Button"
       }
     }
   },
@@ -1052,6 +1055,10 @@
         "title": "Enable firewall",
         "subtitle": "Prevent strangers from creating network connections with me",
         "accessibility_label": "Toggle enable firewall"
+      },
+      "feed_settings": {
+        "title": "Feed settings",
+        "accessibility_label": "Open screen about feed settings"
       }
     },
     "data_and_storage": {
@@ -1396,5 +1403,35 @@
     "paste": "Paste",
     "save_image": "Save image",
     "save_image_as": "Save image as..."
+  },
+  "feed_settings": {
+    "title": "Feed settings",
+    "active_label": "Active",
+    "all": {
+      "title": "All",
+      "description": "This option shows all the threads that were downloaded onto your device.",
+      "accessibility_label": "All Feeds Button"
+    },
+    "following": {
+      "title": "Following",
+      "description": "This option shows only threads created by the accounts you follow.",
+      "accessibility_label": "Following Feeds Button"
+    },
+    "hashtags": {
+      "title": "Hashtags",
+      "description_1": "This option shows only threads that contain a hashtag that you subscribe to.",
+      "description_2": "See all your subscribed hashtags below.",
+      "accessibility_label": "Following Hashtags Button"
+    },
+    "subscribe_toggle": {
+      "subscribe": {
+        "label": "Subscribe",
+        "accessibility_label": "Subscribe to this hashtag"
+      },
+      "unsubscribe": {
+        "label": "Unsubscribe",
+        "accessibility_label": "Unsubscribe from this hashtag"
+      }
+    }
   }
 }

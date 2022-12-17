@@ -220,6 +220,9 @@
       "hashtags": {
         "label": "Hashtags",
         "accessibility_label": "Botão de mostar Hashtags que eu sigo"
+      },
+      "feed_settings": {
+        "accessibility_label": "Botão de Configurações do Feed"
       }
     }
   },
@@ -1052,6 +1055,10 @@
         "title": "Habilitar firewall",
         "subtitle": "Impedir que desconhecidos criem conexões comigo",
         "accessibility_label": "Ativar/desativar firewall"
+      },
+      "feed_settings": {
+        "title": "Configurações do feed",
+        "accessibility_label": "Abrir tela sobre as configurações do feed"
       }
     },
     "data_and_storage": {
@@ -1396,5 +1403,35 @@
     "paste": "Colar",
     "save_image": "Salvar imagem",
     "save_image_as": "Salvar imagem como..."
+  },
+  "feed_settings": {
+    "title": "Configurações do feed",
+    "active_label": "Ativo",
+    "all": {
+      "title": "Tudo",
+      "description": "Esta opção mostra todos os tópicos que foram baixados no seu dispositivo.",
+      "accessibility_label": "Botão de mostrar todas as contas"
+    },
+    "following": {
+      "title": "Seguindo",
+      "description": "Esta opção mostra apenas tópicos criados pelas contas que você segue.",
+      "accessibility_label": "Botão de mostrar contas que eu sigo"
+    },
+    "hashtags": {
+      "title": "Hashtags",
+      "description_1": "Esta opção mostra apenas tópicos que contêm uma hashtag que você assina.",
+      "description_2": "Veja todas as suas hashtags assinadas abaixo.",
+      "accessibility_label": "Botão de mostar Hashtags que eu sigo"
+    },
+    "subscribe_toggle": {
+      "subscribe": {
+        "label": "Assinar",
+        "accessibility_label": "Assinar a esta hashtag"
+      },
+      "unsubscribe": {
+        "label": "Cancelar assinatura",
+        "accessibility_label": "Cancelar a minha assinatura desta hashtag"
+      }
+    }
   }
 }

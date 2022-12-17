@@ -220,6 +220,9 @@
       "hashtags": {
         "label": "Hashtags",
         "accessibility_label": "Following Hashtags Button"
+      },
+      "feed_settings": {
+        "accessibility_label": "Feed Settings Button"
       }
     }
   },
@@ -1052,6 +1055,10 @@
         "title": "Включить брандмауэр",
         "subtitle": "Запретить незнакомцам подключаться ко мне",
         "accessibility_label": "Переключатель Включить брандмауэр"
+      },
+      "feed_settings": {
+        "title": "Feed settings",
+        "accessibility_label": "Open screen about feed settings"
       }
     },
     "data_and_storage": {
@@ -1396,5 +1403,35 @@
     "paste": "Вставить",
     "save_image": "Сохранить изображение",
     "save_image_as": "Сохранить изображение как..."
+  },
+  "feed_settings": {
+    "title": "Feed settings",
+    "active_label": "Active",
+    "all": {
+      "title": "Вся лента",
+      "description": "This option shows all the threads that were downloaded onto your device.",
+      "accessibility_label": "Кнопка показа новостной ленты от всех пользователей"
+    },
+    "following": {
+      "title": "Ваши подписки",
+      "description": "This option shows only threads created by the accounts you follow.",
+      "accessibility_label": "Кнопка показа новостной ленты только от тех пользователей, на кого вы подписаны"
+    },
+    "hashtags": {
+      "title": "Hashtags",
+      "description_1": "This option shows only threads that contain a hashtag that you subscribe to.",
+      "description_2": "See all your subscribed hashtags below.",
+      "accessibility_label": "Following Hashtags Button"
+    },
+    "subscribe_toggle": {
+      "subscribe": {
+        "label": "Subscribe",
+        "accessibility_label": "Subscribe to this hashtag"
+      },
+      "unsubscribe": {
+        "label": "Unsubscribe",
+        "accessibility_label": "Unsubscribe from this hashtag"
+      }
+    }
   }
 }

@@ -220,6 +220,9 @@
       "hashtags": {
         "label": "Hashtags",
         "accessibility_label": "Following Hashtags Button"
+      },
+      "feed_settings": {
+        "accessibility_label": "Feed Settings Button"
       }
     }
   },
@@ -1052,6 +1055,10 @@
         "title": "Aktiver brannmur",
         "subtitle": "Forhindre at ukjente oppretter nettverksforbindelser med meg",
         "accessibility_label": "Toggle enable firewall"
+      },
+      "feed_settings": {
+        "title": "Feed settings",
+        "accessibility_label": "Open screen about feed settings"
       }
     },
     "data_and_storage": {
@@ -1396,5 +1403,35 @@
     "paste": "Lim inn",
     "save_image": "Lagre bilde",
     "save_image_as": "Lagre bilde som..."
+  },
+  "feed_settings": {
+    "title": "Feed settings",
+    "active_label": "Active",
+    "all": {
+      "title": "Alle",
+      "description": "This option shows all the threads that were downloaded onto your device.",
+      "accessibility_label": "Alle kanaler-knapp"
+    },
+    "following": {
+      "title": "Følger",
+      "description": "This option shows only threads created by the accounts you follow.",
+      "accessibility_label": "Fulgte kanaler-knapp"
+    },
+    "hashtags": {
+      "title": "Hashtags",
+      "description_1": "This option shows only threads that contain a hashtag that you subscribe to.",
+      "description_2": "See all your subscribed hashtags below.",
+      "accessibility_label": "Following Hashtags Button"
+    },
+    "subscribe_toggle": {
+      "subscribe": {
+        "label": "Subscribe",
+        "accessibility_label": "Subscribe to this hashtag"
+      },
+      "unsubscribe": {
+        "label": "Unsubscribe",
+        "accessibility_label": "Unsubscribe from this hashtag"
+      }
+    }
   }
 }
