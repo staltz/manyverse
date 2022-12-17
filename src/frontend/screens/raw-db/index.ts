@@ -18,6 +18,7 @@ import {SSBSource} from '~frontend/drivers/ssb';
 import {t} from '~frontend/drivers/localization';
 import RawFeed from '~frontend/components/RawFeed';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {navOptions as rawMessageScreenNavOptions} from '~frontend/screens/raw-msg';
 import {Screens} from '~frontend/screens/enums';
 
@@ -96,6 +97,7 @@ export function rawDatabase(sources: Sources): Sinks {
 
   const vdom$ = sources.ssb.publicRawFeed$.map((getReadable) =>
     h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: t('raw_db.title')}),
       h(RawFeed, {sel: 'raw-feed', getReadable}),
     ]),

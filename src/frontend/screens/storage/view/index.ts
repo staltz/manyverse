@@ -29,6 +29,7 @@ import {IconNames} from '~frontend/global-styles/icons';
 import {displayName, inferContactEvent} from '~frontend/ssb/utils/from-ssb';
 import {SSBSource} from '~frontend/drivers/ssb';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {t} from '~frontend/drivers/localization';
 import AnimatedLoading from '~frontend/components/AnimatedLoading';
 import {PressBlockAccount, StorageUsedByFeed} from '~frontend/ssb/types';
@@ -456,6 +457,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
     )
     .map((state) => {
       return h(View, {style: styles.screen}, [
+        h(StatusBarBlank),
         h(TopBar, {sel: 'topbar', title: t('storage.title')}),
         h(List, {
           sel: 'list',

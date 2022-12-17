@@ -31,6 +31,7 @@ import HeaderButton from '~frontend/components/HeaderButton';
 import AccountsList from '~frontend/components/AccountsList';
 import ToggleButton from '~frontend/components/ToggleButton';
 import Feed from '~frontend/components/Feed';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {MsgAndExtras} from '~frontend/ssb/types';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {State} from './model';
@@ -297,6 +298,7 @@ export default function view(state$: Stream<State>) {
     )
     .map((state) =>
       h(View, {style: styles.screen}, [
+        h(StatusBarBlank),
         h(TopBar, {sel: 'topbar'}, [
           h(SettableTextInput, {
             style: styles.queryInput,

@@ -13,10 +13,11 @@ import {MsgId, About, FeedId} from 'ssb-typescript';
 import {Screens} from '~frontend/screens/enums';
 import {navOptions as profileScreenNavOptions} from '~frontend/screens/profile';
 import {GetReadable, SSBSource} from '~frontend/drivers/ssb';
-import {Props as ProfileProps} from '../profile/props';
 import AccountsList from '~frontend/components/AccountsList';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {globalStyles} from '~frontend/global-styles/styles';
+import {Props as ProfileProps} from '../profile/props';
 export {navOptions} from './layout';
 const pull = require('pull-stream');
 
@@ -102,6 +103,7 @@ export function accounts(sources: Sources): Sinks {
     const abouts = state.abouts;
 
     return h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: state.title}),
       abouts ? h(AccountsList, {sel: 'accounts', accounts: abouts}) : null,
     ]);

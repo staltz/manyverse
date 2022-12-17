@@ -11,6 +11,7 @@ import {Images} from '~frontend/global-styles/images';
 import tutorialSlide from '~frontend/components/tutorial-slide';
 import tutorialPresentation from '~frontend/components/tutorial-presentation';
 import Button from '~frontend/components/Button';
+import StatusBarBrand from '~frontend/components/StatusBarBrand';
 import {t} from '~frontend/drivers/localization';
 import {State} from './model';
 
@@ -324,6 +325,7 @@ function setupAccountSlide(state: State) {
 export default function view(state$: Stream<State>, actions: Actions) {
   return state$.map((state) =>
     h(View, {style: styles.screen}, [
+      h(StatusBarBrand),
       !state.readyToStart
         ? h(Image, {
             source: Images.logoOutline,

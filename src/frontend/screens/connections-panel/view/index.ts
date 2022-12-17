@@ -8,17 +8,18 @@ import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {Platform, ScrollView, View} from 'react-native';
 import {FloatingAction} from 'react-native-floating-action';
-import TopBar from '~frontend/components/TopBar';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Images} from '~frontend/global-styles/images';
+import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
+import {withTitle} from '~frontend/components/withTitle';
+import {FabProps} from '~frontend/screens/central/fab';
 import {State} from '../model';
 import {styles} from './styles';
 import ConnectivityModes from './ConnectivityModes';
 import Body from './Body';
-import {withTitle} from '~frontend/components/withTitle';
-import {FabProps} from '~frontend/screens/central/fab';
 
 const ACTION_MARGIN_DESKTOP = 45; // px
 
@@ -64,6 +65,7 @@ export default function view(state$: Stream<State>) {
     .map((state) => {
       const fabProps = getFABProps(state);
       return h(View, {style: styles.screen}, [
+        h(StatusBarBlank),
         h(TopBar, {sel: 'topbar', title: t('connections.title')}),
         h(
           ScrollView,

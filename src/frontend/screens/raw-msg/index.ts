@@ -13,6 +13,7 @@ import {MsgAndExtras} from '~frontend/ssb/types';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {globalStyles} from '~frontend/global-styles/styles';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import Metadata from '~frontend/components/messages/Metadata';
 
 export interface Props {
@@ -63,6 +64,7 @@ export const styles = StyleSheet.create({
 export function rawMessage(sources: Sources): Sinks {
   const vdom$ = sources.props.map((props) =>
     h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: t('raw_msg.title')}),
       h(ScrollView, {style: styles.container}, [
         h(Metadata, {style: styles.content, msg: props.msg}),

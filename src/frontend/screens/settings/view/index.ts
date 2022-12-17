@@ -7,6 +7,7 @@ import {h} from '@cycle/react';
 import {ScrollView, View, Text, Platform, NativeModules} from 'react-native';
 import TopBar from '~frontend/components/TopBar';
 import {t} from '~frontend/drivers/localization';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {State, hopsOptions} from '../model';
 import ToggleSetting from './ToggleSetting';
 import LinkSetting from './LinkSetting';
@@ -32,6 +33,7 @@ export default function view(state$: Stream<State>) {
 
   return state$.map((state) =>
     h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: t('settings.title')}),
       h(ScrollView, {style: styles.container}, [
         h(View, {style: styles.section}, [

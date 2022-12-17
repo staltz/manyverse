@@ -18,6 +18,7 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {globalStyles} from '~frontend/global-styles/styles';
 import manage from '~frontend/components/manage-aliases';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {Props} from './props';
 
 interface State {
@@ -80,6 +81,7 @@ export function manageAliases(sources: Sources): Sinks {
 
   const vdom$ = manageSinks.screen.map((innerVDOM) =>
     h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: t('manage_aliases.title')}),
       h(ScrollView, {style: styles.container}, [
         h(View, {style: styles.innerContainer}, [innerVDOM]),

@@ -20,6 +20,7 @@ import {IconNames} from '~frontend/global-styles/icons';
 import Button from '~frontend/components/Button';
 import Avatar from '~frontend/components/Avatar';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {State} from '../model';
 import {styles, avatarSize} from './styles';
 
@@ -73,6 +74,7 @@ export default function view(
 ) {
   return xs.combine(state$, manageAliases$).map(([state, manageAliases]) => {
     return h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: t('profile_edit.title')}),
 
       h(ScrollView, {style: styles.container}, [

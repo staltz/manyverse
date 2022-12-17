@@ -22,6 +22,7 @@ import tutorialPresentation from '~frontend/components/tutorial-presentation';
 import tutorialSlide from '~frontend/components/tutorial-slide';
 import Button from '~frontend/components/Button';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBrand from '~frontend/components/StatusBarBrand';
 import {Props} from './props';
 
 export interface Sources {
@@ -91,6 +92,7 @@ export function instructions(sources: Sources): Sinks {
 
   const vdom$ = state$.map((state) =>
     h(View, {style: styles.screen}, [
+      h(StatusBarBrand),
       h(TopBar, {sel: 'topbar', style: styles.topBar, theme: 'brand'}),
 
       tutorialPresentation('swiper', {scrollBy$, showDots: !!state.content2}, [

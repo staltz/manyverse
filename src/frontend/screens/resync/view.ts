@@ -13,6 +13,7 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import tutorialSlide from '~frontend/components/tutorial-slide';
 import Button from '~frontend/components/Button';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {Circle, CirclePropTypes} from 'react-native-progress';
 import {State} from './model';
 import tutorialPresentation from '~frontend/components/tutorial-presentation';
@@ -170,6 +171,7 @@ export default function view(state$: Stream<State>) {
     )
     .map((state) =>
       h(View, {style: styles.screen}, [
+        h(StatusBarBlank),
         !state.connectedToSomeone
           ? h(NotConnected)
           : h(Connected, {

@@ -12,6 +12,7 @@ import TopBar from '~frontend/components/TopBar';
 import AnimatedLoading from '~frontend/components/AnimatedLoading';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {State} from '../model';
 import ListItem from './ListItem';
 import Header from './Header';
@@ -47,6 +48,7 @@ export default function view(state$: Stream<State>) {
           : Array.from(state.hashtags).sort(([a], [b]) => a.localeCompare(b));
 
       return h(View, {style: styles.screen}, [
+        h(StatusBarBlank),
         h(TopBar, {sel: 'topbar', title: t('feed_settings.title')}),
         h(View, {style: styles.scrollContainer}, [
           h(TypedFlatList, {

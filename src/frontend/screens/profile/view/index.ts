@@ -21,6 +21,7 @@ import {Images} from '~frontend/global-styles/images';
 import Feed from '~frontend/components/Feed';
 import EmptySection from '~frontend/components/EmptySection';
 import {withTitle} from '~frontend/components/withTitle';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {State} from '../model';
 import {styles, AVATAR_SIZE} from './styles';
 import ProfileHeader from './ProfileHeader';
@@ -127,6 +128,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
       else if (state.getFeedReadable) getReadable = state.getFeedReadable;
 
       return h(View, {style: styles.screen}, [
+        h(StatusBarBlank),
         h(ProfileTopBar, {
           state,
           isSelfProfile,

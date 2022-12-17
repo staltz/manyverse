@@ -17,6 +17,7 @@ import {Typography} from '~frontend/global-styles/typography';
 import FlagSecure from '~frontend/components/FlagSecure';
 import Button from '~frontend/components/Button';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {globalStyles} from '~frontend/global-styles/styles';
 import {navOptions as inputSecretScreenNavOptions} from '~frontend/screens/secret-input';
 import {Screens} from '~frontend/screens/enums';
@@ -180,6 +181,7 @@ function bold(innerText: string) {
 function view(state$: Stream<State>) {
   return state$.map((state) =>
     h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       Platform.OS === 'web' ? h(View, {style: styles.topBarBackground}) : null,
       h(TopBar, {
         sel: 'topbar',

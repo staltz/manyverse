@@ -21,6 +21,7 @@ import {globalStyles} from '~frontend/global-styles/styles';
 import Button from '~frontend/components/Button';
 import FlagSecure from '~frontend/components/FlagSecure';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {State} from './model';
 
 export const styles = StyleSheet.create({
@@ -108,6 +109,7 @@ export const styles = StyleSheet.create({
 export default function view(state$: Stream<State>) {
   return state$.map((state) =>
     h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       Platform.OS === 'web' ? h(View, {style: styles.topBarBackground}) : null,
       h(TopBar, {
         sel: 'topbar',

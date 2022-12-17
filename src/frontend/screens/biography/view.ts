@@ -10,6 +10,7 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {WindowSize} from '~frontend/drivers/window-size';
 import Markdown from '~frontend/components/Markdown';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {State} from './index';
 import {styles} from './styles';
 
@@ -29,6 +30,7 @@ export default function view(
     }
 
     return h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: state.about.name ?? ''}),
 
       h(ScrollView, {style: styles.container}, [

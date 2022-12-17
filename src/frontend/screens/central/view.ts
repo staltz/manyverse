@@ -30,6 +30,7 @@ import ActivityTabIcon from '~frontend/components/tab-buttons/ActivityTabIcon';
 import ConnectionsTabIcon from '~frontend/components/tab-buttons/ConnectionsTabIcon';
 import {withTitle} from '~frontend/components/withTitle';
 import ProgressBar from '~frontend/components/ProgressBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {
   styles,
   PILL_WIDTH_SMALL,
@@ -329,6 +330,7 @@ export default function view(
         connectionsTab,
       ]) =>
         h(View, {key: 'c', style: styles.screen}, [
+          h(StatusBarBlank),
           // h(RNBridgeDebug),
           topBar,
           h(CurrentTabPage, {

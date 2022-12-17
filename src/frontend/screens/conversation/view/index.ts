@@ -34,6 +34,7 @@ import {globalStyles} from '~frontend/global-styles/styles';
 import {IconNames} from '~frontend/global-styles/icons';
 import Markdown from '~frontend/components/Markdown';
 import Avatar from '~frontend/components/Avatar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import TopBar from '~frontend/components/TopBar';
 import HeaderButton from '~frontend/components/HeaderButton';
 import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
@@ -359,6 +360,7 @@ export default function view(
     )
     .map(({selfFeedId, giftedMessages, thread}) =>
       h(View, {style: styles.container}, [
+        h(StatusBarBlank),
         h(TopBar, {sel: 'topbar', title: t('conversation.title')}, [
           h(HeaderButton, {
             sel: 'showRecipients',

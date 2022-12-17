@@ -14,6 +14,7 @@ import EmptySection from '~frontend/components/EmptySection';
 import AccountsListCheckMany from '~frontend/components/AccountsListCheckMany';
 import TopBar from '~frontend/components/TopBar';
 import Button from '~frontend/components/Button';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {MAX_PRIVATE_MESSAGE_RECIPIENTS} from '~frontend/ssb/utils/constants';
 import {State} from './model';
 import {styles} from './styles';
@@ -21,6 +22,7 @@ import {styles} from './styles';
 export default function view(state$: Stream<State>) {
   return state$.map((state) =>
     h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: t('recipients_input.title')}, [
         h(Button, {
           sel: 'recipientsInputNextButton',

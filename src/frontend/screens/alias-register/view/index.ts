@@ -9,6 +9,7 @@ import {StyleSheet, View} from 'react-native';
 import {t} from '~frontend/drivers/localization';
 import TopBar from '~frontend/components/TopBar';
 import EmptySection from '~frontend/components/EmptySection';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {globalStyles} from '~frontend/global-styles/styles';
@@ -59,6 +60,7 @@ export function view(state$: Stream<State>) {
     }
 
     return h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: t('register_alias.title')}),
       h(View, {style: styles.container}, [...moreChildren]),
     ]);

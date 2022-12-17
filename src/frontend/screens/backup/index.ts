@@ -18,6 +18,7 @@ import tutorialPresentation from '~frontend/components/tutorial-presentation';
 import tutorialSlide from '~frontend/components/tutorial-slide';
 import Button from '~frontend/components/Button';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBrand from '~frontend/components/StatusBarBrand';
 import {navOptions as outputSecretScreenNavOptions} from '~frontend/screens/secret-output';
 import {Screens} from '~frontend/screens/enums';
 
@@ -151,6 +152,7 @@ export function backup(sources: Sources): Sinks {
     .combine(sources.state.stream, forceRerender$)
     .map(([state]) =>
       h(View, {style: styles.screen}, [
+        h(StatusBarBrand),
         h(TopBar, {
           sel: 'topbar',
           style: styles.topBar,

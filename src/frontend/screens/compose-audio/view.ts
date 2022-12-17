@@ -11,6 +11,7 @@ import AudioPlayer from '~frontend/components/AudioPlayer';
 import AudioRecorder from '~frontend/components/AudioRecorder';
 import TopBar from '~frontend/components/TopBar';
 import Button from '~frontend/components/Button';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {State} from './model';
 import {styles} from './styles';
 const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
@@ -18,6 +19,7 @@ const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
 export default function view(state$: Stream<State>) {
   return state$.map((state) => {
     return h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: t('compose_audio.title')}),
 
       h(View, {style: styles.container}, [

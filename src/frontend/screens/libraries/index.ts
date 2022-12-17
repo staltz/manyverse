@@ -19,6 +19,7 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import TopBar from '~frontend/components/TopBar';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
@@ -268,6 +269,7 @@ export function libraries(sources: Sources): Sinks {
 
   const vdom$ = xs.of(
     h(View, {style: styles.screen}, [
+      h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: t('libraries.title')}),
       h(ScrollView, {style: styles.container}, [
         h(DepList, {sel: 'libraries', libraries: librariesData as any}),

@@ -24,6 +24,7 @@ import {globalStyles} from '~frontend/global-styles/styles';
 import {IconNames} from '~frontend/global-styles/icons';
 import {t} from '~frontend/drivers/localization';
 import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import StatusBarBrand from '~frontend/components/StatusBarBrand';
 import Button from '~frontend/components/Button';
 import TopBar from '~frontend/components/TopBar';
 import ProgressBar from '~frontend/components/ProgressBar';
@@ -293,6 +294,7 @@ export default function view(state$: Stream<State>) {
       });
 
       return h(View, {style: styles.screen}, [
+        h(StatusBarBrand),
         topBar,
 
         h(

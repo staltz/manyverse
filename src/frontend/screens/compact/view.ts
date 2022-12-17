@@ -19,6 +19,7 @@ import {Typography} from '~frontend/global-styles/typography';
 import {globalStyles} from '~frontend/global-styles/styles';
 import {t} from '~frontend/drivers/localization';
 import LocalizedHumanTime from '~frontend/components/LocalizedHumanTime';
+import StatusBarBrand from '~frontend/components/StatusBarBrand';
 import {State} from './model';
 
 export const styles = StyleSheet.create({
@@ -67,6 +68,7 @@ export default function view(state$: Stream<State>) {
       const win = DimensAPI.get('window');
       const size = Math.min(win.width, win.height) * 0.5;
       return h(View, {style: styles.screen}, [
+        h(StatusBarBrand),
         h(Text, {style: styles.title}, t('compact.title')),
         h(
           Circle as any,

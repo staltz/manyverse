@@ -34,6 +34,7 @@ import Markdown from '~frontend/components/Markdown';
 import AccountSmall from '~frontend/components/AccountSmall';
 import SettableTextInput from '~frontend/components/SettableTextInput';
 import ContentWarning from '~frontend/components/messages/ContentWarning';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
 
@@ -319,6 +320,7 @@ export default function view(
 
   return xs.combine(topBar$, miniState$).map(([topBar, state]) =>
     h(View, {key: 'compose', style: styles.screen}, [
+      h(StatusBarBlank),
       topBar,
       h(
         KeyboardAvoidingView,

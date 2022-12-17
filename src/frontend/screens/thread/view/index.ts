@@ -22,6 +22,7 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {IconNames} from '~frontend/global-styles/icons';
 import Avatar from '~frontend/components/Avatar';
 import EmptySection from '~frontend/components/EmptySection';
+import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {
   Payload as SettablePayload,
   default as SettableTextInput,
@@ -224,6 +225,7 @@ export default function view(state$: Stream<State>, actions: Actions) {
       }
 
       return h(View, {style: styles.screen}, [
+        h(StatusBarBlank),
         topBar,
         h(
           KeyboardAvoidingView,
