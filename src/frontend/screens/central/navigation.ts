@@ -10,6 +10,7 @@ import {navOptions as searchNavOpts} from '~frontend/screens/search/index';
 import {navOptions as indexingScreenNavOpts} from '~frontend/screens/indexing/layout';
 import {Props as SearchProps} from '~frontend/screens/search/props';
 import {Props as IndexingProps} from '~frontend/screens/indexing/props';
+import {navOptions as feedSettingsScreenNavOptions} from '~frontend/screens/feed-settings';
 import {State} from './model';
 
 export interface Actions {
@@ -17,6 +18,7 @@ export interface Actions {
   closeDrawer$: Stream<null>;
   goToSearch$: Stream<null>;
   goToIndexing$: Stream<IndexingProps>;
+  goToFeedSettings$: Stream<null>;
 }
 
 export default function navigationCommands(
@@ -85,5 +87,26 @@ export default function navigationCommands(
       } as Command),
   );
 
-  return xs.merge(openDrawer$, closeDrawer$, toSearch$, toIndexing$, other$);
+  const toFeedSettings$ = actions.goToFeedSettings$.compose(sample(state$)).map(
+    (state) =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.FeedSettings,
+            options: feedSettingsScreenNavOptions,
+            passProps: {selfFeedId: state.selfFeedId},
+          },
+        },
+      } as Command),
+  );
+
+  return xs.merge(
+    openDrawer$,
+    closeDrawer$,
+    toSearch$,
+    toIndexing$,
+    toFeedSettings$,
+    other$,
+  );
 }

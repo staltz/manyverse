@@ -70,12 +70,19 @@ interface Props {
   selected?: boolean;
   accessibilityLabel?: string;
   accessibilityRole?: AccessibilityRole;
+  textSize?: 'small' | 'normal' | 'big';
 }
 
 export default class Pill extends PureComponent<Props> {
   public render() {
-    const {content, onPress, selected, accessibilityLabel, accessibilityRole} =
-      this.props;
+    const {
+      content,
+      onPress,
+      selected,
+      accessibilityLabel,
+      accessibilityRole,
+      textSize,
+    } = this.props;
 
     return h(
       Pressable,
@@ -95,7 +102,20 @@ export default class Pill extends PureComponent<Props> {
             Text,
             {
               numberOfLines: 2,
-              style: [styles.text, selected && styles.textSelected],
+              style: [
+                styles.text,
+                textSize
+                  ? {
+                      fontSize:
+                        textSize === 'small'
+                          ? Typography.fontSizeSmall
+                          : textSize === 'normal'
+                          ? Typography.fontSizeNormal
+                          : Typography.fontSizeBig,
+                    }
+                  : undefined,
+                selected && styles.textSelected,
+              ],
             },
             content,
           ),

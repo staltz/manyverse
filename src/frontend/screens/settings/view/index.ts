@@ -74,6 +74,15 @@ export default function view(state$: Stream<State>) {
               'settings.preferences.hops.accessibility_label',
             ),
           }),
+
+          h(View, {style: styles.spacer}),
+          h(LinkSetting, {
+            sel: 'feedSettings',
+            title: t('settings.preferences.feed_settings.title'),
+            accessibilityLabel: t(
+              'settings.preferences.feed_settings.accessibility_label',
+            ),
+          }),
         ]),
 
         h(View, {style: styles.section}, [

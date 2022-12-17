@@ -103,6 +103,7 @@ declare module 'i18n-js' {
     | 'central.filters_row.following.accessibility_label'
     | 'central.filters_row.hashtags.label'
     | 'central.filters_row.hashtags.accessibility_label'
+    | 'central.filters_row.feed_settings.accessibility_label'
     | 'public.floating_action_button.compose'
     | 'public.empty.title'
     | 'public.empty.description'
@@ -465,6 +466,8 @@ declare module 'i18n-js' {
     | 'settings.preferences.enable_firewall.title'
     | 'settings.preferences.enable_firewall.subtitle'
     | 'settings.preferences.enable_firewall.accessibility_label'
+    | 'settings.preferences.feed_settings.title'
+    | 'settings.preferences.feed_settings.accessibility_label'
     | 'settings.data_and_storage.title'
     | 'settings.data_and_storage.backup.title'
     | 'settings.data_and_storage.backup.subtitle'
@@ -630,7 +633,23 @@ declare module 'i18n-js' {
     | 'context_menu.look_up_selection'
     | 'context_menu.paste'
     | 'context_menu.save_image'
-    | 'context_menu.save_image_as';
+    | 'context_menu.save_image_as'
+    | 'feed_settings.title'
+    | 'feed_settings.active_label'
+    | 'feed_settings.all.title'
+    | 'feed_settings.all.description'
+    | 'feed_settings.all.accessibility_label'
+    | 'feed_settings.following.title'
+    | 'feed_settings.following.description'
+    | 'feed_settings.following.accessibility_label'
+    | 'feed_settings.hashtags.title'
+    | 'feed_settings.hashtags.description_1'
+    | 'feed_settings.hashtags.description_2'
+    | 'feed_settings.hashtags.accessibility_label'
+    | 'feed_settings.subscribe_toggle.subscribe.label'
+    | 'feed_settings.subscribe_toggle.subscribe.accessibility_label'
+    | 'feed_settings.subscribe_toggle.unsubscribe.label'
+    | 'feed_settings.subscribe_toggle.unsubscribe.accessibility_label';
   function t(key: Key, config?: any): string;
   let fallbacks: boolean;
   let locale: string;

@@ -33,6 +33,7 @@ export default function intent(
     ),
 
     publicSearch$: reactSource.select('search').events('press'),
+    feedSettings$: reactSource.select('filtersRow').events('feedSettingsPress'),
 
     updatePublicTabFilters$,
     scrollToPublicTop$,

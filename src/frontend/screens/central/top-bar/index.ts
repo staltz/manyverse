@@ -24,6 +24,7 @@ export interface Sinks {
   menuPress: Stream<any>;
   state: Stream<Reducer<State>>;
   publicSearch: Stream<any>;
+  feedSettings: Stream<any>;
   asyncstorage: Stream<StorageCommand>;
   scrollToPublicTop$: Stream<null>;
 }
@@ -40,6 +41,7 @@ export function topBar(sources: Sources): Sinks {
     state: reducer$,
     menuPress: actions.menu$,
     publicSearch: actions.publicSearch$,
+    feedSettings: actions.feedSettings$,
     asyncstorage: storageCommand$,
     scrollToPublicTop$: actions.scrollToPublicTop$,
   };

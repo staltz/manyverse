@@ -4,6 +4,7 @@
 
 import xs, {Stream} from 'xstream';
 import {FeedId, MsgId} from 'ssb-typescript';
+import {FeedFilter} from '~frontend/screens/central/model';
 
 export interface TriggerFeedCypherlink {
   type: 'triggerFeedCypherlink';
@@ -41,6 +42,11 @@ export interface ApproveCheckingNewVersion {
 
 export interface HasNewVersion {
   type: 'hasNewVersion';
+}
+
+export interface ChangePublicFeedType {
+  type: 'changePublicFeedType';
+  feedType: FeedFilter;
 }
 
 export interface CentralChangeTab {
@@ -93,7 +99,8 @@ export type GlobalEvent =
   | AudioBlobComposed
   | CentralScreenUpdate
   | ApproveCheckingNewVersion
-  | HasNewVersion;
+  | HasNewVersion
+  | ChangePublicFeedType;
 
 export class EventBus {
   public _stream?: Stream<GlobalEvent>;

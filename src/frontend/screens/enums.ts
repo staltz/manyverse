@@ -35,4 +35,5 @@ export enum Screens {
   Storage = 'Manyverse.Storage',
   Compact = 'Manyverse.Compact',
   Indexing = 'Manyverse.Indexing',
+  FeedSettings = 'Manyverse.FeedSettings',
 }

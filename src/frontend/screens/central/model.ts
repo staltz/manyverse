@@ -310,6 +310,7 @@ export interface Actions {
   backToPublicTab$: Stream<null>;
   drawerToggled$: Stream<boolean>;
   hasNewVersion$: Stream<any>;
+  changePublicFeedType$: Stream<FeedFilter>;
 }
 
 export default function model(
@@ -407,6 +408,13 @@ export default function model(
       },
   );
 
+  const updatePublicFeedTypeReducer$ = actions.changePublicFeedType$.map(
+    (feedType) =>
+      function updatePublicFeedTypeReducer(prev: State): State {
+        return {...prev, publicTabFeedType: feedType};
+      },
+  );
+
   return xs.merge(
     initReducer$,
     setSelfFeedId$,
@@ -418,5 +426,6 @@ export default function model(
     progressReducer$,
     hasNewVersionReducer$,
     updateSubscribedHashtagsReducer$,
+    updatePublicFeedTypeReducer$,
   );
 }

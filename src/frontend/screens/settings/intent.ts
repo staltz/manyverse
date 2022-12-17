@@ -99,5 +99,7 @@ export default function intent(
     goToThanks$: screenSource.select('thanks').events('press'),
 
     goToAbout$: screenSource.select('about').events('press'),
+
+    goToFeedSettings$: screenSource.select('feedSettings').events('press'),
   };
 }

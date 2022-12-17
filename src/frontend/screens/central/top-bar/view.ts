@@ -15,8 +15,10 @@ import {
   Image,
   TouchableOpacity,
   TouchableHighlight,
+  Pressable,
 } from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
@@ -165,7 +167,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Dimensions.horizontalSpaceBig,
     ...Platform.select({
       web: {
-        // alignSelf: 'flex-end',
         backgroundColor: 'transparent',
         transform: 'scaleX(-1)',
       } as React.CSSProperties & ViewStyle,
@@ -176,6 +177,19 @@ export const styles = StyleSheet.create({
     height: 1,
     width: Dimensions.horizontalSpaceSmall,
   },
+
+  feedSettingsButton: {
+    borderColor: Palette.textVeryWeak,
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: Platform.OS === 'web' ? 2 : 3,
+  },
+
+  feedSettingsIcon: Platform.select({
+    web: {
+      'user-select': 'none',
+    },
+  }) as ViewStyle,
 });
 
 function tabTitle(tab: State['currentTab']) {
@@ -251,6 +265,7 @@ class AppLogoButton extends PureComponent<{onPress?: () => void}> {
 class FiltersRow extends PureComponent<{
   activeFilter: FeedFilter;
   onFilterPress?: (feedFilter: FeedFilter) => void;
+  onFeedSettingsPress?: () => void;
 }> {
   private _onPressAll = () => {
     this.props.onFilterPress?.('all');
@@ -262,6 +277,10 @@ class FiltersRow extends PureComponent<{
 
   private _onPressHashtags = () => {
     this.props.onFilterPress?.('hashtags');
+  };
+
+  private _onPressFeedSettings = () => {
+    this.props.onFeedSettingsPress?.();
   };
 
   public render() {
@@ -296,6 +315,40 @@ class FiltersRow extends PureComponent<{
         ),
         accessibilityRole: 'button',
       }),
+      $(View, {style: styles.filtersRowSpacer}),
+      $(
+        Pressable,
+        {
+          hitSlop: {top: 8, bottom: 8, left: 8, right: 8},
+          onPress: this._onPressFeedSettings,
+          style: ({
+            pressed,
+            hovered,
+          }: {
+            pressed: boolean;
+            hovered?: boolean;
+          }) => [
+            styles.feedSettingsButton,
+            {
+              backgroundColor:
+                hovered || pressed
+                  ? Palette.backgroundTextWeak
+                  : Palette.backgroundText,
+            },
+          ],
+        },
+        $(Icon, {
+          name: IconNames.settings,
+          size: Dimensions.iconSizeSmall,
+          color: Palette.textWeak,
+          accessible: true,
+          accessibilityRole: 'button',
+          style: styles.feedSettingsIcon,
+          accessibilityLabel: t(
+            'central.filters_row.feed_settings.accessibility_label',
+          ),
+        }),
+      ),
     );
   }
 }

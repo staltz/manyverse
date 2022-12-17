@@ -68,6 +68,7 @@ import {settings} from './screens/settings';
 import {storage} from './screens/storage';
 import {compact} from './screens/compact';
 import {indexing} from './screens/indexing';
+import {feedSettings} from './screens/feed-settings';
 
 export const drivers = {
   appstate: makeAppStateDriver(),
@@ -141,4 +142,5 @@ export const screens: ScreensMapping = {
   [Screens.Storage]: withState(storage),
   [Screens.Compact]: withState(compact),
   [Screens.Indexing]: withState(indexing),
+  [Screens.FeedSettings]: withState(feedSettings),
 };

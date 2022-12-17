@@ -10,6 +10,7 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {navOptions as librariesNavOptions} from '~frontend/screens/libraries';
 import {navOptions as backupScreenNavOptions} from '~frontend/screens/backup';
 import {navOptions as storagesScreenNavOptions} from '~frontend/screens/storage';
+import {navOptions as feedSettingsScreenNavOptions} from '~frontend/screens/feed-settings';
 import {Screens} from '~frontend/screens/enums';
 import {welcomeLayout} from '~frontend/screens/layouts';
 import {State} from './model';
@@ -32,6 +33,7 @@ export interface Actions {
   goToLibraries$: Stream<any>;
   goToAbout$: Stream<any>;
   goToThanks$: Stream<any>;
+  goToFeedSettings$: Stream<any>;
 }
 
 export default function navigationCommands(
@@ -120,6 +122,20 @@ export default function navigationCommands(
     .compose(delay(800))
     .mapTo({type: 'setStackRoot', layout: welcomeLayout} as Command);
 
+  const toFeedSettings$ = actions.goToFeedSettings$.compose(sample(state$)).map(
+    (state) =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.FeedSettings,
+            options: feedSettingsScreenNavOptions,
+            passProps: {selfFeedId: state.selfFeedId},
+          },
+        },
+      } as Command),
+  );
+
   return xs.merge(
     back$,
     toBackup$,
@@ -129,5 +145,6 @@ export default function navigationCommands(
     toThanks$,
     toRoot$,
     toWelcome$,
+    toFeedSettings$,
   );
 }

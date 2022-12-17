@@ -12,6 +12,7 @@ import {
   CentralChangeTab,
   CentralScrollToTop,
   CentralScreenUpdate,
+  ChangePublicFeedType,
 } from '~frontend/drivers/eventbus';
 import {Props as IndexingProps} from '~frontend/screens/indexing/props';
 import {State} from './model';
@@ -124,6 +125,12 @@ export default function intent(
     (ev) => ev.type === 'hasNewVersion',
   );
 
+  const changePublicFeedType$ = globalEventBus
+    .filter(
+      (ev): ev is ChangePublicFeedType => ev.type === 'changePublicFeedType',
+    )
+    .map((ev) => ev.feedType);
+
   return {
     changeTab$,
     scrollToPublicTop$,
@@ -135,5 +142,6 @@ export default function intent(
     drawerToggled$,
     goToIndexing$,
     hasNewVersion$,
+    changePublicFeedType$,
   };
 }
