@@ -136,6 +136,7 @@ export default class ZoomableImage extends PureComponent<Props, State> {
 
       $(HeaderButton, {
         key: 'btn',
+        color: Palette.colors.white,
         onPress: () => {
           Clipboard.setString(blobId);
           const toastMsg = "Copied this blob's ID";
