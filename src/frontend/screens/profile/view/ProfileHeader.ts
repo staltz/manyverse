@@ -7,7 +7,6 @@ import {Fragment, Component} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const stripMarkdownOneline = require('strip-markdown-oneline');
-const byteSize = require('byte-size').default;
 import {t} from '~frontend/drivers/localization';
 import Button from '~frontend/components/Button';
 import ToggleButton from '~frontend/components/ToggleButton';
@@ -144,25 +143,6 @@ function FollowsYou() {
   ]);
 }
 
-function StorageUsed({storageUsed}: {storageUsed: number}) {
-  return h(TouchableOpacity, {sel: 'storageUsed'}, [
-    h(View, {style: styles.detailsRow}, [
-      h(Icon, {
-        size: Dimensions.iconSizeSmall,
-        color: Palette.brandMain,
-        name: IconNames.storage,
-      }),
-      h(
-        Text,
-        {style: styles.secondaryLabel},
-        t('profile.details.counters.storage_used', {
-          megabytes: byteSize(storageUsed).toString(),
-        }),
-      ),
-    ]),
-  ]);
-}
-
 function AliasesSection({
   aliases,
   onPressAlias,
@@ -213,14 +193,12 @@ export default class ProfileHeader extends Component<{state: State}> {
     if (next.youBlock?.response !== prev.youBlock?.response) return true;
     if (next.youFollow?.response !== prev.youFollow?.response) return true;
     if (next.followsYou?.response !== prev.followsYou?.response) return true;
-    if (next.storageUsed !== prev.storageUsed) return true;
     return false;
   }
 
   public render() {
     const state = this.props.state;
-    const {about, following, followers, friendsInCommon, aliases, storageUsed} =
-      state;
+    const {about, following, followers, friendsInCommon, aliases} = state;
 
     const isSelfProfile = state.displayFeedId === state.selfFeedId;
     const followsYou = state.followsYou?.response ?? false;
@@ -271,7 +249,6 @@ export default class ProfileHeader extends Component<{state: State}> {
         followsYou ? h(FollowsYou) : null,
         h(FollowSection, {following, followers}),
         !isSelfProfile ? h(FriendsInCommon, {friendsInCommon}) : null,
-        storageUsed ? h(StorageUsed, {storageUsed}) : null,
         h(AliasesSection, {sel: 'aliases', aliases, isSelfProfile}),
       ]),
 

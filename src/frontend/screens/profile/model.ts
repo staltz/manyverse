@@ -36,7 +36,6 @@ export interface State {
   connection: 'connected' | 'connecting' | 'disconnecting' | undefined;
   // TODO: use `ThreadSummaryWithExtras` but somehow support reply summaries
   getFeedReadable: GetReadable<any> | null;
-  storageUsed: number | null;
 }
 
 interface Actions {
@@ -83,7 +82,6 @@ export default function model(
           youFollow: null,
           youBlock: null,
           connection: void 0,
-          storageUsed: null,
         };
       },
   );
@@ -155,9 +153,6 @@ export default function model(
     })
     .take(1)
     .flatten();
-  const initialStorageUsed$ = props$
-    .map((props) => ssbSource.bytesUsedByFeed$(props.feedId))
-    .flatten();
 
   const initialDetailsReducer$ = xs
     .combine(
@@ -168,7 +163,6 @@ export default function model(
       initialFollowing$,
       initialFollowers$,
       initialFriendsInCommon$,
-      initialStorageUsed$,
     )
     .map(
       ([
@@ -179,7 +173,6 @@ export default function model(
         following,
         followers,
         friendsInCommon,
-        storageUsed,
       ]) =>
         function initialDetailsReducer(prev: State): State {
           return {
@@ -191,7 +184,6 @@ export default function model(
             following,
             followers,
             friendsInCommon,
-            storageUsed,
           };
         },
     );

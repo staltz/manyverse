@@ -80,7 +80,6 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         'aliases',
         'connection',
         'getFeedReadable',
-        'storageUsed',
       ]),
     )
     .map((state) => {

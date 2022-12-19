@@ -99,8 +99,6 @@ export default function intent(
 
     refreshFeed$: reactSource.select('feed').events<any>('refresh'),
 
-    aboutStorage$: reactSource.select('storageUsed').events<null>('press'),
-
     manageContact$: reactSource
       .select('manage')
       .events('press')
