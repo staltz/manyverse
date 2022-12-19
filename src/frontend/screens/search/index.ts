@@ -9,10 +9,11 @@ import {Platform} from 'react-native';
 import {Reducer, StateSource} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {Req, SSBSource} from '~frontend/drivers/ssb';
-import {DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';
+import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import messageEtc from '~frontend/components/messageEtc';
 import messageShare from '~frontend/components/messageShare';
+import timestampAlert from '~frontend/components/timestamp-alert';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';
@@ -37,6 +38,7 @@ export interface Sinks {
   keyboard: Stream<'dismiss'>;
   state: Stream<Reducer<State>>;
   ssb: Stream<Req>;
+  dialog: Stream<AlertCommand>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
 }
@@ -82,10 +84,13 @@ export function search(sources: Sources): Sinks {
 
   const newContent$ = ssb(actionsPlus, state$);
 
+  const alert$ = actions.viewTimestamp$.map(timestampAlert);
+
   return {
     screen: vdom$,
     keyboard: dismissKeyboard$,
     navigation: command$,
+    dialog: alert$,
     state: reducer$,
     ssb: newContent$,
     clipboard: messageShareSinks.clipboard,

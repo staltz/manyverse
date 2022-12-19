@@ -91,6 +91,8 @@ export default function intent(
       .select('feed')
       .events<ProfileNavEvent>('pressAuthor'),
 
+    viewTimestamp$: reactSource.select('feed').events<number>('pressTimestamp'),
+
     openMessageEtc$: reactSource.select('feed').events<Msg>('pressEtc'),
 
     openMessageShare$: reactSource.select('feed').events<Msg>('pressShare'),

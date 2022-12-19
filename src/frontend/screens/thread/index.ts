@@ -11,9 +11,10 @@ import {KeyboardSource} from 'cycle-native-keyboard';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
-import {DialogSource} from '~frontend/drivers/dialogs';
+import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';
 import messageEtc from '~frontend/components/messageEtc';
+import timestampAlert from '~frontend/components/timestamp-alert';
 import messageShare from '~frontend/components/messageShare';
 import model, {State} from './model';
 import view from './view';
@@ -42,6 +43,7 @@ export interface Sinks {
   navigation: Stream<Command>;
   asyncstorage: Stream<StorageCommand>;
   keyboard: Stream<'dismiss'>;
+  dialog: Stream<AlertCommand>;
   state: Stream<Reducer<State>>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
@@ -81,11 +83,14 @@ export function thread(sources: Sources): Sinks {
     .merge(actions.exit$, actions.publishMsg$)
     .mapTo('dismiss' as 'dismiss');
 
+  const alert$ = actions.viewTimestamp$.map(timestampAlert);
+
   return {
     screen: vdom$,
     navigation: command$,
     keyboard: dismiss$,
     state: reducer$,
+    dialog: alert$,
     asyncstorage: storageCommand$,
     clipboard: messageShareSinks.clipboard,
     toast: messageShareSinks.toast,

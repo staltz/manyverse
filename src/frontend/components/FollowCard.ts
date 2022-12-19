@@ -30,6 +30,7 @@ export interface Props {
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressTimestamp?: (timestamp: number) => void;
   onPressEtc?: (msg: Msg) => void;
   onPressShare?: (msg: Msg) => void;
   onPressExpand?: (msg: MsgAndExtras) => void;

@@ -10,10 +10,11 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
-import {DialogSource} from '~frontend/drivers/dialogs';
+import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';
 import messageEtc from '~frontend/components/messageEtc';
 import messageShare from '~frontend/components/messageShare';
+import timestampAlert from '~frontend/components/timestamp-alert';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';
@@ -38,6 +39,7 @@ export interface Sinks {
   screen: Stream<ReactElement<any>>;
   navigation: Stream<Command>;
   state: Stream<Reducer<State>>;
+  dialog: Stream<AlertCommand>;
   asyncstorage: Stream<StorageCommand>;
   ssb: Stream<Req>;
   clipboard: Stream<string>;
@@ -67,10 +69,12 @@ export function publicTab(sources: Sources): Sinks {
   const fabProps$ = floatingAction(sources.state.stream);
   const newContent$ = ssb(actionsPlus);
   const storageCommand$ = asyncStorage(actionsPlus, sources.asyncstorage);
+  const alert$ = actions.viewTimestamp$.map(timestampAlert);
 
   return {
     screen: vdom$,
     navigation: command$,
+    dialog: alert$,
     state: reducer$,
     ssb: newContent$,
     asyncstorage: storageCommand$,

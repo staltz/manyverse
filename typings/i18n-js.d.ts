@@ -590,6 +590,7 @@ declare module 'i18n-js' {
     | 'message.introducer.1_normal'
     | 'message.introducer.2_bold'
     | 'message.introducer.3_normal'
+    | 'message.timestamp.title'
     | 'message.about.new_picture.1_normal'
     | 'message.about.new_picture.2_bold'
     | 'message.about.new_picture.3_normal'

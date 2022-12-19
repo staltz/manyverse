@@ -1334,6 +1334,9 @@
       "2_bold": "{{name}}",
       "3_normal": ""
     },
+    "timestamp": {
+      "title": "Date of publication"
+    },
     "about": {
       "new_picture": {
         "1_normal": "",

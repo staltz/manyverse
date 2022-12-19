@@ -45,6 +45,7 @@ export interface Props {
   onPressReplyToReply?: (ev: {rootMsgId: MsgId; msg: MsgAndExtras}) => void;
   onReplySeen?: (msgId: MsgId) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressTimestamp?: (timestamp: number) => void;
   onPressEtc?: (msg: Msg) => void;
   onPressShare?: (msg: Msg) => void;
   onPressAttendGathering?: (ev: {
@@ -156,6 +157,7 @@ export default class FullThread extends Component<Props, State> {
     const nextMessages = nextProps.thread.messages;
     if (nextMessages.length !== prevMessages.length) return true;
     if (nextProps.onPressAuthor !== prevProps.onPressAuthor) return true;
+    if (nextProps.onPressTimestamp !== prevProps.onPressTimestamp) return true;
     if (nextProps.onPressEtc !== prevProps.onPressEtc) return true;
     if (nextProps.onPressShare !== prevProps.onPressShare) return true;
     if (nextProps.onPressReactions !== prevProps.onPressReactions) return true;
@@ -201,6 +203,7 @@ export default class FullThread extends Component<Props, State> {
       onPressReactions,
       onPressAddReaction,
       onPressAuthor,
+      onPressTimestamp,
       onPressAttendGathering,
       onPressEtc,
       onPressShare,
@@ -244,6 +247,7 @@ export default class FullThread extends Component<Props, State> {
       onPressReactions,
       onPressAddReaction,
       onPressAuthor,
+      onPressTimestamp,
       onPressAttendGathering,
       onPressEtc,
       onPressShare,

@@ -48,6 +48,10 @@ export default function intent(
       .select('publicFeed')
       .events<ProfileNavEvent>('pressAuthor'),
 
+    viewTimestamp$: reactSource
+      .select('publicFeed')
+      .events<number>('pressTimestamp'),
+
     openMessageEtc$: reactSource.select('publicFeed').events<Msg>('pressEtc'),
 
     openMessageShare$: reactSource

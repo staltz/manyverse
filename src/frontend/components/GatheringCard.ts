@@ -59,6 +59,7 @@ interface Props {
   onPressReactions?: (ev: PressReactionsEvent) => void;
   onPressAddReaction?: (ev: PressAddReactionEvent) => void;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressTimestamp?: (timestamp: number) => void;
   onPressEtc?: (msg: Msg) => void;
   onPressShare?: (msg: Msg) => void;
   onPressExpand?: (msg: MsgAndExtras) => void;
@@ -93,6 +94,7 @@ export default class GatheringCard extends PureComponent<Props, State> {
       onPressAddReaction,
       onPressReactions,
       onPressAuthor,
+      onPressTimestamp,
       onPressEtc,
       onPressShare,
     } = this.props;
@@ -129,6 +131,7 @@ export default class GatheringCard extends PureComponent<Props, State> {
         name: metadata.about.name,
         imageUrl: metadata.about.imageUrl,
         onPressAuthor,
+        onPressTimestamp,
         onPressEtc,
       }),
       h(

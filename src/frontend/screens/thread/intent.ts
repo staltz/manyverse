@@ -113,6 +113,10 @@ export default function intent(
       .select('thread')
       .events<{authorFeedId: FeedId}>('pressAuthor'),
 
+    viewTimestamp$: reactSource
+      .select('thread')
+      .events<number>('pressTimestamp'),
+
     exit$: xs.merge(
       navSource.backPress(),
       reactSource.select('topbar').events('pressBack'),

@@ -16,7 +16,7 @@ import {State as AppState} from '~frontend/drivers/appstate';
 import {NetworkSource} from '~frontend/drivers/network';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {GlobalEvent} from '~frontend/drivers/eventbus';
-import {DialogSource} from '~frontend/drivers/dialogs';
+import {DialogSource, Command as AlertCommand} from '~frontend/drivers/dialogs';
 import {WindowSize} from '~frontend/drivers/window-size';
 import {publicTab, Sinks as PublicTabSinks} from './public-tab/index';
 import {privateTab, Sinks as PrivateTabSinks} from './private-tab/index';
@@ -58,6 +58,7 @@ export interface Sinks {
   state: Stream<Reducer<any>>;
   ssb: Stream<Req>;
   linking: Stream<string>;
+  dialog: Stream<AlertCommand>;
   clipboard: Stream<string>;
   toast: Stream<Toast>;
   globalEventBus: Stream<GlobalEvent>;
@@ -245,6 +246,7 @@ export function central(sources: Sources): Sinks {
     ssb: ssb$,
     clipboard: publicTabSinks.clipboard,
     toast: toast$,
+    dialog: publicTabSinks.dialog,
     linking: connectionsTabSinks.linking,
     globalEventBus: globalEvent$,
     exit: actions.exitApp$,

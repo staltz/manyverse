@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 const byteSize = require('byte-size').default;
+import timestampAlert from '~frontend/components/timestamp-alert';
 import {Command as AlertCommand} from '~frontend/drivers/dialogs';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
@@ -13,6 +14,7 @@ import {State} from './model';
 
 interface Actions {
   aboutStorage$: Stream<any>;
+  viewTimestamp$: Stream<number>;
 }
 
 export default function alert(
@@ -54,5 +56,11 @@ export default function alert(
       };
     });
 
-  return xs.merge(informConnectionAttempt$, informAboutStorage$);
+  const informTimestamp$ = actions.viewTimestamp$.map(timestampAlert);
+
+  return xs.merge(
+    informConnectionAttempt$,
+    informAboutStorage$,
+    informTimestamp$,
+  );
 }

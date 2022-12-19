@@ -69,6 +69,7 @@ export interface Props {
   imageUrl: string | null;
   unread?: boolean;
   onPressAuthor?: (ev: {authorFeedId: FeedId}) => void;
+  onPressTimestamp?: (timestamp: number) => void;
   onPressEtc?: (msg: Msg) => void;
 }
 
@@ -83,10 +84,11 @@ export default class MessageHeader extends Component<Props> {
   public static HEIGHT = HEIGHT;
 
   private _onPressAuthor = () => {
-    const onPressAuthor = this.props.onPressAuthor;
-    if (onPressAuthor) {
-      onPressAuthor({authorFeedId: this.props.msg.value.author});
-    }
+    this.props.onPressAuthor?.({authorFeedId: this.props.msg.value.author});
+  };
+
+  private _onPressTimestamp = () => {
+    this.props.onPressTimestamp?.(this.props.msg.value.timestamp);
   };
 
   public shouldComponentUpdate(nextProps: Props) {
@@ -104,16 +106,16 @@ export default class MessageHeader extends Component<Props> {
     timestamp: number,
     unread: boolean | undefined,
   ) {
-    return h(
-      TouchableOpacity,
-      {
-        onPress: this._onPressAuthor,
-        activeOpacity: 0.4,
-        key: 'c',
-        style: styles.authorNameTouchable,
-      },
-      [
-        h(View, {style: styles.authorNameSection}, [
+    return h(View, {key: 'c', style: styles.authorNameSection}, [
+      h(
+        TouchableOpacity,
+        {
+          onPress: this._onPressAuthor,
+          activeOpacity: 0.4,
+          key: 'c1',
+          style: styles.authorNameTouchable,
+        },
+        [
           h(
             Text,
             {
@@ -123,10 +125,20 @@ export default class MessageHeader extends Component<Props> {
             },
             displayName(name, id),
           ),
-          h(TimeAgo, {timestamp, unread: unread ?? false}),
-        ]),
-      ],
-    );
+        ],
+      ),
+
+      h(
+        TouchableOpacity,
+        {
+          onPress: this._onPressTimestamp,
+          activeOpacity: 0.4,
+          key: 'c2',
+          style: styles.authorNameTouchable,
+        },
+        [h(TimeAgo, {timestamp, unread: unread ?? false})],
+      ),
+    ]);
   }
 
   private _onPressEtc = () => {

@@ -79,6 +79,10 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     shortcutToProfile$,
   );
 
+  const viewTimestamp$ = reactSource
+    .select('feed')
+    .events<number>('pressTimestamp');
+
   const goToAccounts$ = reactSource
     .select('feed')
     .events<PressReactionsEvent>('pressReactions')
@@ -114,6 +118,7 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     goToThreadReplies$,
     goToProfile$,
     goToAccounts$,
+    viewTimestamp$,
     openMessageEtc$,
     openMessageShare$,
     goToThreadExpandCW$,
