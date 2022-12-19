@@ -2,6 +2,17 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2212.19-beta
+
+* (Desktop) Bug fix: fullscreen image view sometimes broken ([see details](https://gitlab.com/staltz/manyverse/commit/613a13eeadb8620e06575cd33e9e3c368ff9db39))
+* (Desktop) Bug fix: green clickable borders on thread card ([see details](https://gitlab.com/staltz/manyverse/commit/84ccc3deb25739095eef030ba57733e23d7f8eef))
+* (Desktop) Note how not installable on older Debians ([see details](https://gitlab.com/staltz/manyverse/commit/7692ac7f2de8b424f7c9a2e1d25f49fb2c26b552))
+* (iOS) Bug fix: color of status bar on light theme ([see details](https://gitlab.com/staltz/manyverse/commit/c18e054868763a3de3bad574d590874df3aa9907))
+* Bug fix: display hashtags as lowercase when loaded ([see details](https://gitlab.com/staltz/manyverse/commit/7c437b4b1facabb4407d3551009f123b727ea0c2))
+* Bug fix: subscribed hashtag must be lowercase ([see details](https://gitlab.com/staltz/manyverse/commit/4e103611e9ea67e8b8448e252e0feb511bae878f))
+* Feature: Feed settings screen & manage hashtags ([see details](https://gitlab.com/staltz/manyverse/commit/4b77d626cccf44a78a21fa3c319d64f521280b50))
+* Improve color of Thread screen reply expand ([see details](https://gitlab.com/staltz/manyverse/commit/3b68c81a2182737440de64992142b08a52edfd95))
+
 ## 0.2212.8-beta
 
 * (Android) Bug fix: crash when pressing back button twice ([see details](https://gitlab.com/staltz/manyverse/commit/a90949d08c76c64d5b31388f281b824f7d166174))
