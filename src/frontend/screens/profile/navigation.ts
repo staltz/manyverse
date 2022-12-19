@@ -38,6 +38,7 @@ export interface Actions {
   goToAccounts$: Stream<{
     title: string;
     accounts: Array<FeedId> | Reactions;
+    description?: string;
   }>;
   goToProfile$: Stream<{authorFeedId: FeedId}>;
   goToThread$: Stream<MsgAndExtras>;
@@ -169,6 +170,7 @@ export default function navigation(
             passProps: {
               title: ev.title,
               accounts: ev.accounts,
+              description: ev.description,
               selfFeedId: state.selfFeedId,
               selfAvatarUrl: state.selfAvatarUrl,
             } as AccountProps,

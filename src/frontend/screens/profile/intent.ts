@@ -14,6 +14,7 @@ import {
   MsgAndExtras,
   Alias,
 } from '~frontend/ssb/types';
+import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {State} from './model';
 
 export interface ProfileNavEvent {
@@ -82,8 +83,11 @@ export default function intent(
             !!state.friendsInCommon && state.friendsInCommon!.length > 0,
         )
         .map((state) => ({
-          title: t('accounts.friends_in_common.title'),
+          title: t('accounts.in_common.title'),
           accounts: state.friendsInCommon!,
+          description: t('accounts.in_common.description', {
+            name: displayName(state.about.name, state.displayFeedId),
+          }),
         })),
     ),
 

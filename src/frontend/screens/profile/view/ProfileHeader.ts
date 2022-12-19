@@ -53,11 +53,20 @@ function Counter({
   selector,
   title,
   content,
+  parenthesized,
+  smallMargin,
 }: {
   selector: string;
   title: string;
   content: string;
+  parenthesized?: boolean;
+  smallMargin?: boolean;
 }) {
+  const openParen =
+    parenthesized === true
+      ? h(Text, {key: 'p', style: styles.counterContentParen}, '(')
+      : '';
+  const closeParen = parenthesized === true ? ')' : '';
   return h(TouchableOpacity, {sel: selector}, [
     h(
       Text,
@@ -68,9 +77,20 @@ function Counter({
         style: styles.counterContent,
       },
       [
+        openParen,
         content,
         title
-          ? h(Text, {key: 't', style: styles.counterContentTitle}, ' ' + title)
+          ? h(
+              Text,
+              {
+                key: 't',
+                style: [
+                  styles.counterContentTitle,
+                  smallMargin ? styles.counterContentTitleSmallMargin : null,
+                ],
+              },
+              ' ' + title + closeParen,
+            )
           : '',
       ],
     ),
@@ -80,17 +100,23 @@ function Counter({
 function FollowSection({
   following,
   followers,
+  friendsInCommon,
+  isSelfProfile,
 }: {
   following: State['following'];
   followers: State['followers'];
+  friendsInCommon: State['friendsInCommon'];
+  isSelfProfile: boolean;
 }) {
   if (!following && !followers) return null;
+  const inCommonNum = friendsInCommon?.length ?? 0;
 
   return h(View, {style: styles.detailsRow}, [
     h(Icon, {
       size: Dimensions.iconSizeSmall,
       color: Palette.textPositive,
       name: IconNames.accountFollow,
+      style: styles.counterIcon,
     }),
 
     following
@@ -105,30 +131,18 @@ function FollowSection({
           selector: 'followers',
           content: `${followers.length}`,
           title: t('profile.details.counters.followers'),
+          smallMargin: true,
         })
       : null,
-  ]);
-}
-
-function FriendsInCommon({
-  friendsInCommon,
-}: {
-  friendsInCommon: State['friendsInCommon'];
-}) {
-  if (!friendsInCommon) return null;
-
-  return h(View, {style: styles.detailsRow}, [
-    h(Icon, {
-      size: Dimensions.iconSizeSmall,
-      color: Palette.textPositive,
-      name: IconNames.friendsInCommon,
-    }),
-
-    h(Counter, {
-      selector: 'friendsInCommon',
-      content: `${friendsInCommon.length}`,
-      title: t('profile.details.counters.friends_in_common'),
-    }),
+    !isSelfProfile && inCommonNum > 0
+      ? h(Counter, {
+          selector: 'friendsInCommon',
+          parenthesized: true,
+          smallMargin: true,
+          content: `${inCommonNum}`,
+          title: t('profile.details.counters.friends_in_common'),
+        })
+      : null,
   ]);
 }
 
@@ -138,6 +152,7 @@ function FollowsYou() {
       size: Dimensions.iconSizeSmall,
       color: Palette.textPositive,
       name: IconNames.success,
+      style: styles.counterIcon,
     }),
     h(Text, {style: styles.secondaryLabel}, t('profile.info.follows_you')),
   ]);
@@ -161,6 +176,7 @@ function AliasesSection({
           size: Dimensions.iconSizeSmall,
           color: Palette.textBrand,
           name: IconNames.roomAliasLink,
+          style: styles.counterIcon,
         }),
         h(
           Text,
@@ -247,8 +263,12 @@ export default class ProfileHeader extends Component<{state: State}> {
       h(View, {style: styles.detailsArea}, [
         h(Biography, {about}),
         followsYou ? h(FollowsYou) : null,
-        h(FollowSection, {following, followers}),
-        !isSelfProfile ? h(FriendsInCommon, {friendsInCommon}) : null,
+        h(FollowSection, {
+          following,
+          followers,
+          friendsInCommon,
+          isSelfProfile,
+        }),
         h(AliasesSection, {sel: 'aliases', aliases, isSelfProfile}),
       ]),
 

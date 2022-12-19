@@ -53,7 +53,6 @@ export const IconNames = {
   accountBlock: 'account-remove',
   accountUnfollow: 'account-minus',
   accountUnblock: 'account-minus',
-  friendsInCommon: 'account-heart',
   contentWarning: 'alert',
   addReaction: 'emoticon-happy-outline',
   threadComment: 'comment-outline',

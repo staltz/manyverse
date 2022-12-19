@@ -25,6 +25,7 @@ export interface Props {
   title: string;
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
+  description?: string;
   msgKey: MsgId;
   accounts: Array<FeedId | [string, string]> | null;
 }
@@ -45,6 +46,7 @@ export interface Sinks {
 
 export interface State {
   title: string;
+  description?: string;
   abouts: GetReadable<About & {id: FeedId}> | null;
   selfFeedId: FeedId;
   selfAvatarUrl?: string;
@@ -100,24 +102,30 @@ export function accounts(sources: Sources): Sinks {
   const actions = intent(sources.navigation, sources.screen);
 
   const vdom$ = sources.state.stream.map((state) => {
-    const abouts = state.abouts;
+    const {description, abouts} = state;
 
     return h(View, {style: styles.screen}, [
       h(StatusBarBlank),
       h(TopBar, {sel: 'topbar', title: state.title}),
-      abouts ? h(AccountsList, {sel: 'accounts', accounts: abouts}) : null,
+      abouts
+        ? h(AccountsList, {
+            sel: 'accounts',
+            accounts: abouts,
+            header: description,
+          })
+        : null,
     ]);
   });
 
   const command$ = navigation(actions, sources.state.stream);
 
   const propsReducer$ = sources.props.map(
-    ({selfFeedId, selfAvatarUrl, title}) =>
+    ({selfFeedId, selfAvatarUrl, title, description}) =>
       function propsReducer(prev?: State): State {
         if (prev) {
-          return {...prev, selfFeedId, selfAvatarUrl, title};
+          return {...prev, selfFeedId, selfAvatarUrl, title, description};
         } else {
-          return {abouts: null, selfFeedId, selfAvatarUrl, title};
+          return {abouts: null, selfFeedId, selfAvatarUrl, title, description};
         }
       },
   );

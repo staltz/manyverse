@@ -48,6 +48,22 @@ export const styles = StyleSheet.create({
     }),
   },
 
+  header: {
+    backgroundColor: Palette.backgroundText,
+    paddingVertical: Dimensions.verticalSpaceBig,
+    paddingHorizontal: Dimensions.horizontalSpaceBig,
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
+    color: Palette.textWeak,
+    marginBottom: 1,
+    ...Platform.select({
+      web: {
+        width: Dimensions.desktopMiddleWidth.px,
+        fontFamily: Typography.fontFamilyReadableText,
+      },
+    }),
+  },
+
   row: {
     flex: 1,
     backgroundColor: Palette.backgroundText,
@@ -158,6 +174,7 @@ interface AboutWithReaction {
 export interface Props {
   accounts: Array<AboutWithReaction> | GetReadable<AboutWithReaction>;
   onPressAccount?: (ev: {id: FeedId; name: string}) => void;
+  header?: string;
 }
 
 interface State {
@@ -175,7 +192,7 @@ export default class AccountsList extends PureComponent<Props, State> {
   };
 
   public render() {
-    const {onPressAccount, accounts} = this.props;
+    const {onPressAccount, accounts, header} = this.props;
     const {loading} = this.state;
 
     if (Array.isArray(accounts)) {
@@ -206,6 +223,9 @@ export default class AccountsList extends PureComponent<Props, State> {
         onEndReachedThreshold: 5,
         refreshColors: [Palette.brandWeak],
         onPullingComplete: this._onPullingComplete,
+        ListHeaderComponent: header
+          ? h(Text, {style: styles.header}, header)
+          : null,
         ListFooterComponent: loading
           ? h(AnimatedLoading, {text: t('central.loading')})
           : null,

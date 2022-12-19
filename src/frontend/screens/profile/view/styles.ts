@@ -167,24 +167,32 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceNormal,
   },
 
+  counterIcon: {
+    marginRight: Dimensions.horizontalSpaceSmall,
+  },
+
   counterContent: {
-    marginLeft: Dimensions.horizontalSpaceSmall,
     flex: 1,
     color: Palette.text,
     fontSize: Typography.fontSizeSmall,
     lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
-    marginRight: Dimensions.horizontalSpaceSmall,
+  },
+
+  counterContentParen: {
+    color: Palette.textWeak,
+    fontWeight: 'normal',
   },
 
   counterContentTitle: {
     marginRight: Dimensions.horizontalSpaceLarge,
     color: Palette.textWeak,
-    fontSize: Typography.fontSizeSmall,
-    lineHeight: Typography.lineHeightSmall,
-    fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'normal',
+  },
+
+  counterContentTitleSmallMargin: {
+    marginRight: Dimensions.horizontalSpaceSmall,
   },
 
   biographyContainer: {
@@ -207,7 +215,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     fontSize: Typography.fontSizeNormal,
     lineHeight: Typography.lineHeightNormal,
-    marginLeft: Dimensions.horizontalSpaceSmall,
     textDecorationLine: 'underline',
     color: Palette.text,
     ...Platform.select({
@@ -218,7 +225,6 @@ export const styles = StyleSheet.create({
   },
 
   secondaryLabel: {
-    marginLeft: Dimensions.horizontalSpaceSmall,
     color: Palette.textWeak,
     fontSize: Typography.fontSizeSmall,
     lineHeight: Typography.lineHeightSmall,
