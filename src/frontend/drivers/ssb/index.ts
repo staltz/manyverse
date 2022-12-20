@@ -609,14 +609,6 @@ export class SSBSource {
     );
   }
 
-  public bytesUsedByFeed$(feed: FeedId): Stream<number> {
-    return this.fromCallback<number>((ssb, cb) =>
-      isReady(ssb)
-        ? ssb.storageUsed.getBytesStored(feed, cb)
-        : cb(new Error('ssb not ready')),
-    );
-  }
-
   public storageStats$(): Stream<StorageStats> {
     return this.fromCallback<StorageStats>((ssb, cb) =>
       isReady(ssb) ? ssb.storageUsed.stats(cb) : cb(new Error('ssb not ready')),
