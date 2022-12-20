@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
   containerToggled: {
     ...baseContainerStyle,
     backgroundColor: 'transparent',
-    borderColor: Palette.brandMain,
+    borderColor: Palette.textBrand,
     borderWidth: 1,
   },
 
