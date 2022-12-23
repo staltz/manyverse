@@ -142,6 +142,9 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.verticalSpaceNormal,
     alignSelf: 'flex-end',
     marginRight: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
 
   follow: {

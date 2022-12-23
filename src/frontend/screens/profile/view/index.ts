@@ -79,6 +79,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         'youBlock',
         'aliases',
         'connection',
+        'latestPrivateChat',
         'getFeedReadable',
       ]),
     )

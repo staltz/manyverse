@@ -204,6 +204,7 @@ export default {
     friendsInCommon: 'async',
     snapshotAbout: 'async',
     hashtagsSubscribed: 'source',
+    latestPrivateChatWith: 'async',
   },
   gatheringsUtils: {
     gatheringAttendees: 'source',

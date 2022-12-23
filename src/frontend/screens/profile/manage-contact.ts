@@ -11,7 +11,6 @@ import {Palette} from '~frontend/global-styles/palette';
 import {State} from './model';
 
 export type ManageChoiceId =
-  | 'private-chat'
   | 'block'
   | 'block-secretly'
   | 'unblock'
@@ -24,7 +23,6 @@ export interface Sources {
 }
 
 export interface Sinks {
-  goToPrivateChat$: Stream<string>;
   blockContact$: Stream<null>;
   blockSecretlyContact$: Stream<null>;
   unblockContact$: Stream<null>;
@@ -59,10 +57,6 @@ export default function manageContact$(sources: Sources): Sinks {
       const items: Array<Omit<PickerItem, 'id'> & {id: ManageChoiceId}> = [];
 
       if (!isSelfProfile) {
-        items.push({
-          id: 'private-chat',
-          label: t('profile.call_to_action.private_chat'),
-        });
         if (relationship === 'neutral') {
           items.push({
             id: 'block',
@@ -113,11 +107,6 @@ export default function manageContact$(sources: Sources): Sinks {
     })
     .flatten();
 
-  const privateChat$ = manageContactChoice$
-    .filter((choice) => choice.id === 'private-chat')
-    .map(() => sources.feedId$.take(1))
-    .flatten();
-
   const blockContact$ = manageContactChoice$
     .filter((choice) => choice.id === 'block')
     .mapTo(null);
@@ -135,7 +124,6 @@ export default function manageContact$(sources: Sources): Sinks {
     .mapTo(null);
 
   return {
-    goToPrivateChat$: privateChat$,
     blockContact$,
     blockSecretlyContact$,
     unblockContact$,

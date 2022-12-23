@@ -8,15 +8,16 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const stripMarkdownOneline = require('strip-markdown-oneline');
 import {t} from '~frontend/drivers/localization';
-import Button from '~frontend/components/Button';
-import ToggleButton from '~frontend/components/ToggleButton';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
+import {IconNames} from '~frontend/global-styles/icons';
+import Button from '~frontend/components/Button';
+import ToggleButton from '~frontend/components/ToggleButton';
+import IconButton from '~frontend/components/IconButton';
 import {Alias} from '~frontend/ssb/types';
 import {canonicalizeAliasURL} from '~frontend/ssb/utils/alias';
 import {State} from '../model';
 import {styles} from './styles';
-import {IconNames} from '~frontend/global-styles/icons';
 import ProfileAvatar from './ProfileAvatar';
 import ProfileName from './ProfileName';
 import ProfileID from './ProfileID';
@@ -209,12 +210,20 @@ export default class ProfileHeader extends Component<{state: State}> {
     if (next.youBlock?.response !== prev.youBlock?.response) return true;
     if (next.youFollow?.response !== prev.youFollow?.response) return true;
     if (next.followsYou?.response !== prev.followsYou?.response) return true;
+    if (next.latestPrivateChat !== prev.latestPrivateChat) return true;
     return false;
   }
 
   public render() {
     const state = this.props.state;
-    const {about, following, followers, friendsInCommon, aliases} = state;
+    const {
+      about,
+      following,
+      followers,
+      friendsInCommon,
+      aliases,
+      latestPrivateChat,
+    } = state;
 
     const isSelfProfile = state.displayFeedId === state.selfFeedId;
     const followsYou = state.followsYou?.response ?? false;
@@ -237,6 +246,15 @@ export default class ProfileHeader extends Component<{state: State}> {
           h(ProfileID, commonProps),
 
           h(View, {style: styles.cta}, [
+            latestPrivateChat
+              ? h(IconButton, {
+                  sel: 'chat',
+                  icon: IconNames.privateChat,
+                  accessible: true,
+                  accessibilityLabel: t('profile.call_to_action.private_chat'),
+                })
+              : null,
+
             isSelfProfile
               ? h(Button, {
                   sel: 'editProfile',

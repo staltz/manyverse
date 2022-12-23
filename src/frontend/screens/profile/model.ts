@@ -7,7 +7,7 @@ import concat from 'xstream/extra/concat';
 import sample from 'xstream-sample';
 import {Reducer} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
-import {FeedId} from 'ssb-typescript';
+import {FeedId, MsgId} from 'ssb-typescript';
 import {
   AboutAndExtras,
   Alias,
@@ -34,6 +34,7 @@ export interface State {
   youFollow: SSBFriendsQueryDetails | null;
   youBlock: SSBFriendsQueryDetails | null;
   connection: 'connected' | 'connecting' | 'disconnecting' | undefined;
+  latestPrivateChat: MsgId | 'new' | null;
   // TODO: use `ThreadSummaryWithExtras` but somehow support reply summaries
   getFeedReadable: GetReadable<any> | null;
 }
@@ -82,6 +83,7 @@ export default function model(
           youFollow: null,
           youBlock: null,
           connection: void 0,
+          latestPrivateChat: null,
         };
       },
   );
@@ -257,6 +259,21 @@ export default function model(
       },
   );
 
+  const updateLatestPrivateChatReducer$ = props$
+    .map((props) =>
+      props.feedId === props.selfFeedId
+        ? xs.never()
+        : ssbSource.latestPrivateChatWith$(props.feedId),
+    )
+    .flatten()
+    .map(
+      (msgId: MsgId | null) =>
+        function updateLatestPrivateChatReducer(prev: State): State {
+          const latestPrivateChat = msgId ?? 'new';
+          return {...prev, latestPrivateChat};
+        },
+    );
+
   const getFeedReadable$ = props$
     .map((props) => ssbSource.profileFeed$(props.feedId))
     .flatten();
@@ -309,6 +326,7 @@ export default function model(
       updateConnectionReducer$,
       updateAliasesReducer$,
       updateFeedStreamReducer$,
+      updateLatestPrivateChatReducer$,
     ),
   );
 }

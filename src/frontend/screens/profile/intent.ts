@@ -114,6 +114,12 @@ export default function intent(
 
     goToThread$: reactSource.select('feed').events<MsgAndExtras>('pressExpand'),
 
+    goToPrivateChat$: reactSource
+      .select('chat')
+      .events<any>('press')
+      .compose(sample(state$))
+      .map((state) => state.latestPrivateChat),
+
     goToThreadReplies$: reactSource
       .select('feed')
       .events<MsgAndExtras>('pressExpandReplies'),

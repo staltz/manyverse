@@ -2,12 +2,21 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {ContactContent, FeedId, Msg, VoteContent} from 'ssb-typescript';
+import {
+  ContactContent,
+  FeedId,
+  Msg,
+  VoteContent,
+  MsgId,
+  Privatable,
+  PostContent,
+} from 'ssb-typescript';
 import {ChannelSubscribeContent} from '~frontend/ssb/types';
 import {Callback} from './helpers/types';
 const pull = require('pull-stream');
 const pullAsync = require('pull-async');
 const cat = require('pull-cat');
+const bipf = require('bipf');
 
 const THUMBS_UP_UNICODE = '\ud83d\udc4d';
 const DIG_UNICODE = '\u270c\ufe0f';
@@ -47,6 +56,26 @@ function isValidChannelSubscribeMsg(msg: Msg<ChannelSubscribeContent>) {
   return true;
 }
 
+const B_CONTENT = Buffer.from('content');
+const B_RECPS = Buffer.from('recps');
+function seekRecps(buffer: Buffer, start: number, pValue: number) {
+  if (pValue < 0) return -1;
+  const pValueContent = bipf.seekKey(buffer, pValue, B_CONTENT);
+  if (pValueContent < 0) return -1;
+  return bipf.seekKey(buffer, pValueContent, B_RECPS);
+}
+
+function hasTwoRecps(predicate: CallableFunction) {
+  return predicate(
+    seekRecps,
+    (recps: any) => Array.isArray(recps) && recps.length === 2,
+    {
+      indexType: 'value_content_recps',
+      name: 'length2',
+    },
+  );
+}
+
 export = {
   name: 'dbUtils',
   version: '1.0.0',
@@ -61,6 +90,7 @@ export = {
     selfPrivateRootIdsLive: 'source',
     friendsInCommon: 'async',
     snapshotAbout: 'async',
+    latestPrivateChatWith: 'async',
     hashtagsSubscribed: 'source',
   },
   permissions: {
@@ -77,6 +107,7 @@ export = {
         'friendsInCommon',
         'snapshotAbout',
         'hashtagsSubscribed',
+        'latestPrivateChatWith',
       ],
     },
   },
@@ -98,6 +129,7 @@ export = {
       hasFork,
       isPublic,
       isPrivate,
+      predicate,
       descending,
       batch,
       count,
@@ -159,6 +191,12 @@ export = {
      */
     function warmUpJITDB() {
       const eagerIndexes = or(
+        // meta_encryptionFormat_box.index:
+        isPrivate('box'),
+        // meta_.index:
+        isPublic(),
+        // meta_private_true.index:
+        isPrivate(),
         // value_author.32prefix:
         author(ssb.id, {dedicated: false}),
         // value_author_@SELFSSBID.index:
@@ -171,6 +209,8 @@ export = {
         contact(ssb.id),
         // value_content_fork__map.32prefixmap
         hasFork('whatever'),
+        // value_content_recps__pred_length2.index:
+        hasTwoRecps(predicate),
         // value_content_root_.index
         isRoot(),
         // value_content_root__map.32prefixmap
@@ -186,10 +226,6 @@ export = {
         // value_content_type_vote.index:
         // value_content_vote_link__map.32prefixmap:
         votesFor('whatever'),
-        // meta_.index:
-        isPublic(),
-        // meta_private_true.index:
-        isPrivate(),
       );
       ssb.db.prepare(eagerIndexes, () => {});
     }
@@ -422,6 +458,35 @@ export = {
               }
             },
           ),
+        );
+      },
+
+      latestPrivateChatWith(feedId: FeedId, cb: Callback<MsgId | null>) {
+        pull(
+          ssb.db.query(
+            where(and(type('post'), isPrivate('box'), hasTwoRecps(predicate))),
+            descending(),
+            batch(500),
+            toPullStream(),
+          ),
+          pull.filter((msg: Msg<Privatable<PostContent>>) => {
+            const recps = msg.value.content?.recps;
+            if (!recps) return false;
+            if (!Array.isArray(recps)) return false;
+            if (recps.length !== 2) return false;
+            if (!recps.find((r: any) => r === ssb.id || r.link === ssb.id))
+              return false;
+            if (!recps.find((r: any) => r === feedId || r.link === feedId))
+              return false;
+            return true;
+          }),
+          pull.take(1),
+          pull.collect((err: any, msgs: Array<Msg<PostContent>>) => {
+            if (err) return cb(err);
+            if (msgs.length === 0) return cb(null, null);
+            const msg = msgs[0];
+            cb(null, msg.value.content.root ?? msg.key);
+          }),
         );
       },
     };

@@ -97,12 +97,7 @@ export function profile(sources: Sources): Sinks {
 
   const newContent$ = ssb(actionsPlus, sources.ssb, state$);
 
-  const command$ = navigation(
-    actionsPlus,
-    sources.ssb,
-    sources.navigation,
-    state$,
-  );
+  const command$ = navigation(actionsPlus, state$);
 
   const clipboard$ = xs.merge(
     messageShareSinks.clipboard,

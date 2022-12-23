@@ -609,6 +609,14 @@ export class SSBSource {
     );
   }
 
+  public latestPrivateChatWith$(feedId: FeedId): Stream<MsgId | null> {
+    return this.fromCallback<MsgId | null>((ssb, cb) =>
+      isReady(ssb)
+        ? ssb.dbUtils.latestPrivateChatWith(feedId, cb)
+        : cb(new Error('ssb not ready')),
+    );
+  }
+
   public storageStats$(): Stream<StorageStats> {
     return this.fromCallback<StorageStats>((ssb, cb) =>
       isReady(ssb) ? ssb.storageUsed.stats(cb) : cb(new Error('ssb not ready')),
