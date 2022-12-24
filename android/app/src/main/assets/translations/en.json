@@ -771,7 +771,13 @@
       "counters": {
         "following": "Following",
         "followers": "Followers",
-        "friends_in_common": "in common"
+        "friends_in_common": {
+          "zero": "Not followed by anyone you're following",
+          "just_one": "Followed by {{name1}}",
+          "two": "Followed by {{name1}} and {{name2}}",
+          "three": "Followed by {{name1}}, {{name2}} and {{name3}}",
+          "three_plus": "Followed by {{name1}}, {{name2}}, {{name3}} and {{others}} others"
+        }
       }
     },
     "info": {

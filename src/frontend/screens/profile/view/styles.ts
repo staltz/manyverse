@@ -183,19 +183,30 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  counterContentParen: {
-    color: Palette.textWeak,
-    fontWeight: 'normal',
-  },
-
   counterContentTitle: {
     marginRight: Dimensions.horizontalSpaceLarge,
     color: Palette.textWeak,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
+    fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'normal',
   },
 
-  counterContentTitleSmallMargin: {
+  friendInCommonAvatar: {
+    marginRight: -Dimensions.avatarSizeTiny * 0.4,
+  },
+
+  friendInCommonAvatarLast: {
     marginRight: Dimensions.horizontalSpaceSmall,
+  },
+
+  noFriendsInCommon: {
+    marginTop: Dimensions.verticalSpaceNormal,
+    color: Palette.textWeak,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'normal',
   },
 
   biographyContainer: {

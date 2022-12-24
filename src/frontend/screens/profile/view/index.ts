@@ -74,6 +74,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
         'following',
         'followers',
         'friendsInCommon',
+        'friendsInCommonAbouts',
         'followsYou',
         'youFollow',
         'youBlock',

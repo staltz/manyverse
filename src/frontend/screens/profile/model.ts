@@ -16,6 +16,7 @@ import {
 } from '~frontend/ssb/types';
 import {SSBSource, GetReadable} from '~frontend/drivers/ssb';
 import {Props} from './props';
+import flattenSequentially from 'xstream/extra/flattenSequentially';
 
 export interface State {
   selfFeedId: FeedId;
@@ -30,6 +31,7 @@ export interface State {
   following: Array<FeedId> | null;
   followers: Array<FeedId> | null;
   friendsInCommon: Array<FeedId> | null;
+  friendsInCommonAbouts: Array<AboutAndExtras> | null;
   followsYou: SSBFriendsQueryDetails | null;
   youFollow: SSBFriendsQueryDetails | null;
   youBlock: SSBFriendsQueryDetails | null;
@@ -79,6 +81,7 @@ export default function model(
           following: null,
           followers: null,
           friendsInCommon: null,
+          friendsInCommonAbouts: null,
           followsYou: null,
           youFollow: null,
           youBlock: null,
@@ -196,6 +199,32 @@ export default function model(
         return {...prev, about};
       },
   );
+
+  const updateFriendsInCommonAbousReducer$ = initialFriendsInCommon$
+    .map((friendsInCommon) =>
+      // For each of the friendsInCommon, request their `about` ONE at a time,
+      // ignoring those who have no picture and name, and pick at most 3
+      // abouts to show
+      xs
+        .fromArray(friendsInCommon)
+        .map((id) =>
+          ssbSource
+            .profileAbout$(id)
+            .take(1)
+            .filter((about) => !!about.imageUrl && !!about.name),
+        )
+        .compose(flattenSequentially)
+        .take(3)
+        .fold((acc, about) => acc.concat(about), [] as AboutAndExtras[])
+        .last(),
+    )
+    .flatten()
+    .map(
+      (abouts) =>
+        function updateFriendsInCommonAbousReducer(prev: State): State {
+          return {...prev, friendsInCommonAbouts: abouts};
+        },
+    );
 
   const updateYouFollowReducer$ = refreshRelationship$
     .map((pair) => ssbSource.isFollowing$(pair.selfFeedId, pair.feedId))
@@ -318,6 +347,7 @@ export default function model(
       initialDetailsReducer$,
       loadLastSessionTimestampReducer$,
       updateAboutReducer$,
+      updateFriendsInCommonAbousReducer$,
       updateYouFollowReducer$,
       updateFollowersReducer$,
       updateYouBlockReducer$,
