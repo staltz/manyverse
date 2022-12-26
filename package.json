@@ -168,7 +168,6 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/runtime": "^7.16.3",
-    "@playwright/test": "1.28.1",
     "@react-native-community/cli": "~6.4.0",
     "@types/electron": "1.6.10",
     "@types/node": "~12.20.10",
@@ -184,7 +183,6 @@
     "cross-env": "^7.0.3",
     "css-loader": "5.2.7",
     "electron-builder": "22.13.1",
-    "electron-playwright-helpers": "1.2.2",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",
     "graceful-fs": "~4.2.9",
@@ -202,8 +200,6 @@
     "node-gyp-build": "4.3.0",
     "ora": "^5.4.1",
     "patch-package": "6.4.7",
-    "playwright": "^1.28.1",
-    "playwright-core": "1.28.1",
     "prettier": "~2.5.1",
     "pretty-quick": "~3.1.3",
     "propagate-replacement-fields": "1.3.0",
@@ -216,8 +212,16 @@
     "webpack-cli": "~3.3.12"
   },
   "optionalDependencies": {
+    "@playwright/test": "1.28.1",
     "appium": "1.22.3",
+    "electron-playwright-helpers": "1.2.2",
+    "playwright": "^1.28.1",
+    "playwright-core": "1.28.1",
+    "secret-stack": "6.4.1",
+    "ssb-caps": "1.1.0",
+    "ssb-keys": "8.5.0",
     "ssb-keys-mnemonic": "1.0.1",
+    "ssb-db2": "6.3.0",
     "tap-spec": "5.0.0",
     "tape": "~5.5.2",
     "wd": "1.14.0"

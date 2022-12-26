@@ -20,7 +20,11 @@ test.describe('welcome', () => {
   });
 
   test('off the grid', async () => {
-    expect(await page.waitForSelector('"Off-the-grid"')).toBeTruthy();
+    const title = await Promise.race([
+      page.waitForSelector('"Off-the-grid"'),
+      page.waitForSelector('"Off the grid"'),
+    ]);
+    expect(title).toBeTruthy();
     await page.locator('text="Continue" >> nth=1').click();
   });
 

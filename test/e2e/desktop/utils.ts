@@ -8,17 +8,26 @@ import path from 'path';
 import {test} from '@playwright/test';
 import {findLatestBuild, parseElectronApp} from 'electron-playwright-helpers';
 import {ElectronApplication, _electron as electron} from 'playwright-core';
+const caps = require('ssb-caps');
+const ssbDB2 = require('ssb-db2');
+const ssbKeys = require('ssb-keys');
+const SecretStack = require('secret-stack');
 
 const sessionDir = path.join(os.tmpdir(), 'manyverse-e2e-test');
 if (!fs.existsSync(sessionDir)) {
   fs.mkdirSync(sessionDir);
 }
 
-export default function setup(subtest?: string) {
+type Task = (path: string) => Promise<void>;
+
+export default function setup(subtest?: string, pretask?: Task) {
   const ctx = {} as {electronApp?: ElectronApplication};
 
   test.beforeAll(async () => {
     const latestBuild = findLatestBuild('desktop/outputs');
+
+    const MV_USER_DATA = path.join(sessionDir, subtest ?? 'default');
+    if (pretask) await pretask(MV_USER_DATA);
 
     // parse the directory and find paths and other info
     const originalConsoleLog = console.log;
@@ -36,10 +45,7 @@ export default function setup(subtest?: string) {
     // Execute
     ctx.electronApp = await electron.launch({
       args: [appInfo.main],
-      env: {
-        ...process.env,
-        MV_USER_DATA: path.join(sessionDir, subtest ?? 'default'),
-      },
+      env: {...process.env, MV_USER_DATA},
       executablePath: appInfo.executable,
       locale: 'en',
     });
@@ -52,4 +58,15 @@ export default function setup(subtest?: string) {
   });
 
   return ctx;
+}
+
+export function stageDatabase(mvPath: string) {
+  if (!fs.existsSync(mvPath)) fs.mkdirSync(mvPath);
+  const ssbPath = path.join(mvPath, 'ssb');
+  if (!fs.existsSync(ssbPath)) fs.mkdirSync(ssbPath);
+  const secretPath = path.join(ssbPath, 'secret');
+  const keys = ssbKeys.loadOrCreateSync(secretPath);
+  return SecretStack({appKey: caps.shs})
+    .use(ssbDB2)
+    .call(null, {path: ssbPath, keys});
 }
