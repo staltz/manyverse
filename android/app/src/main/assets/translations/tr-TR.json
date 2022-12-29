@@ -264,8 +264,9 @@
     "recipients": {
       "title": "Alıcı"
     },
-    "friends_in_common": {
-      "title": "Friends in common"
+    "in_common": {
+      "title": "In common",
+      "description": "The following list shows accounts you follow who in turn follow {{name}}."
     },
     "call_to_action": {
       "open_account": {
@@ -770,8 +771,13 @@
       "counters": {
         "following": "Takip ediliyor",
         "followers": "Followers",
-        "friends_in_common": "Friends in common with you",
-        "storage_used": "Occupies {{megabytes}}"
+        "friends_in_common": {
+          "zero": "Not followed by anyone you're following",
+          "just_one": "Followed by {{name1}}",
+          "two": "Followed by {{name1}} and {{name2}}",
+          "three": "Followed by {{name1}}, {{name2}} and {{name3}}",
+          "three_plus": "Followed by {{name1}}, {{name2}}, {{name3}} and {{others}} others"
+        }
       }
     },
     "info": {
@@ -1336,6 +1342,9 @@
       "1_normal": "Followed by ",
       "2_bold": "{{name}}",
       "3_normal": ""
+    },
+    "timestamp": {
+      "title": "Date of publication"
     },
     "about": {
       "new_picture": {

@@ -5,9 +5,9 @@
     "done": "終わり",
     "cancel": "キャンセル",
     "continue": "続く",
-    "read_more": "Read more",
+    "read_more": "続きを読む",
     "delete": "削除",
-    "remove": "Remove",
+    "remove": "削除する",
     "save": "保存",
     "yes": "はい",
     "no": "いいえ",
@@ -15,7 +15,7 @@
       "accessibility_label": "メニューボタン"
     },
     "go_back": {
-      "label": "Go back",
+      "label": "戻る",
       "accessibility_label": "戻るボタン"
     },
     "close": {
@@ -25,8 +25,8 @@
       "accessibility_label": "ダイアログを閉じるボタン"
     },
     "external_link_confirmation": {
-      "title": "Open link?",
-      "description": "Do you want to open {{link}} in your browser?"
+      "title": "リンクを開きますか？",
+      "description": "{{link}} をブラウザーで開きますか？"
     }
   },
   "date": {
@@ -54,44 +54,44 @@
         },
         "minutes": {
           "one": "1 分前",
-          "other": "{{count}} minutes ago"
+          "other": "{{count}} 分前"
         },
-        "now": "Just now"
+        "now": "ちょうど 今"
       },
       "future": {
         "years": {
-          "one": "1 year from now",
-          "other": "{{count}} years from now"
+          "one": "１年後",
+          "other": "{{count}} 年後"
         },
         "months": {
-          "one": "1 month from now",
-          "other": "{{count}} months from now"
+          "one": "1か月後",
+          "other": "{{count}} ヶ月後"
         },
         "weeks": {
-          "one": "1 week from now",
-          "other": "{{count}} weeks from now"
+          "one": "1週間後",
+          "other": "{{count}} 週間後"
         },
         "days": {
-          "one": "1 day from now",
-          "other": "{{count}} days from now"
+          "one": "1日後",
+          "other": "{{count}} 日後"
         },
         "hours": {
-          "one": "1 hour from now",
-          "other": "{{count}} hours from now"
+          "one": "1時間後",
+          "other": "{{count}} 時間後"
         },
         "minutes": {
-          "one": "1 minute from now",
-          "other": "{{count}} minutes from now"
+          "one": "1分後",
+          "other": "{{count}} 分後"
         },
-        "now": "Very soon"
+        "now": "まもなく開始"
       }
     }
   },
   "welcome": {
-    "learn_more": "Learn more",
+    "learn_more": "もっと詳しく",
     "overview": {
-      "title": "Welcome to Manyverse!",
-      "description": "Social networking can be simple, neutral, non-commercial, and built on trust between friends. This is what Manyverse stands for, and we hope you too can make it your digital home. All this is made possible by the novel SSB protocol."
+      "title": "Manyverseへようこそ！",
+      "description": "SNSを簡単に、中立かつ、非商用で、友達と信頼を形成する。それがManyverseの目標です。そしてあなたのデジタルホームとなることを願っています。これらは全て新しいSSBプロトコルによって実現されています。"
     },
     "off_the_grid": {
       "title": "Off the grid",
@@ -124,7 +124,7 @@
       }
     },
     "permanence": {
-      "title": "Permanence",
+      "title": "永続性",
       "description": {
         "1_normal": "Once your content is synchronized with friends, they own a copy of it on their devices. Because they could go offline after that, it is ",
         "2_bold": "not possible to delete",
@@ -144,55 +144,55 @@
       "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
       "call_to_action": {
         "create": {
-          "label": "Create account",
-          "accessibility_label": "Create Account Button"
+          "label": "アカウントを作成する",
+          "accessibility_label": "アカウント作成ボタン"
         },
         "restore": {
-          "label": "Restore account",
-          "accessibility_label": "Restore Account Button"
+          "label": "アカウントの復元",
+          "accessibility_label": "アカウントの復元ボタン"
         },
         "migrate": {
-          "label": "Migrate from ~/.ssb",
-          "accessibility_label": "Migrate account from the shared SSB directory"
+          "label": "〜/.ssb を移行する",
+          "accessibility_label": "SSB共有ディレクトリからアカウントを移行"
         }
       }
     },
     "dialogs": {
       "migrate": {
-        "title": "Migrate your SSB account to Manyverse",
+        "title": "SSBアカウントをManyverseに移行",
         "description": "Manyverse detected an existing SSB account at the common `~/.ssb` directory. If you wish, you can migrate that account to a whole new directory that only Manyverse can access.\n\nOnce migration finishes, **you will NOT be able to use your account with other SSB apps such as Patchwork anymore**, and '.ssb' will be **deleted**, but you can still use those apps with new accounts.\n\nDo you confirm you want to migrate your account from '.ssb' to Manyverse? **This action cannot be undone.**"
       },
       "link_failed": {
-        "title": "Account not ready",
+        "title": "アカウントの準備ができていません。",
         "description": "You tried to open an SSB link, but your account is not ready yet. Please complete the setup process first, and then try the link again."
       }
     }
   },
   "migrating": {
-    "label": "Migrating..."
+    "label": "移行中..."
   },
   "central": {
     "app_name": "Manyverse",
     "tab_headers": {
-      "public": "Public posts",
-      "private": "Private chats",
-      "activity": "Activity",
-      "connections": "Connected peers"
+      "public": "公開記事",
+      "private": "非公開チャット",
+      "activity": "アクティビティ",
+      "connections": "接続しているピア"
     },
     "tab_footers": {
-      "public": "Public",
-      "private": "Private",
+      "public": "公開",
+      "private": "非公開",
       "activity": "Activity",
-      "connections": "Connections"
+      "connections": "接続数"
     },
-    "loading": "Loading...",
+    "loading": "読み込み中...",
     "progress_indicator": {
-      "accessibility_label": "Progress Indicator for Indexing the Database"
+      "accessibility_label": "索引生成の進捗状況"
     },
     "empty_onboarding": {
-      "title": "Where is everybody?",
+      "title": "皆はどこにいますか？",
       "description": "On Manyverse, you can't search\nfor people. Someone has to invite you.",
-      "link_label": "Learn more"
+      "link_label": "もっと詳しく"
     },
     "tabs": {
       "public": {
@@ -264,8 +264,9 @@
     "recipients": {
       "title": "Recipients"
     },
-    "friends_in_common": {
-      "title": "Friends in common"
+    "in_common": {
+      "title": "In common",
+      "description": "The following list shows accounts you follow who in turn follow {{name}}."
     },
     "call_to_action": {
       "open_account": {
@@ -770,8 +771,13 @@
       "counters": {
         "following": "Following",
         "followers": "Followers",
-        "friends_in_common": "Friends in common with you",
-        "storage_used": "Occupies {{megabytes}}"
+        "friends_in_common": {
+          "zero": "Not followed by anyone you're following",
+          "just_one": "Followed by {{name1}}",
+          "two": "Followed by {{name1}} and {{name2}}",
+          "three": "Followed by {{name1}}, {{name2}} and {{name3}}",
+          "three_plus": "Followed by {{name1}}, {{name2}}, {{name3}} and {{others}} others"
+        }
       }
     },
     "info": {
@@ -1336,6 +1342,9 @@
       "1_normal": "Followed by ",
       "2_bold": "{{name}}",
       "3_normal": ""
+    },
+    "timestamp": {
+      "title": "Date of publication"
     },
     "about": {
       "new_picture": {
