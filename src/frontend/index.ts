@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -40,8 +40,8 @@ import {welcome} from './screens/welcome';
 import {migrating} from './screens/migrating';
 import {central} from './screens/central';
 import {drawer} from './screens/drawer';
-import {dialogAbout} from './screens/dialog-about';
-import {dialogThanks} from './screens/dialog-thanks';
+import {about} from './screens/about';
+import {thanks} from './screens/thanks';
 import {compose} from './screens/compose';
 import {composeAudio} from './screens/compose-audio';
 import {connectionsPanel} from './screens/connections-panel';
@@ -114,8 +114,8 @@ export const screens: ScreensMapping = {
   [Screens.Migrating]: withState(migrating),
   [Screens.Central]: withState(central),
   [Screens.Drawer]: withState(drawer),
-  [Screens.DialogAbout]: dialogAbout,
-  [Screens.DialogThanks]: dialogThanks,
+  [Screens.About]: about,
+  [Screens.Thanks]: thanks,
   [Screens.Compose]: withState(compose),
   [Screens.ComposeAudio]: withState(composeAudio),
   [Screens.ConnectionsPanel]: withState(connectionsPanel),

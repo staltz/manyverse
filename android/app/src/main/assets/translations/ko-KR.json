@@ -647,7 +647,7 @@
       "new_conversation": "새로운 비공개 대화 입니다"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "Manyverse에 대하여",
     "version": "Version {{version}}",
     "copyright": "Copyright (C)",
@@ -655,7 +655,7 @@
     "repository": "오픈 소스 레포지토리",
     "licensed": "{{license}} 라이선스"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "감사합니다!",
     "description": "이 앱은 {{sponsor1}} 과 {{sponsor2}} 의 지원을 받아 개발되었으며, 다음의 분들이 기여해주셨습니다:\n\n**{{topBackers}}**, 및 [그 외 다른 수많은 지원들]({{donateLink}}). 감사합니다!"
   },

@@ -647,7 +647,7 @@
       "new_conversation": "هذه محادثة خاصة جديدة"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "حول منيفرس",
     "version": "الإصدار {{version}}",
     "copyright": "حقوق التأليف والنشر (C)",
@@ -655,7 +655,7 @@
     "repository": "مستودع الكود المصدري",
     "licensed": "مرخص تحت بنود {{license}}"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "شكرا لك!",
     "description": "دُعم تطوير هذا التطبيق بواسطة منح من {{sponsor1}} و {{sponsor2}}، وتبرعات من:\n\n**{{topBackers}}**، و [100 داعم إضافي]({{donateLink}}). شكراً!"
   },

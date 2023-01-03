@@ -647,7 +647,7 @@
       "new_conversation": "Bu yeni bir özel görüşme"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "Manyverse hakkında",
     "version": "Sürüm {{version}}",
     "copyright": "Telif Hakkı (C)",
@@ -655,7 +655,7 @@
     "repository": "Açık kaynak depo",
     "licensed": "{{license}} lisanslı"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "Teşekkürler!",
     "description": "Bu uygulamanın geliştirilmesi, {{sponsor1}}, {{sponsor2}} bağışları ve aşağıda belirtilen bağışlarla desteklendi:\n**{{topBackers}}** ve [yüzlerce destekçi]({{donateLink}}). Teşekkürler!"
   },

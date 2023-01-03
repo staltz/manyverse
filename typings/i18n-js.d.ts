@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -294,14 +294,14 @@ declare module 'i18n-js' {
     | 'conversation.call_to_action.show_recipients.accessibility_label'
     | 'conversation.load_more'
     | 'conversation.notifications.new_conversation'
-    | 'dialog_about.title'
-    | 'dialog_about.version'
-    | 'dialog_about.copyright'
-    | 'dialog_about.authors'
-    | 'dialog_about.repository'
-    | 'dialog_about.licensed'
-    | 'dialog_thanks.title'
-    | 'dialog_thanks.description'
+    | 'about.title'
+    | 'about.version'
+    | 'about.copyright'
+    | 'about.authors'
+    | 'about.repository'
+    | 'about.licensed'
+    | 'thanks.title'
+    | 'thanks.description'
     | 'drawer.menu.my_profile.label'
     | 'drawer.menu.my_profile.accessibility_label'
     | 'drawer.menu.raw_database.label'

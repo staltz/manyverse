@@ -647,7 +647,7 @@
       "new_conversation": "Это новая личная беседа"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "О Manyverse",
     "version": "Версия {{version}}",
     "copyright": "Авторские права (C)",
@@ -655,7 +655,7 @@
     "repository": "Репозиторий с открытым исходным кодом",
     "licensed": "Лицензировано {{license}}"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "Спасибо Вам!",
     "description": "Разработка этого приложения поддерживалась грантами от {{sponsor1}} и {{sponsor2}}, и пожертвования от:\n\n**{{topBackers}}**, и [сто backers]({{donateLink}}). Спасибо!"
   },

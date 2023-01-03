@@ -647,7 +647,7 @@
       "new_conversation": "Tämä on uusi yksityinen keskustelu"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "Tietoja Manyversestä",
     "version": "Versio {{version}}",
     "copyright": "Tekijänoikeus (C)",
@@ -655,7 +655,7 @@
     "repository": "Avoimen lähdekoodin tietovarasto",
     "licensed": "Lisensoitu {{license}}"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "Kiitos!",
     "description": "Tämän sovelluksen kehittämistä tukivat avustukset {{sponsor1}} ja {{sponsor2}}, ja lahjoitukset:\n\n**{{topBackers}}**, ja [sata muuta tukijaa]({{donateLink}}). Kiitos!"
   },

@@ -647,7 +647,7 @@
       "new_conversation": "Toto je nová soukromá konverzace"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "O aplikaci Manyverse",
     "version": "Verze {{version}}",
     "copyright": "Autorská práva (C)",
@@ -655,7 +655,7 @@
     "repository": "Open source repozitář",
     "licensed": "Licencováno {{license}}"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "Děkujeme!",
     "description": "Vývoj této aplikace byl podporován granty od {{sponsor1}} a {{sponsor2}}, a dary od:\n\n**{{topBackers}}**, a [sto dalších]({{donateLink}}). Díky!"
   },

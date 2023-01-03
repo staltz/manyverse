@@ -647,7 +647,7 @@
       "new_conversation": "Dies ist eine neue private Unterhaltung"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "Über Manyverse",
     "version": "Version {{version}}",
     "copyright": "Copyright (C)",
@@ -655,7 +655,7 @@
     "repository": "Quellcodearchiv öffnen",
     "licensed": "Lizenziert gemäß {{license}}"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "Vielen Dank!",
     "description": "Die Entwicklung dieser App wurde unterstützt durch Zuschüssen von {{sponsor1}} und {{sponsor2}} sowie Spenden von:\n\n**{{topBackers}}**, als auch [hundert weitere Backers]({{donateLink}}). Danke!"
   },

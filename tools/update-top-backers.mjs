@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -31,7 +31,7 @@ const OUTPUT_FILE = path.join(
   'src',
   'frontend',
   'screens',
-  'dialog-thanks',
+  'thanks',
   'backers.ts',
 );
 

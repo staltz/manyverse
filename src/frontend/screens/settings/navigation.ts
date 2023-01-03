@@ -1,28 +1,20 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import sample from 'xstream-sample';
 import delay from 'xstream/extra/delay';
-import {Platform} from 'react-native';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {navOptions as librariesNavOptions} from '~frontend/screens/libraries';
 import {navOptions as backupScreenNavOptions} from '~frontend/screens/backup';
 import {navOptions as storagesScreenNavOptions} from '~frontend/screens/storage';
 import {navOptions as feedSettingsScreenNavOptions} from '~frontend/screens/feed-settings';
+import {navOptions as aboutScreenNavOptions} from '~frontend/screens/about';
+import {navOptions as thanksScreenNavOptions} from '~frontend/screens/thanks';
 import {Screens} from '~frontend/screens/enums';
 import {welcomeLayout} from '~frontend/screens/layouts';
 import {State} from './model';
-
-const dialogAboutNavOptions =
-  Platform.OS === 'web'
-    ? {}
-    : require('~frontend/screens/dialog-about').navOptions;
-const dialogThanksNavOptions =
-  Platform.OS === 'web'
-    ? {}
-    : require('~frontend/screens/dialog-thanks').navOptions;
 
 export interface Actions {
   forceReindex$: Stream<any>;
@@ -88,31 +80,31 @@ export default function navigationCommands(
       } as Command),
   );
 
-  const toAbout$ =
-    Platform.OS === 'web'
-      ? xs.never()
-      : actions.goToAbout$.mapTo({
-          type: 'showModal',
-          layout: {
-            component: {
-              name: Screens.DialogAbout,
-              options: dialogAboutNavOptions,
-            },
+  const toAbout$ = actions.goToAbout$.map(
+    () =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.About,
+            options: aboutScreenNavOptions,
           },
-        } as Command);
+        },
+      } as Command),
+  );
 
-  const toThanks$ =
-    Platform.OS === 'web'
-      ? xs.never()
-      : actions.goToThanks$.mapTo({
-          type: 'showModal',
-          layout: {
-            component: {
-              name: Screens.DialogThanks,
-              options: dialogThanksNavOptions,
-            },
+  const toThanks$ = actions.goToThanks$.map(
+    () =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Thanks,
+            options: thanksScreenNavOptions,
           },
-        } as Command);
+        },
+      } as Command),
+  );
 
   const toRoot$ = actions.forceReindex$
     .compose(delay(800))

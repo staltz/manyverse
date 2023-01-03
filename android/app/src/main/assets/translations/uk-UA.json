@@ -647,7 +647,7 @@
       "new_conversation": "Це нова приватна розмова"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "Про Manyverse",
     "version": "Версія {{version}}",
     "copyright": "Авторські права (С)",
@@ -655,7 +655,7 @@
     "repository": "Репозиторій із відкритим кодом",
     "licensed": "Під ліцензією {{license}}"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "Дякуємо!",
     "description": "Development of this app was supported by grants from {{sponsor1}} and {{sponsor2}}, and donations from:\n\n**{{topBackers}}**, and [a hundred more backers]({{donateLink}}). Thanks!"
   },

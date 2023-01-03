@@ -647,7 +647,7 @@
       "new_conversation": "Αυτή είναι μια νέα ιδιωτική συνομιλία"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "Σχετικά με το Manyverse",
     "version": "Έκδοση {{version}}",
     "copyright": "Copyright (C)",
@@ -655,7 +655,7 @@
     "repository": "Αποθετήριο ανοιχτού κώδικα",
     "licensed": "Άδεια {{license}}"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "Ευχαριστούμε!",
     "description": "Η ανάπτυξη αυτής της εφαρμογής υποστηρίχθηκε από επιχορηγήσεις από τους {{sponsor1}} και {{sponsor2}} και από δωρεές από:\n\n**{{topBackers}}** και [εκατό ακόμη υποστηρικτές]({{donateLink}}). Ευχαριστούμε!"
   },

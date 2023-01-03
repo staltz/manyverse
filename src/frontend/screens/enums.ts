@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,8 +7,8 @@ export enum Screens {
   Migrating = 'Manyverse.Migrating',
   Central = 'Manyverse.Central',
   Drawer = 'Manyverse.Drawer',
-  DialogAbout = 'Manyverse.Dialog.About',
-  DialogThanks = 'Manyverse.Dialog.Thanks',
+  About = 'Manyverse.About',
+  Thanks = 'Manyverse.Thanks',
   Compose = 'Manyverse.Compose',
   ComposeAudio = 'Manyverse.Compose.Audio',
   ConnectionsPanel = 'Manyverse.ConnectionsPanel',

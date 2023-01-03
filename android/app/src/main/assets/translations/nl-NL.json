@@ -647,7 +647,7 @@
       "new_conversation": "Dit is een nieuw privégesprek"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "Over Manyverse",
     "version": "Versie {{version}}",
     "copyright": "Auteursrecht (C)",
@@ -655,7 +655,7 @@
     "repository": "Open source repository",
     "licensed": "Licentie {{license}}"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "Dank je wel!",
     "description": "Ontwikkeling van deze app werd ondersteund door subsidies van {{sponsor1}} en {{sponsor2}}, en donaties van:\n\n**{{topBackers}}** en [nog honderd extra backers]({{donateLink}}). Dankjewel!"
   },

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 

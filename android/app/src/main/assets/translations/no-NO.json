@@ -647,7 +647,7 @@
       "new_conversation": "Dette er en ny privat samtale"
     }
   },
-  "dialog_about": {
+  "about": {
     "title": "Om Manyverse",
     "version": "Versjon {{version}}",
     "copyright": "Copyright (C)",
@@ -655,7 +655,7 @@
     "repository": "Åpen kildekode-arkivet",
     "licensed": "Med lisensen {{license}}"
   },
-  "dialog_thanks": {
+  "thanks": {
     "title": "Tusen takk!",
     "description": "Utvikling av denne appen ble støttet av tilskudd fra {{sponsor1}} og {{sponsor2}}, samt donasjoner fra:\n\n**{{topBackers}}**, og [hundrevis av andre]({{donateLink}}). Takk!"
   },
