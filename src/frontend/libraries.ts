@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -180,6 +180,13 @@ export default [
     homepage: 'https://material-ui.com/',
   },
   {
+    name: '@playwright/test',
+    type: 'library',
+    version: '1.28.1',
+    license: 'Apache License 2.0 (Apache-2.0)',
+    homepage: 'https://playwright.dev',
+  },
+  {
     name: '@react-native-community/slider',
     type: 'library',
     version: '4.2.0',
@@ -236,6 +243,13 @@ export default [
     version: '10.3.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/bindings-noderify-nodejs-mobile',
+  },
+  {
+    name: 'bipf',
+    type: 'library',
+    version: '1.9.0',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/ssbc/bipf',
   },
   {
     name: 'blurhash',
@@ -341,6 +355,14 @@ export default [
     version: '3.1.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/sindresorhus/electron-context-menu#readme',
+  },
+  {
+    name: 'electron-playwright-helpers',
+    type: 'library',
+    version: '1.2.2',
+    license: 'MIT License (MIT)',
+    homepage:
+      'https://github.com/spaceagetv/electron-playwright-helpers#readme',
   },
   {
     name: 'electron-ssb-client',
@@ -460,6 +482,20 @@ export default [
     version: '0.12.7',
     license: 'MIT License (MIT)',
     homepage: 'http://nodejs.org/docs/latest/api/path.html',
+  },
+  {
+    name: 'playwright',
+    type: 'library',
+    version: '1.28.1',
+    license: 'Apache License 2.0 (Apache-2.0)',
+    homepage: 'https://playwright.dev',
+  },
+  {
+    name: 'playwright-core',
+    type: 'library',
+    version: '1.28.1',
+    license: 'Apache License 2.0 (Apache-2.0)',
+    homepage: 'https://playwright.dev',
   },
   {
     name: 'promisify-tuple',

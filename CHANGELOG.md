@@ -2,6 +2,16 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2301.6-beta
+
+* Change how About and Thanks look like ([see details](https://gitlab.com/staltz/manyverse/commit/b5169131bde02d6b194bf48569ecc1bda4208f82))
+* Feature: button on the Profile to open private chat ([see details](https://gitlab.com/staltz/manyverse/commit/f59ecb026dd4b45dd145ff655aa82c7065673536))
+* Feature: message timestamps can be clicked ([see details](https://gitlab.com/staltz/manyverse/commit/243dca7647175b21735b91d078bdcf7b5e14c753))
+* Feature: show followers in common on the profile ([see details](https://gitlab.com/staltz/manyverse/commit/7e2b6dcb16703c0d87b234e962b8376c57cfe49b))
+* Improve Profile screen followers counters ([see details](https://gitlab.com/staltz/manyverse/commit/aad467bdc8d059c9b61f69a03313d5b188d9194e))
+* Improve style of toggle button in dark mode ([see details](https://gitlab.com/staltz/manyverse/commit/e20788e00ded1165a44de2e5f673cbdcf7b9f902))
+* Remove "occupies" counter on the Profile screen ([see details](https://gitlab.com/staltz/manyverse/commit/06042103754debddc1b7e19c1fdbcc58820a5274))
+
 ## 0.2212.19-beta
 
 * (Desktop) Bug fix: fullscreen image view sometimes broken ([see details](https://gitlab.com/staltz/manyverse/commit/613a13eeadb8620e06575cd33e9e3c368ff9db39))
