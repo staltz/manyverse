@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -181,15 +181,24 @@ export const styles = StyleSheet.create({
     lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'bold',
+    marginRight: Dimensions.horizontalSpaceLarge,
   },
 
   counterContentTitle: {
-    marginRight: Dimensions.horizontalSpaceLarge,
     color: Palette.textWeak,
     fontSize: Typography.fontSizeSmall,
     lineHeight: Typography.lineHeightSmall,
     fontFamily: Typography.fontFamilyReadableText,
     fontWeight: 'normal',
+  },
+
+  friendsInCommon: {
+    alignSelf: 'stretch',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: Dimensions.verticalSpaceNormal,
   },
 
   friendInCommonAvatar: {
@@ -198,6 +207,15 @@ export const styles = StyleSheet.create({
 
   friendInCommonAvatarLast: {
     marginRight: Dimensions.horizontalSpaceSmall,
+  },
+
+  friendsInCommonLabel: {
+    color: Palette.textWeak,
+    fontSize: Typography.fontSizeSmall,
+    lineHeight: Typography.lineHeightSmall,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'normal',
+    flex: 1,
   },
 
   noFriendsInCommon: {

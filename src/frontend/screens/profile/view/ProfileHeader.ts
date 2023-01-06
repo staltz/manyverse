@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -154,7 +154,7 @@ function FriendsInCommon({
   const opts = {name1, name2, name3, others};
 
   return h(TouchableOpacity, {sel: 'friendsInCommon'}, [
-    h(View, {style: styles.detailsRow}, [
+    h(View, {style: styles.friendsInCommon}, [
       ...abouts.map((about, i) =>
         h(Avatar, {
           url: about.imageUrl,
@@ -169,7 +169,7 @@ function FriendsInCommon({
 
       h(
         Text,
-        {style: styles.secondaryLabel},
+        {style: styles.friendsInCommonLabel, numberOfLines: 2},
         names.length === 1
           ? t('profile.details.counters.friends_in_common.just_one', opts)
           : names.length === 2
