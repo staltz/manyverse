@@ -813,7 +813,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.manyver;
 				PRODUCT_NAME = Manyverse;
-				PROVISIONING_PROFILE_SPECIFIER = "App Store Provisioning 2022";
+				PROVISIONING_PROFILE_SPECIFIER = "App Store Provisioning 2023 B";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
 				VERSIONING_SYSTEM = "apple-generic";
