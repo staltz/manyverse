@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -245,7 +245,7 @@ const SearchResults: React.FC<State> = (state) => {
                 hashtagCount: searchResults.hashtagCount,
                 // strings in state.subscribedHashtags do not start with '#'
                 isSubscribed: state.subscribedHashtags.includes(
-                  state.query.slice(1),
+                  state.query.slice(1).toLocaleLowerCase(),
                 ),
               })
             : (null as any),
