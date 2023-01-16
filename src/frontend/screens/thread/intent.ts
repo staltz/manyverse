@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -19,8 +19,19 @@ import {
   MsgAndExtras,
 } from '~frontend/ssb/types';
 import {Screens} from '~frontend/screens/enums';
+import {MAX_MESSAGE_TEXT_SIZE} from '~frontend/ssb/utils/constants';
 import {State} from './model';
 import {Props} from './props';
+
+function replyIsValidText(state: State) {
+  return (
+    typeof state.replyText === 'string' && state.replyText.trim().length > 0
+  );
+}
+
+function replyTextIsValidLength(state: State): boolean {
+  return state.replyText.length <= MAX_MESSAGE_TEXT_SIZE;
+}
 
 export default function intent(
   props$: Stream<Props>,
@@ -30,15 +41,23 @@ export default function intent(
   ssbSource: SSBSource,
   state$: Stream<State>,
 ) {
+  const attemptPublish$ = reactSource.select('reply-send').events('press');
+
+  const publishMsg$ = attemptPublish$
+    .compose(sample(state$))
+    .filter(replyIsValidText)
+    .filter(replyTextIsValidLength);
+
+  const preventPublishMsg$ = attemptPublish$
+    .compose(sample(state$))
+    .filter(replyIsValidText)
+    .filter((state) => !replyTextIsValidLength(state))
+    .mapTo(null);
+
   return {
-    publishMsg$: reactSource
-      .select('reply-send')
-      .events('press')
-      .compose(sample(state$))
-      .filter(
-        ({replyText}) =>
-          typeof replyText === 'string' && replyText.trim().length > 0,
-      ),
+    publishMsg$,
+
+    preventPublishMsg$,
 
     attendGathering$: reactSource.select('gathering').events<{
       isAttending: boolean;

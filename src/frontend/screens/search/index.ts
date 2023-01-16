@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -13,7 +13,7 @@ import {Toast} from '~frontend/drivers/toast';
 import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import messageEtc from '~frontend/components/messageEtc';
 import messageShare from '~frontend/components/messageShare';
-import timestampAlert from '~frontend/components/timestamp-alert';
+import {timestampAlert} from '~frontend/drivers/dialogs/sharedCommands';
 import intent from './intent';
 import view from './view';
 import model, {State} from './model';

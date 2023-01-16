@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -21,6 +21,7 @@ export interface State {
   enabled: boolean;
   previewing: boolean;
   isReply: boolean;
+  postTextTooLong: boolean;
 }
 
 export interface Sources {
@@ -32,6 +33,7 @@ export interface Sinks {
   screen: Stream<ReactElement<any>>;
   back: Stream<any>;
   done: Stream<any>;
+  openError: Stream<any>;
 }
 
 export const styles = StyleSheet.create({
@@ -98,7 +100,6 @@ export const styles = StyleSheet.create({
   },
 
   buttonEnabled: {
-    marginLeft: Dimensions.horizontalSpaceNormal,
     backgroundColor: 'transparent',
     borderColor: Palette.textBrand,
     borderWidth: 1,
@@ -106,14 +107,12 @@ export const styles = StyleSheet.create({
 
   buttonEnabledStrong: {
     backgroundColor: Palette.backgroundCTA,
-    marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
   buttonDisabled: {
     backgroundColor: 'transparent',
     borderColor: Palette.textVeryWeak,
     borderWidth: 1,
-    marginLeft: Dimensions.horizontalSpaceNormal,
   },
 
   buttonTextEnabled: {
@@ -127,18 +126,30 @@ export const styles = StyleSheet.create({
   buttonTextDisabled: {
     color: Palette.textVeryWeak,
   },
+
+  buttonsSpacer: {
+    width: Dimensions.horizontalSpaceNormal,
+  },
 });
 
 function intent(reactSource: ReactSource) {
   return {
     back$: reactSource.select('composeCloseButton').events('press'),
     done$: reactSource.select('composeDoneButton').events('press'),
+    openError$: reactSource.select('composeErrorButton').events('press'),
   };
 }
 
 function view(state$: Stream<State>) {
   return state$
-    .compose(dropRepeatsByKeys(['enabled', 'isReply', 'previewing']))
+    .compose(
+      dropRepeatsByKeys([
+        'enabled',
+        'isReply',
+        'previewing',
+        'postTextTooLong',
+      ]),
+    )
     .map((state) =>
       h(View, {key: 'c', style: styles.container}, [
         h(View, {key: 'ic', style: styles.innerContainer}, [
@@ -164,8 +175,22 @@ function view(state$: Stream<State>) {
           }),
 
           h(View, {key: 'v', style: styles.buttonsRight}, [
+            state.postTextTooLong
+              ? h(HeaderButton, {
+                  key: 'b2',
+                  sel: 'composeErrorButton',
+                  icon: IconNames.error,
+                  color: Palette.textBrand,
+                  accessibilityLabel: t(
+                    'compose.alert_compose_error.view_problem.accessibility_label',
+                  ),
+                })
+              : null,
+
+            h(View, {style: styles.buttonsSpacer}),
+
             h(Button, {
-              key: 'b2',
+              key: 'b3',
               sel: 'composeDoneButton',
               strong: state.enabled,
               style: [
@@ -221,5 +246,6 @@ export function topBar(sources: Sources): Sinks {
     screen: vdom$,
     back: actions.back$,
     done: actions.done$,
+    openError: actions.openError$,
   };
 }

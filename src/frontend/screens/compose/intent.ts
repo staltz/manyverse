@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -17,7 +17,8 @@ import {FeedId} from 'ssb-typescript';
 import {Image} from '@staltz/react-native-image-crop-picker';
 import {t} from '~frontend/drivers/localization';
 import {GlobalEvent, AudioBlobComposed} from '~frontend/drivers/eventbus';
-import {State, isPost, hasText, isReply} from './model';
+import {State, isPost, hasText, isReply, textUnderMaximumLength} from './model';
+
 const ImagePicker =
   Platform.OS !== 'web'
     ? require('@staltz/react-native-image-crop-picker')
@@ -29,6 +30,7 @@ export default function intent(
   globalEvent$: Stream<GlobalEvent>,
   topBarBack$: Stream<any>,
   topBarDone$: Stream<any>,
+  topBarOpenError$: Stream<any>,
   state$: Stream<State>,
 ) {
   const topBarDoneWithState$ = topBarDone$.compose(sample(state$));
@@ -47,15 +49,22 @@ export default function intent(
     (state) => !state.previewing && state.postText.length > 0,
   );
 
-  const publishPost$ = topBarDoneWithState$
+  const attemptPublish$ = topBarDoneWithState$
     .filter((state) => state.previewing)
-    .filter(isPost)
+    .filter((state) => isPost(state) || isReply(state))
     .filter(hasText);
 
-  const publishReply$ = topBarDoneWithState$
-    .filter((state) => state.previewing)
-    .filter(isReply)
-    .filter(hasText);
+  const openComposeError$ = xs.merge(
+    topBarOpenError$,
+    attemptPublish$
+      .filter((state) => !textUnderMaximumLength(state))
+      .mapTo(null),
+  );
+
+  const willPublish$ = attemptPublish$.filter(textUnderMaximumLength);
+
+  const publishPost$ = willPublish$.filter(isPost);
+  const publishReply$ = willPublish$.filter(isReply);
 
   const selectionChange$ = reactSource
     .select('composeInput')
@@ -203,5 +212,7 @@ export default function intent(
     ) as Stream<File>,
 
     exit$: xs.merge(publishPost$, publishReply$, back$),
+
+    openComposeError$,
   };
 }

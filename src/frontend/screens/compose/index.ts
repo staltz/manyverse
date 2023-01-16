@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -12,8 +12,9 @@ import {Command, NavSource} from 'cycle-native-navigation';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
-import {DialogSource} from '~frontend/drivers/dialogs';
+import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import {GlobalEvent} from '~frontend/drivers/eventbus';
+import {composeErrorAlert} from '~frontend/drivers/dialogs/sharedCommands';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
 import model, {State, topBarLens} from './model';
@@ -44,6 +45,7 @@ export interface Sinks {
   state: Stream<Reducer<State>>;
   keyboard: Stream<'dismiss'>;
   ssb: Stream<Req>;
+  dialog: Stream<AlertCommand>;
 }
 
 export const navOptions = {
@@ -78,6 +80,7 @@ export function compose(sources: Sources): Sinks {
     sources.globalEventBus,
     topBarSinks.back,
     topBarSinks.done,
+    topBarSinks.openError,
     sources.state.stream,
   );
   const dialogActions = dialog(actions, sources.dialog);
@@ -96,6 +99,7 @@ export function compose(sources: Sources): Sinks {
   );
   const storageCommand$ = asyncStorage(actionsPlus, sources.state.stream);
   const newContent$ = ssb(actionsPlus);
+  const alert$ = actions.openComposeError$.mapTo(composeErrorAlert());
 
   return {
     keyboard: dismissKeyboard$,
@@ -104,5 +108,6 @@ export function compose(sources: Sources): Sinks {
     asyncstorage: storageCommand$,
     state: reducer$,
     ssb: newContent$,
+    dialog: alert$,
   };
 }

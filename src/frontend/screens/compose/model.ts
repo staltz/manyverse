@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -13,6 +13,7 @@ import {Image} from '@staltz/react-native-image-crop-picker';
 import {MsgId, FeedId} from 'ssb-typescript';
 import {SSBSource, MentionSuggestion} from '~frontend/drivers/ssb';
 import {AudioBlobComposed} from '~frontend/drivers/eventbus';
+import {MAX_MESSAGE_TEXT_SIZE} from '~frontend/ssb/utils/constants';
 import {State as TopBarState} from './top-bar';
 import {Props} from './index';
 
@@ -44,10 +45,15 @@ const MAX_SUGGESTIONS = Platform.OS === 'web' ? 6 : 4;
 
 export const topBarLens: Lens<State, TopBarState> = {
   get: (parent: State): TopBarState => {
+    const hasPostText = parent.postText.length > 0;
+    const postTextTooLong = parent.postText.length > MAX_MESSAGE_TEXT_SIZE;
     return {
-      enabled: parent.postText.length > 0,
+      enabled: parent.previewing
+        ? hasPostText && !postTextTooLong
+        : hasPostText,
       previewing: parent.previewing,
       isReply: !!parent.root,
+      postTextTooLong,
     };
   },
 
@@ -71,6 +77,10 @@ export function isTextEmpty(state: State): boolean {
 
 export function hasText(state: State): boolean {
   return state.postText.length > 0;
+}
+
+export function textUnderMaximumLength(state: State): boolean {
+  return state.postText.length <= MAX_MESSAGE_TEXT_SIZE;
 }
 
 function detectMention(postText: string, selection: Selection): number | null {

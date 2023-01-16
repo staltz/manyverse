@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -14,7 +14,10 @@ import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';
 import messageEtc from '~frontend/components/messageEtc';
-import timestampAlert from '~frontend/components/timestamp-alert';
+import {
+  composeErrorAlert,
+  timestampAlert,
+} from '~frontend/drivers/dialogs/sharedCommands';
 import messageShare from '~frontend/components/messageShare';
 import model, {State} from './model';
 import view from './view';
@@ -83,7 +86,10 @@ export function thread(sources: Sources): Sinks {
     .merge(actions.exit$, actions.publishMsg$)
     .mapTo('dismiss' as 'dismiss');
 
-  const alert$ = actions.viewTimestamp$.map(timestampAlert);
+  const alert$ = xs.merge(
+    actions.viewTimestamp$.map(timestampAlert),
+    actions.preventPublishMsg$.mapTo(composeErrorAlert()),
+  );
 
   return {
     screen: vdom$,

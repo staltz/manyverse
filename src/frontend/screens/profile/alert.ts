@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
-import timestampAlert from '~frontend/components/timestamp-alert';
+import {timestampAlert} from '~frontend/drivers/dialogs/sharedCommands';
 import {Command as AlertCommand} from '~frontend/drivers/dialogs';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
