@@ -265,8 +265,8 @@
       "title": "Destinatários"
     },
     "in_common": {
-      "title": "In common",
-      "description": "The following list shows accounts you follow who in turn follow {{name}}."
+      "title": "Em comum",
+      "description": "A lista abaixo mostra as contas que você segue quem, por sua vez, seguem {{name}}."
     },
     "call_to_action": {
       "open_account": {
@@ -560,6 +560,15 @@
     "text_field": {
       "placeholder": "Escrever uma nova mensagem pública",
       "accessibility_label": "Entrada de texto para compor uma mensagem"
+    },
+    "alert_compose_error": {
+      "text_length": {
+        "title": "Muito longo",
+        "description": "O seu texto excede o tamanho máximo permitido em mensagens SSB.\n\nPor favor, diminua o seu texto ou use os comentários para publicá-lo em múltiplas partes."
+      },
+      "view_problem": {
+        "accessibility_label": "Ver o problema"
+      }
     }
   },
   "compose_audio": {
@@ -772,11 +781,11 @@
         "following": "Seguindo",
         "followers": "Seguidores",
         "friends_in_common": {
-          "zero": "Not followed by anyone you're following",
-          "just_one": "Followed by {{name1}}",
-          "two": "Followed by {{name1}} and {{name2}}",
-          "three": "Followed by {{name1}}, {{name2}} and {{name3}}",
-          "three_plus": "Followed by {{name1}}, {{name2}}, {{name3}} and {{others}} others"
+          "zero": "Não seguido por ninguém que você está seguindo",
+          "just_one": "Seguido por {{name1}}",
+          "two": "Seguido por {{name1}} e {{name2}}",
+          "three": "Seguido por {{name1}}, {{name2}} e {{name3}}",
+          "three_plus": "Seguido por {{name1}}, {{name2}}, {{name3}} e {{others}} outros"
         }
       }
     },
@@ -1344,7 +1353,7 @@
       "3_normal": ""
     },
     "timestamp": {
-      "title": "Date of publication"
+      "title": "Data da publicação"
     },
     "about": {
       "new_picture": {

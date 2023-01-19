@@ -560,6 +560,15 @@
     "text_field": {
       "placeholder": "Skriv ett publikt meddelande",
       "accessibility_label": "Fält för inmatning av text"
+    },
+    "alert_compose_error": {
+      "text_length": {
+        "title": "Too long",
+        "description": "Your text exceeds the maximum size allowed in SSB messages.\n\nPlease make your text smaller or use the replies to publish it in multiple parts."
+      },
+      "view_problem": {
+        "accessibility_label": "View problem"
+      }
     }
   },
   "compose_audio": {
