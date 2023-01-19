@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,7 +6,13 @@ import {Stream} from 'xstream';
 import debounce from 'xstream/extra/debounce';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  Dimensions as DimensAPI,
+} from 'react-native';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
@@ -37,13 +43,14 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  button1: {
+  button: {
     borderColor: Palette.colors.white,
     marginBottom: Dimensions.verticalSpaceBig,
   },
 
-  button2: {
+  cancelButton: {
     borderColor: Palette.colors.white,
+    marginTop: Dimensions.verticalSpaceLarger,
     ...Platform.select({
       web: {},
       default: {
@@ -57,9 +64,20 @@ export const styles = StyleSheet.create({
   },
 
   progressContainer: {
-    paddingHorizontal: Dimensions.horizontalSpaceNormal,
-    paddingVertical: Dimensions.verticalSpaceNormal,
     flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  progressTop: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  progressBottom: {
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 
@@ -109,7 +127,7 @@ function NotConnected(props: unknown) {
       renderBottom: () => [
         h(Button, {
           sel: 'connect-via-wifi',
-          style: styles.button1,
+          style: styles.button,
           textStyle: styles.buttonText,
           text: t('resync.buttons.connect_via_wifi'),
           strong: false,
@@ -117,9 +135,17 @@ function NotConnected(props: unknown) {
         }),
         h(Button, {
           sel: 'paste-invite',
-          style: styles.button2,
+          style: styles.button,
           textStyle: styles.buttonText,
           text: t('resync.buttons.paste_invite'),
+          strong: false,
+          accessible: true,
+        }),
+        h(Button, {
+          sel: 'cancel',
+          style: styles.cancelButton,
+          textStyle: styles.buttonText,
+          text: t('call_to_action.cancel'),
           strong: false,
           accessible: true,
         }),
@@ -129,37 +155,62 @@ function NotConnected(props: unknown) {
 }
 
 function Connected({
-  megabytes,
+  logSize,
   progressToSkip,
 }: {
-  megabytes: string;
+  logSize: number;
   progressToSkip: number;
 }) {
-  return h(View, {style: styles.progressContainer}, [
-    h(Text, {style: styles.progressTitle}, [
-      t('resync.progress.title', {megabytes}),
+  const megabytes =
+    logSize <= 0
+      ? '0.00 MB'
+      : Math.max(0.01, logSize * 1e-6).toFixed(2) + ' MB';
+
+  const webStyle = Platform.select({
+    web: {
+      height: DimensAPI.get('window').height * 0.7,
+    },
+    default: null,
+  });
+
+  return h(View, {style: [styles.progressContainer, webStyle]}, [
+    h(View, {style: styles.progressTop}, [
+      h(Text, {style: styles.progressTitle}, [
+        t('resync.progress.title', {megabytes}),
+      ]),
+      h(Text, {style: styles.progressDescription}, [
+        t('resync.progress.description'),
+      ]),
+      h(
+        Circle as any,
+        {
+          animated: true,
+          progress: progressToSkip,
+          size: Dimensions.iconSizeHuge,
+          showsText: false,
+          color: Palette.textForBackgroundBrand,
+          unfilledColor: Palette.transparencyDarkWeak,
+          fill: 'transparent',
+          borderWidth: 0,
+          strokeCap: 'round',
+          thickness: 5,
+          style: {
+            opacity: Math.min(1, progressToSkip / 0.25),
+          },
+        } as CirclePropTypes,
+      ),
     ]),
-    h(Text, {style: styles.progressDescription}, [
-      t('resync.progress.description'),
+
+    h(View, {style: styles.progressBottom}, [
+      h(Button, {
+        sel: 'cancel',
+        style: styles.cancelButton,
+        textStyle: styles.buttonText,
+        text: t('call_to_action.cancel'),
+        strong: false,
+        accessible: true,
+      }),
     ]),
-    h(
-      Circle as any,
-      {
-        animated: true,
-        progress: progressToSkip,
-        size: Dimensions.iconSizeHuge,
-        showsText: false,
-        color: Palette.textForBackgroundBrand,
-        unfilledColor: Palette.transparencyDarkWeak,
-        fill: 'transparent',
-        borderWidth: 0,
-        strokeCap: 'round',
-        thickness: 5,
-        style: {
-          opacity: Math.min(1, progressToSkip / 0.25),
-        },
-      } as CirclePropTypes,
-    ),
   ]);
 }
 
@@ -167,20 +218,14 @@ export default function view(state$: Stream<State>) {
   return state$
     .compose(debounce(16)) // avoid quick re-renders
     .compose(
-      dropRepeatsByKeys(['logSize', 'progressToSkip', 'connectedToSomeone']),
+      dropRepeatsByKeys(['connectedToSomeone', 'logSize', 'progressToSkip']),
     )
-    .map((state) =>
+    .map(({connectedToSomeone, logSize, progressToSkip}) =>
       h(View, {style: styles.screen}, [
         h(StatusBarBlank),
-        !state.connectedToSomeone
+        !connectedToSomeone
           ? h(NotConnected)
-          : h(Connected, {
-              megabytes:
-                state.logSize <= 0
-                  ? '0.00 MB'
-                  : Math.max(0.01, state.logSize * 1e-6).toFixed(2) + ' MB',
-              progressToSkip: state.progressToSkip,
-            }),
+          : h(Connected, {logSize, progressToSkip}),
       ]),
     );
 }

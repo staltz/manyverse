@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -9,6 +9,7 @@ import {State} from './model';
 
 interface Actions {
   willGoToCentral$: Stream<any>;
+  deleteAccount$: Stream<any>;
 }
 
 export default function ssb(actions: Actions, state$: Stream<State>) {
@@ -64,10 +65,15 @@ export default function ssb(actions: Actions, state$: Stream<State>) {
     )
     .flatten();
 
+  const nuke$ = actions.deleteAccount$
+    .mapTo({type: 'nuke'} as Req)
+    .filter((x) => x !== null);
+
   return xs.merge(
     useIdentity$,
     ebtRequest$,
     connectToAnyStagedPeer$,
     enableFirewall$,
+    nuke$,
   );
 }

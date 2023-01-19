@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -25,10 +25,13 @@ export default function intent(
 
   const goToCentral$ = willGoToCentral$.compose(delay(150));
 
+  const deleteAccount$ = reactSource.select('cancel').events('press');
+
   return {
     connectViaWifi$,
     goToPasteInvite$,
     willGoToCentral$,
     goToCentral$,
+    deleteAccount$,
   };
 }

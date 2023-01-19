@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -57,7 +57,7 @@ export function resync(sources: Sources): Sinks {
 
   const actions = intent(state$, sources.screen);
 
-  const reducer$ = model(sources.network, sources.ssb);
+  const reducer$ = model(actions, sources.network, sources.ssb);
 
   const navCommand$ = navigation(actions);
 
@@ -79,6 +79,7 @@ export function resync(sources: Sources): Sinks {
   const storageCommand$ = xs.merge(
     xs.of(setItem('resyncing', `${Date.now()}`)),
     actions.willGoToCentral$.mapTo(removeItem('resyncing')),
+    actions.deleteAccount$.mapTo({type: 'clear' as const}),
   );
 
   return {

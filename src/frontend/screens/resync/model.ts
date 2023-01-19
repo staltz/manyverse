@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import xs from 'xstream';
+import xs, {Stream} from 'xstream';
 import concat from 'xstream/extra/concat';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {FeedId} from 'ssb-typescript';
@@ -25,7 +25,12 @@ export interface State {
   progressToSkip: number;
 }
 
+export interface Actions {
+  deleteAccount$: Stream<any>;
+}
+
 export default function model(
+  actions: Actions,
   networkSource: NetworkSource,
   ssbSource: SSBSource,
 ) {
@@ -159,5 +164,5 @@ export default function model(
       updateLogSizeReducer$,
       updateProgressToSkipReducer$,
     ),
-  );
+  ).endWhen(actions.deleteAccount$);
 }
