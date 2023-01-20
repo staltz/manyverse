@@ -190,8 +190,8 @@
       "accessibility_label": "Индикатор процесса индексирования данных"
     },
     "empty_onboarding": {
-      "title": "Where is everybody?",
-      "description": "On Manyverse, you can't search\nfor people. Someone has to invite you.",
+      "title": "Где все?",
+      "description": "В Manyverse вы не можете искать\nлюдей. Кто-то должен пригласить вас.",
       "link_label": "Узнать больше"
     },
     "tabs": {
@@ -218,11 +218,11 @@
         "accessibility_label": "Кнопка показа новостной ленты только от тех пользователей, на кого вы подписаны"
       },
       "hashtags": {
-        "label": "Hashtags",
-        "accessibility_label": "Following Hashtags Button"
+        "label": "Хэштеги",
+        "accessibility_label": "Кнопка \"Подписаться на хэштеги\""
       },
       "feed_settings": {
-        "accessibility_label": "Feed Settings Button"
+        "accessibility_label": "Кнопка настройки ленты"
       }
     }
   },
@@ -235,8 +235,8 @@
       "description": "Напишите о чём-то,\nдля ваших подписчиков"
     },
     "empty_hashtags": {
-      "title": "No subscribed hashtags",
-      "description": "Subscribe to hashtags\nin the search field to\nsee some threads here"
+      "title": "Нет подписок на хэштеги",
+      "description": "Подпишитесь на хэштеги\nв поле поиска, чтобы\nувидеть соответствующие публикации"
     },
     "search": {
       "accessibility_label": "Кнопка поиска"
@@ -265,8 +265,8 @@
       "title": "Получатели"
     },
     "in_common": {
-      "title": "In common",
-      "description": "The following list shows accounts you follow who in turn follow {{name}}."
+      "title": "В общем",
+      "description": "В этом списке пользователи из ваших подписок, которые подписаны на {{name}}."
     },
     "call_to_action": {
       "open_account": {
@@ -563,11 +563,11 @@
     },
     "alert_compose_error": {
       "text_length": {
-        "title": "Too long",
-        "description": "Your text exceeds the maximum size allowed in SSB messages.\n\nPlease make your text smaller or use the replies to publish it in multiple parts."
+        "title": "Много букв",
+        "description": "Ваш текст превышает максимально допустимый размер сообщений в SSB.\n\nПожалуйста, укоротите его или используйте ответы для публикации записи в нескольких частях."
       },
       "view_problem": {
-        "accessibility_label": "View problem"
+        "accessibility_label": "Описание ошибки"
       }
     }
   },
@@ -781,11 +781,11 @@
         "following": "Подписки",
         "followers": "Подписчики",
         "friends_in_common": {
-          "zero": "Not followed by anyone you're following",
-          "just_one": "Followed by {{name1}}",
-          "two": "Followed by {{name1}} and {{name2}}",
-          "three": "Followed by {{name1}}, {{name2}} and {{name3}}",
-          "three_plus": "Followed by {{name1}}, {{name2}}, {{name3}} and {{others}} others"
+          "zero": "Не имеет общих с вами подписок",
+          "just_one": "Подписан на {{name1}}",
+          "two": "Подписан на {{name1}} и {{name2}}",
+          "three": "Подписан на {{name1}}, {{name2}} и {{name3}}",
+          "three_plus": "Подписан на {{name1}}, {{name2}}, {{name3}} и {{others}} других"
         }
       }
     },
@@ -966,17 +966,17 @@
     "hashtags": {
       "matches": {
         "title": {
-          "one": "1 match",
-          "other": "{{count}} matches"
+          "one": "1 совпадение",
+          "other": "Совпадений: {{count}}"
         }
       },
       "subscribe": {
-        "label": "Subscribe",
-        "accessibility_label": "Subscribe to this hashtag"
+        "label": "Подписаться",
+        "accessibility_label": "Подписаться на этот хэштег"
       },
       "unsubscribe": {
-        "label": "Unsubscribe",
-        "accessibility_label": "Unsubscribe from this hashtag"
+        "label": "Отписаться",
+        "accessibility_label": "Отписаться от этого хэштега"
       }
     }
   },
@@ -1072,8 +1072,8 @@
         "accessibility_label": "Переключатель Включить брандмауэр"
       },
       "feed_settings": {
-        "title": "Feed settings",
-        "accessibility_label": "Open screen about feed settings"
+        "title": "Настройки ленты",
+        "accessibility_label": "Показать справку по настройке ленты"
       }
     },
     "data_and_storage": {
@@ -1353,7 +1353,7 @@
       "3_normal": ""
     },
     "timestamp": {
-      "title": "Date of publication"
+      "title": "Дата публикации"
     },
     "about": {
       "new_picture": {
@@ -1423,32 +1423,32 @@
     "save_image_as": "Сохранить изображение как..."
   },
   "feed_settings": {
-    "title": "Feed settings",
-    "active_label": "Active",
+    "title": "Настройки ленты",
+    "active_label": "Активно",
     "all": {
       "title": "Вся лента",
-      "description": "This option shows all the threads that were downloaded onto your device.",
+      "description": "Эта опция показывает все публикации, загруженные на ваше устройство.",
       "accessibility_label": "Кнопка показа новостной ленты от всех пользователей"
     },
     "following": {
       "title": "Ваши подписки",
-      "description": "This option shows only threads created by the accounts you follow.",
+      "description": "Эта опция показывает публикации только тех пользователей, на кого вы подписаны.",
       "accessibility_label": "Кнопка показа новостной ленты только от тех пользователей, на кого вы подписаны"
     },
     "hashtags": {
-      "title": "Hashtags",
-      "description_1": "This option shows only threads that contain a hashtag that you subscribe to.",
-      "description_2": "See all your subscribed hashtags below.",
-      "accessibility_label": "Following Hashtags Button"
+      "title": "Хэштеги",
+      "description_1": "Эта опция показывает только публикации, содержащие хэштеги, на которые вы подписаны.",
+      "description_2": "Ниже показаны все хэштеги, на которые вы подписаны.",
+      "accessibility_label": "Кнопка \"Подписаться на хэштеги\""
     },
     "subscribe_toggle": {
       "subscribe": {
-        "label": "Subscribe",
-        "accessibility_label": "Subscribe to this hashtag"
+        "label": "Подписаться",
+        "accessibility_label": "Подписаться на этот хэштег"
       },
       "unsubscribe": {
-        "label": "Unsubscribe",
-        "accessibility_label": "Unsubscribe from this hashtag"
+        "label": "Отписаться",
+        "accessibility_label": "Отписаться от этого хэштега"
       }
     }
   }
