@@ -1,12 +1,22 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
 import {expect, test} from '@playwright/test';
 import {Page} from 'playwright-core';
-import setup from './utils';
+import setup, {stageDatabase} from './utils';
+const p = require('util').promisify;
 
-const ctx = setup();
+const ctx = setup('compose', async (path: string) => {
+  const ssb = stageDatabase(path);
+
+  await p(ssb.db.create)({
+    keys: ssb.config.keys,
+    content: {type: 'about', about: ssb.id, name: 'Alice'},
+  });
+
+  await p(ssb.close)(true);
+});
 
 let page: Page;
 

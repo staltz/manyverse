@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -6,7 +6,7 @@ import {expect, test} from '@playwright/test';
 import {Page} from 'playwright-core';
 import setup from './utils';
 
-const ctx = setup();
+const ctx = setup('welcome');
 
 let page: Page;
 
