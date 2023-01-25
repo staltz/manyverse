@@ -13,3 +13,8 @@ export const MAX_PRIVATE_MESSAGE_RECIPIENTS = 7;
 // The value was determined empirically by creating post msgs with ssb-db2.
 // See https://gitlab.com/staltz/manyverse/-/merge_requests/366#note_1232269912
 export const MAX_MESSAGE_TEXT_SIZE = 7850;
+
+/**
+ * Maximum size of an SSB blob according to https://github.com/ssbc/ssb-blobs#max-default-5mb
+ */
+export const MAX_BLOB_SIZE = 5 * 1024 * 1024;

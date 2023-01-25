@@ -14,10 +14,10 @@ import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import {GlobalEvent} from '~frontend/drivers/eventbus';
-import {composeErrorAlert} from '~frontend/drivers/dialogs/sharedCommands';
 import {topBar, Sinks as TBSinks} from './top-bar';
 import intent from './intent';
 import model, {State, topBarLens} from './model';
+import alert from './alert';
 import view from './view';
 import ssb from './ssb';
 import navigation from './navigation';
@@ -99,7 +99,7 @@ export function compose(sources: Sources): Sinks {
   );
   const storageCommand$ = asyncStorage(actionsPlus, sources.state.stream);
   const newContent$ = ssb(actionsPlus);
-  const alert$ = actions.openComposeError$.mapTo(composeErrorAlert());
+  const alert$ = alert(actionsPlus);
 
   return {
     keyboard: dismissKeyboard$,

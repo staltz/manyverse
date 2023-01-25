@@ -259,6 +259,8 @@ declare module 'i18n-js' {
     | 'compose.text_field.accessibility_label'
     | 'compose.alert_compose_error.text_length.title'
     | 'compose.alert_compose_error.text_length.description'
+    | 'compose.alert_compose_error.attachment_size.title'
+    | 'compose.alert_compose_error.attachment_size.description'
     | 'compose.alert_compose_error.view_problem.accessibility_label'
     | 'compose_audio.title'
     | 'compose_audio.call_to_action.start_recording.accessibility_label'

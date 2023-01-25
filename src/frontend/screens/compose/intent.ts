@@ -18,6 +18,7 @@ import {FeedId} from 'ssb-typescript';
 import {Image} from '@staltz/react-native-image-crop-picker';
 import {t} from '~frontend/drivers/localization';
 import {GlobalEvent, AudioBlobComposed} from '~frontend/drivers/eventbus';
+import {MAX_BLOB_SIZE} from '~frontend/ssb/utils/constants';
 import {State, isPost, hasText, isReply, textUnderMaximumLength} from './model';
 import saveWebFile from './web-paster';
 import {FileLite} from './types';
@@ -33,6 +34,13 @@ function arrayify(list: DataTransferItemList) {
     arr.push(list[i]);
   }
   return arr;
+}
+
+function validateFileSize(file: File): File {
+  if (file.size > MAX_BLOB_SIZE) {
+    throw new Error('File too large');
+  }
+  return file;
 }
 
 export default function intent(
@@ -65,7 +73,7 @@ export default function intent(
     .filter((state) => isPost(state) || isReply(state))
     .filter(hasText);
 
-  const openComposeError$ = xs.merge(
+  const showTooLargeTextError$ = xs.merge(
     topBarOpenError$,
     attemptPublish$
       .filter((state) => !textUnderMaximumLength(state))
@@ -89,7 +97,8 @@ export default function intent(
     .select('add-picture-desktop')
     .events('change')
     .map((ev) => ev.target.files[0] as File | undefined)
-    .filter((file) => !!file) as Stream<File>;
+    .filter((file) => !!file)
+    .map(validateFileSize) as Stream<File>;
 
   const pastedDesktopFile$ = reactSource
     .select('composeInput')
@@ -101,6 +110,7 @@ export default function intent(
     )
     .flatten()
     .filter((file) => !!file)
+    .map(validateFileSize)
     .map((file) => xs.fromPromise(saveWebFile(file!)))
     .compose(flattenSequentially);
 
@@ -113,13 +123,28 @@ export default function intent(
       xs.fromArray(arrayify(items!).map((item) => item.getAsFile())),
     )
     .flatten()
-    .filter((file) => !!file?.path) as Stream<File>;
+    .filter((file) => !!file?.path)
+    .map(validateFileSize) as Stream<File>;
 
-  const addedDesktopFile$ = xs.merge(
+  const attemptToAddDesktopFile$ = xs.merge(
     selectedDesktopFile$,
     pastedDesktopFile$,
     droppedDesktopFile$,
+  ) as Stream<FileLite>;
+
+  const addedDesktopFile$ = attemptToAddDesktopFile$.replaceError(
+    () => attemptToAddDesktopFile$,
   );
+
+  const attemptErrors$ = attemptToAddDesktopFile$.filter(
+    () => false,
+  ) as Stream<unknown>;
+
+  const showTooLargeAttachmentError$ = (
+    attemptErrors$.replaceError((err) =>
+      attemptErrors$.startWith(err),
+    ) as Stream<Error>
+  ).filter((err) => err.message === 'File too large');
 
   const addedMobilePicture$ = xs
     .merge(
@@ -257,8 +282,10 @@ export default function intent(
       file.type.startsWith('audio/'),
     ),
 
-    exit$: xs.merge(publishPost$, publishReply$, back$),
+    showTooLargeAttachmentError$,
 
-    openComposeError$,
+    showTooLargeTextError$,
+
+    exit$: xs.merge(publishPost$, publishReply$, back$),
   };
 }
