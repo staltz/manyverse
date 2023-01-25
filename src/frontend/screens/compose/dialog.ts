@@ -1,16 +1,16 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
-import {Image} from '@staltz/react-native-image-crop-picker';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
+import {FileLite} from './types';
 
 export interface Actions {
   openContentWarning$: Stream<any>;
-  addPicture$: Stream<Image | File>;
+  addPicture$: Stream<FileLite>;
 }
 
 export default function dialog(actions: Actions, dialogSource: DialogSource) {

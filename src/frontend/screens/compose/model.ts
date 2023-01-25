@@ -9,13 +9,13 @@ import debounce from 'xstream/extra/debounce';
 import {Reducer, Lens} from '@cycle/state';
 import {Platform} from 'react-native';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
-import {Image} from '@staltz/react-native-image-crop-picker';
 import {MsgId, FeedId} from 'ssb-typescript';
 import {SSBSource, MentionSuggestion} from '~frontend/drivers/ssb';
 import {AudioBlobComposed} from '~frontend/drivers/eventbus';
 import {MAX_MESSAGE_TEXT_SIZE} from '~frontend/ssb/utils/constants';
 import {State as TopBarState} from './top-bar';
 import {Props} from './index';
+import {FileLite} from './types';
 
 interface Selection {
   start: number;
@@ -131,8 +131,8 @@ export interface Actions {
   disablePreview$: Stream<any>;
   enablePreview$: Stream<any>;
   addAudio$: Stream<AudioBlobComposed>;
-  attachAudio$: Stream<File>;
-  addPictureWithCaption$: Stream<{caption: string; image: Image | File}>;
+  attachAudio$: Stream<FileLite>;
+  addPictureWithCaption$: Stream<{caption: string; image: FileLite}>;
 }
 
 export default function model(

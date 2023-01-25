@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -14,11 +14,15 @@ export interface Payload {
 
 export interface Props extends TextInputProps {
   nativePropsAndFocus$?: Stream<Payload>;
+  onPaste?: (event: ClipboardEvent) => void;
+  onDrop?: (event: DragEvent) => void;
 }
 
 export default class SettableTextInput extends PureComponent<Props> {
   private subscription?: Subscription;
   private ref: RefObject<TextInput> = createRef();
+  private pasteListener?: (event: ClipboardEvent) => void;
+  private dropListener?: (event: DragEvent) => void;
 
   public componentDidMount() {
     if (this.props.nativePropsAndFocus$) {
@@ -33,23 +37,57 @@ export default class SettableTextInput extends PureComponent<Props> {
               this.ref.current?.setNativeProps(payload);
             }, 16);
           } else if (Platform.OS === 'web' && payload.selection) {
+            const elem = this.getWebElement();
             // Use DOM properties because for some reason `setNativeProps` fails
-            (this.ref.current! as any).selectionStart = payload.selection.start;
-            (this.ref.current! as any).selectionEnd = payload.selection.end;
+            elem.selectionStart = payload.selection.start;
+            elem.selectionEnd = payload.selection.end;
           }
         },
       });
+    }
+
+    if (Platform.OS === 'web') {
+      const elem = this.getWebElement();
+      if (this.props.onPaste) {
+        this.pasteListener = (event: ClipboardEvent) => {
+          this.props?.onPaste?.(event);
+        };
+        elem.addEventListener('paste', this.pasteListener);
+      }
+
+      if (this.props.onDrop) {
+        this.dropListener = (event: DragEvent) => {
+          event.preventDefault();
+          if (!event.dataTransfer) return;
+          event.dataTransfer.dropEffect = 'copy';
+          this.props?.onDrop?.(event);
+        };
+        elem.addEventListener('drop', this.dropListener);
+      }
     }
   }
 
   public componentWillUnmount() {
     this.subscription?.unsubscribe();
+
+    if (Platform.OS === 'web') {
+      const elem = this.getWebElement();
+      if (this.pasteListener) {
+        elem.removeEventListener('paste', this.pasteListener);
+        this.pasteListener = undefined;
+      }
+      if (this.dropListener) {
+        elem.removeEventListener('drop', this.dropListener);
+        this.dropListener = undefined;
+      }
+    }
+  }
+
+  private getWebElement() {
+    return this.ref.current! as any as HTMLTextAreaElement;
   }
 
   public render() {
-    return $(TextInput, {
-      ...this.props,
-      ref: this.ref,
-    });
+    return $(TextInput, {...this.props, ref: this.ref});
   }
 }

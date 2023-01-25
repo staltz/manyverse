@@ -5,6 +5,7 @@
 import xs, {Stream} from 'xstream';
 import between from 'xstream-between';
 import sample from 'xstream-sample';
+import flattenSequentially from 'xstream/extra/flattenSequentially';
 import {ReactSource} from '@cycle/react';
 import {
   TextInputSelectionChangeEventData,
@@ -18,11 +19,21 @@ import {Image} from '@staltz/react-native-image-crop-picker';
 import {t} from '~frontend/drivers/localization';
 import {GlobalEvent, AudioBlobComposed} from '~frontend/drivers/eventbus';
 import {State, isPost, hasText, isReply, textUnderMaximumLength} from './model';
+import saveWebFile from './web-paster';
+import {FileLite} from './types';
 
 const ImagePicker =
   Platform.OS !== 'web'
     ? require('@staltz/react-native-image-crop-picker')
     : null;
+
+function arrayify(list: DataTransferItemList) {
+  const arr = [];
+  for (let i = 0; i < list.length; i++) {
+    arr.push(list[i]);
+  }
+  return arr;
+}
 
 export default function intent(
   reactSource: ReactSource,
@@ -74,56 +85,91 @@ export default function intent(
   const focusInput$ = reactSource.select('composeInput').events('focus');
   const blurInput$ = reactSource.select('composeInput').events('blur');
 
-  const addedDesktopFile$ = reactSource
+  const selectedDesktopFile$ = reactSource
     .select('add-picture-desktop')
     .events('change')
-    .map((ev) => ev.target.files[0] as File | undefined);
+    .map((ev) => ev.target.files[0] as File | undefined)
+    .filter((file) => !!file) as Stream<File>;
 
-  const addedMobilePicture$ = xs.merge(
-    reactSource
-      .select('add-picture')
-      .events('press')
-      .map(() =>
-        xs
-          .fromPromise(
-            ImagePicker.openPicker({
-              cropping: false,
-              multiple: false,
-              compressImageMaxWidth: 1080,
-              compressImageMaxHeight: 1920,
-              compressImageQuality: 0.88,
-              mediaType: 'photo',
-            }) as Promise<Image>,
-          )
-          .replaceError(() => xs.never()),
-      )
-      .flatten(),
+  const pastedDesktopFile$ = reactSource
+    .select('composeInput')
+    .events<ClipboardEvent>('paste')
+    .map((ev) => ev.clipboardData?.items)
+    .filter((items) => (items?.length ?? 0) > 0)
+    .map((items) =>
+      xs.fromArray(arrayify(items!).map((item) => item.getAsFile())),
+    )
+    .flatten()
+    .filter((file) => !!file)
+    .map((file) => xs.fromPromise(saveWebFile(file!)))
+    .compose(flattenSequentially);
 
-    reactSource
-      .select('open-camera')
-      .events('press')
-      .map(() =>
-        xs
-          .fromPromise(
-            ImagePicker.openCamera({
-              cropping: false,
-              multiple: false,
-              compressImageMaxWidth: 1080,
-              compressImageMaxHeight: 1920,
-              compressImageQuality: 0.88,
-              mediaType: 'photo',
-            }) as Promise<Image>,
-          )
-          .replaceError(() => xs.never()),
-      )
-      .flatten(),
+  const droppedDesktopFile$ = reactSource
+    .select('composeInput')
+    .events<DragEvent>('drop')
+    .map((ev) => ev.dataTransfer?.items)
+    .filter((items) => (items?.length ?? 0) > 0)
+    .map((items) =>
+      xs.fromArray(arrayify(items!).map((item) => item.getAsFile())),
+    )
+    .flatten()
+    .filter((file) => !!file?.path) as Stream<File>;
+
+  const addedDesktopFile$ = xs.merge(
+    selectedDesktopFile$,
+    pastedDesktopFile$,
+    droppedDesktopFile$,
   );
 
-  const addPicture$: Stream<File | Image> =
+  const addedMobilePicture$ = xs
+    .merge(
+      reactSource
+        .select('add-picture')
+        .events('press')
+        .map(() =>
+          xs
+            .fromPromise(
+              ImagePicker.openPicker({
+                cropping: false,
+                multiple: false,
+                compressImageMaxWidth: 1080,
+                compressImageMaxHeight: 1920,
+                compressImageQuality: 0.88,
+                mediaType: 'photo',
+              }) as Promise<Image>,
+            )
+            .replaceError(() => xs.never()),
+        )
+        .flatten(),
+
+      reactSource
+        .select('open-camera')
+        .events('press')
+        .map(() =>
+          xs
+            .fromPromise(
+              ImagePicker.openCamera({
+                cropping: false,
+                multiple: false,
+                compressImageMaxWidth: 1080,
+                compressImageMaxHeight: 1920,
+                compressImageQuality: 0.88,
+                mediaType: 'photo',
+              }) as Promise<Image>,
+            )
+            .replaceError(() => xs.never()),
+        )
+        .flatten(),
+    )
+    .map((image) => ({
+      ...image,
+      name: image.path.split('/').pop() ?? 'image.jpg',
+      type: 'image/jpeg',
+    }));
+
+  const addPicture$: Stream<FileLite> =
     Platform.OS === 'web'
-      ? (addedDesktopFile$.filter(
-          (file) => !!file && file.type.startsWith('image/'),
-        ) as Stream<File>)
+      ? addedDesktopFile$.filter((file) => file.type.startsWith('image/'))
       : addedMobilePicture$;
 
   return {
@@ -207,9 +253,9 @@ export default function intent(
       (ev): ev is AudioBlobComposed => ev.type === 'audioBlobComposed',
     ),
 
-    attachAudio$: addedDesktopFile$.filter(
-      (file) => !!file && file.type.startsWith('audio/'),
-    ) as Stream<File>,
+    attachAudio$: addedDesktopFile$.filter((file) =>
+      file.type.startsWith('audio/'),
+    ),
 
     exit$: xs.merge(publishPost$, publishReply$, back$),
 
