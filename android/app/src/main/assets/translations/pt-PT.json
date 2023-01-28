@@ -566,6 +566,10 @@
         "title": "Too long",
         "description": "Your text exceeds the maximum size allowed in SSB messages.\n\nPlease make your text smaller or use the replies to publish it in multiple parts."
       },
+      "attachment_size": {
+        "title": "Too large file",
+        "description": "The file you are trying to attach exceeds the 5MB limit of SSB blobs.\n\nPlease choose a smaller file."
+      },
       "view_problem": {
         "accessibility_label": "View problem"
       }
