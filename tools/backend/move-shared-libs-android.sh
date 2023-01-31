@@ -31,6 +31,6 @@ do
   mkdir -p android/app/src/main/jniLibs/$arch;
 
   # Copy libsodium.so because nodejs-mobile scripts only move .node files
-  cp ./nodejs-assets/nodejs-project/node_modules/sodium-native-nodejs-mobile/lib/android-$nodearch/libsodium.so \
+  cp ./android/build/nodejs-native-assets-temp-build/nodejs-native-assets-$arch/nodejs-project/node_modules/sodium-native-nodejs-mobile/lib/android-$nodearch/libsodium.so \
     android/app/src/main/jniLibs/$arch/libsodium.so;
 done

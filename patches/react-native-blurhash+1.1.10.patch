@@ -1,0 +1,11 @@
+diff --git a/node_modules/react-native-blurhash/react-native-blurhash.podspec b/node_modules/react-native-blurhash/react-native-blurhash.podspec
+index ddee486..5b2bcbe 100644
+--- a/node_modules/react-native-blurhash/react-native-blurhash.podspec
++++ b/node_modules/react-native-blurhash/react-native-blurhash.podspec
+@@ -24,5 +24,6 @@ Pod::Spec.new do |s|
+   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
+ 
+   s.dependency "React-Core"
++  s.dependency "React-RCTImage"
+ end
+ 

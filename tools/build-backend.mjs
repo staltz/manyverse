@@ -71,10 +71,11 @@ async function runAndReport(label, task) {
   } else if (targetPlatform === 'ios') {
     await runAndReport(
       'Install backend node modules',
-      exec('npm install --no-optional', {
+      exec('npm install --omit=optional --ignore-scripts', {
         cwd: './nodejs-assets/nodejs-project',
         env: {
           PLATFORM_NAME: 'iphoneos',
+          DONT_COMPILE: '1',
           ...process.env,
         },
       }),
@@ -82,7 +83,28 @@ async function runAndReport(label, task) {
   } else {
     await runAndReport(
       'Install backend node modules',
-      exec('npm install --no-optional', {
+      exec('npm install --omit=optional --ignore-scripts', {
+        env: {
+          DONT_COMPILE: '1',
+          ...process.env,
+        },
+        cwd: './nodejs-assets/nodejs-project',
+      }),
+    );
+  }
+
+  if (targetPlatform === 'desktop') {
+    await runAndReport(
+      'Apply patches to node modules',
+      exec('npm run apply-patches', {
+        cwd: './desktop',
+      }),
+    );
+  } else {
+
+    await runAndReport(
+      'Apply patches to node modules',
+      exec('npm run apply-patches', {
         cwd: './nodejs-assets/nodejs-project',
       }),
     );
@@ -138,7 +160,7 @@ async function runAndReport(label, task) {
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Bundle and minify backend JS into one file',
-      exec('node tools/backend/noderify.js'),
+      exec('./tools/backend/noderify.js --desktop'),
     );
   } else {
     await runAndReport(

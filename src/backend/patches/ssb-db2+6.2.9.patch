@@ -1,8 +1,8 @@
 diff --git a/node_modules/ssb-db2/core.js b/node_modules/ssb-db2/core.js
-index 67e1aa5..b487e83 100644
+index 0224962..85d101d 100644
 --- a/node_modules/ssb-db2/core.js
 +++ b/node_modules/ssb-db2/core.js
-@@ -765,7 +765,9 @@ exports.init = function (sbot, config) {
+@@ -767,7 +767,9 @@ exports.init = function (sbot, config) {
              batch(1000),
              toPullStream()
            ),

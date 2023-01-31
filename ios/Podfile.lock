@@ -12,7 +12,7 @@ PODS:
   - fmt (6.2.1)
   - glog (0.3.5)
   - HMSegmentedControl (1.5.6)
-  - nodejs-mobile-react-native (0.7.0):
+  - nodejs-mobile-react-native (16.17.1):
     - React-Core
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -495,7 +495,7 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 5337263514dd6f09803962437687240c5dc39aa4
   HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
-  nodejs-mobile-react-native: 1d88fdd064fd1b102de239a40983a2a2fb617543
+  nodejs-mobile-react-native: 87ff2d29b5db94eb2fcd244ca4e5b5426170b505
   RCT-Folly: a21c126816d8025b547704b777a2ba552f3d9fa9
   RCTRequired: 405e24508a0feed1771d48caebb85c581db53122
   RCTSystemSetting: 63751d4cfdd80ec249e3733ee9ab6b0513b196c1
@@ -511,7 +511,7 @@ SPEC CHECKSUMS:
   React-logger: fa4ff1e9c7e115648f7c5dafb7c20822ab4f7a7e
   react-native-blurhash: e881baa7802f369d84e45c5a66f77c1baba961bd
   react-native-orientation-locker: 2da91e5391971dace445495821c899c111dcad7a
-  react-native-slider: bed9634065be39eee8d7a324cbc87eeab9de4591
+  react-native-slider: 37e1cf275dab20d3c015e40969aa9f5c309645a8
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   React-perflogger: 169fb34f60c5fd793b370002ee9c916eba9bc4ae
   React-RCTActionSheet: 2355539e02ad5cd4b1328682ab046487e1e1e920
@@ -525,13 +525,13 @@ SPEC CHECKSUMS:
   React-RCTVibration: 96dbefca7504f3e52ff47cd0ad0826d20e3a789f
   React-runtimeexecutor: 09041c28ce04143a113eac2d357a6b06bd64b607
   ReactCommon: 8a7a138ae43c04bb8dd760935589f326ca810484
-  ReactNativeAudioToolkit: de8c41a2e6c9bc081a6d4652fe876b3d6733f0d2
+  ReactNativeAudioToolkit: 47b7d73ac9a60e573a5814d75051be45c5121387
   ReactNativeNavigation: 6e747bdf88f138088a105285274170b3fc0404ed
-  RNCAsyncStorage: 105173940b40e85e274023966567ac11b7683cf8
+  RNCAsyncStorage: 6bd5a7ba3dde1c3facba418aa273f449bdc5437a
   RNFS: 7bdbd2472eac73a7f266b43da1d1bd68b3ed7bf5
   RNHasInternet: 7885a06452fa44da7659ed2f234285be1c99ace0
   RNImageCropPicker: 17c42e59ea761ccbe0f7ff592c8b6375dfe6809c
-  RNLocalize: fe3b798712707aec81086ec241546bfb1cf3e489
+  RNLocalize: 291e5e21b53cd30b5205c10ed95d31b0dc9b8d63
   RNOS: 84f208c2e6b9c6da848ff0ef1a1163d1067bf4f6
   RNSentry: a034d0e81e3d3c04b770dd2df953fe634d372d22
   RNSVG: 0ff39850623301a540e69b0ccd9aabb2061812e3

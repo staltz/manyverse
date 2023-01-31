@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2021 The Manyverse Authors
+SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 
 SPDX-License-Identifier: CC-BY-4.0
 -->
@@ -55,39 +55,7 @@ The paragraph below is commented out because we use --no-rust for all iOS compil
 
 ### Node.js
 
-Use node (preferably exactly) **`12.19.0`** and npm `6.x`. To manage node versions easily, we recommend [nvm](https://github.com/nvm-sh/nvm) and use its deep integration feature to install and load the required node version automatically.
-
-### Rust
-
-Install Rust (preferably exactly) **`1.54.0`** and Cargo through [Rustup](https://rustup.rs/). Then, use Rustup to install cross-compilation support for various ARM architectures, like this:
-
-#### Android
-
-If your target OS is Android, then run:
-
-```
-rustup target add aarch64-linux-android
-```
-
-```
-rustup target add arm-linux-androideabi
-```
-
-```
-rustup target add armv7-linux-androideabi
-```
-
-#### iOS
-
-If your target OS is iOS, then run:
-
-```
-rustup target add aarch64-apple-ios
-```
-
-```
-rustup target add x86_64-apple-ios
-```
+Use node (preferably exactly) **`16.17.x`** and npm `8.x`. To manage node versions easily, we recommend [nvm](https://github.com/nvm-sh/nvm) and use its deep integration feature to install and load the required node version automatically.
 
 ### React Native
 
@@ -114,7 +82,7 @@ You should also create the file `local.properties` in the `android` folder of th
 ```
 ndk.dir=/path/to/your/android/sdk/ndk/21.4.7075529
 ```
-set the environment variable NDK_PLATFORM to "android-21" in the shell rc file. 
+set the environment variable NDK_PLATFORM to "android-21" in the shell rc file.
 
 Add your debug keystore information to the `~/.gradle/gradle.properties` file.
 
@@ -127,6 +95,17 @@ This app only supports Android 5.0 and above.
 If your target OS is iOS, you need to install Xcode (version 12.4 or higher). You can find Xcode from the macOS App Store. The iOS SDK must be version 11 or higher.
 
 See also [nodejs-mobile docs](https://code.janeasystems.com/nodejs-mobile/getting-started-ios#development-prerequisites) for additional details.
+
+We also recommend to enforce Node.js 16.17.x in Xcode's environment when build scripts are run. You do that by creating the file `ios/.xcode.env.local` with the contents:
+
+```bash
+#!/bin/bash
+
+if [ -f ~/.nvm/nvm.sh ]; then
+  source ~/.nvm/nvm.sh;
+  nvm use 16; # This is not necessary if nvm has 16 as default
+fi
+```
 
 ## 📱 Setting up you target device
 
@@ -157,7 +136,7 @@ It might be necessary to have an Apple's developer account, and your devices mus
 Git clone this repository to your computer, and then `cd` into the folder and run:
 
 ```
-npm install
+npm install --legacy-peer-deps
 ```
 
 Then, create the `translations` folder as a symlink:
