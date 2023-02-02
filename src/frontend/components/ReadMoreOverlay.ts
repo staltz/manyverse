@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -9,6 +9,7 @@ import {
   StyleSheet,
   TouchableNativeFeedback,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import Svg, {Rect, Defs, LinearGradient, Stop} from 'react-native-svg';
@@ -77,6 +78,7 @@ export default class ReadMoreOverlay extends PureComponent<Props> {
         fadeStartY === undefined ? maxHeight * 0.5 : maxHeight - fadeStartY,
       fill: fading ? `url(#grad${randomID})` : 'rgba(0,0,0,0)',
       strokeWidth: '0',
+      pointerEvents: 'none',
       ['style' as any]: {
         ...Platform.select({
           web: {
@@ -86,12 +88,28 @@ export default class ReadMoreOverlay extends PureComponent<Props> {
       },
     });
 
-    return h(View, {style: styles.readMoreContainer}, [
+    return h(View, {style: styles.readMoreContainer, pointerEvents: 'none'}, [
       h(Svg, {width, height: '100%'}, [
         fading ? svgDefs : null,
         upperPartition,
         lowerPartition,
       ]),
+    ]);
+  }
+
+  private renderPressableLowerPartition() {
+    const {onPress, maxHeight, fading} = this.props;
+    if (!fading) return null;
+    return h(TouchableWithoutFeedback, {onPress}, [
+      h(View, {
+        style: {
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: maxHeight * 0.4,
+        },
+      }),
     ]);
   }
 
@@ -102,7 +120,6 @@ export default class ReadMoreOverlay extends PureComponent<Props> {
       Touchable,
       {
         onPress,
-        pointerEvent: 'box-only',
         background:
           Platform.OS === 'android'
             ? TouchableNativeFeedback.SelectableBackground()
@@ -112,6 +129,7 @@ export default class ReadMoreOverlay extends PureComponent<Props> {
         h(View, {style: [styles.container, {maxHeight}]}, [
           children,
           this.renderReadMore(),
+          this.renderPressableLowerPartition(),
         ]),
       ],
     );

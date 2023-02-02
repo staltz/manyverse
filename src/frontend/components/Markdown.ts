@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -415,7 +415,14 @@ function makeRenderers(
               : props.href;
           return $(
             Text,
-            {...textProps, style: styles.link, ['href' as any]: properHref},
+            {
+              ...textProps,
+              style: styles.link,
+              onPress: (event) => {
+                event.stopPropagation();
+              },
+              ['href' as any]: properHref,
+            },
             child ?? children,
           );
         } else {
@@ -424,7 +431,8 @@ function makeRenderers(
             {
               ...textProps,
               style: styles.link,
-              onPress: () => {
+              onPress: (event) => {
+                event.stopPropagation();
                 Linking.openURL(props.href);
               },
             },
