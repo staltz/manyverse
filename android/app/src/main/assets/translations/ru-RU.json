@@ -567,7 +567,7 @@
         "description": "Ваш текст превышает максимально допустимый размер сообщений в SSB.\n\nПожалуйста, укоротите его или используйте ответы для публикации записи в нескольких частях."
       },
       "attachment_size": {
-        "title": "Too large file",
+        "title": "Файл слишком большой",
         "description": "The file you are trying to attach exceeds the 5MB limit of SSB blobs.\n\nPlease choose a smaller file."
       },
       "view_problem": {
