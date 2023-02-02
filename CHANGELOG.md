@@ -2,7 +2,18 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
-## 0.2301.6-beta
+## 0.2302.2-beta
+
+* (Desktop) Feature: paste or drag-and-drop images ([see details](https://gitlab.com/staltz/manyverse/commit/e20803cf020a930e423e1af45ba1f5627545b38b))
+* (Desktop) Feature: warn of too large blobs attached ([see details](https://gitlab.com/staltz/manyverse/commit/781f6066e4fdfa3451b8c9ce48b4235d0374b8e3))
+* Bug fix: prevent posting when message is too long ([see details](https://gitlab.com/staltz/manyverse/commit/70342ddd83a6ee33248a1d65be605d227ef48a3b))
+* Bug fix: subscribed status in hashtag search ([see details](https://gitlab.com/staltz/manyverse/commit/68c0e2f3b4565e6bb6292b82d9fd2a24b3d8dd14))
+* Clicks on Thread previews pass through to clickables ([see details](https://gitlab.com/staltz/manyverse/commit/ecd33803e31c0b47f2820cba2aa142e41bdf8ec6))
+* Improve Brazilian Portuguese translation ([see details](https://gitlab.com/staltz/manyverse/commit/97cb987e78dd8fac6ce7d64541b8e39ebc58615d))
+* Improve Resync screen with a cancel button ([see details](https://gitlab.com/staltz/manyverse/commit/1a0d29b272ee1907e69b6fab7f8a07fe0bb33cc6))
+* Improve Russian translation ([see details](https://gitlab.com/staltz/manyverse/commit/2887cb27e1c8511a444d7ec39b73d14b720324c1))
+
+## 02301.6-beta
 
 * Change how About and Thanks look like ([see details](https://gitlab.com/staltz/manyverse/commit/b5169131bde02d6b194bf48569ecc1bda4208f82))
 * Feature: button on the Profile to open private chat ([see details](https://gitlab.com/staltz/manyverse/commit/f59ecb026dd4b45dd145ff655aa82c7065673536))
