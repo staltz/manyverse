@@ -568,7 +568,7 @@
       },
       "attachment_size": {
         "title": "Файл слишком большой",
-        "description": "The file you are trying to attach exceeds the 5MB limit of SSB blobs.\n\nPlease choose a smaller file."
+        "description": "Вы пытаетесь добавить файл, размер которого превышает 5 МБ.\n\nПожалуйста, выберите файл поменьше."
       },
       "view_problem": {
         "accessibility_label": "Описание ошибки"
