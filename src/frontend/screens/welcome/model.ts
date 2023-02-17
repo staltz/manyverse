@@ -14,7 +14,6 @@ import {WindowSize} from '~frontend/drivers/window-size';
 // regarding User Generated Content", and require use to have a Terms of Service
 // so we're doing that only for Manyverse Android Google Play and Manyverse iOS.
 export const requireEULA =
-  true || // FIXME:
   (Platform.OS === 'android' &&
     NativeModules.BuildConfig.FLAVOR === 'googlePlay') ||
   Platform.OS === 'ios';
