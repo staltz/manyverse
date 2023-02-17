@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
     paddingVertical: Dimensions.verticalSpaceTiny,
   },
 
-  textWeight: {
+  bold: {
     fontWeight: 'bold',
   },
 
@@ -90,8 +90,11 @@ export interface Props {
   onPress?: () => void;
   strong?: boolean;
   small?: boolean;
+  enabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  styleDisabled?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
+  textStyleDisabled?: StyleProp<TextStyle>;
   accessible?: boolean;
   accessibilityLabel?: string;
 }
@@ -107,8 +110,11 @@ export default class Button extends Component<Props, {}> {
     if (nextProps.onPress !== props.onPress) return true;
     if (nextProps.strong !== props.strong) return true;
     if (nextProps.small !== props.small) return true;
+    if (nextProps.enabled !== props.enabled) return true;
     if (nextProps.style !== props.style) return true;
+    if (nextProps.styleDisabled !== props.styleDisabled) return true;
     if (nextProps.textStyle !== props.textStyle) return true;
+    if (nextProps.textStyleDisabled !== props.textStyleDisabled) return true;
     if (nextProps.accessible !== props.accessible) return true;
     if (nextProps.accessibilityLabel !== props.accessibilityLabel) return true;
     return false;
@@ -118,16 +124,44 @@ export default class Button extends Component<Props, {}> {
     this.props.onPress?.();
   };
 
-  public render() {
+  private renderInside() {
     const {
       text,
       strong,
       small,
+      enabled,
       style,
+      styleDisabled,
       textStyle,
-      accessible,
-      accessibilityLabel,
+      textStyleDisabled,
     } = this.props;
+
+    const viewProps = {
+      pointerEvents: 'box-only' as const,
+      style: [
+        strong ? styles.containerStrong : styles.container,
+        small ? styles.containerSizeSmall : styles.containerSize,
+        style,
+        enabled ? null : styleDisabled,
+      ] as ViewStyle,
+    };
+
+    const textProps = {
+      style: [
+        strong ? styles.textStrong : styles.text,
+        small ? null : styles.bold,
+        textStyle,
+        enabled ? null : textStyleDisabled,
+      ],
+    };
+
+    return h(View, viewProps, [h(Text, textProps, text)]);
+  }
+
+  public render() {
+    const {enabled, strong, accessible, accessibilityLabel} = this.props;
+
+    if (!enabled) return this.renderInside();
 
     const touchableProps: any = {
       onPress: this._onPress,
@@ -142,29 +176,6 @@ export default class Button extends Component<Props, {}> {
       );
     }
 
-    const viewProps = {
-      pointerEvents: 'box-only' as const,
-      style: [
-        strong ? styles.containerStrong : styles.container,
-        small ? styles.containerSizeSmall : styles.containerSize,
-        style,
-      ] as ViewStyle,
-    };
-
-    return h(Touchable, touchableProps, [
-      h(View, viewProps, [
-        h(
-          Text,
-          {
-            style: [
-              strong ? styles.textStrong : styles.text,
-              small ? null : styles.textWeight,
-              textStyle,
-            ],
-          },
-          text,
-        ),
-      ]),
-    ]);
+    return h(Touchable, touchableProps, [this.renderInside()]);
   }
 }

@@ -1,19 +1,21 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
 import {h} from '@cycle/react';
 import {StyleSheet, Text, View, Image, Platform} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Images} from '~frontend/global-styles/images';
+import {Typography} from '~frontend/global-styles/typography';
 import tutorialSlide from '~frontend/components/tutorial-slide';
 import tutorialPresentation from '~frontend/components/tutorial-presentation';
 import Button from '~frontend/components/Button';
 import StatusBarBrand from '~frontend/components/StatusBarBrand';
 import {t} from '~frontend/drivers/localization';
-import {State} from './model';
+import {State, requireEULA} from './model';
 
 export const styles = StyleSheet.create({
   screen: {
@@ -58,12 +60,41 @@ export const styles = StyleSheet.create({
     }),
   },
 
+  eulaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Dimensions.verticalSpaceLarge,
+  },
+
+  eulaCheckbox: {
+    marginRight: Dimensions.horizontalSpaceSmall,
+  },
+
+  eulaText: {
+    color: Palette.textForBackgroundBrand,
+    fontSize: Typography.fontSizeNormal,
+    lineHeight: Typography.lineHeightNormal,
+    fontFamily: Typography.fontFamilyReadableText,
+  },
+
   buttonText: {
     color: Palette.colors.white,
   },
 
+  buttonDisabled: {
+    backgroundColor: 'transparent',
+    borderColor: Palette.textWeakForBackgroundBrand,
+    borderWidth: 1,
+  },
+
+  buttonTextDisabled: {
+    color: Palette.textWeakForBackgroundBrand,
+  },
+
   ctaButton: {
     backgroundColor: Palette.backgroundCTA,
+    borderWidth: 1,
+    borderColor: Palette.backgroundCTA,
     marginBottom: Dimensions.verticalSpaceBig,
   },
 
@@ -276,6 +307,35 @@ function inConstructionSlide(state: State) {
   });
 }
 
+function renderEULA(state: State) {
+  return h(View, {key: 'eula', style: styles.eulaRow}, [
+    h(CheckBox, {
+      sel: 'eula-checkbox',
+      key: 'eula-checkbox',
+      style: styles.eulaCheckbox,
+      value: state.acceptedEULA,
+      accessible: true,
+      accessibilityLabel: t(
+        'welcome.setup_account.call_to_action.accept_eula.accessibility_label',
+      ),
+      tintColors: {
+        true: Palette.textForBackgroundBrand,
+        false: Palette.textForBackgroundBrand,
+      },
+    }),
+
+    h(Text, {key: 'eulat', style: styles.eulaText}, [
+      t('welcome.setup_account.call_to_action.accept_eula.1_normal'),
+      h(
+        Text,
+        {sel: 'read-eula', style: styles.link},
+        t('welcome.setup_account.call_to_action.accept_eula.2_bold'),
+      ),
+      t('welcome.setup_account.call_to_action.accept_eula.3_normal'),
+    ]),
+  ]);
+}
+
 function setupAccountSlide(state: State) {
   return tutorialSlide({
     show: state.index >= (Platform.OS === 'ios' ? 5 : 6),
@@ -284,11 +344,15 @@ function setupAccountSlide(state: State) {
     title: t('welcome.setup_account.title'),
     renderDescription: () => [t('welcome.setup_account.description')],
     renderBottom: () => [
+      requireEULA ? renderEULA(state) : null,
       h(Button, {
         sel: 'create-account',
+        strong: state.acceptedEULA,
+        enabled: state.acceptedEULA,
         style: styles.ctaButton,
+        styleDisabled: styles.buttonDisabled,
+        textStyleDisabled: styles.buttonTextDisabled,
         text: t('welcome.setup_account.call_to_action.create.label'),
-        strong: true,
         accessible: true,
         accessibilityLabel: t(
           'welcome.setup_account.call_to_action.create.accessibility_label',
@@ -296,10 +360,13 @@ function setupAccountSlide(state: State) {
       }),
       h(Button, {
         sel: 'restore-account',
-        style: styles.button,
-        textStyle: styles.buttonText,
-        text: t('welcome.setup_account.call_to_action.restore.label'),
         strong: false,
+        enabled: state.acceptedEULA,
+        style: styles.button,
+        styleDisabled: styles.buttonDisabled,
+        textStyle: styles.buttonText,
+        textStyleDisabled: styles.buttonTextDisabled,
+        text: t('welcome.setup_account.call_to_action.restore.label'),
         accessible: true,
         accessibilityLabel: t(
           'welcome.setup_account.call_to_action.restore.accessibility_label',

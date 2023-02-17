@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -65,6 +65,10 @@ export default function intent(
   );
 
   return {
+    readEULA$: screenSource.select('read-eula').events('press'),
+
+    acceptEULA$: screenSource.select('eula-checkbox').events('valueChange'),
+
     createAccount$: screenSource.select('create-account').events('press'),
 
     restoreAccount$: screenSource.select('restore-account').events('press'),

@@ -143,6 +143,12 @@
       "title": "Is this your first time?",
       "description": "Do you want to create a new account, or would you like to restore your old account from a 24-word recovery phrase?",
       "call_to_action": {
+        "accept_eula": {
+          "1_normal": "Accept the ",
+          "2_bold": "End User License Agreement",
+          "3_normal": "",
+          "accessibility_label": "Checkbox for End User License Agreement"
+        },
         "create": {
           "label": "Create account",
           "accessibility_label": "Create Account Button"

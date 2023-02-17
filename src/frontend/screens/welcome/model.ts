@@ -1,25 +1,36 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import {Reducer} from '@cycle/state';
-import {Platform} from 'react-native';
+import {NativeModules, Platform} from 'react-native';
 import path = require('path');
 import {FSSource} from '~frontend/drivers/fs';
 import {OrientationEvent} from '~frontend/drivers/orientation';
 import {WindowSize} from '~frontend/drivers/window-size';
+
+// Google Play Store has banned Manyverse once over a "policy violation
+// regarding User Generated Content", and require use to have a Terms of Service
+// so we're doing that only for Manyverse Android Google Play and Manyverse iOS.
+export const requireEULA =
+  true || // FIXME:
+  (Platform.OS === 'android' &&
+    NativeModules.BuildConfig.FLAVOR === 'googlePlay') ||
+  Platform.OS === 'ios';
 
 export interface State {
   index: number;
   isPortraitMode: boolean;
   readyToStart: boolean;
   sharedSSBAccountExists: boolean;
+  acceptedEULA: boolean;
 }
 
 interface Actions {
   pageChanged$: Stream<number>;
   stayOnWelcome$: Stream<any>;
+  acceptEULA$: Stream<boolean>;
 }
 
 export default function model(
@@ -34,6 +45,7 @@ export default function model(
       isPortraitMode: true,
       readyToStart: false,
       sharedSSBAccountExists: false,
+      acceptedEULA: !requireEULA,
     };
   });
 
@@ -92,11 +104,19 @@ export default function model(
       },
   );
 
+  const updateAcceptEULAReducer$ = actions.acceptEULA$.map(
+    (acceptedEULA) =>
+      function updateAcceptEULAReducer(prev: State): State {
+        return {...prev, acceptedEULA};
+      },
+  );
+
   return xs.merge(
     initReducer$,
     updatePortraitModeReducer$,
     detectSharedSSBAccountReducer$,
     setReadyReducer$,
     updateIndexReducer$,
+    updateAcceptEULAReducer$,
   );
 }
