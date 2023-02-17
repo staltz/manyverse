@@ -196,7 +196,7 @@
     "into-stream": "~7.0.0",
     "jase": "1.2.0",
     "left-pad": "1.3.0",
-    "license-ls": "~1.5.0",
+    "license-ls": "dotcs/license-ls#bugfix/npm-7+",
     "lodash": ">=4.17.21",
     "lodash.sortby": "~4.7.0",
     "lodash.sorteduniqby": "^4.7.0",
