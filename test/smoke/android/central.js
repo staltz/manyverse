@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2022-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -15,7 +15,7 @@ module.exports = function (driver, t) {
     // Public tab
     t.ok(
       await driver.waitForElementByAndroidUIAutomator(
-        'new UiSelector().textContains("No messages")',
+        'new UiSelector().textContains("Where is everybody?")',
         8000,
       ),
       'I see the Public tab body with no messages',
