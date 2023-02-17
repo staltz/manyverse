@@ -318,10 +318,20 @@ function renderEULA(state: State) {
       accessibilityLabel: t(
         'welcome.setup_account.call_to_action.accept_eula.accessibility_label',
       ),
+      // Android specific:
       tintColors: {
         true: Palette.textForBackgroundBrand,
         false: Palette.textForBackgroundBrand,
       },
+      // iOS specific:
+      boxType: 'square',
+      animationDuration: 0.15,
+      onAnimationType: 'fill',
+      offAnimationType: 'fill',
+      onTintColor: 'transparent',
+      tintColor: Palette.textForBackgroundBrand,
+      onFillColor: Palette.textForBackgroundBrand,
+      onCheckColor: Palette.brandMain,
     }),
 
     h(Text, {key: 'eulat', style: styles.eulaText}, [
