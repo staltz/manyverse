@@ -160,12 +160,12 @@ async function runAndReport(label, task) {
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Bundle and minify backend JS into one file',
-      exec('./tools/backend/noderify.js --desktop'),
+      exec('node tools/backend/noderify.js --desktop'),
     );
   } else {
     await runAndReport(
       'Bundle and minify backend JS into one file',
-      exec('./tools/backend/noderify.js --mobile'),
+      exec('node tools/backend/noderify.js --mobile'),
     );
   }
 
