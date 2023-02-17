@@ -187,6 +187,14 @@ export default [
     homepage: 'https://playwright.dev',
   },
   {
+    name: '@react-native-community/checkbox',
+    type: 'library',
+    version: '0.5.14',
+    license: 'MIT License (MIT)',
+    homepage:
+      'https://github.com/react-native-community/react-native-checkbox#readme',
+  },
+  {
     name: '@react-native-community/slider',
     type: 'library',
     version: '4.2.0',
@@ -233,7 +241,7 @@ export default [
   {
     name: '@staltz/react-native-image-viewing',
     type: 'library',
-    version: '0.2.1-1',
+    version: '0.2.1-2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/react-native-image-viewing#readme',
   },
@@ -416,7 +424,7 @@ export default [
   {
     name: 'leveldown-nodejs-mobile',
     type: 'library',
-    version: '5.4.1-1',
+    version: '5.4.1-3',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/leveldown-nodejs-mobile',
   },
@@ -463,9 +471,16 @@ export default [
     homepage: 'https://gitlab.com/staltz/multiserver-rn-channel#readme',
   },
   {
+    name: 'nan',
+    type: 'library',
+    version: '2.12.1',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/nodejs/nan#readme',
+  },
+  {
     name: 'nodejs-mobile-react-native',
     type: 'library',
-    version: '0.7.0',
+    version: '16.17.4',
     license: 'MIT License (MIT)',
     homepage: 'https://code.janeasystems.com/nodejs-mobile',
   },
@@ -561,6 +576,13 @@ export default [
     homepage: 'https://pull-stream.github.io',
   },
   {
+    name: 'quick-lru',
+    type: 'library',
+    version: '4.0.1',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/sindresorhus/quick-lru#readme',
+  },
+  {
     name: 'react',
     type: 'library',
     version: '17.0.2',
@@ -598,7 +620,7 @@ export default [
   {
     name: 'react-native-blurhash',
     type: 'library',
-    version: '1.1.8',
+    version: '1.1.10',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/mrousavy/react-native-blurhash#readme',
   },
@@ -832,7 +854,7 @@ export default [
   {
     name: 'sodium-chloride-native-nodejs-mobile',
     type: 'library',
-    version: '1.5.0',
+    version: '1.6.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/sodium-chloride-native-nodejs-mobile',
   },
@@ -1021,7 +1043,7 @@ export default [
   {
     name: 'ssb-storage-used',
     type: 'library',
-    version: '3.0.1',
+    version: '3.0.2',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/achou11/ssb-storage-used#readme',
   },

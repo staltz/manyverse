@@ -2,6 +2,11 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2302.17-beta
+
+* Improve Russian translation ([see details](https://gitlab.com/staltz/manyverse/commit/a2f45970d90b9e1c2cefce81a9f8da9b48bb44d9))
+* Require EULA acceptance for Store installations ([see details](https://gitlab.com/staltz/manyverse/commit/56db295c326515d9d2e3327edebef65118f3f242))
+
 ## 0.2302.2-beta
 
 * (Desktop) Feature: paste or drag-and-drop images ([see details](https://gitlab.com/staltz/manyverse/commit/e20803cf020a930e423e1af45ba1f5627545b38b))
