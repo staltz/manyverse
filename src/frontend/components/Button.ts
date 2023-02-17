@@ -124,12 +124,15 @@ export default class Button extends Component<Props, {}> {
     this.props.onPress?.();
   };
 
+  private isEnabled(): boolean {
+    return this.props.enabled ?? true;
+  }
+
   private renderInside() {
     const {
       text,
       strong,
       small,
-      enabled,
       style,
       styleDisabled,
       textStyle,
@@ -142,7 +145,7 @@ export default class Button extends Component<Props, {}> {
         strong ? styles.containerStrong : styles.container,
         small ? styles.containerSizeSmall : styles.containerSize,
         style,
-        enabled ? null : styleDisabled,
+        this.isEnabled() ? null : styleDisabled,
       ] as ViewStyle,
     };
 
@@ -151,7 +154,7 @@ export default class Button extends Component<Props, {}> {
         strong ? styles.textStrong : styles.text,
         small ? null : styles.bold,
         textStyle,
-        enabled ? null : textStyleDisabled,
+        this.isEnabled() ? null : textStyleDisabled,
       ],
     };
 
@@ -159,9 +162,9 @@ export default class Button extends Component<Props, {}> {
   }
 
   public render() {
-    const {enabled, strong, accessible, accessibilityLabel} = this.props;
+    const {strong, accessible, accessibilityLabel} = this.props;
 
-    if (!enabled) return this.renderInside();
+    if (!this.isEnabled()) return this.renderInside();
 
     const touchableProps: any = {
       onPress: this._onPress,
