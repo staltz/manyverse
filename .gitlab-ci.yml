@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2022 The Manyverse Authors
+# SPDX-FileCopyrightText: 2022-2023 The Manyverse Authors
 #
 # SPDX-License-Identifier: Unlicense
 
@@ -11,7 +11,7 @@ license check:
 
 typescript compiles:
   image:
-    name: node:14
+    name: node:16
   cache:
     paths:
       - node_modules/
