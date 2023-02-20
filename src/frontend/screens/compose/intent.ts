@@ -210,7 +210,7 @@ export default function intent(
       .select('composeInput')
       .events<string>('changeText'),
 
-    // Android and iOS behave slightly different
+    // Android, iOS, and web behave slightly different
     updateSelection$: Platform.select({
       // TextInput Selection events that happen after focus and before blur
       ios: selectionChange$
@@ -218,12 +218,15 @@ export default function intent(
         .map((ev) => ev.nativeEvent.selection),
 
       // TextInput Selection events, but ignore the first event caused by a focus
-      default: focusInput$
+      web: focusInput$
         .startWith('initial focus')
         .map(() =>
           selectionChange$.drop(1).map((ev) => ev.nativeEvent.selection),
         )
         .flatten(),
+
+      // TextInput Selection events, no tricks on Android
+      default: selectionChange$.map((ev) => ev.nativeEvent.selection),
     }),
 
     chooseMention$: reactSource
