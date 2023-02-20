@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,6 +6,7 @@ import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {GetReadable, SSBSource} from '~frontend/drivers/ssb';
 import {FirewallAttempt, MsgAndExtras} from '~frontend/ssb/types';
+const pull = require('pull-stream');
 const interleave = require('pull-sorted-interleave');
 
 export type ActivityItem = MsgAndExtras | FirewallAttempt;
@@ -52,11 +53,15 @@ export default function model(ssbSource: SSBSource, actions: Actions) {
             return {...prev, getActivityFeedReadable: null};
           }
 
+          const mentionsSource = getMentionsSource();
+          // Limit the attempts to 3, otherwise it gets too spammy
+          const attemptsSource = pull(getAttemptsSource(), pull.take(3));
+
           return {
             ...prev,
             getActivityFeedReadable: () =>
               interleave(
-                [getMentionsSource(), getAttemptsSource()],
+                [mentionsSource, attemptsSource],
                 sortByDescendingTimestamp,
               ),
           };

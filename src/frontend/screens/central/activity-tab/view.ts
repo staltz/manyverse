@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -199,7 +199,9 @@ class ConnectionAttemptActivity extends PureComponent<AttemptActivityProps> {
                 h(
                   Text,
                   {key: 'a2', style: styles.account},
-                  t('activity.connection_attempt.label.2_bold', {author}),
+                  t('activity.connection_attempt.label.2_bold', {
+                    author: displayName(undefined, author),
+                  }),
                 ),
                 h(
                   Text,
