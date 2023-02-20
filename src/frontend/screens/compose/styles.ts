@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -137,6 +137,7 @@ export const styles = StyleSheet.create({
     ...Platform.select({
       web: {
         boxShadow: `0 0 5px 0 ${Palette.transparencyDarkStrong}`,
+        backgroundColor: Palette.textLine,
       },
       android: {
         elevation: 2,
