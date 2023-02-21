@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -131,6 +131,7 @@ export default {
     hashtagCount: 'async',
     hashtagSummary: 'source',
     hashtagUpdates: 'source',
+    hashtagsMatching: 'async',
     private: 'source',
     privateUpdates: 'source',
     profile: 'source',

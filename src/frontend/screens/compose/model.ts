@@ -10,7 +10,12 @@ import {Reducer, Lens} from '@cycle/state';
 import {Platform} from 'react-native';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {MsgId, FeedId} from 'ssb-typescript';
-import {SSBSource, MentionSuggestion} from '~frontend/drivers/ssb';
+import {
+  SSBSource,
+  HashtagSuggestion,
+  MentionSuggestion,
+  Suggestion,
+} from '~frontend/drivers/ssb';
 import {AudioBlobComposed} from '~frontend/drivers/eventbus';
 import {MAX_MESSAGE_TEXT_SIZE} from '~frontend/ssb/utils/constants';
 import {State as TopBarState} from './top-bar';
@@ -22,13 +27,16 @@ interface Selection {
   end: number;
 }
 
+type AutoCompleteSuggestions =
+  | Array<HashtagSuggestion>
+  | Array<MentionSuggestion>;
+
 export interface State {
   postText: string;
   postTextOverride: string;
   postTextSelection: Selection;
-  mentionQuery: string;
-  mentionSuggestions: Array<MentionSuggestion & {imageUrl?: string}>;
-  mentionChoiceTimestamp: number;
+  autocompleteQuery: string;
+  autocompleteSuggestions: AutoCompleteSuggestions;
   contentWarning: string;
   contentWarningPreviewOpened: boolean;
   selfFeedId: FeedId;
@@ -83,27 +91,40 @@ export function textUnderMaximumLength(state: State): boolean {
   return state.postText.length <= MAX_MESSAGE_TEXT_SIZE;
 }
 
-function detectMention(postText: string, selection: Selection): number | null {
+function parseAutocompletable(
+  postText: string,
+  selection: Selection,
+): {type: Suggestion['type']; value: string} | null {
   if (selection.start !== selection.end) return null;
   const cursor = selection.start;
-  const cursorTilNextSpace = postText.slice(cursor).search(/\s/);
-  const endOfWord =
-    cursorTilNextSpace >= 0 ? cursor + cursorTilNextSpace : postText.length;
-  return endOfWord;
-}
 
-function parseMention(postText: string, selection: Selection): string | null {
-  const endOfWord = detectMention(postText, selection);
-  if (endOfWord === null) return null;
-  const results = /(^|\s)@(\S+)$/gm.exec(postText.substring(0, endOfWord));
-  return results?.[2] ?? null;
-}
+  let startOfLabel = -1;
+  for (let i = cursor - 1; i >= 0; i--) {
+    const char = postText[i];
+    if (/^\s$/.test(char)) return null;
+    if (char === '#' || char === '@') {
+      startOfLabel = i + 1;
+      break;
+    }
+  }
+  if (startOfLabel < 0) return null;
 
-function parseEmptyMention(postText: string, selection: Selection): boolean {
-  const endOfWord = detectMention(postText, selection);
-  if (endOfWord === null) return false;
-  const results = /(^|\s)(@)$/gm.exec(postText.substring(0, endOfWord));
-  return (results?.[2] ?? '') === '@';
+  let endOfLabel = cursor;
+  for (let i = cursor; i < postText.length; i++) {
+    const char = postText[i];
+    endOfLabel = i;
+    if (/^\s$/.test(char)) {
+      break;
+    }
+  }
+
+  const prefix = postText[startOfLabel - 1] as '@' | '#';
+  const value = postText.slice(startOfLabel, endOfLabel);
+
+  return {
+    type: prefix === '#' ? 'hashtag' : 'mention',
+    value,
+  };
 }
 
 function appendToPostText(postText: string, other: string) {
@@ -124,8 +145,10 @@ function appendToPostText(postText: string, other: string) {
 export interface Actions {
   updatePostText$: Stream<string>;
   updateSelection$: Stream<Selection>;
-  chooseMention$: Stream<FeedId>;
-  cancelMention$: Stream<any>;
+  chooseSuggestion$: Stream<
+    {type: 'mention'; id: FeedId} | {type: 'hashtag'; id: string}
+  >;
+  cancelSuggestion$: Stream<any>;
   updateContentWarning$: Stream<string>;
   toggleContentWarningPreview$: Stream<any>;
   disablePreview$: Stream<any>;
@@ -151,9 +174,8 @@ export default function model(
           postTextSelection: props.text
             ? {start: props.text.length, end: props.text.length}
             : {start: 0, end: 0},
-          mentionQuery: '',
-          mentionSuggestions: [],
-          mentionChoiceTimestamp: 0,
+          autocompleteQuery: '',
+          autocompleteSuggestions: [],
           root: props.root,
           fork: props.fork,
           branch: props.branch,
@@ -201,85 +223,127 @@ export default function model(
     .compose(sampleCombine(state$))
     .compose(debounce(100));
 
-  const openMentionSuggestionsReducer$ = selectionAndState$
-    .map(([selection, state]) => {
-      const mentionQuery = parseMention(state.postText, selection);
-      if (mentionQuery || parseEmptyMention(state.postText, selection)) {
-        return ssbSource
-          .getMentionSuggestions(mentionQuery, state.authors)
-          .map(
-            (suggestions) =>
-              [suggestions, selection] as [Array<MentionSuggestion>, Selection],
-          );
-      } else {
-        return xs.never();
+  const openSuggestionsReducer$ = selectionAndState$
+    .map<
+      Stream<{
+        selection: Selection;
+        suggestions: State['autocompleteSuggestions'];
+        query: NonNullable<ReturnType<typeof parseAutocompletable>>;
+      }>
+    >(([selection, state]) => {
+      const query = parseAutocompletable(state.postText, selection);
+
+      switch (query?.type ?? 'none') {
+        case 'hashtag':
+          return ssbSource
+            .getHashtagsMatching(query!.value)
+            .map((suggestions) => ({
+              selection,
+              suggestions,
+              query: query!,
+            }));
+
+        case 'mention':
+          return ssbSource
+            .getMentionSuggestions(query!.value, state.authors)
+            .map((suggestions) => ({
+              selection,
+              suggestions,
+              query: query!,
+            }));
+
+        case 'none':
+          return xs.never();
       }
     })
     .flatten()
     .map(
-      ([mentionSuggestions, prevSelection]) =>
-        function openMentionSuggestionsReducer(prev: State): State {
-          let mentionQuery = parseMention(prev.postText, prevSelection);
+      ({selection: prevSelection, suggestions, query}) =>
+        function openAutocompleteSuggestionsReducer(prev: State): State {
+          const queryValue =
+            (query.type === 'hashtag' ? '#' : '@') + query.value;
+
           const cursor = prevSelection.start;
-          if (mentionSuggestions.length && mentionQuery) {
-            mentionQuery = '@' + mentionQuery;
-            const postTextSelection = {
-              start: cursor - mentionQuery.length,
-              end: cursor - mentionQuery.length,
-            };
-            return {
-              ...prev,
-              postTextSelection,
-              mentionQuery,
-              mentionSuggestions: mentionSuggestions.slice(0, MAX_SUGGESTIONS),
-            };
-          } else {
-            mentionQuery = '@';
-            const postTextSelection = {
-              start: cursor - mentionQuery.length,
-              end: cursor - mentionQuery.length,
-            };
-            return {
-              ...prev,
-              postTextSelection,
-              mentionQuery,
-              mentionSuggestions: mentionSuggestions.slice(0, MAX_SUGGESTIONS),
-            };
-          }
+
+          return {
+            ...prev,
+            postTextSelection: {
+              start: cursor,
+              end: cursor,
+            },
+            autocompleteQuery: queryValue,
+            autocompleteSuggestions:
+              suggestions.length > 0
+                ? suggestions.slice(0, MAX_SUGGESTIONS)
+                : suggestions,
+          };
         },
     );
 
   const ignoreMentionSuggestionsReducer$ = selectionAndState$.map(
     ([selection, state]) =>
       function ignoreMentionSuggestionsReducer(prev: State): State {
-        const mentionQuery = parseMention(state.postText, selection);
-        if (!mentionQuery && prev.mentionSuggestions.length > 0) {
-          return {...prev, mentionSuggestions: []};
+        const autocompleteQuery = parseAutocompletable(
+          state.postText,
+          selection,
+        );
+        if (!autocompleteQuery && prev.autocompleteSuggestions.length > 0) {
+          return {...prev, autocompleteSuggestions: []};
         } else {
           return prev;
         }
       },
   );
 
-  const chooseMentionReducer$ = actions.chooseMention$.map(
-    (chosenId) =>
-      function chooseMentionReducer(prev: State): State {
-        const chosen = prev.mentionSuggestions.find((x) => x.id === chosenId);
+  const chooseSuggestionReducer$ = actions.chooseSuggestion$.map(
+    (chosenOption) =>
+      function chooseSuggestionReducer(prev: State): State {
+        // Have to cast this way because of TS limitation
+        // https://github.com/microsoft/TypeScript/issues/52028
+        const chosen = (
+          prev.autocompleteSuggestions as Array<
+            HashtagSuggestion | MentionSuggestion
+          >
+        ).find((x) => {
+          if (x.type !== chosenOption.type) return false;
+          else return x.id === chosenOption.id;
+        });
         if (!chosen) return prev;
 
         const cursor = prev.postTextSelection.start;
-        const beforeMention = prev.postText.substring(0, cursor);
-        const afterMention = prev.postText
-          .substring(cursor)
-          .replace(prev.mentionQuery, '');
 
-        const mention = `[@${chosen.name}](${chosen.id}) `;
+        // Represents index preceding the identifier of interest ('@' or '#')
+        const beforeTargetIndex = prev.postText.lastIndexOf(
+          prev.autocompleteQuery,
+          cursor - 1,
+        );
 
-        const postText = beforeMention + mention + afterMention;
+        const textBeforeTarget = prev.postText.substring(0, beforeTargetIndex);
+
+        const textAfterTarget = prev.postText.substring(
+          beforeTargetIndex + prev.autocompleteQuery.length,
+        );
+
+        const hasSpaceAfterTarget = textAfterTarget[0] === ' ';
+
+        const autocompletable =
+          chosen.type === 'mention'
+            ? `[@${chosen.name}](${chosen.id})`
+            : `#${chosen.id}`;
+
+        const insertedValue =
+          autocompletable + (hasSpaceAfterTarget ? '' : ' ');
+
+        const postText = textBeforeTarget + insertedValue + textAfterTarget;
+
+        const newSelectionPosition = Math.min(
+          postText.length,
+          beforeTargetIndex + autocompletable.length + 1,
+        );
 
         const postTextSelection = {
-          start: cursor + mention.length,
-          end: cursor + mention.length,
+          start: newSelectionPosition,
+          end: newSelectionPosition,
         };
 
         return {
@@ -287,32 +351,18 @@ export default function model(
           postText,
           postTextOverride: postText,
           postTextSelection,
-          mentionQuery: '',
-          mentionSuggestions: [],
-          mentionChoiceTimestamp: Date.now(),
+          autocompleteQuery: '',
+          autocompleteSuggestions: [],
         };
       },
   );
 
-  const cancelMentionReducer$ = actions.cancelMention$.mapTo(
-    function cancelMentionReducer(prev: State): State {
-      const cursor = prev.postTextSelection.start;
-      const beforeMention = prev.postText.substring(0, cursor);
-      const afterMention = prev.postText.substring(cursor);
-      const mention = prev.mentionQuery + ' ';
-      const postText = beforeMention + mention + afterMention;
-      const postTextSelection = {
-        start: cursor + mention.length,
-        end: cursor + mention.length,
-      };
+  const cancelSuggestionReducer$ = actions.cancelSuggestion$.mapTo(
+    function cancelSuggestionReducer(prev: State): State {
       return {
         ...prev,
-        postText,
-        postTextOverride: postText,
-        postTextSelection,
-        mentionQuery: '',
-        mentionSuggestions: [],
-        mentionChoiceTimestamp: Date.now(),
+        autocompleteQuery: '',
+        autocompleteSuggestions: [],
       };
     },
   );
@@ -449,10 +499,10 @@ export default function model(
       selfNameReducer$,
       updatePostTextReducer$,
       updatePostTextSelectionReducer$,
-      openMentionSuggestionsReducer$,
+      openSuggestionsReducer$,
       ignoreMentionSuggestionsReducer$,
-      chooseMentionReducer$,
-      cancelMentionReducer$,
+      chooseSuggestionReducer$,
+      cancelSuggestionReducer$,
       addPictureReducer$,
       addAudioReducer$,
       attachAudioReducer$,

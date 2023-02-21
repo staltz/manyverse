@@ -229,11 +229,15 @@ export default function intent(
       default: selectionChange$.map((ev) => ev.nativeEvent.selection),
     }),
 
-    chooseMention$: reactSource
-      .select('mentions-menu')
-      .events<FeedId>('select'),
+    chooseSuggestion$: reactSource
+      .select('suggestions-menu')
+      .events<{type: 'mention'; id: FeedId} | {type: 'hashtag'; id: string}>(
+        'select',
+      ),
 
-    cancelMention$: reactSource.select('mentions-menu').events('backdropPress'),
+    cancelSuggestion$: reactSource
+      .select('suggestions-menu')
+      .events('backdropPress'),
 
     openContentWarning$: reactSource
       .select('content-warning')

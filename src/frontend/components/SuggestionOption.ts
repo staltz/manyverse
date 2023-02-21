@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -12,7 +12,6 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import {displayName} from '~frontend/ssb/utils/from-ssb';
 import {t} from '~frontend/drivers/localization';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
@@ -45,7 +44,7 @@ export const styles = StyleSheet.create({
     marginRight: Dimensions.horizontalSpaceSmall,
   },
 
-  authorName: {
+  text: {
     flex: 1,
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
@@ -56,25 +55,17 @@ export const styles = StyleSheet.create({
       },
     }),
   },
-
-  boldText: {
-    maxWidth: 100,
-    color: Palette.text,
-    fontWeight: 'bold',
-    fontFamily: Typography.fontFamilyReadableText,
-  },
 });
 
-interface AccountProps {
-  id: string;
-  name?: string;
-  imageUrl?: string;
-  onPress?: () => void;
-}
+interface Props
+  extends React.PropsWithChildren<{
+    imageUrl?: string | false;
+    onPress?: () => void;
+  }> {}
 
-export default class AccountSmall extends PureComponent<AccountProps> {
+export default class SuggestionsOptionSmall extends PureComponent<Props> {
   public render() {
-    const {id, name, imageUrl, onPress} = this.props;
+    const {children, imageUrl, onPress} = this.props;
 
     const touchableProps: any = {
       onPress,
@@ -84,29 +75,26 @@ export default class AccountSmall extends PureComponent<AccountProps> {
         TouchableNativeFeedback.SelectableBackground();
     }
 
-    let renderedName = name ? displayName(name, id) : '';
-    if (renderedName.length > 20) {
-      renderedName = renderedName.substr(0, 20) + '...';
-    }
-
     const contentChildren = h(
       View,
       {style: styles.row, pointerEvents: 'box-only'},
       [
-        h(Avatar, {
-          url: imageUrl,
-          size: Dimensions.avatarSizeSmall,
-          style: styles.avatar,
-        }),
+        imageUrl === false
+          ? null
+          : h(Avatar, {
+              url: imageUrl,
+              size: Dimensions.avatarSizeSmall,
+              style: styles.avatar,
+            }),
         h(
           Text,
           {
             numberOfLines: 1,
             ellipsizeMode: 'tail',
-            style: styles.authorName,
+            style: styles.text,
             android_hyphenationFrequency: 'high',
           },
-          [h(Text, {style: styles.boldText}, renderedName), '  ' + id],
+          [children],
         ),
       ],
     );

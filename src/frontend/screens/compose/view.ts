@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -31,22 +31,25 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import Avatar from '~frontend/components/Avatar';
 import TimeAgo from '~frontend/components/TimeAgo';
 import Markdown from '~frontend/components/Markdown';
-import AccountSmall from '~frontend/components/AccountSmall';
+import SuggestionOption from '~frontend/components/SuggestionOption';
 import SettableTextInput from '~frontend/components/SettableTextInput';
 import ContentWarning from '~frontend/components/messages/ContentWarning';
 import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {State} from './model';
 import {styles, avatarSize} from './styles';
+import {Suggestion} from '~frontend/drivers/ssb';
 
-type MiniState = Pick<State, 'postText'> &
-  Pick<State, 'selfAvatarUrl'> &
-  Pick<State, 'selfFeedId'> &
-  Pick<State, 'selfName'> &
-  Pick<State, 'mentionSuggestions'> &
-  Pick<State, 'mentionChoiceTimestamp'> &
-  Pick<State, 'contentWarning'> &
-  Pick<State, 'contentWarningPreviewOpened'> &
-  Pick<State, 'previewing'>;
+type MiniState = Pick<
+  State,
+  | 'postText'
+  | 'selfAvatarUrl'
+  | 'selfFeedId'
+  | 'selfName'
+  | 'autocompleteSuggestions'
+  | 'contentWarning'
+  | 'contentWarningPreviewOpened'
+  | 'previewing'
+>;
 
 function ContentWarningButton(miniState: MiniState) {
   const style = miniState.contentWarning
@@ -228,31 +231,84 @@ class MarkdownInput extends PureComponent<
   }
 }
 
-function MentionSuggestions(state: MiniState) {
+const SUGGESTION_MAX_SIZE = Platform.OS === 'web' ? 32 : 20;
+
+class SuggestionMenuOption extends PureComponent<{
+  id: string;
+  imageUrl: string | undefined | false;
+  label: string;
+  labelSuffix?: string;
+  type: Suggestion['type'];
+}> {
+  public render() {
+    const {imageUrl, label, labelSuffix, type, id} = this.props;
+
+    return h(
+      MenuOption,
+      {
+        key: id,
+        customStyles: {
+          optionWrapper: styles.menuOptionWrapper,
+          optionTouchable: styles.menuOptionTouchable,
+        },
+        value: {type, id},
+      },
+      [
+        h(SuggestionOption, {imageUrl}, [
+          h(
+            Text,
+            {style: styles.boldText},
+            label.length > SUGGESTION_MAX_SIZE
+              ? label.slice(0, SUGGESTION_MAX_SIZE - 1) + '…'
+              : label,
+          ),
+          labelSuffix,
+        ]),
+      ],
+    );
+  }
+}
+
+function SuggestionsMenu(state: MiniState) {
   return h(
     Menu,
     {
-      key: 'mentions-menu',
-      sel: 'mentions-menu',
+      key: 'suggestions-menu',
+      sel: 'suggestions-menu',
       renderer: renderers.SlideInMenu,
-      opened: !state.previewing && state.mentionSuggestions.length > 0,
+      opened: !state.previewing && state.autocompleteSuggestions.length > 0,
     },
     [
       h(MenuTrigger, {key: 'mt', disabled: true}),
       h(
         MenuOptions,
         {key: 'mo', customStyles: {optionsContainer: styles.menuOptions}},
-        state.mentionSuggestions.map(({id, name, imageUrl}) =>
-          h(MenuOption, {
-            key: id,
-            value: id,
-            customStyles: {
-              optionWrapper: styles.menuOptionWrapper,
-              optionTouchable: styles.menuOptionTouchable,
-            },
-            ['children' as any]: h(AccountSmall, {key: id, id, name, imageUrl}),
-          }),
-        ),
+        state.autocompleteSuggestions.map((suggestion) => {
+          if (suggestion.type === 'mention') {
+            const {type, id, name, imageUrl} = suggestion;
+            return h(SuggestionMenuOption, {
+              key: id,
+              type,
+              id,
+              label: name ? displayName(name, id) : '',
+              labelSuffix: `  ${id}`,
+              imageUrl,
+            });
+          } else if (suggestion.type === 'hashtag') {
+            const {type, id, count} = suggestion;
+            const i18nSuffix = t('search.hashtags.matches.title', {count});
+            return h(SuggestionMenuOption, {
+              key: id,
+              type,
+              id,
+              label: `#${id}`,
+              labelSuffix: `  (${i18nSuffix})`,
+              imageUrl: false,
+            });
+          } else {
+            return null;
+          }
+        }),
       ),
     ],
   );
@@ -295,8 +351,7 @@ export default function view(
         'selfName',
         'contentWarning',
         'contentWarningPreviewOpened',
-        'mentionSuggestions',
-        'mentionChoiceTimestamp',
+        'autocompleteSuggestions',
       ]),
     )
     .startWith({
@@ -306,8 +361,7 @@ export default function view(
       contentWarningPreviewOpened: false,
       selfFeedId: '',
       selfName: undefined,
-      mentionSuggestions: [],
-      mentionChoiceTimestamp: 0,
+      autocompleteSuggestions: [],
     });
 
   const setMarkdownInputNativeProps$ = state$
@@ -353,7 +407,7 @@ export default function view(
                 ],
               ),
 
-              MentionSuggestions(state),
+              SuggestionsMenu(state),
 
               state.previewing
                 ? null

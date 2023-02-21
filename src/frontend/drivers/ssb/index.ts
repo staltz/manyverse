@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -45,11 +45,22 @@ import makeClient, {SSBClient} from '~frontend/ssb/client';
 import {imageToImageUrl} from '~frontend/ssb/utils/from-ssb';
 import backend from './backend';
 
-export interface MentionSuggestion {
-  id: FeedId;
+export interface Suggestion {
+  type: 'mention' | 'hashtag';
+  id: string;
+}
+
+export interface MentionSuggestion extends Suggestion {
+  type: 'mention';
+  imageUrl?: string;
   name: string;
   image: any;
   following: boolean;
+}
+
+export interface HashtagSuggestion extends Suggestion {
+  type: 'hashtag';
+  count: number;
 }
 
 export type RestoreIdentityResponse =
@@ -527,7 +538,10 @@ export class SSBSource {
     });
   }
 
-  public getMentionSuggestions(text: string | null, authors: Array<FeedId>) {
+  public getMentionSuggestions(
+    text: string | null,
+    authors: Array<FeedId>,
+  ): Stream<Array<MentionSuggestion>> {
     const opts: Record<string, any> = {limit: 10};
     if (!!text) opts.text = text;
     if (authors.length) opts.defaultIds = authors;
@@ -535,15 +549,41 @@ export class SSBSource {
       .map((ssb) => {
         if (!isReady(ssb)) return xs.of([]);
 
-        return xsFromCallback<Array<MentionSuggestion>>(ssb.suggest.profile)(
-          opts,
-        ).map((arr) =>
+        return xsFromCallback<
+          Array<Omit<MentionSuggestion, 'type' | 'imageUrl'>>
+        >(ssb.suggest.profile)(opts).map((arr) =>
           arr
             .filter((suggestion) => suggestion.id !== ssb.id)
             .map((suggestion) => ({
               ...suggestion,
+              type: 'mention' as const,
               imageUrl: imageToImageUrl(suggestion.image),
             })),
+        );
+      })
+      .flatten();
+  }
+
+  public getHashtagsMatching(
+    text: string | null,
+  ): Stream<Array<HashtagSuggestion>> {
+    const opts: {
+      limit?: number;
+      query: string;
+    } = {limit: 10, query: text || ''};
+
+    return this.ssb$
+      .map((ssb) => {
+        if (!isReady(ssb) || !opts.query) return xs.of([]);
+
+        return xsFromCallback<Array<[string, number]>>(
+          ssb.threads.hashtagsMatching,
+        )(opts).map((arr) =>
+          arr.map(([label, count]) => ({
+            type: 'hashtag' as const,
+            id: label,
+            count,
+          })),
         );
       })
       .flatten();

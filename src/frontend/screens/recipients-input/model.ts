@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -71,7 +71,9 @@ export default function model(
         }
         return {
           ...prev,
-          mentionSuggestions: [{id, name: '', image: null, following: false}],
+          mentionSuggestions: [
+            {type: 'mention', id, name: '', image: null, following: false},
+          ],
           mentionQuery: id,
         };
       },

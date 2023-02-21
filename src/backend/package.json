@@ -60,7 +60,7 @@
     "ssb-serve-blobs": "3.1.1",
     "ssb-storage-used": "3.0.2",
     "ssb-suggest-lite": "1.1.4",
-    "ssb-threads": "10.4.0",
+    "ssb-threads": "10.6.0",
     "ssb-typescript": "2.8.0",
     "utf-8-validate": "5.0.3"
   },
@@ -69,8 +69,8 @@
     "electron": "18.3.7"
   },
   "devDependencies": {
-    "license-ls": "dotcs/license-ls#bugfix/npm-7+",
     "cached-path-relative": ">=1.1.0",
+    "license-ls": "dotcs/license-ls#bugfix/npm-7+",
     "noderify": "5.1.2",
     "patch-package": "6.2.2",
     "terser": "4.8.1"

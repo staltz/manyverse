@@ -164,4 +164,11 @@ export const styles = StyleSheet.create({
   menuOptionTouchable: {
     margin: 0,
   },
+
+  boldText: {
+    maxWidth: 100,
+    color: Palette.text,
+    fontWeight: 'bold',
+    fontFamily: Typography.fontFamilyReadableText,
+  },
 });
