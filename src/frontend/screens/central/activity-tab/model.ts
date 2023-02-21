@@ -53,17 +53,17 @@ export default function model(ssbSource: SSBSource, actions: Actions) {
             return {...prev, getActivityFeedReadable: null};
           }
 
-          const mentionsSource = getMentionsSource();
-          // Limit the attempts to 3, otherwise it gets too spammy
-          const attemptsSource = pull(getAttemptsSource(), pull.take(3));
-
           return {
             ...prev,
-            getActivityFeedReadable: () =>
-              interleave(
+            getActivityFeedReadable: () => {
+              const mentionsSource = getMentionsSource();
+              // Limit the attempts to 3, otherwise it gets too spammy
+              const attemptsSource = pull(getAttemptsSource(), pull.take(3));
+              return interleave(
                 [mentionsSource, attemptsSource],
                 sortByDescendingTimestamp,
-              ),
+              );
+            },
           };
         },
     );
