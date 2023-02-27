@@ -64,7 +64,7 @@ export default class ReadMoreOverlay extends PureComponent<Props> {
       ['style' as any]: {
         ...Platform.select({
           web: {
-            ['outline-width' as any]: 0,
+            outlineWidth: 0,
           },
         }),
       },
@@ -82,7 +82,7 @@ export default class ReadMoreOverlay extends PureComponent<Props> {
       ['style' as any]: {
         ...Platform.select({
           web: {
-            ['outline-width' as any]: 0,
+            outlineWidth: 0,
           },
         }),
       },
