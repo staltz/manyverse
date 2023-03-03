@@ -243,5 +243,6 @@ export const styles = StyleSheet.create({
     color: Palette.text,
     fontSize: Typography.fontSizeNormal,
     fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
   },
 });
