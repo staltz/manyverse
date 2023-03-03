@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -203,5 +203,45 @@ export const styles = StyleSheet.create({
     backgroundColor: Palette.isDarkTheme
       ? Palette.voidStronger
       : Palette.voidWeak,
+  },
+
+  suggestionsContainer: {
+    ...Platform.select({
+      web: {
+        width: Dimensions.desktopMiddleWidth.px,
+      },
+    }),
+  },
+
+  suggestionsTitleContainer: {
+    paddingHorizontal: Dimensions.horizontalSpaceLarge,
+    paddingVertical: Dimensions.verticalSpaceLarge,
+  },
+
+  suggestionsTitle: {
+    color: Palette.text,
+    fontSize: Typography.fontSizeLarge,
+    fontFamily: Typography.fontFamilyReadableText,
+    fontWeight: 'bold',
+  },
+
+  suggestionsListContainer: {
+    backgroundColor: Palette.backgroundText,
+  },
+
+  suggestionListDivider: {
+    backgroundColor: Palette.textLine,
+    height: 1,
+  },
+
+  suggestionTextContainer: {
+    paddingHorizontal: Dimensions.horizontalSpaceLarge,
+    paddingVertical: Dimensions.verticalSpaceBig,
+  },
+
+  suggestionText: {
+    color: Palette.text,
+    fontSize: Typography.fontSizeNormal,
+    fontFamily: Typography.fontFamilyReadableText,
   },
 });

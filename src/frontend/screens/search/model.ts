@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -37,6 +37,7 @@ export interface State {
   queryInProgress: boolean;
   searchResults: SearchResults | null;
   subscribedHashtags: Array<string> | null;
+  suggestions: Array<string> | null;
 }
 
 export interface Actions {
@@ -44,6 +45,7 @@ export interface Actions {
   updateQueryDebounced$: Stream<string>;
   clearQuery$: Stream<any>;
   toggleHashtagSubscribe$: Stream<boolean>;
+  selectSuggestion$: Stream<string>;
 }
 
 function searchContent(
@@ -95,9 +97,23 @@ export default function model(
           queryInProgress: !!props.query,
           searchResults: null,
           subscribedHashtags: null,
+          suggestions: null,
         };
       },
   );
+
+  const initSuggestionsReducer = ssbSource
+    .getRecentHashtags(10)
+    .take(1)
+    .map(
+      (recentHashtags) =>
+        function initSuggestionsReducer(prev: State) {
+          return {
+            ...prev,
+            suggestions: recentHashtags.map((h) => `#${h}`),
+          };
+        },
+    );
 
   const updatePreferredReactionsReducer$ = ssbSource.preferredReactions$.map(
     (preferredReactions) =>
@@ -176,13 +192,28 @@ export default function model(
       },
   );
 
+  const updateQueryWithSuggestionReducer$ = actions.selectSuggestion$.map(
+    (value) =>
+      function updateQueryWithSuggestionReducer(prev: State): State {
+        return {
+          ...prev,
+          query: value,
+          queryInProgress: true,
+          queryOverride: value,
+          queryOverrideFlag: 1 - prev.queryOverrideFlag,
+        };
+      },
+  );
+
   return xs.merge(
     propsReducer$,
+    initSuggestionsReducer,
     updatePreferredReactionsReducer$,
     updateQueryInProgressReducer$,
     updateQueryReducer$,
     clearQueryReducer$,
     updateSearchResultsReducer$,
     updateSubscribedHashtagsReducer$,
+    updateQueryWithSuggestionReducer$,
   );
 }

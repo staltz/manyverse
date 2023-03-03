@@ -6,7 +6,7 @@ import {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
-import {PureComponent} from 'react';
+import {Fragment, PureComponent} from 'react';
 import {
   View,
   Text,
@@ -276,6 +276,59 @@ const SearchResults: React.FC<State> = (state) => {
   }
 };
 
+class Suggestions extends PureComponent<{
+  onPress?: (value: string) => void;
+  suggestions: NonNullable<State['suggestions']>;
+}> {
+  private handlePress(value: string) {
+    this.props.onPress?.(value);
+  }
+
+  public render() {
+    return h(View, {style: styles.suggestionsContainer}, [
+      h(View, {style: styles.suggestionsTitleContainer}, [
+        h(
+          Text,
+          {style: styles.suggestionsTitle},
+          t('search.suggestions.title'),
+        ),
+      ]),
+
+      h(
+        View,
+        {style: styles.suggestionsListContainer},
+        this.props.suggestions.map((suggestion, index) =>
+          h(Fragment, {key: suggestion}, [
+            h(
+              Touchable,
+              {
+                background:
+                  Platform.OS === 'android'
+                    ? TouchableNativeFeedback.SelectableBackground()
+                    : undefined,
+                onPress: () => this.handlePress(suggestion),
+              },
+              [
+                h(View, {style: styles.suggestionTextContainer}, [
+                  h(
+                    Text,
+                    {style: styles.suggestionText, numberOfLines: 1},
+                    suggestion,
+                  ),
+                ]),
+              ],
+            ),
+
+            index < this.props.suggestions.length - 1
+              ? h(View, {style: styles.suggestionListDivider})
+              : null,
+          ]),
+        ),
+      ),
+    ]);
+  }
+}
+
 export default function view(state$: Stream<State>) {
   const setInputNativeProps$ = state$
     .compose(
@@ -294,6 +347,7 @@ export default function view(state$: Stream<State>) {
         'preferredReactions',
         'searchResults',
         'subscribedHashtags',
+        'suggestions',
       ]),
     )
     .map((state) =>
@@ -327,7 +381,9 @@ export default function view(state$: Stream<State>) {
               })
             : null,
         ]),
-
+        state.query === '#' && state.suggestions && state.suggestions.length > 0
+          ? h(Suggestions, {sel: 'suggestions', suggestions: state.suggestions})
+          : null,
         h(View, {style: styles.container}, [h(SearchResults, state)]),
       ]),
     );

@@ -132,6 +132,7 @@ export default {
     hashtagSummary: 'source',
     hashtagUpdates: 'source',
     hashtagsMatching: 'async',
+    recentHashtags: 'async',
     private: 'source',
     privateUpdates: 'source',
     profile: 'source',

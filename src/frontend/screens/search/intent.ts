@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -109,6 +109,10 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     .select('hashtagSubscribeButton')
     .events<boolean>('press');
 
+  const selectSuggestion$ = reactSource
+    .select('suggestions')
+    .events<string>('press');
+
   return {
     goBack$,
     updateQueryNow$,
@@ -124,5 +128,6 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     goToThreadExpandCW$,
     addReactionMsg$,
     toggleHashtagSubscribe$,
+    selectSuggestion$,
   };
 }

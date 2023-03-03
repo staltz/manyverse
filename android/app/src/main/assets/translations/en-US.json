@@ -982,6 +982,9 @@
         "label": "Unsubscribe",
         "accessibility_label": "Unsubscribe from this hashtag"
       }
+    },
+    "suggestions": {
+      "title": "Hashtags"
     }
   },
   "secret_input": {

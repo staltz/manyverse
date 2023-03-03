@@ -589,6 +589,22 @@ export class SSBSource {
       .flatten();
   }
 
+  public getRecentHashtags(
+    limit: number,
+    preserveCase?: boolean,
+  ): Stream<Array<string>> {
+    return this.ssb$
+      .map((ssb) => {
+        if (!isReady(ssb)) return xs.of([]);
+
+        return xsFromCallback<Array<string>>(ssb.threads.recentHashtags)({
+          limit,
+          preserveCase,
+        });
+      })
+      .flatten();
+  }
+
   public searchPublicPosts$(
     text: string,
   ): Stream<GetReadable<MsgAndExtras<PostContent>> | null> {

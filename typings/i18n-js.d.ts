@@ -436,6 +436,7 @@ declare module 'i18n-js' {
     | 'search.hashtags.subscribe.accessibility_label'
     | 'search.hashtags.unsubscribe.label'
     | 'search.hashtags.unsubscribe.accessibility_label'
+    | 'search.suggestions.title'
     | 'secret_input.practice.title'
     | 'secret_input.practice.header'
     | 'secret_input.restore.title'
