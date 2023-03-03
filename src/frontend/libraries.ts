@@ -246,6 +246,13 @@ export default [
     homepage: 'https://github.com/staltz/react-native-image-viewing#readme',
   },
   {
+    name: '@xmldom/xmldom',
+    type: 'library',
+    version: '0.8.6',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/xmldom/xmldom',
+  },
+  {
     name: 'bindings-noderify-nodejs-mobile',
     type: 'library',
     version: '10.3.0',
@@ -1057,7 +1064,7 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '10.4.0',
+    version: '10.7.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },

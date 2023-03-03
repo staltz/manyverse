@@ -2,6 +2,14 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2303.3-beta
+
+* (Android) Bug fix: initial mention suggestions ([see details](https://gitlab.com/staltz/manyverse/commit/880bb56e33339b5ad1d17a4fc973183b4dad0693)), closes [#2191](https://gitlab.com/staltz/manyverse/issues/2191)
+* (Desktop) Bug fix: dark mode mention suggestions ([see details](https://gitlab.com/staltz/manyverse/commit/3be221494c0499a640293e45c9d4b422b4db7e62))
+* Feature: hashtag suggestions when composing a post ([see details](https://gitlab.com/staltz/manyverse/commit/037ee8eccd3b8dae18eef3a3c09eeeeff86cee37))
+* Feature: Search screen recent hashtags autocompletion ([see details](https://gitlab.com/staltz/manyverse/commit/2303ae1ecf52d2dc5db4d440845d12825d60d845))
+* Improve Activity tab to look less spammy ([see details](https://gitlab.com/staltz/manyverse/commit/ceb8c58eaffa63099f4eac6e97c72539c7c7042b))
+
 ## 0.2302.17-beta
 
 * Improve Russian translation ([see details](https://gitlab.com/staltz/manyverse/commit/a2f45970d90b9e1c2cefce81a9f8da9b48bb44d9))
