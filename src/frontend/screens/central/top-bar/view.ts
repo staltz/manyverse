@@ -190,6 +190,15 @@ export const styles = StyleSheet.create({
       'user-select': 'none',
     },
   }) as ViewStyle,
+  
+  
+  topBar: Platform.select({
+    web: {
+      'user-select': 'none',
+      'cursor': 'default'
+    },
+  }) as ViewStyle,
+
 });
 
 function tabTitle(tab: State['currentTab']) {
