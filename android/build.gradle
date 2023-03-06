@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: Unlicense
 
@@ -11,7 +11,7 @@ buildscript {
         targetSdkVersion = 26
         targetSdkVersionForGooglePlay = 31
         compileSdkVersion = 30
-        ndkVersion = "21.4.7075529"
+        ndkVersion = "24.0.8215888"
         kotlinVersion = "1.5.31"
         RNNKotlinVersion = kotlinVersion
         RNNKotlinStdlib = "kotlin-stdlib-jdk8"

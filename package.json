@@ -109,7 +109,7 @@
     "lodash.memoize": "4.1.2",
     "mdast-normalize-react-native": "3.2.x",
     "multicb": "1.2.2",
-    "nodejs-mobile-react-native": "16.17.4",
+    "nodejs-mobile-react-native": "16.17.6",
     "nuka-carousel": "4.8.4",
     "path": "0.12.7",
     "promisify-tuple": "1.2.0",
