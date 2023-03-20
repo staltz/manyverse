@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -20,7 +20,8 @@ type SchemaKeys =
   | 'latestVisit'
   | 'lastSessionTimestamp'
   | 'resyncing'
-  | 'publicFeedType';
+  | 'publicFeedType'
+  | 'allowCheckingNewVersion';
 
 interface TypedSetItemCommand extends SetItemCommand {
   key: SchemaKeys;

@@ -1078,6 +1078,11 @@
         "subtitle": "Prevent strangers from creating network connections with me",
         "accessibility_label": "Toggle enable firewall"
       },
+      "check_version": {
+        "title": "Check for new releases",
+        "subtitle": "Allow Manyverse to check for new releases. Enabling this sends requests to the manyver.se website periodically.",
+        "accessibility_label": "Toggle check for new releases"
+      },
       "feed_settings": {
         "title": "Feed settings",
         "accessibility_label": "Open screen about feed settings"

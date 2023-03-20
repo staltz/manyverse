@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {Reducer, StateSource} from '@cycle/state';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
@@ -12,12 +12,14 @@ import {Command as LocalizationCmd} from '~frontend/drivers/localization';
 import {DialogSource} from '~frontend/drivers/dialogs';
 import {FSSource} from '~frontend/drivers/fs';
 import {Toast} from '~frontend/drivers/toast';
+import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
 import model, {State} from './model';
 import intent from './intent';
 import navigation from './navigation';
 import ssb from './ssb';
 import localization from './localization';
 import toast from './toast';
+import asyncStorage from './asyncstorage';
 
 export interface Sources {
   state: StateSource<State>;
@@ -37,6 +39,7 @@ export interface Sinks {
   localization: Stream<LocalizationCmd>;
   toast: Stream<Toast>;
   globalEventBus: Stream<GlobalEvent>;
+  asyncstorage: Stream<StorageCommand>;
 }
 
 export function global(sources: Sources): Sinks {
@@ -48,16 +51,30 @@ export function global(sources: Sources): Sinks {
     sources.dialog,
     sources.ssb,
     state$,
+    sources.asyncstorage,
   );
   const cmd$ = navigation(actions, state$);
-  const reducer$ = model(sources.ssb, sources.asyncstorage);
+  const reducer$ = model(actions, sources.ssb, sources.asyncstorage);
   const updateLocalization$ = localization(sources.fs);
   const req$ = ssb(updateLocalization$, actions);
   const toast$ = toast(actions, sources.ssb);
 
-  const event$ = actions.approvedCheckingNewVersion$
-    .take(1)
-    .mapTo({type: 'approveCheckingNewVersion'} as GlobalEvent);
+  const event$ = xs.merge<GlobalEvent>(
+    actions.readCheckingNewVersionSetting$
+      .filter((value): value is boolean => typeof value === 'boolean')
+      .map((value) => ({
+        type: 'checkingNewVersion',
+        enabled: value,
+      })),
+    actions.approvedCheckingNewVersion$
+      .take(1)
+      .mapTo({type: 'checkingNewVersion', enabled: true}),
+    actions.rejectedCheckingNewVersion$
+      .take(1)
+      .mapTo({type: 'checkingNewVersion', enabled: false}),
+  );
+
+  const storageCommand$ = asyncStorage(actions);
 
   return {
     navigation: cmd$,
@@ -66,5 +83,6 @@ export function global(sources: Sources): Sinks {
     ssb: req$,
     toast: toast$,
     globalEventBus: event$,
+    asyncstorage: storageCommand$,
   };
 }

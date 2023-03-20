@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -61,6 +61,17 @@ export default function view(state$: Stream<State>) {
             value: state.enableFirewall,
             accessibilityLabel: t(
               'settings.preferences.enable_firewall.accessibility_label',
+            ),
+          }),
+
+          h(View, {style: styles.spacer}),
+          h(ToggleSetting, {
+            sel: 'check-version',
+            title: t('settings.preferences.check_version.title'),
+            subtitle: t('settings.preferences.check_version.subtitle'),
+            value: !!state.allowCheckingNewVersion,
+            accessibilityLabel: t(
+              'settings.preferences.check_version.accessibility_label',
             ),
           }),
 

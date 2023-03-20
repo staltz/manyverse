@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,8 +6,9 @@ import xs, {Stream} from 'xstream';
 import concat from 'xstream/extra/concat';
 import {Reducer} from '@cycle/state';
 import {FeedId} from 'ssb-typescript';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {SSBSource} from '~frontend/drivers/ssb';
-import {GlobalEvent} from '~frontend/drivers/eventbus';
+import {CheckingNewVersion, GlobalEvent} from '~frontend/drivers/eventbus';
 import currentVersion from '~frontend/versionName';
 
 interface ParsedVersion {
@@ -21,7 +22,7 @@ interface ParsedVersion {
 export interface State {
   selfFeedId: FeedId;
   canPublishSSB: boolean;
-  allowCheckingNewVersion: boolean;
+  allowCheckingNewVersion: boolean | null;
   hasNewVersion: boolean;
   selfAvatarUrl?: string;
   name?: string;
@@ -30,7 +31,7 @@ export interface State {
 const INITIAL_STATE: State = {
   selfFeedId: '',
   canPublishSSB: true,
-  allowCheckingNewVersion: false,
+  allowCheckingNewVersion: null,
   hasNewVersion: false,
 };
 
@@ -43,6 +44,7 @@ export default function model(
   ssbSource: SSBSource,
   globalEventBus: Stream<GlobalEvent>,
   state$: Stream<State>,
+  asyncStorageSource: AsyncStorageSource,
 ): Stream<Reducer<State>> {
   const selfFeedIdReducer$ = ssbSource.selfFeedId$
     .filter((selfFeedId) => !!selfFeedId)
@@ -78,24 +80,29 @@ export default function model(
         },
     );
 
-  const readSettingsReducer$ = ssbSource.readSettings().map(
-    (settings) =>
-      function readSettingsReducer(prev: State): State {
-        return {
-          ...prev,
-          allowCheckingNewVersion: settings.allowCheckingNewVersion ?? false,
-        };
-      },
-  );
-
-  const allowCheckingNewVersionReducer$ = globalEventBus
-    .filter((ev) => ev.type === 'approveCheckingNewVersion')
-    .map(
-      () =>
-        function allowCheckingNewVersionReducer(prev: State): State {
-          return {...prev, allowCheckingNewVersion: true};
+  const allowCheckingNewVersionReducer$ = xs.merge(
+    asyncStorageSource.getItem('allowCheckingNewVersion').map(
+      (value) =>
+        function initialAllowCheckingNewVersionReducer(prev: State): State {
+          const parsed = value && JSON.parse(value);
+          return {
+            ...prev,
+            allowCheckingNewVersion:
+              typeof parsed === 'boolean' ? parsed : null,
+          };
         },
-    );
+    ),
+    globalEventBus
+      .filter(
+        (ev): ev is CheckingNewVersion => ev.type === 'checkingNewVersion',
+      )
+      .map(
+        (event) =>
+          function allowCheckingNewVersionReducer(prev: State): State {
+            return {...prev, allowCheckingNewVersion: event.enabled};
+          },
+      ),
+  );
 
   const hasNewVersionReducer$ = actions.latestVersionResponse$
     .map((latestVersion) => {
@@ -138,7 +145,6 @@ export default function model(
     selfFeedIdReducer$,
     xs.merge(
       aboutReducer$,
-      readSettingsReducer$,
       allowCheckingNewVersionReducer$,
       hasNewVersionReducer$,
     ),

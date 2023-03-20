@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -31,6 +31,10 @@ export default function intent(
     toggleAllowCrashReports$: screenSource
       .select('crash-reports')
       .events('valueChange'),
+
+    toggleAllowCheckingNewVersion$: screenSource
+      .select('check-version')
+      .events<boolean>('valueChange'),
 
     updateHops$: screenSource
       .select('hops')

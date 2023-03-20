@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import xs from 'xstream';
+import xs, {Stream} from 'xstream';
 import {FeedId} from 'ssb-typescript';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {SSBSource} from '~frontend/drivers/ssb';
@@ -22,7 +22,12 @@ export interface State {
   allowCheckingNewVersion: boolean | null | undefined;
 }
 
+interface Actions {
+  readCheckingNewVersionSetting$: Stream<boolean | null>;
+}
+
 export default function model(
+  actions: Actions,
   ssbSource: SSBSource,
   asyncStorageSource: AsyncStorageSource,
 ) {
@@ -80,27 +85,21 @@ export default function model(
         },
     );
 
-  const readSettingsReducer$ = ssbSource.readSettings().map(
-    (settings) =>
-      function readSettingsReducer(prev?: State): State {
-        if (typeof settings.allowCheckingNewVersion === 'boolean') {
+  const initialAllowCheckingNewVersionReducer$ =
+    actions.readCheckingNewVersionSetting$.map(
+      (value) =>
+        function initialAllowCheckingNewVersionReducer(prev: State): State {
           return {
             ...prev,
-            allowCheckingNewVersion: settings.allowCheckingNewVersion,
+            allowCheckingNewVersion: value,
           };
-        } else {
-          return {
-            ...prev,
-            allowCheckingNewVersion: null,
-          };
-        }
-      },
-  );
+        },
+    );
 
   return xs.merge(
     aboutReducer$,
     firstVisitReducer$,
     lastSessionTimestampReducer$,
-    readSettingsReducer$,
+    initialAllowCheckingNewVersionReducer$,
   );
 }

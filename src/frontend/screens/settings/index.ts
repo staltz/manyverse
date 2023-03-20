@@ -1,8 +1,10 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {Stream} from 'xstream';
+import dropRepeats from 'xstream/extra/dropRepeats';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Command, NavSource} from 'cycle-native-navigation';
 import {ReactSource} from '@cycle/react';
 import {ReactElement} from 'react';
@@ -11,6 +13,7 @@ import {Reducer, StateSource} from '@cycle/state';
 import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import {SSBSource, Req} from '~frontend/drivers/ssb';
 import {TypedCommand as StorageCommand} from '~frontend/drivers/asyncstorage';
+import {GlobalEvent} from '~frontend/drivers/eventbus';
 import model, {State} from './model';
 import view from './view';
 import intent from './intent';
@@ -19,6 +22,7 @@ import alert from './alert';
 import navigation from './navigation';
 import linking from './linking';
 import {Props} from './props';
+import asyncStorage from './asyncstorage';
 
 export interface Sources {
   props: Stream<Props>;
@@ -27,6 +31,7 @@ export interface Sources {
   navigation: NavSource;
   ssb: SSBSource;
   state: StateSource<State>;
+  asyncstorage: AsyncStorageSource;
 }
 
 export interface Sinks {
@@ -37,6 +42,7 @@ export interface Sinks {
   asyncstorage: Stream<StorageCommand>;
   linking: Stream<string>;
   dialog: Stream<AlertCommand>;
+  globalEventBus: Stream<GlobalEvent>;
 }
 
 export const navOptions = {
@@ -54,15 +60,22 @@ export const navOptions = {
 export function settings(sources: Sources): Sinks {
   const state$ = sources.state.stream;
   const actions = intent(sources.screen, sources.navigation, sources.dialog);
-  const reducer$ = model(sources.props, actions, sources.ssb);
+  const reducer$ = model(
+    sources.props,
+    actions,
+    sources.ssb,
+    sources.asyncstorage,
+  );
   const vdom$ = view(state$);
   const req$ = ssb(actions, sources.ssb);
   const alert$ = alert(actions);
   const command$ = navigation(actions, sources.navigation, state$);
   const links$ = linking(actions);
-  const storageCmd$ = actions.deleteAccount$.mapTo({
-    type: 'clear' as const,
-  });
+  const storageCmd$ = asyncStorage(actions);
+
+  const event$ = actions.toggleAllowCheckingNewVersion$
+    .compose(dropRepeats())
+    .map<GlobalEvent>((enabled) => ({type: 'checkingNewVersion', enabled}));
 
   return {
     screen: vdom$,
@@ -71,6 +84,7 @@ export function settings(sources: Sources): Sinks {
     ssb: req$,
     linking: links$,
     asyncstorage: storageCmd$,
+    globalEventBus: event$,
     dialog: alert$,
   };
 }

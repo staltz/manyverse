@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -6,6 +6,7 @@ import xs, {Stream} from 'xstream';
 import delay from 'xstream/extra/delay';
 import {NativeModules, Platform} from 'react-native';
 import {NavSource} from 'cycle-native-navigation';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {
   isFeedSSBURI,
   isMessageSSBURI,
@@ -36,6 +37,7 @@ export default function intent(
   dialogSource: DialogSource,
   ssbSource: SSBSource,
   state$: Stream<State>,
+  asyncStorageSource: AsyncStorageSource,
 ) {
   const hasSelfFeedId$ = state$.map((state) => !!state.selfFeedId);
   const centralAppeared$ = navSource.globalDidAppear(Screens.Central).take(1);
@@ -182,6 +184,26 @@ export default function intent(
     .take(1)
     .endWhen(navSource.globalDidAppear(Screens.Compact));
 
+  const readCheckingNewVersionSetting$ = asyncStorageSource
+    .getItem('allowCheckingNewVersion')
+    .map((value) => {
+      if (value) {
+        const parsed = JSON.parse(value);
+        return xs.of(typeof parsed === 'boolean' ? parsed : null);
+      }
+
+      // Value wasn't found in asyncstorage so we have to check ssb settings
+      return ssbSource
+        .readSettings()
+        .map((settings) =>
+          typeof settings.allowCheckingNewVersion === 'boolean'
+            ? settings.allowCheckingNewVersion
+            : null,
+        );
+    })
+    .flatten()
+    .take(1);
+
   return {
     handleUriClaimInvite$,
     handleUriConsumeAlias$,
@@ -194,5 +216,6 @@ export default function intent(
     goToThread$,
     goToSearch$,
     goToCompact$,
+    readCheckingNewVersionSetting$,
   };
 }

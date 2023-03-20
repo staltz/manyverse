@@ -1,9 +1,10 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import concat from 'xstream/extra/concat';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {FeedId} from 'ssb-typescript';
 import {SSBSource} from '~frontend/drivers/ssb';
 import {Props} from './props';
@@ -29,6 +30,7 @@ export interface State {
   enableDetailedLogs: boolean;
   enableFirewall: boolean;
   allowCrashReports: boolean;
+  allowCheckingNewVersion: boolean | null;
 }
 
 interface Actions {
@@ -36,6 +38,7 @@ interface Actions {
   toggleDetailedLogs$: Stream<boolean>;
   toggleEnableFirewall$: Stream<boolean>;
   toggleAllowCrashReports$: Stream<boolean>;
+  toggleAllowCheckingNewVersion$: Stream<boolean>;
 }
 
 function hopsToOpt(hops?: number): HopsOption {
@@ -52,6 +55,7 @@ export default function model(
   props$: Stream<Props>,
   actions: Actions,
   ssbSource: SSBSource,
+  asyncStorageSource: AsyncStorageSource,
 ) {
   const propsReducer$ = props$.take(1).map(
     (props) =>
@@ -63,9 +67,24 @@ export default function model(
           initialHops: hopsOptions.indexOf(DEFAULT_HOPS),
           enableFirewall: true,
           allowCrashReports: false,
+          allowCheckingNewVersion: null,
         };
       },
   );
+
+  const initialAllowCheckingNewVersionReducer$ = asyncStorageSource
+    .getItem('allowCheckingNewVersion')
+    .map(
+      (value) =>
+        function initialAllowCheckingNewVersionReducer(prev: State): State {
+          const parsed = value && JSON.parse(value);
+          return {
+            ...prev,
+            allowCheckingNewVersion:
+              typeof parsed === 'boolean' ? parsed : null,
+          };
+        },
+    );
 
   const readSettingsReducer$ = ssbSource.readSettings().map(
     (settings) =>
@@ -103,6 +122,14 @@ export default function model(
       },
   );
 
+  const toggleCheckingNewVersionReducer$ =
+    actions.toggleAllowCheckingNewVersion$.map(
+      (checkNewVersion) =>
+        function toggleCheckingNewVersionReducer(prev: State): State {
+          return {...prev, allowCheckingNewVersion: checkNewVersion};
+        },
+    );
+
   const toggleCrashReportsReducer$ = actions.toggleAllowCrashReports$.map(
     (allowCrashReports) =>
       function toggleCrashReportsReducer(prev: State): State {
@@ -113,11 +140,13 @@ export default function model(
   return concat(
     propsReducer$,
     xs.merge(
+      initialAllowCheckingNewVersionReducer$,
       readSettingsReducer$,
       toggleFollowEventsReducer$,
       toggleDetailedLogsReducer$,
       toggleEnableFirewallReducer$,
       toggleCrashReportsReducer$,
+      toggleCheckingNewVersionReducer$,
     ),
   );
 }

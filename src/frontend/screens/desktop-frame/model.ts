@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,12 +7,14 @@ import concat from 'xstream/extra/concat';
 import {FeedId} from 'ssb-typescript';
 import {Reducer} from '@cycle/state';
 import {NavSource} from 'cycle-native-navigation';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {SSBSource} from '~frontend/drivers/ssb';
 import {
   CentralUpdateActivity,
   CentralUpdateConnections,
   CentralUpdatePrivate,
   CentralUpdatePublic,
+  CheckingNewVersion,
   GlobalEvent,
 } from '~frontend/drivers/eventbus';
 import {PeerKV, StagedPeerKV} from '~frontend/ssb/types';
@@ -47,7 +49,7 @@ export interface State extends ProgressState {
   numOfPublicUpdates: number;
   numOfPrivateUpdates: number;
   numOfActivityUpdates: number;
-  allowCheckingNewVersion: boolean;
+  allowCheckingNewVersion: boolean | null;
   hasNewVersion: boolean;
 }
 
@@ -57,7 +59,7 @@ const INITIAL_STATE: State = {
   numOfPublicUpdates: 0,
   numOfPrivateUpdates: 0,
   numOfActivityUpdates: 0,
-  allowCheckingNewVersion: false,
+  allowCheckingNewVersion: null,
   hasNewVersion: false,
   showButtons: false,
   ...INITIAL_PROGRESS_STATE,
@@ -74,6 +76,7 @@ export default function model(
   globalEventBus: Stream<GlobalEvent>,
   ssbSource: SSBSource,
   state$: Stream<State>,
+  asyncStorageSource: AsyncStorageSource,
 ) {
   const centralUpdatePublic$ = globalEventBus.filter(
     (ev) => ev.type === 'centralScreenUpdate' && ev.subtype === 'publicUpdates',
@@ -190,24 +193,29 @@ export default function model(
       },
   );
 
-  const readSettingsReducer$ = ssbSource.readSettings().map(
-    (settings) =>
-      function readSettingsReducer(prev: State): State {
-        return {
-          ...prev,
-          allowCheckingNewVersion: settings.allowCheckingNewVersion ?? false,
-        };
-      },
-  );
-
-  const allowCheckingNewVersionReducer$ = globalEventBus
-    .filter((ev) => ev.type === 'approveCheckingNewVersion')
-    .map(
-      () =>
-        function allowCheckingNewVersionReducer(prev: State): State {
-          return {...prev, allowCheckingNewVersion: true};
+  const allowCheckingNewVersionReducer$ = xs.merge(
+    asyncStorageSource.getItem('allowCheckingNewVersion').map(
+      (value) =>
+        function initialAllowCheckingNewVersionReducer(prev: State): State {
+          const parsed = value && JSON.parse(value);
+          return {
+            ...prev,
+            allowCheckingNewVersion:
+              typeof parsed === 'boolean' ? parsed : null,
+          };
         },
-    );
+    ),
+    globalEventBus
+      .filter(
+        (ev): ev is CheckingNewVersion => ev.type === 'checkingNewVersion',
+      )
+      .map(
+        (event) =>
+          function allowCheckingNewVersionReducer(prev: State): State {
+            return {...prev, allowCheckingNewVersion: event.enabled};
+          },
+      ),
+  );
 
   const hasNewVersionReducer$ = actions.latestVersionResponse$
     .map((latestVersion) => {
@@ -263,7 +271,6 @@ export default function model(
           updatePrivateCounterReducer$,
           updateActivityCounterReducer$,
           updateConnectionsReducer$,
-          readSettingsReducer$,
           allowCheckingNewVersionReducer$,
           hasNewVersionReducer$,
           progressReducer$,

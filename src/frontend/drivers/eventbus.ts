@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -36,8 +36,9 @@ export interface AudioBlobComposed {
   ext: string;
 }
 
-export interface ApproveCheckingNewVersion {
-  type: 'approveCheckingNewVersion';
+export interface CheckingNewVersion {
+  type: 'checkingNewVersion';
+  enabled: boolean;
 }
 
 export interface HasNewVersion {
@@ -98,7 +99,7 @@ export type GlobalEvent =
   | DrawerToggleOnCentralScreen
   | AudioBlobComposed
   | CentralScreenUpdate
-  | ApproveCheckingNewVersion
+  | CheckingNewVersion
   | HasNewVersion
   | ChangePublicFeedType;
 

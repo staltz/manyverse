@@ -648,6 +648,7 @@ export class SSBSource {
     blobsStorageLimit?: number;
     detailedLogs?: boolean;
     showFollows?: boolean;
+    // This is a deprecated value
     allowCheckingNewVersion?: boolean;
     enableFirewall?: boolean;
     allowCrashReports?: boolean;
@@ -877,11 +878,6 @@ export interface SettingsDetailedLogsReq {
   detailedLogs: boolean;
 }
 
-export interface SettingsAllowCheckingNewVersionReq {
-  type: 'settings.allowCheckingNewVersion';
-  allowCheckingNewVersion: boolean;
-}
-
 export interface SettingsEnableFirewallReq {
   type: 'settings.enableFirewall';
   enableFirewall: boolean;
@@ -921,7 +917,6 @@ export type Req =
   | SettingsBlobsPurgeReq
   | SettingsShowFollowsReq
   | SettingsDetailedLogsReq
-  | SettingsAllowCheckingNewVersionReq
   | SettingsEnableFirewallReq
   | SettingsAllowCrashReportsReq;
 
@@ -1243,16 +1238,6 @@ async function consumeSink(
         ssb.settingsUtils.updateDetailedLogs(req.detailedLogs, (err: any) => {
           if (err) return console.error(err.message || err);
         });
-        return;
-      }
-
-      if (req.type === 'settings.allowCheckingNewVersion') {
-        ssb.settingsUtils.updateAllowCheckingNewVersion(
-          req.allowCheckingNewVersion,
-          (err: any) => {
-            if (err) return console.error(err.message || err);
-          },
-        );
         return;
       }
 

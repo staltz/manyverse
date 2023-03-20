@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,6 +8,7 @@ import {ReactSource} from '@cycle/react';
 import {Reducer, StateSource} from '@cycle/state';
 import {HTTPSource, RequestInput as HTTPReq} from '@cycle/http';
 import {Command, NavSource, StackElement} from 'cycle-native-navigation';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {GlobalEvent} from '~frontend/drivers/eventbus';
 import {SSBSource} from '~frontend/drivers/ssb';
 import {DialogSource} from '~frontend/drivers/dialogs';
@@ -31,6 +32,7 @@ export interface Sources {
   dialog: DialogSource;
   state: StateSource<State>;
   windowSize: Stream<WindowSize>;
+  asyncstorage: AsyncStorageSource;
 }
 
 export interface Sinks {
@@ -73,6 +75,7 @@ export function desktopFrame(sources: Sources): Sinks {
     sources.globalEventBus,
     sources.ssb,
     state$,
+    sources.asyncstorage,
   );
 
   const vdom$ = view(

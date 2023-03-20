@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -11,8 +11,6 @@ interface Actions {
   handleUriConsumeAlias$: Stream<string>;
   connectToPeer$: Stream<string>;
   confirmedSignInRoom$: Stream<string>;
-  approvedCheckingNewVersion$: Stream<any>;
-  rejectedCheckingNewVersion$: Stream<any>;
 }
 
 export default function ssb(initialWait$: Stream<any>, actions: Actions) {
@@ -32,24 +30,6 @@ export default function ssb(initialWait$: Stream<any>, actions: Actions) {
     (address) => ({type: 'conn.connect', address} as Req),
   );
 
-  const allowCheckingNewVersionReq$ = xs.merge(
-    actions.approvedCheckingNewVersion$.map(
-      () =>
-        ({
-          type: 'settings.allowCheckingNewVersion',
-          allowCheckingNewVersion: true,
-        } as Req),
-    ),
-
-    actions.rejectedCheckingNewVersion$.map(
-      () =>
-        ({
-          type: 'settings.allowCheckingNewVersion',
-          allowCheckingNewVersion: false,
-        } as Req),
-    ),
-  );
-
   return initialWait$
     .take(1)
     .map(() =>
@@ -58,7 +38,6 @@ export default function ssb(initialWait$: Stream<any>, actions: Actions) {
         startHttpAuthUri$,
         consumeAliasUri$,
         connectReq$,
-        allowCheckingNewVersionReq$,
       ),
     )
     .flatten();

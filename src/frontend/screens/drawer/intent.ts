@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -43,8 +43,11 @@ export default function intent(
 
     checkNewVersion$: state$
       .compose(dropRepeatsByKeys(['allowCheckingNewVersion']))
-      .filter((s) => s.allowCheckingNewVersion === true)
-      .map(() => xs.periodic(1000 * 60 * 60 * 24).startWith(0))
+      .map((state) =>
+        state.allowCheckingNewVersion
+          ? xs.periodic(1000 * 60 * 60 * 24).startWith(0)
+          : xs.never(),
+      )
       .flatten(),
 
     latestVersionResponse$,

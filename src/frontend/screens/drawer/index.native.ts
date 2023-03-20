@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -9,6 +9,7 @@ import {ReactSource} from '@cycle/react';
 import {HTTPSource, RequestInput as HTTPReq} from '@cycle/http';
 import {StateSource, Reducer} from '@cycle/state';
 import {Command as NavCmd, NavSource} from 'cycle-native-navigation';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {SSBSource} from '~frontend/drivers/ssb';
 import {GlobalEvent} from '~frontend/drivers/eventbus';
 import intent from './intent';
@@ -24,6 +25,7 @@ export interface Sources {
   globalEventBus: Stream<GlobalEvent>;
   http: HTTPSource;
   ssb: SSBSource;
+  asyncstorage: AsyncStorageSource;
 }
 
 export interface Sinks {
@@ -61,7 +63,13 @@ export function drawer(sources: Sources): Sinks {
   const actions = intent(sources.screen, sources.http, state$);
   const vdom$ = view(state$);
   const command$ = navigation(actions, state$);
-  const reducer$ = model(actions, sources.ssb, sources.globalEventBus, state$);
+  const reducer$ = model(
+    actions,
+    sources.ssb,
+    sources.globalEventBus,
+    state$,
+    sources.asyncstorage,
+  );
   const mailto$ = linking(actions);
 
   const httpReq$ = actions.checkNewVersion$.map(
