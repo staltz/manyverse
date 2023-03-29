@@ -95,6 +95,10 @@ Files: desktop/build-resources/linux-app-icon/*.png
 Copyright: 2019 The Manyverse Authors
 License: CC-BY-SA-4.0
 
+Files: test/e2e/desktop/fixtures/image.png
+Copyright: 2019 The Manyverse Authors
+License: CC-BY-SA-4.0
+
 Files: test/apple-app-store-demo/blobs/sha256/*/*
 Copyright: 2020 The Manyverse Authors
 License: CC-BY-SA-4.0

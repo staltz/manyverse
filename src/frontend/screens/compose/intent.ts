@@ -103,10 +103,16 @@ export default function intent(
   const pastedDesktopFile$ = reactSource
     .select('composeInput')
     .events<ClipboardEvent>('paste')
-    .map((ev) => ev.clipboardData?.items)
-    .filter((items) => (items?.length ?? 0) > 0)
-    .map((items) =>
-      xs.fromArray(arrayify(items!).map((item) => item.getAsFile())),
+    .map((ev) => [ev, ev.clipboardData?.items] as const)
+    .filter(([_, items]) => (items?.length ?? 0) > 0)
+    .map(([ev, items]) =>
+      xs.fromArray(
+        arrayify(items!).map((item) => {
+          const file = item.getAsFile();
+          if (file) ev.preventDefault();
+          return file;
+        }),
+      ),
     )
     .flatten()
     .filter((file) => !!file)

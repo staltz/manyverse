@@ -127,19 +127,56 @@ function parseAutocompletable(
   };
 }
 
-function appendToPostText(postText: string, other: string) {
-  let separator = '';
-  if (postText.trim().length > 0) {
-    // Count how many new lines are already at the end of the postText
-    const res = /(\n+)$/g.exec(postText);
-    const prevLines = !res || !res[0] ? 0 : res[0].split('\n').length - 1;
+function getConsecutiveNewlineCount(text: string, from: 'start' | 'end') {
+  const match = (from === 'start' ? /^(\n)+/g : /(\n)+$/g).exec(text);
+  if (!match) return 0;
+  return match[0].length;
+}
 
-    // Count how many new lines to add, in order to create space
-    const addLines = Math.max(2 - prevLines, 0);
-    separator = Array(addLines + 1).join('\n');
-  }
+function insertToPostText(
+  postText: string,
+  textToInsert: string,
+  selection: {start: number; end: number},
+) {
+  const textBeforeSelection = postText.slice(0, selection.start);
+  const textAfterSelection = postText.slice(selection.end);
 
-  return postText + separator + other + '\n\n';
+  const consecutiveNewlinesBeforeSelection = getConsecutiveNewlineCount(
+    textBeforeSelection,
+    'end',
+  );
+
+  const insertedPrefix =
+    textBeforeSelection.length === 0 || consecutiveNewlinesBeforeSelection > 1
+      ? ''
+      : consecutiveNewlinesBeforeSelection === 1
+      ? '\n'
+      : '\n\n';
+
+  const consecutiveNewlinesAfterSelection = getConsecutiveNewlineCount(
+    textAfterSelection,
+    'start',
+  );
+
+  const insertedSuffix =
+    consecutiveNewlinesAfterSelection > 1
+      ? ''
+      : consecutiveNewlinesAfterSelection === 1
+      ? '\n'
+      : '\n\n';
+
+  const newTextBefore = textBeforeSelection + insertedPrefix;
+  const newTextAfter = insertedSuffix + textAfterSelection;
+
+  const newSelectionPosition = newTextBefore.length + textToInsert.length + 2;
+
+  return {
+    postText: newTextBefore + textToInsert + newTextAfter,
+    selection: {
+      start: newSelectionPosition,
+      end: newSelectionPosition,
+    },
+  };
 }
 
 export interface Actions {
@@ -368,42 +405,51 @@ export default function model(
   );
 
   const addPictureReducer$ = actions.addPictureWithCaption$
-    .map(({caption, image}) =>
-      ssbSource.addBlobFromPath$(image.path.replace('file://', '')).map(
+    .map(({caption, image}) => {
+      // Workaround a limitation in Playwright so that our e2e tests can work.
+      // https://github.com/microsoft/playwright/issues/16846
+      const imgPath = image.path || (image as any)._e2eTestPath;
+
+      return ssbSource.addBlobFromPath$(imgPath.replace('file://', '')).map(
         (blobId) =>
           function addPictureReducer(prev: State): State {
             const imgMarkdown = `![${caption ?? 'image'}](${blobId})`;
-            const postText = appendToPostText(prev.postText, imgMarkdown);
-            const postTextSelection = {
-              start: postText.length,
-              end: postText.length,
-            };
+
+            const {postText, selection} = insertToPostText(
+              prev.postText,
+              imgMarkdown,
+              prev.postTextSelection,
+            );
+
             return {
               ...prev,
               postText,
               postTextOverride: postText,
-              postTextSelection,
+              postTextSelection: selection,
             };
           },
-      ),
-    )
+      );
+    })
     .flatten();
 
   const addAudioReducer$ = actions.addAudio$.map(
     (audio) =>
       function addAudioReducer(prev: State): State {
         const {ext, blobId} = audio;
+
         const audioMarkdown = `![audio:recording.${ext}](${blobId})`;
-        const postText = appendToPostText(prev.postText, audioMarkdown);
-        const postTextSelection = {
-          start: postText.length,
-          end: postText.length,
-        };
+
+        const {postText, selection} = insertToPostText(
+          prev.postText,
+          audioMarkdown,
+          prev.postTextSelection,
+        );
+
         return {
           ...prev,
           postText,
           postTextOverride: postText,
-          postTextSelection,
+          postTextSelection: selection,
         };
       },
   );
@@ -414,16 +460,17 @@ export default function model(
         (blobId) =>
           function attachAudioReducer(prev: State): State {
             const audioMarkdown = `![audio:${file.name}](${blobId})`;
-            const postText = appendToPostText(prev.postText, audioMarkdown);
-            const postTextSelection = {
-              start: postText.length,
-              end: postText.length,
-            };
+            const {postText, selection} = insertToPostText(
+              prev.postText,
+              audioMarkdown,
+              prev.postTextSelection,
+            );
+
             return {
               ...prev,
               postText,
               postTextOverride: postText,
-              postTextSelection,
+              postTextSelection: selection,
             };
           },
       ),
