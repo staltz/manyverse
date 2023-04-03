@@ -2,6 +2,14 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2304.3-beta
+
+* (Desktop) Bug fix: top bar title selectable ([see details](https://gitlab.com/staltz/manyverse/commit/6235b2a40fb8f1d1cf74eaeaec4c12d580b090f0))
+* Bug fix: hashtags autocomplete is case-insensitive ([see details](https://gitlab.com/staltz/manyverse/commit/4308479ec6b6870ac1326e67083f01271811b096))
+* Bug fix: improve insertion of attachments in Compose ([see details](https://gitlab.com/staltz/manyverse/commit/dc23a4c64a80754b9ec8125ce59b9483a0a97147))
+* Bug fix: Private draft when clearing and re-pasting ([see details](https://gitlab.com/staltz/manyverse/commit/d1ba7df64bdbb1f82468dd340d8e98b657bb7662))
+* Feature: toggle in Settings to check for new versions ([see details](https://gitlab.com/staltz/manyverse/commit/4cd487b295f1cb4b8fd4fed2c9723502c4662c50))
+
 ## 0.2303.3-beta
 
 * (Android) Bug fix: initial mention suggestions ([see details](https://gitlab.com/staltz/manyverse/commit/880bb56e33339b5ad1d17a4fc973183b4dad0693)), closes [#2191](https://gitlab.com/staltz/manyverse/issues/2191)

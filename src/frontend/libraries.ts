@@ -246,13 +246,6 @@ export default [
     homepage: 'https://github.com/staltz/react-native-image-viewing#readme',
   },
   {
-    name: '@xmldom/xmldom',
-    type: 'library',
-    version: '0.8.6',
-    license: 'MIT License (MIT)',
-    homepage: 'https://github.com/xmldom/xmldom',
-  },
-  {
     name: 'bindings-noderify-nodejs-mobile',
     type: 'library',
     version: '10.3.0',
@@ -487,7 +480,7 @@ export default [
   {
     name: 'nodejs-mobile-react-native',
     type: 'library',
-    version: '16.17.4',
+    version: '16.17.6',
     license: 'MIT License (MIT)',
     homepage: 'https://code.janeasystems.com/nodejs-mobile',
   },
@@ -861,7 +854,7 @@ export default [
   {
     name: 'sodium-chloride-native-nodejs-mobile',
     type: 'library',
-    version: '1.6.1',
+    version: '1.7.1',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/staltz/sodium-chloride-native-nodejs-mobile',
   },
@@ -1064,7 +1057,7 @@ export default [
   {
     name: 'ssb-threads',
     type: 'library',
-    version: '10.7.0',
+    version: '10.8.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-threads#readme',
   },
