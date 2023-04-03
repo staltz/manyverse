@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -96,7 +96,13 @@ async function runAndReport(label, task) {
   await runAndReport(
     'Collect all licenses for backend dependencies',
     async () => {
-      await exec('npm install', {cwd: backendFolder});
+      await exec('npm install --ignore-scripts', {
+        cwd: backendFolder,
+        env: {
+          DONT_COMPILE: '1',
+          ...process.env,
+        },
+      });
       await exec(
         [
           '$(npm bin)/license-ls',
