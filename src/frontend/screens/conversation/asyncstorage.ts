@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -29,8 +29,8 @@ export function asyncStorage(
     .map(() => xs.periodic(1000))
     .flatten()
     .compose(sample(compose$))
-    .filter((message) => message.length > 1)
     .compose(dropRepeats())
+    .filter((message) => message.length > 1)
     .compose(sampleCombine(storageKey$))
     .map(([message, key]) => setItem(key, message));
 
