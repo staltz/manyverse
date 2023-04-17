@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+# SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 #
 # SPDX-License-Identifier: Unlicense
 
@@ -38,6 +38,15 @@ target 'Manyverse' do
   post_install do |installer|
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
+
+    installer.target_installation_results.pod_target_installation_results
+      .each do |pod_name, target_installation_results|
+      target_installation_results.resource_bundle_targets.each do |resource_bundle_target|
+        resource_bundle_target.build_configurations.each do |config|
+          config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        end
+      end
+    end
 
     # Hack copied from https://github.com/facebook/react-native/issues/31034#issuecomment-812564390
     installer.pods_project.targets.each do |target|

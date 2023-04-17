@@ -48,6 +48,13 @@ brew update
 brew install coreutils libtool autoconf automake
 ```
 
+If you're on macOS 12.5+, then you'll need to setup python2 because it was removed from the OS level.
+
+1. `brew install pyenv`
+2. `brew install pyenv-virtualenv`
+3. `pyenv install 2.7.18`
+4. `pyenv global 2.7.18`
+
 <!-- ⚠
 The paragraph below is commented out because we use --no-rust for all iOS compilations, on any version of macOS. So technically macOS Big Sur should be supported now.
 
