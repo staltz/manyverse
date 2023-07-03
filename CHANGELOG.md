@@ -2,6 +2,10 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2307.3-beta
+
+* Bug fix: use dynamic port for blobs ([see details](https://gitlab.com/staltz/manyverse/commit/ef40d54ae6a633874b9cfec1649d17415259c63d))
+
 ## 0.2304.3-beta
 
 * (Desktop) Bug fix: top bar title selectable ([see details](https://gitlab.com/staltz/manyverse/commit/6235b2a40fb8f1d1cf74eaeaec4c12d580b090f0))

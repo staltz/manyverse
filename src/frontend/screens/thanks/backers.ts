@@ -2,4 +2,4 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-export default ['Dace', 'John Meurer', 'C Moid', 'DC Posch', 'Mikey Williams'];
+export default ['Dace', 'John Meurer', 'C Moid', 'Mikey Williams', 'DC Posch'];

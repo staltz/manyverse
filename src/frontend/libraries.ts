@@ -401,6 +401,13 @@ export default [
     homepage: 'https://github.com/yusitnikov/fix-webm-duration',
   },
   {
+    name: 'get-port',
+    type: 'library',
+    version: '5.1.1',
+    license: 'MIT License (MIT)',
+    homepage: 'https://github.com/sindresorhus/get-port#readme',
+  },
+  {
     name: 'hermes-engine',
     type: 'library',
     version: '0.9.0',
@@ -818,7 +825,7 @@ export default [
   {
     name: 'remark-images-to-ssb-serve-blobs',
     type: 'library',
-    version: '2.1.0-2',
+    version: '3.1.2-1',
     license: 'MIT License (MIT)',
     homepage:
       'https://gitlab.com/staltz/remark-images-to-ssb-serve-blobs#readme',
@@ -1036,7 +1043,7 @@ export default [
   {
     name: 'ssb-serve-blobs',
     type: 'library',
-    version: '3.1.1',
+    version: '3.2.0',
     license: 'MIT License (MIT)',
     homepage: 'https://github.com/ssbc/ssb-serve-blobs',
   },
