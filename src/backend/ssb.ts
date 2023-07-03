@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -8,11 +8,21 @@ const mkdirp = require('mkdirp');
 const caps = require('ssb-caps');
 const ssbKeys = require('ssb-keys');
 const makeConfig = require('ssb-config/inject');
+const DEFAULT_SERVE_BLOBS_PORT = require('ssb-serve-blobs/port');
 const SecretStack = require('secret-stack');
+const getPort = require('get-port');
 import settingsUtils = require('./plugins/settingsUtils');
 import oneTimeFixes = require('./one-time-fixes');
 
-export = async function startSSB(isNewIdentity: boolean) {
+type PortPurpose = 'ssb-serve-blobs';
+
+type PortMappings = {
+  [Purpose in PortPurpose]: number;
+};
+
+export = async function startSSB(
+  isNewIdentity: boolean,
+): Promise<{ports: PortMappings}> {
   // Make sure SSB_DIR exists
   if (!process.env.APP_DATA_DIR || !process.env.SSB_DIR) {
     throw new Error('misconfigured default paths for the backend');
@@ -22,6 +32,8 @@ export = async function startSSB(isNewIdentity: boolean) {
   await oneTimeFixes();
   const KEYS_PATH = path.join(process.env.SSB_DIR!, 'secret');
   const keys = ssbKeys.loadOrCreateSync(KEYS_PATH);
+
+  const serveBlobsPort = await getPort({port: DEFAULT_SERVE_BLOBS_PORT});
 
   const config = makeConfig('ssb', {
     caps,
@@ -77,6 +89,9 @@ export = async function startSSB(isNewIdentity: boolean) {
         tunnel: [{transform: 'shs'}],
       },
     },
+    serveBlobs: {
+      port: serveBlobsPort,
+    },
   });
 
   (process as any)._ssb = SecretStack()
@@ -128,4 +143,10 @@ export = async function startSSB(isNewIdentity: boolean) {
     .use(require('./plugins/dbUtils')) // needs: db2, syncing, friends
     .use(require('./plugins/votes')) // needs: db2
     .call(null, config);
+
+  return {
+    ports: {
+      'ssb-serve-blobs': serveBlobsPort,
+    },
+  };
 };

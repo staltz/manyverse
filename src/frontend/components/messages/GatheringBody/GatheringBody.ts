@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -14,7 +14,6 @@ import {
   TouchableWithoutFeedback as Touchable,
   View,
 } from 'react-native';
-const toUrl = require('ssb-serve-blobs/id-to-url');
 import ImageView from '@staltz/react-native-image-viewing';
 import Markdown from '~frontend/components/Markdown';
 import {t} from '~frontend/drivers/localization';
@@ -24,6 +23,7 @@ import {Typography} from '~frontend/global-styles/typography';
 import i18n = require('i18n-js');
 import {GatheringAttendees, GatheringInfo} from '~frontend/ssb/types';
 import {Images} from '~frontend/global-styles/images';
+import {blobIdToUrl} from '~frontend/ssb/utils/from-ssb';
 import AttendeesRow from './AttendeesRow';
 import {withTitle} from '../../withTitle';
 
@@ -429,20 +429,22 @@ class Banner extends PureComponent<
       h(View, {style: styles.bannerTouchable}),
     ]);
 
-    const hasImage = gatheringInfo.image && gatheringInfo.image.link;
-    const uri = hasImage ? toUrl(gatheringInfo.image!.link) : null;
+    const imageUri =
+      gatheringInfo.image && gatheringInfo.image.link
+        ? blobIdToUrl(gatheringInfo.image.link)
+        : undefined;
 
     const image = h(
       ImageBackground,
       {
         key: 'preview',
-        source: hasImage ? {uri} : pictureIcon,
+        source: imageUri ? {uri: imageUri} : pictureIcon,
         accessible: true,
         accessibilityRole: 'image',
         accessibilityLabel: t(
           'message.image.without_caption.accessibility_label',
         ),
-        resizeMode: hasImage ? 'cover' : 'center',
+        resizeMode: imageUri ? 'cover' : 'center',
         style: [styles.bannerImage, {...getBannerImageDimensions()}],
       },
       [title, touchable, dateInfo],
@@ -451,7 +453,7 @@ class Banner extends PureComponent<
     return h(View, {key: gatheringInfo.about}, [
       h(ImageView, {
         key: 'full',
-        images: hasImage ? [{uri}] : [],
+        images: imageUri ? [{uri: imageUri}] : [],
         imageIndex: 0,
         visible: this.state.fullscreen,
         swipeToCloseEnabled: false,

@@ -33,6 +33,7 @@ import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {Typography} from '~frontend/global-styles/typography';
 import {GlobalEventBus} from '~frontend/drivers/eventbus';
+import {portMappings} from '~frontend/drivers/ssb/ports';
 import ZoomableImage from './ZoomableImage';
 import AudioPlayer from './AudioPlayer';
 
@@ -541,7 +542,7 @@ export default class Markdown extends PureComponent<Props> {
         .use(linkifySsbSigilMsgs)
         .use(linkifyMiscUris)
         .use(linkifyHashtags)
-        .use(imagesToSsbServeBlobs)
+        .use(imagesToSsbServeBlobs, {port: portMappings.get('ssb-serve-blobs')})
         .processSync(this.props.text).contents,
       astPlugins: [normalizeForReactNative()],
       allowedTypes: Object.keys(renderers),

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -24,11 +24,12 @@ import HeaderButton from './HeaderButton';
 import ToastWeb from '~frontend/drivers/toast/ToastWeb';
 import {IconNames} from '~frontend/global-styles/icons';
 import {Images} from '~frontend/global-styles/images';
+import {urlToBlobId} from '~frontend/ssb/utils/from-ssb';
+
 const ToastIOS =
   Platform.OS === 'ios'
     ? require('react-native-tiny-toast').default
     : undefined;
-const urlToBlobId = require('ssb-serve-blobs/url-to-id');
 
 const $ = createElement;
 

@@ -1,10 +1,12 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import {ContactContent, FeedId, Msg, PostContent} from 'ssb-typescript';
 const Ref = require('ssb-ref');
-const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
+const idToUrl = require('ssb-serve-blobs/id-to-url');
+const urlToId = require('ssb-serve-blobs/url-to-id');
+import {portMappings} from '~frontend/drivers/ssb/ports';
 import {ContactEvent} from '../types';
 
 export function displayName(name: string | undefined, id: FeedId): string {
@@ -17,9 +19,16 @@ function shortFeedId(feedId: FeedId | undefined): string {
   return feedId.slice(0, 11) + '\u2026';
 }
 
-export function imageToImageUrl(image: string | undefined) {
-  if (!image) return undefined;
-  else return blobIdToUrl(image) as string;
+export function blobIdToUrl(blobId: string): string {
+  return idToUrl(blobId, {
+    port: portMappings.get('ssb-serve-blobs'),
+  });
+}
+
+export function urlToBlobId(url: string) {
+  return urlToId(url, {
+    port: portMappings.get('ssb-serve-blobs'),
+  });
 }
 
 export function getPostText(msg: Msg<PostContent>): string {

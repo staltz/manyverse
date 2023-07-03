@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2021 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -21,13 +21,16 @@ function augmentPeerWithExtras(
   kv: PeerKV,
   connDB: ConnDB,
   aboutSelf: AboutSelf,
+  serveBlobsPort: number,
 ): PeerKV {
   const [addr, peer] = kv;
   if (!peer.key) return kv;
   const output = aboutSelf.getProfile(peer.key);
   if (!output) return kv;
   const name = output.name;
-  const imageUrl = output.image ? blobIdToUrl(output.image) : void 0;
+  const imageUrl = output.image
+    ? blobIdToUrl(output.image, {port: serveBlobsPort})
+    : void 0;
   const isInDB = connDB.has(addr);
   return [addr, {name, imageUrl, isInDB, ...peer}];
 }
@@ -41,7 +44,12 @@ function augmentPeersWithExtras(ssb: any) {
         const aboutSelf = ssb.db.getIndex('aboutSelf');
         const connDB = ssb.conn.db();
         const newKVs = kvs.map((kv) =>
-          augmentPeerWithExtras(kv, connDB, aboutSelf),
+          augmentPeerWithExtras(
+            kv,
+            connDB,
+            aboutSelf,
+            ssb.config.serveBlobs.port,
+          ),
         );
         cb(null, newKVs);
       }

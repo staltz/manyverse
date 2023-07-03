@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -31,7 +31,7 @@ import {
   GatheringAttendees,
   GatheringAttendee,
 } from '../types';
-import {imageToImageUrl, voteExpressionToReaction} from '../utils/from-ssb';
+import {blobIdToUrl, voteExpressionToReaction} from '../utils/from-ssb';
 import manifest from '../manifest';
 
 type SSB = ClientAPI<
@@ -74,7 +74,7 @@ function mutateMsgWithLiveExtras(
     const id = msg.value.author;
     const [, output] = await run<any>(ssb.cachedAboutSelf.get)(id);
     const name = output.name;
-    const imageUrl = imageToImageUrl(output.image);
+    const imageUrl = output.image ? blobIdToUrl(output.image) : undefined;
 
     // Get reactions stream
     const reactions: Stream<Reactions> = options.includeReactions
@@ -155,7 +155,7 @@ function mutatePrivateThreadWithLiveExtras(ssb: SSB) {
         // Fetch name and image
         const [, output] = await run<any>(ssb.cachedAboutSelf.get)(id);
         const name = output.name;
-        const imageUrl = imageToImageUrl(output.image);
+        const imageUrl = output.image ? blobIdToUrl(output.image) : undefined;
 
         // Push
         pvthread.recps.push({id, name, imageUrl});
@@ -178,7 +178,9 @@ function createGatheringAttendees$(
             (response: any): GatheringAttendee => ({
               feedId,
               name: response.name,
-              avatarUrl: imageToImageUrl(response.image),
+              avatarUrl: response.image
+                ? blobIdToUrl(response.image)
+                : undefined,
             }),
           ),
       );

@@ -42,8 +42,9 @@ import {
   ChannelSubscribeContent,
 } from '~frontend/ssb/types';
 import makeClient, {SSBClient} from '~frontend/ssb/client';
-import {imageToImageUrl} from '~frontend/ssb/utils/from-ssb';
+import {blobIdToUrl} from '~frontend/ssb/utils/from-ssb';
 import backend from './backend';
+import {isKnownPortPurpose, portMappings} from './ports';
 
 export interface Suggestion {
   type: 'mention' | 'hashtag';
@@ -327,7 +328,9 @@ export class SSBSource {
               return;
             }
             const name = output.name;
-            const imageUrl = imageToImageUrl(output.image);
+            const imageUrl = output.image
+              ? blobIdToUrl(output.image)
+              : undefined;
             cb(null, {name, imageUrl, id});
           });
         }),
@@ -376,7 +379,7 @@ export class SSBSource {
     ).map((profile) => ({
       id,
       ...profile,
-      imageUrl: imageToImageUrl(profile.image),
+      imageUrl: profile.image ? blobIdToUrl(profile.image) : undefined,
     }));
   }
 
@@ -384,7 +387,7 @@ export class SSBSource {
     return this.fromPullStream<AboutSelf>((ssb) =>
       isReady(ssb) ? ssb.aboutSelf.stream(id) : pull.empty(),
     ).map((profile) => {
-      const imageUrl = imageToImageUrl(profile.image);
+      const imageUrl = profile.image ? blobIdToUrl(profile.image) : undefined;
       return {...profile, id, imageUrl} as AboutAndExtras;
     });
   }
@@ -557,7 +560,9 @@ export class SSBSource {
             .map((suggestion) => ({
               ...suggestion,
               type: 'mention' as const,
-              imageUrl: imageToImageUrl(suggestion.image),
+              imageUrl: suggestion.image
+                ? blobIdToUrl(suggestion.image)
+                : undefined,
             })),
         );
       })
@@ -704,7 +709,7 @@ export class SSBSource {
               const [about, snapshotAbout, youFollow, youBlock] = results;
               const name = about.name ?? snapshotAbout.name;
               const image = about.image;
-              const imageUrl = imageToImageUrl(image);
+              const imageUrl = image ? blobIdToUrl(image) : undefined;
               cb(null, {
                 feedId,
                 name,
@@ -1277,7 +1282,21 @@ async function consumeSink(
 export function ssbDriver(sink: Stream<Req>): SSBSource {
   const identityReady$ = xs.create<boolean>({
     start(listener: Listener<boolean>) {
-      this.lowLevelListener = (msg: RestoreIdentityResponse) => {
+      this.lowLevelListener = ({
+        msg,
+        ports,
+      }: {
+        msg: RestoreIdentityResponse;
+        ports?: Record<string, number>;
+      }) => {
+        if (ports) {
+          for (const [purpose, port] of Object.entries(ports)) {
+            if (isKnownPortPurpose(purpose)) {
+              portMappings.set(purpose, port);
+            }
+          }
+        }
+
         if (msg === 'IDENTITY_READY') listener.next(true);
         else if (msg === 'IDENTITY_CLEARED') listener.next(false);
       };

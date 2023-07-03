@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2020-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -12,9 +12,9 @@ import AudioRecorder from '~frontend/components/AudioRecorder';
 import TopBar from '~frontend/components/TopBar';
 import Button from '~frontend/components/Button';
 import StatusBarBlank from '~frontend/components/StatusBarBlank';
+import {blobIdToUrl} from '~frontend/ssb/utils/from-ssb';
 import {State} from './model';
 import {styles} from './styles';
-const blobIdToUrl = require('ssb-serve-blobs/id-to-url');
 
 export default function view(state$: Stream<State>) {
   return state$.map((state) => {
@@ -23,7 +23,7 @@ export default function view(state$: Stream<State>) {
       h(TopBar, {sel: 'topbar', title: t('compose_audio.title')}),
 
       h(View, {style: styles.container}, [
-        state.status === 'recorded'
+        state.status === 'recorded' && state.blobId
           ? Platform.OS === 'web'
             ? $('audio', {
                 src: blobIdToUrl(state.blobId),

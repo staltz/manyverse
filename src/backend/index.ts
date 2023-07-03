@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -48,7 +48,7 @@ function setupSentryNodejs(platform: 'mobile' | 'desktop') {
 
 interface Frontend {
   addListener(type: string, fn: (msg: string) => void): void;
-  send(type: string, msg: string): void;
+  send(type: string, data: {msg: string; ports?: Record<string, number>}): void;
 }
 let frontend: Frontend;
 
@@ -187,29 +187,35 @@ function setupIdentityThenSSB() {
   frontend.addListener('identity', (request) => {
     if (request === 'CREATE' && !startedSSB) {
       startedSSB = true;
-      startSSB(true);
-      frontend.send('identity', 'IDENTITY_READY');
+      startSSB(true).then(({ports}) => {
+        frontend.send('identity', {msg: 'IDENTITY_READY', ports});
+      });
     } else if (request === 'USE' && !startedSSB) {
       startedSSB = true;
-      startSSB(false);
-      frontend.send('identity', 'IDENTITY_READY');
+      startSSB(false).then(({ports}) => {
+        frontend.send('identity', {msg: 'IDENTITY_READY', ports});
+      });
     } else if (request.startsWith('RESTORE:') && !startedSSB) {
       const words = request.split('RESTORE: ')[1].trim();
       const response = restore(words);
       if (response === 'IDENTITY_READY') {
         startedSSB = true;
-        startSSB(false);
+        startSSB(false).then(({ports}) => {
+          frontend.send('identity', {msg: response, ports});
+        });
+      } else {
+        frontend.send('identity', {msg: response});
       }
-      frontend.send('identity', response);
     } else if (request === 'MIGRATE' && !startedSSB) {
       migrate(() => {
         startedSSB = true;
-        startSSB(false);
-        frontend.send('identity', 'IDENTITY_READY');
+        startSSB(false).then(({ports}) => {
+          frontend.send('identity', {msg: 'IDENTITY_READY', ports});
+        });
       });
     } else if (request === 'CLEAR' && startedSSB) {
       startedSSB = false;
-      frontend.send('identity', 'IDENTITY_CLEARED');
+      frontend.send('identity', {msg: 'IDENTITY_CLEARED'});
       (process as any)._ssb.close(true, () => {
         clear(() => {
           (process as any)._ssb = null;
