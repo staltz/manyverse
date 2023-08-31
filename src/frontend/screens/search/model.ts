@@ -6,6 +6,7 @@ import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import {FeedId, PostContent} from 'ssb-typescript';
 import {isFeedSSBURI, isMessageSSBURI} from 'ssb-uri2';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 const Ref = require('ssb-ref');
 import {GetReadable, MentionSuggestion, SSBSource} from '~frontend/drivers/ssb';
 import {MsgAndExtras, ThreadSummaryWithExtras} from '~frontend/ssb/types';
@@ -38,6 +39,7 @@ export interface State {
   searchResults: SearchResults | null;
   subscribedHashtags: Array<string> | null;
   suggestions: Array<string> | null;
+  hasComposeDraft: boolean;
 }
 
 export interface Actions {
@@ -46,6 +48,7 @@ export interface Actions {
   clearQuery$: Stream<any>;
   toggleHashtagSubscribe$: Stream<boolean>;
   selectSuggestion$: Stream<string>;
+  refreshComposeDraft$: Stream<any>;
 }
 
 function searchContent(
@@ -81,6 +84,7 @@ export default function model(
   props$: Stream<Props>,
   state$: Stream<State>,
   ssbSource: SSBSource,
+  asyncStorageSource: AsyncStorageSource,
   actions: Actions,
 ) {
   const propsReducer$ = props$.take(1).map(
@@ -98,6 +102,7 @@ export default function model(
           searchResults: null,
           subscribedHashtags: null,
           suggestions: null,
+          hasComposeDraft: false,
         };
       },
   );
@@ -205,6 +210,16 @@ export default function model(
       },
   );
 
+  const getComposeDraftReducer$ = actions.refreshComposeDraft$
+    .map(() => asyncStorageSource.getItem('composeDraft'))
+    .flatten()
+    .map(
+      (composeDraft) =>
+        function getComposeDraftReducer(prev: State): State {
+          return {...prev, hasComposeDraft: !!composeDraft};
+        },
+    );
+
   return xs.merge(
     propsReducer$,
     initSuggestionsReducer,
@@ -215,5 +230,6 @@ export default function model(
     updateSearchResultsReducer$,
     updateSubscribedHashtagsReducer$,
     updateQueryWithSuggestionReducer$,
+    getComposeDraftReducer$,
   );
 }

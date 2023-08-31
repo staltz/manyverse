@@ -1,9 +1,10 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
 import xs, {Stream} from 'xstream';
 import sampleCombine from 'xstream/extra/sampleCombine';
+import sample from 'xstream-sample';
 import {FeedId, Msg, MsgId, PostContent} from 'ssb-typescript';
 import {isReplyPostMsg} from 'ssb-typescript/utils';
 import {Command} from 'cycle-native-navigation';
@@ -14,7 +15,9 @@ import {
 } from '~frontend/screens/thread';
 import {navOptions as profileScreenNavOpts} from '~frontend/screens/profile';
 import {Props as ProfileProps} from '~frontend/screens/profile/props';
+import {Props as ComposeProps} from '~frontend/screens/compose/props';
 import {navOptions as accountsScreenNavOptions} from '~frontend/screens/accounts/layout';
+import {navOptions as composeScreenNavOptions} from '~frontend/screens/compose';
 import {Props as AccountProps} from '~frontend/screens/accounts';
 import {navOptions as rawMsgScreenNavOpts} from '~frontend/screens/raw-msg';
 import {Screens} from '~frontend/screens/enums';
@@ -31,6 +34,7 @@ interface Actions {
     title: string;
     accounts: Array<FeedId> | Reactions;
   }>;
+  goToCompose$: Stream<any>;
 }
 
 export default function navigation(
@@ -181,6 +185,28 @@ export default function navigation(
       } as Command),
   );
 
+  const toCompose$ = actions.goToCompose$.compose(sample(state$)).map(
+    (state) =>
+      ({
+        type: 'push',
+        layout: {
+          component: {
+            name: Screens.Compose,
+            passProps: {
+              text:
+                !state.hasComposeDraft &&
+                state.searchResults?.type === 'HashtagResults'
+                  ? state.query + '\n\n'
+                  : undefined,
+              selfAvatarUrl: state.selfAvatarUrl,
+              selfFeedId: state.selfFeedId,
+            } as ComposeProps,
+            options: composeScreenNavOptions,
+          },
+        },
+      } as Command),
+  );
+
   return xs.merge(
     back$,
     toThread$,
@@ -189,5 +215,6 @@ export default function navigation(
     toProfile$,
     toRawMsg$,
     toAccounts$,
+    toCompose$,
   );
 }

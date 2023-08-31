@@ -20,6 +20,7 @@ import {
   PressReactionsEvent,
 } from '~frontend/ssb/types';
 import {t} from '~frontend/drivers/localization';
+import {Screens} from '~frontend/screens/enums';
 
 interface ProfileNavEvent {
   authorFeedId: FeedId;
@@ -113,6 +114,15 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     .select('suggestions')
     .events<string>('press');
 
+  const refreshComposeDraft$ = navSource
+    .globalDidDisappear(Screens.Compose)
+    .startWith(null as any) as Stream<any>;
+
+  const goToCompose$: Stream<string> = reactSource
+    .select('fab')
+    .events('pressItem')
+    .filter((action) => action === 'compose');
+
   return {
     goBack$,
     updateQueryNow$,
@@ -129,5 +139,7 @@ export default function intent(navSource: NavSource, reactSource: ReactSource) {
     addReactionMsg$,
     toggleHashtagSubscribe$,
     selectSuggestion$,
+    refreshComposeDraft$,
+    goToCompose$,
   };
 }

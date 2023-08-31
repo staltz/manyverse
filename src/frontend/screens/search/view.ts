@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-import {Stream} from 'xstream';
+import xs, {Stream} from 'xstream';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
@@ -17,8 +17,9 @@ import {
 import {Msg, PostContent} from 'ssb-typescript';
 import PullFlatList from 'pull-flat-list';
 const stripMarkdownOneline = require('strip-markdown-oneline');
+import {isPublic} from 'ssb-typescript/utils';
 import {t} from '~frontend/drivers/localization';
-import {GetReadable} from '~frontend/drivers/ssb';
+import {GetReadable, SSBSource} from '~frontend/drivers/ssb';
 import {Palette} from '~frontend/global-styles/palette';
 import {Dimensions} from '~frontend/global-styles/dimens';
 import {IconNames} from '~frontend/global-styles/icons';
@@ -31,6 +32,10 @@ import HeaderButton from '~frontend/components/HeaderButton';
 import AccountsList from '~frontend/components/AccountsList';
 import ToggleButton from '~frontend/components/ToggleButton';
 import Feed from '~frontend/components/Feed';
+import {
+  Props as FabProps,
+  FloatingActionButton,
+} from '~frontend/components/FloatingActionButton';
 import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {MsgAndExtras} from '~frontend/ssb/types';
 import {displayName} from '~frontend/ssb/utils/from-ssb';
@@ -222,19 +227,29 @@ class HashtagResultsHeader extends PureComponent<{
   }
 }
 
-const SearchResults: React.FC<State> = (state) => {
+const SearchResults: React.FC<{state: State; ssbSource: SSBSource}> = ({
+  ssbSource,
+  state,
+}) => {
   const {queryInProgress, searchResults} = state;
   if (!queryInProgress || !searchResults) {
     return null;
   }
+
+  const postContainsQuery = (msg: Msg<PostContent>) =>
+    msg.value.content.text.includes(state.query);
 
   switch (searchResults.type) {
     case 'HashtagResults':
       return h(Feed, {
         sel: 'feed',
         getReadable: searchResults.getReadable,
-        prePublication$: null,
-        postPublication$: null,
+        prePublication$: ssbSource.publishHook$
+          .filter(isPublic)
+          .filter(postContainsQuery),
+        postPublication$: ssbSource.selfPublicRoots$.filter((thread) =>
+          postContainsQuery(thread.root as Msg<PostContent>),
+        ),
         selfFeedId: state.selfFeedId,
         lastSessionTimestamp: state.lastSessionTimestamp,
         preferredReactions: state.preferredReactions,
@@ -329,7 +344,11 @@ class Suggestions extends PureComponent<{
   }
 }
 
-export default function view(state$: Stream<State>) {
+export default function view(
+  state$: Stream<State>,
+  fabProps$: Stream<FabProps>,
+  ssbSource: SSBSource,
+) {
   const setInputNativeProps$ = state$
     .compose(
       dropRepeats((s1, s2) => s1.queryOverrideFlag === s2.queryOverrideFlag),
@@ -339,18 +358,22 @@ export default function view(state$: Stream<State>) {
       text: state.queryOverride,
     }));
 
-  return state$
-    .compose(
-      dropRepeatsByKeys([
-        'queryInProgress',
-        'query',
-        'preferredReactions',
-        'searchResults',
-        'subscribedHashtags',
-        'suggestions',
-      ]),
+  return xs
+    .combine(
+      state$.compose(
+        dropRepeatsByKeys([
+          'queryInProgress',
+          'query',
+          'preferredReactions',
+          'searchResults',
+          'subscribedHashtags',
+          'suggestions',
+          'hasComposeDraft',
+        ]),
+      ),
+      fabProps$,
     )
-    .map((state) =>
+    .map(([state, fabProps]) =>
       h(View, {style: styles.screen}, [
         h(StatusBarBlank),
         h(TopBar, {sel: 'topbar'}, [
@@ -384,7 +407,10 @@ export default function view(state$: Stream<State>) {
         state.query === '#' && state.suggestions && state.suggestions.length > 0
           ? h(Suggestions, {sel: 'suggestions', suggestions: state.suggestions})
           : null,
-        h(View, {style: styles.container}, [h(SearchResults, state)]),
+        h(View, {style: styles.container}, [
+          h(SearchResults, {state, ssbSource}),
+        ]),
+        h(FloatingActionButton, fabProps),
       ]),
     );
 }

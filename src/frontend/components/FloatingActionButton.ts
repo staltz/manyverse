@@ -1,0 +1,55 @@
+// SPDX-FileCopyrightText: 2023 The Manyverse Authors
+//
+// SPDX-License-Identifier: MPL-2.0
+
+import {h} from '@cycle/react';
+import {Platform, StyleSheet, View} from 'react-native';
+import {
+  FloatingAction,
+  IFloatingActionProps,
+} from 'react-native-floating-action';
+import {Dimensions} from '~frontend/global-styles/dimens';
+import {Palette} from '~frontend/global-styles/palette';
+import {withTitle} from './withTitle';
+
+const FIXED_PROPS: IFloatingActionProps = {
+  distanceToEdge: {
+    vertical:
+      Dimensions.verticalSpaceTiny + Dimensions.verticalSpaceNormal + 24,
+    horizontal: Dimensions.horizontalSpaceBig,
+  },
+  iconHeight: Dimensions.iconSizeNormal,
+  iconWidth: Dimensions.iconSizeNormal,
+  overlayColor: Palette.transparencyDark,
+};
+
+export interface Props
+  extends Omit<
+    IFloatingActionProps,
+    | 'distanceToEdge'
+    | 'iconHeight'
+    | 'iconWidth'
+    | 'overlayColor'
+    | 'overrideWithAction'
+  > {
+  sel: string;
+  title: string;
+}
+
+export function FloatingActionButton(props: Props) {
+  return Platform.OS === 'web'
+    ? h(
+        withTitle(View),
+        {style: styles.desktopFabContainer, title: props.title},
+        [h(FloatingAction, {...props, ...FIXED_PROPS})],
+      )
+    : h(FloatingAction, {...props, ...FIXED_PROPS});
+}
+
+const styles = StyleSheet.create({
+  desktopFabContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5)`,
+  },
+});

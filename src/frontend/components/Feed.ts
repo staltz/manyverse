@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -94,9 +94,26 @@ function Separator() {
 }
 
 interface Props {
+  /**
+   * The main pull-stream of thread objects that determines the content of the
+   * feed.
+   */
   getReadable: GetReadable<ThreadSummaryWithExtras> | null;
+
+  /**
+   * A stream where its events should trigger the appearance of a placeholder
+   * thread card, usually just after the user has published a new thread but
+   * before it has been received by the database.
+   */
   prePublication$: Stream<any> | null;
+
+  /**
+   * A stream where its events are new threads authored by the user and just now
+   * have been received by the database, and should trigger the disappearance of
+   * the placeholder thread, replaced by the new thread rendered in the feed.
+   */
   postPublication$: Stream<ThreadSummaryWithExtras> | null;
+
   scrollToTop$?: Stream<any> | null;
   selfFeedId: FeedId;
   lastSessionTimestamp: number;

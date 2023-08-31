@@ -8,6 +8,7 @@ import {ReactSource} from '@cycle/react';
 import {Platform} from 'react-native';
 import {Reducer, StateSource} from '@cycle/state';
 import {Command, NavSource} from 'cycle-native-navigation';
+import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {Req, SSBSource} from '~frontend/drivers/ssb';
 import {Toast} from '~frontend/drivers/toast';
 import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
@@ -20,6 +21,7 @@ import model, {State} from './model';
 import ssb from './ssb';
 import navigation from './navigation';
 import {Props as P} from './props';
+import {floatingAction} from './fab';
 
 export type Props = P;
 
@@ -30,6 +32,7 @@ export interface Sources {
   ssb: SSBSource;
   state: StateSource<State>;
   dialog: DialogSource;
+  asyncstorage: AsyncStorageSource;
 }
 
 export interface Sinks {
@@ -75,8 +78,15 @@ export function search(sources: Sources): Sinks {
     goToRawMsg$: messageEtcSinks.goToRawMsg$,
   };
 
-  const reducer$ = model(sources.props, state$, sources.ssb, actions);
-  const vdom$ = view(state$);
+  const reducer$ = model(
+    sources.props,
+    state$,
+    sources.ssb,
+    sources.asyncstorage,
+    actions,
+  );
+  const fabProps$ = floatingAction(sources.state.stream);
+  const vdom$ = view(state$, fabProps$, sources.ssb);
   const command$ = navigation(actionsPlus, state$);
   const dismissKeyboard$ = xs
     .merge(actions.goBack$, actions.goToThread$)
