@@ -9,7 +9,7 @@ buildscript {
         buildToolsVersion = "30.0.2"
         minSdkVersion = 21
         targetSdkVersion = 26
-        targetSdkVersionForGooglePlay = 31
+        targetSdkVersionForGooglePlay = 33
         compileSdkVersion = 30
         ndkVersion = "24.0.8215888"
         kotlinVersion = "1.5.31"
