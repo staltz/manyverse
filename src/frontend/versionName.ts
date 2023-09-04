@@ -2,4 +2,4 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-export default '0.2307.3-beta';
+export default '0.2309.4-beta';

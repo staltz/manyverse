@@ -2,6 +2,10 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2309.4-beta
+
+* Feature: show compose button on hashtag search ([see details](https://gitlab.com/staltz/manyverse/commit/5b5b8f74a8e155bd4c1b7dd02688c5c71bad7183))
+
 ## 0.2307.3-beta
 
 * Bug fix: use dynamic port for blobs ([see details](https://gitlab.com/staltz/manyverse/commit/ef40d54ae6a633874b9cfec1649d17415259c63d))
