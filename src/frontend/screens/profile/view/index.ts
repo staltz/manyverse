@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,10 +7,6 @@ import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {View, Animated, Platform} from 'react-native';
 const pull = require('pull-stream');
-import {
-  FloatingAction,
-  IFloatingActionProps,
-} from 'react-native-floating-action';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {isRootPostMsg, isPublic} from 'ssb-typescript/utils';
 import {GetReadable, SSBSource} from '~frontend/drivers/ssb';
@@ -20,8 +16,8 @@ import {Dimensions} from '~frontend/global-styles/dimens';
 import {Images} from '~frontend/global-styles/images';
 import Feed from '~frontend/components/Feed';
 import EmptySection from '~frontend/components/EmptySection';
-import {withTitle} from '~frontend/components/withTitle';
 import StatusBarBlank from '~frontend/components/StatusBarBlank';
+import {FloatingActionButton} from '~frontend/components/FloatingActionButton';
 import {State} from '../model';
 import {styles, AVATAR_SIZE} from './styles';
 import ProfileHeader from './ProfileHeader';
@@ -88,8 +84,9 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
       const isSelfProfile = state.displayFeedId === state.selfFeedId;
       const isBlocked = state.youBlock?.response ?? false;
 
-      const fab = h(FloatingAction, {
+      const fabSection = FloatingActionButton({
         sel: 'fab',
+        title: t('profile.floating_action_button.compose'),
         color: Palette.backgroundCTA,
         visible: isSelfProfile,
         actions: [
@@ -100,29 +97,14 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
             text: t('profile.floating_action_button.compose'),
           },
         ],
-        overrideWithAction: true,
-        iconHeight: 24,
-        iconWidth: 24,
         distanceToEdge:
           Platform.OS === 'web'
-            ? ({
+            ? {
                 vertical: Dimensions.verticalSpaceLarge,
                 horizontal: Dimensions.horizontalSpaceBig,
-              } as any)
+              }
             : 30,
-      } as IFloatingActionProps);
-
-      const fabSection =
-        Platform.OS === 'web'
-          ? h(
-              withTitle(View),
-              {
-                style: styles.desktopFabContainer,
-                title: t('profile.floating_action_button.compose'),
-              },
-              [fab],
-            )
-          : fab;
+      });
 
       let getReadable = pullNever;
       if (isBlocked) getReadable = pull.empty;

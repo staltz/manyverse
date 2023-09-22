@@ -14,6 +14,7 @@ import {Command as AlertCommand, DialogSource} from '~frontend/drivers/dialogs';
 import {Toast} from '~frontend/drivers/toast';
 import messageEtc from '~frontend/components/messageEtc';
 import messageShare from '~frontend/components/messageShare';
+import {Props as FabProps} from '~frontend/components/FloatingActionButton';
 import {timestampAlert} from '~frontend/drivers/dialogs/sharedCommands';
 import intent from './intent';
 import view from './view';
@@ -22,7 +23,6 @@ import ssb from './ssb';
 import floatingAction from './fab';
 import asyncStorage from './asyncstorage';
 import navigation from './navigation';
-import {FabProps} from '../fab';
 
 export interface Sources {
   screen: ReactSource;

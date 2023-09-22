@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -22,13 +22,15 @@ import {
   TouchableOpacityProps,
 } from 'react-native';
 import {h} from '@cycle/react';
-import {FloatingAction} from 'react-native-floating-action';
+import {
+  Props as FabProps,
+  FloatingActionButton,
+} from '~frontend/components/FloatingActionButton';
 import {t} from '~frontend/drivers/localization';
 import PublicTabIcon from '~frontend/components/tab-buttons/PublicTabIcon';
 import PrivateTabIcon from '~frontend/components/tab-buttons/PrivateTabIcon';
 import ActivityTabIcon from '~frontend/components/tab-buttons/ActivityTabIcon';
 import ConnectionsTabIcon from '~frontend/components/tab-buttons/ConnectionsTabIcon';
-import {withTitle} from '~frontend/components/withTitle';
 import ProgressBar from '~frontend/components/ProgressBar';
 import StatusBarBlank from '~frontend/components/StatusBarBlank';
 import {
@@ -39,7 +41,6 @@ import {
   PROGRESS_BAR_HEIGHT,
 } from './styles';
 import {State} from './model';
-import {FabProps} from './fab';
 
 class CurrentTabPage extends PureComponent<{
   currentTab: State['currentTab'];
@@ -65,17 +66,7 @@ class CurrentTabPage extends PureComponent<{
     const isActivity = currentTab === 'activity';
     const isConnections = currentTab === 'connections';
 
-    const fabSection =
-      Platform.OS === 'web'
-        ? h(
-            withTitle(View),
-            {
-              style: styles.desktopFabContainer,
-              title: fab.title,
-            },
-            [h(FloatingAction, fab)],
-          )
-        : h(FloatingAction, fab);
+    const fabSection = FloatingActionButton(fab);
 
     return h(Fragment, [
       h(View, {style: [isPublic ? shown : hidden]}, [

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -16,12 +16,6 @@ export const styles = StyleSheet.create({
   scrollContainerInner: {
     paddingBottom: Dimensions.verticalSpaceNormal,
     minHeight: 400,
-  },
-
-  desktopFabContainer: {
-    position: 'absolute',
-    bottom: 0,
-    right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5)`,
   },
 
   modesContainer: {

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,15 +7,15 @@ import debounce from 'xstream/extra/debounce';
 import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {Platform, ScrollView, View} from 'react-native';
-import {FloatingAction} from 'react-native-floating-action';
 import {t} from '~frontend/drivers/localization';
 import {Palette} from '~frontend/global-styles/palette';
-import {Dimensions} from '~frontend/global-styles/dimens';
 import {Images} from '~frontend/global-styles/images';
 import TopBar from '~frontend/components/TopBar';
 import StatusBarBlank from '~frontend/components/StatusBarBlank';
-import {withTitle} from '~frontend/components/withTitle';
-import {FabProps} from '~frontend/screens/central/fab';
+import {
+  Props as FabProps,
+  FloatingActionButton,
+} from '~frontend/components/FloatingActionButton';
 import {State} from '../model';
 import {styles} from './styles';
 import ConnectivityModes from './ConnectivityModes';
@@ -38,14 +38,6 @@ function getFABProps(state: State): FabProps {
       },
     ],
     title: t('connections.floating_action_button.add_connection'),
-    overrideWithAction: true,
-    iconHeight: 24,
-    iconWidth: 24,
-    overlayColor: Palette.transparencyDark,
-    distanceToEdge: {
-      vertical: Dimensions.verticalSpaceLarge,
-      horizontal: Dimensions.horizontalSpaceBig,
-    },
     floatingIcon: Images.plusNetwork,
   };
 }
@@ -75,13 +67,7 @@ export default function view(state$: Stream<State>) {
           },
           [h(ConnectivityModes, state), h(Body, state)],
         ),
-        Platform.OS === 'web'
-          ? h(
-              withTitle(View),
-              {style: styles.desktopFabContainer, title: fabProps.title},
-              [h(FloatingAction, fabProps)],
-            )
-          : h(FloatingAction, fabProps),
+        FloatingActionButton(fabProps),
       ]);
     });
 }

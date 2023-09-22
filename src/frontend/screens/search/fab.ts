@@ -10,24 +10,25 @@ import {t} from '~frontend/drivers/localization';
 import {State} from './model';
 
 export function floatingAction(state$: Stream<State>): Stream<FabProps> {
-  return state$.map((state) => ({
-    sel: 'fab',
-    color: state.hasComposeDraft
-      ? Palette.backgroundWarningAction
-      : Palette.backgroundCTA,
-    visible:
-      state.query.startsWith('#') &&
-      state.query.length > 2 &&
-      !!state.selfFeedId,
-    actions: [
-      {
-        color: Palette.backgroundCTA,
-        name: 'compose',
-        icon: Images.pencil,
-        text: t('public.floating_action_button.compose'),
-      },
-    ],
-    title: t('profile.floating_action_button.compose'),
-    overrideWithAction: true,
-  }));
+  return state$.map(
+    (state): FabProps => ({
+      sel: 'fab',
+      color: state.hasComposeDraft
+        ? Palette.backgroundWarningAction
+        : Palette.backgroundCTA,
+      visible:
+        state.query.startsWith('#') &&
+        state.query.length > 2 &&
+        !!state.selfFeedId,
+      actions: [
+        {
+          color: Palette.backgroundCTA,
+          name: 'compose',
+          icon: Images.pencil,
+          text: t('public.floating_action_button.compose'),
+        },
+      ],
+      title: t('profile.floating_action_button.compose'),
+    }),
+  );
 }

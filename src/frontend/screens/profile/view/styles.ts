@@ -295,12 +295,6 @@ export const styles = StyleSheet.create({
     }),
   },
 
-  desktopFabContainer: {
-    position: 'absolute',
-    bottom: 0,
-    right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5)`,
-  },
-
   emptySection: {
     marginTop: Dimensions.verticalSpaceLarger,
   },

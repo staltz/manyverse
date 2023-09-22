@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -7,6 +7,7 @@ import {ReactElement} from 'react';
 import {Reducer, StateSource} from '@cycle/state';
 import {ReactSource} from '@cycle/react';
 import {Command, NavSource} from 'cycle-native-navigation';
+import {Props as FabProps} from '~frontend/components/FloatingActionButton';
 import {State as AppState} from '~frontend/drivers/appstate';
 import {NetworkSource} from '~frontend/drivers/network';
 import {SSBSource} from '~frontend/drivers/ssb';
@@ -18,7 +19,6 @@ import view from './view';
 import navigation from './navigation';
 import floatingAction from './fab';
 import model from './model';
-import {FabProps} from '../fab';
 
 export interface Sources {
   screen: ReactSource;

@@ -13,25 +13,22 @@ import {Palette} from '~frontend/global-styles/palette';
 import {withTitle} from './withTitle';
 
 const FIXED_PROPS: IFloatingActionProps = {
-  distanceToEdge: {
-    vertical:
-      Dimensions.verticalSpaceTiny + Dimensions.verticalSpaceNormal + 24,
-    horizontal: Dimensions.horizontalSpaceBig,
-  },
   iconHeight: Dimensions.iconSizeNormal,
   iconWidth: Dimensions.iconSizeNormal,
   overlayColor: Palette.transparencyDark,
+  overrideWithAction: true,
 };
 
 export interface Props
-  extends Omit<
-    IFloatingActionProps,
-    | 'distanceToEdge'
-    | 'iconHeight'
-    | 'iconWidth'
-    | 'overlayColor'
-    | 'overrideWithAction'
-  > {
+  extends Pick<
+      IFloatingActionProps,
+      | 'color'
+      | 'distanceToEdge'
+      | 'floatingIcon'
+      | 'overrideWithAction'
+      | 'visible'
+    >,
+    Required<Pick<IFloatingActionProps, 'actions'>> {
   sel: string;
   title: string;
 }

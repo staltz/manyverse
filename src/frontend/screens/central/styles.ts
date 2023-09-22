@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2022 The Manyverse Authors
+// SPDX-FileCopyrightText: 2018-2023 The Manyverse Authors
 //
 // SPDX-License-Identifier: MPL-2.0
 
@@ -121,11 +121,5 @@ export const styles = StyleSheet.create({
   progressPillText: {
     color: Palette.textBrand,
     textAlign: 'center',
-  },
-
-  desktopFabContainer: {
-    position: 'absolute',
-    bottom: 0,
-    right: `calc(50vw - ${Dimensions.desktopMiddleWidth.px} * 0.5)`,
   },
 });
