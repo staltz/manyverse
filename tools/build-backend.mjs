@@ -7,6 +7,10 @@
 import util from 'util';
 import ora from 'ora';
 import childProcess from 'child_process';
+import {createRequire} from 'module';
+const require = createRequire(import.meta.url);
+
+const fsExtra = require('fs-extra');
 
 const exec = util.promisify(childProcess.exec);
 const loading = ora('...').start();
@@ -101,7 +105,6 @@ async function runAndReport(label, task) {
       }),
     );
   } else {
-
     await runAndReport(
       'Apply patches to node modules',
       exec('npm run apply-patches', {
@@ -113,9 +116,13 @@ async function runAndReport(label, task) {
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Update package-lock.json in ./src/backend',
-      exec(
-        'cp ./desktop/package-lock.json ' + './src/backend/package-lock.json',
-      ),
+      // Use fs-extra to support Windows
+      fsExtra
+        .copy('./desktop/package-lock.json', './src/backend/package-lock.json')
+        .then(
+          () => ({stdout: '', stderr: ''}),
+          () => ({stdout: '', stderr: 'Failed to copy package-lock.json'}),
+        ),
     );
   } else {
     await runAndReport(
@@ -188,7 +195,19 @@ async function runAndReport(label, task) {
   if (targetPlatform === 'desktop') {
     await runAndReport(
       'Remove patches from the desktop folder',
-      exec('rm -rf ./desktop/patches &&' + 'rm ./desktop/package-lock.json'),
+      // Use fs-extra to support Windows
+      fsExtra.rmdir('./desktop/patches', {recursive: true}).then(
+        () => ({stdout: '', stderr: ''}),
+        () => ({stdout: '', stderr: 'Failed to remove patches folder'}),
+      ),
+    );
+    await runAndReport(
+      'Remove package-lock.json from the desktop folder',
+      // Use fs-extra to support Windows
+      fsExtra.rm('./desktop/package-lock.json').then(
+        () => ({stdout: '', stderr: ''}),
+        () => ({stdout: '', stderr: 'Failed to remove package-lock.json'}),
+      ),
     );
   }
 })();

@@ -20,7 +20,7 @@ In the explanations below, we will constantly refer to "development" and "target
 - If your target OS is **iOS**, only **macOS** computers are supported
 - If your target OS is **Android**, only **Linux and macOS** computers are supported
   - _No Windows support_ so far, unfortunately; but you can always choose to install Linux for free if you have a Windows computer
-- If your target is **desktop**, **Linux and macOS** computers are supported
+- If your target is **desktop**, then **Linux**, **macOS** and **Windows** computers are supported
 
 ### Development Container
 
@@ -59,6 +59,17 @@ If you're on macOS 12.5+, then you'll need to setup python2 because it was remov
 The paragraph below is commented out because we use --no-rust for all iOS compilations, on any version of macOS. So technically macOS Big Sur should be supported now.
 
 ️ **macOS Big Sur is not supported!** Manyverse only builds on macOS Catalina or older versions. This is because Apple made significant changes to how linking dynamic libraries work, and most non-Apple tooling (which we depend on) hasn't updated yet. For more information, read [issue 1371](https://gitlab.com/staltz/manyverse/-/issues/1371). You may have luck if you compile the backend without Rust, using `npm run build-backend-ios -- --no-rust` (read more about that some sections below). -->
+
+### Windows specifics
+
+If you are developing Manyverse desktop on a Windows computer, then we recommend [choco](https://chocolatey.org/) to install the required tools.
+
+Then make sure you run the following commands to install the required tools for building Node.js native addons:
+
+- `choco install python3`
+- `choco install visualstudio2017-workload-nodebuildtools`
+- `npm i -g windows-build-tools`
+
 
 ### Node.js
 
