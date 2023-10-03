@@ -2,6 +2,10 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2310.3-beta
+
+* Show dialog when pressing unrecognized links ([see details](https://gitlab.com/staltz/manyverse/commit/8b87edc3a0d867b55c77759d5e37f7e520480b95))
+
 ## 0.2309.4-beta
 
 * Feature: show compose button on hashtag search ([see details](https://gitlab.com/staltz/manyverse/commit/5b5b8f74a8e155bd4c1b7dd02688c5c71bad7183))
