@@ -21,6 +21,11 @@ export interface TriggerHashtagLink {
   hashtag: string;
 }
 
+export interface TriggerUnrecognizedLink {
+  type: 'triggerUnrecognizedLink';
+  url: string;
+}
+
 export interface HardwareBackOnCentralScreen {
   type: 'hardwareBackOnCentralScreen';
 }
@@ -95,6 +100,7 @@ export type GlobalEvent =
   | TriggerFeedCypherlink
   | TriggerMsgCypherlink
   | TriggerHashtagLink
+  | TriggerUnrecognizedLink
   | HardwareBackOnCentralScreen
   | DrawerToggleOnCentralScreen
   | AudioBlobComposed

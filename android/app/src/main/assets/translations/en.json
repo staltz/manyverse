@@ -27,6 +27,10 @@
     "external_link_confirmation": {
       "title": "Open link?",
       "description": "Do you want to open {{link}} in your browser?"
+    },
+    "unrecognized_link_confirmation": {
+      "title": "Unrecognized link",
+      "description": "This is not a web link neither an SSB link. Are you sure you want to open this? {{link}}"
     }
   },
   "date": {

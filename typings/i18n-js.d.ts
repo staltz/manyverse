@@ -23,6 +23,8 @@ declare module 'i18n-js' {
     | 'call_to_action.close_dialog.accessibility_label'
     | 'call_to_action.external_link_confirmation.title'
     | 'call_to_action.external_link_confirmation.description'
+    | 'call_to_action.unrecognized_link_confirmation.title'
+    | 'call_to_action.unrecognized_link_confirmation.description'
     | 'date.relative.past.years'
     | 'date.relative.past.months'
     | 'date.relative.past.weeks'

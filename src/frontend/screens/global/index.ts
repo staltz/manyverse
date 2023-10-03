@@ -20,6 +20,7 @@ import ssb from './ssb';
 import localization from './localization';
 import toast from './toast';
 import asyncStorage from './asyncstorage';
+import dialog from './dialog';
 
 export interface Sources {
   state: StateSource<State>;
@@ -40,6 +41,7 @@ export interface Sinks {
   toast: Stream<Toast>;
   globalEventBus: Stream<GlobalEvent>;
   asyncstorage: Stream<StorageCommand>;
+  linking: Stream<string>;
 }
 
 export function global(sources: Sources): Sinks {
@@ -58,6 +60,7 @@ export function global(sources: Sources): Sinks {
   const updateLocalization$ = localization(sources.fs);
   const req$ = ssb(updateLocalization$, actions);
   const toast$ = toast(actions, sources.ssb);
+  const dialogActions$ = dialog(actions, sources.dialog);
 
   const event$ = xs.merge<GlobalEvent>(
     actions.readCheckingNewVersionSetting$
@@ -84,5 +87,6 @@ export function global(sources: Sources): Sinks {
     toast: toast$,
     globalEventBus: event$,
     asyncstorage: storageCommand$,
+    linking: dialogActions$.openUnrecognizedLink$,
   };
 }

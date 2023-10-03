@@ -21,6 +21,7 @@ import {
   GlobalEvent,
   TriggerFeedCypherlink,
   TriggerHashtagLink,
+  TriggerUnrecognizedLink,
   TriggerMsgCypherlink,
 } from '~frontend/drivers/eventbus';
 import {SSBSource} from '~frontend/drivers/ssb';
@@ -204,6 +205,12 @@ export default function intent(
     .flatten()
     .take(1);
 
+  const openUnrecognizedLinkDialog$ = (
+    globalEventBus.filter(
+      (ev) => ev.type === 'triggerUnrecognizedLink',
+    ) as Stream<TriggerUnrecognizedLink>
+  ).map((ev) => ev.url);
+
   return {
     handleUriClaimInvite$,
     handleUriConsumeAlias$,
@@ -217,5 +224,6 @@ export default function intent(
     goToSearch$,
     goToCompact$,
     readCheckingNewVersionSetting$,
+    openUnrecognizedLinkDialog$,
   };
 }
