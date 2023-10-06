@@ -16,6 +16,7 @@ export default function floatingAction(): Stream<FabProps> {
     color: Palette.backgroundCTA,
     visible: false,
     actions: [],
+    overrideWithAction: false,
     title: t('connections.floating_action_button.add_connection'),
     distanceToEdge: {
       vertical: FAB_VERTICAL_DISTANCE_TO_EDGE,

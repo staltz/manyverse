@@ -8,6 +8,7 @@ import dropRepeatsByKeys from 'xstream-drop-repeats-by-keys';
 import {h} from '@cycle/react';
 import {Platform, ScrollView, View} from 'react-native';
 import {t} from '~frontend/drivers/localization';
+import {Dimensions} from '~frontend/global-styles/dimens';
 import {Palette} from '~frontend/global-styles/palette';
 import {Images} from '~frontend/global-styles/images';
 import TopBar from '~frontend/components/TopBar';
@@ -37,6 +38,11 @@ function getFABProps(state: State): FabProps {
         text: t('connections.floating_action_button.paste_invite'),
       },
     ],
+    overrideWithAction: true,
+    distanceToEdge: {
+      vertical: Dimensions.verticalSpaceLarge,
+      horizontal: Dimensions.horizontalSpaceBig,
+    },
     title: t('connections.floating_action_button.add_connection'),
     floatingIcon: Images.plusNetwork,
   };

@@ -97,6 +97,7 @@ export default function view(state$: Stream<State>, ssbSource: SSBSource) {
             text: t('profile.floating_action_button.compose'),
           },
         ],
+        overrideWithAction: true,
         distanceToEdge:
           Platform.OS === 'web'
             ? {

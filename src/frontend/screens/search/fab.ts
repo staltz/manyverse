@@ -28,6 +28,7 @@ export function floatingAction(state$: Stream<State>): Stream<FabProps> {
           text: t('public.floating_action_button.compose'),
         },
       ],
+      overrideWithAction: true,
       title: t('profile.floating_action_button.compose'),
     }),
   );

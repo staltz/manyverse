@@ -27,6 +27,7 @@ export default function floatingAction(
           text: t('private.floating_action_button.compose'),
         },
       ],
+      overrideWithAction: true,
       title: t('private.floating_action_button.compose'),
       distanceToEdge: {
         vertical: FAB_VERTICAL_DISTANCE_TO_EDGE,

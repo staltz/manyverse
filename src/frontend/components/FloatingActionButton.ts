@@ -16,7 +16,6 @@ const FIXED_PROPS: IFloatingActionProps = {
   iconHeight: Dimensions.iconSizeNormal,
   iconWidth: Dimensions.iconSizeNormal,
   overlayColor: Palette.transparencyDark,
-  overrideWithAction: true,
 };
 
 export interface Props
