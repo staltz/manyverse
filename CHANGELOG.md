@@ -2,6 +2,10 @@
 
 **Update from [manyver.se/download](https://manyver.se/download):**
 
+## 0.2310.9-beta
+
+* Bug fix: mobile app crashing when opening Connections ([see details](https://gitlab.com/staltz/manyverse/commit/2b26f1baab055f3fd04c7823e073d705955ac83c))
+
 ## 0.2310.3-beta
 
 * Show dialog when pressing unrecognized links ([see details](https://gitlab.com/staltz/manyverse/commit/8b87edc3a0d867b55c77759d5e37f7e520480b95))
