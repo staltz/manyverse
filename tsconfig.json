@@ -9,13 +9,14 @@
     "jsx": "react-native",
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "experimentalDecorators": true,
     "noUnusedLocals": true,
     "allowJs": true,
     "paths": {
       "~backend/*": ["./src/backend/*"],
       "~frontend/*": ["./src/frontend/*"],
-      "~images/*": ["./images/*"],
+      "~images/*": ["./images/*"]
     },
     "module": "commonjs",
     "forceConsistentCasingInFileNames": true,

@@ -305,6 +305,15 @@ function SuggestionsMenu(state: MiniState) {
               labelSuffix: `  (${i18nSuffix})`,
               imageUrl: false,
             });
+          } else if (suggestion.type === 'emoji') {
+            const {type, description, emoji, id} = suggestion;
+            return h(SuggestionMenuOption, {
+              key: id,
+              id,
+              type,
+              label: `${emoji} ${description}`,
+              imageUrl: false,
+            });
           } else {
             return null;
           }

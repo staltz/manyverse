@@ -47,7 +47,7 @@ import backend from './backend';
 import {isKnownPortPurpose, portMappings} from './ports';
 
 export interface Suggestion {
-  type: 'mention' | 'hashtag';
+  type: 'mention' | 'hashtag' | 'emoji';
   id: string;
 }
 

@@ -237,9 +237,11 @@ export default function intent(
 
     chooseSuggestion$: reactSource
       .select('suggestions-menu')
-      .events<{type: 'mention'; id: FeedId} | {type: 'hashtag'; id: string}>(
-        'select',
-      ),
+      .events<
+        | {type: 'mention'; id: FeedId}
+        | {type: 'hashtag'; id: string}
+        | {type: 'emoji'; id: string}
+      >('select'),
 
     cancelSuggestion$: reactSource
       .select('suggestions-menu')

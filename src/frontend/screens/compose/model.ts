@@ -10,6 +10,7 @@ import {Reducer, Lens} from '@cycle/state';
 import {Platform} from 'react-native';
 import {AsyncStorageSource} from 'cycle-native-asyncstorage';
 import {MsgId, FeedId} from 'ssb-typescript';
+const emojiData = require('emojibase-data/en/compact.json');
 import {
   SSBSource,
   HashtagSuggestion,
@@ -27,9 +28,17 @@ interface Selection {
   end: number;
 }
 
+interface EmojiSuggestion {
+  type: 'emoji';
+  id: string;
+  description: string;
+  emoji: string;
+}
+
 type AutoCompleteSuggestions =
   | Array<HashtagSuggestion>
-  | Array<MentionSuggestion>;
+  | Array<MentionSuggestion>
+  | Array<EmojiSuggestion>;
 
 export interface State {
   postText: string;
@@ -102,7 +111,7 @@ function parseAutocompletable(
   for (let i = cursor - 1; i >= 0; i--) {
     const char = postText[i];
     if (/^\s$/.test(char)) return null;
-    if (char === '#' || char === '@') {
+    if (char === '#' || char === '@' || char === ':') {
       startOfLabel = i + 1;
       break;
     }
@@ -118,13 +127,20 @@ function parseAutocompletable(
     }
   }
 
-  const prefix = postText[startOfLabel - 1] as '@' | '#';
+  const prefix = postText[startOfLabel - 1] as '@' | '#' | ':';
   const value = postText.slice(startOfLabel, endOfLabel);
 
-  return {
-    type: prefix === '#' ? 'hashtag' : 'mention',
-    value,
-  };
+  switch (prefix) {
+    case '#': {
+      return {value, type: 'hashtag'};
+    }
+    case '@': {
+      return {value, type: 'mention'};
+    }
+    case ':': {
+      return {value, type: 'emoji'};
+    }
+  }
 }
 
 function getConsecutiveNewlineCount(text: string, from: 'start' | 'end') {
@@ -183,7 +199,9 @@ export interface Actions {
   updatePostText$: Stream<string>;
   updateSelection$: Stream<Selection>;
   chooseSuggestion$: Stream<
-    {type: 'mention'; id: FeedId} | {type: 'hashtag'; id: string}
+    | {type: 'mention'; id: FeedId}
+    | {type: 'hashtag'; id: string}
+    | {type: 'emoji'; id: string}
   >;
   cancelSuggestion$: Stream<any>;
   updateContentWarning$: Stream<string>;
@@ -270,14 +288,16 @@ export default function model(
     >(([selection, state]) => {
       const query = parseAutocompletable(state.postText, selection);
 
-      switch (query?.type ?? 'none') {
+      if (!query) return xs.never();
+
+      switch (query.type) {
         case 'hashtag':
           return ssbSource
             .getHashtagsMatching(query!.value)
             .map((suggestions) => ({
               selection,
               suggestions,
-              query: query!,
+              query,
             }));
 
         case 'mention':
@@ -286,11 +306,57 @@ export default function model(
             .map((suggestions) => ({
               selection,
               suggestions,
-              query: query!,
+              query,
             }));
 
-        case 'none':
-          return xs.never();
+        case 'emoji':
+          const matches = query.value
+            ? emojiData.filter((entry: any) => {
+                if (entry.label.includes(query.value)) {
+                  return true;
+                }
+
+                if (
+                  entry.shortcodes?.some((code: string) =>
+                    code.includes(query.value),
+                  )
+                ) {
+                  return true;
+                }
+
+                if (
+                  entry.tags?.some((tag: string) => tag.includes(query.value))
+                ) {
+                  return true;
+                }
+
+                return false;
+              })
+            : [];
+
+          console.log('MATCHES', matches);
+          return xs.of({
+            selection,
+            suggestions: matches
+              .slice(0, 3)
+              .map(
+                ({
+                  label,
+                  unicode,
+                  hexcode,
+                }: {
+                  label: string;
+                  unicode: string;
+                  hexcode: string;
+                }) => ({
+                  type: 'emoji',
+                  id: hexcode,
+                  emoji: unicode,
+                  description: label,
+                }),
+              ),
+            query,
+          });
       }
     })
     .flatten()
@@ -335,13 +401,7 @@ export default function model(
   const chooseSuggestionReducer$ = actions.chooseSuggestion$.map(
     (chosenOption) =>
       function chooseSuggestionReducer(prev: State): State {
-        // Have to cast this way because of TS limitation
-        // https://github.com/microsoft/TypeScript/issues/52028
-        const chosen = (
-          prev.autocompleteSuggestions as Array<
-            HashtagSuggestion | MentionSuggestion
-          >
-        ).find((x) => {
+        const chosen = prev.autocompleteSuggestions.find((x) => {
           if (x.type !== chosenOption.type) return false;
           else return x.id === chosenOption.id;
         });
@@ -349,7 +409,7 @@ export default function model(
 
         const cursor = prev.postTextSelection.start;
 
-        // Represents index preceding the identifier of interest ('@' or '#')
+        // Represents index preceding the identifier of interest ('@', '#', or ':')
         const beforeTargetIndex = prev.postText.lastIndexOf(
           prev.autocompleteQuery,
           cursor - 1,
@@ -366,7 +426,9 @@ export default function model(
         const autocompletable =
           chosen.type === 'mention'
             ? `[@${chosen.name}](${chosen.id})`
-            : `#${chosen.id}`;
+            : chosen.type === 'hashtag'
+            ? `#${chosen.id}`
+            : chosen.emoji;
 
         const insertedValue =
           autocompletable + (hasSpaceAfterTarget ? '' : ' ');
