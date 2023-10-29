@@ -531,7 +531,7 @@ export class SSBSource {
   public restoreIdentity$(inputWords: string): Stream<RestoreIdentityResponse> {
     return xs.create<RestoreIdentityResponse>({
       start(listener: Listener<RestoreIdentityResponse>) {
-        this.fn = (msg: RestoreIdentityResponse) => listener.next(msg);
+        this.fn = ({msg}: {msg: RestoreIdentityResponse}) => listener.next(msg);
         backend.addListener('identity', this.fn);
         backend.post('identity', `RESTORE: ${inputWords}`);
       },
