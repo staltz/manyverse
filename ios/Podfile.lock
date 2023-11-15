@@ -13,7 +13,7 @@ PODS:
   - fmt (6.2.1)
   - glog (0.3.5)
   - HMSegmentedControl (1.5.6)
-  - nodejs-mobile-react-native (16.17.6):
+  - nodejs-mobile-react-native (18.17.3):
     - React-Core
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -504,7 +504,7 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 5337263514dd6f09803962437687240c5dc39aa4
   HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
-  nodejs-mobile-react-native: a230d728262a814bd211917d9c67b96179538db8
+  nodejs-mobile-react-native: 8a9d8e1b5cea209e9a9d0c42e0ba41fa4afd868c
   RCT-Folly: a21c126816d8025b547704b777a2ba552f3d9fa9
   RCTRequired: 405e24508a0feed1771d48caebb85c581db53122
   RCTSystemSetting: 63751d4cfdd80ec249e3733ee9ab6b0513b196c1

@@ -114,14 +114,14 @@ If your target OS is iOS, you need to install Xcode (version 12.4 or higher). Yo
 
 See also [nodejs-mobile docs](https://code.janeasystems.com/nodejs-mobile/getting-started-ios#development-prerequisites) for additional details.
 
-We also recommend to enforce Node.js 16.17.x in Xcode's environment when build scripts are run. You do that by creating the file `ios/.xcode.env.local` with the contents:
+We also recommend to enforce Node.js 18.17.x in Xcode's environment when build scripts are run. You do that by creating the file `ios/.xcode.env.local` with the contents:
 
 ```bash
 #!/bin/bash
 
 if [ -f ~/.nvm/nvm.sh ]; then
   source ~/.nvm/nvm.sh;
-  nvm use 16; # This is not necessary if nvm has 16 as default
+  nvm use 18; # This is not necessary if nvm has 18 as default
 fi
 ```
 
