@@ -97,6 +97,7 @@ project.ext.react = [
         "src/**",
         "tools/**"
     ],
+    nodeExecutableAndArgs: ["node", "--openssl-legacy-provider"],
 ]
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: "../../node_modules/react-native/react.gradle"

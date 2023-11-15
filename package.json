@@ -69,8 +69,8 @@
     "release-desktop-win": "npm run build-desktop && npm run clean-desktop-prebuilds && npm run build-desktop-release-win"
   },
   "engines": {
-    "node": "16.17.x",
-    "npm": "8.x"
+    "node": "18.17.x",
+    "npm": "9.x"
   },
   "dependencies": {
     "@cycle/http": "15.4.0",
@@ -109,7 +109,7 @@
     "lodash.memoize": "4.1.2",
     "mdast-normalize-react-native": "3.2.x",
     "multicb": "1.2.2",
-    "nodejs-mobile-react-native": "16.17.6",
+    "nodejs-mobile-react-native": "18.17.3",
     "nuka-carousel": "4.8.4",
     "path": "0.12.7",
     "promisify-tuple": "1.2.0",
@@ -200,8 +200,8 @@
     "lodash": ">=4.17.21",
     "lodash.sortby": "~4.7.0",
     "lodash.sorteduniqby": "^4.7.0",
-    "metro": "~0.66.2",
-    "metro-react-native-babel-preset": "~0.66.2",
+    "metro": "~0.68.0",
+    "metro-react-native-babel-preset": "~0.68.0",
     "node-fetch": "~2.6.7",
     "node-gyp-build": "4.3.0",
     "ora": "^5.4.1",

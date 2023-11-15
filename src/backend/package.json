@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "loader.js",
   "engines": {
-    "node": "16.17.x"
+    "node": "18.17.x"
   },
   "license": "MPL-2.0",
   "scripts": {
