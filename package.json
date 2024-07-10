@@ -225,7 +225,7 @@
     "playwright-core": "1.28.1",
     "secret-stack": "6.4.1",
     "ssb-caps": "1.1.0",
-    "ssb-db2": "6.3.0",
+    "ssb-db2": "8.1.0",
     "ssb-keys": "8.5.0",
     "ssb-keys-mnemonic": "1.0.1",
     "tap-spec": "5.0.0",
