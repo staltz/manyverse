@@ -42,7 +42,7 @@
     "ssb-config": "3.4.6",
     "ssb-conn": "6.0.4",
     "ssb-conn-firewall": "1.1.4",
-    "ssb-db2": "7.2.0",
+    "ssb-db2": "8.1.0",
     "ssb-deweird": "1.0.0",
     "ssb-ebt": "9.1.2",
     "ssb-friends": "5.1.7",
