@@ -21,13 +21,6 @@ rm -rf leveldown
 rm -rf ssb-db2/node_modules/leveldown
 rm -rf ssb-friends/node_modules/leveldown
 
-# Remove ssb-box2 and sodium-universal because sodium-native needs node.js >=14
-rm -rf ssb-box2
-rm -rf sodium-native
-rm -rf sodium-universal
-rm -rf blake2b
-rm -rf blake2b-wasm
-
 # Remove directories that have these names
 find . \
   -type d \

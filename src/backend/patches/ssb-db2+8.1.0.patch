@@ -13,15 +13,3 @@ index 0224962..85d101d 100644
            pull.onEnd((err) => {
              // prettier-ignore
              if (err) return cb(clarify(err, 'deleteFeed() failed for feed ' + feedId))
-diff --git a/node_modules/ssb-db2/index.js b/node_modules/ssb-db2/index.js
-index 3205490..f7de23c 100644
---- a/node_modules/ssb-db2/index.js
-+++ b/node_modules/ssb-db2/index.js
-@@ -6,7 +6,6 @@ module.exports = [
-   require('./core'),
-   require('ssb-classic'),
-   require('ssb-box'),
--  require('ssb-box2'),
-   require('./compat/publish'),
-   require('./compat/post'),
-   require('./migrate'),
