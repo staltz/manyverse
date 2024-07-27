@@ -210,4 +210,6 @@ async function runAndReport(label, task) {
       ),
     );
   }
+
+  console.log("Finished building backend")
 })();

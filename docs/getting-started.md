@@ -102,6 +102,12 @@ ndk.dir=/path/to/your/android/sdk/ndk/24.0.8215888
 ```
 set the environment variable NDK_PLATFORM to "android-21" in the shell rc file.
 
+also
+```
+export ANDROID_HOME=/home/you/.android/sdk # or wherever your sdk is
+export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/24.0.8215888
+```
+
 Add your debug keystore information to the `~/.gradle/gradle.properties` file.
 
 Also check out [nodejs-mobile docs](https://code.janeasystems.com/nodejs-mobile/getting-started-android#android-sdk-requirements) for the additional Android SDK requirements on your computer.

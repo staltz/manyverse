@@ -1,8 +1,8 @@
 diff --git a/node_modules/ssb-db2/core.js b/node_modules/ssb-db2/core.js
-index 0224962..85d101d 100644
+index 0950879..87dc101 100644
 --- a/node_modules/ssb-db2/core.js
 +++ b/node_modules/ssb-db2/core.js
-@@ -767,7 +767,9 @@ exports.init = function (sbot, config) {
+@@ -777,7 +777,9 @@ exports.init = function (sbot, config) {
              batch(1000),
              toPullStream()
            ),
@@ -12,4 +12,16 @@ index 0224962..85d101d 100644
 +          }),
            pull.onEnd((err) => {
              // prettier-ignore
-             if (err) return cb(clarify(err, 'deleteFeed() failed for feed ' + feedId))
+             if (err) return cb(new Error('deleteFeed() failed for feed ' + feedId, {cause: err}))
+diff --git a/node_modules/ssb-db2/index.js b/node_modules/ssb-db2/index.js
+index b98a532..fc277de 100644
+--- a/node_modules/ssb-db2/index.js
++++ b/node_modules/ssb-db2/index.js
+@@ -6,7 +6,6 @@ module.exports = [
+   require('./core'),
+   require('ssb-classic'),
+   require('ssb-box'),
+-  require('ssb-box2'),
+   require('./compat/publish'),
+   require('./migrate'),
+ ]
