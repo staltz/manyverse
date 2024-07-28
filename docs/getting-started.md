@@ -191,7 +191,9 @@ There is nothing else you need to install at this point.
 
 ### When targeting Android
 
-You can run `npm run android-dev` which will run all the necessary scripts in order. Or you can run each step manually:
+Run `npm start` in one terminal.
+
+In another you can run `npm run android-dev` which will run all the necessary scripts in order. Or you can run each step manually:
 
 `1`: Compile TypeScript files
 
