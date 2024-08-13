@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
+# SPDX-FileCopyrightText: 2021-2024 The Manyverse Authors
 #
 # SPDX-License-Identifier: Unlicense
 
@@ -54,12 +54,14 @@ android/app/src/main/jniLibs/**/libsodium.so
 node_modules/
 npm-debug.log
 yarn-error.log
+.node-version
 
 # BUCK
 buck-out/
 \.buckd/
 *.keystore
 !debug.keystore
+.env
 
 # fastlane
 #

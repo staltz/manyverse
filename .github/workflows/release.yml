@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021-2023 The Manyverse Authors
+# SPDX-FileCopyrightText: 2021-2024 The Manyverse Authors
 #
 # SPDX-License-Identifier: Unlicense
 
@@ -38,7 +38,6 @@ jobs:
   build-macos:
     name: Build Manyverse macOS
     runs-on: macos-11
-    needs: build-linux
     if: ${{ startsWith(github.event.head_commit.message, 'release:') }}
 
     steps:
@@ -68,7 +67,6 @@ jobs:
   build-win:
     name: Build Manyverse Windows
     runs-on: windows-2022
-    needs: build-macos
     if: ${{ startsWith(github.event.head_commit.message, 'release:') }}
 
     steps:
