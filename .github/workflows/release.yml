@@ -37,7 +37,7 @@ jobs:
 
   build-macos:
     name: Build Manyverse macOS
-    runs-on: macos-11
+    runs-on: macos-12
     if: ${{ startsWith(github.event.head_commit.message, 'release:') }}
 
     steps:
